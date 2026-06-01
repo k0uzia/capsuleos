@@ -262,10 +262,22 @@ const findFolderLabel = (path) => {
     return segments[segments.length - 1] || 'Dossier personnel';
 };
 
-const isDolphinTemplate = () => !!document.querySelector('#fileExplorer main#gestionnaire.dolphin-app');
+const getFileExplorerSlotRoot = () => {
+    if (typeof window !== 'undefined' && typeof window.getFileExplorerWindowRoot === 'function') {
+        return window.getFileExplorerWindowRoot();
+    }
+    return document.getElementById('fileExplorer');
+};
+
+const queryFileExplorer = (selector) => {
+    const root = getFileExplorerSlotRoot();
+    return root ? root.querySelector(selector) : null;
+};
+
+const isDolphinTemplate = () => !!queryFileExplorer('#gestionnaire.dolphin-app');
 window.isDolphinTemplate = isDolphinTemplate;
 
-const isCosmicFilesExplorer = () => !!document.querySelector('#fileExplorer main#gestionnaire.cosmic-files-app');
+const isCosmicFilesExplorer = () => !!queryFileExplorer('#gestionnaire.cosmic-files-app');
 
 const usesNemoListView = () => (
     isCosmicFilesExplorer()
@@ -363,8 +375,8 @@ const ensureNemoListViewChrome = () => {
         return;
     }
 
-    const voletContainer = document.querySelector('#fileExplorer #voletContainer');
-    const nemoElement = document.querySelector('#fileExplorer .nemoElement');
+    const voletContainer = queryFileExplorer('#voletContainer');
+    const nemoElement = queryFileExplorer('.nemoElement');
     if (!voletContainer || !nemoElement) {
         return;
     }
@@ -535,7 +547,7 @@ const alignDolphinPathBarToContentGrid = () => {
 };
 
 const updatePathDisplay = () => {
-    const pathLabelElement = document.querySelector('#fileExplorer .file-explorer-app__path-current');
+    const pathLabelElement = queryFileExplorer('.file-explorer-app__path-current');
     if (!pathLabelElement) {
         return;
     }
@@ -591,7 +603,7 @@ const renderDirectory = (path, options = {}) => {
     const pane = options.pane || 'primary';
     const nemoElement = (isDolphinTemplate() && typeof window.getDolphinPaneGrid === 'function')
         ? window.getDolphinPaneGrid(pane)
-        : document.querySelector('#fileExplorer .nemoElement');
+        : queryFileExplorer('.nemoElement');
 
     if (!nemoElement || !fileExplorerState.manifest || !fileExplorerState.manifest.folders) {
         return;
@@ -890,8 +902,22 @@ const loadManifest = async () => {
         return fileExplorerState.manifest;
     }
 
+    const loadManifestFromEmbed = () => {
+        const raw = (window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED || window.CAPSULE_NEMO_MANIFEST_EMBED);
+        if (!raw) {
+            return null;
+        }
+        const cloned = JSON.parse(JSON.stringify(raw));
+        const manifest = mergeStoredExplorerManifest(remapManifestToFileExplorerRoot(cloned));
+        fileExplorerState.manifest = manifest;
+        return manifest;
+    };
+
     const useEmbedManifest = () => {
         if (typeof window === 'undefined' || !(window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED || window.CAPSULE_NEMO_MANIFEST_EMBED)) {
+            return false;
+        }
+        if (typeof window !== 'undefined' && window.CAPSULE_FORCE_FETCH_MANIFEST === true) {
             return false;
         }
         if (window.CAPSULE_FORCE_APP_EMBED === true) {
@@ -900,15 +926,19 @@ const loadManifest = async () => {
         if (typeof location !== 'undefined' && location.protocol === 'file:') {
             return true;
         }
+        // HTTP : gabarits modules (nautilus, nemo, …) — éviter fetch manifeste relatif fragile
+        if (typeof window !== 'undefined' && Array.isArray(window.CAPSULE_MODULE_TEMPLATE_IDS)
+            && window.CAPSULE_MODULE_TEMPLATE_IDS.length > 0) {
+            return true;
+        }
         return false;
     };
 
     if (useEmbedManifest()) {
-        const raw = (window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED || window.CAPSULE_NEMO_MANIFEST_EMBED);
-        const cloned = JSON.parse(JSON.stringify(raw));
-        const manifest = mergeStoredExplorerManifest(remapManifestToFileExplorerRoot(cloned));
-        fileExplorerState.manifest = manifest;
-        return manifest;
+        const fromEmbed = loadManifestFromEmbed();
+        if (fromEmbed) {
+            return fromEmbed;
+        }
     }
 
     if (!fileExplorerState.manifestPromise) {
@@ -926,6 +956,11 @@ const loadManifest = async () => {
             })
             .catch((error) => {
                 fileExplorerState.manifestPromise = null;
+                const fromEmbed = loadManifestFromEmbed();
+                if (fromEmbed) {
+                    console.warn(`CapsuleOS: manifeste explorateur via embed (${error.message})`);
+                    return fromEmbed;
+                }
                 throw error;
             });
     }

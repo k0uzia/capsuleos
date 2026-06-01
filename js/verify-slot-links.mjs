@@ -24,7 +24,9 @@ const PATTERNS = [
     { re: /data-cosmic-app-link="nemo"/, label: 'data-cosmic-app-link="nemo"' },
     { re: /openCapsuleApp\(\s*['"]nemo['"]\s*\)/, label: "openCapsuleApp('nemo')" },
     { re: /openWindowByDataLink\(\s*['"]nemo['"]\s*\)/, label: "openWindowByDataLink('nemo')" },
-    { re: /document\.getFileExplorerWindowRoot\(\)/, label: 'document.getFileExplorerWindowRoot()' }
+    { re: /document\.getFileExplorerWindowRoot\(\)/, label: 'document.getFileExplorerWindowRoot()' },
+    { re: /mint-(image|pdf|media)-viewer/, label: 'mint-*-viewer (ids legacy visionneuses)' },
+    { re: /CAPSULE_TEMPLATE_OVERRIDES.*mainMenu.*shared\/apps|CAPSULE_TEMPLATE_OVERRIDES.*mainMenu.*\/apps\/mainMenu/, label: 'override mainMenu vers shared/apps ou families/apps' }
 ];
 
 const ALLOW_PATH = /capsule-file-manager-config\.js|verify-slot-links\.mjs|migrate-file-explorer-dom\.mjs/;

@@ -2,7 +2,7 @@
 /**
  * Génère OS/linux/kernel/js/capsule-app-embed.js pour usage en file://
  * (fetch interdit / peu fiable). Relancer après modification des gabarits
- * shared/apps, modules/app, ou des skins apps sous mint/ubuntu/fedora/etc.
+ * shared/apps, modules/app, modules/env, ou des skins apps sous mint/ubuntu/fedora/etc.
  */
 import fs from 'fs';
 import path from 'path';
@@ -14,6 +14,7 @@ const ROOT = path.resolve(__dirname, '..');
 const APPS_DIR = path.join(ROOT, 'OS/linux/shared/apps');
 const STYLE_DIR = path.join(APPS_DIR, 'style');
 const MODULES_APP_DIR = path.join(ROOT, 'modules/app');
+const MODULES_ENV_SHARED_DIR = path.join(ROOT, 'modules/env/shared');
 const UM_MODULE_DIR = path.join(MODULES_APP_DIR, 'update_manager');
 const KDE_COMMON_SKIN = path.join(UM_MODULE_DIR, 'kde-common.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(UM_MODULE_DIR, 'update_manager_kde.html');
@@ -24,11 +25,10 @@ const MANIFEST_PATH = path.join(
     'OS/linux/shared/content/Dossier_personnel/nemo-manifest.json'
 );
 
-/** Gabarits HTML propres à une famille (ex. menu Plasma openSUSE). */
-const FAMILY_APP_HTML_DIRS = {
-    opensuse: path.join(ROOT, 'OS/linux/families/suse/opensuse/apps'),
-    anduinos: path.join(ROOT, 'OS/linux/families/debian/anduinos/apps'),
-    'debian-kde': path.join(ROOT, 'OS/linux/families/debian/debian-kde/apps')
+/** Gabarits shell propres à une famille (ex. menu Plasma openSUSE). */
+const MODULES_ENV_FAMILY_DIRS = {
+    opensuse: path.join(ROOT, 'modules/env/opensuse'),
+    'debian-kde': path.join(ROOT, 'modules/env/debian-kde')
 };
 
 const SKIN_DIRS = [
@@ -91,6 +91,19 @@ function listModuleTemplateIds() {
         .sort();
 }
 
+function listEnvSharedTemplateIds() {
+    if (!fs.existsSync(MODULES_ENV_SHARED_DIR)) {
+        return [];
+    }
+    return fs.readdirSync(MODULES_ENV_SHARED_DIR)
+        .filter((name) => {
+            const dir = path.join(MODULES_ENV_SHARED_DIR, name);
+            return fs.statSync(dir).isDirectory()
+                && fs.existsSync(path.join(dir, `${name}.html`));
+        })
+        .sort();
+}
+
 function listSharedTemplateIds() {
     const names = fs.readdirSync(APPS_DIR);
     return names
@@ -100,8 +113,9 @@ function listSharedTemplateIds() {
 
 function listTemplateIds() {
     const moduleIds = new Set(listModuleTemplateIds());
-    const sharedIds = listSharedTemplateIds().filter((id) => !moduleIds.has(id));
-    return [...moduleIds, ...sharedIds].sort();
+    const envIds = new Set(listEnvSharedTemplateIds());
+    const sharedIds = listSharedTemplateIds().filter((id) => !moduleIds.has(id) && !envIds.has(id));
+    return [...moduleIds, ...envIds, ...sharedIds].sort();
 }
 
 function listSkinIds(skinDir) {
@@ -119,6 +133,14 @@ function moduleBaseCssPath(templateId) {
 
 function isModuleTemplate(templateId) {
     return fs.existsSync(moduleBaseCssPath(templateId));
+}
+
+function envBaseCssPath(templateId) {
+    return path.join(MODULES_ENV_SHARED_DIR, templateId, `${templateId}.base.css`);
+}
+
+function isEnvTemplate(templateId) {
+    return fs.existsSync(envBaseCssPath(templateId));
 }
 
 function readNemoBaseCss() {
@@ -149,6 +171,8 @@ function buildCssBase(templateId) {
         text = buildUpdateManagerCssBase();
     } else if (isModuleTemplate(templateId)) {
         text = readUtf8(moduleBaseCssPath(templateId));
+    } else if (isEnvTemplate(templateId)) {
+        text = readUtf8(envBaseCssPath(templateId));
     } else {
         const legacyNautilus = new Set(['nemo-gnome', 'nemo-cosmic']);
         const cssBaseId = legacyNautilus.has(templateId) ? 'nemo' : templateId;
@@ -187,12 +211,17 @@ function readTemplateHtml(templateId) {
     if (fs.existsSync(moduleHtml)) {
         return readUtf8(moduleHtml);
     }
+    const envHtml = path.join(MODULES_ENV_SHARED_DIR, templateId, `${templateId}.html`);
+    if (fs.existsSync(envHtml)) {
+        return readUtf8(envHtml);
+    }
     const htmlPath = path.join(APPS_DIR, `${templateId}.html`);
     return readUtf8(htmlPath);
 }
 
 function main() {
     const moduleTemplateIds = listModuleTemplateIds();
+    const envTemplateIds = listEnvSharedTemplateIds();
     const templateIds = listTemplateIds();
     const templates = {};
     for (const id of templateIds) {
@@ -203,13 +232,13 @@ function main() {
     }
 
     const skinTemplates = {};
-    for (const [skinKey, familyAppsDir] of Object.entries(FAMILY_APP_HTML_DIRS)) {
-        if (!fs.existsSync(familyAppsDir)) {
+    for (const [skinKey, familyEnvDir] of Object.entries(MODULES_ENV_FAMILY_DIRS)) {
+        if (!fs.existsSync(familyEnvDir)) {
             continue;
         }
-        skinTemplates[skinKey] = {};
+        skinTemplates[skinKey] = skinTemplates[skinKey] || {};
         for (const id of templateIds) {
-            const overridePath = path.join(familyAppsDir, `${id}.html`);
+            const overridePath = path.join(familyEnvDir, id, `${id}.html`);
             if (fs.existsSync(overridePath)) {
                 skinTemplates[skinKey][id] = { html: readUtf8(overridePath) };
             }
@@ -259,6 +288,7 @@ function main() {
 `;
 
     const body = `window.CAPSULE_MODULE_TEMPLATE_IDS = ${JSON.stringify(moduleTemplateIds)};
+window.CAPSULE_ENV_TEMPLATE_IDS = ${JSON.stringify(envTemplateIds)};
 window.CAPSULE_APP_EMBED = ${JSON.stringify({ templates, skinTemplates, skins })};
 window.CAPSULE_EMBED_STRINGS = ${JSON.stringify(embedStrings)};
 window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED = ${JSON.stringify(manifest)};
@@ -266,7 +296,7 @@ window.CAPSULE_NEMO_MANIFEST_EMBED = window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED
 })();`;
 
     fs.writeFileSync(OUT_FILE, `${header}\n${body}\n`, 'utf8');
-    console.log(`Écrit ${OUT_FILE} (${templateIds.length} templates, ${moduleTemplateIds.length} modules, ${SKIN_DIRS.length} skins)`);
+    console.log(`Écrit ${OUT_FILE} (${templateIds.length} templates, ${moduleTemplateIds.length} app modules, ${envTemplateIds.length} env modules, ${SKIN_DIRS.length} skins)`);
 }
 
 main();

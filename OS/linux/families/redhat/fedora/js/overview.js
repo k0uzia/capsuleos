@@ -173,14 +173,16 @@
             return;
         }
         const slotId = resolveOverviewLink(linkId);
-        const target = getLaunchTarget(slotId) || (slotId !== linkId ? getLaunchTarget(linkId) : null);
         setOverview(false, 'workspace');
+        if (typeof window.openWindowByDataLink === 'function') {
+            const opened = window.openWindowByDataLink(slotId);
+            if (opened) {
+                return;
+            }
+        }
+        const target = getLaunchTarget(slotId) || (slotId !== linkId ? getLaunchTarget(linkId) : null);
         if (target) {
             target.click();
-            return;
-        }
-        if (typeof window.openWindowByDataLink === 'function') {
-            window.openWindowByDataLink(slotId);
         }
     };
 

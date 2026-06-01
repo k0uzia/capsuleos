@@ -8,6 +8,21 @@
         return document.getElementById('updateManagerApp');
     }
 
+    function hydrateCosmicIcons(root) {
+        if (!root || typeof window.resolveCapsuleResourceUrl !== 'function') {
+            return;
+        }
+        const savedMediaBase = window.CAPSULE_MEDIA_BASE;
+        window.CAPSULE_MEDIA_BASE = '../ubuntu/media';
+        root.querySelectorAll('[data-um-cosmic-icon]').forEach((img) => {
+            const rel = img.getAttribute('data-um-cosmic-icon');
+            if (rel) {
+                img.src = window.resolveCapsuleResourceUrl(rel);
+            }
+        });
+        window.CAPSULE_MEDIA_BASE = savedMediaBase;
+    }
+
     function detectLayout() {
         const root = findRoot();
         if (!root) {
@@ -137,6 +152,7 @@
         root.dataset.umInit = 'true';
 
         if (root.dataset.umLayout === 'cosmic') {
+            hydrateCosmicIcons(root);
             root.addEventListener('click', (event) => {
                 const action = event.target.closest('[data-um-cosmic-action]');
                 if (action && root.contains(action)) {

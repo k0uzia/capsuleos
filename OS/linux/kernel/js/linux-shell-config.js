@@ -12,7 +12,8 @@
  * @property {string} [CAPSULE_APPS_BASE]  Chemin relatif vers `OS/linux/shared/apps` (HTML + CSS `.base.css`).
  * @property {string} [CAPSULE_CONTENT_ROOT]  Racine du contenu pédagogique partagé (`Dossier_personnel`).
  * @property {string} [CAPSULE_SKIN_BASE]  Répertoire de la skin pour les surcouches `style/apps/*.skin.css` (souvent `.`).
- * @property {string} [CAPSULE_MEDIA_BASE]  Base des chemins `./media/…` (défaut `./media` ; ex. `../mint/media` pour une skin dérivée sans dossier `media/` local).
+ * @property {string} [CAPSULE_MEDIA_BASE]  Base des chemins `./media/…` pour le bureau local (explorateur, barre) ; défaut `./media`.
+ * @property {string} [CAPSULE_MENU_MEDIA_BASE]  Base `./media/…` du menu Mint partagé uniquement (ex. `../../mint/media` sur Ubuntu) ; défaut = `CAPSULE_MEDIA_BASE`.
  * @property {string} [CAPSULE_ASSETS_BASE]  Base des chemins `./assets/…` (défaut `./assets` ; ex. `../mint/assets` pour une skin dérivée).
  * @property {string} [CAPSULE_FILE_MANAGER_TEMPLATE]  Gabarit HTML pour le slot `nemo` : `nemo`, `nautilus`, `nautilus-cosmic`, `dolphin`, …
  * @property {string} [CAPSULE_FILE_MANAGER_SKIN_KEY]  Clé du `.skin.css` (ex. `nemo`, `nautilus`, `dolphin`) sans changer le template.

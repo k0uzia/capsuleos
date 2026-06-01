@@ -5,6 +5,7 @@
             distros: [
                 { name: 'Linux Mint (Cinnamon)', href: './OS/linux/families/debian/mint/index.html', icon: './OS/linux/families/debian/mint/assets/mint.webp' },
                 { name: 'Ubuntu 25.10', href: './OS/linux/families/debian/ubuntu/index.html', icon: './OS/linux/families/debian/ubuntu/media/img/assets/ubuntu-logo.svg' },
+                { name: 'AnduinOS', href: './OS/linux/families/debian/anduinos/index.html', icon: './OS/linux/families/debian/anduinos/media/img/assets/anduin-logo.svg' },
                 { name: 'Pop!_OS', href: './OS/linux/families/debian/popos/index.html', icon: './OS/linux/families/debian/popos/media/img/assets/pop-logo.png' },
                 { name: 'MX Linux KDE', href: './OS/linux/families/debian/mx-kde/index.html', icon: './OS/linux/families/debian/mx-kde/media/img/assets/mx-logo.png' },
                 { name: 'Debian KDE (Plasma)', href: './OS/linux/families/debian/debian-kde/index.html', icon: './OS/linux/families/debian/debian-kde/assets/debian-logo.svg' },

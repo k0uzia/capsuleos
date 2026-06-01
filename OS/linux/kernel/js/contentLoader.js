@@ -1,7 +1,10 @@
 const MODULE_TEMPLATE_IDS_FALLBACK = [
     'dolphin', 'librewriter', 'firefox', 'terminal', 'nemo', 'nautilus', 'nautilus-cosmic',
-    'update_manager'
+    'update_manager',
+    'profile', 'themes', 'visionneur_images', 'visionneur_pdf', 'lecteur_multimedia'
 ];
+
+const ENV_TEMPLATE_IDS_FALLBACK = ['mainMenu', 'mainMenu-gnome'];
 
 const FILE_EXPLORER_SLOT_IDS = ['fileExplorer', 'nemo'];
 
@@ -19,6 +22,34 @@ const getModulesAppBase = () => {
         return String(window.CAPSULE_MODULES_APP_BASE).replace(/\/+$/, '');
     }
     return '../../../../../modules/app';
+};
+
+const getModulesEnvSharedBase = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_MODULES_ENV_SHARED_BASE) {
+        return String(window.CAPSULE_MODULES_ENV_SHARED_BASE).replace(/\/+$/, '');
+    }
+    return '../../../../../modules/env/shared';
+};
+
+const getModulesEnvFamilyBase = (familyKey) => {
+    const key = String(familyKey || '').replace(/\/+$/, '');
+    if (!key) {
+        return '';
+    }
+    if (typeof window !== 'undefined' && window.CAPSULE_MODULES_ENV_FAMILY_BASE) {
+        const map = window.CAPSULE_MODULES_ENV_FAMILY_BASE;
+        if (map && map[key]) {
+            return String(map[key]).replace(/\/+$/, '');
+        }
+    }
+    return `../../../../../modules/env/${key}`;
+};
+
+const isEnvTemplate = (templateId) => {
+    if (typeof window !== 'undefined' && Array.isArray(window.CAPSULE_ENV_TEMPLATE_IDS)) {
+        return window.CAPSULE_ENV_TEMPLATE_IDS.includes(templateId);
+    }
+    return ENV_TEMPLATE_IDS_FALLBACK.includes(templateId);
 };
 
 const isModuleTemplate = (templateId) => {
@@ -93,6 +124,28 @@ const resolveUpdateManagerHtmlFile = (modulesBase) => {
     return `${base}/update_manager/update_manager.html`;
 };
 
+const getMainMenuEmbedSkinKey = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY) {
+        return String(window.CAPSULE_EMBED_SKIN_KEY);
+    }
+    if (typeof document !== 'undefined' && document.body && document.body.id) {
+        return document.body.id === 'mx-kde' ? 'mxkde' : document.body.id;
+    }
+    return '';
+};
+
+/** Variante HTML du menu démarrer (Mint rail / Plasma / GNOME). */
+const resolveMainMenuHtmlFile = () => {
+    const skinKey = getMainMenuEmbedSkinKey();
+    if (skinKey === 'opensuse') {
+        return `${getModulesEnvFamilyBase('opensuse')}/mainMenu/mainMenu.html`;
+    }
+    if (skinKey === 'debian-kde') {
+        return `${getModulesEnvFamilyBase('debian-kde')}/mainMenu/mainMenu.html`;
+    }
+    return `${getModulesEnvSharedBase()}/mainMenu/mainMenu.html`;
+};
+
 const shouldUseAppEmbed = (templateId) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
     if (!embed || !embed.templates || !embed.templates[templateId]) {
@@ -106,6 +159,9 @@ const shouldUseAppEmbed = (templateId) => {
     }
     // Gabarits sous modules/app/ : chemins fetch relatifs à la skin souvent invalides (serveur local).
     if (isModuleTemplate(templateId)) {
+        return true;
+    }
+    if (isEnvTemplate(templateId)) {
         return true;
     }
     return false;
@@ -173,6 +229,13 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
         }
         return `${modulesBase}/${templateId}/${templateId}.html`;
     }
+    if (templateId === 'mainMenu') {
+        return resolveMainMenuHtmlFile();
+    }
+    if (isEnvTemplate(templateId)) {
+        const envBase = getModulesEnvSharedBase();
+        return `${envBase}/${templateId}/${templateId}.html`;
+    }
     return `${appsBase}/${templateId}.html`;
 };
 
@@ -181,6 +244,9 @@ const resolveTemplateCssBaseFile = (templateId, appsBase) => {
     const modulesBase = getModulesAppBase();
     if (isModuleTemplate(cssBaseTemplateId)) {
         return `${modulesBase}/${cssBaseTemplateId}/${cssBaseTemplateId}.base.css`;
+    }
+    if (isEnvTemplate(cssBaseTemplateId)) {
+        return `${getModulesEnvSharedBase()}/${cssBaseTemplateId}/${cssBaseTemplateId}.base.css`;
     }
     if (isModuleTemplate(templateId)) {
         return `${modulesBase}/${templateId}/${templateId}.base.css`;
@@ -379,10 +445,17 @@ const SLOT_INIT_HANDLERS = {
     }
 };
 
+const isMenuTemplate = (slotId, templateId) => slotId === 'mainMenu'
+    || templateId === 'mainMenu'
+    || templateId === 'mainMenu-gnome';
+
 const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
-    const rewriteUrls = typeof rewriteCapsuleResourceUrlsInText === 'function'
-        ? rewriteCapsuleResourceUrlsInText
-        : (text) => text;
+    const rewriteUrls = isMenuTemplate(slotId, templateId)
+        && typeof rewriteCapsuleMenuResourceUrlsInText === 'function'
+        ? rewriteCapsuleMenuResourceUrlsInText
+        : (typeof rewriteCapsuleResourceUrlsInText === 'function'
+            ? rewriteCapsuleResourceUrlsInText
+            : (text) => text);
     const resolvedHtml = rewriteUrls(html);
     const resolvedCssBase = rewriteUrls(cssBase);
     const resolvedCssSkin = cssSkin ? rewriteUrls(cssSkin) : '';

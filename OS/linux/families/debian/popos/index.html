@@ -57,7 +57,7 @@
         </div>
     </header>
 
-    <main class="cosmic-stage">
+    <div class="cosmic-stage" role="main">
         <aside class="cosmic-workspaces-rail" id="cosmic-workspaces-rail" hidden aria-label="Espaces de travail">
             <ul class="cosmic-workspaces-rail__list">
                 <li>
@@ -136,7 +136,7 @@
                 </a>
             </div>
         </nav>
-    </main>
+    </div>
 
     <section class="cosmic-launcher" id="cosmic-launcher" hidden aria-label="Launcher">
         <form class="cosmic-launcher__search" role="search" onsubmit="return false;">
@@ -325,6 +325,8 @@
 
     <script>
         window.CAPSULE_APPS_BASE = '../../../shared/apps';
+        window.CAPSULE_MODULES_ENV_SHARED_BASE = '../../../../../modules/env/shared';
+        window.CAPSULE_MENU_MEDIA_BASE = '../../mint/media';
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
@@ -374,7 +376,8 @@
     </script>
     <script src="../../../../../js/capsule-pick-return.js"></script>
     <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
+    <script src="../../../kernel/js/capsule-resource-url.js?v=20260605e"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260605d"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260424"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
     <script src="../../../kernel/js/capsule-theme.js?v=20260424"></script>
@@ -384,16 +387,16 @@
     <script src="./js/cosmic-maximize-shell.js?v=20260522d"></script>
     <script src="../../../kernel/js/resizeWindow.js"></script>
     <script src="../../../kernel/js/mainMenu-data.js?v=20260424"></script>
-    <script src="../../../kernel/js/mainMenu.js?v=20260428"></script>
+    <script src="../../../kernel/js/mainMenu.js?v=20260605e"></script>
     <script src="../../../kernel/js/themes.js?v=20260424"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260605e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260605f"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>
@@ -409,7 +412,7 @@
     <script src="../../../kernel/js/terminal/manuel.js"></script>
     <script src="../../../kernel/js/librewriter.js"></script>
     <script src="../../../kernel/js/search/appSearch.js"></script>
-    <script src="../../../kernel/js/update-manager.js"></script>
+    <script src="../../../kernel/js/update-manager.js?v=20260605d"></script>
     <script src="./js/cosmic-app-launch.js?v=20260525"></script>
     <script src="./js/cosmic-apps-catalog.js?v=20260525"></script>
     <script src="./js/cosmic-shell-state.js?v=20260622"></script>

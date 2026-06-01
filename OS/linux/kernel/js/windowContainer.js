@@ -15,6 +15,37 @@ const resolveSlotDataLink = (raw) => {
     return raw === 'nemo' ? 'fileExplorer' : raw;
 };
 
+const isWindowSlotHidden = (container) => {
+    if (!container) {
+        return true;
+    }
+    const inlineDisplay = container.style.display;
+    if (inlineDisplay === 'none') {
+        return true;
+    }
+    if (inlineDisplay === 'flex' || inlineDisplay === 'block') {
+        return false;
+    }
+    return window.getComputedStyle(container).display === 'none';
+};
+
+const resolveWindowSlotContainer = (slotId) => {
+    if (!slotId) {
+        return null;
+    }
+    const byId = document.getElementById(slotId);
+    if (byId && byId.getAttribute('data-link') === slotId) {
+        return byId;
+    }
+    if (slotId === 'fileExplorer' && typeof window.getFileExplorerWindowRoot === 'function') {
+        const explorerRoot = window.getFileExplorerWindowRoot();
+        if (explorerRoot) {
+            return explorerRoot;
+        }
+    }
+    return document.querySelector(`div[data-link="${slotId}"]`);
+};
+
 function activateWindow(container) {
     if (!container) {
         return;
@@ -101,13 +132,13 @@ function applyKdeWindowHeaderIcons(container) {
 
 function handleOpenwindow(link) {
     const slotId = resolveSlotDataLink(link.dataset.link);
-	const container = document.querySelector(`div[data-link="${slotId}"]`);
+	const container = resolveWindowSlotContainer(slotId);
 
     if (container) {
         const isGnomeStartMenu = slotId === 'mainMenu'
             && !!container.querySelector('#menu-gnome-root');
 
-        if (container.style.display === "none") {
+        if (isWindowSlotHidden(container)) {
             container.style.display = "flex";
             container.style.position = 'fixed';
             if (!isGnomeStartMenu && !container.querySelector('#windowHeader')) {
@@ -116,6 +147,9 @@ function handleOpenwindow(link) {
             applyKdeWindowHeaderIcons(container);
             link.classList.add('active-link');
             activateWindow(container);
+            if (slotId === 'fileExplorer' && document.body.classList.contains('is-overview')) {
+                document.body.classList.remove('is-overview');
+            }
             // Utiliser le data-link pour mettre à jour le windowTitle
             const windowTitle = container.querySelector('#windowTitle');
             if (windowTitle) {
@@ -186,7 +220,7 @@ function openWindowByDataLink(dataLink) {
     }
 
     const slotId = resolveSlotDataLink(dataLink);
-    const container = document.querySelector(`div[data-link="${slotId}"]`);
+    const container = resolveWindowSlotContainer(slotId);
     if (!container) {
         return false;
     }
@@ -194,7 +228,7 @@ function openWindowByDataLink(dataLink) {
     const launcher = document.querySelector(`a[target="windowElement"][data-link="${slotId}"]`)
         || document.querySelector(`a[target="windowElement"][data-link="${dataLink}"]`)
         || createVirtualLauncher(slotId);
-    const isVisible = container.style.display !== 'none';
+    const isVisible = !isWindowSlotHidden(container);
 
     if (isVisible) {
         activateWindow(container);
@@ -221,7 +255,7 @@ function openWindowByDataLink(dataLink) {
         windowTitle.textContent = resolved || WINDOW_TITLE_MAP[slotId] || slotId;
     }
 
-    return container.style.display !== 'none';
+    return !isWindowSlotHidden(container);
 }
 
 window.openWindowByDataLink = openWindowByDataLink;
@@ -234,7 +268,7 @@ function makeResizable(element) {
 
 windowElements.forEach((windowElement) => {
     windowElement.addEventListener('mousedown', () => {
-        if (windowElement.style.display !== 'none') {
+        if (!isWindowSlotHidden(windowElement)) {
             activateWindow(windowElement);
         }
     });

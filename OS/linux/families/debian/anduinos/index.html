@@ -11,7 +11,7 @@
     <title>AnduinOS — CapsuleOS</title>
 </head>
 <body id="anduinos" data-skin="anduinos">
-    <main class="anduin-workspace">
+    <div class="anduin-workspace" role="main">
         <div id="desktop" aria-label="Bureau AnduinOS">
             <a class="desktop-shortcut" target="windowElement" data-link="profile" title="AnduinOS — À propos" hidden>
                 <img src="./media/img/assets/anduin-logo.svg" alt="AnduinOS" width="48" height="48">
@@ -30,7 +30,7 @@
             <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none; position: fixed;"></div>
         </div>
-    </main>
+    </div>
 
     <footer class="anduin-taskbar" id="tableau" role="contentinfo">
         <nav class="anduin-taskbar__center" aria-label="Applications épinglées">
@@ -85,6 +85,7 @@
 
     <script>
         window.CAPSULE_APPS_BASE = '../../../shared/apps';
+        window.CAPSULE_MODULES_ENV_SHARED_BASE = '../../../../../modules/env/shared';
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
@@ -95,9 +96,6 @@
         window.CAPSULE_FILE_MANAGER_LIST_VIEW = true;
         window.CAPSULE_MAIN_MENU_TEMPLATE = 'mainMenu-gnome';
         window.CAPSULE_MAIN_MENU_SKIN_KEY = 'mainMenu';
-        window.CAPSULE_TEMPLATE_OVERRIDES = {
-            'mainMenu-gnome': './apps/mainMenu-gnome.html'
-        };
         window.CAPSULE_EMBED_SKIN_KEY = 'anduinos';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'anduinos-checklist';
         window.CAPSULE_SITE_HOME = '../../../../../index.html';
@@ -140,7 +138,8 @@
         };
     </script>
     <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
+    <script src="../../../../../js/capsule-pick-return.js"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260605d"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260424"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
     <script src="../../../kernel/js/capsule-theme.js?v=20260424"></script>
@@ -150,18 +149,18 @@
     <script src="../../../kernel/js/windowDrag.js"></script>
     <script src="../../../kernel/js/mainMenu-data.js?v=20260424"></script>
     <script src="./content/mainMenu-data.js?v=20260530"></script>
-    <script src="../../../kernel/js/mainMenu.js?v=20260428"></script>
-    <script src="./js/mainMenu-gnome.js?v=20260530"></script>
+    <script src="../../../kernel/js/mainMenu.js?v=20260605e"></script>
+    <script src="./js/mainMenu-gnome.js?v=20260605c"></script>
     <script src="./js/anduin-start.js?v=20260530"></script>
     <script src="../../../kernel/js/themes.js?v=20260424"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260605e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260605f"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>

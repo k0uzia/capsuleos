@@ -177,9 +177,10 @@ function initMainMenu() {
 
             const icon = document.createElement('img');
             icon.className = 'menu-app-item__icon';
-            icon.src = typeof resolveCapsuleResourceUrl === 'function'
-                ? resolveCapsuleResourceUrl(app.icon)
-                : app.icon;
+            const resolveMenuIcon = typeof resolveCapsuleMenuResourceUrl === 'function'
+                ? resolveCapsuleMenuResourceUrl
+                : (typeof resolveCapsuleResourceUrl === 'function' ? resolveCapsuleResourceUrl : null);
+            icon.src = resolveMenuIcon ? resolveMenuIcon(app.icon) : app.icon;
             icon.alt = '';
 
             const info = document.createElement('div');

@@ -20,11 +20,15 @@ function initMainMenuGnome() {
         ? resolveCapsuleResourceUrl
         : (url) => url;
 
-    const getLinuxDistroHubHref = () => {
-        if (typeof window !== 'undefined' && window.CAPSULE_LINUX_HUB) {
-            return String(window.CAPSULE_LINUX_HUB);
+    const returnToPickHome = () => {
+        if (window.CapsulePickReturn) {
+            window.CapsulePickReturn.redirectToPickHome('linux');
+            return;
         }
-        return '../../../index.html';
+        const home = (typeof window !== 'undefined' && window.CAPSULE_SITE_HOME)
+            ? String(window.CAPSULE_SITE_HOME)
+            : '../../../../../index.html';
+        window.location.href = `${home.split('#')[0].split('?')[0]}?pick=linux#choisir-os`;
     };
 
     const isMainMenuOpen = () => !!menuEl && menuEl.style.display !== 'none';
@@ -122,9 +126,7 @@ function initMainMenuGnome() {
     });
 
     if (btnPower) {
-        btnPower.addEventListener('click', () => {
-            window.location.href = getLinuxDistroHubHref();
-        });
+        btnPower.addEventListener('click', returnToPickHome);
     }
 
     if (btnAllApps) {

@@ -30,7 +30,7 @@ html[data-theme="light"]:has(#fedora) body#fedora {
     --menu-action-hover: rgba(0, 0, 0, 0.07);
 }
 
-body#fedora object > div[data-link="mainMenu"] {
+body#fedora > div[data-link="mainMenu"] {
     top: calc(var(--fedora-top-bar-height) + calc(var(--head) / 10));
     bottom: auto;
     left: calc(var(--fedora-dock-width) + calc(var(--head) / 10));
@@ -39,7 +39,7 @@ body#fedora object > div[data-link="mainMenu"] {
     border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-html[data-theme="light"]:has(#fedora) body#fedora object > div[data-link="mainMenu"] {
+html[data-theme="light"]:has(#fedora) body#fedora > div[data-link="mainMenu"] {
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: var(--fedora-window-shadow);
 }

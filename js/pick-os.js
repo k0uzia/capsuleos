@@ -1,27 +1,45 @@
 (function () {
+    const ICON = {
+        linux: './assets/icons/linux/',
+        windows: './assets/icons/windows/',
+        macos: './assets/icons/macos/',
+        android: './assets/icons/android/'
+    };
+
     const catalog = {
         linux: {
             label: 'Linux',
             distros: [
-                { name: 'Linux Mint (Cinnamon)', href: './OS/linux/families/debian/mint/index.html', icon: './OS/linux/families/debian/mint/assets/mint.webp' },
-                { name: 'Ubuntu 25.10', href: './OS/linux/families/debian/ubuntu/index.html', icon: './OS/linux/families/debian/ubuntu/media/img/assets/ubuntu-logo.svg' },
-                { name: 'Pop!_OS', href: './OS/linux/families/debian/popos/index.html', icon: './OS/linux/families/debian/popos/media/img/assets/pop-logo.png' },
-                { name: 'MX Linux KDE', href: './OS/linux/families/debian/mx-kde/index.html', icon: './OS/linux/families/debian/mx-kde/media/img/assets/mx-logo.png' },
-                { name: 'Debian KDE (Plasma)', href: './OS/linux/families/debian/debian-kde/index.html', icon: './OS/linux/families/debian/debian-kde/assets/debian-logo.svg' },
-                { name: 'openSUSE Tumbleweed', href: './OS/linux/families/suse/opensuse/index.html', icon: './OS/linux/families/suse/opensuse/media/img/assets/opensuse-logo.svg' },
-                { name: 'Fedora Workstation', href: './OS/linux/families/redhat/fedora/index.html', icon: './OS/linux/families/redhat/fedora/media/img/assets/fedora-logo.svg' }
+                { name: 'Linux Mint (Cinnamon)', href: './OS/linux/families/debian/mint/index.html', icon: `${ICON.linux}mint.png` },
+                { name: 'Ubuntu 25.10', href: './OS/linux/families/debian/ubuntu/index.html', icon: `${ICON.linux}ubuntu.png` },
+                { name: 'AnduinOS', href: './OS/linux/families/debian/anduinos/index.html', icon: `${ICON.linux}debian.png` },
+                { name: 'Pop!_OS', href: './OS/linux/families/debian/popos/index.html', icon: `${ICON.linux}popos.png` },
+                { name: 'MX Linux KDE', href: './OS/linux/families/debian/mx-kde/index.html', icon: `${ICON.linux}mx.png` },
+                { name: 'Debian KDE (Plasma)', href: './OS/linux/families/debian/debian-kde/index.html', icon: `${ICON.linux}debian.png` },
+                { name: 'openSUSE Tumbleweed', href: './OS/linux/families/suse/opensuse/index.html', icon: `${ICON.linux}opensuse.png` },
+                { name: 'Fedora Workstation', href: './OS/linux/families/redhat/fedora/index.html', icon: `${ICON.linux}fedora.png` }
             ]
         },
         windows: {
             label: 'Windows',
             distros: [
-                { name: 'Windows 11', href: './OS/windows/11/index.html', icon: './OS/windows/11/media/img/win11.png' }
+                { name: 'Windows 95', href: './OS/windows/versions/95/index.html', icon: `${ICON.windows}win95.png` },
+                { name: 'Windows 98', href: './OS/windows/versions/98/index.html', icon: `${ICON.windows}win98.png` },
+                { name: 'Windows ME', href: './OS/windows/versions/me/index.html', icon: `${ICON.windows}winme.png` },
+                { name: 'Windows 2000', href: './OS/windows/versions/2000/index.html', icon: `${ICON.windows}win2000.png` },
+                { name: 'Windows XP', href: './OS/windows/versions/xp/index.html', icon: `${ICON.windows}winxp.png` },
+                { name: 'Windows Vista', href: './OS/windows/versions/vista/index.html', icon: `${ICON.windows}vista.png` },
+                { name: 'Windows 7', href: './OS/windows/versions/7/index.html', icon: `${ICON.windows}win7.png` },
+                { name: 'Windows 8', href: './OS/windows/versions/8/index.html', icon: `${ICON.windows}win8.png` },
+                { name: 'Windows 8.1', href: './OS/windows/versions/8.1/index.html', icon: `${ICON.windows}win8.png` },
+                { name: 'Windows 10', href: './OS/windows/versions/10/index.html', icon: `${ICON.windows}win10.png` },
+                { name: 'Windows 11', href: './OS/windows/versions/11/index.html', icon: `${ICON.windows}win11.png` }
             ]
         },
         macos: {
             label: 'macOS',
             distros: [
-                { name: 'macOS Sonoma', href: './OS/macos/sonoma/index.html', icon: './media/img/macos.webp' }
+                { name: 'macOS Sonoma', href: './OS/macos/sonoma/index.html', icon: `${ICON.macos}sonoma.png` }
             ]
         },
         bsd: {
@@ -37,7 +55,7 @@
         android: {
             label: 'Android',
             distros: [
-                { name: 'Android', href: './OS/android/index.html', icon: './OS/android/assets/icones/android.png' }
+                { name: 'Android', href: './OS/android/index.html', icon: `${ICON.android}vanillaicecream.png` }
             ]
         }
     };

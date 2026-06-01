@@ -99,14 +99,14 @@ const fileExplorerSystemLink = {
             ]
         },
         "linux": {
-            "image": "../../../../../media/img/linux.webp",
-            "link": "../../../../../OS/linux/families/debian/mint/index.html",
+            "image": "../../../../../assets/brands/linux.webp",
+            "link": "../../../../../OS/linux/index.html",
             "détails": [
                 "Tester une distrib Linux"
             ]
         },
         "mint": {
-            "image": "../../../../../media/img/Mint.png",
+            "image": "../../../../../assets/icons/linux/mint.png",
             "link": "../../../../../OS/linux/families/debian/mint/index.html",
             "détails": [
                 "Tester Mint"
@@ -135,16 +135,16 @@ const fileExplorerSystemLink = {
             "image": "./media/img/elements/nemo/user-home-symbolic.svg"
         },
         "bsd": { 
-            "image": "../../../../../media/img/bsd.webp",
+            "image": "../../../../../assets/brands/bsd.webp",
             "link": "../../../../../OS/bsd/ghost/index.html"
         },
         "macos": { 
-            "image": "../../../../../media/img/macos.webp",
+            "image": "../../../../../assets/brands/macos.webp",
             "link": "../../../../../OS/macos/sonoma/index.html"
         },
         "windows": { 
-            "image": "../../../../../media/img/windows.webp",
-            "link": "../../../../../OS/windows/11/index.html"
+            "image": "../../../../../assets/brands/windows.webp",
+            "link": "../../../../../OS/windows/index.html"
         },
     }
 };

@@ -64,6 +64,15 @@ const FILE_EXPLORER_VIEW_GRID_CLASS = {
     list: 'file-explorer-app__content-grid--list'
 };
 
+const getInitialFileExplorerViewMode = () => {
+    if (typeof window !== 'undefined'
+        && typeof window.getFileManagerListView === 'function'
+        && window.getFileManagerListView()) {
+        return 'list';
+    }
+    return 'icons';
+};
+
 const fileExplorerState = {
     manifest: null,
     manifestPromise: null,
@@ -74,7 +83,7 @@ const fileExplorerState = {
     secondaryHistory: [],
     secondaryHistoryIndex: -1,
     zoomValue: null,
-    viewMode: 'icons',
+    viewMode: getInitialFileExplorerViewMode(),
     searchQuery: '',
     previewOpen: false,
     splitView: false,

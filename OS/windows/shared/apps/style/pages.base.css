@@ -1,6 +1,14 @@
 @import url(../../../../../style/reset.css);
 @import url(../../../kernel/style/variables-windows.css);
 
+.win-page--classic {
+    display: none;
+}
+
+html:not(.win95-page) p.win95-dialog__text {
+    display: none;
+}
+
 body {
     display: flex;
     flex-flow: column nowrap;

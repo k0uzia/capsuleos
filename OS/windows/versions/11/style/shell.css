@@ -29,7 +29,8 @@ footer>menu>i:hover {
     background: var(--win-taskbar-hover);
 }
 
-#windowContainer {
+#windowContainer,
+.win-window {
     border-radius: var(--win-window-radius);
 }
 

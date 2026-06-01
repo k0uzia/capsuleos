@@ -1,6 +1,7 @@
 /* Chrome fenêtres — Windows 8 / 8.1 Metro */
 
-#windowContainer {
+#windowContainer,
+.win-window {
     border: none;
     border-radius: 0;
     box-shadow: none;

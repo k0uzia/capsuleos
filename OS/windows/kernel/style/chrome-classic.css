@@ -1,6 +1,7 @@
 /* Chrome fenêtres — époque 9x / classic */
 
-#windowContainer {
+#windowContainer,
+.win-window {
     border-width: 2px;
     border-style: solid;
     border-color: #ffffff #404040 #404040 #ffffff;

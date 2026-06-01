@@ -257,7 +257,7 @@ function createPinnedNav() {
     nav.appendChild(p);
 
     const a = document.createElement('a');
-    a.href = './applications.html';
+    a.href = '../../shared/pages/applications.html';
     a.target = 'lien';
     a.title = 'Ouvrir le menu des applications';
 
@@ -300,8 +300,7 @@ function createNavWithFigures(figuresData) {
         figure.appendChild(img);
 
         const figcaption = document.createElement('figcaption');
-        // Création des paragraphes pour le figcaption uniquement pour l'élément spécifique
-        if (figureData.href === './aide.html') {
+        if (figureData.paragraphs && figureData.paragraphs.length > 0) {
             figureData.paragraphs.forEach(paragraphText => {
                 const p = document.createElement('p');
                 p.textContent = paragraphText;

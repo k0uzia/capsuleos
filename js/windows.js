@@ -4,18 +4,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const windowContainer = document.getElementById('windowContainer');
     let zIndex = 5;
     let openWindows = [];
-    let offset = 0; // Initialise le décalage pour les nouvelles fenêtres
+    let topOffset = 0;
+    let leftOffset = 0;
 
     images.forEach(img => {
         img.addEventListener('click', function (event) {
             event.preventDefault();
 
-            // Vérifie si aucune fenêtre n'est ouverte
             if (openWindows.length === 0) {
-                // Réinitialise l'offset pour positionner la première fenêtre au milieu de l'écran
-                // (Ajustez cette valeur en fonction de la taille de votre fenêtre et de l'écran)
-                offset = (window.innerWidth - windowContainer.offsetHeight) / 16;
-                offset = (window.innerHeight - windowContainer.offsetHeight) / 100;
+                const winWidth = windowContainer.offsetWidth;
+                const winHeight = windowContainer.offsetHeight;
+                topOffset = Math.max(0, Math.floor((window.innerHeight - winHeight) / 2));
+                leftOffset = Math.max(0, Math.floor((window.innerWidth - winWidth) / 2));
             }
 
             // Supprime les éléments <section> existants dans le <main>
@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Crée une nouvelle fenêtre pour chaque clic
             const newWindow = windowContainer.cloneNode(true);
             newWindow.style.zIndex = ++zIndex;
-            newWindow.style.top = `${offset}px`; // Applique le décalage en haut
+            newWindow.style.top = `${topOffset}px`;
+            newWindow.style.left = `${leftOffset}px`;
             mainElement.appendChild(newWindow);
 
             newWindow.querySelector('#windowIframe').src = this.href;
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             openWindows.push(newWindow);
 
-            offset += 30; // Incrémente le décalage pour les prochaines fenêtres
+            topOffset += 30;
 
             makeDraggable(newWindow);
         });

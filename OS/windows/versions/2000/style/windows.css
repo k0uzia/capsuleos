@@ -1,4 +1,5 @@
-#windowContainer {
+#windowContainer,
+.win-window {
     position: var(--fix);
     top: var(--z);
     left: var(--z);

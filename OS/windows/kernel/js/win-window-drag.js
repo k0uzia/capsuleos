@@ -1,9 +1,13 @@
 /**
- * Déplacement fenêtre (racine) — aligné sur le noyau Linux/Windows.
- * Conservé pour compatibilité ; les skins Windows chargent win-window-drag.js.
+ * Déplacement des fenêtres iframe Windows (position: fixed, zone = main).
  */
 const makeDraggable = (element) => {
     if (!element || element.dataset.dragInit === 'true') {
+        return;
+    }
+
+    const header = element.querySelector('#windowHeader');
+    if (!header) {
         return;
     }
 
@@ -15,10 +19,6 @@ const makeDraggable = (element) => {
         const main = document.querySelector('main');
         if (main) {
             return main.getBoundingClientRect();
-        }
-        const desktop = document.getElementById('desktop');
-        if (desktop) {
-            return desktop.getBoundingClientRect();
         }
         return document.documentElement.getBoundingClientRect();
     };
@@ -33,8 +33,6 @@ const makeDraggable = (element) => {
             top: Math.max(bounds.top, Math.min(top, maxTop))
         };
     };
-
-    const getDragHandle = () => element.querySelector('#windowHeader') || element;
 
     const onMouseMove = (e) => {
         if (!isDragging) {
@@ -63,11 +61,6 @@ const makeDraggable = (element) => {
             return;
         }
 
-        const handle = getDragHandle();
-        if (!handle.contains(e.target)) {
-            return;
-        }
-
         if (e.target.closest('button, input, textarea, select, a')) {
             return;
         }
@@ -84,6 +77,6 @@ const makeDraggable = (element) => {
         document.addEventListener('mouseup', stopDragging);
     };
 
-    getDragHandle().addEventListener('mousedown', startDragging);
+    header.addEventListener('mousedown', startDragging);
     element.dataset.dragInit = 'true';
 };

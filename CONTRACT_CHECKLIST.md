@@ -38,3 +38,4 @@
 - [ ] Textes surchargeables : défauts dans `kernel/js/strings-default.js`, option `./content/strings.json` par skin.
 - [ ] Hub statique `OS/linux/index.html` à jour pour les distros listées ; pas de backend requis.
 - [ ] Après modif `modules/app/` ou skin `.skin.css` embarquée : `node js/build-capsule-embed.mjs` puis test `file://` sur au moins une distro concernée.
+ 

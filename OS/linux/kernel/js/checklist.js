@@ -37,9 +37,13 @@ function initChecklistApp() {
 
     document.addEventListener('capsule:task', function onCapsuleTask(e) {
         if (!e.detail || !e.detail.id) return;
+        let taskId = e.detail.id;
+        if (taskId === 'open-nemo') {
+            taskId = 'open-fileExplorer';
+        }
         const state = loadChecklistState();
-        if (!state[e.detail.id]) {
-            state[e.detail.id] = true;
+        if (!state[taskId]) {
+            state[taskId] = true;
             saveChecklistState(state);
             if (root.dataset.initialized === 'true') {
                 syncChecklistUI(root, state);
@@ -50,10 +54,22 @@ function initChecklistApp() {
     root.dataset.initialized = 'true';
 }
 
+function migrateChecklistState(state) {
+    if (!state || typeof state !== 'object') {
+        return state;
+    }
+    if (state['open-nemo'] && !state['open-fileExplorer']) {
+        state['open-fileExplorer'] = state['open-nemo'];
+        delete state['open-nemo'];
+    }
+    return state;
+}
+
 function loadChecklistState() {
     try {
         const raw = localStorage.getItem(getChecklistStorageKey());
-        return raw ? JSON.parse(raw) : {};
+        const state = raw ? JSON.parse(raw) : {};
+        return migrateChecklistState(state);
     } catch (_) {
         return {};
     }

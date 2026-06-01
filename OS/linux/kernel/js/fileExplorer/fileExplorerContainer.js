@@ -13,13 +13,13 @@ function initFileExplorerContainer() {
         'Téléchargements': `${root}/Téléchargements`
     };
 
-    const fileExplorerRoot = document.getElementById('nemo');
-    if (!fileExplorerRoot || fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {
+    const fileExplorerRoot = window.getFileExplorerWindowRoot();
+    if (!fileExplorerRoot || fileExplorerRoot.dataset.fileExplorerInit === 'true') {
         return;
     }
 
-    // Les raccourcis de l'explorateur sont injectés dynamiquement dans la fenêtre legacy `nemo`.
-    const fileExplorerLinks = fileExplorerRoot.querySelectorAll('#voletnemo a[target="windowElement"][data-link]');
+    // Les raccourcis de l'explorateur sont injectés dynamiquement dans la fenêtre `fileExplorer`.
+    const fileExplorerLinks = fileExplorerRoot.querySelectorAll('#fileExplorerSidebar a[target="windowElement"][data-link]');
 
     fileExplorerLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
@@ -45,7 +45,6 @@ function initFileExplorerContainer() {
     }
 
     fileExplorerRoot.dataset.fileExplorerInit = 'true';
-    fileExplorerRoot.dataset.nemoInit = 'true';
 }
 
 window.initFileExplorerContainer = initFileExplorerContainer;

@@ -2,7 +2,7 @@
 /**
  * Génère OS/linux/kernel/js/capsule-app-embed.js pour usage en file://
  * (fetch interdit / peu fiable). Relancer après modification des gabarits
- * shared/apps ou des skins apps sous mint/ubuntu/fedora/debian-kde/etc.
+ * shared/apps, modules/app, ou des skins apps sous mint/ubuntu/fedora/etc.
  */
 import fs from 'fs';
 import path from 'path';
@@ -13,9 +13,11 @@ const ROOT = path.resolve(__dirname, '..');
 
 const APPS_DIR = path.join(ROOT, 'OS/linux/shared/apps');
 const STYLE_DIR = path.join(APPS_DIR, 'style');
-const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
-const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
-const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
+const MODULES_APP_DIR = path.join(ROOT, 'modules/app');
+const UM_MODULE_DIR = path.join(MODULES_APP_DIR, 'update_manager');
+const KDE_COMMON_SKIN = path.join(UM_MODULE_DIR, 'kde-common.skin.css');
+const KDE_UPDATE_MANAGER_HTML = path.join(UM_MODULE_DIR, 'update_manager_kde.html');
+const UBUNTU_UPDATE_MANAGER_HTML = path.join(UM_MODULE_DIR, 'update_manager_ubuntu.html');
 const OUT_FILE = path.join(ROOT, 'OS/linux/kernel/js/capsule-app-embed.js');
 const MANIFEST_PATH = path.join(
     ROOT,
@@ -76,11 +78,30 @@ function readUtf8(p) {
     return fs.readFileSync(p, 'utf8');
 }
 
-function listTemplateIds() {
+function listModuleTemplateIds() {
+    if (!fs.existsSync(MODULES_APP_DIR)) {
+        return [];
+    }
+    return fs.readdirSync(MODULES_APP_DIR)
+        .filter((name) => {
+            const dir = path.join(MODULES_APP_DIR, name);
+            return fs.statSync(dir).isDirectory()
+                && fs.existsSync(path.join(dir, `${name}.html`));
+        })
+        .sort();
+}
+
+function listSharedTemplateIds() {
     const names = fs.readdirSync(APPS_DIR);
     return names
         .filter((n) => n.endsWith('.html') && !fs.statSync(path.join(APPS_DIR, n)).isDirectory())
         .map((n) => path.basename(n, '.html'));
+}
+
+function listTemplateIds() {
+    const moduleIds = new Set(listModuleTemplateIds());
+    const sharedIds = listSharedTemplateIds().filter((id) => !moduleIds.has(id));
+    return [...moduleIds, ...sharedIds].sort();
 }
 
 function listSkinIds(skinDir) {
@@ -92,15 +113,51 @@ function listSkinIds(skinDir) {
         .map((n) => n.slice(0, -'.skin.css'.length));
 }
 
+function moduleBaseCssPath(templateId) {
+    return path.join(MODULES_APP_DIR, templateId, `${templateId}.base.css`);
+}
+
+function isModuleTemplate(templateId) {
+    return fs.existsSync(moduleBaseCssPath(templateId));
+}
+
+function readNemoBaseCss() {
+    const modulePath = moduleBaseCssPath('nemo');
+    if (fs.existsSync(modulePath)) {
+        return readUtf8(modulePath);
+    }
+    const sharedPath = path.join(STYLE_DIR, 'nemo.base.css');
+    return readUtf8(sharedPath);
+}
+
+function buildUpdateManagerCssBase() {
+    const parts = [
+        'update_manager.base.css',
+        'update_manager_kde.base.css',
+        'update_manager_ubuntu.base.css'
+    ];
+    return parts
+        .map((name) => path.join(UM_MODULE_DIR, name))
+        .filter((p) => fs.existsSync(p))
+        .map(readUtf8)
+        .join('\n');
+}
+
 function buildCssBase(templateId) {
-    const cssBaseId = templateId === 'nemo-gnome' || templateId === 'nemo-cosmic'
-        ? 'nemo'
-        : templateId;
-    const baseFile = path.join(STYLE_DIR, `${cssBaseId}.base.css`);
-    let text = readUtf8(baseFile);
+    let text;
+    if (templateId === 'update_manager' && fs.existsSync(UM_MODULE_DIR)) {
+        text = buildUpdateManagerCssBase();
+    } else if (isModuleTemplate(templateId)) {
+        text = readUtf8(moduleBaseCssPath(templateId));
+    } else {
+        const legacyNautilus = new Set(['nemo-gnome', 'nemo-cosmic']);
+        const cssBaseId = legacyNautilus.has(templateId) ? 'nemo' : templateId;
+        const baseFile = path.join(STYLE_DIR, `${cssBaseId}.base.css`);
+        text = readUtf8(baseFile);
+    }
+
     if (templateId === 'dolphin') {
-        const nemoBase = path.join(STYLE_DIR, 'nemo.base.css');
-        text = `${readUtf8(nemoBase)}\n${text}`;
+        text = `${readNemoBaseCss()}\n${text}`;
     }
     return text;
 }
@@ -126,12 +183,17 @@ function readSkinStrings(stringsPath) {
 }
 
 function readTemplateHtml(templateId) {
+    const moduleHtml = path.join(MODULES_APP_DIR, templateId, `${templateId}.html`);
+    if (fs.existsSync(moduleHtml)) {
+        return readUtf8(moduleHtml);
+    }
     const htmlPath = path.join(APPS_DIR, `${templateId}.html`);
     return readUtf8(htmlPath);
 }
 
 function main() {
-    const templateIds = listTemplateIds().sort();
+    const moduleTemplateIds = listModuleTemplateIds();
+    const templateIds = listTemplateIds();
     const templates = {};
     for (const id of templateIds) {
         templates[id] = {
@@ -154,19 +216,23 @@ function main() {
         }
     }
 
-    // Overrides embed pour familles KDE : update_manager doit embarquer le template Discover (KDE),
-    // car en mode embed/offline on n'utilise pas CAPSULE_TEMPLATE_OVERRIDES.
     if (fs.existsSync(KDE_UPDATE_MANAGER_HTML)) {
-        for (const skinKey of ['opensuse', 'mxkde']) {
+        const kdeUmCssBase = buildUpdateManagerCssBase();
+        for (const skinKey of ['opensuse', 'mxkde', 'debian-kde']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
-            skinTemplates[skinKey].update_manager = { html: readUtf8(KDE_UPDATE_MANAGER_HTML) };
+            skinTemplates[skinKey].update_manager = {
+                html: readUtf8(KDE_UPDATE_MANAGER_HTML),
+                cssBase: kdeUmCssBase
+            };
         }
     }
 
-    // Override embed Ubuntu Software : template dédié pour éviter le multi-layout Mint.
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
         skinTemplates.ubuntu = skinTemplates.ubuntu || {};
-        skinTemplates.ubuntu.update_manager = { html: readUtf8(UBUNTU_UPDATE_MANAGER_HTML) };
+        skinTemplates.ubuntu.update_manager = {
+            html: readUtf8(UBUNTU_UPDATE_MANAGER_HTML),
+            cssBase: buildUpdateManagerCssBase()
+        };
     }
 
     const skins = {};
@@ -192,14 +258,15 @@ function main() {
 'use strict';
 `;
 
-    const body = `window.CAPSULE_APP_EMBED = ${JSON.stringify({ templates, skinTemplates, skins })};
+    const body = `window.CAPSULE_MODULE_TEMPLATE_IDS = ${JSON.stringify(moduleTemplateIds)};
+window.CAPSULE_APP_EMBED = ${JSON.stringify({ templates, skinTemplates, skins })};
 window.CAPSULE_EMBED_STRINGS = ${JSON.stringify(embedStrings)};
 window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED = ${JSON.stringify(manifest)};
 window.CAPSULE_NEMO_MANIFEST_EMBED = window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED;
 })();`;
 
     fs.writeFileSync(OUT_FILE, `${header}\n${body}\n`, 'utf8');
-    console.log(`Écrit ${OUT_FILE} (${templateIds.length} templates, ${SKIN_DIRS.length} skins)`);
+    console.log(`Écrit ${OUT_FILE} (${templateIds.length} templates, ${moduleTemplateIds.length} modules, ${SKIN_DIRS.length} skins)`);
 }
 
 main();

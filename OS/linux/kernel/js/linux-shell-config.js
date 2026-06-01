@@ -14,9 +14,14 @@
  * @property {string} [CAPSULE_SKIN_BASE]  Répertoire de la skin pour les surcouches `style/apps/*.skin.css` (souvent `.`).
  * @property {string} [CAPSULE_MEDIA_BASE]  Base des chemins `./media/…` (défaut `./media` ; ex. `../mint/media` pour une skin dérivée sans dossier `media/` local).
  * @property {string} [CAPSULE_ASSETS_BASE]  Base des chemins `./assets/…` (défaut `./assets` ; ex. `../mint/assets` pour une skin dérivée).
- * @property {string} [CAPSULE_EXPLORER_TEMPLATE]  Nom du template fichier pour le slot `nemo` : `'nemo'` ou `'dolphin'` (défaut : comportement Nemo).
- * @property {string} [CAPSULE_EXPLORER_SKIN_KEY]  Nom du `.skin.css` explorateur (ex. `nemo`, `files`, `dolphin`, `dolphin-<distro>`) sans changer le template.
- * @property {string} [CAPSULE_EXPLORER_DISPLAY_NAME]  Nom visible du gestionnaire de fichiers (`Nemo`, `Fichiers`, `Dolphin`).
+ * @property {string} [CAPSULE_FILE_MANAGER_TEMPLATE]  Gabarit HTML pour le slot `nemo` : `nemo`, `nautilus`, `nautilus-cosmic`, `dolphin`, …
+ * @property {string} [CAPSULE_FILE_MANAGER_SKIN_KEY]  Clé du `.skin.css` (ex. `nemo`, `nautilus`, `dolphin`) sans changer le template.
+ * @property {string} [CAPSULE_FILE_MANAGER_DISPLAY_NAME]  Titre fenêtre / libellé UI (`Nemo`, `Fichiers`, `Dolphin`, `Nautilus`).
+ * @property {string} [CAPSULE_FILE_MANAGER_APP_ID]  Identifiant technique du slot (défaut `fileExplorer`, `data-link` / `id` du conteneur fenêtre).
+ * @property {boolean} [CAPSULE_FILE_MANAGER_LIST_VIEW]  Force le mode liste (Anduinos, variantes Cosmic).
+ * @property {string} [CAPSULE_EXPLORER_TEMPLATE]  **Déprécié** — alias de `CAPSULE_FILE_MANAGER_TEMPLATE` (voir `capsule-file-manager-config.js`).
+ * @property {string} [CAPSULE_EXPLORER_SKIN_KEY]  **Déprécié** — alias de `CAPSULE_FILE_MANAGER_SKIN_KEY`.
+ * @property {string} [CAPSULE_EXPLORER_DISPLAY_NAME]  **Déprécié** — alias de `CAPSULE_FILE_MANAGER_DISPLAY_NAME`.
  * @property {string} [CAPSULE_STRINGS_URL]  URL du JSON de surcharges (`fetch` même origine), défaut `./content/strings.json`.
  * @property {Object} [CAPSULE_STRINGS_INLINE]  Surcharges inline fusionnées avant le JSON (petits jeux de clés).
  * @property {string} [CAPSULE_EMBED_SKIN_KEY]  Clé de skin pour les CSS apps embarqués (`mint`, `ubuntu`, `fedora`) ; requis pour `file://` cohérent avec `capsule-app-embed.js`.

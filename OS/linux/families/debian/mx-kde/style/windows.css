@@ -45,12 +45,12 @@ div[class^="windowElement"]:not(#mainMenu) {
     pointer-events: auto;
 }
 
-body#mx-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
+body#mx-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
     height: var(--mx-kde-konsole-header-height);
     min-height: var(--mx-kde-konsole-header-height);
 }
 
-body#mx-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
+body#mx-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--mx-kde-konsole-header-height));
     min-height: calc(100% - var(--mx-kde-konsole-header-height));
 }

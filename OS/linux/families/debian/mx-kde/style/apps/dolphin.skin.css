@@ -1,8 +1,8 @@
 /* Surcouche MX-KDE - fidélité Dolphin (référence dolph.png).
-   Règle de frontière: structure partagée dans dolphin.base.css,
+   Règle de frontière: layout dans modules/app/dolphin/dolphin.base.css,
    ici uniquement densité/couleurs/icônes spécifiques MX-KDE. */
 
-body#mx-kde div[data-link="nemo"] {
+body#mx-kde div[data-link="fileExplorer"] {
     --dolphin-chrome: #23282f;
     --dolphin-chrome-border: #343a44;
     --dolphin-view: #0f1318;
@@ -64,17 +64,17 @@ body#mx-kde div[data-link="nemo"] {
 }
 
 /* Thème sombre : path entre chrome et vue (lisible sans casser le bloc gris). */
-html:not([data-theme="light"]) body#mx-kde div[data-link="nemo"] {
+html:not([data-theme="light"]) body#mx-kde div[data-link="fileExplorer"] {
     --dolphin-pathbar-border-strong: #434b57;
 }
 
-html:not([data-theme="light"]) body#mx-kde div[data-link="nemo"] .dolphin-app {
+html:not([data-theme="light"]) body#mx-kde div[data-link="fileExplorer"] .dolphin-app {
     --nemo-pathbar-bg: #161b21;
     --nemo-pathbar-border: #2f3640;
 }
 
 /* Thème clair : même levier que dolphin.base (variables sur le shell nemo + .dolphin-app pour --nemo-*). */
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] {
     --dolphin-chrome: #dfe8f3;
     --dolphin-chrome-border: #b8c6d8;
     --dolphin-view: #f5f8fc;
@@ -122,7 +122,7 @@ html[data-theme="light"] body#mx-kde div[data-link="nemo"] {
     box-shadow: 0 10px 26px rgba(23, 41, 68, 0.14);
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app {
     --nemo-bg-primary: var(--dolphin-view);
     --nemo-header-bg: var(--dolphin-chrome);
     --nemo-border: var(--dolphin-chrome-border);
@@ -147,13 +147,13 @@ html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app {
     --nemo-accent: var(--dolphin-accent);
 }
 
-body#mx-kde div[data-link="nemo"] {
+body#mx-kde div[data-link="fileExplorer"] {
     border-radius: 2px;
     border-color: var(--dolphin-chrome-border);
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.52);
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader {
     position: absolute;
     top: 0;
     right: 0;
@@ -175,20 +175,20 @@ body#mx-kde div[data-link="nemo"] #windowHeader {
     pointer-events: auto;
 }
 
-/* Sombre : même bandeau que #nemoHeaderContainer (chrome Dolphin). */
-html:not([data-theme="light"]) body#mx-kde div[data-link="nemo"] #windowHeader {
+/* Sombre : même bandeau que #fileExplorerHeader (chrome Dolphin). */
+html:not([data-theme="light"]) body#mx-kde div[data-link="fileExplorer"] #windowHeader {
     background: var(--dolphin-chrome);
 }
 
-html:not([data-theme="light"]) body#mx-kde div[data-link="nemo"].windowElementActive #windowHeader {
+html:not([data-theme="light"]) body#mx-kde div[data-link="fileExplorer"].windowElementActive #windowHeader {
     background: var(--dolphin-chrome);
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"].windowElementActive #windowHeader {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"].windowElementActive #windowHeader {
     background: var(--mx-kde-window-titlebar-bg-active);
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child {
     position: absolute;
     top: 0;
     left: 0.3rem;
@@ -203,8 +203,8 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child {
     pointer-events: auto;
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child::before,
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child::after {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child::before,
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child::after {
     content: "";
     display: block;
     width: 0.82rem;
@@ -215,18 +215,18 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child::after {
     opacity: 0.92;
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child::before {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child::before {
     background-image: url("./media/img/apps/org.kde.dolphin.svg");
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:first-child::after {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child::after {
     width: 0.68rem;
     height: 0.68rem;
     background-image: url("./media/img/elements/nemo/add-pin.svg");
     opacity: 0.78;
 }
 
-body#mx-kde div[data-link="nemo"] #windowTitle {
+body#mx-kde div[data-link="fileExplorer"] #windowTitle {
     display: block;
     width: auto;
     max-width: calc(100% - 15rem);
@@ -244,7 +244,7 @@ body#mx-kde div[data-link="nemo"] #windowTitle {
     filter: none;
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child {
     position: absolute;
     top: 0;
     right: 0.3rem;
@@ -260,7 +260,7 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child {
     pointer-events: auto;
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child > button {
     position: relative;
     width: 1.34rem;
     height: 1.34rem;
@@ -271,7 +271,7 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button {
     background-color: transparent;
 }
 
-body#mx-kde div[data-link="nemo"] #minimizeBtn {
+body#mx-kde div[data-link="fileExplorer"] #minimizeBtn {
     background-image: url("./media/img/header/go-down.svg");
     background-size: 0.76rem;
     background-repeat: no-repeat;
@@ -279,72 +279,72 @@ body#mx-kde div[data-link="nemo"] #minimizeBtn {
     filter: brightness(0) invert(1);
 }
 
-body#mx-kde div[data-link="nemo"] #resizeBtn {
+body#mx-kde div[data-link="fileExplorer"] #resizeBtn {
     background-image: url("./media/img/header/window-restore.svg");
     background-size: 0.76rem;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-body#mx-kde div[data-link="nemo"] #closeBtn {
+body#mx-kde div[data-link="fileExplorer"] #closeBtn {
     background-image: url("./media/img/header/window-close.svg");
     background-size: 0.76rem;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button:hover {
+body#mx-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child > button:hover {
     background-color: rgba(255, 255, 255, 0.16);
     transform: none;
 }
 
-body#mx-kde div[data-link="nemo"] #closeBtn:hover {
+body#mx-kde div[data-link="fileExplorer"] #closeBtn:hover {
     background-color: rgba(205, 74, 93, 0.32);
 }
 
-html[data-theme="light"] #mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button,
-html[data-theme="light"] #mx-kde div[data-link="nemo"] #minimizeBtn {
+html[data-theme="light"] #mx-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child > button,
+html[data-theme="light"] #mx-kde div[data-link="fileExplorer"] #minimizeBtn {
     filter: brightness(0) saturate(100%);
 }
 
-html[data-theme="light"] #mx-kde div[data-link="nemo"] #closeBtn:hover {
+html[data-theme="light"] #mx-kde div[data-link="fileExplorer"] #closeBtn:hover {
     background-color: rgba(205, 74, 93, 0.22);
 }
 
-body#mx-kde div[data-link="nemo"] #gestionnaire {
+body#mx-kde div[data-link="fileExplorer"] #gestionnaire {
     margin-bottom: 0;
     font-family: "Cantarell", var(--font-ui);
 }
 
-body#mx-kde div[data-link="nemo"].windowElement {
+body#mx-kde div[data-link="fileExplorer"].windowElement {
     padding-bottom: 0;
 }
 
-body#mx-kde div[data-link="nemo"] #nemoHeaderContainer {
+body#mx-kde div[data-link="fileExplorer"] #fileExplorerHeader {
     min-height: calc(var(--head) * 1.34);
     padding-top: 0;
     border-bottom: 0;
     background: var(--dolphin-chrome);
 }
 
-body#mx-kde div[data-link="nemo"].windowElementActive #nemoHeaderContainer {
+body#mx-kde div[data-link="fileExplorer"].windowElementActive #fileExplorerHeader {
     background: var(--dolphin-chrome);
 }
 
-body#mx-kde div[data-link="nemo"] #nemoMainContainer {
+body#mx-kde div[data-link="fileExplorer"] #fileExplorerMain {
     bottom: 0;
     height: calc(var(--full) - calc(var(--head) * 1.38));
     min-height: calc(var(--a) - calc(var(--head) * 1.38));
     margin: 0;
 }
 
-body#mx-kde div[data-link="nemo"] #voletnemo,
-body#mx-kde div[data-link="nemo"] #voletContainer {
+body#mx-kde div[data-link="fileExplorer"] #fileExplorerSidebar,
+body#mx-kde div[data-link="fileExplorer"] #voletContainer {
     height: 100%;
     min-height: 0;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolbar {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__toolbar.dolphin-toolbar {
     min-height: calc(var(--head) * 0.98);
     margin-top: var(--dolphin-toolbar-margin-top);
     padding: var(--dolphin-toolbar-pad-top-bottom) var(--dolphin-toolbar-pad-right) var(--dolphin-toolbar-pad-top-bottom) var(--dolphin-toolbar-pad-left);
@@ -352,20 +352,20 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolba
     background: var(--dolphin-chrome);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolbar > .sousMenuOutils {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__toolbar.dolphin-toolbar > .sousMenuOutils {
     background-color: transparent;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__nav {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__nav {
     order: 1;
     margin-right: calc(var(--head) / 28);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__view {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__view {
     display: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn {
     min-width: calc(var(--head) / 1.32);
     height: calc(var(--head) / 1.32);
     border-radius: 3px;
@@ -375,19 +375,19 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn {
     transition: border-color var(--eas2), background-color var(--eas2), box-shadow var(--eas2), transform var(--eas2);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn:hover {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn:hover {
     border-color: rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.08);
     box-shadow: none;
     transform: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn:focus-visible {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn:focus-visible {
     outline: 2px solid rgba(132, 188, 255, 0.72);
     outline-offset: 1px;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn img {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn img {
     width: calc(var(--head) / 2.05);
     height: calc(var(--head) / 2.05);
     object-fit: contain;
@@ -395,34 +395,34 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn img {
     opacity: 0.92;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
     color: var(--dolphin-toolbar-text);
     opacity: 0.92;
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn {
     border-color: #a9b7c9;
     background: linear-gradient(180deg, #f6f9fe 0%, #e4edf8 100%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn:hover {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn:hover {
     border-color: #7e95b2;
     background: linear-gradient(180deg, #ffffff 0%, #dce8f6 100%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn img {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn img {
     filter: brightness(0) saturate(100%);
     opacity: 0.9;
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
     color: #2e435f;
     opacity: 0.9;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child {
     width: auto;
     min-width: var(--dolphin-split-min-width);
     padding: 0 var(--dolphin-split-pad-right) 0 var(--dolphin-split-pad-left);
@@ -432,16 +432,16 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphi
     margin-right: var(--dolphin-split-margin-right);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child .dolphin-toolbar__svg {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child .dolphin-toolbar__svg {
     display: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child::after {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child::after {
     content: "Scinder";
     color: var(--dolphin-toolbar-text);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__path {
     order: 3;
     flex: 1 1 auto;
     min-width: 0;
@@ -451,13 +451,13 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path {
     max-width: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path .nemo-app__path-current {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__path .file-explorer-app__path-current {
     flex: 1;
     width: 100%;
     min-width: 0;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__crumb-prefix {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__crumb-prefix {
     position: absolute;
     top: 50%;
     left: var(--dolphin-crumb-left);
@@ -465,7 +465,7 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__crumb-prefix {
     transform: translateY(-50%);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions {
     order: 4;
     margin-left: 0;
     gap: var(--dolphin-actions-gap);
@@ -473,16 +473,16 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions {
     transform: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:nth-child(2),
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:nth-child(2),
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
     margin-left: var(--dolphin-actions-icon-shift-x);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
     margin-right: calc(var(--head) / 18);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__path-current {
     position: relative;
     display: flex;
     align-items: center;
@@ -497,15 +497,15 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__path-current {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
-html:not([data-theme="light"]) body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
+html:not([data-theme="light"]) body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__path-current {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.028);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #nemoMainContainer > #voletnemo.dolphin-sidebar {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerMain > #fileExplorerSidebar.dolphin-sidebar {
     width: var(--dolphin-sidebar-w);
     min-width: var(--dolphin-sidebar-w);
     max-width: var(--dolphin-sidebar-w);
@@ -515,13 +515,13 @@ body#mx-kde div[data-link="nemo"] .dolphin-app #nemoMainContainer > #voletnemo.d
     box-shadow: none;
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app #nemoMainContainer > #voletnemo.dolphin-sidebar {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerMain > #fileExplorerSidebar.dolphin-sidebar {
     background: var(--dolphin-sidebar);
     border-right: 1px solid var(--dolphin-sidebar-border);
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.06);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__heading {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__heading {
     margin: calc(var(--head) / 6) 0 calc(var(--head) / 11) calc(var(--head) / 16);
     font-size: calc(var(--head) / 3.15);
     font-weight: 600;
@@ -530,7 +530,7 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__heading {
     color: var(--dolphin-text-muted);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link {
     gap: calc(var(--head) / 7);
     padding: calc(var(--head) / 7.2) calc(var(--head) / 8.2);
     border-radius: 2px;
@@ -540,8 +540,8 @@ body#mx-kde div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link
     color: var(--dolphin-text);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img,
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link img,
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row img {
     width: calc(var(--head) / 2.25);
     height: calc(var(--head) / 2.25);
     object-fit: contain;
@@ -550,28 +550,28 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img {
 }
 
 /* Normalize KDE sidebar icon contrast per theme. */
-body#mx-kde div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
     filter: var(--dolphin-icon-filter-sidebar);
     opacity: 0.95;
 }
 
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
-html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
+html[data-theme="light"] body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
     filter: brightness(0) saturate(100%);
     opacity: 0.92;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__link--active {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__link--active {
     background: var(--dolphin-sidebar-active-bg);
     border-left-color: transparent;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__link--active img {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__link--active img {
     opacity: 1;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row {
     gap: calc(var(--head) / 7);
     padding: calc(var(--head) / 7.2) calc(var(--head) / 8.2);
     margin-left: 0;
@@ -580,56 +580,56 @@ body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row {
     color: var(--dolphin-text);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-path {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-path {
     display: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__usage {
     height: 3px;
     margin: 1px calc(var(--head) / 9) calc(var(--head) / 6) calc(var(--head) / 1.45);
     background: var(--dolphin-usage-track-bg);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage-fill {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__usage-fill {
     width: 70%;
     background: linear-gradient(90deg, var(--dolphin-usage-fill-start), var(--dolphin-usage-fill-end));
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid {
     gap: calc(var(--head) / 3);
     padding: calc(var(--head) / 1.55) var(--dolphin-content-grid-pad-x) calc(var(--head) * 1.9);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a {
     width: calc(var(--head) * 2.55);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #voletContainer > .nemoElement > a:hover,
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:hover {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #voletContainer > .nemoElement > a:hover,
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:hover {
     background: transparent;
     outline: none;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a > img {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a > img {
     width: calc(var(--head) * 1.35);
     height: calc(var(--head) * 1.15);
     padding: calc(var(--head) / 9);
     border-radius: 3px;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:hover > img,
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:focus-visible > img,
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:focus > img {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:hover > img,
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:focus-visible > img,
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:focus > img {
     background: var(--dolphin-grid-item-hover-bg);
     box-shadow: inset 0 0 0 1px var(--dolphin-grid-item-hover-outline);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a > span {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a > span {
     font-size: calc(var(--head) / 2.5);
     color: var(--dolphin-text);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app .dolphin-folder-pill {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app .dolphin-folder-pill {
     display: block;
 }
 
@@ -641,18 +641,18 @@ body#mx-kde .dolphin-sidebar__root-label {
     font-size: calc(var(--head) / 2.25);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #nemoFooterContainer {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter {
     display: none;
     min-height: calc(var(--head) / 1.35);
     border-top: 1px solid var(--dolphin-chrome-border);
     background: var(--dolphin-chrome);
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #nemoFooterContainer .nemo-app__status-center {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter .file-explorer-app__status-center {
     justify-content: flex-start;
 }
 
-body#mx-kde div[data-link="nemo"] .dolphin-app #nemoFooterContainer .nemo-app__status-center p {
+body#mx-kde div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter .file-explorer-app__status-center p {
     color: var(--dolphin-text-muted);
     font-size: calc(var(--head) / 2.5);
 }

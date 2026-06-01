@@ -277,23 +277,37 @@ function initMainMenu() {
         }
 
         if (typeof target === 'string') {
-            return { dataLink: target };
+            return { dataLink: resolveMenuDataLink(target) };
         }
 
         if (typeof target === 'object' && typeof target.dataLink === 'string') {
-            return target;
+            return { ...target, dataLink: resolveMenuDataLink(target.dataLink) };
         }
 
         return null;
     }
 
+    function resolveMenuDataLink(raw) {
+        if (typeof window.resolveCapsuleSlotDataLink === 'function') {
+            return window.resolveCapsuleSlotDataLink(raw);
+        }
+        return raw === 'nemo' ? 'fileExplorer' : raw;
+    }
+
     function resolveLauncher(dataLink) {
-        const selectors = [
-            `footer a[target="windowElement"][data-link="${dataLink}"]`,
-            `#desktop > a[target="windowElement"][data-link="${dataLink}"]`,
-            `a.desktop-shortcut[target="windowElement"][data-link="${dataLink}"]`,
-            `a[target="windowElement"][data-link="${dataLink}"]`
-        ];
+        const candidates = [dataLink];
+        if (dataLink === 'fileExplorer') {
+            candidates.push('nemo');
+        }
+        const selectors = [];
+        candidates.forEach((id) => {
+            selectors.push(
+                `footer a[target="windowElement"][data-link="${id}"]`,
+                `#desktop > a[target="windowElement"][data-link="${id}"]`,
+                `a.desktop-shortcut[target="windowElement"][data-link="${id}"]`,
+                `a[target="windowElement"][data-link="${id}"]`
+            );
+        });
 
         for (const selector of selectors) {
             const launcher = document.querySelector(selector);
@@ -350,7 +364,8 @@ function initMainMenu() {
         }
 
         const map = {
-            nemo: 'open-nemo',
+            nemo: 'open-fileExplorer',
+            fileExplorer: 'open-fileExplorer',
             firefox: 'open-firefox',
             terminal: 'open-terminal',
             mainMenu: 'open-menu',

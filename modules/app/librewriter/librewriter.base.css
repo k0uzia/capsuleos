@@ -1,7 +1,9 @@
 /* ════════════════════════════════════════════
-   LibreOffice Writer - App CSS
-   Scope: div[data-link="librewriter"]
-   Convention: 0 hardcoded colors - toutes les valeurs via var(--lw-*)
+   LibreOffice Writer — layout de base
+   modules/app/librewriter/librewriter.base.css
+   Scope: div[data-link="librewriter"] / .lw-app
+   Tokens structurels --lw-* ; thèmes : families/.../style/apps/librewriter.skin.css
+   Convention: pas de couleur en dur — var(--lw-*)
 ════════════════════════════════════════════ */
 
 /* Window header customization */

@@ -15,11 +15,11 @@ const MENU_CATS = [
 
 const MENU_SHORTCUTS = {
     desktop: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Bureau',
     },
     downloads: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Téléchargements',
     },
 };
@@ -28,7 +28,7 @@ const MENU_APPS = [
     { catId: 'favorites', icon: './media/img/apps/firefox.svg', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'favorites', icon: './media/img/apps/kontact.svg', name: 'Kontact', desc: 'Courriel et agenda', dataLink: null },
     { catId: 'favorites', icon: './media/img/apps/libreoffice-writer.svg', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
-    { catId: 'favorites', icon: './media/img/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
+    { catId: 'favorites', icon: './media/img/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'fileExplorer' },
     { catId: 'favorites', icon: './media/img/apps/kate.svg', name: 'Kate', desc: 'Éditeur de texte avancé', dataLink: null },
     { catId: 'favorites', icon: './media/img/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './media/img/apps/help-center.svg', name: 'Centre d\'aide', desc: 'Documentation KDE', dataLink: null },
@@ -43,7 +43,7 @@ const MENU_APPS = [
     { catId: 'bureau', icon: './media/img/apps/libreoffice-base.png', name: 'LibreOffice Base', desc: 'Développement de base de données', dataLink: null },
     { catId: 'bureau', icon: './media/img/apps/libreoffice-math.png', name: 'LibreOffice Math', desc: 'Éditeur de formule', dataLink: null },
     { catId: 'system', icon: './media/img/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Configurer le système', dataLink: 'themes' },
-    { catId: 'system', icon: './media/img/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
+    { catId: 'system', icon: './media/img/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'fileExplorer' },
     { catId: 'system', icon: './media/img/apps/konsole.svg', name: 'Konsole', desc: 'Émulateur de terminal', dataLink: 'terminal' },
     { catId: 'system', icon: './media/img/apps/yast-sysconfig.svg', name: 'YaST Sysconfig Editor', desc: 'Sysconfig Editor', dataLink: null },
     { catId: 'system', icon: './media/img/apps/user-info.png', name: 'À propos - openSUSE Tumbleweed', desc: 'Infos distro', dataLink: 'profile' },

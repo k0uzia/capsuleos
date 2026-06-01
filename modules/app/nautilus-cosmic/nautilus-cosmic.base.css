@@ -20,11 +20,11 @@ main#gestionnaire {
 }
 
 /* Override the shared window chrome only for Nemo containers. */
-div[data-link="nemo"] #windowHeader {
+div[data-link="fileExplorer"] #windowHeader {
     background: var(--nemo-header-bg);
 }
 
-div[data-link="nemo"] #windowTitle {
+div[data-link="fileExplorer"] #windowTitle {
     color: var(--nemo-text-primary);
     text-shadow: var(--n);
     filter: var(--n);
@@ -34,7 +34,7 @@ div[data-link="nemo"] #windowTitle {
     cursor: default;
 }
 
-#nemoHeaderContainer {
+#fileExplorerHeader {
     top: var(--z);
     display: var(--f);
     flex-flow: var(--cnw);
@@ -48,19 +48,19 @@ div[data-link="nemo"] #windowTitle {
 }
 
 /* Keep Nemo header dark even when other app styles reuse same generic ids/classes. */
-div[data-link="nemo"] #nemoHeaderContainer {
+div[data-link="fileExplorer"] #fileExplorerHeader {
     border-bottom: solid 1px var(--nemo-border);
     background-color: var(--nemo-header-bg);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .menuHeader,
-div[data-link="nemo"] #nemoHeaderContainer .menuOutils,
-div[data-link="nemo"] #nemoHeaderContainer .sousMenuOutils,
-div[data-link="nemo"] #nemoHeaderContainer nav {
+div[data-link="fileExplorer"] #fileExplorerHeader .menuHeader,
+div[data-link="fileExplorer"] #fileExplorerHeader .menuOutils,
+div[data-link="fileExplorer"] #fileExplorerHeader .sousMenuOutils,
+div[data-link="fileExplorer"] #fileExplorerHeader nav {
     background-color: var(--nemo-header-bg);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
@@ -72,23 +72,23 @@ div[data-link="nemo"] .nemo-app__toolbar {
     box-sizing: border-box;
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
     gap: calc(var(--head) / 8);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group--path {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group--path {
     flex: 1;
     min-width: 0;
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group--view {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group--view {
     margin-left: var(--a);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group > a {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group > a {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
@@ -102,17 +102,17 @@ div[data-link="nemo"] .nemo-app__toolbar-group > a {
     transition: background-color var(--eas2), border-color var(--eas2), transform var(--eas2);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group > a:hover {
     background: var(--nemo-toolbar-button-hover-bg);
     border-color: var(--menu-accent);
     transform: translateY(-1px);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group--view > a {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group--view > a {
     min-width: calc(var(--head) / 1.5);
 }
 
-div[data-link="nemo"] .nemo-app__path-current {
+div[data-link="fileExplorer"] .file-explorer-app__path-current {
     flex: 1;
     justify-content: var(--fs);
     min-width: 0;
@@ -126,37 +126,37 @@ div[data-link="nemo"] .nemo-app__path-current {
     border-radius: calc(var(--head) / 12);
 }
 
-div[data-link="nemo"] .nemo-app__toolbar-group img {
+div[data-link="fileExplorer"] .file-explorer-app__toolbar-group img {
     filter: var(--nemo-toolbar-icon-filter);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer a {
+div[data-link="fileExplorer"] #fileExplorerHeader a {
     color: var(--nemo-text-primary);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .menuHeader>li:active {
+div[data-link="fileExplorer"] #fileExplorerHeader .menuHeader>li:active {
     background-color: var(--nemo-item-active-bg);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu {
+div[data-link="fileExplorer"] #fileExplorerHeader .listeSousMenu {
     background-color: var(--nemo-menu-surface-bg);
     border: solid 1px var(--nemo-border);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu>a {
+div[data-link="fileExplorer"] #fileExplorerHeader .listeSousMenu>a {
     color: var(--nemo-text-primary);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu>a:hover {
+div[data-link="fileExplorer"] #fileExplorerHeader .listeSousMenu>a:hover {
     background-color: var(--nemo-item-active-bg);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu .lineUnder {
+div[data-link="fileExplorer"] #fileExplorerHeader .listeSousMenu .lineUnder {
     border-bottom: solid 1px var(--nemo-border);
 }
 
-div[data-link="nemo"] #nemoHeaderContainer .menuOutils img,
-div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
+div[data-link="fileExplorer"] #fileExplorerHeader .menuOutils img,
+div[data-link="fileExplorer"] #fileExplorerHeader .listeSousMenu img {
     filter: var(--nemo-toolbar-icon-filter);
 }
 
@@ -258,7 +258,7 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     text-align: center;
 }
 
-#nemoHeaderContainer>.menuOutils:nth-child(2) {
+#fileExplorerHeader>.menuOutils:nth-child(2) {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
@@ -278,7 +278,7 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     color: var(--nemo-text-primary);
 }
 
-#nemoMainContainer {
+#fileExplorerMain {
     position: var(--rel);
     top: var(--z);
     right: var(--z);
@@ -294,7 +294,7 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     margin: var(--z);
 }
 
-#nemoMainContainer>#voletnemo {
+#fileExplorerMain>#fileExplorerSidebar {
     display: var(--f);
     flex-flow: var(--cnw);
     justify-content: var(--fs);
@@ -309,8 +309,8 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     overflow: var(--a);
 }
 
-#nemoMainContainer>#voletnemo>a,
-#nemoMainContainer>#voletnemo>div>a {
+#fileExplorerMain>#fileExplorerSidebar>a,
+#fileExplorerMain>#fileExplorerSidebar>div>a {
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--fs);
@@ -320,7 +320,7 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     color: var(--nemo-text-primary);
 }
 
-#nemoMainContainer>#voletnemo>div {
+#fileExplorerMain>#fileExplorerSidebar>div {
     display: var(--f);
     flex-flow: var(--cnw);
     justify-content: var(--fs);
@@ -330,22 +330,22 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     gap: calc(var(--head) / 8);
 }
 
-div[data-link="nemo"] .nemo-app__sidebar {
+div[data-link="fileExplorer"] .file-explorer-app__sidebar {
     padding-top: calc(var(--head) / 6);
 }
 
-div[data-link="nemo"] .nemo-app__sidebar a:hover {
+div[data-link="fileExplorer"] .file-explorer-app__sidebar a:hover {
     background: var(--nemo-item-active-bg);
     border-radius: calc(var(--head) / 12);
     border-left: 2px solid var(--menu-accent);
 }
 
-div[data-link="nemo"] .nemo-app__content-wrap {
+div[data-link="fileExplorer"] .file-explorer-app__content-wrap {
     background: var(--nemo-bg-primary);
     border-left: 1px solid var(--nemo-border);
 }
 
-div[data-link="nemo"] .nemo-app__content-grid {
+div[data-link="fileExplorer"] .file-explorer-app__content-grid {
     --nemo-item-card-size: calc(var(--nemo-item-base-size) * var(--nemo-item-scale, var(--nemo-zoom-scale-default)));
     --nemo-item-icon-size: calc(var(--nemo-item-icon-base-size) * var(--nemo-item-scale, var(--nemo-zoom-scale-default)));
     --nemo-item-icon-margin-x: calc(var(--nemo-item-icon-margin-base) * var(--nemo-item-scale, var(--nemo-zoom-scale-default)));
@@ -355,11 +355,11 @@ div[data-link="nemo"] .nemo-app__content-grid {
     gap: calc(var(--head) / 6);
 }
 
-#nemoMainContainer>#voletnemo>div>a>img {
+#fileExplorerMain>#fileExplorerSidebar>div>a>img {
     padding-right: calc(var(--head) / 8);
 }
 
-#nemoMainContainer>#voletContainer {
+#fileExplorerMain>#voletContainer {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--fs);
@@ -368,7 +368,7 @@ div[data-link="nemo"] .nemo-app__content-grid {
     height: var(--full);
 }
 
-#nemoMainContainer>#voletContainer>.nemoElement {
+#fileExplorerMain>#voletContainer>.nemoElement {
     display: var(--f);
     flex-flow: var(--rw);
     justify-content: var(--fs);
@@ -379,7 +379,7 @@ div[data-link="nemo"] .nemo-app__content-grid {
     overflow: var(--a);
 }
 
-#nemoMainContainer>#voletContainer>section.nemoElement>a {
+#fileExplorerMain>#voletContainer>section.nemoElement>a {
     display: var(--f);
     flex-flow: var(--cnw);
     justify-content: var(--sa);
@@ -417,25 +417,25 @@ div[data-link="nemo"] .nemo-app__content-grid {
     z-index: 500;
 }
 
-#nemoMainContainer>#voletContainer>section.nemoElement>a>img {
+#fileExplorerMain>#voletContainer>section.nemoElement>a>img {
     width: var(--nemo-item-icon-size);
     height: var(--a);
     margin: calc(var(--head) / 4) var(--nemo-item-icon-margin-x);
 }
 
-div[data-link="nemo"] .nemo-app__content-grid > a:hover {
+div[data-link="fileExplorer"] .file-explorer-app__content-grid > a:hover {
     background: rgba(255, 255, 255, 0.08);
     border-radius: calc(var(--head) / 8);
 }
 
-div[data-link="nemo"] .nemo-app__empty {
+div[data-link="fileExplorer"] .file-explorer-app__empty {
     width: var(--full);
     padding: calc(var(--head) / 2);
     color: var(--nemo-text-muted);
     text-align: var(--c);
 }
 
-#nemoFooterContainer {
+#fileExplorerFooter {
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--sb);
@@ -449,15 +449,15 @@ div[data-link="nemo"] .nemo-app__empty {
     background-color: var(--nemo-footer-bg);
 }
 
-div[data-link="nemo"] .nemo-app__statusbar {
+div[data-link="fileExplorer"] .file-explorer-app__statusbar {
     color: var(--nemo-status-text);
 }
 
-div[data-link="nemo"] .nemo-app__status-center > p {
+div[data-link="fileExplorer"] .file-explorer-app__status-center > p {
     color: var(--nemo-status-text);
 }
 
-#nemoFooterContainer>section:nth-child(1) {
+#fileExplorerFooter>section:nth-child(1) {
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--fs);
@@ -465,7 +465,7 @@ div[data-link="nemo"] .nemo-app__status-center > p {
     width: calc(var(--head) * 4);
 }
 
-#nemoFooterContainer>section:nth-child(1)>a {
+#fileExplorerFooter>section:nth-child(1)>a {
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--c);
@@ -473,19 +473,19 @@ div[data-link="nemo"] .nemo-app__status-center > p {
     width: calc(var(--head) / 2);
 }
 
-#nemoFooterContainer>section:nth-child(1)>a:nth-child(3) {
+#fileExplorerFooter>section:nth-child(1)>a:nth-child(3) {
     width: var(--head);
 }
 
-#nemoFooterContainer>section:nth-child(2) {
+#fileExplorerFooter>section:nth-child(2) {
     width: calc(var(--head) * 8);
 }
 
-#nemoFooterContainer>section:nth-child(2)>p {
+#fileExplorerFooter>section:nth-child(2)>p {
     color: var(--nemo-text-primary);
 }
 
-#nemoFooterContainer>section:nth-child(3) {
+#fileExplorerFooter>section:nth-child(3) {
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--fe);
@@ -493,7 +493,7 @@ div[data-link="nemo"] .nemo-app__status-center > p {
     width: calc(var(--head) * 4);
 }
 
-#nemoFooterContainer>section:nth-child(3)>input {
+#fileExplorerFooter>section:nth-child(3)>input {
     width: var(--nemo-zoom-slider-width);
     accent-color: var(--nemo-accent);
 }

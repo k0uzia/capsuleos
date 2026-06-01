@@ -1,6 +1,6 @@
 /**
  * Menubar explorateur (.menuHeader / .listeSousMenu).
- * Appeler bindFileExplorerMenubar(#nemo) après injection du gabarit (contentLoader).
+ * Appeler bindFileExplorerMenubar(#fileExplorer) après injection du gabarit (contentLoader).
  */
 (function initFileExplorerMenubar() {
     const getMenuItemLabel = (link) => {
@@ -50,7 +50,7 @@
             return;
         }
 
-        const menubar = scope.querySelector('.nemo-app__menubar, .menuOutils');
+        const menubar = scope.querySelector('.file-explorer-app__menubar, .menuOutils');
         if (!menubar) {
             return;
         }

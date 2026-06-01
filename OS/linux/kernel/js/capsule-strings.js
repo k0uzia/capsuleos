@@ -66,11 +66,13 @@ function getMergedStrings() {
 
 function buildWindowTitles(merged) {
     const m = merged || {};
-    const explorerDisplayName = (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_DISPLAY_NAME)
-        ? String(window.CAPSULE_EXPLORER_DISPLAY_NAME)
+    const explorerDisplayName = (typeof window !== 'undefined' && typeof window.getFileManagerDisplayName === 'function')
+        ? window.getFileManagerDisplayName()
         : 'Fichiers';
+    const explorerTitle = m['explorer.windowTitle'] || `Dossier personnel - ${explorerDisplayName}`;
     return {
-        nemo: m['explorer.windowTitle'] || `Dossier personnel - ${explorerDisplayName}`,
+        nemo: explorerTitle,
+        fileExplorer: explorerTitle,
         firefox: m['firefox.windowTitle'] || 'Navigateur Web',
         profile: m['profile.windowTitle'] || 'À Propos',
         librewriter: m['librewriter.windowTitle'] || 'Sans nom 1 - LibreOffice Writer',

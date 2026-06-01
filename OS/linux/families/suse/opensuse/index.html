@@ -21,7 +21,7 @@
             <span>openSUSE Tumbleweed<br>À propos</span>
         </a>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="nemo" id="nemo" style="display: none; position: fixed;"></div>
+        <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
@@ -48,7 +48,7 @@
                 <span class="taskbar-pins__item" title="Découvrir" aria-hidden="true">
                     <img src="./media/img/apps/plasmadiscover.svg" alt="">
                 </span>
-                <a target="windowElement" data-link="nemo" title="Dolphin">
+                <a target="windowElement" data-link="fileExplorer" title="Dolphin">
                     <img src="./media/img/apps/org.kde.dolphin.svg" alt="">
                 </a>
                 <a target="windowElement" data-link="firefox" title="Firefox">
@@ -139,17 +139,16 @@
     <script>
         window.CAPSULE_APPS_BASE = '../../../shared/apps';
         window.CAPSULE_TEMPLATE_OVERRIDES = {
-            mainMenu: './apps/mainMenu.html',
-            update_manager: '../../../shared/apps/update_manager_kde.html'
+            mainMenu: './apps/mainMenu.html'
         };
         window.CAPSULE_EMBED_SKIN_KEY = 'opensuse';
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_EXPLORER_APP_ID = 'nemo';
-        window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Dolphin';
-        window.CAPSULE_EXPLORER_TEMPLATE = 'dolphin';
-        window.CAPSULE_EXPLORER_SKIN_KEY = 'dolphin';
+        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
+        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Dolphin';
+        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'dolphin';
+        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'dolphin';
         window.CAPSULE_FILE_EXPLORER_ICON_MAP = {
             folder: './media/img/elements/places32/folder.svg',
             Dossier_personnel: './media/img/elements/places32/folder.svg',
@@ -189,10 +188,11 @@
         window.CAPSULE_TERMINAL_HOME = '/home/user';
     </script>
     <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260529f"></script>
+    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260421a"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260421a"></script>
+    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
     <script src="../../../kernel/js/windowHeaderButton.js?v=20260421a"></script>
     <script src="../../../kernel/js/resizeWindow.js"></script>
     <script src="../../../kernel/js/windowDrag.js"></script>
@@ -205,11 +205,11 @@
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260529b"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260528e"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerDolphin.js?v=20260528o"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerDolphin.js?v=20260604c"></script>
     <script src="../../../kernel/js/search/appSearch.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>

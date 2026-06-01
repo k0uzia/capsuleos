@@ -88,7 +88,7 @@
                 <span>Pop!_OS<br>À propos</span>
             </a>
             <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-            <div class="windowElement" data-link="nemo" id="nemo" style="display: none; position: fixed;"></div>
+            <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
@@ -119,7 +119,7 @@
                 <a class="cosmic-dock__item" target="windowElement" data-link="firefox" title="Firefox">
                     <img src="./media/img/dock/firefox.png" alt="Firefox" width="40" height="40">
                 </a>
-                <a class="cosmic-dock__item" target="windowElement" data-link="nemo" title="Fichiers">
+                <a class="cosmic-dock__item" target="windowElement" data-link="fileExplorer" title="Fichiers">
                     <img src="./media/img/dock/files.svg" alt="Fichiers" width="40" height="40">
                 </a>
                 <a class="cosmic-dock__item" target="windowElement" data-link="checklist" title="Éditeur de texte">
@@ -175,7 +175,7 @@
             </form>
             <div class="cosmic-applications__scroll">
                 <div class="cosmic-applications__grid" id="cosmic-applications-grid">
-                    <button type="button" class="cosmic-applications__app" data-cosmic-app-link="nemo"
+                    <button type="button" class="cosmic-applications__app" data-cosmic-app-link="fileExplorer"
                             data-cosmic-category="home utilities" aria-label="Fichiers COSMIC">
                         <img src="./media/img/apps/overview/cosmic-files.svg" alt="">
                         <span>Fichiers COSMIC</span>
@@ -328,10 +328,10 @@
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_EXPLORER_APP_ID = 'nemo';
-        window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Fichiers';
-        window.CAPSULE_EXPLORER_TEMPLATE = 'nemo-cosmic';
-        window.CAPSULE_EXPLORER_SKIN_KEY = 'files';
+        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
+        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Fichiers';
+        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'nautilus-cosmic';
+        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'nautilus';
         window.CAPSULE_EMBED_SKIN_KEY = 'popos';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'popos-checklist';
         window.CAPSULE_SITE_HOME = '../../../../../index.html';
@@ -373,11 +373,12 @@
         };
     </script>
     <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260622b"></script>
+    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260424"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
     <script src="../../../kernel/js/capsule-theme.js?v=20260424"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260424"></script>
+    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
     <script src="../../../kernel/js/windowDrag.js?v=20260522"></script>
     <script src="../../../kernel/js/windowHeaderButton.js?v=20260522d"></script>
     <script src="./js/cosmic-maximize-shell.js?v=20260522d"></script>
@@ -389,10 +390,10 @@
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260427b"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>

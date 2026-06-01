@@ -1,9 +1,9 @@
-<main id="gestionnaire" class="nemo-app dolphin-app" aria-label="Gestionnaire de fichiers">
-    <header id="nemoHeaderContainer" class="nemo-app__header">
+<main id="gestionnaire" class="file-explorer-app dolphin-app" aria-label="Gestionnaire de fichiers">
+    <header id="fileExplorerHeader" class="file-explorer-app__header">
         <!-- Ligne 2: menu texte -->
-        <section class="menuOutils nemo-app__menubar" aria-label="Menu">
-            <nav class="nemo-app__menubar-nav">
-                <ul class="menuHeader nemo-app__menu">
+        <section class="menuOutils file-explorer-app__menubar" aria-label="Menu">
+            <nav class="file-explorer-app__menubar-nav">
+                <ul class="menuHeader file-explorer-app__menu">
                     <li><a href="#">Fichier</a>
                         <ul class="listeSousMenu" style="display: none;">
                             <a href="#"><img src="./media/img/elements/nemo/tab-new.svg" alt="" aria-hidden="true"><li>Nouvel onglet</li></a>
@@ -35,13 +35,13 @@
         </section>
 
         <!-- Ligne 3: toolbar -->
-        <section class="nemo-app__toolbar dolphin-toolbar" aria-label="Barre d’outils">
-            <div class="nemo-app__toolbar-group dolphin-toolbar__nav">
+        <section class="file-explorer-app__toolbar dolphin-toolbar" aria-label="Barre d’outils">
+            <div class="file-explorer-app__toolbar-group dolphin-toolbar__nav">
                 <a href="#" id="precedent" class="dolphin-toolbar__btn dolphin-toolbar__btn--nav" aria-label="Précédent"><span class="dolphin-ico dolphin-ico--back" aria-hidden="true"></span></a>
                 <a href="#" id="suivant" class="dolphin-toolbar__btn dolphin-toolbar__btn--nav" aria-label="Suivant"><span class="dolphin-ico dolphin-ico--forward" aria-hidden="true"></span></a>
             </div>
 
-            <div class="nemo-app__toolbar-group dolphin-toolbar__view" aria-label="Mode d’affichage">
+            <div class="file-explorer-app__toolbar-group dolphin-toolbar__view" aria-label="Mode d’affichage">
                 <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn dolphin-toolbar__view-btn--active" data-view-mode="icons" aria-current="true" aria-label="Vue en icônes">
                     <span class="dolphin-ico dolphin-ico--view-grid" aria-hidden="true"></span>
                 </a>
@@ -53,12 +53,12 @@
                 </a>
             </div>
 
-            <!-- Garde le hook JS (.nemo-app__path-current) mais on le masque en CSS (le path est déjà dans le titre). -->
-            <div class="nemo-app__toolbar-group nemo-app__toolbar-group--path dolphin-toolbar__path" aria-hidden="true">
-                <a href="#" class="nemo-app__path-current">Dossier personnel</a>
+            <!-- Garde le hook JS (.file-explorer-app__path-current) mais on le masque en CSS (le path est déjà dans le titre). -->
+            <div class="file-explorer-app__toolbar-group file-explorer-app__toolbar-group--path dolphin-toolbar__path" aria-hidden="true">
+                <a href="#" class="file-explorer-app__path-current">Dossier personnel</a>
             </div>
 
-            <div class="nemo-app__toolbar-group dolphin-toolbar__actions">
+            <div class="file-explorer-app__toolbar-group dolphin-toolbar__actions">
                 <label class="dolphin-toolbar__search" aria-label="Rechercher">
                     <span class="dolphin-ico dolphin-ico--search" aria-hidden="true"></span>
                     <input type="search" id="dolphin-search" class="dolphin-toolbar__search-input" placeholder="Rechercher..." aria-label="Rechercher" autocomplete="off">
@@ -75,8 +75,8 @@
         </section>
     </header>
 
-    <main id="nemoMainContainer" class="nemo-app__main">
-        <aside id="voletnemo" class="nemo-app__sidebar dolphin-sidebar" aria-label="Emplacements">
+    <main id="fileExplorerMain" class="file-explorer-app__main">
+        <aside id="fileExplorerSidebar" class="file-explorer-app__sidebar dolphin-sidebar" aria-label="Emplacements">
             <div class="dolphin-sidebar__section">
                 <h4 class="dolphin-sidebar__heading">Emplacements</h4>
                 <nav class="dolphin-sidebar__nav" aria-label="Emplacements">
@@ -137,15 +137,15 @@
                 </nav>
             </div>
         </aside>
-        <aside id="voletContainer" class="nemo-app__content-wrap dolphin-content-wrap">
+        <aside id="voletContainer" class="file-explorer-app__content-wrap dolphin-content-wrap">
             <div class="dolphin-content-panes" id="dolphin-content-panes">
                 <div class="dolphin-content-pane dolphin-content-pane--primary dolphin-content-pane--active" data-pane="primary">
                     <div class="dolphin-folder-pill" id="dolphin-folder-pill" role="status" aria-live="polite">0 dossiers</div>
-                    <section class="nemoElement nemo-app__content-grid" data-pane="primary" aria-label="Fichiers"></section>
+                    <section class="nemoElement file-explorer-app__content-grid" data-pane="primary" aria-label="Fichiers"></section>
                 </div>
                 <div class="dolphin-content-pane dolphin-content-pane--secondary" data-pane="secondary" hidden>
                     <div class="dolphin-folder-pill dolphin-folder-pill--secondary" id="dolphin-folder-pill-secondary" role="status" aria-live="polite">0 dossiers</div>
-                    <section class="nemoElement nemo-app__content-grid nemoElement--secondary" data-pane="secondary" aria-label="Fichiers (volet droit)"></section>
+                    <section class="nemoElement file-explorer-app__content-grid nemoElement--secondary" data-pane="secondary" aria-label="Fichiers (volet droit)"></section>
                 </div>
                 <aside class="dolphin-preview-pane" id="dolphin-preview-pane" hidden aria-label="Aperçu">
                     <header class="dolphin-preview-pane__header">
@@ -159,10 +159,10 @@
         </aside>
     </main>
 
-    <footer id="nemoFooterContainer" class="nemo-app__statusbar" aria-label="Barre d’état">
-        <section class="nemo-app__status-left"></section>
-        <section class="nemo-app__status-center"><p>—</p></section>
-        <section class="nemo-app__status-right">
+    <footer id="fileExplorerFooter" class="file-explorer-app__statusbar" aria-label="Barre d’état">
+        <section class="file-explorer-app__status-left"></section>
+        <section class="file-explorer-app__status-center"><p>—</p></section>
+        <section class="file-explorer-app__status-right">
             <input type="range" name="zoom" id="zoom" min="80" max="140" step="10" value="100" aria-label="Zoom des icônes">
         </section>
     </footer>

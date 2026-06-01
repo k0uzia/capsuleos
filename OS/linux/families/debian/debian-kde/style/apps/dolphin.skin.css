@@ -1,7 +1,7 @@
 /* Debian KDE — overrides Dolphin (tokens + barre de titre + icônes)
    Layout : modules/app/dolphin/dolphin.base.css */
 
-body#debian-kde div[data-link="nemo"] {
+body#debian-kde div[data-link="fileExplorer"] {
     --dolphin-sidebar-icon-size: 16px;
     --dolphin-chrome: #eff0f1;
     --dolphin-chrome-border: #bdc3c7;
@@ -25,7 +25,7 @@ body#debian-kde div[data-link="nemo"] {
     --dolphin-shadow: 0 8px 24px rgba(35, 38, 41, 0.14);
 }
 
-body#debian-kde div[data-link="nemo"] .dolphin-app {
+body#debian-kde div[data-link="fileExplorer"] .dolphin-app {
     --nemo-bg-primary: var(--dolphin-view);
     --nemo-header-bg: var(--dolphin-chrome);
     --nemo-border: var(--dolphin-chrome-border);
@@ -33,7 +33,7 @@ body#debian-kde div[data-link="nemo"] .dolphin-app {
     --nemo-sidebar-bg: var(--dolphin-sidebar);
 }
 
-body#debian-kde div[data-link="nemo"].windowElement {
+body#debian-kde div[data-link="fileExplorer"].windowElement {
     padding: 0;
     border: 1px solid var(--dolphin-window-shell-border);
     border-radius: 6px;
@@ -43,7 +43,7 @@ body#debian-kde div[data-link="nemo"].windowElement {
 }
 
 /* Ligne 1 : barre de titre fenêtre (kernel #windowHeader) */
-body#debian-kde div[data-link="nemo"] #windowHeader {
+body#debian-kde div[data-link="fileExplorer"] #windowHeader {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,14 +61,14 @@ body#debian-kde div[data-link="nemo"] #windowHeader {
     border-bottom: 1px solid var(--dolphin-window-titlebar-border);
 }
 
-body#debian-kde div[data-link="nemo"] #windowHeader > nav:first-child::before {
+body#debian-kde div[data-link="fileExplorer"] #windowHeader > nav:first-child::before {
     content: "";
     width: 18px;
     height: 18px;
     background: url("./media/img/apps/org.kde.dolphin.svg") no-repeat center / contain;
 }
 
-body#debian-kde div[data-link="nemo"] #windowTitle {
+body#debian-kde div[data-link="fileExplorer"] #windowTitle {
     font-size: 13px;
     font-weight: 600;
     line-height: var(--dolphin-titlebar-height);
@@ -77,25 +77,25 @@ body#debian-kde div[data-link="nemo"] #windowTitle {
     filter: none;
 }
 
-body#debian-kde div[data-link="nemo"] #windowHeader > nav:last-child > button {
+body#debian-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child > button {
     width: 24px;
     height: 24px;
     filter: brightness(0) invert(1);
     opacity: 0.95;
 }
 
-body#debian-kde div[data-link="nemo"] #windowHeader > nav:last-child > button:hover {
+body#debian-kde div[data-link="fileExplorer"] #windowHeader > nav:last-child > button:hover {
     background-color: rgba(255, 255, 255, 0.12);
     border-radius: 4px;
 }
 
 /* Décalage sous la barre de titre */
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoHeaderContainer {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerHeader {
     padding-top: var(--dolphin-titlebar-height);
 }
 
 /* Icônes toolbar (SVG locaux) */
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico {
     background-color: transparent;
     -webkit-mask-image: none;
     mask-image: none;
@@ -104,40 +104,40 @@ body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico
     background-position: center;
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--back {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--back {
     background-image: url("./media/img/elements/kde/go-previous-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--forward {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--forward {
     background-image: url("./media/img/elements/kde/go-next-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--view-grid {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--view-grid {
     background-image: url("./media/img/elements/nemo/view-grid-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--view-compact {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--view-compact {
     background-image: url("./media/img/elements/nemo/view-compact-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--view-list {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--view-list {
     background-image: url("./media/img/elements/nemo/view-list-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--search {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--search {
     background-image: url("./media/img/elements/nemo/search-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--preview {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--preview {
     background-image: url("./media/img/elements/nemo/view-preview-symbolic.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--split {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--split {
     background-image: url("./media/img/elements/nemo/view-split-left-right.svg");
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split .dolphin-ico--split,
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split img {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split .dolphin-ico--split,
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split img {
     width: 10px;
     height: 10px;
     min-width: 10px;
@@ -149,12 +149,12 @@ body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-too
 }
 
 /* Icônes sidebar (SVG locaux, chemins réécrits via CAPSULE_MEDIA_BASE) */
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.nemo-app__item--selected {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.file-explorer-app__item--selected {
     background: var(--dolphin-accent-soft);
     box-shadow: inset 0 0 0 2px var(--dolphin-accent);
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open {
     display: flex !important;
     flex-direction: row !important;
     flex: 1 1 auto !important;
@@ -162,7 +162,7 @@ body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-con
     min-height: 0 !important;
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane {
     display: flex !important;
     flex: 0 0 280px !important;
     flex-direction: column !important;
@@ -175,23 +175,23 @@ body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-con
     background: var(--dolphin-chrome) !important;
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane[hidden] {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane[hidden] {
     display: flex !important;
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body img {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body img {
     max-width: 100%;
     max-height: min(420px, 55vh);
     object-fit: contain;
 }
 
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__link > img {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__link > img {
     filter: brightness(0) saturate(100%);
     opacity: 0.88;
 }
 
 /* Icônes dropdown menubar (Fichier, Édition…) */
-body#debian-kde div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu img {
+body#debian-kde div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu img {
     filter: brightness(0) saturate(100%);
     opacity: 0.88;
 }

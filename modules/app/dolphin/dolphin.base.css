@@ -18,7 +18,7 @@
  *   de titre fenêtre, thème sombre/clair, etc.).
  *
  * Sélecteur racine :
- *   div[data-link="nemo"] = slot fenêtre du gestionnaire de fichiers.
+ *   div[data-link="fileExplorer"] = slot fenêtre du gestionnaire de fichiers.
  *   main#gestionnaire.dolphin-app = contenu HTML injecté (dolphin.html).
  * ============================================================================
  */
@@ -29,7 +29,7 @@
  * Définies sur le slot fenêtre pour être héritées par toute l’app Dolphin.
  * Les skins peuvent les surcharger (ex. --dolphin-chrome pour thème KDE).
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] {
+div[data-link="fileExplorer"] {
     /* Couleurs de structure */
     --dolphin-chrome: #eff0f1;           /* fond menubar / toolbar / footer */
     --dolphin-chrome-border: #bdc3c7;    /* séparateurs horizontaux */
@@ -72,7 +72,7 @@ div[data-link="nemo"] {
  * Colonne verticale : [header app] → [contenu] → [footer].
  * Remplace le font-size géant de nemo (#gestionnaire { font-size: calc(...) }).
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app {
     display: flex;
     flex-direction: column;   /* empile header / main / footer */
     width: 100%;
@@ -90,21 +90,21 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app {
 }
 
 /* box-sizing homogène dans toute l’app Dolphin */
-div[data-link="nemo"] main#gestionnaire.dolphin-app *,
-div[data-link="nemo"] main#gestionnaire.dolphin-app *::before,
-div[data-link="nemo"] main#gestionnaire.dolphin-app *::after {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app *,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app *::before,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app *::after {
     box-sizing: border-box;
 }
 
 /* --------------------------------------------------------------------------
- * 3. En-tête application (#nemoHeaderContainer)
+ * 3. En-tête application (#fileExplorerHeader)
  * --------------------------------------------------------------------------
  * Contient 2 lignes (la ligne 1 = barre titre fenêtre est hors de ce <main>,
  * gérée par le kernel #windowHeader + dolphin.skin.css).
- *   - Ligne 2 : .nemo-app__menubar (menus texte)
+ *   - Ligne 2 : .file-explorer-app__menubar (menus texte)
  *   - Ligne 3 : .dolphin-toolbar (navigation, vues, chemin, actions)
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoHeaderContainer {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerHeader {
     flex: 0 0 auto;           /* ne grandit pas : hauteur = contenu */
     display: flex;
     flex-direction: column;   /* menubar au-dessus de la toolbar */
@@ -118,17 +118,17 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoHeaderContainer {
 }
 
 /* Wrappers legacy Nemo dans le header : pas de hauteur forcée */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoHeaderContainer .menuOutils,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoHeaderContainer nav {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerHeader .menuOutils,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerHeader nav {
     width: 78%;
     height: auto;
     background: transparent;
 }
 
 /* --------------------------------------------------------------------------
- * 4. Ligne 2 — Barre de menus texte (.nemo-app__menubar)
+ * 4. Ligne 2 — Barre de menus texte (.file-explorer-app__menubar)
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__menubar {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__menubar {
     display: flex;
     align-items: center;
     flex: 0 0 auto;
@@ -141,12 +141,12 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__menubar {
     background: var(--dolphin-chrome);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__menubar-nav {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__menubar-nav {
     width: 100%;
 }
 
 /* Liste horizontale : Fichier, Édition, Affichage… */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -160,12 +160,12 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader {
     overflow: visible;                     /* sous-menus peuvent dépasser */
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader > li {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader > li {
     position: relative;                    /* ancrage des .listeSousMenu */
     flex: 0 0 auto;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader > li > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader > li > a {
     display: inline-flex;
     align-items: center;
     height: var(--dolphin-menubar-h);
@@ -177,16 +177,16 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader > li > a {
     white-space: nowrap;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader > li:active > a,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader > li > a:hover {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader > li:active > a,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader > li > a:hover {
     background: var(--dolphin-accent-soft);
 }
 
 /* --------------------------------------------------------------------------
- * Dropdowns .menuHeader.nemo-app__menu > .listeSousMenu
+ * Dropdowns .menuHeader.file-explorer-app__menu > .listeSousMenu
  * (écrase nemo : img width calc(var(--head)/2), padding-left géant sur <li>)
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu {
     display: none;
     position: absolute;
     top: 100%;
@@ -203,12 +203,12 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .
     z-index: 1000;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu > li:hover .listeSousMenu {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu > li:hover .listeSousMenu {
     display: block;
 }
 
 /* Ligne du dropdown : [img?] + libellé (<li>) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -221,12 +221,12 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .
     text-decoration: none;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a:hover {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a:hover {
     background: var(--dolphin-accent-soft);
 }
 
 /* Icône principale à gauche (direct enfant <img> de <a>) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a > img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a > img {
     flex: 0 0 auto;
     width: var(--dolphin-menu-dropdown-icon-size);
     height: var(--dolphin-menu-dropdown-icon-size);
@@ -239,7 +239,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .
     display: block;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a > li {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a > li {
     flex: 1 1 auto;
     display: flex;
     flex-flow: row nowrap;
@@ -256,16 +256,16 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .
 }
 
 /* Entrées sans icône à gauche : même retrait que les lignes avec icône */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a:not(:has(> img)) {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a:not(:has(> img)) {
     padding-left: calc(10px + var(--dolphin-menu-dropdown-icon-size) + 8px);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a:not(:has(> img)) > li {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a:not(:has(> img)) > li {
     padding-left: 0;
 }
 
 /* Petite flèche / icône dans le libellé (ex. « Créer un document ▸ ») */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu > a > li > img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu > a > li > img {
     position: static;
     flex: 0 0 auto;
     width: var(--dolphin-menu-dropdown-arrow-size);
@@ -274,17 +274,17 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .
     object-fit: contain;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .menuHeader.nemo-app__menu .listeSousMenu .lineUnder {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .menuHeader.file-explorer-app__menu .listeSousMenu .lineUnder {
     border-bottom: 1px solid var(--dolphin-chrome-border);
 }
 
 /* --------------------------------------------------------------------------
- * 5. Ligne 3 — Barre d’outils (.dolphin-toolbar / .nemo-app__toolbar)
+ * 5. Ligne 3 — Barre d’outils (.dolphin-toolbar / .file-explorer-app__toolbar)
  * --------------------------------------------------------------------------
  * Écrase les règles nemo avec gap/padding/min-width basés sur --head.
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -302,7 +302,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar {
 }
 
 /* Groupe : nav | vues | chemin | actions */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar-group {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar-group {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -312,20 +312,20 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar-group {
 }
 
 /* Zone centrale : fil d’Ariane / « Dossier personnel » */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar-group--path,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__path {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar-group--path,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__path {
     display: none; /* le path est déjà dans le header (titre) */
 }
 
 /* Séparateur vertical avant les boutons de vue */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__view {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__view {
     padding-left: 0; /* compacte (évite le gros espace avant Recherche) */
     margin-left: 0;
     border-left: 0;
 }
 
 /* Bloc droite : recherche, Aperçu, Scinder */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__actions {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__actions {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -335,8 +335,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__actions {
 }
 
 /* Boutons icône (+ libellé pour Aperçu / Scinder) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar-group > a,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar-group > a,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -354,21 +354,21 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn {
     transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar-group > a:hover,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn:hover {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar-group > a:hover,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn:hover {
     background: var(--dolphin-btn-hover);
     border-color: var(--dolphin-accent);
     transform: none;
 }
 
 /* Mode d’affichage actif (grille / compacte / liste) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__view-btn--active {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__view-btn--active {
     border-color: var(--dolphin-accent);
     box-shadow: inset 0 0 0 1px var(--dolphin-accent);
 }
 
 /* Lien chemin courant (mis à jour par fileExplorerCore.js) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__path-current {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__path-current {
     display: block;
     width: 100%;
     min-width: 0;
@@ -386,7 +386,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__path-current {
 }
 
 /* Champ « Rechercher… » */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__search {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__search {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -399,7 +399,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__search {
     min-width: 120px;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__search input {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__search input {
     width: 100%;
     min-width: 0;
     border: 0;
@@ -410,7 +410,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__search inp
 }
 
 /* Libellés texte à côté des icônes (Aperçu, Scinder) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn span:not(.dolphin-ico) {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn span:not(.dolphin-ico) {
     font-size: 12px;
     line-height: 1;
     color: var(--dolphin-text);
@@ -422,8 +422,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn span:n
 }
 
 /* Images <img> dans la toolbar (templates legacy / overrides skin) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar img,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar img,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__toolbar img {
     flex: 0 0 auto;
     width: var(--dolphin-toolbar-icon-size);
     height: var(--dolphin-toolbar-icon-size);
@@ -433,12 +433,12 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__toolbar img {
     display: block;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__search img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__search img {
     width: var(--dolphin-toolbar-icon-size);
     height: var(--dolphin-toolbar-icon-size);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split img {
     width: var(--dolphin-toolbar-icon-size-split);
     height: var(--dolphin-toolbar-icon-size-split);
     max-width: var(--dolphin-toolbar-icon-size-split);
@@ -446,8 +446,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split
 }
 
 /* Boutons avec texte (Aperçu / Scinder) : ne pas déborder */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--preview,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--preview,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split {
     width: auto;
     min-width: 0;
     max-width: 7.5rem;
@@ -459,15 +459,15 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split
 }
 
 /* Boutons icône seule (nav / vues) : carré compact */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__nav .dolphin-toolbar__btn,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__view .dolphin-toolbar__btn {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__nav .dolphin-toolbar__btn,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__view .dolphin-toolbar__btn {
     min-width: 28px;
     width: 28px;
     max-width: 28px;
     padding: 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn[aria-disabled="true"] {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn[aria-disabled="true"] {
     cursor: default;
     opacity: 0.45;
     pointer-events: none;
@@ -479,7 +479,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn[aria-d
  * Placeholder : carré coloré. Chaque skin définit .dolphin-ico--back etc.
  * avec background-image vers ses SVG locaux.
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico {
     flex-shrink: 0;
     width: var(--dolphin-toolbar-icon-size);
     height: var(--dolphin-toolbar-icon-size);
@@ -496,8 +496,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico {
 }
 
 /* Scinder : taille forcée (ne pas hériter de contain / 16px du legacy nemo) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split .dolphin-ico,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--split {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split .dolphin-ico,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-ico--split {
     width: var(--dolphin-toolbar-icon-size-split);
     height: var(--dolphin-toolbar-icon-size-split);
     min-width: var(--dolphin-toolbar-icon-size-split);
@@ -508,9 +508,9 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-ico--split {
 }
 
 /* --------------------------------------------------------------------------
- * 7. Zone principale (#nemoMainContainer) — sidebar + grille
+ * 7. Zone principale (#fileExplorerMain) — sidebar + grille
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoMainContainer {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerMain {
     flex: 1 1 auto;           /* occupe tout l’espace entre header et footer */
     display: flex;
     flex-flow: row nowrap;    /* sidebar à gauche, contenu à droite */
@@ -523,8 +523,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoMainContainer {
     overflow: hidden;
 }
 
-/* Panneau gauche « Emplacements » (#voletnemo, liens injectés par le kernel) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo {
+/* Panneau gauche « Emplacements » (#fileExplorerSidebar, liens injectés par le kernel) */
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar {
     flex: 0 0 var(--dolphin-sidebar-w);
     width: var(--dolphin-sidebar-w);
     min-width: var(--dolphin-sidebar-w);
@@ -541,7 +541,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo {
 }
 
 /* Sections + titres (Emplacements, Distant, Récents…) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__section {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__section {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -549,7 +549,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
     padding: 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__heading {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__heading {
     margin: 0;
     padding: 8px 12px 4px;
     font-size: 11px;
@@ -559,7 +559,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
     color: var(--dolphin-text-muted);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__nav {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__nav {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -568,8 +568,8 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
 }
 
 /* Lien sidebar : icône + libellé (structure nav > a > img + span) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__link,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__nav > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__link,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__nav > a {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -584,15 +584,15 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
     text-decoration: none;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__link:hover,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__link--active,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .nemo-sidebar__link--active {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__link:hover,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__link--active,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .nemo-sidebar__link--active {
     background: var(--dolphin-accent-soft);
 }
 
-/* Icônes sidebar — sélecteur direct enfant img (pas #voletnemo > div > a) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__link > img,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__nav a > img {
+/* Icônes sidebar — sélecteur direct enfant img (pas #fileExplorerSidebar > div > a) */
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__link > img,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__nav a > img {
     flex: 0 0 auto;
     width: var(--dolphin-sidebar-icon-size, 16px);
     height: var(--dolphin-sidebar-icon-size, 16px);
@@ -605,7 +605,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
     display: block;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar__label {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerSidebar .dolphin-sidebar__label {
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden;
@@ -614,7 +614,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletnemo .dolphin-sidebar_
 }
 
 /* Zone droite : conteneur de la grille de fichiers */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoMainContainer > #voletContainer {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerMain > #voletContainer {
     flex: 1 1 auto !important;
     display: flex !important;
     flex-direction: column !important;
@@ -632,7 +632,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoMainContainer > #voletC
     overflow: hidden;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -641,7 +641,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer {
     overflow: hidden;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes {
     flex: 1 1 auto;
     display: flex;
     flex-direction: row;
@@ -652,7 +652,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes {
     overflow: hidden;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-pane {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-pane {
     position: relative;
     flex: 1 1 auto;
     display: flex;
@@ -663,7 +663,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-pane {
     border-right: 1px solid var(--dolphin-chrome-border);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes:not(.dolphin-content-panes--split) .dolphin-content-pane--secondary {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes:not(.dolphin-content-panes--split) .dolphin-content-pane--secondary {
     display: none !important;
     flex: 0 0 0 !important;
     width: 0 !important;
@@ -673,17 +673,17 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes:not(.
     border: 0 !important;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--split .dolphin-content-pane--primary,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--split .dolphin-content-pane--secondary {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--split .dolphin-content-pane--primary,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--split .dolphin-content-pane--secondary {
     flex: 1 1 50%;
     max-width: 50%;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-pane--active {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-pane--active {
     box-shadow: inset 0 0 0 1px var(--dolphin-accent);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane {
     display: none !important;
     flex: 0 0 0 !important;
     width: 0 !important;
@@ -695,7 +695,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane {
     border: 0 !important;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane {
     display: flex !important;
     flex: 0 0 min(300px, 38%) !important;
     flex-direction: column;
@@ -709,11 +709,11 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolph
 }
 
 /* L’attribut HTML hidden a display:none !important — le retirer en JS ; ce garde-fou CSS aide si la classe est posée. */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane[hidden] {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-panes.dolphin-content-panes--preview-open .dolphin-preview-pane[hidden] {
     display: flex !important;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__header {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__header {
     flex: 0 0 auto;
     padding: 8px 10px;
     border-bottom: 1px solid var(--dolphin-chrome-border);
@@ -725,7 +725,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__heade
     white-space: nowrap;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body {
     flex: 1 1 auto;
     min-height: 0;
     overflow: auto;
@@ -736,46 +736,46 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body 
     background: var(--dolphin-view);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__empty {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__empty {
     margin: 0;
     font-size: 12px;
     color: var(--dolphin-text-muted);
     text-align: center;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body img,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body object,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body video {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body img,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body object,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body video {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body object.dolphin-preview-pane__pdf {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body object.dolphin-preview-pane__pdf {
     width: 100%;
     height: 100%;
     min-height: 240px;
     border: 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body audio {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-preview-pane__body audio {
     width: 100%;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--preview[aria-pressed="true"],
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split[aria-pressed="true"] {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--preview[aria-pressed="true"],
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-toolbar__btn--split[aria-pressed="true"] {
     border-color: var(--dolphin-accent);
     box-shadow: inset 0 0 0 1px var(--dolphin-accent);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__item--search-hidden {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__item--search-hidden {
     display: none !important;
 }
 
 /* Grille dossiers/fichiers (.nemoElement rempli par fileExplorerCore.js) */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__content-grid,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-content-pane > .nemoElement,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__content-grid,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-content-pane > .nemoElement,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement {
     flex: 1 1 auto !important;
     display: flex !important;
     flex-flow: row wrap !important;
@@ -796,7 +796,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
 }
 
 /* Tuile fichier/dossier */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a {
     box-sizing: border-box;
     flex: 0 0 auto;
     display: flex;
@@ -816,7 +816,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     position: relative;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a > img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a > img {
     flex: 0 0 auto;
     width: var(--nemo-item-icon-size, 48px) !important;
     height: var(--nemo-item-icon-size, 48px) !important;
@@ -826,7 +826,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     object-fit: contain;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a > span {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a > span {
     flex: 0 1 auto;
     width: 100%;
     margin-top: 4px;
@@ -836,23 +836,23 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     word-break: break-word;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a:hover,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.nemo-app__item--selected {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a:hover,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.file-explorer-app__item--selected {
     background: var(--dolphin-accent-soft);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.nemo-app__item--selected {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a.file-explorer-app__item--selected {
     box-shadow: inset 0 0 0 2px var(--dolphin-accent);
 }
 
 /* Vue compacte : icônes plus petites, tuiles resserrées */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--compact {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--compact {
     gap: 6px;
     --nemo-item-icon-base-size: 32px;
     --nemo-item-base-size: 68px;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--compact > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--compact > a {
     width: var(--nemo-item-card-size, 68px);
     min-width: var(--nemo-item-card-size, 68px);
     max-width: var(--nemo-item-card-size, 68px);
@@ -860,19 +860,19 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     padding: 4px;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--compact > a > img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--compact > a > img {
     width: var(--nemo-item-icon-size, 32px) !important;
     height: var(--nemo-item-icon-size, 32px) !important;
     max-width: var(--nemo-item-icon-size, 32px) !important;
     max-height: var(--nemo-item-icon-size, 32px) !important;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--compact > a > span {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--compact > a > span {
     font-size: 11px;
 }
 
 /* Vue détaillée (liste) : une ligne par élément */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--list {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--list {
     flex-direction: column;
     flex-wrap: nowrap;
     align-content: stretch;
@@ -880,7 +880,7 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     padding: 4px 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--list > a {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--list > a {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
@@ -892,13 +892,13 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
     border-radius: 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--list > a > img {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--list > a > img {
     width: 22px;
     height: 22px;
     flex-shrink: 0;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.nemo-app__content-grid--list > a > span {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement.file-explorer-app__content-grid--list > a > span {
     margin-top: 0;
     text-align: left;
     white-space: nowrap;
@@ -907,14 +907,14 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement
 }
 
 /* Désactive les tooltips CSS (::after + data-details) de nemo.base.css */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a::after,
-div[data-link="nemo"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a:hover::after {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a::after,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #voletContainer .nemoElement > a:hover::after {
     display: none !important;
     content: none !important;
 }
 
 /* Pastille « N dossiers » en bas à gauche de la grille */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-folder-pill {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .dolphin-folder-pill {
     position: absolute;
     left: 12px;
     bottom: 10px;
@@ -929,16 +929,16 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app .dolphin-folder-pill {
 }
 
 /* Message « dossier vide » / « introuvable » */
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__empty {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__empty {
     padding: 16px;
     color: var(--dolphin-text-muted);
     font-size: 13px;
 }
 
 /* --------------------------------------------------------------------------
- * 8. Barre d’état (#nemoFooterContainer)
+ * 8. Barre d’état (#fileExplorerFooter)
  * -------------------------------------------------------------------------- */
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoFooterContainer {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerFooter {
     flex: 0 0 auto;
     display: flex;
     flex-flow: row nowrap;
@@ -954,19 +954,19 @@ div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoFooterContainer {
     color: var(--dolphin-text-muted);
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app #nemoFooterContainer p {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app #fileExplorerFooter p {
     margin: 0;
     font-size: 12px;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__status-left,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__status-center,
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__status-right {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__status-left,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__status-center,
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__status-right {
     display: flex;
     align-items: center;
 }
 
-div[data-link="nemo"] main#gestionnaire.dolphin-app .nemo-app__status-center {
+div[data-link="fileExplorer"] main#gestionnaire.dolphin-app .file-explorer-app__status-center {
     flex: 1;
     justify-content: center;  /* texte « X éléments, espace… » centré */
 }

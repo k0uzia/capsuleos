@@ -1,5 +1,5 @@
 const fileExplorerSystemLink = {
-    'files': {
+    'nautilus': {
         //////////////////////////// DOSSIER ////////////////////////////////
         "Dossier_personnel": { 
             "image": "./media/img/elements/nemo/folder.png"

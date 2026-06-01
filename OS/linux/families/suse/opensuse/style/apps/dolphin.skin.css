@@ -1,6 +1,6 @@
 /* openSUSE Tumbleweed - Dolphin Breeze clair (réf. visuel/screen/Dolphin.png). */
 
-body#opensuse div[data-link="nemo"] {
+body#opensuse div[data-link="fileExplorer"] {
     --dolphin-chrome: #eff0f1;
     --dolphin-chrome-border: #bdc3c7;
     --dolphin-view: #ffffff;
@@ -85,7 +85,7 @@ body#opensuse div[data-link="nemo"] {
     --dolphin-pathbar-font-size: calc(var(--head) / 2.55);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app {
     --nemo-bg-primary: var(--dolphin-view);
     --nemo-header-bg: var(--dolphin-chrome);
     --nemo-border: var(--dolphin-chrome-border);
@@ -108,7 +108,7 @@ body#opensuse div[data-link="nemo"] .dolphin-app {
     --nemo-accent: var(--dolphin-accent);
 }
 
-body#opensuse div[data-link="nemo"].windowElement {
+body#opensuse div[data-link="fileExplorer"].windowElement {
     padding: 0;
     border: 1px solid var(--dolphin-window-shell-border);
     border-radius: 2px;
@@ -117,14 +117,14 @@ body#opensuse div[data-link="nemo"].windowElement {
     overflow: hidden;
 }
 
-body#opensuse div[data-link="nemo"].windowElementActive {
+body#opensuse div[data-link="fileExplorer"].windowElementActive {
     z-index: 500;
     border-color: #a8adb3;
     box-shadow: 0 10px 28px rgba(35, 38, 41, 0.18);
     outline: none;
 }
 
-body#opensuse div[data-link="nemo"] main#gestionnaire.dolphin-app {
+body#opensuse div[data-link="fileExplorer"] main#gestionnaire.dolphin-app {
     width: 100%;
     height: 100%;
     min-height: 100%;
@@ -132,7 +132,7 @@ body#opensuse div[data-link="nemo"] main#gestionnaire.dolphin-app {
     border-radius: 0;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader {
+body#opensuse div[data-link="fileExplorer"] #windowHeader {
     position: absolute;
     top: 0;
     right: 0;
@@ -156,11 +156,11 @@ body#opensuse div[data-link="nemo"] #windowHeader {
     pointer-events: auto;
 }
 
-body#opensuse div[data-link="nemo"].windowElementActive #windowHeader {
+body#opensuse div[data-link="fileExplorer"].windowElementActive #windowHeader {
     background: var(--dolphin-window-header-active-start);
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:first-child {
     position: absolute;
     top: 0;
     left: calc(var(--head) / 6);
@@ -175,8 +175,8 @@ body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child {
     pointer-events: auto;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child::before,
-body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child::after {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:first-child::before,
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:first-child::after {
     content: "";
     display: block;
     width: var(--dolphin-titlebar-app-icon);
@@ -187,18 +187,18 @@ body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child::after {
     opacity: 0.92;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child::before {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:first-child::before {
     background-image: url("./media/img/apps/org.kde.dolphin.svg");
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:first-child::after {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:first-child::after {
     width: var(--dolphin-titlebar-pin-icon);
     height: var(--dolphin-titlebar-pin-icon);
     background-image: url("./media/img/elements/nemo/add-pin.svg");
     opacity: 0.78;
 }
 
-body#opensuse div[data-link="nemo"] #windowTitle {
+body#opensuse div[data-link="fileExplorer"] #windowTitle {
     display: block;
     width: auto;
     max-width: calc(100% - 15rem);
@@ -216,7 +216,7 @@ body#opensuse div[data-link="nemo"] #windowTitle {
     filter: none;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:last-child {
     position: absolute;
     top: 0;
     right: calc(var(--head) / 6);
@@ -232,7 +232,7 @@ body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child {
     pointer-events: auto;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child > button {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:last-child > button {
     position: relative;
     width: var(--dolphin-titlebar-control-size);
     height: var(--dolphin-titlebar-control-size);
@@ -243,7 +243,7 @@ body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child > button {
     background-color: transparent;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child > button#minimizeBtn {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:last-child > button#minimizeBtn {
     background-image: url("./media/img/header/minimize.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
@@ -252,7 +252,7 @@ body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child > button#mini
     opacity: 0.92;
 }
 
-body#opensuse div[data-link="nemo"] #resizeBtn {
+body#opensuse div[data-link="fileExplorer"] #resizeBtn {
     background-image: url("./media/img/header/window-restore.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
@@ -261,7 +261,7 @@ body#opensuse div[data-link="nemo"] #resizeBtn {
     opacity: 0.88;
 }
 
-body#opensuse div[data-link="nemo"] #closeBtn {
+body#opensuse div[data-link="fileExplorer"] #closeBtn {
     background-image: url("./media/img/header/window-close.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
@@ -270,24 +270,24 @@ body#opensuse div[data-link="nemo"] #closeBtn {
     opacity: 0.88;
 }
 
-body#opensuse div[data-link="nemo"] #windowHeader > nav:last-child > button:hover {
+body#opensuse div[data-link="fileExplorer"] #windowHeader > nav:last-child > button:hover {
     background-color: rgba(255, 255, 255, 0.12);
     transform: none;
 }
 
-body#opensuse div[data-link="nemo"] #closeBtn:hover {
+body#opensuse div[data-link="fileExplorer"] #closeBtn:hover {
     background-color: rgba(205, 74, 93, 0.38);
     opacity: 1;
 }
 
-body#opensuse div[data-link="nemo"] #gestionnaire {
+body#opensuse div[data-link="fileExplorer"] #gestionnaire {
     display: flex;
     flex-flow: column nowrap;
     margin-bottom: 0;
     font-family: "Cantarell", var(--font-ui);
 }
 
-body#opensuse div[data-link="nemo"] #nemoHeaderContainer {
+body#opensuse div[data-link="fileExplorer"] #fileExplorerHeader {
     min-height: 0;
     height: auto;
     margin-top: 0;
@@ -297,11 +297,11 @@ body#opensuse div[data-link="nemo"] #nemoHeaderContainer {
     background: var(--dolphin-chrome);
 }
 
-body#opensuse div[data-link="nemo"].windowElementActive #nemoHeaderContainer {
+body#opensuse div[data-link="fileExplorer"].windowElementActive #fileExplorerHeader {
     background: var(--dolphin-chrome);
 }
 
-body#opensuse div[data-link="nemo"] #nemoMainContainer {
+body#opensuse div[data-link="fileExplorer"] #fileExplorerMain {
     flex: 1 1 auto;
     bottom: 0;
     width: 100%;
@@ -310,13 +310,13 @@ body#opensuse div[data-link="nemo"] #nemoMainContainer {
     margin: 0;
 }
 
-body#opensuse div[data-link="nemo"] #voletnemo,
-body#opensuse div[data-link="nemo"] #voletContainer {
+body#opensuse div[data-link="fileExplorer"] #fileExplorerSidebar,
+body#opensuse div[data-link="fileExplorer"] #voletContainer {
     height: 100%;
     min-height: 0;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolbar {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__toolbar.dolphin-toolbar {
     min-height: calc(var(--head) * 0.98);
     margin-top: 0;
     padding: var(--dolphin-toolbar-pad-top-bottom) var(--dolphin-toolbar-pad-right) var(--dolphin-toolbar-pad-top-bottom) var(--dolphin-toolbar-pad-left);
@@ -325,20 +325,20 @@ body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-tool
     background: var(--dolphin-chrome);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolbar > .sousMenuOutils {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__toolbar.dolphin-toolbar > .sousMenuOutils {
     background-color: transparent;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__nav {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__nav {
     order: 1;
     margin-right: calc(var(--head) / 28);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__view {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__view {
     display: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn {
     min-width: calc(var(--head) / 1.32);
     height: calc(var(--head) / 1.32);
     border-radius: 3px;
@@ -348,19 +348,19 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn {
     transition: border-color var(--eas2), background-color var(--eas2), box-shadow var(--eas2), transform var(--eas2);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn:hover {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn:hover {
     border-color: var(--dolphin-accent);
     background: var(--nemo-toolbar-button-hover-bg);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
     transform: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn:focus-visible {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn:focus-visible {
     outline: 2px solid var(--dolphin-accent-ring);
     outline-offset: 1px;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn img {
     width: calc(var(--head) / 2.05);
     height: calc(var(--head) / 2.05);
     object-fit: contain;
@@ -368,18 +368,18 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn img {
     opacity: 0.9;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__btn .dolphin-toolbar__svg {
     color: var(--dolphin-toolbar-text);
     opacity: 0.9;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__view-btn--active {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__view-btn--active {
     border-color: var(--dolphin-accent);
     background: #ffffff;
     box-shadow: inset 0 0 0 1px var(--dolphin-accent-ring);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child {
     width: auto;
     min-width: var(--dolphin-split-min-width);
     padding: 0 var(--dolphin-split-pad-right) 0 var(--dolphin-split-pad-left);
@@ -389,16 +389,16 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolp
     margin-right: var(--dolphin-split-margin-right);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child .dolphin-toolbar__svg {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child .dolphin-toolbar__svg {
     display: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child::after {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:first-child::after {
     content: "Scinder";
     color: var(--dolphin-toolbar-text);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__path {
     order: 3;
     flex: 1 1 auto;
     min-width: 0;
@@ -408,13 +408,13 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path {
     max-width: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__path .nemo-app__path-current {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__path .file-explorer-app__path-current {
     flex: 1;
     width: 100%;
     min-width: 0;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__crumb-prefix {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__crumb-prefix {
     position: absolute;
     top: 50%;
     left: var(--dolphin-crumb-left);
@@ -422,7 +422,7 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__crumb-prefix 
     transform: translateY(-50%);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions {
     order: 4;
     margin-left: 0;
     gap: var(--dolphin-actions-gap);
@@ -430,16 +430,16 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions {
     transform: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:nth-child(2),
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:nth-child(2),
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
     margin-left: var(--dolphin-actions-icon-shift-x);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-toolbar__actions .dolphin-toolbar__btn:last-child {
     margin-right: calc(var(--head) / 18);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__path-current {
     position: relative;
     display: flex;
     align-items: center;
@@ -454,7 +454,7 @@ body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__path-current {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #nemoMainContainer > #voletnemo.dolphin-sidebar {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerMain > #fileExplorerSidebar.dolphin-sidebar {
     width: var(--dolphin-sidebar-w);
     min-width: var(--dolphin-sidebar-w);
     max-width: var(--dolphin-sidebar-w);
@@ -464,12 +464,12 @@ body#opensuse div[data-link="nemo"] .dolphin-app #nemoMainContainer > #voletnemo
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.04);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-wrap.dolphin-content-wrap {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-wrap.dolphin-content-wrap {
     background: var(--dolphin-view);
     border-left: 0;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__heading {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__heading {
     margin: calc(var(--head) / 6) 0 calc(var(--head) / 11) calc(var(--head) / 16);
     font-size: calc(var(--head) / 3.15);
     font-weight: 600;
@@ -478,7 +478,7 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__heading {
     color: var(--dolphin-text-muted);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link {
     gap: calc(var(--head) / 7);
     padding: calc(var(--head) / 7.2) calc(var(--head) / 8.2);
     border-radius: 2px;
@@ -488,8 +488,8 @@ body#opensuse div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__li
     color: var(--dolphin-text);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img,
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link img,
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row img {
     width: calc(var(--head) / 2.25);
     height: calc(var(--head) / 2.25);
     object-fit: contain;
@@ -498,27 +498,27 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img 
 }
 
 /* Normalize KDE sidebar icon contrast per theme. */
-body#opensuse div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link img[src*="/media/img/elements/kde/"],
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row img[src*="/media/img/elements/kde/"] {
     filter: var(--dolphin-icon-filter-sidebar);
     opacity: 0.95;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link:hover:not(.dolphin-sidebar__link--active) {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerSidebar .dolphin-sidebar__link:hover:not(.dolphin-sidebar__link--active) {
     background: var(--dolphin-sidebar-hover-bg);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__link--active {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__link--active {
     background: var(--dolphin-sidebar-active-bg);
     border-left: 3px solid var(--dolphin-accent);
     padding-left: calc(var(--head) / 8.2 - 3px);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__link--active img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__link--active img {
     opacity: 1;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-row {
     gap: calc(var(--head) / 7);
     padding: calc(var(--head) / 7.2) calc(var(--head) / 8.2);
     margin-left: 0;
@@ -527,66 +527,66 @@ body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row {
     color: var(--dolphin-text);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-path {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__root-path {
     display: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__usage {
     height: 3px;
     margin: 1px calc(var(--head) / 9) calc(var(--head) / 6) calc(var(--head) / 1.45);
     background: var(--dolphin-usage-track-bg);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage-fill {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-sidebar__usage-fill {
     width: 70%;
     background: linear-gradient(90deg, var(--dolphin-usage-fill-start), var(--dolphin-usage-fill-end));
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid {
     gap: calc(var(--head) / 3);
     padding: calc(var(--head) / 1.55) var(--dolphin-content-grid-pad-x) calc(var(--head) * 1.9);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a {
     width: calc(var(--head) * 2.55);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #voletContainer > .nemoElement > a:hover,
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:hover {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #voletContainer > .nemoElement > a:hover,
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:hover {
     background: transparent;
     outline: none;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a > img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a > img {
     width: calc(var(--head) * 1.35);
     height: calc(var(--head) * 1.15);
     padding: calc(var(--head) / 9);
     border-radius: 3px;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:hover > img,
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:focus-visible > img,
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a:focus > img,
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a.nemo-app__item--selected > img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:hover > img,
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:focus-visible > img,
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a:focus > img,
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a.file-explorer-app__item--selected > img {
     background: var(--dolphin-grid-item-hover-bg);
     box-shadow: inset 0 0 0 1px var(--dolphin-grid-item-hover-outline);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a.nemo-app__item--selected > img {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a.file-explorer-app__item--selected > img {
     background: var(--dolphin-grid-selected-bg);
     box-shadow: inset 0 0 0 1px var(--dolphin-grid-selected-outline);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a.nemo-app__item--selected > span {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a.file-explorer-app__item--selected > span {
     color: var(--dolphin-text);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .nemo-app__content-grid > a > span {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .file-explorer-app__content-grid > a > span {
     font-size: calc(var(--head) / 2.5);
     color: var(--dolphin-text);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app .dolphin-folder-pill {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app .dolphin-folder-pill {
     display: block;
     left: 14px;
     bottom: 12px;
@@ -609,18 +609,18 @@ body#opensuse .dolphin-sidebar__root-label {
     font-size: calc(var(--head) / 2.25);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #nemoFooterContainer {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter {
     display: none;
     min-height: calc(var(--head) / 1.35);
     border-top: 1px solid var(--dolphin-chrome-border);
     background: var(--dolphin-chrome);
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #nemoFooterContainer .nemo-app__status-center {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter .file-explorer-app__status-center {
     justify-content: flex-start;
 }
 
-body#opensuse div[data-link="nemo"] .dolphin-app #nemoFooterContainer .nemo-app__status-center p {
+body#opensuse div[data-link="fileExplorer"] .dolphin-app #fileExplorerFooter .file-explorer-app__status-center p {
     color: var(--dolphin-text-muted);
     font-size: calc(var(--head) / 2.5);
 }

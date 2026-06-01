@@ -91,7 +91,7 @@ Ceci évite d'atteindre un nombre critique de scripts et permet d'alléger la ch
 
 Les navigateurs bloquent ou restreignent `fetch()` sur des fichiers locaux. Pour que les bureaux Linux et Android fonctionnent **sans serveur HTTP** (double-clic sur `index.html`), le dépôt inclut des scripts générés : `OS/linux/kernel/js/capsule-app-embed.js` et `OS/android/js/capsule-android-embed.js`.
 
-Après modification des gabarits sous `OS/linux/shared/apps/` ou des skins `style/apps/*.skin.css` (Mint, Ubuntu, Fedora), régénérer le fichier Linux :
+Après modification des gabarits sous `OS/linux/shared/apps/`, sous `modules/app/<templateId>/`, ou des skins `style/apps/*.skin.css` (Mint, Ubuntu, Fedora, …), régénérer le fichier Linux :
 
 ```bash
 node js/build-capsule-embed.mjs
@@ -109,7 +109,7 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 ## Définition de l'arborescence ▼
 
-📄 index.html
+📄 index.html (portail : hero, à propos, choix d’OS ; `js/pick-os.js`, `js/header-nav.js`)
 
 📁 assets ▼
 
@@ -117,19 +117,13 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 📁 js ▼
 
-​	📄 background.js
+​	📄 pick-os.js, header-nav.js, capsule-pick-return.js
 
-​	📄 date.js
+​	📄 build-capsule-embed.mjs (génère l’embed Linux)
 
-​	📄 dock.js
+📁 modules ▼
 
-​	📄 index.js
-
-​	📄 main.js
-
-​	📄 menu.js
-
-​	📄 windows.js
+​	📁 app ▼ (gabarits HTML + `.base.css` : dolphin, librewriter, …)
 
 📁 OS ▼
 
@@ -145,9 +139,7 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 ​			📁 js ▼ (scripts du bureau simulé : fenêtres, Nemo, apps, `capsule-app-embed.js` généré, etc.)
 
-​		📁 shared ▼ (apps HTML/CSS `.base.css` + contenu pédagogique commun)
-
-​			📄 README.md
+​		📁 shared ▼ (apps non migrées vers `modules/app/` + contenu pédagogique commun)
 
 ​			📁 apps ▼
 
@@ -187,3 +179,4 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 
 
+ 

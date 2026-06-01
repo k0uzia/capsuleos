@@ -18,7 +18,7 @@
                 <span>AnduinOS<br>À propos</span>
             </a>
             <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-            <div class="windowElement" data-link="nemo" id="nemo" style="display: none; position: fixed;"></div>
+            <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
             <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
@@ -42,7 +42,7 @@
             <a target="windowElement" data-link="firefox" title="Firefox">
                 <img src="./media/img/taskbar/firefox.png" alt="Firefox" width="40" height="40">
             </a>
-            <a target="windowElement" data-link="nemo" title="Fichiers">
+            <a target="windowElement" data-link="fileExplorer" title="Fichiers">
                 <img src="./media/img/taskbar/files.png" alt="Fichiers" width="40" height="40">
             </a>
             <a target="windowElement" data-link="update_manager" title="Logiciels"
@@ -88,11 +88,11 @@
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_EXPLORER_APP_ID = 'nemo';
-        window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Fichiers';
-        window.CAPSULE_EXPLORER_TEMPLATE = 'nemo-gnome';
-        window.CAPSULE_EXPLORER_SKIN_KEY = 'files';
-        window.CAPSULE_EXPLORER_LIST_VIEW = true;
+        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
+        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Fichiers';
+        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'nautilus';
+        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'nautilus';
+        window.CAPSULE_FILE_MANAGER_LIST_VIEW = true;
         window.CAPSULE_MAIN_MENU_TEMPLATE = 'mainMenu-gnome';
         window.CAPSULE_MAIN_MENU_SKIN_KEY = 'mainMenu';
         window.CAPSULE_TEMPLATE_OVERRIDES = {
@@ -139,11 +139,12 @@
             webp: './media/img/mimeTypes/image-x-generic.svg'
         };
     </script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260602"></script>
+    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260424"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
     <script src="../../../kernel/js/capsule-theme.js?v=20260424"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260528"></script>
+    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
     <script src="../../../kernel/js/windowHeaderButton.js?v=20260424"></script>
     <script src="../../../kernel/js/resizeWindow.js"></script>
     <script src="../../../kernel/js/windowDrag.js"></script>
@@ -157,10 +158,10 @@
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260528"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>

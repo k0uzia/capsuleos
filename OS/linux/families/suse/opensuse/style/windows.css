@@ -45,12 +45,12 @@ div[class^="windowElement"]:not(#mainMenu) {
     pointer-events: auto;
 }
 
-body#opensuse div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
+body#opensuse div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
     height: var(--opensuse-konsole-header-height);
     min-height: var(--opensuse-konsole-header-height);
 }
 
-body#opensuse div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
+body#opensuse div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--opensuse-konsole-header-height));
     min-height: calc(100% - var(--opensuse-konsole-header-height));
 }

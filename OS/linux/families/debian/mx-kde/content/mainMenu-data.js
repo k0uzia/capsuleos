@@ -17,11 +17,11 @@ const MENU_CATS = [
 
 const MENU_SHORTCUTS = {
     desktop: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Bureau',
     },
     downloads: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Téléchargements',
     },
 };

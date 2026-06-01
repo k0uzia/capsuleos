@@ -17,7 +17,7 @@
             <span>Linux Mint Cinnamon<br>À Propos</span>
         </a>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="nemo" id="nemo" style="display: none; position: fixed;"></div>
+        <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
@@ -34,7 +34,7 @@
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
                 <img src="./media/img/assets/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
-            <a target="windowElement" data-link="nemo" title="Explorateur de fichiers nemo">
+            <a target="windowElement" data-link="fileExplorer" title="Explorateur de fichiers nemo">
                 <img src="./media/img/elements/nemo/folder.png" alt="Nemo" title="Explorateur de fichiers nemo">
             </a>
             <a target="windowElement" data-link="firefox" title="Ouvrir un navigateur WEB">
@@ -128,9 +128,10 @@
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_EXPLORER_APP_ID = 'nemo';
-        window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Nemo';
-        window.CAPSULE_EXPLORER_TEMPLATE = 'nemo';
+        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
+        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Nemo';
+        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'nemo';
+        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'nemo';
         window.CAPSULE_EMBED_SKIN_KEY = 'mint';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'mint-checklist';
         window.CAPSULE_SITE_HOME = '../../../../../index.html';
@@ -138,11 +139,12 @@
         window.CAPSULE_TERMINAL_OS_FAMILY = 'linux';
         window.CAPSULE_TERMINAL_PROFILE = 'debian';
     </script>
+    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
     <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260427"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260421a"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260421a"></script>
+    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
     <script src="../../../kernel/js/windowHeaderButton.js?v=20260421a"></script>
     <script src="../../../kernel/js/resizeWindow.js"></script>
     <script src="../../../kernel/js/windowDrag.js"></script>
@@ -153,10 +155,10 @@
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260427b"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>

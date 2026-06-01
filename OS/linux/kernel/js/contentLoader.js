@@ -1,8 +1,31 @@
+const MODULE_TEMPLATE_IDS_FALLBACK = [
+    'dolphin', 'librewriter', 'firefox', 'terminal', 'nemo', 'nautilus', 'nautilus-cosmic',
+    'update_manager'
+];
+
+const FILE_EXPLORER_SLOT_IDS = ['fileExplorer', 'nemo'];
+
+const isFileExplorerSlot = (slotId) => FILE_EXPLORER_SLOT_IDS.includes(slotId);
+
 const getAppsBase = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_APPS_BASE) {
         return String(window.CAPSULE_APPS_BASE).replace(/\/+$/, '');
     }
     return './apps';
+};
+
+const getModulesAppBase = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_MODULES_APP_BASE) {
+        return String(window.CAPSULE_MODULES_APP_BASE).replace(/\/+$/, '');
+    }
+    return '../../../../../modules/app';
+};
+
+const isModuleTemplate = (templateId) => {
+    if (typeof window !== 'undefined' && Array.isArray(window.CAPSULE_MODULE_TEMPLATE_IDS)) {
+        return window.CAPSULE_MODULE_TEMPLATE_IDS.includes(templateId);
+    }
+    return MODULE_TEMPLATE_IDS_FALLBACK.includes(templateId);
 };
 
 const getSkinBase = () => {
@@ -19,6 +42,57 @@ const getEmbedSkinKey = () => {
     return 'mint';
 };
 
+const resolveEmbedSlotAssets = (templateId, skinId) => {
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    if (!embed || !embed.templates || !embed.templates[templateId]) {
+        return null;
+    }
+    const skinKey = getEmbedSkinKey();
+    const skinMap = (embed.skins && embed.skins[skinKey]) || {};
+    const t = embed.templates[templateId];
+    const skinOverride = embed.skinTemplates
+        && embed.skinTemplates[skinKey]
+        && embed.skinTemplates[skinKey][templateId];
+    const cssSkin = skinMap[skinId] != null
+        ? skinMap[skinId]
+        : (skinMap[templateId] != null ? skinMap[templateId] : '');
+    const cssBase = skinOverride && skinOverride.cssBase
+        ? skinOverride.cssBase
+        : t.cssBase;
+    return {
+        html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
+        cssBase,
+        cssSkin
+    };
+};
+
+const getUpdateManagerEmbedSkinKey = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY) {
+        return String(window.CAPSULE_EMBED_SKIN_KEY);
+    }
+    if (typeof document !== 'undefined' && document.body && document.body.id) {
+        return document.body.id === 'mx-kde' ? 'mxkde' : document.body.id;
+    }
+    return '';
+};
+
+/** Variante HTML du gestionnaire de mises à jour (Mint / Discover / Ubuntu Software). */
+const resolveUpdateManagerHtmlFile = (modulesBase) => {
+    if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES
+        && window.CAPSULE_TEMPLATE_OVERRIDES.update_manager) {
+        return String(window.CAPSULE_TEMPLATE_OVERRIDES.update_manager);
+    }
+    const base = modulesBase.replace(/\/+$/, '');
+    const skinKey = getUpdateManagerEmbedSkinKey();
+    if (skinKey === 'ubuntu') {
+        return `${base}/update_manager/update_manager_ubuntu.html`;
+    }
+    if (skinKey === 'opensuse' || skinKey === 'mxkde' || skinKey === 'debian-kde') {
+        return `${base}/update_manager/update_manager_kde.html`;
+    }
+    return `${base}/update_manager/update_manager.html`;
+};
+
 const shouldUseAppEmbed = (templateId) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
     if (!embed || !embed.templates || !embed.templates[templateId]) {
@@ -30,16 +104,19 @@ const shouldUseAppEmbed = (templateId) => {
     if (typeof location !== 'undefined' && location.protocol === 'file:') {
         return true;
     }
+    // Gabarits sous modules/app/ : chemins fetch relatifs à la skin souvent invalides (serveur local).
+    if (isModuleTemplate(templateId)) {
+        return true;
+    }
     return false;
 };
 
 /**
- * Slot logique (data-link) → nom de fichier template sous shared/apps (sans .html).
+ * Slot logique (data-link) → templateId (shared/apps ou modules/app, sans .html).
  */
 const resolveTemplateId = (slotId) => {
-    if (slotId === 'nemo' && typeof window !== 'undefined' && window.CAPSULE_EXPLORER_TEMPLATE) {
-        const t = String(window.CAPSULE_EXPLORER_TEMPLATE).replace(/\/+$/, '');
-        return t || 'nemo';
+    if (isFileExplorerSlot(slotId) && typeof window !== 'undefined' && typeof window.getFileManagerTemplate === 'function') {
+        return window.getFileManagerTemplate();
     }
     if (slotId === 'mainMenu' && typeof window !== 'undefined' && window.CAPSULE_MAIN_MENU_TEMPLATE) {
         const t = String(window.CAPSULE_MAIN_MENU_TEMPLATE).replace(/\/+$/, '');
@@ -48,9 +125,13 @@ const resolveTemplateId = (slotId) => {
     return slotId;
 };
 
-/** Gabarit HTML dérivé de Nautilus (ex. nemo-gnome) → CSS de base `nemo.base.css`. */
+/** Gabarits Nautilus (et alias legacy) → CSS de base `nemo.base.css`. */
 const resolveCssBaseTemplateId = (templateId) => {
-    if (templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
+    if (typeof window !== 'undefined' && typeof window.resolveFileManagerCssBaseTemplateId === 'function') {
+        return window.resolveFileManagerCssBaseTemplateId(templateId);
+    }
+    if (templateId === 'nautilus' || templateId === 'nautilus-cosmic'
+        || templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
         return 'nemo';
     }
     if (templateId === 'mainMenu-gnome') {
@@ -60,8 +141,8 @@ const resolveCssBaseTemplateId = (templateId) => {
 };
 
 const resolveSkinId = (slotId, templateId) => {
-    if (slotId === 'nemo' && typeof window !== 'undefined' && window.CAPSULE_EXPLORER_SKIN_KEY) {
-        const skin = String(window.CAPSULE_EXPLORER_SKIN_KEY).replace(/\/+$/, '');
+    if (isFileExplorerSlot(slotId) && typeof window !== 'undefined' && typeof window.getFileManagerSkinKey === 'function') {
+        const skin = window.getFileManagerSkinKey();
         return skin || templateId;
     }
     if (slotId === 'mainMenu' && typeof window !== 'undefined' && window.CAPSULE_MAIN_MENU_SKIN_KEY) {
@@ -85,49 +166,51 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
     }
-    if (templateId === 'dolphin') {
-        return '../../../../../modules/app/dolphin/dolphin.html';
+    if (isModuleTemplate(templateId)) {
+        const modulesBase = getModulesAppBase();
+        if (templateId === 'update_manager') {
+            return resolveUpdateManagerHtmlFile(modulesBase);
+        }
+        return `${modulesBase}/${templateId}/${templateId}.html`;
     }
     return `${appsBase}/${templateId}.html`;
 };
 
+const resolveTemplateCssBaseFile = (templateId, appsBase) => {
+    const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
+    const modulesBase = getModulesAppBase();
+    if (isModuleTemplate(cssBaseTemplateId)) {
+        return `${modulesBase}/${cssBaseTemplateId}/${cssBaseTemplateId}.base.css`;
+    }
+    if (isModuleTemplate(templateId)) {
+        return `${modulesBase}/${templateId}/${templateId}.base.css`;
+    }
+    return `${appsBase}/style/${cssBaseTemplateId}.base.css`;
+};
+
+const resolveNemoBaseCssUrl = (appsBase) => {
+    if (isModuleTemplate('nemo')) {
+        return `${getModulesAppBase()}/nemo/nemo.base.css`;
+    }
+    return `${appsBase}/style/nemo.base.css`;
+};
+
 const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallbackFile) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
-    if (shouldUseAppEmbed(templateId) && embed && embed.templates && embed.templates[templateId]) {
-        const skinKey = getEmbedSkinKey();
-        const skinMap = embed.skins && embed.skins[skinKey];
-        if (skinMap) {
-            const t = embed.templates[templateId];
-            const skinOverride = embed.skinTemplates
-                && embed.skinTemplates[skinKey]
-                && embed.skinTemplates[skinKey][templateId];
-            const cssSkin = skinMap[skinId] != null
-                ? skinMap[skinId]
-                : (skinMap[templateId] != null ? skinMap[templateId] : '');
-            return Promise.resolve({
-                html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
-                cssBase: t.cssBase,
-                cssSkin
-            });
+    if (shouldUseAppEmbed(templateId)) {
+        const fromEmbed = resolveEmbedSlotAssets(templateId, skinId);
+        if (fromEmbed) {
+            return Promise.resolve(fromEmbed);
         }
-        console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
+        console.warn(`CapsuleOS: embed incomplet pour ${templateId} — repli fetch`);
     }
 
     const htmlFile = resolveTemplateHtmlFile(templateId, appsBase);
-    const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
-    const cssBaseFile = templateId === 'dolphin'
-        ? '../../../../../modules/app/dolphin/dolphin.base.css'
-        : `${appsBase}/style/${cssBaseTemplateId}.base.css`;
+    const cssBaseFile = resolveTemplateCssBaseFile(templateId, appsBase);
 
     const resolveEmbedHtml = () => {
-        if (!embed || !embed.templates || !embed.templates[templateId]) {
-            return null;
-        }
-        const skinKey = getEmbedSkinKey();
-        const skinOverride = embed.skinTemplates
-            && embed.skinTemplates[skinKey]
-            && embed.skinTemplates[skinKey][templateId];
-        return (skinOverride && skinOverride.html) ? skinOverride.html : embed.templates[templateId].html;
+        const assets = resolveEmbedSlotAssets(templateId, skinId);
+        return assets ? assets.html : null;
     };
 
     const fetchHtml = fetch(htmlFile, { cache: 'no-store' }).then((response) => {
@@ -148,17 +231,18 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
         let text = '';
         const response = await fetch(cssBaseFile, { cache: 'no-store' });
         if (!response.ok) {
-            if (embed && embed.templates && embed.templates[templateId] && embed.templates[templateId].cssBase) {
+            const embedAssets = resolveEmbedSlotAssets(templateId, skinId);
+            if (embedAssets && embedAssets.cssBase) {
                 console.warn(`CapsuleOS: CSS base ${templateId} via embed (HTTP ${response.status})`);
-                text = embed.templates[templateId].cssBase;
+                text = embedAssets.cssBase;
             } else {
                 throw new Error(`HTTP ${response.status} ${cssBaseFile}`);
             }
         } else {
             text = await response.text();
         }
-        if (templateId === 'dolphin' && text) {
-            const nemoFile = `${appsBase}/style/nemo.base.css`;
+        if (templateId === 'dolphin' && text && !isModuleTemplate('dolphin')) {
+            const nemoFile = resolveNemoBaseCssUrl(appsBase);
             const nemoResp = await fetch(nemoFile, { cache: 'no-store' });
             if (nemoResp.ok) {
                 text = `${await nemoResp.text()}\n${text}`;
@@ -178,6 +262,11 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
         ? fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' }).then((response) => {
             if (response.ok) {
                 return response.text();
+            }
+            const embedAssets = resolveEmbedSlotAssets(templateId, skinId);
+            if (embedAssets && embedAssets.cssSkin) {
+                console.warn(`CapsuleOS: skin ${skinId} via embed (HTTP ${response.status})`);
+                return embedAssets.cssSkin;
             }
             if (cssSkinFallbackFile && cssSkinFallbackFile !== cssSkinFile) {
                 return fetch(withSkinCssBust(cssSkinFallbackFile), { cache: 'no-store' }).then((fallbackResponse) => (
@@ -209,8 +298,7 @@ const runFirstAvailable = (candidates, warnLabel) => {
     return false;
 };
 
-const SLOT_INIT_HANDLERS = {
-    nemo: () => {
+const initFileExplorerSlot = () => {
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
             : './apps/system/Dossier_personnel';
@@ -225,7 +313,11 @@ const SLOT_INIT_HANDLERS = {
             { fn: typeof loadFileExplorerDirectory === 'function' ? loadFileExplorerDirectory : null, args: [contentRoot] },
             { fn: typeof loadDirectory === 'function' ? loadDirectory : null, args: [contentRoot] }
         ]);
-    },
+};
+
+const SLOT_INIT_HANDLERS = {
+    fileExplorer: initFileExplorerSlot,
+    nemo: initFileExplorerSlot,
     terminal: () => {
         runFirstAvailable([
             { fn: typeof initTerminalWhenReady === 'function' ? initTerminalWhenReady : null }
@@ -308,7 +400,11 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
 
     const initSlot = SLOT_INIT_HANDLERS[slotId];
     if (typeof initSlot === 'function') {
-        initSlot(motionless, slotId, templateId);
+        try {
+            initSlot(motionless, slotId, templateId);
+        } catch (initError) {
+            console.error(`CapsuleOS: init slot "${slotId}"`, initError);
+        }
     }
 };
 

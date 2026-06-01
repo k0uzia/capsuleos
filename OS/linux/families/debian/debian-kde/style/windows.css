@@ -1,12 +1,12 @@
 @import url(../../../suse/opensuse/style/windows.css?v=20260514a);
 
 /* Les règles openSUSE sont scoppées sur body#opensuse : on les duplique pour Debian KDE. */
-body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
+body#debian-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
     height: var(--opensuse-konsole-header-height);
     min-height: var(--opensuse-konsole-header-height);
 }
 
-body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
+body#debian-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--opensuse-konsole-header-height));
     min-height: calc(100% - var(--opensuse-konsole-header-height));
 }

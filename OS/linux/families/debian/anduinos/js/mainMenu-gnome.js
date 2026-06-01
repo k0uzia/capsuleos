@@ -42,16 +42,24 @@ function initMainMenuGnome() {
         }
     };
 
+    const resolveMenuDataLink = (raw) => {
+        if (typeof window.resolveCapsuleSlotDataLink === 'function') {
+            return window.resolveCapsuleSlotDataLink(raw);
+        }
+        return raw === 'nemo' ? 'fileExplorer' : raw;
+    };
+
     const openAppFromMenu = (dataLink) => {
         if (!dataLink) {
             return;
         }
+        const slotId = resolveMenuDataLink(dataLink);
         closeMainMenu();
         if (typeof openWindowByDataLink === 'function') {
-            openWindowByDataLink(dataLink);
+            openWindowByDataLink(slotId);
             return;
         }
-        const launcher = document.querySelector(`a[target="windowElement"][data-link="${dataLink}"]`);
+        const launcher = document.querySelector(`a[target="windowElement"][data-link="${slotId}"]`);
         if (launcher && typeof handleOpenwindow === 'function') {
             handleOpenwindow(launcher);
         }

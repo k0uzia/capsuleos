@@ -5,6 +5,14 @@ let zCounter = 50;
 const WINDOW_TITLE_MAP = {
     profile: 'À Propos',
     librewriter: 'Sans nom 1 - LibreOffice Writer',
+    fileExplorer: 'Fichiers',
+};
+
+const resolveSlotDataLink = (raw) => {
+    if (typeof window !== 'undefined' && typeof window.resolveCapsuleSlotDataLink === 'function') {
+        return window.resolveCapsuleSlotDataLink(raw);
+    }
+    return raw === 'nemo' ? 'fileExplorer' : raw;
 };
 
 function activateWindow(container) {
@@ -50,7 +58,9 @@ right.appendChild(closeBtn);
 
 function isKdeFamily() {
     const skinKey = typeof window !== 'undefined' ? window.CAPSULE_EMBED_SKIN_KEY : null;
-    const explorerTemplate = typeof window !== 'undefined' ? window.CAPSULE_EXPLORER_TEMPLATE : null;
+    const explorerTemplate = typeof window !== 'undefined' && typeof window.getFileManagerTemplate === 'function'
+        ? window.getFileManagerTemplate()
+        : null;
     const bodyId = typeof document !== 'undefined' && document.body ? document.body.id : null;
 
     if (explorerTemplate === 'dolphin') {
@@ -90,10 +100,11 @@ function applyKdeWindowHeaderIcons(container) {
 }
 
 function handleOpenwindow(link) {
-	const container = document.querySelector(`div[data-link="${link.dataset.link}"]`);
+    const slotId = resolveSlotDataLink(link.dataset.link);
+	const container = document.querySelector(`div[data-link="${slotId}"]`);
 
     if (container) {
-        const isGnomeStartMenu = link.dataset.link === 'mainMenu'
+        const isGnomeStartMenu = slotId === 'mainMenu'
             && !!container.querySelector('#menu-gnome-root');
 
         if (container.style.display === "none") {
@@ -109,9 +120,9 @@ function handleOpenwindow(link) {
             const windowTitle = container.querySelector('#windowTitle');
             if (windowTitle) {
                 const resolved = typeof window.getResolvedWindowTitle === 'function'
-                    ? window.getResolvedWindowTitle(link.dataset.link)
+                    ? window.getResolvedWindowTitle(slotId)
                     : null;
-                windowTitle.textContent = resolved || WINDOW_TITLE_MAP[link.dataset.link] || link.dataset.link;
+                windowTitle.textContent = resolved || WINDOW_TITLE_MAP[slotId] || slotId;
             }
             if (!isGnomeStartMenu) {
                 // Rendre la fenêtre déplacable
@@ -137,7 +148,8 @@ function handleOpenwindow(link) {
 
 // Lancer la fonction d'ouverture pour chaque lien
 const WINDOW_TASK_MAP = {
-    nemo: 'open-nemo',
+    nemo: 'open-fileExplorer',
+    fileExplorer: 'open-fileExplorer',
     firefox: 'open-firefox',
     terminal: 'open-terminal',
     mainMenu: 'open-menu',
@@ -151,7 +163,7 @@ links.forEach((link) => {
 	link.addEventListener("click", function (event) {
 		event.preventDefault(); // Empêche le comportement par défaut du lien
 		handleOpenwindow(this); // Utilisez 'this' pour référencer l'élément de lien
-		const taskId = WINDOW_TASK_MAP[this.dataset.link];
+		const taskId = WINDOW_TASK_MAP[resolveSlotDataLink(this.dataset.link)];
 		if (taskId && typeof dispatchCapsuleTask === 'function') {
 			dispatchCapsuleTask(taskId);
 		}
@@ -173,12 +185,15 @@ function openWindowByDataLink(dataLink) {
         return false;
     }
 
-    const container = document.querySelector(`div[data-link="${dataLink}"]`);
+    const slotId = resolveSlotDataLink(dataLink);
+    const container = document.querySelector(`div[data-link="${slotId}"]`);
     if (!container) {
         return false;
     }
 
-    const launcher = document.querySelector(`a[target="windowElement"][data-link="${dataLink}"]`) || createVirtualLauncher(dataLink);
+    const launcher = document.querySelector(`a[target="windowElement"][data-link="${slotId}"]`)
+        || document.querySelector(`a[target="windowElement"][data-link="${dataLink}"]`)
+        || createVirtualLauncher(slotId);
     const isVisible = container.style.display !== 'none';
 
     if (isVisible) {
@@ -201,9 +216,9 @@ function openWindowByDataLink(dataLink) {
     const windowTitle = container.querySelector('#windowTitle');
     if (windowTitle) {
         const resolved = typeof window.getResolvedWindowTitle === 'function'
-            ? window.getResolvedWindowTitle(dataLink)
+            ? window.getResolvedWindowTitle(slotId)
             : null;
-        windowTitle.textContent = resolved || WINDOW_TITLE_MAP[dataLink] || dataLink;
+        windowTitle.textContent = resolved || WINDOW_TITLE_MAP[slotId] || slotId;
     }
 
     return container.style.display !== 'none';

@@ -20,7 +20,7 @@ body#popos.cosmic-shell--taskbar-mode #desktop > .windowElement[data-maximized="
 }
 
 body#popos #desktop > #terminal.terminal-window--cosmic[data-maximized="true"],
-body#popos #desktop > div[data-link="nemo"][data-maximized="true"],
+body#popos #desktop > div[data-link="fileExplorer"][data-maximized="true"],
 body#popos #desktop > #firefox[data-maximized="true"] {
     display: flex;
     flex-flow: column nowrap;

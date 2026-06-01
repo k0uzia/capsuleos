@@ -28,7 +28,7 @@
             aliases: ['files', 'nemo', 'nautilus', 'dossier', 'documents'],
             description: 'Gestionnaire de fichiers',
             icon: './media/img/dock/files.png',
-            dataLink: 'nemo'
+            dataLink: 'fileExplorer'
         },
         {
             label: 'Firefox',
@@ -196,14 +196,26 @@
         `#tableau.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`
     );
 
+    const resolveOverviewLink = (linkId) => {
+        if (typeof window.resolveCapsuleSlotDataLink === 'function') {
+            return window.resolveCapsuleSlotDataLink(linkId);
+        }
+        return linkId === 'nemo' ? 'fileExplorer' : linkId;
+    };
+
     const openOverviewLink = (linkId) => {
         if (!linkId) {
             return;
         }
-        const target = getLaunchTarget(linkId);
+        const slotId = resolveOverviewLink(linkId);
+        const target = getLaunchTarget(slotId) || (slotId !== linkId ? getLaunchTarget(linkId) : null);
         setOverview(false, 'workspace');
         if (target) {
             target.click();
+            return;
+        }
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink(slotId);
         }
     };
 

@@ -16,35 +16,35 @@ const MENU_CATS = [
 
 const MENU_SHORTCUTS = {
     home: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel',
     },
     desktop: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Bureau',
     },
     documents: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Documents',
     },
     downloads: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Téléchargements',
     },
     pictures: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Images',
     },
     music: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Musique',
     },
     videos: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Vidéos',
     },
     trash: {
-        dataLink: 'nemo',
+        dataLink: 'fileExplorer',
         directory: './apps/system/Dossier_personnel/Corbeille',
     },
 };
@@ -52,14 +52,14 @@ const MENU_SHORTCUTS = {
 const MENU_APPS = [
     { catId: 'favorites', icon: '../../../shared/media/img/apps/firefox.png', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'favorites', icon: './media/img/apps/libreoffice-writer.svg', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
-    { catId: 'favorites', icon: './media/img/apps/dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
+    { catId: 'favorites', icon: './media/img/apps/dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'fileExplorer' },
     { catId: 'favorites', icon: './media/img/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './media/img/apps/terminal.svg', name: 'Konsole', desc: 'Terminal', dataLink: 'terminal' },
     { catId: 'favorites', icon: './media/img/apps/discover.svg', name: 'Discover', desc: 'Gestionnaire de logiciels', dataLink: 'checklist' },
 
     { catId: 'internet', icon: '../../../shared/media/img/apps/firefox.png', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'internet', icon: './media/img/apps/terminal.svg', name: 'SSH', desc: 'Connexion distante', },
-    { catId: 'internet', icon: './media/img/apps/dolphin.svg', name: 'Téléchargements', desc: 'Accéder au dossier Téléchargements', dataLink: { dataLink: 'nemo', directory: './apps/system/Dossier_personnel/Téléchargements' } },
+    { catId: 'internet', icon: './media/img/apps/dolphin.svg', name: 'Téléchargements', desc: 'Accéder au dossier Téléchargements', dataLink: { dataLink: 'fileExplorer', directory: './apps/system/Dossier_personnel/Téléchargements' } },
 
     { catId: 'bureau', icon: './media/img/apps/libreoffice-writer.svg', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
     { catId: 'bureau', icon: './media/img/apps/libreoffice-writer.svg', name: 'LibreOffice Calc', desc: 'Tableur', },
@@ -78,7 +78,7 @@ const MENU_APPS = [
     { catId: 'games', icon: './media/img/apps/discover.svg', name: 'Démineur', desc: 'Classique', },
     { catId: 'games', icon: './media/img/apps/discover.svg', name: 'Solitaire', desc: 'Cartes', },
 
-    { catId: 'utilities', icon: './media/img/apps/dolphin.svg', name: 'Fichiers', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
+    { catId: 'utilities', icon: './media/img/apps/dolphin.svg', name: 'Fichiers', desc: 'Gestionnaire de fichiers', dataLink: 'fileExplorer' },
     { catId: 'utilities', icon: './media/img/apps/terminal.svg', name: 'Terminal', desc: 'Ligne de commande', dataLink: 'terminal' },
     { catId: 'utilities', icon: './media/img/apps/systemsettings.svg', name: 'Thèmes', desc: 'Changer l’apparence', dataLink: 'themes' },
 

@@ -12,7 +12,7 @@ const ANDUIN_MENU_FAVORITES = [
         id: 'files',
         name: 'Fichiers',
         icon: './media/img/menu/favorites/files.png',
-        dataLink: 'nemo'
+        dataLink: 'fileExplorer'
     },
     {
         id: 'terminal',

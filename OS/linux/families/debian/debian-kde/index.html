@@ -23,7 +23,7 @@
             <span>Debian KDE<br>À propos</span>
         </a>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="nemo" id="nemo" style="display: none; position: fixed;"></div>
+        <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
@@ -46,7 +46,7 @@
                 <span class="taskbar-pins__item" title="Découvrir" aria-hidden="true">
                     <img src="./media/img/apps/discover.svg" alt="">
                 </span>
-                <a target="windowElement" data-link="nemo" title="Dolphin">
+                <a target="windowElement" data-link="fileExplorer" title="Dolphin">
                     <img src="./media/img/apps/dolphin.svg" alt="">
                 </a>
                 <a target="windowElement" data-link="firefox" title="Firefox">
@@ -134,16 +134,16 @@
         window.CAPSULE_TEMPLATE_OVERRIDES = { mainMenu: './apps/mainMenu.html' };
         window.CAPSULE_EMBED_SKIN_KEY = 'debian-kde';
         /* Incrémente après modif de style/apps/*.skin.css pour forcer le rechargement (F5). */
-        window.CAPSULE_SKIN_CSS_VERSION = '20260529a';
+        window.CAPSULE_SKIN_CSS_VERSION = '20260603a';
         window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_MEDIA_BASE = './media';
         window.CAPSULE_ASSETS_BASE = './assets';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_EXPLORER_APP_ID = 'nemo';
-        window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Dolphin';
-        window.CAPSULE_EXPLORER_TEMPLATE = 'dolphin';
-        window.CAPSULE_EXPLORER_SKIN_KEY = 'dolphin';
+        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
+        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Dolphin';
+        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'dolphin';
+        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'dolphin';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'debian-kde-checklist';
         window.CAPSULE_SITE_HOME = '../../../../../index.html';
         window.CAPSULE_LINUX_HUB = '../../../index.html';
@@ -183,11 +183,12 @@
         };
     </script>
     <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260529a"></script>
+    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
+    <script src="../../../kernel/js/capsule-app-embed.js?v=20260604e"></script>
     <script src="../../../kernel/js/capsule-resource-url.js?v=20260528"></script>
     <script src="../../../kernel/js/strings-default.js?v=20260421a"></script>
     <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260421a"></script>
+    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
     <script src="../../../kernel/js/windowHeaderButton.js?v=20260421a"></script>
     <script src="../../../kernel/js/resizeWindow.js"></script>
     <script src="../../../kernel/js/windowDrag.js"></script>
@@ -199,11 +200,11 @@
     <script src="../../../kernel/js/profile.js"></script>
     <script src="../../../kernel/js/checklist.js"></script>
     <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260529a"></script>
+    <script src="../../../kernel/js/contentLoader.js?v=20260604e"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js?v=20260528x"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260528y"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerDolphin.js?v=20260528y"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260604c"></script>
+    <script src="../../../kernel/js/fileExplorer/fileExplorerDolphin.js?v=20260604c"></script>
     <script src="../../../kernel/js/search/appSearch.js"></script>
     <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../kernel/js/fileViewerRouter.js"></script>

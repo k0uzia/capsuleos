@@ -22,17 +22,19 @@
 ## Offline
 
 - [ ] Le site reste utilisable hors ligne après chargement initial (Service Worker + cache ; tester en coupant le réseau sur localhost).
-- [ ] Ouverture locale `file://` : `capsule-app-embed.js` / `capsule-android-embed.js` à jour si les gabarits ou JSON embarqués ont changé ; vérifier un bureau Linux et Android sans serveur.
+- [ ] Ouverture locale `file://` : `capsule-app-embed.js` / `capsule-android-embed.js` à jour si les gabarits (`shared/apps`, `modules/app`) ou JSON embarqués ont changé ; vérifier un bureau Linux et Android sans serveur.
 
 ## Structure
 
 - [ ] Arborescence lisible ; séparation noyau commun / variantes OS respectée.
+- [ ] Gabarits modulaires (`dolphin`, `librewriter`, …) uniquement sous `modules/app/<templateId>/` ; pas de doublon `shared/apps/<templateId>.html` pour un template migré.
 - [ ] Aucun lien symbolique versionné dans le dépôt ; skins dérivées sans `media/` local déclarent `CAPSULE_MEDIA_BASE` (et `CAPSULE_ASSETS_BASE` si besoin) avant `capsule-resource-url.js`.
 - [ ] Pas de doc développeur nouvelle sous `OS/` (`README.md`, `UI-FIDELITE.txt`, `ICONS-*.md`, etc.) - uniquement sous `.doc/` (miroir) ; voir `.cursor/rules/capsuleos-doc-location.mdc`.
 
 ## Linux (CapsuleOS / `OS/linux`)
 
 - [ ] `CAPSULE_APPS_BASE`, `CAPSULE_CONTENT_ROOT`, `CAPSULE_SKIN_BASE`, `CAPSULE_EMBED_SKIN_KEY` définis avant les scripts noyau ; `capsule-app-embed.js` chargé avant `contentLoader.js` ; `strings-default.js` et `capsule-strings.js` chargés avant `contentLoader.js`.
-- [ ] Slot explorateur `data-link="nemo"` : template résolu via `CAPSULE_EXPLORER_TEMPLATE` (`nemo`, `dolphin`, `nautilus`, …) sans dupliquer la logique dans `fileSystem.js`.
+- [ ] Slot explorateur `data-link="fileExplorer"` : `capsule-file-manager-config.js` chargé avant l’embed ; `CAPSULE_FILE_MANAGER_APP_ID=fileExplorer` ; template via `CAPSULE_FILE_MANAGER_TEMPLATE` (`nemo`, `nautilus`, `nautilus-cosmic`, `dolphin`, …) ; gabarits sous `modules/app/` sans doublon `shared/apps/`.
 - [ ] Textes surchargeables : défauts dans `kernel/js/strings-default.js`, option `./content/strings.json` par skin.
 - [ ] Hub statique `OS/linux/index.html` à jour pour les distros listées ; pas de backend requis.
+- [ ] Après modif `modules/app/` ou skin `.skin.css` embarquée : `node js/build-capsule-embed.mjs` puis test `file://` sur au moins une distro concernée.

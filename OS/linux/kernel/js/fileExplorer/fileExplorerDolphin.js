@@ -9,7 +9,7 @@
         typeof window.isDolphinTemplate === 'function' && window.isDolphinTemplate()
     );
 
-    const getRoot = () => document.getElementById('nemo');
+    const getRoot = () => window.getFileExplorerWindowRoot();
 
     const getExplorerShell = () => getRoot()?.querySelector('main#gestionnaire.dolphin-app') || null;
 
@@ -31,7 +31,7 @@
 
         let previewToggle = shell.querySelector('#dolphin-preview-toggle');
         if (!previewToggle) {
-            const actions = shell.querySelector('.dolphin-toolbar__actions, .nemo-app__toolbar-group--actions');
+            const actions = shell.querySelector('.dolphin-toolbar__actions, .file-explorer-app__toolbar-group--actions');
             if (actions) {
                 previewToggle = document.createElement('a');
                 previewToggle.href = '#';
@@ -54,7 +54,7 @@
         }
 
         if (!shell.querySelector('#dolphin-search')) {
-            const actions = shell.querySelector('.dolphin-toolbar__actions, .nemo-app__toolbar-group--actions');
+            const actions = shell.querySelector('.dolphin-toolbar__actions, .file-explorer-app__toolbar-group--actions');
             const legacySearch = actions?.querySelector('a[title="Rechercher"], a[aria-label="Rechercher"]');
             if (legacySearch && actions) {
                 const label = document.createElement('label');
@@ -540,10 +540,10 @@
         setActivePane(paneId);
         const grid = getPaneGrid(paneId);
         if (grid) {
-            grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
-                el.classList.remove('nemo-app__item--selected');
+            grid.querySelectorAll('.file-explorer-app__item--selected').forEach((el) => {
+                el.classList.remove('file-explorer-app__item--selected');
             });
-            link.classList.add('nemo-app__item--selected');
+            link.classList.add('file-explorer-app__item--selected');
         }
     };
 
@@ -640,10 +640,10 @@
             setActivePane(paneId);
             const grid = getPaneGrid(paneId);
             if (grid) {
-                grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
-                    el.classList.remove('nemo-app__item--selected');
+                grid.querySelectorAll('.file-explorer-app__item--selected').forEach((el) => {
+                    el.classList.remove('file-explorer-app__item--selected');
                 });
-                itemLink.classList.add('nemo-app__item--selected');
+                itemLink.classList.add('file-explorer-app__item--selected');
             }
         });
     };
@@ -651,8 +651,8 @@
     const applySearchToVisiblePanes = () => {
         const state = getState();
         if (!state?.searchQuery) {
-            getRoot()?.querySelectorAll('.nemo-app__item--search-hidden').forEach((el) => {
-                el.classList.remove('nemo-app__item--search-hidden');
+            getRoot()?.querySelectorAll('.file-explorer-app__item--search-hidden').forEach((el) => {
+                el.classList.remove('file-explorer-app__item--search-hidden');
             });
             return;
         }
@@ -666,7 +666,7 @@
             grid.querySelectorAll('a[data-item-name]').forEach((link) => {
                 const name = link.dataset.itemName || '';
                 const match = normalizeSearch(name).includes(normalizeSearch(query));
-                link.classList.toggle('nemo-app__item--search-hidden', !match);
+                link.classList.toggle('file-explorer-app__item--search-hidden', !match);
             });
         });
     };
@@ -752,7 +752,7 @@
     };
 
     const setExplorerStatusMessage = (message) => {
-        const status = getRoot()?.querySelector('#nemoFooterContainer .nemo-app__status-center p');
+        const status = getRoot()?.querySelector('#fileExplorerFooter .file-explorer-app__status-center p');
         if (status) {
             status.textContent = message;
         }
@@ -784,14 +784,14 @@
         }
         root.style.display = 'none';
         root.classList.remove('windowElementActive');
-        const launcher = document.querySelector('a[target="windowElement"][data-link="nemo"]');
+        const launcher = document.querySelector('a[target="windowElement"][data-link="fileExplorer"]');
         launcher?.classList.remove('active-link');
     };
 
     const getSelectedFileEntry = () => {
         const paneId = getState()?.activePane || 'primary';
         const grid = getPaneGrid(paneId);
-        const link = grid?.querySelector('a.nemo-app__item--selected[data-item-type="file"]');
+        const link = grid?.querySelector('a.file-explorer-app__item--selected[data-item-type="file"]');
         if (!link) {
             return null;
         }
@@ -853,14 +853,14 @@
         if (!root) {
             return;
         }
-        const container = document.querySelector('div[data-link="nemo"]');
+        const container = document.querySelector('div[data-link="fileExplorer"]');
         const hidden = (container && container.style.display === 'none')
             || root.style.display === 'none';
         if (hidden) {
-            openCapsuleApp('nemo');
+            openCapsuleApp('fileExplorer');
             return;
         }
-        openCapsuleApp('nemo');
+        openCapsuleApp('fileExplorer');
     };
 
     const getActivePaneDirectoryPath = () => {
@@ -952,7 +952,7 @@
             actualiser: refreshExplorerDirectory,
             apercu: () => togglePreview(),
             'aller a': () => {
-                const sidebar = getRoot()?.querySelector('#voletnemo');
+                const sidebar = getRoot()?.querySelector('#fileExplorerSidebar');
                 sidebar?.querySelector('.dolphin-sidebar__link')?.focus();
                 if (typeof window.goToHomeDirectory === 'function') {
                     window.goToHomeDirectory();

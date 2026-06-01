@@ -59,9 +59,9 @@ const remapManifestToFileExplorerRoot = (manifest) => {
 const FILE_EXPLORER_VIEW_MODES = ['icons', 'compact', 'list'];
 
 const FILE_EXPLORER_VIEW_GRID_CLASS = {
-    icons: 'nemo-app__content-grid--icons',
-    compact: 'nemo-app__content-grid--compact',
-    list: 'nemo-app__content-grid--list'
+    icons: 'file-explorer-app__content-grid--icons',
+    compact: 'file-explorer-app__content-grid--compact',
+    list: 'file-explorer-app__content-grid--list'
 };
 
 const fileExplorerState = {
@@ -107,7 +107,7 @@ const getFileExplorerZoomSettings = () => {
 };
 
 const applyFileExplorerZoom = (value) => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
@@ -125,7 +125,7 @@ const applyFileExplorerZoom = (value) => {
     const dolphinShell = nemoRoot.querySelector('main#gestionnaire.dolphin-app');
     if (dolphinShell) {
         dolphinShell.style.setProperty('--nemo-item-scale', scale);
-        nemoRoot.querySelectorAll('.nemoElement.nemo-app__content-grid').forEach((grid) => {
+        nemoRoot.querySelectorAll('.nemoElement.file-explorer-app__content-grid').forEach((grid) => {
             grid.style.setProperty('--nemo-item-scale', scale);
         });
     }
@@ -157,11 +157,21 @@ const normalizeDirectoryPath = (path) => {
 };
 
 const getFileExplorerFilesCatalog = () => {
-    if (typeof fileExplorerSystemLink !== 'undefined' && fileExplorerSystemLink && fileExplorerSystemLink.files) {
-        return fileExplorerSystemLink.files;
+    if (typeof fileExplorerSystemLink !== 'undefined' && fileExplorerSystemLink) {
+        if (fileExplorerSystemLink.nautilus) {
+            return fileExplorerSystemLink.nautilus;
+        }
+        if (fileExplorerSystemLink.files) {
+            return fileExplorerSystemLink.files;
+        }
     }
-    if (typeof fileSystemLink !== 'undefined' && fileSystemLink && fileSystemLink.files) {
-        return fileSystemLink.files;
+    if (typeof fileSystemLink !== 'undefined' && fileSystemLink) {
+        if (fileSystemLink.nautilus) {
+            return fileSystemLink.nautilus;
+        }
+        if (fileSystemLink.files) {
+            return fileSystemLink.files;
+        }
     }
     return {};
 };
@@ -252,19 +262,21 @@ const findFolderLabel = (path) => {
     return segments[segments.length - 1] || 'Dossier personnel';
 };
 
-const isDolphinTemplate = () => !!document.querySelector('#nemo main#gestionnaire.dolphin-app');
+const isDolphinTemplate = () => !!document.querySelector('#fileExplorer main#gestionnaire.dolphin-app');
 window.isDolphinTemplate = isDolphinTemplate;
 
-const isCosmicFilesExplorer = () => !!document.querySelector('#nemo main#gestionnaire.cosmic-files-app');
+const isCosmicFilesExplorer = () => !!document.querySelector('#fileExplorer main#gestionnaire.cosmic-files-app');
 
 const usesNemoListView = () => (
     isCosmicFilesExplorer()
-    || (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_LIST_VIEW === true)
+    || (typeof window !== 'undefined' && typeof window.getFileManagerListView === 'function'
+        && window.getFileManagerListView())
 );
 
 const usesNemoListViewFrenchColumns = () => (
     typeof window !== 'undefined'
-    && window.CAPSULE_EXPLORER_LIST_VIEW === true
+    && typeof window.getFileManagerListView === 'function'
+    && window.getFileManagerListView()
     && !isCosmicFilesExplorer()
 );
 
@@ -284,7 +296,8 @@ const shouldHideListViewItem = (item, directoryPath) => {
 
 const isGnomeFilesExplorer = () => (
     typeof window !== 'undefined'
-    && window.CAPSULE_EXPLORER_SKIN_KEY === 'files'
+    && typeof window.isGnomeNautilusFileManager === 'function'
+    && window.isGnomeNautilusFileManager()
 );
 
 const usesSidebarSelection = () => isDolphinTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
@@ -350,34 +363,34 @@ const ensureNemoListViewChrome = () => {
         return;
     }
 
-    const voletContainer = document.querySelector('#nemo #voletContainer');
-    const nemoElement = document.querySelector('#nemo .nemoElement');
+    const voletContainer = document.querySelector('#fileExplorer #voletContainer');
+    const nemoElement = document.querySelector('#fileExplorer .nemoElement');
     if (!voletContainer || !nemoElement) {
         return;
     }
 
-    if (!voletContainer.querySelector('.nemo-app__list-header')) {
+    if (!voletContainer.querySelector('.file-explorer-app__list-header')) {
         const header = document.createElement('div');
-        header.className = 'nemo-app__list-header';
+        header.className = 'file-explorer-app__list-header';
         header.setAttribute('aria-hidden', 'true');
 
         const nameSpan = document.createElement('span');
-        nameSpan.className = 'nemo-app__list-header-name';
+        nameSpan.className = 'file-explorer-app__list-header-name';
         nameSpan.textContent = 'Nom';
 
         const sizeSpan = document.createElement('span');
-        sizeSpan.className = 'nemo-app__list-header-size';
+        sizeSpan.className = 'file-explorer-app__list-header-size';
         sizeSpan.textContent = 'Taille';
 
         const modifiedSpan = document.createElement('span');
-        modifiedSpan.className = 'nemo-app__list-header-modified';
+        modifiedSpan.className = 'file-explorer-app__list-header-modified';
         modifiedSpan.textContent = usesNemoListViewFrenchColumns() ? 'Dernière modification' : 'Modifié';
 
         header.append(nameSpan, sizeSpan, modifiedSpan);
         voletContainer.insertBefore(header, nemoElement);
     }
 
-    nemoElement.classList.add('nemo-app__content-grid', 'nemo-app__content-grid--list');
+    nemoElement.classList.add('file-explorer-app__content-grid', 'file-explorer-app__content-grid--list');
 };
 
 const countFoldersInItems = (items) => {
@@ -420,7 +433,7 @@ const updateExplorerWindowTitle = () => {
     if (!isDolphinTemplate()) {
         return;
     }
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
@@ -463,7 +476,7 @@ const updateDolphinSidebarActive = () => {
     if (!usesSidebarSelection()) {
         return;
     }
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
@@ -473,7 +486,7 @@ const updateDolphinSidebarActive = () => {
     const key = getSidebarKeyForPath(sidebarPath);
     const root = getFileExplorerRoot();
     const atRoot = sidebarPath === root;
-    nemoRoot.querySelectorAll('#voletnemo a[target="windowElement"]').forEach((a) => {
+    nemoRoot.querySelectorAll('#fileExplorerSidebar a[target="windowElement"]').forEach((a) => {
         const dl = a.getAttribute('data-link');
         const active = atRoot
             ? dl === 'Dossier Personnel'
@@ -487,12 +500,12 @@ const alignDolphinPathBarToContentGrid = () => {
     if (!isDolphinTemplate()) {
         return;
     }
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
     const pathGroup = nemoRoot.querySelector('.dolphin-toolbar__path');
-    const contentGrid = nemoRoot.querySelector('.nemo-app__content-grid');
+    const contentGrid = nemoRoot.querySelector('.file-explorer-app__content-grid');
     if (!pathGroup || !contentGrid) {
         return;
     }
@@ -522,7 +535,7 @@ const alignDolphinPathBarToContentGrid = () => {
 };
 
 const updatePathDisplay = () => {
-    const pathLabelElement = document.querySelector('#nemo .nemo-app__path-current');
+    const pathLabelElement = document.querySelector('#fileExplorer .file-explorer-app__path-current');
     if (!pathLabelElement) {
         return;
     }
@@ -543,7 +556,7 @@ const updatePathDisplay = () => {
 };
 
 const updateNavigationControls = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
@@ -578,7 +591,7 @@ const renderDirectory = (path, options = {}) => {
     const pane = options.pane || 'primary';
     const nemoElement = (isDolphinTemplate() && typeof window.getDolphinPaneGrid === 'function')
         ? window.getDolphinPaneGrid(pane)
-        : document.querySelector('#nemo .nemoElement');
+        : document.querySelector('#fileExplorer .nemoElement');
 
     if (!nemoElement || !fileExplorerState.manifest || !fileExplorerState.manifest.folders) {
         return;
@@ -590,7 +603,7 @@ const renderDirectory = (path, options = {}) => {
     nemoElement.innerHTML = '';
 
     if (!folderNode || !Array.isArray(folderNode.items)) {
-        nemoElement.innerHTML = '<p class="nemo-app__empty">Dossier introuvable.</p>';
+        nemoElement.innerHTML = '<p class="file-explorer-app__empty">Dossier introuvable.</p>';
         updateDolphinFolderPill(null, pane);
         return;
     }
@@ -605,8 +618,8 @@ const renderDirectory = (path, options = {}) => {
 
     if (!items.length) {
         nemoElement.innerHTML = searchQuery
-            ? '<p class="nemo-app__empty">Aucun élément ne correspond à la recherche.</p>'
-            : '<p class="nemo-app__empty">Ce dossier est vide.</p>';
+            ? '<p class="file-explorer-app__empty">Aucun élément ne correspond à la recherche.</p>'
+            : '<p class="file-explorer-app__empty">Ce dossier est vide.</p>';
         updateDolphinFolderPill(folderNode, pane);
         return;
     }
@@ -640,16 +653,16 @@ const renderDirectory = (path, options = {}) => {
 
         if (usesNemoListView()) {
             const body = document.createElement('span');
-            body.className = 'nemo-app__item-body';
+            body.className = 'file-explorer-app__item-body';
 
             const nameEl = document.createElement('span');
-            nameEl.className = 'nemo-app__item-name';
+            nameEl.className = 'file-explorer-app__item-name';
             nameEl.textContent = item.name;
             body.appendChild(nameEl);
 
             if (isCosmicFilesExplorer()) {
                 const metaEl = document.createElement('span');
-                metaEl.className = 'nemo-app__item-meta';
+                metaEl.className = 'file-explorer-app__item-meta';
                 metaEl.textContent = formatCosmicItemMeta(item);
                 body.appendChild(metaEl);
             }
@@ -657,12 +670,12 @@ const renderDirectory = (path, options = {}) => {
             itemLink.appendChild(body);
 
             const modifiedEl = document.createElement('span');
-            modifiedEl.className = 'nemo-app__item-modified';
+            modifiedEl.className = 'file-explorer-app__item-modified';
             modifiedEl.textContent = formatCosmicModifiedLabel();
             itemLink.appendChild(modifiedEl);
 
             const sizeEl = document.createElement('span');
-            sizeEl.className = 'nemo-app__item-size';
+            sizeEl.className = 'file-explorer-app__item-size';
             sizeEl.textContent = usesNemoListViewFrenchColumns()
                 ? formatListItemSizeFrench(item)
                 : formatCosmicItemSize(item);
@@ -674,21 +687,21 @@ const renderDirectory = (path, options = {}) => {
         }
 
         const selectGridItem = () => {
-            const grid = nemoElement.closest('.nemo-app__content-grid') || nemoElement;
-            grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
-                el.classList.remove('nemo-app__item--selected');
+            const grid = nemoElement.closest('.file-explorer-app__content-grid') || nemoElement;
+            grid.querySelectorAll('.file-explorer-app__item--selected').forEach((el) => {
+                el.classList.remove('file-explorer-app__item--selected');
             });
-            itemLink.classList.add('nemo-app__item--selected');
+            itemLink.classList.add('file-explorer-app__item--selected');
         };
 
         if (isDolphinTemplate() && typeof window.attachDolphinItemHandlers === 'function') {
             if (item.type === 'folder') {
-                itemLink.classList.add('nemo-app__item--folder');
+                itemLink.classList.add('file-explorer-app__item--folder');
             }
             itemLink.href = '#';
             window.attachDolphinItemHandlers(itemLink, item, path, pane);
         } else if (item.type === 'folder') {
-            itemLink.classList.add('nemo-app__item--folder');
+            itemLink.classList.add('file-explorer-app__item--folder');
             itemLink.href = '#';
             itemLink.addEventListener('mousedown', (event) => {
                 if (event.button === 0) {
@@ -1029,7 +1042,7 @@ const goToHomeDirectory = () => {
 };
 
 const getFileExplorerContentGrid = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return null;
     }
@@ -1037,10 +1050,10 @@ const getFileExplorerContentGrid = () => {
     if (isDolphinTemplate() && typeof window.getDolphinPaneGrid === 'function') {
         const activePane = fileExplorerState.activePane || 'primary';
         return window.getDolphinPaneGrid(activePane)
-            || nemoRoot.querySelector('#voletContainer > .nemoElement, .nemo-app__content-grid.nemoElement');
+            || nemoRoot.querySelector('#voletContainer > .nemoElement, .file-explorer-app__content-grid.nemoElement');
     }
 
-    return nemoRoot.querySelector('#voletContainer > .nemoElement, .nemo-app__content-grid.nemoElement');
+    return nemoRoot.querySelector('#voletContainer > .nemoElement, .file-explorer-app__content-grid.nemoElement');
 };
 
 const resolveViewModeFromButton = (btn) => {
@@ -1095,12 +1108,12 @@ const resolveViewModeFromButton = (btn) => {
 };
 
 const getFileExplorerViewButtons = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return [];
     }
 
-    const viewRoot = nemoRoot.querySelector('.dolphin-toolbar__view, .nemo-app__toolbar-group--view');
+    const viewRoot = nemoRoot.querySelector('.dolphin-toolbar__view, .file-explorer-app__toolbar-group--view');
     if (!viewRoot) {
         return [];
     }
@@ -1122,7 +1135,7 @@ const updateFileExplorerViewControls = () => {
 };
 
 const applyFileExplorerViewMode = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
@@ -1153,13 +1166,13 @@ const setFileExplorerViewMode = (mode) => {
 };
 
 const bindFileExplorerViewControls = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot || nemoRoot.dataset.nemoViewDelegationInit === 'true') {
         applyFileExplorerViewMode();
         return;
     }
 
-    const viewRoot = nemoRoot.querySelector('.dolphin-toolbar__view, .nemo-app__toolbar-group--view');
+    const viewRoot = nemoRoot.querySelector('.dolphin-toolbar__view, .file-explorer-app__toolbar-group--view');
     if (!viewRoot) {
         return;
     }
@@ -1184,13 +1197,13 @@ const bindFileExplorerViewControls = () => {
 };
 
 const bindFileExplorerNavigationControls = () => {
-    const nemoRoot = document.getElementById('nemo');
+    const nemoRoot = window.getFileExplorerWindowRoot();
     if (!nemoRoot) {
         return;
     }
 
     if (nemoRoot.dataset.nemoNavDelegationInit !== 'true') {
-        const navRoot = nemoRoot.querySelector('.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav');
+        const navRoot = nemoRoot.querySelector('.dolphin-toolbar__nav, .file-explorer-app__toolbar-group--nav');
         if (navRoot) {
             const navActions = {
                 precedent: goToPreviousDirectory,

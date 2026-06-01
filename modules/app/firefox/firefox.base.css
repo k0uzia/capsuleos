@@ -1,3 +1,11 @@
+/* ════════════════════════════════════════════
+   Firefox (simulation) — layout de base
+   modules/app/firefox/firefox.base.css
+   Scope: div[data-link="firefox"], .mint-browser
+   Tokens --firefox-* ; thèmes: families/.../style/apps/firefox.skin.css
+   Logique: OS/linux/kernel/js/firefoxBrowser.js
+════════════════════════════════════════════ */
+
 .sr-only {
     position: absolute;
     width: 1px;

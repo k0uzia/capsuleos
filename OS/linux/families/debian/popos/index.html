@@ -2,11 +2,14 @@
 <html lang="fr">
 
 <head>
+    <!-- Facade URL stable : pick-os.js → ./OS/linux/families/debian/popos/index.html -->
+    <base href="../../../../../home/Debian/PopOS/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
     <link rel="icon" href="./media/img/assets/pop-logo.png" type="image/png">
     <link rel="stylesheet" href="./style/imports.css?v=20260622" type="text/css">
-    <link rel="stylesheet" href="../../../shared/apps/style/Dossier personnel.base.css" type="text/css">
+    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./popos-overrides.css?v=20260522" type="text/css">
     <title>Pop!_OS - COSMIC - CapsuleOS</title>
 </head>
@@ -324,8 +327,10 @@
     </div>
 
     <script>
-        window.CAPSULE_APPS_BASE = '../../../shared/apps';
-        window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
+        window.CAPSULE_APPS_BASE = '../../../usr/share/capsuleos/linux/apps';
+        window.CAPSULE_CONTENT_ROOT = window.CapsuleUserHome
+            ? window.CapsuleUserHome.fromRepoDepth(3)
+            : '../../../usr/share/capsuleos/linux/content/Dossier_personnel';
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
         window.CAPSULE_EXPLORER_APP_ID = 'nemo';
@@ -334,11 +339,11 @@
         window.CAPSULE_EXPLORER_SKIN_KEY = 'files';
         window.CAPSULE_EMBED_SKIN_KEY = 'popos';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'popos-checklist';
-        window.CAPSULE_SITE_HOME = '../../../../../index.html';
-        window.CAPSULE_LINUX_HUB = '../../../index.html';
+        window.CAPSULE_SITE_HOME = '../../../index.html';
+        window.CAPSULE_LINUX_HUB = '../../../OS/linux/index.html';
         window.CAPSULE_TERMINAL_USER = 'goupil';
         window.CAPSULE_TERMINAL_HOST = 'pop-os';
-        window.CAPSULE_TERMINAL_HOME = '/home/user';
+        window.CAPSULE_TERMINAL_HOME = window.CAPSULE_USER_HOME || '/home/user';
         window.CAPSULE_TERMINAL_OS_FAMILY = 'linux';
         window.CAPSULE_TERMINAL_PROFILE = 'debian';
         window.CAPSULE_FILE_EXPLORER_ICON_MAP = {
@@ -372,43 +377,43 @@
             webp: '../ubuntu/media/img/mimeTypes/image-x-generic.svg'
         };
     </script>
-    <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260622b"></script>
-    <script src="../../../kernel/js/strings-default.js?v=20260424"></script>
-    <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/capsule-theme.js?v=20260424"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260424"></script>
-    <script src="../../../kernel/js/windowDrag.js?v=20260522"></script>
-    <script src="../../../kernel/js/windowHeaderButton.js?v=20260522d"></script>
+    <script src="../../../js/capsule-pick-return.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260622b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260424"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=20260424"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260424"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowHeaderButton.js?v=20260522d"></script>
     <script src="./js/cosmic-maximize-shell.js?v=20260522d"></script>
-    <script src="../../../kernel/js/resizeWindow.js"></script>
-    <script src="../../../kernel/js/mainMenu-data.js?v=20260424"></script>
-    <script src="../../../kernel/js/mainMenu.js?v=20260428"></script>
-    <script src="../../../kernel/js/themes.js?v=20260424"></script>
+    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260424"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260424"></script>
     <script src="./content/profile-data.js"></script>
-    <script src="../../../kernel/js/profile.js"></script>
-    <script src="../../../kernel/js/checklist.js"></script>
-    <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260427b"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
-    <script src="../../../kernel/js/fileViewerRouter.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>
-    <script src="../../../kernel/js/date.js"></script>
-    <script src="../../../kernel/js/calendar-popover.js"></script>
-    <script src="../../../kernel/js/terminal/config/command-registry.js"></script>
-    <script src="../../../kernel/js/terminal/config/profiles/linux/debian.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-profile.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-core.js"></script>
-    <script src="../../../kernel/js/terminal/filesystem.js"></script>
-    <script src="../../../kernel/js/terminal/executeCommand.js"></script>
-    <script src="../../../kernel/js/terminal/terminal.js?v=20260523"></script>
-    <script src="../../../kernel/js/terminal/manuel.js"></script>
-    <script src="../../../kernel/js/librewriter.js"></script>
-    <script src="../../../kernel/js/search/appSearch.js"></script>
-    <script src="../../../kernel/js/update-manager.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-popover.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js?v=20260523"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="./js/cosmic-app-launch.js?v=20260525"></script>
     <script src="./js/cosmic-apps-catalog.js?v=20260525"></script>
     <script src="./js/cosmic-shell-state.js?v=20260622"></script>

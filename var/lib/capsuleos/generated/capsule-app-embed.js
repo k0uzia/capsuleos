@@ -1,4 +1,4 @@
-/* Généré par scripts/build-linux-embed.mjs — ne pas éditer à la main */
+/* Généré par usr/lib/capsuleos/tools/linux/build-linux-embed.mjs — ne pas éditer à la main */
 (function () {
 'use strict';
 

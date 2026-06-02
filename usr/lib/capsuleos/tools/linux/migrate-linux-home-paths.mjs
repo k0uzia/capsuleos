@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Met à jour les chemins legacy (kernel/, shared/) dans home/Debian|RedHat|SUSE/.
- * Usage : node scripts/migrate-linux-home-paths.mjs
+ * Usage : node usr/lib/capsuleos/tools/linux/migrate-linux-home-paths.mjs
  */
 import fs from 'fs';
 import path from 'path';
@@ -57,8 +57,8 @@ function migrateText(text) {
 
     t = t.replaceAll('../../../../../usr/lib/capsuleos/common/',
         '../../../usr/lib/capsuleos/common/');
-    t = t.replaceAll('../../../../../js/', '../../../js/');
-    t = t.replaceAll('../../../../../assets/', '../../../assets/');
+    t = t.replaceAll('../../../../../js/', '../../../usr/lib/capsuleos/site/');
+    t = t.replaceAll('../../../../../assets/', '../../../usr/share/capsuleos/branding/');
     t = t.replaceAll('../../../../../index.html', '../../../index.html');
 
     t = t.replaceAll("window.CAPSULE_APPS_BASE = '../../../shared/apps'",

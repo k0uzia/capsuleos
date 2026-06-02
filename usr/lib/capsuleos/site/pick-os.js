@@ -1,9 +1,9 @@
 (function () {
     const ICON = {
-        linux: './assets/icons/linux/',
-        windows: './assets/icons/windows/',
-        macos: './assets/icons/macos/',
-        android: './assets/icons/android/'
+        linux: './usr/share/capsuleos/branding/icons/linux/',
+        windows: './usr/share/capsuleos/branding/icons/windows/',
+        macos: './usr/share/capsuleos/branding/icons/macos/',
+        android: './usr/share/capsuleos/branding/icons/android/'
     };
 
     const catalog = {

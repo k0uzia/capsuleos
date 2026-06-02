@@ -187,7 +187,7 @@ function main() {
 
     const manifest = JSON.parse(readUtf8(MANIFEST_PATH));
 
-    const header = `/* Généré par js/build-capsule-embed.mjs — ne pas éditer à la main */
+    const header = `/* Généré par usr/lib/capsuleos/tools/build-capsule-embed.mjs — ne pas éditer à la main */
 (function () {
 'use strict';
 `;

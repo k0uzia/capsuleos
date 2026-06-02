@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Génère OS/linux/families/.../index.html (facades avec <base>).
- * Usage : node scripts/build-linux-facades.mjs
+ * Usage : node usr/lib/capsuleos/tools/linux/build-linux-facades.mjs
  */
 import fs from 'fs';
 import path from 'path';

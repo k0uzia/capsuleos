@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Génère var/lib/capsuleos/generated/capsule-app-embed.js (Linux offline embed).
- * Usage : node scripts/build-linux-embed.mjs
+ * Usage : node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
  */
 import fs from 'fs';
 import path from 'path';
@@ -147,7 +147,7 @@ function main() {
 
     const manifest = JSON.parse(readUtf8(MANIFEST_PATH));
 
-    const header = `/* Généré par scripts/build-linux-embed.mjs — ne pas éditer à la main */
+    const header = `/* Généré par usr/lib/capsuleos/tools/linux/build-linux-embed.mjs — ne pas éditer à la main */
 (function () {
 'use strict';
 `;

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Met à jour les chemins shared/kernel dans usr/lib/shells/linux et usr/share/capsuleos/linux.
- * Usage : node scripts/migrate-linux-usr-paths.mjs
+ * Usage : node usr/lib/capsuleos/tools/linux/migrate-linux-usr-paths.mjs
  */
 import fs from 'fs';
 import path from 'path';

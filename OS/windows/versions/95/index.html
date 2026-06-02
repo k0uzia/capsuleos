@@ -42,13 +42,16 @@
             </a>
         </div>
     </footer>
+    <script src="../../../../../usr/lib/capsuleos/common/user-home.js"></script>
     <script>
         window.CAPSULE_WIN_VERSION = '95';
         window.CAPSULE_WIN_SHELL = 'classic';
         window.CAPSULE_WIN_START_STYLE = 'classic';
         window.CAPSULE_WIN_APPS_BASE = '../../shared/apps';
         window.CAPSULE_WIN_PAGES_BASE = '../../shared/pages';
-        window.CAPSULE_WIN_CONTENT_ROOT = '../../shared/content';
+        window.CAPSULE_WIN_CONTENT_ROOT = typeof CapsuleUserHome !== 'undefined'
+            ? CapsuleUserHome.resolveRelative()
+            : '../../../../home/public';
         window.CAPSULE_WIN_SKIN_BASE = '.';
         window.CAPSULE_WIN_HUB = '../../index.html';
         window.CAPSULE_WIN_SITE_HOME = '../../../../../index.html';

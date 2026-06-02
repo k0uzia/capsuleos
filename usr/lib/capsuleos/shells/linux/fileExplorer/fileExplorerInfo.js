@@ -114,7 +114,7 @@ const fileExplorerSystemLink = {
         },
         "apps": {
             "image": "./media/img/apps/mintinstall.png",
-            "link": "../../../usr/share/capsuleos/linux/apps/logithèque.html",
+            "link": "../../../usr/share/capsuleos/linux/apps/mainMenu.html",
             "détails": [
                 "Ouvrir la logithèque"
             ]

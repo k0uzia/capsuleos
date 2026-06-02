@@ -26,3 +26,14 @@ Charger dans l’ordre :
 | `OS/macos/sonoma/index.html` | `../../../../usr/lib/capsuleos/common/` |
 
 Phase 6 : charger uniquement `usr/lib/capsuleos/common/` (shims racine et sous `OS/` supprimés).
+
+### Home partagé (`home/public/`)
+
+Après ajout de fichiers sous `home/public/`, régénérer les manifestes et l’embed Linux :
+
+```bash
+node usr/lib/capsuleos/tools/generate-public-manifest.mjs
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
+```
+
+Les skins Linux définissent `CAPSULE_CONTENT_ROOT = CapsuleUserHome.fromRepoDepth(3)` ; Windows et les pages iframe utilisent `CapsuleUserHome.resolveRelative()`.

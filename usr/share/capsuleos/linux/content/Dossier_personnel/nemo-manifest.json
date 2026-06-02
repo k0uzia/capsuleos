@@ -1,6 +1,7 @@
 {
-  "_deprecated": "Utiliser home/public/.capsule-manifest.json — ce fichier redirige la racine.",
+  "_deprecated": "Utiliser home/public/.capsule-manifest.json",
   "root": "../../../home/public",
   "rootLabel": "Dossier personnel",
-  "redirectTo": "../../../home/public/.capsule-manifest.json"
+  "redirectTo": "../../../home/public/.capsule-manifest.json",
+  "folders": {}
 }

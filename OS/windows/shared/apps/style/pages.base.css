@@ -76,3 +76,14 @@ body {
     color: #666666;
     font-size: 0.9rem;
 }
+
+.win-explorer__entry {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}

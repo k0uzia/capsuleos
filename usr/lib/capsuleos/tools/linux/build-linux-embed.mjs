@@ -8,7 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = path.resolve(__dirname, '../../../../..');
 
 const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
 const STYLE_DIR = path.join(APPS_DIR, 'style');

@@ -5,7 +5,7 @@ const getFileExplorerRoot = () => {
     if (typeof window !== 'undefined' && window.CapsuleUserHome) {
         return window.CapsuleUserHome.fromRepoDepth(3);
     }
-    return './apps/system/Dossier_personnel';
+    return 'home/public';
 };
 
 const getFileExplorerManifestPath = () => {

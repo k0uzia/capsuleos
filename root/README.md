@@ -56,6 +56,7 @@ Index détaillé : [docs/familles-os.md](docs/familles-os.md).
 
 ## Documentation
 
+- [LINUX-GUI-TOOLKITS.md](../LINUX-GUI-TOOLKITS.md) — toolkits graphiques Linux (GTK, Qt, Cinnamon, COSMIC) pour agents UX/CSS
 - [docs/roadmap.md](docs/roadmap.md) — plan de livraison et jalons
 - [docs/apps-linux-par-distro.md](docs/apps-linux-par-distro.md) — apps par défaut et mappings Linux
 - [docs/arborescence.md](docs/arborescence.md) — `home/`, `usr/`, `OS/`, `var/`

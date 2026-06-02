@@ -14,6 +14,7 @@ Résumé pour naviguer le dépôt ; détail produit : [`README.md`](../../README
 | `var/lib/capsuleos/generated/` | `capsule-app-embed.js`, `capsule-android-embed.js`, etc. |
 | `etc/capsuleos/` | Config (ex. `user-home.json`) |
 | `root/` | **Ce dossier** — skills et doc agents uniquement |
+| `LINUX-GUI-TOOLKITS.md` (racine dépôt) | GTK / Qt / Cinnamon / COSMIC — guide UX agents Linux |
 
 ## Flux typique Linux
 

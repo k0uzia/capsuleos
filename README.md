@@ -172,5 +172,8 @@ Le dépôt est structuré pour ressembler au maximum à une racine Linux.
 
 ​	📄 variables.css
 
+### Documentation agents (bureaux Linux) ▼
+
+Guide **GTK / GNOME / Cinnamon / KDE Plasma / COSMIC** pour la fidélité visuelle des skins : [LINUX-GUI-TOOLKITS.md](LINUX-GUI-TOOLKITS.md). Voir aussi `root/docs/apps-linux-par-distro.md` pour les mappings d’applications.
 
 

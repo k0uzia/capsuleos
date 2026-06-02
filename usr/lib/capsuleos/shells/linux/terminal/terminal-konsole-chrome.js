@@ -1,9 +1,26 @@
-(function initMxKdeKonsoleTerminalChrome() {
-    if (!document.body || document.body.id !== 'opensuse') {
+(function initKonsoleTerminalChrome() {
+    const KONSOLE_BODY_IDS = new Set(['opensuse', 'mx-kde', 'debian-kde']);
+    if (!document.body || !KONSOLE_BODY_IDS.has(document.body.id)) {
         return;
     }
 
-    const PROMPT_PATTERN = /^([^@]+)@([^:]+):([^$]+)\$ $/;
+    const PROMPT_PATTERN = /^([^@]+)@([^:]+):([^$#]+)([$#]) $/;
+
+    const escapeHtml = (value) => String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    const buildPromptMarkup = (user, host, path, sigil) => [
+        `<span class="konsole-prompt__line">`,
+        `<span class="konsole-prompt__user">${escapeHtml(user)}</span>`,
+        `<span class="konsole-prompt__at">@</span>`,
+        `<span class="konsole-prompt__host">${escapeHtml(host)}</span>`,
+        `<span class="konsole-prompt__colon">:</span>`,
+        `<span class="konsole-prompt__path">${escapeHtml(path)}</span>`,
+        `<span class="konsole-prompt__dollar">${escapeHtml(sigil)} </span>`,
+        `</span>`
+    ].join('');
 
     const colorizePromptText = (text) => {
         const match = String(text || '').match(PROMPT_PATTERN);
@@ -11,17 +28,8 @@
             return null;
         }
 
-        const [, user, host, path] = match;
-        return [
-            `<span class="konsole-prompt__line">`,
-            `<span class="konsole-prompt__user">${user}</span>`,
-            `<span class="konsole-prompt__at">@</span>`,
-            `<span class="konsole-prompt__host">${host}</span>`,
-            `<span class="konsole-prompt__colon">:</span>`,
-            `<span class="konsole-prompt__path">${path}</span>`,
-            `</span>`,
-            `<span class="konsole-prompt__dollar">$ </span>`
-        ].join('');
+        const [, user, host, path, sigil] = match;
+        return buildPromptMarkup(user, host, path, sigil);
     };
 
     const applyPromptMarkup = (element) => {
@@ -42,6 +50,23 @@
 
         element.dataset.konsolePromptText = text;
         element.innerHTML = markup;
+    };
+
+    const applyCommandLineMarkup = (element) => {
+        if (!element || element.querySelector('.konsole-prompt__user')) {
+            return;
+        }
+
+        const text = String(element.textContent || '');
+        const match = text.match(/^([^@]+)@([^:]+):([^$#]+)([$#] )(.*)$/);
+        if (!match) {
+            return;
+        }
+
+        const [, user, host, path, sigil, command] = match;
+        const sigilChar = sigil.trim();
+        element.dataset.konsolePromptText = text;
+        element.innerHTML = `${buildPromptMarkup(user, host, path, sigilChar)}${command ? escapeHtml(command) : ''}`;
     };
 
     const bindToolbar = (root) => {
@@ -70,6 +95,15 @@
         app.scrollTop = app.scrollHeight;
     };
 
+    const colorizeOutput = (output) => {
+        output.querySelectorAll('.capsule-terminal__prompt-copy').forEach((copy) => {
+            applyPromptMarkup(copy);
+        });
+        output.querySelectorAll('.capsule-terminal__command-line').forEach((line) => {
+            applyCommandLineMarkup(line);
+        });
+    };
+
     const observeTerminal = (root) => {
         const prompt = root.querySelector('[data-terminal-prompt], #prompt');
         const output = root.querySelector('[data-terminal-output], #output');
@@ -83,10 +117,9 @@
         }
 
         if (output) {
+            colorizeOutput(output);
             const outputObserver = new MutationObserver(() => {
-                output.querySelectorAll('.capsule-terminal__prompt-copy').forEach((copy) => {
-                    applyPromptMarkup(copy);
-                });
+                colorizeOutput(output);
                 scrollTranscript(root);
             });
             outputObserver.observe(output, { childList: true, subtree: true, characterData: true });

@@ -42,6 +42,7 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 
 | Besoin | Fichier |
 |--------|---------|
+| Toolkits GUI Linux (GTK/Qt/Cinnamon/COSMIC) | [`LINUX-GUI-TOOLKITS.md`](../LINUX-GUI-TOOLKITS.md) |
 | Home simulé partagé | `home/public/`, `usr/lib/capsuleos/common/user-home.js` |
 | Explorateurs Linux | `usr/share/capsuleos/linux/explorers/`, `usr/lib/capsuleos/shells/linux/explorers/` |
 | Embeds offline | `var/lib/capsuleos/generated/`, outils `usr/lib/capsuleos/tools/` |

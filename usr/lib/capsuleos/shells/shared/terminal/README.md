@@ -16,6 +16,16 @@
 4. `terminal-profile.js`, `terminal-core.js`
 5. **`common/terminal-completion.js`**, puis **`common/terminal-editors.js`** ← avant `terminal.js` et `executeCommand.js`
 6. `terminal.js`, `executeCommand.js`, `filesystem.js`, `virtual-shell.js`, `manuel.js`
+7. (optionnel) `terminal-konsole-chrome.js` après `terminal.js` — skins Konsole : `opensuse`, `mx-kde`, `debian-kde` (colorise le prompt actif + l’historique ; barre d’outils décorative)
+
+### Konsole (Plasma)
+
+| Fichier | Rôle |
+|---------|------|
+| `style/apps/terminal.skin.css` | Chrome fenêtre Konsole, toolbar, couleurs prompt (`--konsole-*`) |
+| `terminal-konsole-chrome.js` | Découpe `user@host:path$` en spans `.konsole-prompt__*` |
+
+Les trois skins KDE partagent le gabarit `terminal.html` (toolbar Konsole). **Debian-KDE** réutilise les tokens `--opensuse-*` définis dans `debian-breeze.css` / `style.css`.
 
 ## Linux (8 skins + facades `OS/linux/families/`)
 

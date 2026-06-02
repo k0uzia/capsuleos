@@ -44,6 +44,10 @@ node usr/lib/capsuleos/tools/generate-public-manifest.mjs
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
+## Toolkits graphiques (GTK, Qt, Cinnamon, COSMIC)
+
+Avant toute passe CSS/UX sur un skin Linux : [`LINUX-GUI-TOOLKITS.md`](../../../LINUX-GUI-TOOLKITS.md) (tableau skin ↔ toolkit, tokens, pièges embed).
+
 ## Rôles fréquents
 
 `role-integrator`, `role-developer`, `role-web-designer`.

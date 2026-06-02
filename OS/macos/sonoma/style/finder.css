@@ -40,8 +40,6 @@
 
 }
 
-<<<<<<< HEAD
-=======
 /* Page Finder autonome (home/public) */
 .mac-finder-page {
     margin: 0;
@@ -179,12 +177,6 @@
     background: #007aff18;
 }
 
-.mac-finder__item--selected,
-.mac-finder__item--selected:hover {
-    background: #007aff33;
-    outline: 1px solid #007aff66;
-}
-
 .mac-finder__item-icon {
     font-size: 2rem;
     line-height: 1;
@@ -204,4 +196,3 @@
     background: #f5f5f7;
 }
 
->>>>>>> d83a78d (refactorisation générale)

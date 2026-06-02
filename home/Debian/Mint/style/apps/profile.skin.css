@@ -1,14 +1,1 @@
-<<<<<<< HEAD
 /* Surcouche Mint - profile (optionnel) */
-=======
-/* Surcouche Mint — Profil / À Propos */
-body#mint div[data-link="profile"] .profile-app__section-title {
-    border-left: 3px solid var(--menu-accent);
-    padding-left: calc(var(--head) / 4);
-}
-
-body#mint div[data-link="profile"] .profile-app__link:hover,
-body#mint div[data-link="profile"] .profile-app__button:hover {
-    color: var(--menu-accent);
-}
->>>>>>> d83a78d (refactorisation générale)

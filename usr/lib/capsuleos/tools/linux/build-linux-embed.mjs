@@ -8,29 +8,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-<<<<<<< HEAD
-const ROOT = path.resolve(__dirname, '..');
-
-const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
-const STYLE_DIR = path.join(APPS_DIR, 'style');
-=======
 const ROOT = path.resolve(__dirname, '../../../../..');
 
 const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
-const EXPLORERS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/explorers');
 const STYLE_DIR = path.join(APPS_DIR, 'style');
-
-/** Gabarits chargés depuis usr/share/capsuleos/linux/explorers/ (pas apps/*.html). */
-const EXPLORER_TEMPLATE_PROFILES = {
-    nemo: { shell: 'nemo/shell.html', cssBaseStack: ['nemo/base.css'] },
-    dolphin: { shell: 'dolphin/shell.html', cssBaseStack: ['nemo/base.css', 'dolphin/base.css'] },
-    nautilus: { shell: 'nautilus/shell.html', cssBaseStack: ['nemo/base.css'] },
-    'nemo-gnome': { shell: 'nautilus/shell.html', cssBaseStack: ['nemo/base.css'] },
-    'nemo-cosmic': { shell: 'nautilus/shell-cosmic.html', cssBaseStack: ['nemo/base.css'] },
-    'nautilus-cosmic': { shell: 'nautilus/shell-cosmic.html', cssBaseStack: ['nemo/base.css'] }
-};
-const EXPLORER_TEMPLATE_IDS = new Set(Object.keys(EXPLORER_TEMPLATE_PROFILES));
->>>>>>> d83a78d (refactorisation générale)
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
@@ -60,17 +41,9 @@ function readUtf8(p) {
 
 function listTemplateIds() {
     const names = fs.readdirSync(APPS_DIR);
-<<<<<<< HEAD
     return names
         .filter((n) => n.endsWith('.html') && !fs.statSync(path.join(APPS_DIR, n)).isDirectory())
         .map((n) => path.basename(n, '.html'));
-=======
-    const appIds = names
-        .filter((n) => n.endsWith('.html') && !fs.statSync(path.join(APPS_DIR, n)).isDirectory())
-        .map((n) => path.basename(n, '.html'))
-        .filter((id) => !EXPLORER_TEMPLATE_IDS.has(id));
-    return [...appIds, ...EXPLORER_TEMPLATE_IDS].sort();
->>>>>>> d83a78d (refactorisation générale)
 }
 
 function listSkinIds(skinDir) {
@@ -83,14 +56,6 @@ function listSkinIds(skinDir) {
 }
 
 function buildCssBase(templateId) {
-<<<<<<< HEAD
-=======
-    if (EXPLORER_TEMPLATE_PROFILES[templateId]) {
-        return EXPLORER_TEMPLATE_PROFILES[templateId].cssBaseStack
-            .map((rel) => readUtf8(path.join(EXPLORERS_DIR, rel)))
-            .join('\n');
-    }
->>>>>>> d83a78d (refactorisation générale)
     const cssBaseId = ['nemo-gnome', 'nemo-cosmic', 'nautilus', 'nautilus-cosmic'].includes(templateId)
         ? 'nemo'
         : templateId;
@@ -124,13 +89,6 @@ function readSkinStrings(stringsPath) {
 }
 
 function readTemplateHtml(templateId) {
-<<<<<<< HEAD
-=======
-    const explorer = EXPLORER_TEMPLATE_PROFILES[templateId];
-    if (explorer) {
-        return readUtf8(path.join(EXPLORERS_DIR, explorer.shell));
-    }
->>>>>>> d83a78d (refactorisation générale)
     const htmlPath = path.join(APPS_DIR, `${templateId}.html`);
     return readUtf8(htmlPath);
 }

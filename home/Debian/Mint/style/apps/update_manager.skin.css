@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Surcouche Mint — update manager (réf. visuel/update_mint/mint_update.png) */
 
 body#mint div[data-link="update_manager"] #windowHeader {
@@ -179,19 +178,3 @@ main#updateManagerApp {
     color: #333;
 }
 
-=======
-/* Surcouche Mint — Gestionnaire de mises à jour */
-body#mint div[data-link="update_manager"] .update-manager__tool--primary {
-    background: var(--menu-accent);
-    border-color: var(--menu-accent);
-}
-
-body#mint div[data-link="update_manager"] .update-manager__tab.is-active {
-    border-bottom-color: var(--menu-accent);
-    color: var(--menu-accent);
-}
-
-body#mint div[data-link="update_manager"] .update-manager__table tbody tr:hover {
-    background: rgba(90, 188, 59, 0.08);
-}
->>>>>>> d83a78d (refactorisation générale)

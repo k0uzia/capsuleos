@@ -81,12 +81,7 @@ function buildWindowTitles(merged) {
         mainMenu: m['mainMenu.windowTitle'] || 'Menu',
         visionneur_images: m['visionneur_images.windowTitle'] || 'Visionneur d\'images',
         visionneur_pdf: m['visionneur_pdf.windowTitle'] || 'Visionneur PDF',
-<<<<<<< HEAD
         lecteur_multimedia: m['lecteur_multimedia.windowTitle'] || 'Lecteur multimédia'
-=======
-        lecteur_multimedia: m['lecteur_multimedia.windowTitle'] || 'Lecteur multimédia',
-        text_editor: m['text_editor.windowTitle'] || 'Sans titre — Éditeur de texte'
->>>>>>> d83a78d (refactorisation générale)
     };
 }
 

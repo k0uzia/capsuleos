@@ -95,33 +95,13 @@
         return item.type === 'folder' ? '📁' : '📄';
     }
 
-    const modernState = {
-        history: [],
-        historyIndex: -1
-    };
-
-    function pushModernHistory(folderPath) {
-        const normalized = normalizePath(folderPath);
-        if (modernState.historyIndex >= 0 && modernState.history[modernState.historyIndex] === normalized) {
-            return;
-        }
-        modernState.history = modernState.history.slice(0, modernState.historyIndex + 1);
-        modernState.history.push(normalized);
-        modernState.historyIndex = modernState.history.length - 1;
-    }
-
-    function renderModernList(manifest, folderPath, options = {}) {
-        const { updateHistory = true } = options;
+    function renderModernList(manifest, folderPath) {
         const list = document.querySelector('.win-page--modern .win-page__list');
         if (!list) {
             return;
         }
-        const path = normalizePath(folderPath);
-        const node = manifest.folders[path];
+        const node = manifest.folders[folderPath];
         const items = sortItems(node && node.items);
-        if (updateHistory) {
-            pushModernHistory(path);
-        }
         list.innerHTML = '';
         items.forEach((item) => {
             const li = document.createElement('li');
@@ -130,20 +110,18 @@
                 btn.type = 'button';
                 btn.className = 'win-explorer__entry';
                 btn.textContent = `${fileIcon(item)} ${item.name}`;
-                btn.addEventListener('dblclick', () => {
+                btn.addEventListener('click', () => {
                     renderModernList(manifest, normalizePath(item.path));
                 });
                 li.appendChild(btn);
             } else if (item.type === 'file') {
-                const href = item.href || `${path}/${item.name}`;
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'win-explorer__entry win-explorer__entry--file';
-                btn.textContent = `${fileIcon(item)} ${item.name}`;
-                btn.addEventListener('dblclick', () => {
-                    global.open(href, '_blank', 'noopener');
-                });
-                li.appendChild(btn);
+                const href = item.href || `${folderPath}/${item.name}`;
+                const a = document.createElement('a');
+                a.href = href;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = `${fileIcon(item)} ${item.name}`;
+                li.appendChild(a);
             } else {
                 li.textContent = `${fileIcon(item)} ${item.name}`;
             }
@@ -152,11 +130,7 @@
         const header = document.querySelector('.win-page--modern .win-page__header h1');
         if (header) {
             const label = node && node.label ? node.label : 'Ce PC';
-            header.textContent = path === manifest.root ? 'Ce PC' : label;
-        }
-        const hint = document.querySelector('.win-page--modern .win-page__hint');
-        if (hint) {
-            hint.textContent = `${items.length} élément(s) — double-cliquez pour ouvrir.`;
+            header.textContent = folderPath === manifest.root ? 'Ce PC' : label;
         }
     }
 

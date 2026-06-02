@@ -5,12 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
-<<<<<<< HEAD
-=======
-    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/commons/explorer-home.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-runtime.js"></script>
->>>>>>> d83a78d (refactorisation générale)
     <link rel="icon" href="./media/img/assets/fedora-logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./style/imports.css?v=20260428" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
@@ -87,10 +81,6 @@
                 <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none; position: fixed;"></div>
                 <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none; position: fixed;"></div>
                 <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none; position: fixed;"></div>
-<<<<<<< HEAD
-=======
-                <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none; position: fixed;"></div>
->>>>>>> d83a78d (refactorisation générale)
                 <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none; position: fixed;"></div>
             </object>
         </main>
@@ -206,27 +196,16 @@
             <button type="button" class="fedora-overview__dash-item" data-overview-link="firefox" aria-label="Firefox">
                 <img src="../../../usr/share/capsuleos/linux/media/img/apps/firefox.png" alt="">
             </button>
-<<<<<<< HEAD
             <button type="button" class="fedora-overview__dash-item" data-overview-link="checklist" aria-label="Calendrier">
-=======
-            <button type="button" class="fedora-overview__dash-item" aria-label="Calendrier">
->>>>>>> d83a78d (refactorisation générale)
                 <img src="./media/img/apps/dash/org.gnome.Calendar.svg" alt="">
             </button>
             <button type="button" class="fedora-overview__dash-item" data-overview-link="nemo" aria-label="Fichiers">
                 <img src="./media/img/apps/dash/org.gnome.Nautilus.svg" alt="">
             </button>
-<<<<<<< HEAD
             <button type="button" class="fedora-overview__dash-item" data-overview-link="themes" aria-label="Logiciels">
                 <img src="./media/img/apps/dash/org.gnome.Software.svg" alt="">
             </button>
             <button type="button" class="fedora-overview__dash-item" data-overview-link="librewriter" aria-label="Éditeur de texte">
-=======
-            <button type="button" class="fedora-overview__dash-item" data-overview-link="update_manager" aria-label="Logiciels">
-                <img src="./media/img/apps/dash/org.gnome.Software.svg" alt="">
-            </button>
-            <button type="button" class="fedora-overview__dash-item" data-overview-link="text_editor" aria-label="Éditeur de texte">
->>>>>>> d83a78d (refactorisation générale)
                 <img src="./media/img/apps/dash/org.gnome.TextEditor.svg" alt="">
             </button>
             <button type="button" class="fedora-overview__dash-item" data-overview-link="terminal" aria-label="Terminal">
@@ -323,20 +302,12 @@
         window.CAPSULE_APPS_BASE = '../../../usr/share/capsuleos/linux/apps';
         window.CAPSULE_CONTENT_ROOT = window.CapsuleUserHome
             ? window.CapsuleUserHome.fromRepoDepth(3)
-<<<<<<< HEAD
             : '../../../usr/share/capsuleos/linux/content/Dossier_personnel';
-=======
-            : '../../../home/public';
->>>>>>> d83a78d (refactorisation générale)
         window.CAPSULE_SKIN_BASE = '.';
         window.CAPSULE_STRINGS_URL = './content/strings.json';
         window.CAPSULE_EXPLORER_APP_ID = 'nemo';
         window.CAPSULE_EXPLORER_DISPLAY_NAME = 'Nautilus';
-<<<<<<< HEAD
         window.CAPSULE_EXPLORER_TEMPLATE = 'nemo';
-=======
-        window.CAPSULE_EXPLORER_TEMPLATE = 'nemo-gnome';
->>>>>>> d83a78d (refactorisation générale)
         window.CAPSULE_EXPLORER_SKIN_KEY = 'files';
         window.CAPSULE_EMBED_SKIN_KEY = 'fedora';
         window.CAPSULE_CHECKLIST_STORAGE_KEY = 'fedora-checklist';
@@ -382,18 +353,10 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260424"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=20260424"></script>
-<<<<<<< HEAD
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260424"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowHeaderButton.js?v=20260424"></script>
     <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
     <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
-=======
-        <script src="../../../usr/lib/capsuleos/common/resizeWindow.js?v=20260602"></script>
-    <script src="../../../usr/lib/capsuleos/common/window-drag.js?v=20260602"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/linux-desktop-shell.js?v=20260602"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260424"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/windowHeaderButton.js?v=20260424"></script>
->>>>>>> d83a78d (refactorisation générale)
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260424"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260424"></script>
@@ -404,11 +367,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
-<<<<<<< HEAD
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
-=======
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js?v=20260602"></script>
->>>>>>> d83a78d (refactorisation générale)
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>

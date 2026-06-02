@@ -39,12 +39,6 @@ const shouldUseAppEmbed = (templateId) => {
 const resolveTemplateId = (slotId) => {
     if (slotId === 'nemo' && typeof window !== 'undefined' && window.CAPSULE_EXPLORER_TEMPLATE) {
         const t = String(window.CAPSULE_EXPLORER_TEMPLATE).replace(/\/+$/, '');
-<<<<<<< HEAD
-=======
-        if (window.CapsuleExplorerRegistry) {
-            return window.CapsuleExplorerRegistry.resolveTemplateId(t);
-        }
->>>>>>> d83a78d (refactorisation générale)
         return t || 'nemo';
     }
     if (slotId === 'mainMenu' && typeof window !== 'undefined' && window.CAPSULE_MAIN_MENU_TEMPLATE) {
@@ -54,7 +48,6 @@ const resolveTemplateId = (slotId) => {
     return slotId;
 };
 
-<<<<<<< HEAD
 /** Gabarit HTML dérivé de Nautilus (ex. nemo-gnome) → CSS de base `nemo.base.css`. */
 const resolveCssBaseTemplateId = (templateId) => {
     if (templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
@@ -63,20 +56,6 @@ const resolveCssBaseTemplateId = (templateId) => {
     if (templateId === 'mainMenu-gnome') {
         return 'mainMenu-gnome';
     }
-=======
-const resolveCssBaseTemplateId = (templateId) => {
-    if (templateId === 'mainMenu-gnome') {
-        return 'mainMenu-gnome';
-    }
-    if (typeof window !== 'undefined' && window.CapsuleExplorerRegistry
-        && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId)) {
-        const family = window.CapsuleExplorerRegistry.getProfile(templateId).family;
-        return family === 'dolphin' ? 'dolphin' : 'nemo';
-    }
-    if (templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
-        return 'nemo';
-    }
->>>>>>> d83a78d (refactorisation générale)
     return templateId;
 };
 
@@ -106,14 +85,8 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
     }
-<<<<<<< HEAD
     if (templateId === 'dolphin') {
         return '../../../../../modules/app/dolphin/dolphin.html';
-=======
-    if (typeof window !== 'undefined' && window.CapsuleExplorerRegistry
-        && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId)) {
-        return window.CapsuleExplorerRegistry.resolveShellPathFromAppsBase(appsBase, templateId);
->>>>>>> d83a78d (refactorisation générale)
     }
     return `${appsBase}/${templateId}.html`;
 };
@@ -142,17 +115,9 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
 
     const htmlFile = resolveTemplateHtmlFile(templateId, appsBase);
     const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
-<<<<<<< HEAD
     const cssBaseFile = templateId === 'dolphin'
         ? '../../../../../modules/app/dolphin/dolphin.base.css'
         : `${appsBase}/style/${cssBaseTemplateId}.base.css`;
-=======
-    const useExplorerCss = typeof window !== 'undefined' && window.CapsuleExplorerRegistry
-        && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId);
-    const cssBaseFiles = useExplorerCss
-        ? window.CapsuleExplorerRegistry.resolveCssBasePathsFromAppsBase(appsBase, templateId)
-        : [`${appsBase}/style/${cssBaseTemplateId}.base.css`];
->>>>>>> d83a78d (refactorisation générale)
 
     const resolveEmbedHtml = () => {
         if (!embed || !embed.templates || !embed.templates[templateId]) {
@@ -180,7 +145,6 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
     });
 
     const fetchCssBase = (async () => {
-<<<<<<< HEAD
         let text = '';
         const response = await fetch(cssBaseFile, { cache: 'no-store' });
         if (!response.ok) {
@@ -201,25 +165,6 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
             }
         }
         return text;
-=======
-        const parts = [];
-        for (const cssBaseFile of cssBaseFiles) {
-            const response = await fetch(cssBaseFile, { cache: 'no-store' });
-            if (!response.ok) {
-                if (parts.length === 0 && embed && embed.templates && embed.templates[templateId] && embed.templates[templateId].cssBase) {
-                    console.warn(`CapsuleOS: CSS base ${templateId} via embed (HTTP ${response.status})`);
-                    return embed.templates[templateId].cssBase;
-                }
-                if (parts.length === 0) {
-                    throw new Error(`HTTP ${response.status} ${cssBaseFile}`);
-                }
-                console.warn(`CapsuleOS: CSS partiel ignoré ${cssBaseFile}`);
-                continue;
-            }
-            parts.push(await response.text());
-        }
-        return parts.join('\n');
->>>>>>> d83a78d (refactorisation générale)
     })();
 
     const skinCssVersion = typeof window !== 'undefined' && window.CAPSULE_SKIN_CSS_VERSION
@@ -266,25 +211,11 @@ const runFirstAvailable = (candidates, warnLabel) => {
 
 const SLOT_INIT_HANDLERS = {
     nemo: () => {
-<<<<<<< HEAD
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
             : (typeof window !== 'undefined' && window.CapsuleUserHome)
                 ? window.CapsuleUserHome.fromRepoDepth(3)
                 : './apps/system/Dossier_personnel';
-=======
-        if (typeof window !== 'undefined' && window.CapsuleExplorerRuntime) {
-            window.CapsuleExplorerRuntime.initExplorerSlot();
-            return;
-        }
-        const contentRoot = typeof window !== 'undefined' && window.CapsuleExplorerHome
-            ? window.CapsuleExplorerHome.getContentRoot()
-            : (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
-                ? window.CAPSULE_CONTENT_ROOT
-                : (typeof window !== 'undefined' && window.CapsuleUserHome)
-                    ? window.CapsuleUserHome.fromRepoDepth(3)
-                    : 'home/public');
->>>>>>> d83a78d (refactorisation générale)
         runFirstAvailable([
             { fn: typeof window.refreshDolphinShellLayout === 'function' ? window.refreshDolphinShellLayout : null }
         ]);

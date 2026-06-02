@@ -30,8 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     windowHeader.appendChild(title);
     windowHeader.appendChild(right);
 
-<<<<<<< HEAD
-=======
     function ensureFinderFrame(container) {
         if (!container || container.dataset.finderReady === 'true') {
             return;
@@ -46,19 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
         container.dataset.finderReady = 'true';
     }
 
->>>>>>> d83a78d (refactorisation générale)
     function handleOpenwindow(link) {
         const container = document.querySelector(`div[data-link="${link.dataset.link}"]`);
         
         if (container) {
             if (container.style.display === "none") {
                 container.style.display = "block";
-<<<<<<< HEAD
-=======
                 if (link.dataset.link === 'finder') {
                     ensureFinderFrame(container);
                 }
->>>>>>> d83a78d (refactorisation générale)
                 if (!container.querySelector('#windowHeader')) {
                     container.insertBefore(windowHeader.cloneNode(true), container.firstChild);
                 }        

@@ -1,38 +1,19 @@
-<<<<<<< HEAD
 html>body>footer>nav {
-=======
-html>body>footer>nav,
-html>body>footer .taskbar-pins {
->>>>>>> d83a78d (refactorisation générale)
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--c);
-<<<<<<< HEAD
 }
 
 html>body>footer>nav>a {
-=======
-    gap: var(--mint-panel-gap);
-}
-
-html>body>footer>nav>a,
-html>body>footer .taskbar-pins > a {
->>>>>>> d83a78d (refactorisation générale)
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--c);
     flex-shrink: 0;
-<<<<<<< HEAD
     width: calc(var(--head) * 1.2); 
     height: var(--head);
     margin: var(--z) calc(var(--head) - calc(var(--head) / 1.1));
-=======
-    width: var(--mint-panel-pin-size);
-    height: var(--head);
-    margin: var(--z);
->>>>>>> d83a78d (refactorisation générale)
     background: var(--t);
     border-radius: calc(var(--head) / 10);
     border: 1px solid var(--t);
@@ -40,18 +21,12 @@ html>body>footer .taskbar-pins > a {
     z-index: 0;
 }
 
-<<<<<<< HEAD
 html>body>footer>nav>a:hover {
-=======
-html>body>footer>nav>a:hover,
-html>body>footer .taskbar-pins > a:hover {
->>>>>>> d83a78d (refactorisation générale)
     background: var(--mint-clock-hover-bg);
     border-color: var(--mint-taskbar-item-border-hover);
     transform: translateY(-1px);
 }
 
-<<<<<<< HEAD
 html>body>footer>nav>a.active-link {
     background: var(--mint-clock-hover-bg);
     border-color: var(--menu-accent);
@@ -62,95 +37,20 @@ html>body>footer>nav>a>img {
     display: var(--bl);
     width: calc(var(--head) * 0.9);
     height: calc(var(--head) * 0.9);
-=======
-html>body>footer>nav>a.active-link,
-html>body>footer .taskbar-pins > a.active-link {
-    background: var(--mint-window-list-active-bg);
-    border-color: var(--mint-taskbar-item-border-hover);
-    box-shadow: inset 0 -2px 0 var(--mint-window-list-active-indicator);
-}
-
-html>body>footer>nav>a>img,
-html>body>footer .taskbar-pins > a > img {
-    display: var(--bl);
-    width: var(--mint-panel-pin-icon);
-    height: var(--mint-panel-pin-icon);
->>>>>>> d83a78d (refactorisation générale)
     object-fit: contain;
     image-rendering: var(--a);
 }
 
-<<<<<<< HEAD
 html>body>footer>nav>a:nth-child(1)>img {
     filter: var(--inv) var(--bright);
 }
 
-=======
-html>body>footer>nav>a:nth-child(1)>img,
-html>body>footer .taskbar-pins > a:nth-child(1) > img {
-    filter: var(--inv) var(--bright);
-}
-
-.taskbar-window-list {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    flex: 1;
-    min-width: 0;
-    gap: var(--mint-window-list-gap);
-    padding: 0 calc(var(--head) / 8);
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-}
-
-.taskbar-window-list[hidden] {
-    display: none;
-}
-
-.taskbar-window-list__btn {
-    display: var(--bl);
-    flex-shrink: 0;
-    min-width: var(--mint-window-list-btn-min);
-    max-width: var(--mint-window-list-btn-max);
-    height: calc(var(--head) * 0.92);
-    padding: 0 calc(var(--head) / 3);
-    border: 1px solid transparent;
-    border-radius: calc(var(--head) / 10);
-    background: var(--t);
-    color: var(--texte);
-    font-family: var(--font-ui);
-    font-size: calc(var(--head) / 2.6);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: default;
-    transition: background-color var(--eas2), border-color var(--eas2), box-shadow var(--eas2);
-}
-
-.taskbar-window-list__btn:hover {
-    background: var(--mint-window-list-hover-bg);
-    border-color: var(--mint-taskbar-item-border-hover);
-}
-
-.taskbar-window-list__btn.is-active {
-    background: var(--mint-window-list-active-bg);
-    border-color: var(--mint-taskbar-item-border-hover);
-    box-shadow: inset 0 -2px 0 var(--mint-window-list-active-indicator);
-}
-
->>>>>>> d83a78d (refactorisation générale)
 .taskbar-right {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--c);
     gap: calc(var(--head) / 12);
-<<<<<<< HEAD
-=======
-    flex-shrink: 0;
-    margin-left: auto;
->>>>>>> d83a78d (refactorisation générale)
 }
 
 .taskbar-tray {

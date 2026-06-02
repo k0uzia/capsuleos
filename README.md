@@ -89,14 +89,6 @@ Ceci évite d'atteindre un nombre critique de scripts et permet d'alléger la ch
 
 ### Ouverture en `file://` et gabarits embarqués ▼
 
-<<<<<<< HEAD
-Les navigateurs bloquent ou restreignent `fetch()` sur des fichiers locaux. Pour que les bureaux Linux et Android fonctionnent **sans serveur HTTP** (double-clic sur `index.html`), le dépôt inclut des scripts générés : `OS/linux/kernel/js/capsule-app-embed.js` et `OS/android/js/capsule-android-embed.js`.
-
-Après modification des gabarits sous `OS/linux/shared/apps/` ou des skins `style/apps/*.skin.css` (Mint, Ubuntu, Fedora), régénérer le fichier Linux :
-
-```bash
-node usr/lib/capsuleos/tools/build-capsule-embed.mjs
-=======
 Les navigateurs bloquent ou restreignent `fetch()` sur des fichiers locaux. Pour que les bureaux Linux et Android fonctionnent **sans serveur HTTP** (double-clic sur `index.html`), le dépôt inclut des scripts générés : `var/lib/capsuleos/generated/capsule-app-embed.js` et `var/lib/capsuleos/generated/capsule-android-embed.js`.
 
 Après modification du contenu partagé `home/public/` ou des gabarits sous `usr/share/capsuleos/linux/apps/` (et skins `style/apps/*.skin.css`), régénérer manifeste + embed Linux :
@@ -104,7 +96,6 @@ Après modification du contenu partagé `home/public/` ou des gabarits sous `usr
 ```bash
 node usr/lib/capsuleos/tools/generate-public-manifest.mjs
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
->>>>>>> d83a78d (refactorisation générale)
 ```
 
 Après modification des apps sous `OS/android/apps/` ou de `OS/android/ressources/messages.json` :

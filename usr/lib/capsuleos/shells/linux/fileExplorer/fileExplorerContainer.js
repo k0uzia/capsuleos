@@ -3,11 +3,7 @@ function initFileExplorerContainer() {
         ? String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '')
         : (typeof window !== 'undefined' && window.CapsuleUserHome)
             ? window.CapsuleUserHome.fromRepoDepth(3)
-<<<<<<< HEAD
             : './apps/system/Dossier_personnel';
-=======
-            : 'home/public';
->>>>>>> d83a78d (refactorisation générale)
 
     const folderMap = {
         'Dossier Personnel': root,

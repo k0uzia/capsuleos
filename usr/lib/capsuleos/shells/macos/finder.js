@@ -197,22 +197,12 @@
             label.textContent = item.name;
             cell.appendChild(icon);
             cell.appendChild(label);
-            cell.addEventListener('click', () => {
-                main.querySelectorAll('.mac-finder__item--selected').forEach((el) => {
-                    el.classList.remove('mac-finder__item--selected');
-                });
-                cell.classList.add('mac-finder__item--selected');
-            });
-            cell.addEventListener('dblclick', () => {
-                if (item.type === 'folder' && item.path) {
-                    navigateTo(item.path);
-                    return;
-                }
-                if (item.type === 'file') {
-                    const href = item.href || `${path}/${item.name}`;
-                    global.open(href, '_blank', 'noopener');
-                }
-            });
+            if (item.type === 'folder' && item.path) {
+                cell.addEventListener('click', () => navigateTo(item.path));
+            } else if (item.type === 'file') {
+                const href = item.href || `${path}/${item.name}`;
+                cell.addEventListener('click', () => global.open(href, '_blank', 'noopener'));
+            }
             main.appendChild(cell);
         });
 

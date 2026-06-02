@@ -17,33 +17,16 @@
             && document.body
             && (document.body.id === 'popos'
                 || (typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY === 'popos'));
-<<<<<<< HEAD
         const isOpenSuse = typeof document !== 'undefined'
             && document.body
             && (document.body.id === 'opensuse'
                 || (typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY === 'opensuse'));
-=======
-        const isKdeDiscover = typeof document !== 'undefined'
-            && document.body
-            && (document.body.id === 'opensuse'
-                || document.body.id === 'debian-kde'
-                || document.body.id === 'mx-kde'
-                || (typeof window !== 'undefined' && (
-                    window.CAPSULE_EMBED_SKIN_KEY === 'opensuse'
-                    || window.CAPSULE_EMBED_SKIN_KEY === 'debian-kde'
-                    || window.CAPSULE_EMBED_SKIN_KEY === 'mxkde'
-                )));
->>>>>>> d83a78d (refactorisation générale)
 
         if (isPopOs) {
             root.dataset.umLayout = 'cosmic';
             return;
         }
-<<<<<<< HEAD
         if (isOpenSuse) {
-=======
-        if (isKdeDiscover) {
->>>>>>> d83a78d (refactorisation générale)
             root.dataset.umLayout = 'kde';
             return;
         }

@@ -55,11 +55,7 @@ const MENU_APPS = [
     { catId: 'favorites', icon: './media/img/apps/dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
     { catId: 'favorites', icon: './media/img/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './media/img/apps/terminal.svg', name: 'Konsole', desc: 'Terminal', dataLink: 'terminal' },
-<<<<<<< HEAD
     { catId: 'favorites', icon: './media/img/apps/discover.svg', name: 'Discover', desc: 'Gestionnaire de logiciels', dataLink: 'checklist' },
-=======
-    { catId: 'favorites', icon: './media/img/apps/discover.svg', name: 'Discover', desc: 'Gestionnaire de logiciels', dataLink: 'update_manager' },
->>>>>>> d83a78d (refactorisation générale)
 
     { catId: 'internet', icon: '../../../shared/media/img/apps/firefox.png', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'internet', icon: './media/img/apps/terminal.svg', name: 'SSH', desc: 'Connexion distante', },

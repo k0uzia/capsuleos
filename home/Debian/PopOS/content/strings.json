@@ -1,9 +1,4 @@
 {
     "explorer.windowTitle": "Dossier personnel - Fichiers",
-<<<<<<< HEAD
-=======
-    "text_editor.windowTitle": "Sans titre — Éditeur de texte COSMIC",
-    "update_manager.windowTitle": "Pop!_Shop",
->>>>>>> d83a78d (refactorisation générale)
     "checklist.description": "Explore Pop!_OS (COSMIC) en accomplissant ces missions. Ta progression est sauvegardée localement."
 }

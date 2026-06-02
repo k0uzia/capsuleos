@@ -62,30 +62,6 @@ function isKdeFamily() {
     return bodyId === 'opensuse' || bodyId === 'mx-kde';
 }
 
-<<<<<<< HEAD
-=======
-/** Menu principal Linux : panneau ancré au panel, jamais une fenêtre draggable. */
-function isPanelMainMenu(container) {
-    return !!(container && container.dataset.link === 'mainMenu');
-}
-
-function resetPanelMainMenuLayout(container) {
-    if (!container) {
-        return;
-    }
-    container.style.position = '';
-    container.style.top = '';
-    container.style.left = '';
-    container.style.right = '';
-    container.style.bottom = '';
-    container.style.width = '';
-    container.style.height = '';
-    container.style.minWidth = '';
-    container.style.minHeight = '';
-    container.style.transform = '';
-}
-
->>>>>>> d83a78d (refactorisation générale)
 function applyKdeWindowHeaderIcons(container) {
     if (!container || !isKdeFamily()) {
         return;
@@ -117,7 +93,6 @@ function handleOpenwindow(link) {
 	const container = document.querySelector(`div[data-link="${link.dataset.link}"]`);
 
     if (container) {
-<<<<<<< HEAD
         const isGnomeStartMenu = link.dataset.link === 'mainMenu'
             && !!container.querySelector('#menu-gnome-root');
 
@@ -125,18 +100,6 @@ function handleOpenwindow(link) {
             container.style.display = "flex";
             container.style.position = 'fixed';
             if (!isGnomeStartMenu && !container.querySelector('#windowHeader')) {
-=======
-        const isPanelMenu = isPanelMainMenu(container);
-
-        if (container.style.display === "none") {
-            container.style.display = "flex";
-            if (isPanelMenu) {
-                resetPanelMainMenuLayout(container);
-            } else {
-                container.style.position = 'fixed';
-            }
-            if (!isPanelMenu && !container.querySelector('#windowHeader')) {
->>>>>>> d83a78d (refactorisation générale)
                 container.insertBefore(windowHeader.cloneNode(true), container.firstChild);
             }
             applyKdeWindowHeaderIcons(container);
@@ -150,11 +113,7 @@ function handleOpenwindow(link) {
                     : null;
                 windowTitle.textContent = resolved || WINDOW_TITLE_MAP[link.dataset.link] || link.dataset.link;
             }
-<<<<<<< HEAD
             if (!isGnomeStartMenu) {
-=======
-            if (!isPanelMenu) {
->>>>>>> d83a78d (refactorisation générale)
                 // Rendre la fenêtre déplacable
                 if (container.dataset.dragInit !== 'true') {
                     makeDraggable(container);
@@ -171,12 +130,6 @@ function handleOpenwindow(link) {
             container.classList.remove('active');
             container.classList.remove('windowElementActive');
             container.style.zIndex = '5';
-<<<<<<< HEAD
-=======
-            if (isPanelMenu) {
-                resetPanelMainMenuLayout(container);
-            }
->>>>>>> d83a78d (refactorisation générale)
             link.classList.remove('active-link');
         }
     }

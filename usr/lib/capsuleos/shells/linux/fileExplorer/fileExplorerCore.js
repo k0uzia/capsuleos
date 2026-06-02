@@ -1,30 +1,14 @@
 const getFileExplorerRoot = () => {
-<<<<<<< HEAD
-=======
-    if (typeof window !== 'undefined' && window.CapsuleExplorerHome) {
-        return window.CapsuleExplorerHome.getContentRoot();
-    }
->>>>>>> d83a78d (refactorisation générale)
     if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
         return String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
     }
     if (typeof window !== 'undefined' && window.CapsuleUserHome) {
         return window.CapsuleUserHome.fromRepoDepth(3);
     }
-<<<<<<< HEAD
-    return './apps/system/Dossier_personnel';
-};
-
-const getFileExplorerManifestPath = () => {
-=======
     return 'home/public';
 };
 
 const getFileExplorerManifestPath = () => {
-    if (typeof window !== 'undefined' && window.CapsuleExplorerHome) {
-        return window.CapsuleExplorerHome.getManifestPath();
-    }
->>>>>>> d83a78d (refactorisation générale)
     const root = getFileExplorerRoot();
     if (typeof window !== 'undefined' && window.CapsuleUserHome) {
         return `${root}/${window.CapsuleUserHome.manifestFileName()}`;
@@ -32,18 +16,11 @@ const getFileExplorerManifestPath = () => {
     return `${root}/.capsule-manifest.json`;
 };
 
-<<<<<<< HEAD
 /**
  * Réaligne root / clés folders / path href du manifeste sur CAPSULE_CONTENT_ROOT
  * (ex. manifest généré avec un niveau ../ de plus que la skin courante).
  */
 const remapManifestToFileExplorerRoot = (manifest) => {
-=======
-const remapManifestToFileExplorerRoot = (manifest) => {
-    if (typeof window !== 'undefined' && window.CapsuleExplorerHome) {
-        return window.CapsuleExplorerHome.remapManifestToContentRoot(manifest);
-    }
->>>>>>> d83a78d (refactorisation générale)
     if (!manifest || typeof manifest !== 'object' || !manifest.folders) {
         return manifest;
     }
@@ -52,11 +29,7 @@ const remapManifestToFileExplorerRoot = (manifest) => {
         ? manifest.root.replace(/\/+$/, '')
         : '';
     if (!sourceRoot || sourceRoot === targetRoot) {
-<<<<<<< HEAD
         return manifest;
-=======
-        return { ...manifest, root: targetRoot };
->>>>>>> d83a78d (refactorisation générale)
     }
     const rewritePath = (str) => {
         if (typeof str !== 'string') {
@@ -293,7 +266,6 @@ window.isDolphinTemplate = isDolphinTemplate;
 
 const isCosmicFilesExplorer = () => !!document.querySelector('#nemo main#gestionnaire.cosmic-files-app');
 
-<<<<<<< HEAD
 const usesNemoListView = () => (
     isCosmicFilesExplorer()
     || (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_LIST_VIEW === true)
@@ -304,20 +276,6 @@ const usesNemoListViewFrenchColumns = () => (
     && window.CAPSULE_EXPLORER_LIST_VIEW === true
     && !isCosmicFilesExplorer()
 );
-=======
-const isGnomeFilesExplorer = () => (
-    typeof window !== 'undefined'
-    && window.CAPSULE_EXPLORER_SKIN_KEY === 'files'
-);
-
-const usesNemoListView = () => (
-    isCosmicFilesExplorer()
-    || isGnomeFilesExplorer()
-    || (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_LIST_VIEW === true)
-);
-
-const usesNemoListViewFrenchColumns = () => usesNemoListView() && !isCosmicFilesExplorer();
->>>>>>> d83a78d (refactorisation générale)
 
 const shouldHideListViewItem = (item, directoryPath) => {
     if (isCosmicFilesExplorer() && item.name === 'Public') {
@@ -333,7 +291,6 @@ const shouldHideListViewItem = (item, directoryPath) => {
     return false;
 };
 
-<<<<<<< HEAD
 const isGnomeFilesExplorer = () => (
     typeof window !== 'undefined'
     && window.CAPSULE_EXPLORER_SKIN_KEY === 'files'
@@ -341,111 +298,6 @@ const isGnomeFilesExplorer = () => (
 
 const usesSidebarSelection = () => isDolphinTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
 
-=======
-const usesSidebarSelection = () => isDolphinTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
-
-const ensureDefaultExplorerViewMode = () => {
-    if (fileExplorerState.defaultViewModeApplied) {
-        return;
-    }
-    if (usesNemoListView() && !isDolphinTemplate()) {
-        fileExplorerState.viewMode = 'list';
-    }
-    fileExplorerState.defaultViewModeApplied = true;
-};
-
-const getActiveExplorerPath = () => {
-    if (isDolphinTemplate() && fileExplorerState.activePane === 'secondary') {
-        return fileExplorerState.secondaryPath;
-    }
-    return fileExplorerState.currentPath;
-};
-
-const formatFileExplorerStatusMessage = (folderNode, itemCount) => {
-    const count = Number.isFinite(itemCount) ? itemCount : 0;
-    const elementLabel = count === 1 ? '1 élément' : `${count} éléments`;
-    if (folderNode && Array.isArray(folderNode.items)) {
-        const folders = countFoldersInItems(folderNode.items);
-        if (folders > 0) {
-            const folderLabel = folders === 1 ? '1 dossier' : `${folders} dossiers`;
-            return `${elementLabel}, ${folderLabel}`;
-        }
-    }
-    return elementLabel;
-};
-
-const updateFileExplorerStatusBar = (folderNode, visibleItemCount) => {
-    const count = visibleItemCount != null
-        ? visibleItemCount
-        : (folderNode && Array.isArray(folderNode.items) ? folderNode.items.length : 0);
-    const message = formatFileExplorerStatusMessage(folderNode, count);
-
-    const applyToRoot = (root) => {
-        if (!root) {
-            return false;
-        }
-        const statuses = root.querySelectorAll('#nemoFooterContainer .nemo-app__status-center > p');
-        if (!statuses.length) {
-            return false;
-        }
-        statuses.forEach((status) => {
-            status.textContent = message;
-        });
-        return true;
-    };
-
-    const explorerWindow = document.getElementById('nemo');
-    if (explorerWindow && explorerWindow.style.display !== 'none' && applyToRoot(explorerWindow)) {
-        return;
-    }
-
-    const slot = document.querySelector('div[data-link="nemo"]');
-    if (applyToRoot(slot)) {
-        return;
-    }
-
-    const fallback = document.querySelector('#nemoFooterContainer .nemo-app__status-center > p');
-    if (fallback) {
-        fallback.textContent = message;
-    }
-};
-
-const openFileExplorerItem = (item, directoryPath) => {
-    if (!item) {
-        return;
-    }
-    if (item.type === 'folder' && item.path) {
-        navigateToFileExplorerDirectory(item.path);
-        return;
-    }
-    const fileHref = item.href || `${directoryPath}/${item.name}`;
-    const viewerPayload = getFileViewerTargetByItem(item);
-    if (viewerPayload && viewerPayload.target) {
-        const openViewer = window.openFileInViewer || window.openMintFileInViewer;
-        if (typeof openViewer === 'function') {
-            openViewer(fileHref, viewerPayload.extension, item.name);
-            return;
-        }
-    }
-    window.open(fileHref, '_blank', 'noopener,noreferrer');
-};
-
-const attachStandardExplorerItemHandlers = (itemLink, item, directoryPath, selectGridItem) => {
-    itemLink.href = '#';
-    itemLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        if (event.detail > 1) {
-            return;
-        }
-        selectGridItem();
-    });
-    itemLink.addEventListener('dblclick', (event) => {
-        event.preventDefault();
-        openFileExplorerItem(item, directoryPath);
-    });
-};
-
->>>>>>> d83a78d (refactorisation générale)
 const formatCosmicModifiedLabel = () => {
     const now = new Date();
     const time = now.toLocaleTimeString('fr-FR', {
@@ -727,20 +579,11 @@ const updateNavigationControls = () => {
     toggleDisabled('#suivant', !history || historyIndex >= historyLength - 1);
     const parentBtn = nemoRoot.querySelector('#parent');
     if (parentBtn) {
-<<<<<<< HEAD
         toggleDisabled('#parent', fileExplorerState.currentPath === getFileExplorerRoot());
-=======
-        const activePath = getActiveExplorerPath();
-        toggleDisabled('#parent', activePath === getFileExplorerRoot());
->>>>>>> d83a78d (refactorisation générale)
     }
 };
 
 const renderDirectory = (path, options = {}) => {
-<<<<<<< HEAD
-=======
-    ensureDefaultExplorerViewMode();
->>>>>>> d83a78d (refactorisation générale)
     const pane = options.pane || 'primary';
     const nemoElement = (isDolphinTemplate() && typeof window.getDolphinPaneGrid === 'function')
         ? window.getDolphinPaneGrid(pane)
@@ -774,18 +617,9 @@ const renderDirectory = (path, options = {}) => {
             ? '<p class="nemo-app__empty">Aucun élément ne correspond à la recherche.</p>'
             : '<p class="nemo-app__empty">Ce dossier est vide.</p>';
         updateDolphinFolderPill(folderNode, pane);
-<<<<<<< HEAD
         return;
     }
 
-=======
-        updateFileExplorerStatusBar(folderNode, 0);
-        return;
-    }
-
-    let renderedCount = 0;
-
->>>>>>> d83a78d (refactorisation générale)
     items.forEach((item) => {
         if (shouldHideListViewItem(item, path)) {
             return;
@@ -862,7 +696,6 @@ const renderDirectory = (path, options = {}) => {
             }
             itemLink.href = '#';
             window.attachDolphinItemHandlers(itemLink, item, path, pane);
-<<<<<<< HEAD
         } else if (item.type === 'folder') {
             itemLink.classList.add('nemo-app__item--folder');
             itemLink.href = '#';
@@ -899,21 +732,6 @@ const renderDirectory = (path, options = {}) => {
     });
 
     updateDolphinFolderPill(folderNode, pane);
-=======
-        } else {
-            if (item.type === 'folder') {
-                itemLink.classList.add('nemo-app__item--folder');
-            }
-            attachStandardExplorerItemHandlers(itemLink, item, path, selectGridItem);
-        }
-
-        nemoElement.appendChild(itemLink);
-        renderedCount += 1;
-    });
-
-    updateDolphinFolderPill(folderNode, pane);
-    updateFileExplorerStatusBar(folderNode, renderedCount);
->>>>>>> d83a78d (refactorisation générale)
 
     if (isDolphinTemplate() && typeof window.applyDolphinSearchToVisiblePanes === 'function') {
         window.applyDolphinSearchToVisiblePanes();
@@ -1312,10 +1130,6 @@ const updateFileExplorerViewControls = () => {
         const mode = resolveViewModeFromButton(btn);
         const active = mode === fileExplorerState.viewMode;
         btn.classList.toggle('dolphin-toolbar__view-btn--active', active);
-<<<<<<< HEAD
-=======
-        btn.classList.toggle('nemo-app__view-btn--active', active);
->>>>>>> d83a78d (refactorisation générale)
         if (active) {
             btn.setAttribute('aria-current', 'true');
         } else {
@@ -1386,76 +1200,12 @@ const bindFileExplorerViewControls = () => {
     applyFileExplorerViewMode();
 };
 
-<<<<<<< HEAD
-=======
-const refreshFileExplorerDirectory = async () => {
-    const pane = fileExplorerState.activePane || 'primary';
-    const activePath = getActiveExplorerPath() || getFileExplorerRoot();
-    fileExplorerState.manifest = null;
-    fileExplorerState.manifestPromise = null;
-    try {
-        await loadManifest();
-        await navigateToFileExplorerDirectory(activePath, { updateHistory: false, pane });
-    } catch (error) {
-        console.error('Actualisation explorateur:', error);
-    }
-};
-
-const resolveStandardFileExplorerMenuAction = (label) => {
-    if (isDolphinTemplate()) {
-        return false;
-    }
-
-    const viewModes = {
-        'Vue en icônes': 'icons',
-        'Vue en liste': 'list',
-        'Vue compacte': 'compact'
-    };
-    if (Object.prototype.hasOwnProperty.call(viewModes, label)) {
-        setFileExplorerViewMode(viewModes[label]);
-        return true;
-    }
-
-    if (label === 'Actualiser') {
-        refreshFileExplorerDirectory();
-        return true;
-    }
-
-    if (label === 'Ouvrir le dossier parent') {
-        goToParentDirectory();
-        return true;
-    }
-
-    if (label === 'Précédent') {
-        goToPreviousDirectory();
-        return true;
-    }
-
-    if (label === 'Suivant') {
-        goToNextDirectory();
-        return true;
-    }
-
-    if (label === 'Dossier personnel') {
-        goToHomeDirectory();
-        return true;
-    }
-
-    return false;
-};
-
->>>>>>> d83a78d (refactorisation générale)
 const bindFileExplorerNavigationControls = () => {
     const nemoRoot = document.getElementById('nemo');
     if (!nemoRoot) {
         return;
     }
 
-<<<<<<< HEAD
-=======
-    ensureDefaultExplorerViewMode();
-
->>>>>>> d83a78d (refactorisation générale)
     if (nemoRoot.dataset.nemoNavDelegationInit !== 'true') {
         const navRoot = nemoRoot.querySelector('.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav');
         if (navRoot) {
@@ -1573,12 +1323,3 @@ window.getFileExplorerRoot = getFileExplorerRoot;
 window.getNemoRoot = getFileExplorerRoot;
 window.createFolderInExplorer = createFolderInExplorer;
 window.persistExplorerManifest = persistExplorerManifest;
-<<<<<<< HEAD
-=======
-window.refreshFileExplorerDirectory = refreshFileExplorerDirectory;
-window.refreshExplorerDirectory = refreshFileExplorerDirectory;
-window.updateFileExplorerStatusBar = updateFileExplorerStatusBar;
-window.resolveStandardFileExplorerMenuAction = resolveStandardFileExplorerMenuAction;
-window.resolveFileExplorerMenuAction = resolveStandardFileExplorerMenuAction;
-window.openFileExplorerItem = openFileExplorerItem;
->>>>>>> d83a78d (refactorisation générale)

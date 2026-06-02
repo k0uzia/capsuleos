@@ -965,15 +965,6 @@
 
         const handler = actions[key];
         if (!handler) {
-<<<<<<< HEAD
-=======
-            if (typeof window.resolveStandardFileExplorerMenuAction === 'function') {
-                const handled = window.resolveStandardFileExplorerMenuAction(label, context);
-                if (handled) {
-                    return true;
-                }
-            }
->>>>>>> d83a78d (refactorisation générale)
             if (context?.type === 'top') {
                 setExplorerStatusMessage(`${label} : bientôt disponible.`);
             }

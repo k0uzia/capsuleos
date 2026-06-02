@@ -26,12 +26,7 @@ const makeDraggable = (element) => {
         };
     };
 
-<<<<<<< HEAD
     const getDragHandle = () => element.querySelector('[data-window-drag-handle]') || element.querySelector('#windowHeader') || element;
-=======
-    const shellHeader = element.querySelector('#windowHeader');
-    const getDragHandle = () => shellHeader || element.querySelector('[data-window-drag-handle]') || element;
->>>>>>> d83a78d (refactorisation générale)
 
     const isDragHandleEvent = (target) => {
         const dragHandle = getDragHandle();

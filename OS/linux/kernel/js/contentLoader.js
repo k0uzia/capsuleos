@@ -213,11 +213,7 @@ const SLOT_INIT_HANDLERS = {
     nemo: () => {
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
-<<<<<<< HEAD
             : './apps/system/Dossier_personnel';
-=======
-            : 'home/public';
->>>>>>> d83a78d (refactorisation générale)
         runFirstAvailable([
             { fn: typeof window.refreshDolphinShellLayout === 'function' ? window.refreshDolphinShellLayout : null }
         ]);

@@ -10,8 +10,15 @@
         nemo: 'Parcourir les fichiers',
         terminal: 'Terminal',
         profile: 'Paramètres système',
+<<<<<<< HEAD
         themes: 'Applications et mises à jour',
         checklist: 'Éditer des documents',
+=======
+        themes: 'Personnaliser l\'apparence',
+        update_manager: 'Pop!_Shop',
+        text_editor: 'Éditer des documents',
+        checklist: 'Missions de découverte',
+>>>>>>> d83a78d (refactorisation générale)
         lecteur_multimedia: 'Lire des médias'
     };
 

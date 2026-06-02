@@ -1,1 +1,163 @@
+<<<<<<< HEAD
 /* Surcouche Mint - mainMenu (optionnel) */
+=======
+/* Menu Cinnamon Mint 21.x — panneau ancré au panel (3 colonnes) */
+body#mint object > div[data-link="mainMenu"],
+body#mint #mainMenu {
+    position: absolute;
+    left: 0;
+    right: auto;
+    top: auto;
+    bottom: calc(var(--taskbar-height) + calc(var(--head) / 10));
+    width: var(--mint-menu-width);
+    height: var(--mint-menu-height);
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0 calc(var(--head) / 8) 0 0;
+    background: var(--menu-apps-bg);
+    border: 1px solid var(--menu-shell-border);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    z-index: 600;
+}
+
+body#mint div[data-link="mainMenu"] > #windowHeader,
+body#mint #mainMenu > #windowHeader {
+    display: none !important;
+}
+
+body#mint div[data-link="mainMenu"].windowElementActive,
+body#mint #mainMenu.windowElementActive {
+    border-color: var(--menu-shell-border);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.45);
+}
+
+body#mint #mainMenu .menu-root {
+    font-size: calc(var(--head) / 2.85);
+}
+
+body#mint #mainMenu .menu-sidebar {
+    width: var(--mint-menu-sidebar-width);
+}
+
+body#mint #mainMenu .menu-user {
+    padding: calc(var(--head) / 3.5) calc(var(--head) / 4);
+    border-bottom: var(--menu-border-soft-light);
+}
+
+body#mint #mainMenu .menu-user__avatar {
+    width: calc(var(--head) * 0.95);
+    height: calc(var(--head) * 0.95);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+body#mint #mainMenu .menu-user__name {
+    font-size: calc(var(--head) / 2.7);
+    font-weight: 600;
+}
+
+body#mint #mainMenu .menu-shortcut {
+    font-size: calc(var(--head) / 2.85);
+    padding: calc(var(--head) / 4.5) calc(var(--head) / 4);
+}
+
+body#mint #mainMenu .menu-shortcut:hover,
+body#mint #mainMenu .menu-shortcut:focus-visible {
+    border-left-color: var(--menu-accent);
+    background: var(--menu-shortcut-hover);
+}
+
+body#mint #mainMenu .menu-actions {
+    gap: calc(var(--head) / 12);
+    padding: calc(var(--head) / 4.5) calc(var(--head) / 5);
+}
+
+body#mint #mainMenu .menu-action {
+    width: calc(var(--head) * 0.95);
+    height: calc(var(--head) * 0.95);
+    border-radius: calc(var(--head) / 10);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body#mint #mainMenu .menu-action:hover {
+    border-color: var(--menu-accent);
+    background: var(--menu-action-hover);
+}
+
+body#mint #mainMenu .menu-categories {
+    width: var(--mint-menu-cats-width);
+}
+
+body#mint #mainMenu .menu-cat {
+    font-size: calc(var(--head) / 2.85);
+    padding: calc(var(--head) / 3.8) calc(var(--head) / 4);
+}
+
+body#mint #mainMenu .menu-cat.is-active {
+    background: var(--menu-item-active-bg);
+    border-left-color: var(--menu-accent);
+    color: #fff;
+}
+
+body#mint #mainMenu .menu-search-wrap {
+    padding: calc(var(--head) / 5) calc(var(--head) / 4.5);
+    border-top: var(--menu-border-soft-dark-subtle);
+    position: relative;
+}
+
+body#mint #mainMenu .menu-search-wrap::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--head) / 2.8);
+    top: 50%;
+    width: calc(var(--head) / 2.2);
+    height: calc(var(--head) / 2.2);
+    transform: translateY(-50%);
+    opacity: 0.55;
+    background-color: var(--texte);
+    -webkit-mask-image: url("../../media/img/elements/nemo/search-symbolic.svg");
+    mask-image: url("../../media/img/elements/nemo/search-symbolic.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+}
+
+body#mint #mainMenu .menu-search {
+    height: calc(var(--head) / 1.15);
+    padding-left: calc(var(--head) / 1.4);
+    border-color: var(--menu-search-border);
+    border-radius: calc(var(--head) / 12);
+}
+
+body#mint #mainMenu .menu-search:focus {
+    border-color: var(--menu-search-border-focus);
+    background: var(--menuInput);
+    color: var(--texte);
+}
+
+body#mint #mainMenu .menu-app-item {
+    min-height: calc(var(--head) * 1.05);
+    padding: calc(var(--head) / 10) calc(var(--head) / 4);
+}
+
+body#mint #mainMenu .menu-app-item:hover:not(.is-unavailable) {
+    border-left-color: var(--menu-accent);
+}
+
+body#mint #mainMenu .menu-app-item__icon {
+    width: calc(var(--head) * 0.8);
+    height: calc(var(--head) * 0.8);
+}
+
+body#mint #mainMenu .menu-app-item__name {
+    font-size: calc(var(--head) / 2.85);
+}
+
+body#mint #mainMenu .menu-app-item__desc {
+    font-size: calc(var(--head) / 3.4);
+    color: var(--nemo-text-muted);
+}
+>>>>>>> d83a78d (refactorisation générale)

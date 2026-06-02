@@ -1,1 +1,19 @@
+<<<<<<< HEAD
 /* Surcouche Mint - terminal (optionnel) */
+=======
+/* Surcouche Mint — Terminal */
+body#mint div[data-link="terminal"] #windowHeader {
+    background: #2a2a2a;
+}
+
+body#mint div[data-link="terminal"] .capsule-terminal-shell,
+body#mint div[data-link="terminal"] #terminalContainer {
+    background: #1e1e1e;
+    font-family: "Ubuntu Mono", "DejaVu Sans Mono", monospace;
+}
+
+body#mint div[data-link="terminal"] .capsule-terminal__prompt,
+body#mint div[data-link="terminal"] #prompt {
+    color: var(--menu-accent);
+}
+>>>>>>> d83a78d (refactorisation générale)

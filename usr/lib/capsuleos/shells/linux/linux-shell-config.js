@@ -6,7 +6,12 @@
  * de chaque skin sous `home/Debian|RedHat|SUSE/.../`.
  *
  * **Ordre de chargement recommandé** : bloc `window.CAPSULE_*` → `capsule-app-embed.js` (généré) →
+<<<<<<< HEAD
  * `strings-default.js` → `capsule-strings.js` → les autres scripts noyau (`windowContainer.js`, `contentLoader.js`, …) →
+=======
+ * `strings-default.js` → `capsule-strings.js` → `common/resizeWindow.js` → `common/window-drag.js` →
+ * `linux-desktop-shell.js` → `windowContainer.js` → `windowHeaderButton.js` → autres scripts noyau (`contentLoader.js`, …) →
+>>>>>>> d83a78d (refactorisation générale)
  * scripts terminal (`terminal-core.js`, `terminal.js`, `executeCommand.js`, `filesystem.js`, `manuel.js`).
  *
  * @property {string} [CAPSULE_APPS_BASE]  Chemin relatif vers `usr/share/capsuleos/linux/apps` (HTML + CSS `.base.css`).
@@ -15,8 +20,14 @@
  * @property {string} [CAPSULE_SKIN_BASE]  Répertoire de la skin pour les surcouches `style/apps/*.skin.css` (souvent `.`).
  * @property {string} [CAPSULE_MEDIA_BASE]  Base des chemins `./media/…` (défaut `./media` ; ex. `../mint/media` pour une skin dérivée sans dossier `media/` local).
  * @property {string} [CAPSULE_ASSETS_BASE]  Base des chemins `./assets/…` (défaut `./assets` ; ex. `../mint/assets` pour une skin dérivée).
+<<<<<<< HEAD
  * @property {string} [CAPSULE_EXPLORER_TEMPLATE]  Nom du template fichier pour le slot `nemo` : `'nemo'` ou `'dolphin'` (défaut : comportement Nemo).
  * @property {string} [CAPSULE_EXPLORER_SKIN_KEY]  Nom du `.skin.css` explorateur (ex. `nemo`, `files`, `dolphin`, `dolphin-<distro>`) sans changer le template.
+=======
+ * @property {string} [CAPSULE_EXPLORERS_BASE]  Racine des gabarits communs (`usr/share/capsuleos/linux/explorers`), défaut interne au registre.
+ * @property {string} [CAPSULE_EXPLORER_TEMPLATE]  Profil explorateur : `nemo` | `dolphin` | `nautilus` | `nemo-gnome` | `nemo-cosmic` (gabarits sous `explorers/`).
+ * @property {string} [CAPSULE_EXPLORER_SKIN_KEY]  Nom du `.skin.css` explorateur (ex. `nemo`, `files`, `dolphin`) — surcouche visuelle de la skin uniquement.
+>>>>>>> d83a78d (refactorisation générale)
  * @property {string} [CAPSULE_EXPLORER_DISPLAY_NAME]  Nom visible du gestionnaire de fichiers (`Nemo`, `Fichiers`, `Dolphin`).
  * @property {string} [CAPSULE_STRINGS_URL]  URL du JSON de surcharges (`fetch` même origine), défaut `./content/strings.json`.
  * @property {Object} [CAPSULE_STRINGS_INLINE]  Surcharges inline fusionnées avant le JSON (petits jeux de clés).

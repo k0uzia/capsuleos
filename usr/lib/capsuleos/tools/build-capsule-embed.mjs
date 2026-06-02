@@ -17,10 +17,14 @@ const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css'
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
 const OUT_FILE = path.join(ROOT, 'OS/linux/kernel/js/capsule-app-embed.js');
+<<<<<<< HEAD
 const MANIFEST_PATH = path.join(
     ROOT,
     'OS/linux/shared/content/Dossier_personnel/nemo-manifest.json'
 );
+=======
+const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
+>>>>>>> d83a78d (refactorisation générale)
 
 /** Gabarits HTML propres à une famille (ex. menu Plasma openSUSE). */
 const FAMILY_APP_HTML_DIRS = {

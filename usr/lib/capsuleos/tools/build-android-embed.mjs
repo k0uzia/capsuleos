@@ -7,7 +7,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+<<<<<<< HEAD
 const ROOT = path.resolve(__dirname, '..');
+=======
+const ROOT = path.resolve(__dirname, '../../../..');
+>>>>>>> d83a78d (refactorisation générale)
 const APPS_DIR = path.join(ROOT, 'OS/android/apps');
 const STYLE_DIR = path.join(APPS_DIR, 'style');
 const OUT_FILE = path.join(ROOT, 'OS/android/js/capsule-android-embed.js');

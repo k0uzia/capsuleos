@@ -15,14 +15,26 @@ const makeDraggable = (element, options = {}) => {
     let offsetY = 0;
 
     const getBoundsRect = () => {
+<<<<<<< HEAD
         const main = document.querySelector('main');
         if (main) {
             return main.getBoundingClientRect();
         }
+=======
+>>>>>>> d83a78d (refactorisation générale)
         const desktop = document.getElementById('desktop');
         if (desktop) {
             return desktop.getBoundingClientRect();
         }
+<<<<<<< HEAD
+=======
+        const workspaceMain = Array.from(document.querySelectorAll('main')).find(
+            (node) => !node.closest('.windowElement')
+        );
+        if (workspaceMain) {
+            return workspaceMain.getBoundingClientRect();
+        }
+>>>>>>> d83a78d (refactorisation générale)
         return document.documentElement.getBoundingClientRect();
     };
 
@@ -41,12 +53,33 @@ const makeDraggable = (element, options = {}) => {
         if (requireHeader) {
             return element.querySelector('#windowHeader');
         }
+<<<<<<< HEAD
         return element.querySelector('[data-window-drag-handle]')
             || element.querySelector('#windowHeader')
             || element;
     };
 
     const isDragHandleEvent = (target) => {
+=======
+        // Barre injectée par windowContainer.js : prioritaire sur les gabarits explorateur
+        // (nemo/dolphin/nautilus exposent aussi [data-window-drag-handle] dans le slot).
+        const shellHeader = element.querySelector('#windowHeader');
+        if (shellHeader) {
+            return shellHeader;
+        }
+        return element.querySelector('[data-window-drag-handle]') || element;
+    };
+
+    const isDragHandleEvent = (target) => {
+        const shellHeader = element.querySelector('#windowHeader');
+        if (shellHeader && (shellHeader === target || shellHeader.contains(target))) {
+            return true;
+        }
+        const appHandle = element.querySelector('[data-window-drag-handle]');
+        if (appHandle && (appHandle === target || appHandle.contains(target))) {
+            return true;
+        }
+>>>>>>> d83a78d (refactorisation générale)
         const dragHandle = getDragHandle();
         if (!dragHandle) {
             return false;

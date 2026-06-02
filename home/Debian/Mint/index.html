@@ -29,8 +29,24 @@
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none; position: fixed;"></div>
         <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none; position: fixed;"></div>
     </object>
+<<<<<<< HEAD
     <footer id="tableau">
         <nav>
+=======
+    <menu class="desktop-context-menu" id="desktop-context-menu" type="context" hidden aria-label="Menu du bureau">
+        <li><button type="button" class="desktop-context-menu__item" disabled>Nouveau dossier</button></li>
+        <li><button type="button" class="desktop-context-menu__item" disabled>Coller</button></li>
+        <li class="desktop-context-menu__separator" role="separator"></li>
+        <li><button type="button" class="desktop-context-menu__item" disabled>Trier les icônes du bureau par ›</button></li>
+        <li><button type="button" class="desktop-context-menu__item" data-desktop-action="refresh">Actualiser</button></li>
+        <li class="desktop-context-menu__separator" role="separator"></li>
+        <li><button type="button" class="desktop-context-menu__item" data-desktop-action="wallpaper">Changer l'arrière-plan du bureau</button></li>
+        <li><button type="button" class="desktop-context-menu__item" data-desktop-action="desktop-settings">Paramètres du bureau</button></li>
+    </menu>
+    <footer id="tableau">
+        <div class="taskbar-left">
+        <nav class="taskbar-pins" aria-label="Lanceurs">
+>>>>>>> d83a78d (refactorisation générale)
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
                 <img src="./media/img/assets/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
@@ -56,6 +72,11 @@
                 <img src="../../../usr/share/capsuleos/branding/accueil.svg" alt="Retour à l'accueil" title="Retour à l'accueil">
             </a>
         </nav>
+<<<<<<< HEAD
+=======
+        </div>
+        <div class="taskbar-window-list" id="taskbar-window-list" role="list" aria-label="Fenêtres ouvertes" hidden></div>
+>>>>>>> d83a78d (refactorisation générale)
         <div class="taskbar-right">
             <div class="taskbar-tray">
                 <button type="button"
@@ -124,6 +145,12 @@
         </div>
     </div>
     <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/commons/explorer-home.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-runtime.js"></script>
+>>>>>>> d83a78d (refactorisation générale)
     <script>
         window.CAPSULE_APPS_BASE = '../../../usr/share/capsuleos/linux/apps';
         window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.fromRepoDepth(3);
@@ -144,10 +171,20 @@
     <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260427"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
+<<<<<<< HEAD
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowHeaderButton.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
     <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
+=======
+        <script src="../../../usr/lib/capsuleos/common/resizeWindow.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js?v=20260602b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/linux-desktop-shell.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowHeaderButton.js?v=20260421a"></script>
+>>>>>>> d83a78d (refactorisation générale)
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
@@ -158,7 +195,11 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+<<<<<<< HEAD
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+=======
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js?v=20260602"></script>
+>>>>>>> d83a78d (refactorisation générale)
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>

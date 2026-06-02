@@ -1,7 +1,49 @@
 /**
+<<<<<<< HEAD
  * Noyau Linux CapsuleOS - tokens partagés par toutes les distributions.
  * Chaîne d’imports cible : usr/share/capsuleos/themes/global/reset.css → usr/share/capsuleos/themes/global/variables.css → ce fichier → skin.
  */
 :root {
     --linux-skin-label: "Linux";
+=======
+ * Noyau Linux CapsuleOS — tokens partagés par toutes les distributions.
+ * Chaîne d’imports : themes/global/reset.css → themes/global/variables.css → ce fichier → skin.
+ */
+:root {
+    --linux-skin-label: "Linux";
+
+    /* Panel Cinnamon (réf. Mint 21.x) */
+    --mint-panel-height: calc(var(--head) * 1.25);
+    --mint-panel-pad-x: calc(var(--head) / 5);
+    --mint-panel-gap: calc(var(--head) / 10);
+    --mint-panel-pin-size: calc(var(--head) * 1.2);
+    --mint-panel-pin-icon: calc(var(--head) * 0.9);
+    --mint-window-list-gap: calc(var(--head) / 14);
+    --mint-window-list-btn-min: calc(var(--head) * 2.4);
+    --mint-window-list-btn-max: calc(var(--head) * 5.5);
+    --mint-window-list-active-indicator: var(--menu-accent);
+    --mint-window-list-hover-bg: hsla(0, 0%, 100%, 0.08);
+    --mint-window-list-active-bg: hsla(0, 0%, 100%, 0.12);
+    --mint-menu-width: calc(var(--head) * 15.5);
+    --mint-menu-height: calc(var(--head) * 12.5);
+    --mint-menu-sidebar-width: calc(var(--head) * 3.6);
+    --mint-menu-cats-width: calc(var(--head) * 4.8);
+    --mint-desktop-context-bg: rgba(45, 45, 45, 0.97);
+    --mint-desktop-context-border: 1px solid rgba(255, 255, 255, 0.1);
+    --mint-desktop-context-shadow: 0 0.35rem 1.25rem rgba(0, 0, 0, 0.45);
+    --mint-desktop-context-hover: rgba(255, 255, 255, 0.1);
+    --mint-desktop-context-text: #f0f0f0;
+    --mint-desktop-context-muted: #9a9a9a;
+}
+
+html[data-theme="light"] {
+    --mint-window-list-hover-bg: rgba(0, 0, 0, 0.06);
+    --mint-window-list-active-bg: rgba(0, 0, 0, 0.1);
+    --mint-desktop-context-bg: rgba(248, 250, 253, 0.98);
+    --mint-desktop-context-border: 1px solid rgba(0, 0, 0, 0.12);
+    --mint-desktop-context-shadow: 0 0.35rem 1.25rem rgba(0, 0, 0, 0.18);
+    --mint-desktop-context-hover: rgba(0, 0, 0, 0.06);
+    --mint-desktop-context-text: #1f2a38;
+    --mint-desktop-context-muted: #5c6b7d;
+>>>>>>> d83a78d (refactorisation générale)
 }

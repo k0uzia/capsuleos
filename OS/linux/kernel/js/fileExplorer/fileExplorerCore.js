@@ -2,10 +2,26 @@ const getFileExplorerRoot = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
         return String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
     }
+<<<<<<< HEAD
     return './apps/system/Dossier_personnel';
 };
 
 const getFileExplorerManifestPath = () => `${getFileExplorerRoot()}/nemo-manifest.json`;
+=======
+    if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+        return window.CapsuleUserHome.fromRepoDepth(3);
+    }
+    return 'home/public';
+};
+
+const getFileExplorerManifestPath = () => {
+    const root = getFileExplorerRoot();
+    if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+        return `${root}/${window.CapsuleUserHome.manifestFileName()}`;
+    }
+    return `${root}/.capsule-manifest.json`;
+};
+>>>>>>> d83a78d (refactorisation générale)
 
 /**
  * Réaligne root / clés folders / path href du manifeste sur CAPSULE_CONTENT_ROOT

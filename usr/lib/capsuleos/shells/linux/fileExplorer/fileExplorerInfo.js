@@ -114,7 +114,11 @@ const fileExplorerSystemLink = {
         },
         "apps": {
             "image": "./media/img/apps/mintinstall.png",
+<<<<<<< HEAD
             "link": "../../../usr/share/capsuleos/linux/apps/logithèque.html",
+=======
+            "link": "../../../usr/share/capsuleos/linux/apps/mainMenu.html",
+>>>>>>> d83a78d (refactorisation générale)
             "détails": [
                 "Ouvrir la logithèque"
             ]

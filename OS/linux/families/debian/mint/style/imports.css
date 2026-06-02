@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 @import url(../../../../../../usr/share/capsuleos/themes/global/reset.css);
 @import url(../../../../../../usr/share/capsuleos/themes/global/variables.css);
 @import url(../../../../kernel/style/variables-linux.css);
 @import url(./footer.css);
+=======
+@import url(../../../../usr/share/capsuleos/themes/global/reset.css);
+@import url(../../../../usr/share/capsuleos/themes/global/variables.css);
+@import url(../../../../usr/share/capsuleos/themes/linux/variables-linux.css);
+@import url(./footer.css);
+@import url(./desktop.css);
+>>>>>>> d83a78d (refactorisation générale)
 @import url(./windows.css);
 @import url(./calendar-popover.css);
 @import url(./a11y-overrides.css);

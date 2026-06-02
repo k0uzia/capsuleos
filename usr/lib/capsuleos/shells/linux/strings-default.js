@@ -68,5 +68,11 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'mainMenu.windowTitle': 'Menu',
     'visionneur_images.windowTitle': "Visionneur d'images",
     'visionneur_pdf.windowTitle': 'Visionneur PDF',
+<<<<<<< HEAD
     'lecteur_multimedia.windowTitle': 'Lecteur multimédia'
+=======
+    'lecteur_multimedia.windowTitle': 'Lecteur multimédia',
+    'text_editor.windowTitle': 'Sans titre — Éditeur de texte',
+    'text_editor.placeholder': 'Saisissez votre texte…'
+>>>>>>> d83a78d (refactorisation générale)
 };

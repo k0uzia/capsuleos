@@ -1,0 +1,64 @@
+main#textEditorApp {
+    position: var(--rel);
+    top: var(--z);
+    right: var(--z);
+    bottom: var(--z);
+    left: var(--z);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    width: calc(var(--full) - calc(var(--head) / 20));
+    height: calc(var(--full) - calc(var(--head) / 1.4));
+    margin-bottom: calc(var(--head) / 12);
+    color: var(--nemo-text-primary, #2e2e2e);
+    background: var(--menu-apps-bg, #fff);
+    overflow: hidden;
+}
+
+div[data-link="text_editor"] #windowHeader {
+    background: var(--nemo-header-bg, #e8e8e8);
+}
+
+div[data-link="text_editor"] #windowTitle {
+    color: var(--nemo-text-primary, #2e2e2e);
+}
+
+.text-editor-app__toolbar {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    width: var(--full);
+    padding: calc(var(--head) / 8) calc(var(--head) / 4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    gap: calc(var(--head) / 6);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.text-editor-app__btn {
+    padding: calc(var(--head) / 10) calc(var(--head) / 4);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: calc(var(--head) / 10);
+    font-size: calc(var(--head) / 3.2);
+    color: inherit;
+    background: rgba(255, 255, 255, 0.85);
+    cursor: default;
+}
+
+.text-editor-app__area {
+    display: block;
+    width: var(--full);
+    height: var(--full);
+    margin: var(--z);
+    padding: calc(var(--head) / 3);
+    border: var(--z);
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: calc(var(--head) / 3);
+    line-height: 1.45;
+    color: inherit;
+    background: transparent;
+    resize: none;
+    outline: none;
+}
+
+.text-editor-app__area:focus {
+    outline: none;
+}

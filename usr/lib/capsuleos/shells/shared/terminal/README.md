@@ -4,6 +4,7 @@
 
 | Fichier | Rôle |
 |---------|------|
+| `usr/lib/capsuleos/common/terminal-completion.js` | Complétion Tab (commandes + chemins FS virtuel) |
 | `usr/lib/capsuleos/common/terminal-editors.js` | Moteur nano/vim, lecture/écriture FS virtuel |
 | `usr/share/capsuleos/themes/linux/terminal-editors.css` | Overlay éditeur (variables skin terminal) |
 
@@ -13,7 +14,7 @@
 2. `terminal/config/command-registry.js`
 3. Profil distro (`config/profiles/linux/debian.js`, etc.)
 4. `terminal-profile.js`, `terminal-core.js`
-5. **`common/terminal-editors.js`** ← avant `terminal.js` et `executeCommand.js`
+5. **`common/terminal-completion.js`**, puis **`common/terminal-editors.js`** ← avant `terminal.js` et `executeCommand.js`
 6. `terminal.js`, `executeCommand.js`, `filesystem.js`, `virtual-shell.js`, `manuel.js`
 
 ## Linux (8 skins + facades `OS/linux/families/`)

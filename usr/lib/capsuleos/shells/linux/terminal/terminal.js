@@ -643,6 +643,15 @@ function initTerminalWhenReady() {
 
         bindTerminalCommandHistory(elements.commandInput, session);
 
+        if (window.CapsuleTerminalCompletion
+            && typeof window.CapsuleTerminalCompletion.bindTabCompletion === 'function') {
+            window.CapsuleTerminalCompletion.bindTabCompletion(
+                elements.commandInput,
+                session,
+                elements.output
+            );
+        }
+
         elements.form.addEventListener('submit', (event) => {
             event.preventDefault();
             const command = elements.commandInput.value;

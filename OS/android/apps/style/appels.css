@@ -53,7 +53,9 @@
 }
 
 .appel-body {
+	display: var(--f);
+	flex-flow: var(--cnw);
+	justify-content: var(--fs);
 	width: var(--full);
-	justify-self: flex-start;
 	gap: 5px;
 }

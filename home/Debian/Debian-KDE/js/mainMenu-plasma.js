@@ -218,7 +218,7 @@
     }
 
     function bindPlaceIcons() {
-        const base = '../../suse/opensuse/media/img/elements/places32';
+        const base = '../../../SUSE/openSUSE/media/img/elements/places32';
         const iconMap = {
             home: `${base}/folder.svg`,
             desktop: `${base}/user-desktop.svg`,

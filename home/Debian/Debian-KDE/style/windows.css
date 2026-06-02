@@ -1,4 +1,4 @@
-@import url(../../../suse/opensuse/style/windows.css?v=20260514a);
+@import url(../../../SUSE/openSUSE/style/windows.css?v=20260514a);
 
 /* Les règles openSUSE sont scoppées sur body#opensuse : on les duplique pour Debian KDE. */
 body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {

@@ -72,7 +72,16 @@ function getDirectoryListing(fs, path) {
     if (!directory || typeof directory !== 'object') {
         return [];
     }
-    return Object.keys(directory).map((name) => name.startsWith('/') ? name.slice(1) : name);
+    const seen = new Set();
+    return Object.keys(directory)
+        .map((name) => (name.startsWith('/') ? name.slice(1) : name))
+        .filter((name) => {
+            if (!name || seen.has(name)) {
+                return false;
+            }
+            seen.add(name);
+            return true;
+        });
 }
 
 function resolveSlashSafeCdPath(state, fs, target, resolvePath) {
@@ -111,23 +120,61 @@ function ensureFileContents(state) {
     return state.fileContents;
 }
 
+function isTextFileName(name) {
+    if (typeof window !== 'undefined' && window.CapsuleVirtualShell && typeof window.CapsuleVirtualShell.isTextFileName === 'function') {
+        return window.CapsuleVirtualShell.isTextFileName(name);
+    }
+    const dot = String(name || '').lastIndexOf('.');
+    if (dot <= 0) {
+        return true;
+    }
+    return ['txt', 'md', 'log', 'sh', 'json', 'csv', 'xml', 'html', 'css', 'js'].includes(String(name).slice(dot + 1).toLowerCase());
+}
+
+function isBinaryPath(state, resolved, target) {
+    const name = basename(resolved) || target;
+    if (!isTextFileName(name)) {
+        return true;
+    }
+    const fileContents = ensureFileContents(state);
+    if (fileContents[resolved] != null) {
+        return false;
+    }
+    const hrefs = state.fileHrefs || {};
+    return Boolean(hrefs[resolved]);
+}
+
 function readFileContent(state, fs, cwd, target, resolvePath) {
     if (!target) {
-        return { error: 'opérande fichier manquant' };
+        return { error: 'missing file operand' };
     }
     const resolved = entryPath(cwd, target, resolvePath);
     if (isDirectory(fs, resolved)) {
-        return { error: `${target}: Est un dossier` };
+        return { error: `${target}: Is a directory` };
     }
     const parentDir = fs[cwd] || {};
     const inCurrentDir = Object.prototype.hasOwnProperty.call(parentDir, target)
         || Object.prototype.hasOwnProperty.call(parentDir, `/${target}`);
-    if (!inCurrentDir && !ensureFileContents(state)[resolved]) {
-        return { error: `${target}: Aucun fichier ou dossier de ce type` };
-    }
     const fileContents = ensureFileContents(state);
+    if (!inCurrentDir && fileContents[resolved] == null && !(state.fileHrefs || {})[resolved]) {
+        return { error: `${target}: No such file or directory` };
+    }
+    if (isBinaryPath(state, resolved, target)) {
+        return { error: `${target}: Binary file` };
+    }
     const content = fileContents[resolved] || `Fichier simulé: ${basename(resolved)}\nCapsuleOS Terminal`;
     return { content, resolved };
+}
+
+function formatLsLongLine(fs, dirPath, name, state) {
+    const resolved = dirPath === '/' ? `/${name}` : `${dirPath}/${name}`;
+    const isDir = isDirectory(fs, resolved);
+    const mode = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const now = new Date();
+    const dateStr = `${months[now.getMonth()]} ${String(now.getDate()).padStart(2, ' ')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const size = String(isDir ? 4096 : 0).padStart(8, ' ');
+    return `${mode} 1 ${state.user} ${state.user} ${size} ${dateStr} ${name}`;
 }
 
 function getActiveProfile() {
@@ -200,10 +247,25 @@ function executeTerminalCommand(state, command, helpers = {}) {
     }
 
     if (!isCommandAvailable(cmd)) {
-        return formatCommandResult(state, rawCommand, [`Commande inexistante : ${cmd}`, 'Essayez la commande : man'], { error: true });
+        return formatCommandResult(state, rawCommand, [`${cmd}: command not found`], { error: true });
     }
 
     switch (cmd) {
+        case 'help': {
+            const activeCommands = getActiveCommands();
+            const names = Object.keys(activeCommands).sort((a, b) => a.localeCompare(b));
+            const lines = [
+                'CapsuleOS virtual shell — available commands:',
+                ...names.map((name) => {
+                    const entry = activeCommands[name] || {};
+                    const summary = entry.help || '';
+                    return `  ${name.padEnd(14)}${summary}`;
+                }),
+                '',
+                'Type `man <command>` for details.'
+            ];
+            return formatCommandResult(state, rawCommand, lines);
+        }
         case 'man': {
             const commandHelpMap = getManualEntries();
             if (args.length === 0) {
@@ -241,13 +303,22 @@ function executeTerminalCommand(state, command, helpers = {}) {
                 state.cwd = nextPath;
                 return formatCommandResult(state, rawCommand, []);
             }
-            return formatCommandResult(state, rawCommand, [`cd: ${target}: Aucun fichier ou dossier de ce type`], { error: true });
+            return formatCommandResult(state, rawCommand, [`cd: ${target}: No such file or directory`], { error: true });
         }
         case 'ls': {
-            const targetPath = args[0] ? resolvePath(state.cwd, args[0]) : state.cwd;
+            const longFormat = args.some((arg) => arg === '-l' || arg === '-la' || arg === '-al' || arg === '-1l');
+            const pathArgs = args.filter((arg) => !arg.startsWith('-'));
+            const targetPath = pathArgs[0] ? resolvePath(state.cwd, pathArgs[0]) : state.cwd;
             if (!isDirectory(fs, targetPath)) {
-                const targetLabel = args[0] || targetPath;
-                return formatCommandResult(state, rawCommand, [`ls: impossible d'accéder à '${targetLabel}': Aucun fichier ou dossier de ce type`], { error: true });
+                const targetLabel = pathArgs[0] || targetPath;
+                return formatCommandResult(state, rawCommand, [`ls: cannot access '${targetLabel}': No such file or directory`], { error: true });
+            }
+            if (longFormat) {
+                const names = getDirectoryListing(fs, targetPath)
+                    .filter(Boolean)
+                    .sort((a, b) => a.localeCompare(b, 'fr'));
+                const lines = [`total ${names.length}`, ...names.map((name) => formatLsLongLine(fs, targetPath, name, state))];
+                return formatCommandResult(state, rawCommand, lines.length > 1 ? lines : ['total 0']);
             }
             if (usesGnomeStyleLsListing()) {
                 return formatCommandResult(state, rawCommand, formatGnomeLsLines(fs, targetPath), {
@@ -450,8 +521,13 @@ function executeTerminalCommand(state, command, helpers = {}) {
             return formatCommandResult(state, rawCommand, ['ssh: connexion distante non disponible (simulation pédagogique).']);
         case 'nano':
             return formatCommandResult(state, rawCommand, ['nano: éditeur interactif non simulé.']);
-        case 'less':
-            return formatCommandResult(state, rawCommand, ['less: pagination interactive non simulée.']);
+        case 'less': {
+            const file = readFileContent(state, fs, state.cwd, args[0], resolvePath);
+            if (file.error) {
+                return formatCommandResult(state, rawCommand, [`less: ${file.error}`], { error: true });
+            }
+            return formatCommandResult(state, rawCommand, String(file.content).split('\n'));
+        }
         case 'dd':
             return formatCommandResult(state, rawCommand, ['dd: opération bas niveau simulée.']);
         case 'crontab':
@@ -472,7 +548,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
             }
             return formatCommandResult(state, rawCommand, [`${cmd}: exécution simulée pour le profil ${getActiveProfile().distro || 'linux'}.`]);
         default:
-            return formatCommandResult(state, rawCommand, [`Commande inexistante : ${cmd}`, 'Essayez la commande : man'], { error: true });
+            return formatCommandResult(state, rawCommand, [`${cmd}: command not found`], { error: true });
     }
 }
 

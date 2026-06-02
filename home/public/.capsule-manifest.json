@@ -4,7 +4,14 @@
   "folders": {
     "../../../home/public/Bureau": {
       "label": "Bureau",
-      "items": []
+      "items": [
+        {
+          "type": "file",
+          "name": "Bienvenue-CapsuleOS.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Bureau/Bienvenue-CapsuleOS.txt"
+        }
+      ]
     },
     "../../../home/public/Documents": {
       "label": "Documents",
@@ -14,6 +21,18 @@
           "name": "Bash.pdf",
           "extension": "pdf",
           "href": "../../../home/public/Documents/Bash.pdf"
+        },
+        {
+          "type": "file",
+          "name": "introduction-bash.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Documents/introduction-bash.txt"
+        },
+        {
+          "type": "file",
+          "name": "notes-capsuleos.md",
+          "extension": "md",
+          "href": "../../../home/public/Documents/notes-capsuleos.md"
         }
       ]
     },
@@ -25,6 +44,12 @@
           "name": "lunaire-bureau.png",
           "extension": "png",
           "href": "../../../home/public/Images/lunaire-bureau.png"
+        },
+        {
+          "type": "file",
+          "name": "lunaire-bureau.svg",
+          "extension": "svg",
+          "href": "../../../home/public/Images/lunaire-bureau.svg"
         }
       ]
     },
@@ -37,6 +62,12 @@
       "items": [
         {
           "type": "file",
+          "name": "lire-moi.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Musique/lire-moi.txt"
+        },
+        {
+          "type": "file",
           "name": "mheuuuu.ogg",
           "extension": "ogg",
           "href": "../../../home/public/Musique/mheuuuu.ogg"
@@ -45,11 +76,24 @@
     },
     "../../../home/public/Public": {
       "label": "Public",
-      "items": []
+      "items": [
+        {
+          "type": "file",
+          "name": "README.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Public/README.txt"
+        }
+      ]
     },
     "../../../home/public/Téléchargements": {
       "label": "Téléchargements",
       "items": [
+        {
+          "type": "file",
+          "name": "geodesie-intro.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Téléchargements/geodesie-intro.txt"
+        },
         {
           "type": "file",
           "name": "Géodésie.pdf",
@@ -66,6 +110,12 @@
           "name": "Capsule_s.mp4",
           "extension": "mp4",
           "href": "../../../home/public/Vidéos/Capsule_s.mp4"
+        },
+        {
+          "type": "file",
+          "name": "lire-moi.txt",
+          "extension": "txt",
+          "href": "../../../home/public/Vidéos/lire-moi.txt"
         }
       ]
     },

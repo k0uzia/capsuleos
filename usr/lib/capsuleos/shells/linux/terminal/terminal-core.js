@@ -61,14 +61,17 @@
             history: [],
             fs: options.fs || (typeof fileSystem !== 'undefined' ? fileSystem : {}),
             fileContents: options.fileContents || {},
+            fileHrefs: options.fileHrefs || {},
             kernelName: options.kernelName || 'CapsuleOS Linux'
         };
 
         return {
             state,
             execute(command) {
-                const raw = String(command || '');
-                state.history.push(raw);
+                const raw = String(command || '').trim();
+                if (raw) {
+                    state.history.push(raw);
+                }
                 if (typeof window.executeTerminalCommand !== 'function') {
                     return {
                         command: raw,

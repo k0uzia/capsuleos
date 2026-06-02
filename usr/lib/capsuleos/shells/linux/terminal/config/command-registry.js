@@ -4,6 +4,10 @@
  */
 (function initTerminalCommandRegistry() {
     const registry = {
+        help: {
+            help: 'Liste les commandes disponibles sur ce profil',
+            examples: ['help']
+        },
         man: {
             help: "Affiche le manuel d'une commande",
             examples: ['man ls', 'man grep']

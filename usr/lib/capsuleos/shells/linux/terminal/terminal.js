@@ -2,10 +2,11 @@ function terminalQuery(root, selector, fallbackSelector) {
     if (root.matches && root.matches(selector)) {
         return root;
     }
-    if (fallbackSelector && root.matches && root.matches(fallbackSelector)) {
-        return root;
+    const nested = root.querySelector(selector);
+    if (nested) {
+        return nested;
     }
-    return root.querySelector(selector) || (fallbackSelector ? root.querySelector(fallbackSelector) : null);
+    return fallbackSelector ? root.querySelector(fallbackSelector) : null;
 }
 
 function createTerminalElement(tag, className, dataName) {
@@ -536,6 +537,49 @@ function initTerminal() {
     initTerminalWhenReady();
 }
 
+function bindTerminalCommandHistory(commandInput, session) {
+    let historyIndex = -1;
+    let draftLine = '';
+
+    commandInput.addEventListener('keydown', (event) => {
+        const entries = session.state.history || [];
+        if (event.key === 'ArrowUp') {
+            if (!entries.length) {
+                return;
+            }
+            event.preventDefault();
+            if (historyIndex === -1) {
+                draftLine = commandInput.value;
+            }
+            if (historyIndex < entries.length - 1) {
+                historyIndex += 1;
+                commandInput.value = entries[entries.length - 1 - historyIndex];
+            }
+        } else if (event.key === 'ArrowDown') {
+            if (historyIndex === -1) {
+                return;
+            }
+            event.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex -= 1;
+                commandInput.value = entries[entries.length - 1 - historyIndex];
+            } else {
+                historyIndex = -1;
+                commandInput.value = draftLine;
+            }
+        }
+    });
+
+    commandInput.addEventListener('input', () => {
+        historyIndex = -1;
+        draftLine = '';
+    });
+}
+
+function resetTerminalHistoryCursor(commandInput) {
+    commandInput.dispatchEvent(new Event('input'));
+}
+
 function initTerminalWhenReady() {
     const host = document.querySelector('[data-link="terminal"]') || document;
     const container = document.getElementById('terminalContainer') || host.querySelector('[data-terminal-app]');
@@ -553,6 +597,11 @@ function initTerminalWhenReady() {
         return;
     }
 
+    if (elements.app.dataset.terminalBooting === 'true') {
+        return;
+    }
+    elements.app.dataset.terminalBooting = 'true';
+
     const activeProfile = typeof window.getTerminalActiveProfile === 'function'
         ? window.getTerminalActiveProfile()
         : (window.CAPSULE_TERMINAL_ACTIVE_PROFILE || {});
@@ -560,57 +609,80 @@ function initTerminalWhenReady() {
         ? `CapsuleOS Linux (${activeProfile.distro || 'generic'})`
         : `CapsuleOS ${activeProfile.osFamily || 'OS'}`;
 
-    const session = window.CapsuleTerminal.createSession({
-        cwd: window.CAPSULE_TERMINAL_HOME || '/',
-        home: window.CAPSULE_TERMINAL_HOME || '/',
-        user: window.CAPSULE_TERMINAL_USER || 'user',
-        host: window.CAPSULE_TERMINAL_HOST || 'host',
-        fs: typeof fileSystem !== 'undefined' ? fileSystem : {},
-        fileContents: (typeof window !== 'undefined' && window.CAPSULE_TERMINAL_FILE_CONTENTS) || {},
-        kernelName
-    });
+    const bootTerminal = async () => {
+        const baseFs = typeof fileSystem !== 'undefined' ? fileSystem : {};
+        let fileContents = (typeof window !== 'undefined' && window.CAPSULE_TERMINAL_FILE_CONTENTS) || {};
+        let fileHrefs = {};
 
-    elements.app.dataset.terminalReady = 'true';
-    elements.app.__capsuleTerminalSession = session;
-    updateTerminalPrompt(elements, session);
-    scrollTerminalToBottom(elements);
-
-    elements.app.addEventListener('click', () => {
-        elements.commandInput.focus();
-    });
-
-    elements.form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const command = elements.commandInput.value;
-        const promptBeforeExecute = session.getPrompt();
-        const result = session.execute(command);
-
-        if (result && result.clear) {
-            elements.output.innerHTML = '';
-        } else {
-            renderExecutedCommand(elements.output, promptBeforeExecute, command);
-            const listingColWidth = result.listing
-                ? getListingColumnWidth(result.lines || [])
-                : 0;
-            (result.lines || []).forEach((line) => {
-                if (result.listing) {
-                    renderListingLine(elements.output, line, session, listingColWidth);
-                    return;
-                }
-                renderTerminalLine(
-                    elements.output,
-                    line,
-                    result.error ? 'capsule-terminal__line capsule-terminal__line--error' : 'capsule-terminal__line'
-                );
-            });
+        if (window.CapsuleVirtualShell && typeof window.CapsuleVirtualShell.prepareTerminalFilesystem === 'function') {
+            const hydration = await window.CapsuleVirtualShell.prepareTerminalFilesystem(baseFs);
+            fileContents = hydration.fileContents || fileContents;
+            fileHrefs = hydration.fileHrefs || fileHrefs;
         }
 
-        elements.commandInput.value = '';
+        const session = window.CapsuleTerminal.createSession({
+            cwd: window.CAPSULE_TERMINAL_HOME || '/',
+            home: window.CAPSULE_TERMINAL_HOME || '/',
+            user: window.CAPSULE_TERMINAL_USER || 'user',
+            host: window.CAPSULE_TERMINAL_HOST || 'host',
+            fs: baseFs,
+            fileContents,
+            fileHrefs,
+            kernelName
+        });
+
+        elements.app.dataset.terminalReady = 'true';
+        delete elements.app.dataset.terminalBooting;
+        elements.app.__capsuleTerminalSession = session;
         updateTerminalPrompt(elements, session);
         scrollTerminalToBottom(elements);
-        requestAnimationFrame(() => scrollTerminalToBottom(elements));
-        elements.commandInput.focus();
-    });
 
-    elements.commandInput.focus();
+        elements.app.addEventListener('click', () => {
+            elements.commandInput.focus();
+        });
+
+        bindTerminalCommandHistory(elements.commandInput, session);
+
+        elements.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const command = elements.commandInput.value;
+            const promptBeforeExecute = session.getPrompt();
+            const result = session.execute(command);
+
+            if (result && result.clear) {
+                elements.output.innerHTML = '';
+            } else {
+                renderExecutedCommand(elements.output, promptBeforeExecute, command);
+                const listingColWidth = result.listing
+                    ? getListingColumnWidth(result.lines || [])
+                    : 0;
+                (result.lines || []).forEach((line) => {
+                    if (result.listing) {
+                        renderListingLine(elements.output, line, session, listingColWidth);
+                        return;
+                    }
+                    renderTerminalLine(
+                        elements.output,
+                        line,
+                        result.error ? 'capsule-terminal__line capsule-terminal__line--error' : 'capsule-terminal__line'
+                    );
+                });
+            }
+
+            elements.commandInput.value = '';
+            resetTerminalHistoryCursor(elements.commandInput);
+            updateTerminalPrompt(elements, session);
+            scrollTerminalToBottom(elements);
+            requestAnimationFrame(() => scrollTerminalToBottom(elements));
+            elements.commandInput.focus();
+        });
+
+        elements.commandInput.focus();
+    };
+
+    bootTerminal().catch((error) => {
+        console.error('CapsuleOS: échec initialisation terminal', error);
+        delete elements.app.dataset.terminalBooting;
+        setTimeout(initTerminalWhenReady, 200);
+    });
 }

@@ -42,7 +42,11 @@ const ANDUIN_MENU_FAVORITES = [
         id: 'text-editor',
         name: 'Éditeur de texte',
         icon: './media/img/menu/favorites/text-editor.png',
+<<<<<<< HEAD
         dataLink: null
+=======
+        dataLink: 'text_editor'
+>>>>>>> d83a78d (refactorisation générale)
     },
     {
         id: 'clocks',

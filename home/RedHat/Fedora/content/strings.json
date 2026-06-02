@@ -1,5 +1,11 @@
 {
     "explorer.windowTitle": "Dossier personnel - Fichiers",
     "mainMenu.windowTitle": "Activités",
+<<<<<<< HEAD
     "checklist.description": "Explore Fedora Workstation en accomplissant ces missions. Ta progression est sauvegardée."
+=======
+    "checklist.description": "Explore Fedora Workstation en accomplissant ces missions. Ta progression est sauvegardée.",
+    "update_manager.windowTitle": "GNOME Software",
+    "text_editor.windowTitle": "Sans titre — Éditeur de texte"
+>>>>>>> d83a78d (refactorisation générale)
 }

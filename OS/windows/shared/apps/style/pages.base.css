@@ -76,3 +76,17 @@ body {
     color: #666666;
     font-size: 0.9rem;
 }
+<<<<<<< HEAD
+=======
+
+.win-explorer__entry {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+>>>>>>> d83a78d (refactorisation générale)

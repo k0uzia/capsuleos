@@ -1,7 +1,11 @@
 function initFileExplorerContainer() {
     const root = (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT)
         ? String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '')
+<<<<<<< HEAD
         : './apps/system/Dossier_personnel';
+=======
+        : 'home/public';
+>>>>>>> d83a78d (refactorisation générale)
 
     const folderMap = {
         'Dossier Personnel': root,

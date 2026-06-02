@@ -26,6 +26,15 @@ div[class^="windowElement"]:not(#mainMenu) {
     box-shadow: 0 0 0 2px var(--menu-accent), var(--frame);
 }
 
+<<<<<<< HEAD
+=======
+#mainMenu.windowElementActive,
+div[data-link="mainMenu"].windowElementActive {
+    border-color: var(--menu-shell-border);
+    box-shadow: none;
+}
+
+>>>>>>> d83a78d (refactorisation générale)
 #windowHeader {
     display: var(--f);
     flex-flow: var(--rnw);
@@ -99,6 +108,14 @@ div[class^="windowElement"]:not(#mainMenu) {
     background-size: cover;
 }
 
+<<<<<<< HEAD
+=======
+#closeBtn:hover {
+    background-color: #e81123;
+    border-color: #e81123;
+}
+
+>>>>>>> d83a78d (refactorisation générale)
 #windowIframe { 
     display: var(--f);
     flex-flow: var(--cnw);

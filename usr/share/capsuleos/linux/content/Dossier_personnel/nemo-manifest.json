@@ -1,6 +1,14 @@
 {
+<<<<<<< HEAD
   "_deprecated": "Utiliser home/public/.capsule-manifest.json — ce fichier redirige la racine.",
   "root": "../../../home/public",
   "rootLabel": "Dossier personnel",
   "redirectTo": "../../../home/public/.capsule-manifest.json"
+=======
+  "_deprecated": "Utiliser home/public/.capsule-manifest.json",
+  "root": "../../../home/public",
+  "rootLabel": "Dossier personnel",
+  "redirectTo": "../../../home/public/.capsule-manifest.json",
+  "folders": {}
+>>>>>>> d83a78d (refactorisation générale)
 }

@@ -1,0 +1,5 @@
+{
+  "_deprecated": "Utiliser home/public/.capsule-finder-manifest.json via CAPSULE_FINDER_MANIFEST_URL",
+  "defaultFolder": "home",
+  "folders": {}
+}

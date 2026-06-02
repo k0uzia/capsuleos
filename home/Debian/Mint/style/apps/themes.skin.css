@@ -1,1 +1,19 @@
+<<<<<<< HEAD
 /* Surcouche Mint - themes (optionnel) */
+=======
+/* Surcouche Mint — Thèmes */
+body#mint div[data-link="themes"] .themes-app__select:focus,
+body#mint div[data-link="themes"] .themes-app__select:hover {
+    border-color: var(--menu-accent);
+}
+
+body#mint div[data-link="themes"] .themes-card.is-active,
+body#mint div[data-link="themes"] .themes-contrast-card.is-active {
+    border-color: var(--menu-accent);
+    box-shadow: 0 0 0 1px var(--menu-accent);
+}
+
+body#mint div[data-link="themes"] .themes-scale-button.is-active {
+    border-color: var(--menu-accent);
+}
+>>>>>>> d83a78d (refactorisation générale)

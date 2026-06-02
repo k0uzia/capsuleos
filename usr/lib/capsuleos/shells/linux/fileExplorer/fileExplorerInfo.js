@@ -92,21 +92,21 @@ const fileExplorerSystemLink = {
         },
         ///////////////////// AUTRES TYPES DE LIENS ///////////////////////
         "OS": {
-            "image": "../../../assets/accueil.svg",
+            "image": "../../../usr/share/capsuleos/branding/accueil.svg",
             "link": "../../../index.html",
             "détails": [
                 "Choisir une distrib"
             ]
         },
         "linux": {
-            "image": "../../../assets/brands/linux.webp",
+            "image": "../../../usr/share/capsuleos/branding/brands/linux.webp",
             "link": "../../../OS/linux/index.html",
             "détails": [
                 "Tester une distrib Linux"
             ]
         },
         "mint": {
-            "image": "../../../usr/share/capsuleos/icons/linux/mint.png",
+            "image": "../../../usr/share/capsuleos/branding/icons/linux/mint.png",
             "link": "../../../OS/linux/families/debian/mint/index.html",
             "détails": [
                 "Tester Mint"
@@ -135,15 +135,15 @@ const fileExplorerSystemLink = {
             "image": "./media/img/elements/nemo/user-home-symbolic.svg"
         },
         "bsd": { 
-            "image": "../../../../../assets/brands/bsd.webp",
+            "image": "../../../../../usr/share/capsuleos/branding/brands/bsd.webp",
             "link": "../../../../../OS/bsd/ghost/index.html"
         },
         "macos": { 
-            "image": "../../../../../assets/brands/macos.webp",
+            "image": "../../../../../usr/share/capsuleos/branding/brands/macos.webp",
             "link": "../../../../../OS/macos/sonoma/index.html"
         },
         "windows": { 
-            "image": "../../../../../assets/brands/windows.webp",
+            "image": "../../../../../usr/share/capsuleos/branding/brands/windows.webp",
             "link": "../../../../../OS/windows/index.html"
         },
     }

@@ -1,0 +1,85 @@
+/**
+ * Overlay nano / vim dans le terminal CapsuleOS (toutes familles OS).
+ * Variables héritées des skins (--mint-terminal-*, etc.) avec repli neutre.
+ */
+.capsule-terminal-editor {
+    --editor-surface: var(--mint-terminal-surface, #2e2e2e);
+    --editor-fg: var(--mint-terminal-prompt-path, #f6f5f4);
+    --editor-accent: var(--mint-terminal-prompt-path-seg, #62a0ea);
+    --editor-error: var(--mint-terminal-error, #f66151);
+    --editor-status-bg: var(--mint-terminal-header-bg, #363636);
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    background: var(--editor-surface);
+    color: var(--editor-fg);
+    font-family: 'Ubuntu Mono', 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.capsule-terminal-editor__header {
+    flex: 0 0 auto;
+    padding: 0.35rem 0.6rem;
+    background: var(--editor-status-bg);
+    font-size: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.capsule-terminal-editor__buffer {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0.5rem 0.6rem;
+    border: none;
+    resize: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.capsule-terminal-editor__status,
+.capsule-terminal-editor__cmdline {
+    flex: 0 0 auto;
+    padding: 0.25rem 0.6rem;
+    background: var(--editor-status-bg);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.capsule-terminal-editor__cmdline {
+    display: none;
+}
+
+.capsule-terminal-editor--vim-command .capsule-terminal-editor__cmdline {
+    display: block;
+}
+
+.capsule-terminal-editor--vim-command .capsule-terminal-editor__status--mode {
+    display: none;
+}
+
+.capsule-terminal-editor__status--error {
+    color: var(--editor-error);
+}
+
+.capsule-terminal-editor--vim .capsule-terminal-editor__buffer {
+    cursor: text;
+}
+
+.capsule-terminal-editor--vim-normal .capsule-terminal-editor__buffer {
+    cursor: default;
+}
+
+.capsule-terminal[data-terminal-editor-active="true"] .capsule-terminal__input {
+    visibility: hidden;
+    pointer-events: none;
+}

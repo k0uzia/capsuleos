@@ -113,8 +113,12 @@
             examples: ['ssh user@host']
         },
         nano: {
-            help: 'Éditeur terminal (simulation)',
-            examples: ['nano notes.txt']
+            help: 'Éditeur texte simple (^O enregistrer, ^X quitter)',
+            examples: ['nano notes.txt', 'nano ~/Documents/readme.md']
+        },
+        vim: {
+            help: 'Éditeur modal (i insertion, :w :q :wq)',
+            examples: ['vim notes.txt', 'vim config.sh']
         },
         less: {
             help: 'Visualise un fichier page par page (simulation)',

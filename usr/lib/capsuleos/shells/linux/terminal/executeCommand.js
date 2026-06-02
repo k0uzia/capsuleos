@@ -18,6 +18,7 @@ function formatCommandResult(state, command, lines, options = {}) {
         error: Boolean(options.error),
         clear: Boolean(options.clear),
         listing: Boolean(options.listing),
+        openEditor: options.openEditor || null,
         cwd: state.cwd
     };
 }
@@ -520,7 +521,23 @@ function executeTerminalCommand(state, command, helpers = {}) {
         case 'ssh':
             return formatCommandResult(state, rawCommand, ['ssh: connexion distante non disponible (simulation pédagogique).']);
         case 'nano':
-            return formatCommandResult(state, rawCommand, ['nano: éditeur interactif non simulé.']);
+        case 'vim': {
+            if (typeof window !== 'undefined'
+                && window.CapsuleTerminalEditors
+                && typeof window.CapsuleTerminalEditors.prepareCommand === 'function') {
+                return window.CapsuleTerminalEditors.prepareCommand(state, cmd, args, {
+                    resolvePath,
+                    rawCommand,
+                    formatCommandResult
+                });
+            }
+            return formatCommandResult(
+                state,
+                rawCommand,
+                [`${cmd}: éditeur indisponible (charger common/terminal-editors.js).`],
+                { error: true }
+            );
+        }
         case 'less': {
             const file = readFileContent(state, fs, state.cwd, args[0], resolvePath);
             if (file.error) {

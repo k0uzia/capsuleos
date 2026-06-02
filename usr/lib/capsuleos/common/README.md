@@ -8,6 +8,7 @@ JavaScript vanilla partagé entre portail, Windows, Linux et macOS.
 | `window-drag.js` | `makeDraggable(element, options?)` | Déplacement fenêtre ; `options.requireHeader` pour le shell Windows |
 | `background.js` | (IIFE) | Animation fond portail (`--bleu` → `--violet`) |
 | `user-home.js` | `CapsuleUserHome`, `CAPSULE_USER_HOME` | Home simulé partagé `home/public/` (voir `.cursor/ARCHITECTURE.md` §11) |
+| `terminal-editors.js` | `CapsuleTerminalEditors` | Éditeurs nano/vim in-terminal (FS virtuel) — voir `shells/shared/terminal/README.md` |
 
 ### Shell Windows
 

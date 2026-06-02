@@ -649,10 +649,37 @@ function initTerminalWhenReady() {
             const promptBeforeExecute = session.getPrompt();
             const result = session.execute(command);
 
+            const renderResultLines = (lines, isError) => {
+                (lines || []).forEach((line) => {
+                    renderTerminalLine(
+                        elements.output,
+                        line,
+                        isError ? 'capsule-terminal__line capsule-terminal__line--error' : 'capsule-terminal__line'
+                    );
+                });
+            };
+
             if (result && result.clear) {
                 elements.output.innerHTML = '';
             } else {
                 renderExecutedCommand(elements.output, promptBeforeExecute, command);
+                if (result && result.openEditor && window.CapsuleTerminalEditors
+                    && typeof window.CapsuleTerminalEditors.mountInTerminal === 'function') {
+                    renderResultLines(result.lines, result.error);
+                    elements.commandInput.disabled = true;
+                    window.CapsuleTerminalEditors.mountInTerminal(elements.app, session, result.openEditor, {
+                        onClose(closed) {
+                            elements.commandInput.disabled = false;
+                            renderResultLines(closed.lines, closed.error);
+                            updateTerminalPrompt(elements, session);
+                            scrollTerminalToBottom(elements);
+                            elements.commandInput.focus();
+                        }
+                    });
+                    elements.commandInput.value = '';
+                    resetTerminalHistoryCursor(elements.commandInput);
+                    return;
+                }
                 const listingColWidth = result.listing
                     ? getListingColumnWidth(result.lines || [])
                     : 0;

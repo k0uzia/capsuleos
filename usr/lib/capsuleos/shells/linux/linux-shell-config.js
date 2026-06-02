@@ -7,7 +7,7 @@
  *
  * **Ordre de chargement recommandé** : bloc `window.CAPSULE_*` → `capsule-app-embed.js` (généré) →
  * `strings-default.js` → `capsule-strings.js` → les autres scripts noyau (`windowContainer.js`, `contentLoader.js`, …) →
- * scripts terminal (`terminal-core.js`, `terminal.js`, `executeCommand.js`, `filesystem.js`, `manuel.js`).
+ * scripts terminal (`terminal-core.js`, `common/terminal-editors.js`, `terminal.js`, `executeCommand.js`, `filesystem.js`, `virtual-shell.js`, `manuel.js`).
  *
  * @property {string} [CAPSULE_APPS_BASE]  Chemin relatif vers `usr/share/capsuleos/linux/apps` (HTML + CSS `.base.css`).
  * @property {string} [CAPSULE_CONTENT_ROOT]  Racine physique du home public (`CapsuleUserHome.fromRepoDepth(3)` → `home/public`).

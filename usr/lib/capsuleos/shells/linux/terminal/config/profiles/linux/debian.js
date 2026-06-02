@@ -8,7 +8,7 @@
         commands: [
             'help', 'man', 'cd', 'ls', 'pwd', 'echo', 'cat', 'head', 'tail', 'grep', 'find',
             'touch', 'mkdir', 'mv', 'rm', 'rmdir', 'clear', 'history', 'whoami', 'uname',
-            'exit', 'ps', 'kill', 'ping', 'curl', 'sudo', 'ssh', 'nano', 'less', 'dd',
+            'exit', 'ps', 'kill', 'ping', 'curl', 'sudo', 'ssh', 'nano', 'vim', 'less', 'dd',
             'crontab', 'cinnamon', 'apt', 'apt-get', 'aptitude', 'apturl', 'dpkg'
         ],
         packageManagers: ['apt', 'apt-get', 'aptitude', 'apturl', 'dpkg']

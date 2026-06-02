@@ -1,4 +1,4 @@
-@import url(../../../../style/imports.css);
+@import url(../../../../usr/share/capsuleos/themes/portal/imports.css);
 
 iframe[src="./pages/launchpad.html"] {
     width: var(--max-w);

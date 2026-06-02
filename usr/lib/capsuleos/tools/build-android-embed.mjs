@@ -38,7 +38,7 @@ function main() {
 
     const messages = JSON.parse(readUtf8(MESSAGES_JSON));
 
-    const header = `/* Généré par js/build-android-embed.mjs — ne pas éditer à la main */
+    const header = `/* Généré par usr/lib/capsuleos/tools/build-android-embed.mjs — ne pas éditer à la main */
 (function () {
 'use strict';
 `;

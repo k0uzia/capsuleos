@@ -1,4 +1,4 @@
-@import url(../../../../../style/reset.css);
+@import url(../../../../../usr/share/capsuleos/themes/global/reset.css);
 @import url(../../../kernel/style/variables-windows.css);
 
 .win-page--classic {

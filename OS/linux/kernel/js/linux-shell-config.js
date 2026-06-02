@@ -28,4 +28,8 @@
  * @property {string} [CAPSULE_TERMINAL_HOME]  Répertoire initial du terminal commun.
  * @property {string} [CAPSULE_TERMINAL_OS_FAMILY]  Famille OS terminal (`linux`, `windows`, `macos`), défaut `linux`.
  * @property {string} [CAPSULE_TERMINAL_PROFILE]  Profil terminal pour la distro (`debian`, `redhat`, `arch`).
+ *
+ * Tailles initiales des fenêtres : tokens `--win-<data-link>-width|height|min-*` dans
+ * `kernel/style/variables-linux.css` (repli `--win-default-*`). Appliquées au premier affichage
+ * par `windowContainer.js` (`applyInitialLinuxWindowSize`).
  */

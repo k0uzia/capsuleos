@@ -4,4 +4,68 @@
  */
 :root {
     --linux-skin-label: "Linux";
+
+    /** Tailles initiales des fenêtres (Cinnamon / bureau Linux) — base --head (40px) */
+    --win-default-width: calc(var(--head) * 22.5);
+    --win-default-height: calc(var(--head) * 12);
+    --win-default-min-width: calc(var(--head) * 16);
+    --win-default-min-height: calc(var(--head) * 9);
+
+    /** Gouttière interne des fenêtres (.windowElement padding) — aligne chrome + apps inline (Nemo, terminal). */
+    --win-client-gutter: calc(var(--head) / 20);
+
+    --win-nemo-width: calc(var(--head) * 22.5);
+    --win-nemo-height: calc(var(--head) * 15);
+    --win-nemo-min-width: calc(var(--head) * 18);
+    --win-nemo-min-height: calc(var(--head) * 12);
+
+    --win-firefox-width: calc(var(--head) * 28);
+    --win-firefox-height: calc(var(--head) * 17.5);
+    --win-firefox-min-width: calc(var(--head) * 20);
+    --win-firefox-min-height: calc(var(--head) * 14);
+
+    --win-terminal-width: calc(var(--head) * 17.5);
+    --win-terminal-height: calc(var(--head) * 11);
+    --win-terminal-min-width: calc(var(--head) * 14);
+    --win-terminal-min-height: calc(var(--head) * 8);
+
+    --win-profile-width: calc(var(--head) * 14);
+    --win-profile-height: calc(var(--head) * 10.5);
+    --win-profile-min-width: calc(var(--head) * 12);
+    --win-profile-min-height: calc(var(--head) * 8);
+
+    --win-themes-width: calc(var(--head) * 16);
+    --win-themes-height: calc(var(--head) * 12);
+    --win-themes-min-width: calc(var(--head) * 13);
+    --win-themes-min-height: calc(var(--head) * 9);
+
+    --win-checklist-width: calc(var(--head) * 18);
+    --win-checklist-height: calc(var(--head) * 13);
+    --win-checklist-min-width: calc(var(--head) * 14);
+    --win-checklist-min-height: calc(var(--head) * 10);
+
+    --win-librewriter-width: calc(var(--head) * 24);
+    --win-librewriter-height: calc(var(--head) * 16);
+    --win-librewriter-min-width: calc(var(--head) * 18);
+    --win-librewriter-min-height: calc(var(--head) * 12);
+
+    --win-update_manager-width: calc(var(--head) * 17);
+    --win-update_manager-height: calc(var(--head) * 12.5);
+    --win-update_manager-min-width: calc(var(--head) * 14);
+    --win-update_manager-min-height: calc(var(--head) * 9);
+
+    --win-visionneur_images-width: calc(var(--head) * 20);
+    --win-visionneur_images-height: calc(var(--head) * 14);
+    --win-visionneur_images-min-width: calc(var(--head) * 16);
+    --win-visionneur_images-min-height: calc(var(--head) * 10);
+
+    --win-visionneur_pdf-width: calc(var(--head) * 20);
+    --win-visionneur_pdf-height: calc(var(--head) * 14);
+    --win-visionneur_pdf-min-width: calc(var(--head) * 16);
+    --win-visionneur_pdf-min-height: calc(var(--head) * 10);
+
+    --win-lecteur_multimedia-width: calc(var(--head) * 22);
+    --win-lecteur_multimedia-height: calc(var(--head) * 14.5);
+    --win-lecteur_multimedia-min-width: calc(var(--head) * 17);
+    --win-lecteur_multimedia-min-height: calc(var(--head) * 10);
 }

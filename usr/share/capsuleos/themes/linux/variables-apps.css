@@ -256,6 +256,8 @@
     --nemo-zoom-default: 100;
     --nemo-zoom-scale-default: 1;
     --nemo-zoom-slider-width: calc(var(--head) * 2.6);
+    --nemo-shell-radius: calc(var(--head) / 4);
+    --nemo-statusbar-height: var(--head);
     --nemo-item-base-size: calc(var(--head) * 3.5);
     --nemo-item-icon-base-size: calc(var(--head) * 2);
     --nemo-item-icon-margin-base: var(--head);

@@ -48,6 +48,111 @@ right.appendChild(minimizeBtn);
 right.appendChild(maximizeBtn);
 right.appendChild(closeBtn);
 
+const LINUX_WINDOW_SIZE_SKIP = new Set(['mainMenu']);
+
+let linuxWindowSizeProbe = null;
+
+function getLinuxWindowSizeProbe() {
+    if (!linuxWindowSizeProbe && typeof document !== 'undefined') {
+        linuxWindowSizeProbe = document.createElement('div');
+        linuxWindowSizeProbe.setAttribute('aria-hidden', 'true');
+        linuxWindowSizeProbe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none;';
+        document.body.appendChild(linuxWindowSizeProbe);
+    }
+    return linuxWindowSizeProbe;
+}
+
+function readLinuxCssVarPx(varName, dimension) {
+    if (!varName || typeof document === 'undefined') {
+        return 0;
+    }
+
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    if (!raw) {
+        return 0;
+    }
+
+    const probe = getLinuxWindowSizeProbe();
+    if (!probe) {
+        return 0;
+    }
+
+    if (dimension === 'height') {
+        probe.style.width = '0';
+        probe.style.height = raw;
+        const px = probe.offsetHeight;
+        probe.style.height = '';
+        return px;
+    }
+
+    probe.style.height = '0';
+    probe.style.width = raw;
+    const px = probe.offsetWidth;
+    probe.style.width = '';
+    return px;
+}
+
+function resolveLinuxWindowSizeVars(dataLink) {
+    const appWidthVar = `--win-${dataLink}-width`;
+    const appHeightVar = `--win-${dataLink}-height`;
+    const appMinWidthVar = `--win-${dataLink}-min-width`;
+    const appMinHeightVar = `--win-${dataLink}-min-height`;
+
+    let width = readLinuxCssVarPx(appWidthVar, 'width');
+    let height = readLinuxCssVarPx(appHeightVar, 'height');
+    let minWidth = readLinuxCssVarPx(appMinWidthVar, 'width');
+    let minHeight = readLinuxCssVarPx(appMinHeightVar, 'height');
+
+    if (!width) {
+        width = readLinuxCssVarPx('--win-default-width', 'width');
+    }
+    if (!height) {
+        height = readLinuxCssVarPx('--win-default-height', 'height');
+    }
+    if (!minWidth) {
+        minWidth = readLinuxCssVarPx('--win-default-min-width', 'width');
+    }
+    if (!minHeight) {
+        minHeight = readLinuxCssVarPx('--win-default-min-height', 'height');
+    }
+
+    return { width, height, minWidth, minHeight };
+}
+
+function applyInitialLinuxWindowSize(container, dataLink) {
+    if (!container || !dataLink || LINUX_WINDOW_SIZE_SKIP.has(dataLink)) {
+        return;
+    }
+
+    if (container.dataset.sizeInit === 'true') {
+        return;
+    }
+
+    const isGnomeStartMenu = dataLink === 'mainMenu'
+        && !!container.querySelector('#menu-gnome-root');
+    if (isGnomeStartMenu) {
+        return;
+    }
+
+    const sizes = resolveLinuxWindowSizeVars(dataLink);
+    if (!sizes.width || !sizes.height) {
+        return;
+    }
+
+    container.style.bottom = 'auto';
+    container.style.width = `${sizes.width}px`;
+    container.style.height = `${sizes.height}px`;
+
+    if (sizes.minWidth) {
+        container.style.minWidth = `${sizes.minWidth}px`;
+    }
+    if (sizes.minHeight) {
+        container.style.minHeight = `${sizes.minHeight}px`;
+    }
+
+    container.dataset.sizeInit = 'true';
+}
+
 function isKdeFamily() {
     const skinKey = typeof window !== 'undefined' ? window.CAPSULE_EMBED_SKIN_KEY : null;
     const explorerTemplate = typeof window !== 'undefined' ? window.CAPSULE_EXPLORER_TEMPLATE : null;
@@ -103,6 +208,7 @@ function handleOpenwindow(link) {
                 container.insertBefore(windowHeader.cloneNode(true), container.firstChild);
             }
             applyKdeWindowHeaderIcons(container);
+            applyInitialLinuxWindowSize(container, link.dataset.link);
             link.classList.add('active-link');
             activateWindow(container);
             // Utiliser le data-link pour mettre à jour le windowTitle

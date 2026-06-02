@@ -1,3 +1,13 @@
+/* Slot Nemo : le chrome .windowElement a déjà --win-client-gutter ; le shell remplit la zone cliente. */
+div.windowElement[data-link="nemo"]:not(#mainMenu) {
+    align-items: stretch;
+}
+
+div[data-link="nemo"] > #windowHeader {
+    width: var(--full);
+    align-self: stretch;
+}
+
 main#gestionnaire {
     position: var(--rel);
     top: var(--z);
@@ -7,16 +17,19 @@ main#gestionnaire {
     display: var(--f);
     flex-flow: var(--cnw);
     justify-content: var(--fs);
-    align-items: var(--fs);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    height: calc(var(--full) - calc(var(--head) / 1.4));
-    min-height: calc(var(--a) - calc(var(--head) / 1.4));
-    margin-bottom: calc(var(--head) / 12);
-    border-radius: var(--z) var(--z) calc(var(--head) / 4) calc(var(--head) / 4);
+    align-items: stretch;
+    flex: 1 1 auto;
+    width: var(--full);
+    min-width: var(--z);
+    min-height: var(--z);
+    height: auto;
+    margin-bottom: var(--z);
+    border-radius: var(--z) var(--z) var(--nemo-shell-radius) var(--nemo-shell-radius);
     font-size: calc(var(--head) - 25px);
     background-color: var(--nemo-bg-primary);
     user-select: var(--n);
     overflow: var(--h);
+    box-sizing: border-box;
 }
 
 /* Override the shared window chrome only for Nemo containers. */
@@ -110,6 +123,12 @@ div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
 
 div[data-link="nemo"] .nemo-app__toolbar-group--view > a {
     min-width: calc(var(--head) / 1.5);
+}
+
+div[data-link="nemo"] .nemo-app__toolbar-group--view > a.nemo-app__view-btn--active,
+div[data-link="nemo"] .nemo-app__toolbar-group--view > a[aria-current="true"] {
+    background: var(--nemo-toolbar-button-hover-bg);
+    border-color: var(--menu-accent);
 }
 
 div[data-link="nemo"] .nemo-app__path-current {
@@ -282,15 +301,17 @@ div[data-link="nemo"] #nemoHeaderContainer .listeSousMenu img {
     position: var(--rel);
     top: var(--z);
     right: var(--z);
-    bottom: var(--head);
+    bottom: var(--z);
     left: var(--z);
     display: var(--f);
     flex-flow: var(--rnw);
     justify-content: var(--fs);
     align-items: var(--fs);
+    flex: 1 1 auto;
     width: var(--full);
-    height: calc(var(--full) - calc(var(--head) * 2.5));
-    min-height: calc(var(--a) - calc(var(--head) * 2.5));
+    min-width: var(--z);
+    min-height: var(--z);
+    height: auto;
     margin: var(--z);
 }
 
@@ -440,13 +461,18 @@ div[data-link="nemo"] .nemo-app__empty {
     flex-flow: var(--rnw);
     justify-content: var(--sb);
     align-items: var(--c);
+    flex-shrink: 0;
+    align-self: stretch;
     width: var(--full);
-    height: var(--head);
-    margin-bottom: calc(var(--head) / 12);
+    min-width: var(--z);
+    height: var(--nemo-statusbar-height);
+    margin-top: auto;
+    margin-bottom: var(--z);
     padding: var(--z) calc(var(--head) / 2);
     border-top: solid 1px var(--nemo-border);
-    border-radius: var(--z) var(--z) calc(var(--head) / 4) calc(var(--head) / 4);
+    border-radius: var(--z) var(--z) var(--nemo-shell-radius) var(--nemo-shell-radius);
     background-color: var(--nemo-footer-bg);
+    box-sizing: border-box;
 }
 
 div[data-link="nemo"] .nemo-app__statusbar {

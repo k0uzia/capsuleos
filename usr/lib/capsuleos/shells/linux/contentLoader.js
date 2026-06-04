@@ -299,6 +299,11 @@ const SLOT_INIT_HANDLERS = {
         if (typeof initDrawingApp === 'function') {
             initDrawingApp();
         }
+    },
+    text_editor: () => {
+        if (typeof initTextEditorApp === 'function') {
+            initTextEditorApp();
+        }
     }
 };
 

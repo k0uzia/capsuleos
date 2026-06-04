@@ -25,7 +25,7 @@ const SLOT_STATUS = {
   themes: { statut: 'partiel', slot: 'themes', note: 'cinnamon-settings — UI minimale' },
   profile: { statut: 'ok', slot: 'profile', note: 'À propos Mint' },
   update_manager: { statut: 'partiel', slot: 'update_manager', note: 'mintupdate + mintinstall' },
-  text_editor: { statut: 'partiel', slot: 'text_editor', note: 'xed — skin léger' },
+  text_editor: { statut: 'ok', slot: 'text_editor', note: 'xed — menus, barre d\'outils, statut' },
   librewriter: { statut: 'partiel', slot: 'librewriter', note: 'Writer — simulation' },
   visionneur_images: { statut: 'partiel', slot: 'visionneur_images', note: 'xviewer / Pix' },
   visionneur_pdf: { statut: 'partiel', slot: 'visionneur_pdf', note: 'xreader' },

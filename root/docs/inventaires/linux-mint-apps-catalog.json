@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-04T10:08:29.775Z",
+  "generatedAt": "2026-06-04T10:14:04.728Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -416,14 +416,14 @@
       "desktop": "org.x.editor.desktop",
       "priorite": "P0",
       "slotCapsule": "text_editor",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": true,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "apps/text_editor.html",
+      "fichiers": "apps/text_editor.html · Mint/style/apps/text_editor.skin.css",
       "rangReproduction": 5
     },
     {
@@ -1734,14 +1734,14 @@
       "desktop": "org.x.editor.desktop",
       "priorite": "P0",
       "slotCapsule": "text_editor",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": true,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "apps/text_editor.html",
+      "fichiers": "apps/text_editor.html · Mint/style/apps/text_editor.skin.css",
       "rangReproduction": 5
     },
     {

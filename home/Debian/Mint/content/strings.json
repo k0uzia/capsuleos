@@ -2,5 +2,7 @@
     "explorer.windowTitle": "Dossier personnel - Nemo",
     "calculator.windowTitle": "Calculatrice",
     "screenshot.windowTitle": "Capture d'écran",
-    "drawing.windowTitle": "Sans titre — Dessin"
+    "drawing.windowTitle": "Sans titre — Dessin",
+    "text_editor.windowTitle": "Sans titre",
+    "text_editor.placeholder": "Saisissez votre texte…"
 }

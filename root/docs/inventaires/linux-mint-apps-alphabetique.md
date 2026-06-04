@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-04T10:08:29.775Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-04T10:14:04.728Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -30,7 +30,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 2 | Calculatrice | org.gnome.Calculator.desktop | calculator | ✅ | P0 |
 | 3 | Capture d'écran | org.gnome.Screenshot.desktop | screenshot | ✅ | P0 |
 | 4 | Dessin | com.github.maoschanz.drawing.desktop | drawing | ✅ | P0 |
-| 5 | Éditeur de texte | org.x.editor.desktop | text_editor | 🔶 | P0 |
+| 5 | Éditeur de texte | org.x.editor.desktop | text_editor | ✅ | P0 |
 | 6 | Fichiers | nemo.desktop | nemo | ✅ | P0 |
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
 | 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ⬜ | P1 |
@@ -86,7 +86,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Display | Display | cinnamon-display-panel.desktop | — | ⬜ | — |  |
 | Document Scanner | Document Scanner | simple-scan.desktop | — | ⬜ | — |  |
 | Écran d'accueil Mint | Welcome Screen | mintwelcome.desktop | mintwelcome | ⬜ | — |  |
-| Éditeur de texte | Text Editor | org.x.editor.desktop | text_editor | 🔶 | M,F |  |
+| Éditeur de texte | Text Editor | org.x.editor.desktop | text_editor | ✅ | M,F |  |
 | Effects | Effects | cinnamon-settings-effects.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Extensions | Extensions | cinnamon-settings-extensions.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Fichiers | Files | nemo.desktop | nemo | ✅ | M,P |  |
@@ -177,7 +177,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `profile` — ✅
 - `screenshot` — ✅
 - `terminal` — ✅
-- `text_editor` — 🔶
+- `text_editor` — ✅
 - `themes` — 🔶
 - `update_manager` — 🔶
 - `visionneur_images` — 🔶

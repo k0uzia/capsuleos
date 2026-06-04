@@ -67,7 +67,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#2 Calculatrice** — `calculator` (GNOME, mode De base, smoke OK)
 - [x] **#3 Capture d'écran** — `screenshot` (GNOME Screenshot, smoke OK)
 - [x] **#4 Dessin** — `drawing` (Drawing / mao, smoke OK)
-- [ ] Reproduction **une app par passe** (suite : #5 Éditeur de texte…) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [ ] Reproduction **une app par passe** (suite : #6 après xed ✅) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Zone de notification (2026-06-04)

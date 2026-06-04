@@ -1,18 +1,43 @@
-<main id="textEditorApp" class="text-editor-app" aria-label="Éditeur de texte">
+<main id="xedApp" class="xed-app" aria-label="Éditeur de texte">
 
-    <header class="text-editor-app__toolbar" aria-label="Barre d'outils">
-        <button type="button" class="text-editor-app__btn" disabled aria-disabled="true">Nouveau</button>
-        <button type="button" class="text-editor-app__btn" disabled aria-disabled="true">Ouvrir</button>
-        <button type="button" class="text-editor-app__btn" disabled aria-disabled="true">Enregistrer</button>
+    <nav class="xed-app__menubar" aria-label="Menus">
+        <span class="xed-app__menu-item" role="presentation">Fichier</span>
+        <span class="xed-app__menu-item" role="presentation">Édition</span>
+        <span class="xed-app__menu-item" role="presentation">Rechercher</span>
+        <span class="xed-app__menu-item" role="presentation">Affichage</span>
+        <span class="xed-app__menu-item" role="presentation">Documents</span>
+    </nav>
+
+    <header class="xed-app__toolbar" aria-label="Barre d'outils">
+        <button type="button" class="xed-app__tool" data-xed-action="new" title="Nouveau">Nouveau</button>
+        <button type="button" class="xed-app__tool" data-xed-action="open" title="Ouvrir">Ouvrir</button>
+        <button type="button" class="xed-app__tool" data-xed-action="save" title="Enregistrer">Enregistrer</button>
+        <span class="xed-app__toolbar-sep" aria-hidden="true"></span>
+        <button type="button" class="xed-app__tool" data-xed-action="undo" title="Annuler">Annuler</button>
+        <button type="button" class="xed-app__tool" data-xed-action="redo" title="Rétablir">Rétablir</button>
+        <span class="xed-app__toolbar-sep" aria-hidden="true"></span>
+        <button type="button" class="xed-app__tool" data-xed-action="cut" title="Couper">Couper</button>
+        <button type="button" class="xed-app__tool" data-xed-action="copy" title="Copier">Copier</button>
+        <button type="button" class="xed-app__tool" data-xed-action="paste" title="Coller">Coller</button>
     </header>
 
-    <textarea
-        class="text-editor-app__area"
-        id="text-editor-area"
-        data-capsule-attr="placeholder:text_editor.placeholder"
-        placeholder="Saisissez votre texte…"
-        spellcheck="true"
-        aria-label="Zone de saisie"
-    ></textarea>
+    <div class="xed-app__editor-wrap">
+        <textarea
+            class="xed-app__area"
+            id="xed-area"
+            data-capsule-attr="placeholder:text_editor.placeholder"
+            placeholder="Saisissez votre texte…"
+            spellcheck="true"
+            aria-label="Zone de saisie"
+        ></textarea>
+    </div>
+
+    <footer class="xed-app__status" aria-label="Barre d'état">
+        <span class="xed-app__status-pos" id="xed-status-pos">Ligne 1, Col 1</span>
+        <span class="xed-app__status-chars" id="xed-status-chars">0 caractères</span>
+        <span class="xed-app__status-encoding">UTF-8</span>
+    </footer>
+
+    <input type="file" class="xed-app__file-input" id="xed-file-input" accept=".txt,.md,.json,.css,.html,.js,.sh,.log,.xml,.yml,.yaml,.csv" hidden aria-hidden="true">
 
 </main>

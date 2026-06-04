@@ -1,0 +1,84 @@
+/**
+ * xed (Éditeur de texte) — Linux Mint Cinnamon Mint-Y-Dark-Aqua.
+ */
+body#mint {
+    --xed-chrome-bg: #2e2e33;
+    --xed-buffer-bg: #1e1e22;
+    --xed-buffer-text: #e8e8ea;
+    --xed-text: #e1e1e1;
+    --xed-border: var(--menu-shell-border, rgba(255, 255, 255, 0.08));
+}
+
+html[data-theme="light"] body#mint {
+    --xed-chrome-bg: #ececec;
+    --xed-buffer-bg: #ffffff;
+    --xed-buffer-text: #1a1a1a;
+    --xed-text: #1e1e1e;
+    --xed-border: rgba(0, 0, 0, 0.1);
+}
+
+body#mint div[data-link="text_editor"].windowElement {
+    width: min(calc(var(--head) * 16), 90vw);
+    min-width: calc(var(--head) * 11);
+    height: min(calc(var(--head) * 11), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
+    min-height: calc(var(--head) * 8);
+}
+
+body#mint div[data-link="text_editor"] #windowHeader {
+    background: var(--xed-chrome-bg);
+    border-bottom: 1px solid var(--xed-border);
+}
+
+body#mint div[data-link="text_editor"] #windowTitle {
+    color: var(--xed-text);
+}
+
+body#mint main#xedApp {
+    color: var(--xed-text);
+    background: var(--xed-chrome-bg);
+}
+
+body#mint .xed-app__menubar,
+body#mint .xed-app__toolbar,
+body#mint .xed-app__status {
+    background: var(--xed-chrome-bg);
+    border-color: var(--xed-border);
+}
+
+body#mint .xed-app__menu-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="light"] body#mint .xed-app__menu-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body#mint .xed-app__toolbar-sep {
+    background: var(--xed-border);
+}
+
+body#mint .xed-app__tool {
+    color: var(--xed-text);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--xed-border);
+}
+
+body#mint .xed-app__tool:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="light"] body#mint .xed-app__tool {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+body#mint .xed-app__area {
+    color: var(--xed-buffer-text);
+    background: var(--xed-buffer-bg);
+}
+
+body#mint .xed-app__status-pos,
+body#mint .xed-app__status-chars,
+body#mint .xed-app__status-encoding {
+    color: var(--xed-text);
+    opacity: 0.92;
+}

@@ -18,7 +18,12 @@ function initProfileApp() {
     }
 
     document.getElementById('profile-name').textContent = p.name;
-    document.getElementById('profile-version').textContent = p.version;
+    var versionEl = document.getElementById('profile-version');
+    if (p.stackLine) {
+        versionEl.textContent = p.version + ' — ' + p.stackLine;
+    } else {
+        versionEl.textContent = p.version;
+    }
     document.getElementById('profile-tagline').textContent = p.tagline;
     document.getElementById('profile-description').textContent = p.description;
 

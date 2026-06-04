@@ -32,7 +32,7 @@ Référence détaillée : [ajouter-os-scalable.md](ajouter-os-scalable.md) · [r
 | **H1** | Vérité catalogue | Lire [manifeste-noyau.md](manifeste-noyau.md) § registres ; parcourir `etc/capsuleos/os-registry.json` ; [politique-assets.md](politique-assets.md) | Savoir où vivent façade / skin / assets |
 | **H2** | Santé dépôt | Exécuter `validate-all.mjs` (baseline locale) | **exit 0** ou plan de correction avant tout patch |
 | **H3** | Routage compétence | Choisir skill : [onboarding](../skills/onboarding/SKILL.md) → `kernel-supervisor` **ou** `os-<famille>` + `role-*` ; voir [equipe-agentique.md](equipe-agentique.md) | Brief avec `id` registre + `tier` |
-| **H4** | Conception scalable | Toolkit existant ? Vendor pack ? Miroir `home/` ? Profil `skin.profile.json` | Fiche [ajouter-os-scalable.md](ajouter-os-scalable.md) remplie |
+| **H4** | Conception scalable | Toolkit existant ? Vendor pack ? Miroir `home/` ? Profil `skin.profile.json` | Fiche [ajouter-os-scalable.md](ajouter-os-scalable.md) remplie ; si clone VM : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) phases 0–1 |
 | **H5** | Implémentation | Patch minimal ; assets dans `usr/share/capsuleos/assets/` ; boot `capsule-resource.js` → `capsule-skin-boot.js` | Pas d’images sous `OS/*/media/` |
 | **H6** | Clôture | `validate-all.mjs` ; regen embed si templates/strings ; smoke `file://` sur façade | PR / merge autorisé |
 
@@ -70,7 +70,7 @@ flowchart TD
 
 | Intention | Lire d’abord | Gate après patch | Skills |
 |-----------|--------------|------------------|--------|
-| Nouvelle **distro Linux** (ex. Zorin) | [ajouter-os-scalable.md](ajouter-os-scalable.md), [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) | `validate-all` + regen embed Linux | `os-linux`, `role-integrator`, `code-quality` |
+| Nouvelle **distro Linux** (ex. Zorin) | [ajouter-os-scalable.md](ajouter-os-scalable.md), [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md), [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) | `validate-all` + regen embed Linux | `os-linux`, `role-integrator`, `code-quality` |
 | Nouvelle **version** Windows / macOS | [repertoire-os.md](repertoire-os.md), façade existante | `validate-all` | `os-windows` / `os-macos`, `role-integrator` |
 | Nouveau **vendor** (thème icônes) | [politique-assets.md](politique-assets.md), `assets/manifest.json` | `validate-assets-all` | `kernel-supervisor`, `role-graphic-artist` |
 | Nouveau **environnement de bureau** (toolkit) | [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui), explorateurs README | `validate-all` + manifest | `os-linux`, `role-developer`, `role-graphic-artist` |

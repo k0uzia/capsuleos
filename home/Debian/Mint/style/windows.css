@@ -49,6 +49,13 @@ div.windowElement[data-link="update_manager"]:not(#mainMenu) {
     min-height: var(--win-update_manager-min-height);
 }
 
+div.windowElement[data-link="text_editor"]:not(#mainMenu) {
+    width: var(--win-themes-width);
+    min-width: var(--win-themes-min-width);
+    height: var(--win-themes-height);
+    min-height: var(--win-themes-min-height);
+}
+
 div.windowElement[data-link="librewriter"]:not(#mainMenu) {
     width: var(--win-librewriter-width);
     min-width: var(--win-librewriter-min-width);

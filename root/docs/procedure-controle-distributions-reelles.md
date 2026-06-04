@@ -4,7 +4,9 @@ Objectif : permettre à un **agent IA** (ou à la CI) de **lire l’état** et *
 
 **Principe** : la vérité machine-readable (JSON) remplace la vérité visuelle (canvas VNC).
 
-Références : [`contrib.md`](../../contrib.md) · [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json) · [`ajouter-os-scalable.md`](ajouter-os-scalable.md) · [`mint-fenetres-muffin.md`](mint-fenetres-muffin.md)
+**Construction (clone)** : pour nourrir CapsuleOS depuis une VM (assets, apps, FS, comportements), suivre d’abord [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md), puis utiliser **ce document** pour mesurer la parité.
+
+Références : [`contrib.md`](../../contrib.md) · [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json) · [`ajouter-os-scalable.md`](ajouter-os-scalable.md) · [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) · [`mint-fenetres-muffin.md`](mint-fenetres-muffin.md)
 
 ---
 
@@ -143,6 +145,28 @@ Exemple :
 
 L’agent lit ce fichier pour savoir **où** envoyer les commandes.
 
+### 3.5 Inventaire Mint (assets, panel, thèmes)
+
+Phase 1 du [clonage depuis VM](procedure-clonage-os-depuis-vm.md#4-phase-1--discovery-inventaire-ground-truth). Pour **linux-mint** :
+
+```bash
+node usr/lib/capsuleos/tools/lab/collect-mint-inventory.mjs --write-doc
+```
+
+Sorties : `root/docs/inventaires/linux-mint-vm.json`, `root/docs/inventaire-parite-mint-vm.md`. Script VM : `root/tools/lab/vm-mint-inventory.sh`.
+
+---
+
+## 3bis. Mesure après clonage
+
+Une fois les phases 2–6 du clonage terminées ([`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md)) :
+
+1. Rafraîchir l’inventaire / rapport parité (`collect-mint-inventory.mjs --write-doc` ou équivalent).
+2. Exécuter `compare-os-parity.mjs --id <registryId> --scenario panel-checklist`.
+3. Clôturer avec `validate-all.mjs` (phase 7 du clonage).
+
+Checklist copiable : [`templates/clone-os-checklist.md`](templates/clone-os-checklist.md).
+
 ---
 
 ## 4. Sonde OS réelle (à déployer sur chaque VM)
@@ -244,7 +268,7 @@ Sortie : rapport Markdown + exit code ≠ 0 si régression P0.
 
 ## 7. Procédure par nouvelle distribution
 
-Pour chaque entrée `os-registry.json` (voir [`ajouter-os-scalable.md`](ajouter-os-scalable.md)) :
+Pour chaque entrée `os-registry.json` : **clone** [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) puis **mesure** (ce document). Catalogue minimal : [`ajouter-os-scalable.md`](ajouter-os-scalable.md).
 
 | # | Action | Responsable |
 |---|--------|-------------|

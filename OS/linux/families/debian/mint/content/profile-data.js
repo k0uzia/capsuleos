@@ -1,6 +1,7 @@
 window.CAPSULE_DISTRO_PROFILE = {
     name: 'Linux Mint Cinnamon',
-    version: '21.3 "Virginia"',
+    version: '22.3 "Zena"',
+    stackLine: 'Cinnamon 6.6.7 · Nemo 6.6.3 · Firefox 151',
     tagline: 'Élégant, confortable et productif : l\'un des environnements Linux de bureau les plus populaires.',
     description: 'Linux Mint Cinnamon est un système d\'exploitation open source, porté par sa communauté et basé sur Ubuntu. Il mise sur la simplicité d\'usage, la stabilité et une expérience de bureau familière, ce qui en fait une excellente première distribution Linux.',
     logo: './assets/images/vendors/mint/logo.svg',

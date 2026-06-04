@@ -48,6 +48,20 @@ div[data-link="themes"] #windowTitle {
     border-bottom: 0;
 }
 
+.themes-app__vm-value {
+    margin: calc(var(--head) / 8) var(--z) var(--z);
+    padding: calc(var(--head) / 5) calc(var(--head) / 4);
+    font-size: calc(var(--head) / 2.6);
+    color: var(--nemo-text-secondary, rgba(245, 246, 248, 0.75));
+    border: 1px solid var(--nemo-toolbar-button-border);
+    border-radius: calc(var(--head) / 10);
+    background: var(--menuInput);
+}
+
+.themes-app__section--vm-labels .themes-app__label {
+    margin-bottom: calc(var(--head) / 12);
+}
+
 .themes-app__label {
     width: calc(var(--head) * 3);
     margin: calc(var(--head) / 6) var(--z) var(--z);

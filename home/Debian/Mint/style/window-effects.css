@@ -23,12 +23,12 @@
 }
 
 body#mint .windowElement.capsule-window--animate-in {
-    animation: mint-window-open 0.22s ease-out;
+    animation: mint-window-open 0.18s cubic-bezier(0.2, 0, 0.2, 1);
     transform-origin: center center;
 }
 
 body#mint .windowElement.capsule-window--animate-out {
-    animation: mint-window-close 0.2s ease-in forwards;
+    animation: mint-window-close 0.16s cubic-bezier(0.4, 0, 1, 1) forwards;
     transform-origin: center center;
     pointer-events: none;
 }

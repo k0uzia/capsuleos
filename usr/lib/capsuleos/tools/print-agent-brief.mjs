@@ -157,6 +157,24 @@ const buildBrief = (registry, entry) => {
     );
   }
 
+  if (entry.id === 'linux-mint') {
+    lines.push(
+      '## Clone VM (référence gold)',
+      '',
+      '- Procédure : [procedure-clonage-os-depuis-vm.md](../../docs/procedure-clonage-os-depuis-vm.md)',
+      '- Inventaire : [inventaires/linux-mint-vm.json](../../docs/inventaires/linux-mint-vm.json)',
+      '- Parité : [inventaire-parite-mint-vm.md](../../docs/inventaire-parite-mint-vm.md)',
+      '- Statut : [inventaires/linux-mint-clone-status.md](../../docs/inventaires/linux-mint-clone-status.md)',
+      '- Comportements : [mint-fenetres-muffin.md](../../docs/mint-fenetres-muffin.md)',
+      '',
+      '```bash',
+      'node usr/lib/capsuleos/tools/lab/collect-mint-inventory.mjs --write-doc',
+      'node usr/lib/capsuleos/tools/lab/compare-os-parity.mjs --id linux-mint --scenario panel-checklist',
+      '```',
+      ''
+    );
+  }
+
   lines.push(
     '## Livrables',
     '',

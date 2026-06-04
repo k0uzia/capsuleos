@@ -32,6 +32,23 @@ html {
     overflow: visible;
 }
 
+body#mint #desktop > .desktop-shortcuts {
+    position: var(--abs);
+    top: calc(var(--head) / 2);
+    left: calc(var(--head) / 2);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    align-items: var(--fs);
+    gap: calc(var(--head) / 10);
+    z-index: 10;
+}
+
+body#mint #desktop > .desktop-shortcuts > .desktop-shortcut {
+    position: var(--rel);
+    top: auto;
+    left: auto;
+}
+
 /* Fenêtres dans object#desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
 body#mint object#desktop > .windowElement {
     position: absolute;

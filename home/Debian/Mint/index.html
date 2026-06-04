@@ -12,10 +12,32 @@
 </head>
 <body id="mint">
     <object id="desktop" aria-label="Bureau Linux Mint">
-        <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Linux Mint Cinnamon À Propos">
-            <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/user-info.png" alt="Linux Mint Cinnamon À Propos">
-            <span>Linux Mint Cinnamon<br>À Propos</span>
-        </a>
+        <div class="desktop-shortcuts" role="list" aria-label="Favoris du bureau">
+            <a class="desktop-shortcut" href="#" data-mint-favorite="calculator" title="Calculatrice" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.png" alt="">
+                <span>Calculatrice</span>
+            </a>
+            <a class="desktop-shortcut" href="#" data-mint-favorite="calendar" title="Agenda" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calendar.png" alt="">
+                <span>Agenda</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="text_editor" title="Éditeur de texte (xed)" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.png" alt="">
+                <span>Éditeur de texte</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="update_manager" title="Logithèque" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.png" alt="">
+                <span>Logithèque</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="themes" title="Paramètres du système" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.png" alt="">
+                <span>Paramètres</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Linux Mint Cinnamon À Propos" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/user-info.png" alt="">
+                <span>Linux Mint<br>À Propos</span>
+            </a>
+        </div>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
         <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
@@ -26,6 +48,7 @@
         <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none;"></div>
         <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
         <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
+        <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
         <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
     </object>
@@ -34,20 +57,20 @@
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
-            <a target="windowElement" data-link="nemo" title="Explorateur de fichiers nemo">
-                <img src="../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/folder.png" alt="Nemo" title="Explorateur de fichiers nemo">
+            <a target="windowElement" data-link="nemo" title="Fichiers">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.png" alt="Fichiers" title="Fichiers">
             </a>
-            <a target="windowElement" data-link="firefox" title="Ouvrir un navigateur WEB">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.png" alt="Firefox" title="Ouvrir un navigateur WEB">
+            <a target="windowElement" data-link="firefox" title="Firefox">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.png" alt="Firefox" title="Firefox">
             </a>
-            <a target="windowElement" data-link="terminal" title="Ouvrir un terminal">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/utilities-terminal.png" alt="Terminal" title="Ouvrir un terminal">
+            <a target="windowElement" data-link="terminal" title="Terminal">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.png" alt="Terminal" title="Terminal">
             </a>
             <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/libreoffice-writer.png" alt="LibreOffice Writer" title="LibreOffice Writer">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/libreoffice-writer.png" alt="LibreOffice Writer" title="LibreOffice Writer">
             </a>
-            <a target="windowElement" data-link="themes" title="Ouvrir les themes">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/preferences-desktop-theme.png" alt="Themes" title="Ouvrir les themes">
+            <a target="windowElement" data-link="themes" title="Thèmes">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.png" alt="Thèmes" title="Thèmes">
             </a>
             <a target="windowElement" data-link="checklist" title="Missions de découverte">
                 <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/checkbox.png" alt="Checklist" title="Missions de découverte">
@@ -67,12 +90,20 @@
                         title="Gestionnaire de mise à jour">
                     <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
+                <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true" title="Applications XApp"></span>
+                <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true" title="Imprimantes"></span>
+                <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true" title="Supports amovibles"></span>
+                <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true" title="Disposition du clavier"></span>
                 <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true" title="Réseau"></span>
                 <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
                         aria-expanded="false" aria-controls="volume-popover"
                         aria-label="Contrôle du volume">
-                    <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
+                    <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power" aria-label="Alimentation" title="Alimentation">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                </button>
+                <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true" title="Coin du bureau"></span>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
                 <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
@@ -159,6 +190,7 @@
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260421a"></script>
+    <script src="./content/mint-menu-parity.js?v=20260604"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
     <script src="./content/profile-data.js"></script>
@@ -195,5 +227,6 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
+    <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 (function initCinnamonWindowEffects(global) {
     'use strict';
 
-    const ANIM_MS = 220;
+    const ANIM_MS = 180;
 
     function isMintDesktop() {
         return global.document && global.document.body && global.document.body.id === 'mint';

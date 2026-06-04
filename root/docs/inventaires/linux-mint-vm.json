@@ -1,0 +1,89 @@
+{
+  "toolkit": "cinnamon",
+  "collectedAt": "2026-06-04T09:11:48Z",
+  "os": {
+    "release": "22.3",
+    "codename": "zena",
+    "edition": "Cinnamon",
+    "description": "Linux Mint 22.3 Zena"
+  },
+  "versions": {
+    "cinnamon": "Cinnamon 6.6.7",
+    "nemo": "nemo 6.6.3",
+    "firefox": "Mozilla Firefox 151.0.1"
+  },
+  "panel": {
+    "height": "['1:40']",
+    "applets": "['panel1:left:0:menu@cinnamon.org:0', 'panel1:left:1:separator@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:2', 'panel1:right:0:systray@cinnamon.org:3', 'panel1:right:1:xapp-status@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'panel1:right:3:printers@cinnamon.org:6', 'panel1:right:4:removable-drives@cinnamon.org:7', 'panel1:right:5:keyboard@cinnamon.org:8', 'panel1:right:6:favorites@cinnamon.org:9', 'panel1:right:7:network@cinnamon.org:10', 'panel1:right:8:sound@cinnamon.org:11', 'panel1:right:9:power@cinnamon.org:12', 'panel1:right:10:calendar@cinnamon.org:13', 'panel1:right:11:cornerbar@cinnamon.org:14']",
+    "launchers": [
+      "menu",
+      "grouped-window-list"
+    ],
+    "zoneIconSizes": "'[{\"panelId\": 1, \"left\": 0, \"center\": 0, \"right\": 24}]'"
+  },
+  "themes": {
+    "cinnamon": "Mint-Y-Dark-Aqua",
+    "gtk": "Mint-Y-Aqua",
+    "icons": "Mint-Y-Sand",
+    "wallpaper": "file:///usr/share/backgrounds/linuxmint/default_background.jpg"
+  },
+  "tray": [
+    "systray",
+    "xapp-status",
+    "notifications",
+    "printers",
+    "removable-drives",
+    "keyboard",
+    "favorites",
+    "network",
+    "sound",
+    "power",
+    "calendar",
+    "cornerbar"
+  ],
+  "apps": {
+    "panelCore": [
+      {
+        "desktop": "nemo.desktop",
+        "name": "Trash",
+        "exec": "nemo",
+        "icon": "system-file-manager"
+      },
+      {
+        "desktop": "firefox.desktop",
+        "name": "Open a New Private Window",
+        "exec": "firefox",
+        "icon": "firefox"
+      },
+      {
+        "desktop": "org.gnome.Terminal.desktop",
+        "name": "Preferences",
+        "exec": "gnome-terminal",
+        "icon": "org.gnome.Terminal"
+      }
+    ],
+    "favorites": "['org.gnome.Calculator.desktop', 'org.gnome.Calendar.desktop', 'org.x.editor.desktop', 'mintinstall.desktop', 'cinnamon-settings.desktop']",
+    "desktopCount": 143
+  },
+  "branding": {
+    "linuxmintDirs": [
+      "adjustments",
+      "icons",
+      "locale",
+      "logo.png",
+      "mintbackup",
+      "mintchat",
+      "mintdrivers",
+      "mintinstall",
+      "mintlocale",
+      "mintmenu",
+      "mintreport",
+      "mintsystem",
+      "mintupdate",
+      "mintwelcome"
+    ],
+    "logoCandidates": [
+      "/usr/share/linuxmint/logo.png"
+    ]
+  }
+}

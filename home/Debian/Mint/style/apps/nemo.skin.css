@@ -1,5 +1,45 @@
 /* Mint — Nemo : chrome WM (#windowHeader) + toolbar seule + layout colonne stable. */
 
+body#mint {
+    --nemo-bg-primary: #2e2e33;
+    --nemo-header-bg: #27272b;
+    --nemo-border: #303036;
+    --nemo-text-primary: #e1e1e1;
+    --nemo-text-muted: #a8a8ae;
+    --nemo-item-active-bg: rgba(31, 158, 222, 0.14);
+    --nemo-menu-surface-bg: #303036;
+    --nemo-toolbar-bg: #2e2e33;
+    --nemo-toolbar-border: #303036;
+    --nemo-toolbar-button-border: transparent;
+    --nemo-toolbar-button-bg: transparent;
+    --nemo-toolbar-button-hover-bg: #3c3c44;
+    --nemo-toolbar-button-plain-hover: rgba(255, 255, 255, 0.08);
+    --nemo-pathbar-bg: #303036;
+    --nemo-pathbar-border: #3c3c44;
+    --nemo-pathbar-text: #e1e1e1;
+    --nemo-sidebar-bg: #27272b;
+    --nemo-footer-bg: #27272b;
+    --nemo-status-text: #c8c8cc;
+    --nemo-accent: #1f9ede;
+    --nemo-tooltip-bg: #1a1a1b;
+    --nemo-tooltip-text: #e1e1e1;
+    --nemo-symbolic-icon-filter: brightness(0) invert(1);
+    --nemo-toolbar-icon-filter: var(--nemo-symbolic-icon-filter);
+    --nemo-list-row-border: rgba(255, 255, 255, 0.08);
+    --nemo-list-col-icon: 2.75rem;
+    --nemo-list-col-size: 7.5rem;
+    --nemo-list-col-modified: 11rem;
+    --nemo-list-col-star: 2rem;
+    --nemo-list-pad-x: 1.6rem;
+    --nemo-list-pad-icon: 1.35rem;
+    --nemo-sidebar-text: var(--texte, #e1e1e1);
+    --nemo-sidebar-icon-filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] body#mint {
+    --nemo-sidebar-icon-filter: brightness(0);
+}
+
 body#mint div[data-link="nemo"] #nemoHeaderContainer .menuOutils.nemo-app__menubar {
     display: none;
 }
@@ -11,10 +51,13 @@ body#mint div[data-link="nemo"] #nemoHeaderContainer {
     height: auto;
     min-height: calc(var(--head) * 1.15);
     margin-top: 0;
+    background: var(--nemo-header-bg);
 }
 
 body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__toolbar {
     flex-shrink: 0;
+    background: var(--nemo-toolbar-bg);
+    border-bottom: 1px solid var(--nemo-border);
 }
 
 body#mint div[data-link="nemo"] #windowHeader {
@@ -42,6 +85,298 @@ body#mint div[data-link="nemo"] #nemoFooterContainer input {
     cursor: pointer;
 }
 
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group > a {
+    border-color: transparent;
+    background: var(--nemo-toolbar-button-bg);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
+    border-color: transparent;
+    background: var(--nemo-toolbar-button-hover-bg);
+    transform: none;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group img,
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-app__status-left img {
+    filter: var(--nemo-toolbar-icon-filter);
+}
+
+/* Sidebar : même traitement pour tous les raccourcis (similarité Gestalt / continuité). */
+body#mint div[data-link="nemo"] #voletnemo {
+    color: var(--nemo-sidebar-text);
+}
+
+body#mint div[data-link="nemo"] #voletnemo img {
+    filter: var(--nemo-sidebar-icon-filter, var(--nemo-toolbar-icon-filter));
+    opacity: 0.9;
+}
+
+body#mint div[data-link="nemo"] #voletnemo a[data-link]:hover img,
+body#mint div[data-link="nemo"] #voletnemo a[data-link].nemo-sidebar__link--active img {
+    filter: var(--nemo-sidebar-icon-filter, var(--nemo-toolbar-icon-filter));
+    opacity: 1;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement > a > img {
+    filter: none;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-current {
+    flex: 1 1 auto;
+    min-width: 6rem;
+    border: 1px solid var(--nemo-pathbar-border);
+    border-radius: calc(var(--head) / 14);
+    color: var(--nemo-pathbar-text);
+    background: var(--nemo-pathbar-bg);
+    font-weight: 600;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path .nemo-app__search-wrap {
+    flex: 1 1 auto;
+    min-width: 8rem;
+    max-width: none;
+    height: calc(var(--head) / 1.35);
+    border-color: var(--nemo-pathbar-border);
+    background: var(--nemo-pathbar-bg);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar--search-open .nemo-app__toolbar-group--path .nemo-app__search-wrap {
+    flex: 1 1 12rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar--search-open .nemo-app__path-current[hidden] {
+    display: none;
+}
+
 body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > .nemoElement {
     overflow: auto;
+}
+
+body#mint div[data-link="nemo"] #voletnemo .nemo-sidebar__section {
+    cursor: pointer;
+}
+
+body#mint div[data-link="nemo"] #voletnemo [data-nemo-section-body][hidden] {
+    display: none;
+}
+
+body#mint div[data-link="nemo"] #voletnemo.is-sidebar-hidden {
+    display: none;
+}
+
+body#mint div[data-link="nemo"] #voletnemo a[data-link].nemo-sidebar__link--active,
+body#mint div[data-link="nemo"] #voletnemo a[data-link].dolphin-sidebar__link--active {
+    font-weight: 600;
+    background: rgba(31, 158, 222, 0.18);
+    border-radius: calc(var(--head) / 18);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar a[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer > section:nth-child(3) > input#zoom {
+    accent-color: var(--menu-accent, var(--nemo-accent));
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer.nemo-app__content-wrap {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__list-header {
+    display: grid;
+    grid-template-columns:
+        var(--nemo-list-col-icon)
+        minmax(0, 1fr)
+        var(--nemo-list-col-size)
+        var(--nemo-list-col-modified)
+        var(--nemo-list-col-star);
+    align-items: center;
+    gap: 0.65rem;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0.5rem var(--nemo-list-pad-x) 0.4rem var(--nemo-list-pad-icon);
+    border-bottom: 1px solid var(--nemo-list-row-border);
+    color: var(--nemo-text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: var(--nemo-bg-primary);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__list-header[hidden] {
+    display: none;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__list-header-size,
+body#mint div[data-link="nemo"] .nemo-app__list-header-modified {
+    text-align: left;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__list-header-name::after {
+    content: " ▾";
+    font-size: 0.65rem;
+    opacity: 0.85;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    gap: 0;
+    background: var(--nemo-bg-primary);
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a {
+    position: relative;
+    display: grid;
+    grid-template-columns:
+        var(--nemo-list-col-icon)
+        minmax(0, 1fr)
+        var(--nemo-list-col-size)
+        var(--nemo-list-col-modified)
+        var(--nemo-list-col-star);
+    grid-template-rows: 1fr;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    min-height: 2.9rem;
+    max-height: none;
+    margin: 0;
+    padding: 0.4rem var(--nemo-list-pad-x) 0.4rem var(--nemo-list-pad-icon);
+    border: 0;
+    border-bottom: 1px solid var(--nemo-list-row-border);
+    border-radius: 0;
+    color: var(--nemo-text-primary);
+    font-size: 0.82rem;
+    text-align: left;
+    text-decoration: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a:hover {
+    background: var(--nemo-item-active-bg);
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > img {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    min-width: 2.35rem;
+    max-width: 2.35rem;
+    margin: 0;
+    object-fit: contain;
+    filter: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > .nemo-app__item-body {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.1rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__item-name {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--nemo-text-primary);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__item-size {
+    display: block;
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 0.78rem;
+    color: var(--nemo-text-muted);
+    text-align: left;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__item-modified {
+    display: block;
+    grid-column: 4;
+    grid-row: 1;
+    font-size: 0.78rem;
+    color: var(--nemo-text-muted);
+    text-align: left;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--icons > a > .nemo-app__item-modified,
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--icons > a > .nemo-app__item-size,
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a > .nemo-app__item-modified,
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a > .nemo-app__item-size {
+    display: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--icons > a > .nemo-app__item-body,
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a > .nemo-app__item-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    padding: 0;
+    gap: 0;
+    overflow-y: auto;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    align-items: center;
+    width: 100%;
+    min-height: 2rem;
+    max-height: none;
+    margin: 0;
+    padding: 0.25rem 1rem 0.25rem 0.85rem;
+    border-bottom: 1px solid var(--nemo-list-row-border);
+    border-radius: 0;
+    text-align: left;
+    text-decoration: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a > img {
+    width: 1.5rem;
+    height: 1.5rem;
+    min-width: 1.5rem;
+    margin: 0;
+    filter: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--compact > a:hover {
+    background: var(--nemo-item-active-bg);
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__empty {
+    padding: 2rem;
+    color: var(--nemo-text-muted);
 }

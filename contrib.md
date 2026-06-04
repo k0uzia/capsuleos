@@ -13,7 +13,7 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 | 1 | Lire ce fichier et la section [Formation agents](#formation-agents-ia) si vous utilisez un agent |
 | 2 | `node usr/lib/capsuleos/tools/validate-all.mjs` — baseline locale (**exit 0** attendu avant gros patch) |
 | 3 | Travailler sous `CapsuleOS/` uniquement (`home/`, `usr/`, `OS/`, `var/`, `index.html`) |
-| 4 | Clôture : `validate-all.mjs` + smoke `file://` sur la façade touchée |
+| 4 | Clôture : si skin Linux (`home/…` ou gabarits `usr/share/capsuleos/linux/apps/`) → `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs` puis `validate-all.mjs` (échoue si façade pick-os ≠ `home/`) |
 
 Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parcours H0–H6).
 
@@ -422,7 +422,7 @@ window.CAPSULE_TEMPLATE_OVERRIDES = {
 
 ### 10. Pièges post-refactor rootfs
 
-1. **Miroir `OS/` ↔ `home/`** : les facades sous `OS/linux/families/` dupliquent souvent les skins ; modifier **les deux** ou le skin canonique documenté dans `role-integrator`.
+1. **Miroir `OS/` ↔ `home/`** : source de vérité = `home/…/index.html` ; pick-os charge `OS/linux/families/…/index.html` (URL stable + `<base href>` vers `home/`). Après tout patch skin : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs` — `validate-all` refuse une façade périmée.
 2. **Embed offline** : après tout changement sous `usr/share/.../apps/`, `explorers/`, `home/public/` ou `*.skin.css` :
 
    ```bash

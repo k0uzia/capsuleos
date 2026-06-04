@@ -5,40 +5,97 @@ function initFileExplorerContainer() {
             ? window.CapsuleUserHome.resolveRelative()
             : 'home/public';
 
-    const folderMap = {
-        'Dossier Personnel': root,
-        'Bureau': `${root}/Bureau`,
-        'Documents': `${root}/Documents`,
-        'Musique': `${root}/Musique`,
-        'Images': `${root}/Images`,
-        'Vidéos': `${root}/Vidéos`,
-        'Téléchargements': `${root}/Téléchargements`
-    };
-
     const fileExplorerRoot = (typeof window.getExplorerWindowSlot === 'function')
         ? window.getExplorerWindowSlot()
         : (document.getElementById('nemo')
             || document.querySelector('div.windowElement#nemo[data-link="nemo"]'));
-    if (!fileExplorerRoot || fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {
+    if (!fileExplorerRoot) {
         return;
     }
 
-    const fileExplorerLinks = fileExplorerRoot.querySelectorAll('#voletnemo a[data-link]');
+    const folderMap = typeof window.buildNemoPlaceFolderMap === 'function'
+        ? window.buildNemoPlaceFolderMap(root)
+        : {
+            'Dossier Personnel': root,
+            Bureau: `${root}/Bureau`,
+            Documents: `${root}/Documents`,
+            Musique: `${root}/Musique`,
+            Images: `${root}/Images`,
+            Vidéos: `${root}/Vidéos`,
+            Téléchargements: `${root}/Téléchargements`
+        };
 
-    fileExplorerLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
+    function navigatePlaceKey(key) {
+        const directory = folderMap[key];
+        if (!directory) {
+            return;
+        }
+        if (typeof navigateToFileExplorerDirectory === 'function') {
+            navigateToFileExplorerDirectory(directory, { updateHistory: true });
+            return;
+        }
+        if (typeof loadFileExplorerDirectory === 'function') {
+            loadFileExplorerDirectory(directory);
+        }
+    }
+
+    if (fileExplorerRoot.dataset.nemoSidebarDelegation !== 'true') {
+        const sidebar = fileExplorerRoot.querySelector('#voletnemo');
+        if (sidebar) {
+            sidebar.addEventListener('click', (event) => {
+                const sectionToggle = event.target.closest('[data-nemo-section-toggle]');
+                if (sectionToggle && sidebar.contains(sectionToggle)) {
+                    event.preventDefault();
+                    const sectionId = sectionToggle.getAttribute('data-nemo-section-toggle');
+                    const body = sidebar.querySelector(`[data-nemo-section-body="${sectionId}"]`);
+                    if (!body) {
+                        return;
+                    }
+                    const collapsed = body.hasAttribute('hidden');
+                    if (collapsed) {
+                        body.removeAttribute('hidden');
+                        sectionToggle.setAttribute('aria-expanded', 'true');
+                    } else {
+                        body.setAttribute('hidden', '');
+                        sectionToggle.setAttribute('aria-expanded', 'false');
+                    }
+                    return;
+                }
+
+                const placeLink = event.target.closest('a[data-link]');
+                if (placeLink && sidebar.contains(placeLink)) {
+                    const key = placeLink.getAttribute('data-link');
+                    if (!key) {
+                        return;
+                    }
+                    event.preventDefault();
+                    navigatePlaceKey(key);
+                }
+            });
+            fileExplorerRoot.dataset.nemoSidebarDelegation = 'true';
+        }
+    }
+
+    const toggleSidebarBtn = fileExplorerRoot.querySelector('#nemo-toggle-sidebar');
+    if (toggleSidebarBtn && toggleSidebarBtn.dataset.feSidebarToggleBound !== 'true') {
+        toggleSidebarBtn.addEventListener('click', (event) => {
             event.preventDefault();
-
-            const key = link.dataset.link;
-            const directory = folderMap[key];
-
-            if (directory && (typeof navigateToFileExplorerDirectory === 'function' || typeof navigateToDirectory === 'function')) {
-                (window.navigateToFileExplorerDirectory || window.navigateToDirectory)(directory);
-            } else if (directory && (typeof loadFileExplorerDirectory === 'function' || typeof loadDirectory === 'function')) {
-                (window.loadFileExplorerDirectory || window.loadDirectory)(directory);
+            const sidebar = fileExplorerRoot.querySelector('#voletnemo');
+            if (!sidebar) {
+                return;
             }
+            const hidden = sidebar.classList.toggle('is-sidebar-hidden');
+            toggleSidebarBtn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
         });
-    });
+        toggleSidebarBtn.dataset.feSidebarToggleBound = 'true';
+    }
+
+    if (fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {
+        if (typeof bindFileExplorerNavigationControls === 'function' || typeof bindNemoNavigationControls === 'function') {
+            (window.bindFileExplorerNavigationControls || window.bindNemoNavigationControls)();
+        }
+        return;
+    }
 
     if (typeof bindFileExplorerMenubar === 'function') {
         bindFileExplorerMenubar(fileExplorerRoot);

@@ -139,6 +139,12 @@ div[data-link="nemo"] .nemo-app__toolbar-group--path {
     min-width: 0;
 }
 
+div[data-link="nemo"] .nemo-app__toolbar-group--path .nemo-app__search-wrap {
+    flex: 1 1 auto;
+    min-width: 7rem;
+    max-width: 16rem;
+}
+
 div[data-link="nemo"] .nemo-app__toolbar-group--view {
     margin-left: var(--a);
 }
@@ -165,6 +171,41 @@ div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
 
 div[data-link="nemo"] .nemo-app__toolbar-group--view > a {
     min-width: calc(var(--head) / 1.5);
+}
+
+div[data-link="nemo"] .nemo-app__search-wrap {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 1 11rem;
+    min-width: 7rem;
+    max-width: 14rem;
+    height: calc(var(--head) / 1.35);
+    padding: 0 calc(var(--head) / 5);
+    border: 1px solid var(--nemo-pathbar-border);
+    border-radius: calc(var(--head) / 12);
+    background: var(--nemo-pathbar-bg);
+    box-sizing: border-box;
+}
+
+div[data-link="nemo"] .nemo-app__search-wrap[hidden] {
+    display: none;
+}
+
+div[data-link="nemo"] .nemo-app__search-input {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--nemo-pathbar-text);
+    font-size: calc(var(--head) / 2.55);
+}
+
+div[data-link="nemo"] .nemo-app__search-input::placeholder {
+    color: var(--nemo-text-muted);
+    opacity: 0.85;
 }
 
 div[data-link="nemo"] .nemo-app__toolbar-group--view > a.nemo-app__view-btn--active,

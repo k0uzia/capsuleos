@@ -84,6 +84,18 @@ const FILE_EXPLORER_VIEW_GRID_CLASS = {
     list: 'nemo-app__content-grid--list'
 };
 
+const CAPSULE_PLACE_RECENT = '__capsule/place/recent';
+const CAPSULE_PLACE_TRASH = '__capsule/place/trash';
+const CAPSULE_PLACE_NETWORK = '__capsule/place/network';
+const CAPSULE_PLACE_FILESYSTEM = '__capsule/place/filesystem';
+
+const isCapsuleVirtualPlace = (path) => (
+    path === CAPSULE_PLACE_RECENT
+    || path === CAPSULE_PLACE_TRASH
+    || path === CAPSULE_PLACE_NETWORK
+    || path === CAPSULE_PLACE_FILESYSTEM
+);
+
 const fileExplorerState = {
     manifest: null,
     manifestPromise: null,
@@ -173,6 +185,10 @@ const normalizeDirectoryPath = (path) => {
         return root;
     }
 
+    if (trimmedPath.indexOf('__capsule/') === 0) {
+        return trimmedPath.replace(/\/+$/, '') || trimmedPath;
+    }
+
     return trimmedPath.replace(/\/+$/, '') || root;
 };
 
@@ -227,34 +243,75 @@ const getFileViewerTargetByItem = (item) => {
     };
 };
 
-const resolveItemIcon = (item) => {
+const FILE_EXPLORER_FOLDER_CATALOG_ALIASES = {
+    'Dossier personnel': 'Dossier_personnel'
+};
+
+const getFileExplorerCatalogIcon = (key) => {
+    if (!key) {
+        return null;
+    }
     const filesCatalog = getFileExplorerFilesCatalog();
+    if (!filesCatalog) {
+        return null;
+    }
+    const catalogKey = FILE_EXPLORER_FOLDER_CATALOG_ALIASES[key] || key;
+    const entry = filesCatalog[catalogKey];
+    return entry && entry.image ? entry.image : null;
+};
+
+const resolveItemIcon = (item) => {
     const resolveUrl = typeof resolveCapsuleResourceUrl === 'function'
         ? resolveCapsuleResourceUrl
         : (url) => url;
+    const folderFallback = './assets/icons/cinnamon/nemo/folder.svg';
+    const fileFallback = './assets/icons/kde/mimeTypes/application-x-generic.svg';
+
+    if (item && item.vfsEntry === true) {
+        const icon = getFileExplorerCatalogIcon('folder')
+            || getFileExplorerIconOverride('folder')
+            || folderFallback;
+        return resolveUrl(icon);
+    }
 
     if (item.type === 'folder') {
-        return resolveUrl(
-            getFileExplorerIconOverride(item.name)
+        const icon = getFileExplorerCatalogIcon(item.name)
+            || getFileExplorerIconOverride(item.name)
+            || getFileExplorerCatalogIcon('folder')
             || getFileExplorerIconOverride('folder')
-            ||(filesCatalog[item.name] == null ? void 0 : filesCatalog[item.name].image)
-            ||(filesCatalog.Dossier_personnel == null ? void 0 : filesCatalog.Dossier_personnel.image)
-            || './assets/icons/cinnamon/nemo/folder.png'
-        );
+            || folderFallback;
+        return resolveUrl(icon);
     }
 
     const extension = getFileExtension(item);
-    return resolveUrl(
-        getFileExplorerIconOverride(extension)
-        || getFileExplorerIconOverride('file')
-        ||(filesCatalog[extension] == null ? void 0 : filesCatalog[extension].image)
-        ||(filesCatalog.txt == null ? void 0 : filesCatalog.txt.image)
-        ||(filesCatalog.Dossier_personnel == null ? void 0 : filesCatalog.Dossier_personnel.image)
-        || './assets/icons/cinnamon/nemo/folder.png'
-    );
+    const icon = getFileExplorerCatalogIcon(extension)
+        || getFileExplorerIconOverride(extension)
+        || getFileExplorerCatalogIcon('txt')
+        || fileFallback;
+    return resolveUrl(icon);
 };
 
 const findFolderLabel = (path) => {
+    if (path === CAPSULE_PLACE_RECENT) {
+        return 'Récent';
+    }
+    if (path === CAPSULE_PLACE_TRASH) {
+        return 'Corbeille';
+    }
+    if (path === CAPSULE_PLACE_NETWORK) {
+        return 'Réseau';
+    }
+    if (path === CAPSULE_PLACE_FILESYSTEM) {
+        return '/';
+    }
+
+    if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(path)) {
+        const vfsLabel = window.CapsuleExplorerVfs.getExplorerPathLabel(path);
+        if (vfsLabel) {
+            return vfsLabel;
+        }
+    }
+
     if (!fileExplorerState.manifest || !fileExplorerState.manifest.folders) {
         return 'Dossier personnel';
     }
@@ -368,6 +425,28 @@ const formatListItemSizeFrench = (item) => {
     return `${count} éléments`;
 };
 
+const syncNemoListHeaderVisibility = () => {
+    if (!usesNemoListView()) {
+        return;
+    }
+
+    const voletContainer = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} #voletContainer`);
+    if (!voletContainer) {
+        return;
+    }
+
+    const header = voletContainer.querySelector('.nemo-app__list-header');
+    if (!header) {
+        return;
+    }
+
+    if (fileExplorerState.viewMode === 'list') {
+        header.removeAttribute('hidden');
+    } else {
+        header.setAttribute('hidden', '');
+    }
+};
+
 const ensureNemoListViewChrome = () => {
     if (!usesNemoListView()) {
         return;
@@ -400,7 +479,8 @@ const ensureNemoListViewChrome = () => {
         voletContainer.insertBefore(header, nemoElement);
     }
 
-    nemoElement.classList.add('nemo-app__content-grid', 'nemo-app__content-grid--list');
+    nemoElement.classList.add('nemo-app__content-grid');
+    syncNemoListHeaderVisibility();
 };
 
 const countFoldersInItems = (items) => {
@@ -479,6 +559,20 @@ const getSidebarKeyForPath = (path) => {
     if (path === root) {
         return 'Dossier Personnel';
     }
+    if (path === CAPSULE_PLACE_RECENT) {
+        return 'Récent';
+    }
+    if (path === CAPSULE_PLACE_TRASH) {
+        return 'Corbeille';
+    }
+    if (path === CAPSULE_PLACE_NETWORK) {
+        return 'Réseau';
+    }
+    if (path === CAPSULE_PLACE_FILESYSTEM
+        || (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(path))) {
+        return 'Système de fichiers';
+    }
+
     const prefix = `${root}/`;
     if (!path.startsWith(prefix)) {
         return null;
@@ -607,8 +701,236 @@ const updateNavigationControls = () => {
     toggleDisabled('#suivant', !history || historyIndex >= historyLength - 1);
     const parentBtn = nemoRoot.querySelector('#parent');
     if (parentBtn) {
-        toggleDisabled('#parent', fileExplorerState.currentPath === getFileExplorerRoot());
+        const atManifestRoot = fileExplorerState.currentPath === getFileExplorerRoot();
+        const atVfsRoot = fileExplorerState.currentPath === CAPSULE_PLACE_FILESYSTEM;
+        const atVirtual = isCapsuleVirtualPlace(fileExplorerState.currentPath)
+            && fileExplorerState.currentPath !== CAPSULE_PLACE_FILESYSTEM;
+        toggleDisabled('#parent', atVfsRoot || atVirtual);
     }
+};
+
+const collectRecentExplorerItems = () => {
+    const manifest = fileExplorerState.manifest;
+    if (!manifest || !manifest.folders) {
+        return [];
+    }
+    const files = [];
+    Object.keys(manifest.folders).forEach((folderPath) => {
+        const node = manifest.folders[folderPath];
+        if (!node || !Array.isArray(node.items)) {
+            return;
+        }
+        node.items.forEach((item) => {
+            if (item.type === 'file' && item.name) {
+                files.push({
+                    type: 'file',
+                    name: item.name,
+                    extension: item.extension,
+                    href: item.href,
+                    path: folderPath
+                });
+            }
+        });
+    });
+    return sortExplorerItems(files);
+};
+
+const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
+    const itemLink = document.createElement('a');
+    itemLink.setAttribute('draggable', 'true');
+    itemLink.setAttribute('data-details', item.type === 'folder' ? 'Dossier' : 'Fichier');
+    itemLink.dataset.itemName = item.name;
+    itemLink.dataset.itemType = item.type;
+    itemLink.dataset.itemFolderPath = path;
+    if (item.type === 'folder' && item.path) {
+        itemLink.dataset.itemTargetPath = item.path;
+    }
+    if (isDolphinTemplate()) {
+        if (item.extension) {
+            itemLink.dataset.itemExtension = item.extension;
+        }
+        if (item.href) {
+            itemLink.dataset.itemHref = item.href;
+        }
+    }
+
+    const icon = document.createElement('img');
+    icon.src = resolveItemIcon(item);
+    icon.alt = item.name;
+    itemLink.appendChild(icon);
+
+    if (usesNemoListView()) {
+        const body = document.createElement('span');
+        body.className = 'nemo-app__item-body';
+
+        const nameEl = document.createElement('span');
+        nameEl.className = 'nemo-app__item-name';
+        nameEl.textContent = item.name;
+        body.appendChild(nameEl);
+
+        if (isCosmicFilesExplorer()) {
+            const metaEl = document.createElement('span');
+            metaEl.className = 'nemo-app__item-meta';
+            metaEl.textContent = formatCosmicItemMeta(item);
+            body.appendChild(metaEl);
+        }
+
+        itemLink.appendChild(body);
+
+        const modifiedEl = document.createElement('span');
+        modifiedEl.className = 'nemo-app__item-modified';
+        modifiedEl.textContent = formatCosmicModifiedLabel();
+        itemLink.appendChild(modifiedEl);
+
+        const sizeEl = document.createElement('span');
+        sizeEl.className = 'nemo-app__item-size';
+        sizeEl.textContent = usesNemoListViewFrenchColumns()
+            ? formatListItemSizeFrench(item)
+            : formatCosmicItemSize(item);
+        itemLink.appendChild(sizeEl);
+    } else {
+        const label = document.createElement('span');
+        label.textContent = item.name;
+        itemLink.appendChild(label);
+    }
+
+    const selectGridItem = () => {
+        const grid = nemoElement.closest('.nemo-app__content-grid') || nemoElement;
+        grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
+            el.classList.remove('nemo-app__item--selected');
+        });
+        itemLink.classList.add('nemo-app__item--selected');
+    };
+
+    if (isDolphinTemplate() && typeof window.attachDolphinItemHandlers === 'function') {
+        if (item.type === 'folder') {
+            itemLink.classList.add('nemo-app__item--folder');
+        }
+        itemLink.href = '#';
+        window.attachDolphinItemHandlers(itemLink, item, path, pane);
+    } else if (item.type === 'folder') {
+        itemLink.classList.add('nemo-app__item--folder');
+        itemLink.href = '#';
+        itemLink.addEventListener('mousedown', (event) => {
+            if (event.button === 0) {
+                selectGridItem();
+            }
+        });
+        itemLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            navigateToFileExplorerDirectory(item.path, { updateHistory: true });
+        });
+    } else {
+        const fileHref = item.href || `${path}/${item.name}`;
+        itemLink.href = fileHref;
+
+        const viewerPayload = getFileViewerTargetByItem(item);
+        if (viewerPayload && viewerPayload.target) {
+            itemLink.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const openViewer = window.openFileInViewer || window.openMintFileInViewer;
+                if (typeof openViewer === 'function') {
+                    openViewer(fileHref, viewerPayload.extension, item.name);
+                }
+            });
+        } else {
+            itemLink.target = '_blank';
+            itemLink.rel = 'noopener noreferrer';
+        }
+    }
+
+    nemoElement.appendChild(itemLink);
+};
+
+const renderVirtualPlaceDirectory = (path, pane, nemoElement) => {
+    const root = getFileExplorerRoot();
+    nemoElement.innerHTML = '';
+    let items = [];
+    let emptyMessage = 'Ce dossier est vide.';
+
+    if (path === CAPSULE_PLACE_RECENT) {
+        items = collectRecentExplorerItems();
+        emptyMessage = 'Aucun fichier récent.';
+    } else if (path === CAPSULE_PLACE_FILESYSTEM && typeof window.CapsuleExplorerVfs === 'undefined') {
+        const rootLabel = fileExplorerState.manifest.rootLabel || 'Dossier personnel';
+        items = [{
+            type: 'folder',
+            name: rootLabel,
+            path: root
+        }];
+    }
+
+    const searchQuery = fileExplorerState.searchQuery || '';
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        items = items.filter((item) => String(item.name || '').toLowerCase().indexOf(query) >= 0);
+    }
+
+    if (!items.length) {
+        nemoElement.innerHTML = searchQuery
+            ? '<p class="nemo-app__empty">Aucun élément ne correspond à la recherche.</p>'
+            : `<p class="nemo-app__empty">${emptyMessage}</p>`;
+        updateDolphinFolderPill(null, pane);
+        applyFileExplorerViewMode();
+        return;
+    }
+
+    items.forEach((item) => {
+        appendFileExplorerGridItem(nemoElement, item, path, pane);
+    });
+
+    updateDolphinFolderPill(null, pane);
+    applyFileExplorerViewMode();
+};
+
+const renderVfsExplorerDirectory = (path, pane, nemoElement) => {
+    if (typeof window.CapsuleExplorerVfs === 'undefined') {
+        nemoElement.innerHTML = '<p class="nemo-app__empty">Système de fichiers indisponible.</p>';
+        updateDolphinFolderPill(null, pane);
+        applyFileExplorerViewMode();
+        return;
+    }
+
+    window.CapsuleExplorerVfs.listExplorerDirectory(path).then((result) => {
+        if (!nemoElement || !nemoElement.isConnected) {
+            return;
+        }
+
+        if (result.manifestPath) {
+            renderDirectory(result.manifestPath, { pane });
+            return;
+        }
+
+        nemoElement.innerHTML = '';
+        let items = result.items || [];
+        const searchQuery = fileExplorerState.searchQuery || '';
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            items = items.filter((item) => String(item.name || '').toLowerCase().indexOf(query) >= 0);
+        }
+
+        if (!items.length) {
+            nemoElement.innerHTML = searchQuery
+                ? '<p class="nemo-app__empty">Aucun élément ne correspond à la recherche.</p>'
+                : '<p class="nemo-app__empty">Ce dossier est vide.</p>';
+            updateDolphinFolderPill(null, pane);
+            applyFileExplorerViewMode();
+            return;
+        }
+
+        items.forEach((item) => {
+            appendFileExplorerGridItem(nemoElement, item, path, pane);
+        });
+
+        updateDolphinFolderPill(null, pane);
+        applyFileExplorerViewMode();
+    }).catch((error) => {
+        console.warn('CapsuleExplorerVfs: rendu impossible.', error);
+        nemoElement.innerHTML = '<p class="nemo-app__empty">Système de fichiers indisponible.</p>';
+        updateDolphinFolderPill(null, pane);
+        applyFileExplorerViewMode();
+    });
 };
 
 const renderDirectory = (path, options = {}) => {
@@ -623,6 +945,16 @@ const renderDirectory = (path, options = {}) => {
 
     ensureNemoListViewChrome();
 
+    if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(path)) {
+        renderVfsExplorerDirectory(path, pane, nemoElement);
+        return;
+    }
+
+    if (isCapsuleVirtualPlace(path)) {
+        renderVirtualPlaceDirectory(path, pane, nemoElement);
+        return;
+    }
+
     const folderNode = fileExplorerState.manifest.folders[path];
     nemoElement.innerHTML = '';
 
@@ -633,11 +965,12 @@ const renderDirectory = (path, options = {}) => {
     }
 
     let items = folderNode.items;
-    const searchQuery = isDolphinTemplate() && fileExplorerState.searchQuery
-        ? fileExplorerState.searchQuery
-        : '';
+    const searchQuery = fileExplorerState.searchQuery || '';
     if (searchQuery && typeof window.filterFileExplorerItemsBySearch === 'function') {
         items = window.filterFileExplorerItemsBySearch(items, searchQuery);
+    } else if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        items = items.filter((item) => String(item.name || '').toLowerCase().indexOf(query) >= 0);
     }
 
     if (!items.length) {
@@ -652,112 +985,7 @@ const renderDirectory = (path, options = {}) => {
         if (shouldHideListViewItem(item, path)) {
             return;
         }
-
-        const itemLink = document.createElement('a');
-        itemLink.setAttribute('draggable', 'true');
-        itemLink.setAttribute('data-details', item.type === 'folder' ? 'Dossier' : 'Fichier');
-        itemLink.dataset.itemName = item.name;
-        itemLink.dataset.itemType = item.type;
-        itemLink.dataset.itemFolderPath = path;
-        if (item.type === 'folder' && item.path) {
-            itemLink.dataset.itemTargetPath = item.path;
-        }
-        if (isDolphinTemplate()) {
-            if (item.extension) {
-                itemLink.dataset.itemExtension = item.extension;
-            }
-            if (item.href) {
-                itemLink.dataset.itemHref = item.href;
-            }
-        }
-
-        const icon = document.createElement('img');
-        icon.src = resolveItemIcon(item);
-        icon.alt = item.name;
-        itemLink.appendChild(icon);
-
-        if (usesNemoListView()) {
-            const body = document.createElement('span');
-            body.className = 'nemo-app__item-body';
-
-            const nameEl = document.createElement('span');
-            nameEl.className = 'nemo-app__item-name';
-            nameEl.textContent = item.name;
-            body.appendChild(nameEl);
-
-            if (isCosmicFilesExplorer()) {
-                const metaEl = document.createElement('span');
-                metaEl.className = 'nemo-app__item-meta';
-                metaEl.textContent = formatCosmicItemMeta(item);
-                body.appendChild(metaEl);
-            }
-
-            itemLink.appendChild(body);
-
-            const modifiedEl = document.createElement('span');
-            modifiedEl.className = 'nemo-app__item-modified';
-            modifiedEl.textContent = formatCosmicModifiedLabel();
-            itemLink.appendChild(modifiedEl);
-
-            const sizeEl = document.createElement('span');
-            sizeEl.className = 'nemo-app__item-size';
-            sizeEl.textContent = usesNemoListViewFrenchColumns()
-                ? formatListItemSizeFrench(item)
-                : formatCosmicItemSize(item);
-            itemLink.appendChild(sizeEl);
-        } else {
-            const label = document.createElement('span');
-            label.textContent = item.name;
-            itemLink.appendChild(label);
-        }
-
-        const selectGridItem = () => {
-            const grid = nemoElement.closest('.nemo-app__content-grid') || nemoElement;
-            grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
-                el.classList.remove('nemo-app__item--selected');
-            });
-            itemLink.classList.add('nemo-app__item--selected');
-        };
-
-        if (isDolphinTemplate() && typeof window.attachDolphinItemHandlers === 'function') {
-            if (item.type === 'folder') {
-                itemLink.classList.add('nemo-app__item--folder');
-            }
-            itemLink.href = '#';
-            window.attachDolphinItemHandlers(itemLink, item, path, pane);
-        } else if (item.type === 'folder') {
-            itemLink.classList.add('nemo-app__item--folder');
-            itemLink.href = '#';
-            itemLink.addEventListener('mousedown', (event) => {
-                if (event.button === 0) {
-                    selectGridItem();
-                }
-            });
-            itemLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                navigateToFileExplorerDirectory(item.path);
-            });
-        } else {
-            const fileHref = item.href || `${path}/${item.name}`;
-            itemLink.href = fileHref;
-
-            const viewerPayload = getFileViewerTargetByItem(item);
-            if (viewerPayload && viewerPayload.target) {
-                itemLink.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    const openViewer = window.openFileInViewer || window.openMintFileInViewer;
-                    if (typeof openViewer === 'function') {
-                        openViewer(fileHref, viewerPayload.extension, item.name);
-                    }
-                });
-            } else {
-                itemLink.target = '_blank';
-                itemLink.rel = 'noopener noreferrer';
-            }
-        }
-
-        nemoElement.appendChild(itemLink);
+        appendFileExplorerGridItem(nemoElement, item, path, pane);
     });
 
     updateDolphinFolderPill(folderNode, pane);
@@ -1126,7 +1354,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
         await loadManifest();
 
         const path = normalizeDirectoryPath(directory);
-        if (!fileExplorerState.manifest.folders[path]) {
+        const isVirtual = isCapsuleVirtualPlace(path);
+        const isVfs = typeof window.CapsuleExplorerVfs !== 'undefined'
+            && window.CapsuleExplorerVfs.isExplorerVfsPath(path);
+        if (!isVirtual && !isVfs && !fileExplorerState.manifest.folders[path]) {
             console.warn(`Chemin explorateur introuvable: ${path}`);
             renderDirectory('__invalid__', { pane });
             return;
@@ -1162,11 +1393,24 @@ const loadFileExplorerDirectory = (directory) => navigateToFileExplorerDirectory
 
 const getParentPath = () => {
     const root = getFileExplorerRoot();
-    if (fileExplorerState.currentPath === root) {
+    const current = fileExplorerState.currentPath;
+
+    if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(current)) {
+        return window.CapsuleExplorerVfs.getExplorerParentPath(current) || root;
+    }
+
+    if (current === root) {
+        if (typeof window.CapsuleExplorerVfs !== 'undefined') {
+            return window.CapsuleExplorerVfs.terminalPathToExplorerPath('/home');
+        }
         return root;
     }
 
-    const segments = fileExplorerState.currentPath.split('/');
+    if (isCapsuleVirtualPlace(current)) {
+        return root;
+    }
+
+    const segments = current.split('/');
     segments.pop();
     const parentPath = segments.join('/');
     return parentPath || root;
@@ -1312,6 +1556,7 @@ const updateFileExplorerViewControls = () => {
         const mode = resolveViewModeFromButton(btn);
         const active = mode === fileExplorerState.viewMode;
         btn.classList.toggle('dolphin-toolbar__view-btn--active', active);
+        btn.classList.toggle('nemo-app__view-btn--active', active);
         if (active) {
             btn.setAttribute('aria-current', 'true');
         } else {
@@ -1339,7 +1584,14 @@ const applyFileExplorerViewMode = () => {
         });
     });
 
+    syncNemoListHeaderVisibility();
     updateFileExplorerViewControls();
+};
+
+const initFileExplorerDefaultViewMode = () => {
+    if (usesNemoListView() && fileExplorerState.viewMode === 'icons') {
+        fileExplorerState.viewMode = 'list';
+    }
 };
 
 const setFileExplorerViewMode = (mode) => {
@@ -1351,8 +1603,91 @@ const setFileExplorerViewMode = (mode) => {
     applyFileExplorerViewMode();
 };
 
+const bindFileExplorerSearchControls = () => {
+    const nemoRoot = getExplorerWindowSlot();
+    if (!nemoRoot) {
+        return;
+    }
+
+    const searchInput = nemoRoot.querySelector('#nemo-search-input');
+    const searchWrap = nemoRoot.querySelector('#nemo-search-wrap');
+    const searchToggle = nemoRoot.querySelector('#nemo-search');
+    const toolbar = nemoRoot.querySelector('.nemo-app__toolbar');
+    const pathLabel = nemoRoot.querySelector('#nemo-path-label');
+
+    const setSearchOpen = (open) => {
+        if (!searchWrap || !searchToggle) {
+            return;
+        }
+        searchWrap.hidden = !open;
+        searchToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (toolbar) {
+            if (open) {
+                toolbar.classList.add('nemo-app__toolbar--search-open');
+            } else {
+                toolbar.classList.remove('nemo-app__toolbar--search-open');
+            }
+        }
+        if (pathLabel) {
+            if (open) {
+                pathLabel.setAttribute('hidden', '');
+            } else {
+                pathLabel.removeAttribute('hidden');
+            }
+        }
+        if (open && searchInput) {
+            searchInput.focus();
+        }
+    };
+
+    if (searchInput && searchInput.dataset.feSearchBound !== 'true') {
+        const applySearchFromInput = () => {
+            fileExplorerState.searchQuery = String(searchInput.value || '').replace(/^\s+|\s+$/g, '');
+            renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+            updatePathDisplay();
+        };
+
+        searchInput.addEventListener('input', applySearchFromInput);
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                searchInput.value = '';
+                applySearchFromInput();
+                setSearchOpen(false);
+            }
+        });
+        searchInput.dataset.feSearchBound = 'true';
+    }
+
+    if (searchToggle && searchWrap && searchToggle.dataset.feSearchToggleBound !== 'true') {
+        searchToggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            setSearchOpen(searchWrap.hidden);
+        });
+        searchToggle.setAttribute('aria-expanded', 'false');
+        searchToggle.setAttribute('aria-controls', 'nemo-search-wrap');
+        searchToggle.dataset.feSearchToggleBound = 'true';
+        return;
+    }
+
+    if (searchToggle && searchToggle.dataset.feSearchBound !== 'true' && !searchInput) {
+        searchToggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            const current = fileExplorerState.searchQuery || '';
+            const query = window.prompt('Rechercher :', current);
+            if (query === null) {
+                return;
+            }
+            fileExplorerState.searchQuery = String(query).replace(/^\s+|\s+$/g, '');
+            renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+            updatePathDisplay();
+        });
+        searchToggle.dataset.feSearchBound = 'true';
+    }
+};
+
 const bindFileExplorerViewControls = () => {
     const nemoRoot = getExplorerWindowSlot();
+    initFileExplorerDefaultViewMode();
     if (!nemoRoot || nemoRoot.dataset.nemoViewDelegationInit === 'true') {
         applyFileExplorerViewMode();
         return;
@@ -1389,7 +1724,9 @@ const bindFileExplorerNavigationControls = () => {
     }
 
     if (nemoRoot.dataset.nemoNavDelegationInit !== 'true') {
-        const navRoot = nemoRoot.querySelector('.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav');
+        const navRoot = nemoRoot.querySelector(
+            '.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav, .nemo-app__toolbar-group--path'
+        );
         if (navRoot) {
             const navActions = {
                 precedent: goToPreviousDirectory,
@@ -1399,6 +1736,13 @@ const bindFileExplorerNavigationControls = () => {
             };
 
             navRoot.addEventListener('click', (event) => {
+                const pathLabel = event.target.closest('.nemo-app__path-current, #nemo-path-label');
+                if (pathLabel && navRoot.contains(pathLabel)) {
+                    event.preventDefault();
+                    goToHomeDirectory();
+                    return;
+                }
+
                 const btn = event.target.closest('a[id]');
                 if (!btn || !navRoot.contains(btn)) {
                     return;
@@ -1420,6 +1764,7 @@ const bindFileExplorerNavigationControls = () => {
         }
     }
 
+    bindFileExplorerSearchControls();
     bindFileExplorerViewControls();
 
     if (typeof window.bindFileExplorerDolphinFeatures === 'function') {
@@ -1513,4 +1858,36 @@ window.getExplorerCurrentPath = function getExplorerCurrentPath(slotId) {
         return '';
     }
     return fileExplorerState.currentPath || '';
+};
+
+window.CAPSULE_PLACE_RECENT = CAPSULE_PLACE_RECENT;
+window.CAPSULE_PLACE_TRASH = CAPSULE_PLACE_TRASH;
+window.CAPSULE_PLACE_NETWORK = CAPSULE_PLACE_NETWORK;
+window.CAPSULE_PLACE_FILESYSTEM = CAPSULE_PLACE_FILESYSTEM;
+window.isCapsuleVirtualPlace = isCapsuleVirtualPlace;
+
+window.buildNemoPlaceFolderMap = function buildNemoPlaceFolderMap(contentRoot) {
+    const root = String(contentRoot || getFileExplorerRoot()).replace(/\/+$/, '');
+    return {
+        'Dossier Personnel': root,
+        Bureau: `${root}/Bureau`,
+        Documents: `${root}/Documents`,
+        Musique: `${root}/Musique`,
+        Images: `${root}/Images`,
+        Vidéos: `${root}/Vidéos`,
+        Téléchargements: `${root}/Téléchargements`,
+        Récent: CAPSULE_PLACE_RECENT,
+        Corbeille: CAPSULE_PLACE_TRASH,
+        Réseau: CAPSULE_PLACE_NETWORK,
+        'Système de fichiers': CAPSULE_PLACE_FILESYSTEM
+    };
+};
+
+window.refreshFileExplorerDirectory = function refreshFileExplorerDirectory() {
+    if (!fileExplorerState.currentPath) {
+        return;
+    }
+    renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+    updatePathDisplay();
+    updateNavigationControls();
 };

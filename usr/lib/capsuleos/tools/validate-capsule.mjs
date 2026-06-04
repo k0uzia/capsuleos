@@ -103,6 +103,21 @@ if (agentSkills.status !== 0) {
     out.split('\n').filter(Boolean).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
 }
 
+const linuxFacades = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (linuxFacades.status !== 0) {
+    const out = (linuxFacades.stdout || '') + (linuxFacades.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') === 0 || line.indexOf('désynchronisée') >= 0 || line.indexOf('Façade') >= 0)
+        .forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Façades Linux désynchronisées — node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs');
+    }
+}
+
 if (warnings.length) {
     console.warn('\nAvertissements:');
     warnings.forEach((w) => console.warn(`  ⚠ ${w}`));

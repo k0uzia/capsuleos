@@ -1,93 +1,107 @@
 const fileExplorerSystemLink = {
     'files': {
         //////////////////////////// DOSSIER ////////////////////////////////
-        "Dossier_personnel": { 
-            "image": "./assets/icons/cinnamon/nemo/folder.png"
+        "Dossier_personnel": {
+            "image": "./assets/icons/cinnamon/nemo/folder.svg"
         },
-        "Documents": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-documents.png"
+        "Bureau": {
+            "image": "./assets/icons/cinnamon/nemo/user-desktop.svg"
         },
-        "Images": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-pictures.png"
+        "Documents": {
+            "image": "./assets/icons/cinnamon/nemo/folder-documents.svg"
         },
-        "Musique": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-music.png"
+        "Images": {
+            "image": "./assets/icons/cinnamon/nemo/folder-pictures.svg"
         },
-        "Public": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-publicshare.png"
+        "Musique": {
+            "image": "./assets/icons/cinnamon/nemo/folder-music.svg"
         },
-        "Téléchargements": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-download.png"
+        "Modèles": {
+            "image": "./assets/icons/cinnamon/nemo/folder-templates.svg"
         },
-        "Vidéos": { 
-            "image": "./assets/icons/cinnamon/nemo/folder-videos.png"
+        "Public": {
+            "image": "./assets/icons/cinnamon/nemo/folder-publicshare.svg"
+        },
+        "Téléchargements": {
+            "image": "./assets/icons/cinnamon/nemo/folder-download.svg"
+        },
+        "Vidéos": {
+            "image": "./assets/icons/cinnamon/nemo/folder-videos.svg"
         },
         ///////////////////////////// TEXTE /////////////////////////////////
-        "pdf": { 
-            "image": "./assets/icons/kde/mimeTypes/application-pdf.png",
+        "pdf": {
+            "image": "./assets/icons/kde/mimeTypes/x-office-document.svg",
             "link": "/*.pdf"
         },
-        "doc": { 
-            "image": "./assets/icons/kde/mimeTypes/application-vnd.ms-word.png",
+        "doc": {
+            "image": "./assets/icons/kde/mimeTypes/x-office-document.svg",
             "link": "/*.docx"
         },
-        "txt": { 
-            "image": "./assets/icons/kde/mimeTypes/text-x-generic.png",
+        "md": {
+            "image": "./assets/icons/kde/mimeTypes/text-x-generic.svg",
+            "link": "/*.md"
+        },
+        "txt": {
+            "image": "./assets/icons/kde/mimeTypes/text-x-generic.svg",
             "link": "/*.txt"
         },
-        "sh": { 
-            "image": "./assets/icons/kde/mimeTypes/text-x-script.png",
+        "sh": {
+            "image": "./assets/icons/kde/mimeTypes/text-x-script.svg",
             "link": "/*.sh"
         },
-        "html": { 
-            "image": "./assets/icons/kde/mimeTypes/text-html.png",
+        "html": {
+            "image": "./assets/icons/kde/mimeTypes/text-html.svg",
             "link": "/*.html"
         },
-        "css": { 
-            "image": "./assets/icons/kde/mimeTypes/text-css.png",
+        "css": {
+            "image": "./assets/icons/kde/mimeTypes/text-x-generic.svg",
             "link": "/*.css"
         },
-        "js": { 
-            "image": "./assets/icons/kde/mimeTypes/application-javascript.png",
+        "js": {
+            "image": "./assets/icons/kde/mimeTypes/application-x-generic.svg",
             "link": "/*.js"
         },
-        ///////////////////////////// AUDIO ///////////////////////////////// 
-        "ogg": { 
-            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
+        "svg": {
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.svg",
+            "link": "/*.svg"
+        },
+        ///////////////////////////// AUDIO /////////////////////////////////
+        "ogg": {
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.svg",
             "link": "/*.ogg"
         },
-        "mp3": { 
-            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
+        "mp3": {
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.svg",
             "link": "/*.mp3"
         },
-        "wav": { 
-            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
+        "wav": {
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.svg",
             "link": "/*.wav"
         },
         ///////////////////////////// VIDEO ///////////////////////////////
-        "mp4": { 
-            "image": "./assets/icons/kde/mimeTypes/video-x-generic.png",
+        "mp4": {
+            "image": "./assets/icons/kde/mimeTypes/video-x-generic.svg",
             "link": "/*.mp4"
         },
-        "avi": { 
-            "image": "./assets/icons/kde/mimeTypes/video-x-generic.png",
+        "avi": {
+            "image": "./assets/icons/kde/mimeTypes/video-x-generic.svg",
             "link": "/*.avi"
         },
         ///////////////////////////// PHOTO ///////////////////////////////
-        "jpeg": { 
-            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
+        "jpeg": {
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.svg",
             "link": "/*.jpeg"
         },
-        "jpg": { 
-            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
+        "jpg": {
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.svg",
             "link": "/*.jpg"
         },
-        "png": { 
-            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
+        "png": {
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.svg",
             "link": "/*.png"
         },
-        "webp": { 
-            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
+        "webp": {
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.svg",
             "link": "/*.webp"
         },
         ///////////////////// AUTRES TYPES DE LIENS ///////////////////////
@@ -120,7 +134,7 @@ const fileExplorerSystemLink = {
             ]
         },
         "system": {
-            "image": "./assets/icons/cinnamon/nemo/folder.png",
+            "image": "./assets/icons/cinnamon/nemo/folder.svg",
             "détails": [
                 "Tester Linux"
             ]

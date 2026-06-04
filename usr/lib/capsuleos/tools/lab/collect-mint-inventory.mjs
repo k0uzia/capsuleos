@@ -78,7 +78,13 @@ const runVmInventory = (host) => {
   return JSON.parse(line || '{}');
 };
 
+const capsuleSkinPresent = () =>
+  fs.existsSync(CAPSULE_INDEX) && fs.existsSync(CAPSULE_PROFILE);
+
 const readCapsuleProfile = () => {
+  if (!fs.existsSync(CAPSULE_PROFILE)) {
+    return { version: '', name: '', absent: true };
+  }
   const raw = fs.readFileSync(CAPSULE_PROFILE, 'utf8');
   const ver = raw.match(/version:\s*'([^']+)'/);
   const name = raw.match(/name:\s*'([^']+)'/);
@@ -86,6 +92,9 @@ const readCapsuleProfile = () => {
 };
 
 const readCapsuleLaunchers = () => {
+  if (!fs.existsSync(CAPSULE_INDEX)) {
+    return [];
+  }
   const html = fs.readFileSync(CAPSULE_INDEX, 'utf8');
   const re = /data-link="([^"]+)"[^>]*title="([^"]*)"/g;
   const launchers = [];
@@ -122,13 +131,23 @@ const buildReport = (vm) => {
   lines.push('');
   lines.push(`Collecte : \`${vm.collectedAt || '?'}\` · Registre : \`linux-mint\` · JSON : [\`inventaires/linux-mint-vm.json\`](inventaires/linux-mint-vm.json)`);
   lines.push('');
+  if (!capsuleSkinPresent()) {
+    lines.push('> **CapsuleOS** : skin `home/Debian/Mint/` absent — recréer via [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) (phases 2–7).');
+    lines.push('');
+  }
   lines.push('## Versions');
   lines.push('');
   lines.push('| Composant | VM réelle | CapsuleOS | Action |');
   lines.push('|-----------|-----------|-----------|--------|');
   const verCmp = compareVersions(vm, capsuleProfile);
-  const verAction = verCmp.status === 'aligné' ? 'OK' : 'mettre à jour `profile-data.js`';
-  lines.push(`| Distribution | Mint ${vm.os && vm.os.release} ${vm.os && vm.os.codename} | ${capsuleProfile.version} | **${verCmp.status}** — ${verAction} |`);
+  const verAction = capsuleProfile.absent
+    ? 'recréer skin (phase 2)'
+    : verCmp.status === 'aligné'
+      ? 'OK'
+      : 'mettre à jour `profile-data.js`';
+  const capVerCell = capsuleProfile.absent ? '— (skin absent)' : capsuleProfile.version;
+  const verStatus = capsuleProfile.absent ? 'à recréer' : verCmp.status;
+  lines.push(`| Distribution | Mint ${vm.os && vm.os.release} ${vm.os && vm.os.codename} | ${capVerCell} | **${verStatus}** — ${verAction} |`);
   const cin = (vm.versions && vm.versions.cinnamon) || '—';
   const nem = (vm.versions && vm.versions.nemo) || '—';
   const ff = (vm.versions && vm.versions.firefox) || '—';
@@ -258,6 +277,14 @@ const main = () => {
   if (opts.writeDoc) {
     fs.writeFileSync(OUT_MD, report);
     process.stdout.write(`OK ${OUT_MD}\n`);
+    const gen = spawnSync(
+      'node',
+      [path.join(ROOT, 'usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs'), '--write'],
+      { encoding: 'utf8', cwd: ROOT },
+    );
+    if (gen.status === 0 && gen.stdout) {
+      process.stdout.write(`${gen.stdout.trim()}\n`);
+    }
   } else {
     process.stdout.write(`\n${report}`);
   }

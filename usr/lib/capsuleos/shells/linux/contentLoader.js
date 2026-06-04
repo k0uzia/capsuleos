@@ -284,6 +284,21 @@ const SLOT_INIT_HANDLERS = {
         if (typeof initUpdateManagerApp === 'function') {
             initUpdateManagerApp();
         }
+    },
+    calculator: () => {
+        if (typeof initCalculatorApp === 'function') {
+            initCalculatorApp();
+        }
+    },
+    screenshot: () => {
+        if (typeof initScreenshotApp === 'function') {
+            initScreenshotApp();
+        }
+    },
+    drawing: () => {
+        if (typeof initDrawingApp === 'function') {
+            initDrawingApp();
+        }
     }
 };
 

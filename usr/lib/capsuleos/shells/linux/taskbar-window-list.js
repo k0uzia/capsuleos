@@ -20,6 +20,9 @@
         lecteur_multimedia: 'Lecteur vidéo',
         update_manager: 'Mises à jour',
         text_editor: 'Éditeur de texte',
+        calculator: 'Calculatrice',
+        screenshot: 'Capture d\'écran',
+        drawing: 'Dessin',
         'Dossier personnel': 'Dossier personnel',
     };
 

@@ -1,5 +1,5 @@
 /**
- * Raccourcis bureau Mint — favoris VM (calculatrice via menu, calendrier tray).
+ * Raccourcis bureau Mint — favoris VM (calendrier tray).
  */
 (function initMintDesktopFavorites(global) {
     'use strict';
@@ -15,18 +15,6 @@
         }
     }
 
-    function openMainMenuThenShortcut(shortcutId) {
-        if (typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink('mainMenu');
-        }
-        window.setTimeout(function tryShortcut() {
-            var link = document.querySelector('.menu-shortcut[data-shortcut-id="' + shortcutId + '"]');
-            if (link && !link.classList.contains('is-unavailable')) {
-                link.click();
-            }
-        }, 320);
-    }
-
     function bindFavorite(shortcut) {
         var action = shortcut.getAttribute('data-mint-favorite');
         if (!action) {
@@ -37,24 +25,6 @@
                 event.preventDefault();
                 event.stopPropagation();
                 openCalendarPopover();
-                return;
-            }
-            if (action === 'calculator') {
-                event.preventDefault();
-                event.stopPropagation();
-                openMainMenuThenShortcut('calculator');
-            }
-        });
-    }
-
-    function bindPowerTray() {
-        var powerBtn = document.querySelector('.taskbar-tray__btn--power');
-        if (!powerBtn) {
-            return;
-        }
-        powerBtn.addEventListener('click', function onPowerClick() {
-            if (typeof global.openWindowByDataLink === 'function') {
-                global.openWindowByDataLink('mainMenu');
             }
         });
     }
@@ -64,7 +34,6 @@
             return;
         }
         document.querySelectorAll('.desktop-shortcut[data-mint-favorite]').forEach(bindFavorite);
-        bindPowerTray();
     }
 
     if (document.readyState === 'loading') {

@@ -4,10 +4,10 @@
 body#mint {
     --mint-terminal-surface: #2e2e2e;
     --mint-terminal-header-bg: #363636;
-    --mint-terminal-prompt-user: #87cf3e;
+    --mint-terminal-prompt-user: #1f9ede;
     --mint-terminal-prompt-path: #f6f5f4;
-    --mint-terminal-prompt-path-seg: #62a0ea;
-    --mint-terminal-dir-color: #62a0ea;
+    --mint-terminal-prompt-path-seg: #1f9ede;
+    --mint-terminal-dir-color: #1f9ede;
     --mint-terminal-error: #f66151;
     --mint-terminal-history-weight: 400;
 }

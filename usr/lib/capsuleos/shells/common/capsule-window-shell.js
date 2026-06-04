@@ -116,8 +116,13 @@
         return false;
     }
 
-    function showContainer(container) {
-        container.style.display = config.displayOnOpen || 'flex';
+    function showContainer(container, slotId) {
+        const api = ctxApi();
+        const skipSlots = api && typeof api.getContext === 'function'
+            ? api.getContext().skipSlots
+            : null;
+        const isPanelSlot = skipSlots && skipSlots.has && skipSlots.has(slotId);
+        container.style.display = isPanelSlot ? 'block' : (config.displayOnOpen || 'flex');
         if (config.positionOnOpen) {
             container.style.position = config.positionOnOpen;
         }
@@ -155,7 +160,7 @@
         }
 
         if (isHidden(container)) {
-            showContainer(container);
+            showContainer(container, slotId);
 
             if (typeof config.beforeOpen === 'function') {
                 config.beforeOpen(container, slotId, link);

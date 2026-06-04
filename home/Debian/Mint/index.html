@@ -11,9 +11,9 @@
     <title>Mint</title>
 </head>
 <body id="mint">
-    <object id="desktop" aria-label="Bureau Linux Mint">
+    <div id="desktop" role="application" aria-label="Bureau Linux Mint">
         <div class="desktop-shortcuts" role="list" aria-label="Favoris du bureau">
-            <a class="desktop-shortcut" href="#" data-mint-favorite="calculator" title="Calculatrice" role="listitem">
+            <a class="desktop-shortcut" target="windowElement" data-link="calculator" title="Calculatrice" role="listitem">
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.png" alt="">
                 <span>Calculatrice</span>
             </a>
@@ -51,7 +51,10 @@
         <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
         <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
-    </object>
+        <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
+        <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
+        <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+    </div>
     <footer id="tableau">
         <nav>
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
@@ -81,7 +84,7 @@
             <ul id="taskbar-window-list" class="taskbar-window-list" role="list" hidden></ul>
         </nav>
         <div class="taskbar-right">
-            <div class="taskbar-tray">
+            <div class="taskbar-tray" aria-label="Zone de notification">
                 <button type="button"
                         class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray
@@ -90,20 +93,50 @@
                         title="Gestionnaire de mise à jour">
                     <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
-                <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true" title="Applications XApp"></span>
-                <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true" title="Imprimantes"></span>
-                <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true" title="Supports amovibles"></span>
-                <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true" title="Disposition du clavier"></span>
-                <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true" title="Réseau"></span>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-xapp"
+                        aria-expanded="false" aria-controls="mint-tray-popover-xapp"
+                        aria-label="Applications XApp" title="Applications XApp">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-notifications"
+                        aria-expanded="false" aria-controls="mint-tray-popover-notifications"
+                        aria-label="Notifications" title="Notifications">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--notifications" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-printers"
+                        aria-expanded="false" aria-controls="mint-tray-popover-printers"
+                        aria-label="Imprimantes" title="Imprimantes">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-removable"
+                        aria-expanded="false" aria-controls="mint-tray-popover-removable"
+                        aria-label="Supports amovibles" title="Supports amovibles">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-keyboard"
+                        aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
+                        aria-label="Disposition du clavier" title="Disposition du clavier">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
+                        aria-expanded="false" aria-controls="mint-tray-popover-network"
+                        aria-label="Réseau" title="Réseau">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true"></span>
+                </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
                         aria-expanded="false" aria-controls="volume-popover"
-                        aria-label="Contrôle du volume">
+                        aria-label="Contrôle du volume" title="Volume">
                     <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power" aria-label="Alimentation" title="Alimentation">
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power"
+                        aria-expanded="false" aria-controls="mint-power-menu"
+                        aria-label="Alimentation" title="Alimentation">
                     <span class="taskbar-tray__icon taskbar-tray__icon--power" aria-hidden="true"></span>
                 </button>
-                <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true" title="Coin du bureau"></span>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar" id="tray-btn-cornerbar"
+                        aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true"></span>
+                </button>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
                 <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
@@ -147,6 +180,75 @@
             <button type="button" class="calendar-popover__settings-btn">Paramètres de date et d'heure</button>
         </footer>
     </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-xapp" role="dialog" aria-label="Applications XApp" hidden>
+        <p class="mint-tray-popover__empty">Aucun indicateur XApp actif</p>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-notifications" role="dialog" aria-label="Notifications" hidden>
+        <div class="mint-tray-popover__title">Notifications</div>
+        <div id="mint-notifications-list">
+            <div class="mint-notification-item">
+                <span class="mint-tray-popover__row-icon taskbar-tray__icon--shield" aria-hidden="true"></span>
+                <div class="mint-notification-item__body">
+                    <div class="mint-notification-item__title">Mises à jour disponibles</div>
+                    <p class="mint-notification-item__text">Des mises à jour système sont prêtes à être installées.</p>
+                </div>
+            </div>
+        </div>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-notifications-clear">Effacer tout</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-printers" role="dialog" aria-label="Imprimantes" hidden>
+        <p class="mint-tray-popover__empty">Aucune imprimante configurée</p>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-tray-printers-settings">Paramètres des imprimantes…</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-removable" role="dialog" aria-label="Supports amovibles" hidden>
+        <p class="mint-tray-popover__empty">Aucun support amovible détecté</p>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-keyboard" role="dialog" aria-label="Disposition du clavier" hidden>
+        <button type="button" class="mint-tray-popover__row is-active" data-mint-layout="fr">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+            Français
+        </button>
+        <button type="button" class="mint-tray-popover__row" data-mint-layout="en">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+            English (US)
+        </button>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-network" role="dialog" aria-label="Réseau" hidden>
+        <button type="button" class="mint-tray-popover__row is-active">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--network" aria-hidden="true"></span>
+            <span>Connexion filaire — Connecté</span>
+        </button>
+        <button type="button" class="mint-tray-popover__row">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--network" aria-hidden="true"></span>
+            <span>Mint-Lab-WiFi</span>
+        </button>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-tray-network-settings">Paramètres réseau…</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover mint-power-menu" id="mint-power-menu" role="dialog" aria-label="Alimentation" hidden>
+        <button type="button" class="mint-power-menu__row" data-mint-power-action="lock">Verrouiller l'écran</button>
+        <button type="button" class="mint-power-menu__row" data-mint-power-action="logout">Se déconnecter…</button>
+        <div class="mint-tray-popover__sep" role="separator" aria-hidden="true"></div>
+        <div class="mint-power-menu__actions" role="group" aria-label="Alimentation système">
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="suspend">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Suspendre
+            </button>
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="restart">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Redémarrer
+            </button>
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="shutdown">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Arrêter
+            </button>
+        </div>
+    </div>
     <div class="volume-popover" id="volume-popover" role="dialog" aria-label="Volume" hidden>
         <div class="volume-popover__header">
             <span class="volume-popover__label">Volume</span>
@@ -163,17 +265,17 @@
         </div>
     </div>
     <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <script>
+        window.CAPSULE_SKIN_PROFILE_ID = 'linux-mint';
         if (typeof CapsuleUserHome !== 'undefined') {
             window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.resolveRelative();
             window.CAPSULE_TERMINAL_HOME = window.CAPSULE_USER_HOME || window.CAPSULE_TERMINAL_HOME;
         }
-        window.CAPSULE_SKIN_PROFILE_ID = 'linux-mint';
     </script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260427"></script>
@@ -218,6 +320,9 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
@@ -228,5 +333,6 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
+    <script src="./content/mint-tray.js?v=20260604"></script>
 </body>
 </html>

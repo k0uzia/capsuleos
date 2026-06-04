@@ -39,6 +39,9 @@
         if (isPopos && window.CosmicShellState) {
             CosmicShellState.closeAll();
         }
+        if (document.body && document.body.id === 'mint') {
+            document.dispatchEvent(new CustomEvent('capsule:mint-tray-open', { detail: { id: 'calendar' } }));
+        }
         popover.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
 

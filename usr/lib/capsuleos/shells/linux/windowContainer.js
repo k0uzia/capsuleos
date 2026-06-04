@@ -7,6 +7,9 @@
     const WINDOW_TITLE_MAP = {
         profile: 'À Propos',
         librewriter: 'Sans nom 1 - LibreOffice Writer',
+        calculator: 'Calculatrice',
+        screenshot: 'Capture d\'écran',
+        drawing: 'Sans titre — Dessin',
     };
 
     const WINDOW_TASK_MAP = {

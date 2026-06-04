@@ -1,6 +1,6 @@
 {
   "toolkit": "cinnamon",
-  "collectedAt": "2026-06-04T09:11:48Z",
+  "collectedAt": "2026-06-04T09:54:47Z",
   "os": {
     "release": "22.3",
     "codename": "zena",
@@ -63,7 +63,413 @@
       }
     ],
     "favorites": "['org.gnome.Calculator.desktop', 'org.gnome.Calendar.desktop', 'org.x.editor.desktop', 'mintinstall.desktop', 'cinnamon-settings.desktop']",
-    "desktopCount": 143
+    "desktopCount": 143,
+    "menuVisible": [
+      {
+        "name": "Accessibility",
+        "desktop": "cinnamon-settings-universal-access.desktop"
+      },
+      {
+        "name": "Account details",
+        "desktop": "cinnamon-settings-user.desktop"
+      },
+      {
+        "name": "Actions",
+        "desktop": "cinnamon-settings-actions.desktop"
+      },
+      {
+        "name": "Advanced Network Configuration",
+        "desktop": "nm-connection-editor.desktop"
+      },
+      {
+        "name": "Applets",
+        "desktop": "cinnamon-settings-applets.desktop"
+      },
+      {
+        "name": "Archive Manager",
+        "desktop": "org.gnome.FileRoller.desktop"
+      },
+      {
+        "name": "Backgrounds",
+        "desktop": "cinnamon-settings-backgrounds.desktop"
+      },
+      {
+        "name": "Backup Tool",
+        "desktop": "mintbackup.desktop"
+      },
+      {
+        "name": "Bluetooth Adapters",
+        "desktop": "blueman-adapters.desktop"
+      },
+      {
+        "name": "Bluetooth Manager",
+        "desktop": "blueman-manager.desktop"
+      },
+      {
+        "name": "Calculator",
+        "desktop": "org.gnome.Calculator.desktop"
+      },
+      {
+        "name": "Calendar",
+        "desktop": "org.gnome.Calendar.desktop"
+      },
+      {
+        "name": "Celluloid",
+        "desktop": "io.github.celluloid_player.Celluloid.desktop"
+      },
+      {
+        "name": "Character Map",
+        "desktop": "gucharmap.desktop"
+      },
+      {
+        "name": "Color",
+        "desktop": "cinnamon-color-panel.desktop"
+      },
+      {
+        "name": "Color selection dialog",
+        "desktop": "mate-color-select.desktop"
+      },
+      {
+        "name": "Date & Time",
+        "desktop": "cinnamon-settings-calendar.desktop"
+      },
+      {
+        "name": "Desklets",
+        "desktop": "cinnamon-settings-desklets.desktop"
+      },
+      {
+        "name": "Desktop",
+        "desktop": "cinnamon-settings-desktop.desktop"
+      },
+      {
+        "name": "Disk Usage Analyzer",
+        "desktop": "org.gnome.baobab.desktop"
+      },
+      {
+        "name": "Disks",
+        "desktop": "org.gnome.DiskUtility.desktop"
+      },
+      {
+        "name": "Display",
+        "desktop": "cinnamon-display-panel.desktop"
+      },
+      {
+        "name": "Document Scanner",
+        "desktop": "simple-scan.desktop"
+      },
+      {
+        "name": "Document Viewer",
+        "desktop": "xreader.desktop"
+      },
+      {
+        "name": "Drawing",
+        "desktop": "com.github.maoschanz.drawing.desktop"
+      },
+      {
+        "name": "Driver Manager",
+        "desktop": "mintdrivers.desktop"
+      },
+      {
+        "name": "Effects",
+        "desktop": "cinnamon-settings-effects.desktop"
+      },
+      {
+        "name": "Extensions",
+        "desktop": "cinnamon-settings-extensions.desktop"
+      },
+      {
+        "name": "File Renamer",
+        "desktop": "bulky.desktop"
+      },
+      {
+        "name": "Files",
+        "desktop": "nemo.desktop"
+      },
+      {
+        "name": "Fingerprints",
+        "desktop": "fingwit.desktop"
+      },
+      {
+        "name": "Firefox Web Browser",
+        "desktop": "firefox.desktop"
+      },
+      {
+        "name": "Firewall Configuration",
+        "desktop": "gufw.desktop"
+      },
+      {
+        "name": "Font Selection",
+        "desktop": "cinnamon-settings-fonts.desktop"
+      },
+      {
+        "name": "Fonts",
+        "desktop": "org.gnome.font-viewer.desktop"
+      },
+      {
+        "name": "General",
+        "desktop": "cinnamon-settings-general.desktop"
+      },
+      {
+        "name": "Gestures",
+        "desktop": "cinnamon-settings-gestures.desktop"
+      },
+      {
+        "name": "GNOME System Monitor",
+        "desktop": "gnome-system-monitor-kde.desktop"
+      },
+      {
+        "name": "Graphics Tablet",
+        "desktop": "cinnamon-wacom-panel.desktop"
+      },
+      {
+        "name": "Hot Corners",
+        "desktop": "cinnamon-settings-hotcorner.desktop"
+      },
+      {
+        "name": "Hypnotix",
+        "desktop": "hypnotix.desktop"
+      },
+      {
+        "name": "IBus Preferences",
+        "desktop": "org.freedesktop.IBus.Setup.desktop"
+      },
+      {
+        "name": "Image Viewer",
+        "desktop": "xviewer.desktop"
+      },
+      {
+        "name": "Input method",
+        "desktop": "mintlocale-im.desktop"
+      },
+      {
+        "name": "Keyboard",
+        "desktop": "cinnamon-settings-keyboard.desktop"
+      },
+      {
+        "name": "Languages",
+        "desktop": "mintlocale.desktop"
+      },
+      {
+        "name": "Library",
+        "desktop": "thingy.desktop"
+      },
+      {
+        "name": "LibreOffice",
+        "desktop": "libreoffice-startcenter.desktop"
+      },
+      {
+        "name": "LibreOffice Calc",
+        "desktop": "libreoffice-calc.desktop"
+      },
+      {
+        "name": "LibreOffice Draw",
+        "desktop": "libreoffice-draw.desktop"
+      },
+      {
+        "name": "LibreOffice Impress",
+        "desktop": "libreoffice-impress.desktop"
+      },
+      {
+        "name": "LibreOffice Writer",
+        "desktop": "libreoffice-writer.desktop"
+      },
+      {
+        "name": "Login Window",
+        "desktop": "lightdm-settings.desktop"
+      },
+      {
+        "name": "Mouse and Touchpad",
+        "desktop": "cinnamon-settings-mouse.desktop"
+      },
+      {
+        "name": "Network",
+        "desktop": "cinnamon-network-panel.desktop"
+      },
+      {
+        "name": "Night Light",
+        "desktop": "cinnamon-settings-nightlight.desktop"
+      },
+      {
+        "name": "Notes",
+        "desktop": "sticky.desktop"
+      },
+      {
+        "name": "Notifications",
+        "desktop": "cinnamon-settings-notifications.desktop"
+      },
+      {
+        "name": "Onboard",
+        "desktop": "onboard.desktop"
+      },
+      {
+        "name": "Online Accounts",
+        "desktop": "gnome-online-accounts-gtk.desktop"
+      },
+      {
+        "name": "Panel",
+        "desktop": "cinnamon-settings-panel.desktop"
+      },
+      {
+        "name": "Passwords and Keys",
+        "desktop": "org.gnome.seahorse.Application.desktop"
+      },
+      {
+        "name": "Pix",
+        "desktop": "pix.desktop"
+      },
+      {
+        "name": "Power Management",
+        "desktop": "cinnamon-settings-power.desktop"
+      },
+      {
+        "name": "Power Statistics",
+        "desktop": "org.gnome.PowerStats.desktop"
+      },
+      {
+        "name": "Preferred Applications",
+        "desktop": "cinnamon-settings-default.desktop"
+      },
+      {
+        "name": "Printers",
+        "desktop": "system-config-printer.desktop"
+      },
+      {
+        "name": "Privacy",
+        "desktop": "cinnamon-settings-privacy.desktop"
+      },
+      {
+        "name": "Rhythmbox",
+        "desktop": "org.gnome.Rhythmbox3.desktop"
+      },
+      {
+        "name": "Screensaver",
+        "desktop": "cinnamon-settings-screensaver.desktop"
+      },
+      {
+        "name": "Screenshot",
+        "desktop": "org.gnome.Screenshot.desktop"
+      },
+      {
+        "name": "Software Manager",
+        "desktop": "mintinstall-kde.desktop"
+      },
+      {
+        "name": "Software Manager",
+        "desktop": "mintinstall.desktop"
+      },
+      {
+        "name": "Software Sources",
+        "desktop": "mintsources.desktop"
+      },
+      {
+        "name": "Sound",
+        "desktop": "cinnamon-settings-sound.desktop"
+      },
+      {
+        "name": "Startup Applications",
+        "desktop": "cinnamon-settings-startup.desktop"
+      },
+      {
+        "name": "System Administration",
+        "desktop": "mintsysadm.desktop"
+      },
+      {
+        "name": "System Information",
+        "desktop": "mintreport.desktop"
+      },
+      {
+        "name": "System Monitor",
+        "desktop": "org.gnome.SystemMonitor.desktop"
+      },
+      {
+        "name": "System Settings",
+        "desktop": "cinnamon-settings.desktop"
+      },
+      {
+        "name": "Terminal",
+        "desktop": "org.gnome.Terminal.desktop"
+      },
+      {
+        "name": "Text Editor",
+        "desktop": "org.x.editor.desktop"
+      },
+      {
+        "name": "Themes",
+        "desktop": "cinnamon-settings-themes.desktop"
+      },
+      {
+        "name": "Thunderbird Mail",
+        "desktop": "thunderbird.desktop"
+      },
+      {
+        "name": "Thunderbolt",
+        "desktop": "cinnamon-settings-thunderbolt.desktop"
+      },
+      {
+        "name": "Timeshift",
+        "desktop": "timeshift-gtk.desktop"
+      },
+      {
+        "name": "Transmission",
+        "desktop": "transmission-gtk.desktop"
+      },
+      {
+        "name": "Update Manager",
+        "desktop": "mintupdate-kde.desktop"
+      },
+      {
+        "name": "Update Manager",
+        "desktop": "mintupdate.desktop"
+      },
+      {
+        "name": "USB Image Writer",
+        "desktop": "mintstick-kde.desktop"
+      },
+      {
+        "name": "USB Image Writer",
+        "desktop": "mintstick.desktop"
+      },
+      {
+        "name": "USB Stick Formatter",
+        "desktop": "mintstick-format-kde.desktop"
+      },
+      {
+        "name": "USB Stick Formatter",
+        "desktop": "mintstick-format.desktop"
+      },
+      {
+        "name": "Users and Groups",
+        "desktop": "cinnamon-settings-users.desktop"
+      },
+      {
+        "name": "Vim",
+        "desktop": "vim.desktop"
+      },
+      {
+        "name": "Virtual keyboard",
+        "desktop": "cinnamon-onscreen-keyboard.desktop"
+      },
+      {
+        "name": "Warpinator",
+        "desktop": "org.x.Warpinator.desktop"
+      },
+      {
+        "name": "Web Apps",
+        "desktop": "webapp-manager.desktop"
+      },
+      {
+        "name": "Welcome Screen",
+        "desktop": "mintwelcome.desktop"
+      },
+      {
+        "name": "Windows",
+        "desktop": "cinnamon-settings-windows.desktop"
+      },
+      {
+        "name": "Workspaces",
+        "desktop": "cinnamon-settings-workspaces.desktop"
+      }
+    ]
   },
   "branding": {
     "linuxmintDirs": [

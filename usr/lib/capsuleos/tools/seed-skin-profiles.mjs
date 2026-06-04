@@ -19,7 +19,6 @@ const TOOLKIT_ICON_PACKS = {
 };
 
 const profiles = [
-  { id: 'linux-mint', bodyId: 'mint', vendor: 'mint', displayName: 'Linux Mint (Cinnamon)', tier: 'P0', facade: 'OS/linux/families/debian/mint/index.html', skin: 'home/Debian/Mint/index.html', toolkit: 'cinnamon', explorerTemplate: 'nemo', explorerName: 'Nemo', embedKey: 'mint', checklistKey: 'mint-checklist', terminalProfile: 'debian' },
   { id: 'linux-ubuntu', bodyId: 'ubuntu', vendor: 'ubuntu', displayName: 'Ubuntu 25.10', tier: 'P0', facade: 'OS/linux/families/debian/ubuntu/index.html', skin: 'home/Debian/Ubuntu/index.html', toolkit: 'gnome', explorerTemplate: 'nemo-gnome', explorerName: 'Fichiers', embedKey: 'ubuntu', checklistKey: 'ubuntu-checklist', explorerSkinKey: 'nemo-gnome', terminalProfile: 'debian' },
   { id: 'linux-fedora', bodyId: 'fedora', vendor: 'fedora', displayName: 'Fedora Workstation', tier: 'P1', facade: 'OS/linux/families/redhat/fedora/index.html', skin: 'home/RedHat/Fedora/index.html', toolkit: 'gnome', explorerTemplate: 'nemo', explorerName: 'Fichiers', embedKey: 'fedora', checklistKey: 'fedora-checklist', terminalProfile: 'fedora' },
   { id: 'linux-mx-kde', bodyId: 'mx-kde', vendor: 'mx', displayName: 'MX Linux KDE', tier: 'P1', facade: 'OS/linux/families/debian/mx-kde/index.html', skin: 'home/Debian/MX-KDE/index.html', toolkit: 'kde', explorerTemplate: 'dolphin', explorerName: 'Dolphin', embedKey: 'mxkde', checklistKey: 'mxkde-checklist', kde: true, terminalUser: 'mx-linux', terminalHost: 'mx', templateOverrides: { update_manager: `${APPS}/update_manager_kde.html` } },

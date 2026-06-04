@@ -7,8 +7,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, '../../../../..');
+const MINT_SKIN = path.join(ROOT, 'home/Debian/Mint/index.html');
 const OUT = process.env.CAPSULE_PANEL_OUT || '/tmp/capsule-panel.json';
-const URL = process.env.CAPSULE_PANEL_URL || 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
+const DEFAULT_MINT_URL = 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
+const URL = process.env.CAPSULE_PANEL_URL
+  || (fs.existsSync(MINT_SKIN) ? DEFAULT_MINT_URL : '');
 const PROBE = fs.readFileSync(path.join(__dirname, 'capsule-probe-snippet.js'), 'utf8')
   .replace(/\(function capsuleProbeState\(\) \{/, 'function probeState() {')
   .split('}());').join('}');
@@ -100,6 +104,10 @@ const runAction = async (page, cmd, arg) => {
 };
 
 const main = async () => {
+  if (!URL) {
+    console.error('✗ Skin Mint absent — recréer linux-mint ou définir CAPSULE_PANEL_URL');
+    process.exit(2);
+  }
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({ headless: true, executablePath: chromePath });
   const page = await browser.newPage();

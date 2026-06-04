@@ -1,0 +1,130 @@
+main#gnomeCalculatorApp {
+    position: var(--rel);
+    top: var(--z);
+    right: var(--z);
+    bottom: var(--z);
+    left: var(--z);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    align-items: stretch;
+    justify-content: var(--fs);
+    width: var(--full);
+    height: var(--full);
+    overflow: hidden;
+    font-family: var(--font-ui);
+    user-select: none;
+}
+
+.gnome-calc__header {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    justify-content: var(--fs);
+    padding: calc(var(--head) / 5) calc(var(--head) / 3);
+}
+
+.gnome-calc__mode {
+    padding: calc(var(--head) / 10) calc(var(--head) / 3);
+    border: 1px solid var(--t);
+    border-radius: 999px;
+    background: var(--t);
+    color: inherit;
+    font: inherit;
+    font-size: calc(var(--head) / 2.8);
+    font-weight: 600;
+    cursor: var(--p);
+}
+
+.gnome-calc__display {
+    display: var(--f);
+    flex-flow: var(--cnw);
+    align-items: var(--fe);
+    justify-content: var(--fe);
+    flex: 1;
+    min-height: calc(var(--head) * 2.2);
+    padding: calc(var(--head) / 4) calc(var(--head) / 2.5);
+    gap: calc(var(--head) / 12);
+}
+
+.gnome-calc__expr {
+    width: var(--full);
+    min-height: calc(var(--head) / 2.2);
+    font-size: calc(var(--head) / 3.2);
+    text-align: right;
+    opacity: 0.55;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gnome-calc__value {
+    width: var(--full);
+    font-size: calc(var(--head) * 1.35);
+    font-weight: 300;
+    line-height: 1.1;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.gnome-calc__keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--head) / 10);
+    padding: calc(var(--head) / 5) calc(var(--head) / 4) calc(var(--head) / 3);
+}
+
+.gnome-calc__key {
+    display: var(--f);
+    align-items: var(--c);
+    justify-content: var(--c);
+    min-height: calc(var(--head) * 1.05);
+    border: 1px solid var(--t);
+    border-radius: calc(var(--head) / 2.2);
+    background: var(--gnome-calc-key-bg, #303030);
+    color: inherit;
+    font: inherit;
+    font-size: calc(var(--head) / 2.4);
+    cursor: var(--p);
+    transition: background-color var(--eas2), transform var(--eas2);
+}
+
+.gnome-calc__key:hover {
+    filter: brightness(1.08);
+}
+
+.gnome-calc__key:active {
+    transform: scale(0.96);
+}
+
+.gnome-calc__key--fn {
+    background: var(--gnome-calc-fn-bg, #3d3d3d);
+}
+
+.gnome-calc__key--op {
+    background: var(--gnome-calc-op-bg, #ff7800);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.gnome-calc__key--op.is-active {
+    filter: brightness(1.15);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.gnome-calc__key--eq {
+    background: var(--gnome-calc-op-bg, #ff7800);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.gnome-calc__key--wide {
+    grid-column: span 2;
+}
+
+.gnome-calc__key:focus-visible {
+    outline: 2px solid var(--menu-accent, #1f9ede);
+    outline-offset: 2px;
+}

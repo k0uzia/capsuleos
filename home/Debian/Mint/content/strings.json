@@ -1,3 +1,6 @@
 {
-    "explorer.windowTitle": "Dossier personnel - Nemo"
+    "explorer.windowTitle": "Dossier personnel - Nemo",
+    "calculator.windowTitle": "Calculatrice",
+    "screenshot.windowTitle": "Capture d'écran",
+    "drawing.windowTitle": "Sans titre — Dessin"
 }

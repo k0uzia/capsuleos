@@ -81,7 +81,11 @@ function buildWindowTitles(merged) {
         mainMenu: m['mainMenu.windowTitle'] || 'Menu',
         visionneur_images: m['visionneur_images.windowTitle'] || 'Visionneur d\'images',
         visionneur_pdf: m['visionneur_pdf.windowTitle'] || 'Visionneur PDF',
-        lecteur_multimedia: m['lecteur_multimedia.windowTitle'] || 'Lecteur multimédia'
+        lecteur_multimedia: m['lecteur_multimedia.windowTitle'] || 'Lecteur multimédia',
+        calculator: m['calculator.windowTitle'] || 'Calculatrice',
+        screenshot: m['screenshot.windowTitle'] || 'Capture d\'écran',
+        drawing: m['drawing.windowTitle'] || 'Sans titre — Dessin',
+        text_editor: m['text_editor.windowTitle'] || 'Éditeur de texte'
     };
 }
 

@@ -2,7 +2,7 @@
 
 Procédure : [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) · Statut clone : [`inventaires/linux-mint-clone-status.md`](inventaires/linux-mint-clone-status.md)
 
-Collecte : `2026-06-04T09:11:48Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
+Collecte : `2026-06-04T09:54:47Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
 
 ## Versions
 
@@ -63,7 +63,7 @@ Applets VM : systray, xapp-status, notifications, printers, removable-drives, ke
 
 | Favori VM (.desktop) | CapsuleOS | Statut |
 |----------------------|-----------|--------|
-| org.gnome.Calculator.desktop | Bureau → menu → terminal | P1 simulation |
+| org.gnome.Calculator.desktop | `calculator` (GNOME Calc) | ✅ |
 | org.gnome.Calendar.desktop | Bureau → popover horloge | OK |
 | org.x.editor.desktop (xed) | Bureau + `text_editor` | P2 clone |
 | mintinstall.desktop | Bureau + `update_manager` | OK |

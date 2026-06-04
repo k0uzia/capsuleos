@@ -1,0 +1,63 @@
+/**
+ * Calculatrice GNOME — Linux Mint Cinnamon (Mint-Y-Dark-Aqua).
+ */
+body#mint {
+    --gnome-calc-bg: #1e1e1e;
+    --gnome-calc-fn-bg: #3d3d3d;
+    --gnome-calc-key-bg: #303030;
+    --gnome-calc-op-bg: #ff7800;
+    --gnome-calc-text: #ffffff;
+    --gnome-calc-expr: rgba(255, 255, 255, 0.55);
+}
+
+html[data-theme="light"] body#mint {
+    --gnome-calc-bg: #fafafa;
+    --gnome-calc-fn-bg: #e8e8e8;
+    --gnome-calc-key-bg: #ffffff;
+    --gnome-calc-op-bg: #ff7800;
+    --gnome-calc-text: #1e1e1e;
+    --gnome-calc-expr: rgba(0, 0, 0, 0.45);
+}
+
+body#mint div[data-link="calculator"].windowElement {
+    width: calc(var(--head) * 7.8);
+    min-width: calc(var(--head) * 7.2);
+    max-width: calc(var(--head) * 8.5);
+    height: calc(var(--head) * 12.5);
+    min-height: calc(var(--head) * 11);
+}
+
+body#mint div[data-link="calculator"] #windowHeader {
+    background: var(--gnome-calc-bg);
+    border-bottom: 1px solid var(--menu-shell-border);
+}
+
+body#mint div[data-link="calculator"] #windowTitle {
+    color: var(--gnome-calc-text);
+}
+
+body#mint main#gnomeCalculatorApp {
+    color: var(--gnome-calc-text);
+    background: var(--gnome-calc-bg);
+}
+
+body#mint .gnome-calc__mode:hover {
+    background: var(--menu-item-active-bg);
+}
+
+body#mint .gnome-calc__expr {
+    color: var(--gnome-calc-expr);
+}
+
+body#mint .gnome-calc__key {
+    border-color: transparent;
+    color: var(--gnome-calc-text);
+}
+
+body#mint .gnome-calc__key--fn {
+    color: var(--gnome-calc-text);
+}
+
+html[data-theme="light"] body#mint .gnome-calc__key {
+    border-color: rgba(0, 0, 0, 0.06);
+}

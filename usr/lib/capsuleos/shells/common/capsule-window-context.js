@@ -240,9 +240,12 @@
         if (ctx.headerLayout === 'capsule'
             && typeof global.CapsuleWindow !== 'undefined'
             && global.CapsuleWindow.ensureChrome) {
+            const bounds = resolveBoundsOptions();
             global.CapsuleWindow.ensureChrome(container, slotId, {
                 forceDrag: options.force === true,
                 initInteraction: options.initInteraction !== false,
+                requireHeader: ctx.requireHeader,
+                bounds: bounds,
             });
             markManaged(container, slotId);
             return;

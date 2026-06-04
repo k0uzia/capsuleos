@@ -49,9 +49,18 @@ body#mint #desktop > .desktop-shortcuts > .desktop-shortcut {
     left: auto;
 }
 
-/* Fenêtres dans object#desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
-body#mint object#desktop > .windowElement {
+/* Fenêtres dans #desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
+body#mint #desktop > .windowElement:not(#mainMenu) {
     position: absolute;
+    pointer-events: auto;
+}
+
+body#mint #desktop {
+    pointer-events: none;
+}
+
+body#mint #desktop > * {
+    pointer-events: auto;
 }
 
 .desktop-shortcut {
@@ -74,11 +83,12 @@ body#mint object#desktop > .windowElement {
     z-index: 10;
 }
 
-.desktop-shortcut:hover,
-.desktop-shortcut.active-link {
+body#mint .desktop-shortcut:hover,
+body#mint .desktop-shortcut:focus-visible {
     background: var(--desktop-shortcut-hover-bg);
-    border-color: var(--menu-accent);
-    transform: translateY(-1px);
+    border-color: transparent;
+    border-radius: 6px;
+    transform: none;
 }
 
 .desktop-shortcut > img {

@@ -83,6 +83,36 @@ for p in ("/usr/share/linuxmint/logo.png",):
     if os.path.isfile(p):
         logo_candidates.append(p)
 
+def menu_visible_apps():
+    out = []
+    apps_dir = "/usr/share/applications"
+    if not os.path.isdir(apps_dir):
+        return out
+    for fname in sorted(os.listdir(apps_dir)):
+        if not fname.endswith(".desktop"):
+            continue
+        path = os.path.join(apps_dir, fname)
+        name = None
+        hidden = False
+        nodisplay = False
+        try:
+            with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                for line in f:
+                    if line.startswith("Name["):
+                        continue
+                    if line.startswith("Name=") and name is None:
+                        name = line[5:].strip()
+                    if line.startswith("Hidden=true"):
+                        hidden = True
+                    if line.startswith("NoDisplay=true"):
+                        nodisplay = True
+        except OSError:
+            continue
+        if name and not hidden and not nodisplay:
+            out.append({"name": name, "desktop": fname})
+    out.sort(key=lambda e: e["name"].lower())
+    return out
+
 payload = {
     "toolkit": "cinnamon",
     "collectedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -109,6 +139,7 @@ payload = {
         "panelCore": panel_core,
         "favorites": gget("org.cinnamon", "favorite-apps"),
         "desktopCount": len([f for f in os.listdir("/usr/share/applications") if f.endswith(".desktop")]),
+        "menuVisible": menu_visible_apps(),
     },
     "branding": {
         "linuxmintDirs": branding_dirs,

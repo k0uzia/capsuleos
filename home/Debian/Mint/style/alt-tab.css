@@ -34,7 +34,7 @@
     padding: calc(var(--head) / 1.2);
     border-radius: calc(var(--head) / 3);
     background: var(--mint-taskbar-bg, rgba(40, 40, 40, 0.92));
-    border: 1px solid var(--menu-accent, #87cf3e);
+    border: 1px solid var(--menu-accent);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .cinnamon-alt-tab__item:hover {
-    border-color: rgba(135, 207, 62, 0.55);
+    border-color: rgba(31, 158, 222, 0.55);
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -73,13 +73,13 @@
 }
 
 .cinnamon-alt-tab__item.is-selected {
-    border-color: var(--menu-accent, #87cf3e);
-    background: rgba(135, 207, 62, 0.15);
+    border-color: var(--menu-accent);
+    background: rgba(31, 158, 222, 0.18);
     transform: scale(1.04);
 }
 
 .cinnamon-alt-tab__item.is-selected:hover {
-    background: rgba(135, 207, 62, 0.22);
+    background: rgba(31, 158, 222, 0.26);
 }
 
 .cinnamon-alt-tab__icon {

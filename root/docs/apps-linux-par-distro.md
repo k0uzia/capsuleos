@@ -52,6 +52,8 @@ Variantes `update_manager` :
 
 ### Linux Mint Cinnamon (`mint`)
 
+**Catalogue alphabétique (VM → file de reproduction)** : [`inventaires/linux-mint-apps-alphabetique.md`](inventaires/linux-mint-apps-alphabetique.md)
+
 | App réelle | ID CapsuleOS | Panel | Menu |
 |---|---|---|---|
 | Nemo | `nemo` | ✅ | ✅ |
@@ -63,6 +65,9 @@ Variantes `update_manager` :
 | Visionneur d’images | `visionneur_images` | 🔶 | ✅ |
 | Visionneur PDF | `visionneur_pdf` | 🔶 | ✅ |
 | Celluloid | `lecteur_multimedia` | 🔶 | ✅ |
+| Calculatrice (GNOME) | `calculator` | favori | ✅ |
+| Capture d'écran (GNOME) | `screenshot` | — | ✅ |
+| Dessin (Drawing) | `drawing` | — | ✅ |
 | Éditeur de texte (xed) | `text_editor` | ⬜ | ⬜ |
 | Logithèque | `update_manager` | ⬜ | ⬜ |
 | Missions CapsuleOS | `checklist` | ✅ | — |

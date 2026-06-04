@@ -1049,7 +1049,12 @@
         const isGnomeStartMenu = slotId === 'mainMenu'
             && !!container.querySelector('#menu-gnome-root');
         if (!isGnomeStartMenu && options.initInteraction !== false) {
-            initWindowInteraction(container, slotId, options);
+            initWindowInteraction(container, slotId, {
+                forceDrag: options.forceDrag === true,
+                requireHeader: options.requireHeader,
+                bounds: options.bounds,
+                dragHandle: options.dragHandle,
+            });
         }
     }
 

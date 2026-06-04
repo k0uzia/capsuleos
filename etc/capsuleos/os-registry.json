@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-02",
+  "updated": "2026-06-04",
   "description": "Répertoire canonique des OS simulés CapsuleOS — source unique pour portail, agents, CI et assets.",
   "tiers": {
     "P0": "Référence pédagogique — figer, ne pas casser",

@@ -71,5 +71,9 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'mainMenu.windowTitle': 'Menu',
     'visionneur_images.windowTitle': "Visionneur d'images",
     'visionneur_pdf.windowTitle': 'Visionneur PDF',
-    'lecteur_multimedia.windowTitle': 'Lecteur multimédia'
+    'lecteur_multimedia.windowTitle': 'Lecteur multimédia',
+    'calculator.windowTitle': 'Calculatrice',
+    'screenshot.windowTitle': 'Capture d\'écran',
+    'drawing.windowTitle': 'Sans titre — Dessin',
+    'text_editor.windowTitle': 'Éditeur de texte'
 };

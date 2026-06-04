@@ -1,0 +1,46 @@
+/**
+ * Tokens Mint-Y-Dark-Aqua (VM 22.3 Zena) — source : cinnamon/cinnamon.css sur la VM.
+ * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
+ */
+body#mint {
+    --texte: #e1e1e1;
+    --menu-accent: #1f9ede;
+    --mint-launcher-running-accent: #1f9ede;
+    --mint-taskbar-bg: #2e2e33;
+    --mint-clock-hover-bg: #303036;
+    --mint-taskbar-item-border-hover: #3c3c44;
+    --mint-tray-separator: rgba(255, 255, 255, 0.12);
+    --mint-tray-color: #e1e1e1;
+    --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.08);
+    --menu-sidebar-bg: #27272b;
+    --menu-cats-bg: #2a2a2f;
+    --menu-apps-bg: #222226;
+    --menu-shell-border: #1a1a1b;
+    --menu-sidebar-separator: #1a1a1b;
+    --menu-item-active-bg: #303036;
+    --menu-shortcut-hover: #303036;
+    --menu-action-hover: #3c3c44;
+    --menu-search-border: #303036;
+    --menu-search-border-focus: #1f9ede;
+    --menuHover: #3c3c44;
+    --menuInput: #303036;
+    --genMenu: #222226;
+    --menuDefaultCcol: #303036;
+    --nemoHC: #303036;
+    --nemoHCB: #3c3c44;
+    --nemoMCSF: #3c3c44;
+    --mint-window-header-border: #303036;
+    --mint-window-header-border-active: #1f9ede;
+    --mint-window-control-border-hover: #1f9ede;
+    --mint-window-control-bg-hover: #3c3c44;
+    --desktop-shortcut-text: #e1e1e1;
+    --desktop-shortcut-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+    --desktop-shortcut-hover-bg: rgba(48, 48, 54, 0.55);
+    --volume-popover-thumb-bg: #1f9ede;
+    --a11y-focus-ring: #1f9ede;
+}
+
+html[data-theme="light"] body#mint {
+    --menu-accent: #1f9ede;
+    --mint-launcher-running-accent: #1f9ede;
+}

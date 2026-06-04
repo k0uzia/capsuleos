@@ -50,7 +50,7 @@ Pour qu’un agent **voie et compare** Cinnamon, Nemo, le panel, etc. avec Capsu
 
 | Prérequis | Action |
 |-----------|--------|
-| **CapsuleOS local** | Depuis la racine du dépôt : `python3 -m http.server 5500 --bind 127.0.0.1` → `http://127.0.0.1:5500/home/Debian/Mint/index.html` |
+| **CapsuleOS local** | `python3 -m http.server 5500 --bind 127.0.0.1` → URL du skin actif (ex. `home/Debian/Mint/index.html` après recréation clone ; voir [`procedure-clonage-os-depuis-vm.md`](root/docs/procedure-clonage-os-depuis-vm.md)) |
 | **VM de référence** | Linux Mint Cinnamon (live ou installé) accessible en **noVNC** depuis la machine où tourne Cursor |
 | **Certificat Proxmox** | Ouvrir une fois `https://<ip>:8006` dans le **navigateur intégré Cursor** et accepter le certificat (sinon `chrome-error://chromewebdata/`) |
 | **Console noVNC** | Laisser l’onglet ouvert sur l’URL du type `…?console=kvm&novnc=1&vmid=…&vmname=Mint&node=…` |

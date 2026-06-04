@@ -1,14 +1,69 @@
 <main id="xedApp" class="xed-app" aria-label="Éditeur de texte">
 
-    <nav class="xed-app__menubar" aria-label="Menus">
-        <span class="xed-app__menu-item" role="presentation">Fichier</span>
-        <span class="xed-app__menu-item" role="presentation">Édition</span>
-        <span class="xed-app__menu-item" role="presentation">Rechercher</span>
-        <span class="xed-app__menu-item" role="presentation">Affichage</span>
-        <span class="xed-app__menu-item" role="presentation">Documents</span>
+    <nav class="xed-app__menubar" role="menubar" aria-label="Menus">
+
+        <div class="xed-menu" role="none">
+            <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Fichier</button>
+            <ul class="xed-menu__dropdown" role="menu" hidden>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new">Nouveau<span class="xed-menu__sc">Ctrl+N</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="open">Ouvrir…<span class="xed-menu__sc">Ctrl+O</span></button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save">Enregistrer<span class="xed-menu__sc">Ctrl+S</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save-as">Enregistrer sous…<span class="xed-menu__sc">Ctrl+Maj+S</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="revert">Recharger<span class="xed-menu__sc">Ctrl+R</span></button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="close">Fermer<span class="xed-menu__sc">Ctrl+W</span></button></li>
+            </ul>
+        </div>
+
+        <div class="xed-menu" role="none">
+            <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Édition</button>
+            <ul class="xed-menu__dropdown" role="menu" hidden>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="undo">Annuler<span class="xed-menu__sc">Ctrl+Z</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="redo">Rétablir<span class="xed-menu__sc">Ctrl+Y</span></button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="cut">Couper<span class="xed-menu__sc">Ctrl+X</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="copy">Copier<span class="xed-menu__sc">Ctrl+C</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="paste">Coller<span class="xed-menu__sc">Ctrl+V</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="delete">Supprimer</button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="select-all">Tout sélectionner<span class="xed-menu__sc">Ctrl+A</span></button></li>
+            </ul>
+        </div>
+
+        <div class="xed-menu" role="none">
+            <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Rechercher</button>
+            <ul class="xed-menu__dropdown" role="menu" hidden>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="find">Rechercher…<span class="xed-menu__sc">Ctrl+F</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="find-next">Rechercher suivant<span class="xed-menu__sc">Ctrl+G</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="replace">Remplacer…<span class="xed-menu__sc">Ctrl+H</span></button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="goto-line">Aller à la ligne…<span class="xed-menu__sc">Ctrl+I</span></button></li>
+            </ul>
+        </div>
+
+        <div class="xed-menu" role="none">
+            <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Affichage</button>
+            <ul class="xed-menu__dropdown" role="menu" hidden>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="toggle-toolbar">Barre d'outils</button></li>
+                <li role="none"><button type="button" class="xed-menu__item xed-menu__item--checked" role="menuitem" data-xed-action="toggle-statusbar" aria-checked="true">Barre d'état</button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="toggle-wrap">Retour à la ligne automatique</button></li>
+            </ul>
+        </div>
+
+        <div class="xed-menu" role="none">
+            <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Documents</button>
+            <ul class="xed-menu__dropdown" role="menu" hidden>
+                <li role="none"><button type="button" class="xed-menu__item xed-menu__item--checked" role="menuitem" data-xed-doc="0" disabled aria-disabled="true">Sans titre</button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new">Nouveau document</button></li>
+            </ul>
+        </div>
+
     </nav>
 
-    <header class="xed-app__toolbar" aria-label="Barre d'outils">
+    <header class="xed-app__toolbar" id="xed-toolbar" aria-label="Barre d'outils">
         <button type="button" class="xed-app__tool" data-xed-action="new" title="Nouveau">Nouveau</button>
         <button type="button" class="xed-app__tool" data-xed-action="open" title="Ouvrir">Ouvrir</button>
         <button type="button" class="xed-app__tool" data-xed-action="save" title="Enregistrer">Enregistrer</button>
@@ -28,11 +83,12 @@
             data-capsule-attr="placeholder:text_editor.placeholder"
             placeholder="Saisissez votre texte…"
             spellcheck="true"
+            wrap="off"
             aria-label="Zone de saisie"
         ></textarea>
     </div>
 
-    <footer class="xed-app__status" aria-label="Barre d'état">
+    <footer class="xed-app__status" id="xed-statusbar" aria-label="Barre d'état">
         <span class="xed-app__status-pos" id="xed-status-pos">Ligne 1, Col 1</span>
         <span class="xed-app__status-chars" id="xed-status-chars">0 caractères</span>
         <span class="xed-app__status-encoding">UTF-8</span>

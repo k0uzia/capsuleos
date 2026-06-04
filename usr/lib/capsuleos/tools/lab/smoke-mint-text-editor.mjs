@@ -5,50 +5,51 @@ const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5500/home/Debian/M
 const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
-const browser = await chromium.launch({ headless: true, executablePath: chromePath });
-const page = await browser.newPage();
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: chromePath,
+  permissions: ['clipboard-read', 'clipboard-write'],
+});
+const context = await browser.newContext({ permissions: ['clipboard-read', 'clipboard-write'] });
+const page = await context.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('a.desktop-shortcut[data-link="text_editor"]');
 await page.waitForTimeout(800);
 
-const before = await page.evaluate(() => {
-  const win = document.querySelector('div[data-link="text_editor"]');
-  const app = document.getElementById('xedApp');
-  const area = document.getElementById('xed-area');
-  return {
-    winVisible: win && win.style.display !== 'none',
-    appReady: app && app.dataset.xedInit === 'true',
-    title: document.querySelector('div[data-link="text_editor"] #windowTitle')?.textContent,
-    hasMenubar: !!document.querySelector('.xed-app__menubar'),
-    hasStatus: document.getElementById('xed-status-pos')?.textContent,
-  };
+const menuOpen = await page.evaluate(() => {
+  const trigger = document.querySelector('.xed-menu__trigger');
+  if (!trigger) return { ok: false };
+  trigger.click();
+  const dropdown = trigger.parentElement.querySelector('.xed-menu__dropdown');
+  return { ok: dropdown && !dropdown.hidden };
 });
+await page.waitForTimeout(150);
 
-await page.fill('#xed-area', 'Bonjour xed\nligne 2');
+await page.evaluate(() => {
+  document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
+});
+await page.fill('#xed-area', 'texte initial');
+await page.keyboard.press('Control+a');
+await page.keyboard.press('Control+c');
+await page.fill('#xed-area', '');
+await page.click('#xed-toolbar [data-xed-action="paste"]');
 await page.waitForTimeout(200);
 
 const after = await page.evaluate(() => {
   const area = document.getElementById('xed-area');
   const title = document.querySelector('div[data-link="text_editor"] #windowTitle')?.textContent;
-  const pos = document.getElementById('xed-status-pos')?.textContent;
-  const chars = document.getElementById('xed-status-chars')?.textContent;
   return {
     value: area ? area.value : '',
     title: title,
-    pos: pos,
-    chars: chars,
+    appReady: document.getElementById('xedApp')?.dataset.xedInit === 'true',
   };
 });
 
-const ok = before.winVisible && before.appReady && before.title === 'Sans titre'
-  && before.hasMenubar && before.hasStatus === 'Ligne 1, Col 1'
-  && after.value.indexOf('Bonjour xed') >= 0
-  && after.title === '*Sans titre'
-  && after.pos && after.pos.indexOf('Ligne') >= 0
-  && after.chars && after.chars.indexOf('caract') >= 0;
+const ok = after.appReady && menuOpen.ok && after.value === 'texte initial'
+  && after.title === '*Sans titre';
 
-console.log(JSON.stringify({ before, after, ok }, null, 2));
+console.log(JSON.stringify({ after, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

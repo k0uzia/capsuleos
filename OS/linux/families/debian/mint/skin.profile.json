@@ -30,11 +30,28 @@
     "CAPSULE_STRINGS_URL": "./content/strings.json",
     "CAPSULE_EXPLORER_DISPLAY_NAME": "Nemo",
     "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+    "CAPSULE_EXPLORER_LIST_VIEW": true,
     "CAPSULE_EMBED_SKIN_KEY": "mint",
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
-    "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist"
+    "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+    "CAPSULE_WINDOW_CONTEXT": {
+      "family": "linux",
+      "draggable": true,
+      "resizable": true,
+      "forceOnOpen": true,
+      "requireHeader": true,
+      "headerLayout": "capsule",
+      "edgeTiling": true,
+      "skipSlots": ["mainMenu"],
+      "bounds": {
+        "mainSelector": "object#desktop, #desktop",
+        "desktopSelector": "object#desktop, #desktop",
+        "footerSelector": "footer, #tableau",
+        "subtractFooter": false
+      }
+    }
   }
 }

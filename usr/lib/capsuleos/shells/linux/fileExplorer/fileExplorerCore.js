@@ -275,6 +275,9 @@ const findFolderLabel = (path) => {
 const isDolphinTemplate = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.dolphin-app`);
 window.isDolphinTemplate = isDolphinTemplate;
 
+const isNemoTemplate = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.nemo-app`);
+window.isNemoTemplate = isNemoTemplate;
+
 const isCosmicFilesExplorer = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.cosmic-files-app`);
 
 const usesNemoListView = () => (
@@ -307,7 +310,7 @@ const isGnomeFilesExplorer = () => (
     && window.CAPSULE_EXPLORER_SKIN_KEY === 'files'
 );
 
-const usesSidebarSelection = () => isDolphinTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
+const usesSidebarSelection = () => isDolphinTemplate() || isNemoTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
 
 const formatCosmicModifiedLabel = () => {
     const now = new Date();
@@ -436,8 +439,22 @@ const updateDolphinFolderPill = (folderNode, paneId = 'primary') => {
 window.countFoldersInItems = countFoldersInItems;
 window.formatDolphinFolderPill = formatDolphinFolderPill;
 
+const getExplorerTitleSuffix = () => {
+    if (isDolphinTemplate()) {
+        return ' - Dolphin';
+    }
+    if (isNemoTemplate() || usesNemoListView()) {
+        const display = typeof window !== 'undefined' && window.CAPSULE_EXPLORER_DISPLAY_NAME
+            ? String(window.CAPSULE_EXPLORER_DISPLAY_NAME)
+            : 'Nemo';
+        return ` - ${display}`;
+    }
+    return '';
+};
+
 const updateExplorerWindowTitle = () => {
-    if (!isDolphinTemplate()) {
+    const suffix = getExplorerTitleSuffix();
+    if (!suffix) {
         return;
     }
     const nemoRoot = getExplorerWindowSlot();
@@ -452,7 +469,7 @@ const updateExplorerWindowTitle = () => {
         ? fileExplorerState.secondaryPath
         : fileExplorerState.currentPath;
     const label = findFolderLabel(activePath);
-    windowTitle.textContent = `${label} - Dolphin`;
+    windowTitle.textContent = `${label}${suffix}`;
 };
 
 window.updateExplorerWindowTitle = updateExplorerWindowTitle;
@@ -1490,3 +1507,10 @@ window.createFolderInExplorer = createFolderInExplorer;
 window.moveExplorerItem = moveExplorerItem;
 window.copyExplorerItem = copyExplorerItem;
 window.persistExplorerManifest = persistExplorerManifest;
+
+window.getExplorerCurrentPath = function getExplorerCurrentPath(slotId) {
+    if (slotId && slotId !== 'nemo') {
+        return '';
+    }
+    return fileExplorerState.currentPath || '';
+};

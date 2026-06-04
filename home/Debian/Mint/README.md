@@ -11,3 +11,5 @@
 - **Dérivation Debian :** copier la structure Mint, ajuster `body#…`, tokens `--mint-*` et `*.skin.css` ; réutiliser le noyau `usr/lib/capsuleos/shells/linux/`
 
 Test local : `python3 -m http.server 8765` à la racine du dépôt → http://127.0.0.1:8765/home/Debian/Mint/index.html
+
+Après modification du skin, régénérer la façade pick-os : `node usr/lib/capsuleos/tools/linux/build-linux-facades.mjs` (sinon l’accueil sert une copie HTML obsolète sous `OS/linux/families/debian/mint/`).

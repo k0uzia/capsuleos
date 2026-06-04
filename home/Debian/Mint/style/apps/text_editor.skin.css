@@ -45,12 +45,40 @@ body#mint .xed-app__status {
     border-color: var(--xed-border);
 }
 
-body#mint .xed-app__menu-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+body#mint .xed-menu__trigger:hover,
+body#mint .xed-menu__trigger[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--xed-border);
 }
 
-html[data-theme="light"] body#mint .xed-app__menu-item:hover {
-    background: rgba(0, 0, 0, 0.05);
+body#mint .xed-menu__dropdown {
+    background: #3a3a40;
+    border-color: var(--xed-border);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+body#mint .xed-menu__item {
+    color: var(--xed-text);
+}
+
+body#mint .xed-menu__item:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body#mint .xed-menu__sep {
+    background: var(--xed-border);
+}
+
+html[data-theme="light"] body#mint .xed-menu__dropdown {
+    background: #f8f8f8;
+}
+
+html[data-theme="light"] body#mint .xed-menu__item {
+    color: #1a1a1a;
+}
+
+html[data-theme="light"] body#mint .xed-menu__item:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.06);
 }
 
 body#mint .xed-app__toolbar-sep {

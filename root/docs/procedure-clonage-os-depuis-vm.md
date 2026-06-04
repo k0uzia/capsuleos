@@ -170,7 +170,7 @@ Suivre [`ajouter-os-scalable.md`](ajouter-os-scalable.md) §2–4 en **alignant*
 | Façade URL stable | `OS/linux/families/.../index.html` avec **`<base href>` vers le skin** |
 | Miroir pédagogique | `home/<Vendor>/` |
 
-**Leçon Mint** : ne **pas** dupliquer tout le HTML du skin dans `OS/linux/...` — la façade ne fait que pointer vers `home/` via `<base href>`. Sinon `validate-link-integrity` échoue.
+**Leçon Mint** : ne **pas** éditer à la main le HTML dupliqué sous `OS/linux/...` — régénérer depuis le skin avec `node usr/lib/capsuleos/tools/linux/build-linux-facades.mjs` (injecte `<base href>` vers `home/`). Sinon l’accueil pick-os sert une version périmée.
 
 Exemple façade :
 

@@ -19,7 +19,7 @@ const MINT_INDEX = path.join(ROOT, 'home/Debian/Mint/index.html');
 const MENU_DATA = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mainMenu-data.js');
 
 const SLOT_STATUS = {
-  nemo: { statut: 'ok', slot: 'nemo', note: 'Explorateur Nemo — embed + skin' },
+  nemo: { statut: 'ok', slot: 'nemo', note: 'Nemo — sidebar Places, titre dynamique, getExplorerCurrentPath' },
   firefox: { statut: 'ok', slot: 'firefox', note: 'Navigateur' },
   terminal: { statut: 'ok', slot: 'terminal', note: 'gnome-terminal' },
   themes: { statut: 'partiel', slot: 'themes', note: 'cinnamon-settings — UI minimale' },

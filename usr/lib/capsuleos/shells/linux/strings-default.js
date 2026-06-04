@@ -73,5 +73,6 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'calculator.windowTitle': 'Calculatrice',
     'screenshot.windowTitle': 'Capture d\'écran',
     'drawing.windowTitle': 'Sans titre — Dessin',
+    'file_roller.windowTitle': 'Gestionnaire d\'archives',
     'text_editor.windowTitle': 'Éditeur de texte'
 };

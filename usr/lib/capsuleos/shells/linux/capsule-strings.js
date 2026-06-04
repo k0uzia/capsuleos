@@ -85,6 +85,7 @@ function buildWindowTitles(merged) {
         calculator: m['calculator.windowTitle'] || 'Calculatrice',
         screenshot: m['screenshot.windowTitle'] || 'Capture d\'écran',
         drawing: m['drawing.windowTitle'] || 'Sans titre — Dessin',
+        file_roller: m['file_roller.windowTitle'] || 'Gestionnaire d\'archives',
         text_editor: m['text_editor.windowTitle'] || 'Éditeur de texte'
     };
 }

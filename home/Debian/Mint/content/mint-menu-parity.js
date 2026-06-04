@@ -48,6 +48,10 @@
                 app.dataLink = 'drawing';
                 app.icon = './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png';
             }
+            if (app.name === 'Gestionnaire d\'archives') {
+                app.dataLink = 'file_roller';
+                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.FileRoller.png';
+            }
         });
         var hasScreenshot = false;
         var ai;

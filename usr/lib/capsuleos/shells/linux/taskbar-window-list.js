@@ -23,6 +23,7 @@
         calculator: 'Calculatrice',
         screenshot: 'Capture d\'écran',
         drawing: 'Dessin',
+        file_roller: 'Gestionnaire d\'archives',
         'Dossier personnel': 'Dossier personnel',
     };
 

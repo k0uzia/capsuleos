@@ -1,0 +1,43 @@
+/**
+ * File Roller — Linux Mint Cinnamon (GTK Mint-Y-Aqua, contenu clair).
+ */
+body#mint {
+    --fr-bg: #ffffff;
+    --fr-text: #2e2e2e;
+    --fr-muted: #5c5c5c;
+    --fr-header-bg: #ebebeb;
+    --fr-nav-bg: #f3f3f3;
+    --fr-border: #d4d4d4;
+    --fr-btn-bg: #f6f6f6;
+    --fr-btn-hover: #ffffff;
+    --fr-btn-border: #c8c8c8;
+    --fr-btn-border-hover: #b0b0b0;
+    --fr-icon: #3d3d3d;
+    --fr-table-head: #fafafa;
+    --fr-row-hover: #edf5ff;
+    --fr-row-border: #ececec;
+    --fr-chrome-bg: #ebebeb;
+    --fr-chrome-text: #2e2e2e;
+}
+
+body#mint div[data-link="file_roller"].windowElement {
+    width: min(calc(var(--head) * 10.5), 92vw);
+    min-width: calc(var(--head) * 8);
+    height: min(calc(var(--head) * 9.3), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
+    min-height: calc(var(--head) * 7);
+}
+
+body#mint div[data-link="file_roller"] #windowHeader {
+    background: var(--fr-chrome-bg);
+    border-bottom: 1px solid var(--fr-border);
+}
+
+body#mint div[data-link="file_roller"] #windowTitle {
+    color: var(--fr-chrome-text);
+}
+
+body#mint main#fileRollerApp {
+    background: var(--fr-bg);
+    color: var(--fr-text);
+}
+

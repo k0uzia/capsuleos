@@ -10,6 +10,7 @@
         calculator: 'Calculatrice',
         screenshot: 'Capture d\'écran',
         drawing: 'Sans titre — Dessin',
+        file_roller: 'Gestionnaire d\'archives',
     };
 
     const WINDOW_TASK_MAP = {

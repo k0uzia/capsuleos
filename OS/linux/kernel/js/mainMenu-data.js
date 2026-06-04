@@ -25,7 +25,7 @@ const MENU_APPS = [
     // Accessoires
     { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/accessories-calculator.png',      name: 'Calculatrice',                desc: 'Effectuez des calculs',                    dataLink: null        },
     { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/accessories-text-editor.png',     name: 'Éditeur de texte',            desc: 'Éditez des fichiers texte',                dataLink: null        },
-    { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/archive-manager.png',             name: 'Gestionnaire d\'archives',    desc: 'Créez et modifiez des archives',           dataLink: null        },
+    { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/org.gnome.FileRoller.png',        name: 'Gestionnaire d\'archives',    desc: 'Créez et modifiez des archives',           dataLink: 'file_roller' },
     { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/accessories-system-cleaner.png',  name: 'Outil de nettoyage',          desc: 'Nettoyez le système',                      dataLink: null        },
     // Bureautique
     { catId: 'bureau',   icon: './assets/images/toolkits/cinnamon/apps/libreoffice-calc.png',            name: 'LibreOffice Calc',            desc: 'Tableur',                                  dataLink: null        },

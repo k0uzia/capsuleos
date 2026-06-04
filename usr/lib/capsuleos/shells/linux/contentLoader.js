@@ -300,6 +300,11 @@ const SLOT_INIT_HANDLERS = {
             initDrawingApp();
         }
     },
+    file_roller: () => {
+        if (typeof initFileRollerApp === 'function') {
+            initFileRollerApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

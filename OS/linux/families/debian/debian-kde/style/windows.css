@@ -19,21 +19,21 @@ html[data-theme="light"] #debian-kde #windowTitle {
 
 /* Assure que les icônes des boutons existent aussi en file:// (CSS url ne passe pas par resolveCapsuleResourceUrl) */
 body#debian-kde #minimizeBtn {
-    background-image: url(../media/img/header/minimize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg);
 }
 
 body#debian-kde #resizeBtn {
-    background-image: url(../media/img/header/maximize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/maximize.svg);
     background-size: calc(var(--head) / 2.55);
 }
 
 body#debian-kde .windowElement[data-maximized="true"] #resizeBtn {
-    background-image: url(../media/img/header/restore.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/restore.svg);
     background-size: calc(var(--head) / 2.55);
 }
 
 body#debian-kde #closeBtn {
-    background-image: url(../media/img/header/close.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/close.svg);
 }
 
 /* Boutons réduire / plein écran / fermer visibles en thème clair */

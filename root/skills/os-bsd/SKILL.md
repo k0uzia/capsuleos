@@ -10,7 +10,7 @@ description: Expert on CapsuleOS simulated BSD variants under OS/bsd—FreeBSD, 
 | Zone | Chemin |
 |------|--------|
 | Façade | `OS/bsd/` (ex. sous-dossiers par variante) |
-| Icônes | `usr/share/capsuleos/branding/icons/bsd/` (`freebsd.png`, `ghostbsd.png`, …) |
+| Icônes | `./assets/images/platforms/pick-os/bsd/` (`freebsd.png`, `ghostbsd.png`, …) |
 
 ## Extension
 

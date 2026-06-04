@@ -85,9 +85,6 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
     }
-    if (templateId === 'dolphin') {
-        return '../../../../../modules/app/dolphin/dolphin.html';
-    }
     return `${appsBase}/${templateId}.html`;
 };
 
@@ -115,9 +112,7 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
 
     const htmlFile = resolveTemplateHtmlFile(templateId, appsBase);
     const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
-    const cssBaseFile = templateId === 'dolphin'
-        ? '../../../../../modules/app/dolphin/dolphin.base.css'
-        : `${appsBase}/style/${cssBaseTemplateId}.base.css`;
+    const cssBaseFile = `${appsBase}/style/${cssBaseTemplateId}.base.css`;
 
     const resolveEmbedHtml = () => {
         if (!embed || !embed.templates || !embed.templates[templateId]) {
@@ -213,7 +208,9 @@ const SLOT_INIT_HANDLERS = {
     nemo: () => {
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
-            : './apps/system/Dossier_personnel';
+            : (typeof window !== 'undefined' && window.CapsuleUserHome)
+                ? window.CapsuleUserHome.fromRepoDepth(3)
+                : './apps/system/Dossier_personnel';
         runFirstAvailable([
             { fn: typeof window.refreshDolphinShellLayout === 'function' ? window.refreshDolphinShellLayout : null }
         ]);
@@ -224,6 +221,9 @@ const SLOT_INIT_HANDLERS = {
         runFirstAvailable([
             { fn: typeof loadFileExplorerDirectory === 'function' ? loadFileExplorerDirectory : null, args: [contentRoot] },
             { fn: typeof loadDirectory === 'function' ? loadDirectory : null, args: [contentRoot] }
+        ]);
+        runFirstAvailable([
+            { fn: typeof initFileExplorerDnD === 'function' ? initFileExplorerDnD : null }
         ]);
     },
     terminal: () => {
@@ -295,7 +295,14 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
     const resolvedCssBase = rewriteUrls(cssBase);
     const resolvedCssSkin = cssSkin ? rewriteUrls(cssSkin) : '';
 
+    const preservedHeader = motionless.querySelector(':scope > #windowHeader');
+    const headerClone = preservedHeader ? preservedHeader.cloneNode(true) : null;
+
     motionless.innerHTML = resolvedHtml;
+
+    if (headerClone) {
+        motionless.insertBefore(headerClone, motionless.firstChild);
+    }
 
     if (typeof window.applyCapsuleStrings === 'function' && typeof window !== 'undefined' && window.CAPSULE_STRINGS_MERGED) {
         window.applyCapsuleStrings(motionless, window.CAPSULE_STRINGS_MERGED);
@@ -309,6 +316,16 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
     const initSlot = SLOT_INIT_HANDLERS[slotId];
     if (typeof initSlot === 'function') {
         initSlot(motionless, slotId, templateId);
+    }
+
+    if (typeof window.ensureWindowChromeAfterSlotInject === 'function') {
+        window.ensureWindowChromeAfterSlotInject(motionless, slotId);
+    }
+
+    if (typeof document !== 'undefined') {
+        document.dispatchEvent(new CustomEvent('capsule:slot-injected', {
+            detail: { container: motionless, slotId: slotId, templateId: templateId },
+        }));
     }
 };
 
@@ -330,7 +347,7 @@ const startCapsuleContentLoad = () => {
                     : {};
             }
 
-            divs.forEach((div) => {
+            const slotLoads = Array.from(divs).map((div) => {
                 const slotId = div.getAttribute('data-link');
                 const templateId = resolveTemplateId(slotId);
                 const skinId = resolveSkinId(slotId, templateId);
@@ -339,7 +356,7 @@ const startCapsuleContentLoad = () => {
                 const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
                 const cssSkinFallbackFile = skinBase ? `${skinBase}/style/apps/${templateId}.skin.css` : null;
 
-                loadSlotAssets(templateId, skinId, appsBase, cssSkinFile, cssSkinFallbackFile)
+                return loadSlotAssets(templateId, skinId, appsBase, cssSkinFile, cssSkinFallbackFile)
                     .then(({ html, cssBase, cssSkin }) => {
                         injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
                     })
@@ -347,6 +364,13 @@ const startCapsuleContentLoad = () => {
                         console.error('Erreur lors du chargement des fichiers:', error);
                         div.innerHTML = '<section style="padding:12px;font-family:sans-serif;">Impossible de charger ce module. Vérifiez que les fichiers de l’application sont présents ou régénérez capsule-app-embed.js (voir README).</section>';
                     });
+            });
+
+            Promise.all(slotLoads).then(() => {
+                if (typeof window.CapsuleLinuxWindowContext !== 'undefined'
+                    && typeof window.CapsuleLinuxWindowContext.boot === 'function') {
+                    window.CapsuleLinuxWindowContext.boot();
+                }
             });
         })
         .catch((err) => {

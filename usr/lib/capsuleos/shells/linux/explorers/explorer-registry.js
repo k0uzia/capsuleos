@@ -73,7 +73,7 @@
 
     function getProfile(templateId) {
         const id = resolveTemplateId(templateId);
-        return { id, ...PROFILES[id] };
+        return Object.assign({ id: id }, PROFILES[id]);
     }
 
     function resolveActiveProfile() {

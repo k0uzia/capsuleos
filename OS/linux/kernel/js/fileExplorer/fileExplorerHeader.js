@@ -1,14 +1,28 @@
 /**
  * Menubar explorateur (.menuHeader / .listeSousMenu).
- * Appeler bindFileExplorerMenubar(#nemo) après injection du gabarit (contentLoader).
+ * Appeler bindFileExplorerMenubar(slot explorateur) après injection du gabarit (contentLoader).
  */
 (function initFileExplorerMenubar() {
+    const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement#nemo[data-link="nemo"]';
+
+    function getExplorerWindowSlot() {
+        if (typeof document === 'undefined') {
+            return null;
+        }
+        return document.getElementById('nemo')
+            || document.querySelector(EXPLORER_WINDOW_SLOT_SELECTOR);
+    }
+
+    if (typeof window !== 'undefined') {
+        window.getExplorerWindowSlot = getExplorerWindowSlot;
+        window.EXPLORER_WINDOW_SLOT_SELECTOR = EXPLORER_WINDOW_SLOT_SELECTOR;
+    }
     const getMenuItemLabel = (link) => {
         if (!link) {
             return '';
         }
         const li = link.querySelector('li');
-        return (li?.textContent || link.textContent || '').replace(/\s+/g, ' ').trim();
+        return ((li == null ? void 0 : li.textContent) || link.textContent || '').replace(/\s+/g, ' ').trim();
     };
 
     const closeAllSubmenus = (scope, except) => {
@@ -50,8 +64,11 @@
             return;
         }
 
-        const menubar = scope.querySelector('.nemo-app__menubar, .menuOutils');
-        if (!menubar) {
+        const menubar = scope.querySelector('.nemo-app__menubar');
+        if (!menubar || typeof window.getComputedStyle !== 'function') {
+            return;
+        }
+        if (window.getComputedStyle(menubar).display === 'none') {
             return;
         }
 

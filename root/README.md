@@ -2,6 +2,8 @@
 
 Répertoire **métaphorique** (racine Linux du dépôt), distinct du `/root` système de la machine hôte. Il regroupe la documentation humaine et les **skills Cursor** pour composer une équipe d’agents : design, développement, gestion, graphisme, web design, intégration, et expertise par famille d’OS simulée.
 
+**Point d’entrée contributeur (racine dépôt)** : [contrib.md](../contrib.md)
+
 ## Arborescence
 
 ```
@@ -11,6 +13,11 @@ root/
 ├── docs/              ← contexte architecture (français)
 ├── team/              ← fiches rôles humains
 └── skills/            ← SKILL.md (convention Cursor)
+    ├── onboarding/
+    ├── link-routing/
+    ├── kernel-supervisor/
+    ├── asset-pipeline/
+    ├── kernel-guardian/
     ├── coordinator/
     ├── role-*/
     ├── os-orchestrator/
@@ -19,10 +26,12 @@ root/
 
 ## Démarrage agent
 
-1. Lire [AGENTS.md](AGENTS.md).
-2. Respecter le contrat applicatif : [`writing.md`](../../writing.md) (racine workspace) — **ne pas le dupliquer** ici.
-3. Checklist release : [`CONTRACT_CHECKLIST.md`](../CONTRACT_CHECKLIST.md).
-4. Charger le skill **rôle** + skill **OS** pertinents sous `skills/`.
+1. Skill **[onboarding](skills/onboarding/SKILL.md)** + [parcours-agent.md](docs/parcours-agent.md) (H0→H6).
+2. Lire [AGENTS.md](AGENTS.md) pour le routage skills.
+3. Contrat : [`writing.md`](../../writing.md) · [checklist](../contrib.md#checklist-contrat-avant-merge-ou-release) dans [`contrib.md`](../contrib.md).
+4. Gate : `node usr/lib/capsuleos/tools/validate-all.mjs`.
+5. Nouveau catalogue OS : [ajouter-os-scalable.md](docs/ajouter-os-scalable.md) · brief `print-agent-brief.mjs <id>`.
+6. Charger skill **rôle** + skill **OS** (ou `kernel-supervisor` si assets).
 
 ## Rôles (`skills/role-*`)
 
@@ -34,7 +43,10 @@ root/
 | [role-graphic-artist](skills/role-graphic-artist/SKILL.md) | Icônes, assets, `.skin.css`, médias |
 | [role-web-designer](skills/role-web-designer/SKILL.md) | Mise en page, variables CSS, responsive |
 | [role-integrator](skills/role-integrator/SKILL.md) | Skins, `OS/` ↔ `home/`, manifests, embeds |
-| [coordinator](skills/coordinator/SKILL.md) | Délégation multi-rôles / multi-OS |
+| [kernel-supervisor](skills/kernel-supervisor/SKILL.md) | Migration assets noyau, gate validate-asset-zones, orchestration |
+| [asset-pipeline](skills/asset-pipeline/SKILL.md) | Copie / rewrite / manifest sous mandat superviseur |
+| [kernel-guardian](skills/kernel-guardian/SKILL.md) | Intégrité JS noyau, embeds, régression Mint |
+| [coordinator](skills/coordinator/SKILL.md) | Délégation multi-rôles / multi-OS (produit) |
 
 ## OS (`skills/os-*`)
 
@@ -56,7 +68,13 @@ Index détaillé : [docs/familles-os.md](docs/familles-os.md).
 
 ## Documentation
 
-- [LINUX-GUI-TOOLKITS.md](../LINUX-GUI-TOOLKITS.md) — toolkits graphiques Linux (GTK, Qt, Cinnamon, COSMIC) pour agents UX/CSS
+- [docs/manifeste-noyau.md](docs/manifeste-noyau.md) — vision noyau, hydratation, assets
+- [docs/repertoire-os.md](docs/repertoire-os.md) — catalogue OS (52 entrées, tiers P0–P4)
+- [docs/scalabilite-noyau.md](docs/scalabilite-noyau.md) — scale statique, embeds partitionnés
+- [docs/equipe-agentique.md](docs/equipe-agentique.md) — staffing agents à l'échelle
+- [docs/parcours-agent.md](docs/parcours-agent.md) — formation H0–H6 avant action
+- [docs/ajouter-os-scalable.md](docs/ajouter-os-scalable.md) — distro, version, vendor, toolkit
+- [contrib.md § toolkits Linux](../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) — GTK, Qt, Cinnamon, COSMIC (agents UX/CSS)
 - [docs/roadmap.md](docs/roadmap.md) — plan de livraison et jalons
 - [docs/apps-linux-par-distro.md](docs/apps-linux-par-distro.md) — apps par défaut et mappings Linux
 - [docs/arborescence.md](docs/arborescence.md) — `home/`, `usr/`, `OS/`, `var/`

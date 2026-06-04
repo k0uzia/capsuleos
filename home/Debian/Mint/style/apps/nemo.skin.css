@@ -1,1 +1,47 @@
-/* Surcouche Mint - nemo (optionnel) */
+/* Mint — Nemo : chrome WM (#windowHeader) + toolbar seule + layout colonne stable. */
+
+body#mint div[data-link="nemo"] #nemoHeaderContainer .menuOutils.nemo-app__menubar {
+    display: none;
+}
+
+body#mint div[data-link="nemo"] #nemoHeaderContainer {
+    display: var(--f);
+    flex-flow: var(--cnw);
+    flex-shrink: 0;
+    height: auto;
+    min-height: calc(var(--head) * 1.15);
+    margin-top: 0;
+}
+
+body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__toolbar {
+    flex-shrink: 0;
+}
+
+body#mint div[data-link="nemo"] #windowHeader {
+    flex-shrink: 0;
+    cursor: default;
+}
+
+body#mint div[data-link="nemo"] #windowHeader[data-window-drag-handle] {
+    cursor: grab;
+}
+
+body#mint div[data-link="nemo"] #windowHeader[data-window-drag-handle]:active {
+    cursor: grabbing;
+}
+
+body#mint div[data-link="nemo"] #windowTitle {
+    pointer-events: none;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar a,
+body#mint div[data-link="nemo"] #nemoMainContainer a,
+body#mint div[data-link="nemo"] #nemoFooterContainer button,
+body#mint div[data-link="nemo"] #nemoFooterContainer input {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > .nemoElement {
+    overflow: auto;
+}

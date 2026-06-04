@@ -2,148 +2,148 @@ const fileExplorerSystemLink = {
     'files': {
         //////////////////////////// DOSSIER ////////////////////////////////
         "Dossier_personnel": { 
-            "image": "./media/img/elements/nemo/folder.png"
+            "image": "./assets/icons/cinnamon/nemo/folder.png"
         },
         "Documents": { 
-            "image": "./media/img/elements/nemo/folder-documents.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-documents.png"
         },
         "Images": { 
-            "image": "./media/img/elements/nemo/folder-pictures.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-pictures.png"
         },
         "Musique": { 
-            "image": "./media/img/elements/nemo/folder-music.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-music.png"
         },
         "Public": { 
-            "image": "./media/img/elements/nemo/folder-publicshare.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-publicshare.png"
         },
         "Téléchargements": { 
-            "image": "./media/img/elements/nemo/folder-download.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-download.png"
         },
         "Vidéos": { 
-            "image": "./media/img/elements/nemo/folder-videos.png"
+            "image": "./assets/icons/cinnamon/nemo/folder-videos.png"
         },
         ///////////////////////////// TEXTE /////////////////////////////////
         "pdf": { 
-            "image": "./media/img/mimeTypes/application-pdf.png",
+            "image": "./assets/icons/kde/mimeTypes/application-pdf.png",
             "link": "/*.pdf"
         },
         "doc": { 
-            "image": "./media/img/mimeTypes/application-vnd.ms-word.png",
+            "image": "./assets/icons/kde/mimeTypes/application-vnd.ms-word.png",
             "link": "/*.docx"
         },
         "txt": { 
-            "image": "./media/img/mimeTypes/text-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/text-x-generic.png",
             "link": "/*.txt"
         },
         "sh": { 
-            "image": "./media/img/mimeTypes/text-x-script.png",
+            "image": "./assets/icons/kde/mimeTypes/text-x-script.png",
             "link": "/*.sh"
         },
         "html": { 
-            "image": "./media/img/mimeTypes/text-html.png",
+            "image": "./assets/icons/kde/mimeTypes/text-html.png",
             "link": "/*.html"
         },
         "css": { 
-            "image": "./media/img/mimeTypes/text-css.png",
+            "image": "./assets/icons/kde/mimeTypes/text-css.png",
             "link": "/*.css"
         },
         "js": { 
-            "image": "./media/img/mimeTypes/application-javascript.png",
+            "image": "./assets/icons/kde/mimeTypes/application-javascript.png",
             "link": "/*.js"
         },
         ///////////////////////////// AUDIO ///////////////////////////////// 
         "ogg": { 
-            "image": "./media/img/mimeTypes/audio-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
             "link": "/*.ogg"
         },
         "mp3": { 
-            "image": "./media/img/mimeTypes/audio-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
             "link": "/*.mp3"
         },
         "wav": { 
-            "image": "./media/img/mimeTypes/audio-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/audio-x-generic.png",
             "link": "/*.wav"
         },
         ///////////////////////////// VIDEO ///////////////////////////////
         "mp4": { 
-            "image": "./media/img/mimeTypes/video-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/video-x-generic.png",
             "link": "/*.mp4"
         },
         "avi": { 
-            "image": "./media/img/mimeTypes/video-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/video-x-generic.png",
             "link": "/*.avi"
         },
         ///////////////////////////// PHOTO ///////////////////////////////
         "jpeg": { 
-            "image": "./media/img/mimeTypes/image-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
             "link": "/*.jpeg"
         },
         "jpg": { 
-            "image": "./media/img/mimeTypes/image-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
             "link": "/*.jpg"
         },
         "png": { 
-            "image": "./media/img/mimeTypes/image-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
             "link": "/*.png"
         },
         "webp": { 
-            "image": "./media/img/mimeTypes/image-x-generic.png",
+            "image": "./assets/icons/kde/mimeTypes/image-x-generic.png",
             "link": "/*.webp"
         },
         ///////////////////// AUTRES TYPES DE LIENS ///////////////////////
         "OS": {
-            "image": "../../../../../usr/share/capsuleos/branding/accueil.svg",
+            "image": "../usr/share/capsuleos/assets/images/common/accueil.svg",
             "link": "../../../../../index.html",
             "détails": [
                 "Choisir une distrib"
             ]
         },
         "linux": {
-            "image": "../../../../../usr/share/capsuleos/branding/brands/linux.webp",
+            "image": "../usr/share/capsuleos/assets/images/platforms/brands/linux.webp",
             "link": "../../../../../OS/linux/index.html",
             "détails": [
                 "Tester une distrib Linux"
             ]
         },
         "mint": {
-            "image": "../../../../../usr/share/capsuleos/branding/icons/linux/mint.png",
+            "image": "../usr/share/capsuleos/assets/images/platforms/pick-os/linux/mint.png",
             "link": "../../../../../OS/linux/families/debian/mint/index.html",
             "détails": [
                 "Tester Mint"
             ]
         },
         "apps": {
-            "image": "./media/img/apps/mintinstall.png",
+            "image": "./assets/images/toolkits/cinnamon/apps/mintinstall.png",
             "link": "../../../../../OS/linux/shared/apps/logithèque.html",
             "détails": [
                 "Ouvrir la logithèque"
             ]
         },
         "system": {
-            "image": "./media/img/elements/nemo/folder.png",
+            "image": "./assets/icons/cinnamon/nemo/folder.png",
             "détails": [
                 "Tester Linux"
             ]
         },
         "Retour": { 
-            "image": "./media/img/elements/nemo/undo.svg"
+            "image": "./assets/icons/cinnamon/nemo/undo.svg"
         },
         "Parent": { 
-            "image": "./media/img/elements/nemo/undo.svg"
+            "image": "./assets/icons/cinnamon/nemo/undo.svg"
         },
         "Home": { 
-            "image": "./media/img/elements/nemo/user-home-symbolic.svg"
+            "image": "./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
         },
         "bsd": { 
-            "image": "../../../../../usr/share/capsuleos/branding/brands/bsd.webp",
+            "image": "../usr/share/capsuleos/assets/images/platforms/brands/bsd.webp",
             "link": "../../../../../OS/bsd/ghost/index.html"
         },
         "macos": { 
-            "image": "../../../../../usr/share/capsuleos/branding/brands/macos.webp",
+            "image": "../usr/share/capsuleos/assets/images/platforms/brands/macos.webp",
             "link": "../../../../../OS/macos/sonoma/index.html"
         },
         "windows": { 
-            "image": "../../../../../usr/share/capsuleos/branding/brands/windows.webp",
+            "image": "../usr/share/capsuleos/assets/images/platforms/brands/windows.webp",
             "link": "../../../../../OS/windows/index.html"
         },
     }

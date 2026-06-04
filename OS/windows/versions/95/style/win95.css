@@ -65,7 +65,7 @@ body[data-win-version="95"] footer menu .taskbar-start--classic::before {
     width: 16px;
     height: 14px;
     margin-right: 4px;
-    background: url(../media/img/win95-flag.svg) center / contain no-repeat;
+    background: url(../../../../../usr/share/capsuleos/assets/images/toolkits/windows/95/win95-flag.svg) center / contain no-repeat;
 }
 
 body[data-win-version="95"] footer menu .taskbar-start--classic::after {
@@ -171,7 +171,7 @@ body[data-win-version="95"] #windowHeader > span:first-child {
     height: 14px;
     flex-shrink: 0;
     margin-right: 4px;
-    background: url(../media/img/computer.svg) center / contain no-repeat;
+    background: url(../../../../../usr/share/capsuleos/assets/images/toolkits/windows/95/computer.svg) center / contain no-repeat;
     filter: brightness(1.2);
 }
 

@@ -32,10 +32,12 @@ Templates : `nemo`, `dolphin`, `nautilus`, `nemo-gnome`, `nemo-cosmic`, `nautilu
 ## Variables skin (exemple)
 
 ```html
-window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.fromRepoDepth(3);
+window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.resolveRelative();
 window.CAPSULE_EXPLORER_TEMPLATE = 'nemo';
 window.CAPSULE_EMBED_SKIN_KEY = 'mint';
 ```
+
+Contrats UI bureau : [contrats-ui-bureau.md](../../docs/contrats-ui-bureau.md) · gate `validate-ui-contracts-all.mjs`.
 
 ## Build après changement
 
@@ -44,9 +46,17 @@ node usr/lib/capsuleos/tools/generate-public-manifest.mjs
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
+## Fenêtres (drag / resize)
+
+Skill **`window-desktop`** + [convention-contexte-fenetres.md](../../docs/convention-contexte-fenetres.md). Gate : `validate-linux-window-boot.mjs`.
+
 ## Toolkits graphiques (GTK, Qt, Cinnamon, COSMIC)
 
-Avant toute passe CSS/UX sur un skin Linux : [`LINUX-GUI-TOOLKITS.md`](../../../LINUX-GUI-TOOLKITS.md) (tableau skin ↔ toolkit, tokens, pièges embed).
+Avant toute passe CSS/UX sur un skin Linux : [contrib.md § toolkits](../../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (tableau skin ↔ toolkit, tokens, pièges embed).
+
+## Ajouter une distro / version / vendor
+
+Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md). Gate : `validate-all.mjs`.
 
 ## Rôles fréquents
 

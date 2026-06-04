@@ -1,5 +1,6 @@
 @import url(../../../../../../usr/share/capsuleos/themes/global/reset.css);
 @import url(../../../../../../usr/share/capsuleos/themes/global/variables.css);
+@import url(../../../../../../usr/share/capsuleos/themes/linux/window-chrome.base.css);
 @import url(../../../../kernel/style/variables-linux.css);
 @import url(cosmic-shell/popos-tokens.css?v=20260526a);
 @import url(cosmic-shell/windows-chrome.css?v=20260622c);
@@ -14,3 +15,4 @@
 @import url(cosmic-shell/applications.css?v=20260622c);
 @import url(cosmic-shell/power-menu.css?v=20260622c);
 @import url(cosmic-workstation.css?v=20260622c);
+@import url(cosmic-shell/a11y-popos.css);

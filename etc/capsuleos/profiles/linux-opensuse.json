@@ -1,0 +1,41 @@
+{
+  "id": "linux-opensuse",
+  "version": 1,
+  "family": "linux",
+  "vendor": "opensuse",
+  "displayName": "openSUSE Tumbleweed",
+  "bodyId": "opensuse",
+  "embedKey": "opensuse",
+  "tier": "P1",
+  "status": "active",
+  "paths": {
+    "facade": "OS/linux/families/suse/opensuse/index.html",
+    "skin": "home/SUSE/openSUSE/index.html"
+  },
+  "toolkit": {
+    "id": "kde",
+    "shell": "plasma"
+  },
+  "assets": {
+    "assetsBase": "../../../usr/share/capsuleos/assets",
+    "toolkitPack": "toolkits/kde",
+    "vendorPack": "vendors/opensuse",
+    "iconPacks": [
+      "icons/kde"
+    ]
+  },
+  "capsuleGlobals": {
+    "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+    "CAPSULE_SKIN_BASE": ".",
+    "CAPSULE_STRINGS_URL": "./content/strings.json",
+    "CAPSULE_EXPLORER_DISPLAY_NAME": "Dolphin",
+    "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
+    "CAPSULE_EMBED_SKIN_KEY": "opensuse",
+    "CAPSULE_SITE_HOME": "../../../index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+    "CAPSULE_TERMINAL_PROFILE": "debian",
+    "CAPSULE_EXPLORER_APP_ID": "nemo",
+    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+  }
+}

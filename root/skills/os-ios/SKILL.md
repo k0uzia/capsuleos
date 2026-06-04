@@ -10,7 +10,7 @@ description: Expert on CapsuleOS simulated iOS under OS/ios. Use for iPhone/iPad
 | Zone | Chemin |
 |------|--------|
 | Façade | `OS/ios/` |
-| Branding portail | `assets/brands/ios.webp` (carte accueil ; pas de dossier icons dédié complet — voir `usr/share/capsuleos/branding/icons/README.md`) |
+| Branding portail | `assets/brands/ios.webp` (carte accueil ; pas de dossier icons dédié complet — voir `./assets/images/platforms/pick-os/README.md`) |
 
 ## Extension
 

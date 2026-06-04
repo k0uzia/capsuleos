@@ -5,6 +5,8 @@ description: Routes CapsuleOS work to the correct per-OS skill under root/skills
 
 # Orchestrateur OS CapsuleOS
 
+Si première intervention ou **nouvel OS** : invoquer d’abord `onboarding` ([parcours-agent.md](../../docs/parcours-agent.md)).
+
 ## Choisir un skill enfant
 
 | Indices dans la demande | Skill |
@@ -30,4 +32,13 @@ description: Routes CapsuleOS work to the correct per-OS skill under root/skills
 
 [docs/familles-os.md](../../docs/familles-os.md)
 
-Après routage : charger **un** skill `os-<famille>` + skill `role-*` adapté.
+Après routage :
+
+1. Skill `os-<famille>` (shell, embeds, conventions famille)
+2. Skill `capsuleos-vendor-<vendor>` si vendor connu ([vendors/](../vendors/))
+3. Skill `capsuleos-distro-<registry-id>` pour l’entrée ciblée ([distributions/](../distributions/))
+4. Skill `capsuleos-version-<slug>` si version explicite (Windows 11, Sonoma, …)
+5. Skill `capsuleos-lang-*` selon langage édité
+6. Skill `role-*` adapté
+
+Index : [skills-hierarchie.md](../../docs/skills-hierarchie.md) · `node usr/lib/capsuleos/tools/seed-agent-skills.mjs --write`

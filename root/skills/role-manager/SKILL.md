@@ -1,6 +1,6 @@
 ---
 name: capsuleos-role-manager
-description: Plans CapsuleOS scope, priorities, and contract compliance using CONTRACT_CHECKLIST and writing.md. Use when defining deliverables, release readiness, or scoping multi-OS roadmap work.
+description: Plans CapsuleOS scope, priorities, and contract compliance using contrib.md checklist and writing.md. Use when defining deliverables, release readiness, or scoping multi-OS roadmap work.
 ---
 
 # Manager CapsuleOS
@@ -8,7 +8,7 @@ description: Plans CapsuleOS scope, priorities, and contract compliance using CO
 ## Responsabilités
 
 - Cadrer le périmètre (une famille OS / une skin à la fois si possible).
-- Vérifier alignement **`writing.md`** et **`CONTRACT_CHECKLIST.md`**.
+- Vérifier alignement **`writing.md`** et la [checklist contrat](../../../contrib.md#checklist-contrat-avant-merge-ou-release).
 - Identifier dépendances : manifestes, embeds, SW cache.
 
 ## Avant merge / démo
@@ -20,7 +20,9 @@ description: Plans CapsuleOS scope, priorities, and contract compliance using CO
 
 ## Roadmap OS
 
-Voir `root/docs/familles-os.md` pour l’état des familles (Arch, Slackware, ChromeOS, HarmonyOS = extension).
+Voir `root/docs/roadmap.md` (Phase 0.5 assets noyau bloquante) et `root/docs/familles-os.md` pour l’état des familles.
+
+Migration images incomplète → ne pas prioriser skins tant que `kernel-supervisor` n’a pas validé `validate-asset-zones.mjs`.
 
 ## Délégation multi-équipe
 
@@ -29,4 +31,4 @@ Tâche complexe → skill `coordinator`.
 ## Liens
 
 - Contrat : `writing.md`
-- Checklist : `CONTRACT_CHECKLIST.md`
+- Checklist : [`contrib.md`](../../../contrib.md#checklist-contrat-avant-merge-ou-release)

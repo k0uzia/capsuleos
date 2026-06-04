@@ -31,7 +31,7 @@ HTML5, CSS3, ES6 — **aucun** framework, préprocesseur, ni backend requis. Con
 
 ## Checklist
 
-`CONTRACT_CHECKLIST.md` avant livraison.
+[checklist `contrib.md`](../../../contrib.md#checklist-contrat-avant-merge-ou-release) avant livraison.
 
 ## Pairing
 

@@ -8,7 +8,11 @@ Document vivant — à mettre à jour à chaque jalon ou retour utilisateur.
 - [Applications Linux par distro](apps-linux-par-distro.md) — inventaire apps + mappings `data-link`
 - [Familles d’OS](familles-os.md) — cartographie dépôt
 - [Arborescence](arborescence.md) — flux noyau / skins / embeds
-- [CONTRACT_CHECKLIST.md](../../CONTRACT_CHECKLIST.md) — critères release
+- [Manifeste noyau](manifeste-noyau.md) — hydratation, routage assets
+- [Scalabilité noyau](scalabilite-noyau.md) — jalons S2–S6
+- [Politique assets](politique-assets.md) — zones autorisées, scripts migration
+- [contrib.md § Checklist contrat](../../contrib.md#checklist-contrat-avant-merge-ou-release) — critères release
+- Skill agents : [kernel-supervisor](../skills/kernel-supervisor/SKILL.md), [asset-pipeline](../skills/asset-pipeline/SKILL.md)
 
 ---
 
@@ -21,7 +25,7 @@ Un jalon est **réussi** lorsque :
 1. Un conseiller numérique peut guider un public illectronique sur **au moins un bureau complet** sans serveur HTTP (double-clic / offline SW).
 2. Les **applications par défaut** du système cible sont reconnaissables (noms, icônes, emplacement shell).
 3. Le parcours **checklist / missions** est adapté au vocabulaire local (Nemo vs Dolphin vs Fichiers).
-4. La [checklist contrat](../../CONTRACT_CHECKLIST.md) est validée pour les skins livrés.
+4. La [checklist contrat](../../contrib.md#checklist-contrat-avant-merge-ou-release) est validée pour les skins livrés.
 
 ---
 
@@ -66,6 +70,7 @@ Un jalon est **réussi** lorsque :
 
 - Premier commit et historique Git à formaliser (Phase 0).
 - `.gitignore` `.cursor/` en place.
+- **Juin 2026** : répertoire OS scalable — `etc/capsuleos/os-registry.json` (52 entrées), docs [manifeste-noyau](docs/manifeste-noyau.md), [repertoire-os](docs/repertoire-os.md), [scalabilite-noyau](docs/scalabilite-noyau.md), [equipe-agentique](docs/equipe-agentique.md), arborescence `usr/share/capsuleos/assets/`.
 
 ---
 
@@ -74,7 +79,7 @@ Un jalon est **réussi** lorsque :
 Checklist applicable à **chaque** bureau Linux avant badge « complet » sur le hub :
 
 - [ ] Façade `OS/linux/families/...` et skin `home/...` synchronisées (ou `<base href>` documenté)
-- [ ] Variables `CAPSULE_*` conformes ([CONTRACT_CHECKLIST](../../CONTRACT_CHECKLIST.md) § Linux)
+- [ ] Variables `CAPSULE_*` conformes ([contrib.md § Linux](../../contrib.md#linux-capsuleos--oslinux))
 - [ ] Shell navigable : menu / dock / panel, horloge, tray, retour accueil
 - [ ] Explorateur branché sur `home/public/` avec le bon template (`nemo`, `dolphin`, `nemo-gnome`, `nemo-cosmic`)
 - [ ] Apps par défaut épinglées selon [apps-linux-par-distro.md](apps-linux-par-distro.md)
@@ -89,7 +94,8 @@ Checklist applicable à **chaque** bureau Linux avant badge « complet » sur le
 
 ```mermaid
 flowchart LR
-    P0[Phase 0\nFondations] --> P1[Phase 1\nParité apps Linux]
+    P0[Phase 0\nFondations] --> P05[Phase 0.5\nAssets noyau]
+    P05 --> P1[Phase 1\nParité apps Linux]
     P1 --> P2[Phase 2\nShells UX]
     P2 --> P3[Phase 3\nPédagogie]
     P3 --> P4[Phase 4\nExtension]
@@ -104,11 +110,39 @@ flowchart LR
 | # | Livrable | Détail |
 |---|---|---|
 | 0.1 | **Premier commit Git** | Code applicatif + `.gitignore` + doc `root/` |
-| 0.2 | **Matrice de smoke tests** | 8 Linux : explorateur, Firefox, terminal, checklist ; HTTP + `file://` |
-| 0.3 | **Script ou checklist release** | `generate-public-manifest.mjs` + `build-linux-embed.mjs` documentés dans le flux merge |
+| 0.2 | **Matrice de smoke tests** | 22 OS actifs + hubs (`index.html`, `home/Debian/`, `OS/windows/`) : logo, navigation, 1 app ; gate `validate-link-integrity.mjs` |
+| 0.3 | **Script ou checklist release** | `validate-assets-all.mjs` + `validate-capsule.mjs` + `audit-data-links.mjs` ; `build-linux-embed.mjs` si skins touchés |
 | 0.4 | **Hub Linux** | Badges « complet / beta » sur `home/Debian/index.html` selon DoD |
 
 **Critère de sortie :** un contributeur peut cloner, servir en local, ouvrir Mint + un skin beta sans blocage.
+
+---
+
+### Phase 0.5 — Consolidation assets noyau (bloquante)
+
+**Objectif :** terminer la migration des images vers `usr/share/capsuleos/assets/`, centraliser le routage (`CapsuleResource`, `assets/manifest.json`) et garantir une hydratation cohérente file/http.
+
+**Supervision agents :** skill [`kernel-supervisor`](../skills/kernel-supervisor/SKILL.md) — délègue à [`asset-pipeline`](../skills/asset-pipeline/SKILL.md) (fichiers) et [`kernel-guardian`](../skills/kernel-guardian/SKILL.md) (JS noyau + embeds).
+
+**État actuel (juin 2026) :** Phase 0.5 **complète** — assets centralisés, profils sans `CAPSULE_*_BASE` redondants, boot `resource` → `skin-boot`, `CapsuleResource.resolve()` comme voie unique.
+
+| # | Livrable | Détail |
+|---|---|---|
+| 0.5.1 | **Gate CI locale** | `node usr/lib/capsuleos/tools/validate-asset-zones.mjs` → exit 0 |
+| 0.5.2 | **Vague Linux** | `OS/linux/families/*/assets/`, `home/*/assets/`, `./assets/images/toolkits/gnome/apps/` → `./assets/images/vendors/` et `toolkits/` |
+| 0.5.3 | **Vague mobile** | `OS/android/assets/`, `OS/ios/15/assets/` → packs `android-material`, `ios` |
+| 0.5.4 | **Réécriture sources** | `rewrite-asset-paths.mjs` ; plus de références `OS/*/assets/` dans HTML/CSS/JS |
+| 0.5.5 | **Manifest + pick-os** | `build-assets-manifest.mjs`, `build-pick-os.mjs` |
+| 0.5.6 | **Profils skin** | `skin.profile.json` : `CAPSULE_MEDIA_BASE` → chemins logiques `./assets/...` où pertinent |
+| 0.5.7 | **Jalon S5 (partiel)** | Réduire les `CAPSULE_*_BASE` ad hoc ; privilégier `CapsuleResource.resolve()` |
+| 0.5.8 | **Embed + smoke** | `build-linux-embed.mjs` ; Mint P0 HTTP + `file://` |
+| 0.5.9 | **Intégrité liens** | `validate-link-integrity.mjs` ; façades Linux + chemins physiques Windows/mobile/macOS |
+
+**Ordre recommandé :** 0.5.2 → 0.5.4 → 0.5.5 → 0.5.6 → 0.5.8 → 0.5.3 (Android/iOS) → 0.5.1 final.
+
+**Critère de sortie :** validateur vert ; jalons [scalabilite-noyau](scalabilite-noyau.md) S2 confirmé, S5 amorcé ; aucun agent skin ne crée d’images sous `OS/` ou `home/*/assets/`.
+
+**Blocage :** la Phase 1 ne démarre pas sur une famille tant que ses chemins legacy figurent encore dans le rapport `validate-asset-zones`.
 
 ---
 
@@ -212,7 +246,8 @@ Estimation **effort relatif**, pas des dates figées — ajuster selon disponibi
 | Phase | Durée indicative | Dépendances |
 |---|---|---|
 | Phase 0 | 1 semaine | — |
-| Phase 1 | 3–4 semaines | Phase 0 |
+| Phase 0.5 | 1–2 semaines | Phase 0 (bloquante avant Phase 1 Linux) |
+| Phase 1 | 3–4 semaines | Phase 0 + 0.5 (validateur assets vert) |
 | Phase 2 | 3–4 semaines | Phase 1 (partiel OK par famille) |
 | Phase 3 | 2 semaines | Phase 1 sur Mint + 1 GNOME + 1 KDE |
 | Phase 4 | continu | Phases 1–3 |
@@ -227,6 +262,7 @@ Estimation **effort relatif**, pas des dates figées — ajuster selon disponibi
 | Embed stale après merge | Hook ou checklist release obligatoire |
 | Scope creep (trop d’apps) | Coquilles UI statiques OK ; pas de logique métier complète |
 | Poids repo (assets KDE) | Mutualiser icônes ; pas de duplication inutile |
+| Migration assets interrompue | Phase 0.5 + `kernel-supervisor` ; gate `validate-asset-zones` avant merge |
 | Confusion checklist / apps OS | `checklist` = pédagogie CapsuleOS uniquement ; jamais mapper sur Calendrier / Discover |
 
 ---
@@ -236,9 +272,10 @@ Estimation **effort relatif**, pas des dates figées — ajuster selon disponibi
 Cocher ici ou dans les PR associées :
 
 - [ ] Phase 0 — fondations
+- [x] Phase 0.5 — consolidation assets noyau (juin 2026)
 - [ ] Phase 1 — parité apps (8/8 Linux DoD apps)
 - [ ] Phase 2 — shells UX (4 bureaux reconnus terrain)
 - [ ] Phase 3 — pédagogie validée terrain
 - [ ] Phase 4 — Arch + CI + 1 jalon Windows
 
-**Dernière mise à jour :** juin 2026 — création roadmap ; mappings apps corrigés (Fedora, Pop!_OS, Debian-KDE, AnduinOS).
+**Dernière mise à jour :** juin 2026 — Phase 0.5 assets noyau ; skills `kernel-supervisor`, `asset-pipeline`, `kernel-guardian` ; gate 45 violations documentées.

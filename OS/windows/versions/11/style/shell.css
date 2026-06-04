@@ -6,7 +6,8 @@
     --win-start-menu-bg: rgba(36, 36, 36, 0.96);
     --win-font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     --win-desktop-bg-gradient: linear-gradient(160deg, #1a3a5c 0%, #2d5a87 40%, #4a90c4 100%);
-    --win-desktop-bg-image: url(./media/img/fond.jpg);
+    /* fond.jpg optionnel — win-desktop.js tente wallpaper.* */
+    --win-desktop-bg-image: none;
 }
 
 body {

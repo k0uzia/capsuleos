@@ -85,14 +85,14 @@ body#opensuse div[data-link="terminal"] #windowHeader > nav:first-child::after {
 body#opensuse div[data-link="terminal"] #windowHeader > nav:first-child::before {
     width: var(--opensuse-header-icon-size);
     height: var(--opensuse-header-icon-size);
-    background-image: url("./media/img/apps/konsole.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/konsole.svg");
     opacity: 0.94;
 }
 
 body#opensuse div[data-link="terminal"] #windowHeader > nav:first-child::after {
     width: var(--opensuse-header-pin-size);
     height: var(--opensuse-header-pin-size);
-    background-image: url("./media/img/elements/nemo/add-pin.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/add-pin.svg");
     filter: var(--opensuse-mono-logo-filter);
     opacity: 0.76;
 }
@@ -148,18 +148,18 @@ body#opensuse div[data-link="terminal"] #windowHeader > nav:last-child > button 
 }
 
 body#opensuse div[data-link="terminal"] #minimizeBtn {
-    background-image: url("./media/img/header/go-down.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/go-down.svg");
     background-size: 0.72rem;
     filter: var(--opensuse-header-control-filter);
 }
 
 body#opensuse div[data-link="terminal"] #resizeBtn {
-    background-image: url("./media/img/header/window-restore.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg");
     background-size: 0.72rem;
 }
 
 body#opensuse div[data-link="terminal"] #closeBtn {
-    background-image: url("./media/img/header/window-close.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-close.svg");
     background-size: 0.72rem;
     background-color: transparent;
     border-color: transparent;
@@ -278,29 +278,29 @@ body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon {
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--tab-new {
-    background-image: url("./media/img/elements/nemo/tab-new.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/tab-new.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--split {
-    background-image: url("./media/img/elements/nemo/view-split-left-right.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/view-split-left-right.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--copy {
-    background-image: url("./media/img/elements/nemo/copy.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/copy.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--paste {
-    background-image: url("./media/img/elements/nemo/paste.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/paste.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--search {
-    background-image: url("./media/img/elements/nemo/search-symbolic.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/search-symbolic.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__icon--menu {
     width: 0.72rem;
     height: 0.72rem;
-    background-image: url("./media/img/elements/nemo/open-menu-symbolic.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/open-menu-symbolic.svg");
 }
 
 body#opensuse div[data-link="terminal"] .capsule-terminal-toolbar__chevron {

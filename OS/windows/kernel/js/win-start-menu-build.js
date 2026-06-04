@@ -9,21 +9,21 @@
     }
 
     const pagesBase = window.CAPSULE_WIN_PAGES_BASE || '../../shared/pages';
-    const sharedMedia = pagesBase.replace(/\/pages\/?$/, '/media/img');
-    const siteHome = window.CAPSULE_WIN_SITE_HOME || '../../../../../index.html';
+    const siteHome = window.CAPSULE_WIN_SITE_HOME || '../../../../index.html';
+    const shutIcon = '../../../../usr/share/capsuleos/assets/images/toolkits/windows/shared/shut.png';
     const pickKey = window.CAPSULE_PICK_OS || 'windows';
 
     const programs = [
         {
             href: `${pagesBase}/explorateur.html`,
             title: 'Explorateur de fichiers',
-            icon: './media/img/folder.svg',
+            icon: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/folder.svg',
             label: 'Explorateur de fichiers'
         },
         {
             href: `${pagesBase}/settings.html`,
             title: 'Paramètres',
-            icon: './media/img/settings.svg',
+            icon: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/settings.svg',
             label: 'Paramètres'
         }
     ];
@@ -64,7 +64,9 @@
     powerBtn.setAttribute('aria-label', 'Éteindre');
 
     const powerImg = document.createElement('img');
-    powerImg.src = `${sharedMedia}/shut.png`;
+    powerImg.src = typeof resolveCapsuleResourceUrl === 'function'
+        ? resolveCapsuleResourceUrl(shutIcon)
+        : shutIcon;
     powerImg.alt = '';
 
     powerBtn.appendChild(powerImg);

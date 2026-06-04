@@ -10,6 +10,7 @@ Chaque rôle correspond à un skill sous `root/skills/role-*`. Un agent peut en 
 | **Graphiste** | Icônes SVG/PNG, wallpapers, cohérence visuelle OS | `role-graphic-artist` |
 | **Web designer** | Grilles, variables CSS, responsive, ordre des propriétés | `role-web-designer` |
 | **Intégrateur** | Lier façade `OS/`, skin `home/`, manifests, scripts skin | `role-integrator` |
+| **Superviseur noyau** | Migration assets, routage, gate CI images | `kernel-supervisor` |
 | **Coordinateur** | Découper une demande multi-OS / multi-rôle | `coordinator` |
 
 ## Collaboration type

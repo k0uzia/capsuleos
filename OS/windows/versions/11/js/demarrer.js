@@ -67,7 +67,7 @@ function loadMenuStyles() {
     }
     
     nav:nth-child(1):before {
-        content: url(./media/img/loupe.webp);
+        content: url(../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/loupe.webp);
         display: var(--fr);
         position: var(--abs);
         width: calc(var(--head) / 3);
@@ -285,10 +285,10 @@ function createNavWithFigures(figuresData) {
                 event.preventDefault();
                 event.stopPropagation();
                 if (window.CapsulePickReturn) {
-                    window.CapsulePickReturn.redirectToPickHome(figureData.pickReturn, '../../../../../index.html');
+                    window.CapsulePickReturn.redirectToPickHome(figureData.pickReturn, '../../../../index.html');
                     return;
                 }
-                window.location.href = '../../../../../index.html?pick=windows#choisir-os';
+                window.location.href = '../../../../index.html?pick=windows#choisir-os';
             });
         }
 
@@ -338,10 +338,10 @@ function createMenuSection() {
 
     // Ajouter le troisième <nav> avec plusieurs <a> contenant des <figure>
     const figuresData = [
-        { href: 'https://www.google.com/webhp?igu=1', title: 'Edge', imgSrc: './media/img/edge.png', alt: 'edge', caption: 'Edge' },
-        { href: '../../shared/pages/settings.html', title: 'Paramètres', imgSrc: './media/img/settings.png', alt: 'paramètres', caption: 'Paramètres' },
-        { href: '../../shared/pages/office.html', title: 'Office 365', imgSrc: './media/img/365.png', alt: 'Office 365', caption: 'Office 365' },
-        { href: '../../shared/pages/explorateur.html', title: 'Explorateur de fichiers', imgSrc: './media/img/folder.png', alt: 'Dossiers', caption: 'Explorateur de fichiers' }
+        { href: 'https://www.google.com/webhp?igu=1', title: 'Edge', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/edge.png', alt: 'edge', caption: 'Edge' },
+        { href: '../../shared/pages/settings.html', title: 'Paramètres', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/settings.png', alt: 'paramètres', caption: 'Paramètres' },
+        { href: '../../shared/pages/office.html', title: 'Office 365', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/365.png', alt: 'Office 365', caption: 'Office 365' },
+        { href: '../../shared/pages/explorateur.html', title: 'Explorateur de fichiers', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/folder.png', alt: 'Dossiers', caption: 'Explorateur de fichiers' }
     ];
     section.appendChild(createNavWithFigures(figuresData));
 
@@ -350,14 +350,14 @@ function createMenuSection() {
 
     // Ajouter le cinquième <nav> avec un <a> contenant une <figure>
     const aideFiguresData = [
-        { href: '../../shared/pages/aide.html', title: 'Aide à propos de Windows', imgSrc: './media/img/aide.png', alt: 'Aide', caption: 'Aide à propos de Windows', paragraphs: [ 'Prise en main', 'Bienvenue dans Windows' ]}
+        { href: '../../shared/pages/aide.html', title: 'Aide à propos de Windows', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/aide.png', alt: 'Aide', caption: 'Aide à propos de Windows', paragraphs: [ 'Prise en main', 'Bienvenue dans Windows' ]}
     ];
     section.appendChild(createNavWithFigures(aideFiguresData));
 
     // Ajouter le sixième <nav> avec un <a> contenant une <figure> et un <a> avec une <img>
     const userFiguresData = [
-        { href: '../../shared/pages/user.html', title: 'Paramètres des comptes utilisateurs', imgSrc: './media/img/user.png', alt: 'Utilisateur', caption: 'Utilisateur' },
-        { href: '#capsule-pick-return', title: 'éteindre, redémarrer ou mettre en veille', imgSrc: '../../shared/media/img/shut.png', alt: 'éteindre', caption: '', pickReturn: 'windows' }
+        { href: '../../shared/pages/user.html', title: 'Paramètres des comptes utilisateurs', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/user.png', alt: 'Utilisateur', caption: 'Utilisateur' },
+        { href: '#capsule-pick-return', title: 'éteindre, redémarrer ou mettre en veille', imgSrc: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/shared/shut.png', alt: 'éteindre', caption: '', pickReturn: 'windows' }
     ];
     section.appendChild(createNavWithFigures(userFiguresData));
 

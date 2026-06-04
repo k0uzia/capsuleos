@@ -456,6 +456,16 @@ div[data-link="nemo"] .nemo-app__empty {
     text-align: var(--c);
 }
 
+div[data-link="nemo"] .nemo-app__drop-target {
+    outline: 2px dashed var(--nemo-accent, #3daee9);
+    outline-offset: -4px;
+    background: rgba(61, 174, 233, 0.12);
+}
+
+div[data-link="nemo"] a[data-item-name].nemo-app__item--dragging {
+    opacity: 0.55;
+}
+
 #nemoFooterContainer {
     display: var(--f);
     flex-flow: var(--rnw);

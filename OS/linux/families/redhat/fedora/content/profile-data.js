@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: 'Édition GNOME',
     tagline: 'Un bureau Linux moderne qui met en avant les technologies libres récentes.',
     description: 'Fedora Workstation est une distribution communautaire soutenue par Red Hat. Elle propose une expérience GNOME proche de l\'amont, des mises à jour régulières et un environnement pensé pour le poste de travail, le développement et l\'apprentissage.',
-    logo: './media/img/assets/fedora-logo.svg',
+    logo: './assets/images/vendors/fedora/fedora-logo.svg',
     logoAlt: 'Logo Fedora',
     url: 'https://fedoraproject.org/workstation',
     stats: {

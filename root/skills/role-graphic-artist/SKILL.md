@@ -9,7 +9,7 @@ description: Creates and maintains CapsuleOS visual assets—icons, SVG, wallpap
 
 | Type | Chemin typique |
 |------|----------------|
-| Icônes portail / familles | `usr/share/capsuleos/branding/icons/` |
+| Icônes portail / familles | `./assets/images/platforms/pick-os/` |
 | Médias skin Linux | `home/<Vendor>/<Distro>/media/` |
 | Médias Windows | `OS/windows/versions/<ver>/media/` |
 | macOS | `OS/macos/sonoma/` (assets locaux) |
@@ -26,4 +26,4 @@ Toujours un skill `os-*` pour les conventions visuelles de la famille.
 
 ## Doc
 
-`usr/share/capsuleos/branding/icons/README.md` pour la cartographie icônes.
+`./assets/images/platforms/pick-os/README.md` pour la cartographie icônes.

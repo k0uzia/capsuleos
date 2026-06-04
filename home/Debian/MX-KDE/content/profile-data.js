@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '23.x "Libretto"',
     tagline: 'Une expérience Debian stable avec un bureau KDE flexible et moderne.',
     description: 'MX Linux KDE combine la stabilité Debian avec la personnalisation de KDE Plasma. Cette capsule sert de base pédagogique pour découvrir un poste Linux KDE orienté productivité.',
-    logo: './media/img/assets/mx-logo.png',
+    logo: './assets/images/vendors/mx/mx-logo.png',
     logoAlt: 'Logo MX Linux KDE',
     url: 'https://mxlinux.org',
     stats: {

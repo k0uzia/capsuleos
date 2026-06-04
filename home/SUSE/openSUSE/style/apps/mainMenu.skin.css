@@ -110,7 +110,7 @@ body#opensuse #mainMenu .menu-search {
     font-family: inherit;
     font-size: 0.8rem;
     background:
-        url("./media/img/elements/nemo/search-symbolic.svg") no-repeat var(--opensuse-menu-search-icon-left) center / var(--opensuse-menu-search-icon-size),
+        url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/search-symbolic.svg") no-repeat var(--opensuse-menu-search-icon-left) center / var(--opensuse-menu-search-icon-size),
         #ffffff;
     outline: none;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);

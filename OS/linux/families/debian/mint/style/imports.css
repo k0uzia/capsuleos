@@ -1,8 +1,16 @@
 @import url(../../../../../../usr/share/capsuleos/themes/global/reset.css);
 @import url(../../../../../../usr/share/capsuleos/themes/global/variables.css);
-@import url(../../../../kernel/style/variables-linux.css);
+@import url(../../../../../../usr/share/capsuleos/themes/linux/variables-linux.css);
+@import url(../../../../../../usr/share/capsuleos/themes/linux/variables-linux-computed.css);
+@import url(../../../../../../usr/share/capsuleos/themes/linux/window-chrome.base.css);
 @import url(./footer.css);
+@import url(./panel-windows.css);
+@import url(./desktop.css);
 @import url(./windows.css);
 @import url(./calendar-popover.css);
 @import url(./a11y-overrides.css);
 @import url(./volume-popover.css);
+@import url(./apps/nemo.skin.css);
+@import url(./window-effects.css);
+@import url(./alt-tab.css);
+@import url(./mint-interactions.css);

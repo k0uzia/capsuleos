@@ -142,6 +142,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (existingWindow) {
             existingWindow.style.display = 'flex';
             bringToFront(existingWindow);
+            if (typeof CapsuleWindowContext !== 'undefined'
+                && typeof CapsuleWindowContext.applyWindowInteraction === 'function') {
+                CapsuleWindowContext.applyWindowInteraction(existingWindow, 'win-app', { force: true });
+            }
             return;
         }
 
@@ -151,7 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const newWindow = windowTemplate.cloneNode(true);
         newWindow.removeAttribute('id');
-        newWindow.classList.add('win-window');
+        newWindow.classList.add('win-window', 'windowElement');
+        newWindow.dataset.link = newWindow.dataset.link || 'win-app';
         newWindow.style.position = 'fixed';
         newWindow.style.display = 'flex';
         newWindow.style.width = size.width + 'px';
@@ -176,8 +181,16 @@ document.addEventListener('DOMContentLoaded', function () {
         bringToFront(newWindow);
         syncTitleFromIframe(newWindow, fallbackTitle);
 
-        if (typeof makeDraggable === 'function') {
+        if (typeof CapsuleWindowContext !== 'undefined'
+            && typeof CapsuleWindowContext.applyWindowInteraction === 'function') {
+            CapsuleWindowContext.applyWindowInteraction(newWindow, newWindow.dataset.link, { force: true });
+        } else if (typeof makeDraggable === 'function') {
             makeDraggable(newWindow);
+            if (typeof Resizer === 'function') {
+                new Resizer(newWindow);
+            } else if (typeof CapsuleWindow !== 'undefined' && CapsuleWindow.enableResize) {
+                CapsuleWindow.enableResize(newWindow);
+            }
         }
 
         newWindow.addEventListener('mousedown', function () {
@@ -211,6 +224,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target.matches('#resizeBtn')) {
             const win = event.target.closest('.win-window, #windowContainer');
             if (!win || win === windowTemplate) {
+                return;
+            }
+
+            if (typeof CapsuleWindow !== 'undefined' && CapsuleWindow.toggleWindowMaximized) {
+                CapsuleWindow.toggleWindowMaximized(win);
+                bringToFront(win);
                 return;
             }
 

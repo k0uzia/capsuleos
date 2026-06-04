@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: 'Stable',
     tagline: 'Distribution Debian avec bureau KDE Plasma.',
     description: 'Debian est une distribution réputée pour sa stabilité. Cette capsule simule un bureau KDE Plasma (Dolphin, Konsole, menu d’applications) pour découvrir les bases d’un poste Debian orienté KDE.',
-    logo: './assets/debian-logo.svg',
+    logo: './assets/images/vendors/debian/debian-logo.svg',
     logoAlt: 'Logo Debian',
     url: 'https://www.debian.org',
     stats: {

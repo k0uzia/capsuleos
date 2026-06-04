@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: 'Rolling release',
     tagline: 'Distribution rolling avec bureau KDE Plasma.',
     description: 'openSUSE Tumbleweed propose des mises à jour continues et KDE Plasma pour un poste Linux moderne. Cette capsule sert de base pédagogique pour découvrir un environnement KDE sur une base SUSE (zypper, rpm).',
-    logo: './media/img/assets/opensuse-logo.svg',
+    logo: './assets/images/vendors/opensuse/opensuse-logo.svg',
     logoAlt: 'Logo openSUSE Tumbleweed',
     url: 'https://www.opensuse.org',
     stats: {

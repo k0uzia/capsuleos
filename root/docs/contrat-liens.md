@@ -19,7 +19,7 @@ Le contrat machine strict est **`writing.md`** à la racine du workspace Cursor 
 
 ## Checklist opérationnelle
 
-Avant merge ou livraison : [`CONTRACT_CHECKLIST.md`](../../CONTRACT_CHECKLIST.md).
+Avant merge ou livraison : [checklist contrat](../../contrib.md#checklist-contrat-avant-merge-ou-release).
 
 Points sensibles Linux : variables `CAPSULE_*` avant scripts noyau, embeds, explorateurs (`CAPSULE_EXPLORER_TEMPLATE`), pas de doc sous `OS/`.
 

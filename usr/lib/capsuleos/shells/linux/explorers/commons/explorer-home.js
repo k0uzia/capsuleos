@@ -9,7 +9,7 @@
             return String(global.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
         }
         if (global.CapsuleUserHome) {
-            return global.CapsuleUserHome.fromRepoDepth(3);
+            return global.CapsuleUserHome.resolveRelative();
         }
         return 'home/public';
     }
@@ -43,7 +43,7 @@
             ? manifest.root.replace(/\/+$/, '')
             : '';
         if (!sourceRoot || sourceRoot === targetRoot) {
-            return { ...manifest, root: targetRoot };
+            return Object.assign( {} , manifest, { root: targetRoot });
         }
         const rewritePath = (str) => {
             if (typeof str !== 'string') {
@@ -60,7 +60,7 @@
             const newKey = rewritePath(key);
             const newItems = Array.isArray(folder.items)
                 ? folder.items.map((item) => {
-                    const out = { ...item };
+                    const out = Object.assign( {} , item);
                     if (item.path != null) {
                         out.path = rewritePath(String(item.path));
                     }
@@ -70,13 +70,11 @@
                     return out;
                 })
                 : folder.items;
-            newFolders[newKey] = { ...folder, items: newItems };
+            newFolders[newKey] = Object.assign( {} , folder, { items: newItems });
         });
-        return {
-            ...manifest,
-            root: targetRoot,
-            folders: newFolders
-        };
+        return Object.assign(
+            {}
+            , manifest, { root: targetRoot }, { folders: newFolders });
     }
 
     global.CapsuleExplorerHome = {

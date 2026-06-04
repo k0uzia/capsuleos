@@ -3,7 +3,7 @@
  */
 
 function mergeCapsuleStrings(defaults, overrides) {
-    const out = { ...(defaults || {}) };
+    const out = Object.assign({}, defaults || {});
     if (overrides && typeof overrides === 'object') {
         Object.keys(overrides).forEach((k) => {
             if (overrides[k] !== undefined && overrides[k] !== null) {

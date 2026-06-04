@@ -3,7 +3,7 @@
 Document de référence pour l’émulation des applications par défaut sur les huit bureaux Linux simulés.  
 Les identifiants **`data-link`** / **`data-overview-link`** / **`data-cosmic-app-link`** sont la source de vérité côté code ; ce fichier décrit l’intention produit et les écarts restants.
 
-Voir aussi la [roadmap](roadmap.md) pour le plan de livraison par phases, et [LINUX-GUI-TOOLKITS.md](../../LINUX-GUI-TOOLKITS.md) pour GTK/Qt, tokens shell, fichiers `*.skin.css` et checklist agents UX.
+Voir aussi la [roadmap](roadmap.md) pour le plan de livraison par phases, et [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) pour GTK/Qt, tokens shell, fichiers `*.skin.css` et checklist agents UX.
 
 ## Socle partagé (`usr/share/capsuleos/linux/apps/`)
 

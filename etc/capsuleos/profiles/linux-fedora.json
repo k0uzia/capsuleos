@@ -1,0 +1,40 @@
+{
+  "id": "linux-fedora",
+  "version": 1,
+  "family": "linux",
+  "vendor": "fedora",
+  "displayName": "Fedora Workstation",
+  "bodyId": "fedora",
+  "embedKey": "fedora",
+  "tier": "P1",
+  "status": "active",
+  "paths": {
+    "facade": "OS/linux/families/redhat/fedora/index.html",
+    "skin": "home/RedHat/Fedora/index.html"
+  },
+  "toolkit": {
+    "id": "gnome",
+    "shell": "gnome"
+  },
+  "assets": {
+    "assetsBase": "../../../usr/share/capsuleos/assets",
+    "toolkitPack": "toolkits/gnome",
+    "vendorPack": "vendors/fedora",
+    "iconPacks": [
+      "icons/gnome"
+    ]
+  },
+  "capsuleGlobals": {
+    "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+    "CAPSULE_SKIN_BASE": ".",
+    "CAPSULE_STRINGS_URL": "./content/strings.json",
+    "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+    "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+    "CAPSULE_EMBED_SKIN_KEY": "fedora",
+    "CAPSULE_SITE_HOME": "../../../index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+    "CAPSULE_TERMINAL_PROFILE": "fedora",
+    "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
+  }
+}

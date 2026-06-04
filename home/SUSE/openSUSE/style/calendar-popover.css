@@ -216,7 +216,7 @@
     padding: calc(var(--head) * 0.15) calc(var(--head) * 0.3) calc(var(--head) * 0.35);
     overflow: hidden;
     background-color: var(--calendar-popover-grid-bg);
-    background-image: url("../media/img/assets/wallpaper-opensuse.jpg");
+    background-image: url("../../../../usr/share/capsuleos/assets/images/vendors/opensuse/wallpaper-opensuse.jpg");
     background-size: cover;
     background-position: center bottom;
 }

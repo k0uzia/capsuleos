@@ -1,7 +1,9 @@
 function initFileExplorerContainer() {
     const root = (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT)
         ? String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '')
-        : './apps/system/Dossier_personnel';
+        : (typeof window !== 'undefined' && window.CapsuleUserHome)
+            ? window.CapsuleUserHome.resolveRelative()
+            : 'home/public';
 
     const folderMap = {
         'Dossier Personnel': root,
@@ -13,13 +15,15 @@ function initFileExplorerContainer() {
         'Téléchargements': `${root}/Téléchargements`
     };
 
-    const fileExplorerRoot = document.getElementById('nemo');
+    const fileExplorerRoot = (typeof window.getExplorerWindowSlot === 'function')
+        ? window.getExplorerWindowSlot()
+        : (document.getElementById('nemo')
+            || document.querySelector('div.windowElement#nemo[data-link="nemo"]'));
     if (!fileExplorerRoot || fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {
         return;
     }
 
-    // Les raccourcis de l'explorateur sont injectés dynamiquement dans la fenêtre legacy `nemo`.
-    const fileExplorerLinks = fileExplorerRoot.querySelectorAll('#voletnemo a[target="windowElement"][data-link]');
+    const fileExplorerLinks = fileExplorerRoot.querySelectorAll('#voletnemo a[data-link]');
 
     fileExplorerLinks.forEach((link) => {
         link.addEventListener('click', (event) => {

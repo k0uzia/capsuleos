@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '24.04 LTS (COSMIC)',
     tagline: 'Bureau COSMIC par System76, base Ubuntu.',
     description: 'Pop!_OS est une distribution basée sur Ubuntu, avec l\'environnement COSMIC (dock flottant, Workspaces, Applications). Cette capsule reproduit l\'expérience visuelle pour comparer les usages Linux.',
-    logo: './media/img/assets/pop-logo.png',
+    logo: './assets/images/vendors/popos/pop-logo.png',
     logoAlt: 'Logo Pop!_OS',
     url: 'https://pop.system76.com',
     stats: {

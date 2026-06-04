@@ -7,10 +7,11 @@ description: Template for adding a new simulated OS family to CapsuleOS—OS fac
 
 ## Checklist implémentation
 
+0. **Onboarding** — [parcours-agent.md](../../docs/parcours-agent.md) H0–H4 ; [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md).
 1. **Contrat** — lire `writing.md` §3 (familles) et §2 (fidélité).
 2. **Façade** — `OS/<famille>/` avec `index.html` pointant vers scripts `usr/lib/`.
 3. **Shell** — `usr/lib/capsuleos/shells/<famille>/` (mutualiser avec `common/`).
-4. **Assets** — `usr/share/capsuleos/<famille>/` ; icônes `branding/icons/<famille>/`.
+4. **Assets** — `usr/share/capsuleos/assets/` (packs `toolkits/`, `platforms/`) ; voir [politique-assets.md](../../docs/politique-assets.md).
 5. **Home** — skin optionnel `home/<Vendor>/` ; contenu user partagé via `home/public/` si pertinent.
 6. **Embed** — script build dans `usr/lib/capsuleos/tools/` + sortie `var/lib/capsuleos/generated/` si offline requis.
 7. **Skill agent** — copier ce fichier vers `root/skills/os-<famille>/SKILL.md` avec frontmatter `name` / `description` à jour.

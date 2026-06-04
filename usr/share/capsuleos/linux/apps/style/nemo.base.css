@@ -1,11 +1,53 @@
-/* Slot Nemo : le chrome .windowElement a déjà --win-client-gutter ; le shell remplit la zone cliente. */
+/* Slot Nemo : chrome .windowElement + colonne cliente (évite débordement / scroll fantôme). */
 div.windowElement[data-link="nemo"]:not(#mainMenu) {
+    display: var(--f);
+    flex-flow: var(--cnw);
     align-items: stretch;
+    justify-content: var(--fs);
+    overflow: var(--h);
+    min-height: var(--z);
+    box-sizing: border-box;
 }
 
 div[data-link="nemo"] > #windowHeader {
     width: var(--full);
     align-self: stretch;
+    flex-shrink: 0;
+}
+
+div.windowElement[data-link="nemo"] > main#gestionnaire.nemo-app {
+    position: var(--rel);
+    top: var(--z);
+    right: var(--z);
+    bottom: var(--z);
+    left: var(--z);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    justify-content: var(--fs);
+    align-items: stretch;
+    flex: 1 1 auto;
+    width: var(--full);
+    min-width: var(--z);
+    min-height: var(--z);
+    height: auto;
+    max-height: var(--full);
+    margin-bottom: var(--z);
+    border-radius: var(--z) var(--z) var(--nemo-shell-radius) var(--nemo-shell-radius);
+    font-size: calc(var(--head) - 25px);
+    background-color: var(--nemo-bg-primary);
+    user-select: var(--n);
+    overflow: var(--h);
+    box-sizing: border-box;
+}
+
+div.windowElement[data-link="nemo"] #nemoMainContainer {
+    flex: 1 1 auto;
+    min-height: var(--z);
+    overflow: var(--h);
+}
+
+div.windowElement[data-link="nemo"] #nemoFooterContainer {
+    flex-shrink: 0;
 }
 
 main#gestionnaire {
@@ -522,4 +564,14 @@ div[data-link="nemo"] .nemo-app__status-center > p {
 #nemoFooterContainer>section:nth-child(3)>input {
     width: var(--nemo-zoom-slider-width);
     accent-color: var(--nemo-accent);
+}
+
+.nemo-app__drop-target {
+    outline: 2px dashed var(--menu-accent, var(--nemo-accent, #6ac));
+    outline-offset: -2px;
+    background-color: color-mix(in srgb, var(--menu-accent, var(--nemo-accent, #6ac)) 14%, transparent);
+}
+
+a.nemo-app__item--dragging {
+    opacity: 0.55;
 }

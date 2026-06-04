@@ -29,7 +29,16 @@
         return bodyId === 'mint' || skinKey === 'mint';
     }
 
-    function resolveWindowLabel(dataLink) {
+    function resolveWindowLabel(dataLink, container) {
+        if (container) {
+            const titleEl = container.querySelector(':scope > #windowTitle');
+            if (titleEl && titleEl.textContent) {
+                const liveTitle = titleEl.textContent.replace(/\s+/g, ' ').trim();
+                if (liveTitle) {
+                    return liveTitle;
+                }
+            }
+        }
         if (!dataLink) {
             return 'Fenêtre';
         }
@@ -91,11 +100,29 @@
                 + (dataLink === activeLink ? ' is-active' : '');
             btn.dataset.windowLink = dataLink;
             btn.setAttribute('role', 'listitem');
-            btn.title = resolveWindowLabel(dataLink);
-            btn.textContent = resolveWindowLabel(dataLink);
+            btn.title = resolveWindowLabel(dataLink, container);
+            btn.textContent = resolveWindowLabel(dataLink, container);
 
             btn.addEventListener('click', (event) => {
                 event.preventDefault();
+                if (dataLink === activeLink && isWindowVisible(container)) {
+                    const applyHide = () => {
+                        container.style.display = 'none';
+                        container.classList.remove('active', 'windowElementActive');
+                        if (typeof global.CustomEvent === 'function') {
+                            global.document.dispatchEvent(new CustomEvent('capsule:window-hidden', {
+                                detail: { container: container, slotId: dataLink },
+                            }));
+                        }
+                        renderWindowList(listEl);
+                    };
+                    if (typeof global.capsuleBeforeWindowHide === 'function') {
+                        global.capsuleBeforeWindowHide(container, applyHide);
+                    } else {
+                        applyHide();
+                    }
+                    return;
+                }
                 focusWindow(dataLink);
             });
 
@@ -139,9 +166,31 @@
             }
         });
 
+        document.addEventListener('capsule:window-minimized', () => {
+            window.requestAnimationFrame(() => renderWindowList(listEl));
+        });
+
+        document.addEventListener('capsule:window-hidden', () => {
+            window.requestAnimationFrame(() => renderWindowList(listEl));
+        });
+
+        document.addEventListener('capsule:window-opened', () => {
+            window.requestAnimationFrame(() => renderWindowList(listEl));
+        });
+
+        document.addEventListener('capsule:window-focused', () => {
+            window.requestAnimationFrame(() => renderWindowList(listEl));
+        });
+
         global.CapsuleTaskbarWindowList = {
             initialized: true,
-            refresh: () => renderWindowList(listEl),
+            refresh: () => {
+                renderWindowList(listEl);
+                if (global.CapsuleTaskbarLauncherState
+                    && typeof global.CapsuleTaskbarLauncherState.refresh === 'function') {
+                    global.CapsuleTaskbarLauncherState.refresh();
+                }
+            },
         };
     }
 

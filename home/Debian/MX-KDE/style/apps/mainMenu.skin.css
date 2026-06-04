@@ -323,7 +323,7 @@ body#mx-kde #mainMenu .menu-search {
     font-family: inherit;
     font-size: 0.82rem;
     background:
-        url("./media/img/elements/nemo/search-symbolic.svg") no-repeat var(--mx-kde-menu-search-icon-left) center / var(--mx-kde-menu-search-icon-size),
+        url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/search-symbolic.svg") no-repeat var(--mx-kde-menu-search-icon-left) center / var(--mx-kde-menu-search-icon-size),
         rgba(0, 0, 0, 0.22);
     outline: none;
     transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
@@ -331,7 +331,7 @@ body#mx-kde #mainMenu .menu-search {
 
 html[data-theme="light"] #mx-kde #mainMenu .menu-search {
     background:
-        url("./media/img/elements/nemo/search-symbolic.svg") no-repeat var(--mx-kde-menu-search-icon-left) center / var(--mx-kde-menu-search-icon-size),
+        url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/search-symbolic.svg") no-repeat var(--mx-kde-menu-search-icon-left) center / var(--mx-kde-menu-search-icon-size),
         rgba(0, 0, 0, 0.04);
 }
 

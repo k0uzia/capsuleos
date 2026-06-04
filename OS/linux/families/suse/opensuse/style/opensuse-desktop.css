@@ -35,7 +35,7 @@ html:has(#opensuse) {
 
 #opensuse {
     --taskbar-height: calc(var(--head) * 1.05);
-    background-image: url("../media/img/assets/wallpaper-opensuse.jpg");
+    background-image: url("../../../../../../usr/share/capsuleos/assets/images/vendors/opensuse/wallpaper-opensuse.jpg");
     background-color: #4a9e99;
     background-size: cover;
     background-repeat: no-repeat;

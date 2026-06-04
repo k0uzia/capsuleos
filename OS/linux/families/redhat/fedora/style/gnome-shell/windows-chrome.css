@@ -1,6 +1,6 @@
 /**
  * Chrome fenêtres Fedora - fork de mint/style/windows.css (2026-04).
- * Icônes: ../../media/img/header/*.svg
+ * Icônes: ../../assets/images/toolkits/gnome/header/*.svg
  * Positionnement sous top bar + dock: tokens --fedora-top-bar-height, --fedora-dock-width.
  */
 
@@ -96,18 +96,18 @@ body#fedora #windowHeader > nav > button:hover {
 }
 
 body#fedora #minimizeBtn {
-    background-image: url(../../media/img/header/minimize.svg);
+    background-image: url(../../../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/header/minimize.svg);
     background-size: cover;
 }
 
 body#fedora #resizeBtn {
-    background-image: url(../../media/img/header/maximize.svg);
+    background-image: url(../../../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/header/maximize.svg);
     background-size: cover;
 }
 
 body#fedora #closeBtn {
     background-color: var(--fedora-window-control-close-bg);
-    background-image: url(../../media/img/header/close.svg);
+    background-image: url(../../../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/header/close.svg);
     background-size: cover;
 }
 

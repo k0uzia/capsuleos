@@ -2,10 +2,19 @@ const getFileExplorerRoot = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
         return String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
     }
-    return './apps/system/Dossier_personnel';
+    if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+        return window.CapsuleUserHome.fromRepoDepth(3);
+    }
+    return 'home/public';
 };
 
-const getFileExplorerManifestPath = () => `${getFileExplorerRoot()}/nemo-manifest.json`;
+const getFileExplorerManifestPath = () => {
+    const root = getFileExplorerRoot();
+    if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+        return `${root}/${window.CapsuleUserHome.manifestFileName()}`;
+    }
+    return `${root}/.capsule-manifest.json`;
+};
 
 /**
  * Réaligne root / clés folders / path href du manifeste sur CAPSULE_CONTENT_ROOT
@@ -37,7 +46,7 @@ const remapManifestToFileExplorerRoot = (manifest) => {
         const newKey = rewritePath(key);
         const newItems = Array.isArray(folder.items)
             ? folder.items.map((item) => {
-                const out = { ...item };
+                const out = Object.assign( {} , item);
                 if (item.path != null) {
                     out.path = rewritePath(String(item.path));
                 }
@@ -47,13 +56,11 @@ const remapManifestToFileExplorerRoot = (manifest) => {
                 return out;
             })
             : folder.items;
-        newFolders[newKey] = { ...folder, items: newItems };
+        newFolders[newKey] = Object.assign( {} , folder, { items: newItems });
     });
-    return {
-        ...manifest,
-        root: targetRoot,
-        folders: newFolders
-    };
+    return Object.assign(
+        {}
+        , manifest, { root: targetRoot }, { folders: newFolders });
 };
 
 const FILE_EXPLORER_VIEW_MODES = ['icons', 'compact', 'list'];
@@ -217,9 +224,9 @@ const resolveItemIcon = (item) => {
         return resolveUrl(
             getFileExplorerIconOverride(item.name)
             || getFileExplorerIconOverride('folder')
-            || filesCatalog[item.name]?.image
-            || filesCatalog.Dossier_personnel?.image
-            || './media/img/elements/nemo/folder.png'
+            ||(filesCatalog[item.name] == null ? void 0 : filesCatalog[item.name].image)
+            ||(filesCatalog.Dossier_personnel == null ? void 0 : filesCatalog.Dossier_personnel.image)
+            || './assets/icons/cinnamon/nemo/folder.png'
         );
     }
 
@@ -227,10 +234,10 @@ const resolveItemIcon = (item) => {
     return resolveUrl(
         getFileExplorerIconOverride(extension)
         || getFileExplorerIconOverride('file')
-        || filesCatalog[extension]?.image
-        || filesCatalog.txt?.image
-        || filesCatalog.Dossier_personnel?.image
-        || './media/img/elements/nemo/folder.png'
+        ||(filesCatalog[extension] == null ? void 0 : filesCatalog[extension].image)
+        ||(filesCatalog.txt == null ? void 0 : filesCatalog.txt.image)
+        ||(filesCatalog.Dossier_personnel == null ? void 0 : filesCatalog.Dossier_personnel.image)
+        || './assets/icons/cinnamon/nemo/folder.png'
     );
 };
 
@@ -617,14 +624,15 @@ const renderDirectory = (path, options = {}) => {
         }
 
         const itemLink = document.createElement('a');
+        itemLink.setAttribute('draggable', 'true');
         itemLink.setAttribute('data-details', item.type === 'folder' ? 'Dossier' : 'Fichier');
         itemLink.dataset.itemName = item.name;
         itemLink.dataset.itemType = item.type;
+        itemLink.dataset.itemFolderPath = path;
+        if (item.type === 'folder' && item.path) {
+            itemLink.dataset.itemTargetPath = item.path;
+        }
         if (isDolphinTemplate()) {
-            itemLink.dataset.itemFolderPath = path;
-            if (item.type === 'folder' && item.path) {
-                itemLink.dataset.itemTargetPath = item.path;
-            }
             if (item.extension) {
                 itemLink.dataset.itemExtension = item.extension;
             }
@@ -872,14 +880,167 @@ const createFolderInExplorer = async (parentPath, folderName) => {
     return { ok: true, path: newPath, name };
 };
 
+const findItemInFolder = (folderNode, itemName) => {
+    if (!folderNode || !Array.isArray(folderNode.items)) {
+        return null;
+    }
+    return folderNode.items.find((entry) => entry.name === itemName) || null;
+};
+
+const removeItemFromFolder = (folderNode, itemName) => {
+    if (!folderNode || !Array.isArray(folderNode.items)) {
+        return null;
+    }
+    const index = folderNode.items.findIndex((entry) => entry.name === itemName);
+    if (index === -1) {
+        return null;
+    }
+    const [removed] = folderNode.items.splice(index, 1);
+    folderNode.items = sortExplorerItems(folderNode.items);
+    return removed;
+};
+
+const cloneExplorerItem = (item, destFolderPath) => {
+    const copy = JSON.parse(JSON.stringify(item));
+    if (copy.type === 'folder' && copy.path) {
+        const newPath = joinExplorerPath(destFolderPath, copy.name);
+        copy.path = newPath;
+    }
+    return copy;
+};
+
+const relocateFolderSubtree = (manifest, oldPath, newPath) => {
+    if (!manifest.folders[oldPath]) {
+        return;
+    }
+    manifest.folders[newPath] = manifest.folders[oldPath];
+    delete manifest.folders[oldPath];
+    manifest.folders[newPath].label = newPath.split('/').pop();
+
+    Object.keys(manifest.folders).forEach((key) => {
+        if (key.startsWith(`${oldPath}/`)) {
+            const suffix = key.slice(oldPath.length);
+            manifest.folders[`${newPath}${suffix}`] = manifest.folders[key];
+            delete manifest.folders[key];
+        }
+    });
+
+    Object.values(manifest.folders).forEach((folder) => {
+        if (!Array.isArray(folder.items)) {
+            return;
+        }
+        folder.items.forEach((item) => {
+            if (item.type === 'folder' && item.path && item.path.startsWith(`${oldPath}/`)) {
+                item.path = `${newPath}${item.path.slice(oldPath.length)}`;
+            }
+        });
+    });
+};
+
+const moveExplorerItem = async (sourceFolderPath, itemName, destFolderPath) => {
+    try {
+        await loadManifest();
+    } catch (error) {
+        return { ok: false, message: 'Manifeste indisponible.' };
+    }
+
+    const manifest = fileExplorerState.manifest;
+    const sourcePath = normalizeDirectoryPath(sourceFolderPath);
+    const destPath = normalizeDirectoryPath(destFolderPath);
+    const sourceNode =((manifest == null ? void 0 : manifest.folders) == null ? void 0 : (manifest == null ? void 0 : manifest.folders)[sourcePath]);
+    const destNode =((manifest == null ? void 0 : manifest.folders) == null ? void 0 : (manifest == null ? void 0 : manifest.folders)[destPath]);
+
+    if (!sourceNode || !destNode) {
+        return { ok: false, message: 'Dossier source ou destination introuvable.' };
+    }
+    if (sourcePath === destPath) {
+        return { ok: false, message: 'La destination est identique à la source.' };
+    }
+
+    const item = findItemInFolder(sourceNode, itemName);
+    if (!item) {
+        return { ok: false, message: 'Élément introuvable.' };
+    }
+
+    if (item.type === 'folder' && item.path && (destPath === item.path || destPath.startsWith(`${item.path}/`))) {
+        return { ok: false, message: 'Impossible de déplacer un dossier dans lui-même.' };
+    }
+
+    const duplicate = findItemInFolder(destNode, itemName);
+    if (duplicate) {
+        return { ok: false, message: 'Un élément avec ce nom existe déjà.' };
+    }
+
+    removeItemFromFolder(sourceNode, itemName);
+    destNode.items.push(item);
+    destNode.items = sortExplorerItems(destNode.items);
+
+    if (item.type === 'folder' && item.path) {
+        relocateFolderSubtree(manifest, item.path, joinExplorerPath(destPath, item.name));
+    }
+
+    persistExplorerManifest(manifest);
+    renderDirectory(sourcePath, { pane: fileExplorerState.activePane || 'primary' });
+    if (fileExplorerState.currentPath === destPath) {
+        renderDirectory(destPath, { pane: fileExplorerState.activePane || 'primary' });
+    }
+
+    return { ok: true };
+};
+
+const copyExplorerItem = async (sourceFolderPath, itemName, destFolderPath) => {
+    try {
+        await loadManifest();
+    } catch (error) {
+        return { ok: false, message: 'Manifeste indisponible.' };
+    }
+
+    const manifest = fileExplorerState.manifest;
+    const sourcePath = normalizeDirectoryPath(sourceFolderPath);
+    const destPath = normalizeDirectoryPath(destFolderPath);
+    const sourceNode =((manifest == null ? void 0 : manifest.folders) == null ? void 0 : (manifest == null ? void 0 : manifest.folders)[sourcePath]);
+    const destNode =((manifest == null ? void 0 : manifest.folders) == null ? void 0 : (manifest == null ? void 0 : manifest.folders)[destPath]);
+
+    if (!sourceNode || !destNode) {
+        return { ok: false, message: 'Dossier source ou destination introuvable.' };
+    }
+
+    const item = findItemInFolder(sourceNode, itemName);
+    if (!item) {
+        return { ok: false, message: 'Élément introuvable.' };
+    }
+
+    if (findItemInFolder(destNode, itemName)) {
+        return { ok: false, message: 'Un élément avec ce nom existe déjà.' };
+    }
+
+    const copy = cloneExplorerItem(item, destPath);
+    destNode.items.push(copy);
+    destNode.items = sortExplorerItems(destNode.items);
+
+    if (copy.type === 'folder') {
+        const newPath = copy.path || joinExplorerPath(destPath, copy.name);
+        copy.path = newPath;
+        manifest.folders[newPath] = { label: copy.name, items: [] };
+    }
+
+    persistExplorerManifest(manifest);
+    renderDirectory(destPath, { pane: fileExplorerState.activePane || 'primary' });
+
+    return { ok: true };
+};
+
 const loadManifest = async () => {
     if (fileExplorerState.manifest) {
         return fileExplorerState.manifest;
     }
 
     const useEmbedManifest = () => {
-        if (typeof window === 'undefined' || !(window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED || window.CAPSULE_NEMO_MANIFEST_EMBED)) {
+        if (typeof window === 'undefined') {
             return false;
+        }
+        if (window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED || window.CAPSULE_NEMO_MANIFEST_EMBED) {
+            return true;
         }
         if (window.CAPSULE_FORCE_APP_EMBED === true) {
             return true;
@@ -899,7 +1060,15 @@ const loadManifest = async () => {
     }
 
     if (!fileExplorerState.manifestPromise) {
-        fileExplorerState.manifestPromise = fetch(getFileExplorerManifestPath())
+        const primaryManifest = getFileExplorerManifestPath();
+        const legacyManifest = `${getFileExplorerRoot()}/nemo-manifest.json`;
+        fileExplorerState.manifestPromise = fetch(primaryManifest)
+            .then((response) => {
+                if (!response.ok && primaryManifest !== legacyManifest) {
+                    return fetch(legacyManifest);
+                }
+                return response;
+            })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP ${response.status}`);
@@ -1264,7 +1433,7 @@ const bindFileExplorerNavigationControls = () => {
         });
 
         const { defaultValue } = getFileExplorerZoomSettings();
-        applyFileExplorerZoom(fileExplorerState.zoomValue ?? defaultValue);
+        applyFileExplorerZoom((fileExplorerState.zoomValue != null ? fileExplorerState.zoomValue : defaultValue));
         nemoRoot.dataset.nemoZoomInit = 'true';
     }
 
@@ -1305,4 +1474,6 @@ window.applyNemoZoom = applyFileExplorerZoom;
 window.getFileExplorerRoot = getFileExplorerRoot;
 window.getNemoRoot = getFileExplorerRoot;
 window.createFolderInExplorer = createFolderInExplorer;
+window.moveExplorerItem = moveExplorerItem;
+window.copyExplorerItem = copyExplorerItem;
 window.persistExplorerManifest = persistExplorerManifest;

@@ -1,0 +1,32 @@
+{
+  "definitionFiles": [
+    "usr/share/capsuleos/themes/global/variables.css",
+    "usr/share/capsuleos/themes/global/variables-portal.css",
+    "usr/share/capsuleos/themes/linux/variables-linux.css",
+    "usr/share/capsuleos/themes/linux/variables-linux-computed.css",
+    "usr/share/capsuleos/themes/linux/variables-apps.css"
+  ],
+  "scanGlobs": [
+    "usr/share/capsuleos/themes/linux/window-chrome.base.css",
+    "usr/share/capsuleos/linux/apps/style/**/*.css",
+    "home/**/style/apps/nemo*.css",
+    "home/**/style/apps/nautilus*.css",
+    "home/**/style/style.css",
+    "home/**/style/*desktop*.css",
+    "home/**/style/**/*desktop*.css",
+    "home/**/style/gnome-workstation.css",
+    "home/**/style/**/windows-chrome.css",
+    "home/**/style/**/*tokens*.css",
+    "home/**/style/gnome-shell/*.css",
+    "home/**/style/cosmic-shell/*.css"
+  ],
+  "aliases": {
+    "--f": "display:flex",
+    "--n": "none",
+    "--fix": "position:fixed",
+    "--rel": "position:relative",
+    "--abs": "position:absolute",
+    "--h": "overflow:hidden",
+    "--a": "auto"
+  }
+}

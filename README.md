@@ -1,6 +1,8 @@
 # CapsuleOS
 Un site permettant de tester des environnements de bureau, les appréhender en jouant et choisir ses préférences.
 
+**Contribuer (humains et agents IA)** : voir [contrib.md](contrib.md) — formation, gates `validate-all`, ajout de distributions et briefs depuis le registre OS.
+
 [TOC]
 
 ## État des lieux et objectifs ▼
@@ -172,8 +174,13 @@ Le dépôt est structuré pour ressembler au maximum à une racine Linux.
 
 ​	📄 variables.css
 
+### Contribuer et agents ▼
+
+- **[contrib.md](contrib.md)** — guide contribution, parcours agents H0–H6, validateurs, ajout d’OS scalable
+- **`root/`** — skills Cursor, [parcours-agent.md](root/docs/parcours-agent.md), [ajouter-os-scalable.md](root/docs/ajouter-os-scalable.md)
+
 ### Documentation agents (bureaux Linux) ▼
 
-Guide **GTK / GNOME / Cinnamon / KDE Plasma / COSMIC** pour la fidélité visuelle des skins : [LINUX-GUI-TOOLKITS.md](LINUX-GUI-TOOLKITS.md). Voir aussi `root/docs/apps-linux-par-distro.md` pour les mappings d’applications.
+Guide **GTK / GNOME / Cinnamon / KDE Plasma / COSMIC** pour la fidélité visuelle des skins : [contrib.md § toolkits](contrib.md#bibliotheques-graphiques-linux-toolkits-gui). Voir aussi `root/docs/apps-linux-par-distro.md` pour les mappings d’applications.
 
 

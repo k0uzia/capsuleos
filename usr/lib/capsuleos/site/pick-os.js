@@ -1,61 +1,155 @@
+/**
+ * Portail pick-os (généré depuis etc/capsuleos/os-registry.json).
+ * Regénérer : node usr/lib/capsuleos/tools/build-pick-os.mjs
+ */
 (function () {
-    const ICON = {
-        linux: './usr/share/capsuleos/branding/icons/linux/',
-        windows: './usr/share/capsuleos/branding/icons/windows/',
-        macos: './usr/share/capsuleos/branding/icons/macos/',
-        android: './usr/share/capsuleos/branding/icons/android/'
+    const ICON =     {
+        "linux": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/",
+        "windows": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/",
+        "macos": "./usr/share/capsuleos/assets/images/platforms/pick-os/macos/",
+        "android": "./usr/share/capsuleos/assets/images/platforms/pick-os/android/",
+        "ios": "./usr/share/capsuleos/assets/images/platforms/pick-os/ios/apple.svg",
+        "bsd": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
     };
 
-    const catalog = {
-        linux: {
-            label: 'Linux',
-            distros: [
-                { name: 'Linux Mint (Cinnamon)', href: './OS/linux/families/debian/mint/index.html', icon: `${ICON.linux}mint.png` },
-                { name: 'Ubuntu 25.10', href: './OS/linux/families/debian/ubuntu/index.html', icon: `${ICON.linux}ubuntu.png` },
-                { name: 'AnduinOS', href: './OS/linux/families/debian/anduinos/index.html', icon: `${ICON.linux}debian.png` },
-                { name: 'Pop!_OS', href: './OS/linux/families/debian/popos/index.html', icon: `${ICON.linux}popos.png` },
-                { name: 'MX Linux KDE', href: './OS/linux/families/debian/mx-kde/index.html', icon: `${ICON.linux}mx.png` },
-                { name: 'Debian KDE (Plasma)', href: './OS/linux/families/debian/debian-kde/index.html', icon: `${ICON.linux}debian.png` },
-                { name: 'openSUSE Tumbleweed', href: './OS/linux/families/suse/opensuse/index.html', icon: `${ICON.linux}opensuse.png` },
-                { name: 'Fedora Workstation', href: './OS/linux/families/redhat/fedora/index.html', icon: `${ICON.linux}fedora.png` }
+    const catalog =     {
+        "linux": {
+            "label": "Linux",
+            "distros": [
+                {
+                    "name": "Linux Mint (Cinnamon)",
+                    "href": "./OS/linux/families/debian/mint/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/mint.png"
+                },
+                {
+                    "name": "Ubuntu 25.10",
+                    "href": "./OS/linux/families/debian/ubuntu/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/ubuntu.png"
+                },
+                {
+                    "name": "Fedora Workstation",
+                    "href": "./OS/linux/families/redhat/fedora/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/fedora.png"
+                },
+                {
+                    "name": "MX Linux KDE",
+                    "href": "./OS/linux/families/debian/mx-kde/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/mx.png"
+                },
+                {
+                    "name": "openSUSE Tumbleweed",
+                    "href": "./OS/linux/families/suse/opensuse/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/opensuse.png"
+                },
+                {
+                    "name": "Debian KDE (Plasma)",
+                    "href": "./OS/linux/families/debian/debian-kde/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                },
+                {
+                    "name": "Pop!_OS",
+                    "href": "./OS/linux/families/debian/popos/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/popos.png"
+                },
+                {
+                    "name": "AnduinOS",
+                    "href": "./OS/linux/families/debian/anduinos/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                }
             ]
         },
-        windows: {
-            label: 'Windows',
-            distros: [
-                { name: 'Windows 95', href: './OS/windows/versions/95/index.html', icon: `${ICON.windows}win95.png` },
-                { name: 'Windows 98', href: './OS/windows/versions/98/index.html', icon: `${ICON.windows}win98.png` },
-                { name: 'Windows ME', href: './OS/windows/versions/me/index.html', icon: `${ICON.windows}winme.png` },
-                { name: 'Windows 2000', href: './OS/windows/versions/2000/index.html', icon: `${ICON.windows}win2000.png` },
-                { name: 'Windows XP', href: './OS/windows/versions/xp/index.html', icon: `${ICON.windows}winxp.png` },
-                { name: 'Windows Vista', href: './OS/windows/versions/vista/index.html', icon: `${ICON.windows}vista.png` },
-                { name: 'Windows 7', href: './OS/windows/versions/7/index.html', icon: `${ICON.windows}win7.png` },
-                { name: 'Windows 8', href: './OS/windows/versions/8/index.html', icon: `${ICON.windows}win8.png` },
-                { name: 'Windows 8.1', href: './OS/windows/versions/8.1/index.html', icon: `${ICON.windows}win8.png` },
-                { name: 'Windows 10', href: './OS/windows/versions/10/index.html', icon: `${ICON.windows}win10.png` },
-                { name: 'Windows 11', href: './OS/windows/versions/11/index.html', icon: `${ICON.windows}win11.png` }
+        "windows": {
+            "label": "Windows",
+            "distros": [
+                {
+                    "name": "Windows 10",
+                    "href": "./OS/windows/versions/10/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win10.png"
+                },
+                {
+                    "name": "Windows 11",
+                    "href": "./OS/windows/versions/11/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win11.png"
+                },
+                {
+                    "name": "Windows 7",
+                    "href": "./OS/windows/versions/7/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win7.png"
+                },
+                {
+                    "name": "Windows XP",
+                    "href": "./OS/windows/versions/xp/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/winxp.png"
+                },
+                {
+                    "name": "Windows 2000",
+                    "href": "./OS/windows/versions/2000/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win2000.png"
+                },
+                {
+                    "name": "Windows 8",
+                    "href": "./OS/windows/versions/8/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win8.png"
+                },
+                {
+                    "name": "Windows 8.1",
+                    "href": "./OS/windows/versions/8.1/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win8.png"
+                },
+                {
+                    "name": "Windows 95",
+                    "href": "./OS/windows/versions/95/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win95.png"
+                },
+                {
+                    "name": "Windows 98",
+                    "href": "./OS/windows/versions/98/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/win98.png"
+                },
+                {
+                    "name": "Windows ME",
+                    "href": "./OS/windows/versions/me/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/winme.png"
+                },
+                {
+                    "name": "Windows Vista",
+                    "href": "./OS/windows/versions/vista/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/windows/vista.png"
+                }
             ]
         },
-        macos: {
-            label: 'macOS',
-            distros: [
-                { name: 'macOS Sonoma', href: './OS/macos/sonoma/index.html', icon: `${ICON.macos}sonoma.png` }
+        "macos": {
+            "label": "Macos",
+            "distros": [
+                {
+                    "name": "macOS Sonoma",
+                    "href": "./OS/macos/sonoma/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/macos/sonoma.png"
+                }
             ]
         },
-        bsd: {
-            label: 'BSD',
-            distros: []
+        "bsd": {
+            "label": "BSD",
+            "distros": []
         },
-        ios: {
-            label: 'iOS',
-            distros: [
-                { name: 'iOS 15', href: './OS/ios/15/index.html', icon: './OS/ios/15/assets/apple.svg' }
+        "ios": {
+            "label": "iOS",
+            "distros": [
+                {
+                    "name": "iOS 15",
+                    "href": "./OS/ios/15/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/ios/apple.svg"
+                }
             ]
         },
-        android: {
-            label: 'Android',
-            distros: [
-                { name: 'Android', href: './OS/android/index.html', icon: `${ICON.android}vanillaicecream.png` }
+        "android": {
+            "label": "Android",
+            "distros": [
+                {
+                    "name": "Android (Vanilla Ice Cream)",
+                    "href": "./OS/android/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/android/vanillaicecream.png"
+                }
             ]
         }
     };
@@ -171,4 +265,4 @@
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && modal.open) closeModal();
     });
-})();
+}());

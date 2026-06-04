@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '—',
     tagline: 'GNOME retouché, expérience proche de Windows 11.',
     description: 'AnduinOS est une distribution basée sur Debian avec un bureau GNOME fortement personnalisé : barre des tâches centrée en bas, menu Démarrer et Fichiers (Nautilus), sans dock latéral.',
-    logo: './media/img/assets/anduin-logo.svg',
+    logo: './assets/images/vendors/anduin/anduin-logo.svg',
     logoAlt: 'Logo AnduinOS',
     url: '',
     stats: {

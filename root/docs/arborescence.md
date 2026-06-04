@@ -9,12 +9,16 @@ Résumé pour naviguer le dépôt ; détail produit : [`README.md`](../../README
 | `index.html`, `sw.js`, `js/` | Portail, service worker |
 | `OS/` | **Facades** stables (URLs, entrées bureaux) — pas de doc dev ici |
 | `home/` | Skins par vendeur + **`home/public/`** (FS simulé partagé) |
-| `usr/share/capsuleos/` | HTML/CSS apps, explorateurs, thèmes, branding |
-| `usr/lib/capsuleos/` | JS shells, common, tools (build embed/manifest) |
+| `usr/share/capsuleos/` | HTML/CSS apps, explorateurs, thèmes, branding, **`assets/`** (icônes système) |
+| `usr/lib/capsuleos/` | JS shells, common, tools (build embed/manifest, **validate-capsule**) |
+| `etc/capsuleos/` | **`os-registry.json`**, schémas `skin.profile`, exemples |
 | `var/lib/capsuleos/generated/` | `capsule-app-embed.js`, `capsule-android-embed.js`, etc. |
-| `etc/capsuleos/` | Config (ex. `user-home.json`) |
 | `root/` | **Ce dossier** — skills et doc agents uniquement |
-| `LINUX-GUI-TOOLKITS.md` (racine dépôt) | GTK / Qt / Cinnamon / COSMIC — guide UX agents Linux |
+| [`contrib.md`](../../contrib.md) (racine) | Guide contributeur ; [§ toolkits Linux](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (GTK / Qt / Cinnamon / COSMIC) |
+| `root/docs/manifeste-noyau.md` | Vision noyau, hydratation, assets |
+| `root/docs/repertoire-os.md` | Catalogue OS (52 entrées) |
+| `root/docs/scalabilite-noyau.md` | Stratégie scale statique |
+| `root/docs/equipe-agentique.md` | Staffing agents |
 
 ## Flux typique Linux
 

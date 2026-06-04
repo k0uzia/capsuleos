@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./media/img/win11.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/win11.png" type="image/x-icon">
     <link rel="stylesheet" href="./style/style.css">
     <title>Windows 11</title>
 </head>
@@ -12,7 +12,7 @@
     <main>
         <div id="menu"></div>
         <a href="../../shared/pages/corbeille.html" target="lien" title="Accéder à la corbeille">
-            <img src="./media/img/corbeille.png" alt="Corbeille" title="Accéder à la corbeille">
+            <img src="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/corbeille.png" alt="Corbeille" title="Accéder à la corbeille">
         </a>
         <div id="windowContainer" class="resize-drag" style="display: none; position: fixed;">
             <div id="windowHeader">
@@ -29,23 +29,23 @@
     <footer>
         <menu>
             <i title="Menu Démarrer" aria-label="Menu Démarrer">
-                <img src="./media/img/win11.png" alt="Logo de Windows" title="Accéder au menu démarrer">
+                <img src="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/win11.png" alt="Logo de Windows" title="Accéder au menu démarrer">
             </i>
             <a href="../../shared/pages/explorateur.html" target="lien" title="Explorateur de fichiers">
-                <img src="./media/img/folder.png" alt="Explorateur de fichiers" title="Explorateur de fichiers">
+                <img src="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/folder.png" alt="Explorateur de fichiers" title="Explorateur de fichiers">
             </a>
             <a href="../../shared/pages/photos.html" target="lien" title="Explorateur de photos">
-                <img src="./media/img/photo.png" alt="Explorateur de photos" title="Explorateur de photos">
+                <img src="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/photo.png" alt="Explorateur de photos" title="Explorateur de photos">
             </a>
             <a href="../../shared/pages/videos.html" target="lien" title="Explorateur de vidéos">
-                <img src="./media/img/films.png" alt="Explorateur de vidéos" title="Explorateur de vidéos">
+                <img src="../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/films.png" alt="Explorateur de vidéos" title="Explorateur de vidéos">
             </a>
         </menu>
         <a href="../../shared/pages/time.html" target="lien" title="Date et heure">
             <span id="heure-date"></span>
         </a>
     </footer>
-    <script src="../../../../../usr/lib/capsuleos/common/user-home.js"></script>
+    <script src="../../../../usr/lib/capsuleos/common/user-home.js"></script>
     <script>
         window.CAPSULE_WIN_VERSION = '11';
         window.CAPSULE_WIN_SHELL = 'modern';
@@ -57,17 +57,23 @@
             : '../../../../home/public';
         window.CAPSULE_WIN_SKIN_BASE = '.';
         window.CAPSULE_WIN_HUB = '../../index.html';
-        window.CAPSULE_WIN_SITE_HOME = '../../../../../index.html';
-        window.CAPSULE_SITE_HOME = '../../../../../index.html';
+        window.CAPSULE_WIN_SITE_HOME = '../../../../index.html';
+        window.CAPSULE_SITE_HOME = '../../../../index.html';
         window.CAPSULE_PICK_OS = 'windows';
     </script>
     <script src="../../kernel/js/capsule-windows-embed.js"></script>
     <script src="../../kernel/js/date.js"></script>
-    <script src="../../../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
-    <script src="../../../../../usr/lib/capsuleos/common/background.js"></script>
+    <script src="../../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
+    <script src="../../../../usr/lib/capsuleos/common/background.js"></script>
+    <script src="../../../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="../../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
+    <script src="../../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
+    <script src="../../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
     <script src="../../kernel/js/win-window-drag.js"></script>
-    <script src="../../../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
     <script src="../../kernel/js/win-desktop.js"></script>
+    <script>window.CAPSULE_WINDOW_FAMILY = 'windows';</script>
     <script src="../../kernel/js/windowManager.js"></script>
     <script src="./js/menu.js"></script>
     <script src="./js/demarrer.js"></script>

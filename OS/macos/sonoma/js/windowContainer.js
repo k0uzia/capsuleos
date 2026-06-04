@@ -1,34 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Sélectionne tous les liens avec target="windowElement"
-    const links = document.querySelectorAll('a[target="windowElement"]');
+/**
+ * macOS Sonoma — shell fenêtre commun (référence CapsuleOS).
+ */
+(function initMacosSonomaWindowContainer() {
+    'use strict';
 
-    // Création de la div#windowHeader
-    const windowHeader = document.createElement('div');
-    const left = document.createElement('nav');
-    const closeBtn = document.createElement('button');
-    const minimizeBtn = document.createElement('button');
-    const maximizeBtn = document.createElement('button');
-    const title = document.createElement('span');
-    const right = document.createElement('nav');
-
-    // Ajout du contenu HTML pour la div#windowHeader
-    windowHeader.id = 'windowHeader';
-    windowHeader.style.minWidth = 'calc(var(--head) * 16)';
-
-    closeBtn.id = 'closeBtn';
-    minimizeBtn.id = 'minimizeBtn';
-    maximizeBtn.id = 'resizeBtn';
-
-    title.id = 'windowTitle';
-    // Utilisez document.title pour obtenir le titre de la page par défaut
-    title.textContent = document.title;
-
-    windowHeader.appendChild(left);
-    left.appendChild(closeBtn);
-    left.appendChild(minimizeBtn);
-    left.appendChild(maximizeBtn);
-    windowHeader.appendChild(title);
-    windowHeader.appendChild(right);
+    window.CAPSULE_WINDOW_FAMILY = window.CAPSULE_WINDOW_FAMILY || 'macos';
 
     function ensureFinderFrame(container) {
         if (!container || container.dataset.finderReady === 'true') {
@@ -44,49 +20,18 @@ document.addEventListener('DOMContentLoaded', function () {
         container.dataset.finderReady = 'true';
     }
 
-    function handleOpenwindow(link) {
-        const container = document.querySelector(`div[data-link="${link.dataset.link}"]`);
-        
-        if (container) {
-            if (container.style.display === "none") {
-                container.style.display = "block";
-                if (link.dataset.link === 'finder') {
-                    ensureFinderFrame(container);
-                }
-                if (!container.querySelector('#windowHeader')) {
-                    container.insertBefore(windowHeader.cloneNode(true), container.firstChild);
-                }        
-                link.classList.add('active-link');
-                // Ajouter la classe active à l'élément de fenêtre
-                container.classList.add('active');
-                // Utiliser le data-link pour mettre à jour le windowTitle
-                const windowTitle = container.querySelector('#windowTitle');
-                if (windowTitle) {
-                    windowTitle.textContent = link.dataset.link;
-                }
-                // Rendre la fenêtre déplacable
-                makeDraggable(container);
-                // Rendre la fenêtre redimensionnable
-                makeResizable(container);
-            } else {
-                container.style.display = "none";
-                // Retirer la classe active de l'élément de fenêtre
-                container.classList.remove('active');
-                container.classList.remove('windowElementActive');
+    if (typeof CapsuleWindowShell === 'undefined') {
+        console.error('CapsuleOS macOS: charger capsule-window-shell.js avant windowContainer.js');
+        return;
+    }
+
+    CapsuleWindowShell.init({
+        displayOnOpen: 'block',
+        positionOnOpen: 'fixed',
+        onOpen: function (container, slotId) {
+            if (slotId === 'finder') {
+                ensureFinderFrame(container);
             }
-        }
-    }
-
-    // Lancer la fonction d'ouverture pour chaque lien
-    links.forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault(); // Empêche le comportement par défaut du lien
-            handleOpenwindow(this); // Utilisez 'this' pour référencer l'élément de lien
-        });
+        },
     });
-
-    // Fonction pour rendre une fenêtre redimensionnable
-    function makeResizable(element) {
-        const resizer = new Resizer(element);
-    }
-});
+}());

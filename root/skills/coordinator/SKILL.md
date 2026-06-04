@@ -11,11 +11,12 @@ Découper la demande, assigner les skills `/root/skills/`, séquencer les livrab
 
 ## Étapes
 
-1. **Classifier** : une ou plusieurs familles OS ? Un ou plusieurs rôles ?
-2. **Charger** : `os-orchestrator` si OS flou ; sinon `os-<famille>` par cible.
-3. **Rôles** : ajouter `role-*` (voir [team/equipe.md](../../team/equipe.md)).
-4. **Contrat** : rappeler `CONTRACT_CHECKLIST.md` avant clôture.
-5. **Livrable** : liste fichiers touchés sous `CapsuleOS/` uniquement.
+1. **Classifier** : une ou plusieurs familles OS ? Un ou plusieurs rôles ? Migration assets / noyau ?
+2. **Noyau / assets** : si migration images, routage `CapsuleResource`, ou `validate-asset-zones` en échec → **`kernel-supervisor`** pilote ; ce coordinateur ne fait que le produit multi-familles.
+3. **Charger** : `os-orchestrator` si OS flou ; sinon `os-<famille>` par cible.
+4. **Rôles** : ajouter `role-*` (voir [team/equipe.md](../../team/equipe.md)).
+5. **Contrat** : rappeler la [checklist `contrib.md`](../../../contrib.md#checklist-contrat-avant-merge-ou-release) avant clôture.
+6. **Livrable** : liste fichiers touchés sous `CapsuleOS/` uniquement.
 
 ## Matrice rapide
 
@@ -26,14 +27,18 @@ Découper la demande, assigner les skills `/root/skills/`, séquencer les livrab
 | « XP et 11 » | `os-windows`, `role-web-designer` |
 | « Portail + Android » | `role-developer`, `os-android` |
 | « Conformité release » | `role-manager` |
+| « Migration assets noyau » | `kernel-supervisor` → `asset-pipeline` + `kernel-guardian` |
+| « validate-asset-zones échoue » | `kernel-supervisor` (bloquer skins jusqu’à vert) |
 
 ## Ne pas
 
 - Réécrire `writing.md`.
 - Créer de la doc sous `OS/`.
 - Lancer des refactors hors périmètre demandé.
+- Contourner `kernel-supervisor` sur une migration assets multi-skins.
 
 ## Références
 
 - [AGENTS.md](../../AGENTS.md)
 - [docs/familles-os.md](../../docs/familles-os.md)
+- [kernel-supervisor/SKILL.md](../kernel-supervisor/SKILL.md)

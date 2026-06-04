@@ -171,7 +171,7 @@
         }
     }
 
-    const RAIL_ICON_BASE = './media/img/menu-rail';
+    const RAIL_ICON_BASE = './assets/images/toolkits/kde/menu-rail';
 
     /** SVG Breeze (visuel/icons) copiés localement ; `mono` = icône sombre à inverser sur thème sombre. */
     function applyMenuRailBreezeIcons() {

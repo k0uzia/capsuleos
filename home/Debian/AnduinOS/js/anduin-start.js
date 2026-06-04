@@ -41,8 +41,7 @@
         syncStartButton();
 
         window.setTimeout(() => {
-            const searchInput = document.getElementById('menu-search');
-            searchInput?.focus();
+            const searchInput = document.getElementById('menu-search');(searchInput == null ? void 0 : searchInput.focus)();
         }, 50);
     });
 

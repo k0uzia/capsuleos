@@ -8,21 +8,21 @@
     }
 
     const pagesBase = window.CAPSULE_WIN_PAGES_BASE || '../../shared/pages';
-    const siteHome = window.CAPSULE_WIN_SITE_HOME || '../../../../../index.html';
+    const siteHome = window.CAPSULE_WIN_SITE_HOME || '../../../../index.html';
     const pickKey = window.CAPSULE_PICK_OS || 'windows';
 
     const items = [
         {
             href: `${pagesBase}/explorateur.html`,
             title: 'Explorateur Windows',
-            icon: './media/img/folder.svg',
+            icon: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/95/folder.svg',
             label: 'Explorateur Windows',
             arrow: true
         },
         {
             href: `${pagesBase}/settings.html`,
             title: 'Panneau de configuration',
-            icon: './media/img/settings.svg',
+            icon: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/95/settings.svg',
             label: 'Panneau de configuration',
             arrow: true
         },
@@ -30,7 +30,7 @@
         {
             href: `${pagesBase}/aide.html`,
             title: 'Aide',
-            icon: './media/img/aide.png',
+            icon: '../../../../usr/share/capsuleos/assets/images/toolkits/windows/95/aide.png',
             label: 'Aide',
             arrow: false
         }
@@ -88,7 +88,7 @@
     shutdown.title = 'Arrêter Windows et retourner à l’accueil CapsuleOS';
 
     const shutImg = document.createElement('img');
-    shutImg.src = '../../shared/media/img/shut.png';
+    shutImg.src = '../../../../usr/share/capsuleos/assets/images/toolkits/windows/shared/shut.png';
     shutImg.alt = '';
 
     const shutLabel = document.createElement('span');

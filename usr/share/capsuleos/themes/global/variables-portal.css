@@ -118,11 +118,11 @@
     --vis: visible;
 
     /************* BACKGROUND *************/
-    --w11: url(../media/img/fond.jpg);
-    --macsono: url(../media/img/assets/background.jpg);
-    --mint: url(../media/img/assets/mint_wallpaper.jpg);
-    --android: url(./../assets/images/android_background.jpg);
-    --ios: url(../media/img/background.webp);
+    --w11: url(../../../../../usr/share/capsuleos/assets/images/toolkits/windows/11/fond.jpg);
+    --macsono: url(../../../../../usr/share/capsuleos/assets/images/vendors/common/background.jpg);
+    --mint: url(../../../../../usr/share/capsuleos/assets/images/vendors/mint/mint_wallpaper.jpg);
+    --android: url(../../../../../usr/share/capsuleos/assets/images/toolkits/android-material/images/android_background.jpg);
+    --ios: url(../../../../../usr/share/capsuleos/assets/images/toolkits/ios/background.webp);
     --scon: contain;
     --scov: cover;
     --nr: no-repeat;

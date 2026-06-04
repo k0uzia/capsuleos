@@ -46,7 +46,8 @@ function getTerminalActiveDistro() {
 function buildHomeEntries() {
     const distro = getTerminalActiveDistro();
     const homeEntries = {
-        '/user': {}
+        '/user': {},
+        '/public': {}
     };
     if (distro === 'redhat') {
         homeEntries['/fed'] = {};
@@ -67,23 +68,14 @@ const debianUserHomeChildren = {
 };
 
 const fileSystem = {
-    '/': {
-        ...defaultRoot
-    },
+    '/': Object.assign(
+        {}
+        , defaultRoot),
     '/bin' : buildBinEntries(),
     '/home': buildHomeEntries(),
     '/user': debianUserHomeChildren,
     '/home/user': debianUserHomeChildren,
-    ...(getTerminalActiveDistro() === 'redhat'
-        ? {
-            '/home/fed': {
-                '/Bureau': {},
-                '/Documents': {},
-                '/Images': {},
-                '/Téléchargements': {},
-            }
-        }
-        : {}),
+    '/home/public': debianUserHomeChildren,
     '/media' : {
         '/disque amovible' : {},
     },
@@ -128,7 +120,17 @@ const fileSystem = {
     },
 };
 
+if (getTerminalActiveDistro() === 'redhat') {
+    fileSystem['/home/fed'] = {
+        '/Bureau': {},
+        '/Documents': {},
+        '/Images': {},
+        '/Téléchargements': {},
+    };
+}
+
 window.CAPSULE_TERMINAL_FILE_CONTENTS = {
     '/home/user/Documents/readme.txt': 'Bienvenue dans le terminal CapsuleOS.\nUtilisez man pour voir les commandes disponibles.\nCe contenu est simulé pour l’apprentissage.',
+    '/home/public/Documents/readme.txt': 'Bienvenue dans le terminal CapsuleOS.\nHome partagé: /home/public.\nCe contenu est simulé pour l’apprentissage.',
     '/home/fed/Documents/readme.txt': 'Fedora Workstation - Terminal CapsuleOS\nCommandes pédagogiques disponibles via man.\nProfil Red Hat actif.'
 };

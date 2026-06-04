@@ -22,80 +22,80 @@
             label: 'Fichiers',
             aliases: ['files', 'nemo', 'nautilus', 'dossier', 'documents'],
             description: 'Gestionnaire de fichiers',
-            icon: './media/img/apps/dash/org.gnome.Nautilus.svg',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Nautilus.svg',
             dataLink: 'nemo'
         },
         {
             label: 'Firefox',
             aliases: ['navigateur', 'browser', 'web', 'internet'],
             description: 'Navigateur web',
-            icon: '../../../shared/media/img/apps/firefox.png',
+            icon: './assets/images/toolkits/gnome/apps/firefox.png',
             dataLink: 'firefox'
         },
         {
             label: 'Lecteur vidéo',
             aliases: ['video', 'videos', 'showtime', 'media'],
             description: 'Lire des vidéos',
-            icon: './media/img/apps/overview/org.gnome.Showtime.svg',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg',
             dataLink: 'lecteur_multimedia'
         },
         {
             label: 'Calculatrice',
             aliases: ['calculator', 'calcul', 'maths'],
             description: 'Effectuer des calculs',
-            icon: './media/img/apps/overview/org.gnome.Settings.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg'
         },
         {
             label: 'LibreOffice Writer',
             aliases: ['writer', 'texte', 'document', 'office'],
             description: 'Traitement de texte',
-            icon: './media/img/apps/overview/libreoffice-writer.svg',
+            icon: './assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg',
             dataLink: 'librewriter'
         },
         {
             label: 'LibreOffice Calc',
             aliases: ['calc', 'tableur', 'spreadsheet', 'office'],
             description: 'Tableur',
-            icon: './media/img/apps/overview/libreoffice-calc.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg'
         },
         {
             label: 'Paramètres',
             aliases: ['settings', 'preferences', 'configuration', 'theme'],
             description: 'Configurer le système',
-            icon: './media/img/apps/overview/org.gnome.Settings.svg',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg',
             dataLink: 'themes'
         },
         {
             label: 'Terminal',
             aliases: ['ptyxis', 'console', 'shell', 'commande'],
             description: 'Émulateur de terminal',
-            icon: './media/img/apps/overview/org.gnome.Ptyxis.svg',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg',
             dataLink: 'terminal'
         },
         {
             label: 'Calendrier',
             aliases: ['calendar', 'agenda', 'date'],
             description: 'Consulter le calendrier',
-            icon: './media/img/apps/dash/org.gnome.Calendar.svg',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg',
             dataLink: 'checklist'
         },
         {
             label: 'Contacts',
             aliases: ['contact', 'adresse'],
             description: 'Carnet de contacts',
-            icon: './media/img/apps/overview/org.gnome.Contacts.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg'
         },
         {
             label: 'Météo',
             aliases: ['weather', 'temps'],
             description: 'Prévisions météo',
-            icon: './media/img/apps/overview/org.gnome.Weather.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg'
         },
         {
             label: 'Caractères',
             aliases: ['characters', 'symboles', 'unicode'],
             description: 'Table des caractères',
-            icon: './media/img/apps/overview/org.gnome.Characters.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg'
         }
     ];
 

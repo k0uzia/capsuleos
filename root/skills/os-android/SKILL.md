@@ -11,7 +11,7 @@ description: Expert on CapsuleOS simulated Android under OS/android—apps, mess
 |------|--------|
 | Façade | `OS/android/` (`index.html`, `apps/`, `js/`, `style/`, `ressources/`) |
 | Embed offline | `var/lib/capsuleos/generated/capsule-android-embed.js` |
-| Icônes portail | `usr/share/capsuleos/branding/icons/android/` |
+| Icônes portail | `./assets/images/platforms/pick-os/android/` |
 
 ## Build
 

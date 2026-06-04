@@ -9,22 +9,28 @@
         typeof window.isDolphinTemplate === 'function' && window.isDolphinTemplate()
     );
 
-    const getRoot = () => document.getElementById('nemo');
+    const getRoot = () => {
+        if (typeof window.getExplorerWindowSlot === 'function') {
+            return window.getExplorerWindowSlot();
+        }
+        return document.getElementById('nemo')
+            || document.querySelector('div.windowElement#nemo[data-link="nemo"]');
+    };
 
-    const getExplorerShell = () => getRoot()?.querySelector('main#gestionnaire.dolphin-app') || null;
+    const getExplorerShell = () =>(getRoot() == null ? void 0 : getRoot().querySelector)('main#gestionnaire.dolphin-app') || null;
 
-    const getPanesWrap = () => getExplorerShell()?.querySelector('#dolphin-content-panes')
+    const getPanesWrap = () =>(getExplorerShell() == null ? void 0 : getExplorerShell().querySelector)('#dolphin-content-panes')
         || document.getElementById('dolphin-content-panes');
 
-    const getVolet = () => getRoot()?.querySelector('#voletContainer') || null;
+    const getVolet = () =>(getRoot() == null ? void 0 : getRoot().querySelector)('#voletContainer') || null;
 
     const hasDolphinShell = () => !!(
         getExplorerShell()
-        || getRoot()?.querySelector('main#gestionnaire.dolphin-app, main.dolphin-app')
+        ||(getRoot() == null ? void 0 : getRoot().querySelector)('main#gestionnaire.dolphin-app, main.dolphin-app')
     );
 
     const ensurePreviewToolbarControls = () => {
-        const shell = getExplorerShell() || getRoot()?.querySelector('main.dolphin-app, main#gestionnaire');
+        const shell = getExplorerShell() ||(getRoot() == null ? void 0 : getRoot().querySelector)('main.dolphin-app, main#gestionnaire');
         if (!shell) {
             return;
         }
@@ -55,7 +61,7 @@
 
         if (!shell.querySelector('#dolphin-search')) {
             const actions = shell.querySelector('.dolphin-toolbar__actions, .nemo-app__toolbar-group--actions');
-            const legacySearch = actions?.querySelector('a[title="Rechercher"], a[aria-label="Rechercher"]');
+            const legacySearch =(actions == null ? void 0 : actions.querySelector)('a[title="Rechercher"], a[aria-label="Rechercher"]');
             if (legacySearch && actions) {
                 const label = document.createElement('label');
                 label.className = 'dolphin-toolbar__search';
@@ -81,7 +87,7 @@
         }
         ensurePreviewToolbarControls();
 
-        const shell = getExplorerShell() || getRoot()?.querySelector('main.dolphin-app, main#gestionnaire');
+        const shell = getExplorerShell() ||(getRoot() == null ? void 0 : getRoot().querySelector)('main.dolphin-app, main#gestionnaire');
         const volet = getVolet();
         if (!shell || !volet) {
             ensurePreviewPaneDom();
@@ -246,12 +252,12 @@
         const state = getState();
         const { toggle } = getPreviewNodes();
         const panes = getPanesWrap();
-        const toggleOn = toggle?.getAttribute('aria-pressed') === 'true';
-        const panesOpen = !!panes?.classList.contains('dolphin-content-panes--preview-open');
+        const toggleOn =(toggle == null ? void 0 : toggle.getAttribute)('aria-pressed') === 'true';
+        const panesOpen = !!(panes && panes.classList.contains('dolphin-content-panes--preview-open'));
         if ((toggleOn || panesOpen) && state) {
             state.previewOpen = true;
         }
-        return toggleOn || panesOpen || !!state?.previewOpen;
+        return toggleOn || panesOpen || !!(state == null ? void 0 : state.previewOpen);
     };
 
     const applyPreviewPaneOpenLayout = (pane) => {
@@ -421,7 +427,7 @@
             state.previewOpen = true;
         }
         const panes = getPanesWrap();
-        const volet = getExplorerShell()?.querySelector('#voletContainer');
+        const volet =(getExplorerShell() == null ? void 0 : getExplorerShell().querySelector)('#voletContainer');
         const { pane, toggle } = getPreviewNodes();
         if (panes) {
             panes.classList.add('dolphin-content-panes--preview-open');
@@ -445,7 +451,7 @@
         ensurePreviewPaneDom();
         const state = getState();
         const panes = getPanesWrap();
-        const volet = getExplorerShell()?.querySelector('#voletContainer');
+        const volet =(getExplorerShell() == null ? void 0 : getExplorerShell().querySelector)('#voletContainer');
         const { pane, toggle } = getPreviewNodes();
         const open = !!(state && state.previewOpen);
         if (panes) {
@@ -471,8 +477,8 @@
     const updateSplitChrome = () => {
         const state = getState();
         const panes = getPanesWrap();
-        const volet = getRoot()?.querySelector('#voletContainer');
-        const secondaryPane = getRoot()?.querySelector('.dolphin-content-pane--secondary');
+        const volet =(getRoot() == null ? void 0 : getRoot().querySelector)('#voletContainer');
+        const secondaryPane =(getRoot() == null ? void 0 : getRoot().querySelector)('.dolphin-content-pane--secondary');
         const toggle = document.getElementById('dolphin-split-toggle');
         const open = !!(state && state.splitView);
 
@@ -498,9 +504,12 @@
             return;
         }
         state.activePane = paneId;
-        getRoot()?.querySelectorAll('.dolphin-content-pane[data-pane]').forEach((pane) => {
-            pane.classList.toggle('dolphin-content-pane--active', pane.dataset.pane === paneId);
-        });
+        var rootEl = getRoot();
+        if (rootEl) {
+            rootEl.querySelectorAll('.dolphin-content-pane[data-pane]').forEach((pane) => {
+                pane.classList.toggle('dolphin-content-pane--active', pane.dataset.pane === paneId);
+            });
+        }
 
         if (typeof window.updatePathDisplay === 'function') {
             window.updatePathDisplay();
@@ -521,7 +530,7 @@
         bindDolphinFilePointerActivation();
         updatePreviewChrome();
         updateSplitChrome();
-        setActivePane(getState()?.activePane || 'primary');
+        setActivePane((getState() == null ? void 0 : getState().activePane) || 'primary');
     };
 
     const navigateDolphinDirectory = (directory, options = {}) => {
@@ -529,8 +538,8 @@
         if (typeof navigate !== 'function') {
             return;
         }
-        const pane = options.pane || getState()?.activePane || 'primary';
-        navigate(directory, { ...options, pane });
+        const pane = options.pane ||(getState() == null ? void 0 : getState().activePane) || 'primary';
+        navigate(directory, Object.assign( {} , options, { pane: pane }));
     };
 
     const selectFileLink = (link, paneId) => {
@@ -568,7 +577,7 @@
         }
 
         const link = linkEl
-            || (event?.target?.closest ? event.target.closest('a[data-item-name]') : null);
+            || (((event == null ? void 0 : event.target) == null ? void 0 : (event == null ? void 0 : event.target).closest) ? event.target.closest('a[data-item-name]') : null);
         selectFileLink(link, paneId);
 
         if (event && typeof event.preventDefault === 'function') {
@@ -650,10 +659,13 @@
 
     const applySearchToVisiblePanes = () => {
         const state = getState();
-        if (!state?.searchQuery) {
-            getRoot()?.querySelectorAll('.nemo-app__item--search-hidden').forEach((el) => {
-                el.classList.remove('nemo-app__item--search-hidden');
-            });
+        if (!state || !state.searchQuery) {
+            var rootSearch = getRoot();
+            if (rootSearch) {
+                rootSearch.querySelectorAll('.nemo-app__item--search-hidden').forEach((el) => {
+                    el.classList.remove('nemo-app__item--search-hidden');
+                });
+            }
             return;
         }
 
@@ -689,7 +701,7 @@
         if (!root || root.style.display === 'none' || !isDolphin()) {
             return null;
         }
-        if (!event?.target?.closest) {
+        if (!((event == null ? void 0 : event.target) == null ? void 0 : (event == null ? void 0 : event.target).closest)) {
             return null;
         }
         const link = event.target.closest('a[data-item-name]');
@@ -713,8 +725,8 @@
             if (!link) {
                 return;
             }
-            const paneId = link.closest('[data-pane]')?.dataset.pane
-                || link.closest('.dolphin-content-pane')?.dataset.pane
+            const paneId =(link.closest('[data-pane]') == null ? void 0 : link.closest('[data-pane]').dataset).pane
+                ||(link.closest('.dolphin-content-pane') == null ? void 0 : link.closest('.dolphin-content-pane').dataset).pane
                 || 'primary';
             selectFileLink(link, paneId);
         }, true);
@@ -727,8 +739,8 @@
             if (!link) {
                 return;
             }
-            const paneId = link.closest('[data-pane]')?.dataset.pane
-                || link.closest('.dolphin-content-pane')?.dataset.pane
+            const paneId =(link.closest('[data-pane]') == null ? void 0 : link.closest('[data-pane]').dataset).pane
+                ||(link.closest('.dolphin-content-pane') == null ? void 0 : link.closest('.dolphin-content-pane').dataset).pane
                 || 'primary';
             const folderPath = link.dataset.itemFolderPath || '';
             const item = itemFromLink(link);
@@ -740,8 +752,8 @@
             if (!link) {
                 return;
             }
-            const paneId = link.closest('[data-pane]')?.dataset.pane
-                || link.closest('.dolphin-content-pane')?.dataset.pane
+            const paneId =(link.closest('[data-pane]') == null ? void 0 : link.closest('[data-pane]').dataset).pane
+                ||(link.closest('.dolphin-content-pane') == null ? void 0 : link.closest('.dolphin-content-pane').dataset).pane
                 || 'primary';
             const folderPath = link.dataset.itemFolderPath || '';
             const item = itemFromLink(link);
@@ -752,7 +764,7 @@
     };
 
     const setExplorerStatusMessage = (message) => {
-        const status = getRoot()?.querySelector('#nemoFooterContainer .nemo-app__status-center p');
+        const status =(getRoot() == null ? void 0 : getRoot().querySelector)('#nemoFooterContainer .nemo-app__status-center p');
         if (status) {
             status.textContent = message;
         }
@@ -785,13 +797,15 @@
         root.style.display = 'none';
         root.classList.remove('windowElementActive');
         const launcher = document.querySelector('a[target="windowElement"][data-link="nemo"]');
-        launcher?.classList.remove('active-link');
+        if (launcher) {
+            launcher.classList.remove('active-link');
+        }
     };
 
     const getSelectedFileEntry = () => {
-        const paneId = getState()?.activePane || 'primary';
+        const paneId =(getState() == null ? void 0 : getState().activePane) || 'primary';
         const grid = getPaneGrid(paneId);
-        const link = grid?.querySelector('a.nemo-app__item--selected[data-item-type="file"]');
+        const link =(grid == null ? void 0 : grid.querySelector)('a.nemo-app__item--selected[data-item-type="file"]');
         if (!link) {
             return null;
         }
@@ -809,7 +823,7 @@
         }
         const text = entry.item.name || resolveFileHref(entry.item, entry.folderPath);
         try {
-            if (navigator.clipboard?.writeText) {
+            if ((navigator.clipboard == null ? void 0 : navigator.clipboard.writeText)) {
                 await navigator.clipboard.writeText(text);
                 setExplorerStatusMessage(`Copié : ${text}`);
                 return true;
@@ -822,7 +836,7 @@
 
     const pasteFromClipboard = async () => {
         try {
-            if (!navigator.clipboard?.readText) {
+            if (!(navigator.clipboard == null ? void 0 : navigator.clipboard.readText)) {
                 setExplorerStatusMessage('Collage indisponible dans ce navigateur.');
                 return false;
             }
@@ -870,9 +884,9 @@
         }
         const paneId = state.activePane || 'primary';
         if (paneId === 'secondary') {
-            return state.secondaryPath || state.currentPath || window.getFileExplorerRoot?.();
+            return state.secondaryPath || state.currentPath ||(window.getFileExplorerRoot == null ? void 0 : window.getFileExplorerRoot());
         }
-        return state.currentPath || window.getFileExplorerRoot?.();
+        return state.currentPath ||(window.getFileExplorerRoot == null ? void 0 : window.getFileExplorerRoot());
     };
 
     const openDolphinNewTab = () => {
@@ -952,8 +966,7 @@
             actualiser: refreshExplorerDirectory,
             apercu: () => togglePreview(),
             'aller a': () => {
-                const sidebar = getRoot()?.querySelector('#voletnemo');
-                sidebar?.querySelector('.dolphin-sidebar__link')?.focus();
+                const sidebar =(getRoot() == null ? void 0 : getRoot().querySelector)('#voletnemo');((sidebar == null ? void 0 : sidebar.querySelector)('.dolphin-sidebar__link') == null ? void 0 : (sidebar == null ? void 0 : sidebar.querySelector)('.dolphin-sidebar__link').focus)();
                 if (typeof window.goToHomeDirectory === 'function') {
                     window.goToHomeDirectory();
                 }
@@ -965,7 +978,7 @@
 
         const handler = actions[key];
         if (!handler) {
-            if (context?.type === 'top') {
+            if ((context == null ? void 0 : context.type) === 'top') {
                 setExplorerStatusMessage(`${label} : bientôt disponible.`);
             }
             return false;
@@ -996,7 +1009,7 @@
         updateSplitChrome();
 
         if (state.splitView) {
-            const secondaryPath = state.secondaryPath || state.currentPath || window.getFileExplorerRoot?.();
+            const secondaryPath = state.secondaryPath || state.currentPath ||(window.getFileExplorerRoot == null ? void 0 : window.getFileExplorerRoot());
             if (secondaryPath) {
                 navigateDolphinDirectory(secondaryPath, {
                     pane: 'secondary',
@@ -1067,7 +1080,7 @@
             });
         }
 
-        const splitToggle = getExplorerShell()?.querySelector('#dolphin-split-toggle');
+        const splitToggle =(getExplorerShell() == null ? void 0 : getExplorerShell().querySelector)('#dolphin-split-toggle');
         if (splitToggle && splitToggle.dataset.dolphinSplitBound !== 'true') {
             splitToggle.dataset.dolphinSplitBound = 'true';
             splitToggle.addEventListener('click', (event) => {

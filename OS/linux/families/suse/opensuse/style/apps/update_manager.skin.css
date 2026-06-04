@@ -16,7 +16,7 @@ body#opensuse div[data-link="update_manager"] #windowHeader > nav:first-child::b
     display: block;
     width: 16px;
     height: 16px;
-    background: url("./media/img/apps/plasmadiscover.svg") no-repeat center / contain;
+    background: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/plasmadiscover.svg") no-repeat center / contain;
 }
 
 main#updateManagerApp {
@@ -24,28 +24,28 @@ main#updateManagerApp {
 }
 
 .kde-updates__navicon--home {
-    -webkit-mask-image: url("./media/img/elements/kde/go-home-symbolic.svg");
-    mask-image: url("./media/img/elements/kde/go-home-symbolic.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/elements/go-home-symbolic.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/elements/go-home-symbolic.svg");
 }
 
 .kde-updates__navicon--installed {
-    -webkit-mask-image: url("./media/img/panel/discover-installed.svg");
-    mask-image: url("./media/img/panel/discover-installed.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-installed.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-installed.svg");
 }
 
 .kde-updates__navicon--updates {
-    -webkit-mask-image: url("./media/img/panel/discover-updates.svg");
-    mask-image: url("./media/img/panel/discover-updates.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
 }
 
 .kde-updates__navicon--config {
-    -webkit-mask-image: url("./media/img/panel/settings.svg");
-    mask-image: url("./media/img/panel/settings.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg");
 }
 
 .kde-updates__navicon--about {
-    -webkit-mask-image: url("./media/img/elements/nemo/about.svg");
-    mask-image: url("./media/img/elements/nemo/about.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/about.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/about.svg");
 }
 
 .kde-updates__badge {
@@ -137,13 +137,13 @@ main#updateManagerApp {
 }
 
 .kde-updates__action-icon--refresh {
-    -webkit-mask-image: url("./media/img/elements/nemo/refresh.svg");
-    mask-image: url("./media/img/elements/nemo/refresh.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/refresh.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/refresh.svg");
 }
 
 .kde-updates__action-icon--updateall {
-    -webkit-mask-image: url("./media/img/panel/discover-updates.svg");
-    mask-image: url("./media/img/panel/discover-updates.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
 }
 
 .kde-updates__list {

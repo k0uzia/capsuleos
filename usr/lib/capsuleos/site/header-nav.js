@@ -35,7 +35,7 @@
     const closeMobileMenu = () => {
         const mobileMenu = document.getElementById('header-mobile-menu');
         const menuToggle = document.getElementById('header-menu-toggle');
-        if (!mobileMenu?.open) return;
+        if (!(mobileMenu == null ? void 0 : mobileMenu.open)) return;
         mobileMenu.close();
         if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
     };

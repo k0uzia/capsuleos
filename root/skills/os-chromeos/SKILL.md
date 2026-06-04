@@ -26,7 +26,7 @@ Shelf (barre basse), launcher circulaire/grille, fenêtres arrondies type Ash, i
 
 1. Lire [os-stub/SKILL.md](../os-stub/SKILL.md).
 2. Mettre à jour [docs/familles-os.md](../../docs/familles-os.md) à la création.
-3. Carte portail + icônes `usr/share/capsuleos/branding/icons/`.
+3. Carte portail + icônes `./assets/images/platforms/pick-os/`.
 
 ## Rôles
 

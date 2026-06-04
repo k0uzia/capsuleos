@@ -1,6 +1,6 @@
 /**
- * Applique le fond d'écran utilisateur (Option C) si présent :
- * versions/<id>/media/img/wallpaper.{jpg|webp|png}
+ * Applique le fond d'écran utilisateur si présent sous
+ * ../../../../usr/share/capsuleos/assets/images/toolkits/windows/ (wallpaper.*, fond.jpg).
  * Sinon conserve le dégradé / couleur de shell.css.
  */
 (function () {
@@ -10,10 +10,10 @@
     }
 
     const candidates = [
-        './media/img/wallpaper.jpg',
-        './media/img/wallpaper.webp',
-        './media/img/wallpaper.png',
-        './media/img/fond.jpg'
+        '../../../../usr/share/capsuleos/assets/images/toolkits/windows/wallpaper.jpg',
+        '../../../../usr/share/capsuleos/assets/images/toolkits/windows/wallpaper.webp',
+        '../../../../usr/share/capsuleos/assets/images/toolkits/windows/wallpaper.png',
+        '../../../../usr/share/capsuleos/assets/images/toolkits/windows/fond.jpg'
     ];
 
     function tryNext(index) {

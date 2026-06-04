@@ -68,24 +68,14 @@ const debianUserHomeChildren = {
 };
 
 const fileSystem = {
-    '/': {
-        ...defaultRoot
-    },
+    '/': Object.assign(
+        {}
+        , defaultRoot),
     '/bin' : buildBinEntries(),
     '/home': buildHomeEntries(),
     '/user': debianUserHomeChildren,
     '/home/user': debianUserHomeChildren,
     '/home/public': debianUserHomeChildren,
-    ...(getTerminalActiveDistro() === 'redhat'
-        ? {
-            '/home/fed': {
-                '/Bureau': {},
-                '/Documents': {},
-                '/Images': {},
-                '/Téléchargements': {},
-            }
-        }
-        : {}),
     '/media' : {
         '/disque amovible' : {},
     },
@@ -129,6 +119,15 @@ const fileSystem = {
         '/lib': {},
     },
 };
+
+if (getTerminalActiveDistro() === 'redhat') {
+    fileSystem['/home/fed'] = {
+        '/Bureau': {},
+        '/Documents': {},
+        '/Images': {},
+        '/Téléchargements': {},
+    };
+}
 
 window.CAPSULE_TERMINAL_FILE_CONTENTS = {
     '/home/user/Documents/readme.txt': 'Bienvenue dans le terminal CapsuleOS.\nUtilisez man pour voir les commandes disponibles.\nCe contenu est simulé pour l’apprentissage.',

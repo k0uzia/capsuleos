@@ -4,7 +4,7 @@
  */
 html:has(#popos) {
     --menu-accent: #62d0e9;
-    --popos-desktop-bg: #121214 url("../media/img/assets/wallpaper-cosmic.jpg") center / cover no-repeat fixed;
+    --popos-desktop-bg: #121214 url("../../../../../usr/share/capsuleos/assets/images/vendors/popos/wallpaper-cosmic.jpg") center / cover no-repeat fixed;
     --popos-shell-text: #f4f4f6;
     --popos-shell-border-soft: rgba(255, 255, 255, 0.1);
     --popos-top-bar-height: calc(var(--head) * 0.82);
@@ -106,7 +106,7 @@ html:has(#popos) {
 }
 
 html[data-theme="light"]:has(#popos) {
-    --popos-desktop-bg: #e8e8ec url("../media/img/assets/wallpaper-cosmic.jpg") center / cover no-repeat fixed;
+    --popos-desktop-bg: #e8e8ec url("../../../../../usr/share/capsuleos/assets/images/vendors/popos/wallpaper-cosmic.jpg") center / cover no-repeat fixed;
     --popos-shell-text: #1a1a1e;
     --popos-shell-border-soft: rgba(0, 0, 0, 0.1);
     --popos-top-bar-bg: rgba(240, 240, 242, 0.96);

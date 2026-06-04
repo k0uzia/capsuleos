@@ -281,8 +281,8 @@ body#ubuntu div[data-link="nemo"] .nemo-app__path-current::before {
     height: 0.95rem;
     background: currentColor;
     opacity: 0.92;
-    -webkit-mask-image: url("../../media/img/elements/nemo/user-home-symbolic.svg");
-    mask-image: url("../../media/img/elements/nemo/user-home-symbolic.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/user-home-symbolic.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/user-home-symbolic.svg");
     -webkit-mask-size: contain;
     mask-size: contain;
     -webkit-mask-repeat: no-repeat;

@@ -1,0 +1,40 @@
+{
+  "ids": {
+    "windowChrome": [
+      "windowHeader",
+      "windowTitle",
+      "minimizeBtn",
+      "resizeBtn",
+      "closeBtn"
+    ],
+    "nemoSlot": ["nemo"],
+    "nemoShell": [
+      "gestionnaire",
+      "nemoHeaderContainer",
+      "nemoMainContainer",
+      "voletnemo",
+      "voletContainer",
+      "nemoFooterContainer",
+      "precedent",
+      "suivant",
+      "parent",
+      "home",
+      "zoom"
+    ],
+    "mintDesktop": [
+      "desktop",
+      "tableau",
+      "taskbar-window-list",
+      "taskbar-clock"
+    ]
+  },
+  "htmlSources": [
+    "OS/linux/shared/apps/nemo.html",
+    "usr/share/capsuleos/linux/apps/nemo.html"
+  ],
+  "jsScanDirs": [
+    "usr/lib/capsuleos/shells/linux",
+    "usr/lib/capsuleos/shells/common",
+    "usr/lib/capsuleos/common/window"
+  ]
+}

@@ -27,73 +27,73 @@
             label: 'Fichiers',
             aliases: ['files', 'nemo', 'nautilus', 'dossier', 'documents'],
             description: 'Gestionnaire de fichiers',
-            icon: './media/img/dock/files.png',
+            icon: './assets/images/toolkits/gnome/dock/files.png',
             dataLink: 'nemo'
         },
         {
             label: 'Firefox',
             aliases: ['navigateur', 'browser', 'web', 'internet'],
             description: 'Navigateur web',
-            icon: './media/img/dock/firefox.png',
+            icon: './assets/images/toolkits/gnome/dock/firefox.png',
             dataLink: 'firefox'
         },
         {
             label: 'Ubuntu Software',
             aliases: ['software', 'logiciels', 'store', 'boutique'],
             description: 'Installer des applications',
-            icon: './media/img/dock/software-store.png',
+            icon: './assets/images/toolkits/gnome/dock/software-store.png',
             dataLink: 'themes'
         },
         {
             label: 'Aide',
             aliases: ['help', 'aide', 'support', 'yelp'],
             description: 'Documentation Ubuntu',
-            icon: './media/img/dock/help.png',
+            icon: './assets/images/toolkits/gnome/dock/help.png',
             dataLink: 'profile'
         },
         {
             label: 'Terminal',
             aliases: ['ptyxis', 'console', 'shell', 'commande'],
             description: 'Émulateur de terminal',
-            icon: './media/img/dock/terminal.png',
+            icon: './assets/images/toolkits/gnome/dock/terminal.png',
             dataLink: 'terminal'
         },
         {
             label: 'Paramètres',
             aliases: ['settings', 'preferences', 'configuration', 'theme'],
             description: 'Configurer le système',
-            icon: './media/img/apps/overview/settings.png',
+            icon: './assets/images/toolkits/gnome/apps/overview/settings.png',
             dataLink: 'themes'
         },
         {
             label: 'Horloges',
             aliases: ['clocks', 'horloge', 'alarme', 'minuteur'],
             description: 'Horloges et alarmes',
-            icon: './media/img/apps/overview/clocks.png'
+            icon: './assets/images/toolkits/gnome/apps/overview/clocks.png'
         },
         {
             label: 'Centre de sécurité',
             aliases: ['security', 'securite', 'confidentialite', 'privacy', 'snap'],
             description: 'Permissions et sécurité',
-            icon: './media/img/apps/overview/security-center.png'
+            icon: './assets/images/toolkits/gnome/apps/overview/security-center.png'
         },
         {
             label: 'Calculatrice',
             aliases: ['calculator', 'calc'],
             description: 'Calculatrice',
-            icon: './media/img/apps/overview/calculator.png'
+            icon: './assets/images/toolkits/gnome/apps/overview/calculator.png'
         },
         {
             label: 'Ressources',
             aliases: ['monitor', 'system monitor', 'moniteur', 'cpu', 'ram'],
             description: 'Moniteur système',
-            icon: './media/img/apps/overview/system-monitor.png'
+            icon: './assets/images/toolkits/gnome/apps/overview/system-monitor.png'
         },
         {
             label: 'Missions CapsuleOS',
             aliases: ['checklist', 'missions', 'decouverte'],
             description: 'Parcours guidé',
-            icon: './media/img/apps/checklist.svg',
+            icon: './assets/images/toolkits/gnome/apps/checklist.svg',
             dataLink: 'checklist'
         }
     ];

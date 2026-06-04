@@ -97,8 +97,8 @@ body#anduinos #mainMenu .menu-gnome-search__icon {
     transform: translateY(-50%);
     opacity: 0.55;
     background-color: var(--anduin-menu-muted);
-    -webkit-mask-image: url("../../media/img/elements/nemo/search-symbolic.svg");
-    mask-image: url("../../media/img/elements/nemo/search-symbolic.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/search-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/search-symbolic.svg");
     -webkit-mask-size: contain;
     mask-size: contain;
     -webkit-mask-repeat: no-repeat;

@@ -12,7 +12,8 @@
  * @property {string} [CAPSULE_APPS_BASE]  Chemin relatif vers `OS/linux/shared/apps` (HTML + CSS `.base.css`).
  * @property {string} [CAPSULE_CONTENT_ROOT]  Racine du contenu pédagogique partagé (`Dossier_personnel`).
  * @property {string} [CAPSULE_SKIN_BASE]  Répertoire de la skin pour les surcouches `style/apps/*.skin.css` (souvent `.`).
- * @property {string} [CAPSULE_MEDIA_BASE]  Base des chemins `./media/…` (défaut `./media` ; ex. `../mint/media` pour une skin dérivée sans dossier `media/` local).
+ * @property {string} [CAPSULE_TOOLKIT_ASSETS_BASE]  Base toolkit sous `usr/share/capsuleos/assets/images/toolkits/…`.
+ * @property {string} [CAPSULE_MEDIA_BASE]  Déprécié.
  * @property {string} [CAPSULE_ASSETS_BASE]  Base des chemins `./assets/…` (défaut `./assets` ; ex. `../mint/assets` pour une skin dérivée).
  * @property {string} [CAPSULE_EXPLORER_TEMPLATE]  Nom du template fichier pour le slot `nemo` : `'nemo'` ou `'dolphin'` (défaut : comportement Nemo).
  * @property {string} [CAPSULE_EXPLORER_SKIN_KEY]  Nom du `.skin.css` explorateur (ex. `nemo`, `files`, `dolphin`, `dolphin-<distro>`) sans changer le template.

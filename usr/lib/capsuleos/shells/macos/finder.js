@@ -49,7 +49,7 @@
             ? manifest.root.replace(/\/+$/, '')
             : '';
         if (!sourceRoot || sourceRoot === targetRoot) {
-            return { ...manifest, root: targetRoot };
+            return Object.assign( {} , manifest, { root: targetRoot });
         }
         const rewrite = (str) => {
             if (typeof str !== 'string') {
@@ -66,7 +66,7 @@
             const newKey = rewrite(key);
             const items = Array.isArray(folder.items)
                 ? folder.items.map((item) => {
-                    const out = { ...item };
+                    const out = Object.assign( {} , item);
                     if (item.path != null) {
                         out.path = rewrite(String(item.path));
                     }
@@ -76,9 +76,9 @@
                     return out;
                 })
                 : folder.items;
-            folders[newKey] = { ...folder, items };
+            folders[newKey] = Object.assign( {} , folder, { items: items });
         });
-        return { ...manifest, root: targetRoot, folders };
+        return Object.assign( {} , manifest, { root: targetRoot }, { folders: folders });
     }
 
     async function loadManifest() {

@@ -34,8 +34,8 @@
         if (typeof global.CAPSULE_CONTENT_ROOT === 'string' && global.CAPSULE_CONTENT_ROOT) {
             return String(global.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
         }
-        if (global.CapsuleUserHome && typeof global.CapsuleUserHome.fromRepoDepth === 'function') {
-            return global.CapsuleUserHome.fromRepoDepth(3);
+        if (global.CapsuleUserHome && typeof global.CapsuleUserHome.resolveRelative === 'function') {
+            return global.CapsuleUserHome.resolveRelative();
         }
         return 'home/public';
     }
@@ -59,7 +59,7 @@
             ? manifest.root.replace(/\/+$/, '')
             : '';
         if (!sourceRoot || sourceRoot === targetRoot) {
-            return { ...manifest, root: targetRoot };
+            return Object.assign( {} , manifest, { root: targetRoot });
         }
         const rewritePath = (str) => {
             if (typeof str !== 'string') {
@@ -76,7 +76,7 @@
             const newKey = rewritePath(key);
             const newItems = Array.isArray(folder.items)
                 ? folder.items.map((item) => {
-                    const out = { ...item };
+                    const out = Object.assign( {} , item);
                     if (item.path != null) {
                         out.path = rewritePath(String(item.path));
                     }
@@ -86,9 +86,9 @@
                     return out;
                 })
                 : folder.items;
-            newFolders[newKey] = { ...folder, items: newItems };
+            newFolders[newKey] = Object.assign( {} , folder, { items: newItems });
         });
-        return { ...manifest, root: targetRoot, folders: newFolders };
+        return Object.assign( {} , manifest, { root: targetRoot }, { folders: newFolders });
     }
 
     function manifestKeyToLogical(folderKey, manifestRoot, logicalHome) {
@@ -239,10 +239,11 @@
             preparePromise = (async () => {
                 const manifest = await loadManifest();
                 const hydration = hydrateFileSystem(baseFs, manifest);
-                const mergedContents = {
-                    ...(global.CAPSULE_TERMINAL_FILE_CONTENTS || {}),
-                    ...hydration.fileContents
-                };
+                const mergedContents = Object.assign(
+                    {},
+                    global.CAPSULE_TERMINAL_FILE_CONTENTS || {},
+                    hydration.fileContents
+                );
                 await prefetchTextFiles(mergedContents, hydration.fileHrefs);
                 Object.keys(mergedContents).forEach((key) => {
                     if (mergedContents[key] === null) {

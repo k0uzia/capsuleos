@@ -29,6 +29,12 @@ html {
     width: var(--max-w);
     height: calc(var(--max-h) - var(--taskbar-height));
     max-height: calc(var(--max-h) - var(--taskbar-height));
+    overflow: visible;
+}
+
+/* Fenêtres dans object#desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
+body#mint object#desktop > .windowElement {
+    position: absolute;
 }
 
 .desktop-shortcut {

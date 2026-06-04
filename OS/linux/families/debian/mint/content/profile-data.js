@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '21.3 "Virginia"',
     tagline: 'Élégant, confortable et productif : l\'un des environnements Linux de bureau les plus populaires.',
     description: 'Linux Mint Cinnamon est un système d\'exploitation open source, porté par sa communauté et basé sur Ubuntu. Il mise sur la simplicité d\'usage, la stabilité et une expérience de bureau familière, ce qui en fait une excellente première distribution Linux.',
-    logo: './media/img/assets/logo.svg',
+    logo: './assets/images/vendors/mint/logo.svg',
     logoAlt: 'Logo Linux Mint',
     url: 'https://linuxmint.com',
     stats: {

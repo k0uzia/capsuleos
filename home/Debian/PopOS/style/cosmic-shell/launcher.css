@@ -143,7 +143,7 @@ body#popos .cosmic-launcher__open {
     display: block;
     width: calc(var(--head) / 1.65);
     height: calc(var(--head) / 1.65);
-    background: url("../../media/img/symbolic/launcher/open-app.svg") center / contain no-repeat;
+    background: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/symbolic/launcher/open-app.svg") center / contain no-repeat;
     opacity: 0.85;
 }
 

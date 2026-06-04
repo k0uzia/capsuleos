@@ -17,6 +17,22 @@
         return !!(container && container.style.display !== 'none');
     }
 
+    function isWindowRunning(container) {
+        return !!(container && container.dataset.capsuleRunning === 'true');
+    }
+
+    function markWindowRunning(container) {
+        if (container) {
+            container.dataset.capsuleRunning = 'true';
+        }
+    }
+
+    function clearWindowRunning(container) {
+        if (container && container.dataset) {
+            delete container.dataset.capsuleRunning;
+        }
+    }
+
     function syncLaunchers() {
         if (!isMintPanel()) {
             return;
@@ -28,10 +44,11 @@
             }
             const container = document.querySelector(`.windowElement[data-link="${slotId}"]`);
             const visible = isWindowVisible(container);
+            const running = isWindowRunning(container);
             const focused = !!(container
                 && visible
                 && container.classList.contains('windowElementActive'));
-            link.classList.toggle('running-link', visible);
+            link.classList.toggle('running-link', running);
             link.classList.toggle('active-link', focused);
         });
     }
@@ -54,8 +71,19 @@
             }
         });
 
+        document.addEventListener('capsule:window-opened', (event) => {
+            const container = event.detail ? event.detail.container : null;
+            markWindowRunning(container);
+            scheduleSync();
+        });
+
+        document.addEventListener('capsule:window-closed', (event) => {
+            const container = event.detail ? event.detail.container : null;
+            clearWindowRunning(container);
+            scheduleSync();
+        });
+
         [
-            'capsule:window-opened',
             'capsule:window-hidden',
             'capsule:window-minimized',
             'capsule:window-focused',
@@ -66,6 +94,8 @@
         global.CapsuleTaskbarLauncherState = {
             initialized: true,
             refresh: syncLaunchers,
+            markRunning: markWindowRunning,
+            clearRunning: clearWindowRunning,
         };
     }
 

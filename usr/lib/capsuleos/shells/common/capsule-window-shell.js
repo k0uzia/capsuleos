@@ -193,6 +193,11 @@
         const isFocused = container.classList.contains('windowElementActive');
         if (isFocused) {
             hideContainer(container, link);
+            if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
+                document.dispatchEvent(new CustomEvent('capsule:window-minimized', {
+                    detail: { container: container, slotId: slotId },
+                }));
+            }
             if (typeof config.onClose === 'function') {
                 config.onClose(container, slotId, link);
             }

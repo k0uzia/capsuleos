@@ -42,7 +42,9 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 ### Comparaison avec un environnement réel (VM / Proxmox)
 
-Pour qu’un agent **voie et compare** Cinnamon, Nemo, le panel, etc. avec CapsuleOS :
+**Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
+
+Pour qu’un agent **voie et compare** Cinnamon, Nemo, le panel, etc. avec CapsuleOS (secours visuel / Proxmox) :
 
 | Prérequis | Action |
 |-----------|--------|

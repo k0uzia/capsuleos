@@ -110,6 +110,9 @@
                         container.style.display = 'none';
                         container.classList.remove('active', 'windowElementActive');
                         if (typeof global.CustomEvent === 'function') {
+                            global.document.dispatchEvent(new CustomEvent('capsule:window-minimized', {
+                                detail: { container: container, slotId: dataLink },
+                            }));
                             global.document.dispatchEvent(new CustomEvent('capsule:window-hidden', {
                                 detail: { container: container, slotId: dataLink },
                             }));

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "description": "Copier vers lab-inventory.json (local) et renseigner IP/SSH. Ne pas committer de secrets.",
+  "hosts": [
+    {
+      "registryId": "linux-mint",
+      "ssh": "capsule@192.168.1.146",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "/home/capsule/capsuleos-lab/os-probe.sh",
+      "display": ":0",
+      "toolkit": "cinnamon",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Debian/Mint/index.html"
+    },
+    {
+      "registryId": "linux-fedora-kde",
+      "ssh": "user@192.168.1.103",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "/home/capsule/capsuleos-lab/os-probe.sh",
+      "display": ":0",
+      "toolkit": "kde",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Fedora/index.html"
+    }
+  ]
+}

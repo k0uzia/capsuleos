@@ -83,7 +83,8 @@
         return target.closest('.windowElement, .win-window, #windowContainer');
     }
 
-    function hideWindowElement(windowElement) {
+    function hideWindowElement(windowElement, options) {
+        const opts = options || {};
         const applyHide = () => {
             windowElement.style.display = 'none';
             windowElement.style.zIndex = '5';
@@ -91,6 +92,27 @@
             windowElement.classList.remove('active');
 
             if (typeof global.CustomEvent === 'function') {
+                if (opts.minimize) {
+                    global.document.dispatchEvent(new CustomEvent('capsule:window-minimized', {
+                        detail: {
+                            container: windowElement,
+                            slotId: windowElement.dataset.link,
+                        },
+                    }));
+                } else if (opts.close) {
+                    if (global.CapsuleTaskbarLauncherState
+                        && typeof global.CapsuleTaskbarLauncherState.clearRunning === 'function') {
+                        global.CapsuleTaskbarLauncherState.clearRunning(windowElement);
+                    } else if (windowElement.dataset) {
+                        delete windowElement.dataset.capsuleRunning;
+                    }
+                    global.document.dispatchEvent(new CustomEvent('capsule:window-closed', {
+                        detail: {
+                            container: windowElement,
+                            slotId: windowElement.dataset.link,
+                        },
+                    }));
+                }
                 global.document.dispatchEvent(new CustomEvent('capsule:window-hidden', {
                     detail: {
                         container: windowElement,
@@ -113,7 +135,11 @@
             if (!windowElement || windowElement.id === 'windowContainer' && windowElement.style.display === 'none') {
                 return;
             }
-            hideWindowElement(windowElement);
+            if (event.target.matches('#minimizeBtn')) {
+                hideWindowElement(windowElement, { minimize: true });
+            } else {
+                hideWindowElement(windowElement, { close: true });
+            }
         }
 
         if (event.target.matches('#resizeBtn')) {

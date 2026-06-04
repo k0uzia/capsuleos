@@ -178,6 +178,100 @@ const searchFilter = await page.evaluate(() => ({
   itemCount: document.querySelectorAll('div[data-link="nemo"] .nemoElement > a').length,
 }));
 
+await page.evaluate(() => {
+  if (window.fileExplorerState) {
+    window.fileExplorerState.searchQuery = '';
+  }
+  const input = document.querySelector('div[data-link="nemo"] #nemo-search-input');
+  if (input) {
+    input.value = '';
+  }
+  const toggle = document.querySelector('div[data-link="nemo"] .nemo-app__search-toggle');
+  if (toggle && toggle.getAttribute('aria-pressed') === 'true' && typeof toggle.click === 'function') {
+    toggle.click();
+  }
+});
+await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
+await page.waitForTimeout(600);
+const txtSelector = 'div[data-link="nemo"] .nemoElement a[data-item-name="introduction-bash.txt"]';
+if (await page.$(txtSelector)) {
+  await page.click(txtSelector);
+  await page.waitForTimeout(1200);
+}
+
+const xedFromNemo = await page.evaluate(() => {
+  const xedWin = document.querySelector('div[data-link="text_editor"]');
+  const area = document.getElementById('xed-area');
+  return {
+    visible: !!(xedWin && xedWin.style.display !== 'none'),
+    title: xedWin?.querySelector('#windowTitle')?.textContent || '',
+    hasContent: !!(area && area.value && area.value.length > 8),
+    targetBlank: document.querySelector(
+      'div[data-link="nemo"] .nemoElement a[data-item-name="introduction-bash.txt"]'
+    )?.target === '_blank',
+  };
+});
+
+const pathNavigationMode = await page.evaluate(() => {
+  const toggleBtn = document.getElementById('nemo-toggle-path-mode');
+  const pathLabel = document.getElementById('nemo-path-label');
+  if (!toggleBtn || !pathLabel) {
+    return { ok: false, reason: 'missing-path-controls' };
+  }
+  const labelMode = !pathLabel.classList.contains('nemo-app__path-breadcrumb');
+  toggleBtn.click();
+  const breadcrumbOn = pathLabel.classList.contains('nemo-app__path-breadcrumb')
+    && pathLabel.querySelectorAll('.nemo-app__path-crumb').length > 0
+    && toggleBtn.getAttribute('aria-pressed') === 'true';
+  toggleBtn.click();
+  const labelRestored = !pathLabel.classList.contains('nemo-app__path-breadcrumb')
+    && toggleBtn.getAttribute('aria-pressed') === 'false';
+  return {
+    ok: labelMode && breadcrumbOn && labelRestored,
+    labelMode,
+    breadcrumbOn,
+    labelRestored,
+  };
+});
+
+const footerSidebar = await page.evaluate(() => {
+  const root = document.querySelector('div[data-link="nemo"]');
+  const sidebar = document.querySelector('#voletnemo');
+  const placesBtn = document.querySelector('[data-nemo-sidebar-mode="places"]');
+  const treeBtn = document.querySelector('[data-nemo-sidebar-mode="tree"]');
+  const toggleBtn = document.getElementById('nemo-toggle-sidebar');
+  if (!placesBtn || !treeBtn || !toggleBtn || !sidebar) {
+    return { ok: false, reason: 'missing-controls' };
+  }
+  placesBtn.click();
+  const placesView = sidebar.getAttribute('data-sidebar-view');
+  const placesVisible = !sidebar.classList.contains('is-sidebar-hidden');
+  treeBtn.click();
+  const treeView = sidebar.getAttribute('data-sidebar-view');
+  const treePanel = document.getElementById('nemo-sidebar-tree');
+  const treeVisible = treePanel && !treePanel.hidden;
+  const sectionsHiddenInTree = Array.from(sidebar.querySelectorAll('.nemo-sidebar__section'))
+    .every((s) => getComputedStyle(s).display === 'none');
+  const treeFirst = sidebar.firstElementChild?.id === 'nemo-sidebar-tree';
+  toggleBtn.click();
+  const hiddenAfterF9 = sidebar.classList.contains('is-sidebar-hidden');
+  toggleBtn.click();
+  const visibleAgain = !sidebar.classList.contains('is-sidebar-hidden');
+  placesBtn.click();
+  return {
+    ok: placesView === 'places' && placesVisible
+      && treeView === 'tree' && treeVisible && sectionsHiddenInTree && treeFirst
+      && hiddenAfterF9 && visibleAgain,
+    sectionsHiddenInTree,
+    treeFirst,
+    placesView,
+    treeView,
+    hiddenAfterF9,
+    visibleAgain,
+    footerBound: root?.dataset?.nemoFooterControlsBound === 'true',
+  };
+});
+
 const ok = home.sidebarReady && home.navReady
   && home.title && home.title.indexOf('Nemo') >= 0
   && docs.path && docs.path.indexOf('Documents') >= 0
@@ -196,10 +290,15 @@ const ok = home.sidebarReady && home.navReady
   && sidebarIcons.recent.filter.indexOf('invert') >= 0
   && sidebarIcons.filesystem.filter.indexOf('invert') >= 0
   && sidebarIcons.documents.filter === sidebarIcons.recent.filter
-  && vfsRoot.hasBin && vfsRoot.hasHome && vfsRoot.pathLabel === '/' && vfsRoot.allFolderIcons;
+  && vfsRoot.hasBin && vfsRoot.hasHome && vfsRoot.pathLabel === '/' && vfsRoot.allFolderIcons
+  && xedFromNemo.visible && xedFromNemo.hasContent
+  && xedFromNemo.title.indexOf('introduction-bash') >= 0
+  && !xedFromNemo.targetBlank
+  && pathNavigationMode.ok
+  && footerSidebar.ok && footerSidebar.footerBound;
 
 console.log(JSON.stringify({
-  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, ok,
+  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, footerSidebar, ok,
 }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

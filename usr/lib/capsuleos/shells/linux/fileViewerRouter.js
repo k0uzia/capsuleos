@@ -1,3 +1,7 @@
+const TEXT_EDITOR_EXTENSIONS = [
+    'txt', 'md', 'log', 'sh', 'json', 'csv', 'xml', 'css', 'js', 'html'
+];
+
 const FILE_VIEWER_BY_EXTENSION = {
     png: 'visionneur_images',
     jpg: 'visionneur_images',
@@ -14,10 +18,15 @@ const FILE_VIEWER_BY_EXTENSION = {
     avi: 'lecteur_multimedia'
 };
 
+TEXT_EDITOR_EXTENSIONS.forEach((ext) => {
+    FILE_VIEWER_BY_EXTENSION[ext] = 'text_editor';
+});
+
 const fileViewerState = {
     visionneur_images: null,
     visionneur_pdf: null,
-    lecteur_multimedia: null
+    lecteur_multimedia: null,
+    text_editor: null
 };
 
 const getFileViewerTargetByExtension = (extension) => {
@@ -32,7 +41,8 @@ const getFileViewerTitle = (appId) => {
     const titles = {
         visionneur_images: "Visionneur d'images",
         visionneur_pdf: 'Visionneur PDF',
-        lecteur_multimedia: 'Lecteur multimédia'
+        lecteur_multimedia: 'Lecteur multimédia',
+        text_editor: 'Éditeur de texte'
     };
 
     return titles[appId] || appId;
@@ -206,6 +216,15 @@ const renderMediaViewer = (payload) => {
     contentElement.appendChild(mediaElement);
 };
 
+const renderTextEditorViewer = (payload) => {
+    const openXed = window.openXedFromExplorer;
+    if (typeof openXed !== 'function' || !payload) {
+        return;
+    }
+
+    openXed(payload.href, payload.name);
+};
+
 const renderFileViewer = (appId) => {
     const payload = fileViewerState[appId];
 
@@ -223,6 +242,10 @@ const renderFileViewer = (appId) => {
 
     if (appId === 'lecteur_multimedia') {
         renderMediaViewer(payload);
+    }
+
+    if (appId === 'text_editor') {
+        renderTextEditorViewer(payload);
     }
 };
 
@@ -251,7 +274,7 @@ const openFileInViewer = (href, extension, name) => {
 };
 
 const bindViewerLaunchers = () => {
-    const viewerIds = ['visionneur_images', 'visionneur_pdf', 'lecteur_multimedia'];
+    const viewerIds = ['visionneur_images', 'visionneur_pdf', 'lecteur_multimedia', 'text_editor'];
 
     viewerIds.forEach((appId) => {
         const link = document.querySelector(`a[target="windowElement"][data-link="${appId}"]`);

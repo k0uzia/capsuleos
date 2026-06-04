@@ -4,6 +4,8 @@
 (function initXedAppModule(global) {
     'use strict';
 
+    var pendingExplorerOpen = null;
+
     var SHORTCUTS = {
         'ctrl+n': 'new',
         'ctrl+o': 'open',
@@ -681,7 +683,99 @@
         if (!statusbar) {
             statusbar = global.document.getElementById('xed-statusbar');
         }
+
+        function basenameFromHref(href) {
+            var path = String(href || '').split('?')[0].split('#')[0];
+            var parts = path.split('/');
+            return parts[parts.length - 1] || 'document.txt';
+        }
+
+        function resolveExplorerHref(href) {
+            if (!href) {
+                return '';
+            }
+            if (typeof global.resolveCapsuleResourceUrl === 'function') {
+                return global.resolveCapsuleResourceUrl(href);
+            }
+            try {
+                return new global.URL(href, global.document.baseURI).href;
+            } catch (err) {
+                return href;
+            }
+        }
+
+        function loadDocumentFromExplorer(href, name) {
+            if (!href) {
+                return;
+            }
+            if (!confirmDiscard()) {
+                return;
+            }
+            var resolved = resolveExplorerHref(href);
+            var displayName = name || basenameFromHref(href);
+
+            if (typeof global.fetch !== 'function') {
+                global.alert('Impossible d\'ouvrir « ' + displayName + ' ».');
+                return;
+            }
+
+            global.fetch(resolved, { credentials: 'same-origin' })
+                .then(function onResponse(res) {
+                    if (!res.ok) {
+                        throw new Error('fetch-failed');
+                    }
+                    return res.text();
+                })
+                .then(function onText(text) {
+                    area.value = text;
+                    fileName = displayName;
+                    savedValue = area.value;
+                    setDirty(false);
+                    refreshTitle();
+                    syncDocumentsMenu();
+                    updateStatus();
+                })
+                .catch(function onFetchError() {
+                    global.alert('Impossible d\'ouvrir « ' + displayName + ' ».');
+                });
+        }
+
+        global.__xedLoadFromExplorer = loadDocumentFromExplorer;
+        if (pendingExplorerOpen) {
+            loadDocumentFromExplorer(pendingExplorerOpen.href, pendingExplorerOpen.name);
+            pendingExplorerOpen = null;
+        }
+    }
+
+    function openXedFromExplorer(href, name) {
+        var root = global.document.getElementById('xedApp');
+        if (!root) {
+            pendingExplorerOpen = { href: href, name: name };
+            if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('text_editor');
+            }
+            if (typeof global.document !== 'undefined') {
+                global.document.addEventListener('capsule:slot-injected', function onXedSlotReady(event) {
+                    if (!event.detail || event.detail.slotId !== 'text_editor') {
+                        return;
+                    }
+                    global.document.removeEventListener('capsule:slot-injected', onXedSlotReady);
+                    global.initTextEditorApp();
+                    if (global.__xedLoadFromExplorer) {
+                        global.__xedLoadFromExplorer(href, name);
+                    }
+                });
+            }
+            return;
+        }
+        global.initTextEditorApp();
+        if (global.__xedLoadFromExplorer) {
+            global.__xedLoadFromExplorer(href, name);
+        } else {
+            pendingExplorerOpen = { href: href, name: name };
+        }
     }
 
     global.initTextEditorApp = initTextEditorAppOnce;
+    global.openXedFromExplorer = openXedFromExplorer;
 }(typeof window !== 'undefined' ? window : this));

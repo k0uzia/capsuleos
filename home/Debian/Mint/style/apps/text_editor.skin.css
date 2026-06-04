@@ -1,31 +1,37 @@
 /**
- * xed (Éditeur de texte) — Linux Mint Cinnamon Mint-Y-Dark-Aqua.
+ * xed (Éditeur de texte) — parité VM Mint 22 · Mint-Y-Dark-Aqua.
+ * Chrome sombre + zone de saisie claire (GTK TextView), barre d’icônes symboliques.
  */
 body#mint {
     --xed-chrome-bg: #2e2e33;
-    --xed-buffer-bg: #1e1e22;
-    --xed-buffer-text: #e8e8ea;
+    --xed-status-bg: #27272b;
+    --xed-buffer-bg: #ffffff;
+    --xed-buffer-text: #1a1a1a;
     --xed-text: #e1e1e1;
-    --xed-border: var(--menu-shell-border, rgba(255, 255, 255, 0.08));
+    --xed-border: #303036;
+    --xed-menu-surface-bg: #303036;
+    --xed-menu-hover-bg: rgba(255, 255, 255, 0.08);
+    --xed-toolbar-hover-bg: #3c3c44;
+    --xed-toolbar-active-bg: rgba(31, 158, 222, 0.18);
+    --xed-toolbar-icon-filter: brightness(0) invert(1);
 }
 
 html[data-theme="light"] body#mint {
     --xed-chrome-bg: #ececec;
+    --xed-status-bg: #e0e0e0;
     --xed-buffer-bg: #ffffff;
     --xed-buffer-text: #1a1a1a;
     --xed-text: #1e1e1e;
-    --xed-border: rgba(0, 0, 0, 0.1);
-}
-
-body#mint div[data-link="text_editor"].windowElement {
-    width: min(calc(var(--head) * 16), 90vw);
-    min-width: calc(var(--head) * 11);
-    height: min(calc(var(--head) * 11), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
-    min-height: calc(var(--head) * 8);
+    --xed-border: rgba(0, 0, 0, 0.12);
+    --xed-menu-surface-bg: #f8f8f8;
+    --xed-menu-hover-bg: rgba(0, 0, 0, 0.06);
+    --xed-toolbar-hover-bg: rgba(0, 0, 0, 0.06);
+    --xed-toolbar-active-bg: rgba(0, 0, 0, 0.1);
+    --xed-toolbar-icon-filter: brightness(0);
 }
 
 body#mint div[data-link="text_editor"] #windowHeader {
-    background: var(--xed-chrome-bg);
+    background: var(--nemo-header-bg, #27272b);
     border-bottom: 1px solid var(--xed-border);
 }
 
@@ -39,20 +45,24 @@ body#mint main#xedApp {
 }
 
 body#mint .xed-app__menubar,
-body#mint .xed-app__toolbar,
-body#mint .xed-app__status {
+body#mint .xed-app__toolbar {
     background: var(--xed-chrome-bg);
     border-color: var(--xed-border);
 }
 
+body#mint .xed-app__status {
+    background: var(--xed-status-bg);
+    border-color: var(--xed-border);
+    color: var(--nemo-status-text, #c8c8cc);
+}
+
 body#mint .xed-menu__trigger:hover,
 body#mint .xed-menu__trigger[aria-expanded="true"] {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--xed-border);
+    background: var(--xed-menu-hover-bg);
 }
 
 body#mint .xed-menu__dropdown {
-    background: #3a3a40;
+    background: var(--xed-menu-surface-bg);
     border-color: var(--xed-border);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
@@ -61,44 +71,20 @@ body#mint .xed-menu__item {
     color: var(--xed-text);
 }
 
-body#mint .xed-menu__item:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-body#mint .xed-menu__sep {
-    background: var(--xed-border);
-}
-
-html[data-theme="light"] body#mint .xed-menu__dropdown {
-    background: #f8f8f8;
-}
-
 html[data-theme="light"] body#mint .xed-menu__item {
     color: #1a1a1a;
 }
 
-html[data-theme="light"] body#mint .xed-menu__item:hover:not(:disabled) {
-    background: rgba(0, 0, 0, 0.06);
-}
-
-body#mint .xed-app__toolbar-sep {
-    background: var(--xed-border);
-}
-
-body#mint .xed-app__tool {
-    color: var(--xed-text);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--xed-border);
-}
-
 body#mint .xed-app__tool:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: var(--xed-toolbar-hover-bg);
+    border-color: var(--menu-accent, #1f9ede);
 }
 
-html[data-theme="light"] body#mint .xed-app__tool {
-    background: rgba(255, 255, 255, 0.9);
+body#mint .xed-app__tool img {
+    filter: var(--xed-toolbar-icon-filter);
 }
 
+body#mint .xed-app__editor-wrap,
 body#mint .xed-app__area {
     color: var(--xed-buffer-text);
     background: var(--xed-buffer-bg);
@@ -107,6 +93,5 @@ body#mint .xed-app__area {
 body#mint .xed-app__status-pos,
 body#mint .xed-app__status-chars,
 body#mint .xed-app__status-encoding {
-    color: var(--xed-text);
-    opacity: 0.92;
+    color: inherit;
 }

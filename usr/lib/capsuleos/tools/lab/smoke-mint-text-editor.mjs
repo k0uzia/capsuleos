@@ -47,9 +47,24 @@ const after = await page.evaluate(() => {
   };
 });
 
-const ok = after.appReady && menuOpen.ok && after.value === 'texte initial'
-  && after.title === '*Sans titre';
+const chrome = await page.evaluate(() => {
+  const saveBtn = document.querySelector('#xed-toolbar [data-xed-action="save"]');
+  const area = document.getElementById('xed-area');
+  const styles = area ? globalThis.getComputedStyle(area) : null;
+  return {
+    hasSaveImg: !!saveBtn?.querySelector('img'),
+    saveIconSrc: saveBtn?.querySelector('img')?.getAttribute('src') || '',
+    bufferBg: styles ? styles.backgroundColor : '',
+    toolCount: document.querySelectorAll('#xed-toolbar .xed-app__tool').length,
+  };
+});
 
-console.log(JSON.stringify({ after, ok }, null, 2));
+const ok = after.appReady && menuOpen.ok && after.value === 'texte initial'
+  && after.title === '*Sans titre'
+  && chrome.toolCount === 8
+  && chrome.saveIconSrc.indexOf('document-save-symbolic') >= 0
+  && chrome.bufferBg === 'rgb(255, 255, 255)';
+
+console.log(JSON.stringify({ after, chrome, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

@@ -76,18 +76,8 @@ function initFileExplorerContainer() {
         }
     }
 
-    const toggleSidebarBtn = fileExplorerRoot.querySelector('#nemo-toggle-sidebar');
-    if (toggleSidebarBtn && toggleSidebarBtn.dataset.feSidebarToggleBound !== 'true') {
-        toggleSidebarBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            const sidebar = fileExplorerRoot.querySelector('#voletnemo');
-            if (!sidebar) {
-                return;
-            }
-            const hidden = sidebar.classList.toggle('is-sidebar-hidden');
-            toggleSidebarBtn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
-        });
-        toggleSidebarBtn.dataset.feSidebarToggleBound = 'true';
+    if (typeof bindNemoSidebarFooterControls === 'function') {
+        bindNemoSidebarFooterControls(fileExplorerRoot);
     }
 
     if (fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {

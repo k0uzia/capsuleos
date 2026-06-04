@@ -1,6 +1,7 @@
 /* Mint — Nemo : chrome WM (#windowHeader) + toolbar seule + layout colonne stable. */
 
 body#mint {
+    --nemo-tree-depth: 0;
     --nemo-bg-primary: #2e2e33;
     --nemo-header-bg: #27272b;
     --nemo-border: #303036;
@@ -97,8 +98,40 @@ body#mint div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
 }
 
 body#mint div[data-link="nemo"] .nemo-app__toolbar-group img,
-body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-app__status-left img {
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-app__status-left img,
+body#mint div[data-link="nemo"] #nemo-sidebar-tree img {
     filter: var(--nemo-toolbar-icon-filter);
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn:hover {
+    background: var(--nemo-toolbar-button-hover-bg);
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn.nemo-footer-btn--active {
+    background: var(--nemo-item-active-bg);
+    border-color: var(--nemo-accent);
+}
+
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link--active,
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-line--active .nemo-sidebar__tree-link {
+    background: var(--nemo-item-active-bg);
+}
+
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-line {
+    padding: calc(var(--head) / 14) calc(var(--head) / 8);
+    padding-left: calc(var(--head) / 3 + var(--nemo-tree-depth, 0) * 12px);
+}
+
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    border-radius: calc(var(--head) / 18);
+}
+
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link:hover {
+    background: var(--nemo-item-active-bg);
+    border-left: 2px solid var(--menu-accent, var(--nemo-accent));
 }
 
 /* Sidebar : même traitement pour tous les raccourcis (similarité Gestalt / continuité). */

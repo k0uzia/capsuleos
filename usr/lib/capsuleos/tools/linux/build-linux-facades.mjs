@@ -4,6 +4,7 @@
  * Usage : node usr/lib/capsuleos/tools/linux/build-linux-facades.mjs
  */
 import fs from 'fs';
+import path from 'path';
 import {
     LINUX_SKIN_FACADES,
     ROOT,

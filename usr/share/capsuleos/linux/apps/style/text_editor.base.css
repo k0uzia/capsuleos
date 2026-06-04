@@ -6,20 +6,24 @@ main#xedApp {
     left: var(--z);
     display: var(--f);
     flex-flow: var(--cnw);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    height: calc(var(--full) - calc(var(--head) / 1.4));
-    margin-bottom: calc(var(--head) / 12);
-    color: var(--nemo-text-primary, #2e2e2e);
-    background: var(--menu-apps-bg, #fff);
+    width: var(--full);
+    height: var(--full);
+    margin: var(--z);
     overflow: hidden;
+    font-family: var(--font-ui, Ubuntu, Cantarell, sans-serif);
+    font-size: calc(var(--head) / 2.7);
+    color: var(--xed-text, #2e2e2e);
+    background: var(--xed-chrome-bg, #ececec);
+    box-sizing: border-box;
 }
 
 div[data-link="text_editor"] #windowHeader {
-    background: var(--nemo-header-bg, #e8e8e8);
+    background: var(--xed-chrome-bg, #ececec);
+    border-bottom: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
 }
 
 div[data-link="text_editor"] #windowTitle {
-    color: var(--nemo-text-primary, #2e2e2e);
+    color: var(--xed-text, #2e2e2e);
 }
 
 .xed-app__menubar {
@@ -28,12 +32,13 @@ div[data-link="text_editor"] #windowTitle {
     align-items: var(--c);
     flex-shrink: 0;
     width: var(--full);
-    padding: calc(var(--head) / 18) calc(var(--head) / 8);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    gap: calc(var(--head) / 28);
-    font-size: calc(var(--head) / 3.4);
-    background: rgba(0, 0, 0, 0.03);
+    min-height: calc(var(--head) / 1.55);
+    padding: 0 calc(var(--head) / 6);
+    border-bottom: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
+    gap: calc(var(--head) / 32);
+    background: var(--xed-chrome-bg, #ececec);
     overflow: visible;
+    box-sizing: border-box;
 }
 
 .xed-menu {
@@ -43,12 +48,12 @@ div[data-link="text_editor"] #windowTitle {
 .xed-menu__trigger {
     display: flex;
     align-items: center;
-    height: calc(var(--head) / 2.6);
-    padding: 0 calc(var(--head) / 5);
+    height: calc(var(--head) / 1.55);
+    padding: 0 calc(var(--head) / 4.5);
     border: 1px solid transparent;
-    border-radius: calc(var(--head) / 14);
+    border-radius: calc(var(--head) / 16);
     font-family: inherit;
-    font-size: calc(var(--head) / 3.4);
+    font-size: calc(var(--head) / 2.65);
     color: inherit;
     background: transparent;
     cursor: default;
@@ -57,8 +62,8 @@ div[data-link="text_editor"] #windowTitle {
 
 .xed-menu__trigger:hover,
 .xed-menu__trigger[aria-expanded="true"] {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.1);
+    background: var(--xed-menu-hover-bg, rgba(0, 0, 0, 0.06));
+    border-color: transparent;
 }
 
 .xed-menu__dropdown {
@@ -66,13 +71,13 @@ div[data-link="text_editor"] #windowTitle {
     top: calc(100% + 2px);
     left: 0;
     z-index: 520;
-    min-width: calc(var(--head) * 5.5);
+    min-width: calc(var(--head) * 5.8);
     margin: 0;
-    padding: calc(var(--head) / 18) 0;
+    padding: calc(var(--head) / 16) 0;
     list-style: none;
-    border: 1px solid rgba(0, 0, 0, 0.14);
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.14));
     border-radius: calc(var(--head) / 14);
-    background: #f8f8f8;
+    background: var(--xed-menu-surface-bg, #f8f8f8);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 }
 
@@ -86,12 +91,12 @@ div[data-link="text_editor"] #windowTitle {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: calc(var(--head) / 14) calc(var(--head) / 2.2);
+    padding: calc(var(--head) / 12) calc(var(--head) / 2);
     border: 0;
-    gap: calc(var(--head) / 1.5);
+    gap: calc(var(--head) / 1.4);
     font-family: inherit;
-    font-size: calc(var(--head) / 3.5);
-    color: #1a1a1a;
+    font-size: calc(var(--head) / 2.7);
+    color: inherit;
     background: transparent;
     text-align: left;
     white-space: nowrap;
@@ -99,7 +104,7 @@ div[data-link="text_editor"] #windowTitle {
 }
 
 .xed-menu__item:hover:not(:disabled) {
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--xed-menu-hover-bg, rgba(0, 0, 0, 0.06));
 }
 
 .xed-menu__item:disabled {
@@ -114,14 +119,14 @@ div[data-link="text_editor"] #windowTitle {
 
 .xed-menu__sc {
     flex-shrink: 0;
-    font-size: calc(var(--head) / 3.8);
+    font-size: calc(var(--head) / 3);
     opacity: 0.55;
 }
 
 .xed-menu__sep {
     height: 1px;
-    margin: calc(var(--head) / 18) 0;
-    background: rgba(0, 0, 0, 0.1);
+    margin: calc(var(--head) / 16) calc(var(--head) / 10);
+    background: var(--xed-border, rgba(0, 0, 0, 0.1));
 }
 
 .xed-app.is-toolbar-hidden .xed-app__toolbar {
@@ -141,38 +146,69 @@ div[data-link="text_editor"] #windowTitle {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
-    flex-wrap: wrap;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
     width: var(--full);
-    padding: calc(var(--head) / 10) calc(var(--head) / 5);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: calc(var(--head) / 10) calc(var(--head) / 6);
+    border-bottom: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
     gap: calc(var(--head) / 10);
-    background: rgba(0, 0, 0, 0.02);
+    background: var(--xed-chrome-bg, #ececec);
+    box-sizing: border-box;
 }
 
 .xed-app__toolbar-sep {
     display: inline-block;
     width: 1px;
-    height: calc(var(--head) / 2.2);
-    margin: 0 calc(var(--head) / 14);
-    background: rgba(0, 0, 0, 0.12);
+    height: calc(var(--head) / 1.45);
+    margin: 0 calc(var(--head) / 18);
+    background: var(--xed-border, rgba(0, 0, 0, 0.12));
+    flex-shrink: 0;
 }
 
 .xed-app__tool {
-    padding: calc(var(--head) / 12) calc(var(--head) / 3.8);
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    justify-content: var(--c);
+    min-width: calc(var(--head) / 1.4);
+    height: calc(var(--head) / 1.4);
+    padding: calc(var(--head) / 8);
+    border: 1px solid transparent;
     border-radius: calc(var(--head) / 12);
-    font-size: calc(var(--head) / 3.5);
+    font-size: 0;
     color: inherit;
-    background: rgba(255, 255, 255, 0.88);
-    cursor: pointer;
+    background: transparent;
+    cursor: default;
+    box-sizing: border-box;
 }
 
 .xed-app__tool:hover {
-    background: rgba(255, 255, 255, 1);
+    background: var(--xed-toolbar-hover-bg, rgba(0, 0, 0, 0.06));
+    border-color: transparent;
 }
 
 .xed-app__tool:active {
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--xed-toolbar-active-bg, rgba(0, 0, 0, 0.1));
+}
+
+.xed-app__tool img {
+    display: block;
+    width: calc(var(--head) / 2.5);
+    height: calc(var(--head) / 2.5);
+    pointer-events: none;
+    filter: var(--xed-toolbar-icon-filter, none);
+}
+
+.xed-app__tool-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .xed-app__editor-wrap {
@@ -181,6 +217,7 @@ div[data-link="text_editor"] #windowTitle {
     min-height: 0;
     width: var(--full);
     overflow: auto;
+    background: var(--xed-buffer-bg, #ffffff);
 }
 
 .xed-app__area {
@@ -188,13 +225,13 @@ div[data-link="text_editor"] #windowTitle {
     width: var(--full);
     min-height: 100%;
     margin: var(--z);
-    padding: calc(var(--head) / 3);
+    padding: calc(var(--head) / 4) calc(var(--head) / 3.2);
     border: var(--z);
-    font-family: ui-monospace, "Ubuntu Mono", "Source Code Pro", monospace;
-    font-size: calc(var(--head) / 3.1);
-    line-height: 1.5;
-    color: #1a1a1a;
-    background: #fafafa;
+    font-family: "Ubuntu Mono", "Liberation Mono", "Source Code Pro", ui-monospace, monospace;
+    font-size: calc(var(--head) / 2.55);
+    line-height: 1.45;
+    color: var(--xed-buffer-text, #1a1a1a);
+    background: var(--xed-buffer-bg, #ffffff);
     resize: none;
     outline: none;
     box-sizing: border-box;
@@ -209,16 +246,21 @@ div[data-link="text_editor"] #windowTitle {
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--fs);
+    flex-shrink: 0;
     width: var(--full);
-    padding: calc(var(--head) / 14) calc(var(--head) / 4);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    gap: calc(var(--head) / 2.5);
-    font-size: calc(var(--head) / 3.6);
-    background: rgba(0, 0, 0, 0.04);
+    min-height: calc(var(--head) / 1.65);
+    padding: 0 calc(var(--head) / 4);
+    border-top: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
+    gap: calc(var(--head) / 2.2);
+    font-size: calc(var(--head) / 2.85);
+    background: var(--xed-status-bg, #e6e6e6);
+    color: var(--xed-text, #2e2e2e);
+    box-sizing: border-box;
 }
 
 .xed-app__status-encoding {
     margin-left: auto;
+    opacity: 0.9;
 }
 
 .xed-app__file-input {

@@ -111,7 +111,8 @@ const fileExplorerState = {
     previewOpen: false,
     splitView: false,
     activePane: 'primary',
-    selectedPreview: null
+    selectedPreview: null,
+    pathNavigationMode: 'label'
 };
 
 fileExplorerState.currentPath = getFileExplorerRoot();
@@ -652,6 +653,115 @@ const alignDolphinPathBarToContentGrid = () => {
     pathGroup.style.marginLeft = `${nextMarginLeft}px`;
 };
 
+const buildExplorerPathSegments = (displayPath) => {
+    const path = normalizeDirectoryPath(displayPath);
+
+    if (isCapsuleVirtualPlace(path) && path !== CAPSULE_PLACE_FILESYSTEM) {
+        return [{ path, label: findFolderLabel(path) }];
+    }
+
+    if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(path)) {
+        const vfs = window.CapsuleExplorerVfs;
+        const terminalPath = vfs.explorerPathToTerminalPath(path) || '/';
+        const parts = terminalPath === '/' ? [] : terminalPath.split('/').filter(Boolean);
+        const segments = [{ path: CAPSULE_PLACE_FILESYSTEM, label: '/' }];
+        let terminalAcc = '';
+        parts.forEach((name) => {
+            terminalAcc = terminalAcc ? `${terminalAcc}/${name}` : `/${name}`;
+            const explorerSeg = vfs.terminalPathToExplorerPath(terminalAcc) || terminalAcc;
+            segments.push({ path: explorerSeg, label: name });
+        });
+        return segments;
+    }
+
+    const root = normalizeDirectoryPath(getFileExplorerRoot());
+    if (path === root) {
+        return [{ path: root, label: findFolderLabel(root) }];
+    }
+
+    if (path.indexOf(`${root}/`) !== 0) {
+        return [{ path, label: findFolderLabel(path) }];
+    }
+
+    const parts = path.slice(root.length + 1).split('/').filter(Boolean);
+    const segments = [{ path: root, label: findFolderLabel(root) }];
+    let acc = root;
+    parts.forEach((name) => {
+        acc = `${acc}/${name}`;
+        segments.push({ path: acc, label: findFolderLabel(acc) });
+    });
+    return segments;
+};
+
+const updatePathNavigationToggleButton = () => {
+    const nemoRoot = getExplorerWindowSlot();
+    if (!nemoRoot) {
+        return;
+    }
+
+    const toggleBtn = nemoRoot.querySelector('#nemo-toggle-path-mode');
+    if (!toggleBtn) {
+        return;
+    }
+
+    const breadcrumb = fileExplorerState.pathNavigationMode === 'breadcrumb';
+    toggleBtn.setAttribute('aria-pressed', breadcrumb ? 'true' : 'false');
+    toggleBtn.classList.toggle('nemo-app__path-mode-btn--active', breadcrumb);
+    toggleBtn.title = breadcrumb
+        ? 'Mode de navigation : fil d’Ariane (cliquer pour le libellé simple)'
+        : 'Mode de navigation : libellé simple (cliquer pour le fil d’Ariane)';
+};
+
+const togglePathNavigationMode = () => {
+    fileExplorerState.pathNavigationMode = fileExplorerState.pathNavigationMode === 'breadcrumb'
+        ? 'label'
+        : 'breadcrumb';
+    updatePathDisplay();
+    updatePathNavigationToggleButton();
+};
+
+const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
+    const crumbPrefix = pathLabelElement.querySelector('.dolphin-toolbar__crumb-prefix');
+    const label = findFolderLabel(displayPath);
+
+    if (fileExplorerState.pathNavigationMode !== 'breadcrumb') {
+        pathLabelElement.classList.remove('nemo-app__path-breadcrumb');
+        if (crumbPrefix) {
+            pathLabelElement.replaceChildren(crumbPrefix, document.createTextNode(label));
+        } else {
+            pathLabelElement.textContent = label;
+        }
+        return;
+    }
+
+    pathLabelElement.classList.add('nemo-app__path-breadcrumb');
+    const fragment = document.createDocumentFragment();
+    if (crumbPrefix) {
+        fragment.appendChild(crumbPrefix.cloneNode(true));
+    }
+
+    const segments = buildExplorerPathSegments(displayPath);
+    segments.forEach((segment, index) => {
+        if (index > 0) {
+            const separator = document.createElement('span');
+            separator.className = 'nemo-app__path-sep';
+            separator.setAttribute('aria-hidden', 'true');
+            separator.textContent = '›';
+            fragment.appendChild(separator);
+        }
+
+        const link = document.createElement('a');
+        link.href = '#';
+        link.className = 'nemo-app__path-crumb';
+        link.dataset.path = segment.path;
+        link.textContent = segment.label;
+        link.title = segment.label;
+        fragment.appendChild(link);
+    });
+
+    pathLabelElement.replaceChildren(fragment);
+};
+
 const updatePathDisplay = () => {
     const pathLabelElement = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemo-app__path-current`);
     if (!pathLabelElement) {
@@ -661,13 +771,9 @@ const updatePathDisplay = () => {
     const displayPath = isDolphinTemplate() && fileExplorerState.activePane === 'secondary'
         ? fileExplorerState.secondaryPath
         : fileExplorerState.currentPath;
-    const label = findFolderLabel(displayPath);
-    const crumbPrefix = pathLabelElement.querySelector('.dolphin-toolbar__crumb-prefix');
-    if (crumbPrefix) {
-        pathLabelElement.replaceChildren(crumbPrefix, document.createTextNode(label));
-    } else {
-        pathLabelElement.textContent = label;
-    }
+
+    renderPathNavigationDisplay(pathLabelElement, displayPath);
+    updatePathNavigationToggleButton();
     updateExplorerWindowTitle();
     updateDolphinSidebarActive();
     alignDolphinPathBarToContentGrid();
@@ -826,6 +932,12 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
 
         const viewerPayload = getFileViewerTargetByItem(item);
         if (viewerPayload && viewerPayload.target) {
+            itemLink.href = '#';
+            itemLink.addEventListener('mousedown', (event) => {
+                if (event.button === 0) {
+                    selectGridItem();
+                }
+            });
             itemLink.addEventListener('click', (event) => {
                 event.preventDefault();
 
@@ -1384,6 +1496,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
         if (isDolphinTemplate() && typeof window.updateDolphinExplorerChrome === 'function') {
             window.updateDolphinExplorerChrome();
         }
+
+        if (typeof window.refreshNemoSidebarTree === 'function') {
+            window.refreshNemoSidebarTree();
+        }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
     }
@@ -1704,6 +1820,12 @@ const bindFileExplorerViewControls = () => {
             return;
         }
 
+        if (btn.id === 'nemo-toggle-path-mode') {
+            event.preventDefault();
+            togglePathNavigationMode();
+            return;
+        }
+
         const mode = resolveViewModeFromButton(btn);
         if (!mode) {
             return;
@@ -1736,8 +1858,18 @@ const bindFileExplorerNavigationControls = () => {
             };
 
             navRoot.addEventListener('click', (event) => {
+                const pathCrumb = event.target.closest('.nemo-app__path-crumb');
+                if (pathCrumb && navRoot.contains(pathCrumb)) {
+                    event.preventDefault();
+                    const targetPath = pathCrumb.dataset.path;
+                    if (targetPath) {
+                        navigateToFileExplorerDirectory(targetPath, { updateHistory: true });
+                    }
+                    return;
+                }
+
                 const pathLabel = event.target.closest('.nemo-app__path-current, #nemo-path-label');
-                if (pathLabel && navRoot.contains(pathLabel)) {
+                if (pathLabel && navRoot.contains(pathLabel) && !event.target.closest('.nemo-app__path-crumb')) {
                     event.preventDefault();
                     goToHomeDirectory();
                     return;
@@ -1766,6 +1898,23 @@ const bindFileExplorerNavigationControls = () => {
 
     bindFileExplorerSearchControls();
     bindFileExplorerViewControls();
+
+    if (isNemoTemplate() && nemoRoot.dataset.nemoMenuActionsInit !== 'true') {
+        const previousMenuResolver = window.resolveFileExplorerMenuAction;
+        window.resolveFileExplorerMenuAction = (label, context, scope) => {
+            if (label === 'Basculer le mode de navigation') {
+                togglePathNavigationMode();
+                return true;
+            }
+            if (typeof previousMenuResolver === 'function') {
+                return previousMenuResolver(label, context, scope);
+            }
+            return false;
+        };
+        nemoRoot.dataset.nemoMenuActionsInit = 'true';
+    }
+
+    updatePathNavigationToggleButton();
 
     if (typeof window.bindFileExplorerDolphinFeatures === 'function') {
         window.bindFileExplorerDolphinFeatures();
@@ -1832,6 +1981,7 @@ const bindFileExplorerNavigationControls = () => {
 window.loadFileExplorerDirectory = loadFileExplorerDirectory;
 window.renderDirectory = renderDirectory;
 window.updatePathDisplay = updatePathDisplay;
+window.togglePathNavigationMode = togglePathNavigationMode;
 window.loadManifestForFileExplorer = loadManifest;
 window.normalizeDirectoryPathForExplorer = normalizeDirectoryPath;
 window.getFileExtension = getFileExtension;

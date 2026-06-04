@@ -317,8 +317,10 @@
                             <a href="#"><img src="./assets/icons/cinnamon/nemo/pan-end-symbolic.svg"></a>
                         </div>
                         <div class="sousMenuOutils nemo-app__toolbar-group nemo-app__toolbar-group--view">
-                            <a href="#"><img src="./assets/icons/cinnamon/nemo/location-symbolic.svg"
-                                    title="Basculer le mode de navigation"></a>
+                            <a href="#" id="nemo-toggle-path-mode" class="nemo-app__path-mode-btn"
+                                    title="Basculer le mode de navigation" aria-pressed="false"
+                                    aria-label="Basculer le mode de navigation"><img
+                                    src="./assets/icons/cinnamon/nemo/location-symbolic.svg" alt=""></a>
                             <a href="#" id="nemo-search" title="Chercher des documents et des dossiers"
                                 aria-expanded="false" aria-controls="nemo-search-wrap"><img src="./assets/icons/cinnamon/nemo/search-symbolic.svg"
                                     alt="Rechercher"></a>
@@ -393,12 +395,18 @@
         </main>
         <footer id="nemoFooterContainer" class="nemo-app__statusbar">
                 <section class="nemo-app__status-left">
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/sidebar-places-symbolic.svg"
-                                        title="Montrer les emplacements"></a>
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/sidebar-tree-symbolic.svg"
-                                        title="Montrer l'arborescence"></a>
-                        <a href="#" id="nemo-toggle-sidebar" title="Masquer le Panneau latéral (F9)"><img src="./assets/icons/cinnamon/nemo/sidebar-hide-symbolic.svg"
-                                        alt="Masquer le panneau"></a>
+                        <button type="button" class="nemo-footer-btn nemo-footer-btn--active" data-nemo-sidebar-mode="places"
+                                aria-pressed="true" title="Montrer les emplacements">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-places-symbolic.svg" alt="">
+                        </button>
+                        <button type="button" class="nemo-footer-btn" data-nemo-sidebar-mode="tree"
+                                aria-pressed="false" title="Montrer l'arborescence">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-tree-symbolic.svg" alt="">
+                        </button>
+                        <button type="button" class="nemo-footer-btn" id="nemo-toggle-sidebar"
+                                aria-pressed="false" title="Masquer le panneau latéral (F9)">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-hide-symbolic.svg" alt="">
+                        </button>
                 </section>
                 <section class="nemo-app__status-center">
                         <p>6 éléments, espace disponible : 237 Go</p>

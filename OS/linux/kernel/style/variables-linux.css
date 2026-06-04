@@ -39,6 +39,11 @@
     --win-themes-min-width: calc(var(--head) * 13);
     --win-themes-min-height: calc(var(--head) * 9);
 
+    --win-text_editor-width: calc(var(--head) * 20);
+    --win-text_editor-height: calc(var(--head) * 13);
+    --win-text_editor-min-width: calc(var(--head) * 14);
+    --win-text_editor-min-height: calc(var(--head) * 9);
+
     --win-checklist-width: calc(var(--head) * 18);
     --win-checklist-height: calc(var(--head) * 13);
     --win-checklist-min-width: calc(var(--head) * 14);

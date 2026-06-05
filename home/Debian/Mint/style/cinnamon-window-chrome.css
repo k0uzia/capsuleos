@@ -1,6 +1,7 @@
 /**
  * Barre de titre Muffin (Cinnamon) — toutes les fenêtres SSD Mint.
  * S’applique via data-window-chrome-toolkit="cinnamon" (posé par chrome.js).
+ * Ground truth : gtk-3 Mint-Y-Dark-Aqua titlebutton (18 px icône, barre 32 px).
  */
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) {
     display: flex;
@@ -8,6 +9,15 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) {
     align-items: stretch;
     justify-content: flex-start;
     overflow: hidden;
+    padding: 0;
+    border: 1px solid var(--mint-window-header-border);
+    border-radius: var(--mint-window-frame-radius);
+    box-sizing: border-box;
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"].windowElementActive:not(#mainMenu) {
+    border-color: var(--menu-accent);
+    box-shadow: 0 0 0 1px var(--menu-accent), var(--frame);
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) > #windowHeader {
@@ -18,6 +28,11 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) >
     display: grid;
     width: 100%;
     max-width: 100%;
+    height: var(--mint-muffin-titlebar-height);
+    min-height: var(--mint-muffin-titlebar-height);
+    padding: 0 calc(var(--head) / 20);
+    box-sizing: border-box;
+    border-radius: calc(var(--mint-window-frame-radius) - 1px) calc(var(--mint-window-frame-radius) - 1px) 0 0;
     background: var(--nemoHC);
     border-bottom: 1px solid var(--mint-window-header-border);
 }
@@ -27,8 +42,39 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"].windowElementAct
     border-bottom-color: var(--mint-window-header-border-active);
 }
 
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowHeader > nav {
+    height: 100%;
+    min-height: 0;
+    gap: 0;
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowHeader > nav > button {
+    position: relative;
+    width: var(--mint-muffin-control-size);
+    height: var(--mint-muffin-control-size);
+    min-width: var(--mint-muffin-control-size);
+    min-height: var(--mint-muffin-control-size);
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: var(--mint-muffin-control-icon-size) var(--mint-muffin-control-icon-size);
+    transform: none;
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowHeader > nav > button:hover,
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowHeader > nav > button:active {
+    transform: none;
+    border: none;
+    background-color: transparent;
+}
+
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowTitle {
     color: var(--texte);
+    font-size: calc(var(--head) / 3.4);
     text-shadow: none;
     filter: none;
 }
@@ -41,7 +87,6 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] > #windowHeader[
     cursor: grabbing;
 }
 
-/* Zone client : remplit le cadre sous la barre WM */
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) > *:not(#windowHeader) {
     flex: 1 1 auto;
     min-height: 0;
@@ -49,6 +94,7 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"]:not(#mainMenu) >
     position: relative;
     top: auto;
     margin: 0;
+    border-radius: 0 0 calc(var(--mint-window-frame-radius) - 1px) calc(var(--mint-window-frame-radius) - 1px);
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] > #windowIframe {
@@ -59,17 +105,69 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] > #windowIframe 
     min-height: 0;
 }
 
+/* Min / max — glyphes symboliques 16 px, rendus à 18 px (Mint-Y gtk-3) */
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn,
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn {
+    filter: brightness(0) invert(0.72);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn:hover {
+    background-image: radial-gradient(circle at 50%, #4c4c50 0, #4c4c50 65%, transparent 65%),
+        var(--mint-muffin-min-bg);
+    filter: brightness(0) invert(1);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn:hover {
+    background-image: radial-gradient(circle at 50%, #4c4c50 0, #4c4c50 65%, transparent 65%),
+        var(--mint-muffin-max-bg);
+    filter: brightness(0) invert(1);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn:active {
+    background-image: radial-gradient(circle at 50%, #949498 0, #949498 65%, transparent 65%),
+        var(--mint-muffin-min-bg);
+    filter: brightness(0) invert(1);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn:active {
+    background-image: radial-gradient(circle at 50%, #949498 0, #949498 65%, transparent 65%),
+        var(--mint-muffin-max-bg);
+    filter: brightness(0) invert(1);
+}
+
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn {
-    background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/minimize.svg);
-    background-size: cover;
+    --mint-muffin-min-bg: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/minimize.svg);
+    background-image: var(--mint-muffin-min-bg);
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn {
-    background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/maximize.svg);
-    background-size: cover;
+    --mint-muffin-max-bg: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/maximize.svg);
+    background-image: var(--mint-muffin-max-bg);
 }
 
+/* Fermer — pastille aqua Mint-Y + croix blanche (gtk-3 titlebutton.close) */
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #closeBtn {
-    background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/close.svg);
-    background-size: cover;
+    background-image: radial-gradient(circle at 50%, #1f9ede 0, #1f9ede 65%, transparent 65%);
+    filter: none;
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #closeBtn:hover {
+    background-image: radial-gradient(circle at 50%, #34a8e3 0, #34a8e3 65%, transparent 65%);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #closeBtn:active {
+    background-image: radial-gradient(circle at 50%, #1c8ec8 0, #1c8ec8 65%, transparent 65%);
+}
+
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #closeBtn::after {
+    content: "\00d7";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    color: #ffffff;
+    pointer-events: none;
 }

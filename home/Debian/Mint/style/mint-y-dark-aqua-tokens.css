@@ -33,6 +33,11 @@ body#mint {
     --mint-window-header-border-active: #1f9ede;
     --mint-window-control-border-hover: #1f9ede;
     --mint-window-control-bg-hover: #3c3c44;
+    /* Muffin SSD — titlebar 32 px ; icônes gtk-3 Mint-Y-Dark-Aqua : 18 px dans zone ~22 px */
+    --mint-muffin-titlebar-height: 32px;
+    --mint-muffin-control-size: 22px;
+    --mint-muffin-control-icon-size: 18px;
+    --mint-window-frame-radius: 10px;
     --desktop-shortcut-text: #e1e1e1;
     --desktop-shortcut-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
     --desktop-shortcut-hover-bg: rgba(48, 48, 54, 0.55);

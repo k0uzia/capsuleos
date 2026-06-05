@@ -97,7 +97,7 @@ Sur Mint, **chaque** `.windowElement` hors `mainMenu` reçoit :
 
 **File Roller** : retour au modèle SSD Muffin + toolbar GTK en dessous (plus de CSD avec boutons dans la headerbar app).
 
-Smoke lab : `node usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome.mjs`
+Smoke lab : `node usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome.mjs` · parité VM : [`linux-mint-window-chrome-vm.md`](inventaires/linux-mint-window-chrome-vm.md) + `smoke-mint-window-chrome-parity.mjs`
 
 ## Cas Nemo (double chrome)
 

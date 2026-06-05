@@ -14,13 +14,37 @@ const MENU_CATS = [
 ];
 
 const MENU_SHORTCUTS = {
+    home: {
+        dataLink: 'nemo',
+        directory: './apps/system/Dossier_personnel',
+    },
     desktop: {
         dataLink: 'nemo',
         directory: './apps/system/Dossier_personnel/Bureau',
     },
+    documents: {
+        dataLink: 'nemo',
+        directory: './apps/system/Dossier_personnel/Documents',
+    },
     downloads: {
         dataLink: 'nemo',
         directory: './apps/system/Dossier_personnel/Téléchargements',
+    },
+    pictures: {
+        dataLink: 'nemo',
+        directory: './apps/system/Dossier_personnel/Images',
+    },
+    music: {
+        dataLink: 'nemo',
+        directory: './apps/system/Dossier_personnel/Musique',
+    },
+    videos: {
+        dataLink: 'nemo',
+        directory: './apps/system/Dossier_personnel/Vidéos',
+    },
+    trash: {
+        dataLink: null,
+        directory: null,
     },
 };
 

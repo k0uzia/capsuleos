@@ -157,10 +157,52 @@
         }
     }
 
+    function resolveWindowSlot(slotId) {
+        if (!slotId || typeof document === 'undefined') {
+            return null;
+        }
+        const selectors = [
+            `div.windowElement[data-link="${slotId}"]`,
+            `#desktop .windowElement[data-link="${slotId}"]`,
+            `object#desktop .windowElement[data-link="${slotId}"]`,
+            `.windowElement[data-link="${slotId}"]`,
+            `div[data-link="${slotId}"]`,
+        ];
+        for (let index = 0; index < selectors.length; index += 1) {
+            const node = document.querySelector(selectors[index]);
+            if (node && node.classList && node.classList.contains('windowElement')) {
+                return node;
+            }
+        }
+        const desktop = document.querySelector('object#desktop, #desktop');
+        if (desktop && typeof desktop.querySelector === 'function') {
+            const scoped = desktop.querySelector(`.windowElement[data-link="${slotId}"]`)
+                || desktop.querySelector(`div[data-link="${slotId}"]`);
+            if (scoped && scoped.classList && scoped.classList.contains('windowElement')) {
+                return scoped;
+            }
+        }
+        const byId = document.getElementById(slotId);
+        if (byId && byId.classList && byId.classList.contains('windowElement')) {
+            return byId;
+        }
+        return null;
+    }
+
+    function ensureLauncherHref(link) {
+        if (!link) {
+            return;
+        }
+        const href = link.getAttribute('href');
+        if (!href) {
+            link.setAttribute('href', '#');
+        }
+    }
+
     function handleOpen(link) {
         const slotId = link.dataset ? link.dataset.link : link.getAttribute('data-link');
-        const selector = config.containerSelector || `div[data-link="${slotId}"]`;
-        const container = document.querySelector(selector);
+        const container = resolveWindowSlot(slotId)
+            || document.querySelector(config.containerSelector || `div[data-link="${slotId}"]`);
 
         if (!container) {
             return false;
@@ -236,7 +278,7 @@
         if (!slotId) {
             return false;
         }
-        return !!document.querySelector(`div.windowElement[data-link="${slotId}"]`);
+        return !!resolveWindowSlot(slotId);
     }
 
     function registerLinks() {
@@ -246,6 +288,7 @@
             if (!isWindowLauncherLink(link)) {
                 return;
             }
+            ensureLauncherHref(link);
             if (link.dataset.capsuleWindowBound === 'true') {
                 return;
             }
@@ -265,7 +308,11 @@
 
     function bindFocusOnMousedown() {
         const winSelector = config.windowSelector || '.windowElement';
-        document.querySelectorAll(winSelector).forEach((windowElement) => {
+        const desktop = document.querySelector('object#desktop, #desktop');
+        const windows = desktop && typeof desktop.querySelectorAll === 'function'
+            ? desktop.querySelectorAll(winSelector)
+            : document.querySelectorAll(winSelector);
+        windows.forEach((windowElement) => {
             if (windowElement.dataset.capsuleFocusBound === 'true') {
                 return;
             }
@@ -290,7 +337,7 @@
         if (!dataLink) {
             return false;
         }
-        const container = document.querySelector(`div[data-link="${dataLink}"]`);
+        const container = resolveWindowSlot(dataLink);
         if (!container) {
             return false;
         }
@@ -327,6 +374,7 @@
         init: init,
         handleOpen: handleOpen,
         openByDataLink: openByDataLink,
+        resolveWindowSlot: resolveWindowSlot,
         activateWindow: activateWindow,
         ensureMacHeader: ensureMacHeader,
         applyChromeAndInteraction: applyChromeAndInteraction,

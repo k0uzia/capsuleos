@@ -31,6 +31,12 @@
     }
 
     function positionPopover() {
+        /* KDE Neon : ancrage CSS (--kde-neon-calendar-anchor-right), pas l’horloge */
+        if (document.body && document.body.id === 'kde-neon') {
+            popover.style.removeProperty('right');
+            return;
+        }
+
         const rect = trigger.getBoundingClientRect();
         const rightOffset = window.innerWidth - rect.right;
         popover.style.right = Math.max(4, rightOffset) + 'px';

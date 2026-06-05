@@ -4,7 +4,7 @@
     const savedTheme = localStorage.getItem(themeKey) || localStorage.getItem('mint-theme');
     const savedContrast = localStorage.getItem('mint-contrast-mode');
     const savedFontScale = localStorage.getItem('mint-font-scale');
-    document.documentElement.dataset.theme = savedTheme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
     document.documentElement.dataset.contrastMode = savedContrast === 'high' ? 'high' : 'normal';
     document.documentElement.dataset.fontScale = ['110', '125'].includes(savedFontScale) ? savedFontScale : '100';
 })();
@@ -98,7 +98,7 @@ function initThemesApp() {
         });
     });
 
-    applyTheme(document.documentElement.dataset.theme || 'dark');
+    applyTheme(document.documentElement.dataset.theme || 'light');
     applyContrast(document.documentElement.dataset.contrastMode || 'normal');
     applyFontScale(document.documentElement.dataset.fontScale || '100');
     root.dataset.initialized = 'true';

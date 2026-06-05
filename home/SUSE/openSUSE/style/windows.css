@@ -186,3 +186,20 @@ section.windowElement {
     width: var(--full);
     height: var(--full);
 }
+
+/* Fenêtres dans object#desktop : absolute (évite conflit fixed + overflow panel dock). */
+body#opensuse object#desktop .windowElement:not(#mainMenu),
+body#opensuse #desktop > .windowElement:not(#mainMenu) {
+    position: absolute;
+    pointer-events: auto;
+}
+
+body#opensuse object#desktop #mainMenu,
+body#opensuse #desktop > #mainMenu {
+    pointer-events: auto;
+}
+
+body#opensuse object#desktop,
+body#opensuse #desktop {
+    pointer-events: none;
+}

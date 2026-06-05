@@ -14,7 +14,7 @@ const DRY = process.argv.includes('--dry-run');
 const SKIP_DIRS = new Set(['node_modules', '.git', 'var/lib/capsuleos/generated']);
 
 const TOOLKIT_BY_PATH = [
-  [/mx-kde|opensuse|debian-kde/i, 'kde'],
+  [/mx-kde|opensuse|debian-kde|kde-neon/i, 'kde'],
   [/[/\\]mint[/\\]|families[/\\]debian[/\\]mint/i, 'cinnamon'],
   [/popos|cosmic/i, 'cosmic'],
   [/ubuntu|fedora|anduinos|gnome/i, 'gnome'],
@@ -31,6 +31,7 @@ const vendorFromPath = (fp) => {
   if (/fedora/i.test(fp)) return 'fedora';
   if (/mx-kde|mxkde/i.test(fp)) return 'mx';
   if (/opensuse/i.test(fp)) return 'opensuse';
+  if (/kde-neon|kdeneon/i.test(fp)) return 'neon';
   if (/debian-kde|debiankde/i.test(fp)) return 'debian';
   if (/popos/i.test(fp)) return 'popos';
   if (/anduinos/i.test(fp)) return 'anduin';

@@ -54,7 +54,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'firefox.statusBookmarkUnmapped': 'Favori « {label} » non mappe pour le moment.',
     'firefox.statusTabSimulated': 'Onglet « {label} » simule.',
     'firefox.statusErrorOsLaCapsule': "Erreur de chargement: impossible d'ouvrir la page os-lacapsule.",
-    'mainMenu.userName': 'utilisateur',
+    'mainMenu.userName': 'capsule',
     'mainMenu.searchPlaceholder': 'Rechercher...',
     'profile.windowTitle': 'À Propos',
     'librewriter.windowTitle': 'Sans nom 1 - LibreOffice Writer',

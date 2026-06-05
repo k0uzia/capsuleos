@@ -13,7 +13,9 @@ function initProfileApp() {
 
     const logoEl = root.querySelector('.profile-app__logo');
     if (logoEl && p.logo) {
-        logoEl.src = p.logo;
+        logoEl.src = (typeof resolveCapsuleResourceUrl === 'function')
+            ? resolveCapsuleResourceUrl(p.logo)
+            : p.logo;
         logoEl.alt = p.logoAlt || ('Logo ' + p.name);
     }
 

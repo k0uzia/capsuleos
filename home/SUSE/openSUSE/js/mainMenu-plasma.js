@@ -30,7 +30,10 @@
         }
 
         if (cat.icon) {
-            btn.style.setProperty('--menu-cat-icon', `url("${cat.icon}")`);
+            const iconUrl = (typeof resolveCapsuleResourceUrl === 'function')
+                ? resolveCapsuleResourceUrl(cat.icon)
+                : cat.icon;
+            btn.style.setProperty('--menu-cat-icon', `url(${iconUrl})`);
         }
 
         btn.classList.toggle('menu-cat--decorative', !!cat.decorative);
@@ -47,11 +50,18 @@
         const filterBtn = document.getElementById('menu-btn-filter');
         const pinBtn = document.getElementById('menu-btn-pin');
 
+        const assetUrl = (path) => {
+            const raw = `./assets/images/toolkits/kde/menu/plasma/${path}`;
+            return (typeof resolveCapsuleResourceUrl === 'function')
+                ? resolveCapsuleResourceUrl(raw)
+                : raw;
+        };
+
         if (filterBtn) {
-            filterBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/view-filter.svg")';
+            filterBtn.style.backgroundImage = `url("${assetUrl('view-filter.svg')}")`;
         }
         if (pinBtn) {
-            pinBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/view-pin.svg")';
+            pinBtn.style.backgroundImage = `url("${assetUrl('view-pin.svg')}")`;
         }
     }
 
@@ -113,7 +123,10 @@
 
         if (clearBtn && clearBtn.dataset.plasmaBound !== 'true') {
             clearBtn.dataset.plasmaBound = 'true';
-            clearBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/search-clear.svg")';
+            const clearIcon = (typeof resolveCapsuleResourceUrl === 'function')
+                ? resolveCapsuleResourceUrl('./assets/images/toolkits/kde/menu/plasma/search-clear.svg')
+                : './assets/images/toolkits/kde/menu/plasma/search-clear.svg';
+            clearBtn.style.backgroundImage = `url("${clearIcon}")`;
             clearBtn.addEventListener('click', () => {
                 searchInput.value = '';
                 searchInput.dispatchEvent(new Event('input', { bubbles: true }));
@@ -167,12 +180,102 @@
         updateSearchChrome();
     }
 
+    function bindTabs() {
+        const menuRoot = document.querySelector('#mainMenu .menu-root--plasma');
+        const searchInput = document.getElementById('menu-search');
+        const cats = document.getElementById('menu-cats');
+        const places = document.getElementById('menu-places');
+        const tabs = Array.from(document.querySelectorAll('#mainMenu [data-menu-tab]'));
+
+        if (!menuRoot || !cats || !places || tabs.length === 0) {
+            return;
+        }
+
+        function setTab(tabId) {
+            const isPlaces = tabId === 'places';
+            tabs.forEach((btn) => btn.classList.toggle('menu-plasma-tab--active', btn.dataset.menuTab === tabId));
+            menuRoot.classList.toggle('menu-root--places', isPlaces);
+            cats.hidden = isPlaces;
+            places.hidden = !isPlaces;
+            if (searchInput) {
+                searchInput.disabled = isPlaces;
+                if (isPlaces) {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+        }
+
+        tabs.forEach((btn) => {
+            if (btn.dataset.plasmaTabBound === 'true') {
+                return;
+            }
+            btn.dataset.plasmaTabBound = 'true';
+            btn.addEventListener('click', () => setTab(btn.dataset.menuTab));
+        });
+
+        setTab('apps');
+    }
+
+    function bindPlaceIcons() {
+        const base = './assets/icons/kde/places32';
+        const iconMap = {
+            home: `${base}/folder.svg`,
+            desktop: `${base}/user-desktop.svg`,
+            documents: `${base}/folder-documents.svg`,
+            downloads: `${base}/folder-download.svg`,
+            pictures: `${base}/folder-pictures.svg`,
+            music: `${base}/folder-sound.svg`,
+            videos: `${base}/folder-videos.svg`,
+            trash: `${base}/folder.svg`,
+        };
+
+        document.querySelectorAll('#mainMenu .menu-shortcut').forEach((link) => {
+            const id = link.dataset.shortcutId;
+            const icon = iconMap[id];
+            if (!icon) {
+                return;
+            }
+            const iconUrl = (typeof resolveCapsuleResourceUrl === 'function')
+                ? resolveCapsuleResourceUrl(icon)
+                : icon;
+            link.style.setProperty('--menu-shortcut-icon', `url(${iconUrl})`);
+        });
+    }
+
+    function ensureShortcutDirectories() {
+        if (typeof window === 'undefined' || !window.CAPSULE_CONTENT_ROOT || typeof MENU_SHORTCUTS === 'undefined') {
+            return;
+        }
+
+        const root = String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
+        const map = {
+            home: `${root}`,
+            desktop: `${root}/Bureau`,
+            documents: `${root}/Documents`,
+            downloads: `${root}/Téléchargements`,
+            pictures: `${root}/Images`,
+            music: `${root}/Musique`,
+            videos: `${root}/Vidéos`,
+            trash: `${root}/Corbeille`,
+        };
+
+        Object.entries(map).forEach(([key, directory]) => {
+            if (MENU_SHORTCUTS[key] && typeof MENU_SHORTCUTS[key] === 'object') {
+                MENU_SHORTCUTS[key].directory = directory;
+            }
+        });
+    }
+
     function setupPlasmaMenu() {
         document.querySelectorAll('#mainMenu .menu-cat').forEach(applyCategoryMetadata);
         blockDecorativeCategories();
         bindHeaderChrome();
         bindPowerActions();
         bindSearchMode();
+        bindTabs();
+        ensureShortcutDirectories();
+        bindPlaceIcons();
         activateFavoritesCategory();
     }
 

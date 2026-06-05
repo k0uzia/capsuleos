@@ -6,7 +6,7 @@ body#opensuse #mainMenu {
     left: 0;
     right: auto;
     top: auto;
-    bottom: var(--taskbar-height);
+    bottom: var(--opensuse-panel-anchor-bottom, var(--taskbar-height));
     width: var(--opensuse-menu-width);
     height: var(--opensuse-menu-height);
     margin: 0;
@@ -14,10 +14,12 @@ body#opensuse #mainMenu {
     border: 1px solid var(--opensuse-menu-border);
     border-radius: var(--opensuse-menu-radius);
     background: var(--opensuse-menu-bg);
-    box-shadow: 0 0.5rem 1.35rem rgba(35, 38, 41, 0.16);
+    box-shadow: var(--opensuse-menu-shadow);
     overflow: hidden;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    pointer-events: auto;
+    z-index: 9999;
 }
 
 body#opensuse div[data-link="mainMenu"] > #windowHeader,
@@ -28,10 +30,6 @@ body#opensuse #mainMenu > #windowHeader {
 
 body#opensuse #mainMenu .menu-root.menu-root--plasma {
     position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -51,8 +49,8 @@ body#opensuse #mainMenu .menu-plasma-header {
     align-items: center;
     gap: 0.55rem;
     padding: 0.5rem 0.55rem 0.48rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    background: rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid var(--opensuse-menu-divider);
+    background: var(--opensuse-menu-header-bg);
 }
 
 body#opensuse #mainMenu .menu-user {
@@ -104,16 +102,20 @@ body#opensuse #mainMenu .menu-search {
     height: var(--opensuse-menu-search-min-height);
     margin: 0;
     padding: 0 0.55rem 0 calc(var(--opensuse-menu-search-icon-left) + var(--opensuse-menu-search-icon-size) + 0.38rem);
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--opensuse-menu-search-border);
     border-radius: var(--opensuse-menu-btn-radius);
     color: var(--opensuse-menu-text);
     font-family: inherit;
     font-size: 0.8rem;
     background:
         url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/search-symbolic.svg") no-repeat var(--opensuse-menu-search-icon-left) center / var(--opensuse-menu-search-icon-size),
-        #ffffff;
+        var(--opensuse-menu-search-bg);
     outline: none;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+body#opensuse #mainMenu .menu-search::placeholder {
+    color: var(--opensuse-menu-search-placeholder);
 }
 
 body#opensuse #mainMenu .menu-search:focus {
@@ -167,7 +169,7 @@ body#opensuse #mainMenu .menu-plasma-chrome__btn {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1.05rem;
-    filter: brightness(0) saturate(100%);
+    filter: var(--opensuse-menu-icon-filter);
     opacity: 0.82;
 }
 
@@ -194,8 +196,8 @@ body#opensuse #mainMenu .menu-plasma-sidebar {
     height: 100%;
     max-height: 100%;
     padding: 0;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-    background: rgba(0, 0, 0, 0.025);
+    border-right: 1px solid var(--opensuse-menu-divider);
+    background: var(--opensuse-menu-sidebar-bg);
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -203,14 +205,16 @@ body#opensuse #mainMenu .menu-plasma-sidebar {
     scrollbar-color: rgba(35, 38, 41, 0.28) transparent;
 }
 
-body#opensuse #mainMenu .menu-cats {
+body#opensuse #mainMenu .menu-cats,
+body#opensuse #mainMenu .menu-places {
     flex: 0 0 auto;
     margin: 0;
     padding: 0.12rem 0;
     list-style: none;
 }
 
-body#opensuse #mainMenu .menu-cat {
+body#opensuse #mainMenu .menu-cat,
+body#opensuse #mainMenu .menu-places > li > .menu-shortcut {
     position: relative;
     display: flex;
     align-items: center;
@@ -227,9 +231,13 @@ body#opensuse #mainMenu .menu-cat {
     font-weight: 500;
     text-align: left;
     background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
-body#opensuse #mainMenu .menu-cat::before {
+body#opensuse #mainMenu .menu-cat::before,
+body#opensuse #mainMenu .menu-places > li > .menu-shortcut::before {
     content: "";
     display: block;
     flex-shrink: 0;
@@ -239,15 +247,20 @@ body#opensuse #mainMenu .menu-cat::before {
     background-position: center;
     background-size: contain;
     background-image: var(--menu-cat-icon, none);
-    filter: brightness(0) saturate(100%);
+    filter: var(--opensuse-menu-icon-filter);
     opacity: 0.9;
+}
+
+body#opensuse #mainMenu .menu-places > li > .menu-shortcut::before {
+    background-image: var(--menu-shortcut-icon, none);
 }
 
 body#opensuse #mainMenu .menu-cat::after {
     display: none;
 }
 
-body#opensuse #mainMenu .menu-cat:hover:not(.menu-cat--disabled):not(.menu-cat--decorative) {
+body#opensuse #mainMenu .menu-cat:hover:not(.menu-cat--disabled):not(.menu-cat--decorative),
+body#opensuse #mainMenu .menu-places > li > .menu-shortcut:hover:not(.is-unavailable) {
     background: var(--opensuse-menu-hover);
 }
 
@@ -257,8 +270,10 @@ body#opensuse #mainMenu .menu-cat.is-active {
 }
 
 body#opensuse #mainMenu .menu-cat.menu-cat--decorative,
-body#opensuse #mainMenu .menu-cat.menu-cat--disabled {
+body#opensuse #mainMenu .menu-cat.menu-cat--disabled,
+body#opensuse #mainMenu .menu-shortcut.is-unavailable {
     color: var(--opensuse-menu-text-muted);
+    opacity: 0.65;
     cursor: default;
 }
 
@@ -276,7 +291,7 @@ body#opensuse #mainMenu .menu-apps {
     max-height: 100%;
     margin: 0;
     border: 0;
-    background: #ffffff;
+    background: var(--opensuse-menu-apps-bg);
     overflow: hidden;
 }
 
@@ -464,12 +479,16 @@ body#opensuse #mainMenu .menu-root--search .menu-app-item__desc {
 body#opensuse #mainMenu .menu-root--search .menu-app-item.is-active,
 body#opensuse #mainMenu .menu-root--search .menu-app-item:focus-visible {
     border-color: rgba(61, 174, 233, 0.5);
-    background: #cce8ff;
+    background: var(--opensuse-menu-search-highlight-bg);
 }
 
 body#opensuse #mainMenu .menu-root--search .menu-app-item:hover:not(.is-unavailable) {
-    background: #e3f3fc;
+    background: var(--opensuse-menu-search-hover-bg);
     border-color: rgba(61, 174, 233, 0.35);
+}
+
+body#opensuse #mainMenu .menu-root--places .menu-app-list {
+    display: none;
 }
 
 body#opensuse #mainMenu .menu-app-list.is-empty::after {
@@ -495,7 +514,7 @@ body#opensuse #mainMenu .menu-plasma-footer {
     width: 100%;
     min-height: var(--opensuse-menu-footer-height, 2.15rem);
     padding: 0.3rem 0.55rem 0.34rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--opensuse-menu-divider);
     background: var(--opensuse-menu-footer-bg, rgba(252, 252, 252, 0.98));
     box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.65);
     isolation: isolate;
@@ -518,6 +537,7 @@ body#opensuse #mainMenu .menu-plasma-tab {
     font-size: 0.78rem;
     font-weight: 500;
     background: transparent;
+    cursor: pointer;
 }
 
 body#opensuse #mainMenu .menu-plasma-tab--active {
@@ -536,8 +556,7 @@ body#opensuse #mainMenu .menu-plasma-tab--active::after {
 }
 
 body#opensuse #mainMenu .menu-plasma-tab--places {
-    opacity: 0.55;
-    cursor: default;
+    /* onglet Emplacements actif via bindTabs() */
 }
 
 body#opensuse #mainMenu .menu-plasma-power {
@@ -567,7 +586,7 @@ body#opensuse #mainMenu .menu-plasma-power__btn img {
     width: 0.95rem;
     height: 0.95rem;
     object-fit: contain;
-    filter: brightness(0) saturate(100%);
+    filter: var(--opensuse-menu-icon-filter);
     opacity: 1;
 }
 

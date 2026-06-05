@@ -37,6 +37,17 @@ html:has(#opensuse) {
     --opensuse-menu-hover: rgba(61, 174, 233, 0.1);
     --opensuse-menu-active: rgba(61, 174, 233, 0.22);
     --opensuse-menu-search-focus: var(--opensuse-breeze-accent);
+    --opensuse-menu-header-bg: rgba(255, 255, 255, 0.35);
+    --opensuse-menu-sidebar-bg: rgba(0, 0, 0, 0.025);
+    --opensuse-menu-apps-bg: #ffffff;
+    --opensuse-menu-icon-filter: brightness(0) saturate(100%);
+    --opensuse-menu-shadow: 0 0.5rem 1.35rem rgba(35, 38, 41, 0.16);
+    --opensuse-menu-search-bg: #ffffff;
+    --opensuse-menu-search-border: rgba(0, 0, 0, 0.12);
+    --opensuse-menu-search-placeholder: rgba(35, 38, 41, 0.45);
+    --opensuse-menu-divider: rgba(0, 0, 0, 0.08);
+    --opensuse-menu-search-highlight-bg: #cce8ff;
+    --opensuse-menu-search-hover-bg: #e3f3fc;
     --opensuse-window-titlebar-bg: var(--opensuse-breeze-chrome-dark);
     --opensuse-window-titlebar-bg-active: #3d444b;
     --opensuse-window-titlebar-border-color: rgba(0, 0, 0, 0.35);

@@ -47,6 +47,11 @@
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
                 },
                 {
+                    "name": "KDE neon User Edition",
+                    "href": "./OS/linux/families/debian/kde-neon/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/vendors/neon/neon-logo.png"
+                },
+                {
                     "name": "Pop!_OS",
                     "href": "./OS/linux/families/debian/popos/index.html",
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/popos.png"

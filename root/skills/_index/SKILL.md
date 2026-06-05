@@ -25,7 +25,7 @@ Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés 
 
 Gate : `validate-ui-contracts-all.mjs` · [contrats-ui-bureau.md](../docs/contrats-ui-bureau.md)
 
-## Vendors (32)
+## Vendors (33)
 
 - [alma](vendors/alma/SKILL.md)
 - [anduin](vendors/anduin/SKILL.md)
@@ -47,6 +47,7 @@ Gate : `validate-ui-contracts-all.mjs` · [contrats-ui-bureau.md](../docs/contra
 - [microsoft](vendors/microsoft/SKILL.md)
 - [mint](vendors/mint/SKILL.md)
 - [mx](vendors/mx/SKILL.md)
+- [neon](vendors/neon/SKILL.md)
 - [netbsd](vendors/netbsd/SKILL.md)
 - [nixos](vendors/nixos/SKILL.md)
 - [openbsd](vendors/openbsd/SKILL.md)
@@ -60,16 +61,18 @@ Gate : `validate-ui-contracts-all.mjs` · [contrats-ui-bureau.md](../docs/contra
 - [valve](vendors/valve/SKILL.md)
 - [zorin](vendors/zorin/SKILL.md)
 
-## Distributions actives (22)
+## Distributions actives (24)
 
 - [linux-mint](distributions/linux-mint/SKILL.md) — Linux Mint (Cinnamon)
 - [linux-ubuntu](distributions/linux-ubuntu/SKILL.md) — Ubuntu 25.10
 - [linux-fedora](distributions/linux-fedora/SKILL.md) — Fedora Workstation
 - [linux-mx-kde](distributions/linux-mx-kde/SKILL.md) — MX Linux KDE
 - [linux-debian-kde](distributions/linux-debian-kde/SKILL.md) — Debian KDE (Plasma)
+- [linux-kde-neon](distributions/linux-kde-neon/SKILL.md) — KDE neon User Edition
 - [linux-opensuse](distributions/linux-opensuse/SKILL.md) — openSUSE Tumbleweed
 - [linux-popos](distributions/linux-popos/SKILL.md) — Pop!_OS
 - [linux-anduinos](distributions/linux-anduinos/SKILL.md) — AnduinOS
+- [linux-rocky](distributions/linux-rocky/SKILL.md) — Rocky Linux (GNOME)
 - [windows-95](distributions/windows-95/SKILL.md) — Windows 95
 - [windows-98](distributions/windows-98/SKILL.md) — Windows 98
 - [windows-me](distributions/windows-me/SKILL.md) — Windows ME

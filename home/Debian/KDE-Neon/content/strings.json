@@ -1,0 +1,25 @@
+{
+    "explorer.windowTitle": "Dossier personnel - Dolphin",
+    "mainMenu.windowTitle": "Menu des applications",
+    "mainMenu.userName": "capsule",
+    "mainMenu.searchPlaceholder": "Rechercher…",
+    "mainMenu.searchClear": "Effacer la recherche",
+    "mainMenu.filterTitle": "Filtres",
+    "mainMenu.pinTitle": "Épingler",
+    "mainMenu.searchResultsHeading": "Applications",
+    "mainMenu.closeTitle": "Fermer",
+    "mainMenu.powerSleep": "Veille",
+    "mainMenu.powerHibernate": "Hibernation",
+    "mainMenu.powerRestart": "Redémarrer",
+    "mainMenu.powerShutdown": "Éteindre",
+    "mainMenu.powerSession": "Session",
+    "terminal.windowTitle": "~ : bash - Konsole",
+    "themes.windowTitle": "Paramètres système",
+    "checklist.windowTitle": "Missions KDE Neon",
+    "checklist.description": "Explore KDE Neon en accomplissant ces missions. Ta progression est sauvegardée.",
+    "checklist.hint.open-nemo": "Ouvre Dolphin depuis le panneau",
+    "checklist.hint.open-menu": "Ouvre le menu des applications (icône en bas à gauche)",
+    "checklist.hint.open-profile": "Ouvre le profil KDE Neon",
+    "profile.windowTitle": "À propos - KDE Neon"
+}
+

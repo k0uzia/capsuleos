@@ -16,11 +16,24 @@
         if (options.dragHandle && options.dragHandle !== 'auto') {
             return element.querySelector(options.dragHandle);
         }
+        const integrated = element.querySelector('[data-window-drag-handle]:not(#windowHeader)');
+        const header = element.querySelector('#windowHeader');
         if (options.requireHeader === true) {
-            return element.querySelector('#windowHeader');
+            if (header) {
+                const view = element.ownerDocument && element.ownerDocument.defaultView;
+                const hidden = view && typeof view.getComputedStyle === 'function'
+                    && (view.getComputedStyle(header).display === 'none'
+                        || view.getComputedStyle(header).visibility === 'hidden'
+                        || header.getAttribute('aria-hidden') === 'true');
+                if (!hidden) {
+                    return header;
+                }
+            }
+            return integrated || element;
         }
-        return element.querySelector('[data-window-drag-handle]')
-            || element.querySelector('#windowHeader')
+        return integrated
+            || element.querySelector('[data-window-drag-handle]')
+            || header
             || element;
     }
 

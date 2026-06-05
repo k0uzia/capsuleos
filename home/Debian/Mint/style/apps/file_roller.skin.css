@@ -1,12 +1,13 @@
 /**
- * File Roller — Linux Mint Cinnamon (GTK Mint-Y-Aqua, contenu clair).
+ * File Roller 43 — Linux Mint Cinnamon.
+ * Proportions calées VM wmctrl 652×579 + capture demo.zip (2026-06-05).
  */
 body#mint {
     --fr-bg: #ffffff;
     --fr-text: #2e2e2e;
     --fr-muted: #5c5c5c;
     --fr-header-bg: #ebebeb;
-    --fr-nav-bg: #f3f3f3;
+    --fr-nav-bg: #f0f0f0;
     --fr-border: #d4d4d4;
     --fr-btn-bg: #f6f6f6;
     --fr-btn-hover: #ffffff;
@@ -18,26 +19,209 @@ body#mint {
     --fr-row-border: #ececec;
     --fr-chrome-bg: #ebebeb;
     --fr-chrome-text: #2e2e2e;
+
+    /* Proportions internes GTK (mesures capture VM) */
+    --fr-ui-font: 13px;
+    --fr-table-font: 12px;
+    --fr-headerbar-h: 46px;
+    --fr-nav-h: 44px;
+    --fr-table-head-h: 30px;
+    --fr-row-h: 30px;
+    --fr-btn-h: 34px;
+    --fr-btn-icon: 34px;
+    --fr-pad-x: 8px;
+    --fr-pad-y: 6px;
+    --fr-path-h: 32px;
+    --fr-file-icon: 16px;
 }
 
-body#mint div[data-link="file_roller"].windowElement {
-    width: min(calc(var(--head) * 10.5), 92vw);
-    min-width: calc(var(--head) * 8);
-    height: min(calc(var(--head) * 9.3), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
-    min-height: calc(var(--head) * 7);
+/* File Roller 43 = GTK4/libadwaita CSD : une seule headerbar (#ebebeb), pas de barre Muffin. */
+body#mint div[data-link="file_roller"].file-roller--csd > #windowHeader {
+    display: none !important;
 }
 
-body#mint div[data-link="file_roller"] #windowHeader {
-    background: var(--fr-chrome-bg);
-    border-bottom: 1px solid var(--fr-border);
+body#mint div[data-link="file_roller"].file-roller--csd {
+    padding: 0;
+    overflow: hidden;
 }
 
-body#mint div[data-link="file_roller"] #windowTitle {
-    color: var(--fr-chrome-text);
+body#mint div[data-link="file_roller"].file-roller--csd .fr-app__headerbar {
+    border-radius: calc(var(--head) / 4) calc(var(--head) / 4) 0 0;
+    cursor: default;
+}
+
+body#mint div[data-link="file_roller"].file-roller--csd .fr-app__headerbar[data-window-drag-handle] {
+    cursor: grab;
+}
+
+body#mint div[data-link="file_roller"].file-roller--csd .fr-app__headerbar[data-window-drag-handle]:active {
+    cursor: grabbing;
+}
+
+body#mint div[data-link="file_roller"] .fr-app__window-controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+body#mint div[data-link="file_roller"] .fr-app__window-controls #minimizeBtn,
+body#mint div[data-link="file_roller"] .fr-app__window-controls #resizeBtn,
+body#mint div[data-link="file_roller"] .fr-app__window-controls #closeBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--fr-btn-icon);
+    height: var(--fr-btn-icon);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 14px;
+    cursor: default;
+}
+
+body#mint div[data-link="file_roller"] .fr-app__window-controls #minimizeBtn:hover,
+body#mint div[data-link="file_roller"] .fr-app__window-controls #resizeBtn:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+body#mint div[data-link="file_roller"] .fr-app__window-controls #closeBtn:hover {
+    background-color: #c42b2b;
+}
+
+body#mint div[data-link="file_roller"] .fr-app__window-controls #closeBtn:active {
+    background-color: #a82424;
 }
 
 body#mint main#fileRollerApp {
     background: var(--fr-bg);
     color: var(--fr-text);
+    font-size: var(--fr-ui-font);
+    line-height: 1.35;
 }
 
+body#mint .fr-app__headerbar {
+    min-height: var(--fr-headerbar-h);
+    height: var(--fr-headerbar-h);
+    padding: var(--fr-pad-y) var(--fr-pad-x);
+    gap: 6px;
+}
+
+body#mint .fr-app__header-start {
+    min-width: 118px;
+}
+
+body#mint .fr-app__header-end {
+    min-width: 84px;
+}
+
+body#mint div[data-link="file_roller"].file-roller--csd .fr-app__header-end {
+    min-width: 148px;
+}
+
+body#mint .fr-app__title {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 6px;
+}
+
+body#mint .fr-app__btn--extract {
+    height: var(--fr-btn-h);
+    padding: 0 14px;
+    font-size: var(--fr-ui-font);
+    border-radius: 6px;
+}
+
+body#mint .fr-app__btn--icon,
+body#mint .fr-app__btn--nav {
+    width: var(--fr-btn-icon);
+    height: var(--fr-btn-icon);
+    border-radius: 6px;
+}
+
+body#mint .fr-app__icon {
+    width: 16px;
+    height: 16px;
+}
+
+body#mint .fr-app__nav {
+    min-height: var(--fr-nav-h);
+    height: var(--fr-nav-h);
+    padding: 6px var(--fr-pad-x);
+    gap: 8px;
+}
+
+body#mint .fr-app__location-label {
+    font-size: var(--fr-ui-font);
+}
+
+body#mint .fr-app__path {
+    min-height: var(--fr-path-h);
+    height: var(--fr-path-h);
+    padding: 0 10px;
+    border-radius: 6px;
+    font-size: var(--fr-ui-font);
+}
+
+body#mint .fr-app__path-icon {
+    width: 14px;
+    height: 14px;
+}
+
+body#mint .fr-app__search {
+    padding: 6px var(--fr-pad-x);
+}
+
+body#mint .fr-app__search-input {
+    height: 30px;
+    font-size: var(--fr-ui-font);
+    border-radius: 6px;
+}
+
+body#mint .fr-app__col {
+    height: var(--fr-table-head-h);
+    padding: 0 var(--fr-pad-x);
+    font-size: var(--fr-table-font);
+    font-weight: 600;
+}
+
+body#mint .fr-app__col--name {
+    width: 42%;
+}
+
+body#mint .fr-app__col--size {
+    width: 16%;
+}
+
+body#mint .fr-app__col--type {
+    width: 16%;
+}
+
+body#mint .fr-app__col--modified {
+    width: 26%;
+}
+
+body#mint .fr-app__table td {
+    height: var(--fr-row-h);
+    padding: 0 var(--fr-pad-x);
+    font-size: var(--fr-ui-font);
+}
+
+body#mint .fr-app__file-icon {
+    width: var(--fr-file-icon);
+    height: var(--fr-file-icon);
+}
+
+body#mint .fr-app__file-cell {
+    gap: 8px;
+}
+
+body#mint .fr-app__menu {
+    border-radius: 8px;
+    font-size: var(--fr-ui-font);
+}

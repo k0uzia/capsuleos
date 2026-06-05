@@ -15,6 +15,7 @@ const steps = [
   'validate-skin-profiles.mjs',
   'audit-asset-paths.mjs',
   'validate-css-asset-urls.mjs',
+  'validate-vendor-image-extensions.mjs',
   'validate-link-integrity.mjs',
 ];
 

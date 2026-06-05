@@ -12,8 +12,7 @@
 
     --window-header-height: calc(var(--head) / 1.3);
     --window-header-width: calc(var(--full) - var(--head-gutter));
-    --window-header-min-width: calc(var(--a) - var(--head-gutter));
-    --window-header-max-width: calc(var(--max-w) - var(--head-gutter));
+    --window-header-max-width: var(--full);
     --window-header-padding: var(--head-quarter);
     --window-header-radius: var(--head-quarter);
     --window-client-min-height: calc(var(--full) - var(--window-header-height));
@@ -21,8 +20,6 @@
 
     --chrome-btn-size: calc(var(--head) / 2);
     --chrome-nav-min-width: calc(var(--head) * 2.2);
-    --chrome-title-width: calc(var(--head) * 20);
-
     --explorer-titlebar-min-height: calc(var(--head) * 1.35);
     --explorer-font-lg: calc(var(--head) / 2.1);
     --explorer-font-md: calc(var(--head) / 2.2);

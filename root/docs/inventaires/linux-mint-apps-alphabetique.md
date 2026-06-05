@@ -34,7 +34,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 6 | Fichiers | nemo.desktop | nemo | ✅ | P0 |
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
 | 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
-| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
+| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | ✅ | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ⬜ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | P1 |
@@ -97,8 +97,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Fonts | Fonts | org.gnome.font-viewer.desktop | — | ⬜ | — |  |
 | General | General | cinnamon-settings-general.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M | linux-mint-file-roller-vm.md |
-| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | 🔶 | — |  |
-| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | 🔶 | T |  |
+| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | ✅ | — | linux-mint-update-manager-vm.md |
+| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | ✅ | T | linux-mint-update-manager-vm.md |
 | Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ⬜ | — |  |
 | Gestures | Gestures | cinnamon-settings-gestures.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |

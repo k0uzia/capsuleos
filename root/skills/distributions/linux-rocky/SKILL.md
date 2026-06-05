@@ -1,6 +1,6 @@
 ---
 name: capsuleos-distro-linux-rocky
-description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux, tier P3, active. Use when editing OS/linux/families/redhat/rocky/index.html, gnome toolkit, or rocky vendor assets.
+description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux, tier P3, planned. Use when editing linux-rocky, gnome toolkit, or rocky vendor assets.
 ---
 
 # Distribution — Rocky Linux (GNOME)
@@ -12,14 +12,13 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 | ID registre | `linux-rocky` |
 | Vendor | [`rocky`](../vendors/rocky/SKILL.md) |
 | Famille | `linux` |
-| Tier / statut | P3 / active |
+| Tier / statut | P3 / planned |
 | Toolkit | gnome |
-| embedKey | `rocky` |
+| embedKey | `—` |
 
 ## Chemins
 
-- Façade : [`OS/linux/families/redhat/rocky/index.html`](../../../OS/linux/families/redhat/rocky/index.html)
-- Skin : [`home/RedHat/Rocky/index.html`](../../../home/RedHat/Rocky/index.html)
+- (façade à définir)
 - Version : (entrée catalogue unique — pas de skill version séparé)
 
 ## Skills à charger
@@ -33,6 +32,12 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 | 5 | `capsuleos-lang-*` selon fichiers |
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
+
+**VM lab (Wayland)** : [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md) · [inventaire VM](../../docs/inventaires/linux-rocky-vm.md) · `etc/capsuleos/lab-inventory.json` (`linux-rocky`)
+
+**Skin** : `home/RedHat/Rocky/` (pont Fedora GNOME) · façade `OS/linux/families/redhat/rocky/`
+
+**Apps** : VM **Nautilus** + Ptyxis + Firefox · slots Capsule **`nemo`** (gabarit Fichiers), **`terminal`**, **`firefox`** — voir [`linux-gnome-capsule-slots.md`](../../docs/inventaires/linux-gnome-capsule-slots.md).
 
 ## Build / gates
 

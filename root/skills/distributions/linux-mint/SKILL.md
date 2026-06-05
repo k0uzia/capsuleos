@@ -34,12 +34,19 @@ description: CapsuleOS distribution Linux Mint (Cinnamon) (linux-mint) — linux
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-mint`
 
+## Fenêtres Cinnamon / Muffin
+
+Étude conformité réelle : [mint-fenetres-muffin.md](../../../docs/mint-fenetres-muffin.md) — panel, SSD, tiling (½ + coins), Alt+Tab (`cinnamon-alt-tab.js`), animations (`cinnamon-window-effects.js`), Nemo (`nemo.skin.css`).
+
 ## Build / gates
 
 ```bash
+node usr/lib/capsuleos/tools/validate-ui-contracts-all.mjs  # fenêtres, sélecteurs, CSS, JS
 node usr/lib/capsuleos/tools/validate-all.mjs
 node usr/lib/capsuleos/tools/build-embeds-all.mjs  # si apps/strings
 ```
+
+Skills transverses : `window-side-effects`, `vanilla-js-interactivity` — [contrats-ui-bureau.md](../../../docs/contrats-ui-bureau.md).
 
 ## Ne pas
 

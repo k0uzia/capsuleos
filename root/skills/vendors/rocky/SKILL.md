@@ -36,6 +36,11 @@ description: CapsuleOS vendor rocky — distributions linux-rocky. Use when work
 node usr/lib/capsuleos/tools/validate-all.mjs
 ```
 
+## Lab VM (virt-manager, Wayland)
+
+- [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md) — SSH, `wmctrl`, `lab-inventory.json`, cookie Xwayland
+- Inventaire local : `etc/capsuleos/lab-inventory.json` (`registryId`: `linux-rocky`)
+
 ## Références
 
 - [skills-hierarchie.md](../../docs/skills-hierarchie.md)

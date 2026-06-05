@@ -16,6 +16,15 @@ description: Index hiérarchie skills CapsuleOS — vendors, distributions, vers
 
 Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés à la racine de `root/skills/`.
 
+## Contrats UI bureau (4)
+
+- [window-side-effects](window-side-effects/SKILL.md) — effets de bord fenêtres
+- [css-selectors-contract](css-selectors-contract/SKILL.md) — IDs/classes DOM
+- [css-variables-contract](css-variables-contract/SKILL.md) — variables CSS
+- [vanilla-js-interactivity](vanilla-js-interactivity/SKILL.md) — init slots vanilla JS
+
+Gate : `validate-ui-contracts-all.mjs` · [contrats-ui-bureau.md](../docs/contrats-ui-bureau.md)
+
 ## Vendors (33)
 
 - [alma](vendors/alma/SKILL.md)

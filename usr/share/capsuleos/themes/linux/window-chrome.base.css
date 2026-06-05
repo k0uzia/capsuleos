@@ -32,17 +32,18 @@ div[class^="windowElement"]:not(#mainMenu) {
 }
 
 #windowHeader {
-    display: var(--f);
-    flex-flow: var(--rnw);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: var(--c);
-    justify-content: var(--sb);
     width: var(--window-header-width);
-    min-width: var(--window-header-min-width);
-    max-width: var(--window-header-max-width);
+    min-width: var(--z);
+    max-width: var(--full);
     height: var(--window-header-height);
     padding: var(--window-header-padding);
     border-radius: var(--window-header-radius) var(--window-header-radius) var(--z) var(--z);
     background: var(--nemoHC);
+    box-sizing: border-box;
+    overflow: hidden;
     user-select: none;
     border-bottom: 1px solid var(--mint-window-header-border);
     transition: background-color var(--eas2), border-color var(--eas2);
@@ -58,15 +59,38 @@ div[class^="windowElement"]:not(#mainMenu) {
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--sa);
+    flex-shrink: 0;
     min-width: var(--chrome-nav-min-width);
     height: var(--head);
+    z-index: 1;
+}
+
+#windowHeader>nav:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
+#windowHeader>nav:last-child {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
 }
 
 #windowTitle {
-    width: var(--chrome-title-width);
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: center;
+    width: auto;
+    max-width: calc(100% - calc(var(--chrome-nav-min-width) * 2));
+    min-width: var(--z);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-align: var(--c);
     text-shadow: var(--bs);
     filter: var(--inv);
+    pointer-events: none;
 }
 
 #windowHeader>nav>button {

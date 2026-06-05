@@ -2,10 +2,37 @@
     <section class="update-manager__layout update-manager__layout--mint" aria-label="Gestionnaire de mise à jour (Mint)">
         <header class="update-manager__top">
             <nav class="update-manager__menubar" aria-label="Menu">
-                <button type="button" class="update-manager__menuitem">Fichier</button>
-                <button type="button" class="update-manager__menuitem">Édition</button>
-                <button type="button" class="update-manager__menuitem">Affichage</button>
-                <button type="button" class="update-manager__menuitem">Aide</button>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="file" aria-haspopup="true" aria-expanded="false">Fichier</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="preferences">Préférences</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="close">Fermer</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="edit" aria-haspopup="true" aria-expanded="false">Édition</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="select-security">Sélectionner les mises à jour de sécurité</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="select-kernels">Sélectionner les mises à jour des noyaux</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="selectAll">Tout sélectionner</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="clear">Effacer</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="view" aria-haspopup="true" aria-expanded="false">Affichage</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="show-updates">Afficher les mises à jour</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry update-manager__menu-entry--checkable" role="menuitem" data-um-menu-action="auto-refresh">Actualiser automatiquement la liste des mises à jour</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="help" aria-haspopup="true" aria-expanded="false">Aide</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="history">Historique des mises à jour</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="help">Aide</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="about">À propos</button></li>
+                    </ul>
+                </div>
             </nav>
 
             <section class="update-manager__toolbar" aria-label="Actions">
@@ -39,8 +66,8 @@
                 </p>
             </div>
             <div class="update-manager__banner-actions">
-                <button type="button" class="update-manager__banner-btn">Oui</button>
-                <button type="button" class="update-manager__banner-btn">Non</button>
+                <button type="button" class="update-manager__banner-btn" data-um-mirror="yes">Oui</button>
+                <button type="button" class="update-manager__banner-btn" data-um-mirror="no">Non</button>
             </div>
         </section>
 

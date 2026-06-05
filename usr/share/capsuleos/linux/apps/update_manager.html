@@ -2,10 +2,37 @@
     <section class="update-manager__layout update-manager__layout--mint" aria-label="Gestionnaire de mise à jour (Mint)">
         <header class="update-manager__top">
             <nav class="update-manager__menubar" aria-label="Menu">
-                <button type="button" class="update-manager__menuitem">Fichier</button>
-                <button type="button" class="update-manager__menuitem">Édition</button>
-                <button type="button" class="update-manager__menuitem">Affichage</button>
-                <button type="button" class="update-manager__menuitem">Aide</button>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="file" aria-haspopup="true" aria-expanded="false">Fichier</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="preferences">Préférences</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="close">Fermer</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="edit" aria-haspopup="true" aria-expanded="false">Édition</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="select-security">Sélectionner les mises à jour de sécurité</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="select-kernels">Sélectionner les mises à jour des noyaux</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="selectAll">Tout sélectionner</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="clear">Effacer</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="view" aria-haspopup="true" aria-expanded="false">Affichage</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="show-updates">Afficher les mises à jour</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry update-manager__menu-entry--checkable" role="menuitem" data-um-menu-action="auto-refresh">Actualiser automatiquement la liste des mises à jour</button></li>
+                    </ul>
+                </div>
+                <div class="update-manager__menu">
+                    <button type="button" class="update-manager__menuitem update-manager__menu-trigger" data-um-menu="help" aria-haspopup="true" aria-expanded="false">Aide</button>
+                    <ul class="update-manager__menu-dropdown" role="menu" hidden>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="history">Historique des mises à jour</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="help">Aide</button></li>
+                        <li role="none"><button type="button" class="update-manager__menu-entry" role="menuitem" data-um-menu-action="about">À propos</button></li>
+                    </ul>
+                </div>
             </nav>
 
             <section class="update-manager__toolbar" aria-label="Actions">
@@ -28,7 +55,47 @@
             </section>
         </header>
 
-        <section class="update-manager__banner" role="region" aria-label="Suggestion miroir">
+        <section class="update-manager__welcome" id="um-welcome" aria-label="Écran d'accueil">
+            <div class="update-manager__welcome-body">
+                <h2 class="update-manager__welcome-title">Bienvenue dans le gestionnaire de mise à jour</h2>
+                <p class="update-manager__welcome-lead">
+                    Cet outil fournit à votre système d'exploitation des mises à jour logicielles et de sécurité.
+                </p>
+                <ul class="update-manager__welcome-list">
+                    <li class="update-manager__welcome-item">
+                        <span class="update-manager__welcome-icon update-manager__welcome-icon--security" aria-hidden="true"></span>
+                        <div>
+                            <p class="update-manager__welcome-item-title">Mises à jour de sécurité</p>
+                            <p class="update-manager__welcome-item-desc">Appliquez les mises à jour de sécurité pour corriger les vulnérabilités et garder votre ordinateur en sécurité.</p>
+                        </div>
+                    </li>
+                    <li class="update-manager__welcome-item">
+                        <span class="update-manager__welcome-icon update-manager__welcome-icon--software" aria-hidden="true"></span>
+                        <div>
+                            <p class="update-manager__welcome-item-title">Mises à jour logicielles</p>
+                            <p class="update-manager__welcome-item-desc">Appliquez les mises à jour logicielles pour corriger les bogues de votre ordinateur.</p>
+                        </div>
+                    </li>
+                    <li class="update-manager__welcome-item">
+                        <span class="update-manager__welcome-icon update-manager__welcome-icon--snapshot" aria-hidden="true"></span>
+                        <div>
+                            <p class="update-manager__welcome-item-title">Instantanés système</p>
+                            <p class="update-manager__welcome-item-desc">Configurez des instantanés système pour vous protéger des erreurs et des régressions. En cas de problème, restaurez simplement le dernier instantané.</p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="update-manager__welcome-foot">
+                    Linux Mint recommande de configurer des instantanés système automatisés et d'appliquer toutes les mises à jour disponibles. Ainsi, votre ordinateur reste sécurisé et vous pouvez revenir en arrière en cas de régression.
+                </p>
+            </div>
+            <footer class="update-manager__welcome-actions">
+                <button type="button" class="update-manager__welcome-btn" data-um-welcome="help">Aide</button>
+                <button type="button" class="update-manager__welcome-btn update-manager__welcome-btn--primary" data-um-welcome="finish">Valider</button>
+            </footer>
+        </section>
+
+        <div class="update-manager__main" id="um-main" hidden>
+        <section class="update-manager__banner" role="region" aria-label="Suggestion miroir" id="um-mirror-banner">
             <div class="update-manager__banner-left" aria-hidden="true">
                 <span class="update-manager__banner-icon"></span>
             </div>
@@ -39,12 +106,17 @@
                 </p>
             </div>
             <div class="update-manager__banner-actions">
-                <button type="button" class="update-manager__banner-btn">Oui</button>
-                <button type="button" class="update-manager__banner-btn">Non</button>
+                <button type="button" class="update-manager__banner-btn" data-um-mirror="yes">Oui</button>
+                <button type="button" class="update-manager__banner-btn" data-um-mirror="no">Non</button>
             </div>
         </section>
 
-        <section class="update-manager__tablewrap" aria-label="Liste des mises à jour">
+        <section class="update-manager__empty" id="um-empty" aria-label="État du système" hidden>
+            <span class="update-manager__empty-icon" aria-hidden="true"></span>
+            <p class="update-manager__empty-text">Votre système est à jour</p>
+        </section>
+
+        <section class="update-manager__tablewrap" id="um-tablewrap" aria-label="Liste des mises à jour" hidden>
             <table class="update-manager__table">
                 <thead>
                     <tr>
@@ -149,8 +221,9 @@
         </section>
 
         <footer class="update-manager__status" aria-label="Statut">
-            <span id="um-status-text">129 mises à jour sont sélectionnées (1,1 Go)</span>
+            <span id="um-status-text"></span>
         </footer>
+        </div>
     </section>
 
     <section class="update-manager__layout update-manager__layout--cosmic" aria-label="Mises à jour (Pop!_OS)">

@@ -54,10 +54,17 @@
     --win-librewriter-min-width: calc(var(--head) * 18);
     --win-librewriter-min-height: calc(var(--head) * 12);
 
-    --win-update_manager-width: calc(var(--head) * 17);
-    --win-update_manager-height: calc(var(--head) * 12.5);
-    --win-update_manager-min-width: calc(var(--head) * 14);
-    --win-update_manager-min-height: calc(var(--head) * 9);
+    /** Update Manager 7.1.4 — géométrie VM wmctrl (790×570) */
+    --win-update_manager-width: 790px;
+    --win-update_manager-height: 570px;
+    --win-update_manager-min-width: 640px;
+    --win-update_manager-min-height: 460px;
+
+    /** File Roller 43 — géométrie VM wmctrl (652×579, gschema min 600×480) */
+    --win-file_roller-width: 652px;
+    --win-file_roller-height: 579px;
+    --win-file_roller-min-width: 600px;
+    --win-file_roller-min-height: 480px;
 
     --win-visionneur_images-width: calc(var(--head) * 20);
     --win-visionneur_images-height: calc(var(--head) * 14);

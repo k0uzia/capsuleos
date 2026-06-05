@@ -22,14 +22,16 @@ const empty = await page.evaluate(() => {
   const app = document.getElementById('fileRollerApp');
   const wmHeader = win?.querySelector('#windowHeader');
   const wmStyle = wmHeader && window.getComputedStyle(wmHeader);
-  const controls = win?.querySelector('.fr-app__window-controls');
+  const windowTitle = wmHeader?.querySelector('#windowTitle');
   return {
     winVisible: win && win.style.display !== 'none',
     appReady: app && app.dataset.fileRollerInit === 'true',
     csd: win?.classList.contains('file-roller--csd'),
-    headerHidden: !wmHeader || wmStyle?.display === 'none',
-    controlsInHeader: !!(controls && controls.querySelector('#closeBtn')),
-    headerTitle: document.getElementById('fr-app-title')?.textContent,
+    chromeToolkit: win?.getAttribute('data-window-chrome-toolkit'),
+    chromeProvider: win?.getAttribute('data-window-chrome-provider'),
+    headerVisible: !!(wmHeader && wmStyle && wmStyle.display !== 'none'),
+    headerDrag: wmHeader?.hasAttribute('data-window-drag-handle') === true,
+    wmTitle: windowTitle?.textContent,
     emptyVisible: !document.getElementById('fr-empty')?.hidden,
     navHidden: document.getElementById('fr-nav-row')?.hidden,
     extractDisabled: document.querySelector('[data-fr-action="extract"]')?.disabled,
@@ -43,8 +45,9 @@ await page.waitForTimeout(500);
 
 const open = await page.evaluate(() => {
   const rows = document.querySelectorAll('#fr-list-body tr');
+  const wmTitle = document.querySelector('div[data-link="file_roller"] #windowTitle');
   return {
-    headerTitle: document.getElementById('fr-app-title')?.textContent,
+    wmTitle: wmTitle?.textContent,
     navVisible: !document.getElementById('fr-nav-row')?.hidden,
     rowCount: rows.length,
     firstName: rows[0]?.querySelector('.fr-app__file-cell span:last-child')?.textContent,
@@ -76,16 +79,16 @@ const dragBefore = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="file_roller"]');
   const handle = window.CapsuleWindowDragTargets?.resolveDragHandle(win, { requireHeader: true });
   return {
-    handleOk: !!(handle && handle.classList.contains('fr-app__headerbar')),
+    handleOk: !!(handle && handle.id === 'windowHeader'),
     left: win ? win.getBoundingClientRect().left : null,
   };
 });
 
-const titleBox = await page.locator('#fr-app-title').boundingBox();
-if (titleBox) {
-  await page.mouse.move(titleBox.x + titleBox.width / 2, titleBox.y + titleBox.height / 2);
+const headerBox = await page.locator('div[data-link="file_roller"] #windowHeader').boundingBox();
+if (headerBox) {
+  await page.mouse.move(headerBox.x + headerBox.width / 2, headerBox.y + headerBox.height / 2);
   await page.mouse.down();
-  await page.mouse.move(titleBox.x + titleBox.width / 2 + 70, titleBox.y + titleBox.height / 2, { steps: 8 });
+  await page.mouse.move(headerBox.x + headerBox.width / 2 + 70, headerBox.y + headerBox.height / 2, { steps: 8 });
   await page.mouse.up();
 }
 
@@ -101,10 +104,12 @@ const drag = {
   after: dragAfter,
 };
 
-const ok = empty.winVisible && empty.appReady && empty.csd && empty.headerHidden
-  && empty.controlsInHeader && empty.headerTitle === 'Gestionnaire d\'archives'
+const ok = empty.winVisible && empty.appReady && !empty.csd
+  && empty.chromeToolkit === 'cinnamon' && empty.chromeProvider === 'cinnamon'
+  && empty.headerVisible && empty.headerDrag
+  && empty.wmTitle === 'Gestionnaire d\'archives'
   && empty.emptyVisible && empty.navHidden && empty.extractDisabled
-  && open.headerTitle === 'demo.zip'
+  && open.wmTitle === 'demo.zip'
   && open.navVisible && open.rowCount === 1 && open.firstName === 'demo.txt'
   && open.firstSize === '11 octets' && open.path === '/'
   && dims.win && dims.win.w >= 644 && dims.win.w <= 660

@@ -42,6 +42,11 @@
       "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
     },
     "CAPSULE_TERMINAL_USER": "mx-linux",
-    "CAPSULE_TERMINAL_HOST": "mx"
+    "CAPSULE_TERMINAL_HOST": "mx",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "kde",
+      "explorerTemplate": "dolphin",
+      "explorerDragMode": "window-header"
+    }
   }
 }

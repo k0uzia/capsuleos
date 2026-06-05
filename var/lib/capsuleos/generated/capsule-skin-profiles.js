@@ -40,7 +40,16 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian"
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "debian-kde": {
@@ -81,7 +90,12 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
+      }
     }
   },
   "fedora": {
@@ -115,13 +129,22 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SKIN_BASE": ".",
       "CAPSULE_STRINGS_URL": "./content/strings.json",
       "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
-      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "fedora",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "kde-neon": {
@@ -165,6 +188,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
       }
     }
   },
@@ -223,6 +251,11 @@ window.CAPSULE_SKIN_PROFILES = {
           "footerSelector": "footer, #tableau",
           "subtractFooter": false
         }
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cinnamon",
+        "explorerTemplate": "nemo",
+        "explorerDragMode": "unified-titlebar"
       }
     }
   },
@@ -270,7 +303,12 @@ window.CAPSULE_SKIN_PROFILES = {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       },
       "CAPSULE_TERMINAL_USER": "mx-linux",
-      "CAPSULE_TERMINAL_HOST": "mx"
+      "CAPSULE_TERMINAL_HOST": "mx",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
+      }
     }
   },
   "opensuse": {
@@ -314,6 +352,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
       }
     }
   },
@@ -353,7 +396,15 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian"
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cosmic",
+        "explorerTemplate": "nemo-cosmic",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "terminal": "terminal-cosmic"
+        }
+      }
     }
   },
   "rocky": {
@@ -394,7 +445,16 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus"
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "ubuntu": {
@@ -435,7 +495,16 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome"
+      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   }
 };
@@ -476,7 +545,16 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian"
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "linux-debian-kde": {
@@ -517,7 +595,12 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
+      }
     }
   },
   "linux-fedora": {
@@ -551,13 +634,22 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SKIN_BASE": ".",
       "CAPSULE_STRINGS_URL": "./content/strings.json",
       "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
-      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "fedora",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "linux-kde-neon": {
@@ -601,6 +693,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
       }
     }
   },
@@ -659,6 +756,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
           "footerSelector": "footer, #tableau",
           "subtractFooter": false
         }
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cinnamon",
+        "explorerTemplate": "nemo",
+        "explorerDragMode": "unified-titlebar"
       }
     }
   },
@@ -706,7 +808,12 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       },
       "CAPSULE_TERMINAL_USER": "mx-linux",
-      "CAPSULE_TERMINAL_HOST": "mx"
+      "CAPSULE_TERMINAL_HOST": "mx",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
+      }
     }
   },
   "linux-opensuse": {
@@ -750,6 +857,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      },
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "explorerDragMode": "window-header"
       }
     }
   },
@@ -789,7 +901,15 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian"
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cosmic",
+        "explorerTemplate": "nemo-cosmic",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "terminal": "terminal-cosmic"
+        }
+      }
     }
   },
   "linux-rocky": {
@@ -830,7 +950,16 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus"
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   },
   "linux-ubuntu": {
@@ -871,7 +1000,16 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome"
+      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "explorerDragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "firefox": "firefox-gnome",
+          "terminal": "terminal-gnome"
+        }
+      }
     }
   }
 };

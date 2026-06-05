@@ -27,7 +27,7 @@ Noyau : `common/capsule-window.js`, `resizeWindow.js`, `window-drag.js`.
    - Windows : `kernel/js/windowManager.js` (après `win-window-drag.js`)
    - Android : `OS/android/js/windowContainer.js`
 
-Optionnel : `window.CAPSULE_WINDOW_FAMILY = 'linux'|'macos'|'windows'|'android'` ou profil `skin.profile.json` → `capsuleGlobals.CAPSULE_WINDOW_CONTEXT`.
+Optionnel : `window.CAPSULE_WINDOW_FAMILY = 'linux'|'macos'|'windows'|'android'` ou profil `skin.profile.json` → `capsuleGlobals.CAPSULE_WINDOW_CONTEXT` et `CAPSULE_WINDOW_CHROME_CONTEXT` (toolkit DE : cinnamon, gnome, kde). Voir [window-chrome-contexts.md](window-chrome-contexts.md).
 
 ## Contexte déclaratif
 

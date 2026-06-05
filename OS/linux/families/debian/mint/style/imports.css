@@ -3,6 +3,7 @@
 @import url(../../../../../../usr/share/capsuleos/themes/linux/variables-linux.css);
 @import url(../../../../../../usr/share/capsuleos/themes/linux/variables-linux-computed.css);
 @import url(../../../../../../usr/share/capsuleos/themes/linux/window-chrome.base.css);
+@import url(./cinnamon-window-chrome.css);
 @import url(./footer.css);
 @import url(./panel-windows.css);
 @import url(./desktop.css);

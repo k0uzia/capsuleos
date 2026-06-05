@@ -29,12 +29,21 @@
     "CAPSULE_SKIN_BASE": ".",
     "CAPSULE_STRINGS_URL": "./content/strings.json",
     "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
-    "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+    "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
     "CAPSULE_EMBED_SKIN_KEY": "fedora",
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "fedora",
-    "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
+    "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "gnome",
+      "explorerTemplate": "nemo-gnome",
+      "explorerDragMode": "app-headerbar-passthrough",
+      "slotProviders": {
+        "firefox": "firefox-gnome",
+        "terminal": "terminal-gnome"
+      }
+    }
   }
 }

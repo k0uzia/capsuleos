@@ -34,6 +34,14 @@
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-    "CAPSULE_TERMINAL_PROFILE": "debian"
+    "CAPSULE_TERMINAL_PROFILE": "debian",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "cosmic",
+      "explorerTemplate": "nemo-cosmic",
+      "explorerDragMode": "app-headerbar-passthrough",
+      "slotProviders": {
+        "terminal": "terminal-cosmic"
+      }
+    }
   }
 }

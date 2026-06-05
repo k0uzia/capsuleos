@@ -36,6 +36,15 @@
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
     "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
-    "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome"
+    "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "gnome",
+      "explorerTemplate": "nemo-gnome",
+      "explorerDragMode": "app-headerbar-passthrough",
+      "slotProviders": {
+        "firefox": "firefox-gnome",
+        "terminal": "terminal-gnome"
+      }
+    }
   }
 }

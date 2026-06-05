@@ -20,6 +20,7 @@ description: >-
 
 ```bash
 node usr/lib/capsuleos/tools/validate-window-side-effects.mjs
+node usr/lib/capsuleos/tools/validate-window-chrome-contexts.mjs
 node usr/lib/capsuleos/tools/validate-desktop-window-boot.mjs
 node usr/lib/capsuleos/tools/build-skin-profiles.mjs   # si profil modifié
 node usr/lib/capsuleos/tools/build-capsule-window.mjs  # si noyau window/
@@ -52,5 +53,6 @@ node usr/lib/capsuleos/tools/build-capsule-window.mjs  # si noyau window/
 ## Doc
 
 - [convention-contexte-fenetres.md](../../docs/convention-contexte-fenetres.md)
+- [window-chrome-contexts.md](../../docs/window-chrome-contexts.md)
 - [mint-fenetres-muffin.md](../../docs/mint-fenetres-muffin.md)
 - [contrats-ui-bureau.md](../../docs/contrats-ui-bureau.md)

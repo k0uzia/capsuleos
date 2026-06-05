@@ -36,6 +36,11 @@
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
     "CAPSULE_EXPLORER_APP_ID": "nemo",
-    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "kde",
+      "explorerTemplate": "dolphin",
+      "explorerDragMode": "window-header"
+    }
   }
 }

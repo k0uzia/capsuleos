@@ -200,6 +200,20 @@
         }
     }
 
+    function ensureMuffinTitleBarVisible(container) {
+        if (!container) {
+            return;
+        }
+        container.classList.remove('file-roller--csd');
+        const header = container.querySelector(':scope > #windowHeader');
+        if (!header) {
+            return;
+        }
+        header.hidden = false;
+        header.removeAttribute('aria-hidden');
+        header.style.removeProperty('display');
+    }
+
     function applyDragHandlePolicy(container, slotId, providerId) {
         const header = container.querySelector(':scope > #windowHeader');
         const appHandle = container.querySelector('[data-window-drag-handle]');
@@ -275,6 +289,10 @@
             return;
         }
 
+        if (providerId === 'cinnamon' || providerId === 'default') {
+            ensureMuffinTitleBarVisible(container);
+        }
+
         if (providerId === 'file-roller-gtk') {
             const headerbar = container.querySelector('.fr-app__headerbar');
             if (headerbar) {
@@ -348,6 +366,19 @@
         afterInject(container, slotId) {
             applyKdeWindowHeaderIcons(container);
             applyDragHandlePolicy(container, slotId, 'nemo-gnome');
+        },
+    };
+
+    providers.cinnamon = {
+        id: 'cinnamon',
+        ensureHeader(container) {
+            const header = providers.default.ensureHeader(container);
+            ensureMuffinTitleBarVisible(container);
+            return header;
+        },
+        afterInject(container, slotId) {
+            ensureMuffinTitleBarVisible(container);
+            applyDragHandlePolicy(container, slotId, 'cinnamon');
         },
     };
 

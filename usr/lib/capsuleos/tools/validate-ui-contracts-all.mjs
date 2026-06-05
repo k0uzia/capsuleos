@@ -12,6 +12,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 
 const steps = [
     'validate-window-side-effects.mjs',
+    'validate-window-chrome-contexts.mjs',
     'validate-css-selectors-contract.mjs',
     'validate-css-variables-contract.mjs',
     'validate-vanilla-interactivity.mjs',

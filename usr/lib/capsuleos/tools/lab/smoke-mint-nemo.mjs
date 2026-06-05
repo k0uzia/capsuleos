@@ -21,6 +21,9 @@ const home = await page.evaluate(() => {
     path: typeof window.getExplorerCurrentPath === 'function' ? window.getExplorerCurrentPath('nemo') : '',
     sidebarReady: win?.dataset.nemoSidebarDelegation === 'true',
     navReady: win?.dataset.nemoNavDelegationInit === 'true',
+    chromeToolkit: win?.getAttribute('data-window-chrome-toolkit'),
+    chromeProvider: win?.getAttribute('data-window-chrome-provider'),
+    dragOnHeader: !!win?.querySelector('#windowHeader[data-window-drag-handle]'),
   };
 });
 
@@ -273,6 +276,9 @@ const footerSidebar = await page.evaluate(() => {
 });
 
 const ok = home.sidebarReady && home.navReady
+  && home.chromeToolkit === 'cinnamon'
+  && home.chromeProvider === 'nemo'
+  && home.dragOnHeader
   && home.title && home.title.indexOf('Nemo') >= 0
   && docs.path && docs.path.indexOf('Documents') >= 0
   && docs.title && docs.title.indexOf('Documents') >= 0

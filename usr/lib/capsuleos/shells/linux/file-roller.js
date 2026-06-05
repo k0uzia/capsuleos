@@ -71,6 +71,12 @@
             if (titleEl) {
                 titleEl.textContent = title;
             }
+            if (winEl) {
+                var wmTitle = winEl.querySelector('#windowTitle');
+                if (wmTitle) {
+                    wmTitle.textContent = title;
+                }
+            }
         }
 
         function renderEntries(filterText) {

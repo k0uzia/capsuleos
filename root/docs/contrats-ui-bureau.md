@@ -7,6 +7,7 @@ Cinq validateurs et skills transverses garantissent la cohérence du **système 
 | Skill | Gate | Rôle |
 |-------|------|------|
 | [`window-side-effects`](../skills/window-side-effects/SKILL.md) | `validate-window-side-effects.mjs` | Profils `CAPSULE_WINDOW_CONTEXT`, ancrage `object#desktop`, chemins façade |
+| — | `validate-window-chrome-contexts.mjs` | Contextes chrome par toolkit DE (Nemo/Nautilus/Dolphin) |
 | [`css-selectors-contract`](../skills/css-selectors-contract/SKILL.md) | `validate-css-selectors-contract.mjs` | IDs/classes chrome + Nemo vs JS |
 | [`css-variables-contract`](../skills/css-variables-contract/SKILL.md) | `validate-css-variables-contract.mjs` | `var(--*)` définies dans la chaîne thème |
 | [`vanilla-js-interactivity`](../skills/vanilla-js-interactivity/SKILL.md) | `validate-vanilla-interactivity.mjs` | Init slots, `resolveRelative`, handlers explorateur |

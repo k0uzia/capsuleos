@@ -51,6 +51,11 @@
         "footerSelector": "footer, #tableau",
         "subtractFooter": false
       }
+    },
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "cinnamon",
+      "explorerTemplate": "nemo",
+      "explorerDragMode": "unified-titlebar"
     }
   }
 }

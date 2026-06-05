@@ -46,10 +46,7 @@ html:has(#opensuse) {
     position: relative;
 }
 
-#opensuse #tableau {
-    padding: var(--z) var(--opensuse-taskbar-edge-gap) var(--z) calc(var(--head) / 4);
-    border-top: var(--mint-taskbar-top-border);
-}
+/* Panel dock : voir plasma-panel-dock.css */
 
 /* Épingles décoratives : même cadre que les apps (proximité Gestalt) */
 #opensuse footer .taskbar-pins__item {

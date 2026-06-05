@@ -19,6 +19,24 @@ const getEmbedSkinKey = () => {
     return 'mint';
 };
 
+/** Kickoff Plasma : le gabarit HTML + skin.css suffisent — mainMenu.base.css (MX/Cinnamon) casse le layout. */
+const PLASMA_MAIN_MENU_SKINS = new Set(['opensuse', 'kde-neon', 'mxkde', 'debian-kde']);
+const PLASMA_MAIN_MENU_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
+
+const shouldSkipMainMenuBaseCss = (templateId, htmlHint) => {
+    if (templateId !== 'mainMenu') {
+        return false;
+    }
+    if (htmlHint && htmlHint.includes('menu-root--plasma')) {
+        return true;
+    }
+    if (PLASMA_MAIN_MENU_SKINS.has(getEmbedSkinKey())) {
+        return true;
+    }
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    return !!(bodyId && PLASMA_MAIN_MENU_BODY_IDS.has(bodyId));
+};
+
 const shouldUseAppEmbed = (templateId) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
     if (!embed || !embed.templates || !embed.templates[templateId]) {
@@ -95,7 +113,20 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     return `${appsBase}/${templateId}.html`;
 };
 
-const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallbackFile) => {
+/** Candidats HTML : skin d’abord (Kickoff Plasma, etc.), puis noyau partagé. */
+const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
+    const candidates = [];
+    if (skinBase) {
+        candidates.push(`${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`);
+    }
+    const shared = resolveTemplateHtmlFile(templateId, appsBase);
+    if (!candidates.includes(shared)) {
+        candidates.push(shared);
+    }
+    return candidates;
+};
+
+const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
     if (shouldUseAppEmbed(templateId) && embed && embed.templates && embed.templates[templateId]) {
         const skinKey = getEmbedSkinKey();
@@ -110,14 +141,14 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
                 : (skinMap[templateId] != null ? skinMap[templateId] : '');
             return Promise.resolve({
                 html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
-                cssBase: t.cssBase,
+                cssBase: shouldSkipMainMenuBaseCss(templateId, skinOverride && skinOverride.html ? skinOverride.html : t.html) ? '' : t.cssBase,
                 cssSkin
             });
         }
         console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
     }
 
-    const htmlFile = resolveTemplateHtmlFile(templateId, appsBase);
+    const htmlCandidates = resolveTemplateHtmlCandidates(templateId, appsBase, skinBase);
     const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
     const cssBaseFile = `${appsBase}/style/${cssBaseTemplateId}.base.css`;
 
@@ -132,21 +163,33 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
         return (skinOverride && skinOverride.html) ? skinOverride.html : embed.templates[templateId].html;
     };
 
-    const fetchHtml = fetch(htmlFile, { cache: 'no-store' }).then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status} ${htmlFile}`);
+    const fetchHtml = (async () => {
+        let lastError = null;
+        for (const url of htmlCandidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (response.ok) {
+                    return response.text();
+                }
+                lastError = new Error(`HTTP ${response.status} ${url}`);
+            } catch (error) {
+                lastError = error;
+            }
         }
-        return response.text();
-    }).catch((error) => {
         const fallbackHtml = resolveEmbedHtml();
         if (fallbackHtml) {
-            console.warn(`CapsuleOS: gabarit ${templateId} via embed (${error.message})`);
+            const reason = lastError && lastError.message ? lastError.message : 'échec fetch';
+            console.warn(`CapsuleOS: gabarit ${templateId} via embed (${reason})`);
             return fallbackHtml;
         }
-        throw error;
-    });
+        throw lastError || new Error(`CapsuleOS: gabarit ${templateId} introuvable`);
+    })();
 
     const fetchCssBase = (async () => {
+        if (shouldSkipMainMenuBaseCss(templateId)) {
+            return '';
+        }
+
         const fetchOneCss = async (url) => {
             const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) {
@@ -351,8 +394,12 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
         ? rewriteCapsuleResourceUrlsInText
         : (text) => text;
     const resolvedHtml = rewriteUrls(html);
-    const resolvedCssBase = rewriteUrls(cssBase);
+    let resolvedCssBase = rewriteUrls(cssBase);
     const resolvedCssSkin = cssSkin ? rewriteUrls(cssSkin) : '';
+
+    if (shouldSkipMainMenuBaseCss(templateId, resolvedHtml)) {
+        resolvedCssBase = '';
+    }
 
     const preservedHeader = motionless.querySelector(':scope > #windowHeader');
     const headerClone = preservedHeader ? preservedHeader.cloneNode(true) : null;
@@ -415,7 +462,7 @@ const startCapsuleContentLoad = () => {
                 const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
                 const cssSkinFallbackFile = skinBase ? `${skinBase}/style/apps/${templateId}.skin.css` : null;
 
-                return loadSlotAssets(templateId, skinId, appsBase, cssSkinFile, cssSkinFallbackFile)
+                return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
                     .then(({ html, cssBase, cssSkin }) => {
                         injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
                     })

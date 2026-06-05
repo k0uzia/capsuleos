@@ -20,14 +20,31 @@ html:has(#kde-neon) {
     --desktop-shortcut-hover-bg: rgba(61, 174, 233, 0.12);
 }
 
-html:has(#kde-neon)[data-theme="light"] {
+html[data-theme="light"] body#kde-neon {
     color-scheme: light;
-    --opensuse-menu-bg: rgba(239, 240, 241, 0.82);
+    /* Kickoff Breeze clair (réf. openSUSE / VM Plasma light) */
+    --opensuse-menu-bg: rgba(252, 252, 252, 0.94);
     --opensuse-menu-border: rgba(0, 0, 0, 0.1);
     --opensuse-menu-text: #232629;
     --opensuse-menu-text-muted: #7f8c8d;
     --opensuse-menu-hover: rgba(61, 174, 233, 0.1);
     --opensuse-menu-active: rgba(61, 174, 233, 0.22);
+    --opensuse-menu-search-focus: var(--opensuse-breeze-accent, #3daee9);
+    --opensuse-menu-header-bg: rgba(255, 255, 255, 0.35);
+    --opensuse-menu-sidebar-bg: rgba(0, 0, 0, 0.025);
+    --opensuse-menu-apps-bg: #ffffff;
+    --opensuse-menu-footer-bg: rgba(252, 252, 252, 0.98);
+    --opensuse-menu-icon-filter: brightness(0) saturate(100%);
+    --opensuse-menu-shadow: 0 0.5rem 1.35rem rgba(35, 38, 41, 0.16);
+    --opensuse-menu-search-bg: #ffffff;
+    --opensuse-menu-search-border: rgba(0, 0, 0, 0.12);
+    --opensuse-menu-search-placeholder: rgba(35, 38, 41, 0.45);
+    --opensuse-menu-divider: rgba(0, 0, 0, 0.08);
+    --opensuse-menu-search-highlight-bg: #cce8ff;
+    --opensuse-menu-search-hover-bg: #e3f3fc;
+    --opensuse-menu-search-clear-bg: rgba(35, 38, 41, 0.58);
+    --opensuse-menu-search-clear-bg-hover: rgba(35, 38, 41, 0.72);
+    --opensuse-menu-scrollbar-thumb: rgba(35, 38, 41, 0.22);
     --opensuse-plasma-panel-bg: #eff0f1;
     --opensuse-plasma-panel-border: #d9d9d9;
     --opensuse-plasma-text: #232629;
@@ -37,9 +54,29 @@ html:has(#kde-neon)[data-theme="light"] {
     --kde-neon-tray-icon-filter: brightness(0) saturate(100%);
     --kde-neon-show-desktop-hover-bg: rgba(0, 0, 0, 0.06);
     --kde-neon-clock-expanded-bg: rgba(61, 174, 233, 0.1);
+    --calendar-popover-chrome-bg: #eff0f1;
+    --calendar-popover-grid-bg: #eff0f1;
+    --calendar-popover-grid-overlay: rgba(239, 240, 241, 0.82);
+    --calendar-popover-bg: #eff0f1;
+    --calendar-popover-border: 1px solid rgba(35, 38, 41, 0.11);
+    --calendar-popover-shadow: 0 0.25rem 1rem rgba(35, 38, 41, 0.14);
+    --calendar-popover-text: #232629;
+    --calendar-popover-week-label: #7a8b9a;
+    --calendar-popover-divider: 1px solid rgba(35, 38, 41, 0.1);
+    --calendar-popover-events-muted: #8e99a3;
+    --calendar-popover-day-text: #232629;
+    --calendar-popover-tab-active: #3daee9;
+    --calendar-popover-today-bg: rgba(61, 174, 233, 0.28);
+    --calendar-popover-today-text: #232629;
+    --calendar-popover-today-ring: #3daee9;
+    --calendar-popover-today-hover-bg: rgba(61, 174, 233, 0.38);
+    --calendar-popover-day-hover-bg: rgba(61, 174, 233, 0.14);
+    --calendar-popover-arrow-text: #232629;
+    --calendar-popover-arrow-bg: rgba(35, 38, 41, 0.06);
+    --calendar-popover-arrow-hover-bg: rgba(35, 38, 41, 0.11);
 }
 
-html:has(#kde-neon):not([data-theme="light"]) {
+html:not([data-theme="light"]) body#kde-neon {
     color-scheme: dark;
     --opensuse-menu-bg: rgba(32, 40, 54, 0.96);
     --opensuse-menu-border: rgba(255, 255, 255, 0.08);
@@ -59,6 +96,9 @@ html:has(#kde-neon):not([data-theme="light"]) {
     --opensuse-menu-divider: rgba(255, 255, 255, 0.08);
     --opensuse-menu-search-highlight-bg: rgba(61, 174, 233, 0.28);
     --opensuse-menu-search-hover-bg: rgba(61, 174, 233, 0.18);
+    --opensuse-menu-search-clear-bg: rgba(255, 255, 255, 0.22);
+    --opensuse-menu-search-clear-bg-hover: rgba(255, 255, 255, 0.32);
+    --opensuse-menu-scrollbar-thumb: rgba(255, 255, 255, 0.22);
     --opensuse-plasma-panel-bg: rgba(30, 33, 38, 0.92);
     --opensuse-plasma-panel-border: rgba(255, 255, 255, 0.08);
     --opensuse-plasma-text: rgba(245, 246, 247, 0.95);
@@ -68,6 +108,26 @@ html:has(#kde-neon):not([data-theme="light"]) {
     --kde-neon-tray-icon-filter: none;
     --kde-neon-show-desktop-hover-bg: rgba(255, 255, 255, 0.08);
     --kde-neon-clock-expanded-bg: rgba(61, 174, 233, 0.1);
+    --calendar-popover-chrome-bg: rgba(49, 54, 59, 0.96);
+    --calendar-popover-grid-bg: #31363b;
+    --calendar-popover-grid-overlay: rgba(40, 44, 49, 0.78);
+    --calendar-popover-bg: rgba(49, 54, 59, 0.96);
+    --calendar-popover-border: 1px solid rgba(255, 255, 255, 0.08);
+    --calendar-popover-shadow: 0 0.35rem 1.2rem rgba(0, 0, 0, 0.45);
+    --calendar-popover-text: rgba(239, 240, 241, 0.95);
+    --calendar-popover-week-label: rgba(239, 240, 241, 0.55);
+    --calendar-popover-divider: 1px solid rgba(255, 255, 255, 0.08);
+    --calendar-popover-events-muted: rgba(239, 240, 241, 0.45);
+    --calendar-popover-day-text: rgba(239, 240, 241, 0.92);
+    --calendar-popover-tab-active: #3daee9;
+    --calendar-popover-today-bg: rgba(61, 174, 233, 0.35);
+    --calendar-popover-today-text: #232629;
+    --calendar-popover-today-ring: #3daee9;
+    --calendar-popover-today-hover-bg: rgba(61, 174, 233, 0.48);
+    --calendar-popover-day-hover-bg: rgba(255, 255, 255, 0.08);
+    --calendar-popover-arrow-text: rgba(239, 240, 241, 0.9);
+    --calendar-popover-arrow-bg: rgba(255, 255, 255, 0.08);
+    --calendar-popover-arrow-hover-bg: rgba(255, 255, 255, 0.14);
 }
 
 html:has(#kde-neon) {
@@ -124,10 +184,10 @@ html:has(#kde-neon) {
     background: var(--kde-neon-clock-expanded-bg);
 }
 
-html:has(#kde-neon)[data-theme="light"] #kde-neon footer .taskbar-show-desktop > img {
+html[data-theme="light"] body#kde-neon footer .taskbar-show-desktop > img {
     filter: brightness(0) saturate(100%);
 }
 
-html:has(#kde-neon):not([data-theme="light"]) #kde-neon footer .taskbar-show-desktop > img {
+html:not([data-theme="light"]) body#kde-neon footer .taskbar-show-desktop > img {
     filter: none;
 }

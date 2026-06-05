@@ -309,9 +309,12 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "suse",
       "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      }
     }
   },
   "popos": {
@@ -742,9 +745,12 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "suse",
       "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      }
     }
   },
   "linux-popos": {

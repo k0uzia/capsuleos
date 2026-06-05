@@ -221,12 +221,14 @@ function initMainMenu() {
             item.addEventListener('keydown', event => {
                 if (event.key === 'ArrowDown') {
                     event.preventDefault();
-                    const next = items[index + 1] || items[0];(next == null ? void 0 : next.focus)();
+                    const next = items[index + 1] || items[0];
+                    next?.focus();
                 }
 
                 if (event.key === 'ArrowUp') {
                     event.preventDefault();
-                    const previous = items[index - 1] || items[items.length - 1];(previous == null ? void 0 : previous.focus)();
+                    const previous = items[index - 1] || items[items.length - 1];
+                    previous?.focus();
                 }
             });
         });
@@ -406,7 +408,8 @@ function initMainMenu() {
                     return;
                 }
 
-                const preferredTarget = searchInput || appList.querySelector('.menu-app-item[tabindex="0"]');(preferredTarget == null ? void 0 : preferredTarget.focus)();
+                const preferredTarget = searchInput || appList.querySelector('.menu-app-item[tabindex="0"]');
+                preferredTarget?.focus();
             }, 0);
         });
 

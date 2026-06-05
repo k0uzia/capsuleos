@@ -1,9 +1,20 @@
 /**
- * KDE Neon — bascule panel dock ↔ barre pleine largeur (fenêtre maximisée).
- * Garde-fou : pas de ré-appel à maximizeWindowElement depuis l’observer (boucle infinie).
+ * Plasma — bascule panel dock ↔ barre pleine largeur (fenêtre maximisée).
+ * Skins : body[data-plasma-panel] ou bodyId opensuse | kde-neon | debian-kde | mx-kde.
  */
-(function initKdeNeonPlasmaPanelMode() {
-    if (!document.body || document.body.id !== 'kde-neon') {
+(function initPlasmaPanelMode() {
+    const PLASMA_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
+
+    if (!document.body) {
+        return;
+    }
+
+    const bodyId = document.body.id;
+    const enabled = document.body.dataset.plasmaPanel !== undefined
+        || document.body.getAttribute('data-plasma-panel') !== null
+        || PLASMA_BODY_IDS.has(bodyId);
+
+    if (!enabled) {
         return;
     }
 
@@ -43,8 +54,30 @@
         resetWindowContextCache();
     }
 
+    function isVisibleWindow(win) {
+        if (!win) {
+            return false;
+        }
+        if (win.style.display === 'none' || win.style.visibility === 'hidden') {
+            return false;
+        }
+        if (typeof win.getClientRects === 'function' && win.getClientRects().length === 0) {
+            return false;
+        }
+        return true;
+    }
+
     function hasMaximizedWindow() {
-        return !!(desktop && desktop.querySelector('.windowElement[data-maximized="true"]'));
+        if (!desktop) {
+            return false;
+        }
+        const wins = desktop.querySelectorAll('.windowElement[data-maximized="true"]');
+        for (let index = 0; index < wins.length; index += 1) {
+            if (isVisibleWindow(wins[index])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function applyMaximizedLayout(win) {
@@ -86,7 +119,11 @@
         if (!desktop) {
             return;
         }
-        desktop.querySelectorAll('.windowElement[data-maximized="true"]').forEach(applyMaximizedLayout);
+        desktop.querySelectorAll('.windowElement[data-maximized="true"]').forEach((win) => {
+            if (isVisibleWindow(win)) {
+                applyMaximizedLayout(win);
+            }
+        });
     }
 
     function syncPanelMode() {
@@ -116,7 +153,7 @@
             if (observer && desktop) {
                 observer.observe(desktop, {
                     attributes: true,
-                    attributeFilter: ['data-maximized'],
+                    attributeFilter: ['data-maximized', 'style'],
                     subtree: true,
                 });
             }
@@ -129,25 +166,61 @@
             return;
         }
         observer = new MutationObserver((records) => {
-            const touched = records.some((record) => (
-                record.type === 'attributes'
-                && record.attributeName === 'data-maximized'
-            ));
+            const touched = records.some((record) => {
+                if (record.type !== 'attributes') {
+                    return false;
+                }
+                if (record.attributeName === 'data-maximized') {
+                    return true;
+                }
+                if (record.attributeName === 'style'
+                    && record.target.classList
+                    && record.target.classList.contains('windowElement')) {
+                    return true;
+                }
+                return false;
+            });
             if (touched) {
-                syncPanelMode();
+                scheduleSyncPanelMode();
             }
         });
         observer.observe(desktop, {
             attributes: true,
-            attributeFilter: ['data-maximized'],
+            attributeFilter: ['data-maximized', 'style'],
             subtree: true,
         });
         panelMode = null;
         syncPanelMode();
     }
 
+    function scheduleSyncPanelMode() {
+        requestAnimationFrame(syncPanelMode);
+    }
+
+    function onWindowLifecycle(event) {
+        const container = event.detail && event.detail.container;
+        if (event.type === 'capsule:window-closed'
+            && container
+            && container.dataset
+            && container.dataset.maximized === 'true') {
+            container.dataset.maximized = 'false';
+        }
+        scheduleSyncPanelMode();
+    }
+
+    function bindWindowLifecycle() {
+        [
+            'capsule:window-hidden',
+            'capsule:window-closed',
+            'capsule:window-minimized',
+        ].forEach((eventName) => {
+            document.addEventListener(eventName, onWindowLifecycle);
+        });
+    }
+
     applyBoundsPolicy(false);
     body.dataset.plasmaPanel = 'dock';
+    bindWindowLifecycle();
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', observeDesktop);

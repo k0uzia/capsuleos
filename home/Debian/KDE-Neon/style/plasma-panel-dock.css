@@ -10,12 +10,12 @@ html:has(#kde-neon) {
     --kde-neon-panel-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
 }
 
-html:has(#kde-neon)[data-theme="light"] {
+html[data-theme="light"] body#kde-neon {
     --opensuse-plasma-panel-bg: rgba(239, 240, 241, 0.9);
     --opensuse-plasma-panel-bg-solid: #eff0f1;
 }
 
-html:has(#kde-neon):not([data-theme="light"]) {
+html:not([data-theme="light"]) body#kde-neon {
     --opensuse-plasma-panel-bg: rgba(30, 33, 38, 0.86);
     --opensuse-plasma-panel-bg-solid: rgba(30, 33, 38, 0.96);
 }
@@ -23,10 +23,16 @@ html:has(#kde-neon):not([data-theme="light"]) {
 #kde-neon {
     --taskbar-height: calc(var(--head) * 1.02);
     --kde-neon-panel-anchor-bottom: calc(var(--kde-neon-panel-dock-inset) + var(--taskbar-height));
+    /* Kickoff : même marge gauche que le panel flottant (réf. VM) */
+    --kde-neon-menu-anchor-left: var(--kde-neon-panel-dock-inset);
+    /* Calendrier : même marge droite que le panel flottant */
+    --kde-neon-calendar-anchor-right: var(--kde-neon-panel-dock-inset);
 }
 
 #kde-neon[data-plasma-panel="expanded"] {
     --kde-neon-panel-anchor-bottom: var(--taskbar-height);
+    --kde-neon-menu-anchor-left: 0;
+    --kde-neon-calendar-anchor-right: var(--opensuse-taskbar-edge-gap);
 }
 
 #kde-neon #desktop {
@@ -79,9 +85,8 @@ html:has(#kde-neon):not([data-theme="light"]) {
     display: none;
 }
 
-/* —— Mode barre (fenêtre maximisée) —— */
-#kde-neon[data-plasma-panel="expanded"] #tableau,
-#kde-neon:has(.windowElement[data-maximized="true"]) #tableau {
+/* —— Mode barre (fenêtre maximisée) — piloté par plasma-panel-mode.js —— */
+#kde-neon[data-plasma-panel="expanded"] #tableau {
     left: 0;
     right: 0;
     bottom: 0;
@@ -102,7 +107,18 @@ html:has(#kde-neon):not([data-theme="light"]) {
     bottom: calc(var(--kde-neon-panel-anchor-bottom) + var(--calendar-popover-offset, calc(var(--head) / 5)));
 }
 
+#kde-neon .calendar-popover {
+    right: var(--kde-neon-calendar-anchor-right);
+    transition:
+        right 0.22s ease,
+        bottom 0.22s ease;
+}
+
 #kde-neon div[data-link="mainMenu"],
 #kde-neon #mainMenu {
     bottom: var(--kde-neon-panel-anchor-bottom);
+    left: var(--kde-neon-menu-anchor-left, var(--kde-neon-panel-dock-inset, 0));
+    transition:
+        left 0.22s ease,
+        bottom 0.22s ease;
 }

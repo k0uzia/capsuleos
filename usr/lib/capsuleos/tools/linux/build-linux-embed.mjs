@@ -42,7 +42,8 @@ const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
 const FAMILY_APP_HTML_DIRS = {
     opensuse: path.join(ROOT, 'home/SUSE/openSUSE/apps'),
     anduinos: path.join(ROOT, 'home/Debian/AnduinOS/apps'),
-    'debian-kde': path.join(ROOT, 'home/Debian/Debian-KDE/apps')
+    'debian-kde': path.join(ROOT, 'home/Debian/Debian-KDE/apps'),
+    'kde-neon': path.join(ROOT, 'home/Debian/KDE-Neon/apps')
 };
 
 const SKIN_DIRS = [
@@ -54,7 +55,8 @@ const SKIN_DIRS = [
     { key: 'opensuse', dir: path.join(ROOT, 'home/SUSE/openSUSE/style/apps'), strings: path.join(ROOT, 'home/SUSE/openSUSE/content/strings.json') },
     { key: 'fedora', dir: path.join(ROOT, 'home/RedHat/Fedora/style/apps'), strings: path.join(ROOT, 'home/RedHat/Fedora/content/strings.json') },
     { key: 'rocky', dir: path.join(ROOT, 'home/RedHat/Rocky/style/apps'), strings: path.join(ROOT, 'home/RedHat/Rocky/content/strings.json') },
-    { key: 'debian-kde', dir: path.join(ROOT, 'home/Debian/Debian-KDE/style/apps'), strings: path.join(ROOT, 'home/Debian/Debian-KDE/content/strings.json') }
+    { key: 'debian-kde', dir: path.join(ROOT, 'home/Debian/Debian-KDE/style/apps'), strings: path.join(ROOT, 'home/Debian/Debian-KDE/content/strings.json') },
+    { key: 'kde-neon', dir: path.join(ROOT, 'home/Debian/KDE-Neon/style/apps'), strings: path.join(ROOT, 'home/Debian/KDE-Neon/content/strings.json') }
 ];
 
 function readUtf8(p) {
@@ -165,7 +167,7 @@ function main() {
     }
 
     if (fs.existsSync(KDE_UPDATE_MANAGER_HTML)) {
-        for (const skinKey of ['opensuse', 'mxkde']) {
+        for (const skinKey of ['opensuse', 'mxkde', 'kde-neon']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].update_manager = { html: readUtf8(KDE_UPDATE_MANAGER_HTML) };
         }
@@ -184,7 +186,7 @@ function main() {
         const skinIds = Array.from(new Set([...templateIds, ...listSkinIds(dir)])).sort();
         for (const id of skinIds) {
             let css = readSkinCss(dir, id);
-            const isKdeFamily = key === 'opensuse' || key === 'mxkde' || key === 'debian-kde';
+            const isKdeFamily = key === 'opensuse' || key === 'mxkde' || key === 'debian-kde' || key === 'kde-neon';
             if (isKdeFamily && id === 'update_manager' && fs.existsSync(KDE_COMMON_SKIN)) {
                 css = `${readUtf8(KDE_COMMON_SKIN)}\n${css}`;
             }

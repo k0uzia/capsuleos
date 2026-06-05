@@ -60,8 +60,11 @@ window.CAPSULE_ASSETS_MANIFEST = {
     },
     "icons/gnome": {
       "path": "icons/gnome",
+      "physicalPath": "usr/share/capsuleos/assets/icons/gnome",
       "global": "CAPSULE_GNOME_ICONS_BASE",
-      "status": "planned"
+      "license": "GPL-2.0+ — Adwaita (copie partielle depuis VM lab)",
+      "status": "active",
+      "note": "Sous-ensemble adwaita/places — pull-vm-assets.sh"
     },
     "images/platforms/pick-os": {
       "path": "images/platforms/pick-os",

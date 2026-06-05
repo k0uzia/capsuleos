@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function initKdeNeonThemeBootstrap() {
+            var theme = 'light';
+            try {
+                var saved = localStorage.getItem('mint-theme');
+                if (saved === 'dark' || saved === 'light') {
+                    theme = saved;
+                }
+            } catch (e) { /* offline */ }
+            document.documentElement.dataset.theme = theme;
+        }());
+    </script>
+    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js?v=20260605"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js?v=20260605"></script>
+    <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-kde-neon';</script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
+    <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./style/style.css?v=20260606b" type="text/css">
+    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
+    <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=20260528" type="text/css">
+    <link rel="stylesheet" href="./style/apps/mainMenu.skin.css?v=20260606e" type="text/css">
+    <title>KDE Neon (Plasma) - CapsuleOS</title>
+</head>
+
+<body id="kde-neon">
+    <object id="desktop">
+        <a class="desktop-shortcut" target="windowElement" data-link="profile" title="KDE Neon - À propos">
+            <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg" alt="KDE Neon - À propos" width="48" height="48">
+            <span>KDE Neon<br>À propos</span>
+        </a>
+        <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
+        <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
+        <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
+        <div class="windowElement" data-link="terminal" id="terminal" style="display: none;"></div>
+        <div class="windowElement" data-link="themes" id="themes" style="display: none;"></div>
+        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
+        <div class="windowElement" data-link="profile" id="profile" style="display: none;"></div>
+        <div class="windowElement" data-link="checklist" id="checklist" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
+        <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
+        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+    </object>
+    <footer id="tableau">
+        <nav class="taskbar-pins" aria-label="Applications épinglées">
+            <a class="taskbar-pins__launcher" target="windowElement" data-link="mainMenu" title="Menu des applications">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/start-here-kde.svg" alt="Menu" title="Menu des applications">
+            </a>
+            <div class="taskbar-pins__apps">
+                <a target="windowElement" data-link="nemo" title="Dolphin">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/dolphin.svg" alt="">
+                </a>
+                <a target="windowElement" data-link="firefox" title="Firefox">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.png" alt="">
+                </a>
+                <a target="windowElement" data-link="terminal" title="Konsole">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/konsole.svg" alt="">
+                </a>
+                <a target="windowElement" data-link="update_manager" title="Discover">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/discover.svg" alt="">
+                </a>
+            </div>
+        </nav>
+        <div class="taskbar-right">
+            <div class="taskbar-tray" aria-label="Zone de notification">
+                <span class="taskbar-tray__item" title="Réseau">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/network.svg" alt="" aria-hidden="true">
+                </span>
+                <span class="taskbar-tray__item" title="Batterie">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/battery.svg" alt="" aria-hidden="true">
+                </span>
+                <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
+                        aria-expanded="false" aria-controls="volume-popover"
+                        aria-label="Contrôle du volume">
+                    <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
+                </button>
+                <span class="taskbar-tray__item taskbar-tray__expand" title="Icônes masquées" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray-expand.svg" alt="">
+                </span>
+            </div>
+            <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
+                <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
+                <span class="taskbar__date" id="taskbar-date" aria-hidden="true">--/--/----</span>
+            </button>
+            <button type="button" class="taskbar-show-desktop" aria-label="Menu">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/menu-burger.svg" alt="" aria-hidden="true">
+            </button>
+        </div>
+    </footer>
+
+    <div class="calendar-popover calendar-popover--kde" id="taskbar-calendar-popover" role="dialog" aria-label="Calendrier" hidden>
+        <div class="calendar-popover__chrome">
+            <header class="calendar-popover__header">
+                <h2 class="calendar-popover__month-title" id="cal-month-title">Avril</h2>
+                <div class="calendar-popover__header-actions">
+                    <button type="button" class="calendar-popover__icon-btn" aria-label="Paramètres de date et d'heure" disabled>
+                        <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/calendar-settings.svg" alt="" aria-hidden="true">
+                    </button>
+                    <button type="button" class="calendar-popover__icon-btn" aria-label="Épingler le calendrier" disabled>
+                        <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/calendar-pin.svg" alt="" aria-hidden="true">
+                    </button>
+                </div>
+            </header>
+            <div class="calendar-popover__controls">
+                <nav class="calendar-popover__tabs" aria-label="Vue calendrier">
+                    <button type="button" class="calendar-popover__tab is-active" data-tab="days" aria-selected="true">Jours</button>
+                    <button type="button" class="calendar-popover__tab" disabled aria-selected="false">Mois</button>
+                    <button type="button" class="calendar-popover__tab" disabled aria-selected="false">Années</button>
+                </nav>
+                <div class="calendar-popover__month-nav">
+                    <button type="button" class="calendar-popover__arrow" id="cal-prev-month" aria-label="Mois précédent">‹</button>
+                    <button type="button" class="calendar-popover__today-btn" id="cal-today-btn">Aujourd'hui</button>
+                    <button type="button" class="calendar-popover__arrow" id="cal-next-month" aria-label="Mois suivant">›</button>
+                </div>
+            </div>
+            <div class="calendar-popover__week-row" id="cal-weekday-row" aria-hidden="true"></div>
+        </div>
+        <div class="calendar-popover__days" id="cal-days-grid"></div>
+    </div>
+    <div class="volume-popover" id="volume-popover" role="dialog" aria-label="Volume" hidden>
+        <div class="volume-popover__header">
+            <span class="volume-popover__label">Volume</span>
+            <span class="volume-popover__value" id="volume-value">100%</span>
+        </div>
+        <div class="volume-popover__body">
+            <button type="button" class="volume-popover__mute-btn" id="volume-mute-btn"
+                    aria-label="Couper le son" aria-pressed="false">
+                <span class="volume-popover__mute-icon" id="volume-mute-icon" aria-hidden="true"></span>
+            </button>
+            <input type="range" class="volume-slider" id="volume-slider"
+                   min="0" max="100" value="100" step="1"
+                   aria-label="Niveau du volume" aria-valuetext="100%">
+        </div>
+    </div>
+
+    <script>
+        if (typeof CapsuleUserHome !== 'undefined') {
+            window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.resolveRelative();
+            window.CAPSULE_TERMINAL_HOME = window.CAPSULE_USER_HOME || window.CAPSULE_TERMINAL_HOME;
+        }
+    </script>
+
+    <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260605"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-icon-map.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-resource-url.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="./js/plasma-panel-mode.js?v=20260606c"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
+    <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
+    <script src="./content/mainMenu-data.js?v=20260606e"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
+    <script src="./js/mainMenu-plasma.js?v=20260606e"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
+    <script src="./content/profile-data.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260605"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js?v=20260605"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js?v=20260528y"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDolphin.js?v=20260605"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
+    <script src="../../SUSE/openSUSE/js/calendar-popover-kde.js?v=20260528"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-completion.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-editors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-konsole-chrome.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+</body>
+
+</html>
+

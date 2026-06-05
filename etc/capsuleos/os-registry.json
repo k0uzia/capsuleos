@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-04",
+  "updated": "2026-06-05",
   "description": "Répertoire canonique des OS simulés CapsuleOS — source unique pour portail, agents, CI et assets.",
   "tiers": {
     "P0": "Référence pédagogique — figer, ne pas casser",
@@ -287,6 +287,30 @@
       "licenseNotes": "Breeze ; pack usr/share/capsuleos/assets/icons/kde/",
       "iconPacks": [
         "Breeze"
+      ]
+    },
+    {
+      "id": "linux-kde-neon",
+      "family": "linux",
+      "vendor": "neon",
+      "displayName": "KDE neon User Edition",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.5,
+      "facade": "OS/linux/families/debian/kde-neon/index.html",
+      "skin": "home/Debian/KDE-Neon/index.html",
+      "toolkit": "kde",
+      "shell": "plasma",
+      "fileManager": "Dolphin",
+      "explorerTemplate": "dolphin",
+      "embedKey": "kde-neon",
+      "bodyId": "kde-neon",
+      "skills": [
+        "os-linux"
+      ],
+      "assetPacks": [
+        "toolkits/kde",
+        "vendors/neon"
       ]
     },
     {
@@ -1259,8 +1283,8 @@
     }
   ],
   "stats": {
-    "total": 52,
-    "active": 23,
+    "total": 53,
+    "active": 24,
     "planned": 23,
     "stub": 6
   },

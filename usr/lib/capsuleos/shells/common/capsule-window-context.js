@@ -74,7 +74,7 @@
             if (body.id === 'android') return 'android';
             if (body.id === 'mint' || body.id === 'ubuntu' || body.id === 'fedora'
                 || body.id === 'opensuse' || body.id === 'popos' || body.id === 'mx-kde'
-                || body.id === 'debian-kde' || body.id === 'anduinos') {
+                || body.id === 'debian-kde' || body.id === 'kde-neon' || body.id === 'anduinos') {
                 return 'linux';
             }
         }

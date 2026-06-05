@@ -849,9 +849,17 @@
         if (!container || !isKdeFamily()) {
             return;
         }
-        const base = global.CAPSULE_SKIN_BASE
-            ? String(global.CAPSULE_SKIN_BASE).replace(/\/+$/, '')
-            : '.';
+        const headerIconUrl = (file) => {
+            const logical = `./assets/images/toolkits/kde/header/${file}`;
+            if (typeof global.resolveCapsuleResourceUrl === 'function') {
+                return global.resolveCapsuleResourceUrl(logical);
+            }
+            const toolkitBase = global.CAPSULE_TOOLKIT_ASSETS_BASE
+                || (global.CAPSULE_ASSETS_BASE
+                    ? `${String(global.CAPSULE_ASSETS_BASE).replace(/\/+$/, '')}/images/toolkits/kde`
+                    : null);
+            return toolkitBase ? `${toolkitBase}/header/${file}` : logical;
+        };
         const header = container.querySelector('#windowHeader');
         if (!header) {
             return;
@@ -861,14 +869,14 @@
         const clsBtn = header.querySelector('#closeBtn');
 
         if (minBtn) {
-            minBtn.style.backgroundImage = `url(${base}/assets/images/toolkits/kde/header/minimize.svg)`;
+            minBtn.style.backgroundImage = `url("${headerIconUrl('minimize.svg')}")`;
         }
         if (resBtn) {
-            resBtn.style.backgroundImage = `url(${base}/assets/images/toolkits/kde/header/window-restore.svg)`;
+            resBtn.style.backgroundImage = `url("${headerIconUrl('window-restore.svg')}")`;
             resBtn.style.backgroundSize = 'calc(var(--head) / 2.55)';
         }
         if (clsBtn) {
-            clsBtn.style.backgroundImage = `url(${base}/assets/images/toolkits/kde/header/window-close.svg)`;
+            clsBtn.style.backgroundImage = `url("${headerIconUrl('window-close.svg')}")`;
         }
     }
 

@@ -11,6 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 
 const steps = [
+    ['../build-skin-profiles.mjs', 'Profils embed capsule-skin-profiles.js'],
     ['build-linux-facades.mjs', 'Façades OS/linux/families → home/'],
     ['build-linux-embed.mjs', 'Embed capsule-app-embed.js']
 ];

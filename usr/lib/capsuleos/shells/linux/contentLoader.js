@@ -236,14 +236,17 @@ const runFirstAvailable = (candidates, warnLabel) => {
 };
 
 const SLOT_INIT_HANDLERS = {
-    nemo: () => {
+    nemo: (container) => {
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
             : (typeof window !== 'undefined' && window.CapsuleUserHome)
                 ? window.CapsuleUserHome.resolveRelative()
                 : 'home/public';
         runFirstAvailable([
-            { fn: typeof window.refreshDolphinShellLayout === 'function' ? window.refreshDolphinShellLayout : null }
+            {
+                fn: typeof window.refreshDolphinShellLayout === 'function' ? window.refreshDolphinShellLayout : null,
+                args: [container],
+            },
         ]);
         runFirstAvailable([
             { fn: typeof initFileExplorerContainer === 'function' ? initFileExplorerContainer : null },

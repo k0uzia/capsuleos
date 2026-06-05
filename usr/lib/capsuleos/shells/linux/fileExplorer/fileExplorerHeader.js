@@ -4,13 +4,37 @@
  */
 (function initFileExplorerMenubar() {
     const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement#nemo[data-link="nemo"]';
+    const EXPLORER_WINDOW_SLOT_QUERIES = [
+        EXPLORER_WINDOW_SLOT_SELECTOR,
+        `object#desktop ${EXPLORER_WINDOW_SLOT_SELECTOR}`,
+        `#desktop ${EXPLORER_WINDOW_SLOT_SELECTOR}`,
+    ];
+
+    const isExplorerSlotElement = (node) => (
+        node
+        && node.nodeType === 1
+        && node.tagName === 'DIV'
+        && node.classList
+        && node.classList.contains('windowElement')
+        && node.getAttribute('data-link') === 'nemo'
+        && typeof node.querySelector === 'function'
+    );
 
     function getExplorerWindowSlot() {
         if (typeof document === 'undefined') {
             return null;
         }
-        return document.getElementById('nemo')
-            || document.querySelector(EXPLORER_WINDOW_SLOT_SELECTOR);
+        for (let index = 0; index < EXPLORER_WINDOW_SLOT_QUERIES.length; index += 1) {
+            const candidate = document.querySelector(EXPLORER_WINDOW_SLOT_QUERIES[index]);
+            if (isExplorerSlotElement(candidate)) {
+                return candidate;
+            }
+        }
+        const byId = document.getElementById('nemo');
+        if (isExplorerSlotElement(byId)) {
+            return byId;
+        }
+        return null;
     }
 
     if (typeof window !== 'undefined') {

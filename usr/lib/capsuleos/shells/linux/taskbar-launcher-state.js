@@ -66,7 +66,10 @@
             if (!slotId) {
                 return;
             }
-            const container = document.querySelector(`.windowElement[data-link="${slotId}"]`);
+            const container = (global.CapsuleWindowShell
+                && typeof global.CapsuleWindowShell.resolveWindowSlot === 'function'
+                && global.CapsuleWindowShell.resolveWindowSlot(slotId))
+                || document.querySelector(`.windowElement[data-link="${slotId}"]`);
             const running = launcherRunning(container);
             const focused = launcherActive(container);
             link.classList.toggle('running-link', running);

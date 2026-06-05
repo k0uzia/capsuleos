@@ -1,0 +1,13 @@
+# Assets ground truth — KDE neon VM
+# registryId: linux-kde-neon
+# ssh: goupil@192.168.123.223
+# collected: 2026-06-05 (wallpaper corrigé 2026-06-05)
+
+neon-logo.svg ← /usr/share/icons/hicolor/scalable/places/start-here-kde-neon.svg
+neon-logo.png ← /usr/share/pixmaps/neon.png
+wallpaper/neon-default.png ← /usr/share/wallpapers/Next/contents/images/5120x2880.png
+  (défaut Plasma Breeze : [Wallpaper] Image=Next dans org.kde.breeze.desktop/contents/defaults)
+panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png
+panel/konsole.svg ← /usr/share/icons/breeze/apps/48/utilities-terminal.svg
+panel/discover.svg ← /usr/share/icons/breeze/apps/48/plasmadiscover.svg
+panel/dolphin.svg ← org.kde.dolphin (breeze/hicolor, VM)

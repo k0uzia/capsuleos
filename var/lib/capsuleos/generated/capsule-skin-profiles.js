@@ -124,6 +124,50 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
     }
   },
+  "kde-neon": {
+    "id": "linux-kde-neon",
+    "version": 1,
+    "family": "linux",
+    "vendor": "neon",
+    "displayName": "KDE neon User Edition",
+    "bodyId": "kde-neon",
+    "embedKey": "kde-neon",
+    "tier": "P2",
+    "status": "active",
+    "paths": {
+      "facade": "OS/linux/families/debian/kde-neon/index.html",
+      "skin": "home/Debian/KDE-Neon/index.html"
+    },
+    "toolkit": {
+      "id": "kde",
+      "shell": "plasma"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/kde",
+      "vendorPack": "vendors/neon",
+      "iconPacks": [
+        "icons/kde"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Dolphin",
+      "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
+      "CAPSULE_EMBED_SKIN_KEY": "kde-neon",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_EXPLORER_APP_ID": "nemo",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      }
+    }
+  },
   "mint": {
     "id": "linux-mint",
     "version": 1,
@@ -511,6 +555,50 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist"
+    }
+  },
+  "linux-kde-neon": {
+    "id": "linux-kde-neon",
+    "version": 1,
+    "family": "linux",
+    "vendor": "neon",
+    "displayName": "KDE neon User Edition",
+    "bodyId": "kde-neon",
+    "embedKey": "kde-neon",
+    "tier": "P2",
+    "status": "active",
+    "paths": {
+      "facade": "OS/linux/families/debian/kde-neon/index.html",
+      "skin": "home/Debian/KDE-Neon/index.html"
+    },
+    "toolkit": {
+      "id": "kde",
+      "shell": "plasma"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/kde",
+      "vendorPack": "vendors/neon",
+      "iconPacks": [
+        "icons/kde"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Dolphin",
+      "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
+      "CAPSULE_EMBED_SKIN_KEY": "kde-neon",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_EXPLORER_APP_ID": "nemo",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      }
     }
   },
   "linux-mint": {

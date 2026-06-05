@@ -65,7 +65,7 @@ html[data-theme="light"]:has(#popos) body#popos {
 }
 
 /* —— Fenêtre —— */
-body#popos div[data-link="fileExplorer"] {
+body#popos div[data-link="nemo"] {
     width: min(52rem, calc(100vw - var(--head) * 2));
     height: min(34rem, calc(100vh - var(--popos-top-bar-height) - var(--popos-dock-block-height) - var(--head) * 2));
     min-width: calc(var(--head) * 14);
@@ -78,34 +78,34 @@ body#popos div[data-link="fileExplorer"] {
 }
 
 /* Bordure cyan visible en fenêtre réduite (dossier_minimiser.png) */
-body#popos div[data-link="fileExplorer"]:not([data-maximized="true"]) {
+body#popos div[data-link="nemo"]:not([data-maximized="true"]) {
     border: 1px solid var(--nemo-accent);
     box-shadow: 0 0 0 1px rgba(72, 185, 199, 0.4), var(--popos-window-shadow);
 }
 
-body#popos div[data-link="fileExplorer"]:not([data-maximized="true"]).windowElementActive {
+body#popos div[data-link="nemo"]:not([data-maximized="true"]).windowElementActive {
     border-color: var(--nemo-accent);
     box-shadow: 0 0 0 1px rgba(72, 185, 199, 0.55), var(--popos-window-shadow);
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] {
+body#popos div[data-link="nemo"][data-maximized="true"] {
     border: 1px solid var(--nemo-accent);
     border-radius: var(--popos-window-radius);
     padding: 0;
     box-shadow: var(--popos-window-shadow);
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"].windowElementActive {
+body#popos div[data-link="nemo"][data-maximized="true"].windowElementActive {
     box-shadow: 0 0 0 1px rgba(72, 185, 199, 0.55), var(--popos-window-shadow);
 }
 
-body#popos div[data-link="fileExplorer"] #windowIframe {
+body#popos div[data-link="nemo"] #windowIframe {
     width: 100%;
     height: 100%;
     min-height: 0;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader {
+body#popos div[data-link="nemo"] #windowHeader {
     position: absolute;
     top: 0;
     right: 0;
@@ -125,22 +125,22 @@ body#popos div[data-link="fileExplorer"] #windowHeader {
     pointer-events: none;
 }
 
-body#popos div[data-link="fileExplorer"] #windowTitle {
+body#popos div[data-link="nemo"] #windowTitle {
     display: none;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader > nav:first-child {
+body#popos div[data-link="nemo"] #windowHeader > nav:first-child {
     display: none;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader > nav:last-child {
+body#popos div[data-link="nemo"] #windowHeader > nav:last-child {
     display: flex;
     align-items: center;
     gap: 0.22rem;
     pointer-events: auto;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader > nav:last-child > button {
+body#popos div[data-link="nemo"] #windowHeader > nav:last-child > button {
     width: 1.5rem;
     height: 1.5rem;
     margin: 0;
@@ -150,25 +150,25 @@ body#popos div[data-link="fileExplorer"] #windowHeader > nav:last-child > button
     background: transparent;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader > nav:last-child > button::before {
+body#popos div[data-link="nemo"] #windowHeader > nav:last-child > button::before {
     width: 0.82rem;
     height: 0.82rem;
 }
 
-body#popos div[data-link="fileExplorer"] #windowHeader > nav:last-child > button:hover {
+body#popos div[data-link="nemo"] #windowHeader > nav:last-child > button:hover {
     background: rgba(72, 185, 199, 0.14);
     transform: none;
 }
 
-body#popos div[data-link="fileExplorer"] #closeBtn {
+body#popos div[data-link="nemo"] #closeBtn {
     background: rgba(255, 255, 255, 0.08);
 }
 
-body#popos div[data-link="fileExplorer"] #closeBtn:hover {
+body#popos div[data-link="nemo"] #closeBtn:hover {
     background: rgba(255, 255, 255, 0.14);
 }
 
-body#popos div[data-link="fileExplorer"] main#gestionnaire.cosmic-files-app {
+body#popos div[data-link="nemo"] main#gestionnaire.cosmic-files-app {
     position: relative;
     top: 0;
     right: 0;
@@ -191,7 +191,7 @@ body#popos div[data-link="fileExplorer"] main#gestionnaire.cosmic-files-app {
 }
 
 /* Menubar pleine largeur, puis sidebar + contenu en dessous */
-body#popos div[data-link="fileExplorer"] #fileExplorerHeader.file-explorer-app__header--menubar-only {
+body#popos div[data-link="nemo"] #nemoHeaderContainer.nemo-app__header--menubar-only {
     flex: 0 0 auto;
     width: 100%;
     height: auto;
@@ -200,7 +200,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerHeader.file-explorer-app__
     background: var(--nemo-header-bg);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__body {
+body#popos div[data-link="nemo"] .cosmic-files-app__body {
     display: flex;
     flex-flow: row nowrap;
     flex: 1 1 auto;
@@ -210,7 +210,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__body {
     overflow: hidden;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__content-column {
+body#popos div[data-link="nemo"] .cosmic-files-app__content-column {
     display: flex;
     flex-flow: column nowrap;
     flex: 1 1 auto;
@@ -219,7 +219,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__content-column {
     overflow: hidden;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__menubar {
+body#popos div[data-link="nemo"] .cosmic-files-app__menubar {
     position: relative;
     display: flex;
     flex-flow: row nowrap;
@@ -232,13 +232,13 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__menubar {
     background: var(--nemo-header-bg);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__app-icon {
+body#popos div[data-link="nemo"] .cosmic-files-app__app-icon {
     flex-shrink: 0;
     width: 1.15rem;
     height: 1.15rem;
 }
 
-body#popos div[data-link="fileExplorer"] .menuHeader {
+body#popos div[data-link="nemo"] .menuHeader {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -251,7 +251,7 @@ body#popos div[data-link="fileExplorer"] .menuHeader {
     overflow: visible;
 }
 
-body#popos div[data-link="fileExplorer"] .menuHeader > li > a {
+body#popos div[data-link="nemo"] .menuHeader > li > a {
     padding: 0.2rem 0.45rem;
     border-radius: 0.35rem;
     color: var(--nemo-accent);
@@ -260,15 +260,15 @@ body#popos div[data-link="fileExplorer"] .menuHeader > li > a {
     text-decoration: none;
 }
 
-body#popos div[data-link="fileExplorer"] .menuHeader > li > a:hover {
+body#popos div[data-link="nemo"] .menuHeader > li > a:hover {
     background: rgba(72, 185, 199, 0.12);
 }
 
-body#popos div[data-link="fileExplorer"] .menuHeader .listeSousMenu {
+body#popos div[data-link="nemo"] .menuHeader .listeSousMenu {
     display: none !important;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__search {
+body#popos div[data-link="nemo"] .cosmic-files-app__search {
     position: absolute;
     top: 0.45rem;
     right: 6.85rem;
@@ -286,13 +286,13 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__search {
     pointer-events: none;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__search img {
+body#popos div[data-link="nemo"] .cosmic-files-app__search img {
     width: 1rem;
     height: 1rem;
     filter: var(--nemo-toolbar-icon-filter);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__content-column .file-explorer-app__toolbar {
+body#popos div[data-link="nemo"] .cosmic-files-app__content-column .nemo-app__toolbar {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -308,7 +308,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__content-column .file
     background: var(--nemo-toolbar-bg);
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group--path.cosmic-files-app__path-nav {
+body#popos div[data-link="nemo"] .nemo-app__toolbar-group--path.cosmic-files-app__path-nav {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -321,12 +321,12 @@ body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group--path
     padding: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav #precedent,
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav #suivant {
+body#popos div[data-link="nemo"] .cosmic-files-app__path-nav #precedent,
+body#popos div[data-link="nemo"] .cosmic-files-app__path-nav #suivant {
     flex-shrink: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group > a {
+body#popos div[data-link="nemo"] .nemo-app__toolbar-group > a {
     min-width: 1.85rem;
     height: 1.85rem;
     padding: 0;
@@ -336,17 +336,17 @@ body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group > a {
     transform: none;
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group > a:hover {
+body#popos div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
     background: var(--nemo-toolbar-button-hover-bg);
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__toolbar-group img {
+body#popos div[data-link="nemo"] .nemo-app__toolbar-group img {
     width: 1rem;
     height: 1rem;
     filter: var(--nemo-toolbar-icon-filter);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav .file-explorer-app__path-current {
+body#popos div[data-link="nemo"] .cosmic-files-app__path-nav .nemo-app__path-current {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -369,15 +369,15 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav .file-explo
     box-sizing: border-box;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav .file-explorer-app__path-current::before {
+body#popos div[data-link="nemo"] .cosmic-files-app__path-nav .nemo-app__path-current::before {
     content: "";
     flex-shrink: 0;
     width: 0.9rem;
     height: 0.9rem;
     background: currentColor;
     opacity: 0.95;
-    -webkit-mask-image: url("../../media/img/elements/nemo/edit-symbolic.svg");
-    mask-image: url("../../media/img/elements/nemo/edit-symbolic.svg");
+    -webkit-mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/edit-symbolic.svg");
+    mask-image: url("../../../../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/edit-symbolic.svg");
     -webkit-mask-size: contain;
     mask-size: contain;
     -webkit-mask-repeat: no-repeat;
@@ -387,7 +387,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__path-nav .file-explo
 }
 
 /* Sidebar : juste sous la menubar, hauteur du bloc corps */
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__body > #fileExplorerSidebar.cosmic-files-app__sidebar {
+body#popos div[data-link="nemo"] .cosmic-files-app__body > #voletnemo.cosmic-files-app__sidebar {
     flex: 0 0 11.75rem;
     width: 11.75rem;
     min-width: 11.75rem;
@@ -401,7 +401,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__body > #fileExplorer
 }
 
 /* —— Corps : liste (panneau droit uniquement) —— */
-body#popos div[data-link="fileExplorer"] #fileExplorerMain {
+body#popos div[data-link="nemo"] #nemoMainContainer {
     flex: 1 1 auto;
     display: flex;
     flex-flow: column nowrap;
@@ -414,7 +414,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain {
     background: var(--nemo-bg-primary);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-nav {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 0.06rem;
@@ -422,13 +422,13 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-nav {
     margin: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-sep {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-sep {
     height: 1px;
     margin: 0.45rem 0.35rem;
     background: rgba(255, 255, 255, 0.08);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-link {
     display: flex;
     align-items: center;
     min-height: 1.9rem;
@@ -444,7 +444,7 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link {
     background: transparent;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link img {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-link img {
     width: 1rem;
     height: 1rem;
     margin-right: 0.42rem;
@@ -453,22 +453,22 @@ body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link img {
     filter: var(--nemo-symbolic-icon-filter);
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link:hover {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-link:hover {
     background: rgba(255, 255, 255, 0.06);
     border-left: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link.nemo-sidebar__link--active {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-link.nemo-sidebar__link--active {
     color: var(--nemo-accent);
     background: var(--nemo-sidebar-item-active-bg);
     border-left: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .cosmic-files-app__sidebar-link.nemo-sidebar__link--active img {
+body#popos div[data-link="nemo"] .cosmic-files-app__sidebar-link.nemo-sidebar__link--active img {
     filter: var(--nemo-icon-filter-accent);
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer.file-explorer-app__content-wrap {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer.nemo-app__content-wrap {
     display: flex;
     flex-flow: column nowrap;
     flex: 1 1 auto;
@@ -483,7 +483,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer.fil
 }
 
 /* Reset nemo.base - vue liste (priorité sur grille ID) */
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list {
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -500,7 +500,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > s
     background: var(--nemo-bg-primary);
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a {
     position: relative;
     display: grid;
     flex-flow: row nowrap;
@@ -522,23 +522,23 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > s
     text-decoration: none;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a:hover {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a:hover {
     background: var(--nemo-item-active-bg);
     border-radius: 0;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a::after {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a::after {
     content: none;
     display: none;
     width: 0;
     height: 0;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a:hover::after {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a:hover::after {
     display: none;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a > img {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > img {
     grid-column: 1;
     grid-row: 1 / span 2;
     align-self: center;
@@ -552,7 +552,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > s
     filter: none;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a > .file-explorer-app__item-body {
+body#popos div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > .nemo-app__item-body {
     grid-column: 2;
     grid-row: 1 / span 2;
     display: flex;
@@ -565,7 +565,7 @@ body#popos div[data-link="fileExplorer"] #fileExplorerMain > #voletContainer > s
     padding: 0;
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__item-name {
+body#popos div[data-link="nemo"] .nemo-app__item-name {
     display: block;
     font-size: 0.84rem;
     font-weight: 600;
@@ -573,7 +573,7 @@ body#popos div[data-link="fileExplorer"] .file-explorer-app__item-name {
     color: var(--nemo-text-primary);
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__item-meta {
+body#popos div[data-link="nemo"] .nemo-app__item-meta {
     display: block;
     font-size: 0.72rem;
     font-weight: 400;
@@ -581,8 +581,8 @@ body#popos div[data-link="fileExplorer"] .file-explorer-app__item-meta {
     color: var(--nemo-text-muted);
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__item-modified,
-body#popos div[data-link="fileExplorer"] .file-explorer-app__item-size {
+body#popos div[data-link="nemo"] .nemo-app__item-modified,
+body#popos div[data-link="nemo"] .nemo-app__item-size {
     display: none;
     font-size: 0.74rem;
     font-weight: 400;
@@ -591,21 +591,21 @@ body#popos div[data-link="fileExplorer"] .file-explorer-app__item-size {
 }
 
 /* Mode compact (fenêtre minimisée) */
-body#popos div[data-link="fileExplorer"]:not([data-maximized="true"]) .file-explorer-app__list-header {
+body#popos div[data-link="nemo"]:not([data-maximized="true"]) .nemo-app__list-header {
     display: none;
 }
 
-body#popos div[data-link="fileExplorer"]:not([data-maximized="true"]) #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a {
+body#popos div[data-link="nemo"]:not([data-maximized="true"]) #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a {
     grid-template-columns: var(--nemo-list-col-icon) minmax(0, 1fr);
     grid-template-rows: auto auto;
 }
 
-body#popos div[data-link="fileExplorer"]:not([data-maximized="true"]) .file-explorer-app__item-meta {
+body#popos div[data-link="nemo"]:not([data-maximized="true"]) .nemo-app__item-meta {
     display: block;
 }
 
 /* Mode colonnes (maximisé - dossiers_fullscreen.png) */
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__list-header {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__list-header {
     display: grid;
     grid-template-columns: var(--nemo-list-col-icon) minmax(0, 1fr) var(--nemo-list-col-modified) var(--nemo-list-col-size);
     align-items: center;
@@ -619,70 +619,70 @@ body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-a
     font-weight: 600;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__list-header-modified,
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__list-header-size {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__list-header-modified,
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__list-header-size {
     text-align: left;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__list-header-size {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__list-header-size {
     text-align: right;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__list-header-name::after {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__list-header-name::after {
     content: " ▾";
     font-size: 0.65rem;
     opacity: 0.85;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a {
+body#popos div[data-link="nemo"][data-maximized="true"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a {
     grid-template-columns: var(--nemo-list-col-icon) minmax(0, 1fr) var(--nemo-list-col-modified) var(--nemo-list-col-size);
     grid-template-rows: 1fr;
     align-items: center;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a > img {
+body#popos div[data-link="nemo"][data-maximized="true"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > img {
     grid-row: 1;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] #fileExplorerMain > #voletContainer > section.nemoElement.file-explorer-app__content-grid--list > a > .file-explorer-app__item-body {
+body#popos div[data-link="nemo"][data-maximized="true"] #nemoMainContainer > #voletContainer > section.nemoElement.nemo-app__content-grid--list > a > .nemo-app__item-body {
     grid-row: 1;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__item-meta {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__item-meta {
     display: none;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__item-modified {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__item-modified {
     display: block;
     grid-column: 3;
     grid-row: 1;
 }
 
-body#popos div[data-link="fileExplorer"][data-maximized="true"] .file-explorer-app__item-size {
+body#popos div[data-link="nemo"][data-maximized="true"] .nemo-app__item-size {
     display: block;
     grid-column: 4;
     grid-row: 1;
     text-align: right;
 }
 
-body#popos div[data-link="fileExplorer"] .file-explorer-app__empty {
+body#popos div[data-link="nemo"] .nemo-app__empty {
     width: 100%;
     padding: 1.5rem var(--nemo-list-pad-icon);
     color: var(--nemo-text-muted);
     text-align: left;
 }
 
-body#popos div[data-link="fileExplorer"] #fileExplorerFooter {
+body#popos div[data-link="nemo"] #nemoFooterContainer {
     display: none;
 }
 
 @media (max-width: 720px) {
-    body#popos div[data-link="fileExplorer"] {
+    body#popos div[data-link="nemo"] {
         width: calc(100vw - var(--head));
         min-width: 0;
     }
 
-    body#popos div[data-link="fileExplorer"] .cosmic-files-app__body > #fileExplorerSidebar.cosmic-files-app__sidebar {
+    body#popos div[data-link="nemo"] .cosmic-files-app__body > #voletnemo.cosmic-files-app__sidebar {
         flex-basis: 9.5rem;
         width: 9.5rem;
         min-width: 9.5rem;

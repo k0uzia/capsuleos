@@ -7,7 +7,7 @@
 			content="width=device-width, initial-scale=1.0" />
 		<link
 			rel="shortcut icon"
-			href="./assets/icones/android.png"
+			href="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/android.png"
 			type="image/x-icon" />
 		<link
 			rel="stylesheet"
@@ -21,16 +21,16 @@
 			</div>
 			<div class="informations">
 				<img
-					src="./assets/icones/bluetooth.svg"
+					src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/bluetooth.svg"
 					alt="bluetooth" />
 				<img
-					src="./assets/icones/network.svg"
+					src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/network.svg"
 					alt="network level" />
 					<img
-					src="./assets/icones/wifi.svg"
+					src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/wifi.svg"
 					alt="wifi level" />
 				<img
-					src="./assets/icones/battery.svg"
+					src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/battery.svg"
 					alt="battery level" />
 			</div>
 		</header>
@@ -66,7 +66,7 @@
 					data-link="appels"
 					title="Appels">
 					<img
-						src="./assets/icones/appel.webp"
+						src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/appel.webp"
 						alt="Appels"
 						title="Appels"
 						class="icon" />
@@ -76,7 +76,7 @@
 					data-link="messages"
 					title="Messages">
 					<img
-						src="./assets/icones/messages.webp"
+						src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/messages.webp"
 						alt="Messages"
 						title="Messages"
 						class="icon" />
@@ -86,7 +86,7 @@
 					data-link="contacts"
 					title="Contacts">
 					<img
-						src="./assets/icones/contacts.png"
+						src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/contacts.png"
 						alt="Contacts"
 						title="Contacts"
 						class="icon" />
@@ -96,7 +96,7 @@
 					data-link="chrome"
 					title="Chrome">
 					<img
-						src="./assets/icones/chrome.webp"
+						src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/chrome.webp"
 						alt="Chrome"
 						title="Chrome"
 						class="icon" />
@@ -106,19 +106,19 @@
 				<ul>
 					<li class="apps">
 						<img
-							src="./assets/icones/bars.svg"
+							src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/bars.svg"
 							alt="Menu"
 							title="Applications ouvertes" />
 					</li>
 					<li class="home">
 						<img
-							src="./assets/icones/square.svg"
+							src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/square.svg"
 							alt="Home"
 							title="Home" />
 					</li>
 					<li class="back">
 						<img
-							src="./assets/icones/left-arrow.svg"
+							src="../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/left-arrow.svg"
 							alt="Back"
 							title="Revenir en arrière" />
 					</li>
@@ -127,9 +127,19 @@
 		</footer>
 	</body>
 	<script src="./js/capsule-android-embed.js"></script>
-	<script src="./js/date.js"></script>
-	<script src="./js/messages.js"></script>
-	<script src="./js/contentLoader.js"></script>
-	<script src="./js/windowContainer.js"></script>
-	<script src="./js/navigation.js"></script>
+    <script src="../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../usr/lib/capsuleos/common/window-drag.js"></script>
+    <script src="../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
+    <script src="../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
+    <script src="../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
+    <script>
+        window.CAPSULE_WINDOW_FAMILY = 'android';
+    </script>
+    <script src="./js/date.js"></script>
+    <script src="./js/messages.js"></script>
+    <script src="./js/contentLoader.js"></script>
+    <script src="./js/windowContainer.js"></script>
+    <script src="./js/navigation.js"></script>
 </html>

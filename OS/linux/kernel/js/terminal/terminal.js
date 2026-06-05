@@ -181,7 +181,7 @@ function createFedoraTerminalTabs(windowElement) {
 }
 
 function isGnomeTerminalChrome() {
-    return Boolean(document.body && (document.body.id === 'ubuntu' || document.body.id === 'popos'));
+    return Boolean(document.body && (document.body.id === 'ubuntu' || document.body.id === 'popos' || document.body.id === 'mint'));
 }
 
 function isCosmicTerminalChrome() {

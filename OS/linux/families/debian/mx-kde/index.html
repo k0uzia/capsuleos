@@ -2,72 +2,79 @@
 <html lang="fr">
 
 <head>
+    <!-- Facade URL stable : pick-os.js → ./OS/linux/families/debian/mx-kde/index.html -->
+    <base href="../../../../../home/Debian/MX-KDE/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./media/img/assets/mx-logo.png" type="image/png">
+    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
+    <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mx/mx-logo.png" type="image/png">
     <link rel="stylesheet" href="./style/style.css?v=20260514b" type="text/css">
-    <link rel="stylesheet" href="../../../shared/apps/style/Dossier personnel.base.css" type="text/css">
+    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>MX Linux KDE - CapsuleOS</title>
 </head>
 <body id="mx-kde">
     <object id="desktop">
         <a class="desktop-shortcut" target="windowElement" data-link="profile" title="MX Linux KDE - À propos">
-            <img src="./media/img/apps/user-info.png" alt="MX Linux KDE - À propos">
+            <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/user-info.png" alt="MX Linux KDE - À propos">
             <span>MX Linux KDE<br>À propos</span>
         </a>
-        <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="profile" id="profile" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="checklist" id="checklist" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none; position: fixed;"></div>
+        <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
+        <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
+        <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
+        <div class="windowElement" data-link="terminal" id="terminal" style="display: none;"></div>
+        <div class="windowElement" data-link="themes" id="themes" style="display: none;"></div>
+        <div class="windowElement" data-link="profile" id="profile" style="display: none;"></div>
+        <div class="windowElement" data-link="checklist" id="checklist" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
+        <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
+        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
     </object>
     <footer id="tableau">
         <nav class="taskbar-pins" aria-label="Applications épinglées">
             <a class="taskbar-pins__launcher" target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
-                <img src="./media/img/assets/mx-logo.png" alt="Logo MX Linux KDE" title="Menu principal">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mx/mx-logo.png" alt="Logo MX Linux KDE" title="Menu principal">
             </a>
             <div class="taskbar-pins__apps">
-                <a target="windowElement" data-link="fileExplorer" title="Explorateur de fichiers Dolphin">
-                    <img src="./media/img/apps/org.kde.dolphin.svg" alt="Dolphin" title="Explorateur de fichiers Dolphin">
+                <a target="windowElement" data-link="nemo" title="Explorateur de fichiers Dolphin">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/org.kde.dolphin.svg" alt="Dolphin" title="Explorateur de fichiers Dolphin">
                 </a>
                 <a target="windowElement" data-link="firefox" title="Ouvrir un navigateur WEB">
-                    <img src="./media/img/apps/firefox.svg" alt="Firefox" title="Ouvrir un navigateur WEB">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/firefox.svg" alt="Firefox" title="Ouvrir un navigateur WEB">
                 </a>
                 <a target="windowElement" data-link="terminal" title="Ouvrir un terminal">
-                    <img src="./media/img/apps/utilities-terminal.svg" alt="Terminal" title="Ouvrir un terminal">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/utilities-terminal.svg" alt="Terminal" title="Ouvrir un terminal">
                 </a>
                 <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
-                    <img src="./media/img/apps/libreoffice-writer.svg" alt="LibreOffice Writer" title="LibreOffice Writer">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/libreoffice-writer.svg" alt="LibreOffice Writer" title="LibreOffice Writer">
                 </a>
                 <a target="windowElement" data-link="themes" title="Ouvrir les themes">
-                    <img src="./media/img/apps/systemsettings.svg" alt="Configuration système" title="Ouvrir les themes">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/systemsettings.svg" alt="Configuration système" title="Ouvrir les themes">
                 </a>
                 <a target="windowElement" data-link="checklist" title="Missions de découverte">
-                    <img src="./media/img/apps/mx-tools.svg" alt="Checklist" title="Missions de découverte">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/mx-tools.svg" alt="Checklist" title="Missions de découverte">
                 </a>
             </div>
         </nav>
         <div class="taskbar-right">
             <div class="taskbar-tray" aria-label="Zone de notification">
                 <a class="taskbar-tray__link" target="windowElement" data-link="terminal" title="Terminal">
-                    <img src="./media/img/panel/terminal.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/terminal.svg" alt="" aria-hidden="true">
                 </a>
                 <span class="taskbar-tray__item" title="Presse-papiers">
-                    <img src="./media/img/panel/clipboard.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/clipboard.svg" alt="" aria-hidden="true">
                 </span>
                 <a class="taskbar-tray__link" target="windowElement" data-link="themes" title="Configuration système">
-                    <img src="./media/img/panel/settings.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg" alt="" aria-hidden="true">
                 </a>
                 <span class="taskbar-tray__item" title="Affichage">
-                    <img src="./media/img/panel/display.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/display.svg" alt="" aria-hidden="true">
                 </span>
                 <button type="button" class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray
@@ -82,7 +89,7 @@
                     <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
                 <span class="taskbar-tray__item" title="Réseau">
-                    <img src="./media/img/panel/network.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/network.svg" alt="" aria-hidden="true">
                 </span>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
@@ -98,10 +105,10 @@
             <h2 class="calendar-popover__month-title" id="cal-month-title">Avril</h2>
             <div class="calendar-popover__header-actions">
                 <button type="button" class="calendar-popover__icon-btn" aria-label="Paramètres de date et d'heure" disabled>
-                    <img src="./media/img/panel/calendar-settings.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/calendar-settings.svg" alt="" aria-hidden="true">
                 </button>
                 <button type="button" class="calendar-popover__icon-btn" aria-label="Épingler le calendrier" disabled>
-                    <img src="./media/img/panel/calendar-pin.svg" alt="" aria-hidden="true">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/calendar-pin.svg" alt="" aria-hidden="true">
                 </button>
             </div>
         </header>
@@ -136,93 +143,61 @@
         </div>
     </div>
     <script>
-        window.CAPSULE_APPS_BASE = '../../../shared/apps';
-        window.CAPSULE_MODULES_ENV_SHARED_BASE = '../../../../../modules/env/shared';
-        window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
-        window.CAPSULE_SKIN_BASE = '.';
-        window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
-        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Dolphin';
-        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'dolphin';
-        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'dolphin';
-        window.CAPSULE_FILE_EXPLORER_ICON_MAP = {
-            folder: './media/img/elements/places32/folder.svg',
-            Dossier_personnel: './media/img/elements/places32/folder.svg',
-            Bureau: './media/img/elements/places32/user-desktop.svg',
-            Documents: './media/img/elements/places32/folder-documents.svg',
-            Images: './media/img/elements/places32/folder-pictures.svg',
-            Musique: './media/img/elements/places32/folder-sound.svg',
-            Public: './media/img/elements/places32/folder-publicshare.svg',
-            'Téléchargements': './media/img/elements/places32/folder-download.svg',
-            'Vidéos': './media/img/elements/places32/folder-videos.svg',
-            'Modèles': './media/img/elements/places32/folder-templates.svg',
-            file: './media/img/mimeTypes/application-x-generic.svg',
-            pdf: './media/img/mimeTypes/application-x-generic.svg',
-            doc: './media/img/mimeTypes/application-x-generic.svg',
-            txt: './media/img/mimeTypes/application-x-generic.svg',
-            sh: './media/img/mimeTypes/application-x-generic.svg',
-            html: './media/img/mimeTypes/application-x-generic.svg',
-            css: './media/img/mimeTypes/application-x-generic.svg',
-            js: './media/img/mimeTypes/application-x-generic.svg',
-            ogg: './media/img/mimeTypes/application-x-generic.svg',
-            mp3: './media/img/mimeTypes/application-x-generic.svg',
-            wav: './media/img/mimeTypes/application-x-generic.svg',
-            mp4: './media/img/mimeTypes/application-x-generic.svg',
-            avi: './media/img/mimeTypes/application-x-generic.svg',
-            jpeg: './media/img/mimeTypes/application-x-generic.svg',
-            jpg: './media/img/mimeTypes/application-x-generic.svg',
-            png: './media/img/mimeTypes/application-x-generic.svg',
-            webp: './media/img/mimeTypes/application-x-generic.svg'
-        };
-        window.CAPSULE_EMBED_SKIN_KEY = 'mxkde';
-        window.CAPSULE_CHECKLIST_STORAGE_KEY = 'mxkde-checklist';
-        window.CAPSULE_SITE_HOME = '../../../../../index.html';
-        window.CAPSULE_LINUX_HUB = '../../../index.html';
-        window.CAPSULE_TERMINAL_OS_FAMILY = 'linux';
-        window.CAPSULE_TERMINAL_PROFILE = 'debian';
-        window.CAPSULE_TERMINAL_USER = 'mx-linux';
-        window.CAPSULE_TERMINAL_HOST = 'mx';
-        window.CAPSULE_TERMINAL_HOME = '/home/user';
+        if (typeof CapsuleUserHome !== 'undefined') {
+            window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.resolveRelative();
+            window.CAPSULE_TERMINAL_HOME = window.CAPSULE_USER_HOME || window.CAPSULE_TERMINAL_HOME;
+        }
     </script>
-    <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260605d"></script>
-    <script src="../../../kernel/js/strings-default.js?v=20260421a"></script>
-    <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
-    <script src="../../../kernel/js/windowHeaderButton.js?v=20260421a"></script>
-    <script src="../../../kernel/js/resizeWindow.js"></script>
-    <script src="../../../kernel/js/windowDrag.js"></script>
+
+    <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260514i"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
+    <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="./content/mainMenu-data.js?v=20260512a"></script>
-    <script src="../../../kernel/js/mainMenu.js?v=20260605e"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="./js/mainMenu-kde-chrome.js?v=20260513i"></script>
-    <script src="../../../kernel/js/themes.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
     <script src="./content/profile-data.js"></script>
-    <script src="../../../kernel/js/profile.js"></script>
-    <script src="../../../kernel/js/checklist.js"></script>
-    <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260605e"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260605f"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerDolphin.js?v=20260604c"></script>
-    <script src="../../../kernel/js/search/appSearch.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
-    <script src="../../../kernel/js/fileViewerRouter.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>
-    <script src="../../../kernel/js/date.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-icon-map.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-resource-url.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260602"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDolphin.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
     <script src="./js/calendar-popover-kde.js?v=20260512"></script>
-    <script src="../../../kernel/js/terminal/config/command-registry.js"></script>
-    <script src="../../../kernel/js/terminal/config/profiles/linux/debian.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-profile.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-core.js"></script>
-    <script src="../../../kernel/js/terminal/terminal.js"></script>
-    <script src="./js/terminal-konsole-chrome.js?v=20260512r"></script>
-    <script src="../../../kernel/js/terminal/executeCommand.js"></script>
-    <script src="../../../kernel/js/terminal/filesystem.js"></script>
-    <script src="../../../kernel/js/terminal/manuel.js"></script>
-    <script src="../../../kernel/js/volume.js"></script>
-    <script src="../../../kernel/js/librewriter.js"></script>
-    <script src="../../../kernel/js/update-manager.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-completion.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-editors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-konsole-chrome.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
 </body>
 </html>

@@ -52,10 +52,10 @@
         const closeBtn = document.getElementById('menu-btn-close');
 
         if (filterBtn) {
-            filterBtn.style.backgroundImage = 'url("./media/img/menu/plasma/view-filter.svg")';
+            filterBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/view-filter.svg")';
         }
         if (pinBtn) {
-            pinBtn.style.backgroundImage = 'url("./media/img/menu/plasma/view-pin.svg")';
+            pinBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/view-pin.svg")';
         }
         if (closeBtn && closeBtn.dataset.plasmaCloseBound !== 'true') {
             closeBtn.dataset.plasmaCloseBound = 'true';
@@ -66,8 +66,10 @@
                     menuEl.style.display = 'none';
                     menuEl.classList.remove('windowElementActive');
                 }
-                menuBtn?.classList.remove('active-link');
-                menuBtn?.focus();
+                if (menuBtn) {
+                    menuBtn.classList.remove('active-link');
+                    menuBtn.focus();
+                }
             });
         }
     }
@@ -106,7 +108,9 @@
 
     function syncSearchSelection(appList, menuRoot) {
         if (!appList || !menuRoot.classList.contains('menu-root--search')) {
-            appList?.querySelectorAll('.menu-app-item.is-active').forEach((el) => el.classList.remove('is-active'));
+            if (appList) {
+                appList.querySelectorAll('.menu-app-item.is-active').forEach((el) => el.classList.remove('is-active'));
+            }
             return;
         }
 
@@ -128,7 +132,7 @@
 
         if (clearBtn && clearBtn.dataset.plasmaBound !== 'true') {
             clearBtn.dataset.plasmaBound = 'true';
-            clearBtn.style.backgroundImage = 'url("./media/img/menu/plasma/search-clear.svg")';
+            clearBtn.style.backgroundImage = 'url("./assets/images/toolkits/kde/menu/plasma/search-clear.svg")';
             clearBtn.addEventListener('click', () => {
                 searchInput.value = '';
                 searchInput.dispatchEvent(new Event('input', { bubbles: true }));
@@ -218,7 +222,7 @@
     }
 
     function bindPlaceIcons() {
-        const base = '../../suse/opensuse/media/img/elements/places32';
+        const base = './assets/icons/kde/places32';
         const iconMap = {
             home: `${base}/folder.svg`,
             desktop: `${base}/user-desktop.svg`,

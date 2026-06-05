@@ -1,4 +1,4 @@
-@import url(../../../style/imports.css);
+@import url(../../../../../../usr/share/capsuleos/themes/portal/imports.css);
 
 html {
     scrollbar-color: var(--background);
@@ -28,7 +28,7 @@ a, h1 {
     justify-content: var(--sb);
     width: var(--max-w);
     height: var(--max-h);
-    background-image: url(../../../media/img/background2.webp);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/ios/background2.webp);
     background-size: cover;
     overflow: var(--n);
 }

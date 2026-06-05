@@ -1,0 +1,100 @@
+  <section class="mint-browser" data-firefox-app>
+    <header class="mint-browser__chrome" data-capsule-attr="aria-label:firefox.chromeAriaLabel" aria-label="Interface navigateur">
+      <div class="mint-browser__tabsbar" data-capsule-attr="aria-label:firefox.tabsAriaLabel" aria-label="Onglets">
+        <div class="mint-browser__tabs-list" data-browser-tabs role="tablist"></div>
+        <button type="button" class="mint-browser__tab-add" data-browser-action="new-tab" aria-label="Nouvel onglet" data-capsule-attr="aria-label:firefox.tabNewButtonAria">+</button>
+      </div>
+
+      <div class="mint-browser__toolbar" data-capsule-attr="aria-label:firefox.toolbarAriaLabel" aria-label="Barre de navigation">
+        <div class="mint-browser__nav-actions">
+          <button type="button" class="mint-browser__btn mint-browser__btn--icon-back" data-browser-action="back" disabled data-capsule-attr="aria-label:firefox.backAria">
+            <span class="sr-only">Retour</span>
+          </button>
+          <button type="button" class="mint-browser__btn mint-browser__btn--icon-forward" data-browser-action="forward" disabled data-capsule-attr="aria-label:firefox.forwardAria">
+            <span class="sr-only">Avant</span>
+          </button>
+          <button type="button" class="mint-browser__btn mint-browser__btn--icon-reload" data-browser-action="reload" data-capsule-attr="aria-label:firefox.reloadAria">
+            <span class="sr-only">Recharger</span>
+          </button>
+        </div>
+
+        <form class="mint-browser__addressbar" data-browser-form>
+          <label class="sr-only" for="mint-browser-address-input" data-capsule-text="firefox.addressLabel">Adresse</label>
+          <span class="mint-browser__address-prefix" aria-hidden="true"></span>
+          <input
+            id="mint-browser-address-input"
+            class="mint-browser__address-input"
+            type="text"
+            data-browser-address
+            data-capsule-attr="placeholder:firefox.addressPlaceholder"
+            placeholder="Rechercher avec Google ou saisir une adresse"
+            autocomplete="off"
+            spellcheck="false"
+            value=""
+          >
+          <button type="submit" class="mint-browser__btn mint-browser__btn--go" data-capsule-attr="aria-label:firefox.goAria">
+            <span data-capsule-text="firefox.goButton">Aller</span>
+          </button>
+        </form>
+
+        <div class="mint-browser__toolbar-actions" data-capsule-attr="aria-label:firefox.toolbarActionsAria" aria-label="Actions navigateur">
+          <button type="button" class="mint-browser__btn mint-browser__btn--ghost mint-browser__btn--icon-home" data-browser-action="home" data-capsule-attr="aria-label:firefox.homeAria">
+            <span class="sr-only">Accueil</span>
+          </button>
+          <button type="button" class="mint-browser__btn mint-browser__btn--ghost mint-browser__btn--icon-library" data-browser-action="library" data-capsule-attr="aria-label:firefox.libraryAria">
+            <span class="sr-only">Bibliothèque</span>
+          </button>
+          <button type="button" class="mint-browser__btn mint-browser__btn--ghost mint-browser__btn--icon-star" data-browser-action="toggle-bookmarks" data-capsule-attr="aria-label:firefox.bookmarksStarAria" aria-pressed="false">
+            <span class="sr-only">Favoris</span>
+          </button>
+          <button type="button" class="mint-browser__btn mint-browser__btn--ghost mint-browser__btn--icon-menu" data-browser-action="menu" data-capsule-attr="aria-label:firefox.menuAria">
+            <span class="sr-only">Menu</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="mint-browser__bookmarks" data-browser-bookmarks hidden data-capsule-attr="aria-label:firefox.bookmarksBarAria" aria-label="Favoris">
+        <a href="#" class="mint-browser__bookmark" data-browser-bookmark="Importés" data-browser-route="noop" data-capsule-text="firefox.bookmarkImported">Importés</a>
+        <a href="#" class="mint-browser__bookmark mint-browser__bookmark--primary" data-browser-bookmark="La Capsule" data-browser-route="os-lacapsule" data-capsule-text="firefox.bookmarkLaCapsule">La Capsule</a>
+        <a href="#" class="mint-browser__bookmark" data-browser-bookmark="os-lacapsule" data-browser-route="os-lacapsule" data-capsule-text="firefox.bookmarkOsLaCapsule">os-lacapsule</a>
+      </nav>
+    </header>
+
+    <p class="mint-browser__status" data-browser-status role="status" aria-live="polite" hidden></p>
+
+    <main class="mint-browser__viewport" data-browser-view="home">
+      <section class="mint-browser-newtab" data-browser-home>
+        <div class="mint-browser-newtab__logo" aria-hidden="true"></div>
+        <form class="mint-browser-newtab__search" data-browser-newtab-form>
+          <label class="sr-only" for="mint-browser-newtab-input" data-capsule-text="firefox.newtabSearchLabel">Rechercher</label>
+          <input
+            id="mint-browser-newtab-input"
+            class="mint-browser-newtab__search-input"
+            type="search"
+            data-browser-newtab-input
+            data-capsule-attr="placeholder:firefox.addressPlaceholder"
+            placeholder="Rechercher avec Google ou saisir une adresse"
+            autocomplete="off"
+            spellcheck="false"
+          >
+        </form>
+        <nav class="mint-browser-newtab__shortcuts" data-capsule-attr="aria-label:firefox.newtabShortcutsAria" aria-label="Raccourcis">
+          <a href="#" class="mint-browser-newtab__shortcut" data-browser-newtab-link="wikipedia" data-capsule-text="firefox.newtabShortcutWiki">Wikipédia</a>
+          <a href="#" class="mint-browser-newtab__shortcut" data-browser-newtab-link="youtube" data-capsule-text="firefox.newtabShortcutYoutube">YouTube</a>
+          <a href="#" class="mint-browser-newtab__shortcut" data-browser-newtab-link="reddit" data-capsule-text="firefox.newtabShortcutReddit">Reddit</a>
+          <a href="#" class="mint-browser-newtab__shortcut mint-browser-newtab__shortcut--capsule" data-browser-newtab-link="os-lacapsule" data-capsule-text="firefox.newtabShortcutCapsule">La Capsule</a>
+        </nav>
+      </section>
+
+      <section class="mint-browser-redirect" data-browser-redirect hidden>
+        <iframe
+          class="mint-browser-redirect__frame"
+          data-browser-redirect-frame
+          data-capsule-attr="title:firefox.iframeOsLaCapsuleTitle"
+          title="os-lacapsule"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </section>
+    </main>
+  </section>

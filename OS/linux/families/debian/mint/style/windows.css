@@ -1,121 +1,87 @@
-div[class^="windowElement"]:not(#mainMenu) {
-    position: var(--fix);
-    top: var(--head);
-    bottom: calc(var(--head) * 1.5);
-    display: var(--f);
-    flex-flow: var(--cnw);
-    align-items: var(--c);
-    justify-content: var(--c);
-    width: calc(var(--mid) + var(--mid) / 4);
-    min-width: calc(var(--head) * 16);
-    height: calc(var(--head) * 10);
-    min-height: calc(var(--head) * 12);
-    padding: calc(var(--head) / 20);
-    border: calc(var(--min-bt) * 4) solid var(--t);
-    border-radius: calc(var(--head) / 4);
-    box-shadow: var(--frame);
-    background: var(--menuDefaultCcol);
-    overflow: var(--h);
-    scrollbar-width: var(--z);
-    transition: border-color var(--eas2), box-shadow var(--ease), transform var(--eas2);
+/* Tailles par application — chrome commun dans window-chrome.base.css */
+
+div.windowElement[data-link="nemo"]:not(#mainMenu) {
+    width: var(--win-nemo-width);
+    min-width: var(--win-nemo-min-width);
+    height: var(--win-nemo-height);
+    min-height: var(--win-nemo-min-height);
 }
 
-.windowElementActive {
-    z-index: 500;
-    border-color: var(--menu-accent);
-    box-shadow: 0 0 0 2px var(--menu-accent), var(--frame);
+div.windowElement[data-link="firefox"]:not(#mainMenu) {
+    width: var(--win-firefox-width);
+    min-width: var(--win-firefox-min-width);
+    height: var(--win-firefox-height);
+    min-height: var(--win-firefox-min-height);
 }
 
-#windowHeader {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--sb);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    min-width: calc(var(--a) - calc(var(--head) / 20));
-    max-width: calc(var(--max-w) - calc(var(--head) / 20));
-    height: calc(var(--head) / 1.3);
-    padding: calc(var(--head) / 4);
-    border-radius: calc(var(--head) / 4) calc(var(--head) / 4) var(--z) var(--z);
-    background: var(--nemoHC);
-    user-select: none;
-    border-bottom: 1px solid var(--mint-window-header-border);
-    transition: background-color var(--eas2), border-color var(--eas2);
+div.windowElement[data-link="terminal"]:not(#mainMenu) {
+    width: var(--win-terminal-width);
+    min-width: var(--win-terminal-min-width);
+    height: var(--win-terminal-height);
+    min-height: var(--win-terminal-min-height);
 }
 
-.windowElementActive #windowHeader {
-    background: var(--nemoMCSF);
-    border-bottom: 1px solid var(--mint-window-header-border-active);
+div.windowElement[data-link="profile"]:not(#mainMenu) {
+    width: var(--win-profile-width);
+    min-width: var(--win-profile-min-width);
+    height: var(--win-profile-height);
+    min-height: var(--win-profile-min-height);
 }
 
-#windowHeader>nav {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--sa);
-    min-width: calc(var(--head) * 2.2);
-    height: var(--head);
+div.windowElement[data-link="themes"]:not(#mainMenu) {
+    width: var(--win-themes-width);
+    min-width: var(--win-themes-min-width);
+    height: var(--win-themes-height);
+    min-height: var(--win-themes-min-height);
 }
 
-#windowTitle {
-    width: calc(var(--head) * 20);
-    text-align: var(--c);
-    text-shadow: var(--bs);
-    filter: var(--inv);
+div.windowElement[data-link="checklist"]:not(#mainMenu) {
+    width: var(--win-checklist-width);
+    min-width: var(--win-checklist-min-width);
+    height: var(--win-checklist-height);
+    min-height: var(--win-checklist-min-height);
 }
 
-#windowHeader>nav>button {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--c);
-    width: calc(var(--head) / 2);
-    height: calc(var(--head) / 2);
-    padding: var(--z);
-    outline: var(--n);
-    border-radius: var(--mid);
-    border: 1px var(--t);
-    transition: transform var(--eas2), border-color var(--eas2), background-color var(--eas2);
+div.windowElement[data-link="update_manager"]:not(#mainMenu) {
+    width: var(--win-update_manager-width);
+    min-width: var(--win-update_manager-min-width);
+    height: var(--win-update_manager-height);
+    min-height: var(--win-update_manager-min-height);
 }
 
-#windowHeader>nav>button:hover {
-    transform: translateY(-1px);
-    border-color: var(--mint-window-control-border-hover);
-    background-color: var(--mint-window-control-bg-hover);
+div.windowElement[data-link="librewriter"]:not(#mainMenu) {
+    width: var(--win-librewriter-width);
+    min-width: var(--win-librewriter-min-width);
+    height: var(--win-librewriter-height);
+    min-height: var(--win-librewriter-min-height);
+}
+
+div.windowElement[data-link="visionneur_images"]:not(#mainMenu),
+div.windowElement[data-link="visionneur_pdf"]:not(#mainMenu) {
+    width: var(--win-visionneur_images-width);
+    min-width: var(--win-visionneur_images-min-width);
+    height: var(--win-visionneur_images-height);
+    min-height: var(--win-visionneur_images-min-height);
+}
+
+div.windowElement[data-link="lecteur_multimedia"]:not(#mainMenu) {
+    width: var(--win-lecteur_multimedia-width);
+    min-width: var(--win-lecteur_multimedia-min-width);
+    height: var(--win-lecteur_multimedia-height);
+    min-height: var(--win-lecteur_multimedia-min-height);
 }
 
 #minimizeBtn {
-    background-image: url(../media/img/header/minimize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/minimize.svg);
     background-size: cover;
 }
 
 #resizeBtn {
-    background-image: url(../media/img/header/maximize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/maximize.svg);
     background-size: cover;
 }
 
 #closeBtn {
-    background-image: url(../media/img/header/close.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/close.svg);
     background-size: cover;
-}
-
-#windowIframe { 
-    display: var(--f);
-    flex-flow: var(--cnw);
-    align-items: var(--c);
-    justify-content: var(--c);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    height: var(--a);
-    min-height: calc(var(--full) - calc(var(--head) / 1.2));
-    border-radius: var(--z) var(--z) calc(var(--head) / 4) calc(var(--head) / 4);
-    overflow: var(--h);
-}
-
-section.windowElement {
-    display: var(--f);
-    flex-flow: var(--cnw);
-    align-items: var(--c);
-    justify-content: var(--c);
-    width: var(--full);
-    height: var(--full);
 }

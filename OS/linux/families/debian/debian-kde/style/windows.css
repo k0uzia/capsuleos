@@ -1,12 +1,12 @@
 @import url(../../../suse/opensuse/style/windows.css?v=20260514a);
 
 /* Les règles openSUSE sont scoppées sur body#opensuse : on les duplique pour Debian KDE. */
-body#debian-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
+body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
     height: var(--opensuse-konsole-header-height);
     min-height: var(--opensuse-konsole-header-height);
 }
 
-body#debian-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
+body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--opensuse-konsole-header-height));
     min-height: calc(100% - var(--opensuse-konsole-header-height));
 }
@@ -19,21 +19,21 @@ html[data-theme="light"] #debian-kde #windowTitle {
 
 /* Assure que les icônes des boutons existent aussi en file:// (CSS url ne passe pas par resolveCapsuleResourceUrl) */
 body#debian-kde #minimizeBtn {
-    background-image: url(../media/img/header/minimize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg);
 }
 
 body#debian-kde #resizeBtn {
-    background-image: url(../media/img/header/maximize.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/maximize.svg);
     background-size: calc(var(--head) / 2.55);
 }
 
 body#debian-kde .windowElement[data-maximized="true"] #resizeBtn {
-    background-image: url(../media/img/header/restore.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/restore.svg);
     background-size: calc(var(--head) / 2.55);
 }
 
 body#debian-kde #closeBtn {
-    background-image: url(../media/img/header/close.svg);
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/close.svg);
 }
 
 /* Boutons réduire / plein écran / fermer visibles en thème clair */

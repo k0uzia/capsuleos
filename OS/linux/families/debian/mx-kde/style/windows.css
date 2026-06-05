@@ -1,15 +1,15 @@
 div[class^="windowElement"]:not(#mainMenu) {
     position: var(--fix);
     top: var(--head);
-    bottom: calc(var(--head) * 1.5);
+    bottom: auto;
     display: var(--f);
     flex-flow: var(--cnw);
     align-items: var(--c);
     justify-content: var(--c);
-    width: calc(var(--mid) + var(--mid) / 4);
-    min-width: calc(var(--head) * 16);
-    height: calc(var(--head) * 10);
-    min-height: calc(var(--head) * 12);
+    width: var(--win-default-width);
+    min-width: var(--win-default-min-width);
+    height: var(--win-default-height);
+    min-height: var(--win-default-min-height);
     padding: calc(var(--head) / 20);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: calc(var(--head) / 3.2);
@@ -18,6 +18,55 @@ div[class^="windowElement"]:not(#mainMenu) {
     overflow: var(--h);
     scrollbar-width: var(--z);
     transition: border-color var(--eas2), box-shadow var(--ease), transform var(--eas2);
+}
+
+div.windowElement[data-link="nemo"]:not(#mainMenu) {
+    width: var(--win-nemo-width);
+    min-width: var(--win-nemo-min-width);
+    height: var(--win-nemo-height);
+    min-height: var(--win-nemo-min-height);
+}
+
+div.windowElement[data-link="firefox"]:not(#mainMenu) {
+    width: var(--win-firefox-width);
+    min-width: var(--win-firefox-min-width);
+    height: var(--win-firefox-height);
+    min-height: var(--win-firefox-min-height);
+}
+
+div.windowElement[data-link="terminal"]:not(#mainMenu) {
+    width: var(--win-terminal-width);
+    min-width: var(--win-terminal-min-width);
+    height: var(--win-terminal-height);
+    min-height: var(--win-terminal-min-height);
+}
+
+div.windowElement[data-link="profile"]:not(#mainMenu) {
+    width: var(--win-profile-width);
+    min-width: var(--win-profile-min-width);
+    height: var(--win-profile-height);
+    min-height: var(--win-profile-min-height);
+}
+
+div.windowElement[data-link="themes"]:not(#mainMenu) {
+    width: var(--win-themes-width);
+    min-width: var(--win-themes-min-width);
+    height: var(--win-themes-height);
+    min-height: var(--win-themes-min-height);
+}
+
+div.windowElement[data-link="checklist"]:not(#mainMenu) {
+    width: var(--win-checklist-width);
+    min-width: var(--win-checklist-min-width);
+    height: var(--win-checklist-height);
+    min-height: var(--win-checklist-min-height);
+}
+
+div.windowElement[data-link="update_manager"]:not(#mainMenu) {
+    width: var(--win-update_manager-width);
+    min-width: var(--win-update_manager-min-width);
+    height: var(--win-update_manager-height);
+    min-height: var(--win-update_manager-min-height);
 }
 
 .windowElementActive {
@@ -45,12 +94,12 @@ div[class^="windowElement"]:not(#mainMenu) {
     pointer-events: auto;
 }
 
-body#mx-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
+body#mx-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
     height: var(--mx-kde-konsole-header-height);
     min-height: var(--mx-kde-konsole-header-height);
 }
 
-body#mx-kde div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
+body#mx-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--mx-kde-konsole-header-height));
     min-height: calc(100% - var(--mx-kde-konsole-header-height));
 }
@@ -121,21 +170,21 @@ body#mx-kde #windowTitle {
 
 /* Contrôles fenêtre KDE — icônes robustes (éviter override apps) */
 body#mx-kde div.windowElement #windowHeader > nav:last-child > button#minimizeBtn {
-    background-image: url(../media/img/header/minimize.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg) !important;
 }
 
 body#mx-kde div.windowElement #windowHeader > nav:last-child > button#resizeBtn {
-    background-image: url(../media/img/header/window-restore.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg) !important;
     background-size: calc(var(--head) / 2.55) !important;
 }
 
 body#mx-kde div.windowElement[data-maximized="true"] #windowHeader > nav:last-child > button#resizeBtn {
-    background-image: url(../media/img/header/window-restore.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg) !important;
     background-size: calc(var(--head) / 2.55) !important;
 }
 
 body#mx-kde div.windowElement #windowHeader > nav:last-child > button#closeBtn {
-    background-image: url(../media/img/header/window-close.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-close.svg) !important;
     background-color: rgba(194, 72, 86, 0.14);
     border-color: rgba(255, 126, 138, 0.15);
 }

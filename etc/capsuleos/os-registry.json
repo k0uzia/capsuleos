@@ -1,0 +1,1272 @@
+{
+  "version": 1,
+  "updated": "2026-06-04",
+  "description": "Répertoire canonique des OS simulés CapsuleOS — source unique pour portail, agents, CI et assets.",
+  "tiers": {
+    "P0": "Référence pédagogique — figer, ne pas casser",
+    "P1": "Production active — parité fonctionnelle checklist",
+    "P2": "Planifié haute valeur — distro ou version majeure",
+    "P3": "Planifié moyen — extension catalogue",
+    "P4": "Recherche / stub — faisabilité, pas de promesse UX"
+  },
+  "families": [
+    {
+      "id": "linux",
+      "label": "Linux",
+      "shellPath": "usr/lib/capsuleos/shells/linux/",
+      "sharePath": "usr/share/capsuleos/linux/"
+    },
+    {
+      "id": "windows",
+      "label": "Windows",
+      "shellPath": "usr/lib/capsuleos/shells/windows/",
+      "sharePath": "usr/share/capsuleos/windows/"
+    },
+    {
+      "id": "macos",
+      "label": "macOS",
+      "shellPath": "OS/macos/",
+      "sharePath": "usr/share/capsuleos/macos/"
+    },
+    {
+      "id": "android",
+      "label": "Android",
+      "shellPath": "OS/android/js/",
+      "sharePath": "usr/share/capsuleos/android/"
+    },
+    {
+      "id": "ios",
+      "label": "iOS",
+      "shellPath": "OS/ios/",
+      "sharePath": "usr/share/capsuleos/ios/"
+    },
+    {
+      "id": "bsd",
+      "label": "BSD",
+      "shellPath": "OS/bsd/",
+      "sharePath": "usr/share/capsuleos/bsd/"
+    },
+    {
+      "id": "chromeos",
+      "label": "ChromeOS",
+      "shellPath": "OS/chromeos/",
+      "sharePath": "usr/share/capsuleos/chromeos/"
+    },
+    {
+      "id": "harmonyos",
+      "label": "HarmonyOS",
+      "shellPath": "OS/harmonyos/",
+      "sharePath": "usr/share/capsuleos/harmonyos/"
+    },
+    {
+      "id": "unix",
+      "label": "UNIX",
+      "shellPath": "OS/unix/",
+      "sharePath": "usr/share/capsuleos/unix/"
+    },
+    {
+      "id": "retro",
+      "label": "Rétro / alternatif",
+      "shellPath": "OS/retro/",
+      "sharePath": "usr/share/capsuleos/retro/"
+    }
+  ],
+  "toolkits": [
+    {
+      "id": "cinnamon",
+      "label": "Cinnamon (GTK3)",
+      "assetPack": "toolkits/cinnamon",
+      "explorerTemplates": [
+        "nemo"
+      ]
+    },
+    {
+      "id": "gnome",
+      "label": "GNOME (GTK4/libadwaita)",
+      "assetPack": "toolkits/gnome",
+      "explorerTemplates": [
+        "nemo-gnome",
+        "nemo"
+      ]
+    },
+    {
+      "id": "kde",
+      "label": "KDE Plasma (Qt/Breeze)",
+      "assetPack": "toolkits/kde",
+      "explorerTemplates": [
+        "dolphin"
+      ]
+    },
+    {
+      "id": "cosmic",
+      "label": "COSMIC (Pop!_OS)",
+      "assetPack": "toolkits/cosmic",
+      "explorerTemplates": [
+        "nemo-cosmic"
+      ]
+    },
+    {
+      "id": "pantheon",
+      "label": "Pantheon (elementary)",
+      "assetPack": "toolkits/pantheon",
+      "explorerTemplates": [
+        "nemo-gnome"
+      ]
+    },
+    {
+      "id": "xfce",
+      "label": "Xfce (GTK)",
+      "assetPack": "toolkits/xfce",
+      "explorerTemplates": [
+        "nemo"
+      ]
+    },
+    {
+      "id": "lxqt",
+      "label": "LXQt",
+      "assetPack": "toolkits/lxqt",
+      "explorerTemplates": [
+        "nemo"
+      ]
+    },
+    {
+      "id": "android-material",
+      "label": "Material You / AOSP",
+      "assetPack": "toolkits/android-material",
+      "explorerTemplates": []
+    },
+    {
+      "id": "windows-shell",
+      "label": "Windows shell (Win32/WinUI)",
+      "assetPack": "toolkits/windows",
+      "explorerTemplates": []
+    },
+    {
+      "id": "macos-aqua",
+      "label": "macOS Aqua / Human Interface",
+      "assetPack": "toolkits/macos-aqua",
+      "explorerTemplates": []
+    }
+  ],
+  "entries": [
+    {
+      "id": "linux-mint",
+      "family": "linux",
+      "vendor": "mint",
+      "displayName": "Linux Mint (Cinnamon)",
+      "tier": "P0",
+      "status": "active",
+      "maturity": 0.95,
+      "facade": "OS/linux/families/debian/mint/index.html",
+      "skin": "home/Debian/Mint/index.html",
+      "toolkit": "cinnamon",
+      "shell": "cinnamon",
+      "fileManager": "Nemo",
+      "explorerTemplate": "nemo",
+      "embedKey": "mint",
+      "bodyId": "mint",
+      "skills": [
+        "os-linux"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Cinnamon",
+          "url": "https://projects.linuxmint.com/cinnamon/"
+        }
+      ],
+      "licenseNotes": "Mint-Y / Adwaita dérivés — auditer SVG custom GPL/LGPL",
+      "iconPacks": [
+        "Adwaita",
+        "Mint-Y"
+      ]
+    },
+    {
+      "id": "linux-ubuntu",
+      "family": "linux",
+      "vendor": "ubuntu",
+      "displayName": "Ubuntu 25.10",
+      "tier": "P0",
+      "status": "active",
+      "maturity": 0.75,
+      "facade": "OS/linux/families/debian/ubuntu/index.html",
+      "skin": "home/Debian/Ubuntu/index.html",
+      "toolkit": "gnome",
+      "shell": "gnome-shell",
+      "fileManager": "Fichiers",
+      "explorerTemplate": "nemo-gnome",
+      "embedKey": "ubuntu",
+      "bodyId": "ubuntu",
+      "skills": [
+        "os-linux"
+      ],
+      "sources": [
+        {
+          "type": "hig",
+          "label": "GNOME HIG",
+          "url": "https://developer.gnome.org/hig/"
+        }
+      ],
+      "licenseNotes": "Yaru + Adwaita (GPL/LGPL)",
+      "iconPacks": [
+        "Yaru",
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-fedora",
+      "family": "linux",
+      "vendor": "fedora",
+      "displayName": "Fedora Workstation",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.65,
+      "facade": "OS/linux/families/redhat/fedora/index.html",
+      "skin": "home/RedHat/Fedora/index.html",
+      "toolkit": "gnome",
+      "shell": "gnome-shell",
+      "fileManager": "Fichiers",
+      "explorerTemplate": "nemo",
+      "embedKey": "fedora",
+      "bodyId": "fedora",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Adwaita",
+      "iconPacks": [
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-mx-kde",
+      "family": "linux",
+      "vendor": "mx",
+      "displayName": "MX Linux KDE",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.85,
+      "facade": "OS/linux/families/debian/mx-kde/index.html",
+      "skin": "home/Debian/MX-KDE/index.html",
+      "toolkit": "kde",
+      "shell": "plasma",
+      "fileManager": "Dolphin",
+      "explorerTemplate": "dolphin",
+      "embedKey": "mxkde",
+      "bodyId": "mx-kde",
+      "skills": [
+        "os-linux"
+      ],
+      "assetPacks": [
+        "toolkits/kde",
+        "vendors/mx"
+      ],
+      "licenseNotes": "Breeze + pack MX FOSS",
+      "iconPacks": [
+        "Breeze"
+      ]
+    },
+    {
+      "id": "linux-debian-kde",
+      "family": "linux",
+      "vendor": "debian",
+      "displayName": "Debian KDE (Plasma)",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.7,
+      "facade": "OS/linux/families/debian/debian-kde/index.html",
+      "skin": "home/Debian/Debian-KDE/index.html",
+      "toolkit": "kde",
+      "shell": "plasma",
+      "fileManager": "Dolphin",
+      "explorerTemplate": "dolphin",
+      "embedKey": "debiankde",
+      "bodyId": "debian-kde",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Breeze ; pack usr/share/capsuleos/assets/icons/kde/",
+      "iconPacks": [
+        "Breeze"
+      ]
+    },
+    {
+      "id": "linux-opensuse",
+      "family": "linux",
+      "vendor": "opensuse",
+      "displayName": "openSUSE Tumbleweed",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.85,
+      "facade": "OS/linux/families/suse/opensuse/index.html",
+      "skin": "home/SUSE/openSUSE/index.html",
+      "toolkit": "kde",
+      "shell": "plasma",
+      "fileManager": "Dolphin",
+      "explorerTemplate": "dolphin",
+      "embedKey": "opensuse",
+      "bodyId": "opensuse",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Breeze, thème openSUSE",
+      "iconPacks": [
+        "Breeze"
+      ]
+    },
+    {
+      "id": "linux-popos",
+      "family": "linux",
+      "vendor": "popos",
+      "displayName": "Pop!_OS",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.55,
+      "facade": "OS/linux/families/debian/popos/index.html",
+      "skin": "home/Debian/PopOS/index.html",
+      "toolkit": "cosmic",
+      "shell": "cosmic",
+      "fileManager": "Fichiers",
+      "explorerTemplate": "nemo-cosmic",
+      "embedKey": "popos",
+      "bodyId": "popos",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "COSMIC icons (auditer) + Adwaita fallback",
+      "iconPacks": [
+        "COSMIC",
+        "Adwaita"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "COSMIC design",
+          "url": "https://github.com/pop-os/cosmic-design"
+        }
+      ]
+    },
+    {
+      "id": "linux-anduinos",
+      "family": "linux",
+      "vendor": "anduin",
+      "displayName": "AnduinOS",
+      "tier": "P3",
+      "status": "active",
+      "maturity": 0.5,
+      "facade": "OS/linux/families/debian/anduinos/index.html",
+      "skin": "home/Debian/AnduinOS/index.html",
+      "toolkit": "gnome",
+      "shell": "anduin-shell",
+      "fileManager": "Fichiers",
+      "explorerTemplate": "nemo-gnome",
+      "embedKey": "anduinos",
+      "bodyId": "anduinos",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Adwaita / dérivés",
+      "iconPacks": [
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-arch",
+      "family": "linux",
+      "vendor": "arch",
+      "displayName": "Arch Linux",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "minimal",
+      "shell": "configurable",
+      "fileManager": "variable",
+      "skills": [
+        "os-linux"
+      ],
+      "sources": [
+        {
+          "type": "wiki",
+          "label": "Arch Wiki",
+          "url": "https://wiki.archlinux.org/"
+        }
+      ],
+      "licenseNotes": "Papirus, Adwaita, Breeze selon DE simulé",
+      "iconPacks": [
+        "Papirus",
+        "Adwaita",
+        "Breeze"
+      ]
+    },
+    {
+      "id": "linux-manjaro-kde",
+      "family": "linux",
+      "vendor": "manjaro",
+      "displayName": "Manjaro KDE",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "kde",
+      "shell": "plasma",
+      "fileManager": "Dolphin",
+      "explorerTemplate": "dolphin",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Breeze/Adwaita FOSS uniquement",
+      "iconPacks": [
+        "Breeze",
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-manjaro-gnome",
+      "family": "linux",
+      "vendor": "manjaro",
+      "displayName": "Manjaro GNOME",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "gnome",
+      "shell": "gnome-shell",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-elementary",
+      "family": "linux",
+      "vendor": "elementary",
+      "displayName": "elementary OS",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "pantheon",
+      "shell": "pantheon",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-linux"
+      ],
+      "sources": [
+        {
+          "type": "hig",
+          "label": "Human Interface Guidelines",
+          "url": "https://docs.elementary.io/hig/"
+        }
+      ],
+      "licenseNotes": "elementary icons (GPL) — respecter marque",
+      "iconPacks": [
+        "elementary"
+      ]
+    },
+    {
+      "id": "linux-zorin",
+      "family": "linux",
+      "vendor": "zorin",
+      "displayName": "Zorin OS",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "gnome",
+      "shell": "zorin-shell",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Adwaita ; marque Zorin non redistribuable",
+      "iconPacks": [
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-rocky",
+      "family": "linux",
+      "vendor": "rocky",
+      "displayName": "Rocky Linux (GNOME)",
+      "tier": "P3",
+      "status": "active",
+      "maturity": 0.35,
+      "facade": "OS/linux/families/redhat/rocky/index.html",
+      "skin": "home/RedHat/Rocky/index.html",
+      "toolkit": "gnome",
+      "shell": "gnome-shell",
+      "fileManager": "Fichiers",
+      "explorerTemplate": "nemo-gnome",
+      "embedKey": "rocky",
+      "bodyId": "rocky",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-alma",
+      "family": "linux",
+      "vendor": "alma",
+      "displayName": "AlmaLinux (GNOME)",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "gnome",
+      "shell": "gnome-shell",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-kali",
+      "family": "linux",
+      "vendor": "kali",
+      "displayName": "Kali Linux",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "xfce",
+      "shell": "xfce",
+      "fileManager": "Thunar",
+      "skills": [
+        "os-linux"
+      ],
+      "sources": [
+        {
+          "type": "wiki",
+          "label": "Xfce docs",
+          "url": "https://docs.xfce.org/"
+        }
+      ],
+      "licenseNotes": "Papirus/Faenza ; éviter assets offensive-security non FOSS",
+      "iconPacks": [
+        "Papirus",
+        "Faenza"
+      ]
+    },
+    {
+      "id": "linux-steamos",
+      "family": "linux",
+      "vendor": "valve",
+      "displayName": "SteamOS / Steam Deck UI",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "kde",
+      "shell": "gamescope-steam",
+      "fileManager": "Dolphin",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Breeze ; branding Valve en récréation",
+      "iconPacks": [
+        "Breeze"
+      ]
+    },
+    {
+      "id": "linux-nixos",
+      "family": "linux",
+      "vendor": "nixos",
+      "displayName": "NixOS (concept)",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "toolkit": "configurable",
+      "shell": "configurable",
+      "fileManager": "variable",
+      "skills": [
+        "os-linux"
+      ],
+      "licenseNotes": "Skin pédagogique générique + terminal",
+      "iconPacks": [
+        "Adwaita"
+      ]
+    },
+    {
+      "id": "linux-slackware",
+      "family": "linux",
+      "vendor": "slackware",
+      "displayName": "Slackware",
+      "tier": "P4",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "xfce",
+      "shell": "xfce",
+      "fileManager": "Thunar",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-gentoo",
+      "family": "linux",
+      "vendor": "gentoo",
+      "displayName": "Gentoo (minimal)",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "toolkit": "minimal",
+      "shell": "openrc",
+      "fileManager": "variable",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-xubuntu",
+      "family": "linux",
+      "vendor": "ubuntu",
+      "displayName": "Xubuntu (Xfce)",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "xfce",
+      "shell": "xfce",
+      "fileManager": "Thunar",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "linux-lxqt",
+      "family": "linux",
+      "vendor": "generic",
+      "displayName": "LXQt (générique)",
+      "tier": "P4",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "lxqt",
+      "shell": "lxqt",
+      "fileManager": "PCManFM-Qt",
+      "skills": [
+        "os-linux"
+      ]
+    },
+    {
+      "id": "windows-95",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 95",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.4,
+      "facade": "OS/windows/versions/95/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win95-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win95",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée — aucun bitmap Microsoft"
+    },
+    {
+      "id": "windows-98",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 98",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.4,
+      "facade": "OS/windows/versions/98/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win98-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win98",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée — aucun bitmap Microsoft"
+    },
+    {
+      "id": "windows-me",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows ME",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.35,
+      "facade": "OS/windows/versions/me/index.html",
+      "toolkit": "windows-shell",
+      "shell": "winme-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "winme",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée — aucun bitmap Microsoft"
+    },
+    {
+      "id": "windows-2000",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 2000",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.45,
+      "facade": "OS/windows/versions/2000/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win2000-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win2000",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée"
+    },
+    {
+      "id": "windows-xp",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows XP",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.7,
+      "facade": "OS/windows/versions/xp/index.html",
+      "toolkit": "windows-shell",
+      "shell": "winxp-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "winxp",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée style Luna"
+    },
+    {
+      "id": "windows-vista",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows Vista",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.5,
+      "facade": "OS/windows/versions/vista/index.html",
+      "toolkit": "windows-shell",
+      "shell": "winvista-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "winvista",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée style Aero"
+    },
+    {
+      "id": "windows-7",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 7",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.75,
+      "facade": "OS/windows/versions/7/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win7-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win7",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée style Aero"
+    },
+    {
+      "id": "windows-8",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 8",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.55,
+      "facade": "OS/windows/versions/8/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win8-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win8",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée Modern UI"
+    },
+    {
+      "id": "windows-8.1",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 8.1",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.55,
+      "facade": "OS/windows/versions/8.1/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win8.1-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win8.1",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée Modern UI + bureau"
+    },
+    {
+      "id": "windows-10",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 10",
+      "tier": "P0",
+      "status": "active",
+      "maturity": 0.8,
+      "facade": "OS/windows/versions/10/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win10-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win10",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée Fluent"
+    },
+    {
+      "id": "windows-11",
+      "family": "windows",
+      "vendor": "microsoft",
+      "displayName": "Windows 11",
+      "tier": "P0",
+      "status": "active",
+      "maturity": 0.85,
+      "facade": "OS/windows/versions/11/index.html",
+      "toolkit": "windows-shell",
+      "shell": "win11-shell",
+      "fileManager": "Explorateur",
+      "embedKey": "win11",
+      "skills": [
+        "os-windows"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "Microsoft Design (WinUI)",
+          "url": "https://learn.microsoft.com/windows/apps/design/"
+        }
+      ],
+      "licenseNotes": "UI récréée Fluent + Mica"
+    },
+    {
+      "id": "macos-sonoma",
+      "family": "macos",
+      "vendor": "apple",
+      "displayName": "macOS Sonoma",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.6,
+      "facade": "OS/macos/sonoma/index.html",
+      "toolkit": "macos-aqua",
+      "shell": "aqua",
+      "fileManager": "Finder",
+      "embedKey": "sonoma",
+      "skills": [
+        "os-macos"
+      ],
+      "sources": [
+        {
+          "type": "hig",
+          "label": "Apple HIG",
+          "url": "https://developer.apple.com/design/human-interface-guidelines/"
+        }
+      ],
+      "licenseNotes": "Récréation SVG ; pas SF Symbols ni assets Apple",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "macos-ventura",
+      "family": "macos",
+      "vendor": "apple",
+      "displayName": "macOS Ventura",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "aqua",
+      "fileManager": "Finder",
+      "skills": [
+        "os-macos"
+      ],
+      "licenseNotes": "Récréation SVG ; pas assets Apple",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "macos-monterey",
+      "family": "macos",
+      "vendor": "apple",
+      "displayName": "macOS Monterey",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "aqua",
+      "fileManager": "Finder",
+      "skills": [
+        "os-macos"
+      ],
+      "licenseNotes": "Récréation SVG ; pas assets Apple",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "macos-sequoia",
+      "family": "macos",
+      "vendor": "apple",
+      "displayName": "macOS Sequoia",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "aqua",
+      "fileManager": "Finder",
+      "skills": [
+        "os-macos"
+      ],
+      "licenseNotes": "Récréation SVG ; pas assets Apple",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "macos-big-sur",
+      "family": "macos",
+      "vendor": "apple",
+      "displayName": "macOS Big Sur",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "aqua",
+      "fileManager": "Finder",
+      "skills": [
+        "os-macos"
+      ],
+      "licenseNotes": "Récréation SVG ; pas assets Apple",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "android-vanilla",
+      "family": "android",
+      "vendor": "google",
+      "displayName": "Android (Vanilla Ice Cream)",
+      "tier": "P1",
+      "status": "active",
+      "maturity": 0.5,
+      "facade": "OS/android/index.html",
+      "toolkit": "android-material",
+      "shell": "material-you",
+      "fileManager": "Files",
+      "embedKey": "android",
+      "skills": [
+        "os-android"
+      ],
+      "sources": [
+        {
+          "type": "hig",
+          "label": "Material Design 3",
+          "url": "https://m3.material.io/"
+        }
+      ],
+      "licenseNotes": "Material Symbols Apache-2.0 ; pas assets Google Play retail",
+      "iconPacks": [
+        "Material Symbols"
+      ]
+    },
+    {
+      "id": "android-lineage",
+      "family": "android",
+      "vendor": "lineage",
+      "displayName": "LineageOS (style AOSP)",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "android-material",
+      "shell": "aosp",
+      "fileManager": "Files",
+      "skills": [
+        "os-android"
+      ]
+    },
+    {
+      "id": "ios-15",
+      "family": "ios",
+      "vendor": "apple",
+      "displayName": "iOS 15",
+      "tier": "P2",
+      "status": "active",
+      "maturity": 0.35,
+      "facade": "OS/ios/15/index.html",
+      "toolkit": "macos-aqua",
+      "shell": "ios-springboard",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-ios"
+      ],
+      "licenseNotes": "Récréation stricte UIKit patterns",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "ios-17",
+      "family": "ios",
+      "vendor": "apple",
+      "displayName": "iOS 17",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "ios-springboard",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-ios"
+      ],
+      "licenseNotes": "Récréation stricte",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "ios-18",
+      "family": "ios",
+      "vendor": "apple",
+      "displayName": "iOS 18",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "macos-aqua",
+      "shell": "ios-springboard",
+      "fileManager": "Fichiers",
+      "skills": [
+        "os-ios"
+      ],
+      "licenseNotes": "Récréation stricte",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "freebsd",
+      "family": "bsd",
+      "vendor": "freebsd",
+      "displayName": "FreeBSD",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "minimal",
+      "shell": "generic",
+      "fileManager": "variable",
+      "skills": [
+        "os-bsd"
+      ],
+      "sources": [
+        {
+          "type": "wiki",
+          "label": "FreeBSD Handbook",
+          "url": "https://docs.freebsd.org/en/books/handbook/"
+        }
+      ],
+      "licenseNotes": "Adwaita/Papirus via ports"
+    },
+    {
+      "id": "openbsd",
+      "family": "bsd",
+      "vendor": "openbsd",
+      "displayName": "OpenBSD",
+      "tier": "P4",
+      "status": "planned",
+      "maturity": 0,
+      "skills": [
+        "os-bsd"
+      ]
+    },
+    {
+      "id": "netbsd",
+      "family": "bsd",
+      "vendor": "netbsd",
+      "displayName": "NetBSD",
+      "tier": "P4",
+      "status": "planned",
+      "maturity": 0,
+      "skills": [
+        "os-bsd"
+      ]
+    },
+    {
+      "id": "ghostbsd",
+      "family": "bsd",
+      "vendor": "ghostbsd",
+      "displayName": "GhostBSD",
+      "tier": "P3",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "mate",
+      "shell": "mate",
+      "fileManager": "Caja",
+      "skills": [
+        "os-bsd"
+      ],
+      "sources": [
+        {
+          "type": "wiki",
+          "label": "MATE",
+          "url": "https://wiki.mate-desktop.org/"
+        }
+      ],
+      "licenseNotes": "MATE icons GPL",
+      "iconPacks": [
+        "MATE"
+      ]
+    },
+    {
+      "id": "chromeos",
+      "family": "chromeos",
+      "vendor": "google",
+      "displayName": "ChromeOS",
+      "tier": "P2",
+      "status": "planned",
+      "maturity": 0,
+      "toolkit": "chromeos",
+      "shell": "chrome-shell",
+      "fileManager": "Files",
+      "skills": [
+        "os-chromeos"
+      ],
+      "sources": [
+        {
+          "type": "design",
+          "label": "ChromeOS design notes",
+          "url": "https://www.chromium.org/chromium-os/"
+        }
+      ],
+      "licenseNotes": "Material + récréation ; pas logos Chrome retail",
+      "iconPacks": [
+        "Material Symbols"
+      ]
+    },
+    {
+      "id": "harmonyos",
+      "family": "harmonyos",
+      "vendor": "huawei",
+      "displayName": "HarmonyOS",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "skills": [
+        "os-harmonyos"
+      ],
+      "licenseNotes": "Assets Huawei interdits ; UI inspirée uniquement",
+      "assetPolicy": "proprietaryUi"
+    },
+    {
+      "id": "solaris-illumos",
+      "family": "unix",
+      "vendor": "oracle",
+      "displayName": "Solaris / illumos (CDE aesthetic)",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "skills": [
+        "os-unix"
+      ]
+    },
+    {
+      "id": "haiku",
+      "family": "retro",
+      "vendor": "haiku",
+      "displayName": "Haiku OS",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "skills": [
+        "os-stub"
+      ],
+      "licenseNotes": "Haiku icons MIT",
+      "iconPacks": [
+        "Haiku"
+      ]
+    },
+    {
+      "id": "reactos",
+      "family": "retro",
+      "vendor": "reactos",
+      "displayName": "ReactOS",
+      "tier": "P4",
+      "status": "stub",
+      "maturity": 0,
+      "toolkit": "windows-shell",
+      "skills": [
+        "os-windows"
+      ],
+      "licenseNotes": "Projet FOSS ; style Win2k/XP"
+    }
+  ],
+  "stats": {
+    "total": 52,
+    "active": 23,
+    "planned": 23,
+    "stub": 6
+  },
+  "assetPolicy": {
+    "default": "Icônes FOSS uniquement (Adwaita, Breeze, Papirus, Material Symbols…)",
+    "proprietaryUi": "macOS, iOS, Windows, HarmonyOS → récréations SVG CapsuleOS, jamais assets officiels Apple/Microsoft/Huawei",
+    "distroBranding": "Logos distro : usage éducatif, vérifier charte marque ; pas de redistribution commerciale"
+  }
+}

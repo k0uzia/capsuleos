@@ -73,14 +73,14 @@ body#opensuse div[data-link="librewriter"] #windowHeader > nav:first-child::afte
 body#opensuse div[data-link="librewriter"] #windowHeader > nav:first-child::before {
     width: var(--opensuse-header-icon-size);
     height: var(--opensuse-header-icon-size);
-    background-image: url("./media/img/apps/libreoffice-writer.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/libreoffice-writer.svg");
     opacity: 0.94;
 }
 
 body#opensuse div[data-link="librewriter"] #windowHeader > nav:first-child::after {
     width: var(--opensuse-header-pin-size);
     height: var(--opensuse-header-pin-size);
-    background-image: url("./media/img/elements/nemo/add-pin.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/add-pin.svg");
     filter: var(--opensuse-mono-logo-filter);
     opacity: 0.76;
 }
@@ -136,18 +136,18 @@ body#opensuse div[data-link="librewriter"] #windowHeader > nav:last-child > butt
 }
 
 body#opensuse div[data-link="librewriter"] #minimizeBtn {
-    background-image: url("./media/img/header/go-down.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/go-down.svg");
     background-size: 0.72rem;
     filter: var(--opensuse-header-control-filter);
 }
 
 body#opensuse div[data-link="librewriter"] #resizeBtn {
-    background-image: url("./media/img/header/window-restore.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg");
     background-size: 0.72rem;
 }
 
 body#opensuse div[data-link="librewriter"] #closeBtn {
-    background-image: url("./media/img/header/window-close.svg");
+    background-image: url("../../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-close.svg");
     background-size: 0.72rem;
     background-color: transparent;
     border-color: transparent;

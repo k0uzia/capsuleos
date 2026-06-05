@@ -45,12 +45,12 @@ div[class^="windowElement"]:not(#mainMenu) {
     pointer-events: auto;
 }
 
-body#opensuse div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowHeader {
+body#opensuse div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
     height: var(--opensuse-konsole-header-height);
     min-height: var(--opensuse-konsole-header-height);
 }
 
-body#opensuse div.windowElement:not([data-link="fileExplorer"]):not(#mainMenu) #windowIframe {
+body#opensuse div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
     height: calc(100% - var(--opensuse-konsole-header-height));
     min-height: calc(100% - var(--opensuse-konsole-header-height));
 }
@@ -120,21 +120,21 @@ body#opensuse #windowTitle {
 
 /* Contrôles fenêtre KDE — icônes robustes (éviter override apps) */
 body#opensuse div.windowElement #windowHeader > nav:last-child > button#minimizeBtn {
-    background-image: url(../media/img/header/minimize.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg) !important;
 }
 
 body#opensuse div.windowElement #windowHeader > nav:last-child > button#resizeBtn {
-    background-image: url(../media/img/header/window-restore.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg) !important;
     background-size: calc(var(--head) / 2.55) !important;
 }
 
 body#opensuse div.windowElement[data-maximized="true"] #windowHeader > nav:last-child > button#resizeBtn {
-    background-image: url(../media/img/header/window-restore.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg) !important;
     background-size: calc(var(--head) / 2.55) !important;
 }
 
 body#opensuse div.windowElement #windowHeader > nav:last-child > button#closeBtn {
-    background-image: url(../media/img/header/window-close.svg) !important;
+    background-image: url(../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-close.svg) !important;
     background-color: rgba(194, 72, 86, 0.14);
     border-color: rgba(255, 126, 138, 0.15);
 }

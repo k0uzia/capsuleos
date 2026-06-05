@@ -20,27 +20,6 @@ const fileViewerState = {
     lecteur_multimedia: null
 };
 
-const VIEWER_ROOT_BY_APP = {
-    visionneur_images: 'visionneurImages',
-    visionneur_pdf: 'visionneurPdf',
-    lecteur_multimedia: 'lecteurMultimedia'
-};
-
-const getViewerUi = (appId) => {
-    const mainId = VIEWER_ROOT_BY_APP[appId];
-    if (!mainId) {
-        return null;
-    }
-    const root = document.getElementById(mainId);
-    if (!root) {
-        return null;
-    }
-    return {
-        fileNameElement: root.querySelector('.viewer-app__filename'),
-        contentElement: root.querySelector('.viewer-app__content')
-    };
-};
-
 const getFileViewerTargetByExtension = (extension) => {
     if (!extension) {
         return null;
@@ -131,9 +110,8 @@ const openViewerWindow = (appId) => {
 };
 
 const renderImageViewer = (payload) => {
-    const ui = getViewerUi('visionneur_images');
-    const fileNameElement = ui && ui.fileNameElement;
-    const contentElement = ui && ui.contentElement;
+    const fileNameElement = document.getElementById('mint-image-viewer-filename');
+    const contentElement = document.getElementById('mint-image-viewer-content');
 
     if (!fileNameElement || !contentElement || !payload) {
         return;
@@ -155,9 +133,8 @@ const renderImageViewer = (payload) => {
 };
 
 const renderPdfViewer = (payload) => {
-    const ui = getViewerUi('visionneur_pdf');
-    const fileNameElement = ui && ui.fileNameElement;
-    const contentElement = ui && ui.contentElement;
+    const fileNameElement = document.getElementById('mint-pdf-viewer-filename');
+    const contentElement = document.getElementById('mint-pdf-viewer-content');
 
     if (!fileNameElement || !contentElement || !payload) {
         return;
@@ -190,9 +167,8 @@ const buildSourceElement = (href, type) => {
 };
 
 const renderMediaViewer = (payload) => {
-    const ui = getViewerUi('lecteur_multimedia');
-    const fileNameElement = ui && ui.fileNameElement;
-    const contentElement = ui && ui.contentElement;
+    const fileNameElement = document.getElementById('mint-media-viewer-filename');
+    const contentElement = document.getElementById('mint-media-viewer-content');
 
     if (!fileNameElement || !contentElement || !payload) {
         return;

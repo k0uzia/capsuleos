@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "description": "Copier vers lab-inventory.json (local). Gitignoré. Champs Wayland/RHEL : root/docs/lab-vm-rhel-wayland.md",
+  "hosts": [
+    {
+      "registryId": "linux-mint",
+      "ssh": "capsule@192.168.1.146",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "/home/capsule/capsuleos-lab/os-probe.sh",
+      "display": ":0",
+      "toolkit": "cinnamon",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Debian/Mint/index.html"
+    },
+    {
+      "registryId": "linux-fedora-kde",
+      "ssh": "user@192.168.1.103",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "/home/capsule/capsuleos-lab/os-probe.sh",
+      "display": ":0",
+      "toolkit": "kde",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Fedora/index.html"
+    },
+    {
+      "registryId": "linux-rocky",
+      "family": "linux",
+      "vendor": "rocky",
+      "ssh": "capsule@192.168.122.234",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "$HOME/capsuleos-lab/os-probe-gnome.sh",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome",
+      "hypervisor": "libvirt",
+      "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html"
+    }
+  ]
+}

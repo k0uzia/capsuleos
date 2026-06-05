@@ -2,62 +2,92 @@
 <html lang="fr">
 
 <head>
+    <!-- Facade URL stable : pick-os.js → ./OS/linux/families/debian/mint/index.html -->
+    <base href="../../../../../home/Debian/Mint/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./assets/mint.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
     <link rel="stylesheet" href="./style/style.css?v=20260421a" type="text/css">
-    <link rel="stylesheet" href="../../../shared/apps/style/Dossier personnel.base.css" type="text/css">
+    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>Mint</title>
 </head>
 <body id="mint">
-    <object id="desktop">
-        <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Linux Mint Cinnamon À Propos">
-            <img src="./media/img/apps/user-info.png" alt="Linux Mint Cinnamon À Propos">
-            <span>Linux Mint Cinnamon<br>À Propos</span>
-        </a>
-        <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="fileExplorer" id="fileExplorer" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="firefox" id="firefox" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="terminal" id="terminal" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="themes" id="themes" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="profile" id="profile" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="checklist" id="checklist" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none; position: fixed;"></div>
-        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none; position: fixed;"></div>
-    </object>
+    <div id="desktop" role="application" aria-label="Bureau Linux Mint">
+        <div class="desktop-shortcuts" role="list" aria-label="Favoris du bureau">
+            <a class="desktop-shortcut" target="windowElement" data-link="calculator" title="Calculatrice" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.png" alt="">
+                <span>Calculatrice</span>
+            </a>
+            <a class="desktop-shortcut" href="#" data-mint-favorite="calendar" title="Agenda" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calendar.png" alt="">
+                <span>Agenda</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="text_editor" title="Éditeur de texte (xed)" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.png" alt="">
+                <span>Éditeur de texte</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="update_manager" title="Logithèque" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.png" alt="">
+                <span>Logithèque</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="themes" title="Paramètres du système" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.png" alt="">
+                <span>Paramètres</span>
+            </a>
+            <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Linux Mint Cinnamon À Propos" role="listitem">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/user-info.png" alt="">
+                <span>Linux Mint<br>À Propos</span>
+            </a>
+        </div>
+        <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
+        <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
+        <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
+        <div class="windowElement" data-link="terminal" id="terminal" style="display: none;"></div>
+        <div class="windowElement" data-link="themes" id="themes" style="display: none;"></div>
+        <div class="windowElement" data-link="profile" id="profile" style="display: none;"></div>
+        <div class="windowElement" data-link="checklist" id="checklist" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_images" id="visionneur_images" style="display: none;"></div>
+        <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
+        <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
+        <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
+        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
+        <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
+        <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
+        <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+        <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
+    </div>
     <footer id="tableau">
         <nav>
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
-                <img src="./media/img/assets/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
-            <a target="windowElement" data-link="fileExplorer" title="Explorateur de fichiers nemo">
-                <img src="./media/img/elements/nemo/folder.png" alt="Nemo" title="Explorateur de fichiers nemo">
+            <a target="windowElement" data-link="nemo" title="Fichiers">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.png" alt="Fichiers" title="Fichiers">
             </a>
-            <a target="windowElement" data-link="firefox" title="Ouvrir un navigateur WEB">
-                <img src="../../../shared/media/img/apps/firefox.png" alt="Firefox" title="Ouvrir un navigateur WEB">
+            <a target="windowElement" data-link="firefox" title="Firefox">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.png" alt="Firefox" title="Firefox">
             </a>
-            <a target="windowElement" data-link="terminal" title="Ouvrir un terminal">
-                <img src="./media/img/apps/utilities-terminal.png" alt="Terminal" title="Ouvrir un terminal">
+            <a target="windowElement" data-link="terminal" title="Terminal">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.png" alt="Terminal" title="Terminal">
             </a>
             <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
-                <img src="./media/img/apps/libreoffice-writer.png" alt="LibreOffice Writer" title="LibreOffice Writer">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/libreoffice-writer.png" alt="LibreOffice Writer" title="LibreOffice Writer">
             </a>
-            <a target="windowElement" data-link="themes" title="Ouvrir les themes">
-                <img src="./media/img/apps/preferences-desktop-theme.png" alt="Themes" title="Ouvrir les themes">
+            <a target="windowElement" data-link="themes" title="Thèmes">
+                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.png" alt="Thèmes" title="Thèmes">
             </a>
             <a target="windowElement" data-link="checklist" title="Missions de découverte">
-                <img src="./media/img/apps/checkbox.png" alt="Checklist" title="Missions de découverte">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/checkbox.png" alt="Checklist" title="Missions de découverte">
             </a>
-            <a href="../../../../../index.html">
-                <img src="../../../../../assets/accueil.svg" alt="Retour à l'accueil" title="Retour à l'accueil">
+            <a href="../../../index.html">
+                <img src="../../../usr/share/capsuleos/assets/images/common/accueil.svg" alt="Retour à l'accueil" title="Retour à l'accueil">
             </a>
+            <ul id="taskbar-window-list" class="taskbar-window-list" role="list" hidden></ul>
         </nav>
         <div class="taskbar-right">
-            <div class="taskbar-tray">
+            <div class="taskbar-tray" aria-label="Zone de notification">
                 <button type="button"
                         class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray
@@ -66,11 +96,49 @@
                         title="Gestionnaire de mise à jour">
                     <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
-                <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true" title="Réseau"></span>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-xapp"
+                        aria-expanded="false" aria-controls="mint-tray-popover-xapp"
+                        aria-label="Applications XApp" title="Applications XApp">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-notifications"
+                        aria-expanded="false" aria-controls="mint-tray-popover-notifications"
+                        aria-label="Notifications" title="Notifications">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--notifications" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-printers"
+                        aria-expanded="false" aria-controls="mint-tray-popover-printers"
+                        aria-label="Imprimantes" title="Imprimantes">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-removable"
+                        aria-expanded="false" aria-controls="mint-tray-popover-removable"
+                        aria-label="Supports amovibles" title="Supports amovibles">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-keyboard"
+                        aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
+                        aria-label="Disposition du clavier" title="Disposition du clavier">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
+                        aria-expanded="false" aria-controls="mint-tray-popover-network"
+                        aria-label="Réseau" title="Réseau">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true"></span>
+                </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
                         aria-expanded="false" aria-controls="volume-popover"
-                        aria-label="Contrôle du volume">
-                    <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
+                        aria-label="Contrôle du volume" title="Volume">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power"
+                        aria-expanded="false" aria-controls="mint-power-menu"
+                        aria-label="Alimentation" title="Alimentation">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar" id="tray-btn-cornerbar"
+                        aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true"></span>
                 </button>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
@@ -78,6 +146,13 @@
             </button>
         </div>
     </footer>
+
+    <div id="desktop-context-menu" class="desktop-context-menu" role="menu" hidden>
+        <button type="button" class="desktop-context-menu__item" data-desktop-action="wallpaper">Changer le fond d'écran…</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-action="desktop-settings">Paramètres du bureau</button>
+        <div class="desktop-context-menu__separator" role="separator"></div>
+        <button type="button" class="desktop-context-menu__item" data-desktop-action="refresh">Actualiser le bureau</button>
+    </div>
 
     <div class="calendar-popover" id="taskbar-calendar-popover" role="dialog" aria-label="Calendrier" hidden>
         <header class="calendar-popover__top">
@@ -108,6 +183,75 @@
             <button type="button" class="calendar-popover__settings-btn">Paramètres de date et d'heure</button>
         </footer>
     </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-xapp" role="dialog" aria-label="Applications XApp" hidden>
+        <p class="mint-tray-popover__empty">Aucun indicateur XApp actif</p>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-notifications" role="dialog" aria-label="Notifications" hidden>
+        <div class="mint-tray-popover__title">Notifications</div>
+        <div id="mint-notifications-list">
+            <div class="mint-notification-item">
+                <span class="mint-tray-popover__row-icon taskbar-tray__icon--shield" aria-hidden="true"></span>
+                <div class="mint-notification-item__body">
+                    <div class="mint-notification-item__title">Mises à jour disponibles</div>
+                    <p class="mint-notification-item__text">Des mises à jour système sont prêtes à être installées.</p>
+                </div>
+            </div>
+        </div>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-notifications-clear">Effacer tout</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-printers" role="dialog" aria-label="Imprimantes" hidden>
+        <p class="mint-tray-popover__empty">Aucune imprimante configurée</p>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-tray-printers-settings">Paramètres des imprimantes…</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-removable" role="dialog" aria-label="Supports amovibles" hidden>
+        <p class="mint-tray-popover__empty">Aucun support amovible détecté</p>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-keyboard" role="dialog" aria-label="Disposition du clavier" hidden>
+        <button type="button" class="mint-tray-popover__row is-active" data-mint-layout="fr">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+            Français
+        </button>
+        <button type="button" class="mint-tray-popover__row" data-mint-layout="en">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+            English (US)
+        </button>
+    </div>
+    <div class="mint-tray-popover" id="mint-tray-popover-network" role="dialog" aria-label="Réseau" hidden>
+        <button type="button" class="mint-tray-popover__row is-active">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--network" aria-hidden="true"></span>
+            <span>Connexion filaire — Connecté</span>
+        </button>
+        <button type="button" class="mint-tray-popover__row">
+            <span class="mint-tray-popover__row-icon taskbar-tray__icon--network" aria-hidden="true"></span>
+            <span>Mint-Lab-WiFi</span>
+        </button>
+        <div class="mint-tray-popover__footer">
+            <button type="button" class="mint-tray-popover__footer-btn" id="mint-tray-network-settings">Paramètres réseau…</button>
+        </div>
+    </div>
+    <div class="mint-tray-popover mint-power-menu" id="mint-power-menu" role="dialog" aria-label="Alimentation" hidden>
+        <button type="button" class="mint-power-menu__row" data-mint-power-action="lock">Verrouiller l'écran</button>
+        <button type="button" class="mint-power-menu__row" data-mint-power-action="logout">Se déconnecter…</button>
+        <div class="mint-tray-popover__sep" role="separator" aria-hidden="true"></div>
+        <div class="mint-power-menu__actions" role="group" aria-label="Alimentation système">
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="suspend">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Suspendre
+            </button>
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="restart">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Redémarrer
+            </button>
+            <button type="button" class="mint-power-menu__action" data-mint-power-action="shutdown">
+                <span class="mint-power-menu__action-icon taskbar-tray__icon--power" aria-hidden="true"></span>
+                Arrêter
+            </button>
+        </div>
+    </div>
     <div class="volume-popover" id="volume-popover" role="dialog" aria-label="Volume" hidden>
         <div class="volume-popover__header">
             <span class="volume-popover__label">Volume</span>
@@ -123,58 +267,80 @@
                    aria-label="Niveau du volume" aria-valuetext="100%">
         </div>
     </div>
+    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
     <script>
-        window.CAPSULE_APPS_BASE = '../../../shared/apps';
-        window.CAPSULE_MODULES_ENV_SHARED_BASE = '../../../../../modules/env/shared';
-        window.CAPSULE_CONTENT_ROOT = '../../../shared/content/Dossier_personnel';
-        window.CAPSULE_SKIN_BASE = '.';
-        window.CAPSULE_STRINGS_URL = './content/strings.json';
-        window.CAPSULE_FILE_MANAGER_APP_ID = 'fileExplorer';
-        window.CAPSULE_FILE_MANAGER_DISPLAY_NAME = 'Nemo';
-        window.CAPSULE_FILE_MANAGER_TEMPLATE = 'nemo';
-        window.CAPSULE_FILE_MANAGER_SKIN_KEY = 'nemo';
-        window.CAPSULE_EMBED_SKIN_KEY = 'mint';
-        window.CAPSULE_CHECKLIST_STORAGE_KEY = 'mint-checklist';
-        window.CAPSULE_SITE_HOME = '../../../../../index.html';
-        window.CAPSULE_LINUX_HUB = '../../../index.html';
-        window.CAPSULE_TERMINAL_OS_FAMILY = 'linux';
-        window.CAPSULE_TERMINAL_PROFILE = 'debian';
+        window.CAPSULE_SKIN_PROFILE_ID = 'linux-mint';
+        if (typeof CapsuleUserHome !== 'undefined') {
+            window.CAPSULE_CONTENT_ROOT = CapsuleUserHome.resolveRelative();
+            window.CAPSULE_TERMINAL_HOME = window.CAPSULE_USER_HOME || window.CAPSULE_TERMINAL_HOME;
+        }
     </script>
-    <script src="../../../kernel/js/capsule-file-manager-config.js?v=20260604d"></script>
-    <script src="../../../../../js/capsule-pick-return.js"></script>
-    <script src="../../../kernel/js/capsule-app-embed.js?v=20260605d"></script>
-    <script src="../../../kernel/js/strings-default.js?v=20260421a"></script>
-    <script src="../../../kernel/js/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../kernel/js/windowContainer.js?v=20260604d"></script>
-    <script src="../../../kernel/js/windowHeaderButton.js?v=20260421a"></script>
-    <script src="../../../kernel/js/resizeWindow.js"></script>
-    <script src="../../../kernel/js/windowDrag.js"></script>
-    <script src="../../../kernel/js/mainMenu-data.js?v=20260421a"></script>
-    <script src="../../../kernel/js/mainMenu.js?v=20260605e"></script>
-    <script src="../../../kernel/js/themes.js?v=20260421a"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
+
+    <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260427"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/window/edge-tiling.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
+    <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260421a"></script>
+    <script src="./content/mint-menu-parity.js?v=20260604"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
     <script src="./content/profile-data.js"></script>
-    <script src="../../../kernel/js/profile.js"></script>
-    <script src="../../../kernel/js/checklist.js"></script>
-    <script src="../../../kernel/js/firefoxBrowser.js"></script>
-    <script src="../../../kernel/js/contentLoader.js?v=20260605e"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerContainer.js?v=20260604c"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerCore.js?v=20260605f"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerInfo.js"></script>
-    <script src="../../../kernel/js/fileViewerRouter.js"></script>
-    <script src="../../../kernel/js/fileExplorer/fileExplorerLoader.js"></script>
-    <script src="../../../kernel/js/date.js"></script>
-    <script src="../../../kernel/js/calendar-popover.js"></script>
-    <script src="../../../kernel/js/terminal/config/command-registry.js"></script>
-    <script src="../../../kernel/js/terminal/config/profiles/linux/debian.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-profile.js"></script>
-    <script src="../../../kernel/js/terminal/terminal-core.js"></script>
-    <script src="../../../kernel/js/terminal/terminal.js"></script>
-    <script src="../../../kernel/js/terminal/executeCommand.js"></script>
-    <script src="../../../kernel/js/terminal/filesystem.js"></script>
-    <script src="../../../kernel/js/terminal/manuel.js"></script>
-    <script src="../../../kernel/js/volume.js"></script>
-    <script src="../../../kernel/js/librewriter.js"></script>
-    <script src="../../../kernel/js/update-manager.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-sidebar-controls.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-icon-map.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-popover.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-completion.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-editors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
+    <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
+    <script src="./content/mint-tray.js?v=20260604"></script>
 </body>
 </html>

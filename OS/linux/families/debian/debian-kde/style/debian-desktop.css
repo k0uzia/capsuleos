@@ -34,7 +34,7 @@ html:has(#debian-kde) {
 
 #debian-kde {
     --taskbar-height: calc(var(--head) * 0.85);
-    background-image: url("../media/img/assets/wallpaper-debian-kde.jpg");
+    background-image: url("../../../../../../usr/share/capsuleos/assets/images/vendors/debian/wallpaper-debian-kde.jpg");
     background-color: #243042;
     background-size: cover;
     background-repeat: no-repeat;

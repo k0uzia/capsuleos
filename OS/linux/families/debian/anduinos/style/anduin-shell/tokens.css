@@ -49,7 +49,7 @@ body#anduinos {
     color: var(--anduin-shell-text);
     font-family: "Cantarell", var(--font-ui);
     background-color: #0d1528;
-    background-image: url("../../media/img/wallpaper/anduin-desktop.jpeg");
+    background-image: url("../../../../../../../home/public/Images/lunaire-bureau.svg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -1,0 +1,64 @@
+/**
+ * Linux Mint (Cinnamon) — états d’interaction shell (panel, bureau, chrome WM).
+ * Complète interactions-window.base.css et a11y-overrides.css.
+ */
+
+/* Panel — lanceurs */
+html > body#mint > footer > nav > a:active {
+    transform: translateY(0);
+    background: var(--mint-clock-hover-bg);
+    border-color: var(--menu-accent);
+}
+
+html > body#mint > footer > nav > a:focus-visible {
+    outline: 2px solid var(--a11y-focus-ring);
+    outline-offset: 2px;
+    box-shadow: var(--a11y-focus-shadow);
+}
+
+/* Liste fenêtres ouvertes */
+body#mint .taskbar-window-list__btn:active {
+    transform: translateY(0);
+}
+
+body#mint .taskbar-window-list__btn:focus-visible {
+    outline: 2px solid var(--a11y-focus-ring);
+    outline-offset: 1px;
+}
+
+/* Horloge / calendrier */
+body#mint .taskbar-clock-trigger:active {
+    transform: translateY(0);
+}
+
+/* Raccourcis bureau */
+body#mint .desktop-shortcut:active {
+    transform: translateY(0);
+    background: var(--desktop-shortcut-hover-bg);
+    border-color: var(--menu-accent);
+}
+
+/* Menu contextuel bureau */
+body#mint .desktop-context-menu__item:active:not(:disabled) {
+    background: var(--mint-desktop-context-hover);
+}
+
+body#mint .desktop-context-menu__item:focus-visible {
+    outline: 2px solid var(--a11y-focus-ring);
+    outline-offset: -2px;
+}
+
+/* Chrome fenêtre — fermer (accent Cinnamon) */
+body#mint #windowHeader > nav > button#closeBtn:hover {
+    background-color: #c42b2b;
+    border-color: rgba(0, 0, 0, 0.35);
+}
+
+body#mint #windowHeader > nav > button#closeBtn:active {
+    background-color: #a82424;
+}
+
+body#mint #windowHeader > nav > button#closeBtn:focus-visible {
+    outline: 2px solid #ff6b6b;
+    outline-offset: 1px;
+}

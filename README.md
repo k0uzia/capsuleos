@@ -1,6 +1,8 @@
 # CapsuleOS
 Un site permettant de tester des environnements de bureau, les appréhender en jouant et choisir ses préférences.
 
+**Contribuer (humains et agents IA)** : voir [contrib.md](contrib.md) — formation, gates `validate-all`, ajout de distributions et briefs depuis le registre OS.
+
 [TOC]
 
 ## État des lieux et objectifs ▼
@@ -89,18 +91,19 @@ Ceci évite d'atteindre un nombre critique de scripts et permet d'alléger la ch
 
 ### Ouverture en `file://` et gabarits embarqués ▼
 
-Les navigateurs bloquent ou restreignent `fetch()` sur des fichiers locaux. Pour que les bureaux Linux et Android fonctionnent **sans serveur HTTP** (double-clic sur `index.html`), le dépôt inclut des scripts générés : `OS/linux/kernel/js/capsule-app-embed.js` et `OS/android/js/capsule-android-embed.js`.
+Les navigateurs bloquent ou restreignent `fetch()` sur des fichiers locaux. Pour que les bureaux Linux et Android fonctionnent **sans serveur HTTP** (double-clic sur `index.html`), le dépôt inclut des scripts générés : `var/lib/capsuleos/generated/capsule-app-embed.js` et `var/lib/capsuleos/generated/capsule-android-embed.js`.
 
-Après modification des gabarits sous `OS/linux/shared/apps/`, sous `modules/app/<templateId>/`, ou des skins `style/apps/*.skin.css` (Mint, Ubuntu, Fedora, …), régénérer le fichier Linux :
+Après modification du contenu partagé `home/public/` ou des gabarits sous `usr/share/capsuleos/linux/apps/` (et skins `style/apps/*.skin.css`), régénérer manifeste + embed Linux :
 
 ```bash
-node js/build-capsule-embed.mjs
+node usr/lib/capsuleos/tools/generate-public-manifest.mjs
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
 Après modification des apps sous `OS/android/apps/` ou de `OS/android/ressources/messages.json` :
 
 ```bash
-node js/build-android-embed.mjs
+node usr/lib/capsuleos/tools/build-android-embed.mjs
 ```
 
 Chaque `index.html` de skin Linux définit `window.CAPSULE_EMBED_SKIN_KEY` (`mint`, `ubuntu` ou `fedora`) avant le script embed, afin d’appliquer les bonnes feuilles `.skin.css` embarquées.
@@ -109,21 +112,13 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 ## Définition de l'arborescence ▼
 
-📄 index.html (portail : hero, à propos, choix d’OS ; `js/pick-os.js`, `js/header-nav.js`)
+Le dépôt est structuré pour ressembler au maximum à une racine Linux.
 
-📁 assets ▼
-
-​	☰ favicon
-
-📁 js ▼
-
-​	📄 pick-os.js, header-nav.js, capsule-pick-return.js
-
-​	📄 build-capsule-embed.mjs (génère l’embed Linux)
-
-📁 modules ▼
-
-​	📁 app ▼ (gabarits HTML + `.base.css` : dolphin, librewriter, …)
+- **`/`**: `index.html`, `sw.js`, `OS/` (facades d’URLs stables)
+- **`/usr/share/capsuleos/`**: assets statiques (branding, thèmes, médias, pages HTML d’apps)
+- **`/usr/lib/capsuleos/`**: logique JS réutilisable (shells, scripts du portail, outils)
+- **`/var/lib/capsuleos/generated/`**: fichiers générés (embeds offline)
+- **`/home/`**: « skins » / familles et contenus spécifiques
 
 📁 OS ▼
 
@@ -139,7 +134,9 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 ​			📁 js ▼ (scripts du bureau simulé : fenêtres, Nemo, apps, `capsule-app-embed.js` généré, etc.)
 
-​		📁 shared ▼ (apps non migrées vers `modules/app/` + contenu pédagogique commun)
+​		📁 shared ▼ (apps HTML/CSS `.base.css` + contenu pédagogique commun)
+
+​			📄 README.md
 
 ​			📁 apps ▼
 
@@ -177,6 +174,13 @@ Sous `http://` ou `https://`, le noyau continue de charger les gabarits avec `fe
 
 ​	📄 variables.css
 
+### Contribuer et agents ▼
+
+- **[contrib.md](contrib.md)** — guide contribution, parcours agents H0–H6, validateurs, ajout d’OS scalable
+- **`root/`** — skills Cursor, [parcours-agent.md](root/docs/parcours-agent.md), [ajouter-os-scalable.md](root/docs/ajouter-os-scalable.md)
+
+### Documentation agents (bureaux Linux) ▼
+
+Guide **GTK / GNOME / Cinnamon / KDE Plasma / COSMIC** pour la fidélité visuelle des skins : [contrib.md § toolkits](contrib.md#bibliotheques-graphiques-linux-toolkits-gui). Voir aussi `root/docs/apps-linux-par-distro.md` pour les mappings d’applications.
 
 
-   

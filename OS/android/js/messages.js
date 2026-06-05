@@ -8,7 +8,7 @@ function createMessage(expediteur, message) {
     const messageIcone = document.createElement('div');
 
     const messageImage = document.createElement('img');
-    messageImage.setAttribute('src', './assets/icones/default.png');
+    messageImage.setAttribute('src', '../../../usr/share/capsuleos/assets/images/toolkits/android-material/icones/default.png');
     messageImage.setAttribute('alt', 'Icône de contact');
 
     const messageContent = document.createElement('div');

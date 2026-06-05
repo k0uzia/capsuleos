@@ -29,7 +29,7 @@ html[data-theme="light"] body#kde-neon {
     --opensuse-menu-text-muted: #7f8c8d;
     --opensuse-menu-hover: rgba(61, 174, 233, 0.1);
     --opensuse-menu-active: rgba(61, 174, 233, 0.22);
-    --opensuse-menu-search-focus: var(--opensuse-breeze-accent, #3daee9);
+    --opensuse-menu-search-focus: var(--opensuse-plasma-accent);
     --opensuse-menu-header-bg: rgba(255, 255, 255, 0.35);
     --opensuse-menu-sidebar-bg: rgba(0, 0, 0, 0.025);
     --opensuse-menu-apps-bg: #ffffff;

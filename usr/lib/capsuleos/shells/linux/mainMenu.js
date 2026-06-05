@@ -222,13 +222,17 @@ function initMainMenu() {
                 if (event.key === 'ArrowDown') {
                     event.preventDefault();
                     const next = items[index + 1] || items[0];
-                    next?.focus();
+                    if (next) {
+                        next.focus();
+                    }
                 }
 
                 if (event.key === 'ArrowUp') {
                     event.preventDefault();
                     const previous = items[index - 1] || items[items.length - 1];
-                    previous?.focus();
+                    if (previous) {
+                        previous.focus();
+                    }
                 }
             });
         });
@@ -409,7 +413,9 @@ function initMainMenu() {
                 }
 
                 const preferredTarget = searchInput || appList.querySelector('.menu-app-item[tabindex="0"]');
-                preferredTarget?.focus();
+                if (preferredTarget) {
+                    preferredTarget.focus();
+                }
             }, 0);
         });
 

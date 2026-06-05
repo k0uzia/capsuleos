@@ -72,7 +72,7 @@
     }
   };
 
-  const start = () => {
+  const runBoot = () => {
     const embedded = bootFromEmbed();
     if (embedded || global.CAPSULE_SKIN_BOOT_FETCH !== true) {
       global.dispatchEvent(new CustomEvent('capsule-skin-ready', { detail: embedded }));
@@ -82,6 +82,26 @@
       global.dispatchEvent(new CustomEvent('capsule-skin-ready', { detail: profile }));
       return profile;
     });
+  };
+
+  const canResolveProfileNow = () => {
+    if (global.CAPSULE_SKIN_PROFILE_ID) {
+      return true;
+    }
+    const body = global.document && global.document.body;
+    return !!(body && body.id);
+  };
+
+  const start = () => {
+    const doc = global.document;
+    if (doc && !canResolveProfileNow() && doc.readyState === 'loading') {
+      return new Promise((resolve) => {
+        doc.addEventListener('DOMContentLoaded', () => {
+          resolve(runBoot());
+        }, { once: true });
+      });
+    }
+    return runBoot();
   };
 
   global.CapsuleSkinBoot = { applyGlobals, start, bootFromEmbed };

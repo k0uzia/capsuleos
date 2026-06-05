@@ -271,9 +271,9 @@ Estimation **effort relatif**, pas des dates figées — ajuster selon disponibi
 
 Cocher ici ou dans les PR associées :
 
-- [ ] Phase 0 — fondations
+- [x] Phase 0 — fondations (gel + réactivation wave 1, juin 2026)
 - [x] Phase 0.5 — consolidation assets noyau (juin 2026)
-- [ ] Phase 1 — parité apps (8/8 Linux DoD apps)
+- [ ] Phase 1 — parité apps (3/8 Linux actifs — Mint, Ubuntu, openSUSE)
 - [ ] Phase 2 — shells UX (4 bureaux reconnus terrain)
 - [ ] Phase 3 — pédagogie validée terrain
 - [ ] Phase 4 — Arch + CI + 1 jalon Windows

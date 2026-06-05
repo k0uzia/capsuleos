@@ -2,12 +2,12 @@
 
 Cartographie **dépôt actuel** + extension prévue (`writing.md` §3).
 
-> **Catalogue complet (52 entrées)** : [repertoire-os.md](repertoire-os.md) · JSON : [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json)
+> **Catalogue complet (57 entrées, 12 actives waves 1–5)** : [repertoire-os.md](repertoire-os.md) · [manifeste-kernels.md](manifeste-kernels.md) · JSON : [`etc/capsuleos/kernels.json`](../../etc/capsuleos/kernels.json) · [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json)
 
 | Famille | Facade `OS/` | Skins `home/` | Skill agent | Entrées actives |
 |---------|--------------|---------------|-------------|-----------------|
 | Linux Debian | `OS/linux/families/debian/*` | `home/Debian/*` | `os-linux` | 7 |
-| Linux Red Hat | `OS/linux/families/redhat/*` | `home/RedHat/*` | `os-linux` | 1 |
+| Linux Red Hat | `OS/linux/families/redhat/*` | `home/RedHat/*` | `os-linux` | 2 |
 | Linux SUSE | `OS/linux/families/suse/*` | `home/SUSE/*` | `os-linux` | 1 |
 | Linux Arch | (prévu) | — | `os-linux` | 0 |
 | Linux Slackware | (prévu) | — | `os-linux` | 0 |
@@ -16,7 +16,7 @@ Cartographie **dépôt actuel** + extension prévue (`writing.md` §3).
 | Android | `OS/android/` | — | `os-android` | 1 |
 | iOS | `OS/ios/` | — | `os-ios` | 1 |
 | BSD | `OS/bsd/` | — | `os-bsd` | 0 |
-| Rocky (GNOME) | `OS/linux/families/redhat/rocky/` | `home/RedHat/Rocky/` | `os-linux` + vendor `rocky` | 1 (P3) — VM : [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) · [inventaire](inventaires/linux-rocky-vm.md) |
+| Rocky (GNOME) | `OS/linux/families/redhat/rocky/` | `home/RedHat/Rocky/` | `os-linux` + vendor `rocky` | 1 (P1, référence GNOME) — [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procédure lab](procedure-lab-linux-rocky-gnome.md) |
 | UNIX | convention héritée / à structurer | — | `os-unix` | 0 |
 | ChromeOS | non présent | — | `os-chromeos` → stub | 0 |
 | HarmonyOS | non présent | — | `os-harmonyos` → stub | 0 |

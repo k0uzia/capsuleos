@@ -124,17 +124,17 @@ body#popos #firefox.firefox-window--fedora #closeBtn::before {
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.2 8 7l3.8-3.8 1 1L9 8l3.8 3.8-1 1L8 9l-3.8 3.8-1-1L7 8 3.2 4.2l1-1z'/%3E%3C/svg%3E");
 }
 
-body#popos #firefox .mint-browser {
+body#popos #firefox .capsule-browser {
     color: var(--popos-app-text);
     background: var(--popos-window-surface);
 }
 
-body#popos #firefox .mint-browser__chrome {
+body#popos #firefox .capsule-browser__chrome {
     border-bottom: 1px solid var(--popos-window-header-border);
     background: var(--popos-window-header-bg);
 }
 
-body#popos #firefox .mint-browser__tabsbar {
+body#popos #firefox .capsule-browser__tabsbar {
     position: relative;
     z-index: 2;
     display: flex;
@@ -147,7 +147,7 @@ body#popos #firefox .mint-browser__tabsbar {
     background: var(--popos-window-header-bg);
 }
 
-body#popos #firefox .mint-browser__tab {
+body#popos #firefox .capsule-browser__tab {
     flex: 0 1 calc(var(--head) * 7.5);
     min-width: 0;
     max-width: min(calc(var(--head) * 7.5), calc(100% - calc(var(--head) * 5)));
@@ -163,19 +163,19 @@ body#popos #firefox .mint-browser__tab {
     transform: none;
 }
 
-body#popos #firefox .mint-browser__tab:hover {
+body#popos #firefox .capsule-browser__tab:hover {
     border-color: var(--popos-accent-border);
     background: var(--popos-surface-hover);
     transform: none;
 }
 
-body#popos #firefox .mint-browser__tab--active {
+body#popos #firefox .capsule-browser__tab--active {
     border-color: var(--popos-accent-border);
     color: var(--popos-shell-text);
     background: var(--popos-window-surface);
 }
 
-body#popos #firefox .mint-browser__tab-add {
+body#popos #firefox .capsule-browser__tab-add {
     flex-shrink: 0;
     width: calc(var(--head) / 1.55);
     height: calc(var(--head) / 1.55);
@@ -185,11 +185,11 @@ body#popos #firefox .mint-browser__tab-add {
     font-size: calc(var(--head) / 2.2);
 }
 
-body#popos #firefox .mint-browser__tab-add:hover {
+body#popos #firefox .capsule-browser__tab-add:hover {
     background: var(--popos-surface-hover);
 }
 
-body#popos #firefox .mint-browser__toolbar {
+body#popos #firefox .capsule-browser__toolbar {
     gap: calc(var(--head) / 8);
     min-height: calc(var(--head) / 1.5);
     padding: calc(var(--head) / 10) calc(var(--head) / 5);
@@ -198,34 +198,34 @@ body#popos #firefox .mint-browser__toolbar {
     background: var(--popos-window-header-bg);
 }
 
-body#popos #firefox .mint-browser__btn {
+body#popos #firefox .capsule-browser__btn {
     color: var(--popos-app-muted-text);
     background: transparent;
 }
 
-body#popos #firefox .mint-browser__btn:hover:not(:disabled) {
+body#popos #firefox .capsule-browser__btn:hover:not(:disabled) {
     background: var(--popos-surface-hover);
     transform: none;
 }
 
-body#popos #firefox .mint-browser__addressbar {
+body#popos #firefox .capsule-browser__addressbar {
     border: 1px solid var(--popos-accent-border);
     background: var(--popos-search-bar-bg);
 }
 
-body#popos #firefox .mint-browser__address-input {
+body#popos #firefox .capsule-browser__address-input {
     color: var(--popos-shell-text);
 }
 
-body#popos #firefox .mint-browser__bookmarks {
+body#popos #firefox .capsule-browser__bookmarks {
     border-bottom: 1px solid var(--popos-window-header-border);
     background: var(--popos-window-header-bg);
 }
 
-body#popos #firefox .mint-browser__bookmark {
+body#popos #firefox .capsule-browser__bookmark {
     color: var(--popos-shell-text);
 }
 
-body#popos #firefox .mint-browser__bookmark:hover {
+body#popos #firefox .capsule-browser__bookmark:hover {
     background: var(--popos-surface-hover);
 }

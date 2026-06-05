@@ -43,6 +43,20 @@ main#updateManagerApp.update-manager--ubuntu {
     background: #1f1f1f;
 }
 
+/* ---- GNOME Software template (RHEL) : neutraliser le cadre Mint ---- */
+main#updateManagerApp.update-manager--gnome {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    border-radius: 0;
+    font-family: var(--font-ui);
+    color: var(--gnome-software-text, #ffffff);
+    background: var(--gnome-software-bg, #303030);
+    overflow: hidden;
+}
+
 /* ---- Multi-layout switch (Mint vs COSMIC vs KDE) ---- */
 .update-manager__layout--cosmic,
 .update-manager__layout--kde {

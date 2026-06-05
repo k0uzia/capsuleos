@@ -48,6 +48,18 @@
             slotProviders: {
                 firefox: 'firefox-gnome',
                 terminal: 'terminal-gnome',
+                calculator: 'libadwaita-gnome',
+                text_editor: 'libadwaita-gnome',
+                calendar: 'libadwaita-gnome',
+                clocks: 'libadwaita-gnome',
+                update_manager: 'libadwaita-gnome',
+                profile: 'libadwaita-gnome',
+                checklist: 'libadwaita-gnome',
+                librewriter: 'libadwaita-gnome',
+                themes: 'libadwaita-gnome',
+                visionneur_images: 'libadwaita-gnome',
+                visionneur_pdf: 'libadwaita-gnome',
+                lecteur_multimedia: 'libadwaita-gnome',
             },
         },
         kde: {

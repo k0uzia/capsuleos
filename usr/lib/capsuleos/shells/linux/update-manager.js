@@ -724,6 +724,30 @@
             });
             return;
         }
+        if (root.classList.contains('update-manager--gnome')) {
+            root.dataset.umInit = 'true';
+            root.addEventListener('click', (event) => {
+                const action = event.target.closest('[data-um-gnome-action]');
+                if (!action || !root.contains(action)) {
+                    return;
+                }
+                event.preventDefault();
+                const id = action.getAttribute('data-um-gnome-action');
+                if (id === 'check') {
+                    setStatus('Recherche de mises à jour… (simulation)');
+                    return;
+                }
+                if (id === 'updateAll') {
+                    setStatus('Toutes les mises à jour installées (simulation).');
+                    setTrayBadgeVisible(false);
+                    return;
+                }
+                if (id === 'updateOne') {
+                    setStatus('Mise à jour installée (simulation).');
+                }
+            });
+            return;
+        }
         detectLayout();
 
         root.dataset.umInit = 'true';

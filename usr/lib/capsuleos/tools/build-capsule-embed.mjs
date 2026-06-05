@@ -16,6 +16,8 @@ const STYLE_DIR = path.join(APPS_DIR, 'style');
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
+const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
+const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
 const OUT_FILE = path.join(ROOT, 'OS/linux/kernel/js/capsule-app-embed.js');
 const MANIFEST_PATH = path.join(
     ROOT,
@@ -167,6 +169,20 @@ function main() {
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
         skinTemplates.ubuntu = skinTemplates.ubuntu || {};
         skinTemplates.ubuntu.update_manager = { html: readUtf8(UBUNTU_UPDATE_MANAGER_HTML) };
+    }
+
+    if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+            skinTemplates[skinKey] = skinTemplates[skinKey] || {};
+            skinTemplates[skinKey].update_manager = { html: readUtf8(GNOME_UPDATE_MANAGER_HTML) };
+        }
+    }
+
+    if (fs.existsSync(GNOME_THEMES_HTML)) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+            skinTemplates[skinKey] = skinTemplates[skinKey] || {};
+            skinTemplates[skinKey].themes = { html: readUtf8(GNOME_THEMES_HTML) };
+        }
     }
 
     const skins = {};

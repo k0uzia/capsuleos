@@ -1,0 +1,53 @@
+<main id="themesApp" class="themes-app themes-app--gnome" aria-label="Paramètres — Apparence">
+    <header class="gnome-settings__headerbar" aria-label="En-tête">
+        <h1 class="gnome-settings__title">Apparence</h1>
+    </header>
+
+    <div class="gnome-settings__content">
+        <section class="themes-app__section themes-app__section--vm-labels">
+            <h2 class="themes-app__label">Style</h2>
+            <p class="themes-app__vm-value">Adwaita</p>
+        </section>
+
+        <section class="themes-app__section themes-app__section--vm-labels">
+            <h2 class="themes-app__label">Accent</h2>
+            <p class="themes-app__vm-value">Bleu</p>
+        </section>
+
+        <section class="themes-app__section">
+            <h2 class="themes-app__label">Schéma de couleurs</h2>
+            <div class="themes-app__cards" role="radiogroup" aria-label="Choix du thème">
+                <button type="button" class="themes-card" data-theme-option="dark" role="radio" aria-checked="true">
+                    <span class="themes-card__preview themes-card__preview--dark" aria-hidden="true"></span>
+                    <span class="themes-card__title">Sombre</span>
+                </button>
+                <button type="button" class="themes-card" data-theme-option="light" role="radio" aria-checked="false">
+                    <span class="themes-card__preview themes-card__preview--light" aria-hidden="true"></span>
+                    <span class="themes-card__title">Clair</span>
+                </button>
+            </div>
+            <p class="themes-app__help" data-themes-help>Le thème sombre est actif.</p>
+        </section>
+
+        <section class="themes-app__section">
+            <h2 class="themes-app__label">Contraste</h2>
+            <div class="themes-app__cards" role="radiogroup" aria-label="Mode contraste">
+                <button type="button" class="themes-contrast-card" data-contrast-option="normal" role="radio" aria-checked="true">
+                    <span class="themes-card__title">Standard</span>
+                </button>
+                <button type="button" class="themes-contrast-card" data-contrast-option="high" role="radio" aria-checked="false">
+                    <span class="themes-card__title">Renforcé</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="themes-app__section">
+            <h2 class="themes-app__label">Taille du texte</h2>
+            <div class="themes-app__scale" role="radiogroup" aria-label="Taille du texte">
+                <button type="button" class="themes-scale-button" data-font-scale-option="100" role="radio" aria-checked="true">100%</button>
+                <button type="button" class="themes-scale-button" data-font-scale-option="110" role="radio" aria-checked="false">110%</button>
+                <button type="button" class="themes-scale-button" data-font-scale-option="125" role="radio" aria-checked="false">125%</button>
+            </div>
+        </section>
+    </div>
+</main>

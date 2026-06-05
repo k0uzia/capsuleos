@@ -266,8 +266,10 @@ const resolveItemIcon = (item) => {
         ? resolveCapsuleResourceUrl
         : (url) => url;
     const folderFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath)
-        ? CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/folder.svg')
-        : './assets/icons/cinnamon/nemo/folder.svg';
+        ? CapsuleExplorerIconBase.catalogIcon('folder.svg')
+        : (window.CapsuleExplorerToolkitPaths
+            ? window.CapsuleExplorerToolkitPaths.catalogIcon('folder.svg')
+            : './assets/icons/cinnamon/nemo/folder.svg');
     const fileFallback = './assets/icons/kde/mimeTypes/application-x-generic.svg';
 
     if (item && item.vfsEntry === true) {
@@ -335,7 +337,25 @@ const findFolderLabel = (path) => {
 const isDolphinTemplate = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.dolphin-app`);
 window.isDolphinTemplate = isDolphinTemplate;
 
-const isNemoTemplate = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.nemo-app`);
+const isNautilusGnomeTemplate = () => {
+    const main = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire`);
+    if (main && main.classList.contains('nautilus-app')) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CapsuleExplorerRegistry
+        && typeof window.CapsuleExplorerRegistry.isNautilusFamily === 'function') {
+        return window.CapsuleExplorerRegistry.isNautilusFamily();
+    }
+    return false;
+};
+
+const isNemoTemplate = () => {
+    if (isNautilusGnomeTemplate()) {
+        return false;
+    }
+    return !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.nemo-app:not(.nautilus-app)`);
+};
+window.isNautilusGnomeTemplate = isNautilusGnomeTemplate;
 window.isNemoTemplate = isNemoTemplate;
 
 const isCosmicFilesExplorer = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.cosmic-files-app`);
@@ -370,7 +390,8 @@ const isGnomeFilesExplorer = () => (
     && window.CAPSULE_EXPLORER_SKIN_KEY === 'files'
 );
 
-const usesSidebarSelection = () => isDolphinTemplate() || isNemoTemplate() || isGnomeFilesExplorer() || isCosmicFilesExplorer();
+const usesSidebarSelection = () => isDolphinTemplate() || isNemoTemplate() || isNautilusGnomeTemplate()
+    || isGnomeFilesExplorer() || isCosmicFilesExplorer();
 
 const formatCosmicModifiedLabel = () => {
     const now = new Date();
@@ -526,10 +547,10 @@ const getExplorerTitleSuffix = () => {
     if (isDolphinTemplate()) {
         return ' - Dolphin';
     }
-    if (isNemoTemplate() || usesNemoListView()) {
+    if (isNemoTemplate() || isNautilusGnomeTemplate() || usesNemoListView()) {
         const display = typeof window !== 'undefined' && window.CAPSULE_EXPLORER_DISPLAY_NAME
             ? String(window.CAPSULE_EXPLORER_DISPLAY_NAME)
-            : 'Nemo';
+            : (isNautilusGnomeTemplate() ? 'Fichiers' : 'Nemo');
         return ` - ${display}`;
     }
     return '';

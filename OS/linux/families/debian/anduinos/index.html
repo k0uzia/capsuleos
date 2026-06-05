@@ -9,7 +9,9 @@
     <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-anduinos';</script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/core/cluster-registry.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/anduin/anduin-logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./style/imports.css?v=20260602" type="text/css">
@@ -36,6 +38,10 @@
             <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
             <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
             <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
+            <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
+                <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
+                <div class="windowElement" data-link="clocks" id="clocks" style="display: none;"></div>
+                <div class="windowElement" data-link="calendar" id="calendar" style="display: none;"></div>
         </div>
     </main>
 
@@ -55,6 +61,9 @@
             <a target="windowElement" data-link="update_manager" title="Logiciels"
                     aria-label="Centre logiciels (phase 2)">
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/anduin/taskbar/software-store.png" alt="Logiciels" width="40" height="40">
+            </a>
+            <a target="windowElement" data-link="text_editor" title="Éditeur de texte">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.TextEditor.svg" alt="Éditeur de texte" width="40" height="40">
             </a>
         </nav>
         <div class="anduin-taskbar__tray">
@@ -110,22 +119,23 @@
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260528"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=20260424"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data.js?v=20260424"></script>
-    <script src="./content/mainMenu-data.js?v=20260530"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="./js/mainMenu-gnome.js?v=20260530"></script>
     <script src="./js/anduin-start.js?v=20260530"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260424"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-icon-map.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260528"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
@@ -142,6 +152,10 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/clocks.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
 </body>
 </html>

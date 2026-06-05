@@ -28,7 +28,7 @@ const MENU_SHORTCUTS = {
 
 const MENU_APPS = [
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/accessories-calculator.png', name: 'Calculatrice', desc: 'Effectuez des calculs', dataLink: null },
-    { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/accessories-text-editor.png', name: 'Éditeur de texte', desc: 'Éditez des fichiers texte', dataLink: null },
+    { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/accessories-text-editor.png', name: 'Éditeur de texte', desc: 'Éditez des fichiers texte', dataLink: 'text_editor' },
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/archive-manager.png', name: 'Gestionnaire d\'archives', desc: 'Créez et modifiez des archives', dataLink: null },
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/accessories-system-cleaner.png', name: 'Outil de nettoyage', desc: 'Nettoyez le système', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-calc.png', name: 'LibreOffice Calc', desc: 'Tableur', dataLink: null },
@@ -48,6 +48,6 @@ const MENU_APPS = [
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/preferences-system-sound.png', name: 'Son', desc: 'Configurer le volume et les périphériques', dataLink: null },
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/utilities-terminal.png', name: 'Terminal', desc: 'Émulateur de terminal', dataLink: 'terminal' },
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/user-info.png', name: 'À propos - MX Linux KDE', desc: 'Infos et évaluation de la distro', dataLink: 'profile' },
-    { catId: 'mxtools', icon: './assets/images/toolkits/kde/apps/mintinstall.png', name: 'Logithèque', desc: 'Installer des logiciels', dataLink: null },
+    { catId: 'mxtools', icon: './assets/images/toolkits/kde/apps/plasmadiscover.svg', name: 'Discover', desc: 'Installer des logiciels', dataLink: 'update_manager' },
     { catId: 'mxtools', icon: './assets/images/toolkits/kde/apps/mx-tools.svg', name: 'Missions MX', desc: 'Missions de découverte', dataLink: 'checklist' },
 ];

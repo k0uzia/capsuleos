@@ -1,0 +1,81 @@
+/**
+ * Rocky — Paramètres GNOME (Apparence) · chrome CSD libadwaita.
+ */
+body#fedora {
+    --gnome-settings-bg: #303030;
+    --gnome-settings-text: #ffffff;
+    --gnome-settings-muted: rgba(255, 255, 255, 0.62);
+    --gnome-settings-border: rgba(255, 255, 255, 0.08);
+    --gnome-settings-surface: #383838;
+    --gnome-settings-accent: #3584e4;
+}
+
+html[data-theme="light"]:has(#fedora) {
+    --gnome-settings-bg: #fafafa;
+    --gnome-settings-text: #1e1e1e;
+    --gnome-settings-muted: rgba(0, 0, 0, 0.52);
+    --gnome-settings-border: rgba(0, 0, 0, 0.1);
+    --gnome-settings-surface: #ffffff;
+}
+
+body#fedora div[data-link="themes"].gnome-app--csd {
+    width: min(28rem, calc(100vw - var(--fedora-dock-width) - 2rem));
+    height: min(34rem, calc(100vh - var(--fedora-top-bar-height) - 2rem));
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--gnome-settings-bg);
+}
+
+body#fedora div[data-link="themes"] .gnome-settings__headerbar {
+    background: var(--gnome-settings-bg);
+    border-bottom: 1px solid var(--gnome-settings-border);
+}
+
+body#fedora div[data-link="themes"] .gnome-settings__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gnome-settings-text);
+}
+
+body#fedora div[data-link="themes"] main#themesApp.themes-app--gnome {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-bg);
+    font-family: "Cantarell", var(--font-ui);
+}
+
+body#fedora div[data-link="themes"] .themes-app__label {
+    color: var(--gnome-settings-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+body#fedora div[data-link="themes"] .themes-app__vm-value {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-surface);
+    border-color: var(--gnome-settings-border);
+}
+
+body#fedora div[data-link="themes"] .themes-app__section {
+    border-bottom-color: var(--gnome-settings-border);
+}
+
+body#fedora div[data-link="themes"] .themes-card,
+body#fedora div[data-link="themes"] .themes-contrast-card,
+body#fedora div[data-link="themes"] .themes-scale-button {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-surface);
+    border-color: var(--gnome-settings-border);
+}
+
+body#fedora div[data-link="themes"] .themes-card.is-active,
+body#fedora div[data-link="themes"] .themes-contrast-card.is-active,
+body#fedora div[data-link="themes"] .themes-scale-button.is-active {
+    border-color: var(--gnome-settings-accent);
+    box-shadow: 0 0 0 1px var(--gnome-settings-accent);
+}
+
+body#fedora div[data-link="themes"] .themes-app__help {
+    color: var(--gnome-settings-muted);
+}

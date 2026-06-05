@@ -22,8 +22,11 @@
     }
 
     function getWorkArea(boundsOptions) {
+        const opts = boundsApi() && typeof boundsApi().resolveBoundsOptions === 'function'
+            ? boundsApi().resolveBoundsOptions(boundsOptions || {})
+            : (boundsOptions || {});
         if (boundsApi() && typeof boundsApi().getWorkAreaRect === 'function') {
-            return boundsApi().getWorkAreaRect(boundsOptions);
+            return boundsApi().getWorkAreaRect(opts);
         }
         return {
             left: 0,
@@ -34,6 +37,9 @@
     }
 
     function applyGeometry(windowElement, work, geometry, boundsOptions) {
+        const opts = boundsApi() && typeof boundsApi().resolveBoundsOptions === 'function'
+            ? boundsApi().resolveBoundsOptions(boundsOptions || {})
+            : (boundsOptions || {});
         const box = {
             left: geometry.left,
             top: geometry.top,
@@ -42,7 +48,7 @@
         };
         if (global.CapsuleWindowPositioning
             && typeof global.CapsuleWindowPositioning.applyViewportBox === 'function') {
-            global.CapsuleWindowPositioning.applyViewportBox(windowElement, box, boundsOptions);
+            global.CapsuleWindowPositioning.applyViewportBox(windowElement, box, opts);
         } else {
             windowElement.style.position = 'fixed';
             windowElement.style.transform = 'none';
@@ -148,7 +154,10 @@
 
         if (nearTop) {
             if (max && typeof max.maximizeWindowElement === 'function') {
-                max.maximizeWindowElement(windowElement, boundsOptions);
+                const opts = boundsApi() && typeof boundsApi().resolveBoundsOptions === 'function'
+                    ? boundsApi().resolveBoundsOptions(boundsOptions || {})
+                    : (boundsOptions || {});
+                max.maximizeWindowElement(windowElement, opts);
                 delete windowElement.dataset.tiled;
                 return true;
             }

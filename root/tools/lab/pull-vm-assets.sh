@@ -117,8 +117,18 @@ mkdir -p "$TOOLKIT_APPS/overview"
 pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Settings.svg \
   "$TOOLKIT_APPS/overview/org.gnome.Settings.svg"
 
+if [[ "$VENDOR" == "ubuntu" ]]; then
+  pull /usr/share/backgrounds/warty-final-ubuntu.png \
+    "$WALL_DIR/wallpaper-racoon.png" || \
+  pull /usr/share/backgrounds/Questing_Quokka_Full_Color_3840x2160.png \
+    "$WALL_DIR/wallpaper-racoon.png"
+  pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg \
+    "$PANEL_DIR/org.gnome.Nautilus.svg"
+fi
+
 cat >"$VENDOR_DIR/SOURCE-VM.txt" <<EOF
 Assets copiés depuis la VM lab ($SSH_TARGET) le $(date -u +"%Y-%m-%dT%H:%M:%SZ").
+Vendor : $VENDOR · toolkit : $TOOLKIT
 Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-theme).
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

@@ -1,6 +1,6 @@
 ---
 name: capsuleos-distro-linux-rocky
-description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux, tier P3, planned. Use when editing linux-rocky, gnome toolkit, or rocky vendor assets.
+description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux, tier P1, référence GNOME, active. Use when editing linux-rocky, gnome toolkit, Nautilus nemo-gnome, or rocky vendor assets.
 ---
 
 # Distribution — Rocky Linux (GNOME)
@@ -12,47 +12,59 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 | ID registre | `linux-rocky` |
 | Vendor | [`rocky`](../vendors/rocky/SKILL.md) |
 | Famille | `linux` |
-| Tier / statut | P3 / planned |
+| Tier / statut | P1 / **active** (référence toolkit GNOME) |
+| Upstream | `null` — Fedora et Alma dérivent de Rocky |
 | Toolkit | gnome |
-| embedKey | `—` |
+| embedKey | `rocky` |
+| bodyId | `rocky` |
 
 ## Chemins
 
-- (façade à définir)
-- Version : (entrée catalogue unique — pas de skill version séparé)
+- Skin (vérité) : `home/RedHat/Rocky/`
+- Façade pick-os : `OS/linux/families/redhat/rocky/index.html` (**générée**)
+- Profil : `etc/capsuleos/profiles/linux-rocky.json`
 
 ## Skills à charger
 
 | Ordre | Skill |
 |-------|--------|
 | 1 | `onboarding` |
-| 2 | `os-linux` (famille) |
-| 3 | `capsuleos-vendor-rocky` (vendor) |
-| 4 | `capsuleos-distro-linux-rocky` (cette fiche) |
-| 5 | `capsuleos-lang-*` selon fichiers |
+| 2 | `os-clone-from-vm` |
+| 3 | `os-linux` |
+| 4 | `capsuleos-vendor-rocky` |
+| 5 | `capsuleos-distro-linux-rocky` (cette fiche) |
 
-Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
+Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
 
-**VM lab (Wayland)** : [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md) · [inventaire VM](../../docs/inventaires/linux-rocky-vm.md) · `etc/capsuleos/lab-inventory.json` (`linux-rocky`)
+## VM lab
 
-**Skin** : `home/RedHat/Rocky/` (pont Fedora GNOME) · façade `OS/linux/families/redhat/rocky/`
+- **Procédure maître** : [procedure-lab-linux-rocky-gnome.md](../../docs/procedure-lab-linux-rocky-gnome.md)
+- **Référence branche** : [branche-redhat-gnome.md](../../docs/branche-redhat-gnome.md)
+- Infra SSH/Wayland : [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md)
+- Inventaire : [linux-rocky-vm.md](../../docs/inventaires/linux-rocky-vm.md) · [linux-rocky-vm.json](../../docs/inventaires/linux-rocky-vm.json)
+- Parité : [inventaire-parite-rocky.md](../../docs/inventaire-parite-rocky.md)
+- Local : `etc/capsuleos/lab-inventory.json` (`linux-rocky`)
+- Sonde : `$HOME/capsuleos-lab/os-probe-gnome.sh state`
 
-**Apps** : VM **Nautilus** + Ptyxis + Firefox · slots Capsule **`nemo`** (gabarit Fichiers), **`terminal`**, **`firefox`** — voir [`linux-gnome-capsule-slots.md`](../../docs/inventaires/linux-gnome-capsule-slots.md).
+## Apps / slots
 
-## Build / gates
+VM : **Nautilus**, Ptyxis, Firefox. Capsule : slot **`nemo`** (gabarit `nemo-gnome`), `terminal`, `firefox` — [linux-gnome-capsule-slots.md](../../docs/inventaires/linux-gnome-capsule-slots.md).
+
+## Clôture après modifs
 
 ```bash
+./root/tools/lab/update-rocky-nautilus.sh   # Nautilus + façades + embed
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
-node usr/lib/capsuleos/tools/build-embeds-all.mjs  # si apps/strings
 ```
 
 ## Ne pas
 
-- Doc README sous `OS/`
-- Médias hors `usr/share/capsuleos/assets/` et `home/public/Images/`
+- Éditer la façade `OS/linux/families/redhat/rocky/` à la main
+- Emprunter des icônes Cinnamon/Mint pour Rocky
+- Forker le noyau fenêtre/explorateur — utiliser chrome context `gnome` / provider `nemo-gnome`
 
 ## Références
 
-- [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md)
-- [skills-hierarchie.md](../../docs/skills-hierarchie.md)
-
+- [convention-reproduction-os.md](../../docs/convention-reproduction-os.md)
+- [window-chrome-contexts.md](../../docs/window-chrome-contexts.md)

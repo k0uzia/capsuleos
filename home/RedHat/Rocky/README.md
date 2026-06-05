@@ -1,5 +1,7 @@
 # Rocky Linux (GNOME) — skin canonique
 
+> **Référence toolkit GNOME** pour la branche Red Hat. Documentation : [`root/docs/branche-redhat-gnome.md`](../../../root/docs/branche-redhat-gnome.md) · Procédure lab : [`procedure-lab-linux-rocky-gnome.md`](../../../root/docs/procedure-lab-linux-rocky-gnome.md).
+
 **Éditer uniquement** `home/RedHat/Rocky/` (HTML, CSS, JS). L’URL pick-os `OS/linux/families/redhat/rocky/index.html` est une **façade générée** (copie + `<base href>`) : ne pas la modifier à la main.
 
 Après toute modification du skin (CSS/HTML) **ou** des scripts fenêtre (`windowContainer.js`, `capsule-window-shell.js`) :

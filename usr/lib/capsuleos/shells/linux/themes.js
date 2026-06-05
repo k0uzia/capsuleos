@@ -1,10 +1,18 @@
 (function initThemeAtBoot() {
+    const storage = window.CapsuleThemeStorage || {};
     const bodyId = document.body ? document.body.id : '';
-    const themeKey = bodyId === 'rocky' || bodyId === 'fedora' ? 'gnome-theme' : 'mint-theme';
-    const savedTheme = localStorage.getItem(themeKey) || localStorage.getItem('mint-theme');
+    const themeKey = typeof storage.getThemeStorageKey === 'function'
+        ? storage.getThemeStorageKey(bodyId)
+        : 'mint-theme';
+    const savedTheme = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(bodyId)
+        : localStorage.getItem(themeKey);
     const savedContrast = localStorage.getItem('mint-contrast-mode');
     const savedFontScale = localStorage.getItem('mint-font-scale');
-    const defaultTheme = bodyId === 'mint' ? 'dark' : 'light';
+    const isGnomeShell = typeof storage.isGnomeShell === 'function'
+        ? storage.isGnomeShell(bodyId)
+        : false;
+    const defaultTheme = bodyId === 'mint' || isGnomeShell || themeKey === 'cosmic-theme' ? 'dark' : 'light';
     const resolvedTheme = savedTheme === 'light' ? 'light' : (savedTheme === 'dark' ? 'dark' : defaultTheme);
     document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.dataset.contrastMode = savedContrast === 'high' ? 'high' : 'normal';
@@ -32,16 +40,17 @@ function initThemesApp() {
         return;
     }
 
-    const themeStorageKey = document.body && (document.body.id === 'rocky' || document.body.id === 'fedora')
-        ? 'gnome-theme'
+    const themeStorageKey = window.CapsuleThemeStorage && typeof window.CapsuleThemeStorage.getThemeStorageKey === 'function'
+        ? window.CapsuleThemeStorage.getThemeStorageKey(document.body ? document.body.id : '')
         : 'mint-theme';
 
     function applyTheme(theme) {
         const resolved = theme === 'light' ? 'light' : 'dark';
         document.documentElement.dataset.theme = resolved;
-        localStorage.setItem(themeStorageKey, resolved);
-        if (themeStorageKey === 'gnome-theme') {
-            localStorage.setItem('mint-theme', resolved);
+        if (window.CapsuleThemeStorage && typeof window.CapsuleThemeStorage.persistTheme === 'function') {
+            window.CapsuleThemeStorage.persistTheme(resolved, document.body ? document.body.id : '');
+        } else {
+            localStorage.setItem(themeStorageKey, resolved);
         }
 
         options.forEach(function syncOption(button) {

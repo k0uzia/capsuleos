@@ -1,31 +1,42 @@
 {
-  "collectedAt": "2026-06-04T21:47:16Z",
+  "collectedAt": "2026-06-05T22:06:07Z",
   "registryId": "linux-rocky",
   "ssh": "capsule@192.168.122.234",
-  "sessionActive": true,
-  "gnome": {
-    "shell": "GNOME Shell 47.4",
-    "gtkTheme": "Adwaita",
-    "colorSchemeOptions": ["default", "prefer-dark", "prefer-light"],
-    "colorSchemeCurrent": "default",
-    "capsuleThemeMapping": {
-      "default": "dark",
-      "prefer-dark": "dark",
-      "prefer-light": "light"
-    }
-  },
-  "probeGnome": {
+  "labPass": "2026-06-06-passe-lab",
+  "probe": {
     "toolkit": "gnome",
-    "launchersAllRunning": {
-      "nemo": true,
-      "firefox": true,
-      "terminal": true
+    "timestamp": "2026-06-05T22:06:07Z",
+    "colorScheme": "default",
+    "capsuleThemeHint": "dark",
+    "focused": null,
+    "windows": [],
+    "launchers": {
+      "nemo": { "running": true, "active": false },
+      "firefox": { "running": false, "active": false },
+      "terminal": { "running": false, "active": false }
     },
-    "note": "nemo/terminal détectés via pgrep si absents de wmctrl (Wayland)"
+    "explorer": { "nemo": { "currentPath": "" } },
+    "actions": { "last": "state" }
   },
-  "capsuleParity": {
-    "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html",
-    "themes": "html:has(#rocky)=sombre, html[data-theme=light]:has(#rocky)=clair (themes.js gnome-theme)",
-    "accent": "#3584e4"
+  "vmMeta": {
+    "osVersion": "10.2 (Red Quartz)",
+    "gnomeShell": "49.4",
+    "accentColor": "blue",
+    "gtkTheme": "Adwaita",
+    "iconTheme": "Adwaita",
+    "favoriteApps": [
+      "org.mozilla.Firefox.desktop",
+      "org.gnome.Calendar.desktop",
+      "org.gnome.Nautilus.desktop",
+      "org.gnome.Software.desktop",
+      "org.gnome.Ptyxis.desktop",
+      "org.gnome.TextEditor.desktop",
+      "org.gnome.Calculator.desktop"
+    ]
+  },
+  "panelChecklist": {
+    "capsule": "6/6",
+    "vm": "0/6 active (P1 Wayland wmctrl)",
+    "capsuleStatesFile": "/tmp/capsule-panel.json"
   }
 }

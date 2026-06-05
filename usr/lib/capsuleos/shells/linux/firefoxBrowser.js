@@ -21,6 +21,8 @@ function supportsFirefoxGnomeChrome() {
         return false;
     }
     return document.body.id === 'fedora'
+        || document.body.id === 'rocky'
+        || document.body.id === 'alma'
         || document.body.id === 'ubuntu'
         || document.body.id === 'popos';
 }
@@ -38,7 +40,7 @@ function decorateFedoraFirefoxWindow(browserRoot) {
     windowElement.classList.add('firefox-window--fedora');
 
     const moveControlsIntoTabsbar = () => {
-        const tabsbar = browserRoot.querySelector('.mint-browser__tabsbar');
+        const tabsbar = browserRoot.querySelector('.capsule-browser__tabsbar');
         const header = windowElement.querySelector('#windowHeader');
         if (!tabsbar || !header) {
             return false;
@@ -91,7 +93,7 @@ function initFirefoxBrowser() {
     const tabsList = browserRoot.querySelector('[data-browser-tabs]');
     const newtabForm = browserRoot.querySelector('[data-browser-newtab-form]');
     const newtabInput = browserRoot.querySelector('[data-browser-newtab-input]');
-    const newtabShortcuts = browserRoot.querySelector('.mint-browser-newtab__shortcuts');
+    const newtabShortcuts = browserRoot.querySelector('.capsule-browser-newtab__shortcuts');
 
     const btnHomes = browserRoot.querySelectorAll('[data-browser-action="home"]');
     const btnReload = browserRoot.querySelector('[data-browser-action="reload"]');
@@ -263,7 +265,7 @@ function initFirefoxBrowser() {
             const isActive = tab.id === state.activeTabId;
             const tabBtn = document.createElement('button');
             tabBtn.type = 'button';
-            tabBtn.className = 'mint-browser__tab' + (isActive ? ' mint-browser__tab--active' : '');
+            tabBtn.className = 'capsule-browser__tab' + (isActive ? ' capsule-browser__tab--active' : '');
             tabBtn.setAttribute('data-browser-tab-id', tab.id);
             tabBtn.setAttribute('role', 'tab');
             tabBtn.setAttribute('aria-selected', isActive ? 'true' : 'false');
@@ -272,15 +274,15 @@ function initFirefoxBrowser() {
             }
 
             const icon = document.createElement('span');
-            icon.className = 'mint-browser__tab-icon mint-browser__tab-icon--firefox';
+            icon.className = 'capsule-browser__tab-icon capsule-browser__tab-icon--firefox';
             icon.setAttribute('aria-hidden', 'true');
 
             const label = document.createElement('span');
-            label.className = 'mint-browser__tab-label';
+            label.className = 'capsule-browser__tab-label';
             label.textContent = tab.label;
 
             const closeBtn = document.createElement('span');
-            closeBtn.className = 'mint-browser__tab-close';
+            closeBtn.className = 'capsule-browser__tab-close';
             closeBtn.setAttribute('data-browser-tab-close', tab.id);
             closeBtn.setAttribute('role', 'button');
             closeBtn.setAttribute('aria-label', capsuleStr('firefox.tabCloseAria', 'Fermer l’onglet'));
@@ -345,7 +347,7 @@ function initFirefoxBrowser() {
         bookmarksBar.hidden = !visible;
         if (btnToggleBookmarks) {
             btnToggleBookmarks.setAttribute('aria-pressed', visible ? 'true' : 'false');
-            btnToggleBookmarks.classList.toggle('mint-browser__btn--active', visible);
+            btnToggleBookmarks.classList.toggle('capsule-browser__btn--active', visible);
         }
     }
 

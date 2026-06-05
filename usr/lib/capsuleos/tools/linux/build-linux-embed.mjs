@@ -31,11 +31,17 @@ const EXPLORER_TEMPLATES = {
     'nautilus-cosmic': {
         shellRelative: 'nautilus/shell-cosmic.html',
         cssBaseStack: ['nemo/base.css']
+    },
+    dolphin: {
+        shellRelative: 'dolphin/shell.html',
+        cssBaseStack: ['nemo/base.css', 'dolphin/base.css']
     }
 };
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
+const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
+const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
 const OUT_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.js');
 const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
 
@@ -55,6 +61,7 @@ const SKIN_DIRS = [
     { key: 'opensuse', dir: path.join(ROOT, 'home/SUSE/openSUSE/style/apps'), strings: path.join(ROOT, 'home/SUSE/openSUSE/content/strings.json') },
     { key: 'fedora', dir: path.join(ROOT, 'home/RedHat/Fedora/style/apps'), strings: path.join(ROOT, 'home/RedHat/Fedora/content/strings.json') },
     { key: 'rocky', dir: path.join(ROOT, 'home/RedHat/Rocky/style/apps'), strings: path.join(ROOT, 'home/RedHat/Rocky/content/strings.json') },
+    { key: 'alma', dir: path.join(ROOT, 'home/RedHat/Alma/style/apps'), strings: path.join(ROOT, 'home/RedHat/Alma/content/strings.json') },
     { key: 'debian-kde', dir: path.join(ROOT, 'home/Debian/Debian-KDE/style/apps'), strings: path.join(ROOT, 'home/Debian/Debian-KDE/content/strings.json') },
     { key: 'kde-neon', dir: path.join(ROOT, 'home/Debian/KDE-Neon/style/apps'), strings: path.join(ROOT, 'home/Debian/KDE-Neon/content/strings.json') }
 ];
@@ -92,12 +99,24 @@ function buildCssBase(templateId) {
     return text;
 }
 
+const EXPLORER_SKIN_ALIASES = {
+    'nemo-gnome': 'nautilus',
+    files: 'nautilus'
+};
+
 function readSkinCss(skinDir, templateId) {
     const f = path.join(skinDir, `${templateId}.skin.css`);
-    if (!fs.existsSync(f)) {
-        return '';
+    if (fs.existsSync(f)) {
+        return readUtf8(f);
     }
-    return readUtf8(f);
+    const alias = EXPLORER_SKIN_ALIASES[templateId];
+    if (alias) {
+        const aliasFile = path.join(skinDir, `${alias}.skin.css`);
+        if (fs.existsSync(aliasFile)) {
+            return readUtf8(aliasFile);
+        }
+    }
+    return '';
 }
 
 function readSkinStrings(stringsPath) {
@@ -176,6 +195,20 @@ function main() {
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
         skinTemplates.ubuntu = skinTemplates.ubuntu || {};
         skinTemplates.ubuntu.update_manager = { html: readUtf8(UBUNTU_UPDATE_MANAGER_HTML) };
+    }
+
+    if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+            skinTemplates[skinKey] = skinTemplates[skinKey] || {};
+            skinTemplates[skinKey].update_manager = { html: readUtf8(GNOME_UPDATE_MANAGER_HTML) };
+        }
+    }
+
+    if (fs.existsSync(GNOME_THEMES_HTML)) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+            skinTemplates[skinKey] = skinTemplates[skinKey] || {};
+            skinTemplates[skinKey].themes = { html: readUtf8(GNOME_THEMES_HTML) };
+        }
     }
 
     const skins = {};

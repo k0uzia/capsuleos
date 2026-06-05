@@ -72,7 +72,45 @@ const fileRoller = await page.evaluate(() => {
 });
 results.push(fileRoller);
 
-const ok = results.every((r) => {
+const maximize = await page.evaluate(async () => {
+  const win = document.querySelector('div[data-link="nemo"]')
+    || document.querySelector('.windowElement[data-link]');
+  const desktop = document.querySelector('#desktop');
+  const tableau = document.querySelector('#tableau');
+  if (!win || !desktop) {
+    return { ok: false, reason: 'missing-window-or-desktop' };
+  }
+  const resizeBtn = win.querySelector('#resizeBtn');
+  if (!resizeBtn) {
+    return { ok: false, reason: 'missing-resize-btn' };
+  }
+  resizeBtn.click();
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const desktopRect = desktop.getBoundingClientRect();
+  const winRect = win.getBoundingClientRect();
+  const style = getComputedStyle(win);
+  const maximized = win.dataset.maximized === 'true';
+  const fillsDesktop = Math.abs(winRect.width - desktopRect.width) < 4
+    && Math.abs(winRect.height - desktopRect.height) < 4
+    && Math.abs(winRect.left - desktopRect.left) < 4
+    && Math.abs(winRect.top - desktopRect.top) < 4;
+  const abovePanel = winRect.bottom <= tableau.getBoundingClientRect().top + 2;
+  resizeBtn.click();
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const restored = win.dataset.maximized !== 'true';
+  return {
+    ok: maximized && fillsDesktop && style.position === 'absolute' && abovePanel && restored,
+    maximized,
+    fillsDesktop,
+    position: style.position,
+    abovePanel,
+    restored,
+    desktop: { width: desktopRect.width, height: desktopRect.height },
+    win: { width: winRect.width, height: winRect.height, left: winRect.left, top: winRect.top },
+  };
+});
+
+const ok = maximize.ok && results.every((r) => {
   const spec = slots.find((s) => s.id === r.slotId) || { provider: 'cinnamon', titleIncludes: 'archives' };
   const titleNeedle = r.slotId === 'file_roller' ? 'archives' : spec.titleIncludes;
   return r.toolkit === 'cinnamon'
@@ -84,6 +122,6 @@ const ok = results.every((r) => {
     && r.title.toLowerCase().includes(titleNeedle.toLowerCase());
 });
 
-console.log(JSON.stringify({ results, ok }, null, 2));
+console.log(JSON.stringify({ results, maximize, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

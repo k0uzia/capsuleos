@@ -28,10 +28,11 @@ root/
 
 1. Skill **[onboarding](skills/onboarding/SKILL.md)** + [parcours-agent.md](docs/parcours-agent.md) (H0→H6).
 2. Lire [AGENTS.md](AGENTS.md) pour le routage skills.
-3. Contrat : [`writing.md`](../../writing.md) · [checklist](../contrib.md#checklist-contrat-avant-merge-ou-release) dans [`contrib.md`](../contrib.md).
-4. Gate : `node usr/lib/capsuleos/tools/validate-all.mjs`.
-5. Nouveau catalogue OS : [ajouter-os-scalable.md](docs/ajouter-os-scalable.md) · brief `print-agent-brief.mjs <id>`.
-6. Charger skill **rôle** + skill **OS** (ou `kernel-supervisor` si assets).
+3. **Clone / parité VM** : [convention-reproduction-os.md](docs/convention-reproduction-os.md) + skill **[os-clone-from-vm](skills/os-clone-from-vm/SKILL.md)**.
+4. Contrat : [`writing.md`](../../writing.md) · [checklist](../contrib.md#checklist-contrat-avant-merge-ou-release) dans [`contrib.md`](../contrib.md).
+5. Gate : `node usr/lib/capsuleos/tools/validate-all.mjs`.
+6. Nouveau catalogue OS : [ajouter-os-scalable.md](docs/ajouter-os-scalable.md) · brief `print-agent-brief.mjs <id>`.
+7. Charger skill **rôle** + skill **OS** (ou `kernel-supervisor` si assets).
 
 ## Rôles (`skills/role-*`)
 
@@ -68,8 +69,10 @@ Index détaillé : [docs/familles-os.md](docs/familles-os.md).
 
 ## Documentation
 
+- [docs/convention-reproduction-os.md](docs/convention-reproduction-os.md) — **contrat clone OS** (agents IA, CSS/JS, workflow VM)
 - [docs/manifeste-noyau.md](docs/manifeste-noyau.md) — vision noyau, hydratation, assets
-- [docs/repertoire-os.md](docs/repertoire-os.md) — catalogue OS (52 entrées, tiers P0–P4)
+- [docs/manifeste-kernels.md](docs/manifeste-kernels.md) — taxonomie kernels/branches (8 entrées actives, waves 1–2)
+- [docs/repertoire-os.md](docs/repertoire-os.md) — catalogue OS (57 entrées, tiers P0–P4)
 - [docs/scalabilite-noyau.md](docs/scalabilite-noyau.md) — scale statique, embeds partitionnés
 - [docs/equipe-agentique.md](docs/equipe-agentique.md) — staffing agents à l'échelle
 - [docs/parcours-agent.md](docs/parcours-agent.md) — formation H0–H6 avant action

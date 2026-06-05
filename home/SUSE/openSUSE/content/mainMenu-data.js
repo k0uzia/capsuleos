@@ -13,39 +13,16 @@ const MENU_CATS = [
     { id: 'utilities', label: 'Utilitaires', icon: './assets/images/toolkits/kde/category/applications-utilities.svg' },
 ];
 
+/** Répertoires utilisateur : définis à l’exécution par mainMenu-plasma.js (CAPSULE_CONTENT_ROOT). */
 const MENU_SHORTCUTS = {
-    home: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel',
-    },
-    desktop: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Bureau',
-    },
-    documents: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Documents',
-    },
-    downloads: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Téléchargements',
-    },
-    pictures: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Images',
-    },
-    music: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Musique',
-    },
-    videos: {
-        dataLink: 'nemo',
-        directory: './apps/system/Dossier_personnel/Vidéos',
-    },
-    trash: {
-        dataLink: null,
-        directory: null,
-    },
+    home: { dataLink: 'nemo', directory: null },
+    desktop: { dataLink: 'nemo', directory: null },
+    documents: { dataLink: 'nemo', directory: null },
+    downloads: { dataLink: 'nemo', directory: null },
+    pictures: { dataLink: 'nemo', directory: null },
+    music: { dataLink: 'nemo', directory: null },
+    videos: { dataLink: 'nemo', directory: null },
+    trash: { dataLink: null, directory: null },
 };
 
 const MENU_APPS = [
@@ -53,11 +30,12 @@ const MENU_APPS = [
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/kontact.svg', name: 'Kontact', desc: 'Courriel et agenda', dataLink: null },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/libreoffice-writer.svg', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
-    { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/kate.svg', name: 'Kate', desc: 'Éditeur de texte avancé', dataLink: null },
+    { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/kate.svg', name: 'Kate', desc: 'Éditeur de texte avancé', dataLink: 'text_editor' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/help-center.svg', name: 'Centre d\'aide', desc: 'Documentation KDE', dataLink: null },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/konsole.svg', name: 'Konsole', desc: 'Terminal', dataLink: 'terminal' },
     { catId: 'internet', icon: './assets/images/toolkits/kde/apps/firefox.svg', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
+    { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/kate.svg', name: 'Kate', desc: 'Éditeur de texte avancé', dataLink: 'text_editor' },
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/yast-firewall.svg', name: 'YaST Firewall', desc: 'Firewall', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-main.png', name: 'LibreOffice', desc: 'Bureau', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-draw.png', name: 'LibreOffice Draw', desc: 'Programme de dessin', dataLink: null },
@@ -66,6 +44,7 @@ const MENU_APPS = [
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-calc.png', name: 'LibreOffice Calc', desc: 'Classeur', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-base.png', name: 'LibreOffice Base', desc: 'Développement de base de données', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-math.png', name: 'LibreOffice Math', desc: 'Éditeur de formule', dataLink: null },
+    { catId: 'system', icon: './assets/images/toolkits/kde/apps/plasmadiscover.svg', name: 'Découvrir', desc: 'Gestionnaire de logiciels', dataLink: 'update_manager' },
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Configurer le système', dataLink: 'themes' },
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/org.kde.dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
     { catId: 'system', icon: './assets/images/toolkits/kde/apps/konsole.svg', name: 'Konsole', desc: 'Émulateur de terminal', dataLink: 'terminal' },

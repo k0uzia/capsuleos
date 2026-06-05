@@ -77,7 +77,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 ## Roadmap
 
 1. **P0 Mint** — contrat + `header-context.js` + profil cinnamon + barre Muffin toutes fenêtres ✅
-2. **P1 GNOME** — profils Fedora/Ubuntu/Rocky/AnduinOS avec `toolkitId: gnome` ✅
+2. **P0 Rocky GNOME** — skin canonique `home/RedHat/Rocky/` (Nautilus, overview, dock, assets VM) ; Fedora/Alma en aval ✅
+3. **P1 GNOME** — profils Fedora/Ubuntu/AnduinOS avec `toolkitId: gnome` (dérivation Rocky) ✅
 3. **P1 KDE** — openSUSE/MX/Debian-KDE avec `dolphin` ✅
 4. **P2 Cosmic** — Pop!_OS avec `toolkitId: cosmic` ✅
 5. **P2** — providers `gnome` / `kde` dédiés (au-delà du résolveur générique)
@@ -87,7 +88,7 @@ Attributs debug : `data-window-chrome-toolkit`, `data-window-chrome-provider` su
 
 CSS Mint unifié : `home/Debian/Mint/style/cinnamon-window-chrome.css`
 
-Smokes : `smoke-mint-window-chrome.mjs`, `smoke-mint-nemo.mjs`, `smoke-mint-file-roller.mjs`
+Smokes : `smoke-mint-window-chrome.mjs`, `smoke-mint-nemo.mjs`, `smoke-mint-file-roller.mjs`, `smoke-rocky-gnome-ref.mjs`
 
 ## Skills
 

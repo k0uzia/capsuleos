@@ -20,7 +20,7 @@ div[data-link="firefox"] #windowTitle {
     filter: var(--n);
 }
 
-.mint-browser {
+.capsule-browser {
     width: var(--full);
     height: var(--full);
     display: flex;
@@ -32,12 +32,12 @@ div[data-link="firefox"] #windowTitle {
     color: var(--firefox-text-main);
 }
 
-.mint-browser__chrome {
+.capsule-browser__chrome {
     border-bottom: var(--firefox-chrome-border);
     background: var(--firefox-chrome-bg);
 }
 
-.mint-browser__tabsbar {
+.capsule-browser__tabsbar {
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -46,7 +46,7 @@ div[data-link="firefox"] #windowTitle {
     background: var(--firefox-tabs-bg);
 }
 
-.mint-browser__tab {
+.capsule-browser__tab {
     border: var(--firefox-tab-border);
     border-bottom: 0;
     background: var(--firefox-tab-bg);
@@ -63,18 +63,18 @@ div[data-link="firefox"] #windowTitle {
     transition: border-color var(--eas2), transform var(--eas2), background-color var(--eas2);
 }
 
-.mint-browser__tab:hover {
+.capsule-browser__tab:hover {
     border-color: var(--menu-accent);
     transform: translateY(-1px);
 }
 
-.mint-browser__tab span {
+.capsule-browser__tab span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.mint-browser__tab-icon {
+.capsule-browser__tab-icon {
     width: 1.06rem;
     height: 1.06rem;
     border-radius: 50%;
@@ -88,24 +88,24 @@ div[data-link="firefox"] #windowTitle {
     background: var(--firefox-tab-icon-bg);
 }
 
-.mint-browser__tab-icon--firefox {
+.capsule-browser__tab-icon--firefox {
     background: var(--firefox-tab-fire-gradient);
     font-size: 0.67rem;
 }
 
-.mint-browser__tab-close {
+.capsule-browser__tab-close {
     color: var(--firefox-tab-close);
     font-size: 0.86rem;
     margin-left: 0.08rem;
 }
 
-.mint-browser__tab--active {
+.capsule-browser__tab--active {
     color: var(--firefox-tab-active-text);
     background: var(--firefox-tab-active-bg);
     border-color: var(--menu-accent);
 }
 
-.mint-browser__tab-add {
+.capsule-browser__tab-add {
     border: 0;
     background: transparent;
     color: var(--firefox-tab-add-text);
@@ -117,11 +117,11 @@ div[data-link="firefox"] #windowTitle {
     margin-left: 0.08rem;
 }
 
-.mint-browser__tab-add:hover {
+.capsule-browser__tab-add:hover {
     background: var(--firefox-hover-soft);
 }
 
-.mint-browser__toolbar {
+.capsule-browser__toolbar {
     display: flex;
     gap: 0.55rem;
     align-items: center;
@@ -131,13 +131,13 @@ div[data-link="firefox"] #windowTitle {
     border-top: 1px solid var(--firefox-toolbar-top-border);
 }
 
-.mint-browser__nav-actions {
+.capsule-browser__nav-actions {
     display: flex;
     gap: 0.45rem;
     flex-shrink: 0;
 }
 
-.mint-browser__btn {
+.capsule-browser__btn {
     border: 0;
     background: transparent;
     color: var(--firefox-btn-text);
@@ -156,24 +156,24 @@ div[data-link="firefox"] #windowTitle {
     transition: background-color var(--eas2), border-color var(--eas2), transform var(--eas2);
 }
 
-.mint-browser__btn:hover:not(:disabled) {
+.capsule-browser__btn:hover:not(:disabled) {
     background: var(--firefox-hover-soft);
     border-color: var(--menu-accent);
     transform: translateY(-1px);
 }
 
-.mint-browser__btn:focus-visible,
-.mint-browser__address-input:focus-visible {
+.capsule-browser__btn:focus-visible,
+.capsule-browser__address-input:focus-visible {
     outline: 2px solid var(--firefox-focus-outline);
     outline-offset: 1px;
 }
 
-.mint-browser__btn:disabled {
+.capsule-browser__btn:disabled {
     opacity: 0.35;
     cursor: not-allowed;
 }
 
-.mint-browser__btn--go {
+.capsule-browser__btn--go {
     border-radius: 0.56rem;
     background: var(--firefox-btn-go-bg);
     min-width: auto;
@@ -181,16 +181,16 @@ div[data-link="firefox"] #windowTitle {
     border: var(--firefox-btn-go-border);
 }
 
-.mint-browser__btn--go:hover {
+.capsule-browser__btn--go:hover {
     background: var(--firefox-btn-go-hover-bg);
 }
 
-.mint-browser__btn--ghost {
+.capsule-browser__btn--ghost {
     font-size: 0.86rem;
     color: var(--firefox-btn-ghost-text);
 }
 
-.mint-browser__addressbar {
+.capsule-browser__addressbar {
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -203,11 +203,11 @@ div[data-link="firefox"] #windowTitle {
     transition: border-color var(--eas2), background-color var(--eas2);
 }
 
-.mint-browser__addressbar:focus-within {
+.capsule-browser__addressbar:focus-within {
     border-color: var(--menu-accent);
 }
 
-.mint-browser__address-prefix {
+.capsule-browser__address-prefix {
     width: 1.08rem;
     height: 1.08rem;
     border-radius: 50%;
@@ -221,7 +221,7 @@ div[data-link="firefox"] #windowTitle {
     flex-shrink: 0;
 }
 
-.mint-browser__address-input {
+.capsule-browser__address-input {
     height: 1.9rem;
     flex: 1;
     min-width: 0;
@@ -232,18 +232,18 @@ div[data-link="firefox"] #windowTitle {
     font-size: 0.83rem;
 }
 
-.mint-browser__address-input::placeholder {
+.capsule-browser__address-input::placeholder {
     color: var(--firefox-address-placeholder);
 }
 
-.mint-browser__toolbar-actions {
+.capsule-browser__toolbar-actions {
     display: flex;
     align-items: center;
     gap: 0.12rem;
     flex-shrink: 0;
 }
 
-.mint-browser__bookmarks {
+.capsule-browser__bookmarks {
     display: flex;
     align-items: center;
     gap: 0.16rem;
@@ -253,11 +253,11 @@ div[data-link="firefox"] #windowTitle {
     background: var(--firefox-bookmarks-bg);
 }
 
-.mint-browser__bookmarks::-webkit-scrollbar {
+.capsule-browser__bookmarks::-webkit-scrollbar {
     height: 0;
 }
 
-.mint-browser__bookmark {
+.capsule-browser__bookmark {
     display: inline-flex;
     align-items: center;
     height: 1.5rem;
@@ -271,17 +271,17 @@ div[data-link="firefox"] #windowTitle {
     transition: background-color var(--eas2), border-color var(--eas2);
 }
 
-.mint-browser__bookmark--primary {
+.capsule-browser__bookmark--primary {
     background: var(--firefox-bookmark-primary-bg);
     color: var(--firefox-bookmark-primary-text);
 }
 
-.mint-browser__bookmark:hover {
+.capsule-browser__bookmark:hover {
     background: var(--firefox-hover-soft);
     border-color: var(--menu-accent);
 }
 
-.mint-browser__status {
+.capsule-browser__status {
     margin: 0;
     padding: 0.36rem 0.62rem;
     font-size: 0.72rem;
@@ -290,21 +290,21 @@ div[data-link="firefox"] #windowTitle {
     background: var(--firefox-status-bg);
 }
 
-.mint-browser__viewport {
+.capsule-browser__viewport {
     flex: 1;
     min-height: 0;
     overflow: hidden;
     padding: 0;
 }
 
-.mint-browser-redirect {
+.capsule-browser-redirect {
     width: 100%;
     height: 100%;
     min-height: 0;
     display: block;
 }
 
-.mint-browser-redirect__frame {
+.capsule-browser-redirect__frame {
     width: 100%;
     height: 100%;
     min-height: 100%;
@@ -313,7 +313,7 @@ div[data-link="firefox"] #windowTitle {
     background: var(--firefox-frame-bg);
 }
 
-.mint-browser-home {
+.capsule-browser-home {
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -322,14 +322,14 @@ div[data-link="firefox"] #windowTitle {
     gap: 1rem;
 }
 
-.mint-browser-home__hero {
+.capsule-browser-home__hero {
     border: var(--firefox-home-card-border);
     border-radius: 0.9rem;
     padding: 1.1rem;
     background: var(--firefox-home-card-bg);
 }
 
-.mint-browser-home__label {
+.capsule-browser-home__label {
     margin: 0;
     font-size: 0.72rem;
     letter-spacing: 0.07em;
@@ -337,53 +337,53 @@ div[data-link="firefox"] #windowTitle {
     color: var(--firefox-home-label);
 }
 
-.mint-browser-home__title {
+.capsule-browser-home__title {
     margin: 0.32rem 0;
     font-size: 1.28rem;
     color: var(--firefox-home-title);
 }
 
-.mint-browser-home__lead {
+.capsule-browser-home__lead {
     margin: 0;
     font-size: 0.9rem;
     color: var(--firefox-home-lead);
     max-width: 68ch;
 }
 
-.mint-browser-home__panel {
+.capsule-browser-home__panel {
     border: var(--firefox-home-panel-border);
     border-radius: 0.9rem;
     padding: 1rem;
     background: var(--firefox-home-panel-bg);
 }
 
-.mint-browser-home__panel-title {
+.capsule-browser-home__panel-title {
     margin: 0;
     font-size: 0.98rem;
     color: var(--firefox-home-panel-title);
 }
 
-.mint-browser-home__shortcuts {
+.capsule-browser-home__shortcuts {
     margin-top: 0.8rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 0.75rem;
 }
 
-.mint-browser-home__shortcut {
+.capsule-browser-home__shortcut {
     border: var(--firefox-home-card-border);
     border-radius: 0.72rem;
     background: var(--firefox-home-shortcut-bg);
     padding: 0.7rem;
 }
 
-.mint-browser-home__shortcut h3 {
+.capsule-browser-home__shortcut h3 {
     margin: 0;
     font-size: 0.88rem;
     color: var(--firefox-home-shortcut-title);
 }
 
-.mint-browser-home__shortcut p {
+.capsule-browser-home__shortcut p {
     margin: 0.42rem 0 0;
     font-size: 0.78rem;
     color: var(--firefox-home-shortcut-text);
@@ -391,34 +391,34 @@ div[data-link="firefox"] #windowTitle {
 }
 
 @media (max-width: 760px) {
-    .mint-browser__tabsbar {
+    .capsule-browser__tabsbar {
         padding-top: 0.2rem;
     }
 
-    .mint-browser__tab {
+    .capsule-browser__tab {
         max-width: 150px;
     }
 
-    .mint-browser__toolbar {
+    .capsule-browser__toolbar {
         flex-wrap: wrap;
         padding: 0.45rem;
     }
 
-    .mint-browser__nav-actions {
+    .capsule-browser__nav-actions {
         order: 1;
     }
 
-    .mint-browser__addressbar {
+    .capsule-browser__addressbar {
         width: 100%;
         order: 3;
     }
 
-    .mint-browser__toolbar-actions {
+    .capsule-browser__toolbar-actions {
         margin-left: auto;
         order: 2;
     }
 
-    .mint-browser__viewport {
+    .capsule-browser__viewport {
         padding: 0;
     }
 }

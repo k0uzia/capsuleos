@@ -18,6 +18,10 @@ Procédure détaillée : [`procedure-clonage-os-depuis-vm.md`](../procedure-clon
 ## Phase 1 — Discovery
 
 - [ ] Inventaire VM collecté → `root/docs/inventaires/<registryId>-vm.json`
+- [ ] **Audit profond** → `root/docs/inventaires/<registryId>-deep-audit.json` ([procedure-audit-vm-profonde.md](../procedure-audit-vm-profonde.md))
+- [ ] Phase static : `node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs --id <registryId> --phase static --write-doc`
+- [ ] Matrice interactions + menus contextuels + bureaux virtuels documentés
+- [ ] Animations / raccourcis / assets catalogués dans le deep-audit
 - [ ] Rapport parité initialisé → `root/docs/inventaire-parite-<vendor>.md`
 - [ ] Écarts classés P0 / P1 / P2 / CapsuleOnly
 

@@ -11,7 +11,7 @@
         terminal: 'Terminal',
         profile: 'Paramètres système',
         themes: 'Applications et mises à jour',
-        checklist: 'Éditer des documents',
+        text_editor: 'Éditer des documents',
         lecteur_multimedia: 'Lire des médias'
     };
 

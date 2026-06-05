@@ -45,6 +45,15 @@ const shouldUseAppEmbed = (templateId) => {
     if (typeof window !== 'undefined' && window.CAPSULE_FORCE_APP_EMBED === true) {
         return true;
     }
+    if (typeof window !== 'undefined' && window.CapsuleBrowserCapabilities) {
+        const caps = window.CapsuleBrowserCapabilities.capabilities;
+        if (caps.fileProtocolEmbed && typeof location !== 'undefined' && location.protocol === 'file:') {
+            return true;
+        }
+        if (window.CapsuleEngineAdapter && window.CapsuleEngineAdapter.preferEmbedOnFileProtocol === false) {
+            return false;
+        }
+    }
     if (typeof location !== 'undefined' && location.protocol === 'file:') {
         return true;
     }
@@ -77,10 +86,27 @@ const resolveCssBaseTemplateId = (templateId) => {
     return templateId;
 };
 
+const normalizeExplorerSkinId = (skinId, templateId) => {
+    if (skinId === 'nemo-gnome' || skinId === 'files') {
+        return 'nautilus';
+    }
+    if ((templateId === 'nemo-gnome' || templateId === 'nautilus') && skinId === templateId) {
+        return 'nautilus';
+    }
+    return skinId;
+};
+
+const resolveExplorerSkinFallbackId = (templateId) => {
+    if (templateId === 'nemo-gnome' || templateId === 'nautilus') {
+        return 'nautilus';
+    }
+    return templateId;
+};
+
 const resolveSkinId = (slotId, templateId) => {
     if (slotId === 'nemo' && typeof window !== 'undefined' && window.CAPSULE_EXPLORER_SKIN_KEY) {
         const skin = String(window.CAPSULE_EXPLORER_SKIN_KEY).replace(/\/+$/, '');
-        return skin || templateId;
+        return normalizeExplorerSkinId(skin || templateId, templateId);
     }
     if (slotId === 'mainMenu' && typeof window !== 'undefined' && window.CAPSULE_MAIN_MENU_SKIN_KEY) {
         const skin = String(window.CAPSULE_MAIN_MENU_SKIN_KEY).replace(/\/+$/, '');
@@ -102,6 +128,14 @@ const divs = document.querySelectorAll('div[data-link]');
 const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
+    }
+    if (typeof window !== 'undefined'
+        && window.CapsuleClusterRegistry
+        && typeof window.CapsuleClusterRegistry.resolveHtmlPath === 'function') {
+        const clusterPath = window.CapsuleClusterRegistry.resolveHtmlPath(templateId, appsBase);
+        if (clusterPath) {
+            return clusterPath;
+        }
     }
     if (typeof window !== 'undefined'
         && window.CapsuleExplorerRegistry
@@ -367,6 +401,16 @@ const SLOT_INIT_HANDLERS = {
             initCalculatorApp();
         }
     },
+    clocks: () => {
+        if (typeof initClocksApp === 'function') {
+            initClocksApp();
+        }
+    },
+    calendar: () => {
+        if (typeof initCalendarApp === 'function') {
+            initCalendarApp();
+        }
+    },
     screenshot: () => {
         if (typeof initScreenshotApp === 'function') {
             initScreenshotApp();
@@ -460,7 +504,9 @@ const startCapsuleContentLoad = () => {
                 const appsBase = getAppsBase();
                 const skinBase = getSkinBase();
                 const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
-                const cssSkinFallbackFile = skinBase ? `${skinBase}/style/apps/${templateId}.skin.css` : null;
+                const cssSkinFallbackFile = skinBase
+                    ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
+                    : null;
 
                 return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
                     .then(({ html, cssBase, cssSkin }) => {
@@ -487,8 +533,22 @@ const startCapsuleContentLoad = () => {
         });
 };
 
+const bootCapsuleContentLoad = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_SKIN_PROFILE_APPLIED) {
+        startCapsuleContentLoad();
+        return;
+    }
+    if (typeof document !== 'undefined') {
+        document.addEventListener('capsule-skin-ready', () => {
+            startCapsuleContentLoad();
+        }, { once: true });
+        return;
+    }
+    startCapsuleContentLoad();
+};
+
 if (typeof document !== 'undefined' && document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startCapsuleContentLoad);
+    document.addEventListener('DOMContentLoaded', bootCapsuleContentLoad);
 } else {
-    setTimeout(startCapsuleContentLoad, 0);
+    setTimeout(bootCapsuleContentLoad, 0);
 }

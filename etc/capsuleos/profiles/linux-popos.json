@@ -1,13 +1,22 @@
 {
   "id": "linux-popos",
-  "version": 1,
+  "version": 2,
   "family": "linux",
+  "kernelId": "linux",
+  "branchId": "ubuntu",
   "vendor": "popos",
   "displayName": "Pop!_OS",
   "bodyId": "popos",
   "embedKey": "popos",
   "tier": "P2",
   "status": "active",
+  "fidelityLevel": 2,
+  "upstreamId": "linux-ubuntu",
+  "clusterIds": [
+    "explorer.nemo.cosmic",
+    "toolkit.cosmic"
+  ],
+  "extends": "kernel:linux/branch:ubuntu/toolkit:cosmic",
   "paths": {
     "facade": "OS/linux/families/debian/popos/index.html",
     "skin": "home/Debian/PopOS/index.html"
@@ -32,16 +41,13 @@
     "CAPSULE_EXPLORER_TEMPLATE": "nemo-cosmic",
     "CAPSULE_EMBED_SKIN_KEY": "popos",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/popos/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
     "CAPSULE_WINDOW_CHROME_CONTEXT": {
       "toolkitId": "cosmic",
       "explorerTemplate": "nemo-cosmic",
-      "explorerDragMode": "app-headerbar-passthrough",
-      "slotProviders": {
-        "terminal": "terminal-cosmic"
-      }
+      "dragMode": "app-headerbar-passthrough"
     }
   }
 }

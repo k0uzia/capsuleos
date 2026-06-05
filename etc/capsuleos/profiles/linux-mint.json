@@ -1,13 +1,22 @@
 {
   "id": "linux-mint",
-  "version": 1,
+  "version": 2,
   "family": "linux",
+  "kernelId": "linux",
+  "branchId": "mint",
   "vendor": "mint",
   "displayName": "Linux Mint (Cinnamon)",
   "bodyId": "mint",
   "embedKey": "mint",
   "tier": "P0",
   "status": "active",
+  "fidelityLevel": 4,
+  "upstreamId": null,
+  "clusterIds": [
+    "explorer.nemo.cinnamon",
+    "toolkit.cinnamon"
+  ],
+  "extends": "kernel:linux/branch:mint/toolkit:cinnamon",
   "paths": {
     "facade": "OS/linux/families/debian/mint/index.html",
     "skin": "home/Debian/Mint/index.html"
@@ -32,9 +41,14 @@
     "CAPSULE_EXPLORER_TEMPLATE": "nemo",
     "CAPSULE_EMBED_SKIN_KEY": "mint",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "cinnamon",
+      "explorerTemplate": "nemo",
+      "dragMode": "unified-titlebar"
+    },
     "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",
@@ -44,18 +58,15 @@
       "requireHeader": true,
       "headerLayout": "capsule",
       "edgeTiling": true,
-      "skipSlots": ["mainMenu"],
+      "skipSlots": [
+        "mainMenu"
+      ],
       "bounds": {
         "mainSelector": "object#desktop, #desktop",
         "desktopSelector": "object#desktop, #desktop",
         "footerSelector": "footer, #tableau",
         "subtractFooter": false
       }
-    },
-    "CAPSULE_WINDOW_CHROME_CONTEXT": {
-      "toolkitId": "cinnamon",
-      "explorerTemplate": "nemo",
-      "explorerDragMode": "unified-titlebar"
     }
   }
 }

@@ -16,7 +16,7 @@ const VM_JSON = path.join(ROOT, 'root/docs/inventaires/linux-mint-vm.json');
 const OUT_JSON = path.join(ROOT, 'root/docs/inventaires/linux-mint-apps-catalog.json');
 const OUT_MD = path.join(ROOT, 'root/docs/inventaires/linux-mint-apps-alphabetique.md');
 const MINT_INDEX = path.join(ROOT, 'home/Debian/Mint/index.html');
-const MENU_DATA = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mainMenu-data.js');
+const MENU_DATA = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js');
 
 const SLOT_STATUS = {
   nemo: { statut: 'ok', slot: 'nemo', note: 'Nemo — sidebar Places, titre dynamique, getExplorerCurrentPath' },

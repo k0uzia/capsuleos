@@ -1,6 +1,6 @@
 @import url(../../../../../../usr/share/capsuleos/themes/global/reset.css);
 @import url(../../../../../../usr/share/capsuleos/themes/global/variables.css);
-@import url(../../../../../../usr/share/capsuleos/themes/linux/window-chrome.base.css);
+@import url(../../../../../../usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css);
 @import url(./anduin-shell/a11y-anduin.css);
 @import url(../../../../kernel/style/variables-linux.css);
 @import url(./anduin-shell/tokens.css);

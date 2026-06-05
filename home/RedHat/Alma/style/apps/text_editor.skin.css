@@ -1,0 +1,91 @@
+/**
+ * alma — text_editor (structure Rocky).
+ */
+body#alma {
+    --xed-chrome-bg: #303030;
+    --xed-status-bg: #262626;
+    --xed-buffer-bg: #ffffff;
+    --xed-buffer-text: #1e1e1e;
+    --xed-text: #ffffff;
+    --xed-border: rgba(255, 255, 255, 0.08);
+    --xed-menu-surface-bg: #383838;
+    --xed-menu-hover-bg: rgba(255, 255, 255, 0.08);
+    --xed-toolbar-hover-bg: rgba(255, 255, 255, 0.1);
+    --xed-toolbar-active-bg: rgba(53, 132, 228, 0.22);
+    --xed-toolbar-icon-filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"]:has(#rocky) {
+    --xed-chrome-bg: #f6f6f6;
+    --xed-status-bg: #ebebeb;
+    --xed-buffer-bg: #ffffff;
+    --xed-buffer-text: #1e1e1e;
+    --xed-text: #1e1e1e;
+    --xed-border: rgba(0, 0, 0, 0.1);
+    --xed-menu-surface-bg: #ffffff;
+    --xed-menu-hover-bg: rgba(0, 0, 0, 0.06);
+    --xed-toolbar-hover-bg: rgba(0, 0, 0, 0.06);
+    --xed-toolbar-active-bg: rgba(53, 132, 228, 0.14);
+    --xed-toolbar-icon-filter: brightness(0);
+}
+
+body#alma div[data-link="text_editor"].gnome-app--csd {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body#alma div[data-link="text_editor"] .xed-app__menubar {
+    border-bottom: 1px solid var(--xed-border);
+}
+
+body#alma main#xedApp {
+    color: var(--xed-text);
+    background: var(--xed-chrome-bg);
+}
+
+body#alma .xed-app__menubar,
+body#alma .xed-app__toolbar {
+    background: var(--xed-chrome-bg);
+    border-color: var(--xed-border);
+}
+
+body#alma .xed-app__status {
+    background: var(--xed-status-bg);
+    border-color: var(--xed-border);
+    color: rgba(255, 255, 255, 0.72);
+}
+
+html[data-theme="light"]:has(#rocky) .xed-app__status {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+body#alma .xed-menu__trigger:hover,
+body#alma .xed-menu__trigger[aria-expanded="true"] {
+    background: var(--xed-menu-hover-bg);
+}
+
+body#alma .xed-menu__dropdown {
+    background: var(--xed-menu-surface-bg);
+    border-color: var(--xed-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+body#alma .xed-menu__item {
+    color: var(--xed-text);
+}
+
+body#alma .xed-app__tool:hover {
+    background: var(--xed-toolbar-hover-bg);
+    border-color: var(--menu-accent, #3584e4);
+}
+
+body#alma .xed-app__tool img {
+    filter: var(--xed-toolbar-icon-filter);
+}
+
+body#alma .xed-app__editor-wrap,
+body#alma .xed-app__area {
+    color: var(--xed-buffer-text);
+    background: var(--xed-buffer-bg);
+}

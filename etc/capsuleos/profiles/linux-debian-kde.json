@@ -1,13 +1,22 @@
 {
   "id": "linux-debian-kde",
-  "version": 1,
+  "version": 2,
   "family": "linux",
+  "kernelId": "linux",
+  "branchId": "debian",
   "vendor": "debian",
   "displayName": "Debian KDE (Plasma)",
   "bodyId": "debian-kde",
   "embedKey": "debiankde",
   "tier": "P2",
-  "status": "active",
+  "status": "planned",
+  "fidelityLevel": 3,
+  "upstreamId": null,
+  "clusterIds": [
+    "explorer.dolphin.kde",
+    "toolkit.kde"
+  ],
+  "extends": "kernel:linux/branch:debian/toolkit:kde",
   "paths": {
     "facade": "OS/linux/families/debian/debian-kde/index.html",
     "skin": "home/Debian/Debian-KDE/index.html"
@@ -32,15 +41,15 @@
     "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
     "CAPSULE_EMBED_SKIN_KEY": "debiankde",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/debian-kde/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
-    "CAPSULE_EXPLORER_APP_ID": "nemo",
-    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
     "CAPSULE_WINDOW_CHROME_CONTEXT": {
       "toolkitId": "kde",
       "explorerTemplate": "dolphin",
-      "explorerDragMode": "window-header"
-    }
+      "dragMode": "window-header"
+    },
+    "CAPSULE_EXPLORER_APP_ID": "dolphin",
+    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
   }
 }

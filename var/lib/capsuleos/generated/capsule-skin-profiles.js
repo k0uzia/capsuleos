@@ -4,23 +4,104 @@
  * Regénérer : node usr/lib/capsuleos/tools/build-skin-profiles.mjs
  */
 window.CAPSULE_SKIN_PROFILES = {
+  "alma": {
+    "id": "linux-alma",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "rhel",
+    "vendor": "alma",
+    "displayName": "AlmaLinux (GNOME)",
+    "bodyId": "alma",
+    "embedKey": "alma",
+    "tier": "P3",
+    "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:rhel/toolkit:gnome",
+    "paths": {
+      "facade": "OS/linux/families/redhat/alma/index.html",
+      "skin": "home/RedHat/Alma/index.html"
+    },
+    "toolkit": {
+      "id": "gnome",
+      "shell": "gnome"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/gnome",
+      "vendorPack": "vendors/alma",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "alma",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
+        }
+      }
+    }
+  },
   "anduinos": {
     "id": "linux-anduinos",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "anduin",
     "displayName": "AnduinOS",
     "bodyId": "anduinos",
     "embedKey": "anduinos",
     "tier": "P3",
     "status": "active",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/debian/anduinos/index.html",
       "skin": "home/Debian/AnduinOS/index.html"
     },
     "toolkit": {
       "id": "gnome",
-      "shell": "gnome"
+      "shell": "anduin"
     },
     "assets": {
       "assetsBase": "../../../usr/share/capsuleos/assets",
@@ -38,30 +119,54 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "anduinos",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.anduin-workspace",
+          "desktopSelector": "#desktop",
+          "footerSelector": "footer.anduin-taskbar",
+          "subtractFooter": true
         }
       }
     }
   },
   "debian-kde": {
     "id": "linux-debian-kde",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
     "vendor": "debian",
     "displayName": "Debian KDE (Plasma)",
     "bodyId": "debian-kde",
     "embedKey": "debiankde",
     "tier": "P2",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 3,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/debian-kde/index.html",
       "skin": "home/Debian/Debian-KDE/index.html"
@@ -86,28 +191,37 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "debiankde",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/debian-kde/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
-      }
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
     }
   },
   "fedora": {
     "id": "linux-fedora",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "fedora",
     "vendor": "fedora",
     "displayName": "Fedora Workstation",
     "bodyId": "fedora",
     "embedKey": "fedora",
     "tier": "P1",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:fedora/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/redhat/fedora/index.html",
       "skin": "home/RedHat/Fedora/index.html"
@@ -132,31 +246,55 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "fedora",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }
   },
   "kde-neon": {
     "id": "linux-kde-neon",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "neon",
     "displayName": "KDE neon User Edition",
     "bodyId": "kde-neon",
     "embedKey": "kde-neon",
     "tier": "P2",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/kde-neon/index.html",
       "skin": "home/Debian/KDE-Neon/index.html"
@@ -181,31 +319,37 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "kde-neon",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/kde-neon/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
-      },
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
-      }
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
     }
   },
   "mint": {
     "id": "linux-mint",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "mint",
     "vendor": "mint",
     "displayName": "Linux Mint (Cinnamon)",
     "bodyId": "mint",
     "embedKey": "mint",
     "tier": "P0",
     "status": "active",
+    "fidelityLevel": 4,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.nemo.cinnamon",
+      "toolkit.cinnamon"
+    ],
+    "extends": "kernel:linux/branch:mint/toolkit:cinnamon",
     "paths": {
       "facade": "OS/linux/families/debian/mint/index.html",
       "skin": "home/Debian/Mint/index.html"
@@ -230,9 +374,14 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo",
       "CAPSULE_EMBED_SKIN_KEY": "mint",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cinnamon",
+        "explorerTemplate": "nemo",
+        "dragMode": "unified-titlebar"
+      },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -251,24 +400,28 @@ window.CAPSULE_SKIN_PROFILES = {
           "footerSelector": "footer, #tableau",
           "subtractFooter": false
         }
-      },
-      "CAPSULE_WINDOW_CHROME_CONTEXT": {
-        "toolkitId": "cinnamon",
-        "explorerTemplate": "nemo",
-        "explorerDragMode": "unified-titlebar"
       }
     }
   },
   "mx-kde": {
     "id": "linux-mx-kde",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
     "vendor": "mx",
     "displayName": "MX Linux KDE",
     "bodyId": "mx-kde",
     "embedKey": "mxkde",
     "tier": "P1",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/mx-kde/index.html",
       "skin": "home/Debian/MX-KDE/index.html"
@@ -293,34 +446,43 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "mxkde",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mx-kde/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "mxkde-checklist",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
-      },
-      "CAPSULE_TERMINAL_USER": "mx-linux",
-      "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "mxkde-checklist",
+      "CAPSULE_TERMINAL_USER": "mx-linux",
+      "CAPSULE_TERMINAL_HOST": "mx",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       }
     }
   },
   "opensuse": {
     "id": "linux-opensuse",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "opensuse",
     "vendor": "opensuse",
     "displayName": "openSUSE Tumbleweed",
     "bodyId": "opensuse",
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:opensuse/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/suse/opensuse/index.html",
       "skin": "home/SUSE/openSUSE/index.html"
@@ -345,31 +507,58 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "opensuse",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/suse/opensuse/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "suse",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       },
-      "CAPSULE_WINDOW_CHROME_CONTEXT": {
-        "toolkitId": "kde",
-        "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": true,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "object#desktop, #desktop",
+          "desktopSelector": "object#desktop, #desktop",
+          "footerSelector": "footer, #tableau",
+          "subtractFooter": false
+        }
       }
     }
   },
   "popos": {
     "id": "linux-popos",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "popos",
     "displayName": "Pop!_OS",
     "bodyId": "popos",
     "embedKey": "popos",
     "tier": "P2",
     "status": "active",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-ubuntu",
+    "clusterIds": [
+      "explorer.nemo.cosmic",
+      "toolkit.cosmic"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:cosmic",
     "paths": {
       "facade": "OS/linux/families/debian/popos/index.html",
       "skin": "home/Debian/PopOS/index.html"
@@ -394,29 +583,35 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-cosmic",
       "CAPSULE_EMBED_SKIN_KEY": "popos",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/popos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "terminal": "terminal-cosmic"
-        }
+        "dragMode": "app-headerbar-passthrough"
       }
     }
   },
   "rocky": {
     "id": "linux-rocky",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "rhel",
     "vendor": "rocky",
     "displayName": "Rocky Linux (GNOME)",
     "bodyId": "rocky",
     "embedKey": "rocky",
-    "tier": "P3",
+    "tier": "P1",
     "status": "active",
+    "fidelityLevel": 4,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:rhel/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/redhat/rocky/index.html",
       "skin": "home/RedHat/Rocky/index.html"
@@ -441,32 +636,55 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }
   },
   "ubuntu": {
     "id": "linux-ubuntu",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "ubuntu",
     "displayName": "Ubuntu 25.10",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/debian/ubuntu/index.html",
       "skin": "home/Debian/Ubuntu/index.html"
@@ -491,41 +709,139 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "ubuntu",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+      },
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }
   }
 };
 window.CAPSULE_SKIN_PROFILES_BY_ID = {
+  "linux-alma": {
+    "id": "linux-alma",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "rhel",
+    "vendor": "alma",
+    "displayName": "AlmaLinux (GNOME)",
+    "bodyId": "alma",
+    "embedKey": "alma",
+    "tier": "P3",
+    "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:rhel/toolkit:gnome",
+    "paths": {
+      "facade": "OS/linux/families/redhat/alma/index.html",
+      "skin": "home/RedHat/Alma/index.html"
+    },
+    "toolkit": {
+      "id": "gnome",
+      "shell": "gnome"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/gnome",
+      "vendorPack": "vendors/alma",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "alma",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "gnome",
+        "explorerTemplate": "nemo-gnome",
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
+        }
+      }
+    }
+  },
   "linux-anduinos": {
     "id": "linux-anduinos",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "anduin",
     "displayName": "AnduinOS",
     "bodyId": "anduinos",
     "embedKey": "anduinos",
     "tier": "P3",
     "status": "active",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/debian/anduinos/index.html",
       "skin": "home/Debian/AnduinOS/index.html"
     },
     "toolkit": {
       "id": "gnome",
-      "shell": "gnome"
+      "shell": "anduin"
     },
     "assets": {
       "assetsBase": "../../../usr/share/capsuleos/assets",
@@ -543,30 +859,54 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "anduinos",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.anduin-workspace",
+          "desktopSelector": "#desktop",
+          "footerSelector": "footer.anduin-taskbar",
+          "subtractFooter": true
         }
       }
     }
   },
   "linux-debian-kde": {
     "id": "linux-debian-kde",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
     "vendor": "debian",
     "displayName": "Debian KDE (Plasma)",
     "bodyId": "debian-kde",
     "embedKey": "debiankde",
     "tier": "P2",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 3,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/debian-kde/index.html",
       "skin": "home/Debian/Debian-KDE/index.html"
@@ -591,28 +931,37 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "debiankde",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/debian-kde/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
-      }
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
     }
   },
   "linux-fedora": {
     "id": "linux-fedora",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "fedora",
     "vendor": "fedora",
     "displayName": "Fedora Workstation",
     "bodyId": "fedora",
     "embedKey": "fedora",
     "tier": "P1",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:fedora/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/redhat/fedora/index.html",
       "skin": "home/RedHat/Fedora/index.html"
@@ -637,31 +986,55 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "fedora",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }
   },
   "linux-kde-neon": {
     "id": "linux-kde-neon",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "neon",
     "displayName": "KDE neon User Edition",
     "bodyId": "kde-neon",
     "embedKey": "kde-neon",
     "tier": "P2",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/kde-neon/index.html",
       "skin": "home/Debian/KDE-Neon/index.html"
@@ -686,31 +1059,37 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "kde-neon",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/kde-neon/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
-      },
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
-      }
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
     }
   },
   "linux-mint": {
     "id": "linux-mint",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "mint",
     "vendor": "mint",
     "displayName": "Linux Mint (Cinnamon)",
     "bodyId": "mint",
     "embedKey": "mint",
     "tier": "P0",
     "status": "active",
+    "fidelityLevel": 4,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.nemo.cinnamon",
+      "toolkit.cinnamon"
+    ],
+    "extends": "kernel:linux/branch:mint/toolkit:cinnamon",
     "paths": {
       "facade": "OS/linux/families/debian/mint/index.html",
       "skin": "home/Debian/Mint/index.html"
@@ -735,9 +1114,14 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo",
       "CAPSULE_EMBED_SKIN_KEY": "mint",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "cinnamon",
+        "explorerTemplate": "nemo",
+        "dragMode": "unified-titlebar"
+      },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -756,24 +1140,28 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
           "footerSelector": "footer, #tableau",
           "subtractFooter": false
         }
-      },
-      "CAPSULE_WINDOW_CHROME_CONTEXT": {
-        "toolkitId": "cinnamon",
-        "explorerTemplate": "nemo",
-        "explorerDragMode": "unified-titlebar"
       }
     }
   },
   "linux-mx-kde": {
     "id": "linux-mx-kde",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
     "vendor": "mx",
     "displayName": "MX Linux KDE",
     "bodyId": "mx-kde",
     "embedKey": "mxkde",
     "tier": "P1",
-    "status": "active",
+    "status": "planned",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/debian/mx-kde/index.html",
       "skin": "home/Debian/MX-KDE/index.html"
@@ -798,34 +1186,43 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "mxkde",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mx-kde/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "mxkde-checklist",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
-      },
-      "CAPSULE_TERMINAL_USER": "mx-linux",
-      "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "kde",
         "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "mxkde-checklist",
+      "CAPSULE_TERMINAL_USER": "mx-linux",
+      "CAPSULE_TERMINAL_HOST": "mx",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       }
     }
   },
   "linux-opensuse": {
     "id": "linux-opensuse",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "opensuse",
     "vendor": "opensuse",
     "displayName": "openSUSE Tumbleweed",
     "bodyId": "opensuse",
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.dolphin.kde",
+      "toolkit.kde"
+    ],
+    "extends": "kernel:linux/branch:opensuse/toolkit:kde",
     "paths": {
       "facade": "OS/linux/families/suse/opensuse/index.html",
       "skin": "home/SUSE/openSUSE/index.html"
@@ -850,31 +1247,58 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
       "CAPSULE_EMBED_SKIN_KEY": "opensuse",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/suse/opensuse/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "suse",
-      "CAPSULE_EXPLORER_APP_ID": "nemo",
+      "CAPSULE_WINDOW_CHROME_CONTEXT": {
+        "toolkitId": "kde",
+        "explorerTemplate": "dolphin",
+        "dragMode": "window-header"
+      },
+      "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
       },
-      "CAPSULE_WINDOW_CHROME_CONTEXT": {
-        "toolkitId": "kde",
-        "explorerTemplate": "dolphin",
-        "explorerDragMode": "window-header"
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": true,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "object#desktop, #desktop",
+          "desktopSelector": "object#desktop, #desktop",
+          "footerSelector": "footer, #tableau",
+          "subtractFooter": false
+        }
       }
     }
   },
   "linux-popos": {
     "id": "linux-popos",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "popos",
     "displayName": "Pop!_OS",
     "bodyId": "popos",
     "embedKey": "popos",
     "tier": "P2",
     "status": "active",
+    "fidelityLevel": 2,
+    "upstreamId": "linux-ubuntu",
+    "clusterIds": [
+      "explorer.nemo.cosmic",
+      "toolkit.cosmic"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:cosmic",
     "paths": {
       "facade": "OS/linux/families/debian/popos/index.html",
       "skin": "home/Debian/PopOS/index.html"
@@ -899,29 +1323,35 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-cosmic",
       "CAPSULE_EMBED_SKIN_KEY": "popos",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/popos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "terminal": "terminal-cosmic"
-        }
+        "dragMode": "app-headerbar-passthrough"
       }
     }
   },
   "linux-rocky": {
     "id": "linux-rocky",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "rhel",
     "vendor": "rocky",
     "displayName": "Rocky Linux (GNOME)",
     "bodyId": "rocky",
     "embedKey": "rocky",
-    "tier": "P3",
+    "tier": "P1",
     "status": "active",
+    "fidelityLevel": 4,
+    "upstreamId": null,
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:rhel/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/redhat/rocky/index.html",
       "skin": "home/RedHat/Rocky/index.html"
@@ -946,32 +1376,55 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }
   },
   "linux-ubuntu": {
     "id": "linux-ubuntu",
-    "version": 1,
+    "version": 2,
     "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
     "vendor": "ubuntu",
     "displayName": "Ubuntu 25.10",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
     "status": "active",
+    "fidelityLevel": 3,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "explorer.nautilus.gnome",
+      "toolkit.gnome"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:gnome",
     "paths": {
       "facade": "OS/linux/families/debian/ubuntu/index.html",
       "skin": "home/Debian/Ubuntu/index.html"
@@ -996,18 +1449,35 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "ubuntu",
       "CAPSULE_SITE_HOME": "../../../index.html",
-      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
-      "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
-      "CAPSULE_EXPLORER_SKIN_KEY": "nemo-gnome",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "explorerDragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "firefox": "firefox-gnome",
-          "terminal": "terminal-gnome"
+        "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+      },
+      "CAPSULE_WINDOW_CONTEXT": {
+        "family": "linux",
+        "draggable": true,
+        "resizable": true,
+        "forceOnOpen": true,
+        "requireHeader": false,
+        "headerLayout": "capsule",
+        "edgeTiling": false,
+        "skipSlots": [
+          "mainMenu"
+        ],
+        "bounds": {
+          "mainSelector": "main.fedora-desktop-area",
+          "desktopSelector": "object#desktop",
+          "footerSelector": "header.fedora-top-bar, #tableau",
+          "subtractFooter": false
         }
       }
     }

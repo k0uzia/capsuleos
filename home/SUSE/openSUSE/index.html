@@ -13,6 +13,7 @@
     <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js?v=20260610"></script>
     <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-opensuse';</script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
+    <script src="../../../usr/lib/capsuleos/core/cluster-registry.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/opensuse/opensuse-logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./style/style.css?v=20260610" type="text/css">
@@ -39,6 +40,7 @@
         <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
         <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
+        <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
     </object>
     <footer id="tableau">
         <nav class="taskbar-pins" aria-label="Applications épinglées">
@@ -63,6 +65,9 @@
                 </a>
                 <a href="#" target="windowElement" data-link="terminal" title="Konsole">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/konsole.svg" alt="">
+                </a>
+                <a href="#" target="windowElement" data-link="text_editor" title="Kate — éditeur de texte">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/kate.svg" alt="">
                 </a>
             </div>
         </nav>
@@ -162,6 +167,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/window/drag-targets.js"></script>
     <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
     <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
@@ -180,6 +186,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260610c"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js?v=20260605"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
@@ -187,7 +195,6 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDolphin.js?v=20260605"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
@@ -206,6 +213,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js?v=20260529a"></script>
 </body>
 </html>

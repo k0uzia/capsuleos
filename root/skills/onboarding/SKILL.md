@@ -59,6 +59,7 @@ Détail des sous-gates : assets (`validate-assets-all`), registre/façades (`val
 | Entrée registre (ex. linux-mint) | `capsuleos-distro-<id>` |
 | Fichiers JS / CSS / JSON / HTML | `capsuleos-lang-javascript`, `capsuleos-lang-css`, … |
 | Linux distro / KDE / Cinnamon | `os-linux` |
+| Clone OS depuis VM | `os-clone-from-vm` |
 | Migration images | `kernel-supervisor` |
 | Intégration skin | `role-integrator` |
 | ES6 / JSON | `code-quality` |
@@ -73,6 +74,7 @@ Détail des sous-gates : assets (`validate-assets-all`), registre/façades (`val
 
 ## Références
 
+- [convention-reproduction-os.md](../../docs/convention-reproduction-os.md) — clone VM, CSS/JS imposés
 - [contrib.md](../../../contrib.md) — guide racine contributeurs + agents
 - [parcours-agent.md](../../docs/parcours-agent.md)
 - [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md)

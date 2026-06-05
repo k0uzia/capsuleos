@@ -1,6 +1,6 @@
 # Passe comparaison visuelle — Rocky Linux (VM ↔ CapsuleOS)
 
-Généré : 2026-06-04T23:09:09.846Z
+Généré : 2026-06-05T22:05:12.697Z
 
 Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md) (Nautilus ≠ Nemo).
 
@@ -8,13 +8,13 @@ Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.m
 
 | Scène | VM | octets | Capsule | octets | Contexte |
 |-------|-----|--------|---------|--------|----------|
-| Bureau sombre | ✓ | 44073 | ✓ | 417243 | GNOME Shell + dock ; thème VM default → Capsule sombre |
-| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 41199 | ✓ | 238440 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
-| Firefox sombre | ✓ | 41199 | ✓ | 141506 | Navigator.firefox · slot firefox |
-| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 35062 | ✓ | 293109 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
-| Bureau clair | ✓ | 35531 | ✓ | 846200 | color-scheme prefer-light ↔ data-theme=light |
-| Fichiers clair | ✓ | 37355 | ✓ | 419658 | Nautilus VM · nemo Capsule, thème clair |
-| Firefox clair | ✓ | 35531 | ✓ | 209323 | Firefox · firefox |
+| Bureau sombre | ✓ | 82243 | ✓ | 417169 | GNOME Shell + dock ; thème VM default → Capsule sombre |
+| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 82204 | ✓ | 237643 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
+| Firefox sombre | ✓ | 82204 | ✓ | 141574 | Navigator.firefox · slot firefox |
+| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 80600 | ✓ | 293117 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
+| Bureau clair | ✓ | 77181 | ✓ | 846226 | color-scheme prefer-light ↔ data-theme=light |
+| Fichiers clair | ✓ | 81815 | ✓ | 418503 | Nautilus VM · nemo Capsule, thème clair |
+| Firefox clair | ✓ | 77649 | ✓ | 209346 | Firefox · firefox |
 
 ## Checklist panel (état logique)
 
@@ -26,11 +26,11 @@ Export Capsule : `run-capsule-panel-browser.mjs` OK.
 | Étape | VM | Capsule | Note |
 |-------|-----|---------|------|
 | 0 Fichiers (Nautilus · slot nemo) seul, focus | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":false,"active":false},"terminal":{"running":false,"active":false}} |
-| 1 + Firefox, focus Firefox | OK | OK |  |
-| 2 + Terminal (Ptyxis · slot terminal), focus | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":true,"active":false}} |
-| 3 Focus Fichiers (Nautilus · slot nemo) via lanceur | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":true,"active":false}} |
-| 4 Minimize Fichiers (Nautilus · slot nemo) | OK | OK | P1 VM : running peut rester true |
-| 5 Sidebar Fichiers (Nautilus · slot nemo) → Documents | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":true,"active":false}} |
+| 1 + Firefox, focus Firefox | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":true},"terminal":{"running":false,"active":false}} |
+| 2 + Terminal (Ptyxis · slot terminal), focus | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+| 3 Focus Fichiers (Nautilus · slot nemo) via lanceur | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+| 4 Minimize Fichiers (Nautilus · slot nemo) | ÉCART | OK | P1 VM : running peut rester true |
+| 5 Sidebar Fichiers (Nautilus · slot nemo) → Documents | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
 ```
 
 ## Rappels fidélité visuelle (GNOME)

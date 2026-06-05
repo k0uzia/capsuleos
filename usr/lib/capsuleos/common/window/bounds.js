@@ -18,8 +18,21 @@
         return typeof selector === 'string' && selector.trim().length > 0;
     }
 
+    function resolveBoundsOptions(options = {}) {
+        let contextBounds = {};
+        if (global.CapsuleWindowContext && typeof global.CapsuleWindowContext.getContext === 'function') {
+            const ctx = global.CapsuleWindowContext.getContext();
+            if (ctx && ctx.bounds && typeof ctx.bounds === 'object') {
+                contextBounds = ctx.bounds;
+            }
+        } else if (global.CAPSULE_WINDOW_CONTEXT && global.CAPSULE_WINDOW_CONTEXT.bounds) {
+            contextBounds = global.CAPSULE_WINDOW_CONTEXT.bounds;
+        }
+        return Object.assign({}, defaultBoundsOptions, contextBounds, options);
+    }
+
     function getWorkAreaRect(options = {}) {
-        const opts = Object.assign({}, defaultBoundsOptions, options);
+        const opts = resolveBoundsOptions(options);
         const main = opts.mainSelector
             ? document.querySelector(opts.mainSelector)
             : null;
@@ -87,6 +100,7 @@
     }
 
     global.CapsuleWindowBounds = {
+        resolveBoundsOptions,
         getWorkAreaRect,
         clampPosition,
         clampSize,

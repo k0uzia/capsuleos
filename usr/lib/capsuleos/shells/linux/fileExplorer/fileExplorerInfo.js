@@ -1,3 +1,7 @@
+/**
+ * Catalogue fichiers explorateur — chemins canoniques toolkit Cinnamon.
+ * Remappés au runtime par CapsuleExplorerIconBase (GNOME Adwaita, KDE, …).
+ */
 const fileExplorerSystemLink = {
     'files': {
         //////////////////////////// DOSSIER ////////////////////////////////

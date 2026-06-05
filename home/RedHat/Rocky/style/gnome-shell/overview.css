@@ -14,12 +14,16 @@ body#rocky .fedora-overview {
     align-items: center;
     justify-items: center;
     padding: calc(var(--head) / 2) 0 calc(var(--head) / 2.4);
-    color: #f5f5f5;
-    background: #202025;
+    color: var(--fedora-overview-text);
+    background: var(--fedora-overview-bg);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.18s ease, visibility 0.18s ease;
+    transform: scale(1.03);
+    transition:
+        opacity 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        visibility 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
     z-index: 45;
 }
 
@@ -27,11 +31,16 @@ body#rocky.is-overview .fedora-overview {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
+    transform: scale(1);
 }
 
 body#rocky.is-overview .fedora-main-row {
     opacity: 0;
     pointer-events: none;
+    transform: scale(0.96);
+    transition:
+        opacity 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 body#rocky .fedora-overview__search {
@@ -43,10 +52,10 @@ body#rocky .fedora-overview__search {
     min-width: calc(var(--head) * 7.6);
     height: calc(var(--head) * 1.02);
     padding: 0 calc(var(--head) / 1.72);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--fedora-overview-search-border);
     border-radius: 999px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
-    background: rgba(76, 76, 84, 0.86);
+    background: var(--fedora-overview-search-bg);
     box-sizing: border-box;
     transition: border-color 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
 }

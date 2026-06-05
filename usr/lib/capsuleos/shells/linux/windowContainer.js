@@ -8,6 +8,8 @@
         profile: 'À Propos',
         librewriter: 'Sans nom 1 - LibreOffice Writer',
         calculator: 'Calculatrice',
+        clocks: 'Horloges',
+        calendar: 'Calendrier',
         screenshot: 'Capture d\'écran',
         drawing: 'Sans titre — Dessin',
         file_roller: 'Gestionnaire d\'archives',

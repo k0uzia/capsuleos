@@ -1,5 +1,12 @@
 {
     "explorer.windowTitle": "Dossier personnel - Fichiers",
     "mainMenu.windowTitle": "Activités",
+    "update_manager.windowTitle": "Logiciels",
+    "calculator.windowTitle": "Calculatrice",
+    "text_editor.windowTitle": "Éditeur de texte",
+    "calendar.windowTitle": "Calendrier",
+    "clocks.windowTitle": "Horloges",
+    "themes.windowTitle": "Apparence",
+    "librewriter.windowTitle": "Sans titre — LibreOffice Writer",
     "checklist.description": "Explore Rocky Linux en accomplissant ces missions. Ta progression est sauvegardée."
 }

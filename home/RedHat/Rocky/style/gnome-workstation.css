@@ -9,7 +9,7 @@
     --fedora-dock-item: calc(var(--head) * 1.02);
     /* Fond VM : rocky-default-10-gemstone-skies-night.png (pull-vm-assets.sh) */
     --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
-    --mint-taskbar-bg: var(--fedora-top-bar-bg);
+    --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;
     flex-flow: column nowrap;
@@ -20,7 +20,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: "Cantarell", "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     color: var(--texte);
     background: var(--fedora-bg);
     background-size: cover;
@@ -87,7 +87,7 @@
 
 #rocky .fedora-overview-trigger:hover,
 #rocky .fedora-overview-trigger:focus-visible {
-    background: var(--mint-clock-hover-bg);
+    background: var(--gnome-shell-clock-hover-bg);
     border-color: var(--fedora-shell-border-soft);
 }
 
@@ -118,6 +118,10 @@
     flex: 1;
     width: 100%;
     min-height: 0;
+    transform: scale(1);
+    transition:
+        opacity 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* GNOME Wayland RHEL : pas de dock permanent (contrairement à Ubuntu / Unity). Favoris = Aperçu. */

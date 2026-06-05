@@ -6,6 +6,13 @@
 
     const bounds = () => global.CapsuleWindowBounds;
 
+    function resolveBoundsOptions(options = {}) {
+        if (bounds() && typeof bounds().resolveBoundsOptions === 'function') {
+            return bounds().resolveBoundsOptions(options);
+        }
+        return options;
+    }
+
     function storeRestoreState(windowElement) {
         if (!windowElement || windowElement.dataset.maximized === 'true') {
             return;
@@ -44,7 +51,8 @@
             return false;
         }
 
-        const work =(bounds() == null ? void 0 : bounds().getWorkAreaRect)(options) || {
+        const boundsOpts = resolveBoundsOptions(options);
+        const work =(bounds() == null ? void 0 : bounds().getWorkAreaRect)(boundsOpts) || {
             left: 0,
             top: 0,
             width: window.innerWidth,
@@ -61,7 +69,7 @@
         };
         if (global.CapsuleWindowPositioning
             && typeof global.CapsuleWindowPositioning.applyViewportBox === 'function') {
-            global.CapsuleWindowPositioning.applyViewportBox(windowElement, box, options);
+            global.CapsuleWindowPositioning.applyViewportBox(windowElement, box, boundsOpts);
         } else {
             windowElement.style.position = 'fixed';
             windowElement.style.transform = 'none';

@@ -170,19 +170,33 @@ const winIcon = (id) => {
   return `${map[ver] || 'win11'}.png`;
 };
 
-active.forEach((entry) => {
-  let iconFile = null;
-  if (entry.family === 'linux') {
-    iconFile = path.join(PICK_OS_ICONS, 'linux', VENDOR_ICON[entry.vendor] || 'debian.png');
-  } else if (entry.family === 'windows') {
-    iconFile = path.join(PICK_OS_ICONS, 'windows', winIcon(entry.id));
-  } else if (entry.family === 'macos') {
-    iconFile = path.join(PICK_OS_ICONS, 'macos', 'sonoma.png');
-  } else if (entry.family === 'android') {
-    iconFile = path.join(PICK_OS_ICONS, 'android', 'vanillaicecream.png');
-  } else if (entry.family === 'ios') {
-    iconFile = path.join(PICK_OS_ICONS, 'ios', 'apple.svg');
+const resolvePickIconFile = (entry) => {
+  if (entry.assets?.pickIcon) {
+    return path.join(ROOT, 'usr/share/capsuleos/assets', entry.assets.pickIcon);
   }
+  if (entry.family === 'linux') {
+    return path.join(PICK_OS_ICONS, 'linux', VENDOR_ICON[entry.vendor] || 'debian.png');
+  }
+  if (entry.family === 'windows') {
+    return path.join(PICK_OS_ICONS, 'windows', winIcon(entry.id));
+  }
+  if (entry.family === 'macos') {
+    return path.join(PICK_OS_ICONS, 'macos', 'sonoma.png');
+  }
+  if (entry.family === 'android') {
+    return path.join(PICK_OS_ICONS, 'android', 'vanillaicecream.png');
+  }
+  if (entry.family === 'ios') {
+    return path.join(PICK_OS_ICONS, 'ios', 'apple.svg');
+  }
+  return null;
+};
+
+const iconCheckEntries = active.length
+  ? active
+  : registry.entries.filter((e) => e.assets?.pickIcon);
+iconCheckEntries.forEach((entry) => {
+  const iconFile = resolvePickIconFile(entry);
   if (iconFile && !fs.existsSync(iconFile)) {
     errors.push(`pick-os icône manquante: ${path.relative(ROOT, iconFile)} (${entry.id})`);
   }

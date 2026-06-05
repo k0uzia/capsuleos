@@ -31,8 +31,9 @@ const profilesPath = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-skin-p
 const registryPath = path.join(ROOT, 'etc/capsuleos/os-registry.json');
 const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
 const cinnamonActive = registry.entries.filter(
-    (e) => e.status === 'active' && e.toolkit === 'cinnamon',
+    (e) => e.status === 'active' && (e.toolkit === 'cinnamon' || e.toolkit?.id === 'cinnamon'),
 );
+const isFrozen = registry.stats?.frozen === true || registry.entries.every((e) => e.status !== 'active');
 if (fs.existsSync(profilesPath)) {
     const text = fs.readFileSync(profilesPath, 'utf8');
     if (cinnamonActive.length > 0 && !text.includes('CAPSULE_WINDOW_CONTEXT')) {
@@ -45,8 +46,11 @@ if (fs.existsSync(profilesPath)) {
     }
 }
 let desktopAnchorFound = false;
-registry.entries.filter((e) => e.status === 'active' && e.family === 'linux').forEach((entry) => {
-    const rel = entry.skin || entry.facade;
+const linuxEntries = isFrozen
+    ? registry.entries.filter((e) => e.family === 'linux' && e.referencePaths)
+    : registry.entries.filter((e) => e.status === 'active' && e.family === 'linux');
+linuxEntries.forEach((entry) => {
+    const rel = entry.referencePaths?.skin || entry.referencePaths?.facade || entry.skin || entry.facade;
     if (!rel) return;
     const full = path.join(ROOT, rel);
     if (!fs.existsSync(full)) return;
@@ -56,11 +60,21 @@ registry.entries.filter((e) => e.status === 'active' && e.family === 'linux').fo
         desktopAnchorFound = true;
     }
 });
-if (!desktopAnchorFound) {
+if (!desktopAnchorFound && !isFrozen) {
     errors.push('aucun skin Linux actif avec object#desktop / id="desktop"');
+} else if (!desktopAnchorFound && isFrozen) {
+    warnings.push('gel catalogue : desktop anchor vérifié via referencePaths au réactivation');
 }
 
 mustInclude('usr/lib/capsuleos/tools/build-capsule-window.mjs', ["'positioning.js'"], 'build-capsule-window');
+mustInclude('usr/lib/capsuleos/common/window/bounds.js', [
+    'resolveBoundsOptions',
+    'CAPSULE_WINDOW_CONTEXT',
+], 'bounds.js');
+mustInclude('usr/lib/capsuleos/common/window/maximize.js', [
+    'resolveBoundsOptions',
+    'applyViewportBox',
+], 'maximize.js');
 mustInclude('usr/lib/capsuleos/common/window/drag.js', [
     'CapsuleWindowPositioning.applyViewportPosition',
     'CapsuleWindowDragTargets',

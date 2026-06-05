@@ -29,10 +29,18 @@
         el.style.maskImage = mask;
     };
 
+    const persistTheme = (theme) => {
+        if (window.CapsuleThemeStorage && typeof window.CapsuleThemeStorage.persistTheme === 'function') {
+            window.CapsuleThemeStorage.persistTheme(theme, document.body ? document.body.id : '');
+            return;
+        }
+        localStorage.setItem('mint-theme', theme);
+    };
+
     const syncQuickTheme = (els) => {
         if (!els.themeBtn || !els.themeLabel) return;
         const isLight = document.documentElement.dataset.theme === 'light';
-        els.themeBtn.classList.toggle('quick-settings__tile--active', !isLight);
+        els.themeBtn.classList.add('quick-settings__tile--active');
         els.themeLabel.textContent = isLight ? 'Style clair' : 'Style sombre';
     };
 
@@ -154,7 +162,7 @@
             themeBtn.addEventListener('click', () => {
                 const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
                 document.documentElement.dataset.theme = nextTheme;
-                localStorage.setItem('mint-theme', nextTheme);
+                persistTheme(nextTheme);
                 refresh(els);
             });
         }

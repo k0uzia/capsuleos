@@ -1,8 +1,15 @@
 # Procédure — clonage d’un OS réel (VM) vers CapsuleOS
 
-Objectif : reproduire de façon **fidèle et documentée** un environnement de bureau réel (assets, comportements, applications, système de fichiers simulé) dans la façade CapsuleOS correspondante, en s’appuyant sur une **VM comme ground truth** — **Linux Mint Cinnamon** sert de modèle de référence pour les clones suivants.
+Objectif : reproduire de façon **fidèle et documentée** un environnement de bureau réel (assets, comportements, applications, système de fichiers simulé) dans la façade CapsuleOS correspondante, en s’appuyant sur une **VM comme ground truth**.
 
-**Ce document = construction (clone).** Pour la **mesure** automatisée VM ↔ CapsuleOS, voir [`procedure-controle-distributions-reelles.md`](procedure-controle-distributions-reelles.md). Pour le **catalogue** sans VM, voir [`ajouter-os-scalable.md`](ajouter-os-scalable.md).
+| Toolkit | Référence clone | Procédure dédiée |
+|---------|-----------------|------------------|
+| **Cinnamon** | Linux Mint (`linux-mint`) | Ce document (modèle historique) |
+| **GNOME / RHEL** | Rocky Linux (`linux-rocky`) | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) · [branche-redhat-gnome.md](branche-redhat-gnome.md) |
+
+> **Contrat agent (résumé imposé)** : [convention-reproduction-os.md](convention-reproduction-os.md) — concepts, workflow, CSS/JS. Skill : [`os-clone-from-vm`](../skills/os-clone-from-vm/SKILL.md).
+
+**Ce document = construction (clone), détail opératoire.** Pour la **mesure** automatisée VM ↔ CapsuleOS, voir [`procedure-controle-distributions-reelles.md`](procedure-controle-distributions-reelles.md). Pour le **catalogue** sans VM, voir [`ajouter-os-scalable.md`](ajouter-os-scalable.md).
 
 Références : [`contrib.md`](../../contrib.md) · [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json) · [`mint-fenetres-muffin.md`](mint-fenetres-muffin.md) · [`apps-linux-par-distro.md`](apps-linux-par-distro.md) · [`politique-assets.md`](politique-assets.md)
 

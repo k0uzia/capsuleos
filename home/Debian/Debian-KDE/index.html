@@ -11,6 +11,7 @@
     <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-debian-kde';</script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/debian/debian-logo.svg" type="image/svg+xml">
@@ -38,6 +39,8 @@
         <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
         <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+        <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
+        <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
     </object>
     <footer id="tableau">
         <nav class="taskbar-pins" aria-label="Applications épinglées">
@@ -48,9 +51,9 @@
                 <a target="windowElement" data-link="themes" title="Configuration du système">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/systemsettings.svg" alt="">
                 </a>
-                <span class="taskbar-pins__item" title="Découvrir" aria-hidden="true">
+                <a target="windowElement" data-link="update_manager" title="Discover — gestionnaire de logiciels">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/discover.svg" alt="">
-                </span>
+                </a>
                 <a target="windowElement" data-link="nemo" title="Dolphin">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/dolphin.svg" alt="">
                 </a>
@@ -190,6 +193,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
 </body>
 
 </html>

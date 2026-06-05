@@ -168,10 +168,10 @@
                 var expanderIcon = global.document.createElement('img');
                 expanderIcon.src = isExpanded
                     ? (window.CapsuleExplorerIconBase
-                        ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/pan-down-symbolic.svg')
+                        ? window.CapsuleExplorerIconBase.catalogIcon('pan-down-symbolic.svg')
                         : './assets/icons/cinnamon/nemo/pan-down-symbolic.svg')
                     : (window.CapsuleExplorerIconBase
-                        ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/pan-end-symbolic.svg')
+                        ? window.CapsuleExplorerIconBase.catalogIcon('pan-end-symbolic.svg')
                         : './assets/icons/cinnamon/nemo/pan-end-symbolic.svg');
                 expanderIcon.alt = '';
                 expanderIcon.width = 16;
@@ -196,7 +196,7 @@
             link.className = 'nemo-sidebar__tree-link';
             var folderIcon = global.document.createElement('img');
             folderIcon.src = window.CapsuleExplorerIconBase
-                ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/folder.svg')
+                ? window.CapsuleExplorerIconBase.catalogIcon('folder.svg')
                 : './assets/icons/cinnamon/nemo/folder.svg';
             folderIcon.alt = '';
             folderIcon.width = 16;
@@ -265,7 +265,7 @@
         }
         var rootIcon = global.document.createElement('img');
         rootIcon.src = window.CapsuleExplorerIconBase
-            ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/user-home.svg')
+            ? window.CapsuleExplorerIconBase.catalogIcon('user-home.svg')
             : './assets/icons/cinnamon/nemo/user-home-symbolic.svg';
         rootIcon.alt = '';
         rootIcon.width = 16;

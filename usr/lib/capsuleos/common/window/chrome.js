@@ -63,6 +63,90 @@
         return 'default';
     }
 
+    const LIBADWAITA_CSD_ANCHORS = {
+        calculator: '.gnome-calc__header',
+        text_editor: '.xed-app__menubar',
+        calendar: '.gnome-calendar-app__header',
+        clocks: '.gnome-clocks__header',
+        update_manager: '.gnome-software__headerbar',
+        profile: '.profile-app__header',
+        checklist: '.checklist-app__header',
+        librewriter: '.lw-menubar',
+        themes: '.gnome-settings__headerbar',
+        visionneur_images: '.viewer-app__toolbar',
+        visionneur_pdf: '.viewer-app__toolbar',
+        lecteur_multimedia: '.viewer-app__toolbar',
+    };
+
+    function ensureLibadwaitaHeaderEnd(anchor) {
+        let end = anchor.querySelector(':scope > .gnome-app__header-end');
+        if (!end) {
+            end = document.createElement('div');
+            end.className = 'gnome-app__header-end';
+            anchor.appendChild(end);
+        }
+        return end;
+    }
+
+    function ensureLibadwaitaDragFill(anchor) {
+        let fill = anchor.querySelector(':scope > .gnome-app__header-fill');
+        if (!fill) {
+            fill = document.createElement('div');
+            fill.className = 'gnome-app__header-fill';
+            fill.setAttribute('data-window-drag-region', '');
+            const end = anchor.querySelector(':scope > .gnome-app__header-end');
+            if (end) {
+                anchor.insertBefore(fill, end);
+            } else {
+                anchor.appendChild(fill);
+            }
+        }
+        return fill;
+    }
+
+    function relocateLibadwaitaWindowControls(container, slotId) {
+        const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
+        const header = container.querySelector(':scope > #windowHeader');
+        const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
+        if (!header || !anchor) {
+            return false;
+        }
+        if (header.dataset.libadwaitaCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.libadwaitaCsd = 'true';
+        container.classList.add('gnome-app--csd');
+
+        const headerEnd = ensureLibadwaitaHeaderEnd(anchor);
+        ensureLibadwaitaDragFill(anchor);
+
+        let csdWrap = headerEnd.querySelector('.gnome-app__window-controls');
+        if (!csdWrap) {
+            csdWrap = document.createElement('div');
+            csdWrap.className = 'gnome-app__window-controls';
+            csdWrap.setAttribute('role', 'group');
+            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+            headerEnd.appendChild(csdWrap);
+        }
+
+        const minBtn = header.querySelector('#minimizeBtn');
+        const maxBtn = header.querySelector('#resizeBtn');
+        const closeBtn = header.querySelector('#closeBtn');
+        [minBtn, maxBtn, closeBtn].forEach((btn) => {
+            if (btn) {
+                csdWrap.appendChild(btn);
+            }
+        });
+
+        const title = header.querySelector('#windowTitle');
+        if (title) {
+            title.setAttribute('aria-hidden', 'true');
+        }
+
+        return true;
+    }
+
     function relocateFileRollerWindowControls(container) {
         const header = container.querySelector(':scope > #windowHeader');
         const headerEnd = container.querySelector('.fr-app__header-end');
@@ -204,7 +288,7 @@
         if (!container) {
             return;
         }
-        container.classList.remove('file-roller--csd');
+        container.classList.remove('file-roller--csd', 'gnome-app--csd');
         const header = container.querySelector(':scope > #windowHeader');
         if (!header) {
             return;
@@ -275,6 +359,16 @@
             return;
         }
 
+        if (providerId === 'terminal-gnome' && header) {
+            if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                targetsApi().markDragPassthrough(header);
+            } else {
+                header.setAttribute('data-window-drag-handle', '');
+                header.setAttribute('data-window-drag-passthrough', 'true');
+            }
+            return;
+        }
+
         if (providerId === 'firefox-gnome' && appHandle) {
             if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
                 targetsApi().markDragPassthrough(appHandle);
@@ -301,6 +395,25 @@
                 } else {
                     headerbar.setAttribute('data-window-drag-handle', '');
                     headerbar.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            if (header) {
+                header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
+                header.setAttribute('aria-hidden', 'true');
+            }
+            return;
+        }
+
+        if (providerId === 'libadwaita-gnome') {
+            const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
+            const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
+            if (anchor) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(anchor);
+                } else {
+                    anchor.setAttribute('data-window-drag-handle', '');
+                    anchor.setAttribute('data-window-drag-passthrough', 'true');
                 }
             }
             if (header) {
@@ -392,7 +505,15 @@
         },
     };
 
-    providers['terminal-gnome'] = providers.default;
+    providers['terminal-gnome'] = {
+        id: 'terminal-gnome',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            applyDragHandlePolicy(container, slotId, 'terminal-gnome');
+        },
+    };
     providers['terminal-cosmic'] = providers.default;
 
     providers['file-roller-gtk'] = {
@@ -403,6 +524,17 @@
         afterInject(container, slotId) {
             relocateFileRollerWindowControls(container);
             applyDragHandlePolicy(container, slotId, 'file-roller-gtk');
+        },
+    };
+
+    providers['libadwaita-gnome'] = {
+        id: 'libadwaita-gnome',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            relocateLibadwaitaWindowControls(container, slotId);
+            applyDragHandlePolicy(container, slotId, 'libadwaita-gnome');
         },
     };
 

@@ -28,6 +28,7 @@ html:has(#rocky) {
     --calendar-popover-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     --calendar-popover-radius: 12px;
     --fedora-window-radius: 11px;
+    --fedora-window-border: rgba(0, 0, 0, 0.45);
     --fedora-window-shadow: 0 4px 28px rgba(0, 0, 0, 0.42);
     --fedora-window-surface: #303030;
     --fedora-window-header-bg: #383838;
@@ -37,8 +38,14 @@ html:has(#rocky) {
     --fedora-window-control-color: #f6f7f9;
     --fedora-window-control-bg: transparent;
     --fedora-window-control-hover-bg: rgba(255, 255, 255, 0.14);
-    --fedora-window-control-close-bg: rgba(255, 255, 255, 0.12);
-    --fedora-window-control-close-hover-bg: rgba(255, 255, 255, 0.2);
+    --fedora-window-control-close-bg: transparent;
+    --fedora-window-control-close-hover-bg: #c01c28;
+    --fedora-window-control-close-hover-color: #ffffff;
+    --fedora-overview-bg: #202025;
+    --fedora-overview-text: #f5f5f5;
+    --fedora-overview-text-muted: rgba(255, 255, 255, 0.58);
+    --fedora-overview-search-bg: rgba(76, 76, 84, 0.86);
+    --fedora-overview-search-border: rgba(255, 255, 255, 0.08);
     --fedora-app-surface: #202024;
     --fedora-app-terminal-surface: #241f31;
     --fedora-app-header-bg: #34343a;
@@ -92,21 +99,20 @@ html:has(#rocky) {
     --volume-popover-text: #ebebeb;
     --volume-popover-track-bg: rgba(255, 255, 255, 0.14);
     --volume-popover-thumb-bg: #fafafa;
-    --mint-tray-color: rgba(255, 255, 255, 0.92);
-    --mint-tray-separator: rgba(255, 255, 255, 0.1);
-    --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-taskbar-item-border-hover: rgba(255, 255, 255, 0.3);
-    --mint-clock-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-window-header-border: rgba(0, 0, 0, 0.4);
-    --mint-window-header-border-active: rgba(0, 0, 0, 0.48);
-    --mint-window-control-border-hover: rgba(255, 255, 255, 0.38);
-    --mint-window-control-bg-hover: rgba(255, 255, 255, 0.14);
+    --gnome-shell-tray-color: rgba(255, 255, 255, 0.92);
+    --gnome-shell-tray-separator: rgba(255, 255, 255, 0.1);
+    --gnome-shell-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
+    --gnome-shell-taskbar-item-border-hover: rgba(255, 255, 255, 0.3);
+    --gnome-shell-clock-hover-bg: rgba(255, 255, 255, 0.12);
     --nemoHC: var(--fedora-window-header-bg);
     --nemoMCSF: var(--fedora-window-header-active);
     --menuDefaultCcol: var(--fedora-window-surface);
 }
 
 html[data-theme="light"]:has(#rocky) {
+    --desktop-shortcut-text: #1a1a1a;
+    --desktop-shortcut-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+    --desktop-shortcut-hover-bg: rgba(255, 255, 255, 0.42);
     --fedora-shell-text: #1a1a1a;
     --fedora-shell-border-soft: rgba(0, 0, 0, 0.08);
     --fedora-shell-topbar-bg: rgba(246, 246, 246, 0.98);
@@ -116,6 +122,7 @@ html[data-theme="light"]:has(#rocky) {
     --fedora-top-bar-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     --fedora-dock-bg: rgba(235, 235, 235, 0.96);
     --fedora-dock-border-right: 1px solid rgba(0, 0, 0, 0.1);
+    --fedora-window-border: rgba(0, 0, 0, 0.15);
     --fedora-window-surface: #fafafa;
     --fedora-window-header-bg: #ebebeb;
     --fedora-window-header-active: #e4e4e4;
@@ -125,8 +132,14 @@ html[data-theme="light"]:has(#rocky) {
     --fedora-window-control-color: #1f1f22;
     --fedora-window-control-bg: transparent;
     --fedora-window-control-hover-bg: rgba(0, 0, 0, 0.08);
-    --fedora-window-control-close-bg: rgba(0, 0, 0, 0.08);
-    --fedora-window-control-close-hover-bg: rgba(0, 0, 0, 0.14);
+    --fedora-window-control-close-bg: transparent;
+    --fedora-window-control-close-hover-bg: #c01c28;
+    --fedora-window-control-close-hover-color: #ffffff;
+    --fedora-overview-bg: #202025;
+    --fedora-overview-text: #f5f5f5;
+    --fedora-overview-text-muted: rgba(255, 255, 255, 0.58);
+    --fedora-overview-search-bg: rgba(76, 76, 84, 0.86);
+    --fedora-overview-search-border: rgba(255, 255, 255, 0.08);
     --fedora-app-surface: #ffffff;
     --fedora-app-terminal-surface: #ffffff;
     --fedora-app-header-bg: #f7f7f8;
@@ -178,13 +191,11 @@ html[data-theme="light"]:has(#rocky) {
     --volume-popover-text: #242424;
     --volume-popover-track-bg: rgba(0, 0, 0, 0.12);
     --volume-popover-thumb-bg: #3584e4;
-    --mint-tray-color: rgba(255, 255, 255, 0.92);
-    --mint-tray-separator: rgba(255, 255, 255, 0.1);
-    --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-taskbar-item-border-hover: rgba(0, 0, 0, 0.18);
-    --mint-clock-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-window-control-border-hover: rgba(0, 0, 0, 0.2);
-    --mint-window-control-bg-hover: rgba(0, 0, 0, 0.06);
+    --gnome-shell-tray-color: rgba(0, 0, 0, 0.82);
+    --gnome-shell-tray-separator: rgba(0, 0, 0, 0.1);
+    --gnome-shell-tray-item-hover-bg: rgba(0, 0, 0, 0.08);
+    --gnome-shell-taskbar-item-border-hover: rgba(0, 0, 0, 0.18);
+    --gnome-shell-clock-hover-bg: rgba(0, 0, 0, 0.08);
     --nemoHC: var(--fedora-window-header-bg);
     --nemoMCSF: var(--fedora-window-header-active);
     --menuDefaultCcol: var(--fedora-window-surface);

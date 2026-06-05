@@ -23,7 +23,7 @@ Table complète : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md)
 | CapsuleOS HTTP `capsuleUrl` | **200** — `home/RedHat/Rocky/index.html` servi localement |
 | État machine | `root/docs/inventaires/linux-rocky-vm-state.json` |
 
-**GNOME VM (ground truth)** : Shell **47.4**, thème **Adwaita**, accent **blue**, favoris dock : Firefox, Calendar, Music, **Nautilus**, Software, **Ptyxis**, TextEditor, Calculator. Extension : `background-logo@fedorahosted.org`.
+**GNOME VM (ground truth)** : Rocky **10.2** · Shell **49.4** · thème **Adwaita**, accent **blue**, favoris dash (7) : Firefox, Calendar, **Nautilus**, Software, **Ptyxis**, TextEditor, Calculator. Extension : `background-logo@fedorahosted.org`. Dernière passe lab : **2026-06-06**.
 
 **Écart P1 documenté** : CapsuleOS dock = 6 raccourcis + accueil (modèle Fedora) ; VM = 8 favoris GNOME natifs (dont Software, Calculator non dans le dock CapsuleOS).
 
@@ -88,11 +88,21 @@ Scripts : `root/tools/lab/vm-rocky-capture-host.sh` (VM), `root/tools/lab/captur
 
 **Passe fidélité CSS (2026-06-05)** : dock GNOME affiché, fond violet VM, tokens Nautilus/Adwaita sur `nemo` — détail dans [`linux-rocky-comparaison-visuelle.md`](linux-rocky-comparaison-visuelle.md).
 
+## Documentation structurée (juin 2026)
+
+| Document | Rôle |
+|----------|------|
+| [branche-redhat-gnome.md](../branche-redhat-gnome.md) | Cartographie RHEL + GNOME, doc officielle, couches design |
+| [procedure-lab-linux-rocky-gnome.md](../procedure-lab-linux-rocky-gnome.md) | Procédure VM → Capsule, anti-échecs |
+| [inventaire-parite-rocky.md](../inventaire-parite-rocky.md) | Écarts P0/P1/P2 classés |
+| [linux-rocky-vm.json](linux-rocky-vm.json) | Inventaire machine-readable |
+
 ## Prochaines mesures
 
 1. Ajuster `style/gnome-shell/tokens.css` sous `#rocky` à partir des captures si écart mesuré (accent bleu VM confirmé).
+2. Aligner dash Aperçu sur les 8 favoris VM (P1) — voir `dashFavoritesVm` dans `linux-rocky-vm.json`.
 3. Mise à jour avant validation : `./root/tools/lab/update-rocky-nautilus.sh` (façades pick-os + embed + audit). Ne pas éditer `OS/linux/families/redhat/rocky/` à la main — sinon pick-os ≠ `home/RedHat/Rocky/`.
-4. Sonde GNOME dédiée (hors `os-probe.sh` Cinnamon) quand `xdotool` disponible ou alternative `gdbus`.
+4. Améliorer détection `active` sonde VM Wayland (P1) — `os-probe-gnome.sh` / `gdbus`.
 
 ## Chemins skin
 

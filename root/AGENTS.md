@@ -22,7 +22,10 @@ Demande utilisateur
   Migration assets / validate-asset-zones / noyau ? ──oui──► kernel-supervisor
        │ non                                                      │
        ▼                                                          ├─ asset-pipeline
-  OS ciblé clair ? ──non──► skills/os-orchestrator                └─ kernel-guardian
+  Clone / parité VM ? ──oui──► os-clone-from-vm                     └─ kernel-guardian
+       │
+       ▼
+  OS ciblé clair ? ──non──► skills/os-orchestrator
        │ oui
        ▼
   skills/os-<famille>
@@ -61,7 +64,7 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | Besoin | Fichier |
 |--------|---------|
 | **Manifeste noyau & hydratation** | [`root/docs/manifeste-noyau.md`](docs/manifeste-noyau.md) |
-| **Catalogue OS (52 entrées)** | [`root/docs/repertoire-os.md`](docs/repertoire-os.md), [`etc/capsuleos/os-registry.json`](../etc/capsuleos/os-registry.json) |
+| **Catalogue OS (57 entrées, gel noyau)** | [`root/docs/manifeste-kernels.md`](docs/manifeste-kernels.md), [`etc/capsuleos/kernels.json`](../etc/capsuleos/kernels.json), [`etc/capsuleos/os-registry.json`](../etc/capsuleos/os-registry.json) |
 | **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) |
 | **Staffing agents** | [`root/docs/equipe-agentique.md`](docs/equipe-agentique.md) |
 | **Parcours agent (H0–H6)** | [`root/docs/parcours-agent.md`](docs/parcours-agent.md), skill [`onboarding`](skills/onboarding/SKILL.md) |

@@ -5,8 +5,11 @@
 (function initCapsuleExplorerIconBase(global) {
     'use strict';
 
-    const CINNAMON_BASE = './assets/icons/cinnamon/nemo';
-    const GNOME_BASE = './assets/icons/gnome/adwaita';
+    const paths = global.CapsuleExplorerToolkitPaths;
+    const CINNAMON_BASE = paths ? paths.catalogBase() : './assets/icons/cinnamon/nemo';
+    const KDE_BASE = paths ? paths.paths.kde : './assets/icons/kde/nemo';
+    const GNOME_BASE = paths ? paths.paths.gnome : './assets/icons/gnome/adwaita';
+    const COSMIC_BASE = paths ? paths.paths.cosmic : './assets/images/toolkits/cosmic/elements/nemo';
 
     /** Icônes toolbar connues → sous-dossier symbolic (hors sidebar). */
     const SYMBOLIC_SUBDIR_MAP = {
@@ -50,8 +53,7 @@
     };
 
     function usesGnomeAdwaita() {
-        const bodyId = global.document && global.document.body ? global.document.body.id : '';
-        if (bodyId === 'rocky' || bodyId === 'fedora') {
+        if (paths && paths.activeToolkitId() === 'gnome') {
             return true;
         }
         const packs = global.CAPSULE_SKIN_PROFILE_ICON_PACKS;
@@ -61,8 +63,30 @@
         return false;
     }
 
+    function usesKdeIcons() {
+        if (paths && paths.activeToolkitId() === 'kde') {
+            return true;
+        }
+        if (global.CapsuleExplorerRegistry
+            && typeof global.CapsuleExplorerRegistry.isDolphinFamily === 'function'
+            && global.CapsuleExplorerRegistry.isDolphinFamily()) {
+            return true;
+        }
+        const packs = global.CAPSULE_SKIN_PROFILE_ICON_PACKS;
+        if (Array.isArray(packs) && packs.includes('icons/kde')) {
+            return true;
+        }
+        return false;
+    }
+
     function explorerPlacesBase() {
-        return usesGnomeAdwaita() ? `${GNOME_BASE}/places` : CINNAMON_BASE;
+        if (usesGnomeAdwaita()) {
+            return `${GNOME_BASE}/places`;
+        }
+        if (usesKdeIcons()) {
+            return KDE_BASE;
+        }
+        return CINNAMON_BASE;
     }
 
     function remapLeaf(leaf, context) {
@@ -109,9 +133,25 @@
         return path;
     }
 
+    function remapCinnamonToKde(path) {
+        if (!path || typeof path !== 'string') {
+            return path;
+        }
+        return resolveAssetUrl(path
+            .replace(`${CINNAMON_BASE}/`, `${KDE_BASE}/`)
+            .replace('./assets/images/toolkits/cinnamon/', './assets/images/toolkits/kde/'));
+    }
+
     function remapPath(path) {
         if (!path || typeof path !== 'string') {
             return path;
+        }
+        if (usesKdeIcons()) {
+            if (path.indexOf(`${CINNAMON_BASE}/`) === 0
+                || path.indexOf('./assets/images/toolkits/cinnamon/') === 0) {
+                return remapCinnamonToKde(path);
+            }
+            return resolveAssetUrl(path);
         }
         if (!usesGnomeAdwaita()) {
             return resolveAssetUrl(path);
@@ -135,12 +175,16 @@
     }
 
     function rewriteImagesInRoot(root) {
-        if (!root || !usesGnomeAdwaita()) {
+        if (!root || (!usesGnomeAdwaita() && !usesKdeIcons())) {
             return;
         }
         root.querySelectorAll('img[src]').forEach((img) => {
             const src = img.getAttribute('src');
             if (!src) {
+                return;
+            }
+            if (usesKdeIcons() && src.indexOf('cinnamon/nemo/') >= 0) {
+                img.setAttribute('src', remapCinnamonToKde(src));
                 return;
             }
             const marker = 'cinnamon/nemo/';
@@ -201,9 +245,17 @@
         }
     }
 
+    function defaultIcon(leaf) {
+        const catalog = paths && typeof paths.catalogIcon === 'function'
+            ? paths.catalogIcon(leaf)
+            : `${CINNAMON_BASE}/${leaf}`;
+        return remapPath(catalog);
+    }
+
     global.CapsuleExplorerIconBase = {
         usesGnomeAdwaita: usesGnomeAdwaita,
         placesBase: explorerPlacesBase,
+        catalogIcon: defaultIcon,
         remapPath: remapPath,
         rewriteImagesInRoot: rewriteImagesInRoot,
         apply: apply,

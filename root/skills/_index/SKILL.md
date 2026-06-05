@@ -16,6 +16,10 @@ description: Index hiérarchie skills CapsuleOS — vendors, distributions, vers
 
 Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés à la racine de `root/skills/`.
 
+## Clone OS (VM → skin)
+
+- [os-clone-from-vm](os-clone-from-vm/SKILL.md) — convention reproduction, workflow inventaire → home/
+
 ## Contrats UI bureau (4)
 
 - [window-side-effects](window-side-effects/SKILL.md) — effets de bord fenêtres

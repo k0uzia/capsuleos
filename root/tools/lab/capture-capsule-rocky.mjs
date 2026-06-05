@@ -28,7 +28,6 @@ const setTheme = async (page, theme) => {
     const resolved = t === 'light' ? 'light' : 'dark';
     document.documentElement.dataset.theme = resolved;
     localStorage.setItem('gnome-theme', resolved);
-    localStorage.setItem('mint-theme', resolved);
   }, theme);
 };
 

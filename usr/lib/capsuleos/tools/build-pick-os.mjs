@@ -11,6 +11,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
 const REGISTRY = path.join(ROOT, 'etc/capsuleos/os-registry.json');
 const OUT = path.join(ROOT, 'usr/lib/capsuleos/site/pick-os.js');
+const ASSETS_ROOT = path.join(ROOT, 'usr/share/capsuleos/assets');
+const PICK_LINUX_DIR = path.join(ASSETS_ROOT, 'images/platforms/pick-os/linux');
+const VENDORS_DIR = path.join(ASSETS_ROOT, 'images/vendors');
 
 const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
 
@@ -34,7 +37,9 @@ const VENDOR_ICON = {
   mx: 'mx.png',
   opensuse: 'opensuse.png',
   popos: 'popos.png',
-  anduin: 'debian.png',
+  anduin: 'anduin.png',
+  rocky: 'rocky.png',
+  redhat: 'redhat.png',
   microsoft: (id) => {
     const ver = id.replace('windows-', '');
     const map = { 95: 'win95', 98: 'win98', me: 'winme', 2000: 'win2000', xp: 'winxp', vista: 'vista', 7: 'win7', 8: 'win8', '8.1': 'win8', 10: 'win10', 11: 'win11' };
@@ -62,10 +67,32 @@ const catalog = Object.fromEntries(catalogKeys.map((k) => [k, { label: k === 'io
 catalog.linux.label = 'Linux';
 catalog.bsd.label = 'BSD';
 
+const resolveLinuxPickIcon = (vendor) => {
+  const mapped = VENDOR_ICON[vendor];
+  if (typeof mapped === 'string') {
+    const pickPath = path.join(PICK_LINUX_DIR, mapped);
+    if (fs.existsSync(pickPath)) {
+      return `${ICON.linux}${mapped}`;
+    }
+  }
+  const vendorPng = `${vendor}.png`;
+  if (fs.existsSync(path.join(PICK_LINUX_DIR, vendorPng))) {
+    return `${ICON.linux}${vendorPng}`;
+  }
+  const vendorDir = path.join(VENDORS_DIR, vendor);
+  if (fs.existsSync(vendorDir)) {
+    const logo = fs.readdirSync(vendorDir).find((f) => /logo\.(svg|png|webp)$/i.test(f));
+    if (logo) {
+      return `${PORTAL_ASSETS}/images/vendors/${vendor}/${logo}`;
+    }
+  }
+  return `${ICON.linux}debian.png`;
+};
+
 const resolveIcon = (entry) => {
   const { family, vendor, id } = entry;
   if (family === 'linux') {
-    return `${ICON.linux}${VENDOR_ICON[vendor] || 'debian.png'}`;
+    return resolveLinuxPickIcon(vendor);
   }
   if (family === 'windows') {
     const file = typeof VENDOR_ICON.microsoft === 'function' ? VENDOR_ICON.microsoft(id) : 'win11.png';

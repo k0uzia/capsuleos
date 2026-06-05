@@ -6,7 +6,7 @@ Les **marques de familles** (cartes d’accueil, liens explorateur « OS ») son
 
 | Dossier | Contenu | Exemples utilisés dans le projet |
 |---------|---------|----------------------------------|
-| `linux/` | ~900 distros | `mint.png`, `ubuntu.png`, `fedora.png`, `debian.png` |
+| `linux/` | ~900 distros | `mint.png`, `ubuntu.png`, `fedora.png`, `debian.png`, `anduin.png`, `rocky.png` |
 | `windows/` | Versions consommateur | `win95.png` … `win11.png`, `vista.png`, `winxp.png` |
 | `macos/` | Versions macOS | `sonoma.png` (simulation active) |
 | `android/` | Versions Android | `vanillaicecream.png` (fiche Android) |

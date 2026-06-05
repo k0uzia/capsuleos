@@ -29,7 +29,7 @@ Ne plus utiliser `./assets/images/toolkits/cinnamon/` dans HTML/CSS/JS source (l
 assets/
 ├── icons/kde/, icons/cinnamon/
 ├── images/toolkits/{cinnamon,kde,gnome,cosmic,windows,macos-aqua,android-material,ios}/
-├── images/vendors/{mint,ubuntu,fedora,mx,opensuse,debian,popos,anduin}/
+├── images/vendors/{mint,ubuntu,fedora,mx,opensuse,debian,popos,anduin,rocky}/
 ├── images/platforms/pick-os/, platforms/brands/
 └── images/common/
 ```

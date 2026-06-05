@@ -54,12 +54,12 @@
                 {
                     "name": "AnduinOS",
                     "href": "./OS/linux/families/debian/anduinos/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/anduin.png"
                 },
                 {
                     "name": "Rocky Linux (GNOME)",
                     "href": "./OS/linux/families/redhat/rocky/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/rocky.png"
                 }
             ]
         },

@@ -145,7 +145,9 @@ const VENDOR_ICON = {
   mx: 'mx.png',
   opensuse: 'opensuse.png',
   popos: 'popos.png',
-  anduin: 'debian.png',
+  anduin: 'anduin.png',
+  rocky: 'rocky.png',
+  redhat: 'redhat.png',
   google: 'vanillaicecream.png',
   apple: 'sonoma.png',
 };

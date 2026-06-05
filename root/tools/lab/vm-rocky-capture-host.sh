@@ -5,7 +5,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-DEST="${1:-$ROOT/root/docs/inventaires/assets/rocky-vm}"
+DEST="${1:-$ROOT/usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm}"
 VM_NAME="${ROCKY_VIRSH_NAME:-Rocky10}"
 SSH_TARGET="${ROCKY_SSH:-capsule@192.168.122.234}"
 IDENTITY="${ROCKY_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"

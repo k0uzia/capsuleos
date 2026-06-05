@@ -81,8 +81,8 @@ Voir [lab-vm-rhel-wayland.md](../lab-vm-rhel-wayland.md).
 
 | Source | Répertoire | Fichiers |
 |--------|------------|----------|
-| VM (`virsh screenshot Rocky10`) | `root/docs/inventaires/assets/rocky-vm/` | `rocky-dark-{desktop,nautilus,firefox,ptyxis}.png`, `rocky-light-{desktop,firefox,nautilus}.png` |
-| CapsuleOS (Playwright) | `root/docs/inventaires/assets/rocky-capsule/` | `rocky-capsule-dark-{desktop,nautilus,firefox,terminal}.png`, `rocky-capsule-light-{desktop,firefox,nautilus}.png` |
+| VM (`virsh screenshot Rocky10`) | `usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm/` | `rocky-dark-{desktop,nautilus,firefox,ptyxis}.png`, `rocky-light-{desktop,firefox,nautilus}.png` |
+| CapsuleOS (Playwright) | `usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule/` | `rocky-capsule-dark-{desktop,nautilus,firefox,terminal}.png`, `rocky-capsule-light-{desktop,firefox,nautilus}.png` |
 
 Scripts : `root/tools/lab/vm-rocky-capture-host.sh` (VM), `root/tools/lab/capture-capsule-rocky.mjs` (Capsule, `PLAYWRIGHT_CHROME` ou Chromium Playwright).
 

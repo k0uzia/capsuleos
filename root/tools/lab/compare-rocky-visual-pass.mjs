@@ -10,8 +10,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
-const VM_ASSETS = path.join(ROOT, 'root/docs/inventaires/assets/rocky-vm');
-const CAP_ASSETS = path.join(ROOT, 'root/docs/inventaires/assets/rocky-capsule');
+const VM_ASSETS = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm');
+const CAP_ASSETS = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule');
 const SLOTS_DOC = path.join(ROOT, 'root/docs/inventaires/linux-gnome-capsule-slots.md');
 
 const PAIRS = [

@@ -8,7 +8,7 @@
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
     /* Fond VM : rocky-default-10-gemstone-skies-night.png (pull-vm-assets.sh) */
-    --fedora-bg: url("/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
     --mint-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;
@@ -278,7 +278,7 @@
 }
 
 html[data-theme="light"]:has(#rocky) #rocky {
-    --fedora-bg: url("/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
 }
 
 html[data-theme="light"]:has(#rocky) #rocky #tableau.fedora-dock a:hover {

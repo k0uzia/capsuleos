@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
-const DEST = process.argv[2] || path.join(ROOT, 'root/docs/inventaires/assets/rocky-capsule');
+const DEST = process.argv[2] || path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule');
 const URL = process.env.CAPSULE_ROCKY_URL || 'http://127.0.0.1:5500/home/RedHat/Rocky/index.html';
 const VIEWPORT = { width: 1280, height: 800 };
 const defaultChrome = [

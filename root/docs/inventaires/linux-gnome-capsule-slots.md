@@ -28,7 +28,7 @@
 
 Les PNG peuvent porter le nom **réel** de l’app VM (`nautilus`, `ptyxis`) ou **capsule** (`nautilus` = vue Fichiers, `terminal` = Ptyxis simulé) :
 
-| Fichier type | VM (`rocky-vm/`) | Capsule (`rocky-capsule/`) |
+| Fichier type | VM (`vendors/rocky/inventory/rocky-vm/`) | Capsule (`vendors/rocky/inventory/rocky-capsule/`) |
 |--------------|------------------|----------------------------|
 | Fichiers | `rocky-*-nautilus.png` | `rocky-capsule-*-nautilus.png` (slot `nemo`) |
 | Terminal | `rocky-*-ptyxis.png` | `rocky-capsule-*-terminal.png` (slot `terminal`) |

@@ -7,11 +7,11 @@
  */
 html:has(#rocky) {
     --menu-accent: #3584e4;
-    --fedora-bg: url("/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
+    --fedora-bg: url("../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
 }
 
 html[data-theme="light"]:has(#rocky) {
-    --fedora-bg: url("/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
+    --fedora-bg: url("../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
 }
 
 html[data-theme="light"]:has(#rocky) {

@@ -63,8 +63,12 @@ if (!desktopAnchorFound) {
 mustInclude('usr/lib/capsuleos/tools/build-capsule-window.mjs', ["'positioning.js'"], 'build-capsule-window');
 mustInclude('usr/lib/capsuleos/common/window/drag.js', [
     'CapsuleWindowPositioning.applyViewportPosition',
-    '.nemo-app__toolbar',
+    'CapsuleWindowDragTargets',
 ], 'drag.js');
+mustInclude('usr/lib/capsuleos/common/window/drag-targets.js', [
+    '.nemo-app__toolbar',
+    'BLOCKED_APP_SELECTOR',
+], 'drag-targets.js');
 mustInclude('usr/share/capsuleos/linux/apps/style/nemo.base.css', [
     'div.windowElement[data-link="nemo"]',
     'min-height: var(--z)',

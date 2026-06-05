@@ -164,3 +164,7 @@ const fileExplorerSystemLink = {
 };
 
 const fileSystemLink = fileExplorerSystemLink;
+if (typeof window !== 'undefined') {
+    window.fileExplorerSystemLink = fileExplorerSystemLink;
+    window.fileSystemLink = fileSystemLink;
+}

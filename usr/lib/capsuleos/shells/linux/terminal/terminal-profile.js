@@ -6,7 +6,7 @@
         }
         if (typeof document !== 'undefined' && document.body) {
             const bodyId = String(document.body.id || '').toLowerCase();
-            if (bodyId === 'fedora') {
+            if (bodyId === 'fedora' || bodyId === 'rocky') {
                 return 'redhat';
             }
             if (bodyId === 'ubuntu' || bodyId === 'mint') {

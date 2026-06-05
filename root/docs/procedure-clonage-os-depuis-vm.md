@@ -72,7 +72,8 @@ Chaque différence VM ↔ CapsuleOS doit être **explicitement classée** dans l
 | Paquets sonde | `openssh-server`, `wmctrl`, `xdotool`, `python3` (+ bindings toolkit si besoin) |
 | Snapshot | Proxmox « clean boot » avant chaque campagne de clonage |
 
-Détail SSH et paquets : §3 de [`procedure-controle-distributions-reelles.md`](procedure-controle-distributions-reelles.md).
+Détail SSH et paquets : §3 de [`procedure-controle-distributions-reelles.md`](procedure-controle-distributions-reelles.md).  
+**Rocky / Alma / RHEL + Wayland** : [`lab-vm-rhel-wayland.md`](lab-vm-rhel-wayland.md).
 
 ### 3.2 Inventaire lab (local)
 
@@ -191,14 +192,17 @@ Champs à caler sur l’inventaire : `bodyId`, `embedKey`, `toolkit`, `explorerT
 
 Politique : **uniquement** `usr/share/capsuleos/assets/` et `home/public/Images/` — voir [`politique-assets.md`](politique-assets.md) et `.cursor/rules/capsuleos-assets.mdc`.
 
+**Convention obligatoire** : [`convention-assets-depuis-vm.md`](convention-assets-depuis-vm.md) — toujours récupérer les **bons** assets depuis la VM (pas d’icônes « proches » d’un autre OS).
+
 | Catégorie VM | Zone CapsuleOS | Action type |
 |--------------|----------------|-------------|
-| Fond d’écran | `assets/images/vendors/<vendor>/` | SCP depuis VM ; lier via variable CSS (`--mint`, etc.) |
-| Icônes panel / bureau | `vendors/<vendor>/panel/` (ex. 48×48) | SCP thème icônes VM (`Mint-Y`, `breeze`, …) |
+| Fond d’écran | `assets/images/vendors/<vendor>/wallpaper/` | SCP / `pull-vm-assets.sh` ; lier via variable CSS |
+| Icônes panel / dock | `vendors/<vendor>/panel/` | SCP apps VM (ex. `org.gnome.Nautilus.svg`) |
+| Dossiers explorateur (GNOME) | `icons/gnome/adwaita/places/` | SCP Adwaita `places/*.svg` — slot Capsule **`nemo`** |
 | Logo / favicon | `vendors/<vendor>/` | `logo.svg`, `.webp` |
-| Chrome toolkit | `assets/images/toolkits/<toolkit>/` | **Réutiliser** le pack existant — pas de copie intégrale du thème OS |
+| Chrome toolkit | `assets/images/toolkits/<toolkit>/` | Compléter depuis VM si manquant ; pas de copie intégrale du thème |
 
-### SCP type (Mint)
+### Pull type (Mint)
 
 ```bash
 VENDOR=mint
@@ -207,6 +211,13 @@ mkdir -p "$DEST"
 scp -i ~/.ssh/capsuleos-lab capsule@<IP>:/usr/share/icons/Mint-Y/apps/48/firefox.png "$DEST/"
 scp -i ~/.ssh/capsuleos-lab capsule@<IP>:/usr/share/backgrounds/linuxmint/sele_ring.jpg \
   usr/share/capsuleos/assets/images/vendors/$VENDOR/default_background.jpg
+```
+
+### Pull type (Rocky / GNOME — Nautilus, pas Nemo)
+
+```bash
+bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+node usr/lib/capsuleos/tools/validate-asset-zones.mjs
 ```
 
 Gate :

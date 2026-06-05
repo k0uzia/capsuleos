@@ -154,6 +154,7 @@ function createFedoraTerminalButton(className, label, text) {
 }
 
 function createFedoraTerminalTabs(windowElement) {
+    const tabPrompt = document.body && document.body.id === 'rocky' ? 'capsule@rocky:~' : 'fed@fedora:~';
     const tabs = document.createElement('div');
     tabs.className = 'fedora-terminal-tabs';
     tabs.setAttribute('aria-label', 'Onglets du terminal');
@@ -161,12 +162,12 @@ function createFedoraTerminalTabs(windowElement) {
     const firstTab = document.createElement('button');
     firstTab.type = 'button';
     firstTab.className = 'fedora-terminal-tabs__tab';
-    firstTab.textContent = 'fed@fedora:~';
+    firstTab.textContent = tabPrompt;
 
     const activeTab = document.createElement('button');
     activeTab.type = 'button';
     activeTab.className = 'fedora-terminal-tabs__tab fedora-terminal-tabs__tab--active';
-    activeTab.textContent = 'fed@fedora:~';
+    activeTab.textContent = tabPrompt;
 
     const close = document.createElement('span');
     close.className = 'fedora-terminal-tabs__close';
@@ -470,7 +471,7 @@ function decorateGnomeTerminalWindow(container) {
 }
 
 function decorateFedoraTerminalWindow(container) {
-    if (!document.body || document.body.id !== 'fedora') {
+    if (!document.body || (document.body.id !== 'fedora' && document.body.id !== 'rocky')) {
         return;
     }
 
@@ -496,7 +497,8 @@ function decorateFedoraTerminalWindow(container) {
         const right = navs[1];
         const title = header.querySelector('#windowTitle');
         if (title) {
-            title.textContent = 'fed@fedora:~';
+            const prompt = document.body.id === 'rocky' ? 'capsule@rocky:~' : 'fed@fedora:~';
+            title.textContent = prompt;
         }
 
         if (left) {

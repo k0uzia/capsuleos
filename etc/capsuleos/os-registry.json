@@ -484,11 +484,16 @@
       "vendor": "rocky",
       "displayName": "Rocky Linux (GNOME)",
       "tier": "P3",
-      "status": "planned",
-      "maturity": 0,
+      "status": "active",
+      "maturity": 0.35,
+      "facade": "OS/linux/families/redhat/rocky/index.html",
+      "skin": "home/RedHat/Rocky/index.html",
       "toolkit": "gnome",
       "shell": "gnome-shell",
       "fileManager": "Fichiers",
+      "explorerTemplate": "nemo-gnome",
+      "embedKey": "rocky",
+      "bodyId": "rocky",
       "skills": [
         "os-linux"
       ]
@@ -1255,8 +1260,8 @@
   ],
   "stats": {
     "total": 52,
-    "active": 22,
-    "planned": 24,
+    "active": 23,
+    "planned": 23,
     "stub": 6
   },
   "assetPolicy": {

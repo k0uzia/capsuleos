@@ -5,6 +5,7 @@
     'use strict';
 
     const providers = {};
+    const targetsApi = () => global.CapsuleWindowDragTargets;
 
     function isKdeFamily() {
         const skinKey = global.CAPSULE_EMBED_SKIN_KEY;
@@ -24,9 +25,24 @@
         return slotId === 'nemo' && global.CAPSULE_EXPLORER_TEMPLATE === 'dolphin';
     }
 
+    function isNautilusFamilyExplorer() {
+        const template = global.CAPSULE_EXPLORER_TEMPLATE;
+        return template === 'nemo-gnome'
+            || template === 'nautilus'
+            || template === 'nemo-cosmic'
+            || template === 'nautilus-cosmic';
+    }
+
+    function isNautilusFamilySlot(slotId) {
+        return slotId === 'nemo' && isNautilusFamilyExplorer();
+    }
+
     function resolveChromeProviderId(slotId) {
         if (isDolphinExplorerSlot(slotId)) {
             return 'dolphin';
+        }
+        if (isNautilusFamilySlot(slotId)) {
+            return 'nemo-gnome';
         }
         if (slotId === 'nemo') {
             return 'nemo';
@@ -114,12 +130,54 @@
         }
     }
 
+    function applyPassthroughChromeHeader(header) {
+        const api = targetsApi();
+        if (!header) {
+            return;
+        }
+        if (api && typeof api.markDragPassthrough === 'function') {
+            api.markDragPassthrough(header);
+        } else {
+            header.setAttribute('data-window-drag-handle', '');
+            header.setAttribute('data-window-drag-passthrough', 'true');
+        }
+        if (api && typeof api.ensureHeaderDragFill === 'function') {
+            api.ensureHeaderDragFill(header);
+        }
+    }
+
     function applyDragHandlePolicy(container, slotId, providerId) {
         const header = container.querySelector(':scope > #windowHeader');
         const appHandle = container.querySelector('[data-window-drag-handle]');
 
+        if (providerId === 'nemo-gnome') {
+            if (header) {
+                applyPassthroughChromeHeader(header);
+            }
+            const nautilusHeader = container.querySelector(
+                '.nautilus-app__win-head, .nautilus-app__headerbar, #nemoHeaderContainer'
+            );
+            if (nautilusHeader) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(nautilusHeader);
+                } else {
+                    nautilusHeader.setAttribute('data-window-drag-handle', '');
+                    nautilusHeader.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            } else if (appHandle) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(appHandle);
+                } else {
+                    appHandle.setAttribute('data-window-drag-handle', '');
+                    appHandle.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            return;
+        }
+
         if (providerId === 'dolphin' && header) {
             header.setAttribute('data-window-drag-handle', '');
+            header.removeAttribute('data-window-drag-passthrough');
             return;
         }
 
@@ -129,28 +187,44 @@
                 && global.document.body.id === 'mint';
             if (mintUnifiedChrome && header && appHandle) {
                 header.setAttribute('data-window-drag-handle', '');
+                header.removeAttribute('data-window-drag-passthrough');
                 appHandle.removeAttribute('data-window-drag-handle');
+                appHandle.removeAttribute('data-window-drag-passthrough');
                 return;
             }
             if (appHandle && header) {
+                applyPassthroughChromeHeader(appHandle);
                 header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
                 return;
             }
             if (header) {
                 header.setAttribute('data-window-drag-handle', '');
+                header.removeAttribute('data-window-drag-passthrough');
             }
             return;
         }
 
         if (providerId === 'firefox-gnome' && appHandle) {
+            if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                targetsApi().markDragPassthrough(appHandle);
+            } else {
+                appHandle.setAttribute('data-window-drag-handle', '');
+                appHandle.setAttribute('data-window-drag-passthrough', 'true');
+            }
             if (header) {
                 header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
             }
             return;
         }
 
         if (header) {
             header.setAttribute('data-window-drag-handle', '');
+            header.removeAttribute('data-window-drag-passthrough');
+            if (targetsApi() && typeof targetsApi().ensureHeaderDragFill === 'function') {
+                targetsApi().ensureHeaderDragFill(header);
+            }
         }
     }
 
@@ -189,6 +263,17 @@
         afterInject(container, slotId) {
             applyKdeWindowHeaderIcons(container);
             applyDragHandlePolicy(container, slotId, 'nemo');
+        },
+    };
+
+    providers['nemo-gnome'] = {
+        id: 'nemo-gnome',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            applyKdeWindowHeaderIcons(container);
+            applyDragHandlePolicy(container, slotId, 'nemo-gnome');
         },
     };
 
@@ -243,5 +328,6 @@
         applyKdeWindowHeaderIcons,
         getHeaderTemplate,
         isKdeFamily,
+        isNautilusFamilyExplorer,
     };
 }(typeof window !== 'undefined' ? window : globalThis));

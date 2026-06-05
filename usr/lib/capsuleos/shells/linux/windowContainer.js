@@ -158,6 +158,7 @@
 
     CapsuleWindowShell.init({
         displayOnOpen: 'flex',
+        useStylesheetDisplay: true,
         titleMap: WINDOW_TITLE_MAP,
         taskMap: WINDOW_TASK_MAP,
         resolveTitle: function (slotId) {

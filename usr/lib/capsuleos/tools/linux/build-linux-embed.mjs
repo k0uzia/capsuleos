@@ -11,7 +11,28 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 
 const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
+const EXPLORERS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/explorers');
 const STYLE_DIR = path.join(APPS_DIR, 'style');
+
+/** Aligné sur explorer-registry.js — gabarits sous explorers/, pas sous apps/*.html */
+const EXPLORER_TEMPLATES = {
+    nautilus: {
+        shellRelative: 'nautilus/shell-gnome.html',
+        cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css']
+    },
+    'nemo-gnome': {
+        shellRelative: 'nautilus/shell-gnome.html',
+        cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css']
+    },
+    'nemo-cosmic': {
+        shellRelative: 'nautilus/shell-cosmic.html',
+        cssBaseStack: ['nemo/base.css']
+    },
+    'nautilus-cosmic': {
+        shellRelative: 'nautilus/shell-cosmic.html',
+        cssBaseStack: ['nemo/base.css']
+    }
+};
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
@@ -32,6 +53,7 @@ const SKIN_DIRS = [
     { key: 'mxkde', dir: path.join(ROOT, 'home/Debian/MX-KDE/style/apps'), strings: path.join(ROOT, 'home/Debian/MX-KDE/content/strings.json') },
     { key: 'opensuse', dir: path.join(ROOT, 'home/SUSE/openSUSE/style/apps'), strings: path.join(ROOT, 'home/SUSE/openSUSE/content/strings.json') },
     { key: 'fedora', dir: path.join(ROOT, 'home/RedHat/Fedora/style/apps'), strings: path.join(ROOT, 'home/RedHat/Fedora/content/strings.json') },
+    { key: 'rocky', dir: path.join(ROOT, 'home/RedHat/Rocky/style/apps'), strings: path.join(ROOT, 'home/RedHat/Rocky/content/strings.json') },
     { key: 'debian-kde', dir: path.join(ROOT, 'home/Debian/Debian-KDE/style/apps'), strings: path.join(ROOT, 'home/Debian/Debian-KDE/content/strings.json') }
 ];
 
@@ -93,10 +115,35 @@ function readTemplateHtml(templateId) {
     return readUtf8(htmlPath);
 }
 
+function readExplorerTemplate(templateId) {
+    const profile = EXPLORER_TEMPLATES[templateId];
+    if (!profile) {
+        return null;
+    }
+    const htmlPath = path.join(EXPLORERS_DIR, profile.shellRelative);
+    const html = readUtf8(htmlPath);
+    const cssBase = profile.cssBaseStack
+        .map((rel) => readUtf8(path.join(EXPLORERS_DIR, rel)))
+        .join('\n');
+    return { html, cssBase };
+}
+
 function main() {
-    const templateIds = listTemplateIds().sort();
+    const templateIds = Array.from(new Set([
+        ...listTemplateIds(),
+        ...Object.keys(EXPLORER_TEMPLATES)
+    ])).sort();
     const templates = {};
     for (const id of templateIds) {
+        const explorer = readExplorerTemplate(id);
+        if (explorer) {
+            templates[id] = explorer;
+            continue;
+        }
+        const appsHtml = path.join(APPS_DIR, `${id}.html`);
+        if (!fs.existsSync(appsHtml)) {
+            continue;
+        }
         templates[id] = {
             html: readTemplateHtml(id),
             cssBase: buildCssBase(id)
@@ -160,7 +207,8 @@ window.CAPSULE_NEMO_MANIFEST_EMBED = window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED
 
     fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
     fs.writeFileSync(OUT_FILE, `${header}\n${body}\n`, 'utf8');
-    console.log(`Écrit ${OUT_FILE} (${templateIds.length} templates, ${SKIN_DIRS.length} skins)`);
+    const explorerIds = Object.keys(EXPLORER_TEMPLATES).filter((id) => templates[id]);
+    console.log(`Écrit ${OUT_FILE} (${Object.keys(templates).length} templates dont ${explorerIds.length} explorateurs, ${SKIN_DIRS.length} skins)`);
 }
 
 main();

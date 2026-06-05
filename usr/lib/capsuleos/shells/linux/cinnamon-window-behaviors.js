@@ -78,15 +78,18 @@
             if (!isMintDesktop()) {
                 return;
             }
-            if (event.target.closest('button, input, textarea, select, a, label')) {
-                return;
-            }
-            const handle = event.target.closest('#windowHeader, [data-window-drag-handle]');
-            if (!handle) {
-                return;
-            }
-            const windowElement = handle.closest('.windowElement');
+            const windowElement = event.target.closest('.windowElement[data-link]');
             if (!windowElement || windowElement.style.display === 'none') {
+                return;
+            }
+            const api = global.CapsuleWindowDragTargets;
+            if (api && typeof api.isTitlebarPointerTarget === 'function') {
+                if (!api.isTitlebarPointerTarget(windowElement, event.target, {})) {
+                    return;
+                }
+            } else if (event.target.closest('button, input, textarea, select, a, label')) {
+                return;
+            } else if (!event.target.closest('#windowHeader, [data-window-drag-handle]')) {
                 return;
             }
             event.preventDefault();

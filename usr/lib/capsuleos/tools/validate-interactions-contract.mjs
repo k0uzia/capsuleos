@@ -51,6 +51,18 @@ mustInclude('usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js', [
 mustInclude('usr/lib/capsuleos/common/window/chrome.js', [
     "header.setAttribute('data-window-drag-handle', '')",
     "providerId === 'firefox-gnome'",
+    "providerId === 'nemo-gnome'",
+    'data-window-drag-passthrough',
+]);
+
+mustInclude('usr/lib/capsuleos/common/window/drag-targets.js', [
+    'data-window-drag-region',
+    'isTitlebarPointerTarget',
+]);
+
+mustInclude('usr/share/capsuleos/themes/global/window-drag-regions.css', [
+    'data-window-drag-region',
+    'window-drag-region--header-fill',
 ]);
 
 const linuxSkins = [

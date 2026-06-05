@@ -64,6 +64,12 @@ node usr/lib/capsuleos/tools/normalize-css-kernel-urls.mjs    # corrige la profo
 node usr/lib/capsuleos/tools/fix-theme-import-depths.mjs      # @import themes/global|linux
 ```
 
+## Assets depuis une VM réelle (obligatoire pour les clones lab)
+
+Pour chaque distribution clonée depuis une VM (Mint, Rocky GNOME, …), **copier** les icônes et fonds nécessaires depuis la VM vers `usr/share/capsuleos/assets/` — ne pas réutiliser un pack d’un autre vendor.
+
+Convention détaillée : [`convention-assets-depuis-vm.md`](convention-assets-depuis-vm.md) · script : `root/tools/lab/pull-vm-assets.sh`.
+
 ## Règle agent Cursor
 
 Voir `.cursor/rules/capsuleos-assets.mdc`.

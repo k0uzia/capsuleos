@@ -20,6 +20,7 @@ Windows charge en plus `OS/windows/kernel/js/win-window-drag.js` (fixe `requireH
 | `positioning.js` | Ancrage `absolute` sous `object#desktop` (drag/resize/max en coords viewport) |
 | `stack.js` | z-index, `activateWindow` |
 | `maximize.js` | `maximize` / `restore` / `toggle` (work-area unifiée) |
+| `drag-targets.js` | Zones `data-window-drag-region`, passthrough headerbar |
 | `drag.js` | Pointer Events, `enableDrag` |
 | `resize.js` | Bordures redimensionnables |
 | `chrome.js` | Registre providers (`default`, `nemo`, `dolphin`, `firefox-gnome`, `terminal-*`) |
@@ -40,7 +41,8 @@ CapsuleWindow.init(container, {
 | Provider | Poignée de drag |
 |----------|-----------------|
 | `default` | `#windowHeader` injecté |
-| `nemo` | `#nemoHeaderContainer` |
+| `nemo` | `#nemoHeaderContainer` ou barre app (passthrough + régions) |
+| `nemo-gnome` | `#windowHeader` + `.nautilus-app__headerbar` (régions drag) |
 | `dolphin` | `#windowHeader` (barre Breeze) |
 | `firefox-gnome` | tabsbar Firefox |
 | `terminal-*` | header terminal Cosmic / GNOME / Konsole |
@@ -57,6 +59,7 @@ Le chrome **ne doit pas** être dans le fragment `innerHTML` injecté par `conte
 cat usr/lib/capsuleos/common/window/bounds.js \
     usr/lib/capsuleos/common/window/stack.js \
     usr/lib/capsuleos/common/window/maximize.js \
+    usr/lib/capsuleos/common/window/drag-targets.js \
     usr/lib/capsuleos/common/window/drag.js \
     usr/lib/capsuleos/common/window/resize.js \
     usr/lib/capsuleos/common/window/chrome.js \

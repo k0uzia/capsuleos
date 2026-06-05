@@ -20,6 +20,8 @@ Déplacer les binaires vers la zone noyau, réécrire les références en **pré
 
 Voir [politique-assets.md](../../docs/politique-assets.md) et `.cursor/rules/capsuleos-assets.mdc`.
 
+**Clones depuis VM** : ne jamais emprunter les icônes d’un autre vendor — copier depuis la VM lab ([convention-assets-depuis-vm.md](../../docs/convention-assets-depuis-vm.md), `root/tools/lab/pull-vm-assets.sh`).
+
 ## Préfixes logiques (sources HTML/CSS/JS)
 
 | Préfixe | Destination physique |

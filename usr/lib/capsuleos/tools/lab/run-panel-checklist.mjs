@@ -10,6 +10,9 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { buildX11ExportScript } from './lab-x11-env.mjs';
+import { remoteProbeCmd } from './lab-probe-resolve.mjs';
+import { applyPanelLabels } from './panel-checklist-labels.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -80,9 +83,8 @@ const runSsh = (host, remoteCmd) => {
   const user = host.ssh.slice(0, at);
   const ip = host.ssh.slice(at + 1);
   const identity = expandHome(host.sshIdentity || '~/.ssh/capsuleos-lab');
-  const probe = host.probe || '/home/capsule/capsuleos-lab/os-probe.sh';
-  const display = host.display || ':0';
-  const full = `DISPLAY=${display} ${probe} ${remoteCmd}`;
+  const probe = remoteProbeCmd(host);
+  const full = `${buildX11ExportScript(host)}; export PATH=$HOME/.local/bin:$PATH; ${probe} ${remoteCmd}`;
   const res = spawnSync(
     'ssh',
     ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, `${user}@${ip}`, full],
@@ -99,18 +101,21 @@ const prepVm = (host) => {
   const at = host.ssh.indexOf('@');
   const target = host.ssh;
   const identity = expandHome(host.sshIdentity || '~/.ssh/capsuleos-lab');
-  const script = `export DISPLAY=:0
+  const script = `${buildX11ExportScript(host)}; export PATH=$HOME/.local/bin:$PATH
 wmctrl -lx 2>/dev/null | while read -r line; do
   cls=$(echo "$line" | awk '{print $3}')
   id=$(echo "$line" | awk '{print $1}')
   echo "$cls" | grep -qi nemo-desktop && continue
   case "$cls" in
-    *Firefox*|*Navigator*|*gnome-terminal*|*.Nemo)
+    *Firefox*|*Navigator*|*gnome-terminal*|*.Nemo|*Ptyxis*|*ptyxis*|*Nautilus*)
       wmctrl -ic "$id" 2>/dev/null || true
       ;;
   esac
 done
-sleep 0.5`;
+pkill -x ptyxis 2>/dev/null || true
+pkill -x firefox 2>/dev/null || true
+pkill -x nautilus 2>/dev/null || true
+sleep 0.8`;
   spawnSync(
     'ssh',
     ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, target, script],
@@ -131,10 +136,11 @@ const parseArgs = () => {
 const main = () => {
   const opts = parseArgs();
   const host = loadHost(opts.id);
+  const steps = applyPanelLabels(STEPS, host.toolkit || 'cinnamon');
   prepVm(host);
 
   const vmResults = [];
-  for (const step of STEPS) {
+  for (const step of steps) {
     for (const act of step.actions) {
       runSsh(host, act.cmd);
     }

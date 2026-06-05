@@ -6,7 +6,9 @@ Contenu canonique des gestionnaires de fichiers simulés, partagé entre toutes 
 |----------------|----------------------------------------|--------------|-------------|
 | **Nemo** (Cinnamon) | `nemo` | `nemo/shell.html` | `nemo/base.css` |
 | **Dolphin** (KDE) | `dolphin` | `dolphin/shell.html` | `nemo/base.css` + `dolphin/base.css` |
-| **Nautilus** (GNOME / COSMIC) | `nautilus`, `nemo-gnome`, `nemo-cosmic`, `nautilus-cosmic` | `nautilus/shell.html` ou `shell-cosmic.html` | `nemo/base.css` |
+| **Nautilus** (GNOME / COSMIC) | `nautilus`, `nemo-gnome` | `nautilus/shell-gnome.html` (split GNOME 45+ : sidebar « Emplacements » + headerbar contenu) + `header-gnome.css` | `nemo/base.css` + `nautilus/header-gnome.css` |
+| **Nautilus** (legacy / réf.) | — | `nautilus/shell.html` (menubar Nemo, non utilisé par `nemo-gnome`) | `nemo/base.css` |
+| **COSMIC Files** | `nemo-cosmic`, `nautilus-cosmic` | `nautilus/shell-cosmic.html` | `nemo/base.css` |
 
 ## Fichiers utilisateur
 
@@ -40,5 +42,7 @@ Les fichiers sous `usr/share/capsuleos/linux/apps/nemo.html` (etc.) sont **dépr
 Après modification d’un gabarit :
 
 ```bash
-node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
+./root/tools/lab/update-rocky-nautilus.sh   # Rocky : façades pick-os + embed + audit
+bash usr/lib/capsuleos/tools/linux/sync-skin-after-home-edit.sh   # après toute modif home/*/index.html
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs   # inclut explorers/ (nemo-gnome, nautilus, …)
 ```

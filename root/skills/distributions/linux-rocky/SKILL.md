@@ -33,6 +33,12 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
 
+**VM lab (Wayland)** : [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md) · [inventaire VM](../../docs/inventaires/linux-rocky-vm.md) · `etc/capsuleos/lab-inventory.json` (`linux-rocky`)
+
+**Skin** : `home/RedHat/Rocky/` (pont Fedora GNOME) · façade `OS/linux/families/redhat/rocky/`
+
+**Apps** : VM **Nautilus** + Ptyxis + Firefox · slots Capsule **`nemo`** (gabarit Fichiers), **`terminal`**, **`firefox`** — voir [`linux-gnome-capsule-slots.md`](../../docs/inventaires/linux-gnome-capsule-slots.md).
+
 ## Build / gates
 
 ```bash

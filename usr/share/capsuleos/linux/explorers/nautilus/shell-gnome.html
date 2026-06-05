@@ -1,0 +1,132 @@
+<main id="gestionnaire" class="nemo-app nautilus-app nautilus-app--split nautilus-app--n47">
+        <header class="nautilus-app__win-head" id="nemoHeaderContainer">
+                <div class="nautilus-app__head-plate" data-window-drag-region>
+                        <button type="button" class="nautilus-app__icon-btn nautilus-app__plate-search"
+                                aria-label="Recherche globale" title="Recherche">
+                                <img src="./assets/icons/cinnamon/nemo/search-symbolic.svg" alt=""
+                                        width="16" height="16">
+                        </button>
+                        <h1 class="nautilus-app__win-title" data-window-drag-region>Fichiers</h1>
+                        <button type="button" class="nautilus-app__icon-btn nautilus-app__sidebar-menu-btn"
+                                aria-label="Menu principal" title="Menu principal">
+                                <img src="./assets/icons/cinnamon/nemo/open-menu-symbolic.svg" alt=""
+                                        width="16" height="16">
+                        </button>
+                </div>
+                <section class="nautilus-app__headerbar nemo-app__toolbar" role="toolbar"
+                        aria-label="Barre d’outils">
+                        <div class="nautilus-app__leading">
+                                <nav class="nautilus-app__nav" aria-label="Navigation">
+                                        <a href="#" id="precedent" class="nautilus-app__icon-btn"
+                                                aria-label="Précédent" title="Précédent"><img
+                                                        src="./assets/icons/cinnamon/nemo/go-previous-symbolic.svg"
+                                                        alt="" width="16" height="16"></a>
+                                        <a href="#" id="suivant" class="nautilus-app__icon-btn"
+                                                aria-label="Suivant" title="Suivant"><img
+                                                        src="./assets/icons/cinnamon/nemo/go-next-symbolic.svg"
+                                                        alt="" width="16" height="16"></a>
+                                </nav>
+                                <span class="window-drag-region window-drag-region--gap"
+                                        data-window-drag-region aria-hidden="true"></span>
+                                <a href="#" id="parent" class="nautilus-app__sr-only" tabindex="-1"
+                                        aria-hidden="true">Parent</a>
+                                <button type="button" id="home" class="nautilus-app__sr-only" tabindex="-1"
+                                        aria-hidden="true">Accueil</button>
+                        </div>
+                        <div class="nautilus-app__center">
+                                <span class="window-drag-region window-drag-region--layer"
+                                        data-window-drag-region aria-hidden="true"></span>
+                                <div class="nautilus-app__search-field" id="nemo-search-wrap">
+                                        <img class="nautilus-app__search-field-icon" aria-hidden="true"
+                                                src="./assets/icons/cinnamon/nemo/search-symbolic.svg" alt=""
+                                                width="16" height="16">
+                                        <input type="search" id="nemo-search-input"
+                                                class="nautilus-app__search-input"
+                                                placeholder="Rechercher dans le dossier actuel"
+                                                aria-label="Rechercher dans le dossier actuel"
+                                                autocomplete="off">
+                                        <button type="button"
+                                                class="nautilus-app__icon-btn nautilus-app__search-filter"
+                                                aria-label="Filtres de recherche" title="Filtres">
+                                                <img src="./assets/icons/cinnamon/nemo/view-more-symbolic.svg"
+                                                        alt="" width="16" height="16">
+                                        </button>
+                                        <button type="button"
+                                                class="nautilus-app__icon-btn nautilus-app__search-info"
+                                                aria-label="Informations" title="Informations">
+                                                <img src="./assets/icons/cinnamon/nemo/find-location-symbolic.svg"
+                                                        alt="" width="16" height="16">
+                                        </button>
+                                </div>
+                                <span id="nemo-path-label" class="nemo-app__path-current nautilus-app__sr-only">Dossier personnel</span>
+                        </div>
+                        <div class="nautilus-app__trailing">
+                                <span class="window-drag-region window-drag-region--gap"
+                                        data-window-drag-region aria-hidden="true"></span>
+                                <button type="button" class="nautilus-app__icon-btn nautilus-app__new-folder-btn"
+                                        aria-label="Nouveau dossier" title="Nouveau dossier">
+                                        <img src="./assets/icons/cinnamon/nemo/tab-new.svg" alt=""
+                                                width="16" height="16">
+                                </button>
+                                <div class="nemo-app__toolbar-group--view nautilus-app__view-group" role="group"
+                                        aria-label="Mode d’affichage">
+                                        <a href="#" class="nautilus-app__icon-btn" data-view-mode="list"
+                                                aria-label="Vue en liste" title="Vue en liste"><img
+                                                        src="./assets/icons/cinnamon/nemo/view-list-symbolic.svg"
+                                                        alt="" width="16" height="16"></a>
+                                        <a href="#" class="nautilus-app__icon-btn" data-view-mode="icons"
+                                                aria-label="Vue en icônes" title="Vue en icônes"><img
+                                                        src="./assets/icons/cinnamon/nemo/view-grid-symbolic.svg"
+                                                        alt="" width="16" height="16"></a>
+                                        <button type="button"
+                                                class="nautilus-app__icon-btn nautilus-app__view-menu-btn"
+                                                aria-label="Autres vues" title="Autres vues">
+                                                <img src="./assets/icons/cinnamon/nemo/view-more-symbolic.svg"
+                                                        alt="" width="16" height="16">
+                                        </button>
+                                </div>
+                                <button type="button"
+                                        class="nautilus-app__icon-btn nautilus-app__window-close"
+                                        aria-label="Fermer la fenêtre" title="Fermer"><span
+                                                aria-hidden="true">×</span></button>
+                        </div>
+                </section>
+        </header>
+        <div id="nemoMainContainer" class="nemo-app__main nautilus-app__split-body">
+                <aside id="voletnemo" class="nemo-app__sidebar nemo-app__sidebar--gnome nautilus-app__places">
+                        <div class="nemo-app__sidebar-places">
+                                <a data-link="Dossier Personnel"
+                                        title="Dossier personnel"><img
+                                                src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
+                                                alt="">Dossier personnel</a>
+                                <a href="#" title="Récents"><img src="./assets/icons/cinnamon/nemo/recent.svg" alt="">Récents</a>
+                                <a href="#" title="Favoris"><img src="./assets/icons/cinnamon/nemo/starred-symbolic.svg" alt="">Favoris</a>
+                                <a href="#" title="Réseau"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg" alt="">Réseau</a>
+                                <a href="#" title="Corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
+                        </div>
+                        <div class="nemo-app__sidebar-xdg">
+                                <a data-link="Documents" title="Documents"><img
+                                                src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg" alt="">Documents</a>
+                                <a data-link="Musique" title="Musique"><img
+                                                src="./assets/icons/cinnamon/nemo/folder-music-symbolic.svg" alt="">Musique</a>
+                                <a data-link="Images" title="Images"><img
+                                                src="./assets/icons/cinnamon/nemo/folder-pictures-symbolic.svg" alt="">Images</a>
+                                <a data-link="Vidéos" title="Vidéos"><img
+                                                src="./assets/icons/cinnamon/nemo/folder-videos-symbolic.svg" alt="">Vidéos</a>
+                                <a data-link="Téléchargements" title="Téléchargements"><img
+                                                src="./assets/icons/cinnamon/nemo/folder-download-symbolic.svg" alt="">Téléchargements</a>
+                        </div>
+                </aside>
+                <div class="nautilus-app__content-column">
+                        <aside id="voletContainer" class="nemo-app__content-wrap">
+                                <section class="nemoElement nemo-app__content-grid">
+                                        <!-- AFFICHAGE DES DOSSIERS ET FICHIERS -->
+                                </section>
+                        </aside>
+                        <footer id="nemoFooterContainer"
+                                class="nemo-app__statusbar nautilus-app__statusbar nautilus-app__status-pill">
+                                <p class="nautilus-app__status-text" id="nemo-status-label">Prêt</p>
+                        </footer>
+                </div>
+        </div>
+</main>

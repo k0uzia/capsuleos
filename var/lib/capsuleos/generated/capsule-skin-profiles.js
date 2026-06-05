@@ -309,6 +309,47 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_PROFILE": "debian"
     }
   },
+  "rocky": {
+    "id": "linux-rocky",
+    "version": 1,
+    "family": "linux",
+    "vendor": "rocky",
+    "displayName": "Rocky Linux (GNOME)",
+    "bodyId": "rocky",
+    "embedKey": "rocky",
+    "tier": "P3",
+    "status": "active",
+    "paths": {
+      "facade": "OS/linux/families/redhat/rocky/index.html",
+      "skin": "home/RedHat/Rocky/index.html"
+    },
+    "toolkit": {
+      "id": "gnome",
+      "shell": "gnome"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/gnome",
+      "vendorPack": "vendors/rocky",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "rocky",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus"
+    }
+  },
   "ubuntu": {
     "id": "linux-ubuntu",
     "version": 1,
@@ -655,6 +696,47 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian"
+    }
+  },
+  "linux-rocky": {
+    "id": "linux-rocky",
+    "version": 1,
+    "family": "linux",
+    "vendor": "rocky",
+    "displayName": "Rocky Linux (GNOME)",
+    "bodyId": "rocky",
+    "embedKey": "rocky",
+    "tier": "P3",
+    "status": "active",
+    "paths": {
+      "facade": "OS/linux/families/redhat/rocky/index.html",
+      "skin": "home/RedHat/Rocky/index.html"
+    },
+    "toolkit": {
+      "id": "gnome",
+      "shell": "gnome"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/gnome",
+      "vendorPack": "vendors/rocky",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "rocky",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_EXPLORER_SKIN_KEY": "nautilus"
     }
   },
   "linux-ubuntu": {

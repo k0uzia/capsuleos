@@ -1,24 +1,48 @@
 /**
- * Lanceurs panel Cinnamon — running (app ouverte) vs active-link (focus).
- * Mint uniquement : body#mint ou CAPSULE_EMBED_SKIN_KEY === 'mint'.
+ * Lanceurs Linux — sync UI (running-link / active-link) + sonde lab partagée.
+ * Mint : barre footer. GNOME (Fedora, Rocky, …) : dock #tableau.fedora-dock.
+ * Source de vérité : fenêtres .windowElement (pas les classes du dock seules).
  */
-(function initCapsuleTaskbarLauncherState(global) {
+(function initCapsuleLauncherDockState(global) {
     'use strict';
 
-    const LAUNCHER_SELECTOR = 'footer nav a[target="windowElement"]';
+    const LAUNCHER_SELECTOR = [
+        'footer nav a[target="windowElement"]',
+        '#tableau.fedora-dock a[target="windowElement"]',
+        'aside.fedora-dock a[target="windowElement"]',
+    ].join(', ');
 
-    function isMintPanel() {
+    const PANEL_SLOTS = ['nemo', 'firefox', 'terminal'];
+
+    function isLinuxLauncherPanel() {
+        if (global.CAPSULE_WINDOW_FAMILY === 'linux') {
+            return true;
+        }
         const bodyId = typeof document !== 'undefined' && document.body ? document.body.id : '';
-        const skinKey = typeof global !== 'undefined' ? global.CAPSULE_EMBED_SKIN_KEY : '';
-        return bodyId === 'mint' || skinKey === 'mint';
+        return bodyId === 'mint' || bodyId === 'fedora' || bodyId === 'rocky';
     }
 
     function isWindowVisible(container) {
-        return !!(container && container.style.display !== 'none');
+        if (!container || container.style.display === 'none') {
+            return false;
+        }
+        if (typeof getComputedStyle === 'function') {
+            return getComputedStyle(container).display !== 'none';
+        }
+        return true;
     }
 
     function isWindowRunning(container) {
         return !!(container && container.dataset.capsuleRunning === 'true');
+    }
+
+    function launcherRunning(container) {
+        return isWindowRunning(container) || isWindowVisible(container);
+    }
+
+    function launcherActive(container) {
+        return isWindowVisible(container)
+            && container.classList.contains('windowElementActive');
     }
 
     function markWindowRunning(container) {
@@ -34,7 +58,7 @@
     }
 
     function syncLaunchers() {
-        if (!isMintPanel()) {
+        if (!isLinuxLauncherPanel()) {
             return;
         }
         document.querySelectorAll(LAUNCHER_SELECTOR).forEach((link) => {
@@ -43,14 +67,80 @@
                 return;
             }
             const container = document.querySelector(`.windowElement[data-link="${slotId}"]`);
-            const visible = isWindowVisible(container);
-            const running = isWindowRunning(container);
-            const focused = !!(container
-                && visible
-                && container.classList.contains('windowElementActive'));
+            const running = launcherRunning(container);
+            const focused = launcherActive(container);
             link.classList.toggle('running-link', running);
             link.classList.toggle('active-link', focused);
         });
+    }
+
+    function resolveProbeToolkit() {
+        const bodyId = typeof document !== 'undefined' && document.body ? document.body.id : '';
+        if (bodyId === 'mint') {
+            return 'capsule-cinnamon';
+        }
+        if (bodyId === 'fedora' || bodyId === 'rocky') {
+            return 'capsule-gnome';
+        }
+        return 'capsule-linux';
+    }
+
+    function explorerCurrentPath() {
+        const nemo = document.querySelector('.windowElement[data-link="nemo"]');
+        const g = global;
+        if (typeof g.fileExplorerState !== 'undefined' && g.fileExplorerState.currentPath) {
+            return g.fileExplorerState.currentPath;
+        }
+        if (nemo && typeof g.getExplorerCurrentPath === 'function') {
+            return g.getExplorerCurrentPath('nemo') || '';
+        }
+        if (nemo) {
+            const pathEl = nemo.querySelector('[data-role="current-path"], .nemo-path, #nemo-path-label, #nemo-path');
+            if (pathEl) {
+                return pathEl.textContent || '';
+            }
+        }
+        return '';
+    }
+
+    function collectLauncherProbeState() {
+        const launchers = {};
+        const windows = [];
+        let focused = null;
+
+        PANEL_SLOTS.forEach((slot) => {
+            const container = document.querySelector(`.windowElement[data-link="${slot}"]`);
+            if (!container) {
+                return;
+            }
+            const running = launcherRunning(container);
+            const active = launcherActive(container);
+            launchers[slot] = { running: running, active: active };
+            if (isWindowVisible(container)) {
+                const state = active ? 'focused' : 'normal';
+                const entry = {
+                    id: container.id || slot,
+                    title: container.getAttribute('data-title') || slot,
+                    wmClass: slot,
+                    slot: slot,
+                    state: state,
+                };
+                windows.push(entry);
+                if (active) {
+                    focused = { wmClass: slot, slot: slot, title: entry.title };
+                }
+            }
+        });
+
+        return {
+            toolkit: resolveProbeToolkit(),
+            timestamp: new Date().toISOString(),
+            focused: focused,
+            windows: windows,
+            launchers: launchers,
+            explorer: { nemo: { currentPath: explorerCurrentPath() } },
+            actions: { last: 'state' },
+        };
     }
 
     function scheduleSync() {
@@ -58,7 +148,7 @@
     }
 
     function init() {
-        if (!isMintPanel()) {
+        if (!isLinuxLauncherPanel()) {
             return;
         }
 
@@ -96,6 +186,11 @@
             refresh: syncLaunchers,
             markRunning: markWindowRunning,
             clearRunning: clearWindowRunning,
+        };
+
+        global.CapsuleLauncherProbe = {
+            collectState: collectLauncherProbeState,
+            refresh: syncLaunchers,
         };
     }
 

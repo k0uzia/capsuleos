@@ -1,0 +1,31 @@
+{
+  "collectedAt": "2026-06-04T21:47:16Z",
+  "registryId": "linux-rocky",
+  "ssh": "capsule@192.168.122.234",
+  "sessionActive": true,
+  "gnome": {
+    "shell": "GNOME Shell 47.4",
+    "gtkTheme": "Adwaita",
+    "colorSchemeOptions": ["default", "prefer-dark", "prefer-light"],
+    "colorSchemeCurrent": "default",
+    "capsuleThemeMapping": {
+      "default": "dark",
+      "prefer-dark": "dark",
+      "prefer-light": "light"
+    }
+  },
+  "probeGnome": {
+    "toolkit": "gnome",
+    "launchersAllRunning": {
+      "nemo": true,
+      "firefox": true,
+      "terminal": true
+    },
+    "note": "nemo/terminal détectés via pgrep si absents de wmctrl (Wayland)"
+  },
+  "capsuleParity": {
+    "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html",
+    "themes": "html:has(#rocky)=sombre, html[data-theme=light]:has(#rocky)=clair (themes.js gnome-theme)",
+    "accent": "#3584e4"
+  }
+}

@@ -4,10 +4,14 @@
 (function initCapsulePanelDriver(global) {
     'use strict';
 
+    function launcherQuery(slot) {
+        return '#tableau.fedora-dock a[target="windowElement"][data-link="' + slot + '"],'
+            + ' aside.fedora-dock a[target="windowElement"][data-link="' + slot + '"],'
+            + ' footer nav a[target="windowElement"][data-link="' + slot + '"]';
+    }
+
     function clickLauncher(slot) {
-        const link = document.querySelector(
-            'footer nav a[target="windowElement"][data-link="' + slot + '"]',
-        );
+        const link = document.querySelector(launcherQuery(slot));
         if (link) {
             link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
         }

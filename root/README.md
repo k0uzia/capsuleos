@@ -79,6 +79,7 @@ Index détaillé : [docs/familles-os.md](docs/familles-os.md).
 - [docs/apps-linux-par-distro.md](docs/apps-linux-par-distro.md) — apps par défaut et mappings Linux
 - [docs/arborescence.md](docs/arborescence.md) — `home/`, `usr/`, `OS/`, `var/`
 - [docs/contrat-liens.md](docs/contrat-liens.md) — liens vers `writing.md` et checklist
+- [docs/lab-vm-rhel-wayland.md](docs/lab-vm-rhel-wayland.md) — VM Rocky/Alma/RHEL, SSH, Wayland, inventaire lab
 - [team/equipe.md](team/equipe.md) — collaboration entre rôles
 
 ## Cursor

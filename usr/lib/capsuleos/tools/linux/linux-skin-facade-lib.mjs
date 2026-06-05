@@ -18,6 +18,7 @@ export const LINUX_SKIN_FACADES = [
     { facade: 'families/debian/debian-kde', home: 'home/Debian/Debian-KDE' },
     { facade: 'families/debian/anduinos', home: 'home/Debian/AnduinOS' },
     { facade: 'families/redhat/fedora', home: 'home/RedHat/Fedora' },
+    { facade: 'families/redhat/rocky', home: 'home/RedHat/Rocky' },
     { facade: 'families/suse/opensuse', home: 'home/SUSE/openSUSE' }
 ];
 

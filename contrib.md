@@ -46,6 +46,10 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
 
+**Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.
+
+**Assets depuis la VM (tous clones)** : [`root/docs/convention-assets-depuis-vm.md`](root/docs/convention-assets-depuis-vm.md) — icônes et fonds **toujours** copiés depuis la VM (`pull-vm-assets.sh`), jamais empruntés à un autre vendor.
+
 Pour qu’un agent **voie et compare** Cinnamon, Nemo, le panel, etc. avec CapsuleOS (secours visuel / Proxmox) :
 
 | Prérequis | Action |

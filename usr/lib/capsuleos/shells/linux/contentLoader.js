@@ -85,6 +85,13 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
     }
+    if (typeof window !== 'undefined'
+        && window.CapsuleExplorerRegistry
+        && typeof window.CapsuleExplorerRegistry.isExplorerTemplate === 'function'
+        && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId)
+        && typeof window.CapsuleExplorerRegistry.resolveShellPathFromAppsBase === 'function') {
+        return window.CapsuleExplorerRegistry.resolveShellPathFromAppsBase(appsBase, templateId);
+    }
     return `${appsBase}/${templateId}.html`;
 };
 
@@ -140,6 +147,30 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
     });
 
     const fetchCssBase = (async () => {
+        const fetchOneCss = async (url) => {
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status} ${url}`);
+            }
+            return response.text();
+        };
+
+        let stackUrls = [];
+        if (typeof window !== 'undefined'
+            && window.CapsuleExplorerRegistry
+            && typeof window.CapsuleExplorerRegistry.resolveCssBasePathsFromAppsBase === 'function') {
+            stackUrls = window.CapsuleExplorerRegistry.resolveCssBasePathsFromAppsBase(appsBase, templateId);
+        }
+
+        if (stackUrls.length > 1) {
+            try {
+                const chunks = await Promise.all(stackUrls.map((url) => fetchOneCss(url)));
+                return chunks.join('\n');
+            } catch (stackError) {
+                console.warn(`CapsuleOS: pile CSS explorateur ${templateId} — repli nemo.base`, stackError.message);
+            }
+        }
+
         let text = '';
         const response = await fetch(cssBaseFile, { cache: 'no-store' });
         if (!response.ok) {

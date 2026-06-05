@@ -16,6 +16,7 @@ Cartographie **dépôt actuel** + extension prévue (`writing.md` §3).
 | Android | `OS/android/` | — | `os-android` | 1 |
 | iOS | `OS/ios/` | — | `os-ios` | 1 |
 | BSD | `OS/bsd/` | — | `os-bsd` | 0 |
+| Rocky (GNOME) | `OS/linux/families/redhat/rocky/` | `home/RedHat/Rocky/` | `os-linux` + vendor `rocky` | 1 (P3) — VM : [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) · [inventaire](inventaires/linux-rocky-vm.md) |
 | UNIX | convention héritée / à structurer | — | `os-unix` | 0 |
 | ChromeOS | non présent | — | `os-chromeos` → stub | 0 |
 | HarmonyOS | non présent | — | `os-harmonyos` → stub | 0 |

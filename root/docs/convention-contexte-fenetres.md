@@ -58,6 +58,10 @@ API globale : `CapsuleWindowContext` (alias `CapsuleLinuxWindowContext`).
 4. Injection app → `capsule:slot-injected` → re-bind
 5. Boutons header → `capsule-window-header-buttons.js`
 
+### Headerbar sans zone vide (Nautilus, Firefox onglets, …)
+
+Poignée `data-window-drag-passthrough="true"` : les clics sur boutons/liens ne déplacent pas la fenêtre. Le grab passe par des **`data-window-drag-region`** (bandes flex ou calque sous les contrôles). Double-clic et clic droit titre : `gnome-window-behaviors.js` (GNOME) / `cinnamon-window-behaviors.js` (Mint). Module : `common/window/drag-targets.js`.
+
 ## Gate
 
 ```bash

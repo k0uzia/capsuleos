@@ -33,14 +33,14 @@
         },
         nautilus: {
             family: 'nautilus',
-            shellRelative: 'nautilus/shell.html',
-            cssBaseStack: ['nemo/base.css'],
+            shellRelative: 'nautilus/shell-gnome.html',
+            cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css'],
             displayNameDefault: 'Fichiers'
         },
         'nemo-gnome': {
             family: 'nautilus',
-            shellRelative: 'nautilus/shell.html',
-            cssBaseStack: ['nemo/base.css'],
+            shellRelative: 'nautilus/shell-gnome.html',
+            cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css'],
             displayNameDefault: 'Fichiers'
         },
         'nemo-cosmic': {

@@ -6,10 +6,13 @@
 
     const boundsApi = () => global.CapsuleWindowBounds;
     const maxApi = () => global.CapsuleWindowMaximize;
+    const targetsApi = () => global.CapsuleWindowDragTargets;
 
-    const INTERACTIVE_SELECTOR = 'button, input, textarea, select, a, label';
-
-    function resolveDragHandle(element, options = {}) {
+    function resolveDragHandle(element, options) {
+        const api = targetsApi();
+        if (api && typeof api.resolveDragHandle === 'function') {
+            return api.resolveDragHandle(element, options);
+        }
         if (options.dragHandle && options.dragHandle !== 'auto') {
             return element.querySelector(options.dragHandle);
         }
@@ -21,12 +24,19 @@
             || element;
     }
 
-    function isDragHandleEvent(element, target, options) {
+    function isDragStartTarget(element, target, options) {
+        const api = targetsApi();
+        if (api && typeof api.isTitlebarPointerTarget === 'function') {
+            return api.isTitlebarPointerTarget(element, target, options);
+        }
         const dragHandle = resolveDragHandle(element, options);
-        if (!dragHandle) {
+        if (!dragHandle || !(dragHandle === element || dragHandle.contains(target))) {
             return false;
         }
-        return dragHandle === element || dragHandle.contains(target);
+        if (target.closest('button, input, textarea, select, a, label')) {
+            return false;
+        }
+        return true;
     }
 
     function applyPosition(element, left, top, boundsOptions) {
@@ -45,7 +55,7 @@
     }
 
     function restoreBeforeDragging(element, event, boundsOptions) {
-        if (element.dataset.maximized !== 'true' ||(typeof maxApi() == null ? void 0 : typeof maxApi().restoreWindowElement) !== 'function') {
+        if (element.dataset.maximized !== 'true' || (typeof maxApi().restoreWindowElement !== 'function')) {
             return null;
         }
 
@@ -66,7 +76,8 @@
         return { offsetX, offsetY };
     }
 
-    function enableDrag(element, options = {}) {
+    function enableDrag(element, options) {
+        options = options || {};
         if (!element || element.dataset.dragInit === 'true') {
             return;
         }
@@ -107,16 +118,7 @@
             if (event.button !== 0 && event.pointerType === 'mouse') {
                 return;
             }
-            if (!isDragHandleEvent(element, event.target, options)) {
-                return;
-            }
-            if (event.target.closest(
-                '.nemo-app__toolbar, .nemo-app__main, .nemo-app__statusbar, '
-                + '.nemo-app__content-grid, #voletnemo, #nemoFooterContainer'
-            )) {
-                return;
-            }
-            if (event.target.closest(INTERACTIVE_SELECTOR)) {
+            if (!isDragStartTarget(element, event.target, options)) {
                 return;
             }
 
@@ -166,6 +168,11 @@
         delete element.dataset.dragInit;
     }
 
-    global.CapsuleWindowDrag = { enableDrag, disableDrag, resolveDragHandle };
+    global.CapsuleWindowDrag = {
+        enableDrag,
+        disableDrag,
+        resolveDragHandle,
+        isDragStartTarget,
+    };
     global.makeDraggable = enableDrag;
 }(typeof window !== 'undefined' ? window : globalThis));

@@ -167,8 +167,12 @@
                 expander.setAttribute('aria-label', isExpanded ? 'Réduire' : 'Développer');
                 var expanderIcon = global.document.createElement('img');
                 expanderIcon.src = isExpanded
-                    ? './assets/icons/cinnamon/nemo/pan-down-symbolic.svg'
-                    : './assets/icons/cinnamon/nemo/pan-end-symbolic.svg';
+                    ? (window.CapsuleExplorerIconBase
+                        ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/pan-down-symbolic.svg')
+                        : './assets/icons/cinnamon/nemo/pan-down-symbolic.svg')
+                    : (window.CapsuleExplorerIconBase
+                        ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/pan-end-symbolic.svg')
+                        : './assets/icons/cinnamon/nemo/pan-end-symbolic.svg');
                 expanderIcon.alt = '';
                 expanderIcon.width = 16;
                 expanderIcon.height = 16;
@@ -191,7 +195,9 @@
             link.type = 'button';
             link.className = 'nemo-sidebar__tree-link';
             var folderIcon = global.document.createElement('img');
-            folderIcon.src = './assets/icons/cinnamon/nemo/folder.svg';
+            folderIcon.src = window.CapsuleExplorerIconBase
+                ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/folder.svg')
+                : './assets/icons/cinnamon/nemo/folder.svg';
             folderIcon.alt = '';
             folderIcon.width = 16;
             folderIcon.height = 16;
@@ -258,7 +264,9 @@
             rootBtn.classList.add('nemo-sidebar__tree-link--active');
         }
         var rootIcon = global.document.createElement('img');
-        rootIcon.src = './assets/icons/cinnamon/nemo/user-home-symbolic.svg';
+        rootIcon.src = window.CapsuleExplorerIconBase
+            ? window.CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/user-home.svg')
+            : './assets/icons/cinnamon/nemo/user-home-symbolic.svg';
         rootIcon.alt = '';
         rootIcon.width = 16;
         rootIcon.height = 16;

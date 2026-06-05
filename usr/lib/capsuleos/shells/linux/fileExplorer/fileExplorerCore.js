@@ -265,7 +265,9 @@ const resolveItemIcon = (item) => {
     const resolveUrl = typeof resolveCapsuleResourceUrl === 'function'
         ? resolveCapsuleResourceUrl
         : (url) => url;
-    const folderFallback = './assets/icons/cinnamon/nemo/folder.svg';
+    const folderFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath)
+        ? CapsuleExplorerIconBase.remapPath('./assets/icons/cinnamon/nemo/folder.svg')
+        : './assets/icons/cinnamon/nemo/folder.svg';
     const fileFallback = './assets/icons/kde/mimeTypes/application-x-generic.svg';
 
     if (item && item.vfsEntry === true) {
@@ -763,7 +765,10 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
 };
 
 const updatePathDisplay = () => {
-    const pathLabelElement = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemo-app__path-current`);
+    const nemoRoot = getExplorerWindowSlot();
+    const pathLabelElement = nemoRoot
+        ? nemoRoot.querySelector('.nemo-app__path-current, #nemo-path-label')
+        : document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemo-app__path-current`);
     if (!pathLabelElement) {
         return;
     }
@@ -777,6 +782,16 @@ const updatePathDisplay = () => {
     updateExplorerWindowTitle();
     updateDolphinSidebarActive();
     alignDolphinPathBarToContentGrid();
+
+    if (nemoRoot && nemoRoot.querySelector('.nautilus-app--n47')) {
+        const statusEl = nemoRoot.querySelector('#nemo-status-label');
+        if (statusEl) {
+            const base = String(displayPath || '').split('/').filter(Boolean).pop() || 'Dossier personnel';
+            const label = base.replace(/-/g, ' ');
+            const count = nemoRoot.querySelectorAll('.nemo-app__content-grid > a').length;
+            statusEl.textContent = `« ${label} » sélectionné (contenant ${count} élément${count > 1 ? 's' : ''})`;
+        }
+    }
 };
 
 const updateNavigationControls = () => {
@@ -1730,6 +1745,7 @@ const bindFileExplorerSearchControls = () => {
     const searchToggle = nemoRoot.querySelector('#nemo-search');
     const toolbar = nemoRoot.querySelector('.nemo-app__toolbar');
     const pathLabel = nemoRoot.querySelector('#nemo-path-label');
+    const isNautilus47 = !!nemoRoot.querySelector('.nautilus-app--n47');
 
     const setSearchOpen = (open) => {
         if (!searchWrap || !searchToggle) {
@@ -1774,15 +1790,23 @@ const bindFileExplorerSearchControls = () => {
         searchInput.dataset.feSearchBound = 'true';
     }
 
+    if (isNautilus47 && searchWrap) {
+        searchWrap.hidden = false;
+    }
+
     if (searchToggle && searchWrap && searchToggle.dataset.feSearchToggleBound !== 'true') {
-        searchToggle.addEventListener('click', (event) => {
-            event.preventDefault();
-            setSearchOpen(searchWrap.hidden);
-        });
-        searchToggle.setAttribute('aria-expanded', 'false');
-        searchToggle.setAttribute('aria-controls', 'nemo-search-wrap');
-        searchToggle.dataset.feSearchToggleBound = 'true';
-        return;
+        if (isNautilus47) {
+            searchToggle.dataset.feSearchToggleBound = 'true';
+        } else {
+            searchToggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                setSearchOpen(searchWrap.hidden);
+            });
+            searchToggle.setAttribute('aria-expanded', 'false');
+            searchToggle.setAttribute('aria-controls', 'nemo-search-wrap');
+            searchToggle.dataset.feSearchToggleBound = 'true';
+            return;
+        }
     }
 
     if (searchToggle && searchToggle.dataset.feSearchBound !== 'true' && !searchInput) {
@@ -1847,7 +1871,7 @@ const bindFileExplorerNavigationControls = () => {
 
     if (nemoRoot.dataset.nemoNavDelegationInit !== 'true') {
         const navRoot = nemoRoot.querySelector(
-            '.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav, .nemo-app__toolbar-group--path'
+            '.dolphin-toolbar__nav, .nemo-app__toolbar-group--nav, .nemo-app__toolbar-group--path, .nautilus-app__headerbar'
         );
         if (navRoot) {
             const navActions = {
@@ -1869,13 +1893,15 @@ const bindFileExplorerNavigationControls = () => {
                 }
 
                 const pathLabel = event.target.closest('.nemo-app__path-current, #nemo-path-label');
-                if (pathLabel && navRoot.contains(pathLabel) && !event.target.closest('.nemo-app__path-crumb')) {
+                const pathBtn = event.target.closest('.nautilus-app__path-btn, #home');
+                if ((pathLabel || pathBtn) && navRoot.contains(event.target)
+                    && !event.target.closest('.nemo-app__path-crumb')) {
                     event.preventDefault();
                     goToHomeDirectory();
                     return;
                 }
 
-                const btn = event.target.closest('a[id]');
+                const btn = event.target.closest('a[id], button[id]');
                 if (!btn || !navRoot.contains(btn)) {
                     return;
                 }
@@ -1964,6 +1990,26 @@ const bindFileExplorerNavigationControls = () => {
     const hasNavControls = nemoRoot.dataset.nemoNavDelegationInit === 'true'
         || nemoRoot.querySelector('#precedent')
         || nemoRoot.querySelector('#suivant');
+
+    const closeIntegrated = nemoRoot.querySelector('.nautilus-app__window-close');
+    if (closeIntegrated && closeIntegrated.dataset.feNavBound !== 'true') {
+        closeIntegrated.addEventListener('click', (event) => {
+            event.preventDefault();
+            const chromeClose = nemoRoot.querySelector('#closeBtn');
+            if (chromeClose) {
+                chromeClose.click();
+                return;
+            }
+            if (typeof window.capsuleBeforeWindowHide === 'function') {
+                window.capsuleBeforeWindowHide(nemoRoot, () => {
+                    nemoRoot.style.display = 'none';
+                });
+            } else {
+                nemoRoot.style.display = 'none';
+            }
+        });
+        closeIntegrated.dataset.feNavBound = 'true';
+    }
 
     if (hasNavControls) {
         nemoRoot.dataset.nemoControlsInit = 'true';

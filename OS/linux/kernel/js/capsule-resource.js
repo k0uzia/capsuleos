@@ -148,6 +148,7 @@
       global.CAPSULE_PICK_OS_ICONS_BASE = assets.pickOsIconsBase;
     }
     if (Array.isArray(assets.iconPacks)) {
+      global.CAPSULE_SKIN_PROFILE_ICON_PACKS = assets.iconPacks.slice();
       assets.iconPacks.forEach((packId) => {
         const pack =(getManifest().packs == null ? void 0 : getManifest().packs[packId]);
         if ((pack == null ? void 0 : pack.global) && assets.assetsBase && pack.path) {

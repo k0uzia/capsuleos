@@ -122,7 +122,14 @@
             ? api.getContext().skipSlots
             : null;
         const isPanelSlot = skipSlots && skipSlots.has && skipSlots.has(slotId);
-        container.style.display = isPanelSlot ? 'block' : (config.displayOnOpen || 'flex');
+        if (isPanelSlot) {
+            container.style.display = 'block';
+        } else if (config.useStylesheetDisplay === true) {
+            /* Laisser le skin (ex. grid CSD Nautilus Rocky) piloter display via CSS */
+            container.style.removeProperty('display');
+        } else {
+            container.style.display = config.displayOnOpen || 'flex';
+        }
         if (config.positionOnOpen) {
             container.style.position = config.positionOnOpen;
         }

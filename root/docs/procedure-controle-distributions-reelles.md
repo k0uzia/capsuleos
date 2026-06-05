@@ -83,6 +83,8 @@ sudo apt install openssh-server wmctrl xdotool python3 python3-gi gir1.2-meta-3.
 # KDE : sudo apt install wmctrl qdbus-qt6 (ou équivalent Plasma)
 ```
 
+**RHEL / Rocky / Alma (dnf, GNOME Wayland)** : voir [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) — `crb` + EPEL + `wmctrl` ; `DISPLAY=:0` **et** `XAUTHORITY` (cookie `.mutter-Xwaylandauth.*`) ; `xdotool` souvent absent sur el10.
+
 Sur la **machine hôte** (où tourne Cursor) :
 
 ```bash
@@ -130,6 +132,15 @@ Exemple :
       "probe": "/opt/capsuleos-lab/os-probe.sh",
       "display": ":0",
       "toolkit": "cinnamon"
+    },
+    {
+      "registryId": "linux-rocky",
+      "ssh": "capsule@192.168.122.234",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome"
     },
     {
       "registryId": "linux-fedora-kde",

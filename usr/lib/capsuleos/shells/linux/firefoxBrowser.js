@@ -44,7 +44,12 @@ function decorateFedoraFirefoxWindow(browserRoot) {
             return false;
         }
 
-        tabsbar.setAttribute('data-window-drag-handle', '');
+        if (global.CapsuleWindowDragTargets && typeof global.CapsuleWindowDragTargets.markDragPassthrough === 'function') {
+            global.CapsuleWindowDragTargets.markDragPassthrough(tabsbar);
+        } else {
+            tabsbar.setAttribute('data-window-drag-handle', '');
+            tabsbar.setAttribute('data-window-drag-passthrough', 'true');
+        }
 
         if (header.dataset.fedoraFirefoxControls === 'true' && header.parentElement === tabsbar) {
             return true;

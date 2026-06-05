@@ -1,5 +1,7 @@
 (function initThemeAtBoot() {
-    const savedTheme = localStorage.getItem('mint-theme');
+    const bodyId = document.body ? document.body.id : '';
+    const themeKey = bodyId === 'rocky' || bodyId === 'fedora' ? 'gnome-theme' : 'mint-theme';
+    const savedTheme = localStorage.getItem(themeKey) || localStorage.getItem('mint-theme');
     const savedContrast = localStorage.getItem('mint-contrast-mode');
     const savedFontScale = localStorage.getItem('mint-font-scale');
     document.documentElement.dataset.theme = savedTheme === 'light' ? 'light' : 'dark';
@@ -28,10 +30,17 @@ function initThemesApp() {
         return;
     }
 
+    const themeStorageKey = document.body && (document.body.id === 'rocky' || document.body.id === 'fedora')
+        ? 'gnome-theme'
+        : 'mint-theme';
+
     function applyTheme(theme) {
         const resolved = theme === 'light' ? 'light' : 'dark';
         document.documentElement.dataset.theme = resolved;
-        localStorage.setItem('mint-theme', resolved);
+        localStorage.setItem(themeStorageKey, resolved);
+        if (themeStorageKey === 'gnome-theme') {
+            localStorage.setItem('mint-theme', resolved);
+        }
 
         options.forEach(function syncOption(button) {
             const isActive = button.getAttribute('data-theme-option') === resolved;

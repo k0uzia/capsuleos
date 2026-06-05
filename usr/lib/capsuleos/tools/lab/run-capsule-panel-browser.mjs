@@ -26,8 +26,12 @@ const STEPS = [
   { step: 5, actions: [['nemo-sidebar', 'Documents']] },
 ];
 
-const chromePath = process.env.PLAYWRIGHT_CHROME
-  || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const defaultChrome = [
+  '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
+  '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome',
+  '/usr/bin/google-chrome',
+].find((p) => fs.existsSync(p));
+const chromePath = process.env.PLAYWRIGHT_CHROME || defaultChrome;
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
@@ -48,10 +52,17 @@ const resetPanel = async (page) => {
   });
 };
 
+const launcherSel = (slot) =>
+  `#tableau a[target="windowElement"][data-link="${slot}"], footer nav a[target="windowElement"][data-link="${slot}"]`;
+
 const runAction = async (page, cmd, arg) => {
-  const launcher = `footer nav a[target="windowElement"][data-link="${arg}"]`;
+  const launcher = launcherSel(arg);
   if (cmd === 'open-launcher') {
     await page.evaluate((slot) => {
+      const el = document.querySelector('.windowElement[data-link="' + slot + '"]');
+      if (el) {
+        el.classList.remove('windowElementActive', 'active');
+      }
       if (typeof window.openWindowByDataLink === 'function') {
         window.openWindowByDataLink(slot);
       }
@@ -72,10 +83,12 @@ const runAction = async (page, cmd, arg) => {
       }
       if (container && !container.classList.contains('windowElementActive')) {
         const link = document.querySelector(
-          'footer nav a[target="windowElement"][data-link="' + slot + '"]',
+          '#tableau a[target="windowElement"][data-link="' + slot + '"], footer nav a[target="windowElement"][data-link="' + slot + '"]',
         );
         if (link) {
           link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        } else if (typeof window.openWindowByDataLink === 'function') {
+          window.openWindowByDataLink(slot);
         }
       }
     }, arg);
@@ -86,20 +99,28 @@ const runAction = async (page, cmd, arg) => {
     return;
   }
   if (cmd === 'minimize-launcher') {
-    const active = await page.locator('.windowElement[data-link="' + arg + '"].windowElementActive').count();
-    if (active > 0) {
-      await page.locator(launcher).click({ timeout: 15000, force: true });
-    }
+    await page.evaluate((slot) => {
+      const container = document.querySelector('.windowElement[data-link="' + slot + '"]');
+      if (container?.classList.contains('windowElementActive')
+        && typeof window.openWindowByDataLink === 'function') {
+        window.openWindowByDataLink(slot);
+      }
+    }, arg);
     return;
   }
   if (cmd === 'nemo-sidebar') {
-    await page.locator('footer nav a[data-link="nemo"]').click({ timeout: 15000, force: true });
-    await page.waitForSelector('.windowElement[data-link="nemo"]', { state: 'visible', timeout: 15000 });
+    await page.evaluate((folder) => {
+      if (typeof window.openWindowByDataLink === 'function') {
+        window.openWindowByDataLink('nemo');
+      }
+      const docLink = document.querySelector(
+        '.windowElement[data-link="nemo"] a[data-link="' + folder + '"]',
+      );
+      if (docLink) {
+        docLink.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+      }
+    }, arg);
     await sleep(page, 500);
-    await page.locator('.windowElement[data-link="nemo"] a[data-link="' + arg + '"]').click({
-      timeout: 15000,
-      force: true,
-    });
   }
 };
 
@@ -132,6 +153,10 @@ const main = async () => {
       }
     });
     const state = await page.evaluate((probeSrc) => {
+      if (typeof window.CapsuleLauncherProbe !== 'undefined'
+        && typeof window.CapsuleLauncherProbe.collectState === 'function') {
+        return window.CapsuleLauncherProbe.collectState();
+      }
       const fn = new Function(probeSrc + '; return probeState();');
       return fn();
     }, PROBE);

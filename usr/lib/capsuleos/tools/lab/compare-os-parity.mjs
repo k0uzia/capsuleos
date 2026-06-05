@@ -11,6 +11,9 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { buildX11ExportScript } from './lab-x11-env.mjs';
+import { remoteProbeCmd } from './lab-probe-resolve.mjs';
+import { applyPanelLabels } from './panel-checklist-labels.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -131,9 +134,8 @@ const sshTarget = (host) => {
 const runSsh = (host, remoteCmd) => {
   const { user, host: ip } = sshTarget(host);
   const identity = expandHome(host.sshIdentity || '~/.ssh/capsuleos-lab');
-  const display = host.display || ':0';
-  const probe = host.probe || '/opt/capsuleos-lab/os-probe.sh';
-  const full = `DISPLAY=${display} ${probe} ${remoteCmd}`;
+  const probe = remoteProbeCmd(host);
+  const full = `${buildX11ExportScript(host)}; export PATH=$HOME/.local/bin:$PATH; ${probe} ${remoteCmd}`;
   const res = spawnSync(
     'ssh',
     [
@@ -172,14 +174,15 @@ const main = () => {
     process.exit(1);
   }
 
-  const steps = SCENARIOS[opts.scenario];
-  if (!steps) {
+  const scenarioSteps = SCENARIOS[opts.scenario];
+  if (!scenarioSteps) {
     console.error(`Scénario inconnu : ${opts.scenario}`);
     process.exit(1);
   }
 
   const inv = loadInventory();
   const host = findHost(inv, opts.id);
+  const steps = applyPanelLabels(scenarioSteps, host.toolkit || 'cinnamon');
 
   if (opts.vmStateOnly) {
     const state = runSsh(host, 'state');

@@ -4,7 +4,9 @@
     const savedTheme = localStorage.getItem(themeKey) || localStorage.getItem('mint-theme');
     const savedContrast = localStorage.getItem('mint-contrast-mode');
     const savedFontScale = localStorage.getItem('mint-font-scale');
-    document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+    const defaultTheme = bodyId === 'mint' ? 'dark' : 'light';
+    const resolvedTheme = savedTheme === 'light' ? 'light' : (savedTheme === 'dark' ? 'dark' : defaultTheme);
+    document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.dataset.contrastMode = savedContrast === 'high' ? 'high' : 'normal';
     document.documentElement.dataset.fontScale = ['110', '125'].includes(savedFontScale) ? savedFontScale : '100';
 })();

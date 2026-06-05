@@ -744,7 +744,7 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
 
     const segments = buildExplorerPathSegments(displayPath);
     segments.forEach((segment, index) => {
-        if (index > 0) {
+        if (index > 0 && !isNemoTemplate()) {
             const separator = document.createElement('span');
             separator.className = 'nemo-app__path-sep';
             separator.setAttribute('aria-hidden', 'true');
@@ -1885,6 +1885,7 @@ const bindFileExplorerNavigationControls = () => {
                 const pathCrumb = event.target.closest('.nemo-app__path-crumb');
                 if (pathCrumb && navRoot.contains(pathCrumb)) {
                     event.preventDefault();
+                    event.stopPropagation();
                     const targetPath = pathCrumb.dataset.path;
                     if (targetPath) {
                         navigateToFileExplorerDirectory(targetPath, { updateHistory: true });
@@ -1894,8 +1895,15 @@ const bindFileExplorerNavigationControls = () => {
 
                 const pathLabel = event.target.closest('.nemo-app__path-current, #nemo-path-label');
                 const pathBtn = event.target.closest('.nautilus-app__path-btn, #home');
-                if ((pathLabel || pathBtn) && navRoot.contains(event.target)
-                    && !event.target.closest('.nemo-app__path-crumb')) {
+                if (pathBtn && navRoot.contains(pathBtn) && !event.target.closest('.nemo-app__path-crumb')) {
+                    event.preventDefault();
+                    goToHomeDirectory();
+                    return;
+                }
+
+                if (pathLabel && navRoot.contains(pathLabel)
+                    && !event.target.closest('.nemo-app__path-crumb')
+                    && fileExplorerState.pathNavigationMode !== 'breadcrumb') {
                     event.preventDefault();
                     goToHomeDirectory();
                     return;

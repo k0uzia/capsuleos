@@ -224,5 +224,16 @@
         });
     }
 
+    function refreshDndNotifState() {
+        const on = document.documentElement.dataset.dndEnabled === 'on';
+        const text = popover.querySelector('.calendar-popover__notif-text');
+        if (text) {
+            text.textContent = on ? 'Notifications masquées' : 'Aucune notification';
+        }
+    }
+
+    document.addEventListener('capsule:dnd-changed', refreshDndNotifState);
+    refreshDndNotifState();
+
     buildWeekRow();
 })();

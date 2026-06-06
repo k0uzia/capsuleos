@@ -59,6 +59,8 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **D** | Dérive nulle sur le périmètre | `driftCount: 0` dans rapports compare |
 | **V** | Enquête visuelle documentée | ex. `*-visual-investigation.json` ; `documented > 0` pour P0 |
 | **G** | Passe approfondie actionnable | Champs `gsettingsDeferred` / matrices secondaires exploitables |
+| **Vc** | Captures Capsule miroir (lot documenté) | `capsuleCaptures[]` P0 ; `summary.capsuleCapturesP0 > 0` |
+| **Vp** | Parité visuelle classée | `capsuleParity.visualMatch` ≠ `unknown` pour P0 documentés |
 
 ### 2.5 Classification écarts (P)
 
@@ -69,7 +71,51 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **P2** | Extension souhaitée |
 | **CapsuleOnly** | Présent uniquement dans CapsuleOS — hors parité VM |
 
-### 2.6 Catalogue (R)
+### 2.6 Playbook général (Pb)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Pb** | Playbook général défini | `playbook-general.json` + `smoke-playbook-general.mjs` |
+| **PbU** | Couche universelle OK | **I** ∧ **T** ∧ (**S** si toolkit gnome) |
+| **PbT** | Playbook toolkit terminé | ex. **Vp** ∧ **V** ∧ **G** ∧ **Vc** (gnome-settings) |
+| **Pbτ** | Bout de chaîne documenté | `*-playbook-tail.json` `status: documented` |
+| **PbΣ** | Chaîne playbook complète | **PbU** ∧ **PbT** ∧ **Pbτ** → **H5** ciblé |
+
+### 2.9 Catalogue applications (App)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **AppV** | Inventaire VM apps | `*-vm-apps-installed.json` |
+| **AppC** | Catalogue strict généré | `*-apps-catalog.json` + `smoke-apps-catalog.mjs` |
+| **AppP0** | Apps P0 onVm avec slot `ok` | `summary.p0Gaps === 0` |
+| **AppΣ** | Catalogue apps clôturé (P0) | **AppV ∧ AppC ∧ AppP0** |
+
+Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Procédure : [procedure-apps-catalog.md](procedure-apps-catalog.md)
+
+### 2.10 Fidélité visuelle (Tf)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Tp** | Typographie VM inventoriée + tokens skin alignés | `*-visual-fidelity.json` + scan `smoke-visual-fidelity.mjs` |
+| **Tv** | Contextes de vue inventoriés (résolution, échelle, viewport) | section `viewContexts` |
+| **Tm** | MIME & associations documentés | section `mime` |
+| **Ta** | Accessibilité fidèle si activée | hooks `data-*` + CSS a11y |
+| **Tf** | Fidélité visuelle prête | **Tp ∧ Tv ∧ Tm ∧ Ta** + smoke sans violation typo |
+
+Contrat : `etc/capsuleos/contracts/visual-fidelity.json` · Convention : [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md)
+
+### 2.8 Post-H6 shell Rocky (extensions)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **H₆** | Clôture domaine Paramètres GNOME | `*-gnome-settings-h6-closure.json` `status: closed` |
+| **Shell₁** | Polish shell phase 1 (top bar, dash, Firefox, Nautilus) | `*-shell-polish.json` `status: done` |
+| **Shell₂** | Polish shell phase 2 (Quick Settings, calendrier) | `*-shell-polish-phase2.json` `status: done` |
+| **LabShell** | Smokes GNOME de référence post-polish | gate `LabShell` dans `*-formal-state.json` |
+
+Gates persistés **H₂**, **A**, **L** (socle) : `*-formal-state.json` — enregistrés par `run-formal-chain.mjs` après succès des règles correspondantes.
+
+### 2.7 Catalogue (R)
 
 | Symbole | Signification |
 |---------|---------------|
@@ -99,14 +145,50 @@ R-D1    D=0 sur périmètre  →  peut avancer ; D>0  →  corriger dérive avan
 
 R-PRI1  L ∧ S ∧ ¬V  →  priorité enquête visuelle / capture VM (lot P0)
 R-PRI2  V ∧ ¬G  →  passe approfondie gsettings / schémas secondaires
-R-PRI3  H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
+R-PRI2b G ∧ ¬Vc  →  captures Capsule miroir (lot P0 documenté)
+R-PRI2c Vc ∧ ¬Vp  →  croisement VM↔Capsule, classer visualMatch
+R-PRI3  Vp ∧ lot P1 ouvert  →  étendre enquête visuelle P1
+R-PRI3b H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
 R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d
 
 R-IMP1  ¬H₂  →  interdit H5 (implémentation) sauf tâche « fix CI » explicite
 R-IMP2  P0 documenté absent  →  ne pas reclasser en P1 pour masquer
 
+R-PB1    ¬PbU  →  couche universal (inventaire, assets, T)
+R-PB2    PbU ∧ ¬PbT  →  orchestrateur toolkit (ex. run-replication-chain --auto)
+R-PB3    PbT ∧ ¬Pbτ  →  collect-playbook-tail (doc officielle + VM)
+R-PB4    PbΣ  →  H5 minimal (nextH5) puis H6
+R-PB-AUTO  Pb ∧ validated ∧ ∃! step  →  run-playbook-general --auto
+
 R-AUTO  ∃! action admissible  →  agent exécute sans demander à l’utilisateur
+R-ASK1  commit ∨ push ∨ sudo_ad_hoc  →  validation humaine obligatoire
+R-PWD1  ≥2 actions identifiants  →  passwordBundle (une session sudo/SSH)
+
+# Post-H6 Rocky — chaîne formelle (priorité avant R-AUTO-FALLBACK)
+R-FORMAL  orchestrateur  →  run-formal-chain.mjs (boucle R-* tant qu'autoExecute)
+R-H1      ¬H₂  →  validate-all.mjs (gate H₂)
+R-A1      H₂ ∧ ¬A  →  verify-playbook-assets.mjs --strict (gate A)
+R-L1      H₂ ∧ A ∧ ¬L  →  run-gnome-settings-lab.mjs (gate L)
+R-SHELL1  H₆ ∧ ¬Shell₁  →  smoke-rocky-shell-polish + sync-linux-skin-closure
+R-SHELL2  H₆ ∧ Shell₁ ∧ ¬Shell₂  →  smoke-rocky-shell-polish-phase2 + sync-linux-skin-closure
+R-LAB-SHELL  H₆ ∧ Shell₁ ∧ Shell₂ ∧ ¬LabShell  →  smoke-rocky-gnome-ref + smoke-rocky-shell-polish
+R-APP1    H₆ ∧ ¬AppV  →  collect-vm-apps-inventory.mjs --write
+R-APP2    AppV ∧ ¬AppC  →  generate-apps-catalog.mjs --write + smoke-apps-catalog
+R-APP3    AppC ∧ ¬AppΣ  →  H5 app ciblée (summary.nextGap)
+R-FID1    AppΣ ∧ ¬Tf  →  collect-visual-fidelity (--ssh) + smoke-visual-fidelity + sync-linux-skin-closure (gate Tf)
+R-H6-DONE H₆ ∧ H₂ ∧ A ∧ L ∧ Shell₁ ∧ Shell₂ ∧ AppΣ ∧ Tf  →  validate-all (maintenance, autoExecute: false)
+R-AUTO-FALLBACK  repli  →  run-agent-auto --max-steps 1
 ```
+
+**Alias machine** : `etc/capsuleos/contracts/agent-action-aliases.json` — mapping prédicat → commande ; résolution :
+
+```bash
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId>
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId> --scope formal
+node usr/lib/capsuleos/tools/lab/run-formal-chain.mjs --id <registryId> --max-steps 12
+```
+
+**Hooks Cursor** : `.cursor/hooks.json` — `beforeShellExecution` auto-allow les patterns `autoAllow` ; `alwaysAsk` déclenche la carte de validation.
 
 **Règle absolue** : la **VM prime** sur la doc officielle en cas de contradiction ; noter l’écart dans l’inventaire (`delta`, version GNOME).
 
@@ -137,10 +219,16 @@ flowchart TD
   vGate -->|non| vis[Enquête visuelle P0 VM]
   vGate -->|oui| gGate{G ?}
   gGate -->|non| gpass[Passe gsettings approfondie]
+  gGate -->|oui| vcGate{Vc ?}
+  vcGate -->|non| cap[Captures Capsule miroir]
+  vcGate -->|oui| vpGate{Vp ?}
+  vpGate -->|non| vclose[Clôture visualMatch]
   kind -->|Noyau / assets global| ks[kernel-supervisor]
   impl --> h6[H6 validate-all]
   vis --> h6
-  gpass --> h6
+  gpass --> cap
+  cap --> vclose
+  vclose --> h6
 ```
 
 ### 4.1 Matrice intention → prédicats → skills
@@ -150,7 +238,7 @@ flowchart TD
 | Fix CI / gate | **H₂** ciblé | `code-quality`, `kernel-supervisor`, `link-routing` |
 | Migration assets | **A**, **T**, **H₂** | `kernel-supervisor`, `asset-pipeline` |
 | Clone VM → skin | **H₂**, **M**, **I**, **A**, **S** | `onboarding`, `os-clone-from-vm`, `os-linux`, `role-integrator` |
-| Parité Paramètres GNOME | **A**, **T**, **L**, **S**, puis **V**, **G** | `capsuleos-distro-*`, `role-integrator`, `role-developer` |
+| Parité Paramètres GNOME | **A**, **T**, **L**, **S**, puis **V**, **G**, **Vc**, **Vp** | `capsuleos-distro-*`, `role-integrator`, [procedure-replication-formelle.md](procedure-replication-formelle.md) |
 | UI / tokens CSS | **H₂**, contrats UI | `role-web-designer`, `css-variables-contract` |
 | Release multi-OS | **H₆**, **R** | `coordinator`, `role-manager` |
 
@@ -165,7 +253,11 @@ Les procédures détaillent prédicats et commandes **locales**. Elles **doivent
 | Domaine | Document | Prédicats additionnels |
 |---------|----------|----------------------|
 | Reproduction OS | [convention-reproduction-os.md](convention-reproduction-os.md) | **I⁺** audit profond pour P0 interactif |
-| Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) § annexe | **V**, **G**, matrice visuelle |
+| **Playbook général** (multiplateforme) | [procedure-playbook-general.md](procedure-playbook-general.md) | **Pb**, **PbU**, **PbT**, **Pbτ**, **PbΣ** |
+| **Réplication formelle** (tous vendors) | [procedure-replication-formelle.md](procedure-replication-formelle.md) | **V**, **G**, **Vc**, **Vp** (couche K/gnome) |
+| Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) § annexe | matrice visuelle, §10 |
+| Catalogue applications | [procedure-apps-catalog.md](procedure-apps-catalog.md) | **AppV**, **AppC**, **AppP0**, **AppΣ** |
+| Fidélité visuelle | [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) | **Tp**, **Tv**, **Tm**, **Ta**, **Tf** |
 | Assets vendor | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | **A**, **S**, **T** |
 | Lab Rocky GNOME | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | **M**, phases 1–5 |
 | Audit VM profond | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | **I⁺**, phases JSON |
@@ -190,6 +282,13 @@ node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id linux
 
 # Lab Paramètres complet
 node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
+
+# Chaîne réplication (vendor-agnostique)
+node usr/lib/capsuleos/tools/lab/run-replication-chain.mjs --id <registryId> --dry-run
+
+# Fidélité visuelle (typo, vues, MIME, a11y)
+node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id <registryId> --write
+node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id <registryId>
 
 # Brief registre
 node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
@@ -222,7 +321,10 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
 | **Équipe** | [equipe-agentique.md](equipe-agentique.md) | Staffing = conséquence des prédicats |
 | **Skills** | `root/skills/onboarding`, `_index`, `os-clone-from-vm`, `kernel-supervisor` | Séquences opérationnelles |
 | **Règle Cursor** | `.cursor/rules/logique-formelle-capsuleos.mdc` | `alwaysApply: true` |
+| **Exécution autonome** | `.cursor/rules/capsuleos-autonomous-execution.mdc` | R-AUTO, R-PWD1, alias |
+| **Contrat alias** | `etc/capsuleos/contracts/agent-action-aliases.json` | autoAllow / passwordBundles |
+| **Hooks** | `.cursor/hooks.json` | beforeShellExecution, sessionStart |
 
 ---
 
-*Dernière extension : gates assets playbook (A, S, T) — intégrés au socle §2.2 et R-A1–R-S2.*
+*Dernière extension : fidélité visuelle transversale (Tp–Tf, convention-fidelite-visuelle.md).*

@@ -102,6 +102,14 @@ body#rocky div[data-link="nemo"] {
     border-radius: 10px;
     background: var(--nemo-bg-primary);
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
+    transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+body#rocky div[data-link="nemo"].windowElementActive {
+    border-color: rgba(53, 132, 228, 0.45);
+    box-shadow:
+        0 0 0 1px rgba(53, 132, 228, 0.28),
+        0 4px 18px rgba(0, 0, 0, 0.24);
 }
 
 body#rocky div[data-link="nemo"] > #gestionnaire {
@@ -121,7 +129,7 @@ body#rocky div[data-link="nemo"] #gestionnaire {
     border-radius: inherit;
     color: var(--nemo-text-primary);
     background: var(--nemo-bg-primary);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.82rem;
 }
 

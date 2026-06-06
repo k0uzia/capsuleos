@@ -1248,6 +1248,10 @@
         lecteur_multimedia: '.viewer-app__toolbar',
         snapshot: '.gnome-snapshot__header',
         screenshot: '.gnome-shot__headerbar',
+        baobab: '.gnome-baobab__header',
+        system_monitor: '.gnome-sysmon__header',
+        tour: '.gnome-tour__header',
+        characters: '.gnome-characters__header',
     };
 
     function ensureLibadwaitaHeaderEnd(anchor) {

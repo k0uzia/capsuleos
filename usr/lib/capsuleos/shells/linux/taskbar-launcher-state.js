@@ -57,6 +57,34 @@
         }
     }
 
+    const OVERVIEW_DASH_SELECTOR = '.fedora-overview__dash-item[data-overview-link]';
+
+    function resolveSlotContainer(slotId) {
+        return (global.CapsuleWindowShell
+            && typeof global.CapsuleWindowShell.resolveWindowSlot === 'function'
+            && global.CapsuleWindowShell.resolveWindowSlot(slotId))
+            || document.querySelector(`.windowElement[data-link="${slotId}"]`);
+    }
+
+    function syncOverviewDash() {
+        document.querySelectorAll(OVERVIEW_DASH_SELECTOR).forEach((btn) => {
+            const slotId = btn.getAttribute('data-overview-link');
+            if (!slotId) {
+                return;
+            }
+            const container = resolveSlotContainer(slotId);
+            const running = launcherRunning(container);
+            const focused = launcherActive(container);
+            btn.classList.toggle('is-running', running);
+            btn.classList.toggle('is-focused', focused);
+            if (focused) {
+                btn.setAttribute('aria-pressed', 'true');
+            } else {
+                btn.removeAttribute('aria-pressed');
+            }
+        });
+    }
+
     function syncLaunchers() {
         if (!isLinuxLauncherPanel()) {
             return;
@@ -66,15 +94,13 @@
             if (!slotId) {
                 return;
             }
-            const container = (global.CapsuleWindowShell
-                && typeof global.CapsuleWindowShell.resolveWindowSlot === 'function'
-                && global.CapsuleWindowShell.resolveWindowSlot(slotId))
-                || document.querySelector(`.windowElement[data-link="${slotId}"]`);
+            const container = resolveSlotContainer(slotId);
             const running = launcherRunning(container);
             const focused = launcherActive(container);
             link.classList.toggle('running-link', running);
             link.classList.toggle('active-link', focused);
         });
+        syncOverviewDash();
     }
 
     function resolveProbeToolkit() {

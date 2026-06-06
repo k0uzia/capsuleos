@@ -43,7 +43,7 @@ body#rocky .gnome-software {
     height: 100%;
     color: var(--gnome-software-text);
     background: var(--gnome-software-bg);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 body#rocky .gnome-software__sidebar {

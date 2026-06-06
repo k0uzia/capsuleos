@@ -482,6 +482,7 @@ function initThemesApp() {
 
     function applyTheme(theme) {
         const resolved = theme === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.themeTransition = 'on';
         document.documentElement.dataset.theme = resolved;
         if (typeof storage.persistTheme === 'function') {
             storage.persistTheme(resolved, document.body ? document.body.id : '');
@@ -507,6 +508,9 @@ function initThemesApp() {
             buildWallpaperGrid(root);
         }
         document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
+        window.setTimeout(() => {
+            delete document.documentElement.dataset.themeTransition;
+        }, 320);
     }
 
     function applyContrast(mode) {

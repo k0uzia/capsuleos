@@ -1,4 +1,8 @@
-.cursor/*
-!.cursor/rules/
-!.cursor/rules/**
+root/.cursor/*
+!root/.cursor/rules/
+!root/.cursor/rules/**
+!root/.cursor/hooks/
+!root/.cursor/hooks/**
+!root/.cursor/hooks.json
+# .cursor (symlink → root/.cursor) : rules + hooks versionnés
 etc/capsuleos/lab-inventory.json

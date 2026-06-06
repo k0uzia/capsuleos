@@ -85,3 +85,24 @@ main#gnomeCalendarApp {
 .gnome-calendar-app__day--empty {
     visibility: hidden;
 }
+
+.gnome-calendar-app__today {
+    flex-shrink: 0;
+    margin: calc(var(--head) / 4) calc(var(--head) / 3) calc(var(--head) / 3);
+    padding: calc(var(--head) / 3);
+    border-radius: calc(var(--head) / 6);
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.gnome-calendar-app__today-title {
+    margin: 0 0 calc(var(--head) / 6);
+    font-size: calc(var(--head) / 2.9);
+    font-weight: 600;
+}
+
+.gnome-calendar-app__today-empty {
+    margin: 0;
+    font-size: calc(var(--head) / 3);
+    font-style: italic;
+    opacity: 0.72;
+}

@@ -1,0 +1,92 @@
+main#gnomeCharactersApp {
+    position: var(--rel);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    width: var(--full);
+    height: var(--full);
+    overflow: hidden;
+    font-family: var(--font-ui);
+    color: var(--gnome-characters-text, #f6f6f6);
+    background: var(--gnome-characters-bg, #242424);
+}
+
+.gnome-characters__header {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    flex-shrink: 0;
+    min-height: calc(var(--head) * 0.95);
+    padding: calc(var(--head) / 4) calc(var(--head) / 2.5);
+    border-bottom: 1px solid var(--gnome-characters-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-characters-header-bg, #383838);
+}
+
+.gnome-characters__search {
+    width: 100%;
+    padding: calc(var(--head) / 4.5) calc(var(--head) / 3);
+    border: 1px solid var(--gnome-characters-border, rgba(255, 255, 255, 0.12));
+    border-radius: calc(var(--head) / 5);
+    font: inherit;
+    font-size: calc(var(--head) / 2.85);
+    color: inherit;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.gnome-characters__body {
+    display: var(--f);
+    flex-flow: var(--cnw);
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.gnome-characters__preview {
+    display: var(--f);
+    flex-flow: var(--cnw);
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--head) / 6);
+    padding: calc(var(--head) / 1.6) calc(var(--head) / 2);
+    border-bottom: 1px solid var(--gnome-characters-border, rgba(255, 255, 255, 0.08));
+}
+
+.gnome-characters__glyph {
+    font-size: calc(var(--head) * 2.2);
+    line-height: 1;
+}
+
+.gnome-characters__name {
+    font-size: calc(var(--head) / 2.6);
+    font-weight: 600;
+}
+
+.gnome-characters__code {
+    font-size: calc(var(--head) / 3);
+    color: var(--gnome-characters-muted, rgba(255, 255, 255, 0.62));
+    font-family: var(--font-mono, monospace);
+}
+
+.gnome-characters__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(var(--head) * 1.5), 1fr));
+    gap: calc(var(--head) / 5);
+    padding: calc(var(--head) / 2);
+}
+
+.gnome-characters__cell {
+    aspect-ratio: 1;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--gnome-characters-border, rgba(255, 255, 255, 0.1));
+    border-radius: calc(var(--head) / 6);
+    font: inherit;
+    font-size: calc(var(--head) / 1.6);
+    color: inherit;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: default;
+}
+
+.gnome-characters__cell--active {
+    border-color: var(--gnome-characters-accent, #3584e4);
+    background: rgba(53, 132, 228, 0.2);
+}

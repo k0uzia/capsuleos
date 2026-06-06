@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
-const APPS = ['text_editor', 'calculator', 'clocks', 'calendar'];
+const APPS = ['text_editor', 'calculator', 'clocks', 'calendar', 'baobab', 'system_monitor', 'tour', 'characters'];
 
 const TARGETS = [
     { id: 'fedora', bodyId: 'fedora', home: 'home/RedHat/Fedora' },

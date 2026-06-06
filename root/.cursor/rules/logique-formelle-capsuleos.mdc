@@ -1,0 +1,37 @@
+---
+description: Logique formelle CapsuleOS — gates, prédicats, décision agent autonome (référence root/docs/logique-formelle.md)
+alwaysApply: true
+---
+
+# Logique formelle CapsuleOS
+
+Référence complète : `root/docs/logique-formelle.md`
+
+## Avant d'agir
+
+1. Vérifier **H₂** : `node usr/lib/capsuleos/tools/validate-all.mjs` (ou gate zone si fix ciblé).
+2. Identifier les prédicats du domaine : **A**, **S**, **I**, **L**, **V**, **G**, **Vc** (captures Capsule), **Vp** (visualMatch classé).
+3. Appliquer les règles §3 du document canonique — **ne pas implémenter** si **¬A**, **¬I**, ou **¬H₂** (sauf fix CI).
+
+## Décision autonome
+
+- Si une seule action débloque la chaîne (**R-AUTO**) : l'exécuter sans demander à l'utilisateur.
+- Priorité par défaut : **P0** → **I** → **A∧S** → **L** → **V** → **G** → **Vc** → **Vp** → **H₆** (voir `root/docs/procedure-replication-formelle.md`).
+- **R-AUTO** : `node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId>` puis exécuter si `autoExecute`.
+- **R-PWD1** : bundles `agent-action-aliases.json` — pas de sudo dispersé.
+- **¬playbook_VM(distrib)** : ne pas inventer baseline.
+- VM prime sur doc officielle ; noter les écarts.
+
+## Skills
+
+- Formation : `onboarding` + `root/docs/parcours-agent.md`
+- **¬A** / migration : `kernel-supervisor`, `asset-pipeline`
+- Clone VM : `os-clone-from-vm` (exige **I** avant patch)
+- Skin : `os-<famille>` + `role-integrator`
+- Paramètres GNOME Rocky : `capsuleos-distro-linux-rocky` + procédure playbook § annexe
+
+## Interdit
+
+- Patch skin sans inventaire VM (**R-INV1**)
+- Asset référencé absent du dépôt (**R-A1**)
+- Commit/push sans demande explicite utilisateur

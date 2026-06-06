@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/approve-formal-lab.sh",
+        "timeout": 5
+      }
+    ],
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/session-formal-context.sh",
+        "timeout": 8
+      }
+    ]
+  }
+}

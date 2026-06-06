@@ -12,7 +12,7 @@
     color: var(--volume-popover-text);
     background: var(--volume-popover-bg);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     overflow: hidden;
 }
 
@@ -257,7 +257,7 @@ html[data-theme="light"]:has(#rocky) body#rocky .quick-settings__tile {
 
 html[data-theme="light"]:has(#rocky) body#rocky .quick-settings__tile--active {
     color: #fff;
-    background: #4285df;
+    background: var(--menu-accent);
 }
 
 html[data-theme="light"]:has(#rocky) body#rocky .quick-settings__tile-subtext {

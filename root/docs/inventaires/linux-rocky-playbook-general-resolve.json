@@ -1,0 +1,20 @@
+{
+  "registryId": "linux-rocky",
+  "scope": "general",
+  "rule": "R-H6-DONE",
+  "layer": "complete",
+  "predicates": {
+    "PbU": true,
+    "PbT": true,
+    "Pbτ": true,
+    "PbΣ": true
+  },
+  "autoExecute": false,
+  "unique": true,
+  "command": "node usr/lib/capsuleos/tools/validate-all.mjs",
+  "message": "H6 clôturé — P0/P1/P2 + shell polish (maintenance validate-all)",
+  "playbookGeneral": {
+    "validated": true,
+    "autoEnabled": true
+  }
+}

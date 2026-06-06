@@ -270,7 +270,9 @@ const resolveItemIcon = (item) => {
         : (window.CapsuleExplorerToolkitPaths
             ? window.CapsuleExplorerToolkitPaths.catalogIcon('folder.svg')
             : './assets/icons/cinnamon/nemo/folder.svg');
-    const fileFallback = './assets/icons/kde/mimeTypes/application-x-generic.svg';
+    const fileFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath)
+        ? CapsuleExplorerIconBase.remapPath('./assets/icons/kde/mimeTypes/application-x-generic.svg')
+        : './assets/icons/kde/mimeTypes/application-x-generic.svg';
 
     if (item && item.vfsEntry === true) {
         const icon = getFileExplorerCatalogIcon('folder')

@@ -1,0 +1,30 @@
+---
+description: Onboarding agent CapsuleOS — H0–H6, validate-all, routage skills (voir logique-formelle.md)
+alwaysApply: true
+---
+
+# Onboarding agent CapsuleOS
+
+**Références** : `root/docs/logique-formelle.md` (paradigme) · `root/docs/parcours-agent.md` (H0–H6) · `root/AGENTS.md` (routage skills)
+
+## Séquence
+
+1. **H₀** — `AGENTS.md`, checklist `contrib.md`, arborescence
+2. **H₂** — `node usr/lib/capsuleos/tools/validate-all.mjs` (bloquant avant H5 sauf fix CI)
+3. **H₃** — skill `onboarding` + `os-<famille>` + `role-*`
+4. Appliquer **logique formelle** §4 pour la prochaine action (**R-AUTO**)
+
+## Gates
+
+- ¬**H₂** → corriger validate-all / gate zone
+- ¬**I** → inventaire VM avant patch skin
+- ¬**A** → `kernel-supervisor` + `pull-vm-assets.sh`
+
+## Skills
+
+| Besoin | Skill |
+|--------|-------|
+| Incertain | `onboarding`, `os-orchestrator` |
+| Clone VM | `os-clone-from-vm` |
+| Assets | `kernel-supervisor`, `asset-pipeline` |
+| Skin Linux | `os-linux`, `role-integrator` |

@@ -118,6 +118,20 @@ const linuxFacades = spawnSync(
     ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],
     { cwd: ROOT, encoding: 'utf8' }
 );
+const osFacadeFidelity = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-os-facade-fidelity.mjs', '--id', 'linux-rocky'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (osFacadeFidelity.status !== 0) {
+    const out = (osFacadeFidelity.stdout || '') + (osFacadeFidelity.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Façade OS Rocky — validate-os-facade-fidelity.mjs');
+    }
+}
 if (linuxFacades.status !== 0) {
     const out = (linuxFacades.stdout || '') + (linuxFacades.stderr || '');
     out.split('\n')

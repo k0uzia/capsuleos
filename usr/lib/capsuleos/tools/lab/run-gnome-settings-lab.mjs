@@ -43,8 +43,12 @@ run('smoke-gsettings-mappers.mjs');
 run('smoke-gnome-settings-visual-matrix.mjs');
 run('compare-playbook-gsettings-capsule.mjs', ['--registry', registry, '--strict']);
 run('enrich-visual-investigation-gsettings-pass.mjs', ['--id', registry]);
+run('collect-capsule-visual-investigation.mjs', ['--id', registry]);
+run('enrich-visual-investigation-capsule-parity.mjs', ['--id', registry]);
 run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
 run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
+run('smoke-h5-p1-appearance.mjs');
+run('smoke-h5-p0-shell.mjs');
 
 if (withPlaywright) {
   if (!process.env.CAPSULE_HTTP_BASE) {

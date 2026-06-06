@@ -6,7 +6,6 @@
 
     const GNOME_BODY_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos']);
     const COSMIC_BODY_IDS = new Set(['popos']);
-    const KDE_NEON_BODY_IDS = new Set(['kde-neon']);
 
     function bodyId() {
         return global.document && global.document.body ? global.document.body.id : '';
@@ -19,9 +18,6 @@
         }
         if (COSMIC_BODY_IDS.has(resolved)) {
             return 'cosmic-theme';
-        }
-        if (KDE_NEON_BODY_IDS.has(resolved)) {
-            return 'kde-neon-theme';
         }
         return 'mint-theme';
     }
@@ -193,6 +189,7 @@
         const color = GNOME_ACCENTS[resolved];
         ACCENT_CSS_VARS.forEach((varName) => setShellVar(varName, color));
         global.document.documentElement.dataset.gnomeAccent = resolved;
+        global.document.documentElement.style.setProperty('--settings-accent-hex', color);
         dispatchAppearanceEvent('capsule:accent-changed', { accentId: resolved, color: color });
         return resolved;
     }
@@ -330,11 +327,16 @@
     }
 
     function applyWallpaperBackground(value, wallpaperId) {
+        const doc = global.document.documentElement;
+        doc.dataset.wallpaperTransition = 'on';
         setShellVar('--fedora-bg', value);
-        global.document.documentElement.dataset.gnomeWallpaper = wallpaperId || '';
+        doc.dataset.gnomeWallpaper = wallpaperId || '';
         if (global.document.body) {
             global.document.body.dataset.gnomeWallpaper = wallpaperId || '';
         }
+        global.setTimeout(() => {
+            delete doc.dataset.wallpaperTransition;
+        }, 220);
         dispatchAppearanceEvent('capsule:wallpaper-changed', {
             wallpaperId: wallpaperId,
             background: value,
@@ -419,8 +421,14 @@
 
     function applyNightLight(enabled) {
         const on = !!enabled;
-        global.document.documentElement.dataset.nightLight = on ? 'on' : 'off';
+        const doc = global.document.documentElement;
+        doc.dataset.nightLightTransition = 'on';
+        doc.dataset.nightLight = on ? 'on' : 'off';
         persistPref('gnome-night-light', on ? 'on' : 'off');
+        global.setTimeout(() => {
+            delete doc.dataset.nightLightTransition;
+        }, 1050);
+        dispatchAppearanceEvent('capsule:night-light-changed', { enabled: on });
         return on;
     }
 

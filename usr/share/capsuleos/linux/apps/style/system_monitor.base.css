@@ -1,0 +1,108 @@
+main#gnomeSysmonApp {
+    position: var(--rel);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    width: var(--full);
+    height: var(--full);
+    overflow: hidden;
+    font-family: var(--font-ui);
+    color: var(--gnome-sysmon-text, #f6f6f6);
+    background: var(--gnome-sysmon-bg, #242424);
+}
+
+.gnome-sysmon__header {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: flex-end;
+    flex-shrink: 0;
+    min-height: calc(var(--head) * 0.95);
+    padding: 0 calc(var(--head) / 3);
+    border-bottom: 1px solid var(--gnome-sysmon-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-sysmon-header-bg, #383838);
+}
+
+.gnome-sysmon__tabs {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    gap: calc(var(--head) / 6);
+}
+
+.gnome-sysmon__tab {
+    margin: 0;
+    padding: calc(var(--head) / 3.5) calc(var(--head) / 2.2);
+    border: none;
+    border-bottom: 2px solid transparent;
+    font: inherit;
+    font-size: calc(var(--head) / 2.85);
+    font-weight: 600;
+    color: var(--gnome-sysmon-muted, rgba(255, 255, 255, 0.62));
+    background: transparent;
+    cursor: default;
+}
+
+.gnome-sysmon__tab--active {
+    color: var(--gnome-sysmon-text, #f6f6f6);
+    border-bottom-color: var(--gnome-sysmon-accent, #3584e4);
+}
+
+.gnome-sysmon__panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: calc(var(--head) / 2);
+    flex: 1;
+    padding: calc(var(--head) / 2);
+    overflow: auto;
+}
+
+.gnome-sysmon__card {
+    padding: calc(var(--head) / 2.2);
+    border-radius: calc(var(--head) / 5);
+    border: 1px solid var(--gnome-sysmon-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-sysmon-card, #303030);
+}
+
+.gnome-sysmon__card-title {
+    margin: 0 0 calc(var(--head) / 3);
+    font-size: calc(var(--head) / 2.75);
+    font-weight: 600;
+}
+
+.gnome-sysmon__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: calc(var(--head) * 2.2);
+    margin-bottom: calc(var(--head) / 4);
+}
+
+.gnome-sysmon__bars span {
+    flex: 1;
+    height: var(--h, 40%);
+    min-height: 4px;
+    border-radius: 2px 2px 0 0;
+    background: var(--gnome-sysmon-accent, #3584e4);
+    opacity: 0.9;
+}
+
+.gnome-sysmon__meter {
+    height: calc(var(--head) / 3.5);
+    margin-bottom: calc(var(--head) / 4);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.gnome-sysmon__meter-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2ec27e, #3584e4);
+}
+
+.gnome-sysmon__stat {
+    margin: 0;
+    font-size: calc(var(--head) / 2.9);
+}
+
+.gnome-sysmon__stat--muted {
+    color: var(--gnome-sysmon-muted, rgba(255, 255, 255, 0.62));
+}

@@ -1,6 +1,6 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": "2026-06-06T13:44:14.143611+00:00",
+  "generatedAt": "2026-06-06T15:20:30.323674+00:00",
   "source": "procedure-creation-playbook-gnome-settings.md §10",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
@@ -10,17 +10,22 @@
     "sessionType": "wayland",
     "display": ":0",
     "screenshotTool": true,
-    "note": "Rocky 10 : Snapshot (GUI) sur VM ; captures lab automatisées via virsh screenshot depuis l'hôte",
+    "note": "Rocky 10 : Snapshot (GUI) sur VM ; captures lab automatisées via virsh screenshot depuis l’hôte",
     "screenshotBackend": "host-virsh",
     "captureStrategy": "host-virsh",
     "snapshotAppInstalled": true
   },
   "summary": {
     "investigationsTotal": 15,
-    "documented": 4,
-    "capsuleImplemented": 0,
+    "documented": 15,
+    "capsuleImplemented": 4,
     "gaps": 0,
-    "p0Open": 0
+    "p0Open": 0,
+    "capsuleCapturesP2": 3,
+    "visualMatchClassifiedP0": 4,
+    "visualMatchClassifiedP1": 8,
+    "visualMatchClassifiedP2": 3,
+    "capsuleCapturesP0": 4
   },
   "investigations": [
     {
@@ -39,7 +44,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/theme/before.png",
-          "timestamp": "2026-06-06T13:40:09.937Z"
+          "timestamp": "2026-06-06T14:24:50.717Z"
         },
         {
           "phase": "during-transition",
@@ -59,7 +64,7 @@
         "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": 800,
+        "durationMs": 695,
         "easing": "ease-out",
         "properties": [],
         "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
@@ -80,10 +85,10 @@
       ],
       "capsuleParity": {
         "datasetPresent": true,
-        "cssHookPresent": false,
-        "visualMatch": "unknown",
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings).",
+        "cssHookPresent": true
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
@@ -121,14 +126,37 @@
         "before": "prefer-dark",
         "after": "prefer-light"
       },
-      "generatedAt": "2026-06-06T13:40:04.031236+00:00",
-      "gsettingsDeepPassAt": "2026-06-06T13:44:14.143611+00:00"
+      "generatedAt": "2026-06-06T14:24:36.666321+00:00",
+      "gsettingsDeepPassAt": "2026-06-06T15:20:30.323674+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/theme/dark-desktop.png",
+          "source": "rocky-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/theme/light-desktop.png",
+          "source": "rocky-capsule-light-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/theme/dark-settings-appearance.png",
+          "source": "rocky-capsule-dark-settings-appearance.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/theme/panel-appearance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "accent",
       "capsulePanel": "appearance",
       "label": "Couleur d'accent",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "settings-app",
         "top-bar-selection",
@@ -138,18 +166,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/accent/before.png",
+          "timestamp": "2026-06-06T14:26:33.274Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 0
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/accent/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/accent/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -158,10 +186,12 @@
         "property": "accent-color"
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 540,
         "easing": null,
-        "properties": [],
-        "notes": null
+        "properties": [
+          "accent-color"
+        ],
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -178,24 +208,36 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "accent-color",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "blue",
+        "after": "orange"
+      },
+      "generatedAt": "2026-06-06T14:26:27.835343+00:00",
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/accent/panel-appearance-accentorange.png",
+          "source": "playwright"
+        }
+      ]
     },
     {
       "controlId": "wallpaper",
       "capsulePanel": "background",
       "label": "Fond d'écran",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "desktop",
         "overview-background",
@@ -204,18 +246,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wallpaper/before.png",
+          "timestamp": "2026-06-06T14:26:42.662Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 200
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wallpaper/during-100ms.png",
+          "elapsedMs": 100
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wallpaper/after.png",
+          "elapsedMs": 200
         }
       ],
       "transitionExpected": {
@@ -224,10 +266,10 @@
         "easing": "ease"
       },
       "transitionObserved": {
-        "durationMs": null,
-        "easing": null,
+        "durationMs": 795,
+        "easing": "ease",
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -244,18 +286,35 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.background",
         "key": "picture-uri",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
+        "after": "file:///usr/share/backgrounds/rocky-default-10-abstract-2.png"
+      },
+      "generatedAt": "2026-06-06T14:26:27.835343+00:00",
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/wallpaper/panel-background-wallpaperabstract2.png",
+          "source": "playwright"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/wallpaper/desktop-wallpaperabstract2.png",
+          "source": "playwright"
+        }
+      ]
     },
     {
       "controlId": "night-light",
@@ -271,7 +330,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/night-light/before.png",
-          "timestamp": "2026-06-06T13:40:22.809Z"
+          "timestamp": "2026-06-06T14:25:01.807Z"
         },
         {
           "phase": "during-transition",
@@ -291,7 +350,7 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1075,
+        "durationMs": 1114,
         "easing": null,
         "properties": [
           "color-temperature"
@@ -315,9 +374,9 @@
       "capsuleParity": {
         "datasetPresent": true,
         "cssHookPresent": true,
-        "visualMatch": "unknown",
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.settings-daemon.plugins.color",
@@ -355,14 +414,32 @@
         "before": "false",
         "after": "true"
       },
-      "generatedAt": "2026-06-06T13:40:04.031236+00:00",
-      "gsettingsDeepPassAt": "2026-06-06T13:44:14.143611+00:00"
+      "generatedAt": "2026-06-06T14:24:36.666321+00:00",
+      "gsettingsDeepPassAt": "2026-06-06T15:20:30.323674+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/night-light/dark-settings-displays.png",
+          "source": "rocky-capsule-dark-settings-displays.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/night-light/dark-desktop.png",
+          "source": "rocky-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/night-light/panel-displays.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "display-scale",
       "capsulePanel": "displays",
       "label": "Échelle affichage",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "desktop",
         "all-windows",
@@ -371,18 +448,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/display-scale/before.png",
+          "timestamp": "2026-06-06T14:54:47.350Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 0
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/display-scale/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/display-scale/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -391,10 +468,10 @@
         "notes": "Peut demander confirmation ou délai mutter."
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 562,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -411,18 +488,31 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : zoom .fedora-main-row via --gnome-display-scale + dataset displayScale."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "text-scaling-factor",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.25"
+      },
+      "generatedAt": "2026-06-06T14:54:30.942149+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/display-scale/panel-displays-displayscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -437,7 +527,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dynamic-workspaces/before.png",
-          "timestamp": "2026-06-06T13:40:32.937Z"
+          "timestamp": "2026-06-06T14:25:11.134Z"
         },
         {
           "phase": "during-transition",
@@ -457,7 +547,7 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 709,
+        "durationMs": 728,
         "easing": "ease-out",
         "properties": [],
         "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
@@ -479,9 +569,9 @@
       "capsuleParity": {
         "datasetPresent": true,
         "cssHookPresent": true,
-        "visualMatch": "unknown",
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.mutter",
@@ -506,14 +596,22 @@
         "before": "true",
         "after": "false"
       },
-      "generatedAt": "2026-06-06T13:40:04.031236+00:00",
-      "gsettingsDeepPassAt": "2026-06-06T13:44:14.143611+00:00"
+      "generatedAt": "2026-06-06T14:24:36.666321+00:00",
+      "gsettingsDeepPassAt": "2026-06-06T15:20:30.323674+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/dynamic-workspaces/dark-overview.png",
+          "source": "rocky-capsule-dark-overview.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "hot-corner",
       "capsulePanel": "multitasking",
       "label": "Coin actif",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "overview-trigger",
         "hot-corner-hover"
@@ -521,18 +619,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/hot-corner/before.png",
+          "timestamp": "2026-06-06T14:26:51.795Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 250
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/hot-corner/during-125ms.png",
+          "elapsedMs": 125
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/hot-corner/after.png",
+          "elapsedMs": 250
         }
       ],
       "transitionExpected": {
@@ -541,10 +639,12 @@
         "property": "overview-zoom"
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 665,
         "easing": null,
-        "properties": [],
-        "notes": null
+        "properties": [
+          "overview-zoom"
+        ],
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -561,18 +661,31 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : zone coin actif + data-hot-corners ; désactivation overview au survol."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "enable-hot-corners",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "generatedAt": "2026-06-06T14:26:27.835343+00:00",
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/hot-corner/panel-multitasking-hotcornersoff.png",
+          "source": "playwright"
+        }
+      ]
     },
     {
       "controlId": "dnd",
@@ -588,7 +701,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dnd/before.png",
-          "timestamp": "2026-06-06T13:40:41.109Z"
+          "timestamp": "2026-06-06T14:25:18.020Z"
         },
         {
           "phase": "during-transition",
@@ -607,7 +720,7 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 690,
+        "durationMs": 679,
         "easing": null,
         "properties": [
           "opacity"
@@ -631,9 +744,9 @@
       "capsuleParity": {
         "datasetPresent": true,
         "cssHookPresent": true,
-        "visualMatch": "unknown",
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
       },
       "gsettingsDeferred": {
         "schema": "org.capsuleos.gnome.shell",
@@ -661,14 +774,22 @@
         "before": "(false, '')",
         "after": "toggled"
       },
-      "generatedAt": "2026-06-06T13:40:04.031236+00:00",
-      "gsettingsDeepPassAt": "2026-06-06T13:44:14.143611+00:00"
+      "generatedAt": "2026-06-06T14:24:36.666321+00:00",
+      "gsettingsDeepPassAt": "2026-06-06T15:20:30.323674+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/dnd/dark-quick-settings.png",
+          "source": "rocky-capsule-dark-quick-settings.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "notifications",
       "capsulePanel": "notifications",
       "label": "Bannières notifications",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "notification-area",
         "calendar-popover"
@@ -676,18 +797,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/before.png",
+          "timestamp": "2026-06-06T15:01:31.728Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 300
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/during-150ms.png",
+          "elapsedMs": 150
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/after.png",
+          "elapsedMs": 300
         }
       ],
       "transitionExpected": {
@@ -696,10 +817,10 @@
         "easing": "ease-out"
       },
       "transitionObserved": {
-        "durationMs": null,
-        "easing": null,
+        "durationMs": 699,
+        "easing": "ease-out",
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -710,24 +831,37 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P2",
-        "gapNotes": null
+        "gapNotes": "P2 : dataset notificationsEnabled + show-banners miroir."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.notifications",
         "key": "show-banners",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "generatedAt": "2026-06-06T15:01:26.629427+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/notifications/panel-notifications-notificationsbannersoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "contrast",
       "capsulePanel": "accessibility",
       "label": "Contraste élevé",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "top-bar",
         "windows",
@@ -737,18 +871,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/contrast/before.png",
+          "timestamp": "2026-06-06T14:56:14.115Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 0
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/contrast/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/contrast/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -756,10 +890,10 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 574,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -776,24 +910,37 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : data-contrast-mode high + bordures shell/top-bar renforcées."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "gtk-theme",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "Adwaita",
+        "after": "HighContrast"
+      },
+      "generatedAt": "2026-06-06T14:56:08.733216+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/contrast/panel-accessibility-contrasthigh.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "font-scale",
       "capsulePanel": "accessibility",
       "label": "Taille du texte",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "settings-app",
         "all-ui-text"
@@ -801,18 +948,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/font-scale/before.png",
+          "timestamp": "2026-06-06T14:54:55.405Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 0
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/font-scale/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/font-scale/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -820,10 +967,10 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 701,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -834,24 +981,37 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : --a11y-font-scale-factor + dataset fontScale sur panneau Accessibilité."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "text-scaling-factor",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.1"
+      },
+      "generatedAt": "2026-06-06T14:54:30.942149+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/font-scale/panel-accessibility-fontscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "power-mode",
       "capsulePanel": "power",
       "label": "Mode alimentation",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "quick-settings-performance-tile",
         "power-panel"
@@ -859,18 +1019,8 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
-        },
-        {
-          "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 150
-        },
-        {
-          "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-mode/before.png",
+          "timestamp": "2026-06-06T14:55:01.501Z"
         }
       ],
       "transitionExpected": {
@@ -879,10 +1029,12 @@
         "property": "opacity-saturate"
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 714,
         "easing": null,
-        "properties": [],
-        "notes": null
+        "properties": [
+          "opacity-saturate"
+        ],
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -899,24 +1051,37 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : data-power-mode + teinte tuile QS performance (transition 150 ms)."
       },
       "gsettingsDeferred": {
         "schema": "org.capsuleos.gnome.power",
         "key": "active-profile",
         "source": "simulated-gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "unavailable",
+        "after": "unavailable"
+      },
+      "generatedAt": "2026-06-06T14:54:30.942149+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/power-mode/panel-power-powermodeperformance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "power-dim",
       "capsulePanel": "power",
       "label": "Extinction écran",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "none-immediate",
         "power-panel-only"
@@ -924,18 +1089,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/before.png",
+          "timestamp": "2026-06-06T15:01:42.947Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -944,10 +1109,10 @@
         "notes": "Enquête : noter délai VM ; Capsule : dataset seulement."
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 546,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -958,24 +1123,36 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P2",
-        "gapNotes": null
+        "gapNotes": "P2 : timeout extinction écran (dataset powerDimScreen) — pas d’effet visuel immédiat."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.settings-daemon.plugins.power",
         "key": "sleep-inactive-ac-timeout",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "900",
+        "after": "uint32 300"
+      },
+      "generatedAt": "2026-06-06T15:01:26.629427+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/power-dim/panel-power-powerdimshort.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "wifi",
       "capsulePanel": "wifi",
       "label": "Wi-Fi activé",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "settings-wifi-list",
         "quick-settings-network"
@@ -983,18 +1160,18 @@
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/before.png",
+          "timestamp": "2026-06-06T15:01:51.712Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 200
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/during-100ms.png",
+          "elapsedMs": 100
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/after.png",
+          "elapsedMs": 200
         }
       ],
       "transitionExpected": {
@@ -1002,10 +1179,10 @@
         "durationMs": 200
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 742,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -1016,37 +1193,50 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P2",
-        "gapNotes": null
+        "gapNotes": "P2 : dataset wifiEnabled + liste réseaux simulée."
       },
-      "gsettingsDeferred": null
+      "gsettingsDeferred": null,
+      "vmToggle": {
+        "before": "enabled",
+        "after": "enabled"
+      },
+      "generatedAt": "2026-06-06T15:01:26.629427+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/wifi/panel-wifi-wifioff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     },
     {
       "controlId": "search-files",
       "capsulePanel": "search",
       "label": "Recherche fichiers",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "overview-search-results"
       ],
       "vmCaptures": [
         {
           "phase": "before",
-          "path": null,
-          "timestamp": null
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/search-files/before.png",
+          "timestamp": "2026-06-06T14:55:04.217Z"
         },
         {
           "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 0
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/search-files/during-250ms.png",
+          "elapsedMs": 250
         },
         {
           "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/search-files/after.png",
+          "elapsedMs": 500
         }
       ],
       "transitionExpected": {
@@ -1054,10 +1244,10 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 584,
         "easing": null,
         "properties": [],
-        "notes": null
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
       "officialDocCrossCheck": [
         {
@@ -1068,18 +1258,30 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P1",
-        "gapNotes": null
+        "gapNotes": "H5 : filterSearchCatalog + dataset searchFiles ; provider Nautilus désactivable."
       },
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.search-providers",
         "key": "disabled",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "@as []",
+        "after": "@as ['org.gnome.Nautilus']"
+      },
+      "generatedAt": "2026-06-06T14:54:30.942149+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual-capsule/search-files/panel-search-searchfilesoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-06T15:20:37.072Z"
     }
   ],
   "crossCuttingFindings": [
@@ -1110,10 +1312,22 @@
     }
   ],
   "gsettingsDeepPass": {
-    "generatedAt": "2026-06-06T13:44:14.143611+00:00",
+    "generatedAt": "2026-06-06T15:20:30.323674+00:00",
     "investigator": "enrich-visual-investigation-gsettings-pass.mjs",
     "probeSource": "vm-gnome-settings-gsettings-deep-pass.sh",
     "playbookCapsuleDrift": 0,
     "p0Enriched": 4
+  },
+  "capsuleVisualCollect": {
+    "generatedAt": "2026-06-06T15:20:37.005Z",
+    "investigator": "collect-capsule-visual-investigation.mjs",
+    "filter": "P0",
+    "files": 9
+  },
+  "visualParityClose": {
+    "generatedAt": "2026-06-06T15:20:37.072Z",
+    "investigator": "enrich-visual-investigation-capsule-parity.mjs",
+    "p0Classified": 4,
+    "p1Classified": 8
   }
 }

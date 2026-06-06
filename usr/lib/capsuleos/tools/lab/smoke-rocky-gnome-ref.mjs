@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { readOsFacadeHtml, validateOsFacadeFidelity } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -21,6 +22,8 @@ function read(rel) {
 }
 
 const indexHtml = read('home/RedHat/Rocky/index.html');
+const facadeHtml = readOsFacadeHtml('linux-rocky');
+errors.push(...validateOsFacadeFidelity('linux-rocky'));
 const overviewJs = read('home/RedHat/Rocky/js/overview.js');
 const profile = read('etc/capsuleos/profiles/linux-rocky.json');
 const override = read('etc/capsuleos/overrides/linux-rocky.json');
@@ -40,6 +43,15 @@ if (indexHtml.includes('data-overview-link="checklist"') && indexHtml.includes('
 }
 if (!indexHtml.includes("CAPSULE_SKIN_PROFILE_ID = 'linux-rocky'")) {
     errors.push('index.html : CAPSULE_SKIN_PROFILE_ID linux-rocky absent');
+}
+if (!indexHtml.includes('rocky-fonts.css')) {
+    errors.push('index.html : rocky-fonts.css absent (polices VM embarquées)');
+}
+if (!facadeHtml.includes('rocky-fonts.css')) {
+    errors.push('façade OS : rocky-fonts.css absent');
+}
+if (!facadeHtml.includes('<base href=')) {
+    errors.push('façade OS : <base href> absent');
 }
 if (!overviewJs.includes("dataLink: 'update_manager'")) {
     errors.push('overview.js : GNOME Software absent du catalogue recherche');

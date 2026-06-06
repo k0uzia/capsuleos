@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "description": "Contrat catalogue applications VM → CapsuleOS — vendor-agnostique, overrides par registryId.",
+  "statutCodes": ["ok", "partiel", "absent", "decorative", "capsuleOnly", "notOnVm"],
+  "priorites": ["P0", "P1", "P2", "P3"],
+  "predicates": {
+    "AppV": "Inventaire VM apps collecté (*-vm-apps-installed.json)",
+    "AppC": "Catalogue strict généré et smoke-apps-catalog OK",
+    "AppP0": "Toutes les apps P0 onVm exigeant un slot sont ok",
+    "AppΣ": "AppV ∧ AppC ∧ AppP0"
+  },
+  "toolkits": {
+    "gnome": {
+      "collectPattern": "org.gnome.*.desktop",
+      "slotSpecs": {
+        "nemo": { "chromeProvider": "nemo-gnome", "template": "nemo-gnome", "skinCss": "nautilus.skin.css", "functionalDepth": "full" },
+        "firefox": { "chromeProvider": "firefox-gnome", "template": "firefox.html", "skinCss": "firefox.skin.css", "functionalDepth": "partial" },
+        "terminal": { "chromeProvider": "terminal-gnome", "template": "terminal.html", "skinCss": "terminal.skin.css", "functionalDepth": "full" },
+        "themes": { "chromeProvider": "libadwaita-gnome", "template": "themes_gnome.html", "skinCss": "themes.skin.css", "functionalDepth": "full" },
+        "update_manager": { "chromeProvider": "libadwaita-gnome", "template": "update_manager_gnome.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
+        "text_editor": { "chromeProvider": "libadwaita-gnome", "template": "text_editor.html", "skinCss": "text_editor.skin.css", "functionalDepth": "full" },
+        "calculator": { "chromeProvider": "libadwaita-gnome", "template": "calculator.html", "skinCss": "calculator.skin.css", "functionalDepth": "full" },
+        "calendar": { "chromeProvider": "libadwaita-gnome", "template": "calendar.html", "skinCss": "calendar.skin.css", "functionalDepth": "partial" },
+        "clocks": { "chromeProvider": "libadwaita-gnome", "template": "clocks.html", "skinCss": "clocks.skin.css", "functionalDepth": "partial" },
+        "visionneur_images": { "chromeProvider": "libadwaita-gnome", "template": "visionneur_images.html", "skinCss": "visionneur_images.skin.css", "functionalDepth": "partial" },
+        "visionneur_pdf": { "chromeProvider": "libadwaita-gnome", "template": "visionneur_pdf.html", "skinCss": "visionneur_pdf.skin.css", "functionalDepth": "partial" },
+        "snapshot": { "chromeProvider": "libadwaita-gnome", "template": "snapshot.html", "skinCss": "snapshot.skin.css", "functionalDepth": "partial" },
+        "screenshot": { "chromeProvider": "libadwaita-gnome", "template": "screenshot.html", "skinCss": "screenshot.skin.css", "functionalDepth": "partial" },
+        "librewriter": { "chromeProvider": "libadwaita-gnome", "template": "librewriter.html", "skinCss": "librewriter.skin.css", "functionalDepth": "partial" },
+        "lecteur_multimedia": { "chromeProvider": "libadwaita-gnome", "template": "lecteur_multimedia.html", "skinCss": "lecteur_multimedia.skin.css", "functionalDepth": "decorative" },
+        "profile": { "chromeProvider": "libadwaita-gnome", "template": "profile.html", "skinCss": "profile.skin.css", "functionalDepth": "full" },
+        "checklist": { "chromeProvider": "libadwaita-gnome", "template": "checklist.html", "skinCss": "checklist.skin.css", "functionalDepth": "capsuleOnly" },
+        "baobab": { "chromeProvider": "libadwaita-gnome", "template": "baobab.html", "skinCss": "baobab.skin.css", "functionalDepth": "partial" },
+        "system_monitor": { "chromeProvider": "libadwaita-gnome", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" },
+        "tour": { "chromeProvider": "libadwaita-gnome", "template": "tour.html", "skinCss": "tour.skin.css", "functionalDepth": "partial" },
+        "characters": { "chromeProvider": "libadwaita-gnome", "template": "characters.html", "skinCss": "characters.skin.css", "functionalDepth": "partial" }
+      }
+    },
+    "cinnamon": {
+      "collectPattern": "*.desktop",
+      "note": "Mint — generate-mint-apps-catalog.mjs (legacy) ou generate-apps-catalog.mjs --id linux-mint"
+    }
+  },
+  "registryOverrides": {
+    "linux-rocky": {
+      "toolkit": "gnome",
+      "vmAppsSource": "root/docs/inventaires/linux-rocky-vm-apps-installed.json",
+      "apps": {
+        "org.gnome.Nautilus": { "labelFr": "Fichiers", "priorite": "P0", "slot": "nemo", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.mozilla.Firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
+        "org.gnome.Ptyxis": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Software": { "labelFr": "Logiciels", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
+        "org.gnome.TextEditor": { "labelFr": "Éditeur de texte", "priorite": "P0", "slot": "text_editor", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
+        "org.gnome.Calculator": { "labelFr": "Calculatrice", "priorite": "P0", "slot": "calculator", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Settings": { "labelFr": "Paramètres", "priorite": "P0", "slot": "themes", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "quickSettings": true } },
+        "org.gnome.clocks": { "labelFr": "Horloges", "priorite": "P1", "slot": "clocks", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Papers": { "labelFr": "Papers", "priorite": "P1", "slot": "visionneur_pdf", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Loupe": { "labelFr": "Loupe", "priorite": "P1", "slot": "visionneur_images", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Snapshot": { "labelFr": "Snapshot", "priorite": "P1", "slot": "snapshot", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Tour": { "labelFr": "Visite guidée", "priorite": "P2", "slot": "tour", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.baobab": { "labelFr": "Utilisation des disques", "priorite": "P2", "slot": "baobab", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.SystemMonitor": { "labelFr": "Moniteur système", "priorite": "P2", "slot": "system_monitor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Characters": { "labelFr": "Caractères", "priorite": "P2", "slot": "characters", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Calendar": { "labelFr": "Calendrier", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overviewSearch": true }, "onVm": false, "note": "Favori gsettings VM — app simulée (paquet absent lab RL10)" },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "partiel", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Flatpak optionnel RL10" }
+      },
+      "capsuleOnly": [
+        { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
+        { "slot": "profile", "labelFr": "À propos Rocky Linux", "statut": "ok", "placement": { "desktop": true } },
+        { "slot": "screenshot", "labelFr": "Capture d'écran", "statut": "ok", "placement": { "quickSettings": true, "overviewSearch": true } }
+      ],
+      "notOnVmOverview": [
+        { "labelFr": "LibreOffice Calc", "statut": "notOnVm", "placement": { "overview": true } },
+        { "labelFr": "Numériseur", "statut": "notOnVm", "placement": { "overview": true } },
+        { "labelFr": "Machines", "statut": "notOnVm", "placement": { "overview": true } },
+        { "labelFr": "Lecteur vidéos", "statut": "notOnVm", "placement": { "overview": true } },
+        { "labelFr": "LibreOffice Impress", "statut": "notOnVm", "placement": { "overview": true } },
+        { "labelFr": "Aide", "statut": "notOnVm", "placement": { "overview": true } }
+      ]
+    }
+  }
+}

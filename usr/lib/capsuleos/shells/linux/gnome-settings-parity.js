@@ -77,6 +77,19 @@
         toggle.classList.toggle('is-on', on);
     }
 
+    function syncDndChrome(on, root) {
+        global.document.documentElement.dataset.dndEnabled = on ? 'on' : 'off';
+        const qsTile = global.document.querySelector('.quick-settings__tile-icon--dnd');
+        if (qsTile && qsTile.closest('.quick-settings__tile')) {
+            qsTile.closest('.quick-settings__tile').classList.toggle('quick-settings__tile--active', on);
+        }
+        const settingsRoot = root || global.document.querySelector('#themes #themesApp');
+        if (settingsRoot) {
+            setSwitchUi(settingsRoot, 'dnd', on);
+        }
+        dispatch('capsule:dnd-changed', { enabled: on });
+    }
+
     function setSelectUi(root, id, label) {
         if (!root) {
             return;
@@ -159,14 +172,9 @@
             key: 'gnome-dnd-enabled',
             defaultOn: false,
             vm: 'shell DND (session)',
-            apply(on) {
+            apply(on, root) {
                 persistBool(this.key, on);
-                global.document.documentElement.dataset.dndEnabled = on ? 'on' : 'off';
-                const qsTile = global.document.querySelector('.quick-settings__tile-icon--dnd');
-                if (qsTile && qsTile.closest('.quick-settings__tile')) {
-                    qsTile.closest('.quick-settings__tile').classList.toggle('quick-settings__tile--active', on);
-                }
-                dispatch('capsule:dnd-changed', { enabled: on });
+                syncDndChrome(on, root);
             },
         },
         'lock-notifications': {
@@ -331,9 +339,13 @@
                 persistPref(this.key, label);
                 const on = label === 'Activé';
                 global.document.documentElement.dataset.dynamicWorkspaces = on ? 'on' : 'off';
+                global.document.documentElement.dataset.workspacesSpring = 'on';
                 if (global.CapsuleGnomeWorkspaces && typeof global.CapsuleGnomeWorkspaces.reconfigure === 'function') {
                     global.CapsuleGnomeWorkspaces.reconfigure();
                 }
+                global.setTimeout(() => {
+                    delete global.document.documentElement.dataset.workspacesSpring;
+                }, 360);
                 dispatch('capsule:workspaces-config-changed', { dynamic: on });
             },
         },
@@ -352,7 +364,9 @@
             vm: 'org.gnome.desktop.interface enable-hot-corners true',
             apply(label) {
                 persistPref(this.key, label);
-                global.document.documentElement.dataset.hotCorners = label === 'Activé' ? 'on' : 'off';
+                const on = label === 'Activé';
+                global.document.documentElement.dataset.hotCorners = on ? 'on' : 'off';
+                dispatch('capsule:hot-corners-changed', { enabled: on });
             },
         },
         'apps-all-workspaces': {
@@ -671,6 +685,9 @@
             const handler = SELECT_HANDLERS[id];
             const label = readPref(handler.key, handler.default);
             setSelectUi(root, id, label);
+            if (id === 'hot-corner' && typeof handler.apply === 'function') {
+                handler.apply.call(handler, label);
+            }
         });
         const vol = readPref('mint-volume', '72');
         const volSlider = root.querySelector('#gnomeSettingsSound .adw-slider');
@@ -742,6 +759,7 @@
         SWITCH_HANDLERS,
         SELECT_HANDLERS,
         SLIDER_HANDLERS,
+        syncDndChrome,
         applySwitch,
         applySelect,
         applySlider,

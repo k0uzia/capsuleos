@@ -20,13 +20,23 @@ const CAPTURES_BASE = path.join(ROOT, 'root/docs/inventaires/captures/linux-rock
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-rocky', filter: 'P0', local: false };
+  const opts = { id: 'linux-rocky', filter: 'P0', local: false, pending: false };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--filter' && args[i + 1]) opts.filter = args[++i];
     else if (args[i] === '--local') opts.local = true;
+    else if (args[i] === '--pending') opts.pending = true;
   }
   return opts;
+};
+
+const pendingControlIds = (registryId, filter) => {
+  const invPath = path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-visual-investigation.json`);
+  if (!fs.existsSync(invPath)) return [];
+  const inv = JSON.parse(fs.readFileSync(invPath, 'utf8'));
+  return (inv.investigations || [])
+    .filter((i) => i.capsuleParity?.parityPriority === filter && i.status !== 'documented')
+    .map((i) => i.controlId);
 };
 
 const loadHost = (registryId) => {
@@ -57,7 +67,7 @@ const parseJsonStdout = (stdout) => {
   return JSON.parse(stdout.slice(jsonStart));
 };
 
-const runLocal = (filter) => {
+const runLocal = (filter, onlyIds = []) => {
   const outDir = `/tmp/capsuleos-visual-${Date.now()}`;
   const res = spawnSync('bash', [SCRIPT], {
     encoding: 'utf8',
@@ -66,6 +76,7 @@ const runLocal = (filter) => {
       CAPSULE_VISUAL_MATRIX: MATRIX,
       CAPSULE_VISUAL_OUT: outDir,
       CAPSULE_VISUAL_FILTER: filter,
+      CAPSULE_VISUAL_ONLY_IDS: onlyIds.join(','),
     },
     timeout: 300000,
   });
@@ -75,7 +86,7 @@ const runLocal = (filter) => {
   return { payload: parseJsonStdout(res.stdout || ''), remoteOutDir: outDir };
 };
 
-const runOnVm = (host, filter) => {
+const runOnVm = (host, filter, onlyIds = []) => {
   const matrixB64 = Buffer.from(fs.readFileSync(MATRIX, 'utf8')).toString('base64');
   const scriptBody = fs.readFileSync(SCRIPT, 'utf8');
   const remoteOut = '/tmp/capsuleos-visual-investigation';
@@ -87,6 +98,7 @@ export CAPSULE_SETTINGS_ASSETS_MATRIX="$MATRIX_FILE"
 export CAPSULE_VISUAL_MATRIX="$MATRIX_FILE"
 export CAPSULE_VISUAL_OUT="${remoteOut}"
 export CAPSULE_VISUAL_FILTER="${filter}"
+export CAPSULE_VISUAL_ONLY_IDS="${onlyIds.join(',')}"
 rm -rf "${remoteOut}" && mkdir -p "${remoteOut}"
 bash -s <<'VIS_EOF'
 ${scriptBody}
@@ -179,6 +191,74 @@ const applyControlState = (host, identity, user, ip, controlId, rawValue) => {
   if (controlId === 'dynamic-workspaces') {
     sshRun(host, identity, user, ip, `gsettings set org.gnome.mutter dynamic-workspaces ${value}`);
     return true;
+  }
+  if (controlId === 'accent') {
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.interface accent-color '${value}'`);
+    return true;
+  }
+  if (controlId === 'wallpaper') {
+    const uri = value.startsWith('file://') ? value : `file://${value}`;
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.background picture-uri '${uri}'`);
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.background picture-uri-dark '${uri}'`);
+    return true;
+  }
+  if (controlId === 'hot-corner') {
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.interface enable-hot-corners ${value}`);
+    return true;
+  }
+  if (controlId === 'display-scale' || controlId === 'font-scale') {
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.interface text-scaling-factor ${value}`);
+    return true;
+  }
+  if (controlId === 'power-mode') {
+    const profile = value.replace(/'/g, '').trim();
+    if (profile && profile !== 'unavailable' && profile !== 'unknown') {
+      sshRun(host, identity, user, ip, `powerprofilesctl set ${profile} 2>/dev/null || true`);
+      sshRun(
+        host,
+        identity,
+        user,
+        ip,
+        `gdbus call --system --dest org.freedesktop.UPower.PowerProfiles `
+        + `--object-path /org/freedesktop/UPower/PowerProfiles `
+        + `--method org.freedesktop.UPower.PowerProfiles.SetActiveProfile '${profile}'`,
+      );
+      return true;
+    }
+    return false;
+  }
+  if (controlId === 'contrast') {
+    const theme = value.replace(/'/g, '').trim();
+    if (theme) {
+      sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.interface gtk-theme '${theme}'`);
+      return true;
+    }
+    return false;
+  }
+  if (controlId === 'notifications') {
+    sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.notifications show-banners ${value}`);
+    return true;
+  }
+  if (controlId === 'power-dim') {
+    const timeout = String(rawValue || '').trim();
+    if (timeout.startsWith('uint32')) {
+      sshRun(host, identity, user, ip, `gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout ${timeout}`);
+      return true;
+    }
+    return false;
+  }
+  if (controlId === 'wifi') {
+    const on = String(rawValue || '').toLowerCase().includes('enabled');
+    sshRun(host, identity, user, ip, `nmcli radio wifi ${on ? 'on' : 'off'} 2>/dev/null || true`);
+    return true;
+  }
+  if (controlId === 'search-files') {
+    const raw = String(rawValue || '').trim();
+    if (raw.startsWith('@as')) {
+      sshRun(host, identity, user, ip, `gsettings set org.gnome.desktop.search-providers disabled "${raw}"`);
+      return true;
+    }
+    return false;
   }
   if (controlId === 'dnd') {
     const script = "const qs = Main.panel.statusArea.quickSettings; if (qs && qs._dndToggle) qs._dndToggle.toggle(); 'ok';";
@@ -287,12 +367,26 @@ const mergeInventory = (registryId, payload) => {
       ...cap,
       path: remapCapturePath(cap.path, payload.generatedAt),
     }));
+    const { capsuleParity: rowParity, ...rowRest } = row;
+    const mergedParity = { ...(prev.capsuleParity || {}), ...(rowParity || {}) };
+    if (
+      prev.capsuleParity?.visualMatch
+      && prev.capsuleParity.visualMatch !== 'unknown'
+      && (!rowParity?.visualMatch || rowParity.visualMatch === 'unknown')
+    ) {
+      mergedParity.visualMatch = prev.capsuleParity.visualMatch;
+      mergedParity.gapNotes = prev.capsuleParity.gapNotes ?? mergedParity.gapNotes;
+      mergedParity.datasetPresent = prev.capsuleParity.datasetPresent ?? mergedParity.datasetPresent;
+      mergedParity.cssHookPresent = prev.capsuleParity.cssHookPresent ?? mergedParity.cssHookPresent;
+    }
     byId.set(row.controlId, {
       ...prev,
-      ...row,
+      ...rowRest,
       status: 'documented',
       vmCaptures,
+      capsuleParity: mergedParity,
       generatedAt: payload.generatedAt,
+      visualParityClosedAt: prev.visualParityClosedAt ?? row.visualParityClosedAt,
     });
     documented += 1;
   }
@@ -333,11 +427,19 @@ const mergeInventory = (registryId, payload) => {
 
 const main = () => {
   const opts = parseArgs();
-  process.stderr.write(`=== collect-vm-gnome-settings-visual-investigation ${opts.id} filter=${opts.filter} ===\n`);
+  const onlyIds = opts.pending ? pendingControlIds(opts.id, opts.filter) : [];
+  if (opts.pending && !onlyIds.length) {
+    process.stderr.write(`✓ Aucun contrôle ${opts.filter} en attente — rien à collecter\n`);
+    process.exit(0);
+  }
+  process.stderr.write(
+    `=== collect-vm-gnome-settings-visual-investigation ${opts.id} filter=${opts.filter}`
+    + `${onlyIds.length ? ` pending=${onlyIds.join(',')}` : ''} ===\n`,
+  );
 
   const { payload, remoteOutDir, host, identity, user, ip } = opts.local
-    ? { ...runLocal(opts.filter), host: null }
-    : runOnVm(loadHost(opts.id), opts.filter);
+    ? { ...runLocal(opts.filter, onlyIds), host: null }
+    : runOnVm(loadHost(opts.id), opts.filter, onlyIds);
 
   if (!opts.local && host) {
     if (payload.screenshotBackend === 'host-virsh') {
@@ -354,7 +456,7 @@ const main = () => {
   process.stdout.write(`OK ${rawPath}\n`);
   process.stdout.write(`OK ${invPath}\n`);
   process.stdout.write(
-    `Résumé: ${(payload.investigations || []).filter((i) => i.status === 'documented').length} enquêtes P0 documentées, `
+    `Résumé: ${(payload.investigations || []).filter((i) => i.status === 'documented').length} enquêtes ${opts.filter} documentées, `
     + `screenshot=${payload.screenshotTool} backend=${payload.screenshotBackend || 'none'}\n`,
   );
 };

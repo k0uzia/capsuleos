@@ -91,6 +91,7 @@
         if (!strip) {
             return;
         }
+        strip.classList.add('is-spring-update');
         strip.innerHTML = '';
         const count = getWorkspaceCount();
         for (let i = 0; i < count; i += 1) {
@@ -119,6 +120,9 @@
             }
             strip.appendChild(btn);
         }
+        global.requestAnimationFrame(() => {
+            global.setTimeout(() => strip.classList.remove('is-spring-update'), 360);
+        });
     }
 
     function updateWorkspaceStage(activeIndex) {

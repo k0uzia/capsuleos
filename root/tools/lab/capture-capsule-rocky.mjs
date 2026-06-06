@@ -112,27 +112,7 @@ const openSlot = async (page, slot) => {
   await sleep(page, 800);
 };
 
-const prepareScene = async (page, scene) => {
-  await setTheme(page, scene.theme || 'dark');
-  await resetShell(page);
-  await sleep(page, 300);
-
-  if (scene.overview) {
-    await page.evaluate((mode) => {
-      if (window.CapsuleGnomeOverview?.setOverview) {
-        window.CapsuleGnomeOverview.setOverview(true, mode);
-      }
-    }, scene.overview);
-    await sleep(page, scene.overview === 'apps' ? 700 : 500);
-    return;
-  }
-
-  if (scene.quickSettings) {
-    await page.click('#tray-quick-settings-btn');
-    await sleep(page, 400);
-    return;
-  }
-
+const openSceneSlots = async (page, scene) => {
   if (scene.settingsPanel) {
     await page.evaluate((panel) => {
       if (typeof window.setCapsuleSettingsPanel === 'function') {
@@ -166,6 +146,44 @@ const prepareScene = async (page, scene) => {
   }
 };
 
+const prepareScene = async (page, scene) => {
+  await setTheme(page, scene.theme || 'dark');
+  await resetShell(page);
+  await sleep(page, 300);
+
+  if (scene.quickSettings) {
+    await page.click('#tray-quick-settings-btn');
+    await sleep(page, 400);
+    return;
+  }
+
+  if (scene.overview && !scene.beforeOverview) {
+    await page.evaluate((mode) => {
+      if (window.CapsuleGnomeOverview?.setOverview) {
+        window.CapsuleGnomeOverview.setOverview(true, mode);
+      }
+    }, scene.overview);
+    await sleep(page, scene.overview === 'apps' ? 700 : 500);
+    return;
+  }
+
+  await openSceneSlots(page, scene);
+
+  if (scene.overview) {
+    await page.evaluate((mode) => {
+      if (window.CapsuleGnomeOverview?.setOverview) {
+        window.CapsuleGnomeOverview.setOverview(true, mode);
+      }
+    }, scene.overview);
+    await page.evaluate(() => {
+      if (window.CapsuleGnomeWorkspaces?.refreshWorkspacePreviews) {
+        window.CapsuleGnomeWorkspaces.refreshWorkspacePreviews();
+      }
+    });
+    await sleep(page, scene.overview === 'apps' ? 700 : 650);
+  }
+};
+
 const main = async () => {
   fs.mkdirSync(DEST, { recursive: true });
   const { chromium } = await import('playwright');
@@ -188,7 +206,21 @@ const main = async () => {
 
   const shots = [
     { file: 'rocky-capsule-dark-desktop.png', theme: 'dark' },
+    {
+      file: 'rocky-capsule-dark-desktop-firefox.png',
+      theme: 'dark',
+      slots: ['firefox'],
+      focus: 'firefox',
+    },
     { file: 'rocky-capsule-dark-overview.png', theme: 'dark', overview: 'workspace' },
+    {
+      file: 'rocky-capsule-dark-overview-busy.png',
+      theme: 'dark',
+      slots: ['firefox'],
+      focus: 'firefox',
+      overview: 'workspace',
+      beforeOverview: true,
+    },
     { file: 'rocky-capsule-dark-overview-apps.png', theme: 'dark', overview: 'apps' },
     { file: 'rocky-capsule-dark-quick-settings.png', theme: 'dark', quickSettings: true },
     { file: 'rocky-capsule-dark-calculator.png', theme: 'dark', slots: ['calculator'], focus: 'calculator' },

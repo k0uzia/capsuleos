@@ -15,11 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
             clock.setAttribute('datetime', now.toISOString());
         }
 
-        const poposDate = document.getElementById('popos-clock-date');
-        if (poposDate) {
-            poposDate.textContent = now.toLocaleDateString('fr-FR', {
+        const shellDate = document.getElementById('rocky-clock-date')
+            || document.getElementById('fedora-clock-date')
+            || document.getElementById('popos-clock-date');
+        if (shellDate) {
+            shellDate.textContent = now.toLocaleDateString('fr-FR', {
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
             });
         }
 

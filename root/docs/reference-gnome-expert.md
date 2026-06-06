@@ -137,7 +137,7 @@ Source : [GNOME Getting Started (PDF SUSE)](https://documentation.suse.com/smart
 
 ### 3.2 Human Interface Guidelines (HIG)
 
-Source : [developer.gnome.org/hig](https://developer.gnome.org/hig/)
+Source : [developer.gnome.org/hig](https://developer.gnome.org/hig/) · catalogue CapsuleOS : [gnome-hig-ressources.md](gnome-hig-ressources.md) · inventaire JSON : [gnome-hig-resources.json](inventaires/gnome-hig-resources.json)
 
 | Section | Contenu clé pour CapsuleOS |
 |---------|---------------------------|

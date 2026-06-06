@@ -225,10 +225,14 @@
         if (isOpen) {
             setOverviewMode(mode);
             window.setTimeout(() => {
+                if (window.CapsuleGnomeWorkspaces
+                    && typeof window.CapsuleGnomeWorkspaces.refreshWorkspacePreviews === 'function') {
+                    window.CapsuleGnomeWorkspaces.refreshWorkspacePreviews();
+                }
                 if (searchInput) {
                     searchInput.focus();
                 }
-            }, 0);
+            }, 80);
         } else {
             clearSearch(false);
             setOverviewMode('workspace');

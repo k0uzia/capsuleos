@@ -22,6 +22,11 @@ Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés 
 
 - [os-clone-from-vm](os-clone-from-vm/SKILL.md) — convention reproduction, workflow inventaire → home/
 
+## GNOME / HIG
+
+- [gnome-hig-replication](gnome-hig-replication/SKILL.md) — HIG officiel, palette, patterns, outils design (distros toolkit gnome)
+- [design-shell-layout](design-shell-layout/SKILL.md) — templating, espacements `--head`, alignements top bar / Aperçu GNOME
+
 ## Contrats UI bureau (4)
 
 - [window-side-effects](window-side-effects/SKILL.md) — effets de bord fenêtres

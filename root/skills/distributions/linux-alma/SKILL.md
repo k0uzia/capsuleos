@@ -26,10 +26,12 @@ description: CapsuleOS distribution AlmaLinux (GNOME) (linux-alma) — linux, ti
 | Ordre | Skill |
 |-------|--------|
 | 1 | `onboarding` |
-| 2 | `os-linux` (famille) |
-| 3 | `capsuleos-vendor-alma` (vendor) |
-| 4 | `capsuleos-distro-linux-alma` (cette fiche) |
-| 5 | `capsuleos-lang-*` selon fichiers |
+| 2 | `gnome-hig-replication` |
+| 3 | `design-shell-layout` |
+| 4 | `os-linux` (famille) |
+| 5 | `capsuleos-vendor-alma` (vendor) |
+| 6 | `capsuleos-distro-linux-alma` (cette fiche) |
+| 7 | `capsuleos-lang-*` selon fichiers |
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma`
 

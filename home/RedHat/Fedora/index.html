@@ -381,19 +381,5 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
     <script src="./js/overview.js?v=20260428"></script>
-    <script>
-    (function () {
-        function updateFedoraDate() {
-            var el = document.getElementById('fedora-clock-date');
-            if (!el) return;
-            var now = new Date();
-            el.textContent = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            updateFedoraDate();
-            setInterval(updateFedoraDate, 60000);
-        });
-    })();
-    </script>
 </body>
 </html>

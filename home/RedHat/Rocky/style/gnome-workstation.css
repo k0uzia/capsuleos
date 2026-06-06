@@ -44,8 +44,9 @@ body#rocky:not(.is-overview)::after {
 
 #rocky .fedora-top-bar {
     position: relative;
+    /* 2 colonnes : le centre horloge est en absolute (hors flux) */
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     width: 100%;
     height: var(--fedora-top-bar-height);
@@ -58,7 +59,23 @@ body#rocky:not(.is-overview)::after {
     z-index: 50;
 }
 
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    #rocky .fedora-top-bar {
+        -webkit-backdrop-filter: blur(14px) saturate(1.05);
+        backdrop-filter: blur(14px) saturate(1.05);
+    }
+}
+
+body#rocky.is-overview .fedora-top-bar {
+    background: rgba(0, 0, 0, 0.72);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
 #rocky .fedora-top-bar__left {
+    grid-column: 1;
+    justify-self: start;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -68,13 +85,27 @@ body#rocky:not(.is-overview)::after {
 }
 
 #rocky .fedora-top-bar__center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+#rocky .fedora-top-bar__center .taskbar-clock-trigger {
+    pointer-events: auto;
 }
 
 #rocky .fedora-top-bar__right {
+    grid-column: 2;
+    justify-self: end;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;

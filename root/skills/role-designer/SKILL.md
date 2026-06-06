@@ -32,3 +32,5 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ## Pairing
 
 Souvent `role-integrator` + `os-linux` | `os-windows` | `os-macos`.
+
+Pour la **géométrie shell** (top bar, dock, Aperçu, tokens d’espacement) : charger **`design-shell-layout`** avant de toucher au CSS — la fidélité perceptible passe par les mesures VM, pas par l’intuition.

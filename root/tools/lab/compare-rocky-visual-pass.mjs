@@ -22,6 +22,12 @@ const PAIRS = [
     context: 'GNOME Shell + dock ; thème VM default → Capsule sombre',
   },
   {
+    label: 'Bureau sombre (Firefox ouvert)',
+    vm: 'rocky-dark-firefox.png',
+    cap: 'rocky-capsule-dark-desktop-firefox.png',
+    context: 'Parité contexte : fenêtre Navigator ouverte sur le bureau',
+  },
+  {
     label: 'Fichiers sombre (Nautilus VM / slot nemo Capsule)',
     vm: 'rocky-dark-nautilus.png',
     cap: 'rocky-capsule-dark-nautilus.png',
@@ -62,6 +68,12 @@ const PAIRS = [
     vm: 'audit/anim-overview-03.png',
     cap: 'rocky-capsule-dark-overview.png',
     context: 'GNOME Shell Overview · dash + carte bureau',
+  },
+  {
+    label: 'Aperçu bureau (vignettes + peek)',
+    vm: 'audit/anim-overview-03.png',
+    cap: 'rocky-capsule-dark-overview-busy.png',
+    context: 'Capsule : Firefox + vignette + peek workspace-next · VM : overview structurel (audit sans fenêtres)',
   },
   {
     label: 'Grille applications Aperçu',
@@ -218,7 +230,7 @@ lines.push('## Lecture visuelle (passe manuelle)');
 lines.push('');
 lines.push('| Zone | VM (ground truth) | CapsuleOS | Verdict / action |');
 lines.push('|------|-------------------|-----------|----------------|');
-lines.push('| Barre supérieure + horloge | GNOME 47, date longue | `fedora-top-bar` / `rocky-clock-date` | Comparer `rocky-*-desktop.png` |');
+lines.push('| Barre supérieure + horloge | GNOME 47, `6 juin 00:33` (ligne) | `fedora-top-bar__center` absolu + `date.js` | Comparer `rocky-*-desktop.png` |');
 lines.push('| Dock | 8 favoris GNOME natifs | 6 apps + accueil (modèle Fedora) | P1 — ne pas dupliquer Software/Calculator sans spec |');
 lines.push('| **Fichiers** | **Nautilus** Adwaita, sidebar Places | Gabarit **`nemo`**, titre **Fichiers** | Tokens `nautilus.skin.css` / largeur fenêtre |');
 lines.push('| Firefox | Navigator + barre RMZ | Slot `firefox` embed | Barre d’adresse / onglets |');

@@ -74,7 +74,7 @@
       "controls": [
         { "id": "notifications", "type": "switch", "capsuleKey": "gnome-notifications-enabled", "schema": "org.gnome.desktop.notifications", "key": "show-banners", "map": "boolOnOff" },
         { "id": "lock-notifications", "type": "switch", "capsuleKey": "gnome-lock-notifications", "schema": "org.gnome.desktop.notifications", "key": "show-in-lock-screen", "map": "boolOnOff" },
-        { "id": "dnd", "type": "switch", "capsuleKey": "gnome-dnd-enabled", "source": "shell-session", "note": "DND shell — lire via gsettings org.gnome.desktop.notifications si absent" }
+        { "id": "dnd", "type": "switch", "capsuleKey": "gnome-dnd-enabled", "schema": "org.capsuleos.gnome.shell", "key": "dnd-enabled", "map": "boolOnOff", "source": "simulated-gsettings", "note": "Session shell GNOME — schéma CapsuleOS miroir lab (pas de clé gsettings VM unique RL10)" }
       ],
       "gsettings": [
         ["org.gnome.desktop.notifications", "show-banners"],
@@ -137,7 +137,7 @@
       "gccArgv": ["power"],
       "titleHints": ["Alimentation", "Power"],
       "controls": [
-        { "id": "power-mode", "type": "select", "capsuleKey": "gnome-power-mode", "source": "powerprofilesctl" },
+        { "id": "power-mode", "type": "select", "capsuleKey": "gnome-power-mode", "schema": "org.capsuleos.gnome.power", "key": "active-profile", "map": "powerProfile", "source": "simulated-gsettings", "note": "powerprofilesctl — schéma CapsuleOS miroir lab" },
         { "id": "power-dim", "type": "select", "capsuleKey": "gnome-power-dim-screen", "schema": "org.gnome.settings-daemon.plugins.power", "key": "sleep-inactive-ac-timeout", "map": "powerDimTimeout" },
         { "id": "power-sleep", "type": "select", "capsuleKey": "gnome-power-sleep", "schema": "org.gnome.settings-daemon.plugins.power", "key": "sleep-inactive-ac-type", "map": "powerSleepType" }
       ],

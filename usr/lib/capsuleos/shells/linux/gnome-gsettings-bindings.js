@@ -30,6 +30,13 @@ window.CAPSULE_GSETTINGS_BINDINGS = {
         "key": "show-in-lock-screen",
         "map": "boolOnOff"
     },
+    "gnome-dnd-enabled": {
+        "controlId": "dnd",
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "map": "boolOnOff",
+        "simulated": true
+    },
     "gnome-search-history": {
         "controlId": "search-history",
         "schema": "org.gnome.desktop.search-providers",
@@ -74,6 +81,13 @@ window.CAPSULE_GSETTINGS_BINDINGS = {
         "schema": "org.gnome.desktop.sound",
         "key": "theme-name",
         "map": "soundTheme"
+    },
+    "gnome-power-mode": {
+        "controlId": "power-mode",
+        "schema": "org.capsuleos.gnome.power",
+        "key": "active-profile",
+        "map": "powerProfile",
+        "simulated": true
     },
     "gnome-power-dim-screen": {
         "controlId": "power-dim",

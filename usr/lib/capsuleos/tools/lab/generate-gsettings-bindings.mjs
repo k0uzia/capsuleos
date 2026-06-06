@@ -44,6 +44,9 @@ function collectFromMatrix(matrix) {
       if (ctrl.providerId) {
         entry.providerId = ctrl.providerId;
       }
+      if (ctrl.source && String(ctrl.source).includes('simulated')) {
+        entry.simulated = true;
+      }
       bindings[ctrl.capsuleKey] = entry;
     }
   }

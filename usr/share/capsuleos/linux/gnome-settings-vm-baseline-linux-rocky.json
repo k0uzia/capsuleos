@@ -1,6 +1,6 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": "2026-06-06T12:45:05.085Z",
+  "generatedAt": "2026-06-06T12:48:30.464Z",
   "source": "linux-rocky-gnome-settings-playbook.json",
   "controlCount": 28,
   "controls": {

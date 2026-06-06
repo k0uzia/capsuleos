@@ -329,6 +329,25 @@
                 return capsule === 'high' ? "'HighContrast'" : "'Adwaita'";
             },
         },
+        powerProfile: {
+            toCapsule(raw) {
+                const profile = stripGvariant(raw).toLowerCase();
+                const mapping = {
+                    performance: 'Performance',
+                    balanced: 'Équilibré',
+                    'power-saver': "Économie d'énergie",
+                };
+                return mapping[profile] || stripGvariant(raw);
+            },
+            fromCapsule(capsule) {
+                const reverse = {
+                    Performance: 'performance',
+                    'Équilibré': 'balanced',
+                    "Économie d'énergie": 'power-saver',
+                };
+                return `'${reverse[capsule] || 'balanced'}'`;
+            },
+        },
         wallpaperUri: {
             toCapsule(raw) {
                 return stripGvariant(raw);

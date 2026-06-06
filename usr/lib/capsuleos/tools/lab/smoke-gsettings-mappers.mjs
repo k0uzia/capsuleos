@@ -66,6 +66,8 @@ const ROUND_TRIPS = [
   { map: 'powerSleepType', raw: "'suspend'", capsule: '30 minutes' },
   { map: 'keyboardLayoutFr', raw: "[('xkb', 'fr+oss')]", capsule: 'Français' },
   { map: 'gtkHighContrast', raw: "'Adwaita'", capsule: 'normal' },
+  { map: 'powerProfile', raw: "'balanced'", capsule: 'Équilibré' },
+  { map: 'powerProfile', raw: "'performance'", capsule: 'Performance' },
 ];
 
 function main() {

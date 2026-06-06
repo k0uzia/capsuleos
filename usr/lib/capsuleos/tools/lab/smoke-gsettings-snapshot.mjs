@@ -84,6 +84,14 @@ if (!gs) {
   if (!String(disabled).includes('org.gnome.Nautilus')) {
     errors.push('exportSnapshot statique : search-files off n’ajoute pas org.gnome.Nautilus dans disabled');
   }
+  gs.setCapsule('gnome-dnd-enabled', 'on');
+  if (gs.exportSnapshot()['org.capsuleos.gnome.shell::dnd-enabled'] !== 'true') {
+    errors.push('exportSnapshot statique : DND simulé non persisté');
+  }
+  gs.setCapsule('gnome-power-mode', 'Performance');
+  if (gs.getCapsule('gnome-power-mode', '') !== 'Performance') {
+    errors.push('exportSnapshot statique : power-mode Performance échoué');
+  }
 }
 
 async function runPlaywright() {
@@ -213,6 +221,32 @@ async function runPlaywright() {
         id: 'snapshot-min-keys',
         ok: Object.keys(snap).length >= 6,
       });
+
+      const dndIcon = document.querySelector('.quick-settings__tile-icon--dnd');
+      const dndBtn = dndIcon ? dndIcon.closest('.quick-settings__tile') : null;
+      if (dndBtn) {
+        const dndBefore = gs.getRaw('org.capsuleos.gnome.shell', 'dnd-enabled');
+        dndBtn.click();
+        const dndAfter = gs.getRaw('org.capsuleos.gnome.shell', 'dnd-enabled');
+        checks.push({
+          id: 'dnd-simulated-gsettings',
+          ok: dndBefore !== dndAfter
+            && gs.exportSnapshot()[pair('org.capsuleos.gnome.shell', 'dnd-enabled')] === dndAfter,
+        });
+      }
+
+      const perfIcon = document.querySelector('.quick-settings__tile-icon--performance');
+      const perfBtn = perfIcon ? perfIcon.closest('.quick-settings__tile') : null;
+      if (perfBtn) {
+        const powerBefore = gs.getCapsule('gnome-power-mode', 'Équilibré');
+        perfBtn.click();
+        const powerAfter = gs.getCapsule('gnome-power-mode', 'Équilibré');
+        const powerRaw = gs.getRaw('org.capsuleos.gnome.power', 'active-profile');
+        checks.push({
+          id: 'power-mode-simulated',
+          ok: powerBefore !== powerAfter && String(powerRaw).includes("'"),
+        });
+      }
 
       return {
         checks,

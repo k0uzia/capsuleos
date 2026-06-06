@@ -255,7 +255,10 @@ async function runPlaywright() {
             const before = document.documentElement.dataset.dndEnabled || 'off';
             btn.click();
             const after = document.documentElement.dataset.dndEnabled || 'off';
-            const ls = localStorage.getItem('gnome-dnd-enabled');
+            const gs = window.CapsuleGnomeGSettings;
+            const ls = gs && gs.hasBinding('gnome-dnd-enabled')
+                ? gs.getRaw('org.capsuleos.gnome.shell', 'dnd-enabled')
+                : localStorage.getItem('gnome-dnd-enabled');
             const settingsSwitch = document.querySelector('#themes #themesApp [data-settings-switch="dnd"]');
             const switchChecked = settingsSwitch ? settingsSwitch.getAttribute('aria-checked') : null;
             return { before, after, ls, toggled: before !== after, switchChecked };
@@ -267,9 +270,14 @@ async function runPlaywright() {
             if (!btn || !parity || typeof parity.cycleSelectById !== 'function') {
                 return { error: 'tuile performance absente' };
             }
-            const before = localStorage.getItem('gnome-power-mode') || 'Équilibré';
+            const gs = window.CapsuleGnomeGSettings;
+            const before = gs && gs.hasBinding('gnome-power-mode')
+                ? gs.getCapsule('gnome-power-mode', 'Équilibré')
+                : (localStorage.getItem('gnome-power-mode') || 'Équilibré');
             btn.click();
-            const after = localStorage.getItem('gnome-power-mode');
+            const after = gs && gs.hasBinding('gnome-power-mode')
+                ? gs.getCapsule('gnome-power-mode', 'Équilibré')
+                : localStorage.getItem('gnome-power-mode');
             return { before, after, changed: before !== after };
         });
         if (perfTest.error) {

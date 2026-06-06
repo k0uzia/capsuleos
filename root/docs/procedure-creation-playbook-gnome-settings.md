@@ -335,7 +335,11 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 
 ```bash
 node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
-# Puis remplir l’inventaire selon §10 → root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
+
+# Lot P0 VM (gsettings + captures si gnome-screenshot installé)
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-rocky --filter P0
+# → root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
+# → root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/ (PNG)
 ```
 
 ---

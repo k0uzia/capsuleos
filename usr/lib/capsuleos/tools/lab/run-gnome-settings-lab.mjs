@@ -57,6 +57,7 @@ if (withPlaywright) {
 if (withVm) {
   run('collect-vm-gnome-settings-assets.mjs', ['--id', registry]);
   run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
+  run('collect-vm-gnome-settings-visual-investigation.mjs', ['--id', registry, '--filter', 'P0']);
   run('collect-vm-gnome-settings-playbook.mjs', ['--id', registry]);
   run('collect-vm-gnome-settings-interaction.mjs', ['--id', registry]);
   run('generate-gsettings-bindings.mjs');

@@ -1,28 +1,30 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": null,
+  "generatedAt": "2026-06-06T13:28:53.269836+00:00",
   "source": "procedure-creation-playbook-gnome-settings.md §10",
-  "investigator": null,
+  "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
-    "osRelease": null,
-    "gnomeShellVersion": null,
-    "gccVersion": null,
+    "osRelease": "Rocky Linux 10",
+    "gnomeShellVersion": "47",
+    "gccVersion": "47.7",
     "sessionType": "wayland",
-    "display": ":0"
+    "display": ":0",
+    "screenshotTool": false,
+    "note": "Installer gnome-screenshot sur VM pour captures PNG"
   },
   "summary": {
     "investigationsTotal": 15,
-    "documented": 0,
+    "documented": 4,
     "capsuleImplemented": 0,
     "gaps": 0,
-    "p0Open": 4
+    "p0Open": 0
   },
   "investigations": [
     {
       "controlId": "theme",
       "capsulePanel": "appearance",
       "label": "Thème clair / sombre",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "desktop",
         "top-bar",
@@ -30,23 +32,7 @@
         "window-chrome",
         "settings-app"
       ],
-      "vmCaptures": [
-        {
-          "phase": "before",
-          "path": null,
-          "timestamp": null
-        },
-        {
-          "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 300
-        },
-        {
-          "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
-        }
-      ],
+      "vmCaptures": [],
       "transitionExpected": {
         "type": "cross-fade",
         "durationMs": 300,
@@ -54,10 +40,10 @@
         "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": null,
-        "easing": null,
+        "durationMs": 689,
+        "easing": "ease-out",
         "properties": [],
-        "notes": null
+        "notes": "gnome-screenshot absent — gsettings seulement"
       },
       "officialDocCrossCheck": [
         {
@@ -69,13 +55,13 @@
         {
           "title": "interface color-scheme",
           "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "VM bascule prefer-dark↔prefer-light via color-scheme"
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
+        "datasetPresent": true,
+        "cssHookPresent": false,
         "visualMatch": "unknown",
         "parityPriority": "P0",
         "gapNotes": null
@@ -85,7 +71,12 @@
         "key": "color-scheme",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "prefer-dark",
+        "after": "prefer-light"
+      },
+      "generatedAt": "2026-06-06T13:28:53.269836+00:00"
     },
     {
       "controlId": "accent",
@@ -224,29 +215,13 @@
       "controlId": "night-light",
       "capsulePanel": "displays",
       "label": "Éclairage nocturne",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "desktop",
         "overview",
         "top-bar-excluded"
       ],
-      "vmCaptures": [
-        {
-          "phase": "before",
-          "path": null,
-          "timestamp": null
-        },
-        {
-          "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 1000
-        },
-        {
-          "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
-        }
-      ],
+      "vmCaptures": [],
       "transitionExpected": {
         "type": "ease-in-out",
         "durationMs": 1000,
@@ -254,28 +229,30 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 1048,
         "easing": null,
-        "properties": [],
-        "notes": null
+        "properties": [
+          "color-temperature"
+        ],
+        "notes": "gnome-screenshot absent — gsettings seulement"
       },
       "officialDocCrossCheck": [
         {
           "title": "GNOME Help — Night Light",
           "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "Durée observée ~1048ms alignée doc ~1s"
         },
         {
           "title": "gsd plugins color",
           "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "Durée observée ~1048ms alignée doc ~1s"
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
+        "datasetPresent": true,
+        "cssHookPresent": true,
         "visualMatch": "unknown",
         "parityPriority": "P0",
         "gapNotes": null
@@ -285,7 +262,12 @@
         "key": "night-light-enabled",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "false",
+        "after": "true"
+      },
+      "generatedAt": "2026-06-06T13:28:53.269836+00:00"
     },
     {
       "controlId": "display-scale",
@@ -357,28 +339,12 @@
       "controlId": "dynamic-workspaces",
       "capsulePanel": "multitasking",
       "label": "Bureaux dynamiques",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "overview-mini-workspaces",
         "workspace-indicator"
       ],
-      "vmCaptures": [
-        {
-          "phase": "before",
-          "path": null,
-          "timestamp": null
-        },
-        {
-          "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 350
-        },
-        {
-          "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
-        }
-      ],
+      "vmCaptures": [],
       "transitionExpected": {
         "type": "spring",
         "durationMs": 350,
@@ -386,10 +352,10 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": null,
-        "easing": null,
+        "durationMs": 724,
+        "easing": "ease-out",
         "properties": [],
-        "notes": null
+        "notes": "gnome-screenshot absent — gsettings seulement"
       },
       "officialDocCrossCheck": [
         {
@@ -406,8 +372,8 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
+        "datasetPresent": true,
+        "cssHookPresent": true,
         "visualMatch": "unknown",
         "parityPriority": "P0",
         "gapNotes": null
@@ -417,7 +383,12 @@
         "key": "dynamic-workspaces",
         "source": "gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "generatedAt": "2026-06-06T13:28:53.269836+00:00"
     },
     {
       "controlId": "hot-corner",
@@ -488,39 +459,25 @@
       "controlId": "dnd",
       "capsulePanel": "notifications",
       "label": "Ne pas déranger",
-      "status": "pending",
+      "status": "documented",
       "surfaces": [
         "quick-settings-tile",
         "calendar-popover",
         "notification-banners-simulated"
       ],
-      "vmCaptures": [
-        {
-          "phase": "before",
-          "path": null,
-          "timestamp": null
-        },
-        {
-          "phase": "during-transition",
-          "path": null,
-          "elapsedMs": 200
-        },
-        {
-          "phase": "after",
-          "path": null,
-          "elapsedMs": 1500
-        }
-      ],
+      "vmCaptures": [],
       "transitionExpected": {
         "type": "ease",
         "durationMs": 200,
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": null,
+        "durationMs": 642,
         "easing": null,
-        "properties": [],
-        "notes": null
+        "properties": [
+          "opacity"
+        ],
+        "notes": "Restauration manuelle QS si besoin — pas de clé gsettings VM"
       },
       "officialDocCrossCheck": [
         {
@@ -537,8 +494,8 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
+        "datasetPresent": true,
+        "cssHookPresent": true,
         "visualMatch": "unknown",
         "parityPriority": "P0",
         "gapNotes": null
@@ -548,7 +505,12 @@
         "key": "dnd-enabled",
         "source": "simulated-gsettings",
         "deepPassNotes": "À documenter après captures VM"
-      }
+      },
+      "vmToggle": {
+        "before": "(false, '')",
+        "after": "toggled"
+      },
+      "generatedAt": "2026-06-06T13:28:53.269836+00:00"
     },
     {
       "controlId": "notifications",

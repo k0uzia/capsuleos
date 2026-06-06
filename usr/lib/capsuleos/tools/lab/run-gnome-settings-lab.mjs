@@ -39,6 +39,7 @@ run('smoke-gnome-settings-playbook.mjs');
 run('smoke-gnome-settings-interaction-playbook.mjs');
 run('smoke-gnome-settings-interactions.mjs');
 run('smoke-gsettings-mappers.mjs');
+run('smoke-gnome-settings-visual-matrix.mjs');
 run('compare-playbook-gsettings-capsule.mjs', ['--registry', registry, '--strict']);
 run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
 run('verify-gnome-settings-parity-chain.mjs', ['--strict']);

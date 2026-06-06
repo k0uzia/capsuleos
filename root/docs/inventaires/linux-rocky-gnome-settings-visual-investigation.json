@@ -1,0 +1,973 @@
+{
+  "registry": "linux-rocky",
+  "generatedAt": null,
+  "source": "procedure-creation-playbook-gnome-settings.md §10",
+  "investigator": null,
+  "vmEnvironment": {
+    "osRelease": null,
+    "gnomeShellVersion": null,
+    "gccVersion": null,
+    "sessionType": "wayland",
+    "display": ":0"
+  },
+  "summary": {
+    "investigationsTotal": 15,
+    "documented": 0,
+    "capsuleImplemented": 0,
+    "gaps": 0,
+    "p0Open": 4
+  },
+  "investigations": [
+    {
+      "controlId": "theme",
+      "capsulePanel": "appearance",
+      "label": "Thème clair / sombre",
+      "status": "pending",
+      "surfaces": [
+        "desktop",
+        "top-bar",
+        "overview",
+        "window-chrome",
+        "settings-app"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 300
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 300,
+        "easing": "ease-out",
+        "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Appearance",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "interface color-scheme",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "color-scheme",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "accent",
+      "capsulePanel": "appearance",
+      "label": "Couleur d'accent",
+      "status": "pending",
+      "surfaces": [
+        "settings-app",
+        "top-bar-selection",
+        "overview-search",
+        "quick-settings"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "property": "accent-color"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "HIG — Style",
+          "url": "https://developer.gnome.org/hig/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "libadwaita accent",
+          "url": "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "accent-color",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "wallpaper",
+      "capsulePanel": "background",
+      "label": "Fond d'écran",
+      "status": "pending",
+      "surfaces": [
+        "desktop",
+        "overview-background",
+        "lock-screen-simulated"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 200
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 200,
+        "easing": "ease"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Background",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-desktopbackground.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "org.gnome.desktop.background",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.background",
+        "key": "picture-uri",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "night-light",
+      "capsulePanel": "displays",
+      "label": "Éclairage nocturne",
+      "status": "pending",
+      "surfaces": [
+        "desktop",
+        "overview",
+        "top-bar-excluded"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 1000
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "ease-in-out",
+        "durationMs": 1000,
+        "property": "color-temperature",
+        "notes": "gsd-color anime la température sur ~1 s."
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Night Light",
+          "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "gsd plugins color",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.settings-daemon.plugins.color",
+        "key": "night-light-enabled",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "display-scale",
+      "capsulePanel": "displays",
+      "label": "Échelle affichage",
+      "status": "pending",
+      "surfaces": [
+        "desktop",
+        "all-windows",
+        "settings-app"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "notes": "Peut demander confirmation ou délai mutter."
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "Mutter displays",
+          "url": "https://mutter.gnome.org/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "text-scaling-factor",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "text-scaling-factor",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "dynamic-workspaces",
+      "capsulePanel": "multitasking",
+      "label": "Bureaux dynamiques",
+      "status": "pending",
+      "surfaces": [
+        "overview-mini-workspaces",
+        "workspace-indicator"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 350
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "spring",
+        "durationMs": 350,
+        "easing": "ease-out",
+        "notes": "St animation overview workspaces."
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Workspaces",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "org.gnome.mutter dynamic-workspaces",
+          "url": "https://gitlab.gnome.org/GNOME/mutter",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.mutter",
+        "key": "dynamic-workspaces",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "hot-corner",
+      "capsulePanel": "multitasking",
+      "label": "Coin actif",
+      "status": "pending",
+      "surfaces": [
+        "overview-trigger",
+        "hot-corner-hover"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "ease-out",
+        "durationMs": 250,
+        "property": "overview-zoom"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Shell overview",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "enable-hot-corners",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "enable-hot-corners",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "dnd",
+      "capsulePanel": "notifications",
+      "label": "Ne pas déranger",
+      "status": "pending",
+      "surfaces": [
+        "quick-settings-tile",
+        "calendar-popover",
+        "notification-banners-simulated"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 200
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 200,
+        "property": "opacity"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Notifications",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "Shell DND session",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "source": "simulated-gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "notifications",
+      "capsulePanel": "notifications",
+      "label": "Bannières notifications",
+      "status": "pending",
+      "surfaces": [
+        "notification-area",
+        "calendar-popover"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 300
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "slide-in",
+        "durationMs": 300,
+        "easing": "ease-out"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "org.gnome.desktop.notifications",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P2",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.notifications",
+        "key": "show-banners",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "contrast",
+      "capsulePanel": "accessibility",
+      "label": "Contraste élevé",
+      "status": "pending",
+      "surfaces": [
+        "top-bar",
+        "windows",
+        "overview",
+        "settings-app"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "gtk-theme HighContrast",
+          "url": "https://gitlab.gnome.org/GNOME/gtk",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "gtk-theme",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "font-scale",
+      "capsulePanel": "accessibility",
+      "label": "Taille du texte",
+      "status": "pending",
+      "surfaces": [
+        "settings-app",
+        "all-ui-text"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y text size",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y-font-size.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "text-scaling-factor",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "power-mode",
+      "capsulePanel": "power",
+      "label": "Mode alimentation",
+      "status": "pending",
+      "surfaces": [
+        "quick-settings-performance-tile",
+        "power-panel"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 150,
+        "property": "opacity-saturate"
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "power-profiles-daemon",
+          "url": "https://gitlab.freedesktop.org/upower/power-profiles-daemon",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "GNOME Help — Power",
+          "url": "https://help.gnome.org/users/gnome-help/stable/power.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.capsuleos.gnome.power",
+        "key": "active-profile",
+        "source": "simulated-gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "power-dim",
+      "capsulePanel": "power",
+      "label": "Extinction écran",
+      "status": "pending",
+      "surfaces": [
+        "none-immediate",
+        "power-panel-only"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 500
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "delayed",
+        "durationMs": null,
+        "notes": "Enquête : noter délai VM ; Capsule : dataset seulement."
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "gsd power plugin",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P2",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.settings-daemon.plugins.power",
+        "key": "sleep-inactive-ac-timeout",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    },
+    {
+      "controlId": "wifi",
+      "capsulePanel": "wifi",
+      "label": "Wi-Fi activé",
+      "status": "pending",
+      "surfaces": [
+        "settings-wifi-list",
+        "quick-settings-network"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 200
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "fade",
+        "durationMs": 200
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "NetworkManager",
+          "url": "https://networkmanager.dev/docs/",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P2",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": null
+    },
+    {
+      "controlId": "search-files",
+      "capsulePanel": "search",
+      "label": "Recherche fichiers",
+      "status": "pending",
+      "surfaces": [
+        "overview-search-results"
+      ],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": null,
+          "timestamp": null
+        },
+        {
+          "phase": "during-transition",
+          "path": null,
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": null,
+          "elapsedMs": 1500
+        }
+      ],
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": null,
+        "easing": null,
+        "properties": [],
+        "notes": null
+      },
+      "officialDocCrossCheck": [
+        {
+          "title": "search providers",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/tree/main/js/ui/search",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P1",
+        "gapNotes": null
+      },
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.search-providers",
+        "key": "disabled",
+        "source": "gsettings",
+        "deepPassNotes": "À documenter après captures VM"
+      }
+    }
+  ],
+  "crossCuttingFindings": [],
+  "nextGsettingsPass": []
+}

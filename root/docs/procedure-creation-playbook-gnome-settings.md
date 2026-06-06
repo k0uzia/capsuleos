@@ -13,16 +13,19 @@
 | [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) | Infra Wayland / `XAUTHORITY` |
 | [inventaires/linux-rocky-gnome-settings-playbook.md](inventaires/linux-rocky-gnome-settings-playbook.md) | Dernier rapport lecture seule |
 | [inventaires/linux-rocky-gnome-settings-interaction.md](inventaires/linux-rocky-gnome-settings-interaction.md) | Dernier rapport interactions |
+| [reference-gnome-expert.md](reference-gnome-expert.md) | Documentation officielle GNOME (croisement enquête) |
+| `root/tools/lab/gnome-settings-visual-investigation-matrix.json` | Grille enquête effets visuels / transitions |
 
 ---
 
-## 1. Les trois niveaux de playbook
+## 1. Les quatre niveaux de playbook
 
-| Niveau | Script VM | Rôle | Livrable |
-|--------|-----------|------|----------|
+| Niveau | Script / artefact | Rôle | Livrable |
+|--------|-------------------|------|----------|
 | **Inventaire statique** | `root/tools/lab/vm-gnome-settings-inventory.sh` | Snapshot `gsettings` global (sans ouvrir l’UI) | `linux-rocky-gnome-settings-parity.json` |
 | **Tour des panneaux** | `root/tools/lab/vm-gnome-settings-playbook.sh` | Ouvre chaque panneau `gnome-control-center`, lit `gsettings`, mappe → CapsuleOS | `*-gnome-settings-playbook.json` + `.md` |
 | **Interactions** | `root/tools/lab/vm-gnome-settings-interaction-playbook.sh` | Ouvre panneau, bascule valeur, `gsettings monitor`, restaure | `*-gnome-settings-interaction.json` + `.md` |
+| **Enquête visuelle** | Matrice + procédure §10 (captures VM + Capsule) | Effets visuels, transitions, croisement doc officielle | `*-gnome-settings-visual-investigation.json` + `.md` |
 
 ```mermaid
 flowchart LR
@@ -35,6 +38,10 @@ flowchart LR
   P --> V[compare-vm-parity-defaults.mjs]
   I --> L[run-gnome-settings-lab.mjs]
   V --> L
+  VIM[gnome-settings-visual-investigation-matrix.json] --> E[Enquête §10]
+  E --> CSS[gnome-shell-preferences.base.css]
+  E --> G2[Passe gsettings approfondie]
+  I --> E
 ```
 
 ---
@@ -80,6 +87,10 @@ Sans `XDG_CURRENT_DESKTOP=GNOME`, `gnome-control-center` quitte avec *« only su
 | `usr/lib/capsuleos/tools/lab/compare-vm-parity-defaults.mjs` | Dérive défauts parity ↔ VM |
 | `usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs` | Chaîne matrice ↔ HTML ↔ baseline ↔ VM |
 | `usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs` | Suite lab complète |
+| `root/tools/lab/gnome-settings-visual-investigation-matrix.json` | Grille enquête visuelle / transitions |
+| `root/docs/inventaires/_template-gnome-settings-visual-investigation.json` | Modèle livrable enquête |
+| `usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs` | Smoke matrice ↔ handlers ↔ CSS |
+| `usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css` | Effets shell `html[data-*]` |
 
 Intégration audit profond : `node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs --id linux-rocky --phase settings-playbook` (ou `settings-interaction`).
 
@@ -237,6 +248,15 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:8765 \
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
+### Étape 8 — Enquête visuelle & transitions (§10)
+
+À exécuter **après** les playbooks gsettings (étapes 4–5), **avant** la passe gsettings approfondie :
+
+```bash
+node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
+# Puis remplir l’inventaire selon §10 → root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
+```
+
 ---
 
 ## 5. Checklist agent (nouveau panneau ou contrôle)
@@ -251,6 +271,10 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 - [ ] `generate-vm-settings-baseline.mjs` exécuté
 - [ ] `verify-gnome-settings-parity-chain.mjs --strict` vert
 - [ ] `build-linux-embed.mjs` si HTML modifié
+- [ ] Entrée enquête visuelle dans `gnome-settings-visual-investigation-matrix.json` (si effet shell)
+- [ ] Captures VM before/during/after + croisement doc officielle (§10)
+- [ ] Hook CSS `gnome-shell-preferences.base.css` ou dataset vérifié
+- [ ] `smoke-gnome-settings-visual-matrix.mjs` vert
 
 ---
 
@@ -278,10 +302,10 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 
 ---
 
-## 8. Commandes rapides (aide-mémoire)
+## 8. Commandes rapides (lab)
 
 ```bash
-# Suite lab locale
+# Suite lab locale (inclut smoke matrice visuelle)
 node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
 
 # VM complète (playbook + interaction + baseline)
@@ -292,6 +316,9 @@ node usr/lib/capsuleos/tools/lab/compare-vm-parity-defaults.mjs --registry linux
 
 # Chaîne complète
 node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --strict
+
+# Smoke enquête visuelle (matrice ↔ handlers ↔ CSS)
+node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 
 # Audit profond (phase dédiée)
 node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs \
@@ -304,7 +331,200 @@ node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs \
 
 Une fois la procédure validée sur `linux-rocky` :
 
-1. **Propagation** — baseline + parity sur Fedora / Alma (même toolkit GNOME).
-2. **Playwright** — étendre `smoke-gnome-settings-interactions.mjs` pour chaque nouveau contrôle (dataset + `localStorage` après reload).
-3. **UI gcc réelle** — si `ydotool` ou AT-SPI devient disponible, remplacer `gsettings set` par clic UI dans le playbook interaction (même matrice, autre driver).
-4. **CI** — intégrer `run-gnome-settings-lab.mjs` dans la pipeline de validation du skin Rocky.
+1. **Enquête visuelle** — compléter l’inventaire §10 pour chaque contrôle P0/P1 de la matrice visuelle.
+2. **Passe gsettings approfondie** — reprendre les écarts `gsettingsDeferred` de l’enquête (schémas secondaires, clés liées, synchronisation QS ↔ Paramètres).
+3. **Propagation** — baseline + parity sur Fedora / Alma (même toolkit GNOME).
+4. **Playwright** — étendre `smoke-gsettings-snapshot.mjs` / interactions pour datasets visuels après reload.
+5. **UI gcc réelle** — si `ydotool` ou AT-SPI devient disponible, remplacer `gsettings set` par clic UI dans le playbook interaction.
+6. **CI** — intégrer `run-gnome-settings-lab.mjs` dans la pipeline de validation du skin Rocky.
+
+---
+
+## 10. Enquête visuelle, transitions et documentation officielle
+
+> **Objectif** : au-delà de la valeur `gsettings`, documenter **ce que l’utilisateur voit** (surfaces touchées, animations, délais) et **comment CapsuleOS doit le reproduire**, en croisant les constats VM avec la documentation GNOME officielle. Cette phase alimente la **passe gsettings approfondie** (clés secondaires, effets différés, schémas simulés).
+
+### 10.1 Quand l’exécuter
+
+| Moment | Action |
+|--------|--------|
+| Après playbook **interactions** (§ étape 5) | Les bascules sont connues ; on observe l’effet visuel |
+| Avant patch CSS/dataset CapsuleOS | Éviter d’implémenter « au feeling » |
+| Avant passe gsettings **approfondie** | L’enquête liste les clés à re-vérifier (`gsettingsDeferred`) |
+
+### 10.2 Grille d’enquête (matrice)
+
+Fichier : `root/tools/lab/gnome-settings-visual-investigation-matrix.json`
+
+Chaque entrée `investigations[]` décrit :
+
+| Champ | Rôle |
+|-------|------|
+| `controlId` | Aligné sur `gnome-settings-parity-matrix.json` |
+| `surfaces` | Zones UI impactées (bureau, QS, Aperçu, panneau gcc, …) |
+| `vmObservation` | Description factuelle sur la VM |
+| `transition` | Type, `durationMs`, easing, propriété animée |
+| `capsuleHook` | `dataset`, CSS, JS, événement custom |
+| `officialDocs[]` | URLs doc GNOME / freedesktop à confronter |
+| `investigationSteps[]` | Protocole de capture reproductible |
+| `parityPriority` | P0 / P1 / P2 |
+
+Étendre la matrice pour tout **nouveau contrôle** dont le handler parity modifie le shell au-delà du panneau Paramètres.
+
+### 10.3 Protocole de capture VM
+
+**Prérequis** : session graphique ouverte, gcc accessible, `gnome-screenshot` ou `import -window root` installé.
+
+Pour chaque contrôle de la matrice visuelle :
+
+1. **État initial** — capture `before.png` (bureau + surface cible si pertinent).
+2. **Bascule** — via gcc (ou `gsettings set` si EL10 sans clic UI) ; noter l’heure T0.
+3. **Transition** — captures `during-500ms.png`, `during-1500ms.png` si effet progressif (éclairage nocturne, Aperçu).
+4. **État stable** — capture `after.png` ; décrire delta vs `before`.
+5. **Surfaces multiples** — répéter pour QS, calendrier, Aperçu si `surfaces[]` le demande.
+6. **Restauration** — revenir à la valeur initiale (comme playbook interaction).
+
+**Chronométrage** : noter `durationMs` observé ; comparer à `transition.durationMs` de la matrice et à la doc (ex. gsd-color ~1000 ms pour Night Light).
+
+**Commandes utiles VM** :
+
+```bash
+# Capture plein écran
+gnome-screenshot -f /tmp/settings-inv-night-before.png
+
+# Notification test (panneau notifications)
+notify-send "CapsuleOS lab" "Test bannière"
+
+# Lister clés liées pendant l'observation
+gsettings monitor org.gnome.settings-daemon.plugins.color night-light-enabled
+```
+
+### 10.4 Protocole capture CapsuleOS (miroir)
+
+Sur l’hôte, serveur HTTP à la racine du dépôt :
+
+```bash
+python3 -m http.server 8765 --bind 127.0.0.1
+node root/tools/lab/capture-capsule-rocky.mjs   # si scène Paramètres déjà définie
+```
+
+Comparer avec [linux-rocky-comparaison-visuelle.md](inventaires/linux-rocky-comparaison-visuelle.md) et `compare-rocky-visual-pass.mjs`.
+
+**Playwright** (datasets après toggle) :
+
+```bash
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 \
+  node usr/lib/capsuleos/tools/lab/smoke-gsettings-snapshot.mjs
+```
+
+### 10.5 Croisement documentation officielle
+
+Pour chaque enquête, remplir `officialDocCrossCheck[]` dans le livrable :
+
+| Source | Usage |
+|--------|--------|
+| [GNOME Help](https://help.gnome.org/users/gnome-help/stable/) | Comportement utilisateur attendu |
+| [HIG](https://developer.gnome.org/hig/) | Patterns libadwaita, transitions UI apps |
+| [mutter.gnome.org](https://mutter.gnome.org/) | Workspaces, échelle, orientation |
+| [gnome-settings-daemon](https://gitlab.gnome.org/GNOME/gnome-settings-daemon) | Night Light, power, color plugins |
+| [gsettings-desktop-schemas](https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas) | Sémantique des clés |
+| [gnome-shell](https://gitlab.gnome.org/GNOME/gnome-shell) | DND, Aperçu, QS, search |
+| [reference-gnome-expert.md](reference-gnome-expert.md) | Synthèse CapsuleOS |
+
+**Règle** : si la doc contredit l’observation VM, **la VM prime** (ground truth) ; noter l’écart dans `delta` et la version GNOME.
+
+### 10.6 Implémentation CapsuleOS
+
+Chaîne cible :
+
+```
+toggle Paramètres → gnome-settings-parity.js → dataset documentElement
+  → gnome-shell-preferences.base.css (effet visuel)
+  → événements (capsule:dnd-changed, capsule:workspaces-config-changed, …)
+```
+
+| Type d’effet | Fichier prioritaire |
+|--------------|---------------------|
+| Filtre global bureau | `gnome-shell-preferences.base.css` |
+| Accent / thème | `capsule-theme-storage.js`, tokens Rocky |
+| Aperçu / recherche | `overview.js`, `gnome-workspaces.js` |
+| Tuiles QS | `volume.js`, datasets + CSS QS |
+
+**Transitions CSS** : privilégier les variables existantes (`--eas2`, `--ease`) ; documenter si la VM utilise une courbe non reproduite (ex. spring Shell → approximer `cubic-bezier`).
+
+### 10.7 Livrable inventaire
+
+Copier le modèle :
+
+`root/docs/inventaires/_template-gnome-settings-visual-investigation.json`
+
+Vers :
+
+`root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json`
+
+Et résumé Markdown optionnel `*-gnome-settings-visual-investigation.md` (tableau contrôle / match visuel / écart / priorité).
+
+Champs clés par investigation :
+
+- `vmCaptures[]` — chemins PNG horodatés
+- `transitionObserved` — mesures réelles
+- `officialDocCrossCheck[]` — `matchesObservation`, `delta`
+- `capsuleParity.visualMatch` — `match` | `partial` | `gap`
+- `gsettingsDeferred` — notes pour la **passe gsettings approfondie** (clés à revisiter)
+
+### 10.8 Checklist enquête (par contrôle)
+
+- [ ] `investigationSteps` de la matrice exécutés sur VM
+- [ ] Captures before / during / after archivées
+- [ ] `transitionObserved.durationMs` renseigné (ou `instant` / `delayed` confirmé)
+- [ ] Au moins une URL doc officielle lue et citée
+- [ ] `capsuleHook` vérifié dans le dépôt (smoke matrice visuelle vert)
+- [ ] Écart classé P0/P1/P2 dans `capsuleParity`
+- [ ] Entrée `gsettingsDeferred` si la clé gsettings actuelle ne suffit pas
+
+### 10.9 Vers la passe gsettings approfondie
+
+L’enquête visuelle **ne remplace pas** gsettings ; elle **priorise** la prochaine itération :
+
+| Signal enquête | Action gsettings suivante |
+|----------------|---------------------------|
+| Effet différé (extinction écran) | Valider timeout + type `sleep-inactive-ac-type` |
+| DND + QS + calendrier | Consolider schéma simulé / session shell |
+| Night Light exclut top bar | Vérifier si une clé gsettings existe ; sinon CSS ciblé |
+| Thème + fond jour/nuit liés | Lier `picture-uri` / `picture-uri-dark` / `color-scheme` |
+| Recherche overview | Parser fin `disabled[]` providers |
+
+Commandes passe approfondie (après enquête) :
+
+```bash
+node usr/lib/capsuleos/tools/lab/compare-playbook-gsettings-capsule.mjs --registry linux-rocky --strict
+node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --vm --id linux-rocky
+```
+
+---
+
+## 11. Commandes rapides (aide-mémoire)
+
+```bash
+# Lab complet
+node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 \
+  node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --playwright
+
+# Playbooks VM
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-interaction.mjs --id linux-rocky
+
+# Enquête visuelle
+node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
+# Inventaire : root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
+
+# Passe gsettings approfondie (après enquête)
+node usr/lib/capsuleos/tools/lab/compare-playbook-gsettings-capsule.mjs --registry linux-rocky --strict
+node usr/lib/capsuleos/tools/lab/generate-gsettings-bindings.mjs
+node usr/lib/capsuleos/tools/lab/smoke-gsettings-snapshot.mjs
+
+# Baseline + embed
+node usr/lib/capsuleos/tools/lab/generate-vm-settings-baseline.mjs --registry linux-rocky
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
+```

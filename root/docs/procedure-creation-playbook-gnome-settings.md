@@ -630,6 +630,7 @@ node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 
 # Passe gsettings approfondie (après enquête)
 node usr/lib/capsuleos/tools/lab/compare-playbook-gsettings-capsule.mjs --registry linux-rocky --strict
+node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-gsettings-pass.mjs --id linux-rocky
 node usr/lib/capsuleos/tools/lab/generate-gsettings-bindings.mjs
 node usr/lib/capsuleos/tools/lab/smoke-gsettings-snapshot.mjs
 

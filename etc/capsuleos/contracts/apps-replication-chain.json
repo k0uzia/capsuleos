@@ -42,6 +42,7 @@
       "smoke-apps-interactions.mjs",
       "smoke-apps-snapshot.mjs",
       "smoke-gnome-nautilus-routing.mjs",
+      "smoke-gnome-nautilus-interactions.mjs",
       "smoke-rocky-overview-search-icons.mjs",
       "smoke-window-resize-left.mjs"
     ],

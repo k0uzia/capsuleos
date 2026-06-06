@@ -62,6 +62,7 @@ if (withPlaywright) {
   run('smoke-apps-interactions.mjs', ['--id', registry]);
   run('smoke-apps-snapshot.mjs', ['--id', registry]);
   run('smoke-gnome-nautilus-routing.mjs');
+  run('smoke-gnome-nautilus-interactions.mjs');
   if (registry === 'linux-rocky') {
     run('smoke-rocky-overview-search-icons.mjs');
     run('smoke-window-resize-left.mjs');

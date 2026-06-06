@@ -38,6 +38,19 @@
                     if (typeof global.openWindowByDataLink === 'function') {
                         global.openWindowByDataLink('nemo');
                     }
+                    const scheduleCreate = () => {
+                        const root = typeof global.getFileExplorerRoot === 'function'
+                            ? global.getFileExplorerRoot()
+                            : (global.CAPSULE_CONTENT_ROOT || 'home/public').replace(/\/+$/, '');
+                        const bureauPath = `${root}/Bureau`;
+                        if (typeof global.navigateToFileExplorerDirectory === 'function') {
+                            global.navigateToFileExplorerDirectory(bureauPath, { updateHistory: true });
+                        }
+                        if (typeof global.createNewFolderInCurrentDirectory === 'function') {
+                            global.createNewFolderInCurrentDirectory();
+                        }
+                    };
+                    global.setTimeout(scheduleCreate, 600);
                     return;
                 }
                 if (action === 'display-settings') {

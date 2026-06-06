@@ -35,12 +35,14 @@
             family: 'nautilus',
             shellRelative: 'nautilus/shell-gnome.html',
             cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css'],
+            loadNautilusExtension: true,
             displayNameDefault: 'Fichiers'
         },
         'nemo-gnome': {
             family: 'nautilus',
             shellRelative: 'nautilus/shell-gnome.html',
             cssBaseStack: ['nemo/base.css', 'nautilus/header-gnome.css'],
+            loadNautilusExtension: true,
             displayNameDefault: 'Fichiers'
         },
         'nemo-cosmic': {

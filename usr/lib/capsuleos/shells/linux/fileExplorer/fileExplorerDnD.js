@@ -40,7 +40,7 @@
                 'Documents': `${rootPath}/Documents`,
                 'Musique': `${rootPath}/Musique`,
                 'Images': `${rootPath}/Images`,
-                'Vidéos': `${rootPath}/Videos`,
+                'Vidéos': `${rootPath}/Vidéos`,
                 'Téléchargements': `${rootPath}/Téléchargements`,
             };
             const key = sidebarLink.getAttribute('data-link');
@@ -178,7 +178,7 @@
         bindDraggableItems(root);
         root.querySelectorAll('.nemoElement, .nemo-app__content-grid').forEach(bindDropZone);
         root.querySelectorAll('a[data-item-type="folder"]').forEach(bindDropZone);
-        root.querySelectorAll('.dolphin-sidebar__link[data-link]').forEach((link) => {
+        root.querySelectorAll('.dolphin-sidebar__link[data-link], .nemo-app__sidebar a[data-link]').forEach((link) => {
             bindDropZone(link);
         });
 
@@ -186,6 +186,9 @@
             syncDropFolderPaths(root);
             bindDraggableItems(root);
             root.querySelectorAll('.nemoElement, .nemo-app__content-grid').forEach(bindDropZone);
+            root.querySelectorAll('.dolphin-sidebar__link[data-link], .nemo-app__sidebar a[data-link]').forEach((link) => {
+                bindDropZone(link);
+            });
         });
         observer.observe(root, { childList: true, subtree: true });
 

@@ -92,6 +92,7 @@
                         </div>
                 </section>
         </header>
+        <div class="nautilus-app__tabstrip" id="nautilus-tabstrip" role="tablist" aria-label="Onglets"></div>
         <div id="nemoMainContainer" class="nemo-app__main nautilus-app__split-body">
                 <aside id="voletnemo" class="nemo-app__sidebar nemo-app__sidebar--gnome nautilus-app__places">
                         <div class="nemo-app__sidebar-places">
@@ -99,12 +100,14 @@
                                         title="Dossier personnel"><img
                                                 src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
                                                 alt="">Dossier personnel</a>
-                                <a href="#" title="Récents"><img src="./assets/icons/cinnamon/nemo/recent.svg" alt="">Récents</a>
-                                <a href="#" title="Favoris"><img src="./assets/icons/cinnamon/nemo/starred-symbolic.svg" alt="">Favoris</a>
-                                <a href="#" title="Réseau"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg" alt="">Réseau</a>
-                                <a href="#" title="Corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
+                                <a data-link="Récent" title="Récents"><img src="./assets/icons/cinnamon/nemo/recent.svg" alt="">Récents</a>
+                                <a data-link="Favoris" title="Favoris"><img src="./assets/icons/cinnamon/nemo/starred-symbolic.svg" alt="">Favoris</a>
+                                <a data-link="Réseau" title="Réseau"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg" alt="">Réseau</a>
+                                <a data-link="Corbeille" title="Corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
                         </div>
                         <div class="nemo-app__sidebar-xdg">
+                                <a data-link="Bureau" title="Bureau"><img
+                                                src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg" alt="">Bureau</a>
                                 <a data-link="Documents" title="Documents"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg" alt="">Documents</a>
                                 <a data-link="Musique" title="Musique"><img
@@ -129,4 +132,34 @@
                         </footer>
                 </div>
         </div>
+        <dialog id="nemo-properties-dialog" class="nautilus-properties-dialog" aria-labelledby="nemo-properties-title">
+                <form method="dialog" class="nautilus-properties-dialog__panel">
+                        <header class="nautilus-properties-dialog__header">
+                                <h2 id="nemo-properties-title">Propriétés</h2>
+                                <button type="submit" class="nautilus-properties-dialog__close" value="close">Fermer</button>
+                        </header>
+                        <div class="nautilus-properties-dialog__body">
+                                <dl>
+                                        <dt>Nom</dt>
+                                        <dd id="nemo-properties-name">—</dd>
+                                        <dt>Type</dt>
+                                        <dd id="nemo-properties-type">—</dd>
+                                        <dt>Emplacement</dt>
+                                        <dd id="nemo-properties-location">—</dd>
+                                        <dt>Contenu</dt>
+                                        <dd id="nemo-properties-size">—</dd>
+                                        <dt>Modifié</dt>
+                                        <dd id="nemo-properties-modified">—</dd>
+                                </dl>
+                        </div>
+                </form>
+        </dialog>
+        <nav id="nemo-context-menu" class="nautilus-context-menu" role="menu" aria-label="Menu contextuel Fichiers" hidden>
+                <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="open" hidden>Ouvrir</button>
+                <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="new-folder">Nouveau dossier</button>
+                <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="refresh">Actualiser</button>
+                <div class="nautilus-context-menu__separator" role="separator"></div>
+                <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="toggle-hidden">Afficher les fichiers cachés</button>
+                <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="properties">Propriétés</button>
+        </nav>
 </main>

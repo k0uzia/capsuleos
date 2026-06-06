@@ -88,10 +88,10 @@
       "gccArgv": ["search"],
       "titleHints": ["Recherche", "Search"],
       "controls": [
-        { "id": "search-history", "type": "switch", "capsuleKey": "gnome-search-history", "schema": "org.gnome.desktop.search-providers", "key": "disabled", "map": "searchProvidersInverted" },
-        { "id": "search-files", "type": "switch", "capsuleKey": "gnome-search-files", "source": "provider", "note": "Nautilus provider dans disabled[]" },
+        { "id": "search-history", "type": "switch", "capsuleKey": "gnome-search-history", "schema": "org.gnome.desktop.search-providers", "key": "disabled", "map": "searchProviderToggle", "providerId": "org.gnome.History" },
+        { "id": "search-files", "type": "switch", "capsuleKey": "gnome-search-files", "schema": "org.gnome.desktop.search-providers", "key": "disabled", "map": "searchProviderToggle", "providerId": "org.gnome.Nautilus" },
         { "id": "search-apps", "type": "switch", "capsuleKey": "gnome-search-apps", "source": "simulated", "note": "Shell apps toujours actif" },
-        { "id": "search-calculator", "type": "switch", "capsuleKey": "gnome-search-calculator", "source": "provider" }
+        { "id": "search-calculator", "type": "switch", "capsuleKey": "gnome-search-calculator", "schema": "org.gnome.desktop.search-providers", "key": "disabled", "map": "searchProviderToggle", "providerId": "org.gnome.Calculator" }
       ],
       "gsettings": [
         ["org.gnome.desktop.search-providers", "disabled"]

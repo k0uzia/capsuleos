@@ -33,10 +33,12 @@ function run(script, extraArgs = []) {
   }
 }
 
+run('generate-gsettings-bindings.mjs');
 run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
 run('smoke-gnome-settings-playbook.mjs');
 run('smoke-gnome-settings-interaction-playbook.mjs');
 run('smoke-gnome-settings-interactions.mjs');
+run('smoke-gsettings-mappers.mjs');
 run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
 run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
 
@@ -51,6 +53,7 @@ if (withPlaywright) {
 if (withVm) {
   run('collect-vm-gnome-settings-playbook.mjs', ['--id', registry]);
   run('collect-vm-gnome-settings-interaction.mjs', ['--id', registry]);
+  run('generate-gsettings-bindings.mjs');
   run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
   run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
 }

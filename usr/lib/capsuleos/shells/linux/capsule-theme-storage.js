@@ -107,14 +107,67 @@
         return 'gnome-wallpaper';
     }
 
-    function readSavedWallpaper() {
-        return global.localStorage.getItem(getWallpaperStorageKey()) || 'gemstone-skies';
+    function resolveWallpaperIdFromUri(uri) {
+        const file = String(uri || '').split('/').pop() || '';
+        const catalog = getWallpaperCatalog(bodyId());
+        for (const entry of catalog) {
+            if (file.includes(entry.id)) {
+                return entry.id;
+            }
+            const paths = [entry.dark, entry.light].filter(Boolean);
+            if (paths.some((relPath) => file && relPath.endsWith(file))) {
+                return entry.id;
+            }
+        }
+        if (file.includes('abstract-1')) {
+            return 'abstract-1';
+        }
+        if (file.includes('abstract-2')) {
+            return 'abstract-2';
+        }
+        if (file.includes('sapphire')) {
+            return 'sapphire';
+        }
+        if (file.includes('gemstone')) {
+            return 'gemstone-skies';
+        }
+        return null;
     }
 
-    function persistWallpaper(wallpaperId) {
-        if (wallpaperId) {
-            global.localStorage.setItem(getWallpaperStorageKey(), wallpaperId);
+    function wallpaperIdToGsettingsUri(wallpaperId, skinId) {
+        const entry = findWallpaperEntry(wallpaperId, skinId);
+        const theme = global.document && global.document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        const rel = entry.type === 'color' ? '' : (theme === 'light' ? entry.light : entry.dark);
+        if (!rel) {
+            return `file:///usr/share/backgrounds/rocky-default-10-${wallpaperId}-day.png`;
         }
+        const file = rel.split('/').pop();
+        return `file:///usr/share/backgrounds/${file}`;
+    }
+
+    function readSavedWallpaper() {
+        const key = getWallpaperStorageKey();
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            const uri = gs.getCapsule(key, null);
+            const mapped = resolveWallpaperIdFromUri(uri);
+            if (mapped) {
+                return mapped;
+            }
+        }
+        return global.localStorage.getItem(key) || 'gemstone-skies';
+    }
+
+    function persistWallpaper(wallpaperId, skinId) {
+        if (!wallpaperId) {
+            return wallpaperId;
+        }
+        const key = getWallpaperStorageKey();
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            gs.setCapsule(key, wallpaperIdToGsettingsUri(wallpaperId, skinId));
+        }
+        global.localStorage.setItem(key, wallpaperId);
         return wallpaperId;
     }
 
@@ -292,13 +345,13 @@
         const theme = global.document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
         const background = resolveWallpaperEntry(entry, theme);
         applyWallpaperBackground(background, entry.id);
-        persistWallpaper(entry.id);
+        persistWallpaper(entry.id, skinId);
         return entry.id;
     }
 
     function applyCustomWallpaper(objectUrl) {
         applyWallpaperBackground(`url("${objectUrl}")`, 'custom');
-        persistWallpaper('custom');
+        persistWallpaper('custom', bodyId());
         return 'custom';
     }
 

@@ -142,6 +142,9 @@ for (const wm of [
 if (!read('home/RedHat/Rocky/style/gnome-shell/tokens.css').includes('--rocky-watermark')) {
     errors.push('tokens.css : --rocky-watermark absent');
 }
+if (!indexHtml.includes('gnome-gsettings-bindings.js')) {
+    errors.push('index.html : gnome-gsettings-bindings.js absent');
+}
 if (!indexHtml.includes('gnome-gsettings-store.js')) {
     errors.push('index.html : gnome-gsettings-store.js absent');
 }

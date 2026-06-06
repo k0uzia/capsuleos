@@ -64,8 +64,16 @@ if (!parityJs.includes('cycleSelectById')) {
 if (!themesJs.includes('CapsuleGnomeSettingsParity')) {
     errors.push('themes.js : délégation vers CapsuleGnomeSettingsParity absente');
 }
+if (!rockyIndex.includes('gnome-gsettings-bindings.js')) {
+    errors.push('Rocky index.html : script gnome-gsettings-bindings.js absent');
+}
 if (!rockyIndex.includes('gnome-gsettings-store.js')) {
     errors.push('Rocky index.html : script gnome-gsettings-store.js absent');
+}
+const bindingsPos = rockyIndex.indexOf('gnome-gsettings-bindings.js');
+const storePos = rockyIndex.indexOf('gnome-gsettings-store.js');
+if (bindingsPos >= 0 && storePos >= 0 && bindingsPos > storePos) {
+    errors.push('Rocky index.html : gnome-gsettings-bindings.js doit précéder gnome-gsettings-store.js');
 }
 if (!rockyIndex.includes('gnome-settings-parity.js')) {
     errors.push('Rocky index.html : script gnome-settings-parity.js absent');

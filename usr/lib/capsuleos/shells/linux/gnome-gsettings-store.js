@@ -6,40 +6,37 @@
     'use strict';
 
     const STORAGE_PREFIX = 'gsettings::';
-    const MIGRATED_FLAG = 'gsettings::capsule-migrated-v1';
+    const MIGRATED_FLAG = 'gsettings::capsule-migrated-v2';
     const SEEDED_FLAG = 'gsettings::baseline-seeded-v1';
 
-    /** @type {Record<string, { controlId: string, schema: string, key: string, map: string }>} */
-    const BINDINGS_BY_CAPSULE_KEY = {
-        'mint-theme': { controlId: 'theme', schema: 'org.gnome.desktop.interface', key: 'color-scheme', map: 'colorScheme' },
-        'gnome-theme': { controlId: 'theme', schema: 'org.gnome.desktop.interface', key: 'color-scheme', map: 'colorScheme' },
-        'gnome-accent': { controlId: 'accent', schema: 'org.gnome.desktop.interface', key: 'accent-color', map: 'accentColor' },
-        'gnome-wallpaper': { controlId: 'wallpaper', schema: 'org.gnome.desktop.background', key: 'picture-uri', map: 'wallpaperUri' },
-        'gnome-notifications-enabled': { controlId: 'notifications', schema: 'org.gnome.desktop.notifications', key: 'show-banners', map: 'boolOnOff' },
-        'gnome-lock-notifications': { controlId: 'lock-notifications', schema: 'org.gnome.desktop.notifications', key: 'show-in-lock-screen', map: 'boolOnOff' },
-        'gnome-search-history': { controlId: 'search-history', schema: 'org.gnome.desktop.search-providers', key: 'disabled', map: 'searchProvidersInverted' },
-        'gnome-dynamic-workspaces': { controlId: 'dynamic-workspaces', schema: 'org.gnome.mutter', key: 'dynamic-workspaces', map: 'enabledLabelFr' },
-        'gnome-hot-corner': { controlId: 'hot-corner', schema: 'org.gnome.desktop.interface', key: 'enable-hot-corners', map: 'enabledLabelFr' },
-        'gnome-apps-all-workspaces': { controlId: 'apps-all-workspaces', schema: 'org.gnome.shell.app-switcher', key: 'current-workspace-only', map: 'workspaceOnlyInverted' },
-        'gnome-sound-alert': { controlId: 'sound-alert', schema: 'org.gnome.desktop.sound', key: 'theme-name', map: 'soundTheme' },
-        'gnome-power-dim-screen': { controlId: 'power-dim', schema: 'org.gnome.settings-daemon.plugins.power', key: 'sleep-inactive-ac-timeout', map: 'powerDimTimeout' },
-        'gnome-power-sleep': { controlId: 'power-sleep', schema: 'org.gnome.settings-daemon.plugins.power', key: 'sleep-inactive-ac-type', map: 'powerSleepType' },
-        'gnome-display-scale': { controlId: 'display-scale', schema: 'org.gnome.desktop.interface', key: 'text-scaling-factor', map: 'textScalingPercent' },
-        'gnome-night-light': { controlId: 'night-light', schema: 'org.gnome.settings-daemon.plugins.color', key: 'night-light-enabled', map: 'boolOnOff' },
-        'gnome-mouse-handedness': { controlId: 'mouse-handedness', schema: 'org.gnome.desktop.peripherals.mouse', key: 'left-handed', map: 'mouseHandedness' },
-        'gnome-pointer-speed': { controlId: 'pointer-speed', schema: 'org.gnome.desktop.peripherals.mouse', key: 'speed', map: 'pointerSpeedPercent' },
-        'gnome-touchpad-enabled': { controlId: 'touchpad', schema: 'org.gnome.desktop.peripherals.touchpad', key: 'send-events', map: 'touchpadEnabled' },
-        'gnome-tap-to-click': { controlId: 'tap-to-click', schema: 'org.gnome.desktop.peripherals.touchpad', key: 'tap-to-click', map: 'boolOnOff' },
-        'gnome-scroll-direction': { controlId: 'scroll-direction', schema: 'org.gnome.desktop.peripherals.touchpad', key: 'natural-scroll', map: 'scrollDirection' },
-        'gnome-keyboard-layout': { controlId: 'keyboard-layout', schema: 'org.gnome.desktop.input-sources', key: 'sources', map: 'keyboardLayoutFr' },
-        'gnome-keyboard-repeat-delay': { controlId: 'keyboard-repeat', schema: 'org.gnome.desktop.peripherals.keyboard', key: 'delay', map: 'keyboardDelayMs' },
-        'mint-contrast-mode': { controlId: 'contrast', schema: 'org.gnome.desktop.interface', key: 'gtk-theme', map: 'gtkHighContrast' },
-        'mint-font-scale': { controlId: 'font-scale', schema: 'org.gnome.desktop.interface', key: 'text-scaling-factor', map: 'fontScalePercent' },
-        'gnome-privacy-camera': { controlId: 'camera', schema: 'org.gnome.desktop.privacy', key: 'disable-camera', map: 'privacyInverted' },
-        'gnome-privacy-microphone': { controlId: 'microphone', schema: 'org.gnome.desktop.privacy', key: 'disable-microphone', map: 'privacyInverted' },
-        'gnome-auto-lock': { controlId: 'auto-lock', schema: 'org.gnome.desktop.screensaver', key: 'lock-enabled', map: 'boolOnOff' },
-        'gnome-lock-delay': { controlId: 'lock-delay', schema: 'org.gnome.desktop.screensaver', key: 'lock-delay', map: 'lockDelayFr' },
+    const SEARCH_SCHEMA = 'org.gnome.desktop.search-providers';
+    const SEARCH_KEY = 'disabled';
+
+    /** @type {Record<string, { controlId: string, schema: string, key: string, map: string, providerId?: string }>} */
+    const BINDINGS_BY_CAPSULE_KEY = global.CAPSULE_GSETTINGS_BINDINGS && typeof global.CAPSULE_GSETTINGS_BINDINGS === 'object'
+        ? global.CAPSULE_GSETTINGS_BINDINGS
+        : {};
+
+    const SECONDARY_RAW_SYNC = {
+        'org.gnome.desktop.background::picture-uri': {
+            key: 'picture-uri-dark',
+            derive(primaryRaw, capsuleValue) {
+                const uri = stripGvariant(primaryRaw || capsuleValue || '');
+                if (!uri) {
+                    return null;
+                }
+                if (uri.includes('-day.')) {
+                    return `'${uri.replace('-day.', '-night.')}'`;
+                }
+                if (uri.includes('-light.')) {
+                    return `'${uri.replace('-light.', '-night.')}'`;
+                }
+                return `'${uri}'`;
+            },
+        },
     };
+
+    const monitorListeners = new Set();
 
     function parseBool(raw) {
         const v = String(raw || '').trim().toLowerCase();
@@ -61,6 +58,46 @@
         }
         const digits = String(raw || '').replace(/[^\d]/g, '');
         return digits ? Number(digits) : 0;
+    }
+
+    function parseDisabledArray(raw) {
+        const trimmed = String(raw || '').trim();
+        if (!trimmed || trimmed === '@as []' || trimmed === '[]') {
+            return [];
+        }
+        const matches = trimmed.match(/'([^']+)'/g);
+        return matches ? matches.map((entry) => entry.slice(1, -1)) : [];
+    }
+
+    function formatDisabledArray(ids) {
+        if (!ids.length) {
+            return '@as []';
+        }
+        return `@as [${ids.map((id) => `'${id}'`).join(', ')}]`;
+    }
+
+    function isSearchProviderBinding(binding) {
+        return binding && binding.map === 'searchProviderToggle' && binding.providerId;
+    }
+
+    function getSearchProviderRaw(binding) {
+        return getRaw(binding.schema, binding.key) || '@as []';
+    }
+
+    function getSearchProviderOn(binding) {
+        const disabled = parseDisabledArray(getSearchProviderRaw(binding));
+        return !disabled.includes(binding.providerId);
+    }
+
+    function setSearchProviderOn(binding, on) {
+        let disabled = parseDisabledArray(getSearchProviderRaw(binding));
+        if (on) {
+            disabled = disabled.filter((id) => id !== binding.providerId);
+        } else if (!disabled.includes(binding.providerId)) {
+            disabled.push(binding.providerId);
+        }
+        disabled.sort();
+        setRaw(binding.schema, binding.key, formatDisabledArray(disabled));
     }
 
     const MAPS = {
@@ -283,15 +320,6 @@
                 return "[('xkb', 'us')]";
             },
         },
-        searchProvidersInverted: {
-            toCapsule(raw) {
-                const empty = String(raw).trim() === '[]' || String(raw).trim() === '@as []';
-                return empty ? 'on' : 'off';
-            },
-            fromCapsule(capsule) {
-                return capsule === 'on' ? '@as []' : "@as ['org.gnome.Settings']";
-            },
-        },
         gtkHighContrast: {
             toCapsule(raw) {
                 const theme = stripGvariant(raw).toLowerCase().replace(/[-_]/g, '');
@@ -307,10 +335,10 @@
             },
             fromCapsule(capsule) {
                 if (String(capsule).startsWith('file://') || String(capsule).startsWith('/')) {
-                    const path = String(capsule).startsWith('file://') ? capsule : `file://${capsule}`;
-                    return `'${path}'`;
+                    const pathValue = String(capsule).startsWith('file://') ? capsule : `file://${capsule}`;
+                    return `'${pathValue}'`;
                 }
-                return `'file:///usr/share/backgrounds/${capsule}.png'`;
+                return `'file:///usr/share/backgrounds/rocky-default-10-${capsule}-day.png'`;
             },
         },
     };
@@ -325,17 +353,49 @@
         }
     }
 
+    function notifyMonitors(schema, key, raw, previous) {
+        monitorListeners.forEach((listener) => {
+            if (listener.schema === schema && listener.key === key) {
+                listener.fn({ schema, key, value: raw, previous });
+            }
+        });
+    }
+
+    function syncSecondaryRaw(schema, key, raw, capsuleValue) {
+        const pair = `${schema}::${key}`;
+        const rule = SECONDARY_RAW_SYNC[pair];
+        if (!rule) {
+            return;
+        }
+        const derived = rule.derive(raw, capsuleValue);
+        if (derived != null) {
+            setRaw(schema, rule.key, derived, { skipSecondary: true });
+        }
+    }
+
     function getRaw(schema, key) {
         return global.localStorage.getItem(storageKey(schema, key));
     }
 
-    function setRaw(schema, key, raw) {
+    function setRaw(schema, key, raw, options) {
         const prev = getRaw(schema, key);
         global.localStorage.setItem(storageKey(schema, key), raw);
         if (prev !== raw) {
             dispatch('capsule:gsettings-changed', { schema, key, value: raw, previous: prev });
+            notifyMonitors(schema, key, raw, prev);
+        }
+        if (!options || !options.skipSecondary) {
+            syncSecondaryRaw(schema, key, raw, options && options.capsuleValue);
         }
         return raw;
+    }
+
+    function get(schema, key) {
+        return getRaw(schema, key);
+    }
+
+    function set(schema, key, raw) {
+        return setRaw(schema, key, raw);
     }
 
     function hasBinding(capsuleKey) {
@@ -369,10 +429,6 @@
                 global.localStorage.setItem(themeKey, capsuleValue);
             }
         }
-        if (capsuleValue === 'on' || capsuleValue === 'off') {
-            global.localStorage.setItem(capsuleKey, capsuleValue);
-            return;
-        }
         global.localStorage.setItem(capsuleKey, capsuleValue);
     }
 
@@ -381,6 +437,9 @@
         if (!binding) {
             const legacy = global.localStorage.getItem(capsuleKey);
             return legacy != null && legacy !== '' ? legacy : fallback;
+        }
+        if (isSearchProviderBinding(binding)) {
+            return getSearchProviderOn(binding) ? 'on' : 'off';
         }
         let raw = getRaw(binding.schema, binding.key);
         if (raw == null || raw === '') {
@@ -406,13 +465,19 @@
         if (!binding) {
             return capsuleValue;
         }
+        if (isSearchProviderBinding(binding)) {
+            setSearchProviderOn(binding, capsuleValue === 'on');
+            dispatch('capsule:search-providers-changed', { capsuleKey, enabled: capsuleValue === 'on' });
+            return capsuleValue;
+        }
         const mapper = MAPS[binding.map];
         const raw = mapper && typeof mapper.fromCapsule === 'function'
             ? mapper.fromCapsule(capsuleValue)
             : String(capsuleValue);
-        setRaw(binding.schema, binding.key, raw);
+        setRaw(binding.schema, binding.key, raw, { capsuleValue });
         if (capsuleKey === 'gnome-sound-alert') {
-            setRaw('org.gnome.desktop.sound', 'event-sounds', capsuleValue === 'Aucun' ? 'false' : 'true');
+            setRaw('org.gnome.desktop.sound', 'event-sounds', capsuleValue === 'Aucun' ? 'false' : 'true', { skipSecondary: true });
+            mirrorLegacy('gnome-event-sounds', capsuleValue === 'Aucun' ? 'off' : 'on');
         }
         return capsuleValue;
     }
@@ -432,14 +497,20 @@
         return setCapsule(capsuleKey, on ? 'on' : 'off');
     }
 
+    function onChanged(schema, key, fn) {
+        const listener = { schema, key, fn };
+        monitorListeners.add(listener);
+        return () => monitorListeners.delete(listener);
+    }
+
     function listSchema(schema) {
         const prefix = `${STORAGE_PREFIX}${schema}::`;
         const out = {};
         for (let i = 0; i < global.localStorage.length; i += 1) {
             const k = global.localStorage.key(i);
             if (k && k.startsWith(prefix)) {
-                const key = k.slice(prefix.length);
-                out[key] = global.localStorage.getItem(k);
+                const itemKey = k.slice(prefix.length);
+                out[itemKey] = global.localStorage.getItem(k);
             }
         }
         return out;
@@ -447,13 +518,22 @@
 
     function exportSnapshot() {
         const out = {};
+        const seen = new Set();
         Object.values(BINDINGS_BY_CAPSULE_KEY).forEach((binding) => {
             const pair = `${binding.schema}::${binding.key}`;
+            if (seen.has(pair)) {
+                return;
+            }
+            seen.add(pair);
             const raw = getRaw(binding.schema, binding.key);
             if (raw != null) {
                 out[pair] = raw;
             }
         });
+        const darkUri = getRaw('org.gnome.desktop.background', 'picture-uri-dark');
+        if (darkUri != null) {
+            out['org.gnome.desktop.background::picture-uri-dark'] = darkUri;
+        }
         return out;
     }
 
@@ -466,7 +546,24 @@
             if (idx < 1) {
                 return;
             }
-            setRaw(pair.slice(0, idx), pair.slice(idx + 2), String(raw));
+            setRaw(pair.slice(0, idx), pair.slice(idx + 2), String(raw), { skipSecondary: pair.includes('picture-uri-dark') });
+        });
+    }
+
+    function importFromVmPlaybook(playbook) {
+        const panels = playbook && playbook.panels ? playbook.panels : [];
+        panels.forEach((panel) => {
+            const snapshot = panel.gsettingsAfter || panel.gsettingsBefore;
+            if (!snapshot || typeof snapshot !== 'object') {
+                return;
+            }
+            Object.entries(snapshot).forEach(([pair, raw]) => {
+                const idx = pair.indexOf('::');
+                if (idx < 1 || raw == null) {
+                    return;
+                }
+                setRaw(pair.slice(0, idx), pair.slice(idx + 2), String(raw), { skipSecondary: true });
+            });
         });
     }
 
@@ -474,12 +571,21 @@
         if (global.localStorage.getItem(MIGRATED_FLAG) === '1') {
             return;
         }
+        global.localStorage.removeItem('gsettings::capsule-migrated-v1');
         Object.keys(BINDINGS_BY_CAPSULE_KEY).forEach((capsuleKey) => {
+            const binding = BINDINGS_BY_CAPSULE_KEY[capsuleKey];
+            if (isSearchProviderBinding(binding)) {
+                const legacy = global.localStorage.getItem(capsuleKey);
+                if (legacy === 'on' || legacy === 'off') {
+                    setSearchProviderOn(binding, legacy === 'on');
+                }
+                return;
+            }
             const legacy = global.localStorage.getItem(capsuleKey);
             if (legacy == null || legacy === '') {
                 return;
             }
-            if (getRaw(BINDINGS_BY_CAPSULE_KEY[capsuleKey].schema, BINDINGS_BY_CAPSULE_KEY[capsuleKey].key)) {
+            if (getRaw(binding.schema, binding.key)) {
                 return;
             }
             const capsule = legacyToCapsule(capsuleKey, legacy);
@@ -511,6 +617,12 @@
     }
 
     function init() {
+        if (!Object.keys(BINDINGS_BY_CAPSULE_KEY).length) {
+            if (typeof global.console !== 'undefined' && global.console.warn) {
+                global.console.warn('CapsuleGnomeGSettings: CAPSULE_GSETTINGS_BINDINGS absent — charger gnome-gsettings-bindings.js avant le store.');
+            }
+            return;
+        }
         migrateLegacyStorage();
         seedFromVmBaseline();
     }
@@ -518,17 +630,25 @@
     global.CapsuleGnomeGSettings = {
         BINDINGS_BY_CAPSULE_KEY,
         MAPS,
+        SEARCH_SCHEMA,
+        SEARCH_KEY,
         hasBinding,
         getBinding,
+        get,
+        set,
         getRaw,
         setRaw,
         getCapsule,
         setCapsule,
         getBool,
         setBool,
+        onChanged,
         listSchema,
         exportSnapshot,
         importSnapshot,
+        importFromVmPlaybook,
+        parseDisabledArray,
+        formatDisabledArray,
         init,
         storageKey,
     };

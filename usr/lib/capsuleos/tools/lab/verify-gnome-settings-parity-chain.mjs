@@ -26,6 +26,7 @@ const registry = 'linux-rocky';
 const matrix = JSON.parse(read('root/tools/lab/gnome-settings-parity-matrix.json') || '{}');
 const parityJs = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const gsettingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js');
+const bindingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js');
 const themesHtml = read('usr/share/capsuleos/linux/apps/themes_gnome.html');
 const rockyIndex = read('home/RedHat/Rocky/index.html');
 const baselineJs = read(`usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-${registry}.js`);
@@ -62,23 +63,66 @@ if (!parityJs.includes('CapsuleGnomeGSettings')) {
 if (!gsettingsJs.includes('CapsuleGnomeGSettings')) {
   errors.push('gnome-gsettings-store.js : API CapsuleGnomeGSettings absente');
 }
+if (!gsettingsJs.includes('onChanged')) {
+  errors.push('gnome-gsettings-store.js : API onChanged absente');
+}
+if (!gsettingsJs.includes('searchProviderToggle')) {
+  errors.push('gnome-gsettings-store.js : gestion search providers absente');
+}
+if (!bindingsJs.includes('CAPSULE_GSETTINGS_BINDINGS')) {
+  errors.push('gnome-gsettings-bindings.js : CAPSULE_GSETTINGS_BINDINGS absent');
+}
+if (!rockyIndex.includes('gnome-gsettings-bindings.js')) {
+  errors.push('Rocky index : gnome-gsettings-bindings.js absent');
+}
 if (!rockyIndex.includes('gnome-gsettings-store.js')) {
   errors.push('Rocky index : gnome-gsettings-store.js absent');
 }
+const bindingsPos = rockyIndex.indexOf('gnome-gsettings-bindings.js');
 const gsettingsPos = rockyIndex.indexOf('gnome-gsettings-store.js');
 const parityPos = rockyIndex.indexOf('gnome-settings-parity.js');
+if (bindingsPos >= 0 && gsettingsPos >= 0 && bindingsPos > gsettingsPos) {
+  errors.push('Rocky index : gnome-gsettings-bindings.js doit précéder gnome-gsettings-store.js');
+}
 if (gsettingsPos >= 0 && parityPos >= 0 && gsettingsPos > parityPos) {
   errors.push('Rocky index : gnome-gsettings-store.js doit précéder gnome-settings-parity.js');
+}
+
+let generatedBindings = {};
+const bindingsMatch = bindingsJs.match(/CAPSULE_GSETTINGS_BINDINGS = (\{[\s\S]*?\});/);
+if (bindingsMatch) {
+  generatedBindings = JSON.parse(bindingsMatch[1]);
 }
 
 for (const panel of matrix.panels || []) {
   for (const ctrl of panel.controls || []) {
     if (!ctrl.schema || !ctrl.key || !ctrl.capsuleKey) continue;
     if (ctrl.map === 'volumeStepNote') continue;
-    const needle = `'${ctrl.capsuleKey}':`;
-    if (!gsettingsJs.includes(needle)) {
-      errors.push(`gsettings-store : binding absent pour ${ctrl.capsuleKey} (${ctrl.schema}::${ctrl.key})`);
+    const entry = generatedBindings[ctrl.capsuleKey];
+    if (!entry) {
+      errors.push(`gsettings-bindings : absent pour ${ctrl.capsuleKey} (${ctrl.schema}::${ctrl.key})`);
+      continue;
     }
+    if (entry.schema !== ctrl.schema || entry.key !== ctrl.key || entry.map !== ctrl.map) {
+      errors.push(`gsettings-bindings : dérive ${ctrl.capsuleKey} (${entry.schema}::${entry.key}/${entry.map})`);
+    }
+    if (ctrl.providerId && entry.providerId !== ctrl.providerId) {
+      errors.push(`gsettings-bindings : providerId dérive ${ctrl.capsuleKey}`);
+    }
+  }
+}
+
+const GNOME_INDEX_PATHS = [
+  'home/RedHat/Rocky/index.html',
+  'home/RedHat/Fedora/index.html',
+  'home/RedHat/Alma/index.html',
+  'home/Debian/Ubuntu/index.html',
+  'home/Debian/AnduinOS/index.html',
+];
+for (const rel of GNOME_INDEX_PATHS) {
+  const html = read(rel);
+  if (!html.includes('gnome-gsettings-bindings.js')) {
+    errors.push(`${rel} : gnome-gsettings-bindings.js absent`);
   }
 }
 

@@ -27,6 +27,35 @@
 | Recherche Aperçu | Shell search | `overview.js` + `CapsuleAppSearch` | P1 |
 | Quick Settings | Volume, réseau, thème | `volume-popover` · Paramètres → `themes` · Capture → `screenshot` | OK |
 | Extension fond | background-logo (fedora watermark) | `::after` bureau + carte Aperçu | OK |
+| Chrome fenêtre | Bordures Adwaita clair/sombre | `window-chrome.gnome.base.css` · tokens `--capsule-chrome-*` | OK |
+| CSD libadwaita apps | Headerbar + ombre | `gnome-app-csd.base.css` · provider `libadwaita-gnome` | OK |
+
+---
+
+## Paramètres GNOME (`themes`)
+
+> Modèle pédagogique aligné sur [SUSE SLED 15 SP7 — Customizing your settings](https://documentation.suse.com/sled/15-SP7/html/SLED-all/cha-gnome-settings.html). Parité fonctionnelle RL10 conservée sur **Apparence** (schéma clair/sombre Capsule).
+
+| Panneau SUSE | Slot / ID | Contenu CapsuleOS | Fonctionnel | Statut |
+|--------------|-----------|-------------------|-------------|--------|
+| Wi-Fi | `wifi` | État vide réseau | Non | OK (entrée Aperçu) |
+| Bluetooth §3.5 | `bluetooth` | Interrupteur + liste vide | Toggle visuel | OK |
+| Apparence (RL10) | `appearance` | Style, accent, schéma, contraste, taille texte | **Oui** (thème Capsule) | OK |
+| Arrière-plan §3.1 | `background` | Onglets + grille fonds + « Ajouter une image » | Sélection visuelle | OK |
+| Région et langue §3.2 | `region` | Langue / Formats compte + connexion | Statique | OK |
+| Clavier §3.3 | `keyboard` | Disposition + lien raccourcis | Statique | OK |
+| Souris §3.7 | `mouse` | Bouton principal, vitesse, défilement | Statique | OK |
+| Son §3.10 | `sound` | Sortie, volume, balance, alerte | Volume curseur | OK |
+| Écrans §3.9 | `displays` | Orientation, résolution, échelle, Night Light | Toggle visuel | OK |
+| Alimentation §3.6 | `power` | Extinction écran, veille | Statique | OK |
+| Imprimantes §3.8 | `printers` | État vide CUPS | Statique | OK |
+| Apps par défaut §3.11 | `default-apps` | Web, mail, calendrier, médias… | Statique | OK |
+| Partage §3.12 | `sharing` | Interrupteur global + SSH distant | Toggle visuel | OK |
+| À propos de | `about` | Rocky Linux 10 · GNOME 47 | Statique | OK |
+
+**Ouverture contextuelle** : Aperçu → `wifi` · Quick Settings (engrenage) → `appearance` · menu bureau « Paramètres d'affichage » → `displays`.
+
+Gabarit : `themes_gnome.html` · JS : `themes.js` (`setCapsuleSettingsPanel`, navigation sidebar).
 
 ---
 
@@ -37,6 +66,8 @@
 | `nemo` (Fichiers) | Nautilus | running OK | running OK, **active fragile** | P1 Wayland |
 | `firefox` | Firefox | OK | OK | OK |
 | `terminal` | Ptyxis | OK | running OK, **active fragile** | P1 Wayland |
+
+**Passe lab 2026-06-04 (Paramètres SUSE)** : refonte totale slot `themes` — 13 panneaux sidebar, composants switch/slider/onglets, Apparence fonctionnelle · chromes adaptatifs clair/sombre · `validate-all` + `smoke-rocky-gnome-ref` OK · commit `bba875a`.
 
 **Passe lab 2026-06-06 (suite)** : captures Capsule étendues (12 PNG : Aperçu, QS, Loupe, Papers) · rapport visuel enrichi · virsh indisponible sur hôte → audit VM.
 
@@ -68,7 +99,7 @@ Référence slots : [`linux-gnome-capsule-slots.md`](inventaires/linux-gnome-cap
 | Calculator | `calculator` | ✓ | overview | P1 |
 | Calendar | `calendar` | ✓ (dash) | ✓ | OK |
 | Clocks | `clocks` | décoratif VM | overview | OK |
-| Settings | `themes` | via grille | ✓ | OK |
+| Settings (gnome-control-center) | `themes` | via grille + QS + menu bureau | ✓ 13 panneaux SUSE | OK |
 | LibreOffice Writer | `librewriter` | — | overview | P2 (Flatpak RL10) |
 
 ---
@@ -79,7 +110,8 @@ Référence slots : [`linux-gnome-capsule-slots.md`](inventaires/linux-gnome-cap
 |---------|-----|-----------|--------|
 | Schéma couleurs | `default` / `prefer-light` | `data-theme` dark/light | OK |
 | Accent | `blue` (#3584e4) | `--menu-accent` | OK |
-| GTK | Adwaita | Tokens Nautilus chrome clair | OK |
+| GTK | Adwaita | Tokens Nautilus + CSD apps (`gnome-app-csd.base.css`) | OK |
+| Bordures fenêtre | Thème clair/sombre | `--capsule-chrome-window-border` · skins Rocky/Fedora/Ubuntu | OK |
 | Fond | gemstone-skies XML | PNG jour/nuit pull VM | OK |
 | Icônes panel | VM `/usr/share/icons` | `vendors/rocky/panel/` | OK (pull VM) |
 
@@ -99,6 +131,9 @@ Rapport détaillé : [`linux-rocky-comparaison-visuelle.md`](inventaires/linux-r
 | Terminal sombre | ✓ | ✓ | P1 — Ptyxis vs chrome |
 | Bureau clair | ✓ | ✓ | OK mécanisme thème |
 | Nautilus clair | ✓ | ✓ | P1 |
+| Paramètres — Apparence | — | ✓ (gabarit) | P1 — capture VM à ajouter |
+| Paramètres — Écrans | — | ✓ (gabarit) | P1 — capture VM à ajouter |
+| Paramètres — Son | — | ✓ (gabarit) | P2 — capture optionnelle |
 
 Commandes :
 
@@ -126,6 +161,8 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 | RL10 | Wayland par défaut | N/A navigateur | OK |
 | [GNOME HIG](https://developer.gnome.org/hig) | Overview + dash séparés du bureau | `fedora-overview` | P1 polish |
 | GNOME Shell Design | Top bar visible dans Overview | Implémenté | OK |
+| [SUSE — Customizing settings](https://documentation.suse.com/sled/15-SP7/html/SLED-all/cha-gnome-settings.html) | Panneaux Paramètres (§3.1–3.12) | Slot `themes` — 13 panneaux | OK pédagogique ; logique métier partielle |
+| RL10 | Tweaks intégrés dans Paramètres | Apparence fonctionnelle dans `themes` | OK |
 
 ---
 
@@ -147,6 +184,11 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 - [x] Prompt terminal : `capsule@rocky` (`body#rocky` + `CAPSULE_TERMINAL_PROFILE`)
 - [x] Polish tokens `gnome-shell/tokens.css` — `--rocky-watermark`, dédup calendrier
 - [x] Filigrane bureau VM (`background-logo` → `watermark/fedora_logo_*.svg`)
+- [x] **Chrome fenêtre adaptatif** — bordures/anneau actif clair+sombre (`window-chrome.gnome.base.css`)
+- [x] **Paramètres GNOME** — coque sidebar + 13 panneaux doc SUSE · navigation · Apparence fonctionnelle
+- [x] **Ouverture Paramètres** — Aperçu/QS/menu bureau (`setCapsuleSettingsPanel`)
+- [ ] Polish tokens Nautilus / Firefox / top bar vs captures VM
+- [ ] Recherche Aperçu — comportement Shell complet
 - [ ] Raccourci bureau « Rocky Linux - À propos » : `rocky-logo.svg` (CapsuleOnly)
 
 ### P2 — extension
@@ -160,6 +202,11 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 - [x] **Snapshot** — slot `snapshot` · gabarit CSD · grille + recherche Aperçu
 - [x] **Capture d'écran** — slot `screenshot` · Quick Settings · recherche Aperçu
 - [x] **Lecteur vidéo** — décoratif RL10 (Showtime absent VM) · slot Capsule `lecteur_multimedia` hors recherche Rocky
+- [ ] **Captures Paramètres** — scènes Apparence / Écrans dans `capture-capsule-rocky.mjs`
+- [ ] **Baobab** — grille Aperçu OK, slot CSD manquant
+- [ ] **System Monitor** — grille Aperçu OK, slot CSD manquant
+- [ ] **Bluetooth Quick Settings** — panneau Paramètres OK, tray QS incomplet
+- [ ] Multi-écrans Join/Mirror (Écrans §3.9.2)
 
 ### CapsuleOnly
 
@@ -213,3 +260,4 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - [linux-rocky-vm.md](inventaires/linux-rocky-vm.md)
 - [linux-rocky-vm-apps-installed.json](inventaires/linux-rocky-vm-apps-installed.json)
 - [convention-reproduction-os.md](convention-reproduction-os.md) §8
+- [roadmap.md](roadmap.md) — jalons Phase 2 GNOME Rocky

@@ -4,6 +4,8 @@ Taxonomie et contrat d'isolation pour la refonte noyau (juin 2026).
 
 **Sources machine** : [`etc/capsuleos/kernels.json`](../../etc/capsuleos/kernels.json) · [`etc/capsuleos/os-registry.json`](../../etc/capsuleos/os-registry.json)
 
+**Paradigme agent** : [logique-formelle.md](logique-formelle.md) — prédicat **R** (registre cohérent), **¬playbook_VM** pour distros sans ground truth.
+
 ---
 
 ## Principes

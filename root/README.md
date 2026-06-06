@@ -26,13 +26,14 @@ root/
 
 ## Démarrage agent
 
-1. Skill **[onboarding](skills/onboarding/SKILL.md)** + [parcours-agent.md](docs/parcours-agent.md) (H0→H6).
-2. Lire [AGENTS.md](AGENTS.md) pour le routage skills.
-3. **Clone / parité VM** : [convention-reproduction-os.md](docs/convention-reproduction-os.md) + skill **[os-clone-from-vm](skills/os-clone-from-vm/SKILL.md)**.
-4. Contrat : [`writing.md`](../../writing.md) · [checklist](../contrib.md#checklist-contrat-avant-merge-ou-release) dans [`contrib.md`](../contrib.md).
-5. Gate : `node usr/lib/capsuleos/tools/validate-all.mjs`.
-6. Nouveau catalogue OS : [ajouter-os-scalable.md](docs/ajouter-os-scalable.md) · brief `print-agent-brief.mjs <id>`.
-7. Charger skill **rôle** + skill **OS** (ou `kernel-supervisor` si assets).
+1. **[logique-formelle.md](docs/logique-formelle.md)** — paradigme gates & décision autonome (référence canonique).
+2. Skill **[onboarding](skills/onboarding/SKILL.md)** + [parcours-agent.md](docs/parcours-agent.md) (H0→H6).
+3. Lire [AGENTS.md](AGENTS.md) pour le routage skills.
+4. **Clone / parité VM** : [convention-reproduction-os.md](docs/convention-reproduction-os.md) + skill **[os-clone-from-vm](skills/os-clone-from-vm/SKILL.md)**.
+5. Contrat : [`writing.md`](../../writing.md) · [checklist](../contrib.md#checklist-contrat-avant-merge-ou-release) dans [`contrib.md`](../contrib.md).
+6. Gate : `node usr/lib/capsuleos/tools/validate-all.mjs`.
+7. Nouveau catalogue OS : [ajouter-os-scalable.md](docs/ajouter-os-scalable.md) · brief `print-agent-brief.mjs <id>`.
+8. Charger skill **rôle** + skill **OS** (ou `kernel-supervisor` si assets).
 
 ## Rôles (`skills/role-*`)
 

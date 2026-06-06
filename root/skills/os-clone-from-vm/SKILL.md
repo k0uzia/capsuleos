@@ -13,16 +13,17 @@ description: Reproduces a real desktop OS from a VM into CapsuleOS following the
 
 ## Séquence (imposée)
 
-1. Lire [convention-reproduction-os.md](../../docs/convention-reproduction-os.md) (§2 concepts, §4 workflow).
-2. Lire [procedure-audit-vm-profonde.md](../../docs/procedure-audit-vm-profonde.md) — **audit interactif complet** (clics, menus, bureaux, animations, raccourcis, assets).
-3. `node usr/lib/capsuleos/tools/validate-all.mjs` — baseline.
-4. `node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>`.
-5. Vérifier `etc/capsuleos/lab-inventory.json` (gitignoré) — SSH + sonde VM.
-6. Inventaire : `root/docs/inventaires/<registryId>-vm.json` + **`<registryId>-deep-audit.json`** (phases static → keyboard).
-7. Coder sous **`home/<Vendor>/<Distro>/`** uniquement.
-8. Assets : `bash root/tools/lab/pull-vm-assets.sh --id <registryId>` — jamais emprunter un autre vendor.
-9. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
-10. `validate-all.mjs` + captures VM/Capsule si campagne parité.
+1. Lire [logique-formelle.md](../../docs/logique-formelle.md) — **R-INV1**, **A**, **S**, **M**.
+2. Lire [convention-reproduction-os.md](../../docs/convention-reproduction-os.md) (§2 concepts, §4 workflow).
+3. Lire [procedure-audit-vm-profonde.md](../../docs/procedure-audit-vm-profonde.md) — **audit interactif complet** (clics, menus, bureaux, animations, raccourcis, assets).
+4. `node usr/lib/capsuleos/tools/validate-all.mjs` — **H₂** baseline.
+5. `node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>`.
+6. Vérifier `etc/capsuleos/lab-inventory.json` (gitignoré) — **M** SSH + sonde VM.
+7. Inventaire : `root/docs/inventaires/<registryId>-vm.json` + **`<registryId>-deep-audit.json`** — **I** / **I⁺**.
+8. Coder sous **`home/<Vendor>/<Distro>/`** uniquement (interdit si ¬**I**).
+9. Assets : `bash root/tools/lab/pull-vm-assets.sh --id <registryId>` — **A**, **S**, **T** ; jamais emprunter un autre vendor.
+10. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
+11. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité.
 
 ## Rocky GNOME (raccourci)
 

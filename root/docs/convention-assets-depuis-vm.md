@@ -2,6 +2,8 @@
 
 > **Règle obligatoire** pour tout clone de distribution à partir d’une VM lab : les icônes et fonds d’écran affichés dans CapsuleOS doivent provenir de la **VM réelle**, pas d’un autre skin (Fedora générique, Mint-Y, pack Cinnamon du dépôt) ni d’icônes « proches » réinventées.
 
+Formalisation : prédicats **A**, **S**, **T** et règles **R-A1**–**R-S2** dans [logique-formelle.md](logique-formelle.md).
+
 ## Pourquoi
 
 - Sous **GNOME**, l’explorateur est **Nautilus** (thème **Adwaita**) ; le slot CapsuleOS reste **`nemo`** (gabarit partagé) — voir [`inventaires/linux-gnome-capsule-slots.md`](inventaires/linux-gnome-capsule-slots.md).

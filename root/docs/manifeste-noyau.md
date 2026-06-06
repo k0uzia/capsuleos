@@ -1,7 +1,15 @@
 # Manifeste du noyau CapsuleOS
 
 Document fondateur — vision, principes et trajectoire technique.  
-Complète [arborescence.md](arborescence.md), [roadmap.md](roadmap.md) et [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui).
+Complète [arborescence.md](arborescence.md), [roadmap.md](roadmap.md), [logique-formelle.md](logique-formelle.md) (paradigme agent : gates, prédicats, décision) et [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui).
+
+---
+
+## Logique formelle (agents)
+
+Le noyau et les skins obéissent à une **logique de gates** partagée : vérité machine (`os-registry`, inventaires VM, matrices lab) → prédicats vérifiables (`validate-all`, **A** assets, **I** inventaire) → implémentation minimale → clôture **H₆**.
+
+**Référence unique** : [logique-formelle.md](logique-formelle.md). Les procédures (clone, playbook Paramètres, audit profond) n’en sont que des spécialisations.
 
 ---
 

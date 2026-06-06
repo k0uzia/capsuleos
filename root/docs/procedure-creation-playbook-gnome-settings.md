@@ -17,41 +17,17 @@
 | `root/tools/lab/gnome-settings-visual-investigation-matrix.json` | Grille enquête effets visuels / transitions |
 | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | Assets ground truth VM → dépôt |
 | `root/tools/lab/gnome-settings-assets-matrix.json` | Matrice assets Paramètres (chemins VM + CapsuleOS) |
+| [logique-formelle.md](logique-formelle.md) | **Paradigme agent** — prédicats & règles (référence canonique) |
 
 ---
 
-## 0. Logique formelle — gates playbook (assets + exécution)
+## 0. Annexe — logique formelle playbook Paramètres
 
-> **Contrainte** : tout contenu visuel référencé par le playbook (fonds d’écran, filigranes, vignettes Paramètres) doit **exister physiquement** dans le dépôt et être **traçable** vers un fichier source sur la VM. La logique formelle s’applique à la **création** et à l’**exécution** de chaque niveau de playbook.
+> Spécialisation de [logique-formelle.md](logique-formelle.md) §5. Prédicats socle : **H₂**, **A**, **S**, **T**, **M**, **I** ; spécifiques domaine : **L** (`run-gnome-settings-lab`), **V** (enquête visuelle), **G** (passe gsettings), **D** (dérive playbook↔capsule).
 
-### 0.1 Prédicats
+**Priorité courante** (juin 2026, Rocky) : **R-PRI1** — `L ∧ S ∧ ¬V` → enquête visuelle VM lot P0.
 
-| Symbole | Signification |
-|---------|---------------|
-| **A** | Gate assets dépôt : chaque `capsulePath` de la matrice assets existe, non vide |
-| **S** | Gate sources VM : inventaire `*-gnome-settings-assets.json` présent, `existsOnVm` vrai pour les assets P0 |
-| **T** | Traçabilité : `SOURCE-VM.txt` présent pour le vendor |
-| **L** | Lab local strict vert (`run-gnome-settings-lab.mjs`) |
-| **M** | VM accessible (SSH + session graphique) |
-| **V** | Enquête visuelle documentée (P0 renseignés) |
-| **G** | Passe gsettings approfondie actionnable |
-
-### 0.2 Règles (ordre d’application)
-
-```
-R-A1   ¬A           →  BLOQUANT — pull assets puis re-vérifier
-R-A2   A ∧ ¬T       →  BLOQUANT — relancer pull-vm-assets.sh (écrit SOURCE-VM.txt)
-R-S1   M ∧ A        →  exécuter inventaire sources VM avant tour panneaux
-R-S2   S ∧ dérive SHA256 →  bash pull-vm-assets.sh puis R-A1
-R-L1   ¬A ∨ ¬L      →  interdit clôture playbook / embed / CI
-R-P1   L ∧ S ∧ ¬V   →  priorité enquête visuelle VM (lot P0)
-R-P2   V ∧ G        →  passe gsettings approfondie
-R-X1   ¬playbook_VM(distrib) →  pas de baseline ni assets arbitraires
-```
-
-**Règle absolue** : ne jamais référencer dans `capsule-theme-storage.js`, `themes_gnome.html` ou la matrice parity un asset dont le fichier n’est pas dans `usr/share/capsuleos/assets/` avec source VM documentée.
-
-### 0.3 Chaîne playbook avec gates
+### 0.1 Chaîne playbook avec gates
 
 ```mermaid
 flowchart TD
@@ -67,7 +43,7 @@ flowchart TD
   PB --> LAB
 ```
 
-### 0.4 Obligations par niveau de playbook
+### 0.2 Obligations par niveau de playbook
 
 | Niveau | Gate entrée | Obligation assets | Gate sortie |
 |--------|-------------|-------------------|-------------|
@@ -77,7 +53,7 @@ flowchart TD
 | **Enquête visuelle** | **A ∧ S** | Captures comparables (même fichiers fond que catalogue) | **V** |
 | **Lab / embed** | **A ∧ L** | `verify-playbook-assets --strict` vert | CI |
 
-### 0.5 Commandes gates assets
+### 0.3 Commandes gates assets
 
 ```bash
 # Gate A — présence absolue dans le dépôt (obligatoire avant lab)

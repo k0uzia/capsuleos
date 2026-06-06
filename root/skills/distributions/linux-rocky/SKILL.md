@@ -36,6 +36,11 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 
 Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
 
+## Logique formelle
+
+- **Paradigme** : [logique-formelle.md](../../docs/logique-formelle.md)
+- **Playbook Paramètres** : [procedure-creation-playbook-gnome-settings.md](../../docs/procedure-creation-playbook-gnome-settings.md) §0 annexe — gates **A**, **S**, **L**, **V**
+
 ## VM lab
 
 - **Procédure maître** : [procedure-lab-linux-rocky-gnome.md](../../docs/procedure-lab-linux-rocky-gnome.md)

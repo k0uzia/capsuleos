@@ -25,11 +25,15 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 
 | Fichier | Rôle |
 |---------|------|
-| [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills, scalabilité |
-| [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Images uniquement sous `usr/share/capsuleos/assets/` et `home/public/Images/` |
+| [`.cursor/rules/logique-formelle-capsuleos.mdc`](.cursor/rules/logique-formelle-capsuleos.mdc) | **Paradigme agent** — prédicats, règles, décision autonome |
+| [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills |
+| [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Gates **A** / **S** / **T**, zones assets autorisées |
+
+**Document fondateur** : [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md)
 
 ### Parcours obligatoire (H0 → H6)
 
+0. **Logique formelle** — [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md) §2–4 (prédicats, règles, décision agent)
 1. **H0** — [`root/AGENTS.md`](root/AGENTS.md), [checklist contrat](#checklist-contrat-avant-merge-ou-release), [`root/docs/arborescence.md`](root/docs/arborescence.md)
 2. **H1** — [`etc/capsuleos/kernels.json`](etc/capsuleos/kernels.json), [`etc/capsuleos/os-registry.json`](etc/capsuleos/os-registry.json), [`root/docs/manifeste-kernels.md`](root/docs/manifeste-kernels.md), [`root/docs/manifeste-noyau.md`](root/docs/manifeste-noyau.md)
 3. **H2** — `node usr/lib/capsuleos/tools/validate-all.mjs`

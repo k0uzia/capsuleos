@@ -2,6 +2,8 @@
 
 Quatre niveaux **génératifs** (source : `etc/capsuleos/os-registry.json`) + les skills **famille** existants (`os-linux`, `os-windows`, …).
 
+**Paradigme** : [logique-formelle.md](logique-formelle.md) — le chargement des skills suit les prédicats (**¬A** → `kernel-supervisor`, clone → `os-clone-from-vm`, etc.).
+
 ## Niveaux
 
 ```mermaid
@@ -36,7 +38,7 @@ flowchart TB
 
 ## Chaîne de chargement recommandée
 
-1. `onboarding` — H0–H6, `validate-all.mjs`
+1. `logique-formelle.md` + `onboarding` — H0–H6, `validate-all.mjs`
 2. `os-orchestrator` — si famille OS incertaine
 3. `os-<famille>` — linux, windows, macos, …
 4. `capsuleos-vendor-<vendor>` — branding, packs assets vendor

@@ -1,2 +1,4 @@
-.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 etc/capsuleos/lab-inventory.json

@@ -1,7 +1,7 @@
 # Convention — reproduction d’un OS dans CapsuleOS
 
 **Contrat unique** pour agents IA et contributeurs humains qui clonent un bureau réel (VM) vers une simulation web.  
-Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau).
+Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**).
 
 ---
 
@@ -49,9 +49,11 @@ VM (ground truth) → inventaire JSON/MD → skin home/ → sync façades → va
 
 ## 4. Workflow agent (obligatoire)
 
+Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats **H₂**, **M**, **I**, **A**, **S**, **H₆**.
+
 | # | Action | Gate / script |
 |---|--------|----------------|
-| 0 | `validate-all.mjs` baseline | exit 0 |
+| 0 | `validate-all.mjs` baseline | **H₂** — exit 0 |
 | 1 | Brief : `print-agent-brief.mjs <registryId>` | — |
 | 2 | VM : SSH + sonde (`lab-inventory.json`) | Rocky : [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) |
 | 3 | Inventaire versionné `root/docs/inventaires/<id>-vm.json` | — |

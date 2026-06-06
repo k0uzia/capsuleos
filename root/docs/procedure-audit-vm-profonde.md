@@ -3,6 +3,7 @@
 > **Objectif** : permettre aux agents d’exécuter des **séries d’actions reproductibles** sur une VM ground truth afin de documenter **l’intégralité du contexte interactif** — zones cliquables, profondeur de clics, menus contextuels, bureaux virtuels, animations, raccourcis clavier, assets (icônes, images, polices) — pour une reproduction CapsuleOS **la plus fidèle possible**.
 
 **Complète sans remplacer** :
+- [logique-formelle.md](logique-formelle.md) (prédicats **I⁺**, **M**, règles **R-INV**)
 - [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (clone skin)
 - [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) (passe lab Rocky)
 - [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (playbook Paramètres gcc ↔ gsettings ↔ CapsuleOS)
@@ -17,7 +18,7 @@
 
 | Règle | Détail |
 |-------|--------|
-| **Inventaire avant code** | Ne pas patcher le skin sans phase `static` + au moins une surface `interaction-matrix` documentée |
+| **Inventaire avant code** | **R-INV1** ([logique-formelle.md](logique-formelle.md)) — ne pas patcher le skin sans phase `static` + au moins une surface `interaction-matrix` documentée |
 | **Une action = une preuve** | Chaque interaction documentée avec capture PNG (ou séquence) + état JSON sonde si applicable |
 | **Compter les clics** | Toujours noter `clicks` (nombre total) et `steps[]` (séquence explicite) |
 | **Ne pas omettre** | Bureaux virtuels, déplacements, animations, raccourcis, clic droit |

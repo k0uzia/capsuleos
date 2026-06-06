@@ -5,6 +5,8 @@ description: Index hiérarchie skills CapsuleOS — vendors, distributions, vers
 
 # Index — hiérarchie skills
 
+**Paradigme** : [logique-formelle.md](../../docs/logique-formelle.md) — choisir skills selon prédicats ¬**A**, **I**, domaine OS, rôle.
+
 ## Niveaux
 
 | Niveau | Chemin | Exemple |

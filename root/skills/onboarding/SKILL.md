@@ -16,6 +16,7 @@ description: Formation agent CapsuleOS avant toute action — parcours H0–H6, 
 
 | Étape | Action | Durée indicative |
 |-------|--------|------------------|
+| 0 | Lire [logique-formelle.md](../../docs/logique-formelle.md) §2–4 (prédicats, règles, décision) | 8 min |
 | 1 | Lire [parcours-agent.md](../../docs/parcours-agent.md) § H0–H1 | 10 min |
 | 2 | `node usr/lib/capsuleos/tools/validate-all.mjs` — noter échecs | 1 min |
 | 3 | Si échec **assets** → `kernel-supervisor` ; **links** → `link-routing` ; **quality** → `code-quality` | — |
@@ -74,6 +75,7 @@ Détail des sous-gates : assets (`validate-assets-all`), registre/façades (`val
 
 ## Références
 
+- [logique-formelle.md](../../docs/logique-formelle.md) — paradigme agent (gates, **R-AUTO**)
 - [convention-reproduction-os.md](../../docs/convention-reproduction-os.md) — clone VM, CSS/JS imposés
 - [contrib.md](../../../contrib.md) — guide racine contributeurs + agents
 - [parcours-agent.md](../../docs/parcours-agent.md)

@@ -12,7 +12,15 @@
         return GNOME_BODY_IDS.has(id);
     }
 
+    function gsettingsStore() {
+        return global.CapsuleGnomeGSettings;
+    }
+
     function readBool(key, fallback) {
+        const gs = gsettingsStore();
+        if (gs && gs.hasBinding(key)) {
+            return gs.getBool(key, fallback);
+        }
         const saved = global.localStorage.getItem(key);
         if (saved === 'on' || saved === 'true') {
             return true;
@@ -24,15 +32,29 @@
     }
 
     function persistBool(key, on) {
+        const gs = gsettingsStore();
+        if (gs && gs.hasBinding(key)) {
+            gs.setBool(key, on);
+            return on;
+        }
         global.localStorage.setItem(key, on ? 'on' : 'off');
         return on;
     }
 
     function readPref(key, fallback) {
+        const gs = gsettingsStore();
+        if (gs && gs.hasBinding(key)) {
+            return gs.getCapsule(key, fallback);
+        }
         return global.localStorage.getItem(key) || fallback;
     }
 
     function persistPref(key, value) {
+        const gs = gsettingsStore();
+        if (gs && gs.hasBinding(key)) {
+            gs.setCapsule(key, value);
+            return value;
+        }
         global.localStorage.setItem(key, value);
         return value;
     }

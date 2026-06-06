@@ -64,8 +64,18 @@ if (!parityJs.includes('cycleSelectById')) {
 if (!themesJs.includes('CapsuleGnomeSettingsParity')) {
     errors.push('themes.js : délégation vers CapsuleGnomeSettingsParity absente');
 }
+if (!rockyIndex.includes('gnome-gsettings-store.js')) {
+    errors.push('Rocky index.html : script gnome-gsettings-store.js absent');
+}
 if (!rockyIndex.includes('gnome-settings-parity.js')) {
     errors.push('Rocky index.html : script gnome-settings-parity.js absent');
+}
+const gsettingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js');
+if (!gsettingsJs.includes('CapsuleGnomeGSettings')) {
+    errors.push('gnome-gsettings-store.js : API CapsuleGnomeGSettings absente');
+}
+if (!parityJs.includes('CapsuleGnomeGSettings')) {
+    errors.push('gnome-settings-parity.js : délégation gsettings absente');
 }
 if (!themesHtml.includes('data-settings-apply="network-identity"')) {
     errors.push('themes_gnome.html : network-identity non câblé');

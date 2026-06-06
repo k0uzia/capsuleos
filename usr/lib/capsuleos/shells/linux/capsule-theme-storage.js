@@ -28,6 +28,13 @@
 
     function readSavedTheme(id) {
         const key = getThemeStorageKey(id);
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && isGnomeShell(id) && gs.hasBinding(key)) {
+            const mapped = gs.getCapsule(key, null);
+            if (mapped === 'light' || mapped === 'dark') {
+                return mapped;
+            }
+        }
         const saved = global.localStorage.getItem(key);
         if (saved === 'light' || saved === 'dark') {
             return saved;
@@ -46,7 +53,12 @@
     function persistTheme(theme, id) {
         const resolved = theme === 'light' ? 'light' : 'dark';
         const key = getThemeStorageKey(id);
-        global.localStorage.setItem(key, resolved);
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && isGnomeShell(id) && gs.hasBinding(key)) {
+            gs.setCapsule(key, resolved);
+        } else {
+            global.localStorage.setItem(key, resolved);
+        }
         return resolved;
     }
 
@@ -67,13 +79,27 @@
     }
 
     function readSavedAccent() {
-        const saved = global.localStorage.getItem(getAccentStorageKey());
+        const key = getAccentStorageKey();
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            const mapped = gs.getCapsule(key, null);
+            if (mapped && GNOME_ACCENTS[mapped]) {
+                return mapped;
+            }
+        }
+        const saved = global.localStorage.getItem(key);
         return saved && GNOME_ACCENTS[saved] ? saved : 'blue';
     }
 
     function persistAccent(accentId) {
         const resolved = GNOME_ACCENTS[accentId] ? accentId : 'blue';
-        global.localStorage.setItem(getAccentStorageKey(), resolved);
+        const key = getAccentStorageKey();
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            gs.setCapsule(key, resolved);
+        } else {
+            global.localStorage.setItem(key, resolved);
+        }
         return resolved;
     }
 
@@ -296,10 +322,19 @@
     };
 
     function readPref(key, fallback) {
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            return gs.getCapsule(key, fallback);
+        }
         return global.localStorage.getItem(key) || fallback;
     }
 
     function persistPref(key, value) {
+        const gs = global.CapsuleGnomeGSettings;
+        if (gs && gs.hasBinding(key)) {
+            gs.setCapsule(key, value);
+            return value;
+        }
         global.localStorage.setItem(key, value);
         return value;
     }

@@ -25,6 +25,7 @@ const registry = 'linux-rocky';
 
 const matrix = JSON.parse(read('root/tools/lab/gnome-settings-parity-matrix.json') || '{}');
 const parityJs = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
+const gsettingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js');
 const themesHtml = read('usr/share/capsuleos/linux/apps/themes_gnome.html');
 const rockyIndex = read('home/RedHat/Rocky/index.html');
 const baselineJs = read(`usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-${registry}.js`);
@@ -54,6 +55,31 @@ if (!baselineJs.includes('CAPSULE_VM_SETTINGS_BASELINE')) {
 }
 if (!parityJs.includes('mergeVmSettingsBaseline')) {
   errors.push('parity.js : mergeVmSettingsBaseline absent');
+}
+if (!parityJs.includes('CapsuleGnomeGSettings')) {
+  errors.push('parity.js : délégation CapsuleGnomeGSettings absente');
+}
+if (!gsettingsJs.includes('CapsuleGnomeGSettings')) {
+  errors.push('gnome-gsettings-store.js : API CapsuleGnomeGSettings absente');
+}
+if (!rockyIndex.includes('gnome-gsettings-store.js')) {
+  errors.push('Rocky index : gnome-gsettings-store.js absent');
+}
+const gsettingsPos = rockyIndex.indexOf('gnome-gsettings-store.js');
+const parityPos = rockyIndex.indexOf('gnome-settings-parity.js');
+if (gsettingsPos >= 0 && parityPos >= 0 && gsettingsPos > parityPos) {
+  errors.push('Rocky index : gnome-gsettings-store.js doit précéder gnome-settings-parity.js');
+}
+
+for (const panel of matrix.panels || []) {
+  for (const ctrl of panel.controls || []) {
+    if (!ctrl.schema || !ctrl.key || !ctrl.capsuleKey) continue;
+    if (ctrl.map === 'volumeStepNote') continue;
+    const needle = `'${ctrl.capsuleKey}':`;
+    if (!gsettingsJs.includes(needle)) {
+      errors.push(`gsettings-store : binding absent pour ${ctrl.capsuleKey} (${ctrl.schema}::${ctrl.key})`);
+    }
+  }
 }
 
 for (const panel of matrix.panels || []) {

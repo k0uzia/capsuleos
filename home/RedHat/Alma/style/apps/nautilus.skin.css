@@ -478,7 +478,11 @@ body#alma div[data-link="nemo"] .nautilus-popover[hidden] {
 }
 
 body#alma div[data-link="nemo"] .nautilus-popover__item {
-    display: block;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
     width: 100%;
     padding: 0.45rem 1rem;
     border: 0;
@@ -488,6 +492,27 @@ body#alma div[data-link="nemo"] .nautilus-popover__item {
     font-size: 0.82rem;
     text-align: left;
     cursor: default;
+}
+
+body#alma div[data-link="nemo"] .nautilus-popover__item kbd {
+    flex: 0 0 auto;
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--nemo-text-muted);
+}
+
+body#alma div[data-link="nemo"] .nautilus-popover--panel {
+    min-width: 15rem;
+    padding: 0.75rem;
+}
+
+body#alma div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__path-pill {
+    background: var(--nemo-pathbar-bg);
+    border-color: var(--nemo-pathbar-border);
+}
+
+body#alma div[data-link="nemo"] .nautilus-app--n47 .nautilus-search-empty {
+    background: var(--nemo-bg-primary);
 }
 
 body#alma div[data-link="nemo"] .nautilus-popover__item:hover:not(:disabled),
@@ -519,7 +544,11 @@ body#alma div[data-link="nemo"] .nautilus-context-menu[hidden] {
 }
 
 body#alma div[data-link="nemo"] .nautilus-context-menu__item {
-    display: block;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
     width: 100%;
     padding: 0.45rem 1rem;
     border: 0;
@@ -528,6 +557,29 @@ body#alma div[data-link="nemo"] .nautilus-context-menu__item {
     font: inherit;
     text-align: left;
     cursor: default;
+}
+
+body#alma div[data-link="nemo"] .nautilus-context-menu__item kbd {
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--nemo-text-muted);
+}
+
+body#alma div[data-link="nemo"] .nautilus-app__tab.has-separator {
+    border-right: 1px solid var(--nemo-border);
+    margin-right: 0.15rem;
+    padding-right: 0.85rem;
+    border-radius: 0;
+}
+
+body#alma div[data-link="nemo"] .nemo-app__content-grid > a.nemo-app__item--selected {
+    background: var(--nemo-item-active-bg);
+    border-radius: 0.5rem;
+}
+
+body#alma div[data-link="nemo"] .nautilus-network-bar {
+    background: var(--nemo-bg-primary);
+    border-top-color: var(--nemo-border);
 }
 
 body#alma div[data-link="nemo"] .nautilus-context-menu__item:hover:not(:disabled),

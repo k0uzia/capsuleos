@@ -22,20 +22,34 @@ Référence : [Nautilus sur Ubuntu-fr](https://doc.ubuntu-fr.org/nautilus), capt
 | Sidebar Places (Dossier personnel, Récents, Favoris, Réseau, Corbeille) | `data-link` + `buildNemoPlaceFolderMap()` | OK |
 | Dossiers XDG (Bureau, Documents, Musique, Images, Vidéos, Téléchargements) | Sidebar `data-link` | OK |
 | Navigation précédent / suivant / parent / accueil | `bindFileExplorerNavigationControls` | OK |
-| Recherche dans le dossier courant | `#nemo-search-input` → `searchQuery` | OK |
-| Barre d’emplacement (`Ctrl+L`, saisie `/` ou `~`) | `fileExplorerNautilus.js` | OK |
+| Fil d’Ariane par défaut (pilule « Dossier personnel » + menu ⋮) | `#nautilus-path-crumbbar` + `nautilusChromeMode: breadcrumb` | OK |
+| Rechercher partout (loupe plateau titre, empty state) | `search-everywhere` + `#nautilus-search-empty` | OK |
+| Recherche dans le dossier courant (`Ctrl+F`) | `search-folder` + `#nemo-search-input` | OK |
+| Barre d’emplacement (`Ctrl+L`, saisie `/` ou `~`) | `location` + `fileExplorerNautilus.js` | OK |
 | Vue icônes / liste (`Ctrl+1` / `Ctrl+2`) | `setFileExplorerViewMode` | OK |
 | Zoom (`Ctrl+±`) | `applyFileExplorerZoom` | OK |
 | Fichiers cachés (`Ctrl+H`) | `fileExplorerState.showHiddenFiles` | OK |
 | Nouveau dossier (bouton, `Shift+Ctrl+N`, menu contextuel) | `createNewFolderInCurrentDirectory` | OK |
 | Actualiser (`F5`, menu contextuel) | `refreshFileExplorerDirectory` | OK |
-| Menu contextuel zone fichiers | `#nemo-context-menu` | OK |
+| Menu contextuel élément / fond de liste | `#nemo-context-menu` (scopes item/background) | OK |
+| États vides (dossier, favoris, réseau…) | `.nautilus-folder-empty` | OK |
+| Barre connexion réseau + aide protocoles | `#nautilus-network-bar` + `#nautilus-network-info-menu` | OK |
+| Fil d’Ariane multi-segments cliquable | `#nautilus-path-crumbs` | OK |
+| Pastille sélection « X sélectionné » | `#nemo-status-label` + `updateNautilusSelectionStatus` | OK |
 | Propriétés | `#nemo-properties-dialog` + `fileExplorerProperties.js` | OK |
 | Bureau — Nouveau dossier (menu bureau) | `gnome-desktop-context-menu.js` | OK |
-| Onglets (`Ctrl+T`) | `#nautilus-tabstrip` + `fileExplorerTabs.js` | OK |
+| Onglets (`Ctrl+T`) | `#nautilus-tabstrip` + `fileExplorerTabs.js` (état isolé + `localStorage`) | OK |
 | Thème clair / sombre | `nautilus.skin.css` (`html[data-theme]`) | OK |
 | Icônes Adwaita (remap Cinnamon) | `explorer-icon-base.js` | OK |
 | Glisser-déposer (sidebar + grille) | `fileExplorerDnD.js` | OK |
+| Couper / Copier / Coller | `fileExplorerNautilusOps.js` + raccourcis | OK |
+| Renommer (`F2`) | `renameExplorerItem` | OK |
+| Corbeille (`Suppr`) | `trashExplorerItem` + `localStorage` | OK |
+| Compresser | `compressExplorerItems` | OK |
+| Rechercher partout (manifeste entier) | `renderNautilusSearchEverywhere` | OK |
+| Favoris / signets (`Ctrl+D`) | `addNautilusBookmark` + place Favoris | OK |
+| Connexions réseau | `connectNautilusNetworkServer` | OK |
+| Annuler / Rétablir | `undoExplorerOperation` / `redoExplorerOperation` | OK |
 
 ## Headerbar (playbook)
 
@@ -43,13 +57,16 @@ Référence machine : `root/docs/inventaires/nautilus-headerbar-playbook.json` (
 
 | Contrôle | Comportement VM | Capsule |
 |----------|-----------------|---------|
-| Loupe plateau titre | Focus recherche | `.nautilus-app__plate-search` |
-| Menu ☰ | Nouveau dossier, onglet, actualiser, fichiers cachés, préférences | `#nautilus-main-menu` |
+| Loupe plateau titre | Mode « Rechercher partout » | `setNautilusChromeMode('search-everywhere')` |
+| Menu ☰ | Nouvelle fenêtre, onglet, Annuler/Rétablir, Préférences, Aide, À propos | `#nautilus-main-menu` |
+| Pilule chemin + ⋮ | Nouveau dossier, console, actualiser, signets, emplacement, copier, propriétés | `#nautilus-path-menu` |
 | Précédent / Suivant | Historique | `#precedent` / `#suivant` |
-| Filtres recherche | Type d’élément | `#nautilus-search-filter-menu` |
-| Emplacement (ⓘ) | Mode adresse `Ctrl+L`, propriétés | `toggleNautilusLocationBarMode` |
+| Filtres recherche | Quoi / type / texte intégral vs nom | `#nautilus-search-filter-menu` |
+| Emplacement (ⓘ) | `Ctrl+L` / retour fil d’Ariane | `setNautilusChromeMode('location' \| 'breadcrumb')` |
 | Vues liste / icônes | `Ctrl+1` / `Ctrl+2` | `[data-view-mode]` |
-| Menu autres vues | Compacte, tri, actualiser | `#nautilus-view-menu` |
+| Menu autres vues | Taille icône ±, tri A-Z/Z-A, fichiers cachés | `#nautilus-view-menu` |
+
+Modes chrome (`fileExplorerState.nautilusChromeMode`, persistés par onglet) : `breadcrumb` | `search-folder` | `search-everywhere` | `location`.
 
 Réinjection gabarit : `resetFileExplorerSlotBindings()` dans `contentLoader` évite les écouteurs orphelins après `injectSlot`.
 

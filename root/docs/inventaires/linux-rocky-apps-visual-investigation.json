@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "registryId": "linux-rocky",
+  "updatedAt": "2026-06-06T17:28:33.871Z",
+  "procedure": "procedure-apps-replication-formelle.md",
+  "summary": {
+    "documentedP0": 7,
+    "capsuleCapturesP0": 7,
+    "visualMatchClassifiedP0": 7
+  },
+  "investigations": [
+    {
+      "controlId": "calculator",
+      "labelFr": "Calculatrice",
+      "vmId": "org.gnome.Calculator",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-calculator.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "characters",
+      "labelFr": "Caractères",
+      "vmId": "org.gnome.Characters",
+      "parityPriority": "P2",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "text_editor",
+      "labelFr": "Éditeur de texte",
+      "vmId": "org.gnome.TextEditor",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-text-editor.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "nemo",
+      "labelFr": "Fichiers",
+      "vmId": "org.gnome.Nautilus",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-nautilus.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "firefox",
+      "labelFr": "Firefox",
+      "vmId": "org.mozilla.Firefox",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-firefox.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "clocks",
+      "labelFr": "Horloges",
+      "vmId": "org.gnome.clocks",
+      "parityPriority": "P1",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "update_manager",
+      "labelFr": "Logiciels",
+      "vmId": "org.gnome.Software",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "visionneur_images",
+      "labelFr": "Loupe",
+      "vmId": "org.gnome.Loupe",
+      "parityPriority": "P1",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "system_monitor",
+      "labelFr": "Moniteur système",
+      "vmId": "org.gnome.SystemMonitor",
+      "parityPriority": "P2",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "visionneur_pdf",
+      "labelFr": "Papers",
+      "vmId": "org.gnome.Papers",
+      "parityPriority": "P1",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "themes",
+      "labelFr": "Paramètres",
+      "vmId": "org.gnome.Settings",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-settings-appearance.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "snapshot",
+      "labelFr": "Snapshot",
+      "vmId": "org.gnome.Snapshot",
+      "parityPriority": "P1",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "terminal",
+      "labelFr": "Terminal",
+      "vmId": "org.gnome.Ptyxis",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-terminal.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleParity": {
+        "visualMatch": "partial"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "baobab",
+      "labelFr": "Utilisation des disques",
+      "vmId": "org.gnome.baobab",
+      "parityPriority": "P2",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "tour",
+      "labelFr": "Visite guidée",
+      "vmId": "org.gnome.Tour",
+      "parityPriority": "P2",
+      "status": "pending",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    }
+  ]
+}

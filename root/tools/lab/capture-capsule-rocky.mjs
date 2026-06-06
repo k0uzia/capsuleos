@@ -8,11 +8,12 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolveCapsuleOsUrl } from '../../../usr/lib/capsuleos/tools/linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
 const DEST = process.argv[2] || path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule');
-const URL = process.env.CAPSULE_ROCKY_URL || 'http://127.0.0.1:5500/home/RedHat/Rocky/index.html';
+const URL = process.env.CAPSULE_ROCKY_URL || resolveCapsuleOsUrl('linux-rocky');
 const VIEWPORT = { width: 1280, height: 800 };
 const defaultChrome = [
   '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
@@ -190,8 +191,11 @@ const main = async () => {
     { file: 'rocky-capsule-dark-overview.png', theme: 'dark', overview: 'workspace' },
     { file: 'rocky-capsule-dark-overview-apps.png', theme: 'dark', overview: 'apps' },
     { file: 'rocky-capsule-dark-quick-settings.png', theme: 'dark', quickSettings: true },
+    { file: 'rocky-capsule-dark-calculator.png', theme: 'dark', slots: ['calculator'], focus: 'calculator' },
+    { file: 'rocky-capsule-dark-text-editor.png', theme: 'dark', slots: ['text_editor'], focus: 'text_editor' },
     { file: 'rocky-capsule-dark-nautilus.png', theme: 'dark', slots: ['nemo'], focus: 'nemo' },
     { file: 'rocky-capsule-dark-firefox.png', theme: 'dark', slots: ['firefox'], focus: 'firefox' },
+    { file: 'rocky-capsule-dark-software.png', theme: 'dark', slots: ['update_manager'], focus: 'update_manager' },
     { file: 'rocky-capsule-dark-terminal.png', theme: 'dark', slots: ['terminal'], focus: 'terminal' },
     { file: 'rocky-capsule-dark-loupe.png', theme: 'dark', slots: ['visionneur_images'], focus: 'visionneur_images' },
     { file: 'rocky-capsule-dark-papers.png', theme: 'dark', slots: ['visionneur_pdf'], focus: 'visionneur_pdf' },

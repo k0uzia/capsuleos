@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "registryId": "linux-rocky",
+  "description": "Matrice enquête visuelle apps P0 — miroir gnome-settings-visual-investigation-matrix.json",
+  "investigations": [
+    { "controlId": "calculator", "labelFr": "Calculatrice", "vmDesktop": "org.gnome.Calculator.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.Calculator.desktop" },
+    { "controlId": "text_editor", "labelFr": "Éditeur de texte", "vmDesktop": "org.gnome.TextEditor.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.TextEditor.desktop" },
+    { "controlId": "nemo", "labelFr": "Fichiers", "vmDesktop": "org.gnome.Nautilus.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.Nautilus.desktop" },
+    { "controlId": "firefox", "labelFr": "Firefox", "vmDesktop": "firefox.desktop", "parityPriority": "P0", "launch": "gtk-launch firefox.desktop" },
+    { "controlId": "update_manager", "labelFr": "Logiciels", "vmDesktop": "org.gnome.Software.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.Software.desktop" },
+    { "controlId": "themes", "labelFr": "Paramètres", "vmDesktop": "org.gnome.Settings.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.Settings.desktop" },
+    { "controlId": "terminal", "labelFr": "Terminal", "vmDesktop": "org.gnome.Ptyxis.desktop", "parityPriority": "P0", "launch": "gtk-launch org.gnome.Ptyxis.desktop" }
+  ]
+}

@@ -198,6 +198,12 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
     };
 
     const fetchHtml = (async () => {
+        const skinKey = getEmbedSkinKey();
+        const skinOverride = embed?.skinTemplates?.[skinKey]?.[templateId];
+        if (skinOverride?.html) {
+            return skinOverride.html;
+        }
+
         let lastError = null;
         for (const url of htmlCandidates) {
             try {

@@ -1,0 +1,9 @@
+{
+  "registryId": "linux-rocky",
+  "status": "done",
+  "updatedAt": "2026-06-06T17:27:35.928Z",
+  "gate": "run-apps-lab.mjs",
+  "playwright": true,
+  "vm": false,
+  "shell": false
+}

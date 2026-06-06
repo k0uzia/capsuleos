@@ -7,7 +7,8 @@
     "AppV": "Inventaire VM apps collecté (*-vm-apps-installed.json)",
     "AppC": "Catalogue strict généré et smoke-apps-catalog OK",
     "AppP0": "Toutes les apps P0 onVm exigeant un slot sont ok",
-    "AppΣ": "AppV ∧ AppC ∧ AppP0"
+    "AppL": "Lab apps — run-apps-lab.mjs",
+    "AppΣ": "AppV ∧ AppC ∧ AppP0 ∧ AppL"
   },
   "toolkits": {
     "gnome": {

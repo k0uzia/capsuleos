@@ -5,12 +5,13 @@
  * Usage : CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs
  */
 import { chromium } from 'playwright';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const BASE = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
 const GNOME_SKINS = [
-    { id: 'linux-rocky', path: 'home/RedHat/Rocky/index.html' },
-    { id: 'linux-fedora', path: 'home/RedHat/Fedora/index.html' },
-    { id: 'linux-ubuntu', path: 'home/Debian/Ubuntu/index.html' },
+    { id: 'linux-rocky' },
+    { id: 'linux-fedora' },
+    { id: 'linux-ubuntu' },
 ];
 
 const errors = [];
@@ -19,7 +20,7 @@ const browser = await chromium.launch({ headless: true });
 for (const skin of GNOME_SKINS) {
     const page = await browser.newPage();
     try {
-        await page.goto(`${BASE}/${skin.path}`, { waitUntil: 'networkidle', timeout: 30000 });
+        await page.goto(resolveCapsuleOsUrl(skin.id, BASE), { waitUntil: 'networkidle', timeout: 30000 });
         await page.waitForTimeout(1500);
         const state = await page.evaluate(() => ({
             template: window.CAPSULE_EXPLORER_TEMPLATE,

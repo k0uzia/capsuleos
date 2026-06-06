@@ -181,7 +181,7 @@ const panelRun = run('node', [
 ], {
   env: {
     ...process.env,
-    CAPSULE_PANEL_URL: 'http://127.0.0.1:5500/home/RedHat/Rocky/index.html',
+    CAPSULE_PANEL_URL: 'http://127.0.0.1:5500/OS/linux/families/redhat/rocky/index.html',
     CAPSULE_PANEL_OUT: panelOut,
   },
   timeout: 180000,

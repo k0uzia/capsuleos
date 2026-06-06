@@ -13,7 +13,10 @@
 | **AppV** | Inventaire VM apps | `*-vm-apps-installed.json` |
 | **AppC** | Catalogue strict généré + smoke structurel | `*-apps-catalog.json` + `smoke-apps-catalog.mjs` |
 | **AppP0** | Toutes les apps **P0 onVm** exigeant un slot sont `ok` | `summary.p0Gaps === 0` |
-| **AppΣ** | **AppV ∧ AppC ∧ AppP0** | Clôture catalogue apps |
+| **AppL** | Lab apps (smokes structure) | `run-apps-lab.mjs` |
+| **AppΣ** | **AppV ∧ AppC ∧ AppP0 ∧ AppL** | Clôture catalogue structurelle |
+
+Parité visuelle app-par-app : [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) (**AppVv → AppVp**).
 
 ---
 

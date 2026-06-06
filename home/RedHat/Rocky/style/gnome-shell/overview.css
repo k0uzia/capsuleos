@@ -536,6 +536,25 @@ body#rocky .fedora-overview__dash-item img {
     object-fit: contain;
 }
 
+body#rocky .fedora-overview__dash-item.is-running::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--head) / 14);
+    left: 50%;
+    width: calc(var(--head) / 9);
+    height: calc(var(--head) / 9);
+    border-radius: 999px;
+    background: #3584e4;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+body#rocky .fedora-overview__dash-item.is-focused::after {
+    width: calc(var(--head) / 2.8);
+    height: calc(var(--head) / 11);
+    border-radius: calc(var(--head) / 22);
+}
+
 body#rocky .fedora-overview__dash-item--apps img {
     filter: invert(1) opacity(0.92);
 }

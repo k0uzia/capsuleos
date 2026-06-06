@@ -1,0 +1,36 @@
+/**
+ * fedora — system_monitor (structure Rocky).
+ */
+body#fedora {
+    --gnome-sysmon-bg: #303030;
+    --gnome-sysmon-header-bg: #383838;
+    --gnome-sysmon-card: #383838;
+    --gnome-sysmon-text: #f6f6f6;
+    --gnome-sysmon-muted: rgba(255, 255, 255, 0.62);
+    --gnome-sysmon-border: rgba(255, 255, 255, 0.08);
+    --gnome-sysmon-accent: #3584e4;
+}
+
+html[data-theme="light"]:has(#rocky) {
+    --gnome-sysmon-bg: #fafafa;
+    --gnome-sysmon-header-bg: #f6f6f6;
+    --gnome-sysmon-card: #ffffff;
+    --gnome-sysmon-text: #1e1e1e;
+    --gnome-sysmon-muted: rgba(0, 0, 0, 0.55);
+    --gnome-sysmon-border: rgba(0, 0, 0, 0.1);
+}
+
+body#fedora div[data-link="system_monitor"].windowElement {
+    width: min(36rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    height: min(24rem, calc(100vh - var(--fedora-top-bar-height, 2.5rem) - 2rem));
+}
+
+body#fedora div[data-link="system_monitor"].gnome-app--csd {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body#fedora div[data-link="system_monitor"] main#gnomeSysmonApp {
+    height: 100%;
+}

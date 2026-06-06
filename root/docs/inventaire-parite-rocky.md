@@ -195,6 +195,7 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 
 - [x] Grille Aperçu alignée VM RL10 — Papers, Baobab, SystemMonitor · apps absentes marquées
 - [x] Inventaire apps installées — [`linux-rocky-vm-apps-installed.json`](inventaires/linux-rocky-vm-apps-installed.json)
+- [x] Catalogue strict apps — [`linux-rocky-apps-catalog.json`](inventaires/linux-rocky-apps-catalog.json) · [procedure-apps-catalog.md](procedure-apps-catalog.md)
 - [x] Captures Capsule — 12 scènes (`capture-capsule-rocky.mjs` : Aperçu, QS, Loupe, Papers…)
 - [x] Rapport visuel VM audit ↔ Capsule — `compare-rocky-visual-pass.mjs`
 - [ ] Apps overview optionnelles (Contacts, Météo, Cartes…) — recherche sans slot, non installées VM lab
@@ -203,8 +204,8 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 - [x] **Capture d'écran** — slot `screenshot` · Quick Settings · recherche Aperçu
 - [x] **Lecteur vidéo** — décoratif RL10 (Showtime absent VM) · slot Capsule `lecteur_multimedia` hors recherche Rocky
 - [x] **Captures Paramètres** — scènes Apparence / Écrans dans `capture-capsule-rocky.mjs` (15 PNG total)
-- [ ] **Baobab** — grille Aperçu OK, slot CSD manquant
-- [ ] **System Monitor** — grille Aperçu OK, slot CSD manquant
+- [x] **Baobab** — slot `baobab` · CSD libadwaita · grille + recherche Aperçu
+- [x] **System Monitor** — slot `system_monitor` · CSD libadwaita · grille + recherche Aperçu
 - [ ] **Bluetooth Quick Settings** — panneau Paramètres OK, tray QS incomplet
 - [ ] Multi-écrans Join/Mirror (Écrans §3.9.2)
 

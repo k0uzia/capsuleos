@@ -1,7 +1,7 @@
 # Convention — reproduction d’un OS dans CapsuleOS
 
 **Contrat unique** pour agents IA et contributeurs humains qui clonent un bureau réel (VM) vers une simulation web.  
-Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**).
+Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité).
 
 ---
 
@@ -40,6 +40,7 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 | **Catalogue** | [ajouter-os-scalable.md](ajouter-os-scalable.md) | Entrée registre, pick-os, profil minimal |
 | **Clonage** | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | Parité VM → skin (inventaire d’abord) |
 | **Contrôle** | [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) | Sonde JSON, `compare-os-parity.mjs` |
+| **Réplication formelle** | [procedure-replication-formelle.md](procedure-replication-formelle.md) | Chaîne **V → G → Vc → Vp** (Paramètres GNOME, tous vendors) |
 
 ```text
 VM (ground truth) → inventaire JSON/MD → skin home/ → sync façades → validate-all
@@ -58,6 +59,7 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | 2 | VM : SSH + sonde (`lab-inventory.json`) | Rocky : [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) |
 | 3 | Inventaire versionné `root/docs/inventaires/<id>-vm.json` | — |
 | 3b | **Audit profond VM** : [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) → `<id>-deep-audit.json` | `collect-vm-deep-audit.mjs` |
+| 3c | **Fidélité visuelle** : typo, contextes de vue, MIME, a11y → `<id>-visual-fidelity.json` | `collect-visual-fidelity-inventory.mjs` · **bloquant avant H5 typo/MIME/a11y** |
 | 4 | Implémentation **sous `home/`** uniquement | — |
 | 5 | Assets VM → `pull-vm-assets.sh` | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | 6 | Clôture Linux : `sync-linux-skin-closure.mjs` | façades ≡ home |
@@ -77,6 +79,8 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | **Calcul** | Préférer `calc(var(--head) / n)` aux valeurs magiques |
 | **Chaîne Linux** | `variables.css` → `variables-linux.css` → `variables-linux-computed.css` → `window-chrome.base.css` → skin |
 | **Surcharge skin** | Tokens sous `body#<bodyId>` ou `html:has(#<bodyId>)` |
+| **Typographie** | Une pile `--font-ui` / `--font-mono` par skin ; `var(--font-ui)` partout — voir [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) |
+| **Accessibilité** | Hooks `html[data-font-scale]`, `data-contrast-mode`, etc. — effet visible obligatoire |
 | **Spécificité** | Les IDs legacy (`#nemoHeaderContainer`, `#nemoMainContainer`) priment souvent sur les classes — surcharger par **sélecteur ID + classe gabarit** (ex. Nautilus N47) |
 
 Gate : `validate-css-variables-contract.mjs`, `validate-css-selectors-contract.mjs`.

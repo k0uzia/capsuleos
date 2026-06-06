@@ -56,6 +56,9 @@ const sliderIds = handlerIds(parityJs, 'SLIDER_HANDLERS');
 if (!rockyIndex.includes(`gnome-settings-vm-baseline-${registry}.js`)) {
   errors.push(`Rocky index : baseline VM script absent`);
 }
+if (!rockyIndex.includes('gnome-hot-corners.js')) {
+  errors.push('Rocky index : gnome-hot-corners.js absent (H5 P1 hot-corner)');
+}
 if (!baselineJs.includes('CAPSULE_VM_SETTINGS_BASELINE')) {
   errors.push('Baseline JS : CAPSULE_VM_SETTINGS_BASELINE absent');
 }

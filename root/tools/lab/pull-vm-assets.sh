@@ -38,6 +38,8 @@ PANEL_DIR="$VENDOR_DIR/panel"
 WALL_DIR="$VENDOR_DIR/wallpaper"
 WATERMARK_DIR="$VENDOR_DIR/watermark"
 GNOME_ICONS="$ASSETS/icons/gnome/adwaita"
+FONTS_DIR="$ASSETS/fonts/vendors/$VENDOR"
+MIMETYPES_DIR="$GNOME_ICONS/mimetypes"
 PLACES_DIR="$GNOME_ICONS/places"
 SYMBOLIC_ACTIONS="$GNOME_ICONS/symbolic/actions"
 SYMBOLIC_PLACES="$GNOME_ICONS/symbolic/places"
@@ -46,7 +48,7 @@ APPS_DIR="$GNOME_ICONS/apps"
 TOOLKIT_APPS="$ASSETS/images/toolkits/gnome/apps"
 DASH_DIR="$TOOLKIT_APPS/dash"
 
-mkdir -p "$PANEL_DIR" "$WALL_DIR" "$WATERMARK_DIR" "$PLACES_DIR" "$SYMBOLIC_ACTIONS" "$SYMBOLIC_PLACES" \
+mkdir -p "$PANEL_DIR" "$WALL_DIR" "$WATERMARK_DIR" "$FONTS_DIR" "$MIMETYPES_DIR" "$PLACES_DIR" "$SYMBOLIC_ACTIONS" "$SYMBOLIC_PLACES" \
   "$SYMBOLIC_STATUS" "$APPS_DIR" "$DASH_DIR"
 
 echo "=== Pull VM assets → $VENDOR ($SSH_TARGET) ==="
@@ -95,6 +97,25 @@ pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Ptyxis.svg \
   "$TOOLKIT_APPS/terminal.svg"
 pull /usr/share/icons/hicolor/256x256/apps/firefox.png \
   "$TOOLKIT_APPS/firefox.png"
+
+# Polices UI VM (Red Hat Text / Mono — crochets [wght] : scp direct, pas de glob bash)
+pull_font() {
+  local remote="$1" local="$2"
+  if scp "${SSH_OPTS[@]}" "${SSH_TARGET}:${remote}" "$local" 2>/dev/null; then
+    echo "  ✓ $local"
+  else
+    echo "  ✗ absent: $remote" >&2
+  fi
+}
+pull_font '/usr/share/fonts/redhat-vf/RedHatText[wght].ttf' "$FONTS_DIR/RedHatText[wght].ttf"
+pull_font '/usr/share/fonts/redhat-vf/RedHatMono[wght].ttf' "$FONTS_DIR/RedHatMono[wght].ttf"
+
+# Icônes MIME Adwaita (explorateur / parité types)
+for icon in inode-directory.svg text-x-generic.svg text-x-script.svg image-x-generic.svg \
+  application-x-generic.svg application-x-executable.svg package-x-generic.svg \
+  x-office-document.svg audio-x-generic.svg video-x-generic.svg; do
+  pull "/usr/share/icons/$ICON_THEME/scalable/mimetypes/$icon" "$MIMETYPES_DIR/$icon"
+done
 
 # Dossiers Adwaita (Nautilus / slot nemo)
 for icon in folder.svg folder-documents.svg folder-download.svg folder-music.svg \
@@ -151,6 +172,8 @@ cat >"$VENDOR_DIR/SOURCE-VM.txt" <<EOF
 Assets copiés depuis la VM lab ($SSH_TARGET) le $(date -u +"%Y-%m-%dT%H:%M:%SZ").
 Vendor : $VENDOR · toolkit : $TOOLKIT
 Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-theme).
+Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/$VENDOR/
+MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
 EOF

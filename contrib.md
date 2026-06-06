@@ -26,10 +26,12 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 | Fichier | Rôle |
 |---------|------|
 | [`.cursor/rules/logique-formelle-capsuleos.mdc`](.cursor/rules/logique-formelle-capsuleos.mdc) | **Paradigme agent** — prédicats, règles, décision autonome |
+| [`.cursor/rules/capsuleos-autonomous-execution.mdc`](.cursor/rules/capsuleos-autonomous-execution.mdc) | **R-AUTO** — alias actions, R-PWD1 bundles, hooks |
 | [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills |
 | [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Gates **A** / **S** / **T**, zones assets autorisées |
 
-**Document fondateur** : [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md)
+**Document fondateur** : [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md)  
+**Chaîne réplication** (tous vendors) : [`root/docs/procedure-replication-formelle.md`](root/docs/procedure-replication-formelle.md)
 
 ### Parcours obligatoire (H0 → H6)
 

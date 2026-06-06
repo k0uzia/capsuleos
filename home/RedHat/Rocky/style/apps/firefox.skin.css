@@ -143,9 +143,9 @@ body#rocky #firefox .capsule-browser__chrome {
 body#rocky #firefox .capsule-browser__tabsbar {
     position: relative;
     z-index: 2;
-    gap: 0.28rem;
-    min-height: 2rem;
-    padding: 0.23rem 0.42rem 0;
+    gap: 0.12rem;
+    min-height: 2.05rem;
+    padding: 0.28rem 0.42rem 0;
     border-bottom: 1px solid var(--fedora-app-border);
     background: var(--fedora-app-header-alt-bg);
 }
@@ -154,13 +154,14 @@ body#rocky #firefox .capsule-browser__tab {
     flex: 0 1 12.6rem;
     min-width: 0;
     max-width: min(12.6rem, calc(100% - 7rem));
-    height: 1.52rem;
+    height: 1.62rem;
     padding: 0 0.42rem;
-    border: 1px solid var(--fedora-app-tab-border);
-    border-radius: 0.36rem;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: 0.55rem 0.55rem 0 0;
     color: var(--fedora-app-text);
-    background: var(--fedora-app-tab-bg);
-    font-family: "Cantarell", var(--font-ui);
+    background: transparent;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
 }
 
@@ -172,8 +173,11 @@ body#rocky #firefox .capsule-browser__tab:hover {
 
 body#rocky #firefox .capsule-browser__tab--active {
     border-color: var(--fedora-app-tab-border);
+    border-bottom-color: var(--fedora-app-surface);
+    margin-bottom: -1px;
     color: var(--fedora-app-text);
     background: var(--fedora-app-tab-active-bg);
+    box-shadow: 0 -1px 0 var(--fedora-app-tab-border);
 }
 
 body#rocky #firefox .capsule-browser__tab-icon {
@@ -267,7 +271,7 @@ body#rocky #firefox .capsule-browser__address-prefix {
 body#rocky #firefox .capsule-browser__address-input {
     height: 1.45rem;
     color: var(--fedora-app-field-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.78rem;
 }
 
@@ -303,7 +307,7 @@ body#rocky #firefox .capsule-browser__bookmark {
     border-radius: 0.25rem;
     color: var(--fedora-app-text);
     background: transparent;
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.7rem;
 }
 

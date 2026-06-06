@@ -15,6 +15,8 @@ const IMAGE_EXT = new Set(['.png', '.svg', '.jpg', '.jpeg', '.gif', '.webp', '.i
 const ALLOWED_PREFIXES = [
   path.join(ROOT, 'usr/share/capsuleos/assets'),
   path.join(ROOT, 'home/public/Images'),
+  // Enquête visuelle lab (V / Vc) — procedure-replication-formelle.md
+  path.join(ROOT, 'root/docs/inventaires/captures'),
 ];
 
 const SKIP_DIRS = new Set([

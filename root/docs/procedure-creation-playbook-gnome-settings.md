@@ -2,7 +2,7 @@
 
 > **Objectif** : documenter la chaîne reproductible pour créer, étendre et valider un **playbook lab** aligné sur `gnome-control-center` et `gsettings`, puis l’injecter dans CapsuleOS (`gnome-settings-parity.js` + UI Paramètres).
 
-**Contexte** : référence implémentée pour **Rocky Linux 10 GNOME** (`linux-rocky`). Réutilisable pour Fedora, Alma, Ubuntu GNOME avec adaptation de la matrice et du `registryId`.
+**Contexte** : **playbook spécifique toolkit** GNOME — enfant du [playbook général multiplateforme](procedure-playbook-general.md) (couche K). Référence Rocky (`linux-rocky`) ; réutilisable Fedora, Alma, Ubuntu GNOME via `registryId` + matrice.
 
 **Documents liés** :
 
@@ -628,9 +628,12 @@ node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-interaction.mjs --id 
 node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 # Inventaire : root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
 
-# Passe gsettings approfondie (après enquête)
+# Passe gsettings approfondie + clôture visuelle (chaîne formelle)
 node usr/lib/capsuleos/tools/lab/compare-playbook-gsettings-capsule.mjs --registry linux-rocky --strict
 node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-gsettings-pass.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/collect-capsule-visual-investigation.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-capsule-parity.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/run-replication-chain.mjs --id linux-rocky --dry-run
 node usr/lib/capsuleos/tools/lab/generate-gsettings-bindings.mjs
 node usr/lib/capsuleos/tools/lab/smoke-gsettings-snapshot.mjs
 

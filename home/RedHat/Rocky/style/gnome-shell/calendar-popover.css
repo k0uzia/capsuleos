@@ -16,7 +16,7 @@
   border: var(--calendar-popover-border);
   box-shadow: var(--calendar-popover-shadow);
   color: var(--calendar-popover-text);
-  font-family: "Cantarell", var(--font-ui);
+  font-family: var(--font-ui);
   font-size: var(--calendar-popover-font-size);
 }
 

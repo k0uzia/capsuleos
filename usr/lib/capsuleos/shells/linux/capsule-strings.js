@@ -88,7 +88,12 @@ function buildWindowTitles(merged) {
         file_roller: m['file_roller.windowTitle'] || 'Gestionnaire d\'archives',
         text_editor: m['text_editor.windowTitle'] || 'Éditeur de texte',
         clocks: m['clocks.windowTitle'] || 'Horloges',
-        calendar: m['calendar.windowTitle'] || 'Calendrier'
+        calendar: m['calendar.windowTitle'] || 'Calendrier',
+        snapshot: m['snapshot.windowTitle'] || 'Snapshot',
+        baobab: m['baobab.windowTitle'] || 'Utilisation des disques',
+        system_monitor: m['system_monitor.windowTitle'] || 'Moniteur système',
+        tour: m['tour.windowTitle'] || 'Visite guidée',
+        characters: m['characters.windowTitle'] || 'Caractères',
     };
 }
 

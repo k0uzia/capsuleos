@@ -1,0 +1,116 @@
+main#gnomeTourApp {
+    position: var(--rel);
+    display: var(--f);
+    flex-flow: var(--cnw);
+    width: var(--full);
+    height: var(--full);
+    overflow: hidden;
+    font-family: var(--font-ui);
+    color: var(--gnome-tour-text, #f6f6f6);
+    background: var(--gnome-tour-bg, #242424);
+}
+
+.gnome-tour__header {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    flex-shrink: 0;
+    min-height: calc(var(--head) * 0.95);
+    padding: 0 calc(var(--head) / 2.5);
+    border-bottom: 1px solid var(--gnome-tour-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-tour-header-bg, #383838);
+}
+
+.gnome-tour__title {
+    margin: 0;
+    font-size: calc(var(--head) / 2.65);
+    font-weight: 600;
+}
+
+.gnome-tour__stage {
+    flex: 1;
+    display: var(--f);
+    flex-flow: var(--cnw);
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--head) / 2.2);
+    padding: calc(var(--head) / 1.8);
+    min-height: 0;
+    overflow: auto;
+}
+
+.gnome-tour__illus {
+    width: min(100%, calc(var(--head) * 12));
+    aspect-ratio: 16 / 10;
+    border-radius: calc(var(--head) / 4);
+    background:
+        radial-gradient(circle at 70% 20%, rgba(53, 132, 228, 0.35), transparent 45%),
+        linear-gradient(160deg, #2a2a2a, #3d3d3d 55%, #252525);
+    border: 1px solid var(--gnome-tour-border, rgba(255, 255, 255, 0.08));
+}
+
+.gnome-tour__lead {
+    margin: 0;
+    max-width: 24rem;
+    font-size: calc(var(--head) / 2.5);
+    font-weight: 600;
+    text-align: center;
+}
+
+.gnome-tour__bullets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 24rem;
+    font-size: calc(var(--head) / 2.85);
+    color: var(--gnome-tour-muted, rgba(255, 255, 255, 0.72));
+}
+
+.gnome-tour__bullets li {
+    padding: calc(var(--head) / 6) 0;
+}
+
+.gnome-tour__bullets li::before {
+    content: "• ";
+    color: var(--gnome-tour-accent, #3584e4);
+}
+
+.gnome-tour__footer {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    padding: calc(var(--head) / 2.5) calc(var(--head) / 2);
+    border-top: 1px solid var(--gnome-tour-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-tour-header-bg, #383838);
+}
+
+.gnome-tour__dots {
+    display: var(--f);
+    gap: calc(var(--head) / 5);
+}
+
+.gnome-tour__dot {
+    width: calc(var(--head) / 4.5);
+    height: calc(var(--head) / 4.5);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.gnome-tour__dot--active {
+    background: var(--gnome-tour-accent, #3584e4);
+}
+
+.gnome-tour__next {
+    padding: calc(var(--head) / 5) calc(var(--head) / 2);
+    border: none;
+    border-radius: calc(var(--head) / 5);
+    font: inherit;
+    font-weight: 600;
+    font-size: calc(var(--head) / 2.85);
+    color: #fff;
+    background: var(--gnome-tour-accent, #3584e4);
+    opacity: 0.65;
+    cursor: default;
+}

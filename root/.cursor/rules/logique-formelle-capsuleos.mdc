@@ -10,13 +10,15 @@ Référence complète : `root/docs/logique-formelle.md`
 ## Avant d'agir
 
 1. Vérifier **H₂** : `node usr/lib/capsuleos/tools/validate-all.mjs` (ou gate zone si fix ciblé).
-2. Identifier les prédicats du domaine : **A** (assets dépôt), **S** (sources VM), **I** (inventaire), **L** (lab), **V** (visuel), **G** (gsettings profond).
+2. Identifier les prédicats du domaine : **A**, **S**, **I**, **L**, **V**, **G**, **Vc** (captures Capsule), **Vp** (visualMatch classé).
 3. Appliquer les règles §3 du document canonique — **ne pas implémenter** si **¬A**, **¬I**, ou **¬H₂** (sauf fix CI).
 
 ## Décision autonome
 
 - Si une seule action débloque la chaîne (**R-AUTO**) : l'exécuter sans demander à l'utilisateur.
-- Priorité par défaut après gates socle : **P0** → inventaire/VM → assets **A∧S** → lab **L** → enquête **V** → passe **G** → **H₆**.
+- Priorité par défaut : **P0** → **I** → **A∧S** → **L** → **V** → **G** → **Vc** → **Vp** → **H₆** (voir `root/docs/procedure-replication-formelle.md`).
+- **R-AUTO** : `node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId>` puis exécuter si `autoExecute`.
+- **R-PWD1** : bundles `agent-action-aliases.json` — pas de sudo dispersé.
 - **¬playbook_VM(distrib)** : ne pas inventer baseline.
 - VM prime sur doc officielle ; noter les écarts.
 

@@ -142,25 +142,29 @@
             label: 'Visite guidée',
             aliases: ['tour', 'welcome', 'gnome tour'],
             description: 'Découvrir GNOME',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg',
+            dataLink: 'tour'
         },
         {
             label: 'Utilisation des disques',
             aliases: ['baobab', 'disque', 'espace'],
             description: 'Analyseur d\'utilisation des disques',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg',
+            dataLink: 'baobab'
         },
         {
             label: 'Moniteur système',
             aliases: ['system monitor', 'ressources', 'cpu', 'ram'],
             description: 'Surveiller le système',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg',
+            dataLink: 'system_monitor'
         },
         {
             label: 'Caractères',
             aliases: ['characters', 'symboles', 'unicode'],
             description: 'Table des caractères',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg',
+            dataLink: 'characters'
         },
         {
             label: 'Contacts',

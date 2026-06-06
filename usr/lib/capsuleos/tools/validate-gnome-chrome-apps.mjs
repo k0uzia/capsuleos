@@ -35,6 +35,10 @@ const GNOME_SLOT_PROVIDERS = {
     lecteur_multimedia: 'libadwaita-gnome',
     snapshot: 'libadwaita-gnome',
     screenshot: 'libadwaita-gnome',
+    baobab: 'libadwaita-gnome',
+    system_monitor: 'libadwaita-gnome',
+    tour: 'libadwaita-gnome',
+    characters: 'libadwaita-gnome',
 };
 
 /** Ancre CSD libadwaita (doit exister dans le gabarit HTML). */
@@ -53,6 +57,10 @@ const LIBADWAITA_ANCHORS = {
     lecteur_multimedia: 'viewer-app__toolbar',
     snapshot: 'gnome-snapshot__header',
     screenshot: 'gnome-shot__headerbar',
+    baobab: 'gnome-baobab__header',
+    system_monitor: 'gnome-sysmon__header',
+    tour: 'gnome-tour__header',
+    characters: 'gnome-characters__header',
 };
 
 const PROFILE_PROVIDER_OVERRIDES = {

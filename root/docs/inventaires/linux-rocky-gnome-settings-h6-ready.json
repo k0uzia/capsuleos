@@ -1,0 +1,16 @@
+{
+  "registryId": "linux-rocky",
+  "h6Ready": true,
+  "pbSigma": true,
+  "h5Completed": [
+    "theme",
+    "accent",
+    "wallpaper",
+    "night-light",
+    "dynamic-workspaces",
+    "hot-corner",
+    "dnd"
+  ],
+  "gate": "smoke-h6-gnome-settings-ready.mjs",
+  "generatedAt": "2026-06-06T14:50:45.911Z"
+}

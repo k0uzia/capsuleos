@@ -28,6 +28,20 @@
         'network-workgroup-symbolic.svg': 'symbolic/places',
     };
 
+    /** Icônes MIME KDE catalogue → Adwaita scalable/mimetypes (VM ground truth). */
+    const ADWAITA_MIME_LEAF_MAP = {
+        'x-office-document.svg': 'mimetypes/x-office-document.svg',
+        'text-x-generic.svg': 'mimetypes/text-x-generic.svg',
+        'text-x-script.svg': 'mimetypes/text-x-script.svg',
+        'text-html.svg': 'mimetypes/text-x-generic.svg',
+        'application-x-generic.svg': 'mimetypes/application-x-generic.svg',
+        'application-x-executable.svg': 'mimetypes/application-x-executable.svg',
+        'image-x-generic.svg': 'mimetypes/image-x-generic.svg',
+        'audio-x-generic.svg': 'mimetypes/audio-x-generic.svg',
+        'video-x-generic.svg': 'mimetypes/video-x-generic.svg',
+        'package-x-generic.svg': 'mimetypes/package-x-generic.svg',
+    };
+
     /** Noms Mint/Cinnamon → chemin relatif sous icons/gnome/adwaita/ (VM Adwaita). */
     const ADWAITA_LEAF_MAP = {
         'recent.svg': 'places/document-open-recent-symbolic.svg',
@@ -155,6 +169,11 @@
         }
         if (!usesGnomeAdwaita()) {
             return resolveAssetUrl(path);
+        }
+        if (path.indexOf('kde/mimeTypes/') >= 0) {
+            const leaf = path.split('/').pop();
+            const mapped = ADWAITA_MIME_LEAF_MAP[leaf] || 'mimetypes/application-x-generic.svg';
+            return resolveAssetUrl(`${GNOME_BASE}/${mapped}`);
         }
         if (path.indexOf(`${CINNAMON_BASE}/`) === 0) {
             const leaf = path.slice(CINNAMON_BASE.length + 1);

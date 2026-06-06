@@ -1,0 +1,35 @@
+<main id="gnomeBaobabApp" class="gnome-baobab" aria-label="Utilisation des disques">
+
+    <header class="gnome-baobab__header">
+        <h2 class="gnome-baobab__title">Utilisation des disques</h2>
+        <button type="button" class="gnome-baobab__scan-btn" disabled aria-label="Analyser le dossier">Analyser</button>
+    </header>
+
+    <div class="gnome-baobab__body">
+        <aside class="gnome-baobab__sidebar" aria-label="Emplacements">
+            <ul class="gnome-baobab__places">
+                <li class="gnome-baobab__place gnome-baobab__place--active">
+                    <span class="gnome-baobab__place-icon" aria-hidden="true"></span>
+                    <span class="gnome-baobab__place-label">Système de fichiers</span>
+                    <span class="gnome-baobab__place-size">42,1 Go</span>
+                </li>
+                <li class="gnome-baobab__place">
+                    <span class="gnome-baobab__place-icon gnome-baobab__place-icon--home" aria-hidden="true"></span>
+                    <span class="gnome-baobab__place-label">Dossier personnel</span>
+                    <span class="gnome-baobab__place-size">8,4 Go</span>
+                </li>
+            </ul>
+        </aside>
+        <section class="gnome-baobab__main" aria-label="Répartition">
+            <div class="gnome-baobab__ring" role="img" aria-label="Espace utilisé 62 pour cent">
+                <span class="gnome-baobab__ring-center">62 %</span>
+            </div>
+            <ul class="gnome-baobab__legend">
+                <li><span class="gnome-baobab__swatch gnome-baobab__swatch--used"></span> Utilisé — 26,1 Go</li>
+                <li><span class="gnome-baobab__swatch gnome-baobab__swatch--free"></span> Disponible — 16,0 Go</li>
+            </ul>
+            <p class="gnome-baobab__hint">Simulation CapsuleOS — analyse disque non connectée à la VM.</p>
+        </section>
+    </div>
+
+</main>

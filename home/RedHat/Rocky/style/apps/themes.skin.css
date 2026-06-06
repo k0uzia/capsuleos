@@ -54,7 +54,7 @@ body#rocky div[data-link="themes"].gnome-app--csd {
 body#rocky div[data-link="themes"] main#themesApp.gnome-settings {
     color: var(--gcc-text);
     background: var(--gcc-bg);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 body#rocky div[data-link="themes"] .gnome-settings__sidebar {

@@ -1,0 +1,33 @@
+<main id="gnomeSysmonApp" class="gnome-sysmon" aria-label="Moniteur système">
+
+    <header class="gnome-sysmon__header">
+        <nav class="gnome-sysmon__tabs" aria-label="Sections">
+            <button type="button" class="gnome-sysmon__tab gnome-sysmon__tab--active">Ressources</button>
+            <button type="button" class="gnome-sysmon__tab">Processus</button>
+        </nav>
+    </header>
+
+    <section class="gnome-sysmon__panel" aria-label="Ressources système">
+        <article class="gnome-sysmon__card">
+            <h3 class="gnome-sysmon__card-title">Processeur</h3>
+            <div class="gnome-sysmon__bars" aria-hidden="true">
+                <span style="--h: 38%"></span><span style="--h: 52%"></span><span style="--h: 44%"></span>
+                <span style="--h: 61%"></span><span style="--h: 48%"></span><span style="--h: 35%"></span>
+                <span style="--h: 42%"></span><span style="--h: 55%"></span>
+            </div>
+            <p class="gnome-sysmon__stat">12 % · 8 cœurs</p>
+        </article>
+        <article class="gnome-sysmon__card">
+            <h3 class="gnome-sysmon__card-title">Mémoire</h3>
+            <div class="gnome-sysmon__meter">
+                <div class="gnome-sysmon__meter-fill" style="width: 47%"></div>
+            </div>
+            <p class="gnome-sysmon__stat">3,7 Go / 7,8 Go</p>
+        </article>
+        <article class="gnome-sysmon__card">
+            <h3 class="gnome-sysmon__card-title">Réseau</h3>
+            <p class="gnome-sysmon__stat gnome-sysmon__stat--muted">Réception 24 Ko/s · Envoi 8 Ko/s</p>
+        </article>
+    </section>
+
+</main>

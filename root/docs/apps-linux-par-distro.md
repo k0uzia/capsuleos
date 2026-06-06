@@ -89,6 +89,8 @@ Variantes `update_manager` :
 
 ### Rocky Linux GNOME (`rocky`) — référence Nautilus
 
+> **Catalogue strict machine** : [`linux-rocky-apps-catalog.json`](inventaires/linux-rocky-apps-catalog.json) · procédure : [procedure-apps-catalog.md](procedure-apps-catalog.md)
+
 | App réelle | ID CapsuleOS | Dash | Dock |
 |---|---|---|---|
 | Firefox | `firefox` | ✅ | ✅ |

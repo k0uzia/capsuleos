@@ -81,6 +81,7 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) |
 | **Staffing agents** | [`root/docs/equipe-agentique.md`](docs/equipe-agentique.md) |
 | **Logique formelle (gates & décision)** | [`root/docs/logique-formelle.md`](docs/logique-formelle.md), `.cursor/rules/logique-formelle-capsuleos.mdc` |
+| **Réplication formelle (tous vendors)** | [`root/docs/procedure-replication-formelle.md`](docs/procedure-replication-formelle.md) |
 | **Parcours agent (H0–H6)** | [`root/docs/parcours-agent.md`](docs/parcours-agent.md), skill [`onboarding`](skills/onboarding/SKILL.md) |
 | **Ajouter distro / vendor** | [`root/docs/ajouter-os-scalable.md`](docs/ajouter-os-scalable.md) |
 | **Hiérarchie skills** | [`root/docs/skills-hierarchie.md`](docs/skills-hierarchie.md), `seed-agent-skills.mjs --write` |

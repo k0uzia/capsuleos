@@ -39,7 +39,8 @@ Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
 ## Logique formelle
 
 - **Paradigme** : [logique-formelle.md](../../docs/logique-formelle.md)
-- **Playbook Paramètres** : [procedure-creation-playbook-gnome-settings.md](../../docs/procedure-creation-playbook-gnome-settings.md) §0 annexe — gates **A**, **S**, **L**, **V**
+- **Chaîne réplication** : [procedure-replication-formelle.md](../../docs/procedure-replication-formelle.md) — **V → G → Vc → Vp**
+- **Playbook Paramètres** : [procedure-creation-playbook-gnome-settings.md](../../docs/procedure-creation-playbook-gnome-settings.md) §0 annexe — gates **A**, **S**, **L**
 
 ## VM lab
 

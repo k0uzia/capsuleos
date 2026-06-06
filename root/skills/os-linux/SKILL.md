@@ -58,6 +58,10 @@ Avant toute passe CSS/UX sur un skin Linux : [contrib.md § toolkits](../../../c
 
 Distros `toolkit: gnome` : charger **`gnome-hig-replication`** + [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/gnome-hig-resources.json`.
 
+## Toolkit KDE (Plasma + Qt/Kirigami)
+
+Distros `toolkit: kde` : charger **`kde-hig-replication`** + [kde-hig-ressources.md](../../docs/kde-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/kde-hig-resources.json`. Branche : [branche-plasma-kde.md](../../docs/branche-plasma-kde.md).
+
 ## Ajouter une distro / version / vendor
 
 Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md). Gate : `validate-all.mjs`.

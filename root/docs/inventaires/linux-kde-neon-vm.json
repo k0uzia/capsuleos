@@ -120,6 +120,11 @@
             ]
         }
     },
+    "officialDocAlignment": {
+        "kdeHig": "https://develop.kde.org/hig/",
+        "kdeHigCatalog": "root/docs/kde-hig-ressources.md",
+        "plasmaBranch": "root/docs/branche-plasma-kde.md"
+    },
     "branding": {
         "logoCandidates": []
     }

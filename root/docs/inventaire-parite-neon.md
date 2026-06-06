@@ -1,6 +1,7 @@
 # Inventaire parité — KDE neon User Edition VM → CapsuleOS
 
 > Collecte VM : 2026-06-06 · Registre : `linux-kde-neon`  
+> **HIG KDE** : [kde-hig-ressources.md](kde-hig-ressources.md) · branche : [branche-plasma-kde.md](branche-plasma-kde.md)  
 > Inventaire : [`inventaires/linux-kde-neon-vm.json`](inventaires/linux-kde-neon-vm.json)  
 > **Clôture Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md)  
 > **Clôture Kickoff** : [`inventaires/linux-kde-neon-kickoff-closure.md`](inventaires/linux-kde-neon-kickoff-closure.md)  

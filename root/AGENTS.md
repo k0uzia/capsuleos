@@ -81,6 +81,8 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) |
 | **Staffing agents** | [`root/docs/equipe-agentique.md`](docs/equipe-agentique.md) |
 | **Logique formelle (gates & décision)** | [`root/docs/logique-formelle.md`](docs/logique-formelle.md), `.cursor/rules/logique-formelle-capsuleos.mdc` |
+| **GNOME HIG (toolkit gnome)** | [`root/docs/gnome-hig-ressources.md`](docs/gnome-hig-ressources.md), skill [`gnome-hig-replication`](skills/gnome-hig-replication/SKILL.md) |
+| **KDE HIG (toolkit kde)** | [`root/docs/kde-hig-ressources.md`](docs/kde-hig-ressources.md), skill [`kde-hig-replication`](skills/kde-hig-replication/SKILL.md) |
 | **Réplication formelle (tous vendors)** | [`root/docs/procedure-replication-formelle.md`](docs/procedure-replication-formelle.md) |
 | **Parcours agent (H0–H6)** | [`root/docs/parcours-agent.md`](docs/parcours-agent.md), skill [`onboarding`](skills/onboarding/SKILL.md) |
 | **Ajouter distro / vendor** | [`root/docs/ajouter-os-scalable.md`](docs/ajouter-os-scalable.md) |

@@ -27,10 +27,12 @@ description: CapsuleOS distribution KDE neon User Edition (linux-kde-neon) — l
 | Ordre | Skill |
 |-------|--------|
 | 1 | `onboarding` |
-| 2 | `os-linux` (famille) |
-| 3 | `capsuleos-vendor-neon` (vendor) |
-| 4 | `capsuleos-distro-linux-kde-neon` (cette fiche) |
-| 5 | `capsuleos-lang-*` selon fichiers |
+| 2 | `os-clone-from-vm` |
+| 3 | `kde-hig-replication` (HIG officiel — Breeze, patterns, Kirigami) |
+| 4 | `os-linux` (famille) |
+| 5 | `capsuleos-vendor-neon` (vendor) |
+| 6 | `capsuleos-distro-linux-kde-neon` (cette fiche) |
+| 7 | `capsuleos-lang-*` selon fichiers |
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-kde-neon`
 
@@ -48,6 +50,9 @@ node usr/lib/capsuleos/tools/build-embeds-all.mjs  # si apps/strings
 
 ## Références
 
+- [branche-plasma-kde.md](../../docs/branche-plasma-kde.md) — référence Plasma opérationnelle
+- [kde-hig-ressources.md](../../docs/kde-hig-ressources.md) — catalogue HIG
+- [inventaire-parite-neon.md](../../docs/inventaire-parite-neon.md) — parité VM
 - [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md)
 - [skills-hierarchie.md](../../docs/skills-hierarchie.md)
 

@@ -1,7 +1,8 @@
 # KDE neon User Edition — checklist réparation (juin 2026)
 
 Référence visuelle : VM lab + captures `home/public/Images/screen_KDE-Neon/`.  
-Skin canonique : `home/Debian/KDE-Neon/index.html` · Registre : `linux-kde-neon`.
+Skin canonique : `home/Debian/KDE-Neon/index.html` · Registre : `linux-kde-neon`.  
+**HIG KDE** : [`kde-hig-ressources.md`](../kde-hig-ressources.md) · skill [`kde-hig-replication`](../../skills/kde-hig-replication/SKILL.md).
 
 ## Phase A — quick wins (sans VM)
 

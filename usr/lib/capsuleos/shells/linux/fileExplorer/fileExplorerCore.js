@@ -749,8 +749,13 @@ const updateNautilusSelectionStatus = (itemLink) => {
         return;
     }
     const statusEl = nemoRoot.querySelector('#nemo-status-label');
+    const footerEl = nemoRoot.querySelector('#nemoFooterContainer');
     if (!statusEl) {
         return;
+    }
+
+    if (footerEl) {
+        footerEl.classList.toggle('nautilus-app__status-pill--selection', Boolean(itemLink));
     }
 
     if (!itemLink) {

@@ -1,7 +1,7 @@
 # Inventaire parité — Rocky Linux 10 GNOME VM → CapsuleOS
 
 > Collecte : **juin 2026** · Registre : `linux-rocky` · Inventaire JSON : [`inventaires/linux-rocky-vm.json`](inventaires/linux-rocky-vm.json)  
-> Procédure : [`procedure-lab-linux-rocky-gnome.md`](procedure-lab-linux-rocky-gnome.md) · Référence design : [`branche-redhat-gnome.md`](branche-redhat-gnome.md)
+> Procédure : [`procedure-lab-linux-rocky-gnome.md`](procedure-lab-linux-rocky-gnome.md) · Playbook Paramètres : [`procedure-creation-playbook-gnome-settings.md`](procedure-creation-playbook-gnome-settings.md) · Référence design : [`branche-redhat-gnome.md`](branche-redhat-gnome.md)
 
 ---
 
@@ -131,14 +131,14 @@ Rapport détaillé : [`linux-rocky-comparaison-visuelle.md`](inventaires/linux-r
 | Terminal sombre | ✓ | ✓ | P1 — Ptyxis vs chrome |
 | Bureau clair | ✓ | ✓ | OK mécanisme thème |
 | Nautilus clair | ✓ | ✓ | P1 |
-| Paramètres — Apparence | — | ✓ (gabarit) | P1 — capture VM à ajouter |
-| Paramètres — Écrans | — | ✓ (gabarit) | P1 — capture VM à ajouter |
-| Paramètres — Son | — | ✓ (gabarit) | P2 — capture optionnelle |
+| Paramètres — Apparence | — | ✓ `rocky-capsule-*-settings-appearance.png` | P1 — capture VM à collecter |
+| Paramètres — Écrans | — | ✓ `rocky-capsule-dark-settings-displays.png` | P1 — capture VM à collecter |
+| Paramètres — Son | — | — | P2 — capture optionnelle |
 
 Commandes :
 
 ```bash
-# Capsule (12 scènes : bureau, aperçu, QS, apps RL10…)
+# Capsule (15 scènes : bureau, aperçu, QS, apps RL10, Paramètres…)
 node root/tools/lab/capture-capsule-rocky.mjs
 
 # VM apps (virsh) — si hyperviseur local ; sinon audit/ déjà collecté
@@ -202,7 +202,7 @@ Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep
 - [x] **Snapshot** — slot `snapshot` · gabarit CSD · grille + recherche Aperçu
 - [x] **Capture d'écran** — slot `screenshot` · Quick Settings · recherche Aperçu
 - [x] **Lecteur vidéo** — décoratif RL10 (Showtime absent VM) · slot Capsule `lecteur_multimedia` hors recherche Rocky
-- [ ] **Captures Paramètres** — scènes Apparence / Écrans dans `capture-capsule-rocky.mjs`
+- [x] **Captures Paramètres** — scènes Apparence / Écrans dans `capture-capsule-rocky.mjs` (15 PNG total)
 - [ ] **Baobab** — grille Aperçu OK, slot CSD manquant
 - [ ] **System Monitor** — grille Aperçu OK, slot CSD manquant
 - [ ] **Bluetooth Quick Settings** — panneau Paramètres OK, tray QS incomplet
@@ -257,6 +257,9 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - [reference-gnome-expert.md](reference-gnome-expert.md)
 - [branche-redhat-gnome.md](branche-redhat-gnome.md)
 - [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md)
+- [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md)
+- [linux-rocky-gnome-settings-playbook.md](inventaires/linux-rocky-gnome-settings-playbook.md)
+- [linux-rocky-gnome-settings-interaction.md](inventaires/linux-rocky-gnome-settings-interaction.md)
 - [linux-rocky-vm.md](inventaires/linux-rocky-vm.md)
 - [linux-rocky-vm-apps-installed.json](inventaires/linux-rocky-vm-apps-installed.json)
 - [convention-reproduction-os.md](convention-reproduction-os.md) §8

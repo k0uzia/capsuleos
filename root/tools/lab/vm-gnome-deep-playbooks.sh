@@ -289,6 +289,47 @@ print(json.dumps(result, ensure_ascii=False))
 PY
 )
       ;;
+    settings-inventory)
+      if [[ -f "$HOME/capsuleos-lab/vm-gnome-settings-inventory.sh" ]]; then
+        result=$("$HOME/capsuleos-lab/vm-gnome-settings-inventory.sh" 2>/dev/null || echo '{}')
+      elif [[ -f "$(dirname "$0")/vm-gnome-settings-inventory.sh" ]]; then
+        result=$("$(dirname "$0")/vm-gnome-settings-inventory.sh" 2>/dev/null || echo '{}')
+      else
+        result='{"error":"vm-gnome-settings-inventory.sh missing"}'
+      fi
+      ;;
+    settings-interactions)
+      if [[ -f "$HOME/capsuleos-lab/vm-gnome-settings-interaction-playbook.sh" ]]; then
+        result=$("$HOME/capsuleos-lab/vm-gnome-settings-interaction-playbook.sh" 2>/dev/null || echo '{}')
+      elif [[ -f "$(dirname "$0")/vm-gnome-settings-interaction-playbook.sh" ]]; then
+        result=$("$(dirname "$0")/vm-gnome-settings-interaction-playbook.sh" 2>/dev/null || echo '{}')
+      else
+        result='{"error":"vm-gnome-settings-interaction-playbook.sh missing"}'
+      fi
+      ;;
+    settings-panels-tour)
+      if [[ -f "$HOME/capsuleos-lab/vm-gnome-settings-playbook.sh" ]]; then
+        result=$("$HOME/capsuleos-lab/vm-gnome-settings-playbook.sh" 2>/dev/null || echo '{}')
+      elif [[ -f "$(dirname "$0")/vm-gnome-settings-playbook.sh" ]]; then
+        result=$("$(dirname "$0")/vm-gnome-settings-playbook.sh" 2>/dev/null || echo '{}')
+      else
+        result='{"error":"vm-gnome-settings-playbook.sh missing"}'
+      fi
+      ;;
+    settings-open)
+      gnome-control-center >/dev/null 2>&1 &
+      sleep_ms 1200
+      result=$(python3 - <<'PY'
+import json
+from datetime import datetime, timezone
+print(json.dumps({
+  "playbook": "settings-open",
+  "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+  "launched": True,
+}, ensure_ascii=False))
+PY
+)
+      ;;
     workspace-meta)
       result=$(python3 - <<'PY'
 import json, subprocess
@@ -329,7 +370,7 @@ main() {
     cmd="$2"
   fi
   if [[ "$cmd" == "list" ]]; then
-    echo "desktop-idle desktop-contextmenu overview-open overview-close open-nautilus open-firefox open-terminal quick-settings workspace-next workspace-prev overview-workspaces animation-overview-burst nautilus-contextmenu workspace-meta"
+    echo "desktop-idle desktop-contextmenu overview-open overview-close open-nautilus open-firefox open-terminal quick-settings settings-open settings-inventory settings-panels-tour settings-interactions workspace-next workspace-prev overview-workspaces animation-overview-burst nautilus-contextmenu workspace-meta"
     exit 0
   fi
   if [[ "$cmd" == "all-meta" ]]; then

@@ -24,7 +24,7 @@ html:has(#ubuntu) {
     --win-themes-min-height: 32rem;
 }
 
-html[data-theme="light"]:has(#ubuntu) {
+html[data-theme="light"]:has(#ubuntu) body#ubuntu {
     --gnome-settings-bg: #fafafa;
     --gnome-settings-sidebar-bg: #f3f3f5;
     --gnome-settings-text: #1e1e1e;

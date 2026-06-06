@@ -180,6 +180,12 @@
                 const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
                 document.documentElement.dataset.theme = nextTheme;
                 persistTheme(nextTheme);
+                const storage = window.CapsuleThemeStorage;
+                if (storage && typeof storage.applyWallpaper === 'function') {
+                    const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+                    storage.applyWallpaper(wpId, document.body ? document.body.id : '');
+                }
+                document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: nextTheme } }));
                 refresh(els);
             });
         }
@@ -201,6 +207,46 @@
             powerBtn.addEventListener('click', returnToPickHome);
         }
 
+        const dndIcon = document.querySelector('.quick-settings__tile-icon--dnd');
+        const dndBtn = dndIcon ? dndIcon.closest('.quick-settings__tile') : null;
+        if (dndBtn) {
+            dndBtn.addEventListener('click', () => {
+                const parity = window.CapsuleGnomeSettingsParity;
+                if (!parity || typeof parity.applySwitch !== 'function') {
+                    return;
+                }
+                const on = !parity.readBool('gnome-dnd-enabled', false);
+                const settingsRoot = document.querySelector('#themes #themesApp');
+                parity.applySwitch('dnd', on, settingsRoot);
+            });
+        }
+
+        const perfIcon = document.querySelector('.quick-settings__tile-icon--performance');
+        const perfBtn = perfIcon ? perfIcon.closest('.quick-settings__tile') : null;
+        if (perfBtn) {
+            perfBtn.addEventListener('click', () => {
+                const parity = window.CapsuleGnomeSettingsParity;
+                if (!parity || typeof parity.cycleSelectById !== 'function') {
+                    return;
+                }
+                const settingsRoot = document.querySelector('#themes #themesApp');
+                parity.cycleSelectById('power-mode', settingsRoot);
+            });
+        }
+
         observer.observe(document.body, { childList: true, subtree: true });
+
+        window.syncVolumeFromSettings = (pct) => {
+            const next = Math.max(0, Math.min(100, Number(pct) || 0));
+            volume = next;
+            muted = next === 0;
+            slider.value = String(volume);
+            refresh(els);
+            persist();
+        };
+
+        window.refreshQuickSettingsVolumeFill = () => {
+            updateFill(slider);
+        };
     });
 })();

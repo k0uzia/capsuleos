@@ -5,7 +5,12 @@
     'use strict';
 
     const GNOME_IDS = new Set(['rocky', 'fedora', 'ubuntu', 'anduinos']);
-    const WORKSPACE_COUNT = 4;
+    const FIXED_WORKSPACE_COUNT = 4;
+
+    function getWorkspaceCount() {
+        const dynamic = global.document.documentElement.dataset.dynamicWorkspaces === 'on';
+        return dynamic ? 2 : FIXED_WORKSPACE_COUNT;
+    }
 
     function isGnomeShell() {
         const bodyId = global.document && global.document.body ? global.document.body.id : '';
@@ -25,7 +30,8 @@
             return 0;
         }
         const raw = Number(root.dataset.activeWorkspace || 0);
-        return Number.isFinite(raw) ? Math.max(0, Math.min(WORKSPACE_COUNT - 1, raw)) : 0;
+        const count = getWorkspaceCount();
+        return Number.isFinite(raw) ? Math.max(0, Math.min(count - 1, raw)) : 0;
     }
 
     function setActiveIndex(index, options) {
@@ -33,16 +39,17 @@
         if (!root) {
             return;
         }
-        const next = Math.max(0, Math.min(WORKSPACE_COUNT - 1, index));
+        const count = getWorkspaceCount();
+        const next = Math.max(0, Math.min(count - 1, index));
         root.dataset.activeWorkspace = String(next);
-        root.dataset.workspaceCount = String(WORKSPACE_COUNT);
+        root.dataset.workspaceCount = String(count);
         updateMiniStrip(next);
         updateWorkspaceStage(next);
         applyWindowVisibility(next);
         if (!options || !options.silent) {
             root.dispatchEvent(new CustomEvent('capsule:workspace-change', {
                 bubbles: true,
-                detail: { index: next, count: WORKSPACE_COUNT },
+                detail: { index: next, count: count },
             }));
         }
     }
@@ -85,7 +92,8 @@
             return;
         }
         strip.innerHTML = '';
-        for (let i = 0; i < WORKSPACE_COUNT; i += 1) {
+        const count = getWorkspaceCount();
+        for (let i = 0; i < count; i += 1) {
             const btn = global.document.createElement('button');
             btn.type = 'button';
             btn.className = 'fedora-overview__mini-workspace';
@@ -126,7 +134,8 @@
             card.dataset.workspaceIndex = String(activeIndex);
         }
         if (peekNext) {
-            peekNext.hidden = activeIndex >= WORKSPACE_COUNT - 1;
+            const count = getWorkspaceCount();
+            peekNext.hidden = activeIndex >= count - 1;
             peekNext.dataset.workspaceIndex = String(activeIndex + 1);
         }
         if (peekPrev) {
@@ -156,7 +165,7 @@
             return;
         }
         const current = Number(win.dataset.workspaceIndex || getActiveIndex());
-        assignWindowToWorkspace(win, Math.max(0, Math.min(WORKSPACE_COUNT - 1, current + delta)));
+        assignWindowToWorkspace(win, Math.max(0, Math.min(getWorkspaceCount() - 1, current + delta)));
     }
 
     function bindKeyboard() {
@@ -229,11 +238,25 @@
         bindKeyboard();
         bindWindowOpen();
 
+        global.document.addEventListener('capsule:workspaces-config-changed', () => {
+            if (global.CapsuleGnomeWorkspaces && typeof global.CapsuleGnomeWorkspaces.reconfigure === 'function') {
+                global.CapsuleGnomeWorkspaces.reconfigure();
+            }
+        });
+
         global.CapsuleGnomeWorkspaces = {
-            count: WORKSPACE_COUNT,
+            get count() {
+                return getWorkspaceCount();
+            },
             getActiveIndex,
             setActiveIndex,
             assignWindowToWorkspace,
+            reconfigure() {
+                const active = getActiveIndex();
+                setActiveIndex(Math.min(active, getWorkspaceCount() - 1), { silent: true });
+                updateMiniStrip(getActiveIndex());
+                updateWorkspaceStage(getActiveIndex());
+            },
         };
     }
 

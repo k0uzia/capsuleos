@@ -1,35 +1,21 @@
-/* GNOME Settings — coque gnome-control-center (sidebar + panneau). */
+/* gnome-control-center 47 — structure Adwaita (sidebar pleine hauteur + panneau). */
 main#themesApp.gnome-settings {
-    position: relative;
     display: grid;
-    grid-template-columns: 14.75rem minmax(0, 1fr);
+    grid-template-columns: var(--gcc-sidebar-w, 16.25rem) minmax(0, 1fr);
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    border-radius: 0;
-    overflow: hidden;
-}
-
-main#themesApp.themes-app--gnome {
-    position: relative;
-    display: grid;
-    grid-template-columns: 14.75rem minmax(0, 1fr);
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
     overflow: hidden;
 }
 
 .gnome-settings__sidebar {
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
-    min-width: 0;
+    gap: 0.5rem;
     min-height: 0;
-    padding: 0.85rem 0.7rem 0.75rem;
+    height: 100%;
+    padding: 0.75rem 0.65rem 0.65rem;
     overflow: hidden;
 }
 
@@ -38,9 +24,19 @@ main#themesApp.themes-app--gnome {
     align-items: center;
     gap: 0.45rem;
     height: 2.125rem;
-    padding: 0 0.7rem;
+    padding: 0 0.75rem;
     border-radius: 999px;
     flex-shrink: 0;
+    transition: background-color var(--eas2, 0.15s ease), color var(--eas2, 0.15s ease);
+}
+
+div[data-link="themes"] main#themesApp.gnome-settings .gnome-settings__search:focus-within {
+    background-color: var(--gcc-search-bg-focus, var(--gcc-search-bg));
+    color: var(--gcc-text, inherit);
+}
+
+div[data-link="themes"] main#themesApp.gnome-settings .gnome-settings__search:focus-within .gnome-settings__search-icon {
+    opacity: 0.72;
 }
 
 .gnome-settings__search-icon {
@@ -61,48 +57,71 @@ main#themesApp.themes-app--gnome {
     color: inherit;
     font: inherit;
     font-size: 0.84rem;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.gnome-settings__search-input:active,
+.gnome-settings__search-input:focus,
+.gnome-settings__search-input:focus-visible {
+    outline: none;
+    box-shadow: none;
+    background: transparent;
 }
 
 .gnome-settings__search-input::placeholder {
     opacity: 0.62;
 }
 
+.gnome-settings__search-input:focus::placeholder,
+.gnome-settings__search-input:focus-visible::placeholder {
+    opacity: 0.62;
+}
+
+body:is(#rocky, #fedora, #alma, #ubuntu, #anduinos) div[data-link="themes"] main#themesApp.gnome-settings :is(
+    .gnome-settings__search-input,
+    .adw-slider
+):is(:focus, :focus-visible, :active) {
+    outline: none;
+    box-shadow: none;
+}
+
 .gnome-settings__nav {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.1rem;
     min-height: 0;
-    overflow: auto;
-    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+}
+
+.gnome-settings__nav:not(.gnome-settings__nav--bottom) {
+    flex: 1 1 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.gnome-settings__nav--bottom {
+    flex-shrink: 0;
 }
 
 .gnome-settings__spacer {
-    flex: 1 1 auto;
-    min-height: 0.5rem;
+    display: none;
 }
 
 .gnome-settings__navitem {
     display: flex;
     align-items: center;
     gap: 0.65rem;
-    min-height: 2.25rem;
-    padding: 0 0.6rem;
+    min-height: 2.125rem;
+    padding: 0 0.55rem;
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: 0.45rem;
     background: transparent;
     font: inherit;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     text-align: left;
-    cursor: default;
-}
-
-.gnome-settings__navitem:not(:disabled):not([aria-disabled="true"]) {
     cursor: pointer;
-}
-
-.gnome-settings__navitem:disabled,
-.gnome-settings__navitem[aria-disabled="true"] {
-    opacity: 0.72;
 }
 
 .gnome-settings__navicon {
@@ -154,6 +173,11 @@ main#themesApp.themes-app--gnome {
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M7 2.5a4.5 4.5 0 1 0 2.8 8l2.5 2.5.9-.9-2.5-2.5A4.5 4.5 0 0 0 7 2.5zm0 1.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6z'/%3E%3C/svg%3E");
 }
 
+.gnome-settings__navicon--multitasking {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2.5 2.5h4.5v4.5H2.5V2.5zm6.5 0h4.5v4.5H9V2.5zM2.5 9h4.5v4.5H2.5V9zm6.5 0h4.5v4.5H9V9z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2.5 2.5h4.5v4.5H2.5V2.5zm6.5 0h4.5v4.5H9V2.5zM2.5 9h4.5v4.5H2.5V9zm6.5 0h4.5v4.5H9V9z'/%3E%3C/svg%3E");
+}
+
 .gnome-settings__navicon--sound {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5zm6.2 1.3a2.8 2.8 0 0 1 0 2.4l.9.5a4 4 0 0 0 0-3.4l-.9.5z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5zm6.2 1.3a2.8 2.8 0 0 1 0 2.4l.9.5a4 4 0 0 0 0-3.4l-.9.5z'/%3E%3C/svg%3E");
@@ -164,14 +188,14 @@ main#themesApp.themes-app--gnome {
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8.5 2v5.5H7.5V2h1zm-3.2 2.2a5 5 0 1 0 7 0l-.8-.6a4 4 0 1 1-5.4 0l-.8.6z'/%3E%3C/svg%3E");
 }
 
-.gnome-settings__navicon--system {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='m8 1.8 6.2 3.6v5.2L8 14.2 1.8 10.6V5.4L8 1.8zm0 1.5L3.3 6v3.8L8 13.1l4.7-3.3V6L8 3.3z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='m8 1.8 6.2 3.6v5.2L8 14.2 1.8 10.6V5.4L8 1.8zm0 1.5L3.3 6v3.8L8 13.1l4.7-3.3V6L8 3.3z'/%3E%3C/svg%3E");
+.gnome-settings__navicon--displays {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 3.5h12v7.5H2V3.5zm1.5 1.5v4.5h9V5h-9zM5.5 12.5h5v1h-5v-1z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 3.5h12v7.5H2V3.5zm1.5 1.5v4.5h9V5h-9zM5.5 12.5h5v1h-5v-1z'/%3E%3C/svg%3E");
 }
 
-.gnome-settings__navicon--region {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.2a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm-.2 1.8v4.2l3.5 2.1-.5.8-3.7-2.2V4.5h.7z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.2a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm-.2 1.8v4.2l3.5 2.1-.5.8-3.7-2.2V4.5h.7z'/%3E%3C/svg%3E");
+.gnome-settings__navicon--mouse {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a3.5 3.5 0 0 0-3.5 3.5v4.5A3.5 3.5 0 0 0 8 13a3.5 3.5 0 0 0 3.5-3.5V5A3.5 3.5 0 0 0 8 1.5zm0 1.5A2 2 0 0 1 10 5v4.5A2 2 0 1 1 6 9.5V5a2 2 0 0 1 2-2z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a3.5 3.5 0 0 0-3.5 3.5v4.5A3.5 3.5 0 0 0 8 13a3.5 3.5 0 0 0 3.5-3.5V5A3.5 3.5 0 0 0 8 1.5zm0 1.5A2 2 0 0 1 10 5v4.5A2 2 0 1 1 6 9.5V5a2 2 0 0 1 2-2z'/%3E%3C/svg%3E");
 }
 
 .gnome-settings__navicon--keyboard {
@@ -179,24 +203,19 @@ main#themesApp.themes-app--gnome {
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 4.5h12v7H2v-7zm1.5 1.5v1h1v-1h-1zm2.5 0v1h1v-1H6zm2.5 0v1h1v-1H8.5zm2.5 0v1h1v-1h-1zM4 8v1h8V8H4z'/%3E%3C/svg%3E");
 }
 
-.gnome-settings__navicon--mouse {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a3.5 3.5 0 0 0-3.5 3.5v4.5A3.5 3.5 0 0 0 8 13a3.5 3.5 0 0 0 3.5-3.5V5A3.5 3.5 0 0 0 8 1.5zm0 1.5A2 2 0 0 1 10 5v4.5A2 2 0 1 1 6 9.5V5a2 2 0 0 1 2-2zm0 2.5v2.5'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a3.5 3.5 0 0 0-3.5 3.5v4.5A3.5 3.5 0 0 0 8 13a3.5 3.5 0 0 0 3.5-3.5V5A3.5 3.5 0 0 0 8 1.5zm0 1.5A2 2 0 0 1 10 5v4.5A2 2 0 1 1 6 9.5V5a2 2 0 0 1 2-2zm0 2.5v2.5'/%3E%3C/svg%3E");
-}
-
-.gnome-settings__navicon--displays {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 3.5h12v7.5H2V3.5zm1.5 1.5v4.5h9V5h-9zM5.5 12.5h5v1h-5v-1z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 3.5h12v7.5H2V3.5zm1.5 1.5v4.5h9V5h-9zM5.5 12.5h5v1h-5v-1z'/%3E%3C/svg%3E");
-}
-
 .gnome-settings__navicon--printers {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3.5 2.5h9v3h-9v-3zm-1 4.5h11a1.5 1.5 0 0 1 1.5 1.5V11H12v2.5H4V11H2V8.5A1.5 1.5 0 0 1 3.5 7zm1.5 6h7V11h-7v2z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3.5 2.5h9v3h-9v-3zm-1 4.5h11a1.5 1.5 0 0 1 1.5 1.5V11H12v2.5H4V11H2V8.5A1.5 1.5 0 0 1 3.5 7zm1.5 6h7V11h-7v2z'/%3E%3C/svg%3E");
 }
 
-.gnome-settings__navicon--default-apps {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 2.5h4.5l1 1.5H13v8.5H3V2.5zm1.5 2.5v5.5h7V5H8.2L7.5 4H4.5z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 2.5h4.5l1 1.5H13v8.5H3V2.5zm1.5 2.5v5.5h7V5H8.2L7.5 4H4.5z'/%3E%3C/svg%3E");
+.gnome-settings__navicon--accessibility {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM4.5 6.5 6 8l-1 4.5h1.2l.6-2.7 1.2 1.2V14h1.2v-2.2l1.2-1.2.6 2.7H13L12 8l1.5-1.5-.8-.8L8 8.5 5.3 5.7l-.8.8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM4.5 6.5 6 8l-1 4.5h1.2l.6-2.7 1.2 1.2V14h1.2v-2.2l1.2-1.2.6 2.7H13L12 8l1.5-1.5-.8-.8L8 8.5 5.3 5.7l-.8.8z'/%3E%3C/svg%3E");
+}
+
+.gnome-settings__navicon--privacy {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.8 3 4.2v4.1c0 2.6 2.1 4.4 5 5.7 2.9-1.3 5-3.1 5-5.7V4.2L8 1.8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.8 3 4.2v4.1c0 2.6 2.1 4.4 5 5.7 2.9-1.3 5-3.1 5-5.7V4.2L8 1.8z'/%3E%3C/svg%3E");
 }
 
 .gnome-settings__navicon--sharing {
@@ -218,18 +237,7 @@ main#themesApp.themes-app--gnome {
 
 .gnome-settings__headerbar {
     flex: 0 0 auto;
-    display: flex;
-    align-items: center;
     min-height: var(--gnome-adw-headerbar-h, 2.875rem);
-    padding: 0 0.5rem;
-}
-
-.gnome-settings__title {
-    margin: 0;
-    padding: 0 0.35rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.2;
 }
 
 .gnome-settings__panels {
@@ -243,122 +251,297 @@ main#themesApp.themes-app--gnome {
     display: none;
     flex: 1 1 auto;
     min-height: 0;
-    flex-direction: column;
 }
 
 .gnome-settings__panel.is-active {
     display: flex;
+    flex-direction: column;
 }
 
-.themes-app--gnome .gnome-settings__content,
-.themes-app--gnome .themes-app__content {
+.gnome-settings__content {
     flex: 1 1 auto;
     min-height: 0;
     overflow: auto;
-    padding: 1.5rem 1.75rem 1.35rem;
+    padding: 0 1.75rem 1.5rem;
+    max-width: 40rem;
 }
 
-.gnome-settings__content--stub {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.gnome-settings__panel-title {
+    margin: 0.35rem 0 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
-.gnome-settings-stub {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.55rem;
-    max-width: 18rem;
-    text-align: center;
-    padding: 2rem 1rem;
-}
-
-.gnome-settings-stub__icon {
-    width: 3rem;
-    height: 3rem;
-    opacity: 0.45;
-    background: currentColor;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-}
-
-.gnome-settings-stub__icon--wifi {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E");
-}
-
-.gnome-settings-stub__title {
-    margin: 0;
-    font-size: 1.05rem;
+.gnome-settings__section-label {
+    margin: 1.1rem 0 0.55rem;
+    font-size: 0.78rem;
     font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0.62;
 }
 
-.gnome-settings-stub__text {
-    margin: 0;
+.gnome-settings__caption {
+    margin: 0.85rem 0 0;
     font-size: 0.84rem;
+    opacity: 0.68;
     line-height: 1.45;
-    opacity: 0.72;
 }
 
-.gnome-settings__group {
+/* AdwPreferencesGroup */
+.adw-group {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 1.35rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
 }
 
-.gnome-settings-row {
+.adw-row {
     display: grid;
-    grid-template-columns: minmax(8.5rem, 11rem) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 0.75rem 1rem;
+    gap: 0.75rem;
     min-height: 2.75rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: 0.5rem;
+    padding: 0 0.9rem;
 }
 
-.gnome-settings-row--accent {
-    align-items: center;
-    min-height: 3rem;
+.adw-row + .adw-row {
+    border-top: 1px solid var(--gcc-row-divider, rgba(255, 255, 255, 0.06));
 }
 
-.gnome-settings-row__title {
-    margin: 0;
-    font-size: 0.84rem;
-    font-weight: 600;
-}
-
-.gnome-settings-row__value {
-    margin: 0;
-    justify-self: start;
+.adw-row__title {
     font-size: 0.88rem;
 }
 
+.adw-row__value {
+    font-size: 0.86rem;
+    opacity: 0.82;
+    text-align: right;
+}
+
+.adw-row--accent {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0.55rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.65rem;
+}
+
+.adw-row--accent .adw-row__title {
+    grid-column: 1;
+}
+
+.adw-row--switch {
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.adw-row--slider {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.65rem;
+}
+
+.adw-row--action,
+.adw-row--device {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.adw-row--device {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.65rem;
+}
+
+.adw-row.is-search-hit {
+    background: color-mix(in srgb, var(--gcc-accent, #3584e4) 14%, transparent);
+    border-radius: 0.4rem;
+}
+
+.adw-row--action:hover,
+.adw-row--device:hover {
+    background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.adw-row__value--chevron::after {
+    content: "";
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-left: 0.35rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    opacity: 0.55;
+    vertical-align: 0.05em;
+}
+
+.adw-row__value--lock {
+    width: 0.85rem;
+    height: 0.85rem;
+    background: currentColor;
+    opacity: 0.55;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M5 7V5.5a3 3 0 1 1 6 0V7h1v7H4V7h1zm2 0h2V5.5a1 1 0 1 0-2 0V7z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M5 7V5.5a3 3 0 1 1 6 0V7h1v7H4V7h1zm2 0h2V5.5a1 1 0 1 0-2 0V7z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.adw-row__icon--wifi-strong,
+.adw-row__icon--wifi-medium,
+.adw-row__icon--wifi-weak {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.adw-row__icon--wifi-medium {
+    opacity: 0.65;
+}
+
+.adw-row__icon--wifi-weak {
+    opacity: 0.38;
+}
+
+.adw-row__icon--headphones {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 9h2v5H3V9zm8 0h2v5h-2V9zM4 8a4 4 0 1 1 8 0v1H4V8z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 9h2v5H3V9zm8 0h2v5h-2V9zM4 8a4 4 0 1 1 8 0v1H4V8z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.adw-row__icon--mouse {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a4.5 4.5 0 0 0-4.5 4.5V10a4.5 4.5 0 0 0 9 0V6A4.5 4.5 0 0 0 8 1.5zM7 4h2v3H7V4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a4.5 4.5 0 0 0-4.5 4.5V10a4.5 4.5 0 0 0 9 0V6A4.5 4.5 0 0 0 8 1.5zM7 4h2v3H7V4z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.adw-row__icon {
+    width: 1rem;
+    height: 1rem;
+    background: currentColor;
+    opacity: 0.72;
+}
+
+.adw-row__icon--speaker {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.adw-switch {
+    width: 2.65rem;
+    height: 1.45rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    background: color-mix(in srgb, currentColor 22%, transparent);
+    transition: background-color var(--eas2, 0.15s ease), transform var(--eas2, 0.15s ease);
+}
+
+.adw-switch::after {
+    content: "";
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0.175rem;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: transform var(--eas2, 0.15s ease);
+}
+
+.adw-switch[aria-checked="true"],
+.adw-switch.is-on {
+    background: var(--gcc-accent, #3584e4);
+}
+
+.adw-switch[aria-checked="true"]::after,
+.adw-switch.is-on::after {
+    transform: translateX(1.2rem);
+}
+
+.adw-slider {
+    width: 100%;
+    height: 0.3rem;
+    margin: 0;
+    appearance: none;
+    border-radius: 999px;
+    cursor: pointer;
+    background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.adw-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+    transition: transform var(--eas2, 0.15s ease), background-color var(--eas2, 0.15s ease);
+}
+
+.adw-slider:hover::-webkit-slider-thumb,
+.adw-slider:active::-webkit-slider-thumb,
+.adw-slider:focus-visible::-webkit-slider-thumb {
+    background: var(--gcc-accent, #3584e4);
+    transform: scale(1.08);
+}
+
+.adw-slider::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+    transition: transform var(--eas2, 0.15s ease), background-color var(--eas2, 0.15s ease);
+}
+
+.adw-slider:hover::-moz-range-thumb,
+.adw-slider:active::-moz-range-thumb,
+.adw-slider:focus-visible::-moz-range-thumb {
+    background: var(--gcc-accent, #3584e4);
+    transform: scale(1.08);
+}
+
+.adw-slider::-moz-range-track {
+    height: 0.3rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+/* Apparence */
 .themes-accent-chips {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    gap: 0.45rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
 .themes-accent-chip {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.45rem;
+    height: 1.45rem;
     padding: 0;
     border: 2px solid transparent;
     border-radius: 999px;
-    cursor: default;
-    transition: border-color var(--eas2), box-shadow var(--eas2);
+    cursor: pointer;
 }
 
 .themes-accent-chip.is-active {
     border-color: #ffffff;
-    box-shadow: 0 0 0 2px var(--gnome-settings-accent, #3584e4);
+    box-shadow: 0 0 0 2px var(--accent-chip-ring, var(--gcc-accent, #3584e4));
+}
+
+.themes-scheme-card.is-active,
+.themes-scale-btn.is-active {
+    border-color: var(--gcc-accent, #3584e4);
+    box-shadow: 0 0 0 1px var(--gcc-accent, #3584e4);
+    background: color-mix(in srgb, var(--gcc-accent, #3584e4) 10%, transparent);
+}
+
+.gnome-settings-wallpaper.is-active {
+    border-color: var(--gcc-accent, #3584e4);
+    box-shadow: 0 0 0 1px var(--gcc-accent, #3584e4);
 }
 
 .themes-accent-chip--blue { background: #3584e4; }
@@ -371,288 +554,109 @@ main#themesApp.themes-app--gnome {
 .themes-accent-chip--purple { background: #9141ac; }
 .themes-accent-chip--slate { background: #6f6f6f; }
 
-.themes-app--gnome .themes-app__section {
-    width: 100%;
-    margin-bottom: 1.35rem;
-}
-
-.themes-app--gnome .themes-app__section:last-child {
-    margin-bottom: 0;
-}
-
-.themes-app--gnome .themes-app__section--scheme,
-.themes-app--gnome .themes-app__section--prefs {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    gap: 0.65rem;
-}
-
-.themes-app--gnome .themes-app__label {
-    margin: 0;
-    font-size: 0.84rem;
-    font-weight: 600;
-}
-
-.themes-app--gnome .themes-app__label--block {
-    width: 100%;
-}
-
-.themes-app--gnome .themes-app__scheme-body {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 0.55rem;
-}
-
-.themes-app--gnome .themes-app__cards {
+.themes-scheme-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
-    max-width: 26rem;
+    max-width: 22rem;
 }
 
-.themes-app--gnome .themes-app__cards--inline {
-    max-width: 20rem;
+.themes-scheme-grid--compact {
+    max-width: 16rem;
 }
 
-.themes-app--gnome .themes-card,
-.themes-app--gnome .themes-contrast-card {
+.themes-scheme-card {
     display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.55rem;
-    min-height: 6.75rem;
-    padding: 0.65rem 0.55rem 0.55rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.55rem;
     border: 2px solid transparent;
     border-radius: 0.65rem;
-    cursor: pointer;
-    transition: background-color var(--eas2), border-color var(--eas2), box-shadow var(--eas2);
-}
-
-.themes-app--gnome .themes-contrast-card {
-    min-height: 3.25rem;
-    justify-content: center;
-}
-
-.themes-app--gnome .themes-app__scale {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 0.45rem;
-    max-width: 20rem;
-}
-
-.themes-app--gnome .themes-scale-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 3.5rem;
-    height: 2.125rem;
-    padding: 0 0.85rem;
-    border: 2px solid transparent;
-    border-radius: 0.5rem;
-    font-size: 0.88rem;
-    cursor: pointer;
-    transition: background-color var(--eas2), border-color var(--eas2);
-}
-
-.themes-app--gnome .themes-card__preview {
-    width: 100%;
-    max-width: 8.5rem;
-    height: 3.35rem;
-    border-radius: 0.4rem;
-    position: relative;
-    border: 1px solid transparent;
-}
-
-.themes-app--gnome .themes-card__preview::after {
-    content: "";
-    position: absolute;
-    top: 0.55rem;
-    left: 1.35rem;
-    width: 2.35rem;
-    height: 1.45rem;
-    border-radius: 0.2rem;
-}
-
-.themes-app--gnome .themes-card__title {
-    font-size: 0.84rem;
-    font-weight: 600;
-}
-
-.themes-app--gnome .themes-app__help {
-    margin: 0;
-    max-width: 26rem;
-    font-size: 0.8rem;
-    line-height: 1.4;
-}
-
-/* Panneaux SUSE — composants communs */
-.gnome-settings-section-title {
-    margin: 0 0 0.55rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    opacity: 0.62;
-}
-
-.gnome-settings-note {
-    margin: 0 0 1.1rem;
-    font-size: 0.8rem;
-    line-height: 1.45;
-    opacity: 0.68;
-}
-
-.gnome-settings-row--combo {
-    grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.gnome-settings-row--combo .gnome-settings-row__value {
-    justify-self: end;
-    padding-right: 0.15rem;
-    opacity: 0.88;
-}
-
-.gnome-settings-switch-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 3.25rem;
-    padding: 0.65rem 0.85rem;
-    margin-bottom: 0.85rem;
-    border-radius: 0.5rem;
-}
-
-.gnome-settings-switch-row__text {
-    min-width: 0;
-}
-
-.gnome-settings-switch-row__title {
-    margin: 0 0 0.2rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-}
-
-.gnome-settings-switch-row__sub {
-    margin: 0;
-    font-size: 0.78rem;
-    line-height: 1.4;
-    opacity: 0.68;
-}
-
-.gnome-settings-switch {
-    flex-shrink: 0;
-    width: 2.65rem;
-    height: 1.45rem;
-    padding: 0;
-    border: 0;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background-color var(--eas2);
-}
-
-.gnome-settings-switch::after {
-    content: "";
-    display: block;
-    width: 1.1rem;
-    height: 1.1rem;
-    margin: 0.175rem;
-    border-radius: 50%;
-    background: #ffffff;
-    transition: transform var(--eas2);
-}
-
-.gnome-settings-switch[aria-checked="true"]::after {
-    transform: translateX(1.2rem);
-}
-
-.gnome-settings-slider-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(6rem, 1fr);
-    align-items: center;
-    gap: 0.75rem;
-    min-height: 2.75rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: 0.5rem;
-}
-
-.gnome-settings-slider-row--volume {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 0.65rem;
-    margin-bottom: 0.85rem;
-}
-
-.gnome-settings-slider-row__icon {
-    width: 1rem;
-    height: 1rem;
-    background: currentColor;
-    opacity: 0.72;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5z'/%3E%3C/svg%3E") center/contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4.5 5.5H7l3-2.5v10L7 10H4.5V5.5z'/%3E%3C/svg%3E") center/contain no-repeat;
-}
-
-.gnome-settings-slider-row__value {
-    min-width: 2.5rem;
-    font-size: 0.82rem;
-    text-align: right;
-    opacity: 0.72;
-}
-
-.gnome-settings-slider {
-    width: 100%;
-    height: 0.35rem;
-    margin: 0;
-    appearance: none;
-    border-radius: 999px;
-    cursor: pointer;
-}
-
-.gnome-settings-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
-}
-
-.gnome-settings-tabs {
-    display: flex;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
-}
-
-.gnome-settings-tabs__item {
-    padding: 0.35rem 0.75rem;
-    border: 0;
-    border-radius: 0.45rem;
     background: transparent;
-    font: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.themes-scheme-card--compact {
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.themes-scheme-card__preview {
+    width: 100%;
+    height: 4.5rem;
+    border-radius: 0.45rem;
+    border: 1px solid var(--gcc-preview-border, rgba(255, 255, 255, 0.12));
+}
+
+.themes-scheme-card__preview--dark {
+    background: linear-gradient(180deg, #3d3d42 0%, #2a2a2e 100%);
+}
+
+.themes-scheme-card__preview--light {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f2 100%);
+}
+
+.themes-scheme-card__label {
     font-size: 0.84rem;
     font-weight: 600;
-    cursor: default;
 }
 
-.gnome-settings-tabs__item.is-active {
-    cursor: default;
+.themes-scale-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    max-width: 18rem;
 }
 
+.themes-scale-btn {
+    min-width: 3.5rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border: 2px solid transparent;
+    border-radius: 0.45rem;
+    font-size: 0.86rem;
+    cursor: pointer;
+}
+
+/* Arrière-plan */
 .gnome-settings-wallpapers {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
-    gap: 0.65rem;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: 0.6rem;
 }
 
 .gnome-settings-wallpaper {
+    position: relative;
     aspect-ratio: 16 / 10;
     padding: 0;
     border: 2px solid transparent;
     border-radius: 0.45rem;
     cursor: pointer;
     overflow: hidden;
-    transition: border-color var(--eas2), box-shadow var(--eas2);
+    transition: border-color var(--eas2, 0.15s ease), box-shadow var(--eas2, 0.15s ease);
+}
+
+.gnome-settings-wallpaper__label {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 0.28rem 0.35rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    color: #ffffff;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62));
+    pointer-events: none;
+}
+
+.gnome-settings-wallpaper--solid .gnome-settings-wallpaper__label {
+    color: inherit;
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, currentColor 12%, transparent));
 }
 
 .gnome-settings-wallpaper--add {
@@ -660,144 +664,95 @@ main#themesApp.themes-app--gnome {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
-    font-size: 0.75rem;
+    gap: 0.3rem;
+    font-size: 0.72rem;
     font-weight: 600;
-}
-
-.gnome-settings-wallpaper__add-icon {
-    font-size: 1.35rem;
-    line-height: 1;
-    opacity: 0.72;
-}
-
-.gnome-settings-wallpaper--solid {
-    background: linear-gradient(145deg, #2a2a30, #1a1a1e);
-}
-
-.gnome-settings-wallpaper--gradient {
-    background: linear-gradient(135deg, #1e3a5f 0%, #3584e4 55%, #62a0ea 100%);
 }
 
 .gnome-settings-wallpaper--photo {
-    background: linear-gradient(180deg, #7eb8da 0%, #3d6b8a 45%, #1e3d52 100%);
+    background-color: var(--gcc-surface, #383838);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.gnome-settings-wallpaper--photo2 {
-    background: linear-gradient(160deg, #c45c8a 0%, #5c3d7a 50%, #2a2040 100%);
-}
-
-.gnome-settings-wallpaper.is-active {
-    border-color: var(--gnome-settings-accent, #3584e4);
-    box-shadow: 0 0 0 1px var(--gnome-settings-accent, #3584e4);
-}
-
-.gnome-settings-display-preview {
+.gnome-settings-display-arrange {
     display: flex;
     justify-content: center;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
 }
 
-.gnome-settings-display-preview__monitor {
-    display: block;
-    width: 10rem;
-    height: 6.25rem;
-    border-radius: 0.35rem;
+.gnome-settings-display-arrange__monitor {
+    width: 9rem;
+    height: 5.5rem;
     border: 2px solid currentColor;
+    border-radius: 0.35rem;
     opacity: 0.35;
-    position: relative;
 }
 
-.gnome-settings-display-preview__monitor::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -0.85rem;
-    width: 3.5rem;
-    height: 0.45rem;
-    transform: translateX(-50%);
-    border-radius: 0 0 0.2rem 0.2rem;
-    background: currentColor;
-    opacity: 0.55;
-}
-
-.gnome-settings-action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.125rem;
-    padding: 0 1rem;
-    border: 1px solid transparent;
-    border-radius: 0.5rem;
-    font: inherit;
-    font-size: 0.84rem;
-    font-weight: 600;
-    cursor: default;
-}
-
-.gnome-settings-action-btn--primary {
-    margin-top: 0.5rem;
-}
-
-.gnome-settings-link-row {
+.gnome-settings__status {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    min-height: 2.75rem;
-    padding: 0.35rem 0.85rem;
-    margin-bottom: 0.85rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 600;
-    opacity: 0.72;
+    gap: 0.45rem;
+    padding: 2.5rem 1rem;
+    text-align: center;
 }
 
-.gnome-settings-link-row__chevron {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(-45deg);
-    opacity: 0.55;
+.gnome-settings__status-icon {
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.4;
+    background: currentColor;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
-.gnome-settings-stub--compact {
-    max-width: 22rem;
-    padding: 1.25rem 0.5rem;
-    margin-bottom: 0.85rem;
+.gnome-settings__status-icon--wifi {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 12.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm-3.1-2.1a4.6 4.6 0 0 1 6.2 0l.9-.9a5.8 5.8 0 0 0-8 0l.9.9zm-2.5-2.5a8.1 8.1 0 0 1 11 0l.9-.9a9.3 9.3 0 0 0-12.8 0l.9.9z'/%3E%3C/svg%3E");
 }
 
-.gnome-settings-stub--list {
-    padding: 3rem 1rem;
+.gnome-settings__status-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.gnome-settings__status-text {
+    margin: 0;
+    font-size: 0.84rem;
+    opacity: 0.68;
 }
 
 .gnome-settings__content--about {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: none;
 }
 
 .gnome-settings-about {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.4rem;
+    padding: 1.5rem 0 2rem;
     text-align: center;
-    padding: 2rem 1rem;
 }
 
 .gnome-settings-about__logo {
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 0.65rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.6rem;
     background: linear-gradient(145deg, #10b981, #047857);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
 }
 
 .gnome-settings-about__os {
     margin: 0;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 700;
 }
 
@@ -805,23 +760,4 @@ main#themesApp.themes-app--gnome {
     margin: 0;
     font-size: 0.84rem;
     opacity: 0.72;
-}
-
-@media (max-width: 760px) {
-    main#themesApp.gnome-settings,
-    main#themesApp.themes-app--gnome {
-        grid-template-columns: 1fr;
-    }
-
-    .themes-app--gnome .themes-app__section {
-        flex-flow: column nowrap;
-    }
-
-    .themes-app--gnome .themes-app__label {
-        width: 100%;
-    }
-
-    .themes-app--gnome .themes-app__cards {
-        grid-template-columns: 1fr;
-    }
 }

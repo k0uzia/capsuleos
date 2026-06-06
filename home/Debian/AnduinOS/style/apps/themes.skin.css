@@ -24,7 +24,7 @@ html:has(#anduinos) {
     --win-themes-min-height: 32rem;
 }
 
-html[data-theme="light"]:has(#anduinos) {
+html[data-theme="light"]:has(#anduinos) body#anduinos {
     --gnome-settings-bg: #fafafa;
     --gnome-settings-sidebar-bg: #f3f3f5;
     --gnome-settings-text: #1e1e1e;

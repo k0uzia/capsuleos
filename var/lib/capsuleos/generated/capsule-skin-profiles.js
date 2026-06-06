@@ -56,6 +56,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -128,6 +131,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -256,6 +262,9 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -646,6 +655,9 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -799,6 +811,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -871,6 +886,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -999,6 +1017,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1389,6 +1410,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,

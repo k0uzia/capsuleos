@@ -11,6 +11,7 @@ Ce document fixe la **cartographie conceptuelle**, la **confrontation avec la do
 | [reference-gnome-expert.md](reference-gnome-expert.md) | Synthèse expertise GNOME (SUSE, Rocky, Mutter, HIG, libadwaita, apps) |
 | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | Audit interactif complet VM (agents) |
 | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | Procédure bout-en-bout VM → Capsule (anti-échecs) |
+| [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) | Création playbook Paramètres (matrice → VM → baseline → parity) |
 | [inventaire-parite-rocky.md](inventaire-parite-rocky.md) | Écarts classés P0/P1/P2 |
 | [inventaires/linux-rocky-vm.json](inventaires/linux-rocky-vm.json) | Inventaire machine-readable |
 | [inventaires/linux-gnome-capsule-slots.md](inventaires/linux-gnome-capsule-slots.md) | Nautilus ↔ slot `nemo` |

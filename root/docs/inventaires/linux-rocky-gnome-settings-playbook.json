@@ -1,0 +1,729 @@
+{
+  "generatedAt": "2026-06-06T12:10:52.364443+00:00",
+  "source": "vm-gnome-settings-playbook.sh",
+  "matrixVersion": 1,
+  "matrixPath": "/tmp/capsule-settings-matrix.l8zjgN.json",
+  "dwellMs": 1400,
+  "panelFilter": null,
+  "summary": {
+    "panelsTotal": 18,
+    "panelsOpened": 18,
+    "controlsMapped": 28,
+    "controlsUnmapped": 10,
+    "errors": 0
+  },
+  "panels": [
+    {
+      "id": "wifi",
+      "capsulePanel": "wifi",
+      "label": "Wi-Fi",
+      "gccArgvLaunched": "wifi",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [
+        {
+          "id": "wifi",
+          "capsuleKey": "gnome-wifi-enabled",
+          "vmRaw": "True",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "source": "nmcli"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:24.812871+00:00"
+    },
+    {
+      "id": "network",
+      "capsulePanel": "network",
+      "label": "Réseau",
+      "gccArgvLaunched": "network",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [
+        {
+          "id": "network-identity",
+          "capsuleKey": "gnome-network-identity",
+          "status": "unmapped",
+          "note": "NM ipv4.method"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:26.452593+00:00"
+    },
+    {
+      "id": "bluetooth",
+      "capsulePanel": "bluetooth",
+      "label": "Bluetooth",
+      "gccArgvLaunched": "bluetooth",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [
+        {
+          "id": "bluetooth",
+          "capsuleKey": "gnome-bluetooth-enabled",
+          "status": "unmapped",
+          "note": "rfkill indisponible"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:28.007255+00:00"
+    },
+    {
+      "id": "appearance",
+      "capsulePanel": "appearance",
+      "label": "Apparence",
+      "gccArgvLaunched": "appearance",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.interface::color-scheme": "'prefer-dark'",
+        "org.gnome.desktop.interface::accent-color": "'blue'",
+        "org.gnome.desktop.interface::gtk-theme": "'Adwaita'"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.interface::color-scheme": "'prefer-dark'",
+        "org.gnome.desktop.interface::accent-color": "'blue'",
+        "org.gnome.desktop.interface::gtk-theme": "'Adwaita'"
+      },
+      "controls": [
+        {
+          "id": "theme",
+          "capsuleKey": "mint-theme",
+          "schema": "org.gnome.desktop.interface",
+          "key": "color-scheme",
+          "vmRaw": "'prefer-dark'",
+          "capsuleExpected": "dark",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "accent",
+          "capsuleKey": "gnome-accent",
+          "schema": "org.gnome.desktop.interface",
+          "key": "accent-color",
+          "vmRaw": "'blue'",
+          "capsuleExpected": "blue",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:29.588601+00:00"
+    },
+    {
+      "id": "background",
+      "capsulePanel": "background",
+      "label": "Arrière-plan",
+      "gccArgvLaunched": "background",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'"
+      },
+      "controls": [
+        {
+          "id": "wallpaper",
+          "capsuleKey": "gnome-wallpaper",
+          "schema": "org.gnome.desktop.background",
+          "key": "picture-uri",
+          "vmRaw": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
+          "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:31.188297+00:00"
+    },
+    {
+      "id": "notifications",
+      "capsulePanel": "notifications",
+      "label": "Notifications",
+      "gccArgvLaunched": "notifications",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.notifications::show-banners": "true",
+        "org.gnome.desktop.notifications::show-in-lock-screen": "true"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.notifications::show-banners": "true",
+        "org.gnome.desktop.notifications::show-in-lock-screen": "true"
+      },
+      "controls": [
+        {
+          "id": "notifications",
+          "capsuleKey": "gnome-notifications-enabled",
+          "schema": "org.gnome.desktop.notifications",
+          "key": "show-banners",
+          "vmRaw": "true",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "lock-notifications",
+          "capsuleKey": "gnome-lock-notifications",
+          "schema": "org.gnome.desktop.notifications",
+          "key": "show-in-lock-screen",
+          "vmRaw": "true",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "dnd",
+          "capsuleKey": "gnome-dnd-enabled",
+          "status": "unmapped",
+          "note": "DND shell — lire via gsettings org.gnome.desktop.notifications si absent"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:32.804324+00:00"
+    },
+    {
+      "id": "search",
+      "capsulePanel": "search",
+      "label": "Recherche",
+      "gccArgvLaunched": "search",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.search-providers::disabled": "@as []"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.search-providers::disabled": "@as []"
+      },
+      "controls": [
+        {
+          "id": "search-history",
+          "capsuleKey": "gnome-search-history",
+          "schema": "org.gnome.desktop.search-providers",
+          "key": "disabled",
+          "vmRaw": "@as []",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": "heuristique historique"
+        },
+        {
+          "id": "search-files",
+          "capsuleKey": "gnome-search-files",
+          "status": "unmapped",
+          "note": "Nautilus provider dans disabled[]"
+        },
+        {
+          "id": "search-apps",
+          "capsuleKey": "gnome-search-apps",
+          "status": "unmapped",
+          "note": "Shell apps toujours actif"
+        },
+        {
+          "id": "search-calculator",
+          "capsuleKey": "gnome-search-calculator",
+          "status": "unmapped",
+          "note": "provider"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:34.367612+00:00"
+    },
+    {
+      "id": "multitasking",
+      "capsulePanel": "multitasking",
+      "label": "Multitâche",
+      "gccArgvLaunched": "multitasking",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.mutter::dynamic-workspaces": "true",
+        "org.gnome.desktop.interface::enable-hot-corners": "true",
+        "org.gnome.shell.app-switcher::current-workspace-only": "false"
+      },
+      "gsettingsAfter": {
+        "org.gnome.mutter::dynamic-workspaces": "true",
+        "org.gnome.desktop.interface::enable-hot-corners": "true",
+        "org.gnome.shell.app-switcher::current-workspace-only": "false"
+      },
+      "controls": [
+        {
+          "id": "dynamic-workspaces",
+          "capsuleKey": "gnome-dynamic-workspaces",
+          "schema": "org.gnome.mutter",
+          "key": "dynamic-workspaces",
+          "vmRaw": "true",
+          "capsuleExpected": "Activé",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "hot-corner",
+          "capsuleKey": "gnome-hot-corner",
+          "schema": "org.gnome.desktop.interface",
+          "key": "enable-hot-corners",
+          "vmRaw": "true",
+          "capsuleExpected": "Activé",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "apps-all-workspaces",
+          "capsuleKey": "gnome-apps-all-workspaces",
+          "schema": "org.gnome.shell.app-switcher",
+          "key": "current-workspace-only",
+          "vmRaw": "false",
+          "capsuleExpected": "Activé",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:35.953644+00:00"
+    },
+    {
+      "id": "sound",
+      "capsulePanel": "sound",
+      "label": "Son",
+      "gccArgvLaunched": "sound",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.sound::theme-name": "'freedesktop'",
+        "org.gnome.desktop.sound::event-sounds": "true",
+        "org.gnome.settings-daemon.plugins.media-keys::volume-step": "6"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.sound::theme-name": "'freedesktop'",
+        "org.gnome.desktop.sound::event-sounds": "true",
+        "org.gnome.settings-daemon.plugins.media-keys::volume-step": "6"
+      },
+      "controls": [
+        {
+          "id": "sound-alert",
+          "capsuleKey": "gnome-sound-alert",
+          "schema": "org.gnome.desktop.sound",
+          "key": "theme-name",
+          "vmRaw": "'freedesktop'",
+          "capsuleExpected": "Ding",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "volume",
+          "capsuleKey": "mint-volume",
+          "schema": "org.gnome.settings-daemon.plugins.media-keys",
+          "key": "volume-step",
+          "vmRaw": "6",
+          "capsuleExpected": null,
+          "status": "partial",
+          "note": "volume-step ≠ curseur %"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:37.540095+00:00"
+    },
+    {
+      "id": "power",
+      "capsulePanel": "power",
+      "label": "Alimentation",
+      "gccArgvLaunched": "power",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "900",
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'suspend'"
+      },
+      "gsettingsAfter": {
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "900",
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'suspend'"
+      },
+      "controls": [
+        {
+          "id": "power-mode",
+          "capsuleKey": "gnome-power-mode",
+          "vmRaw": null,
+          "capsuleExpected": "Équilibré",
+          "status": "partial",
+          "source": "powerprofilesctl",
+          "note": "powerprofilesctl absent — défaut Capsule Équilibré"
+        },
+        {
+          "id": "power-dim",
+          "capsuleKey": "gnome-power-dim-screen",
+          "schema": "org.gnome.settings-daemon.plugins.power",
+          "key": "sleep-inactive-ac-timeout",
+          "vmRaw": "900",
+          "capsuleExpected": "15 minutes",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "power-sleep",
+          "capsuleKey": "gnome-power-sleep",
+          "schema": "org.gnome.settings-daemon.plugins.power",
+          "key": "sleep-inactive-ac-type",
+          "vmRaw": "'suspend'",
+          "capsuleExpected": "30 minutes",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:39.180620+00:00"
+    },
+    {
+      "id": "displays",
+      "capsulePanel": "displays",
+      "label": "Écrans",
+      "gccArgvLaunched": "display",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.interface::text-scaling-factor": "1.0",
+        "org.gnome.settings-daemon.plugins.color::night-light-enabled": "false"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.interface::text-scaling-factor": "1.0",
+        "org.gnome.settings-daemon.plugins.color::night-light-enabled": "false"
+      },
+      "controls": [
+        {
+          "id": "display-scale",
+          "capsuleKey": "gnome-display-scale",
+          "schema": "org.gnome.desktop.interface",
+          "key": "text-scaling-factor",
+          "vmRaw": "1.0",
+          "capsuleExpected": "100 %",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "night-light",
+          "capsuleKey": "gnome-night-light",
+          "schema": "org.gnome.settings-daemon.plugins.color",
+          "key": "night-light-enabled",
+          "vmRaw": "false",
+          "capsuleExpected": "off",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:40.786868+00:00"
+    },
+    {
+      "id": "mouse",
+      "capsulePanel": "mouse",
+      "label": "Souris et pavé tactile",
+      "gccArgvLaunched": "mouse",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.peripherals.mouse::left-handed": "false",
+        "org.gnome.desktop.peripherals.mouse::speed": "0.0",
+        "org.gnome.desktop.peripherals.touchpad::send-events": "'enabled'",
+        "org.gnome.desktop.peripherals.touchpad::tap-to-click": "true",
+        "org.gnome.desktop.peripherals.touchpad::natural-scroll": "true"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.peripherals.mouse::left-handed": "false",
+        "org.gnome.desktop.peripherals.mouse::speed": "0.0",
+        "org.gnome.desktop.peripherals.touchpad::send-events": "'enabled'",
+        "org.gnome.desktop.peripherals.touchpad::tap-to-click": "true",
+        "org.gnome.desktop.peripherals.touchpad::natural-scroll": "true"
+      },
+      "controls": [
+        {
+          "id": "mouse-handedness",
+          "capsuleKey": "gnome-mouse-handedness",
+          "schema": "org.gnome.desktop.peripherals.mouse",
+          "key": "left-handed",
+          "vmRaw": "false",
+          "capsuleExpected": "Gauche",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "pointer-speed",
+          "capsuleKey": "gnome-pointer-speed",
+          "schema": "org.gnome.desktop.peripherals.mouse",
+          "key": "speed",
+          "vmRaw": "0.0",
+          "capsuleExpected": "50",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "touchpad",
+          "capsuleKey": "gnome-touchpad-enabled",
+          "schema": "org.gnome.desktop.peripherals.touchpad",
+          "key": "send-events",
+          "vmRaw": "'enabled'",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "tap-to-click",
+          "capsuleKey": "gnome-tap-to-click",
+          "schema": "org.gnome.desktop.peripherals.touchpad",
+          "key": "tap-to-click",
+          "vmRaw": "true",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "scroll-direction",
+          "capsuleKey": "gnome-scroll-direction",
+          "schema": "org.gnome.desktop.peripherals.touchpad",
+          "key": "natural-scroll",
+          "vmRaw": "true",
+          "capsuleExpected": "Naturel",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:42.454214+00:00"
+    },
+    {
+      "id": "keyboard",
+      "capsulePanel": "keyboard",
+      "label": "Clavier",
+      "gccArgvLaunched": "keyboard",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr+oss')]",
+        "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr+oss')]",
+        "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
+      },
+      "controls": [
+        {
+          "id": "keyboard-layout",
+          "capsuleKey": "gnome-keyboard-layout",
+          "schema": "org.gnome.desktop.input-sources",
+          "key": "sources",
+          "vmRaw": "[('xkb', 'fr+oss')]",
+          "capsuleExpected": "Français",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "keyboard-repeat",
+          "capsuleKey": "gnome-keyboard-repeat-delay",
+          "schema": "org.gnome.desktop.peripherals.keyboard",
+          "key": "delay",
+          "vmRaw": "uint32 500",
+          "capsuleExpected": "500 ms",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:44.045401+00:00"
+    },
+    {
+      "id": "printers",
+      "capsulePanel": "printers",
+      "label": "Imprimantes",
+      "gccArgvLaunched": "printers",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [],
+      "openedAt": "2026-06-06T12:10:45.615489+00:00"
+    },
+    {
+      "id": "accessibility",
+      "capsulePanel": "accessibility",
+      "label": "Accessibilité",
+      "gccArgvLaunched": "universal-access",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.interface::gtk-theme": "'Adwaita'",
+        "org.gnome.desktop.interface::text-scaling-factor": "1.0"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.interface::gtk-theme": "'Adwaita'",
+        "org.gnome.desktop.interface::text-scaling-factor": "1.0"
+      },
+      "controls": [
+        {
+          "id": "contrast",
+          "capsuleKey": "mint-contrast-mode",
+          "schema": "org.gnome.desktop.interface",
+          "key": "gtk-theme",
+          "vmRaw": "'Adwaita'",
+          "capsuleExpected": "normal",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "font-scale",
+          "capsuleKey": "mint-font-scale",
+          "schema": "org.gnome.desktop.interface",
+          "key": "text-scaling-factor",
+          "vmRaw": "1.0",
+          "capsuleExpected": "100",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:47.237265+00:00"
+    },
+    {
+      "id": "privacy",
+      "capsulePanel": "privacy",
+      "label": "Confidentialité",
+      "gccArgvLaunched": "privacy",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {
+        "org.gnome.desktop.privacy::disable-camera": "false",
+        "org.gnome.desktop.privacy::disable-microphone": "false",
+        "org.gnome.desktop.screensaver::lock-enabled": "true",
+        "org.gnome.desktop.screensaver::lock-delay": "uint32 0"
+      },
+      "gsettingsAfter": {
+        "org.gnome.desktop.privacy::disable-camera": "false",
+        "org.gnome.desktop.privacy::disable-microphone": "false",
+        "org.gnome.desktop.screensaver::lock-enabled": "true",
+        "org.gnome.desktop.screensaver::lock-delay": "uint32 0"
+      },
+      "controls": [
+        {
+          "id": "location",
+          "capsuleKey": "gnome-privacy-location",
+          "status": "unmapped",
+          "note": "simulated"
+        },
+        {
+          "id": "camera",
+          "capsuleKey": "gnome-privacy-camera",
+          "schema": "org.gnome.desktop.privacy",
+          "key": "disable-camera",
+          "vmRaw": "false",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "microphone",
+          "capsuleKey": "gnome-privacy-microphone",
+          "schema": "org.gnome.desktop.privacy",
+          "key": "disable-microphone",
+          "vmRaw": "false",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "auto-lock",
+          "capsuleKey": "gnome-auto-lock",
+          "schema": "org.gnome.desktop.screensaver",
+          "key": "lock-enabled",
+          "vmRaw": "true",
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "note": null
+        },
+        {
+          "id": "lock-delay",
+          "capsuleKey": "gnome-lock-delay",
+          "schema": "org.gnome.desktop.screensaver",
+          "key": "lock-delay",
+          "vmRaw": "uint32 0",
+          "capsuleExpected": "Immédiatement",
+          "status": "mapped",
+          "note": null
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:48.887584+00:00"
+    },
+    {
+      "id": "sharing",
+      "capsulePanel": "sharing",
+      "label": "Partage",
+      "gccArgvLaunched": "sharing",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [
+        {
+          "id": "sharing",
+          "capsuleKey": "gnome-sharing-enabled",
+          "status": "unmapped",
+          "note": "simulated"
+        },
+        {
+          "id": "file-sharing",
+          "capsuleKey": "gnome-file-sharing",
+          "status": "unmapped",
+          "note": "simulated"
+        },
+        {
+          "id": "screen-sharing",
+          "capsuleKey": "gnome-screen-sharing",
+          "status": "unmapped",
+          "note": "simulated"
+        }
+      ],
+      "openedAt": "2026-06-06T12:10:50.430486+00:00"
+    },
+    {
+      "id": "about",
+      "capsulePanel": "about",
+      "label": "À propos",
+      "gccArgvLaunched": "info",
+      "gccRunning": true,
+      "windowDetected": false,
+      "windowTitle": null,
+      "gsettingsStable": true,
+      "gsettingsBefore": {},
+      "gsettingsAfter": {},
+      "controls": [],
+      "openedAt": "2026-06-06T12:10:51.988999+00:00"
+    }
+  ],
+  "errors": []
+}

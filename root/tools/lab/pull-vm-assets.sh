@@ -61,11 +61,20 @@ pull() {
   fi
 }
 
-# Fond d'écran Rocky 10 (ground truth sombre)
-pull /usr/share/backgrounds/rocky-default-10-gemstone-skies-night.png \
-  "$WALL_DIR/rocky-default-10-gemstone-skies-night.png"
-pull /usr/share/backgrounds/rocky-default-10-gemstone-skies-day.png \
-  "$WALL_DIR/rocky-default-10-gemstone-skies-day.png"
+# Fonds d'écran Rocky 10 (ground truth VM)
+for bg in \
+  rocky-default-10-gemstone-skies-night.png \
+  rocky-default-10-gemstone-skies-day.png \
+  rocky-default-10-abstract-1-night.png \
+  rocky-default-10-abstract-1-day.png \
+  rocky-default-10-abstract-2.png \
+  rocky-default-10-abstract-3.png \
+  rocky-default-10-abstract-4.png \
+  rocky-default-10-abstract-5.png \
+  rocky-default-10-sapphire.png \
+  rocky-default-10-sapphire-light.png; do
+  pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
+done
 
 # Filigrane bureau (extension background-logo@fedorahosted.org)
 for logo in fedora_logo_darkbackground fedora_logo_lightbackground; do

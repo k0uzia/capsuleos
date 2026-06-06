@@ -21,6 +21,11 @@ const SCRIPT_BY_TOOLKIT = {
   cinnamon: 'root/tools/lab/vm-mint-inventory.sh',
 };
 
+const PHASE_SCRIPT = {
+  'settings-playbook': 'root/tools/lab/vm-gnome-settings-playbook.sh',
+  'settings-interaction': 'root/tools/lab/vm-gnome-settings-interaction-playbook.sh',
+};
+
 const parseArgs = () => {
   const args = process.argv.slice(2);
   const opts = { id: 'linux-rocky', phase: 'static', writeDoc: false };
@@ -141,13 +146,63 @@ const main = () => {
   const inv = loadInventory();
   const host = loadHost(opts.id, inv);
   const toolkit = host.toolkit || 'gnome';
-  const scriptRel = SCRIPT_BY_TOOLKIT[toolkit];
+  const scriptRel = PHASE_SCRIPT[opts.phase] || SCRIPT_BY_TOOLKIT[toolkit];
   if (!scriptRel) {
-    throw new Error(`Toolkit non supporté pour audit static: ${toolkit}`);
+    throw new Error(`Phase/toolkit non supporté: ${opts.phase} / ${toolkit}`);
   }
 
   process.stderr.write(`=== collect-vm-deep-audit ${opts.id} phase=${opts.phase} ===\n`);
-  const payload = runLocalScriptOnVm(host, scriptRel);
+  let payload;
+  if (opts.phase === 'settings-playbook' || opts.phase === 'settings-interaction') {
+    const matrixB64 = Buffer.from(
+      fs.readFileSync(path.join(ROOT, 'root/tools/lab/gnome-settings-parity-matrix.json'), 'utf8'),
+    ).toString('base64');
+    const playbookBody = fs.readFileSync(path.join(ROOT, scriptRel), 'utf8');
+    const dwell = opts.phase === 'settings-interaction'
+      ? (process.env.CAPSULE_SETTINGS_DWELL_MS || '900')
+      : (process.env.CAPSULE_SETTINGS_DWELL_MS || '1400');
+    const monitor = opts.phase === 'settings-interaction'
+      ? `export CAPSULE_SETTINGS_MONITOR_MS=${process.env.CAPSULE_SETTINGS_MONITOR_MS || '1200'}`
+      : '';
+    const remoteScript = `
+${remoteEnv(host)}
+MATRIX_FILE=$(mktemp /tmp/capsule-settings-matrix.XXXXXX.json)
+echo '${matrixB64}' | base64 -d > "$MATRIX_FILE"
+export CAPSULE_SETTINGS_MATRIX="$MATRIX_FILE"
+export CAPSULE_SETTINGS_DWELL_MS=${dwell}
+${monitor}
+bash -s <<'PLAYBOOK_EOF'
+${playbookBody}
+PLAYBOOK_EOF
+rm -f "$MATRIX_FILE"
+`;
+    const at = host.ssh.indexOf('@');
+    const user = host.ssh.slice(0, at);
+    const ip = host.ssh.slice(at + 1);
+    const identity = process.env.CAPSULE_LAB_SSH_IDENTITY
+      || (host.sshIdentity ? path.join(process.env.HOME || '', host.sshIdentity.replace(/^~\//, '')) : null)
+      || path.join(process.env.HOME || '', '.ssh/capsuleos-lab');
+    const res = spawnSync(
+      'ssh',
+      ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, `${user}@${ip}`, 'bash -s'],
+      { input: remoteScript, encoding: 'utf8', timeout: 600000 },
+    );
+    if (res.status !== 0) {
+      throw new Error(`SSH settings-playbook échec: ${(res.stderr || res.stdout || '').trim()}`);
+    }
+    const stdout = (res.stdout || '').trim();
+    const jsonStart = stdout.indexOf('{');
+    if (jsonStart < 0) throw new Error('Sortie JSON playbook introuvable');
+    payload = JSON.parse(stdout.slice(jsonStart));
+    const outName = opts.phase === 'settings-interaction'
+      ? `${opts.id}-gnome-settings-interaction.json`
+      : `${opts.id}-gnome-settings-playbook.json`;
+    const outPlaybook = path.join(ROOT, 'root/docs/inventaires', outName);
+    fs.writeFileSync(outPlaybook, `${JSON.stringify(payload, null, 2)}\n`);
+    process.stdout.write(`OK ${outPlaybook}\n`);
+  } else {
+    payload = runLocalScriptOnVm(host, scriptRel);
+  }
   const outPath = mergeAudit(opts.id, opts.phase, payload);
   process.stdout.write(`OK ${outPath}\n`);
 

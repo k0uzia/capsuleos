@@ -5,6 +5,7 @@
 **Complète sans remplacer** :
 - [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (clone skin)
 - [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) (passe lab Rocky)
+- [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (playbook Paramètres gcc ↔ gsettings ↔ CapsuleOS)
 - [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) (pull icônes/fonds)
 
 **Livrable principal** : `root/docs/inventaires/<registryId>-deep-audit.json` (+ `.md` résumé)  

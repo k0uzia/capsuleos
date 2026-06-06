@@ -89,6 +89,25 @@ const PAIRS = [
   },
 ];
 
+/** Scènes Capsule seules — pas encore de capture VM Paramètres dans l’audit lab. */
+const CAPSULE_ONLY = [
+  {
+    label: 'Paramètres — Apparence (sombre)',
+    cap: 'rocky-capsule-dark-settings-appearance.png',
+    context: 'Slot `themes` · panneau `appearance` · schéma clair/sombre fonctionnel',
+  },
+  {
+    label: 'Paramètres — Écrans (sombre)',
+    cap: 'rocky-capsule-dark-settings-displays.png',
+    context: 'Slot `themes` · panneau `displays` · doc SUSE §3.9',
+  },
+  {
+    label: 'Paramètres — Apparence (clair)',
+    cap: 'rocky-capsule-light-settings-appearance.png',
+    context: 'Slot `themes` · thème clair Capsule · tokens `--gnome-settings-*`',
+  },
+];
+
 const fileInfo = (dir, name) => {
   const p = path.join(dir, name);
   if (!fs.existsSync(p)) {
@@ -130,6 +149,26 @@ for (const pair of PAIRS) {
 lines.push('');
 if (missing) {
   lines.push(`> **${missing}** paire(s) incomplète(s) — relancer \`vm-rocky-capture-host.sh\` et \`capture-capsule-rocky.mjs\`.`);
+  lines.push('');
+}
+
+lines.push('## Assets PNG — Capsule seul (Paramètres GNOME)');
+lines.push('');
+lines.push('| Scène | Capsule | octets | Contexte |');
+lines.push('|-------|---------|--------|----------|');
+
+let capOnlyMissing = 0;
+for (const row of CAPSULE_ONLY) {
+  const cap = fileInfo(CAP_ASSETS, row.cap);
+  if (!cap.ok) capOnlyMissing += 1;
+  lines.push(
+    `| ${row.label} | ${cap.ok ? '✓' : '**manquant**'} | ${cap.bytes || '—'} | ${row.context} |`,
+  );
+}
+
+lines.push('');
+if (capOnlyMissing) {
+  lines.push(`> **${capOnlyMissing}** capture(s) Paramètres manquante(s) — \`node root/tools/lab/capture-capsule-rocky.mjs\`.`);
   lines.push('');
 }
 

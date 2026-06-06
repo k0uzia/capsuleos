@@ -209,7 +209,7 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 | Isolation chrome par toolkit | ✅ | `toolkit-*/chrome.css` + validateurs dédiés |
 | Slot `themes` (Paramètres) | ✅ | Sidebar GCC, panneaux doc [SUSE SLED 15 SP7](https://documentation.suse.com/sled/15-SP7/html/SLED-all/cha-gnome-settings.html), Apparence fonctionnelle |
 | Ouverture contextuelle Paramètres | ✅ | Aperçu → Wi-Fi · QS → Apparence · bureau → Écrans |
-| Captures lab 12 scènes | ✅ | Aperçu, QS, Loupe, Papers… — Paramètres à ajouter |
+| Captures lab 15 scènes | ✅ | Aperçu, QS, Loupe, Papers, Paramètres (Apparence/Écrans) — VM Paramètres à collecter |
 | Polish P1 (Nautilus, Firefox, top bar) | 🟡 | Tokens vs captures VM |
 | Apps P2 (Baobab, System Monitor) | ⬜ | Grille Aperçu OK, slots CSD manquants |
 

@@ -81,6 +81,18 @@ const openSlot = async (page, slot) => {
   if (!opened.ok || opened.display === 'none' || opened.display === 'missing') {
     throw new Error(`Impossible d'ouvrir ${slot} (display=${opened.display}, style=${opened.style})`);
   }
+  if (slot === 'themes') {
+    await page.waitForFunction(
+      () => {
+        const win = document.querySelector('.windowElement[data-link="themes"]');
+        if (!win || win.style.display === 'none') return false;
+        return !!win.querySelector('#themesApp.gnome-settings');
+      },
+      null,
+      { timeout: 60000 },
+    );
+    await sleep(page, 500);
+  }
   if (slot === 'nemo') {
     await page.waitForFunction(
       () => {
@@ -120,6 +132,14 @@ const prepareScene = async (page, scene) => {
     return;
   }
 
+  if (scene.settingsPanel) {
+    await page.evaluate((panel) => {
+      if (typeof window.setCapsuleSettingsPanel === 'function') {
+        window.setCapsuleSettingsPanel(panel);
+      }
+    }, scene.settingsPanel);
+  }
+
   const slots = scene.slots || [];
   const focus = scene.focus;
   const order = focus && !slots.includes(focus) ? [...slots, focus] : slots;
@@ -128,6 +148,20 @@ const prepareScene = async (page, scene) => {
   }
   if (focus) {
     await openSlot(page, focus);
+  }
+
+  if (scene.settingsPanel) {
+    await page.waitForFunction(
+      (panel) => {
+        const active = document.querySelector(
+          '#themes .gnome-settings__panel.is-active[data-gnome-settings-panel="' + panel + '"]',
+        );
+        return active && !active.hidden;
+      },
+      scene.settingsPanel,
+      { timeout: 20000 },
+    );
+    await sleep(page, 300);
   }
 };
 
@@ -161,6 +195,27 @@ const main = async () => {
     { file: 'rocky-capsule-dark-terminal.png', theme: 'dark', slots: ['terminal'], focus: 'terminal' },
     { file: 'rocky-capsule-dark-loupe.png', theme: 'dark', slots: ['visionneur_images'], focus: 'visionneur_images' },
     { file: 'rocky-capsule-dark-papers.png', theme: 'dark', slots: ['visionneur_pdf'], focus: 'visionneur_pdf' },
+    {
+      file: 'rocky-capsule-dark-settings-appearance.png',
+      theme: 'dark',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'appearance',
+    },
+    {
+      file: 'rocky-capsule-dark-settings-displays.png',
+      theme: 'dark',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'displays',
+    },
+    {
+      file: 'rocky-capsule-light-settings-appearance.png',
+      theme: 'light',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'appearance',
+    },
     { file: 'rocky-capsule-light-desktop.png', theme: 'light' },
     { file: 'rocky-capsule-light-firefox.png', theme: 'light', slots: ['firefox'], focus: 'firefox' },
     { file: 'rocky-capsule-light-nautilus.png', theme: 'light', slots: ['nemo'], focus: 'nemo' },

@@ -315,7 +315,11 @@
             return;
         }
 
-        currentResults = appSearch.search(query, searchCatalog, { limit: 8 });
+        const catalog = (window.CapsuleGnomeSettingsParity
+            && typeof window.CapsuleGnomeSettingsParity.filterSearchCatalog === 'function')
+            ? window.CapsuleGnomeSettingsParity.filterSearchCatalog(searchCatalog)
+            : searchCatalog;
+        currentResults = appSearch.search(query, catalog, { limit: 8 });
         searchResults.innerHTML = '';
 
         if (!currentResults.length) {

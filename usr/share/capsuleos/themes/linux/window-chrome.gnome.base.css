@@ -6,6 +6,7 @@
 @import url(../global/interactions-window.base.css);
 @import url(../global/window-drag-regions.css);
 @import url(../global/window-context-menu.css);
+@import url(./gnome-scrollbar.base.css);
 @import url(./gnome-app-csd.base.css);
 
 html {

@@ -142,6 +142,15 @@ for (const wm of [
 if (!read('home/RedHat/Rocky/style/gnome-shell/tokens.css').includes('--rocky-watermark')) {
     errors.push('tokens.css : --rocky-watermark absent');
 }
+if (!indexHtml.includes('gnome-settings-parity.js')) {
+    errors.push('index.html : gnome-settings-parity.js absent');
+}
+if (!indexHtml.includes('gnome-settings-vm-baseline-linux-rocky.js')) {
+    errors.push('index.html : baseline VM Rocky absente');
+}
+if (!read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js').includes('filterSettingsSearch')) {
+    errors.push('gnome-settings-parity.js : filterSettingsSearch absent');
+}
 
 if (errors.length) {
     console.error('smoke-rocky-gnome-ref — échec\n');

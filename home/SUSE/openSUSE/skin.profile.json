@@ -1,13 +1,22 @@
 {
   "id": "linux-opensuse",
-  "version": 1,
+  "version": 2,
   "family": "linux",
+  "kernelId": "linux",
+  "branchId": "opensuse",
   "vendor": "opensuse",
   "displayName": "openSUSE Tumbleweed",
   "bodyId": "opensuse",
   "embedKey": "opensuse",
   "tier": "P1",
   "status": "active",
+  "fidelityLevel": 3,
+  "upstreamId": null,
+  "clusterIds": [
+    "explorer.dolphin.kde",
+    "toolkit.kde"
+  ],
+  "extends": "kernel:linux/branch:opensuse/toolkit:kde",
   "paths": {
     "facade": "OS/linux/families/suse/opensuse/index.html",
     "skin": "home/SUSE/openSUSE/index.html"
@@ -32,13 +41,36 @@
     "CAPSULE_EXPLORER_TEMPLATE": "dolphin",
     "CAPSULE_EMBED_SKIN_KEY": "opensuse",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/suse/opensuse/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "suse",
-    "CAPSULE_EXPLORER_APP_ID": "nemo",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "kde",
+      "explorerTemplate": "dolphin",
+      "dragMode": "window-header"
+    },
+    "CAPSULE_EXPLORER_APP_ID": "dolphin",
     "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
     "CAPSULE_TEMPLATE_OVERRIDES": {
       "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+    },
+    "CAPSULE_WINDOW_CONTEXT": {
+      "family": "linux",
+      "draggable": true,
+      "resizable": true,
+      "forceOnOpen": true,
+      "requireHeader": true,
+      "headerLayout": "capsule",
+      "edgeTiling": false,
+      "skipSlots": [
+        "mainMenu"
+      ],
+      "bounds": {
+        "mainSelector": "object#desktop, #desktop",
+        "desktopSelector": "object#desktop, #desktop",
+        "footerSelector": "footer, #tableau",
+        "subtractFooter": false
+      }
     }
   }
 }

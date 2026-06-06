@@ -48,17 +48,8 @@ body#mint .desktop-context-menu__item:focus-visible {
     outline-offset: -2px;
 }
 
-/* Chrome fenêtre — fermer (accent Cinnamon) */
-body#mint #windowHeader > nav > button#closeBtn:hover {
-    background-color: #c42b2b;
-    border-color: rgba(0, 0, 0, 0.35);
-}
-
-body#mint #windowHeader > nav > button#closeBtn:active {
-    background-color: #a82424;
-}
-
-body#mint #windowHeader > nav > button#closeBtn:focus-visible {
-    outline: 2px solid #ff6b6b;
+/* Chrome fenêtre Muffin — hover close géré dans cinnamon-window-chrome.css (pastille aqua) */
+body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #windowHeader > nav > button#closeBtn:focus-visible {
+    outline: 2px solid #1f9ede;
     outline-offset: 1px;
 }

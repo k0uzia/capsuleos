@@ -1,4 +1,5 @@
-/* Chrome fenêtre CapsuleOS partagé (pilot Mint — autres skins peuvent importer ce fichier). */
+/* Chrome fenêtre CapsuleOS — pilote Cinnamon / KDE (Muffin / Breeze).
+ * Skins GNOME : importer window-chrome.gnome.base.css à la place (pas ce fichier). */
 @import url(../global/interactions-window.base.css);
 @import url(../global/window-drag-regions.css);
 @import url(../global/window-context-menu.css);

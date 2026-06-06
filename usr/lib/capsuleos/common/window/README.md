@@ -23,6 +23,7 @@ Windows charge en plus `OS/windows/kernel/js/win-window-drag.js` (fixe `requireH
 | `drag-targets.js` | Zones `data-window-drag-region`, passthrough headerbar |
 | `drag.js` | Pointer Events, `enableDrag` |
 | `resize.js` | Bordures redimensionnables |
+| `header-context.js` | Contexte chrome par toolkit DE (`CapsuleWindowHeaderContext`) |
 | `chrome.js` | Registre providers (`default`, `nemo`, `dolphin`, `firefox-gnome`, `terminal-*`) |
 | `manager.js` | Façade `CapsuleWindow.init`, `ensureChrome`, `openByDataLink` |
 
@@ -48,6 +49,8 @@ CapsuleWindow.init(container, {
 | `terminal-*` | header terminal Cosmic / GNOME / Konsole |
 
 Le chrome **ne doit pas** être dans le fragment `innerHTML` injecté par `contentLoader` : appeler `CapsuleWindow.ensureChrome(motionless, slotId)` après chaque `SLOT_INIT`.
+
+Contexte toolkit : [window-chrome-contexts.md](../../../../root/docs/window-chrome-contexts.md) · contrat `etc/capsuleos/contracts/window-chrome-contexts.json`.
 
 ## CSS partagé
 

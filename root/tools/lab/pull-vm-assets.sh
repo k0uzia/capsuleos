@@ -36,6 +36,7 @@ ASSETS="$ROOT/usr/share/capsuleos/assets"
 VENDOR_DIR="$ASSETS/images/vendors/$VENDOR"
 PANEL_DIR="$VENDOR_DIR/panel"
 WALL_DIR="$VENDOR_DIR/wallpaper"
+WATERMARK_DIR="$VENDOR_DIR/watermark"
 GNOME_ICONS="$ASSETS/icons/gnome/adwaita"
 PLACES_DIR="$GNOME_ICONS/places"
 SYMBOLIC_ACTIONS="$GNOME_ICONS/symbolic/actions"
@@ -45,7 +46,7 @@ APPS_DIR="$GNOME_ICONS/apps"
 TOOLKIT_APPS="$ASSETS/images/toolkits/gnome/apps"
 DASH_DIR="$TOOLKIT_APPS/dash"
 
-mkdir -p "$PANEL_DIR" "$WALL_DIR" "$PLACES_DIR" "$SYMBOLIC_ACTIONS" "$SYMBOLIC_PLACES" \
+mkdir -p "$PANEL_DIR" "$WALL_DIR" "$WATERMARK_DIR" "$PLACES_DIR" "$SYMBOLIC_ACTIONS" "$SYMBOLIC_PLACES" \
   "$SYMBOLIC_STATUS" "$APPS_DIR" "$DASH_DIR"
 
 echo "=== Pull VM assets → $VENDOR ($SSH_TARGET) ==="
@@ -60,11 +61,26 @@ pull() {
   fi
 }
 
-# Fond d'écran Rocky 10 (ground truth sombre)
-pull /usr/share/backgrounds/rocky-default-10-gemstone-skies-night.png \
-  "$WALL_DIR/rocky-default-10-gemstone-skies-night.png"
-pull /usr/share/backgrounds/rocky-default-10-gemstone-skies-day.png \
-  "$WALL_DIR/rocky-default-10-gemstone-skies-day.png"
+# Fonds d'écran Rocky 10 (ground truth VM)
+for bg in \
+  rocky-default-10-gemstone-skies-night.png \
+  rocky-default-10-gemstone-skies-day.png \
+  rocky-default-10-abstract-1-night.png \
+  rocky-default-10-abstract-1-day.png \
+  rocky-default-10-abstract-2.png \
+  rocky-default-10-abstract-3.png \
+  rocky-default-10-abstract-4.png \
+  rocky-default-10-abstract-5.png \
+  rocky-default-10-sapphire.png \
+  rocky-default-10-sapphire-light.png; do
+  pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
+done
+
+# Filigrane bureau (extension background-logo@fedorahosted.org)
+for logo in fedora_logo_darkbackground fedora_logo_lightbackground; do
+  pull "/usr/share/rocky-logos/${logo}.svg" "$WATERMARK_DIR/${logo}.svg" || \
+  pull "/usr/share/fedora-logos/${logo}.svg" "$WATERMARK_DIR/${logo}.svg"
+done
 
 # Lanceurs dock (Nautilus, Firefox, Ptyxis — pas Nemo)
 pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg \
@@ -110,15 +126,30 @@ pull /usr/share/icons/Adwaita/symbolic/status/starred-symbolic.svg \
   "$SYMBOLIC_STATUS/starred-symbolic.svg"
 
 # Favoris Aperçu GNOME (dash)
-for app in org.gnome.Nautilus org.gnome.Ptyxis org.gnome.Calendar org.gnome.Software org.gnome.TextEditor; do
+for app in org.gnome.Nautilus org.gnome.Ptyxis org.gnome.Calendar org.gnome.Software org.gnome.TextEditor org.gnome.Calculator; do
   pull "/usr/share/icons/hicolor/scalable/apps/${app}.svg" "$DASH_DIR/${app}.svg"
 done
 mkdir -p "$TOOLKIT_APPS/overview"
 pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Settings.svg \
   "$TOOLKIT_APPS/overview/org.gnome.Settings.svg"
+pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Calculator.svg \
+  "$TOOLKIT_APPS/overview/org.gnome.Calculator.svg"
+for app in org.gnome.Loupe org.gnome.Snapshot org.gnome.Papers org.gnome.baobab org.gnome.SystemMonitor; do
+  pull "/usr/share/icons/hicolor/scalable/apps/${app}.svg" "$TOOLKIT_APPS/overview/${app}.svg"
+done
+
+if [[ "$VENDOR" == "ubuntu" ]]; then
+  pull /usr/share/backgrounds/warty-final-ubuntu.png \
+    "$WALL_DIR/wallpaper-racoon.png" || \
+  pull /usr/share/backgrounds/Questing_Quokka_Full_Color_3840x2160.png \
+    "$WALL_DIR/wallpaper-racoon.png"
+  pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg \
+    "$PANEL_DIR/org.gnome.Nautilus.svg"
+fi
 
 cat >"$VENDOR_DIR/SOURCE-VM.txt" <<EOF
 Assets copiés depuis la VM lab ($SSH_TARGET) le $(date -u +"%Y-%m-%dT%H:%M:%SZ").
+Vendor : $VENDOR · toolkit : $TOOLKIT
 Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-theme).
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

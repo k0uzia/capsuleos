@@ -10,7 +10,7 @@
         (function initKdeNeonThemeBootstrap() {
             var theme = 'light';
             try {
-                var saved = localStorage.getItem('mint-theme');
+                var saved = localStorage.getItem('kde-neon-theme');
                 if (saved === 'dark' || saved === 'light') {
                     theme = saved;
                 }
@@ -61,7 +61,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/dolphin.svg" alt="">
                 </a>
                 <a target="windowElement" data-link="firefox" title="Firefox">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.png" alt="">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/firefox.png" alt="">
                 </a>
                 <a target="windowElement" data-link="terminal" title="Konsole">
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/neon/panel/konsole.svg" alt="">
@@ -185,7 +185,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
-    <script src="../../SUSE/openSUSE/js/calendar-popover-kde.js?v=20260612b"></script>
+    <script src="./js/calendar-popover-kde.js?v=20260612b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>

@@ -8,15 +8,35 @@ Sourcing design & licences : [`etc/capsuleos/os-sourcing.json`](../../etc/capsul
 
 ---
 
-## Statistiques (juin 2026)
+## Statistiques (juin 2026 — waves 1–5)
 
 | Métrique | Valeur |
 |----------|--------|
-| Entrées totales | 52 |
-| Actives (jouables) | 22 |
-| Planifiées | 26 |
-| Stubs / recherche | 4 |
-| Familles | 10 |
+| Entrées totales | 57 |
+| Actives (pick-os) | **12** |
+| Planifiées | 38 |
+| Stubs / recherche | 11 |
+| Kernels | 15 |
+| Branches Linux | 12 |
+
+### Catalogue pick-os (waves 1–5)
+
+| ID | Famille | Wave |
+|----|---------|------|
+| `linux-mint` | Linux | 1 |
+| `linux-ubuntu` | Linux | 1 |
+| `linux-opensuse` | Linux | 1 |
+| `windows-11` | Windows | 1 |
+| `windows-10` | Windows | 1 |
+| `macos-sonoma` | macOS | 1 |
+| `ios-15` | iOS | 1 |
+| `linux-fedora` | Linux | 2 |
+| `linux-rocky` | Linux | 3 (référence GNOME) |
+| `linux-alma` | Linux | 4 (dérivé Rocky) |
+| `linux-anduinos` | Linux | 5 |
+| `linux-popos` | Linux | 5 (COSMIC) |
+
+> Skins archivés : `?devSkin=<id>`. Réactivation d’une entrée : `reactivate-os.mjs`. Voir [manifeste-kernels.md](manifeste-kernels.md).
 
 ---
 
@@ -25,9 +45,9 @@ Sourcing design & licences : [`etc/capsuleos/os-sourcing.json`](../../etc/capsul
 | Tier | Signification | Exemples |
 |------|---------------|----------|
 | **P0** | Référence pédagogique — régression interdite | Linux Mint |
-| **P1** | Production — checklist missions | Ubuntu, MX-KDE, Windows 11, Android |
+| **P1** | Production — checklist missions | Ubuntu, Rocky GNOME, MX-KDE, Windows 11, Android |
 | **P2** | Prochaine vague — forte demande terrain | Arch, elementary, ChromeOS, macOS Sequoia |
-| **P3** | Extension catalogue | Zorin, Rocky, iOS 17, FreeBSD |
+| **P3** | Extension catalogue | Zorin, iOS 17, FreeBSD |
 | **P4** | Recherche — faisabilité sans engagement UX | NixOS, Haiku, HarmonyOS, ReactOS |
 
 ---
@@ -38,6 +58,7 @@ Sourcing design & licences : [`etc/capsuleos/os-sourcing.json`](../../etc/capsul
 |----|-----|---------|-------|-------------|----------|--------|
 | `linux-mint` | Linux Mint | Cinnamon | cinnamon | Nemo | 95 % | `OS/linux/families/debian/mint/` |
 | `linux-ubuntu` | Ubuntu 25.10 | GNOME | gnome-shell | Fichiers | 75 % | `.../ubuntu/` |
+| `linux-rocky` | Rocky Linux | GNOME | gnome-shell | Nautilus | 80 % | `.../rocky/` |
 | `linux-fedora` | Fedora | GNOME | gnome-shell | Fichiers | 65 % | `.../fedora/` |
 | `linux-mx-kde` | MX Linux KDE | KDE | Plasma | Dolphin | 85 % | `.../mx-kde/` |
 | `linux-debian-kde` | Debian KDE | KDE | Plasma | Dolphin | 70 % | `.../debian-kde/` |

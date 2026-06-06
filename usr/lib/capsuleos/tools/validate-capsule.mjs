@@ -103,6 +103,16 @@ if (agentSkills.status !== 0) {
     out.split('\n').filter(Boolean).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
 }
 
+const toolkitBoot = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-linux-toolkit-boot.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (toolkitBoot.status !== 0) {
+    const out = (toolkitBoot.stdout || '') + (toolkitBoot.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
+}
+
 const linuxFacades = spawnSync(
     process.execPath,
     ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],

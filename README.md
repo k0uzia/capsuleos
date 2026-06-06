@@ -1,7 +1,21 @@
 # CapsuleOS
-Un site permettant de tester des environnements de bureau, les appréhender en jouant et choisir ses préférences.
 
-**Contribuer (humains et agents IA)** : voir [contrib.md](contrib.md) — formation, gates `validate-all`, ajout de distributions et briefs depuis le registre OS.
+Sandbox web **statique** : bureaux Linux, Windows, macOS et mobiles simulés en HTML5, CSS3 et ES6 — sans framework, utilisable hors ligne (`file://`) ou derrière un serveur HTTP minimal. Objectif : permettre d’**explorer et comparer** des environnements familiers dans un cadre pédagogique léger.
+
+## En bref (vision technique)
+
+| Pilier | Principe |
+|--------|----------|
+| **Noyau** | Comportements centralisés (`usr/lib/capsuleos/`, gabarits `usr/share/capsuleos/`) — fenêtres, explorateur, embeds |
+| **Skins** | Une distro = un dossier `home/<Vendor>/<Distro>/` (source de vérité) |
+| **Façades** | URLs pick-os sous `OS/` — copies générées avec `<base href>`, jamais éditées à la main |
+| **CSS** | Variables + `calc()` ; pas de nesting ; ordre des propriétés imposé |
+| **JS** | ES6 strict, IIFE, API globales (`CapsuleWindow`, `CAPSULE_*`) — pas de fork par distro |
+| **VM lab** | Ground truth pour cloner : inventaire → implémentation → `validate-all` |
+
+**Stade actuel** : renforcer la **résilience du noyau** et la **parité documentée** distro par distro (Mint P0, Rocky GNOME, KDE Neon, openSUSE…).
+
+**Contribuer** : [contrib.md](contrib.md) (humains et agents) · **Convention reproduction OS** : [root/docs/convention-reproduction-os.md](root/docs/convention-reproduction-os.md) · Équipe agents : [root/README.md](root/README.md).
 
 [TOC]
 

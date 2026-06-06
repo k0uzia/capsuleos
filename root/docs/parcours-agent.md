@@ -3,8 +3,24 @@
 Chemin logique pour qu’un agent Cursor **comprenne CapsuleOS** avant de modifier le dépôt, puis **scale** le catalogue (distros, versions, bureaux, vendors) sans fork noyau.
 
 **Guide racine** : [`contrib.md`](../../contrib.md)  
+**Logique formelle** : [logique-formelle.md](logique-formelle.md) — **document fondateur** des gates et de la décision agent  
 **Skill associé** : [`../skills/onboarding/SKILL.md`](../skills/onboarding/SKILL.md)  
 **Gate unique** : `node usr/lib/capsuleos/tools/validate-all.mjs`
+
+---
+
+## Logique formelle ↔ hydratation H0–H6
+
+Les phases H ci-dessous sont des **instances** des prédicats du [manifeste logique formelle](logique-formelle.md) :
+
+| Phase | Prédicat | Gate typique |
+|-------|----------|--------------|
+| H0 | **H₀** | Lecture contrat |
+| H2 | **H₂** | `validate-all.mjs` |
+| H5 | implémentation | **R-IMP1** : interdit si ¬**H₂** |
+| H6 | **H₆** | `validate-all.mjs` clôture |
+
+**Décision autonome** : après **H₂**, appliquer §4 de `logique-formelle.md` (inventaire **I**, assets **A∧S**, lab **L**, etc.) — ne pas demander à l’utilisateur si **R-AUTO** s’applique.
 
 ---
 
@@ -134,6 +150,7 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 
 ## Liens
 
+- [logique-formelle.md](logique-formelle.md) — paradigme agent (référence canonique)
 - [equipe-agentique.md](equipe-agentique.md) — staffing
 - [manifeste-noyau.md](manifeste-noyau.md) — hydratation technique H0–H6 noyau
 - [kernel-supervisor/SKILL.md](../skills/kernel-supervisor/SKILL.md) — migration assets

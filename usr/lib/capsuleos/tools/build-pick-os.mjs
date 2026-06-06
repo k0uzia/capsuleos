@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Génère usr/lib/capsuleos/site/pick-os.js depuis etc/capsuleos/os-registry.json (S7)
+ * Génère usr/lib/capsuleos/site/pick-os.js depuis etc/capsuleos/os-registry.json.
+ * Gel catalogue : catalogue vide ; devSkin via ?devSkin=<id> ou CAPSULE_DEV_SKIN.
  * Usage : node usr/lib/capsuleos/tools/build-pick-os.mjs
  */
 import fs from 'fs';
@@ -12,12 +13,9 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const REGISTRY = path.join(ROOT, 'etc/capsuleos/os-registry.json');
 const OUT = path.join(ROOT, 'usr/lib/capsuleos/site/pick-os.js');
 const ASSETS_ROOT = path.join(ROOT, 'usr/share/capsuleos/assets');
-const PICK_LINUX_DIR = path.join(ASSETS_ROOT, 'images/platforms/pick-os/linux');
-const VENDORS_DIR = path.join(ASSETS_ROOT, 'images/vendors');
 
 const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
 
-/** Depuis index.html à la racine du dépôt (pas de CapsuleResource sur le portail). */
 const PORTAL_ASSETS = './usr/share/capsuleos/assets';
 
 const ICON = {
@@ -27,26 +25,6 @@ const ICON = {
   android: `${PORTAL_ASSETS}/images/platforms/pick-os/android/`,
   ios: `${PORTAL_ASSETS}/images/platforms/pick-os/ios/apple.svg`,
   bsd: `${PORTAL_ASSETS}/images/platforms/pick-os/linux/debian.png`,
-};
-
-const VENDOR_ICON = {
-  mint: 'mint.png',
-  ubuntu: 'ubuntu.png',
-  fedora: 'fedora.png',
-  debian: 'debian.png',
-  mx: 'mx.png',
-  opensuse: 'opensuse.png',
-  popos: 'popos.png',
-  anduin: 'anduin.png',
-  rocky: 'rocky.png',
-  redhat: 'redhat.png',
-  microsoft: (id) => {
-    const ver = id.replace('windows-', '');
-    const map = { 95: 'win95', 98: 'win98', me: 'winme', 2000: 'win2000', xp: 'winxp', vista: 'vista', 7: 'win7', 8: 'win8', '8.1': 'win8', 10: 'win10', 11: 'win11' };
-    return `${map[ver] || 'win11'}.png`;
-  },
-  google: 'vanillaicecream.png',
-  apple: 'sonoma.png',
 };
 
 const familyToCatalogKey = {
@@ -60,6 +38,7 @@ const familyToCatalogKey = {
   harmonyos: 'bsd',
   unix: 'bsd',
   retro: 'bsd',
+  other: 'bsd',
 };
 
 const catalogKeys = ['linux', 'windows', 'macos', 'bsd', 'ios', 'android'];
@@ -67,84 +46,81 @@ const catalog = Object.fromEntries(catalogKeys.map((k) => [k, { label: k === 'io
 catalog.linux.label = 'Linux';
 catalog.bsd.label = 'BSD';
 
-const resolveLinuxPickIcon = (vendor) => {
-  const mapped = VENDOR_ICON[vendor];
-  if (typeof mapped === 'string') {
-    const pickPath = path.join(PICK_LINUX_DIR, mapped);
-    if (fs.existsSync(pickPath)) {
-      return `${ICON.linux}${mapped}`;
-    }
-  }
-  const vendorPng = `${vendor}.png`;
-  if (fs.existsSync(path.join(PICK_LINUX_DIR, vendorPng))) {
-    return `${ICON.linux}${vendorPng}`;
-  }
-  const vendorDir = path.join(VENDORS_DIR, vendor);
-  if (fs.existsSync(vendorDir)) {
-    const logo = fs.readdirSync(vendorDir).find((f) => /logo\.(svg|png|webp)$/i.test(f));
-    if (logo) {
-      return `${PORTAL_ASSETS}/images/vendors/${vendor}/${logo}`;
-    }
-  }
-  return `${ICON.linux}debian.png`;
-};
-
 const resolveIcon = (entry) => {
-  const { family, vendor, id } = entry;
-  if (family === 'linux') {
-    return resolveLinuxPickIcon(vendor);
-  }
-  if (family === 'windows') {
-    const file = typeof VENDOR_ICON.microsoft === 'function' ? VENDOR_ICON.microsoft(id) : 'win11.png';
-    return `${ICON.windows}${file}`;
-  }
-  if (family === 'macos') {
-    return `${ICON.macos}sonoma.png`;
-  }
-  if (family === 'android') {
-    return `${ICON.android}vanillaicecream.png`;
-  }
-  if (family === 'ios') {
-    return ICON.ios;
+  const pickIcon = entry.assets?.pickIcon;
+  if (pickIcon) {
+    return `./usr/share/capsuleos/assets/${pickIcon}`;
   }
   return `${ICON.linux}debian.png`;
 };
 
+// Catalogue public : entrées actives uniquement (0 pendant gel)
 registry.entries
-  .filter((e) => e.status === 'active' && e.facade)
+  .filter((e) => e.status === 'active' && e.referencePaths?.facade)
   .sort((a, b) => {
     const tierOrder = { P0: 0, P1: 1, P2: 2, P3: 3, P4: 4 };
-    const ta = tierOrder[a.tier] ?? 9;
-    const tb = tierOrder[b.tier] ?? 9;
-    if (ta !== tb) return ta - tb;
-    return a.displayName.localeCompare(b.displayName, 'fr');
+    return (tierOrder[a.tier] ?? 9) - (tierOrder[b.tier] ?? 9)
+      || a.displayName.localeCompare(b.displayName, 'fr');
   })
   .forEach((entry) => {
     const key = familyToCatalogKey[entry.family] || 'bsd';
-    if (!catalog[key]) {
-      return;
-    }
+    if (!catalog[key]) return;
     catalog[key].distros.push({
       name: entry.displayName,
-      href: `./${entry.facade}`,
+      href: `./${entry.referencePaths.facade}`,
       icon: resolveIcon(entry),
     });
   });
 
+// Index devSkin : toutes entrées avec referencePaths.facade
+const devSkinIndex = {};
+registry.entries.forEach((entry) => {
+  const facade = entry.referencePaths?.facade;
+  if (!facade) return;
+  devSkinIndex[entry.id] = {
+    id: entry.id,
+    displayName: entry.displayName,
+    href: `./${facade}`,
+    icon: resolveIcon(entry),
+    status: entry.status,
+    tier: entry.tier
+  };
+});
+
 const runtime = `(function () {
+    const KERNEL_REBUILD = ${JSON.stringify(registry.stats?.frozen === true)};
+    const REBUILD_MESSAGE = 'Le noyau CapsuleOS est en reconstruction. Les bureaux seront réactivés progressivement après validation du noyau central.';
     const ICON = ${JSON.stringify(ICON, null, 4).replace(/^/gm, '    ')};
 
     const catalog = ${JSON.stringify(catalog, null, 4).replace(/^/gm, '    ')};
+
+    const devSkinIndex = ${JSON.stringify(devSkinIndex, null, 4).replace(/^/gm, '    ')};
 
     const modal = document.getElementById('pick-modal');
     const modalTitle = document.getElementById('pick-modal-title');
     const modalList = document.getElementById('pick-modal-list');
     const modalClose = document.getElementById('pick-modal-close');
     const cards = document.querySelectorAll('.pick-card');
+    const pickLead = document.querySelector('.pick-lead');
+
+    if (pickLead && KERNEL_REBUILD) {
+        pickLead.textContent = REBUILD_MESSAGE + ' Mode lab : ?devSkin=<id> (ex. ?devSkin=linux-mint).';
+    }
 
     if (!modal || !modalTitle || !modalList) return;
 
     let activeCard = null;
+
+    const resolveDevSkin = () => {
+        const params = new URLSearchParams(location.search);
+        const fromUrl = params.get('devSkin');
+        if (fromUrl && devSkinIndex[fromUrl]) return fromUrl;
+        try {
+            const fromStorage = localStorage.getItem('CAPSULE_DEV_SKIN');
+            if (fromStorage && devSkinIndex[fromStorage]) return fromStorage;
+        } catch (_) { /* file:// */ }
+        return null;
+    };
 
     const openModalForOs = (osKey, card) => {
         if (!osKey || !catalog[osKey]) return;
@@ -185,8 +161,17 @@ const runtime = `(function () {
         if (entry.distros.length === 0) {
             const empty = document.createElement('li');
             empty.className = 'pick-modal-empty';
-            empty.textContent = 'Aucune distribution disponible pour le moment.';
+            empty.textContent = KERNEL_REBUILD
+                ? REBUILD_MESSAGE
+                : 'Aucune distribution disponible pour le moment.';
             modalList.appendChild(empty);
+
+            if (KERNEL_REBUILD && Object.keys(devSkinIndex).length) {
+                const hint = document.createElement('li');
+                hint.className = 'pick-modal-empty pick-modal-dev-hint';
+                hint.textContent = 'Lab : ajoutez ?devSkin=linux-mint à l\\'URL pour charger un skin archivé.';
+                modalList.appendChild(hint);
+            }
             return;
         }
 
@@ -223,6 +208,15 @@ const runtime = `(function () {
         });
     });
 
+    const devSkinId = resolveDevSkin();
+    if (devSkinId) {
+        const target = devSkinIndex[devSkinId];
+        if (target && confirm('Mode lab : charger « ' + target.displayName + ' » (statut ' + target.status + ') ?')) {
+            location.replace(target.href);
+            return;
+        }
+    }
+
     const pickKey = new URLSearchParams(location.search).get('pick');
     if (pickKey && catalog[pickKey]) {
         requestAnimationFrame(() => {
@@ -252,9 +246,10 @@ const runtime = `(function () {
 
 const banner = `/**
  * Portail pick-os (généré depuis etc/capsuleos/os-registry.json).
+ * Gel noyau : catalogue public vide ; devSkin via ?devSkin=<registryId>.
  * Regénérer : node usr/lib/capsuleos/tools/build-pick-os.mjs
  */
 `;
 
 fs.writeFileSync(OUT, banner + runtime, 'utf8');
-console.log(`Écrit ${OUT}`);
+console.log(`Écrit ${OUT} — ${Object.values(catalog).reduce((n, c) => n + c.distros.length, 0)} entrées publiques, ${Object.keys(devSkinIndex).length} devSkin`);

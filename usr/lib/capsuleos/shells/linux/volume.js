@@ -29,10 +29,18 @@
         el.style.maskImage = mask;
     };
 
+    const persistTheme = (theme) => {
+        if (window.CapsuleThemeStorage && typeof window.CapsuleThemeStorage.persistTheme === 'function') {
+            window.CapsuleThemeStorage.persistTheme(theme, document.body ? document.body.id : '');
+            return;
+        }
+        localStorage.setItem('mint-theme', theme);
+    };
+
     const syncQuickTheme = (els) => {
         if (!els.themeBtn || !els.themeLabel) return;
         const isLight = document.documentElement.dataset.theme === 'light';
-        els.themeBtn.classList.toggle('quick-settings__tile--active', !isLight);
+        els.themeBtn.classList.add('quick-settings__tile--active');
         els.themeLabel.textContent = isLight ? 'Style clair' : 'Style sombre';
     };
 
@@ -104,8 +112,25 @@
         const themeBtn   = document.getElementById('quick-settings-theme-btn');
         const themeLabel = document.getElementById('quick-settings-theme-label');
         const powerBtn   = document.getElementById('quick-settings-power-btn');
+        const settingsBtn = document.querySelector('.quick-settings__round-btn--settings');
+        const screenBtn = document.querySelector('.quick-settings__round-btn--screen');
 
         if (!btn || !popover || !slider) return;
+
+        const openAppLink = (linkId) => {
+            if (!linkId) return;
+            const target = document.querySelector(
+                `.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`
+            );
+            closePopover(btn, popover);
+            if (target) {
+                target.click();
+                return;
+            }
+            if (typeof window.openWindowByDataLink === 'function') {
+                window.openWindowByDataLink(linkId);
+            }
+        };
 
         const els = { slider, valueLabel, muteBtn, muteIcon, trayIcon, themeBtn, themeLabel };
 
@@ -154,15 +179,74 @@
             themeBtn.addEventListener('click', () => {
                 const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
                 document.documentElement.dataset.theme = nextTheme;
-                localStorage.setItem('mint-theme', nextTheme);
+                persistTheme(nextTheme);
+                const storage = window.CapsuleThemeStorage;
+                if (storage && typeof storage.applyWallpaper === 'function') {
+                    const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+                    storage.applyWallpaper(wpId, document.body ? document.body.id : '');
+                }
+                document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: nextTheme } }));
                 refresh(els);
             });
+        }
+
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                if (typeof window.setCapsuleSettingsPanel === 'function') {
+                    window.setCapsuleSettingsPanel('appearance');
+                }
+                openAppLink('themes');
+            });
+        }
+
+        if (screenBtn) {
+            screenBtn.addEventListener('click', () => openAppLink('screenshot'));
         }
 
         if (powerBtn) {
             powerBtn.addEventListener('click', returnToPickHome);
         }
 
+        const dndIcon = document.querySelector('.quick-settings__tile-icon--dnd');
+        const dndBtn = dndIcon ? dndIcon.closest('.quick-settings__tile') : null;
+        if (dndBtn) {
+            dndBtn.addEventListener('click', () => {
+                const parity = window.CapsuleGnomeSettingsParity;
+                if (!parity || typeof parity.applySwitch !== 'function') {
+                    return;
+                }
+                const on = !parity.readBool('gnome-dnd-enabled', false);
+                const settingsRoot = document.querySelector('#themes #themesApp');
+                parity.applySwitch('dnd', on, settingsRoot);
+            });
+        }
+
+        const perfIcon = document.querySelector('.quick-settings__tile-icon--performance');
+        const perfBtn = perfIcon ? perfIcon.closest('.quick-settings__tile') : null;
+        if (perfBtn) {
+            perfBtn.addEventListener('click', () => {
+                const parity = window.CapsuleGnomeSettingsParity;
+                if (!parity || typeof parity.cycleSelectById !== 'function') {
+                    return;
+                }
+                const settingsRoot = document.querySelector('#themes #themesApp');
+                parity.cycleSelectById('power-mode', settingsRoot);
+            });
+        }
+
         observer.observe(document.body, { childList: true, subtree: true });
+
+        window.syncVolumeFromSettings = (pct) => {
+            const next = Math.max(0, Math.min(100, Number(pct) || 0));
+            volume = next;
+            muted = next === 0;
+            slider.value = String(volume);
+            refresh(els);
+            persist();
+        };
+
+        window.refreshQuickSettingsVolumeFill = () => {
+            updateFill(slider);
+        };
     });
 })();

@@ -1,14 +1,13 @@
 /**
- * Fedora Workstation - coque : top bar, dock, zone bureau.
- * Tokens shell : gnome-shell/tokens.css ; chrome fenêtres : gnome-shell/windows-chrome.css.
+ * Ubuntu 25.10 — coque GNOME (structure Rocky, dock Unity).
  */
-
 #ubuntu {
-    --linux-skin-label: "Fedora Linux";
+    --linux-skin-label: "Ubuntu 25.10";
     --ubuntu-dock-gap: calc(var(--head) / 11);
     --ubuntu-dock-item: calc(var(--head) * 1.02);
-    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper-racoon.png) center/cover no-repeat;
-    --mint-taskbar-bg: var(--ubuntu-top-bar-bg);
+    /* Fond VM : rocky-default-10-gemstone-skies-night.png (pull-vm-assets.sh) */
+    --ubuntu-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
+    --gnome-shell-taskbar-bg: var(--ubuntu-top-bar-bg);
     position: relative;
     display: flex;
     flex-flow: column nowrap;
@@ -19,7 +18,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: "Cantarell", "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     color: var(--texte);
     background: var(--ubuntu-bg);
     background-size: cover;
@@ -86,7 +85,7 @@
 
 #ubuntu .fedora-overview-trigger:hover,
 #ubuntu .fedora-overview-trigger:focus-visible {
-    background: var(--mint-clock-hover-bg);
+    background: var(--gnome-shell-clock-hover-bg);
     border-color: var(--ubuntu-shell-border-soft);
 }
 
@@ -117,8 +116,13 @@
     flex: 1;
     width: 100%;
     min-height: 0;
+    transform: scale(1);
+    transition:
+        opacity 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+/* GNOME Wayland RHEL : pas de dock permanent (contrairement à Ubuntu / Unity). Favoris = Aperçu. */
 #ubuntu #tableau.fedora-dock {
     display: flex;
     flex-flow: column nowrap;
@@ -209,11 +213,13 @@
     flex: 1;
     min-width: 0;
     min-height: 0;
+    background: transparent;
 }
 
 #ubuntu #desktop {
     position: relative;
     display: flex;
+    background: transparent;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: flex-start;
@@ -274,7 +280,7 @@
 }
 
 html[data-theme="light"]:has(#ubuntu) #ubuntu {
-    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper-racoon.png) center/cover no-repeat;
+    --ubuntu-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
 }
 
 html[data-theme="light"]:has(#ubuntu) #ubuntu #tableau.fedora-dock a:hover {

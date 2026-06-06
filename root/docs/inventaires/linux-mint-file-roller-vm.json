@@ -31,6 +31,20 @@
       "width": "652",
       "height": "579"
     },
+    "layoutPx": {
+      "headerbar": 46,
+      "navigation": 44,
+      "tableHeadRow": 30,
+      "fileRow": 30,
+      "columnsPct": {
+        "name": 42,
+        "size": 16,
+        "type": 16,
+        "modified": 26
+      },
+      "fontUi": 13,
+      "fontTable": 12
+    },
     "wmClass": "file-roller.File-roller"
   },
   "gschemaDefaults": {

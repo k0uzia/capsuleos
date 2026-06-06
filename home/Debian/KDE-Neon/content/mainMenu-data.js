@@ -50,14 +50,14 @@ const MENU_SHORTCUTS = {
     },
 };
 
-// Favoris Kickoff VM (capture 2026-06-05) : Firefox, Paramètres, Dolphin, Discover
+// Favoris Kickoff VM (2026-06-06) : Firefox, Paramètres, Dolphin, Discover
 const MENU_APPS = [
-    { catId: 'favorites', icon: './assets/images/toolkits/gnome/apps/firefox.png', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
+    { catId: 'favorites', icon: './assets/images/vendors/neon/panel/firefox.png', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './assets/images/vendors/neon/panel/dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
     { catId: 'favorites', icon: './assets/images/vendors/neon/panel/discover.svg', name: 'Discover', desc: 'Gestionnaire de logiciels', dataLink: 'update_manager' },
 
-    { catId: 'internet', icon: './assets/images/toolkits/gnome/apps/firefox.png', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
+    { catId: 'internet', icon: './assets/images/vendors/neon/panel/firefox.png', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'internet', icon: './assets/images/toolkits/kde/apps/terminal.svg', name: 'SSH', desc: 'Connexion distante', },
     { catId: 'internet', icon: './assets/images/toolkits/kde/apps/dolphin.svg', name: 'Téléchargements', desc: 'Accéder au dossier Téléchargements', dataLink: { dataLink: 'nemo', directory: './apps/system/Dossier_personnel/Téléchargements' } },
 

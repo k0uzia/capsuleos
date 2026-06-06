@@ -10,7 +10,7 @@
     border: var(--volume-popover-border);
     border-radius: 1.4rem;
     color: var(--volume-popover-text);
-    background: rgba(62, 58, 59, 0.97);
+    background: var(--volume-popover-bg);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
     font-family: "Cantarell", var(--font-ui);
     overflow: hidden;
@@ -49,13 +49,13 @@
 }
 
 .quick-settings__round-btn--active {
-    background: #4285df;
+    background: var(--menu-accent);
     cursor: pointer;
 }
 
 .quick-settings__round-btn--active:hover,
 .quick-settings__round-btn--active:focus-visible {
-    background: #4d91ee;
+    background: color-mix(in srgb, var(--menu-accent) 88%, white);
 }
 
 .quick-settings__round-btn::before,
@@ -180,7 +180,7 @@
 }
 
 .quick-settings__tile--active {
-    background: #4285df;
+    background: var(--menu-accent);
 }
 
 .quick-settings__tile-icon {

@@ -25,13 +25,17 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 
 | Fichier | Rôle |
 |---------|------|
-| [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills, scalabilité |
-| [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Images uniquement sous `usr/share/capsuleos/assets/` et `home/public/Images/` |
+| [`.cursor/rules/logique-formelle-capsuleos.mdc`](.cursor/rules/logique-formelle-capsuleos.mdc) | **Paradigme agent** — prédicats, règles, décision autonome |
+| [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills |
+| [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Gates **A** / **S** / **T**, zones assets autorisées |
+
+**Document fondateur** : [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md)
 
 ### Parcours obligatoire (H0 → H6)
 
+0. **Logique formelle** — [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md) §2–4 (prédicats, règles, décision agent)
 1. **H0** — [`root/AGENTS.md`](root/AGENTS.md), [checklist contrat](#checklist-contrat-avant-merge-ou-release), [`root/docs/arborescence.md`](root/docs/arborescence.md)
-2. **H1** — [`etc/capsuleos/os-registry.json`](etc/capsuleos/os-registry.json), [`root/docs/manifeste-noyau.md`](root/docs/manifeste-noyau.md), [`root/docs/politique-assets.md`](root/docs/politique-assets.md)
+2. **H1** — [`etc/capsuleos/kernels.json`](etc/capsuleos/kernels.json), [`etc/capsuleos/os-registry.json`](etc/capsuleos/os-registry.json), [`root/docs/manifeste-kernels.md`](root/docs/manifeste-kernels.md), [`root/docs/manifeste-noyau.md`](root/docs/manifeste-noyau.md)
 3. **H2** — `node usr/lib/capsuleos/tools/validate-all.mjs`
 4. **H3** — Skill [`root/skills/onboarding/SKILL.md`](root/skills/onboarding/SKILL.md) puis skill OS + rôle (voir [équipe agentique](root/docs/equipe-agentique.md))
 5. **H4** — Nouvel OS : [`root/docs/ajouter-os-scalable.md`](root/docs/ajouter-os-scalable.md)
@@ -41,6 +45,8 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 ### Comparaison avec un environnement réel (VM / Proxmox)
+
+**Convention reproduction OS (agents)** : [`root/docs/convention-reproduction-os.md`](root/docs/convention-reproduction-os.md) — contrat unique : concepts, workflow VM, CSS variables, ES6 strict.
 
 **Clonage fidèle depuis VM** : [`root/docs/procedure-clonage-os-depuis-vm.md`](root/docs/procedure-clonage-os-depuis-vm.md) — inventaire ground truth, assets, panel, apps, FS simulé ; modèle **linux-mint** en annexe.
 
@@ -145,8 +151,11 @@ Procédure complète : [`root/docs/ajouter-os-scalable.md`](root/docs/ajouter-os
 
 Résumé :
 
-1. Enregistrer l’entrée dans `etc/capsuleos/os-registry.json` (et regen pick-os si applicable).
-2. Créer `etc/capsuleos/profiles/<id>.json` et `skin.profile.json` (façade + miroir `home/`).
+1. Enregistrer l’entrée dans `usr/lib/capsuleos/tools/os-registry-entries.mjs` puis :
+   `node usr/lib/capsuleos/tools/build-os-registry.mjs`
+   `node usr/lib/capsuleos/tools/build-profiles-from-registry.mjs`
+   `node usr/lib/capsuleos/tools/build-pick-os.mjs`
+2. Overrides optionnels : `etc/capsuleos/overrides/<id>.json` (profils générés, pas de saisie triple).
 3. Placer les visuels dans `usr/share/capsuleos/assets/images/toolkits/` et `.../vendors/`.
 4. Façade `OS/<famille>/.../index.html` — ordre boot : `capsule-resource.js` → `capsule-skin-boot.js` → shell.
 5. `validate-all.mjs` ; regen embed Linux si templates/strings modifiés.
@@ -204,7 +213,8 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 |------|---------|-------------------|-----------------|-----------------------------------|----------------------|----------------|
 | **Linux Mint** | `mint` | **Cinnamon** (GTK 3, Nemo, Muffin) | Panel bas `footer.css`, fenêtres Mint | `nemo` → **Nemo** | `terminal-window--gnome` | `mainMenu.html` + `mainMenu.skin.css` |
 | **Ubuntu 25.10** | `ubuntu` | **GNOME** 46+ (GTK 4, libadwaita, Nautilus « Fichiers ») | `gnome-shell/*`, dock Ubuntu | `nemo-gnome` → **Fichiers** | `terminal-window--gnome` | Overview + dock (`index.html`) |
-| **Fedora** | `fedora` | **GNOME Workstation** (Adwaita, Nautilus) | `gnome-shell/*` (tokens Fedora) | `nemo` (slot Nautilus) | `terminal-window--fedora` | Dash + overview |
+| **Rocky** | `rocky` | **GNOME Workstation** (référence Nautilus VM) | `gnome-shell/*` | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
+| **Fedora** | `fedora` | **GNOME Workstation** (dérivé Rocky) | `gnome-shell/*` (tokens Fedora) | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
 | **Pop!_OS** | `popos` | **COSMIC** (Rust, pas GTK classique ; UI proche GNOME) | `cosmic-shell/*` | `nemo-cosmic` → **Fichiers COSMIC** | `terminal-window--cosmic` | Dock + grille `#cosmic-applications-grid` |
 | **MX Linux KDE** | `mx-kde` | **Plasma** (Qt 5/6, Breeze, Dolphin, Konsole) | `footer.css` + panel KDE | `dolphin` → **Dolphin** | skin Konsole (`terminal.skin.css`) | `content/mainMenu-data.js` + Plasma chrome JS |
 | **Debian KDE** | `debian-kde` | **Plasma** (Debian, Discover) | comme MX, `windows.css` partagé openSUSE | `dolphin` | idem | `mainMenu-plasma.js`, menu local |
@@ -230,7 +240,8 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 
 | Composant réel | Nom UI officiel | ID / gabarit | Fichiers skin typiques |
 |--------------|-----------------|--------------|------------------------|
-| Nautilus | **Fichiers** (Ubuntu), **Files** (EN) | `data-link="nemo"` + template `nemo-gnome` ou `nemo` | `style/apps/nautilus.skin.css`, `nemo.skin.css` |
+| Nautilus | **Fichiers** (GNOME) | `data-link="nemo"` + template `nemo-gnome` + skin `nautilus` | `style/apps/nautilus.skin.css` (réf. Rocky ; sync via `sync-gnome-nautilus-skin.mjs`) |
+| Nemo | **Nemo** (Cinnamon / Mint uniquement) | `data-link="nemo"` + template `nemo` | `style/apps/nemo.skin.css` |
 | gnome-terminal | **Terminal** | `terminal` | `style/apps/terminal.skin.css` + classe `terminal-window--gnome` ou `--fedora` |
 | GNOME Software | **Ubuntu Software** / **Software** | `update_manager` | `update_manager.skin.css` ; override `update_manager_ubuntu.html` (Ubuntu) |
 | Paramètres | **Settings** | `themes` | `themes.skin.css` |

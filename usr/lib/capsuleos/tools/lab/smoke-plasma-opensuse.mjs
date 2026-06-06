@@ -27,6 +27,7 @@ function read(rel) {
 }
 
 const indexHtml = read('home/SUSE/openSUSE/index.html');
+const mainMenuData = read('home/SUSE/openSUSE/content/mainMenu-data.js');
 const skinProfile = read('home/SUSE/openSUSE/skin.profile.json');
 const etcProfile = read('etc/capsuleos/profiles/linux-opensuse.json');
 
@@ -38,6 +39,31 @@ if (!indexHtml.includes('mainMenu.skin.css')) {
 }
 if (!indexHtml.includes('plasma-panel-mode.js')) {
     errors.push('index.html : plasma-panel-mode.js absent');
+}
+if (!indexHtml.includes('explorer-registry.js')) {
+    errors.push('index.html : explorer-registry.js absent');
+}
+if (!indexHtml.includes('explorer-icon-base.js')) {
+    errors.push('index.html : explorer-icon-base.js absent');
+}
+if (indexHtml.includes('fileExplorerInfo.js')) {
+    errors.push('index.html : fileExplorerInfo.js (Cinnamon) ne doit pas être chargé sur Plasma/KDE');
+}
+if (mainMenuData.includes('./apps/system/')) {
+    errors.push('mainMenu-data.js : chemins legacy ./apps/system/ interdits');
+}
+if (!mainMenuData.includes("name: 'Kate'") || !mainMenuData.includes("dataLink: 'text_editor'")) {
+    errors.push('mainMenu-data.js : Kate doit pointer vers text_editor');
+}
+if (!mainMenuData.includes("name: 'Découvrir'") || !mainMenuData.includes("plasmadiscover.svg")) {
+    errors.push('mainMenu-data.js : Discover (update_manager) manquant');
+}
+if (!indexHtml.includes('data-link="text_editor"')) {
+    errors.push('index.html : slot text_editor manquant');
+}
+const dolphinBase = read('usr/share/capsuleos/linux/explorers/dolphin/base.css');
+if (dolphinBase.includes('toolkits/cinnamon')) {
+    errors.push('explorers/dolphin/base.css : chemins Cinnamon obsolètes (attendu toolkits/kde)');
 }
 if (!indexHtml.includes('data-link="update_manager"') || !indexHtml.includes('plasmadiscover.svg')) {
     errors.push('index.html : pin Discover / update_manager manquant');

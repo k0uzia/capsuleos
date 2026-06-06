@@ -5,6 +5,7 @@
 
 html:has(#ubuntu) {
     --menu-accent: #E95420;
+    --ubuntu-bg: url("../../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
     --ubuntu-shell-text: #f6f7f9;
     --ubuntu-shell-border-soft: rgba(255, 255, 255, 0.1);
     --ubuntu-top-bar-height: calc(var(--head) * 0.82);
@@ -25,6 +26,8 @@ html:has(#ubuntu) {
     --calendar-popover-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     --calendar-popover-radius: 12px;
     --ubuntu-window-radius: 11px;
+    --ubuntu-window-border: rgba(0, 0, 0, 0.45);
+    --ubuntu-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --ubuntu-window-shadow: 0 4px 28px rgba(0, 0, 0, 0.42);
     --ubuntu-window-surface: #2e2e2e;
     --ubuntu-window-header-bg: #383838;
@@ -34,8 +37,9 @@ html:has(#ubuntu) {
     --ubuntu-window-control-color: #f6f7f9;
     --ubuntu-window-control-bg: transparent;
     --ubuntu-window-control-hover-bg: rgba(255, 255, 255, 0.14);
-    --ubuntu-window-control-close-bg: rgba(255, 255, 255, 0.12);
-    --ubuntu-window-control-close-hover-bg: rgba(255, 255, 255, 0.2);
+    --ubuntu-window-control-close-bg: transparent;
+    --ubuntu-window-control-close-hover-bg: #c01c28;
+    --ubuntu-window-control-close-hover-color: #ffffff;
     --ubuntu-app-surface: #202024;
     --ubuntu-app-terminal-surface: #1d1d20;
     --ubuntu-app-header-bg: #34343a;
@@ -94,15 +98,15 @@ html:has(#ubuntu) {
     --volume-popover-text: #f2f2f2;
     --volume-popover-track-bg: rgba(255, 255, 255, 0.18);
     --volume-popover-thumb-bg: #fafafa;
-    --mint-tray-color: rgba(255, 255, 255, 0.92);
-    --mint-tray-separator: rgba(255, 255, 255, 0.1);
-    --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-taskbar-item-border-hover: rgba(255, 255, 255, 0.3);
-    --mint-clock-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-window-header-border: rgba(0, 0, 0, 0.4);
-    --mint-window-header-border-active: rgba(0, 0, 0, 0.48);
-    --mint-window-control-border-hover: rgba(255, 255, 255, 0.38);
-    --mint-window-control-bg-hover: rgba(255, 255, 255, 0.14);
+    --gnome-shell-tray-color: rgba(255, 255, 255, 0.92);
+    --gnome-shell-tray-separator: rgba(255, 255, 255, 0.1);
+    --gnome-shell-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
+    --gnome-shell-taskbar-item-border-hover: rgba(255, 255, 255, 0.3);
+    --gnome-shell-clock-hover-bg: rgba(255, 255, 255, 0.12);
+    --gnome-shell-window-header-border: rgba(0, 0, 0, 0.4);
+    --gnome-shell-window-header-border-active: rgba(0, 0, 0, 0.48);
+    --gnome-shell-window-control-border-hover: rgba(255, 255, 255, 0.38);
+    --gnome-shell-window-control-bg-hover: rgba(255, 255, 255, 0.14);
     --nemoHC: var(--ubuntu-window-header-bg);
     --nemoMCSF: var(--ubuntu-window-header-active);
     --menuDefaultCcol: var(--ubuntu-window-surface);
@@ -115,6 +119,8 @@ html[data-theme="light"]:has(#ubuntu) {
     --ubuntu-top-bar-border-bottom: var(--ubuntu-shell-topbar-border);
     --ubuntu-dock-bg: rgba(235, 235, 235, 0.96);
     --ubuntu-dock-border-right: 1px solid rgba(0, 0, 0, 0.12);
+    --ubuntu-window-border: rgba(0, 0, 0, 0.15);
+    --ubuntu-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --ubuntu-window-surface: #fafafa;
     --ubuntu-window-header-bg: #ebebeb;
     --ubuntu-window-header-active: #e4e4e4;
@@ -124,8 +130,9 @@ html[data-theme="light"]:has(#ubuntu) {
     --ubuntu-window-control-color: #1f1f22;
     --ubuntu-window-control-bg: transparent;
     --ubuntu-window-control-hover-bg: rgba(0, 0, 0, 0.08);
-    --ubuntu-window-control-close-bg: rgba(0, 0, 0, 0.08);
-    --ubuntu-window-control-close-hover-bg: rgba(0, 0, 0, 0.14);
+    --ubuntu-window-control-close-bg: transparent;
+    --ubuntu-window-control-close-hover-bg: #c01c28;
+    --ubuntu-window-control-close-hover-color: #ffffff;
     --ubuntu-app-surface: #ffffff;
     --ubuntu-app-terminal-surface: #ffffff;
     --ubuntu-app-header-bg: #f7f7f8;
@@ -177,13 +184,13 @@ html[data-theme="light"]:has(#ubuntu) {
     --volume-popover-text: #242424;
     --volume-popover-track-bg: rgba(0, 0, 0, 0.12);
     --volume-popover-thumb-bg: #E95420;
-    --mint-tray-color: rgba(255, 255, 255, 0.92);
-    --mint-tray-separator: rgba(255, 255, 255, 0.1);
-    --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-taskbar-item-border-hover: rgba(0, 0, 0, 0.18);
-    --mint-clock-hover-bg: rgba(255, 255, 255, 0.12);
-    --mint-window-control-border-hover: rgba(0, 0, 0, 0.2);
-    --mint-window-control-bg-hover: rgba(0, 0, 0, 0.06);
+    --gnome-shell-tray-color: rgba(255, 255, 255, 0.92);
+    --gnome-shell-tray-separator: rgba(255, 255, 255, 0.1);
+    --gnome-shell-tray-item-hover-bg: rgba(255, 255, 255, 0.12);
+    --gnome-shell-taskbar-item-border-hover: rgba(0, 0, 0, 0.18);
+    --gnome-shell-clock-hover-bg: rgba(255, 255, 255, 0.12);
+    --gnome-shell-window-control-border-hover: rgba(0, 0, 0, 0.2);
+    --gnome-shell-window-control-bg-hover: rgba(0, 0, 0, 0.06);
     --nemoHC: var(--ubuntu-window-header-bg);
     --nemoMCSF: var(--ubuntu-window-header-active);
     --menuDefaultCcol: var(--ubuntu-window-surface);

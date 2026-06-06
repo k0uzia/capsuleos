@@ -36,7 +36,7 @@ function decorateFedoraFirefoxWindow(browserRoot) {
     windowElement.classList.add('firefox-window--fedora');
 
     const moveControlsIntoTabsbar = () => {
-        const tabsbar = browserRoot.querySelector('.mint-browser__tabsbar');
+        const tabsbar = browserRoot.querySelector('.capsule-browser__tabsbar');
         const header = windowElement.querySelector('#windowHeader');
         if (!tabsbar || !header) {
             return false;
@@ -80,7 +80,7 @@ function initFirefoxBrowser() {
     const homeView = browserRoot.querySelector('[data-browser-home]');
     const redirectView = browserRoot.querySelector('[data-browser-redirect]');
     const redirectFrame = browserRoot.querySelector('[data-browser-redirect-frame]');
-    const bookmarksBar = browserRoot.querySelector('.mint-browser__bookmarks');
+    const bookmarksBar = browserRoot.querySelector('.capsule-browser__bookmarks');
 
     const btnHomes = browserRoot.querySelectorAll('[data-browser-action="home"]');
     const btnReload = browserRoot.querySelector('[data-browser-action="reload"]');

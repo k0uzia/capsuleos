@@ -14,7 +14,9 @@ Hiérarchie générée : [skills-hierarchie.md](skills-hierarchie.md) — `seed-
 
 Pas d'agent « généraliste » sur un skin KDE + checklist + assets — découper en tâches avec contrats JSON vérifiables.
 
-**Formation avant action** : skill [`onboarding`](../skills/onboarding/SKILL.md) + [parcours-agent.md](parcours-agent.md) (H0–H6) ; gate [`validate-all.mjs`](../../usr/lib/capsuleos/tools/validate-all.mjs). Extension catalogue : [ajouter-os-scalable.md](ajouter-os-scalable.md).
+**Formation avant action** : skill [`onboarding`](../skills/onboarding/SKILL.md) + [logique-formelle.md](logique-formelle.md) + [parcours-agent.md](parcours-agent.md) (H0–H6) ; gate [`validate-all.mjs`](../../usr/lib/capsuleos/tools/validate-all.mjs). Extension catalogue : [ajouter-os-scalable.md](ajouter-os-scalable.md).
+
+**Staffing = conséquence des prédicats** : ¬**A** → `kernel-supervisor` ; clone sans **I** → bloquer `role-integrator` ; parité Paramètres → `capsuleos-distro-*` après **A∧S** (voir §4 logique formelle).
 
 ---
 

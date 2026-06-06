@@ -1,20 +1,29 @@
 {
   "id": "linux-anduinos",
-  "version": 1,
+  "version": 2,
   "family": "linux",
+  "kernelId": "linux",
+  "branchId": "ubuntu",
   "vendor": "anduin",
   "displayName": "AnduinOS",
   "bodyId": "anduinos",
   "embedKey": "anduinos",
   "tier": "P3",
   "status": "active",
+  "fidelityLevel": 2,
+  "upstreamId": "linux-rocky",
+  "clusterIds": [
+    "explorer.nautilus.gnome",
+    "toolkit.gnome"
+  ],
+  "extends": "kernel:linux/branch:ubuntu/toolkit:gnome",
   "paths": {
     "facade": "OS/linux/families/debian/anduinos/index.html",
     "skin": "home/Debian/AnduinOS/index.html"
   },
   "toolkit": {
     "id": "gnome",
-    "shell": "gnome"
+    "shell": "anduin"
   },
   "assets": {
     "assetsBase": "../../../usr/share/capsuleos/assets",
@@ -32,8 +41,32 @@
     "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
     "CAPSULE_EMBED_SKIN_KEY": "anduinos",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-    "CAPSULE_TERMINAL_PROFILE": "debian"
+    "CAPSULE_TERMINAL_PROFILE": "debian",
+    "CAPSULE_WINDOW_CHROME_CONTEXT": {
+      "toolkitId": "gnome",
+      "explorerTemplate": "nemo-gnome",
+      "dragMode": "app-headerbar-passthrough"
+    },
+    "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+    "CAPSULE_WINDOW_CONTEXT": {
+      "family": "linux",
+      "draggable": true,
+      "resizable": true,
+      "forceOnOpen": true,
+      "requireHeader": false,
+      "headerLayout": "capsule",
+      "edgeTiling": false,
+      "skipSlots": [
+        "mainMenu"
+      ],
+      "bounds": {
+        "mainSelector": "main.anduin-workspace",
+        "desktopSelector": "#desktop",
+        "footerSelector": "footer.anduin-taskbar",
+        "subtractFooter": true
+      }
+    }
   }
 }

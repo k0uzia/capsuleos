@@ -27,8 +27,9 @@ html:has(#anduinos) {
     --anduin-window-control-color: #f5f6f8;
     --anduin-window-control-bg: transparent;
     --anduin-window-control-hover-bg: rgba(255, 255, 255, 0.12);
-    --anduin-window-control-close-bg: rgba(255, 255, 255, 0.1);
-    --anduin-window-control-close-hover-bg: rgba(255, 255, 255, 0.18);
+    --anduin-window-control-close-bg: transparent;
+    --anduin-window-control-close-hover-bg: #c01c28;
+    --anduin-window-control-close-hover-color: #ffffff;
     --anduin-desktop-shortcut-color: #ffffff;
     --anduin-desktop-shortcut-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
     --volume-popover-bg: rgba(40, 42, 48, 0.96);

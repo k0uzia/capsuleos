@@ -309,14 +309,21 @@
                                     title="Va à l'emplacement visité suivant"></a>
                             <a href="#" id="parent"><img src="./assets/icons/cinnamon/nemo/go-up-symbolic.svg" title="Aller au dossier parent"></a>
                             <a href="#" id="home"><img src="./assets/icons/cinnamon/nemo/pan-start-symbolic.svg" title="Retourner au dossier personnel"></a>
-                            <a href="#" class="nemo-app__path-current">Dossier personnel</a>
+                            <div class="nemo-app__path-current" id="nemo-path-label" role="navigation" aria-label="Emplacement actuel" title="Dossier personnel">Dossier personnel</div>
+                            <div class="nemo-app__search-wrap" id="nemo-search-wrap" hidden>
+                                <input type="search" id="nemo-search-input" class="nemo-app__search-input"
+                                    placeholder="Rechercher…" aria-label="Rechercher des fichiers" autocomplete="off">
+                            </div>
                             <a href="#"><img src="./assets/icons/cinnamon/nemo/pan-end-symbolic.svg"></a>
                         </div>
                         <div class="sousMenuOutils nemo-app__toolbar-group nemo-app__toolbar-group--view">
-                            <a href="#"><img src="./assets/icons/cinnamon/nemo/location-symbolic.svg"
-                                    title="Basculer le mode de navigation"></a>
-                            <a href="#"><img src="./assets/icons/cinnamon/nemo/search-symbolic.svg"
-                                    title="Chercher des documents et des dossiers"></a>
+                            <a href="#" id="nemo-toggle-path-mode" class="nemo-app__path-mode-btn"
+                                    title="Basculer le mode de navigation" aria-pressed="false"
+                                    aria-label="Basculer le mode de navigation"><img
+                                    src="./assets/icons/cinnamon/nemo/location-symbolic.svg" alt=""></a>
+                            <a href="#" id="nemo-search" title="Chercher des documents et des dossiers"
+                                aria-expanded="false" aria-controls="nemo-search-wrap"><img src="./assets/icons/cinnamon/nemo/search-symbolic.svg"
+                                    alt="Rechercher"></a>
                             <a href="#"><img src="./assets/icons/cinnamon/nemo/view-grid-symbolic.svg" title="Vue en icônes"></a>
                             <a href="#"><img src="./assets/icons/cinnamon/nemo/view-list-symbolic.svg" title="Vue en liste"></a>
                             <a href="#"><img src="./assets/icons/cinnamon/nemo/view-compact-symbolic.svg" title="Vue compacte"></a>
@@ -325,50 +332,37 @@
         </header>
         <main id="nemoMainContainer" class="nemo-app__main">
                 <aside id="voletnemo" class="nemo-app__sidebar">
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg">Poste de travail</a>
-                        <div>
-                                <a data-link="Dossier Personnel"
-                                        title="Ouvrir le dossier personnel"><img
-                                                src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
-                                                title="Ouvrir votre dossier personnel. Espace disponible : ... Go">Dossier
-                                        personnel</a>
-                                <a data-link="Bureau" title="Ouvrir le bureau"><img
-                                                src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg"
-                                                title="Ouvre le contenu de votre bureau dans un dossier">Bureau</a>
-                                <a data-link="Documents" title="Ouvrir les documents"><img
-                                                src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg"
-                                                title="/home/utilisateur.../Documents">Documents</a>
-                                <a data-link="Musique" title="Ouvrir la musique"><img
-                                                src="./assets/icons/cinnamon/nemo/folder-music-symbolic.svg"
-                                                title="/home/utilisateur.../Musique">Musique</a>
-                                <a data-link="Images" title="Ouvrir les images"><img
-                                                src="./assets/icons/cinnamon/nemo/folder-pictures-symbolic.svg"
-                                                title="/home/utilisateur.../Images">Images</a>
-                                <a data-link="Vidéos" title="Ouvrir les vidéos"><img
-                                                src="./assets/icons/cinnamon/nemo/folder-videos-symbolic.svg"
-                                                title="/home/utilisateur.../Vidéos">Vidéos</a>
-                                <a data-link="Téléchargements"
-                                        title="Ouvrir les téléchargements"><img
-                                                src="./assets/icons/cinnamon/nemo/folder-download-symbolic.svg"
-                                                title="/home/utilisateur.../Téléchargements">Téléchargements</a>
-                                <a data-link="Récent" title="Ouvert récemment"><img
-                                                src="./assets/icons/cinnamon/nemo/recent.svg"
-                                                title="Fichiers récents">Récent</a>
-                                <a data-link="Corbeille" title="Ouvrir la corbeille"><img
-                                                src="./assets/icons/cinnamon/nemo/hdd.svg"
-                                                title="Ouvrir le contenu du Système de fichiers. Espace disponible : ... Go">Système
-                                        de
-                                        fichiers</a>
-                                <a data-link="" title="Ouvrir "><img
-                                                src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg"
-                                                title="Ouvrir la corbeille">Corbeille</a>
+                        <a href="#" class="nemo-sidebar__section" data-nemo-section-toggle="places" aria-expanded="true">
+                            <img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg" alt="">Poste de travail
+                        </a>
+                        <div data-nemo-section-body="places">
+                                <a data-link="Dossier Personnel" title="Ouvrir le dossier personnel"><img src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg" alt="">Dossier personnel</a>
+                                <a data-link="Bureau" title="Ouvrir le bureau"><img src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg" alt="">Bureau</a>
+                                <a data-link="Documents" title="Ouvrir les documents"><img src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg" alt="">Documents</a>
+                                <a data-link="Musique" title="Ouvrir la musique"><img src="./assets/icons/cinnamon/nemo/folder-music-symbolic.svg" alt="">Musique</a>
+                                <a data-link="Images" title="Ouvrir les images"><img src="./assets/icons/cinnamon/nemo/folder-pictures-symbolic.svg" alt="">Images</a>
+                                <a data-link="Vidéos" title="Ouvrir les vidéos"><img src="./assets/icons/cinnamon/nemo/folder-videos-symbolic.svg" alt="">Vidéos</a>
+                                <a data-link="Téléchargements" title="Ouvrir les téléchargements"><img src="./assets/icons/cinnamon/nemo/folder-download-symbolic.svg" alt="">Téléchargements</a>
+                                <a data-link="Récent" title="Fichiers récents"><img src="./assets/icons/cinnamon/nemo/places/folder-recent-symbolic.svg" alt="">Récent</a>
+                                <a data-link="Système de fichiers" title="Système de fichiers"><img src="./assets/icons/cinnamon/nemo/media-removable-symbolic.svg" alt="">Système de fichiers</a>
+                                <a data-link="Corbeille" title="Ouvrir la corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
                         </div>
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg">Marque-pages</a>
-                        <div><a href="#"><img src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg"
-                                                title="/home/utilisateur.../Bureau">Bureau</a></div>
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg">Réseau</a>
-                        <div><a href="#"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg"
-                                                title="Parcourt le contenu du réseau">Réseau</a></div>
+                        <a href="#" class="nemo-sidebar__section" data-nemo-section-toggle="bookmarks" aria-expanded="true">
+                            <img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg" alt="">Marque-pages
+                        </a>
+                        <div data-nemo-section-body="bookmarks">
+                                <a data-link="Bureau" data-nemo-bookmark="true" title="Marque-page Bureau"><img
+                                                src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg"
+                                                alt="">Bureau</a>
+                        </div>
+                        <a href="#" class="nemo-sidebar__section" data-nemo-section-toggle="network" aria-expanded="true">
+                            <img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg" alt="">Réseau
+                        </a>
+                        <div data-nemo-section-body="network">
+                                <a data-link="Réseau" title="Parcourir le réseau"><img
+                                                src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg"
+                                                alt="">Réseau</a>
+                        </div>
                 </aside>
                 <aside id="voletContainer" class="nemo-app__content-wrap">
                         <section class="nemoElement nemo-app__content-grid">
@@ -378,12 +372,18 @@
         </main>
         <footer id="nemoFooterContainer" class="nemo-app__statusbar">
                 <section class="nemo-app__status-left">
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/sidebar-places-symbolic.svg"
-                                        title="Montrer les emplacements"></a>
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/sidebar-tree-symbolic.svg"
-                                        title="Montrer l'arborescence"></a>
-                        <a href="#"><img src="./assets/icons/cinnamon/nemo/sidebar-hide-symbolic.svg"
-                                        title="Masquer le Panneau latéral (F9)"></a>
+                        <button type="button" class="nemo-footer-btn nemo-footer-btn--active" data-nemo-sidebar-mode="places"
+                                aria-pressed="true" title="Montrer les emplacements">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-places-symbolic.svg" alt="">
+                        </button>
+                        <button type="button" class="nemo-footer-btn" data-nemo-sidebar-mode="tree"
+                                aria-pressed="false" title="Montrer l'arborescence">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-tree-symbolic.svg" alt="">
+                        </button>
+                        <button type="button" class="nemo-footer-btn" id="nemo-toggle-sidebar"
+                                aria-pressed="false" title="Masquer le panneau latéral (F9)">
+                                <img src="./assets/icons/cinnamon/nemo/sidebar-hide-symbolic.svg" alt="">
+                        </button>
                 </section>
                 <section class="nemo-app__status-center">
                         <p>6 éléments, espace disponible : 237 Go</p>

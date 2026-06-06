@@ -278,19 +278,19 @@ main#fileRollerApp {
 }
 
 .fr-app__col--name {
-    width: 38%;
+    width: 42%;
 }
 
 .fr-app__col--size {
-    width: 14%;
+    width: 16%;
 }
 
 .fr-app__col--type {
-    width: 24%;
+    width: 16%;
 }
 
 .fr-app__col--modified {
-    width: 24%;
+    width: 26%;
 }
 
 .fr-app__col.is-sorted .fr-app__sort-arrow::after {

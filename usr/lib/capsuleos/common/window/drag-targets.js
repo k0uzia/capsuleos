@@ -54,7 +54,7 @@
             if (header && !isHiddenDragHeader(header)) {
                 return header;
             }
-            return integrated || header || element;
+            return integrated || element;
         }
         return integrated
             || element.querySelector('[data-window-drag-handle]')
@@ -87,7 +87,7 @@
         if (target.closest(BLOCKED_APP_SELECTOR)) {
             return false;
         }
-        if (target.closest('#windowTitle')) {
+        if (target.closest('#windowTitle, .fr-app__title')) {
             return true;
         }
 

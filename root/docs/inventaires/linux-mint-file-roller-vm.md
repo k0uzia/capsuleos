@@ -40,15 +40,17 @@ Pas de fichiers `.ui` GTK3 : File Roller 43 = **GTK4 / libadwaita** (UI compilé
 
 ### État vide
 
+File Roller 43 = **CSD libadwaita** : pas de barre Muffin séparée ; titre et contrôles fenêtre sont dans la **headerbar GTK** (`_MOTIF_WM_HINTS` présent, WM class `file-roller.File-roller`).
+
 ```text
-┌─ Barre de titre Muffin (#windowHeader CapsuleOS) ─────────────────────┐
-│  [icône] Gestionnaire d'archives              [_] [□] [×]             │
-├─ Headerbar GTK (dans le client) ──────────────────────────────────────┤
-│  [Extraire] [+]     Gestionnaire d'archives     [🔍] [≡]             │
+┌─ Headerbar GTK (#ebebeb) — seule barre chrome ────────────────────────┐
+│  [Extraire] [+]     Gestionnaire d'archives     [🔍] [≡] [_] [□] [×] │
 ├─ Zone contenu ────────────────────────────────────────────────────────┤
 │  (blanc, vide)                                                        │
 └───────────────────────────────────────────────────────────────────────┘
 ```
+
+CapsuleOS Mint : provider chrome `file-roller-gtk` — `#windowHeader` masqué, contrôles déplacés dans `.fr-app__header-end`, drag sur `.fr-app__headerbar`.
 
 - **Extraire** : désactivé tant qu'aucune archive n'est ouverte.
 - **+** : ajouter des fichiers / créer une archive.
@@ -90,7 +92,26 @@ Colonnes gschema : `show-size`, `show-type`, `show-time`, `show-path` (tous `tru
 
 ---
 
-## 5. Matrice P0
+## 5. Passe design — dimensions VM (2026-06-05)
+
+Mesures `wmctrl` / capture `demo.zip` :
+
+| Zone | VM |
+|------|-----|
+| Fenêtre totale (WM) | **652×579** px |
+| Minimum gschema | 600×480 |
+| Headerbar GTK | **46** px |
+| Barre navigation | **44** px |
+| Ligne en-tête tableau | **30** px |
+| Ligne fichier | **30** px |
+| Colonnes (Nom / Taille / Type / Modifié) | **42% / 16% / 16% / 26%** |
+| Police UI / tableau | **13px / 12px** |
+
+CapsuleOS : `--win-file_roller-*` dans `variables-linux.css` + tokens `--fr-*` dans `file_roller.skin.css` · smoke vérifie tolérance ±8 px.
+
+---
+
+## 6. Matrice P0
 
 1. **Headerbar** : Extraire, +, titre centré, loupe, menu — **fait**.
 2. **État vide** : corps blanc, Extraire grisé — **fait**.

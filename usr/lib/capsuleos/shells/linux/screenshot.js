@@ -5,14 +5,29 @@
     'use strict';
 
     function resolveWallpaperUrl() {
+        var storage = global.CapsuleThemeStorage;
+        var bodyId = global.document && global.document.body ? global.document.body.id : '';
+        if (storage && typeof storage.findWallpaperEntry === 'function' && typeof storage.resolveWallpaperEntry === 'function') {
+            var wpId = global.document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+            var entry = storage.findWallpaperEntry(wpId, bodyId);
+            var theme = global.document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+            var bg = storage.resolveWallpaperEntry(entry, theme);
+            if (bg.indexOf('url(') === 0) {
+                return bg.slice(5, -2).replace(/^"/, '').replace(/"$/, '');
+            }
+            return bg;
+        }
         var rel = './assets/images/vendors/mint/default_background.jpg';
+        if (bodyId === 'rocky' || bodyId === 'fedora' || bodyId === 'alma') {
+            rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png';
+            if (global.document.documentElement.dataset.theme === 'light') {
+                rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png';
+            }
+        }
         if (typeof global.CapsuleResource !== 'undefined' && global.CapsuleResource.resolve) {
             return global.CapsuleResource.resolve(rel);
         }
-        if (typeof global.CAPSULE_APPS_BASE !== 'undefined') {
-            return '../../../usr/share/capsuleos/assets/images/vendors/mint/default_background.jpg';
-        }
-        return '../../../usr/share/capsuleos/assets/images/vendors/mint/default_background.jpg';
+        return rel.replace('./assets/images/', '../../../usr/share/capsuleos/assets/images/');
     }
 
     function getFlashEl() {

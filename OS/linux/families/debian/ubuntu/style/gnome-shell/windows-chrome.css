@@ -19,7 +19,7 @@ body#ubuntu div[class^="windowElement"]:not(#mainMenu) {
     height: calc(var(--head) * 10);
     min-height: calc(var(--head) * 12);
     padding: calc(var(--head) / 20);
-    border: 1px solid rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--ubuntu-window-border, rgba(0, 0, 0, 0.45));
     border-radius: var(--ubuntu-window-radius);
     box-shadow: var(--ubuntu-window-shadow);
     background: var(--ubuntu-window-surface);
@@ -31,7 +31,7 @@ body#ubuntu div[class^="windowElement"]:not(#mainMenu) {
 body#ubuntu .windowElementActive {
     z-index: 500;
     border-color: var(--menu-accent);
-    box-shadow: 0 0 0 2px rgba(53, 132, 228, 0.55), var(--ubuntu-window-shadow);
+    box-shadow: var(--ubuntu-window-active-ring, 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent)), var(--ubuntu-window-shadow);
 }
 
 body#ubuntu #windowHeader {

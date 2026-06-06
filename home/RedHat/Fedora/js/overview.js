@@ -1,5 +1,5 @@
-(function initFedoraOverview() {
-    const shell = document.getElementById('fedora');
+(function initRockyOverview() {
+    const shell = document.getElementById('rocky');
     const trigger = document.querySelector('.fedora-overview-trigger');
     const overview = document.querySelector('.fedora-overview');
     const searchForm = overview ? overview.querySelector('[data-overview-search-form]') : null;
@@ -15,6 +15,16 @@
         search() {
             return [];
         }
+    };
+
+    const resolveSearchIcon = (icon) => {
+        if (typeof window.resolveCapsuleResourceUrl === 'function') {
+            return window.resolveCapsuleResourceUrl(icon);
+        }
+        if (window.CapsuleResource && typeof window.CapsuleResource.resolve === 'function') {
+            return window.CapsuleResource.resolve(icon);
+        }
+        return icon;
     };
 
     const searchCatalog = [
@@ -43,11 +53,26 @@
             label: 'Calculatrice',
             aliases: ['calculator', 'calcul', 'maths'],
             description: 'Effectuer des calculs',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg'
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.png',
+            dataLink: 'calculator'
+        },
+        {
+            label: 'GNOME Software',
+            aliases: ['software', 'logiciels', 'store', 'boutique', 'update_manager'],
+            description: 'Installer des applications',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Software.svg',
+            dataLink: 'update_manager'
+        },
+        {
+            label: 'Éditeur de texte',
+            aliases: ['text editor', 'gedit', 'editeur', 'texte'],
+            description: 'Éditeur de texte simple',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.TextEditor.svg',
+            dataLink: 'text_editor'
         },
         {
             label: 'LibreOffice Writer',
-            aliases: ['writer', 'texte', 'document', 'office'],
+            aliases: ['writer', 'document', 'office'],
             description: 'Traitement de texte',
             icon: './assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg',
             dataLink: 'librewriter'
@@ -77,7 +102,14 @@
             aliases: ['calendar', 'agenda', 'date'],
             description: 'Consulter le calendrier',
             icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg',
-            dataLink: 'checklist'
+            dataLink: 'calendar'
+        },
+        {
+            label: 'Horloges',
+            aliases: ['clocks', 'world clock', 'fuseau'],
+            description: 'Horloges mondiales',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg',
+            dataLink: 'clocks'
         },
         {
             label: 'Contacts',
@@ -169,6 +201,10 @@
         setOverview(false, 'workspace');
         if (target) {
             target.click();
+            return;
+        }
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink(linkId);
         }
     };
 
@@ -184,7 +220,7 @@
         }
 
         const img = document.createElement('img');
-        img.src = item.icon;
+        img.src = resolveSearchIcon(item.icon);
         img.alt = '';
 
         const label = document.createElement('span');
@@ -211,7 +247,11 @@
             return;
         }
 
-        currentResults = appSearch.search(query, searchCatalog, { limit: 8 });
+        const catalog = (window.CapsuleGnomeSettingsParity
+            && typeof window.CapsuleGnomeSettingsParity.filterSearchCatalog === 'function')
+            ? window.CapsuleGnomeSettingsParity.filterSearchCatalog(searchCatalog)
+            : searchCatalog;
+        currentResults = appSearch.search(query, catalog, { limit: 8 });
         searchResults.innerHTML = '';
 
         if (!currentResults.length) {

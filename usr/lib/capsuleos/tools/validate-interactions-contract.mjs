@@ -38,6 +38,11 @@ mustInclude('usr/share/capsuleos/themes/linux/window-chrome.base.css', [
     'interactions-window.base.css',
 ]);
 
+mustInclude('usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css', [
+    'interactions-window.base.css',
+    'data-window-chrome-toolkit="gnome"',
+]);
+
 mustInclude('usr/lib/capsuleos/shells/common/capsule-window-context.js', [
     'requireHeader: true',
 ]);

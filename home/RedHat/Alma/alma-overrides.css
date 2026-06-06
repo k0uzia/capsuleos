@@ -1,0 +1,19 @@
+/**
+ * Surcharges AlmaLinux — dernier lien CSS du skin.
+ * Shell GNOME partagé avec Fedora (classes fedora-*, tokens html:has(#alma)).
+ * Fichiers : Nautilus sur la VM, slot gabarit nemo dans CapsuleOS (voir linux-gnome-capsule-slots.md).
+ * Thèmes : sombre = défaut ; clair = html[data-theme="light"]:has(#alma).
+ * Accent VM : blue (#3584e4).
+ */
+html:has(#alma) {
+    --menu-accent: #3584e4;
+    --fedora-bg: linear-gradient(155deg, #0c2d42 0%, #081f2d 38%, #051520 72%, #020a10 100%);
+}
+
+html[data-theme="light"]:has(#alma) {
+    --fedora-bg: linear-gradient(155deg, #d8eef8 0%, #b8dcee 42%, #8ec4e8 100%);
+}
+
+html[data-theme="light"]:has(#alma) {
+    --menu-accent: #3584e4;
+}

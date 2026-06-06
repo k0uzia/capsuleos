@@ -8,7 +8,9 @@ Guide pour connecter une VM **virt-manager / libvirt** (NAT `192.168.122.x`) au 
 
 **Assets VM (obligatoire)** : [`convention-assets-depuis-vm.md`](convention-assets-depuis-vm.md) — `bash root/tools/lab/pull-vm-assets.sh --id linux-rocky`.
 
-**Documents liés** : [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) · [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [`etc/capsuleos/lab-inventory.example.json`](../../etc/capsuleos/lab-inventory.example.json)
+**Captures écran lab (Rocky 10)** : app **Snapshot** installée ; captures automatisées via **`virsh screenshot <domaine>`** depuis l’hôte (`vm-rocky-capture-host.sh`, collecteur enquête visuelle) — D-Bus `org.gnome.Shell.Screenshot` refuse souvent les appels SSH.
+
+**Documents liés** : [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) (procédure maître) · [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) · [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [`etc/capsuleos/lab-inventory.example.json`](../../etc/capsuleos/lab-inventory.example.json)
 
 ---
 
@@ -154,13 +156,14 @@ ssh -i ~/.ssh/capsuleos-lab capsule@<IP> \
 
 | Élément | État (juin 2026) |
 |---------|------------------|
-| Registre `linux-rocky` | `active`, tier P3, toolkit `gnome` |
+| Registre `linux-rocky` | `active`, tier **P1**, référence GNOME (`upstreamId: null`) |
 | `home/RedHat/Rocky/` | Skin canonique (pont Fedora GNOME, `body#rocky`) |
 | Façade | `OS/linux/families/redhat/rocky/index.html` |
-| Inventaire VM | [inventaires/linux-rocky-vm.md](inventaires/linux-rocky-vm.md) |
+| Inventaire VM | [linux-rocky-vm.md](inventaires/linux-rocky-vm.md) · [linux-rocky-vm.json](inventaires/linux-rocky-vm.json) |
+| Procédure maître | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) |
 | Assets | `usr/share/capsuleos/assets/images/vendors/rocky/` |
 
-Workflow clone : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) phases 0–1 (inventaire ground truth) avant patch skin.
+Workflow clone : [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) (recommandé) ou [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) phases 0–1.
 
 ---
 

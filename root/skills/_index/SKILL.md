@@ -5,6 +5,8 @@ description: Index hiérarchie skills CapsuleOS — vendors, distributions, vers
 
 # Index — hiérarchie skills
 
+**Paradigme** : [logique-formelle.md](../../docs/logique-formelle.md) — choisir skills selon prédicats ¬**A**, **I**, domaine OS, rôle.
+
 ## Niveaux
 
 | Niveau | Chemin | Exemple |
@@ -15,6 +17,10 @@ description: Index hiérarchie skills CapsuleOS — vendors, distributions, vers
 | Langage | `languages/<id>/` | `languages/javascript/` |
 
 Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés à la racine de `root/skills/`.
+
+## Clone OS (VM → skin)
+
+- [os-clone-from-vm](os-clone-from-vm/SKILL.md) — convention reproduction, workflow inventaire → home/
 
 ## Contrats UI bureau (4)
 

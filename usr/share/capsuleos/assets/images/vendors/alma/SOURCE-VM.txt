@@ -1,0 +1,4 @@
+Pack vendor AlmaLinux — juin 2026.
+Logo vectoriel stylisé (couleurs officielles #081F2D, #00AEEA, #FF4A00).
+Wallpaper : dégradé CSS dans alma-overrides.css (P2 : pull VM lab).
+Panel : icônes GNOME toolkit (Nautilus, Ptyxis, Firefox) en attendant capture VM.

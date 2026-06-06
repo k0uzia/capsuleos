@@ -1,0 +1,100 @@
+<main id="updateManagerApp" class="update-manager update-manager--gnome" aria-label="Logiciels">
+    <div class="gnome-software">
+        <aside class="gnome-software__sidebar" aria-label="Navigation">
+            <h1 class="gnome-software__brand">Logiciels</h1>
+
+            <nav class="gnome-software__nav" aria-label="Sections">
+                <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
+                    <span class="gnome-software__navicon gnome-software__navicon--explore" aria-hidden="true"></span>
+                    <span>Explorer</span>
+                </button>
+                <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
+                    <span class="gnome-software__navicon gnome-software__navicon--work" aria-hidden="true"></span>
+                    <span>Travail</span>
+                </button>
+                <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
+                    <span class="gnome-software__navicon gnome-software__navicon--dev" aria-hidden="true"></span>
+                    <span>Développement</span>
+                </button>
+            </nav>
+
+            <div class="gnome-software__spacer" aria-hidden="true"></div>
+
+            <nav class="gnome-software__nav gnome-software__nav--bottom" aria-label="Bas de navigation">
+                <button type="button" class="gnome-software__navitem is-active" aria-current="page">
+                    <span class="gnome-software__navicon gnome-software__navicon--updates" aria-hidden="true"></span>
+                    <span>Mises à jour</span>
+                    <span class="gnome-software__badge" aria-label="4 mises à jour">4</span>
+                </button>
+                <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
+                    <span class="gnome-software__navicon gnome-software__navicon--installed" aria-hidden="true"></span>
+                    <span>Installées</span>
+                </button>
+            </nav>
+        </aside>
+
+        <section class="gnome-software__main" aria-label="Mises à jour">
+            <header class="gnome-software__headerbar" aria-label="En-tête">
+                <div class="gnome-software__search">
+                    <span class="gnome-software__search-icon" aria-hidden="true"></span>
+                    <input class="gnome-software__search-input" type="search"
+                           placeholder="Rechercher des applications" aria-label="Rechercher des applications" disabled>
+                </div>
+            </header>
+
+            <div class="gnome-software__content">
+                <header class="gnome-software__page-head">
+                    <h2 class="gnome-software__title">Mises à jour</h2>
+                    <div class="gnome-software__actions">
+                        <button type="button" class="gnome-software__action" data-um-gnome-action="check">
+                            Rechercher des mises à jour
+                        </button>
+                        <button type="button" class="gnome-software__action gnome-software__action--primary" data-um-gnome-action="updateAll">
+                            Tout mettre à jour
+                        </button>
+                    </div>
+                </header>
+
+                <div class="gnome-software__updates" role="region" aria-label="Mises à jour disponibles">
+                    <article class="gnome-software__update-row" aria-label="Firefox">
+                        <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
+                        <div class="gnome-software__rowtext">
+                            <p class="gnome-software__rowtitle">Firefox</p>
+                            <p class="gnome-software__rowsub">128.10.0-1.el10 → 128.11.0-1.el10</p>
+                        </div>
+                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                    </article>
+
+                    <article class="gnome-software__update-row" aria-label="GNOME Shell">
+                        <span class="gnome-software__appicon gnome-software__appicon--gnome" aria-hidden="true"></span>
+                        <div class="gnome-software__rowtext">
+                            <p class="gnome-software__rowtitle">GNOME Shell</p>
+                            <p class="gnome-software__rowsub">49.4-1.el10 → 49.4-2.el10</p>
+                        </div>
+                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                    </article>
+
+                    <article class="gnome-software__update-row" aria-label="Ptyxis">
+                        <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
+                        <div class="gnome-software__rowtext">
+                            <p class="gnome-software__rowtitle">Ptyxis</p>
+                            <p class="gnome-software__rowsub">47.11-1.el10 → 47.12-1.el10</p>
+                        </div>
+                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                    </article>
+
+                    <article class="gnome-software__update-row" aria-label="Nautilus">
+                        <span class="gnome-software__appicon gnome-software__appicon--files" aria-hidden="true"></span>
+                        <div class="gnome-software__rowtext">
+                            <p class="gnome-software__rowtitle">Fichiers</p>
+                            <p class="gnome-software__rowsub">47.5-1.el10 → 47.6-1.el10</p>
+                        </div>
+                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                    </article>
+                </div>
+
+                <p class="gnome-software__status" id="um-status-text" aria-live="polite"></p>
+            </div>
+        </section>
+    </div>
+</main>

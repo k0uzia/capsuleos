@@ -309,7 +309,7 @@
                                     title="Va à l'emplacement visité suivant"></a>
                             <a href="#" id="parent"><img src="./assets/icons/cinnamon/nemo/go-up-symbolic.svg" title="Aller au dossier parent"></a>
                             <a href="#" id="home"><img src="./assets/icons/cinnamon/nemo/pan-start-symbolic.svg" title="Retourner au dossier personnel"></a>
-                            <a href="#" class="nemo-app__path-current" id="nemo-path-label" title="Dossier personnel">Dossier personnel</a>
+                            <div class="nemo-app__path-current" id="nemo-path-label" role="navigation" aria-label="Emplacement actuel" title="Dossier personnel">Dossier personnel</div>
                             <div class="nemo-app__search-wrap" id="nemo-search-wrap" hidden>
                                 <input type="search" id="nemo-search-input" class="nemo-app__search-input"
                                     placeholder="Rechercher…" aria-label="Rechercher des fichiers" autocomplete="off">
@@ -336,11 +336,7 @@
                             <img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg" alt="">Poste de travail
                         </a>
                         <div data-nemo-section-body="places">
-                                <a data-link="Dossier Personnel"
-                                        title="Ouvrir le dossier personnel"><img
-                                                src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
-                                                title="Ouvrir votre dossier personnel. Espace disponible : ... Go">Dossier
-                                        personnel</a>
+                                <a data-link="Dossier Personnel" title="Ouvrir le dossier personnel"><img src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg" alt="">Dossier personnel</a>
                                 <a data-link="Bureau" title="Ouvrir le bureau"><img
                                                 src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg"
                                                 title="Ouvre le contenu de votre bureau dans un dossier">Bureau</a>

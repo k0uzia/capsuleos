@@ -28,11 +28,10 @@ const setTheme = async (page, theme) => {
     const resolved = t === 'light' ? 'light' : 'dark';
     document.documentElement.dataset.theme = resolved;
     localStorage.setItem('gnome-theme', resolved);
-    localStorage.setItem('mint-theme', resolved);
   }, theme);
 };
 
-const resetWindows = async (page) => {
+const resetShell = async (page) => {
   await page.evaluate(() => {
     document.querySelectorAll('.windowElement[data-link]').forEach((win) => {
       const slot = win.dataset ? win.dataset.link : '';
@@ -43,12 +42,19 @@ const resetWindows = async (page) => {
     document.querySelectorAll('footer nav a[target="windowElement"]').forEach((link) => {
       link.classList.remove('running-link', 'active-link');
     });
+    if (window.CapsuleGnomeOverview?.setOverview) {
+      window.CapsuleGnomeOverview.setOverview(false, 'workspace');
+    }
+    const popover = document.getElementById('volume-popover');
+    const btn = document.getElementById('tray-quick-settings-btn');
+    if (popover) popover.setAttribute('hidden', '');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
     try {
       if (window.CapsuleTaskbarLauncherState?.refresh) {
         window.CapsuleTaskbarLauncherState.refresh();
       }
     } catch (_) {
-      /* dock GNOME sans barre Mint */
+      /* dock GNOME masqué */
     }
   });
 };
@@ -75,6 +81,18 @@ const openSlot = async (page, slot) => {
   if (!opened.ok || opened.display === 'none' || opened.display === 'missing') {
     throw new Error(`Impossible d'ouvrir ${slot} (display=${opened.display}, style=${opened.style})`);
   }
+  if (slot === 'themes') {
+    await page.waitForFunction(
+      () => {
+        const win = document.querySelector('.windowElement[data-link="themes"]');
+        if (!win || win.style.display === 'none') return false;
+        return !!win.querySelector('#themesApp.gnome-settings');
+      },
+      null,
+      { timeout: 60000 },
+    );
+    await sleep(page, 500);
+  }
   if (slot === 'nemo') {
     await page.waitForFunction(
       () => {
@@ -91,6 +109,60 @@ const openSlot = async (page, slot) => {
     );
   }
   await sleep(page, 800);
+};
+
+const prepareScene = async (page, scene) => {
+  await setTheme(page, scene.theme || 'dark');
+  await resetShell(page);
+  await sleep(page, 300);
+
+  if (scene.overview) {
+    await page.evaluate((mode) => {
+      if (window.CapsuleGnomeOverview?.setOverview) {
+        window.CapsuleGnomeOverview.setOverview(true, mode);
+      }
+    }, scene.overview);
+    await sleep(page, scene.overview === 'apps' ? 700 : 500);
+    return;
+  }
+
+  if (scene.quickSettings) {
+    await page.click('#tray-quick-settings-btn');
+    await sleep(page, 400);
+    return;
+  }
+
+  if (scene.settingsPanel) {
+    await page.evaluate((panel) => {
+      if (typeof window.setCapsuleSettingsPanel === 'function') {
+        window.setCapsuleSettingsPanel(panel);
+      }
+    }, scene.settingsPanel);
+  }
+
+  const slots = scene.slots || [];
+  const focus = scene.focus;
+  const order = focus && !slots.includes(focus) ? [...slots, focus] : slots;
+  for (const slot of order) {
+    await openSlot(page, slot);
+  }
+  if (focus) {
+    await openSlot(page, focus);
+  }
+
+  if (scene.settingsPanel) {
+    await page.waitForFunction(
+      (panel) => {
+        const active = document.querySelector(
+          '#themes .gnome-settings__panel.is-active[data-gnome-settings-panel="' + panel + '"]',
+        );
+        return active && !active.hidden;
+      },
+      scene.settingsPanel,
+      { timeout: 20000 },
+    );
+    await sleep(page, 300);
+  }
 };
 
 const main = async () => {
@@ -114,27 +186,44 @@ const main = async () => {
   });
 
   const shots = [
-    { file: 'rocky-capsule-dark-desktop.png', theme: 'dark', slots: [] },
+    { file: 'rocky-capsule-dark-desktop.png', theme: 'dark' },
+    { file: 'rocky-capsule-dark-overview.png', theme: 'dark', overview: 'workspace' },
+    { file: 'rocky-capsule-dark-overview-apps.png', theme: 'dark', overview: 'apps' },
+    { file: 'rocky-capsule-dark-quick-settings.png', theme: 'dark', quickSettings: true },
     { file: 'rocky-capsule-dark-nautilus.png', theme: 'dark', slots: ['nemo'], focus: 'nemo' },
     { file: 'rocky-capsule-dark-firefox.png', theme: 'dark', slots: ['firefox'], focus: 'firefox' },
     { file: 'rocky-capsule-dark-terminal.png', theme: 'dark', slots: ['terminal'], focus: 'terminal' },
-    { file: 'rocky-capsule-light-desktop.png', theme: 'light', slots: [] },
+    { file: 'rocky-capsule-dark-loupe.png', theme: 'dark', slots: ['visionneur_images'], focus: 'visionneur_images' },
+    { file: 'rocky-capsule-dark-papers.png', theme: 'dark', slots: ['visionneur_pdf'], focus: 'visionneur_pdf' },
+    {
+      file: 'rocky-capsule-dark-settings-appearance.png',
+      theme: 'dark',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'appearance',
+    },
+    {
+      file: 'rocky-capsule-dark-settings-displays.png',
+      theme: 'dark',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'displays',
+    },
+    {
+      file: 'rocky-capsule-light-settings-appearance.png',
+      theme: 'light',
+      slots: ['themes'],
+      focus: 'themes',
+      settingsPanel: 'appearance',
+    },
+    { file: 'rocky-capsule-light-desktop.png', theme: 'light' },
     { file: 'rocky-capsule-light-firefox.png', theme: 'light', slots: ['firefox'], focus: 'firefox' },
     { file: 'rocky-capsule-light-nautilus.png', theme: 'light', slots: ['nemo'], focus: 'nemo' },
   ];
 
-  for (const { file, theme, slots, focus } of shots) {
-    await setTheme(page, theme);
-    await resetWindows(page);
-    await sleep(page, 300);
-    const order = focus && !slots.includes(focus) ? [...slots, focus] : slots;
-    for (const slot of order) {
-      await openSlot(page, slot);
-    }
-    if (focus) {
-      await openSlot(page, focus);
-    }
-    const out = path.join(DEST, file);
+  for (const scene of shots) {
+    await prepareScene(page, scene);
+    const out = path.join(DEST, scene.file);
     await page.screenshot({ path: out, fullPage: false });
     const size = fs.statSync(out).size;
     process.stdout.write(`  → ${out} (${size} octets)\n`);

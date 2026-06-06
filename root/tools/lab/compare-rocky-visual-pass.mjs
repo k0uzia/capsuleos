@@ -57,6 +57,55 @@ const PAIRS = [
     cap: 'rocky-capsule-light-firefox.png',
     context: 'Firefox · firefox',
   },
+  {
+    label: 'Aperçu bureau (workspace)',
+    vm: 'audit/anim-overview-03.png',
+    cap: 'rocky-capsule-dark-overview.png',
+    context: 'GNOME Shell Overview · dash + carte bureau',
+  },
+  {
+    label: 'Grille applications Aperçu',
+    vm: 'audit/anim-overview-02.png',
+    cap: 'rocky-capsule-dark-overview-apps.png',
+    context: 'Overview mode apps · grille RL10 alignée',
+  },
+  {
+    label: 'Quick Settings',
+    vm: 'audit/07-quick-settings.png',
+    cap: 'rocky-capsule-dark-quick-settings.png',
+    context: 'Tray cluster · volume-popover',
+  },
+  {
+    label: 'Loupe (Papers VM = Papers RL10)',
+    vm: 'audit/03-nautilus-open.png',
+    cap: 'rocky-capsule-dark-loupe.png',
+    context: 'VM : référence fenêtre ouverte · Capsule : slot visionneur_images',
+  },
+  {
+    label: 'Papers (PDF RL10)',
+    vm: 'audit/03-nautilus-open.png',
+    cap: 'rocky-capsule-dark-papers.png',
+    context: 'VM : pas de capture Papers dédiée · Capsule : slot visionneur_pdf',
+  },
+];
+
+/** Scènes Capsule seules — pas encore de capture VM Paramètres dans l’audit lab. */
+const CAPSULE_ONLY = [
+  {
+    label: 'Paramètres — Apparence (sombre)',
+    cap: 'rocky-capsule-dark-settings-appearance.png',
+    context: 'Slot `themes` · panneau `appearance` · schéma clair/sombre fonctionnel',
+  },
+  {
+    label: 'Paramètres — Écrans (sombre)',
+    cap: 'rocky-capsule-dark-settings-displays.png',
+    context: 'Slot `themes` · panneau `displays` · doc SUSE §3.9',
+  },
+  {
+    label: 'Paramètres — Apparence (clair)',
+    cap: 'rocky-capsule-light-settings-appearance.png',
+    context: 'Slot `themes` · thème clair Capsule · tokens `--gnome-settings-*`',
+  },
 ];
 
 const fileInfo = (dir, name) => {
@@ -100,6 +149,26 @@ for (const pair of PAIRS) {
 lines.push('');
 if (missing) {
   lines.push(`> **${missing}** paire(s) incomplète(s) — relancer \`vm-rocky-capture-host.sh\` et \`capture-capsule-rocky.mjs\`.`);
+  lines.push('');
+}
+
+lines.push('## Assets PNG — Capsule seul (Paramètres GNOME)');
+lines.push('');
+lines.push('| Scène | Capsule | octets | Contexte |');
+lines.push('|-------|---------|--------|----------|');
+
+let capOnlyMissing = 0;
+for (const row of CAPSULE_ONLY) {
+  const cap = fileInfo(CAP_ASSETS, row.cap);
+  if (!cap.ok) capOnlyMissing += 1;
+  lines.push(
+    `| ${row.label} | ${cap.ok ? '✓' : '**manquant**'} | ${cap.bytes || '—'} | ${row.context} |`,
+  );
+}
+
+lines.push('');
+if (capOnlyMissing) {
+  lines.push(`> **${capOnlyMissing}** capture(s) Paramètres manquante(s) — \`node root/tools/lab/capture-capsule-rocky.mjs\`.`);
   lines.push('');
 }
 

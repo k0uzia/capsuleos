@@ -10,7 +10,7 @@
 
     const pagesBase = window.CAPSULE_WIN_PAGES_BASE || '../../shared/pages';
     const siteHome = window.CAPSULE_WIN_SITE_HOME || '../../../../index.html';
-    const shutIcon = '../../../../usr/share/capsuleos/assets/images/toolkits/windows/shared/shut.png';
+    const shutIcon = '../../../../usr/share/capsuleos/assets/images/toolkits/windows/settings.svg';
     const pickKey = window.CAPSULE_PICK_OS || 'windows';
 
     const programs = [

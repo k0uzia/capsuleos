@@ -50,7 +50,10 @@ focus_slot() {
 
 shot() {
   local file="$1"
-  virsh -c qemu:///system screenshot "$VM_NAME" --file "$file"
+  if ! virsh -c qemu:///system screenshot "$VM_NAME" --file "$file" 2>/dev/null; then
+    echo "  ✗ virsh screenshot échec — utiliser audit/ (run-vm-deep-audit-phases.mjs)" >&2
+    return 1
+  fi
   echo "  → $file ($(wc -c <"$file") octets)"
 }
 
@@ -92,5 +95,6 @@ shot "$DEST/rocky-light-nautilus.png"
 
 prep_env "gsettings set org.gnome.desktop.interface color-scheme default"
 
-echo "=== Terminé : $(ls -1 "$DEST"/*.png | wc -l) fichiers ==="
-ls -la "$DEST"/*.png
+echo "=== Terminé : $(ls -1 "$DEST"/*.png 2>/dev/null | wc -l) fichiers ==="
+ls -la "$DEST"/*.png 2>/dev/null || true
+echo "Captures shell (Aperçu, QS) : $DEST/audit/ via run-vm-deep-audit-phases.mjs"

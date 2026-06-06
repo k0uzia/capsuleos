@@ -23,6 +23,26 @@ const getEmbedSkinKey = () => {
 const PLASMA_MAIN_MENU_SKINS = new Set(['opensuse', 'kde-neon', 'mxkde', 'debian-kde']);
 const PLASMA_MAIN_MENU_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
 
+/** Discover KDE : CSS commun (grille sidebar) embarqué au build — doit aussi être fetché en HTTP. */
+const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde']);
+const KDE_DISCOVER_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
+
+const isKdeDiscoverContext = () => {
+    if (KDE_DISCOVER_SKINS.has(getEmbedSkinKey())) {
+        return true;
+    }
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    return !!(bodyId && KDE_DISCOVER_BODY_IDS.has(bodyId));
+};
+
+const resolveKdeDiscoverCssBaseId = () => {
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    if (getEmbedSkinKey() === 'kde-neon' || bodyId === 'kde-neon') {
+        return 'update_manager_kde_neon';
+    }
+    return 'update_manager_kde';
+};
+
 const shouldSkipMainMenuBaseCss = (templateId, htmlHint) => {
     if (templateId !== 'mainMenu') {
         return false;
@@ -44,6 +64,15 @@ const shouldUseAppEmbed = (templateId) => {
     }
     if (typeof window !== 'undefined' && window.CAPSULE_FORCE_APP_EMBED === true) {
         return true;
+    }
+    if (typeof window !== 'undefined' && window.CapsuleBrowserCapabilities) {
+        const caps = window.CapsuleBrowserCapabilities.capabilities;
+        if (caps.fileProtocolEmbed && typeof location !== 'undefined' && location.protocol === 'file:') {
+            return true;
+        }
+        if (window.CapsuleEngineAdapter && window.CapsuleEngineAdapter.preferEmbedOnFileProtocol === false) {
+            return false;
+        }
     }
     if (typeof location !== 'undefined' && location.protocol === 'file:') {
         return true;
@@ -68,6 +97,9 @@ const resolveTemplateId = (slotId) => {
 
 /** Gabarit HTML dérivé de Nautilus (ex. nemo-gnome) → CSS de base `nemo.base.css`. */
 const resolveCssBaseTemplateId = (templateId) => {
+    if (templateId === 'update_manager' && isKdeDiscoverContext()) {
+        return resolveKdeDiscoverCssBaseId();
+    }
     if (templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
         return 'nemo';
     }
@@ -77,10 +109,27 @@ const resolveCssBaseTemplateId = (templateId) => {
     return templateId;
 };
 
+const normalizeExplorerSkinId = (skinId, templateId) => {
+    if (skinId === 'nemo-gnome' || skinId === 'files') {
+        return 'nautilus';
+    }
+    if ((templateId === 'nemo-gnome' || templateId === 'nautilus') && skinId === templateId) {
+        return 'nautilus';
+    }
+    return skinId;
+};
+
+const resolveExplorerSkinFallbackId = (templateId) => {
+    if (templateId === 'nemo-gnome' || templateId === 'nautilus') {
+        return 'nautilus';
+    }
+    return templateId;
+};
+
 const resolveSkinId = (slotId, templateId) => {
     if (slotId === 'nemo' && typeof window !== 'undefined' && window.CAPSULE_EXPLORER_SKIN_KEY) {
         const skin = String(window.CAPSULE_EXPLORER_SKIN_KEY).replace(/\/+$/, '');
-        return skin || templateId;
+        return normalizeExplorerSkinId(skin || templateId, templateId);
     }
     if (slotId === 'mainMenu' && typeof window !== 'undefined' && window.CAPSULE_MAIN_MENU_SKIN_KEY) {
         const skin = String(window.CAPSULE_MAIN_MENU_SKIN_KEY).replace(/\/+$/, '');
@@ -102,6 +151,14 @@ const divs = document.querySelectorAll('div[data-link]');
 const resolveTemplateHtmlFile = (templateId, appsBase) => {
     if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
         return String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]);
+    }
+    if (typeof window !== 'undefined'
+        && window.CapsuleClusterRegistry
+        && typeof window.CapsuleClusterRegistry.resolveHtmlPath === 'function') {
+        const clusterPath = window.CapsuleClusterRegistry.resolveHtmlPath(templateId, appsBase);
+        if (clusterPath) {
+            return clusterPath;
+        }
     }
     if (typeof window !== 'undefined'
         && window.CapsuleExplorerRegistry
@@ -139,9 +196,15 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
             const cssSkin = skinMap[skinId] != null
                 ? skinMap[skinId]
                 : (skinMap[templateId] != null ? skinMap[templateId] : '');
+            const cssBaseId = (templateId === 'update_manager' && isKdeDiscoverContext())
+                ? resolveKdeDiscoverCssBaseId()
+                : templateId;
+            const cssBaseFromEmbed = (embed.templates[cssBaseId] && embed.templates[cssBaseId].cssBase)
+                || (cssBaseId !== templateId && embed.templates[templateId] && embed.templates[templateId].cssBase)
+                || t.cssBase;
             return Promise.resolve({
                 html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
-                cssBase: shouldSkipMainMenuBaseCss(templateId, skinOverride && skinOverride.html ? skinOverride.html : t.html) ? '' : t.cssBase,
+                cssBase: shouldSkipMainMenuBaseCss(templateId, skinOverride && skinOverride.html ? skinOverride.html : t.html) ? '' : cssBaseFromEmbed,
                 cssSkin
             });
         }
@@ -233,6 +296,13 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
                 text = `${await nemoResp.text()}\n${text}`;
             }
         }
+        if (templateId === 'themes' && text) {
+            const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
+            const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
+            if (gnomeResp.ok) {
+                text = `${text}\n${await gnomeResp.text()}`;
+            }
+        }
         return text;
     })();
 
@@ -243,19 +313,37 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
         skinCssVersion && url ? `${url}${url.includes('?') ? '&' : '?'}v=${encodeURIComponent(skinCssVersion)}` : url
     );
 
-    const fetchCssSkin = cssSkinFile
-        ? fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' }).then((response) => {
-            if (response.ok) {
-                return response.text();
+    const fetchCssSkin = (async () => {
+        let skinText = '';
+        if (cssSkinFile) {
+            try {
+                const response = await fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' });
+                if (response.ok) {
+                    skinText = await response.text();
+                } else if (cssSkinFallbackFile && cssSkinFallbackFile !== cssSkinFile) {
+                    const fallbackResponse = await fetch(withSkinCssBust(cssSkinFallbackFile), { cache: 'no-store' });
+                    if (fallbackResponse.ok) {
+                        skinText = await fallbackResponse.text();
+                    }
+                }
+            } catch (_) {
+                skinText = '';
             }
-            if (cssSkinFallbackFile && cssSkinFallbackFile !== cssSkinFile) {
-                return fetch(withSkinCssBust(cssSkinFallbackFile), { cache: 'no-store' }).then((fallbackResponse) => (
-                    fallbackResponse.ok ? fallbackResponse.text() : ''
-                ));
+        }
+        if (templateId === 'update_manager' && isKdeDiscoverContext()) {
+            const kdeCommonFile = `${appsBase}/style/skins/kde/update_manager.skin.css`;
+            try {
+                const response = await fetch(withSkinCssBust(kdeCommonFile), { cache: 'no-store' });
+                if (response.ok) {
+                    const commonText = await response.text();
+                    skinText = commonText + (skinText ? `\n${skinText}` : '');
+                }
+            } catch (_) {
+                /* repli embed géré par l’appelant si besoin */
             }
-            return '';
-        })
-        : Promise.resolve('');
+        }
+        return skinText;
+    })();
 
     return Promise.all([fetchHtml, fetchCssBase, fetchCssSkin]).then(([html, cssBase, cssSkin]) => ({
         html,
@@ -367,6 +455,16 @@ const SLOT_INIT_HANDLERS = {
             initCalculatorApp();
         }
     },
+    clocks: () => {
+        if (typeof initClocksApp === 'function') {
+            initClocksApp();
+        }
+    },
+    calendar: () => {
+        if (typeof initCalendarApp === 'function') {
+            initCalendarApp();
+        }
+    },
     screenshot: () => {
         if (typeof initScreenshotApp === 'function') {
             initScreenshotApp();
@@ -460,7 +558,9 @@ const startCapsuleContentLoad = () => {
                 const appsBase = getAppsBase();
                 const skinBase = getSkinBase();
                 const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
-                const cssSkinFallbackFile = skinBase ? `${skinBase}/style/apps/${templateId}.skin.css` : null;
+                const cssSkinFallbackFile = skinBase
+                    ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
+                    : null;
 
                 return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
                     .then(({ html, cssBase, cssSkin }) => {
@@ -487,8 +587,22 @@ const startCapsuleContentLoad = () => {
         });
 };
 
+const bootCapsuleContentLoad = () => {
+    if (typeof window !== 'undefined' && window.CAPSULE_SKIN_PROFILE_APPLIED) {
+        startCapsuleContentLoad();
+        return;
+    }
+    if (typeof document !== 'undefined') {
+        document.addEventListener('capsule-skin-ready', () => {
+            startCapsuleContentLoad();
+        }, { once: true });
+        return;
+    }
+    startCapsuleContentLoad();
+};
+
 if (typeof document !== 'undefined' && document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startCapsuleContentLoad);
+    document.addEventListener('DOMContentLoaded', bootCapsuleContentLoad);
 } else {
-    setTimeout(startCapsuleContentLoad, 0);
+    setTimeout(bootCapsuleContentLoad, 0);
 }

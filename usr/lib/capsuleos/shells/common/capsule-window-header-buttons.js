@@ -4,9 +4,23 @@
 (function initCapsuleWindowHeaderButtons(global) {
     'use strict';
 
+    function resolveBoundsOptions(options = {}) {
+        if (global.CapsuleWindowBounds && typeof global.CapsuleWindowBounds.resolveBoundsOptions === 'function') {
+            return global.CapsuleWindowBounds.resolveBoundsOptions(options);
+        }
+        if (global.CAPSULE_WINDOW_CONTEXT && global.CAPSULE_WINDOW_CONTEXT.bounds) {
+            return Object.assign({}, global.CAPSULE_WINDOW_CONTEXT.bounds, options);
+        }
+        return options;
+    }
+
     function getWindowDesktopRect() {
+        const boundsOpts = resolveBoundsOptions();
         if (typeof global.CapsuleWindow !== 'undefined' && global.CapsuleWindow.getWorkAreaRect) {
-            return global.CapsuleWindow.getWorkAreaRect();
+            return global.CapsuleWindow.getWorkAreaRect(boundsOpts);
+        }
+        if (global.CapsuleWindowBounds && typeof global.CapsuleWindowBounds.getWorkAreaRect === 'function') {
+            return global.CapsuleWindowBounds.getWorkAreaRect(boundsOpts);
         }
         const desktop = document.getElementById('desktop');
         return desktop ? desktop.getBoundingClientRect() : null;
@@ -45,26 +59,39 @@
     }
 
     function maximizeWindowElement(windowElement) {
+        const boundsOpts = resolveBoundsOptions();
         if (typeof global.CapsuleWindow !== 'undefined' && global.CapsuleWindow.maximizeWindowElement) {
-            return global.CapsuleWindow.maximizeWindowElement(windowElement);
+            return global.CapsuleWindow.maximizeWindowElement(windowElement, boundsOpts);
         }
         if (!windowElement) {
             return false;
         }
-        const desktopRect = getWindowDesktopRect();
+        const work = getWindowDesktopRect();
         storeWindowRestoreState(windowElement);
-        windowElement.style.position = 'fixed';
-        windowElement.style.left = desktopRect ? `${desktopRect.left}px` : '0';
-        windowElement.style.top = desktopRect ? `${desktopRect.top}px` : '0';
-        windowElement.style.width = desktopRect ? `${desktopRect.width}px` : '100%';
-        windowElement.style.height = desktopRect ? `${desktopRect.height}px` : '100%';
+        const box = work || {
+            left: 0,
+            top: 0,
+            width: global.innerWidth,
+            height: global.innerHeight,
+        };
+        if (global.CapsuleWindowPositioning
+            && typeof global.CapsuleWindowPositioning.applyViewportBox === 'function') {
+            global.CapsuleWindowPositioning.applyViewportBox(windowElement, box, boundsOpts);
+        } else {
+            windowElement.style.position = 'fixed';
+            windowElement.style.left = `${box.left}px`;
+            windowElement.style.top = `${box.top}px`;
+            windowElement.style.width = `${box.width}px`;
+            windowElement.style.height = `${box.height}px`;
+        }
         windowElement.dataset.maximized = 'true';
         return true;
     }
 
     function toggleWindowMaximized(windowElement) {
+        const boundsOpts = resolveBoundsOptions();
         if (typeof global.CapsuleWindow !== 'undefined' && global.CapsuleWindow.toggleWindowMaximized) {
-            return global.CapsuleWindow.toggleWindowMaximized(windowElement);
+            return global.CapsuleWindow.toggleWindowMaximized(windowElement, boundsOpts);
         }
         if (!windowElement) {
             return false;

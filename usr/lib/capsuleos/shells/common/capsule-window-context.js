@@ -302,9 +302,18 @@
         });
     }
 
+    function resolveBoundsOptionsForApi(overrides = {}) {
+        if (global.CapsuleWindowBounds && typeof global.CapsuleWindowBounds.resolveBoundsOptions === 'function') {
+            return global.CapsuleWindowBounds.resolveBoundsOptions(overrides);
+        }
+        const b = getContext().bounds || {};
+        return Object.assign({}, b, overrides);
+    }
+
     const api = {
         getContext: getContext,
         resetContextCache: resetContextCache,
+        resolveBoundsOptions: resolveBoundsOptionsForApi,
         shouldSkipWindowChrome: shouldSkipWindowChrome,
         applyWindowInteraction: applyWindowInteraction,
         ensureWindowChrome: ensureWindowChrome,

@@ -176,12 +176,12 @@ body#kde-neon div[data-link="terminal"] #closeBtn:hover {
     background-color: rgba(218, 68, 83, 0.28);
 }
 
-html[data-theme="light"] #opensuse div[data-link="terminal"] #windowHeader > nav:last-child > button,
-html[data-theme="light"] #opensuse div[data-link="terminal"] #minimizeBtn {
+html[data-theme="light"] #kde-neon div[data-link="terminal"] #windowHeader > nav:last-child > button,
+html[data-theme="light"] #kde-neon div[data-link="terminal"] #minimizeBtn {
     filter: var(--opensuse-header-control-filter-light);
 }
 
-html[data-theme="light"] #opensuse div[data-link="terminal"] #closeBtn:hover {
+html[data-theme="light"] #kde-neon div[data-link="terminal"] #closeBtn:hover {
     background-color: rgba(218, 68, 83, 0.2);
 }
 

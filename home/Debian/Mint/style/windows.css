@@ -49,6 +49,13 @@ div.windowElement[data-link="update_manager"]:not(#mainMenu) {
     min-height: var(--win-update_manager-min-height);
 }
 
+div.windowElement[data-link="file_roller"]:not(#mainMenu) {
+    width: var(--win-file_roller-width);
+    min-width: var(--win-file_roller-min-width);
+    height: var(--win-file_roller-height);
+    min-height: var(--win-file_roller-min-height);
+}
+
 div.windowElement[data-link="text_editor"]:not(#mainMenu) {
     width: var(--win-text_editor-width);
     min-width: var(--win-text_editor-min-width);

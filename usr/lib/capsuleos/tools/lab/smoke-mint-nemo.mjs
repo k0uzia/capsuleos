@@ -21,6 +21,9 @@ const home = await page.evaluate(() => {
     path: typeof window.getExplorerCurrentPath === 'function' ? window.getExplorerCurrentPath('nemo') : '',
     sidebarReady: win?.dataset.nemoSidebarDelegation === 'true',
     navReady: win?.dataset.nemoNavDelegationInit === 'true',
+    chromeToolkit: win?.getAttribute('data-window-chrome-toolkit'),
+    chromeProvider: win?.getAttribute('data-window-chrome-provider'),
+    dragOnHeader: !!win?.querySelector('#windowHeader[data-window-drag-handle]'),
   };
 });
 
@@ -234,6 +237,34 @@ const pathNavigationMode = await page.evaluate(() => {
   };
 });
 
+const breadcrumbNav = await page.evaluate(async () => {
+  const toggleBtn = document.getElementById('nemo-toggle-path-mode');
+  const pathLabel = document.getElementById('nemo-path-label');
+  if (!toggleBtn || !pathLabel) {
+    return { ok: false, reason: 'missing-path-controls' };
+  }
+  if (!pathLabel.classList.contains('nemo-app__path-breadcrumb')) {
+    toggleBtn.click();
+  }
+  const crumbs = [...pathLabel.querySelectorAll('.nemo-app__path-crumb')];
+  if (crumbs.length < 2) {
+    return { ok: false, reason: 'expected-multiple-crumbs', count: crumbs.length };
+  }
+  const rootCrumb = crumbs[0];
+  rootCrumb.click();
+  await new Promise((resolve) => {
+    setTimeout(resolve, 600);
+  });
+  const path = window.getExplorerCurrentPath('nemo');
+  const title = document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent || '';
+  return {
+    ok: path.indexOf('Documents') < 0 && title.indexOf('Dossier personnel') >= 0,
+    path,
+    title,
+    crumbCount: crumbs.length,
+  };
+});
+
 const footerSidebar = await page.evaluate(() => {
   const root = document.querySelector('div[data-link="nemo"]');
   const sidebar = document.querySelector('#voletnemo');
@@ -273,6 +304,9 @@ const footerSidebar = await page.evaluate(() => {
 });
 
 const ok = home.sidebarReady && home.navReady
+  && home.chromeToolkit === 'cinnamon'
+  && home.chromeProvider === 'nemo'
+  && home.dragOnHeader
   && home.title && home.title.indexOf('Nemo') >= 0
   && docs.path && docs.path.indexOf('Documents') >= 0
   && docs.title && docs.title.indexOf('Documents') >= 0
@@ -295,10 +329,11 @@ const ok = home.sidebarReady && home.navReady
   && xedFromNemo.title.indexOf('introduction-bash') >= 0
   && !xedFromNemo.targetBlank
   && pathNavigationMode.ok
+  && breadcrumbNav.ok
   && footerSidebar.ok && footerSidebar.footerBound;
 
 console.log(JSON.stringify({
-  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, footerSidebar, ok,
+  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, ok,
 }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

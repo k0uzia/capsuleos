@@ -19,6 +19,7 @@ const PARTS = [
     'maximize.js',
     'drag.js',
     'resize.js',
+    'header-context.js',
     'chrome.js',
     'manager.js',
 ];

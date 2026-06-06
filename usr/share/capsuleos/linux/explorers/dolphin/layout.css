@@ -86,13 +86,13 @@ div[data-link="nemo"] #windowHeader > nav:first-child::after {
 }
 
 div[data-link="nemo"] #windowHeader > nav:first-child::before {
-    background-image: url("./assets/images/toolkits/cinnamon/apps/org.kde.dolphin.svg");
+    background-image: url("./assets/images/toolkits/kde/apps/org.kde.dolphin.svg");
 }
 
 div[data-link="nemo"] #windowHeader > nav:first-child::after {
     width: var(--dolphin-titlebar-pin-icon);
     height: var(--dolphin-titlebar-pin-icon);
-    background-image: url("./assets/icons/cinnamon/nemo/add-pin.svg");
+    background-image: url("./assets/icons/kde/nemo/add-pin.svg");
     opacity: 0.78;
 }
 
@@ -148,7 +148,7 @@ div[data-link="nemo"] #windowHeader > nav:last-child > button {
 }
 
 div[data-link="nemo"] #windowHeader > nav:last-child > button#minimizeBtn {
-    background-image: url("./assets/images/toolkits/cinnamon/header/minimize.svg");
+    background-image: url("./assets/images/toolkits/kde/header/minimize.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -157,7 +157,7 @@ div[data-link="nemo"] #windowHeader > nav:last-child > button#minimizeBtn {
 }
 
 div[data-link="nemo"] #resizeBtn {
-    background-image: url("./assets/images/toolkits/cinnamon/header/window-restore.svg");
+    background-image: url("./assets/images/toolkits/kde/header/window-restore.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -166,7 +166,7 @@ div[data-link="nemo"] #resizeBtn {
 }
 
 div[data-link="nemo"] #closeBtn {
-    background-image: url("./assets/images/toolkits/cinnamon/header/window-close.svg");
+    background-image: url("./assets/images/toolkits/kde/header/window-close.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -571,7 +571,7 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button {
 }
 
 body#mx-kde div[data-link="nemo"] #minimizeBtn {
-    background-image: url("./assets/images/toolkits/cinnamon/header/go-down.svg");
+    background-image: url("./assets/images/toolkits/kde/header/go-down.svg");
     filter: brightness(0) invert(1);
 }
 

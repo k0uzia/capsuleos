@@ -16,7 +16,7 @@ await page.waitForTimeout(900);
 const chrome = await page.evaluate(() => {
   const win = document.getElementById('firefox');
   const app = win && win.querySelector('[data-firefox-app]');
-  const tabsbar = app && app.querySelector('.mint-browser__tabsbar');
+  const tabsbar = app && app.querySelector('.capsule-browser__tabsbar');
   const header = win && win.querySelector('#windowHeader');
   const title = header && header.querySelector('#windowTitle');
   const childLinks = win ? Array.from(win.children) : [];
@@ -27,7 +27,7 @@ const chrome = await page.evaluate(() => {
   const newtab = app && app.querySelector('[data-browser-home]');
   const bookmarks = app && app.querySelector('[data-browser-bookmarks]');
   const tabs = app ? app.querySelectorAll('[data-browser-tab-id]').length : 0;
-  const menuBtn = app && app.querySelector('.mint-browser__btn--icon-menu');
+  const menuBtn = app && app.querySelector('.capsule-browser__btn--icon-menu');
   return {
     visible: win && win.style.display !== 'none',
     noCsdClass: !(win && win.classList.contains('firefox-window--fedora')),
@@ -37,12 +37,12 @@ const chrome = await page.evaluate(() => {
     titleText: title ? title.textContent.replace(/\s+/g, ' ').trim() : '',
     newtabVisible: !!(newtab && !newtab.hidden),
     hasNewtabSearch: !!(newtab && newtab.querySelector('[data-browser-newtab-input]')),
-    hasNewtabLogo: !!(newtab && newtab.querySelector('.mint-browser-newtab__logo')),
+    hasNewtabLogo: !!(newtab && newtab.querySelector('.capsule-browser-newtab__logo')),
     bookmarksHidden: bookmarks ? bookmarks.hidden : false,
     initialTabCount: tabs,
     protonMenuIcon: menuBtn ? getComputedStyle(menuBtn, '::before').maskImage !== 'none' : false,
     goHidden: app
-      ? getComputedStyle(app.querySelector('.mint-browser__btn--go')).display === 'none'
+      ? getComputedStyle(app.querySelector('.capsule-browser__btn--go')).display === 'none'
       : false,
   };
 });
@@ -53,7 +53,7 @@ await page.waitForTimeout(300);
 const multiTab = await page.evaluate(() => {
   const app = document.querySelector('#firefox [data-firefox-app]');
   const tabs = app ? app.querySelectorAll('[data-browser-tab-id]') : [];
-  return { count: tabs.length, activeIsSecond: tabs[1] && tabs[1].classList.contains('mint-browser__tab--active') };
+  return { count: tabs.length, activeIsSecond: tabs[1] && tabs[1].classList.contains('capsule-browser__tab--active') };
 });
 
 await page.click('div[data-link="firefox"] [data-browser-newtab-link="os-lacapsule"]');
@@ -63,7 +63,7 @@ const osPage = await page.evaluate(() => {
   const app = document.querySelector('#firefox [data-firefox-app]');
   const redirect = app && app.querySelector('[data-browser-redirect]');
   const input = app && app.querySelector('[data-browser-address]');
-  const activeTab = app && app.querySelector('.mint-browser__tab--active .mint-browser__tab-label');
+  const activeTab = app && app.querySelector('.capsule-browser__tab--active .capsule-browser__tab-label');
   return {
     view: app && app.getAttribute('data-browser-current-view'),
     redirectVisible: redirect && !redirect.hidden,

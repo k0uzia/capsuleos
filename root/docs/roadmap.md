@@ -38,23 +38,28 @@ Un jalon est **réussi** lorsque :
 | Portail `index.html` + `pick-os.js` | ✅ 8 Linux + Windows + macOS + Android listés |
 | Noyau Linux `usr/lib/capsuleos/shells/linux/` | ✅ fenêtres, explorateurs, embed offline |
 | FS simulé `home/public/` + manifestes | ✅ partagé inter-OS |
-| Pipeline embed | ✅ `build-linux-embed.mjs` — 21 templates, 8 skins |
+| Pipeline embed | ✅ `build-linux-embed.mjs` — 30 templates, 11 skins |
+| Validateurs UI | ✅ `validate-all` — chrome toolkits, GNOME apps, overview icons, resize bounds |
 | Doc agents `root/` | ✅ skills, AGENTS.md |
 | Mappings apps erronés (Fedora, Pop!_OS, Debian-KDE) | ✅ corrigés juin 2026 |
 | App `text_editor` | ✅ créée ; skins et épinglages partiels |
+| Branche GNOME RHEL | ✅ `linux-rocky` référence — propagation Fedora / Alma / Ubuntu / AnduinOS |
 
 ### Linux — maturité par skin
 
 | Distribution | Bureau | Maturité estimée | Priorité roadmap |
 |---|---|---|---|
-| **Linux Mint** | Cinnamon | ~95 % — référence | P0 — figer |
+| **Linux Mint** | Cinnamon | ~95 % — référence P0 | P0 — figer |
+| **Rocky Linux 10** | GNOME | ~85 % — référence GNOME RHEL | P1 — polish + pédagogie |
 | **MX Linux KDE** | Plasma | ~85 % | P1 |
 | **openSUSE** | Plasma | ~85 % | P1 |
 | **Ubuntu 25.10** | GNOME | ~75 % | P1 |
+| **Fedora** | GNOME | ~70 % (hérite Rocky) | P1 |
 | **Debian KDE** | Plasma | ~70 % | P2 |
-| **Fedora** | GNOME | ~65 % | P1 |
 | **Pop!_OS** | COSMIC | ~55 % | P2 |
 | **AnduinOS** | GNOME Win11-like | ~50 % | P3 |
+
+Détail Rocky : [inventaire-parite-rocky.md](inventaire-parite-rocky.md) · référence branche : [branche-redhat-gnome.md](branche-redhat-gnome.md).
 
 ### Autres familles — amorcées
 
@@ -68,7 +73,7 @@ Un jalon est **réussi** lorsque :
 
 ### Dépôt
 
-- Premier commit et historique Git à formaliser (Phase 0).
+- Historique Git actif (`main` sur GitHub).
 - `.gitignore` `.cursor/` en place.
 - **Juin 2026** : répertoire OS scalable — `etc/capsuleos/os-registry.json` (52 entrées), docs [manifeste-noyau](docs/manifeste-noyau.md), [repertoire-os](docs/repertoire-os.md), [scalabilite-noyau](docs/scalabilite-noyau.md), [equipe-agentique](docs/equipe-agentique.md), arborescence `usr/share/capsuleos/assets/`.
 
@@ -192,9 +197,21 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 | Famille | Skins | Travaux |
 |---|---|---|
 | **Cinnamon** | Mint | Menu contextuel bureau ; liste fenêtres panel |
-| **GNOME** | Ubuntu, Fedora, AnduinOS | Overview, calendrier, quick settings ; factoriser `overview.js` |
+| **GNOME** | **Rocky** (réf.), Ubuntu, Fedora, Alma, AnduinOS | ✅ Rocky : Aperçu, QS, menu bureau, **Paramètres** (13 panneaux SUSE), chrome CSD adaptatif · reste : polish visuel P1, recherche Aperçu, Bluetooth QS |
 | **COSMIC** | Pop!_OS | Workspaces, catalogue Applications, menu alimentation |
 | **KDE Plasma** | MX-KDE, Debian-KDE, openSUSE | Discover, popovers volume/calendrier, icônes panel |
+
+#### Chantier Rocky GNOME (juin 2026)
+
+| Jalon | État | Notes |
+|---|---|---|
+| Chrome fenêtre adaptatif clair/sombre | ✅ | `window-chrome.gnome.base.css`, tokens `--capsule-chrome-*` |
+| Isolation chrome par toolkit | ✅ | `toolkit-*/chrome.css` + validateurs dédiés |
+| Slot `themes` (Paramètres) | ✅ | Sidebar GCC, panneaux doc [SUSE SLED 15 SP7](https://documentation.suse.com/sled/15-SP7/html/SLED-all/cha-gnome-settings.html), Apparence fonctionnelle |
+| Ouverture contextuelle Paramètres | ✅ | Aperçu → Wi-Fi · QS → Apparence · bureau → Écrans |
+| Captures lab 15 scènes | ✅ | Aperçu, QS, Loupe, Papers, Paramètres (Apparence/Écrans) — VM Paramètres à collecter |
+| Polish P1 (Nautilus, Firefox, top bar) | 🟡 | Tokens vs captures VM |
+| Apps P2 (Baobab, System Monitor) | ⬜ | Grille Aperçu OK, slots CSD manquants |
 
 #### Coquilles utilitaires (P1 → P2)
 
@@ -204,7 +221,7 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 | `clocks` / `calendar` | Fedora dash, Ubuntu overview, AnduinOS menu |
 | `photos` | AnduinOS — variante enrichie de `visionneur_images` |
 
-**Critère de sortie :** retours terrain « je reconnais mon bureau » sur 4 distros minimum (Mint, Ubuntu, Fedora, une KDE).
+**Critère de sortie :** retours terrain « je reconnais mon bureau » sur 4 distros minimum (Mint, **Rocky**, Ubuntu, une KDE).
 
 ---
 
@@ -271,11 +288,11 @@ Estimation **effort relatif**, pas des dates figées — ajuster selon disponibi
 
 Cocher ici ou dans les PR associées :
 
-- [ ] Phase 0 — fondations
+- [x] Phase 0 — fondations (gel + réactivation wave 1, juin 2026)
 - [x] Phase 0.5 — consolidation assets noyau (juin 2026)
-- [ ] Phase 1 — parité apps (8/8 Linux DoD apps)
-- [ ] Phase 2 — shells UX (4 bureaux reconnus terrain)
-- [ ] Phase 3 — pédagogie validée terrain
+- [ ] Phase 1 — parité apps (3/8 Linux DoD complet — Mint, Ubuntu, openSUSE ; Rocky ~85 % apps cœur)
+- [~] Phase 2 — shells UX (**Rocky GNOME** ~85 % ; Mint ~95 % ; 2/4 bureaux « reconnus »)
+- [ ] Phase 3 — pédagogie validée terrain (checklist Rocky à rédiger)
 - [ ] Phase 4 — Arch + CI + 1 jalon Windows
 
-**Dernière mise à jour :** juin 2026 — Phase 0.5 assets noyau ; skills `kernel-supervisor`, `asset-pipeline`, `kernel-guardian` ; gate 45 violations documentées.
+**Dernière mise à jour :** 4 juin 2026 — refonte **Paramètres GNOME** (doc SUSE, 13 panneaux) · chromes adaptatifs · validateurs GNOME · commit `bba875a` sur `main`.

@@ -98,7 +98,7 @@ body#rocky div[data-link="nemo"] {
     height: calc(100vh - var(--fedora-top-bar-height) - 0.5rem);
     max-width: none;
     min-width: 36rem;
-    border-color: var(--nemo-border);
+    border-color: var(--nemo-border, var(--capsule-chrome-window-border, var(--fedora-window-border)));
     border-radius: 10px;
     background: var(--nemo-bg-primary);
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);

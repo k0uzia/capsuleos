@@ -1,0 +1,70 @@
+/**
+ * ubuntu — calculator (structure Rocky).
+ */
+body#ubuntu {
+    --gnome-calc-bg: #303030;
+    --gnome-calc-fn-bg: #505050;
+    --gnome-calc-key-bg: #404040;
+    --gnome-calc-op-bg: #ff7800;
+    --gnome-calc-text: #ffffff;
+    --gnome-calc-expr: rgba(255, 255, 255, 0.55);
+}
+
+html[data-theme="light"]:has(#rocky) {
+    --gnome-calc-bg: #fafafa;
+    --gnome-calc-fn-bg: #e8e8e8;
+    --gnome-calc-key-bg: #ffffff;
+    --gnome-calc-op-bg: #ff7800;
+    --gnome-calc-text: #1e1e1e;
+    --gnome-calc-expr: rgba(0, 0, 0, 0.45);
+}
+
+body#ubuntu div[data-link="calculator"].windowElement {
+    width: calc(var(--head) * 7.8);
+    min-width: calc(var(--head) * 7.2);
+    max-width: calc(var(--head) * 8.5);
+    height: calc(var(--head) * 12.5);
+    min-height: calc(var(--head) * 11);
+}
+
+body#ubuntu div[data-link="calculator"].gnome-app--csd {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body#ubuntu div[data-link="calculator"] .gnome-calc__header {
+    background: var(--gnome-calc-bg);
+    border-bottom: 1px solid var(--xed-border, rgba(255, 255, 255, 0.08));
+}
+
+body#ubuntu main#gnomeCalculatorApp {
+    color: var(--gnome-calc-text);
+    background: var(--gnome-calc-bg);
+}
+
+body#ubuntu .gnome-calc__mode:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="light"]:has(#rocky) .gnome-calc__mode:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+body#ubuntu .gnome-calc__expr {
+    color: var(--gnome-calc-expr);
+}
+
+body#ubuntu .gnome-calc__key--fn {
+    background: var(--gnome-calc-fn-bg);
+}
+
+body#ubuntu .gnome-calc__key:not(.gnome-calc__key--fn):not(.gnome-calc__key--op):not(.gnome-calc__key--eq) {
+    background: var(--gnome-calc-key-bg);
+}
+
+body#ubuntu .gnome-calc__key--op,
+body#ubuntu .gnome-calc__key--eq {
+    background: var(--gnome-calc-op-bg);
+    color: #ffffff;
+}

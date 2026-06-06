@@ -1,0 +1,53 @@
+/**
+ * fedora — clocks (structure Rocky).
+ */
+body#fedora {
+    --gnome-clocks-bg: #303030;
+    --gnome-clocks-card: #383838;
+    --gnome-clocks-text: #ffffff;
+    --gnome-clocks-muted: rgba(255, 255, 255, 0.65);
+    --gnome-clocks-border: rgba(255, 255, 255, 0.08);
+    --gnome-clocks-accent: #3584e4;
+}
+
+html[data-theme="light"]:has(#rocky) {
+    --gnome-clocks-bg: #fafafa;
+    --gnome-clocks-card: #ffffff;
+    --gnome-clocks-text: #1e1e1e;
+    --gnome-clocks-muted: rgba(0, 0, 0, 0.55);
+    --gnome-clocks-border: rgba(0, 0, 0, 0.1);
+}
+
+body#fedora div[data-link="clocks"].windowElement {
+    width: min(22rem, calc(100vw - 2rem));
+    height: min(28rem, calc(100vh - var(--fedora-top-bar-height, 2.5rem) - 2rem));
+}
+
+body#fedora div[data-link="clocks"].gnome-app--csd {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body#fedora div[data-link="clocks"] .gnome-clocks__header {
+    background: var(--gnome-clocks-bg);
+    border-bottom: 1px solid var(--gnome-clocks-border);
+}
+
+body#fedora main#gnomeClocksApp {
+    color: var(--gnome-clocks-text);
+    background: var(--gnome-clocks-bg);
+}
+
+body#fedora .gnome-clocks__card {
+    background: var(--gnome-clocks-card);
+    border-color: var(--gnome-clocks-border);
+}
+
+body#fedora .gnome-clocks__city {
+    color: var(--gnome-clocks-muted);
+}
+
+body#fedora .gnome-clocks__time {
+    color: var(--gnome-clocks-accent);
+}

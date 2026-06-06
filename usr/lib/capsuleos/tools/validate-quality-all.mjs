@@ -15,6 +15,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const steps = [
   'validate-json.mjs',
   'validate-vanilla-js.mjs',
+  'validate-browser-capabilities.mjs',
   'validate-ui-contracts-all.mjs',
 ];
 

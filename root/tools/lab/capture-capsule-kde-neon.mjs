@@ -1,0 +1,226 @@
+#!/usr/bin/env node
+/**
+ * Captures PNG du skin KDE Neon CapsuleOS (Playwright) pour parité VM.
+ * Usage : node root/tools/lab/capture-capsule-kde-neon.mjs [dest-dir]
+ * Prérequis : serveur HTTP sur 5500, npm install playwright (local node_modules).
+ */
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, '../../..');
+const DEST = process.argv[2] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
+const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
+const VIEWPORT = { width: 1211, height: 756 };
+const defaultChrome = [
+  process.env.PLAYWRIGHT_CHROME,
+  '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
+  '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome',
+  `${process.env.HOME}/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome`,
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium-browser',
+].find((p) => p && fs.existsSync(p));
+
+const sleep = (page, ms) => page.waitForTimeout(ms);
+
+const resetShell = async (page) => {
+  await page.evaluate(() => {
+    document.querySelectorAll('.windowElement[data-link]').forEach((win) => {
+      const slot = win.dataset ? win.dataset.link : '';
+      if (!slot || slot === 'mainMenu') return;
+      win.style.display = 'none';
+      win.classList.remove('windowElementActive', 'active');
+    });
+    document.querySelectorAll('footer nav a[target="windowElement"]').forEach((link) => {
+      link.classList.remove('running-link', 'active-link');
+    });
+    const menu = document.querySelector('.windowElement[data-link="mainMenu"]');
+    if (menu) {
+      menu.style.display = 'none';
+      menu.classList.remove('windowElementActive', 'active');
+    }
+  });
+};
+
+const openSlot = async (page, slot, scene = {}) => {
+  let opened = { ok: false, display: 'missing' };
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    opened = await page.evaluate((s) => {
+      const ok = typeof window.openWindowByDataLink === 'function'
+        ? window.openWindowByDataLink(s)
+        : false;
+      const el = document.querySelector('.windowElement[data-link="' + s + '"]');
+      const display = el ? getComputedStyle(el).display : 'missing';
+      return { ok, display, style: el?.style?.display || '' };
+    }, slot);
+    if (opened.ok && opened.display !== 'none' && opened.display !== 'missing') {
+      break;
+    }
+    await sleep(page, 500);
+  }
+  if (!opened.ok || opened.display === 'none' || opened.display === 'missing') {
+    throw new Error(`Impossible d'ouvrir ${slot} (display=${opened.display})`);
+  }
+  if (slot === 'update_manager') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="update_manager"]');
+        if (!root || root.style.display === 'none') return false;
+        return !!root.querySelector('[data-discover-home-mount] .kde-discover-card');
+      },
+      null,
+      { timeout: 60000 },
+    );
+    const shouldMaximize = scene.maximize !== false;
+    const isMaximized = await page.evaluate(
+      () => document.querySelector('.windowElement[data-link="update_manager"]')?.dataset.maximized === 'true',
+    );
+    if (shouldMaximize !== isMaximized) {
+      await page.click('#resizeBtn');
+      await page.waitForFunction(
+        (wantMax) => {
+          const max = document.querySelector('.windowElement[data-link="update_manager"]')?.dataset.maximized === 'true';
+          return wantMax ? max : !max;
+        },
+        shouldMaximize,
+        { timeout: 5000 },
+      );
+    }
+    if (scene.discoverView) {
+      await page.click(`[data-discover-nav="${scene.discoverView}"]`);
+      await page.waitForFunction(
+        (viewId) => {
+          const panel = document.querySelector(`[data-discover-panel="${viewId}"]`);
+          return panel && !panel.hidden;
+        },
+        scene.discoverView,
+        { timeout: 5000 },
+      );
+      if (scene.discoverView === 'installed') {
+        await page.waitForFunction(
+          () => document.querySelectorAll('[data-discover-installed-mount] .kde-discover-card--installed').length >= 6,
+          null,
+          { timeout: 10000 },
+        );
+      }
+      if (scene.discoverView === 'updates') {
+        await page.waitForFunction(
+          () => document.querySelectorAll('[data-discover-updates-mount] .kde-updates__row').length >= 1,
+          null,
+          { timeout: 10000 },
+        );
+      }
+      if (scene.discoverView === 'about') {
+        await page.waitForFunction(
+          () => document.querySelectorAll('[data-discover-about-mount] .kde-form-card').length >= 2,
+          null,
+          { timeout: 10000 },
+        );
+      }
+      if (scene.discoverView === 'config') {
+        await page.waitForFunction(
+          () => document.querySelectorAll('[data-discover-config-mount] .kde-discover-config__section').length >= 2,
+          null,
+          { timeout: 10000 },
+        );
+      }
+      await sleep(page, 400);
+    } else {
+      await page.evaluate(() => {
+        const nav = document.querySelector('[data-discover-nav="home"]');
+        if (nav && !nav.classList.contains('is-active')) nav.click();
+      });
+    }
+  }
+  await sleep(page, 800);
+};
+
+const prepareScene = async (page, scene) => {
+  await resetShell(page);
+  await sleep(page, 300);
+  if (scene.slots) {
+    for (const slot of scene.slots) {
+      await openSlot(page, slot, scene);
+    }
+  }
+};
+
+const main = async () => {
+  if (!defaultChrome) {
+    throw new Error('Chrome/Playwright introuvable — définir PLAYWRIGHT_CHROME ou installer playwright');
+  }
+  fs.mkdirSync(DEST, { recursive: true });
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch({ headless: true, executablePath: defaultChrome });
+  const page = await browser.newPage({ viewport: VIEWPORT });
+  await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, {
+    timeout: 60000,
+  });
+
+  const shots = [
+    { file: 'capsule-desktop.png' },
+    { file: 'capsule-kickoff.png', slots: ['mainMenu'] },
+    { file: 'capsule-discover.png', slots: ['update_manager'] },
+    {
+      file: 'capsule-discover-installed.png',
+      slots: ['update_manager'],
+      discoverView: 'installed',
+    },
+    {
+      file: 'capsule-discover-installed-windowed.png',
+      slots: ['update_manager'],
+      discoverView: 'installed',
+      maximize: false,
+    },
+    {
+      file: 'capsule-discover-updates.png',
+      slots: ['update_manager'],
+      discoverView: 'updates',
+    },
+    {
+      file: 'capsule-discover-updates-windowed.png',
+      slots: ['update_manager'],
+      discoverView: 'updates',
+      maximize: false,
+    },
+    {
+      file: 'capsule-discover-about.png',
+      slots: ['update_manager'],
+      discoverView: 'about',
+    },
+    {
+      file: 'capsule-discover-about-windowed.png',
+      slots: ['update_manager'],
+      discoverView: 'about',
+      maximize: false,
+    },
+    {
+      file: 'capsule-discover-config.png',
+      slots: ['update_manager'],
+      discoverView: 'config',
+    },
+    {
+      file: 'capsule-discover-config-windowed.png',
+      slots: ['update_manager'],
+      discoverView: 'config',
+      maximize: false,
+    },
+  ];
+
+  for (const scene of shots) {
+    await prepareScene(page, scene);
+    const out = path.join(DEST, scene.file);
+    await page.screenshot({ path: out, fullPage: false });
+    process.stdout.write(`  → ${out} (${fs.statSync(out).size} octets)\n`);
+  }
+
+  await browser.close();
+  process.stdout.write(`OK ${DEST} (${shots.length} fichiers)\n`);
+};
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

@@ -20,6 +20,7 @@
     "checklist.hint.open-nemo": "Ouvre Dolphin depuis le panneau",
     "checklist.hint.open-menu": "Ouvre le menu des applications (icône en bas à gauche)",
     "checklist.hint.open-profile": "Ouvre le profil KDE Neon",
-    "profile.windowTitle": "À propos - KDE Neon"
+    "profile.windowTitle": "À propos - KDE Neon",
+    "update_manager.windowTitle": "Page d'accueil — Discover"
 }
 

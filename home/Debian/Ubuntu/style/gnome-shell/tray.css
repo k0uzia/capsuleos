@@ -8,7 +8,7 @@ body#ubuntu .taskbar-tray {
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--c);
-    color: var(--mint-tray-color);
+    color: var(--gnome-shell-tray-color);
 }
 
 body#ubuntu .taskbar-tray__cluster {
@@ -22,7 +22,7 @@ body#ubuntu .taskbar-tray__cluster {
     border: 1px solid transparent;
     border-radius: 999px;
     background: transparent;
-    color: var(--mint-tray-color);
+    color: var(--gnome-shell-tray-color);
     cursor: pointer;
     transition: background-color var(--eas2), border-color var(--eas2);
 }
@@ -85,7 +85,7 @@ body#ubuntu .taskbar-clock-trigger {
 }
 
 body#ubuntu .taskbar-clock-trigger:hover {
-    background: var(--mint-clock-hover-bg);
+    background: var(--gnome-shell-clock-hover-bg);
     border-color: var(--ubuntu-shell-border-soft, rgba(255, 255, 255, 0.1));
 }
 

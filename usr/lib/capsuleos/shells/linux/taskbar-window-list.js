@@ -21,6 +21,8 @@
         update_manager: 'Mises à jour',
         text_editor: 'Éditeur de texte',
         calculator: 'Calculatrice',
+        clocks: 'Horloges',
+        calendar: 'Calendrier',
         screenshot: 'Capture d\'écran',
         drawing: 'Dessin',
         file_roller: 'Gestionnaire d\'archives',

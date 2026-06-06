@@ -17,5 +17,10 @@ html:has(#kde-neon) {
     --opensuse-window-titlebar-border-color-active: rgba(35, 38, 41, 0.18);
     --opensuse-window-titlebar-fg: #232629;
     --opensuse-window-titlebar-fg-muted: rgba(35, 38, 41, 0.72);
+    /* Discover VM : fenêtre plus haute pour sidebar catégories complète */
+    --win-update_manager-width: 832px;
+    --win-update_manager-height: 716px;
+    --win-update_manager-min-width: 640px;
+    --win-update_manager-min-height: 520px;
 }
 

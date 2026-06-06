@@ -1,0 +1,10 @@
+{
+  "registry": "linux-rocky",
+  "generatedAt": "2026-06-06T13:44:13.491Z",
+  "alignedCount": 27,
+  "driftCount": 0,
+  "missingBindingCount": 0,
+  "skippedCount": 12,
+  "drifts": [],
+  "missingBinding": []
+}

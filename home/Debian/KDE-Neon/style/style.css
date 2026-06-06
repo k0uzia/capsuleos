@@ -115,9 +115,9 @@ body {
     --opensuse-header-pin-size: 0.78rem;
     --opensuse-header-title-size: 0.84rem;
     --opensuse-header-control-filter: brightness(0) saturate(100%);
-    /* VM kickoff popupWidth=677 popupHeight=509 (plasma-org.kde.plasma.desktop-appletsrc) */
+    /* VM kickoff popupWidth=677 popupHeight=513 (plasma-org.kde.plasma.desktop-appletsrc) */
     --opensuse-menu-width: min(42.3125rem, calc(100vw - 1.25rem));
-    --opensuse-menu-height: min(31.8125rem, calc(100vh - var(--taskbar-height) - 1.25rem));
+    --opensuse-menu-height: min(32.0625rem, calc(100vh - var(--taskbar-height) - 1.25rem));
     --opensuse-menu-radius: 0.45rem;
     --opensuse-menu-rail-width: 4.2rem;
     --opensuse-menu-rail-shortcut-min-h: 2.48rem;

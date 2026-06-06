@@ -1,13 +1,26 @@
 {
   "definitionFiles": [
+    "usr/share/capsuleos/themes/core/variables-core.css",
+    "usr/share/capsuleos/themes/core/variables-computed.css",
     "usr/share/capsuleos/themes/global/variables.css",
     "usr/share/capsuleos/themes/global/variables-portal.css",
+    "usr/share/capsuleos/themes/kernels/linux/variables-linux-kernel.css",
+    "usr/share/capsuleos/themes/kernels/linux/branches/kde/variables-breeze-computed.css",
+    "usr/share/capsuleos/themes/clusters/toolkit-cinnamon/variables.css",
+    "usr/share/capsuleos/themes/clusters/toolkit-gnome/variables.css",
+    "usr/share/capsuleos/themes/clusters/toolkit-cosmic/variables.css",
+    "usr/share/capsuleos/themes/clusters/toolkit-kde/variables.css",
     "usr/share/capsuleos/themes/linux/variables-linux.css",
     "usr/share/capsuleos/themes/linux/variables-linux-computed.css",
     "usr/share/capsuleos/themes/linux/variables-apps.css"
   ],
   "scanGlobs": [
+    "usr/share/capsuleos/themes/kernels/**/*.css",
+    "usr/share/capsuleos/themes/clusters/**/*.css",
+    "usr/share/capsuleos/themes/clusters/toolkit-*/chrome.css",
     "usr/share/capsuleos/themes/linux/window-chrome.base.css",
+    "usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css",
+    "usr/share/capsuleos/themes/linux/window-chrome.interactions.css",
     "usr/share/capsuleos/linux/apps/style/**/*.css",
     "home/**/style/apps/nemo*.css",
     "home/**/style/apps/nautilus*.css",

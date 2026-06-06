@@ -1,13 +1,448 @@
-(function initThemeAtBoot() {
+const GNOME_SETTINGS_PANEL_LABELS = {
+    wifi: 'Wi-Fi',
+    network: 'Réseau',
+    bluetooth: 'Bluetooth',
+    appearance: 'Apparence',
+    background: 'Arrière-plan',
+    notifications: 'Notifications',
+    search: 'Recherche',
+    multitasking: 'Multitâche',
+    sound: 'Son',
+    power: 'Alimentation',
+    displays: 'Écrans',
+    mouse: 'Souris et pavé tactile',
+    keyboard: 'Clavier',
+    printers: 'Imprimantes',
+    accessibility: 'Accessibilité',
+    privacy: 'Confidentialité',
+    sharing: 'Partage',
+    about: 'À propos de',
+};
+
+let pendingGnomeSettingsPanel = null;
+
+function refreshAdwSliderFill(slider) {
+    if (!slider) {
+        return;
+    }
+    const min = Number(slider.min || 0);
+    const max = Number(slider.max || 100);
+    const value = Number(slider.value || 0);
+    const pct = max > min ? ((value - min) / (max - min)) * 100 : 0;
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--gcc-accent').trim() || '#3584e4';
+    const track = 'color-mix(in srgb, currentColor 14%, transparent)';
+    slider.style.background = `linear-gradient(to right, ${accent} ${pct}%, ${track} ${pct}%)`;
+}
+
+function refreshAllAdwSliders(root) {
+    const scope = root || document;
+    scope.querySelectorAll('.adw-slider').forEach(refreshAdwSliderFill);
+}
+
+function applySettingsPreference(key, value) {
+    const parity = window.CapsuleGnomeSettingsParity;
+    if (parity && typeof parity.applySelect === 'function') {
+        parity.applySelect(key, value, document.querySelector('#themes #themesApp'));
+        return;
+    }
+    const storage = window.CapsuleThemeStorage;
+    if (!storage) {
+        return;
+    }
+    const handlers = {
+        'display-resolution': storage.applyDisplayResolution,
+        'display-scale': storage.applyDisplayScale,
+        'display-orientation': storage.applyDisplayOrientation,
+    };
+    if (typeof handlers[key] === 'function') {
+        handlers[key](value);
+    }
+}
+
+function syncSettingsUiFromStorage(root) {
+    const parity = window.CapsuleGnomeSettingsParity;
+    if (parity && typeof parity.syncPanelUi === 'function') {
+        parity.syncPanelUi(root);
+    }
+    refreshAllAdwSliders(root);
+}
+
+function setCapsuleSettingsPanel(panelId) {
+    pendingGnomeSettingsPanel = panelId || null;
+}
+
+function resolveGnomeSettingsPanelLabel(panelId) {
+    return GNOME_SETTINGS_PANEL_LABELS[panelId] || 'Paramètres';
+}
+
+function activateGnomeSettingsPanel(root, panelId) {
+    if (!root) {
+        return;
+    }
+
+    const resolvedPanel = panelId && root.querySelector(`[data-gnome-settings-panel="${panelId}"]`)
+        ? panelId
+        : 'appearance';
+
+    root.querySelectorAll('.gnome-settings__panel[data-gnome-settings-panel]').forEach((panel) => {
+        const isActive = panel.getAttribute('data-gnome-settings-panel') === resolvedPanel;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+    });
+
+    root.querySelectorAll('.gnome-settings__navitem[data-gnome-settings-panel]').forEach((item) => {
+        const isActive = item.getAttribute('data-gnome-settings-panel') === resolvedPanel;
+        item.classList.toggle('is-active', isActive);
+        if (isActive) {
+            item.setAttribute('aria-current', 'page');
+        } else {
+            item.removeAttribute('aria-current');
+        }
+    });
+
+    root.dataset.activeGnomePanel = resolvedPanel;
+}
+
+function bindGnomeSettingsNavigation(root) {
+    if (!root || root.dataset.gnomeNavBound === 'true') {
+        return;
+    }
+
+    root.querySelectorAll('.gnome-settings__navitem[data-gnome-settings-panel]').forEach((item) => {
+        item.addEventListener('click', () => {
+            activateGnomeSettingsPanel(root, item.getAttribute('data-gnome-settings-panel'));
+        });
+    });
+
+    const searchInput = root.querySelector('.gnome-settings__search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const parity = window.CapsuleGnomeSettingsParity;
+            const query = searchInput.value;
+            let firstPanel = null;
+            if (parity && typeof parity.filterSettingsSearch === 'function') {
+                firstPanel = parity.filterSettingsSearch(root, query);
+            } else {
+                const q = query.trim().toLowerCase();
+                root.querySelectorAll('.gnome-settings__navitem[data-gnome-settings-panel]').forEach((item) => {
+                    const label = item.textContent.trim().toLowerCase();
+                    const match = !q || label.includes(q);
+                    item.hidden = !match;
+                    if (match && !firstPanel) {
+                        firstPanel = item.getAttribute('data-gnome-settings-panel');
+                    }
+                });
+            }
+            if (query.trim() && firstPanel) {
+                activateGnomeSettingsPanel(root, firstPanel);
+            }
+        });
+    }
+
+    root.dataset.gnomeNavBound = 'true';
+}
+
+function bindSettingsSwitches(root) {
+    if (!root || root.dataset.gnomeSwitchesBound === 'true') {
+        return;
+    }
+
+    const parity = window.CapsuleGnomeSettingsParity;
+
+    root.querySelectorAll('.adw-switch').forEach((toggle) => {
+        if (toggle.dataset.switchBound === 'true') {
+            return;
+        }
+        toggle.dataset.switchBound = 'true';
+        toggle.addEventListener('click', () => {
+            const isOn = toggle.getAttribute('aria-checked') === 'true';
+            const nextOn = !isOn;
+            const target = toggle.getAttribute('data-settings-switch');
+            if (target && parity && typeof parity.applySwitch === 'function') {
+                parity.applySwitch(target, nextOn, root);
+                return;
+            }
+            toggle.setAttribute('aria-checked', nextOn ? 'true' : 'false');
+            toggle.classList.toggle('is-on', nextOn);
+        });
+    });
+
+    root.querySelectorAll('.adw-slider').forEach((slider) => {
+        refreshAdwSliderFill(slider);
+        if (slider.dataset.sliderBound === 'true') {
+            return;
+        }
+        slider.dataset.sliderBound = 'true';
+        slider.addEventListener('input', () => {
+            refreshAdwSliderFill(slider);
+            const sliderId = slider.getAttribute('data-settings-slider');
+            if (sliderId && parity && typeof parity.applySlider === 'function') {
+                parity.applySlider(sliderId, slider.value, root);
+            }
+        });
+    });
+
+    root.querySelectorAll('[data-settings-select]').forEach((row) => {
+        if (row.dataset.selectBound === 'true') {
+            return;
+        }
+        row.dataset.selectBound = 'true';
+        row.addEventListener('click', () => {
+            if (parity && typeof parity.cycleSelect === 'function') {
+                parity.cycleSelect(row, root);
+                return;
+            }
+            const options = (row.getAttribute('data-settings-select') || '').split('|');
+            const valueEl = row.querySelector('.adw-row__value');
+            if (!valueEl || options.length < 2) {
+                return;
+            }
+            const current = valueEl.textContent.trim();
+            const idx = options.indexOf(current);
+            const next = options[(idx + 1) % options.length];
+            valueEl.textContent = next;
+            const applyKey = row.getAttribute('data-settings-apply');
+            if (applyKey) {
+                applySettingsPreference(applyKey, next);
+            }
+        });
+    });
+
+    syncSettingsUiFromStorage(root);
+    root.dataset.gnomeSwitchesBound = 'true';
+}
+
+function consumePendingGnomeSettingsPanel(fallback) {
+    const panelId = pendingGnomeSettingsPanel || fallback || 'appearance';
+    if (pendingGnomeSettingsPanel) {
+        pendingGnomeSettingsPanel = null;
+    }
+    return panelId;
+}
+
+function markActiveWallpaperTile(grid, wallpaperId) {
+    if (!grid) {
+        return;
+    }
+    grid.querySelectorAll('.gnome-settings-wallpaper[data-wallpaper-id]').forEach((tile) => {
+        tile.classList.toggle('is-active', tile.dataset.wallpaperId === wallpaperId);
+    });
+}
+
+function buildWallpaperGrid(root) {
+    const grid = root ? root.querySelector('[data-wallpaper-grid]') : document.querySelector('[data-wallpaper-grid]');
+    const storage = window.CapsuleThemeStorage;
+    if (!grid || !storage || typeof storage.getWallpaperCatalog !== 'function') {
+        return;
+    }
+
     const bodyId = document.body ? document.body.id : '';
-    const themeKey = bodyId === 'rocky' || bodyId === 'fedora' ? 'gnome-theme' : 'mint-theme';
-    const savedTheme = localStorage.getItem(themeKey) || localStorage.getItem('mint-theme');
+    const catalog = storage.getWallpaperCatalog(bodyId);
+    const activeId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+    const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+
+    grid.querySelectorAll('.gnome-settings-wallpaper[data-wallpaper-id]').forEach((node) => node.remove());
+
+    catalog.forEach((entry) => {
+        const background = storage.resolveWallpaperEntry(entry, theme);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'gnome-settings-wallpaper';
+        btn.classList.add(entry.type === 'color' ? 'gnome-settings-wallpaper--solid' : 'gnome-settings-wallpaper--photo');
+        btn.dataset.wallpaperId = entry.id;
+        btn.setAttribute('role', 'listitem');
+        btn.setAttribute('aria-label', entry.label);
+        if (entry.type === 'color') {
+            btn.style.background = background;
+        } else {
+            btn.style.backgroundImage = background;
+            btn.style.backgroundSize = 'cover';
+            btn.style.backgroundPosition = 'center';
+        }
+        const label = document.createElement('span');
+        label.className = 'gnome-settings-wallpaper__label';
+        label.textContent = entry.label;
+        btn.appendChild(label);
+        if (entry.id === activeId) {
+            btn.classList.add('is-active');
+        }
+        btn.addEventListener('click', () => {
+            if (typeof storage.applyWallpaper === 'function') {
+                storage.applyWallpaper(entry.id, bodyId);
+            }
+            markActiveWallpaperTile(grid, entry.id);
+        });
+        grid.appendChild(btn);
+    });
+
+    const addBtn = grid.querySelector('.gnome-settings-wallpaper--add');
+    if (addBtn && !addBtn.dataset.bound) {
+        addBtn.dataset.bound = 'true';
+        addBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.addEventListener('change', () => {
+                const file = input.files && input.files[0];
+                if (!file) {
+                    return;
+                }
+                const objectUrl = URL.createObjectURL(file);
+                if (typeof storage.applyCustomWallpaper === 'function') {
+                    storage.applyCustomWallpaper(objectUrl);
+                }
+                markActiveWallpaperTile(grid, 'custom');
+            });
+            input.click();
+        });
+    }
+}
+
+function syncAccentChipRings(chips, activeId) {
+    const palette = (window.CapsuleThemeStorage && window.CapsuleThemeStorage.GNOME_ACCENT_COLORS) || {};
+    chips.forEach((chip) => {
+        const accentId = chip.getAttribute('data-accent-chip');
+        const color = palette[accentId];
+        if (accentId === activeId && color) {
+            chip.style.setProperty('--accent-chip-ring', color);
+        } else {
+            chip.style.removeProperty('--accent-chip-ring');
+        }
+    });
+}
+
+function bindAccentChips(root) {
+    const storage = window.CapsuleThemeStorage;
+    const chips = root.querySelectorAll('[data-accent-chip]');
+    if (!chips.length || !storage || typeof storage.applyAccentColor !== 'function') {
+        return;
+    }
+
+    const saved = storage.readSavedAccent();
+    chips.forEach((chip) => {
+        if (chip.dataset.accentBound === 'true') {
+            return;
+        }
+        chip.dataset.accentBound = 'true';
+        const accentId = chip.getAttribute('data-accent-chip');
+        const isActive = accentId === saved;
+        chip.classList.toggle('is-active', isActive);
+        chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        chip.removeAttribute('disabled');
+        chip.addEventListener('click', () => {
+            const resolved = storage.applyAccentColor(accentId);
+            chips.forEach((entry) => {
+                const active = entry.getAttribute('data-accent-chip') === accentId;
+                entry.classList.toggle('is-active', active);
+                entry.setAttribute('aria-checked', active ? 'true' : 'false');
+            });
+            syncAccentChipRings(chips, resolved);
+            const settingsRoot = document.querySelector('#themes #themesApp');
+            refreshAllAdwSliders(settingsRoot);
+            if (typeof window.refreshQuickSettingsVolumeFill === 'function') {
+                window.refreshQuickSettingsVolumeFill();
+            }
+        });
+    });
+    syncAccentChipRings(chips, saved);
+}
+
+function handleGnomeSettingsWindowOpened(container) {
+    const root = container ? container.querySelector('#themesApp') : null;
+    if (!root || !root.classList.contains('gnome-settings')) {
+        return;
+    }
+
+    const panelId = consumePendingGnomeSettingsPanel('appearance');
+    activateGnomeSettingsPanel(root, panelId);
+    bindGnomeSettingsNavigation(root);
+    bindSettingsSwitches(root);
+    buildWallpaperGrid(root);
+    bindAccentChips(root);
+    initThemesApp();
+}
+
+if (typeof window !== 'undefined') {
+    window.setCapsuleSettingsPanel = setCapsuleSettingsPanel;
+    document.addEventListener('capsule:window-opened', (event) => {
+        if (!event.detail || event.detail.slotId !== 'themes') {
+            return;
+        }
+        handleGnomeSettingsWindowOpened(event.detail.container);
+    });
+    document.addEventListener('capsule:gnome-theme-changed', () => {
+        const root = document.querySelector('#themes #themesApp');
+        if (root) {
+            buildWallpaperGrid(root);
+        }
+    });
+    document.addEventListener('capsule:wallpaper-changed', (event) => {
+        const root = document.querySelector('#themes #themesApp');
+        if (root && event.detail && event.detail.wallpaperId) {
+            markActiveWallpaperTile(root.querySelector('[data-wallpaper-grid]'), event.detail.wallpaperId);
+        }
+    });
+    document.addEventListener('capsule:accent-changed', (event) => {
+        const root = document.querySelector('#themes #themesApp');
+        if (!root || !event.detail) {
+            return;
+        }
+        const chips = root.querySelectorAll('[data-accent-chip]');
+        chips.forEach((chip) => {
+            const active = chip.getAttribute('data-accent-chip') === event.detail.accentId;
+            chip.classList.toggle('is-active', active);
+            chip.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+        syncAccentChipRings(chips, event.detail.accentId);
+        refreshAllAdwSliders(root);
+        if (typeof window.refreshQuickSettingsVolumeFill === 'function') {
+            window.refreshQuickSettingsVolumeFill();
+        }
+    });
+}
+
+(function initGnomeAppearanceAtBoot() {
+    const storage = window.CapsuleThemeStorage || {};
+    const bodyId = document.body ? document.body.id : '';
+    const themeKey = typeof storage.getThemeStorageKey === 'function'
+        ? storage.getThemeStorageKey(bodyId)
+        : 'mint-theme';
+    const savedTheme = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(bodyId)
+        : localStorage.getItem(themeKey);
     const savedContrast = localStorage.getItem('mint-contrast-mode');
     const savedFontScale = localStorage.getItem('mint-font-scale');
-    document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+    const isGnomeShell = typeof storage.isGnomeShell === 'function'
+        ? storage.isGnomeShell(bodyId)
+        : false;
+    const defaultTheme = bodyId === 'mint' || isGnomeShell || themeKey === 'cosmic-theme' ? 'dark' : 'light';
+    const resolvedTheme = savedTheme === 'light' ? 'light' : (savedTheme === 'dark' ? 'dark' : defaultTheme);
+    document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.dataset.contrastMode = savedContrast === 'high' ? 'high' : 'normal';
     document.documentElement.dataset.fontScale = ['110', '125'].includes(savedFontScale) ? savedFontScale : '100';
+
+    if (isGnomeShell && typeof storage.applyAccentColor === 'function') {
+        storage.applyAccentColor(storage.readSavedAccent());
+    }
+    if (isGnomeShell && typeof storage.applyWallpaper === 'function') {
+        storage.applyWallpaper(storage.readSavedWallpaper(), bodyId);
+    }
+    if (isGnomeShell && typeof storage.applyGnomeShellPreferences === 'function') {
+        storage.applyGnomeShellPreferences();
+    }
 })();
+
+function resolveThemesAppearanceRoot(root) {
+    return root.querySelector('#gnomeSettingsAppearance')
+        || root.querySelector('[data-gnome-settings-panel="appearance"]')
+        || root;
+}
+
+function resolveThemesAccessibilityRoot(root) {
+    return root.querySelector('#gnomeSettingsAccessibility')
+        || root.querySelector('[data-gnome-settings-panel="accessibility"]')
+        || root;
+}
 
 function initThemesApp() {
     const root = document.querySelector('#themes #themesApp');
@@ -15,31 +450,43 @@ function initThemesApp() {
         return;
     }
 
-    ensureExtendedThemeControls(root);
+    bindGnomeSettingsNavigation(root);
+    bindSettingsSwitches(root);
+    buildWallpaperGrid(root);
+    bindAccentChips(root);
+
+    if (root.classList.contains('gnome-settings')) {
+        const panelId = consumePendingGnomeSettingsPanel(root.dataset.activeGnomePanel || 'appearance');
+        activateGnomeSettingsPanel(root, panelId);
+    }
 
     if (root.dataset.initialized === 'true') {
         return;
     }
 
-    const options = root.querySelectorAll('[data-theme-option]');
-    const contrastOptions = root.querySelectorAll('[data-contrast-option]');
-    const fontScaleOptions = root.querySelectorAll('[data-font-scale-option]');
-    const help = root.querySelector('[data-themes-help]');
+    const appearanceRoot = resolveThemesAppearanceRoot(root);
+    const accessibilityRoot = resolveThemesAccessibilityRoot(root);
+    const options = appearanceRoot.querySelectorAll('[data-theme-option]');
+    const contrastOptions = accessibilityRoot.querySelectorAll('[data-contrast-option]');
+    const fontScaleOptions = accessibilityRoot.querySelectorAll('[data-font-scale-option]');
+    const help = appearanceRoot.querySelector('[data-themes-help]');
+    const storage = window.CapsuleThemeStorage || {};
 
-    if (!options.length || !help) {
+    if (!options.length) {
         return;
     }
 
-    const themeStorageKey = document.body && (document.body.id === 'rocky' || document.body.id === 'fedora')
-        ? 'gnome-theme'
+    const themeStorageKey = typeof storage.getThemeStorageKey === 'function'
+        ? storage.getThemeStorageKey(document.body ? document.body.id : '')
         : 'mint-theme';
 
     function applyTheme(theme) {
         const resolved = theme === 'light' ? 'light' : 'dark';
         document.documentElement.dataset.theme = resolved;
-        localStorage.setItem(themeStorageKey, resolved);
-        if (themeStorageKey === 'gnome-theme') {
-            localStorage.setItem('mint-theme', resolved);
+        if (typeof storage.persistTheme === 'function') {
+            storage.persistTheme(resolved, document.body ? document.body.id : '');
+        } else {
+            localStorage.setItem(themeStorageKey, resolved);
         }
 
         options.forEach(function syncOption(button) {
@@ -48,15 +495,24 @@ function initThemesApp() {
             button.setAttribute('aria-checked', isActive ? 'true' : 'false');
         });
 
-        help.textContent = resolved === 'light'
-            ? 'Le theme clair est actif.'
-            : 'Le theme sombre est actif.';
+        if (help) {
+            help.textContent = resolved === 'light'
+                ? 'Le thème clair est actif.'
+                : 'Le thème sombre est actif.';
+        }
+
+        if (typeof storage.applyWallpaper === 'function') {
+            const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+            storage.applyWallpaper(wpId, document.body ? document.body.id : '');
+            buildWallpaperGrid(root);
+        }
+        document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
     }
 
     function applyContrast(mode) {
-        const resolved = mode === 'high' ? 'high' : 'normal';
-        document.documentElement.dataset.contrastMode = resolved;
-        localStorage.setItem('mint-contrast-mode', resolved);
+        const resolved = typeof storage.applyContrastMode === 'function'
+            ? storage.applyContrastMode(mode)
+            : (mode === 'high' ? 'high' : 'normal');
 
         contrastOptions.forEach(function syncContrast(button) {
             const isActive = button.getAttribute('data-contrast-option') === resolved;
@@ -66,9 +522,9 @@ function initThemesApp() {
     }
 
     function applyFontScale(scale) {
-        const resolved = ['110', '125'].includes(scale) ? scale : '100';
-        document.documentElement.dataset.fontScale = resolved;
-        localStorage.setItem('mint-font-scale', resolved);
+        const resolved = typeof storage.applyFontScale === 'function'
+            ? storage.applyFontScale(scale)
+            : (['110', '125'].includes(scale) ? scale : '100');
 
         fontScaleOptions.forEach(function syncScale(button) {
             const isActive = button.getAttribute('data-font-scale-option') === resolved;
@@ -99,41 +555,11 @@ function initThemesApp() {
     });
 
     applyTheme(document.documentElement.dataset.theme || 'light');
-    applyContrast(document.documentElement.dataset.contrastMode || 'normal');
-    applyFontScale(document.documentElement.dataset.fontScale || '100');
-    root.dataset.initialized = 'true';
-}
-
-function hasExtendedThemeControls(root) {
-    return !!root.querySelector('[data-contrast-option]')
-        && !!root.querySelector('[data-font-scale-option]');
-}
-
-function ensureExtendedThemeControls(root) {
-    if (hasExtendedThemeControls(root)) {
-        return;
+    if (contrastOptions.length) {
+        applyContrast(document.documentElement.dataset.contrastMode || 'normal');
     }
-
-    root.insertAdjacentHTML('beforeend', `
-        <section class="themes-app__section">
-            <h2 class="themes-app__label">Contraste</h2>
-            <div class="themes-app__cards" role="radiogroup" aria-label="Mode contraste">
-                <button type="button" class="themes-contrast-card" data-contrast-option="normal" role="radio" aria-checked="true">
-                    <span class="themes-card__title">Standard</span>
-                </button>
-                <button type="button" class="themes-contrast-card" data-contrast-option="high" role="radio" aria-checked="false">
-                    <span class="themes-card__title">Renforce</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="themes-app__section">
-            <h2 class="themes-app__label">Taille du texte</h2>
-            <div class="themes-app__scale" role="radiogroup" aria-label="Taille du texte">
-                <button type="button" class="themes-scale-button" data-font-scale-option="100" role="radio" aria-checked="true">100%</button>
-                <button type="button" class="themes-scale-button" data-font-scale-option="110" role="radio" aria-checked="false">110%</button>
-                <button type="button" class="themes-scale-button" data-font-scale-option="125" role="radio" aria-checked="false">125%</button>
-            </div>
-        </section>
-    `);
+    if (fontScaleOptions.length) {
+        applyFontScale(document.documentElement.dataset.fontScale || '100');
+    }
+    root.dataset.initialized = 'true';
 }

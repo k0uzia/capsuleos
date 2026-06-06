@@ -9,7 +9,7 @@ description: Supervise kernel consolidation for CapsuleOS — centralizes assets
 
 **Orchestrateur unique** pour la migration ressources → noyau et la santé du routage. Ne remplace pas `coordinator` (multi-familles produit) ni `role-manager` (roadmap release) : il **cadre et séquence** le travail technique noyau/assets avant que les skins avancent.
 
-> Un skin P1 ne doit pas avancer tant que `validate-asset-zones.mjs` échoue sur sa famille.
+> Un skin P1 ne doit pas avancer tant que `validate-asset-zones.mjs` échoue sur sa famille (**¬A** — voir [logique-formelle.md](../../docs/logique-formelle.md) **R-A1**).
 
 ## Quand invoquer
 

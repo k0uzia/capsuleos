@@ -19,7 +19,7 @@ CapsuleOS **n’émule pas Muffin** : le noyau `CapsuleWindow` + `CapsuleWindowS
 | Comportement réel | Attendu simulé | État CapsuleOS |
 |-------------------|----------------|----------------|
 | Boutons **min / max / close** à **droite** du titre | `#windowHeader` : nav droite = 3 boutons | OK (`chrome.js`) |
-| **Glisser** la fenêtre par la barre titre | Drag sur `#windowHeader` ou poignée app | OK (`nemo` → `#nemoHeaderContainer`) |
+| **Glisser** la fenêtre par la barre titre | Drag sur `#windowHeader` (toutes fenêtres SSD) | OK (`provider cinnamon` + `nemo`) |
 | **Redimensionner** les bords | `CapsuleWindowResize` 5 px | OK |
 | Fenêtre **active** : bordure / ombre accent Mint | `.windowElementActive` + `--menu-accent` | OK |
 | **Clic panel** sur app ouverte → focus | Lanceur `.running-link` + `.active-link` si focus | OK (`taskbar-launcher-state.js`) |
@@ -37,6 +37,7 @@ CapsuleOS **n’émule pas Muffin** : le noyau `CapsuleWindow` + `CapsuleWindowS
 | **Tiling** bord écran (½ écran, coins ¼, haut = max) | Drag vers bord → snap | OK (`edge-tiling.js`) |
 | **Alt+Tab** (aperçu) | Vignettes + icônes lanceurs | OK (`cinnamon-alt-tab.js`) |
 | **Nemo** : une seule barre titre WM au-dessus du contenu | `#windowHeader` + toolbar Nemo | OK (`nemo.skin.css`) |
+| **Toutes les apps** : barre Muffin visible (pas de CSD GTK seul) | `data-window-chrome-toolkit="cinnamon"` + `#windowHeader` | OK (`cinnamon-window-chrome.css`, provider `cinnamon`) |
 | **Minimiser** = masquer + entrée panel | `display:none` + liste panel | OK si liste branchée |
 | **Fermer** = retirer du panel | `closeBtn` + retrait liste | OK |
 | Menu contextuel **bureau** (fond) | Clic droit `#desktop` | Branché (`desktop-context-menu.js`) |
@@ -69,7 +70,9 @@ Scripts (ordre)
 | `home/Debian/Mint/style/windows.css` | Tailles `--win-*` par slot |
 | `home/Debian/Mint/style/footer.css` | Lanceurs + tray + horloge |
 | `home/Debian/Mint/style/panel-windows.css` | Liste fenêtres panel |
-| `usr/lib/capsuleos/common/window/chrome.js` | Provider `nemo` : drag sur barre Nemo |
+| `home/Debian/Mint/style/cinnamon-window-chrome.css` | Barre Muffin unifiée sur toutes les fenêtres (`data-window-chrome-toolkit="cinnamon"`) |
+| `usr/lib/capsuleos/common/window/header-context.js` | Résolution toolkit / provider par profil skin |
+| `usr/lib/capsuleos/common/window/chrome.js` | Providers `cinnamon`, `nemo` : drag + injection `#windowHeader` |
 | `usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js` | Lanceurs running vs focus |
 | `usr/lib/capsuleos/shells/linux/taskbar-window-list.js` | Liste + focus / minimize |
 | `usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js` | Double-clic titre, Super+flèches |
@@ -79,13 +82,30 @@ Scripts (ordre)
 | `home/Debian/Mint/style/window-effects.css` | Keyframes animations |
 | `home/Debian/Mint/style/alt-tab.css` | Styles sélecteur |
 
+## Barre titre Muffin — toutes les fenêtres
+
+Sur Mint, **chaque** `.windowElement` hors `mainMenu` reçoit :
+
+1. `#windowHeader` injecté par `CapsuleWindowChrome`
+2. `data-window-chrome-toolkit="cinnamon"` et `data-window-chrome-provider` (`cinnamon` ou `nemo`)
+3. Styles communs dans `home/Debian/Mint/style/cinnamon-window-chrome.css` (flex colonne, boutons Cinnamon, drag sur la barre WM)
+
+| Provider | Slots | Drag |
+|----------|-------|------|
+| `cinnamon` | Firefox, Terminal, Calculatrice, File Roller, Update Manager, … | `#windowHeader` |
+| `nemo` | Explorateur (`nemo`) | `#windowHeader` (barre unifiée, pas de menubar Nemo) |
+
+**File Roller** : retour au modèle SSD Muffin + toolbar GTK en dessous (plus de CSD avec boutons dans la headerbar app).
+
+Smoke lab : `node usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome.mjs` · parité VM : [`linux-mint-window-chrome-vm.md`](inventaires/linux-mint-window-chrome-vm.md) + `smoke-mint-window-chrome-parity.mjs`
+
 ## Cas Nemo (double chrome)
 
 **Réel :** Muffin dessine **un** cadre ; la zone client commence sous la barre de titre WM ; menubar/toolbar Nemo sont **à l’intérieur**.
 
 **Actuel (P1) :** `#windowHeader` = barre WM Muffin (drag, boutons, double-clic) ; menubar Nemo masquée sur Mint (`nemo.skin.css`) ; toolbar Nemo conservée.
 
-**Fichiers :** `chrome.js` / `capsule-window.js` (drag sur `#windowHeader` si `body#mint`), `home/Debian/Mint/style/apps/nemo.skin.css`, `usr/share/capsuleos/linux/apps/style/nemo.base.css` (colonne flex `#nemoMainContainer`).
+**Fichiers :** `header-context.js`, `chrome.js` (provider `nemo`), `home/Debian/Mint/style/apps/nemo.skin.css`, `cinnamon-window-chrome.css`, `usr/share/capsuleos/linux/apps/style/nemo.base.css`.
 
 **JS :** `fileExplorerHeader.js` n’attache la menubar que si visible ; `resolveRelative()` pour `home/public` depuis la façade.
 

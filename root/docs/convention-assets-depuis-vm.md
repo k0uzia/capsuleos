@@ -2,6 +2,8 @@
 
 > **Règle obligatoire** pour tout clone de distribution à partir d’une VM lab : les icônes et fonds d’écran affichés dans CapsuleOS doivent provenir de la **VM réelle**, pas d’un autre skin (Fedora générique, Mint-Y, pack Cinnamon du dépôt) ni d’icônes « proches » réinventées.
 
+Formalisation : prédicats **A**, **S**, **T** et règles **R-A1**–**R-S2** dans [logique-formelle.md](logique-formelle.md).
+
 ## Pourquoi
 
 - Sous **GNOME**, l’explorateur est **Nautilus** (thème **Adwaita**) ; le slot CapsuleOS reste **`nemo`** (gabarit partagé) — voir [`inventaires/linux-gnome-capsule-slots.md`](inventaires/linux-gnome-capsule-slots.md).
@@ -53,10 +55,16 @@ Prérequis : `etc/capsuleos/lab-inventory.json`, clé SSH lab, session GNOME act
 ### 4. Gates
 
 ```bash
+# Playbook Paramètres GNOME — présence absolue assets référencés
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id linux-rocky
+
 node usr/lib/capsuleos/tools/validate-asset-zones.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 node root/tools/lab/capture-capsule-rocky.mjs   # vérif visuelle
 ```
+
+Voir [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) §0 (logique formelle gates **A** / **S**).
 
 ## Ce qu’il ne faut pas faire
 

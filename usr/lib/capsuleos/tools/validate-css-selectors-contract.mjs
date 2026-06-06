@@ -35,9 +35,13 @@ contract.ids.nemoShell.forEach((id) => {
 });
 
 const registry = JSON.parse(fs.readFileSync(path.join(ROOT, 'etc/capsuleos/os-registry.json'), 'utf8'));
-const linuxP0 = registry.entries.filter((e) => e.status === 'active' && e.family === 'linux' && e.tier === 'P0');
+const isFrozen = registry.stats?.frozen === true;
+const linuxP0 = isFrozen
+    ? registry.entries.filter((e) => e.family === 'linux' && e.tier === 'P0' && e.referencePaths)
+    : registry.entries.filter((e) => e.status === 'active' && e.family === 'linux' && e.tier === 'P0');
 for (const entry of linuxP0) {
-    for (const rel of [entry.skin, entry.facade].filter(Boolean)) {
+    const ref = entry.referencePaths || {};
+    for (const rel of [ref.skin, ref.facade, entry.skin, entry.facade].filter(Boolean)) {
         const full = path.join(ROOT, rel);
         if (!fs.existsSync(full)) {
             continue;

@@ -2,31 +2,34 @@
 
 body#mint {
     --nemo-tree-depth: 0;
-    --nemo-bg-primary: #2e2e33;
-    --nemo-header-bg: #27272b;
-    --nemo-border: #303036;
-    --nemo-text-primary: #e1e1e1;
-    --nemo-text-muted: #a8a8ae;
-    --nemo-item-active-bg: rgba(31, 158, 222, 0.14);
+    /* Mint-Y-Dark-Aqua gtk-3 (VM Nemo 6.6.3) */
+    --nemo-bg-primary: #222226;
+    --nemo-header-bg: #222226;
+    --nemo-border: #202023;
+    --nemo-text-primary: rgba(255, 255, 255, 0.87);
+    --nemo-text-muted: rgba(255, 255, 255, 0.55);
+    --nemo-item-hover-bg: rgba(255, 255, 255, 0.12);
+    --nemo-item-active-bg: rgba(255, 255, 255, 0.12);
     --nemo-menu-surface-bg: #303036;
-    --nemo-toolbar-bg: #2e2e33;
-    --nemo-toolbar-border: #303036;
+    --nemo-toolbar-bg: #222226;
+    --nemo-toolbar-border: #202023;
     --nemo-toolbar-button-border: transparent;
     --nemo-toolbar-button-bg: transparent;
-    --nemo-toolbar-button-hover-bg: #3c3c44;
+    --nemo-toolbar-button-hover-bg: rgba(255, 255, 255, 0.12);
     --nemo-toolbar-button-plain-hover: rgba(255, 255, 255, 0.08);
-    --nemo-pathbar-bg: #303036;
-    --nemo-pathbar-border: #3c3c44;
-    --nemo-pathbar-text: #e1e1e1;
-    --nemo-sidebar-bg: #27272b;
-    --nemo-footer-bg: #27272b;
-    --nemo-status-text: #c8c8cc;
+    --nemo-pathbar-bg: #2e2e33;
+    --nemo-pathbar-border: #202023;
+    --nemo-pathbar-text: #dadada;
+    --nemo-sidebar-bg: #2c2c31;
+    --nemo-sidebar-width: 170px;
+    --nemo-footer-bg: #222226;
+    --nemo-status-text: rgba(255, 255, 255, 0.72);
     --nemo-accent: #1f9ede;
     --nemo-tooltip-bg: #1a1a1b;
     --nemo-tooltip-text: #e1e1e1;
     --nemo-symbolic-icon-filter: brightness(0) invert(1);
     --nemo-toolbar-icon-filter: var(--nemo-symbolic-icon-filter);
-    --nemo-list-row-border: rgba(255, 255, 255, 0.08);
+    --nemo-list-row-border: #202023;
     --nemo-list-col-icon: 2.75rem;
     --nemo-list-col-size: 7.5rem;
     --nemo-list-col-modified: 11rem;
@@ -59,6 +62,112 @@ body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__toolbar {
     flex-shrink: 0;
     background: var(--nemo-toolbar-bg);
     border-bottom: 1px solid var(--nemo-border);
+    border-top: none;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletnemo {
+    width: var(--nemo-sidebar-width);
+    min-width: var(--nemo-sidebar-width);
+    max-width: var(--nemo-sidebar-width);
+    padding: 0;
+    border-right: 1px solid var(--nemo-border);
+    background: var(--nemo-sidebar-bg);
+    flex-shrink: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__sidebar {
+    padding-top: 0;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletnemo > div[data-nemo-section-body] {
+    width: 100%;
+    margin-left: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    gap: 0;
+}
+
+body#mint div[data-link="nemo"] #voletnemo [data-nemo-section-body] > a {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 3px 6px 3px 8px;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: calc(var(--head) / 2.55);
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] #voletnemo [data-nemo-section-body] > a > img {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+body#mint div[data-link="nemo"] #voletnemo .nemo-sidebar__section {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+    padding: 3px 6px 3px 8px;
+    font-weight: 600;
+    font-size: calc(var(--head) / 2.5);
+    color: var(--nemo-text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+body#mint div[data-link="nemo"] #voletnemo .nemo-sidebar__section img {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    opacity: 0.85;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-current:not(.nemo-app__path-breadcrumb) {
+    flex: 1 1 auto;
+    min-width: 6rem;
+    border: 1px solid var(--nemo-pathbar-border);
+    border-radius: 3px;
+    color: var(--nemo-pathbar-text);
+    background: var(--nemo-pathbar-bg);
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    min-height: calc(var(--head) / 1.35);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group > a:hover {
+    border-color: transparent;
+    background: var(--nemo-toolbar-button-hover-bg);
+    transform: none;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__content-wrap {
+    border-left: none;
+    background: var(--nemo-bg-primary);
 }
 
 body#mint div[data-link="nemo"] #windowHeader {
@@ -79,6 +188,8 @@ body#mint div[data-link="nemo"] #windowTitle {
 }
 
 body#mint div[data-link="nemo"] .nemo-app__toolbar a,
+body#mint div[data-link="nemo"] .nemo-app__toolbar .nemo-app__path-current,
+body#mint div[data-link="nemo"] .nemo-app__toolbar .nemo-app__path-crumb,
 body#mint div[data-link="nemo"] #nemoMainContainer a,
 body#mint div[data-link="nemo"] #nemoFooterContainer button,
 body#mint div[data-link="nemo"] #nemoFooterContainer input {
@@ -108,13 +219,32 @@ body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn:hover {
 }
 
 body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn.nemo-footer-btn--active {
-    background: var(--nemo-item-active-bg);
+    background: var(--nemo-toolbar-button-hover-bg);
     border-color: var(--nemo-accent);
+}
+
+body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link:hover {
+    background: var(--nemo-item-hover-bg);
 }
 
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link--active,
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-line--active .nemo-sidebar__tree-link {
-    background: var(--nemo-item-active-bg);
+    background: var(--nemo-accent);
+    color: #ffffff;
+}
+
+body#mint div[data-link="nemo"] #voletnemo a[data-link]:hover {
+    background: var(--nemo-item-hover-bg);
+    border-left: none;
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] #voletnemo a[data-link].nemo-sidebar__link--active,
+body#mint div[data-link="nemo"] #voletnemo a[data-link].dolphin-sidebar__link--active {
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--nemo-accent);
+    border-radius: 0;
 }
 
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-line {
@@ -130,8 +260,8 @@ body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link {
 }
 
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link:hover {
-    background: var(--nemo-item-active-bg);
-    border-left: 2px solid var(--menu-accent, var(--nemo-accent));
+    background: var(--nemo-item-hover-bg);
+    border-left: none;
 }
 
 /* Sidebar : même traitement pour tous les raccourcis (similarité Gestalt / continuité). */
@@ -157,11 +287,6 @@ body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.n
 body#mint div[data-link="nemo"] .nemo-app__path-current {
     flex: 1 1 auto;
     min-width: 6rem;
-    border: 1px solid var(--nemo-pathbar-border);
-    border-radius: calc(var(--head) / 14);
-    color: var(--nemo-pathbar-text);
-    background: var(--nemo-pathbar-bg);
-    font-weight: 600;
 }
 
 body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path .nemo-app__search-wrap {
@@ -195,13 +320,6 @@ body#mint div[data-link="nemo"] #voletnemo [data-nemo-section-body][hidden] {
 
 body#mint div[data-link="nemo"] #voletnemo.is-sidebar-hidden {
     display: none;
-}
-
-body#mint div[data-link="nemo"] #voletnemo a[data-link].nemo-sidebar__link--active,
-body#mint div[data-link="nemo"] #voletnemo a[data-link].dolphin-sidebar__link--active {
-    font-weight: 600;
-    background: rgba(31, 158, 222, 0.18);
-    border-radius: calc(var(--head) / 18);
 }
 
 body#mint div[data-link="nemo"] .nemo-app__toolbar a[aria-disabled="true"] {

@@ -1,0 +1,19 @@
+{
+  "registry": "linux-rocky",
+  "generatedAt": "2026-06-06T13:44:12.985Z",
+  "gateA": {
+    "assetsTotal": 12,
+    "presentInRepo": 12,
+    "missingInRepo": 0,
+    "sourceTraceFile": "usr/share/capsuleos/assets/images/vendors/rocky/SOURCE-VM.txt",
+    "sourceTracePresent": true
+  },
+  "gateS": {
+    "vmInventoryPath": "root/docs/inventaires/linux-rocky-gnome-settings-assets.json",
+    "vmInventoryPresent": true,
+    "sha256Compared": 12,
+    "sha256Drift": 0
+  },
+  "missingAssets": [],
+  "pullHint": "root/tools/lab/pull-vm-assets.sh"
+}

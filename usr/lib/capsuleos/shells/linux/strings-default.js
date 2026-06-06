@@ -74,5 +74,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'screenshot.windowTitle': 'Capture d\'écran',
     'drawing.windowTitle': 'Sans titre — Dessin',
     'file_roller.windowTitle': 'Gestionnaire d\'archives',
-    'text_editor.windowTitle': 'Éditeur de texte'
+    'text_editor.windowTitle': 'Éditeur de texte',
+    'clocks.windowTitle': 'Horloges',
+    'calendar.windowTitle': 'Calendrier'
 };

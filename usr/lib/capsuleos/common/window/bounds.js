@@ -18,8 +18,21 @@
         return typeof selector === 'string' && selector.trim().length > 0;
     }
 
+    function resolveBoundsOptions(options = {}) {
+        let contextBounds = {};
+        if (global.CapsuleWindowContext && typeof global.CapsuleWindowContext.getContext === 'function') {
+            const ctx = global.CapsuleWindowContext.getContext();
+            if (ctx && ctx.bounds && typeof ctx.bounds === 'object') {
+                contextBounds = ctx.bounds;
+            }
+        } else if (global.CAPSULE_WINDOW_CONTEXT && global.CAPSULE_WINDOW_CONTEXT.bounds) {
+            contextBounds = global.CAPSULE_WINDOW_CONTEXT.bounds;
+        }
+        return Object.assign({}, defaultBoundsOptions, contextBounds, options);
+    }
+
     function getWorkAreaRect(options = {}) {
-        const opts = Object.assign({}, defaultBoundsOptions, options);
+        const opts = resolveBoundsOptions(options);
         const main = opts.mainSelector
             ? document.querySelector(opts.mainSelector)
             : null;
@@ -65,30 +78,101 @@
         };
     }
 
-    function clampSize(element, left, top, width, height, options = {}) {
+    function resolveResizeAnchors(direction) {
+        const dir = String(direction || '');
+        return {
+            anchorRight: dir === 'left' || dir === 'top-left' || dir === 'bottom-left',
+            anchorLeft: dir === 'right' || dir === 'top-right' || dir === 'bottom-right',
+            anchorBottom: dir === 'top' || dir === 'top-left' || dir === 'top-right',
+            anchorTop: dir === 'bottom' || dir === 'bottom-left' || dir === 'bottom-right',
+        };
+    }
+
+    function clampHorizontalSize(bounds, left, width, minWidth, anchors) {
+        let nextLeft = left;
+        let nextWidth = width;
+
+        if (anchors.anchorRight) {
+            const right = left + width;
+            nextWidth = Math.max(minWidth, width);
+            nextLeft = right - nextWidth;
+            if (nextLeft < bounds.left) {
+                nextLeft = bounds.left;
+                nextWidth = right - nextLeft;
+            }
+            nextWidth = Math.max(minWidth, nextWidth);
+            if (nextLeft + nextWidth > bounds.right) {
+                nextWidth = Math.max(minWidth, bounds.right - nextLeft);
+                nextLeft = bounds.right - nextWidth;
+            }
+            nextLeft = Math.max(bounds.left, nextLeft);
+        } else if (anchors.anchorLeft) {
+            nextLeft = Math.max(bounds.left, left);
+            nextWidth = Math.max(minWidth, width);
+            nextWidth = Math.min(nextWidth, bounds.right - nextLeft);
+            nextWidth = Math.max(minWidth, nextWidth);
+        } else {
+            nextWidth = Math.max(minWidth, Math.min(width, bounds.right - bounds.left));
+            nextLeft = Math.max(bounds.left, Math.min(left, bounds.right - nextWidth));
+        }
+
+        return { left: nextLeft, width: nextWidth };
+    }
+
+    function clampVerticalSize(bounds, top, height, minHeight, anchors) {
+        let nextTop = top;
+        let nextHeight = height;
+
+        if (anchors.anchorBottom) {
+            const bottom = top + height;
+            nextHeight = Math.max(minHeight, height);
+            nextTop = bottom - nextHeight;
+            if (nextTop < bounds.top) {
+                nextTop = bounds.top;
+                nextHeight = bottom - nextTop;
+            }
+            nextHeight = Math.max(minHeight, nextHeight);
+            if (nextTop + nextHeight > bounds.bottom) {
+                nextHeight = Math.max(minHeight, bounds.bottom - nextTop);
+                nextTop = bounds.bottom - nextHeight;
+            }
+            nextTop = Math.max(bounds.top, nextTop);
+        } else if (anchors.anchorTop) {
+            nextTop = Math.max(bounds.top, top);
+            nextHeight = Math.max(minHeight, height);
+            nextHeight = Math.min(nextHeight, bounds.bottom - nextTop);
+            nextHeight = Math.max(minHeight, nextHeight);
+        } else {
+            nextHeight = Math.max(minHeight, Math.min(height, bounds.bottom - bounds.top));
+            nextTop = Math.max(bounds.top, Math.min(top, bounds.bottom - nextHeight));
+        }
+
+        return { top: nextTop, height: nextHeight };
+    }
+
+    function clampSize(element, left, top, width, height, options = {}, hints = {}) {
         const bounds = getWorkAreaRect(options);
         const computed = window.getComputedStyle(element);
         const minWidth = parseFloat(computed.minWidth) || 320;
         const minHeight = parseFloat(computed.minHeight) || 180;
+        const anchors = resolveResizeAnchors(hints.direction);
 
-        let nextWidth = Math.max(minWidth, width);
-        let nextHeight = Math.max(minHeight, height);
-        let nextLeft = left;
-        let nextTop = top;
+        const horizontal = clampHorizontalSize(bounds, left, width, minWidth, anchors);
+        const vertical = clampVerticalSize(bounds, top, height, minHeight, anchors);
 
-        nextLeft = Math.max(bounds.left, nextLeft);
-        nextTop = Math.max(bounds.top, nextTop);
-        nextWidth = Math.min(nextWidth, bounds.right - nextLeft);
-        nextHeight = Math.min(nextHeight, bounds.bottom - nextTop);
-        nextWidth = Math.max(minWidth, nextWidth);
-        nextHeight = Math.max(minHeight, nextHeight);
-
-        return { left: nextLeft, top: nextTop, width: nextWidth, height: nextHeight };
+        return {
+            left: horizontal.left,
+            top: vertical.top,
+            width: horizontal.width,
+            height: vertical.height,
+        };
     }
 
     global.CapsuleWindowBounds = {
+        resolveBoundsOptions,
         getWorkAreaRect,
         clampPosition,
         clampSize,
+        resolveResizeAnchors,
     };
 }(typeof window !== 'undefined' ? window : globalThis));

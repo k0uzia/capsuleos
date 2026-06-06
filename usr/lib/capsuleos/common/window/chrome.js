@@ -1,5 +1,6 @@
 /**
  * Chrome fenêtre — registre providers et header template.
+ * Résolution toolkit : CapsuleWindowHeaderContext (etc/capsuleos/contracts/window-chrome-contexts.json).
  */
 (function initCapsuleWindowChrome(global) {
     'use strict';
@@ -7,62 +8,218 @@
     const providers = {};
     const targetsApi = () => global.CapsuleWindowDragTargets;
 
-    function isKdeFamily() {
-        const skinKey = global.CAPSULE_EMBED_SKIN_KEY;
-        const explorerTemplate = global.CAPSULE_EXPLORER_TEMPLATE;
-        const bodyId = document.body ? document.body.id : null;
-
-        if (explorerTemplate === 'dolphin') {
-            return true;
-        }
-        if (skinKey === 'opensuse' || skinKey === 'mxkde' || skinKey === 'debiankde') {
-            return true;
-        }
-        return bodyId === 'opensuse' || bodyId === 'mx-kde' || bodyId === 'debian-kde';
+    function headerCtx() {
+        return global.CapsuleWindowHeaderContext || null;
     }
 
-    function isDolphinExplorerSlot(slotId) {
-        return slotId === 'nemo' && global.CAPSULE_EXPLORER_TEMPLATE === 'dolphin';
+    function isKdeFamily() {
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.isKdeFamily === 'function') {
+            return ctx.isKdeFamily();
+        }
+        return false;
     }
 
     function isNautilusFamilyExplorer() {
-        const template = global.CAPSULE_EXPLORER_TEMPLATE;
-        return template === 'nemo-gnome'
-            || template === 'nautilus'
-            || template === 'nemo-cosmic'
-            || template === 'nautilus-cosmic';
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.isNautilusFamilyExplorer === 'function') {
+            return ctx.isNautilusFamilyExplorer();
+        }
+        return false;
+    }
+
+    function isDolphinExplorerSlot(slotId) {
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.isDolphinExplorerSlot === 'function') {
+            return ctx.isDolphinExplorerSlot(slotId);
+        }
+        return false;
     }
 
     function isNautilusFamilySlot(slotId) {
-        return slotId === 'nemo' && isNautilusFamilyExplorer();
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.isNautilusFamilySlot === 'function') {
+            return ctx.isNautilusFamilySlot(slotId);
+        }
+        return false;
+    }
+
+    function isFileRollerGtkCsdSlot(slotId) {
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.resolveChromeProviderId === 'function') {
+            return ctx.resolveChromeProviderId(slotId) === 'file-roller-gtk';
+        }
+        return slotId === 'file_roller';
     }
 
     function resolveChromeProviderId(slotId) {
-        if (isDolphinExplorerSlot(slotId)) {
-            return 'dolphin';
-        }
-        if (isNautilusFamilySlot(slotId)) {
-            return 'nemo-gnome';
+        const ctx = headerCtx();
+        if (ctx && typeof ctx.resolveChromeProviderId === 'function') {
+            return ctx.resolveChromeProviderId(slotId);
         }
         if (slotId === 'nemo') {
             return 'nemo';
         }
-        if (slotId === 'firefox') {
-            const skin = global.CAPSULE_EMBED_SKIN_KEY;
-            if (skin === 'fedora' || skin === 'ubuntu' || skin === 'popos') {
-                return 'firefox-gnome';
-            }
-        }
-        if (slotId === 'terminal') {
-            const skin = global.CAPSULE_EMBED_SKIN_KEY;
-            if (skin === 'popos') {
-                return 'terminal-cosmic';
-            }
-            if (skin === 'fedora' || skin === 'ubuntu') {
-                return 'terminal-gnome';
-            }
-        }
         return 'default';
+    }
+
+    const LIBADWAITA_CSD_ANCHORS = {
+        calculator: '.gnome-calc__header',
+        text_editor: '.xed-app__menubar',
+        calendar: '.gnome-calendar-app__header',
+        clocks: '.gnome-clocks__header',
+        update_manager: '.gnome-software__headerbar',
+        profile: '.profile-app__header',
+        checklist: '.checklist-app__header',
+        librewriter: '.lw-menubar',
+        themes: '.gnome-settings__headerbar',
+        visionneur_images: '.viewer-app__toolbar',
+        visionneur_pdf: '.viewer-app__toolbar',
+        lecteur_multimedia: '.viewer-app__toolbar',
+        snapshot: '.gnome-snapshot__header',
+        screenshot: '.gnome-shot__headerbar',
+    };
+
+    function ensureLibadwaitaHeaderEnd(anchor) {
+        let end = anchor.querySelector(':scope > .gnome-app__header-end');
+        if (!end) {
+            end = document.createElement('div');
+            end.className = 'gnome-app__header-end';
+            anchor.appendChild(end);
+        }
+        return end;
+    }
+
+    function ensureLibadwaitaDragFill(anchor) {
+        let fill = anchor.querySelector(':scope > .gnome-app__header-fill');
+        if (!fill) {
+            fill = document.createElement('div');
+            fill.className = 'gnome-app__header-fill';
+            fill.setAttribute('data-window-drag-region', '');
+            const end = anchor.querySelector(':scope > .gnome-app__header-end');
+            if (end) {
+                anchor.insertBefore(fill, end);
+            } else {
+                anchor.appendChild(fill);
+            }
+        }
+        return fill;
+    }
+
+    function relocateLibadwaitaWindowControls(container, slotId) {
+        const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
+        const header = container.querySelector(':scope > #windowHeader');
+        const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
+        if (!header || !anchor) {
+            return false;
+        }
+        if (header.dataset.libadwaitaCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.libadwaitaCsd = 'true';
+        container.classList.add('gnome-app--csd');
+
+        const headerEnd = ensureLibadwaitaHeaderEnd(anchor);
+        ensureLibadwaitaDragFill(anchor);
+
+        let csdWrap = headerEnd.querySelector('.gnome-app__window-controls');
+        if (!csdWrap) {
+            csdWrap = document.createElement('div');
+            csdWrap.className = 'gnome-app__window-controls';
+            csdWrap.setAttribute('role', 'group');
+            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+            headerEnd.appendChild(csdWrap);
+        }
+
+        const minBtn = header.querySelector('#minimizeBtn');
+        const maxBtn = header.querySelector('#resizeBtn');
+        const closeBtn = header.querySelector('#closeBtn');
+        [minBtn, maxBtn, closeBtn].forEach((btn) => {
+            if (btn) {
+                csdWrap.appendChild(btn);
+            }
+        });
+
+        const title = header.querySelector('#windowTitle');
+        if (title) {
+            title.setAttribute('aria-hidden', 'true');
+        }
+
+        return true;
+    }
+
+    function applyUbuntuSoftwareCsd(container) {
+        const header = container.querySelector(':scope > #windowHeader');
+        const topbar = container.querySelector('.ubuntu-software__topbar');
+        if (!header || !topbar) {
+            return false;
+        }
+        if (header.dataset.ubuntuSoftwareCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.ubuntuSoftwareCsd = 'true';
+        container.classList.add('gnome-app--csd');
+
+        header.querySelectorAll('#minimizeBtn, #resizeBtn, #closeBtn').forEach((btn) => {
+            btn.remove();
+        });
+        header.setAttribute('aria-hidden', 'true');
+        header.style.display = 'none';
+
+        if (!topbar.querySelector('[data-window-drag-region]')) {
+            const search = topbar.querySelector('.ubuntu-software__search');
+            if (search) {
+                search.setAttribute('data-window-drag-region', '');
+            }
+        }
+
+        return true;
+    }
+
+    function relocateFileRollerWindowControls(container) {
+        const header = container.querySelector(':scope > #windowHeader');
+        const headerEnd = container.querySelector('.fr-app__header-end');
+        if (!header || !headerEnd) {
+            return false;
+        }
+        if (header.dataset.fileRollerCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.fileRollerCsd = 'true';
+        container.classList.add('file-roller--csd');
+
+        let csdWrap = headerEnd.querySelector('.fr-app__window-controls');
+        if (!csdWrap) {
+            csdWrap = document.createElement('div');
+            csdWrap.className = 'fr-app__window-controls';
+            csdWrap.setAttribute('role', 'group');
+            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+            headerEnd.appendChild(csdWrap);
+        }
+
+        const minBtn = header.querySelector('#minimizeBtn');
+        const maxBtn = header.querySelector('#resizeBtn');
+        const closeBtn = header.querySelector('#closeBtn');
+        [minBtn, maxBtn, closeBtn].forEach((btn) => {
+            if (btn) {
+                csdWrap.appendChild(btn);
+            }
+        });
+
+        const title = header.querySelector('#windowTitle');
+        if (title) {
+            title.setAttribute('aria-hidden', 'true');
+        }
+
+        const appTitle = container.querySelector('.fr-app__title');
+        if (appTitle && !appTitle.hasAttribute('data-window-drag-region')) {
+            appTitle.setAttribute('data-window-drag-region', '');
+        }
+
+        return true;
     }
 
     function createHeaderTemplate() {
@@ -104,7 +261,11 @@
     }
 
     function applyKdeWindowHeaderIcons(container) {
-        if (!container || !isKdeFamily()) {
+        const ctx = headerCtx();
+        const useKde = ctx && typeof ctx.shouldUseKdeHeaderIcons === 'function'
+            ? ctx.shouldUseKdeHeaderIcons()
+            : isKdeFamily();
+        if (!container || !useKde) {
             return;
         }
         const headerIconUrl = (file) => {
@@ -154,9 +315,28 @@
         }
     }
 
+    function ensureMuffinTitleBarVisible(container) {
+        if (!container) {
+            return;
+        }
+        container.classList.remove('file-roller--csd', 'gnome-app--csd');
+        const header = container.querySelector(':scope > #windowHeader');
+        if (!header) {
+            return;
+        }
+        header.hidden = false;
+        header.removeAttribute('aria-hidden');
+        header.style.removeProperty('display');
+    }
+
     function applyDragHandlePolicy(container, slotId, providerId) {
         const header = container.querySelector(':scope > #windowHeader');
         const appHandle = container.querySelector('[data-window-drag-handle]');
+        const ctx = headerCtx();
+        const unifiedExplorer = ctx
+            && typeof ctx.usesUnifiedExplorerTitleBar === 'function'
+            && ctx.usesUnifiedExplorerTitleBar()
+            && slotId === (ctx.EXPLORER_SLOT || 'nemo');
 
         if (providerId === 'nemo-gnome') {
             if (header) {
@@ -190,10 +370,7 @@
         }
 
         if (providerId === 'nemo') {
-            const mintUnifiedChrome = global.document
-                && global.document.body
-                && global.document.body.id === 'mint';
-            if (mintUnifiedChrome && header && appHandle) {
+            if (unifiedExplorer && header && appHandle) {
                 header.setAttribute('data-window-drag-handle', '');
                 header.removeAttribute('data-window-drag-passthrough');
                 appHandle.removeAttribute('data-window-drag-handle');
@@ -213,6 +390,16 @@
             return;
         }
 
+        if (providerId === 'terminal-gnome' && header) {
+            if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                targetsApi().markDragPassthrough(header);
+            } else {
+                header.setAttribute('data-window-drag-handle', '');
+                header.setAttribute('data-window-drag-passthrough', 'true');
+            }
+            return;
+        }
+
         if (providerId === 'firefox-gnome' && appHandle) {
             if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
                 targetsApi().markDragPassthrough(appHandle);
@@ -223,6 +410,65 @@
             if (header) {
                 header.removeAttribute('data-window-drag-handle');
                 header.removeAttribute('data-window-drag-passthrough');
+            }
+            return;
+        }
+
+        if (providerId === 'cinnamon' || providerId === 'default') {
+            ensureMuffinTitleBarVisible(container);
+        }
+
+        if (providerId === 'file-roller-gtk') {
+            const headerbar = container.querySelector('.fr-app__headerbar');
+            if (headerbar) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(headerbar);
+                } else {
+                    headerbar.setAttribute('data-window-drag-handle', '');
+                    headerbar.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            if (header) {
+                header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
+                header.setAttribute('aria-hidden', 'true');
+            }
+            return;
+        }
+
+        if (providerId === 'update-manager-ubuntu') {
+            const topbar = container.querySelector('.ubuntu-software__topbar');
+            if (topbar) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(topbar);
+                } else {
+                    topbar.setAttribute('data-window-drag-handle', '');
+                    topbar.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            if (header) {
+                header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
+                header.setAttribute('aria-hidden', 'true');
+            }
+            return;
+        }
+
+        if (providerId === 'libadwaita-gnome') {
+            const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
+            const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
+            if (anchor) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(anchor);
+                } else {
+                    anchor.setAttribute('data-window-drag-handle', '');
+                    anchor.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            if (header) {
+                header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
+                header.setAttribute('aria-hidden', 'true');
             }
             return;
         }
@@ -285,6 +531,19 @@
         },
     };
 
+    providers.cinnamon = {
+        id: 'cinnamon',
+        ensureHeader(container) {
+            const header = providers.default.ensureHeader(container);
+            ensureMuffinTitleBarVisible(container);
+            return header;
+        },
+        afterInject(container, slotId) {
+            ensureMuffinTitleBarVisible(container);
+            applyDragHandlePolicy(container, slotId, 'cinnamon');
+        },
+    };
+
     providers['firefox-gnome'] = {
         id: 'firefox-gnome',
         ensureHeader(container) {
@@ -295,8 +554,49 @@
         },
     };
 
-    providers['terminal-gnome'] = providers.default;
+    providers['terminal-gnome'] = {
+        id: 'terminal-gnome',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            applyDragHandlePolicy(container, slotId, 'terminal-gnome');
+        },
+    };
     providers['terminal-cosmic'] = providers.default;
+
+    providers['file-roller-gtk'] = {
+        id: 'file-roller-gtk',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            relocateFileRollerWindowControls(container);
+            applyDragHandlePolicy(container, slotId, 'file-roller-gtk');
+        },
+    };
+
+    providers['libadwaita-gnome'] = {
+        id: 'libadwaita-gnome',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            relocateLibadwaitaWindowControls(container, slotId);
+            applyDragHandlePolicy(container, slotId, 'libadwaita-gnome');
+        },
+    };
+
+    providers['update-manager-ubuntu'] = {
+        id: 'update-manager-ubuntu',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            applyUbuntuSoftwareCsd(container);
+            applyDragHandlePolicy(container, slotId, 'update-manager-ubuntu');
+        },
+    };
 
     function registerChromeProvider(id, provider) {
         providers[id] = provider;
@@ -320,11 +620,32 @@
         return provider.ensureHeader(container);
     }
 
+    function stampChromeToolkitAttributes(container, slotId) {
+        if (!container) {
+            return;
+        }
+        const ctx = headerCtx();
+        if (!ctx) {
+            return;
+        }
+        const toolkitId = typeof ctx.resolveToolkitId === 'function'
+            ? ctx.resolveToolkitId()
+            : '';
+        const providerId = resolveChromeProviderId(slotId);
+        if (toolkitId) {
+            container.setAttribute('data-window-chrome-toolkit', toolkitId);
+        }
+        if (providerId) {
+            container.setAttribute('data-window-chrome-provider', providerId);
+        }
+    }
+
     function afterInject(container, slotId) {
         const provider = getChromeProvider(slotId);
         if (typeof provider.afterInject === 'function') {
             provider.afterInject(container, slotId);
         }
+        stampChromeToolkitAttributes(container, slotId);
     }
 
     global.CapsuleWindowChrome = {
@@ -337,5 +658,7 @@
         getHeaderTemplate,
         isKdeFamily,
         isNautilusFamilyExplorer,
+        isDolphinExplorerSlot,
+        isNautilusFamilySlot,
     };
 }(typeof window !== 'undefined' ? window : globalThis));

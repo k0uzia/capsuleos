@@ -45,11 +45,17 @@
     border-radius: inherit;
 }
 
+.gnome-app--csd .gnome-app__window-chrome,
 .gnome-app--csd .gnome-calc__header,
 .gnome-app--csd .gnome-calendar-app__header,
 .gnome-app--csd .gnome-clocks__header,
 .gnome-app--csd .gnome-software__headerbar,
-.gnome-app--csd .profile-app__header,
+.gnome-app--csd .gnome-baobab__header,
+.gnome-app--csd .gnome-characters__header,
+.gnome-app--csd .gnome-sysmon__header,
+.gnome-app--csd .gnome-tour__header,
+.gnome-app--csd .gnome-snapshot__header,
+.gnome-app--csd .gnome-shot__headerbar,
 .gnome-app--csd .checklist-app__header,
 .gnome-app--csd .gnome-settings__headerbar,
 .gnome-app--csd .lw-menubar,
@@ -59,10 +65,24 @@
     flex-flow: row nowrap;
     align-items: center;
     gap: var(--gnome-adw-headerbar-gap);
+    height: var(--gnome-adw-headerbar-h);
     min-height: var(--gnome-adw-headerbar-h);
+    min-width: 0;
     padding: 0 var(--gnome-adw-headerbar-pad-x);
     flex-shrink: 0;
+    overflow: visible;
+    box-sizing: border-box;
     user-select: none;
+}
+
+.gnome-app--csd .gnome-characters__header .gnome-characters__search {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+}
+
+.gnome-app--csd .gnome-baobab__header .gnome-baobab__scan-btn {
+    flex-shrink: 0;
 }
 
 .gnome-app--csd .gnome-app__header-fill {

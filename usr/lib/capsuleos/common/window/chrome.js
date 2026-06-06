@@ -69,7 +69,7 @@
         calendar: '.gnome-calendar-app__header',
         clocks: '.gnome-clocks__header',
         update_manager: '.gnome-software__headerbar',
-        profile: '.profile-app__header',
+        profile: '.gnome-app__window-chrome',
         checklist: '.checklist-app__header',
         librewriter: '.lw-menubar',
         themes: '.gnome-settings__headerbar',
@@ -83,6 +83,29 @@
         tour: '.gnome-tour__header',
         characters: '.gnome-characters__header',
     };
+
+    const LIBADWAITA_DEDICATED_CHROME_ROW_SLOTS = {
+        profile: true,
+    };
+
+    function resolveLibadwaitaAnchor(container, slotId) {
+        if (LIBADWAITA_DEDICATED_CHROME_ROW_SLOTS[slotId]) {
+            const root = container.querySelector(':scope > main, :scope > section');
+            if (!root) {
+                return null;
+            }
+            let row = root.querySelector(':scope > .gnome-app__window-chrome');
+            if (!row) {
+                row = document.createElement('header');
+                row.className = 'gnome-app__window-chrome';
+                row.setAttribute('aria-label', 'Barre de titre');
+                root.insertBefore(row, root.firstChild);
+            }
+            return row;
+        }
+        const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
+        return anchorSelector ? container.querySelector(anchorSelector) : null;
+    }
 
     function ensureLibadwaitaHeaderEnd(anchor) {
         let end = anchor.querySelector(':scope > .gnome-app__header-end');
@@ -111,9 +134,8 @@
     }
 
     function relocateLibadwaitaWindowControls(container, slotId) {
-        const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
         const header = container.querySelector(':scope > #windowHeader');
-        const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
+        const anchor = resolveLibadwaitaAnchor(container, slotId);
         if (!header || !anchor) {
             return false;
         }
@@ -236,7 +258,9 @@
         const closeBtn = document.createElement('button');
 
         windowHeader.id = 'windowHeader';
-        windowHeader.style.minWidth = 'calc(var(--full) - calc(var(--head) / 20))';
+        windowHeader.style.minWidth = '0';
+        windowHeader.style.width = '100%';
+        windowHeader.style.boxSizing = 'border-box';
 
         title.id = 'windowTitle';
         title.textContent = document.title;

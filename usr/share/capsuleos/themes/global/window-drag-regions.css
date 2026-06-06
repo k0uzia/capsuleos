@@ -22,10 +22,24 @@
 }
 
 .window-drag-region--header-fill {
-    flex: 1 1 auto;
-    min-width: 2.5rem;
-    align-self: stretch;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    flex: none;
+    width: auto;
+    min-width: 0;
     min-height: 0;
+    align-self: auto;
+}
+
+#windowHeader {
+    position: relative;
+}
+
+#windowHeader > nav,
+#windowHeader > #windowTitle {
+    position: relative;
+    z-index: 1;
 }
 
 .window-drag-region--layer {

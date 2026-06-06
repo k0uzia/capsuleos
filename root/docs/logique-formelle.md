@@ -88,9 +88,13 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **AppV** | Inventaire VM apps | `*-vm-apps-installed.json` |
 | **AppC** | Catalogue strict généré | `*-apps-catalog.json` + `smoke-apps-catalog.mjs` |
 | **AppP0** | Apps P0 onVm avec slot `ok` | `summary.p0Gaps === 0` |
-| **AppΣ** | Catalogue apps clôturé (P0) | **AppV ∧ AppC ∧ AppP0** |
+| **AppL** | Lab apps vert (smokes structure + façade OS) | `run-apps-lab.mjs` · `*-apps-lab-state.json` |
+| **AppVv** | Enquête visuelle VM apps P0 | `*-apps-visual-investigation.json` |
+| **AppVc** | Captures Capsule par slot P0 | `capsuleCapturesP0` |
+| **AppVp** | Parité visuelle apps classée | `visualMatchClassifiedP0` |
+| **AppΣ** | Catalogue apps clôturé (structure) | **AppV ∧ AppC ∧ AppP0 ∧ AppL** |
 
-Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Procédure : [procedure-apps-catalog.md](procedure-apps-catalog.md)
+Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `apps-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md)
 
 ### 2.10 Fidélité visuelle (Tf)
 
@@ -174,7 +178,11 @@ R-SHELL2  H₆ ∧ Shell₁ ∧ ¬Shell₂  →  smoke-rocky-shell-polish-phase2
 R-LAB-SHELL  H₆ ∧ Shell₁ ∧ Shell₂ ∧ ¬LabShell  →  smoke-rocky-gnome-ref + smoke-rocky-shell-polish
 R-APP1    H₆ ∧ ¬AppV  →  collect-vm-apps-inventory.mjs --write
 R-APP2    AppV ∧ ¬AppC  →  generate-apps-catalog.mjs --write + smoke-apps-catalog
-R-APP3    AppC ∧ ¬AppΣ  →  H5 app ciblée (summary.nextGap)
+R-APP3    AppC ∧ ¬AppP0  →  H5 app ciblée (summary.nextGap)
+R-APP-LAB AppP0 ∧ ¬AppL  →  run-apps-lab.mjs (gate AppL)
+R-APP-VV  AppL ∧ ¬AppVv  →  collect-vm-apps-visual-investigation
+R-APP-VC  AppVv ∧ ¬AppVc →  collect-capsule-apps-visual-investigation
+R-APP-VP  AppVc ∧ ¬AppVp →  enrich-apps-visual-investigation-parity
 R-FID1    AppΣ ∧ ¬Tf  →  collect-visual-fidelity (--ssh) + smoke-visual-fidelity + sync-linux-skin-closure (gate Tf)
 R-H6-DONE H₆ ∧ H₂ ∧ A ∧ L ∧ Shell₁ ∧ Shell₂ ∧ AppΣ ∧ Tf  →  validate-all (maintenance, autoExecute: false)
 R-AUTO-FALLBACK  repli  →  run-agent-auto --max-steps 1
@@ -258,6 +266,7 @@ Les procédures détaillent prédicats et commandes **locales**. Elles **doivent
 | Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) § annexe | matrice visuelle, §10 |
 | Catalogue applications | [procedure-apps-catalog.md](procedure-apps-catalog.md) | **AppV**, **AppC**, **AppP0**, **AppΣ** |
 | Fidélité visuelle | [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) | **Tp**, **Tv**, **Tm**, **Ta**, **Tf** |
+| Réplication applications | [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) | **AppL**, **AppVv**, **AppVc**, **AppVp** |
 | Assets vendor | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | **A**, **S**, **T** |
 | Lab Rocky GNOME | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | **M**, phases 1–5 |
 | Audit VM profond | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | **I⁺**, phases JSON |
@@ -327,4 +336,4 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
 
 ---
 
-*Dernière extension : fidélité visuelle transversale (Tp–Tf, convention-fidelite-visuelle.md).*
+*Dernière extension : réplication applications calquée gsettings (AppL–AppVp, procedure-apps-replication-formelle.md).*

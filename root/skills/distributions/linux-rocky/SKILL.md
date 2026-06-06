@@ -30,9 +30,11 @@ description: CapsuleOS distribution Rocky Linux (GNOME) (linux-rocky) — linux,
 |-------|--------|
 | 1 | `onboarding` |
 | 2 | `os-clone-from-vm` |
-| 3 | `os-linux` |
-| 4 | `capsuleos-vendor-rocky` |
-| 5 | `capsuleos-distro-linux-rocky` (cette fiche) |
+| 3 | `gnome-hig-replication` (HIG officiel — patterns, palette, outils) |
+| 4 | `design-shell-layout` (top bar, Aperçu, espacements VM) |
+| 5 | `os-linux` |
+| 6 | `capsuleos-vendor-rocky` |
+| 7 | `capsuleos-distro-linux-rocky` (cette fiche) |
 
 Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-rocky`
 

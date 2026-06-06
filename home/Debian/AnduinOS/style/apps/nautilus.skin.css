@@ -16,37 +16,41 @@ body#anduinos {
     --nautilus-content-pad-x: 1.35rem;
     --nautilus-status-inset-bottom: 1rem;
 
-    /* Nautilus VM (Adwaita, schéma default) : chrome clair sur bureau sombre */
-    --nemo-bg-primary: #ffffff;
-    --nemo-header-bg: #f6f6f6;
-    --nemo-header-active-bg: #ffffff;
-    --nemo-border: rgba(0, 0, 0, 0.12);
-    --nemo-text-primary: #1e1e1e;
-    --nemo-text-muted: #5e5e62;
-    --nemo-item-active-bg: rgba(53, 132, 228, 0.14);
-    --nemo-sidebar-item-active-bg: rgba(53, 132, 228, 0.12);
-    --nemo-menu-surface-bg: #ffffff;
-    --nemo-toolbar-bg: #f6f6f6;
-    --nemo-toolbar-border: rgba(0, 0, 0, 0.08);
+    /* Nautilus 47 / Adwaita dark (défaut Ubuntu GNOME) */
+    --nemo-bg-primary: #303030;
+    --nemo-header-bg: #303030;
+    --nemo-header-active-bg: #383838;
+    --nemo-border: rgba(255, 255, 255, 0.1);
+    --nemo-text-primary: #ffffff;
+    --nemo-text-muted: rgba(255, 255, 255, 0.62);
+    --nemo-item-active-bg: rgba(53, 132, 228, 0.22);
+    --nemo-sidebar-item-active-bg: rgba(53, 132, 228, 0.18);
+    --nemo-menu-surface-bg: #383838;
+    --nemo-toolbar-bg: #303030;
+    --nemo-toolbar-border: rgba(255, 255, 255, 0.08);
     --nemo-toolbar-button-border: transparent;
     --nemo-toolbar-button-bg: transparent;
-    --nemo-toolbar-button-hover-bg: rgba(0, 0, 0, 0.05);
-    --nemo-toolbar-button-plain-hover: rgba(0, 0, 0, 0.05);
-    --nemo-pathbar-bg: #ebebeb;
-    --nemo-pathbar-border: rgba(0, 0, 0, 0.1);
-    --nemo-pathbar-text: #1e1e1e;
-    --nemo-sidebar-bg: #f3f3f5;
-    --nemo-sidebar-text: #1e1e1e;
-    --nemo-sidebar-muted: #5e5e62;
-    --nemo-footer-bg: #f4f4f4;
-    --nemo-status-text: #5a5a60;
+    --nemo-toolbar-button-hover-bg: rgba(255, 255, 255, 0.08);
+    --nemo-toolbar-button-plain-hover: rgba(255, 255, 255, 0.08);
+    --nemo-pathbar-bg: rgba(255, 255, 255, 0.1);
+    --nemo-pathbar-border: rgba(255, 255, 255, 0.12);
+    --nemo-pathbar-text: #ffffff;
+    --nemo-sidebar-bg: #262626;
+    --nemo-sidebar-text: #ffffff;
+    --nemo-sidebar-muted: rgba(255, 255, 255, 0.62);
+    --nemo-footer-bg: #383838;
+    --nemo-status-text: rgba(255, 255, 255, 0.62);
     --nemo-accent: #3584e4;
     --nemo-tooltip-bg: #1e1e1e;
     --nemo-tooltip-text: #f5f5f5;
-    --nemo-file-icon-bg: #cfd2d8;
-    --nemo-file-icon-fold: #ffffff;
-    --nemo-symbolic-icon-filter: none;
-    --nemo-toolbar-icon-filter: brightness(0) saturate(100%);
+    --nemo-file-icon-bg: #4a4a50;
+    --nemo-file-icon-fold: #d8dbe2;
+    --nemo-symbolic-icon-filter: brightness(0) invert(1);
+    --nemo-toolbar-icon-filter: brightness(0) invert(1);
+    --nemo-content-hover-bg: rgba(255, 255, 255, 0.06);
+    --nemo-sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+    --nemo-properties-bg: #383838;
+    --nemo-properties-border: rgba(255, 255, 255, 0.12);
 }
 
 html[data-theme="light"]:has(#anduinos) body#anduinos {
@@ -76,6 +80,10 @@ html[data-theme="light"]:has(#anduinos) body#anduinos {
     --nemo-file-icon-fold: #ffffff;
     --nemo-symbolic-icon-filter: none;
     --nemo-toolbar-icon-filter: brightness(0) saturate(100%);
+    --nemo-content-hover-bg: rgba(0, 0, 0, 0.04);
+    --nemo-sidebar-hover-bg: rgba(53, 132, 228, 0.12);
+    --nemo-properties-bg: #ffffff;
+    --nemo-properties-border: rgba(0, 0, 0, 0.12);
 }
 
 /* Nautilus 47 maximisé : chrome intégré dans la headerbar (pas de rail CSD séparé) */
@@ -97,10 +105,18 @@ body#anduinos div[data-link="nemo"] {
     height: calc(100vh - var(--anduin-taskbar-height) - 0.5rem);
     max-width: none;
     min-width: 36rem;
-    border-color: var(--nemo-border);
+    border-color: var(--nemo-border, var(--capsule-chrome-window-border, var(--fedora-window-border)));
     border-radius: 10px;
     background: var(--nemo-bg-primary);
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
+    transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+body#anduinos div[data-link="nemo"].windowElementActive {
+    border-color: rgba(53, 132, 228, 0.45);
+    box-shadow:
+        0 0 0 1px rgba(53, 132, 228, 0.28),
+        0 4px 18px rgba(0, 0, 0, 0.24);
 }
 
 body#anduinos div[data-link="nemo"] > #gestionnaire {
@@ -120,7 +136,7 @@ body#anduinos div[data-link="nemo"] #gestionnaire {
     border-radius: inherit;
     color: var(--nemo-text-primary);
     background: var(--nemo-bg-primary);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.82rem;
 }
 
@@ -350,15 +366,8 @@ body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__sidebar-places
 body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__sidebar-xdg > a.dolphin-sidebar__link--active,
 body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__sidebar-xdg > a.nemo-sidebar__link--active {
     border-left: 0;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--nemo-sidebar-hover-bg);
     color: var(--nemo-sidebar-text);
-}
-
-html[data-theme="light"]:has(#anduinos) body#anduinos div[data-link="nemo"] .nemo-app__sidebar-places > a:hover,
-html[data-theme="light"]:has(#anduinos) body#anduinos div[data-link="nemo"] .nemo-app__sidebar-xdg > a:hover,
-html[data-theme="light"]:has(#anduinos) body#anduinos div[data-link="nemo"] .nemo-app__sidebar-places > a.nemo-sidebar__link--active,
-html[data-theme="light"]:has(#anduinos) body#anduinos div[data-link="nemo"] .nemo-app__sidebar-xdg > a.nemo-sidebar__link--active {
-    background: rgba(53, 132, 228, 0.12);
 }
 
 body#anduinos div[data-link="nemo"] .nemo-app__content-wrap {
@@ -392,7 +401,7 @@ body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__content-grid {
 
 body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__content-grid > a:hover,
 body#anduinos div[data-link="nemo"] .nautilus-app--n47 .nemo-app__content-grid > a:focus-visible {
-    background: rgba(0, 0, 0, 0.04);
+    background: var(--nemo-content-hover-bg);
     border-radius: 0.5rem;
 }
 
@@ -450,4 +459,171 @@ body#anduinos div[data-link="nemo"] .nemo-app__empty {
     body#anduinos div[data-link="nemo"] {
         --nautilus-sidebar-w: 12.5rem;
     }
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu {
+    position: fixed;
+    z-index: 12000;
+    min-width: 12.5rem;
+    padding: 0.35rem 0;
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg);
+    border: 1px solid var(--nemo-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    color: var(--nemo-text-primary);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu[hidden] {
+    display: none !important;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu__item {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--nemo-text-primary);
+    font: inherit;
+    text-align: left;
+    cursor: default;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu__item:hover:not(:disabled),
+body#anduinos div[data-link="nemo"] .nautilus-context-menu__item:focus-visible {
+    background: var(--nemo-item-active-bg);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu__item[hidden] {
+    display: none;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-context-menu__separator {
+    height: 1px;
+    margin: 0.35rem 0.65rem;
+    background: var(--nemo-border);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-app__tabstrip {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: 0.15rem;
+    min-height: 2rem;
+    padding: 0.2rem 0.55rem 0;
+    background: var(--nemo-header-bg);
+    border-bottom: 1px solid var(--nemo-border);
+    overflow-x: auto;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-app__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    max-width: 12rem;
+    padding: 0.35rem 0.65rem;
+    border: 0;
+    border-radius: 0.45rem 0.45rem 0 0;
+    background: transparent;
+    color: var(--nemo-text-muted);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: default;
+    white-space: nowrap;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-app__tab.is-active {
+    background: var(--nemo-bg-primary);
+    color: var(--nemo-text-primary);
+    box-shadow: inset 0 -2px 0 var(--nemo-accent);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-app__tab-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    opacity: 0.72;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-app__tab-close:hover {
+    opacity: 1;
+    background: var(--nemo-toolbar-button-hover-bg);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog {
+    padding: 0;
+    border: 1px solid var(--nemo-properties-border);
+    border-radius: 0.75rem;
+    background: var(--nemo-properties-bg);
+    color: var(--nemo-text-primary);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.38);
+    max-width: 26rem;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.42);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__panel {
+    margin: 0;
+    padding: 0;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--nemo-border);
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__header h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__close {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--nemo-border);
+    border-radius: 0.45rem;
+    background: var(--nemo-toolbar-button-hover-bg);
+    color: inherit;
+    font: inherit;
+    font-size: 0.78rem;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__body {
+    padding: 0.85rem 1rem 1rem;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__body dl {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 0.45rem 0.75rem;
+    margin: 0;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__body dt {
+    margin: 0;
+    color: var(--nemo-text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+body#anduinos div[data-link="nemo"] .nautilus-properties-dialog__body dd {
+    margin: 0;
+    font-size: 0.82rem;
+    word-break: break-word;
 }

@@ -88,12 +88,14 @@ const CAPSULE_PLACE_RECENT = '__capsule/place/recent';
 const CAPSULE_PLACE_TRASH = '__capsule/place/trash';
 const CAPSULE_PLACE_NETWORK = '__capsule/place/network';
 const CAPSULE_PLACE_FILESYSTEM = '__capsule/place/filesystem';
+const CAPSULE_PLACE_STARRED = '__capsule/place/starred';
 
 const isCapsuleVirtualPlace = (path) => (
     path === CAPSULE_PLACE_RECENT
     || path === CAPSULE_PLACE_TRASH
     || path === CAPSULE_PLACE_NETWORK
     || path === CAPSULE_PLACE_FILESYSTEM
+    || path === CAPSULE_PLACE_STARRED
 );
 
 const fileExplorerState = {
@@ -108,6 +110,7 @@ const fileExplorerState = {
     zoomValue: null,
     viewMode: 'icons',
     searchQuery: '',
+    showHiddenFiles: false,
     previewOpen: false,
     splitView: false,
     activePane: 'primary',
@@ -311,6 +314,9 @@ const findFolderLabel = (path) => {
     if (path === CAPSULE_PLACE_FILESYSTEM) {
         return '/';
     }
+    if (path === CAPSULE_PLACE_STARRED) {
+        return 'Favoris';
+    }
 
     if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(path)) {
         const vfsLabel = window.CapsuleExplorerVfs.getExplorerPathLabel(path);
@@ -374,6 +380,9 @@ const usesNemoListViewFrenchColumns = () => (
 );
 
 const shouldHideListViewItem = (item, directoryPath) => {
+    if (!fileExplorerState.showHiddenFiles && item && String(item.name || '').startsWith('.')) {
+        return true;
+    }
     if (isCosmicFilesExplorer() && item.name === 'Public') {
         return true;
     }
@@ -587,6 +596,9 @@ const getSidebarKeyForPath = (path) => {
     }
     if (path === CAPSULE_PLACE_RECENT) {
         return 'Récent';
+    }
+    if (path === CAPSULE_PLACE_STARRED) {
+        return 'Favoris';
     }
     if (path === CAPSULE_PLACE_TRASH) {
         return 'Corbeille';
@@ -1009,6 +1021,12 @@ const renderVirtualPlaceDirectory = (path, pane, nemoElement) => {
             name: rootLabel,
             path: root
         }];
+    } else if (path === CAPSULE_PLACE_TRASH) {
+        emptyMessage = 'Corbeille vide.';
+    } else if (path === CAPSULE_PLACE_NETWORK) {
+        emptyMessage = 'Aucun serveur réseau.';
+    } else if (path === CAPSULE_PLACE_STARRED) {
+        emptyMessage = 'Aucun favori.';
     }
 
     const searchQuery = fileExplorerState.searchQuery || '';
@@ -1027,6 +1045,9 @@ const renderVirtualPlaceDirectory = (path, pane, nemoElement) => {
     }
 
     items.forEach((item) => {
+        if (shouldHideListViewItem(item, path)) {
+            return;
+        }
         appendFileExplorerGridItem(nemoElement, item, path, pane);
     });
 
@@ -1070,6 +1091,9 @@ const renderVfsExplorerDirectory = (path, pane, nemoElement) => {
         }
 
         items.forEach((item) => {
+            if (shouldHideListViewItem(item, path)) {
+                return;
+            }
             appendFileExplorerGridItem(nemoElement, item, path, pane);
         });
 
@@ -1286,6 +1310,38 @@ const createFolderInExplorer = async (parentPath, folderName) => {
     renderDirectory(parent, { pane });
 
     return { ok: true, path: newPath, name };
+};
+
+const createNewFolderInCurrentDirectory = async (options = {}) => {
+    const parentPath = options.parentPath || fileExplorerState.currentPath;
+    if (!parentPath || isCapsuleVirtualPlace(parentPath)) {
+        return { ok: false, message: 'Impossible de créer un dossier ici.' };
+    }
+    if (typeof window.CapsuleExplorerVfs !== 'undefined' && window.CapsuleExplorerVfs.isExplorerVfsPath(parentPath)) {
+        return { ok: false, message: 'Impossible de créer un dossier ici.' };
+    }
+
+    let name = options.defaultName || 'Nouveau dossier';
+    if (!options.skipPrompt && typeof window.prompt === 'function') {
+        const input = window.prompt('Nom du nouveau dossier :', name);
+        if (input === null) {
+            return { ok: false, cancelled: true };
+        }
+        name = input.trim();
+    }
+
+    if (!name) {
+        return { ok: false, message: 'Nom de dossier vide.' };
+    }
+
+    return createFolderInExplorer(parentPath, name);
+};
+
+const toggleExplorerHiddenFiles = () => {
+    fileExplorerState.showHiddenFiles = !fileExplorerState.showHiddenFiles;
+    renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+    updatePathDisplay();
+    return fileExplorerState.showHiddenFiles;
 };
 
 const findItemInFolder = (folderNode, itemName) => {
@@ -1977,6 +2033,19 @@ const bindFileExplorerNavigationControls = () => {
         window.bindFileExplorerDolphinFeatures();
     }
 
+    if (typeof window.bindFileExplorerNautilusFeatures === 'function') {
+        window.bindFileExplorerNautilusFeatures();
+    }
+    if (typeof window.bindFileExplorerTabs === 'function') {
+        window.bindFileExplorerTabs();
+    }
+    if (typeof window.bindFileExplorerProperties === 'function') {
+        window.bindFileExplorerProperties();
+    }
+    if (typeof window.bindFileExplorerContextMenu === 'function') {
+        window.bindFileExplorerContextMenu();
+    }
+
     if (nemoRoot.dataset.nemoControlsInit === 'true') {
         updateNavigationControls();
         return;
@@ -2076,6 +2145,9 @@ window.applyNemoZoom = applyFileExplorerZoom;
 window.getFileExplorerRoot = getFileExplorerRoot;
 window.getNemoRoot = getFileExplorerRoot;
 window.createFolderInExplorer = createFolderInExplorer;
+window.createNewFolderInCurrentDirectory = createNewFolderInCurrentDirectory;
+window.promptCreateFolderInCurrentDirectory = createNewFolderInCurrentDirectory;
+window.toggleExplorerHiddenFiles = toggleExplorerHiddenFiles;
 window.moveExplorerItem = moveExplorerItem;
 window.copyExplorerItem = copyExplorerItem;
 window.persistExplorerManifest = persistExplorerManifest;
@@ -2091,6 +2163,7 @@ window.CAPSULE_PLACE_RECENT = CAPSULE_PLACE_RECENT;
 window.CAPSULE_PLACE_TRASH = CAPSULE_PLACE_TRASH;
 window.CAPSULE_PLACE_NETWORK = CAPSULE_PLACE_NETWORK;
 window.CAPSULE_PLACE_FILESYSTEM = CAPSULE_PLACE_FILESYSTEM;
+window.CAPSULE_PLACE_STARRED = CAPSULE_PLACE_STARRED;
 window.isCapsuleVirtualPlace = isCapsuleVirtualPlace;
 
 window.buildNemoPlaceFolderMap = function buildNemoPlaceFolderMap(contentRoot) {
@@ -2104,6 +2177,7 @@ window.buildNemoPlaceFolderMap = function buildNemoPlaceFolderMap(contentRoot) {
         Vidéos: `${root}/Vidéos`,
         Téléchargements: `${root}/Téléchargements`,
         Récent: CAPSULE_PLACE_RECENT,
+        Favoris: CAPSULE_PLACE_STARRED,
         Corbeille: CAPSULE_PLACE_TRASH,
         Réseau: CAPSULE_PLACE_NETWORK,
         'Système de fichiers': CAPSULE_PLACE_FILESYSTEM

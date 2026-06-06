@@ -13,6 +13,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import vm from 'vm';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -110,7 +111,7 @@ async function runPlaywright() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   try {
-    await page.goto(`${base}/home/RedHat/Rocky/index.html`, { waitUntil: 'networkidle', timeout: 45000 });
+    await page.goto(resolveCapsuleOsUrl('linux-rocky', base), { waitUntil: 'networkidle', timeout: 45000 });
     await page.waitForFunction(
       () => typeof window.CapsuleGnomeGSettings === 'object'
         && typeof window.CapsuleGnomeGSettings.exportSnapshot === 'function',

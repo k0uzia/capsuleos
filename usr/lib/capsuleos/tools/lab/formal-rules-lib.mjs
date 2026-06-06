@@ -6,6 +6,7 @@ import path from 'path';
 import { ROOT, evaluatePredicates } from './replication-chain-lib.mjs';
 import { evaluateUniversal } from './playbook-general-lib.mjs';
 import { evaluateAppsPredicates } from './apps-catalog-lib.mjs';
+import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
 
 const formalStatePath = (registryId) =>
@@ -30,6 +31,7 @@ export const loadFormalState = (registryId) => {
   const universal = evaluateUniversal(registryId);
   const replication = evaluatePredicates(registryId);
   const apps = evaluateAppsPredicates(registryId);
+  const appsReplication = evaluateAppsReplicationPredicates(registryId);
   const fidelity = evaluateVisualFidelity(registryId);
   const typoViolations = scanTypographyViolations(registryId);
 
@@ -46,7 +48,11 @@ export const loadFormalState = (registryId) => {
     AppV: apps.AppV,
     AppC: apps.AppC || !!base.gates?.AppC?.ok,
     AppP0: apps.AppP0,
-    AppΣ: apps.AppΣ || !!base.gates?.AppΣ?.ok,
+    AppL: appsReplication.state.AppL || !!base.gates?.AppL?.ok,
+    AppVv: appsReplication.state.AppVv || !!base.gates?.AppVv?.ok,
+    AppVc: appsReplication.state.AppVc || !!base.gates?.AppVc?.ok,
+    AppVp: appsReplication.state.AppVp || !!base.gates?.AppVp?.ok,
+    AppΣ: (appsReplication.state.AppΣ || (apps.AppΣ && appsReplication.state.AppL)) || !!base.gates?.AppΣ?.ok,
     Tp: fidelity.Tp || !!base.gates?.Tp?.ok,
     Tv: fidelity.Tv || !!base.gates?.Tv?.ok,
     Tm: fidelity.Tm || !!base.gates?.Tm?.ok,
@@ -149,12 +155,44 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP3',
-      when: () => gates.H6 && gates.AppC && !gates.AppΣ,
-      message: 'AppC ∧ ¬AppΣ — écart catalogue apps (implémentation H5 ciblée)',
+      when: () => gates.H6 && gates.AppC && !gates.AppP0,
+      message: 'AppC ∧ ¬AppP0 — écart catalogue apps (implémentation H5 ciblée)',
       command: null,
       autoExecute: false,
       gateOnSuccess: null,
       nextGap: state.apps?.nextGap || null,
+    },
+    {
+      rule: 'R-APP-LAB',
+      when: () => gates.H6 && gates.AppP0 && !gates.AppL,
+      message: 'AppP0 ∧ ¬AppL — suite lab applications (structure, façade OS)',
+      command: `node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: 'AppL',
+    },
+    {
+      rule: 'R-APP-VV',
+      when: () => gates.H6 && gates.AppL && !gates.AppVv,
+      message: 'AppL ∧ ¬AppVv — enquête visuelle VM apps P0',
+      command: `node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id ${registryId} --filter P0`,
+      autoExecute: true,
+      gateOnSuccess: 'AppVv',
+    },
+    {
+      rule: 'R-APP-VC',
+      when: () => gates.H6 && gates.AppVv && !gates.AppVc,
+      message: 'AppVv ∧ ¬AppVc — captures Capsule apps P0',
+      command: `CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: 'AppVc',
+    },
+    {
+      rule: 'R-APP-VP',
+      when: () => gates.H6 && gates.AppVc && !gates.AppVp,
+      message: 'AppVc ∧ ¬AppVp — classification parité visuelle apps',
+      command: `node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: 'AppVp',
     },
     {
       rule: 'R-FID1',

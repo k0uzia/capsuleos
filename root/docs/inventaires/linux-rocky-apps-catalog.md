@@ -1,6 +1,6 @@
 # Catalogue applications — linux-rocky
 
-> Généré : `2026-06-06T15:42:05.033Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-06T17:26:59.367Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-rocky --write

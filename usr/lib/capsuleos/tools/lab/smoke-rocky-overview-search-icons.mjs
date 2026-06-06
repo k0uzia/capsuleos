@@ -5,12 +5,13 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
+import { resolveCapsuleOsUrl, resolveOsFacadeFileUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
 const require = createRequire(import.meta.url);
 
-const url = process.argv[2] || `file://${path.join(ROOT, 'home/RedHat/Rocky/index.html')}`;
+const url = process.argv[2]
+  || (process.env.CAPSULE_HTTP_BASE ? resolveCapsuleOsUrl('linux-rocky') : resolveOsFacadeFileUrl('linux-rocky'));
 
 async function main() {
     const { chromium } = require('playwright');

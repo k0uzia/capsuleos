@@ -62,7 +62,9 @@
         'pan-end-symbolic.svg': 'symbolic/actions/go-next-symbolic.svg',
         'open-menu-symbolic.svg': 'symbolic/actions/open-menu-symbolic.svg',
         'view-more-symbolic.svg': 'symbolic/actions/view-more-symbolic.svg',
-        'tab-new.svg': 'symbolic/actions/open-menu-symbolic.svg',
+        'tab-new.svg': 'symbolic/actions/folder-new-symbolic.svg',
+        'folder-new-symbolic.svg': 'symbolic/actions/folder-new-symbolic.svg',
+        'user-desktop-symbolic.svg': 'places/user-desktop.svg',
         'find-location-symbolic.svg': 'symbolic/actions/find-location-symbolic.svg',
     };
 

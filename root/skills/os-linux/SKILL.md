@@ -54,6 +54,10 @@ Skill **`window-desktop`** + [convention-contexte-fenetres.md](../../docs/conven
 
 Avant toute passe CSS/UX sur un skin Linux : [contrib.md § toolkits](../../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (tableau skin ↔ toolkit, tokens, pièges embed).
 
+## Toolkit GNOME (GTK 4 + libadwaita)
+
+Distros `toolkit: gnome` : charger **`gnome-hig-replication`** + [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/gnome-hig-resources.json`.
+
 ## Ajouter une distro / version / vendor
 
 Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md). Gate : `validate-all.mjs`.

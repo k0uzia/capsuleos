@@ -14,6 +14,12 @@
     ];
 
     const DOLPHIN_SCRIPT = 'fileExplorer/fileExplorerDolphin.js';
+    const NAUTILUS_SCRIPTS = [
+        'fileExplorer/fileExplorerNautilus.js',
+        'fileExplorer/fileExplorerTabs.js',
+        'fileExplorer/fileExplorerProperties.js',
+        'fileExplorer/fileExplorerContextMenu.js'
+    ];
 
     function getLinuxShellBase() {
         if (typeof global.CAPSULE_LINUX_SHELL_BASE === 'string' && global.CAPSULE_LINUX_SHELL_BASE) {
@@ -26,8 +32,12 @@
     function getScriptChain() {
         const chain = SHELL_SCRIPTS.slice();
         const reg = global.CapsuleExplorerRegistry;
-        if (reg && reg.resolveActiveProfile().loadDolphinExtension) {
+        const profile = reg ? reg.resolveActiveProfile() : null;
+        if (profile && profile.loadDolphinExtension) {
             chain.splice(chain.length - 1, 0, DOLPHIN_SCRIPT);
+        }
+        if (profile && profile.loadNautilusExtension) {
+            chain.splice(chain.length - 1, 0, ...NAUTILUS_SCRIPTS);
         }
         return chain;
     }

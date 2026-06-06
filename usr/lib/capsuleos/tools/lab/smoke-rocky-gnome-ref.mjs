@@ -25,6 +25,9 @@ const indexHtml = read('home/RedHat/Rocky/index.html');
 const facadeHtml = readOsFacadeHtml('linux-rocky');
 errors.push(...validateOsFacadeFidelity('linux-rocky'));
 const overviewJs = read('home/RedHat/Rocky/js/overview.js');
+const overviewCss = read('home/RedHat/Rocky/style/gnome-shell/overview.css');
+const workspacesCss = read('home/RedHat/Rocky/style/gnome-shell/workspaces.css');
+const workspacesJs = read('usr/lib/capsuleos/shells/linux/gnome-workspaces.js');
 const profile = read('etc/capsuleos/profiles/linux-rocky.json');
 const override = read('etc/capsuleos/overrides/linux-rocky.json');
 const registry = read('etc/capsuleos/os-registry.json');
@@ -153,6 +156,30 @@ for (const wm of [
 }
 if (!read('home/RedHat/Rocky/style/gnome-shell/tokens.css').includes('--rocky-watermark')) {
     errors.push('tokens.css : --rocky-watermark absent');
+}
+if (!read('home/RedHat/Rocky/style/gnome-shell/tokens.css').includes('--fedora-overview-backdrop-blur')) {
+    errors.push('tokens.css : fond Aperçu flouté absent');
+}
+if (!workspacesCss.includes('fedora-overview__workspace-thumb')) {
+    errors.push('workspaces.css : vignettes fenêtres Aperçu absentes');
+}
+if (!workspacesJs.includes('refreshWorkspacePreviews')) {
+    errors.push('gnome-workspaces.js : refreshWorkspacePreviews absent');
+}
+if (!workspacesJs.includes('bindWorkspacePeek')) {
+    errors.push('gnome-workspaces.js : bindWorkspacePeek absent');
+}
+if (!indexHtml.includes('placeholder="Saisissez pour rechercher"')) {
+    errors.push('index.html : placeholder recherche GNOME FR incorrect');
+}
+if (!overviewCss.includes('fedora-overview__workspace-next') || !overviewCss.includes('opacity: 0.92')) {
+    errors.push('overview.css : peek workspace adjacent peu contrasté');
+}
+if (!/fedora-overview__workspace[\s\S]*overflow:\s*visible/.test(overviewCss)) {
+    errors.push('overview.css : overflow workspace doit être visible (peek)');
+}
+if (!overviewJs.includes('refreshWorkspacePreviews')) {
+    errors.push('overview.js : rafraîchissement vignettes Aperçu absent');
 }
 if (!indexHtml.includes('gnome-gsettings-bindings.js')) {
     errors.push('index.html : gnome-gsettings-bindings.js absent');

@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -29,7 +30,6 @@ if (!prefsCss.includes('gnome-workspace-spring-in')) errors.push('spring keyfram
 if (!prefsCss.includes('night-light-transition')) errors.push('night-light transition CSS absent');
 
 async function runPlaywright() {
-  const base = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500').replace(/\/$/, '');
   let chromium;
   try {
     ({ chromium } = await import('playwright'));
@@ -46,7 +46,7 @@ async function runPlaywright() {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 
   try {
-    await page.goto(`${base}/home/RedHat/Rocky/index.html`, { waitUntil: 'networkidle', timeout: 60000 });
+    await page.goto(resolveCapsuleOsUrl('linux-rocky'), { waitUntil: 'networkidle', timeout: 60000 });
     await page.waitForFunction(
       () => window.CapsuleThemeStorage && window.CapsuleGnomeSettingsParity && window.CapsuleGnomeWorkspaces,
       null,

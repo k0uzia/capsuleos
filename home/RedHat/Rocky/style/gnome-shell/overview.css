@@ -25,6 +25,31 @@ body#rocky .fedora-overview {
         visibility 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
         transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
     z-index: 45;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Fond Aperçu GNOME — wallpaper flouté + assombrissement (≠ bureau plat) */
+body#rocky .fedora-overview::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    background: var(--fedora-bg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(var(--fedora-overview-backdrop-blur)) brightness(0.48) saturate(1.08);
+    transform: scale(1.06);
+    z-index: -2;
+    pointer-events: none;
+}
+
+body#rocky .fedora-overview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--fedora-overview-scrim);
+    z-index: -1;
+    pointer-events: none;
 }
 
 body#rocky.is-overview .fedora-overview {
@@ -252,19 +277,22 @@ body#rocky .fedora-overview__workspace {
     width: 100%;
     min-height: 0;
     margin-top: calc(var(--head) / 3.2);
-    overflow: hidden;
+    overflow: visible;
 }
 
 body#rocky .fedora-overview__workspace-card {
     position: relative;
+    z-index: 2;
     display: block;
-    width: min(72vw, calc(var(--head) * 18.5));
-    height: min(60vh, calc(var(--head) * 10.8));
+    width: min(74vw, calc(var(--head) * 19.2));
+    height: min(62vh, calc(var(--head) * 11.2));
     margin: 0;
     padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: calc(var(--head) / 2.7);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--fedora-overview-workspace-radius);
+    box-shadow:
+        0 22px 48px rgba(0, 0, 0, 0.48),
+        0 0 0 1px rgba(0, 0, 0, 0.22);
     background: var(--fedora-bg);
     background-size: cover;
     background-position: center;
@@ -292,31 +320,37 @@ body#rocky .fedora-overview__workspace-card::before {
     right: 0;
     bottom: 0;
     left: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.14));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.18));
     pointer-events: none;
+    z-index: 1;
 }
 
 body#rocky .fedora-overview__workspace-next {
     position: absolute;
-    right: max(calc(var(--head) * -4), -8vw);
+    right: max(calc(var(--head) * -2.2), -4.5vw);
+    z-index: 1;
     display: block;
     width: min(32vw, calc(var(--head) * 7.2));
     height: min(58vh, calc(var(--head) * 10));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 0;
     border-radius: calc(var(--head) / 2.7) 0 0 calc(var(--head) / 2.7);
+    box-shadow: -10px 0 28px rgba(0, 0, 0, 0.34);
     background: var(--fedora-bg);
     background-size: cover;
     background-position: center;
-    filter: brightness(0.82) saturate(0.9);
-    opacity: 0.72;
+    filter: brightness(0.88) saturate(0.95);
+    opacity: 0.92;
+    cursor: pointer;
 }
 
 body#rocky .fedora-overview__brand {
     position: absolute;
-    right: calc(var(--head) / 2.4);
-    bottom: calc(var(--head) / 2.8);
-    z-index: 1;
+    right: calc(var(--head) / 2.2);
+    bottom: calc(var(--head) / 2.4);
+    z-index: 2;
     display: block;
-    width: 38%;
+    width: var(--rocky-watermark-width);
     aspect-ratio: 907.78 / 415.08;
     margin: 0;
     padding: 0;
@@ -382,9 +416,7 @@ body#rocky .fedora-overview__mini-workspace::before {
     content: "";
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(circle at 72% 16%, rgba(120, 190, 255, 0.38), transparent 28%),
-        linear-gradient(160deg, rgba(4, 13, 32, 0.28), rgba(18, 83, 230, 0.36));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.2));
 }
 
 body#rocky .fedora-overview__mini-workspace::after {
@@ -496,14 +528,23 @@ body#rocky .fedora-overview__dash {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    gap: calc(var(--head) / 2.05);
-    min-height: calc(var(--head) * 2.2);
-    margin-top: calc(var(--head) / 1.85);
-    padding: calc(var(--head) / 3.05) calc(var(--head) / 1.72);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: calc(var(--head) / 1.55);
-    background: rgba(56, 56, 58, 0.92);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    gap: calc(var(--head) / 2.2);
+    min-height: calc(var(--head) * 2.35);
+    margin-top: calc(var(--head) / 1.75);
+    padding: calc(var(--head) / 2.8) calc(var(--head) / 1.55);
+    border: 1px solid var(--fedora-overview-dash-border);
+    border-radius: calc(var(--head) / 1.35);
+    background: var(--fedora-overview-dash-bg);
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    body#rocky .fedora-overview__dash {
+        -webkit-backdrop-filter: blur(18px) saturate(1.1);
+        backdrop-filter: blur(18px) saturate(1.1);
+    }
 }
 
 body#rocky .fedora-overview__dash-item {
@@ -511,8 +552,8 @@ body#rocky .fedora-overview__dash-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--head) * 1.46);
-    height: calc(var(--head) * 1.46);
+    width: calc(var(--head) * 1.52);
+    height: calc(var(--head) * 1.52);
     margin: 0;
     padding: 0;
     border: 1px solid transparent;

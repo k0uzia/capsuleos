@@ -6,12 +6,14 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
+import { resolveCapsuleOsUrl, resolveOsFacadeFileUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
 const require = createRequire(import.meta.url);
 
-const defaultUrl = `file://${path.join(ROOT, 'home/RedHat/Rocky/index.html')}`;
+const defaultUrl = process.env.CAPSULE_HTTP_BASE
+  ? resolveCapsuleOsUrl('linux-rocky')
+  : resolveOsFacadeFileUrl('linux-rocky');
 const url = process.argv[2] || defaultUrl;
 
 async function main() {

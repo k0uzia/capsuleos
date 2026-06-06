@@ -67,6 +67,18 @@ La **même** pile `--font-ui` / `--font-mono` s’applique à : shell, Aperçu, 
 
 ---
 
+## 2.5 Mise en page shell (alignements, espacements)
+
+Complément **Tp** pour les surfaces shell (top bar, dock, Aperçu) :
+
+1. **Tokens avant composants** — gaps, paddings, hauteurs dans `style/gnome-shell/tokens.css` (`--gnome-shell-clock-*`, `--fedora-top-bar-height`, etc.).
+2. **Échelle `--head`** — pas de `px` magiques pour espacements shell ; voir skill `design-shell-layout`.
+3. **Alignement optique** — éléments centrés (horloge GNOME) : position absolue `left: 50%` + `translate`, pas seulement grille flex asymétrique.
+4. **Format texte VM** — ex. horloge Rocky FR : `jour mois` + `HH:MM` sur **une ligne** (sans jour de semaine dans la barre).
+5. **Gate** — `smoke-rocky-shell-polish.mjs --playwright` (décentrement &lt; 3 px, pas de débordement top bar).
+
+---
+
 ## 3. Contextes de vue (Tv)
 
 ### 3.1 À inventorier avant reproduction

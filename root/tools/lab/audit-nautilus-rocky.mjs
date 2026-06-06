@@ -6,10 +6,11 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolveCapsuleOsUrl } from '../../usr/lib/capsuleos/tools/linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
-const URL = process.env.CAPSULE_ROCKY_URL || 'http://127.0.0.1:5500/home/RedHat/Rocky/index.html';
+const URL = process.env.CAPSULE_ROCKY_URL || resolveCapsuleOsUrl('linux-rocky');
 const defaultChrome = [
   '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
   '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome',

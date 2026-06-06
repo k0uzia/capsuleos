@@ -11,6 +11,6 @@
 @import url(gnome-shell/volume-popover.css);
 @import url(gnome-shell/a11y-fedora.css);
 @import url(gnome-workstation.css);
-@import url(gnome-shell/overview.css);
+@import url(gnome-shell/overview.css?v=20260607);
 @import url(gnome-shell/workspaces.css);
 @import url(gnome-shell/desktop-context-menu.css);

@@ -33,14 +33,29 @@ if (!launcherJs.includes('syncOverviewDash')) {
 if (!launcherJs.includes('is-running')) {
   errors.push('taskbar-launcher-state.js : indicateurs dash is-running absents');
 }
-if (!trayCss.includes('flex-flow: column')) {
-  errors.push('tray.css : horloge top bar non empilée (colonne)');
+if (!trayCss.includes('--gnome-shell-clock-gap')) {
+  errors.push('tray.css : horloge top bar sans tokens --gnome-shell-clock-*');
 }
-if (!trayCss.includes('weekday')) {
-  /* date format lives in index.html */
+if (!trayCss.includes('flex-flow: var(--rnw)')) {
+  errors.push('tray.css : horloge top bar doit être sur une ligne (row)');
 }
-if (!indexHtml.includes('weekday:')) {
-  errors.push('index.html : date longue GNOME (weekday) absente');
+const workstationCss = read('home/RedHat/Rocky/style/gnome-workstation.css');
+if (!workstationCss.includes('fedora-top-bar__center') || !workstationCss.includes('translate(-50%')) {
+  errors.push('gnome-workstation.css : horloge non centrée optiquement (absolute 50%)');
+}
+if (!workstationCss.includes('grid-template-columns: 1fr 1fr') || !workstationCss.includes('grid-column: 2')) {
+  errors.push('gnome-workstation.css : tray doit être en colonne 2 (centre absolute hors flux)');
+}
+const dateJs = read('usr/lib/capsuleos/shells/linux/date.js');
+if (!dateJs.includes('rocky-clock-date')) {
+  errors.push('date.js : mise à jour rocky-clock-date absente');
+}
+if (!overviewCss.includes('.fedora-overview::before')) {
+  errors.push('overview.css : fond Aperçu flouté (::before) absent');
+}
+const tokensCss = read('home/RedHat/Rocky/style/gnome-shell/tokens.css');
+if (!tokensCss.includes('--fedora-overview-dash-bg')) {
+  errors.push('tokens.css : tokens dash Aperçu absents');
 }
 if (!overviewCss.includes('.fedora-overview__dash-item.is-running::after')) {
   errors.push('overview.css : pointeur dash running absent');
@@ -91,13 +106,52 @@ async function runPlaywright() {
   if (!dash.focused) errors.push('Playwright : dash Firefox non is-focused');
 
   const clock = await page.evaluate(() => {
+    const trigger = document.querySelector('.taskbar-clock-trigger');
     const date = document.getElementById('rocky-clock-date')?.textContent || '';
     const time = document.getElementById('taskbar-clock')?.textContent || '';
-    return { date, time, stacked: getComputedStyle(document.querySelector('.taskbar-clock-trigger')).flexDirection === 'column' };
+    const bar = document.querySelector('.fedora-top-bar');
+    const center = document.querySelector('.fedora-top-bar__center');
+    const barRect = bar?.getBoundingClientRect();
+    const centerRect = center?.getBoundingClientRect();
+    const offsetPx = barRect && centerRect
+      ? Math.abs((centerRect.left + centerRect.width / 2) - (barRect.left + barRect.width / 2))
+      : 999;
+    return {
+      date,
+      time,
+      row: getComputedStyle(trigger).flexDirection === 'row',
+      centerOffsetPx: offsetPx,
+      fitsBar: trigger && bar ? trigger.getBoundingClientRect().height <= bar.getBoundingClientRect().height + 1 : false,
+    };
   });
-  if (!clock.date || clock.date.length < 6) errors.push('Playwright : date top bar vide');
+  if (!clock.date || clock.date.length < 4) errors.push('Playwright : date top bar vide');
+  if (/\blundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche\b/i.test(clock.date)) {
+    errors.push('Playwright : date top bar ne doit pas inclure le jour de la semaine (format VM)');
+  }
   if (!clock.time || !/^\d{1,2}:\d{2}/.test(clock.time.trim())) errors.push('Playwright : horloge invalide');
-  if (!clock.stacked) errors.push('Playwright : horloge non empilée');
+  if (!clock.row) errors.push('Playwright : horloge doit être sur une ligne');
+  if (clock.centerOffsetPx > 3) errors.push(`Playwright : horloge décentrée (${clock.centerOffsetPx.toFixed(1)}px)`);
+  if (!clock.fitsBar) errors.push('Playwright : horloge déborde la top bar');
+
+  const tray = await page.evaluate(() => {
+    const bar = document.querySelector('.fedora-top-bar')?.getBoundingClientRect();
+    const cluster = document.getElementById('tray-quick-settings-btn')?.getBoundingClientRect();
+    if (!bar || !cluster) return { ok: false };
+    const centerX = cluster.left + cluster.width / 2;
+    const barMid = bar.left + bar.width / 2;
+    return {
+      ok: true,
+      onRightHalf: centerX > barMid + 8,
+      overlapsClock: (() => {
+        const clock = document.querySelector('.taskbar-clock-trigger')?.getBoundingClientRect();
+        if (!clock) return false;
+        return !(cluster.left > clock.right + 4 || cluster.right < clock.left - 4);
+      })(),
+    };
+  });
+  if (!tray.ok) errors.push('Playwright : tray introuvable');
+  if (tray.ok && !tray.onRightHalf) errors.push('Playwright : tray pas aligné à droite');
+  if (tray.ok && tray.overlapsClock) errors.push('Playwright : tray superposé à l’horloge');
 
   await browser.close();
 }

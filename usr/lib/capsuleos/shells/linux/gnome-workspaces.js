@@ -125,6 +125,54 @@
         });
     }
 
+    function updateWorkspaceCardThumbnails(activeIndex) {
+        const card = global.document.querySelector('.fedora-overview__workspace-card');
+        const mainRow = global.document.querySelector('.fedora-main-row');
+        if (!card || !mainRow) {
+            return;
+        }
+        let layer = card.querySelector('.fedora-overview__workspace-thumbs');
+        if (!layer) {
+            layer = global.document.createElement('div');
+            layer.className = 'fedora-overview__workspace-thumbs';
+            layer.setAttribute('aria-hidden', 'true');
+            card.appendChild(layer);
+        }
+        layer.innerHTML = '';
+        const rowRect = mainRow.getBoundingClientRect();
+        if (!rowRect.width || !rowRect.height) {
+            return;
+        }
+        const wins = Array.from(global.document.querySelectorAll('.windowElement[data-link]'))
+            .filter((win) => {
+                const slot = win.dataset.link;
+                if (!slot || slot === 'mainMenu' || win.style.display === 'none') {
+                    return false;
+                }
+                return Number(win.dataset.workspaceIndex || 0) === activeIndex;
+            });
+        wins.forEach((win) => {
+            const rect = win.getBoundingClientRect();
+            if (!rect.width || !rect.height) {
+                return;
+            }
+            const thumb = global.document.createElement('span');
+            thumb.className = 'fedora-overview__workspace-thumb';
+            if (win.classList.contains('windowElementActive')) {
+                thumb.classList.add('is-focused');
+            }
+            const left = ((rect.left - rowRect.left) / rowRect.width) * 100;
+            const top = ((rect.top - rowRect.top) / rowRect.height) * 100;
+            const width = (rect.width / rowRect.width) * 100;
+            const height = (rect.height / rowRect.height) * 100;
+            thumb.style.left = `${Math.max(0, Math.min(92, left))}%`;
+            thumb.style.top = `${Math.max(0, Math.min(92, top))}%`;
+            thumb.style.width = `${Math.max(8, Math.min(88, width))}%`;
+            thumb.style.height = `${Math.max(6, Math.min(88, height))}%`;
+            layer.appendChild(thumb);
+        });
+    }
+
     function updateWorkspaceStage(activeIndex) {
         const stage = global.document.querySelector('[data-gnome-workspace-stage]');
         if (!stage) {
@@ -146,6 +194,7 @@
             peekPrev.hidden = activeIndex <= 0;
             peekPrev.dataset.workspaceIndex = String(activeIndex - 1);
         }
+        updateWorkspaceCardThumbnails(activeIndex);
     }
 
     function bindMiniStripDelegation() {
@@ -160,6 +209,25 @@
                 return;
             }
             setActiveIndex(Number(btn.dataset.workspaceSelect));
+        });
+    }
+
+    function bindWorkspacePeek() {
+        const stage = global.document.querySelector('[data-gnome-workspace-stage]');
+        if (!stage || stage.dataset.peekBound === '1') {
+            return;
+        }
+        stage.dataset.peekBound = '1';
+        stage.addEventListener('click', (event) => {
+            const next = event.target.closest('.fedora-overview__workspace-next');
+            const prev = event.target.closest('.fedora-overview__workspace-prev');
+            if (next && !next.hidden) {
+                setActiveIndex(Number(next.dataset.workspaceIndex));
+                return;
+            }
+            if (prev && !prev.hidden) {
+                setActiveIndex(Number(prev.dataset.workspaceIndex));
+            }
         });
     }
 
@@ -239,6 +307,7 @@
         setActiveIndex(0, { silent: true });
         updateMiniStrip(0);
         bindMiniStripDelegation();
+        bindWorkspacePeek();
         bindKeyboard();
         bindWindowOpen();
 
@@ -248,6 +317,13 @@
             }
         });
 
+        global.document.addEventListener('capsule:window-opened', () => {
+            updateWorkspaceCardThumbnails(getActiveIndex());
+        });
+        global.document.addEventListener('capsule:window-focused', () => {
+            updateWorkspaceCardThumbnails(getActiveIndex());
+        });
+
         global.CapsuleGnomeWorkspaces = {
             get count() {
                 return getWorkspaceCount();
@@ -255,6 +331,7 @@
             getActiveIndex,
             setActiveIndex,
             assignWindowToWorkspace,
+            refreshWorkspacePreviews: () => updateWorkspaceCardThumbnails(getActiveIndex()),
             reconfigure() {
                 const active = getActiveIndex();
                 setActiveIndex(Math.min(active, getWorkspaceCount() - 1), { silent: true });

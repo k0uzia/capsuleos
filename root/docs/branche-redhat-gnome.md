@@ -125,6 +125,7 @@ Source : [Rocky Linux 10 Release Notes — Desktop Component changes](https://do
 Sources :
 
 - [GNOME Human Interface Guidelines](https://developer.gnome.org/hig) — principes, patterns, Libadwaita  
+- [gnome-hig-ressources.md](gnome-hig-ressources.md) — **catalogue interne** (crawl récursif depuis [resources.html](https://developer.gnome.org/hig/resources.html))  
 - [GNOME Shell Design (wiki archive)](https://wiki.gnome.org/Projects/GnomeShell/Design) — Activities Overview  
 - [Ubuntu Help — Visual overview of GNOME](https://help.ubuntu.com/stable/ubuntu-help/shell-introduction.html.en) — dash, grille apps, top bar  
 

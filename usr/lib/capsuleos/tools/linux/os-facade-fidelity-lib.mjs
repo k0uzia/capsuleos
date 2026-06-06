@@ -40,6 +40,12 @@ export const resolveCapsuleOsUrl = (registryId, httpBase) => {
   return `${base}/${facadeRel}`;
 };
 
+/** URL file:// pour smokes locaux (façade pick-os, pas le skin home/ direct). */
+export const resolveOsFacadeFileUrl = (registryId) => {
+  const facadeRel = resolveOsFacadeRel(registryId);
+  return `file://${path.join(ROOT, facadeRel)}`;
+};
+
 export const readOsFacadeHtml = (registryId) => {
   const { map } = facadeMapForRegistry(registryId);
   const facadePath = expectedFacadePath(map.facade);

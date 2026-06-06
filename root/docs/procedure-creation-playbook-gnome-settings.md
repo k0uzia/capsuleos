@@ -336,7 +336,7 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```bash
 node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 
-# Lot P0 VM (gsettings + captures si gnome-screenshot installé)
+# Lot P0 VM (gsettings + captures via org.gnome.Shell.Screenshot D-Bus — Rocky 10)
 node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-rocky --filter P0
 # → root/docs/inventaires/<registry>-gnome-settings-visual-investigation.json
 # → root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/ (PNG)
@@ -467,7 +467,15 @@ Chaque entrée `investigations[]` décrit :
 
 ### 10.3 Protocole de capture VM
 
-**Prérequis** : session graphique ouverte, gcc accessible, `gnome-screenshot` ou `import -window root` installé.
+**Prérequis** : session graphique ouverte, gcc accessible. **Rocky Linux 10** :
+
+| Outil | Rôle |
+|-------|------|
+| **Snapshot** (`/usr/bin/snapshot`, `org.gnome.Snapshot`) | App graphique GNOME — pas de CLI capture |
+| **Shell.Screenshot** (D-Bus) | Session locale VM ; **refusé en SSH** (GNOME 47+) |
+| **virsh screenshot** (hôte libvirt) | Repli lab automatisé — `collect-vm-gnome-settings-visual-investigation.mjs` + `vm-rocky-capture-host.sh` |
+
+`gnome-screenshot` n’est pas dans les dépôts EL10 par défaut.
 
 Pour chaque contrôle de la matrice visuelle :
 
@@ -483,8 +491,10 @@ Pour chaque contrôle de la matrice visuelle :
 **Commandes utiles VM** :
 
 ```bash
-# Capture plein écran
-gnome-screenshot -f /tmp/settings-inv-night-before.png
+# Capture plein écran (Rocky 10 / GNOME 47+)
+gdbus call --session --dest org.gnome.Shell.Screenshot \
+  --object-path /org/gnome/Shell/Screenshot \
+  --method org.gnome.Shell.Screenshot.Screenshot false false /tmp/settings-inv-night-before.png
 
 # Notification test (panneau notifications)
 notify-send "CapsuleOS lab" "Test bannière"

@@ -32,6 +32,7 @@
       "xauthorityDiscovery": "mutter-xwayland",
       "toolkit": "gnome",
       "hypervisor": "libvirt",
+      "virshName": "Rocky10",
       "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html"
     }
   ]

@@ -1,9 +1,12 @@
 {
-  "generatedAt": "2026-06-06T13:28:53.269836+00:00",
+  "generatedAt": "2026-06-06T13:40:04.031236+00:00",
   "source": "vm-gnome-settings-visual-investigation.sh",
   "registry": "linux-rocky",
   "outputDir": "/tmp/capsuleos-visual-investigation",
-  "screenshotTool": false,
+  "screenshotTool": true,
+  "screenshotBackend": "host-virsh",
+  "captureStrategy": "host-virsh",
+  "snapshotAppInstalled": true,
   "filter": "P0",
   "investigations": [
     {
@@ -21,12 +24,28 @@
         "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": 689,
+        "durationMs": 800,
         "easing": "ease-out",
         "properties": [],
-        "notes": "gnome-screenshot absent — gsettings seulement"
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/theme/before.png",
+          "timestamp": "2026-06-06T13:40:09.937Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/theme/during-150ms.png",
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/theme/after.png",
+          "elapsedMs": 300
+        }
+      ],
       "surfaces": [
         "desktop",
         "top-bar",
@@ -71,14 +90,30 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1048,
+        "durationMs": 1075,
         "easing": null,
         "properties": [
           "color-temperature"
         ],
-        "notes": "gnome-screenshot absent — gsettings seulement"
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/night-light/before.png",
+          "timestamp": "2026-06-06T13:40:22.809Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/night-light/during-500ms.png",
+          "elapsedMs": 500
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/night-light/after.png",
+          "elapsedMs": 1000
+        }
+      ],
       "surfaces": [
         "desktop",
         "overview",
@@ -121,12 +156,28 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 724,
+        "durationMs": 709,
         "easing": "ease-out",
         "properties": [],
-        "notes": "gnome-screenshot absent — gsettings seulement"
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dynamic-workspaces/before.png",
+          "timestamp": "2026-06-06T13:40:32.937Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dynamic-workspaces/during-175ms.png",
+          "elapsedMs": 175
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dynamic-workspaces/after.png",
+          "elapsedMs": 350
+        }
+      ],
       "surfaces": [
         "overview-mini-workspaces",
         "workspace-indicator"
@@ -167,14 +218,30 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 642,
+        "durationMs": 690,
         "easing": null,
         "properties": [
           "opacity"
         ],
-        "notes": "Restauration manuelle QS si besoin — pas de clé gsettings VM"
+        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dnd/before.png",
+          "timestamp": "2026-06-06T13:40:41.109Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dnd/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/dnd/after.png",
+          "elapsedMs": 200
+        }
+      ],
       "surfaces": [
         "quick-settings-tile",
         "calendar-popover",

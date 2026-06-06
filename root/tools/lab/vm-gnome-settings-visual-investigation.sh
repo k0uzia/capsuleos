@@ -39,9 +39,6 @@ FILTER = os.environ.get("CAPSULE_VISUAL_FILTER", "P0")
 with open(MATRIX_PATH, encoding="utf-8") as f:
     MATRIX = json.load(f)
 
-HAS_SCREENSHOT = subprocess.call(["which", "gnome-screenshot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
-
-
 def run(cmd, timeout=30):
     try:
         return subprocess.check_output(cmd, shell=isinstance(cmd, str), stderr=subprocess.DEVNULL, text=True, timeout=timeout).strip()
@@ -60,18 +57,75 @@ def gset(schema, key, value):
     subprocess.run(["gsettings", "set", schema, key, value], check=False, stderr=subprocess.DEVNULL)
 
 
+def shell_screenshot_status(path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        res = subprocess.run(
+            [
+                "gdbus", "call", "--session",
+                "--dest", "org.gnome.Shell.Screenshot",
+                "--object-path", "/org/gnome/Shell/Screenshot",
+                "--method", "org.gnome.Shell.Screenshot.Screenshot",
+                "false", "false", str(path),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+        if res.returncode == 0 and path.is_file() and path.stat().st_size > 0:
+            return "ok"
+        if "AccessDenied" in (res.stderr or "") or "not allowed" in (res.stderr or "").lower():
+            return "access-denied"
+    except Exception:
+        pass
+    return "failed"
+
+
+def probe_screenshot_backend():
+    """Rocky Linux 10 : Shell.Screenshot D-Bus (session locale) ou virsh hôte si SSH refusé."""
+    probe = OUT_DIR / "_screenshot-probe.png"
+    probe.parent.mkdir(parents=True, exist_ok=True)
+    status = shell_screenshot_status(probe)
+    if status == "ok":
+        try:
+            probe.unlink()
+        except OSError:
+            pass
+        return "org.gnome.Shell.Screenshot"
+    if status == "access-denied":
+        # GNOME 47+ bloque souvent les captures D-Bus depuis SSH — repli virsh (hôte lab)
+        return "host-virsh"
+    if subprocess.call(["which", "gnome-screenshot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0:
+        return "gnome-screenshot"
+    return None
+
+
+SCREENSHOT_BACKEND = probe_screenshot_backend()
+HAS_SCREENSHOT = SCREENSHOT_BACKEND in {"org.gnome.Shell.Screenshot", "gnome-screenshot"}
+
+
+def shell_screenshot(path):
+    return shell_screenshot_status(path) == "ok"
+
+
 def screenshot(name):
     if not HAS_SCREENSHOT:
         return None
     path = OUT_DIR / name
+    path.parent.mkdir(parents=True, exist_ok=True)
     try:
-        subprocess.run(
-            ["gnome-screenshot", "-f", str(path)],
-            check=True,
-            timeout=15,
-            stderr=subprocess.DEVNULL,
-        )
-        return str(path)
+        if SCREENSHOT_BACKEND == "org.gnome.Shell.Screenshot":
+            if not shell_screenshot(path):
+                return None
+        else:
+            subprocess.run(
+                ["gnome-screenshot", "-f", str(path)],
+                check=True,
+                timeout=15,
+                stderr=subprocess.DEVNULL,
+            )
+        return str(path) if path.is_file() and path.stat().st_size > 0 else None
     except Exception:
         return None
 
@@ -191,7 +245,10 @@ for inv in MATRIX.get("investigations", []):
             "durationMs": elapsed,
             "easing": inv.get("transition", {}).get("easing"),
             "properties": [inv.get("transition", {}).get("property")] if inv.get("transition", {}).get("property") else [],
-            "notes": handler.get("note") or ("screenshot" if HAS_SCREENSHOT else "gnome-screenshot absent — gsettings seulement"),
+            "notes": handler.get("note") or (
+                f"capture via {SCREENSHOT_BACKEND}" if HAS_SCREENSHOT
+                else "aucun backend capture (Shell.Screenshot D-Bus indisponible)"
+            ),
         },
         "vmCaptures": captures,
         "surfaces": inv.get("surfaces"),
@@ -218,6 +275,14 @@ out = {
     "registry": MATRIX.get("registry"),
     "outputDir": str(OUT_DIR),
     "screenshotTool": HAS_SCREENSHOT,
+    "screenshotBackend": SCREENSHOT_BACKEND,
+    "captureStrategy": (
+        "vm-dbus" if SCREENSHOT_BACKEND == "org.gnome.Shell.Screenshot"
+        else "host-virsh" if SCREENSHOT_BACKEND == "host-virsh"
+        else "vm-gnome-screenshot" if SCREENSHOT_BACKEND == "gnome-screenshot"
+        else "none"
+    ),
+    "snapshotAppInstalled": subprocess.call(["which", "snapshot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0,
     "filter": FILTER,
     "investigations": results,
 }

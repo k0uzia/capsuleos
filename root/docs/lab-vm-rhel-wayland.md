@@ -8,6 +8,8 @@ Guide pour connecter une VM **virt-manager / libvirt** (NAT `192.168.122.x`) au 
 
 **Assets VM (obligatoire)** : [`convention-assets-depuis-vm.md`](convention-assets-depuis-vm.md) — `bash root/tools/lab/pull-vm-assets.sh --id linux-rocky`.
 
+**Captures écran lab (Rocky 10)** : app **Snapshot** installée ; captures automatisées via **`virsh screenshot <domaine>`** depuis l’hôte (`vm-rocky-capture-host.sh`, collecteur enquête visuelle) — D-Bus `org.gnome.Shell.Screenshot` refuse souvent les appels SSH.
+
 **Documents liés** : [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) (procédure maître) · [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) · [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [`etc/capsuleos/lab-inventory.example.json`](../../etc/capsuleos/lab-inventory.example.json)
 
 ---

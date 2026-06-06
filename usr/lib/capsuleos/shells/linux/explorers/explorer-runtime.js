@@ -16,6 +16,7 @@
     const DOLPHIN_SCRIPT = 'fileExplorer/fileExplorerDolphin.js';
     const NAUTILUS_SCRIPTS = [
         'fileExplorer/fileExplorerNautilus.js',
+        'fileExplorer/fileExplorerNautilusHeaderbar.js',
         'fileExplorer/fileExplorerTabs.js',
         'fileExplorer/fileExplorerProperties.js',
         'fileExplorer/fileExplorerContextMenu.js'

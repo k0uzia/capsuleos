@@ -154,6 +154,24 @@
                         </div>
                 </form>
         </dialog>
+        <nav id="nautilus-main-menu" class="nautilus-popover" role="menu" aria-label="Menu principal" hidden>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-menu="new-folder">Nouveau dossier</button>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-menu="new-tab">Nouvel onglet</button>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-menu="refresh">Actualiser</button>
+                <div class="nautilus-popover__separator" role="separator"></div>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-menu="toggle-hidden">Afficher les fichiers cachés</button>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-menu="preferences">Préférences…</button>
+        </nav>
+        <nav id="nautilus-search-filter-menu" class="nautilus-popover" role="menu" aria-label="Filtres de recherche" hidden>
+                <button type="button" class="nautilus-popover__item" role="menuitemradio" data-nautilus-search-filter="all" aria-checked="true">Tous les éléments</button>
+                <button type="button" class="nautilus-popover__item" role="menuitemradio" data-nautilus-search-filter="folders">Dossiers uniquement</button>
+                <button type="button" class="nautilus-popover__item" role="menuitemradio" data-nautilus-search-filter="files">Fichiers uniquement</button>
+        </nav>
+        <nav id="nautilus-view-menu" class="nautilus-popover" role="menu" aria-label="Autres vues" hidden>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-view="compact">Vue compacte</button>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-view="sort-name">Trier par nom</button>
+                <button type="button" class="nautilus-popover__item" role="menuitem" data-nautilus-view="refresh">Actualiser</button>
+        </nav>
         <nav id="nemo-context-menu" class="nautilus-context-menu" role="menu" aria-label="Menu contextuel Fichiers" hidden>
                 <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="open" hidden>Ouvrir</button>
                 <button type="button" class="nautilus-context-menu__item" role="menuitem" data-nemo-ctx="new-folder">Nouveau dossier</button>

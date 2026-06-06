@@ -10,6 +10,8 @@ Référence : [Nautilus sur Ubuntu-fr](https://doc.ubuntu-fr.org/nautilus), capt
 | Skin Rocky | `home/RedHat/Rocky/style/apps/nautilus.skin.css` |
 | Moteur commun | `usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js` |
 | Interactions Nautilus | `fileExplorerNautilus.js` |
+| Headerbar (boutons + popovers) | `fileExplorerNautilusHeaderbar.js` |
+| Playbook contrôles headerbar | `root/docs/inventaires/nautilus-headerbar-playbook.json` |
 | Menu contextuel | `fileExplorerContextMenu.js` |
 | Slot runtime | `div.windowElement#nemo[data-link="nemo"]`, template `nemo-gnome` |
 
@@ -34,6 +36,22 @@ Référence : [Nautilus sur Ubuntu-fr](https://doc.ubuntu-fr.org/nautilus), capt
 | Thème clair / sombre | `nautilus.skin.css` (`html[data-theme]`) | OK |
 | Icônes Adwaita (remap Cinnamon) | `explorer-icon-base.js` | OK |
 | Glisser-déposer (sidebar + grille) | `fileExplorerDnD.js` | OK |
+
+## Headerbar (playbook)
+
+Référence machine : `root/docs/inventaires/nautilus-headerbar-playbook.json` (aligné [Ubuntu-fr Nautilus](https://doc.ubuntu-fr.org/nautilus)).
+
+| Contrôle | Comportement VM | Capsule |
+|----------|-----------------|---------|
+| Loupe plateau titre | Focus recherche | `.nautilus-app__plate-search` |
+| Menu ☰ | Nouveau dossier, onglet, actualiser, fichiers cachés, préférences | `#nautilus-main-menu` |
+| Précédent / Suivant | Historique | `#precedent` / `#suivant` |
+| Filtres recherche | Type d’élément | `#nautilus-search-filter-menu` |
+| Emplacement (ⓘ) | Mode adresse `Ctrl+L`, propriétés | `toggleNautilusLocationBarMode` |
+| Vues liste / icônes | `Ctrl+1` / `Ctrl+2` | `[data-view-mode]` |
+| Menu autres vues | Compacte, tri, actualiser | `#nautilus-view-menu` |
+
+Réinjection gabarit : `resetFileExplorerSlotBindings()` dans `contentLoader` évite les écouteurs orphelins après `injectSlot`.
 
 ## Places virtuelles
 

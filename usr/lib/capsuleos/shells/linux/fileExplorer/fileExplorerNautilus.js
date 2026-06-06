@@ -137,7 +137,11 @@
 
             if (ctrl && !event.shiftKey && (key === 'l' || key === 'L')) {
                 event.preventDefault();
-                focusSearchInput(true);
+                if (typeof global.setNautilusLocationBarMode === 'function') {
+                    global.setNautilusLocationBarMode('path');
+                } else {
+                    focusSearchInput(true);
+                }
                 return;
             }
 

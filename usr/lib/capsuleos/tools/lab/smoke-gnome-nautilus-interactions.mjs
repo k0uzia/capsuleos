@@ -48,6 +48,37 @@ try {
     if (!boot.contextMenu) errors.push('#nemo-context-menu absent');
     if (!boot.newFolderBtn) errors.push('bouton nouveau dossier absent');
 
+    const headerbar = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        return {
+            headerbarInit: win?.dataset?.nautilusHeaderbarInit === 'true',
+            mainMenu: !!win?.querySelector('#nautilus-main-menu'),
+            filterMenu: !!win?.querySelector('#nautilus-search-filter-menu'),
+            viewMenu: !!win?.querySelector('#nautilus-view-menu'),
+        };
+    });
+    if (!headerbar.mainMenu) errors.push('#nautilus-main-menu absent');
+    if (!headerbar.filterMenu) errors.push('#nautilus-search-filter-menu absent');
+    if (!headerbar.viewMenu) errors.push('#nautilus-view-menu absent');
+
+    await page.click('div[data-link="nemo"] .nautilus-app__sidebar-menu-btn');
+    await page.waitForTimeout(200);
+    const mainMenuOpen = await page.evaluate(() => {
+        const menu = document.querySelector('#nautilus-main-menu');
+        return menu && !menu.hidden;
+    });
+    if (!mainMenuOpen) errors.push('menu principal ☰ ne s’ouvre pas');
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(100);
+
+    await page.click('div[data-link="nemo"] .nautilus-app__plate-search');
+    await page.waitForTimeout(150);
+    const searchFocused = await page.evaluate(() => (
+        document.activeElement && document.activeElement.id === 'nemo-search-input'
+    ));
+    if (!searchFocused) errors.push('loupe plateau titre ne focus pas la recherche');
+
     await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
     await page.waitForTimeout(500);
 
@@ -58,6 +89,37 @@ try {
     if (!docs.path.endsWith('/Documents')) {
         errors.push(`navigation Documents: path=${docs.path}`);
     }
+
+    await page.click('div[data-link="nemo"] #voletnemo a[data-link="Dossier Personnel"]');
+    await page.waitForTimeout(350);
+    await page.click('div[data-link="nemo"] #precedent');
+    await page.waitForTimeout(350);
+    const backNav = await page.evaluate(() => window.getExplorerCurrentPath('nemo'));
+    if (!backNav.endsWith('/Documents')) {
+        errors.push(`bouton Précédent: path=${backNav}`);
+    }
+
+    await page.click('div[data-link="nemo"] a[data-view-mode="icons"]');
+    await page.waitForTimeout(250);
+    const iconsViewBtn = await page.evaluate(() => {
+        const btn = document.querySelector('div[data-link="nemo"] a[data-view-mode="icons"]');
+        const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
+        return {
+            ariaCurrent: btn?.getAttribute('aria-current') === 'true',
+            icons: grid?.classList.contains('nemo-app__content-grid--icons'),
+        };
+    });
+    if (!iconsViewBtn.ariaCurrent || !iconsViewBtn.icons) {
+        errors.push('bouton vue icônes inactif');
+    }
+
+    await page.click('div[data-link="nemo"] .nautilus-app__view-menu-btn');
+    await page.waitForTimeout(200);
+    const viewMenuOpen = await page.evaluate(() => {
+        const menu = document.querySelector('#nautilus-view-menu');
+        return menu && !menu.hidden;
+    });
+    if (!viewMenuOpen) errors.push('menu autres vues ne s’ouvre pas');
 
     await page.click('div[data-link="nemo"] .nautilus-app__new-folder-btn');
     await page.waitForTimeout(600);

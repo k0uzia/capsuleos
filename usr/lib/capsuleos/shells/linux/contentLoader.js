@@ -327,6 +327,9 @@ const runFirstAvailable = (candidates, warnLabel) => {
 
 const SLOT_INIT_HANDLERS = {
     nemo: (container) => {
+        if (typeof window.resetFileExplorerSlotBindings === 'function') {
+            window.resetFileExplorerSlotBindings(container);
+        }
         const contentRoot = typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT
             ? window.CAPSULE_CONTENT_ROOT
             : (typeof window !== 'undefined' && window.CapsuleUserHome)

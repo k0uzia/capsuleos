@@ -461,6 +461,47 @@ body#fedora div[data-link="nemo"] .nemo-app__empty {
     }
 }
 
+body#fedora div[data-link="nemo"] .nautilus-popover {
+    position: fixed;
+    z-index: 12001;
+    min-width: 13rem;
+    padding: 0.35rem 0;
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg);
+    border: 1px solid var(--nemo-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    color: var(--nemo-text-primary);
+}
+
+body#fedora div[data-link="nemo"] .nautilus-popover[hidden] {
+    display: none !important;
+}
+
+body#fedora div[data-link="nemo"] .nautilus-popover__item {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--nemo-text-primary);
+    font: inherit;
+    font-size: 0.82rem;
+    text-align: left;
+    cursor: default;
+}
+
+body#fedora div[data-link="nemo"] .nautilus-popover__item:hover:not(:disabled),
+body#fedora div[data-link="nemo"] .nautilus-popover__item:focus-visible,
+body#fedora div[data-link="nemo"] .nautilus-popover__item.is-active {
+    background: var(--nemo-item-active-bg);
+}
+
+body#fedora div[data-link="nemo"] .nautilus-popover__separator {
+    height: 1px;
+    margin: 0.35rem 0.65rem;
+    background: var(--nemo-border);
+}
+
 body#fedora div[data-link="nemo"] .nautilus-context-menu {
     position: fixed;
     z-index: 12000;

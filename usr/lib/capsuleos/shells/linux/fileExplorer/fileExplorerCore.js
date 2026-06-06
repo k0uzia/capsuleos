@@ -111,6 +111,8 @@ const fileExplorerState = {
     viewMode: 'icons',
     searchQuery: '',
     showHiddenFiles: false,
+    searchFilter: 'all',
+    locationBarMode: 'search',
     previewOpen: false,
     splitView: false,
     activePane: 'primary',
@@ -379,7 +381,17 @@ const usesNemoListViewFrenchColumns = () => (
     && !isCosmicFilesExplorer()
 );
 
+const passesExplorerSearchFilter = (item) => {
+    if (typeof window.passesNautilusSearchFilter === 'function') {
+        return window.passesNautilusSearchFilter(item);
+    }
+    return true;
+};
+
 const shouldHideListViewItem = (item, directoryPath) => {
+    if (!passesExplorerSearchFilter(item)) {
+        return true;
+    }
     if (!fileExplorerState.showHiddenFiles && item && String(item.name || '').startsWith('.')) {
         return true;
     }
@@ -1594,6 +1606,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
         if (typeof window.refreshNemoSidebarTree === 'function') {
             window.refreshNemoSidebarTree();
         }
+
+        if (typeof window.applyNautilusLocationBarMode === 'function') {
+            window.applyNautilusLocationBarMode();
+        }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
     }
@@ -1758,7 +1774,8 @@ const getFileExplorerViewButtons = () => {
         return [];
     }
 
-    return [...viewRoot.querySelectorAll('a[href]')].filter((btn) => resolveViewModeFromButton(btn));
+    return [...viewRoot.querySelectorAll('a[href], a[data-view-mode], button[data-view-mode]')]
+        .filter((btn) => resolveViewModeFromButton(btn));
 };
 
 const updateFileExplorerViewControls = () => {
@@ -1853,6 +1870,9 @@ const bindFileExplorerSearchControls = () => {
 
     if (searchInput && searchInput.dataset.feSearchBound !== 'true') {
         const applySearchFromInput = () => {
+            if (fileExplorerState.locationBarMode === 'path') {
+                return;
+            }
             fileExplorerState.searchQuery = String(searchInput.value || '').replace(/^\s+|\s+$/g, '');
             renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
             updatePathDisplay();
@@ -1918,7 +1938,7 @@ const bindFileExplorerViewControls = () => {
     }
 
     viewRoot.addEventListener('click', (event) => {
-        const btn = event.target.closest('a[href]');
+        const btn = event.target.closest('a[href], button[data-view-mode], a[data-view-mode]');
         if (!btn || !viewRoot.contains(btn)) {
             return;
         }
@@ -2035,6 +2055,9 @@ const bindFileExplorerNavigationControls = () => {
 
     if (typeof window.bindFileExplorerNautilusFeatures === 'function') {
         window.bindFileExplorerNautilusFeatures();
+    }
+    if (typeof window.bindFileExplorerNautilusHeaderbar === 'function') {
+        window.bindFileExplorerNautilusHeaderbar();
     }
     if (typeof window.bindFileExplorerTabs === 'function') {
         window.bindFileExplorerTabs();

@@ -10,7 +10,7 @@ body#fedora {
     --gnome-tour-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#fedora) {
     --gnome-tour-bg: #fafafa;
     --gnome-tour-header-bg: #f6f6f6;
     --gnome-tour-text: #1e1e1e;

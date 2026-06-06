@@ -1,49 +1,48 @@
 /**
- * Fedora - À propos.
- * Skin uniquement : le template et profile.js restent communs.
+ * ubuntu — profile (structure Rocky).
  */
-
-body#ubuntu div[data-link="profile"] {
+body#ubuntu div[data-link="profile"].gnome-app--csd {
     width: min(34rem, calc(100vw - var(--ubuntu-dock-width) - 2rem));
     height: min(38rem, calc(100vh - var(--ubuntu-top-bar-height) - 2rem));
-    border-color: rgba(0, 0, 0, 0.44);
+    padding: 0;
+    border-color: var(--capsule-chrome-window-border, var(--fedora-window-border));
     border-radius: 0.9rem;
     color: #f6f6f7;
     background: #242428;
     overflow: hidden;
 }
 
+body#ubuntu div[data-link="profile"] .profile-app__header {
+    background: #303034;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 html[data-theme="light"]:has(#ubuntu) body#ubuntu div[data-link="profile"] {
-    border-color: rgba(0, 0, 0, 0.12);
     color: #1f1f22;
     background: #ffffff;
 }
 
-body#ubuntu div[data-link="profile"] #windowHeader {
-    border-radius: 0.9rem 0.9rem 0 0;
-    background: #303034;
-}
-
-html[data-theme="light"]:has(#ubuntu) body#ubuntu div[data-link="profile"] #windowHeader {
+html[data-theme="light"]:has(#ubuntu) body#ubuntu div[data-link="profile"] .profile-app__header {
     background: #f3f3f3;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
 }
 
 body#ubuntu main#profileApp {
     width: 100%;
-    height: calc(100% - calc(var(--head) / 1.25));
+    height: 100%;
     margin-bottom: 0;
     padding: 1.35rem;
     border-radius: 0 0 0.9rem 0.9rem;
     color: #f6f6f7;
     background:
-        radial-gradient(circle at top right, rgba(233, 84, 32, 0.26), transparent 18rem),
+        radial-gradient(circle at top right, rgba(53, 132, 228, 0.26), transparent 18rem),
         #242428;
 }
 
 html[data-theme="light"]:has(#ubuntu) body#ubuntu main#profileApp {
     color: #1f1f22;
     background:
-        radial-gradient(circle at top right, rgba(233, 84, 32, 0.12), transparent 18rem),
+        radial-gradient(circle at top right, rgba(53, 132, 228, 0.12), transparent 18rem),
         #ffffff;
 }
 
@@ -123,7 +122,7 @@ body#ubuntu .profile-highlight__icon {
     font-size: 0.72rem;
     font-weight: 700;
     color: #ffffff;
-    background: #E95420;
+    background: #3584e4;
     text-align: center;
 }
 

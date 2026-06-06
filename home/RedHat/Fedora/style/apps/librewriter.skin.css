@@ -1,5 +1,5 @@
 /**
- * Rocky — LibreOffice Writer · chrome CSD (menubar intégrée).
+ * fedora — librewriter (structure Rocky).
  */
 body#fedora div[data-link="librewriter"].gnome-app--csd {
     width: min(52rem, calc(100vw - var(--fedora-dock-width) - 1.5rem));

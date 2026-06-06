@@ -15,7 +15,7 @@ body#ubuntu {
     --xed-toolbar-icon-filter: brightness(0) invert(1);
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#ubuntu) {
     --xed-chrome-bg: #f6f6f6;
     --xed-status-bg: #ebebeb;
     --xed-buffer-bg: #ffffff;
@@ -56,7 +56,7 @@ body#ubuntu .xed-app__status {
     color: rgba(255, 255, 255, 0.72);
 }
 
-html[data-theme="light"]:has(#rocky) .xed-app__status {
+html[data-theme="light"]:has(#ubuntu) .xed-app__status {
     color: rgba(0, 0, 0, 0.55);
 }
 

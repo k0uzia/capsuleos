@@ -17,6 +17,7 @@
       "kernelId": "linux",
       "toolkitId": "gnome",
       "chromeContract": "gnome",
+      "packPath": "usr/share/capsuleos/themes/clusters/toolkit-gnome/pack.json",
       "behaviorsModule": "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"
     },
     {

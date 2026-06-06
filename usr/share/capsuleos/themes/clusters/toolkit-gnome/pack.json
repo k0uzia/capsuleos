@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "id": "toolkit.gnome",
+  "label": "GNOME / Adwaita toolkit pack",
+  "updated": "2026-06-04",
+  "reference": {
+    "profileId": "linux-rocky",
+    "skinRoot": "home/RedHat/Rocky"
+  },
+  "cluster": {
+    "chromeCss": "usr/share/capsuleos/themes/clusters/toolkit-gnome/chrome.css",
+    "variablesCss": "usr/share/capsuleos/themes/clusters/toolkit-gnome/variables.css"
+  },
+  "sharedCss": [
+    "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css",
+    "usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css",
+    "usr/share/capsuleos/themes/linux/gnome-app-csd.base.css"
+  ],
+  "chromeContract": "etc/capsuleos/contracts/window-chrome-contexts.json",
+  "providers": {
+    "nemo": "nemo-gnome",
+    "firefox": "firefox-gnome",
+    "terminal": "terminal-gnome",
+    "defaultLibadwaita": "libadwaita-gnome",
+    "ubuntuUpdateManager": "update-manager-ubuntu"
+  },
+  "libadwaita": {
+    "slots": {
+      "calculator": { "anchor": "gnome-calc__header" },
+      "text_editor": { "anchor": "xed-app__menubar" },
+      "calendar": { "anchor": "gnome-calendar-app__header" },
+      "clocks": { "anchor": "gnome-clocks__header" },
+      "update_manager": { "anchor": "gnome-software__headerbar" },
+      "profile": { "anchor": "gnome-app__window-chrome", "runtimeAnchor": true },
+      "checklist": { "anchor": "checklist-app__header" },
+      "librewriter": { "anchor": "lw-menubar" },
+      "themes": { "anchor": "gnome-settings__headerbar" },
+      "visionneur_images": { "anchor": "viewer-app__toolbar" },
+      "visionneur_pdf": { "anchor": "viewer-app__toolbar" },
+      "lecteur_multimedia": { "anchor": "viewer-app__toolbar" },
+      "snapshot": { "anchor": "gnome-snapshot__header" },
+      "screenshot": { "anchor": "gnome-shot__headerbar" },
+      "baobab": { "anchor": "gnome-baobab__header" },
+      "system_monitor": { "anchor": "gnome-sysmon__header" },
+      "tour": { "anchor": "gnome-tour__header" },
+      "characters": { "anchor": "gnome-characters__header" }
+    }
+  },
+  "sync": {
+    "canonicalSkinRoot": "home/RedHat/Rocky",
+    "targets": [
+      { "id": "fedora", "bodyId": "fedora", "skinRoot": "home/RedHat/Fedora", "profileId": "linux-fedora" },
+      { "id": "ubuntu", "bodyId": "ubuntu", "skinRoot": "home/Debian/Ubuntu", "profileId": "linux-ubuntu" },
+      { "id": "alma", "bodyId": "alma", "skinRoot": "home/RedHat/Alma", "profileId": "linux-alma" },
+      { "id": "anduinos", "bodyId": "anduinos", "skinRoot": "home/Debian/AnduinOS", "profileId": "linux-anduinos" }
+    ],
+    "excludeAppSkins": ["mainMenu.skin.css", "Dossier personnel.skin.css", "nemo.skin.css"],
+    "pipelines": [
+      {
+        "id": "nautilus",
+        "type": "script",
+        "path": "usr/lib/capsuleos/tools/linux/sync-gnome-nautilus-skin.mjs",
+        "artifact": "style/apps/nautilus.skin.css"
+      },
+      {
+        "id": "workstation",
+        "type": "script",
+        "path": "usr/lib/capsuleos/tools/linux/sync-gnome-workstation-skin.mjs",
+        "artifact": "style/gnome-workstation.css",
+        "targetIds": ["fedora", "ubuntu", "alma"]
+      },
+      {
+        "id": "utility-apps",
+        "type": "script",
+        "path": "usr/lib/capsuleos/tools/linux/sync-gnome-utility-app-skins.mjs",
+        "slots": ["text_editor", "calculator", "clocks", "calendar", "baobab", "system_monitor", "tour", "characters"]
+      },
+      {
+        "id": "extended-app-skins",
+        "type": "app-skins",
+        "slots": [
+          "profile",
+          "checklist",
+          "librewriter",
+          "themes",
+          "visionneur_images",
+          "visionneur_pdf",
+          "lecteur_multimedia",
+          "snapshot",
+          "screenshot",
+          "update_manager",
+          "firefox",
+          "terminal"
+        ]
+      }
+    ]
+  }
+}

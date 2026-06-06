@@ -10,7 +10,7 @@ body#alma {
     --gnome-clocks-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#alma) {
     --gnome-clocks-bg: #fafafa;
     --gnome-clocks-card: #ffffff;
     --gnome-clocks-text: #1e1e1e;

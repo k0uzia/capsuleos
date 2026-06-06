@@ -10,7 +10,7 @@ body#ubuntu {
     --gnome-clocks-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#ubuntu) {
     --gnome-clocks-bg: #fafafa;
     --gnome-clocks-card: #ffffff;
     --gnome-clocks-text: #1e1e1e;

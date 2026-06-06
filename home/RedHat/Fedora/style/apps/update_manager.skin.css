@@ -1,5 +1,5 @@
 /**
- * Rocky — GNOME Software (org.gnome.Software) · chrome CSD libadwaita.
+ * fedora — update_manager (structure Rocky).
  */
 body#fedora {
     --gnome-software-bg: #303030;
@@ -43,7 +43,7 @@ body#fedora .gnome-software {
     height: 100%;
     color: var(--gnome-software-text);
     background: var(--gnome-software-bg);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 body#fedora .gnome-software__sidebar {

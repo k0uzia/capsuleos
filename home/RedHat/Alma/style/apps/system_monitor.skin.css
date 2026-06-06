@@ -11,7 +11,7 @@ body#alma {
     --gnome-sysmon-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#alma) {
     --gnome-sysmon-bg: #fafafa;
     --gnome-sysmon-header-bg: #f6f6f6;
     --gnome-sysmon-card: #ffffff;

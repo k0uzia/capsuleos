@@ -10,7 +10,7 @@ body#anduinos {
     --gnome-calc-expr: rgba(255, 255, 255, 0.55);
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#anduinos) {
     --gnome-calc-bg: #fafafa;
     --gnome-calc-fn-bg: #e8e8e8;
     --gnome-calc-key-bg: #ffffff;
@@ -47,7 +47,7 @@ body#anduinos .gnome-calc__mode:hover {
     background: rgba(255, 255, 255, 0.08);
 }
 
-html[data-theme="light"]:has(#rocky) .gnome-calc__mode:hover {
+html[data-theme="light"]:has(#anduinos) .gnome-calc__mode:hover {
     background: rgba(0, 0, 0, 0.06);
 }
 

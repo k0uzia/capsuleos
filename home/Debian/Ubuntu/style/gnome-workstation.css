@@ -2,11 +2,11 @@
  * Ubuntu 25.10 — coque GNOME (structure Rocky, dock Unity).
  */
 #ubuntu {
-    --linux-skin-label: "Ubuntu 25.10";
+    --linux-skin-label: "Rocky Linux";
     --ubuntu-dock-gap: calc(var(--head) / 11);
     --ubuntu-dock-item: calc(var(--head) * 1.02);
     /* Fond VM : rocky-default-10-gemstone-skies-night.png (pull-vm-assets.sh) */
-    --ubuntu-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
     --gnome-shell-taskbar-bg: var(--ubuntu-top-bar-bg);
     position: relative;
     display: flex;
@@ -26,10 +26,25 @@
     background-position: center;
 }
 
+/* Extension VM background-logo@fedorahosted.org — logo-size 9 %, border 50 px, bottom-right */
+body#ubuntu:not(.is-overview)::after {
+    content: "";
+    position: absolute;
+    right: var(--rocky-watermark-inset);
+    bottom: var(--rocky-watermark-inset);
+    width: var(--rocky-watermark-width);
+    aspect-ratio: 907.78 / 415.08;
+    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 2;
+}
+
 #ubuntu .fedora-top-bar {
     position: relative;
+    /* 2 colonnes : le centre horloge est en absolute (hors flux) */
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     width: 100%;
     height: var(--ubuntu-top-bar-height);
@@ -42,7 +57,23 @@
     z-index: 50;
 }
 
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    #ubuntu .fedora-top-bar {
+        -webkit-backdrop-filter: blur(14px) saturate(1.05);
+        backdrop-filter: blur(14px) saturate(1.05);
+    }
+}
+
+body#ubuntu.is-overview .fedora-top-bar {
+    background: rgba(0, 0, 0, 0.72);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
 #ubuntu .fedora-top-bar__left {
+    grid-column: 1;
+    justify-self: start;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -52,13 +83,27 @@
 }
 
 #ubuntu .fedora-top-bar__center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+#ubuntu .fedora-top-bar__center .taskbar-clock-trigger {
+    pointer-events: auto;
 }
 
 #ubuntu .fedora-top-bar__right {
+    grid-column: 2;
+    justify-self: end;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -280,7 +325,7 @@
 }
 
 html[data-theme="light"]:has(#ubuntu) #ubuntu {
-    --ubuntu-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
 }
 
 html[data-theme="light"]:has(#ubuntu) #ubuntu #tableau.fedora-dock a:hover {

@@ -15,6 +15,82 @@
 | [inventaires/linux-rocky-gnome-settings-interaction.md](inventaires/linux-rocky-gnome-settings-interaction.md) | Dernier rapport interactions |
 | [reference-gnome-expert.md](reference-gnome-expert.md) | Documentation officielle GNOME (croisement enquête) |
 | `root/tools/lab/gnome-settings-visual-investigation-matrix.json` | Grille enquête effets visuels / transitions |
+| [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | Assets ground truth VM → dépôt |
+| `root/tools/lab/gnome-settings-assets-matrix.json` | Matrice assets Paramètres (chemins VM + CapsuleOS) |
+
+---
+
+## 0. Logique formelle — gates playbook (assets + exécution)
+
+> **Contrainte** : tout contenu visuel référencé par le playbook (fonds d’écran, filigranes, vignettes Paramètres) doit **exister physiquement** dans le dépôt et être **traçable** vers un fichier source sur la VM. La logique formelle s’applique à la **création** et à l’**exécution** de chaque niveau de playbook.
+
+### 0.1 Prédicats
+
+| Symbole | Signification |
+|---------|---------------|
+| **A** | Gate assets dépôt : chaque `capsulePath` de la matrice assets existe, non vide |
+| **S** | Gate sources VM : inventaire `*-gnome-settings-assets.json` présent, `existsOnVm` vrai pour les assets P0 |
+| **T** | Traçabilité : `SOURCE-VM.txt` présent pour le vendor |
+| **L** | Lab local strict vert (`run-gnome-settings-lab.mjs`) |
+| **M** | VM accessible (SSH + session graphique) |
+| **V** | Enquête visuelle documentée (P0 renseignés) |
+| **G** | Passe gsettings approfondie actionnable |
+
+### 0.2 Règles (ordre d’application)
+
+```
+R-A1   ¬A           →  BLOQUANT — pull assets puis re-vérifier
+R-A2   A ∧ ¬T       →  BLOQUANT — relancer pull-vm-assets.sh (écrit SOURCE-VM.txt)
+R-S1   M ∧ A        →  exécuter inventaire sources VM avant tour panneaux
+R-S2   S ∧ dérive SHA256 →  bash pull-vm-assets.sh puis R-A1
+R-L1   ¬A ∨ ¬L      →  interdit clôture playbook / embed / CI
+R-P1   L ∧ S ∧ ¬V   →  priorité enquête visuelle VM (lot P0)
+R-P2   V ∧ G        →  passe gsettings approfondie
+R-X1   ¬playbook_VM(distrib) →  pas de baseline ni assets arbitraires
+```
+
+**Règle absolue** : ne jamais référencer dans `capsule-theme-storage.js`, `themes_gnome.html` ou la matrice parity un asset dont le fichier n’est pas dans `usr/share/capsuleos/assets/` avec source VM documentée.
+
+### 0.3 Chaîne playbook avec gates
+
+```mermaid
+flowchart TD
+  AM[gnome-settings-assets-matrix.json] --> VA[verify-playbook-assets --strict]
+  VA -->|A ∧ T| INV[vm-gnome-settings-assets-inventory.sh]
+  INV -->|M| PULL[pull-vm-assets.sh si dérive]
+  PULL --> VA
+  INV --> PB[vm-gnome-settings-playbook.sh]
+  PB --> INT[vm-gnome-settings-interaction-playbook.sh]
+  INT --> VIS[Enquête visuelle §10]
+  VIS --> G2[Passe gsettings approfondie]
+  VA --> LAB[run-gnome-settings-lab.mjs]
+  PB --> LAB
+```
+
+### 0.4 Obligations par niveau de playbook
+
+| Niveau | Gate entrée | Obligation assets | Gate sortie |
+|--------|-------------|-------------------|-------------|
+| **Inventaire statique** | **A** | Lire `picture-uri` / fonds VM ; noter chemins sources | — |
+| **Tour panneaux** | **A ∧ T** | Bloc `assetSources` dans le JSON (auto) | **S** si `--vm` |
+| **Interactions** | **A ∧ S** | Re-vérifier sources si panneau `background` / `appearance` | `restoredOk` |
+| **Enquête visuelle** | **A ∧ S** | Captures comparables (même fichiers fond que catalogue) | **V** |
+| **Lab / embed** | **A ∧ L** | `verify-playbook-assets --strict` vert | CI |
+
+### 0.5 Commandes gates assets
+
+```bash
+# Gate A — présence absolue dans le dépôt (obligatoire avant lab)
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+
+# Gate S — sources VM + comparaison binaire
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/compare-vm-settings-assets-capsule.mjs --registry linux-rocky --strict
+
+# Correction dérive
+bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+```
 
 ---
 
@@ -91,6 +167,11 @@ Sans `XDG_CURRENT_DESKTOP=GNOME`, `gnome-control-center` quitte avec *« only su
 | `root/docs/inventaires/_template-gnome-settings-visual-investigation.json` | Modèle livrable enquête |
 | `usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs` | Smoke matrice ↔ handlers ↔ CSS |
 | `usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css` | Effets shell `html[data-*]` |
+| `root/tools/lab/gnome-settings-assets-matrix.json` | Matrice assets (VM path → capsulePath) |
+| `root/tools/lab/vm-gnome-settings-assets-inventory.sh` | Inventaire sources sur VM |
+| `usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs` | Gate **A** — présence assets dépôt |
+| `usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs` | Collecte SSH inventaire assets |
+| `usr/lib/capsuleos/tools/lab/compare-vm-settings-assets-capsule.mjs` | Gate **S** — dérive VM ↔ dépôt |
 
 Intégration audit profond : `node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs --id linux-rocky --phase settings-playbook` (ou `settings-interaction`).
 
@@ -99,6 +180,30 @@ Playbooks deep audit : `bash root/tools/lab/vm-gnome-deep-playbooks.sh list` →
 ---
 
 ## 4. Créer ou étendre un playbook — pas à pas
+
+### Étape 0 — Gate assets (obligatoire)
+
+Avant tout tour VM ou patch UI Paramètres :
+
+```bash
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+```
+
+Si échec : identifier la source VM dans `gnome-settings-assets-matrix.json`, copier via :
+
+```bash
+bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+```
+
+Étendre la matrice assets pour tout **nouveau** fond, vignette ou icône affiché dans `themes_gnome.html` (panneaux Apparence / Fond d’écran).
+
+Avec VM :
+
+```bash
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id linux-rocky
+```
+
+Le JSON produit alimente la comparaison SHA256 et le bloc `assetSources` des playbooks.
 
 ### Étape 1 — Inventorier le panneau VM
 
@@ -261,6 +366,10 @@ node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 
 ## 5. Checklist agent (nouveau panneau ou contrôle)
 
+- [ ] Entrée asset dans `gnome-settings-assets-matrix.json` si contenu visuel (fond, filigrane, icône)
+- [ ] `verify-playbook-assets.mjs --strict` vert (**gate A**)
+- [ ] `collect-vm-gnome-settings-assets.mjs` exécuté si VM dispo (**gate S**)
+- [ ] `SOURCE-VM.txt` à jour après pull
 - [ ] Panneau identifié dans la VM (`gccArgv` testé manuellement)
 - [ ] Entrée ajoutée dans `gnome-settings-parity-matrix.json`
 - [ ] Contrôle câblé dans `themes_gnome.html` (attributs `data-settings-*`)
@@ -305,7 +414,10 @@ node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
 ## 8. Commandes rapides (lab)
 
 ```bash
-# Suite lab locale (inclut smoke matrice visuelle)
+# Gate assets dépôt (bloquant)
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+
+# Suite lab locale (inclut gate A + smoke matrice visuelle)
 node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
 
 # VM complète (playbook + interaction + baseline)
@@ -331,12 +443,13 @@ node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs \
 
 Une fois la procédure validée sur `linux-rocky` :
 
-1. **Enquête visuelle** — compléter l’inventaire §10 pour chaque contrôle P0/P1 de la matrice visuelle.
-2. **Passe gsettings approfondie** — reprendre les écarts `gsettingsDeferred` de l’enquête (schémas secondaires, clés liées, synchronisation QS ↔ Paramètres).
-3. **Propagation** — baseline + parity sur Fedora / Alma (même toolkit GNOME).
-4. **Playwright** — étendre `smoke-gsettings-snapshot.mjs` / interactions pour datasets visuels après reload.
-5. **UI gcc réelle** — si `ydotool` ou AT-SPI devient disponible, remplacer `gsettings set` par clic UI dans le playbook interaction.
-6. **CI** — intégrer `run-gnome-settings-lab.mjs` dans la pipeline de validation du skin Rocky.
+1. **Gates assets** — `verify-playbook-assets --strict` + inventaire VM si dérive (§0).
+2. **Enquête visuelle** — compléter l’inventaire §10 pour chaque contrôle P0/P1 de la matrice visuelle.
+3. **Passe gsettings approfondie** — reprendre les écarts `gsettingsDeferred` de l’enquête (schémas secondaires, clés liées, synchronisation QS ↔ Paramètres).
+4. **Propagation** — baseline + parity sur Fedora / Alma (même toolkit GNOME).
+5. **Playwright** — étendre `smoke-gsettings-snapshot.mjs` / interactions pour datasets visuels après reload.
+6. **UI gcc réelle** — si `ydotool` ou AT-SPI devient disponible, remplacer `gsettings set` par clic UI dans le playbook interaction.
+7. **CI** — intégrer `run-gnome-settings-lab.mjs` dans la pipeline de validation du skin Rocky.
 
 ---
 
@@ -348,6 +461,7 @@ Une fois la procédure validée sur `linux-rocky` :
 
 | Moment | Action |
 |--------|--------|
+| Après gates **A ∧ S** (§0) | Les fichiers fond / filigrane comparés VM ↔ dépôt |
 | Après playbook **interactions** (§ étape 5) | Les bascules sont connues ; on observe l’effet visuel |
 | Avant patch CSS/dataset CapsuleOS | Éviter d’implémenter « au feeling » |
 | Avant passe gsettings **approfondie** | L’enquête liste les clés à re-vérifier (`gsettingsDeferred`) |
@@ -506,6 +620,11 @@ node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --vm --id linux-rock
 ## 11. Commandes rapides (aide-mémoire)
 
 ```bash
+# Gates assets (bloquant)
+node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-rocky --strict
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id linux-rocky
+bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+
 # Lab complet
 node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
 CAPSULE_HTTP_BASE=http://127.0.0.1:8765 \

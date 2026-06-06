@@ -12,7 +12,7 @@
 | Construction générique clone | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) |
 | Mesure parité JSON | [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) |
 | Assets VM obligatoires | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
-| **Playbook Paramètres GNOME** | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (gsettings + **enquête visuelle §10**) |
+| **Playbook Paramètres GNOME** | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (gates assets §0, gsettings, enquête §10) |
 
 ---
 

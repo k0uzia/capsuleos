@@ -24,6 +24,9 @@ const matrix = JSON.parse(read('root/tools/lab/gnome-settings-parity-matrix.json
 const themesHtml = read('usr/share/capsuleos/linux/apps/themes_gnome.html');
 const playbookSh = read('root/tools/lab/vm-gnome-settings-playbook.sh');
 const collector = read('usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs');
+const assetsMatrix = read('root/tools/lab/gnome-settings-assets-matrix.json');
+const assetsInventorySh = read('root/tools/lab/vm-gnome-settings-assets-inventory.sh');
+const verifyAssets = read('usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs');
 
 const htmlPanels = new Set();
 const rePanel = /data-gnome-settings-panel="([^"]+)"/g;
@@ -88,6 +91,19 @@ for (const panel of matrixPanels) {
       errors.push(`Matrice: capsuleKey "${key}" (${ctrl.id}) non référencé (parity/storage)`);
     }
   }
+}
+
+if (!playbookSh.includes('assetSources')) {
+  errors.push('vm-gnome-settings-playbook.sh : section assetSources absente');
+}
+if (!assetsMatrix.includes('"capsulePath"')) {
+  errors.push('gnome-settings-assets-matrix.json : assets[] invalide');
+}
+if (!assetsInventorySh.includes('gnome-settings-assets-matrix.json')) {
+  errors.push('vm-gnome-settings-assets-inventory.sh : matrice assets non référencée');
+}
+if (!verifyAssets.includes('verify-playbook-assets')) {
+  errors.push('verify-playbook-assets.mjs : script gate A absent');
 }
 
 if (errors.length) {

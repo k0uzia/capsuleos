@@ -34,6 +34,7 @@ function run(script, extraArgs = []) {
 }
 
 run('generate-gsettings-bindings.mjs');
+run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
 run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
 run('smoke-gnome-settings-playbook.mjs');
 run('smoke-gnome-settings-interaction-playbook.mjs');
@@ -54,6 +55,8 @@ if (withPlaywright) {
 }
 
 if (withVm) {
+  run('collect-vm-gnome-settings-assets.mjs', ['--id', registry]);
+  run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
   run('collect-vm-gnome-settings-playbook.mjs', ['--id', registry]);
   run('collect-vm-gnome-settings-interaction.mjs', ['--id', registry]);
   run('generate-gsettings-bindings.mjs');

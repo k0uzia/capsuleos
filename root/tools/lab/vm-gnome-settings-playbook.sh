@@ -51,10 +51,16 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+import hashlib
 
 MATRIX_PATH = os.environ["CAPSULE_SETTINGS_MATRIX"]
 DWELL_MS = int(os.environ.get("CAPSULE_SETTINGS_DWELL_MS", "1400"))
 PANEL_FILTER = os.environ.get("CAPSULE_SETTINGS_PANEL_FILTER", "").strip()
+SCRIPT_DIR = Path(MATRIX_PATH).parent
+ASSETS_MATRIX_PATH = os.environ.get(
+    "CAPSULE_SETTINGS_ASSETS_MATRIX",
+    str(SCRIPT_DIR / "gnome-settings-assets-matrix.json"),
+)
 
 with open(MATRIX_PATH, encoding="utf-8") as f:
     MATRIX = json.load(f)
@@ -393,8 +399,80 @@ def tour_panel(panel):
     }
 
 
+def sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def uri_to_local_path(uri):
+    if not uri:
+        return ""
+    raw = uri.strip().strip("'\"")
+    if raw.startswith("file://"):
+        return raw[7:]
+    return raw
+
+
+def collect_asset_sources():
+    if not os.path.isfile(ASSETS_MATRIX_PATH):
+        return {"status": "matrix_missing", "path": ASSETS_MATRIX_PATH}
+    with open(ASSETS_MATRIX_PATH, encoding="utf-8") as fh:
+        assets_matrix = json.load(fh)
+    rows = []
+    missing_vm = 0
+    for asset in assets_matrix.get("assets", []):
+        primary = asset.get("vmPath")
+        fallback = asset.get("vmPathFallback")
+        vm_path = primary if primary and os.path.isfile(primary) else (
+            fallback if fallback and os.path.isfile(fallback) else (primary or fallback or "")
+        )
+        exists = bool(vm_path and os.path.isfile(vm_path))
+        row = {
+            "id": asset.get("id"),
+            "controlId": asset.get("controlId"),
+            "vmPath": vm_path,
+            "capsulePath": asset.get("capsulePath"),
+            "existsOnVm": exists,
+            "sizeBytes": None,
+            "sha256": None,
+        }
+        if exists:
+            row["sizeBytes"] = os.stat(vm_path).st_size
+            try:
+                row["sha256"] = sha256_file(vm_path)
+            except OSError:
+                pass
+        else:
+            missing_vm += 1
+        rows.append(row)
+    gsettings_sources = {}
+    for src in assets_matrix.get("gsettingsSources", []):
+        raw = gget(src.get("schema"), src.get("key"))
+        local = uri_to_local_path(raw)
+        gsettings_sources[src["id"]] = {
+            "raw": raw,
+            "localPath": local,
+            "existsOnVm": bool(local and os.path.isfile(local)),
+        }
+    return {
+        "status": "ok",
+        "matrixPath": ASSETS_MATRIX_PATH,
+        "summary": {
+            "assetsTotal": len(rows),
+            "presentOnVm": len(rows) - missing_vm,
+            "missingOnVm": missing_vm,
+        },
+        "gsettingsSources": gsettings_sources,
+        "assets": rows,
+    }
+
+
 results = []
 errors = []
+asset_sources = collect_asset_sources()
 try:
     for panel in PANELS:
         if PANEL_FILTER and panel["id"] != PANEL_FILTER:
@@ -429,7 +507,10 @@ out = {
         "controlsMapped": mapped,
         "controlsUnmapped": unmapped,
         "errors": len(errors),
+        "assetsPresentOnVm": asset_sources.get("summary", {}).get("presentOnVm"),
+        "assetsMissingOnVm": asset_sources.get("summary", {}).get("missingOnVm"),
     },
+    "assetSources": asset_sources,
     "panels": results,
     "errors": errors,
 }

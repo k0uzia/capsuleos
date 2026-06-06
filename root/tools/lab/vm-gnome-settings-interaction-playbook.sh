@@ -48,6 +48,11 @@ import time
 from datetime import datetime, timezone
 
 MATRIX_PATH = os.environ["CAPSULE_SETTINGS_MATRIX"]
+ASSETS_MATRIX_PATH = os.environ.get(
+    "CAPSULE_SETTINGS_ASSETS_MATRIX",
+    os.path.join(os.path.dirname(MATRIX_PATH), "gnome-settings-assets-matrix.json"),
+)
+ASSETS_SCRIPT = os.path.join(os.path.dirname(MATRIX_PATH), "vm-gnome-settings-assets-inventory.sh")
 DWELL_MS = int(os.environ.get("CAPSULE_SETTINGS_DWELL_MS", "900"))
 MONITOR_MS = int(os.environ.get("CAPSULE_SETTINGS_MONITOR_MS", "1200"))
 PANEL_FILTER = os.environ.get("CAPSULE_SETTINGS_PANEL_FILTER", "").strip()
@@ -384,6 +389,16 @@ try:
 finally:
     close_settings()
 
+asset_sources = {"status": "skipped"}
+if os.path.isfile(ASSETS_SCRIPT) and os.path.isfile(ASSETS_MATRIX_PATH):
+    try:
+        env = {**os.environ, "CAPSULE_SETTINGS_ASSETS_MATRIX": ASSETS_MATRIX_PATH}
+        raw_assets = subprocess.check_output(["bash", ASSETS_SCRIPT], env=env, text=True, timeout=90)
+        idx = raw_assets.index("{")
+        asset_sources = json.loads(raw_assets[idx:])
+    except Exception as exc:
+        asset_sources = {"status": "error", "error": str(exc)}
+
 out = {
     "generatedAt": datetime.now(timezone.utc).isoformat(),
     "source": "vm-gnome-settings-interaction-playbook.sh",
@@ -391,7 +406,12 @@ out = {
     "dwellMs": DWELL_MS,
     "monitorMs": MONITOR_MS,
     "panelFilter": PANEL_FILTER or None,
-    "summary": summary,
+    "summary": {
+        **summary,
+        "assetsPresentOnVm": (asset_sources.get("summary") or {}).get("presentOnVm"),
+        "assetsMissingOnVm": (asset_sources.get("summary") or {}).get("missingOnVm"),
+    },
+    "assetSources": asset_sources,
     "panels": results,
     "errors": errors,
 }

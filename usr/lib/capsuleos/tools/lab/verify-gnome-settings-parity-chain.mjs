@@ -31,6 +31,11 @@ const themesHtml = read('usr/share/capsuleos/linux/apps/themes_gnome.html');
 const rockyIndex = read('home/RedHat/Rocky/index.html');
 const baselineJs = read(`usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-${registry}.js`);
 
+const assetsMatrix = read('root/tools/lab/gnome-settings-assets-matrix.json');
+if (!assetsMatrix.includes('"capsulePath"')) {
+  errors.push('gnome-settings-assets-matrix.json absent ou invalide');
+}
+
 const playbookPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-playbook.json`);
 const interactionPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-interaction.json`);
 

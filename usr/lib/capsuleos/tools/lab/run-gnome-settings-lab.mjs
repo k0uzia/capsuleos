@@ -48,6 +48,7 @@ if (withPlaywright) {
     process.exit(1);
   }
   run('smoke-gnome-settings-interactions.mjs');
+  run('smoke-gsettings-snapshot.mjs');
 }
 
 if (withVm) {

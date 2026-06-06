@@ -22,19 +22,20 @@ html:has(#kde-neon) {
 
 html[data-theme="light"] body#kde-neon {
     color-scheme: light;
-    /* Kickoff Breeze clair (réf. openSUSE / VM Plasma light) */
-    --opensuse-menu-bg: rgba(252, 252, 252, 0.94);
-    --opensuse-menu-border: rgba(0, 0, 0, 0.1);
+    /* Kickoff Breeze clair — transparence VM (wallpaper visible sous le menu) */
+    --opensuse-menu-bg: rgba(239, 240, 241, 0.58);
+    --opensuse-menu-border: rgba(0, 0, 0, 0.07);
     --opensuse-menu-text: #232629;
     --opensuse-menu-text-muted: #7f8c8d;
-    --opensuse-menu-hover: rgba(61, 174, 233, 0.1);
-    --opensuse-menu-active: rgba(61, 174, 233, 0.22);
+    --opensuse-menu-hover: rgba(61, 174, 233, 0.14);
+    --opensuse-menu-active: rgba(61, 174, 233, 0.26);
     --opensuse-menu-search-focus: var(--opensuse-plasma-accent);
-    --opensuse-menu-header-bg: rgba(255, 255, 255, 0.35);
-    --opensuse-menu-sidebar-bg: rgba(0, 0, 0, 0.025);
-    --opensuse-menu-apps-bg: #ffffff;
-    --opensuse-menu-footer-bg: rgba(252, 252, 252, 0.98);
+    --opensuse-menu-header-bg: rgba(255, 255, 255, 0.22);
+    --opensuse-menu-sidebar-bg: rgba(255, 255, 255, 0.12);
+    --opensuse-menu-apps-bg: rgba(255, 255, 255, 0.38);
+    --opensuse-menu-footer-bg: rgba(239, 240, 241, 0.65);
     --opensuse-menu-icon-filter: brightness(0) saturate(100%);
+    --opensuse-menu-cat-icon-filter: none;
     --opensuse-menu-shadow: 0 0.5rem 1.35rem rgba(35, 38, 41, 0.16);
     --opensuse-menu-search-bg: #ffffff;
     --opensuse-menu-search-border: rgba(0, 0, 0, 0.12);
@@ -49,7 +50,7 @@ html[data-theme="light"] body#kde-neon {
     --opensuse-plasma-panel-border: #d9d9d9;
     --opensuse-plasma-text: #232629;
     --opensuse-plasma-text-muted: #7f8c8d;
-    --opensuse-mono-logo-filter: none;
+    --opensuse-mono-logo-filter: brightness(0) saturate(100%);
     --kde-neon-taskbar-notch: #eff0f1;
     --kde-neon-tray-icon-filter: brightness(0) saturate(100%);
     --kde-neon-show-desktop-hover-bg: rgba(0, 0, 0, 0.06);
@@ -89,7 +90,7 @@ html:not([data-theme="light"]) body#kde-neon {
     --opensuse-menu-apps-bg: transparent;
     --opensuse-menu-footer-bg: rgba(0, 0, 0, 0.18);
     --opensuse-menu-icon-filter: brightness(0) invert(1);
-    --opensuse-menu-shadow: 0 0.7rem 1.9rem rgba(0, 0, 0, 0.45);
+    --opensuse-menu-cat-icon-filter: none;
     --opensuse-menu-search-bg: rgba(255, 255, 255, 0.07);
     --opensuse-menu-search-border: rgba(255, 255, 255, 0.1);
     --opensuse-menu-search-placeholder: rgba(255, 255, 255, 0.55);
@@ -159,12 +160,13 @@ html:has(#kde-neon) {
 }
 
 #kde-neon footer .taskbar-tray__link > img,
-#kde-neon footer .taskbar-tray__item > img {
+#kde-neon footer .taskbar-tray__item > img,
+#kde-neon footer .taskbar-tray__btn > img {
     opacity: 0.9;
     filter: var(--kde-neon-tray-icon-filter);
 }
 
-#kde-neon footer .taskbar-tray__expand > img {
+#kde-neon footer .taskbar-tray__btn--expand > img {
     width: calc(var(--head) * 0.36);
     height: calc(var(--head) * 0.36);
     opacity: 0.75;
@@ -184,10 +186,7 @@ html:has(#kde-neon) {
     background: var(--kde-neon-clock-expanded-bg);
 }
 
-html[data-theme="light"] body#kde-neon footer .taskbar-show-desktop > img {
-    filter: brightness(0) saturate(100%);
-}
-
+html[data-theme="light"] body#kde-neon footer .taskbar-show-desktop > img,
 html:not([data-theme="light"]) body#kde-neon footer .taskbar-show-desktop > img {
-    filter: none;
+    filter: var(--kde-neon-tray-icon-filter);
 }

@@ -118,18 +118,23 @@ function initMainMenu() {
         return rank;
     }
 
-    function dedupeMenuSearchResults(apps) {
-        const byName = new Map();
+    function menuAppDedupeKey(app) {
+        return (app.desktop || app.name || '').toLowerCase();
+    }
+
+    function dedupeMenuApps(apps) {
+        const byKey = new Map();
 
         apps.forEach((app) => {
-            const key = app.name.toLowerCase();
-            const existing = byName.get(key);
+            const key = menuAppDedupeKey(app);
+            if (!key) return;
+            const existing = byKey.get(key);
             if (!existing || menuAppSearchRank(app) > menuAppSearchRank(existing)) {
-                byName.set(key, app);
+                byKey.set(key, app);
             }
         });
 
-        return Array.from(byName.values());
+        return Array.from(byKey.values());
     }
 
     function isMainMenuOpen() {
@@ -155,12 +160,13 @@ function initMainMenu() {
             return matchCat && matchQ;
         });
 
-        if (q) {
-            filtered = dedupeMenuSearchResults(filtered);
+        if (q || effectiveCatId === 'all') {
+            filtered = dedupeMenuApps(filtered);
+            filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+        } else if (effectiveCatId !== 'favorites') {
+            // Favoris Kickoff : ordre MENU_APPS (VM), pas alpha.
+            filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
         }
-
-        // Tri alphabétique
-        filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
         if (filtered.length === 0) {
             appList.classList.add('is-empty');

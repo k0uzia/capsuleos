@@ -337,7 +337,11 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "window-header"
       },
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
+      },
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist"
     }
   },
   "mint": {
@@ -1092,7 +1096,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "window-header"
       },
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
-      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+      "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
+      },
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist"
     }
   },
   "linux-mint": {

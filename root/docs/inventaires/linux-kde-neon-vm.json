@@ -97,10 +97,6 @@
                     "desktop": "firefox.desktop"
                 },
                 {
-                    "resource": "org.kde.kontact.desktop",
-                    "desktop": "org.kde.kontact.desktop"
-                },
-                {
                     "resource": "applications:systemsettings.desktop",
                     "desktop": "systemsettings.desktop",
                     "exec": "systemsettings",

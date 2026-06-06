@@ -16,8 +16,8 @@ body#kde-neon #mainMenu {
     background: var(--opensuse-menu-bg);
     box-shadow: var(--opensuse-menu-shadow);
     overflow: hidden;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px) saturate(1.15);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
     z-index: 9999;
 }
 
@@ -40,16 +40,32 @@ body#kde-neon #mainMenu .menu-root.menu-root--plasma {
     font-family: "Cantarell", var(--font-ui);
 }
 
-/* ── En-tête Kickoff VM : utilisateur | recherche | filtres ── */
+/* ── En-tête Kickoff VM : utilisateur (col. catégories) | recherche (col. apps) ── */
 body#kde-neon #mainMenu .menu-plasma-header {
     flex: 0 0 auto;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(8.75rem, 31%) minmax(0, 1fr);
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.5rem 0.55rem 0.48rem;
+    min-width: 0;
     border-bottom: 1px solid var(--opensuse-menu-divider);
     background: var(--opensuse-menu-header-bg);
+}
+
+body#kde-neon #mainMenu .menu-plasma-header__sidebar {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0.5rem 0.55rem 0.48rem;
+    border-right: 1px solid var(--opensuse-menu-divider);
+}
+
+body#kde-neon #mainMenu .menu-plasma-header__main {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+    padding: 0.5rem 0.72rem 0.48rem 0.72rem;
 }
 
 body#kde-neon #mainMenu .menu-user {
@@ -73,12 +89,12 @@ body#kde-neon #mainMenu .menu-user__avatar {
     color: #ffffff;
     font-size: 0.82rem;
     font-weight: 600;
-    background: #27ae60;
+    background: #da4453;
     flex-shrink: 0;
 }
 
 body#kde-neon #mainMenu .menu-user__avatar::before {
-    content: "G";
+    content: "c";
 }
 
 body#kde-neon #mainMenu .menu-user__name {
@@ -91,6 +107,7 @@ body#kde-neon #mainMenu .menu-user__name {
 
 body#kde-neon #mainMenu .menu-search-wrap {
     position: relative;
+    flex: 1 1 auto;
     margin: 0;
     padding: 0;
     border: 0;
@@ -272,8 +289,7 @@ body#kde-neon #mainMenu .menu-places > li > .menu-shortcut {
     cursor: pointer;
 }
 
-body#kde-neon #mainMenu .menu-cat::before,
-body#kde-neon #mainMenu .menu-places > li > .menu-shortcut::before {
+body#kde-neon #mainMenu .menu-cat::before {
     content: "";
     display: block;
     flex-shrink: 0;
@@ -283,12 +299,22 @@ body#kde-neon #mainMenu .menu-places > li > .menu-shortcut::before {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    filter: var(--opensuse-menu-icon-filter);
-    opacity: 0.9;
+    filter: var(--opensuse-menu-cat-icon-filter, none);
+    opacity: 1;
 }
 
 body#kde-neon #mainMenu .menu-places > li > .menu-shortcut::before {
+    content: "";
+    display: block;
+    flex-shrink: 0;
+    width: var(--opensuse-menu-cat-icon-size);
+    height: var(--opensuse-menu-cat-icon-size);
     background-image: var(--menu-shortcut-icon, none);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: var(--opensuse-menu-icon-filter);
+    opacity: 0.9;
 }
 
 body#kde-neon #mainMenu .menu-cat:hover:not(.menu-cat--disabled):not(.menu-cat--decorative),

@@ -23,10 +23,10 @@
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="./style/style.css?v=20260612c" type="text/css">
+    <link rel="stylesheet" href="./style/style.css?v=20260613a" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=20260528" type="text/css">
-    <link rel="stylesheet" href="./style/apps/mainMenu.skin.css?v=20260611b" type="text/css">
+    <link rel="stylesheet" href="./style/apps/mainMenu.skin.css?v=20260606k5" type="text/css">
     <title>KDE Neon (Plasma) - CapsuleOS</title>
 </head>
 
@@ -71,27 +71,51 @@
         </nav>
         <div class="taskbar-right">
             <div class="taskbar-tray" aria-label="Zone de notification">
-                <span class="taskbar-tray__item" title="Réseau">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/network.svg" alt="" aria-hidden="true">
-                </span>
-                <span class="taskbar-tray__item" title="Batterie">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/battery.svg" alt="" aria-hidden="true">
-                </span>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-notifications"
+                        aria-expanded="false" aria-controls="kde-tray-popover-notifications"
+                        title="Notifications" aria-label="Notifications">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/preferences-desktop-notification-bell.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button"
+                        class="taskbar-tray__btn taskbar-tray__btn--updates"
+                        data-update-manager-tray
+                        data-has-updates="true"
+                        aria-label="Mises à jour disponibles"
+                        title="Mises à jour">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/update-low.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-clipboard"
+                        aria-expanded="false" aria-controls="kde-tray-popover-clipboard"
+                        title="Presse-papiers" aria-label="Presse-papiers">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/edit-paste.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-brightness"
+                        aria-expanded="false" aria-controls="kde-tray-popover-brightness"
+                        title="Luminosité et couleur" aria-label="Luminosité et couleur">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/brightness-high.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
+                        aria-expanded="false" aria-controls="kde-tray-popover-network"
+                        title="Réseaux" aria-label="Réseaux">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-wired.svg" alt="" aria-hidden="true">
+                </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
                         aria-expanded="false" aria-controls="volume-popover"
-                        aria-label="Contrôle du volume">
+                        aria-label="Contrôle du volume" title="Volume">
                     <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
-                <span class="taskbar-tray__item taskbar-tray__expand" title="Icônes masquées" aria-hidden="true">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray-expand.svg" alt="">
-                </span>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--expand" id="tray-btn-expand"
+                        aria-expanded="false" aria-controls="kde-tray-popover-expand"
+                        title="Statut et notifications" aria-label="Statut et notifications">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray-expand.svg" alt="" aria-hidden="true">
+                </button>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
                 <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
                 <span class="taskbar__date" id="taskbar-date" aria-hidden="true">--/--/----</span>
             </button>
-            <button type="button" class="taskbar-show-desktop" aria-label="Menu">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/menu-burger.svg" alt="" aria-hidden="true">
+            <button type="button" class="taskbar-show-desktop" aria-label="Coup d'œil sur le bureau" title="Coup d'œil sur le bureau">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/user-desktop-symbolic.svg" alt="" aria-hidden="true">
             </button>
         </div>
     </footer>
@@ -124,6 +148,66 @@
             <div class="calendar-popover__week-row" id="cal-weekday-row" aria-hidden="true"></div>
         </div>
         <div class="calendar-popover__days" id="cal-days-grid"></div>
+    </div>
+    <div class="kde-tray-popover" id="kde-tray-popover-notifications" role="dialog" aria-label="Notifications" hidden>
+        <header class="kde-tray-popover__header">
+            <h2 class="kde-tray-popover__title">Notifications</h2>
+        </header>
+        <p class="kde-tray-popover__empty">Aucune nouvelle notification</p>
+        <footer class="kde-tray-popover__footer">
+            <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-notifications-clear">Effacer tout</button>
+        </footer>
+    </div>
+    <div class="kde-tray-popover" id="kde-tray-popover-clipboard" role="dialog" aria-label="Presse-papiers" hidden>
+        <header class="kde-tray-popover__header">
+            <h2 class="kde-tray-popover__title">Presse-papiers</h2>
+        </header>
+        <p class="kde-tray-popover__empty">Le presse-papiers est vide</p>
+        <footer class="kde-tray-popover__footer">
+            <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-clipboard-clear">Effacer l'historique</button>
+        </footer>
+    </div>
+    <div class="kde-tray-popover kde-tray-popover--slider" id="kde-tray-popover-brightness" role="dialog" aria-label="Luminosité" hidden>
+        <header class="kde-tray-popover__header">
+            <span class="kde-tray-popover__title">Luminosité et couleur</span>
+            <span class="kde-tray-popover__value" id="kde-tray-brightness-value">100%</span>
+        </header>
+        <div class="kde-tray-popover__slider-row">
+            <img class="kde-tray-popover__slider-icon" src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/brightness-high.svg" alt="" aria-hidden="true">
+            <input type="range" class="kde-tray-slider" id="kde-tray-brightness-slider"
+                   min="0" max="100" value="100" step="1" aria-label="Luminosité" aria-valuetext="100%">
+        </div>
+    </div>
+    <div class="kde-tray-popover" id="kde-tray-popover-network" role="dialog" aria-label="Réseaux" hidden>
+        <header class="kde-tray-popover__header">
+            <h2 class="kde-tray-popover__title">Réseaux</h2>
+        </header>
+        <button type="button" class="kde-tray-popover__row is-active">
+            <img class="kde-tray-popover__row-icon" src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-wired.svg" alt="" aria-hidden="true">
+            <span class="kde-tray-popover__row-label">Connexion filaire — Connecté</span>
+        </button>
+        <footer class="kde-tray-popover__footer">
+            <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-network-settings">Paramètres réseau…</button>
+        </footer>
+    </div>
+    <div class="kde-tray-popover kde-tray-popover--expand" id="kde-tray-popover-expand" role="dialog" aria-label="Icônes masquées" hidden>
+        <div class="kde-tray-popover__hidden-grid" role="list">
+            <span class="kde-tray-popover__hidden-item" role="listitem" title="Batterie">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/battery-100.svg" alt="">
+            </span>
+            <span class="kde-tray-popover__hidden-item" role="listitem" title="Bluetooth">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-bluetooth-activated.svg" alt="">
+            </span>
+            <span class="kde-tray-popover__hidden-item" role="listitem" title="KDE Connect">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/kdeconnect.svg" alt="">
+            </span>
+            <span class="kde-tray-popover__hidden-item" role="listitem" title="Disposition du clavier">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/keyboard-layout.svg" alt="">
+            </span>
+            <span class="kde-tray-popover__hidden-item" role="listitem" title="Méthode de saisie">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/input-keyboard.svg" alt="">
+            </span>
+        </div>
     </div>
     <div class="volume-popover" id="volume-popover" role="dialog" aria-label="Volume" hidden>
         <div class="volume-popover__header">
@@ -164,9 +248,9 @@
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
-    <script src="./content/mainMenu-data.js?v=20260606e"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
-    <script src="./js/mainMenu-plasma.js?v=20260606e"></script>
+    <script src="./content/mainMenu-data.js?v=20260606k6"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260606k6"></script>
+    <script src="./js/mainMenu-plasma.js?v=20260606k"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260611"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
@@ -183,7 +267,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
-    <script src="./js/calendar-popover-kde.js?v=20260612b"></script>
+    <script src="./js/calendar-popover-kde.js?v=20260613a"></script>
+    <script src="./js/tray-popover-kde.js?v=20260613a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
@@ -196,9 +281,9 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js?v=20260613a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
-    <script src="./js/discover-neon.js?v=20260606config1"></script>
+    <script src="./js/discover-neon.js?v=20260613a"></script>
 </body>
 
 </html>

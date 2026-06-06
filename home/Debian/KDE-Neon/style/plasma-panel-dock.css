@@ -103,7 +103,8 @@ html:not([data-theme="light"]) body#kde-neon {
 
 /* Popovers ancrés au panel */
 #kde-neon .calendar-popover,
-#kde-neon .volume-popover {
+#kde-neon .volume-popover,
+#kde-neon .kde-tray-popover {
     bottom: calc(var(--kde-neon-panel-anchor-bottom) + var(--calendar-popover-offset, calc(var(--head) / 5)));
 }
 

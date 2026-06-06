@@ -96,6 +96,9 @@
         if (!trayBtn || trayBtn.dataset.umTrayInit === 'true') {
             return;
         }
+        if (document.body && document.body.id === 'kde-neon') {
+            return;
+        }
         trayBtn.dataset.umTrayInit = 'true';
         trayBtn.addEventListener('click', (event) => {
             event.preventDefault();

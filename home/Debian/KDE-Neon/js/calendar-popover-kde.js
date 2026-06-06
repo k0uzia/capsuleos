@@ -44,6 +44,9 @@
 
     function openPopover() {
         positionPopover();
+        document.dispatchEvent(new CustomEvent('capsule:kde-neon-tray-open', {
+            detail: { id: 'calendar' },
+        }));
         popover.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
 

@@ -153,6 +153,14 @@
         }
 
         const hasUpdates = count > 0;
+        const trayBtn = document.querySelector('[data-update-manager-tray]');
+        if (trayBtn) {
+            trayBtn.dataset.hasUpdates = hasUpdates ? 'true' : 'false';
+            trayBtn.setAttribute(
+                'aria-label',
+                hasUpdates ? 'Mises à jour disponibles' : 'Aucune mise à jour',
+            );
+        }
         if (sectionTitle) {
             sectionTitle.hidden = !hasUpdates;
         }
@@ -491,7 +499,7 @@
     function bindOnce() {
         const root = findRoot();
         if (!root || !root.classList.contains('update-manager--kde-neon') || root.dataset.discoverInit === 'true') {
-            return;
+            return false;
         }
         root.dataset.discoverInit = 'true';
 
@@ -509,7 +517,47 @@
         });
 
         bindUpdatesActions(root);
+        return true;
     }
 
+    function openView(viewId) {
+        const run = () => {
+            const root = findRoot();
+            if (!root) {
+                return false;
+            }
+            if (root.dataset.discoverInit !== 'true') {
+                bindOnce();
+            }
+            loadCatalog().then((catalog) => {
+                if (catalog) {
+                    switchView(root, catalog, viewId);
+                }
+            });
+            return true;
+        };
+
+        if (!run()) {
+            let tries = 0;
+            const timer = window.setInterval(() => {
+                tries += 1;
+                if (run() || tries > 40) {
+                    window.clearInterval(timer);
+                }
+            }, 100);
+        }
+    }
+
+    window.CapsuleDiscoverNeon = {
+        openView,
+    };
+
     window.initUpdateManagerApp = bindOnce;
+
+    document.addEventListener('capsule:discover-open-view', (event) => {
+        const viewId = event.detail && event.detail.view;
+        if (viewId) {
+            openView(viewId);
+        }
+    });
 }());

@@ -166,15 +166,40 @@
 #kde-neon footer .taskbar-tray__btn:hover {
     background: var(--mint-taskbar-item-bg-hover);
     border-color: var(--mint-taskbar-item-border-hover);
+    cursor: default;
+}
+
+#kde-neon footer .taskbar-tray__btn--updates {
+    position: relative;
+}
+
+#kde-neon footer .taskbar-tray__btn--updates[data-has-updates="true"]::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--opensuse-plasma-accent, #3daee9);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+}
+
+#kde-neon footer .taskbar-tray__btn[aria-expanded="true"] {
+    background: var(--mint-taskbar-item-bg-hover);
+    border-color: var(--mint-taskbar-item-border-hover);
 }
 
 #kde-neon footer .taskbar-tray__link > img,
-#kde-neon footer .taskbar-tray__item > img {
+#kde-neon footer .taskbar-tray__item > img,
+#kde-neon footer .taskbar-tray__btn > img {
     display: var(--bl);
     width: calc(var(--head) * 0.5);
     height: calc(var(--head) * 0.5);
     object-fit: contain;
     opacity: 0.9;
+    filter: var(--kde-neon-tray-icon-filter);
 }
 
 /* Icône volume: le JS applique maskImage sur cet élément (sinon carré plein) */
@@ -270,10 +295,10 @@
 
 #kde-neon footer .taskbar-show-desktop > img {
     display: var(--bl);
-    width: calc(var(--head) * 0.5);
-    height: calc(var(--head) * 0.5);
+    width: calc(var(--head) * 0.46);
+    height: calc(var(--head) * 0.46);
     object-fit: contain;
-    opacity: 0.9;
+    opacity: 0.92;
 }
 
 #kde-neon footer .taskbar-show-desktop:hover {

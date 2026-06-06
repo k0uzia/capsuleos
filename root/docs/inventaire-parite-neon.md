@@ -2,6 +2,9 @@
 
 > Collecte VM : 2026-06-06 · Registre : `linux-kde-neon`  
 > Inventaire : [`inventaires/linux-kde-neon-vm.json`](inventaires/linux-kde-neon-vm.json)  
+> **Clôture Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md)  
+> **Clôture Kickoff** : [`inventaires/linux-kde-neon-kickoff-closure.md`](inventaires/linux-kde-neon-kickoff-closure.md)  
+> **Clôture Panel + tray** : [`inventaires/linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon-panel-tray-closure.md)  
 > Captures CapsuleOS : `home/public/Images/screen_KDE-Neon/capsule-*.png`
 
 ## Versions
@@ -10,75 +13,101 @@
 |-----------|-----------|-----------|--------|
 | Distribution | KDE neon User Edition 24.04 noble | `profile-data.js` 24.04 | ✅ |
 | Shell / DE | Plasma Wayland | toolkit kde / plasma | ✅ |
-| Explorateur | Dolphin | slot `nemo` + `dolphin` | ✅ |
-| Navigateur | Firefox | slot `firefox` | ✅ |
-| MAJ | Discover (`plasma-discover`) | `update_manager` + override KDE | ✅ chrome / ⚠️ contenu |
+| Explorateur | Dolphin | slot `nemo` + template `dolphin` | ⏳ parité P0 |
+| Navigateur | Firefox | slot `firefox` | ⏳ |
+| MAJ | Discover 6.6.5 (`plasma-discover`) | `update_manager` + override KDE Neon | ✅ **clôturé** |
 
-## Panel (1211×756)
+## Panel (1211×756) — clôturé 2026-06-06
 
 | Aspect | VM | CapsuleOS | Statut |
 |--------|-----|-----------|--------|
-| Launcher | start-here-kde | `toolkits/kde/panel/start-here-kde.svg` | ✅ |
+| Launcher | start-here-kde | `start-here-kde.svg` + filtre thème | ✅ |
 | Pins | Dolphin, Firefox, Konsole, Discover | idem | ✅ |
 | Fond | Wallpaper « Next » | `vendors/neon/wallpaper/neon-default.png` | ✅ |
-| Tray | réseau, batterie, volume, horloge | idem | ✅ |
-| Show-desktop | menu burger | `menu-burger.svg` | ✅ |
+| Tray | notifications, MAJ, clipboard, luminosité, réseau, volume, expand | popovers + icônes Breeze VM | ✅ |
+| Horloge / calendrier | popup Plasma | `calendar-popover-kde.js` | ✅ |
+| Show-desktop | user-desktop-symbolic | pull VM | ✅ |
 
-## Kickoff
+Détail : [`linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon-panel-tray-closure.md).
 
-| Aspect | VM | CapsuleOS | Statut |
-|--------|-----|-----------|--------|
-| Dimensions | 677×513 px | `--opensuse-menu-width/height` | ✅ ajusté |
-| Favoris | Firefox, …, Dolphin, Discover | Firefox, Paramètres, Dolphin, Discover | ✅ |
-| Pied | Veille / Redémarrer / Éteindre / Session | idem | ✅ |
-| Kontact (VM) | présent | absent | P1 assumé |
+## Kickoff — clôturé 2026-06-06
 
-## Discover
+> Inventaire apps VM : [`inventaires/linux-kde-neon-kickoff-apps.json`](inventaires/linux-kde-neon-kickoff-apps.json)  
+> Regénération : `node root/tools/lab/generate-kde-neon-kickoff-data.mjs`
 
 | Aspect | VM | CapsuleOS | Statut |
 |--------|-----|-----------|--------|
-| Vue par défaut | Page d'accueil (cartes apps) | `update_manager_kde_neon.html` + CSS commun KDE fetch | ✅ structure |
-| Fonds sidebar / contenu | blanc `#ffffff`, séparateur `#eff0f1` | calibré Neon skin | ✅ |
-| Onglet Accueil actif | fond `#def1fb`, barre `#3daee9` 4px | calibré Neon skin | ✅ |
+| Transparence (alpha) | fond translucide, blur | tokens `--opensuse-menu-*` | ✅ |
+| Icônes catégories | Breeze actions/22 | `kickoff/actions/*.svg` | ✅ |
+| Apps par catégorie | 30 entrées menu XDG | `mainMenu-data.js` généré VM | ✅ |
+| Toutes les applications | sans doublons | dédup `desktop` | ✅ |
+| Favoris | Firefox, Config système, Dolphin, Discover | idem | ✅ |
+| Dimensions | 677×513 px | tokens width/height | ✅ |
+
+Détail : [`linux-kde-neon-kickoff-closure.md`](inventaires/linux-kde-neon-kickoff-closure.md).
+
+## Discover — clôturé 2026-06-06
+
+| Aspect | VM | CapsuleOS | Statut |
+|--------|-----|-----------|--------|
+| Gabarit | Discover 6 Kirigami | `update_manager_kde_neon.html` | ✅ |
+| Chrome sidebar | fond blanc, séparateur `#eff0f1`, onglet actif `#def1fb` + barre `#3daee9` | `update_manager.skin.css` | ✅ |
+| **Accueil** | 2 sections, cartes apps | 9 apps, grille 2 col., icônes VM | ✅ |
+| **Installé(s)** | liste compacte | 14 apps, icônes 32 px | ✅ |
+| **Mises à jour** | checkbox + versions + taille | nano noble, badge « 1 », « Tout mettre à jour » fonctionnel | ✅ |
+| **Configuration** | SourcesPage backends | Ubuntu / Flatpak / Snap | ✅ |
+| **À propos** | FormCard.AboutPage | 6.6.5, GPL, liens, libs, auteurs | ✅ |
+| Plein écran / fenêtré | CSD Plasma | sync `data-maximized` + captures | ✅ |
+| Titre fenêtre | par onglet | `discover-neon.js` → `#windowTitle` | ✅ |
+
+Détail : [`linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md).
 
 ## Captures automatisées
 
-| Cible | Script | Sortie |
-|-------|--------|--------|
+| Cible | Script | Sorties principales |
+|-------|--------|---------------------|
 | VM lab | `bash root/tools/lab/vm-kde-neon-capture-host.sh` | `vm-desktop.png`, `vm-kickoff.png`, `vm-discover.png` |
-| CapsuleOS | `node root/tools/lab/capture-capsule-kde-neon.mjs` | `capsule-desktop.png`, `capsule-kickoff.png`, `capsule-discover.png` |
+| CapsuleOS | `node root/tools/lab/capture-capsule-kde-neon.mjs` | bureau, kickoff, discover × 5 onglets (max + windowed) |
 
 Prérequis VM : SSH `capsule@192.168.122.2`, VM libvirt `KDE-Neon`, session Plasma active.  
-Prérequis CapsuleOS : `python3 -m http.server 5500`, `npm install playwright` (local).
-
-Mécanisme VM : SSH prépare l'état (dbus Kickoff, `plasma-discover`), puis **`virsh -c qemu:///system screenshot KDE-Neon --file …`** depuis l'hôte.
+Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright (`npm install playwright`).
 
 ## Assets vendor
 
 | Fichier | Statut |
 |---------|--------|
 | `wallpaper/neon-default.png` | ✅ pull VM |
-| `panel/firefox.png` | ✅ pull VM |
-| `panel/dolphin.svg`, `discover.svg`, `konsole.svg` | ✅ |
+| `panel/firefox.png`, pins SVG | ✅ pull VM |
+| `panel/tray/*.svg` | ✅ pull VM |
+| `kickoff/actions/*.svg` | ✅ pull VM |
+| `discover/*.png` (catalogue) | ✅ 37 icônes |
 
-## Backlog
+## Backlog post-clôture bureau Plasma
 
-### P0 — restant
+### P0 — prochain
 
-- [x] Script capture VM + CapsuleOS (`vm-kde-neon-capture-host.sh`, `capture-capsule-kde-neon.mjs`)
-- [ ] Diff pixel côte à côte VM vs CapsuleOS (revue visuelle)
+- [ ] Dolphin (`nemo`) — vues icônes / liste / compacte
+- [ ] Diff pixel côte à côte VM vs CapsuleOS (bureau complet)
 
 ### P1
 
-- [x] Contenu Discover : paquets `.deb` / Ubuntu (`update_manager_kde_neon.html`)
-- [ ] Kontact décoratif dans favoris VM (optionnel)
+- [ ] Captures VM Discover par onglet (script host instable)
 - [ ] Slot `nemo` documenté (convention KDE)
 
-### P2
+### P2 (réouverture Kickoff / tray possible)
 
+- [ ] Popovers tray contenu dynamique (Klipper, réseau KCM)
 - [ ] Renommer tokens `--opensuse-*` → `--kde-neon-*`
+- [ ] Recherche Discover filtrante · fiches app · catégories actives
 
-## Gates (2026-06-06)
+## Gates (clôture 2026-06-06, revalidés à l’exécution)
 
-- MCP browser : bureau, Kickoff, Discover OK
-- `sync-linux-skin-closure` + embed à relancer après edits `mainMenu-data.js`
+```bash
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs   # OK (2026-06-06)
+node usr/lib/capsuleos/tools/validate-all.mjs                    # OK (2026-06-06)
+```
+
+Résultat `validate-all` : assets ✅ · links ✅ · capsule ✅ · quality ✅ (186 avertissements vanilla-js préexistants, non bloquants — voir `root/docs/passe-vanilla-json.md`).
+
+- Discover · Kickoff · Panel/tray : clôture fonctionnelle validée utilisateur ✅
+- `.cursor` → symlink `root/.cursor` ✅

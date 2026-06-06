@@ -1,6 +1,6 @@
 # KDE neon User Edition — checklist réparation (juin 2026)
 
-Référence visuelle : VM lab + captures futures `home/public/Images/screen_KDE-Neon/`.  
+Référence visuelle : VM lab + captures `home/public/Images/screen_KDE-Neon/`.  
 Skin canonique : `home/Debian/KDE-Neon/index.html` · Registre : `linux-kde-neon`.
 
 ## Phase A — quick wins (sans VM)
@@ -16,18 +16,40 @@ Skin canonique : `home/Debian/KDE-Neon/index.html` · Registre : `linux-kde-neon
 | Panel Firefox | Chemin `vendors/neon/panel/firefox.png` | ✅ VM 2026-06-06 |
 | Fond bureau | `vendors/neon/wallpaper/neon-default.png` | ✅ VM 2026-06-06 |
 | Façade | `sync-linux-skin-closure.mjs` | ✅ |
+| `.cursor` | Symlink racine → `root/.cursor` (post-merge upstream) | ✅ 2026-06-06 |
 
-## Phase B — avec VM (ground truth)
+## Phase B — Discover (clôturé)
+
+| Zone | Action | Statut |
+|------|--------|--------|
+| Template | `update_manager_kde_neon.html` — 5 onglets | ✅ |
+| JS | `discover-neon.js` — nav, render, titre, maximized | ✅ |
+| Données | `discover-catalog.json` — VM noble/neon | ✅ |
+| Assets | Icônes `vendors/neon/discover/` | ✅ |
+| Captures | `capture-capsule-kde-neon.mjs` — 10 scènes Discover | ✅ |
+| Doc | [`linux-kde-neon-discover-closure.md`](linux-kde-neon-discover-closure.md) | ✅ |
+| Gates | `validate-all` + embed | ✅ |
+
+## Phase C — Kickoff (en cours)
+
+| Zone | Action | Statut |
+|------|--------|--------|
+| Transparence | Alpha / blur menu vs VM | ⏳ |
+| Catégories | Icônes Breeze colorées pull VM | ⏳ |
+| Apps | 30 entrées depuis `linux-kde-neon-kickoff-apps.json` | ⏳ |
+| Générateur | `generate-kde-neon-kickoff-data.mjs` | ✅ |
+| Favoris | Firefox, Config système, Dolphin, Discover | ✅ |
+
+## Phase D — avec VM (reste à faire)
 
 | Zone | Action | Statut |
 |------|--------|--------|
 | Inventaire | `vm-kde-neon-inventory.sh` → `-vm.json` complet | ✅ partiel (versions vides en SSH) |
 | Assets | SCP / pull VM → `vendors/neon/` | ✅ |
-| Kickoff | Favoris + dimensions popup (677×509) depuis VM | ⏳ |
-| Parité | `inventaire-parite-neon.md` rempli | ⏳ |
+| Parité | `inventaire-parite-neon.md` rempli | ✅ Discover + Kickoff · ⏳ Dolphin |
 | Tokens CSS | Renommer `--opensuse-*` → `--kde-neon-*` (optionnel P2) | ⏳ |
 
-## Phase C — gates finales
+## Phase E — gates finales skin (après Dolphin)
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
@@ -35,11 +57,13 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 # Comparaison visuelle VM ↔ http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html
 ```
 
-- [ ] Panel : launcher, Dolphin, Firefox, Konsole, Discover
-- [ ] Kickoff : recherche, catégories, favoris VM, pied alimentation
-- [ ] Discover ouvre le gabarit KDE (pas GNOME Software)
+- [x] Discover ouvre le gabarit KDE (pas GNOME Software)
+- [x] Discover — 5 onglets, données VM, captures
+- [ ] Kickoff : transparence, icônes catégories, apps VM par catégorie
+- [ ] Panel : launcher, Dolphin, Firefox, Konsole, Discover (clic → bonne app)
+- [ ] Dolphin : navigation, vues, menus
 - [ ] Fond « Next » ou défaut Plasma Neon
-- [ ] Passage `status: active` dans `os-registry.json` (après parité P0)
+- [ ] Passage `status: active` dans `etc/capsuleos/profiles/linux-kde-neon.json` (après parité P0)
 
 ## Commandes VM (rappel)
 
@@ -48,6 +72,10 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 ssh -i ~/.ssh/capsuleos-lab USER@IP 'bash -s' \
   < root/tools/lab/vm-kde-neon-inventory.sh \
   | python3 -m json.tool > root/docs/inventaires/linux-kde-neon-vm.json
+
+# Captures CapsuleOS Discover
+python3 -m http.server 5500
+node root/tools/lab/capture-capsule-kde-neon.mjs
 
 # Assets (manuel — voir usr/share/capsuleos/assets/images/vendors/neon/SOURCE-VM.txt)
 scp -i ~/.ssh/capsuleos-lab USER@IP:/usr/share/wallpapers/Next/contents/images/5120x2880.png \

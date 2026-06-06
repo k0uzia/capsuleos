@@ -96,6 +96,12 @@ function buildCssBase(templateId) {
         const nemoBase = path.join(STYLE_DIR, 'nemo.base.css');
         text = `${readUtf8(nemoBase)}\n${text}`;
     }
+    if (templateId === 'themes') {
+        const gnomeBase = path.join(STYLE_DIR, 'themes_gnome.base.css');
+        if (fs.existsSync(gnomeBase)) {
+            text = `${text}\n${readUtf8(gnomeBase)}`;
+        }
+    }
     return text;
 }
 
@@ -205,7 +211,7 @@ function main() {
     }
 
     if (fs.existsSync(GNOME_THEMES_HTML)) {
-        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos', 'ubuntu']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].themes = { html: readUtf8(GNOME_THEMES_HTML) };
         }

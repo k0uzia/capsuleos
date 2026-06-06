@@ -16,7 +16,7 @@ body#popos div[class^="windowElement"]:not(#mainMenu) {
     height: calc(var(--head) * 10);
     min-height: calc(var(--head) * 12);
     padding: calc(var(--head) / 20);
-    border: 1px solid rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--popos-window-header-border);
     border-radius: var(--popos-window-radius);
     box-shadow: var(--popos-window-shadow);
     background: var(--popos-window-surface);

@@ -1,6 +1,10 @@
 /**
  * Capture d'écran GNOME — Linux Mint Cinnamon.
  */
+body#mint .gnome-shot__headerbar {
+    display: none;
+}
+
 body#mint {
     --gnome-shot-bg: #2e2e33;
     --gnome-shot-text: #e1e1e1;

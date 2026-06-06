@@ -10,7 +10,14 @@
 
 html {
     --gnome-chrome-top-inset: var(--fedora-top-bar-height, var(--ubuntu-top-bar-height, var(--head)));
-    --ubuntu-window-border: var(--ubuntu-window-header-border, rgba(0, 0, 0, 0.45));
+    --capsule-chrome-window-border: var(--fedora-window-border, var(--ubuntu-window-border, rgba(0, 0, 0, 0.45)));
+    --capsule-chrome-window-header-border: var(--fedora-window-header-border, var(--ubuntu-window-header-border, var(--anduin-window-header-border, rgba(0, 0, 0, 0.45))));
+    --capsule-chrome-window-active-ring: var(--fedora-window-active-ring, var(--ubuntu-window-active-ring, 0 0 0 2px color-mix(in srgb, var(--menu-accent, #3584e4) 55%, transparent)));
+}
+
+html[data-theme="light"] {
+    --capsule-chrome-window-border: var(--fedora-window-border, var(--ubuntu-window-border, rgba(0, 0, 0, 0.15)));
+    --capsule-chrome-window-header-border: var(--fedora-window-header-border, var(--ubuntu-window-header-border, var(--anduin-window-header-border, rgba(0, 0, 0, 0.12))));
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"]:not(#mainMenu) {
@@ -28,7 +35,7 @@ html {
     height: calc(var(--head) * 10);
     min-height: calc(var(--head) * 12);
     padding: calc(var(--head) / 20);
-    border: 1px solid var(--fedora-window-border, var(--ubuntu-window-border, rgba(0, 0, 0, 0.45)));
+    border: 1px solid var(--capsule-chrome-window-border);
     border-radius: var(--fedora-window-radius, var(--ubuntu-window-radius, var(--anduin-window-radius, 11px)));
     box-shadow: var(--fedora-window-shadow, var(--ubuntu-window-shadow, var(--anduin-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42))));
     background: var(--fedora-window-surface, var(--ubuntu-window-surface, var(--anduin-window-surface, #303030)));
@@ -41,7 +48,7 @@ html {
 .windowElement[data-window-chrome-toolkit="gnome"].windowElementActive:not(#mainMenu) {
     z-index: 500;
     border-color: var(--menu-accent);
-    box-shadow: 0 0 0 2px rgba(53, 132, 228, 0.55), var(--fedora-window-shadow, var(--ubuntu-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42)));
+    box-shadow: var(--capsule-chrome-window-active-ring), var(--fedora-window-shadow, var(--ubuntu-window-shadow, var(--anduin-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42))));
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"]:not(#mainMenu) > #windowHeader {
@@ -58,13 +65,13 @@ html {
     border-radius: var(--fedora-window-radius, var(--ubuntu-window-radius, 11px)) var(--fedora-window-radius, var(--ubuntu-window-radius, 11px)) 0 0;
     background: var(--fedora-window-header-bg, var(--ubuntu-window-header-bg, var(--anduin-window-header-bg, #383838)));
     user-select: none;
-    border-bottom: 1px solid var(--fedora-window-header-border, var(--ubuntu-window-header-border, var(--anduin-window-header-border, rgba(0, 0, 0, 0.45))));
+    border-bottom: 1px solid var(--capsule-chrome-window-header-border);
     transition: background-color var(--eas2), border-color var(--eas2);
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"].windowElementActive > #windowHeader {
     background: var(--fedora-window-header-active, var(--ubuntu-window-header-active, var(--anduin-window-header-active, #3d3d3d)));
-    border-bottom-color: var(--fedora-window-header-border, var(--ubuntu-window-header-border, var(--anduin-window-header-border, rgba(0, 0, 0, 0.45))));
+    border-bottom-color: var(--capsule-chrome-window-header-border);
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"] #windowHeader > nav {

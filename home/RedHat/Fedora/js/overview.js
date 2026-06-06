@@ -17,6 +17,16 @@
         }
     };
 
+    const resolveSearchIcon = (icon) => {
+        if (typeof window.resolveCapsuleResourceUrl === 'function') {
+            return window.resolveCapsuleResourceUrl(icon);
+        }
+        if (window.CapsuleResource && typeof window.CapsuleResource.resolve === 'function') {
+            return window.CapsuleResource.resolve(icon);
+        }
+        return icon;
+    };
+
     const searchCatalog = [
         {
             label: 'Fichiers',
@@ -210,7 +220,7 @@
         }
 
         const img = document.createElement('img');
-        img.src = item.icon;
+        img.src = resolveSearchIcon(item.icon);
         img.alt = '';
 
         const label = document.createElement('span');

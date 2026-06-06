@@ -1,0 +1,33 @@
+/**
+ * Rocky — Snapshot (org.gnome.Snapshot) · chrome CSD libadwaita.
+ */
+body#rocky {
+    --gnome-snapshot-bg: #303030;
+    --gnome-snapshot-header-bg: #383838;
+    --gnome-snapshot-text: #f6f6f6;
+    --gnome-snapshot-muted: rgba(255, 255, 255, 0.62);
+    --gnome-snapshot-border: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="light"]:has(#rocky) {
+    --gnome-snapshot-bg: #fafafa;
+    --gnome-snapshot-header-bg: #f6f6f6;
+    --gnome-snapshot-text: #1e1e1e;
+    --gnome-snapshot-muted: rgba(0, 0, 0, 0.55);
+    --gnome-snapshot-border: rgba(0, 0, 0, 0.1);
+}
+
+body#rocky div[data-link="snapshot"].windowElement {
+    width: min(36rem, calc(100vw - var(--fedora-dock-width) - 2rem));
+    height: min(28rem, calc(100vh - var(--fedora-top-bar-height) - 2rem));
+}
+
+body#rocky div[data-link="snapshot"].gnome-app--csd {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body#rocky div[data-link="snapshot"] main#gnomeSnapshotApp {
+    height: 100%;
+}

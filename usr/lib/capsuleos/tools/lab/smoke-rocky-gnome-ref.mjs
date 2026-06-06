@@ -47,6 +47,33 @@ if (!overviewJs.includes("dataLink: 'update_manager'")) {
 if (!overviewJs.includes("dataLink: 'text_editor'")) {
     errors.push('overview.js : Éditeur de texte absent du catalogue recherche');
 }
+if (!overviewJs.includes("dataLink: 'visionneur_images'")) {
+    errors.push('overview.js : Loupe absent du catalogue recherche');
+}
+if (!indexHtml.includes('data-overview-link="visionneur_images"')) {
+    errors.push('index.html : Loupe absent de la grille Aperçu');
+}
+if (!overviewJs.includes('org.gnome.Loupe.svg')) {
+    errors.push('overview.js : icône Loupe VM manquante');
+}
+if (!indexHtml.includes('data-overview-link="snapshot"')) {
+    errors.push('index.html : Snapshot absent de la grille Aperçu');
+}
+if (!overviewJs.includes("dataLink: 'snapshot'")) {
+    errors.push('overview.js : Snapshot absent du catalogue recherche');
+}
+if (!indexHtml.includes('data-link="screenshot"')) {
+    errors.push('index.html : slot screenshot manquant');
+}
+if (!indexHtml.includes('data-overview-link="visionneur_pdf"')) {
+    errors.push('index.html : Papers (visionneur_pdf) absent de la grille Aperçu');
+}
+if (!overviewJs.includes("dataLink: 'visionneur_pdf'")) {
+    errors.push('overview.js : Papers absent du catalogue recherche');
+}
+if (indexHtml.includes('aria-label="Contacts"') && !indexHtml.includes('org.gnome.Papers.svg')) {
+    errors.push('index.html : Contacts doit être remplacé par Papers (RL10 VM)');
+}
 if (!overviewJs.includes('openWindowByDataLink')) {
     errors.push('overview.js : fallback openWindowByDataLink manquant');
 }
@@ -79,6 +106,41 @@ if (!registry.includes('"id": "linux-rocky"') || !registry.includes('"upstreamId
 }
 if (!registry.includes('"id": "linux-fedora"') || !registry.includes('"upstreamId": "linux-rocky"')) {
     errors.push('os-registry : linux-fedora doit dériver de linux-rocky');
+}
+
+const dashOrder = [
+    'data-overview-link="firefox"',
+    'data-overview-link="calendar"',
+    'data-overview-link="nemo"',
+    'data-overview-link="update_manager"',
+    'data-overview-link="terminal"',
+    'data-overview-link="text_editor"',
+    'data-overview-link="calculator"'
+];
+const dashBlock = indexHtml.match(/<nav class="fedora-overview__dash"[\s\S]*?<\/nav>/);
+if (!dashBlock) {
+    errors.push('index.html : nav.fedora-overview__dash introuvable');
+} else {
+    const dashHtml = dashBlock[0];
+    const links = [...dashHtml.matchAll(/data-overview-link="([^"]+)"/g)].map((m) => m[1]);
+    const expected = dashOrder.map((s) => s.replace('data-overview-link="', '').replace('"', ''));
+    if (links.join(',') !== expected.join(',')) {
+        errors.push(`index.html : ordre dash VM attendu ${expected.join(' → ')}, obtenu ${links.join(' → ')}`);
+    }
+}
+if (indexHtml.includes('Fedora Media Writer')) {
+    errors.push('index.html : Fedora Media Writer interdit sur Rocky (app Fedora-only)');
+}
+for (const wm of [
+    'usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_darkbackground.svg',
+    'usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_lightbackground.svg'
+]) {
+    if (!fs.existsSync(path.join(ROOT, wm))) {
+        errors.push(`Asset watermark manquant: ${wm}`);
+    }
+}
+if (!read('home/RedHat/Rocky/style/gnome-shell/tokens.css').includes('--rocky-watermark')) {
+    errors.push('tokens.css : --rocky-watermark absent');
 }
 
 if (errors.length) {

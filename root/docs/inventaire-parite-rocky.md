@@ -13,7 +13,7 @@
 | Shell / DE | GNOME Shell **49.4** Wayland | Coque `fedora-*` / `#rocky` | P1 — valider tokens vs captures |
 | Explorateur | **Nautilus 47** | Slot `nemo` · gabarit `nemo-gnome` | P0 résolu — titre « Fichiers » |
 | Navigateur | Firefox ESR/RPM | Slot `firefox` | P1 — chrome onglets |
-| Terminal | **Ptyxis** | Slot `terminal` · `linux:redhat` | P1 — invite `capsule@rocky` |
+| Terminal | **Ptyxis** | Slot `terminal` · `linux:redhat` | OK — invite `capsule@rocky` |
 
 ---
 
@@ -23,10 +23,10 @@
 |--------|-----|-----------|--------|
 | Top bar | Date longue + horloge + tray | `fedora-top-bar` + `rocky-clock-date` | P1 |
 | Dock permanent gauche | **Absent** (GNOME RHEL) | `#tableau` **masqué** | OK (modèle RHEL) |
-| Dash Aperçu | **7** favoris VM (pas Music) | 6 liens + grille apps | P1 |
+| Dash Aperçu | **7** favoris VM (pas Music) | 7 favoris + grille apps (ordre VM) | OK |
 | Recherche Aperçu | Shell search | `overview.js` + `CapsuleAppSearch` | P1 |
-| Quick Settings | Volume, réseau, thème | `volume-popover` | P2 |
-| Extension fond | background-logo | Non émulé | P2 |
+| Quick Settings | Volume, réseau, thème | `volume-popover` · Paramètres → `themes` · Capture → `screenshot` | OK |
+| Extension fond | background-logo (fedora watermark) | `::after` bureau + carte Aperçu | OK |
 
 ---
 
@@ -37,6 +37,18 @@
 | `nemo` (Fichiers) | Nautilus | running OK | running OK, **active fragile** | P1 Wayland |
 | `firefox` | Firefox | OK | OK | OK |
 | `terminal` | Ptyxis | OK | running OK, **active fragile** | P1 Wayland |
+
+**Passe lab 2026-06-06 (suite)** : captures Capsule étendues (12 PNG : Aperçu, QS, Loupe, Papers) · rapport visuel enrichi · virsh indisponible sur hôte → audit VM.
+
+**Passe lab 2026-06-06** : grille Aperçu ↔ apps RL10 VM · Papers (`visionneur_pdf`) · captures PNG Capsule · rapport visuel.
+
+**Passe lab 2026-06-04 (suite 3)** : Snapshot + Capture d'écran (slots CSD) · Quick Settings accent Adwaita · fond capture Rocky.
+
+**Passe lab 2026-06-04 (suite 2)** : Loupe RL10 branchée · Quick Settings (tokens CSS + Paramètres) · Snapshot/Lecteur vidéo alignés VM.
+
+**Passe lab 2026-06-04 (suite)** : filigrane `background-logo` émulé (watermark VM pull `/usr/share/rocky-logos/`) · carte workspace Aperçu avec logo VM · tokens nettoyés.
+
+**Passe lab 2026-06-04** : ordre dash aligné sur `gsettings favorite-apps` VM · grille Aperçu sans « Fedora Media Writer » (→ Visite guidée) · icône Calculatrice SVG pull VM · `validate-all` + `smoke-rocky-gnome-ref` OK.
 
 **Passe lab 2026-06-06** : Capsule **6/6** (`run-capsule-panel-browser.mjs`) · VM **0/6** `active` (P1 Wayland — `wmctrl`/`xdotool` ne voit pas les fenêtres, `running` OK via `pgrep`).
 
@@ -88,7 +100,20 @@ Rapport détaillé : [`linux-rocky-comparaison-visuelle.md`](inventaires/linux-r
 | Bureau clair | ✓ | ✓ | OK mécanisme thème |
 | Nautilus clair | ✓ | ✓ | P1 |
 
-Commandes : `vm-rocky-capture-host.sh`, `capture-capsule-rocky.mjs`, `compare-rocky-visual-pass.mjs`.
+Commandes :
+
+```bash
+# Capsule (12 scènes : bureau, aperçu, QS, apps RL10…)
+node root/tools/lab/capture-capsule-rocky.mjs
+
+# VM apps (virsh) — si hyperviseur local ; sinon audit/ déjà collecté
+bash root/tools/lab/vm-rocky-capture-host.sh
+
+# Rapport VM ↔ Capsule
+node root/tools/lab/compare-rocky-visual-pass.mjs
+```
+
+Captures shell VM : `rocky-vm/audit/` (Aperçu, Quick Settings) via `run-vm-deep-audit-phases.mjs`.
 
 ---
 
@@ -119,16 +144,22 @@ Commandes : `vm-rocky-capture-host.sh`, `capture-capsule-rocky.mjs`, `compare-ro
 - [x] **Menu contextuel bureau** — `gnome-desktop-context-menu.js`
 - [x] **Transitions Aperçu** — 220/280 ms cubic-bezier dans `overview.css`
 - [x] **Polices VM** — `--font-ui` Red Hat Text · `--font-mono` Red Hat Mono
-- [ ] Prompt terminal : `capsule@rocky` vs `fed@fedora` résiduel
-- [ ] Polish tokens `gnome-shell/tokens.css` depuis captures PNG
-- [ ] Logo bureau : `rocky-logo.svg` vs identité VM exacte
+- [x] Prompt terminal : `capsule@rocky` (`body#rocky` + `CAPSULE_TERMINAL_PROFILE`)
+- [x] Polish tokens `gnome-shell/tokens.css` — `--rocky-watermark`, dédup calendrier
+- [x] Filigrane bureau VM (`background-logo` → `watermark/fedora_logo_*.svg`)
+- [ ] Raccourci bureau « Rocky Linux - À propos » : `rocky-logo.svg` (CapsuleOnly)
 
 ### P2 — extension
 
-- [ ] Apps overview décoratives (Météo, Contacts, Cartes, …)
-- [ ] Loupe (remplace Eye of GNOME RL10)
-- [ ] Snapshot (remplace Cheese)
-- [ ] Lecteur vidéo (Totem retiré RL10)
+- [x] Grille Aperçu alignée VM RL10 — Papers, Baobab, SystemMonitor · apps absentes marquées
+- [x] Inventaire apps installées — [`linux-rocky-vm-apps-installed.json`](inventaires/linux-rocky-vm-apps-installed.json)
+- [x] Captures Capsule — 12 scènes (`capture-capsule-rocky.mjs` : Aperçu, QS, Loupe, Papers…)
+- [x] Rapport visuel VM audit ↔ Capsule — `compare-rocky-visual-pass.mjs`
+- [ ] Apps overview optionnelles (Contacts, Météo, Cartes…) — recherche sans slot, non installées VM lab
+- [x] **Loupe** — slot `visionneur_images` · titre « Loupe » · grille + recherche Aperçu
+- [x] **Snapshot** — slot `snapshot` · gabarit CSD · grille + recherche Aperçu
+- [x] **Capture d'écran** — slot `screenshot` · Quick Settings · recherche Aperçu
+- [x] **Lecteur vidéo** — décoratif RL10 (Showtime absent VM) · slot Capsule `lecteur_multimedia` hors recherche Rocky
 
 ### CapsuleOnly
 
@@ -176,7 +207,9 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 ## Références croisées
 
+- [reference-gnome-expert.md](reference-gnome-expert.md)
 - [branche-redhat-gnome.md](branche-redhat-gnome.md)
 - [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md)
 - [linux-rocky-vm.md](inventaires/linux-rocky-vm.md)
+- [linux-rocky-vm-apps-installed.json](inventaires/linux-rocky-vm-apps-installed.json)
 - [convention-reproduction-os.md](convention-reproduction-os.md) §8

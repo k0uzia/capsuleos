@@ -41,6 +41,9 @@
                     return;
                 }
                 if (action === 'display-settings') {
+                    if (typeof global.setCapsuleSettingsPanel === 'function') {
+                        global.setCapsuleSettingsPanel('displays');
+                    }
                     if (typeof global.openWindowByDataLink === 'function') {
                         global.openWindowByDataLink('themes');
                     }

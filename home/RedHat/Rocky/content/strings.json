@@ -6,7 +6,12 @@
     "text_editor.windowTitle": "Éditeur de texte",
     "calendar.windowTitle": "Calendrier",
     "clocks.windowTitle": "Horloges",
-    "themes.windowTitle": "Apparence",
+    "themes.windowTitle": "Paramètres",
+    "visionneur_images.windowTitle": "Loupe",
+    "visionneur_pdf.windowTitle": "Papers",
+    "lecteur_multimedia.windowTitle": "Lecteur vidéo",
+    "snapshot.windowTitle": "Snapshot",
+    "screenshot.windowTitle": "Capture d'écran",
     "librewriter.windowTitle": "Sans titre — LibreOffice Writer",
     "checklist.description": "Explore Rocky Linux en accomplissant ces missions. Ta progression est sauvegardée."
 }

@@ -17,6 +17,15 @@
     align-items: stretch;
     padding: 0;
     overflow: hidden;
+    border-color: var(--capsule-chrome-window-border, var(--fedora-window-border, var(--ubuntu-window-border, rgba(0, 0, 0, 0.45))));
+    background: var(--fedora-window-surface, var(--ubuntu-window-surface, var(--anduin-window-surface, #303030)));
+    box-shadow: var(--fedora-window-shadow, var(--ubuntu-window-shadow, var(--anduin-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42))));
+    transition: border-color var(--eas2), box-shadow var(--eas2), background-color var(--eas2);
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"].gnome-app--csd.windowElementActive:not(#mainMenu) {
+    border-color: var(--menu-accent);
+    box-shadow: var(--capsule-chrome-window-active-ring, 0 0 0 2px color-mix(in srgb, var(--menu-accent, #3584e4) 55%, transparent)), var(--fedora-window-shadow, var(--ubuntu-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42)));
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"].gnome-app--csd:not(#mainMenu) > #windowHeader {

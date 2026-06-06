@@ -5,6 +5,7 @@
   "toolkits": {
     "cinnamon": {
       "displayName": "Cinnamon / Muffin SSD",
+      "chromeCssCluster": "usr/share/capsuleos/themes/clusters/toolkit-cinnamon/chrome.css",
       "headerLayout": "capsule",
       "headerIconPack": "cinnamon",
       "behaviorsModule": "cinnamon-window-behaviors.js",
@@ -17,6 +18,7 @@
     },
     "gnome": {
       "displayName": "GNOME / Mutter SSD",
+      "chromeCssCluster": "usr/share/capsuleos/themes/clusters/toolkit-gnome/chrome.css",
       "headerLayout": "capsule",
       "headerIconPack": "gnome",
       "behaviorsModule": "gnome-window-behaviors.js",
@@ -38,11 +40,19 @@
         "visionneur_images": "libadwaita-gnome",
         "visionneur_pdf": "libadwaita-gnome",
         "lecteur_multimedia": "libadwaita-gnome",
+        "snapshot": "libadwaita-gnome",
+        "screenshot": "libadwaita-gnome",
         "default": "default"
+      },
+      "slotChromeProviderOverrides": {
+        "linux-ubuntu": {
+          "update_manager": "update-manager-ubuntu"
+        }
       }
     },
     "kde": {
       "displayName": "KDE Plasma / Breeze",
+      "chromeCssCluster": "usr/share/capsuleos/themes/clusters/toolkit-kde/chrome.css",
       "headerLayout": "capsule",
       "headerIconPack": "kde-breeze",
       "behaviorsModule": null,
@@ -55,6 +65,7 @@
     },
     "cosmic": {
       "displayName": "COSMIC",
+      "chromeCssCluster": "usr/share/capsuleos/themes/clusters/toolkit-cosmic/chrome.css",
       "headerLayout": "capsule",
       "headerIconPack": "cosmic",
       "behaviorsModule": null,

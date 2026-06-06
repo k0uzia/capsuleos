@@ -267,6 +267,13 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
                 text = `${await nemoResp.text()}\n${text}`;
             }
         }
+        if (templateId === 'themes' && text) {
+            const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
+            const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
+            if (gnomeResp.ok) {
+                text = `${text}\n${await gnomeResp.text()}`;
+            }
+        }
         return text;
     })();
 

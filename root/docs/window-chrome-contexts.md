@@ -26,7 +26,8 @@ usr/lib/capsuleos/common/window/chrome.js           ← providers + drag policy
 | **Contrat JSON** | Définit les toolkits, templates explorateur, providers par slot |
 | **`CapsuleWindowHeaderContext`** | Fusionne profil skin + contrat ; expose `resolveChromeProviderId(slotId)` |
 | **`CapsuleWindowChrome`** | Injecte `#windowHeader`, applique drag/icons selon le provider résolu |
-| **Skin CSS** | Habillage visuel uniquement (`window-chrome.base.css`, `*.skin.css`) |
+| **Hub toolkit CSS** | Point d'entrée chrome par DE (`clusters/toolkit-*/chrome.css`) |
+| **Skin CSS** | Surcharges vendor (`gnome-shell/windows-chrome.css`, `cinnamon-window-chrome.css`, `*.skin.css`) |
 
 ## Toolkits (phase 1)
 
@@ -68,6 +69,7 @@ CapsuleWindowHeaderContext.usesUnifiedExplorerTitleBar();     // true sur Cinnam
 ## Gates
 
 ```bash
+node usr/lib/capsuleos/tools/validate-toolkit-chrome-isolation.mjs
 node usr/lib/capsuleos/tools/validate-window-chrome-contexts.mjs
 node usr/lib/capsuleos/tools/build-capsule-window.mjs   # regen capsule-window.js
 node usr/lib/capsuleos/tools/build-skin-profiles.mjs    # si profil touché
@@ -86,6 +88,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 Attributs debug : `data-window-chrome-toolkit`, `data-window-chrome-provider` sur chaque `.windowElement`.
 
+Hubs chrome : `usr/share/capsuleos/themes/clusters/toolkit-*/chrome.css`  
+Inventaire complet : [inventaire-chromes-par-toolkit.md](inventaire-chromes-par-toolkit.md)  
 CSS Mint unifié : `home/Debian/Mint/style/cinnamon-window-chrome.css`
 
 Smokes : `smoke-mint-window-chrome.mjs`, `smoke-mint-nemo.mjs`, `smoke-mint-file-roller.mjs`, `smoke-rocky-gnome-ref.mjs`

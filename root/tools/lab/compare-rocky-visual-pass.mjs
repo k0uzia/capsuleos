@@ -57,6 +57,36 @@ const PAIRS = [
     cap: 'rocky-capsule-light-firefox.png',
     context: 'Firefox · firefox',
   },
+  {
+    label: 'Aperçu bureau (workspace)',
+    vm: 'audit/anim-overview-03.png',
+    cap: 'rocky-capsule-dark-overview.png',
+    context: 'GNOME Shell Overview · dash + carte bureau',
+  },
+  {
+    label: 'Grille applications Aperçu',
+    vm: 'audit/anim-overview-02.png',
+    cap: 'rocky-capsule-dark-overview-apps.png',
+    context: 'Overview mode apps · grille RL10 alignée',
+  },
+  {
+    label: 'Quick Settings',
+    vm: 'audit/07-quick-settings.png',
+    cap: 'rocky-capsule-dark-quick-settings.png',
+    context: 'Tray cluster · volume-popover',
+  },
+  {
+    label: 'Loupe (Papers VM = Papers RL10)',
+    vm: 'audit/03-nautilus-open.png',
+    cap: 'rocky-capsule-dark-loupe.png',
+    context: 'VM : référence fenêtre ouverte · Capsule : slot visionneur_images',
+  },
+  {
+    label: 'Papers (PDF RL10)',
+    vm: 'audit/03-nautilus-open.png',
+    cap: 'rocky-capsule-dark-papers.png',
+    context: 'VM : pas de capture Papers dédiée · Capsule : slot visionneur_pdf',
+  },
 ];
 
 const fileInfo = (dir, name) => {

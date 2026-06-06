@@ -19,7 +19,7 @@ body#fedora div[class^="windowElement"]:not(#mainMenu) {
     height: calc(var(--head) * 10);
     min-height: calc(var(--head) * 12);
     padding: calc(var(--head) / 20);
-    border: 1px solid rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--fedora-window-border, rgba(0, 0, 0, 0.45));
     border-radius: var(--fedora-window-radius);
     box-shadow: var(--fedora-window-shadow);
     background: var(--fedora-window-surface);
@@ -31,7 +31,7 @@ body#fedora div[class^="windowElement"]:not(#mainMenu) {
 body#fedora .windowElementActive {
     z-index: 500;
     border-color: var(--menu-accent);
-    box-shadow: 0 0 0 2px rgba(53, 132, 228, 0.55), var(--fedora-window-shadow);
+    box-shadow: var(--fedora-window-active-ring, 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent)), var(--fedora-window-shadow);
 }
 
 body#fedora #windowHeader {

@@ -292,9 +292,8 @@ body#rocky .fedora-overview__workspace-card::before {
     right: 0;
     bottom: 0;
     left: 0;
-    background:
-        radial-gradient(circle at 72% 18%, rgba(120, 190, 255, 0.42), transparent 28%),
-        linear-gradient(160deg, rgba(4, 13, 32, 0.2), rgba(18, 83, 230, 0.35));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.14));
+    pointer-events: none;
 }
 
 body#rocky .fedora-overview__workspace-next {
@@ -313,13 +312,19 @@ body#rocky .fedora-overview__workspace-next {
 
 body#rocky .fedora-overview__brand {
     position: absolute;
-    right: calc(var(--head) / 1.2);
-    bottom: calc(var(--head) / 1.5);
+    right: calc(var(--head) / 2.4);
+    bottom: calc(var(--head) / 2.8);
     z-index: 1;
-    font-size: calc(var(--head) / 2.6);
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.92);
-    text-transform: lowercase;
+    display: block;
+    width: 38%;
+    aspect-ratio: 907.78 / 415.08;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    font-size: 0;
+    color: transparent;
+    pointer-events: none;
 }
 
 body#rocky .fedora-overview__apps {

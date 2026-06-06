@@ -3,7 +3,7 @@
 @import url(../../../../usr/share/capsuleos/themes/clusters/toolkit-gnome/variables.css);
 @import url(../../../../usr/share/capsuleos/themes/linux/variables-linux.css);
 @import url(../../../../usr/share/capsuleos/themes/linux/variables-linux-computed.css);
-@import url(../../../../usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css);
+@import url(../../../../usr/share/capsuleos/themes/clusters/toolkit-gnome/chrome.css);
 @import url(gnome-shell/tokens.css);
 @import url(gnome-shell/windows-chrome.css);
 @import url(gnome-shell/tray.css);

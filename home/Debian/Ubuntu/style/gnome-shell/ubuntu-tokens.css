@@ -27,6 +27,7 @@ html:has(#ubuntu) {
     --calendar-popover-radius: 12px;
     --ubuntu-window-radius: 11px;
     --ubuntu-window-border: rgba(0, 0, 0, 0.45);
+    --ubuntu-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --ubuntu-window-shadow: 0 4px 28px rgba(0, 0, 0, 0.42);
     --ubuntu-window-surface: #2e2e2e;
     --ubuntu-window-header-bg: #383838;
@@ -119,6 +120,7 @@ html[data-theme="light"]:has(#ubuntu) {
     --ubuntu-dock-bg: rgba(235, 235, 235, 0.96);
     --ubuntu-dock-border-right: 1px solid rgba(0, 0, 0, 0.12);
     --ubuntu-window-border: rgba(0, 0, 0, 0.15);
+    --ubuntu-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --ubuntu-window-surface: #fafafa;
     --ubuntu-window-header-bg: #ebebeb;
     --ubuntu-window-header-active: #e4e4e4;

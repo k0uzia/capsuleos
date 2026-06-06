@@ -1,53 +1,412 @@
-<main id="themesApp" class="themes-app themes-app--gnome" aria-label="Paramètres — Apparence">
-    <header class="gnome-settings__headerbar" aria-label="En-tête">
-        <h1 class="gnome-settings__title">Apparence</h1>
-    </header>
+<main id="themesApp" class="gnome-settings themes-app--gnome" aria-label="Paramètres">
+    <aside class="gnome-settings__sidebar" aria-label="Sections">
+        <div class="gnome-settings__search" role="search">
+            <span class="gnome-settings__search-icon" aria-hidden="true"></span>
+            <input type="search" class="gnome-settings__search-input" placeholder="Rechercher" aria-label="Rechercher" disabled>
+        </div>
 
-    <div class="gnome-settings__content">
-        <section class="themes-app__section themes-app__section--vm-labels">
-            <h2 class="themes-app__label">Style</h2>
-            <p class="themes-app__vm-value">Adwaita</p>
-        </section>
+        <nav class="gnome-settings__nav" aria-label="Catégories">
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="wifi">
+                <span class="gnome-settings__navicon gnome-settings__navicon--wifi" aria-hidden="true"></span>
+                <span>Wi-Fi</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="bluetooth">
+                <span class="gnome-settings__navicon gnome-settings__navicon--bluetooth" aria-hidden="true"></span>
+                <span>Bluetooth</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="appearance">
+                <span class="gnome-settings__navicon gnome-settings__navicon--appearance" aria-hidden="true"></span>
+                <span>Apparence</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="background">
+                <span class="gnome-settings__navicon gnome-settings__navicon--background" aria-hidden="true"></span>
+                <span>Arrière-plan</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="region">
+                <span class="gnome-settings__navicon gnome-settings__navicon--region" aria-hidden="true"></span>
+                <span>Région et langue</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="keyboard">
+                <span class="gnome-settings__navicon gnome-settings__navicon--keyboard" aria-hidden="true"></span>
+                <span>Clavier</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="mouse">
+                <span class="gnome-settings__navicon gnome-settings__navicon--mouse" aria-hidden="true"></span>
+                <span>Souris et pavé tactile</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="sound">
+                <span class="gnome-settings__navicon gnome-settings__navicon--sound" aria-hidden="true"></span>
+                <span>Son</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="displays">
+                <span class="gnome-settings__navicon gnome-settings__navicon--displays" aria-hidden="true"></span>
+                <span>Écrans</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="power">
+                <span class="gnome-settings__navicon gnome-settings__navicon--power" aria-hidden="true"></span>
+                <span>Alimentation</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="printers">
+                <span class="gnome-settings__navicon gnome-settings__navicon--printers" aria-hidden="true"></span>
+                <span>Imprimantes</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="default-apps">
+                <span class="gnome-settings__navicon gnome-settings__navicon--default-apps" aria-hidden="true"></span>
+                <span>Applications par défaut</span>
+            </button>
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="sharing">
+                <span class="gnome-settings__navicon gnome-settings__navicon--sharing" aria-hidden="true"></span>
+                <span>Partage</span>
+            </button>
+        </nav>
 
-        <section class="themes-app__section themes-app__section--vm-labels">
-            <h2 class="themes-app__label">Accent</h2>
-            <p class="themes-app__vm-value">Bleu</p>
-        </section>
+        <div class="gnome-settings__spacer" aria-hidden="true"></div>
 
-        <section class="themes-app__section">
-            <h2 class="themes-app__label">Schéma de couleurs</h2>
-            <div class="themes-app__cards" role="radiogroup" aria-label="Choix du thème">
-                <button type="button" class="themes-card" data-theme-option="dark" role="radio" aria-checked="true">
-                    <span class="themes-card__preview themes-card__preview--dark" aria-hidden="true"></span>
-                    <span class="themes-card__title">Sombre</span>
-                </button>
-                <button type="button" class="themes-card" data-theme-option="light" role="radio" aria-checked="false">
-                    <span class="themes-card__preview themes-card__preview--light" aria-hidden="true"></span>
-                    <span class="themes-card__title">Clair</span>
-                </button>
+        <nav class="gnome-settings__nav gnome-settings__nav--bottom" aria-label="Informations">
+            <button type="button" class="gnome-settings__navitem" data-gnome-settings-panel="about">
+                <span class="gnome-settings__navicon gnome-settings__navicon--about" aria-hidden="true"></span>
+                <span>À propos de</span>
+            </button>
+        </nav>
+    </aside>
+
+    <section class="gnome-settings__main" aria-label="Panneau actif">
+        <header class="gnome-settings__headerbar" aria-label="En-tête">
+            <h1 class="gnome-settings__title" data-gnome-settings-title>Paramètres</h1>
+        </header>
+
+        <div class="gnome-settings__panels">
+            <!-- Wi-Fi — entrée Aperçu -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="wifi" id="gnomeSettingsWifi" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings-stub gnome-settings-stub--list">
+                        <span class="gnome-settings-stub__icon gnome-settings-stub__icon--wifi" aria-hidden="true"></span>
+                        <p class="gnome-settings-stub__title">Aucun réseau</p>
+                        <p class="gnome-settings-stub__text">Le Wi-Fi est désactivé ou indisponible sur cette machine virtuelle.</p>
+                    </div>
+                </div>
             </div>
-            <p class="themes-app__help" data-themes-help>Le thème sombre est actif.</p>
-        </section>
 
-        <section class="themes-app__section">
-            <h2 class="themes-app__label">Contraste</h2>
-            <div class="themes-app__cards" role="radiogroup" aria-label="Mode contraste">
-                <button type="button" class="themes-contrast-card" data-contrast-option="normal" role="radio" aria-checked="true">
-                    <span class="themes-card__title">Standard</span>
-                </button>
-                <button type="button" class="themes-contrast-card" data-contrast-option="high" role="radio" aria-checked="false">
-                    <span class="themes-card__title">Renforcé</span>
-                </button>
+            <!-- Bluetooth — doc SUSE §3.5 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="bluetooth" id="gnomeSettingsBluetooth" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings-switch-row">
+                        <div class="gnome-settings-switch-row__text">
+                            <p class="gnome-settings-switch-row__title">Bluetooth</p>
+                            <p class="gnome-settings-switch-row__sub">Activez le Bluetooth pour connecter des périphériques.</p>
+                        </div>
+                        <button type="button" class="gnome-settings-switch" data-settings-switch="bluetooth" role="switch" aria-checked="false" aria-label="Bluetooth"></button>
+                    </div>
+                    <p class="gnome-settings-note">Votre ordinateur est visible tant que le panneau Bluetooth est ouvert. La visibilité est temporaire : activez-la uniquement pour l'appairage initial.</p>
+                    <div class="gnome-settings-stub gnome-settings-stub--compact">
+                        <p class="gnome-settings-stub__title">Aucun appareil trouvé</p>
+                        <p class="gnome-settings-stub__text">Assurez-vous que le Bluetooth est activé sur l'autre appareil, puis cliquez dessus pour l'appairer.</p>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <section class="themes-app__section">
-            <h2 class="themes-app__label">Taille du texte</h2>
-            <div class="themes-app__scale" role="radiogroup" aria-label="Taille du texte">
-                <button type="button" class="themes-scale-button" data-font-scale-option="100" role="radio" aria-checked="true">100%</button>
-                <button type="button" class="themes-scale-button" data-font-scale-option="110" role="radio" aria-checked="false">110%</button>
-                <button type="button" class="themes-scale-button" data-font-scale-option="125" role="radio" aria-checked="false">125%</button>
+            <!-- Apparence — Rocky RL10 (schéma, accent, contraste) -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="appearance" id="gnomeSettingsAppearance" hidden>
+                <div class="gnome-settings__content themes-app__content">
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row">
+                            <h2 class="gnome-settings-row__title">Style</h2>
+                            <p class="gnome-settings-row__value">Adwaita</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--accent">
+                            <h2 class="gnome-settings-row__title">Couleur d'accentuation</h2>
+                            <div class="themes-accent-chips" role="radiogroup" aria-label="Couleur d'accentuation">
+                                <button type="button" class="themes-accent-chip themes-accent-chip--blue is-active" data-accent-chip="blue" role="radio" aria-checked="true" disabled title="Bleu"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--teal" disabled title="Sarcelle"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--green" disabled title="Vert"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--yellow" disabled title="Jaune"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--orange" disabled title="Orange"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--red" disabled title="Rouge"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--pink" disabled title="Rose"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--purple" disabled title="Violet"></button>
+                                <button type="button" class="themes-accent-chip themes-accent-chip--slate" disabled title="Ardoise"></button>
+                            </div>
+                        </section>
+                    </div>
+                    <section class="themes-app__section themes-app__section--scheme">
+                        <h2 class="themes-app__label themes-app__label--block">Schéma de couleurs</h2>
+                        <div class="themes-app__scheme-body">
+                            <div class="themes-app__cards" role="radiogroup" aria-label="Choix du thème">
+                                <button type="button" class="themes-card" data-theme-option="dark" role="radio" aria-checked="true">
+                                    <span class="themes-card__preview themes-card__preview--dark" aria-hidden="true"></span>
+                                    <span class="themes-card__title">Sombre</span>
+                                </button>
+                                <button type="button" class="themes-card" data-theme-option="light" role="radio" aria-checked="false">
+                                    <span class="themes-card__preview themes-card__preview--light" aria-hidden="true"></span>
+                                    <span class="themes-card__title">Clair</span>
+                                </button>
+                            </div>
+                            <p class="themes-app__help" data-themes-help>Le thème sombre est actif.</p>
+                        </div>
+                    </section>
+                    <section class="themes-app__section themes-app__section--prefs">
+                        <h2 class="themes-app__label themes-app__label--block">Contraste</h2>
+                        <div class="themes-app__cards themes-app__cards--inline" role="radiogroup" aria-label="Mode contraste">
+                            <button type="button" class="themes-contrast-card" data-contrast-option="normal" role="radio" aria-checked="true">
+                                <span class="themes-card__title">Standard</span>
+                            </button>
+                            <button type="button" class="themes-contrast-card" data-contrast-option="high" role="radio" aria-checked="false">
+                                <span class="themes-card__title">Renforcé</span>
+                            </button>
+                        </div>
+                    </section>
+                    <section class="themes-app__section themes-app__section--prefs">
+                        <h2 class="themes-app__label themes-app__label--block">Taille du texte</h2>
+                        <div class="themes-app__scale" role="radiogroup" aria-label="Taille du texte">
+                            <button type="button" class="themes-scale-button" data-font-scale-option="100" role="radio" aria-checked="true">100%</button>
+                            <button type="button" class="themes-scale-button" data-font-scale-option="110" role="radio" aria-checked="false">110%</button>
+                            <button type="button" class="themes-scale-button" data-font-scale-option="125" role="radio" aria-checked="false">125%</button>
+                        </div>
+                    </section>
+                </div>
             </div>
-        </section>
-    </div>
+
+            <!-- Arrière-plan — doc SUSE §3.1 / Figure 3.1 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="background" id="gnomeSettingsBackground" hidden>
+                <div class="gnome-settings__content">
+                    <nav class="gnome-settings-tabs" aria-label="Arrière-plan et verrouillage">
+                        <button type="button" class="gnome-settings-tabs__item is-active">Arrière-plan</button>
+                        <button type="button" class="gnome-settings-tabs__item" disabled>Écran de verrouillage</button>
+                    </nav>
+                    <div class="gnome-settings-wallpapers" role="list" aria-label="Fonds d'écran">
+                        <button type="button" class="gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter une image">
+                            <span class="gnome-settings-wallpaper__add-icon" aria-hidden="true">+</span>
+                            <span>Ajouter une image</span>
+                        </button>
+                        <button type="button" class="gnome-settings-wallpaper gnome-settings-wallpaper--solid is-active" aria-label="Couleur unie sombre" role="listitem"></button>
+                        <button type="button" class="gnome-settings-wallpaper gnome-settings-wallpaper--gradient" aria-label="Dégradé bleu" role="listitem"></button>
+                        <button type="button" class="gnome-settings-wallpaper gnome-settings-wallpaper--photo" aria-label="Photo paysage" role="listitem"></button>
+                        <button type="button" class="gnome-settings-wallpaper gnome-settings-wallpaper--photo2" aria-label="Photo abstraite" role="listitem"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Région et langue — doc SUSE §3.2 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="region" id="gnomeSettingsRegion" hidden>
+                <div class="gnome-settings__content">
+                    <h2 class="gnome-settings-section-title">Votre compte</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Langue</h3>
+                            <p class="gnome-settings-row__value">Français</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Formats</h3>
+                            <p class="gnome-settings-row__value">France</p>
+                        </section>
+                    </div>
+                    <p class="gnome-settings-note">Pour appliquer un changement de langue ou de formats, redémarrez la session de bureau.</p>
+                    <h2 class="gnome-settings-section-title">Écran de connexion</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Langue</h3>
+                            <p class="gnome-settings-row__value">Français</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clavier — doc SUSE §3.3 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="keyboard" id="gnomeSettingsKeyboard" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Disposition</h3>
+                            <p class="gnome-settings-row__value">Français</p>
+                        </section>
+                    </div>
+                    <a href="#" class="gnome-settings-link-row" data-settings-link="keyboard-shortcuts" tabindex="-1" aria-disabled="true">
+                        <span>Raccourcis clavier</span>
+                        <span class="gnome-settings-link-row__chevron" aria-hidden="true"></span>
+                    </a>
+                    <p class="gnome-settings-note">Pour modifier un raccourci, sélectionnez l'entrée puis appuyez sur la combinaison de touches souhaitée.</p>
+                </div>
+            </div>
+
+            <!-- Souris et pavé tactile — doc SUSE §3.7 / Figure 3.3 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="mouse" id="gnomeSettingsMouse" hidden>
+                <div class="gnome-settings__content">
+                    <h2 class="gnome-settings-section-title">Général</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Bouton principal</h3>
+                            <p class="gnome-settings-row__value">Gauche</p>
+                        </section>
+                    </div>
+                    <h2 class="gnome-settings-section-title">Souris</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-slider-row">
+                            <h3 class="gnome-settings-row__title">Vitesse du pointeur</h3>
+                            <input type="range" class="gnome-settings-slider" min="0" max="100" value="42" disabled aria-label="Vitesse du pointeur">
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Sens de défilement</h3>
+                            <p class="gnome-settings-row__value">Naturel</p>
+                        </section>
+                    </div>
+                    <button type="button" class="gnome-settings-action-btn" disabled>Tester vos paramètres</button>
+                </div>
+            </div>
+
+            <!-- Son — doc SUSE §3.10 / Figure 3.5 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="sound" id="gnomeSettingsSound" hidden>
+                <div class="gnome-settings__content">
+                    <nav class="gnome-settings-tabs" aria-label="Catégories son">
+                        <button type="button" class="gnome-settings-tabs__item is-active">Sortie</button>
+                        <button type="button" class="gnome-settings-tabs__item" disabled>Entrée</button>
+                    </nav>
+                    <section class="gnome-settings-slider-row gnome-settings-slider-row--volume">
+                        <span class="gnome-settings-slider-row__icon gnome-settings-slider-row__icon--speaker" aria-hidden="true"></span>
+                        <input type="range" class="gnome-settings-slider" min="0" max="100" value="72" aria-label="Volume de sortie">
+                        <span class="gnome-settings-slider-row__value">72%</span>
+                    </section>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Périphérique de sortie</h3>
+                            <p class="gnome-settings-row__value">Haut-parleurs intégrés</p>
+                        </section>
+                        <section class="gnome-settings-slider-row">
+                            <h3 class="gnome-settings-row__title">Balance</h3>
+                            <input type="range" class="gnome-settings-slider gnome-settings-slider--balance" min="0" max="100" value="50" disabled aria-label="Balance">
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Son d'alerte</h3>
+                            <p class="gnome-settings-row__value">Défaut</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Écrans — doc SUSE §3.9 / Figure 3.4 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="displays" id="gnomeSettingsDisplays" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings-display-preview" aria-hidden="true">
+                        <span class="gnome-settings-display-preview__monitor"></span>
+                    </div>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Orientation</h3>
+                            <p class="gnome-settings-row__value">Paysage</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Résolution</h3>
+                            <p class="gnome-settings-row__value">1920 × 1080</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Échelle</h3>
+                            <p class="gnome-settings-row__value">100%</p>
+                        </section>
+                    </div>
+                    <div class="gnome-settings-switch-row">
+                        <div class="gnome-settings-switch-row__text">
+                            <p class="gnome-settings-switch-row__title">Éclairage nocturne</p>
+                            <p class="gnome-settings-switch-row__sub">Réduit la lumière bleue pour prévenir la fatigue oculaire.</p>
+                        </div>
+                        <button type="button" class="gnome-settings-switch" data-settings-switch="night-light" role="switch" aria-checked="false" aria-label="Éclairage nocturne"></button>
+                    </div>
+                    <button type="button" class="gnome-settings-action-btn gnome-settings-action-btn--primary" disabled>Appliquer</button>
+                </div>
+            </div>
+
+            <!-- Alimentation — doc SUSE §3.6 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="power" id="gnomeSettingsPower" hidden>
+                <div class="gnome-settings__content">
+                    <h2 class="gnome-settings-section-title">Économies d'énergie</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Éteindre l'écran</h3>
+                            <p class="gnome-settings-row__value">5 minutes</p>
+                        </section>
+                    </div>
+                    <h2 class="gnome-settings-section-title">Mise en veille automatique</h2>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Mise en veille</h3>
+                            <p class="gnome-settings-row__value">Jamais</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imprimantes — doc SUSE §3.8 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="printers" id="gnomeSettingsPrinters" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings-stub gnome-settings-stub--compact">
+                        <p class="gnome-settings-stub__title">Aucune imprimante</p>
+                        <p class="gnome-settings-stub__text">Connectez-vous à un serveur CUPS local ou distant pour ajouter une imprimante.</p>
+                    </div>
+                    <button type="button" class="gnome-settings-action-btn" disabled>Ajouter une imprimante</button>
+                </div>
+            </div>
+
+            <!-- Applications par défaut — doc SUSE §3.11 / Figure 3.6 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="default-apps" id="gnomeSettingsDefaultApps" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Web</h3>
+                            <p class="gnome-settings-row__value">Firefox</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Courriel</h3>
+                            <p class="gnome-settings-row__value">Evolution</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Calendrier</h3>
+                            <p class="gnome-settings-row__value">Calendrier</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Musique</h3>
+                            <p class="gnome-settings-row__value">Lecteur vidéo</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Vidéos</h3>
+                            <p class="gnome-settings-row__value">Lecteur vidéo</p>
+                        </section>
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Photos</h3>
+                            <p class="gnome-settings-row__value">Loupe</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partage — doc SUSE §3.12 -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="sharing" id="gnomeSettingsSharing" hidden>
+                <div class="gnome-settings__content">
+                    <div class="gnome-settings-switch-row">
+                        <div class="gnome-settings-switch-row__text">
+                            <p class="gnome-settings-switch-row__title">Partage</p>
+                            <p class="gnome-settings-switch-row__sub">Autorise le partage de services sur ce système.</p>
+                        </div>
+                        <button type="button" class="gnome-settings-switch" data-settings-switch="sharing" role="switch" aria-checked="false" aria-label="Partage"></button>
+                    </div>
+                    <div class="gnome-settings__group">
+                        <section class="gnome-settings-row gnome-settings-row--combo">
+                            <h3 class="gnome-settings-row__title">Connexion à distance</h3>
+                            <p class="gnome-settings-row__value">Désactivé</p>
+                        </section>
+                    </div>
+                    <p class="gnome-settings-note">Activez le partage, puis configurez la connexion SSH distante avec le mot de passe administrateur.</p>
+                </div>
+            </div>
+
+            <!-- À propos de -->
+            <div class="gnome-settings__panel" data-gnome-settings-panel="about" id="gnomeSettingsAbout" hidden>
+                <div class="gnome-settings__content gnome-settings__content--about">
+                    <div class="gnome-settings-about">
+                        <span class="gnome-settings-about__logo" aria-hidden="true"></span>
+                        <h2 class="gnome-settings-about__os">Rocky Linux 10</h2>
+                        <p class="gnome-settings-about__detail">GNOME 47 · Wayland</p>
+                        <p class="gnome-settings-about__detail">CapsuleOS — simulation pédagogique</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>

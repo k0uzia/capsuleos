@@ -25,6 +25,8 @@ html:has(#fedora) {
     --calendar-popover-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     --calendar-popover-radius: 12px;
     --fedora-window-radius: 11px;
+    --fedora-window-border: rgba(0, 0, 0, 0.45);
+    --fedora-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --fedora-window-shadow: 0 4px 28px rgba(0, 0, 0, 0.42);
     --fedora-window-surface: #2e2e2e;
     --fedora-window-header-bg: #383838;
@@ -110,6 +112,8 @@ html[data-theme="light"]:has(#fedora) {
     --fedora-top-bar-border-bottom: var(--fedora-shell-topbar-border);
     --fedora-dock-bg: rgba(235, 235, 235, 0.96);
     --fedora-dock-border-right: 1px solid rgba(0, 0, 0, 0.12);
+    --fedora-window-border: rgba(0, 0, 0, 0.15);
+    --fedora-window-active-ring: 0 0 0 2px color-mix(in srgb, var(--menu-accent) 55%, transparent);
     --fedora-window-surface: #fafafa;
     --fedora-window-header-bg: #ebebeb;
     --fedora-window-header-active: #e4e4e4;

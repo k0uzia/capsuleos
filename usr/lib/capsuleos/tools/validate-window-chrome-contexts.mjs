@@ -49,9 +49,13 @@ if (contractFull && headerFull) {
         errors.push('chrome.js: doit poser data-window-chrome-toolkit sur .windowElement');
     }
 
-    Object.keys(contract.toolkits || {}).forEach((toolkitId) => {
+    Object.entries(contract.toolkits || {}).forEach(([toolkitId, spec]) => {
         if (!headerSrc.includes(`'${toolkitId}'`) && !headerSrc.includes(`"${toolkitId}"`)) {
             warnings.push(`header-context.js: toolkit « ${toolkitId} » absent des défauts runtime`);
+        }
+        const clusterRel = spec.chromeCssCluster;
+        if (clusterRel && !fs.existsSync(path.join(ROOT, clusterRel))) {
+            errors.push(`toolkit ${toolkitId}: chromeCssCluster introuvable — ${clusterRel}`);
         }
     });
 

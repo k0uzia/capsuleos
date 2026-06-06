@@ -3,7 +3,7 @@
 @import url(../../../../usr/share/capsuleos/themes/clusters/toolkit-cinnamon/variables.css);
 @import url(../../../../usr/share/capsuleos/themes/linux/variables-linux.css);
 @import url(../../../../usr/share/capsuleos/themes/linux/variables-linux-computed.css);
-@import url(../../../../usr/share/capsuleos/themes/linux/window-chrome.base.css);
+@import url(../../../../usr/share/capsuleos/themes/clusters/toolkit-cinnamon/chrome.css);
 @import url(./mint-y-dark-aqua-tokens.css);
 @import url(./cinnamon-window-chrome.css);
 @import url(./footer.css);

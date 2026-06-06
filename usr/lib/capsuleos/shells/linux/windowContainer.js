@@ -130,12 +130,50 @@
             .length;
     }
 
+    function readDockInsetPx() {
+        return readLinuxCssVarPx('--fedora-dock-width', 'width')
+            || readLinuxCssVarPx('--ubuntu-dock-width', 'width')
+            || readLinuxCssVarPx('--popos-dock-width', 'width')
+            || 0;
+    }
+
+    function readTopBarInsetPx() {
+        return readLinuxCssVarPx('--fedora-top-bar-height', 'height')
+            || readLinuxCssVarPx('--ubuntu-top-bar-height', 'height')
+            || readLinuxCssVarPx('--head', 'height')
+            || 0;
+    }
+
+    function applyCenteredPlacement(container) {
+        if (!container || container.dataset.cascadeInit === 'true') {
+            return;
+        }
+        const dock = readDockInsetPx();
+        const topBar = readTopBarInsetPx();
+        const workW = Math.max(0, window.innerWidth - dock);
+        const workH = Math.max(0, window.innerHeight - topBar);
+        const width = container.offsetWidth || readLinuxCssVarPx('--win-themes-width', 'width');
+        const height = container.offsetHeight || readLinuxCssVarPx('--win-themes-height', 'height');
+        const left = dock + Math.max(12, (workW - width) / 2);
+        const top = topBar + Math.max(12, (workH - height) / 2);
+        container.style.position = 'fixed';
+        container.style.left = `${left}px`;
+        container.style.top = `${top}px`;
+        container.style.bottom = 'auto';
+        container.style.right = 'auto';
+        container.dataset.cascadeInit = 'true';
+    }
+
     function applyCascadePlacement(container) {
         if (!container || container.dataset.cascadeInit === 'true') {
             return;
         }
         const slotId = container.dataset.link;
         if (!slotId || LINUX_WINDOW_SIZE_SKIP.has(slotId)) {
+            return;
+        }
+        if (slotId === 'themes') {
+            applyCenteredPlacement(container);
             return;
         }
         const index = countVisibleDesktopWindows(container);

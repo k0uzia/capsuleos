@@ -112,8 +112,25 @@
         const themeBtn   = document.getElementById('quick-settings-theme-btn');
         const themeLabel = document.getElementById('quick-settings-theme-label');
         const powerBtn   = document.getElementById('quick-settings-power-btn');
+        const settingsBtn = document.querySelector('.quick-settings__round-btn--settings');
+        const screenBtn = document.querySelector('.quick-settings__round-btn--screen');
 
         if (!btn || !popover || !slider) return;
+
+        const openAppLink = (linkId) => {
+            if (!linkId) return;
+            const target = document.querySelector(
+                `.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`
+            );
+            closePopover(btn, popover);
+            if (target) {
+                target.click();
+                return;
+            }
+            if (typeof window.openWindowByDataLink === 'function') {
+                window.openWindowByDataLink(linkId);
+            }
+        };
 
         const els = { slider, valueLabel, muteBtn, muteIcon, trayIcon, themeBtn, themeLabel };
 
@@ -165,6 +182,19 @@
                 persistTheme(nextTheme);
                 refresh(els);
             });
+        }
+
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                if (typeof window.setCapsuleSettingsPanel === 'function') {
+                    window.setCapsuleSettingsPanel('appearance');
+                }
+                openAppLink('themes');
+            });
+        }
+
+        if (screenBtn) {
+            screenBtn.addEventListener('click', () => openAppLink('screenshot'));
         }
 
         if (powerBtn) {

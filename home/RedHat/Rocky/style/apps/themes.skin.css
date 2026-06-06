@@ -1,30 +1,85 @@
 /**
- * Rocky — Paramètres GNOME (Apparence) · chrome CSD libadwaita.
+ * Rocky — Paramètres GNOME (gnome-control-center) · chrome CSD libadwaita.
  */
 body#rocky {
     --gnome-settings-bg: #303030;
+    --gnome-settings-sidebar-bg: #262626;
     --gnome-settings-text: #ffffff;
     --gnome-settings-muted: rgba(255, 255, 255, 0.62);
     --gnome-settings-border: rgba(255, 255, 255, 0.08);
     --gnome-settings-surface: #383838;
+    --gnome-settings-search-bg: rgba(255, 255, 255, 0.08);
     --gnome-settings-accent: #3584e4;
+    --gnome-settings-nav-active-bg: rgba(53, 132, 228, 0.18);
+    --themes-preview-dark: #2e2e32;
+    --themes-preview-dark-inner: #3d3d42;
+    --themes-preview-light: #f2f2f4;
+    --themes-preview-light-inner: #ffffff;
+}
+
+html:has(#rocky) {
+    --win-themes-width: 48.75rem;
+    --win-themes-height: 39rem;
+    --win-themes-min-width: 42rem;
+    --win-themes-min-height: 32rem;
 }
 
 html[data-theme="light"]:has(#rocky) {
     --gnome-settings-bg: #fafafa;
+    --gnome-settings-sidebar-bg: #f3f3f5;
     --gnome-settings-text: #1e1e1e;
     --gnome-settings-muted: rgba(0, 0, 0, 0.52);
     --gnome-settings-border: rgba(0, 0, 0, 0.1);
     --gnome-settings-surface: #ffffff;
+    --gnome-settings-search-bg: rgba(0, 0, 0, 0.06);
+    --gnome-settings-nav-active-bg: rgba(53, 132, 228, 0.14);
+    --themes-preview-dark: #2a2a2e;
+    --themes-preview-dark-inner: #3a3a40;
+    --themes-preview-light: #f6f6f8;
+    --themes-preview-light-inner: #ffffff;
 }
 
 body#rocky div[data-link="themes"].gnome-app--csd {
-    width: min(28rem, calc(100vw - var(--fedora-dock-width) - 2rem));
-    height: min(34rem, calc(100vh - var(--fedora-top-bar-height) - 2rem));
+    width: min(48.75rem, calc(100vw - var(--fedora-dock-width) - 1.5rem));
+    height: min(39rem, calc(100vh - var(--fedora-top-bar-height) - 1.5rem));
+    min-width: 42rem;
+    min-height: 32rem;
     padding: 0;
     border-radius: 10px;
     overflow: hidden;
+    border-color: var(--capsule-chrome-window-border, var(--fedora-window-border));
     background: var(--gnome-settings-bg);
+    box-shadow: var(--fedora-window-shadow);
+}
+
+body#rocky div[data-link="themes"] main#themesApp.gnome-settings {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-bg);
+    font-family: "Cantarell", var(--font-ui);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings__sidebar {
+    border-right: 1px solid var(--gnome-settings-border);
+    background: var(--gnome-settings-sidebar-bg);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings__search {
+    color: var(--gnome-settings-muted);
+    background: var(--gnome-settings-search-bg);
+    border: 1px solid var(--gnome-settings-border);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings__navitem {
+    color: var(--gnome-settings-muted);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings__navitem.is-active {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-nav-active-bg);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings__navitem.is-active .gnome-settings__navicon {
+    opacity: 1;
 }
 
 body#rocky div[data-link="themes"] .gnome-settings__headerbar {
@@ -33,32 +88,24 @@ body#rocky div[data-link="themes"] .gnome-settings__headerbar {
 }
 
 body#rocky div[data-link="themes"] .gnome-settings__title {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 700;
     color: var(--gnome-settings-text);
 }
 
-body#rocky div[data-link="themes"] main#themesApp.themes-app--gnome {
+body#rocky div[data-link="themes"] .gnome-settings-row {
+    background: var(--gnome-settings-surface);
+    border: 1px solid var(--gnome-settings-border);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-row__title {
+    color: var(--gnome-settings-muted);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-row__value {
     color: var(--gnome-settings-text);
-    background: var(--gnome-settings-bg);
-    font-family: "Cantarell", var(--font-ui);
 }
 
 body#rocky div[data-link="themes"] .themes-app__label {
     color: var(--gnome-settings-muted);
-    font-size: 0.82rem;
-    font-weight: 600;
-}
-
-body#rocky div[data-link="themes"] .themes-app__vm-value {
-    color: var(--gnome-settings-text);
-    background: var(--gnome-settings-surface);
-    border-color: var(--gnome-settings-border);
-}
-
-body#rocky div[data-link="themes"] .themes-app__section {
-    border-bottom-color: var(--gnome-settings-border);
 }
 
 body#rocky div[data-link="themes"] .themes-card,
@@ -66,7 +113,13 @@ body#rocky div[data-link="themes"] .themes-contrast-card,
 body#rocky div[data-link="themes"] .themes-scale-button {
     color: var(--gnome-settings-text);
     background: var(--gnome-settings-surface);
-    border-color: var(--gnome-settings-border);
+    border-color: transparent;
+}
+
+body#rocky div[data-link="themes"] .themes-card:hover,
+body#rocky div[data-link="themes"] .themes-contrast-card:hover,
+body#rocky div[data-link="themes"] .themes-scale-button:hover {
+    background: var(--gnome-settings-nav-active-bg);
 }
 
 body#rocky div[data-link="themes"] .themes-card.is-active,
@@ -74,8 +127,98 @@ body#rocky div[data-link="themes"] .themes-contrast-card.is-active,
 body#rocky div[data-link="themes"] .themes-scale-button.is-active {
     border-color: var(--gnome-settings-accent);
     box-shadow: 0 0 0 1px var(--gnome-settings-accent);
+    background: var(--gnome-settings-surface);
+}
+
+body#rocky div[data-link="themes"] .themes-card__preview {
+    border-color: var(--gnome-settings-border);
 }
 
 body#rocky div[data-link="themes"] .themes-app__help {
+    color: var(--gnome-settings-muted);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-stub__title {
+    color: var(--gnome-settings-text);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-stub__text {
+    color: var(--gnome-settings-muted);
+}
+
+html[data-theme="light"]:has(#rocky) body#rocky div[data-link="themes"] .themes-accent-chip.is-active {
+    border-color: #ffffff;
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-switch-row,
+body#rocky div[data-link="themes"] .gnome-settings-slider-row,
+body#rocky div[data-link="themes"] .gnome-settings-link-row {
+    background: var(--gnome-settings-surface);
+    border: 1px solid var(--gnome-settings-border);
+    color: var(--gnome-settings-text);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-switch {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-switch[aria-checked="true"],
+body#rocky div[data-link="themes"] .gnome-settings-switch.is-on {
+    background: var(--gnome-settings-accent);
+}
+
+html[data-theme="light"]:has(#rocky) body#rocky div[data-link="themes"] .gnome-settings-switch {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-slider {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="light"]:has(#rocky) body#rocky div[data-link="themes"] .gnome-settings-slider {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-slider::-webkit-slider-thumb {
+    background: var(--gnome-settings-accent);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-tabs__item {
+    color: var(--gnome-settings-muted);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-tabs__item.is-active {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-nav-active-bg);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-wallpaper--add {
+    color: var(--gnome-settings-muted);
+    background: var(--gnome-settings-surface);
+    border: 1px dashed var(--gnome-settings-border);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-action-btn {
+    color: var(--gnome-settings-text);
+    background: var(--gnome-settings-surface);
+    border-color: var(--gnome-settings-border);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-action-btn--primary {
+    color: #ffffff;
+    background: var(--gnome-settings-accent);
+    border-color: transparent;
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-section-title,
+body#rocky div[data-link="themes"] .gnome-settings-note {
+    color: var(--gnome-settings-muted);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-about__os {
+    color: var(--gnome-settings-text);
+}
+
+body#rocky div[data-link="themes"] .gnome-settings-about__detail {
     color: var(--gnome-settings-muted);
 }

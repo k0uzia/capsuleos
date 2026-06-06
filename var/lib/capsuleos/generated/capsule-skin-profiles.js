@@ -715,7 +715,10 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "dragMode": "app-headerbar-passthrough"
+        "dragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "update_manager": "update-manager-ubuntu"
+        }
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
@@ -1455,7 +1458,10 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "dragMode": "app-headerbar-passthrough"
+        "dragMode": "app-headerbar-passthrough",
+        "slotProviders": {
+          "update_manager": "update-manager-ubuntu"
+        }
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",

@@ -17,6 +17,16 @@
         }
     };
 
+    const resolveSearchIcon = (icon) => {
+        if (typeof window.resolveCapsuleResourceUrl === 'function') {
+            return window.resolveCapsuleResourceUrl(icon);
+        }
+        if (window.CapsuleResource && typeof window.CapsuleResource.resolve === 'function') {
+            return window.CapsuleResource.resolve(icon);
+        }
+        return icon;
+    };
+
     const searchCatalog = [
         {
             label: 'Fichiers',
@@ -33,17 +43,37 @@
             dataLink: 'firefox'
         },
         {
+            label: 'Loupe',
+            aliases: ['loupe', 'images', 'photos', 'eog', 'visionneur'],
+            description: 'Visionneuse d\'images',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg',
+            dataLink: 'visionneur_images'
+        },
+        {
             label: 'Lecteur vidéo',
-            aliases: ['video', 'videos', 'showtime', 'media'],
-            description: 'Lire des vidéos',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg',
-            dataLink: 'lecteur_multimedia'
+            aliases: ['video', 'videos', 'showtime', 'media', 'totem'],
+            description: 'Non installé sur RL10 (grille décorative)',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg'
+        },
+        {
+            label: 'Snapshot',
+            aliases: ['camera', 'caméra', 'cheese', 'photo'],
+            description: 'Application Caméra RL10',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg',
+            dataLink: 'snapshot'
+        },
+        {
+            label: 'Capture d\'écran',
+            aliases: ['screenshot', 'capture', 'printscreen'],
+            description: 'Outil de capture d\'écran',
+            icon: './assets/images/toolkits/gnome/symbolic/tray/screenshot.svg',
+            dataLink: 'screenshot'
         },
         {
             label: 'Calculatrice',
             aliases: ['calculator', 'calcul', 'maths'],
             description: 'Effectuer des calculs',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.png',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Calculator.svg',
             dataLink: 'calculator'
         },
         {
@@ -102,22 +132,53 @@
             dataLink: 'clocks'
         },
         {
-            label: 'Contacts',
-            aliases: ['contact', 'adresse'],
-            description: 'Carnet de contacts',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg'
+            label: 'Papers',
+            aliases: ['pdf', 'papers', 'document', 'evince'],
+            description: 'Visionneuse PDF RL10',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg',
+            dataLink: 'visionneur_pdf'
         },
         {
-            label: 'Météo',
-            aliases: ['weather', 'temps'],
-            description: 'Prévisions météo',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg'
+            label: 'Visite guidée',
+            aliases: ['tour', 'welcome', 'gnome tour'],
+            description: 'Découvrir GNOME',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg'
+        },
+        {
+            label: 'Utilisation des disques',
+            aliases: ['baobab', 'disque', 'espace'],
+            description: 'Analyseur d\'utilisation des disques',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg'
+        },
+        {
+            label: 'Moniteur système',
+            aliases: ['system monitor', 'ressources', 'cpu', 'ram'],
+            description: 'Surveiller le système',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg'
         },
         {
             label: 'Caractères',
             aliases: ['characters', 'symboles', 'unicode'],
             description: 'Table des caractères',
             icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg'
+        },
+        {
+            label: 'Contacts',
+            aliases: ['contact', 'adresse'],
+            description: 'Non installé sur cette VM RL10',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg'
+        },
+        {
+            label: 'Météo',
+            aliases: ['weather', 'temps'],
+            description: 'Non installé sur cette VM RL10',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg'
+        },
+        {
+            label: 'Cartes',
+            aliases: ['maps', 'carte', 'gps'],
+            description: 'Non installé sur cette VM RL10',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Maps.svg'
         }
     ];
 
@@ -201,6 +262,9 @@
         if (!linkId) {
             return;
         }
+        if (linkId === 'themes' && typeof window.setCapsuleSettingsPanel === 'function') {
+            window.setCapsuleSettingsPanel('wifi');
+        }
         const target = getLaunchTarget(linkId);
         setOverview(false, 'workspace');
         if (target) {
@@ -224,7 +288,7 @@
         }
 
         const img = document.createElement('img');
-        img.src = item.icon;
+        img.src = resolveSearchIcon(item.icon);
         img.alt = '';
 
         const label = document.createElement('span');

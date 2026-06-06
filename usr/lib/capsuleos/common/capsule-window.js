@@ -83,25 +83,94 @@
         };
     }
 
-    function clampSize(element, left, top, width, height, options = {}) {
+    function resolveResizeAnchors(direction) {
+        const dir = String(direction || '');
+        return {
+            anchorRight: dir === 'left' || dir === 'top-left' || dir === 'bottom-left',
+            anchorLeft: dir === 'right' || dir === 'top-right' || dir === 'bottom-right',
+            anchorBottom: dir === 'top' || dir === 'top-left' || dir === 'top-right',
+            anchorTop: dir === 'bottom' || dir === 'bottom-left' || dir === 'bottom-right',
+        };
+    }
+
+    function clampHorizontalSize(bounds, left, width, minWidth, anchors) {
+        let nextLeft = left;
+        let nextWidth = width;
+
+        if (anchors.anchorRight) {
+            const right = left + width;
+            nextWidth = Math.max(minWidth, width);
+            nextLeft = right - nextWidth;
+            if (nextLeft < bounds.left) {
+                nextLeft = bounds.left;
+                nextWidth = right - nextLeft;
+            }
+            nextWidth = Math.max(minWidth, nextWidth);
+            if (nextLeft + nextWidth > bounds.right) {
+                nextWidth = Math.max(minWidth, bounds.right - nextLeft);
+                nextLeft = bounds.right - nextWidth;
+            }
+            nextLeft = Math.max(bounds.left, nextLeft);
+        } else if (anchors.anchorLeft) {
+            nextLeft = Math.max(bounds.left, left);
+            nextWidth = Math.max(minWidth, width);
+            nextWidth = Math.min(nextWidth, bounds.right - nextLeft);
+            nextWidth = Math.max(minWidth, nextWidth);
+        } else {
+            nextWidth = Math.max(minWidth, Math.min(width, bounds.right - bounds.left));
+            nextLeft = Math.max(bounds.left, Math.min(left, bounds.right - nextWidth));
+        }
+
+        return { left: nextLeft, width: nextWidth };
+    }
+
+    function clampVerticalSize(bounds, top, height, minHeight, anchors) {
+        let nextTop = top;
+        let nextHeight = height;
+
+        if (anchors.anchorBottom) {
+            const bottom = top + height;
+            nextHeight = Math.max(minHeight, height);
+            nextTop = bottom - nextHeight;
+            if (nextTop < bounds.top) {
+                nextTop = bounds.top;
+                nextHeight = bottom - nextTop;
+            }
+            nextHeight = Math.max(minHeight, nextHeight);
+            if (nextTop + nextHeight > bounds.bottom) {
+                nextHeight = Math.max(minHeight, bounds.bottom - nextTop);
+                nextTop = bounds.bottom - nextHeight;
+            }
+            nextTop = Math.max(bounds.top, nextTop);
+        } else if (anchors.anchorTop) {
+            nextTop = Math.max(bounds.top, top);
+            nextHeight = Math.max(minHeight, height);
+            nextHeight = Math.min(nextHeight, bounds.bottom - nextTop);
+            nextHeight = Math.max(minHeight, nextHeight);
+        } else {
+            nextHeight = Math.max(minHeight, Math.min(height, bounds.bottom - bounds.top));
+            nextTop = Math.max(bounds.top, Math.min(top, bounds.bottom - nextHeight));
+        }
+
+        return { top: nextTop, height: nextHeight };
+    }
+
+    function clampSize(element, left, top, width, height, options = {}, hints = {}) {
         const bounds = getWorkAreaRect(options);
         const computed = window.getComputedStyle(element);
         const minWidth = parseFloat(computed.minWidth) || 320;
         const minHeight = parseFloat(computed.minHeight) || 180;
+        const anchors = resolveResizeAnchors(hints.direction);
 
-        let nextWidth = Math.max(minWidth, width);
-        let nextHeight = Math.max(minHeight, height);
-        let nextLeft = left;
-        let nextTop = top;
+        const horizontal = clampHorizontalSize(bounds, left, width, minWidth, anchors);
+        const vertical = clampVerticalSize(bounds, top, height, minHeight, anchors);
 
-        nextLeft = Math.max(bounds.left, nextLeft);
-        nextTop = Math.max(bounds.top, nextTop);
-        nextWidth = Math.min(nextWidth, bounds.right - nextLeft);
-        nextHeight = Math.min(nextHeight, bounds.bottom - nextTop);
-        nextWidth = Math.max(minWidth, nextWidth);
-        nextHeight = Math.max(minHeight, nextHeight);
-
-        return { left: nextLeft, top: nextTop, width: nextWidth, height: nextHeight };
+        return {
+            left: horizontal.left,
+            top: vertical.top,
+            width: horizontal.width,
+            height: vertical.height,
+        };
     }
 
     global.CapsuleWindowBounds = {
@@ -109,6 +178,7 @@
         getWorkAreaRect,
         clampPosition,
         clampSize,
+        resolveResizeAnchors,
     };
 }(typeof window !== 'undefined' ? window : globalThis));
 /**
@@ -704,6 +774,7 @@
                 newWidth,
                 newHeight,
                 this.boundsOptions,
+                { direction: this.resizeDirection },
             );
 
             if (global.CapsuleWindowPositioning
@@ -825,6 +896,18 @@
             slotProviders: {
                 firefox: 'firefox-gnome',
                 terminal: 'terminal-gnome',
+                calculator: 'libadwaita-gnome',
+                text_editor: 'libadwaita-gnome',
+                calendar: 'libadwaita-gnome',
+                clocks: 'libadwaita-gnome',
+                update_manager: 'libadwaita-gnome',
+                profile: 'libadwaita-gnome',
+                checklist: 'libadwaita-gnome',
+                librewriter: 'libadwaita-gnome',
+                themes: 'libadwaita-gnome',
+                visionneur_images: 'libadwaita-gnome',
+                visionneur_pdf: 'libadwaita-gnome',
+                lecteur_multimedia: 'libadwaita-gnome',
             },
         },
         kde: {
@@ -1163,6 +1246,8 @@
         visionneur_images: '.viewer-app__toolbar',
         visionneur_pdf: '.viewer-app__toolbar',
         lecteur_multimedia: '.viewer-app__toolbar',
+        snapshot: '.gnome-snapshot__header',
+        screenshot: '.gnome-shot__headerbar',
     };
 
     function ensureLibadwaitaHeaderEnd(anchor) {
@@ -1229,6 +1314,35 @@
         const title = header.querySelector('#windowTitle');
         if (title) {
             title.setAttribute('aria-hidden', 'true');
+        }
+
+        return true;
+    }
+
+    function applyUbuntuSoftwareCsd(container) {
+        const header = container.querySelector(':scope > #windowHeader');
+        const topbar = container.querySelector('.ubuntu-software__topbar');
+        if (!header || !topbar) {
+            return false;
+        }
+        if (header.dataset.ubuntuSoftwareCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.ubuntuSoftwareCsd = 'true';
+        container.classList.add('gnome-app--csd');
+
+        header.querySelectorAll('#minimizeBtn, #resizeBtn, #closeBtn').forEach((btn) => {
+            btn.remove();
+        });
+        header.setAttribute('aria-hidden', 'true');
+        header.style.display = 'none';
+
+        if (!topbar.querySelector('[data-window-drag-region]')) {
+            const search = topbar.querySelector('.ubuntu-software__search');
+            if (search) {
+                search.setAttribute('data-window-drag-region', '');
+            }
         }
 
         return true;
@@ -1492,6 +1606,24 @@
             return;
         }
 
+        if (providerId === 'update-manager-ubuntu') {
+            const topbar = container.querySelector('.ubuntu-software__topbar');
+            if (topbar) {
+                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                    targetsApi().markDragPassthrough(topbar);
+                } else {
+                    topbar.setAttribute('data-window-drag-handle', '');
+                    topbar.setAttribute('data-window-drag-passthrough', 'true');
+                }
+            }
+            if (header) {
+                header.removeAttribute('data-window-drag-handle');
+                header.removeAttribute('data-window-drag-passthrough');
+                header.setAttribute('aria-hidden', 'true');
+            }
+            return;
+        }
+
         if (providerId === 'libadwaita-gnome') {
             const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
             const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
@@ -1622,6 +1754,17 @@
         afterInject(container, slotId) {
             relocateLibadwaitaWindowControls(container, slotId);
             applyDragHandlePolicy(container, slotId, 'libadwaita-gnome');
+        },
+    };
+
+    providers['update-manager-ubuntu'] = {
+        id: 'update-manager-ubuntu',
+        ensureHeader(container) {
+            return providers.default.ensureHeader(container);
+        },
+        afterInject(container, slotId) {
+            applyUbuntuSoftwareCsd(container);
+            applyDragHandlePolicy(container, slotId, 'update-manager-ubuntu');
         },
     };
 

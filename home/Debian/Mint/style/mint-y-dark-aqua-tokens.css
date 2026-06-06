@@ -48,4 +48,13 @@ body#mint {
 html[data-theme="light"] body#mint {
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
+    --menuDefaultCcol: #f0f0f2;
+    --nemoHC: #e8e8ea;
+    --nemoHCB: #dcdce0;
+    --nemoMCSF: #e0e0e4;
+    --mint-window-header-border: rgba(0, 0, 0, 0.14);
+    --mint-window-header-border-active: #1f9ede;
+    --mint-window-control-border-hover: rgba(0, 0, 0, 0.2);
+    --mint-window-control-bg-hover: rgba(0, 0, 0, 0.06);
+    --texte: #1e1e1e;
 }

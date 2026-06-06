@@ -1,4 +1,5 @@
-Assets copiés depuis la VM lab (capsule@192.168.122.234) le 2026-06-05T22:02:49Z.
+Assets copiés depuis la VM lab (capsule@192.168.122.234) le 2026-06-06T01:23:40Z.
+Vendor : rocky · toolkit : gnome
 Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

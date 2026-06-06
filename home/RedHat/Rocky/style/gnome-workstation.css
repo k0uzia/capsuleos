@@ -28,6 +28,20 @@
     background-position: center;
 }
 
+/* Extension VM background-logo@fedorahosted.org — logo-size 9 %, border 50 px, bottom-right */
+body#rocky:not(.is-overview)::after {
+    content: "";
+    position: absolute;
+    right: var(--rocky-watermark-inset);
+    bottom: var(--rocky-watermark-inset);
+    width: var(--rocky-watermark-width);
+    aspect-ratio: 907.78 / 415.08;
+    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 2;
+}
+
 #rocky .fedora-top-bar {
     position: relative;
     display: grid;

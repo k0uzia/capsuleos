@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "registryId": "linux-rocky",
+  "collectedAt": "2026-06-06T00:00:00Z",
+  "ssh": "capsule@192.168.122.234",
+  "source": "ls /usr/share/applications/org.gnome.*.desktop + rpm -q",
+  "installed": [
+    { "id": "org.gnome.Tour", "name": "Visite guidée", "capsuleSlot": null, "grid": true },
+    { "id": "org.gnome.Papers", "name": "Papers", "capsuleSlot": "visionneur_pdf", "grid": true },
+    { "id": "org.gnome.baobab", "name": "Utilisation des disques", "capsuleSlot": null, "grid": true },
+    { "id": "org.gnome.SystemMonitor", "name": "Moniteur système", "capsuleSlot": null, "grid": true },
+    { "id": "org.gnome.clocks", "name": "Horloges", "capsuleSlot": "clocks", "grid": true },
+    { "id": "org.gnome.Settings", "name": "Paramètres", "capsuleSlot": "themes", "grid": true },
+    { "id": "org.gnome.Loupe", "name": "Loupe", "capsuleSlot": "visionneur_images", "grid": true },
+    { "id": "org.gnome.Snapshot", "name": "Snapshot", "capsuleSlot": "snapshot", "grid": true },
+    { "id": "org.gnome.Characters", "name": "Caractères", "capsuleSlot": null, "grid": true },
+    { "id": "org.gnome.Ptyxis", "name": "Terminal", "capsuleSlot": "terminal", "grid": true },
+    { "id": "org.gnome.Nautilus", "name": "Fichiers", "capsuleSlot": "nemo", "dash": true },
+    { "id": "org.gnome.Software", "name": "Logiciels", "capsuleSlot": "update_manager", "dash": true },
+    { "id": "org.gnome.TextEditor", "name": "Éditeur de texte", "capsuleSlot": "text_editor", "dash": true },
+    { "id": "org.gnome.Calculator", "name": "Calculatrice", "capsuleSlot": "calculator", "dash": true },
+    { "id": "org.mozilla.Firefox", "name": "Firefox", "capsuleSlot": "firefox", "dash": true }
+  ],
+  "notInstalledOnVm": [
+    "org.gnome.Weather",
+    "org.gnome.Contacts",
+    "org.gnome.Maps",
+    "org.gnome.Boxes",
+    "org.gnome.SimpleScan",
+    "org.gnome.Yelp",
+    "org.gnome.Showtime",
+    "org.gnome.Calendar",
+    "libreoffice-core"
+  ],
+  "dashFavoritesGsettings": [
+    "org.mozilla.Firefox.desktop",
+    "org.gnome.Calendar.desktop",
+    "org.gnome.Nautilus.desktop",
+    "org.gnome.Software.desktop",
+    "org.gnome.Ptyxis.desktop",
+    "org.gnome.TextEditor.desktop",
+    "org.gnome.Calculator.desktop"
+  ],
+  "note": "Calendar en favoris gsettings mais paquet absent sur VM lab — P1 sonde."
+}

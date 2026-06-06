@@ -154,7 +154,10 @@ function createFedoraTerminalButton(className, label, text) {
 }
 
 function resolveFedoraTerminalPrompt() {
-    if (document.body && document.body.id === 'rocky') {
+    const profile = typeof window.CAPSULE_TERMINAL_PROFILE === 'string'
+        ? window.CAPSULE_TERMINAL_PROFILE
+        : '';
+    if ((document.body && document.body.id === 'rocky') || profile === 'rocky') {
         return 'capsule@rocky:~';
     }
     return 'fed@fedora:~';

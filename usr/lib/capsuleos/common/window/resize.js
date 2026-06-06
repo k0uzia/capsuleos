@@ -136,6 +136,7 @@
                 newWidth,
                 newHeight,
                 this.boundsOptions,
+                { direction: this.resizeDirection },
             );
 
             if (global.CapsuleWindowPositioning

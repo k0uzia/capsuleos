@@ -19,7 +19,7 @@ body#anduinos div[class^="windowElement"]:not(#mainMenu) {
     min-height: calc(var(--head) * 12);
     box-sizing: border-box;
     padding: calc(var(--head) / 20);
-    border: 1px solid rgba(0, 0, 0, 0.48);
+    border: 1px solid var(--anduin-window-header-border);
     border-radius: var(--anduin-window-radius);
     box-shadow: var(--anduin-window-shadow);
     background: var(--anduin-window-surface);

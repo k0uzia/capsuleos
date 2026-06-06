@@ -1,6 +1,6 @@
 # Passe comparaison visuelle — Rocky Linux (VM ↔ CapsuleOS)
 
-Généré : 2026-06-05T22:05:12.697Z
+Généré : 2026-06-06T01:57:24.688Z
 
 Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md) (Nautilus ≠ Nemo).
 
@@ -8,13 +8,18 @@ Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.m
 
 | Scène | VM | octets | Capsule | octets | Contexte |
 |-------|-----|--------|---------|--------|----------|
-| Bureau sombre | ✓ | 82243 | ✓ | 417169 | GNOME Shell + dock ; thème VM default → Capsule sombre |
-| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 82204 | ✓ | 237643 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
-| Firefox sombre | ✓ | 82204 | ✓ | 141574 | Navigator.firefox · slot firefox |
-| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 80600 | ✓ | 293117 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
-| Bureau clair | ✓ | 77181 | ✓ | 846226 | color-scheme prefer-light ↔ data-theme=light |
-| Fichiers clair | ✓ | 81815 | ✓ | 418503 | Nautilus VM · nemo Capsule, thème clair |
-| Firefox clair | ✓ | 77649 | ✓ | 209346 | Firefox · firefox |
+| Bureau sombre | ✓ | 82243 | ✓ | 440150 | GNOME Shell + dock ; thème VM default → Capsule sombre |
+| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 82204 | ✓ | 250168 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
+| Firefox sombre | ✓ | 82204 | ✓ | 146183 | Navigator.firefox · slot firefox |
+| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 80600 | ✓ | 313875 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
+| Bureau clair | ✓ | 77181 | ✓ | 846813 | color-scheme prefer-light ↔ data-theme=light |
+| Fichiers clair | ✓ | 81815 | ✓ | 424841 | Nautilus VM · nemo Capsule, thème clair |
+| Firefox clair | ✓ | 77649 | ✓ | 212893 | Firefox · firefox |
+| Aperçu bureau (workspace) | ✓ | 491362 | ✓ | 42656 | GNOME Shell Overview · dash + carte bureau |
+| Grille applications Aperçu | ✓ | 492421 | ✓ | 120116 | Overview mode apps · grille RL10 alignée |
+| Quick Settings | ✓ | 201704 | ✓ | 438185 | Tray cluster · volume-popover |
+| Loupe (Papers VM = Papers RL10) | ✓ | 190561 | ✓ | 262696 | VM : référence fenêtre ouverte · Capsule : slot visionneur_images |
+| Papers (PDF RL10) | ✓ | 190561 | ✓ | 262585 | VM : pas de capture Papers dédiée · Capsule : slot visionneur_pdf |
 
 ## Checklist panel (état logique)
 

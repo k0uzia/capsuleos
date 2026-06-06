@@ -8,6 +8,7 @@ Ce document fixe la **cartographie conceptuelle**, la **confrontation avec la do
 
 | Document | Rôle |
 |----------|------|
+| [reference-gnome-expert.md](reference-gnome-expert.md) | Synthèse expertise GNOME (SUSE, Rocky, Mutter, HIG, libadwaita, apps) |
 | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | Audit interactif complet VM (agents) |
 | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | Procédure bout-en-bout VM → Capsule (anti-échecs) |
 | [inventaire-parite-rocky.md](inventaire-parite-rocky.md) | Écarts classés P0/P1/P2 |

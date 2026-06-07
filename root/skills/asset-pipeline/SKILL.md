@@ -39,8 +39,21 @@ Résolution runtime : `CapsuleResource.resolve()` — pas de chemins absolus hô
 Après `pull-vm-assets.sh` ou import PNG/JXL :
 
 ```bash
-node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --rewrite-refs
+# Après pull VM (opt-in) :
+PREPARE_WEB_MEDIA=1 bash root/tools/lab/pull-vm-assets.sh --id linux-<vendor>
+
+# Ou manuellement (cibler un répertoire pour éviter inventory/) :
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --dir usr/share/capsuleos/assets/images/vendors/<vendor>/wallpaper --rewrite-refs
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --profile icon-raster --only panel --rewrite-refs
 node usr/lib/capsuleos/tools/validate-web-media-prepare.mjs
+```
+
+Captures lab (`inventory/`) : PNG conservé par défaut. Variante WebP optionnelle **sans** supprimer le PNG :
+
+```bash
+node usr/lib/capsuleos/tools/prepare-web-media.mjs \
+  --dir usr/share/capsuleos/assets/images/vendors/<vendor>/inventory \
+  --profile inventory-optimize --keep-source
 ```
 
 Spec : [spec-prepare-web-media.md](../../docs/spec-prepare-web-media.md).

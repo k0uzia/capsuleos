@@ -22,7 +22,7 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "panelId": "appearance"
     },
     "wallpaper": {
-        "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
+        "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.webp",
         "capsuleKey": "gnome-wallpaper",
         "schema": "org.gnome.desktop.background",
         "key": "picture-uri",

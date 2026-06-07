@@ -332,8 +332,9 @@ Intégration : chaîne `validate-assets-all.mjs` (nouvelle étape après `valida
 
 ### Phase 3 — Inventaire et opt-in captures
 
-- [ ] Profil `inventory-optimize` (doc uniquement)
-- [ ] Hook opt-in `PREPARE_WEB_MEDIA` dans `pull-vm-assets.sh`
+- [x] Profil `inventory-optimize` (doc uniquement — voir §9.2, ne pas lancer en masse sur `inventory/`)
+- [x] Hook opt-in `PREPARE_WEB_MEDIA` dans `pull-vm-assets.sh` (lignes 196–200)
+- [x] Fonds Rocky `wallpaper/*.png` → WebP (10 fichiers, refs `capsule-theme-storage` + skins)
 
 ### Phase 4 — Polices WOFF2
 

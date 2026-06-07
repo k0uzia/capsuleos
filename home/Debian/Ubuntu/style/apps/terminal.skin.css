@@ -1,12 +1,38 @@
 /**
- * ubuntu — terminal (structure Rocky).
+ * ubuntu — terminal (structure Ptyxis / Rocky).
  */
-/* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
+body#ubuntu {
+    --fedora-app-terminal-surface: var(--ubuntu-app-terminal-surface, #1d1d20);
+    --fedora-app-text: var(--ubuntu-app-text, #f6f7f9);
+    --fedora-app-header-border: var(--ubuntu-window-border, rgba(0, 0, 0, 0.45));
+    --fedora-app-header-alt-bg: var(--ubuntu-window-header-bg, #383838);
+    --fedora-app-header-active-bg: var(--ubuntu-window-header-active, #3d3d3d);
+    --fedora-window-control-color: var(--ubuntu-window-control-color, #f6f7f9);
+    --fedora-window-control-bg: var(--ubuntu-window-control-bg, transparent);
+    --fedora-window-control-hover-bg: var(--ubuntu-window-control-hover-bg, rgba(255, 255, 255, 0.14));
+    --fedora-window-control-close-bg: var(--ubuntu-window-control-close-bg, transparent);
+    --fedora-window-control-close-hover-bg: var(--ubuntu-window-control-close-hover-bg, #c01c28);
+    --fedora-window-control-close-hover-color: var(--ubuntu-window-control-close-hover-color, #ffffff);
+    --fedora-terminal-prompt: var(--ubuntu-terminal-prompt, #19c37d);
+    --fedora-terminal-prompt-user: var(--ubuntu-terminal-prompt-user, var(--fedora-terminal-prompt));
+    --fedora-terminal-prompt-text: var(--ubuntu-terminal-prompt-text, var(--fedora-app-text));
+    --fedora-terminal-prompt-path-seg: var(--ubuntu-terminal-prompt-path-seg, #6cb6ff);
+    --fedora-terminal-history-weight: 400;
+    --fedora-terminal-error: var(--ubuntu-terminal-error, #ff7b72);
+    --win-terminal-width: calc(var(--head) * 20.8);
+    --win-terminal-height: calc(var(--head) * 13.6);
+    --win-terminal-min-width: calc(var(--head) * 16);
+    --win-terminal-min-height: calc(var(--head) * 10.4);
+}
+
+/* Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
 body#ubuntu #terminal.terminal-window--fedora {
-    width: min(43rem, calc(100vw - var(--ubuntu-dock-width) - 2rem));
-    height: min(31.5rem, calc(100vh - var(--ubuntu-top-bar-height) - 2rem));
+    width: min(52rem, calc(100vw - var(--ubuntu-dock-width, 0px) - 2.5rem));
+    height: min(36rem, calc(100vh - var(--ubuntu-top-bar-height) - 2.5rem));
+    min-width: min(40rem, calc(100vw - 3rem));
+    min-height: min(26rem, calc(100vh - var(--ubuntu-top-bar-height) - 4rem));
     padding: 0;
-    border-color: var(--fedora-app-header-border);
+    border: 1px solid var(--fedora-app-header-border);
     border-radius: 0.8rem;
     background: var(--fedora-app-terminal-surface);
     overflow: hidden;
@@ -197,54 +223,6 @@ body#ubuntu #terminal .capsule-terminal-shell {
 
 body#ubuntu #terminal .capsule-terminal,
 body#ubuntu #terminal [data-terminal-app] {
-    padding: 0.45rem 0.55rem;
+    padding: 0.5rem 0.65rem;
     background: var(--fedora-app-terminal-surface);
-}
-
-body#ubuntu #terminal .capsule-terminal__output,
-body#ubuntu #terminal [data-terminal-output] {
-    flex: 0 0 auto;
-    margin-top: 0;
-    color: var(--fedora-app-text);
-}
-
-body#ubuntu #terminal #input,
-body#ubuntu #terminal .capsule-terminal__input,
-body#ubuntu #terminal [data-terminal-form] {
-    height: 1.35rem;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-}
-
-body#ubuntu #terminal #prompt,
-body#ubuntu #terminal .capsule-terminal__prompt,
-body#ubuntu #terminal [data-terminal-prompt],
-body#ubuntu #terminal .capsule-terminal__prompt-copy {
-    margin: 0 0.3rem 0 0;
-    color: var(--fedora-terminal-prompt);
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-    font-weight: 700;
-}
-
-body#ubuntu #terminal #command,
-body#ubuntu #terminal #command:focus,
-body#ubuntu #terminal #command:active,
-body#ubuntu #terminal .capsule-terminal__command,
-body#ubuntu #terminal [data-terminal-command],
-body#ubuntu #terminal .capsule-terminal__command:focus,
-body#ubuntu #terminal [data-terminal-command]:focus {
-    height: 1.35rem;
-    padding-left: 0;
-    color: var(--fedora-app-text);
-    caret-color: var(--fedora-app-text);
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-    font-weight: 500;
-    background: transparent;
-}
-
-body#ubuntu #terminal .capsule-terminal__line--error code {
-    color: var(--fedora-terminal-error);
 }

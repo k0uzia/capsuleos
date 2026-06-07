@@ -3,10 +3,12 @@
  */
 /* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
 body#alma #terminal.terminal-window--fedora {
-    width: min(43rem, calc(100vw - var(--fedora-dock-width) - 2rem));
-    height: min(31.5rem, calc(100vh - var(--fedora-top-bar-height) - 2rem));
+    width: min(52rem, calc(100vw - var(--fedora-dock-width, 0px) - 2.5rem));
+    height: min(36rem, calc(100vh - var(--fedora-top-bar-height) - 2.5rem));
+    min-width: min(40rem, calc(100vw - 3rem));
+    min-height: min(26rem, calc(100vh - var(--fedora-top-bar-height) - 4rem));
     padding: 0;
-    border-color: var(--fedora-app-header-border);
+    border: 1px solid var(--fedora-app-header-border);
     border-radius: 0.8rem;
     background: var(--fedora-app-terminal-surface);
     overflow: hidden;
@@ -197,54 +199,6 @@ body#alma #terminal .capsule-terminal-shell {
 
 body#alma #terminal .capsule-terminal,
 body#alma #terminal [data-terminal-app] {
-    padding: 0.45rem 0.55rem;
+    padding: 0.5rem 0.65rem;
     background: var(--fedora-app-terminal-surface);
-}
-
-body#alma #terminal .capsule-terminal__output,
-body#alma #terminal [data-terminal-output] {
-    flex: 0 0 auto;
-    margin-top: 0;
-    color: var(--fedora-app-text);
-}
-
-body#alma #terminal #input,
-body#alma #terminal .capsule-terminal__input,
-body#alma #terminal [data-terminal-form] {
-    height: 1.35rem;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-}
-
-body#alma #terminal #prompt,
-body#alma #terminal .capsule-terminal__prompt,
-body#alma #terminal [data-terminal-prompt],
-body#alma #terminal .capsule-terminal__prompt-copy {
-    margin: 0 0.3rem 0 0;
-    color: var(--fedora-terminal-prompt);
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-    font-weight: 700;
-}
-
-body#alma #terminal #command,
-body#alma #terminal #command:focus,
-body#alma #terminal #command:active,
-body#alma #terminal .capsule-terminal__command,
-body#alma #terminal [data-terminal-command],
-body#alma #terminal .capsule-terminal__command:focus,
-body#alma #terminal [data-terminal-command]:focus {
-    height: 1.35rem;
-    padding-left: 0;
-    color: var(--fedora-app-text);
-    caret-color: var(--fedora-app-text);
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-    font-weight: 500;
-    background: transparent;
-}
-
-body#alma #terminal .capsule-terminal__line--error code {
-    color: var(--fedora-terminal-error);
 }

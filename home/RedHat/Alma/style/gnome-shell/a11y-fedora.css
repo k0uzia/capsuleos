@@ -79,3 +79,13 @@ html[data-contrast-mode="high"] .menu-app-item.is-unavailable,
 html[data-contrast-mode="high"] .menu-shortcut.is-unavailable {
     opacity: 0.6;
 }
+
+#alma #terminal.terminal-window--fedora #command:focus,
+#alma #terminal.terminal-window--fedora #command:focus-visible,
+#alma #terminal.terminal-window--fedora .capsule-terminal__command:focus,
+#alma #terminal.terminal-window--fedora .capsule-terminal__command:focus-visible,
+#alma #terminal.terminal-window--fedora [data-terminal-command]:focus,
+#alma #terminal.terminal-window--fedora [data-terminal-command]:focus-visible {
+    outline: none;
+    box-shadow: none;
+}

@@ -71,12 +71,19 @@ function renderTerminalLine(output, text, className) {
     output.appendChild(row);
 }
 
+const PTYXIS_TERMINAL_BODY_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos']);
+
+function usesPtyxisTerminalChrome() {
+    return Boolean(document.body && PTYXIS_TERMINAL_BODY_IDS.has(document.body.id));
+}
+
 function hostHasColoredTerminalChrome(node) {
     const host = node && node.closest ? node.closest('[data-link="terminal"], #terminal') : null;
     return Boolean(
         host && (
             host.classList.contains('terminal-window--gnome')
             || host.classList.contains('terminal-window--cosmic')
+            || host.classList.contains('terminal-window--fedora')
             || (document.body && document.body.id === 'ubuntu')
         )
     );
@@ -431,6 +438,10 @@ function decorateGnomeTerminalWindow(container) {
         return;
     }
 
+    if (usesPtyxisTerminalChrome()) {
+        return;
+    }
+
     windowElement.classList.add('terminal-window--gnome');
 
     const applyChrome = () => {
@@ -510,7 +521,7 @@ function decorateGnomeTerminalWindow(container) {
 }
 
 function decorateFedoraTerminalWindow(container) {
-    if (!document.body || (document.body.id !== 'fedora' && document.body.id !== 'rocky')) {
+    if (!usesPtyxisTerminalChrome()) {
         return;
     }
 
@@ -519,6 +530,7 @@ function decorateFedoraTerminalWindow(container) {
         return;
     }
 
+    windowElement.classList.remove('terminal-window--gnome');
     windowElement.classList.add('terminal-window--fedora', 'terminal-window--csd');
 
     const applyChrome = () => {

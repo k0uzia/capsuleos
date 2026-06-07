@@ -127,7 +127,10 @@
       "templateId": "terminal",
       "paths": {
         "html": "usr/share/capsuleos/linux/apps/terminal.html",
-        "css": ["usr/share/capsuleos/linux/apps/style/terminal.base.css"]
+        "css": [
+          "usr/share/capsuleos/linux/apps/style/terminal.base.css",
+          "usr/share/capsuleos/linux/apps/style/terminal-ptyxis.base.css"
+        ]
       }
     },
     {

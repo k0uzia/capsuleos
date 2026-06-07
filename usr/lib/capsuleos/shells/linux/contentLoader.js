@@ -280,6 +280,13 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
                 text = `${text}\n${await gnomeResp.text()}`;
             }
         }
+        if (templateId === 'terminal' && text) {
+            const ptyxisFile = `${appsBase}/style/terminal-ptyxis.base.css`;
+            const ptyxisResp = await fetch(ptyxisFile, { cache: 'no-store' });
+            if (ptyxisResp.ok) {
+                text = `${text}\n${await ptyxisResp.text()}`;
+            }
+        }
         return text;
     })();
 

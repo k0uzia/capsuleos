@@ -15,7 +15,7 @@
         'nemo-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
         'nautilus-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
         firefox: { paths: { html: 'firefox.html', css: ['style/firefox.base.css'] }, explorersBase: false },
-        terminal: { paths: { html: 'terminal.html', css: ['style/terminal.base.css'] }, explorersBase: false }
+        terminal: { paths: { html: 'terminal.html', css: ['style/terminal.base.css', 'style/terminal-ptyxis.base.css'] }, explorersBase: false }
     };
 
     function explorersBaseFromApps(appsBase) {

@@ -48,6 +48,21 @@ if (contract.gates.jxlRequiresWebpSibling) {
   });
 }
 
+const panelGateVendors = contract.gates.panelRasterRequiresWebpSibling?.vendors;
+if (panelGateVendors?.length) {
+  walk(path.join(ASSETS, 'images/vendors'), (full) => {
+    const rel = path.relative(ASSETS, full).split(path.sep).join('/');
+    const m = rel.match(/^images\/vendors\/([^/]+)\/panel\/[^/]+\.(png|ico|gif)$/i);
+    if (!m || !panelGateVendors.includes(m[1])) {
+      return;
+    }
+    const webp = full.replace(/\.(png|ico|gif)$/i, '.webp');
+    if (!fs.existsSync(webp)) {
+      errors.push(`Panel raster sans WebP : ${path.relative(ROOT, full)}`);
+    }
+  });
+}
+
 walk(ASSETS, (full, name) => {
   if (!name.endsWith('.webp')) {
     return;

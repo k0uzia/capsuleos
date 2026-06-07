@@ -326,9 +326,9 @@ Intégration : chaîne `validate-assets-all.mjs` (nouvelle étape après `valida
 
 ### Phase 2 — Icons raster + vendors
 
-- [ ] Profil `icon-raster` (panel, dash)
-- [ ] `--rewrite-refs` branché sur `validate-vendor-image-extensions`
-- [ ] Passe `--vendor rocky` puis `fedora`
+- [x] Profil `icon-raster` (panel, dash)
+- [x] `--rewrite-refs` branché sur `validate-vendor-image-extensions` (mêmes `SCAN_ROOTS` + chemins `vendors/<id>/`)
+- [x] Passe `--vendor rocky` puis `fedora` (+ alma) — `firefox-48.png` → WebP lossless
 
 ### Phase 3 — Inventaire et opt-in captures
 

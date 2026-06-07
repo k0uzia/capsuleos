@@ -474,6 +474,11 @@ async function main() {
       replacements.push([`${stem}.jxl`, outBase]);
       replacements.push([`${stem}.jpeg`, outBase]);
       replacements.push([`${stem}.jpg`, outBase]);
+      if (flags.vendor) {
+        const vendorFrom = `vendors/${flags.vendor}/${relAssets.replace(/^images\/vendors\/[^/]+\//, '')}`;
+        const vendorTo = vendorFrom.replace(/\.(png|jpe?g|jxl|gif|ico)$/i, '.webp');
+        replacements.push([vendorFrom, vendorTo]);
+      }
 
       if (!flags.keepSource) {
         for (const staleExt of ['.png', '.jpg', '.jpeg', '.jxl']) {

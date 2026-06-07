@@ -2,6 +2,18 @@
   "version": 1,
   "entries": [
     {
+      "output": "images/vendors/alma/panel/firefox-48.webp",
+      "source": "images/vendors/alma/panel/firefox-48.png",
+      "preparedAt": "2026-06-07T09:12:14.054Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/panel/firefox-48.webp",
+      "source": "images/vendors/fedora/panel/firefox-48.png",
+      "preparedAt": "2026-06-07T09:12:14.264Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
       "output": "images/vendors/fedora/wallpaper/f44-01-day.webp",
       "source": "images/vendors/fedora/wallpaper/f44-01-day.jxl",
       "preparedAt": "2026-06-07T02:29:03.818Z",
@@ -12,7 +24,13 @@
       "source": "images/vendors/fedora/wallpaper/f44-01-night.jxl",
       "preparedAt": "2026-06-07T02:29:03.818Z",
       "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/rocky/panel/firefox-48.webp",
+      "source": "images/vendors/rocky/panel/firefox-48.png",
+      "preparedAt": "2026-06-07T09:12:13.812Z",
+      "encoder": "ffmpeg+convert"
     }
   ],
-  "updatedAt": "2026-06-07T02:29:03.903Z"
+  "updatedAt": "2026-06-07T09:12:14.280Z"
 }

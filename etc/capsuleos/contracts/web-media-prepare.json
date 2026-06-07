@@ -138,6 +138,9 @@
   },
   "gates": {
     "jxlRequiresWebpSibling": true,
+    "panelRasterRequiresWebpSibling": {
+      "vendors": ["fedora", "rocky", "alma"]
+    },
     "sidecarRequiredForTranscoded": true,
     "staleRasterRefGate": "validate-vendor-image-extensions.mjs"
   },

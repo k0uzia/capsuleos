@@ -1,6 +1,6 @@
 ---
 name: capsuleos-ui-state-effects-replication
-description: Audits and replicates GNOME UI states, visual effects, menus and popovers using propositional logic predicates Ve, Vx, Vm, Vμ, VΣ. Use when cataloging transitions, shadows, gradients, window open/close, context menus, submenus, or achieving 100% visual fidelity per user action and context.
+description: Audits and replicates GNOME UI states, visual effects, menus and popovers using propositional logic predicates Va, Ve, Vx, Vm, Vμ, VΣ. Auto-extends the effects matrix from VM-detected apps (AppV). Use when cataloging transitions, shadows, gradients, window open/close, context menus, submenus, or achieving 100% visual fidelity per user action and context.
 ---
 
 # Réplication états UI & effets (VΣ)
@@ -15,11 +15,12 @@ description: Audits and replicates GNOME UI states, visual effects, menus and po
 
 | Symbole | Contenu |
 |---------|---------|
-| **Ve** | Matrice transitions P0 documentée |
+| **Va** | Apps VM détectées → matrice `app.<slot>.open` |
+| **Ve** | Matrice transitions P0 documentée (shell + apps) |
 | **Vx** | Durée, easing, propriétés CSS mesurées |
 | **Vm** | Items menu/popover énumérés |
 | **Vμ** | Capsule : computed styles + capture miroir |
-| **VΣ** | **Ve ∧ Vx ∧ Vm ∧ Vμ** |
+| **VΣ** | **Va ∧ Ve ∧ Vx ∧ Vm ∧ Vμ** |
 
 Contrat : `etc/capsuleos/contracts/ui-state-effects.json`  
 Procédure : `root/docs/procedure-audit-etats-ui-effets.md`
@@ -35,20 +36,24 @@ L'agent exécute **sans demander** les scripts intermédiaires.
 ## Séquence interne
 
 1. `run-visual-parity-pass.mjs` — baseline shell (**Vp**)
-2. `collect-ui-state-effects.mjs --write` — playbooks VM + burst PNG
-3. `collect-ui-state-effects.mjs --capsule` — `getComputedStyle` Playwright
-4. `smoke-ui-state-effects.mjs` — gate **VΣ**
+2. `extend-ui-state-effects-matrix.mjs --ensure-apps --write` — **Va** (apps VM → matrice)
+3. `collect-ui-state-effects.mjs --write` — playbooks VM + burst PNG
+4. `collect-ui-state-effects.mjs --capsule` — `getComputedStyle` Playwright
+5. `smoke-ui-state-effects.mjs` — gate **VΣ**
 
 ## Matrice & inventaire
 
-- Matrice GNOME : `root/tools/lab/ui-state-effects-matrix-gnome.json`
+- Matrice GNOME base : `root/tools/lab/ui-state-effects-matrix-gnome.json`
+- Matrice registry (shell + apps) : `root/docs/inventaires/<id>-ui-state-effects-matrix.json`
 - Inventaire : `root/docs/inventaires/<id>-ui-state-effects.json`
 - Captures burst VM : `inventory/<vendor>-ui-effects-vm/<transitionId>/`
 
-## Règles agent (R-VΣ)
+## Règles agent (R-Va / R-VΣ)
 
 ```
-¬Ve  →  collect --write
+¬AppV  →  collect-vm-apps-inventory --ssh --write
+¬Va    →  extend-ui-state-effects-matrix --ensure-apps --write
+¬Ve    →  collect --write
 Ve ∧ ¬Vm  →  compléter énumération menus (playbook expectedMenu)
 Vm ∧ ¬Vμ  →  patch CSS/JS + --capsule
 VΣ  →  smoke vert

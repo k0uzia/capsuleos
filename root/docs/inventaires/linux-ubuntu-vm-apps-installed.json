@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "registryId": "linux-ubuntu",
+  "installed": [
+    {
+      "id": "org.gnome.baobab",
+      "name": "Disk Usage Analyzer",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Calculator",
+      "name": "Calculator",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Characters",
+      "name": "Characters",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.clocks",
+      "name": "Clocks",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.DiskUtility",
+      "name": "Disks",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Evolution-alarm-notify",
+      "name": "Events and Tasks Reminders",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.evolution-data-server.OAuth2-handler",
+      "name": "Evolution Data Server OAuth2 Handler",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.font-viewer",
+      "name": "Fonts",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.goa-daemon",
+      "name": "Online Accounts",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Logs",
+      "name": "Logs",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Loupe",
+      "name": "Image Viewer",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Nautilus",
+      "name": "Files",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.OnlineAccounts.OAuth2",
+      "name": "GNOME OAuth2 Handler",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Papers",
+      "name": "Document Viewer",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Papers-previewer",
+      "name": "Print Preview",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Ptyxis",
+      "name": "Terminal",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.seahorse.Application",
+      "name": "Passwords and Keys",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Settings",
+      "name": "Settings",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Shell.Extensions",
+      "name": "Extensions",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Sysprof",
+      "name": "Sysprof",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Tecla",
+      "name": "Tecla",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.TextEditor",
+      "name": "Text Editor",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Yelp",
+      "name": "Help",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    },
+    {
+      "id": "org.gnome.Zenity",
+      "name": "Zenity",
+      "capsuleSlot": null,
+      "grid": true,
+      "dash": false
+    }
+  ],
+  "notInstalledOnVm": [],
+  "source": "lab-ssh.mjs — /usr/share/applications",
+  "collectedAt": "2026-06-07T19:59:26.720Z",
+  "updatedAt": "2026-06-07T19:59:26.721Z"
+}

@@ -23,7 +23,9 @@ description: Reproduces a real desktop OS from a VM into CapsuleOS following the
 8. Coder sous **`home/<Vendor>/<Distro>/`** uniquement (interdit si ¬**I**).
 9. Assets : `bash root/tools/lab/pull-vm-assets.sh --id <registryId>` — **A**, **S**, **T** ; jamais emprunter un autre vendor.
 10. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
-11. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité (`visual-parity-lab` → `run-visual-parity-pass.mjs`).
+11. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité :
+    - `visual-parity-lab` → `run-visual-parity-pass.mjs` (**Vp**)
+    - `ui-state-effects-replication` → `run-ui-state-effects-pass.mjs` (**Va → VΣ**, apps détectées auto)
 
 ## Ubuntu GNOME (refonte depuis VM)
 

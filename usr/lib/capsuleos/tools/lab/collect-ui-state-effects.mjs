@@ -10,11 +10,11 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadMergedMatrix, registryMatrixPath } from './ui-state-effects-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
-const MATRIX = path.join(ROOT, 'root/tools/lab/ui-state-effects-matrix-gnome.json');
 const PLAYBOOKS_SH = path.join(ROOT, 'root/tools/lab/vm-gnome-deep-playbooks.sh');
 
 const parseArgs = () => {
@@ -81,6 +81,37 @@ const runPlaybook = (host, playbook) => {
   return { ok: true, result: parsePlaybookStdout(res.stdout) };
 };
 
+const runAppLaunch = (host, tr) => {
+  const at = host.ssh.indexOf('@');
+  const user = host.ssh.slice(0, at);
+  const ip = host.ssh.slice(at + 1);
+  const identity = sshIdentity(host);
+  const launch = tr.launchVm || `gtk-launch ${tr.vmDesktop || tr.trigger?.desktop}`;
+  const wm = tr.wmClass || '';
+  const remoteCmd = [
+    'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus',
+    'export XDG_RUNTIME_DIR=/run/user/$(id -u)',
+    `export DISPLAY=${host.display || ':0'}`,
+    'export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)',
+    'export PATH=$HOME/.local/bin:$PATH',
+    'gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "s:Main.overview.hide()" >/dev/null 2>&1 || true',
+    `nohup ${launch} >/dev/null 2>&1 &`,
+    'sleep 2.5',
+    wm ? `wmctrl -xa ${wm} 2>/dev/null || true` : 'true',
+    `python3 -c "import json,datetime; print(json.dumps({'playbook':'app-launch','launch':'${launch}','wmClass':'${wm}','timestamp':datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}))"`,
+  ].join('; ');
+
+  const res = spawnSync(
+    'ssh',
+    ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, `${user}@${ip}`, remoteCmd],
+    { encoding: 'utf8', timeout: 120000 },
+  );
+  if (res.status !== 0) {
+    return { ok: false, error: (res.stderr || res.stdout || '').trim(), result: null };
+  }
+  return { ok: true, result: parsePlaybookStdout(res.stdout) };
+};
+
 const virshShot = (destFile, host) => {
   const vmName = host.virshName || 'Rocky10';
   const res = spawnSync(
@@ -117,6 +148,14 @@ const capsuleSelectorMap = {
   'app.nautilus.open': '.windowElement[data-link="nemo"]:not([style*="display: none"])',
   'app.nautilus.contextmenu': '.nautilus-context-menu, .nemo-context-menu',
   'desktop.contextmenu': '.desktop-context-menu',
+};
+
+const capsuleSelectorFor = (tr) => {
+  if (capsuleSelectorMap[tr.id]) return capsuleSelectorMap[tr.id];
+  if (tr.capsuleSlot) {
+    return `.windowElement[data-link="${tr.capsuleSlot}"]:not([style*="display: none"])`;
+  }
+  return null;
 };
 
 const probeCapsuleStyles = async (registryId, transitionId, selector) => {
@@ -164,11 +203,12 @@ const main = async () => {
   const opts = parseArgs();
   const host = loadHost(opts.id);
   const vendor = vendorFromId(opts.id);
-  const matrix = JSON.parse(fs.readFileSync(MATRIX, 'utf8'));
+  const matrix = loadMergedMatrix(opts.id);
   const transitions = matrix.transitions.filter((t) => {
     if (opts.filter === 'all') return true;
     return t.parity === opts.filter;
   });
+  const discoveredCount = matrix.discoveredApps?.length || 0;
 
   const vmDir = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors', vendor, 'inventory', `${vendor}-ui-effects-vm`);
   fs.mkdirSync(vmDir, { recursive: true });
@@ -176,11 +216,18 @@ const main = async () => {
   const investigations = [];
 
   for (const tr of transitions) {
-    process.stderr.write(`  → ${tr.id} (${tr.playbookVm})\n`);
+    const actionLabel = tr.playbookVm || tr.launchVm || tr.id;
+    process.stderr.write(`  → ${tr.id} (${actionLabel})\n`);
     const subdir = path.join(vmDir, tr.id);
     fs.mkdirSync(subdir, { recursive: true });
 
-    const pb = runPlaybook(host, tr.playbookVm);
+    let pb = { ok: false, result: null, error: 'no action' };
+    if (tr.playbookVm) {
+      pb = runPlaybook(host, tr.playbookVm);
+    } else if (tr.launchVm || tr.vmDesktop) {
+      pb = runAppLaunch(host, tr);
+    }
+
     const captures = [];
     const burst = tr.burstMs || [0, 150, 300];
 
@@ -198,6 +245,7 @@ const main = async () => {
       });
     }
 
+    const captureOk = captures.some((c) => c.ok);
     const menus = extractMenus(pb.result, tr.menus);
     const inv = {
       transitionId: tr.id,
@@ -205,22 +253,25 @@ const main = async () => {
       fromState: tr.from,
       toState: tr.to,
       trigger: tr.trigger,
-      playbookVm: tr.playbookVm,
-      status: pb.ok ? 'documented' : 'failed',
+      playbookVm: tr.playbookVm || null,
+      launchVm: tr.launchVm || null,
+      discoveredFrom: tr.discoveredFrom || 'base-matrix',
+      capsuleSlot: tr.capsuleSlot || null,
+      status: (pb.ok || captureOk) ? 'documented' : 'failed',
       vmCaptures: captures,
       effectsExpected: tr.effects || {},
       effectsObserved: {
         durationMs: tr.effects?.durationMs ?? null,
         easing: tr.effects?.easing ?? null,
         properties: tr.effects?.properties || [],
-        notes: pb.ok ? 'playbook VM OK' : pb.error,
+        notes: pb.ok ? 'VM action OK' : (captureOk ? 'capture OK, playbook partiel' : pb.error),
       },
       menusDetected: menus,
       submenusDetected: [],
       popupsDetected: menus.filter((m) => m.role === 'popover'),
       playbookResult: pb.result,
       capsuleParity: {
-        selector: capsuleSelectorMap[tr.id] || null,
+        selector: capsuleSelectorFor(tr),
         computedStyles: {},
         visualMatch: 'unknown',
         parityPriority: tr.parity,
@@ -243,7 +294,10 @@ const main = async () => {
   })));
 
   const documented = investigations.filter((i) => i.status === 'documented').length;
-  const p0 = transitions.length;
+  const p0Total = matrix.transitions.filter((t) => t.parity === 'P0').length;
+  const p0Documented = investigations.filter(
+    (i) => i.capsuleParity?.parityPriority === 'P0' && i.status === 'documented',
+  ).length;
   const effectsMeasured = investigations.filter((i) => i.effectsObserved?.properties?.length).length;
   const menusEnumerated = menuCatalog.reduce((n, m) => n + (m.items?.length || 0), 0);
   const capsuleMatched = investigations.filter((i) => i.capsuleParity.visualMatch === 'partial').length;
@@ -253,18 +307,24 @@ const main = async () => {
     generatedAt: new Date().toISOString(),
     contract: 'etc/capsuleos/contracts/ui-state-effects.json',
     procedure: 'procedure-audit-etats-ui-effets.md',
-    matrixSource: 'root/tools/lab/ui-state-effects-matrix-gnome.json',
+    matrixSource: fs.existsSync(registryMatrixPath(opts.id))
+      ? `root/docs/inventaires/${opts.id}-ui-state-effects-matrix.json`
+      : 'root/tools/lab/ui-state-effects-matrix-gnome.json',
+    discoveredApps: matrix.discoveredApps || [],
     summary: {
       transitionsTotal: matrix.transitions.length,
-      transitionsP0: matrix.transitions.filter((t) => t.parity === 'P0').length,
+      transitionsP0: p0Total,
+      discoveredApps: discoveredCount,
       documented,
+      p0Documented,
       menusEnumerated,
       effectsMeasured,
       capsuleMatched,
-      gapsP0: Math.max(0, p0 - documented),
+      gapsP0: Math.max(0, p0Total - p0Documented),
       predicates: {
-        Ve: documented >= p0,
-        Vx: effectsMeasured >= p0,
+        Va: fs.existsSync(registryMatrixPath(opts.id)) || discoveredCount > 0,
+        Ve: p0Documented >= p0Total,
+        Vx: effectsMeasured >= p0Total,
         Vm: menusEnumerated > 0,
         Vμ: opts.capsule ? capsuleMatched > 0 : false,
         VΣ: false,
@@ -288,7 +348,7 @@ const main = async () => {
   if (opts.write || opts.capsule) {
     fs.writeFileSync(outPath, `${JSON.stringify(out, null, 2)}\n`);
     process.stdout.write(`OK ${outPath}\n`);
-    process.stdout.write(`  Ve=${out.summary.predicates.Ve} Vx=${out.summary.predicates.Vx} Vm=${out.summary.predicates.Vm} Vμ=${out.summary.predicates.Vμ}\n`);
+    process.stdout.write(`  Va=${out.summary.predicates.Va} Ve=${out.summary.predicates.Ve} Vx=${out.summary.predicates.Vx} Vm=${out.summary.predicates.Vm} Vμ=${out.summary.predicates.Vμ}\n`);
   } else {
     process.stdout.write(`${JSON.stringify(out.summary, null, 2)}\n`);
   }

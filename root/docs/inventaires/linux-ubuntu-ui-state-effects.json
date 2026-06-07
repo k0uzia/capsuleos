@@ -1,0 +1,739 @@
+{
+  "registryId": "linux-ubuntu",
+  "generatedAt": "2026-06-07T19:33:51.538Z",
+  "contract": "etc/capsuleos/contracts/ui-state-effects.json",
+  "procedure": "procedure-audit-etats-ui-effets.md",
+  "matrixSource": "root/tools/lab/ui-state-effects-matrix-gnome.json",
+  "summary": {
+    "transitionsTotal": 9,
+    "transitionsP0": 8,
+    "documented": 0,
+    "menusEnumerated": 15,
+    "effectsMeasured": 8,
+    "capsuleMatched": 0,
+    "gapsP0": 8,
+    "predicates": {
+      "Ve": false,
+      "Vx": true,
+      "Vm": true,
+      "Vμ": false,
+      "VΣ": false
+    }
+  },
+  "investigations": [
+    {
+      "transitionId": "desktop.contextmenu",
+      "surface": "desktop.background",
+      "fromState": "idle",
+      "toState": "context-menu-open",
+      "trigger": {
+        "type": "contextmenu",
+        "button": "right",
+        "clicks": 1
+      },
+      "playbookVm": "desktop-contextmenu",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/desktop.contextmenu/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-80ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/desktop.contextmenu/during-80ms.png",
+          "elapsedMs": 80,
+          "ok": true
+        },
+        {
+          "phase": "during-150ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/desktop.contextmenu/during-150ms.png",
+          "elapsedMs": 150,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/desktop.contextmenu/after.png",
+          "elapsedMs": 300,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "box-shadow",
+          "backdrop-filter",
+          "border-radius"
+        ],
+        "durationMs": 150,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 150,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "box-shadow",
+          "backdrop-filter",
+          "border-radius"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [
+        {
+          "role": "context-menu",
+          "id": "desktop-context",
+          "items": [
+            "New Folder",
+            "Paste",
+            "Display Settings",
+            "Change Background…"
+          ],
+          "source": "matrix"
+        }
+      ],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": ".desktop-context-menu",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "shell.overview.open",
+      "surface": "shell.overview",
+      "fromState": "hidden",
+      "toState": "workspace",
+      "trigger": {
+        "type": "keyboard",
+        "binding": "Super"
+      },
+      "playbookVm": "overview-open",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-120ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.open/during-120ms.png",
+          "elapsedMs": 120,
+          "ok": true
+        },
+        {
+          "phase": "during-250ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.open/during-250ms.png",
+          "elapsedMs": 250,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.open/after.png",
+          "elapsedMs": 500,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "filter",
+          "backdrop-filter"
+        ],
+        "durationMs": 250,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 250,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "filter",
+          "backdrop-filter"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": ".fedora-overview.is-open, body.is-overview",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "shell.overview.close",
+      "surface": "shell.overview",
+      "fromState": "workspace",
+      "toState": "hidden",
+      "trigger": {
+        "type": "keyboard",
+        "binding": "Escape"
+      },
+      "playbookVm": "overview-close",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.close/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.close/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.close/after.png",
+          "elapsedMs": 200,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform"
+        ],
+        "durationMs": 200,
+        "easing": "ease-in"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-in",
+        "properties": [
+          "opacity",
+          "transform"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "body:not(.is-overview)",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "shell.quickSettings.open",
+      "surface": "shell.quickSettings",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "keyboard",
+        "binding": "<Super>s"
+      },
+      "playbookVm": "quick-settings",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.quickSettings.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-50ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.quickSettings.open/during-50ms.png",
+          "elapsedMs": 50,
+          "ok": true
+        },
+        {
+          "phase": "during-150ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.quickSettings.open/during-150ms.png",
+          "elapsedMs": 150,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.quickSettings.open/after.png",
+          "elapsedMs": 300,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow",
+          "backdrop-filter"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow",
+          "backdrop-filter"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [
+        {
+          "role": "popover",
+          "id": "quick-settings",
+          "items": [
+            "Volume",
+            "Network",
+            "Night Light",
+            "Power"
+          ],
+          "source": "matrix"
+        }
+      ],
+      "submenusDetected": [],
+      "popupsDetected": [
+        {
+          "role": "popover",
+          "id": "quick-settings",
+          "items": [
+            "Volume",
+            "Network",
+            "Night Light",
+            "Power"
+          ],
+          "source": "matrix"
+        }
+      ],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#volume-popover:not([hidden])",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.nautilus.open",
+      "surface": "app.nautilus",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "clicks": 2
+      },
+      "playbookVm": "open-nautilus",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": ".windowElement[data-link=\"nemo\"]:not([style*=\"display: none\"])",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.nautilus.contextmenu",
+      "surface": "app.nautilus",
+      "fromState": "open",
+      "toState": "context-menu-open",
+      "trigger": {
+        "type": "contextmenu",
+        "button": "right",
+        "clicks": 1
+      },
+      "playbookVm": "nautilus-contextmenu",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.contextmenu/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-80ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.contextmenu/during-80ms.png",
+          "elapsedMs": 80,
+          "ok": true
+        },
+        {
+          "phase": "during-150ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.contextmenu/during-150ms.png",
+          "elapsedMs": 150,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.contextmenu/after.png",
+          "elapsedMs": 400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "box-shadow",
+          "backdrop-filter"
+        ],
+        "durationMs": 120,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 120,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "box-shadow",
+          "backdrop-filter"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [
+        {
+          "role": "context-menu",
+          "id": "nautilus-file",
+          "items": [
+            "Open",
+            "Open With",
+            "Cut",
+            "Copy",
+            "Rename…",
+            "Move to Trash",
+            "Properties"
+          ],
+          "source": "matrix"
+        }
+      ],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": ".nautilus-context-menu, .nemo-context-menu",
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.nautilus.rename-inline",
+      "surface": "app.nautilus",
+      "fromState": "item-selected",
+      "toState": "rename-inline",
+      "trigger": {
+        "type": "keyboard",
+        "binding": "F2"
+      },
+      "playbookVm": "nautilus-item-rename-inline",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.rename-inline/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.rename-inline/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.nautilus.rename-inline/after.png",
+          "elapsedMs": 300,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "background",
+          "border-radius",
+          "box-shadow"
+        ],
+        "durationMs": 100,
+        "easing": "linear"
+      },
+      "effectsObserved": {
+        "durationMs": 100,
+        "easing": "linear",
+        "properties": [
+          "background",
+          "border-radius",
+          "box-shadow"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": null,
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "shell.overview.animation-burst",
+      "surface": "shell.overview",
+      "fromState": "hidden",
+      "toState": "workspace",
+      "trigger": {
+        "type": "keyboard",
+        "binding": "Super"
+      },
+      "playbookVm": "animation-overview-burst",
+      "status": "failed",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-40ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/during-40ms.png",
+          "elapsedMs": 40,
+          "ok": true
+        },
+        {
+          "phase": "during-80ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/during-80ms.png",
+          "elapsedMs": 80,
+          "ok": true
+        },
+        {
+          "phase": "during-120ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/during-120ms.png",
+          "elapsedMs": 120,
+          "ok": true
+        },
+        {
+          "phase": "during-160ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/during-160ms.png",
+          "elapsedMs": 160,
+          "ok": true
+        },
+        {
+          "phase": "during-200ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/during-200ms.png",
+          "elapsedMs": 200,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/shell.overview.animation-burst/after.png",
+          "elapsedMs": 280,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "filter"
+        ],
+        "durationMs": 250,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 250,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "filter"
+        ],
+        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": null,
+        "computedStyles": {},
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    }
+  ],
+  "menuCatalog": [
+    {
+      "transitionId": "desktop.contextmenu",
+      "role": "context-menu",
+      "id": "desktop-context",
+      "items": [
+        "New Folder",
+        "Paste",
+        "Display Settings",
+        "Change Background…"
+      ],
+      "source": "matrix"
+    },
+    {
+      "transitionId": "shell.quickSettings.open",
+      "role": "popover",
+      "id": "quick-settings",
+      "items": [
+        "Volume",
+        "Network",
+        "Night Light",
+        "Power"
+      ],
+      "source": "matrix"
+    },
+    {
+      "transitionId": "app.nautilus.contextmenu",
+      "role": "context-menu",
+      "id": "nautilus-file",
+      "items": [
+        "Open",
+        "Open With",
+        "Cut",
+        "Copy",
+        "Rename…",
+        "Move to Trash",
+        "Properties"
+      ],
+      "source": "matrix"
+    }
+  ],
+  "transitionGraph": {
+    "nodes": [
+      "desktop.background.idle",
+      "desktop.background.context-menu-open",
+      "shell.overview.hidden",
+      "shell.overview.workspace",
+      "shell.overview.apps",
+      "shell.quickSettings.closed",
+      "shell.quickSettings.open",
+      "shell.topBar.idle",
+      "shell.topBar.calendar-open",
+      "shell.topBar.system-menu-open",
+      "app.nautilus.closed",
+      "app.nautilus.open",
+      "app.nautilus.item-selected",
+      "app.nautilus.context-menu-open",
+      "app.nautilus.rename-inline",
+      "app.window.normal",
+      "app.window.focused",
+      "app.window.maximized",
+      "app.window.closing"
+    ],
+    "edges": [
+      {
+        "from": "desktop.background.idle",
+        "to": "desktop.background.context-menu-open",
+        "id": "desktop.contextmenu"
+      },
+      {
+        "from": "shell.overview.hidden",
+        "to": "shell.overview.workspace",
+        "id": "shell.overview.open"
+      },
+      {
+        "from": "shell.overview.workspace",
+        "to": "shell.overview.hidden",
+        "id": "shell.overview.close"
+      },
+      {
+        "from": "shell.quickSettings.closed",
+        "to": "shell.quickSettings.open",
+        "id": "shell.quickSettings.open"
+      },
+      {
+        "from": "app.nautilus.closed",
+        "to": "app.nautilus.open",
+        "id": "app.nautilus.open"
+      },
+      {
+        "from": "app.nautilus.open",
+        "to": "app.nautilus.context-menu-open",
+        "id": "app.nautilus.contextmenu"
+      },
+      {
+        "from": "app.nautilus.item-selected",
+        "to": "app.nautilus.rename-inline",
+        "id": "app.nautilus.rename-inline"
+      },
+      {
+        "from": "shell.overview.hidden",
+        "to": "shell.overview.workspace",
+        "id": "shell.overview.animation-burst"
+      }
+    ]
+  },
+  "nextActions": []
+}

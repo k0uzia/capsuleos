@@ -66,6 +66,9 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | 5 | Assets VM → `pull-vm-assets.sh` | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | 6 | Clôture Linux : `sync-linux-skin-closure.mjs` | façades ≡ home |
 | 7 | `validate-all.mjs` + captures comparatives | — |
+| 7a | **Passe visuelle shell** : `run-visual-parity-pass.mjs` | **Vp** — skill `visual-parity-lab` |
+| 7b | **Apps VM** : `collect-vm-apps-inventory` → `generate-apps-catalog` | **AppV**, **AppC** |
+| 7c | **États UI & effets** : `run-ui-state-effects-pass.mjs` | **Va → VΣ** — apps détectées étendent la matrice auto |
 
 **Interdit** : patch massif du skin sans inventaire ; édition manuelle de `OS/linux/families/...` ; icônes d’un autre vendor ; `px` en dur si un token `--*` existe.
 
@@ -148,7 +151,8 @@ Inventaire : [linux-rocky-vm.md](inventaires/linux-rocky-vm.md) · JSON : [linux
 1. `onboarding`
 2. `os-clone-from-vm` (cette convention)
 3. `os-linux` + `capsuleos-distro-<id>` + `capsuleos-vendor-<vendor>`
-4. `role-integrator` ; `asset-pipeline` si assets ; `css-variables-contract` si CSS
+4. `visual-parity-lab` puis `ui-state-effects-replication` (fidélité visuelle complète)
+5. `role-integrator` ; `asset-pipeline` si assets ; `css-variables-contract` si CSS
 
 ---
 

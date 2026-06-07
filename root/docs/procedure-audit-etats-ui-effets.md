@@ -12,16 +12,39 @@
 
 | Symbole | Signification | Gate |
 |---------|---------------|------|
-| **Ve** | Matrice états/transitions P0 **complète** | `smoke-ui-state-effects.mjs` — `summary.predicates.Ve` |
+| **Va** | Apps VM **détectées** intégrées à la matrice | `*-ui-state-effects-matrix.json` · `discoveredApps[]` |
+| **Ve** | Matrice états/transitions P0 **complète** (shell + apps) | `smoke-ui-state-effects.mjs` — `summary.predicates.Ve` |
 | **Vx** | Transitions **mesurées** (durée, easing, propriétés) | `effectsMeasured === transitionsP0` |
 | **Vm** | Menus/popovers **énumérés** (items + hiérarchie) | `menusEnumerated` ≥ somme items P0 |
 | **Vμ** | Capsule **reproduit** (computed + capture) | `capsuleMatched` + `visualMatch !== unknown` pour P0 |
-| **VΣ** | Clôture effets UI | **Ve ∧ Vx ∧ Vm ∧ Vμ** |
+| **VΣ** | Clôture effets UI | **Va ∧ Ve ∧ Vx ∧ Vm ∧ Vμ** |
+
+### Extension automatique aux applications (Va)
+
+Pendant la passe VΣ, les apps **réellement présentes** sur la VM sont détectées et ajoutées à la matrice :
+
+```mermaid
+flowchart LR
+  AppV[AppV inventaire VM] --> AppC[AppC catalogue]
+  AppC --> Va[Va extend-matrix]
+  Va --> Ve[Ve collect burst]
+  Ve --> VΣ[VΣ smoke]
+```
+
+| Étape | Script | Sortie |
+|-------|--------|--------|
+| 1 | `collect-vm-apps-inventory.mjs --ssh --write` | `*-vm-apps-installed.json` |
+| 2 | `generate-apps-catalog.mjs --write` | `*-apps-catalog.json` |
+| 3 | `extend-ui-state-effects-matrix.mjs --ensure-apps --write` | `*-ui-state-effects-matrix.json` |
+
+Chaque app P0/P1 avec slot Capsule génère une transition `app.<slot>.open` (burst ouverture fenêtre, ombre CSD, focus).
 
 ### Règles agent
 
 ```
-R-VΣ1   Vp ∧ ¬Ve     →  collect-ui-state-effects.mjs --write (étendre matrice P0)
+R-Va1   Vp ∧ ¬AppV    →  collect-vm-apps-inventory --ssh --write
+R-Va2   AppV ∧ ¬Va    →  extend-ui-state-effects-matrix --ensure-apps --write
+R-VΣ1   Va ∧ ¬Ve      →  collect-ui-state-effects.mjs --write (étendre matrice P0)
 R-VΣ2   Ve ∧ ¬Vx     →  rejouer burst captures VM (durées / easing)
 R-VΣ3   Vx ∧ ¬Vm     →  énumérer items menu depuis playbook VM + capture OCR/sonde
 R-VΣ4   Vm ∧ ¬Vμ     →  patch CSS/JS Capsule + capture miroir Playwright
@@ -53,10 +76,17 @@ Exemples :
 ## 3. Workflow autonome
 
 ```bash
+# Orchestrateur complet (Vp → Va → Ve → VΣ)
+node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu
+
+# Ou étapes manuelles :
 # 1. Passe visuelle shell (prérequis Vp)
 node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu
 
-# 2. Collecte états/effets VM + burst transitions
+# 2. Extension matrice apps détectées (Va)
+node usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs --id linux-ubuntu --write --ensure-apps
+
+# 3. Collecte états/effets VM + burst transitions
 node usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs --id linux-ubuntu --write
 
 # 3. Captures + styles Capsule miroir

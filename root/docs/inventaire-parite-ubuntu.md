@@ -54,7 +54,9 @@ Approfondissement propositionnel — menus, transitions, ombres, popovers :
 node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu
 ```
 
-Skill : `ui-state-effects-replication` · Contrat : `etc/capsuleos/contracts/ui-state-effects.json`
+Extension auto apps VM (**Va**) : `extend-ui-state-effects-matrix.mjs --ensure-apps` lit `*-apps-catalog.json` et ajoute les transitions `app.<slot>.open`.
+
+Skill : `ui-state-effects-replication` · Contrat : `etc/capsuleos/contracts/ui-state-effects.json` · Recette : [convention-reproduction-os.md](convention-reproduction-os.md) §4 étapes 7a–7c
 
 ## Prochaines étapes
 

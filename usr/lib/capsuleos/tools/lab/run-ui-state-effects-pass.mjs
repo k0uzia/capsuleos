@@ -51,6 +51,11 @@ const main = () => {
     }
   }
 
+  process.stderr.write('--- Phase Va (apps VM → matrice) ---\n');
+  if (!run('usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs', [`--id=${id}`, '--write', '--ensure-apps'])) {
+    process.exit(1);
+  }
+
   process.stderr.write('--- Phase Ve/Vx/Vm (collecte VM) ---\n');
   if (!run('usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs', [`--id=${id}`, '--write'])) {
     process.exit(1);

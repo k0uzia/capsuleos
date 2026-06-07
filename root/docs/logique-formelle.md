@@ -114,20 +114,23 @@ Extension de **V** / **Vp** — menus, transitions, ombres, dégradés par actio
 
 | Symbole | Signification | Vérification |
 |---------|---------------|--------------|
-| **Ve** | Matrice états/transitions P0 complète | `*-ui-state-effects.json` · `summary.predicates.Ve` |
+| **Va** | Apps VM intégrées à la matrice VΣ | `*-ui-state-effects-matrix.json` · `discoveredApps[]` · `extend-ui-state-effects-matrix.mjs` |
+| **Ve** | Matrice états/transitions P0 complète (shell + apps) | `*-ui-state-effects.json` · `summary.predicates.Ve` |
 | **Vx** | Transitions mesurées (durée, easing, propriétés CSS) | `effectsMeasured` ≥ transitions P0 |
 | **Vm** | Menus, sous-menus, popovers énumérés | `menuCatalog` · `menusEnumerated` |
 | **Vμ** | Capsule reproduit l’effet (computed + capture) | `capsuleParity.visualMatch` ≠ `unknown` pour P0 |
-| **VΣ** | Clôture effets UI | **Ve ∧ Vx ∧ Vm ∧ Vμ** · `smoke-ui-state-effects.mjs` |
+| **VΣ** | Clôture effets UI | **Va ∧ Ve ∧ Vx ∧ Vm ∧ Vμ** · `smoke-ui-state-effects.mjs` |
 
 Contrat : `etc/capsuleos/contracts/ui-state-effects.json` · Procédure : [procedure-audit-etats-ui-effets.md](procedure-audit-etats-ui-effets.md) · Skill : `ui-state-effects-replication`
 
 ```
-R-VΣ1   Vp ∧ ¬Ve     →  collect-ui-state-effects.mjs --write
-R-VΣ2   Ve ∧ ¬Vx     →  burst captures VM (rejouer transition)
-R-VΣ3   Vx ∧ ¬Vm     →  énumérer items menu (playbook + capture)
-R-VΣ4   Vm ∧ ¬Vμ     →  patch skin + collect --capsule
-R-VΣ5   VΣ           →  smoke-ui-state-effects + H6
+R-Va1   Vp ∧ ¬AppV    →  collect-vm-apps-inventory.mjs --write --ssh
+R-Va2   AppV ∧ ¬Va    →  generate-apps-catalog.mjs --write puis extend-ui-state-effects-matrix.mjs --ensure-apps
+R-VΣ1   Va ∧ ¬Ve      →  collect-ui-state-effects.mjs --write
+R-VΣ2   Ve ∧ ¬Vx      →  burst captures VM (rejouer transition)
+R-VΣ3   Vx ∧ ¬Vm      →  énumérer items menu (playbook + capture)
+R-VΣ4   Vm ∧ ¬Vμ      →  patch skin + collect --capsule
+R-VΣ5   VΣ            →  smoke-ui-state-effects + H6
 ```
 
 ### 2.12 Shell global — terminal (T)

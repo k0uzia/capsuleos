@@ -34,6 +34,10 @@ const main = () => {
   const inv = JSON.parse(fs.readFileSync(invPath, 'utf8'));
   const p = inv.summary?.predicates || {};
 
+  const regMatrix = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-ui-state-effects-matrix.json`);
+  if (!p.Va && !fs.existsSync(regMatrix)) {
+    errors.push('¬Va — matrice registry absente (extend-ui-state-effects-matrix --ensure-apps --write)');
+  }
   if (!p.Ve) errors.push('¬Ve — transitions P0 non documentées');
   if (!p.Vx) errors.push('¬Vx — effets/transitions non mesurés');
   if (!p.Vm) errors.push('¬Vm — menus/popovers non énumérés');

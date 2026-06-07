@@ -75,9 +75,19 @@ Options utiles :
 
 `linux-rocky` · `linux-fedora` · `linux-ubuntu` — ajouter une entrée dans `visual-parity-manifest.json` pour un nouveau vendor.
 
+## Suite logique (après Vp)
+
+Quand l'utilisateur exige **menus, transitions, ombres à 100 %** :
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id <registryId>
+```
+
+Skill : `ui-state-effects-replication` — prédicats **Ve → Vx → Vm → Vμ → VΣ**.
+
 ## Pairing
 
-`os-clone-from-vm` · `capsuleos-vendor-*` · `gnome-hig-replication`
+`os-clone-from-vm` · `ui-state-effects-replication` · `capsuleos-vendor-*` · `gnome-hig-replication`
 
 ## Références
 

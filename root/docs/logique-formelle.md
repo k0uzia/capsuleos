@@ -108,6 +108,28 @@ Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `a
 
 Contrat : `etc/capsuleos/contracts/visual-fidelity.json` · Convention : [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md)
 
+### 2.11 États UI & effets visuels (VΣ)
+
+Extension de **V** / **Vp** — menus, transitions, ombres, dégradés par action et contexte.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Ve** | Matrice états/transitions P0 complète | `*-ui-state-effects.json` · `summary.predicates.Ve` |
+| **Vx** | Transitions mesurées (durée, easing, propriétés CSS) | `effectsMeasured` ≥ transitions P0 |
+| **Vm** | Menus, sous-menus, popovers énumérés | `menuCatalog` · `menusEnumerated` |
+| **Vμ** | Capsule reproduit l’effet (computed + capture) | `capsuleParity.visualMatch` ≠ `unknown` pour P0 |
+| **VΣ** | Clôture effets UI | **Ve ∧ Vx ∧ Vm ∧ Vμ** · `smoke-ui-state-effects.mjs` |
+
+Contrat : `etc/capsuleos/contracts/ui-state-effects.json` · Procédure : [procedure-audit-etats-ui-effets.md](procedure-audit-etats-ui-effets.md) · Skill : `ui-state-effects-replication`
+
+```
+R-VΣ1   Vp ∧ ¬Ve     →  collect-ui-state-effects.mjs --write
+R-VΣ2   Ve ∧ ¬Vx     →  burst captures VM (rejouer transition)
+R-VΣ3   Vx ∧ ¬Vm     →  énumérer items menu (playbook + capture)
+R-VΣ4   Vm ∧ ¬Vμ     →  patch skin + collect --capsule
+R-VΣ5   VΣ           →  smoke-ui-state-effects + H6
+```
+
 ### 2.12 Shell global — terminal (T)
 
 Chaîne **investigation → conversion → réplication** — socle CLI du bureau simulé. Convention : [convention-shell-global.md](convention-shell-global.md).

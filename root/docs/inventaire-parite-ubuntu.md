@@ -46,11 +46,22 @@ Scripts unitaires (débogage) : `capture-capsule-ubuntu.mjs` · `vm-ubuntu-captu
 
 Rapports : [`linux-ubuntu-comparaison-visuelle.md`](inventaires/linux-ubuntu-comparaison-visuelle.md) · journal `linux-ubuntu-visual-parity-events.json`
 
+## États UI & effets (VΣ)
+
+Approfondissement propositionnel — menus, transitions, ombres, popovers :
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu
+```
+
+Skill : `ui-state-effects-replication` · Contrat : `etc/capsuleos/contracts/ui-state-effects.json`
+
 ## Prochaines étapes
 
 1. ~~`application-x-generic` Yaru (fallback MIME)~~ — `text-x-generic` (pull + runtime)
 2. Polish Aperçu / favoris bootstrap+Evolution
-3. ~~Captures visuelles comparatives VM ↔ Capsule~~ — scripts lab ci-dessus
+3. ~~Captures visuelles comparatives VM ↔ Capsule~~ — `visual-parity-lab`
+4. **VΣ** — inventorier 100 % transitions/menus P0 puis reproduire effets Capsule
 
 ## Validation
 

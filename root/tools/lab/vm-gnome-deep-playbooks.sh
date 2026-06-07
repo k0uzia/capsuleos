@@ -282,12 +282,87 @@ result = {
   "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
   "parentSurface": "nautilus.fileArea",
   "trigger": {"type": "contextmenu", "clicks": 1, "button": "right"},
-  "expectedMenu": [
-    {"label": "New Folder", "shortcut": "Shift+Ctrl+N", "capsuleStatus": "planned"},
-    {"label": "Properties", "capsuleStatus": "planned"},
+  "referenceDoc": "root/docs/inventaires/nautilus-interactions-playbook.json",
+  "expectedMenuBackground": [
+    {"label": "Nouveau dossier", "shortcut": "Shift+Ctrl+N"},
+    {"label": "Coller", "shortcut": "Ctrl+V"},
+    {"label": "Tout sélectionner", "shortcut": "Ctrl+A"},
+    {"label": "Propriétés", "shortcut": "Alt+Entrée"},
+  ],
+  "vigilance": [
+    "Pas de « Ouvrir dans la console » sur fond de liste (menu ⋮ emplacement uniquement).",
+    "Clic droit sur élément sélectionne la cible avant menu.",
   ],
 }
 print(json.dumps(result, ensure_ascii=False))
+PY
+)
+      ;;
+    nautilus-item-select)
+      overview_hide
+      nohup nautilus >/dev/null 2>&1 &
+      sleep_ms 1200
+      wmctrl -xa org.gnome.Nautilus.nautilus 2>/dev/null || true
+      sleep_ms 400
+      coords=$(screen_center_below_bar)
+      desktop_click ${coords%% *} ${coords##*} 1
+      sleep_ms 500
+      result=$(python3 - <<'PY'
+import json
+from datetime import datetime, timezone
+print(json.dumps({
+  "playbook": "nautilus-item-select",
+  "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+  "trigger": {"type": "click", "clicks": 1, "button": "left"},
+  "vmExpectation": "Sélection + focus clavier ; pas d’ouverture.",
+  "capsuleHandler": "attachNautilusGridItemHandlers",
+  "referenceDoc": "root/docs/inventaires/nautilus-interactions-playbook.json",
+}, ensure_ascii=False))
+PY
+)
+      ;;
+    nautilus-item-open-dblclick)
+      overview_hide
+      nohup nautilus >/dev/null 2>&1 &
+      sleep_ms 1200
+      wmctrl -xa org.gnome.Nautilus.nautilus 2>/dev/null || true
+      sleep_ms 400
+      coords=$(screen_center_below_bar)
+      desktop_click ${coords%% *} ${coords##*} 1
+      sleep_ms 200
+      desktop_click ${coords%% *} ${coords##*} 1
+      sleep_ms 600
+      result=$(python3 - <<'PY'
+import json
+from datetime import datetime, timezone
+print(json.dumps({
+  "playbook": "nautilus-item-open-dblclick",
+  "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+  "trigger": {"type": "dblclick", "clicks": 2, "button": "left"},
+  "vmExpectation": "Ouvre dossier ou lance application par défaut.",
+  "capsuleHandler": "activateNautilusExplorerItem",
+  "referenceDoc": "root/docs/inventaires/nautilus-interactions-playbook.json",
+}, ensure_ascii=False))
+PY
+)
+      ;;
+    nautilus-item-rename-inline)
+      overview_hide
+      nohup nautilus >/dev/null 2>&1 &
+      sleep_ms 1200
+      wmctrl -xa org.gnome.Nautilus.nautilus 2>/dev/null || true
+      sleep_ms 400
+      result=$(python3 - <<'PY'
+import json
+from datetime import datetime, timezone
+print(json.dumps({
+  "playbook": "nautilus-item-rename-inline",
+  "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+  "trigger": {"type": "keyboard", "binding": "F2"},
+  "vmExpectation": "Édition inline du libellé ; extension fichier préservée.",
+  "capsuleHandler": "startExplorerInlineRename",
+  "referenceDoc": "root/docs/inventaires/nautilus-interactions-playbook.json",
+}, ensure_ascii=False))
 PY
 )
       ;;
@@ -372,7 +447,7 @@ main() {
     cmd="$2"
   fi
   if [[ "$cmd" == "list" ]]; then
-    echo "desktop-idle desktop-contextmenu overview-open overview-close open-nautilus open-firefox open-terminal quick-settings settings-open settings-inventory settings-panels-tour settings-interactions workspace-next workspace-prev overview-workspaces animation-overview-burst nautilus-contextmenu workspace-meta"
+    echo "desktop-idle desktop-contextmenu overview-open overview-close open-nautilus open-firefox open-terminal quick-settings settings-open settings-inventory settings-panels-tour settings-interactions workspace-next workspace-prev overview-workspaces animation-overview-burst nautilus-contextmenu nautilus-item-select nautilus-item-open-dblclick nautilus-item-rename-inline workspace-meta"
     exit 0
   fi
   if [[ "$cmd" == "all-meta" ]]; then

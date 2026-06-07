@@ -19,7 +19,6 @@ try {
 
     await page.evaluate(() => {
         window.__smokeFolderName = `Smoke-${Date.now()}`;
-        window.prompt = () => window.__smokeFolderName;
     });
 
     await page.evaluate(() => window.openWindowByDataLink('nemo'));
@@ -129,8 +128,9 @@ try {
             errors.push(`onglet 1 restauré: path=${restored} (attendu Documents)`);
         }
         const stored = await page.evaluate(() => {
-            const key = `capsule-nautilus-tabs:${document.body.id}:${window.getFileExplorerRoot()}`;
-            const raw = localStorage.getItem(key);
+            const root = window.getFileExplorerRoot();
+            const base = `capsule-nautilus-tabs:${document.body.id}:${root}`;
+            const raw = localStorage.getItem(`${base}:primary`) || localStorage.getItem(base);
             if (!raw) return { ok: false };
             const data = JSON.parse(raw);
             return { ok: Array.isArray(data.tabs) && data.tabs.length >= 2 };
@@ -138,13 +138,85 @@ try {
         if (!stored.ok) errors.push('localStorage onglets absent ou incomplet');
     }
 
+    await page.click('div[data-link="nemo"] .nautilus-app__window-close');
+    await page.waitForTimeout(400);
+    const tabsAfterClose = await page.evaluate(() => {
+        const root = window.getFileExplorerRoot();
+        const base = `capsule-nautilus-tabs:${document.body.id}:${root}`;
+        const raw = localStorage.getItem(`${base}:primary`) || localStorage.getItem(base);
+        let tabCount = 0;
+        if (raw) {
+            try {
+                tabCount = JSON.parse(raw).tabs?.length || 0;
+            } catch (error) {
+                tabCount = -1;
+            }
+        }
+        return { hasStorage: !!raw, tabCount };
+    });
+    if (tabsAfterClose.hasStorage) {
+        errors.push(`localStorage onglets non purgé à la fermeture (tabs=${tabsAfterClose.tabCount})`);
+    }
+
+    await page.evaluate(() => window.openWindowByDataLink('nemo'));
+    await page.waitForSelector('div[data-link="nemo"] .nautilus-app--n47', { timeout: 10000 });
+    await page.waitForTimeout(600);
+    const tabsAfterReopen = await page.evaluate(() => ({
+        count: document.querySelectorAll('#nautilus-tabstrip .nautilus-app__tab').length,
+    }));
+    if (tabsAfterReopen.count !== 1) {
+        errors.push(`onglets après fermeture/réouverture: count=${tabsAfterReopen.count} (attendu 1)`);
+    }
+
     await page.click('div[data-link="nemo"] #voletnemo a[data-link="Dossier Personnel"]');
     await page.waitForTimeout(350);
-    await page.click('div[data-link="nemo"] #precedent');
+
+    const docsSelector = 'div[data-link="nemo"] .nemoElement a[data-item-name="Documents"][data-item-type="folder"]';
+    const docsMissing = await page.locator(docsSelector).count() === 0;
+    if (docsMissing) {
+        errors.push('dossier Documents absent de la grille');
+    } else {
+        const pathBefore = await page.evaluate(() => window.getExplorerCurrentPath('nemo'));
+        await page.click(docsSelector, { force: true });
+        await page.waitForTimeout(300);
+        const afterSingle = await page.evaluate(() => ({
+            path: window.getExplorerCurrentPath('nemo'),
+            selected: document.querySelector('div[data-link="nemo"] .nemoElement a[data-item-name="Documents"]')?.classList.contains('nemo-app__item--selected'),
+            focused: document.activeElement?.dataset?.itemName === 'Documents',
+        }));
+        if (afterSingle.path !== pathBefore) {
+            errors.push(`simple clic grille ouvre (path=${afterSingle.path})`);
+        }
+        if (!afterSingle.selected) errors.push('simple clic grille ne sélectionne pas');
+        if (!afterSingle.focused) errors.push('simple clic grille ne focus pas l’élément');
+
+        await page.evaluate(() => {
+            const docs = document.querySelector('div[data-link="nemo"] .nemoElement a[data-item-name="Documents"][data-item-type="folder"]');
+            if (docs && typeof activateNautilusExplorerItem === 'function') {
+                activateNautilusExplorerItem(docs, {
+                    type: 'folder',
+                    name: 'Documents',
+                    path: docs.dataset.itemTargetPath,
+                }, docs.dataset.itemFolderPath);
+            }
+        });
+        await page.waitForTimeout(500);
+        const pathAfterDbl = await page.evaluate(() => window.getExplorerCurrentPath('nemo'));
+        if (!String(pathAfterDbl).includes('Documents')) {
+            errors.push(`activation dossier grille: path=${pathAfterDbl}`);
+        }
+    }
+
+    await page.evaluate(() => {
+        const btn = document.querySelector('div[data-link="nemo"] #precedent');
+        if (btn && btn.getAttribute('aria-disabled') !== 'true') {
+            btn.click();
+        }
+    });
     await page.waitForTimeout(350);
     const backNav = await page.evaluate(() => window.getExplorerCurrentPath('nemo'));
-    if (!backNav.endsWith('/Documents')) {
-        errors.push(`bouton Précédent: path=${backNav}`);
+    if (String(backNav).includes('Documents')) {
+        errors.push(`bouton Précédent n’a pas quitté Documents: path=${backNav}`);
     }
 
     await page.click('div[data-link="nemo"] a[data-view-mode="icons"]');
@@ -173,13 +245,16 @@ try {
     await page.waitForTimeout(600);
 
     const created = await page.evaluate(() => {
-        const name = window.__smokeFolderName;
         const win = document.querySelector('div[data-link="nemo"]');
-        const link = win?.querySelector(`.nemoElement a[data-item-name="${name}"]`);
-        return { name, created: !!link };
+        const link = win?.querySelector('.nemoElement a[data-item-name^="Nouveau dossier"]');
+        const renaming = win?.querySelector('.nemo-app__item-rename-input');
+        return { created: !!link, inlineRename: !!renaming };
     });
     if (!created.created) {
         errors.push('nouveau dossier non créé via bouton header');
+    }
+    if (!created.inlineRename) {
+        errors.push('nouveau dossier sans renommage inline immédiat');
     }
 
     await page.click('div[data-link="nemo"] #voletnemo a[data-link="Favoris"]');
@@ -235,17 +310,56 @@ try {
         errors.push('Ctrl+2 n’active pas la vue liste');
     }
 
+    await page.click('div[data-link="nemo"] #voletnemo a[data-link="Dossier Personnel"]');
+    await page.waitForTimeout(400);
+
     await page.evaluate(() => {
         const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
         grid?.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 320, clientY: 280 }));
     });
     await page.waitForTimeout(200);
-    const menuOpen = await page.evaluate(() => {
+    const folderMenu = await page.evaluate(() => {
         const menu = document.querySelector('#nemo-context-menu');
-        return menu && !menu.hidden;
+        const terminal = menu?.querySelector('[data-nemo-ctx="open-terminal"]');
+        const emptyTrash = menu?.querySelector('[data-nemo-ctx="empty-trash"]');
+        return {
+            open: menu && !menu.hidden,
+            terminalVisible: terminal && !terminal.hidden,
+            emptyTrashHidden: !emptyTrash || emptyTrash.hidden,
+        };
     });
-    if (!menuOpen) {
+    if (!folderMenu.open) {
         errors.push('menu contextuel zone fichiers ne s’ouvre pas');
+    }
+    if (!folderMenu.terminalVisible) {
+        errors.push('menu contextuel dossier : « Ouvrir dans la console » absent');
+    }
+    if (!folderMenu.emptyTrashHidden) {
+        errors.push('menu contextuel dossier : « Vider la corbeille » ne doit pas apparaître');
+    }
+
+    await page.keyboard.press('Escape');
+    await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
+    await page.waitForTimeout(400);
+    await page.evaluate(() => {
+        const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
+        grid?.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 320, clientY: 280 }));
+    });
+    await page.waitForTimeout(200);
+    const trashMenu = await page.evaluate(() => {
+        const menu = document.querySelector('#nemo-context-menu');
+        const emptyTrash = menu?.querySelector('[data-nemo-ctx="empty-trash"]');
+        const newFolder = menu?.querySelector('[data-nemo-ctx="new-folder"]');
+        return {
+            emptyTrashVisible: emptyTrash && !emptyTrash.hidden,
+            newFolderHidden: !newFolder || newFolder.hidden,
+        };
+    });
+    if (!trashMenu.emptyTrashVisible) {
+        errors.push('menu contextuel corbeille : « Vider la corbeille » absent');
+    }
+    if (!trashMenu.newFolderHidden) {
+        errors.push('menu contextuel corbeille : entrées dossier normal encore visibles');
     }
 
     await page.evaluate(() => {

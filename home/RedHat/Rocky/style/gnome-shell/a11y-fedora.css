@@ -11,7 +11,7 @@ html[data-font-scale="125"] #rocky {
 }
 
 #rocky :where(a, button, input, [role="button"], [role="radio"], [tabindex="0"]):focus-visible:not(
-    :is(.gnome-settings__search-input, .adw-slider)
+    :is(.gnome-settings__search-input, .nautilus-app__search-input, .adw-slider)
 ) {
     outline: 2px solid var(--a11y-focus-ring);
     outline-offset: 1px;

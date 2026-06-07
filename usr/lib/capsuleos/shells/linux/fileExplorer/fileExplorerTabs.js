@@ -352,10 +352,45 @@
         persistTabsToStorage();
     };
 
+    const dismissSearchChromeForTab = (state) => {
+        if (!state) {
+            return;
+        }
+        state.nautilusChromeMode = 'breadcrumb';
+        state.locationBarMode = 'search';
+        state.searchQuery = '';
+        const root = getNemoRoot();
+        const input = root && root.querySelector('#nemo-search-input');
+        if (input) {
+            input.value = '';
+        }
+        if (typeof global.applyNautilusChrome === 'function') {
+            global.applyNautilusChrome();
+        } else if (typeof global.applyNautilusLocationBarMode === 'function') {
+            global.applyNautilusLocationBarMode();
+        }
+    };
+
     async function activateNautilusTab(tabId) {
         const state = ensureTabState();
         const target = state.tabs.find((entry) => entry.id === tabId);
-        if (!target || state.activeTabId === tabId) {
+        if (!target) {
+            return;
+        }
+
+        if (state.activeTabId === tabId) {
+            if (typeof global.exitNautilusSearchChrome === 'function') {
+                const exited = global.exitNautilusSearchChrome();
+                if (exited) {
+                    const active = getActiveTab(state);
+                    if (active) {
+                        active.nautilusChromeMode = 'breadcrumb';
+                        active.searchQuery = '';
+                        captureTabSession(active, state);
+                        persistTabsToStorage();
+                    }
+                }
+            }
             return;
         }
 
@@ -366,7 +401,10 @@
 
         restoringTabs = true;
         state.activeTabId = target.id;
+        target.nautilusChromeMode = 'breadcrumb';
+        target.searchQuery = '';
         applyTabSession(target, state);
+        dismissSearchChromeForTab(state);
         renderTabs();
 
         if (typeof global.navigateToFileExplorerDirectory === 'function') {
@@ -494,10 +532,23 @@
         return keys;
     };
 
+    const resetTabRuntimeState = (windowRoot) => {
+        if (windowRoot && windowRoot.__capsuleFileExplorerStateSnapshot) {
+            delete windowRoot.__capsuleFileExplorerStateSnapshot.tabs;
+            delete windowRoot.__capsuleFileExplorerStateSnapshot.activeTabId;
+        }
+        if (global.fileExplorerState) {
+            delete global.fileExplorerState.tabs;
+            delete global.fileExplorerState.activeTabId;
+        }
+        tabSeq = 1;
+    };
+
     const purgeNautilusWindowRuntime = (windowRoot) => {
         if (!windowRoot) {
             return;
         }
+        resetTabRuntimeState(windowRoot);
         delete windowRoot.__capsuleFileExplorerStateSnapshot;
         delete windowRoot.dataset.nautilusTabsInit;
 
@@ -509,19 +560,14 @@
         if (typeof global.releaseExplorerWindowInstance === 'function') {
             global.releaseExplorerWindowInstance(windowRoot);
         }
-
-        if (global.fileExplorerState
-            && typeof global.getActiveExplorerWindowRoot === 'function'
-            && global.getActiveExplorerWindowRoot() === windowRoot) {
-            delete global.fileExplorerState.tabs;
-            delete global.fileExplorerState.activeTabId;
-        }
     };
 
     const reopenNautilusWindow = async (windowRoot) => {
         if (!windowRoot) {
             return;
         }
+        resetTabRuntimeState(windowRoot);
+        delete windowRoot.dataset.nautilusTabsInit;
         if (typeof global.initExplorerWindowInstance === 'function') {
             global.initExplorerWindowInstance(windowRoot);
         }

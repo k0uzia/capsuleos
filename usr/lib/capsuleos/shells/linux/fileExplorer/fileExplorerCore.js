@@ -1016,8 +1016,15 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
     itemLink.dataset.itemName = item.name;
     itemLink.dataset.itemType = item.type;
     itemLink.dataset.itemFolderPath = path;
-    if (item.type === 'folder' && item.path) {
-        itemLink.dataset.itemTargetPath = item.path;
+    if (item.type === 'folder') {
+        const folderTarget = item.path || item.targetPath
+            || (path && item.name ? joinExplorerPath(path, item.name) : '');
+        if (folderTarget) {
+            itemLink.dataset.itemTargetPath = folderTarget;
+        }
+    }
+    if (item.trashedFrom) {
+        itemLink.dataset.itemTrashedFrom = item.trashedFrom;
     }
     if (isDolphinTemplate()) {
         if (item.extension) {
@@ -1064,6 +1071,7 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
         itemLink.appendChild(sizeEl);
     } else {
         const label = document.createElement('span');
+        label.className = 'nemo-app__item-name';
         label.textContent = item.name;
         itemLink.appendChild(label);
     }
@@ -1085,6 +1093,8 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
         }
         itemLink.href = '#';
         window.attachDolphinItemHandlers(itemLink, item, path, pane);
+    } else if (isNautilusGnomeTemplate() && typeof window.attachNautilusGridItemHandlers === 'function') {
+        window.attachNautilusGridItemHandlers(itemLink, item, path, { selectGridItem });
     } else if (item.networkUri) {
         itemLink.classList.add('nemo-app__item--folder');
         itemLink.href = '#';
@@ -1555,6 +1565,16 @@ const renameExplorerItem = async (parentPath, oldName, newName) => {
         const newPath = joinExplorerPath(parent, nextName);
         relocateFolderSubtree(manifest, item.path, newPath);
         item.path = newPath;
+    } else if (item.type === 'file') {
+        const dot = nextName.lastIndexOf('.');
+        if (dot > 0) {
+            item.extension = nextName.slice(dot + 1).toLowerCase();
+        } else if (item.extension) {
+            delete item.extension;
+        }
+        if (item.href && typeof item.href === 'string' && item.href.endsWith(`/${oldName}`)) {
+            item.href = `${item.href.slice(0, -(oldName.length))}${nextName}`;
+        }
     }
     parentNode.items = sortExplorerItems(parentNode.items);
     persistExplorerManifest(manifest);
@@ -1649,6 +1669,20 @@ const compressExplorerItems = async (parentPath, entries, archiveName) => {
     return { ok: true, name };
 };
 
+const resolveUniqueExplorerFolderName = (parentNode, baseName = 'Nouveau dossier') => {
+    if (!parentNode || !Array.isArray(parentNode.items)) {
+        return baseName;
+    }
+    if (!findItemInFolder(parentNode, baseName)) {
+        return baseName;
+    }
+    let index = 2;
+    while (findItemInFolder(parentNode, `${baseName} ${index}`)) {
+        index += 1;
+    }
+    return `${baseName} ${index}`;
+};
+
 const createNewFolderInCurrentDirectory = async (options = {}) => {
     const parentPath = options.parentPath || fileExplorerState.currentPath;
     if (!parentPath || isCapsuleVirtualPlace(parentPath)) {
@@ -1658,8 +1692,24 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
         return { ok: false, message: 'Impossible de créer un dossier ici.' };
     }
 
+    const useInlineRename = !options.skipPrompt
+        && typeof window.isNautilusGnomeTemplate === 'function'
+        && window.isNautilusGnomeTemplate()
+        && typeof window.scheduleExplorerInlineRename === 'function';
+
     let name = options.defaultName || 'Nouveau dossier';
-    if (!options.skipPrompt && typeof window.prompt === 'function') {
+    if (useInlineRename) {
+        try {
+            await loadManifest();
+            const parentNode = fileExplorerState.manifest
+                && fileExplorerState.manifest.folders[normalizeDirectoryPath(parentPath)];
+            if (parentNode) {
+                name = resolveUniqueExplorerFolderName(parentNode, name);
+            }
+        } catch (error) {
+            /* garde le nom par défaut */
+        }
+    } else if (!options.skipPrompt && typeof window.prompt === 'function') {
         const input = window.prompt('Nom du nouveau dossier :', name);
         if (input === null) {
             return { ok: false, cancelled: true };
@@ -1671,7 +1721,11 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
         return { ok: false, message: 'Nom de dossier vide.' };
     }
 
-    return createFolderInExplorer(parentPath, name);
+    const result = await createFolderInExplorer(parentPath, name);
+    if (result.ok && useInlineRename) {
+        window.scheduleExplorerInlineRename(result.name, parentPath);
+    }
+    return result;
 };
 
 const toggleExplorerHiddenFiles = () => {
@@ -1899,6 +1953,14 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
 
     try {
         await loadManifest();
+
+        if (isNautilusGnomeTemplate()
+            && (fileExplorerState.nautilusChromeMode === 'search-everywhere'
+                || fileExplorerState.nautilusChromeMode === 'search-folder'
+                || (fileExplorerState.searchQuery || '').trim())
+            && typeof window.exitNautilusSearchChrome === 'function') {
+            window.exitNautilusSearchChrome({ render: false });
+        }
 
         const path = normalizeDirectoryPath(directory);
         const isVirtual = isCapsuleVirtualPlace(path);
@@ -2460,12 +2522,24 @@ const bindFileExplorerNavigationControls = () => {
                 chromeClose.click();
                 return;
             }
+            const dispatchNemoWindowClosed = () => {
+                if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
+                    document.dispatchEvent(new CustomEvent('capsule:window-closed', {
+                        detail: {
+                            container: nemoRoot,
+                            slotId: nemoRoot.dataset.link || 'nemo',
+                        },
+                    }));
+                }
+            };
             if (typeof window.capsuleBeforeWindowHide === 'function') {
                 window.capsuleBeforeWindowHide(nemoRoot, () => {
                     nemoRoot.style.display = 'none';
+                    dispatchNemoWindowClosed();
                 });
             } else {
                 nemoRoot.style.display = 'none';
+                dispatchNemoWindowClosed();
             }
         });
         closeIntegrated.dataset.feNavBound = 'true';

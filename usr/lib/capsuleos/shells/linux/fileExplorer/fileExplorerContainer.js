@@ -55,6 +55,9 @@ function initFileExplorerContainer(rootContainer) {
         if (!directory) {
             return;
         }
+        if (typeof window.exitNautilusSearchChrome === 'function') {
+            window.exitNautilusSearchChrome({ render: false });
+        }
         if (typeof navigateToFileExplorerDirectory === 'function') {
             navigateToFileExplorerDirectory(directory, { updateHistory: true });
             return;
@@ -114,6 +117,10 @@ function initFileExplorerContainer(rootContainer) {
 
     if (typeof bindFileExplorerMenubar === 'function') {
         bindFileExplorerMenubar(fileExplorerRoot);
+    }
+
+    if (typeof bindFileExplorerNautilusItemInteraction === 'function') {
+        bindFileExplorerNautilusItemInteraction(fileExplorerRoot);
     }
 
     if (typeof bindFileExplorerNavigationControls === 'function' || typeof bindNemoNavigationControls === 'function') {

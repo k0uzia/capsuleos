@@ -270,6 +270,12 @@
             }
 
             if (key === 'F2') {
+                if (event.target && event.target.closest('.nemo-app__item-rename-input')) {
+                    return;
+                }
+                if (global.document.querySelector('.nemo-app__item--renaming')) {
+                    return;
+                }
                 event.preventDefault();
                 if (typeof global.renameExplorerSelection === 'function') {
                     global.renameExplorerSelection();

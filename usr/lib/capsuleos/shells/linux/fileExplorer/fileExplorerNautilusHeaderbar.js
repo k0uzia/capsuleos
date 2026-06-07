@@ -191,6 +191,35 @@
         }
     };
 
+    const exitNautilusSearchChrome = (options = {}) => {
+        const state = getState();
+        const root = getNemoRoot();
+        if (!state || !root) {
+            return false;
+        }
+        const mode = getChromeMode(state);
+        if (mode !== 'search-everywhere' && mode !== 'search-folder') {
+            return false;
+        }
+        state.nautilusChromeMode = 'breadcrumb';
+        state.locationBarMode = 'search';
+        if (!options.keepQuery) {
+            state.searchQuery = '';
+            const input = root.querySelector('#nemo-search-input');
+            if (input) {
+                input.value = '';
+            }
+        }
+        applyChrome();
+        if (options.render !== false && typeof global.renderDirectory === 'function' && state.currentPath) {
+            global.renderDirectory(state.currentPath, { pane: state.activePane || 'primary' });
+        }
+        if (typeof global.updatePathDisplay === 'function') {
+            global.updatePathDisplay();
+        }
+        return true;
+    };
+
     const applyChrome = () => {
         const state = getState();
         const root = getNemoRoot();
@@ -199,6 +228,10 @@
         }
 
         const mode = getChromeMode(state);
+        const main = root.querySelector('main#gestionnaire, main.nautilus-app');
+        if (main) {
+            main.dataset.nautilusChromeMode = mode;
+        }
         const crumbbar = root.querySelector('#nautilus-path-crumbbar');
         const searchWrap = root.querySelector('#nemo-search-wrap');
         const input = root.querySelector('#nemo-search-input');
@@ -793,6 +826,7 @@
 
     global.bindFileExplorerNautilusHeaderbar = bindFileExplorerNautilusHeaderbar;
     global.setNautilusChromeMode = setChromeMode;
+    global.exitNautilusSearchChrome = exitNautilusSearchChrome;
     global.applyNautilusChrome = applyChrome;
     global.setNautilusLocationBarMode = setLocationBarMode;
     global.toggleNautilusLocationBarMode = toggleLocationBarMode;

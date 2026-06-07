@@ -38,9 +38,14 @@ L'agent exécute **sans demander** les scripts intermédiaires.
 
 ## Prérequis assets (**Tp**)
 
+Manifeste distribution (**ManΣ** recommandé) puis pipeline web :
+
 ```bash
+node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id <registryId> --auto --write
 node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id <registryId>
 ```
+
+Skill : `vm-distribution-manifest`.
 
 ## Séquence interne
 

@@ -85,8 +85,8 @@
       "apps": {
         "org.gnome.Nautilus": { "labelFr": "Fichiers", "priorite": "P0", "slot": "nemo", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
         "firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
-        "org.gnome.Rhythmbox3": { "labelFr": "Rhythmbox", "priorite": "P0", "slot": "lecteur_multimedia", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
-        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Rhythmbox3": { "labelFr": "Rhythmbox", "priorite": "P0", "slot": "lecteur_multimedia", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Référence Ubuntu retail — absent VM lab actuelle ; simulé CapsuleOS" },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS" },
         "snap-store": { "labelFr": "Snap Store", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
         "org.gnome.Yelp": { "labelFr": "Aide Ubuntu", "priorite": "P1", "slot": null, "statut": "partiel", "requiresSlot": false, "placement": { "dash": true } },
         "org.gnome.Ptyxis": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },

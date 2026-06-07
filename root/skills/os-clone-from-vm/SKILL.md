@@ -19,11 +19,12 @@ description: Reproduces a real desktop OS from a VM into CapsuleOS following the
 4. `node usr/lib/capsuleos/tools/validate-all.mjs` — **H₂** baseline.
 5. `node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>`.
 6. Vérifier `etc/capsuleos/lab-inventory.json` (gitignoré) — **M** SSH + sonde VM.
-7. Inventaire : `root/docs/inventaires/<registryId>-vm.json` + **`<registryId>-deep-audit.json`** — **I** / **I⁺**.
-8. Coder sous **`home/<Vendor>/<Distro>/`** uniquement (interdit si ¬**I**).
-9. Assets : `bash root/tools/lab/pull-vm-assets.sh --id <registryId>` — **A**, **S**, **T** ; jamais emprunter un autre vendor.
-10. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
-11. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité :
+7. Manifeste distribution : `run-manifest-replication-chain.mjs` — **ManV→ManΣ** (skill `vm-distribution-manifest`) ; scaffold vendor si absent (`ensure-vm-manifest-vendor.mjs --write`).
+8. Inventaire : `root/docs/inventaires/<registryId>-vm.json` + **`<registryId>-deep-audit.json`** — **I** / **I⁺**.
+9. Coder sous **`home/<Vendor>/<Distro>/`** uniquement (interdit si ¬**I**).
+10. Assets : playbook manifeste (`import-manifest-staging.mjs`) puis compléments `pull-vm-assets.sh` — **A**, **S**, **T** ; jamais emprunter un autre vendor.
+11. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
+12. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité :
     - `visual-parity-lab` → `run-visual-parity-pass.mjs` (**Vp**)
     - `ui-state-effects-replication` → `run-ui-state-effects-pass.mjs` (**Va → VΣ**, apps détectées auto)
 
@@ -74,7 +75,7 @@ ssh -i ~/.ssh/capsuleos-lab capsule@<IP> '$HOME/capsuleos-lab/os-probe-gnome.sh 
 
 ## Pairing
 
-`onboarding` · `os-linux` · `capsuleos-distro-<id>` · `capsuleos-vendor-<vendor>` · `role-integrator` · `asset-pipeline` · `kernel-supervisor` (si gate assets)
+`vm-distribution-manifest` · `onboarding` · `os-linux` · `capsuleos-distro-<id>` · `capsuleos-vendor-<vendor>` · `role-integrator` · `asset-pipeline` · `kernel-supervisor` (si gate assets)
 
 ## Références
 
@@ -82,5 +83,7 @@ ssh -i ~/.ssh/capsuleos-lab capsule@<IP> '$HOME/capsuleos-lab/os-probe-gnome.sh 
 - [procedure-clonage-os-depuis-vm.md](../../docs/procedure-clonage-os-depuis-vm.md)
 - [procedure-lab-linux-rocky-gnome.md](../../docs/procedure-lab-linux-rocky-gnome.md)
 - [lab-vm-rhel-wayland.md](../../docs/lab-vm-rhel-wayland.md) (Rocky / Alma / RHEL)
+- [convention-manifest-vm.md](../../docs/convention-manifest-vm.md)
+- [procedure-manifest-playbook.md](../../docs/procedure-manifest-playbook.md)
 - [convention-assets-depuis-vm.md](../../docs/convention-assets-depuis-vm.md)
 - Template : [inventaires/_template-vm-deep-audit.json](../../docs/inventaires/_template-vm-deep-audit.json)

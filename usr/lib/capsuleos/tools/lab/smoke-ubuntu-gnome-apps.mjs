@@ -59,6 +59,18 @@ if (!overviewJs.includes('org.gnome.Yelp.svg')) {
 if (!overviewJs.includes('window.CapsuleGnomeOverview')) {
   errors.push('overview.js : export CapsuleGnomeOverview manquant');
 }
+if (!overviewJs.includes('ubuntu-dock-show-apps')) {
+  errors.push('overview.js : bouton dock #ubuntu-dock-show-apps non câblé');
+}
+if (!overviewJs.includes('toggleOverviewApps')) {
+  errors.push('overview.js : toggleOverviewApps manquant (vue Applications Ubuntu)');
+}
+if (!indexHtml.includes('overview-apps-grid.js')) {
+  errors.push('index.html : script overview-apps-grid.js manquant');
+}
+if (!fs.existsSync(path.join(ROOT, 'home/Debian/Ubuntu/data/overview-apps-grid.js'))) {
+  errors.push('data/overview-apps-grid.js absent — generate-overview-apps-grid.mjs --write');
+}
 if (!profile.includes('CAPSULE_WINDOW_CONTEXT')) {
   errors.push('profil : CAPSULE_WINDOW_CONTEXT manquant');
 }

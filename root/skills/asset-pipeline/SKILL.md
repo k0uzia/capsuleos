@@ -20,7 +20,9 @@ Déplacer les binaires vers la zone noyau, réécrire les références en **pré
 
 Voir [politique-assets.md](../../docs/politique-assets.md) et `.cursor/rules/capsuleos-assets.mdc`.
 
-**Clones depuis VM** : ne jamais emprunter les icônes d’un autre vendor — copier depuis la VM lab ([convention-assets-depuis-vm.md](../../docs/convention-assets-depuis-vm.md), `root/tools/lab/pull-vm-assets.sh`).
+**Clones depuis VM** : ne jamais emprunter les icônes d’un autre vendor — source ground truth via manifeste (`import-manifest-staging.mjs`) puis compléments lab ([convention-manifest-vm.md](../../docs/convention-manifest-vm.md), `pull-vm-assets.sh`).
+
+**Catalogue vendor** : `etc/capsuleos/contracts/vm-manifest-media-catalog.json` — toolkits (`gnome`, `cinnamon`, `kde`) + overrides vendor (`extends`). Résolution : `vm-manifest-media-catalog-lib.mjs`.
 
 ## Préfixes logiques (sources HTML/CSS/JS)
 
@@ -39,10 +41,13 @@ Résolution runtime : `CapsuleResource.resolve()` — pas de chemins absolus hô
 **Pipeline recommandé (prérequis passe VΣ / parité)** :
 
 ```bash
-node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-ubuntu
+# Prérequis ManΣ ou lot staging déjà importé
+node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id linux-<vendor> --auto --write
+
+node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-<vendor>
 ```
 
-Enchaîne : pull VM (Yaru, symboles, emblèmes, fonds + miniatures VM) → WebP + `wallpaper/thumbnails/*-thumb.webp` → `inventory-optimize` → gates.
+Enchaîne : manifeste/staging → pull VM compléments (thème `iconPack` du catalogue, symboles, emblèmes, fonds) → WebP + miniatures → `inventory-optimize` → gates.
 
 Après `pull-vm-assets.sh` seul (opt-in WebP) :
 

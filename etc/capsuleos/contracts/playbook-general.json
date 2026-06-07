@@ -46,6 +46,14 @@
           "manualGate": true
         },
         {
+          "id": "u-manifest-chain",
+          "negates": ["ManΣ"],
+          "requires": ["M"],
+          "script": "usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs",
+          "args": ["--id", "{id}", "--auto", "--write"],
+          "note": "Manifeste distribution VM → playbook → staging → import (tous vendors/toolkits)"
+        },
+        {
           "id": "u-verify-assets",
           "negates": ["A"],
           "requires": ["I"],

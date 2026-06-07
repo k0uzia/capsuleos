@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-ubuntu",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-07T22:10:55.886Z",
+  "generatedAt": "2026-06-07T22:48:44.957Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-ubuntu-vm-apps-installed.json",
@@ -26,10 +26,10 @@
     "calendar"
   ],
   "summary": {
-    "vmInstalled": 24,
-    "catalogRows": 31,
-    "p0Total": 9,
-    "p0Ok": 9,
+    "vmInstalled": 23,
+    "catalogRows": 28,
+    "p0Total": 7,
+    "p0Ok": 7,
     "p0Gaps": 0,
     "p1Gaps": 0,
     "p2Gaps": 0,
@@ -56,6 +56,26 @@
         "functionalDepth": "full"
       },
       "note": "CapsuleOnly"
+    },
+    {
+      "vmId": "firmware-updater",
+      "desktop": "firmware-updater.desktop",
+      "labelFr": "Actualiseur de micrologiciel",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
     },
     {
       "vmId": "org.gnome.Yelp",
@@ -100,6 +120,26 @@
         "skinCss": "calculator.skin.css",
         "functionalDepth": "full"
       },
+      "note": null
+    },
+    {
+      "vmId": "desktop-security-center",
+      "desktop": "desktop-security-center.desktop",
+      "labelFr": "Centre de sécurité",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
       "note": null
     },
     {
@@ -228,26 +268,6 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Evolution-alarm-notify",
-      "desktop": "org.gnome.Evolution-alarm-notify.desktop",
-      "labelFr": "Events and Tasks Reminders",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
-    },
-    {
       "vmId": "org.gnome.Evolution",
       "desktop": "org.gnome.Evolution.desktop",
       "labelFr": "Evolution",
@@ -262,46 +282,6 @@
       },
       "specs": null,
       "note": "Favori VM — slot à créer"
-    },
-    {
-      "vmId": "org.gnome.evolution-data-server.OAuth2-handler",
-      "desktop": "org.gnome.evolution-data-server.OAuth2-handler.desktop",
-      "labelFr": "Evolution Data Server OAuth2 Handler",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.Shell.Extensions",
-      "desktop": "org.gnome.Shell.Extensions.desktop",
-      "labelFr": "Extensions",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
     },
     {
       "vmId": "org.gnome.Nautilus",
@@ -340,7 +320,10 @@
       "onVm": true,
       "placement": {
         "dash": true,
-        "overview": true
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
       },
       "specs": {
         "chromeProvider": "firefox-gnome",
@@ -354,26 +337,6 @@
       "vmId": "org.gnome.font-viewer",
       "desktop": "org.gnome.font-viewer.desktop",
       "labelFr": "Fonts",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.OnlineAccounts.OAuth2",
-      "desktop": "org.gnome.OnlineAccounts.OAuth2.desktop",
-      "labelFr": "GNOME OAuth2 Handler",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -411,6 +374,26 @@
       "note": null
     },
     {
+      "vmId": "gnome-language-selector",
+      "desktop": "gnome-language-selector.desktop",
+      "labelFr": "Language Support",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
       "vmId": "libreoffice-writer",
       "desktop": "libreoffice-writer.desktop",
       "labelFr": "LibreOffice Writer",
@@ -419,7 +402,7 @@
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
         "dash": true,
         "overview": true
@@ -430,7 +413,7 @@
         "skinCss": "librewriter.skin.css",
         "functionalDepth": "partial"
       },
-      "note": null
+      "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS"
     },
     {
       "vmId": "org.gnome.Logs",
@@ -470,26 +453,6 @@
         "functionalDepth": "capsuleOnly"
       },
       "note": "CapsuleOnly"
-    },
-    {
-      "vmId": "org.gnome.goa-daemon",
-      "desktop": "org.gnome.goa-daemon.desktop",
-      "labelFr": "Online Accounts",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
     },
     {
       "vmId": "org.gnome.Settings",
@@ -537,9 +500,9 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Papers-previewer",
-      "desktop": "org.gnome.Papers-previewer.desktop",
-      "labelFr": "Print Preview",
+      "vmId": "net.nokyan.Resources",
+      "desktop": "net.nokyan.Resources.desktop",
+      "labelFr": "Resources",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -565,7 +528,7 @@
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
         "dash": true,
         "overview": true
@@ -576,7 +539,7 @@
         "skinCss": "lecteur_multimedia.skin.css",
         "functionalDepth": "decorative"
       },
-      "note": null
+      "note": "Référence Ubuntu retail — absent VM lab actuelle ; simulé CapsuleOS"
     },
     {
       "vmId": "snap-store",
@@ -589,7 +552,11 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
       },
       "specs": {
         "chromeProvider": "libadwaita-gnome",
@@ -600,9 +567,9 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Sysprof",
-      "desktop": "org.gnome.Sysprof.desktop",
-      "labelFr": "Sysprof",
+      "vmId": "update-manager",
+      "desktop": "update-manager.desktop",
+      "labelFr": "Software Updater",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -620,9 +587,9 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Tecla",
-      "desktop": "org.gnome.Tecla.desktop",
-      "labelFr": "Tecla",
+      "vmId": "org.gnome.Sysprof",
+      "desktop": "org.gnome.Sysprof.desktop",
+      "labelFr": "Sysprof",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -662,26 +629,6 @@
         "skinCss": "terminal.skin.css",
         "functionalDepth": "full"
       },
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.Zenity",
-      "desktop": "org.gnome.Zenity.desktop",
-      "labelFr": "Zenity",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
       "note": null
     }
   ]

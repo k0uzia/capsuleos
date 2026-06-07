@@ -11,6 +11,7 @@ import {
   pathsForRegistry,
   readJsonIfExists,
 } from './replication-chain-lib.mjs';
+import { evaluateManifestGates } from './manifest-gates-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/playbook-general.json');
@@ -48,6 +49,14 @@ export const evaluateUniversal = (registryId) => {
     L,
     toolkit: tk,
   };
+
+  const manifestGates = evaluateManifestGates(registryId);
+  state.ManV = manifestGates.ManV;
+  state.ManS = manifestGates.ManS;
+  state.ManA = manifestGates.ManA;
+  state.ManI = manifestGates.ManI;
+  state.ManΣ = manifestGates.ManΣ;
+  state.PbM = manifestGates.PbM;
 
   const rep = evaluatePredicates(registryId, 'gnome-settings-playbook');
   if (tk === 'gnome') {
@@ -88,6 +97,10 @@ export const findNextLayer = (evalResult) => {
   const universal = contract.layers.universal.steps || [];
 
   if (!state.PbU) {
+    if (state.M && !state.ManΣ) {
+      const step = universal.find((s) => s.id === 'u-manifest-chain');
+      return { layer: 'universal', step, rule: 'R-PB1', reason: 'chaîne manifeste distribution incomplète' };
+    }
     if (!state.I) {
       const step = universal.find((s) => s.id === 'u-vm-inventory');
       return { layer: 'universal', step, rule: 'R-PB1', reason: 'inventaire VM manquant' };

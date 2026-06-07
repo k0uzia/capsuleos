@@ -1,7 +1,12 @@
+/**
+ * Ubuntu : Activités (barre du haut) = espaces de travail.
+ * Grille applications = bouton dock bas #ubuntu-dock-show-apps.
+ */
 (function initUbuntuOverview() {
     const shell = document.getElementById('ubuntu');
     const trigger = document.querySelector('.fedora-overview-trigger');
     const overview = document.querySelector('.fedora-overview');
+    const showAppsBtn = document.getElementById('ubuntu-dock-show-apps');
     const searchForm = overview ? overview.querySelector('[data-overview-search-form]') : null;
     const searchInput = overview ? overview.querySelector('[data-overview-search-input]') : null;
     const searchClear = overview ? overview.querySelector('[data-overview-search-clear]') : null;
@@ -154,9 +159,19 @@
     let currentMode = 'workspace';
     let currentResults = [];
 
+    const syncShowAppsButton = () => {
+        if (!showAppsBtn) {
+            return;
+        }
+        const isApps = shell.classList.contains('is-overview')
+            && shell.classList.contains('is-overview-apps');
+        showAppsBtn.setAttribute('aria-pressed', String(isApps));
+    };
+
     const setOverviewMode = (mode) => {
         currentMode = mode === 'apps' ? 'apps' : 'workspace';
         shell.classList.toggle('is-overview-apps', mode === 'apps');
+        syncShowAppsButton();
     };
 
     const setSearchActive = (isActive) => {
@@ -185,31 +200,57 @@
 
     const setOverview = (isOpen, mode = 'workspace') => {
         shell.classList.toggle('is-overview', isOpen);
-        trigger.setAttribute('aria-pressed', String(isOpen));
+        trigger.setAttribute('aria-pressed', String(isOpen && mode !== 'apps'));
         overview.setAttribute('aria-hidden', String(!isOpen));
         if (isOpen) {
             setOverviewMode(mode);
-            window.setTimeout(() => {
-                if (searchInput) {
+            if (mode === 'apps' && searchInput) {
+                window.setTimeout(() => {
                     searchInput.focus();
-                }
-            }, 0);
+                }, 0);
+            }
         } else {
             clearSearch(false);
             setOverviewMode('workspace');
         }
+        syncShowAppsButton();
     };
 
-    const toggleOverview = () => {
+    const toggleOverviewWorkspace = () => {
         const isOpen = shell.classList.contains('is-overview');
-        setOverview(!isOpen, 'workspace');
+        const isApps = shell.classList.contains('is-overview-apps');
+        if (isOpen && !isApps) {
+            setOverview(false, 'workspace');
+            return;
+        }
+        setOverview(true, 'workspace');
     };
+
+    const toggleOverviewApps = () => {
+        const isOpen = shell.classList.contains('is-overview');
+        const isApps = shell.classList.contains('is-overview-apps');
+        if (isOpen && isApps) {
+            setOverview(false, 'workspace');
+            return;
+        }
+        clearSearch(false);
+        setOverview(true, 'apps');
+    };
+
+    const toggleOverview = () => toggleOverviewWorkspace();
 
     trigger.setAttribute('aria-pressed', 'false');
     trigger.addEventListener('click', (event) => {
         event.preventDefault();
-        toggleOverview();
+        toggleOverviewWorkspace();
     });
+
+    if (showAppsBtn) {
+        showAppsBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            toggleOverviewApps();
+        });
+    }
 
     const getLaunchTarget = (linkId) => document.querySelector(`.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`);
 
@@ -299,6 +340,10 @@
         }
 
         setSearchActive(true);
+        setOverviewMode('apps');
+        if (!shell.classList.contains('is-overview')) {
+            setOverview(true, 'apps');
+        }
         renderSearchResults(query);
     };
 
@@ -329,15 +374,6 @@
         const desktopButton = event.target.closest('[data-overview-desktop]');
         if (desktopButton && overview.contains(desktopButton)) {
             setOverview(false, 'workspace');
-            return;
-        }
-
-        const appsButton = event.target.closest('[data-overview-apps]');
-        if (appsButton && overview.contains(appsButton)) {
-            const isOpen = shell.classList.contains('is-overview');
-            const isApps = shell.classList.contains('is-overview-apps');
-            clearSearch(false);
-            setOverview(true, isOpen && isApps ? 'workspace' : 'apps');
             return;
         }
 
@@ -373,6 +409,9 @@
     window.CapsuleGnomeOverview = {
         setOverview,
         toggleOverview,
+        toggleOverviewApps,
+        toggleOverviewWorkspace,
         isOpen: () => shell.classList.contains('is-overview'),
+        isApps: () => shell.classList.contains('is-overview-apps'),
     };
 })();

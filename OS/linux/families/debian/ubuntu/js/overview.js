@@ -1,6 +1,6 @@
 /**
- * Vue Activités / grille applications Ubuntu (réf. app_bouton_bas.png).
- * Bouton dock bas : #ubuntu-dock-show-apps → mode apps.
+ * Ubuntu : Activités (barre du haut) = espaces de travail.
+ * Grille applications = bouton dock bas #ubuntu-dock-show-apps.
  */
 (function initUbuntuOverview() {
     const shell = document.getElementById('ubuntu');
@@ -22,79 +22,137 @@
         }
     };
 
+    const resolveSearchIcon = (icon) => {
+        if (typeof window.resolveCapsuleResourceUrl === 'function') {
+            return window.resolveCapsuleResourceUrl(icon);
+        }
+        if (window.CapsuleResource && typeof window.CapsuleResource.resolve === 'function') {
+            return window.CapsuleResource.resolve(icon);
+        }
+        return icon;
+    };
+
     const searchCatalog = [
         {
             label: 'Fichiers',
             aliases: ['files', 'nemo', 'nautilus', 'dossier', 'documents'],
             description: 'Gestionnaire de fichiers',
-            icon: './assets/images/toolkits/gnome/dock/files.png',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Nautilus.svg',
             dataLink: 'nemo'
         },
         {
             label: 'Firefox',
             aliases: ['navigateur', 'browser', 'web', 'internet'],
             description: 'Navigateur web',
-            icon: './assets/images/toolkits/gnome/dock/firefox.webp',
+            icon: './assets/images/toolkits/gnome/apps/firefox.webp',
             dataLink: 'firefox'
         },
         {
-            label: 'Ubuntu Software',
-            aliases: ['software', 'logiciels', 'store', 'boutique'],
+            label: 'Rhythmbox',
+            aliases: ['rhythmbox', 'musique', 'audio', 'lecteur_multimedia'],
+            description: 'Lecteur de musique',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Rhythmbox3.webp',
+            dataLink: 'lecteur_multimedia'
+        },
+        {
+            label: 'Loupe',
+            aliases: ['loupe', 'images', 'photos', 'visionneur', 'eog'],
+            description: 'Visionneuse d\'images',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg',
+            dataLink: 'visionneur_images'
+        },
+        {
+            label: 'Papers',
+            aliases: ['pdf', 'papers', 'document', 'evince'],
+            description: 'Visionneuse de documents',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg',
+            dataLink: 'visionneur_pdf'
+        },
+        {
+            label: 'Calculatrice',
+            aliases: ['calculator', 'calcul', 'maths'],
+            description: 'Effectuer des calculs',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.png',
+            dataLink: 'calculator'
+        },
+        {
+            label: 'Snap Store',
+            aliases: ['software', 'logiciels', 'store', 'boutique', 'snap', 'snap-store', 'update_manager'],
             description: 'Installer des applications',
             icon: './assets/images/toolkits/gnome/dock/software-store.png',
-            dataLink: 'themes'
+            dataLink: 'update_manager'
         },
         {
-            label: 'Aide',
-            aliases: ['help', 'aide', 'support', 'yelp'],
-            description: 'Documentation Ubuntu',
-            icon: './assets/images/toolkits/gnome/dock/help.png',
-            dataLink: 'profile'
+            label: 'Éditeur de texte',
+            aliases: ['text editor', 'gedit', 'editeur', 'texte'],
+            description: 'Éditeur de texte simple',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.TextEditor.svg',
+            dataLink: 'text_editor'
         },
         {
-            label: 'Terminal',
-            aliases: ['ptyxis', 'console', 'shell', 'commande'],
-            description: 'Émulateur de terminal',
-            icon: './assets/images/toolkits/gnome/dock/terminal.png',
-            dataLink: 'terminal'
+            label: 'LibreOffice Writer',
+            aliases: ['writer', 'document', 'office'],
+            description: 'Traitement de texte',
+            icon: './assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg',
+            dataLink: 'librewriter'
+        },
+        {
+            label: 'LibreOffice Calc',
+            aliases: ['calc', 'tableur', 'spreadsheet', 'office'],
+            description: 'Tableur',
+            icon: './assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg'
         },
         {
             label: 'Paramètres',
             aliases: ['settings', 'preferences', 'configuration', 'theme'],
             description: 'Configurer le système',
-            icon: './assets/images/toolkits/gnome/apps/overview/settings.png',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg',
             dataLink: 'themes'
         },
         {
+            label: 'Terminal',
+            aliases: ['ptyxis', 'console', 'shell', 'commande'],
+            description: 'Émulateur de terminal',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg',
+            dataLink: 'terminal'
+        },
+        {
+            label: 'Calendrier',
+            aliases: ['calendar', 'agenda', 'date'],
+            description: 'Consulter le calendrier',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg',
+            dataLink: 'calendar'
+        },
+        {
             label: 'Horloges',
-            aliases: ['clocks', 'horloge', 'alarme', 'minuteur'],
-            description: 'Horloges et alarmes',
-            icon: './assets/images/toolkits/gnome/apps/overview/clocks.png'
+            aliases: ['clocks', 'world clock', 'fuseau'],
+            description: 'Horloges mondiales',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg',
+            dataLink: 'clocks'
         },
         {
-            label: 'Centre de sécurité',
-            aliases: ['security', 'securite', 'confidentialite', 'privacy', 'snap'],
-            description: 'Permissions et sécurité',
-            icon: './assets/images/toolkits/gnome/apps/overview/security-center.png'
+            label: 'Contacts',
+            aliases: ['contact', 'adresse'],
+            description: 'Carnet de contacts',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg'
         },
         {
-            label: 'Calculatrice',
-            aliases: ['calculator', 'calc'],
-            description: 'Calculatrice',
-            icon: './assets/images/toolkits/gnome/apps/overview/calculator.png'
+            label: 'Météo',
+            aliases: ['weather', 'temps'],
+            description: 'Prévisions météo',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg'
         },
         {
-            label: 'Ressources',
-            aliases: ['monitor', 'system monitor', 'moniteur', 'cpu', 'ram'],
-            description: 'Moniteur système',
-            icon: './assets/images/toolkits/gnome/apps/overview/system-monitor.png'
+            label: 'Caractères',
+            aliases: ['characters', 'symboles', 'unicode'],
+            description: 'Table des caractères',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg'
         },
         {
-            label: 'Missions CapsuleOS',
-            aliases: ['checklist', 'missions', 'decouverte'],
-            description: 'Parcours guidé',
-            icon: './assets/images/toolkits/gnome/apps/checklist.svg',
-            dataLink: 'checklist'
+            label: 'Aide Ubuntu',
+            aliases: ['yelp', 'help', 'aide', 'documentation'],
+            description: 'Documentation Ubuntu',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg'
         }
     ];
 
@@ -179,6 +237,8 @@
         setOverview(true, 'apps');
     };
 
+    const toggleOverview = () => toggleOverviewWorkspace();
+
     trigger.setAttribute('aria-pressed', 'false');
     trigger.addEventListener('click', (event) => {
         event.preventDefault();
@@ -192,9 +252,7 @@
         });
     }
 
-    const getLaunchTarget = (linkId) => document.querySelector(
-        `#tableau.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`
-    );
+    const getLaunchTarget = (linkId) => document.querySelector(`.fedora-dock a[data-link="${linkId}"], a[target="windowElement"][data-link="${linkId}"]`);
 
     const openOverviewLink = (linkId) => {
         if (!linkId) {
@@ -204,6 +262,10 @@
         setOverview(false, 'workspace');
         if (target) {
             target.click();
+            return;
+        }
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink(linkId);
         }
     };
 
@@ -219,7 +281,7 @@
         }
 
         const img = document.createElement('img');
-        img.src = item.icon;
+        img.src = resolveSearchIcon(item.icon);
         img.alt = '';
 
         const label = document.createElement('span');
@@ -328,6 +390,28 @@
         if (launcher && overview.contains(launcher)) {
             const linkId = launcher.getAttribute('data-overview-link');
             openOverviewLink(linkId);
+            return;
         }
     });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && shell.classList.contains('is-overview')) {
+            if (searchInput && searchInput.value.trim()) {
+                event.preventDefault();
+                clearSearch(true);
+                searchInput.focus();
+                return;
+            }
+            setOverview(false, 'workspace');
+        }
+    });
+
+    window.CapsuleGnomeOverview = {
+        setOverview,
+        toggleOverview,
+        toggleOverviewApps,
+        toggleOverviewWorkspace,
+        isOpen: () => shell.classList.contains('is-overview'),
+        isApps: () => shell.classList.contains('is-overview-apps'),
+    };
 })();

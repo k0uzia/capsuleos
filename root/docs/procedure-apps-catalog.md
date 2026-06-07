@@ -23,7 +23,13 @@ Parité visuelle app-par-app : [procedure-apps-replication-formelle.md](procedur
 ## 2. Chaîne formelle (règles)
 
 ```
-R-APP1   H₆ ∧ ¬AppV  →  collect-vm-apps-inventory.mjs --write
+R-MAN0   M ∧ ¬ManV   →  run-manifest-replication-chain.mjs (ensure vendor + collect)
+R-MAN1   ManV ∧ ¬ManS  →  smoke-vm-distribution-manifest.mjs
+R-MAN2   ManS ∧ ¬PbM  →  generate-manifest-replication-playbook.mjs --write
+R-MAN3   ManS ∧ ¬ManA  →  approve-vm-distribution-manifest.mjs --write
+R-MAN4   ManA ∧ ¬ManSt  →  run-manifest-staging-on-vm.mjs --write
+R-MAN5   ManSt ∧ ¬ManI  →  import-manifest-staging.mjs --write
+R-APP1   ManV ∧ ¬AppV  →  collect-vm-apps-inventory.mjs --write  (dérivé manifeste → inventaires)
 R-APP2   AppV ∧ ¬AppC  →  generate-apps-catalog.mjs --write && smoke-apps-catalog.mjs
 R-APP3   AppC ∧ ¬AppΣ  →  implémentation H5 ciblée (prochain écart catalogue)
 R-H6-DONE  … ∧ AppΣ  →  maintenance validate-all

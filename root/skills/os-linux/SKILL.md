@@ -58,9 +58,15 @@ Avant toute passe CSS/UX sur un skin Linux : [contrib.md § toolkits](../../../c
 
 Distros `toolkit: gnome` : charger **`gnome-hig-replication`** + [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/gnome-hig-resources.json`.
 
+## Manifeste distribution (tous vendors Linux)
+
+Avant import assets massif : skill **`vm-distribution-manifest`** → `run-manifest-replication-chain.mjs --id <registryId>`.  
+Sorties : `proc/<id>/distribution-manifest.json`, playbook, staging → `usr/share/capsuleos/assets/` via `manifest.media.iconPack`.
+
 ## Ajouter une distro / version / vendor
 
-Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md). Gate : `validate-all.mjs`.
+Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md).  
+Scaffold catalogue : `ensure-vm-manifest-vendor.mjs --write`. Gate : `validate-all.mjs`.
 
 ## Rôles fréquents
 

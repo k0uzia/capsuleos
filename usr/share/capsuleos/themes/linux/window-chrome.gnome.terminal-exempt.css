@@ -48,6 +48,33 @@
     background: transparent;
     border-bottom: 0;
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"][data-link="terminal"] #windowHeader > nav {
+    min-width: 0;
+    flex-shrink: 0;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"][data-link="terminal"] #windowHeader > nav:last-of-type {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"][data-link="terminal"] .fedora-terminal-header__tabs {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"][data-link="terminal"] .fedora-terminal-header__window-controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.2rem;
+    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"][data-link="terminal"] #windowTitle {

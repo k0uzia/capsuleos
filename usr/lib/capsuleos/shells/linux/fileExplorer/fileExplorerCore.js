@@ -2001,6 +2001,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
         if (typeof window.applyNautilusLocationBarMode === 'function') {
             window.applyNautilusLocationBarMode();
         }
+
+        if (typeof window.syncNautilusTabs === 'function') {
+            window.syncNautilusTabs();
+        }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
     }

@@ -192,6 +192,19 @@
         if (path === global.CAPSULE_PLACE_FILESYSTEM) {
             return '/';
         }
+        if (global.CapsuleExplorerVfs && typeof global.CapsuleExplorerVfs.isExplorerVfsPath === 'function'
+            && global.CapsuleExplorerVfs.isExplorerVfsPath(path)) {
+            const vfsLabel = typeof global.CapsuleExplorerVfs.getExplorerPathLabel === 'function'
+                ? global.CapsuleExplorerVfs.getExplorerPathLabel(path)
+                : null;
+            if (vfsLabel === '/') {
+                return '/';
+            }
+            if (vfsLabel) {
+                const parts = String(vfsLabel).split('/').filter(Boolean);
+                return parts[parts.length - 1] || '/';
+            }
+        }
         const root = typeof global.getFileExplorerRoot === 'function'
             ? global.getFileExplorerRoot()
             : '';
@@ -337,6 +350,22 @@
         });
     };
 
+    const updateActiveTabLabelInStrip = (tab) => {
+        if (!tab) {
+            return;
+        }
+        const root = getNemoRoot();
+        const strip = root && root.querySelector('#nautilus-tabstrip');
+        if (!strip) {
+            return;
+        }
+        const btn = strip.querySelector(`.nautilus-app__tab[data-tab-id="${CSS.escape(tab.id)}"]`);
+        const label = btn && btn.querySelector('span');
+        if (label) {
+            label.textContent = tab.title || resolveTabTitle(tab.path);
+        }
+    };
+
     const syncActiveTabSession = () => {
         const state = ensureTabState();
         if (!state || !state.currentPath || restoringTabs) {
@@ -348,6 +377,7 @@
         }
         captureTabSession(tab, state);
         tab.title = resolveTabTitle(tab.path);
+        updateActiveTabLabelInStrip(tab);
         renderTabs();
         persistTabsToStorage();
     };

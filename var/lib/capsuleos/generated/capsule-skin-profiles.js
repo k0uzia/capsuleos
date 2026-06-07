@@ -650,6 +650,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
+      "CAPSULE_LOCALE": "fr-FR",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
       "CAPSULE_TERMINAL_USER": "capsule",
@@ -661,6 +662,10 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_MNT_BASE": "../../../mnt",
+      "CAPSULE_MNT_MODULES": [
+        "debutant/linux-bases"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
       },
@@ -1411,6 +1416,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
+      "CAPSULE_LOCALE": "fr-FR",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
       "CAPSULE_TERMINAL_USER": "capsule",
@@ -1422,6 +1428,10 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_MNT_BASE": "../../../mnt",
+      "CAPSULE_MNT_MODULES": [
+        "debutant/linux-bases"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
       },

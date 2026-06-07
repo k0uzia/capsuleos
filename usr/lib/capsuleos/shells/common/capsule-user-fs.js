@@ -190,6 +190,42 @@
             return { ok: true };
         }
 
+        if (op === 'cp') {
+            const sourceName = String(payload.source || '').trim();
+            const destName = String(payload.dest || '').trim();
+            if (!sourceName || !destName || sourceName === destName) {
+                return { ok: false, reason: 'invalid-cp' };
+            }
+            const sourceItem = findItemInFolder(parentNode, sourceName);
+            if (!sourceItem || findItemInFolder(parentNode, destName)) {
+                return { ok: true, skipped: true };
+            }
+            if (sourceItem.type === 'file') {
+                parentNode.items.push(buildFileItem(destName));
+                parentNode.items = sortExplorerItems(parentNode.items);
+                applyMutation(manifest, affectedParents, payload);
+                return { ok: true };
+            }
+            if (sourceItem.type === 'folder' && sourceItem.path) {
+                const newPath = joinExplorerPath(parent, destName);
+                if (!newPath || manifest.folders[newPath]) {
+                    return { ok: true, skipped: true };
+                }
+                const sourceFolder = manifest.folders[sourceItem.path];
+                parentNode.items.push({ type: 'folder', name: destName, path: newPath });
+                manifest.folders[newPath] = {
+                    label: destName,
+                    items: sourceFolder && Array.isArray(sourceFolder.items)
+                        ? JSON.parse(JSON.stringify(sourceFolder.items))
+                        : [],
+                };
+                parentNode.items = sortExplorerItems(parentNode.items);
+                applyMutation(manifest, affectedParents, payload);
+                return { ok: true };
+            }
+            return { ok: true, skipped: true };
+        }
+
         if (op === 'mv') {
             const sourceName = String(payload.source || '').trim();
             const destName = String(payload.dest || payload.name || '').trim();

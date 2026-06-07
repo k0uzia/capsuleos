@@ -93,6 +93,30 @@ Compatible statique — pas de SSR.
 
 **Principe** : une vérité → N projections (HTML boot, pick-os, docs).
 
+### 7. Internationalisation — FR par défaut, US/QWERTY en prévision
+
+La plateforme vise à terme une **couverture internationale** (en-US, clavier QWERTY, sorties terminal anglophones). **Aujourd'hui et par priorité logique** : tout reste **fr-FR par défaut** — documentation, strings UI, inventaires VM, pédagogie.
+
+```text
+Ordre non contradictoire :
+  1. Lj_fr (défaut projet)     → docs, strings, UX cible actuelle
+  2. Parité VM (R-INV1)        → locale de l'inventaire pour reproduction (ex. dnf FR sur Rocky)
+  3. Lj_en / Lk_qwerty         → projection additive future, jamais prioritaire sur (1)
+```
+
+| Couche | Défaut actuel | Cible scalable | Noyau |
+|--------|---------------|----------------|-------|
+| **UI** | `strings-default.js` + `content/strings.json` (FR) | `strings.<locale>.json`, `CAPSULE_LOCALE` | fusion `CAPSULE_STRINGS_MERGED` |
+| **Terminal** | sorties EN simulées (legacy package-managers) | providers `family × locale` | `terminal-package-managers.js` |
+| **Clavier** | AZERTY implicite (hôte FR) | `CAPSULE_KEYBOARD_LAYOUT` : `fr-FR-azerty` \| `en-US-qwerty` | planned |
+| **FS XDG** | noms FR si VM FR (Bureau, Documents) | mapping locale dans manifeste / inventaire | `CapsuleUserFs` |
+
+**Contrat** : `etc/capsuleos/contracts/locale-scalability.json` · prédicats **Lj**, **Lj_fr**, **Lj_en**, **Lk_*** dans [logique-formelle.md](logique-formelle.md).
+
+**Anti-pattern** : fork `executeCommand.js` ou skin entier par langue — une implémentation, des **providers** et des fichiers de strings.
+
+**Jalon S8 (prévu)** : providers terminal FR/EN + premier skin `en-US` dérivé (même toolkit, `strings.en.json`).
+
 ---
 
 ## CI légère (sans infrastructure lourde)
@@ -157,6 +181,7 @@ Exécutable en pre-commit ou manuellement — **pas de npm install**.
 | S5 | `CapsuleResource.resolve()` | Amorcé ✓ — packs via `iconPacks`, shims `capsule-resource-url.js` |
 | S6 | Embeds partitionnés | SW + offline à grande échelle |
 | S7 | pick-os.js généré depuis registre | Portail toujours sync ✓ |
+| S8 | Locale scalable (Lj) — contrat + providers terminal | FR défaut ; en-US/QWERTY sans fork |
 
 ---
 

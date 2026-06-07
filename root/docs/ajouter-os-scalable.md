@@ -26,6 +26,8 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs <id> --write
 | 4 | Explorateur Linux ? | `explorerTemplate` : `nemo`, `dolphin`, `nemo-gnome`, … |
 | 5 | Vendor visuel ? | Pack `assets/images/vendors/<nom>` + éventuellement `icons/*` |
 
+| 6 | Locale / clavier ? | **Défaut `fr-FR`** · noter locale VM dans l'inventaire · `en-US`/QWERTY = variante future ([scalabilite-noyau.md §7](scalabilite-noyau.md)) |
+
 **Règle d’or** : 1 entrée registre = 1 identité utilisateur (distro **ou** version majeure), pas un clone complet du noyau.
 
 ---

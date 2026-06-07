@@ -44,6 +44,7 @@ const TERMINAL_PROFILES = {
   ubuntu: 'debian',
   fedora: 'fedora',
   rocky: 'rocky',
+  alma: 'alma',
   opensuse: 'suse',
   mx: 'debian',
   neon: 'debian',

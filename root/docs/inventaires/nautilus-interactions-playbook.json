@@ -139,7 +139,18 @@
       "topic": "Navigation vs focus fenêtre",
       "risk": "Un refresh asynchrone au focus Nautilus peut annuler une navigation au clic.",
       "mitigation": "fileExplorerWindowState.js — refresh uniquement si changement réel de fenêtre active.",
-      "priority": "P0"
+      "priority": "P0",
+      "predicate": "Rv2",
+      "contract": "etc/capsuleos/contracts/view-refresh-vigilance.json"
+    },
+    {
+      "id": "view-refresh-after-action",
+      "topic": "Rafraîchissement post-action (transversal)",
+      "risk": "Vue Nautilus stale après navigation, renommage ou mutation FS — irréel vs VM.",
+      "mitigation": "syncNautilusTabs après navigateToFileExplorerDirectory ; capsule:fs-changed → renderDirectory ; voir view-refresh-vigilance-playbook.json.",
+      "priority": "P0",
+      "predicate": "Rv1",
+      "contract": "etc/capsuleos/contracts/view-refresh-vigilance.json"
     },
     {
       "id": "single-vs-double-click",

@@ -15,6 +15,7 @@ const steps = [
     'validate-window-chrome-contexts.mjs',
     'validate-toolkit-chrome-isolation.mjs',
     'validate-skin-vendor-isolation.mjs',
+    'validate-terminal-skin-lock.mjs',
     'validate-gnome-toolkit-pack.mjs',
     'validate-gnome-chrome-apps.mjs',
     'validate-gnome-overview-search-icons.mjs',

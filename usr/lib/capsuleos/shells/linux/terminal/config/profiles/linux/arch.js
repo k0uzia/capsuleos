@@ -1,16 +1,12 @@
 (function initLinuxArchTerminalProfile() {
-    window.CAPSULE_TERMINAL_PROFILES = window.CAPSULE_TERMINAL_PROFILES || {};
-    window.CAPSULE_TERMINAL_PROFILES['linux:arch'] = {
-        id: 'linux:arch',
-        osFamily: 'linux',
-        distro: 'arch',
+    const builder = window.CapsuleTerminalProfileBuilder;
+    if (!builder || typeof builder.registerLinuxFamily !== 'function') {
+        console.warn('CapsuleOS: charger command-core.js et terminal-profile-builder.js avant arch.js');
+        return;
+    }
+    builder.registerLinuxFamily('arch', {
         displayName: 'Linux Arch',
-        commands: [
-            'man', 'cd', 'ls', 'pwd', 'echo', 'cat', 'head', 'tail', 'grep', 'find',
-            'touch', 'mkdir', 'mv', 'rm', 'rmdir', 'clear', 'history', 'whoami', 'uname',
-            'exit', 'ps', 'kill', 'ping', 'curl', 'sudo', 'ssh', 'nano', 'vim', 'less', 'dd',
-            'crontab', 'pacman'
-        ],
-        packageManagers: ['pacman']
-    };
+        familyCommands: ['pacman'],
+        packageManagers: ['pacman'],
+    });
 })();

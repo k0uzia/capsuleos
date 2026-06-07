@@ -166,12 +166,45 @@ try {
         }
     }
 
+    // T6 — cp
+    const cpSource = `${prefix}-source.txt`;
+    const cpCopy = `${prefix}-copie.txt`;
+    await runTerminalInDocs(`touch ${cpSource}`);
+    await page.waitForTimeout(150);
+    const t6 = await runTerminalInDocs(`cp ${cpSource} ${cpCopy}`);
+    if (t6.error) {
+        errors.push(`T6 cp: ${t6.lines.join(' ')}`);
+    } else {
+        const names = gridNames(await readGridNames());
+        if (!names.includes(cpSource) || !names.includes(cpCopy)) {
+            errors.push(`T6 cp: source ou copie absente (${cpSource}, ${cpCopy})`);
+        }
+    }
+
+    // T7 — echo >
+    const redirectName = `${prefix}-redirect.txt`;
+    const t7 = await runTerminalInDocs(`echo contenu-sync > ${redirectName}`);
+    if (t7.error) {
+        errors.push(`T7 echo>: ${t7.lines.join(' ')}`);
+    } else {
+        const names = gridNames(await readGridNames());
+        if (!names.includes(redirectName)) {
+            errors.push(`T7 echo>: ${redirectName} absent de la grille`);
+        }
+    }
+
+    // T8 — pipeline echo | grep
+    const t8 = await runTerminalInDocs('echo pipeline-capsule | grep pipeline');
+    if (t8.error || !t8.lines.some((line) => String(line).includes('pipeline-capsule'))) {
+        errors.push(`T8 pipe: ${t8.lines.join(' ')}`);
+    }
+
     if (errors.length) {
         console.error('smoke-fs-terminal-explorer-sync: ÉCHEC');
         errors.forEach((message) => console.error(`  - ${message}`));
         process.exitCode = 1;
     } else {
-        console.log('smoke-fs-terminal-explorer-sync: OK (T1–T5)');
+        console.log('smoke-fs-terminal-explorer-sync: OK (T1–T8)');
     }
 } catch (error) {
     console.error('smoke-fs-terminal-explorer-sync: erreur fatale', error);

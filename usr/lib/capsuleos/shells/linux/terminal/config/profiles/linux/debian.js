@@ -1,16 +1,12 @@
 (function initLinuxDebianTerminalProfile() {
-    window.CAPSULE_TERMINAL_PROFILES = window.CAPSULE_TERMINAL_PROFILES || {};
-    window.CAPSULE_TERMINAL_PROFILES['linux:debian'] = {
-        id: 'linux:debian',
-        osFamily: 'linux',
-        distro: 'debian',
+    const builder = window.CapsuleTerminalProfileBuilder;
+    if (!builder || typeof builder.registerLinuxFamily !== 'function') {
+        console.warn('CapsuleOS: charger command-core.js et terminal-profile-builder.js avant debian.js');
+        return;
+    }
+    builder.registerLinuxFamily('debian', {
         displayName: 'Linux Debian-like',
-        commands: [
-            'help', 'man', 'cd', 'ls', 'pwd', 'echo', 'cat', 'head', 'tail', 'grep', 'find',
-            'touch', 'mkdir', 'mv', 'rm', 'rmdir', 'clear', 'history', 'whoami', 'uname',
-            'exit', 'ps', 'kill', 'ping', 'curl', 'sudo', 'ssh', 'nano', 'vim', 'less', 'dd',
-            'crontab', 'cinnamon', 'apt', 'apt-get', 'aptitude', 'apturl', 'dpkg'
-        ],
-        packageManagers: ['apt', 'apt-get', 'aptitude', 'apturl', 'dpkg']
-    };
+        familyCommands: ['apt', 'apt-get', 'aptitude', 'apturl', 'dpkg'],
+        packageManagers: ['apt', 'apt-get', 'aptitude', 'apturl', 'dpkg'],
+    });
 })();

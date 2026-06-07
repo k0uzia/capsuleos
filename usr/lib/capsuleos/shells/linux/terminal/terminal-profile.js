@@ -75,8 +75,19 @@
         commands: ['man', 'ls', 'pwd', 'echo', 'clear', 'history', 'whoami', 'uname']
     };
 
+    const vendorHint = typeof window !== 'undefined' && window.CAPSULE_TERMINAL_PROFILE
+        ? String(window.CAPSULE_TERMINAL_PROFILE).toLowerCase()
+        : bodyId;
+    const builder = typeof window !== 'undefined' ? window.CapsuleTerminalProfileBuilder : null;
+    const vendorCommands = builder && typeof builder.resolveVendorExtensions === 'function'
+        ? builder.resolveVendorExtensions(vendorHint)
+        : [];
+    const mergedCommands = builder && typeof builder.mergeUnique === 'function'
+        ? builder.mergeUnique(profile.commands || [], vendorCommands)
+        : (profile.commands || []).concat(vendorCommands);
+
     const registry = (typeof window !== 'undefined' && window.CAPSULE_TERMINAL_COMMAND_REGISTRY) || {};
-    const activeCommands = (profile.commands || [])
+    const activeCommands = mergedCommands
         .filter((name) => registry[name])
         .reduce((acc, name) => {
             acc[name] = registry[name];
@@ -85,7 +96,11 @@
 
     applyTerminalIdentity();
 
-    window.CAPSULE_TERMINAL_ACTIVE_PROFILE = profile;
+    window.CAPSULE_TERMINAL_ACTIVE_PROFILE = {
+        ...profile,
+        commands: mergedCommands,
+        vendorCommands,
+    };
     window.CAPSULE_TERMINAL_ACTIVE_COMMANDS = activeCommands;
     window.getTerminalActiveProfile = () => window.CAPSULE_TERMINAL_ACTIVE_PROFILE;
     window.getTerminalActiveCommands = () => window.CAPSULE_TERMINAL_ACTIVE_COMMANDS;

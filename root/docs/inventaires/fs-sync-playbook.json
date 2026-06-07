@@ -33,9 +33,29 @@
       "id": "T5",
       "command": "mv <ancien> <nouveau>",
       "assertion": "ancien nom absent, nouveau nom présent"
+    },
+    {
+      "id": "T6",
+      "command": "cp <source> <copie>",
+      "assertion": "source et copie visibles dans la grille"
+    },
+    {
+      "id": "T7",
+      "command": "echo texte > <fichier>",
+      "assertion": "fichier créé ou mis à jour dans la grille"
+    },
+    {
+      "id": "T8",
+      "command": "echo ligne | grep motif",
+      "assertion": "pipeline affiche la ligne filtrée (sans erreur)"
     }
   ],
   "smoke": "usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs",
+  "viewRefresh": {
+    "contract": "etc/capsuleos/contracts/view-refresh-vigilance.json",
+    "predicate": "Rv1",
+    "playbook": "root/docs/inventaires/view-refresh-vigilance-playbook.json"
+  },
   "prerequisites": [
     "Nemo ouvert sur un dossier manifeste (ex. Documents)",
     "CapsuleExplorerVfs.resolveManifestPathFromTerminal mappe le cwd terminal",

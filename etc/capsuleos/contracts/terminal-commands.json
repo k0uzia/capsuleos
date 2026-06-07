@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "description": "Contrat commandes terminal — noyau universel, extensions famille paquets, singularités vendor.",
+  "doc": "root/docs/procedure-terminal-commandes.md",
+  "shellConvention": "root/docs/convention-shell-global.md",
+  "replicationChain": "etc/capsuleos/contracts/terminal-replication-chain.json",
+  "predicates": {
+    "Ti": "Inventaire VM terminal (*-terminal-vm.json)",
+    "Tc": "Noyau (core) défini et présent dans tous les profils Linux actifs",
+    "Tf": "Extensions famille déclarées et disjointes du noyau",
+    "Tv": "Extensions vendor déclarées et résolues via CAPSULE_TERMINAL_PROFILE",
+    "Te": "Chaque commande active a une entrée registre ET un case executeCommand",
+    "Ts": "Sync FS terminal ↔ explorateur (smoke fs-sync)",
+    "Tr": "Scénarios réplication P0 documentés et pass",
+    "TΣ": "Ti ∧ Tc ∧ Tf ∧ Te ∧ Ts ∧ Tr — shell prêt clôture skin terminal P0"
+  },
+  "layers": {
+    "core": {
+      "label": "Noyau — exécutable sur la majorité des OS Linux simulés",
+      "path": "usr/lib/capsuleos/shells/linux/terminal/config/command-core.js",
+      "commands": [
+        "help",
+        "man",
+        "cd",
+        "ls",
+        "pwd",
+        "echo",
+        "cat",
+        "head",
+        "tail",
+        "grep",
+        "find",
+        "touch",
+        "mkdir",
+        "cp",
+        "mv",
+        "rm",
+        "rmdir",
+        "wc",
+        "sort",
+        "chmod",
+        "clear",
+        "history",
+        "whoami",
+        "uname",
+        "exit",
+        "ps",
+        "kill",
+        "ping",
+        "curl",
+        "sudo",
+        "ssh",
+        "nano",
+        "vim",
+        "less",
+        "dd",
+        "crontab"
+      ]
+    },
+    "families": {
+      "debian": {
+        "label": "Famille Debian/Ubuntu/Mint — gestionnaires APT",
+        "profileScript": "usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/debian.js",
+        "normalizeFrom": ["debian", "ubuntu", "mint", "popos", "anduinos", "mx", "neon"],
+        "commands": ["apt", "apt-get", "aptitude", "apturl", "dpkg"],
+        "packageManagers": ["apt", "apt-get", "aptitude", "apturl", "dpkg"]
+      },
+      "redhat": {
+        "label": "Famille RHEL/Fedora/Alma — DNF/RPM",
+        "profileScript": "usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/redhat.js",
+        "normalizeFrom": ["rocky", "alma", "fedora", "redhat", "rhel"],
+        "commands": ["dnf", "rpm"],
+        "packageManagers": ["dnf", "rpm"]
+      },
+      "suse": {
+        "label": "Famille openSUSE — Zypper/RPM",
+        "profileScript": "usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/suse.js",
+        "normalizeFrom": ["opensuse", "suse"],
+        "commands": ["zypper", "rpm"],
+        "packageManagers": ["zypper", "rpm"]
+      },
+      "arch": {
+        "label": "Famille Arch — pacman",
+        "profileScript": "usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/arch.js",
+        "normalizeFrom": ["arch"],
+        "commands": ["pacman"],
+        "packageManagers": ["pacman"]
+      }
+    },
+    "vendorExtensions": {
+      "mint": {
+        "label": "Linux Mint — commande DE Cinnamon",
+        "commands": ["cinnamon"]
+      }
+    }
+  },
+  "implementation": {
+    "registry": "usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js",
+    "executor": "usr/lib/capsuleos/shells/linux/terminal/executeCommand.js",
+    "resolver": "usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js",
+    "builder": "usr/lib/capsuleos/shells/linux/terminal/config/terminal-profile-builder.js",
+    "packageManagers": "usr/lib/capsuleos/shells/linux/terminal/terminal-package-managers.js",
+    "shellParse": "usr/lib/capsuleos/shells/linux/terminal/terminal-shell-parse.js"
+  },
+  "rules": [
+    "Le noyau vit dans usr/lib/capsuleos/ — une seule implémentation executeCommand par commande core",
+    "Les extensions famille ne dupliquent jamais le noyau",
+    "Les singularités vendor s'ajoutent au profil résolu, pas à la famille entière",
+    "Ajouter une commande : registre → case executeCommand → couche (core|family|vendor) → gate validate-terminal-commands.mjs"
+  ]
+}

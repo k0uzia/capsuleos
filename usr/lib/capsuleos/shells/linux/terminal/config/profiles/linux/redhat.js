@@ -1,16 +1,12 @@
 (function initLinuxRedHatTerminalProfile() {
-    window.CAPSULE_TERMINAL_PROFILES = window.CAPSULE_TERMINAL_PROFILES || {};
-    window.CAPSULE_TERMINAL_PROFILES['linux:redhat'] = {
-        id: 'linux:redhat',
-        osFamily: 'linux',
-        distro: 'redhat',
+    const builder = window.CapsuleTerminalProfileBuilder;
+    if (!builder || typeof builder.registerLinuxFamily !== 'function') {
+        console.warn('CapsuleOS: charger command-core.js et terminal-profile-builder.js avant redhat.js');
+        return;
+    }
+    builder.registerLinuxFamily('redhat', {
         displayName: 'Linux Red Hat-like',
-        commands: [
-            'man', 'cd', 'ls', 'pwd', 'echo', 'cat', 'head', 'tail', 'grep', 'find',
-            'touch', 'mkdir', 'mv', 'rm', 'rmdir', 'clear', 'history', 'whoami', 'uname',
-            'exit', 'ps', 'kill', 'ping', 'curl', 'sudo', 'ssh', 'nano', 'vim', 'less', 'dd',
-            'crontab', 'dnf', 'rpm'
-        ],
-        packageManagers: ['dnf', 'rpm']
-    };
+        familyCommands: ['dnf', 'rpm'],
+        packageManagers: ['dnf', 'rpm'],
+    });
 })();

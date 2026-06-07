@@ -61,9 +61,20 @@ function ensureTerminalShell(container) {
     return { app, output, form, prompt, commandInput };
 }
 
+function resolveTerminalLineClassName(text, className) {
+    if (className) {
+        return className;
+    }
+    const trimmed = String(text || '').trim();
+    if (trimmed === 'Terminé !' || trimmed === 'Complete!') {
+        return 'capsule-terminal__line capsule-terminal__line--success';
+    }
+    return 'capsule-terminal__line';
+}
+
 function renderTerminalLine(output, text, className) {
     const row = document.createElement('div');
-    row.className = className || 'capsule-terminal__line';
+    row.className = resolveTerminalLineClassName(text, className);
 
     const code = document.createElement('code');
     code.textContent = text;
@@ -168,6 +179,29 @@ function resolveFedoraTerminalPrompt() {
         return 'capsule@rocky:~';
     }
     return 'fed@fedora:~';
+}
+
+function ensureFedoraTerminalWindowControls(header) {
+    if (!header) {
+        return;
+    }
+    const right = header.querySelectorAll('nav')[1];
+    if (!right || right.querySelector('.fedora-terminal-header__window-controls')) {
+        return;
+    }
+    const controls = document.createElement('div');
+    controls.className = 'fedora-terminal-header__window-controls';
+    controls.setAttribute('role', 'group');
+    controls.setAttribute('aria-label', 'Contrôles de fenêtre');
+    ['#minimizeBtn', '#resizeBtn', '#closeBtn'].forEach((selector) => {
+        const button = header.querySelector(selector);
+        if (button) {
+            controls.appendChild(button);
+        }
+    });
+    if (controls.childElementCount) {
+        right.appendChild(controls);
+    }
 }
 
 function ensureFedoraTerminalTabsSlot(header) {
@@ -716,6 +750,7 @@ function decorateFedoraTerminalWindow(container) {
             return false;
         }
         if (header.dataset.fedoraTerminalChrome === 'true') {
+            ensureFedoraTerminalWindowControls(header);
             return true;
         }
 
@@ -729,6 +764,9 @@ function decorateFedoraTerminalWindow(container) {
             title.hidden = true;
             title.setAttribute('aria-hidden', 'true');
         }
+
+        // Sauver les contrôles fenêtre (nav gauche du gabarit) avant de vider left.
+        ensureFedoraTerminalWindowControls(header);
 
         if (left) {
             left.innerHTML = '';
@@ -760,9 +798,10 @@ function decorateFedoraTerminalWindow(container) {
                 'fedora-terminal-header__button fedora-terminal-header__button--menu',
                 'Menu'
             );
-            const minimize = right.querySelector('#minimizeBtn');
-            if (minimize) {
-                right.insertBefore(menu, minimize);
+            const anchor = right.querySelector('.fedora-terminal-header__window-controls')
+                || right.querySelector('#minimizeBtn');
+            if (anchor) {
+                right.insertBefore(menu, anchor);
             } else {
                 right.appendChild(menu);
             }
@@ -857,7 +896,13 @@ function initTerminalForContainer(windowElement) {
     const elements = ensureTerminalShell(container);
     decorateGnomeTerminalWindow(container);
     decorateFedoraTerminalWindow(container);
-    if (elements.app.dataset.terminalReady === 'true') {
+    const forceFresh = window.CAPSULE_TERMINAL_FORCE_FRESH === true
+        || (window.CAPSULE_TERMINAL_LAUNCH_CWD != null && window.CAPSULE_TERMINAL_LAUNCH_CWD !== '');
+    if (forceFresh && elements.app.dataset.terminalReady === 'true') {
+        if (typeof window.purgeTerminalWindowRuntime === 'function') {
+            window.purgeTerminalWindowRuntime(host);
+        }
+    } else if (elements.app.dataset.terminalReady === 'true') {
         const session = elements.app.__capsuleTerminalSession;
         if (typeof window.scheduleTerminalTabsBind === 'function' && session) {
             window.scheduleTerminalTabsBind(host);
@@ -881,6 +926,14 @@ function initTerminalForContainer(windowElement) {
         : `CapsuleOS ${activeProfile.osFamily || 'OS'}`;
 
     const bootTerminal = async () => {
+        if (elements.output) {
+            elements.output.innerHTML = '';
+        }
+        if (elements.commandInput) {
+            elements.commandInput.value = '';
+            elements.commandInput.disabled = false;
+        }
+
         const baseFs = typeof fileSystem !== 'undefined' ? fileSystem : {};
         let fileContents = (typeof window !== 'undefined' && window.CAPSULE_TERMINAL_FILE_CONTENTS) || {};
         let fileHrefs = {};
@@ -954,7 +1007,7 @@ function initTerminalForContainer(windowElement) {
                             updateTerminalPrompt(elements, session);
                             scrollTerminalToBottom(elements);
                             if (typeof window.syncTerminalTabs === 'function') {
-                                window.syncTerminalTabs();
+                                window.syncTerminalTabs(host);
                             }
                             elements.commandInput.focus();
                         }
@@ -985,7 +1038,7 @@ function initTerminalForContainer(windowElement) {
             scrollTerminalToBottom(elements);
             requestAnimationFrame(() => scrollTerminalToBottom(elements));
             if (typeof window.syncTerminalTabs === 'function') {
-                window.syncTerminalTabs();
+                window.syncTerminalTabs(host);
             }
             elements.commandInput.focus();
         });
@@ -993,6 +1046,7 @@ function initTerminalForContainer(windowElement) {
         if (typeof window.scheduleTerminalTabsBind === 'function') {
             window.scheduleTerminalTabsBind(host);
         }
+        delete window.CAPSULE_TERMINAL_FORCE_FRESH;
 
         if (host.classList.contains('windowElementActive')) {
             elements.commandInput.focus();
@@ -1070,6 +1124,7 @@ function openTerminalWithExplorerContext(explorerPath) {
     } else {
         delete window.CAPSULE_TERMINAL_LAUNCH_CWD;
     }
+    window.CAPSULE_TERMINAL_FORCE_FRESH = true;
     if (typeof window.openNewWindowByDataLink === 'function') {
         return window.openNewWindowByDataLink('terminal');
     }

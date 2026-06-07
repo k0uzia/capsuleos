@@ -13,11 +13,26 @@
         global.document && global.document.body && PTYXIS_BODY_IDS.has(global.document.body.id)
     );
 
-    const getTerminalWindow = () => (
-        global.document.querySelector('.windowElement.windowElementActive[data-link="terminal"]')
-        || global.document.getElementById('terminal')
-        || global.document.querySelector('.windowElement[data-link="terminal"]')
-    );
+    const getTerminalWindow = (preferred) => {
+        if (preferred && preferred.dataset && preferred.dataset.link === 'terminal') {
+            return preferred;
+        }
+        return (
+            global.document.querySelector('.windowElement.windowElementActive[data-link="terminal"]')
+            || global.document.getElementById('terminal')
+            || global.document.querySelector('.windowElement[data-link="terminal"]')
+        );
+    };
+
+    const resolveTerminalWindowFromElements = (elements, preferred) => {
+        if (elements && elements.app && typeof elements.app.closest === 'function') {
+            const scoped = elements.app.closest('.windowElement[data-link="terminal"]');
+            if (scoped) {
+                return scoped;
+            }
+        }
+        return getTerminalWindow(preferred);
+    };
 
     const getWindowInstanceId = (windowElement) => {
         if (!windowElement) {
@@ -108,9 +123,10 @@
         home: tab.home,
         user: tab.user,
         host: tab.host,
-        history: Array.isArray(tab.history) ? tab.history.slice() : [],
-        outputHtml: tab.outputHtml || '',
-        commandDraft: tab.commandDraft || '',
+        // Sortie et historique de commandes : mémoire runtime uniquement (onglets ouverts).
+        history: [],
+        outputHtml: '',
+        commandDraft: '',
     });
 
     const deserializeTab = (raw) => {
@@ -122,9 +138,29 @@
             title: raw.title,
             cwd: raw.cwd,
             home: raw.home,
-            history: raw.history,
-            outputHtml: raw.outputHtml,
-            commandDraft: raw.commandDraft,
+            user: raw.user,
+            host: raw.host,
+            history: [],
+            outputHtml: '',
+            commandDraft: '',
+        });
+    };
+
+    const shouldForceFreshTerminalSession = () => (
+        global.CAPSULE_TERMINAL_FORCE_FRESH === true
+        || (global.CAPSULE_TERMINAL_LAUNCH_CWD != null && global.CAPSULE_TERMINAL_LAUNCH_CWD !== '')
+    );
+
+    const removeStorageKeys = (keys) => {
+        if (!global.localStorage || !keys || !keys.length) {
+            return;
+        }
+        keys.forEach((key) => {
+            try {
+                global.localStorage.removeItem(key);
+            } catch (error) {
+                /* quota / mode privé */
+            }
         });
     };
 
@@ -226,7 +262,7 @@
         session.state.host = tab.host || session.state.host;
         session.state.history = Array.isArray(tab.history) ? tab.history.slice() : [];
         if (elements.output) {
-            elements.output.innerHTML = tab.outputHtml || '';
+            elements.output.innerHTML = typeof tab.outputHtml === 'string' ? tab.outputHtml : '';
         }
         if (elements.commandInput) {
             elements.commandInput.value = tab.commandDraft || '';
@@ -332,8 +368,13 @@
 
     const ensureTabState = (windowElement, session, elements) => {
         const state = getWindowTabState(windowElement);
+        const forceFresh = shouldForceFreshTerminalSession();
+        if (forceFresh && state.tabs.length) {
+            state.tabs = [];
+            state.activeTabId = null;
+        }
         if (!state.tabs.length) {
-            const stored = loadTabsFromStorage(windowElement);
+            const stored = forceFresh ? null : loadTabsFromStorage(windowElement);
             if (stored) {
                 state.tabs = stored.tabs;
                 state.activeTabId = stored.activeTabId;
@@ -352,24 +393,28 @@
         return state;
     };
 
-    function syncTerminalTabs() {
+    const clearForceFreshTerminalSessionFlag = () => {
+        delete global.CAPSULE_TERMINAL_FORCE_FRESH;
+    };
+
+    function syncTerminalTabs(windowElement) {
         if (!usesTerminalTabs() || restoringTabs) {
             return;
         }
-        const windowElement = getTerminalWindow();
-        const elements = windowElement && getTerminalElements(windowElement);
+        const resolvedWindow = getTerminalWindow(windowElement);
+        const elements = resolvedWindow && getTerminalElements(resolvedWindow);
         const session = elements && elements.app.__capsuleTerminalSession;
-        if (!windowElement || !elements || !session) {
+        if (!resolvedWindow || !elements || !session) {
             return;
         }
-        const state = ensureTabState(windowElement, session, elements);
+        const state = ensureTabState(resolvedWindow, session, elements);
         const tab = getActiveTab(state);
         if (!tab) {
             return;
         }
         captureTabSession(tab, session, elements);
-        renderTerminalTabs(windowElement);
-        persistTabsToStorage(windowElement);
+        renderTerminalTabs(resolvedWindow);
+        persistTabsToStorage(resolvedWindow);
     }
 
     function activateTerminalTab(tabId) {
@@ -482,7 +527,7 @@
             return;
         }
         if (windowElement.dataset.terminalTabsInit === 'true') {
-            syncTerminalTabs();
+            syncTerminalTabs(windowElement);
             return;
         }
 
@@ -491,6 +536,11 @@
 
         restoringTabs = true;
         if (active) {
+            if (shouldForceFreshTerminalSession()) {
+                active.history = [];
+                active.outputHtml = '';
+                active.commandDraft = '';
+            }
             applyTabSession(active, session, elements);
         }
         restoringTabs = false;
@@ -498,6 +548,7 @@
         renderTerminalTabs(windowElement);
         windowElement.dataset.terminalTabsInit = 'true';
         persistTabsToStorage(windowElement);
+        clearForceFreshTerminalSessionFlag();
     }
 
     function scheduleTerminalTabsBind(windowElement) {
@@ -529,10 +580,34 @@
         return keys;
     };
 
+    const resetTerminalVisualSurface = (windowElement) => {
+        if (!windowElement) {
+            return;
+        }
+        const output = windowElement.querySelector('[data-terminal-output], #output');
+        const commandInput = windowElement.querySelector('[data-terminal-command], #command');
+        const prompt = windowElement.querySelector('[data-terminal-prompt], #prompt');
+        const form = windowElement.querySelector('[data-terminal-form], #input');
+        if (output) {
+            output.innerHTML = '';
+        }
+        if (commandInput) {
+            commandInput.value = '';
+            commandInput.disabled = false;
+        }
+        if (form && typeof form.reset === 'function') {
+            form.reset();
+        }
+        if (prompt) {
+            prompt.textContent = '';
+        }
+    };
+
     const purgeTerminalWindowRuntime = (windowElement) => {
         if (!windowElement) {
             return;
         }
+        removeStorageKeys(resolveTerminalStorageKeys(windowElement));
         delete windowElement.__capsuleTerminalTabState;
         delete windowElement.dataset.terminalTabsInit;
         windowElement.classList.remove('terminal-window--multitab');
@@ -544,19 +619,7 @@
             delete app.dataset.terminalBooting;
         }
 
-        const output = windowElement.querySelector('[data-terminal-output], #output');
-        const commandInput = windowElement.querySelector('[data-terminal-command], #command');
-        const form = windowElement.querySelector('[data-terminal-form], #input');
-        if (output) {
-            output.innerHTML = '';
-        }
-        if (commandInput) {
-            commandInput.value = '';
-            commandInput.disabled = false;
-        }
-        if (form) {
-            form.reset();
-        }
+        resetTerminalVisualSurface(windowElement);
 
         const strip = windowElement.querySelector('.fedora-terminal-tabs');
         if (strip) {
@@ -585,6 +648,7 @@
     }
 
     global.purgeTerminalWindowRuntime = purgeTerminalWindowRuntime;
+    global.shouldForceFreshTerminalSession = shouldForceFreshTerminalSession;
 
     if (global.document) {
         global.document.addEventListener('capsule:slot-injected', (event) => {

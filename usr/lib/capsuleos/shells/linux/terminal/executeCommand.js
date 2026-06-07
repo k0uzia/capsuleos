@@ -40,16 +40,18 @@ function isUbuntuGnomeTerminal() {
     return typeof document !== 'undefined' && document.body && document.body.id === 'ubuntu';
 }
 
-function usesGnomeStyleLsListing() {
+/** Ptyxis / GNOME Terminal — ls multi-colonnes (ground truth VM : 5 colonnes, tab). */
+function usesPtyxisStyleLsListing() {
     if (typeof document === 'undefined' || !document.body) {
         return false;
     }
     const bodyId = document.body.id;
-    return bodyId === 'ubuntu' || bodyId === 'popos';
+    return bodyId === 'rocky' || bodyId === 'fedora' || bodyId === 'alma'
+        || bodyId === 'ubuntu' || bodyId === 'popos' || bodyId === 'anduinos';
 }
 
-/** Colonnes type GNOME Terminal (réf. terminal.png) - noms sans slash initial. */
-function formatGnomeLsLines(fs, targetPath) {
+/** Colonnes type Ptyxis / GNOME (réf. VM Rocky ls ~ en TTY) — noms sans slash initial. */
+function formatPtyxisLsLines(fs, targetPath) {
     const names = getDirectoryListing(fs, targetPath)
         .filter(Boolean)
         .sort((a, b) => a.localeCompare(b, 'fr'));
@@ -175,10 +177,25 @@ function readFileContent(state, fs, cwd, target, resolvePath) {
     return { content, resolved };
 }
 
+function ensureFileModes(state) {
+    if (!state.fileModes || typeof state.fileModes !== 'object') {
+        state.fileModes = {};
+    }
+    return state.fileModes;
+}
+
+function resolveEntryMode(state, fs, resolved, isDir) {
+    const modes = ensureFileModes(state);
+    if (modes[resolved]) {
+        return modes[resolved];
+    }
+    return isDir ? 'drwxr-xr-x' : '-rw-r--r--';
+}
+
 function formatLsLongLine(fs, dirPath, name, state) {
     const resolved = dirPath === '/' ? `/${name}` : `${dirPath}/${name}`;
     const isDir = isDirectory(fs, resolved);
-    const mode = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
+    const mode = resolveEntryMode(state, fs, resolved, isDir);
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const now = new Date();
     const dateStr = `${months[now.getMonth()]} ${String(now.getDate()).padStart(2, ' ')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -230,6 +247,43 @@ function removeEntry(fs, cwd, name, resolvePath) {
     delete fs[path];
 }
 
+function runPackageManagerCommand(state, rawCommand, cmd, args) {
+    if (typeof window.CapsuleTerminalPackageManagers === 'object'
+        && typeof window.CapsuleTerminalPackageManagers.run === 'function') {
+        const outcome = window.CapsuleTerminalPackageManagers.run(cmd, args, state, getActiveProfile());
+        return formatCommandResult(state, rawCommand, outcome.lines, { error: outcome.error });
+    }
+    return formatCommandResult(
+        state,
+        rawCommand,
+        [`${cmd}: module terminal-package-managers.js non chargé.`],
+        { error: true }
+    );
+}
+
+function applyOutputRedirect(state, fs, resolvePath, targetFile, lines, append) {
+    if (!targetFile) {
+        return;
+    }
+    const resolved = entryPath(state.cwd, targetFile, resolvePath);
+    const fileName = basename(resolved) || targetFile;
+    const directory = fs[state.cwd] || {};
+    if (!fs[state.cwd]) {
+        fs[state.cwd] = directory;
+    }
+    if (!directory[fileName] && !directory[`/${fileName}`]) {
+        directory[fileName] = {};
+    }
+    const fileContents = ensureFileContents(state);
+    const text = (lines || []).join('\n');
+    if (append && fileContents[resolved] != null && fileContents[resolved] !== '') {
+        fileContents[resolved] = `${String(fileContents[resolved]).replace(/\n$/, '')}\n${text}`;
+    } else {
+        fileContents[resolved] = text;
+    }
+    queueUserFsSync('touch', state, { name: fileName });
+}
+
 function packageManagerNotAvailable(state, rawCommand, cmd) {
     const profile = getActiveProfile();
     const profileLabel = profile.displayName || `${profile.osFamily || 'linux'} ${profile.distro || ''}`.trim();
@@ -244,10 +298,16 @@ function packageManagerNotAvailable(state, rawCommand, cmd) {
     );
 }
 
-function executeTerminalCommand(state, command, helpers = {}) {
+function runSingleTerminalCommand(state, command, helpers, runOptions) {
     const fs = state.fs || (typeof fileSystem !== 'undefined' ? fileSystem : {});
     const resolvePath = helpers.resolvePath || ((cwd, target) => target.startsWith('/') ? target : `${cwd}/${target}`);
-    const rawCommand = String(command || '');
+    const options = runOptions || {};
+    const stdinLines = Array.isArray(options.stdinLines) ? options.stdinLines : null;
+    let rawCommand = String(command || '');
+    if (state.shellEnv && state.shellEnv.aliases && window.CapsuleTerminalBashrc
+        && typeof window.CapsuleTerminalBashrc.expandAliases === 'function') {
+        rawCommand = window.CapsuleTerminalBashrc.expandAliases(rawCommand, state.shellEnv.aliases);
+    }
     const parts = splitCommand(rawCommand);
     const [cmd, ...args] = parts;
 
@@ -329,8 +389,8 @@ function executeTerminalCommand(state, command, helpers = {}) {
                 const lines = [`total ${names.length}`, ...names.map((name) => formatLsLongLine(fs, targetPath, name, state))];
                 return formatCommandResult(state, rawCommand, lines.length > 1 ? lines : ['total 0']);
             }
-            if (usesGnomeStyleLsListing()) {
-                return formatCommandResult(state, rawCommand, formatGnomeLsLines(fs, targetPath), {
+            if (usesPtyxisStyleLsListing()) {
+                return formatCommandResult(state, rawCommand, formatPtyxisLsLines(fs, targetPath), {
                     listing: true
                 });
             }
@@ -343,6 +403,9 @@ function executeTerminalCommand(state, command, helpers = {}) {
         case 'echo':
             return formatCommandResult(state, rawCommand, [args.join(' ')]);
         case 'cat': {
+            if (!args[0] && stdinLines) {
+                return formatCommandResult(state, rawCommand, stdinLines);
+            }
             const file = readFileContent(state, fs, state.cwd, args[0], resolvePath);
             if (file.error) {
                 return formatCommandResult(state, rawCommand, [`cat: ${file.error}`], { error: true });
@@ -352,6 +415,9 @@ function executeTerminalCommand(state, command, helpers = {}) {
         case 'head': {
             const count = parseLineCount(args, 10);
             const fileArg = args[0] === '-n' ? args[2] : args[0];
+            if (!fileArg && stdinLines) {
+                return formatCommandResult(state, rawCommand, stdinLines.slice(0, count));
+            }
             const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
             if (file.error) {
                 return formatCommandResult(state, rawCommand, [`head: ${file.error}`], { error: true });
@@ -362,6 +428,9 @@ function executeTerminalCommand(state, command, helpers = {}) {
         case 'tail': {
             const count = parseLineCount(args, 10);
             const fileArg = args[0] === '-n' ? args[2] : args[0];
+            if (!fileArg && stdinLines) {
+                return formatCommandResult(state, rawCommand, stdinLines.slice(Math.max(0, stdinLines.length - count)));
+            }
             const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
             if (file.error) {
                 return formatCommandResult(state, rawCommand, [`tail: ${file.error}`], { error: true });
@@ -372,15 +441,21 @@ function executeTerminalCommand(state, command, helpers = {}) {
         case 'grep': {
             const pattern = args[0];
             const fileArg = args[1];
-            if (!pattern || !fileArg) {
-                return formatCommandResult(state, rawCommand, ['grep: usage grep <motif> <fichier>'], { error: true });
+            if (!pattern) {
+                return formatCommandResult(state, rawCommand, ['grep: usage grep <motif> [fichier]'], { error: true });
             }
-            const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
-            if (file.error) {
-                return formatCommandResult(state, rawCommand, [`grep: ${file.error}`], { error: true });
+            let sourceLines = stdinLines;
+            if (fileArg) {
+                const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
+                if (file.error) {
+                    return formatCommandResult(state, rawCommand, [`grep: ${file.error}`], { error: true });
+                }
+                sourceLines = String(file.content).split('\n');
             }
-            const matches = String(file.content)
-                .split('\n')
+            if (!sourceLines) {
+                return formatCommandResult(state, rawCommand, ['grep: opérande fichier manquant'], { error: true });
+            }
+            const matches = sourceLines
                 .filter((line) => line.toLowerCase().includes(pattern.toLowerCase()));
             return formatCommandResult(
                 state,
@@ -435,6 +510,36 @@ function executeTerminalCommand(state, command, helpers = {}) {
             addDirectory(fs, state.cwd, dirName, resolvePath);
             queueUserFsSync('mkdir', state, { name: dirName });
             return formatCommandResult(state, rawCommand, [`Dossier ${dirName} créé.`]);
+        }
+        case 'cp': {
+            const source = args[0];
+            const destination = args[1];
+            if (!source || !destination) {
+                return formatCommandResult(state, rawCommand, ['cp: usage cp <source> <destination>'], { error: true });
+            }
+            const directory = fs[state.cwd] || {};
+            const sourceResolved = entryPath(state.cwd, source, resolvePath);
+            const destinationResolved = entryPath(state.cwd, destination, resolvePath);
+            const hasSource = directory[source] || directory[`/${source}`] || fs[sourceResolved]
+                || ensureFileContents(state)[sourceResolved] != null;
+            if (!hasSource) {
+                return formatCommandResult(state, rawCommand, [`cp: cannot stat '${source}': No such file or directory`], { error: true });
+            }
+            if (isDirectory(fs, sourceResolved)) {
+                fs[destinationResolved] = JSON.parse(JSON.stringify(fs[sourceResolved] || {}));
+            } else {
+                const fileContents = ensureFileContents(state);
+                fileContents[destinationResolved] = fileContents[sourceResolved] || '';
+                const modes = ensureFileModes(state);
+                if (modes[sourceResolved]) {
+                    modes[destinationResolved] = modes[sourceResolved];
+                }
+            }
+            if (!directory[destination]) {
+                directory[destination] = isDirectory(fs, sourceResolved) ? {} : {};
+            }
+            queueUserFsSync('cp', state, { source, dest: destination });
+            return formatCommandResult(state, rawCommand, []);
         }
         case 'mv': {
             const source = args[0];
@@ -498,6 +603,77 @@ function executeTerminalCommand(state, command, helpers = {}) {
             }
             queueUserFsSync('rmdir', state, { name: dirName });
             return formatCommandResult(state, rawCommand, [`Dossier ${dirName} supprimé.`]);
+        }
+        case 'wc': {
+            const linesOnly = args.includes('-l');
+            const fileArg = args.find((arg) => !arg.startsWith('-'));
+            let text = '';
+            if (!fileArg && stdinLines) {
+                text = stdinLines.join('\n');
+            } else if (!fileArg) {
+                return formatCommandResult(state, rawCommand, ['wc: opérande fichier manquant'], { error: true });
+            } else {
+                const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
+                if (file.error) {
+                    return formatCommandResult(state, rawCommand, [`wc: ${file.error}`], { error: true });
+                }
+                text = String(file.content);
+            }
+            const lineCount = text.length ? text.split('\n').length : 0;
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const charCount = text.length;
+            const label = fileArg || '';
+            if (linesOnly) {
+                return formatCommandResult(state, rawCommand, [label ? `${lineCount} ${label}` : `${lineCount}`]);
+            }
+            return formatCommandResult(state, rawCommand, [label
+                ? `${lineCount} ${wordCount} ${charCount} ${label}`
+                : `${lineCount} ${wordCount} ${charCount}`]);
+        }
+        case 'sort': {
+            const fileArg = args.find((arg) => !arg.startsWith('-'));
+            let lines = stdinLines;
+            if (fileArg) {
+                const file = readFileContent(state, fs, state.cwd, fileArg, resolvePath);
+                if (file.error) {
+                    return formatCommandResult(state, rawCommand, [`sort: ${file.error}`], { error: true });
+                }
+                lines = String(file.content).split('\n');
+            }
+            if (!lines) {
+                return formatCommandResult(state, rawCommand, ['sort: opérande fichier manquant'], { error: true });
+            }
+            const sorted = lines.slice().sort((a, b) => a.localeCompare(b, 'fr'));
+            return formatCommandResult(state, rawCommand, sorted);
+        }
+        case 'chmod': {
+            const mode = args[0];
+            const target = args[1];
+            if (!mode || !target) {
+                return formatCommandResult(state, rawCommand, ['chmod: usage chmod <mode> <fichier>'], { error: true });
+            }
+            if (!/^[0-7]{3,4}$/.test(mode)) {
+                return formatCommandResult(state, rawCommand, [`chmod: mode invalide '${mode}'`], { error: true });
+            }
+            const resolved = entryPath(state.cwd, target, resolvePath);
+            const directory = fs[state.cwd] || {};
+            const exists = directory[target] || directory[`/${target}`] || fs[resolved]
+                || ensureFileContents(state)[resolved] != null;
+            if (!exists) {
+                return formatCommandResult(state, rawCommand, [`chmod: cannot access '${target}': No such file or directory`], { error: true });
+            }
+            const isDir = isDirectory(fs, resolved);
+            const triadToSymbol = (value) => {
+                const n = Number.parseInt(value, 10);
+                const r = n & 4 ? 'r' : '-';
+                const w = n & 2 ? 'w' : '-';
+                const x = n & 1 ? 'x' : '-';
+                return `${r}${w}${x}`;
+            };
+            const digits = mode.slice(-3);
+            const symbolic = `${isDir ? 'd' : '-'}${triadToSymbol(digits[0])}${triadToSymbol(digits[1])}${triadToSymbol(digits[2])}`;
+            ensureFileModes(state)[resolved] = symbolic;
+            return formatCommandResult(state, rawCommand, []);
         }
         case 'clear':
             return formatCommandResult(state, rawCommand, [], { clear: true });
@@ -576,10 +752,54 @@ function executeTerminalCommand(state, command, helpers = {}) {
             if (!isCommandAvailable(cmd)) {
                 return packageManagerNotAvailable(state, rawCommand, cmd);
             }
-            return formatCommandResult(state, rawCommand, [`${cmd}: exécution simulée pour le profil ${getActiveProfile().distro || 'linux'}.`]);
+            return runPackageManagerCommand(state, rawCommand, cmd, args);
         default:
             return formatCommandResult(state, rawCommand, [`${cmd}: command not found`], { error: true });
     }
+}
+
+function executeTerminalCommand(state, command, helpers = {}) {
+    const fs = state.fs || (typeof fileSystem !== 'undefined' ? fileSystem : {});
+    const resolvePath = helpers.resolvePath || ((cwd, target) => target.startsWith('/') ? target : `${cwd}/${target}`);
+    const rawCommand = String(command || '').trim();
+    if (!rawCommand) {
+        return formatCommandResult(state, rawCommand, []);
+    }
+
+    const shell = typeof window !== 'undefined' ? window.CapsuleTerminalShell : null;
+    const parsed = shell && typeof shell.parse === 'function' ? shell.parse(rawCommand) : null;
+    const stages = parsed && Array.isArray(parsed.stages) ? parsed.stages : [{ command: rawCommand, outFile: null, append: false }];
+    const isCompound = parsed && (parsed.type === 'pipeline' || parsed.type === 'redirect');
+
+    if (!isCompound) {
+        return runSingleTerminalCommand(state, rawCommand, helpers, {});
+    }
+
+    let stdinLines = null;
+    let lastResult = formatCommandResult(state, rawCommand, []);
+
+    for (let index = 0; index < stages.length; index += 1) {
+        const stage = stages[index];
+        if (!stage.command) {
+            continue;
+        }
+        const isLast = index === stages.length - 1;
+        lastResult = runSingleTerminalCommand(state, stage.command, helpers, { stdinLines });
+        if (lastResult.error) {
+            lastResult.command = rawCommand;
+            return lastResult;
+        }
+
+        if (stage.outFile) {
+            applyOutputRedirect(state, fs, resolvePath, stage.outFile, lastResult.lines, stage.append);
+            lastResult = formatCommandResult(state, rawCommand, []);
+        } else if (!isLast) {
+            stdinLines = lastResult.lines || [];
+        }
+    }
+
+    lastResult.command = rawCommand;
+    return lastResult;
 }
 
 function executeCommand(command, session) {

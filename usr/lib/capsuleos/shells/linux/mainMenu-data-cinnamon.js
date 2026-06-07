@@ -41,7 +41,7 @@ const MENU_APPS = [
     { catId: 'graph',    icon: './assets/images/toolkits/cinnamon/apps/okular.png',                       name: 'Visionneur de documents',     desc: 'Lisez vos fichiers PDF',                   dataLink: 'visionneur_pdf'    },
     { catId: 'graph',    icon: './assets/images/toolkits/cinnamon/apps/accessories-painting.png',        name: 'Dessin',                      desc: 'Créez des illustrations',                  dataLink: null        },
     // Internet
-    { catId: 'internet', icon: './assets/images/toolkits/cinnamon/apps/firefox.png',                     name: 'Firefox',                     desc: 'Naviguez sur le web',                      dataLink: 'firefox'   },
+    { catId: 'internet', icon: './assets/images/toolkits/cinnamon/apps/firefox.webp',                     name: 'Firefox',                     desc: 'Naviguez sur le web',                      dataLink: 'firefox'   },
     // Son et vidéo
     { catId: 'sonvideo', icon: './assets/images/toolkits/cinnamon/apps/multimedia-audio-player.png',     name: 'Lecteur audio',               desc: 'Écoutez de la musique',                    dataLink: null        },
     { catId: 'sonvideo', icon: './assets/images/toolkits/cinnamon/apps/multimedia-video-player.png',     name: 'Lecteur vidéo',               desc: 'Regardez des vidéos',                      dataLink: 'lecteur_multimedia' },

@@ -29,7 +29,7 @@
             label: 'Firefox',
             aliases: ['navigateur', 'browser', 'web', 'internet'],
             description: 'Navigateur web',
-            icon: './assets/images/toolkits/gnome/apps/firefox.png',
+            icon: './assets/images/toolkits/gnome/apps/firefox.webp',
             dataLink: 'firefox'
         },
         {

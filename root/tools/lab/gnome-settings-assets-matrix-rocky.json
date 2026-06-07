@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Assets ground truth Paramètres GNOME — chemins VM sources et cibles CapsuleOS. Gate A (présence dépôt) + gate S (source VM documentée).",
+  "description": "Assets ground truth Paramètres GNOME — Rocky Linux 10 (fonds WebP Capsule).",
   "registry": "linux-rocky",
   "vendor": "rocky",
   "pullScript": "root/tools/lab/pull-vm-assets.sh",
@@ -10,7 +10,7 @@
       "id": "desktop-background-uri",
       "schema": "org.gnome.desktop.background",
       "key": "picture-uri",
-      "note": "Fond actif jour — doit correspondre à un fichier catalogue ou VM"
+      "note": "Fond actif jour — rocky-default-10-* sur VM"
     },
     {
       "id": "desktop-background-uri-dark",
@@ -115,8 +115,8 @@
       "id": "watermark-fedora-logo-light",
       "category": "watermark",
       "controlId": "wallpaper",
-      "vmPath": "/usr/share/rocky-logos/fedora_logo_lightbackground.svg",
-      "vmPathFallback": "/usr/share/fedora-logos/fedora_logo_lightbackground.svg",
+      "vmPath": "/usr/share/rocky-logos/fedora_lightbackground.svg",
+      "vmPathFallback": "/usr/share/fedora-logos/fedora_lightbackground.svg",
       "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_lightbackground.svg"
     }
   ]

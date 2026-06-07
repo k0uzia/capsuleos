@@ -38,7 +38,7 @@ const MENU_APPS = [
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/multimedia-photo-viewer.png', name: 'Visionneur d\'images', desc: 'Visionnez vos photos', dataLink: 'visionneur_images' },
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/okular.png', name: 'Visionneur de documents', desc: 'Lisez vos fichiers PDF', dataLink: 'visionneur_pdf' },
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/accessories-painting.png', name: 'Dessin', desc: 'Créez des illustrations', dataLink: null },
-    { catId: 'internet', icon: './assets/images/toolkits/kde/apps/firefox.png', name: 'Firefox', desc: 'Naviguez sur le web', dataLink: 'firefox' },
+    { catId: 'internet', icon: './assets/images/toolkits/kde/apps/firefox.webp', name: 'Firefox', desc: 'Naviguez sur le web', dataLink: 'firefox' },
     { catId: 'sonvideo', icon: './assets/images/toolkits/kde/apps/multimedia-audio-player.png', name: 'Lecteur audio', desc: 'Écoutez de la musique', dataLink: null },
     { catId: 'sonvideo', icon: './assets/images/toolkits/kde/apps/multimedia-video-player.png', name: 'Lecteur vidéo', desc: 'Regardez des vidéos', dataLink: 'lecteur_multimedia' },
     { catId: 'sonvideo', icon: './assets/images/toolkits/kde/apps/audio-equalizer.png', name: 'Égaliseur audio', desc: 'Ajustez le son', dataLink: null },

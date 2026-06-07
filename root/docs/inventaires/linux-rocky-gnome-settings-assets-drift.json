@@ -1,131 +1,131 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": "2026-06-06T13:06:13.615Z",
-  "vmInventoryAt": "2026-06-06T13:06:13.322334+00:00",
-  "alignedCount": 12,
+  "generatedAt": "2026-06-07T09:56:00.033Z",
+  "vmInventoryAt": "2026-06-07T09:55:59.974564+00:00",
+  "alignedCount": 0,
   "missingCapsuleCount": 0,
-  "missingVmCount": 0,
+  "missingVmCount": 12,
   "driftCount": 0,
   "rows": [
     {
       "id": "wallpaper-gemstone-skies-night",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-night.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "40084eb1909ae590068a374c45136071fcff64a211b14530858891fd955f35db",
-      "sha256Capsule": "40084eb1909ae590068a374c45136071fcff64a211b14530858891fd955f35db",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-gemstone-skies-day",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-day.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "1804924555805cd562853dc3e36fb68b035ad7d0b87ba56c54ebe1f3bc175267",
-      "sha256Capsule": "1804924555805cd562853dc3e36fb68b035ad7d0b87ba56c54ebe1f3bc175267",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-1-night",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-night.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "75b387592ba9e538e6db289fe1c632c3255200143d623f98cdfbd81e0c72eb61",
-      "sha256Capsule": "75b387592ba9e538e6db289fe1c632c3255200143d623f98cdfbd81e0c72eb61",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-1-day",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "84789291ba535d2a0b56a4c5daabd175d25c55218972541186e7abcc6ec3cefa",
-      "sha256Capsule": "84789291ba535d2a0b56a4c5daabd175d25c55218972541186e7abcc6ec3cefa",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-2",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-2.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "29074dc649c885cb50b83c7b6bc7059bf0f63d6baddf73d8df578cdc2605d043",
-      "sha256Capsule": "29074dc649c885cb50b83c7b6bc7059bf0f63d6baddf73d8df578cdc2605d043",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-3",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-3.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "ae3eefaac4dd05fe002c1d2624a638f3c5a5b5352c913c8870d6fe058a0422c4",
-      "sha256Capsule": "ae3eefaac4dd05fe002c1d2624a638f3c5a5b5352c913c8870d6fe058a0422c4",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-4",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-4.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "e6af3f3fc5373c71dcd2aec14c6cb7456beafa478cd473e6742dd61f4e3067b5",
-      "sha256Capsule": "e6af3f3fc5373c71dcd2aec14c6cb7456beafa478cd473e6742dd61f4e3067b5",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-abstract-5",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-5.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "47173e2679d265efa7da7b450df745ca258ff4e3679d4afab1b8f786d874dcbe",
-      "sha256Capsule": "47173e2679d265efa7da7b450df745ca258ff4e3679d4afab1b8f786d874dcbe",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-sapphire",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "3db6edd33cd225a689f04c6210679978937eb6a78a3c04f7c664bf30193d1453",
-      "sha256Capsule": "3db6edd33cd225a689f04c6210679978937eb6a78a3c04f7c664bf30193d1453",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "wallpaper-sapphire-light",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.png",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.webp",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire-light.png",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "c1d310fa6f0f382eb9704eedb3edbb0c8d3aacc418c03e2569dec005539fb66f",
-      "sha256Capsule": "c1d310fa6f0f382eb9704eedb3edbb0c8d3aacc418c03e2569dec005539fb66f",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "watermark-fedora-logo-dark",
       "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_darkbackground.svg",
       "vmPath": "/usr/share/rocky-logos/fedora_logo_darkbackground.svg",
-      "existsOnVm": true,
+      "existsOnVm": false,
       "existsInCapsule": true,
-      "sha256Vm": "8f448d222fe08fab237ee178ae1881d8b166a8eb7e46f5f7f7056640f7f96845",
-      "sha256Capsule": "8f448d222fe08fab237ee178ae1881d8b166a8eb7e46f5f7f7056640f7f96845",
-      "status": "aligned"
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     },
     {
       "id": "watermark-fedora-logo-light",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_lightbackground.svg",
-      "vmPath": "/usr/share/rocky-logos/fedora_logo_lightbackground.svg",
-      "existsOnVm": true,
-      "existsInCapsule": true,
-      "sha256Vm": "e0b4e95ffb1e14e545b33a34cd078b68661a503f38132d65c723300104f3dc27",
-      "sha256Capsule": "e0b4e95ffb1e14e545b33a34cd078b68661a503f38132d65c723300104f3dc27",
-      "status": "aligned"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_lightbackground.svg",
+      "vmPath": "/usr/share/rocky-logos/fedora_lightbackground.svg",
+      "existsOnVm": false,
+      "existsInCapsule": false,
+      "sha256Vm": null,
+      "sha256Capsule": null,
+      "status": "missing-vm"
     }
   ],
   "pullHint": "bash root/tools/lab/pull-vm-assets.sh --id linux-rocky"

@@ -45,6 +45,17 @@ bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
 
 Prérequis : `etc/capsuleos/lab-inventory.json`, clé SSH lab, session GNOME active sur la VM.
 
+### 2bis. Normalisation web (post-pull)
+
+Les formats VM non affichables dans le navigateur (ex. fonds **JXL** Fedora F44) doivent être transcodés :
+
+```bash
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor rocky --rewrite-refs
+# ou opt-in : PREPARE_WEB_MEDIA=1 bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+```
+
+Voir [spec-prepare-web-media.md](spec-prepare-web-media.md). Les **SVG** et **polices** ne passent pas par WebP.
+
 ### 3. Câblage noyau
 
 - Profil skin : `iconPacks: ["icons/gnome"]` dans `etc/capsuleos/profiles/linux-rocky.json`.

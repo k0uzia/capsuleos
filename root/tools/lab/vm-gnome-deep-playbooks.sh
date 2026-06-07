@@ -173,7 +173,9 @@ PY
       ;;
     open-terminal)
       overview_hide
-      "$HOME/capsuleos-lab/os-probe-gnome.sh" action open-launcher terminal >/dev/null 2>&1 || nohup ptyxis >/dev/null 2>&1 &
+      "$HOME/capsuleos-lab/os-probe-gnome.sh" action open-launcher terminal >/dev/null 2>&1 \
+        || nohup ptyxis >/dev/null 2>&1 & \
+        || nohup gnome-console >/dev/null 2>&1 &
       sleep_ms 1400
       result=$(probe_state)
       result=$(python3 -c "import json,sys; p=json.loads(sys.argv[1]) if sys.argv[1].strip().startswith('{') else {}; print(json.dumps({'playbook':'open-terminal','probe':p}, ensure_ascii=False))" "$result")

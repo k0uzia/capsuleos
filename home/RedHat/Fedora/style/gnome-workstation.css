@@ -2,11 +2,11 @@
  * Fedora Workstation — coque GNOME (structure Rocky).
  */
 #fedora {
-    --linux-skin-label: "Rocky Linux";
+    --linux-skin-label: "Fedora Linux 44";
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
-    /* Fond VM : rocky-default-10-gemstone-skies-night.png (pull-vm-assets.sh) */
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png");
+    /* Fond VM : f44-01-night.webp (pull-vm-assets.sh + prepare-web-media.mjs) */
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-night.webp");
     --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;
@@ -30,11 +30,11 @@
 body#fedora:not(.is-overview)::after {
     content: "";
     position: absolute;
-    right: var(--rocky-watermark-inset);
-    bottom: var(--rocky-watermark-inset);
-    width: var(--rocky-watermark-width);
+    right: var(--fedora-watermark-inset);
+    bottom: var(--fedora-watermark-inset);
+    width: var(--fedora-watermark-width);
     aspect-ratio: 907.78 / 415.08;
-    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    background: var(--fedora-watermark) no-repeat right bottom / contain;
     opacity: 1;
     pointer-events: none;
     z-index: 2;
@@ -325,7 +325,7 @@ body#fedora.is-overview .fedora-top-bar {
 }
 
 html[data-theme="light"]:has(#fedora) #fedora {
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-day.webp")
 }
 
 html[data-theme="light"]:has(#fedora) #fedora #tableau.fedora-dock a:hover {

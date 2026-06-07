@@ -18,15 +18,23 @@ import {
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-rocky', filter: 'P0' };
+  const opts = { id: 'linux-rocky', filter: 'P0', only: [] };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--filter' && args[i + 1]) opts.filter = args[++i];
+    else if (args[i] === '--only' && args[i + 1]) {
+      opts.only = args[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    }
   }
   return opts;
 };
 
-const VISUAL_MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+const resolveVisualMatrix = (registryId) => {
+  const vendor = loadRegistryEntry(registryId).vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-visual-investigation-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+};
 
 const priorityForControl = (matrixById, controlId) =>
   matrixById[controlId]?.parityPriority || null;
@@ -38,8 +46,10 @@ const runPrepare = async (page, prepare) => {
     const storage = window.CapsuleThemeStorage;
     if (p === 'accent-orange' && storage?.applyAccentColor) {
       storage.applyAccentColor('orange');
-    } else if (p === 'wallpaper-abstract-2' && storage?.applyWallpaper) {
-      storage.applyWallpaper('abstract-2', bodyId);
+    } else if ((p === 'wallpaper-f44' || p === 'wallpaper-abstract-2') && storage?.applyWallpaper) {
+      const vendor = bodyId === 'fedora' ? 'fedora' : 'rocky';
+      const wpId = (p === 'wallpaper-f44' || vendor === 'fedora') ? 'f44-01' : 'abstract-2';
+      storage.applyWallpaper(wpId, vendor);
     } else if (p === 'hot-corners-off') {
       document.documentElement.dataset.hotCorners = 'off';
       if (window.CapsuleGnomeSettingsParity?.controls?.['hot-corner']?.apply) {
@@ -134,11 +144,12 @@ const openSlot = async (page, slot) => {
 const relCapture = (registryId, controlId, file) =>
   path.join('root/docs/inventaires/captures', registryId, 'gnome-settings-visual-capsule', controlId, file);
 
-const buildScenes = (registryId, contract, filter, matrixById) => {
+const buildScenes = (registryId, contract, filter, matrixById, onlyIds = []) => {
   const { capturePrefix } = pathsForRegistry(registryId);
   const scenes = contract.capsuleControlScenes || {};
   const out = [];
   for (const [controlId, spec] of Object.entries(scenes)) {
+    if (onlyIds.length && !onlyIds.includes(controlId)) continue;
     const priority = priorityForControl(matrixById, controlId);
     if (filter !== 'all' && priority !== filter) continue;
     for (const ref of spec.referenceFiles || []) {
@@ -272,9 +283,20 @@ const main = async () => {
   const skin = loadRegistryEntry(opts.id).referencePaths?.skin || '';
   const url = `${base}/${skin.replace(/^\//, '')}`;
 
-  const matrix = JSON.parse(fs.readFileSync(VISUAL_MATRIX, 'utf8'));
+  const matrixPath = resolveVisualMatrix(opts.id);
+  const matrix = JSON.parse(fs.readFileSync(matrixPath, 'utf8'));
+  process.stderr.write(`Matrice : ${path.relative(ROOT, matrixPath)}\n`);
   const matrixById = Object.fromEntries((matrix.investigations || []).map((i) => [i.controlId, i]));
-  const scenes = buildScenes(opts.id, contract, opts.filter, matrixById);
+  let scenes = buildScenes(opts.id, contract, opts.filter, matrixById, opts.only);
+  if (opts.id === 'linux-fedora') {
+    scenes = scenes.map((scene) => {
+      if (!scene.playwright?.prepare) return scene;
+      const prepare = scene.playwright.prepare === 'wallpaper-abstract-2'
+        ? 'wallpaper-f44'
+        : scene.playwright.prepare;
+      return { ...scene, playwright: { ...scene.playwright, prepare } };
+    });
+  }
   let copies = copyFromInventory(opts.id, scenes, paths.capsuleInventoryDir, paths.capsuleCapturesDir);
 
   const needPlaywright = scenes.some((s) => s.playwright)

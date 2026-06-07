@@ -472,7 +472,10 @@
         global.document.addEventListener('capsule:slot-injected', (event) => {
             const detail = event.detail || {};
             if (detail.slotId === 'nemo') {
-                delete getNemoRoot()?.dataset?.nautilusTabsInit;
+                const nemoRoot = getNemoRoot();
+                if (nemoRoot && nemoRoot.dataset) {
+                    delete nemoRoot.dataset.nautilusTabsInit;
+                }
                 global.setTimeout(() => bindFileExplorerTabs(), 0);
             }
         });

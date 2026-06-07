@@ -14,19 +14,48 @@ body#fedora .fedora-overview {
     align-items: center;
     justify-items: center;
     padding: calc(var(--head) / 2) 0 calc(var(--head) / 2.4);
-    color: #f5f5f5;
-    background: #202025;
+    color: var(--fedora-overview-text, #f5f5f5);
+    background: var(--fedora-overview-bg, transparent);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.18s ease, visibility 0.18s ease;
+    transform: scale(1.03);
+    transition:
+        opacity 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        visibility 220ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
     z-index: 45;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+body#fedora .fedora-overview::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    background: var(--fedora-bg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(var(--fedora-overview-backdrop-blur, 32px)) brightness(0.48) saturate(1.08);
+    transform: scale(1.06);
+    z-index: -2;
+    pointer-events: none;
+}
+
+body#fedora .fedora-overview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--fedora-overview-scrim, rgba(14, 14, 18, 0.58));
+    z-index: -1;
+    pointer-events: none;
 }
 
 body#fedora.is-overview .fedora-overview {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
+    transform: scale(1);
 }
 
 body#fedora.is-overview .fedora-main-row {
@@ -520,6 +549,25 @@ body#fedora .fedora-overview__dash-item img {
     width: calc(var(--head) * 1.08);
     height: calc(var(--head) * 1.08);
     object-fit: contain;
+}
+
+body#fedora .fedora-overview__dash-item.is-running::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--head) / 14);
+    left: 50%;
+    width: calc(var(--head) / 9);
+    height: calc(var(--head) / 9);
+    border-radius: 999px;
+    background: #3584e4;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+body#fedora .fedora-overview__dash-item.is-focused::after {
+    width: calc(var(--head) / 2.8);
+    height: calc(var(--head) / 11);
+    border-radius: calc(var(--head) / 22);
 }
 
 body#fedora .fedora-overview__dash-item--apps img {

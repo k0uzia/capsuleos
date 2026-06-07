@@ -15,7 +15,14 @@ import {
   countP0VisualMatchClassified,
 } from './replication-chain-lib.mjs';
 
-const VISUAL_MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+const resolveVisualMatrix = (registryId) => {
+  const entry = JSON.parse(fs.readFileSync(path.join(ROOT, 'etc/capsuleos/os-registry.json'), 'utf8'))
+    .entries.find((e) => e.id === registryId);
+  const vendor = entry?.vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-visual-investigation-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+};
 const PARITY_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const THEME_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
 const WORKSPACES_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-workspaces.js');
@@ -133,7 +140,7 @@ const main = () => {
   if (!fs.existsSync(invPath)) throw new Error(`Inventaire manquant: ${invPath}`);
 
   const inv = JSON.parse(fs.readFileSync(invPath, 'utf8'));
-  const matrix = JSON.parse(fs.readFileSync(VISUAL_MATRIX, 'utf8'));
+  const matrix = JSON.parse(fs.readFileSync(resolveVisualMatrix(opts.id), 'utf8'));
   const matrixById = Object.fromEntries((matrix.investigations || []).map((i) => [i.controlId, i]));
   const shellText = [PARITY_JS, THEME_JS, WORKSPACES_JS].map(readText).join('\n');
   const cssText = [PREFS_CSS, THEMES_CSS].map(readText).join('\n');

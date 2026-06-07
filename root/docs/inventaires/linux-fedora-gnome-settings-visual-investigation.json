@@ -1,0 +1,1225 @@
+{
+  "registry": "linux-fedora",
+  "investigations": [
+    {
+      "controlId": "theme",
+      "label": "Thème clair / sombre",
+      "status": "documented",
+      "vmToggle": {
+        "before": "default",
+        "after": "prefer-dark"
+      },
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 300,
+        "easing": "ease-out",
+        "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
+      },
+      "transitionObserved": {
+        "durationMs": 696,
+        "easing": "ease-out",
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/before.png",
+          "timestamp": "2026-06-07T01:09:38.612Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/during-150ms.png",
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/after.png",
+          "elapsedMs": 300
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "top-bar",
+        "overview",
+        "window-chrome",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Appearance",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
+          "matchesObservation": true,
+          "delta": "VM bascule prefer-dark↔prefer-light via color-scheme ; fonds URI inchangés sur profil Rocky par défaut."
+        },
+        {
+          "title": "interface color-scheme",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": true,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings)."
+      },
+      "generatedAt": "2026-06-07T01:09:33.281754+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "color-scheme",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.interface",
+            "gtk-theme"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri-dark"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "color-scheme": "'default'",
+            "gtk-theme": "'Adwaita'"
+          },
+          "linked": {
+            "picture-uri": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
+            "picture-uri-dark": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
+            "picture-options": "'zoom'"
+          },
+          "notes": "color-scheme pilote GTK/Shell ; fonds jour/nuit peuvent rester identiques sur RL10."
+        },
+        "deepPassNotes": "VM RL10 : color-scheme pilote clair/sombre ; gtk-theme reste Adwaita ; picture-uri et picture-uri-dark identiques (rocky-default-10-abstract-1-day.png). Capsule : themes.js + capsule-theme-storage ; vérifier variante fond nuit si picture-uri-dark diverge sur d’autres profils."
+      },
+      "gsettingsDeepPassAt": "2026-06-07T01:25:43.107641+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/theme/dark-desktop.png",
+          "source": "fedora-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/theme/light-desktop.png",
+          "source": "fedora-capsule-light-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/theme/panel-appearance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "night-light",
+      "label": "Éclairage nocturne",
+      "status": "documented",
+      "vmToggle": {
+        "before": "false",
+        "after": "true"
+      },
+      "transitionExpected": {
+        "type": "ease-in-out",
+        "durationMs": 1000,
+        "property": "color-temperature",
+        "notes": "gsd-color anime la température sur ~1 s."
+      },
+      "transitionObserved": {
+        "durationMs": 1555,
+        "easing": null,
+        "properties": [
+          "color-temperature"
+        ],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/night-light/before.png",
+          "timestamp": "2026-06-07T01:09:50.539Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/night-light/during-500ms.png",
+          "elapsedMs": 500
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/night-light/after.png",
+          "elapsedMs": 1000
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "overview",
+        "top-bar-excluded"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Night Light",
+          "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
+          "matchesObservation": true,
+          "delta": "Durée observée ~1 s alignée doc gsd-color."
+        },
+        {
+          "title": "gsd plugins color",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
+          "matchesObservation": true,
+          "delta": "Température 2700 K par défaut VM."
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
+      },
+      "generatedAt": "2026-06-07T01:09:33.281754+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.settings-daemon.plugins.color",
+        "key": "night-light-enabled",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-temperature"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-from"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-to"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "night-light-enabled": "false",
+            "night-light-temperature": "uint32 2700",
+            "night-light-schedule-from": "20.0",
+            "night-light-schedule-to": "6.0"
+          },
+          "linked": {
+            "show-banners": "true"
+          },
+          "notes": "Exclusion top bar = rendu gsd-color, pas de clé gsettings dédiée."
+        },
+        "deepPassNotes": "Clés liées : night-light-temperature (2700), horaires schedule-from/to. Exclusion top bar = gsd-color (pas de clé gsettings) — reproduire via html[data-night-light=on] sans filtre sur .fedora-top-bar."
+      },
+      "gsettingsDeepPassAt": "2026-06-07T01:25:43.107641+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/night-light/dark-desktop.png",
+          "source": "fedora-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/night-light/panel-displays.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "dynamic-workspaces",
+      "label": "Bureaux dynamiques",
+      "status": "documented",
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "transitionExpected": {
+        "type": "spring",
+        "durationMs": 350,
+        "easing": "ease-out",
+        "notes": "St animation overview workspaces."
+      },
+      "transitionObserved": {
+        "durationMs": 760,
+        "easing": "ease-out",
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dynamic-workspaces/before.png",
+          "timestamp": "2026-06-07T01:10:01.366Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dynamic-workspaces/during-175ms.png",
+          "elapsedMs": 175
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dynamic-workspaces/after.png",
+          "elapsedMs": 350
+        }
+      ],
+      "surfaces": [
+        "overview-mini-workspaces",
+        "workspace-indicator"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Workspaces",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
+          "matchesObservation": true,
+          "delta": "dynamic-workspaces bool contrôle miniatures Aperçu."
+        },
+        {
+          "title": "org.gnome.mutter dynamic-workspaces",
+          "url": "https://gitlab.gnome.org/GNOME/mutter",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
+      },
+      "generatedAt": "2026-06-07T01:09:33.281754+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.mutter",
+        "key": "dynamic-workspaces",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.mutter",
+            "workspaces-only-on-primary"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "dynamic-workspaces": "true",
+            "workspaces-only-on-primary": "false"
+          },
+          "notes": "Bascule booléenne ; animation overview = gnome-shell/mutter."
+        },
+        "deepPassNotes": "VM : bool dynamic-workspaces seul ; workspaces-only-on-primary=false. Capsule : gnome-workspaces.js + dataset dynamicWorkspaces ; animation overview documentée en enquête visuelle."
+      },
+      "gsettingsDeepPassAt": "2026-06-07T01:25:43.107641+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/dynamic-workspaces/dark-overview.png",
+          "source": "fedora-capsule-dark-overview.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "dnd",
+      "label": "Ne pas déranger",
+      "status": "documented",
+      "vmToggle": {
+        "before": "(false, '')",
+        "after": "toggled"
+      },
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 200,
+        "property": "opacity"
+      },
+      "transitionObserved": {
+        "durationMs": 656,
+        "easing": null,
+        "properties": [
+          "opacity"
+        ],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dnd/before.png",
+          "timestamp": "2026-06-07T01:10:09.792Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dnd/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/dnd/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "quick-settings-tile",
+        "calendar-popover",
+        "notification-banners-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Notifications",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
+          "matchesObservation": true,
+          "delta": "DND session shell ; bannières contrôlées séparément (show-banners)."
+        },
+        {
+          "title": "Shell DND session",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": true,
+          "delta": "Schéma simulé CapsuleOS documenté dans parity-matrix."
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
+      },
+      "generatedAt": "2026-06-07T01:09:33.281754+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "source": "simulated-gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.notifications",
+            "show-banners"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "shell-session": "no-gsettings-key"
+          },
+          "linked": {
+            "show-banners": "true",
+            "show-in-lock-screen": "true"
+          },
+          "notes": "DND = session gnome-shell (_dndToggle) ; bannières indépendantes de DND."
+        },
+        "deepPassNotes": "RL10 : DND session gnome-shell (_dndToggle), pas de clé gsettings VM. Schéma simulé org.capsuleos.gnome.shell aligné playbook (drift 0). show-banners indépendant ; QS tile volume.js + handler parity."
+      },
+      "gsettingsDeepPassAt": "2026-06-07T01:25:43.107641+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/dnd/dark-quick-settings.png",
+          "source": "fedora-capsule-dark-quick-settings.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "accent",
+      "label": "Couleur d'accent",
+      "status": "documented",
+      "vmToggle": {
+        "before": "blue",
+        "after": "orange"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "property": "accent-color"
+      },
+      "transitionObserved": {
+        "durationMs": 545,
+        "easing": null,
+        "properties": [
+          "accent-color"
+        ],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/accent/before.png",
+          "timestamp": "2026-06-07T01:15:41.453Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/accent/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/accent/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "settings-app",
+        "top-bar-selection",
+        "overview-search",
+        "quick-settings"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "HIG — Style",
+          "url": "https://developer.gnome.org/hig/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "libadwaita accent",
+          "url": "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/accent/panel-appearance-accentorange.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "wallpaper",
+      "label": "Fond d'écran",
+      "status": "documented",
+      "vmToggle": {
+        "before": "file:///usr/share/backgrounds/f44/default/f44-01-day.jxl",
+        "after": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png"
+      },
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 200,
+        "easing": "ease"
+      },
+      "transitionObserved": {
+        "durationMs": 682,
+        "easing": "ease",
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wallpaper/before.png",
+          "timestamp": "2026-06-07T01:15:53.058Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wallpaper/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wallpaper/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "overview-background",
+        "lock-screen-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Background",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-desktopbackground.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "org.gnome.desktop.background",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/wallpaper/panel-background-wallpaperabstract2.png",
+          "source": "playwright"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/wallpaper/desktop-wallpaperabstract2.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "display-scale",
+      "label": "Échelle affichage",
+      "status": "documented",
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.25"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "notes": "Peut demander confirmation ou délai mutter."
+      },
+      "transitionObserved": {
+        "durationMs": 571,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/display-scale/before.png",
+          "timestamp": "2026-06-07T01:16:03.218Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/display-scale/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/display-scale/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "all-windows",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "Mutter displays",
+          "url": "https://mutter.gnome.org/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "text-scaling-factor",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : zoom .fedora-main-row via --gnome-display-scale + dataset displayScale."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/display-scale/panel-displays-displayscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "hot-corner",
+      "label": "Coin actif",
+      "status": "documented",
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "transitionExpected": {
+        "type": "ease-out",
+        "durationMs": 250,
+        "property": "overview-zoom"
+      },
+      "transitionObserved": {
+        "durationMs": 672,
+        "easing": null,
+        "properties": [
+          "overview-zoom"
+        ],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/hot-corner/before.png",
+          "timestamp": "2026-06-07T01:16:14.453Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/hot-corner/during-125ms.png",
+          "elapsedMs": 125
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/hot-corner/after.png",
+          "elapsedMs": 250
+        }
+      ],
+      "surfaces": [
+        "overview-trigger",
+        "hot-corner-hover"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Shell overview",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "enable-hot-corners",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : zone coin actif + data-hot-corners ; désactivation overview au survol."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/hot-corner/panel-multitasking-hotcornersoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "contrast",
+      "label": "Contraste élevé",
+      "status": "documented",
+      "vmToggle": {
+        "before": "Adwaita",
+        "after": "HighContrast"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 627,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/contrast/before.png",
+          "timestamp": "2026-06-07T01:16:26.145Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/contrast/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/contrast/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "top-bar",
+        "windows",
+        "overview",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "gtk-theme HighContrast",
+          "url": "https://gitlab.gnome.org/GNOME/gtk",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : data-contrast-mode high + bordures shell/top-bar renforcées."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/contrast/panel-accessibility-contrasthigh.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "font-scale",
+      "label": "Taille du texte",
+      "status": "documented",
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.1"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 563,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/font-scale/before.png",
+          "timestamp": "2026-06-07T01:16:36.237Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/font-scale/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/font-scale/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "settings-app",
+        "all-ui-text"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y text size",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y-font-size.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : --a11y-font-scale-factor + dataset fontScale sur panneau Accessibilité."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/font-scale/panel-accessibility-fontscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "power-mode",
+      "label": "Mode alimentation",
+      "status": "documented",
+      "vmToggle": {
+        "before": "unavailable",
+        "after": "unavailable"
+      },
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 150,
+        "property": "opacity-saturate"
+      },
+      "transitionObserved": {
+        "durationMs": 606,
+        "easing": null,
+        "properties": [
+          "opacity-saturate"
+        ],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/power-mode/before.png",
+          "timestamp": "2026-06-07T01:16:44.069Z"
+        }
+      ],
+      "surfaces": [
+        "quick-settings-performance-tile",
+        "power-panel"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "power-profiles-daemon",
+          "url": "https://gitlab.freedesktop.org/upower/power-profiles-daemon",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "GNOME Help — Power",
+          "url": "https://help.gnome.org/users/gnome-help/stable/power.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : data-power-mode + teinte tuile QS performance (transition 150 ms)."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/power-mode/panel-power-powermodeperformance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "search-files",
+      "label": "Recherche fichiers",
+      "status": "documented",
+      "vmToggle": {
+        "before": "@as []",
+        "after": "@as ['org.gnome.Nautilus']"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 577,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/search-files/before.png",
+          "timestamp": "2026-06-07T01:16:47.389Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/search-files/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/search-files/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "overview-search-results"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "search providers",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/tree/main/js/ui/search",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : filterSearchCatalog + dataset searchFiles ; provider Nautilus désactivable."
+      },
+      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/search-files/panel-search-searchfilesoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "notifications",
+      "label": "Bannières notifications",
+      "status": "documented",
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "transitionExpected": {
+        "type": "slide-in",
+        "durationMs": 300,
+        "easing": "ease-out"
+      },
+      "transitionObserved": {
+        "durationMs": 688,
+        "easing": "ease-out",
+        "properties": [],
+        "notes": "show-banners ; effet bannière simulé en enquête P2"
+      },
+      "vmCaptures": [],
+      "surfaces": [
+        "notification-area",
+        "calendar-popover"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "org.gnome.desktop.notifications",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P2",
+        "gapNotes": "P2 : dataset notificationsEnabled + show-banners miroir."
+      },
+      "generatedAt": "2026-06-07T01:23:08.607154+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/notifications/panel-notifications-notificationsbannersoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "power-dim",
+      "label": "Extinction écran",
+      "status": "documented",
+      "vmToggle": {
+        "before": "900",
+        "after": "uint32 300"
+      },
+      "transitionExpected": {
+        "type": "delayed",
+        "durationMs": null,
+        "notes": "Enquête : noter délai VM ; Capsule : dataset seulement."
+      },
+      "transitionObserved": {
+        "durationMs": 552,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/power-dim/before.png",
+          "timestamp": "2026-06-07T01:25:11.131Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/power-dim/during-250ms.png",
+          "elapsedMs": 250
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/power-dim/after.png",
+          "elapsedMs": 500
+        }
+      ],
+      "surfaces": [
+        "none-immediate",
+        "power-panel-only"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "gsd power plugin",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P2",
+        "gapNotes": "P2 : timeout extinction écran (dataset powerDimScreen) — pas d’effet visuel immédiat."
+      },
+      "generatedAt": "2026-06-07T01:23:08.607154+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/power-dim/panel-power-powerdimshort.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    },
+    {
+      "controlId": "wifi",
+      "label": "Wi-Fi activé",
+      "status": "documented",
+      "vmToggle": {
+        "before": "enabled",
+        "after": "enabled"
+      },
+      "transitionExpected": {
+        "type": "fade",
+        "durationMs": 200
+      },
+      "transitionObserved": {
+        "durationMs": 830,
+        "easing": null,
+        "properties": [],
+        "notes": "captures host-virsh (fedora) — linux-fedora"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wifi/before.png",
+          "timestamp": "2026-06-07T01:25:19.662Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wifi/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wifi/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "settings-wifi-list",
+        "quick-settings-network"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "NetworkManager",
+          "url": "https://networkmanager.dev/docs/",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P2",
+        "gapNotes": "P2 : dataset wifiEnabled + liste réseaux simulée."
+      },
+      "generatedAt": "2026-06-07T01:23:08.607154+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual-capsule/wifi/panel-wifi-wifioff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+    }
+  ],
+  "generatedAt": "2026-06-07T01:25:43.107641+00:00",
+  "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
+  "vmEnvironment": {
+    "sessionType": "wayland",
+    "screenshotTool": true,
+    "screenshotBackend": "host-virsh",
+    "captureStrategy": "host-virsh",
+    "snapshotAppInstalled": true,
+    "note": "linux-fedora : captures lab automatisées via virsh screenshot depuis l’hôte"
+  },
+  "summary": {
+    "investigationsTotal": 15,
+    "documented": 15,
+    "capsuleImplemented": 4,
+    "gaps": 0,
+    "p0Open": 0,
+    "capsuleCapturesP2": 3,
+    "visualMatchClassifiedP0": 4,
+    "visualMatchClassifiedP1": 8,
+    "visualMatchClassifiedP2": 3
+  },
+  "gsettingsDeepPass": {
+    "generatedAt": "2026-06-07T01:25:43.107641+00:00",
+    "investigator": "enrich-visual-investigation-gsettings-pass.mjs",
+    "probeSource": "vm-gnome-settings-gsettings-deep-pass.sh",
+    "playbookCapsuleDrift": 0,
+    "p0Enriched": 4
+  },
+  "crossCuttingFindings": [
+    "RL10 : gnome-screenshot absent ; Snapshot GUI + virsh screenshot hôte pour captures lab.",
+    "DND et certains états shell : schémas simulés org.capsuleos.gnome.shell (pas de clé VM unique).",
+    "Night Light : exclusion top bar = rendu compositor/gsd, reproduite en CSS Capsule."
+  ],
+  "nextGsettingsPass": [
+    {
+      "controlId": "accent",
+      "priority": "P1",
+      "action": "Valider accent-color system vs gtk-theme"
+    },
+    {
+      "controlId": "wallpaper",
+      "priority": "P1",
+      "action": "Lier picture-uri / picture-uri-dark au bascule thème"
+    },
+    {
+      "controlId": "hot-corner",
+      "priority": "P1",
+      "action": "org.gnome.desktop.interface enable-hot-corners"
+    },
+    {
+      "controlId": "notifications",
+      "priority": "P2",
+      "action": "show-banners + test notify-send VM"
+    }
+  ],
+  "capsuleVisualCollect": {
+    "generatedAt": "2026-06-07T01:25:52.681Z",
+    "investigator": "collect-capsule-visual-investigation.mjs",
+    "filter": "P2",
+    "files": 3
+  },
+  "visualParityClose": {
+    "generatedAt": "2026-06-07T01:25:52.837Z",
+    "investigator": "enrich-visual-investigation-capsule-parity.mjs",
+    "p0Classified": 4,
+    "p1Classified": 8
+  }
+}

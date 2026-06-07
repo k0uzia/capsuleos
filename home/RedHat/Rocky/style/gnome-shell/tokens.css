@@ -18,7 +18,7 @@ html:has(#rocky) {
     --gnome-shell-clock-gap: calc(var(--head) / 5);
     --gnome-shell-clock-padding-y: calc(var(--head) / 12);
     --gnome-shell-clock-padding-x: calc(var(--head) / 3);
-    --fedora-dock-width: calc(var(--head) * 1.32);
+    --fedora-dock-width: 0px;
     --fedora-shell-topbar-bg: rgba(0, 0, 0, 0.98);
     --fedora-shell-topbar-border: 1px solid rgba(0, 0, 0, 0.65);
     --fedora-shell-topbar-text: #f6f7f9;

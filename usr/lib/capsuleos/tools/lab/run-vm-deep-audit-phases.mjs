@@ -118,8 +118,12 @@ const runPlaybook = (host, playbook, attempt = 0) => {
   }
 };
 
-const virshShot = (destFile) => {
-  const vmName = process.env.ROCKY_VIRSH_NAME || 'Rocky10';
+const virshShot = (destFile, host) => {
+  const vmName = host?.virshName
+    || (host?.registryId === 'linux-fedora' ? 'fedora' : null)
+    || process.env.ROCKY_VIRSH_NAME
+    || process.env.FEDORA_VIRSH_NAME
+    || 'Rocky10';
   const res = spawnSync('virsh', ['-c', 'qemu:///system', 'screenshot', vmName, '--file', destFile], { encoding: 'utf8' });
   if (res.status !== 0) {
     process.stderr.write(`virsh screenshot échec: ${res.stderr}\n`);
@@ -338,7 +342,7 @@ const updateSummaryMd = (registryId, audit) => {
     '',
     '## Captures audit',
     '',
-    'Dossier : `usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm/audit/`',
+    `Dossier : \`usr/share/capsuleos/assets/images/vendors/${registryId.replace('linux-', '')}/inventory/${registryId.replace('linux-', '')}-vm/audit/\``,
     '',
   ];
   fs.writeFileSync(mdPath, `${lines.join('\n')}\n`);
@@ -373,7 +377,7 @@ const main = async () => {
     }
     sleep(800);
     const dest = path.join(capDir, step.capture);
-    const ok = virshShot(dest);
+    const ok = virshShot(dest, host);
     const bytes = ok ? fs.statSync(dest).size : null;
     results.push({
       stepId: step.id,
@@ -394,7 +398,7 @@ const main = async () => {
         runPlaybook(host, anim.playbook);
         sleep(anim.intervalMs);
         const dest = path.join(capDir, anim.captures[i]);
-        virshShot(dest);
+        virshShot(dest, host);
         animCaptures.push(anim.captures[i]);
         if (i < anim.captures.length - 1) {
           runPlaybook(host, 'overview-close');

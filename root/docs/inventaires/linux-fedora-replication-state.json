@@ -1,0 +1,12 @@
+{
+  "registryId": "linux-fedora",
+  "domain": "gnome-settings-playbook",
+  "H6": true,
+  "h6ClosedAt": "2026-06-07T01:32:08.127Z",
+  "h6Closure": "root/docs/inventaires/linux-fedora-gnome-settings-h6-closure.json",
+  "lastResolvedAction": {
+    "rule": "R-H6",
+    "message": "H6 clôturé — domaine gnome-settings-playbook"
+  },
+  "generatedAt": "2026-06-07T01:32:08.127Z"
+}

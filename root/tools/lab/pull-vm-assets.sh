@@ -13,12 +13,21 @@ IDENTITY="${ROCKY_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 VENDOR="rocky"
 TOOLKIT="gnome"
 ICON_THEME="Adwaita"
+REGISTRY_ID="linux-rocky"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --id)
       REGISTRY_ID="${2:-linux-rocky}"
-      VENDOR="rocky"
+      case "$REGISTRY_ID" in
+        linux-fedora)
+          VENDOR="fedora"
+          SSH_TARGET="${FEDORA_SSH:-capsule@192.168.122.91}"
+          ;;
+        linux-rocky|*)
+          VENDOR="rocky"
+          ;;
+      esac
       TOOLKIT="gnome"
       shift 2
       ;;
@@ -159,6 +168,12 @@ for app in org.gnome.Loupe org.gnome.Snapshot org.gnome.Papers org.gnome.baobab 
   pull "/usr/share/icons/hicolor/scalable/apps/${app}.svg" "$TOOLKIT_APPS/overview/${app}.svg"
 done
 
+if [[ "$VENDOR" == "fedora" ]]; then
+  for bg in f44-01-day.jxl f44-01-night.jxl; do
+    pull "/usr/share/backgrounds/f44/default/$bg" "$WALL_DIR/$bg"
+  done
+fi
+
 if [[ "$VENDOR" == "ubuntu" ]]; then
   pull /usr/share/backgrounds/warty-final-ubuntu.png \
     "$WALL_DIR/wallpaper-racoon.png" || \
@@ -177,5 +192,11 @@ MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
 EOF
+
+if [[ "${PREPARE_WEB_MEDIA:-}" == 1 ]]; then
+  echo "=== prepare-web-media ($VENDOR) ==="
+  node "$ROOT/usr/lib/capsuleos/tools/prepare-web-media.mjs" --vendor "$VENDOR" --rewrite-refs
+  node "$ROOT/usr/lib/capsuleos/tools/validate-web-media-prepare.mjs"
+fi
 
 echo "=== Terminé — valider : node usr/lib/capsuleos/tools/validate-asset-zones.mjs ==="

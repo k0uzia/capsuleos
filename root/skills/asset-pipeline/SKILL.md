@@ -34,6 +34,17 @@ Voir [politique-assets.md](../../docs/politique-assets.md) et `.cursor/rules/cap
 
 Résolution runtime : `CapsuleResource.resolve()` — pas de chemins absolus hôte.
 
+## Normalisation web (raster)
+
+Après `pull-vm-assets.sh` ou import PNG/JXL :
+
+```bash
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --rewrite-refs
+node usr/lib/capsuleos/tools/validate-web-media-prepare.mjs
+```
+
+Spec : [spec-prepare-web-media.md](../../docs/spec-prepare-web-media.md).
+
 ## Scripts (ordre type)
 
 ```bash
@@ -91,5 +102,6 @@ Chaque pack déplacé :
 
 ## Références
 
+- [spec-prepare-web-media.md](../../docs/spec-prepare-web-media.md)
 - [usr/share/capsuleos/assets/manifest.json](../../../usr/share/capsuleos/assets/manifest.json)
 - [usr/share/capsuleos/assets/README.md](../../../usr/share/capsuleos/assets/README.md)

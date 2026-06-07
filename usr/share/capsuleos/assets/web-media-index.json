@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "output": "images/vendors/fedora/wallpaper/f44-01-day.webp",
+      "source": "images/vendors/fedora/wallpaper/f44-01-day.jxl",
+      "preparedAt": "2026-06-07T02:29:03.818Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/f44-01-night.webp",
+      "source": "images/vendors/fedora/wallpaper/f44-01-night.jxl",
+      "preparedAt": "2026-06-07T02:29:03.818Z",
+      "encoder": "ffmpeg+convert"
+    }
+  ],
+  "updatedAt": "2026-06-07T02:29:03.903Z"
+}

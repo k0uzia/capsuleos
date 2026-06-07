@@ -10,12 +10,22 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
 const SCRIPT = path.join(ROOT, 'root/tools/lab/vm-gnome-settings-assets-inventory.sh');
-const MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-assets-matrix.json');
+
+function resolveAssetsMatrix(registryId) {
+  const entry = loadRegistryEntry(registryId);
+  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-assets-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) {
+    return vendorMatrix;
+  }
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-assets-matrix.json');
+}
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -54,10 +64,10 @@ const parseJsonStdout = (stdout) => {
   return JSON.parse(stdout.slice(jsonStart));
 };
 
-const runLocal = () => {
+const runLocal = (matrixPath) => {
   const res = spawnSync('bash', [SCRIPT], {
     encoding: 'utf8',
-    env: { ...process.env, CAPSULE_SETTINGS_ASSETS_MATRIX: MATRIX },
+    env: { ...process.env, CAPSULE_SETTINGS_ASSETS_MATRIX: matrixPath },
     timeout: 120000,
   });
   if (res.status !== 0) {
@@ -66,8 +76,8 @@ const runLocal = () => {
   return parseJsonStdout(res.stdout || '');
 };
 
-const runOnVm = (host) => {
-  const matrixB64 = Buffer.from(fs.readFileSync(MATRIX, 'utf8')).toString('base64');
+const runOnVm = (host, matrixPath) => {
+  const matrixB64 = Buffer.from(fs.readFileSync(matrixPath, 'utf8')).toString('base64');
   const scriptBody = fs.readFileSync(SCRIPT, 'utf8');
   const remoteScript = `
 ${remoteEnv(host)}
@@ -102,7 +112,9 @@ const main = () => {
   const opts = parseArgs();
   process.stderr.write(`=== collect-vm-gnome-settings-assets ${opts.id} ===\n`);
 
-  const payload = opts.local ? runLocal() : runOnVm(loadHost(opts.id));
+  const matrixPath = resolveAssetsMatrix(opts.id);
+  process.stderr.write(`Matrice assets : ${path.relative(ROOT, matrixPath)}\n`);
+  const payload = opts.local ? runLocal(matrixPath) : runOnVm(loadHost(opts.id), matrixPath);
   const jsonPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-gnome-settings-assets.json`);
   fs.writeFileSync(jsonPath, `${JSON.stringify(payload, null, 2)}\n`);
   process.stdout.write(`OK ${jsonPath}\n`);

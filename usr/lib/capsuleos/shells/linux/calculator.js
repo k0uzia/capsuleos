@@ -203,8 +203,24 @@
                 return;
             }
             var action = btn.getAttribute('data-calc');
-            if (action === 'clear') {
-                clearAll();
+            if (action === 'clear' || action === 'noop') {
+                if (action === 'clear') {
+                    clearAll();
+                }
+                return;
+            }
+            if (action === 'backspace') {
+                if (fresh || current === '0' || current === 'Erreur') {
+                    return;
+                }
+                if (current.length <= 1) {
+                    setCurrent('0');
+                    fresh = true;
+                } else {
+                    current = current.slice(0, -1);
+                    hasDecimal = current.indexOf('.') !== -1;
+                    render();
+                }
                 return;
             }
             if (action === 'negate') {

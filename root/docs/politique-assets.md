@@ -46,6 +46,17 @@ Complément release : `validate-capsule.mjs`, `audit-data-links.mjs` (skins Linu
 
 Échoue si une image existe hors `assets/` ou `home/public/Images/`, ou si un lien portail/façade pointe vers un fichier absent.
 
+## Normalisation web (raster)
+
+Après pull VM ou import de binaires non web-safe (JXL, TIFF, PNG lourds) :
+
+```bash
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --rewrite-refs
+node usr/lib/capsuleos/tools/validate-web-media-prepare.mjs
+```
+
+Spec : [spec-prepare-web-media.md](spec-prepare-web-media.md) · contrat : `etc/capsuleos/contracts/web-media-prepare.json`.
+
 ## Migration / maintenance
 
 ```bash

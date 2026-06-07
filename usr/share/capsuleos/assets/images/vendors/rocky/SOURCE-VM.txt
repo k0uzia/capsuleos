@@ -1,4 +1,4 @@
-Assets copiés depuis la VM lab (capsule@192.168.122.234) le 2026-06-06T16:53:01Z.
+Assets copiés depuis la VM lab (capsule@192.168.122.234) le 2026-06-07T10:07:09Z.
 Vendor : rocky · toolkit : gnome
 Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/rocky/

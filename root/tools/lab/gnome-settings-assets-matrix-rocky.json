@@ -115,9 +115,9 @@
       "id": "watermark-fedora-logo-light",
       "category": "watermark",
       "controlId": "wallpaper",
-      "vmPath": "/usr/share/rocky-logos/fedora_lightbackground.svg",
-      "vmPathFallback": "/usr/share/fedora-logos/fedora_lightbackground.svg",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_lightbackground.svg"
+      "vmPath": "/usr/share/rocky-logos/fedora_logo_lightbackground.svg",
+      "vmPathFallback": "/usr/share/fedora-logos/fedora_logo_lightbackground.svg",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_lightbackground.svg"
     }
   ]
 }

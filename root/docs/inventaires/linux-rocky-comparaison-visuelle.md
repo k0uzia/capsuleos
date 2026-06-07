@@ -1,6 +1,6 @@
 # Passe comparaison visuelle — Rocky Linux (VM ↔ CapsuleOS)
 
-Généré : 2026-06-07T09:51:54.939Z
+Généré : 2026-06-07T10:10:27.776Z
 
 Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md) (Nautilus ≠ Nemo).
 
@@ -8,34 +8,45 @@ Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.m
 
 | Scène | VM | octets | Capsule | octets | Contexte |
 |-------|-----|--------|---------|--------|----------|
-| Bureau sombre | ✓ | 82243 | ✓ | 175875 | GNOME Shell + dock ; thème VM default → Capsule sombre |
-| Bureau sombre (Firefox ouvert) | ✓ | 82204 | ✓ | 82047 | Parité contexte : fenêtre Navigator ouverte sur le bureau |
-| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 82204 | ✓ | 130176 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
-| Firefox sombre | ✓ | 82204 | ✓ | 82695 | Navigator.firefox · slot firefox |
-| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 80600 | ✓ | 134517 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
-| Bureau clair | ✓ | 77181 | ✓ | 177080 | color-scheme prefer-light ↔ data-theme=light |
-| Fichiers clair | ✓ | 81815 | ✓ | 129915 | Nautilus VM · nemo Capsule, thème clair |
-| Firefox clair | ✓ | 77649 | ✓ | 82550 | Firefox · firefox |
-| Aperçu bureau (workspace) | ✓ | 491362 | ✓ | 215458 | GNOME Shell Overview · dash + carte bureau |
-| Aperçu bureau (vignettes + peek) | ✓ | 491362 | ✓ | 105037 | Capsule : Firefox + vignette + peek workspace-next · VM : overview structurel (audit sans fenêtres) |
-| Grille applications Aperçu | ✓ | 492421 | ✓ | 136742 | Overview mode apps · grille RL10 alignée |
-| Quick Settings | ✓ | 201704 | ✓ | 185342 | Tray cluster · volume-popover |
-| Loupe (Papers VM = Papers RL10) | ✓ | 190561 | ✓ | 118696 | VM : référence fenêtre ouverte · Capsule : slot visionneur_images |
-| Papers (PDF RL10) | ✓ | 190561 | ✓ | 118597 | VM : pas de capture Papers dédiée · Capsule : slot visionneur_pdf |
+| Bureau sombre | ✓ | 146865 | ✓ | 176266 | GNOME Shell + dock ; thème VM default → Capsule sombre |
+| Bureau sombre (Firefox ouvert) | ✓ | 108847 | ✓ | 82419 | Parité contexte : fenêtre Navigator ouverte sur le bureau |
+| Fichiers sombre (Nautilus VM / slot nemo Capsule) | ✓ | 108847 | ✓ | 130479 | VM : org.gnome.Nautilus · Capsule : gabarit nemo, titre « Fichiers » |
+| Firefox sombre | ✓ | 108847 | ✓ | 83046 | Navigator.firefox · slot firefox |
+| Terminal sombre (Ptyxis VM / slot terminal Capsule) | ✓ | 109277 | ✓ | 134873 | VM : Ptyxis · Capsule : chrome terminal profil linux:redhat |
+| Bureau clair | ✓ | 107032 | ✓ | 177231 | color-scheme prefer-light ↔ data-theme=light |
+| Fichiers clair | ✓ | 108211 | ✓ | 129977 | Nautilus VM · nemo Capsule, thème clair |
+| Firefox clair | ✓ | 107032 | ✓ | 82683 | Firefox · firefox |
+| Aperçu bureau (workspace) | ✓ | 491362 | ✓ | 213655 | GNOME Shell Overview · dash + carte bureau |
+| Aperçu bureau (vignettes + peek) | ✓ | 491362 | ✓ | 108225 | Capsule : Firefox + vignette + peek workspace-next · VM : overview structurel (audit sans fenêtres) |
+| Grille applications Aperçu | ✓ | 492421 | ✓ | 140055 | Overview mode apps · grille RL10 alignée |
+| Quick Settings | ✓ | 201704 | ✓ | 185710 | Tray cluster · volume-popover |
+| Loupe (Papers VM = Papers RL10) | ✓ | 190561 | ✓ | 118870 | VM : référence fenêtre ouverte · Capsule : slot visionneur_images |
+| Papers (PDF RL10) | ✓ | 190561 | ✓ | 118771 | VM : pas de capture Papers dédiée · Capsule : slot visionneur_pdf |
 
 ## Assets PNG — Capsule seul (Paramètres GNOME)
 
 | Scène | Capsule | octets | Contexte |
 |-------|---------|--------|----------|
-| Paramètres — Apparence (sombre) | ✓ | 150918 | Slot `themes` · panneau `appearance` · schéma clair/sombre fonctionnel |
-| Paramètres — Écrans (sombre) | ✓ | 143220 | Slot `themes` · panneau `displays` · doc SUSE §3.9 |
-| Paramètres — Apparence (clair) | ✓ | 151490 | Slot `themes` · thème clair Capsule · tokens `--gnome-settings-*` |
+| Paramètres — Apparence (sombre) | ✓ | 151097 | Slot `themes` · panneau `appearance` · schéma clair/sombre fonctionnel |
+| Paramètres — Écrans (sombre) | ✓ | 143384 | Slot `themes` · panneau `displays` · doc SUSE §3.9 |
+| Paramètres — Apparence (clair) | ✓ | 151632 | Slot `themes` · thème clair Capsule · tokens `--gnome-settings-*` |
 
 ## Checklist panel (état logique)
 
 Export Capsule : `run-capsule-panel-browser.mjs` OK.
 
-> Checklist VM ignorée — lab Rocky injoignable (SSH). Relancer quand la VM est up.
+```
+# Checklist panel — linux-rocky
+
+| Étape | VM | Capsule | Note |
+|-------|-----|---------|------|
+| 0 Fichiers (Nautilus · slot nemo) seul, focus | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":false,"active":false},"terminal":{"running":false,"active":false}} |
+| 1 + Firefox, focus Firefox | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+| 2 + Terminal (Ptyxis · slot terminal), focus | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+| 3 Focus Fichiers (Nautilus · slot nemo) via lanceur | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+| 4 Minimize Fichiers (Nautilus · slot nemo) | ÉCART | OK | P1 VM : running peut rester true |
+| 5 Sidebar Fichiers (Nautilus · slot nemo) → Documents | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
+```
 
 ## Rappels fidélité visuelle (GNOME)
 

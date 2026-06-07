@@ -156,7 +156,11 @@
             if (iconSrc) {
                 const icon = global.document.createElement('img');
                 icon.className = 'nautilus-app__path-crumb-icon';
-                icon.src = iconSrc;
+                const remap = global.CapsuleExplorerIconBase
+                    && typeof global.CapsuleExplorerIconBase.remapPath === 'function'
+                    ? global.CapsuleExplorerIconBase.remapPath
+                    : null;
+                icon.src = remap ? remap(iconSrc) : iconSrc;
                 icon.alt = '';
                 icon.setAttribute('aria-hidden', 'true');
                 crumb.appendChild(icon);

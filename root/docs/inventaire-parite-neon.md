@@ -6,6 +6,7 @@
 > **Clôture Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md)  
 > **Clôture Kickoff** : [`inventaires/linux-kde-neon-kickoff-closure.md`](inventaires/linux-kde-neon-kickoff-closure.md)  
 > **Clôture Panel + tray** : [`inventaires/linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon-panel-tray-closure.md)  
+> **Clôture Dolphin** : [`inventaires/linux-kde-neon-dolphin-diff.md`](inventaires/linux-kde-neon-dolphin-diff.md)  
 > Captures CapsuleOS : `home/public/Images/screen_KDE-Neon/capsule-*.png`
 
 ## Versions
@@ -14,7 +15,7 @@
 |-----------|-----------|-----------|--------|
 | Distribution | KDE neon User Edition 24.04 noble | `profile-data.js` 24.04 | ✅ |
 | Shell / DE | Plasma Wayland | toolkit kde / plasma | ✅ |
-| Explorateur | Dolphin | slot `nemo` + template `dolphin` | ⏳ parité P0 |
+| Explorateur | Dolphin | slot `nemo` + template `dolphin` | ✅ **clôturé** |
 | Navigateur | Firefox | slot `firefox` | ⏳ |
 | MAJ | Discover 6.6.5 (`plasma-discover`) | `update_manager` + override KDE Neon | ✅ **clôturé** |
 
@@ -67,7 +68,7 @@ Détail : [`linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-disc
 
 | Cible | Script | Sorties principales |
 |-------|--------|---------------------|
-| VM lab | `bash root/tools/lab/vm-kde-neon-capture-host.sh` | `vm-desktop.png`, `vm-kickoff.png`, `vm-discover.png` |
+| VM lab | `bash root/tools/lab/vm-kde-neon-capture-host.sh` [`--dolphin-only`] | `vm-desktop.png`, `vm-kickoff.png`, `vm-discover*.png`, **`vm-dolphin.png`** |
 | CapsuleOS | `node root/tools/lab/capture-capsule-kde-neon.mjs` | bureau, kickoff, discover × 5 onglets (max + windowed) |
 
 Prérequis VM : SSH `capsule@192.168.122.2`, VM libvirt `KDE-Neon`, session Plasma active.  
@@ -85,10 +86,26 @@ Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright (`npm install p
 
 ## Backlog post-clôture bureau Plasma
 
-### P0 — prochain
+### P0 — clôturé (2026-06-07)
 
-- [ ] Dolphin (`nemo`) — vues icônes / liste / compacte
-- [ ] Diff pixel côte à côte VM vs CapsuleOS (bureau complet)
+- [x] Dolphin — points 1–6 ([`linux-kde-neon-dolphin-diff.md`](inventaires/linux-kde-neon-dolphin-diff.md)) : grille, toolbar, vues, split, sidebar Corbeille
+- [x] Capture VM Dolphin stabilisée (`kstart dolphin`, playbooks views + split)
+- [x] Embed + contentLoader (404 skin probe, vanilla ES6)
+
+**Prochaine étape P0** : relecture visuelle bureau (optionnel) · skin visible dans pick-os public
+
+## Gates (2026-06-07)
+
+```bash
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
+node usr/lib/capsuleos/tools/validate-all.mjs   # ✓ OK
+node usr/lib/capsuleos/tools/reactivate-os.mjs linux-kde-neon   # ✓ active
+```
+
+Résultat : `validate-all` ✅ · profil **`active`** · 13 entrées pick-os publiques.
+
+- Discover · Kickoff · Panel/tray · **Dolphin** : clôture documentée ✅
 
 ### P1
 
@@ -101,14 +118,4 @@ Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright (`npm install p
 - [ ] Renommer tokens `--opensuse-*` → `--kde-neon-*`
 - [ ] Recherche Discover filtrante · fiches app · catégories actives
 
-## Gates (clôture 2026-06-06, revalidés à l’exécution)
-
-```bash
-node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs   # OK (2026-06-06)
-node usr/lib/capsuleos/tools/validate-all.mjs                    # OK (2026-06-06)
-```
-
-Résultat `validate-all` : assets ✅ · links ✅ · capsule ✅ · quality ✅ (186 avertissements vanilla-js préexistants, non bloquants — voir `root/docs/passe-vanilla-json.md`).
-
-- Discover · Kickoff · Panel/tray : clôture fonctionnelle validée utilisateur ✅
 - `.cursor` → symlink `root/.cursor` ✅

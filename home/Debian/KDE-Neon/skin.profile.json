@@ -9,7 +9,7 @@
   "bodyId": "kde-neon",
   "embedKey": "kde-neon",
   "tier": "P2",
-  "status": "planned",
+  "status": "active",
   "fidelityLevel": 2,
   "upstreamId": "linux-debian-kde",
   "clusterIds": [

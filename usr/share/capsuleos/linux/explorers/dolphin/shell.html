@@ -41,24 +41,46 @@
                 <a href="#" id="suivant" class="dolphin-toolbar__btn dolphin-toolbar__btn--nav" aria-label="Suivant"><span class="dolphin-ico dolphin-ico--forward" aria-hidden="true"></span></a>
             </div>
 
-            <div class="nemo-app__toolbar-group dolphin-toolbar__view" aria-label="Mode d’affichage">
-                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn dolphin-toolbar__view-btn--active" data-view-mode="icons" aria-current="true" aria-label="Vue en icônes">
-                    <span class="dolphin-ico dolphin-ico--view-grid" aria-hidden="true"></span>
-                </a>
-                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn" data-view-mode="compact" aria-label="Vue compacte">
-                    <span class="dolphin-ico dolphin-ico--view-compact" aria-hidden="true"></span>
-                </a>
-                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn" data-view-mode="list" aria-label="Vue détaillée">
-                    <span class="dolphin-ico dolphin-ico--view-list" aria-hidden="true"></span>
-                </a>
+            <div class="nemo-app__toolbar-group dolphin-toolbar__view" aria-label="Mode d'affichage">
+                <button type="button" id="dolphin-view-mode-btn" class="dolphin-toolbar__btn dolphin-toolbar__view-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dolphin-view-menu" aria-label="Modifier le mode d'affichage">
+                    <span class="dolphin-ico dolphin-ico--view-grid dolphin-view-mode-ico" aria-hidden="true"></span>
+                </button>
+                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn dolphin-toolbar__view-btn--active" data-view-mode="icons" hidden aria-hidden="true" tabindex="-1"></a>
+                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn" data-view-mode="compact" hidden aria-hidden="true" tabindex="-1"></a>
+                <a href="#" class="dolphin-toolbar__btn dolphin-toolbar__view-btn" data-view-mode="list" hidden aria-hidden="true" tabindex="-1"></a>
+                <div id="dolphin-view-menu" class="dolphin-view-menu" role="menu" hidden>
+                    <button type="button" class="dolphin-view-menu__item" role="menuitemradio" data-view-mode="icons" aria-checked="true">
+                        <span class="dolphin-view-menu__check" aria-hidden="true"></span>
+                        <span class="dolphin-view-menu__label">Icônes</span>
+                        <span class="dolphin-view-menu__shortcut">Ctrl+1</span>
+                    </button>
+                    <button type="button" class="dolphin-view-menu__item" role="menuitemradio" data-view-mode="compact" aria-checked="false">
+                        <span class="dolphin-view-menu__check" aria-hidden="true"></span>
+                        <span class="dolphin-view-menu__label">Synthétique</span>
+                        <span class="dolphin-view-menu__shortcut">Ctrl+2</span>
+                    </button>
+                    <button type="button" class="dolphin-view-menu__item" role="menuitemradio" data-view-mode="list" aria-checked="false">
+                        <span class="dolphin-view-menu__check" aria-hidden="true"></span>
+                        <span class="dolphin-view-menu__label">Détails</span>
+                        <span class="dolphin-view-menu__shortcut">Ctrl+3</span>
+                    </button>
+                    <div class="dolphin-view-menu__sep" role="separator"></div>
+                    <button type="button" class="dolphin-view-menu__item dolphin-view-menu__item--config" role="menuitem" id="dolphin-view-config-open">
+                        <span class="dolphin-view-menu__check dolphin-view-menu__check--empty" aria-hidden="true"></span>
+                        <span class="dolphin-view-menu__label">Configuration des affichages</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Garde le hook JS (.nemo-app__path-current) mais on le masque en CSS (le path est déjà dans le titre). -->
-            <div class="nemo-app__toolbar-group nemo-app__toolbar-group--path dolphin-toolbar__path" aria-hidden="true">
-                <a href="#" class="nemo-app__path-current">Dossier personnel</a>
+            <div class="nemo-app__toolbar-group nemo-app__toolbar-group--path dolphin-toolbar__path" aria-label="Emplacement actuel">
+                <a href="#" class="nemo-app__path-current"><span class="dolphin-toolbar__crumb-prefix" aria-hidden="true">&gt;</span></a>
             </div>
 
             <div class="nemo-app__toolbar-group dolphin-toolbar__actions">
+                <a href="#" id="dolphin-split-toggle" class="dolphin-toolbar__btn dolphin-toolbar__btn--split" aria-label="Scinder" aria-pressed="false">
+                    <span class="dolphin-ico dolphin-ico--split" aria-hidden="true"></span>
+                    <span class="dolphin-toolbar__btn-label">Scinder</span>
+                </a>
                 <label class="dolphin-toolbar__search" aria-label="Rechercher">
                     <span class="dolphin-ico dolphin-ico--search" aria-hidden="true"></span>
                     <input type="search" id="dolphin-search" class="dolphin-toolbar__search-input" placeholder="Rechercher..." aria-label="Rechercher" autocomplete="off">
@@ -67,10 +89,9 @@
                     <span class="dolphin-ico dolphin-ico--preview" aria-hidden="true"></span>
                     <span>Aperçu</span>
                 </a>
-                <a href="#" id="dolphin-split-toggle" class="dolphin-toolbar__btn dolphin-toolbar__btn--split" aria-label="Scinder" aria-pressed="false">
-                    <span class="dolphin-ico dolphin-ico--split" aria-hidden="true"></span>
-                    <span>Scinder</span>
-                </a>
+                <button type="button" id="dolphin-main-menu" class="dolphin-toolbar__btn dolphin-toolbar__btn--menu" aria-label="Menu" aria-haspopup="menu">
+                    <span class="dolphin-ico dolphin-ico--menu" aria-hidden="true"></span>
+                </button>
             </div>
         </section>
     </header>
@@ -81,35 +102,35 @@
                 <h4 class="dolphin-sidebar__heading">Emplacements</h4>
                 <nav class="dolphin-sidebar__nav" aria-label="Emplacements">
                     <a class="dolphin-sidebar__link" data-link="Dossier Personnel" href="#">
-                        <img src="./assets/icons/kde/elements/go-home-symbolic.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/go-home-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Dossier Personnel</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Bureau" href="#">
-                        <img src="./assets/icons/kde/elements/desktop.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/user-desktop-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Bureau</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Documents" href="#">
-                        <img src="./assets/icons/kde/elements/folder-documents.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/places16/folder-documents-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Documents</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Téléchargements" href="#">
-                        <img src="./assets/icons/kde/elements/folder-download.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/places16/folder-downloads-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Téléchargements</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Musique" href="#">
-                        <img src="./assets/icons/kde/elements/folder-music.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/folder-music-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Musique</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Images" href="#">
-                        <img src="./assets/icons/kde/elements/folder-pictures.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/places16/folder-pictures-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Images</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="Vidéos" href="#">
-                        <img src="./assets/icons/kde/elements/folder-videos.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/folder-videos-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Vidéos</span>
                     </a>
                     <a class="dolphin-sidebar__link" data-link="" href="#">
-                        <img src="./assets/icons/kde/elements/user-trash.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/places32/user-trash.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Corbeille</span>
                     </a>
                 </nav>
@@ -118,7 +139,7 @@
                 <h4 class="dolphin-sidebar__heading">Distant</h4>
                 <nav class="dolphin-sidebar__nav" aria-label="Réseau">
                     <a href="#" class="dolphin-sidebar__link dolphin-sidebar__link--static">
-                        <img src="./assets/icons/kde/elements/folder-network.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/places16/folder-network-symbolic.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Réseau</span>
                     </a>
                 </nav>
@@ -127,11 +148,11 @@
                 <h4 class="dolphin-sidebar__heading">Récents</h4>
                 <nav class="dolphin-sidebar__nav" aria-label="Récents">
                     <a class="dolphin-sidebar__link" data-link="Récent" href="#">
-                        <img src="./assets/icons/kde/elements/document-open-recent.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/document-open-recent.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Fichiers récents</span>
                     </a>
                     <a href="#" class="dolphin-sidebar__link dolphin-sidebar__link--static">
-                        <img src="./assets/icons/kde/elements/folder-open-recent.svg" alt="" aria-hidden="true">
+                        <img src="./assets/icons/kde/nemo/folder-open-recent.svg" alt="" aria-hidden="true">
                         <span class="dolphin-sidebar__label">Emplacements récents</span>
                     </a>
                 </nav>

@@ -126,8 +126,11 @@ const loadSlotAssets = (templateId, skinId, appsBase, cssSkinFile, cssSkinFallba
     };
 
     const skinKeyForOverride = getEmbedSkinKey();
-    const skinOverrideEarly = embed?.skinTemplates?.[skinKeyForOverride]?.[templateId];
-    const fetchHtml = skinOverrideEarly?.html
+    const skinTemplatesEarly = embed && embed.skinTemplates;
+    const skinOverrideEarly = skinTemplatesEarly && skinTemplatesEarly[skinKeyForOverride]
+        ? skinTemplatesEarly[skinKeyForOverride][templateId]
+        : null;
+    const fetchHtml = skinOverrideEarly && skinOverrideEarly.html
         ? Promise.resolve(skinOverrideEarly.html)
         : fetch(htmlFile, { cache: 'no-store' }).then((response) => {
         if (!response.ok) {

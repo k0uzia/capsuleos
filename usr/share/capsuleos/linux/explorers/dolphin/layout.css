@@ -238,6 +238,50 @@ div[data-link="nemo"] .dolphin-app .dolphin-toolbar__nav {
     margin-right: calc(var(--head) / 28);
 }
 
+/* Icônes toolbar Dolphin (spans .dolphin-ico dans shell.html) */
+div[data-link="nemo"] .dolphin-app .dolphin-ico {
+    display: inline-block;
+    width: calc(var(--head) / 2.05);
+    height: calc(var(--head) / 2.05);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: var(--dolphin-icon-filter-toolbar);
+    opacity: 0.9;
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--back {
+    background-image: url("./assets/icons/kde/nemo/go-previous-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--forward {
+    background-image: url("./assets/icons/kde/nemo/go-next-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-grid {
+    background-image: url("./assets/icons/kde/nemo/view-grid-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-compact {
+    background-image: url("./assets/icons/kde/nemo/view-compact-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-list {
+    background-image: url("./assets/icons/kde/nemo/view-list-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--search {
+    background-image: url("./assets/icons/kde/nemo/search-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--preview {
+    background-image: url("./assets/icons/kde/nemo/view-preview-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--split {
+    background-image: url("./assets/icons/kde/nemo/view-split-left-right.svg");
+}
+
 div[data-link="nemo"] .dolphin-app .dolphin-toolbar__view {
     display: none;
 }
@@ -408,6 +452,13 @@ div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img[src*="/assets/
     opacity: 0.95;
 }
 
+/* Breeze places trash — icône colorée (places32), sans filtre monochrome */
+div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link img[src*="user-trash"],
+div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img[src*="user-trash"] {
+    filter: none;
+    opacity: 1;
+}
+
 div[data-link="nemo"] .dolphin-app #voletnemo .dolphin-sidebar__link:hover:not(.dolphin-sidebar__link--active) {
     background: var(--dolphin-sidebar-hover-bg);
 }
@@ -444,6 +495,41 @@ div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage {
 div[data-link="nemo"] .dolphin-app .dolphin-sidebar__usage-fill {
     width: 70%;
     background: linear-gradient(90deg, var(--dolphin-usage-fill-start), var(--dolphin-usage-fill-end));
+}
+
+div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons > a > img {
+    display: block;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons > a > span,
+div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons > a > .nemo-app__item-name {
+    display: block;
+    width: 100%;
+    margin-top: calc(var(--head) / 10);
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+    color: var(--dolphin-text);
+    font-size: calc(var(--head) / 2.5);
 }
 
 div[data-link="nemo"] .dolphin-app .nemo-app__content-grid {

@@ -51,9 +51,6 @@
     },
     "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
     "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
-    "CAPSULE_TEMPLATE_OVERRIDES": {
-      "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-    },
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",
       "draggable": true,

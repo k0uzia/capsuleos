@@ -12,7 +12,7 @@ description: CapsuleOS distribution KDE neon User Edition (linux-kde-neon) — l
 | ID registre | `linux-kde-neon` |
 | Vendor | [`neon`](../vendors/neon/SKILL.md) |
 | Famille | `linux` |
-| Tier / statut | P2 / planned |
+| Tier / statut | P2 / active |
 | Toolkit | kde |
 | embedKey | `kde-neon` |
 

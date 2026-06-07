@@ -31,28 +31,29 @@ Skin canonique : `home/Debian/KDE-Neon/index.html` · Registre : `linux-kde-neon
 | Doc | [`linux-kde-neon-discover-closure.md`](linux-kde-neon-discover-closure.md) | ✅ |
 | Gates | `validate-all` + embed | ✅ |
 
-## Phase C — Kickoff (en cours)
+## Phase C — Kickoff (clôturé)
 
 | Zone | Action | Statut |
 |------|--------|--------|
-| Transparence | Alpha / blur menu vs VM | ⏳ |
-| Catégories | Icônes Breeze colorées pull VM | ⏳ |
-| Apps | 30 entrées depuis `linux-kde-neon-kickoff-apps.json` | ⏳ |
+| Transparence | Alpha / blur menu vs VM | ✅ |
+| Catégories | Icônes Breeze colorées pull VM | ✅ |
+| Apps | 30 entrées depuis `linux-kde-neon-kickoff-apps.json` | ✅ |
 | Générateur | `generate-kde-neon-kickoff-data.mjs` | ✅ |
 | Favoris | Firefox, Config système, Dolphin, Discover | ✅ |
 
-## Phase D — avec VM (reste à faire)
+## Phase D — avec VM (clôturé Dolphin)
 
 | Zone | Action | Statut |
 |------|--------|--------|
 | Inventaire | `vm-kde-neon-inventory.sh` → `-vm.json` complet | ✅ partiel (versions vides en SSH) |
 | Assets | SCP / pull VM → `vendors/neon/` | ✅ |
-| Parité | `inventaire-parite-neon.md` rempli | ✅ Discover + Kickoff · ⏳ Dolphin |
+| Parité | `inventaire-parite-neon.md` rempli | ✅ Discover + Kickoff + Panel + **Dolphin** |
 | Tokens CSS | Renommer `--opensuse-*` → `--kde-neon-*` (optionnel P2) | ⏳ |
 
-## Phase E — gates finales skin (après Dolphin)
+## Phase E — gates finales skin
 
 ```bash
+node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 # Comparaison visuelle VM ↔ http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html
@@ -60,11 +61,11 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 - [x] Discover ouvre le gabarit KDE (pas GNOME Software)
 - [x] Discover — 5 onglets, données VM, captures
-- [ ] Kickoff : transparence, icônes catégories, apps VM par catégorie
-- [ ] Panel : launcher, Dolphin, Firefox, Konsole, Discover (clic → bonne app)
-- [ ] Dolphin : navigation, vues, menus
-- [ ] Fond « Next » ou défaut Plasma Neon
-- [ ] Passage `status: active` dans `etc/capsuleos/profiles/linux-kde-neon.json` (après parité P0)
+- [x] Kickoff : transparence, icônes catégories, apps VM par catégorie
+- [x] Panel : launcher, Dolphin, Firefox, Konsole, Discover (clic → bonne app)
+- [x] Dolphin : navigation, vues, menus, split, sidebar Corbeille
+- [x] Fond « Next » ou défaut Plasma Neon
+- [x] Passage `status: active` via `reactivate-os.mjs linux-kde-neon` (2026-06-07)
 
 ## Commandes VM (rappel)
 

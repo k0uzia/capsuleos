@@ -606,6 +606,27 @@
 
         if (item.type === 'folder') {
             state.selectedPreview = null;
+            if (typeof window.isDolphinListTreeViewActive === 'function' && window.isDolphinListTreeViewActive()) {
+                const targetPath = resolveFolderTargetPath(item, folderPath);
+                if (typeof window.dolphinFolderHasVisibleChildren === 'function'
+                    && !window.dolphinFolderHasVisibleChildren(targetPath)) {
+                    if (event && typeof event.preventDefault === 'function') {
+                        event.preventDefault();
+                    }
+                    return;
+                }
+                if (typeof window.toggleDolphinListFolderExpanded === 'function') {
+                    window.toggleDolphinListFolderExpanded(targetPath, paneId);
+                }
+                const currentPath = getPanePath(paneId);
+                if (currentPath && typeof window.renderDirectory === 'function') {
+                    window.renderDirectory(currentPath, { pane: paneId });
+                }
+                if (event && typeof event.preventDefault === 'function') {
+                    event.preventDefault();
+                }
+                return;
+            }
             if (isPreviewModeActive()) {
                 state.previewOpen = true;
                 showFolderPreviewPlaceholder();
@@ -640,6 +661,9 @@
         setActivePane(paneId);
 
         if (item.type === 'folder') {
+            if (typeof window.clearDolphinListExpandedPaths === 'function') {
+                window.clearDolphinListExpandedPaths(paneId);
+            }
             navigateDolphinDirectory(resolveFolderTargetPath(item, folderPath), {
                 pane: paneId,
                 updateHistory: true
@@ -1127,14 +1151,19 @@
         updateDolphinExplorerChrome();
     };
 
-    const updateDolphinFolderPillForPane = (folderNode, paneId) => {
+    const updateDolphinFolderPillForPane = (folderNode, paneId, directoryPath) => {
         const pillId = paneId === 'secondary' ? 'dolphin-folder-pill-secondary' : 'dolphin-folder-pill';
         const pill = document.getElementById(pillId);
-        if (!pill || typeof window.countFoldersInItems !== 'function') {
+        if (!pill) {
             return;
         }
-        const n = folderNode && Array.isArray(folderNode.items)
-            ? window.countFoldersInItems(folderNode.items)
+        const path = directoryPath
+            || (paneId === 'secondary' ? state.secondaryPath : state.currentPath);
+        const countFn = typeof window.countVisibleFoldersInItems === 'function'
+            ? window.countVisibleFoldersInItems
+            : window.countFoldersInItems;
+        const n = folderNode && Array.isArray(folderNode.items) && typeof countFn === 'function'
+            ? countFn(folderNode.items, path)
             : 0;
         const label = typeof window.formatDolphinFolderPill === 'function'
             ? window.formatDolphinFolderPill(n)

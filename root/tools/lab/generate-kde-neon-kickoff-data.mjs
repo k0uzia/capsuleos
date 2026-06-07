@@ -49,6 +49,12 @@ function iconPath(iconName) {
             return `./assets/images/vendors/neon/discover/${iconName}${ext}`;
         }
     }
+    const gnomeOverview = path.join(ROOT, 'usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview');
+    for (const ext of ['.svg', '.png']) {
+        if (fs.existsSync(path.join(gnomeOverview, iconName + ext))) {
+            return `./assets/images/toolkits/gnome/apps/overview/${iconName}${ext}`;
+        }
+    }
     return `${KICKOFF_BASE}${iconName}.png`;
 }
 

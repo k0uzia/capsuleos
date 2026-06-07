@@ -65,7 +65,7 @@
             if (count != null) {
                 contentLabel = `${count} élément${count > 1 ? 's' : ''}`;
             }
-        } else if (!item && currentPath && !global.isCapsuleVirtualPlace?.(currentPath)) {
+        } else if (!item && currentPath && !(global.isCapsuleVirtualPlace && global.isCapsuleVirtualPlace(currentPath))) {
             const count = countFolderItems(currentPath);
             if (count != null) {
                 contentLabel = `${count} élément${count > 1 ? 's' : ''}`;

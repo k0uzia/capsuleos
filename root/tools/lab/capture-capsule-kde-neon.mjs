@@ -62,6 +62,71 @@ const openSlot = async (page, slot, scene = {}) => {
   if (!opened.ok || opened.display === 'none' || opened.display === 'missing') {
     throw new Error(`Impossible d'ouvrir ${slot} (display=${opened.display})`);
   }
+  if (slot === 'nemo') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="nemo"]');
+        if (!root || root.style.display === 'none') return false;
+        const grid = root.querySelector('.nemoElement[data-pane="primary"], #voletContainer > .nemoElement');
+        return grid && grid.querySelectorAll('a[data-item-name]').length >= 3;
+      },
+      null,
+      { timeout: 30000 },
+    );
+    if (scene.dolphinViewMode) {
+      await page.evaluate((mode) => {
+        if (typeof window.setFileExplorerViewMode === 'function') {
+          window.setFileExplorerViewMode(mode);
+        }
+      }, scene.dolphinViewMode);
+      await page.waitForFunction(
+        (mode) => {
+          const root = document.querySelector('.windowElement[data-link="nemo"]');
+          if (!root) return false;
+          if (mode === 'list') {
+            return !!root.querySelector('.nemo-app__content-grid--list:not([hidden])');
+          }
+          if (mode === 'compact') {
+            return !!root.querySelector('.nemo-app__content-grid--compact:not([hidden])');
+          }
+          return !!root.querySelector('.nemo-app__content-grid--icons:not([hidden])');
+        },
+        scene.dolphinViewMode,
+        { timeout: 10000 },
+      );
+      await sleep(page, 600);
+    }
+    if (scene.dolphinSplit) {
+      await page.click('#dolphin-split-toggle');
+      await page.waitForFunction(
+        () => {
+          const open = window.fileExplorerState && window.fileExplorerState.splitView;
+          const root = document.querySelector('.windowElement[data-link="nemo"]');
+          const domSplit = root && (
+            root.querySelector('.dolphin-content-wrap--split')
+            || root.querySelector('.dolphin-content-panes--split')
+            || root.querySelector('.dolphin-content-pane--secondary:not([hidden])')
+          );
+          return !!(open || domSplit);
+        },
+        null,
+        { timeout: 15000 },
+      );
+      await sleep(page, 1200);
+    }
+    if (scene.dolphinHamburger) {
+      await page.click('#dolphin-main-menu');
+      await page.waitForFunction(
+        () => {
+          const menu = document.querySelector('#dolphin-hamburger-menu');
+          return menu && !menu.hidden;
+        },
+        null,
+        { timeout: 5000 },
+      );
+      await sleep(page, 500);
+    }
+  }
   if (slot === 'update_manager') {
     await page.waitForFunction(
       () => {
@@ -162,6 +227,11 @@ const main = async () => {
   const shots = [
     { file: 'capsule-desktop.png' },
     { file: 'capsule-kickoff.png', slots: ['mainMenu'] },
+    { file: 'capsule-dolphin.png', slots: ['nemo'] },
+    { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
+    { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
+    { file: 'capsule-dolphin-split.png', slots: ['nemo'], dolphinSplit: true },
+    { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinSplit: true, dolphinHamburger: true },
     { file: 'capsule-discover.png', slots: ['update_manager'] },
     {
       file: 'capsule-discover-installed.png',

@@ -121,7 +121,7 @@
             return null;
         }
         const state = getState();
-        const parentPath = link.dataset.itemFolderPath || state?.currentPath || '';
+        const parentPath = link.dataset.itemFolderPath || (state && state.currentPath) || '';
         return {
             parentPath,
             name: link.dataset.itemName,
@@ -162,7 +162,7 @@
         }
         const clip = state && state.explorerClipboard;
         const canPaste = !!(clip && Array.isArray(clip.entries) && clip.entries.length
-            && state.currentPath && !global.isCapsuleVirtualPlace?.(state.currentPath));
+            && state.currentPath && !(global.isCapsuleVirtualPlace && global.isCapsuleVirtualPlace(state.currentPath)));
         pasteBtn.disabled = !canPaste;
     };
 
@@ -196,8 +196,8 @@
     const pasteExplorerClipboard = async (destPath) => {
         const state = getState();
         const clip = state && state.explorerClipboard;
-        const target = destPath || state?.currentPath;
-        if (!clip || !clip.entries.length || !target || global.isCapsuleVirtualPlace?.(target)) {
+        const target = destPath || (state && state.currentPath);
+        if (!clip || !clip.entries.length || !target || (global.isCapsuleVirtualPlace && global.isCapsuleVirtualPlace(target))) {
             return { ok: false, message: 'Impossible de coller ici.' };
         }
 
@@ -392,13 +392,12 @@
                 return;
             }
             node.items.forEach((item) => {
-                const enriched = {
-                    ...item,
+                const enriched = Object.assign({}, item, {
                     folderPath,
                     searchParentLabel: typeof global.findFolderLabel === 'function'
                         ? global.findFolderLabel(folderPath)
                         : folderPath,
-                };
+                });
                 if (item.type === 'folder' && item.path) {
                     enriched.targetPath = item.path;
                 }
@@ -425,7 +424,8 @@
 
         nemoElement.innerHTML = '';
         nemoElement.hidden = false;
-        const empty = getNemoRoot()?.querySelector('#nautilus-search-empty');
+        const nemoRoot = getNemoRoot();
+        const empty = nemoRoot ? nemoRoot.querySelector('#nautilus-search-empty') : null;
         if (empty) {
             empty.hidden = true;
         }
@@ -442,9 +442,9 @@
 
         const state = getState();
         items.forEach((item) => {
-            const parent = item.folderPath || state?.currentPath;
+            const parent = item.folderPath || (state && state.currentPath);
             if (typeof global.appendFileExplorerGridItem === 'function') {
-                global.appendFileExplorerGridItem(nemoElement, item, parent, state?.activePane || 'primary');
+                global.appendFileExplorerGridItem(nemoElement, item, parent, (state && state.activePane) || 'primary');
             }
         });
         if (typeof global.applyFileExplorerViewMode === 'function') {
@@ -554,11 +554,11 @@
     const getVirtualPlaceItems = (placePath) => {
         if (placePath === global.CAPSULE_PLACE_TRASH) {
             return getTrashStore().map((entry) => ({
-                type: entry.item?.type || 'file',
-                name: entry.item?.name || entry.name || 'Élément',
-                path: entry.item?.path,
-                href: entry.item?.href,
-                extension: entry.item?.extension,
+                type: (entry.item && entry.item.type) || 'file',
+                name: (entry.item && entry.item.name) || entry.name || 'Élément',
+                path: entry.item && entry.item.path,
+                href: entry.item && entry.item.href,
+                extension: entry.item && entry.item.extension,
                 trashedFrom: entry.parentPath,
             }));
         }

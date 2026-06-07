@@ -13,6 +13,7 @@
     "linux-rocky",
     "linux-alma",
     "linux-anduinos",
-    "linux-popos"
+    "linux-popos",
+    "linux-kde-neon"
   ]
 }

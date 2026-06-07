@@ -47,10 +47,7 @@
     "CAPSULE_WINDOW_CHROME_CONTEXT": {
       "toolkitId": "gnome",
       "explorerTemplate": "nemo-gnome",
-      "dragMode": "app-headerbar-passthrough",
-      "slotProviders": {
-        "update_manager": "update-manager-ubuntu"
-      }
+      "dragMode": "app-headerbar-passthrough"
     },
     "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
     "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",

@@ -6,3 +6,5 @@ root/.cursor/*
 !root/.cursor/hooks.json
 # .cursor (symlink → root/.cursor) : rules + hooks versionnés
 etc/capsuleos/lab-inventory.json
+# Captures lab accidentelles (argv dest-dir mal passé à capture-capsule-kde-neon.mjs)
+/--only/

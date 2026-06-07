@@ -123,7 +123,8 @@ const fileExplorerState = {
     splitView: false,
     activePane: 'primary',
     selectedPreview: null,
-    pathNavigationMode: 'label'
+    pathNavigationMode: 'label',
+    listExpandedPaths: { primary: [], secondary: [] }
 };
 
 fileExplorerState.currentPath = getFileExplorerRoot();
@@ -293,17 +294,18 @@ const resolveItemIcon = (item) => {
     }
 
     if (item.type === 'folder') {
-        const icon = getFileExplorerCatalogIcon(item.name)
-            || getFileExplorerIconOverride(item.name)
-            || getFileExplorerCatalogIcon('folder')
+        const icon = getFileExplorerIconOverride(item.name)
+            || getFileExplorerCatalogIcon(item.name)
             || getFileExplorerIconOverride('folder')
+            || getFileExplorerCatalogIcon('folder')
             || folderFallback;
         return resolveUrl(icon);
     }
 
     const extension = getFileExtension(item);
-    const icon = getFileExplorerCatalogIcon(extension)
-        || getFileExplorerIconOverride(extension)
+    const icon = getFileExplorerIconOverride(extension)
+        || getFileExplorerCatalogIcon(extension)
+        || getFileExplorerIconOverride('txt')
         || getFileExplorerCatalogIcon('txt')
         || fileFallback;
     return resolveUrl(icon);
@@ -381,10 +383,26 @@ const usesNemoListView = () => (
     || (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_LIST_VIEW === true)
 );
 
+/** DOM colonnes (nom / taille / date) : Mint/COSMIC toujours ; Dolphin en vues liste ou compacte seulement. */
+const usesExplorerListItemDom = () => {
+    if (isCosmicFilesExplorer()) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CAPSULE_EXPLORER_LIST_VIEW === true && !isDolphinTemplate()) {
+        return true;
+    }
+    if (isDolphinTemplate()) {
+        const mode = fileExplorerState.viewMode || 'icons';
+        return mode === 'list' || mode === 'compact';
+    }
+    return false;
+};
+
 const usesNemoListViewFrenchColumns = () => (
-    typeof window !== 'undefined'
-    && window.CAPSULE_EXPLORER_LIST_VIEW === true
-    && !isCosmicFilesExplorer()
+    (typeof window !== 'undefined'
+        && window.CAPSULE_EXPLORER_LIST_VIEW === true
+        && !isCosmicFilesExplorer())
+    || (isDolphinTemplate() && fileExplorerState.viewMode === 'list')
 );
 
 const passesExplorerSearchFilter = (item) => {
@@ -405,9 +423,9 @@ const shouldHideListViewItem = (item, directoryPath) => {
         return true;
     }
     if (
-        usesNemoListViewFrenchColumns()
-        && directoryPath === getFileExplorerRoot()
+        directoryPath === getFileExplorerRoot()
         && item.name === 'snap'
+        && (usesNemoListViewFrenchColumns() || isDolphinTemplate())
     ) {
         return true;
     }
@@ -478,8 +496,114 @@ const formatListItemSizeFrench = (item) => {
     return `${count} éléments`;
 };
 
+const isDolphinListTreeView = () => (
+    isDolphinTemplate()
+    && fileExplorerState.viewMode === 'list'
+    && typeof document !== 'undefined'
+    && document.body
+    && document.body.id === 'kde-neon'
+);
+
+const ensureListExpandedPaths = () => {
+    if (!fileExplorerState.listExpandedPaths) {
+        fileExplorerState.listExpandedPaths = { primary: [], secondary: [] };
+    }
+    return fileExplorerState.listExpandedPaths;
+};
+
+const getListExpandedPaths = (pane) => {
+    const buckets = ensureListExpandedPaths();
+    if (!buckets[pane]) {
+        buckets[pane] = [];
+    }
+    return buckets[pane];
+};
+
+const isDolphinListFolderExpanded = (folderPath, pane) => (
+    getListExpandedPaths(pane).includes(normalizeDirectoryPath(folderPath))
+);
+
+const toggleDolphinListFolderExpanded = (folderPath, pane) => {
+    const list = getListExpandedPaths(pane);
+    const normalized = normalizeDirectoryPath(folderPath);
+    const idx = list.indexOf(normalized);
+    if (idx >= 0) {
+        list.splice(idx, 1);
+    } else {
+        list.push(normalized);
+    }
+};
+
+const clearDolphinListExpandedPaths = (pane) => {
+    const buckets = ensureListExpandedPaths();
+    if (pane) {
+        buckets[pane] = [];
+        return;
+    }
+    buckets.primary = [];
+    buckets.secondary = [];
+};
+
+const resolveDolphinFolderTargetPath = (item, parentPath) => {
+    if (item.path) {
+        return normalizeDirectoryPath(item.path);
+    }
+    const parent = normalizeDirectoryPath(parentPath);
+    return normalizeDirectoryPath(`${parent}/${item.name}`);
+};
+
+const dolphinFolderHasVisibleChildren = (folderPath) => {
+    const node = fileExplorerState.manifest
+        && fileExplorerState.manifest.folders
+        && fileExplorerState.manifest.folders[normalizeDirectoryPath(folderPath)];
+    if (!node || !Array.isArray(node.items)) {
+        return false;
+    }
+    return node.items.some((item) => !shouldHideListViewItem(item, folderPath));
+};
+
+const appendDolphinListTreeItems = (nemoElement, path, pane, depth = 0) => {
+    const folderNode = fileExplorerState.manifest
+        && fileExplorerState.manifest.folders
+        && fileExplorerState.manifest.folders[normalizeDirectoryPath(path)];
+    if (!folderNode || !Array.isArray(folderNode.items)) {
+        return;
+    }
+    folderNode.items.forEach((item) => {
+        if (shouldHideListViewItem(item, path)) {
+            return;
+        }
+        appendFileExplorerGridItem(nemoElement, item, path, pane, depth);
+    });
+};
+
 const syncNemoListHeaderVisibility = () => {
-    if (!usesNemoListView()) {
+    const voletContainer = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} #voletContainer`);
+    if (!voletContainer) {
+        return;
+    }
+
+    const headers = voletContainer.querySelectorAll('.nemo-app__list-header');
+    if (!headers.length) {
+        return;
+    }
+
+    const show = fileExplorerState.viewMode === 'list'
+        && (usesNemoListView() || isDolphinTemplate());
+    headers.forEach((header) => {
+        if (show) {
+            header.removeAttribute('hidden');
+        } else {
+            header.setAttribute('hidden', '');
+        }
+    });
+};
+
+const ensureNemoListViewChrome = () => {
+    const needsListChrome = fileExplorerState.viewMode === 'list'
+        && (usesNemoListView() || isDolphinTemplate());
+    if (!needsListChrome) {
+        syncNemoListHeaderVisibility();
         return;
     }
 
@@ -488,30 +612,14 @@ const syncNemoListHeaderVisibility = () => {
         return;
     }
 
-    const header = voletContainer.querySelector('.nemo-app__list-header');
-    if (!header) {
+    const gridNodes = isDolphinTemplate()
+        ? [...voletContainer.querySelectorAll('.nemoElement[data-pane]')]
+        : [...voletContainer.querySelectorAll('.nemoElement')];
+    if (!gridNodes.length) {
         return;
     }
 
-    if (fileExplorerState.viewMode === 'list') {
-        header.removeAttribute('hidden');
-    } else {
-        header.setAttribute('hidden', '');
-    }
-};
-
-const ensureNemoListViewChrome = () => {
-    if (!usesNemoListView()) {
-        return;
-    }
-
-    const voletContainer = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} #voletContainer`);
-    const nemoElement = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemoElement`);
-    if (!voletContainer || !nemoElement) {
-        return;
-    }
-
-    if (!voletContainer.querySelector('.nemo-app__list-header')) {
+    const buildListHeader = () => {
         const header = document.createElement('div');
         header.className = 'nemo-app__list-header';
         header.setAttribute('aria-hidden', 'true');
@@ -526,13 +634,24 @@ const ensureNemoListViewChrome = () => {
 
         const modifiedSpan = document.createElement('span');
         modifiedSpan.className = 'nemo-app__list-header-modified';
-        modifiedSpan.textContent = usesNemoListViewFrenchColumns() ? 'Dernière modification' : 'Modifié';
+        modifiedSpan.textContent = isDolphinTemplate() ? 'Modifié'
+            : (usesNemoListViewFrenchColumns() ? 'Dernière modification' : 'Modifié');
 
         header.append(nameSpan, sizeSpan, modifiedSpan);
-        voletContainer.insertBefore(header, nemoElement);
-    }
+        return header;
+    };
 
-    nemoElement.classList.add('nemo-app__content-grid');
+    gridNodes.forEach((nemoElement) => {
+        const gridParent = nemoElement.parentElement;
+        if (!gridParent) {
+            return;
+        }
+        if (!gridParent.querySelector(':scope > .nemo-app__list-header')) {
+            gridParent.insertBefore(buildListHeader(), nemoElement);
+        }
+        nemoElement.classList.add('nemo-app__content-grid');
+    });
+
     syncNemoListHeaderVisibility();
 };
 
@@ -541,6 +660,15 @@ const countFoldersInItems = (items) => {
         return 0;
     }
     return items.filter((item) => item.type === 'folder').length;
+};
+
+const countVisibleFoldersInItems = (items, directoryPath) => {
+    if (!items || !Array.isArray(items)) {
+        return 0;
+    }
+    return items.filter(
+        (item) => item.type === 'folder' && !shouldHideListViewItem(item, directoryPath)
+    ).length;
 };
 
 const formatDolphinFolderPill = (n) => {
@@ -557,19 +685,25 @@ const updateDolphinFolderPill = (folderNode, paneId = 'primary') => {
     if (!isDolphinTemplate()) {
         return;
     }
+    const directoryPath = paneId === 'secondary'
+        ? fileExplorerState.secondaryPath
+        : fileExplorerState.currentPath;
     if (typeof window.updateDolphinFolderPillForPane === 'function') {
-        window.updateDolphinFolderPillForPane(folderNode, paneId);
+        window.updateDolphinFolderPillForPane(folderNode, paneId, directoryPath);
         return;
     }
     const pill = document.getElementById('dolphin-folder-pill');
     if (!pill) {
         return;
     }
-    const n = folderNode && Array.isArray(folderNode.items) ? countFoldersInItems(folderNode.items) : 0;
+    const n = folderNode && Array.isArray(folderNode.items)
+        ? countVisibleFoldersInItems(folderNode.items, directoryPath)
+        : 0;
     pill.textContent = formatDolphinFolderPill(n);
 };
 
 window.countFoldersInItems = countFoldersInItems;
+window.countVisibleFoldersInItems = countVisibleFoldersInItems;
 window.formatDolphinFolderPill = formatDolphinFolderPill;
 
 const getExplorerTitleSuffix = () => {
@@ -985,13 +1119,27 @@ const collectRecentExplorerItems = () => {
     return sortExplorerItems(files);
 };
 
-const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
+const appendFileExplorerGridItem = (nemoElement, item, path, pane, depth = 0) => {
     const itemLink = document.createElement('a');
     itemLink.setAttribute('draggable', 'true');
     itemLink.setAttribute('data-details', item.type === 'folder' ? 'Dossier' : 'Fichier');
     itemLink.dataset.itemName = item.name;
     itemLink.dataset.itemType = item.type;
     itemLink.dataset.itemFolderPath = path;
+    if (isDolphinListTreeView()) {
+        itemLink.dataset.listDepth = String(depth);
+        itemLink.style.setProperty('--dolphin-list-depth', String(depth));
+        if (item.type === 'folder') {
+            const targetPath = resolveDolphinFolderTargetPath(item, path);
+            itemLink.dataset.listTargetPath = targetPath;
+            if (dolphinFolderHasVisibleChildren(targetPath)) {
+                itemLink.classList.add('nemo-app__item--folder-expandable');
+            }
+            if (isDolphinListFolderExpanded(targetPath, pane)) {
+                itemLink.classList.add('nemo-app__item--list-expanded');
+            }
+        }
+    }
     if (item.type === 'folder' && item.path) {
         itemLink.dataset.itemTargetPath = item.path;
     }
@@ -1009,7 +1157,7 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
     icon.alt = item.name;
     itemLink.appendChild(icon);
 
-    if (usesNemoListView()) {
+    if (usesExplorerListItemDom()) {
         const body = document.createElement('span');
         body.className = 'nemo-app__item-body';
 
@@ -1029,7 +1177,9 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
 
         const modifiedEl = document.createElement('span');
         modifiedEl.className = 'nemo-app__item-modified';
-        modifiedEl.textContent = formatCosmicModifiedLabel();
+        modifiedEl.textContent = isDolphinTemplate() && fileExplorerState.viewMode === 'list'
+            ? 'Hier à 18:25'
+            : formatCosmicModifiedLabel();
         itemLink.appendChild(modifiedEl);
 
         const sizeEl = document.createElement('span');
@@ -1040,6 +1190,7 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
         itemLink.appendChild(sizeEl);
     } else {
         const label = document.createElement('span');
+        label.className = 'nemo-app__item-name';
         label.textContent = item.name;
         itemLink.appendChild(label);
     }
@@ -1115,6 +1266,13 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane) => {
     }
 
     nemoElement.appendChild(itemLink);
+
+    if (isDolphinListTreeView() && item.type === 'folder') {
+        const targetPath = resolveDolphinFolderTargetPath(item, path);
+        if (isDolphinListFolderExpanded(targetPath, pane)) {
+            appendDolphinListTreeItems(nemoElement, targetPath, pane, depth + 1);
+        }
+    }
 };
 
 const renderVirtualPlaceDirectory = (path, pane, nemoElement) => {
@@ -1864,6 +2022,15 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
             return;
         }
 
+        const previousPath = (isDolphinTemplate() && pane === 'secondary')
+            ? fileExplorerState.secondaryPath
+            : fileExplorerState.currentPath;
+        if (isDolphinListTreeView()
+            && previousPath
+            && normalizeDirectoryPath(previousPath) !== path) {
+            clearDolphinListExpandedPaths(pane);
+        }
+
         if (isDolphinTemplate() && pane === 'secondary') {
             fileExplorerState.secondaryPath = path;
             if (updateHistory) {
@@ -2094,12 +2261,13 @@ const applyFileExplorerViewMode = () => {
         });
     });
 
+    ensureNemoListViewChrome();
     syncNemoListHeaderVisibility();
     updateFileExplorerViewControls();
 };
 
 const initFileExplorerDefaultViewMode = () => {
-    if (usesNemoListView() && fileExplorerState.viewMode === 'icons') {
+    if (usesNemoListView() && !isDolphinTemplate() && fileExplorerState.viewMode === 'icons') {
         fileExplorerState.viewMode = 'list';
     }
 };
@@ -2109,7 +2277,23 @@ const setFileExplorerViewMode = (mode) => {
         return;
     }
 
+    const previousMode = fileExplorerState.viewMode;
     fileExplorerState.viewMode = mode;
+
+    if (previousMode === 'list' && mode !== 'list') {
+        clearDolphinListExpandedPaths();
+    }
+
+    const dolphinDomShapeChanged = isDolphinTemplate()
+        && (
+            (previousMode === 'icons') !== (mode === 'icons')
+            || (previousMode === 'list') !== (mode === 'list')
+            || (previousMode === 'compact') !== (mode === 'compact')
+        );
+    if (dolphinDomShapeChanged && fileExplorerState.currentPath) {
+        renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+    }
+
     applyFileExplorerViewMode();
 };
 
@@ -2449,6 +2633,10 @@ window.getFileViewerTargetByItem = getFileViewerTargetByItem;
 window.updateDolphinSidebarActive = updateDolphinSidebarActive;
 window.setFileExplorerViewMode = setFileExplorerViewMode;
 window.applyFileExplorerViewMode = applyFileExplorerViewMode;
+window.isDolphinListTreeViewActive = isDolphinListTreeView;
+window.toggleDolphinListFolderExpanded = toggleDolphinListFolderExpanded;
+window.clearDolphinListExpandedPaths = clearDolphinListExpandedPaths;
+window.dolphinFolderHasVisibleChildren = dolphinFolderHasVisibleChildren;
 window.loadDirectory = loadFileExplorerDirectory;
 window.navigateToFileExplorerDirectory = navigateToFileExplorerDirectory;
 window.navigateToDirectory = navigateToFileExplorerDirectory;

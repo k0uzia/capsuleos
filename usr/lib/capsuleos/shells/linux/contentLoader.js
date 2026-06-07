@@ -170,10 +170,30 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     return `${appsBase}/${templateId}.html`;
 };
 
-/** Candidats HTML : skin d’abord (Kickoff Plasma, etc.), puis noyau partagé. */
+/** Override HTML local au skin (Kickoff Plasma, Discover Neon, etc.) — pas de probe 404 pour les autres slots. */
+const hasSkinHtmlOverride = (templateId) => {
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    const skinKey = getEmbedSkinKey();
+    const skinMap = embed && embed.skinTemplates && embed.skinTemplates[skinKey];
+    if (skinMap && skinMap[templateId] && skinMap[templateId].html) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CAPSULE_SKIN_APP_OVERRIDES) {
+        const list = window.CAPSULE_SKIN_APP_OVERRIDES;
+        if (Array.isArray(list) && list.includes(templateId)) {
+            return true;
+        }
+        if (list && typeof list === 'object' && list[templateId]) {
+            return true;
+        }
+    }
+    return false;
+};
+
+/** Candidats HTML : skin d’abord si override connu, puis noyau partagé. */
 const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
     const candidates = [];
-    if (skinBase) {
+    if (skinBase && hasSkinHtmlOverride(templateId)) {
         candidates.push(`${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`);
     }
     const shared = resolveTemplateHtmlFile(templateId, appsBase);
@@ -228,8 +248,11 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
 
     const fetchHtml = (async () => {
         const skinKey = getEmbedSkinKey();
-        const skinOverride = embed?.skinTemplates?.[skinKey]?.[templateId];
-        if (skinOverride?.html) {
+        const skinTemplates = embed && embed.skinTemplates;
+        const skinOverride = skinTemplates && skinTemplates[skinKey]
+            ? skinTemplates[skinKey][templateId]
+            : null;
+        if (skinOverride && skinOverride.html) {
             return skinOverride.html;
         }
 

@@ -45,6 +45,11 @@
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/rocky.png"
                 },
                 {
+                    "name": "KDE neon User Edition",
+                    "href": "./OS/linux/families/debian/kde-neon/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                },
+                {
                     "name": "Pop!_OS",
                     "href": "./OS/linux/families/debian/popos/index.html",
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/popos.png"
@@ -152,7 +157,7 @@
             "displayName": "KDE neon User Edition",
             "href": "./OS/linux/families/debian/kde-neon/index.html",
             "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png",
-            "status": "planned",
+            "status": "active",
             "tier": "P2"
         },
         "linux-opensuse": {

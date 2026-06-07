@@ -56,9 +56,6 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -131,9 +128,6 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -262,9 +256,6 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -296,7 +287,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "bodyId": "kde-neon",
     "embedKey": "kde-neon",
     "tier": "P2",
-    "status": "planned",
+    "status": "active",
     "fidelityLevel": 2,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
@@ -659,9 +650,6 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -731,10 +719,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "dragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "update_manager": "update-manager-ubuntu"
-        }
+        "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
@@ -815,9 +800,6 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -890,9 +872,6 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1021,9 +1000,6 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1055,7 +1031,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "bodyId": "kde-neon",
     "embedKey": "kde-neon",
     "tier": "P2",
-    "status": "planned",
+    "status": "active",
     "fidelityLevel": 2,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
@@ -1418,9 +1394,6 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-      "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1490,10 +1463,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
-        "dragMode": "app-headerbar-passthrough",
-        "slotProviders": {
-          "update_manager": "update-manager-ubuntu"
-        }
+        "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",

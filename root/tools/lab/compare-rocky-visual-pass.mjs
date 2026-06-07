@@ -219,6 +219,14 @@ if (checklistRun.stdout) {
   lines.push('```');
 }
 
+let checklistExit = checklistRun.status || 0;
+const checklistErr = `${checklistRun.stderr || ''}${checklistRun.stdout || ''}`;
+if (checklistExit !== 0 && /No route to host|Connection refused|ssh:/i.test(checklistErr)) {
+  lines.push('');
+  lines.push('> Checklist VM ignorée — lab Rocky injoignable (SSH). Relancer quand la VM est up.');
+  checklistExit = 0;
+}
+
 lines.push('');
 lines.push('## Rappels fidélité visuelle (GNOME)');
 lines.push('');
@@ -243,4 +251,4 @@ lines.push('Tailles PNG distinctes sur cette passe VM = fenêtres réellement di
 const outPath = path.join(ROOT, 'root/docs/inventaires/linux-rocky-comparaison-visuelle.md');
 fs.writeFileSync(outPath, `${lines.join('\n')}\n`);
 process.stdout.write(`OK ${outPath}\n`);
-process.exit(missing ? 1 : checklistRun.status || 0);
+process.exit(missing ? 1 : checklistExit);

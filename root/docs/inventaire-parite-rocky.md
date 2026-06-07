@@ -232,19 +232,37 @@ Commande : `node usr/lib/capsuleos/tools/lab/run-vm-deep-audit-phases.mjs --id l
 
 ---
 
+## Passe lab juin 2026 (suite)
+
+| Étape | Résultat |
+|-------|----------|
+| Fonds Rocky PNG → WebP | 10 wallpapers + `capsule-theme-storage` |
+| Panel `firefox-48` WebP | rocky / alma |
+| Captures Capsule | 20 PNG régénérées (`capture-capsule-rocky.mjs`) |
+| Comparaison VM↔Capsule | 14/14 paires — [`linux-rocky-comparaison-visuelle.md`](inventaires/linux-rocky-comparaison-visuelle.md) |
+| Audit Nautilus | `audit-nautilus-rocky.mjs` OK (Adwaita, fil d'Ariane) |
+| Smoke shell visuel | `smoke-rocky-shell-visual.mjs` — overview, dash 7, CSD, fond WebP |
+
+VM lab (`192.168.122.234`) : checklist panel SSH en attente (VM hors ligne).
+
+---
+
 ## Commandes de revalidation
 
 ```bash
-# Audit static + interactif
+# Audit static + interactif (VM up)
 node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs --id linux-rocky --phase static --write-doc
 node usr/lib/capsuleos/tools/lab/run-vm-deep-audit-phases.mjs --id linux-rocky --phases 2,3,4,5
 
 # Sonde VM
 node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id linux-rocky --cmd '$HOME/capsuleos-lab/os-probe-gnome.sh state'
 
-# Smokes
+# Smokes (HTTP lab 8765)
 node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs
-CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-visual.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs
+node root/tools/lab/audit-nautilus-rocky.mjs
+node root/tools/lab/compare-rocky-visual-pass.mjs
 
 # Clôture + validation
 ./root/tools/lab/update-rocky-nautilus.sh

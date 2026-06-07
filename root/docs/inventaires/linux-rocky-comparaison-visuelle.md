@@ -1,6 +1,6 @@
 # Passe comparaison visuelle — Rocky Linux (VM ↔ CapsuleOS)
 
-Généré : 2026-06-07T09:43:21.357Z
+Généré : 2026-06-07T09:51:54.939Z
 
 Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md) (Nautilus ≠ Nemo).
 
@@ -34,6 +34,8 @@ Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.m
 ## Checklist panel (état logique)
 
 Export Capsule : `run-capsule-panel-browser.mjs` OK.
+
+> Checklist VM ignorée — lab Rocky injoignable (SSH). Relancer quand la VM est up.
 
 ## Rappels fidélité visuelle (GNOME)
 

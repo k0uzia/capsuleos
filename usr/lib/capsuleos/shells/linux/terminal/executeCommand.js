@@ -23,6 +23,14 @@ function formatCommandResult(state, command, lines, options = {}) {
     };
 }
 
+function queueUserFsSync(op, state, extra) {
+    if (!window.CapsuleUserFs || typeof window.CapsuleUserFs.syncFromTerminal !== 'function') {
+        return;
+    }
+    const payload = Object.assign({ op, cwd: state.cwd }, extra || {});
+    Promise.resolve(window.CapsuleUserFs.syncFromTerminal(payload)).catch(() => {});
+}
+
 function getDirectoryEntries(fs, path) {
     const directory = fs[path];
     return directory && typeof directory === 'object' ? Object.keys(directory) : [];
@@ -412,6 +420,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
             }
             directory[fileName] = {};
             ensureFileContents(state)[entryPath(state.cwd, fileName, resolvePath)] = '';
+            queueUserFsSync('touch', state, { name: fileName });
             return formatCommandResult(state, rawCommand, [`Fichier ${fileName} créé.`]);
         }
         case 'mkdir': {
@@ -424,6 +433,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
                 return formatCommandResult(state, rawCommand, [`Dossier ${dirName} existe déjà.`]);
             }
             addDirectory(fs, state.cwd, dirName, resolvePath);
+            queueUserFsSync('mkdir', state, { name: dirName });
             return formatCommandResult(state, rawCommand, [`Dossier ${dirName} créé.`]);
         }
         case 'mv': {
@@ -451,6 +461,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
             delete directory[source];
             delete directory[`/${source}`];
             directory[destination] = {};
+            queueUserFsSync('mv', state, { source, dest: destination });
             return formatCommandResult(state, rawCommand, [`${source} déplacé vers ${destination}.`]);
         }
         case 'rm': {
@@ -464,6 +475,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
             }
             removeEntry(fs, state.cwd, fileName, resolvePath);
             delete ensureFileContents(state)[entryPath(state.cwd, fileName, resolvePath)];
+            queueUserFsSync('rm', state, { name: fileName });
             return formatCommandResult(state, rawCommand, [`Fichier ${fileName} supprimé.`]);
         }
         case 'rmdir': {
@@ -484,6 +496,7 @@ function executeTerminalCommand(state, command, helpers = {}) {
                 delete fs[state.cwd][dirName];
                 delete fs[state.cwd][`/${dirName}`];
             }
+            queueUserFsSync('rmdir', state, { name: dirName });
             return formatCommandResult(state, rawCommand, [`Dossier ${dirName} supprimé.`]);
         }
         case 'clear':

@@ -2635,3 +2635,26 @@ window.refreshFileExplorerDirectory = function refreshFileExplorerDirectory() {
     updatePathDisplay();
     updateNavigationControls();
 };
+
+(function bindCapsuleFsChangedListener() {
+    if (typeof window === 'undefined' || window.__capsuleFsChangedBound) {
+        return;
+    }
+    window.__capsuleFsChangedBound = true;
+    window.addEventListener('capsule:fs-changed', (event) => {
+        const detail = event && event.detail ? event.detail : {};
+        const affected = Array.isArray(detail.affectedParents) ? detail.affectedParents : [];
+        if (!affected.length || !fileExplorerState.currentPath) {
+            return;
+        }
+        const current = normalizeDirectoryPath(fileExplorerState.currentPath);
+        const shouldRefresh = affected.some((parentPath) => (
+            normalizeDirectoryPath(parentPath) === current
+        ));
+        if (!shouldRefresh) {
+            return;
+        }
+        renderDirectory(current, { pane: fileExplorerState.activePane || 'primary' });
+        updatePathDisplay();
+    });
+}());

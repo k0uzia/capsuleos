@@ -1,0 +1,44 @@
+{
+  "id": "fs-sync-terminal-explorer",
+  "title": "Synchronisation terminal ↔ explorateur (CapsuleUserFs)",
+  "version": "2026-06-04",
+  "scope": ["linux-rocky", "linux-alma", "linux-fedora"],
+  "architecture": {
+    "module": "usr/lib/capsuleos/shells/common/capsule-user-fs.js",
+    "event": "capsule:fs-changed",
+    "storageKey": "capsule-explorer-manifest:${skin}:${contentRoot}"
+  },
+  "tests": [
+    {
+      "id": "T1",
+      "command": "rm <fichier>",
+      "assertion": "l’item disparaît de la grille Nautilus du dossier courant"
+    },
+    {
+      "id": "T2",
+      "command": "rmdir <dossier-vide>",
+      "assertion": "le dossier disparaît de la grille"
+    },
+    {
+      "id": "T3",
+      "command": "touch <fichier>",
+      "assertion": "le fichier apparaît dans la grille"
+    },
+    {
+      "id": "T4",
+      "command": "mkdir <dossier>",
+      "assertion": "le dossier apparaît dans la grille"
+    },
+    {
+      "id": "T5",
+      "command": "mv <ancien> <nouveau>",
+      "assertion": "ancien nom absent, nouveau nom présent"
+    }
+  ],
+  "smoke": "usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs",
+  "prerequisites": [
+    "Nemo ouvert sur un dossier manifeste (ex. Documents)",
+    "CapsuleExplorerVfs.resolveManifestPathFromTerminal mappe le cwd terminal",
+    "executeCommand appelle CapsuleUserFs.syncFromTerminal après succès"
+  ]
+}

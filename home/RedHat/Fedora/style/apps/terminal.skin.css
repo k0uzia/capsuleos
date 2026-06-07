@@ -2,7 +2,7 @@
  * fedora — terminal (structure Rocky).
  */
 /* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
-body#fedora #terminal.terminal-window--fedora {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora {
     width: min(52rem, calc(100vw - var(--fedora-dock-width, 0px) - 2.5rem));
     height: min(36rem, calc(100vh - var(--fedora-top-bar-height) - 2.5rem));
     min-width: min(40rem, calc(100vw - 3rem));
@@ -14,8 +14,8 @@ body#fedora #terminal.terminal-window--fedora {
     overflow: hidden;
 }
 
-body#fedora #terminal.terminal-window--fedora #windowHeader,
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -32,7 +32,7 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-header {
     gap: 0.35rem;
 }
 
-body#fedora #terminal.terminal-window--fedora #windowHeader > nav {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav {
     min-width: auto;
     height: var(--full);
     gap: 0.35rem;
@@ -40,16 +40,16 @@ body#fedora #terminal.terminal-window--fedora #windowHeader > nav {
     flex-shrink: 0;
 }
 
-body#fedora #terminal.terminal-window--fedora #windowHeader > nav:last-child {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav:last-child {
     justify-content: flex-end;
     margin-left: auto;
 }
 
-body#fedora #terminal.terminal-window--fedora #windowTitle {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #windowTitle {
     display: none !important;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__tabs {
     display: flex;
     flex: 1 1 auto;
     align-items: center;
@@ -59,10 +59,10 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
     padding: 0 0.25rem;
 }
 
-body#fedora #terminal.terminal-window--fedora #minimizeBtn,
-body#fedora #terminal.terminal-window--fedora #resizeBtn,
-body#fedora #terminal.terminal-window--fedora #closeBtn,
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button {
     position: relative;
     display: flex;
     align-items: center;
@@ -79,15 +79,15 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button {
     cursor: pointer;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button:hover,
-body#fedora #terminal.terminal-window--fedora #minimizeBtn:hover,
-body#fedora #terminal.terminal-window--fedora #resizeBtn:hover,
-body#fedora #terminal.terminal-window--fedora #closeBtn:hover {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button:hover,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn:hover,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn:hover,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     background-color: var(--fedora-window-control-hover-bg);
     transform: none;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button--add {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--add {
     border: 1px solid currentColor;
     border-radius: 0.28rem;
     width: 1.35rem;
@@ -97,10 +97,10 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button--a
     line-height: 1;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before,
-body#fedora #terminal.terminal-window--fedora #minimizeBtn::before,
-body#fedora #terminal.terminal-window--fedora #resizeBtn::before,
-body#fedora #terminal.terminal-window--fedora #closeBtn::before {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     content: "";
     display: block;
     width: 1rem;
@@ -114,37 +114,37 @@ body#fedora #terminal.terminal-window--fedora #closeBtn::before {
     mask-size: contain;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
 }
 
-body#fedora #terminal.terminal-window--fedora #minimizeBtn::before {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
 }
 
-body#fedora #terminal.terminal-window--fedora #resizeBtn::before {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
 }
 
-body#fedora #terminal.terminal-window--fedora #closeBtn {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn {
     border-radius: 999px;
     background: var(--fedora-window-control-close-bg);
 }
 
-body#fedora #terminal.terminal-window--fedora #closeBtn:hover {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     color: var(--fedora-window-control-close-hover-color);
     background: var(--fedora-window-control-close-hover-bg);
 }
 
-body#fedora #terminal.terminal-window--fedora #closeBtn::before {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -157,7 +157,7 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs {
     background: transparent;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,30 +175,30 @@ body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
     cursor: default;
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs__tab--active {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab--active {
     min-width: 10rem;
     justify-content: space-between;
     gap: 0.5rem;
     background: var(--fedora-app-header-active-bg);
 }
 
-body#fedora #terminal.terminal-window--fedora .fedora-terminal-tabs__close {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__close {
     font-size: 1rem;
     font-weight: 700;
     line-height: 1;
     opacity: 0.7;
 }
 
-body#fedora #terminalContainer,
-body#fedora #terminal .capsule-terminal-shell {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora > #terminalContainer,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora > .capsule-terminal-shell {
     padding: var(--z);
     border-radius: 0 0 0.8rem 0.8rem;
     color: var(--fedora-app-text);
     background: var(--fedora-app-terminal-surface);
 }
 
-body#fedora #terminal .capsule-terminal,
-body#fedora #terminal [data-terminal-app] {
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora .capsule-terminal,
+body#fedora .windowElement[data-link="terminal"].terminal-window--fedora [data-terminal-app] {
     padding: 0.5rem 0.65rem;
     background: var(--fedora-app-terminal-surface);
 }

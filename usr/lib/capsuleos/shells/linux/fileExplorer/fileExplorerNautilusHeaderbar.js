@@ -422,8 +422,12 @@
 
     const runMainMenuAction = (action) => {
         closePopover();
-        if (action === 'new-window' && typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink('nemo');
+        if (action === 'new-window') {
+            if (typeof global.openNewWindowByDataLink === 'function') {
+                global.openNewWindowByDataLink('nemo');
+            } else if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('nemo', { newWindow: true });
+            }
             return;
         }
         if (action === 'new-tab' && typeof global.openNautilusTab === 'function') {
@@ -484,8 +488,13 @@
             global.addNautilusBookmark();
             return;
         }
-        if (action === 'open-terminal' && typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink('terminal');
+        if (action === 'open-terminal') {
+            const cwd = global.fileExplorerState && global.fileExplorerState.currentPath;
+            if (typeof global.openTerminalWithExplorerContext === 'function') {
+                global.openTerminalWithExplorerContext(cwd);
+            } else if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('terminal');
+            }
         }
     };
 

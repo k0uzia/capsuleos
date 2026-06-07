@@ -22,17 +22,18 @@ function resetFileExplorerSlotBindings(fileExplorerRoot) {
     });
 }
 
-function initFileExplorerContainer() {
+function initFileExplorerContainer(rootContainer) {
     const root = (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT)
         ? String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '')
         : (typeof window !== 'undefined' && window.CapsuleUserHome)
             ? window.CapsuleUserHome.resolveRelative()
             : 'home/public';
 
-    const fileExplorerRoot = (typeof window.getExplorerWindowSlot === 'function')
-        ? window.getExplorerWindowSlot()
-        : (document.getElementById('nemo')
-            || document.querySelector('div.windowElement#nemo[data-link="nemo"]'));
+    const fileExplorerRoot = rootContainer
+        || ((typeof window.getExplorerWindowSlot === 'function')
+            ? window.getExplorerWindowSlot()
+            : (document.getElementById('nemo')
+                || document.querySelector('div.windowElement[data-link="nemo"]')));
     if (!fileExplorerRoot) {
         return;
     }

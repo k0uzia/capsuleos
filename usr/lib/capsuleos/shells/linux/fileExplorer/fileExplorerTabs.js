@@ -1,5 +1,5 @@
 /**
- * Onglets Nautilus GNOME — état isolé par onglet + persistance localStorage.
+ * Onglets Nautilus GNOME — mémoire SESSION (manifeste/corbeille = PERSISTENT, voir conventions).
  */
 (function initFileExplorerTabs(global) {
     'use strict';
@@ -11,20 +11,32 @@
         if (typeof global.getExplorerWindowSlot === 'function') {
             return global.getExplorerWindowSlot();
         }
-        return global.document.getElementById('nemo')
-            || global.document.querySelector('div.windowElement#nemo[data-link="nemo"]');
+        return global.document.querySelector('.windowElement.windowElementActive[data-link="nemo"]')
+            || global.document.getElementById('nemo')
+            || global.document.querySelector('div.windowElement[data-link="nemo"]');
+    };
+
+    const getWindowInstanceId = (root) => {
+        if (!root) {
+            return 'primary';
+        }
+        if (root.id === 'nemo' && !root.dataset.capsuleWindowInstance) {
+            return 'primary';
+        }
+        return root.dataset.capsuleWindowInstance || root.id || 'primary';
     };
 
     const isNautilusGnome = () => (
         typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
     );
 
-    const getTabsStorageKey = () => {
+    const getTabsStorageKey = (windowRoot) => {
         const skin = global.document && global.document.body ? global.document.body.id : 'default';
-        const root = typeof global.getFileExplorerRoot === 'function'
+        const contentRoot = typeof global.getFileExplorerRoot === 'function'
             ? global.getFileExplorerRoot()
             : 'home/public';
-        return `capsule-nautilus-tabs:${skin}:${root}`;
+        const instanceId = getWindowInstanceId(windowRoot || getNemoRoot());
+        return `capsule-nautilus-tabs:${skin}:${contentRoot}:${instanceId}`;
     };
 
     const createEmptyTab = (path, id) => {
@@ -100,15 +112,20 @@
                 tabSeq,
                 tabs: state.tabs.map(serializeTab),
             };
-            global.localStorage.setItem(getTabsStorageKey(), JSON.stringify(payload));
+            global.localStorage.setItem(getTabsStorageKey(getNemoRoot()), JSON.stringify(payload));
         } catch (error) {
             /* quota / mode privé */
         }
     };
 
-    const loadTabsFromStorage = () => {
+    const loadTabsFromStorage = (windowRoot) => {
         try {
-            const raw = global.localStorage.getItem(getTabsStorageKey());
+            const storageKey = getTabsStorageKey(windowRoot);
+            let raw = global.localStorage.getItem(storageKey);
+            if (!raw && getWindowInstanceId(windowRoot || getNemoRoot()) === 'primary') {
+                const legacyKey = storageKey.replace(/:primary$/, '');
+                raw = global.localStorage.getItem(legacyKey);
+            }
             if (!raw) {
                 return null;
             }
@@ -140,7 +157,7 @@
             return null;
         }
         if (!Array.isArray(state.tabs) || !state.tabs.length) {
-            const stored = loadTabsFromStorage();
+            const stored = loadTabsFromStorage(getNemoRoot());
             if (stored) {
                 state.tabs = stored.tabs;
                 state.activeTabId = stored.activeTabId;
@@ -467,15 +484,81 @@
     global.closeNautilusTab = closeNautilusTab;
     global.syncNautilusTabs = syncActiveTabSession;
     global.persistNautilusTabs = persistTabsToStorage;
+    global.resolveNautilusTabsStorageKey = getTabsStorageKey;
+
+    const resolveNautilusStorageKeys = (windowRoot) => {
+        const keys = [getTabsStorageKey(windowRoot)];
+        if (getWindowInstanceId(windowRoot) === 'primary') {
+            keys.push(getTabsStorageKey(windowRoot).replace(/:primary$/, ''));
+        }
+        return keys;
+    };
+
+    const purgeNautilusWindowRuntime = (windowRoot) => {
+        if (!windowRoot) {
+            return;
+        }
+        delete windowRoot.__capsuleFileExplorerStateSnapshot;
+        delete windowRoot.dataset.nautilusTabsInit;
+
+        const strip = windowRoot.querySelector('#nautilus-tabstrip');
+        if (strip) {
+            strip.innerHTML = '';
+        }
+
+        if (typeof global.releaseExplorerWindowInstance === 'function') {
+            global.releaseExplorerWindowInstance(windowRoot);
+        }
+
+        if (global.fileExplorerState
+            && typeof global.getActiveExplorerWindowRoot === 'function'
+            && global.getActiveExplorerWindowRoot() === windowRoot) {
+            delete global.fileExplorerState.tabs;
+            delete global.fileExplorerState.activeTabId;
+        }
+    };
+
+    const reopenNautilusWindow = async (windowRoot) => {
+        if (!windowRoot) {
+            return;
+        }
+        if (typeof global.initExplorerWindowInstance === 'function') {
+            global.initExplorerWindowInstance(windowRoot);
+        }
+        const contentRoot = typeof global.getFileExplorerRoot === 'function'
+            ? global.getFileExplorerRoot()
+            : 'home/public';
+        if (typeof global.navigateToFileExplorerDirectory === 'function') {
+            await global.navigateToFileExplorerDirectory(contentRoot, {
+                updateHistory: true,
+                explorerRoot: windowRoot,
+            });
+        }
+        if (typeof global.bindFileExplorerTabs === 'function') {
+            await global.bindFileExplorerTabs();
+        }
+    };
+
+    if (global.CapsuleWindowMemory && typeof global.CapsuleWindowMemory.register === 'function') {
+        const sessionTier = (global.CapsuleMemoryConventions && global.CapsuleMemoryConventions.TIERS)
+            ? global.CapsuleMemoryConventions.TIERS.SESSION
+            : (global.CapsuleWindowMemory.TIERS && global.CapsuleWindowMemory.TIERS.SESSION);
+        global.CapsuleWindowMemory.register({
+            slotId: 'nemo',
+            tier: sessionTier || 'session',
+            resolveStorageKeys: resolveNautilusStorageKeys,
+            purgeRuntime: purgeNautilusWindowRuntime,
+            onReopen: reopenNautilusWindow,
+        });
+    }
+
+    global.purgeNautilusWindowRuntime = purgeNautilusWindowRuntime;
 
     if (global.document) {
         global.document.addEventListener('capsule:slot-injected', (event) => {
             const detail = event.detail || {};
-            if (detail.slotId === 'nemo') {
-                const nemoRoot = getNemoRoot();
-                if (nemoRoot && nemoRoot.dataset) {
-                    delete nemoRoot.dataset.nautilusTabsInit;
-                }
+            if (detail.slotId === 'nemo' && detail.container && detail.container.dataset) {
+                delete detail.container.dataset.nautilusTabsInit;
                 global.setTimeout(() => bindFileExplorerTabs(), 0);
             }
         });

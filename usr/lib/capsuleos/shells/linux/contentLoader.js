@@ -334,6 +334,9 @@ const runFirstAvailable = (candidates, warnLabel) => {
 
 const SLOT_INIT_HANDLERS = {
     nemo: (container) => {
+        if (typeof window.initExplorerWindowInstance === 'function') {
+            window.initExplorerWindowInstance(container);
+        }
         if (typeof window.resetFileExplorerSlotBindings === 'function') {
             window.resetFileExplorerSlotBindings(container);
         }
@@ -349,10 +352,20 @@ const SLOT_INIT_HANDLERS = {
             },
         ]);
         runFirstAvailable([
-            { fn: typeof initFileExplorerContainer === 'function' ? initFileExplorerContainer : null },
-            { fn: typeof initNemoContainer === 'function' ? initNemoContainer : null }
+            {
+                fn: typeof initFileExplorerContainer === 'function' ? initFileExplorerContainer : null,
+                args: [container],
+            },
+            {
+                fn: typeof initNemoContainer === 'function' ? initNemoContainer : null,
+                args: [container],
+            },
         ], 'initFileExplorerContainer');
         runFirstAvailable([
+            {
+                fn: typeof navigateToFileExplorerDirectory === 'function' ? navigateToFileExplorerDirectory : null,
+                args: [contentRoot, { updateHistory: true, explorerRoot: container }],
+            },
             { fn: typeof loadFileExplorerDirectory === 'function' ? loadFileExplorerDirectory : null, args: [contentRoot] },
             { fn: typeof loadDirectory === 'function' ? loadDirectory : null, args: [contentRoot] }
         ]);
@@ -360,10 +373,14 @@ const SLOT_INIT_HANDLERS = {
             { fn: typeof initFileExplorerDnD === 'function' ? initFileExplorerDnD : null }
         ]);
     },
-    terminal: () => {
+    terminal: (container) => {
         runFirstAvailable([
-            { fn: typeof initTerminalWhenReady === 'function' ? initTerminalWhenReady : null }
-        ], 'initTerminalWhenReady');
+            {
+                fn: typeof initTerminalForContainer === 'function' ? initTerminalForContainer : null,
+                args: [container],
+            },
+            { fn: typeof initTerminalWhenReady === 'function' ? initTerminalWhenReady : null },
+        ], 'initTerminalForContainer');
     },
     mainMenu: () => {
         if (typeof initMainMenu === 'function') {
@@ -555,6 +572,29 @@ const startCapsuleContentLoad = () => {
             });
         });
 };
+
+const reloadCapsuleSlot = (container, slotId) => {
+    if (!container || !slotId) {
+        return Promise.reject(new Error('reloadCapsuleSlot: container ou slotId manquant'));
+    }
+    const templateId = resolveTemplateId(slotId);
+    const skinId = resolveSkinId(slotId, templateId);
+    const appsBase = getAppsBase();
+    const skinBase = getSkinBase();
+    const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
+    const cssSkinFallbackFile = skinBase
+        ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
+        : null;
+
+    return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
+        .then(({ html, cssBase, cssSkin }) => {
+            injectSlot(container, slotId, templateId, html, cssBase, cssSkin);
+        });
+};
+
+if (typeof window !== 'undefined') {
+    window.reloadCapsuleSlot = reloadCapsuleSlot;
+}
 
 const bootCapsuleContentLoad = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_SKIN_PROFILE_APPLIED) {

@@ -202,8 +202,10 @@
 
             if (ctrl && !event.shiftKey && (key === 'n' || key === 'N')) {
                 event.preventDefault();
-                if (typeof global.openWindowByDataLink === 'function') {
-                    global.openWindowByDataLink('nemo');
+                if (typeof global.openNewWindowByDataLink === 'function') {
+                    global.openNewWindowByDataLink('nemo');
+                } else if (typeof global.openWindowByDataLink === 'function') {
+                    global.openWindowByDataLink('nemo', { newWindow: true });
                 }
                 return;
             }

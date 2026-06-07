@@ -6,6 +6,8 @@ const FILE_VIEWER_BY_EXTENSION = {
     png: 'visionneur_images',
     jpg: 'visionneur_images',
     jpeg: 'visionneur_images',
+    docx: 'text_editor',
+    doc: 'text_editor',
     gif: 'visionneur_images',
     webp: 'visionneur_images',
     svg: 'visionneur_images',
@@ -249,6 +251,23 @@ const renderFileViewer = (appId) => {
     }
 };
 
+const resolveViewerHref = (href) => {
+    if (!href) {
+        return href;
+    }
+    if (typeof resolveCapsuleResourceUrl === 'function') {
+        return resolveCapsuleResourceUrl(href);
+    }
+    if (typeof CapsuleResource !== 'undefined' && typeof CapsuleResource.resolve === 'function') {
+        return CapsuleResource.resolve(href);
+    }
+    try {
+        return new URL(href, window.location.href).href;
+    } catch (error) {
+        return href;
+    }
+};
+
 const openFileInViewer = (href, extension, name) => {
     const appId = getFileViewerTargetByExtension(extension);
     if (!appId) {
@@ -256,7 +275,7 @@ const openFileInViewer = (href, extension, name) => {
     }
 
     fileViewerState[appId] = {
-        href,
+        href: resolveViewerHref(href),
         extension: String(extension).toLowerCase(),
         name
     };

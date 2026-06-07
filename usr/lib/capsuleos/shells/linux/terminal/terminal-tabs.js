@@ -1,5 +1,5 @@
 /**
- * Onglets terminal Ptyxis — état isolé par onglet + persistance localStorage.
+ * Onglets terminal Ptyxis — mémoire SESSION (purgée à la fermeture de fenêtre).
  * Même contrat que fileExplorer/fileExplorerTabs.js (capture / apply / render).
  */
 (function initTerminalTabs(global) {
@@ -14,15 +14,27 @@
     );
 
     const getTerminalWindow = () => (
-        global.document.getElementById('terminal')
+        global.document.querySelector('.windowElement.windowElementActive[data-link="terminal"]')
+        || global.document.getElementById('terminal')
         || global.document.querySelector('.windowElement[data-link="terminal"]')
     );
 
-    const getTabsStorageKey = () => {
+    const getWindowInstanceId = (windowElement) => {
+        if (!windowElement) {
+            return 'primary';
+        }
+        if (windowElement.id === 'terminal' && !windowElement.dataset.capsuleWindowInstance) {
+            return 'primary';
+        }
+        return windowElement.dataset.capsuleWindowInstance || windowElement.id || 'primary';
+    };
+
+    const getTabsStorageKey = (windowElement) => {
         const skin = global.document && global.document.body ? global.document.body.id : 'default';
         const user = global.CAPSULE_TERMINAL_USER || 'user';
         const host = global.CAPSULE_TERMINAL_HOST || 'host';
-        return `capsule-terminal-tabs:${skin}:${user}@${host}`;
+        const instanceId = getWindowInstanceId(windowElement || getTerminalWindow());
+        return `capsule-terminal-tabs:${skin}:${user}@${host}:${instanceId}`;
     };
 
     const resolveDefaultPrompt = () => {
@@ -37,6 +49,23 @@
     };
 
     const formatTabTitle = (promptText) => String(promptText || resolveDefaultPrompt()).replace(/\$\s*$/, '').trim();
+
+    const shortenTabLabel = (title) => {
+        const text = formatTabTitle(title);
+        const match = text.match(/^([^:]+:)(.+)$/);
+        if (!match) {
+            return text;
+        }
+        const pathPart = match[2].trim();
+        if (pathPart.length <= 14) {
+            return text;
+        }
+        if (pathPart.startsWith('~/')) {
+            return `${match[1]}${pathPart}`;
+        }
+        const leaf = pathPart.split('/').filter(Boolean).pop();
+        return leaf ? `${match[1]}~/${leaf}` : text;
+    };
 
     const getWindowTabState = (windowElement) => {
         if (!windowElement.__capsuleTerminalTabState) {
@@ -108,7 +137,7 @@
             return;
         }
         try {
-            global.localStorage.setItem(getTabsStorageKey(), JSON.stringify({
+            global.localStorage.setItem(getTabsStorageKey(windowElement), JSON.stringify({
                 activeTabId: state.activeTabId,
                 tabSeq,
                 tabs: state.tabs.map(serializeTab),
@@ -118,9 +147,14 @@
         }
     };
 
-    const loadTabsFromStorage = () => {
+    const loadTabsFromStorage = (windowElement) => {
         try {
-            const raw = global.localStorage.getItem(getTabsStorageKey());
+            const storageKey = getTabsStorageKey(windowElement);
+            let raw = global.localStorage.getItem(storageKey);
+            if (!raw && getWindowInstanceId(windowElement) === 'primary') {
+                const legacyKey = storageKey.replace(/:primary$/, '');
+                raw = global.localStorage.getItem(legacyKey);
+            }
             if (!raw) {
                 return null;
             }
@@ -230,7 +264,11 @@
         btn.dataset.tabPrompt = tab.title;
         btn.setAttribute('role', 'tab');
         btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        btn.appendChild(global.document.createTextNode(tab.title));
+        btn.title = tab.title || '';
+        const label = global.document.createElement('span');
+        label.className = 'fedora-terminal-tabs__label';
+        label.textContent = shortenTabLabel(tab.title);
+        btn.appendChild(label);
         if (isActive && allowClose) {
             const close = global.document.createElement('span');
             close.className = 'fedora-terminal-tabs__close';
@@ -295,7 +333,7 @@
     const ensureTabState = (windowElement, session, elements) => {
         const state = getWindowTabState(windowElement);
         if (!state.tabs.length) {
-            const stored = loadTabsFromStorage();
+            const stored = loadTabsFromStorage(windowElement);
             if (stored) {
                 state.tabs = stored.tabs;
                 state.activeTabId = stored.activeTabId;
@@ -481,15 +519,88 @@
     global.bindTerminalTabs = bindTerminalTabs;
     global.scheduleTerminalTabsBind = scheduleTerminalTabsBind;
     global.persistTerminalTabs = persistTabsToStorage;
+    global.resolveTerminalTabsStorageKey = getTabsStorageKey;
+
+    const resolveTerminalStorageKeys = (windowElement) => {
+        const keys = [getTabsStorageKey(windowElement)];
+        if (getWindowInstanceId(windowElement) === 'primary') {
+            keys.push(getTabsStorageKey(windowElement).replace(/:primary$/, ''));
+        }
+        return keys;
+    };
+
+    const purgeTerminalWindowRuntime = (windowElement) => {
+        if (!windowElement) {
+            return;
+        }
+        delete windowElement.__capsuleTerminalTabState;
+        delete windowElement.dataset.terminalTabsInit;
+        windowElement.classList.remove('terminal-window--multitab');
+
+        const app = windowElement.querySelector('[data-terminal-app]');
+        if (app) {
+            delete app.__capsuleTerminalSession;
+            delete app.dataset.terminalReady;
+            delete app.dataset.terminalBooting;
+        }
+
+        const output = windowElement.querySelector('[data-terminal-output], #output');
+        const commandInput = windowElement.querySelector('[data-terminal-command], #command');
+        const form = windowElement.querySelector('[data-terminal-form], #input');
+        if (output) {
+            output.innerHTML = '';
+        }
+        if (commandInput) {
+            commandInput.value = '';
+            commandInput.disabled = false;
+        }
+        if (form) {
+            form.reset();
+        }
+
+        const strip = windowElement.querySelector('.fedora-terminal-tabs');
+        if (strip) {
+            strip.innerHTML = '';
+        }
+    };
+
+    const reopenTerminalWindow = (windowElement) => {
+        if (!windowElement || typeof global.initTerminalForContainer !== 'function') {
+            return;
+        }
+        global.initTerminalForContainer(windowElement);
+    };
+
+    if (global.CapsuleWindowMemory && typeof global.CapsuleWindowMemory.register === 'function') {
+        const sessionTier = (global.CapsuleMemoryConventions && global.CapsuleMemoryConventions.TIERS)
+            ? global.CapsuleMemoryConventions.TIERS.SESSION
+            : (global.CapsuleWindowMemory.TIERS && global.CapsuleWindowMemory.TIERS.SESSION);
+        global.CapsuleWindowMemory.register({
+            slotId: 'terminal',
+            tier: sessionTier || 'session',
+            resolveStorageKeys: resolveTerminalStorageKeys,
+            purgeRuntime: purgeTerminalWindowRuntime,
+            onReopen: reopenTerminalWindow,
+        });
+    }
+
+    global.purgeTerminalWindowRuntime = purgeTerminalWindowRuntime;
 
     if (global.document) {
         global.document.addEventListener('capsule:slot-injected', (event) => {
             const detail = event.detail || {};
-            if (detail.slotId === 'terminal') {
-                const windowElement = getTerminalWindow();
-                if (windowElement && windowElement.dataset) {
-                    delete windowElement.dataset.terminalTabsInit;
-                }
+            if (detail.slotId === 'terminal' && detail.container && detail.container.dataset) {
+                delete detail.container.dataset.terminalTabsInit;
+            }
+        });
+        global.document.addEventListener('capsule:window-focused', (event) => {
+            const detail = event.detail || {};
+            if (detail.slotId !== 'terminal' || !detail.container) {
+                return;
+            }
+            const elements = getTerminalElements(detail.container);
+            if (elements && elements.commandInput && detail.container.classList.contains('windowElementActive')) {
+                elements.commandInput.focus();
             }
         });
     }

@@ -253,7 +253,10 @@
     });
 
     const nativeOpen = window.openWindowByDataLink;
-    window.openWindowByDataLink = function (dataLink) {
+    window.openWindowByDataLink = function (dataLink, options) {
+        if (options && options.newWindow === true && typeof window.openNewWindowByDataLink === 'function') {
+            return window.openNewWindowByDataLink(dataLink);
+        }
         const ok = nativeOpen(dataLink);
         if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
             window.initUpdateManagerApp();

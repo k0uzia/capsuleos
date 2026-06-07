@@ -2,7 +2,7 @@
  * alma — terminal (structure Rocky).
  */
 /* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
-body#alma #terminal.terminal-window--fedora {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora {
     width: min(52rem, calc(100vw - var(--fedora-dock-width, 0px) - 2.5rem));
     height: min(36rem, calc(100vh - var(--fedora-top-bar-height) - 2.5rem));
     min-width: min(40rem, calc(100vw - 3rem));
@@ -14,8 +14,8 @@ body#alma #terminal.terminal-window--fedora {
     overflow: hidden;
 }
 
-body#alma #terminal.terminal-window--fedora #windowHeader,
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -32,7 +32,7 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-header {
     gap: 0.35rem;
 }
 
-body#alma #terminal.terminal-window--fedora #windowHeader > nav {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav {
     min-width: auto;
     height: var(--full);
     gap: 0.35rem;
@@ -40,16 +40,16 @@ body#alma #terminal.terminal-window--fedora #windowHeader > nav {
     flex-shrink: 0;
 }
 
-body#alma #terminal.terminal-window--fedora #windowHeader > nav:last-child {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav:last-child {
     justify-content: flex-end;
     margin-left: auto;
 }
 
-body#alma #terminal.terminal-window--fedora #windowTitle {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #windowTitle {
     display: none !important;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__tabs {
     display: flex;
     flex: 1 1 auto;
     align-items: center;
@@ -59,10 +59,10 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
     padding: 0 0.25rem;
 }
 
-body#alma #terminal.terminal-window--fedora #minimizeBtn,
-body#alma #terminal.terminal-window--fedora #resizeBtn,
-body#alma #terminal.terminal-window--fedora #closeBtn,
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button {
     position: relative;
     display: flex;
     align-items: center;
@@ -79,15 +79,15 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button {
     cursor: pointer;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button:hover,
-body#alma #terminal.terminal-window--fedora #minimizeBtn:hover,
-body#alma #terminal.terminal-window--fedora #resizeBtn:hover,
-body#alma #terminal.terminal-window--fedora #closeBtn:hover {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button:hover,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn:hover,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn:hover,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     background-color: var(--fedora-window-control-hover-bg);
     transform: none;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button--add {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--add {
     border: 1px solid currentColor;
     border-radius: 0.28rem;
     width: 1.35rem;
@@ -97,10 +97,10 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button--add
     line-height: 1;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before,
-body#alma #terminal.terminal-window--fedora #minimizeBtn::before,
-body#alma #terminal.terminal-window--fedora #resizeBtn::before,
-body#alma #terminal.terminal-window--fedora #closeBtn::before {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     content: "";
     display: block;
     width: 1rem;
@@ -114,37 +114,37 @@ body#alma #terminal.terminal-window--fedora #closeBtn::before {
     mask-size: contain;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
 }
 
-body#alma #terminal.terminal-window--fedora #minimizeBtn::before {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
 }
 
-body#alma #terminal.terminal-window--fedora #resizeBtn::before {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
 }
 
-body#alma #terminal.terminal-window--fedora #closeBtn {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn {
     border-radius: 999px;
     background: var(--fedora-window-control-close-bg);
 }
 
-body#alma #terminal.terminal-window--fedora #closeBtn:hover {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     color: var(--fedora-window-control-close-hover-color);
     background: var(--fedora-window-control-close-hover-bg);
 }
 
-body#alma #terminal.terminal-window--fedora #closeBtn::before {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -157,7 +157,7 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs {
     background: transparent;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,30 +175,30 @@ body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
     cursor: default;
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs__tab--active {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab--active {
     min-width: 10rem;
     justify-content: space-between;
     gap: 0.5rem;
     background: var(--fedora-app-header-active-bg);
 }
 
-body#alma #terminal.terminal-window--fedora .fedora-terminal-tabs__close {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__close {
     font-size: 1rem;
     font-weight: 700;
     line-height: 1;
     opacity: 0.7;
 }
 
-body#alma #terminalContainer,
-body#alma #terminal .capsule-terminal-shell {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora > #terminalContainer,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora > .capsule-terminal-shell {
     padding: var(--z);
     border-radius: 0 0 0.8rem 0.8rem;
     color: var(--fedora-app-text);
     background: var(--fedora-app-terminal-surface);
 }
 
-body#alma #terminal .capsule-terminal,
-body#alma #terminal [data-terminal-app] {
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora .capsule-terminal,
+body#alma .windowElement[data-link="terminal"].terminal-window--fedora [data-terminal-app] {
     padding: 0.5rem 0.65rem;
     background: var(--fedora-app-terminal-surface);
 }

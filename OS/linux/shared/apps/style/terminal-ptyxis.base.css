@@ -66,10 +66,10 @@
     line-height: var(--terminal-line-height);
 }
 
-#terminal.terminal-window--fedora #output > div,
-#terminal.terminal-window--fedora #output > div.capsule-terminal__line,
-#terminal.terminal-window--fedora .capsule-terminal__output > div,
-#terminal.terminal-window--fedora .capsule-terminal__line {
+.terminal-window--fedora #output > div,
+.terminal-window--fedora #output > div.capsule-terminal__line,
+.terminal-window--fedora .capsule-terminal__output > div,
+.terminal-window--fedora .capsule-terminal__line {
     display: block;
     width: 100%;
     height: auto;
@@ -79,8 +79,8 @@
     flex-wrap: nowrap;
 }
 
-#terminal.terminal-window--fedora #output > div > code,
-#terminal.terminal-window--fedora .capsule-terminal__line > code {
+.terminal-window--fedora #output > div > code,
+.terminal-window--fedora .capsule-terminal__line > code {
     display: inline;
     width: auto;
     height: auto;
@@ -95,8 +95,8 @@
     word-break: break-word;
 }
 
-#terminal.terminal-window--fedora #output > div.capsule-terminal__line--command,
-#terminal.terminal-window--fedora .capsule-terminal__line--command {
+.terminal-window--fedora #output > div.capsule-terminal__line--command,
+.terminal-window--fedora .capsule-terminal__line--command {
     display: block;
     width: 100%;
     margin: 0;
@@ -105,9 +105,9 @@
     line-height: var(--terminal-line-height);
 }
 
-#terminal.terminal-window--fedora #output > div.capsule-terminal__line--command > code,
-#terminal.terminal-window--fedora .capsule-terminal__line--command > code,
-#terminal.terminal-window--fedora .capsule-terminal__line--command .capsule-terminal__command-line {
+.terminal-window--fedora #output > div.capsule-terminal__line--command > code,
+.terminal-window--fedora .capsule-terminal__line--command > code,
+.terminal-window--fedora .capsule-terminal__line--command .capsule-terminal__command-line {
     display: inline;
     width: auto;
     height: auto;
@@ -175,18 +175,18 @@
     color: inherit;
 }
 
-#terminal.terminal-window--fedora #command,
-#terminal.terminal-window--fedora #command:focus,
-#terminal.terminal-window--fedora #command:focus-visible,
-#terminal.terminal-window--fedora #command:active,
-#terminal.terminal-window--fedora .capsule-terminal__command,
-#terminal.terminal-window--fedora .capsule-terminal__command:focus,
-#terminal.terminal-window--fedora .capsule-terminal__command:focus-visible,
-#terminal.terminal-window--fedora .capsule-terminal__command:active,
-#terminal.terminal-window--fedora [data-terminal-command],
-#terminal.terminal-window--fedora [data-terminal-command]:focus,
-#terminal.terminal-window--fedora [data-terminal-command]:focus-visible,
-#terminal.terminal-window--fedora [data-terminal-command]:active {
+.terminal-window--fedora #command,
+.terminal-window--fedora #command:focus,
+.terminal-window--fedora #command:focus-visible,
+.terminal-window--fedora #command:active,
+.terminal-window--fedora .capsule-terminal__command,
+.terminal-window--fedora .capsule-terminal__command:focus,
+.terminal-window--fedora .capsule-terminal__command:focus-visible,
+.terminal-window--fedora .capsule-terminal__command:active,
+.terminal-window--fedora [data-terminal-command],
+.terminal-window--fedora [data-terminal-command]:focus,
+.terminal-window--fedora [data-terminal-command]:focus-visible,
+.terminal-window--fedora [data-terminal-command]:active {
     display: inline-block;
     flex: 1 1 auto;
     width: auto;
@@ -241,8 +241,33 @@
 }
 
 .terminal-window--fedora .fedora-terminal-tabs__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    min-width: 0;
+    max-width: 11rem;
+    flex: 0 1 auto;
+    overflow: hidden;
     cursor: pointer;
     user-select: none;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__tab--active {
+    flex: 0 1 11rem;
+    max-width: 11rem;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__close {
+    flex: 0 0 auto;
 }
 
 .terminal-window--fedora .fedora-terminal-tabs__tab:not(.fedora-terminal-tabs__tab--active):hover {

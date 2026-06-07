@@ -288,8 +288,10 @@ function runFedoraTerminalMenuAction(action, windowElement, header) {
         return;
     }
     if (action === 'new-window') {
-        if (typeof window.openWindowByDataLink === 'function') {
-            window.openWindowByDataLink('terminal');
+        if (typeof window.openNewWindowByDataLink === 'function') {
+            window.openNewWindowByDataLink('terminal');
+        } else if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink('terminal', { newWindow: true });
         }
         return;
     }
@@ -362,8 +364,8 @@ function bindGnomeTerminalChromeInteractions(windowElement) {
     if (newTabBtn) {
         newTabBtn.addEventListener('click', (event) => {
             event.stopPropagation();
-            if (typeof window.openWindowByDataLink === 'function') {
-                window.openWindowByDataLink('terminal');
+            if (typeof window.openTerminalTab === 'function') {
+                window.openTerminalTab();
             }
         });
     }
@@ -837,12 +839,18 @@ function resetTerminalHistoryCursor(commandInput) {
     commandInput.dispatchEvent(new Event('input'));
 }
 
-function initTerminalWhenReady() {
-    const host = document.querySelector('[data-link="terminal"]') || document;
-    const container = document.getElementById('terminalContainer') || host.querySelector('[data-terminal-app]');
+function initTerminalForContainer(windowElement) {
+    const host = windowElement && windowElement.classList && windowElement.classList.contains('windowElement')
+        ? windowElement
+        : (windowElement && windowElement.closest ? windowElement.closest('.windowElement') : null);
+    if (!host || host.dataset.link !== 'terminal') {
+        return;
+    }
+
+    const container = host.querySelector('#terminalContainer') || host.querySelector('[data-terminal-app]');
 
     if (!container || !window.CapsuleTerminal || typeof window.executeTerminalCommand !== 'function') {
-        setTimeout(initTerminalWhenReady, 100);
+        setTimeout(() => initTerminalForContainer(host), 100);
         return;
     }
 
@@ -850,12 +858,13 @@ function initTerminalWhenReady() {
     decorateGnomeTerminalWindow(container);
     decorateFedoraTerminalWindow(container);
     if (elements.app.dataset.terminalReady === 'true') {
-        const windowElement = host.closest('.windowElement') || host;
         const session = elements.app.__capsuleTerminalSession;
         if (typeof window.scheduleTerminalTabsBind === 'function' && session) {
-            window.scheduleTerminalTabsBind(windowElement);
+            window.scheduleTerminalTabsBind(host);
         }
-        elements.commandInput.focus();
+        if (host.classList.contains('windowElementActive')) {
+            elements.commandInput.focus();
+        }
         return;
     }
 
@@ -883,7 +892,7 @@ function initTerminalWhenReady() {
         }
 
         const session = window.CapsuleTerminal.createSession({
-            cwd: window.CAPSULE_TERMINAL_HOME || '/',
+            cwd: consumeTerminalLaunchCwd(),
             home: window.CAPSULE_TERMINAL_HOME || '/',
             user: window.CAPSULE_TERMINAL_USER || 'user',
             host: window.CAPSULE_TERMINAL_HOST || 'host',
@@ -981,23 +990,102 @@ function initTerminalWhenReady() {
             elements.commandInput.focus();
         });
 
-        const windowElement = host.closest('.windowElement') || host;
         if (typeof window.scheduleTerminalTabsBind === 'function') {
-            window.scheduleTerminalTabsBind(windowElement);
+            window.scheduleTerminalTabsBind(host);
         }
 
-        elements.commandInput.focus();
+        if (host.classList.contains('windowElementActive')) {
+            elements.commandInput.focus();
+        }
     };
 
     bootTerminal().catch((error) => {
         console.error('CapsuleOS: échec initialisation terminal', error);
         delete elements.app.dataset.terminalBooting;
-        setTimeout(initTerminalWhenReady, 200);
+        setTimeout(() => initTerminalForContainer(host), 200);
     });
+}
+
+function initTerminalWhenReady() {
+    const windows = document.querySelectorAll('.windowElement[data-link="terminal"]');
+    if (!windows.length) {
+        setTimeout(initTerminalWhenReady, 100);
+        return;
+    }
+    windows.forEach((windowElement) => initTerminalForContainer(windowElement));
+}
+
+function mapExplorerPathToTerminalCwd(explorerPath) {
+    const normalizeTerminalPath = (path) => (
+        window.CapsuleTerminal && typeof window.CapsuleTerminal.normalizePath === 'function'
+            ? window.CapsuleTerminal.normalizePath(path)
+            : path
+    );
+    if (window.CapsuleExplorerVfs && typeof window.CapsuleExplorerVfs.manifestPathToTerminalPath === 'function') {
+        return normalizeTerminalPath(window.CapsuleExplorerVfs.manifestPathToTerminalPath(explorerPath));
+    }
+    const normalizeExplorerPath = typeof window.normalizeDirectoryPathForExplorer === 'function'
+        ? window.normalizeDirectoryPathForExplorer
+        : (path) => path;
+    const explorerKey = normalizeExplorerPath(explorerPath);
+    const place = window.CAPSULE_PLACE_FILESYSTEM;
+    if (!explorerPath || explorerKey === place) {
+        return '/';
+    }
+    if (window.CapsuleExplorerVfs && typeof window.CapsuleExplorerVfs.explorerPathToTerminalPath === 'function') {
+        const vfsPath = window.CapsuleExplorerVfs.explorerPathToTerminalPath(explorerKey);
+        if (vfsPath) {
+            return normalizeTerminalPath(vfsPath);
+        }
+    }
+    const manifestRoot = typeof window.getFileExplorerRoot === 'function'
+        ? String(window.getFileExplorerRoot()).replace(/\/+$/, '')
+        : '';
+    const home = window.CAPSULE_TERMINAL_HOME || window.CAPSULE_USER_HOME || '/home/public';
+    const key = String(explorerKey).replace(/\/+$/, '');
+    if (!key || key === manifestRoot) {
+        return normalizeTerminalPath(home);
+    }
+    if (manifestRoot && key.indexOf(`${manifestRoot}/`) === 0) {
+        return normalizeTerminalPath(`${home}${key.slice(manifestRoot.length)}`);
+    }
+    return normalizeTerminalPath(home);
+}
+
+function consumeTerminalLaunchCwd() {
+    if (window.CAPSULE_TERMINAL_LAUNCH_CWD == null || window.CAPSULE_TERMINAL_LAUNCH_CWD === '') {
+        return '/';
+    }
+    const cwd = mapExplorerPathToTerminalCwd(window.CAPSULE_TERMINAL_LAUNCH_CWD);
+    delete window.CAPSULE_TERMINAL_LAUNCH_CWD;
+    if (window.CapsuleTerminal && typeof window.CapsuleTerminal.normalizePath === 'function') {
+        return window.CapsuleTerminal.normalizePath(cwd);
+    }
+    return cwd;
+}
+
+function openTerminalWithExplorerContext(explorerPath) {
+    if (explorerPath != null && explorerPath !== '') {
+        window.CAPSULE_TERMINAL_LAUNCH_CWD = explorerPath;
+    } else {
+        delete window.CAPSULE_TERMINAL_LAUNCH_CWD;
+    }
+    if (typeof window.openNewWindowByDataLink === 'function') {
+        return window.openNewWindowByDataLink('terminal');
+    }
+    if (typeof window.openWindowByDataLink === 'function') {
+        return window.openWindowByDataLink('terminal');
+    }
+    return false;
 }
 
 if (typeof window !== 'undefined') {
     window.updateTerminalPrompt = updateTerminalPrompt;
     window.scrollTerminalToBottom = scrollTerminalToBottom;
     window.resolveFedoraTerminalPrompt = resolveFedoraTerminalPrompt;
+    window.initTerminalForContainer = initTerminalForContainer;
+    window.initTerminalWhenReady = initTerminalWhenReady;
+    window.mapExplorerPathToTerminalCwd = mapExplorerPathToTerminalCwd;
+    window.consumeTerminalLaunchCwd = consumeTerminalLaunchCwd;
+    window.openTerminalWithExplorerContext = openTerminalWithExplorerContext;
 }

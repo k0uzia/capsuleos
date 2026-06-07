@@ -83,12 +83,26 @@
         global.alert(`${kind} : ${item.name}\nEmplacement : ${location}`);
     };
 
+    const resolveExplorerTerminalCwd = (itemData) => {
+        if (itemData && itemData.type === 'folder' && itemData.targetPath) {
+            return itemData.targetPath;
+        }
+        if (global.fileExplorerState && global.fileExplorerState.currentPath) {
+            return global.fileExplorerState.currentPath;
+        }
+        return null;
+    };
+
     const openContextItem = (item, link) => {
         if (!item) {
             return;
         }
         if (item.type === 'folder' && item.targetPath && typeof global.navigateToFileExplorerDirectory === 'function') {
-            global.navigateToFileExplorerDirectory(item.targetPath, { updateHistory: true });
+            const explorerRoot = link && link.closest('.windowElement[data-link="nemo"]');
+            global.navigateToFileExplorerDirectory(item.targetPath, {
+                updateHistory: true,
+                explorerRoot: explorerRoot || undefined,
+            });
             return;
         }
         if (link) {
@@ -131,8 +145,13 @@
                     global.createNewFolderInCurrentDirectory();
                     return;
                 }
-                if (action === 'open-terminal' && typeof global.openWindowByDataLink === 'function') {
-                    global.openWindowByDataLink('terminal');
+                if (action === 'open-terminal') {
+                    const cwd = resolveExplorerTerminalCwd(itemData);
+                    if (typeof global.openTerminalWithExplorerContext === 'function') {
+                        global.openTerminalWithExplorerContext(cwd);
+                    } else if (typeof global.openWindowByDataLink === 'function') {
+                        global.openWindowByDataLink('terminal');
+                    }
                     return;
                 }
                 if (action === 'open-with' && typeof global.openExplorerSelectionWith === 'function') {

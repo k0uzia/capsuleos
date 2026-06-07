@@ -28,19 +28,21 @@
         contextTarget = null;
     };
 
+    const applyMenuScope = (menu, hasItem) => {
+        const scope = hasItem ? 'item' : 'background';
+        menu.querySelectorAll('[data-nemo-ctx-scope]').forEach((node) => {
+            const scopes = String(node.dataset.nemoCtxScope || '').split(/\s+/);
+            const show = scopes.includes(scope) || scopes.includes('both');
+            node.hidden = !show;
+        });
+        if (typeof global.syncNautilusClipboardUi === 'function') {
+            global.syncNautilusClipboardUi();
+        }
+    };
+
     const openMenu = (menu, clientX, clientY, target) => {
         contextTarget = target || null;
-        const openBtn = menu.querySelector('[data-nemo-ctx="open"]');
-        if (openBtn) {
-            const showOpen = !!(target && target.dataset && target.dataset.itemName);
-            openBtn.hidden = !showOpen;
-        }
-        const hiddenBtn = menu.querySelector('[data-nemo-ctx="toggle-hidden"]');
-        if (hiddenBtn && global.fileExplorerState) {
-            hiddenBtn.textContent = global.fileExplorerState.showHiddenFiles
-                ? 'Masquer les fichiers cachés'
-                : 'Afficher les fichiers cachés';
-        }
+        applyMenuScope(menu, !!target);
         menu.hidden = false;
         const rect = menu.getBoundingClientRect();
         const maxLeft = global.innerWidth - rect.width - 8;
@@ -94,12 +96,27 @@
         }
     };
 
+    const selectAllItems = (root) => {
+        const grid = root.querySelector('.nemoElement, .nemo-app__content-grid');
+        if (!grid) {
+            return;
+        }
+        const links = [...grid.querySelectorAll('a[data-item-name]')];
+        if (!links.length) {
+            return;
+        }
+        links.forEach((link) => link.classList.add('nemo-app__item--selected'));
+        if (typeof global.updateNautilusSelectionStatus === 'function') {
+            global.updateNautilusSelectionStatus(links[links.length - 1]);
+        }
+    };
+
     const bindMenuActions = (root, menu) => {
         menu.querySelectorAll('[data-nemo-ctx]').forEach((item) => {
             if (item.dataset.nemoCtxBound === 'true') {
                 return;
             }
-            item.addEventListener('click', (event) => {
+            item.addEventListener('click', async (event) => {
                 event.preventDefault();
                 const action = item.dataset.nemoCtx;
                 const link = contextTarget;
@@ -114,12 +131,48 @@
                     global.createNewFolderInCurrentDirectory();
                     return;
                 }
-                if (action === 'refresh' && typeof global.refreshFileExplorerDirectory === 'function') {
-                    global.refreshFileExplorerDirectory();
+                if (action === 'open-terminal' && typeof global.openWindowByDataLink === 'function') {
+                    global.openWindowByDataLink('terminal');
                     return;
                 }
-                if (action === 'toggle-hidden' && typeof global.toggleExplorerHiddenFiles === 'function') {
-                    global.toggleExplorerHiddenFiles();
+                if (action === 'open-with' && typeof global.openExplorerSelectionWith === 'function') {
+                    global.openExplorerSelectionWith();
+                    return;
+                }
+                if (action === 'select-all') {
+                    selectAllItems(root);
+                    return;
+                }
+                if (action === 'cut' && typeof global.cutExplorerSelection === 'function') {
+                    global.cutExplorerSelection();
+                    return;
+                }
+                if (action === 'copy' && typeof global.copyExplorerSelection === 'function') {
+                    global.copyExplorerSelection();
+                    return;
+                }
+                if (action === 'paste' && typeof global.pasteExplorerClipboard === 'function') {
+                    await global.pasteExplorerClipboard();
+                    return;
+                }
+                if (action === 'move-to' && typeof global.transferExplorerSelectionToPath === 'function') {
+                    await global.transferExplorerSelectionToPath('move');
+                    return;
+                }
+                if (action === 'copy-to' && typeof global.transferExplorerSelectionToPath === 'function') {
+                    await global.transferExplorerSelectionToPath('copy');
+                    return;
+                }
+                if (action === 'rename' && typeof global.renameExplorerSelection === 'function') {
+                    await global.renameExplorerSelection();
+                    return;
+                }
+                if (action === 'compress' && typeof global.compressExplorerSelection === 'function') {
+                    await global.compressExplorerSelection();
+                    return;
+                }
+                if (action === 'trash' && typeof global.trashExplorerSelection === 'function') {
+                    await global.trashExplorerSelection();
                     return;
                 }
                 if (action === 'properties') {

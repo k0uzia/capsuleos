@@ -137,13 +137,23 @@
 
             if (ctrl && !event.shiftKey && (key === 'l' || key === 'L')) {
                 event.preventDefault();
-                focusSearchInput(true);
+                if (typeof global.setNautilusChromeMode === 'function') {
+                    global.setNautilusChromeMode('location');
+                } else if (typeof global.setNautilusLocationBarMode === 'function') {
+                    global.setNautilusLocationBarMode('path');
+                } else {
+                    focusSearchInput(true);
+                }
                 return;
             }
 
             if (ctrl && !event.shiftKey && (key === 'f' || key === 'F')) {
                 event.preventDefault();
-                focusSearchInput(true);
+                if (typeof global.setNautilusChromeMode === 'function') {
+                    global.setNautilusChromeMode('search-folder');
+                } else {
+                    focusSearchInput(true);
+                }
                 return;
             }
 
@@ -188,6 +198,88 @@
                     global.openNautilusTab(root);
                 }
                 return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'n' || key === 'N')) {
+                event.preventDefault();
+                if (typeof global.openWindowByDataLink === 'function') {
+                    global.openWindowByDataLink('nemo');
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'd' || key === 'D')) {
+                event.preventDefault();
+                if (typeof global.addNautilusBookmark === 'function') {
+                    global.addNautilusBookmark();
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'c' || key === 'C')) {
+                event.preventDefault();
+                if (typeof global.copyExplorerSelection === 'function') {
+                    global.copyExplorerSelection();
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'x' || key === 'X')) {
+                event.preventDefault();
+                if (typeof global.cutExplorerSelection === 'function') {
+                    global.cutExplorerSelection();
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'v' || key === 'V')) {
+                event.preventDefault();
+                if (typeof global.pasteExplorerClipboard === 'function') {
+                    global.pasteExplorerClipboard();
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'a' || key === 'A')) {
+                event.preventDefault();
+                const grid = win.querySelector('.nemoElement, .nemo-app__content-grid');
+                if (grid) {
+                    grid.querySelectorAll('a[data-item-name]').forEach((link) => {
+                        link.classList.add('nemo-app__item--selected');
+                    });
+                }
+                return;
+            }
+
+            if (ctrl && event.shiftKey && (key === 'z' || key === 'Z')) {
+                event.preventDefault();
+                if (typeof global.redoExplorerOperation === 'function') {
+                    global.redoExplorerOperation();
+                }
+                return;
+            }
+
+            if (ctrl && !event.shiftKey && (key === 'z' || key === 'Z')) {
+                event.preventDefault();
+                if (typeof global.undoExplorerOperation === 'function') {
+                    global.undoExplorerOperation();
+                }
+                return;
+            }
+
+            if (key === 'F2') {
+                event.preventDefault();
+                if (typeof global.renameExplorerSelection === 'function') {
+                    global.renameExplorerSelection();
+                }
+                return;
+            }
+
+            if (key === 'Delete') {
+                event.preventDefault();
+                if (typeof global.trashExplorerSelection === 'function') {
+                    global.trashExplorerSelection();
+                }
             }
 
             if (ctrl && (key === '+' || key === '=')) {
@@ -255,12 +347,65 @@
                     pane: global.fileExplorerState.activePane || 'primary'
                 });
             }
+            if (typeof global.setNautilusChromeMode === 'function') {
+                global.setNautilusChromeMode('breadcrumb');
+            }
             if (typeof global.updatePathDisplay === 'function') {
                 global.updatePathDisplay();
             }
         });
 
         input.dataset.nautilusLocationBound = 'true';
+    };
+
+    const bindNetworkPlaceChrome = (root) => {
+        const input = root.querySelector('#nautilus-network-input');
+        const connect = root.querySelector('#nautilus-network-connect');
+        const infoBtn = root.querySelector('#nautilus-network-info');
+        const infoMenu = root.querySelector('#nautilus-network-info-menu');
+        if (!input || !connect || input.dataset.nautilusNetworkBound === 'true') {
+            return;
+        }
+
+        const syncConnectState = () => {
+            connect.disabled = !String(input.value || '').trim();
+        };
+
+        input.addEventListener('input', syncConnectState);
+        connect.addEventListener('click', (event) => {
+            event.preventDefault();
+            const value = String(input.value || '').trim();
+            if (!value) {
+                return;
+            }
+            if (typeof global.connectNautilusNetworkServer === 'function') {
+                global.connectNautilusNetworkServer(value);
+            }
+            input.value = '';
+            syncConnectState();
+        });
+
+        if (infoBtn && infoMenu && infoBtn.dataset.nautilusNetworkInfoBound !== 'true') {
+            infoBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const rect = infoBtn.getBoundingClientRect();
+                infoMenu.hidden = !infoMenu.hidden;
+                if (!infoMenu.hidden) {
+                    infoMenu.style.left = `${Math.max(8, rect.left - 280)}px`;
+                    infoMenu.style.top = `${Math.max(8, rect.top - infoMenu.offsetHeight - 8)}px`;
+                }
+            });
+            global.document.addEventListener('click', (event) => {
+                if (!infoMenu.hidden && !infoMenu.contains(event.target) && event.target !== infoBtn) {
+                    infoMenu.hidden = true;
+                }
+            });
+            infoBtn.dataset.nautilusNetworkInfoBound = 'true';
+        }
+
+        input.dataset.nautilusNetworkBound = 'true';
+        syncConnectState();
     };
 
     function bindFileExplorerNautilusFeatures() {
@@ -273,8 +418,10 @@
         }
         bindNewFolderButton(root);
         bindLocationBar(root);
+        bindNetworkPlaceChrome(root);
         bindKeyboardShortcuts(root);
     }
 
     global.bindFileExplorerNautilusFeatures = bindFileExplorerNautilusFeatures;
+    global.resolvePathFromLocationInput = resolvePathFromLocationInput;
 }(typeof window !== 'undefined' ? window : globalThis));

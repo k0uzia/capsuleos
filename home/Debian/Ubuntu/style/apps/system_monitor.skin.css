@@ -11,7 +11,7 @@ body#ubuntu {
     --gnome-sysmon-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#ubuntu) {
     --gnome-sysmon-bg: #fafafa;
     --gnome-sysmon-header-bg: #f6f6f6;
     --gnome-sysmon-card: #ffffff;
@@ -21,7 +21,7 @@ html[data-theme="light"]:has(#rocky) {
 }
 
 body#ubuntu div[data-link="system_monitor"].windowElement {
-    width: min(36rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    width: min(36rem, calc(100vw - var(--ubuntu-dock-width, 0px) - 2rem));
     height: min(24rem, calc(100vh - var(--ubuntu-top-bar-height, 2.5rem) - 2rem));
 }
 

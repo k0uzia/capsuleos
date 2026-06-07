@@ -7,9 +7,11 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { loadGnomePack } from './linux/gnome-pack-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
+const pack = loadGnomePack(ROOT);
 const PROFILES_DIR = path.join(ROOT, 'etc/capsuleos/profiles');
 const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
 const CHROME_JS = path.join(ROOT, 'usr/lib/capsuleos/common/window/chrome.js');
@@ -41,27 +43,15 @@ const GNOME_SLOT_PROVIDERS = {
     characters: 'libadwaita-gnome',
 };
 
-/** Ancre CSD libadwaita (doit exister dans le gabarit HTML). */
-const LIBADWAITA_ANCHORS = {
-    calculator: 'gnome-calc__header',
-    text_editor: 'xed-app__menubar',
-    calendar: 'gnome-calendar-app__header',
-    clocks: 'gnome-clocks__header',
-    update_manager: 'gnome-software__headerbar',
-    profile: 'profile-app__header',
-    checklist: 'checklist-app__header',
-    librewriter: 'lw-menubar',
-    themes: 'gnome-settings__headerbar',
-    visionneur_images: 'viewer-app__toolbar',
-    visionneur_pdf: 'viewer-app__toolbar',
-    lecteur_multimedia: 'viewer-app__toolbar',
-    snapshot: 'gnome-snapshot__header',
-    screenshot: 'gnome-shot__headerbar',
-    baobab: 'gnome-baobab__header',
-    system_monitor: 'gnome-sysmon__header',
-    tour: 'gnome-tour__header',
-    characters: 'gnome-characters__header',
-};
+/** Ancres CSD libadwaita (manifeste toolkit-gnome/pack.json). */
+const LIBADWAITA_ANCHORS = Object.fromEntries(
+    Object.entries(pack.libadwaita?.slots || {}).map(([slotId, meta]) => [slotId, meta.anchor])
+);
+const LIBADWAITA_RUNTIME_ANCHORS = new Set(
+    Object.entries(pack.libadwaita?.slots || {})
+        .filter(([, meta]) => meta.runtimeAnchor)
+        .map(([slotId]) => slotId)
+);
 
 const PROFILE_PROVIDER_OVERRIDES = {
     'linux-ubuntu': {
@@ -178,7 +168,7 @@ for (const file of profileFiles) {
                 errors.push(`${profileId}: gabarit HTML introuvable pour slot « ${slotId} »`);
                 continue;
             }
-            if (!html.includes(anchorClass)) {
+            if (!LIBADWAITA_RUNTIME_ANCHORS.has(slotId) && !html.includes(anchorClass)) {
                 errors.push(
                     `${profileId}: slot « ${slotId} » — ancre « ${anchorClass} » absente du gabarit`
                 );

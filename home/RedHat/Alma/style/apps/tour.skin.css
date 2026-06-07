@@ -10,7 +10,7 @@ body#alma {
     --gnome-tour-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#alma) {
     --gnome-tour-bg: #fafafa;
     --gnome-tour-header-bg: #f6f6f6;
     --gnome-tour-text: #1e1e1e;

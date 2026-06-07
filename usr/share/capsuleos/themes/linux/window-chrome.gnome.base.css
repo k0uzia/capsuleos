@@ -54,19 +54,22 @@ html[data-theme="light"] {
 
 .windowElement[data-window-chrome-toolkit="gnome"]:not(#mainMenu) > #windowHeader {
     flex: 0 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+    grid-template-rows: auto;
     align-items: center;
-    justify-content: space-between;
-    width: calc(100% - calc(var(--head) / 20));
-    min-width: calc(var(--a) - calc(var(--head) / 20));
-    max-width: calc(var(--max-w) - calc(var(--head) / 20));
-    height: calc(var(--head) / 1.3);
-    padding: calc(var(--head) / 4);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: var(--gnome-adw-headerbar-h, 2.875rem);
+    min-height: var(--gnome-adw-headerbar-h, 2.875rem);
+    padding: 0 calc(var(--head) / 4);
     border-radius: var(--fedora-window-radius, var(--ubuntu-window-radius, 11px)) var(--fedora-window-radius, var(--ubuntu-window-radius, 11px)) 0 0;
     background: var(--fedora-window-header-bg, var(--ubuntu-window-header-bg, var(--anduin-window-header-bg, #383838)));
     user-select: none;
     border-bottom: 1px solid var(--capsule-chrome-window-header-border);
+    box-sizing: border-box;
+    overflow: hidden;
     transition: background-color var(--eas2), border-color var(--eas2);
 }
 
@@ -81,12 +84,24 @@ html[data-theme="light"] {
     align-items: center;
     justify-content: space-around;
     min-width: calc(var(--head) * 2.2);
-    height: var(--head);
+    height: 100%;
+    min-height: 0;
     flex-shrink: 0;
 }
 
+.windowElement[data-window-chrome-toolkit="gnome"] #windowHeader > nav:first-of-type {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
 .windowElement[data-window-chrome-toolkit="gnome"] #windowTitle {
-    width: calc(var(--head) * 20);
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
     text-align: center;
     text-shadow: none;
     filter: none;
@@ -94,6 +109,17 @@ html[data-theme="light"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    pointer-events: none;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"] #windowTitle[data-window-drag-region] {
+    pointer-events: auto;
+}
+
+.windowElement[data-window-chrome-toolkit="gnome"] #windowHeader > nav:last-of-type {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"] #windowHeader > nav > button {
@@ -167,7 +193,9 @@ html[data-theme="light"] {
 .windowElement[data-window-chrome-toolkit="gnome"]:not(#mainMenu) > section.windowElement {
     flex: 1 1 auto;
     min-height: 0;
-    width: calc(100% - calc(var(--head) / 20));
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .windowElement[data-window-chrome-toolkit="gnome"] > #windowIframe {

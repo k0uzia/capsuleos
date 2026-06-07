@@ -10,7 +10,7 @@ body#ubuntu {
     --gnome-baobab-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#ubuntu) {
     --gnome-baobab-bg: #fafafa;
     --gnome-baobab-header-bg: #f6f6f6;
     --gnome-baobab-text: #1e1e1e;
@@ -19,7 +19,7 @@ html[data-theme="light"]:has(#rocky) {
 }
 
 body#ubuntu div[data-link="baobab"].windowElement {
-    width: min(40rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    width: min(40rem, calc(100vw - var(--ubuntu-dock-width, 0px) - 2rem));
     height: min(26rem, calc(100vh - var(--ubuntu-top-bar-height, 2.5rem) - 2rem));
 }
 

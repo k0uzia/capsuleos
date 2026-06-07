@@ -1,12 +1,34 @@
-/* Firefox GNOME - contrôles dans la barre d’onglets (Fedora + Ubuntu). */
+/**
+ * ubuntu — firefox (structure Rocky).
+ */
+/* Fedora Firefox header skin. Shared template/texts stay untouched. */
 body#ubuntu #firefox {
     position: relative;
     min-width: calc(var(--head) * 24);
-    background: var(--ubuntu-app-header-alt-bg);
+    padding: 0;
+    background: var(--fedora-app-header-alt-bg);
 }
 
-body#ubuntu #firefox.firefox-window--fedora #windowHeader,
-body#ubuntu #firefox.firefox-window--gnome #windowHeader {
+body#ubuntu #firefox.firefox-window--fedora {
+    padding: 0;
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+body#ubuntu #firefox.firefox-window--fedora > #windowHeader {
+    display: none;
+}
+
+body#ubuntu #firefox.firefox-window--fedora .firefox-window-controls--fedora {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-left: 0.35rem;
+}
+
+body#ubuntu #firefox.firefox-window--fedora #windowHeader {
     position: static;
     display: flex;
     flex: 0 0 auto;
@@ -20,7 +42,7 @@ body#ubuntu #firefox.firefox-window--gnome #windowHeader {
     padding: 0;
     border: 0;
     border-radius: 0;
-    color: var(--ubuntu-window-control-color);
+    color: var(--fedora-window-control-color);
     background: transparent;
     overflow: visible;
     z-index: auto;
@@ -56,8 +78,8 @@ body#ubuntu #firefox.firefox-window--fedora #windowHeader > nav > button {
     padding: 0;
     border: 0;
     border-radius: var(--mid);
-    color: var(--ubuntu-window-control-color);
-    background: var(--ubuntu-window-control-bg);
+    color: var(--fedora-window-control-color);
+    background: var(--fedora-window-control-bg);
     background-image: none;
     cursor: pointer;
     transform: none;
@@ -65,12 +87,12 @@ body#ubuntu #firefox.firefox-window--fedora #windowHeader > nav > button {
 
 body#ubuntu #firefox.firefox-window--fedora #windowHeader > nav > button:hover {
     border-color: transparent;
-    background-color: var(--ubuntu-window-control-hover-bg);
+    background-color: var(--fedora-window-control-hover-bg);
     transform: none;
 }
 
 body#ubuntu #firefox.firefox-window--fedora #windowHeader > nav > button:focus-visible {
-    outline: 2px solid var(--ubuntu-app-field-border);
+    outline: 2px solid var(--fedora-app-field-border);
     outline-offset: 1px;
 }
 
@@ -99,11 +121,11 @@ body#ubuntu #firefox.firefox-window--fedora #resizeBtn::before {
 }
 
 body#ubuntu #firefox.firefox-window--fedora #closeBtn {
-    background: var(--ubuntu-window-control-close-bg);
+    background: var(--fedora-window-control-close-bg);
 }
 
 body#ubuntu #firefox.firefox-window--fedora #closeBtn:hover {
-    background: var(--ubuntu-window-control-close-hover-bg);
+    background: var(--fedora-window-control-close-hover-bg);
 }
 
 body#ubuntu #firefox.firefox-window--fedora #closeBtn::before {
@@ -112,49 +134,53 @@ body#ubuntu #firefox.firefox-window--fedora #closeBtn::before {
 }
 
 body#ubuntu #firefox .capsule-browser {
-    color: var(--ubuntu-app-text);
-    background: var(--ubuntu-app-surface);
+    color: var(--fedora-app-text);
+    background: var(--fedora-app-surface);
 }
 
 body#ubuntu #firefox .capsule-browser__chrome {
-    border-bottom: 1px solid var(--ubuntu-app-header-border);
-    background: var(--ubuntu-app-header-bg);
+    border-bottom: 1px solid var(--fedora-app-header-border);
+    background: var(--fedora-app-header-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__tabsbar {
     position: relative;
     z-index: 2;
-    gap: 0.28rem;
-    min-height: 2rem;
-    padding: 0.23rem 0.42rem 0;
-    border-bottom: 1px solid var(--ubuntu-app-border);
-    background: var(--ubuntu-app-header-alt-bg);
+    gap: 0.12rem;
+    min-height: 2.05rem;
+    padding: 0.28rem 0.42rem 0;
+    border-bottom: 1px solid var(--fedora-app-border);
+    background: var(--fedora-app-header-alt-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__tab {
     flex: 0 1 12.6rem;
     min-width: 0;
     max-width: min(12.6rem, calc(100% - 7rem));
-    height: 1.52rem;
+    height: 1.62rem;
     padding: 0 0.42rem;
-    border: 1px solid var(--ubuntu-app-tab-border);
-    border-radius: 0.36rem;
-    color: var(--ubuntu-app-text);
-    background: var(--ubuntu-app-tab-bg);
-    font-family: "Cantarell", var(--font-ui);
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: 0.55rem 0.55rem 0 0;
+    color: var(--fedora-app-text);
+    background: transparent;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
 }
 
 body#ubuntu #firefox .capsule-browser__tab:hover {
-    border-color: var(--ubuntu-app-tab-border);
-    background: var(--ubuntu-app-tab-hover-bg);
+    border-color: var(--fedora-app-tab-border);
+    background: var(--fedora-app-tab-hover-bg);
     transform: none;
 }
 
 body#ubuntu #firefox .capsule-browser__tab--active {
-    border-color: var(--ubuntu-app-tab-border);
-    color: var(--ubuntu-app-text);
-    background: var(--ubuntu-app-tab-active-bg);
+    border-color: var(--fedora-app-tab-border);
+    border-bottom-color: var(--fedora-app-surface);
+    margin-bottom: -1px;
+    color: var(--fedora-app-text);
+    background: var(--fedora-app-tab-active-bg);
+    box-shadow: 0 -1px 0 var(--fedora-app-tab-border);
 }
 
 body#ubuntu #firefox .capsule-browser__tab-icon {
@@ -165,7 +191,7 @@ body#ubuntu #firefox .capsule-browser__tab-icon {
 }
 
 body#ubuntu #firefox .capsule-browser__tab-close {
-    color: var(--ubuntu-app-muted-text);
+    color: var(--fedora-app-muted-text);
 }
 
 body#ubuntu #firefox .capsule-browser__tab-add {
@@ -173,12 +199,12 @@ body#ubuntu #firefox .capsule-browser__tab-add {
     height: 1.35rem;
     margin-left: 0.15rem;
     border-radius: 0.3rem;
-    color: var(--ubuntu-app-text);
+    color: var(--fedora-app-text);
     font-size: 0.98rem;
 }
 
 body#ubuntu #firefox .capsule-browser__tab-add:hover {
-    background: var(--ubuntu-app-button-hover-bg);
+    background: var(--fedora-app-button-hover-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__toolbar {
@@ -186,8 +212,8 @@ body#ubuntu #firefox .capsule-browser__toolbar {
     min-height: 2.05rem;
     padding: 0.22rem 0.42rem;
     border-top: 0;
-    border-bottom: 1px solid var(--ubuntu-app-border);
-    background: var(--ubuntu-app-header-bg);
+    border-bottom: 1px solid var(--fedora-app-border);
+    background: var(--fedora-app-header-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__nav-actions {
@@ -200,14 +226,14 @@ body#ubuntu #firefox .capsule-browser__btn {
     padding: 0 0.3rem;
     border: 1px solid transparent;
     border-radius: 0.32rem;
-    color: var(--ubuntu-app-muted-text);
+    color: var(--fedora-app-muted-text);
     font-size: 0.86rem;
     background: transparent;
 }
 
 body#ubuntu #firefox .capsule-browser__btn:hover:not(:disabled) {
     border-color: transparent;
-    background: var(--ubuntu-app-button-hover-bg);
+    background: var(--fedora-app-button-hover-bg);
     transform: none;
 }
 
@@ -219,22 +245,22 @@ body#ubuntu #firefox .capsule-browser__addressbar {
     height: 1.62rem;
     gap: 0.25rem;
     padding: 0 0.36rem;
-    border: 1px solid var(--ubuntu-app-field-border);
+    border: 1px solid var(--fedora-app-field-border);
     border-radius: 0.32rem;
-    background: var(--ubuntu-app-field-bg);
-    box-shadow: 0 0 0 1px rgba(233, 84, 32, 0.28);
+    background: var(--fedora-app-field-bg);
+    box-shadow: 0 0 0 1px rgba(53, 132, 228, 0.28);
 }
 
 body#ubuntu #firefox .capsule-browser__addressbar:focus-within {
-    border-color: var(--ubuntu-app-field-border);
-    background: var(--ubuntu-app-field-focus-bg);
+    border-color: var(--fedora-app-field-border);
+    background: var(--fedora-app-field-focus-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__address-prefix {
     width: 0.95rem;
     height: 0.95rem;
     color: transparent;
-    background: var(--ubuntu-app-icon-muted);
+    background: var(--fedora-app-icon-muted);
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M8 1.2 13 3v4.1c0 3-2 5.7-5 7.1-3-1.4-5-4.1-5-7.1V3l5-1.8zm0 1.5L4.3 4v3.1c0 2.2 1.4 4.3 3.7 5.5 2.3-1.2 3.7-3.3 3.7-5.5V4L8 2.7z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M8 1.2 13 3v4.1c0 3-2 5.7-5 7.1-3-1.4-5-4.1-5-7.1V3l5-1.8zm0 1.5L4.3 4v3.1c0 2.2 1.4 4.3 3.7 5.5 2.3-1.2 3.7-3.3 3.7-5.5V4L8 2.7z'/%3E%3C/svg%3E");
     -webkit-mask-size: contain;
@@ -247,14 +273,14 @@ body#ubuntu #firefox .capsule-browser__address-prefix {
 
 body#ubuntu #firefox .capsule-browser__address-input {
     height: 1.45rem;
-    color: var(--ubuntu-app-field-text);
-    font-family: "Cantarell", var(--font-ui);
+    color: var(--fedora-app-field-text);
+    font-family: var(--font-ui);
     font-size: 0.78rem;
 }
 
 body#ubuntu #firefox .capsule-browser__address-input::selection {
     color: #ffffff;
-    background: #E95420;
+    background: #3584e4;
 }
 
 body#ubuntu #firefox .capsule-browser__btn--go {
@@ -266,15 +292,15 @@ body#ubuntu #firefox .capsule-browser__toolbar-actions {
 }
 
 body#ubuntu #firefox .capsule-browser__btn--ghost {
-    color: var(--ubuntu-app-muted-text);
+    color: var(--fedora-app-muted-text);
 }
 
 body#ubuntu #firefox .capsule-browser__bookmarks {
     gap: 0.16rem;
     min-height: 1.34rem;
     padding: 0.08rem 0.42rem 0.12rem;
-    border-bottom: 1px solid var(--ubuntu-app-header-border);
-    background: var(--ubuntu-app-header-bg);
+    border-bottom: 1px solid var(--fedora-app-header-border);
+    background: var(--fedora-app-header-bg);
 }
 
 body#ubuntu #firefox .capsule-browser__bookmark {
@@ -282,9 +308,9 @@ body#ubuntu #firefox .capsule-browser__bookmark {
     padding: 0 0.16rem 0 0.05rem;
     border: 0;
     border-radius: 0.25rem;
-    color: var(--ubuntu-app-text);
+    color: var(--fedora-app-text);
     background: transparent;
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.7rem;
 }
 
@@ -295,11 +321,11 @@ body#ubuntu #firefox .capsule-browser__bookmark::before {
     height: 0.72rem;
     margin-right: 0.16rem;
     border-radius: 0.12rem;
-    background: var(--ubuntu-app-muted-text);
+    background: var(--fedora-app-muted-text);
 }
 
 body#ubuntu #firefox .capsule-browser__bookmark--primary {
-    color: var(--ubuntu-app-text);
+    color: var(--fedora-app-text);
     background: transparent;
 }
 
@@ -310,5 +336,5 @@ body#ubuntu #firefox .capsule-browser__bookmark--primary::before {
 
 body#ubuntu #firefox .capsule-browser__bookmark:hover {
     border-color: transparent;
-    background: var(--ubuntu-app-button-hover-bg);
+    background: var(--fedora-app-button-hover-bg);
 }

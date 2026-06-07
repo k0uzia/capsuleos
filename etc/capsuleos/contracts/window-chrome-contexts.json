@@ -42,6 +42,10 @@
         "lecteur_multimedia": "libadwaita-gnome",
         "snapshot": "libadwaita-gnome",
         "screenshot": "libadwaita-gnome",
+        "baobab": "libadwaita-gnome",
+        "characters": "libadwaita-gnome",
+        "system_monitor": "libadwaita-gnome",
+        "tour": "libadwaita-gnome",
         "default": "default"
       },
       "slotChromeProviderOverrides": {

@@ -1,13 +1,11 @@
 /**
- * Fedora - À propos.
- * Skin uniquement : le template et profile.js restent communs.
+ * alma — profile (structure Rocky).
  */
-
 body#alma div[data-link="profile"].gnome-app--csd {
     width: min(34rem, calc(100vw - var(--fedora-dock-width) - 2rem));
     height: min(38rem, calc(100vh - var(--fedora-top-bar-height) - 2rem));
     padding: 0;
-    border-color: rgba(0, 0, 0, 0.44);
+    border-color: var(--capsule-chrome-window-border, var(--fedora-window-border));
     border-radius: 0.9rem;
     color: #f6f6f7;
     background: #242428;
@@ -20,7 +18,6 @@ body#alma div[data-link="profile"] .profile-app__header {
 }
 
 html[data-theme="light"]:has(#alma) body#alma div[data-link="profile"] {
-    border-color: rgba(0, 0, 0, 0.12);
     color: #1f1f22;
     background: #ffffff;
 }

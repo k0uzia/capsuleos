@@ -1,5 +1,5 @@
 /**
- * Rocky — Missions (checklist) · chrome CSD libadwaita.
+ * alma — checklist (structure Rocky).
  */
 body#alma div[data-link="checklist"].gnome-app--csd {
     padding: 0;

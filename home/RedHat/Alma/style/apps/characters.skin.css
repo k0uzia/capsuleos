@@ -10,7 +10,7 @@ body#alma {
     --gnome-characters-accent: #3584e4;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#alma) {
     --gnome-characters-bg: #fafafa;
     --gnome-characters-header-bg: #f6f6f6;
     --gnome-characters-text: #1e1e1e;

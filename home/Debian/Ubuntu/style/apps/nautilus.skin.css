@@ -15,6 +15,9 @@ body#ubuntu {
     --nautilus-sidebar-w: 14.5rem;
     --nautilus-content-pad-x: 1.35rem;
     --nautilus-status-inset-bottom: 1rem;
+    --nautilus-tabstrip-h: 2.125rem;
+    --nemo-tab-active-bg: #383838;
+    --nemo-chrome-surface: rgba(255, 255, 255, 0.06);
 
     /* Nautilus 47 / Adwaita dark (défaut Ubuntu GNOME) */
     --nemo-bg-primary: #303030;
@@ -54,6 +57,8 @@ body#ubuntu {
 }
 
 html[data-theme="light"]:has(#ubuntu) body#ubuntu {
+    --nemo-tab-active-bg: #ffffff;
+    --nemo-chrome-surface: rgba(0, 0, 0, 0.04);
     --nemo-bg-primary: #ffffff;
     --nemo-header-bg: #f6f6f6;
     --nemo-header-active-bg: #ffffff;
@@ -187,7 +192,7 @@ body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__nav {
     gap: 0;
     padding: 0.125rem;
     border-radius: var(--nautilus-corner);
-    background: rgba(0, 0, 0, 0.04);
+    background: var(--nemo-chrome-surface);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__nav .nautilus-app__icon-btn {
@@ -252,29 +257,6 @@ body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__view-menu-bt
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__view-group .nautilus-app__icon-btn.nemo-app__view-btn--active,
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__view-group .nautilus-app__icon-btn[aria-current="true"] {
     background: var(--nemo-item-active-bg);
-}
-
-body#ubuntu div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer {
-    position: absolute;
-    left: var(--nautilus-content-pad-x);
-    right: auto;
-    bottom: var(--nautilus-status-inset-bottom);
-    top: auto;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    width: max-content;
-    max-width: min(40rem, calc(100% - calc(var(--nautilus-content-pad-x) * 2)));
-    height: auto;
-    min-height: 0;
-    margin: 0;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--nemo-toolbar-border);
-    border-top: 0;
-    border-radius: 999px;
-    background: var(--nemo-footer-bg);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-app #nemoMainContainer {
@@ -426,10 +408,6 @@ body#ubuntu div[data-link="nemo"] .nemo-app__content-grid > a::before {
     display: none;
 }
 
-body#ubuntu div[data-link="nemo"] .nemo-app__content-grid > a:hover {
-    background: var(--nemo-item-active-bg);
-}
-
 body#ubuntu div[data-link="nemo"] .nemo-app__content-grid > a > img {
     display: block;
     flex: 0 0 auto;
@@ -461,6 +439,72 @@ body#ubuntu div[data-link="nemo"] .nemo-app__empty {
     }
 }
 
+body#ubuntu div[data-link="nemo"] .nautilus-popover {
+    position: fixed;
+    z-index: 12001;
+    min-width: 13rem;
+    padding: 0.35rem 0;
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg);
+    border: 1px solid var(--nemo-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    color: var(--nemo-text-primary);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover[hidden] {
+    display: none !important;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover__item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 0.45rem 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--nemo-text-primary);
+    font: inherit;
+    font-size: 0.82rem;
+    text-align: left;
+    cursor: default;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover__item kbd {
+    flex: 0 0 auto;
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--nemo-text-muted);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover--panel {
+    min-width: 15rem;
+    padding: 0.75rem;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__path-pill {
+    background: var(--nemo-pathbar-bg);
+    border-color: var(--nemo-pathbar-border);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-search-empty {
+    background: var(--nemo-bg-primary);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover__item:hover:not(:disabled),
+body#ubuntu div[data-link="nemo"] .nautilus-popover__item:focus-visible,
+body#ubuntu div[data-link="nemo"] .nautilus-popover__item.is-active {
+    background: var(--nemo-item-active-bg);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-popover__separator {
+    height: 1px;
+    margin: 0.35rem 0.65rem;
+    background: var(--nemo-border);
+}
+
 body#ubuntu div[data-link="nemo"] .nautilus-context-menu {
     position: fixed;
     z-index: 12000;
@@ -478,7 +522,11 @@ body#ubuntu div[data-link="nemo"] .nautilus-context-menu[hidden] {
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-context-menu__item {
-    display: block;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
     width: 100%;
     padding: 0.45rem 1rem;
     border: 0;
@@ -487,6 +535,17 @@ body#ubuntu div[data-link="nemo"] .nautilus-context-menu__item {
     font: inherit;
     text-align: left;
     cursor: default;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-context-menu__item kbd {
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--nemo-text-muted);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-network-bar {
+    background: var(--nemo-bg-primary);
+    border-top-color: var(--nemo-border);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-context-menu__item:hover:not(:disabled),
@@ -502,62 +561,6 @@ body#ubuntu div[data-link="nemo"] .nautilus-context-menu__separator {
     height: 1px;
     margin: 0.35rem 0.65rem;
     background: var(--nemo-border);
-}
-
-body#ubuntu div[data-link="nemo"] .nautilus-app__tabstrip {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    gap: 0.15rem;
-    min-height: 2rem;
-    padding: 0.2rem 0.55rem 0;
-    background: var(--nemo-header-bg);
-    border-bottom: 1px solid var(--nemo-border);
-    overflow-x: auto;
-}
-
-body#ubuntu div[data-link="nemo"] .nautilus-app__tab {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    max-width: 12rem;
-    padding: 0.35rem 0.65rem;
-    border: 0;
-    border-radius: 0.45rem 0.45rem 0 0;
-    background: transparent;
-    color: var(--nemo-text-muted);
-    font: inherit;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: default;
-    white-space: nowrap;
-}
-
-body#ubuntu div[data-link="nemo"] .nautilus-app__tab.is-active {
-    background: var(--nemo-bg-primary);
-    color: var(--nemo-text-primary);
-    box-shadow: inset 0 -2px 0 var(--nemo-accent);
-}
-
-body#ubuntu div[data-link="nemo"] .nautilus-app__tab-close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.1rem;
-    height: 1.1rem;
-    padding: 0;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    color: inherit;
-    font-size: 0.85rem;
-    line-height: 1;
-    opacity: 0.72;
-}
-
-body#ubuntu div[data-link="nemo"] .nautilus-app__tab-close:hover {
-    opacity: 1;
-    background: var(--nemo-toolbar-button-hover-bg);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-properties-dialog {

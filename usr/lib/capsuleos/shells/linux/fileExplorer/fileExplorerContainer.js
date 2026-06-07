@@ -1,3 +1,27 @@
+function resetFileExplorerSlotBindings(fileExplorerRoot) {
+    if (!fileExplorerRoot || !fileExplorerRoot.dataset) {
+        return;
+    }
+    const keys = [
+        'nemoNavDelegationInit',
+        'nemoViewDelegationInit',
+        'nemoControlsInit',
+        'nemoZoomInit',
+        'nemoSidebarDelegation',
+        'nemoContextMenuInit',
+        'nautilusTabsInit',
+        'nemoPropertiesInit',
+        'nautilusKeyboardInit',
+        'nautilusHeaderbarInit',
+        'feDnDRootInit',
+        'nemoMenuActionsInit',
+        'nemoPathAlignResizeInit'
+    ];
+    keys.forEach((key) => {
+        delete fileExplorerRoot.dataset[key];
+    });
+}
+
 function initFileExplorerContainer() {
     const root = (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT)
         ? String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '')
@@ -99,5 +123,6 @@ function initFileExplorerContainer() {
     fileExplorerRoot.dataset.nemoInit = 'true';
 }
 
+window.resetFileExplorerSlotBindings = resetFileExplorerSlotBindings;
 window.initFileExplorerContainer = initFileExplorerContainer;
 window.initNemoContainer = initFileExplorerContainer;

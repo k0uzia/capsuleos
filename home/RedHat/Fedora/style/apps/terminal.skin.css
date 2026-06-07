@@ -1,3 +1,6 @@
+/**
+ * fedora — terminal (structure Rocky).
+ */
 /* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
 body#fedora #terminal.terminal-window--fedora {
     width: min(43rem, calc(100vw - var(--fedora-dock-width) - 2rem));

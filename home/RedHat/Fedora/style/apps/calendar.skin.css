@@ -11,7 +11,7 @@ body#fedora {
     --gnome-cal-selected: rgba(53, 132, 228, 0.25);
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#fedora) {
     --gnome-cal-bg: #fafafa;
     --gnome-cal-surface: #ffffff;
     --gnome-cal-text: #1e1e1e;

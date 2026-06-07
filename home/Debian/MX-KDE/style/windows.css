@@ -76,20 +76,23 @@ div.windowElement[data-link="update_manager"]:not(#mainMenu) {
 }
 
 #windowHeader {
-    display: var(--f);
-    flex-flow: var(--rnw);
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+    grid-template-rows: auto;
     align-items: var(--c);
-    justify-content: var(--sb);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    min-width: calc(var(--a) - calc(var(--head) / 20));
-    max-width: calc(var(--max-w) - calc(var(--head) / 20));
-    height: calc(var(--head) / 1.3);
-    padding: calc(var(--head) / 4);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: var(--mx-kde-konsole-header-height, 2.05rem);
+    min-height: var(--mx-kde-konsole-header-height, 2.05rem);
+    padding: 0 calc(var(--head) / 4);
     border-radius: calc(var(--head) / 3.2) calc(var(--head) / 3.2) var(--z) var(--z);
     color: var(--mx-kde-window-titlebar-fg);
     background: var(--mx-kde-window-titlebar-bg);
     user-select: none;
     border-bottom: 1px solid var(--mx-kde-window-titlebar-border-color);
+    box-sizing: border-box;
+    overflow: hidden;
     transition: background-color var(--eas2), border-color var(--eas2);
     pointer-events: auto;
 }
@@ -115,7 +118,21 @@ body#mx-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIfra
     align-items: var(--c);
     justify-content: var(--sa);
     min-width: calc(var(--head) * 2.2);
-    height: var(--head);
+    height: 100%;
+    min-height: 0;
+    flex-shrink: 0;
+}
+
+#windowHeader>nav:first-of-type {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
+#windowHeader>nav:last-of-type {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
 }
 
 html[data-theme="light"] #mx-kde #windowTitle {
@@ -132,10 +149,23 @@ body#mx-kde #windowTitle {
 }
 
 #windowTitle {
-    width: calc(var(--head) * 20);
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-align: var(--c);
     text-shadow: var(--bs);
     filter: var(--inv);
+    pointer-events: none;
+}
+
+#windowTitle[data-window-drag-region] {
+    pointer-events: auto;
 }
 
 #windowHeader>nav>button {

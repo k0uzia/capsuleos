@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-ubuntu",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-07T20:07:25.436Z",
+  "generatedAt": "2026-06-07T22:10:55.886Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-ubuntu-vm-apps-installed.json",
@@ -339,7 +339,8 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true
+        "dash": true,
+        "overview": true
       },
       "specs": {
         "chromeProvider": "firefox-gnome",
@@ -420,7 +421,8 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true
+        "dash": true,
+        "overview": true
       },
       "specs": {
         "chromeProvider": "libadwaita-gnome",
@@ -565,7 +567,8 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true
+        "dash": true,
+        "overview": true
       },
       "specs": {
         "chromeProvider": "libadwaita-gnome",

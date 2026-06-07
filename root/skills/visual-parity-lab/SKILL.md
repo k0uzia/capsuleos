@@ -14,8 +14,11 @@ description: Runs autonomous VM ↔ Capsule visual parity passes with PNG captur
 ## Commande unique (imposée)
 
 ```bash
-node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id <registryId>
+bash root/tools/lab/lab-capture-session.sh -- \
+  node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id <registryId>
 ```
+
+**R-PWD1** : envelopper avec `lab-capture-session.sh` évite les invites polkit/sudo à chaque capture virsh.
 
 Exemples :
 

@@ -49,10 +49,10 @@ const TARGETS = [
     --linux-skin-label: "Ubuntu 26.04 LTS";
     --ubuntu-dock-gap: calc(var(--head) / 11);
     --ubuntu-dock-item: calc(var(--head) * 1.02);
-    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png) center/cover no-repeat;
+    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp) center/cover no-repeat;
     --gnome-shell-taskbar-bg: var(--ubuntu-top-bar-bg);`,
         dockDisplay: 'flex',
-        lightThemeBg: 'url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.png") center/cover no-repeat',
+        lightThemeBg: 'url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.webp") center/cover no-repeat',
         varMap: [
             ['--fedora-dock-', '--ubuntu-dock-'],
             ['--fedora-top-bar-', '--ubuntu-top-bar-'],

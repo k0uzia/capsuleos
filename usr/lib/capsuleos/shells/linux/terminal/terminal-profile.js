@@ -96,11 +96,10 @@
 
     applyTerminalIdentity();
 
-    window.CAPSULE_TERMINAL_ACTIVE_PROFILE = {
-        ...profile,
+    window.CAPSULE_TERMINAL_ACTIVE_PROFILE = Object.assign({}, profile, {
         commands: mergedCommands,
         vendorCommands,
-    };
+    });
     window.CAPSULE_TERMINAL_ACTIVE_COMMANDS = activeCommands;
     window.getTerminalActiveProfile = () => window.CAPSULE_TERMINAL_ACTIVE_PROFILE;
     window.getTerminalActiveCommands = () => window.CAPSULE_TERMINAL_ACTIVE_COMMANDS;

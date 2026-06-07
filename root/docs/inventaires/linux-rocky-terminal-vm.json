@@ -482,7 +482,6 @@
       "ref": "prompt.vm vs prompt.capsule"
     },
     {
-    {
       "id": "G-output-ansi",
       "tag": "P1",
       "summary": "Sorties DNF/apt sans spans sémantiques — texte brut uniquement",

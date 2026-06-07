@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { labVirshScreenshot } from './lab-session-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -124,12 +125,11 @@ const virshShot = (destFile, host) => {
     || process.env.ROCKY_VIRSH_NAME
     || process.env.FEDORA_VIRSH_NAME
     || 'Rocky10';
-  const res = spawnSync('virsh', ['-c', 'qemu:///system', 'screenshot', vmName, '--file', destFile], { encoding: 'utf8' });
-  if (res.status !== 0) {
-    process.stderr.write(`virsh screenshot échec: ${res.stderr}\n`);
+  if (!labVirshScreenshot(vmName, destFile)) {
+    process.stderr.write('virsh screenshot échec — lancer lab-capture-session.sh si polkit/sudo\n');
     return false;
   }
-  return fs.existsSync(destFile);
+  return true;
 };
 
 const wakeVm = (host) => {

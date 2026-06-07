@@ -28,10 +28,19 @@ Procédure : `root/docs/procedure-audit-etats-ui-effets.md`
 ## Commande unique
 
 ```bash
-node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id <registryId>
+bash root/tools/lab/lab-capture-session.sh -- \
+  node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id <registryId>
 ```
 
+**R-PWD1** : `lab-capture-session.sh` déverrouille sudo/SSH **une fois** pour toute la passe (dizaines de `virsh screenshot` sans boîte polkit répétée).
+
 L'agent exécute **sans demander** les scripts intermédiaires.
+
+## Prérequis assets (**Tp**)
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id <registryId>
+```
 
 ## Séquence interne
 

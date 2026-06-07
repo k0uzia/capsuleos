@@ -68,9 +68,16 @@
     display: none;
 }
 
+#ubuntu #tableau.fedora-dock .ubuntu-dock__unavailable {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+}
+
 #ubuntu #tableau.fedora-dock .fedora-dock__nav a > img,
 #ubuntu #tableau.fedora-dock .fedora-dock__nav button > img,
-#ubuntu #tableau.fedora-dock .fedora-dock__nav .ubuntu-dock__trash > img {
+#ubuntu #tableau.fedora-dock .fedora-dock__nav .ubuntu-dock__trash > img,
+#ubuntu #tableau.fedora-dock .ubuntu-dock__unavailable > img {
     display: block;
     width: calc(var(--head) * 0.72);
     height: calc(var(--head) * 0.72);

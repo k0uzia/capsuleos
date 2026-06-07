@@ -18,6 +18,16 @@
 
 LAB_SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$LAB_SSH_IDENTITY")
 
+# Préfixe virsh (ex. "sudo -n") — défini par lab-capture-session.sh (R-PWD1).
+lab_virsh_cmd() {
+  if [[ -n "${CAPSULE_LAB_VIRSH_PREFIX:-}" ]]; then
+    # shellcheck disable=SC2086
+    ${CAPSULE_LAB_VIRSH_PREFIX} virsh -c "$LAB_VIRSH_URI" "$@"
+  else
+    virsh -c "$LAB_VIRSH_URI" "$@"
+  fi
+}
+
 lab_remote() {
   ssh "${LAB_SSH_OPTS[@]}" "$LAB_SSH" "$@"
 }
@@ -40,13 +50,34 @@ lab_wake_display() {
 
 lab_overview_open() {
   lab_overview_hide
-  lab_prep_env 'xdotool key super 2>/dev/null || gdbus call --session --dest org.gnome.Shell \
-    --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "s:Main.overview.show()" >/dev/null 2>&1 || true'
+  # GNOME ≥ 41 (Ubuntu Wayland) : Eval/xdotool bloqués — OverviewActive via D-Bus.
+  lab_remote 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+    if gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+      --method org.freedesktop.DBus.Properties.Set org.gnome.Shell OverviewActive "<true>" 2>/dev/null; then
+      exit 0
+    fi
+    export DISPLAY=:0
+    XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)
+    export XAUTHORITY
+    PATH=$HOME/.local/bin:$PATH
+    gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+      --method org.gnome.Shell.Eval "s:Main.overview.show()" >/dev/null 2>&1 \
+      || xdotool key super 2>/dev/null || true'
 }
 
 lab_overview_hide() {
-  lab_prep_env 'xdotool key Escape 2>/dev/null || gdbus call --session --dest org.gnome.Shell \
-    --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "s:Main.overview.hide()" >/dev/null 2>&1 || true'
+  lab_remote 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+    if gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+      --method org.freedesktop.DBus.Properties.Set org.gnome.Shell OverviewActive "<false>" 2>/dev/null; then
+      exit 0
+    fi
+    export DISPLAY=:0
+    XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)
+    export XAUTHORITY
+    PATH=$HOME/.local/bin:$PATH
+    gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+      --method org.gnome.Shell.Eval "s:Main.overview.hide()" >/dev/null 2>&1 \
+      || xdotool key Escape 2>/dev/null || true'
 }
 
 lab_desktop_click() {
@@ -72,8 +103,9 @@ lab_virsh_shot() {
   if [[ "$settle_ms" -gt 0 ]]; then
     sleep "$(awk "BEGIN {printf \"%.3f\", $settle_ms/1000}")"
   fi
-  if ! virsh -c "$LAB_VIRSH_URI" screenshot "$LAB_VIRSH_NAME" --file "$file" 2>/dev/null; then
+  if ! lab_virsh_cmd screenshot "$LAB_VIRSH_NAME" --file "$file" 2>/dev/null; then
     echo "  ✗ virsh screenshot échec — domaine « $LAB_VIRSH_NAME » injoignable ?" >&2
+    echo "    Astuce : bash root/tools/lab/lab-capture-session.sh -- <commande>" >&2
     return 1
   fi
   echo "  → $file ($(wc -c <"$file") octets)"

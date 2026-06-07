@@ -80,6 +80,17 @@ ssh-copy-id -i ~/.ssh/capsuleos-lab.pub capsule@192.168.122.141
 node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id linux-ubuntu
 ```
 
+### 0.4 Session captures (R-PWD1 — mot de passe hôte unique)
+
+Les passes **Vp** / **VΣ** enchaînent des dizaines de `virsh screenshot` ; sans session dédiée, polkit/sudo ouvre une boîte de dialogue à **chaque** capture.
+
+```bash
+bash root/tools/lab/lab-capture-session.sh -- \
+  node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu
+```
+
+Alternative : `source root/tools/lab/lab-capture-session.sh` puis plusieurs scripts dans le même terminal.
+
 ### 0.4 Test Wayland
 
 ```bash
@@ -88,6 +99,17 @@ ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.141 \
 ```
 
 Attendu : **`exit:0`**.
+
+### 0.4bis Aperçu VM (GNOME ≥ 41 / Wayland)
+
+Sur Ubuntu 25.10+, `org.gnome.Shell.Eval` et `xdotool` sont **bloqués** pour ouvrir l’Aperçu. Les scripts lab (`vm-gnome-lab-input.sh`, playbooks) utilisent en priorité :
+
+```bash
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+  --method org.freedesktop.DBus.Properties.Set org.gnome.Shell OverviewActive "<true>"
+```
+
+Vérification : `gdbus … Properties.Get org.gnome.Shell OverviewActive` → `(<true>,)`.
 
 ### 0.5 Inventaire lab local
 
@@ -137,12 +159,12 @@ Inventaire terminal (**Ti**) :
 ## Phase 2 — Assets VM (**A** / **S**)
 
 ```bash
-bash root/tools/lab/pull-vm-assets.sh --id linux-ubuntu
-# Optionnel WebP :
-PREPARE_WEB_MEDIA=1 bash root/tools/lab/pull-vm-assets.sh --id linux-ubuntu
+node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-ubuntu
 ```
 
-Cibles : `usr/share/capsuleos/assets/images/vendors/ubuntu/`, icônes Yaru panel, fonds `/usr/share/backgrounds/`.
+Cibles : `vendors/ubuntu/` (fonds + `thumbnails/`, panel, Yaru MIME/places/emblems/symbolic), `icons/gnome/yaru/`, captures `inventory/*-optimized.webp`.
+
+Équivalent manuel : `pull-vm-assets.sh` puis `PREPARE_WEB_MEDIA=1` (voir [asset-pipeline/SKILL.md](../../skills/asset-pipeline/SKILL.md)).
 
 ---
 

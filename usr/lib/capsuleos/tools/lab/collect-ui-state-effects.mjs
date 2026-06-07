@@ -11,6 +11,7 @@ import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { loadMergedMatrix, registryMatrixPath } from './ui-state-effects-lib.mjs';
+import { labVirshScreenshot } from './lab-session-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -19,11 +20,17 @@ const PLAYBOOKS_SH = path.join(ROOT, 'root/tools/lab/vm-gnome-deep-playbooks.sh'
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-ubuntu', write: false, capsule: false, filter: 'P0' };
+  const opts = {
+    id: 'linux-ubuntu', write: false, capsule: false, capsuleOnly: false, filter: 'P0',
+  };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--write') opts.write = true;
     else if (args[i] === '--capsule') opts.capsule = true;
+    else if (args[i] === '--capsule-only') {
+      opts.capsule = true;
+      opts.capsuleOnly = true;
+    }
     else if (args[i] === '--filter' && args[i + 1]) opts.filter = args[++i];
   }
   return opts;
@@ -114,12 +121,7 @@ const runAppLaunch = (host, tr) => {
 
 const virshShot = (destFile, host) => {
   const vmName = host.virshName || 'Rocky10';
-  const res = spawnSync(
-    'virsh',
-    ['-c', 'qemu:///system', 'screenshot', vmName, '--file', destFile],
-    { encoding: 'utf8', timeout: 30000 },
-  );
-  return res.status === 0 && fs.existsSync(destFile);
+  return labVirshScreenshot(vmName, destFile);
 };
 
 const sleep = (ms) => spawnSync('sleep', [String(ms / 1000)]);
@@ -142,38 +144,157 @@ const extractMenus = (playbookResult, matrixMenus) => {
 };
 
 const capsuleSelectorMap = {
-  'shell.overview.open': '.fedora-overview.is-open, body.is-overview',
-  'shell.overview.close': 'body:not(.is-overview)',
+  'shell.overview.open': '#ubuntu.is-overview .fedora-overview',
+  'shell.overview.close': '#ubuntu:not(.is-overview)',
   'shell.quickSettings.open': '#volume-popover:not([hidden])',
-  'app.nautilus.open': '.windowElement[data-link="nemo"]:not([style*="display: none"])',
-  'app.nautilus.contextmenu': '.nautilus-context-menu, .nemo-context-menu',
-  'desktop.contextmenu': '.desktop-context-menu',
+  'app.nautilus.open': '#ubuntu .windowElement.windowElementActive[data-link="nemo"]',
+  'app.nautilus.contextmenu': '#ubuntu #nemo #nemo-context-menu:not([hidden])',
+  'app.nautilus.rename-inline': '#ubuntu .nemo-app__item-rename-input',
+  'desktop.contextmenu': '#gnome-desktop-context-menu:not([hidden])',
+  'shell.overview.animation-burst': '#ubuntu.is-overview .fedora-overview',
+};
+
+const slotFromTransition = (tr) => {
+  if (tr.capsuleSlot) return tr.capsuleSlot;
+  const m = /^app\.([^.]+)\.open$/.exec(tr.id);
+  return m ? m[1] : null;
 };
 
 const capsuleSelectorFor = (tr) => {
   if (capsuleSelectorMap[tr.id]) return capsuleSelectorMap[tr.id];
-  if (tr.capsuleSlot) {
-    return `.windowElement[data-link="${tr.capsuleSlot}"]:not([style*="display: none"])`;
+  const slot = slotFromTransition(tr);
+  if (slot) {
+    return `#ubuntu .windowElement.windowElementActive[data-link="${slot}"]`;
   }
   return null;
 };
 
-const probeCapsuleStyles = async (registryId, transitionId, selector) => {
+const resolveChromePath = () => [
+  process.env.PLAYWRIGHT_CHROME,
+  '/usr/bin/google-chrome-stable',
+  '/usr/bin/google-chrome',
+  '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome',
+  '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
+  '/usr/bin/chromium',
+].find((p) => p && fs.existsSync(p));
+
+const prepareCapsulePage = async (page, transitionId, tr) => {
+  const slot = slotFromTransition(tr);
+  const openOverview = async () => {
+    await page.click('.fedora-overview-trigger');
+    await page.waitForTimeout(400);
+  };
+  const openApp = async (linkId) => {
+    const dock = page.locator(`a[target="windowElement"][data-link="${linkId}"]`);
+    if (await dock.count()) {
+      await dock.first().click({ force: true });
+      await page.waitForTimeout(700);
+      return;
+    }
+    const launched = await page.evaluate((id) => {
+      const dock = document.querySelector(`a[target="windowElement"][data-link="${id}"]`);
+      if (dock) {
+        dock.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        return 'dock';
+      }
+      const shell = document.getElementById('ubuntu');
+      shell?.classList.add('is-overview', 'is-overview-apps');
+      const overview = document.querySelector('.fedora-overview');
+      if (overview) {
+        overview.setAttribute('aria-hidden', 'false');
+      }
+      const btn = document.querySelector(`[data-overview-link="${id}"]`);
+      if (btn) {
+        btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        return 'overview';
+      }
+      if (typeof window.openWindowByDataLink === 'function') {
+        return window.openWindowByDataLink(id) ? 'api' : 'api-fail';
+      }
+      return 'none';
+    }, linkId);
+    if (launched === 'none' || launched === 'api-fail') {
+      await page.evaluate((id) => {
+        if (typeof window.openWindowByDataLink === 'function') {
+          window.openWindowByDataLink(id);
+        }
+      }, linkId);
+    }
+    await page.waitForTimeout(800);
+  };
+
+  switch (transitionId) {
+    case 'desktop.contextmenu':
+      await page.evaluate(() => {
+        const area = document.getElementById('desktop')
+          || document.querySelector('.fedora-desktop-area')
+          || document.body;
+        area.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 420, clientY: 280 }));
+      });
+      await page.waitForTimeout(250);
+      break;
+    case 'shell.overview.open':
+    case 'shell.overview.animation-burst':
+      await openOverview();
+      break;
+    case 'shell.overview.close':
+      await openOverview();
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(300);
+      break;
+    case 'shell.quickSettings.open':
+      await page.click('#tray-quick-settings-btn');
+      await page.waitForTimeout(300);
+      break;
+    case 'app.nautilus.open':
+      await openApp('nemo');
+      break;
+    case 'app.nautilus.contextmenu':
+      await openApp('nemo');
+      await page.evaluate(() => {
+        const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
+        grid?.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 320, clientY: 280 }));
+      });
+      await page.waitForTimeout(350);
+      break;
+    case 'app.nautilus.rename-inline':
+      await openApp('nemo');
+      await page.click('div[data-link="nemo"] .nautilus-app__new-folder-btn');
+      await page.waitForTimeout(600);
+      break;
+    default:
+      if (slot) await openApp(slot);
+      break;
+  }
+};
+
+const probeCapsuleStyles = async (registryId, transitionId, selector, tr) => {
   const host = loadHost(registryId);
   const base = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
   const url = host.capsuleUrl || `${base}/home/Debian/Ubuntu/index.html`;
-  const chromePath = [
-    process.env.PLAYWRIGHT_CHROME,
-    '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
-    '/usr/bin/chromium',
-  ].find((p) => p && fs.existsSync(p));
+  const chromePath = resolveChromePath();
 
-  if (!chromePath || !selector) return { visualMatch: 'unknown', computedStyles: {} };
+  if (!selector) {
+    return { visualMatch: 'missing', computedStyles: {}, gapNotes: 'sélecteur Capsule absent' };
+  }
+  if (!chromePath) {
+    return { visualMatch: 'missing', computedStyles: {}, gapNotes: 'Chrome/Playwright introuvable' };
+  }
 
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({ headless: true, executablePath: chromePath });
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
   await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+  try {
+    await prepareCapsulePage(page, transitionId, tr);
+  } catch (err) {
+    await browser.close();
+    return {
+      visualMatch: 'missing',
+      computedStyles: {},
+      gapNotes: `prepare Capsule: ${err.message}`,
+    };
+  }
 
   const styles = await page.evaluate((sel) => {
     const el = document.querySelector(sel);
@@ -199,6 +320,52 @@ const probeCapsuleStyles = async (registryId, transitionId, selector) => {
   };
 };
 
+const buildSummary = (investigations, matrix, discoveredCount, opts) => {
+  const menuCatalog = investigations.flatMap((i) => i.menusDetected.map((m) => ({
+    transitionId: i.transitionId,
+    ...m,
+  })));
+  const documented = investigations.filter((i) => i.status === 'documented').length;
+  const p0Total = matrix.transitions.filter((t) => t.parity === 'P0').length;
+  const p0Documented = investigations.filter(
+    (i) => i.capsuleParity?.parityPriority === 'P0' && i.status === 'documented',
+  ).length;
+  const effectsMeasured = investigations.filter((i) => i.effectsObserved?.properties?.length).length;
+  const menusEnumerated = menuCatalog.reduce((n, m) => n + (m.items?.length || 0), 0);
+  const capsuleMatched = investigations.filter((i) => i.capsuleParity?.visualMatch === 'partial').length;
+  const classifiedP0 = investigations.filter(
+    (i) => i.capsuleParity?.parityPriority === 'P0'
+      && i.capsuleParity?.visualMatch
+      && i.capsuleParity.visualMatch !== 'unknown',
+  ).length;
+
+  const summary = {
+    transitionsTotal: matrix.transitions.length,
+    transitionsP0: p0Total,
+    discoveredApps: discoveredCount,
+    documented,
+    p0Documented,
+    menusEnumerated,
+    effectsMeasured,
+    capsuleMatched,
+    visualMatchClassifiedP0: classifiedP0,
+    gapsP0: Math.max(0, p0Total - p0Documented),
+    predicates: {
+      Va: fs.existsSync(registryMatrixPath(opts.id)) || discoveredCount > 0,
+      Ve: p0Documented >= p0Total,
+      Vx: effectsMeasured >= p0Total,
+      Vm: menusEnumerated > 0,
+      Vμ: opts.capsule ? capsuleMatched > 0 : false,
+      VΣ: false,
+    },
+  };
+  summary.predicates.VΣ = summary.predicates.Ve
+    && summary.predicates.Vx
+    && summary.predicates.Vm
+    && (opts.capsule ? summary.predicates.Vμ : true);
+  return { summary, menuCatalog };
+};
+
 const main = async () => {
   const opts = parseArgs();
   const host = loadHost(opts.id);
@@ -209,6 +376,39 @@ const main = async () => {
     return t.parity === opts.filter;
   });
   const discoveredCount = matrix.discoveredApps?.length || 0;
+  const outPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-ui-state-effects.json`);
+
+  if (opts.capsuleOnly && fs.existsSync(outPath)) {
+    const existing = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+    process.stderr.write('  → mode capsule-only (inventaire VM conservé)\n');
+    for (const inv of existing.investigations || []) {
+      const tr = transitions.find((t) => t.id === inv.transitionId) || { id: inv.transitionId };
+      inv.capsuleParity = {
+        ...(inv.capsuleParity || {}),
+        selector: capsuleSelectorFor(tr),
+        parityPriority: inv.capsuleParity?.parityPriority || tr.parity || 'P0',
+      };
+      if (inv.capsuleParity.selector) {
+        const cap = await probeCapsuleStyles(opts.id, inv.transitionId, inv.capsuleParity.selector, tr);
+        inv.capsuleParity = { ...inv.capsuleParity, ...cap };
+      }
+      process.stderr.write(`  → ${inv.transitionId} (capsule ${inv.capsuleParity.visualMatch})\n`);
+    }
+    const { summary, menuCatalog } = buildSummary(existing.investigations, matrix, discoveredCount, opts);
+    const out = {
+      ...existing,
+      generatedAt: new Date().toISOString(),
+      summary,
+      menuCatalog,
+    };
+    fs.writeFileSync(outPath, `${JSON.stringify(out, null, 2)}\n`);
+    process.stdout.write(`OK ${outPath}\n`);
+    process.stdout.write(
+      `  Va=${summary.predicates.Va} Ve=${summary.predicates.Ve} Vx=${summary.predicates.Vx}`
+      + ` Vm=${summary.predicates.Vm} Vμ=${summary.predicates.Vμ}\n`,
+    );
+    return;
+  }
 
   const vmDir = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors', vendor, 'inventory', `${vendor}-ui-effects-vm`);
   fs.mkdirSync(vmDir, { recursive: true });
@@ -280,27 +480,18 @@ const main = async () => {
     };
 
     if (opts.capsule && inv.capsuleParity.selector) {
-      const cap = await probeCapsuleStyles(opts.id, tr.id, inv.capsuleParity.selector);
+      const cap = await probeCapsuleStyles(opts.id, tr.id, inv.capsuleParity.selector, tr);
       inv.capsuleParity = { ...inv.capsuleParity, ...cap };
+    } else if (opts.capsule && !inv.capsuleParity.selector) {
+      inv.capsuleParity.visualMatch = 'missing';
+      inv.capsuleParity.gapNotes = 'sélecteur Capsule absent';
     }
 
     investigations.push(inv);
     sleep(2000);
   }
 
-  const menuCatalog = investigations.flatMap((i) => i.menusDetected.map((m) => ({
-    transitionId: i.transitionId,
-    ...m,
-  })));
-
-  const documented = investigations.filter((i) => i.status === 'documented').length;
-  const p0Total = matrix.transitions.filter((t) => t.parity === 'P0').length;
-  const p0Documented = investigations.filter(
-    (i) => i.capsuleParity?.parityPriority === 'P0' && i.status === 'documented',
-  ).length;
-  const effectsMeasured = investigations.filter((i) => i.effectsObserved?.properties?.length).length;
-  const menusEnumerated = menuCatalog.reduce((n, m) => n + (m.items?.length || 0), 0);
-  const capsuleMatched = investigations.filter((i) => i.capsuleParity.visualMatch === 'partial').length;
+  const { summary, menuCatalog } = buildSummary(investigations, matrix, discoveredCount, opts);
 
   const out = {
     registryId: opts.id,
@@ -311,25 +502,7 @@ const main = async () => {
       ? `root/docs/inventaires/${opts.id}-ui-state-effects-matrix.json`
       : 'root/tools/lab/ui-state-effects-matrix-gnome.json',
     discoveredApps: matrix.discoveredApps || [],
-    summary: {
-      transitionsTotal: matrix.transitions.length,
-      transitionsP0: p0Total,
-      discoveredApps: discoveredCount,
-      documented,
-      p0Documented,
-      menusEnumerated,
-      effectsMeasured,
-      capsuleMatched,
-      gapsP0: Math.max(0, p0Total - p0Documented),
-      predicates: {
-        Va: fs.existsSync(registryMatrixPath(opts.id)) || discoveredCount > 0,
-        Ve: p0Documented >= p0Total,
-        Vx: effectsMeasured >= p0Total,
-        Vm: menusEnumerated > 0,
-        Vμ: opts.capsule ? capsuleMatched > 0 : false,
-        VΣ: false,
-      },
-    },
+    summary,
     investigations,
     menuCatalog,
     transitionGraph: {
@@ -338,13 +511,6 @@ const main = async () => {
     },
     nextActions: [],
   };
-
-  out.summary.predicates.VΣ = out.summary.predicates.Ve
-    && out.summary.predicates.Vx
-    && out.summary.predicates.Vm
-    && (opts.capsule ? out.summary.predicates.Vμ : true);
-
-  const outPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-ui-state-effects.json`);
   if (opts.write || opts.capsule) {
     fs.writeFileSync(outPath, `${JSON.stringify(out, null, 2)}\n`);
     process.stdout.write(`OK ${outPath}\n`);

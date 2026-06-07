@@ -69,6 +69,19 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | 7a | **Passe visuelle shell** : `run-visual-parity-pass.mjs` | **Vp** — skill `visual-parity-lab` |
 | 7b | **Apps VM** : `collect-vm-apps-inventory` → `generate-apps-catalog` | **AppV**, **AppC** |
 | 7c | **États UI & effets** : `run-ui-state-effects-pass.mjs` | **Va → VΣ** — apps détectées étendent la matrice auto |
+| 7d | **Clôture P1 → Vp** (ordre obligatoire GNOME) | voir §4bis ci-dessous |
+
+### 4bis. Ordre P1 shell — hooks noyau avant pixels (**R-VΣ1**)
+
+Après **Tp** (assets WebP) et avant de considérer **Vp** acquis :
+
+1. **Hooks noyau** — scripts/DOM partagés manquants (`gnome-desktop-context-menu`, export `window.CapsuleGnomeOverview`, `data-overview-link` sur apps grille).
+2. **Alignement inventaire VM** — favoris dock/dash (`dashFavoritesVm` → slots Capsule ; apps non simulées en `*-unavailable`).
+3. **Clôture façade** — `sync-linux-skin-closure.mjs` **avant** toute sonde Capsule : `lab-inventory.json` → `capsuleUrl` pointe vers `OS/linux/families/…`, pas `home/` ; sans sync, `--capsule-only` reste `missing` alors que le skin source est prêt.
+4. **Gaps VΣ sémantiques** — `collect-ui-state-effects.mjs --capsule-only` jusqu'à `visualMatch ≠ unknown` sur P0 (cible : `partial` ou mieux).
+5. **Passe visuelle shell** — `run-visual-parity-pass.mjs` (Capsule : `CapsuleGnomeOverview` ; VM Ubuntu GNOME ≥ 41 : `OverviewActive` D-Bus — pas `Eval`/`xdotool` ; virsh via `lab-capture-session.sh` si sudo requis).
+
+Règle : **ne pas** lancer une passe **Vp** complète tant que les transitions P0 restent `missing` par absence de hook DOM ou de façade non synchronisée (étapes 1–4).
 
 **Interdit** : patch massif du skin sans inventaire ; édition manuelle de `OS/linux/families/...` ; icônes d’un autre vendor ; `px` en dur si un token `--*` existe.
 

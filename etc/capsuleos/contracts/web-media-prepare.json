@@ -31,7 +31,16 @@
       "pathPatterns": [
         "images/vendors/*/wallpaper/**"
       ],
-      "defaultProfile": "wallpaper"
+      "defaultProfile": "wallpaper",
+      "excludePatterns": [
+        "images/vendors/*/wallpaper/thumbnails/**"
+      ]
+    },
+    "wallpaper-thumb": {
+      "pathPatterns": [
+        "images/vendors/*/wallpaper/thumbnails/**"
+      ],
+      "defaultProfile": "wallpaper-thumb"
     },
     "icon-raster": {
       "pathPatterns": [
@@ -113,6 +122,16 @@
       "deleteSource": false,
       "suffix": "-optimized"
     },
+    "wallpaper-thumb": {
+      "action": "transcode",
+      "inputFormats": ["webp", "png", "jpeg", "jpg", "jxl"],
+      "outputFormat": "webp",
+      "lossless": false,
+      "quality": 78,
+      "maxWidth": 512,
+      "deleteSource": false,
+      "suffix": "-thumb"
+    },
     "photo": {
       "action": "transcode",
       "inputFormats": ["png", "jpeg", "jpg"],
@@ -139,15 +158,16 @@
   "gates": {
     "jxlRequiresWebpSibling": true,
     "panelRasterRequiresWebpSibling": {
-      "vendors": ["fedora", "rocky", "alma"]
+      "vendors": ["fedora", "rocky", "alma", "ubuntu"]
     },
     "sidecarRequiredForTranscoded": true,
     "staleRasterRefGate": "validate-vendor-image-extensions.mjs"
   },
   "pipelineHooks": {
-    "afterPullVm": "prepare-web-media.mjs --vendor <vendor> --rewrite-refs",
+    "afterPullVm": "prepare-web-media.mjs --vendor <vendor> --rewrite-refs --wallpaper-thumbnails",
     "pullVmEnvFlag": "PREPARE_WEB_MEDIA=1",
-    "beforeValidateAssetsAll": "validate-web-media-prepare.mjs"
+    "beforeValidateAssetsAll": "validate-web-media-prepare.mjs",
+    "vendorAssetsPipeline": "usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id <registryId>"
   },
   "implementationPhases": [
     "phase0-spec",

@@ -415,13 +415,16 @@
     }
 
     function ubuntuWallpaperCatalog(base) {
+        const thumbs = `${base}/thumbnails`;
         return [
             {
                 id: 'adwaita',
                 label: 'Adwaita',
                 type: 'image',
-                dark: `${base}/wallpaper-adwaita-dark.png`,
-                light: `${base}/wallpaper-racoon-light.png`,
+                dark: `${base}/wallpaper-adwaita-dark.webp`,
+                light: `${base}/wallpaper-racoon-light.webp`,
+                thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
+                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
                 gsettingsDark: 'gnome/adwaita-d.jxl',
                 gsettingsLight: 'gnome/adwaita-l.jxl',
             },
@@ -429,8 +432,10 @@
                 id: 'racoon',
                 label: 'Resolute Raccoon',
                 type: 'image',
-                dark: `${base}/wallpaper-racoon.png`,
-                light: `${base}/wallpaper-racoon-light.png`,
+                dark: `${base}/wallpaper-racoon.webp`,
+                light: `${base}/wallpaper-racoon-light.webp`,
+                thumbDark: `${thumbs}/wallpaper-racoon-thumb.webp`,
+                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
                 default: true,
             },
             {

@@ -1,6 +1,6 @@
 {
   "registryId": "linux-ubuntu",
-  "generatedAt": "2026-06-07T19:28:01.480Z",
+  "generatedAt": "2026-06-07T22:04:35.009Z",
   "httpBase": "http://127.0.0.1:8765",
   "phases": {
     "http": {
@@ -12,257 +12,156 @@
       "ssh": true,
       "virshName": "ubuntu25.10",
       "virsh": {
-        "ok": false,
-        "error": "virsh injoignable"
+        "ok": true,
+        "domains": [
+          "ubuntu25.10"
+        ]
       }
     },
     "vm": {
-      "method": "ssh-screenshot",
-      "script": "root/tools/lab/vm-gnome-visual-capture-remote.sh",
-      "sshStatus": 0,
-      "scpStatus": 0,
-      "stdout": "=== visual-capture-remote (ubuntu) → /tmp/capsule-visual-parity ===\n=== Terminé : 0 PNG · journal /tmp/capsule-visual-parity/events.jsonl ===\n",
-      "stderr": "  ✗ ubuntu-dark-desktop.png\n  ✗ audit/ubuntu-dark-overview.png\n  ✗ ubuntu-dark-nautilus.png\n  ✗ ubuntu-dark-firefox.png\n  ✗ ubuntu-dark-text-editor.png\n  ✗ ubuntu-dark-calculator.png\n  ✗ ubuntu-light-desktop.png\n  ✗ ubuntu-light-firefox.png\n  ✗ ubuntu-light-nautilus.png\n  ✗ audit/ubuntu-light-overview.png\n",
-      "pngCount": 0,
-      "events": [
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-desktop",
-          "action": "color-scheme prefer-dark; screenshot bureau",
-          "file": "ubuntu-dark-desktop.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:21Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-overview",
-          "action": "Main.overview.show(); screenshot",
-          "file": "audit/ubuntu-dark-overview.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:23Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-nautilus",
-          "action": "nautilus + focus; screenshot",
-          "file": "ubuntu-dark-nautilus.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:26Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-firefox",
-          "action": "firefox + focus; screenshot",
-          "file": "ubuntu-dark-firefox.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:30Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-text-editor",
-          "action": "gnome-text-editor; screenshot",
-          "file": "ubuntu-dark-text-editor.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:34Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "dark-calculator",
-          "action": "gnome-calculator; screenshot",
-          "file": "ubuntu-dark-calculator.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:37Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "light-desktop",
-          "action": "color-scheme prefer-light; screenshot",
-          "file": "ubuntu-light-desktop.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:41Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "light-firefox",
-          "action": "firefox focus; screenshot",
-          "file": "ubuntu-light-firefox.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:42Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "light-nautilus",
-          "action": "nautilus focus; screenshot",
-          "file": "ubuntu-light-nautilus.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:45Z"
-        },
-        {
-          "phase": "vm",
-          "method": "ssh-screenshot",
-          "step": "light-overview",
-          "action": "overview clair; screenshot",
-          "file": "audit/ubuntu-light-overview.png",
-          "ok": false,
-          "bytes": 0,
-          "timestamp": "2026-06-07T19:28:47Z"
-        }
-      ],
-      "ok": false
+      "method": "virsh-host",
+      "script": "root/tools/lab/vm-ubuntu-capture-host.sh",
+      "ok": true,
+      "status": 0,
+      "stdout": "=== Captures Ubuntu (ubuntu25.10) → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm ===\n()\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-desktop.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-desktop.png (639742 octets)\n()\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-dark-overview.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-dark-overview.png (426624 octets)\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-nautilus.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-nautilus.png (639775 octets)\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-firefox.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-firefox.png (639807 octets)\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-text-editor.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-text-editor.png (639807 octets)\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-calculator.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-calculator.png (639860 octets)\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-desktop.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-desktop.png (1342683 octets)\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-firefox.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-firefox.png (1342683 octets)\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-nautilus.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-nautilus.png (1342683 octets)\n()\n()\nCapture d'écran sauvegardée à /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-light-overview.png, avec le type de image/png\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-light-overview.png (722830 octets)\n()\n=== Terminé : 10 fichiers ===\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-dark-overview.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/audit/ubuntu-light-overview.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-calculator.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-desktop.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-firefox.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-nautilus.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-dark-text-editor.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-desktop.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-firefox.png\n/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-nautilus.png\n",
+      "stderr": "",
+      "pngCount": 10
     },
     "capsule": {
       "script": "root/tools/lab/capture-capsule-ubuntu.mjs",
       "ok": true,
       "status": 0,
-      "stdout": "  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-desktop.png (418471 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview.png (418471 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview-busy.png (119735 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview-apps.png (418470 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-quick-settings.png (415802 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-nautilus.png (217327 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-firefox.png (120340 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-text-editor.png (235003 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-calculator.png (294615 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-settings-appearance.png (252003 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-settings-background.png (250071 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-desktop.png (419499 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-overview.png (419499 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-firefox.png (123407 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-nautilus.png (220751 octets)\nOK /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule (15 fichiers)\n",
+      "stdout": "  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-desktop.png (116636 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview.png (134093 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview-busy.png (134093 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-overview-apps.png (170498 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-quick-settings.png (127572 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-nautilus.png (80414 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-firefox.png (61146 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-text-editor.png (50997 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-calculator.png (77563 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-settings-appearance.png (86050 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-dark-settings-background.png (84556 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-desktop.png (117108 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-overview.png (134450 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-firefox.png (62410 octets)\n  → /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule/ubuntu-capsule-light-nautilus.png (81099 octets)\nOK /home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-capsule (15 fichiers)\n",
       "stderr": "",
       "pngCount": 15,
       "events": [
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-desktop.png",
-          "bytes": 418471,
+          "bytes": 116636,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-overview.png",
-          "bytes": 418471,
+          "bytes": 134093,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-overview-busy.png",
-          "bytes": 119735,
+          "bytes": 134093,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-overview-apps.png",
-          "bytes": 418470,
+          "bytes": 170498,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-quick-settings.png",
-          "bytes": 415802,
+          "bytes": 127572,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-nautilus.png",
-          "bytes": 217327,
+          "bytes": 80414,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-firefox.png",
-          "bytes": 120340,
+          "bytes": 61146,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-text-editor.png",
-          "bytes": 235003,
+          "bytes": 50997,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-calculator.png",
-          "bytes": 294615,
+          "bytes": 77563,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-settings-appearance.png",
-          "bytes": 252003,
+          "bytes": 86050,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-dark-settings-background.png",
-          "bytes": 250071,
+          "bytes": 84556,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-light-desktop.png",
-          "bytes": 419499,
+          "bytes": 117108,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-light-overview.png",
-          "bytes": 419499,
+          "bytes": 134450,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.319Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-light-firefox.png",
-          "bytes": 123407,
+          "bytes": 62410,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.320Z"
         },
         {
           "phase": "capsule",
           "file": "ubuntu-capsule-light-nautilus.png",
-          "bytes": 220751,
+          "bytes": 81099,
           "ok": true,
-          "timestamp": "2026-06-07T19:29:19.329Z"
+          "timestamp": "2026-06-07T22:06:40.320Z"
         }
       ]
     },
     "compare": {
       "script": "root/tools/lab/compare-ubuntu-visual-pass.mjs",
-      "ok": false,
-      "status": 1,
-      "stdout": "OK /home/n0r3f/Développement/CapsuleOS/root/docs/inventaires/linux-ubuntu-comparaison-visuelle.md — 0/9 paires\n",
+      "ok": true,
+      "status": 0,
+      "stdout": "OK /home/n0r3f/Développement/CapsuleOS/root/docs/inventaires/linux-ubuntu-comparaison-visuelle.md — 9/9 paires\n",
       "stderr": "",
       "pairs": {
-        "complete": 0,
+        "complete": 9,
         "total": 9
       },
       "report": "root/docs/inventaires/linux-ubuntu-comparaison-visuelle.md"
     }
   },
   "summary": {
-    "vmPng": 0,
+    "vmPng": 10,
     "capsulePng": 15,
     "pairs": {
-      "complete": 0,
+      "complete": 9,
       "total": 9
     },
-    "success": false
+    "success": true
   }
 }

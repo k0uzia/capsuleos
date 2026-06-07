@@ -16,6 +16,7 @@
       "^node root/tools/lab/",
       "^bash root/tools/lab/vm-gnome-settings",
       "^bash root/tools/lab/vm-rocky-lab-bootstrap\\.sh",
+      "^bash root/tools/lab/lab-capture-session\\.sh",
       "^ssh -o BatchMode=yes",
       "^virsh -c qemu:///system screenshot",
       "^git status",
@@ -58,6 +59,31 @@
       "script": "root/tools/lab/setup-lab-ssh-key.sh",
       "replaces": ["ssh-copy-id"],
       "when": "¬M_key_auth"
+    },
+    "vendor-assets-pipeline": {
+      "rule": "R-PWD1",
+      "description": "Pipeline assets VM complet — pull, WebP, miniatures fonds, inventory-optimize, gates (prérequis VΣ)",
+      "script": "usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs",
+      "args": ["--id"],
+      "replaces": [
+        "pull-vm-assets.sh",
+        "prepare-web-media.mjs --vendor",
+        "PREPARE_WEB_MEDIA=1"
+      ],
+      "when": "¬A ∨ ¬Tp",
+      "usage": "node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-ubuntu"
+    },
+    "lab-capture-session": {
+      "rule": "R-PWD1",
+      "description": "Session captures lab — une invite sudo/SSH pour toute une passe virsh (VΣ, Vp, vm-*-capture-host)",
+      "script": "root/tools/lab/lab-capture-session.sh",
+      "replaces": [
+        "virsh -c qemu:///system screenshot",
+        "virsh screenshot",
+        "ssh-add"
+      ],
+      "when": "captures_vm ∧ invites_polkit_répétées",
+      "usage": "bash root/tools/lab/lab-capture-session.sh -- node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu"
     }
   },
   "actionAliases": {

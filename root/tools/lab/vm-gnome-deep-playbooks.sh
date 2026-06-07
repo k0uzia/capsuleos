@@ -33,10 +33,20 @@ workspace_count() {
 }
 
 overview_open() {
+  if gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+    --method org.freedesktop.DBus.Properties.Set org.gnome.Shell OverviewActive "<true>" \
+    >/dev/null 2>&1; then
+    return 0
+  fi
   shell_eval 'Main.overview.show()' >/dev/null 2>&1 || xdotool key super 2>/dev/null || true
 }
 
 overview_hide() {
+  if gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+    --method org.freedesktop.DBus.Properties.Set org.gnome.Shell OverviewActive "<false>" \
+    >/dev/null 2>&1; then
+    return 0
+  fi
   shell_eval 'Main.overview.hide()' >/dev/null 2>&1 || xdotool key Escape 2>/dev/null || true
 }
 

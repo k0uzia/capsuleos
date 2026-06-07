@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "images/vendors/ubuntu/wallpaper/wallpaper-adwaita-dark.webp",
+  "role": "wallpaper-thumb",
+  "profile": "wallpaper-thumb",
+  "encoder": "convert",
+  "options": {
+    "maxWidth": 512,
+    "quality": 78
+  },
+  "width": 512,
+  "height": 288,
+  "preparedAt": "2026-06-07T21:13:16.566Z"
+}

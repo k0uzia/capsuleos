@@ -33,7 +33,7 @@ const MENU_APPS = [
     { catId: 'access',   icon: './assets/images/toolkits/cinnamon/apps/accessories-system-cleaner.png',  name: 'Outil de nettoyage',          desc: 'Nettoyez le système',                      dataLink: null        },
     // Bureautique
     { catId: 'bureau',   icon: './assets/images/toolkits/cinnamon/apps/libreoffice-calc.png',            name: 'LibreOffice Calc',            desc: 'Tableur',                                  dataLink: null        },
-    { catId: 'bureau',   icon: './assets/images/toolkits/cinnamon/apps/libreoffice-writer.png',          name: 'LibreOffice Writer',          desc: 'Traitement de texte',                      dataLink: 'librewriter' },
+    { catId: 'bureau',   icon: './assets/images/toolkits/cinnamon/apps/libreoffice-writer.webp',          name: 'LibreOffice Writer',          desc: 'Traitement de texte',                      dataLink: 'librewriter' },
     // Graphisme
     { catId: 'graph',    icon: './assets/images/toolkits/cinnamon/apps/gimp.png',                        name: 'GIMP',                        desc: 'Éditeur d\'images avancé',                 dataLink: null        },
     { catId: 'graph',    icon: './assets/images/toolkits/cinnamon/apps/inkscape.png',                    name: 'Inkscape',                    desc: 'Éditeur de graphiques vectoriels',          dataLink: null        },

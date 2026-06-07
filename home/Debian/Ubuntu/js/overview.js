@@ -43,11 +43,25 @@
             dataLink: 'firefox'
         },
         {
-            label: 'Lecteur vidéo',
-            aliases: ['video', 'videos', 'showtime', 'media'],
-            description: 'Lire des vidéos',
-            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg',
+            label: 'Rhythmbox',
+            aliases: ['rhythmbox', 'musique', 'audio', 'lecteur_multimedia'],
+            description: 'Lecteur de musique',
+            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Rhythmbox3.webp',
             dataLink: 'lecteur_multimedia'
+        },
+        {
+            label: 'Loupe',
+            aliases: ['loupe', 'images', 'photos', 'visionneur', 'eog'],
+            description: 'Visionneuse d\'images',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg',
+            dataLink: 'visionneur_images'
+        },
+        {
+            label: 'Papers',
+            aliases: ['pdf', 'papers', 'document', 'evince'],
+            description: 'Visionneuse de documents',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg',
+            dataLink: 'visionneur_pdf'
         },
         {
             label: 'Calculatrice',
@@ -57,10 +71,10 @@
             dataLink: 'calculator'
         },
         {
-            label: 'GNOME Software',
-            aliases: ['software', 'logiciels', 'store', 'boutique', 'update_manager'],
+            label: 'Snap Store',
+            aliases: ['software', 'logiciels', 'store', 'boutique', 'snap', 'snap-store', 'update_manager'],
             description: 'Installer des applications',
-            icon: './assets/images/toolkits/gnome/apps/dash/org.gnome.Software.svg',
+            icon: './assets/images/toolkits/gnome/dock/software-store.png',
             dataLink: 'update_manager'
         },
         {
@@ -128,6 +142,12 @@
             aliases: ['characters', 'symboles', 'unicode'],
             description: 'Table des caractères',
             icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg'
+        },
+        {
+            label: 'Aide Ubuntu',
+            aliases: ['yelp', 'help', 'aide', 'documentation'],
+            description: 'Documentation Ubuntu',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg'
         }
     ];
 
@@ -349,4 +369,10 @@
             setOverview(false, 'workspace');
         }
     });
+
+    window.CapsuleGnomeOverview = {
+        setOverview,
+        toggleOverview,
+        isOpen: () => shell.classList.contains('is-overview'),
+    };
 })();

@@ -30,6 +30,7 @@ const flags = {
   json: null,
   forceRole: null,
   repairManifest: false,
+  wallpaperThumbnails: false,
 };
 
 for (let i = 0; i < args.length; i += 1) {
@@ -56,6 +57,8 @@ for (let i = 0; i < args.length; i += 1) {
     flags.forceRole = args[++i];
   } else if (a === '--repair-manifest') {
     flags.repairManifest = true;
+  } else if (a === '--wallpaper-thumbnails') {
+    flags.wallpaperThumbnails = true;
   } else if (a === '--help' || a === '-h') {
     console.log(`Usage: node usr/lib/capsuleos/tools/prepare-web-media.mjs [options]
   --vendor <id>       vendors/<id>/
@@ -66,6 +69,7 @@ for (let i = 0; i < args.length; i += 1) {
   --keep-source       ne pas supprimer les sources
   --dry-run           rapport sans écriture
   --repair-manifest   recréer sidecars pour webp existants
+  --wallpaper-thumbnails  générer wallpaper/thumbnails/*-thumb.webp
   --json <file>       rapport JSON`);
     process.exit(0);
   } else {
@@ -129,7 +133,14 @@ function detectRole(relAssets) {
   if (flags.forceRole) {
     return flags.forceRole;
   }
+  if (relAssets.includes('/wallpaper/thumbnails/')) {
+    return 'wallpaper-thumb';
+  }
   for (const [role, cfg] of Object.entries(contract.roles)) {
+    const excludes = cfg.excludePatterns || [];
+    if (excludes.some((pattern) => globMatch(relAssets, pattern))) {
+      continue;
+    }
     for (const pattern of cfg.pathPatterns) {
       if (globMatch(relAssets, pattern)) {
         return role;
@@ -284,6 +295,94 @@ function collectTargets() {
     }
   }
   return [...byBase.values()];
+}
+
+const THUMB_MAX_WIDTH = 512;
+const THUMB_QUALITY = 78;
+
+async function generateWallpaperThumbnails(vendor) {
+  const wallDir = path.join(ASSETS, 'images/vendors', vendor, 'wallpaper');
+  const thumbDir = path.join(wallDir, 'thumbnails');
+  if (!fs.existsSync(wallDir)) {
+    return { created: [], skipped: [] };
+  }
+  fs.mkdirSync(thumbDir, { recursive: true });
+  const created = [];
+  const skipped = [];
+  const sources = fs.readdirSync(wallDir).filter((name) => {
+    if (name === 'thumbnails') {
+      return false;
+    }
+    return /\.(webp|png|jpe?g|jxl)$/i.test(name);
+  });
+
+  for (const name of sources) {
+    const full = path.join(wallDir, name);
+    if (!fs.statSync(full).isFile()) {
+      continue;
+    }
+    const ext = path.extname(name).toLowerCase();
+    const stem = name.replace(/\.[^.]+$/, '');
+    const out = path.join(thumbDir, `${stem}-thumb.webp`);
+    if (fs.existsSync(out)) {
+      skipped.push(path.relative(ASSETS, out));
+      continue;
+    }
+    let usedEncoder = 'sharp';
+    if (backends.sharp) {
+      await backends.sharp(full, { limitInputPixels: false })
+        .resize({ width: THUMB_MAX_WIDTH, withoutEnlargement: true })
+        .webp({ quality: THUMB_QUALITY, effort: 4 })
+        .toFile(out);
+    } else if (backends.convert) {
+      usedEncoder = 'convert';
+      const cv = spawnSync(
+        'convert',
+        [full, '-resize', `${THUMB_MAX_WIDTH}x>`, '-quality', String(THUMB_QUALITY), out],
+        { encoding: 'utf8' },
+      );
+      if (cv.status !== 0) {
+        throw new Error(`convert thumb: ${cv.stderr || 'échec'}`);
+      }
+    } else if (backends.cwebp) {
+      usedEncoder = 'cwebp';
+      const tmpPng = path.join(os.tmpdir(), `capsule-thumb-${crypto.randomBytes(6).toString('hex')}.png`);
+      if (ext === '.jxl' && backends.djxl) {
+        spawnSync('djxl', [full, tmpPng], { stdio: 'pipe' });
+      } else if (['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
+        fs.copyFileSync(full, tmpPng);
+      } else {
+        throw new Error(`thumb: format non supporté sans sharp (${ext})`);
+      }
+      const cw = spawnSync('cwebp', ['-q', String(THUMB_QUALITY), '-resize', String(THUMB_MAX_WIDTH), 0, tmpPng, '-o', out], {
+        stdio: 'pipe',
+      });
+      if (fs.existsSync(tmpPng)) {
+        fs.unlinkSync(tmpPng);
+      }
+      if (cw.status !== 0) {
+        throw new Error(`cwebp thumb: ${cw.stderr?.toString() || 'échec'}`);
+      }
+    } else {
+      throw new Error('Aucun backend pour --wallpaper-thumbnails (sharp, convert ou cwebp)');
+    }
+    const size = await imageSize(out);
+    const relOut = path.relative(ASSETS, out).split(path.sep).join('/');
+    const sc = {
+      version: 1,
+      source: path.relative(ASSETS, full).split(path.sep).join('/'),
+      role: 'wallpaper-thumb',
+      profile: 'wallpaper-thumb',
+      encoder: usedEncoder,
+      options: { maxWidth: THUMB_MAX_WIDTH, quality: THUMB_QUALITY },
+      width: size.width,
+      height: size.height,
+      preparedAt: new Date().toISOString(),
+    };
+    fs.writeFileSync(sidecarPath(out), `${JSON.stringify(sc, null, 2)}\n`);
+    created.push(relOut);
+  }
+  return { created, skipped };
 }
 
 function rewriteReferences(replacements) {
@@ -496,6 +595,14 @@ async function main() {
   if (flags.rewriteRefs && replacements.length) {
     const uniq = [...new Map(replacements.map((r) => [r[0], r])).values()];
     report.rewrites = rewriteReferences(uniq);
+  }
+
+  if (flags.wallpaperThumbnails && flags.vendor && !flags.dryRun) {
+    const thumbs = await generateWallpaperThumbnails(flags.vendor);
+    report.wallpaperThumbnails = thumbs;
+    if (thumbs.created.length) {
+      console.log(`  miniatures fonds : ${thumbs.created.length} créée(s)`);
+    }
   }
 
   if (!flags.dryRun && report.processed.length) {

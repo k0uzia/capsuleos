@@ -36,14 +36,21 @@ Résolution runtime : `CapsuleResource.resolve()` — pas de chemins absolus hô
 
 ## Normalisation web (raster)
 
-Après `pull-vm-assets.sh` ou import PNG/JXL :
+**Pipeline recommandé (prérequis passe VΣ / parité)** :
 
 ```bash
-# Après pull VM (opt-in) :
+node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-ubuntu
+```
+
+Enchaîne : pull VM (Yaru, symboles, emblèmes, fonds + miniatures VM) → WebP + `wallpaper/thumbnails/*-thumb.webp` → `inventory-optimize` → gates.
+
+Après `pull-vm-assets.sh` seul (opt-in WebP) :
+
+```bash
 PREPARE_WEB_MEDIA=1 bash root/tools/lab/pull-vm-assets.sh --id linux-<vendor>
 
 # Ou manuellement (cibler un répertoire pour éviter inventory/) :
-node usr/lib/capsuleos/tools/prepare-web-media.mjs --dir usr/share/capsuleos/assets/images/vendors/<vendor>/wallpaper --rewrite-refs
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --rewrite-refs --wallpaper-thumbnails
 node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor <vendor> --profile icon-raster --only panel --rewrite-refs
 node usr/lib/capsuleos/tools/validate-web-media-prepare.mjs
 ```

@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-ubuntu",
   "baseMatrix": "root/tools/lab/ui-state-effects-matrix-gnome.json",
-  "generatedAt": "2026-06-07T20:07:25.726Z",
+  "generatedAt": "2026-06-07T20:37:50.768Z",
   "discoveredApps": [
     {
       "slot": "calculator",

@@ -346,7 +346,8 @@ function runFedoraTerminalMenuAction(action, windowElement, header) {
         return;
     }
     if (action === 'about') {
-        window.alert(`${resolveTerminalAboutLabel()}\nTerminal simulé CapsuleOS (profil ${document.body?.id || 'linux'}).`);
+        const bodyId = document.body && document.body.id ? document.body.id : 'linux';
+        window.alert(`${resolveTerminalAboutLabel()}\nTerminal simulé CapsuleOS (profil ${bodyId}).`);
     }
 }
 

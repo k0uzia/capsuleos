@@ -43,6 +43,12 @@ const main = () => {
   const id = opts.id;
 
   process.stderr.write(`=== Passe états UI VΣ (${id}) ===\n`);
+  if (process.env.CAPSULE_LAB_SESSION !== '1') {
+    process.stderr.write(
+      '  Astuce R-PWD1 : bash root/tools/lab/lab-capture-session.sh -- node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs'
+      + ` --id ${id}\n`,
+    );
+  }
 
   if (!opts.skipVisual) {
     process.stderr.write('--- Phase Vp (passe visuelle shell) ---\n');
@@ -63,7 +69,8 @@ const main = () => {
 
   if (!opts.skipCapsule) {
     process.stderr.write('--- Phase Vμ (miroir Capsule) ---\n');
-    if (!run('usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs', [`--id=${id}`, '--capsule'])) {
+    const capArgs = [`--id=${id}`, '--capsule-only'];
+    if (!run('usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs', capArgs)) {
       process.exit(1);
     }
   }

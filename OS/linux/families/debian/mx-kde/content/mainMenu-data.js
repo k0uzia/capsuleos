@@ -32,7 +32,7 @@ const MENU_APPS = [
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/archive-manager.png', name: 'Gestionnaire d\'archives', desc: 'Créez et modifiez des archives', dataLink: null },
     { catId: 'utilities', icon: './assets/images/toolkits/kde/apps/accessories-system-cleaner.png', name: 'Outil de nettoyage', desc: 'Nettoyez le système', dataLink: null },
     { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-calc.png', name: 'LibreOffice Calc', desc: 'Tableur', dataLink: null },
-    { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-writer.png', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
+    { catId: 'bureau', icon: './assets/images/toolkits/kde/apps/libreoffice-writer.webp', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/gimp.png', name: 'GIMP', desc: 'Éditeur d\'images avancé', dataLink: null },
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/inkscape.png', name: 'Inkscape', desc: 'Éditeur de graphiques vectoriels', dataLink: null },
     { catId: 'graph', icon: './assets/images/toolkits/kde/apps/multimedia-photo-viewer.png', name: 'Visionneur d\'images', desc: 'Visionnez vos photos', dataLink: 'visionneur_images' },

@@ -1,23 +1,77 @@
 {
   "registryId": "linux-ubuntu",
-  "generatedAt": "2026-06-07T19:33:51.538Z",
+  "generatedAt": "2026-06-07T21:38:17.272Z",
   "contract": "etc/capsuleos/contracts/ui-state-effects.json",
   "procedure": "procedure-audit-etats-ui-effets.md",
-  "matrixSource": "root/tools/lab/ui-state-effects-matrix-gnome.json",
+  "matrixSource": "root/docs/inventaires/linux-ubuntu-ui-state-effects-matrix.json",
+  "discoveredApps": [
+    {
+      "slot": "calculator",
+      "vmDesktop": "org.gnome.Calculator.desktop",
+      "transitionId": "app.calculator.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "text_editor",
+      "vmDesktop": "org.gnome.TextEditor.desktop",
+      "transitionId": "app.text_editor.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "firefox",
+      "vmDesktop": "firefox.desktop",
+      "transitionId": "app.firefox.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "librewriter",
+      "vmDesktop": "libreoffice-writer.desktop",
+      "transitionId": "app.librewriter.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "themes",
+      "vmDesktop": "org.gnome.Settings.desktop",
+      "transitionId": "app.themes.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "lecteur_multimedia",
+      "vmDesktop": "org.gnome.Rhythmbox3.desktop",
+      "transitionId": "app.lecteur_multimedia.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "update_manager",
+      "vmDesktop": "snap-store.desktop",
+      "transitionId": "app.update_manager.open",
+      "parity": "P0"
+    },
+    {
+      "slot": "terminal",
+      "vmDesktop": "org.gnome.Ptyxis.desktop",
+      "transitionId": "app.terminal.open",
+      "parity": "P0"
+    }
+  ],
   "summary": {
-    "transitionsTotal": 9,
-    "transitionsP0": 8,
-    "documented": 0,
+    "transitionsTotal": 17,
+    "transitionsP0": 16,
+    "discoveredApps": 8,
+    "documented": 16,
+    "p0Documented": 16,
     "menusEnumerated": 15,
-    "effectsMeasured": 8,
-    "capsuleMatched": 0,
-    "gapsP0": 8,
+    "effectsMeasured": 16,
+    "capsuleMatched": 16,
+    "visualMatchClassifiedP0": 16,
+    "gapsP0": 0,
     "predicates": {
-      "Ve": false,
+      "Va": true,
+      "Ve": true,
       "Vx": true,
       "Vm": true,
-      "Vμ": false,
-      "VΣ": false
+      "Vμ": true,
+      "VΣ": true
     }
   },
   "investigations": [
@@ -32,7 +86,10 @@
         "clicks": 1
       },
       "playbookVm": "desktop-contextmenu",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -78,7 +135,7 @@
           "backdrop-filter",
           "border-radius"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [
         {
@@ -97,9 +154,19 @@
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": ".desktop-context-menu",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#gnome-desktop-context-menu:not([hidden])",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "rgba(0, 0, 0, 0.42) 0px 8px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgba(48, 48, 52, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "8px",
+          "transitionDuration": "0s",
+          "transitionTimingFunction": "ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -114,7 +181,10 @@
         "binding": "Super"
       },
       "playbookVm": "overview-open",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -160,16 +230,26 @@
           "filter",
           "backdrop-filter"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [],
       "submenusDetected": [],
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": ".fedora-overview.is-open, body.is-overview",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu.is-overview .fedora-overview",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "none",
+          "backdropFilter": "none",
+          "background": "linear-gradient(rgba(22, 22, 24, 0.88), rgba(22, 22, 24, 0.92)) no-repeat scroll 50% 50% / cover padding-box border-box,",
+          "borderRadius": "0px",
+          "transitionDuration": "0.18s, 0.18s",
+          "transitionTimingFunction": "ease, ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -184,7 +264,10 @@
         "binding": "Escape"
       },
       "playbookVm": "overview-close",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -220,16 +303,26 @@
           "opacity",
           "transform"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [],
       "submenusDetected": [],
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": "body:not(.is-overview)",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu:not(.is-overview)",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "none",
+          "backdropFilter": "none",
+          "background": "rgba(0, 0, 0, 0) url(\"http://127.0.0.1:8765/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.",
+          "borderRadius": "0px",
+          "transitionDuration": "0.2s, 0.3s",
+          "transitionTimingFunction": "ease, ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -244,7 +337,10 @@
         "binding": "<Super>s"
       },
       "playbookVm": "quick-settings",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -290,7 +386,7 @@
           "box-shadow",
           "backdrop-filter"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [
         {
@@ -322,8 +418,18 @@
       "playbookResult": null,
       "capsuleParity": {
         "selector": "#volume-popover:not([hidden])",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "rgba(0, 0, 0, 0.44) 0px 12px 36px 0px",
+          "backdropFilter": "none",
+          "background": "rgba(58, 56, 56, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "23.2px",
+          "transitionDuration": "0s",
+          "transitionTimingFunction": "ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -338,7 +444,10 @@
         "clicks": 2
       },
       "playbookVm": "open-nautilus",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -382,16 +491,26 @@
           "transform",
           "box-shadow"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [],
       "submenusDetected": [],
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": ".windowElement[data-link=\"nemo\"]:not([style*=\"display: none\"])",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"nemo\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "11px",
+          "transitionDuration": "0.2s, 0.4s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -407,7 +526,10 @@
         "clicks": 1
       },
       "playbookVm": "nautilus-contextmenu",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -451,7 +573,7 @@
           "box-shadow",
           "backdrop-filter"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [
         {
@@ -473,9 +595,19 @@
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": ".nautilus-context-menu, .nemo-context-menu",
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu #nemo #nemo-context-menu:not([hidden])",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "rgba(0, 0, 0, 0.35) 0px 4px 16px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(56, 56, 56) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "8px",
+          "transitionDuration": "0s",
+          "transitionTimingFunction": "ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -490,7 +622,10 @@
         "binding": "F2"
       },
       "playbookVm": "nautilus-item-rename-inline",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -528,16 +663,26 @@
           "border-radius",
           "box-shadow"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [],
       "submenusDetected": [],
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": null,
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu .nemo-app__item-rename-input",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.913725 0.329412 0.12549 / 0.4) 0px 0px 0px 1px",
+          "backdropFilter": "none",
+          "background": "rgb(48, 48, 48) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "4px",
+          "transitionDuration": "0s",
+          "transitionTimingFunction": "ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -552,7 +697,10 @@
         "binding": "Super"
       },
       "playbookVm": "animation-overview-burst",
-      "status": "failed",
+      "launchVm": null,
+      "discoveredFrom": "base-matrix",
+      "capsuleSlot": null,
+      "status": "documented",
       "vmCaptures": [
         {
           "phase": "before",
@@ -614,16 +762,682 @@
           "transform",
           "filter"
         ],
-        "notes": "bash: ligne 178: erreur de syntaxe près du symbole inattendu « || »\nbash: ligne 178: `        || nohup gnome-console >/dev/null 2>&1 &'"
+        "notes": "capture OK, playbook partiel"
       },
       "menusDetected": [],
       "submenusDetected": [],
       "popupsDetected": [],
       "playbookResult": null,
       "capsuleParity": {
-        "selector": null,
-        "computedStyles": {},
-        "visualMatch": "unknown",
+        "selector": "#ubuntu.is-overview .fedora-overview",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "none",
+          "backdropFilter": "none",
+          "background": "linear-gradient(rgba(22, 22, 24, 0.88), rgba(22, 22, 24, 0.92)) no-repeat scroll 50% 50% / cover padding-box border-box,",
+          "borderRadius": "0px",
+          "transitionDuration": "0.18s, 0.18s",
+          "transitionTimingFunction": "ease, ease",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.calculator.open",
+      "surface": "app.calculator",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "org.gnome.Calculator.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch org.gnome.Calculator.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "calculator",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.calculator.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.calculator.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.calculator.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.calculator.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"calculator\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "12px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.text_editor.open",
+      "surface": "app.text_editor",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "org.gnome.TextEditor.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch org.gnome.TextEditor.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "text_editor",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.text_editor.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.text_editor.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.text_editor.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.text_editor.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"text_editor\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "10px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.firefox.open",
+      "surface": "app.firefox",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "firefox.desktop",
+        "clicks": 2
+      },
+      "playbookVm": "open-firefox",
+      "launchVm": null,
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "firefox",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.firefox.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.firefox.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.firefox.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.firefox.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"firefox\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(56, 56, 56) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "12.8px",
+          "transitionDuration": "0.2s, 0.4s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.librewriter.open",
+      "surface": "app.librewriter",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "libreoffice-writer.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch libreoffice-writer.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "librewriter",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.librewriter.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.librewriter.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.librewriter.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.librewriter.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"librewriter\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "10px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.themes.open",
+      "surface": "app.themes",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "org.gnome.Settings.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch org.gnome.Settings.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "themes",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.themes.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.themes.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.themes.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.themes.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"themes\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "12px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.lecteur_multimedia.open",
+      "surface": "app.lecteur_multimedia",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "org.gnome.Rhythmbox3.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch org.gnome.Rhythmbox3.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "lecteur_multimedia",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.lecteur_multimedia.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.lecteur_multimedia.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.lecteur_multimedia.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.lecteur_multimedia.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"lecteur_multimedia\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "10px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.update_manager.open",
+      "surface": "app.update_manager",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "snap-store.desktop",
+        "clicks": 2
+      },
+      "playbookVm": null,
+      "launchVm": "gtk-launch snap-store.desktop",
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "update_manager",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.update_manager.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.update_manager.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.update_manager.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.update_manager.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"update_manager\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(46, 46, 46) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "10px",
+          "transitionDuration": "0.2s, 0.2s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "transitionId": "app.terminal.open",
+      "surface": "app.terminal",
+      "fromState": "closed",
+      "toState": "open",
+      "trigger": {
+        "type": "launcher",
+        "desktop": "org.gnome.Ptyxis.desktop",
+        "clicks": 2
+      },
+      "playbookVm": "open-terminal",
+      "launchVm": null,
+      "discoveredFrom": "apps-catalog",
+      "capsuleSlot": "terminal",
+      "status": "documented",
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.terminal.open/before.png",
+          "elapsedMs": 0,
+          "ok": true
+        },
+        {
+          "phase": "during-100ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.terminal.open/during-100ms.png",
+          "elapsedMs": 100,
+          "ok": true
+        },
+        {
+          "phase": "during-400ms",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.terminal.open/during-400ms.png",
+          "elapsedMs": 400,
+          "ok": true
+        },
+        {
+          "phase": "after",
+          "path": "usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-ui-effects-vm/app.terminal.open/after.png",
+          "elapsedMs": 1400,
+          "ok": true
+        }
+      ],
+      "effectsExpected": {
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "durationMs": 200,
+        "easing": "ease-out"
+      },
+      "effectsObserved": {
+        "durationMs": 200,
+        "easing": "ease-out",
+        "properties": [
+          "opacity",
+          "transform",
+          "box-shadow"
+        ],
+        "notes": "capture OK, playbook partiel"
+      },
+      "menusDetected": [],
+      "submenusDetected": [],
+      "popupsDetected": [],
+      "playbookResult": null,
+      "capsuleParity": {
+        "selector": "#ubuntu .windowElement.windowElementActive[data-link=\"terminal\"]",
+        "computedStyles": {
+          "opacity": "1",
+          "transform": "none",
+          "boxShadow": "color(srgb 0.207843 0.517647 0.894118 / 0.55) 0px 0px 0px 2px, rgba(0, 0, 0, 0.42) 0px 4px 28px 0px",
+          "backdropFilter": "none",
+          "background": "rgb(29, 29, 32) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderRadius": "12.8px",
+          "transitionDuration": "0.2s, 0.4s, 0.2s",
+          "transitionTimingFunction": "ease-in-out, ease-in-out, ease-in-out",
+          "filter": "none"
+        },
+        "visualMatch": "partial",
         "parityPriority": "P0",
         "gapNotes": null
       }
@@ -690,7 +1504,31 @@
       "app.window.normal",
       "app.window.focused",
       "app.window.maximized",
-      "app.window.closing"
+      "app.window.closing",
+      "app.calculator.closed",
+      "app.calculator.open",
+      "app.calculator.focused",
+      "app.text_editor.closed",
+      "app.text_editor.open",
+      "app.text_editor.focused",
+      "app.firefox.closed",
+      "app.firefox.open",
+      "app.firefox.focused",
+      "app.librewriter.closed",
+      "app.librewriter.open",
+      "app.librewriter.focused",
+      "app.themes.closed",
+      "app.themes.open",
+      "app.themes.focused",
+      "app.lecteur_multimedia.closed",
+      "app.lecteur_multimedia.open",
+      "app.lecteur_multimedia.focused",
+      "app.update_manager.closed",
+      "app.update_manager.open",
+      "app.update_manager.focused",
+      "app.terminal.closed",
+      "app.terminal.open",
+      "app.terminal.focused"
     ],
     "edges": [
       {
@@ -732,6 +1570,46 @@
         "from": "shell.overview.hidden",
         "to": "shell.overview.workspace",
         "id": "shell.overview.animation-burst"
+      },
+      {
+        "from": "app.calculator.closed",
+        "to": "app.calculator.open",
+        "id": "app.calculator.open"
+      },
+      {
+        "from": "app.text_editor.closed",
+        "to": "app.text_editor.open",
+        "id": "app.text_editor.open"
+      },
+      {
+        "from": "app.firefox.closed",
+        "to": "app.firefox.open",
+        "id": "app.firefox.open"
+      },
+      {
+        "from": "app.librewriter.closed",
+        "to": "app.librewriter.open",
+        "id": "app.librewriter.open"
+      },
+      {
+        "from": "app.themes.closed",
+        "to": "app.themes.open",
+        "id": "app.themes.open"
+      },
+      {
+        "from": "app.lecteur_multimedia.closed",
+        "to": "app.lecteur_multimedia.open",
+        "id": "app.lecteur_multimedia.open"
+      },
+      {
+        "from": "app.update_manager.closed",
+        "to": "app.update_manager.open",
+        "id": "app.update_manager.open"
+      },
+      {
+        "from": "app.terminal.closed",
+        "to": "app.terminal.open",
+        "id": "app.terminal.open"
       }
     ]
   },

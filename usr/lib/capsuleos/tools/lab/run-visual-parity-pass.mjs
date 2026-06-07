@@ -14,6 +14,7 @@ import path from 'path';
 import net from 'net';
 import { spawn, spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { labVirshListNames } from './lab-session-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -180,16 +181,12 @@ const vmCaptureOk = (result) => {
 };
 
 const tryVirsh = (virshName) => {
-  const res = spawnSync('virsh', ['-c', 'qemu:///system', 'list', '--name'], {
-    encoding: 'utf8',
-    timeout: 15000,
-  });
-  if (res.status !== 0) return { ok: false, error: (res.stderr || res.stdout || 'virsh injoignable').trim() };
-  const names = (res.stdout || '').split('\n').map((s) => s.trim()).filter(Boolean);
-  if (!names.includes(virshName)) {
-    return { ok: false, error: `domaine « ${virshName} » absent (${names.join(', ') || 'aucun'})` };
+  const listed = labVirshListNames();
+  if (!listed.ok) return { ok: false, error: listed.error };
+  if (!listed.names.includes(virshName)) {
+    return { ok: false, error: `domaine « ${virshName} » absent (${listed.names.join(', ') || 'aucun'})` };
   }
-  return { ok: true, domains: names };
+  return { ok: true, domains: listed.names };
 };
 
 const runVmHostCapture = (entry) => {

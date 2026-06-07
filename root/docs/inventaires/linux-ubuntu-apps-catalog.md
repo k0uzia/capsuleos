@@ -1,6 +1,6 @@
 # Catalogue applications — linux-ubuntu
 
-> Généré : `2026-06-07T20:07:25.436Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-07T22:10:55.886Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-ubuntu --write
@@ -34,17 +34,17 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-ubuntu
 | Evolution Data Server OAuth2 Handler | org.gnome.evolution-data-server.OAuth2-handler | P2 | — | 🔷 decorative |  | ✓ | — |
 | Extensions | org.gnome.Shell.Extensions | P2 | — | 🔷 decorative |  | ✓ | — |
 | Fichiers | org.gnome.Nautilus | P0 | nemo | ✅ ok | ✓ | ✓ | nemo-gnome · full |
-| Firefox | firefox | P0 | firefox | ✅ ok | ✓ |  | firefox-gnome · partial |
+| Firefox | firefox | P0 | firefox | ✅ ok | ✓ | ✓ | firefox-gnome · partial |
 | Fonts | org.gnome.font-viewer | P2 | — | 🔷 decorative |  | ✓ | — |
 | GNOME OAuth2 Handler | org.gnome.OnlineAccounts.OAuth2 | P2 | — | 🔷 decorative |  | ✓ | — |
 | Image Viewer | org.gnome.Loupe | P2 | — | 🔷 decorative |  | ✓ | — |
-| LibreOffice Writer | libreoffice-writer | P0 | librewriter | ✅ ok | ✓ |  | libadwaita-gnome · partial |
+| LibreOffice Writer | libreoffice-writer | P0 | librewriter | ✅ ok | ✓ | ✓ | libadwaita-gnome · partial |
 | Logs | org.gnome.Logs | P2 | — | 🔷 decorative |  | ✓ | — |
 | Online Accounts | org.gnome.goa-daemon | P2 | — | 🔷 decorative |  | ✓ | — |
 | Paramètres | org.gnome.Settings | P0 | themes | ✅ ok |  | ✓ | libadwaita-gnome · full |
 | Passwords and Keys | org.gnome.seahorse.Application | P2 | — | 🔷 decorative |  | ✓ | — |
 | Print Preview | org.gnome.Papers-previewer | P2 | — | 🔷 decorative |  | ✓ | — |
-| Rhythmbox | org.gnome.Rhythmbox3 | P0 | lecteur_multimedia | ✅ ok | ✓ |  | libadwaita-gnome · decorative |
+| Rhythmbox | org.gnome.Rhythmbox3 | P0 | lecteur_multimedia | ✅ ok | ✓ | ✓ | libadwaita-gnome · decorative |
 | Snap Store | snap-store | P0 | update_manager | ✅ ok | ✓ |  | libadwaita-gnome · partial |
 | Sysprof | org.gnome.Sysprof | P2 | — | 🔷 decorative |  | ✓ | — |
 | Tecla | org.gnome.Tecla | P2 | — | 🔷 decorative |  | ✓ | — |

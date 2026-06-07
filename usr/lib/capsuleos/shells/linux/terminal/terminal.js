@@ -195,6 +195,7 @@ function createFedoraTerminalTab(tabPrompt, active) {
     tab.type = 'button';
     tab.className = 'fedora-terminal-tabs__tab'
         + (active ? ' fedora-terminal-tabs__tab--active' : '');
+    tab.dataset.tabPrompt = tabPrompt;
     tab.textContent = tabPrompt;
     if (active) {
         const close = document.createElement('span');
@@ -217,7 +218,6 @@ function createFedoraTerminalTabs(windowElement, header) {
     tabs = document.createElement('div');
     tabs.className = 'fedora-terminal-tabs';
     tabs.setAttribute('aria-label', 'Onglets du terminal');
-    tabs.appendChild(createFedoraTerminalTab(tabPrompt, false));
     tabs.appendChild(createFedoraTerminalTab(tabPrompt, true));
     tabsSlot.appendChild(tabs);
 
@@ -225,7 +225,290 @@ function createFedoraTerminalTabs(windowElement, header) {
     if (legacyTabs && legacyTabs !== tabs) {
         legacyTabs.remove();
     }
+    bindFedoraTerminalTabInteractions(windowElement, header, tabs);
     return tabs;
+}
+
+let fedoraTerminalOpenMenu = null;
+let fedoraTerminalOpenMenuAnchor = null;
+
+function closeFedoraTerminalMenu() {
+    if (fedoraTerminalOpenMenu) {
+        fedoraTerminalOpenMenu.hidden = true;
+    }
+    if (fedoraTerminalOpenMenuAnchor) {
+        fedoraTerminalOpenMenuAnchor.setAttribute('aria-expanded', 'false');
+    }
+    fedoraTerminalOpenMenu = null;
+    fedoraTerminalOpenMenuAnchor = null;
+}
+
+function resolveTerminalAboutLabel() {
+    if (usesPtyxisTerminalChrome()) {
+        return 'À propos de Ptyxis';
+    }
+    return 'À propos du terminal';
+}
+
+function createFedoraTerminalMenu(windowElement) {
+    let menu = windowElement.querySelector('#fedora-terminal-main-menu');
+    if (menu) {
+        return menu;
+    }
+
+    menu = document.createElement('div');
+    menu.id = 'fedora-terminal-main-menu';
+    menu.className = 'fedora-terminal-popover';
+    menu.hidden = true;
+    menu.setAttribute('role', 'menu');
+    menu.setAttribute('aria-label', 'Menu du terminal');
+
+    const entries = [
+        { action: 'new-tab', label: 'Nouvel onglet' },
+        { action: 'new-window', label: 'Nouvelle fenêtre' },
+        { type: 'separator' },
+        { action: 'preferences', label: 'Préférences…' },
+        { action: 'shortcuts', label: 'Raccourcis clavier…' },
+        { type: 'separator' },
+        { action: 'about', label: resolveTerminalAboutLabel() },
+    ];
+
+    entries.forEach((entry) => {
+        if (entry.type === 'separator') {
+            const sep = document.createElement('div');
+            sep.className = 'fedora-terminal-popover__separator';
+            sep.setAttribute('role', 'separator');
+            menu.appendChild(sep);
+            return;
+        }
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'fedora-terminal-popover__item';
+        item.setAttribute('role', 'menuitem');
+        item.dataset.terminalMenuAction = entry.action;
+        item.textContent = entry.label;
+        menu.appendChild(item);
+    });
+
+    windowElement.appendChild(menu);
+    return menu;
+}
+
+function openFedoraTerminalMenu(menu, anchor) {
+    if (!menu || !anchor) {
+        return;
+    }
+    closeFedoraTerminalMenu();
+    menu.hidden = false;
+    const anchorRect = anchor.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    const left = Math.max(8, Math.min(anchorRect.right - menuRect.width, window.innerWidth - menuRect.width - 8));
+    const top = Math.min(anchorRect.bottom + 4, window.innerHeight - menuRect.height - 8);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${top}px`;
+    anchor.setAttribute('aria-expanded', 'true');
+    fedoraTerminalOpenMenu = menu;
+    fedoraTerminalOpenMenuAnchor = anchor;
+}
+
+function runFedoraTerminalMenuAction(action, windowElement, header) {
+    if (action === 'new-tab') {
+        addFedoraTerminalTab(windowElement, header);
+        return;
+    }
+    if (action === 'new-window') {
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink('terminal');
+        }
+        return;
+    }
+    if (action === 'preferences') {
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink('themes');
+        }
+        return;
+    }
+    if (action === 'shortcuts') {
+        const shortcuts = [
+            'Ctrl+Shift+T — Nouvel onglet',
+            'Ctrl+Shift+W — Fermer l’onglet',
+            'Ctrl+Shift+N — Nouvelle fenêtre',
+            'Ctrl+Shift+F — Rechercher',
+        ].join('\n');
+        window.alert(shortcuts);
+        return;
+    }
+    if (action === 'about') {
+        window.alert(`${resolveTerminalAboutLabel()}\nTerminal simulé CapsuleOS (profil ${document.body?.id || 'linux'}).`);
+    }
+}
+
+function bindFedoraTerminalMenu(windowElement, header, menuButton) {
+    if (!windowElement || !header || !menuButton || menuButton.dataset.terminalMenuBound === 'true') {
+        return;
+    }
+    menuButton.dataset.terminalMenuBound = 'true';
+    const menu = createFedoraTerminalMenu(windowElement);
+
+    menuButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (!menu.hidden && fedoraTerminalOpenMenu === menu) {
+            closeFedoraTerminalMenu();
+            return;
+        }
+        openFedoraTerminalMenu(menu, menuButton);
+    });
+
+    menu.addEventListener('click', (event) => {
+        const item = event.target.closest('[data-terminal-menu-action]');
+        if (!item) {
+            return;
+        }
+        event.stopPropagation();
+        runFedoraTerminalMenuAction(item.dataset.terminalMenuAction, windowElement, header);
+        closeFedoraTerminalMenu();
+    });
+
+    if (document.documentElement.dataset.terminalMenuOutsideClose !== 'true') {
+        document.documentElement.dataset.terminalMenuOutsideClose = 'true';
+        document.addEventListener('click', () => closeFedoraTerminalMenu());
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeFedoraTerminalMenu();
+            }
+        });
+    }
+}
+
+function setFedoraTerminalActiveTab(tabs, tab) {
+    if (!tabs || !tab) {
+        return;
+    }
+    tabs.querySelectorAll('.fedora-terminal-tabs__tab').forEach((node) => {
+        node.classList.remove('fedora-terminal-tabs__tab--active');
+        const close = node.querySelector('.fedora-terminal-tabs__close');
+        if (close) {
+            close.remove();
+        }
+        const prompt = node.dataset.tabPrompt || node.textContent.replace(/×/g, '').trim();
+        node.textContent = prompt;
+    });
+    tab.classList.add('fedora-terminal-tabs__tab--active');
+    const prompt = tab.dataset.tabPrompt || tab.textContent.trim();
+    tab.textContent = '';
+    tab.appendChild(document.createTextNode(prompt));
+    const close = document.createElement('span');
+    close.className = 'fedora-terminal-tabs__close';
+    close.setAttribute('aria-hidden', 'true');
+    close.textContent = '×';
+    tab.appendChild(close);
+}
+
+function addFedoraTerminalTab(windowElement, header) {
+    const tabsSlot = ensureFedoraTerminalTabsSlot(header);
+    let tabs = tabsSlot.querySelector('.fedora-terminal-tabs');
+    if (!tabs) {
+        tabs = createFedoraTerminalTabs(windowElement, header);
+    }
+    const tabPrompt = resolveFedoraTerminalPrompt();
+    const tab = createFedoraTerminalTab(tabPrompt, false);
+    tabs.appendChild(tab);
+    setFedoraTerminalActiveTab(tabs, tab);
+    windowElement.classList.add('terminal-window--multitab');
+    const addBtn = header.querySelector('.fedora-terminal-header__button--add');
+    if (addBtn) {
+        addBtn.setAttribute('aria-pressed', 'true');
+    }
+    return tab;
+}
+
+function bindFedoraTerminalTabInteractions(windowElement, header, tabs) {
+    if (!tabs || tabs.dataset.terminalTabsBound === 'true') {
+        return;
+    }
+    tabs.dataset.terminalTabsBound = 'true';
+
+    tabs.addEventListener('click', (event) => {
+        const close = event.target.closest('.fedora-terminal-tabs__close');
+        if (close) {
+            event.stopPropagation();
+            const tab = close.closest('.fedora-terminal-tabs__tab');
+            const allTabs = tabs.querySelectorAll('.fedora-terminal-tabs__tab');
+            if (!tab || allTabs.length <= 1) {
+                return;
+            }
+            const wasActive = tab.classList.contains('fedora-terminal-tabs__tab--active');
+            tab.remove();
+            if (wasActive) {
+                const next = tabs.querySelector('.fedora-terminal-tabs__tab:last-child')
+                    || tabs.querySelector('.fedora-terminal-tabs__tab');
+                if (next) {
+                    setFedoraTerminalActiveTab(tabs, next);
+                }
+            }
+            if (!tabs.querySelector('.fedora-terminal-tabs__tab')) {
+                windowElement.classList.remove('terminal-window--multitab');
+            }
+            return;
+        }
+
+        const tab = event.target.closest('.fedora-terminal-tabs__tab');
+        if (!tab || tab.classList.contains('fedora-terminal-tabs__tab--active')) {
+            return;
+        }
+        event.stopPropagation();
+        setFedoraTerminalActiveTab(tabs, tab);
+    });
+}
+
+function bindGnomeTerminalChromeInteractions(windowElement) {
+    const header = windowElement.querySelector('#windowHeader');
+    if (!header || header.dataset.gnomeTerminalInteractions === 'true') {
+        return;
+    }
+    header.dataset.gnomeTerminalInteractions = 'true';
+
+    const newTabBtn = header.querySelector('.gnome-terminal-header__button--new-tab');
+    if (newTabBtn) {
+        newTabBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (typeof window.openWindowByDataLink === 'function') {
+                window.openWindowByDataLink('terminal');
+            }
+        });
+    }
+
+    const searchBtn = header.querySelector('.gnome-terminal-header__button--search');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const command = windowElement.querySelector('#command, [data-terminal-command]');
+            if (command) {
+                command.focus();
+                if (typeof command.select === 'function') {
+                    command.select();
+                }
+            }
+        });
+    }
+
+    let menuBtn = header.querySelector('.gnome-terminal-header__button--menu');
+    if (!menuBtn) {
+        menuBtn = createFedoraTerminalButton(
+            'gnome-terminal-header__button gnome-terminal-header__button--menu',
+            'Menu'
+        );
+        const right = header.querySelectorAll('nav')[1];
+        const minimize = right && right.querySelector('#minimizeBtn');
+        if (right) {
+            if (minimize) {
+                right.insertBefore(menuBtn, minimize);
+            } else {
+                right.appendChild(menuBtn);
+            }
+        }
+    }
+    bindFedoraTerminalMenu(windowElement, header, menuBtn);
 }
 
 function isGnomeTerminalChrome() {
@@ -508,12 +791,14 @@ function decorateGnomeTerminalWindow(container) {
 
     if (applyChrome()) {
         refreshGnomeTerminalPromptChrome();
+        bindGnomeTerminalChromeInteractions(windowElement);
     } else if (windowElement.dataset.gnomeTerminalObserver !== 'true') {
         windowElement.dataset.gnomeTerminalObserver = 'true';
         const observer = new MutationObserver(() => {
             if (applyChrome()) {
                 observer.disconnect();
                 refreshGnomeTerminalPromptChrome();
+                bindGnomeTerminalChromeInteractions(windowElement);
             }
         });
         observer.observe(windowElement, { childList: true });
@@ -564,13 +849,7 @@ function decorateFedoraTerminalWindow(container) {
             left.appendChild(addTab);
             addTab.addEventListener('click', (event) => {
                 event.stopPropagation();
-                windowElement.classList.add('terminal-window--multitab');
-                addTab.setAttribute('aria-pressed', 'true');
-                const tabs = createFedoraTerminalTabs(windowElement, header);
-                if (tabs && !tabs.querySelector('.fedora-terminal-tabs__tab--active')) {
-                    const tabPrompt = resolveFedoraTerminalPrompt();
-                    tabs.appendChild(createFedoraTerminalTab(tabPrompt, true));
-                }
+                addFedoraTerminalTab(windowElement, header);
             });
         }
 
@@ -582,7 +861,24 @@ function decorateFedoraTerminalWindow(container) {
             right.insertBefore(grid, right.firstChild);
         }
 
-        createFedoraTerminalTabs(windowElement, header);
+        if (right && !right.querySelector('.fedora-terminal-header__button--menu')) {
+            const menu = createFedoraTerminalButton(
+                'fedora-terminal-header__button fedora-terminal-header__button--menu',
+                'Menu'
+            );
+            const minimize = right.querySelector('#minimizeBtn');
+            if (minimize) {
+                right.insertBefore(menu, minimize);
+            } else {
+                right.appendChild(menu);
+            }
+            bindFedoraTerminalMenu(windowElement, header, menu);
+        }
+
+        const tabs = createFedoraTerminalTabs(windowElement, header);
+        if (tabs) {
+            bindFedoraTerminalTabInteractions(windowElement, header, tabs);
+        }
         return true;
     };
 

@@ -214,3 +214,103 @@
     color: var(--fedora-terminal-error, #ff7b72);
     font-weight: 500;
 }
+
+.terminal-window--fedora .fedora-terminal-header__tabs {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__tab {
+    cursor: pointer;
+    user-select: none;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__tab:not(.fedora-terminal-tabs__tab--active):hover {
+    background: color-mix(in srgb, var(--fedora-app-header-active-bg, #3d3d3d) 55%, transparent);
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__close {
+    cursor: pointer;
+    padding: 0 0.1rem;
+}
+
+.terminal-window--fedora .fedora-terminal-tabs__close:hover {
+    opacity: 1;
+}
+
+.terminal-window--fedora .fedora-terminal-header__button--menu::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 4h10v1.2H3V4zm0 3.4h10v1.2H3V7.4zm0 3.4h10V12H3v-1.2z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 4h10v1.2H3V4zm0 3.4h10v1.2H3V7.4zm0 3.4h10V12H3v-1.2z'/%3E%3C/svg%3E");
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+.terminal-window--fedora .fedora-terminal-popover,
+.terminal-window--gnome .fedora-terminal-popover {
+    position: fixed;
+    z-index: 1200;
+    min-width: 14.5rem;
+    padding: 0.35rem 0;
+    border: 1px solid var(--fedora-app-header-border, rgba(255, 255, 255, 0.1));
+    border-radius: 0.65rem;
+    color: var(--fedora-app-text, #f1f1f3);
+    background: var(--fedora-app-header-alt-bg, #383838);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
+}
+
+.terminal-window--fedora .fedora-terminal-popover__item,
+.terminal-window--gnome .fedora-terminal-popover__item {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.45rem 0.85rem;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    background: transparent;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.86rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.terminal-window--fedora .fedora-terminal-popover__item:hover,
+.terminal-window--fedora .fedora-terminal-popover__item:focus-visible {
+    background: var(--fedora-app-header-active-bg, #3d3d3d);
+    outline: none;
+}
+
+.terminal-window--fedora .fedora-terminal-popover__separator {
+    height: 1px;
+    margin: 0.35rem 0.5rem;
+    background: var(--fedora-app-header-border, rgba(255, 255, 255, 0.12));
+}

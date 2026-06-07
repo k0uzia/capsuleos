@@ -25,7 +25,11 @@
         if (!mapped) {
             return null;
         }
-        return resolveAssetUrl(`${gnomeBase()}/${withRasterExt(mapped)}`);
+        let rel = mapped;
+        if (usesGnomeYaru() && YARU_MIME_FALLBACK[rel]) {
+            rel = YARU_MIME_FALLBACK[rel];
+        }
+        return resolveAssetUrl(`${gnomeBase()}/${withRasterExt(rel)}`);
     }
 
     function usesGnomeYaru() {
@@ -65,6 +69,11 @@
         'sidebar-show-symbolic.svg': 'symbolic/actions',
         'starred-symbolic.svg': 'symbolic/status',
         'network-workgroup-symbolic.svg': 'symbolic/places',
+    };
+
+    /** Yaru VM : application-x-generic absent — text-x-generic comme fallback. */
+    const YARU_MIME_FALLBACK = {
+        'mimetypes/application-x-generic.svg': 'mimetypes/text-x-generic.svg',
     };
 
     /** Icônes MIME KDE catalogue → Adwaita scalable/mimetypes (VM ground truth). */

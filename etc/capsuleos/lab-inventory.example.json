@@ -70,7 +70,8 @@
       "virshName": "ubuntu25.10",
       "capsuleUrl": "http://127.0.0.1:8765/OS/linux/families/debian/ubuntu/index.html",
       "labBootstrap": "root/tools/lab/vm-ubuntu-lab-bootstrap.sh",
-      "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md"
+      "visualParity": "node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu",
+      "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md ; skill root/skills/visual-parity-lab/"
     }
   ]
 }

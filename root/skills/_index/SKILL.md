@@ -21,6 +21,7 @@ Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés 
 ## Clone OS (VM → skin)
 
 - [os-clone-from-vm](os-clone-from-vm/SKILL.md) — convention reproduction, workflow inventaire → home/
+- [visual-parity-lab](visual-parity-lab/SKILL.md) — passe visuelle autonome VM ↔ Capsule (captures PNG + journal événements)
 
 ## GNOME / HIG
 

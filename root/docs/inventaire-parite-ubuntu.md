@@ -32,11 +32,25 @@ Réplication toolkit GNOME : `upstreamId: linux-rocky` (gabarit Ptyxis/Nautilus)
 
 Voir `dashFavoritesVm` dans l'inventaire — ordre Capsule dock : Firefox, Fichiers, Rhythmbox, Writer, Snap Store, Aide.
 
+## Captures visuelles
+
+**Orchestrateur autonome** (skill `visual-parity-lab`) :
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu
+# Repli SSH si virsh indisponible :
+node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu --force-remote-vm
+```
+
+Scripts unitaires (débogage) : `capture-capsule-ubuntu.mjs` · `vm-ubuntu-capture-host.sh` · `compare-ubuntu-visual-pass.mjs`
+
+Rapports : [`linux-ubuntu-comparaison-visuelle.md`](inventaires/linux-ubuntu-comparaison-visuelle.md) · journal `linux-ubuntu-visual-parity-events.json`
+
 ## Prochaines étapes
 
-1. `application-x-generic` Yaru (fallback MIME)
+1. ~~`application-x-generic` Yaru (fallback MIME)~~ — `text-x-generic` (pull + runtime)
 2. Polish Aperçu / favoris bootstrap+Evolution
-3. Captures visuelles comparatives VM ↔ Capsule
+3. ~~Captures visuelles comparatives VM ↔ Capsule~~ — scripts lab ci-dessus
 
 ## Validation
 

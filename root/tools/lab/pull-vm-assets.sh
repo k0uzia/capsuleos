@@ -216,6 +216,15 @@ if [[ "$VENDOR" == "ubuntu" ]]; then
     folder-videos folder-templates folder-publicshare user-desktop user-home user-trash; do
     pull_yaru_icon "$icon" "$YARU_ICONS/places"
   done
+  # VM : pas de application-x-generic Yaru — text-x-generic sert de fallback MIME générique
+  for ext in png svg; do
+    if [[ ! -f "$YARU_ICONS/mimetypes/application-x-generic.$ext" ]] \
+       && [[ -f "$YARU_ICONS/mimetypes/text-x-generic.$ext" ]]; then
+      cp "$YARU_ICONS/mimetypes/text-x-generic.$ext" \
+        "$YARU_ICONS/mimetypes/application-x-generic.$ext"
+      echo "  ✓ fallback MIME application-x-generic.$ext ← text-x-generic.$ext"
+    fi
+  done
   pull /usr/share/backgrounds/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png \
     "$WALL_DIR/wallpaper-racoon.png" || \
   pull /usr/share/backgrounds/warty-final-ubuntu.png \

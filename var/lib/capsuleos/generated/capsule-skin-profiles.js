@@ -49,7 +49,9 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "alma",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "alma",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -255,6 +257,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
+      "CAPSULE_TERMINAL_USER": "fed",
+      "CAPSULE_TERMINAL_HOST": "fedora",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -648,6 +652,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "rocky",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -804,7 +810,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "alma",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "alma",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -1010,6 +1018,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
+      "CAPSULE_TERMINAL_USER": "fed",
+      "CAPSULE_TERMINAL_HOST": "fedora",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -1403,6 +1413,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "rocky",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",

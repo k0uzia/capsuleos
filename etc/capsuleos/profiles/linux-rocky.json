@@ -44,6 +44,8 @@
     "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "rocky",
+    "CAPSULE_TERMINAL_USER": "capsule",
+    "CAPSULE_TERMINAL_HOST": "rocky",
     "CAPSULE_WINDOW_CHROME_CONTEXT": {
       "toolkitId": "gnome",
       "explorerTemplate": "nemo-gnome",

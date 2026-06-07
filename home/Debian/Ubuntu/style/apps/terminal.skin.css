@@ -1,45 +1,31 @@
 /**
- * ubuntu — terminal (structure Ptyxis / Rocky).
+ * ubuntu — terminal (structure Rocky).
  */
-body#ubuntu {
-    --fedora-app-terminal-surface: var(--ubuntu-app-terminal-surface, #1d1d20);
-    --fedora-app-text: var(--ubuntu-app-text, #f6f7f9);
-    --fedora-app-header-border: var(--ubuntu-window-border, rgba(0, 0, 0, 0.45));
-    --fedora-app-header-alt-bg: var(--ubuntu-window-header-bg, #383838);
-    --fedora-app-header-active-bg: var(--ubuntu-window-header-active, #3d3d3d);
-    --fedora-window-control-color: var(--ubuntu-window-control-color, #f6f7f9);
-    --fedora-window-control-bg: var(--ubuntu-window-control-bg, transparent);
-    --fedora-window-control-hover-bg: var(--ubuntu-window-control-hover-bg, rgba(255, 255, 255, 0.14));
-    --fedora-window-control-close-bg: var(--ubuntu-window-control-close-bg, transparent);
-    --fedora-window-control-close-hover-bg: var(--ubuntu-window-control-close-hover-bg, #c01c28);
-    --fedora-window-control-close-hover-color: var(--ubuntu-window-control-close-hover-color, #ffffff);
-    --fedora-terminal-prompt: var(--ubuntu-terminal-prompt, #19c37d);
-    --fedora-terminal-prompt-user: var(--ubuntu-terminal-prompt-user, var(--fedora-terminal-prompt));
-    --fedora-terminal-prompt-text: var(--ubuntu-terminal-prompt-text, var(--fedora-app-text));
-    --fedora-terminal-prompt-path-seg: var(--ubuntu-terminal-prompt-path-seg, #6cb6ff);
-    --fedora-terminal-history-weight: 400;
-    --fedora-terminal-error: var(--ubuntu-terminal-error, #ff7b72);
-    --win-terminal-width: calc(var(--head) * 20.8);
-    --win-terminal-height: calc(var(--head) * 13.6);
-    --win-terminal-min-width: calc(var(--head) * 16);
-    --win-terminal-min-height: calc(var(--head) * 10.4);
-}
-
-/* Ptyxis (GNOME 49) : headerbar unique, onglets intégrés. */
-body#ubuntu #terminal.terminal-window--fedora {
+/* Rocky — Ptyxis (GNOME 49) : headerbar unique, onglets intégrés.
+ * Invite : user@host #33d17a (Adwaita), : ~ $ couleur texte — cf. rocky-dark-ptyxis.png VM.
+ * Tokens : style/gnome-shell/tokens.css --fedora-terminal-prompt-* */
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora {
     width: min(52rem, calc(100vw - var(--ubuntu-dock-width, 0px) - 2.5rem));
     height: min(36rem, calc(100vh - var(--ubuntu-top-bar-height) - 2.5rem));
     min-width: min(40rem, calc(100vw - 3rem));
     min-height: min(26rem, calc(100vh - var(--ubuntu-top-bar-height) - 4rem));
     padding: 0;
     border: 1px solid var(--fedora-app-header-border);
-    border-radius: 0.8rem;
+    border-radius: var(--terminal-window-radius, 0.8rem);
     background: var(--fedora-app-terminal-surface);
+    box-shadow: var(--fedora-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42));
     overflow: hidden;
+    box-sizing: border-box;
 }
 
-body#ubuntu #terminal.terminal-window--fedora #windowHeader,
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora.windowElementActive {
+    border-color: var(--menu-accent);
+    box-shadow: var(--capsule-chrome-window-active-ring, 0 0 0 2px color-mix(in srgb, var(--menu-accent, #3584e4) 55%, transparent)),
+        var(--fedora-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42));
+}
+
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -49,14 +35,14 @@ body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header {
     min-height: var(--gnome-adw-headerbar-h, 2.875rem);
     height: var(--gnome-adw-headerbar-h, 2.875rem);
     padding: 0 0.45rem;
-    border-radius: 0.8rem 0.8rem 0 0;
+    border-radius: var(--terminal-window-radius, 0.8rem) var(--terminal-window-radius, 0.8rem) 0 0;
     border-bottom: 1px solid var(--fedora-app-header-border);
     color: var(--fedora-app-text);
     background: var(--fedora-app-header-alt-bg);
     gap: 0.35rem;
 }
 
-body#ubuntu #terminal.terminal-window--fedora #windowHeader > nav {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav {
     min-width: auto;
     height: var(--full);
     gap: 0.35rem;
@@ -64,16 +50,16 @@ body#ubuntu #terminal.terminal-window--fedora #windowHeader > nav {
     flex-shrink: 0;
 }
 
-body#ubuntu #terminal.terminal-window--fedora #windowHeader > nav:last-child {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav:last-child {
     justify-content: flex-end;
     margin-left: auto;
 }
 
-body#ubuntu #terminal.terminal-window--fedora #windowTitle {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #windowTitle {
     display: none !important;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__tabs {
     display: flex;
     flex: 1 1 0;
     align-items: center;
@@ -85,10 +71,14 @@ body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__tabs {
     overflow: hidden;
 }
 
-body#ubuntu #terminal.terminal-window--fedora #minimizeBtn,
-body#ubuntu #terminal.terminal-window--fedora #resizeBtn,
-body#ubuntu #terminal.terminal-window--fedora #closeBtn,
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #windowHeader > nav:last-child {
+    flex: 0 0 auto;
+}
+
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button {
     position: relative;
     display: flex;
     align-items: center;
@@ -105,15 +95,15 @@ body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button {
     cursor: pointer;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button:hover,
-body#ubuntu #terminal.terminal-window--fedora #minimizeBtn:hover,
-body#ubuntu #terminal.terminal-window--fedora #resizeBtn:hover,
-body#ubuntu #terminal.terminal-window--fedora #closeBtn:hover {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button:hover,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn:hover,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn:hover,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     background-color: var(--fedora-window-control-hover-bg);
     transform: none;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button--add {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--add {
     border: 1px solid currentColor;
     border-radius: 0.28rem;
     width: 1.35rem;
@@ -123,10 +113,10 @@ body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button--a
     line-height: 1;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before,
-body#ubuntu #terminal.terminal-window--fedora #minimizeBtn::before,
-body#ubuntu #terminal.terminal-window--fedora #resizeBtn::before,
-body#ubuntu #terminal.terminal-window--fedora #closeBtn::before {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     content: "";
     display: block;
     width: 1rem;
@@ -140,58 +130,44 @@ body#ubuntu #terminal.terminal-window--fedora #closeBtn::before {
     mask-size: contain;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-header__button--grid::before {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-header__button--grid::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M2 2h4v4H2V2zm8 0h4v4h-4V2zM2 10h4v4H2v-4zm8 0h4v4h-4v-4z'/%3E%3C/svg%3E");
 }
 
-body#ubuntu #terminal.terminal-window--fedora #minimizeBtn::before {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #minimizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M3 8h10v1.7H3V8z'/%3E%3C/svg%3E");
 }
 
-body#ubuntu #terminal.terminal-window--fedora #resizeBtn::before {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #resizeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 4h8v8H4V4zm1.6 1.6v4.8h4.8V5.6H5.6z'/%3E%3C/svg%3E");
 }
 
-body#ubuntu #terminal.terminal-window--fedora #closeBtn {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn {
     border-radius: 999px;
     background: var(--fedora-window-control-close-bg);
 }
 
-body#ubuntu #terminal.terminal-window--fedora #closeBtn:hover {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn:hover {
     color: var(--fedora-window-control-close-hover-color);
     background: var(--fedora-window-control-close-hover-bg);
 }
 
-body#ubuntu #terminal.terminal-window--fedora #closeBtn::before {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora #closeBtn::before {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.2 3.1 8 6.9l3.8-3.8 1.1 1.1L9.1 8l3.8 3.8-1.1 1.1L8 9.1l-3.8 3.8-1.1-1.1L6.9 8 3.1 4.2l1.1-1.1z'/%3E%3C/svg%3E");
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-tabs {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.45rem;
-    width: auto;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs {
+    gap: var(--terminal-tab-gap, 0.35rem);
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 8.5rem;
-    max-width: 12rem;
-    height: 2rem;
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab {
     margin: 0;
-    padding: 0 0.65rem;
+    padding: 0 0.55rem;
     border: 0;
     border-radius: 0.5rem;
     color: var(--fedora-app-text);
@@ -201,30 +177,38 @@ body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-tabs__tab {
     cursor: default;
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-tabs__tab--active {
-    min-width: 10rem;
-    justify-content: space-between;
-    gap: 0.5rem;
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab--active,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__tab--active {
     background: var(--fedora-app-header-active-bg);
 }
 
-body#ubuntu #terminal.terminal-window--fedora .fedora-terminal-tabs__close {
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__label,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__close,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora .fedora-terminal-tabs__close {
+    flex: 0 0 auto;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1;
     opacity: 0.7;
 }
 
-body#ubuntu #terminalContainer,
-body#ubuntu #terminal .capsule-terminal-shell {
-    padding: var(--z);
-    border-radius: 0 0 0.8rem 0.8rem;
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora > #terminalContainer,
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora > .capsule-terminal-shell {
+    padding: 0;
+    border-radius: 0 0 var(--terminal-window-radius, 0.8rem) var(--terminal-window-radius, 0.8rem);
     color: var(--fedora-app-text);
     background: var(--fedora-app-terminal-surface);
 }
 
-body#ubuntu #terminal .capsule-terminal,
-body#ubuntu #terminal [data-terminal-app] {
-    padding: 0.5rem 0.65rem;
-    background: var(--fedora-app-terminal-surface);
+body#ubuntu .windowElement[data-link="terminal"].terminal-window--fedora:not(.windowElementActive) {
+    border-color: var(--fedora-app-header-border);
+    box-shadow: var(--fedora-window-shadow, 0 4px 28px rgba(0, 0, 0, 0.42));
 }

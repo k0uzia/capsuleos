@@ -178,7 +178,18 @@
         if (file.includes('racoon') || file.includes('warty') || file.includes('questing')) {
             return 'racoon';
         }
+        if (file.includes('adwaita-d') || file.includes('adwaita-l') || file.includes('ubuntu-wallpaper')) {
+            return 'adwaita';
+        }
         return null;
+    }
+
+    function shellBackgroundVar(id) {
+        const bid = id || bodyId();
+        if (bid === 'ubuntu') {
+            return '--ubuntu-bg';
+        }
+        return '--fedora-bg';
     }
 
     function wallpaperIdToGsettingsUri(wallpaperId, skinId) {
@@ -406,11 +417,20 @@
     function ubuntuWallpaperCatalog(base) {
         return [
             {
+                id: 'adwaita',
+                label: 'Adwaita',
+                type: 'image',
+                dark: `${base}/wallpaper-adwaita-dark.png`,
+                light: `${base}/wallpaper-racoon-light.png`,
+                gsettingsDark: 'gnome/adwaita-d.jxl',
+                gsettingsLight: 'gnome/adwaita-l.jxl',
+            },
+            {
                 id: 'racoon',
-                label: 'Ubuntu 25.10',
+                label: 'Resolute Raccoon',
                 type: 'image',
                 dark: `${base}/wallpaper-racoon.png`,
-                light: `${base}/wallpaper-racoon.png`,
+                light: `${base}/wallpaper-racoon-light.png`,
                 default: true,
             },
             {
@@ -465,7 +485,7 @@
     function applyWallpaperBackground(value, wallpaperId) {
         const doc = global.document.documentElement;
         doc.dataset.wallpaperTransition = 'on';
-        setShellVar('--fedora-bg', value);
+        setShellVar(shellBackgroundVar(), value);
         doc.dataset.gnomeWallpaper = wallpaperId || '';
         if (global.document.body) {
             global.document.body.dataset.gnomeWallpaper = wallpaperId || '';

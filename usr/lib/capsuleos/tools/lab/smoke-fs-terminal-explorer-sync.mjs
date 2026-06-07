@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 /**
- * Smoke T1–T5 — synchronisation terminal ↔ explorateur (CapsuleUserFs).
- * Usage : CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs
+ * Smoke T1–T8 — synchronisation terminal ↔ explorateur (CapsuleUserFs).
+ * Usage :
+ *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs
+ *   CAPSULE_HTTP_BASE=... node ... --profile=linux-ubuntu
  */
 import { chromium } from 'playwright';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const BASE = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
-const SKIN = { id: 'linux-rocky' };
+const profileArg = process.argv.find((a) => a.startsWith('--profile=') || a.startsWith('--id='));
+const PROFILE = profileArg
+  ? profileArg.split('=')[1]
+  : (process.env.CAPSULE_SKIN_PROFILE || 'linux-rocky');
+const SKIN = { id: PROFILE };
 
 const errors = [];
 const browser = await chromium.launch({ headless: true });
@@ -44,8 +50,11 @@ try {
 
     if (!docsReady.ok) {
         errors.push(docsReady.reason || 'préparation Documents échouée');
-    } else if (!docsReady.current.endsWith('/Documents')) {
+        throw new Error('préparation explorateur — arrêt smoke');
+    }
+    if (!docsReady.current.endsWith('/Documents')) {
         errors.push(`navigation Documents: path=${docsReady.current}`);
+        throw new Error('navigation Documents — arrêt smoke');
     }
 
     const runTerminalInDocs = async (command) => {
@@ -204,7 +213,7 @@ try {
         errors.forEach((message) => console.error(`  - ${message}`));
         process.exitCode = 1;
     } else {
-        console.log('smoke-fs-terminal-explorer-sync: OK (T1–T8)');
+        console.log(`smoke-fs-terminal-explorer-sync: OK (T1–T8) — ${PROFILE}`);
     }
 } catch (error) {
     console.error('smoke-fs-terminal-explorer-sync: erreur fatale', error);

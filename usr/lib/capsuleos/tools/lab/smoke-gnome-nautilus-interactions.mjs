@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 /**
  * Smoke interactions — Nautilus GNOME (sidebar, nouveau dossier, raccourcis, menu contextuel).
- * Usage : CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-interactions.mjs
+ * Usage :
+ *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-interactions.mjs
+ *   CAPSULE_HTTP_BASE=... node ... --profile=linux-ubuntu
  */
 import { chromium } from 'playwright';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const BASE = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
-const SKIN = { id: 'linux-rocky' };
+const profileArg = process.argv.find((a) => a.startsWith('--profile=') || a.startsWith('--id='));
+const PROFILE = profileArg
+  ? profileArg.split('=')[1]
+  : (process.env.CAPSULE_SKIN_PROFILE || 'linux-rocky');
+const SKIN = { id: PROFILE };
 
 const errors = [];
 const browser = await chromium.launch({ headless: true });
@@ -414,4 +420,4 @@ if (errors.length) {
     process.exit(1);
 }
 
-console.log('✓ smoke-gnome-nautilus-interactions OK — Rocky GNOME Nautilus');
+console.log(`✓ smoke-gnome-nautilus-interactions OK — ${PROFILE}`);

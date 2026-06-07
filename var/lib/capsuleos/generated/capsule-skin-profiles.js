@@ -696,7 +696,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "kernelId": "linux",
     "branchId": "ubuntu",
     "vendor": "ubuntu",
-    "displayName": "Ubuntu 25.10",
+    "displayName": "Ubuntu 26.04 LTS",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
@@ -721,7 +721,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "toolkitPack": "toolkits/gnome",
       "vendorPack": "vendors/ubuntu",
       "iconPacks": [
-        "icons/gnome"
+        "icons/gnome",
+        "icons/gnome/yaru"
       ]
     },
     "capsuleGlobals": {
@@ -735,6 +736,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "ubuntu",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -1462,7 +1465,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "kernelId": "linux",
     "branchId": "ubuntu",
     "vendor": "ubuntu",
-    "displayName": "Ubuntu 25.10",
+    "displayName": "Ubuntu 26.04 LTS",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
@@ -1487,7 +1490,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "toolkitPack": "toolkits/gnome",
       "vendorPack": "vendors/ubuntu",
       "iconPacks": [
-        "icons/gnome"
+        "icons/gnome",
+        "icons/gnome/yaru"
       ]
     },
     "capsuleGlobals": {
@@ -1501,6 +1505,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "ubuntu",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",

@@ -7,7 +7,7 @@
     "skinOverride": "home/<Vendor>/<Distro>/style/apps/terminal.skin.css",
     "tokens": "home/<Vendor>/<Distro>/style/gnome-shell/tokens.css"
   },
-  "ptyxisProfiles": ["linux-rocky", "linux-fedora", "linux-alma"],
+  "ptyxisProfiles": ["linux-rocky", "linux-fedora", "linux-alma", "linux-ubuntu"],
   "skinRules": [
     "Toute règle chrome terminal dans terminal.skin.css doit être préfixée body#<bodyId>",
     "Interdit : sélecteur nu .terminal-window--fedora hors tokens dans le skin vendor",

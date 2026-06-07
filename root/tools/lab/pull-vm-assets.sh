@@ -24,7 +24,15 @@ while [[ $# -gt 0 ]]; do
           VENDOR="fedora"
           SSH_TARGET="${FEDORA_SSH:-capsule@192.168.122.91}"
           ;;
-        linux-rocky|*)
+        linux-ubuntu)
+          VENDOR="ubuntu"
+          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.122.141}"
+          ICON_THEME="Yaru"
+          ;;
+        linux-rocky)
+          VENDOR="rocky"
+          ;;
+        *)
           VENDOR="rocky"
           ;;
       esac
@@ -47,6 +55,7 @@ PANEL_DIR="$VENDOR_DIR/panel"
 WALL_DIR="$VENDOR_DIR/wallpaper"
 WATERMARK_DIR="$VENDOR_DIR/watermark"
 GNOME_ICONS="$ASSETS/icons/gnome/adwaita"
+YARU_ICONS="$ASSETS/icons/gnome/yaru"
 FONTS_DIR="$ASSETS/fonts/vendors/$VENDOR"
 MIMETYPES_DIR="$GNOME_ICONS/mimetypes"
 PLACES_DIR="$GNOME_ICONS/places"
@@ -70,6 +79,27 @@ pull() {
   else
     echo "  ✗ absent: $remote" >&2
   fi
+}
+
+pull_yaru_icon() {
+  local name="$1" dest_dir="$2"
+  local remote=""
+  for candidate in \
+    "/usr/share/icons/Yaru/scalable/mimetypes/${name}.svg" \
+    "/usr/share/icons/Yaru/scalable/places/${name}.svg" \
+    "/usr/share/icons/Yaru/48x48/mimetypes/${name}.png" \
+    "/usr/share/icons/Yaru/48x48/places/${name}.png"; do
+    if "${REMOTE[@]}" "test -r '$candidate'" 2>/dev/null; then
+      remote="$candidate"
+      break
+    fi
+  done
+  if [[ -z "$remote" ]]; then
+    echo "  ✗ absent Yaru: ${name}" >&2
+    return 0
+  fi
+  local ext="${remote##*.}"
+  pull "$remote" "$dest_dir/${name}.${ext}"
 }
 
 # Fonds d'écran Rocky 10 (ground truth VM)
@@ -175,12 +205,37 @@ if [[ "$VENDOR" == "fedora" ]]; then
 fi
 
 if [[ "$VENDOR" == "ubuntu" ]]; then
+  mkdir -p "$YARU_ICONS/mimetypes" "$YARU_ICONS/places"
+  echo "=== Yaru icons (VM $ICON_THEME) ==="
+  for icon in inode-directory text-x-generic text-x-script image-x-generic \
+    application-x-generic application-x-executable package-x-generic \
+    x-office-document audio-x-generic video-x-generic; do
+    pull_yaru_icon "$icon" "$YARU_ICONS/mimetypes"
+  done
+  for icon in folder folder-documents folder-download folder-music folder-pictures \
+    folder-videos folder-templates folder-publicshare user-desktop user-home user-trash; do
+    pull_yaru_icon "$icon" "$YARU_ICONS/places"
+  done
+  pull /usr/share/backgrounds/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png \
+    "$WALL_DIR/wallpaper-racoon.png" || \
   pull /usr/share/backgrounds/warty-final-ubuntu.png \
     "$WALL_DIR/wallpaper-racoon.png" || \
   pull /usr/share/backgrounds/Questing_Quokka_Full_Color_3840x2160.png \
     "$WALL_DIR/wallpaper-racoon.png"
+  pull /usr/share/backgrounds/Resolute_Raccoon_Wallpaper_Light_3840x2160.png \
+    "$WALL_DIR/wallpaper-racoon-light.png"
+  pull /usr/share/backgrounds/ubuntu-wallpaper-d.png \
+    "$WALL_DIR/wallpaper-adwaita-dark.png"
   pull /usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg \
     "$PANEL_DIR/org.gnome.Nautilus.svg"
+  pull /usr/share/icons/Yaru/48x48/apps/org.gnome.Rhythmbox3.png \
+    "$DASH_DIR/org.gnome.Rhythmbox3.png"
+  pull /usr/share/icons/Yaru/48x48/apps/libreoffice-writer.png \
+    "$DASH_DIR/libreoffice-writer.png"
+  pull /usr/share/icons/Yaru/48x48/apps/firefox.png \
+    "$DASH_DIR/firefox.png"
+  pull /var/lib/snapd/desktop/applications/snap-store_snap-store.desktop \
+    "$VENDOR_DIR/snap-store_snap-store.desktop"
 fi
 
 cat >"$VENDOR_DIR/SOURCE-VM.txt" <<EOF
@@ -189,6 +244,7 @@ Vendor : $VENDOR · toolkit : $TOOLKIT
 Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-theme).
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/$VENDOR/
 MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
+Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places}/ — PNG/SVG depuis VM
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
 EOF

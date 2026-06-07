@@ -44,18 +44,19 @@ const TARGETS = [
         id: 'ubuntu',
         bodyId: 'ubuntu',
         out: path.join(ROOT, 'home/Debian/Ubuntu/style/gnome-workstation.css'),
-        header: '/**\n * Ubuntu 25.10 — coque GNOME (structure Rocky, dock Unity).\n */\n',
+        header: '/**\n * Ubuntu 26.04 LTS — coque GNOME (branche Debian, dock latéral).\n */\n',
         rootBlock: `#${'ubuntu'} {
-    --linux-skin-label: "Ubuntu 25.10";
+    --linux-skin-label: "Ubuntu 26.04 LTS";
     --ubuntu-dock-gap: calc(var(--head) / 11);
     --ubuntu-dock-item: calc(var(--head) * 1.02);
     --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png) center/cover no-repeat;
     --gnome-shell-taskbar-bg: var(--ubuntu-top-bar-bg);`,
         dockDisplay: 'flex',
-        lightThemeBg: null,
+        lightThemeBg: 'url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.png") center/cover no-repeat',
         varMap: [
             ['--fedora-dock-', '--ubuntu-dock-'],
             ['--fedora-top-bar-', '--ubuntu-top-bar-'],
+            ['--fedora-bg:', '--ubuntu-bg:'],
             ['var(--fedora-dock-width)', 'var(--ubuntu-dock-width)'],
             ['var(--fedora-top-bar-height)', 'var(--ubuntu-top-bar-height)'],
             ['var(--fedora-bg)', 'var(--ubuntu-bg)'],
@@ -98,10 +99,14 @@ function buildForTarget(target, sourceText) {
     }
 
     if (target.lightThemeBg) {
+        const bgProp = target.id === 'ubuntu' ? '--ubuntu-bg' : '--fedora-bg';
         const lightRe = new RegExp(
-            `html\\[data-theme="light"\\]:has\\(#${target.bodyId}\\) #${target.bodyId} \\{\\n    --fedora-bg: url\\("[^"]+"\\);`,
+            `html\\[data-theme="light"\\]:has\\(#${target.bodyId}\\) #${target.bodyId} \\{\\n    --(?:fedora|ubuntu)-bg: url\\("[^"]+"\\);`,
         );
-        css = css.replace(lightRe, `html[data-theme="light"]:has(#${target.bodyId}) #${target.bodyId} {\n    --fedora-bg: ${target.lightThemeBg}`);
+        css = css.replace(
+            lightRe,
+            `html[data-theme="light"]:has(#${target.bodyId}) #${target.bodyId} {\n    ${bgProp}: ${target.lightThemeBg}`,
+        );
     }
 
     if (target.id === 'fedora') {

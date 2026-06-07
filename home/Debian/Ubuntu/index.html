@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=20260521" type="text/css">
     <link rel="stylesheet" href="./ubuntu-overrides.css?v=20260424" type="text/css">
-    <title>Ubuntu 25.10 - CapsuleOS</title>
+    <title>Ubuntu 26.04 LTS - CapsuleOS</title>
 </head>
 <body id="ubuntu" data-skin="ubuntu">
     <header class="fedora-top-bar" role="banner">
@@ -46,19 +46,19 @@
                 <a target="windowElement" data-link="nemo" title="Fichiers">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/files.png" alt="Fichiers" width="48" height="48">
                 </a>
-                <a target="windowElement" data-link="update_manager" title="Ubuntu Software">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="Ubuntu Software" width="48" height="48">
+                <a target="windowElement" data-link="lecteur_multimedia" title="Rhythmbox">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Rhythmbox3.png" alt="Rhythmbox" width="48" height="48">
                 </a>
-                <a target="windowElement" data-link="text_editor" title="Éditeur de texte">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/text-editor.svg" alt="Éditeur de texte" width="48" height="48">
+                <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/libreoffice-writer.png" alt="LibreOffice Writer" width="48" height="48">
                 </a>
-                <button type="button" class="ubuntu-dock__help" id="ubuntu-help-theme-btn" title="Aide Ubuntu"
+                <a target="windowElement" data-link="update_manager" title="Snap Store">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="Snap Store" width="48" height="48">
+                </a>
+                <button type="button" class="ubuntu-dock__help" id="ubuntu-help-theme-btn" title="Aide"
                         aria-label="Aide Ubuntu (changer le thème clair/sombre)">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/help.png" alt="Aide" width="48" height="48">
                 </button>
-                <a target="windowElement" data-link="terminal" title="Terminal">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/terminal.png" alt="Terminal" width="48" height="48">
-                </a>
                 <button type="button" class="ubuntu-dock__trash" title="Corbeille" aria-label="Corbeille">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/trash.png" alt="" width="48" height="48">
                 </button>
@@ -70,9 +70,9 @@
         </aside>
         <main class="fedora-desktop-area">
             <object id="desktop" aria-label="Bureau Ubuntu">
-                <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Ubuntu 25.10 - À propos">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/ubuntu/ubuntu-logo.svg" alt="Ubuntu 25.10 - À propos" width="48" height="48">
-                    <span>Ubuntu 25.10<br>À propos</span>
+                <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Ubuntu 26.04 LTS - À propos">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/ubuntu/ubuntu-logo.svg" alt="Ubuntu 26.04 LTS - À propos" width="48" height="48">
+                    <span>Ubuntu 26.04<br>À propos</span>
                 </a>
                 <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
                 <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
@@ -176,6 +176,26 @@
                 </button>
             </div>
         </section>
+        <nav class="fedora-overview__dash" aria-label="Applications favorites">
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="firefox" aria-label="Firefox">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.webp" alt="">
+            </button>
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="nemo" aria-label="Fichiers">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Nautilus.svg" alt="">
+            </button>
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="lecteur_multimedia" aria-label="Rhythmbox">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Rhythmbox3.png" alt="">
+            </button>
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="librewriter" aria-label="LibreOffice Writer">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/libreoffice-writer.png" alt="">
+            </button>
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="update_manager" aria-label="Snap Store">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="">
+            </button>
+            <button type="button" class="fedora-overview__dash-item fedora-overview__dash-item--apps" data-overview-apps aria-label="Afficher les applications">
+                <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/symbolic/view-app-grid-symbolic.svg" alt="">
+            </button>
+        </nav>
     </section>
 
     <div class="calendar-popover" id="taskbar-calendar-popover" role="dialog" aria-label="Calendrier" hidden>
@@ -310,10 +330,14 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-window-instances.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-user-fs.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerWindowState.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilus.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusOps.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInlineRename.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusItemInteraction.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusHeaderbar.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerTabs.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerProperties.js"></script>

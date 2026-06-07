@@ -8,7 +8,46 @@
     const paths = global.CapsuleExplorerToolkitPaths;
     const CINNAMON_BASE = paths ? paths.catalogBase() : './assets/icons/cinnamon/nemo';
     const KDE_BASE = paths ? paths.paths.kde : './assets/icons/kde/nemo';
-    const GNOME_BASE = paths ? paths.paths.gnome : './assets/icons/gnome/adwaita';
+    const ADWAITA_BASE = paths ? paths.paths.gnome : './assets/icons/gnome/adwaita';
+    const SYMBOLIC_BASE = ADWAITA_BASE;
+
+    function gnomeBase() {
+        if (paths && typeof paths.gnomeIconBase === 'function') {
+            return paths.gnomeIconBase();
+        }
+        if (usesGnomeYaru()) {
+            return paths && paths.paths ? paths.paths.yaru : './assets/icons/gnome/yaru';
+        }
+        return ADWAITA_BASE;
+    }
+
+    function gnomeAssetPath(mapped) {
+        if (!mapped) {
+            return null;
+        }
+        return resolveAssetUrl(`${gnomeBase()}/${withRasterExt(mapped)}`);
+    }
+
+    function usesGnomeYaru() {
+        if (paths && typeof paths.gnomeIconPackId === 'function') {
+            return paths.gnomeIconPackId() === 'yaru';
+        }
+        const bodyId = global.document && global.document.body ? global.document.body.id : '';
+        return bodyId === 'ubuntu';
+    }
+
+    function withRasterExt(mapped) {
+        if (!mapped || !usesGnomeYaru()) {
+            return mapped;
+        }
+        if (mapped.startsWith('symbolic/') || mapped.startsWith('places/document-open-recent')) {
+            return mapped;
+        }
+        if (mapped.startsWith('mimetypes/') || mapped.startsWith('places/')) {
+            return mapped.replace(/\.svg$/, '.png');
+        }
+        return mapped;
+    }
     const COSMIC_BASE = paths ? paths.paths.cosmic : './assets/images/toolkits/cosmic/elements/nemo';
 
     /** Icônes toolbar connues → sous-dossier symbolic (hors sidebar). */
@@ -97,7 +136,7 @@
 
     function explorerPlacesBase() {
         if (usesGnomeAdwaita()) {
-            return `${GNOME_BASE}/places`;
+            return `${gnomeBase()}/places`;
         }
         if (usesKdeIcons()) {
             return KDE_BASE;
@@ -175,7 +214,7 @@
         if (path.indexOf('kde/mimeTypes/') >= 0) {
             const leaf = path.split('/').pop();
             const mapped = ADWAITA_MIME_LEAF_MAP[leaf] || 'mimetypes/application-x-generic.svg';
-            return resolveAssetUrl(`${GNOME_BASE}/${mapped}`);
+            return gnomeAssetPath(mapped);
         }
         if (path.indexOf(`${CINNAMON_BASE}/`) === 0) {
             const leaf = path.slice(CINNAMON_BASE.length + 1);
@@ -183,14 +222,19 @@
             if (!mapped) {
                 return resolveAssetUrl(path);
             }
-            return resolveAssetUrl(`${GNOME_BASE}/${mapped}`);
+            return gnomeAssetPath(mapped);
         }
-        if (path.indexOf(`${GNOME_BASE}/`) === 0) {
+        const gnomeBasePath = gnomeBase();
+        if (path.indexOf(`${gnomeBasePath}/`) === 0) {
             return resolveAssetUrl(path);
+        }
+        if (path.indexOf(`${ADWAITA_BASE}/`) === 0) {
+            const rel = path.slice(ADWAITA_BASE.length + 1);
+            return gnomeAssetPath(rel);
         }
         if (path.indexOf('./assets/images/toolkits/gnome/elements/nemo/') === 0) {
             const leaf = path.split('/').pop();
-            return resolveAssetUrl(`${GNOME_BASE}/${remapLeaf(leaf)}`);
+            return gnomeAssetPath(remapLeaf(leaf));
         }
         return resolveAssetUrl(path);
     }
@@ -222,7 +266,7 @@
             if (!mapped) {
                 return;
             }
-            const next = resolveAssetUrl(`${GNOME_BASE}/${mapped}`);
+            const next = gnomeAssetPath(mapped);
             if (next && next !== src) {
                 img.setAttribute('src', next);
             }
@@ -251,7 +295,7 @@
                 Récent: `${base}/document-open-recent-symbolic.svg`,
                 Corbeille: `${base}/user-trash-symbolic.svg`,
                 Réseau: `${base}/network-server.svg`,
-                'Système de fichiers': `${GNOME_BASE}/places/folder.svg`,
+                'Système de fichiers': gnomeAssetPath('places/folder.svg'),
             };
         }
     }

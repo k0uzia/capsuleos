@@ -1,5 +1,5 @@
-(function initRockyOverview() {
-    const shell = document.getElementById('rocky');
+(function initUbuntuOverview() {
+    const shell = document.getElementById('ubuntu');
     const trigger = document.querySelector('.fedora-overview-trigger');
     const overview = document.querySelector('.fedora-overview');
     const searchForm = overview ? overview.querySelector('[data-overview-search-form]') : null;

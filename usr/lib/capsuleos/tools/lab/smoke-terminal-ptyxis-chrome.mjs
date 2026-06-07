@@ -17,10 +17,19 @@ const PROFILE_URL = {
   'linux-rocky': `${BASE}/home/RedHat/Rocky/index.html`,
   'linux-fedora': `${BASE}/home/RedHat/Fedora/index.html`,
   'linux-alma': `${BASE}/home/RedHat/Alma/index.html`,
+  'linux-ubuntu': `${BASE}/home/Debian/Ubuntu/index.html`,
+};
+
+const PROFILE_CHROME_RGB = {
+  'linux-rocky': { promptUser: { r: 51, g: 209, b: 122 }, pathSeg: { r: 241, g: 241, b: 243 } },
+  'linux-fedora': { promptUser: { r: 51, g: 209, b: 122 }, pathSeg: { r: 241, g: 241, b: 243 } },
+  'linux-alma': { promptUser: { r: 51, g: 209, b: 122 }, pathSeg: { r: 241, g: 241, b: 243 } },
+  'linux-ubuntu': { promptUser: { r: 25, g: 195, b: 125 }, pathSeg: { r: 108, g: 182, b: 255 } },
 };
 
 const URL = PROFILE_URL[PROFILE];
-if (!URL) {
+const CHROME_RGB = PROFILE_CHROME_RGB[PROFILE];
+if (!URL || !CHROME_RGB) {
   console.error(`✗ smoke-terminal-ptyxis-chrome — profil inconnu « ${PROFILE} »`);
   process.exit(1);
 }
@@ -28,8 +37,8 @@ if (!URL) {
 const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
-const PROMPT_USER_RGB = { r: 51, g: 209, b: 122 };
-const PATH_TEXT_RGB = { r: 241, g: 241, b: 243 };
+const PROMPT_USER_RGB = CHROME_RGB.promptUser;
+const PATH_TEXT_RGB = CHROME_RGB.pathSeg;
 
 const near = (a, b, tol = 18) => Math.abs(a - b) <= tol;
 

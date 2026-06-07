@@ -89,6 +89,49 @@ const DESKTOP_APPS = {
     vmId: 'org.gnome.Settings',
     capsuleSlot: 'themes',
   },
+  'firefox_firefox.desktop': {
+    role: 'browser',
+    vmName: 'Firefox',
+    vmId: 'firefox',
+    capsuleSlot: 'firefox',
+    capsuleTemplate: 'firefox',
+  },
+  'org.gnome.Evolution.desktop': {
+    role: 'mail',
+    vmName: 'Evolution',
+    vmId: 'org.gnome.Evolution',
+    capsuleSlot: null,
+  },
+  'org.gnome.Rhythmbox3.desktop': {
+    role: 'media',
+    vmName: 'Rhythmbox',
+    vmId: 'org.gnome.Rhythmbox3',
+    capsuleSlot: 'lecteur_multimedia',
+  },
+  'libreoffice-writer.desktop': {
+    role: 'office',
+    vmName: 'LibreOffice Writer',
+    vmId: 'libreoffice-writer',
+    capsuleSlot: 'librewriter',
+  },
+  'snap-store_snap-store.desktop': {
+    role: 'software',
+    vmName: 'Snap Store',
+    vmId: 'snap-store',
+    capsuleSlot: 'update_manager',
+  },
+  'org.gnome.Yelp.desktop': {
+    role: 'help',
+    vmName: 'Help',
+    vmId: 'org.gnome.Yelp',
+    capsuleSlot: null,
+  },
+};
+
+const VENDOR_DISTRO = {
+  fedora: { base: 'Fedora', packageManager: 'dnf' },
+  ubuntu: { base: 'Debian', packageManager: 'apt' },
+  debian: { base: 'Debian', packageManager: 'apt' },
 };
 
 const OFFICIAL_DOC = {
@@ -102,6 +145,10 @@ const OFFICIAL_DOC = {
   },
   alma: {
     almaReleaseNotes: 'https://wiki.almalinux.org/release-notes/',
+    gnomeHig: 'https://developer.gnome.org/hig',
+  },
+  ubuntu: {
+    ubuntuDesktop: 'https://documentation.ubuntu.com/desktop/',
     gnomeHig: 'https://developer.gnome.org/hig',
   },
 };
@@ -163,13 +210,13 @@ const buildApplications = (favoriteDesktops) => {
   const seen = new Set();
   for (const desktop of favoriteDesktops) {
     const meta = DESKTOP_APPS[desktop];
-    if (!meta || seen.has(meta.capsuleSlot)) continue;
+    if (!meta || !meta.capsuleSlot || seen.has(meta.capsuleSlot)) continue;
     seen.add(meta.capsuleSlot);
     apps.push({ ...meta, desktopFile: desktop });
   }
   for (const [desktop, meta] of Object.entries(DESKTOP_APPS)) {
     if (seen.has(meta.capsuleSlot)) continue;
-    if (favoriteDesktops.includes(desktop)) {
+    if (meta.capsuleSlot && favoriteDesktops.includes(desktop)) {
       apps.push({ ...meta, desktopFile: desktop });
       seen.add(meta.capsuleSlot);
     }
@@ -187,6 +234,7 @@ const buildVmInventory = (registryId, staticPhase, host, entry) => {
   const bodyId = entry.referencePaths?.bodyId || entry.embedKey || vendor;
   const favorites = parseFavorites(staticPhase);
   const os = staticPhase.os || {};
+  const distroMeta = VENDOR_DISTRO[vendor] || { base: 'RHEL-compatible', packageManager: 'dnf' };
 
   return {
     version: 1,
@@ -207,8 +255,8 @@ const buildVmInventory = (registryId, staticPhase, host, entry) => {
       id: vendor,
       version: os.VERSION_ID || null,
       variant: os.VARIANT || os.VARIANT_ID || 'Workstation',
-      base: vendor === 'fedora' ? 'Fedora' : 'RHEL-compatible',
-      packageManager: 'dnf',
+      base: distroMeta.base,
+      packageManager: distroMeta.packageManager,
       defaultSession: 'wayland',
       prettyName: os.PRETTY_NAME || null,
     },
@@ -240,9 +288,11 @@ const buildVmInventory = (registryId, staticPhase, host, entry) => {
       dash: {
         vm: 'Bottom dash in Overview — favorites + running indicator',
         capsule: 'nav.fedora-overview__dash',
-        note: vendor === 'fedora'
-          ? 'Dock latéral Capsule visible (modèle Fedora early-work) + dash Aperçu'
-          : 'Permanent left dock hidden on RHEL GNOME (#tableau display:none)',
+        note: vendor === 'ubuntu'
+          ? 'Dock permanent latéral ubuntu-dock@ubuntu.com — Capsule #tableau.fedora-dock (sous-branche Debian)'
+          : vendor === 'fedora'
+            ? 'Dock latéral Capsule visible (modèle Fedora early-work) + dash Aperçu'
+            : 'Permanent left dock hidden on RHEL GNOME (#tableau display:none)',
         parity: 'P1',
       },
       quickSettings: {
@@ -266,13 +316,16 @@ const buildVmInventory = (registryId, staticPhase, host, entry) => {
     assetsPulled: {
       script: 'root/tools/lab/pull-vm-assets.sh',
       sourceNote: `usr/share/capsuleos/assets/images/vendors/${vendor}/SOURCE-VM.txt`,
-      status: 'pending',
+      status: fs.existsSync(path.join(ROOT, `usr/share/capsuleos/assets/images/vendors/${vendor}/SOURCE-VM.txt`))
+        ? 'pulled'
+        : 'pending',
     },
     validation: {
       toolkitPack: 'node usr/lib/capsuleos/tools/linux/sync-gnome-toolkit-pack.mjs',
       full: 'node usr/lib/capsuleos/tools/validate-all.mjs',
     },
     upstreamId: entry.upstreamId || null,
+    terminalInventory: `root/docs/inventaires/${registryId}-terminal-vm.json`,
   };
 };
 

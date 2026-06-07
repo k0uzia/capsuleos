@@ -7,7 +7,7 @@
 
     const CATALOG = {
         debian: [
-            'bash', 'coreutils', 'grep', 'sed', 'curl', 'vim', 'nano', 'git', 'htop', 'openssl',
+            'bash', 'coreutils', 'grep', 'sed', 'curl', 'vim', 'nano', 'git', 'htop', 'openssl', 'cowsay',
         ],
         redhat: [
             'bash', 'coreutils', 'grep', 'sed', 'curl', 'vim-enhanced', 'nano', 'git', 'htop', 'openssl',
@@ -197,6 +197,21 @@
                 'Version: 1.0.0-1capsule',
                 'Priority: optional',
                 'Maintainer: CapsuleOS <dev@capsuleos.local>',
+            ]);
+        }
+        if (sub === 'list' && (args[1] === '--upgradable' || args.includes('--upgradable'))) {
+            if (locale === 'fr-FR') {
+                return result([
+                    'En train de lister…',
+                    'accountsservice/resolute-updates 23.13.9-8ubuntu5.1 amd64 [pouvant être mis à jour depuis : 23.13.9-8ubuntu5]',
+                    'base-files/resolute-updates 14ubuntu6.1 amd64 [pouvant être mis à jour depuis : 14ubuntu6]',
+                    'gir1.2-accountsservice-1.0/resolute-updates 23.13.9-8ubuntu5.1 amd64 [pouvant être mis à jour depuis : 23.13.9-8ubuntu5]',
+                ]);
+            }
+            return result([
+                'Listing...',
+                'accountsservice/resolute-updates 23.13.9-8ubuntu5.1 amd64 [upgradable from: 23.13.9-8ubuntu5]',
+                'base-files/resolute-updates 14ubuntu6.1 amd64 [upgradable from: 14ubuntu6]',
             ]);
         }
         if (cmd === 'apturl') {

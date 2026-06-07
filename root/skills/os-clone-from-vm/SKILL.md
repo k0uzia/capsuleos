@@ -25,6 +25,22 @@ description: Reproduces a real desktop OS from a VM into CapsuleOS following the
 10. Clôture : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
 11. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité.
 
+## Ubuntu GNOME (refonte depuis VM)
+
+```bash
+# Procédure : root/docs/procedure-lab-linux-ubuntu-gnome.md
+virsh -c qemu:///system domifaddr ubuntu25.10
+
+# Bootstrap SSH dans la VM si besoin
+bash root/tools/lab/vm-ubuntu-lab-bootstrap.sh
+
+node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id linux-ubuntu
+node usr/lib/capsuleos/tools/lab/collect-gnome-vm-inventory.mjs --id linux-ubuntu --write --write-doc
+bash root/tools/lab/pull-vm-assets.sh --id linux-ubuntu
+```
+
+Singularités : **dock permanent** (`body#ubuntu`), **Yaru**, terminal **`debian`** (`apt`). Cloisonnement : `validate-skin-vendor-isolation.mjs`.
+
 ## Rocky GNOME (raccourci)
 
 ```bash

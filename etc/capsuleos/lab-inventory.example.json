@@ -54,6 +54,23 @@
       "hypervisor": "libvirt",
       "virshName": "Rocky10",
       "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html"
+    },
+    {
+      "registryId": "linux-ubuntu",
+      "family": "linux",
+      "vendor": "ubuntu",
+      "ssh": "capsule@192.168.122.141",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "$HOME/capsuleos-lab/os-probe-gnome.sh",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome",
+      "hypervisor": "libvirt",
+      "virshName": "ubuntu25.10",
+      "capsuleUrl": "http://127.0.0.1:8765/OS/linux/families/debian/ubuntu/index.html",
+      "labBootstrap": "root/tools/lab/vm-ubuntu-lab-bootstrap.sh",
+      "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md"
     }
   ]
 }

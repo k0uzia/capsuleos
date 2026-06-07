@@ -2,11 +2,10 @@
  * AlmaLinux — coque GNOME (structure Rocky).
  */
 #alma {
-    --linux-skin-label: "Rocky Linux";
+    --linux-skin-label: "AlmaLinux";
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
-    /* Fond VM : rocky-default-10-gemstone-skies-night.webp (pull-vm-assets.sh) */
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp");
+    --fedora-bg: linear-gradient(155deg, #1a4d6e 0%, #0f3d52 32%, #0a2a3a 58%, #051820 100%);
     --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;

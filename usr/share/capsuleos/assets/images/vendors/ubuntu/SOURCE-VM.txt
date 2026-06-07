@@ -1,5 +1,8 @@
-Assets copiés depuis la VM lab (capsule@192.168.122.234) le 2026-06-05T23:07:12Z.
+Assets copiés depuis la VM lab (capsule@192.168.122.141) le 2026-06-07T18:10:47Z.
 Vendor : ubuntu · toolkit : gnome
-Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
+Thème icônes VM : Yaru (gsettings org.gnome.desktop.interface icon-theme).
+Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/ubuntu/
+MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
+Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places}/ — PNG/SVG depuis VM
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

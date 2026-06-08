@@ -46,6 +46,19 @@ node usr/lib/capsuleos/tools/generate-public-manifest.mjs
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
+## Checkpoints post-clonage VM
+
+Après import assets / skin :
+
+```bash
+node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id linux-mint
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
+python3 -m http.server 5500 --bind 127.0.0.1
+node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-mint
+```
+
+Voir [procedure-clonage-os-depuis-vm.md](../../docs/procedure-clonage-os-depuis-vm.md) §7–8 et [agent-validation-discipline.md](../../docs/agent-validation-discipline.md).
+
 ## Fenêtres (drag / resize)
 
 Skill **`window-desktop`** + [convention-contexte-fenetres.md](../../docs/convention-contexte-fenetres.md). Gate : `validate-linux-window-boot.mjs`.

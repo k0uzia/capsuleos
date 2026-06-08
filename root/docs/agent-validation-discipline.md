@@ -38,7 +38,7 @@ node usr/lib/capsuleos/tools/print-validation-plan.mjs home/Debian/Mint/style/ap
 | **Registre / profils** | `etc/capsuleos/`, `os-registry-entries.mjs` | [ajouter-os-scalable.md](ajouter-os-scalable.md) | `build-os-registry.mjs` chaîne + `validate-capsule.mjs` | `print-agent-brief.mjs <id>` |
 | **Liens HTML statiques** | `*.html` hors skin, hubs `OS/` | [link-routing](../skills/link-routing/SKILL.md) | `validate-links-all.mjs` | `fix-static-html-asset-urls.mjs` |
 | **Lab / smokes** | `usr/lib/capsuleos/tools/lab/` | [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) | Smokes touchés (Playwright) | Pas de `validate-all` si lab seul |
-| **Clone VM / parité** | inventaires, playbooks lab | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | Chaîne domaine (`compare-os-parity`, `run-replication-chain`) | `resolve-agent-action.mjs --auto` |
+| **Clone VM / parité** | inventaires, playbooks lab | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | `validate-clone-assets.mjs --id <registryId>` puis `capture-clone-surfaces.mjs --id <registryId>` ; chaîne domaine (`compare-os-parity`) | `resolve-agent-action.mjs --auto` |
 
 **Release (merge / PR significative)** : toujours terminer par :
 
@@ -83,13 +83,23 @@ Ordre **obligatoire** avant push / merge d’un lot skin ou noyau interactif :
 
    Préférer `waitForSelector` / `waitForFunction` aux pauses fixes longues (>200 ms).
 
-4. **Gate release** :
+4. **Checkpoints post-clonage** (P0 skin VM) :
+
+   ```bash
+   node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id linux-mint
+   python3 -m http.server 5500 --bind 127.0.0.1   # autre terminal
+   node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-mint
+   ```
+
+   Matrice : **assets checkpoint** (existence + hash optionnel `--hash`) → **capture checkpoint** (panel, menu, bureau, 3 apps) → parité lab si VM disponible.
+
+5. **Gate release** :
 
    ```bash
    node usr/lib/capsuleos/tools/validate-all.mjs
    ```
 
-5. **Rectification incrémentale** — si `validate-all` échoue : corriger uniquement les violations **dans les chemins du lot** ; noter le reste en dette (issue / inventaire P1).
+6. **Rectification incrémentale** — si `validate-all` échoue : corriger uniquement les violations **dans les chemins du lot** ; noter le reste en dette (issue / inventaire P1).
 
 ---
 

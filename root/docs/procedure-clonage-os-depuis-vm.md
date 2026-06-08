@@ -238,6 +238,12 @@ node usr/lib/capsuleos/tools/validate-asset-zones.mjs
 
 - [ ] Assets référencés dans `index.html` / CSS du skin
 - [ ] `validate-asset-zones` OK
+- [ ] **Checkpoint assets clone** :
+
+  ```bash
+  node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id <registryId>
+  node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id <registryId> --hash   # optionnel manifest
+  ```
 
 ---
 
@@ -257,7 +263,20 @@ node usr/lib/capsuleos/tools/validate-asset-zones.mjs
 **Surcouches skin** (si parité locale uniquement) :
 
 - CSS tray / panel : `home/.../style/footer.css`
-- JS local : ex. `content/mint-menu-parity.js`, `content/mint-desktop-favorites.js`
+- JS local : ex. `content/mint-menu-parity.js`, `content/mint-desktop-favorites.js`, `content/mint-panel-favorites.js`
+
+**Anti-patterns clonage** (ne pas répliquer dans `home/`) :
+
+| Comportement | Noyau à brancher | Gap typique clone |
+|--------------|------------------|-------------------|
+| Clic droit bureau / Nemo | `desktop-context-menu.js`, `fileExplorer` menubar | Menu HTML dupliqué dans skin |
+| Raccourcis clavier (Alt+Tab, WM) | `cinnamon-alt-tab.js`, `cinnamon-window-behaviors.js` | `keydown` local redondant |
+| Chrome fenêtre (min/max/close) | `capsule-window-header-buttons.js`, `cinnamon-window-behaviors.js` | Handlers click dans skin |
+| Taskbar / grouped-window-list | `taskbar-window-list.js`, `taskbar-launcher-state.js` | Liste HTML statique |
+| Tray popovers | `volume.js`, `calendar-popover.js` + skin `mint-tray.js` (wiring seul) | Logique close/open dupliquée |
+| Icônes menu / apps | `mainMenu.js` + `resolveCapsuleResourceUrl` (via `capsule-resource.js`) | Chemins physiques `../../../usr/…` sans résolution |
+
+**Règle templating** : `usr/share/capsuleos/linux/apps/` = structure gabarit ; `home/<Vendor>/` = skin CSS + données (`content/`, `strings.json`) ; initialisation via `contentLoader.js` et hooks `capsule:window-opened`.
 
 Référence comportements Mint : [`mint-fenetres-muffin.md`](mint-fenetres-muffin.md), [`convention-contexte-fenetres.md`](convention-contexte-fenetres.md).
 
@@ -272,6 +291,15 @@ node usr/lib/capsuleos/tools/lab/compare-os-parity.mjs --id <registryId> --scena
 
 - [ ] Checklist panel CapsuleOS 6/6 (ou écarts P1 documentés)
 - [ ] Tray / panel alignés sur inventaire (au moins visuellement P1)
+- [ ] **Checkpoint captures** (HTTP local requis) :
+
+  ```bash
+  python3 -m http.server 5500 --bind 127.0.0.1
+  node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id <registryId>
+  node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id <registryId> --compare
+  ```
+
+  Baseline optionnelle : copier une passe verte vers `root/docs/inventaires/captures/<id>/baseline/`.
 
 ---
 

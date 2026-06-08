@@ -1,0 +1,5 @@
+# Linux Mint 22.3 (zena) — ground truth VM lab
+# Collecte: proc/linux-mint/distribution-manifest.json (ManΣ 2026-06-08)
+# SSH: capsule@192.168.1.146 (lab-inventory.json)
+# Fichiers importés: 166 (staging manifest)
+# Note: fonds initialement sous vendors/linuxmint/ — consolidés ici (vendorPack=mint)

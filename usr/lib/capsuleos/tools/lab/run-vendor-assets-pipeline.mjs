@@ -38,6 +38,7 @@ const vendorFromId = (id) => {
     'linux-fedora': 'fedora',
     'linux-ubuntu': 'ubuntu',
     'linux-alma': 'alma',
+    'linux-mint': 'mint',
   };
   return map[id] || id.replace(/^linux-/, '');
 };

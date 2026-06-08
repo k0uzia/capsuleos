@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "registryId": "linux-mint",
+  "collectedAt": "2026-06-08T07:01:49.815Z",
+  "source": "distribution-manifest",
+  "searchPaths": [
+    "/usr/share/applications",
+    "/var/lib/snapd/desktop/applications",
+    "/usr/local/share/applications"
+  ],
+  "gridVisible": 92,
+  "total": 144
+}

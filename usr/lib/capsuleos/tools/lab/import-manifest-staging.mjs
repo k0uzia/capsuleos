@@ -15,7 +15,7 @@ import {
   stagingRemoteDir,
 } from './manifest-playbook-lib.mjs';
 import { loadLabHost, identitiesForHost } from './vm-manifest-lib.mjs';
-import { ROOT } from './replication-chain-lib.mjs';
+import { ROOT, loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -88,7 +88,10 @@ const main = () => {
   }
 
   if (opts.write) {
-    const vendor = playbook.distribution?.id || 'unknown';
+    const vendor = playbook.mediaCatalog?.vendor
+      || loadRegistryEntry(opts.id).vendor
+      || playbook.distribution?.id
+      || 'unknown';
     const sourceTxt = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors', vendor, 'SOURCE-VM.txt');
     fs.mkdirSync(path.dirname(sourceTxt), { recursive: true });
     fs.appendFileSync(sourceTxt, `\n# import-manifest-staging ${new Date().toISOString()}\nfiles: ${integrated.length}\n`);

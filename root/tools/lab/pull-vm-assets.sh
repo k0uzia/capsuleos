@@ -32,6 +32,12 @@ while [[ $# -gt 0 ]]; do
         linux-rocky)
           VENDOR="rocky"
           ;;
+        linux-mint)
+          VENDOR="mint"
+          SSH_TARGET="${MINT_SSH:-capsule@192.168.1.146}"
+          TOOLKIT="cinnamon"
+          ICON_THEME="Mint-Y"
+          ;;
         *)
           VENDOR="rocky"
           ;;

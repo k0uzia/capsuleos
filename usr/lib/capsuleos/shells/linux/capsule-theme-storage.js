@@ -105,6 +105,9 @@
 
     function getWallpaperStorageKey(id) {
         const resolved = id || bodyId();
+        if (resolved === 'mint') {
+            return 'mint-wallpaper';
+        }
         return resolved ? `gnome-wallpaper:${resolved}` : 'gnome-wallpaper';
     }
 
@@ -186,6 +189,9 @@
 
     function shellBackgroundVar(id) {
         const bid = id || bodyId();
+        if (bid === 'mint') {
+            return '--mint';
+        }
         if (bid === 'ubuntu') {
             return '--ubuntu-bg';
         }
@@ -290,6 +296,7 @@
 
     function getWallpaperVendor(bodyId) {
         const vendorMap = {
+            mint: 'mint',
             rocky: 'rocky',
             alma: 'alma',
             fedora: 'fedora',
@@ -300,6 +307,9 @@
     }
 
     function defaultWallpaperId(bodyId) {
+        if (bodyId === 'mint') {
+            return 'linuxmint';
+        }
         if (bodyId === 'fedora') {
             return 'f44-01';
         }
@@ -307,6 +317,23 @@
             return 'racoon';
         }
         return 'gemstone-skies';
+    }
+
+    function mintWallpaperCatalog() {
+        const injected = global.CAPSULE_MINT_WALLPAPER_CATALOG;
+        if (Array.isArray(injected) && injected.length) {
+            return injected;
+        }
+        return [
+            {
+                id: 'linuxmint',
+                label: 'Linux Mint',
+                type: 'image',
+                dark: 'vendors/mint/wallpaper/linuxmint.jpg',
+                light: 'vendors/mint/wallpaper/linuxmint.jpg',
+                default: true,
+            },
+        ];
     }
 
     function fedoraWallpaperCatalog(base) {
@@ -451,6 +478,9 @@
     function getWallpaperCatalog(bodyId) {
         const vendor = getWallpaperVendor(bodyId);
         const base = `vendors/${vendor}/wallpaper`;
+        if (vendor === 'mint') {
+            return mintWallpaperCatalog();
+        }
         if (vendor === 'fedora') {
             return fedoraWallpaperCatalog(base);
         }

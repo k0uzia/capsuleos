@@ -38,6 +38,9 @@
                     return;
                 }
                 if (action === 'wallpaper' || action === 'desktop-settings') {
+                    if (typeof global.setCapsuleSettingsPanel === 'function') {
+                        global.setCapsuleSettingsPanel('background');
+                    }
                     if (typeof global.openWindowByDataLink === 'function') {
                         global.openWindowByDataLink('themes');
                     }

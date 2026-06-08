@@ -112,7 +112,10 @@ export const buildReplicationItems = (registryId) => {
     });
   }
 
-  const vendor = manifest.distribution?.id || 'unknown';
+  const vendor = manifest.mediaCatalogVendor
+    || loadRegistryEntry(registryId).vendor
+    || manifest.distribution?.id
+    || 'unknown';
   const iconPack = manifest.media?.iconPack || 'icons/gnome/adwaita';
   const classifyEntry = (base) => {
     const vmPath = base.vmPath;

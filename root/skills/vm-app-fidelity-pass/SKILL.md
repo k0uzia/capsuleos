@@ -65,6 +65,8 @@ Documenter chaque niveau dans `root/docs/inventaires/<id>-app-fidelity-scenarios
 | Capsule runtime | `smoke-app-fidelity-scenario.mjs` | `capsuleCapture` + selectors DOM |
 | Classé | `run-app-parity-pass.mjs` | `pi_credibility` par scénario |
 
+**Gabarit Nemo Mint** : modifier `usr/share/capsuleos/linux/apps/nemo.html` (embed) **et** `explorers/nemo/shell.html` (fetch), puis `node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs`.
+
 **URL canonique** : `resolveCapsuleOsUrl(registryId)` — jamais `home/Debian/Mint/index.html` en Playwright.
 
 ## Gates

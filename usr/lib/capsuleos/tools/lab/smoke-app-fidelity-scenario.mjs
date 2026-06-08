@@ -52,11 +52,13 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       { type: 'openSlot', slot: scenario.app },
       { type: 'wait', ms: 800 },
     ],
+    baseAssertions: [],
+    executionBlocks: [],
     assertions: [],
   };
 
   selectors.forEach((sel) => {
-    plan.assertions.push({ type: 'selectorVisible', selector: sel });
+    plan.baseAssertions.push({ type: 'selectorVisible', selector: sel });
   });
 
   if (scenario.id === 'nemo-open-documents') {
@@ -79,8 +81,65 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     });
   }
   if (scenario.id === 'nemo-menu-context') {
-    plan.actions.push({ type: 'evaluate', desc: 'clic droit zone contenu Nemo' });
-    plan.assertions.push({ type: 'selectorVisible', selector: '#menu-app-context-menu' });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="nemo"] #voletnemo a[data-link="Bureau"]',
+      desc: 'sidebar Bureau',
+    });
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.actions.push({
+      type: 'contextMenu',
+      selector: 'div[data-link="nemo"] .nemoElement',
+      x: 420,
+      y: 320,
+      desc: 'clic droit zone vide',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.assertions.push({ type: 'selectorVisible', selector: 'div[data-link="nemo"] .nemo-app__context-menu:not([hidden])' });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="nemo"] .nemo-app__context-menu',
+      min: 3,
+    });
+  }
+  if (scenario.id === 'nemo-sidebar-favorites') {
+    const nav = [
+      { link: 'Téléchargements', label: 'Téléchargements' },
+      { link: 'Bureau', label: 'Bureau' },
+      { link: 'Dossier Personnel', label: 'Dossier personnel' },
+    ];
+    nav.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          {
+            type: 'click',
+            selector: `div[data-link="nemo"] #voletnemo a[data-link="${step.link}"]`,
+            desc: `sidebar ${step.label}`,
+          },
+          { type: 'wait', ms: 280 },
+        ],
+        assertions: [{
+          type: 'hasClass',
+          selector: `div[data-link="nemo"] #voletnemo a[data-link="${step.link}"]`,
+          className: 'nemo-sidebar__link--active',
+        }],
+      });
+    });
+  }
+  if (scenario.id === 'nemo-file-new-folder') {
+    plan.dialogHandler = { accept: 'Projet' };
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="nemo"] #voletnemo a[data-link="Documents"]',
+      desc: 'sidebar Documents',
+    });
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.actions.push({ type: 'nemoMenu', menu: 'Fichier', item: 'Créer un nouveau dossier' });
+    plan.actions.push({ type: 'wait', ms: 400 });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="nemo"] .nemo-file-list a[data-item-name="Projet"]',
+    });
   }
   if (scenario.id === 'mintinstall-search') {
     plan.actions.push({ type: 'fill', selector: '.mintinstall-search input, #search-entry', value: 'firefox' });
@@ -114,6 +173,8 @@ const printDryRun = (plan) => {
       process.stdout.write(`  ${idx + 1}. class "${a.className}": ${a.selector}\n`);
     } else if (a.type === 'childCountMin') {
       process.stdout.write(`  ${idx + 1}. min ${a.min} children: ${a.selector}\n`);
+    } else if (a.type === 'selectorPresent') {
+      process.stdout.write(`  ${idx + 1}. present: ${a.selector}\n`);
     }
   });
   process.stdout.write('✓ dry-run OK — exécution Playwright requiert CAPSULE_HTTP_BASE\n');
@@ -131,6 +192,50 @@ const runScenarioActions = async (page, plan) => {
       await page.click(action.selector);
     } else if (action.type === 'fill') {
       await page.fill(action.selector, action.value || '');
+    } else if (action.type === 'contextMenu') {
+      await page.evaluate(({ selector, x, y }) => {
+        const el = document.querySelector(selector);
+        if (el) {
+          el.dispatchEvent(new MouseEvent('contextmenu', {
+            bubbles: true,
+            cancelable: true,
+            clientX: x,
+            clientY: y,
+          }));
+        }
+      }, {
+        selector: action.selector,
+        x: action.x || 320,
+        y: action.y || 280,
+      });
+    } else if (action.type === 'nemoMenu') {
+      await page.evaluate(({ menu, item }) => {
+        const scope = document.querySelector('div[data-link="nemo"]');
+        if (!scope) {
+          return;
+        }
+        if (typeof window.resolveFileExplorerMenuAction === 'function') {
+          const handled = window.resolveFileExplorerMenuAction(item, { type: 'item', menu: menu }, scope);
+          if (handled) {
+            return;
+          }
+        }
+        const triggers = scope.querySelectorAll('.nemo-menubar .menuHeader > li > a');
+        for (let i = 0; i < triggers.length; i += 1) {
+          if (triggers[i].textContent.indexOf(menu) >= 0) {
+            triggers[i].click();
+            break;
+          }
+        }
+        const links = scope.querySelectorAll('.listeSousMenu a');
+        for (let j = 0; j < links.length; j += 1) {
+          const label = links[j].textContent.replace(/\s+/g, ' ').trim();
+          if (label.indexOf(item) >= 0) {
+            links[j].click();
+            break;
+          }
+        }
+      }, { menu: action.menu, item: action.item });
     } else if (action.type === 'evaluate') {
       await page.evaluate(() => {});
     }
@@ -163,10 +268,18 @@ const runScenarioAssertions = async (page, plan, errors) => {
         if (!node) {
           return 0;
         }
-        return node.querySelectorAll('a, .nemo-app__list-row').length;
+        if (node.hidden) {
+          return 0;
+        }
+        return node.querySelectorAll('a, .nemo-app__list-row, .nemo-app__context-item').length;
       }, a.selector);
       if (count < (a.min || 1)) {
         errors.push(`Enfants insuffisants (${count} < ${a.min}) dans ${a.selector}`);
+      }
+    } else if (a.type === 'selectorPresent') {
+      const el = await page.$(a.selector);
+      if (!el) {
+        errors.push(`Élément absent: ${a.selector}`);
       }
     }
   }
@@ -181,13 +294,19 @@ const runPlaywright = async (plan) => {
     process.exit(1);
   }
 
-  const chromePath = ['/usr/bin/google-chrome', '/usr/bin/chromium'].find((p) => fs.existsSync(p));
+  const chromePath = ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) => fs.existsSync(p));
   const browser = await chromium.launch({
     headless: true,
     ...(chromePath ? { executablePath: chromePath } : {}),
   });
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
   const errors = [];
+
+  if (plan.dialogHandler && plan.dialogHandler.accept) {
+    page.on('dialog', async (dialog) => {
+      await dialog.accept(plan.dialogHandler.accept);
+    });
+  }
 
   try {
     await page.goto(plan.url, { waitUntil: 'networkidle', timeout: 60000 });
@@ -200,6 +319,15 @@ const runPlaywright = async (plan) => {
       }
     }, plan.app);
     await page.waitForTimeout(800);
+
+    await runScenarioAssertions(page, { assertions: plan.baseAssertions }, errors);
+
+    if (plan.executionBlocks.length > 0) {
+      for (let bi = 0; bi < plan.executionBlocks.length; bi += 1) {
+        await runScenarioActions(page, plan.executionBlocks[bi]);
+        await runScenarioAssertions(page, plan.executionBlocks[bi], errors);
+      }
+    }
 
     await runScenarioActions(page, plan);
     await runScenarioAssertions(page, plan, errors);

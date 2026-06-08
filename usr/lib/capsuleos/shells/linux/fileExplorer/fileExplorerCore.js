@@ -2447,6 +2447,14 @@ const bindFileExplorerNavigationControls = () => {
                 togglePathNavigationMode();
                 return true;
             }
+            if (label === 'Créer un nouveau dossier' && typeof createNewFolderInCurrentDirectory === 'function') {
+                createNewFolderInCurrentDirectory();
+                return true;
+            }
+            if (label === 'Fermer' && typeof window.closeFileExplorerWindow === 'function') {
+                window.closeFileExplorerWindow();
+                return true;
+            }
             if (typeof previousMenuResolver === 'function') {
                 return previousMenuResolver(label, context, scope);
             }

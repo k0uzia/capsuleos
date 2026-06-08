@@ -23,7 +23,7 @@
     {
       "id": "nemo",
       "label": "Nemo",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "firefox",
@@ -93,8 +93,8 @@
         "CredC": true,
         "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-D",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".nemo-sidebar",
@@ -117,11 +117,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".nemo-menubar",
@@ -142,14 +142,14 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          "#menu-app-context-menu",
+          ".nemo-app__context-menu",
           ".nemo-content"
         ]
       }
@@ -168,11 +168,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".nemo-sidebar .places-item",
@@ -919,15 +919,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 0,
-    "smokeOk": 0,
-    "measured": 0,
-    "avgPi": null,
+    "implemented": 4,
+    "smokeOk": 4,
+    "measured": 4,
+    "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 0,
+    "appsAtPi100": 1,
     "documentedPct": 100,
-    "implementedPct": 0,
-    "smokePct": 0
+    "implementedPct": 12,
+    "smokePct": 12
   },
-  "updatedAt": "2026-06-08T16:52:02.975Z"
+  "updatedAt": "2026-06-08T17:01:55.451Z"
 }

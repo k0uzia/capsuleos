@@ -34,16 +34,17 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "pallier": 6,
+  "pallier": 7,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
   "pallier3Commit": "aa71cce",
   "pallier4Commit": "37cf71f",
   "pallier5Commit": "39d115b",
-  "updatedAt": "2026-06-08T14:30:00.000Z",
+  "pallier6Commit": "9a547e1",
+  "updatedAt": "2026-06-08T16:00:00.000Z",
   "paritySnapshot": {
-    "pi_global": 88,
-    "status_global": "partiel",
+    "pi_global": 98,
+    "status_global": "ok",
     "priorityApps": {
       "nemo": 100,
       "firefox": 100,
@@ -55,46 +56,35 @@
       "themes": 100
     },
     "catalogue": {
-      "libreoffice_startcenter": 92,
-      "gucharmap": 92,
-      "hypnotix": 92,
-      "transmission": 100,
-      "sticky": 92,
-      "timeshift": 92,
-      "mintbackup": 92,
-      "thingy": 100,
-      "rhythmbox": 100,
-      "warpinator": 92,
-      "mintstick": 100,
-      "mintstick_format": 100,
-      "power_stats": 100,
-      "visionneur_images": 100,
-      "visionneur_pdf": 100,
-      "screenshot": 92,
-      "lecteur_multimedia": 92,
-      "librecalc": 92,
-      "librewriter": 92,
-      "simple_scan": 83,
-      "libreoffice_draw": 83,
-      "libreoffice_impress": 83,
-      "baobab": 83,
-      "bulky": 75,
-      "drawing": 83,
-      "font_viewer": 83,
-      "gnome_disks": 75,
-      "mate_color_select": 75
+      "baobab": 100,
+      "bulky": 100,
+      "drawing": 100,
+      "font_viewer": 100,
+      "gnome_disks": 100,
+      "simple_scan": 100,
+      "libreoffice_draw": 100,
+      "libreoffice_impress": 100,
+      "mate_color_select": 100,
+      "terminal": 100,
+      "mintdrivers": 100,
+      "mintwelcome": 100,
+      "system_monitor": 100,
+      "thunderbird": 100,
+      "webapp_manager": 100
     },
     "shell": {
       "mainMenu": 92,
       "panel": 100,
       "tray": 100,
-      "desktop": 92
+      "desktop": 92,
+      "clock": 100,
+      "theme": 100
     }
   },
   "notes": [
     "101/101 catalogue : slots ouverts OK (smoke basique).",
-    "Pallier 5 (39d115b) : update_manager/mintinstall Π=100 ; shell menu/desktop 92.",
-    "Pallier 6 : catalogue utilitaires Mint + visionneurs + LibreOffice hub Π≥92 ; panel/tray Π=100.",
-    "Π_global 88 — prochain pallier : baobab/bulky/drawing/font_viewer/gnome_disks/simple_scan/LibreOffice draw-impress."
+    "Pallier 6 (9a547e1) : utilitaires Mint + visionneurs Π≥92 ; panel/tray Π=100 ; Π_global 88.",
+    "Pallier 7 : catalogue résiduel + stubs + terminal + shell clock/theme → tous slots ≥90.",
+    "Π_global 98 — campagne v2-deep-pass clôturée côté parité interactionnelle."
   ]
 }

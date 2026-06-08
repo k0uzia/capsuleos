@@ -51,6 +51,17 @@ const MENU_SEARCH = {
   power_stats: 'Statistiques d\'alimentation',
   visionneur_images: 'Visionneur d\'images',
   visionneur_pdf: 'Visionneur de documents',
+  terminal: 'Terminal',
+  mintdrivers: 'Gestionnaire de pilotes',
+  mintwelcome: 'Écran d\'accueil Mint',
+  system_monitor: 'Moniteur système',
+  thunderbird: 'Thunderbird',
+  webapp_manager: 'Applications Web',
+  baobab: 'Analyseur d\'espace disque',
+  bulky: 'Renommer fichiers',
+  drawing: 'Dessin',
+  gnome_disks: 'Disques',
+  mate_color_select: 'Sélecteur de couleur',
 };
 
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);

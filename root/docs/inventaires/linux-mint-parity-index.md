@@ -130,7 +130,15 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 
 **Shell** : mainMenu 92 · **panel 100** · **tray 100** · desktop 92
 
-**Reste catalogue Π &lt; 90** : `baobab`, `bulky`, `drawing`, `font_viewer`, `gnome_disks`, `libreoffice_draw/impress`, `simple_scan`, `mate_color_select`, `terminal`, stubs (`mintdrivers`, `mintwelcome`, …).
+### Snapshot pallier 7 (2026-06-08)
+
+**Π_global** : 98 (`ok`) — cible 92+ atteinte · **tous slots apps/shell ≥ 90**
+
+| Zone | Π | Statut |
+|------|---|--------|
+| Catalogue résiduel | 100 | baobab, bulky, drawing, font_viewer, gnome_disks, simple_scan, libreoffice_draw/impress, mate_color_select, terminal |
+| Stubs | 100 | mintdrivers, mintwelcome, system_monitor, thunderbird, webapp_manager |
+| Shell | 100 | clock, theme (+ panel/tray pallier 6) |
 
 ## Patterns noyau extraits (campagne)
 

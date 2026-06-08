@@ -36,6 +36,25 @@
         root.dataset.thunderbirdInit = 'true';
         syncWindowTitle(getWindowEl(root));
 
+        var folderList = root.querySelector('.tbd-app__folder-list');
+        if (folderList) {
+            folderList.addEventListener('click', function onFolderClick(ev) {
+                var folder = ev.target;
+                while (folder && folder !== folderList) {
+                    if (folder.classList && folder.classList.contains('tbd-app__folder')) {
+                        var folders = folderList.querySelectorAll('.tbd-app__folder');
+                        var fi;
+                        for (fi = 0; fi < folders.length; fi += 1) {
+                            folders[fi].classList.remove('is-selected');
+                        }
+                        folder.classList.add('is-selected');
+                        return;
+                    }
+                    folder = folder.parentElement;
+                }
+            });
+        }
+
         var msgList = root.querySelector('#tbd-msg-list');
         if (msgList) {
             msgList.addEventListener('click', function onMsgClick(ev) {

@@ -35,6 +35,21 @@
         }
         root.dataset.mintwelcomeInit = 'true';
         syncWindowTitle(getWindowEl(root));
+
+        root.addEventListener('click', function onAction(ev) {
+            var btn = ev.target;
+            if (!btn || !btn.getAttribute) {
+                return;
+            }
+            var action = btn.getAttribute('data-mwc-action');
+            var subtitle = root.querySelector('.mwc-app__subtitle');
+            if (action === 'tour' && subtitle) {
+                subtitle.textContent = 'Visite guidée — simulation';
+            }
+            if (action === 'updates' && subtitle) {
+                subtitle.textContent = 'Mises à jour — ouverture simulée';
+            }
+        });
     }
 
     global.initMintwelcomeApp = function initMintwelcomeApp() {

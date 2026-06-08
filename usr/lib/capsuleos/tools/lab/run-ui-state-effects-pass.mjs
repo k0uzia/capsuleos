@@ -201,6 +201,74 @@ async function runShellChecks(page, surfaces) {
       push('tray-kb', 'kb', kb, {});
     }
 
+    if (surface === 'clock') {
+      const clockVis = await page.evaluate(() => ({
+        time: document.getElementById('taskbar-clock')?.textContent?.length >= 4,
+        trigger: !!document.getElementById('taskbar-clock-trigger'),
+      }));
+      push('clock-vis', 'vis', clockVis.time && clockVis.trigger, clockVis);
+      push('clock-data', 'data', clockVis.time, clockVis);
+
+      await page.click('#taskbar-clock-trigger');
+      await page.waitForTimeout(80);
+      const pop = await page.evaluate(() => ({
+        open: document.getElementById('taskbar-calendar-popover') && !document.getElementById('taskbar-calendar-popover').hidden,
+        month: document.getElementById('cal-month-label')?.textContent || '',
+      }));
+      push('clock-popover', 'nav', pop.open, pop);
+      push('clock-int', 'int', pop.open, pop);
+      push('clock-ctx', 'ctx', pop.open && pop.month.length > 0, pop);
+
+      await page.click('#cal-next-month');
+      await page.waitForTimeout(50);
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(45);
+      const kb = await page.evaluate(() => (
+        document.getElementById('taskbar-calendar-popover')?.hidden
+      ));
+      push('clock-kb', 'kb', kb, {});
+    }
+
+    if (surface === 'theme') {
+      const themeState = await page.evaluate(() => ({
+        theme: document.documentElement.dataset.theme,
+      }));
+      push('theme-vis', 'vis', themeState.theme === 'dark' || themeState.theme === 'light', themeState);
+      push('theme-data', 'data', !!themeState.theme, themeState);
+
+      await openMintSlot(page, 'themes');
+      await page.waitForTimeout(200);
+      await page.click('[data-cs-nav="themes"]');
+      await page.waitForTimeout(80);
+      await page.click('#cinnamonSettingsApp [data-theme-option="light"]');
+      await page.waitForTimeout(60);
+      const light = await page.evaluate(() => (
+        document.documentElement.dataset.theme === 'light'
+      ));
+      push('theme-toggle', 'int', light, {});
+
+      await page.click('#cinnamonSettingsApp .themes-app__select');
+      await page.waitForTimeout(50);
+      const pop = await page.evaluate(() => {
+        const p = document.getElementById('themes-style-popover');
+        return p && !p.hidden;
+      });
+      push('theme-popover', 'ctx', pop, {});
+
+      await page.evaluate(() => {
+        const opt = document.querySelector('#cinnamonSettingsApp [data-theme-option="dark"]');
+        if (opt) opt.focus();
+      });
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(60);
+      const kb = await page.evaluate(() => (
+        document.documentElement.dataset.theme === 'dark'
+      ));
+      push('theme-kb', 'kb', kb, {});
+      push('theme-nav', 'nav', light || kb, {});
+    }
+
     if (surface === 'desktop') {
       const shortcuts = await page.evaluate(() => (
         document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length >= 2

@@ -333,6 +333,10 @@
         global.openFileRollerDemoArchive = function openFileRollerDemoArchive() {
             openArchive(DEMO_ARCHIVE);
         };
+
+        global.openFileRollerNewArchive = function openFileRollerNewArchive(name) {
+            openArchive({ name: name || 'archive.zip', path: '/', entries: [] });
+        };
     }
 
     global.initFileRollerApp = function initFileRollerApp() {

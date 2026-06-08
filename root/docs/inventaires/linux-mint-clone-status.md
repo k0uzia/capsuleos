@@ -78,7 +78,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#11 Lecteur vidéo** — `lecteur_multimedia` / Celluloid, smoke `smoke-mint-celluloid.mjs` OK (2026-06-08)
 - [x] **#12 LibreOffice Calc** — `librecalc`, smoke `smoke-mint-librecalc.mjs` OK (2026-06-08)
 - [x] **#13 LibreOffice Writer** — `librewriter`, smoke `smoke-mint-librewriter.mjs` OK (2026-06-08)
-- [ ] Reproduction **une app par passe** (suite : #14 Logithèque) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [ ] Reproduction **une app par passe** (suite : **#14 Logithèque** / `mintinstall`, slot dédié) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Campagne v2 — shell panel (2026-06-08)
@@ -88,6 +88,11 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] Minimize → `capsuleRunning` + entrée grouped-list minimisée
 - [x] Smokes panel : `run-capsule-panel-browser.mjs` **6/6**
 - [ ] Panel VM : **4/6** (focus Firefox, minimize — lab)
+
+## Campagne v2 — objets modaux (P2)
+
+- [x] Matrice bootstrap **VΣ** — [`linux-mint-ui-state-effects-matrix.json`](linux-mint-ui-state-effects-matrix.json) (8 surfaces shell P0/P1)
+- [ ] Collecte burst VM + `Vμ` par surface
 
 ## Zone de notification (2026-06-04)
 

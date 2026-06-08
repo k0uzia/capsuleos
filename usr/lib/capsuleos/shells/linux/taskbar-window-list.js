@@ -6,6 +6,7 @@
     'use strict';
 
     const EXCLUDED_SLOTS = new Set(['mainMenu']);
+    const PINNED_SLOTS = new Set(['nemo', 'mintinstall', 'terminal']);
 
     const WINDOW_ICONS = {
         nemo: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp',
@@ -119,12 +120,14 @@
     function getOpenWindows() {
         return Array.from(document.querySelectorAll('.windowElement'))
             .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
+            .filter((container) => !PINNED_SLOTS.has(container.dataset.link))
             .filter(isWindowVisible);
     }
 
     function getRunningWindows() {
         return Array.from(document.querySelectorAll('.windowElement'))
             .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
+            .filter((container) => !PINNED_SLOTS.has(container.dataset.link))
             .filter((container) => {
                 return isWindowVisible(container)
                     || (container.dataset && container.dataset.capsuleRunning === 'true');

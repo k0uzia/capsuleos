@@ -7,39 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
-    <link rel="stylesheet" href="./style/style.css?v=20260608design" type="text/css">
+    <link rel="stylesheet" href="./style/style.css?v=20260608vmref" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>Mint</title>
 </head>
 <body id="mint">
     <div id="desktop" role="application" aria-label="Bureau Linux Mint">
-        <div class="desktop-shortcuts" role="list" aria-label="Favoris du bureau">
-            <a class="desktop-shortcut" target="windowElement" data-link="calculator" title="Calculatrice" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp" alt="">
-                <span>Calculatrice</span>
-            </a>
-            <a class="desktop-shortcut" href="#" data-mint-favorite="calendar" title="Agenda" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calendar.webp" alt="">
-                <span>Agenda</span>
-            </a>
-            <a class="desktop-shortcut" target="windowElement" data-link="text_editor" title="Éditeur de texte (xed)" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp" alt="">
-                <span>Éditeur de texte</span>
-            </a>
-            <a class="desktop-shortcut" target="windowElement" data-link="mintinstall" title="Logithèque" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="">
-                <span>Logithèque</span>
-            </a>
-            <a class="desktop-shortcut" target="windowElement" data-link="themes" title="Paramètres du système" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp" alt="">
-                <span>Paramètres</span>
-            </a>
-            <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Linux Mint Cinnamon À Propos" role="listitem">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/user-info.png" alt="">
-                <span>Linux Mint<br>À Propos</span>
-            </a>
-        </div>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
         <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
@@ -171,6 +145,17 @@
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
             <span class="mint-panel__separator taskbar-separator" aria-hidden="true"></span>
+            <div class="mint-panel__pinned" id="mint-panel-pinned" role="group" aria-label="Applications épinglées">
+                <a class="mint-panel__launcher" target="windowElement" data-link="nemo" title="Fichiers">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp" alt="">
+                </a>
+                <a class="mint-panel__launcher" target="windowElement" data-link="mintinstall" title="Logithèque">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="">
+                </a>
+                <a class="mint-panel__launcher" target="windowElement" data-link="terminal" title="Terminal">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
+                </a>
+            </div>
             <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
@@ -183,48 +168,31 @@
                         title="Gestionnaire de mise à jour">
                     <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-xapp"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-xapp"
                         aria-expanded="false" aria-controls="mint-tray-popover-xapp"
-                        aria-label="Applications XApp" title="Applications XApp">
+                        aria-label="Applications XApp" title="Applications XApp" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-notifications"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-notifications"
                         aria-expanded="false" aria-controls="mint-tray-popover-notifications"
-                        aria-label="Notifications" title="Notifications">
+                        aria-label="Notifications" title="Notifications" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--notifications" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-printers"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-printers"
                         aria-expanded="false" aria-controls="mint-tray-popover-printers"
-                        aria-label="Imprimantes" title="Imprimantes">
+                        aria-label="Imprimantes" title="Imprimantes" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-removable"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-removable"
                         aria-expanded="false" aria-controls="mint-tray-popover-removable"
-                        aria-label="Supports amovibles" title="Supports amovibles">
+                        aria-label="Supports amovibles" title="Supports amovibles" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-keyboard"
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--keyboard-label" id="tray-btn-keyboard"
                         aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
-                        aria-label="Disposition du clavier" title="Disposition du clavier">
-                    <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
+                        aria-label="Disposition du clavier : français" title="Disposition du clavier">
+                    <span class="taskbar-tray__kbd-label" aria-hidden="true">fr</span>
                 </button>
-                <div class="mint-panel__favorites taskbar-favorites" id="mint-tray-favorites" role="group" aria-label="Favoris">
-                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="calculator" title="Calculatrice" aria-label="Calculatrice">
-                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp" alt="">
-                    </button>
-                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="calendar" data-favorite-action="calendar-popover" title="Agenda" aria-label="Agenda">
-                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calendar.webp" alt="">
-                    </button>
-                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="text_editor" title="Éditeur de texte" aria-label="Éditeur de texte">
-                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp" alt="">
-                    </button>
-                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="mintinstall" title="Logithèque" aria-label="Logithèque">
-                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="">
-                    </button>
-                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="themes" title="Paramètres système" aria-label="Paramètres système">
-                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp" alt="">
-                    </button>
-                </div>
                 <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
                         aria-expanded="false" aria-controls="mint-tray-popover-network"
                         aria-label="Réseau" title="Réseau">
@@ -235,13 +203,13 @@
                         aria-label="Contrôle du volume" title="Volume">
                     <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power"
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power mint-tray--vm-collapsed"
                         aria-expanded="false" aria-controls="mint-power-menu"
-                        aria-label="Alimentation" title="Alimentation">
+                        aria-label="Alimentation" title="Alimentation" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--power" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar" id="tray-btn-cornerbar"
-                        aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau">
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar mint-tray--vm-collapsed" id="tray-btn-cornerbar"
+                        aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true"></span>
                 </button>
             </div>
@@ -404,7 +372,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="../../../var/lib/capsuleos/generated/mint-wallpaper-catalog.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js?v=20260608b"></script>
-    <script src="./content/mint-menu-parity.js?v=20260608pxperfect"></script>
+    <script src="./content/mint-menu-parity.js?v=20260608vmref"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
@@ -489,7 +457,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
-    <script src="./content/mint-panel-favorites.js?v=20260608pxperfect"></script>
+    <script src="./content/mint-panel-pinned.js?v=20260608vmref"></script>
     <script src="./content/mint-tray.js?v=20260604"></script>
 </body>
 </html>

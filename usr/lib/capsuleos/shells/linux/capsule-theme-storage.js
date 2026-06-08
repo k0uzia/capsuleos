@@ -308,7 +308,7 @@
 
     function defaultWallpaperId(bodyId) {
         if (bodyId === 'mint') {
-            return 'linuxmint';
+            return 'default_background';
         }
         if (bodyId === 'fedora') {
             return 'f44-01';

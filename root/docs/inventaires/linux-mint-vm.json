@@ -45,19 +45,19 @@
     "panelCore": [
       {
         "desktop": "nemo.desktop",
-        "name": "Trash",
+        "name": "Files",
         "exec": "nemo",
         "icon": "system-file-manager"
       },
       {
-        "desktop": "firefox.desktop",
-        "name": "Open a New Private Window",
-        "exec": "firefox",
-        "icon": "firefox"
+        "desktop": "mintinstall.desktop",
+        "name": "Software Manager",
+        "exec": "mintinstall",
+        "icon": "mintinstall"
       },
       {
         "desktop": "org.gnome.Terminal.desktop",
-        "name": "Preferences",
+        "name": "Terminal",
         "exec": "gnome-terminal",
         "icon": "org.gnome.Terminal"
       }

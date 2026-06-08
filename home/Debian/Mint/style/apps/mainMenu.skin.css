@@ -79,8 +79,12 @@ body#mint div[data-link="mainMenu"] .menu-user__avatar {
     width: calc(var(--head) * 0.85);
     height: calc(var(--head) * 0.85);
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
     flex-shrink: 0;
+    padding: calc(var(--head) / 10);
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.12);
+    filter: brightness(0) invert(1) opacity(0.92);
 }
 
 body#mint div[data-link="mainMenu"] .menu-user__name {

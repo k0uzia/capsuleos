@@ -46,7 +46,7 @@
     "CAPSULE_EXPLORER_TEMPLATE": "nemo",
     "CAPSULE_EMBED_SKIN_KEY": "mint",
     "CAPSULE_FORCE_APP_EMBED": true,
-    "CAPSULE_SKIN_CSS_VERSION": "20260608pxperfect",
+    "CAPSULE_SKIN_CSS_VERSION": "20260608vmref",
     "CAPSULE_STATIC_SKIN_SLOTS": ["mainMenu"],
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",

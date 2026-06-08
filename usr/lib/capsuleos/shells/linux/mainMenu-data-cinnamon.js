@@ -11,6 +11,7 @@ const MENU_CATS = [
     { id: 'sonvideo', label: 'Son et vidéo' },
     { id: 'prefs',    label: 'Préférences' },
     { id: 'admin',    label: 'Administration' },
+    { id: 'favorites', label: 'Favoris' },
     { id: 'recent',   label: 'Fichiers récents' },
 ];
 

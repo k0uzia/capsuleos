@@ -6,6 +6,10 @@ html {
     color: var(--texte);
 }
 
+body#mint #desktop > .desktop-shortcuts {
+    display: none !important;
+}
+
 #mint {
     display: var(--f);
     flex-flow: var(--cnw);

@@ -24,7 +24,7 @@
         "type": "image",
         "dark": "vendors/mint/wallpaper/default_background.jpg",
         "light": "vendors/mint/wallpaper/default_background.jpg",
-        "default": false
+        "default": true
     },
     {
         "id": "edesigner_linuxmint",
@@ -184,7 +184,7 @@
         "type": "image",
         "dark": "vendors/mint/wallpaper/linuxmint.jpg",
         "light": "vendors/mint/wallpaper/linuxmint.jpg",
-        "default": true
+        "default": false
     },
     {
         "id": "lzhang_uzumaki",

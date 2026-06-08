@@ -33,7 +33,7 @@
     {
       "id": "text_editor",
       "label": "Xed",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "calculator",
@@ -48,7 +48,7 @@
     {
       "id": "update_manager",
       "label": "Gestionnaire de mises à jour",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "mintinstall",
@@ -269,11 +269,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".xed-editor",
@@ -294,11 +294,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".xed-searchbar"
@@ -318,11 +318,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".xed-prefs-dialog"
@@ -488,11 +488,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".update-manager-list",
@@ -513,11 +513,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".update-manager-tabs .tab"
@@ -537,11 +537,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".update-manager-refresh"
@@ -920,15 +920,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 13,
-    "smokeOk": 13,
-    "measured": 13,
+    "implemented": 19,
+    "smokeOk": 19,
+    "measured": 19,
     "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 4,
+    "appsAtPi100": 6,
     "documentedPct": 100,
-    "implementedPct": 38,
-    "smokePct": 38
+    "implementedPct": 56,
+    "smokePct": 56
   },
-  "updatedAt": "2026-06-08T17:20:22.918Z"
+  "updatedAt": "2026-06-08T17:28:44.342Z"
 }

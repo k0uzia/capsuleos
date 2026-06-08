@@ -283,19 +283,16 @@
             updateStatus();
         }
 
-        function saveDocument(asCopy) {
-            var name = fileName || 'document.txt';
-            if (asCopy) {
-                var suggested = global.prompt('Enregistrer sous :', name);
-                if (suggested === null) {
-                    return;
-                }
-                suggested = suggested.replace(/^\s+|\s+$/g, '');
-                if (suggested) {
-                    name = suggested;
-                    fileName = name;
-                }
+        function basenameFromPath(pathValue) {
+            var raw = String(pathValue || '').replace(/^\s+|\s+$/g, '');
+            if (!raw) {
+                return '';
             }
+            var parts = raw.split('/');
+            return parts[parts.length - 1] || raw;
+        }
+
+        function downloadDocument(name) {
             var blob = new Blob([area.value], { type: 'text/plain;charset=utf-8' });
             var url = global.URL.createObjectURL(blob);
             var link = global.document.createElement('a');
@@ -307,6 +304,48 @@
             }, 500);
             savedValue = area.value;
             setDirty(false);
+        }
+
+        function openSaveAsDialog() {
+            closeAllMenus();
+            openDialog('xed-save-dialog');
+            var pathInput = global.document.getElementById('xed-save-path');
+            if (pathInput) {
+                var suggested = fileName ? '~/Documents/' + fileName : '~/Documents/document.txt';
+                pathInput.value = suggested;
+                pathInput.focus();
+                pathInput.select();
+            }
+        }
+
+        function applySaveAs() {
+            var pathInput = global.document.getElementById('xed-save-path');
+            if (!pathInput) {
+                return;
+            }
+            var name = basenameFromPath(pathInput.value);
+            if (!name) {
+                return;
+            }
+            fileName = name;
+            closeAllDialogs();
+            downloadDocument(name);
+            refreshTitle();
+            syncDocumentsMenu();
+        }
+
+        function saveDocument(asCopy) {
+            if (asCopy) {
+                openSaveAsDialog();
+                return;
+            }
+            var name = fileName || 'document.txt';
+            downloadDocument(name);
+            if (!fileName) {
+                fileName = name;
+                refreshTitle();
+                syncDocumentsMenu();
+            }
         }
 
         function revertDocument() {
@@ -349,6 +388,71 @@
             root.querySelectorAll('.xed-dialog').forEach(function closeDlg(dlg) {
                 dlg.hidden = true;
             });
+            var searchbar = global.document.getElementById('xed-searchbar');
+            if (searchbar) {
+                searchbar.hidden = true;
+            }
+        }
+
+        function hideSearchBar() {
+            var searchbar = global.document.getElementById('xed-searchbar');
+            if (searchbar) {
+                searchbar.hidden = true;
+            }
+        }
+
+        function showSearchBar() {
+            closeAllDialogs();
+            closeAllMenus();
+            var searchbar = global.document.getElementById('xed-searchbar');
+            var searchInput = global.document.getElementById('xed-searchbar-input');
+            if (!searchbar || !searchInput) {
+                openDialog('xed-find-dialog');
+                var findInput = global.document.getElementById('xed-find-input');
+                if (findInput) {
+                    if (lastFind) {
+                        findInput.value = lastFind;
+                    }
+                    findInput.focus();
+                    findInput.select();
+                }
+                return;
+            }
+            searchbar.hidden = false;
+            if (lastFind) {
+                searchInput.value = lastFind;
+            }
+            searchInput.focus();
+            searchInput.select();
+        }
+
+        function setPrefsTab(tabId) {
+            root.querySelectorAll('[data-xed-prefs-tab]').forEach(function markTab(btn) {
+                btn.classList.toggle('is-active', btn.getAttribute('data-xed-prefs-tab') === tabId);
+            });
+            root.querySelectorAll('[data-xed-prefs-panel]').forEach(function markPanel(panel) {
+                panel.hidden = panel.getAttribute('data-xed-prefs-panel') !== tabId;
+            });
+        }
+
+        function openPreferences() {
+            closeAllMenus();
+            openDialog('xed-prefs-dialog');
+            setPrefsTab('font');
+        }
+
+        function applyPreferences() {
+            var fontSelect = global.document.getElementById('xed-prefs-font');
+            var sizeInput = global.document.getElementById('xed-prefs-font-size');
+            if (fontSelect) {
+                area.style.fontFamily = fontSelect.value === 'monospace'
+                    ? 'monospace'
+                    : fontSelect.value;
+            }
+            if (sizeInput && sizeInput.value) {
+                area.style.fontSize = parseInt(sizeInput.value, 10) + 'px';
+            }
+            closeAllDialogs();
         }
 
         function openDialog(id) {
@@ -384,15 +488,12 @@
 
         function findText(advance) {
             if (!advance) {
-                var findInput = global.document.getElementById('xed-find-input');
-                if (findInput && lastFind) {
-                    findInput.value = lastFind;
-                }
-                openDialog('xed-find-dialog');
-                if (findInput) {
-                    findInput.focus();
-                    findInput.select();
-                }
+                showSearchBar();
+                return;
+            }
+            var searchInput = global.document.getElementById('xed-searchbar-input');
+            if (searchInput && !searchInput.closest('[hidden]')) {
+                applyFindQuery(searchInput.value, true);
                 return;
             }
             if (!applyFindQuery(lastFind, true)) {
@@ -654,6 +755,10 @@
                 goToLine();
                 return;
             }
+            if (action === 'preferences') {
+                openPreferences();
+                return;
+            }
             if (action === 'toggle-toolbar') {
                 toggleToolbar();
                 return;
@@ -769,6 +874,76 @@
                     if (action === 'goto-apply') {
                         applyGoToLine();
                     }
+                    if (action === 'save-apply') {
+                        applySaveAs();
+                    }
+                    if (action === 'prefs-apply') {
+                        applyPreferences();
+                    }
+                });
+            });
+
+            root.querySelectorAll('[data-xed-searchbar]').forEach(function bindSearchbarBtn(btn) {
+                btn.addEventListener('click', function onSearchbarClick(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var action = btn.getAttribute('data-xed-searchbar');
+                    var searchInput = global.document.getElementById('xed-searchbar-input');
+                    if (action === 'close') {
+                        hideSearchBar();
+                        return;
+                    }
+                    if (!searchInput) {
+                        return;
+                    }
+                    if (action === 'next') {
+                        applyFindQuery(searchInput.value, lastFindIndex >= 0);
+                        return;
+                    }
+                    if (action === 'prev') {
+                        var q = (searchInput.value || '').replace(/^\s+|\s+$/g, '');
+                        if (!q) {
+                            return;
+                        }
+                        var startAt = lastFindIndex > 0 ? lastFindIndex - 1 : area.value.length;
+                        var idx = area.value.lastIndexOf(q, startAt);
+                        if (idx < 0) {
+                            idx = area.value.lastIndexOf(q);
+                        }
+                        if (idx < 0) {
+                            return;
+                        }
+                        lastFind = q;
+                        lastFindIndex = idx;
+                        area.focus();
+                        area.selectionStart = idx;
+                        area.selectionEnd = idx + q.length;
+                        updateStatus();
+                    }
+                });
+            });
+
+            var searchbarInput = global.document.getElementById('xed-searchbar-input');
+            if (searchbarInput) {
+                searchbarInput.addEventListener('keydown', function onSearchbarKey(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        applyFindQuery(searchbarInput.value, e.shiftKey && lastFindIndex >= 0);
+                    }
+                    if (e.key === 'Escape') {
+                        hideSearchBar();
+                    }
+                });
+                searchbarInput.addEventListener('input', function onSearchbarInput() {
+                    applyFindQuery(searchbarInput.value, false);
+                });
+            }
+
+            root.querySelectorAll('[data-xed-prefs-tab]').forEach(function bindPrefsTab(btn) {
+                btn.addEventListener('click', function onPrefsTabClick(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPrefsTab(btn.getAttribute('data-xed-prefs-tab'));
                 });
             });
 

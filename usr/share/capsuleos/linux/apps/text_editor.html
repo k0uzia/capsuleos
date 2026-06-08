@@ -1,6 +1,6 @@
 <main id="xedApp" class="xed-app" aria-label="Éditeur de texte">
 
-    <nav class="xed-app__menubar" role="menubar" aria-label="Menus">
+    <nav class="xed-app__menubar xed-menubar" role="menubar" aria-label="Menus">
 
         <div class="xed-menu" role="none">
             <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Fichier</button>
@@ -28,6 +28,8 @@
                 <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="delete">Supprimer</button></li>
                 <li class="xed-menu__sep" role="separator"></li>
                 <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="select-all">Tout sélectionner<span class="xed-menu__sc">Ctrl+A</span></button></li>
+                <li class="xed-menu__sep" role="separator"></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="preferences">Préférences…</button></li>
             </ul>
         </div>
 
@@ -100,9 +102,17 @@
         </button>
     </header>
 
+    <div class="xed-searchbar" id="xed-searchbar" role="search" aria-label="Rechercher dans le document" hidden>
+        <label class="xed-searchbar__label" for="xed-searchbar-input">Rechercher :</label>
+        <input type="text" class="xed-searchbar__input" id="xed-searchbar-input" autocomplete="off">
+        <button type="button" class="xed-searchbar__btn" data-xed-searchbar="prev" title="Précédent">Précédent</button>
+        <button type="button" class="xed-searchbar__btn" data-xed-searchbar="next" title="Suivant">Suivant</button>
+        <button type="button" class="xed-searchbar__btn xed-searchbar__btn--close" data-xed-searchbar="close" title="Fermer">✕</button>
+    </div>
+
     <div class="xed-app__editor-wrap">
         <textarea
-            class="xed-app__area"
+            class="xed-app__area xed-editor"
             id="xed-area"
             data-capsule-attr="placeholder:text_editor.placeholder"
             placeholder="Saisissez votre texte…"
@@ -149,6 +159,66 @@
                 <button type="button" class="xed-dialog__btn" data-xed-dialog="replace-one">Remplacer</button>
                 <button type="button" class="xed-dialog__btn" data-xed-dialog="replace-all">Tout remplacer</button>
                 <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="close">Fermer</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="xed-dialog" id="xed-save-dialog" role="dialog" aria-labelledby="xed-save-title" hidden>
+        <form class="xed-dialog__panel" onsubmit="return false">
+            <h3 class="xed-dialog__title" id="xed-save-title">Enregistrer sous</h3>
+            <label class="xed-dialog__field">
+                <span>Emplacement :</span>
+                <input type="text" id="xed-save-path" class="xed-dialog__input" autocomplete="off" placeholder="~/Documents/document.txt">
+            </label>
+            <div class="xed-dialog__actions">
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="save-apply">Enregistrer</button>
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="close">Annuler</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="xed-dialog xed-prefs-dialog" id="xed-prefs-dialog" role="dialog" aria-labelledby="xed-prefs-title" hidden>
+        <form class="xed-dialog__panel xed-prefs-dialog__panel" onsubmit="return false">
+            <h3 class="xed-dialog__title" id="xed-prefs-title">Préférences</h3>
+            <nav class="xed-prefs-dialog__tabs" aria-label="Onglets préférences">
+                <button type="button" class="xed-prefs-dialog__tab is-active" data-xed-prefs-tab="font">Police</button>
+                <button type="button" class="xed-prefs-dialog__tab" data-xed-prefs-tab="display">Affichage</button>
+                <button type="button" class="xed-prefs-dialog__tab" data-xed-prefs-tab="plugins">Plugins</button>
+            </nav>
+            <section class="xed-prefs-dialog__page" data-xed-prefs-panel="font">
+                <label class="xed-dialog__field">
+                    <span>Police :</span>
+                    <select id="xed-prefs-font" class="xed-dialog__input">
+                        <option value="monospace">Monospace</option>
+                        <option value="ubuntu">Ubuntu</option>
+                        <option value="liberation">Liberation Mono</option>
+                    </select>
+                </label>
+                <label class="xed-dialog__field">
+                    <span>Taille :</span>
+                    <input type="number" id="xed-prefs-font-size" class="xed-dialog__input" min="8" max="48" value="12">
+                </label>
+            </section>
+            <section class="xed-prefs-dialog__page" data-xed-prefs-panel="display" hidden>
+                <label class="xed-dialog__field">
+                    <input type="checkbox" id="xed-prefs-line-numbers">
+                    <span>Afficher les numéros de ligne</span>
+                </label>
+                <label class="xed-dialog__field">
+                    <input type="checkbox" id="xed-prefs-highlight" checked>
+                    <span>Surligner la ligne courante</span>
+                </label>
+            </section>
+            <section class="xed-prefs-dialog__page" data-xed-prefs-panel="plugins" hidden>
+                <p class="xed-prefs-dialog__hint">Extensions pédagogiques (simulation) : orthographe, snippets, sessions.</p>
+                <label class="xed-dialog__field">
+                    <input type="checkbox" id="xed-prefs-spell" checked>
+                    <span>Vérification orthographique</span>
+                </label>
+            </section>
+            <div class="xed-dialog__actions">
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="prefs-apply">Valider</button>
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="close">Fermer</button>
             </div>
         </form>
     </div>

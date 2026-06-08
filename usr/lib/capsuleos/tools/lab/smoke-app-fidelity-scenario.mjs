@@ -401,6 +401,225 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       text: 'installé',
     });
   }
+  if (scenario.id === 'text-editor-open-save') {
+    plan.actions.push({
+      type: 'fill',
+      selector: 'div[data-link="text_editor"] #xed-area',
+      value: 'Contenu pédagogique CapsuleOS',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'xedMenu', menu: 'Fichier', item: 'Enregistrer sous' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'selectorVisible',
+        selector: 'div[data-link="text_editor"] #xed-save-dialog:not([hidden])',
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'fill',
+          selector: 'div[data-link="text_editor"] #xed-save-path',
+          value: '~/Documents/notes-capsule.txt',
+        },
+        {
+          type: 'click',
+          selector: 'div[data-link="text_editor"] #xed-save-dialog [data-xed-dialog="save-apply"]',
+          desc: 'valider enregistrement',
+        },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'textContains',
+        selector: 'div[data-link="text_editor"] #windowTitle',
+        text: 'notes-capsule.txt',
+      }],
+    });
+  }
+  if (scenario.id === 'text-editor-find') {
+    plan.actions.push({
+      type: 'fill',
+      selector: 'div[data-link="text_editor"] #xed-area',
+      value: 'alpha beta gamma beta',
+    });
+    plan.actions.push({ type: 'wait', ms: 100 });
+    plan.actions.push({
+      type: 'pressKey',
+      key: 'Control+f',
+      selector: 'div[data-link="text_editor"] #xed-area',
+      desc: 'Ctrl+F barre recherche',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="text_editor"] .xed-searchbar:not([hidden])',
+    });
+    plan.actions.push({
+      type: 'fill',
+      selector: 'div[data-link="text_editor"] #xed-searchbar-input',
+      value: 'beta',
+    });
+    plan.actions.push({ type: 'wait', ms: 100 });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="text_editor"] [data-xed-searchbar="next"]',
+      desc: 'occurrence suivante',
+    });
+    plan.actions.push({ type: 'wait', ms: 80 });
+    plan.assertions.push({
+      type: 'evaluateTruthy',
+      fn: 'xedFindSelection',
+      args: { term: 'beta' },
+    });
+  }
+  if (scenario.id === 'text-editor-preferences') {
+    plan.actions.push({ type: 'xedMenu', menu: 'Édition', item: 'Préférences' });
+    plan.actions.push({ type: 'wait', ms: 150 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="text_editor"] .xed-prefs-dialog:not([hidden])',
+    });
+    const prefTabs = [
+      { tab: 'display', panel: 'display', label: 'Affichage' },
+      { tab: 'plugins', panel: 'plugins', label: 'Plugins' },
+    ];
+    prefTabs.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          {
+            type: 'xedPrefsTab',
+            tab: step.tab,
+            desc: `onglet ${step.label}`,
+          },
+          { type: 'wait', ms: 100 },
+        ],
+        assertions: [{
+          type: 'selectorVisible',
+          selector: `div[data-link="text_editor"] [data-xed-prefs-panel="${step.panel}"]:not([hidden])`,
+        }],
+      });
+    });
+  }
+  if (scenario.id === 'update-manager-list') {
+    plan.preOpen = { type: 'umPrep' };
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="update_manager"] [data-um-welcome="finish"]',
+      desc: 'fermer accueil',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="update_manager"] [data-um-mirror="no"]',
+      desc: 'rejeter miroir',
+    });
+    plan.actions.push({ type: 'wait', ms: 80 });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="update_manager"] .update-manager-refresh',
+      desc: 'actualiser liste',
+    });
+    plan.actions.push({ type: 'wait', ms: 1100 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="update_manager"] .update-manager-list:not([hidden])',
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="update_manager"] .update-manager-list tbody input[type="checkbox"]:first-of-type',
+      desc: 'décocher première entrée',
+    });
+    plan.actions.push({ type: 'wait', ms: 100 });
+    plan.assertions.push({
+      type: 'evaluateTruthy',
+      fn: 'umCheckboxToggled',
+      args: { checked: false },
+    });
+  }
+  if (scenario.id === 'update-manager-tabs') {
+    plan.preOpen = { type: 'umPrep' };
+    plan.prepActions = [
+      {
+        type: 'click',
+        selector: 'div[data-link="update_manager"] [data-um-welcome="finish"]',
+      },
+      { type: 'wait', ms: 100 },
+      {
+        type: 'click',
+        selector: 'div[data-link="update_manager"] [data-um-mirror="no"]',
+      },
+      { type: 'wait', ms: 80 },
+      {
+        type: 'click',
+        selector: 'div[data-link="update_manager"] .update-manager-refresh',
+      },
+      { type: 'wait', ms: 1100 },
+    ];
+    const umTabs = [
+      { tab: 'packages', expect: 'paquet binaire' },
+      { tab: 'changelog', expect: 'correctifs' },
+      { tab: 'info', expect: 'alsa-lib' },
+    ];
+    umTabs.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          {
+            type: 'umTab',
+            tab: step.tab,
+            desc: `onglet ${step.tab}`,
+          },
+          { type: 'wait', ms: 150 },
+        ],
+        assertions: [{
+          type: 'textContains',
+          selector: 'div[data-link="update_manager"] #um-panel',
+          text: step.expect,
+        }],
+      });
+    });
+  }
+  if (scenario.id === 'update-manager-refresh') {
+    plan.preOpen = { type: 'umPrep' };
+    plan.prepActions = [
+      {
+        type: 'click',
+        selector: 'div[data-link="update_manager"] [data-um-welcome="finish"]',
+      },
+      { type: 'wait', ms: 100 },
+      {
+        type: 'click',
+        selector: 'div[data-link="update_manager"] [data-um-mirror="no"]',
+      },
+      { type: 'wait', ms: 80 },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'click',
+          selector: 'div[data-link="update_manager"] .update-manager-refresh',
+          desc: 'lancer actualisation',
+        },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'umRefreshBusy',
+      }],
+    });
+    plan.actions.push({ type: 'wait', ms: 900 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="update_manager"] .update-manager-list:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="update_manager"] .update-manager-list tbody',
+      min: 3,
+    });
+  }
 
   return plan;
 };
@@ -471,6 +690,71 @@ const runScenarioActions = async (page, plan) => {
         x: action.x || 320,
         y: action.y || 280,
       });
+    } else if (action.type === 'umTab') {
+      await page.evaluate((tab) => {
+        const btn = document.querySelector(
+          'div[data-link="update_manager"] .update-manager-tabs [data-um-tab="' + tab + '"]',
+        );
+        if (btn) {
+          btn.click();
+        }
+      }, action.tab);
+    } else if (action.type === 'xedPrefsTab') {
+      await page.evaluate((tab) => {
+        const btn = document.querySelector(
+          'div[data-link="text_editor"] [data-xed-prefs-tab="' + tab + '"]',
+        );
+        if (btn) {
+          btn.click();
+        }
+      }, action.tab);
+    } else if (action.type === 'xedMenu') {
+      await page.evaluate(({ menu, item }) => {
+        const scope = document.querySelector('div[data-link="text_editor"]');
+        if (!scope) {
+          return;
+        }
+        if (typeof window.initTextEditorApp === 'function') {
+          window.initTextEditorApp();
+        }
+        const actionMap = {
+          'Enregistrer sous': 'save-as',
+          'Préférences': 'preferences',
+        };
+        const actionId = actionMap[item];
+        if (actionId) {
+          const menus = scope.querySelectorAll('.xed-menu');
+          for (let i = 0; i < menus.length; i += 1) {
+            const trigger = menus[i].querySelector('.xed-menu__trigger');
+            if (!trigger || trigger.textContent.indexOf(menu) < 0) {
+              continue;
+            }
+            trigger.click();
+            const target = menus[i].querySelector('[data-xed-action="' + actionId + '"]');
+            if (target) {
+              target.click();
+              return;
+            }
+          }
+        }
+        const menus = scope.querySelectorAll('.xed-menu');
+        for (let i = 0; i < menus.length; i += 1) {
+          const trigger = menus[i].querySelector('.xed-menu__trigger');
+          if (!trigger || trigger.textContent.indexOf(menu) < 0) {
+            continue;
+          }
+          trigger.click();
+          const dropdown = menus[i].querySelector('.xed-menu__dropdown');
+          const items = dropdown ? dropdown.querySelectorAll('.xed-menu__item') : [];
+          for (let j = 0; j < items.length; j += 1) {
+            const label = items[j].textContent.replace(/\s+/g, ' ').trim();
+            if (label.indexOf(item) >= 0) {
+              items[j].click();
+              return;
+            }
+          }
+        }
+      }, { menu: action.menu, item: action.item });
     } else if (action.type === 'nemoMenu') {
       await page.evaluate(({ menu, item }) => {
         const scope = document.querySelector('div[data-link="nemo"]');
@@ -540,7 +824,7 @@ const runScenarioAssertions = async (page, plan, errors) => {
           return 0;
         }
         return node.querySelectorAll(
-          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb, .firefox-tab, .capsule-browser__menu-item',
+          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb, .firefox-tab, .capsule-browser__menu-item, tr',
         ).length;
       }, a.selector);
       if (count < (a.min || 1)) {
@@ -550,6 +834,37 @@ const runScenarioAssertions = async (page, plan, errors) => {
       const el = await page.$(a.selector);
       if (!el) {
         errors.push(`Élément absent: ${a.selector}`);
+      }
+    } else if (a.type === 'evaluateTruthy') {
+      const ok = await page.evaluate(({ fn, args }) => {
+        if (fn === 'xedFindSelection') {
+          const area = document.getElementById('xed-area');
+          if (!area) {
+            return false;
+          }
+          const sel = area.value.substring(area.selectionStart, area.selectionEnd);
+          return sel === (args && args.term);
+        }
+        if (fn === 'umCheckboxToggled') {
+          const cb = document.querySelector(
+            'div[data-link="update_manager"] .update-manager-list tbody input[type="checkbox"]',
+          );
+          if (!cb) {
+            return false;
+          }
+          return cb.checked === (args && args.checked);
+        }
+        if (fn === 'umRefreshBusy') {
+          const app = document.getElementById('updateManagerApp');
+          const refreshBtn = document.querySelector(
+            'div[data-link="update_manager"] .update-manager-refresh',
+          );
+          return !!(app && app.dataset.umBusy === 'true' && refreshBtn && refreshBtn.disabled);
+        }
+        return false;
+      }, { fn: a.fn, args: a.args });
+      if (!ok) {
+        errors.push(`Assertion evaluateTruthy échouée: ${a.fn}`);
       }
     }
   }
@@ -589,6 +904,34 @@ const runPlaywright = async (plan) => {
       }
     }, plan.app);
     await page.waitForTimeout(800);
+
+    if (plan.preOpen && plan.preOpen.type === 'umPrep') {
+      await page.evaluate(() => {
+        try {
+          window.localStorage.removeItem('capsule-mintupdate-welcome-dismissed');
+          window.localStorage.removeItem('capsule-mintupdate-mirror-dismissed');
+        } catch (e) {
+          /* ignore */
+        }
+        if (typeof window.initUpdateManagerApp === 'function') {
+          window.initUpdateManagerApp();
+        }
+      });
+      await page.waitForTimeout(120);
+    }
+
+    if (plan.app === 'text_editor') {
+      await page.evaluate(() => {
+        if (typeof window.initTextEditorApp === 'function') {
+          window.initTextEditorApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.prepActions && plan.prepActions.length > 0) {
+      await runScenarioActions(page, { actions: plan.prepActions });
+    }
 
     await runScenarioAssertions(page, { assertions: plan.baseAssertions }, errors);
 

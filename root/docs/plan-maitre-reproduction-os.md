@@ -1,8 +1,9 @@
 # Plan maître — reproduction OS, noyau agnostique et orchestration
 
 > **Statut** : document de travail partagé (juin 2026) — **validé** (architecture + fondements)  
-> **Références** : [fondements-philosophiques.md](fondements-philosophiques.md) · [logique-formelle.md](logique-formelle.md) · [convention-manifest-vm.md](convention-manifest-vm.md) · [avancement-formel-2026-06-08.md](inventaires/avancement-formel-2026-06-08.md)  
-> **Principe directeur** : *enrichir l’existant, ne pas empiler des modules parallèles*
+> **Références** : [fondements-philosophiques.md](fondements-philosophiques.md) · [logique-formelle.md](logique-formelle.md) · [convention-manifest-vm.md](convention-manifest-vm.md) · [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) · [avancement-formel-2026-06-08.md](inventaires/avancement-formel-2026-06-08.md)  
+> **Principe directeur** : *enrichir l’existant, ne pas empiler des modules parallèles*  
+> **Décision agent** : `resolve-agent-action.mjs --scope pipeline` — pas d’intuition hors gates
 
 ---
 
@@ -66,15 +67,17 @@ Même **forme** Z0–Z4 ; **autre** collecte Z0 (inventaires + docs officielles,
 
 ## 0. Synthèse exécutive
 
-CapsuleOS possède déjà les bons **prédicats formels** (ManΣ, AppΣ, VΣ, PbΣ, H₆) et trois VM GNOME opérationnelles. Les faiblesses actuelles ne viennent pas d’un manque d’outils, mais de :
+CapsuleOS possède les **prédicats formels** (ManΣ, AppΣ, VΣ, PbΣ, H₆) et trois VM GNOME opérationnelles. **Phase 0 clôturée** (chemins, `apply-manifest-refs`, pipeline `run-capsule-pipeline`). **Phase 1 vagues 1a–1d livrées** (détail : [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md)).
 
-1. **Plusieurs pipelines concurrents** (manifeste, `pull-vm-assets`, scrape legacy) sans schéma de chemins unique ;
-2. **Plusieurs orchestrateurs** sans dispatcher unique ;
-3. **Intégration skin exécutée avant import** (grille Aperçu, refs HTML) ;
-4. **Phases playbook non implémentées** (`rewrite-ref`, `integrate-skin`) ;
-5. **Couverture inégale** : Ubuntu seul sur `proc/` ; Rocky/Fedora sur voies historiques.
+Faiblesses **restantes** (juin 2026) :
 
-Ce plan aligne **toutes** les familles OS sur le modèle des références les plus abouties (**linux-rocky**, **linux-ubuntu**, **linux-fedora** pour GNOME), par **vagues**, sans surcharge.
+1. **Triplet V1 pas stable** — Ubuntu : couche **PbΣ** (matrice Paramètres locale manquante) ; Rocky/Fedora : **ManA → ManΣ** en parallèle sans toucher skin H₆ ;
+2. **Fallback cross-vendor** encore possible dans certains outils (ex. matrice Rocky sur Ubuntu) — corrigé par **P11** / **R-LOC1** ;
+3. **Mint (V3)** : collecte VM excellente, clôture design/effets incomplète ; dette « 1 app = N fichiers » à refactorer vers toolkit + données ;
+4. **Recette clone** à unifier : **collecte Mint** (SSH, JSON) + **clôture Rocky** (gates visuels, PNG, polish) — pas deux philosophies concurrentes ;
+5. **Documentation** : inventaires MD parfois parallèles au JSON — cible : rapports **générés**.
+
+Ce plan aligne **toutes** les familles OS sur deux références complémentaires : **linux-rocky** (design, effets, PbΣ, H₆) et **linux-mint** (collecte VM, doc par composant), industrialisées par ManΣ et le pipeline unique.
 
 ---
 
@@ -100,9 +103,10 @@ Ce plan aligne **toutes** les familles OS sur le modèle des références les pl
 
 | Registry | Rôle | Atouts à répliquer |
 |----------|------|-------------------|
-| **linux-rocky** | GNOME H₆ clôturé | PbΣ, AppΣ, Tf, shell polish, terminal TΣ |
-| **linux-ubuntu** | GNOME P0 + ManV | Manifeste v2, grille apps, parité 9/9 |
-| **linux-fedora** | GNOME PbΣ | Playbook settings complet, VM lab |
+| **linux-rocky** | GNOME **référence design / effets** | H₆ Paramètres, shell polish, comparaison PNG VM↔Capsule, Tf, propagation `sync-gnome-*` |
+| **linux-ubuntu** | GNOME **référence ManΣ** | Manifeste v2, AppΣ, Tf, drift 0, `apply-manifest-refs` icon-pack |
+| **linux-fedora** | GNOME dérivé PbΣ | Playbook settings, VM lab — ManΣ en cours |
+| **linux-mint** | Cinnamon **référence collecte** | `collect-mint-inventory`, docs par app (Nemo, Firefox…), tray — **pas** le modèle de volume de code cible |
 
 ### 2.2 Grille de maturité par registre (cible plan)
 
@@ -198,6 +202,39 @@ ensure-vendor-catalog
 
 **Règle** : aucun patch `home/` référençant un asset non présent sur disque.
 
+### 4.3 Vérité locale — **P11** / **R-LOC1** (juin 2026)
+
+Tout artefact ground truth (matrice Paramètres, manifeste, playbook, inventaire) est lié à un **`registryId`**.
+
+| Situation | Comportement outil | Interdit |
+|-----------|-------------------|----------|
+| `gnome-settings-assets-matrix-<vendor>.json` absent | **FAIL visible** + créer depuis VM/`proc/` | Fallback vers matrice d’un autre vendor |
+| `proc/<id>/` absent | `run-manifest-replication-chain` | Emprunter chemins Rocky sur Ubuntu |
+| Playbook PbΣ sans **S** local | Bloquer couche playbook | Mesurer avec matrice voisine |
+
+Référence : [fondements-philosophiques.md](fondements-philosophiques.md) §9 **P11** · [logique-formelle.md](logique-formelle.md) **R-LOC1**.
+
+### 4.4 Recette économe — données avant lignes
+
+Objectif : **moins de lignes**, **moins de Playwright**, **même fluidité UX**.
+
+```text
+VM (SSH) → proc/ + inventaire JSON
+         → tokens / refs / grilles générés
+         → skin vendor minimal (overrides + assets)
+         → smokes paramétrés (toolkit × contrat apps-catalog)
+         → gates validate-all
+```
+
+| Anti-pattern (dette Mint pionnier) | Cible |
+|-------------------------------------|-------|
+| 1 app = 1 smoke Playwright dédié | `smoke-app-slot.mjs --id <registry> --slot <slot>` + exceptions (Firefox, Nemo) |
+| CSS couleur copié VM → `.skin.css` 500+ lignes | Inventaire → variables `--vendor-*` / cluster `toolkit-*` |
+| `content/<vendor>-tray.js` monolithique | Provider `toolkit-cinnamon` / bindings GNOME partagés |
+| MD parité rédigé en double du JSON | `generate-formal-advancement-report` + dérivés parité |
+
+**Pyramide ressources** : SSH/JSON (faible) → `validate-all` (faible) → 1 smoke shell Playwright (moyen) → burst VΣ (lourd, après ManΣ ∧ AppΣ).
+
 ---
 
 ## 5. Orchestrateur agnostique unique
@@ -251,40 +288,52 @@ ensure-vendor-catalog
 
 ## 6. Phases détaillées
 
-### Phase 0 — Fondation (2–3 semaines, bloquant)
+### Phase 0 — Fondation ✅ (clôturée juin 2026)
 
-| # | Livrable | Critère done |
-|---|----------|--------------|
-| 0.1 | Contrat chemins §4.1 | smoke chemins manifeste ↔ disque |
-| 0.2 | `apply-manifest-refs.mjs` | 54 drift Ubuntu → 0 après run |
-| 0.3 | Chaîne ordonnée §4.2 dans `run-manifest-replication-chain` | plus de grille avant import |
-| 0.4 | Dispatcher pipeline §5.2 | une commande `run-capsule-pipeline --id X` |
-| 0.5 | Ubuntu : ManA → import → H₂ vert | validate-all exit 0 |
-| 0.6 | Rapport avancement dans CI optionnel | JSON artefact |
+| # | Livrable | Statut |
+|---|----------|--------|
+| 0.1 | Contrat chemins §4.1 | ✅ |
+| 0.2 | `apply-manifest-refs.mjs` | ✅ drift Ubuntu → 0 |
+| 0.3 | Chaîne ordonnée §4.2 | ✅ |
+| 0.4 | `run-capsule-pipeline.mjs` | ✅ |
+| 0.5 | Ubuntu ManΣ + H₂ | ✅ |
+| 0.6 | Rapport avancement CI | ⏳ optionnel |
 
-### Phase 1 — Triplet GNOME VM (V1)
+### Phase 1 — Triplet GNOME VM (V1) — voir [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md)
 
-| Registry | Actions |
-|----------|---------|
-| **ubuntu** | Clôturer ManΣ ; VΣ si assets OK |
-| **rocky** | Collecte manifeste **voie parallèle** ; ne pas toucher skin H₆ |
-| **fedora** | Collecte manifeste ; générer `*-vm-apps-installed.json` manquant |
+| Vague | Statut | Reste à faire |
+|-------|--------|---------------|
+| **1a** Ubuntu AppΣ + Tf | ✅ | — |
+| **1b** Rocky manifeste | ✅ | ManA → staging → import → integrate-skin (**sans** patch skin H₆) |
+| **1c** Fedora manifeste + AppV | ✅ | ManA ; `registryOverrides` AppΣ |
+| **1d** drift icon-pack Ubuntu | ✅ | — |
+| **1e** Clôture triplet V1 | ⏳ | Voir critères §6.1 |
 
-**Alignement** : les trois partagent `toolkit:gnome` dans `vm-manifest-media-catalog.json`.
+**1e — Clôture triplet V1 (bloquant Phase 2)**
 
-### Phase 2 — GNOME étendu (V2)
+| Registry | Actions | Gate |
+|----------|---------|------|
+| **ubuntu** | `gnome-settings-assets-matrix-ubuntu.json` ; durcir fallback **R-LOC1** ; `run-capsule-pipeline` → PbΣ → H₆ | PbΣ ∧ pas de matrice empruntée |
+| **rocky** | `approve-vm-distribution-manifest` → chaîne ManΣ parallèle | ManΣ sans régression H₆ |
+| **fedora** | Idem ManΣ ; **pas** `R-SHELL-POLISH` tant que skin gelé ; AppΣ après ManA | ManΣ ∧ AppΣ |
 
-alma (extends rocky), anduinos, popos (extends ubuntu/gnome ou cosmic stub).
+**Critère triplet V1 stable** : Ubuntu **H₆** (ou PbΣ vert + H₂) **et** Rocky **et** Fedora **ManΣ** **et** **H₂** global.
+
+### Phase 2 — GNOME étendu (V2) — **après** triplet V1 stable
+
+alma (`extends: rocky`), anduinos, popos (`extends: ubuntu`) — héritage catalogue manifeste, matrices locales **P11**.
 
 ### Phase 3 — Cinnamon (V3) — Mint
 
-| Spécificité | Action |
-|-------------|--------|
-| Toolkit stub playbook | Brancher `run-replication-chain` équivalent Nemo/Cinnamon |
-| Manifeste | `extends: toolkit:cinnamon` déjà dans catalogue |
-| VM | À ajouter `lab-inventory` quand disponible |
+| # | Sujet | Action |
+|---|--------|--------|
+| 3.1 | ManΣ cinnamon | `run-manifest-replication-chain --id linux-mint` ; `extends: toolkit:cinnamon` |
+| 3.2 | Refactor dette code | Remonter tray/effets vers `clusters/toolkit-cinnamon` + `usr/lib` ; réduire `home/Debian/Mint/content/` |
+| 3.3 | Smokes | Fusionner vers smoke paramétré ; garder Playwright ciblé (Nemo, Firefox) |
+| 3.4 | Clôture design | Passe « Rocky-like » : PNG shell, effets P2→P0, playbook Paramètres Cinnamon (à définir) |
+| 3.5 | VM lab | Entrée `lab-inventory.json` si absente |
 
-**Référence** : copier **structure** Rocky (AppΣ, slots) pas le skin GNOME.
+**Ne pas** continuer la passe alphabétique « 1 app = 3 fichiers » sans gate de consolidation toolkit.
 
 ### Phase 4 — KDE (V4) — Neon, Debian KDE, MX, openSUSE
 
@@ -452,22 +501,28 @@ Aligné [fondements-philosophiques.md](fondements-philosophiques.md) §10.
 
 ## 13. Jalons et critères de succès
 
-| Jalon | Date cible | Critère |
-|-------|------------|---------|
-| **J0** | S+2 | Ubuntu H₂ vert post-ManΣ |
-| **J1** | S+4 | Rocky + Fedora `proc/` ManV |
-| **J2** | S+8 | Dispatcher pipeline unique documenté |
-| **J3** | S+12 | Mint OU KDE neon : premier ManV hors GNOME |
-| **J4** | S+16 | win10/11 proc manifest + lazy embed P0 |
-| **J5** | S+24 | VΣ sur triplet GNOME avec refs cohérentes |
+| Jalon | Statut | Critère |
+|-------|--------|---------|
+| **J0** | ✅ | Ubuntu H₂ vert post-ManΣ |
+| **J1** | ✅ | Rocky + Fedora `proc/` ManV ∧ PbM |
+| **J2** | ✅ | `run-capsule-pipeline` + plan Phase 1 |
+| **J1e** | ⏳ | Triplet V1 stable (§6 Phase 1e) |
+| **J3** | ⏳ | Mint ManΣ **ou** KDE neon ManV (après J1e) |
+| **J4** | ⏳ | win10/11 proc manifest + lazy embed P0 |
+| **J5** | ⏳ | VΣ triplet GNOME ; refs cohérentes **P11** |
 
 ---
 
-## 14. Prochaine action immédiate (accord diagnostic)
+## 14. Prochaine action (résolution pipeline — juin 2026)
 
-1. **Phase 0.1–0.3** — correctifs chemins + ordre chaîne + `apply-manifest-refs`
-2. **Ubuntu** — ManA → import → grille regen → sync → validate-all
-3. **Rocky/Fedora** — `collect-vm-distribution-manifest --ssh` (lecture seule analyse, pas de skin)
+Ordre décidé par `resolve-agent-action.mjs --scope pipeline` et **P11** :
+
+1. **Code** — `collect-vm-gnome-settings-assets.mjs` : FAIL si matrice vendor absente (**R-LOC1**)
+2. **Ubuntu** — créer `gnome-settings-assets-matrix-ubuntu.json` ; `run-capsule-pipeline --id linux-ubuntu`
+3. **Rocky ∥ Fedora** — `approve-vm-distribution-manifest.mjs --write` puis chaîne ManΣ (skin intact)
+4. **Rapport** — `generate-formal-advancement-report.mjs --write` après J1e
+
+**Reporté** : Phase 2 GNOME étendu ; polish Fedora shell ; passe apps Mint alphabétique.
 
 ---
 
@@ -475,13 +530,35 @@ Aligné [fondements-philosophiques.md](fondements-philosophiques.md) §10.
 
 | Document | Rôle |
 |----------|------|
-| [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution — pourquoi |
-| Ce plan | Roadmap — quand / ordre |
-| `avancement-formel-*.md` | État hebdo |
-| `logique-formelle.md` | Prédicats (source normative) |
-| `convention-manifest-vm.md` | Recette clone |
-| Skills existants | Projections opérationnelles — **enrichir**, pas dupliquer |
+| **[README.md](README.md)** | **Point d’entrée unique** — canon / opérationnel / données / anti-parasites |
+| [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution — pourquoi (**P11**) |
+| **Ce plan** | Roadmap — quand / ordre / backlog intégré |
+| [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail V1 GNOME (vagues 1a–1e) |
+| `avancement-formel-*.md` | État hebdo (généré) |
+| [logique-formelle.md](logique-formelle.md) | Prédicats (**R-LOC1**) |
+| [convention-manifest-vm.md](convention-manifest-vm.md) | Recette clone ManΣ |
+| [convention-reproduction-os.md](convention-reproduction-os.md) | Recette économe §4.4 |
+| Skills existants | Projections — **enrichir**, pas dupliquer |
 
 ---
 
-*Dernière mise à jour : 2026-06-08 — validé architecture §1 bis + fondements philosophiques.*
+## 16. Backlog intégré (sujets session juin 2026)
+
+| ID | Sujet | Phase | Priorité |
+|----|--------|-------|----------|
+| B1 | Triplet V1 stable (1e) | 1 | P0 |
+| B2 | P11 / R-LOC1 dans outils lab | 0/1 | P0 |
+| B3 | Matrice Paramètres Ubuntu | 1 | P0 |
+| B4 | ManΣ Rocky + Fedora (parallèle) | 1 | P0 |
+| B5 | Recette hybride Mint collecte + Rocky clôture | transversal | P1 |
+| B6 | Refactor Mint → toolkit-cinnamon | 3 | P1 |
+| B7 | Smokes paramétrés (réduction 13→N) | transversal | P1 |
+| B8 | Docs parité générés depuis JSON | transversal | P2 |
+| B9 | Phase 2 alma / anduinos / popos | 2 | P1 après B1 |
+| B10 | ManΣ linux-mint | 3 | P1 après B1 |
+| B11 | VΣ burst triplet | 7 | P1 après B1 |
+| B12 | Lazy embed P0 / boot veil | 8 | P2 |
+
+---
+
+*Dernière mise à jour : 2026-06-09 — Phase 0–1a–1d clôturées ; backlog §16 ; P11 / recette économe §4.3–4.4.*

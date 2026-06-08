@@ -1,5 +1,7 @@
 # Procédure — clonage d’un OS réel (VM) vers CapsuleOS
 
+> **GNOME / ManΣ** : la chaîne officielle est `run-manifest-replication-chain` / `run-capsule-pipeline` — voir [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §4. Ce document reste le **modèle Cinnamon (Mint)** et le détail opératoire phases 0–7.
+
 Objectif : reproduire de façon **fidèle et documentée** un environnement de bureau réel (assets, comportements, applications, système de fichiers simulé) dans la façade CapsuleOS correspondante, en s’appuyant sur une **VM comme ground truth**.
 
 | Toolkit | Référence clone | Procédure dédiée |

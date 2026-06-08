@@ -244,6 +244,7 @@ R-PRI2c Vc ∧ ¬Vp  →  croisement VM↔Capsule, classer visualMatch
 R-PRI3  Vp ∧ lot P1 ouvert  →  étendre enquête visuelle P1
 R-PRI3b H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
 R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d
+R-LOC1  registryId(d) ∧ ¬artefact_local(d)  →  FAIL visible — interdit fallback artefact d′≠d (matrice, manifeste, playbook, inventaire) ; voir fondements **P11**
 
 R-IMP1  ¬H₂  →  interdit H5 (implémentation) sauf tâche « fix CI » explicite
 R-IMP2  P0 documenté absent  →  ne pas reclasser en P1 pour masquer

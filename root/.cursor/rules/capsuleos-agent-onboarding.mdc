@@ -5,14 +5,14 @@ alwaysApply: true
 
 # Onboarding agent CapsuleOS
 
-**Références** : `root/docs/logique-formelle.md` (paradigme) · `root/docs/parcours-agent.md` (H0–H6) · `root/AGENTS.md` (routage skills)
+**Références** : `root/docs/README.md` (corpus) · `root/docs/plan-maitre-reproduction-os.md` (exécution) · `root/docs/logique-formelle.md` (gates) · `root/docs/parcours-agent.md` (H0–H6)
 
 ## Séquence
 
 1. **H₀** — `AGENTS.md`, checklist `contrib.md`, arborescence
 2. **H₂** — `node usr/lib/capsuleos/tools/validate-all.mjs` (bloquant avant H5 sauf fix CI)
 3. **H₃** — skill `onboarding` + `os-<famille>` + `role-*`
-4. Appliquer **logique formelle** §4 pour la prochaine action (**R-AUTO**)
+4. **Pipeline** : `resolve-agent-action.mjs --id <registryId> --scope pipeline` puis **logique formelle** §4 si besoin
 
 ## Gates (discrimination)
 

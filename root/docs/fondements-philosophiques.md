@@ -243,6 +243,7 @@ L’universalisation du manifeste n’abolit pas le vendor : elle **formalise** 
 | **P8** | Deux mondes assets | Système (`usr/share`) ≠ utilisateur (`home/public`) |
 | **P9** | Fidélité expérientielle | **Vp ∧ VΣ** (apps complètes) pour P0 |
 | **P10** | A11y opt-in | Mode accessibilité activable, pas défaut clone |
+| **P11** | Vérité locale, pas de fallback cross-vendor | Matrices, manifestes, playbooks, inventaires liés à un `registryId` ; absence = gate rouge explicite — jamais emprunt silencieux à un autre vendor |
 
 ---
 

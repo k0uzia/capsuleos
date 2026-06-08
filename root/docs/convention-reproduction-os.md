@@ -1,6 +1,9 @@
 # Convention — reproduction d’un OS dans CapsuleOS
 
-**Contrat unique** pour agents IA et contributeurs humains qui clonent un bureau réel (VM) vers une simulation web.  
+**Contrat unique** pour agents IA et contributeurs humains qui clonent un bureau réel (VM) vers une simulation web.
+
+> **Ordre d’exécution** : [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §4.2–4.4 · [README.md](README.md) · **P11** / **R-LOC1**.
+
 Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**), [convention-shell-global.md](convention-shell-global.md) (socle terminal **Ti–TΣ**, agnosticité noyau), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité), [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) (prédicats **Rv₁–Rv** : cohérence vue ↔ modèle après action).
 
 ---

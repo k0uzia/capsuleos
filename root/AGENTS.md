@@ -10,7 +10,11 @@ CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`hom
 
 **Référence canonique** : [`docs/logique-formelle.md`](docs/logique-formelle.md) — prédicats (**H₂**, **A**, **S**, **I**, **L**, **V**…), règles d’inférence, procédure de décision autonome.
 
-**Roadmap validée** : [`docs/plan-maitre-reproduction-os.md`](docs/plan-maitre-reproduction-os.md) — architecture §1 bis, vagues OS, Phase 0.
+**Corpus unique** : [`docs/README.md`](docs/README.md) — point d’entrée documentation.
+
+**Roadmap exécution** : [`docs/plan-maitre-reproduction-os.md`](docs/plan-maitre-reproduction-os.md) — seule source d’ordre des phases · Phase 1 détail : [`plan-phase-1-gnome-triplet.md`](docs/plan-phase-1-gnome-triplet.md).
+
+**Décision pipeline** : `node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id <registryId>` ou `resolve-agent-action.mjs --scope pipeline`.
 
 | Règle agent | Comportement |
 |-------------|--------------|
@@ -18,6 +22,7 @@ CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`hom
 | **R-INV1** | ¬**I** → inventaire VM avant code skin |
 | **R-A1** | ¬**A** → `pull-vm-assets.sh`, jamais d’asset inventé |
 | **R-AUTO** | Une seule action admissible → exécuter sans demander |
+| **R-LOC1** / **P11** | Artefact local manquant → FAIL visible ; jamais fallback cross-vendor |
 
 Règle Cursor projet : `.cursor/rules/logique-formelle-capsuleos.mdc` (`alwaysApply`).
 

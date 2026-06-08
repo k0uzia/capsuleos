@@ -1,7 +1,11 @@
-# Roadmap CapsuleOS
+# Roadmap CapsuleOS — vision pédagogique
 
-Plan de livraison pour aboutir les bureaux simulés déjà amorcés, prioriser la pédagogie terrain et consolider le socle technique.  
-Document vivant — à mettre à jour à chaque jalon ou retour utilisateur.
+> **⚠ Ne pas utiliser ce document pour prioriser le travail agent ou lab.**  
+> **Exécution unique** : [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) · [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) · [README.md](README.md)  
+> **Décision** : `run-capsule-pipeline.mjs --id <registryId>`
+
+Plan de livraison **pédagogique** (maturité estimée, vision terrain).  
+Les pourcentages et priorités ci-dessous sont indicatifs — le **backlog §16** du plan maître fait foi.
 
 **Références :**
 

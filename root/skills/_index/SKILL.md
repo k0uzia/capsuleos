@@ -21,6 +21,8 @@ Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés 
 ## Clone OS (VM → skin)
 
 - [vm-distribution-manifest](vm-distribution-manifest/SKILL.md) — manifeste `proc/` multi-vendor (ManV→ManΣ), catalogue toolkits/vendors
+- Fondements : [fondements-philosophiques.md](../../docs/fondements-philosophiques.md) — constitution académico-philosophique du projet
+- Plan maître : [plan-maitre-reproduction-os.md](../../docs/plan-maitre-reproduction-os.md) — roadmap vagues OS, architecture §1 bis, recette clone
 - [os-clone-from-vm](os-clone-from-vm/SKILL.md) — convention reproduction, workflow inventaire → home/
 - [visual-parity-lab](visual-parity-lab/SKILL.md) — passe visuelle autonome VM ↔ Capsule (captures PNG + journal événements)
 - [ui-state-effects-replication](ui-state-effects-replication/SKILL.md) — états UI, effets, menus/popovers (prédicats Ve–VΣ)

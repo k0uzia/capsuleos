@@ -4,9 +4,13 @@
 
 CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`home/`, `usr/`, `OS/`, `var/`, `index.html`). Le dossier `root/` documente **comment** travailler sur ce dépôt, pas du code utilisateur final.
 
-## Logique formelle (paradigme agent)
+## Fondements et logique formelle
+
+**Philosophie du projet** : [`docs/fondements-philosophiques.md`](docs/fondements-philosophiques.md) — mimesis pédagogique, ontologie des couches, épistémologie `proc/`, éthique de la représentation.
 
 **Référence canonique** : [`docs/logique-formelle.md`](docs/logique-formelle.md) — prédicats (**H₂**, **A**, **S**, **I**, **L**, **V**…), règles d’inférence, procédure de décision autonome.
+
+**Roadmap validée** : [`docs/plan-maitre-reproduction-os.md`](docs/plan-maitre-reproduction-os.md) — architecture §1 bis, vagues OS, Phase 0.
 
 | Règle agent | Comportement |
 |-------------|--------------|

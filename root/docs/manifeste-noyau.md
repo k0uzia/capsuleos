@@ -1,7 +1,7 @@
 # Manifeste du noyau CapsuleOS
 
 Document fondateur — vision, principes et trajectoire technique.  
-Complète [arborescence.md](arborescence.md), [roadmap.md](roadmap.md), [logique-formelle.md](logique-formelle.md) (paradigme agent : gates, prédicats, décision) et [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui).
+Complète [fondements-philosophiques.md](fondements-philosophiques.md) (base académico-philosophique), [arborescence.md](arborescence.md), [roadmap.md](roadmap.md), [logique-formelle.md](logique-formelle.md) (paradigme agent : gates, prédicats, décision), [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) (roadmap validée) et [contrib.md § toolkits](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui).
 
 ---
 

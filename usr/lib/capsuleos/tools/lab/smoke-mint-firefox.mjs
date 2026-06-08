@@ -10,7 +10,7 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
-await page.click('footer nav a[data-link="firefox"]');
+await page.evaluate(() => window.openWindowByDataLink('firefox'));
 await page.waitForTimeout(900);
 
 const chrome = await page.evaluate(() => {

@@ -49,6 +49,12 @@
             return;
         }
         const applyHide = () => {
+            if (global.CapsuleTaskbarLauncherState
+                && typeof global.CapsuleTaskbarLauncherState.markRunning === 'function') {
+                global.CapsuleTaskbarLauncherState.markRunning(windowElement);
+            } else if (windowElement.dataset) {
+                windowElement.dataset.capsuleRunning = 'true';
+            }
             windowElement.style.display = 'none';
             windowElement.style.zIndex = '5';
             windowElement.classList.remove('windowElementActive', 'active');

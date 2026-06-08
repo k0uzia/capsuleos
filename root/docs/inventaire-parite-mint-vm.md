@@ -2,7 +2,7 @@
 
 Procédure : [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) · Statut clone : [`inventaires/linux-mint-clone-status.md`](inventaires/linux-mint-clone-status.md)
 
-Collecte : `2026-06-08T07:40:13Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
+Collecte : `2026-06-08T08:20:09Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
 
 ## Versions
 
@@ -18,7 +18,8 @@ Collecte : `2026-06-08T07:40:13Z` · Registre : `linux-mint` · JSON : [`inventa
 | Aspect | VM | CapsuleOS |
 |--------|-----|-----------|
 | Hauteur | ['1:40'] | ~40px (CSS footer) |
-| Lanceurs | menu + **grouped-window-list** | Icônes fixes (nemo, ff, term, …) |
+| Lanceurs | menu + **grouped-window-list** | menu + `#taskbar-window-list` (icônes) |
+| Favoris | applet **favorites** (tray) | `#mint-tray-favorites` (5 favoris bureau) |
 | Liste fenêtres | applet grouped-window-list | `#taskbar-window-list` |
 
 ### Lanceurs panel (checklist P0)
@@ -30,8 +31,8 @@ Collecte : `2026-06-08T07:40:13Z` · Registre : `linux-mint` · JSON : [`inventa
 | firefox | Firefox | OK (firefox) |
 | terminal | Terminal | OK (org.gnome.Terminal) |
 | themes | Thèmes / Paramètres | P2 — slot Paramètres (favori bureau VM) |
-| librewriter | LibreOffice Writer (panel) | CapsuleOS (pédagogie) |
-| checklist | Missions (pédagogie) | CapsuleOS (pédagogie) |
+| librewriter | absent panel | menu uniquement |
+| checklist | absent | retiré panel (campagne v2) |
 
 ## Zone tray
 
@@ -89,10 +90,11 @@ Applets VM : systray, xapp-status, notifications, printers, removable-drives, ke
 - Nemo sidebar Documents (`compare-os-parity` étape 5)
 - Checklist panel CapsuleOS 6/6 (`run-capsule-panel-browser.mjs`)
 
-### P1 — assumé
-- Lanceurs fixes vs `grouped-window-list` (pédagogie)
-- Calculatrice → terminal / menu (pas GNOME Calculator)
+### P1 — dette campagne v2 (à résorber avant clôture)
+- Lanceurs fixes vs `grouped-window-list` + applet favorites VM
+- Calculatrice → terminal / menu (VM = GNOME Calculator favori bureau)
 - Lab VM : étape Firefox focus fragile (multi-fenêtres)
+- Éléments historiquement CapsuleOnly (checklist, retour accueil, Writer au panel)
 
 ### P2 — livré ou en cours
 - Fond `default_background.jpg`, icônes `vendors/mint/panel/`
@@ -105,8 +107,8 @@ Applets VM : systray, xapp-status, notifications, printers, removable-drives, ke
 - `button-layout` Muffin, multi-écrans, workspaces
 - Applet grouped-window-list natif
 
-### CapsuleOnly
-- checklist, librewriter panel, retour accueil
+### CapsuleOnly (à retirer ou aligner VM — campagne v2)
+- checklist, librewriter panel, retour accueil → **non admis en clôture réplique exacte**
 
 ## Commandes
 

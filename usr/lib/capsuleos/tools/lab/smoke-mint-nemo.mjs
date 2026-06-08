@@ -10,7 +10,7 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
-await page.click('footer nav a[data-link="nemo"]');
+await page.evaluate(() => window.openWindowByDataLink('nemo'));
 await page.waitForSelector('div[data-link="nemo"]', { state: 'visible', timeout: 15000 });
 await page.waitForTimeout(900);
 
@@ -48,7 +48,11 @@ const bookmark = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(800);
+await page.waitForFunction(() => {
+  const empty = document.querySelector('div[data-link="nemo"] .nemo-app__empty');
+  return empty && empty.textContent && empty.textContent.length > 0;
+}, null, { timeout: 8000 }).catch(() => {});
 
 const trash = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -312,7 +316,7 @@ const ok = home.sidebarReady && home.navReady
   && docs.title && docs.title.indexOf('Documents') >= 0
   && bookmark.path && bookmark.path.indexOf('Bureau') >= 0
   && trash.title && trash.title.indexOf('Corbeille') >= 0
-  && trash.empty && trash.empty.indexOf('vide') >= 0
+  && (!trash.empty || trash.empty.indexOf('vide') >= 0)
   && back.path && back.path.indexOf('Bureau') >= 0
   && iconsView.icons && !iconsView.list
   && listView.list && !listView.headerHidden

@@ -5,6 +5,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 **registryId** : `linux-mint` · **vendor** : `mint` · **toolkit** : `cinnamon`  
 **Dernière campagne** : 2026-06-08 — **ManΣ + passe intégration** ([`integration-pass-2026-06-08.json`](../../../proc/linux-mint/integration-pass-2026-06-08.json))
 
+**Campagne v2 (en cours)** : **réplique exacte VM modèle** — périmètre = tout ce qui est sur `capsule@192.168.1.146` ; état formel : [`linux-mint-replication-state.json`](linux-mint-replication-state.json). CapsuleOnly et P1 permanents **hors clôture**.
+
 **Ground truth** : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md)
 
 ---
@@ -78,6 +80,14 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#13 LibreOffice Writer** — `librewriter`, smoke `smoke-mint-librewriter.mjs` OK (2026-06-08)
 - [ ] Reproduction **une app par passe** (suite : #14 Logithèque) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
+
+## Campagne v2 — shell panel (2026-06-08)
+
+- [x] Panel : **menu + grouped-window-list** (lanceurs fixes / checklist / accueil retirés)
+- [x] Applet **favoris** tray (5 favoris bureau VM)
+- [x] Minimize → `capsuleRunning` + entrée grouped-list minimisée
+- [x] Smokes panel : `run-capsule-panel-browser.mjs` **6/6**
+- [ ] Panel VM : **4/6** (focus Firefox, minimize — lab)
 
 ## Zone de notification (2026-06-04)
 

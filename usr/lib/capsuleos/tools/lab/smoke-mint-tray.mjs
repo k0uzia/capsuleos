@@ -46,7 +46,7 @@ for (const row of TRAY_CASES) {
   await page.waitForTimeout(120);
 }
 
-await page.click('footer nav a[data-link="nemo"]');
+await page.evaluate(() => window.openWindowByDataLink('nemo'));
 await page.waitForTimeout(500);
 await page.click('#tray-btn-cornerbar');
 await page.waitForTimeout(300);

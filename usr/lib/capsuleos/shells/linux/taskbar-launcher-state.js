@@ -85,6 +85,22 @@
         });
     }
 
+    function syncGroupedWindowList() {
+        document.querySelectorAll('.taskbar-window-list__btn').forEach((btn) => {
+            const slotId = btn.dataset ? btn.dataset.windowLink : '';
+            if (!slotId) {
+                return;
+            }
+            const container = resolveSlotContainer(slotId);
+            const running = launcherRunning(container);
+            const focused = launcherActive(container);
+            btn.classList.toggle('is-running', running);
+            if (!btn.classList.contains('is-minimized')) {
+                btn.classList.toggle('is-active', focused);
+            }
+        });
+    }
+
     function syncLaunchers() {
         if (!isLinuxLauncherPanel()) {
             return;
@@ -101,6 +117,7 @@
             link.classList.toggle('active-link', focused);
         });
         syncOverviewDash();
+        syncGroupedWindowList();
     }
 
     function resolveProbeToolkit() {

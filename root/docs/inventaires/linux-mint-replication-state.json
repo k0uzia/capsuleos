@@ -1,0 +1,135 @@
+{
+  "registryId": "linux-mint",
+  "campaignId": "mint-v2-exact-vm",
+  "startedAt": "2026-06-08T08:20:09Z",
+  "scope": {
+    "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
+    "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
+    "labInventory": "etc/capsuleos/lab-inventory.json",
+    "rules": [
+      "Tout élément présent sur la VM doit exister dans Capsule avec le même rôle (objet modale Σ(S), transitions δ, effets E(δ)).",
+      "CapsuleOnly interdit en clôture (checklist, retour accueil, lanceurs panel fictifs, etc.).",
+      "P1 « assumé » = dette temporaire ; clôture uniquement si D=0 sur l'inventaire VM.",
+      "Assets : pull VM uniquement (ManΣ), pas d'emprunt cross-vendor."
+    ]
+  },
+  "vmSnapshot": {
+    "collectedAt": "2026-06-08T08:20:09Z",
+    "os": "Linux Mint 22.3 Zena",
+    "cinnamon": "6.6.7",
+    "nemo": "6.6.3",
+    "firefox": "151.0.1",
+    "theme": "Mint-Y-Dark-Aqua",
+    "icons": "Mint-Y-Sand",
+    "panelApplets": 15,
+    "panelLaunchers": ["menu", "grouped-window-list"],
+    "trayApplets": 12,
+    "desktopFiles": 143,
+    "menuVisibleApps": 101,
+    "favoritesDesktop": 5
+  },
+  "metrics": {
+    "appsCatalog": {
+      "total": 101,
+      "ok": 13,
+      "partiel": 38,
+      "absent": 50,
+      "coverageOkPct": 13
+    },
+    "surfaceVm": {
+      "panelMenuFavorisTray": 17,
+      "ok": 12,
+      "partiel": 5
+    },
+    "panelChecklistVm": "4/6",
+    "panelChecklistCapsule": "6/6",
+    "manifestDrift": 148,
+    "validateAllH2": false,
+    "panelModel": "menu + grouped-window-list (2026-06-08)"
+  },
+  "palliers": [
+    {
+      "id": "P0",
+      "label": "Vérité machine & inventaire",
+      "predicates": ["H2", "M", "I", "ManΣ"],
+      "status": "in_progress",
+      "gates": [
+        "validate-all.mjs",
+        "collect-mint-inventory.mjs --write-doc",
+        "smoke-vm-distribution-manifest.mjs"
+      ]
+    },
+    {
+      "id": "P1",
+      "label": "Shell Cinnamon (panel, WM, tray, bureau)",
+      "predicates": ["Ve-shell", "Vμ-shell", "L-panel"],
+      "status": "in_progress",
+      "objects": [
+        "shell.panel.menu",
+        "shell.panel.grouped-window-list",
+        "shell.tray.*",
+        "shell.desktop.favorites",
+        "shell.window.muffin",
+        "shell.alt-tab"
+      ],
+      "target": "compare-os-parity panel-checklist 6/6 VM + Capsule"
+    },
+    {
+      "id": "P2",
+      "label": "Objets modaux (menus, popovers, modales)",
+      "predicates": ["Va", "Ve", "Vm", "Vμ", "VΣ"],
+      "status": "pending",
+      "artifact": "linux-mint-ui-state-effects-matrix.json",
+      "orchestrator": "run-ui-state-effects-pass.mjs --id linux-mint"
+    },
+    {
+      "id": "P3",
+      "label": "Apps VM — surface visible (panel, favoris, menu P0)",
+      "predicates": ["AppΣ"],
+      "status": "pending",
+      "target": "17 surfaces VM → statut ok + smoke"
+    },
+    {
+      "id": "P4",
+      "label": "Apps VM — catalogue complet (101 entrées menu)",
+      "predicates": ["AppΣ-full"],
+      "status": "pending",
+      "target": "101/101 slots ou équivalent VM documenté"
+    },
+    {
+      "id": "P5",
+      "label": "Clôture réplique intégrale",
+      "predicates": ["D", "VΣ", "Tf", "H6"],
+      "status": "pending",
+      "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert"
+    }
+  ],
+  "predicates": {
+    "H2": { "ok": false, "note": "validate-all rouge — liens façade Ubuntu (hors Mint)" },
+    "M": { "ok": true, "verifiedAt": "2026-06-08T08:20:09Z" },
+    "I": { "ok": true, "file": "linux-mint-vm.json" },
+    "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
+    "L-panel": { "ok": false, "vm": "4/6", "capsule": "6/6" },
+    "AppΣ": { "ok": false, "surfaceOk": "12/17" },
+    "AppΣ-full": { "ok": false, "ok": "13/101" },
+    "VΣ": { "ok": false, "matrix": false },
+    "D": { "ok": false, "drift": 148 }
+  },
+  "gapClasses": {
+    "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
+    "activeP0": [
+      "Panel VM checklist 4/6 (Firefox focus, minimize — sonde lab)",
+      "Panel checklist VM 4/6 (Firefox focus, minimize/running-link)",
+      "Éléments CapsuleOnly : checklist panel, librewriter panel, retour accueil",
+      "50 apps catalogue absentes sur 101",
+      "Matrice VΣ Cinnamon absente"
+    ]
+  },
+  "nextActions": [
+    "Corriger H2 (assets overview Ubuntu manquants)",
+    "P1 : matrice VΣ shell (`linux-mint-ui-state-effects-matrix.json`)",
+    "P1 : sonde VM panel-checklist (Firefox focus étape 1)",
+    "P2 : extend-ui-state-effects-matrix.mjs --id linux-mint --write --ensure-apps",
+    "P3 : reprendre catalogue #14 Logithèque sous contrainte réplique exacte"
+  ]
+}

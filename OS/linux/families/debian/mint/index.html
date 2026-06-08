@@ -65,43 +65,7 @@
             <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
-            <a target="windowElement" data-link="nemo" title="Fichiers">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp" alt="Fichiers" title="Fichiers">
-            </a>
-            <a target="windowElement" data-link="firefox" title="Firefox">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp" alt="Firefox" title="Firefox">
-            </a>
-            <a target="windowElement" data-link="terminal" title="Terminal">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="Terminal" title="Terminal">
-            </a>
-            <a target="windowElement" data-link="text_editor" title="Éditeur de texte (xed)">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp" alt="Éditeur de texte" title="Éditeur de texte (xed)">
-            </a>
-            <a target="windowElement" data-link="update_manager" title="Logithèque">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="Logithèque" title="Logithèque">
-            </a>
-            <a target="windowElement" data-link="lecteur_multimedia" title="Celluloid">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid.png" alt="Celluloid" title="Lecteur vidéo">
-            </a>
-            <a target="windowElement" data-link="visionneur_images" title="Visionneur d'images">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/multimedia-photo-viewer.png" alt="Visionneur d'images" title="Visionneur d'images">
-            </a>
-            <a target="windowElement" data-link="visionneur_pdf" title="Visionneur de documents">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/accessories-document-viewer.png" alt="Visionneur de documents" title="Visionneur de documents">
-            </a>
-            <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/libreoffice-writer.webp" alt="LibreOffice Writer" title="LibreOffice Writer">
-            </a>
-            <a target="windowElement" data-link="themes" title="Thèmes">
-                <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp" alt="Thèmes" title="Thèmes">
-            </a>
-            <a target="windowElement" data-link="checklist" title="Missions de découverte">
-                <img src="../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/checkbox.png" alt="Checklist" title="Missions de découverte">
-            </a>
-            <a href="../../../index.html">
-                <img src="../../../usr/share/capsuleos/assets/images/common/accueil.svg" alt="Retour à l'accueil" title="Retour à l'accueil">
-            </a>
-            <ul id="taskbar-window-list" class="taskbar-window-list" role="list" hidden></ul>
+            <ul id="taskbar-window-list" class="taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="taskbar-right">
             <div class="taskbar-tray" aria-label="Zone de notification">
@@ -138,6 +102,23 @@
                         aria-label="Disposition du clavier" title="Disposition du clavier">
                     <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
                 </button>
+                <div class="taskbar-favorites" id="mint-tray-favorites" role="group" aria-label="Favoris">
+                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="calculator" title="Calculatrice" aria-label="Calculatrice">
+                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp" alt="">
+                    </button>
+                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="calendar" data-favorite-action="calendar-popover" title="Agenda" aria-label="Agenda">
+                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calendar.webp" alt="">
+                    </button>
+                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="text_editor" title="Éditeur de texte" aria-label="Éditeur de texte">
+                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp" alt="">
+                    </button>
+                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="update_manager" title="Logithèque" aria-label="Logithèque">
+                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="">
+                    </button>
+                    <button type="button" class="taskbar-favorites__btn" data-favorite-link="themes" title="Paramètres système" aria-label="Paramètres système">
+                        <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp" alt="">
+                    </button>
+                </div>
                 <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
                         aria-expanded="false" aria-controls="mint-tray-popover-network"
                         aria-label="Réseau" title="Réseau">
@@ -380,6 +361,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
+    <script src="./content/mint-panel-favorites.js?v=20260608"></script>
     <script src="./content/mint-tray.js?v=20260604"></script>
 </body>
 </html>

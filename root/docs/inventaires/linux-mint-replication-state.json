@@ -34,10 +34,28 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "updatedAt": "2026-06-08T12:00:00.000Z",
+  "pallier": 2,
+  "pallier1Commit": "00816fb",
+  "updatedAt": "2026-06-08T11:30:00.000Z",
+  "paritySnapshot": {
+    "pi_global": 62,
+    "status_global": "partiel",
+    "priorityApps": {
+      "nemo": 75,
+      "firefox": 75,
+      "text_editor": 92,
+      "calculator": 67,
+      "file_roller": 67,
+      "update_manager": 75,
+      "mintinstall": 75,
+      "themes": 67
+    }
+  },
   "notes": [
     "101/101 catalogue : slots ouverts OK (smoke basique).",
-    "Campagne v2 : mesure Π interactionnel par slot.",
+    "Pallier 1 (00816fb) : infra Π, nemo ctx, calc modes, run-app-parity-pass.",
+    "Pallier 2 : xed dialogs find/replace/goto (Π=92), gabarits mintinstall + cinnamon_settings, smokes enrichis.",
+    "Catalogue alphabétique démarré : baobab mesuré Π=58.",
     "Shell menu/panel/bureau : Π partiel — passe UI state effects en cours."
   ]
 }

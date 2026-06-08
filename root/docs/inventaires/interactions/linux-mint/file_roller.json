@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "file_roller",
   "label": "Gestionnaire d'archives",
-  "collectedAt": "2026-06-08T10:57:23.269Z",
+  "collectedAt": "2026-06-08T11:19:29.639Z",
   "source": "template",
   "vmDoc": "linux-mint-file-roller-vm.md",
   "vm": {

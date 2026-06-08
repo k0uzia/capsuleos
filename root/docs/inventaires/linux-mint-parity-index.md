@@ -74,6 +74,22 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 2. **P1** : `update_manager`, `mintinstall`, `themes`
 3. Catalogue alphabétique : apps avec **Π_app < 90**
 
+### Snapshot pallier 2 (2026-06-08)
+
+**Π_global** : 62 (`partiel`)
+
+| Slot | Π_app | Statut |
+|------|-------|--------|
+| nemo | 75 | partiel |
+| firefox | 75 | partiel |
+| text_editor | 92 | ok |
+| calculator | 67 | partiel |
+| file_roller | 67 | partiel |
+| update_manager | 75 | partiel |
+| mintinstall | 75 | partiel |
+| themes | 67 | partiel |
+| baobab | 58 | absent (catalogue démarré) |
+
 ## Patterns noyau extraits (campagne)
 
 | Pattern | Module |
@@ -81,3 +97,6 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | Menubar GTK explorateur | `fileExplorerHeader.js` → `bindFileExplorerMenubar` |
 | Menu contextuel Nemo | `fileExplorerContextMenu.js` → `bindFileExplorerContextMenu` |
 | Mode popover calculatrice | `calculator.js` + gabarit `calculator.html` |
+| Dialogues find/replace/goto xed | `text-editor.js` + `#xed-find-dialog` |
+| Gabarit Logithèque | `mintinstall.html` + `mintinstall.js` |
+| Cinnamon Settings shell | `cinnamon_settings.html` + `build-linux-embed.mjs` override `themes` |

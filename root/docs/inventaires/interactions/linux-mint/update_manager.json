@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "update_manager",
   "label": "Gestionnaire de mises à jour",
-  "collectedAt": "2026-06-08T10:57:23.347Z",
+  "collectedAt": "2026-06-08T11:19:29.728Z",
   "source": "template",
   "vmDoc": "linux-mint-update-manager-vm.md",
   "vm": {
@@ -20,6 +20,14 @@
       "expect": "welcome visible on first open",
       "pass": null,
       "note": "welcome visible on first open"
+    },
+    {
+      "id": "welcome-dismiss",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-um-welcome=\"finish\"]",
+      "pass": null,
+      "note": ""
     },
     {
       "id": "menubar-file",

@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "text_editor",
   "label": "Éditeur de texte (xed)",
-  "collectedAt": "2026-06-08T10:57:23.116Z",
+  "collectedAt": "2026-06-08T11:19:29.463Z",
   "source": "template",
   "vmDoc": null,
   "vm": {
@@ -30,15 +30,39 @@
       "note": ""
     },
     {
-      "id": "toolbar-paste",
-      "dimension": "int",
-      "type": "click",
-      "selector": "#xed-toolbar [data-xed-action=\"paste\"]",
+      "id": "menu-edition",
+      "dimension": "nav",
+      "type": "eval",
+      "expect": "menu Édition ouvrable",
       "pass": null,
-      "note": ""
+      "note": "menu Édition ouvrable"
     },
     {
-      "id": "kb-shortcuts",
+      "id": "menu-affichage",
+      "dimension": "nav",
+      "type": "eval",
+      "expect": "menu Affichage + toggle barre",
+      "pass": null,
+      "note": "menu Affichage + toggle barre"
+    },
+    {
+      "id": "find-dialog",
+      "dimension": "ctx",
+      "type": "eval",
+      "expect": "dialogue Rechercher",
+      "pass": null,
+      "note": "dialogue Rechercher"
+    },
+    {
+      "id": "replace-dialog",
+      "dimension": "ctx",
+      "type": "eval",
+      "expect": "dialogue Remplacer",
+      "pass": null,
+      "note": "dialogue Remplacer"
+    },
+    {
+      "id": "kb-paste",
       "dimension": "kb",
       "type": "keyboard",
       "expect": "Ctrl+C/V",

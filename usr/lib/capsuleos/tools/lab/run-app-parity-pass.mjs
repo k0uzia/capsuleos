@@ -56,6 +56,15 @@ async function runSlotChecks(page, slot) {
     results.push({ id, dimension, pass, detail });
   };
 
+  if (slot === 'update_manager') {
+    await page.evaluate(() => {
+      try {
+        localStorage.removeItem('capsule-mintupdate-welcome-dismissed');
+        localStorage.removeItem('capsule-mintupdate-mirror-dismissed');
+      } catch (e) { /* ignore */ }
+    });
+  }
+
   await openMintSlot(page, slot);
   await page.waitForSelector(winSel, { state: 'visible', timeout: 15000 }).catch(() => {});
 
@@ -157,28 +166,76 @@ async function runSlotChecks(page, slot) {
     ));
     push('win-open', 'int', ready, {});
 
-    const menu = await page.evaluate(() => {
-      const t = document.querySelector('.xed-menu__trigger');
-      if (t) t.click();
-      const dd = document.querySelector('.xed-menu__dropdown');
-      const open = dd && !dd.hidden;
-      if (open) {
+    const menus = await page.evaluate(() => {
+      const triggers = [...document.querySelectorAll('.xed-menu__trigger')];
+      const openMenu = (idx) => {
         document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
-      }
-      return open;
+        const t = triggers[idx];
+        if (!t) return false;
+        t.click();
+        const dd = t.parentElement?.querySelector('.xed-menu__dropdown');
+        return !!(dd && !dd.hidden);
+      };
+      const fichier = openMenu(0);
+      document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
+      const edition = openMenu(1);
+      document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
+      const affichage = openMenu(3);
+      document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
+      return { fichier, edition, affichage };
+    });
+    push('menu-fichier', 'nav', menus.fichier, {});
+    push('menu-edition', 'nav', menus.edition, {});
+    push('menu-affichage', 'nav', menus.affichage, {});
+
+    await page.fill('#xed-area', 'alpha beta gamma');
+    await page.evaluate(() => {
+      const triggers = document.querySelectorAll('.xed-menu__trigger');
+      const searchTrigger = triggers[2];
+      if (searchTrigger) searchTrigger.click();
+      const findItem = document.querySelector('[data-xed-action="find"]');
+      if (findItem) findItem.click();
     });
     await page.waitForTimeout(50);
-    push('menu-fichier', 'nav', menu, {});
+    await page.fill('#xed-find-input', 'beta');
+    await page.click('[data-xed-dialog="find-next"]');
+    await page.waitForTimeout(40);
+    const findSel = await page.evaluate(() => {
+      const area = document.getElementById('xed-area');
+      if (!area) return '';
+      return area.value.substring(area.selectionStart, area.selectionEnd);
+    });
+    push('find-dialog', 'ctx', findSel === 'beta', { findSel });
+
+    await page.evaluate(() => {
+      const close = document.querySelector('#xed-find-dialog [data-xed-dialog="close"]');
+      if (close) close.click();
+    });
 
     await page.fill('#xed-area', 'parity');
     await page.keyboard.press('Control+a');
     await page.keyboard.press('Control+c');
     await page.fill('#xed-area', '');
-    await page.click('#xed-toolbar [data-xed-action="paste"]');
+    await page.keyboard.press('Control+v');
     await page.waitForTimeout(50);
     const paste = await page.evaluate(() => document.getElementById('xed-area')?.value);
+    push('kb-paste', 'kb', paste === 'parity', { paste });
     push('toolbar-paste', 'int', paste === 'parity', { paste });
-    push('kb-shortcuts', 'kb', paste === 'parity', {});
+
+    const toggleToolbar = await page.evaluate(() => {
+      const item = document.querySelector('[data-xed-action="toggle-toolbar"]');
+      const root = document.getElementById('xedApp');
+      if (!item || !root) return false;
+      item.click();
+      const hidden = root.classList.contains('is-toolbar-hidden');
+      item.click();
+      return hidden && !root.classList.contains('is-toolbar-hidden');
+    });
+    push('toggle-toolbar', 'int', toggleToolbar, {});
+    push('statusbar', 'vis', await page.evaluate(() => {
+      const pos = document.getElementById('xed-status-pos')?.textContent || '';
+      return pos.indexOf('Ligne') >= 0;
+    }), {});
     return results;
   }
 
@@ -242,14 +299,113 @@ async function runSlotChecks(page, slot) {
   }
 
   if (slot === 'update_manager') {
-    await page.evaluate(() => {
-      try {
-        localStorage.removeItem('capsule-mintupdate-welcome-dismissed');
-      } catch (e) { /* ignore */ }
-    });
-    await openMintSlot(page, slot);
     const welcome = await page.evaluate(() => !document.getElementById('um-welcome')?.hidden);
     push('welcome-screen', 'data', welcome, {});
+
+    await page.click('[data-um-welcome="finish"]');
+    await page.waitForTimeout(50);
+    const main = await page.evaluate(() => !document.getElementById('um-main')?.hidden);
+    push('welcome-dismiss', 'int', main, {});
+
+    await page.click('[data-um-menu="file"]');
+    await page.waitForTimeout(40);
+    const fileMenu = await page.evaluate(() => {
+      const dd = document.querySelector('[data-um-menu="file"]')
+        ?.parentElement?.querySelector('.update-manager__menu-dropdown');
+      return dd && !dd.hidden;
+    });
+    push('menubar-file', 'nav', fileMenu, {});
+    await page.keyboard.press('Escape');
+
+    await page.click('[data-um-mirror="no"]');
+    await page.waitForTimeout(40);
+    await page.click('[data-um-action="refresh"]');
+    await page.waitForFunction(() => {
+      const table = document.getElementById('um-tablewrap');
+      return table && !table.hidden;
+    }, null, { timeout: 8000 }).catch(() => {});
+    const refresh = await page.evaluate(() => {
+      const rows = document.querySelectorAll('#um-tablewrap tbody tr').length;
+      return rows >= 1;
+    });
+    push('refresh-list', 'int', refresh, { rows: refresh });
+    return results;
+  }
+
+  if (slot === 'mintinstall') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('mintInstallApp')?.dataset.mintInstallInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    await page.fill('#mi-search', 'Firefox');
+    await page.waitForTimeout(80);
+    const search = await page.evaluate(() => {
+      const pageEl = document.querySelector('[data-mi-page="search"]');
+      const items = document.querySelectorAll('#mi-search-list .mi-app__list-item').length;
+      return !pageEl?.hidden && items >= 1;
+    });
+    push('search', 'int', search, {});
+
+    await page.fill('#mi-search', '');
+    await page.waitForTimeout(40);
+    await page.click('[data-mi-cat="internet"]');
+    await page.waitForTimeout(60);
+    const cat = await page.evaluate(() => {
+      const list = document.querySelector('[data-mi-page="list"]');
+      const active = document.querySelector('[data-mi-cat="internet"]')?.classList.contains('is-active');
+      const rows = document.querySelectorAll('#mi-app-list .mi-app__list-item').length;
+      return active && list && !list.hidden && rows >= 2;
+    });
+    push('categories', 'nav', cat, {});
+
+    await page.click('[data-mi-action="menu"]');
+    await page.waitForTimeout(40);
+    const menu = await page.evaluate(() => {
+      const m = document.getElementById('mi-menu');
+      return m && !m.hidden;
+    });
+    push('hamburger-menu', 'ctx', menu, {});
+    return results;
+  }
+
+  if (slot === 'themes') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('cinnamonSettingsApp')?.dataset.cinnamonSettingsInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const sidebar = await page.evaluate(() => (
+      document.querySelectorAll('#cs-sidebar .cs-app__nav').length >= 20
+    ));
+    push('sidebar-panels', 'nav', sidebar, {});
+
+    await page.fill('#cs-search', 'thème');
+    await page.waitForTimeout(60);
+    const search = await page.evaluate(() => {
+      const themesBtn = document.querySelector('[data-cs-nav="themes"]');
+      return themesBtn && !themesBtn.hidden
+        && document.getElementById('cs-panel-title')?.textContent === 'Thèmes';
+    });
+    push('panel-search', 'nav', search, {});
+
+    await page.fill('#cs-search', '');
+    await page.click('[data-cs-nav="panel"]');
+    await page.waitForTimeout(40);
+    const panelSwitch = await page.evaluate(() => (
+      document.getElementById('cs-panel-title')?.textContent === 'Barre des tâches'
+    ));
+    push('panel-switch', 'int', panelSwitch, {});
+
+    const switchToggle = await page.evaluate(() => {
+      const sw = document.querySelector('[data-cs-panel="panel"] .cs-switch');
+      if (!sw) return false;
+      const before = sw.classList.contains('is-on');
+      sw.click();
+      const after = sw.getAttribute('aria-checked') === 'true';
+      return before !== after;
+    });
+    push('panel-toggle', 'int', switchToggle, {});
     return results;
   }
 
@@ -263,7 +419,11 @@ async function runSlotChecks(page, slot) {
 
 async function runPass(opts, slots) {
   const browser = await chromium.launch({ headless: true, executablePath: chromePath });
-  const page = await browser.newPage();
+  const needsClipboard = slots.includes('text_editor');
+  const context = needsClipboard
+    ? await browser.newContext({ permissions: ['clipboard-read', 'clipboard-write'] })
+    : await browser.newContext();
+  const page = await context.newPage();
   await waitMintReady(page);
 
   const report = {
@@ -286,6 +446,7 @@ async function runPass(opts, slots) {
     };
   }
 
+  await context.close();
   await browser.close();
   return report;
 }
@@ -304,6 +465,8 @@ const pathToSmoke = (slot) => {
     calculator: 'usr/lib/capsuleos/tools/lab/smoke-mint-calculator.mjs',
     file_roller: 'usr/lib/capsuleos/tools/lab/smoke-mint-file-roller.mjs',
     update_manager: 'usr/lib/capsuleos/tools/lab/smoke-mint-update-manager.mjs',
+    mintinstall: 'usr/lib/capsuleos/tools/lab/smoke-mint-mintinstall.mjs',
+    themes: 'usr/lib/capsuleos/tools/lab/smoke-mint-themes.mjs',
   };
   const rel = map[slot];
   return rel ? path.join(ROOT, rel) : '';

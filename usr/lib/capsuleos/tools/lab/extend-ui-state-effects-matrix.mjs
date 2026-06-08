@@ -42,6 +42,7 @@ const APP_EFFECTS = {
   ],
   text_editor: [
     { effect: 'menus-dropdown', kernel: 'text-editor.js' },
+    { effect: 'find-replace-dialogs', kernel: 'text-editor.js' },
     { effect: 'toolbar-actions', kernel: 'text-editor.js' },
     { effect: 'shortcuts', kernel: 'text-editor.js' },
   ],
@@ -61,6 +62,12 @@ const APP_EFFECTS = {
   themes: [
     { effect: 'panel-router', kernel: 'cinnamon-settings.js' },
     { effect: 'search-panels', kernel: 'cinnamon-settings.js' },
+    { effect: 'cs-switch-toggle', kernel: 'cinnamon-settings.js' },
+  ],
+  mintinstall: [
+    { effect: 'category-nav', kernel: 'mintinstall.js' },
+    { effect: 'search-filter', kernel: 'mintinstall.js' },
+    { effect: 'install-sim', kernel: 'mintinstall.js' },
   ],
 };
 

@@ -95,18 +95,22 @@
     "baobab": {
       "slot": "baobab",
       "label": "baobab",
-      "pi": 54,
+      "pi": 58,
       "status": "absent",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 50,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
       },
-      "inventory": "interactions/linux-mint/baobab.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:27:32.305Z",
+      "checksPassed": 1,
+      "checksTotal": 1,
+      "updatedAt": "2026-06-08T11:27:32.836Z"
     },
     "bulky": {
       "slot": "bulky",
@@ -411,22 +415,22 @@
     "mintinstall": {
       "slot": "mintinstall",
       "label": "mintinstall",
-      "pi": 58,
-      "status": "absent",
+      "pi": 75,
+      "status": "partiel",
       "dimensions": {
         "vis": 50,
-        "nav": 50,
+        "nav": 100,
         "int": 100,
-        "ctx": 50,
+        "ctx": 100,
         "kb": 50,
         "data": 50
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 1,
-      "checksTotal": 1,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:19:15.451Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:19:16.210Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -611,31 +615,31 @@
     "text_editor": {
       "slot": "text_editor",
       "label": "text_editor",
-      "pi": 50,
-      "status": "absent",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
+        "vis": 100,
         "nav": 100,
-        "int": 50,
-        "ctx": 50,
-        "kb": 0,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
         "data": 50
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/text_editor.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 2,
-      "checksTotal": 4,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:18:07.700Z",
+      "checksPassed": 9,
+      "checksTotal": 9,
+      "updatedAt": "2026-06-08T11:18:08.479Z"
     },
     "themes": {
       "slot": "themes",
       "label": "themes",
-      "pi": 58,
-      "status": "absent",
+      "pi": 67,
+      "status": "partiel",
       "dimensions": {
         "vis": 50,
-        "nav": 50,
+        "nav": 100,
         "int": 100,
         "ctx": 50,
         "kb": 50,
@@ -643,10 +647,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 1,
-      "checksTotal": 1,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:19:19.296Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:19:20.468Z"
     },
     "thingy": {
       "slot": "thingy",
@@ -715,22 +719,22 @@
     "update_manager": {
       "slot": "update_manager",
       "label": "update_manager",
-      "pi": 58,
-      "status": "absent",
+      "pi": 75,
+      "status": "partiel",
       "dimensions": {
         "vis": 50,
-        "nav": 50,
-        "int": 50,
+        "nav": 100,
+        "int": 100,
         "ctx": 50,
         "kb": 50,
         "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
       "vmDoc": "linux-mint-update-manager-vm.md",
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 1,
-      "checksTotal": 1,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:19:10.766Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:19:12.449Z"
     },
     "visionneur_images": {
       "slot": "visionneur_images",
@@ -801,7 +805,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T11:10:36.076Z",
-  "pi_global": 60,
+  "updatedAt": "2026-06-08T11:27:32.836Z",
+  "pi_global": 62,
   "status_global": "partiel"
 }

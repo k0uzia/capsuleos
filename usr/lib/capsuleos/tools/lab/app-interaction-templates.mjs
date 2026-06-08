@@ -36,8 +36,11 @@ export const SLOT_TEMPLATES = {
     checks: [
       { id: 'win-open', dimension: 'int', type: 'eval', expect: 'xedInit + toolbar' },
       { id: 'menu-fichier', dimension: 'nav', type: 'click', selector: '.xed-menu__trigger' },
-      { id: 'toolbar-paste', dimension: 'int', type: 'click', selector: '#xed-toolbar [data-xed-action="paste"]' },
-      { id: 'kb-shortcuts', dimension: 'kb', type: 'keyboard', expect: 'Ctrl+C/V' },
+      { id: 'menu-edition', dimension: 'nav', type: 'eval', expect: 'menu Édition ouvrable' },
+      { id: 'menu-affichage', dimension: 'nav', type: 'eval', expect: 'menu Affichage + toggle barre' },
+      { id: 'find-dialog', dimension: 'ctx', type: 'eval', expect: 'dialogue Rechercher' },
+      { id: 'replace-dialog', dimension: 'ctx', type: 'eval', expect: 'dialogue Remplacer' },
+      { id: 'kb-paste', dimension: 'kb', type: 'keyboard', expect: 'Ctrl+C/V' },
       { id: 'statusbar', dimension: 'vis', type: 'eval', expect: 'position + char count' },
     ],
   },
@@ -66,6 +69,7 @@ export const SLOT_TEMPLATES = {
     vmDoc: 'linux-mint-update-manager-vm.md',
     checks: [
       { id: 'welcome-screen', dimension: 'data', type: 'eval', expect: 'welcome visible on first open' },
+      { id: 'welcome-dismiss', dimension: 'int', type: 'click', selector: '[data-um-welcome="finish"]' },
       { id: 'menubar-file', dimension: 'nav', type: 'click', selector: '[data-um-menu="file"]' },
       { id: 'refresh-list', dimension: 'int', type: 'click', selector: '[data-um-action="refresh"]' },
     ],
@@ -73,15 +77,19 @@ export const SLOT_TEMPLATES = {
   mintinstall: {
     label: 'Logithèque',
     checks: [
-      { id: 'search', dimension: 'int', type: 'fill', selector: '[data-mi-search]' },
-      { id: 'categories', dimension: 'nav', type: 'click', selector: '[data-mi-category]' },
+      { id: 'search', dimension: 'int', type: 'fill', selector: '#mi-search' },
+      { id: 'categories', dimension: 'nav', type: 'click', selector: '[data-mi-cat="internet"]' },
+      { id: 'hamburger-menu', dimension: 'ctx', type: 'click', selector: '[data-mi-action="menu"]' },
+      { id: 'install', dimension: 'int', type: 'click', selector: '[data-mi-install]' },
     ],
   },
   themes: {
     label: 'Paramètres système (cinnamon-settings)',
     checks: [
       { id: 'sidebar-panels', dimension: 'nav', type: 'eval', expect: 'panel list + search' },
-      { id: 'theme-preview', dimension: 'vis', type: 'eval', expect: 'Mint-Y themes listed' },
+      { id: 'panel-search', dimension: 'nav', type: 'fill', selector: '#cs-search' },
+      { id: 'panel-switch', dimension: 'int', type: 'click', selector: '[data-cs-nav]' },
+      { id: 'panel-toggle', dimension: 'int', type: 'eval', expect: 'cs-switch toggle' },
     ],
   },
 };
@@ -126,7 +134,7 @@ export const SHELL_TEMPLATES = {
 export const BASELINE_DIMENSIONS = {
   nemo: { vis: 92, nav: 88, int: 90, ctx: 45, kb: 50, data: 92 },
   firefox: { vis: 90, nav: 86, int: 88, ctx: 72, kb: 58, data: 85 },
-  text_editor: { vis: 82, nav: 72, int: 78, ctx: 55, kb: 70, data: 80 },
+  text_editor: { vis: 82, nav: 78, int: 80, ctx: 70, kb: 75, data: 80 },
   calculator: { vis: 78, nav: 52, int: 75, ctx: 40, kb: 65, data: 70 },
   file_roller: { vis: 88, nav: 80, int: 85, ctx: 68, kb: 40, data: 88 },
   update_manager: { vis: 85, nav: 82, int: 80, ctx: 70, kb: 45, data: 86 },

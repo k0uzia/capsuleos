@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "mintinstall",
   "label": "Logithèque",
-  "collectedAt": "2026-06-08T10:57:23.427Z",
+  "collectedAt": "2026-06-08T11:19:29.875Z",
   "source": "vm-doc+template",
   "vmDoc": "root/docs/inventaires/linux-mint-mintinstall-vm.md",
   "vm": {
@@ -48,7 +48,7 @@
       "id": "search",
       "dimension": "int",
       "type": "fill",
-      "selector": "[data-mi-search]",
+      "selector": "#mi-search",
       "pass": null,
       "note": ""
     },
@@ -56,7 +56,23 @@
       "id": "categories",
       "dimension": "nav",
       "type": "click",
-      "selector": "[data-mi-category]",
+      "selector": "[data-mi-cat=\"internet\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "hamburger-menu",
+      "dimension": "ctx",
+      "type": "click",
+      "selector": "[data-mi-action=\"menu\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "install",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-mi-install]",
       "pass": null,
       "note": ""
     }

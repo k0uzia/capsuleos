@@ -1,91 +1,66 @@
 <main id="mintInstallApp" class="mi-app" aria-label="Logithèque">
 
-    <header class="mi-app__header" aria-label="Recherche">
+    <header class="mi-app__header">
         <div class="mi-app__search-wrap">
-            <span class="mi-app__search-icon" aria-hidden="true"></span>
-            <label class="sr-only" for="mi-search">Rechercher des applications</label>
-            <input type="search" class="mi-app__search" id="mi-search" placeholder="Rechercher des applications…" autocomplete="off">
+            <input type="search" class="mi-app__search" id="mi-search" placeholder="Rechercher des applications…" autocomplete="off" aria-label="Rechercher">
         </div>
-        <button type="button" class="mi-app__menu-btn" data-mi-action="menu" aria-label="Menu" aria-haspopup="menu" aria-expanded="false">
-            <span class="mi-app__menu-icon" aria-hidden="true"></span>
-        </button>
+        <button type="button" class="mi-app__menu-btn" data-mi-action="menu" aria-haspopup="true" aria-expanded="false" title="Menu">☰</button>
+        <nav class="mi-app__menu" id="mi-menu" hidden aria-label="Menu application">
+            <button type="button" class="mi-app__menu-item" data-mi-menu="refresh">Actualiser le cache</button>
+            <button type="button" class="mi-app__menu-item" data-mi-menu="sources">Modifier les sources de logiciels</button>
+            <button type="button" class="mi-app__menu-item" data-mi-menu="about">À propos</button>
+        </nav>
     </header>
 
     <div class="mi-app__body">
-        <nav class="mi-app__sidebar" aria-label="Catégories">
+        <aside class="mi-app__sidebar" aria-label="Catégories">
             <button type="button" class="mi-app__cat is-active" data-mi-cat="home">Accueil</button>
             <button type="button" class="mi-app__cat" data-mi-cat="all">Tous les logiciels</button>
             <button type="button" class="mi-app__cat" data-mi-cat="flatpak">Flatpak</button>
-            <span class="mi-app__sidebar-sep" role="separator"></span>
             <button type="button" class="mi-app__cat" data-mi-cat="internet">Internet</button>
             <button type="button" class="mi-app__cat" data-mi-cat="office">Bureautique</button>
             <button type="button" class="mi-app__cat" data-mi-cat="graphics">Graphisme</button>
-            <button type="button" class="mi-app__cat" data-mi-cat="games">Jeux</button>
             <button type="button" class="mi-app__cat" data-mi-cat="multimedia">Multimédia</button>
-            <button type="button" class="mi-app__cat" data-mi-cat="education">Éducation</button>
-            <button type="button" class="mi-app__cat" data-mi-cat="accessories">Accessoires</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="development">Développement</button>
             <button type="button" class="mi-app__cat" data-mi-cat="installed">Installés</button>
-        </nav>
+        </aside>
 
-        <section class="mi-app__content" aria-label="Applications">
-            <div class="mi-app__page" data-mi-page="home">
-                <h2 class="mi-app__section-title">Applications en vedette</h2>
-                <ul class="mi-app__grid" id="mi-featured-grid">
-                    <li class="mi-app__tile" data-mi-pkg="vlc">
-                        <img class="mi-app__tile-icon" src="./assets/images/toolkits/cinnamon/apps/vlc.svg" alt="">
-                        <div class="mi-app__tile-body">
-                            <p class="mi-app__tile-name">VLC</p>
-                            <p class="mi-app__tile-desc">Lecteur multimédia</p>
-                        </div>
-                        <button type="button" class="mi-app__install" data-mi-install="vlc">Installer</button>
+        <section class="mi-app__content">
+            <section class="mi-app__page mi-app__page--home" data-mi-page="home" aria-label="Accueil">
+                <h2 class="mi-app__page-title">Applications en vedette</h2>
+                <ul class="mi-app__featured">
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/vlc.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">VLC</span>
                     </li>
-                    <li class="mi-app__tile" data-mi-pkg="audacity">
-                        <img class="mi-app__tile-icon" src="./assets/images/toolkits/cinnamon/apps/audacity.svg" alt="">
-                        <div class="mi-app__tile-body">
-                            <p class="mi-app__tile-name">Audacity</p>
-                            <p class="mi-app__tile-desc">Éditeur audio</p>
-                        </div>
-                        <button type="button" class="mi-app__install" data-mi-install="audacity">Installer</button>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/audacity.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">Audacity</span>
                     </li>
-                    <li class="mi-app__tile" data-mi-pkg="filezilla">
-                        <img class="mi-app__tile-icon" src="./assets/images/toolkits/cinnamon/apps/filezilla.svg" alt="">
-                        <div class="mi-app__tile-body">
-                            <p class="mi-app__tile-name">FileZilla</p>
-                            <p class="mi-app__tile-desc">Client FTP</p>
-                        </div>
-                        <button type="button" class="mi-app__install" data-mi-install="filezilla">Installer</button>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/filezilla.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">FileZilla</span>
                     </li>
-                    <li class="mi-app__tile" data-mi-pkg="code">
-                        <img class="mi-app__tile-icon" src="./assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg" alt="">
-                        <div class="mi-app__tile-body">
-                            <p class="mi-app__tile-name">Visual Studio Code</p>
-                            <p class="mi-app__tile-desc">Éditeur de code</p>
-                        </div>
-                        <button type="button" class="mi-app__install" data-mi-install="code">Installer</button>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">VS Code</span>
                     </li>
                 </ul>
-            </div>
+            </section>
 
-            <div class="mi-app__page" data-mi-page="list" hidden>
-                <h2 class="mi-app__section-title" id="mi-list-title">Tous les logiciels</h2>
+            <section class="mi-app__page" data-mi-page="list" hidden aria-label="Liste">
+                <h2 class="mi-app__page-title" id="mi-list-title">Tous les logiciels</h2>
                 <ul class="mi-app__list" id="mi-app-list"></ul>
-            </div>
+            </section>
 
-            <div class="mi-app__page" data-mi-page="search" hidden>
-                <h2 class="mi-app__section-title" id="mi-search-title">Résultats</h2>
+            <section class="mi-app__page" data-mi-page="search" hidden aria-label="Résultats de recherche">
+                <h2 class="mi-app__page-title" id="mi-search-title">Résultats</h2>
                 <ul class="mi-app__list" id="mi-search-list"></ul>
-                <p class="mi-app__empty" id="mi-search-empty" hidden>Aucun résultat</p>
-            </div>
+                <p class="mi-app__empty" id="mi-search-empty" hidden>Aucun logiciel trouvé.</p>
+            </section>
         </section>
     </div>
 
-    <div class="mi-app__menu" id="mi-menu" role="menu" hidden>
-        <button type="button" class="mi-app__menu-item" role="menuitem" data-mi-menu="refresh">Actualiser</button>
-        <button type="button" class="mi-app__menu-item" role="menuitem" data-mi-menu="prefs">Préférences</button>
-        <span class="mi-app__menu-sep" role="separator"></span>
-        <button type="button" class="mi-app__menu-item" role="menuitem" data-mi-menu="about">À propos</button>
-    </div>
-
-    <p class="mi-app__status sr-only" id="mi-status" role="status" aria-live="polite"></p>
+    <footer class="mi-app__status" id="mi-status" aria-live="polite"></footer>
 
 </main>

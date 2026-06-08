@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-mint",
-  "generatedAt": "2026-06-08T10:57:23.658Z",
+  "generatedAt": "2026-06-08T11:19:30.082Z",
   "shell": [
     {
       "id": "mainMenu",
@@ -170,10 +170,14 @@
     },
     "text_editor": {
       "label": "Éditeur de texte (xed)",
-      "interactions": 5,
+      "interactions": 8,
       "effects": [
         {
           "effect": "menus-dropdown",
+          "kernel": "text-editor.js"
+        },
+        {
+          "effect": "find-replace-dialogs",
           "kernel": "text-editor.js"
         },
         {
@@ -223,7 +227,7 @@
     },
     "update_manager": {
       "label": "Gestionnaire de mises à jour",
-      "interactions": 3,
+      "interactions": 4,
       "effects": [
         {
           "effect": "welcome-dismiss",
@@ -238,18 +242,26 @@
     },
     "mintinstall": {
       "label": "Logithèque",
-      "interactions": 2,
+      "interactions": 4,
       "effects": [
         {
-          "effect": "slot-open",
-          "kernel": "contentLoader.js"
+          "effect": "category-nav",
+          "kernel": "mintinstall.js"
+        },
+        {
+          "effect": "search-filter",
+          "kernel": "mintinstall.js"
+        },
+        {
+          "effect": "install-sim",
+          "kernel": "mintinstall.js"
         }
       ],
       "smoke": "smoke-mint-mintinstall.mjs"
     },
     "themes": {
       "label": "Paramètres système (cinnamon-settings)",
-      "interactions": 2,
+      "interactions": 4,
       "effects": [
         {
           "effect": "panel-router",
@@ -258,9 +270,13 @@
         {
           "effect": "search-panels",
           "kernel": "cinnamon-settings.js"
+        },
+        {
+          "effect": "cs-switch-toggle",
+          "kernel": "cinnamon-settings.js"
         }
       ],
-      "smoke": null
+      "smoke": "smoke-mint-themes.mjs"
     }
   },
   "gates": [

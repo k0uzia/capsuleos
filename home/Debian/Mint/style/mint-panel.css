@@ -17,6 +17,9 @@
     border: var(--n);
     background: var(--mint-taskbar-bg);
     box-sizing: border-box;
+    color: var(--texte);
+    font-family: var(--font-ui);
+    font-weight: bold;
 }
 
 .mint-panel__left,
@@ -347,7 +350,9 @@ html[data-theme="light"] .taskbar-window-list__btn {
 
 .taskbar-clock-trigger > .taskbar__clock {
     color: inherit;
+    font-family: inherit;
     font-size: calc(var(--head) / 2.2);
+    font-weight: inherit;
     font-variant-numeric: tabular-nums;
     pointer-events: none;
 }

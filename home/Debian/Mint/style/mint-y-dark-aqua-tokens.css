@@ -8,6 +8,9 @@ body#mint {
     --taskbar-height: var(--mint-panel-height);
     --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
     --texte: #e1e1e1;
+    /* html{color:var(--texte)} portail — réappliquer teinte VM #e1e1e1 + stack Cantarell/Noto */
+    color: var(--texte);
+    font-family: var(--font-ui);
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
     --mint-taskbar-bg: #2e2e33;

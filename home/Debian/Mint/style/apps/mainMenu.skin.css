@@ -259,10 +259,13 @@ body#mint div[data-link="mainMenu"] .menu-search {
     background: var(--menuInput);
 }
 
-body#mint div[data-link="mainMenu"] .menu-search:focus {
+body#mint div[data-link="mainMenu"] .menu-search:focus,
+body#mint div[data-link="mainMenu"] .menu-search:focus-visible {
     border-color: var(--menu-search-border-focus);
     background: var(--menuInput);
     color: var(--texte);
+    outline: none;
+    box-shadow: none;
 }
 
 body#mint div[data-link="mainMenu"] .menu-shortcut:hover {

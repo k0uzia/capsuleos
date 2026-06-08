@@ -1,6 +1,6 @@
 {
   "registryId": "linux-mint",
-  "campaign": "v2-deep-pass",
+  "campaign": "v3-credibility-pass",
   "vm": {
     "host": "capsule@192.168.1.146",
     "inventory": "linux-mint-vm.json",
@@ -34,15 +34,26 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs",
     "cloneCycle": "usr/lib/capsuleos/tools/lab/run-clone-cycle.mjs",
-    "crossRegression": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs"
+    "crossRegression": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs",
+    "fidelityCampaign": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
+    "fidelitySmoke": "usr/lib/capsuleos/tools/lab/smoke-app-fidelity-scenario.mjs"
   },
   "cloneEngine": {
     "contract": "etc/capsuleos/contracts/clone-cycle-engine.json",
     "doc": "root/docs/moteur-clonage-experience.md",
     "currentCycle": "C10",
-    "nextCycle": null,
+    "nextCycle": "Cred",
     "cyclesToPi100": { "minimum": 10, "typical": 11, "remaining": 0 },
     "appsScope": "priority"
+  },
+  "credibilityCampaign": {
+    "id": "v3-credibility-pass",
+    "doc": "root/docs/campagne-credibilite-pedagogique.md",
+    "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
+    "inventory": "linux-mint-app-fidelity-scenarios.json",
+    "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
+    "currentPhase": "P-A",
+    "predicates": ["CredV", "CredC", "CredS", "CredΠ"]
   },
   "pallier": 10,
   "pallier10Commit": null,
@@ -54,7 +65,6 @@
   "pallier6Commit": "9a547e1",
   "pallier7Commit": "fc7396e",
   "pallier8Commit": "bb64562",
-  "updatedAt": "2026-06-08T16:20:00.000Z",
   "integralPass": {
     "date": "2026-06-08",
     "doc": "root/docs/recette-clone-mint-integral.md",
@@ -114,7 +124,7 @@
       "summary": "librewriter retiré DOM/panel ; Writer → libreoffice_startcenter ; checklist absent panel"
     }
   ],
-  "currentFocus": "linux-mint-only",
+  "currentFocus": "v3-credibility-pass",
   "nextPallier": null,
   "nextQueue": [],
   "notes": [
@@ -122,6 +132,8 @@
     "Pallier 10 / cycle C10 — Π_global=100 (appsScope priority + shell 8/8 à 100).",
     "Bureau VM vide : checks desktop alignés (0 raccourci = vérité).",
     "101/101 catalogue : slots ouverts OK.",
-    "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps."
-  ]
+    "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps.",
+    "Campagne v3 crédibilité pédagogique — doc root/docs/campagne-credibilite-pedagogique.md ; inventaire linux-mint-app-fidelity-scenarios.json (33 scénarios CredV)."
+  ],
+  "updatedAt": "2026-06-08T17:00:00.000Z"
 }

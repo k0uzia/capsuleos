@@ -1,0 +1,933 @@
+{
+  "registryId": "linux-mint",
+  "campaign": "v3-credibility-pass",
+  "doc": "root/docs/campagne-credibilite-pedagogique.md",
+  "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
+  "vm": {
+    "host": "capsule@192.168.1.146"
+  },
+  "appQueue": [
+    "nemo",
+    "firefox",
+    "text_editor",
+    "calculator",
+    "file_roller",
+    "update_manager",
+    "mintinstall",
+    "themes",
+    "terminal",
+    "pix",
+    "sticky"
+  ],
+  "apps": [
+    {
+      "id": "nemo",
+      "label": "Nemo",
+      "pi_credibility": null
+    },
+    {
+      "id": "firefox",
+      "label": "Firefox",
+      "pi_credibility": null
+    },
+    {
+      "id": "text_editor",
+      "label": "Xed",
+      "pi_credibility": null
+    },
+    {
+      "id": "calculator",
+      "label": "Calculatrice",
+      "pi_credibility": null
+    },
+    {
+      "id": "file_roller",
+      "label": "Archive Manager",
+      "pi_credibility": null
+    },
+    {
+      "id": "update_manager",
+      "label": "Gestionnaire de mises à jour",
+      "pi_credibility": null
+    },
+    {
+      "id": "mintinstall",
+      "label": "Gestionnaire de logiciels",
+      "pi_credibility": null
+    },
+    {
+      "id": "themes",
+      "label": "Paramètres système",
+      "pi_credibility": null
+    },
+    {
+      "id": "terminal",
+      "label": "Terminal",
+      "pi_credibility": null
+    },
+    {
+      "id": "pix",
+      "label": "Pix",
+      "pi_credibility": null
+    },
+    {
+      "id": "sticky",
+      "label": "Notes",
+      "pi_credibility": null
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "nemo-open-documents",
+      "app": "nemo",
+      "persona": "utilisateur bureau — accès dossier Documents",
+      "steps": [
+        "Cliquer l'icône Nemo dans le panel",
+        "Dans la barre latérale, cliquer Documents (~/Documents)",
+        "Vérifier liste fichiers et chemin barre d'adresse"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".nemo-sidebar",
+          ".nemo-pathbar",
+          ".nemo-file-list"
+        ]
+      }
+    },
+    {
+      "id": "nemo-file-new-folder",
+      "app": "nemo",
+      "persona": "utilisateur bureau — création dossier",
+      "steps": [
+        "Ouvrir Nemo sur ~/Documents",
+        "Menu Fichier → Nouveau dossier",
+        "Saisir nom « Projet » et valider Entrée",
+        "Vérifier apparition dans la liste"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".nemo-menubar",
+          ".nemo-file-list"
+        ]
+      }
+    },
+    {
+      "id": "nemo-menu-context",
+      "app": "nemo",
+      "persona": "utilisateur bureau — clic droit zone vide",
+      "steps": [
+        "Ouvrir Nemo sur ~/Bureau",
+        "Clic droit sur zone vide du panneau central",
+        "Menu contextuel Cinnamon : Nouveau dossier, Propriétés, etc."
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          "#menu-app-context-menu",
+          ".nemo-content"
+        ]
+      }
+    },
+    {
+      "id": "nemo-sidebar-favorites",
+      "app": "nemo",
+      "persona": "utilisateur bureau — navigation favoris",
+      "steps": [
+        "Ouvrir Nemo",
+        "Barre latérale : cliquer Téléchargements",
+        "Puis Bureau, puis Accueil",
+        "Vérifier changement contenu et surbrillance entrée active"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".nemo-sidebar .places-item",
+          ".nemo-file-list"
+        ]
+      }
+    },
+    {
+      "id": "firefox-url-bar",
+      "app": "firefox",
+      "persona": "utilisateur web — navigation URL",
+      "steps": [
+        "Ouvrir Firefox depuis le panel",
+        "Cliquer barre d'adresse, saisir linuxmint.com",
+        "Valider Entrée — page d'accueil ou zone contenu visible"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".firefox-urlbar",
+          ".firefox-content"
+        ]
+      }
+    },
+    {
+      "id": "firefox-tabs",
+      "app": "firefox",
+      "persona": "utilisateur web — onglets multiples",
+      "steps": [
+        "Ouvrir Firefox",
+        "Ctrl+T nouvel onglet",
+        "Basculer entre onglets par clic barre d'onglets",
+        "Fermer onglet avec croix"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".firefox-tabbar",
+          ".firefox-tab"
+        ]
+      }
+    },
+    {
+      "id": "firefox-hamburger-menu",
+      "app": "firefox",
+      "persona": "utilisateur web — menu application",
+      "steps": [
+        "Ouvrir Firefox",
+        "Cliquer menu hamburger (☰) en haut à droite",
+        "Parcourir Nouvelle fenêtre, Zoom, Historique, Quitter"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".firefox-appmenu-button",
+          ".firefox-appmenu"
+        ]
+      }
+    },
+    {
+      "id": "text-editor-open-save",
+      "app": "text_editor",
+      "persona": "utilisateur bureau — édition texte",
+      "steps": [
+        "Ouvrir Xed (Éditeur de texte)",
+        "Saisir du texte dans la zone d'édition",
+        "Menu Fichier → Enregistrer sous — dialogue chemin"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".xed-editor",
+          ".xed-menubar"
+        ]
+      }
+    },
+    {
+      "id": "text-editor-find",
+      "app": "text_editor",
+      "persona": "utilisateur bureau — recherche dans document",
+      "steps": [
+        "Ouvrir Xed avec document non vide",
+        "Ctrl+F — barre recherche",
+        "Saisir terme et naviguer occurrences"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".xed-searchbar"
+        ]
+      }
+    },
+    {
+      "id": "text-editor-preferences",
+      "app": "text_editor",
+      "persona": "utilisateur bureau — préférences éditeur",
+      "steps": [
+        "Ouvrir Xed",
+        "Menu Édition → Préférences",
+        "Parcourir onglets Police, Affichage, Plugins"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".xed-prefs-dialog"
+        ]
+      }
+    },
+    {
+      "id": "calculator-basic",
+      "app": "calculator",
+      "persona": "utilisateur bureau — calcul simple",
+      "steps": [
+        "Ouvrir Calculatrice depuis le menu",
+        "Saisir 12 + 7 =",
+        "Vérifier affichage résultat 19"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".gnome-calc",
+          ".calc-display"
+        ]
+      }
+    },
+    {
+      "id": "calculator-scientific",
+      "app": "calculator",
+      "persona": "utilisateur bureau — mode scientifique",
+      "steps": [
+        "Ouvrir Calculatrice",
+        "Menu Affichage → Mode scientifique",
+        "Utiliser sin, cos, π"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".calc-scientific-mode"
+        ]
+      }
+    },
+    {
+      "id": "calculator-history",
+      "app": "calculator",
+      "persona": "utilisateur bureau — historique calculs",
+      "steps": [
+        "Effectuer plusieurs opérations",
+        "Ouvrir panneau historique (si disponible)",
+        "Recliquer entrée historique"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".calc-history"
+        ]
+      }
+    },
+    {
+      "id": "file-roller-open-archive",
+      "app": "file_roller",
+      "persona": "utilisateur bureau — ouverture archive",
+      "steps": [
+        "Ouvrir Gestionnaire d'archives",
+        "Menu Archive → Ouvrir — sélectionner .zip",
+        "Lister contenu archive"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".file-roller-list",
+          ".file-roller-menubar"
+        ]
+      }
+    },
+    {
+      "id": "file-roller-extract",
+      "app": "file_roller",
+      "persona": "utilisateur bureau — extraction",
+      "steps": [
+        "Ouvrir archive dans Gestionnaire d'archives",
+        "Sélectionner fichiers",
+        "Extraire vers dossier destination"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".file-roller-extract"
+        ]
+      }
+    },
+    {
+      "id": "file-roller-create",
+      "app": "file_roller",
+      "persona": "utilisateur bureau — création archive",
+      "steps": [
+        "Ouvrir Gestionnaire d'archives",
+        "Nouvelle archive → ajouter fichiers",
+        "Enregistrer .tar.gz"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".file-roller-toolbar"
+        ]
+      }
+    },
+    {
+      "id": "update-manager-list",
+      "app": "update_manager",
+      "persona": "utilisateur système — liste mises à jour",
+      "steps": [
+        "Ouvrir Gestionnaire de mises à jour",
+        "Onglet Mises à jour — liste paquets",
+        "Cocher/décocher entrées"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".update-manager-list",
+          ".update-manager-tabs"
+        ]
+      }
+    },
+    {
+      "id": "update-manager-tabs",
+      "app": "update_manager",
+      "persona": "utilisateur système — navigation onglets",
+      "steps": [
+        "Ouvrir Gestionnaire de mises à jour",
+        "Basculer onglets Mises à jour / Mises à jour du système / Paramètres",
+        "Vérifier contenu distinct par onglet"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".update-manager-tabs .tab"
+        ]
+      }
+    },
+    {
+      "id": "update-manager-refresh",
+      "app": "update_manager",
+      "persona": "utilisateur système — actualisation",
+      "steps": [
+        "Ouvrir Gestionnaire de mises à jour",
+        "Cliquer Actualiser / Recharger",
+        "Observer indicateur chargement puis liste"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".update-manager-refresh"
+        ]
+      }
+    },
+    {
+      "id": "mintinstall-search",
+      "app": "mintinstall",
+      "persona": "utilisateur bureau — recherche application",
+      "steps": [
+        "Ouvrir Gestionnaire de logiciels",
+        "Champ recherche : saisir « firefox »",
+        "Vérifier fiche Firefox dans résultats"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".mintinstall-search",
+          ".mintinstall-results"
+        ]
+      }
+    },
+    {
+      "id": "mintinstall-categories",
+      "app": "mintinstall",
+      "persona": "utilisateur bureau — navigation catégories",
+      "steps": [
+        "Ouvrir Gestionnaire de logiciels",
+        "Barre latérale : Internet, Graphisme, Accessoires",
+        "Liste apps change par catégorie"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".mintinstall-sidebar",
+          ".mintinstall-category"
+        ]
+      }
+    },
+    {
+      "id": "mintinstall-app-detail",
+      "app": "mintinstall",
+      "persona": "utilisateur bureau — fiche application",
+      "steps": [
+        "Rechercher une application (ex. VLC)",
+        "Cliquer fiche — description, captures, bouton Installer",
+        "Simuler clic Installer (pas d'installation réelle en clone)"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".mintinstall-detail",
+          ".mintinstall-install-btn"
+        ]
+      }
+    },
+    {
+      "id": "themes-panels-nav",
+      "app": "themes",
+      "persona": "utilisateur bureau — panneaux paramètres",
+      "steps": [
+        "Ouvrir Paramètres système (themes)",
+        "Parcourir panneaux cs-general, cs-desklets, cs-windows",
+        "Vérifier titre et contenu distinct par panneau"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".cs-category",
+          ".cs-panel"
+        ]
+      }
+    },
+    {
+      "id": "themes-wallpaper",
+      "app": "themes",
+      "persona": "utilisateur bureau — fond d'écran",
+      "steps": [
+        "Paramètres système → Fond d'écran",
+        "Parcourir miniatures fonds",
+        "Sélectionner un fond — aperçu mis à jour"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".cs-backgrounds",
+          ".cs-wallpaper-thumb"
+        ]
+      }
+    },
+    {
+      "id": "themes-applets",
+      "app": "themes",
+      "persona": "utilisateur bureau — applets panel",
+      "steps": [
+        "Paramètres système → Applets",
+        "Liste applets installés",
+        "Activer/désactiver applet (ex. horloge)"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".cs-applets-list"
+        ]
+      }
+    },
+    {
+      "id": "terminal-basic-shell",
+      "app": "terminal",
+      "persona": "utilisateur développeur — shell interactif",
+      "steps": [
+        "Ouvrir Terminal depuis panel",
+        "Saisir commande ls",
+        "Vérifier prompt et sortie simulée"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".capsule-terminal-shell",
+          "#terminalContainer"
+        ]
+      }
+    },
+    {
+      "id": "terminal-tabs",
+      "app": "terminal",
+      "persona": "utilisateur développeur — onglets terminal",
+      "steps": [
+        "Ouvrir Terminal",
+        "Ctrl+Shift+T nouvel onglet",
+        "Basculer entre onglets"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".terminal-tabs"
+        ]
+      }
+    },
+    {
+      "id": "terminal-preferences",
+      "app": "terminal",
+      "persona": "utilisateur développeur — préférences",
+      "steps": [
+        "Menu Édition → Préférences",
+        "Onglets Général, Couleurs, Compatibilité"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".terminal-prefs"
+        ]
+      }
+    },
+    {
+      "id": "pix-open-image",
+      "app": "pix",
+      "persona": "utilisateur bureau — visionneuse images",
+      "steps": [
+        "Ouvrir Pix",
+        "Menu Fichier → Ouvrir image",
+        "Afficher image et barre outils zoom"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".pix-viewer",
+          ".pix-toolbar"
+        ]
+      }
+    },
+    {
+      "id": "pix-slideshow",
+      "app": "pix",
+      "persona": "utilisateur bureau — diaporama",
+      "steps": [
+        "Ouvrir image dans Pix",
+        "Menu Diaporama ou F5",
+        "Navigation plein écran"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".pix-slideshow"
+        ]
+      }
+    },
+    {
+      "id": "pix-export",
+      "app": "pix",
+      "persona": "utilisateur bureau — export image",
+      "steps": [
+        "Image ouverte dans Pix",
+        "Menu Fichier → Enregistrer sous / Exporter",
+        "Choisir format et destination"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".pix-export-dialog"
+        ]
+      }
+    },
+    {
+      "id": "sticky-create-note",
+      "app": "sticky",
+      "persona": "utilisateur bureau — note rapide",
+      "steps": [
+        "Ouvrir Notes depuis le menu",
+        "Créer nouvelle note",
+        "Saisir texte et changer couleur"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".sticky-note",
+          ".sticky-toolbar"
+        ]
+      }
+    },
+    {
+      "id": "sticky-delete-note",
+      "app": "sticky",
+      "persona": "utilisateur bureau — suppression note",
+      "steps": [
+        "Note existante ouverte",
+        "Clic croix ou menu Supprimer",
+        "Confirmation suppression"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          ".sticky-delete"
+        ]
+      }
+    },
+    {
+      "id": "sticky-panel-applet",
+      "app": "sticky",
+      "persona": "utilisateur bureau — applet panel",
+      "steps": [
+        "Clic icône Notes dans zone notification panel",
+        "Menu rapide nouvelles notes récentes"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": false,
+        "CredS": false
+      },
+      "pi_credibility": null,
+      "phase": "P-A",
+      "selectors": {
+        "capsule": [
+          "#system-tray",
+          ".sticky-applet"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "totalScenarios": 34,
+    "documented": 34,
+    "implemented": 0,
+    "smokeOk": 0,
+    "measured": 0,
+    "avgPi": null,
+    "appsTotal": 11,
+    "appsAtPi100": 0,
+    "documentedPct": 100,
+    "implementedPct": 0,
+    "smokePct": 0
+  },
+  "updatedAt": "2026-06-08T16:43:06.922Z"
+}

@@ -56,6 +56,8 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Moteur de cycles clone** : [`root/docs/moteur-clonage-experience.md`](root/docs/moteur-clonage-experience.md) — **11 cycles** (C0–C10) vers Π=100, anti-régression cross-toolkit ; `node usr/lib/capsuleos/tools/lab/run-clone-cycle.mjs --id <registryId> --status`.
 
+**Campagne crédibilité pédagogique** (post Π=100) : [`root/docs/campagne-credibilite-pedagogique.md`](root/docs/campagne-credibilite-pedagogique.md) — scénarios utilisateur VM → clone (menus, sous-menus, états) ; `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next`.
+
 **Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
 
 **Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.

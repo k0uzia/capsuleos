@@ -74,7 +74,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#8 Gestionnaire d'archives** — `file_roller`, smoke `smoke-mint-file-roller.mjs` OK (2026-06-08)
 - [x] **#10 Gestionnaire de pilotes** — `mintdrivers`, smoke `smoke-mint-mintdrivers.mjs` OK (2026-06-08)
 - [x] **#11 Lecteur vidéo** — `lecteur_multimedia` / Celluloid, smoke `smoke-mint-celluloid.mjs` OK (2026-06-08)
-- [ ] Reproduction **une app par passe** (suite : #12 LibreOffice Calc) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#12 LibreOffice Calc** — `librecalc`, smoke `smoke-mint-librecalc.mjs` OK (2026-06-08)
+- [ ] Reproduction **une app par passe** (suite : #13 LibreOffice Writer) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Zone de notification (2026-06-04)

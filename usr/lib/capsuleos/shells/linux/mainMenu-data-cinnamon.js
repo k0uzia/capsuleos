@@ -78,7 +78,7 @@ const MENU_APPS = [
     { catId: 'sonvideo', icon: './assets/images/toolkits/gnome/apps/hypnotix', name: 'Hypnotix', desc: 'Hypnotix', dataLink: null },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/mintlocale', name: 'Langues', desc: 'Languages', dataLink: 'themes' },
     { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-startcenter', name: 'LibreOffice', desc: 'LibreOffice', dataLink: 'librewriter' },
-    { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-calc', name: 'LibreOffice Calc', desc: 'LibreOffice Calc', dataLink: 'librewriter' },
+    { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-calc', name: 'LibreOffice Calc', desc: 'LibreOffice Calc', dataLink: 'librecalc' },
     { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-draw', name: 'LibreOffice Draw', desc: 'LibreOffice Draw', dataLink: 'librewriter' },
     { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-impress', name: 'LibreOffice Impress', desc: 'LibreOffice Impress', dataLink: 'librewriter' },
     { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-writer', name: 'LibreOffice Writer', desc: 'LibreOffice Writer', dataLink: 'librewriter' },

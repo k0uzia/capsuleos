@@ -41,6 +41,10 @@
             if (app.name === 'LibreOffice Writer') {
                 app.icon = panelIcon + 'libreoffice-writer.webp';
             }
+            if (app.name === 'LibreOffice Calc') {
+                app.dataLink = 'librecalc';
+                app.icon = './assets/images/toolkits/gnome/apps/libreoffice-calc';
+            }
             if (app.name === 'Capture d\'écran') {
                 app.dataLink = 'screenshot';
             }

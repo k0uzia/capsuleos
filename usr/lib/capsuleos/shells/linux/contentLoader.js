@@ -413,6 +413,11 @@ const SLOT_INIT_HANDLERS = {
             initLibreWriter();
         }
     },
+    librecalc: () => {
+        if (typeof initLibreCalc === 'function') {
+            initLibreCalc();
+        }
+    },
     visionneur_images: () => {
         runFirstAvailable([
             { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['visionneur_images'] },

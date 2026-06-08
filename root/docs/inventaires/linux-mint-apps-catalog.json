@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T07:58:28.667Z",
+  "generatedAt": "2026-06-08T08:05:33.440Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -8,6 +8,7 @@
     "file_roller",
     "firefox",
     "lecteur_multimedia",
+    "librecalc",
     "librewriter",
     "mainMenu",
     "mintdrivers",
@@ -841,14 +842,14 @@
       "desktop": "libreoffice-calc.desktop",
       "priorite": "P1",
       "slotCapsule": "librecalc",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/librecalc.html",
+      "fichiers": "apps/librecalc.html · Mint/style/apps/librecalc.skin.css",
       "rangReproduction": 12
     },
     {
@@ -1855,14 +1856,14 @@
       "desktop": "libreoffice-calc.desktop",
       "priorite": "P1",
       "slotCapsule": "librecalc",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/librecalc.html",
+      "fichiers": "apps/librecalc.html · Mint/style/apps/librecalc.skin.css",
       "rangReproduction": 12
     },
     {

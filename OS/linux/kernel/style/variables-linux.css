@@ -53,6 +53,10 @@
     --win-librewriter-height: calc(var(--head) * 16);
     --win-librewriter-min-width: calc(var(--head) * 18);
     --win-librewriter-min-height: calc(var(--head) * 12);
+    --win-librecalc-width: calc(var(--head) * 24);
+    --win-librecalc-height: calc(var(--head) * 16);
+    --win-librecalc-min-width: calc(var(--head) * 18);
+    --win-librecalc-min-height: calc(var(--head) * 12);
 
     /** Update Manager 7.1.4 — géométrie VM wmctrl (790×570) */
     --win-update_manager-width: 790px;

@@ -74,6 +74,7 @@ function buildWindowTitles(merged) {
         firefox: m['firefox.windowTitle'] || 'Navigateur Web',
         profile: m['profile.windowTitle'] || 'À Propos',
         librewriter: m['librewriter.windowTitle'] || 'Sans nom 1 - LibreOffice Writer',
+        librecalc: m['librecalc.windowTitle'] || 'Sans nom 1 - LibreOffice Calc',
         terminal: m['terminal.windowTitle'] || 'Terminal',
         update_manager: m['update_manager.windowTitle'] || 'Gestionnaire de mise à jour',
         themes: m['themes.windowTitle'] || 'Thèmes',

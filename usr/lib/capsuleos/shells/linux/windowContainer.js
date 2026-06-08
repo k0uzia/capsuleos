@@ -7,6 +7,7 @@
     const WINDOW_TITLE_MAP = {
         profile: 'À Propos',
         librewriter: 'Sans nom 1 - LibreOffice Writer',
+        librecalc: 'Sans nom 1 - LibreOffice Calc',
         calculator: 'Calculatrice',
         clocks: 'Horloges',
         calendar: 'Calendrier',

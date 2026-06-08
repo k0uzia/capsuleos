@@ -77,6 +77,13 @@ div.windowElement[data-link="librewriter"]:not(#mainMenu) {
     min-height: var(--win-librewriter-min-height);
 }
 
+div.windowElement[data-link="librecalc"]:not(#mainMenu) {
+    width: var(--win-librecalc-width);
+    min-width: var(--win-librecalc-min-width);
+    height: var(--win-librecalc-height);
+    min-height: var(--win-librecalc-min-height);
+}
+
 div.windowElement[data-link="visionneur_images"]:not(#mainMenu),
 div.windowElement[data-link="visionneur_pdf"]:not(#mainMenu) {
     width: var(--win-visionneur_images-width);

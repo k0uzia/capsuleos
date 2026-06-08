@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T07:58:28.667Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T08:05:33.440Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -37,7 +37,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ✅ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | P0 |
-| 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | P1 |
+| 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | P1 |
 | 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | P0 |
 | 14 | Logithèque | mintinstall-kde.desktop | update_manager | 🔶 | P0 |
 | 15 | Moniteur système | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | P1 |
@@ -112,7 +112,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Lecteur vidéo | Celluloid | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | M |  |
 | Library | Library | thingy.desktop | — | ⬜ | — |  |
 | LibreOffice | LibreOffice | libreoffice-startcenter.desktop | — | ⬜ | — |  |
-| LibreOffice Calc | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | M |  |
+| LibreOffice Calc | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | M |  |
 | LibreOffice Draw | LibreOffice Draw | libreoffice-draw.desktop | — | ⬜ | — |  |
 | LibreOffice Impress | LibreOffice Impress | libreoffice-impress.desktop | — | ⬜ | — |  |
 | LibreOffice Writer | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | M,P |  |
@@ -172,6 +172,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `file_roller` — ✅
 - `firefox` — ✅
 - `lecteur_multimedia` — ✅
+- `librecalc` — ✅
 - `librewriter` — 🔶
 - `mainMenu` — 🔶
 - `mintdrivers` — ✅

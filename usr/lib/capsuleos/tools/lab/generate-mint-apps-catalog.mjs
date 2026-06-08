@@ -38,6 +38,7 @@ const SLOT_STATUS = {
   drawing: { statut: 'ok', slot: 'drawing', note: 'Drawing (mao) — canvas + outils' },
   file_roller: { statut: 'ok', slot: 'file_roller', note: 'File Roller 43 — headerbar, vide, smoke OK' },
   mintdrivers: { statut: 'ok', slot: 'mintdrivers', note: 'Driver Manager — recherche puis aucun pilote, smoke OK' },
+  librecalc: { statut: 'ok', slot: 'librecalc', note: 'Calc — grille, barre de formule, menus, smoke OK' },
 };
 
 /** Correspondance .desktop VM → slot / nom menu FR / priorité reproduction */

@@ -58,6 +58,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'mainMenu.searchPlaceholder': 'Rechercher...',
     'profile.windowTitle': 'À Propos',
     'librewriter.windowTitle': 'Sans nom 1 - LibreOffice Writer',
+    'librecalc.windowTitle': 'Sans nom 1 - LibreOffice Calc',
     'terminal.windowTitle': 'Terminal',
     'update_manager.windowTitle': 'Gestionnaire de mise à jour',
     'themes.windowTitle': 'Thèmes',

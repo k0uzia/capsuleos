@@ -14,6 +14,7 @@
         profile: 'À Propos',
         checklist: 'Missions',
         librewriter: 'LibreOffice Writer',
+        librecalc: 'LibreOffice Calc',
         visionneur_images: 'Visionneur d\'images',
         visionneur_pdf: 'Visionneur PDF',
         lecteur_multimedia: 'Lecteur vidéo',

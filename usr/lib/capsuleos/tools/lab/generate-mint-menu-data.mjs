@@ -54,7 +54,7 @@ const DESKTOP_SLOT = {
   'cinnamon-color-panel.desktop': { slot: 'themes', catId: 'prefs' },
   'cinnamon-wacom-panel.desktop': { slot: 'themes', catId: 'prefs' },
   'libreoffice-writer.desktop': { slot: 'librewriter', catId: 'bureau' },
-  'libreoffice-calc.desktop': { slot: 'librewriter', catId: 'bureau' },
+  'libreoffice-calc.desktop': { slot: 'librecalc', catId: 'bureau' },
   'libreoffice-impress.desktop': { slot: 'librewriter', catId: 'bureau' },
   'libreoffice-draw.desktop': { slot: 'librewriter', catId: 'bureau' },
   'libreoffice-startcenter.desktop': { slot: 'librewriter', catId: 'bureau' },

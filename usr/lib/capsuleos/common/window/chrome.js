@@ -72,6 +72,7 @@
         profile: '.gnome-app__window-chrome',
         checklist: '.checklist-app__header',
         librewriter: '.lw-menubar',
+        librecalc: '.lc-menubar',
         themes: '.gnome-settings__headerbar',
         visionneur_images: '.viewer-app__toolbar',
         visionneur_pdf: '.viewer-app__toolbar',

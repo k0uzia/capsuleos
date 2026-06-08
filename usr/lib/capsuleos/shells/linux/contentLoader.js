@@ -403,6 +403,9 @@ const SLOT_INIT_HANDLERS = {
         runFirstAvailable([
             { fn: typeof initFileExplorerDnD === 'function' ? initFileExplorerDnD : null }
         ]);
+        if (typeof window.bindFileExplorerContextMenu === 'function') {
+            window.bindFileExplorerContextMenu(container);
+        }
     },
     terminal: (container) => {
         runFirstAvailable([

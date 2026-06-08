@@ -18,6 +18,27 @@
         typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
     );
 
+    const resolveContextMenuRoot = (scope) => scope || getNemoRoot();
+
+    const isNautilusGnomeScope = (scope) => {
+        const root = resolveContextMenuRoot(scope);
+        if (root && root.querySelector('main#gestionnaire.nautilus-app')) {
+            return true;
+        }
+        return isNautilusGnome();
+    };
+
+    const isNemoCinnamonScope = (scope) => {
+        const root = resolveContextMenuRoot(scope);
+        if (root && root.querySelector('main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+            return true;
+        }
+        if (typeof global.isNemoTemplate === 'function') {
+            return global.isNemoTemplate();
+        }
+        return false;
+    };
+
     /* ── GNOME Nautilus (shell-gnome.html, #nemo-context-menu) ── */
 
     let contextTarget = null;
@@ -523,11 +544,17 @@
     /* ── Point d'entrée (contentLoader / fileExplorerCore) ── */
 
     function bindFileExplorerContextMenu(scope) {
-        if (isNautilusGnome()) {
-            bindNautilusGnomeContextMenu(scope);
+        const root = resolveContextMenuRoot(scope);
+        if (!root) {
             return;
         }
-        bindNemoContextMenu(scope);
+        if (isNautilusGnomeScope(root)) {
+            bindNautilusGnomeContextMenu(root);
+            return;
+        }
+        if (isNemoCinnamonScope(root)) {
+            bindNemoContextMenu(root);
+        }
     }
 
     global.bindFileExplorerContextMenu = bindFileExplorerContextMenu;

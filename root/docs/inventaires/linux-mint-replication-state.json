@@ -1,136 +1,43 @@
 {
   "registryId": "linux-mint",
-  "campaignId": "mint-v2-exact-vm",
-  "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T10:47:00Z",
-  "scope": {
-    "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
-    "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
-    "labInventory": "etc/capsuleos/lab-inventory.json",
-    "costEstimate": "root/docs/inventaires/linux-mint-replication-cost-estimate.md",
-    "rules": [
-      "Tout élément présent sur la VM doit exister dans Capsule avec le même rôle (objet modale Σ(S), transitions δ, effets E(δ)).",
-      "CapsuleOnly interdit en clôture (checklist, retour accueil, lanceurs panel fictifs, etc.).",
-      "P1 « assumé » = dette temporaire ; clôture uniquement si D=0 sur l'inventaire VM.",
-      "Assets : pull VM uniquement (ManΣ), pas d'emprunt cross-vendor."
-    ]
+  "campaign": "v2-deep-pass",
+  "vm": {
+    "host": "capsule@192.168.1.146",
+    "inventory": "linux-mint-vm.json",
+    "labConfig": "etc/capsuleos/lab-inventory.json"
   },
-  "vmSnapshot": {
-    "collectedAt": "2026-06-08T10:56:00Z",
-    "os": "Linux Mint 22.3 Zena",
-    "cinnamon": "6.6.7",
-    "nemo": "6.6.3",
-    "firefox": "151.0.1",
-    "theme": "Mint-Y-Dark-Aqua",
-    "icons": "Mint-Y-Sand",
-    "panelApplets": 15,
-    "panelLaunchers": ["menu", "grouped-window-list"],
-    "trayApplets": 12,
-    "desktopFiles": 143,
-    "menuVisibleApps": 101,
-    "favoritesDesktop": 5
+  "catalog": {
+    "vmMenuEntries": 101,
+    "capsuleSlots": 45,
+    "slotsOpenOk": 101,
+    "interactionParityMeasured": true
   },
-  "metrics": {
-    "appsCatalog": {
-      "total": 101,
-      "ok": 101,
-      "partiel": 0,
-      "absent": 0,
-      "coverageOkPct": 100,
-      "standaloneSlotsOk": 43
-    },
-    "surfaceVm": {
-      "panelMenuFavorisTray": 17,
-      "ok": 17,
-      "partiel": 0
-    },
-    "panelChecklistVm": "6/6",
-    "panelChecklistCapsule": "6/6",
-    "menuIconsOk": "97/97",
-    "manifestDrift": 0,
-    "validateAllH2": true,
-    "panelModel": "menu + grouped-window-list (2026-06-08)",
-    "vSigmaSurfaces": "8/8 ok",
-    "discoveredApps": 43
+  "parity": {
+    "index": "linux-mint-parity-index.json",
+    "doc": "linux-mint-parity-index.md",
+    "matrix": "linux-mint-ui-state-effects-matrix.json"
   },
-  "palliers": [
-    {
-      "id": "P0",
-      "label": "Vérité machine & inventaire",
-      "predicates": ["H2", "M", "I", "ManΣ"],
-      "status": "completed",
-      "commit": "c3a3a00"
-    },
-    {
-      "id": "P1",
-      "label": "Shell Cinnamon (panel, WM, tray, bureau)",
-      "predicates": ["Ve-shell", "Vμ-shell", "L-panel"],
-      "status": "completed",
-      "commit": "9cbcb8b"
-    },
-    {
-      "id": "P2",
-      "label": "Objets modaux (menus, popovers, modales)",
-      "predicates": ["Va", "Ve", "Vm", "Vμ", "VΣ"],
-      "status": "completed",
-      "artifact": "linux-mint-ui-state-effects-matrix.json",
-      "notes": "8/8 surfaces capsuleMatch ok · run-ui-state-effects-pass.mjs --write --vm-burst",
-      "commit": "7f3ccee"
-    },
-    {
-      "id": "P3",
-      "label": "Apps VM — surface visible (panel, favoris, menu P0)",
-      "predicates": ["AppΣ"],
-      "status": "completed",
-      "target": "17 surfaces VM → statut ok + smoke",
-      "notes": "17/17 — xviewer + xreader clôturés (2026-06-08)",
-      "commit": "fb0c4ef"
-    },
-    {
-      "id": "P4",
-      "label": "Apps VM — catalogue complet (101 entrées menu)",
-      "predicates": ["AppΣ-full"],
-      "status": "completed",
-      "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "101/101 ok · batch final mintstick/font_viewer/power_stats + alias + csPanel",
-      "commit": "505ebe5"
-    },
-    {
-      "id": "P5",
-      "label": "Clôture réplique intégrale",
-      "predicates": ["D", "VΣ", "Tf", "H6"],
-      "status": "completed",
-      "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert",
-      "notes": "D=0 · VΣ 8/8 · checklist CapsuleOnly retirée · validate-all vert",
-      "commit": "7f3ccee"
-    }
+  "priorityQueue": [
+    "nemo",
+    "firefox",
+    "text_editor",
+    "calculator",
+    "file_roller",
+    "update_manager",
+    "mintinstall",
+    "themes"
   ],
-  "predicates": {
-    "H2": { "ok": true, "note": "validate-all vert" },
-    "H6": { "ok": true, "note": "validate-all + sync-all-views · checklist retirée Mint" },
-    "M": { "ok": true, "verifiedAt": "2026-06-08T10:56:00Z" },
-    "I": { "ok": true, "file": "linux-mint-vm.json" },
-    "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
-    "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
-    "AppΣ": { "ok": true, "surfaceOk": "17/17" },
-    "AppΣ-full": { "ok": true, "ok": "101/101", "standaloneSlots": "43/101" },
-    "VΣ": { "ok": true, "surfaces": "8/8 ok", "tool": "run-ui-state-effects-pass.mjs" },
-    "D": { "ok": true, "drift": 0, "note": "#mint-manifest-asset-refs — 64 chemins ManΣ" },
-    "Tf": { "ok": true, "note": "Fidélité shell+apps : catalogue 101/101, drift 0, VΣ closed" }
+  "tools": {
+    "collect": "usr/lib/capsuleos/tools/lab/collect-app-interaction-inventory.mjs",
+    "parityPass": "usr/lib/capsuleos/tools/lab/run-app-parity-pass.mjs",
+    "uiEffects": "usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs",
+    "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
+    "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "gapClasses": {
-    "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent", "checklist-mint"],
-    "activeP0": []
-  },
-  "nextActions": [
-    "Maintenance : smoke régulier run-ui-state-effects-pass.mjs après changements shell",
-    "Firefox Proton : parité visuelle P2 optionnelle (firefox-vm.md)"
-  ],
-  "lastPanelMenuPass": {
-    "at": "2026-06-08T10:47:00Z",
-    "tool": "capture-mint-panel-menu.mjs",
-    "iconStats": { "total": 97, "ok": 97, "broken": 0 },
-    "panelChecklist": "6/6 VM + 6/6 Capsule",
-    "captures": "root/docs/inventaires/captures/linux-mint/20260608-104657/"
-  }
+  "updatedAt": "2026-06-08T12:00:00.000Z",
+  "notes": [
+    "101/101 catalogue : slots ouverts OK (smoke basique).",
+    "Campagne v2 : mesure Π interactionnel par slot.",
+    "Shell menu/panel/bureau : Π partiel — passe UI state effects en cours."
+  ]
 }

@@ -1,0 +1,57 @@
+{
+  "registryId": "linux-mint",
+  "slot": "text_editor",
+  "label": "Éditeur de texte (xed)",
+  "collectedAt": "2026-06-08T10:57:23.116Z",
+  "source": "template",
+  "vmDoc": null,
+  "vm": {
+    "md": null,
+    "json": null
+  },
+  "vmProbe": {
+    "skipped": true
+  },
+  "checks": [
+    {
+      "id": "win-open",
+      "dimension": "int",
+      "type": "eval",
+      "expect": "xedInit + toolbar",
+      "pass": null,
+      "note": "xedInit + toolbar"
+    },
+    {
+      "id": "menu-fichier",
+      "dimension": "nav",
+      "type": "click",
+      "selector": ".xed-menu__trigger",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "toolbar-paste",
+      "dimension": "int",
+      "type": "click",
+      "selector": "#xed-toolbar [data-xed-action=\"paste\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "kb-shortcuts",
+      "dimension": "kb",
+      "type": "keyboard",
+      "expect": "Ctrl+C/V",
+      "pass": null,
+      "note": "Ctrl+C/V"
+    },
+    {
+      "id": "statusbar",
+      "dimension": "vis",
+      "type": "eval",
+      "expect": "position + char count",
+      "pass": null,
+      "note": "position + char count"
+    }
+  ]
+}

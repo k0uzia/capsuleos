@@ -176,7 +176,12 @@ const homeFolders = await page.evaluate(() => {
 });
 
 if (searchUi.hasInput) {
-  await page.fill('div[data-link="nemo"] #nemo-search-input', 'doc');
+  await page.evaluate(() => {
+    const input = document.querySelector('div[data-link="nemo"] #nemo-search-input');
+    if (!input) return;
+    input.value = 'doc';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   await page.waitForTimeout(40);
 }
 
@@ -200,9 +205,26 @@ await page.evaluate(() => {
 });
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
 await page.waitForTimeout(50);
+
+const contextMenu = await page.evaluate(() => {
+  const content = document.querySelector('div[data-link="nemo"] .nemoElement');
+  if (!content) return { visible: false, items: 0, bound: false };
+  content.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 320, clientY: 280 }));
+  const menu = document.querySelector('div[data-link="nemo"] .nemo-app__context-menu');
+  const items = menu ? menu.querySelectorAll('.nemo-app__context-item').length : 0;
+  return {
+    visible: menu && !menu.hidden,
+    items,
+    bound: document.querySelector('div[data-link="nemo"]')?.dataset?.nemoContextMenuInit === 'true',
+  };
+});
+
 const txtSelector = 'div[data-link="nemo"] .nemoElement a[data-item-name="introduction-bash.txt"]';
 if (await page.$(txtSelector)) {
-  await page.click(txtSelector);
+  await page.evaluate((sel) => {
+    const link = document.querySelector(sel);
+    if (link) link.click();
+  }, txtSelector);
   await page.waitForTimeout(280);
 }
 
@@ -334,10 +356,11 @@ const ok = home.sidebarReady && home.navReady
   && !xedFromNemo.targetBlank
   && pathNavigationMode.ok
   && breadcrumbNav.ok
-  && footerSidebar.ok && footerSidebar.footerBound;
+  && footerSidebar.ok && footerSidebar.footerBound
+  && contextMenu.visible && contextMenu.items >= 5 && contextMenu.bound;
 
 console.log(JSON.stringify({
-  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, ok,
+  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, contextMenu, ok,
 }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

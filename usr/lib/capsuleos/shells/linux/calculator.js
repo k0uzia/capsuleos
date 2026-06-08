@@ -199,7 +199,7 @@
 
         function onKeyClick(event) {
             var btn = event.target.closest('[data-calc]');
-            if (!btn || !keypad.contains(btn)) {
+            if (!btn || !root.contains(btn)) {
                 return;
             }
             var action = btn.getAttribute('data-calc');
@@ -249,6 +249,67 @@
         }
 
         keypad.addEventListener('click', onKeyClick);
+        var backspaceBtn = global.document.querySelector('[data-calc="backspace"]');
+        if (backspaceBtn) {
+            backspaceBtn.addEventListener('click', onKeyClick);
+        }
+
+        var modeBtn = global.document.getElementById('gnome-calc-mode');
+        var modePopover = global.document.getElementById('gnome-calc-mode-popover');
+        var currentMode = 'basic';
+
+        function setMode(mode) {
+            currentMode = mode;
+            var labels = { basic: 'Basique', advanced: 'Avancée', programming: 'Programmation' };
+            var modeLabel = global.document.getElementById('gnome-calc-mode-label');
+            if (modeLabel) {
+                modeLabel.textContent = labels[mode] || 'Basique';
+            }
+            if (modeBtn) {
+                modeBtn.setAttribute('aria-expanded', 'false');
+            }
+            root.classList.toggle('gnome-calc--advanced', mode === 'advanced' || mode === 'programming');
+            root.classList.toggle('gnome-calc--programming', mode === 'programming');
+            if (modePopover) {
+                modePopover.hidden = true;
+                modePopover.querySelectorAll('.gnome-calc__mode-option').forEach(function (opt) {
+                    opt.classList.toggle('is-active', opt.getAttribute('data-calc-mode') === mode);
+                });
+            }
+            clearAll();
+        }
+
+        function toggleModePopover() {
+            if (!modePopover || !modeBtn) {
+                return;
+            }
+            var open = modePopover.hidden;
+            modePopover.hidden = !open;
+            modeBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        if (modeBtn && modePopover) {
+            modeBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleModePopover();
+            });
+            modePopover.querySelectorAll('[data-calc-mode]').forEach(function (opt) {
+                opt.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setMode(opt.getAttribute('data-calc-mode'));
+                });
+            });
+            global.document.addEventListener('click', function (event) {
+                if (!modePopover.hidden
+                    && !modePopover.contains(event.target)
+                    && event.target !== modeBtn) {
+                    modePopover.hidden = true;
+                    modeBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
 
         root.addEventListener('keydown', function onKeyboard(event) {
             var key = event.key;

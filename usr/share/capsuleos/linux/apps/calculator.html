@@ -5,10 +5,17 @@
             <button type="button" class="gnome-calc__icon-btn" disabled aria-label="Annuler" title="Annuler"></button>
             <button type="button" class="gnome-calc__icon-btn" disabled aria-label="Rétablir" title="Rétablir"></button>
         </div>
-        <button type="button" class="gnome-calc__mode" id="gnome-calc-mode" aria-haspopup="listbox" aria-expanded="false">
-            Basique
-            <span class="gnome-calc__mode-chevron" aria-hidden="true"></span>
-        </button>
+        <div class="gnome-calc__mode-wrap">
+            <button type="button" class="gnome-calc__mode" id="gnome-calc-mode" aria-haspopup="listbox" aria-expanded="false" aria-controls="gnome-calc-mode-popover">
+                <span id="gnome-calc-mode-label">Basique</span>
+                <span class="gnome-calc__mode-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="gnome-calc__mode-popover" id="gnome-calc-mode-popover" role="listbox" hidden>
+                <button type="button" class="gnome-calc__mode-option is-active" data-calc-mode="basic" role="option">Basique</button>
+                <button type="button" class="gnome-calc__mode-option" data-calc-mode="advanced" role="option">Avancée</button>
+                <button type="button" class="gnome-calc__mode-option" data-calc-mode="programming" role="option">Programmation</button>
+            </div>
+        </div>
     </header>
 
     <div class="gnome-calc__display" aria-label="Affichage">

@@ -29,11 +29,6 @@ main#gnomeCalculatorApp {
     justify-self: start;
 }
 
-.gnome-calc__mode {
-    grid-column: 2;
-    justify-self: center;
-}
-
 .gnome-calc__header > .gnome-app__header-fill {
     grid-column: 3;
     grid-row: 1;
@@ -106,6 +101,12 @@ main#gnomeCalculatorApp {
     cursor: var(--p);
 }
 
+.gnome-calc__mode-wrap {
+    position: relative;
+    grid-column: 2;
+    justify-self: center;
+}
+
 .gnome-calc__mode-chevron {
     display: inline-block;
     width: 0.55rem;
@@ -114,6 +115,52 @@ main#gnomeCalculatorApp {
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg) translateY(-1px);
     opacity: 0.72;
+}
+
+.gnome-calc__mode-popover {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-flow: column nowrap;
+    min-width: 9.5rem;
+    padding: 0.35rem 0;
+    border-radius: 0.5rem;
+    background: var(--gnome-calc-key-bg, #303030);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.gnome-calc__mode-popover[hidden] {
+    display: none !important;
+}
+
+.gnome-calc__mode-option {
+    margin: 0;
+    padding: 0.45rem 1rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: var(--p);
+}
+
+.gnome-calc__mode-option:hover,
+.gnome-calc__mode-option.is-active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.gnome-calc__key--decor {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.gnome-calc--advanced .gnome-calc__key--decor,
+.gnome-calc--programming .gnome-calc__key--decor {
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .gnome-calc__display {

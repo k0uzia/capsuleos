@@ -1,0 +1,807 @@
+{
+  "registryId": "linux-mint",
+  "version": 1,
+  "campaign": "v2-deep-pass",
+  "description": "Indice de parité interactionnelle — VM capsule@192.168.1.146",
+  "weights": {
+    "shell": 0.25,
+    "apps": 0.75
+  },
+  "thresholds": {
+    "ok": 90,
+    "partiel": 60
+  },
+  "shell": {
+    "mainMenu": {
+      "id": "mainMenu",
+      "pi": 66,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 75,
+        "nav": 68,
+        "int": 70,
+        "ctx": 55,
+        "kb": 50,
+        "data": 80
+      }
+    },
+    "panel": {
+      "id": "panel",
+      "pi": 67,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 78,
+        "nav": 72,
+        "int": 74,
+        "ctx": 50,
+        "kb": 45,
+        "data": 82
+      }
+    },
+    "tray": {
+      "id": "tray",
+      "pi": 76,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 90,
+        "nav": 85,
+        "int": 88,
+        "ctx": 70,
+        "kb": 40,
+        "data": 85
+      }
+    },
+    "clock": {
+      "id": "clock",
+      "pi": 82,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 92,
+        "nav": 88,
+        "int": 90,
+        "ctx": 85,
+        "kb": 50,
+        "data": 88
+      }
+    },
+    "desktop": {
+      "id": "desktop",
+      "pi": 64,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 72,
+        "nav": 65,
+        "int": 68,
+        "ctx": 60,
+        "kb": 45,
+        "data": 75
+      }
+    },
+    "theme": {
+      "id": "theme",
+      "pi": 83,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 95,
+        "nav": 90,
+        "int": 90,
+        "ctx": 80,
+        "kb": 50,
+        "data": 90
+      }
+    }
+  },
+  "apps": {
+    "baobab": {
+      "slot": "baobab",
+      "label": "baobab",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/baobab.json",
+      "vmDoc": null
+    },
+    "bulky": {
+      "slot": "bulky",
+      "label": "bulky",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/bulky.json",
+      "vmDoc": null
+    },
+    "calculator": {
+      "slot": "calculator",
+      "label": "calculator",
+      "pi": 67,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 50,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "drawing": {
+      "slot": "drawing",
+      "label": "drawing",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/drawing.json",
+      "vmDoc": null
+    },
+    "file_roller": {
+      "slot": "file_roller",
+      "label": "file_roller",
+      "pi": 67,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 50,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/file_roller.json",
+      "vmDoc": "linux-mint-file-roller-vm.md",
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 2,
+      "checksTotal": 2,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "firefox": {
+      "slot": "firefox",
+      "label": "firefox",
+      "pi": 75,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
+      "vmDoc": "linux-mint-firefox-vm.md",
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 3,
+      "checksTotal": 3,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "font_viewer": {
+      "slot": "font_viewer",
+      "label": "font_viewer",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/font_viewer.json",
+      "vmDoc": null
+    },
+    "gnome_disks": {
+      "slot": "gnome_disks",
+      "label": "gnome_disks",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/gnome_disks.json",
+      "vmDoc": null
+    },
+    "gucharmap": {
+      "slot": "gucharmap",
+      "label": "gucharmap",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/gucharmap.json",
+      "vmDoc": null
+    },
+    "hypnotix": {
+      "slot": "hypnotix",
+      "label": "hypnotix",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/hypnotix.json",
+      "vmDoc": null
+    },
+    "lecteur_multimedia": {
+      "slot": "lecteur_multimedia",
+      "label": "lecteur_multimedia",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/lecteur_multimedia.json",
+      "vmDoc": null
+    },
+    "librecalc": {
+      "slot": "librecalc",
+      "label": "librecalc",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/librecalc.json",
+      "vmDoc": null
+    },
+    "libreoffice_draw": {
+      "slot": "libreoffice_draw",
+      "label": "libreoffice_draw",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/libreoffice_draw.json",
+      "vmDoc": null
+    },
+    "libreoffice_impress": {
+      "slot": "libreoffice_impress",
+      "label": "libreoffice_impress",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/libreoffice_impress.json",
+      "vmDoc": null
+    },
+    "libreoffice_startcenter": {
+      "slot": "libreoffice_startcenter",
+      "label": "libreoffice_startcenter",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/libreoffice_startcenter.json",
+      "vmDoc": null
+    },
+    "librewriter": {
+      "slot": "librewriter",
+      "label": "librewriter",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/librewriter.json",
+      "vmDoc": null
+    },
+    "mate_color_select": {
+      "slot": "mate_color_select",
+      "label": "mate_color_select",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mate_color_select.json",
+      "vmDoc": null
+    },
+    "mintbackup": {
+      "slot": "mintbackup",
+      "label": "mintbackup",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mintbackup.json",
+      "vmDoc": null
+    },
+    "mintdrivers": {
+      "slot": "mintdrivers",
+      "label": "mintdrivers",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mintdrivers.json",
+      "vmDoc": null
+    },
+    "mintinstall": {
+      "slot": "mintinstall",
+      "label": "mintinstall",
+      "pi": 58,
+      "status": "absent",
+      "dimensions": {
+        "vis": 50,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 1,
+      "checksTotal": 1,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "mintstick": {
+      "slot": "mintstick",
+      "label": "mintstick",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mintstick.json",
+      "vmDoc": null
+    },
+    "mintstick_format": {
+      "slot": "mintstick_format",
+      "label": "mintstick_format",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mintstick_format.json",
+      "vmDoc": null
+    },
+    "mintwelcome": {
+      "slot": "mintwelcome",
+      "label": "mintwelcome",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/mintwelcome.json",
+      "vmDoc": null
+    },
+    "nemo": {
+      "slot": "nemo",
+      "label": "nemo",
+      "pi": 75,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 50,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 50,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/nemo.json",
+      "vmDoc": "linux-mint-nemo-vm.md",
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "power_stats": {
+      "slot": "power_stats",
+      "label": "power_stats",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/power_stats.json",
+      "vmDoc": null
+    },
+    "rhythmbox": {
+      "slot": "rhythmbox",
+      "label": "rhythmbox",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/rhythmbox.json",
+      "vmDoc": null
+    },
+    "screenshot": {
+      "slot": "screenshot",
+      "label": "screenshot",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/screenshot.json",
+      "vmDoc": null
+    },
+    "simple_scan": {
+      "slot": "simple_scan",
+      "label": "simple_scan",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/simple_scan.json",
+      "vmDoc": null
+    },
+    "sticky": {
+      "slot": "sticky",
+      "label": "sticky",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/sticky.json",
+      "vmDoc": null
+    },
+    "system_monitor": {
+      "slot": "system_monitor",
+      "label": "system_monitor",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/system_monitor.json",
+      "vmDoc": null
+    },
+    "terminal": {
+      "slot": "terminal",
+      "label": "terminal",
+      "pi": 75,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 85,
+        "nav": 70,
+        "int": 82,
+        "ctx": 55,
+        "kb": 75,
+        "data": 85
+      },
+      "inventory": "interactions/linux-mint/terminal.json",
+      "vmDoc": null
+    },
+    "text_editor": {
+      "slot": "text_editor",
+      "label": "text_editor",
+      "pi": 50,
+      "status": "absent",
+      "dimensions": {
+        "vis": 50,
+        "nav": 100,
+        "int": 50,
+        "ctx": 50,
+        "kb": 0,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/text_editor.json",
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 2,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "themes": {
+      "slot": "themes",
+      "label": "themes",
+      "pi": 58,
+      "status": "absent",
+      "dimensions": {
+        "vis": 50,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 1,
+      "checksTotal": 1,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "thingy": {
+      "slot": "thingy",
+      "label": "thingy",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/thingy.json",
+      "vmDoc": null
+    },
+    "thunderbird": {
+      "slot": "thunderbird",
+      "label": "thunderbird",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/thunderbird.json",
+      "vmDoc": null
+    },
+    "timeshift": {
+      "slot": "timeshift",
+      "label": "timeshift",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/timeshift.json",
+      "vmDoc": null
+    },
+    "transmission": {
+      "slot": "transmission",
+      "label": "transmission",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/transmission.json",
+      "vmDoc": null
+    },
+    "update_manager": {
+      "slot": "update_manager",
+      "label": "update_manager",
+      "pi": 58,
+      "status": "absent",
+      "dimensions": {
+        "vis": 50,
+        "nav": 50,
+        "int": 50,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
+      "vmDoc": "linux-mint-update-manager-vm.md",
+      "lastPass": "2026-06-08T11:10:32.576Z",
+      "checksPassed": 1,
+      "checksTotal": 1,
+      "updatedAt": "2026-06-08T11:10:36.076Z"
+    },
+    "visionneur_images": {
+      "slot": "visionneur_images",
+      "label": "visionneur_images",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/visionneur_images.json",
+      "vmDoc": null
+    },
+    "visionneur_pdf": {
+      "slot": "visionneur_pdf",
+      "label": "visionneur_pdf",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/visionneur_pdf.json",
+      "vmDoc": null
+    },
+    "warpinator": {
+      "slot": "warpinator",
+      "label": "warpinator",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/warpinator.json",
+      "vmDoc": null
+    },
+    "webapp_manager": {
+      "slot": "webapp_manager",
+      "label": "webapp_manager",
+      "pi": 54,
+      "status": "absent",
+      "dimensions": {
+        "vis": 70,
+        "nav": 55,
+        "int": 60,
+        "ctx": 40,
+        "kb": 35,
+        "data": 65
+      },
+      "inventory": "interactions/linux-mint/webapp_manager.json",
+      "vmDoc": null
+    }
+  },
+  "catalog": {
+    "vmMenuEntries": 101,
+    "capsuleSlots": 45
+  },
+  "updatedAt": "2026-06-08T11:10:36.076Z",
+  "pi_global": 60,
+  "status_global": "partiel"
+}

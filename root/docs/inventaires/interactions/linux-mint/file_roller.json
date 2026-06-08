@@ -1,0 +1,49 @@
+{
+  "registryId": "linux-mint",
+  "slot": "file_roller",
+  "label": "Gestionnaire d'archives",
+  "collectedAt": "2026-06-08T10:57:23.269Z",
+  "source": "template",
+  "vmDoc": "linux-mint-file-roller-vm.md",
+  "vm": {
+    "md": null,
+    "json": null
+  },
+  "vmProbe": {
+    "skipped": true
+  },
+  "checks": [
+    {
+      "id": "empty-state",
+      "dimension": "data",
+      "type": "eval",
+      "expect": "empty archive manager",
+      "pass": null,
+      "note": "empty archive manager"
+    },
+    {
+      "id": "open-demo",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-fr-menu=\"open-demo\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "hamburger-menu",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "[data-fr-action=\"menu\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "window-drag",
+      "dimension": "vis",
+      "type": "drag",
+      "selector": "#windowHeader",
+      "pass": null,
+      "note": ""
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "registryId": "linux-mint",
+  "slot": "themes",
+  "label": "Paramètres système (cinnamon-settings)",
+  "collectedAt": "2026-06-08T10:57:23.517Z",
+  "source": "template",
+  "vmDoc": null,
+  "vm": {
+    "md": null,
+    "json": null
+  },
+  "vmProbe": {
+    "skipped": true
+  },
+  "checks": [
+    {
+      "id": "sidebar-panels",
+      "dimension": "nav",
+      "type": "eval",
+      "expect": "panel list + search",
+      "pass": null,
+      "note": "panel list + search"
+    },
+    {
+      "id": "theme-preview",
+      "dimension": "vis",
+      "type": "eval",
+      "expect": "Mint-Y themes listed",
+      "pass": null,
+      "note": "Mint-Y themes listed"
+    }
+  ]
+}

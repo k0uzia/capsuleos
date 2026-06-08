@@ -53,7 +53,7 @@
     {
       "id": "mintinstall",
       "label": "Gestionnaire de logiciels",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "themes",
@@ -611,11 +611,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".mintinstall-detail",
@@ -919,15 +919,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 6,
-    "smokeOk": 6,
-    "measured": 6,
+    "implemented": 7,
+    "smokeOk": 7,
+    "measured": 7,
     "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 1,
+    "appsAtPi100": 2,
     "documentedPct": 100,
-    "implementedPct": 18,
-    "smokePct": 18
+    "implementedPct": 21,
+    "smokePct": 21
   },
   "updatedAt": "2026-06-08T17:04:11.167Z"
 }

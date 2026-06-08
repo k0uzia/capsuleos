@@ -575,6 +575,46 @@ const SLOT_INIT_HANDLERS = {
             initMintwelcomeApp();
         }
     },
+    gucharmap: () => {
+        if (typeof initGucharmapApp === 'function') {
+            initGucharmapApp();
+        }
+    },
+    simple_scan: () => {
+        if (typeof initSimpleScanApp === 'function') {
+            initSimpleScanApp();
+        }
+    },
+    thingy: () => {
+        if (typeof initThingyApp === 'function') {
+            initThingyApp();
+        }
+    },
+    rhythmbox: () => {
+        if (typeof initRhythmboxApp === 'function') {
+            initRhythmboxApp();
+        }
+    },
+    gnome_disks: () => {
+        if (typeof initGnomeDisksApp === 'function') {
+            initGnomeDisksApp();
+        }
+    },
+    libreoffice_startcenter: () => {
+        if (typeof initLibreofficeStartcenterApp === 'function') {
+            initLibreofficeStartcenterApp();
+        }
+    },
+    libreoffice_draw: () => {
+        if (typeof initLibreofficeDrawApp === 'function') {
+            initLibreofficeDrawApp();
+        }
+    },
+    libreoffice_impress: () => {
+        if (typeof initLibreofficeImpressApp === 'function') {
+            initLibreofficeImpressApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

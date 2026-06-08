@@ -19,7 +19,7 @@
     "vendor": "mint",
     "iconPack": "icons/cinnamon/mint-y"
   },
-  "generatedAt": "2026-06-08T09:43:34.305Z",
+  "generatedAt": "2026-06-08T09:56:16.550Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "draft",
@@ -39,8 +39,8 @@
   "summary": {
     "total": 177,
     "pull": 0,
-    "drift": 64,
-    "skip": 113,
+    "drift": 0,
+    "skip": 177,
     "onVmFalse": 0
   },
   "items": [
@@ -1242,8 +1242,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-generic",
@@ -1255,8 +1255,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-image-x-generic",
@@ -1268,8 +1268,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-generic",
@@ -1281,8 +1281,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-executable",
@@ -1294,8 +1294,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-x-office-document",
@@ -1307,8 +1307,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-audio-x-generic",
@@ -1320,8 +1320,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-video-x-generic",
@@ -1333,8 +1333,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder",
@@ -1346,8 +1346,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-documents",
@@ -1359,8 +1359,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-documents.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-documents.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-documents.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-download",
@@ -1372,8 +1372,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-download.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-download.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-download.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-music",
@@ -1385,8 +1385,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-music.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-music.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-music.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-pictures",
@@ -1398,8 +1398,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-pictures.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-pictures.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-pictures.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-videos",
@@ -1411,8 +1411,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-videos.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-videos.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-videos.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-home",
@@ -1424,8 +1424,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/user-home.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/user-home.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-home.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-trash",
@@ -1437,8 +1437,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/user-trash.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/user-trash.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-trash.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-up-symbolic",
@@ -1450,8 +1450,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-previous-symbolic",
@@ -1463,8 +1463,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-next-symbolic",
@@ -1476,8 +1476,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-list-symbolic",
@@ -1489,8 +1489,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-home-symbolic",
@@ -1502,8 +1502,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-trash-symbolic",
@@ -1515,8 +1515,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-documents-symbolic",
@@ -1528,8 +1528,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-nemo",
@@ -1597,8 +1597,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/default_background.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg",
       "stagingPath": "wallpaper/default_background.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-linuxmint.jpg",
@@ -1607,8 +1607,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/linuxmint.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/linuxmint.jpg",
       "stagingPath": "wallpaper/linuxmint.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-bookwood_linuxmint.jpg",
@@ -1617,8 +1617,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
       "stagingPath": "wallpaper/bookwood_linuxmint.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-bookwood_ring.jpg",
@@ -1627,8 +1627,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/bookwood_ring.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/bookwood_ring.jpg",
       "stagingPath": "wallpaper/bookwood_ring.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-edesigner_linuxmint.png",
@@ -1637,8 +1637,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/edesigner_linuxmint.png",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/edesigner_linuxmint.png",
       "stagingPath": "wallpaper/edesigner_linuxmint.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-ktee_linuxmint.png",
@@ -1647,8 +1647,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/ktee_linuxmint.png",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/ktee_linuxmint.png",
       "stagingPath": "wallpaper/ktee_linuxmint.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_linuxmint_center.jpg",
@@ -1657,8 +1657,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_linuxmint_center.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_linuxmint_center.jpg",
       "stagingPath": "wallpaper/sele_linuxmint_center.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_linuxmint.png",
@@ -1667,8 +1667,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_linuxmint.png",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_linuxmint.png",
       "stagingPath": "wallpaper/sele_linuxmint.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_ring_center_green.jpg",
@@ -1677,8 +1677,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_center_green.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_center_green.jpg",
       "stagingPath": "wallpaper/sele_ring_center_green.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_ring_center.jpg",
@@ -1687,8 +1687,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_center.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_center.jpg",
       "stagingPath": "wallpaper/sele_ring_center.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_ring_green.jpg",
@@ -1697,8 +1697,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_green.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_green.jpg",
       "stagingPath": "wallpaper/sele_ring_green.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-sele_ring.jpg",
@@ -1707,8 +1707,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring.jpg",
       "stagingPath": "wallpaper/sele_ring.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jbaer_wave.jpg",
@@ -1717,8 +1717,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jbaer_wave.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jbaer_wave.jpg",
       "stagingPath": "wallpaper/jbaer_wave.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jleung_confetti.jpg",
@@ -1727,8 +1727,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jleung_confetti.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jleung_confetti.jpg",
       "stagingPath": "wallpaper/jleung_confetti.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_building.jpg",
@@ -1737,8 +1737,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_building.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_building.jpg",
       "stagingPath": "wallpaper/jpanchal_building.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_city.jpg",
@@ -1747,8 +1747,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_city.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_city.jpg",
       "stagingPath": "wallpaper/jpanchal_city.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_cpu.jpg",
@@ -1757,8 +1757,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_cpu.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_cpu.jpg",
       "stagingPath": "wallpaper/jpanchal_cpu.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_cubes.jpg",
@@ -1767,8 +1767,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
       "stagingPath": "wallpaper/jpanchal_cubes.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_curved.jpg",
@@ -1777,8 +1777,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_curved.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_curved.jpg",
       "stagingPath": "wallpaper/jpanchal_curved.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_curves.jpg",
@@ -1787,8 +1787,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_curves.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_curves.jpg",
       "stagingPath": "wallpaper/jpanchal_curves.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_gold.jpg",
@@ -1797,8 +1797,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_gold.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_gold.jpg",
       "stagingPath": "wallpaper/jpanchal_gold.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_hearts.jpg",
@@ -1807,8 +1807,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_hearts.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_hearts.jpg",
       "stagingPath": "wallpaper/jpanchal_hearts.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_pipes.jpg",
@@ -1817,8 +1817,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
       "stagingPath": "wallpaper/jpanchal_pipes.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_square.jpg",
@@ -1827,8 +1827,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_square.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_square.jpg",
       "stagingPath": "wallpaper/jpanchal_square.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_stripes.jpg",
@@ -1837,8 +1837,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_stripes.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_stripes.jpg",
       "stagingPath": "wallpaper/jpanchal_stripes.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_wall.jpg",
@@ -1847,8 +1847,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_wall.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_wall.jpg",
       "stagingPath": "wallpaper/jpanchal_wall.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_waves.jpg",
@@ -1857,8 +1857,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_waves.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_waves.jpg",
       "stagingPath": "wallpaper/jpanchal_waves.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jpanchal_white.jpg",
@@ -1867,8 +1867,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_white.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_white.jpg",
       "stagingPath": "wallpaper/jpanchal_white.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jvasek_xmas_bokeh.jpg",
@@ -1877,8 +1877,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/jvasek_xmas_bokeh.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jvasek_xmas_bokeh.jpg",
       "stagingPath": "wallpaper/jvasek_xmas_bokeh.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-lzhang_uzumaki.jpg",
@@ -1887,8 +1887,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/lzhang_uzumaki.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/lzhang_uzumaki.jpg",
       "stagingPath": "wallpaper/lzhang_uzumaki.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mfakurian_abstract.jpg",
@@ -1897,8 +1897,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
       "stagingPath": "wallpaper/mfakurian_abstract.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mfakurian_black.jpg",
@@ -1907,8 +1907,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_black.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_black.jpg",
       "stagingPath": "wallpaper/mfakurian_black.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mfakurian_heart.jpg",
@@ -1917,8 +1917,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_heart.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_heart.jpg",
       "stagingPath": "wallpaper/mfakurian_heart.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mfakurian_order.jpg",
@@ -1927,8 +1927,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_order.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_order.jpg",
       "stagingPath": "wallpaper/mfakurian_order.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mfakurian_silver.jpg",
@@ -1937,8 +1937,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_silver.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_silver.jpg",
       "stagingPath": "wallpaper/mfakurian_silver.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mpiwnicki_curtain.jpg",
@@ -1947,8 +1947,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
       "stagingPath": "wallpaper/mpiwnicki_curtain.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mpiwnicki_digital_stream.jpg",
@@ -1957,8 +1957,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_digital_stream.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_digital_stream.jpg",
       "stagingPath": "wallpaper/mpiwnicki_digital_stream.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mpiwnicki_light.jpg",
@@ -1967,8 +1967,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
       "stagingPath": "wallpaper/mpiwnicki_light.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mpiwnicki_pearl.jpg",
@@ -1977,8 +1977,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
       "stagingPath": "wallpaper/mpiwnicki_pearl.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mpiwnicki_sparkling.jpg",
@@ -1987,8 +1987,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_sparkling.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_sparkling.jpg",
       "stagingPath": "wallpaper/mpiwnicki_sparkling.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pczerwinski_3d_render.jpg",
@@ -1997,8 +1997,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg",
       "stagingPath": "wallpaper/pczerwinski_3d_render.jpg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     }
   ],
   "phases": [

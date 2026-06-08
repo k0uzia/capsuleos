@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T17:30:00Z",
+  "updatedAt": "2026-06-08T18:45:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,10 +33,11 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 30,
-      "partiel": 31,
-      "absent": 38,
-      "coverageOkPct": 30
+      "ok": 87,
+      "partiel": 0,
+      "absent": 14,
+      "coverageOkPct": 86,
+      "standaloneSlotsOk": 38
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
@@ -45,7 +46,7 @@
     },
     "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
-    "manifestDrift": 64,
+    "manifestDrift": 0,
     "validateAllH2": true,
     "panelModel": "menu + grouped-window-list (2026-06-08)"
   },
@@ -87,16 +88,16 @@
       "predicates": ["AppΣ-full"],
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "30/101 ok · batch P4 #22-31 (10 apps XApp)",
-      "commit": "b74b695"
+      "notes": "87/101 ok · batch P4 #32-39 (8 apps) + csPanel Cinnamon · 38 slots autonomes",
+      "commit": "pending"
     },
     {
       "id": "P5",
       "label": "Clôture réplique intégrale",
       "predicates": ["D", "VΣ", "Tf", "H6"],
-      "status": "pending",
+      "status": "in_progress",
       "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert",
-      "notes": "manifestDrift 148 — pas d'outil dédié trouvé ; ManΣ P5"
+      "notes": "manifestDrift 0 (64 refs index.html) · VΣ/H6 restants",
     }
   ],
   "predicates": {
@@ -106,21 +107,20 @@
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
     "AppΣ": { "ok": true, "surfaceOk": "17/17" },
-    "AppΣ-full": { "ok": false, "ok": "30/101" },
+    "AppΣ-full": { "ok": false, "ok": "87/101", "standaloneSlots": "38/101" },
     "VΣ": { "ok": false, "matrix": "partial" },
-    "D": { "ok": false, "drift": 64, "note": "refs index.html P4 — 84 app-icons résolus" }
+    "D": { "ok": true, "drift": 0, "note": "#mint-manifest-asset-refs — 64 chemins ManΣ" }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
-      "38 apps catalogue absentes sur 101",
-      "Matrice VΣ shell — capsuleMatch partial",
-      "manifestDrift 64 → wallpapers + mimetypes/places"
+      "14 apps catalogue absentes sur 101 (GIMP, Inkscape, mintstick, …)",
+      "Matrice VΣ shell — capsuleMatch partial"
     ]
   },
   "nextActions": [
-    "P4 : suite catalogue alphabétique (#32+ apps sans slot)",
-    "P5 : drift 64 — wallpapers + icônes Nemo/mimetypes dans index.html",
-    "P2 : affiner VΣ capsuleMatch ok"
+    "P4 : 14 apps restantes (GIMP, Inkscape, USB Image Writer, …)",
+    "P2 : affiner VΣ capsuleMatch ok",
+    "P5 : H6 clôture après AppΣ-full"
   ]
 }

@@ -28,6 +28,14 @@
         timeshift: 'Timeshift',
         thunderbird: 'Thunderbird',
         mintwelcome: 'Écran d\'accueil Mint',
+        gucharmap: 'Table des caractères',
+        simple_scan: 'Numérisation de documents',
+        thingy: 'Bibliothèque',
+        rhythmbox: 'Rhythmbox',
+        gnome_disks: 'Disques',
+        libreoffice_startcenter: 'LibreOffice',
+        libreoffice_draw: 'Sans nom 1 — LibreOffice Draw',
+        libreoffice_impress: 'Sans nom 1 — LibreOffice Impress',
         update_manager: 'Gestionnaire de mise à jour',
     };
 

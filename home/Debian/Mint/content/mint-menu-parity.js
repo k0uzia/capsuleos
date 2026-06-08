@@ -21,8 +21,62 @@
         MENU_SHORTCUTS['system-settings'] = { dataLink: 'themes' };
     }
 
+    var CS_PANEL_BY_NAME = {
+        'Accessibilité': 'accessibility',
+        'Actions': 'actions',
+        'Administration du système': 'system-info',
+        'Advanced Network Configuration': 'network',
+        'Affichage': 'display',
+        'Applets': 'applets',
+        'Applications lancées au démarrage': 'startup',
+        'Applications par défaut': 'default',
+        'Bureau': 'desktop',
+        'Choix des polices': 'fonts',
+        'Clavier': 'keyboard',
+        'Clavier visuel': 'accessibility',
+        'Coins intelligents': 'hotcorner',
+        'Couleur': 'color',
+        'Date et heure': 'calendar',
+        'Desklets': 'desklets',
+        'Détails du compte': 'user',
+        'Économiseur d\'écran': 'screensaver',
+        'Économiseur d’écran': 'screensaver',
+        'Effets': 'effects',
+        'Empreintes digitales': 'fingerprints',
+        'Espaces de travail': 'workspaces',
+        'Extensions': 'extensions',
+        'Fenêtre de connexion': 'login-window',
+        'Fenêtres': 'windows',
+        'Firewall Configuration': 'firewall',
+        'Fonds d\'écran': 'backgrounds',
+        'Fonds d’écran': 'backgrounds',
+        'Fonts': 'fonts',
+        'Général': 'general',
+        'Gestes': 'gestures',
+        'Gestion de l\'alimentation': 'power',
+        'Gestion de l’alimentation': 'power',
+        'Gestionnaire Bluetooth': 'bluetooth',
+        'Langues': 'languages',
+        'Méthode de saisie': 'input-method',
+        'Mode nuit': 'nightlight',
+        'Notifications': 'notifications',
+        'Panneau': 'panel',
+        'Paramètres du système': 'general',
+        'Protection des renseignements personnels': 'privacy',
+        'Réseau': 'network',
+        'Son': 'sound',
+        'Souris et pavé tactile': 'mouse',
+        'Tablette graphique': 'wacom',
+        'Thèmes': 'themes',
+        'Thunderbolt': 'thunderbolt',
+        'Utilisateurs et groupes': 'users'
+    };
+
     if (typeof MENU_APPS !== 'undefined' && MENU_APPS.length) {
         MENU_APPS.forEach(function patchApp(app) {
+            if (CS_PANEL_BY_NAME[app.name] && app.dataLink === 'themes' && !app.csPanel) {
+                app.csPanel = CS_PANEL_BY_NAME[app.name];
+            }
             if (app.name === 'Calculatrice') {
                 app.dataLink = 'calculator';
                 app.icon = panelIcon + 'org.gnome.Calculator.png';
@@ -46,6 +100,15 @@
             if (app.name === 'LibreOffice Writer') {
                 app.dataLink = 'librewriter';
                 app.icon = panelIcon + 'libreoffice-writer.webp';
+            }
+            if (app.name === 'LibreOffice') {
+                app.dataLink = 'libreoffice_startcenter';
+            }
+            if (app.name === 'LibreOffice Draw') {
+                app.dataLink = 'libreoffice_draw';
+            }
+            if (app.name === 'LibreOffice Impress') {
+                app.dataLink = 'libreoffice_impress';
             }
             if (app.name === 'LibreOffice Calc') {
                 app.dataLink = 'librecalc';

@@ -37,7 +37,21 @@
         { id: 'users', label: 'Utilisateurs et groupes', icon: 'system-users', keywords: 'users groups admin' },
         { id: 'actions', label: 'Actions', icon: 'cs-actions', keywords: 'actions shortcuts' },
         { id: 'nightlight', label: 'Éclairage nocturne', icon: 'cs-nightlight', keywords: 'night light blue' },
-        { id: 'thunderbolt', label: 'Thunderbolt', icon: 'cs-thunderbolt', keywords: 'thunderbolt usb' }
+        { id: 'thunderbolt', label: 'Thunderbolt', icon: 'cs-thunderbolt', keywords: 'thunderbolt usb' },
+        { id: 'color', label: 'Couleur', icon: 'cs-general', keywords: 'color couleur' },
+        { id: 'display', label: 'Affichage', icon: 'preferences-desktop', keywords: 'display monitor resolution' },
+        { id: 'network', label: 'Réseau', icon: 'cs-panel', keywords: 'network wifi ethernet' },
+        { id: 'wacom', label: 'Tablette graphique', icon: 'cs-mouse', keywords: 'wacom tablet stylus' },
+        { id: 'bluetooth', label: 'Bluetooth', icon: 'cs-general', keywords: 'bluetooth devices' },
+        { id: 'firewall', label: 'Pare-feu', icon: 'cs-privacy', keywords: 'firewall gufw' },
+        { id: 'languages', label: 'Langues', icon: 'cs-language', keywords: 'languages locale' },
+        { id: 'input-method', label: 'Méthode de saisie', icon: 'cs-input-method', keywords: 'input method ibus' },
+        { id: 'fingerprints', label: 'Empreintes digitales', icon: 'cs-user', keywords: 'fingerprint fingwit' },
+        { id: 'login-window', label: 'Fenêtre de connexion', icon: 'cs-login', keywords: 'login lightdm' },
+        { id: 'software-sources', label: 'Sources de logiciels', icon: 'cs-sources', keywords: 'software sources mintsources' },
+        { id: 'system-info', label: 'Informations système', icon: 'cs-general', keywords: 'system information mintreport' },
+        { id: 'printers', label: 'Imprimantes', icon: 'cs-general', keywords: 'printers print' },
+        { id: 'passwords', label: 'Mots de passe et clés', icon: 'cs-privacy', keywords: 'passwords seahorse keys' }
     ];
 
     var GENERIC_ROWS = {
@@ -66,7 +80,21 @@
         users: ['Utilisateurs', 'Groupes'],
         actions: ['Actions disponibles', 'Raccourcis personnalisés'],
         nightlight: ['Activer l\'éclairage nocturne', 'Planification'],
-        thunderbolt: ['Appareils Thunderbolt', 'Autorisation de connexion']
+        thunderbolt: ['Appareils Thunderbolt', 'Autorisation de connexion'],
+        color: ['Profil couleur', 'Calibration'],
+        display: ['Résolution', 'Fréquence de rafraîchissement', 'Mise en miroir'],
+        network: ['Connexion filaire', 'Wi-Fi', 'Proxy'],
+        wacom: ['Tablette graphique', 'Stylet', 'Zone active'],
+        bluetooth: ['Adaptateurs Bluetooth', 'Appareils appairés'],
+        firewall: ['État du pare-feu', 'Règles entrantes'],
+        languages: ['Langue du système', 'Formats régionaux'],
+        'input-method': ['Méthode de saisie', 'Clavier IBus'],
+        fingerprints: ['Enregistrer une empreinte', 'Déverrouillage'],
+        'login-window': ['Thème de connexion', 'Utilisateur automatique'],
+        'software-sources': ['Dépôts officiels', 'PPA'],
+        'system-info': ['Matériel', 'Système d\'exploitation', 'Rapport système'],
+        printers: ['Imprimantes configurées', 'Ajouter une imprimante'],
+        passwords: ['Mots de passe', 'Certificats', 'Clés SSH']
     };
 
     function getWindowEl(root) {
@@ -253,7 +281,10 @@
         buildSidebar(root, panelsRoot);
         bindNavigation(root);
         bindSwitches(root);
-        var startPanel = root.dataset.csActivePanel || 'general';
+        var startPanel = global.CAPSULE_CS_PENDING_PANEL || root.dataset.csActivePanel || 'general';
+        if (global.CAPSULE_CS_PENDING_PANEL) {
+            delete global.CAPSULE_CS_PENDING_PANEL;
+        }
         activatePanel(root, startPanel);
         root.dataset.cinnamonSettingsInit = 'true';
     }

@@ -38,6 +38,14 @@
         timeshift: 'Timeshift',
         thunderbird: 'Thunderbird',
         mintwelcome: 'Accueil Mint',
+        gucharmap: 'Table des caractères',
+        simple_scan: 'Numérisation',
+        thingy: 'Bibliothèque',
+        rhythmbox: 'Rhythmbox',
+        gnome_disks: 'Disques',
+        libreoffice_startcenter: 'LibreOffice',
+        libreoffice_draw: 'LibreOffice Draw',
+        libreoffice_impress: 'LibreOffice Impress',
     };
 
     let overlay = null;

@@ -2,13 +2,13 @@
   "registryId": "linux-mint",
   "toolkit": "cinnamon",
   "version": 1,
-  "generatedAt": "2026-06-08T09:12:35.011Z",
+  "generatedAt": "2026-06-08T10:06:26.646Z",
   "description": "Matrice objets modaux shell — campagne v2 réplique exacte VM (bootstrap VΣ).",
   "predicates": {
     "Va": true,
     "Ve": true,
     "Vx": false,
-    "Vm": false,
+    "Vm": true,
     "Vmu": true,
     "VSigma": true
   },
@@ -41,8 +41,9 @@
       ],
       "capsuleSelector": "div[data-link=\"mainMenu\"] .menu-root",
       "vmRef": "panel1:left:0:menu@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.436Z"
     },
     {
       "id": "shell.panel.grouped-window-list",
@@ -78,8 +79,9 @@
       ],
       "capsuleSelector": "#taskbar-window-list",
       "vmRef": "panel1:left:2:grouped-window-list@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.579Z"
     },
     {
       "id": "shell.tray.favorites",
@@ -98,8 +100,9 @@
       ],
       "capsuleSelector": "#mint-tray-favorites",
       "vmRef": "panel1:right:6:favorites@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.581Z"
     },
     {
       "id": "shell.tray.network",
@@ -111,8 +114,9 @@
       ],
       "capsuleSelector": "#mint-tray-popover-network",
       "vmRef": "network@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.712Z"
     },
     {
       "id": "shell.tray.volume",
@@ -124,8 +128,9 @@
       ],
       "capsuleSelector": "#volume-popover",
       "vmRef": "sound@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.836Z"
     },
     {
       "id": "shell.tray.calendar",
@@ -137,8 +142,9 @@
       ],
       "capsuleSelector": "#taskbar-calendar-popover",
       "vmRef": "calendar@cinnamon.org",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:25.983Z"
     },
     {
       "id": "shell.window.muffin",
@@ -151,8 +157,9 @@
       ],
       "capsuleSelector": ".windowElement[data-link]",
       "vmRef": "Muffin WM",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:26.256Z"
     },
     {
       "id": "shell.alt-tab",
@@ -164,11 +171,314 @@
       ],
       "capsuleSelector": ".cinnamon-alt-tab",
       "vmRef": "Cinnamon Alt+Tab",
-      "capsuleMatch": "partial",
-      "vmBurstAt": "2026-06-08T09:12:35.011Z"
+      "capsuleMatch": "ok",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z",
+      "capsuleValidatedAt": "2026-06-08T10:06:26.493Z"
     }
   ],
-  "discoveredApps": [],
+  "discoveredApps": [
+    {
+      "slot": "themes",
+      "vmDesktop": "cinnamon-settings-universal-access.desktop",
+      "labelFr": "Accessibility",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "calendar",
+      "vmDesktop": "org.gnome.Calendar.desktop",
+      "labelFr": "Agenda",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "baobab",
+      "vmDesktop": "org.gnome.baobab.desktop",
+      "labelFr": "Analyseur d'espace disque",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "webapp_manager",
+      "vmDesktop": "webapp-manager.desktop",
+      "labelFr": "Applications Web",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "thingy",
+      "vmDesktop": "thingy.desktop",
+      "labelFr": "Bibliothèque",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "calculator",
+      "vmDesktop": "org.gnome.Calculator.desktop",
+      "labelFr": "Calculatrice",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "screenshot",
+      "vmDesktop": "org.gnome.Screenshot.desktop",
+      "labelFr": "Capture d'écran",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintstick",
+      "vmDesktop": "mintstick-kde.desktop",
+      "labelFr": "Créateur de clé USB",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "drawing",
+      "vmDesktop": "com.github.maoschanz.drawing.desktop",
+      "labelFr": "Dessin",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "gnome_disks",
+      "vmDesktop": "org.gnome.DiskUtility.desktop",
+      "labelFr": "Disques",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintwelcome",
+      "vmDesktop": "mintwelcome.desktop",
+      "labelFr": "Écran d'accueil Mint",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "text_editor",
+      "vmDesktop": "org.x.editor.desktop",
+      "labelFr": "Éditeur de texte",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "nemo",
+      "vmDesktop": "nemo.desktop",
+      "labelFr": "Fichiers",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "firefox",
+      "vmDesktop": "firefox.desktop",
+      "labelFr": "Firefox",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintstick_format",
+      "vmDesktop": "mintstick-format-kde.desktop",
+      "labelFr": "Formateur de clé USB",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "file_roller",
+      "vmDesktop": "org.gnome.FileRoller.desktop",
+      "labelFr": "Gestionnaire d'archives",
+      "parity": "P1",
+      "statut": "ok"
+    },
+    {
+      "slot": "update_manager",
+      "vmDesktop": "mintupdate-kde.desktop",
+      "labelFr": "Gestionnaire de mises à jour",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintdrivers",
+      "vmDesktop": "mintdrivers.desktop",
+      "labelFr": "Gestionnaire de pilotes",
+      "parity": "P1",
+      "statut": "ok"
+    },
+    {
+      "slot": "hypnotix",
+      "vmDesktop": "hypnotix.desktop",
+      "labelFr": "Hypnotix",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "lecteur_multimedia",
+      "vmDesktop": "io.github.celluloid_player.Celluloid.desktop",
+      "labelFr": "Lecteur vidéo",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "libreoffice_startcenter",
+      "vmDesktop": "libreoffice-startcenter.desktop",
+      "labelFr": "LibreOffice",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "librecalc",
+      "vmDesktop": "libreoffice-calc.desktop",
+      "labelFr": "LibreOffice Calc",
+      "parity": "P1",
+      "statut": "ok"
+    },
+    {
+      "slot": "libreoffice_draw",
+      "vmDesktop": "libreoffice-draw.desktop",
+      "labelFr": "LibreOffice Draw",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "libreoffice_impress",
+      "vmDesktop": "libreoffice-impress.desktop",
+      "labelFr": "LibreOffice Impress",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "librewriter",
+      "vmDesktop": "libreoffice-writer.desktop",
+      "labelFr": "LibreOffice Writer",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintinstall",
+      "vmDesktop": "mintinstall-kde.desktop",
+      "labelFr": "Logithèque",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "system_monitor",
+      "vmDesktop": "gnome-system-monitor-kde.desktop",
+      "labelFr": "Moniteur système",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "sticky",
+      "vmDesktop": "sticky.desktop",
+      "labelFr": "Notes",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "simple_scan",
+      "vmDesktop": "simple-scan.desktop",
+      "labelFr": "Numérisation de documents",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "mintbackup",
+      "vmDesktop": "mintbackup.desktop",
+      "labelFr": "Outil de sauvegarde",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "visionneur_images",
+      "vmDesktop": "pix.desktop",
+      "labelFr": "Pix",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "font_viewer",
+      "vmDesktop": "org.gnome.font-viewer.desktop",
+      "labelFr": "Polices",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "bulky",
+      "vmDesktop": "bulky.desktop",
+      "labelFr": "Renommer fichiers",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "rhythmbox",
+      "vmDesktop": "org.gnome.Rhythmbox3.desktop",
+      "labelFr": "Rhythmbox",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "mate_color_select",
+      "vmDesktop": "mate-color-select.desktop",
+      "labelFr": "Sélecteur de couleur",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "power_stats",
+      "vmDesktop": "org.gnome.PowerStats.desktop",
+      "labelFr": "Statistiques d'alimentation",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "gucharmap",
+      "vmDesktop": "gucharmap.desktop",
+      "labelFr": "Table des caractères",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "terminal",
+      "vmDesktop": "org.gnome.Terminal.desktop",
+      "labelFr": "Terminal",
+      "parity": "P0",
+      "statut": "ok"
+    },
+    {
+      "slot": "thunderbird",
+      "vmDesktop": "thunderbird.desktop",
+      "labelFr": "Thunderbird",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "timeshift",
+      "vmDesktop": "timeshift-gtk.desktop",
+      "labelFr": "Timeshift",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "transmission",
+      "vmDesktop": "transmission-gtk.desktop",
+      "labelFr": "Transmission",
+      "parity": "P2",
+      "statut": "ok"
+    },
+    {
+      "slot": "visionneur_pdf",
+      "vmDesktop": "xreader.desktop",
+      "labelFr": "Visionneur de documents",
+      "parity": "P1",
+      "statut": "ok"
+    },
+    {
+      "slot": "warpinator",
+      "vmDesktop": "org.x.Warpinator.desktop",
+      "labelFr": "Warpinator",
+      "parity": "P2",
+      "statut": "ok"
+    }
+  ],
   "notes": "Étape suivante : collect-ui-state-effects.mjs quand outil lab Cinnamon disponible ; étendre discoveredApps depuis AppV.",
   "burst": {
     "tray": {
@@ -179,39 +489,56 @@
       "ok": true,
       "note": "smoke OK"
     },
-    "results": [
+    "vm": {
+      "ok": true,
+      "at": "2026-06-08T10:06:23.042Z",
+      "sample": "VM_BURST_OK"
+    },
+    "surfaceResults": [
       {
         "id": "shell.panel.menu",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.panel.grouped-window-list",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.tray.favorites",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.tray.network",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.tray.volume",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.tray.calendar",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.window.muffin",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       },
       {
         "id": "shell.alt-tab",
-        "capsuleMatch": "partial"
+        "ok": true,
+        "note": "playwright OK"
       }
     ]
+  },
+  "summary": {
+    "discoveredApps": 43,
+    "catalogOk": 101
   }
 }

@@ -919,15 +919,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 4,
-    "smokeOk": 4,
-    "measured": 4,
+    "implemented": 5,
+    "smokeOk": 5,
+    "measured": 5,
     "avgPi": 100,
     "appsTotal": 11,
     "appsAtPi100": 1,
     "documentedPct": 100,
-    "implementedPct": 12,
-    "smokePct": 12
+    "implementedPct": 15,
+    "smokePct": 15
   },
-  "updatedAt": "2026-06-08T17:02:21.465Z"
+  "updatedAt": "2026-06-08T17:03:44.885Z"
 }

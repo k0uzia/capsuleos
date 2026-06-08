@@ -90,11 +90,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
       "pi_credibility": null,
-      "phase": "P-A",
+      "phase": "P-D",
       "selectors": {
         "capsule": [
           ".nemo-sidebar",
@@ -929,5 +929,5 @@
     "implementedPct": 0,
     "smokePct": 0
   },
-  "updatedAt": "2026-06-08T16:43:06.922Z"
+  "updatedAt": "2026-06-08T16:52:02.975Z"
 }

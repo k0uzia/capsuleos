@@ -59,6 +59,25 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     plan.assertions.push({ type: 'selectorVisible', selector: sel });
   });
 
+  if (scenario.id === 'nemo-open-documents') {
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="nemo"] #voletnemo a[data-link="Documents"]',
+      desc: 'sidebar Documents',
+    });
+    plan.actions.push({ type: 'wait', ms: 250 });
+    plan.assertions.push({ type: 'textContains', selector: '.nemo-pathbar, #nemo-path-label', text: 'Documents' });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="nemo"] #voletnemo a[data-link="Documents"]',
+      className: 'nemo-sidebar__link--active',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="nemo"] .nemo-file-list',
+      min: 1,
+    });
+  }
   if (scenario.id === 'nemo-menu-context') {
     plan.actions.push({ type: 'evaluate', desc: 'clic droit zone contenu Nemo' });
     plan.assertions.push({ type: 'selectorVisible', selector: '#menu-app-context-menu' });
@@ -91,9 +110,66 @@ const printDryRun = (plan) => {
       process.stdout.write(`  ${idx + 1}. visible: ${a.selector}\n`);
     } else if (a.type === 'textContains') {
       process.stdout.write(`  ${idx + 1}. contains "${a.text}": ${a.selector}\n`);
+    } else if (a.type === 'hasClass') {
+      process.stdout.write(`  ${idx + 1}. class "${a.className}": ${a.selector}\n`);
+    } else if (a.type === 'childCountMin') {
+      process.stdout.write(`  ${idx + 1}. min ${a.min} children: ${a.selector}\n`);
     }
   });
   process.stdout.write('✓ dry-run OK — exécution Playwright requiert CAPSULE_HTTP_BASE\n');
+};
+
+const runScenarioActions = async (page, plan) => {
+  for (let i = 0; i < plan.actions.length; i += 1) {
+    const action = plan.actions[i];
+    if (action.type === 'goto' || action.type === 'waitFor' || action.type === 'openSlot') {
+      continue;
+    }
+    if (action.type === 'wait') {
+      await page.waitForTimeout(action.ms || 200);
+    } else if (action.type === 'click') {
+      await page.click(action.selector);
+    } else if (action.type === 'fill') {
+      await page.fill(action.selector, action.value || '');
+    } else if (action.type === 'evaluate') {
+      await page.evaluate(() => {});
+    }
+  }
+};
+
+const runScenarioAssertions = async (page, plan, errors) => {
+  for (let i = 0; i < plan.assertions.length; i += 1) {
+    const a = plan.assertions[i];
+    if (a.type === 'selectorVisible') {
+      const el = await page.$(a.selector);
+      if (!el) errors.push(`Sélecteur absent: ${a.selector}`);
+    } else if (a.type === 'textContains') {
+      const el = await page.$(a.selector);
+      const text = el ? await el.textContent() : '';
+      if (!text || text.indexOf(a.text) < 0) {
+        errors.push(`Texte "${a.text}" absent dans ${a.selector}`);
+      }
+    } else if (a.type === 'hasClass') {
+      const hasClass = await page.evaluate(({ selector, className }) => {
+        const node = document.querySelector(selector);
+        return !!(node && node.classList && node.classList.contains(className));
+      }, { selector: a.selector, className: a.className });
+      if (!hasClass) {
+        errors.push(`Classe "${a.className}" absente sur ${a.selector}`);
+      }
+    } else if (a.type === 'childCountMin') {
+      const count = await page.evaluate((selector) => {
+        const node = document.querySelector(selector);
+        if (!node) {
+          return 0;
+        }
+        return node.querySelectorAll('a, .nemo-app__list-row').length;
+      }, a.selector);
+      if (count < (a.min || 1)) {
+        errors.push(`Enfants insuffisants (${count} < ${a.min}) dans ${a.selector}`);
+      }
+    }
+  }
 };
 
 const runPlaywright = async (plan) => {
@@ -125,19 +201,8 @@ const runPlaywright = async (plan) => {
     }, plan.app);
     await page.waitForTimeout(800);
 
-    for (let i = 0; i < plan.assertions.length; i += 1) {
-      const a = plan.assertions[i];
-      if (a.type === 'selectorVisible') {
-        const el = await page.$(a.selector);
-        if (!el) errors.push(`Sélecteur absent: ${a.selector}`);
-      } else if (a.type === 'textContains') {
-        const el = await page.$(a.selector);
-        const text = el ? await el.textContent() : '';
-        if (!text || text.indexOf(a.text) < 0) {
-          errors.push(`Texte "${a.text}" absent dans ${a.selector}`);
-        }
-      }
-    }
+    await runScenarioActions(page, plan);
+    await runScenarioAssertions(page, plan, errors);
   } catch (err) {
     errors.push(String(err.message || err));
   } finally {

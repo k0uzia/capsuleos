@@ -44,6 +44,24 @@ node usr/lib/capsuleos/tools/lab/import-manifest-staging.mjs --id <registryId> -
 
 Catalogue médias v2 : blocs `toolkits` + `vendors` avec héritage `extends` — voir `vm-manifest-media-catalog-lib.mjs`.
 
+## Commits par phase (réplication Mint et vendors)
+
+**Un commit par prédicat clôturé** — message `Mint <Phase> : …` (remplacer `Mint` par le vendor si besoin).
+
+| Phase | Prédicat | Quand committer | Exemple message |
+|-------|----------|-----------------|-----------------|
+| Collecte | **ManV** | `distribution-manifest.json` écrit | `Mint ManV : collecte manifeste VM 22.3.` |
+| Smoke | **ManS** | rarement seul ; couplé à ManV ou ManA | — |
+| Playbook | **PbM** | `*-manifest-playbook.json` régénéré | `Mint PbM : playbook pull=N drift=M.` |
+| Approbation | **ManA** | `validation.approved` | `Mint ManA : manifeste approuvé post-smoke.` |
+| Staging VM | **ManSt** | `staging.status=completed` | `Mint ManSt : staging VM 157 fichiers.` |
+| Import | **ManI** | assets + `SOURCE-VM.txt` | `Mint ManI : import assets panel et fonds.` |
+| Intégration | **Int** | inventaires parité + rapport `integration-pass-*.json` | `Mint Int : inventaire VM et playbook aligné.` |
+| Parité panel | **Vp** | `compare-os-parity` / outillage lab | `Mint Vp : compare panel export 6 étapes.` |
+| Application | **App#N** | une app du catalogue alphabétique | `Mint App#10 : gestionnaire pilotes (mintdrivers).` |
+
+Ne pas mélanger deux phases dans un même commit sauf **ManΣ** initial (bootstrap vendor).
+
 **AppV** est dérivé du manifeste (plus de scrape bash partiel) :
 
 ```bash

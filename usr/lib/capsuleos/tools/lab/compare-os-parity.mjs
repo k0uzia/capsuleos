@@ -156,9 +156,19 @@ const runSsh = (host, remoteCmd) => {
   return JSON.parse(jsonLine || '{}');
 };
 
-const loadCapsuleState = (filePath) => {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(raw);
+/** Export unique ou tableau `{ step, state }[]` (run-capsule-panel-browser.mjs). */
+const loadCapsuleStatesByStep = (filePath) => {
+  const raw = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  if (!Array.isArray(raw)) {
+    return new Map([[0, raw]]);
+  }
+  const map = new Map();
+  for (const entry of raw) {
+    if (entry && typeof entry === 'object' && entry.state) {
+      map.set(entry.step, entry.state);
+    }
+  }
+  return map;
 };
 
 const printSnippetHelp = () => {
@@ -191,7 +201,11 @@ const main = () => {
   }
 
   const lines = [];
-  let failures = 0;
+  let vmFailures = 0;
+  let capFailures = 0;
+  const capByStep = (opts.capsuleJson && fs.existsSync(opts.capsuleJson))
+    ? loadCapsuleStatesByStep(opts.capsuleJson)
+    : null;
 
   lines.push(`# Parité ${opts.id} — ${opts.scenario}`);
   lines.push(`| Étape | VM | Capsule | Note |`);
@@ -217,9 +231,13 @@ const main = () => {
     }
 
     let capOk = null;
-    if (opts.capsuleJson && fs.existsSync(opts.capsuleJson)) {
-      const capState = loadCapsuleState(opts.capsuleJson);
-      capOk = step.expect(capState);
+    if (capByStep) {
+      const capState = capByStep.get(step.step);
+      if (capState) {
+        capOk = step.expect(capState);
+      } else {
+        capOk = false;
+      }
     }
 
     const vmCell = vmOk ? 'OK' : 'ÉCART';
@@ -227,16 +245,20 @@ const main = () => {
     const note = step.p1Note || (vmState && vmState.error ? vmState.error : '');
     lines.push(`| ${step.step} ${step.label} | ${vmCell} | ${capCell} | ${note} |`);
 
-    if (!vmOk) failures += 1;
+    if (!vmOk) vmFailures += 1;
+    if (capOk === false) capFailures += 1;
   }
 
   process.stdout.write(`${lines.join('\n')}\n\n`);
   if (!opts.capsuleJson) {
     printSnippetHelp();
-    process.stdout.write('Export Capsule : évaluer le snippet ci-dessus, sauver JSON, relancer avec --capsule-json <fichier>\n');
+    process.stdout.write('Export Capsule : run-capsule-panel-browser.mjs puis --capsule-json /tmp/capsule-panel.json\n');
   }
 
-  process.exit(failures > 0 ? 1 : 0);
+  const exitCode = capByStep
+    ? (vmFailures > 0 || capFailures > 0 ? 1 : 0)
+    : (vmFailures > 0 ? 1 : 0);
+  process.exit(exitCode);
 };
 
 main();

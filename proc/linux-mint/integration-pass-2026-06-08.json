@@ -45,6 +45,14 @@
     "pass": "6/6",
     "export": "/tmp/capsule-panel.json"
   },
+  "panelParityDual": {
+    "tool": "compare-os-parity.mjs",
+    "capsuleJson": "/tmp/capsule-panel.json",
+    "vm": "5/6",
+    "capsule": "6/6",
+    "vmEcartSteps": [1],
+    "note": "Écart VM étape 1 (focus Firefox grouped-window-list) — P1 lab assumé"
+  },
   "playwrightSmokes": {
     "smoke-mint-firefox": true,
     "smoke-mint-tray": true,
@@ -58,9 +66,7 @@
     "wallpaper": "file:///usr/share/backgrounds/linuxmint/default_background.jpg",
     "fontUi": "Ubuntu 10"
   },
-  "backlogP0": [
-    "VM étape 1 : focus Firefox après ouverture (panel grouped-window-list)",
-    "VM étape 4 : minimize Nemo (comportement Cinnamon P1)",
-    "compare-os-parity --capsule-json : format tableau 6 étapes vs état unique attendu"
+  "backlogP1": [
+    "VM étape 1 : focus Firefox après ouverture (panel grouped-window-list Cinnamon)"
   ]
 }

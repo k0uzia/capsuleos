@@ -2,7 +2,8 @@
 /**
  * Collecte inventaire Windows 11 via SSH (PowerShell) — scaffold P0.
  *
- * Prérequis : OpenSSH Server sur la VM, entrée windows-11 dans lab-inventory.json.
+ * Prérequis : SSH direct hôte lab → VM (pas de relais inter-VM), OpenSSH sur la VM,
+ * entrée windows-11 dans lab-inventory.json sans sshJumpHost.
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/collect-windows-inventory.mjs --id windows-11 --write

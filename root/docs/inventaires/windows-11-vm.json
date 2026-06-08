@@ -2,36 +2,40 @@
   "version": 1,
   "registryId": "windows-11",
   "displayName": "Windows 11 Professionnel 21H2",
-  "collectedAt": "2026-06-08T17:10:00Z",
+  "collectedAt": "2026-06-08T18:00:00Z",
   "collectionMethod": "user-ipconfig-plus-lab-probe",
+  "protocol": {
+    "model": "direct",
+    "description": "Même protocole que linux-mint : hôte lab (192.168.1.20) → SSH direct vers la VM. Pas de ProxyJump ni relais via une autre VM.",
+    "sshUser": "Quickemu@192.168.1.149",
+    "sshIdentity": "~/.ssh/capsuleos-lab",
+    "tools": [
+      "lab-ssh.mjs --id windows-11",
+      "collect-windows-inventory.mjs --id windows-11 --write"
+    ]
+  },
   "connectivity": {
     "hostIp": "192.168.1.149",
     "gateway": "192.168.1.1",
     "interfaceName": "Instance Ethernet 0 2",
     "hypervisorHost": "192.168.1.20",
     "pingFromHypervisorHost": false,
-    "pingFromHypervisorHostError": "macvtap isolation (interface direct enp1s0) — hôte et VM sur même NIC, L2 bloqué",
-    "pingFromLinuxMint146": true,
-    "pingFromLinuxMintRttMs": "1.1-1.8",
-    "portsFromLinuxMint": {
-      "22": "closed",
-      "3389": "open",
-      "5985": "closed"
-    },
-    "ssh": false,
-    "sshError": "Port 22 fermé sur la VM (OpenSSH Server non actif)",
+    "pingFromHypervisorHostError": "macvtap (interface direct enp1s0) — isolation L2 hôte↔VM sur même NIC",
+    "sshDirectFromHypervisorHost": false,
+    "sshDirectError": "No route to host — corriger virt-manager : bridge LAN au lieu de macvtap",
+    "networkFixRequired": "virt-manager win11_483ec3b2 → Réseau : remplacer macvtap/direct par bridge sur LAN (comme VM Mint)",
     "probeType": "manual",
-    "authStatus": "blocked-openssh",
+    "authStatus": "pending-key",
+    "authNote": "OpenSSH actif ; clé capsuleos-lab à placer dans C:\\Users\\Quickemu\\.ssh\\authorized_keys",
     "windowsUser": "Quickemu",
     "windowsUserPath": "C:\\Users\\Quickemu",
     "virshName": "win11_483ec3b2",
     "virshState": "running",
-    "networkMode": "macvtap bridge enp1s0 (macvtap0, MAC 52:54:00:39:e2:c6)"
+    "networkMode": "macvtap bridge enp1s0 (à migrer vers bridge LAN)"
   },
   "lab": {
     "ssh": "Quickemu@192.168.1.149",
     "sshIdentity": "~/.ssh/capsuleos-lab",
-    "sshJumpHost": "capsule@192.168.1.146",
     "virshName": "win11_483ec3b2",
     "capsuleUrl": "http://127.0.0.1:5500/OS/windows/versions/11/index.html",
     "display": {
@@ -84,14 +88,15 @@
     }
   ],
   "pendingUserInput": [
+    "virt-manager : NIC en bridge LAN (prérequis direct)",
+    "authorized_keys Quickemu avec clé capsuleos-lab",
     "locale UI (fr-FR | en-US)",
     "thème clair/sombre et couleur d'accent",
-    "build exact (Paramètres → Système → À propos)",
-    "nom snapshot VM (clean-boot-pre-clone)"
+    "build exact (Paramètres → Système → À propos)"
   ],
   "gapsBlockingClone": [
-    "OpenSSH Server non actif (port 22 fermé) — bloque collect-windows-inventory.mjs",
-    "macvtap : hôte hyperviseur 192.168.1.20 ne peut pas joindre la VM directement",
+    "macvtap bloque SSH direct hôte 192.168.1.20 → VM 192.168.1.149",
+    "Clé SSH non autorisée sur compte Quickemu",
     "pull-vm-assets.sh sans branche microsoft",
     "compare-os-parity.mjs sans scénario Windows"
   ]

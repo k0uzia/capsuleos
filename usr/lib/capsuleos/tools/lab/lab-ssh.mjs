@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
  * SSH lab — identité configurable + test rapide.
+ * Connexion directe hôte → VM par défaut (comme Mint). ProxyJump uniquement si
+ * `sshJumpHost` est explicitement renseigné dans lab-inventory.json (opt-in).
  * Usage: node usr/lib/capsuleos/tools/lab/lab-ssh.mjs [--host-entry from inventory via --id]
  */
 import fs from 'fs';

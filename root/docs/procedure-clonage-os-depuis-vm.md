@@ -139,11 +139,24 @@ Exécution manuelle sur la VM :
 ssh -i ~/.ssh/capsuleos-lab capsule@<IP> 'DISPLAY=:0 bash -s' < root/tools/lab/vm-mint-inventory.sh | python3 -m json.tool
 ```
 
-### 4.4 Autres toolkits (méthode manuelle)
+### 4.4 Windows 11 (SSH direct — même protocole que Mint)
+
+**Pas de relais SSH** via une autre VM lab (ex. linux-mint). Le hôte CapsuleOS se connecte **directement** à la VM Windows, comme pour `capsule@192.168.1.146`.
+
+| Élément | Valeur type |
+|---------|-------------|
+| `lab-inventory.json` | `ssh: Quickemu@<IP>` · `sshIdentity: ~/.ssh/capsuleos-lab` · **sans** `sshJumpHost` |
+| Réseau virt-manager | **Bridge LAN** (même L2 que Mint) — **pas** macvtap/direct sur `enp1s0` (isolation hôte↔VM) |
+| Collecte | `node usr/lib/capsuleos/tools/lab/collect-windows-inventory.mjs --id windows-11 --write` |
+| Test | `node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id windows-11 --cmd hostname` |
+
+Prérequis VM : OpenSSH Server, clé publique lab dans `C:\Users\<user>\.ssh\authorized_keys`. Recette : [`recette-clone-windows-11.md`](recette-clone-windows-11.md).
+
+### 4.5 Autres toolkits (méthode manuelle)
 
 En attendant un script `vm-*-inventory.sh` par toolkit, remplir le JSON à la main selon l’annexe [§ B — Inventaire par toolkit](#b--inventaire-manuel-par-toolkit).
 
-### 4.5 Contrat JSON inventaire (cible commune)
+### 4.6 Contrat JSON inventaire (cible commune)
 
 ```json
 {
@@ -159,7 +172,7 @@ En attendant un script `vm-*-inventory.sh` par toolkit, remplir le JSON à la ma
 }
 ```
 
-### 4.6 Livrables fin phase 1
+### 4.7 Livrables fin phase 1
 
 - [ ] `<registryId>-vm.json` commité ou prêt à commit
 - [ ] `inventaire-parite-<vendor>.md` initialisé depuis le template

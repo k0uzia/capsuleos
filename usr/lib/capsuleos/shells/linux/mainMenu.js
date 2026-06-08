@@ -66,6 +66,16 @@ function initMainMenu() {
         const shortcutConfig = MENU_SHORTCUTS[link.dataset.shortcutId];
         link.tabIndex = 0;
 
+        if (shortcutConfig && shortcutConfig.icon) {
+            const shortcutImg = link.querySelector('img');
+            if (shortcutImg) {
+                const iconUrl = typeof resolveCapsuleResourceUrl === 'function'
+                    ? resolveCapsuleResourceUrl(shortcutConfig.icon)
+                    : shortcutConfig.icon;
+                shortcutImg.src = iconUrl;
+            }
+        }
+
         if (!shortcutConfig || !shortcutConfig.dataLink) {
             link.classList.add('is-unavailable');
             link.setAttribute('aria-disabled', 'true');

@@ -1,11 +1,10 @@
 /**
- * Favoris panel Mint — branchement sur openWindowByDataLink (noyau).
- * Ne pas dupliquer windowContainer / taskbar-launcher-state.
+ * Applet favoris panel Mint — adaptateur mince vers openWindowByDataLink (noyau).
  */
 (function initMintPanelFavorites(global) {
     'use strict';
 
-    function isMint() {
+    function isMintPanel() {
         return global.document && global.document.body && global.document.body.id === 'mint';
     }
 
@@ -17,29 +16,23 @@
     }
 
     function bindFavoriteButton(btn) {
-        if (!btn || btn.dataset.mintPanelFavoriteBound === 'true') {
-            return;
-        }
-        btn.dataset.mintPanelFavoriteBound = 'true';
         btn.addEventListener('click', function onFavoriteClick(event) {
+            event.preventDefault();
+            event.stopPropagation();
             var action = btn.getAttribute('data-favorite-action');
             var link = btn.getAttribute('data-favorite-link');
             if (action === 'calendar-popover') {
-                event.preventDefault();
-                event.stopPropagation();
                 openCalendarPopover();
                 return;
             }
             if (link && typeof global.openWindowByDataLink === 'function') {
-                event.preventDefault();
-                event.stopPropagation();
                 global.openWindowByDataLink(link);
             }
         });
     }
 
     function init() {
-        if (!isMint()) {
+        if (!isMintPanel()) {
             return;
         }
         var buttons = global.document.querySelectorAll('.taskbar-favorites__btn[data-favorite-link]');

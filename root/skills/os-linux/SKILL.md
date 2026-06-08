@@ -46,6 +46,16 @@ node usr/lib/capsuleos/tools/generate-public-manifest.mjs
 node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 ```
 
+## Panel / menu Mint (v3 — anti-patterns retirés)
+
+| Éviter | Remplacer par |
+|--------|----------------|
+| `footer.css` + `panel-windows.css` dupliqués | `home/Debian/Mint/style/mint-panel.css` |
+| `--taskbar-height` hérité portal (1.25×head) | `--mint-panel-height: 40px` dans `mint-y-dark-aqua-tokens.css` |
+| `mainMenu.skin.css` injecté dynamiquement seul | Chaîne statique `imports.css` + `CAPSULE_STATIC_SKIN_SLOTS: ["mainMenu"]` |
+| Layout menu en JS (`mint-menu-parity` DOM/CSS) | `mainMenu.skin.css` grille 20/25/55 % ; parity = données FR uniquement |
+| Lanceurs panel fixes / checklist dans le HTML | Noyau `taskbar-window-list.js` + adaptateurs tray/favoris |
+
 ## Checkpoints post-clonage VM
 
 Après import assets / skin :

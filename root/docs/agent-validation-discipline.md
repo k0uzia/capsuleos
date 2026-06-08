@@ -122,9 +122,10 @@ Ordre **obligatoire** avant push / merge d’un lot skin ou noyau interactif :
 
 1. `validate-all` sur chaque commit doc.
 2. Modifier `home/` sans `sync-linux-skin-closure` avant fin de tâche.
-3. Ignorer un échec `validate-capsule` « parce que c'était déjà rouge » **dans la zone touchée**.
-4. Smokes lab avec sleeps >1 s sans attente conditionnelle (régression perf CI).
-5. Push sans **Rv** sur un slot interactif modifié.
+3. **Mint panel/menu** : double CSS (`imports.css` + inject `contentLoader`), `footer.css`/`panel-windows.css` parallèles, layout menu dans `mint-menu-parity.js`, `--taskbar-height` portal — voir skill `os-linux` § Panel/menu Mint v3.
+4. Ignorer un échec `validate-capsule` « parce que c'était déjà rouge » **dans la zone touchée**.
+5. Smokes lab avec sleeps >1 s sans attente conditionnelle (régression perf CI).
+6. Push sans **Rv** sur un slot interactif modifié.
 
 ---
 

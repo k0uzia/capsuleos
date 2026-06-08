@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
-    <link rel="stylesheet" href="./style/style.css?v=20260608shell" type="text/css">
+    <link rel="stylesheet" href="./style/style.css?v=20260608panelv3" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>Mint</title>
@@ -163,16 +163,16 @@
             <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg" alt="">
         </div>
     </div>
-    <footer id="tableau">
-        <nav>
-            <a target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
+    <footer id="tableau" class="mint-panel" role="contentinfo" aria-label="Panneau Cinnamon">
+        <nav class="mint-panel__left" aria-label="Menu et fenêtres ouvertes">
+            <a class="mint-panel__menu-btn" target="windowElement" data-link="mainMenu" title="Ouvrir le menu principal">
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
-            <span class="taskbar-separator" aria-hidden="true"></span>
-            <ul id="taskbar-window-list" class="taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
+            <span class="mint-panel__separator taskbar-separator" aria-hidden="true"></span>
+            <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
-        <div class="taskbar-right">
-            <div class="taskbar-tray" aria-label="Zone de notification">
+        <div class="mint-panel__right taskbar-right">
+            <div class="mint-panel__tray taskbar-tray" aria-label="Zone de notification">
                 <button type="button"
                         class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray
@@ -206,7 +206,7 @@
                         aria-label="Disposition du clavier" title="Disposition du clavier">
                     <span class="taskbar-tray__icon taskbar-tray__icon--keyboard" aria-hidden="true"></span>
                 </button>
-                <div class="taskbar-favorites" id="mint-tray-favorites" role="group" aria-label="Favoris">
+                <div class="mint-panel__favorites taskbar-favorites" id="mint-tray-favorites" role="group" aria-label="Favoris">
                     <button type="button" class="taskbar-favorites__btn" data-favorite-link="calculator" title="Calculatrice" aria-label="Calculatrice">
                         <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp" alt="">
                     </button>
@@ -402,7 +402,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="../../../var/lib/capsuleos/generated/mint-wallpaper-catalog.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js?v=20260608b"></script>
-    <script src="./content/mint-menu-parity.js?v=20260608"></script>
+    <script src="./content/mint-menu-parity.js?v=20260608panelv3"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260428"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
@@ -487,7 +487,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
-    <script src="./content/mint-panel-favorites.js?v=20260608"></script>
+    <script src="./content/mint-panel-favorites.js?v=20260608panelv3"></script>
     <script src="./content/mint-tray.js?v=20260604"></script>
 </body>
 </html>

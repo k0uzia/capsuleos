@@ -387,7 +387,10 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo",
       "CAPSULE_EMBED_SKIN_KEY": "mint",
       "CAPSULE_FORCE_APP_EMBED": true,
-      "CAPSULE_SKIN_CSS_VERSION": "20260608shell",
+      "CAPSULE_SKIN_CSS_VERSION": "20260608panelv3",
+      "CAPSULE_STATIC_SKIN_SLOTS": [
+        "mainMenu"
+      ],
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
@@ -1158,7 +1161,10 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_TEMPLATE": "nemo",
       "CAPSULE_EMBED_SKIN_KEY": "mint",
       "CAPSULE_FORCE_APP_EMBED": true,
-      "CAPSULE_SKIN_CSS_VERSION": "20260608shell",
+      "CAPSULE_SKIN_CSS_VERSION": "20260608panelv3",
+      "CAPSULE_STATIC_SKIN_SLOTS": [
+        "mainMenu"
+      ],
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",

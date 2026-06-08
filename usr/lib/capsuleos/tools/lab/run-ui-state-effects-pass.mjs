@@ -369,11 +369,20 @@ async function runShellChecks(page, surfaces) {
     }
 
     if (surface === 'desktop') {
-      const shortcuts = await page.evaluate(() => (
-        document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length >= 2
-      ));
-      push('desktop-shortcuts', 'int', shortcuts, {});
-      push('desktop-vis', 'vis', shortcuts, {});
+      const desktopState = await page.evaluate(() => {
+        const desktop = document.getElementById('desktop');
+        const shortcuts = document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length;
+        const bg = desktop ? getComputedStyle(desktop).backgroundImage : '';
+        return {
+          desktopOk: !!desktop,
+          shortcuts,
+          hasWallpaper: bg !== '' && bg !== 'none',
+        };
+      });
+      const emptyVmDesktop = desktopState.desktopOk && desktopState.shortcuts === 0;
+      push('desktop-empty-vm', 'data', emptyVmDesktop, desktopState);
+      push('desktop-vis', 'vis', desktopState.desktopOk && (desktopState.hasWallpaper || emptyVmDesktop), desktopState);
+      push('desktop-int', 'int', desktopState.desktopOk, desktopState);
 
       await page.evaluate(() => {
         const desktop = document.getElementById('desktop');
@@ -392,6 +401,10 @@ async function runShellChecks(page, surfaces) {
         return menu && !menu.hidden && !menu.hasAttribute('hidden');
       });
       push('desktop-ctx', 'ctx', ctx, {});
+      const ctxItems = await page.evaluate(() => (
+        document.querySelectorAll('#desktop-context-menu .desktop-context-menu__item').length >= 3
+      ));
+      push('desktop-ctx-nav', 'nav', ctx && ctxItems, {});
 
       await page.keyboard.press('Escape');
       await page.waitForTimeout(40);
@@ -400,7 +413,6 @@ async function runShellChecks(page, surfaces) {
         return menu && menu.hasAttribute('hidden');
       });
       push('desktop-kb', 'kb', kb, {});
-      push('desktop-data', 'data', shortcuts, {});
     }
 
     const dims = dimensionScoresFromChecks(checks);

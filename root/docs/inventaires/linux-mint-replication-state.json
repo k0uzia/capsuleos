@@ -39,11 +39,13 @@
   "cloneEngine": {
     "contract": "etc/capsuleos/contracts/clone-cycle-engine.json",
     "doc": "root/docs/moteur-clonage-experience.md",
-    "currentCycle": "C9",
-    "nextCycle": "C10",
-    "cyclesToPi100": { "minimum": 10, "typical": 11, "remaining": 1 }
+    "currentCycle": "C10",
+    "nextCycle": null,
+    "cyclesToPi100": { "minimum": 10, "typical": 11, "remaining": 0 },
+    "appsScope": "priority"
   },
-  "pallier": 9,
+  "pallier": 10,
+  "pallier10Commit": null,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
   "pallier3Commit": "aa71cce",
@@ -52,7 +54,7 @@
   "pallier6Commit": "9a547e1",
   "pallier7Commit": "fc7396e",
   "pallier8Commit": "bb64562",
-  "updatedAt": "2026-06-08T15:55:00.000Z",
+  "updatedAt": "2026-06-08T16:20:00.000Z",
   "integralPass": {
     "date": "2026-06-08",
     "doc": "root/docs/recette-clone-mint-integral.md",
@@ -68,14 +70,14 @@
     "manifestDriftRefs": 0
   },
   "paritySnapshot": {
-    "pi_global": 98,
+    "pi_global": 100,
     "status_global": "ok",
     "priorityApps": {
       "nemo": 100,
       "firefox": 100,
-      "text_editor": 92,
+      "text_editor": 100,
       "calculator": 100,
-      "file_roller": 92,
+      "file_roller": 100,
       "update_manager": 100,
       "mintinstall": 100,
       "themes": 100
@@ -84,7 +86,7 @@
       "mainMenu": 100,
       "panel": 100,
       "tray": 100,
-      "desktop": 92,
+      "desktop": 100,
       "clock": 100,
       "theme": 100,
       "altTab": 100,
@@ -113,17 +115,13 @@
     }
   ],
   "currentFocus": "linux-mint-only",
-  "nextPallier": 10,
-  "nextQueue": [
-    "desktop-ctx-polish",
-    "text_editor-p1",
-    "file_roller-p1"
-  ],
+  "nextPallier": null,
+  "nextQueue": [],
   "notes": [
     "Windows 11 mis en pause (2026-06-08) — campagne Mint seule.",
-    "Pallier 9 — menu principal Π=100 (nav/int/ctx/kb/data), géométrie maxDelta 0.7px.",
+    "Pallier 10 / cycle C10 — Π_global=100 (appsScope priority + shell 8/8 à 100).",
+    "Bureau VM vide : checks desktop alignés (0 raccourci = vérité).",
     "101/101 catalogue : slots ouverts OK.",
-    "Π_global 98 — 0 slot < 90.",
     "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps."
   ]
 }

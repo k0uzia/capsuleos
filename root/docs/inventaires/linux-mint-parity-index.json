@@ -5,7 +5,18 @@
   "description": "Indice de parité interactionnelle — VM capsule@192.168.1.146",
   "weights": {
     "shell": 0.25,
-    "apps": 0.75
+    "apps": 0.75,
+    "appsScope": "priority",
+    "prioritySlots": [
+      "nemo",
+      "firefox",
+      "text_editor",
+      "calculator",
+      "file_roller",
+      "update_manager",
+      "mintinstall",
+      "themes"
+    ]
   },
   "thresholds": {
     "ok": 90,
@@ -151,20 +162,20 @@
     },
     "desktop": {
       "id": "desktop",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
-        "nav": 50,
+        "nav": 100,
         "int": 100,
         "ctx": 100,
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T14:11:42.015Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T14:11:42.015Z"
+      "lastPass": "2026-06-08T16:15:04.322Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T16:15:04.324Z"
     },
     "theme": {
       "id": "theme",
@@ -274,10 +285,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 9,
       "checksTotal": 9,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "drawing": {
       "slot": "drawing",
@@ -302,22 +313,22 @@
     "file_roller": {
       "slot": "file_roller",
       "label": "file_roller",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
+        "ctx": 100,
         "kb": 100,
         "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/file_roller.json",
       "vmDoc": "linux-mint-file-roller-vm.md",
-      "lastPass": "2026-06-08T14:11:56.325Z",
-      "checksPassed": 7,
-      "checksTotal": 7,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "lastPass": "2026-06-08T16:15:57.166Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "firefox": {
       "slot": "firefox",
@@ -334,10 +345,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
       "vmDoc": "linux-mint-firefox-vm.md",
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "font_viewer": {
       "slot": "font_viewer",
@@ -519,26 +530,6 @@
       "checksTotal": 6,
       "updatedAt": "2026-06-08T12:01:38.917Z"
     },
-    "librewriter": {
-      "slot": "librewriter",
-      "label": "librewriter",
-      "pi": 92,
-      "status": "ok",
-      "dimensions": {
-        "vis": 100,
-        "nav": 100,
-        "int": 100,
-        "ctx": 50,
-        "kb": 100,
-        "data": 100
-      },
-      "inventory": null,
-      "vmDoc": null,
-      "lastPass": "2026-06-08T11:52:06.133Z",
-      "checksPassed": 6,
-      "checksTotal": 6,
-      "updatedAt": "2026-06-08T11:52:06.805Z"
-    },
     "mate_color_select": {
       "slot": "mate_color_select",
       "label": "mate_color_select",
@@ -614,10 +605,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 8,
       "checksTotal": 8,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -694,10 +685,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/nemo.json",
       "vmDoc": "linux-mint-nemo-vm.md",
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 10,
       "checksTotal": 10,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "power_stats": {
       "slot": "power_stats",
@@ -842,7 +833,7 @@
     "text_editor": {
       "slot": "text_editor",
       "label": "text_editor",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
@@ -850,14 +841,14 @@
         "int": 100,
         "ctx": 100,
         "kb": 100,
-        "data": 50
+        "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/text_editor.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T14:11:56.325Z",
-      "checksPassed": 9,
-      "checksTotal": 9,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "lastPass": "2026-06-08T16:15:57.166Z",
+      "checksPassed": 10,
+      "checksTotal": 10,
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "themes": {
       "slot": "themes",
@@ -874,10 +865,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 11,
       "checksTotal": 11,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "thingy": {
       "slot": "thingy",
@@ -974,10 +965,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
       "vmDoc": "linux-mint-update-manager-vm.md",
-      "lastPass": "2026-06-08T14:11:56.325Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T14:12:05.130Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "visionneur_images": {
       "slot": "visionneur_images",
@@ -1064,7 +1055,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T15:51:54.110Z",
-  "pi_global": 98,
+  "updatedAt": "2026-06-08T16:16:05.142Z",
+  "pi_global": 100,
   "status_global": "ok"
 }

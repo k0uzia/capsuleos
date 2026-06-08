@@ -163,7 +163,7 @@ Formule : [`parity-index-lib.mjs`](../../usr/lib/capsuleos/tools/lab/parity-inde
 Pour atteindre **100** :
 
 1. Toutes les surfaces shell P0 à **Π=100** (ou minimum 90 sans trou dimensionnel).
-2. Toutes les apps catalogue **prioritaires** et **mesurées** à **Π≥90** ; aucun slot actif < 90.
+2. Toutes les apps **prioritaires** (`weights.appsScope: "priority"`) à **Π=100** ; catalogue secondaire peut rester ≥ 90 sans bloquer C10.
 3. `nonConformites: []` dans `*-replication-state.json`.
 4. `validate-all` vert · `validate-toolkit-paradigm --id` vert · cross-régression verte.
 

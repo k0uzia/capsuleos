@@ -74,11 +74,22 @@ export function saveParityIndex(registryId, data, customPath) {
   return file;
 }
 
+export const DEFAULT_PRIORITY_APP_SLOTS = [
+  'nemo', 'firefox', 'text_editor', 'calculator', 'file_roller',
+  'update_manager', 'mintinstall', 'themes',
+];
+
 export function recomputeGlobal(index) {
   const shellEntries = Object.values(index.shell || {});
-  const appEntries = Object.values(index.apps || {});
+  let appEntries = Object.values(index.apps || {});
   const shellWeight = index.weights?.shell ?? 0.25;
   const appWeight = index.weights?.apps ?? 0.75;
+
+  if (index.weights && index.weights.appsScope === 'priority') {
+    const pri = index.weights.prioritySlots || DEFAULT_PRIORITY_APP_SLOTS;
+    const set = new Set(pri);
+    appEntries = appEntries.filter((e) => set.has(e.slot || e.id));
+  }
 
   const shellPi = mean(shellEntries.map((e) => e.pi ?? computePiApp(e.dimensions || {})));
   const appPi = mean(appEntries.map((e) => e.pi ?? computePiApp(e.dimensions || {})));

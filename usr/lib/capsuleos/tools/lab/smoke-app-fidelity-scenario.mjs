@@ -30,6 +30,13 @@ const loadInventory = (registryId) => {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 };
 
+const resolveFidelitySlot = (appId) => {
+  if (appId === 'pix') {
+    return 'visionneur_images';
+  }
+  return appId;
+};
+
 const findScenario = (inventory, scenarioId) => {
   const scenarios = inventory.scenarios || [];
   for (let i = 0; i < scenarios.length; i += 1) {
@@ -40,16 +47,18 @@ const findScenario = (inventory, scenarioId) => {
 
 const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
   const url = resolveCapsuleOsUrl(registryId, httpBase);
+  const slotId = resolveFidelitySlot(scenario.app);
   const selectors = (scenario.selectors && scenario.selectors.capsule) || [];
   const plan = {
     url,
     app: scenario.app,
+    openSlot: slotId,
     scenarioId: scenario.id,
     steps: scenario.steps || [],
     actions: [
       { type: 'goto', url },
       { type: 'waitFor', fn: 'openWindowByDataLink' },
-      { type: 'openSlot', slot: scenario.app },
+      { type: 'openSlot', slot: slotId },
       { type: 'wait', ms: 800 },
     ],
     baseAssertions: [],
@@ -620,6 +629,267 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       min: 3,
     });
   }
+  if (scenario.id === 'calculator-basic') {
+    plan.prepActions = [{ type: 'calcInit' }];
+    plan.actions.push(
+      { type: 'calcKeys', keys: ['1', '2', '+', '7', '='] },
+      { type: 'wait', ms: 120 },
+    );
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="calculator"] #gnome-calc-value',
+      text: '19',
+    });
+  }
+  if (scenario.id === 'calculator-scientific') {
+    plan.prepActions = [{ type: 'calcInit' }];
+    plan.actions.push(
+      { type: 'calcMode', mode: 'advanced' },
+      { type: 'wait', ms: 120 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="calculator"] .calc-scientific-mode:not([hidden])',
+    });
+    plan.actions.push(
+      { type: 'calcKeys', keys: ['0'] },
+      { type: 'calcFn', fn: 'sin' },
+      { type: 'wait', ms: 80 },
+    );
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="calculator"] #gnome-calc-value',
+      text: '0',
+    });
+  }
+  if (scenario.id === 'calculator-history') {
+    plan.prepActions = [{ type: 'calcInit' }];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'calcKeys', keys: ['2', '+', '3', '='] },
+        { type: 'wait', ms: 80 },
+        { type: 'calcKeys', keys: ['4', '*', '2', '='] },
+        { type: 'wait', ms: 80 },
+        { type: 'click', selector: 'div[data-link="calculator"] [data-calc="history-toggle"]' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'selectorVisible',
+          selector: 'div[data-link="calculator"] .calc-history:not([hidden])',
+        },
+        {
+          type: 'childCountMin',
+          selector: 'div[data-link="calculator"] #gnome-calc-history-list',
+          min: 2,
+        },
+      ],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'calcHistoryPick', idx: 1 },
+        { type: 'wait', ms: 80 },
+      ],
+      assertions: [{
+        type: 'textContains',
+        selector: 'div[data-link="calculator"] #gnome-calc-value',
+        text: '8',
+      }],
+    });
+  }
+  if (scenario.id === 'file-roller-open-archive') {
+    plan.prepActions = [{ type: 'frInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="file_roller"] [data-fr-action="menu"]' },
+      { type: 'wait', ms: 120 },
+      { type: 'click', selector: 'div[data-link="file_roller"] [data-fr-menu="open-demo"]' },
+      { type: 'wait', ms: 200 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="file_roller"] .fr-app__list-wrap:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="file_roller"] #fr-list-body',
+      text: 'demo.txt',
+    });
+  }
+  if (scenario.id === 'file-roller-extract') {
+    plan.prepActions = [{ type: 'frInit' }, { type: 'frOpenDemo' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="file_roller"] [data-fr-action="extract"]' },
+      { type: 'wait', ms: 150 },
+    );
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="file_roller"] #fr-status',
+      text: 'Extraction',
+    });
+  }
+  if (scenario.id === 'file-roller-create') {
+    plan.prepActions = [{ type: 'frInit' }];
+    plan.actions.push(
+      { type: 'frNewArchive', name: 'archive.tar.gz' },
+      { type: 'wait', ms: 200 },
+    );
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="file_roller"] #fr-app-title',
+      text: 'archive.tar.gz',
+    });
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="file_roller"] [data-fr-action="add"]' },
+      { type: 'wait', ms: 100 },
+    );
+    plan.dialogHandler = { accept: 'readme.txt' };
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="file_roller"] #fr-list-body',
+      text: 'readme.txt',
+    });
+  }
+  if (scenario.id === 'terminal-basic-shell') {
+    plan.prepActions = [{ type: 'terminalInit' }];
+    plan.actions.push(
+      { type: 'terminalCommand', command: 'ls' },
+      { type: 'wait', ms: 900 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="terminal"] .capsule-terminal-shell',
+    });
+    plan.assertions.push({
+      type: 'evaluateTruthy',
+      fn: 'terminalHasOutput',
+    });
+  }
+  if (scenario.id === 'terminal-tabs') {
+    plan.prepActions = [{ type: 'terminalInit' }];
+    plan.actions.push(
+      { type: 'pressKey', key: 'Control+Shift+t', desc: 'Ctrl+Shift+T nouvel onglet' },
+      { type: 'wait', ms: 280 },
+    );
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="terminal"] .terminal-tabs',
+      min: 2,
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="terminal"] .terminal-tabs button:first-child',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="terminal"] .terminal-tabs button:first-child',
+      className: 'terminal-tabs__tab--active',
+    });
+  }
+  if (scenario.id === 'terminal-preferences') {
+    plan.prepActions = [{ type: 'terminalInit' }];
+    plan.actions.push(
+      { type: 'terminalMenuOpen', action: 'preferences' },
+      { type: 'wait', ms: 200 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="terminal"] .terminal-prefs:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="terminal"] [data-terminal-prefs-tab="general"]',
+    });
+  }
+  if (scenario.id === 'pix-open-image') {
+    plan.prepActions = [{ type: 'xvInit' }, { type: 'xvOpenDemo' }];
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] .pix-viewer',
+    });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] .pix-toolbar',
+    });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="visionneur_images"] .viewer-app__image',
+    });
+  }
+  if (scenario.id === 'pix-slideshow') {
+    plan.prepActions = [{ type: 'xvInit' }, { type: 'xvOpenDemo' }];
+    plan.actions.push(
+      { type: 'xvAction', action: 'slideshow' },
+      { type: 'wait', ms: 200 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] .pix-slideshow:not([hidden])',
+    });
+  }
+  if (scenario.id === 'pix-export') {
+    plan.prepActions = [{ type: 'xvInit' }, { type: 'xvOpenDemo' }];
+    plan.actions.push(
+      { type: 'xvMenu', menu: 'Fichier', item: 'Enregistrer sous' },
+      { type: 'wait', ms: 200 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] .pix-export-dialog:not([hidden])',
+    });
+  }
+  if (scenario.id === 'sticky-create-note') {
+    plan.prepActions = [{ type: 'stickyInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="sticky"] [data-stk-action="new"]' },
+      { type: 'wait', ms: 120 },
+      { type: 'fill', selector: 'div[data-link="sticky"] #stk-editor', value: 'Note crédibilité Mint' },
+      { type: 'click', selector: 'div[data-link="sticky"] [data-stk-color="yellow"]' },
+      { type: 'wait', ms: 100 },
+    );
+    plan.assertions.push({
+      type: 'inputValueContains',
+      selector: 'div[data-link="sticky"] #stk-editor',
+      text: 'Note crédibilité',
+    });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="sticky"] .stk-app__editor',
+      className: 'stk-app__editor--yellow',
+    });
+  }
+  if (scenario.id === 'sticky-delete-note') {
+    plan.prepActions = [{ type: 'stickyInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="sticky"] [data-stk-action="delete"]' },
+      { type: 'wait', ms: 150 },
+    );
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="sticky"] #stk-list',
+      min: 1,
+    });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="sticky"] .sticky-delete-confirm:not([hidden])',
+    });
+  }
+  if (scenario.id === 'sticky-panel-applet') {
+    plan.actions.push(
+      { type: 'click', selector: '#system-tray [data-stk-applet-trigger]' },
+      { type: 'wait', ms: 180 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: '#system-tray .sticky-applet:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: '#system-tray .sticky-applet__list',
+      min: 1,
+    });
+  }
 
   return plan;
 };
@@ -783,6 +1053,166 @@ const runScenarioActions = async (page, plan) => {
           }
         }
       }, { menu: action.menu, item: action.item });
+    } else if (action.type === 'calcInit') {
+      await page.evaluate(() => {
+        if (typeof window.initCalculatorApp === 'function') {
+          window.initCalculatorApp();
+        }
+      });
+    } else if (action.type === 'calcMode') {
+      await page.evaluate((mode) => {
+        const opt = document.querySelector(
+          'div[data-link="calculator"] [data-calc-mode="' + mode + '"]',
+        );
+        if (opt) {
+          opt.click();
+        }
+      }, action.mode);
+    } else if (action.type === 'calcFn') {
+      await page.evaluate((fn) => {
+        const btn = document.querySelector(
+          'div[data-link="calculator"] [data-fn="' + fn + '"]',
+        );
+        if (btn) {
+          btn.click();
+        }
+      }, action.fn);
+    } else if (action.type === 'calcKeys') {
+      await page.evaluate((keys) => {
+        const scope = document.querySelector('div[data-link="calculator"]');
+        if (!scope) {
+          return;
+        }
+        keys.forEach((key) => {
+          let btn = null;
+          if (key >= '0' && key <= '9') {
+            btn = scope.querySelector('[data-digit="' + key + '"]');
+          } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+            btn = scope.querySelector('[data-op="' + key + '"]');
+          } else if (key === '=') {
+            btn = scope.querySelector('[data-calc="equals"]');
+          }
+          if (btn) {
+            btn.click();
+          }
+        });
+      }, action.keys || []);
+    } else if (action.type === 'calcHistoryPick') {
+      await page.evaluate((idx) => {
+        const btn = document.querySelector(
+          'div[data-link="calculator"] [data-calc-history-idx="' + idx + '"]',
+        );
+        if (btn) {
+          btn.click();
+        }
+      }, action.idx);
+      await page.evaluate(() => {
+        if (typeof window.initFileRollerApp === 'function') {
+          window.initFileRollerApp();
+        }
+      });
+    } else if (action.type === 'frOpenDemo') {
+      await page.evaluate(() => {
+        if (typeof window.openFileRollerDemoArchive === 'function') {
+          window.openFileRollerDemoArchive();
+        }
+      });
+    } else if (action.type === 'frNewArchive') {
+      await page.evaluate((name) => {
+        if (typeof window.openFileRollerNewArchive === 'function') {
+          window.openFileRollerNewArchive(name);
+        }
+      }, action.name || 'archive.zip');
+    } else if (action.type === 'terminalInit') {
+      await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="terminal"]');
+        if (win && typeof window.initTerminalForContainer === 'function') {
+          window.initTerminalForContainer(win);
+        }
+      });
+    } else if (action.type === 'terminalCommand') {
+      await page.evaluate((command) => {
+        const input = document.querySelector('div[data-link="terminal"] #command, div[data-link="terminal"] [data-terminal-command]');
+        const form = document.querySelector('div[data-link="terminal"] #input, div[data-link="terminal"] [data-terminal-form]');
+        if (!input || !form) {
+          return;
+        }
+        input.focus();
+        input.value = command;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+        input.dispatchEvent(enterEvent);
+      }, action.command || '');
+    } else if (action.type === 'terminalMenu') {
+      await page.evaluate((menuAction) => {
+        const item = document.querySelector(
+          '[data-terminal-menu-action="' + menuAction + '"]',
+        );
+        if (item) {
+          item.click();
+        }
+      }, action.action);
+    } else if (action.type === 'terminalMenuOpen') {
+      await page.evaluate((menuAction) => {
+        const win = document.querySelector('div[data-link="terminal"]');
+        if (!win) {
+          return;
+        }
+        const menuBtn = win.querySelector('.gnome-terminal-header__button--menu');
+        if (menuBtn) {
+          menuBtn.click();
+        }
+        const item = win.querySelector('[data-terminal-menu-action="' + menuAction + '"]');
+        if (item) {
+          item.click();
+        }
+      }, action.action);
+    } else if (action.type === 'xvInit') {
+      await page.evaluate(() => {
+        if (typeof window.initVisionneurImagesApp === 'function') {
+          window.initVisionneurImagesApp();
+        }
+      });
+    } else if (action.type === 'xvOpenDemo') {
+      await page.evaluate(() => {
+        if (typeof window.openPixDemoImage === 'function') {
+          window.openPixDemoImage();
+        }
+      });
+    } else if (action.type === 'xvAction') {
+      await page.evaluate((xvAction) => {
+        const btn = document.querySelector(
+          'div[data-link="visionneur_images"] [data-xv-action="' + xvAction + '"]',
+        );
+        if (btn) {
+          btn.click();
+        }
+      }, action.action);
+    } else if (action.type === 'xvMenu') {
+      await page.evaluate(({ menu, item }) => {
+        const scope = document.querySelector('div[data-link="visionneur_images"]');
+        if (!scope) {
+          return;
+        }
+        if (menu === 'Fichier') {
+          const fileBtn = scope.querySelector('[data-xv-menu="file"]');
+          if (fileBtn) {
+            fileBtn.click();
+          }
+        }
+        const actionId = item.indexOf('Enregistrer') >= 0 ? 'save-as' : 'open';
+        const target = scope.querySelector('[data-xv-menu-action="' + actionId + '"]');
+        if (target) {
+          target.click();
+        }
+      }, { menu: action.menu, item: action.item });
+    } else if (action.type === 'stickyInit') {
+      await page.evaluate(() => {
+        if (typeof window.initStickyApp === 'function') {
+          window.initStickyApp();
+        }
+      });
     } else if (action.type === 'evaluate') {
       await page.evaluate(() => {});
     }
@@ -824,7 +1254,7 @@ const runScenarioAssertions = async (page, plan, errors) => {
           return 0;
         }
         return node.querySelectorAll(
-          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb, .firefox-tab, .capsule-browser__menu-item, tr',
+          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb, .firefox-tab, .capsule-browser__menu-item, tr, .gnome-calc__history-item, .terminal-tabs button, .stk-app__item, .sticky-applet__item, li',
         ).length;
       }, a.selector);
       if (count < (a.min || 1)) {
@@ -860,6 +1290,10 @@ const runScenarioAssertions = async (page, plan, errors) => {
             'div[data-link="update_manager"] .update-manager-refresh',
           );
           return !!(app && app.dataset.umBusy === 'true' && refreshBtn && refreshBtn.disabled);
+        }
+        if (fn === 'terminalHasOutput') {
+          const output = document.querySelector('div[data-link="terminal"] #output');
+          return !!(output && output.textContent && output.textContent.trim().length > 0);
         }
         return false;
       }, { fn: a.fn, args: a.args });
@@ -902,7 +1336,7 @@ const runPlaywright = async (plan) => {
       if (typeof window.openWindowByDataLink === 'function') {
         window.openWindowByDataLink(slot);
       }
-    }, plan.app);
+    }, plan.openSlot || plan.app);
     await page.waitForTimeout(800);
 
     if (plan.preOpen && plan.preOpen.type === 'umPrep') {
@@ -924,6 +1358,55 @@ const runPlaywright = async (plan) => {
       await page.evaluate(() => {
         if (typeof window.initTextEditorApp === 'function') {
           window.initTextEditorApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'calculator') {
+      await page.evaluate(() => {
+        if (typeof window.initCalculatorApp === 'function') {
+          window.initCalculatorApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'file_roller') {
+      await page.evaluate(() => {
+        if (typeof window.initFileRollerApp === 'function') {
+          window.initFileRollerApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'terminal') {
+      await page.evaluate(() => {
+        if (typeof window.initTerminalForContainer === 'function') {
+          const win = document.querySelector('div[data-link="terminal"]');
+          if (win) {
+            window.initTerminalForContainer(win);
+          }
+        }
+      });
+      await page.waitForTimeout(200);
+    }
+
+    if (plan.app === 'pix') {
+      await page.evaluate(() => {
+        if (typeof window.initVisionneurImagesApp === 'function') {
+          window.initVisionneurImagesApp();
+        }
+      });
+      await page.waitForSelector('div[data-link="visionneur_images"] .pix-viewer', { timeout: 15000 }).catch(() => {});
+      await page.waitForTimeout(120);
+    }
+
+    if (plan.app === 'sticky') {
+      await page.evaluate(() => {
+        if (typeof window.initStickyApp === 'function') {
+          window.initStickyApp();
         }
       });
       await page.waitForTimeout(80);

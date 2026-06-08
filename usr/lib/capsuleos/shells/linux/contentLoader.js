@@ -520,6 +520,11 @@ const SLOT_INIT_HANDLERS = {
             initMintDriversApp();
         }
     },
+    baobab: () => {
+        if (typeof initBaobabApp === 'function') {
+            initBaobabApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

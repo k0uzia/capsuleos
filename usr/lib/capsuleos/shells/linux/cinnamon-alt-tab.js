@@ -27,6 +27,7 @@
         drawing: 'Dessin',
         file_roller: 'Gestionnaire d\'archives',
         mintdrivers: 'Gestionnaire de pilotes',
+        baobab: 'Analyseur d\'espace disque',
     };
 
     let overlay = null;

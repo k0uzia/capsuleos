@@ -94,7 +94,7 @@ function buildWindowTitles(merged) {
         clocks: m['clocks.windowTitle'] || 'Horloges',
         calendar: m['calendar.windowTitle'] || 'Calendrier',
         snapshot: m['snapshot.windowTitle'] || 'Snapshot',
-        baobab: m['baobab.windowTitle'] || 'Utilisation des disques',
+        baobab: m['baobab.windowTitle'] || 'Analyseur d\'espace disque',
         system_monitor: m['system_monitor.windowTitle'] || 'Moniteur système',
         tour: m['tour.windowTitle'] || 'Visite guidée',
         characters: m['characters.windowTitle'] || 'Caractères',

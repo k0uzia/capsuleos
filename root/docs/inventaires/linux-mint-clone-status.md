@@ -82,7 +82,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#16 Paramètres du système** — slot `themes` / cinnamon-settings 6.6 (30 panneaux, recherche, thèmes VM), smoke `smoke-mint-cinnamon-settings.mjs` OK (2026-06-08)
 - [x] **#19 Visionneur d'images** — xviewer 3.0, smoke `smoke-mint-xviewer.mjs` OK (2026-06-08)
 - [x] **#20 Visionneur de documents** — xreader 4.0, smoke `smoke-mint-xreader.mjs` OK (2026-06-08)
-- [ ] Reproduction **une app par passe** (suite catalogue #21+) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#21 Analyseur d'espace disque** — `baobab`, smoke `smoke-mint-baobab.mjs` OK (2026-06-08)
+- [ ] Reproduction **une app par passe** (suite catalogue #22+) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Campagne v2 — shell panel (2026-06-08)

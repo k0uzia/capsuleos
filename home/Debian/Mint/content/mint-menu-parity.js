@@ -66,6 +66,11 @@
                 app.dataLink = 'mintdrivers';
                 app.icon = './assets/images/toolkits/gnome/apps/mintdrivers';
             }
+            if (app.name === 'Analyseur d\'espace disque' || app.name === 'Disk Usage Analyzer') {
+                app.dataLink = 'baobab';
+                app.name = 'Analyseur d\'espace disque';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.baobab';
+            }
             if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
                 app.dataLink = 'lecteur_multimedia';
                 app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid';

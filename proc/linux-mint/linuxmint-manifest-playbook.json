@@ -19,7 +19,7 @@
     "vendor": "mint",
     "iconPack": "icons/cinnamon/mint-y"
   },
-  "generatedAt": "2026-06-08T07:39:44.347Z",
+  "generatedAt": "2026-06-08T09:35:05.108Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "draft",
@@ -206,8 +206,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid",
       "stagingPath": "apps/io.github.celluloid_player.Celluloid.svg",
-      "status": "skip",
-      "action": "skip"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-fonts",
@@ -536,8 +536,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintdrivers",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintdrivers",
       "stagingPath": "apps/mintdrivers.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-cinnamon-settings-general",
@@ -624,8 +624,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-writer",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-writer",
       "stagingPath": "apps/libreoffice-writer.svg",
-      "status": "skip",
-      "action": "skip"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintinstall",
@@ -756,8 +756,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings",
       "stagingPath": "apps/cinnamon-settings.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.seahorse.Application",

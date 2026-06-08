@@ -52,7 +52,7 @@ const MENU_APPS = [
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/cinnamon-settings-desklets', name: 'Desklets', desc: 'Desklets', dataLink: 'themes' },
     { catId: 'graph', icon: './assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing', name: 'Dessin', desc: 'Drawing', dataLink: 'drawing' },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/cinnamon-settings-user', name: 'Détails du compte', desc: 'Account details', dataLink: 'themes' },
-    { catId: 'admin', icon: './assets/images/toolkits/gnome/apps/org.gnome.baobab', name: 'Disk Usage Analyzer', desc: 'Disk Usage Analyzer', dataLink: null },
+    { catId: 'admin', icon: './assets/images/toolkits/gnome/apps/org.gnome.baobab', name: 'Analyseur d\'espace disque', desc: 'Disk Usage Analyzer', dataLink: 'baobab' },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/org.gnome.DiskUtility', name: 'Disks', desc: 'Disks', dataLink: 'themes' },
     { catId: 'graph', icon: './assets/images/toolkits/gnome/apps/simple-scan', name: 'Document Scanner', desc: 'Document Scanner', dataLink: null },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/cinnamon-settings-screensaver', name: 'Économiseur d’écran', desc: 'Screensaver', dataLink: 'themes' },

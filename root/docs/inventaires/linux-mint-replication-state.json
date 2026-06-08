@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T14:10:00Z",
+  "updatedAt": "2026-06-08T15:45:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,10 +33,10 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 19,
+      "ok": 20,
       "partiel": 31,
-      "absent": 49,
-      "coverageOkPct": 19
+      "absent": 48,
+      "coverageOkPct": 20
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
@@ -87,7 +87,7 @@
       "predicates": ["AppΣ-full"],
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "19/101 ok · visionneurs #19/#20 clôturés",
+      "notes": "20/101 ok · baobab #21 clôturé",
       "commit": "66540da"
     },
     {
@@ -106,21 +106,21 @@
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
     "AppΣ": { "ok": true, "surfaceOk": "17/17" },
-    "AppΣ-full": { "ok": false, "ok": "19/101" },
+    "AppΣ-full": { "ok": false, "ok": "20/101" },
     "VΣ": { "ok": false, "matrix": "partial" },
-    "D": { "ok": false, "drift": 148, "note": "outil drift→0 non identifié hors ManΣ" }
+    "D": { "ok": false, "drift": 148, "note": "report-manifest-drift.mjs + generate-manifest-replication-playbook.mjs" }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
-      "49 apps catalogue absentes sur 101",
+      "48 apps catalogue absentes sur 101",
       "Matrice VΣ shell — capsuleMatch partial",
       "manifestDrift 148 → P5 ManΣ"
     ]
   },
   "nextActions": [
-    "P4 : catalogue alphabétique apps absentes (#21+)",
-    "P5 : passe ManΣ drift manifest → 0",
+    "P4 : catalogue alphabétique apps absentes (#22+ — Applications Web, Hypnotix, …)",
+    "P5 : réduire drift ManΣ (rewrite-ref skin refs, report-manifest-drift.mjs --write)",
     "P2 : affiner VΣ capsuleMatch ok"
   ]
 }

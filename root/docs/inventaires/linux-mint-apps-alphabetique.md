@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T09:26:33.287Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T09:35:01.530Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -67,7 +67,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Actions | Actions | cinnamon-settings-actions.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Advanced Network Configuration | Advanced Network Configuration | nm-connection-editor.desktop | — | ⬜ | — |  |
 | Agenda | Calendar | org.gnome.Calendar.desktop | calendar | ✅ | F | Popover horloge |
-| Analyseur d'espace disque | Disk Usage Analyzer | org.gnome.baobab.desktop | baobab | ⬜ | — |  |
+| Analyseur d'espace disque | Disk Usage Analyzer | org.gnome.baobab.desktop | baobab | ✅ | — |  |
 | Applets | Applets | cinnamon-settings-applets.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Applications Web | Web Apps | webapp-manager.desktop | webapp_manager | ⬜ | — |  |
 | Backgrounds | Backgrounds | cinnamon-settings-backgrounds.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -166,6 +166,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 ## Slots CapsuleOS actuels (`index.html`)
 
+- `baobab` — ✅
 - `calculator` — ✅
 - `checklist` — 🎓
 - `drawing` — ✅

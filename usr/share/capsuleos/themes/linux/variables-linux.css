@@ -86,6 +86,12 @@
     --win-system_monitor-min-width: 640px;
     --win-system_monitor-min-height: 480px;
 
+    /** Baobab (Analyseur d'espace disque) — gabarit GTK standard 800×580 */
+    --win-baobab-width: 800px;
+    --win-baobab-height: 580px;
+    --win-baobab-min-width: 640px;
+    --win-baobab-min-height: 480px;
+
     --win-visionneur_images-width: calc(var(--head) * 20);
     --win-visionneur_images-height: calc(var(--head) * 14);
     --win-visionneur_images-min-width: calc(var(--head) * 16);

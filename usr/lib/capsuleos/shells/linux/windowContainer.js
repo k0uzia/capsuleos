@@ -17,6 +17,7 @@
         mintdrivers: 'Gestionnaire de pilotes',
         mintinstall: 'Logithèque',
         system_monitor: 'Moniteur système',
+        baobab: 'Analyseur d\'espace disque',
         update_manager: 'Gestionnaire de mise à jour',
     };
 

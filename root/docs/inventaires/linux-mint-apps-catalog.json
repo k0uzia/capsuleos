@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-06-08T09:26:33.287Z",
+  "generatedAt": "2026-06-08T09:35:01.530Z",
   "vmAppCount": 101,
   "capsuleSlots": [
+    "baobab",
     "calculator",
     "checklist",
     "drawing",
@@ -114,14 +115,14 @@
       "desktop": "org.gnome.baobab.desktop",
       "priorite": "P2",
       "slotCapsule": "baobab",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "apps/baobab.html"
+      "fichiers": "apps/baobab.html · Mint/style/apps/baobab.skin.css"
     },
     {
       "ordreAlpha": "Applets",

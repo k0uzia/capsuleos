@@ -12,6 +12,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 
 const steps = [
   'validate-asset-zones.mjs',
+  'validate-toolkit-paradigm.mjs',
   'validate-skin-profiles.mjs',
   'audit-asset-paths.mjs',
   'validate-css-asset-urls.mjs',

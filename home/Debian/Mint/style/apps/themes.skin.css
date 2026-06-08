@@ -13,7 +13,8 @@
     padding: 2px;
 }
 
-.gnome-settings-wallpaper {
+.gnome-settings-wallpaper,
+.cinnamon-settings-wallpaper {
     display: block;
     width: 100%;
     aspect-ratio: 16 / 10;
@@ -26,12 +27,14 @@
     background-color: #2a2a2a;
 }
 
-.gnome-settings-wallpaper.is-active {
+.gnome-settings-wallpaper.is-active,
+.cinnamon-settings-wallpaper.is-active {
     border-color: #1f9ede;
     box-shadow: 0 0 0 1px #1f9ede;
 }
 
-.gnome-settings-wallpaper__label {
+.gnome-settings-wallpaper__label,
+.cinnamon-settings-wallpaper__label {
     position: absolute;
     left: 0;
     right: 0;

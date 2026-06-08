@@ -371,6 +371,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "id": "cinnamon",
       "shell": "cinnamon"
     },
+    "desktopEnvironment": {
+      "id": "cinnamon",
+      "version": "6.6",
+      "windowManager": "muffin"
+    },
     "assets": {
       "assetsBase": "../../../usr/share/capsuleos/assets",
       "toolkitPack": "toolkits/cinnamon",
@@ -1144,6 +1149,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "toolkit": {
       "id": "cinnamon",
       "shell": "cinnamon"
+    },
+    "desktopEnvironment": {
+      "id": "cinnamon",
+      "version": "6.6",
+      "windowManager": "muffin"
     },
     "assets": {
       "assetsBase": "../../../usr/share/capsuleos/assets",

@@ -25,6 +25,11 @@
     "id": "cinnamon",
     "shell": "cinnamon"
   },
+  "desktopEnvironment": {
+    "id": "cinnamon",
+    "version": "6.6",
+    "windowManager": "muffin"
+  },
   "assets": {
     "assetsBase": "../../../usr/share/capsuleos/assets",
     "toolkitPack": "toolkits/cinnamon",

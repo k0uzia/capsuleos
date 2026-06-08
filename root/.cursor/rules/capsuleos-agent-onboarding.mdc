@@ -37,3 +37,4 @@ node usr/lib/capsuleos/tools/print-validation-plan.mjs
 | Clone VM | `os-clone-from-vm` |
 | Assets | `kernel-supervisor`, `asset-pipeline` |
 | Skin Linux | `os-linux`, `role-integrator` |
+| Mint / Cinnamon | `os-linux` + [paradigme-toolkit-cinnamon.md](../../root/docs/paradigme-toolkit-cinnamon.md) · gate `validate-toolkit-paradigm.mjs --id linux-mint` |

@@ -77,9 +77,32 @@ Skill **`window-desktop`** + [convention-contexte-fenetres.md](../../docs/conven
 
 Avant toute passe CSS/UX sur un skin Linux : [contrib.md § toolkits](../../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (tableau skin ↔ toolkit, tokens, pièges embed).
 
+## Toolkit Cinnamon (Linux Mint)
+
+**Mint ≠ GNOME Shell.** Avant toute passe menu/assets/chrome sur `home/Debian/Mint/` :
+
+| Règle | Valeur Mint |
+|-------|-------------|
+| Toolkit | `cinnamon` (profil + registre) |
+| Menu data | `mainMenu-data-cinnamon.js` uniquement |
+| Icônes lanceurs | `./assets/images/toolkits/cinnamon/apps/` |
+| Explorateur | template `nemo`, pas `nemo-gnome` |
+| WM | `cinnamon-window-behaviors.js` |
+
+Doc : [paradigme-toolkit-cinnamon.md](../../docs/paradigme-toolkit-cinnamon.md) · audit : [linux-mint-cinnamon-vs-gnome-audit.md](../../docs/inventaires/linux-mint-cinnamon-vs-gnome-audit.md).
+
+```bash
+node usr/lib/capsuleos/tools/linux/sync-cinnamon-app-icons.mjs
+node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-mint
+```
+
+Exceptions légitimes : classes `gnome-*` sur apps GTK partagées (calculator, terminal, screenshot) — voir audit §4.
+
 ## Toolkit GNOME (GTK 4 + libadwaita)
 
-Distros `toolkit: gnome` : charger **`gnome-hig-replication`** + [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/gnome-hig-resources.json`.
+Distros `toolkit: gnome` (Ubuntu, Fedora, Rocky, AnduinOS) : charger **`gnome-hig-replication`** + [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/gnome-hig-resources.json`.
+
+**Ne pas** appliquer les patterns GNOME Shell (overview, dash `toolkits/gnome/apps/dash`) au skin Mint.
 
 ## Manifeste distribution (tous vendors Linux)
 

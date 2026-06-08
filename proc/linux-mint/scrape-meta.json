@@ -1,12 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "registryId": "linux-mint",
-  "collectedAt": "2026-06-08T07:01:49.815Z",
-  "source": "distribution-manifest",
+  "collectedAt": "2026-06-08T07:34:36Z",
+  "source": "collect-vm-distribution-manifest.mjs",
+  "manifestPath": "proc/linux-mint/distribution-manifest.json",
   "searchPaths": [
     "/usr/share/applications",
-    "/var/lib/snapd/desktop/applications",
-    "/usr/local/share/applications"
+    "/var/lib/flatpak/exports/share/applications",
+    "/home/capsule/.local/share/applications",
+    "/usr/share/applications/kde4"
   ],
   "gridVisible": 92,
   "total": 144

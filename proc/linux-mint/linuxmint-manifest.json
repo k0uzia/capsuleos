@@ -15,13 +15,13 @@
     "detected": []
   },
   "mediaCatalogVendor": "mint",
-  "collectedAt": "2026-06-08T06:55:27Z",
+  "collectedAt": "2026-06-08T07:34:36Z",
   "source": "root/tools/lab/vm-distribution-manifest.py",
   "validation": {
     "status": "approved",
     "smokeOk": true,
     "approved": true,
-    "approvedAt": "2026-06-08T06:55:37.186Z",
+    "approvedAt": "2026-06-08T07:35:12.952Z",
     "approvedBy": "agent"
   },
   "packages": {
@@ -3258,6 +3258,35 @@
           ]
         },
         {
+          "family": "Ubuntu",
+          "variants": [
+            {
+              "style": "Bold Italic",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf"
+            },
+            {
+              "style": "Bold",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf"
+            },
+            {
+              "style": "Condensed Bold Italic",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf"
+            },
+            {
+              "style": "Condensed Bold",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf"
+            },
+            {
+              "style": "Condensed Extra Bold Italic",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf"
+            },
+            {
+              "style": "Condensed Extra Bold",
+              "file": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf"
+            }
+          ]
+        },
+        {
           "family": "Noto Sans",
           "variants": [
             {
@@ -3355,8 +3384,64 @@
         {
           "family": "catalog",
           "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf",
+          "capsuleTarget": "fonts/vendors/mint/Ubuntu-M.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+          "capsuleTarget": "fonts/vendors/mint/Ubuntu-B.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf",
+          "capsuleTarget": "fonts/vendors/mint/UbuntuMono-R.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-B.ttf",
+          "capsuleTarget": "fonts/vendors/mint/UbuntuMono-B.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
           "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
           "capsuleTarget": "fonts/vendors/mint/DejaVuSans.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+          "capsuleTarget": "fonts/vendors/mint/DejaVuSans-Bold.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+          "capsuleTarget": "fonts/vendors/mint/DejaVuSansMono.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+          "capsuleTarget": "fonts/vendors/mint/LiberationMono-Regular.ttf",
+          "source": "media-catalog"
+        },
+        {
+          "family": "catalog",
+          "style": "catalog",
+          "vmPath": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+          "capsuleTarget": "fonts/vendors/mint/NotoSans-Regular.ttf",
           "source": "media-catalog"
         },
         {
@@ -3364,14 +3449,14 @@
           "style": "Bold Italic",
           "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
           "capsuleTarget": "fonts/vendors/mint/Ubuntu-Italic[wdth,wght].ttf",
-          "source": "fc-priority"
+          "source": "gsettings-ui"
         },
         {
           "family": "Ubuntu",
           "style": "Bold",
           "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf",
           "capsuleTarget": "fonts/vendors/mint/Ubuntu[wdth,wght].ttf",
-          "source": "fc-priority"
+          "source": "gsettings-ui"
         },
         {
           "family": "Noto Sans",
@@ -3410,7 +3495,7 @@
         }
       ],
       "totalFamilies": 251,
-      "entryCount": 9
+      "entryCount": 17
     },
     "mimetypes": {
       "theme": "Mint-Y-Sand",
@@ -3586,15 +3671,39 @@
           "iconName": "firefox",
           "vmPath": "/usr/share/icons/hicolor/48x48/apps/firefox.png",
           "capsuleTarget": "images/vendors/mint/panel/firefox-48.png"
+        },
+        {
+          "iconName": "org.gnome.Terminal",
+          "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Terminal.svg",
+          "capsuleTarget": "images/vendors/mint/panel/org.gnome.Terminal.svg"
+        },
+        {
+          "iconName": "accessories-text-editor",
+          "vmPath": "/usr/share/icons/Yaru/256x256/apps/accessories-text-editor.png",
+          "capsuleTarget": "images/vendors/mint/panel/accessories-text-editor.png"
         }
       ],
-      "entryCount": 2
+      "entryCount": 4
     },
     "branding": {
       "vmPath": "/usr/share/linuxmint/logo.png",
       "capsuleTarget": "images/vendors/mint/mint-logo.svg"
     },
     "wallpapers": [
+      {
+        "vmPath": "/usr/share/backgrounds/linuxmint/default_background.jpg",
+        "uri": "file:///usr/share/backgrounds/linuxmint/default_background.jpg",
+        "capsuleTarget": "images/vendors/{vendor}/wallpaper/",
+        "format": "jpg",
+        "source": "catalog"
+      },
+      {
+        "vmPath": "/usr/share/backgrounds/linuxmint/linuxmint.jpg",
+        "uri": "file:///usr/share/backgrounds/linuxmint/linuxmint.jpg",
+        "capsuleTarget": "images/vendors/{vendor}/wallpaper/",
+        "format": "jpg",
+        "source": "catalog"
+      },
       {
         "vmPath": "/usr/share/backgrounds/linuxmint/bookwood_linuxmint.jpg",
         "uri": "file:///usr/share/backgrounds/linuxmint/bookwood_linuxmint.jpg",
@@ -3621,13 +3730,6 @@
         "uri": "file:///usr/share/backgrounds/linuxmint/ktee_linuxmint.png",
         "capsuleTarget": "images/vendors/{vendor}/wallpaper/",
         "format": "png",
-        "source": "find"
-      },
-      {
-        "vmPath": "/usr/share/backgrounds/linuxmint/linuxmint.jpg",
-        "uri": "file:///usr/share/backgrounds/linuxmint/linuxmint.jpg",
-        "capsuleTarget": "images/vendors/{vendor}/wallpaper/",
-        "format": "jpg",
         "source": "find"
       },
       {
@@ -4906,10 +5008,10 @@
       }
     ],
     "iconTheme": "Mint-Y-Sand",
-    "gtkTheme": "",
-    "backgroundUri": null,
-    "cursorTheme": "",
-    "fontName": "",
+    "gtkTheme": "Mint-Y-Dark-Aqua",
+    "backgroundUri": "file:///usr/share/backgrounds/linuxmint/default_background.jpg",
+    "cursorTheme": "Bibata-Modern-Classic",
+    "fontName": "Ubuntu 10",
     "monospaceFontName": "",
     "documentFontName": ""
   },
@@ -5021,14 +5123,22 @@
         "category": "fonts",
         "destRoot": "usr/share/capsuleos/assets/fonts/vendors/mint",
         "vmPaths": [
+          "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
           "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
           "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf",
+          "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
           "/usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf",
+          "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
           "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
           "/usr/share/fonts/truetype/noto/NotoSans-BoldItalic.ttf",
+          "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+          "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
           "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
+          "/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf",
           "/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf",
+          "/usr/share/fonts/truetype/ubuntu/UbuntuMono-B.ttf",
           "/usr/share/fonts/truetype/ubuntu/UbuntuMono-Italic[wght].ttf",
+          "/usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf",
           "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf"
         ]
       },
@@ -5067,8 +5177,10 @@
         "category": "panel",
         "destRoot": "usr/share/capsuleos/assets/images/vendors/linuxmint/panel",
         "vmPaths": [
+          "/usr/share/icons/Yaru/256x256/apps/accessories-text-editor.png",
           "/usr/share/icons/hicolor/48x48/apps/firefox.png",
-          "/usr/share/icons/hicolor/scalable/apps/nemo.svg"
+          "/usr/share/icons/hicolor/scalable/apps/nemo.svg",
+          "/usr/share/icons/hicolor/scalable/apps/org.gnome.Terminal.svg"
         ]
       },
       {

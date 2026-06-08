@@ -1,6 +1,6 @@
 # Convention — manifeste distribution VM
 
-> Complète [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) et [procedure-apps-catalog.md](procedure-apps-catalog.md).
+> Complète [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md), [procedure-apps-catalog.md](procedure-apps-catalog.md) et **[referentiel-assets-vm-officiels.md](referentiel-assets-vm-officiels.md)** (chemins VM + specs Internet).
 
 ## Objectif
 

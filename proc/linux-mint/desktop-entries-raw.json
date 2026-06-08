@@ -1,8 +1,9 @@
 {
-  "version": 1,
+  "version": 2,
   "registryId": "linux-mint",
-  "collectedAt": "2026-06-08T07:01:49.815Z",
-  "entryCount": 144,
+  "collectedAt": "2026-06-08T07:34:36Z",
+  "source": "distribution-manifest",
+  "entryCount": 149,
   "entries": [
     {
       "id": "gcr-prompter",

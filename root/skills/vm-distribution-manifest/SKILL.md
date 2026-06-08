@@ -95,6 +95,8 @@ Résolution : `resolve-agent-action.mjs --scope formal` · alias `manifest-chain
 
 ## Références
 
+- [referentiel-assets-vm-officiels.md](../../docs/referentiel-assets-vm-officiels.md) — **matrice assets × specs officielles × chemins VM**
+- `etc/capsuleos/contracts/vm-asset-discovery-reference.json` — checklist machine
 - [convention-manifest-vm.md](../../docs/convention-manifest-vm.md)
 - [procedure-manifest-playbook.md](../../docs/procedure-manifest-playbook.md)
 - [procedure-apps-catalog.md](../../docs/procedure-apps-catalog.md)

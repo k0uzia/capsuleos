@@ -19,7 +19,7 @@
     "vendor": "mint",
     "iconPack": "icons/cinnamon/mint-y"
   },
-  "generatedAt": "2026-06-08T06:55:27.879Z",
+  "generatedAt": "2026-06-08T07:34:37.327Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "draft",
@@ -29,20 +29,20 @@
     "remoteDir": "~/capsuleos-lab/staging/linux-mint",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
     "status": "completed",
-    "completedAt": "2026-06-08T06:55:43.746Z"
+    "completedAt": "2026-06-08T07:35:16.322Z"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-mint/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
     "status": "completed",
-    "completedAt": "2026-06-08T06:56:22.442Z"
+    "completedAt": "2026-06-08T07:35:56.458Z"
   },
   "summary": {
-    "total": 166,
-    "pull": 166,
-    "drift": 0,
-    "skip": 0,
+    "total": 177,
+    "pull": 10,
+    "drift": 147,
+    "skip": 20,
     "onVmFalse": 0
   },
   "items": [
@@ -54,8 +54,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-universal-access",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-universal-access",
       "stagingPath": "apps/cinnamon-settings-universal-access.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-actions",
@@ -65,8 +65,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-actions",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-actions",
       "stagingPath": "apps/cinnamon-settings-actions.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintsysadm",
@@ -76,8 +76,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintsysadm",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintsysadm",
       "stagingPath": "apps/mintsysadm.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-nm-connection-editor",
@@ -87,8 +87,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/nm-connection-editor",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/nm-connection-editor",
       "stagingPath": "apps/nm-connection-editor.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-display-panel",
@@ -98,8 +98,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-display-panel",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-display-panel",
       "stagingPath": "apps/cinnamon-display-panel.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-applets",
@@ -109,8 +109,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-applets",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-applets",
       "stagingPath": "apps/cinnamon-settings-applets.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-startup",
@@ -120,8 +120,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-startup",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-startup",
       "stagingPath": "apps/cinnamon-settings-startup.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-default",
@@ -131,8 +131,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-default",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-default",
       "stagingPath": "apps/cinnamon-settings-default.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-webapp-manager",
@@ -142,8 +142,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/webapp-manager",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/webapp-manager",
       "stagingPath": "apps/webapp-manager.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.FileRoller",
@@ -153,8 +153,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.FileRoller",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.FileRoller",
       "stagingPath": "apps/org.gnome.FileRoller.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-thingy",
@@ -164,8 +164,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/thingy",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/thingy",
       "stagingPath": "apps/thingy.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-desktop",
@@ -175,8 +175,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-desktop",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-desktop",
       "stagingPath": "apps/cinnamon-settings-desktop.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.Calculator",
@@ -186,8 +186,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Calculator",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Calculator",
       "stagingPath": "apps/org.gnome.Calculator.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Calendar",
@@ -197,8 +197,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Calendar",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Calendar",
       "stagingPath": "apps/org.gnome.Calendar.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-io.github.celluloid_player.Celluloid",
@@ -208,8 +208,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid",
       "stagingPath": "apps/io.github.celluloid_player.Celluloid.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-cinnamon-settings-fonts",
@@ -219,8 +219,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-fonts",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-fonts",
       "stagingPath": "apps/cinnamon-settings-fonts.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-keyboard",
@@ -230,8 +230,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-keyboard",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-keyboard",
       "stagingPath": "apps/cinnamon-settings-keyboard.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-onscreen-keyboard",
@@ -241,8 +241,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-onscreen-keyboard",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-onscreen-keyboard",
       "stagingPath": "apps/cinnamon-onscreen-keyboard.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-hotcorner",
@@ -252,8 +252,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-hotcorner",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-hotcorner",
       "stagingPath": "apps/cinnamon-settings-hotcorner.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-gnome-online-accounts-gtk",
@@ -263,8 +263,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/gnome-online-accounts-gtk",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/gnome-online-accounts-gtk",
       "stagingPath": "apps/gnome-online-accounts-gtk.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-color-panel",
@@ -274,8 +274,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-color-panel",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-color-panel",
       "stagingPath": "apps/cinnamon-color-panel.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintstick",
@@ -285,8 +285,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintstick",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintstick",
       "stagingPath": "apps/mintstick.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-calendar",
@@ -296,8 +296,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-calendar",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-calendar",
       "stagingPath": "apps/cinnamon-settings-calendar.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-desklets",
@@ -307,8 +307,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-desklets",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-desklets",
       "stagingPath": "apps/cinnamon-settings-desklets.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-com.github.maoschanz.drawing",
@@ -318,8 +318,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/com.github.maoschanz.drawing",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing",
       "stagingPath": "apps/com.github.maoschanz.drawing.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.baobab",
@@ -329,8 +329,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.baobab",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.baobab",
       "stagingPath": "apps/org.gnome.baobab.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.DiskUtility",
@@ -340,8 +340,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.DiskUtility",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.DiskUtility",
       "stagingPath": "apps/org.gnome.DiskUtility.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-simple-scan",
@@ -351,8 +351,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/simple-scan",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/simple-scan",
       "stagingPath": "apps/simple-scan.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-user",
@@ -362,8 +362,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-user",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-user",
       "stagingPath": "apps/cinnamon-settings-user.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-effects",
@@ -373,8 +373,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-effects",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-effects",
       "stagingPath": "apps/cinnamon-settings-effects.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-fingwit",
@@ -384,8 +384,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/fingwit",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/fingwit",
       "stagingPath": "apps/fingwit.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-workspaces",
@@ -395,8 +395,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-workspaces",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-workspaces",
       "stagingPath": "apps/cinnamon-settings-workspaces.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-extensions",
@@ -406,8 +406,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-extensions",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-extensions",
       "stagingPath": "apps/cinnamon-settings-extensions.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-lightdm-settings",
@@ -417,8 +417,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/lightdm-settings",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/lightdm-settings",
       "stagingPath": "apps/lightdm-settings.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-windows",
@@ -428,8 +428,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-windows",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-windows",
       "stagingPath": "apps/cinnamon-settings-windows.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-nemo",
@@ -439,8 +439,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/nemo",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/nemo",
       "stagingPath": "apps/nemo.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-gufw",
@@ -450,8 +450,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/gufw",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/gufw",
       "stagingPath": "apps/gufw.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-backgrounds",
@@ -461,8 +461,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-backgrounds",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-backgrounds",
       "stagingPath": "apps/cinnamon-settings-backgrounds.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.font-viewer",
@@ -472,8 +472,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.font-viewer",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.font-viewer",
       "stagingPath": "apps/org.gnome.font-viewer.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintstick-format",
@@ -483,8 +483,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintstick-format",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintstick-format",
       "stagingPath": "apps/mintstick-format.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-gestures",
@@ -494,8 +494,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-gestures",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-gestures",
       "stagingPath": "apps/cinnamon-settings-gestures.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-power",
@@ -505,8 +505,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-power",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-power",
       "stagingPath": "apps/cinnamon-settings-power.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-blueman-manager",
@@ -516,8 +516,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/blueman-manager",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/blueman-manager",
       "stagingPath": "apps/blueman-manager.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintupdate",
@@ -527,8 +527,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintupdate",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintupdate",
       "stagingPath": "apps/mintupdate.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintdrivers",
@@ -538,8 +538,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintdrivers",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintdrivers",
       "stagingPath": "apps/mintdrivers.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-general",
@@ -549,8 +549,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-general",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-general",
       "stagingPath": "apps/cinnamon-settings-general.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-hypnotix",
@@ -560,8 +560,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/hypnotix",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/hypnotix",
       "stagingPath": "apps/hypnotix.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintlocale",
@@ -571,8 +571,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintlocale",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintlocale",
       "stagingPath": "apps/mintlocale.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-libreoffice-startcenter",
@@ -582,8 +582,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-startcenter",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-startcenter",
       "stagingPath": "apps/libreoffice-startcenter.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-libreoffice-calc",
@@ -593,8 +593,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-calc",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-calc",
       "stagingPath": "apps/libreoffice-calc.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-libreoffice-draw",
@@ -604,8 +604,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-draw",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw",
       "stagingPath": "apps/libreoffice-draw.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-libreoffice-impress",
@@ -615,8 +615,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-impress",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-impress",
       "stagingPath": "apps/libreoffice-impress.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-libreoffice-writer",
@@ -626,8 +626,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/libreoffice-writer",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-writer",
       "stagingPath": "apps/libreoffice-writer.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-mintinstall",
@@ -637,8 +637,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintinstall",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintinstall",
       "stagingPath": "apps/mintinstall.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-webapp-OnlineChat4519",
@@ -648,8 +648,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/webapp-OnlineChat4519",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/webapp-OnlineChat4519",
       "stagingPath": "apps/webapp-OnlineChat4519.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-thunderbird",
@@ -659,8 +659,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/thunderbird",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/thunderbird",
       "stagingPath": "apps/thunderbird.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-nightlight",
@@ -670,8 +670,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-nightlight",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-nightlight",
       "stagingPath": "apps/cinnamon-settings-nightlight.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintlocale-im",
@@ -681,8 +681,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintlocale-im",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintlocale-im",
       "stagingPath": "apps/mintlocale-im.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-firefox",
@@ -692,8 +692,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/firefox",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox",
       "stagingPath": "apps/firefox.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-sticky",
@@ -703,8 +703,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/sticky",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/sticky",
       "stagingPath": "apps/sticky.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-notifications",
@@ -714,8 +714,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-notifications",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-notifications",
       "stagingPath": "apps/cinnamon-settings-notifications.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-onboard",
@@ -725,8 +725,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/onboard",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/onboard",
       "stagingPath": "apps/onboard.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintbackup",
@@ -736,8 +736,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintbackup",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintbackup",
       "stagingPath": "apps/mintbackup.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-panel",
@@ -747,8 +747,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-panel",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-panel",
       "stagingPath": "apps/cinnamon-settings-panel.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings",
@@ -758,8 +758,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings",
       "stagingPath": "apps/cinnamon-settings.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.seahorse.Application",
@@ -769,8 +769,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.seahorse.Application",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.seahorse.Application",
       "stagingPath": "apps/org.gnome.seahorse.Application.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-pix",
@@ -780,8 +780,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/pix",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/pix",
       "stagingPath": "apps/pix.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-system-config-printer",
@@ -791,8 +791,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/system-config-printer",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/system-config-printer",
       "stagingPath": "apps/system-config-printer.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-privacy",
@@ -802,8 +802,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-privacy",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-privacy",
       "stagingPath": "apps/cinnamon-settings-privacy.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-bulky",
@@ -813,8 +813,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/bulky",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/bulky",
       "stagingPath": "apps/bulky.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintreport",
@@ -824,8 +824,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintreport",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintreport",
       "stagingPath": "apps/mintreport.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.Rhythmbox3",
@@ -835,8 +835,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Rhythmbox3",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3",
       "stagingPath": "apps/org.gnome.Rhythmbox3.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-network-panel",
@@ -846,8 +846,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-network-panel",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-network-panel",
       "stagingPath": "apps/cinnamon-network-panel.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.Screenshot",
@@ -857,8 +857,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Screenshot",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Screenshot",
       "stagingPath": "apps/org.gnome.Screenshot.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-sound",
@@ -868,8 +868,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-sound",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-sound",
       "stagingPath": "apps/cinnamon-settings-sound.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-mouse",
@@ -879,8 +879,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-mouse",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-mouse",
       "stagingPath": "apps/cinnamon-settings-mouse.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.gnome.SystemMonitor",
@@ -890,8 +890,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.SystemMonitor",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor",
       "stagingPath": "apps/org.gnome.SystemMonitor.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-gucharmap",
@@ -901,8 +901,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/gucharmap",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/gucharmap",
       "stagingPath": "apps/gucharmap.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-wacom-panel",
@@ -912,8 +912,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-wacom-panel",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-wacom-panel",
       "stagingPath": "apps/cinnamon-wacom-panel.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-thunderbolt",
@@ -923,8 +923,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-thunderbolt",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-thunderbolt",
       "stagingPath": "apps/cinnamon-settings-thunderbolt.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-themes",
@@ -934,8 +934,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-themes",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-themes",
       "stagingPath": "apps/cinnamon-settings-themes.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-timeshift-gtk",
@@ -945,8 +945,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/timeshift-gtk",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/timeshift-gtk",
       "stagingPath": "apps/timeshift-gtk.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-transmission-gtk",
@@ -956,8 +956,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/transmission-gtk",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/transmission-gtk",
       "stagingPath": "apps/transmission-gtk.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-users",
@@ -967,8 +967,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-users",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-users",
       "stagingPath": "apps/cinnamon-settings-users.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-vim",
@@ -978,8 +978,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/vim",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/vim",
       "stagingPath": "apps/vim.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-xreader",
@@ -989,8 +989,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/xreader",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/xreader",
       "stagingPath": "apps/xreader.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-xviewer",
@@ -1000,8 +1000,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/xviewer",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/xviewer",
       "stagingPath": "apps/xviewer.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.x.Warpinator",
@@ -1011,8 +1011,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.x.Warpinator",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.x.Warpinator",
       "stagingPath": "apps/org.x.Warpinator.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-cinnamon-settings-screensaver",
@@ -1022,8 +1022,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/cinnamon-settings-screensaver",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/cinnamon-settings-screensaver",
       "stagingPath": "apps/cinnamon-settings-screensaver.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-mintwelcome",
@@ -1033,8 +1033,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/mintwelcome",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/mintwelcome",
       "stagingPath": "apps/mintwelcome.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "app-icon-org.x.editor",
@@ -1044,8 +1044,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/org.x.editor",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.x.editor",
       "stagingPath": "apps/org.x.editor.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "font-Ubuntu-R.ttf",
@@ -1055,6 +1055,50 @@
       "capsuleTarget": "fonts/vendors/mint/Ubuntu-R.ttf",
       "capsuleRelative": "fonts/vendors/mint/Ubuntu-R.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-R.ttf",
+      "status": "skip",
+      "action": "skip"
+    },
+    {
+      "id": "font-Ubuntu-M.ttf",
+      "category": "font",
+      "stagingPath": "fonts/Ubuntu-M.ttf",
+      "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf",
+      "capsuleTarget": "fonts/vendors/mint/Ubuntu-M.ttf",
+      "capsuleRelative": "fonts/vendors/mint/Ubuntu-M.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-M.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-Ubuntu-B.ttf",
+      "category": "font",
+      "stagingPath": "fonts/Ubuntu-B.ttf",
+      "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+      "capsuleTarget": "fonts/vendors/mint/Ubuntu-B.ttf",
+      "capsuleRelative": "fonts/vendors/mint/Ubuntu-B.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-B.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-UbuntuMono-R.ttf",
+      "category": "font",
+      "stagingPath": "fonts/UbuntuMono-R.ttf",
+      "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf",
+      "capsuleTarget": "fonts/vendors/mint/UbuntuMono-R.ttf",
+      "capsuleRelative": "fonts/vendors/mint/UbuntuMono-R.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/UbuntuMono-R.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-UbuntuMono-B.ttf",
+      "category": "font",
+      "stagingPath": "fonts/UbuntuMono-B.ttf",
+      "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-B.ttf",
+      "capsuleTarget": "fonts/vendors/mint/UbuntuMono-B.ttf",
+      "capsuleRelative": "fonts/vendors/mint/UbuntuMono-B.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/UbuntuMono-B.ttf",
       "status": "pull",
       "action": "pull"
     },
@@ -1066,6 +1110,50 @@
       "capsuleTarget": "fonts/vendors/mint/DejaVuSans.ttf",
       "capsuleRelative": "fonts/vendors/mint/DejaVuSans.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSans.ttf",
+      "status": "skip",
+      "action": "skip"
+    },
+    {
+      "id": "font-DejaVuSans-Bold.ttf",
+      "category": "font",
+      "stagingPath": "fonts/DejaVuSans-Bold.ttf",
+      "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+      "capsuleTarget": "fonts/vendors/mint/DejaVuSans-Bold.ttf",
+      "capsuleRelative": "fonts/vendors/mint/DejaVuSans-Bold.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSans-Bold.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-DejaVuSansMono.ttf",
+      "category": "font",
+      "stagingPath": "fonts/DejaVuSansMono.ttf",
+      "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+      "capsuleTarget": "fonts/vendors/mint/DejaVuSansMono.ttf",
+      "capsuleRelative": "fonts/vendors/mint/DejaVuSansMono.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSansMono.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-LiberationMono-Regular.ttf",
+      "category": "font",
+      "stagingPath": "fonts/LiberationMono-Regular.ttf",
+      "vmPath": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+      "capsuleTarget": "fonts/vendors/mint/LiberationMono-Regular.ttf",
+      "capsuleRelative": "fonts/vendors/mint/LiberationMono-Regular.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/LiberationMono-Regular.ttf",
+      "status": "pull",
+      "action": "pull"
+    },
+    {
+      "id": "font-NotoSans-Regular.ttf",
+      "category": "font",
+      "stagingPath": "fonts/NotoSans-Regular.ttf",
+      "vmPath": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+      "capsuleTarget": "fonts/vendors/mint/NotoSans-Regular.ttf",
+      "capsuleRelative": "fonts/vendors/mint/NotoSans-Regular.ttf",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/NotoSans-Regular.ttf",
       "status": "pull",
       "action": "pull"
     },
@@ -1077,8 +1165,8 @@
       "capsuleTarget": "fonts/vendors/mint/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleRelative": "fonts/vendors/mint/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-Italic[wdth,wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-Ubuntu[wdth,wght].ttf",
@@ -1088,8 +1176,8 @@
       "capsuleTarget": "fonts/vendors/mint/Ubuntu[wdth,wght].ttf",
       "capsuleRelative": "fonts/vendors/mint/Ubuntu[wdth,wght].ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu[wdth,wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-BoldItalic.ttf",
@@ -1099,8 +1187,8 @@
       "capsuleTarget": "fonts/vendors/mint/NotoSans-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/mint/NotoSans-BoldItalic.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/NotoSans-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-Bold.ttf",
@@ -1110,8 +1198,8 @@
       "capsuleTarget": "fonts/vendors/mint/NotoSans-Bold.ttf",
       "capsuleRelative": "fonts/vendors/mint/NotoSans-Bold.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/NotoSans-Bold.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-UbuntuMono-Italic[wght].ttf",
@@ -1121,8 +1209,8 @@
       "capsuleTarget": "fonts/vendors/mint/UbuntuMono-Italic[wght].ttf",
       "capsuleRelative": "fonts/vendors/mint/UbuntuMono-Italic[wght].ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/UbuntuMono-Italic[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-DejaVuSansMono-BoldOblique.ttf",
@@ -1132,8 +1220,8 @@
       "capsuleTarget": "fonts/vendors/mint/DejaVuSansMono-BoldOblique.ttf",
       "capsuleRelative": "fonts/vendors/mint/DejaVuSansMono-BoldOblique.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSansMono-BoldOblique.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-LiberationMono-BoldItalic.ttf",
@@ -1143,8 +1231,8 @@
       "capsuleTarget": "fonts/vendors/mint/LiberationMono-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/mint/LiberationMono-BoldItalic.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/LiberationMono-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-inode-directory",
@@ -1156,8 +1244,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/inode-directory.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-text-x-generic",
@@ -1169,8 +1257,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/text-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-image-x-generic",
@@ -1182,8 +1270,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/image-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-application-x-generic",
@@ -1195,8 +1283,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/application-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-application-x-executable",
@@ -1208,8 +1296,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/application-x-executable.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-x-office-document",
@@ -1221,8 +1309,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/x-office-document.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-audio-x-generic",
@@ -1234,8 +1322,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/audio-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "mime-video-x-generic",
@@ -1247,8 +1335,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/mimetypes/video-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder",
@@ -1260,8 +1348,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder-documents",
@@ -1273,8 +1361,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-documents.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-documents.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-documents.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder-download",
@@ -1286,8 +1374,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-download.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-download.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-download.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder-music",
@@ -1299,8 +1387,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-music.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-music.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-music.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder-pictures",
@@ -1312,8 +1400,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-pictures.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-pictures.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-pictures.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-folder-videos",
@@ -1325,8 +1413,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/folder-videos.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/folder-videos.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/folder-videos.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-user-home",
@@ -1338,8 +1426,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/user-home.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/user-home.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-home.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "place-user-trash",
@@ -1351,8 +1439,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/places/user-trash.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/places/user-trash.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-trash.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-actions-go-up-symbolic",
@@ -1364,8 +1452,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-up-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-actions-go-previous-symbolic",
@@ -1377,8 +1465,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-previous-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-actions-go-next-symbolic",
@@ -1390,8 +1478,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/go-next-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-actions-view-list-symbolic",
@@ -1403,8 +1491,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/actions/view-list-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-places-user-home-symbolic",
@@ -1416,8 +1504,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/user-home-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-places-user-trash-symbolic",
@@ -1429,8 +1517,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/user-trash-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "symbolic-places-folder-documents-symbolic",
@@ -1442,8 +1530,8 @@
       "capsuleTarget": "icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
       "capsuleRelative": "icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/icons/cinnamon/mint-y/symbolic/places/folder-documents-symbolic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "panel-nemo",
@@ -1454,8 +1542,8 @@
       "capsuleTarget": "images/vendors/mint/panel/nemo.png",
       "capsuleRelative": "images/vendors/mint/panel/nemo.png",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/panel/nemo.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-firefox",
@@ -1466,8 +1554,32 @@
       "capsuleTarget": "images/vendors/mint/panel/firefox-48.png",
       "capsuleRelative": "images/vendors/mint/panel/firefox-48.png",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/panel/firefox-48.png",
+      "status": "skip",
+      "action": "skip"
+    },
+    {
+      "id": "panel-org.gnome.Terminal",
+      "category": "panel",
+      "stagingPath": "panel/org.gnome.Terminal.svg",
+      "iconName": "org.gnome.Terminal",
+      "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Terminal.svg",
+      "capsuleTarget": "images/vendors/mint/panel/org.gnome.Terminal.svg",
+      "capsuleRelative": "images/vendors/mint/panel/org.gnome.Terminal.svg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.svg",
       "status": "pull",
       "action": "pull"
+    },
+    {
+      "id": "panel-accessories-text-editor",
+      "category": "panel",
+      "stagingPath": "panel/accessories-text-editor.png",
+      "iconName": "accessories-text-editor",
+      "vmPath": "/usr/share/icons/Yaru/256x256/apps/accessories-text-editor.png",
+      "capsuleTarget": "images/vendors/mint/panel/accessories-text-editor.png",
+      "capsuleRelative": "images/vendors/mint/panel/accessories-text-editor.png",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.png",
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "branding-logo",
@@ -1477,46 +1589,16 @@
       "capsuleTarget": "images/vendors/mint/mint-logo.svg",
       "capsuleRelative": "images/vendors/mint/mint-logo.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/mint-logo.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
-      "id": "wallpaper-bookwood_linuxmint.jpg",
+      "id": "wallpaper-default_background.jpg",
       "category": "wallpaper",
-      "vmPath": "/usr/share/backgrounds/linuxmint/bookwood_linuxmint.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/bookwood_linuxmint.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/bookwood_linuxmint.jpg",
-      "stagingPath": "wallpaper/bookwood_linuxmint.jpg",
-      "status": "pull",
-      "action": "pull"
-    },
-    {
-      "id": "wallpaper-bookwood_ring.jpg",
-      "category": "wallpaper",
-      "vmPath": "/usr/share/backgrounds/linuxmint/bookwood_ring.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/bookwood_ring.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/bookwood_ring.jpg",
-      "stagingPath": "wallpaper/bookwood_ring.jpg",
-      "status": "pull",
-      "action": "pull"
-    },
-    {
-      "id": "wallpaper-edesigner_linuxmint.png",
-      "category": "wallpaper",
-      "vmPath": "/usr/share/backgrounds/linuxmint/edesigner_linuxmint.png",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/edesigner_linuxmint.png",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/edesigner_linuxmint.png",
-      "stagingPath": "wallpaper/edesigner_linuxmint.png",
-      "status": "pull",
-      "action": "pull"
-    },
-    {
-      "id": "wallpaper-ktee_linuxmint.png",
-      "category": "wallpaper",
-      "vmPath": "/usr/share/backgrounds/linuxmint/ktee_linuxmint.png",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/ktee_linuxmint.png",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/ktee_linuxmint.png",
-      "stagingPath": "wallpaper/ktee_linuxmint.png",
+      "vmPath": "/usr/share/backgrounds/linuxmint/default_background.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/default_background.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg",
+      "stagingPath": "wallpaper/default_background.jpg",
       "status": "pull",
       "action": "pull"
     },
@@ -1524,361 +1606,401 @@
       "id": "wallpaper-linuxmint.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/linuxmint.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/linuxmint.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/linuxmint.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/linuxmint.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/linuxmint.jpg",
       "stagingPath": "wallpaper/linuxmint.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
+    },
+    {
+      "id": "wallpaper-bookwood_linuxmint.jpg",
+      "category": "wallpaper",
+      "vmPath": "/usr/share/backgrounds/linuxmint/bookwood_linuxmint.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
+      "stagingPath": "wallpaper/bookwood_linuxmint.jpg",
+      "status": "drift",
+      "action": "rewrite-ref"
+    },
+    {
+      "id": "wallpaper-bookwood_ring.jpg",
+      "category": "wallpaper",
+      "vmPath": "/usr/share/backgrounds/linuxmint/bookwood_ring.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/bookwood_ring.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/bookwood_ring.jpg",
+      "stagingPath": "wallpaper/bookwood_ring.jpg",
+      "status": "drift",
+      "action": "rewrite-ref"
+    },
+    {
+      "id": "wallpaper-edesigner_linuxmint.png",
+      "category": "wallpaper",
+      "vmPath": "/usr/share/backgrounds/linuxmint/edesigner_linuxmint.png",
+      "capsuleRelative": "images/vendors/mint/wallpaper/edesigner_linuxmint.png",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/edesigner_linuxmint.png",
+      "stagingPath": "wallpaper/edesigner_linuxmint.png",
+      "status": "drift",
+      "action": "rewrite-ref"
+    },
+    {
+      "id": "wallpaper-ktee_linuxmint.png",
+      "category": "wallpaper",
+      "vmPath": "/usr/share/backgrounds/linuxmint/ktee_linuxmint.png",
+      "capsuleRelative": "images/vendors/mint/wallpaper/ktee_linuxmint.png",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/ktee_linuxmint.png",
+      "stagingPath": "wallpaper/ktee_linuxmint.png",
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_linuxmint_center.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_linuxmint_center.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_linuxmint_center.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_linuxmint_center.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_linuxmint_center.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_linuxmint_center.jpg",
       "stagingPath": "wallpaper/sele_linuxmint_center.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_linuxmint.png",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_linuxmint.png",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_linuxmint.png",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_linuxmint.png",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_linuxmint.png",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_linuxmint.png",
       "stagingPath": "wallpaper/sele_linuxmint.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_ring_center_green.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_ring_center_green.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_ring_center_green.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_ring_center_green.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_center_green.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_center_green.jpg",
       "stagingPath": "wallpaper/sele_ring_center_green.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_ring_center.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_ring_center.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_ring_center.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_ring_center.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_center.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_center.jpg",
       "stagingPath": "wallpaper/sele_ring_center.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_ring_green.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_ring_green.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_ring_green.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_ring_green.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring_green.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring_green.jpg",
       "stagingPath": "wallpaper/sele_ring_green.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-sele_ring.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint/sele_ring.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/sele_ring.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/sele_ring.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/sele_ring.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/sele_ring.jpg",
       "stagingPath": "wallpaper/sele_ring.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jbaer_wave.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jbaer_wave.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jbaer_wave.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jbaer_wave.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jbaer_wave.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jbaer_wave.jpg",
       "stagingPath": "wallpaper/jbaer_wave.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jleung_confetti.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jleung_confetti.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jleung_confetti.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jleung_confetti.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jleung_confetti.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jleung_confetti.jpg",
       "stagingPath": "wallpaper/jleung_confetti.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_building.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_building.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_building.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_building.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_building.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_building.jpg",
       "stagingPath": "wallpaper/jpanchal_building.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_city.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_city.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_city.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_city.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_city.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_city.jpg",
       "stagingPath": "wallpaper/jpanchal_city.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_cpu.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_cpu.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_cpu.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_cpu.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_cpu.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_cpu.jpg",
       "stagingPath": "wallpaper/jpanchal_cpu.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_cubes.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_cubes.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_cubes.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_cubes.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
       "stagingPath": "wallpaper/jpanchal_cubes.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_curved.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_curved.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_curved.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_curved.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_curved.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_curved.jpg",
       "stagingPath": "wallpaper/jpanchal_curved.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_curves.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_curves.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_curves.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_curves.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_curves.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_curves.jpg",
       "stagingPath": "wallpaper/jpanchal_curves.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_gold.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_gold.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_gold.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_gold.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_gold.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_gold.jpg",
       "stagingPath": "wallpaper/jpanchal_gold.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_hearts.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_hearts.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_hearts.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_hearts.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_hearts.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_hearts.jpg",
       "stagingPath": "wallpaper/jpanchal_hearts.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_pipes.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_pipes.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_pipes.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_pipes.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
       "stagingPath": "wallpaper/jpanchal_pipes.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_square.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_square.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_square.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_square.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_square.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_square.jpg",
       "stagingPath": "wallpaper/jpanchal_square.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_stripes.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_stripes.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_stripes.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_stripes.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_stripes.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_stripes.jpg",
       "stagingPath": "wallpaper/jpanchal_stripes.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_wall.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_wall.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_wall.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_wall.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_wall.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_wall.jpg",
       "stagingPath": "wallpaper/jpanchal_wall.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_waves.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_waves.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_waves.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_waves.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_waves.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_waves.jpg",
       "stagingPath": "wallpaper/jpanchal_waves.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jpanchal_white.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jpanchal_white.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jpanchal_white.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jpanchal_white.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jpanchal_white.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jpanchal_white.jpg",
       "stagingPath": "wallpaper/jpanchal_white.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-jvasek_xmas_bokeh.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/jvasek_xmas_bokeh.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/jvasek_xmas_bokeh.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/jvasek_xmas_bokeh.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/jvasek_xmas_bokeh.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/jvasek_xmas_bokeh.jpg",
       "stagingPath": "wallpaper/jvasek_xmas_bokeh.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-lzhang_uzumaki.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/lzhang_uzumaki.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/lzhang_uzumaki.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/lzhang_uzumaki.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/lzhang_uzumaki.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/lzhang_uzumaki.jpg",
       "stagingPath": "wallpaper/lzhang_uzumaki.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mfakurian_abstract.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mfakurian_abstract.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mfakurian_abstract.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mfakurian_abstract.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
       "stagingPath": "wallpaper/mfakurian_abstract.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mfakurian_black.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mfakurian_black.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mfakurian_black.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mfakurian_black.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_black.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_black.jpg",
       "stagingPath": "wallpaper/mfakurian_black.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mfakurian_heart.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mfakurian_heart.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mfakurian_heart.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mfakurian_heart.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_heart.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_heart.jpg",
       "stagingPath": "wallpaper/mfakurian_heart.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mfakurian_order.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mfakurian_order.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mfakurian_order.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mfakurian_order.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_order.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_order.jpg",
       "stagingPath": "wallpaper/mfakurian_order.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mfakurian_silver.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mfakurian_silver.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mfakurian_silver.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mfakurian_silver.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mfakurian_silver.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mfakurian_silver.jpg",
       "stagingPath": "wallpaper/mfakurian_silver.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mpiwnicki_curtain.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mpiwnicki_curtain.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mpiwnicki_curtain.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mpiwnicki_curtain.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
       "stagingPath": "wallpaper/mpiwnicki_curtain.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mpiwnicki_digital_stream.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mpiwnicki_digital_stream.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mpiwnicki_digital_stream.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mpiwnicki_digital_stream.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_digital_stream.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_digital_stream.jpg",
       "stagingPath": "wallpaper/mpiwnicki_digital_stream.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mpiwnicki_light.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mpiwnicki_light.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mpiwnicki_light.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mpiwnicki_light.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
       "stagingPath": "wallpaper/mpiwnicki_light.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mpiwnicki_pearl.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mpiwnicki_pearl.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mpiwnicki_pearl.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mpiwnicki_pearl.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
       "stagingPath": "wallpaper/mpiwnicki_pearl.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-mpiwnicki_sparkling.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/mpiwnicki_sparkling.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/mpiwnicki_sparkling.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/mpiwnicki_sparkling.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/mpiwnicki_sparkling.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_sparkling.jpg",
       "stagingPath": "wallpaper/mpiwnicki_sparkling.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-pczerwinski_3d_render.jpg",
       "category": "wallpaper",
       "vmPath": "/usr/share/backgrounds/linuxmint-wallpapers/pczerwinski_3d_render.jpg",
-      "capsuleRelative": "images/vendors/linuxmint/wallpaper/pczerwinski_3d_render.jpg",
-      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/linuxmint/wallpaper/pczerwinski_3d_render.jpg",
+      "capsuleRelative": "images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg",
+      "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg",
       "stagingPath": "wallpaper/pczerwinski_3d_render.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     }
   ],
   "phases": [

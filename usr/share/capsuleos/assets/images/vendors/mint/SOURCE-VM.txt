@@ -3,3 +3,6 @@
 # SSH: capsule@192.168.1.146 (lab-inventory.json)
 # Fichiers importés: 166 (staging manifest)
 # Note: fonds initialement sous vendors/linuxmint/ — consolidés ici (vendorPack=mint)
+
+# import-manifest-staging 2026-06-08T07:35:56.390Z
+files: 157

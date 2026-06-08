@@ -19,6 +19,14 @@
         "default": false
     },
     {
+        "id": "default_background",
+        "label": "Default Background",
+        "type": "image",
+        "dark": "vendors/mint/wallpaper/default_background.jpg",
+        "light": "vendors/mint/wallpaper/default_background.jpg",
+        "default": false
+    },
+    {
         "id": "edesigner_linuxmint",
         "label": "Edesigner Linuxmint",
         "type": "image",

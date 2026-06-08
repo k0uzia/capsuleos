@@ -142,8 +142,9 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     });
   }
   if (scenario.id === 'mintinstall-search') {
-    plan.actions.push({ type: 'fill', selector: '.mintinstall-search input, #search-entry', value: 'firefox' });
-    plan.assertions.push({ type: 'textContains', selector: '.mintinstall-results, .app-list', text: 'Firefox' });
+    plan.actions.push({ type: 'fill', selector: 'div[data-link="mintinstall"] #mi-search, .mintinstall-search input', value: 'firefox' });
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.assertions.push({ type: 'textContains', selector: 'div[data-link="mintinstall"] .mintinstall-results, #mi-search-list', text: 'Firefox' });
   }
 
   return plan;

@@ -1,17 +1,12 @@
 /**
- * Applet favoris panel Mint (favorites@cinnamon.org) — favoris bureau VM.
+ * Favoris panel Mint — branchement sur openWindowByDataLink (noyau).
+ * Ne pas dupliquer windowContainer / taskbar-launcher-state.
  */
 (function initMintPanelFavorites(global) {
     'use strict';
 
     function isMint() {
         return global.document && global.document.body && global.document.body.id === 'mint';
-    }
-
-    function openSlot(slotId) {
-        if (typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink(slotId);
-        }
     }
 
     function openCalendarPopover() {
@@ -21,31 +16,37 @@
         }
     }
 
-    function bindFavorites() {
-        var buttons = global.document.querySelectorAll('.taskbar-favorites__btn[data-favorite-link]');
-        var i;
-        for (i = 0; i < buttons.length; i += 1) {
-            (function bindBtn(btn) {
-                btn.addEventListener('click', function onFavoriteClick(event) {
-                    event.preventDefault();
-                    if (btn.getAttribute('data-favorite-action') === 'calendar-popover') {
-                        openCalendarPopover();
-                        return;
-                    }
-                    var slot = btn.getAttribute('data-favorite-link');
-                    if (slot) {
-                        openSlot(slot);
-                    }
-                });
-            }(buttons[i]));
+    function bindFavoriteButton(btn) {
+        if (!btn || btn.dataset.mintPanelFavoriteBound === 'true') {
+            return;
         }
+        btn.dataset.mintPanelFavoriteBound = 'true';
+        btn.addEventListener('click', function onFavoriteClick(event) {
+            var action = btn.getAttribute('data-favorite-action');
+            var link = btn.getAttribute('data-favorite-link');
+            if (action === 'calendar-popover') {
+                event.preventDefault();
+                event.stopPropagation();
+                openCalendarPopover();
+                return;
+            }
+            if (link && typeof global.openWindowByDataLink === 'function') {
+                event.preventDefault();
+                event.stopPropagation();
+                global.openWindowByDataLink(link);
+            }
+        });
     }
 
     function init() {
         if (!isMint()) {
             return;
         }
-        bindFavorites();
+        var buttons = global.document.querySelectorAll('.taskbar-favorites__btn[data-favorite-link]');
+        var i;
+        for (i = 0; i < buttons.length; i++) {
+            bindFavoriteButton(buttons[i]);
+        }
     }
 
     if (global.document.readyState === 'loading') {
@@ -53,4 +54,4 @@
     } else {
         init();
     }
-}(typeof window !== 'undefined' ? window : globalThis));
+})(typeof window !== 'undefined' ? window : this);

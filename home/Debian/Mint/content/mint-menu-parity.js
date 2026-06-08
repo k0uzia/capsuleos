@@ -4,15 +4,22 @@
 (function applyMintMenuParity() {
     'use strict';
 
-    var panelIcon = '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/';
+    var panelIcon = './assets/images/vendors/mint/panel/';
 
     var shortcutIcons = {
-        calculator: 'org.gnome.Calculator.png',
-        agenda: 'org.gnome.Calendar.png',
-        'text-editor': 'accessories-text-editor.png',
-        'software-manager': 'mintinstall.png',
-        'system-settings': 'preferences-desktop-theme.png',
+        calculator: 'org.gnome.Calculator.webp',
+        agenda: 'org.gnome.Calendar.webp',
+        'text-editor': 'accessories-text-editor.webp',
+        'software-manager': 'mintinstall.webp',
+        'system-settings': 'preferences-desktop-theme.webp',
     };
+
+    function resolveIcon(url) {
+        if (typeof resolveCapsuleResourceUrl === 'function') {
+            return resolveCapsuleResourceUrl(url);
+        }
+        return url;
+    }
 
     if (typeof MENU_SHORTCUTS !== 'undefined') {
         MENU_SHORTCUTS.calculator = { dataLink: 'calculator' };
@@ -82,23 +89,23 @@
             }
             if (app.name === 'Calculatrice') {
                 app.dataLink = 'calculator';
-                app.icon = panelIcon + 'org.gnome.Calculator.png';
+                app.icon = panelIcon + 'org.gnome.Calculator.webp';
             }
             if (app.name === 'Éditeur de texte') {
                 app.dataLink = 'text_editor';
-                app.icon = panelIcon + 'accessories-text-editor.png';
+                app.icon = panelIcon + 'accessories-text-editor.webp';
             }
             if (app.name === 'Logithèque') {
                 app.dataLink = 'mintinstall';
-                app.icon = panelIcon + 'mintinstall.png';
+                app.icon = panelIcon + 'mintinstall.webp';
             }
             if (app.name === 'System Monitor' || app.name === 'Moniteur système') {
                 app.dataLink = 'system_monitor';
                 app.name = 'Moniteur système';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor.png';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor';
             }
             if (app.name === 'Thèmes') {
-                app.icon = panelIcon + 'preferences-desktop-theme.png';
+                app.icon = panelIcon + 'preferences-desktop-theme.webp';
             }
             if (app.name === 'LibreOffice Writer') {
                 app.dataLink = 'librewriter';
@@ -122,11 +129,11 @@
             }
             if (app.name === 'Dessin') {
                 app.dataLink = 'drawing';
-                app.icon = './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png';
+                app.icon = './assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing';
             }
             if (app.name === 'Gestionnaire d\'archives') {
                 app.dataLink = 'file_roller';
-                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.FileRoller.png';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller';
             }
             if (app.name === 'Gestionnaire de pilotes') {
                 app.dataLink = 'mintdrivers';
@@ -188,7 +195,7 @@
         if (!hasScreenshot) {
             MENU_APPS.push({
                 catId: 'access',
-                icon: './assets/images/toolkits/cinnamon/apps/gnome-screenshot.png',
+                icon: './assets/images/toolkits/gnome/apps/org.gnome.Screenshot',
                 name: 'Capture d\'écran',
                 desc: 'Prenez une photo de l\'écran',
                 dataLink: 'screenshot'
@@ -208,7 +215,7 @@
             }
             var img = link.querySelector('img');
             if (img) {
-                img.src = panelIcon + shortcutIcons[id];
+                img.src = resolveIcon(panelIcon + shortcutIcons[id]);
             }
             if (id === 'text-editor' && !link.classList.contains('is-unavailable')) {
                 link.removeAttribute('aria-disabled');

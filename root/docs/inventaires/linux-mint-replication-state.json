@@ -88,7 +88,7 @@
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
       "notes": "30/101 ok · batch P4 #22-31 (10 apps XApp)",
-      "commit": "bbe13c0"
+      "commit": "b74b695"
     },
     {
       "id": "P5",

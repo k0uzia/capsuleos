@@ -93,6 +93,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **Panel** : séparateur Cinnamon après menu, logo circulaire, tray 24px, favoris 22px
 - [x] **Menu** : tokens Mint-Y-Dark-Aqua, libellés FR, géométrie sidebar/catégories/apps
 - [x] Captures : `capture-mint-panel-menu.mjs --compare` → `captures/linux-mint/20260608-104657/`
+- [x] Captures post-géométrie (`430cfcb`) : `captures/linux-mint/20260608-143806/` · baseline clone `clone-baseline/` · métriques dans `linux-mint-parity-index.json` (layoutMetrics shell)
 - [x] Checklist panel **6/6** VM + Capsule (`compare-os-parity --capsule-json`)
 
 ## Campagne v2 — shell panel (2026-06-08)

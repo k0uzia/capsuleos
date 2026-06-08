@@ -24,10 +24,36 @@
         "kb": 100,
         "data": 100
       },
+      "layoutMetrics": {
+        "auditAt": "2026-06-08T14:38:06Z",
+        "commit": "430cfcb",
+        "viewport": "1280x800",
+        "vmTarget": {
+          "panelHeightPx": 40,
+          "menuBottomGapPx": 2,
+          "menuWidthPx": 600,
+          "menuColsPct": [20, 25, 55],
+          "searchHeightPx": 35
+        },
+        "preFix": {
+          "panelHeightPx": 50,
+          "menuBottomGapPx": 52,
+          "menuColsPct": [23, 35, 42],
+          "note": "double comptage taskbar-height dans #desktop"
+        },
+        "postFix": {
+          "panelHeightPx": 40,
+          "menuBottomGapPx": 2,
+          "menuWidthPx": 600,
+          "menuColsPct": [20, 25, 55],
+          "searchHeightPx": 35
+        },
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-143806/"
+      },
       "lastPass": "2026-06-08T11:54:04.866Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T11:54:04.866Z"
+      "updatedAt": "2026-06-08T14:38:06Z"
     },
     "panel": {
       "id": "panel",
@@ -41,10 +67,33 @@
         "kb": 100,
         "data": 100
       },
+      "layoutMetrics": {
+        "auditAt": "2026-06-08T14:38:06Z",
+        "commit": "430cfcb",
+        "viewport": "1280x800",
+        "vmTarget": {
+          "panelHeightPx": 40,
+          "trayIconPx": 24,
+          "favoritesIconPx": 22
+        },
+        "preFix": {
+          "panelHeightPx": 50,
+          "trayIconPx": 20,
+          "deltaPanelPx": 10,
+          "deltaTrayIconPx": -4
+        },
+        "postFix": {
+          "panelHeightPx": 40,
+          "trayIconPx": 24,
+          "favoritesIconPx": 22,
+          "trayCenterYPx": 775
+        },
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-143806/"
+      },
       "lastPass": "2026-06-08T12:08:05.137Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:08:05.137Z"
+      "updatedAt": "2026-06-08T14:38:06Z"
     },
     "tray": {
       "id": "tray",
@@ -961,7 +1010,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T12:16:35.562Z",
+  "updatedAt": "2026-06-08T14:38:06Z",
   "pi_global": 98,
   "status_global": "ok"
 }

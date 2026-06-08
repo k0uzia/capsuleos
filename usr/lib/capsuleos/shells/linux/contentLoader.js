@@ -615,6 +615,31 @@ const SLOT_INIT_HANDLERS = {
             initLibreofficeImpressApp();
         }
     },
+    mintstick: () => {
+        if (typeof initMintstickApp === 'function') {
+            initMintstickApp();
+        }
+    },
+    mintstick_format: () => {
+        if (typeof initMintstickFormatApp === 'function') {
+            initMintstickFormatApp();
+        }
+    },
+    font_viewer: () => {
+        if (typeof initFontViewerApp === 'function') {
+            initFontViewerApp();
+        }
+    },
+    power_stats: () => {
+        if (typeof initPowerStatsApp === 'function') {
+            initPowerStatsApp();
+        }
+    },
+    mate_color_select: () => {
+        if (typeof initMateColorSelectApp === 'function') {
+            initMateColorSelectApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

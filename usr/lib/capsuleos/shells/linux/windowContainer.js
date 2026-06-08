@@ -36,6 +36,11 @@
         libreoffice_startcenter: 'LibreOffice',
         libreoffice_draw: 'Sans nom 1 — LibreOffice Draw',
         libreoffice_impress: 'Sans nom 1 — LibreOffice Impress',
+        mintstick: 'Créateur de clé USB',
+        mintstick_format: 'Formateur de clé USB',
+        font_viewer: 'Polices',
+        power_stats: 'Statistiques d\'alimentation',
+        mate_color_select: 'Sélecteur de couleur',
         update_manager: 'Gestionnaire de mise à jour',
     };
 

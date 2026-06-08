@@ -51,7 +51,8 @@
         { id: 'software-sources', label: 'Sources de logiciels', icon: 'cs-sources', keywords: 'software sources mintsources' },
         { id: 'system-info', label: 'Informations système', icon: 'cs-general', keywords: 'system information mintreport' },
         { id: 'printers', label: 'Imprimantes', icon: 'cs-general', keywords: 'printers print' },
-        { id: 'passwords', label: 'Mots de passe et clés', icon: 'cs-privacy', keywords: 'passwords seahorse keys' }
+        { id: 'passwords', label: 'Mots de passe et clés', icon: 'cs-privacy', keywords: 'passwords seahorse keys' },
+        { id: 'online-accounts', label: 'Comptes en ligne', icon: 'cs-user', keywords: 'online accounts google microsoft' }
     ];
 
     var GENERIC_ROWS = {
@@ -94,7 +95,8 @@
         'software-sources': ['Dépôts officiels', 'PPA'],
         'system-info': ['Matériel', 'Système d\'exploitation', 'Rapport système'],
         printers: ['Imprimantes configurées', 'Ajouter une imprimante'],
-        passwords: ['Mots de passe', 'Certificats', 'Clés SSH']
+        passwords: ['Mots de passe', 'Certificats', 'Clés SSH'],
+        'online-accounts': ['Google', 'Microsoft', 'Ajouter un compte']
     };
 
     function getWindowEl(root) {

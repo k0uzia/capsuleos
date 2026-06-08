@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T18:45:00Z",
+  "updatedAt": "2026-06-08T19:30:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,11 +33,11 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 87,
+      "ok": 101,
       "partiel": 0,
-      "absent": 14,
-      "coverageOkPct": 86,
-      "standaloneSlotsOk": 38
+      "absent": 0,
+      "coverageOkPct": 100,
+      "standaloneSlotsOk": 43
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
@@ -71,7 +71,7 @@
       "predicates": ["Va", "Ve", "Vm", "Vμ", "VΣ"],
       "status": "in_progress",
       "artifact": "linux-mint-ui-state-effects-matrix.json",
-      "notes": "capsuleMatch partial sur 8 surfaces shell"
+      "notes": "Aucun outil capsuleMatch trouvé — matrice VΣ à créer manuellement"
     },
     {
       "id": "P3",
@@ -86,10 +86,10 @@
       "id": "P4",
       "label": "Apps VM — catalogue complet (101 entrées menu)",
       "predicates": ["AppΣ-full"],
-      "status": "in_progress",
+      "status": "completed",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "87/101 ok · batch P4 #32-39 (8 apps) + csPanel Cinnamon · 38 slots autonomes",
-      "commit": "57bc3c4"
+      "notes": "101/101 ok · batch final mintstick/font_viewer/power_stats + alias + csPanel",
+      "commit": "pending"
     },
     {
       "id": "P5",
@@ -97,7 +97,7 @@
       "predicates": ["D", "VΣ", "Tf", "H6"],
       "status": "in_progress",
       "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert",
-      "notes": "manifestDrift 0 (64 refs index.html) · VΣ/H6 restants",
+      "notes": "D=0 · AppΣ-full=101/101 · VΣ/H6 restants (pas de tooling P2)"
     }
   ],
   "predicates": {
@@ -107,20 +107,18 @@
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
     "AppΣ": { "ok": true, "surfaceOk": "17/17" },
-    "AppΣ-full": { "ok": false, "ok": "87/101", "standaloneSlots": "38/101" },
-    "VΣ": { "ok": false, "matrix": "partial" },
+    "AppΣ-full": { "ok": true, "ok": "101/101", "standaloneSlots": "43/101" },
+    "VΣ": { "ok": false, "matrix": "absent", "note": "linux-mint-ui-state-effects-matrix.json introuvable — pas d'outil validate" },
     "D": { "ok": true, "drift": 0, "note": "#mint-manifest-asset-refs — 64 chemins ManΣ" }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
-      "14 apps catalogue absentes sur 101 (GIMP, Inkscape, mintstick, …)",
-      "Matrice VΣ shell — capsuleMatch partial"
+      "Matrice VΣ shell — artifact + tooling capsuleMatch absent"
     ]
   },
   "nextActions": [
-    "P4 : 14 apps restantes (GIMP, Inkscape, USB Image Writer, …)",
-    "P2 : affiner VΣ capsuleMatch ok",
-    "P5 : H6 clôture après AppΣ-full"
+    "P2/P5 : créer linux-mint-ui-state-effects-matrix.json + outil capsuleMatch",
+    "P5 : clôture H6 après VΣ ok"
   ]
 }

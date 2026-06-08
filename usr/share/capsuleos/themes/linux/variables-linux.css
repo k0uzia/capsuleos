@@ -166,6 +166,27 @@
     --win-libreoffice_impress-min-width: 800px;
     --win-libreoffice_impress-min-height: 520px;
 
+    --win-mintstick-width: 520px;
+    --win-mintstick-height: 380px;
+    --win-mintstick-min-width: 440px;
+    --win-mintstick-min-height: 320px;
+    --win-mintstick_format-width: 480px;
+    --win-mintstick_format-height: 340px;
+    --win-mintstick_format-min-width: 400px;
+    --win-mintstick_format-min-height: 300px;
+    --win-font_viewer-width: 720px;
+    --win-font_viewer-height: 480px;
+    --win-font_viewer-min-width: 560px;
+    --win-font_viewer-min-height: 400px;
+    --win-power_stats-width: 560px;
+    --win-power_stats-height: 420px;
+    --win-power_stats-min-width: 480px;
+    --win-power_stats-min-height: 360px;
+    --win-mate_color_select-width: 360px;
+    --win-mate_color_select-height: 320px;
+    --win-mate_color_select-min-width: 320px;
+    --win-mate_color_select-min-height: 280px;
+
     --win-visionneur_images-width: calc(var(--head) * 20);
     --win-visionneur_images-height: calc(var(--head) * 14);
     --win-visionneur_images-min-width: calc(var(--head) * 16);

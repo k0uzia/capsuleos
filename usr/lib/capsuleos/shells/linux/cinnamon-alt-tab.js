@@ -46,6 +46,11 @@
         libreoffice_startcenter: 'LibreOffice',
         libreoffice_draw: 'LibreOffice Draw',
         libreoffice_impress: 'LibreOffice Impress',
+        mintstick: 'Créateur clé USB',
+        mintstick_format: 'Formateur clé USB',
+        font_viewer: 'Polices',
+        power_stats: 'Statistiques alim.',
+        mate_color_select: 'Sélecteur couleur',
     };
 
     let overlay = null;

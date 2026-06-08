@@ -60,6 +60,11 @@ const SLOT_STATUS = {
   libreoffice_startcenter: { statut: 'ok', slot: 'libreoffice_startcenter', note: 'LibreOffice hub — tuiles modules, smoke OK' },
   libreoffice_draw: { statut: 'ok', slot: 'libreoffice_draw', note: 'Draw — canvas vide, smoke OK' },
   libreoffice_impress: { statut: 'ok', slot: 'libreoffice_impress', note: 'Impress — diapositive vide, smoke OK' },
+  mintstick: { statut: 'ok', slot: 'mintstick', note: 'USB Image Writer — ISO + périphérique, smoke OK' },
+  mintstick_format: { statut: 'ok', slot: 'mintstick_format', note: 'USB Stick Formatter — format simulé, smoke OK' },
+  font_viewer: { statut: 'ok', slot: 'font_viewer', note: 'Visionneur polices — liste + aperçu, smoke OK' },
+  power_stats: { statut: 'ok', slot: 'power_stats', note: 'Power Statistics — graphique + stats, smoke OK' },
+  mate_color_select: { statut: 'ok', slot: 'mate_color_select', note: 'Sélecteur couleur MATE — palette, smoke OK' },
 };
 
 /** Correspondance .desktop VM → slot / nom menu FR / priorité reproduction */
@@ -124,6 +129,20 @@ const DESKTOP_MAP = {
   'org.gnome.seahorse.Application.desktop': { labelFr: 'Mots de passe et clés', slot: 'themes', priorite: 'P2', note: 'csPanel passwords' },
   'onboard.desktop': { labelFr: 'Onboard', slot: 'themes', priorite: 'P2', note: 'csPanel accessibility' },
   'system-config-printer.desktop': { labelFr: 'Imprimantes', slot: 'themes', priorite: 'P2', note: 'csPanel printers' },
+  'gnome-system-monitor-kde.desktop': { labelFr: 'Moniteur système', slot: 'system_monitor', priorite: 'P2', note: 'Alias KDE desktop' },
+  'vim.desktop': { labelFr: 'Vim', slot: 'text_editor', priorite: 'P2', menu: true, note: 'Alias éditeur terminal' },
+  'mintstick.desktop': { labelFr: 'Créateur de clé USB', slot: 'mintstick', priorite: 'P2', menu: true },
+  'mintstick-kde.desktop': { labelFr: 'Créateur de clé USB', slot: 'mintstick', priorite: 'P2' },
+  'mintstick-format.desktop': { labelFr: 'Formateur de clé USB', slot: 'mintstick_format', priorite: 'P2', menu: true },
+  'mintstick-format-kde.desktop': { labelFr: 'Formateur de clé USB', slot: 'mintstick_format', priorite: 'P2' },
+  'nm-connection-editor.desktop': { labelFr: 'Configuration réseau avancée', slot: 'themes', priorite: 'P2', note: 'csPanel network' },
+  'blueman-adapters.desktop': { labelFr: 'Adaptateurs Bluetooth', slot: 'themes', priorite: 'P2', note: 'csPanel bluetooth' },
+  'mate-color-select.desktop': { labelFr: 'Sélecteur de couleur', slot: 'mate_color_select', priorite: 'P2' },
+  'org.gnome.font-viewer.desktop': { labelFr: 'Polices', slot: 'font_viewer', priorite: 'P2', menu: true },
+  'org.freedesktop.IBus.Setup.desktop': { labelFr: 'Préférences IBus', slot: 'themes', priorite: 'P2', note: 'csPanel input-method' },
+  'gnome-online-accounts-gtk.desktop': { labelFr: 'Comptes en ligne', slot: 'themes', priorite: 'P2', note: 'csPanel online-accounts' },
+  'org.gnome.PowerStats.desktop': { labelFr: 'Statistiques d\'alimentation', slot: 'power_stats', priorite: 'P2' },
+  'cinnamon-onscreen-keyboard.desktop': { labelFr: 'Clavier visuel', slot: 'themes', priorite: 'P2', note: 'csPanel accessibility' },
 };
 
 const CINNAMON_SETTINGS_PREFIX = 'cinnamon-settings-';

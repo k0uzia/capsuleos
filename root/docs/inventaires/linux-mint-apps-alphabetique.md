@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T09:56:16.201Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T10:01:10.270Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -65,8 +65,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Accessibility | Accessibility | cinnamon-settings-universal-access.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Account details | Account details | cinnamon-settings-user.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Actions | Actions | cinnamon-settings-actions.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
+| Adaptateurs Bluetooth | Bluetooth Adapters | blueman-adapters.desktop | themes | ✅ | — | csPanel bluetooth |
 | Administration du système | System Administration | mintsysadm.desktop | themes | ✅ | — | csPanel system-info |
-| Advanced Network Configuration | Advanced Network Configuration | nm-connection-editor.desktop | — | ⬜ | — |  |
 | Affichage | Display | cinnamon-display-panel.desktop | themes | ✅ | — | csPanel display |
 | Agenda | Calendar | org.gnome.Calendar.desktop | calendar | ✅ | F | Popover horloge |
 | Analyseur d'espace disque | Disk Usage Analyzer | org.gnome.baobab.desktop | baobab | ✅ | — |  |
@@ -74,11 +74,14 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Applications Web | Web Apps | webapp-manager.desktop | webapp_manager | ✅ | — |  |
 | Backgrounds | Backgrounds | cinnamon-settings-backgrounds.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Bibliothèque | Library | thingy.desktop | thingy | ✅ | M |  |
-| Bluetooth Adapters | Bluetooth Adapters | blueman-adapters.desktop | — | ⬜ | — |  |
 | Calculatrice | Calculator | org.gnome.Calculator.desktop | calculator | ✅ | M,F | VM GNOME Calc — actuellement raccourci terminal |
 | Capture d'écran | Screenshot | org.gnome.Screenshot.desktop | screenshot | ✅ | M |  |
-| Color selection dialog | Color selection dialog | mate-color-select.desktop | — | ⬜ | — |  |
+| Clavier visuel | Virtual keyboard | cinnamon-onscreen-keyboard.desktop | themes | ✅ | — | csPanel accessibility |
+| Comptes en ligne | Online Accounts | gnome-online-accounts-gtk.desktop | themes | ✅ | — | csPanel online-accounts |
+| Configuration réseau avancée | Advanced Network Configuration | nm-connection-editor.desktop | themes | ✅ | — | csPanel network |
 | Couleur | Color | cinnamon-color-panel.desktop | themes | ✅ | — | csPanel color |
+| Créateur de clé USB | USB Image Writer | mintstick-kde.desktop | mintstick | ✅ | — |  |
+| Créateur de clé USB | USB Image Writer | mintstick.desktop | mintstick | ✅ | M |  |
 | Date & Time | Date & Time | cinnamon-settings-calendar.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Desklets | Desklets | cinnamon-settings-desklets.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Desktop | Desktop | cinnamon-settings-desktop.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -93,7 +96,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Fichiers | Files | nemo.desktop | nemo | ✅ | M,P |  |
 | Firefox | Firefox Web Browser | firefox.desktop | firefox | ✅ | M,P |  |
 | Font Selection | Font Selection | cinnamon-settings-fonts.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Fonts | Fonts | org.gnome.font-viewer.desktop | — | ⬜ | — |  |
+| Formateur de clé USB | USB Stick Formatter | mintstick-format-kde.desktop | mintstick_format | ✅ | — |  |
+| Formateur de clé USB | USB Stick Formatter | mintstick-format.desktop | mintstick_format | ✅ | M |  |
 | General | General | cinnamon-settings-general.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Gestionnaire Bluetooth | Bluetooth Manager | blueman-manager.desktop | themes | ✅ | — | csPanel bluetooth |
 | Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M |  |
@@ -101,10 +105,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | ✅ | T |  |
 | Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ✅ | — |  |
 | Gestures | Gestures | cinnamon-settings-gestures.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |
 | Hot Corners | Hot Corners | cinnamon-settings-hotcorner.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Hypnotix | Hypnotix | hypnotix.desktop | hypnotix | ✅ | — |  |
-| IBus Preferences | IBus Preferences | org.freedesktop.IBus.Setup.desktop | — | ⬜ | — |  |
 | Imprimantes | Printers | system-config-printer.desktop | themes | ✅ | — | csPanel printers |
 | Informations système | System Information | mintreport.desktop | themes | ✅ | — | csPanel system-info |
 | Keyboard | Keyboard | cinnamon-settings-keyboard.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -118,6 +120,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Logithèque | Software Manager | mintinstall-kde.desktop | mintinstall | ✅ | — |  |
 | Logithèque | Software Manager | mintinstall.desktop | mintinstall | ✅ | M,F |  |
 | Méthode de saisie | Input method | mintlocale-im.desktop | themes | ✅ | — | csPanel input-method |
+| Moniteur système | GNOME System Monitor | gnome-system-monitor-kde.desktop | system_monitor | ✅ | — | Alias KDE desktop |
 | Moniteur système | System Monitor | org.gnome.SystemMonitor.desktop | system_monitor | ✅ | — |  |
 | Mots de passe et clés | Passwords and Keys | org.gnome.seahorse.Application.desktop | themes | ✅ | — | csPanel passwords |
 | Mouse and Touchpad | Mouse and Touchpad | cinnamon-settings-mouse.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -126,23 +129,25 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Notifications | Notifications | cinnamon-settings-notifications.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Numérisation de documents | Document Scanner | simple-scan.desktop | simple_scan | ✅ | M |  |
 | Onboard | Onboard | onboard.desktop | themes | ✅ | — | csPanel accessibility |
-| Online Accounts | Online Accounts | gnome-online-accounts-gtk.desktop | — | ⬜ | — |  |
 | Outil de sauvegarde | Backup Tool | mintbackup.desktop | mintbackup | ✅ | — |  |
 | Panel | Panel | cinnamon-settings-panel.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Paramètres du système | System Settings | cinnamon-settings.desktop | themes | ✅ | M,F | Sous-panneau Paramètres système |
 | Pare-feu | Firewall Configuration | gufw.desktop | themes | ✅ | — | csPanel firewall |
 | Pix | Pix | pix.desktop | visionneur_images | ✅ | — |  |
+| Polices | Fonts | org.gnome.font-viewer.desktop | font_viewer | ✅ | M |  |
 | Power Management | Power Management | cinnamon-settings-power.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Power Statistics | Power Statistics | org.gnome.PowerStats.desktop | — | ⬜ | — |  |
+| Préférences IBus | IBus Preferences | org.freedesktop.IBus.Setup.desktop | themes | ✅ | — | csPanel input-method |
 | Preferred Applications | Preferred Applications | cinnamon-settings-default.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Privacy | Privacy | cinnamon-settings-privacy.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Renommer fichiers | File Renamer | bulky.desktop | bulky | ✅ | — |  |
 | Réseau | Network | cinnamon-network-panel.desktop | themes | ✅ | — | csPanel network |
 | Rhythmbox | Rhythmbox | org.gnome.Rhythmbox3.desktop | rhythmbox | ✅ | M |  |
 | Screensaver | Screensaver | cinnamon-settings-screensaver.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
+| Sélecteur de couleur | Color selection dialog | mate-color-select.desktop | mate_color_select | ✅ | — |  |
 | Sound | Sound | cinnamon-settings-sound.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Sources de logiciels | Software Sources | mintsources.desktop | themes | ✅ | — | csPanel software-sources |
 | Startup Applications | Startup Applications | cinnamon-settings-startup.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
+| Statistiques d'alimentation | Power Statistics | org.gnome.PowerStats.desktop | power_stats | ✅ | — |  |
 | Table des caractères | Character Map | gucharmap.desktop | gucharmap | ✅ | M |  |
 | Tablette graphique | Graphics Tablet | cinnamon-wacom-panel.desktop | themes | ✅ | — | csPanel wacom |
 | Terminal | Terminal | org.gnome.Terminal.desktop | terminal | ✅ | M,P |  |
@@ -151,13 +156,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Thunderbolt | Thunderbolt | cinnamon-settings-thunderbolt.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Timeshift | Timeshift | timeshift-gtk.desktop | timeshift | ✅ | — |  |
 | Transmission | Transmission | transmission-gtk.desktop | transmission | ✅ | — |  |
-| USB Image Writer | USB Image Writer | mintstick-kde.desktop | — | ⬜ | — |  |
-| USB Image Writer | USB Image Writer | mintstick.desktop | — | ⬜ | — |  |
-| USB Stick Formatter | USB Stick Formatter | mintstick-format-kde.desktop | — | ⬜ | — |  |
-| USB Stick Formatter | USB Stick Formatter | mintstick-format.desktop | — | ⬜ | — |  |
 | Users and Groups | Users and Groups | cinnamon-settings-users.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Vim | Vim | vim.desktop | — | ⬜ | — |  |
-| Virtual keyboard | Virtual keyboard | cinnamon-onscreen-keyboard.desktop | — | ⬜ | — |  |
+| Vim | Vim | vim.desktop | text_editor | ✅ | M | Alias éditeur terminal |
 | Visionneur d'images | Image Viewer | xviewer.desktop | visionneur_images | ✅ | M |  |
 | Visionneur de documents | Document Viewer | xreader.desktop | visionneur_pdf | ✅ | M |  |
 | Warpinator | Warpinator | org.x.Warpinator.desktop | warpinator | ✅ | — |  |
@@ -173,6 +173,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `drawing` — ✅
 - `file_roller` — ✅
 - `firefox` — ✅
+- `font_viewer` — ✅
 - `gnome_disks` — ✅
 - `gucharmap` — ✅
 - `hypnotix` — ✅
@@ -183,11 +184,15 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `libreoffice_startcenter` — ✅
 - `librewriter` — ✅
 - `mainMenu` — 🔶
+- `mate_color_select` — ✅
 - `mintbackup` — ✅
 - `mintdrivers` — ✅
 - `mintinstall` — ✅
+- `mintstick` — ✅
+- `mintstick_format` — ✅
 - `mintwelcome` — ✅
 - `nemo` — ✅
+- `power_stats` — ✅
 - `profile` — ✅
 - `rhythmbox` — ✅
 - `screenshot` — ✅

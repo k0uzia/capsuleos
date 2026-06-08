@@ -79,7 +79,7 @@
       "status": "completed",
       "target": "17 surfaces VM → statut ok + smoke",
       "notes": "17/17 — xviewer + xreader clôturés (2026-06-08)",
-      "commit": "pending"
+      "commit": "fb0c4ef"
     },
     {
       "id": "P4",

@@ -78,6 +78,7 @@ function buildWindowTitles(merged) {
         terminal: m['terminal.windowTitle'] || 'Terminal',
         update_manager: m['update_manager.windowTitle'] || 'Gestionnaire de mise à jour',
         mintinstall: m['mintinstall.windowTitle'] || 'Logithèque',
+        system_monitor: m['system_monitor.windowTitle'] || 'Moniteur système',
         themes: m['themes.windowTitle'] || 'Thèmes',
         checklist: m['checklist.windowTitle'] || 'Missions',
         mainMenu: m['mainMenu.windowTitle'] || 'Menu',

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T08:59:09.660Z",
+  "generatedAt": "2026-06-08T09:11:35.970Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -16,6 +16,7 @@
     "nemo",
     "profile",
     "screenshot",
+    "system_monitor",
     "terminal",
     "text_editor",
     "themes",
@@ -958,14 +959,14 @@
       "desktop": "org.gnome.SystemMonitor.desktop",
       "priorite": "P1",
       "slotCapsule": "system_monitor",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "apps/system_monitor.html",
+      "fichiers": "apps/system_monitor.html · Mint/style/apps/system_monitor.skin.css",
       "rangReproduction": 15
     },
     {
@@ -1908,14 +1909,14 @@
       "desktop": "org.gnome.SystemMonitor.desktop",
       "priorite": "P1",
       "slotCapsule": "system_monitor",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "apps/system_monitor.html",
+      "fichiers": "apps/system_monitor.html · Mint/style/apps/system_monitor.skin.css",
       "rangReproduction": 15
     },
     {

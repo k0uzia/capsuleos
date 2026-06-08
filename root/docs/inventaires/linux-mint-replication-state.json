@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T11:05:00Z",
+  "updatedAt": "2026-06-08T12:15:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,17 +33,17 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 15,
-      "partiel": 37,
+      "ok": 16,
+      "partiel": 36,
       "absent": 49,
-      "coverageOkPct": 15
+      "coverageOkPct": 16
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
-      "ok": 13,
-      "partiel": 4
+      "ok": 14,
+      "partiel": 3
     },
-    "panelChecklistVm": "4/6",
+    "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
     "manifestDrift": 148,
     "validateAllH2": true,
@@ -67,7 +67,7 @@
       "label": "Shell Cinnamon (panel, WM, tray, bureau)",
       "predicates": ["Ve-shell", "Vμ-shell", "L-panel"],
       "status": "completed",
-      "commit": "c3a3a00",
+      "commit": "pending",
       "objects": [
         "shell.panel.menu",
         "shell.panel.grouped-window-list",
@@ -76,7 +76,8 @@
         "shell.window.muffin",
         "shell.alt-tab"
       ],
-      "target": "compare-os-parity panel-checklist 6/6 VM + Capsule"
+      "target": "compare-os-parity panel-checklist 6/6 VM + Capsule",
+      "notes": "Panel VM 6/6 via os-probe.sh (2026-06-08)"
     },
     {
       "id": "P2",
@@ -84,7 +85,8 @@
       "predicates": ["Va", "Ve", "Vm", "Vμ", "VΣ"],
       "status": "in_progress",
       "artifact": "linux-mint-ui-state-effects-matrix.json",
-      "orchestrator": "run-ui-state-effects-pass.mjs --id linux-mint"
+      "orchestrator": "run-ui-state-effects-pass.mjs --id linux-mint",
+      "notes": "Burst VM collecté ; capsuleMatch partial sur 8 surfaces shell"
     },
     {
       "id": "P3",
@@ -92,7 +94,7 @@
       "predicates": ["AppΣ"],
       "status": "in_progress",
       "target": "17 surfaces VM → statut ok + smoke",
-      "notes": "#14 mintinstall slot dédié (2026-06-08)"
+      "notes": "#15 system_monitor ok (2026-06-08) · suite #16 Paramètres"
     },
     {
       "id": "P4",
@@ -110,29 +112,27 @@
     }
   ],
   "predicates": {
-    "H2": { "ok": true, "note": "validate-all vert (overview Ubuntu + zone Mint)" },
+    "H2": { "ok": true, "note": "validate-all vert (gnome-sysmon anchor + overview)" },
     "M": { "ok": true, "verifiedAt": "2026-06-08T10:56:00Z" },
     "I": { "ok": true, "file": "linux-mint-vm.json" },
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
-    "L-panel": { "ok": false, "vm": "4/6", "capsule": "6/6" },
-    "AppΣ": { "ok": false, "surfaceOk": "13/17" },
-    "AppΣ-full": { "ok": false, "ok": "15/101" },
-    "VΣ": { "ok": false, "matrix": "partial" },
+    "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
+    "AppΣ": { "ok": false, "surfaceOk": "14/17" },
+    "AppΣ-full": { "ok": false, "ok": "16/101" },
+    "VΣ": { "ok": false, "matrix": "partial", "burstAt": "2026-06-08T12:12:00Z" },
     "D": { "ok": false, "drift": 148 }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
-      "Panel VM checklist 4/6 (Firefox focus, minimize — sonde lab)",
       "49 apps catalogue absentes sur 101",
-      "Matrice VΣ shell — collecte burst VM en attente",
+      "Matrice VΣ shell — capsuleMatch partial (effets E(δ) à affiner)",
       "manifestDrift 148 → P5"
     ]
   },
   "nextActions": [
-    "P2 : collect-ui-state-effects.mjs burst VM + Vμ par surface",
-    "P3 : apps surface restantes (#15 Moniteur système, #16 Paramètres, …)",
-    "P4 : catalogue alphabétique #15+",
-    "P5 : drift manifest → 0, panel VM 6/6 si sonde lab OK"
+    "P3 : apps surface restantes (#16 Paramètres, …)",
+    "P4 : catalogue alphabétique #16+",
+    "P5 : drift manifest → 0, VΣ capsuleMatch ok"
   ]
 }

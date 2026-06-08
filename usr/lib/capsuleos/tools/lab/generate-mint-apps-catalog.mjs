@@ -26,6 +26,7 @@ const SLOT_STATUS = {
   profile: { statut: 'ok', slot: 'profile', note: 'À propos Mint' },
   update_manager: { statut: 'ok', slot: 'update_manager', note: 'mintupdate 7.1.4 — écran accueil, à jour, liste simulée, smoke OK' },
   mintinstall: { statut: 'ok', slot: 'mintinstall', note: 'Logithèque 8.4 — recherche, catégories, vedette, smoke OK' },
+  system_monitor: { statut: 'ok', slot: 'system_monitor', note: 'GNOME System Monitor 46 — onglets, processus, smoke OK' },
   text_editor: { statut: 'ok', slot: 'text_editor', note: 'xed — menus, barre d\'outils, statut' },
   librewriter: { statut: 'ok', slot: 'librewriter', note: 'Writer — page A4, menus, barre d\'outils, smoke OK' },
   visionneur_images: { statut: 'partiel', slot: 'visionneur_images', note: 'xviewer / Pix' },

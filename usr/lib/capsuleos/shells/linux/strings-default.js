@@ -62,6 +62,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'terminal.windowTitle': 'Terminal',
     'update_manager.windowTitle': 'Gestionnaire de mise à jour',
     'mintinstall.windowTitle': 'Logithèque',
+    'system_monitor.windowTitle': 'Moniteur système',
     'themes.windowTitle': 'Thèmes',
     'checklist.windowTitle': 'Missions',
     'checklist.description': 'Explore Linux Mint en accomplissant ces missions. Ta progression est sauvegardée.',

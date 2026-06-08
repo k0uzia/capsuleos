@@ -80,6 +80,12 @@
     --win-mintinstall-min-width: 720px;
     --win-mintinstall-min-height: 560px;
 
+    /** GNOME System Monitor 46 — géométrie VM wmctrl (822×622) */
+    --win-system_monitor-width: 822px;
+    --win-system_monitor-height: 622px;
+    --win-system_monitor-min-width: 640px;
+    --win-system_monitor-min-height: 480px;
+
     --win-visionneur_images-width: calc(var(--head) * 20);
     --win-visionneur_images-height: calc(var(--head) * 14);
     --win-visionneur_images-min-width: calc(var(--head) * 16);

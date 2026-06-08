@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T08:59:09.660Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T09:11:35.970Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -40,7 +40,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | P1 |
 | 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | ✅ | P0 |
 | 14 | Logithèque | mintinstall-kde.desktop | mintinstall | ✅ | P0 |
-| 15 | Moniteur système | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | P1 |
+| 15 | Moniteur système | org.gnome.SystemMonitor.desktop | system_monitor | ✅ | P1 |
 | 16 | Paramètres du système | cinnamon-settings.desktop | themes | 🔶 | P0 |
 | 17 | Terminal | org.gnome.Terminal.desktop | terminal | ✅ | P0 |
 | 18 | Thèmes | cinnamon-settings-themes.desktop | themes | 🔶 | P0 |
@@ -119,7 +119,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Login Window | Login Window | lightdm-settings.desktop | — | ⬜ | — |  |
 | Logithèque | Software Manager | mintinstall-kde.desktop | mintinstall | ✅ | — |  |
 | Logithèque | Software Manager | mintinstall.desktop | mintinstall | ✅ | M,F |  |
-| Moniteur système | System Monitor | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | — |  |
+| Moniteur système | System Monitor | org.gnome.SystemMonitor.desktop | system_monitor | ✅ | — |  |
 | Mouse and Touchpad | Mouse and Touchpad | cinnamon-settings-mouse.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Network | Network | cinnamon-network-panel.desktop | — | ⬜ | — |  |
 | Night Light | Night Light | cinnamon-settings-nightlight.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
@@ -180,6 +180,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `nemo` — ✅
 - `profile` — ✅
 - `screenshot` — ✅
+- `system_monitor` — ✅
 - `terminal` — ✅
 - `text_editor` — ✅
 - `themes` — 🔶

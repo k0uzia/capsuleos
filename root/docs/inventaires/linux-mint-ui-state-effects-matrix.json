@@ -2,96 +2,216 @@
   "registryId": "linux-mint",
   "toolkit": "cinnamon",
   "version": 1,
-  "generatedAt": "2026-06-08T12:00:00Z",
+  "generatedAt": "2026-06-08T09:12:35.011Z",
   "description": "Matrice objets modaux shell — campagne v2 réplique exacte VM (bootstrap VΣ).",
   "predicates": {
     "Va": true,
-    "Ve": false,
+    "Ve": true,
     "Vx": false,
     "Vm": false,
-    "Vmu": false,
-    "VSigma": false
+    "Vmu": true,
+    "VSigma": true
   },
   "surfaces": [
     {
       "id": "shell.panel.menu",
       "role": "dropdown",
       "priority": "P0",
-      "states": ["closed", "open", "search-active"],
+      "states": [
+        "closed",
+        "open",
+        "search-active"
+      ],
       "transitions": [
-        { "action": "click-logo", "from": "closed", "to": "open" },
-        { "action": "escape", "from": "open", "to": "closed" },
-        { "action": "type-search", "from": "open", "to": "search-active" }
+        {
+          "action": "click-logo",
+          "from": "closed",
+          "to": "open"
+        },
+        {
+          "action": "escape",
+          "from": "open",
+          "to": "closed"
+        },
+        {
+          "action": "type-search",
+          "from": "open",
+          "to": "search-active"
+        }
       ],
       "capsuleSelector": "div[data-link=\"mainMenu\"] .menu-root",
-      "vmRef": "panel1:left:0:menu@cinnamon.org"
+      "vmRef": "panel1:left:0:menu@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.panel.grouped-window-list",
       "role": "dropdown",
       "priority": "P0",
-      "states": ["empty", "running", "active", "minimized"],
+      "states": [
+        "empty",
+        "running",
+        "active",
+        "minimized"
+      ],
       "transitions": [
-        { "action": "open-app", "from": "empty", "to": "running" },
-        { "action": "focus-window", "from": "running", "to": "active" },
-        { "action": "click-active", "from": "active", "to": "minimized" },
-        { "action": "click-minimized", "from": "minimized", "to": "active" }
+        {
+          "action": "open-app",
+          "from": "empty",
+          "to": "running"
+        },
+        {
+          "action": "focus-window",
+          "from": "running",
+          "to": "active"
+        },
+        {
+          "action": "click-active",
+          "from": "active",
+          "to": "minimized"
+        },
+        {
+          "action": "click-minimized",
+          "from": "minimized",
+          "to": "active"
+        }
       ],
       "capsuleSelector": "#taskbar-window-list",
-      "vmRef": "panel1:left:2:grouped-window-list@cinnamon.org"
+      "vmRef": "panel1:left:2:grouped-window-list@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.tray.favorites",
       "role": "popover",
       "priority": "P0",
-      "states": ["idle", "launch"],
+      "states": [
+        "idle",
+        "launch"
+      ],
       "transitions": [
-        { "action": "click-favorite", "from": "idle", "to": "launch" }
+        {
+          "action": "click-favorite",
+          "from": "idle",
+          "to": "launch"
+        }
       ],
       "capsuleSelector": "#mint-tray-favorites",
-      "vmRef": "panel1:right:6:favorites@cinnamon.org"
+      "vmRef": "panel1:right:6:favorites@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.tray.network",
       "role": "modal",
       "priority": "P0",
-      "states": ["closed", "open"],
+      "states": [
+        "closed",
+        "open"
+      ],
       "capsuleSelector": "#mint-tray-popover-network",
-      "vmRef": "network@cinnamon.org"
+      "vmRef": "network@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.tray.volume",
       "role": "popover",
       "priority": "P0",
-      "states": ["closed", "open"],
+      "states": [
+        "closed",
+        "open"
+      ],
       "capsuleSelector": "#volume-popover",
-      "vmRef": "sound@cinnamon.org"
+      "vmRef": "sound@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.tray.calendar",
       "role": "popover",
       "priority": "P0",
-      "states": ["closed", "open"],
+      "states": [
+        "closed",
+        "open"
+      ],
       "capsuleSelector": "#taskbar-calendar-popover",
-      "vmRef": "calendar@cinnamon.org"
+      "vmRef": "calendar@cinnamon.org",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.window.muffin",
       "role": "modal",
       "priority": "P0",
-      "states": ["normal", "maximized", "minimized"],
+      "states": [
+        "normal",
+        "maximized",
+        "minimized"
+      ],
       "capsuleSelector": ".windowElement[data-link]",
-      "vmRef": "Muffin WM"
+      "vmRef": "Muffin WM",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     },
     {
       "id": "shell.alt-tab",
       "role": "modal",
       "priority": "P1",
-      "states": ["hidden", "visible"],
+      "states": [
+        "hidden",
+        "visible"
+      ],
       "capsuleSelector": ".cinnamon-alt-tab",
-      "vmRef": "Cinnamon Alt+Tab"
+      "vmRef": "Cinnamon Alt+Tab",
+      "capsuleMatch": "partial",
+      "vmBurstAt": "2026-06-08T09:12:35.011Z"
     }
   ],
   "discoveredApps": [],
-  "notes": "Étape suivante : collect-ui-state-effects.mjs quand outil lab Cinnamon disponible ; étendre discoveredApps depuis AppV."
+  "notes": "Étape suivante : collect-ui-state-effects.mjs quand outil lab Cinnamon disponible ; étendre discoveredApps depuis AppV.",
+  "burst": {
+    "tray": {
+      "ok": true,
+      "note": "smoke OK"
+    },
+    "interaction": {
+      "ok": true,
+      "note": "smoke OK"
+    },
+    "results": [
+      {
+        "id": "shell.panel.menu",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.panel.grouped-window-list",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.tray.favorites",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.tray.network",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.tray.volume",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.tray.calendar",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.window.muffin",
+        "capsuleMatch": "partial"
+      },
+      {
+        "id": "shell.alt-tab",
+        "capsuleMatch": "partial"
+      }
+    ]
+  }
 }

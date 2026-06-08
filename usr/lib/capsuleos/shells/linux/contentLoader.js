@@ -449,6 +449,11 @@ const SLOT_INIT_HANDLERS = {
             initMintInstallApp();
         }
     },
+    system_monitor: () => {
+        if (typeof initSystemMonitorApp === 'function') {
+            initSystemMonitorApp();
+        }
+    },
     calculator: () => {
         if (typeof initCalculatorApp === 'function') {
             initCalculatorApp();

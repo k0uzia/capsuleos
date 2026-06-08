@@ -56,6 +56,13 @@ div.windowElement[data-link="mintinstall"]:not(#mainMenu) {
     min-height: var(--win-mintinstall-min-height);
 }
 
+div.windowElement[data-link="system_monitor"]:not(#mainMenu) {
+    width: var(--win-system_monitor-width);
+    min-width: var(--win-system_monitor-min-width);
+    height: var(--win-system_monitor-height);
+    min-height: var(--win-system_monitor-min-height);
+}
+
 div.windowElement[data-link="file_roller"]:not(#mainMenu) {
     width: var(--win-file_roller-width);
     min-width: var(--win-file_roller-min-width);

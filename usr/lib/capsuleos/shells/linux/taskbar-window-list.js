@@ -33,6 +33,7 @@
         lecteur_multimedia: 'Lecteur vidéo',
         update_manager: 'Gestionnaire de mises à jour',
         mintinstall: 'Logithèque',
+        system_monitor: 'Moniteur système',
         text_editor: 'Éditeur de texte',
         calculator: 'Calculatrice',
         clocks: 'Horloges',

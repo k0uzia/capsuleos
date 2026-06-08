@@ -16,6 +16,7 @@
         file_roller: 'Gestionnaire d\'archives',
         mintdrivers: 'Gestionnaire de pilotes',
         mintinstall: 'Logithèque',
+        system_monitor: 'Moniteur système',
         update_manager: 'Gestionnaire de mise à jour',
     };
 
@@ -256,6 +257,9 @@
             if (slotId === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
                 window.initMintInstallApp();
             }
+            if (slotId === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+                window.initSystemMonitorApp();
+            }
         },
     });
 
@@ -270,6 +274,9 @@
         }
         if (ok && dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
             window.initMintInstallApp();
+        }
+        if (ok && dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+            window.initSystemMonitorApp();
         }
         return ok;
     };

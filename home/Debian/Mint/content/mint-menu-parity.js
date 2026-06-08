@@ -35,6 +35,11 @@
                 app.dataLink = 'mintinstall';
                 app.icon = panelIcon + 'mintinstall.png';
             }
+            if (app.name === 'System Monitor' || app.name === 'Moniteur système') {
+                app.dataLink = 'system_monitor';
+                app.name = 'Moniteur système';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor.png';
+            }
             if (app.name === 'Thèmes') {
                 app.icon = panelIcon + 'preferences-desktop-theme.png';
             }

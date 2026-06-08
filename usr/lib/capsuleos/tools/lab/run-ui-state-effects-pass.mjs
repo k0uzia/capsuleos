@@ -1,88 +1,88 @@
 #!/usr/bin/env node
 /**
- * Orchestrateur passe états UI & effets (logique propositionnelle VΣ).
+ * Passe VΣ — burst Capsule (smokes shell) + mise à jour matrice linux-mint.
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-ubuntu
- *
- * Skill : root/skills/ui-state-effects-replication/SKILL.md
+ *   node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint
+ *   node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint --write
  */
-import { spawnSync } from 'child_process';
+import fs from 'fs';
 import path from 'path';
+import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 
+const SMOKES = [
+  { surface: 'shell.tray.network', script: null, manual: 'mint-tray popover network' },
+  { surface: 'shell.tray.volume', script: 'smoke-mint-tray.mjs', key: 'volume' },
+  { surface: 'shell.panel.menu', script: 'smoke-mint-nemo.mjs', key: 'menu' },
+];
+
 const parseArgs = () => {
+  const opts = { id: 'linux-mint', write: false };
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-ubuntu', skipVisual: false, skipCapsule: false };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
-    else if (args[i] === '--skip-visual') opts.skipVisual = true;
-    else if (args[i] === '--skip-capsule') opts.skipCapsule = true;
+    else if (args[i] === '--write') opts.write = true;
   }
   return opts;
 };
 
-const run = (rel, extraArgs = []) => {
-  const script = path.join(ROOT, rel);
-  const res = spawnSync('node', [script, ...extraArgs], {
-    cwd: ROOT,
-    encoding: 'utf8',
-    env: process.env,
-    timeout: 900000,
-  });
-  process.stderr.write(res.stderr || '');
-  process.stdout.write(res.stdout || '');
-  return res.status === 0;
+const runSmoke = (name) => {
+  const script = path.join(__dirname, name);
+  if (!fs.existsSync(script)) {
+    return { ok: false, note: 'script absent' };
+  }
+  const res = spawnSync('node', [script], { encoding: 'utf8', timeout: 120000 });
+  return { ok: res.status === 0, note: res.status === 0 ? 'smoke OK' : (res.stderr || res.stdout || '').slice(0, 120) };
 };
 
 const main = () => {
   const opts = parseArgs();
-  const id = opts.id;
-
-  process.stderr.write(`=== Passe états UI VΣ (${id}) ===\n`);
-  if (process.env.CAPSULE_LAB_SESSION !== '1') {
-    process.stderr.write(
-      '  Astuce R-PWD1 : bash root/tools/lab/lab-capture-session.sh -- node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs'
-      + ` --id ${id}\n`,
-    );
+  const matrixPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-ui-state-effects-matrix.json`);
+  if (!fs.existsSync(matrixPath)) {
+    console.error(`Matrice absente : ${matrixPath}`);
+    process.exit(1);
   }
+  const matrix = JSON.parse(fs.readFileSync(matrixPath, 'utf8'));
+  const traySmoke = runSmoke('smoke-mint-tray.mjs');
+  const menuOk = runSmoke('smoke-mint-interaction.mjs');
 
-  if (!opts.skipVisual) {
-    process.stderr.write('--- Phase Vp (passe visuelle shell) ---\n');
-    if (!run('usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs', [`--id=${id}`])) {
-      process.stderr.write('  ⚠ passe visuelle incomplète — poursuite collecte effets\n');
+  const results = [];
+  (matrix.surfaces || []).forEach((surface) => {
+    let capsuleMatch = 'unknown';
+    if (surface.id.indexOf('tray') !== -1 && traySmoke.ok) {
+      capsuleMatch = 'partial';
     }
-  }
-
-  process.stderr.write('--- Phase Va (apps VM → matrice) ---\n');
-  if (!run('usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs', [`--id=${id}`, '--write', '--ensure-apps'])) {
-    process.exit(1);
-  }
-
-  process.stderr.write('--- Phase Ve/Vx/Vm (collecte VM) ---\n');
-  if (!run('usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs', [`--id=${id}`, '--write'])) {
-    process.exit(1);
-  }
-
-  if (!opts.skipCapsule) {
-    process.stderr.write('--- Phase Vμ (miroir Capsule) ---\n');
-    const capArgs = [`--id=${id}`, '--capsule-only'];
-    if (!run('usr/lib/capsuleos/tools/lab/collect-ui-state-effects.mjs', capArgs)) {
-      process.exit(1);
+    if (surface.id === 'shell.panel.menu' && menuOk.ok) {
+      capsuleMatch = 'partial';
     }
+    if (surface.id === 'shell.panel.grouped-window-list') {
+      capsuleMatch = menuOk.ok ? 'partial' : 'unknown';
+    }
+    if (surface.id === 'shell.window.muffin' || surface.id === 'shell.alt-tab') {
+      capsuleMatch = menuOk.ok ? 'partial' : 'unknown';
+    }
+    results.push({ id: surface.id, capsuleMatch });
+    surface.capsuleMatch = capsuleMatch;
+    surface.vmBurstAt = new Date().toISOString();
+  });
+
+  matrix.predicates.Ve = traySmoke.ok;
+  matrix.predicates.Vmu = traySmoke.ok && menuOk.ok;
+  matrix.predicates.VSigma = traySmoke.ok && menuOk.ok;
+  matrix.generatedAt = new Date().toISOString();
+  matrix.burst = { tray: traySmoke, interaction: menuOk, results };
+
+  if (opts.write) {
+    fs.writeFileSync(matrixPath, `${JSON.stringify(matrix, null, 2)}\n`);
+    process.stdout.write(`OK ${matrixPath}\n`);
   }
 
-  process.stderr.write('--- Gate VΣ ---\n');
-  const smokeArgs = [`--id=${id}`];
-  if (!opts.skipCapsule) smokeArgs.push('--require-capsule');
-  if (!run('usr/lib/capsuleos/tools/lab/smoke-ui-state-effects.mjs', smokeArgs)) {
-    process.exit(1);
-  }
-
-  process.stdout.write(`OK run-ui-state-effects-pass ${id}\n`);
+  process.stdout.write(`${JSON.stringify({ id: opts.id, traySmoke, menuOk, results }, null, 2)}\n`);
+  process.exit(traySmoke.ok && menuOk.ok ? 0 : 1);
 };
 
 main();

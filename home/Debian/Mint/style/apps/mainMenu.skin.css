@@ -6,7 +6,7 @@ body#mint div[data-link="mainMenu"]#mainMenu {
     left: 0;
     bottom: 2px;
     top: auto;
-    width: min(calc(var(--head) * 15), 92vw);
+    width: min(calc(var(--head) * 17), 92vw);
     height: min(calc(var(--head) * 12), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
     display: none;
     flex-flow: column;
@@ -97,7 +97,13 @@ body#mint div[data-link="mainMenu"] .menu-user__name {
 
 body#mint div[data-link="mainMenu"] .menu-shortcut {
     font-size: calc(var(--head) / 2.85);
+    padding: calc(var(--head) / 5) calc(var(--head) / 5);
     border-left-width: 0;
+}
+
+body#mint div[data-link="mainMenu"] .menu-shortcut span {
+    flex: 1;
+    min-width: 0;
 }
 
 body#mint div[data-link="mainMenu"] .menu-shortcut img {
@@ -106,11 +112,13 @@ body#mint div[data-link="mainMenu"] .menu-shortcut img {
 }
 
 body#mint div[data-link="mainMenu"] .menu-sidebar {
-    width: calc(var(--head) * 3);
+    width: calc(var(--head) * 5.5);
+    flex-shrink: 0;
 }
 
 body#mint div[data-link="mainMenu"] .menu-categories {
-    width: calc(var(--head) * 3.75);
+    width: calc(var(--head) * 4.25);
+    flex-shrink: 0;
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat {
@@ -151,6 +159,8 @@ body#mint div[data-link="mainMenu"] .menu-app-item.is-unavailable {
 
 body#mint div[data-link="mainMenu"] .menu-search-wrap {
     border-top-color: var(--menu-sidebar-separator);
+    padding: calc(var(--head) / 6) calc(var(--head) / 5);
+    box-sizing: border-box;
 }
 
 body#mint div[data-link="mainMenu"] .menu-search {

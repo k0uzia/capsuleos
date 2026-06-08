@@ -257,6 +257,108 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       className: 'is-on',
     });
   }
+  if (scenario.id === 'firefox-url-bar') {
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="firefox"] [data-browser-address]',
+      desc: 'focus barre adresse',
+    });
+    plan.actions.push({
+      type: 'fill',
+      selector: 'div[data-link="firefox"] [data-browser-address]',
+      value: 'linuxmint.com',
+    });
+    plan.actions.push({
+      type: 'pressKey',
+      key: 'Enter',
+      selector: 'div[data-link="firefox"] [data-browser-address]',
+      desc: 'valider navigation',
+    });
+    plan.actions.push({ type: 'wait', ms: 280 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="firefox"] [data-browser-site]:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="firefox"] .capsule-browser-site__title',
+      text: 'Linux Mint',
+    });
+    plan.assertions.push({
+      type: 'inputValueContains',
+      selector: 'div[data-link="firefox"] [data-browser-address]',
+      text: 'linuxmint.com',
+    });
+  }
+  if (scenario.id === 'firefox-tabs') {
+    plan.actions.push({
+      type: 'focus',
+      selector: 'div[data-link="firefox"] [data-firefox-app]',
+      desc: 'focus Firefox',
+    });
+    plan.actions.push({
+      type: 'pressKey',
+      key: 'Control+t',
+      selector: 'div[data-link="firefox"] [data-firefox-app]',
+      desc: 'Ctrl+T nouvel onglet',
+    });
+    plan.actions.push({ type: 'wait', ms: 220 });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="firefox"] .firefox-tabbar',
+      min: 2,
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="firefox"] .firefox-tab:first-child',
+      desc: 'basculer onglet 1',
+    });
+    plan.actions.push({ type: 'wait', ms: 150 });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="firefox"] .firefox-tab:first-child',
+      className: 'capsule-browser__tab--active',
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="firefox"] .firefox-tab:last-child [data-browser-tab-close]',
+      desc: 'fermer onglet actif',
+    });
+    plan.actions.push({ type: 'wait', ms: 150 });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="firefox"] .firefox-tabbar',
+      min: 1,
+    });
+  }
+  if (scenario.id === 'firefox-hamburger-menu') {
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="firefox"] .firefox-appmenu-button',
+      desc: 'menu hamburger',
+    });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="firefox"] .firefox-appmenu:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="firefox"] .firefox-appmenu',
+      min: 4,
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="firefox"] .firefox-appmenu .capsule-browser__menu-item:first-child',
+      desc: 'Nouvel onglet via menu',
+    });
+    plan.actions.push({ type: 'wait', ms: 180 });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="firefox"] .firefox-tabbar',
+      min: 2,
+    });
+  }
   if (scenario.id === 'mintinstall-app-detail') {
     plan.actions.push({ type: 'fill', selector: 'div[data-link="mintinstall"] #mi-search', value: 'vlc' });
     plan.actions.push({ type: 'wait', ms: 220 });
@@ -334,6 +436,13 @@ const runScenarioActions = async (page, plan) => {
       await page.click(action.selector);
     } else if (action.type === 'fill') {
       await page.fill(action.selector, action.value || '');
+    } else if (action.type === 'focus') {
+      await page.focus(action.selector);
+    } else if (action.type === 'pressKey') {
+      if (action.selector) {
+        await page.focus(action.selector);
+      }
+      await page.keyboard.press(action.key || 'Enter');
     } else if (action.type === 'contextMenu') {
       await page.evaluate(({ selector, x, y }) => {
         const el = document.querySelector(selector);
@@ -396,6 +505,11 @@ const runScenarioAssertions = async (page, plan, errors) => {
       if (!text || text.indexOf(a.text) < 0) {
         errors.push(`Texte "${a.text}" absent dans ${a.selector}`);
       }
+    } else if (a.type === 'inputValueContains') {
+      const value = await page.inputValue(a.selector).catch(() => '');
+      if (!value || value.indexOf(a.text) < 0) {
+        errors.push(`Valeur "${a.text}" absente dans ${a.selector}`);
+      }
     } else if (a.type === 'hasClass') {
       const hasClass = await page.evaluate(({ selector, className }) => {
         const node = document.querySelector(selector);
@@ -414,7 +528,7 @@ const runScenarioAssertions = async (page, plan, errors) => {
           return 0;
         }
         return node.querySelectorAll(
-          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb',
+          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb, .firefox-tab, .capsule-browser__menu-item',
         ).length;
       }, a.selector);
       if (count < (a.min || 1)) {

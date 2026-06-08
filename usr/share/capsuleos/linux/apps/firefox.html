@@ -1,6 +1,6 @@
   <section class="capsule-browser" data-firefox-app>
     <header class="capsule-browser__chrome" data-capsule-attr="aria-label:firefox.chromeAriaLabel" aria-label="Interface navigateur">
-      <div class="capsule-browser__tabsbar" data-capsule-attr="aria-label:firefox.tabsAriaLabel" aria-label="Onglets">
+      <div class="capsule-browser__tabsbar firefox-tabbar" data-capsule-attr="aria-label:firefox.tabsAriaLabel" aria-label="Onglets">
         <div class="capsule-browser__tabs-list" data-browser-tabs role="tablist"></div>
         <button type="button" class="capsule-browser__tab-add" data-browser-action="new-tab" aria-label="Nouvel onglet" data-capsule-attr="aria-label:firefox.tabNewButtonAria">+</button>
       </div>
@@ -18,7 +18,7 @@
           </button>
         </div>
 
-        <form class="capsule-browser__addressbar" data-browser-form>
+        <form class="capsule-browser__addressbar firefox-urlbar" data-browser-form>
           <label class="sr-only" for="capsule-browser-address-input" data-capsule-text="firefox.addressLabel">Adresse</label>
           <span class="capsule-browser__address-prefix" aria-hidden="true"></span>
           <input
@@ -47,7 +47,7 @@
           <button type="button" class="capsule-browser__btn capsule-browser__btn--ghost capsule-browser__btn--icon-star" data-browser-action="toggle-bookmarks" data-capsule-attr="aria-label:firefox.bookmarksStarAria" aria-pressed="false">
             <span class="sr-only">Favoris</span>
           </button>
-          <button type="button" class="capsule-browser__btn capsule-browser__btn--ghost capsule-browser__btn--icon-menu" data-browser-action="menu" data-capsule-attr="aria-label:firefox.menuAria">
+          <button type="button" class="capsule-browser__btn capsule-browser__btn--ghost capsule-browser__btn--icon-menu firefox-appmenu-button" data-browser-action="menu" data-capsule-attr="aria-label:firefox.menuAria">
             <span class="sr-only">Menu</span>
           </button>
         </div>
@@ -62,7 +62,7 @@
 
     <p class="capsule-browser__status" data-browser-status role="status" aria-live="polite" hidden></p>
 
-    <main class="capsule-browser__viewport" data-browser-view="home">
+    <main class="capsule-browser__viewport firefox-content" data-browser-view="home">
       <section class="capsule-browser-newtab" data-browser-home>
         <div class="capsule-browser-newtab__logo" aria-hidden="true"></div>
         <form class="capsule-browser-newtab__search" data-browser-newtab-form>
@@ -95,6 +95,13 @@
           loading="lazy"
           referrerpolicy="no-referrer"
         ></iframe>
+      </section>
+
+      <section class="capsule-browser-site" data-browser-site hidden>
+        <article class="capsule-browser-site__page" data-browser-site-page="linuxmint">
+          <h1 class="capsule-browser-site__title" data-capsule-text="firefox.siteLinuxMintTitle">Linux Mint</h1>
+          <p class="capsule-browser-site__lead" data-capsule-text="firefox.siteLinuxMintLead">From freedom came elegance — linuxmint.com</p>
+        </article>
       </section>
     </main>
   </section>

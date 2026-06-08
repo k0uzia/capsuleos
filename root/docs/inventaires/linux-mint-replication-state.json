@@ -67,7 +67,7 @@
       "label": "Shell Cinnamon (panel, WM, tray, bureau)",
       "predicates": ["Ve-shell", "Vμ-shell", "L-panel"],
       "status": "completed",
-      "commit": "pending",
+      "commit": "9cbcb8b",
       "objects": [
         "shell.panel.menu",
         "shell.panel.grouped-window-list",

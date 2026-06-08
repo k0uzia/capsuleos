@@ -379,6 +379,10 @@ const findFolderLabel = (path) => {
 const isDolphinTemplate = () => !!queryExplorerSlot('main#gestionnaire.dolphin-app');
 window.isDolphinTemplate = isDolphinTemplate;
 
+/** Presse-papiers, corbeille, menu contextuel, F2, etc. (Nautilus GNOME + Dolphin). */
+const usesAdvancedExplorerOps = () => isNautilusGnomeTemplate() || isDolphinTemplate();
+window.usesAdvancedExplorerOps = usesAdvancedExplorerOps;
+
 const isNautilusGnomeTemplate = () => {
     const main = queryExplorerSlot('main#gestionnaire');
     if (main && main.classList.contains('nautilus-app')) {
@@ -1478,6 +1482,20 @@ const renderDirectory = (path, options = {}) => {
         updateNautilusSelectionStatus(null);
         return;
     }
+    if (isDolphinTemplate()
+        && fileExplorerState.dolphinSearchScope === 'everywhere'
+        && searchQuery) {
+        if (typeof window.renderNautilusSearchEverywhere === 'function') {
+            window.renderNautilusSearchEverywhere(nemoElement, searchQuery);
+        } else if (typeof window.renderDolphinSearchEverywhere === 'function') {
+            window.renderDolphinSearchEverywhere(nemoElement, searchQuery);
+        } else {
+            return;
+        }
+        updateDolphinFolderPill(null, pane);
+        applyFileExplorerViewMode();
+        return;
+    }
 
     ensureNemoListViewChrome();
 
@@ -1887,8 +1905,33 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
 
 const toggleExplorerHiddenFiles = () => {
     fileExplorerState.showHiddenFiles = !fileExplorerState.showHiddenFiles;
-    renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
-    updatePathDisplay();
+    if (isDolphinTemplate()) {
+        ['primary', 'secondary'].forEach((pane) => {
+            if (pane === 'secondary' && !fileExplorerState.splitView) {
+                return;
+            }
+            const path = pane === 'secondary'
+                ? fileExplorerState.secondaryPath
+                : fileExplorerState.currentPath;
+            if (path) {
+                renderDirectory(path, { pane });
+            }
+        });
+        updateDolphinSidebarActive();
+        if (typeof window.updateDolphinExplorerChrome === 'function') {
+            window.updateDolphinExplorerChrome();
+        }
+        const nemoRoot = getExplorerWindowSlot();
+        const status = nemoRoot && nemoRoot.querySelector('#nemoFooterContainer .nemo-app__status-center p');
+        if (status) {
+            status.textContent = fileExplorerState.showHiddenFiles
+                ? 'Fichiers cachés affichés'
+                : 'Fichiers cachés masqués';
+        }
+    } else {
+        renderDirectory(fileExplorerState.currentPath, { pane: fileExplorerState.activePane || 'primary' });
+        updatePathDisplay();
+    }
     return fileExplorerState.showHiddenFiles;
 };
 

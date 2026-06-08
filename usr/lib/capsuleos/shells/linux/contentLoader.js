@@ -407,6 +407,9 @@ const SLOT_INIT_HANDLERS = {
         if (typeof window.initExplorerWindowInstance === 'function') {
             window.initExplorerWindowInstance(container);
         }
+        if (typeof window.preloadExplorerAdvancedChrome === 'function') {
+            window.preloadExplorerAdvancedChrome();
+        }
         if (typeof window.resetFileExplorerSlotBindings === 'function') {
             window.resetFileExplorerSlotBindings(container);
         }

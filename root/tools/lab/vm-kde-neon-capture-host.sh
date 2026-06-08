@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Captures KDE Neon VM : prépare l'état via SSH (session Plasma Wayland), image via virsh.
 # Usage :
-#   bash root/tools/lab/vm-kde-neon-capture-host.sh [--dolphin-only|--dolphin-views|--dolphin-split] [dest-dir]
+#   bash root/tools/lab/vm-kde-neon-capture-host.sh [--dolphin-only|--dolphin-views|--dolphin-split|--dolphin-search] [dest-dir]
 #
 # --dolphin-only  vm-dolphin.png (vue icônes, défaut Dolphin)
 # --dolphin-views vm-dolphin.png + vm-dolphin-compact.png + vm-dolphin-list.png (point 5 parité)
 # --dolphin-split vm-dolphin-split-only.png (vue scindée, action dbus split_view)
+# --dolphin-search vm-dolphin-search-open.png (toggle_search dbus)
 #
 # Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
 # Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
@@ -16,7 +17,9 @@ DEFAULT_DEST="$ROOT/home/public/Images/screen_KDE-Neon"
 DOLPHIN_ONLY=false
 DOLPHIN_VIEWS=false
 DOLPHIN_SPLIT=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ]; do
+DOLPHIN_SEARCH=false
+DOLPHIN_HAMBURGER=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-hamburger" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -25,6 +28,12 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--dolphin-split" ]; then
     DOLPHIN_SPLIT=true
+  fi
+  if [ "${1:-}" = "--dolphin-search" ]; then
+    DOLPHIN_SEARCH=true
+  fi
+  if [ "${1:-}" = "--dolphin-hamburger" ]; then
+    DOLPHIN_HAMBURGER=true
   fi
   shift
 done
@@ -191,6 +200,41 @@ shot() {
 
 
 echo "=== Captures KDE Neon VM ($VM_NAME) → $DEST ==="
+
+capture_dolphin_search_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_trigger_action toggle_search
+  sleep 1.5
+  shot "$DEST/vm-dolphin-search-open.png"
+  reset_apps
+}
+
+capture_dolphin_hamburger_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  prep_env 'svc=$(qdbus6 2>/dev/null | grep -o "org.kde.dolphin-[0-9]*" | head -1)
+    if [ -n "$svc" ]; then
+      qdbus6 "$svc" /dolphin/Dolphin_1/actions/hamburger_menu org.qtproject.Qt.QAction.trigger 2>/dev/null || true
+    fi
+    sleep 1'
+  shot "$DEST/vm-dolphin-hamburger-open.png"
+  reset_apps
+}
+
+if $DOLPHIN_HAMBURGER; then
+  capture_dolphin_hamburger_shots
+  echo "=== Terminé : vm-dolphin-hamburger-open.png (--dolphin-hamburger) ==="
+  exit 0
+fi
+
+if $DOLPHIN_SEARCH; then
+  capture_dolphin_search_shots
+  echo "=== Terminé : vm-dolphin-search-open.png (--dolphin-search) ==="
+  exit 0
+fi
 
 if $DOLPHIN_VIEWS; then
   capture_dolphin_view_shots

@@ -864,17 +864,22 @@
 
     const ensureDolphinWindowVisible = () => {
         const root = getRoot();
-        if (!root) {
+        const container = root
+            || document.querySelector('div.windowElement[data-link="nemo"]')
+            || document.querySelector('div[data-link="nemo"]');
+        if (!container) {
+            openCapsuleApp('nemo');
             return;
         }
-        const container = document.querySelector('div[data-link="nemo"]');
-        const hidden = (container && container.style.display === 'none')
-            || root.style.display === 'none';
+        const hidden = container.style.display === 'none';
         if (hidden) {
             openCapsuleApp('nemo');
             return;
         }
-        openCapsuleApp('nemo');
+        if (typeof window.CapsuleWindowShell !== 'undefined'
+            && typeof window.CapsuleWindowShell.activateWindow === 'function') {
+            window.CapsuleWindowShell.activateWindow(container);
+        }
     };
 
     const getActivePaneDirectoryPath = () => {

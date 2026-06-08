@@ -6,8 +6,8 @@
 
     let activeRename = null;
 
-    const isNautilusGnome = () => (
-        typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
+    const usesAdvancedExplorerOps = () => (
+        typeof global.usesAdvancedExplorerOps === 'function' && global.usesAdvancedExplorerOps()
     );
 
     const getRenameLabelNode = (link) => {
@@ -58,6 +58,7 @@
         }
         if (labelNode) {
             labelNode.hidden = false;
+            labelNode.classList.remove('nemo-app__item-name--renaming-host');
             if (restoreOriginal) {
                 labelNode.textContent = originalName;
             }
@@ -143,22 +144,22 @@
         input.spellcheck = false;
 
         let suffixNode = null;
-        labelNode.hidden = true;
         if (!isFolder && parts.suffix) {
             suffixNode = global.document.createElement('span');
             suffixNode.className = 'nemo-app__item-rename-suffix';
             suffixNode.textContent = parts.suffix;
         }
 
-        const host = labelNode.parentElement || link;
+        labelNode.textContent = '';
+        labelNode.classList.add('nemo-app__item-name--renaming-host');
         if (suffixNode) {
             const wrap = global.document.createElement('span');
             wrap.className = 'nemo-app__item-rename-wrap';
             wrap.appendChild(input);
             wrap.appendChild(suffixNode);
-            host.insertBefore(wrap, labelNode.nextSibling);
+            labelNode.appendChild(wrap);
         } else {
-            host.insertBefore(input, labelNode.nextSibling);
+            labelNode.appendChild(input);
         }
 
         link.classList.add('nemo-app__item--renaming');
@@ -231,7 +232,7 @@
     };
 
     function startExplorerInlineRename(link) {
-        if (!isNautilusGnome() || !link) {
+        if (!usesAdvancedExplorerOps() || !link) {
             return { ok: false };
         }
         if (activeRename) {

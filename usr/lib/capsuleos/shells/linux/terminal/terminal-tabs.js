@@ -5,7 +5,7 @@
 (function initTerminalTabs(global) {
     'use strict';
 
-    const PTYXIS_BODY_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos']);
+    const PTYXIS_BODY_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos', 'mint']);
     let tabSeq = 1;
     let restoringTabs = false;
 
@@ -292,10 +292,17 @@
         return tabsSlot;
     };
 
+    const usesMintTerminalTabs = () => Boolean(
+        global.document && global.document.body && global.document.body.id === 'mint',
+    );
+
     const buildTabButton = (tab, isActive, allowClose) => {
         const btn = global.document.createElement('button');
         btn.type = 'button';
-        btn.className = 'fedora-terminal-tabs__tab' + (isActive ? ' fedora-terminal-tabs__tab--active' : '');
+        const mintTabs = usesMintTerminalTabs();
+        const tabClass = mintTabs ? 'terminal-tabs__tab' : 'fedora-terminal-tabs__tab';
+        const activeClass = mintTabs ? 'terminal-tabs__tab--active' : 'fedora-terminal-tabs__tab--active';
+        btn.className = tabClass + (isActive ? ' ' + activeClass : '');
         btn.dataset.tabId = tab.id;
         btn.dataset.tabPrompt = tab.title;
         btn.setAttribute('role', 'tab');
@@ -315,6 +322,14 @@
         return btn;
     };
 
+    const resolveTabButtonSelector = () => (
+        usesMintTerminalTabs() ? '.terminal-tabs__tab' : '.fedora-terminal-tabs__tab'
+    );
+
+    const resolveActiveTabClass = () => (
+        usesMintTerminalTabs() ? 'terminal-tabs__tab--active' : 'fedora-terminal-tabs__tab--active'
+    );
+
     const renderTerminalTabs = (windowElement) => {
         const header = windowElement.querySelector('#windowHeader');
         const state = getWindowTabState(windowElement);
@@ -322,12 +337,16 @@
             return;
         }
         const tabsSlot = ensureFedoraTabsSlot(header);
-        let strip = tabsSlot.querySelector('.fedora-terminal-tabs');
+        let strip = tabsSlot.querySelector('.fedora-terminal-tabs, .terminal-tabs');
         if (!strip) {
             strip = global.document.createElement('div');
-            strip.className = 'fedora-terminal-tabs';
+            strip.className = usesMintTerminalTabs()
+                ? 'terminal-tabs'
+                : 'fedora-terminal-tabs';
             strip.setAttribute('aria-label', 'Onglets du terminal');
             tabsSlot.appendChild(strip);
+        } else if (usesMintTerminalTabs() && !strip.classList.contains('terminal-tabs')) {
+            strip.classList.add('terminal-tabs');
         }
 
         strip.innerHTML = '';
@@ -346,18 +365,20 @@
         if (strip.dataset.terminalTabsBound !== 'true') {
             strip.dataset.terminalTabsBound = 'true';
             strip.addEventListener('click', (event) => {
+                const tabSelector = resolveTabButtonSelector();
+                const activeClass = resolveActiveTabClass();
                 const close = event.target.closest('.fedora-terminal-tabs__close');
                 if (close) {
                     event.stopPropagation();
-                    const tabBtn = close.closest('.fedora-terminal-tabs__tab');
+                    const tabBtn = close.closest(tabSelector);
                     const tabId = tabBtn && tabBtn.dataset.tabId;
                     if (tabId) {
                         closeTerminalTab(tabId);
                     }
                     return;
                 }
-                const tabBtn = event.target.closest('.fedora-terminal-tabs__tab');
-                if (!tabBtn || tabBtn.classList.contains('fedora-terminal-tabs__tab--active')) {
+                const tabBtn = event.target.closest(tabSelector);
+                if (!tabBtn || tabBtn.classList.contains(activeClass)) {
                     return;
                 }
                 event.stopPropagation();
@@ -651,6 +672,15 @@
     global.shouldForceFreshTerminalSession = shouldForceFreshTerminalSession;
 
     if (global.document) {
+        global.document.addEventListener('keydown', (event) => {
+            if (!usesTerminalTabs() || !global.document.body || global.document.body.id !== 'mint') {
+                return;
+            }
+            if (event.ctrlKey && event.shiftKey && (event.key === 'T' || event.key === 't')) {
+                event.preventDefault();
+                openTerminalTab();
+            }
+        });
         global.document.addEventListener('capsule:slot-injected', (event) => {
             const detail = event.detail || {};
             if (detail.slotId === 'terminal' && detail.container && detail.container.dataset) {

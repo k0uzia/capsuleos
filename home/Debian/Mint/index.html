@@ -156,7 +156,16 @@
             <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
-            <div class="mint-panel__tray taskbar-tray" aria-label="Zone de notification">
+            <div class="mint-panel__tray taskbar-tray" id="system-tray" aria-label="Zone de notification">
+                <button type="button" class="taskbar-tray__btn sticky-applet-trigger" data-stk-applet-trigger
+                        aria-expanded="false" aria-controls="mint-sticky-applet"
+                        aria-label="Notes" title="Notes">
+                    <span class="taskbar-tray__icon taskbar-tray__icon--sticky" aria-hidden="true"></span>
+                </button>
+                <div class="mint-tray-popover sticky-applet" id="mint-sticky-applet" role="menu" aria-label="Notes récentes" hidden>
+                    <p class="sticky-applet__title">Notes récentes</p>
+                    <ul class="sticky-applet__list"></ul>
+                </div>
                 <button type="button"
                         class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray

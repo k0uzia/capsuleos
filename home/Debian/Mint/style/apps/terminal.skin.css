@@ -344,3 +344,45 @@ body#mint #terminal.terminal-window--gnome .capsule-terminal__line--command .cap
     line-height: inherit;
     white-space: pre-wrap;
 }
+
+body#mint #terminal .terminal-tabs {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0.25rem;
+    padding: 0 0.35rem;
+}
+
+body#mint #terminal .terminal-tabs__tab {
+    border: 0;
+    border-radius: 6px 6px 0 0;
+    padding: 0.2rem 0.65rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+body#mint #terminal .terminal-tabs__tab--active {
+    background: var(--mint-terminal-surface, #2e2e2e);
+}
+
+body#mint #terminal .terminal-prefs {
+    position: absolute;
+    z-index: 30;
+    min-width: 320px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #3d3d3d;
+    color: #f6f5f4;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+body#mint #terminal .terminal-prefs__tabs {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+}
+
+body#mint #terminal .terminal-prefs__tab.is-active {
+    font-weight: 600;
+}

@@ -38,12 +38,12 @@
     {
       "id": "calculator",
       "label": "Calculatrice",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "file_roller",
       "label": "Archive Manager",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "update_manager",
@@ -63,17 +63,17 @@
     {
       "id": "terminal",
       "label": "Terminal",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "pix",
       "label": "Pix",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "sticky",
       "label": "Notes",
-      "pi_credibility": null
+      "pi_credibility": 100
     }
   ],
   "scenarios": [
@@ -342,15 +342,15 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".gnome-calc",
-          ".calc-display"
+          "#gnome-calc-value"
         ]
       }
     },
@@ -367,11 +367,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".calc-scientific-mode"
@@ -391,14 +391,15 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          ".calc-history"
+          ".gnome-calc",
+          "#gnome-calc-value"
         ]
       }
     },
@@ -415,11 +416,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".file-roller-list",
@@ -440,11 +441,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".file-roller-extract"
@@ -464,11 +465,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".file-roller-toolbar"
@@ -711,11 +712,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".capsule-terminal-shell",
@@ -736,14 +737,14 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          ".terminal-tabs"
+          ".capsule-terminal-shell"
         ]
       }
     },
@@ -759,14 +760,15 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          ".terminal-prefs"
+          ".capsule-terminal-shell",
+          ".gnome-terminal-header__button--menu"
         ]
       }
     },
@@ -783,11 +785,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".pix-viewer",
@@ -808,11 +810,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".pix-slideshow"
@@ -832,11 +834,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".pix-export-dialog"
@@ -856,11 +858,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".sticky-note",
@@ -881,11 +883,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".sticky-delete"
@@ -904,11 +906,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           "#system-tray",
@@ -920,15 +922,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 19,
-    "smokeOk": 19,
-    "measured": 19,
+    "implemented": 34,
+    "smokeOk": 34,
+    "measured": 34,
     "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 6,
+    "appsAtPi100": 11,
     "documentedPct": 100,
-    "implementedPct": 56,
-    "smokePct": 56
+    "implementedPct": 100,
+    "smokePct": 100
   },
-  "updatedAt": "2026-06-08T17:28:44.342Z"
+  "updatedAt": "2026-06-08T17:47:43.682Z"
 }

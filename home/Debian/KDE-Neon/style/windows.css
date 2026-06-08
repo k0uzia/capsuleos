@@ -37,27 +37,27 @@ div[class^="windowElement"]:not(#mainMenu) {
     height: calc(var(--head) / 1.3);
     padding: calc(var(--head) / 4);
     border-radius: calc(var(--head) / 3.2) calc(var(--head) / 3.2) var(--z) var(--z);
-    color: var(--opensuse-window-titlebar-fg);
-    background: var(--opensuse-window-titlebar-bg);
+    color: var(--kde-neon-window-titlebar-fg);
+    background: var(--kde-neon-window-titlebar-bg);
     user-select: none;
-    border-bottom: 1px solid var(--opensuse-window-titlebar-border-color);
+    border-bottom: 1px solid var(--kde-neon-window-titlebar-border-color);
     transition: background-color var(--eas2), border-color var(--eas2);
     pointer-events: auto;
 }
 
 body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
-    height: var(--opensuse-konsole-header-height);
-    min-height: var(--opensuse-konsole-header-height);
+    height: var(--kde-neon-konsole-header-height);
+    min-height: var(--kde-neon-konsole-header-height);
 }
 
 body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
-    height: calc(100% - var(--opensuse-konsole-header-height));
-    min-height: calc(100% - var(--opensuse-konsole-header-height));
+    height: calc(100% - var(--kde-neon-konsole-header-height));
+    min-height: calc(100% - var(--kde-neon-konsole-header-height));
 }
 
 .windowElementActive #windowHeader {
-    background: var(--opensuse-window-titlebar-bg-active);
-    border-bottom: 1px solid var(--opensuse-window-titlebar-border-color-active);
+    background: var(--kde-neon-window-titlebar-bg-active);
+    border-bottom: 1px solid var(--kde-neon-window-titlebar-border-color-active);
 }
 
 #windowHeader>nav {
@@ -69,14 +69,14 @@ body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIf
 }
 
 html[data-theme="light"] #kde-neon #windowTitle {
-    color: var(--opensuse-window-titlebar-fg);
+    color: var(--kde-neon-window-titlebar-fg);
     filter: none;
     text-shadow: none;
 }
 
 /* En thème sombre KDE, le titre doit rester lisible (blanc) */
 body#kde-neon #windowTitle {
-    color: var(--opensuse-window-titlebar-fg);
+    color: var(--kde-neon-window-titlebar-fg);
     filter: none;
     text-shadow: none;
 }

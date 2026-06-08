@@ -28,7 +28,7 @@
     justify-content: space-between;
     gap: calc(var(--head) / 4);
     padding: calc(var(--head) / 3.5) calc(var(--head) / 2.2);
-    border-bottom: 1px solid var(--opensuse-menu-divider, rgba(0, 0, 0, 0.08));
+    border-bottom: 1px solid var(--kde-neon-menu-divider, rgba(0, 0, 0, 0.08));
 }
 
 #kde-neon .kde-tray-popover__title {
@@ -71,7 +71,7 @@
 
 #kde-neon .kde-tray-popover__row:hover,
 #kde-neon .kde-tray-popover__row.is-active {
-    background: var(--opensuse-menu-hover, rgba(61, 174, 233, 0.14));
+    background: var(--kde-neon-menu-hover, rgba(61, 174, 233, 0.14));
 }
 
 #kde-neon .kde-tray-popover__row-icon {
@@ -91,7 +91,7 @@
 
 #kde-neon .kde-tray-popover__footer {
     padding: calc(var(--head) / 4) calc(var(--head) / 2.2);
-    border-top: 1px solid var(--opensuse-menu-divider, rgba(0, 0, 0, 0.08));
+    border-top: 1px solid var(--kde-neon-menu-divider, rgba(0, 0, 0, 0.08));
 }
 
 #kde-neon .kde-tray-popover__footer-btn {
@@ -101,7 +101,7 @@
     border: 1px solid transparent;
     border-radius: calc(var(--head) / 10);
     background: transparent;
-    color: var(--opensuse-plasma-accent, #3daee9);
+    color: var(--kde-neon-plasma-accent, #3daee9);
     font: inherit;
     font-size: calc(var(--head) / 2.65);
     text-align: center;
@@ -110,7 +110,7 @@
 }
 
 #kde-neon .kde-tray-popover__footer-btn:hover {
-    background: var(--opensuse-menu-hover, rgba(61, 174, 233, 0.14));
+    background: var(--kde-neon-menu-hover, rgba(61, 174, 233, 0.14));
 }
 
 #kde-neon .kde-tray-popover--slider .kde-tray-popover__header {

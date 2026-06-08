@@ -94,7 +94,7 @@ body {
     /* Réf. calendar.png @ 1211 px : popover ~535×267 px → ~13.4×6.7 × --head */
     --calendar-popover-width: min(calc(var(--head) * 13.375), calc(100vw - 1rem));
     --calendar-popover-max-height: min(calc(var(--head) * 9.5), calc(100vh - var(--taskbar-height) - 1rem));
-    --calendar-popover-offset: var(--opensuse-taskbar-edge-gap, calc(var(--head) / 5));
+    --calendar-popover-offset: var(--kde-neon-taskbar-edge-gap, calc(var(--head) / 5));
     --calendar-popover-font-size: calc(var(--head) * 0.35);
     --calendar-popover-month-size: calc(var(--head) * 0.55);
     --calendar-popover-tab-size: calc(var(--head) * 0.325);
@@ -110,34 +110,34 @@ body {
     --calendar-popover-arrow-size: calc(var(--head) * 0.7);
     --calendar-popover-arrow-font-size: calc(var(--head) * 0.45);
     --calendar-popover-arrow-radius: 4px;
-    --opensuse-konsole-header-height: 2.05rem;
-    --opensuse-header-icon-size: 0.96rem;
-    --opensuse-header-pin-size: 0.78rem;
-    --opensuse-header-title-size: 0.84rem;
-    --opensuse-header-control-filter: brightness(0) saturate(100%);
+    --kde-neon-konsole-header-height: 2.05rem;
+    --kde-neon-header-icon-size: 0.96rem;
+    --kde-neon-header-pin-size: 0.78rem;
+    --kde-neon-header-title-size: 0.84rem;
+    --kde-neon-header-control-filter: brightness(0) saturate(100%);
     /* VM kickoff popupWidth=677 popupHeight=513 (plasma-org.kde.plasma.desktop-appletsrc) */
-    --opensuse-menu-width: min(42.3125rem, calc(100vw - 1.25rem));
-    --opensuse-menu-height: min(32.0625rem, calc(100vh - var(--taskbar-height) - 1.25rem));
-    --opensuse-menu-radius: 0.45rem;
-    --opensuse-menu-rail-width: 4.2rem;
-    --opensuse-menu-rail-shortcut-min-h: 2.48rem;
-    --opensuse-menu-rail-icon-size: 1.54rem;
-    --opensuse-menu-rail-action-size: 2.22rem;
-    --opensuse-menu-rail-action-icon: 1.54rem;
-    --opensuse-menu-body-row-min-h: 2.42rem;
-    --opensuse-menu-cat-icon-size: 1.22rem;
-    --opensuse-menu-app-icon-size: 1.55rem;
-    --opensuse-menu-app-tile: 4.75rem;
-    --opensuse-menu-footer-height: 2.15rem;
-    --opensuse-menu-footer-bg: rgba(252, 252, 252, 0.98);
-    --opensuse-menu-search-min-height: 2.16rem;
-    --opensuse-menu-search-icon-size: 1.02rem;
-    --opensuse-menu-search-icon-left: 0.62rem;
-    --opensuse-menu-btn-radius: 0.34rem;
-    --opensuse-menu-apps-flyout-width: min(22rem, calc(100vw - 2rem));
-    --opensuse-menu-apps-flyout-gap: 0.22rem;
-    --opensuse-menu-apps-flyout-min-height: 5.25rem;
-    --opensuse-menu-apps-flyout-z: 520;
+    --kde-neon-menu-width: min(42.3125rem, calc(100vw - 1.25rem));
+    --kde-neon-menu-height: min(32.0625rem, calc(100vh - var(--taskbar-height) - 1.25rem));
+    --kde-neon-menu-radius: 0.45rem;
+    --kde-neon-menu-rail-width: 4.2rem;
+    --kde-neon-menu-rail-shortcut-min-h: 2.48rem;
+    --kde-neon-menu-rail-icon-size: 1.54rem;
+    --kde-neon-menu-rail-action-size: 2.22rem;
+    --kde-neon-menu-rail-action-icon: 1.54rem;
+    --kde-neon-menu-body-row-min-h: 2.42rem;
+    --kde-neon-menu-cat-icon-size: 1.22rem;
+    --kde-neon-menu-app-icon-size: 1.55rem;
+    --kde-neon-menu-app-tile: 4.75rem;
+    --kde-neon-menu-footer-height: 2.15rem;
+    --kde-neon-menu-footer-bg: rgba(252, 252, 252, 0.98);
+    --kde-neon-menu-search-min-height: 2.16rem;
+    --kde-neon-menu-search-icon-size: 1.02rem;
+    --kde-neon-menu-search-icon-left: 0.62rem;
+    --kde-neon-menu-btn-radius: 0.34rem;
+    --kde-neon-menu-apps-flyout-width: min(22rem, calc(100vw - 2rem));
+    --kde-neon-menu-apps-flyout-gap: 0.22rem;
+    --kde-neon-menu-apps-flyout-min-height: 5.25rem;
+    --kde-neon-menu-apps-flyout-z: 520;
 }
 
 /* Alignement pixel-perfect sur la capture ref. (1211×756) */

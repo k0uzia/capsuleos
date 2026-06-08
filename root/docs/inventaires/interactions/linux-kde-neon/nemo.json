@@ -1,0 +1,43 @@
+{
+  "registryId": "linux-kde-neon",
+  "slot": "nemo",
+  "label": "Dolphin",
+  "collectedAt": "2026-06-08T15:00:00.000Z",
+  "source": "capsule-doc+campaign-v2-reopen",
+  "campaign": "v2-reopen-post-merge",
+  "vmDoc": "linux-kde-neon-dolphin-diff.md",
+  "capsuleMapping": {
+    "template": "dolphin",
+    "skinJs": "home/Debian/KDE-Neon/js/dolphin-neon.js",
+    "skinCss": "home/Debian/KDE-Neon/style/apps/dolphin.skin.css",
+    "kernelContextMenu": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js"
+  },
+  "parityTiers": {
+    "structural": {
+      "status": "reaudit",
+      "points": "1-6",
+      "doc": "linux-kde-neon-dolphin-diff.md"
+    },
+    "interactional": {
+      "status": "open",
+      "points": "7-9",
+      "items": [
+        "search-bar-open",
+        "search-filter-menu",
+        "hamburger-flyouts",
+        "context-menu-p2"
+      ]
+    }
+  },
+  "captures": {
+    "capsule": "home/public/Images/screen_KDE-Neon/capsule-dolphin*.png",
+    "vm": "home/public/Images/screen_KDE-Neon/vm-dolphin*.png",
+    "baseline": "root/docs/inventaires/captures/linux-kde-neon/baseline/"
+  },
+  "gates": [
+    "sync-linux-skin-closure.mjs",
+    "validate-all.mjs",
+    "capture-clone-surfaces.mjs --id linux-kde-neon --compare"
+  ],
+  "notes": "Campagne v2 réouverte 2026-06-08. Clôture v1 structurelle conservée en doc ; réaudit VM + interactionnel requis."
+}

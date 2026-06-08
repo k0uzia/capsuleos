@@ -21,6 +21,7 @@
     "checklist.hint.open-menu": "Ouvre le menu des applications (icône en bas à gauche)",
     "checklist.hint.open-profile": "Ouvre le profil KDE Neon",
     "profile.windowTitle": "À propos - KDE Neon",
+    "firefox.windowTitle": "Navigateur Web — Firefox",
     "update_manager.windowTitle": "Page d'accueil — Discover"
 }
 

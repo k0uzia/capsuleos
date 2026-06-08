@@ -1095,9 +1095,9 @@
         }
     }
 
-    const ICON_BASE = '../../../usr/share/capsuleos/assets/icons/kde/nemo/';
-    const KICKOFF_ICON_BASE = '../../../usr/share/capsuleos/assets/images/vendors/neon/kickoff/';
-    const FILTER_ICON = '../../../usr/share/capsuleos/assets/images/toolkits/kde/menu/plasma/view-filter.svg';
+    const SEARCH_ICON_BASE = './assets/icons/kde/nemo/';
+    const SEARCH_KICKOFF_ICON_BASE = './assets/images/vendors/neon/kickoff/';
+    const SEARCH_FILTER_ICON = `${KDE_MENU_PLASMA}view-filter.svg`;
     let dolphinSearchBarBound = false;
 
     function ensureDolphinSearchState() {
@@ -1254,7 +1254,8 @@
             || bar.getAttribute('data-dolphin-filter-v') !== '2';
         if (needsRebuild) {
             const wasHidden = bar ? bar.hidden : true;
-            const previousValue = app.querySelector('#dolphin-search')?.value || '';
+            const searchInput = app.querySelector('#dolphin-search');
+            const previousValue = searchInput ? searchInput.value : '';
             if (bar) {
                 bar.remove();
             }
@@ -1268,12 +1269,12 @@
                 '<div class="dolphin-search-bar__main-row">',
                 '  <div class="dolphin-search-bar__field">',
                 '    <button type="button" class="dolphin-search-bar__save" aria-label="Enregistrer la recherche" title="Enregistrer la recherche" disabled tabindex="-1">',
-                `      <img src="${ICON_BASE}add-bookmark.svg" alt="" width="16" height="16">`,
+                `      <img src="${resolveHamburgerIconUrl(SEARCH_ICON_BASE + 'add-bookmark.svg')}" alt="" width="16" height="16">`,
                 '    </button>',
                 '  </div>',
                 '  <div class="dolphin-search-bar__filter-wrap">',
                 '    <button type="button" id="dolphin-search-filter-btn" class="dolphin-search-bar__filter-btn" aria-haspopup="true" aria-expanded="false">',
-                `      <img class="dolphin-search-bar__filter-icon" src="${FILTER_ICON}" alt="" width="16" height="16">`,
+                `      <img class="dolphin-search-bar__filter-icon" src="${resolveHamburgerIconUrl(SEARCH_FILTER_ICON)}" alt="" width="16" height="16">`,
                 '      <span>Filtrer</span>',
                 '      <span class="dolphin-search-bar__filter-caret" aria-hidden="true"></span>',
                 '    </button>',
@@ -1291,15 +1292,15 @@
                 '        <label class="dolphin-search-filter-menu__option dolphin-search-filter-menu__option--with-meta">',
                 '          <span class="dolphin-search-filter-menu__option-main"><input type="radio" name="dolphin-search-using" value="indexing" data-dolphin-search-using> Indexation des fichiers</span>',
                 '          <span class="dolphin-search-filter-menu__option-actions">',
-                '            <button type="button" class="dolphin-search-filter-menu__icon-btn" title="Informations sur l\'indexation" aria-label="Informations sur l\'indexation" disabled><img src="' + ICON_BASE + 'starred-symbolic.svg" alt="" width="16" height="16"></button>',
-                '            <button type="button" class="dolphin-search-filter-menu__icon-btn" title="Configuration de l\'indexation" aria-label="Configuration de l\'indexation" disabled><img src="' + ICON_BASE + 'applications-system.svg" alt="" width="16" height="16"></button>',
+                '            <button type="button" class="dolphin-search-filter-menu__icon-btn" title="Informations sur l\'indexation" aria-label="Informations sur l\'indexation" disabled><img src="' + resolveHamburgerIconUrl(SEARCH_ICON_BASE + 'starred-symbolic.svg') + '" alt="" width="16" height="16"></button>',
+                '            <button type="button" class="dolphin-search-filter-menu__icon-btn" title="Configuration de l\'indexation" aria-label="Configuration de l\'indexation" disabled><img src="' + resolveHamburgerIconUrl(SEARCH_ICON_BASE + 'applications-system.svg') + '" alt="" width="16" height="16"></button>',
                 '          </span>',
                 '        </label>',
                 '      </section>',
                 '      <section class="dolphin-search-filter-menu__section dolphin-search-filter-menu__section--kfind">',
                 '        <h3 class="dolphin-search-filter-menu__heading">Pour des recherches plus avancées :</h3>',
                 `        <button type="button" class="dolphin-search-filter-menu__kfind" disabled>`,
-                `          <img src="${KICKOFF_ICON_BASE}system-search.svg" alt="" width="22" height="22">`,
+                `          <img src="${resolveHamburgerIconUrl(SEARCH_KICKOFF_ICON_BASE + 'system-search.svg')}" alt="" width="22" height="22">`,
                 '          <span>Installer KFind...</span>',
                 '        </button>',
                 '      </section>',

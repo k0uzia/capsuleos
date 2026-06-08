@@ -40,6 +40,17 @@ const resetShell = async (page) => {
       menu.style.display = 'none';
       menu.classList.remove('windowElementActive', 'active');
     }
+    const dolphinRoot = document.querySelector('.windowElement[data-link="nemo"]');
+    if (dolphinRoot) {
+      const hamburger = dolphinRoot.querySelector('#dolphin-hamburger-menu');
+      if (hamburger) hamburger.hidden = true;
+      const filterMenu = dolphinRoot.querySelector('#dolphin-search-filter-menu');
+      if (filterMenu) filterMenu.hidden = true;
+      const searchBar = dolphinRoot.querySelector('#dolphin-search-bar');
+      if (searchBar) searchBar.hidden = true;
+      const app = dolphinRoot.querySelector('.dolphin-app');
+      if (app) app.classList.remove('dolphin-app--search-open');
+    }
   });
 };
 
@@ -126,6 +137,42 @@ const openSlot = async (page, slot, scene = {}) => {
       );
       await sleep(page, 500);
     }
+    if (scene.dolphinSearch) {
+      await page.click('.dolphin-toolbar__search, .dolphin-toolbar__btn--search');
+      await page.waitForFunction(
+        () => {
+          const bar = document.querySelector('#dolphin-search-bar');
+          return bar && !bar.hidden;
+        },
+        null,
+        { timeout: 5000 },
+      );
+      await sleep(page, 400);
+    }
+    if (scene.dolphinSearchFilter) {
+      if (!scene.dolphinSearch) {
+        await page.click('.dolphin-toolbar__search, .dolphin-toolbar__btn--search');
+        await page.waitForFunction(
+          () => {
+            const bar = document.querySelector('#dolphin-search-bar');
+            return bar && !bar.hidden;
+          },
+          null,
+          { timeout: 5000 },
+        );
+        await sleep(page, 300);
+      }
+      await page.click('#dolphin-search-filter-btn', { force: true });
+      await page.waitForFunction(
+        () => {
+          const menu = document.querySelector('#dolphin-search-filter-menu');
+          return menu && !menu.hidden;
+        },
+        null,
+        { timeout: 5000 },
+      );
+      await sleep(page, 400);
+    }
   }
   if (slot === 'update_manager') {
     await page.waitForFunction(
@@ -138,14 +185,16 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 60000 },
     );
     const shouldMaximize = scene.maximize !== false;
-    const isMaximized = await page.evaluate(
-      () => document.querySelector('.windowElement[data-link="update_manager"]')?.dataset.maximized === 'true',
-    );
+    const isMaximized = await page.evaluate(() => {
+      const root = document.querySelector('.windowElement[data-link="update_manager"]');
+      return root && root.dataset.maximized === 'true';
+    });
     if (shouldMaximize !== isMaximized) {
-      await page.click('#resizeBtn');
+      await page.click('.windowElement[data-link="update_manager"] #resizeBtn');
       await page.waitForFunction(
         (wantMax) => {
-          const max = document.querySelector('.windowElement[data-link="update_manager"]')?.dataset.maximized === 'true';
+          const root = document.querySelector('.windowElement[data-link="update_manager"]');
+          const max = root && root.dataset.maximized === 'true';
           return wantMax ? max : !max;
         },
         shouldMaximize,
@@ -231,7 +280,9 @@ const main = async () => {
     { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
     { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
     { file: 'capsule-dolphin-split.png', slots: ['nemo'], dolphinSplit: true },
-    { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinSplit: true, dolphinHamburger: true },
+    { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinHamburger: true },
+    { file: 'capsule-dolphin-search-open.png', slots: ['nemo'], dolphinSearch: true },
+    { file: 'capsule-dolphin-search-filter-open.png', slots: ['nemo'], dolphinSearch: true, dolphinSearchFilter: true },
     { file: 'capsule-discover.png', slots: ['update_manager'] },
     {
       file: 'capsule-discover-installed.png',

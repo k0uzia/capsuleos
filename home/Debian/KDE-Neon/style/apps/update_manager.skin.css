@@ -5,7 +5,7 @@ body#kde-neon div[data-link="update_manager"] {
     --discover-titlebar-bg: #dee0e2;
     --discover-titlebar-bg-active: #d5d7da;
     --discover-titlebar-border: rgba(35, 38, 41, 0.12);
-    --discover-header-height: var(--opensuse-konsole-header-height);
+    --discover-header-height: var(--kde-neon-konsole-header-height);
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -122,7 +122,7 @@ body#kde-neon div[data-link="update_manager"] #windowHeader > nav:last-child > b
     background-repeat: no-repeat;
     box-shadow: none;
     transform: none;
-    filter: var(--opensuse-header-control-filter-light);
+    filter: var(--kde-neon-header-control-filter-light);
 }
 
 body#kde-neon div[data-link="update_manager"] #windowHeader > nav:last-child > button:hover {
@@ -144,7 +144,7 @@ body#kde-neon div[data-link="update_manager"] #closeBtn:hover {
 
 html[data-theme="light"] #kde-neon div[data-link="update_manager"] #windowHeader > nav > button,
 html:not([data-theme="light"]) #kde-neon div[data-link="update_manager"] #windowHeader > nav > button {
-    filter: var(--opensuse-header-control-filter-light);
+    filter: var(--kde-neon-header-control-filter-light);
 }
 
 body#kde-neon div[data-link="update_manager"] main#updateManagerApp {

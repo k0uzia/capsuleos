@@ -5,12 +5,12 @@
 
 /* Barre titre claire Plasma (alignée Discover / fenêtres génériques Neon) */
 html[data-theme="light"] body#kde-neon div[data-link="nemo"] {
-    --dolphin-window-header-start: var(--opensuse-window-titlebar-bg, #eff0f1);
-    --dolphin-window-header-end: var(--opensuse-window-titlebar-bg, #eff0f1);
-    --dolphin-window-header-active-start: var(--opensuse-window-titlebar-bg-active, #e5e7ea);
-    --dolphin-window-header-active-end: var(--opensuse-window-titlebar-bg-active, #e5e7ea);
-    --dolphin-window-title-fg: var(--opensuse-window-titlebar-fg, #232629);
-    --dolphin-window-titlebar-border: var(--opensuse-window-titlebar-border-color, rgba(35, 38, 41, 0.14));
+    --dolphin-window-header-start: var(--kde-neon-window-titlebar-bg, #eff0f1);
+    --dolphin-window-header-end: var(--kde-neon-window-titlebar-bg, #eff0f1);
+    --dolphin-window-header-active-start: var(--kde-neon-window-titlebar-bg-active, #e5e7ea);
+    --dolphin-window-header-active-end: var(--kde-neon-window-titlebar-bg-active, #e5e7ea);
+    --dolphin-window-title-fg: var(--kde-neon-window-titlebar-fg, #232629);
+    --dolphin-window-titlebar-border: var(--kde-neon-window-titlebar-border-color, rgba(35, 38, 41, 0.14));
     --dolphin-icon-filter-sidebar: none;
     --dolphin-icon-opacity-sidebar: 1;
     --nemo-list-row-border: rgba(35, 38, 41, 0.12);
@@ -98,8 +98,8 @@ body#kde-neon div[data-link="nemo"] #windowHeader {
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    height: var(--opensuse-konsole-header-height);
-    min-height: var(--opensuse-konsole-header-height);
+    height: var(--kde-neon-konsole-header-height);
+    min-height: var(--kde-neon-konsole-header-height);
     margin: 0;
     padding: 0 0.42rem;
     border: 0;
@@ -191,7 +191,7 @@ body#kde-neon div[data-link="nemo"] #windowHeader > nav:last-child > button {
     border-radius: 0.18rem;
     box-shadow: none;
     transform: none;
-    filter: var(--opensuse-header-control-filter-light);
+    filter: var(--kde-neon-header-control-filter-light);
 }
 
 body#kde-neon div[data-link="nemo"] #windowHeader > nav:last-child > button:hover {
@@ -214,7 +214,7 @@ body#kde-neon div[data-link="nemo"] #closeBtn:hover {
 
 html[data-theme="light"] #kde-neon div[data-link="nemo"] #windowHeader > nav > button,
 html[data-theme="light"] #kde-neon div[data-link="nemo"] #windowHeader > nav > button:hover {
-    filter: var(--opensuse-header-control-filter-light);
+    filter: var(--kde-neon-header-control-filter-light);
 }
 
 body#kde-neon div[data-link="nemo"] #windowIframe {

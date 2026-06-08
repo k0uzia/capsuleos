@@ -1,3 +1,204 @@
-/* KDE Neon — Firefox (placeholder)
-   Le loader attend ce fichier; styles spécifiques à ajouter si besoin. */
+/**
+ * Firefox — KDE neon User Edition (VM : browser.tabs.inTitlebar=0, barre Muffin/Breeze séparée).
+ * Chrome Proton sombre sous la titlebar Breeze claire.
+ */
+body#kde-neon div[data-link="firefox"] {
+    --konsole-header-height: var(--kde-neon-konsole-header-height);
+    --firefox-window-header-bg: var(--kde-neon-window-titlebar-bg);
+    --firefox-bg-main: #1c1b22;
+    --firefox-text-main: #eff0f1;
+    --firefox-chrome-border: 1px solid rgba(35, 38, 41, 0.22);
+    --firefox-chrome-bg: #2b2a33;
+    --firefox-tabs-bg: #1c1b22;
+    --firefox-tabs-border: 1px solid rgba(35, 38, 41, 0.22);
+    --firefox-tab-border: 1px solid transparent;
+    --firefox-tab-bg: #2b2a33;
+    --firefox-tab-text: #b1b1b3;
+    --firefox-tab-active-text: #eff0f1;
+    --firefox-tab-active-bg: #42414d;
+    --firefox-tab-close: rgba(225, 225, 225, 0.55);
+    --firefox-toolbar-bg: #2b2a33;
+    --firefox-toolbar-border: 1px solid rgba(35, 38, 41, 0.22);
+    --firefox-btn-text: #eff0f1;
+    --firefox-address-border: 1px solid #5e5c64;
+    --firefox-address-bg: #42414d;
+    --firefox-address-text: #eff0f1;
+    --firefox-bookmarks-bg: #2b2a33;
+    --firefox-bookmark-text: #eff0f1;
+    --firefox-bookmark-primary-bg: rgba(61, 174, 233, 0.22);
+    --firefox-bookmark-primary-text: #eff0f1;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+    border: 1px solid var(--kde-neon-window-titlebar-border-color);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 8px 24px rgba(35, 38, 41, 0.18);
+    background: var(--firefox-bg-main);
+    overflow: hidden;
+}
 
+body#kde-neon div[data-link="firefox"].windowElementActive {
+    border-color: rgba(61, 174, 233, 0.55);
+    box-shadow: 0 0 0 1px rgba(61, 174, 233, 0.35), 0 12px 28px rgba(35, 38, 41, 0.22);
+}
+
+body#kde-neon div[data-link="firefox"] #windowHeader {
+    flex-shrink: 0;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: var(--konsole-header-height);
+    margin: 0;
+    padding: 0 0.42rem;
+    border: 0;
+    border-bottom: 1px solid var(--kde-neon-window-titlebar-border-color);
+    border-radius: 5px 5px 0 0;
+    color: var(--kde-neon-window-titlebar-fg);
+    background: var(--firefox-window-header-bg);
+}
+
+body#kde-neon div[data-link="firefox"].windowElementActive #windowHeader {
+    background: var(--kde-neon-window-titlebar-bg-active);
+    border-bottom-color: var(--kde-neon-window-titlebar-border-color-active);
+}
+
+body#kde-neon div[data-link="firefox"] #windowTitle {
+    color: var(--kde-neon-window-titlebar-fg-muted);
+    font-size: var(--kde-neon-header-title-size);
+    text-shadow: none;
+    filter: none;
+}
+
+body#kde-neon div[data-link="firefox"] #windowIframe {
+    flex: 1;
+    min-height: 0;
+    width: var(--full);
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser {
+    width: var(--full);
+    height: var(--full);
+    min-height: 0;
+    color: var(--firefox-text-main);
+    background: var(--firefox-bg-main);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__chrome {
+    flex-shrink: 0;
+    border-bottom: var(--firefox-chrome-border);
+    background: var(--firefox-chrome-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__tabsbar {
+    gap: 0.28rem;
+    min-height: 2rem;
+    padding: 0.23rem 0.42rem 0;
+    border-bottom: var(--firefox-tabs-border);
+    background: var(--firefox-tabs-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__tab {
+    flex: 0 1 12.6rem;
+    min-width: 0;
+    max-width: min(12.6rem, calc(100% - 7rem));
+    height: 1.52rem;
+    padding: 0 0.42rem;
+    border: var(--firefox-tab-border);
+    border-radius: 0.36rem 0.36rem 0 0;
+    color: var(--firefox-tab-text);
+    background: var(--firefox-tab-bg);
+    font-size: 0.7rem;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__tab--active {
+    color: var(--firefox-tab-active-text);
+    background: var(--firefox-tab-active-bg);
+    box-shadow: inset 0 2px 0 var(--kde-neon-plasma-accent);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__tab-icon--firefox {
+    font-size: 0;
+    background: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/panel/firefox.png") center / contain no-repeat;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__toolbar {
+    gap: 0.35rem;
+    min-height: 2.05rem;
+    padding: 0.22rem 0.42rem;
+    border-bottom: var(--firefox-toolbar-border);
+    background: var(--firefox-toolbar-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__btn {
+    min-width: 1.48rem;
+    height: 1.48rem;
+    border: 1px solid transparent;
+    border-radius: 0.32rem;
+    color: var(--firefox-btn-text);
+    background: transparent;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__addressbar {
+    height: 1.62rem;
+    padding: 0 0.36rem;
+    border: var(--firefox-address-border);
+    border-radius: 0.32rem;
+    background: var(--firefox-address-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__addressbar:focus-within {
+    border-color: var(--kde-neon-plasma-accent);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__address-input {
+    color: var(--firefox-address-text);
+    font-size: 0.78rem;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__btn--go {
+    display: none;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__bookmarks {
+    gap: 0.16rem;
+    min-height: 1.34rem;
+    padding: 0.08rem 0.42rem 0.12rem;
+    border-bottom: var(--firefox-chrome-border);
+    background: var(--firefox-bookmarks-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__bookmark {
+    height: 1.18rem;
+    padding: 0 0.35rem;
+    border-radius: 0.25rem;
+    color: var(--firefox-bookmark-text);
+    font-size: 0.7rem;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__bookmark--primary {
+    color: var(--firefox-bookmark-primary-text);
+    background: var(--firefox-bookmark-primary-bg);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__status {
+    display: none;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser-newtab {
+    --firefox-newtab-bg: #1c1b22;
+    --firefox-newtab-search-bg: #42414d;
+    --firefox-newtab-search-border: 1px solid #5e5c64;
+    --firefox-newtab-logo-color: #ff7139;
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser-newtab__search:focus-within {
+    border-color: var(--kde-neon-plasma-accent);
+    box-shadow: 0 0 0 1px rgba(61, 174, 233, 0.35);
+}
+
+body#kde-neon div[data-link="firefox"] .capsule-browser__viewport {
+    flex: 1;
+    min-height: 0;
+}

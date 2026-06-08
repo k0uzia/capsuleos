@@ -67,6 +67,25 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - [x] Fond « Next » ou défaut Plasma Neon
 - [x] Passage `status: active` via `reactivate-os.mjs linux-kde-neon` (2026-06-07)
 
+## Phase F — campagne v2 réouverte (2026-06-08)
+
+> Post-merge `n0r3f/main` · modèle Mint v2 · [`linux-kde-neon-clone-status.md`](linux-kde-neon-clone-status.md)
+
+| Zone | Action | Statut |
+|------|--------|--------|
+| Baseline | Merge + correctifs HTTP post-merge | ✅ |
+| Gate H₂ | `validate-all.mjs` exit 0 (fix `?.` dolphin-neon) | ✅ |
+| Vues | `sync-all-views.mjs` | ✅ |
+| État formel | `linux-kde-neon-replication-state.json` | ✅ |
+| Clôtures doc | Réouverture parité + dolphin-diff points 7–9 | ✅ |
+| Baseline captures | `capture-clone-surfaces --id linux-kde-neon` | ✅ 2026-06-08 |
+| Dolphin VM | Captures recherche / hamburger / filtre | ⏳ Pass 3 |
+| Firefox P1 | inventaire + skin + smoke | ⏳ Pass 4 |
+| Tokens CSS | `--opensuse-*` → `--kde-neon-*` | ⏳ Pass 2 |
+| Clôture H₆ | baseline compare + brief agent | ⏳ Pass 5 |
+
+**Note** : les phases A–E restent la référence v1 ; la campagne v2 **réouvre** toutes les clôtures pour réaudit conventions et interactionnel Dolphin.
+
 ## Commandes VM (rappel)
 
 ```bash

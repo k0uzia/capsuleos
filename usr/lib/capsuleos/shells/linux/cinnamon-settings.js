@@ -166,6 +166,76 @@
         return section;
     }
 
+    function ensureBackgroundsPanel(panelsRoot) {
+        var existing = panelsRoot.querySelector('[data-cs-panel="backgrounds"]');
+        if (existing) {
+            existing.classList.add('cs-backgrounds');
+            if (!existing.querySelector('[data-wallpaper-grid]')) {
+                var wrap = global.document.createElement('div');
+                wrap.className = 'cs-bg-panel';
+                wrap.innerHTML = ''
+                    + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
+                    + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>';
+                existing.innerHTML = '';
+                existing.appendChild(wrap);
+            }
+            return existing;
+        }
+        var section = global.document.createElement('section');
+        section.className = 'cs-panel cs-backgrounds';
+        section.setAttribute('data-cs-panel', 'backgrounds');
+        section.setAttribute('hidden', 'hidden');
+        section.setAttribute('aria-label', 'Arrière-plans');
+        section.innerHTML = ''
+            + '<div class="cs-bg-panel">'
+            + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
+            + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>'
+            + '</div>';
+        panelsRoot.appendChild(section);
+        return section;
+    }
+
+    function ensureAppletsPanel(panelsRoot) {
+        var existing = panelsRoot.querySelector('[data-cs-panel="applets"]');
+        if (existing) {
+            return existing;
+        }
+        var appletItems = [
+            { id: 'calendar', label: 'Calendrier', on: true },
+            { id: 'clock', label: 'Horloge', on: true },
+            { id: 'show-desktop', label: 'Afficher le bureau', on: false }
+        ];
+        var section = global.document.createElement('section');
+        section.className = 'cs-panel cs-panel--applets';
+        section.setAttribute('data-cs-panel', 'applets');
+        section.setAttribute('hidden', 'hidden');
+        section.setAttribute('aria-label', 'Applets');
+        var list = global.document.createElement('ul');
+        list.className = 'cs-applets-list';
+        list.setAttribute('role', 'list');
+        var ai;
+        for (ai = 0; ai < appletItems.length; ai += 1) {
+            var item = appletItems[ai];
+            var li = global.document.createElement('li');
+            li.className = 'cs-applets-list__item';
+            var label = global.document.createElement('span');
+            label.className = 'cs-row__label';
+            label.textContent = item.label;
+            var sw = global.document.createElement('button');
+            sw.type = 'button';
+            sw.className = 'cs-switch' + (item.on ? ' is-on' : '');
+            sw.setAttribute('role', 'switch');
+            sw.setAttribute('aria-checked', item.on ? 'true' : 'false');
+            sw.setAttribute('data-cs-applet', item.id);
+            li.appendChild(label);
+            li.appendChild(sw);
+            list.appendChild(li);
+        }
+        section.appendChild(list);
+        panelsRoot.appendChild(section);
+        return section;
+    }
+
     function ensureGenericPanel(panelsRoot, panelId, label) {
         var existing = panelsRoot.querySelector('[data-cs-panel="' + panelId + '"]');
         if (existing) {
@@ -208,12 +278,16 @@
             var panel = PANELS[pi];
             if (panel.id === 'themes') {
                 ensureThemesPanel(panelsRoot);
+            } else if (panel.id === 'backgrounds') {
+                ensureBackgroundsPanel(panelsRoot);
+            } else if (panel.id === 'applets') {
+                ensureAppletsPanel(panelsRoot);
             } else {
                 ensureGenericPanel(panelsRoot, panel.id, panel.label);
             }
             var btn = global.document.createElement('button');
             btn.type = 'button';
-            btn.className = 'cs-app__nav' + (panel.id === 'general' ? ' is-active' : '');
+            btn.className = 'cs-app__nav cs-category' + (panel.id === 'general' ? ' is-active' : '');
             btn.setAttribute('data-cs-nav', panel.id);
             btn.setAttribute('title', panel.label);
             btn.setAttribute('aria-label', panel.label);
@@ -266,7 +340,8 @@
             global.initThemesApp();
         }
         if (panelId === 'backgrounds' && typeof global.buildWallpaperGrid === 'function') {
-            global.buildWallpaperGrid(root);
+            var bgPanel = panelsRoot.querySelector('[data-cs-panel="backgrounds"]');
+            global.buildWallpaperGrid(bgPanel || root);
         }
         root.dataset.csActivePanel = panelId;
     }

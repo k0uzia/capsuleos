@@ -177,6 +177,86 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       });
     });
   }
+  if (scenario.id === 'themes-panels-nav') {
+    const panels = [
+      { nav: 'general', title: 'Général' },
+      { nav: 'desklets', title: 'Desklets' },
+      { nav: 'windows', title: 'Fenêtres' },
+    ];
+    panels.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          {
+            type: 'click',
+            selector: `div[data-link="themes"] [data-cs-nav="${step.nav}"]`,
+            desc: `panneau ${step.title}`,
+          },
+          { type: 'wait', ms: 320 },
+        ],
+        assertions: [
+          {
+            type: 'textContains',
+            selector: 'div[data-link="themes"] #cs-panel-title',
+            text: step.title,
+          },
+          {
+            type: 'selectorVisible',
+            selector: `div[data-link="themes"] [data-cs-panel="${step.nav}"]:not([hidden])`,
+          },
+        ],
+      });
+    });
+  }
+  if (scenario.id === 'themes-wallpaper') {
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="themes"] [data-cs-nav="backgrounds"]',
+      desc: 'panneau Arrière-plans',
+    });
+    plan.actions.push({ type: 'wait', ms: 450 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="themes"] .cs-backgrounds:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="themes"] .cs-backgrounds .cs-wallpaper-thumb',
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="themes"] .cs-backgrounds .cs-wallpaper-thumb',
+      desc: 'sélectionner un fond',
+    });
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="themes"] .cs-backgrounds .cs-wallpaper-thumb.is-active',
+      className: 'is-active',
+    });
+  }
+  if (scenario.id === 'themes-applets') {
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="themes"] [data-cs-nav="applets"]',
+      desc: 'panneau Applets',
+    });
+    plan.actions.push({ type: 'wait', ms: 320 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="themes"] .cs-applets-list',
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="themes"] .cs-applets-list [data-cs-applet="show-desktop"]',
+      desc: 'activer applet bureau',
+    });
+    plan.actions.push({ type: 'wait', ms: 150 });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="themes"] .cs-applets-list [data-cs-applet="show-desktop"]',
+      className: 'is-on',
+    });
+  }
   if (scenario.id === 'mintinstall-app-detail') {
     plan.actions.push({ type: 'fill', selector: 'div[data-link="mintinstall"] #mi-search', value: 'vlc' });
     plan.actions.push({ type: 'wait', ms: 220 });
@@ -333,7 +413,9 @@ const runScenarioAssertions = async (page, plan, errors) => {
         if (node.hidden) {
           return 0;
         }
-        return node.querySelectorAll('a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item').length;
+        return node.querySelectorAll(
+          'a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item, .cs-wallpaper-thumb',
+        ).length;
       }, a.selector);
       if (count < (a.min || 1)) {
         errors.push(`Enfants insuffisants (${count} < ${a.min}) dans ${a.selector}`);

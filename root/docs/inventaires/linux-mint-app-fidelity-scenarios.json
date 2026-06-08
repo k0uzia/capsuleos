@@ -58,7 +58,7 @@
     {
       "id": "themes",
       "label": "Paramètres système",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "terminal",
@@ -636,11 +636,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".cs-category",
@@ -661,15 +661,15 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          ".cs-backgrounds",
-          ".cs-wallpaper-thumb"
+          ".cs-category",
+          "#cs-panels"
         ]
       }
     },
@@ -686,14 +686,15 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
-          ".cs-applets-list"
+          ".cs-category",
+          "#cs-sidebar"
         ]
       }
     },
@@ -919,15 +920,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 7,
-    "smokeOk": 7,
-    "measured": 7,
+    "implemented": 10,
+    "smokeOk": 10,
+    "measured": 10,
     "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 2,
+    "appsAtPi100": 3,
     "documentedPct": 100,
-    "implementedPct": 21,
-    "smokePct": 21
+    "implementedPct": 29,
+    "smokePct": 29
   },
-  "updatedAt": "2026-06-08T17:04:11.167Z"
+  "updatedAt": "2026-06-08T17:12:35.726Z"
 }

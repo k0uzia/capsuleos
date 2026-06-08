@@ -2,7 +2,7 @@
 
 Procédure : [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) · Statut clone : [`inventaires/linux-mint-clone-status.md`](inventaires/linux-mint-clone-status.md)
 
-Collecte : `2026-06-04T09:54:47Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
+Collecte : `2026-06-08T07:40:13Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
 
 ## Versions
 
@@ -55,7 +55,7 @@ Applets VM : systray, xapp-status, notifications, printers, removable-drives, ke
 | Élément | VM | CapsuleOS |
 |---------|-----|-----------|
 | Thème Cinnamon | Mint-Y-Dark-Aqua | Mint-Y (CSS) |
-| GTK | Mint-Y-Aqua | variables skin |
+| GTK | Mint-Y-Dark-Aqua | variables skin |
 | Icônes | Mint-Y-Sand | Mint-Y / cinnamon icons |
 | Fond | file:///usr/share/backgrounds/linuxmint/default_background.j… | `default_background.jpg` | OK |
 
@@ -63,7 +63,7 @@ Applets VM : systray, xapp-status, notifications, printers, removable-drives, ke
 
 | Favori VM (.desktop) | CapsuleOS | Statut |
 |----------------------|-----------|--------|
-| org.gnome.Calculator.desktop | `calculator` (GNOME Calc) | ✅ |
+| org.gnome.Calculator.desktop | Bureau → menu → terminal | P1 simulation |
 | org.gnome.Calendar.desktop | Bureau → popover horloge | OK |
 | org.x.editor.desktop (xed) | Bureau + `text_editor` | P2 clone |
 | mintinstall.desktop | Bureau + `update_manager` | OK |

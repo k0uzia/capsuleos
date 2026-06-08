@@ -3,7 +3,7 @@
 Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depuis-vm.md) · Checklist : [`templates/clone-os-checklist.md`](../templates/clone-os-checklist.md)
 
 **registryId** : `linux-mint` · **vendor** : `mint` · **toolkit** : `cinnamon`  
-**Dernière campagne** : 2026-06-04 — **recréation procédure clonage** (validation bout en bout)
+**Dernière campagne** : 2026-06-08 — **ManΣ + passe intégration** ([`integration-pass-2026-06-08.json`](../../../proc/linux-mint/integration-pass-2026-06-08.json))
 
 **Ground truth** : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md)
 
@@ -28,7 +28,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 
 ## Phase 3 — Assets
 
-- [x] `vendors/mint/panel/` + `default_background.jpg`
+- [x] **ManΣ** (2026-06-08) : manifeste approuvé, staging 157 fichiers, import playbook `pull=0`
+- [x] `vendors/mint/panel/` (nemo, firefox, terminal, xed) + **41** fonds `linuxmint/`
 - [x] `validate-asset-zones.mjs` OK
 
 ## Phase 4 — Shell / panel

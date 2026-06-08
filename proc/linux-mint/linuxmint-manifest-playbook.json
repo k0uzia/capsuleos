@@ -19,7 +19,7 @@
     "vendor": "mint",
     "iconPack": "icons/cinnamon/mint-y"
   },
-  "generatedAt": "2026-06-08T07:34:37.327Z",
+  "generatedAt": "2026-06-08T07:39:44.347Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "draft",
@@ -28,21 +28,19 @@
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-mint",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
-    "status": "completed",
-    "completedAt": "2026-06-08T07:35:16.322Z"
+    "status": "pending"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-mint/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
-    "status": "completed",
-    "completedAt": "2026-06-08T07:35:56.458Z"
+    "status": "pending"
   },
   "summary": {
     "total": 177,
-    "pull": 10,
-    "drift": 147,
-    "skip": 20,
+    "pull": 0,
+    "drift": 148,
+    "skip": 29,
     "onVmFalse": 0
   },
   "items": [
@@ -1066,8 +1064,8 @@
       "capsuleTarget": "fonts/vendors/mint/Ubuntu-M.ttf",
       "capsuleRelative": "fonts/vendors/mint/Ubuntu-M.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-M.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-Ubuntu-B.ttf",
@@ -1077,8 +1075,8 @@
       "capsuleTarget": "fonts/vendors/mint/Ubuntu-B.ttf",
       "capsuleRelative": "fonts/vendors/mint/Ubuntu-B.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/Ubuntu-B.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-UbuntuMono-R.ttf",
@@ -1088,8 +1086,8 @@
       "capsuleTarget": "fonts/vendors/mint/UbuntuMono-R.ttf",
       "capsuleRelative": "fonts/vendors/mint/UbuntuMono-R.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/UbuntuMono-R.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-UbuntuMono-B.ttf",
@@ -1099,8 +1097,8 @@
       "capsuleTarget": "fonts/vendors/mint/UbuntuMono-B.ttf",
       "capsuleRelative": "fonts/vendors/mint/UbuntuMono-B.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/UbuntuMono-B.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-DejaVuSans.ttf",
@@ -1121,8 +1119,8 @@
       "capsuleTarget": "fonts/vendors/mint/DejaVuSans-Bold.ttf",
       "capsuleRelative": "fonts/vendors/mint/DejaVuSans-Bold.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSans-Bold.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-DejaVuSansMono.ttf",
@@ -1132,8 +1130,8 @@
       "capsuleTarget": "fonts/vendors/mint/DejaVuSansMono.ttf",
       "capsuleRelative": "fonts/vendors/mint/DejaVuSansMono.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/DejaVuSansMono.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-LiberationMono-Regular.ttf",
@@ -1143,8 +1141,8 @@
       "capsuleTarget": "fonts/vendors/mint/LiberationMono-Regular.ttf",
       "capsuleRelative": "fonts/vendors/mint/LiberationMono-Regular.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/LiberationMono-Regular.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-Regular.ttf",
@@ -1154,8 +1152,8 @@
       "capsuleTarget": "fonts/vendors/mint/NotoSans-Regular.ttf",
       "capsuleRelative": "fonts/vendors/mint/NotoSans-Regular.ttf",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/mint/NotoSans-Regular.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-Ubuntu-Italic[wdth,wght].ttf",
@@ -1566,8 +1564,8 @@
       "capsuleTarget": "images/vendors/mint/panel/org.gnome.Terminal.svg",
       "capsuleRelative": "images/vendors/mint/panel/org.gnome.Terminal.svg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-accessories-text-editor",
@@ -1599,8 +1597,8 @@
       "capsuleRelative": "images/vendors/mint/wallpaper/default_background.jpg",
       "capsuleAbs": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg",
       "stagingPath": "wallpaper/default_background.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "drift",
+      "action": "rewrite-ref"
     },
     {
       "id": "wallpaper-linuxmint.jpg",
@@ -2022,12 +2020,12 @@
     {
       "id": "stage-vm",
       "predicate": "ManSt",
-      "status": "done"
+      "status": "pending"
     },
     {
       "id": "import",
       "predicate": "ManI",
-      "status": "done"
+      "status": "pending"
     },
     {
       "id": "integrate-skin",

@@ -25,9 +25,10 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:48:04Z",
+        "auditAt": "2026-06-08T12:54:34Z",
         "policy": "zéro compromis — proportions VM strictes, ellipsis comme baseline",
         "viewport": "1280x800",
+        "server": "http://127.0.0.1:5501 (home + façade pick-os)",
         "vmSource": "capsule@192.168.1.146 gsettings panels-height 40px · baseline/ captures",
         "vmTarget": {
           "menuWidthPx": 600,
@@ -47,13 +48,14 @@
           "searchWidthPx": 132,
           "maxDeltaPx": 0
         },
+        "live5501Fix": "style.css?v=20260608shell · mainMenu.skin.css dans imports.css · CAPSULE_FORCE_APP_EMBED + CAPSULE_SKIN_CSS_VERSION",
         "revertedCompromise": "c3ee064 menu 680px / sidebar 32% — annulé",
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144804/"
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-5501-fix/"
       },
       "lastPass": "2026-06-08T11:54:04.866Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T14:48:04Z"
+      "updatedAt": "2026-06-08T12:54:34Z"
     },
     "panel": {
       "id": "panel",
@@ -68,9 +70,10 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:48:04Z",
+        "auditAt": "2026-06-08T12:54:34Z",
         "policy": "zéro compromis",
         "viewport": "1280x800",
+        "server": "http://127.0.0.1:5501 (home + façade pick-os)",
         "vmSource": "gsettings panels-height ['1:40'] · zone right 24px",
         "vmTarget": {
           "panelHeightPx": 40,
@@ -88,13 +91,14 @@
           "favoritesGapPx": 2.86,
           "maxDeltaPx": 0
         },
+        "live5501Fix": "style.css?v=20260608shell · --taskbar-height: var(--head) via cache-bust imports",
         "revertedCompromise": "c3ee064 favoris gap 2px / padding 0 — annulé",
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144804/"
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-5501-fix/"
       },
       "lastPass": "2026-06-08T12:08:05.137Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:48:04Z"
+      "updatedAt": "2026-06-08T12:54:34Z"
     },
     "tray": {
       "id": "tray",

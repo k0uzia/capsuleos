@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T07:52:13.910Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T07:58:28.667Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -36,7 +36,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
 | 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ✅ | P1 |
-| 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | P0 |
+| 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | P1 |
 | 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | P0 |
 | 14 | Logithèque | mintinstall-kde.desktop | update_manager | 🔶 | P0 |
@@ -109,7 +109,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Input method | Input method | mintlocale-im.desktop | — | ⬜ | — |  |
 | Keyboard | Keyboard | cinnamon-settings-keyboard.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Languages | Languages | mintlocale.desktop | — | ⬜ | — |  |
-| Lecteur vidéo | Celluloid | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | M |  |
+| Lecteur vidéo | Celluloid | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | M |  |
 | Library | Library | thingy.desktop | — | ⬜ | — |  |
 | LibreOffice | LibreOffice | libreoffice-startcenter.desktop | — | ⬜ | — |  |
 | LibreOffice Calc | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | M |  |
@@ -171,7 +171,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `drawing` — ✅
 - `file_roller` — ✅
 - `firefox` — ✅
-- `lecteur_multimedia` — 🔶
+- `lecteur_multimedia` — ✅
 - `librewriter` — 🔶
 - `mainMenu` — 🔶
 - `mintdrivers` — ✅

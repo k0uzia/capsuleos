@@ -10,6 +10,7 @@
     "mintdrivers.waitHint": "Veuillez patienter…",
     "mintdrivers.noDriversTitle": "Aucun pilote nécessaire",
     "mintdrivers.noDriversBody": "Votre ordinateur n'a besoin d'aucun pilote supplémentaire.",
+    "lecteur_multimedia.windowTitle": "Celluloid",
     "text_editor.windowTitle": "Sans titre",
     "text_editor.placeholder": "Saisissez votre texte…"
 }

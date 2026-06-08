@@ -29,7 +29,7 @@ const SLOT_STATUS = {
   librewriter: { statut: 'partiel', slot: 'librewriter', note: 'Writer — simulation' },
   visionneur_images: { statut: 'partiel', slot: 'visionneur_images', note: 'xviewer / Pix' },
   visionneur_pdf: { statut: 'partiel', slot: 'visionneur_pdf', note: 'xreader' },
-  lecteur_multimedia: { statut: 'partiel', slot: 'lecteur_multimedia', note: 'Celluloid' },
+  lecteur_multimedia: { statut: 'ok', slot: 'lecteur_multimedia', note: 'Celluloid 0.21 — menubar, zone noire, contrôles, smoke OK' },
   checklist: { statut: 'pedagogie', slot: 'checklist', note: 'CapsuleOnly' },
   mainMenu: { statut: 'partiel', slot: 'mainMenu', note: 'Menu Cinnamon — structure OK, apps incomplètes' },
   calendar: { statut: 'ok', slot: 'calendar', note: 'Popover horloge (org.gnome.Calendar)' },

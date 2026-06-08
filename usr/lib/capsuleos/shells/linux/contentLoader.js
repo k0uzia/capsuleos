@@ -426,6 +426,9 @@ const SLOT_INIT_HANDLERS = {
         ]);
     },
     lecteur_multimedia: () => {
+        if (typeof initCelluloidApp === 'function') {
+            initCelluloidApp();
+        }
         runFirstAvailable([
             { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['lecteur_multimedia'] },
             { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['lecteur_multimedia'] }

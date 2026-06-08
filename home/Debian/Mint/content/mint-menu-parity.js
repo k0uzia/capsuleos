@@ -56,6 +56,10 @@
                 app.dataLink = 'mintdrivers';
                 app.icon = './assets/images/toolkits/gnome/apps/mintdrivers';
             }
+            if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
+                app.dataLink = 'lecteur_multimedia';
+                app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid';
+            }
         });
         var hasScreenshot = false;
         var ai;

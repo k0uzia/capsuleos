@@ -58,16 +58,20 @@ const stopMediaElement = (mediaEl) => {
 
 const resetMediaViewer = () => {
     const contentElement = document.getElementById('mint-media-viewer-content');
-    const fileNameElement = document.getElementById('mint-media-viewer-filename');
     if (contentElement) {
         contentElement.querySelectorAll('audio, video').forEach(stopMediaElement);
+    }
+    if (typeof window.resetCelluloidIdle === 'function' && document.getElementById('lecteurMultimedia')) {
+        window.resetCelluloidIdle();
+    } else if (contentElement) {
         contentElement.innerHTML = '';
         const messageElement = document.createElement('p');
         messageElement.className = 'viewer-app__message';
         messageElement.textContent = MEDIA_VIEWER_PLACEHOLDER;
         contentElement.appendChild(messageElement);
     }
-    if (fileNameElement) {
+    const fileNameElement = document.getElementById('mint-media-viewer-filename');
+    if (fileNameElement && typeof window.resetCelluloidIdle !== 'function') {
         fileNameElement.textContent = 'Aucun média sélectionné';
     }
     activeMediaElement = null;
@@ -83,6 +87,9 @@ const getFileViewerTargetByExtension = (extension) => {
 };
 
 const getFileViewerTitle = (appId) => {
+    if (appId === 'lecteur_multimedia' && typeof window.getCelluloidWindowTitle === 'function') {
+        return window.getCelluloidWindowTitle();
+    }
     const titles = {
         visionneur_images: "Visionneur d'images",
         visionneur_pdf: 'Visionneur PDF',
@@ -263,6 +270,12 @@ const renderMediaViewer = (payload) => {
     }
     activeMediaElement = mediaElement;
     contentElement.appendChild(mediaElement);
+
+    if (typeof window.onCelluloidMediaLoaded === 'function') {
+        window.onCelluloidMediaLoaded(payload);
+    } else {
+        setWindowTitle('lecteur_multimedia');
+    }
 };
 
 const renderTextEditorViewer = (payload) => {

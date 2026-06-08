@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T07:52:13.910Z",
+  "generatedAt": "2026-06-08T07:58:28.667Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -792,8 +792,8 @@
       "desktop": "io.github.celluloid_player.Celluloid.desktop",
       "priorite": "P0",
       "slotCapsule": "lecteur_multimedia",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,
@@ -1838,8 +1838,8 @@
       "desktop": "io.github.celluloid_player.Celluloid.desktop",
       "priorite": "P0",
       "slotCapsule": "lecteur_multimedia",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,

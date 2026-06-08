@@ -75,7 +75,7 @@
         themes: '.gnome-settings__headerbar',
         visionneur_images: '.viewer-app__toolbar',
         visionneur_pdf: '.viewer-app__toolbar',
-        lecteur_multimedia: '.viewer-app__toolbar',
+        lecteur_multimedia: '.celluloid-app__menubar',
         snapshot: '.gnome-snapshot__header',
         screenshot: '.gnome-shot__headerbar',
         baobab: '.gnome-baobab__header',

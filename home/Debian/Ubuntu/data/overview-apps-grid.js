@@ -1,16 +1,16 @@
 /* Généré par generate-overview-apps-grid.mjs — ne pas éditer à la main */
 window.CAPSULE_OVERVIEW_APPS_GRID = {
-  "version": 1,
+  "version": 2,
   "registryId": "linux-ubuntu",
-  "generatedAt": "2026-06-07T22:48:58.866Z",
-  "source": "root/docs/inventaires/linux-ubuntu-apps-catalog.json",
+  "generatedAt": "2026-06-08T20:56:17.969Z",
+  "source": "proc/linux-ubuntu/distribution-manifest.json",
   "apps": [
     {
       "vmId": "org.gnome.Calculator",
       "labelFr": "Calculatrice",
       "labelShort": "Calculatr...",
       "slotCapsule": "calculator",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/calculator.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg",
       "dataLink": "calculator",
       "launchable": true,
       "priorite": "P0"
@@ -20,7 +20,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Éditeur de texte",
       "labelShort": "Éditeur d...",
       "slotCapsule": "text_editor",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/text-editor.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "dataLink": "text_editor",
       "launchable": true,
       "priorite": "P0"
@@ -30,7 +30,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Fichiers",
       "labelShort": "Fichiers",
       "slotCapsule": "nemo",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Nautilus.svg",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "dataLink": "nemo",
       "launchable": true,
       "priorite": "P0"
@@ -40,7 +40,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Firefox",
       "labelShort": "Firefox",
       "slotCapsule": "firefox",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.webp",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png",
       "dataLink": "firefox",
       "launchable": true,
       "priorite": "P0"
@@ -50,7 +50,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Paramètres",
       "labelShort": "Paramètres",
       "slotCapsule": "themes",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/settings.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg",
       "dataLink": "themes",
       "launchable": true,
       "priorite": "P0"
@@ -60,7 +60,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Snap Store",
       "labelShort": "Snap Store",
       "slotCapsule": "update_manager",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/snap-store.png",
       "dataLink": "update_manager",
       "launchable": true,
       "priorite": "P0"
@@ -70,7 +70,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Terminal",
       "labelShort": "Terminal",
       "slotCapsule": "terminal",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/terminal.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg",
       "dataLink": "terminal",
       "launchable": true,
       "priorite": "P0"
@@ -90,7 +90,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Actualiseur de micrologiciel",
       "labelShort": "Actualise...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firmware-updater.svg",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firmware-updater.png",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -100,7 +100,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Centre de sécurité",
       "labelShort": "Centre de...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/desktop-security-center.svg",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/desktop-security-center.png",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -110,7 +110,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Characters",
       "labelShort": "Characters",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/characters.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -120,7 +120,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Clocks",
       "labelShort": "Clocks",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/clocks.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -130,7 +130,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Disk Usage Analyzer",
       "labelShort": "Disk Usag...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/baobab.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -140,7 +140,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Disks",
       "labelShort": "Disks",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/disks.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -160,7 +160,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Fonts",
       "labelShort": "Fonts",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/fonts.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -180,7 +180,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Language Support",
       "labelShort": "Language ...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/gnome-language-selector.svg",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/gnome-language-selector.png",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -190,7 +190,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Logs",
       "labelShort": "Logs",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/logs.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -200,7 +200,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Passwords and Keys",
       "labelShort": "Passwords...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/seahorse.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.seahorse.Application.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -220,7 +220,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Software Updater",
       "labelShort": "Software ...",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/update-manager.svg",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/update-manager.png",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"
@@ -230,7 +230,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Sysprof",
       "labelShort": "Sysprof",
       "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/sysprof.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Sysprof.svg",
       "dataLink": null,
       "launchable": false,
       "priorite": "P2"

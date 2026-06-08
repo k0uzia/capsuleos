@@ -7,3 +7,4 @@ root/.cursor/*
 # .cursor (symlink → root/.cursor) : rules + hooks versionnés
 etc/capsuleos/lab-inventory.json
 etc/capsuleos/git-push-token
+proc/*/staging/

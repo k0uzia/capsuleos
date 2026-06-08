@@ -258,8 +258,8 @@
   ],
   "notInstalledOnVm": [],
   "source": "distribution-manifest → vm-manifest-lib.mjs",
-  "collectedAt": "2026-06-07T22:48:44Z",
-  "updatedAt": "2026-06-07T22:48:44.873Z",
+  "collectedAt": "2026-06-07T23:00:50Z",
+  "updatedAt": "2026-06-08T20:56:13.607Z",
   "procRaw": "proc/linux-ubuntu/desktop-entries-raw.json",
   "manifestPath": "proc/linux-ubuntu/distribution-manifest.json",
   "flatpakCount": 0

@@ -42,6 +42,8 @@ const walk = (dir) => {
     const full = path.join(dir, name);
     if (name === '.git' || name === 'node_modules') continue;
     if (SKIP_DIRS.has(full)) continue;
+    // Cache transitif import manifeste — pas une zone assets durable
+    if (name === 'staging' && full.includes(`${path.sep}proc${path.sep}`)) continue;
 
     let st;
     try {

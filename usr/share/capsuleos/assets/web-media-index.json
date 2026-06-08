@@ -714,7 +714,13 @@
       "source": "images/vendors/ubuntu/inventory/ubuntu-vm/ubuntu-light-nautilus.png",
       "preparedAt": "2026-06-07T22:13:52.171Z",
       "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/ubuntu/panel/firefox-48.webp",
+      "source": "images/vendors/ubuntu/panel/firefox-48.png",
+      "preparedAt": "2026-06-08T20:57:02.225Z",
+      "encoder": "ffmpeg+convert"
     }
   ],
-  "updatedAt": "2026-06-07T22:18:28.142Z"
+  "updatedAt": "2026-06-08T20:57:02.243Z"
 }

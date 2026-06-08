@@ -1,6 +1,6 @@
 # Passe comparaison visuelle — Rocky Linux (VM ↔ CapsuleOS)
 
-Généré : 2026-06-07T10:10:27.776Z
+Généré : 2026-06-08T14:03:32.693Z
 
 Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md) (Nautilus ≠ Nemo).
 
@@ -33,20 +33,7 @@ Référence slots : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.m
 
 ## Checklist panel (état logique)
 
-Export Capsule : `run-capsule-panel-browser.mjs` OK.
-
-```
-# Checklist panel — linux-rocky
-
-| Étape | VM | Capsule | Note |
-|-------|-----|---------|------|
-| 0 Fichiers (Nautilus · slot nemo) seul, focus | ÉCART | OK | {"nemo":{"running":true,"active":false},"firefox":{"running":false,"active":false},"terminal":{"running":false,"active":false}} |
-| 1 + Firefox, focus Firefox | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
-| 2 + Terminal (Ptyxis · slot terminal), focus | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
-| 3 Focus Fichiers (Nautilus · slot nemo) via lanceur | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
-| 4 Minimize Fichiers (Nautilus · slot nemo) | ÉCART | OK | P1 VM : running peut rester true |
-| 5 Sidebar Fichiers (Nautilus · slot nemo) → Documents | ÉCART | OK | {"nemo":{"running":false,"active":false},"firefox":{"running":true,"active":false},"terminal":{"running":false,"active":false}} |
-```
+Export Capsule : échec ou absent (http://127.0.0.1:8765 / Playwright).
 
 ## Rappels fidélité visuelle (GNOME)
 

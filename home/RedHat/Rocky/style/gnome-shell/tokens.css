@@ -14,6 +14,8 @@ html:has(#rocky) {
     --fedora-shell-text: #f6f7f9;
     --fedora-shell-border-soft: rgba(255, 255, 255, 0.1);
     --fedora-top-bar-height: calc(var(--head) * 0.82);
+    /* Cloisonnement : ne pas hériter --taskbar-height du portail (Mint 1.25×head). */
+    --taskbar-height: var(--fedora-top-bar-height);
     --gnome-shell-clock-font-size: calc(var(--head) / 2.55);
     --gnome-shell-clock-gap: calc(var(--head) / 5);
     --gnome-shell-clock-padding-y: calc(var(--head) / 12);

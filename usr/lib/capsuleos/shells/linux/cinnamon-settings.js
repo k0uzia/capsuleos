@@ -7,6 +7,14 @@
     var WINDOW_TITLE = 'Paramètres du système';
     var ICON_BASE = './assets/icons/cinnamon/cs/';
 
+    function resolveIconUrl(iconName) {
+        var path = ICON_BASE + iconName + '.png';
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(path);
+        }
+        return path;
+    }
+
     var PANELS = [
         { id: 'general', label: 'Général', icon: 'cs-general', keywords: 'general compositing menu' },
         { id: 'themes', label: 'Thèmes', icon: 'cs-themes', keywords: 'themes gtk icons cursor appearance' },
@@ -219,7 +227,7 @@
             btn.setAttribute('aria-label', panel.label);
             var img = global.document.createElement('img');
             img.className = 'cs-app__nav-icon';
-            img.src = ICON_BASE + panel.icon + '.png';
+            img.src = resolveIconUrl(panel.icon);
             img.alt = '';
             btn.appendChild(img);
             sidebar.appendChild(btn);

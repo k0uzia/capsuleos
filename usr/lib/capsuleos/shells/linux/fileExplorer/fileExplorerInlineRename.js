@@ -287,6 +287,37 @@
         });
     }
 
+    function bindFileExplorerInlineRename(root) {
+        if (!usesAdvancedExplorerOps() || !root) {
+            return;
+        }
+        if (root.dataset.feInlineRenameBound === 'true') {
+            return;
+        }
+        root.addEventListener('keydown', (event) => {
+            if (event.key !== 'F2') {
+                return;
+            }
+            if (event.target && event.target.closest('.nemo-app__item-rename-input')) {
+                return;
+            }
+            if (root.querySelector('.nemo-app__item--renaming')) {
+                return;
+            }
+            event.preventDefault();
+            const selected = root.querySelector('a.nemo-app__item--selected[data-item-name]');
+            if (selected && typeof global.startExplorerInlineRename === 'function') {
+                global.startExplorerInlineRename(selected);
+                return;
+            }
+            if (typeof global.renameExplorerSelection === 'function') {
+                global.renameExplorerSelection();
+            }
+        });
+        root.dataset.feInlineRenameBound = 'true';
+    }
+
+    global.bindFileExplorerInlineRename = bindFileExplorerInlineRename;
     global.startExplorerInlineRename = startExplorerInlineRename;
     global.scheduleExplorerInlineRename = scheduleExplorerInlineRename;
     global.cancelExplorerInlineRename = cancelInlineRename;

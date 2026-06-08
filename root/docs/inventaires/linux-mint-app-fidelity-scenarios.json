@@ -219,11 +219,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".firefox-tabbar",
@@ -920,15 +920,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 11,
-    "smokeOk": 11,
-    "measured": 11,
+    "implemented": 12,
+    "smokeOk": 12,
+    "measured": 12,
     "avgPi": 100,
     "appsTotal": 11,
     "appsAtPi100": 3,
     "documentedPct": 100,
-    "implementedPct": 32,
-    "smokePct": 32
+    "implementedPct": 35,
+    "smokePct": 35
   },
   "updatedAt": "2026-06-08T19:30:00.000Z"
 }

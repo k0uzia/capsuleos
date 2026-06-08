@@ -530,25 +530,45 @@ function initFirefoxBrowser() {
         closeMenuPopover();
     });
 
+    function handleFirefoxShortcutKeys(event) {
+        if (!event.ctrlKey) {
+            return;
+        }
+        const key = event.key;
+        if (key === 't' || key === 'T') {
+            event.preventDefault();
+            addTab();
+            return;
+        }
+        if (key === 'l' || key === 'L') {
+            event.preventDefault();
+            addressInput.focus();
+            addressInput.select();
+        }
+    }
+
+    browserRoot.__capsuleFirefoxHandleKeys = handleFirefoxShortcutKeys;
+
     browserRoot.setAttribute('tabindex', '-1');
     if (browserRoot.dataset.firefoxKeysBound !== 'true') {
         browserRoot.addEventListener('keydown', function onFirefoxKeys(event) {
-            if (!event.ctrlKey) {
-                return;
-            }
-            const key = event.key;
-            if (key === 't' || key === 'T') {
-                event.preventDefault();
-                addTab();
-                return;
-            }
-            if (key === 'l' || key === 'L') {
-                event.preventDefault();
-                addressInput.focus();
-                addressInput.select();
-            }
+            handleFirefoxShortcutKeys(event);
         });
         browserRoot.dataset.firefoxKeysBound = 'true';
+    }
+
+    if (document.documentElement.dataset.firefoxGlobalKeysBound !== 'true') {
+        document.addEventListener('keydown', function onGlobalFirefoxKeys(event) {
+            const win = document.getElementById('firefox');
+            if (!win || !win.classList.contains('windowElementActive')) {
+                return;
+            }
+            const app = win.querySelector('[data-firefox-app]');
+            if (app && typeof app.__capsuleFirefoxHandleKeys === 'function') {
+                app.__capsuleFirefoxHandleKeys(event);
+            }
+        });
+        document.documentElement.dataset.firefoxGlobalKeysBound = 'true';
     }
 
     tabsList.addEventListener('click', function onTabsListClick(event) {
@@ -679,6 +699,7 @@ function purgeFirefoxWindowRuntime(windowElement) {
         return;
     }
     delete app.__capsuleFirefoxSession;
+    delete app.__capsuleFirefoxHandleKeys;
     delete app.dataset.initialized;
 
     const addressInput = app.querySelector('[data-browser-address]');

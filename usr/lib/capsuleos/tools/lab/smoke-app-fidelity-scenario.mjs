@@ -291,72 +291,84 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     });
   }
   if (scenario.id === 'firefox-tabs') {
-    plan.actions.push({
-      type: 'focus',
-      selector: 'div[data-link="firefox"] [data-firefox-app]',
-      desc: 'focus Firefox',
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'pressKey', key: 'Control+t', desc: 'Ctrl+T nouvel onglet' },
+        { type: 'wait', ms: 220 },
+      ],
+      assertions: [{
+        type: 'childCountMin',
+        selector: 'div[data-link="firefox"] .firefox-tabbar',
+        min: 2,
+      }],
     });
-    plan.actions.push({
-      type: 'pressKey',
-      key: 'Control+t',
-      selector: 'div[data-link="firefox"] [data-firefox-app]',
-      desc: 'Ctrl+T nouvel onglet',
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'click',
+          selector: 'div[data-link="firefox"] .firefox-tab:first-child',
+          desc: 'basculer onglet 1',
+        },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'hasClass',
+        selector: 'div[data-link="firefox"] .firefox-tab:first-child',
+        className: 'capsule-browser__tab--active',
+      }],
     });
-    plan.actions.push({ type: 'wait', ms: 220 });
-    plan.assertions.push({
-      type: 'childCountMin',
-      selector: 'div[data-link="firefox"] .firefox-tabbar',
-      min: 2,
-    });
-    plan.actions.push({
-      type: 'click',
-      selector: 'div[data-link="firefox"] .firefox-tab:first-child',
-      desc: 'basculer onglet 1',
-    });
-    plan.actions.push({ type: 'wait', ms: 150 });
-    plan.assertions.push({
-      type: 'hasClass',
-      selector: 'div[data-link="firefox"] .firefox-tab:first-child',
-      className: 'capsule-browser__tab--active',
-    });
-    plan.actions.push({
-      type: 'click',
-      selector: 'div[data-link="firefox"] .firefox-tab:last-child [data-browser-tab-close]',
-      desc: 'fermer onglet actif',
-    });
-    plan.actions.push({ type: 'wait', ms: 150 });
-    plan.assertions.push({
-      type: 'childCountMin',
-      selector: 'div[data-link="firefox"] .firefox-tabbar',
-      min: 1,
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'click',
+          selector: 'div[data-link="firefox"] .firefox-tab:last-child [data-browser-tab-close]',
+          desc: 'fermer onglet',
+        },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'childCountMin',
+        selector: 'div[data-link="firefox"] .firefox-tabbar',
+        min: 1,
+      }],
     });
   }
   if (scenario.id === 'firefox-hamburger-menu') {
-    plan.actions.push({
-      type: 'click',
-      selector: 'div[data-link="firefox"] .firefox-appmenu-button',
-      desc: 'menu hamburger',
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'click',
+          selector: 'div[data-link="firefox"] .firefox-appmenu-button',
+          desc: 'menu hamburger',
+        },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'selectorVisible',
+          selector: 'div[data-link="firefox"] .firefox-appmenu:not([hidden])',
+        },
+        {
+          type: 'childCountMin',
+          selector: 'div[data-link="firefox"] .firefox-appmenu',
+          min: 4,
+        },
+      ],
     });
-    plan.actions.push({ type: 'wait', ms: 120 });
-    plan.assertions.push({
-      type: 'selectorVisible',
-      selector: 'div[data-link="firefox"] .firefox-appmenu:not([hidden])',
-    });
-    plan.assertions.push({
-      type: 'childCountMin',
-      selector: 'div[data-link="firefox"] .firefox-appmenu',
-      min: 4,
-    });
-    plan.actions.push({
-      type: 'click',
-      selector: 'div[data-link="firefox"] .firefox-appmenu .capsule-browser__menu-item:first-child',
-      desc: 'Nouvel onglet via menu',
-    });
-    plan.actions.push({ type: 'wait', ms: 180 });
-    plan.assertions.push({
-      type: 'childCountMin',
-      selector: 'div[data-link="firefox"] .firefox-tabbar',
-      min: 2,
+    plan.executionBlocks.push({
+      actions: [
+        {
+          type: 'click',
+          selector: 'div[data-link="firefox"] .firefox-appmenu .capsule-browser__menu-item:first-child',
+          desc: 'Nouvel onglet via menu',
+        },
+        { type: 'wait', ms: 180 },
+      ],
+      assertions: [{
+        type: 'childCountMin',
+        selector: 'div[data-link="firefox"] .firefox-tabbar',
+        min: 2,
+      }],
     });
   }
   if (scenario.id === 'mintinstall-app-detail') {

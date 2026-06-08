@@ -72,6 +72,28 @@
       "labBootstrap": "root/tools/lab/vm-ubuntu-lab-bootstrap.sh",
       "visualParity": "node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu",
       "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md ; skill root/skills/visual-parity-lab/"
+    },
+    {
+      "registryId": "windows-11",
+      "family": "windows",
+      "vendor": "microsoft",
+      "toolkit": "windows-shell",
+      "probeType": "manual",
+      "hypervisor": "libvirt",
+      "virshName": "win11",
+      "ssh": "capsule@192.168.1.XXX",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "winrm": "http://192.168.1.XXX:5985/wsman",
+      "display": {
+        "width": 1280,
+        "height": 800,
+        "scalePercent": 100
+      },
+      "edition": "Pro",
+      "windowsRelease": "21H2",
+      "locale": "fr-FR",
+      "capsuleUrl": "http://127.0.0.1:5500/OS/windows/versions/11/index.html",
+      "notes": "Windows 11 — probeType manual jusqu'à collect-windows-inventory.mjs ; OpenSSH ou WinRM requis pour automatisation. Voir procedure-controle-distributions-reelles.md §8."
     }
   ]
 }

@@ -4,7 +4,7 @@ body#mint #desktop > div[data-link="mainMenu"],
 body#mint div[data-link="mainMenu"]#mainMenu {
     position: absolute;
     left: 0;
-    bottom: calc(var(--taskbar-height) + 2px);
+    bottom: 2px;
     top: auto;
     width: min(calc(var(--head) * 15), 92vw);
     height: min(calc(var(--head) * 12), calc(100% - var(--taskbar-height) - calc(var(--head) / 2)));
@@ -105,8 +105,12 @@ body#mint div[data-link="mainMenu"] .menu-shortcut img {
     height: calc(var(--head) / 2);
 }
 
+body#mint div[data-link="mainMenu"] .menu-sidebar {
+    width: calc(var(--head) * 3);
+}
+
 body#mint div[data-link="mainMenu"] .menu-categories {
-    width: calc(var(--head) * 5.2);
+    width: calc(var(--head) * 3.75);
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat {

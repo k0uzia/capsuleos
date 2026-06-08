@@ -86,8 +86,8 @@ html>body#mint>footer>nav>a[data-link="mainMenu"]>img {
 
 .taskbar-tray__icon {
     display: var(--bl);
-    width: calc(var(--head) * 0.5);
-    height: calc(var(--head) * 0.5);
+    width: var(--mint-tray-icon-size);
+    height: var(--mint-tray-icon-size);
     opacity: 0.9;
     background: currentColor;
     -webkit-mask-size: contain;

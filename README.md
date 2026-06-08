@@ -1,21 +1,28 @@
 # CapsuleOS
 
-Sandbox web **statique** : bureaux Linux, Windows, macOS et mobiles simulés en HTML5, CSS3 et ES6 — sans framework, utilisable hors ligne (`file://`) ou derrière un serveur HTTP minimal. Objectif : permettre d’**explorer et comparer** des environnements familiers dans un cadre pédagogique léger.
+Sandbox web **statique** : bureaux Linux, Windows, macOS et mobiles simulés en HTML5, CSS3 et ES6 — sans framework, utilisable hors ligne (`file://`) ou derrière un serveur HTTP minimal. Objectif : permettre d’**explorer et comparer** des environnements familiers dans un cadre **pédagogique** à **haute fidélité**.
 
-## En bref (vision technique)
+## Vision technique & contribution
 
-| Pilier | Principe |
-|--------|----------|
-| **Noyau** | Comportements centralisés (`usr/lib/capsuleos/`, gabarits `usr/share/capsuleos/`) — fenêtres, explorateur, embeds |
-| **Skins** | Une distro = un dossier `home/<Vendor>/<Distro>/` (source de vérité) |
-| **Façades** | URLs pick-os sous `OS/` — copies générées avec `<base href>`, jamais éditées à la main |
-| **CSS** | Variables + `calc()` ; pas de nesting ; ordre des propriétés imposé |
-| **JS** | ES6 strict, IIFE, API globales (`CapsuleWindow`, `CAPSULE_*`) — pas de fork par distro |
-| **VM lab** | Ground truth pour cloner : inventaire → implémentation → `validate-all` |
+**Point d’entrée unique** (agents et humains) :
 
-**Stade actuel** : renforcer la **résilience du noyau** et la **parité documentée** distro par distro (Mint P0, Rocky GNOME, KDE Neon, openSUSE…).
+| Document | Rôle |
+|----------|------|
+| **[root/docs/README.md](root/docs/README.md)** | Corpus, vision, pipeline, **P12 clean code** |
+| [root/docs/plan-maitre-reproduction-os.md](root/docs/plan-maitre-reproduction-os.md) | Roadmap d’exécution |
+| [contrib.md](contrib.md) | Guide contribution |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) · [LICENSE.md](LICENSE.md) | Conduite & licence |
 
-**Contribuer** : [contrib.md](contrib.md) (humains et agents) · **Convention reproduction OS** : [root/docs/convention-reproduction-os.md](root/docs/convention-reproduction-os.md) · Équipe agents : [root/README.md](root/README.md).
+```bash
+# Décision agent / lab
+node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id <registryId>
+# Gate dépôt
+node usr/lib/capsuleos/tools/validate-all.mjs
+```
+
+Architecture en une ligne : **noyau agnostique → toolkit → skin vendor → `proc/` → façade `OS/`**.
+
+Stade actuel (juin 2026) : **Phase 1e** — clôture triplet GNOME (Ubuntu PbΣ, Rocky/Fedora ManΣ). Détail : [plan-phase-1-gnome-triplet.md](root/docs/plan-phase-1-gnome-triplet.md).
 
 [TOC]
 

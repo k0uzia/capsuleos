@@ -1,90 +1,158 @@
-# Documentation CapsuleOS — corpus unique
+# CapsuleOS — corpus documentation & vision technique
 
-> **Un seul paradigme d’exécution** (juin 2026). Tout agent ou contributeur lit **d’abord** la colonne **Canon**, puis exécute via le **pipeline** — pas via des roadmaps parallèles ni des inventaires JSON comme instructions.
+> **Document d’entrée unique** pour agents IA et contributeurs humains (juin 2026).  
+> **Obligation** : toute écriture respecte [convention-clean-code.md](convention-clean-code.md) (**P12**) — ce README en fait partie intégrante par référence.
 
 ---
 
-## 1. Canon — pourquoi et quoi faire maintenant
+## 1. Vision commune
 
-| Priorité | Document | Rôle |
-|----------|----------|------|
-| 1 | [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution (**P1–P11**) |
-| 2 | [logique-formelle.md](logique-formelle.md) | Prédicats, règles **R-***, décision (**R-LOC1**) |
-| 3 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | **Roadmap exécution** — phases, backlog §16, recette économe §4.4 |
-| 4 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail Phase 1 (vague **1e** en cours) |
+CapsuleOS est une **expérience de pensée matérialisée** : reproduction **maximale** d’un bureau réel dans une enveloppe **100 % statique** (HTML5, CSS3, ES6, navigateur, `file://` ou HTTP minimal).
 
-**Commande unique de décision** :
+| Dimension | Choix |
+|-----------|--------|
+| **Finalité** | Pédagogie terrain — illectronisme, autonomie face aux démarches en ligne |
+| **Méthode** | Sandbox + parité documentée VM ↔ Capsule |
+| **Limite structurelle** | Pas de noyau exécuté, pas d’hyperviseur dans le navigateur |
+| **Moteur** | Fidélité expérientielle (**Vp**, **VΣ**, **Tf**) — pas une maquette décorative |
 
-```bash
-node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId> --scope pipeline
-# ou exécution directe :
-node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id <registryId>
+Phrase d’architecture (validée) :
+
+```text
+Noyau core agnostique → adaptateur kernelId → comportements toolkit
+  → skin vendor scellé → vérité machine proc/ → façade OS/ → expérience navigateur
 ```
 
-**État hebdomadaire** (généré, pas édité à la main) :
+Référence philosophique : [fondements-philosophiques.md](fondements-philosophiques.md).
+
+---
+
+## 2. Cloisonnement — cinq zones (ne pas mélanger)
+
+| Zone | Chemin | Contient | Qui écrit |
+|------|--------|----------|-----------|
+| **Z0** | `etc/`, `proc/` | Contrats, registre, manifestes VM | Pipeline lab |
+| **Z1** | `usr/lib/`, `usr/share/` | Noyau, gabarits, assets système | Intégrateur kernel |
+| **Z2** | `home/<Vendor>/` | Skin source (HTML/CSS/JS distro) | Clone VM post-gates |
+| **Z3** | `OS/.../index.html` | Façades pick-os (`<base href>`) | `sync-linux-skin-closure` |
+| **Z4** | `var/.../generated/` | Embeds offline | Build opt-in |
+
+**Flux épistémique** : Z0 → Z1/Z2 → Z3 → navigateur. **Jamais** Z2 → Z0 (le skin ne devine pas la VM).
+
+**Agnosticisme (P3, P4)** : comportement commun → `usr/lib/` ; chrome toolkit → `themes/clusters/toolkit-*` ; identité distro → `home/` + `vendors/<vendor>/` uniquement.
+
+---
+
+## 3. Paradigme d’exécution singulier
+
+Une seule chaîne de décision. Pas de roadmap parallèle, pas d’inventaire JSON comme ordre de travail.
+
+### 3.1 Canon (lire avant d’écrire)
+
+| # | Document | Rôle |
+|---|----------|------|
+| 1 | [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution **P1–P12** |
+| 2 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1** |
+| 3 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
+| 4 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
+| 5 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |
+
+### 3.2 Décision (exécuter)
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id <registryId>
+# ou inspection :
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId> --scope pipeline
+```
+
+### 3.3 État (générer, ne pas éditer à la main)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/generate-formal-advancement-report.mjs --write
+node usr/lib/capsuleos/tools/validate-all.mjs   # H₂
+```
+
+### 3.4 Grille de maturité cible
+
+```text
+M → ManΣ → AppΣ → PbΣ → Vp → VΣ → Tf → H₆
 ```
 
 ---
 
-## 2. Opérationnel — comment (spécialisations du plan)
+## 4. Clean code — écriture dans le bon contexte (**P12**)
 
-| Domaine | Document | Quand |
-|---------|----------|-------|
-| Clone VM Linux | [convention-manifest-vm.md](convention-manifest-vm.md) · [convention-reproduction-os.md](convention-reproduction-os.md) | ManΣ, nouveau `registryId` |
-| GNOME RHEL référence design | [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | Parité shell Rocky |
-| Cinnamon référence collecte | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | Mint — **Phase 3** plan maître |
-| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) | AppΣ |
-| Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) | PbΣ / H₆ settings |
-| Assets VM | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | Pull / WebP |
+[convention-clean-code.md](convention-clean-code.md) **intègre ce README** : avant tout commit ou patch, vérifier zone Z0–Z4, `registryId`, toolkit, et compatibilité plan maître.
 
-Ces procédures **ne contredisent pas** le plan maître : elles en sont des **spécialisations**. En cas de doute, le plan maître prime.
+Résumé obligatoire :
+
+| Surface | Règle |
+|---------|--------|
+| **Code** | Noyau agnostique ; pas de fork par distro ; extension avant nouveau module (**P7**) |
+| **Doc** | Pas de plan d’exécution parallèle ; pas de priorité depuis `roadmap.md` |
+| **Données** | `proc/<registryId>/` ; **P11** — pas de fallback cross-vendor |
+| **Git** | Pas de `*-resolve.json` ni sortie pipeline partielle |
+
+Checklist commit : convention-clean-code §5.
 
 ---
 
-## 3. Données — inventaires (ground truth, pas instructions)
+## 5. Opérationnel — spécialisations (sous le plan maître)
 
-Répertoire : [`inventaires/`](inventaires/)
+| Domaine | Documents |
+|---------|-----------|
+| ManΣ / clone VM | [convention-manifest-vm.md](convention-manifest-vm.md) · [convention-reproduction-os.md](convention-reproduction-os.md) |
+| GNOME design (réf.) | [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) |
+| Cinnamon collecte (réf.) | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) |
+| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) |
+| Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) |
+| Assets VM | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
+| Styles / JS navigateur | [contrib.md](../../contrib.md) · `writing.md` |
+
+En cas de conflit entre procédure et plan maître → **plan maître prime**.
+
+---
+
+## 6. Données — inventaires (`inventaires/`)
 
 | Type | Exemples | Usage |
 |------|----------|-------|
-| **État persisté** | `*-formal-state.json`, `avancement-formel-*.json` | Gates enregistrés |
-| **VM / parité** | `*-vm.json`, `inventaire-parite-*.md` | Mesure, écarts P0/P1/P2 |
-| **Playbook / closure** | `*-h6-closure.json`, `*-playbook-tail.json` | Clôture domaine |
+| État persisté | `*-formal-state.json`, `avancement-formel-*` | Gates |
+| VM / parité | `*-vm.json`, `inventaire-parite-*.md` | Mesure P0/P1/P2 |
+| Clôture | `*-h6-closure.json` | Domaine terminé |
 
-### Artefacts éphémères — ne pas versionner
-
-Les fichiers `*-pipeline-resolve.json`, `*-formal-resolve.json`, `*-playbook-general-resolve.json` sont des **instantanés** de `resolve-agent-action` : utiles en session, **parasites** dans git (dates et prédicats obsolètes → agents induits en erreur).
-
-Régénérer à la volée :
-
-```bash
-node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-ubuntu --scope pipeline
-```
+**Éphémères (gitignorés)** : `*-pipeline-resolve.json`, `*-formal-resolve.json`, `*-playbook-general-resolve.json`.
 
 ---
 
-## 4. Documents secondaires — ne pas utiliser pour prioriser
+## 7. Documents secondaires — ne pas prioriser
 
-| Document | Statut |
-|----------|--------|
-| [roadmap.md](roadmap.md) | **Vision pédagogique** et maturité estimée — pas l’ordre d’exécution |
-| [scalabilite-noyau.md](scalabilite-noyau.md) | Jalons techniques noyau (S2–S6) |
+| Document | Rôle |
+|----------|------|
+| [roadmap.md](roadmap.md) | Vision pédagogique, % maturité — **pas** l’ordre d’exécution |
 | [architecture-globale.md](architecture-globale.md) | Navigation dépôt |
+| [manifeste-noyau.md](manifeste-noyau.md) | Hydratation technique noyau |
 | `briefs/*.md` | Fiches distro générées |
 
 ---
 
-## 5. Règle anti-parasite (agents & humains)
+## 8. Références légales et conduite
 
-1. **Une** roadmap d’exécution : `plan-maitre-reproduction-os.md`.
-2. **Une** décision : `run-capsule-pipeline` / `resolve-agent-action --scope pipeline`.
-3. **P11** : pas de fallback cross-vendor (matrice, manifeste, playbook).
-4. Les inventaires JSON **décrivent** l’état ; ils **ne remplacent pas** le plan.
-5. Ne pas committer les `*-resolve.json` ni les sorties partielles de pipeline interrompu.
+| Document | Rôle |
+|----------|------|
+| [../../CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) | Communauté + standards techniques |
+| [../../LICENSE.md](../../LICENSE.md) | Licence logicielle (résumé) · texte intégral `LICENSE` |
 
 ---
 
-*Point d’entrée agents : [../AGENTS.md](../AGENTS.md) · Règle Cursor : `.cursor/rules/logique-formelle-capsuleos.mdc`*
+## 9. Points d’entrée par profil
+
+| Profil | Chemin |
+|--------|--------|
+| **Humain** | [../../contrib.md](../../contrib.md) → ce README → plan maître |
+| **Agent Cursor** | [../AGENTS.md](../AGENTS.md) · `.cursor/rules/` |
+| **Racine dépôt** | [../../README.md](../../README.md) (vue publique + pédagogie) |
+
+---
+
+*Dernière mise à jour : juin 2026 — corpus singulier, P11/P12, Phase 1e.*

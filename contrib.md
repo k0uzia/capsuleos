@@ -2,7 +2,8 @@
 
 Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Objectif : faire évoluer le catalogue (distros, versions, bureaux, vendors) sans dette technique ni régression du noyau.
 
-**Contrat technique** : [`writing.md`](writing.md) (workspace parent si présent) · [checklist contrat](#checklist-contrat-avant-merge-ou-release) (ce fichier)
+**Contrat technique** : [`writing.md`](writing.md) (workspace parent si présent) · [checklist contrat](#checklist-contrat-avant-merge-ou-release) (ce fichier)  
+**Corpus obligatoire** : [`root/docs/README.md`](root/docs/README.md) · **Clean code (P12)** : [`root/docs/convention-clean-code.md`](root/docs/convention-clean-code.md)
 
 ---
 
@@ -10,6 +11,7 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 
 | Étape | Action |
 |-------|--------|
+| 0 | Lire [`root/docs/README.md`](root/docs/README.md) (vision + paradigme singulier) |
 | 1 | Lire ce fichier et la section [Formation agents](#formation-agents-ia) si vous utilisez un agent |
 | 2 | `node usr/lib/capsuleos/tools/validate-all.mjs` — baseline locale (**exit 0** attendu avant gros patch) |
 | 3 | Travailler sous `CapsuleOS/` uniquement (`home/`, `usr/`, `OS/`, `var/`, `index.html`) |
@@ -30,6 +32,7 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 | [`.cursor/rules/capsuleos-autonomous-execution.mdc`](.cursor/rules/capsuleos-autonomous-execution.mdc) | **R-AUTO** — alias actions, R-PWD1 bundles, hooks |
 | [`.cursor/rules/capsuleos-agent-onboarding.mdc`](.cursor/rules/capsuleos-agent-onboarding.mdc) | Parcours H0–H6, `validate-all`, routage skills |
 | [`.cursor/rules/capsuleos-assets.mdc`](.cursor/rules/capsuleos-assets.mdc) | Gates **A** / **S** / **T**, zones assets autorisées |
+| [`.cursor/rules/capsuleos-clean-code.mdc`](.cursor/rules/capsuleos-clean-code.mdc) | **P12** — corpus README, zones Z0–Z4, anti-écriture hors contexte |
 
 **Document fondateur** : [`root/docs/logique-formelle.md`](root/docs/logique-formelle.md)  
 **Chaîne réplication** (tous vendors) : [`root/docs/procedure-replication-formelle.md`](root/docs/procedure-replication-formelle.md)

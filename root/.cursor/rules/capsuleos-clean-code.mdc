@@ -1,0 +1,28 @@
+---
+description: Clean code CapsuleOS — P12, corpus README, zones Z0–Z4, pas d'écriture hors contexte
+alwaysApply: true
+---
+
+# Clean code CapsuleOS (P12)
+
+Référence : `root/docs/convention-clean-code.md` · Corpus : `root/docs/README.md`
+
+## Avant toute écriture (code, doc, JSON, règle)
+
+1. Lire **Canon** `root/docs/README.md` §3.1.
+2. Résoudre : `resolve-agent-action.mjs --id <registryId> --scope pipeline`.
+3. Identifier **zone** Z0–Z4 et couche (core / toolkit / vendor / proc).
+
+## Interdit
+
+- Logique commune dans `home/<Vendor>/` → `usr/lib/` ou cluster `toolkit-*`
+- Asset ou matrice d'un autre vendor (**P11** / **R-LOC1**)
+- Nouvelle roadmap ou priorité depuis `roadmap.md` ou inventaire JSON
+- Commit `*-resolve.json` ou état pipeline partiel
+- Module parallèle si extension documentée suffit (**P7**)
+
+## Avant commit
+
+- Tâche traçable plan maître backlog §16
+- `validate-all.mjs` vert sur zone touchée (**H₂**)
+- Checklist `convention-clean-code.md` §5

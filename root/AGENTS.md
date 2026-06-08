@@ -10,7 +10,7 @@ CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`hom
 
 **Référence canonique** : [`docs/logique-formelle.md`](docs/logique-formelle.md) — prédicats (**H₂**, **A**, **S**, **I**, **L**, **V**…), règles d’inférence, procédure de décision autonome.
 
-**Corpus unique** : [`docs/README.md`](docs/README.md) — point d’entrée documentation.
+**Corpus unique (obligatoire P12)** : [`docs/README.md`](docs/README.md) · [`docs/convention-clean-code.md`](docs/convention-clean-code.md)
 
 **Roadmap exécution** : [`docs/plan-maitre-reproduction-os.md`](docs/plan-maitre-reproduction-os.md) — seule source d’ordre des phases · Phase 1 détail : [`plan-phase-1-gnome-triplet.md`](docs/plan-phase-1-gnome-triplet.md).
 

@@ -36,4 +36,5 @@ Référence complète : `root/docs/logique-formelle.md` · Corpus : `root/docs/R
 
 - Patch skin sans inventaire VM (**R-INV1**)
 - Asset référencé absent du dépôt (**R-A1**)
+- Écriture hors zone / hors plan (**P12** — `convention-clean-code.md`, `capsuleos-clean-code.mdc`)
 - Commit/push sans demande explicite utilisateur

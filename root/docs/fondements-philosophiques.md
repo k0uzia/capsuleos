@@ -244,6 +244,7 @@ L’universalisation du manifeste n’abolit pas le vendor : elle **formalise** 
 | **P9** | Fidélité expérientielle | **Vp ∧ VΣ** (apps complètes) pour P0 |
 | **P10** | A11y opt-in | Mode accessibilité activable, pas défaut clone |
 | **P11** | Vérité locale, pas de fallback cross-vendor | Matrices, manifestes, playbooks, inventaires liés à un `registryId` ; absence = gate rouge explicite — jamais emprunt silencieux à un autre vendor |
+| **P12** | Clean code & corpus | Toute écriture (code, doc, données) respecte [convention-clean-code.md](convention-clean-code.md) — inclut [README.md](README.md) ; pas d’écriture hors zone ni hors plan |
 
 ---
 
@@ -267,6 +268,8 @@ L’universalisation du manifeste n’abolit pas le vendor : elle **formalise** 
 | [manifeste-kernels.md](manifeste-kernels.md) | Taxonomie — qui hérite de qui |
 | [logique-formelle.md](logique-formelle.md) | Méthode — comment décider |
 | [convention-reproduction-os.md](convention-reproduction-os.md) | Éthique opératoire du clone |
+| [convention-clean-code.md](convention-clean-code.md) | Écriture in situ — code, doc, données (corpus README) |
+| [README.md](README.md) | Point d’entrée corpus unique |
 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Trajectoire — quand / dans quel ordre |
 
 ---

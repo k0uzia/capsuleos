@@ -530,8 +530,9 @@ Ordre décidé par `resolve-agent-action.mjs --scope pipeline` et **P11** :
 
 | Document | Rôle |
 |----------|------|
-| **[README.md](README.md)** | **Point d’entrée unique** — canon / opérationnel / données / anti-parasites |
-| [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution — pourquoi (**P11**) |
+| **[README.md](README.md)** | **Point d’entrée unique** — vision, canon, anti-parasites |
+| [convention-clean-code.md](convention-clean-code.md) | **P12** — obligation d’écriture (intègre README) |
+| [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution — pourquoi (**P11**, **P12**) |
 | **Ce plan** | Roadmap — quand / ordre / backlog intégré |
 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail V1 GNOME (vagues 1a–1e) |
 | `avancement-formel-*.md` | État hebdo (généré) |

@@ -2,7 +2,8 @@
 
 > **Date** : 2026-06-08 · **registryId** : `linux-mint` · **VM** : `capsule@192.168.1.146`  
 > **Objectif** : valider de bout en bout le moteur de clonage Cinnamon et documenter le cloisonnement toolkit.  
-> **Coordination** : passe Rocky parallèle (`91a017bf`) — périmètre Mint uniquement.
+> **Coordination** : passe Rocky parallèle (`91a017bf`) — périmètre Mint uniquement.  
+> **Dernière exécution recette** : 2026-06-08T14:15Z — pallier **8** · rapport [`linux-mint-clone-conformity-report.md`](inventaires/linux-mint-clone-conformity-report.md)
 
 **Lecture obligatoire** : [convention-reproduction-os.md](convention-reproduction-os.md) · [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [agent-validation-discipline.md](agent-validation-discipline.md) · [paradigme-toolkit-cinnamon.md](paradigme-toolkit-cinnamon.md)
 
@@ -18,16 +19,17 @@
 | H₂ baseline | `validate-all.mjs` | ✅ exit 0 (189 avert. JSON vanilla — hors zone Mint) |
 | Paradigme toolkit | `validate-toolkit-paradigm.mjs --id linux-mint` | ✅ |
 | Assets clone | `validate-clone-assets.mjs --id linux-mint` | ✅ (zones, profils, 112 icônes cinnamon/apps) |
-| Inventaire VM | `collect-mint-inventory.mjs --write-doc` | ✅ JSON + MD + catalogue apps régénérés |
+| Inventaire VM | `collect-mint-inventory.mjs --write-doc` | ✅ JSON `2026-06-08T14:07:17Z` + MD + catalogue 101 apps |
 
 ### Phase 1 — Shell (panel / menu / bureau)
 
 | Étape | Commande | Résultat |
 |-------|----------|----------|
-| Géométrie shell | `measure-mint-shell-geometry.mjs` | ✅ (métriques dans `linux-mint-parity-index.json` · maxΔ 0,7 px) |
+| Géométrie shell | `measure-mint-shell-geometry.mjs` | ✅ maxΔ **0,7 px** (≤1) · menu 600×480 gap 2 px |
 | Panel browser | `run-capsule-panel-browser.mjs` sur `:5501` | ✅ **6/6** |
-| Parité VM | `compare-os-parity.mjs --scenario panel-checklist --capsule-json /tmp/capsule-panel.json` | ✅ **6/6** |
-| Captures baseline | `root/docs/inventaires/captures/linux-mint/clone-baseline/` | ✅ référencées dans l'indice |
+| Parité VM | `compare-os-parity.mjs --scenario panel-checklist --capsule-json /tmp/capsule-panel.json` | ✅ **6/6** VM + Capsule |
+| UI state effects | `run-ui-state-effects-pass.mjs --shell … --write` | ✅ **8/8** (altTab + windowChrome Π=100) |
+| Captures baseline | `root/docs/inventaires/captures/linux-mint/clone-baseline/` | ✅ `metrics.json` à jour |
 
 ### Phase 2 — Parité index
 
@@ -74,7 +76,8 @@
 |-------|----------|----------|
 | Sync vues | `sync-all-views.mjs` | ✅ (à relancer avant push) |
 | Gate zone Mint | `validate-all.mjs` + `validate-toolkit-paradigm.mjs --all` | ✅ |
-| État réplication | `linux-mint-replication-state.json` | ✅ pallier 7 · Π_global 98 |
+| État réplication | `linux-mint-replication-state.json` | ✅ pallier **8** · Π_global 98 · non-conformités listées |
+| Rapport conformité | `linux-mint-clone-conformity-report.md` | ✅ matrice VM↔clone |
 
 ---
 

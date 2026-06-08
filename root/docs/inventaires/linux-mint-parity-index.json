@@ -34,7 +34,11 @@
           "menuWidthPx": 600,
           "menuHeightPx": 480,
           "menuBottomGapPx": 2,
-          "menuColsPct": [20, 25, 55],
+          "menuColsPct": [
+            20,
+            25,
+            55
+          ],
           "searchHeightPx": 35,
           "searchWidthPx": 134,
           "labelBehavior": "ellipsis CSS (Télécharg…, Éditeur de…, Paramètre…)"
@@ -43,7 +47,11 @@
           "menuWidthPx": 600,
           "menuHeightPx": 480,
           "menuBottomGapPx": 2,
-          "menuColsPct": [20.1, 25.1, 54.3],
+          "menuColsPct": [
+            20.1,
+            25.1,
+            54.3
+          ],
           "searchHeightPx": 35,
           "searchWidthPx": 134,
           "maxDeltaPx": 0.7,
@@ -54,10 +62,10 @@
         "cacheBust": "20260608pxperfect",
         "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T13:23:18Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T13:23:18Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     },
     "panel": {
       "id": "panel",
@@ -102,10 +110,10 @@
         "cacheBust": "20260608pxperfect",
         "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T13:23:18Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T13:23:18Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     },
     "tray": {
       "id": "tray",
@@ -119,10 +127,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:08:05.137Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:08:05.137Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     },
     "clock": {
       "id": "clock",
@@ -136,10 +144,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:15:38.052Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:15:38.053Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     },
     "desktop": {
       "id": "desktop",
@@ -153,10 +161,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T11:54:04.866Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T11:54:04.866Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     },
     "theme": {
       "id": "theme",
@@ -170,10 +178,44 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:15:38.053Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:15:38.053Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
+    },
+    "altTab": {
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "pi": 100,
+      "status": "ok",
+      "lastPass": "2026-06-08T14:11:42.015Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "id": "altTab",
+      "updatedAt": "2026-06-08T14:11:42.015Z"
+    },
+    "windowChrome": {
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "pi": 100,
+      "status": "ok",
+      "lastPass": "2026-06-08T14:11:42.015Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "id": "windowChrome",
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     }
   },
   "apps": {
@@ -232,10 +274,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:35:08.899Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 9,
       "checksTotal": 9,
-      "updatedAt": "2026-06-08T11:35:09.970Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "drawing": {
       "slot": "drawing",
@@ -272,10 +314,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/file_roller.json",
       "vmDoc": "linux-mint-file-roller-vm.md",
-      "lastPass": "2026-06-08T11:35:13.519Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:35:14.428Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "firefox": {
       "slot": "firefox",
@@ -292,10 +334,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
       "vmDoc": "linux-mint-firefox-vm.md",
-      "lastPass": "2026-06-08T11:40:24.510Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:40:25.435Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "font_viewer": {
       "slot": "font_viewer",
@@ -572,10 +614,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:51:46.105Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 8,
       "checksTotal": 8,
-      "updatedAt": "2026-06-08T11:51:47.196Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -652,10 +694,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/nemo.json",
       "vmDoc": "linux-mint-nemo-vm.md",
-      "lastPass": "2026-06-08T11:40:20.754Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 10,
       "checksTotal": 10,
-      "updatedAt": "2026-06-08T11:40:21.640Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "power_stats": {
       "slot": "power_stats",
@@ -812,10 +854,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/text_editor.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:18:07.700Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 9,
       "checksTotal": 9,
-      "updatedAt": "2026-06-08T11:18:08.479Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "themes": {
       "slot": "themes",
@@ -832,10 +874,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:35:03.868Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 11,
       "checksTotal": 11,
-      "updatedAt": "2026-06-08T11:35:05.817Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "thingy": {
       "slot": "thingy",
@@ -932,10 +974,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
       "vmDoc": "linux-mint-update-manager-vm.md",
-      "lastPass": "2026-06-08T11:51:40.972Z",
+      "lastPass": "2026-06-08T14:11:56.325Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:51:42.899Z"
+      "updatedAt": "2026-06-08T14:12:05.130Z"
     },
     "visionneur_images": {
       "slot": "visionneur_images",
@@ -1022,7 +1064,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T14:48:04Z",
+  "updatedAt": "2026-06-08T14:12:05.130Z",
   "pi_global": 98,
   "status_global": "ok"
 }

@@ -2,7 +2,7 @@
 
 Procédure : [`procedure-clonage-os-depuis-vm.md`](procedure-clonage-os-depuis-vm.md) · Statut clone : [`inventaires/linux-mint-clone-status.md`](inventaires/linux-mint-clone-status.md)
 
-Collecte : `2026-06-08T13:44:17Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
+Collecte : `2026-06-08T14:07:17Z` · Registre : `linux-mint` · JSON : [`inventaires/linux-mint-vm.json`](inventaires/linux-mint-vm.json)
 
 ## Versions
 

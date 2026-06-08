@@ -269,6 +269,74 @@ async function runShellChecks(page, surfaces) {
       push('theme-nav', 'nav', light || kb, {});
     }
 
+    if (surface === 'altTab') {
+      await openMintSlot(page, 'nemo');
+      await openMintSlot(page, 'firefox');
+      await page.waitForTimeout(80);
+      await page.keyboard.down('Alt');
+      await page.keyboard.press('Tab');
+      await page.waitForTimeout(60);
+      const altOpen = await page.evaluate(() => {
+        const overlay = document.getElementById('cinnamon-alt-tab');
+        const items = overlay ? overlay.querySelectorAll('.cinnamon-alt-tab__item').length : 0;
+        return {
+          open: overlay && !overlay.hidden,
+          items,
+        };
+      });
+      push('alt-tab-open', 'nav', altOpen.open && altOpen.items >= 2, altOpen);
+      push('alt-tab-vis', 'vis', altOpen.open, altOpen);
+      push('alt-tab-data', 'data', altOpen.items >= 2, altOpen);
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(50);
+      const altClosed = await page.evaluate(() => {
+        const overlay = document.getElementById('cinnamon-alt-tab');
+        return overlay && overlay.hidden;
+      });
+      push('alt-tab-kb', 'kb', altClosed, {});
+
+      await page.keyboard.up('Alt');
+      push('alt-tab-int', 'int', altOpen.open, altOpen);
+      push('alt-tab-ctx', 'ctx', altOpen.items >= 1, altOpen);
+    }
+
+    if (surface === 'windowChrome') {
+      await openMintSlot(page, 'nemo');
+      await page.waitForTimeout(80);
+      const chrome = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        const header = win ? win.querySelector(':scope > #windowHeader') : null;
+        const btn = header ? header.querySelector('#minimizeBtn') : null;
+        const cs = (el) => (el ? getComputedStyle(el) : null);
+        const px = (v) => parseFloat(v) || 0;
+        const headerRect = header ? header.getBoundingClientRect() : null;
+        const winRect = win ? win.getBoundingClientRect() : null;
+        const btnCs = cs(btn);
+        const winCs = cs(win);
+        const parts = (btnCs ? btnCs.backgroundSize : '').split(/\s+/);
+        return {
+          toolkit: win ? win.getAttribute('data-window-chrome-toolkit') : null,
+          headerHeight: headerRect ? headerRect.height : 0,
+          headerWidth: headerRect ? headerRect.width : 0,
+          winWidth: winRect ? winRect.width : 0,
+          btnSize: btnCs ? px(btnCs.width) : 0,
+          iconSize: parseFloat(parts[0]) || 0,
+          paddingTop: winCs ? px(winCs.paddingTop) : 0,
+          hasControls: !!(header && btn),
+        };
+      });
+      const titleOk = Math.abs(chrome.headerHeight - 32) <= 2;
+      const ctrlOk = Math.abs(chrome.btnSize - 22) <= 2;
+      const bleedOk = chrome.winWidth > 0 && Math.abs(chrome.headerWidth - chrome.winWidth) <= 2;
+      push('chrome-toolkit', 'data', chrome.toolkit === 'cinnamon', chrome);
+      push('chrome-titlebar', 'vis', titleOk && chrome.hasControls, chrome);
+      push('chrome-controls', 'int', ctrlOk, chrome);
+      push('chrome-bleed', 'nav', bleedOk, chrome);
+      push('chrome-gutter', 'ctx', chrome.paddingTop <= 1, chrome);
+      push('chrome-kb', 'kb', chrome.hasControls, chrome);
+    }
+
     if (surface === 'desktop') {
       const shortcuts = await page.evaluate(() => (
         document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length >= 2

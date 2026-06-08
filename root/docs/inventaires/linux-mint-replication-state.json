@@ -34,7 +34,7 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "pallier": 7,
+  "pallier": 8,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
   "pallier3Commit": "aa71cce",
@@ -42,15 +42,20 @@
   "pallier5Commit": "39d115b",
   "pallier6Commit": "9a547e1",
   "pallier7Commit": "fc7396e",
-  "updatedAt": "2026-06-08T18:30:00.000Z",
+  "updatedAt": "2026-06-08T14:15:00.000Z",
   "integralPass": {
     "date": "2026-06-08",
     "doc": "root/docs/recette-clone-mint-integral.md",
+    "conformityReport": "root/docs/inventaires/linux-mint-clone-conformity-report.md",
     "cloisonnementScore": 94,
     "panelChecklist": "6/6",
     "vmParity": "6/6",
+    "shellGeometryMaxDeltaPx": 0.7,
+    "uiStateSurfaces": "8/8",
     "validateAll": "ok",
-    "toolkitParadigmAll": "ok"
+    "toolkitParadigmAll": "ok",
+    "manifestDriftPull": 0,
+    "manifestDriftRefs": 68
   },
   "paritySnapshot": {
     "pi_global": 98,
@@ -65,37 +70,38 @@
       "mintinstall": 100,
       "themes": 100
     },
-    "catalogue": {
-      "baobab": 100,
-      "bulky": 100,
-      "drawing": 100,
-      "font_viewer": 100,
-      "gnome_disks": 100,
-      "simple_scan": 100,
-      "libreoffice_draw": 100,
-      "libreoffice_impress": 100,
-      "mate_color_select": 100,
-      "terminal": 100,
-      "mintdrivers": 100,
-      "mintwelcome": 100,
-      "system_monitor": 100,
-      "thunderbird": 100,
-      "webapp_manager": 100
-    },
     "shell": {
       "mainMenu": 92,
       "panel": 100,
       "tray": 100,
       "desktop": 92,
       "clock": 100,
-      "theme": 100
+      "theme": 100,
+      "altTab": 100,
+      "windowChrome": 100
     }
   },
+  "nonConformites": [
+    {
+      "id": "MAN-DRIFT-68",
+      "severity": "P2",
+      "summary": "68 rewrite-ref ManΣ (icônes GTK → gnome/apps) — pull=0"
+    },
+    {
+      "id": "CAPS-ONLY-2",
+      "severity": "CapsuleOnly",
+      "summary": "librewriter + checklist panel — pédagogie hors VM"
+    },
+    {
+      "id": "MENU-CTX-50",
+      "severity": "P2",
+      "summary": "mainMenu ctx Π=50 — menus contextuels apps secondaires"
+    }
+  ],
   "notes": [
-    "101/101 catalogue : slots ouverts OK (smoke basique).",
-    "Pallier 6 (9a547e1) : utilitaires Mint + visionneurs Π≥92 ; panel/tray Π=100 ; Π_global 88.",
-    "Pallier 7 : catalogue résiduel + stubs + terminal + shell clock/theme → tous slots ≥90.",
-    "Π_global 98 — campagne v2-deep-pass clôturée côté parité interactionnelle.",
-    "Passe intégrale recette clone 2026-06-08 : panel 6/6, VM 6/6, cloisonnement 94/100, docs recette + branchement."
+    "Pallier 8 — recette intégrale re-exécutée : VM seule vérité, smokes viewport 1280×800, altTab/windowChrome Π=100.",
+    "101/101 catalogue : slots ouverts OK.",
+    "Π_global 98 — 0 slot < 90.",
+    "ManΣ pull=0 ; drift refs 68 documenté (apps GNOME upstream sur Mint)."
   ]
 }

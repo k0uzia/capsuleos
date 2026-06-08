@@ -273,12 +273,22 @@ const openSlot = async (page, slot, scene = {}) => {
       await page.waitForFunction(
         () => {
           const panel = document.querySelector('[data-discover-app-detail]');
-          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__gallery-track');
+          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img, [data-discover-carousel]');
         },
         null,
         { timeout: 10000 },
       );
-      await sleep(page, 500);
+      if (scene.discoverAppDetailScroll) {
+        await page.evaluate(() => {
+          const panel = document.querySelector('[data-discover-app-detail]');
+          if (panel) {
+            panel.scrollTop = panel.scrollHeight;
+          }
+        });
+        await sleep(page, 400);
+      } else {
+        await sleep(page, 500);
+      }
     } else {
       await page.evaluate(() => {
         const nav = document.querySelector('[data-discover-nav="home"]');
@@ -333,6 +343,12 @@ const main = async () => {
       file: 'capsule-discover-detail-vlc.png',
       slots: ['update_manager'],
       discoverAppDetail: 'vlc',
+    },
+    {
+      file: 'capsule-discover-detail-vlc-scrolled.png',
+      slots: ['update_manager'],
+      discoverAppDetail: 'vlc',
+      discoverAppDetailScroll: true,
     },
     {
       file: 'capsule-discover-installed.png',

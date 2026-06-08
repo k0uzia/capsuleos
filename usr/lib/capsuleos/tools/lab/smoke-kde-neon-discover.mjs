@@ -56,9 +56,11 @@ try {
 
   const detailBeforeInstall = await page.evaluate(() => ({
     name: document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim(),
-    galleryShots: document.querySelectorAll('.kde-discover-app-detail__shot').length,
+    galleryShots: document.querySelectorAll('.kde-discover-app-detail__slide, .kde-discover-app-detail__shot').length,
+    galleryImages: document.querySelectorAll('.kde-discover-app-detail__shot-img').length,
     description: document.querySelector('.kde-discover-app-detail__description-text')?.textContent?.trim(),
-    developer: document.querySelector('.kde-discover-app-detail__facts dd')?.textContent?.trim(),
+    developer: document.querySelector('.kde-discover-app-detail__developer')?.textContent?.trim(),
+    origin: document.querySelector('.kde-discover-app-detail__origin')?.textContent?.trim(),
   }));
 
   if (!detailBeforeInstall.name || detailBeforeInstall.name.indexOf('VLC') === -1) {
@@ -66,6 +68,9 @@ try {
   }
   if (detailBeforeInstall.galleryShots < 2) {
     errors.push(`fiche app : galerie=${detailBeforeInstall.galleryShots} captures`);
+  }
+  if (detailBeforeInstall.galleryImages < 2) {
+    errors.push(`fiche app : assets VM absents (${detailBeforeInstall.galleryImages} images)`);
   }
   if (!detailBeforeInstall.description || detailBeforeInstall.description.length < 20) {
     errors.push('fiche app : description absente ou trop courte');
@@ -88,7 +93,12 @@ try {
     errors.push('fiche app : bouton Installer non désactivé après clic');
   }
 
-  await page.click('[data-discover-app-back]');
+  await page.evaluate(() => {
+    const back = document.querySelector('[data-discover-app-back]');
+    if (back) {
+      back.click();
+    }
+  });
   await page.waitForFunction(
     () => document.querySelector('[data-discover-panel="home"]:not([hidden])'),
     null,

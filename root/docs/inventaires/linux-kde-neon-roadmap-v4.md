@@ -48,20 +48,23 @@ node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
 
 **Objectif** : fiches Discover et toolbar Firefox au niveau VM.
 
-- [x] Captures VM fiche app (screenshots, description, boutons)
-- [x] `discover-neon.js` : vue détail + galerie
+- [ ] Captures VM fiche app sans popup MAJ (`dismiss_discover_update_dialog`)
+- [x] `discover-neon.js` : layout Kirigami + carrousel screenshots VM
+- [x] Assets VLC depuis `vlc.appdata.xml` (prédicats **A/S/T**)
+- [ ] Capture VM `vm-discover-detail-vlc.png` régénérée (sans popup)
+- [x] Firefox Proton **clair** aligné `vm-firefox.png`
 - [x] Inventaire VM toolbar Firefox → matrice écarts
-- [x] Capture compare `04-firefox` enrichie si écart documenté
-- [x] `smoke-kde-neon-discover.mjs` étendu (fiche app)
+- [ ] `smoke-kde-neon-discover.mjs` + compare visuel Vp classé
 
-**Clôturé** : 2026-06-08 · suite → **V4-P2** Kickoff B2/B3
+**Statut** : 🔄 réouvert (2026-06-08) — clôture prématurée corrigée
 
 ```bash
 KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-detail
+node root/tools/lab/capture-capsule-kde-neon.mjs
 node usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs
 ```
 
-**Critère sortie** : Discover fiche app navigable · Firefox toolbar classée Vp.
+**Critère sortie** : fiche VLC navigable avec assets VM · popup absent des captures · Firefox toolbar claire classée Vp.
 
 ---
 

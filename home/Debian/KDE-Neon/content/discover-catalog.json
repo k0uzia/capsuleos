@@ -134,17 +134,36 @@
   },
   "appDetails": {
     "vlc": {
-      "summary": "Lecteur multimédia libre capable de lire la plupart des formats audio et vidéo.",
-      "description": "VLC est un lecteur multimédia libre et open source qui lit la plupart des fichiers multimédias ainsi que des DVD, des CD audio, des protocoles de diffusion en continu et divers formats de diffusion en continu.",
-      "version": "3.0.21",
-      "size": "42 Mo",
-      "license": "GPL v2",
-      "origin": "Ubuntu",
-      "developer": "VideoLAN",
+      "summary": "VLC media player, the open-source multimedia player",
+      "description": "VLC is a free and open source cross-platform multimedia player and framework that plays most multimedia files as well as DVDs, Audio CDs, VCDs, and various streaming protocols.",
+      "version": "3.0.20-3build6",
+      "size": "0 o",
+      "license": "GPL-2.0+",
+      "origin": "ubuntu-noble-universe",
+      "developer": "VideoLAN et al.",
+      "verifiedDeveloper": true,
+      "rating": 4,
+      "ratingCount": "1 581 notes",
+      "ageRating": "Tout le monde",
       "screenshots": [
-        { "id": "player", "label": "Lecture", "tone": "#1b2838" },
-        { "id": "playlist", "label": "Liste de lecture", "tone": "#232629" },
-        { "id": "settings", "label": "Préférences", "tone": "#31363b" }
+        {
+          "id": "win7",
+          "asset": "screenshots/vlc-screenshot-win7.jpg",
+          "sourceUrl": "http://images.videolan.org/vlc/screenshots/2.0.0/vlc-2.0-win7.jpg",
+          "sha256": "17c9b92503b4a9caed72f545aebdfcf5c0aa01677800c285e4535de7921d46dc"
+        },
+        {
+          "id": "lion",
+          "asset": "screenshots/vlc-screenshot-lion.jpg",
+          "sourceUrl": "http://images.videolan.org/vlc/screenshots/2.0.0/vlc-2.0-lion.jpg",
+          "sha256": "4eceb7ec4d33d9b75dc4b4bfcfa51b116f524e579673f56a03e45b1a16085073"
+        },
+        {
+          "id": "poney",
+          "asset": "screenshots/vlc-screenshot-poney.jpg",
+          "sourceUrl": "http://images.videolan.org/vlc/screenshots/2.0.0/vlc-2.0-poney.jpg",
+          "sha256": "cce040bf089591ecf9ed2a112b2850fa94842a7cc2884a7369acdb7b548c02f7"
+        }
       ]
     },
     "gimp": {

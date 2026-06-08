@@ -238,15 +238,108 @@
         return panel;
     }
 
-    function renderScreenshotTile(shot) {
-        const label = shot.label || shot.id || '';
-        const tone = shot.tone || '#31363b';
+    function resolveScreenshotUrl(shot) {
+        if (!shot || !shot.asset) {
+            return '';
+        }
+        return resolveAssetUrl(DISCOVER_ASSET_BASE + shot.asset);
+    }
+
+    function renderRating(meta) {
+        const rating = Number(meta.rating);
+        if (!rating || Number.isNaN(rating)) {
+            return '';
+        }
+        const full = Math.max(0, Math.min(5, Math.floor(rating)));
+        const stars = `${'★'.repeat(full)}${'☆'.repeat(5 - full)}`;
+        const count = meta.ratingCount ? `<span class="kde-discover-app-detail__rating-count">${meta.ratingCount}</span>` : '';
+        return `<p class="kde-discover-app-detail__rating" aria-label="${rating} sur 5">${stars}${count}</p>`;
+    }
+
+    function renderScreenshotSlides(screenshots) {
+        if (!Array.isArray(screenshots) || !screenshots.length) {
+            return '';
+        }
+        const slides = screenshots.map((shot, index) => {
+            const src = resolveScreenshotUrl(shot);
+            const label = shot.label || shot.id || `Capture ${index + 1}`;
+            if (!src) {
+                const tone = shot.tone || '#31363b';
+                return `<figure class="kde-discover-app-detail__slide" data-discover-slide="${index}"${index === 0 ? ' data-active="true"' : ' hidden'}>
+                    <span class="kde-discover-app-detail__shot-frame" style="--discover-shot-tone: ${tone}" aria-hidden="true"></span>
+                    <figcaption class="kde-discover-app-detail__shot-label">${label}</figcaption>
+                </figure>`;
+            }
+            return `<figure class="kde-discover-app-detail__slide" data-discover-slide="${index}"${index === 0 ? ' data-active="true"' : ' hidden'}>
+                <img class="kde-discover-app-detail__shot-img" src="${src}" alt="${label}" loading="lazy">
+            </figure>`;
+        }).join('');
+        const dots = screenshots.map((shot, index) => (
+            `<button type="button" class="kde-discover-app-detail__carousel-dot${index === 0 ? ' is-active' : ''}" data-discover-carousel-dot="${index}" aria-label="Capture ${index + 1}"></button>`
+        )).join('');
         return `
-            <figure class="kde-discover-app-detail__shot" style="--discover-shot-tone: ${tone}">
-                <span class="kde-discover-app-detail__shot-frame" aria-hidden="true"></span>
-                <figcaption class="kde-discover-app-detail__shot-label">${label}</figcaption>
-            </figure>
-        `;
+            <section class="kde-discover-app-detail__carousel" aria-label="Captures d'écran" data-discover-carousel>
+                <div class="kde-discover-app-detail__carousel-stage">
+                    <div class="kde-discover-app-detail__carousel-viewport">
+                        ${slides}
+                    </div>
+                    <button type="button" class="kde-discover-app-detail__carousel-btn kde-discover-app-detail__carousel-btn--prev" data-discover-carousel-prev aria-label="Capture précédente" hidden>‹</button>
+                    <button type="button" class="kde-discover-app-detail__carousel-btn kde-discover-app-detail__carousel-btn--next" data-discover-carousel-next aria-label="Capture suivante">›</button>
+                    <div class="kde-discover-app-detail__carousel-dots" role="tablist" aria-label="Position du carrousel">${dots}</div>
+                </div>
+            </section>`;
+    }
+
+    function bindAppDetailCarousel(root) {
+        const carousel = root.querySelector('[data-discover-carousel]');
+        if (!carousel || carousel.dataset.bound === 'true') {
+            return;
+        }
+        const slides = [...carousel.querySelectorAll('[data-discover-slide]')];
+        const dots = [...carousel.querySelectorAll('[data-discover-carousel-dot]')];
+        const prevBtn = carousel.querySelector('[data-discover-carousel-prev]');
+        const nextBtn = carousel.querySelector('[data-discover-carousel-next]');
+        if (slides.length < 2) {
+            if (nextBtn) {
+                nextBtn.hidden = true;
+            }
+            carousel.dataset.bound = 'true';
+            return;
+        }
+        let index = 0;
+        const showSlide = (nextIndex) => {
+            index = (nextIndex + slides.length) % slides.length;
+            slides.forEach((slide, slideIndex) => {
+                const active = slideIndex === index;
+                slide.hidden = !active;
+                slide.dataset.active = active ? 'true' : 'false';
+            });
+            dots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('is-active', dotIndex === index);
+            });
+            if (prevBtn) {
+                prevBtn.hidden = index === 0;
+            }
+            if (nextBtn) {
+                nextBtn.hidden = index === slides.length - 1;
+            }
+        };
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => showSlide(index - 1));
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => showSlide(index + 1));
+        }
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                const target = Number(dot.getAttribute('data-discover-carousel-dot'));
+                if (!Number.isNaN(target)) {
+                    showSlide(target);
+                }
+            });
+        });
+        showSlide(0);
+        carousel.dataset.bound = 'true';
     }
 
     function renderAppDetail(root, catalog, app) {
@@ -256,41 +349,48 @@
         const summary = meta.summary || app.desc || '';
         const description = meta.description || summary;
         const screenshots = Array.isArray(meta.screenshots) ? meta.screenshots : [];
-        const galleryMarkup = screenshots.length
-            ? `<section class="kde-discover-app-detail__gallery" aria-label="Captures d'écran">
-                <div class="kde-discover-app-detail__gallery-track" role="list">
-                    ${screenshots.map(renderScreenshotTile).join('')}
-                </div>
-               </section>`
+        const primaryAction = 'Installer';
+        const developerLine = meta.developer
+            ? `<p class="kde-discover-app-detail__developer">${meta.developer}${meta.verifiedDeveloper ? ' <span class="kde-discover-app-detail__verified" aria-label="Développeur vérifié">✓</span>' : ''}</p>`
             : '';
+        const facts = [
+            meta.version ? `<div><dt>Version</dt><dd>${meta.version}</dd></div>` : '',
+            meta.size ? `<div><dt>Taille</dt><dd>${meta.size}</dd></div>` : '',
+            meta.license ? `<div><dt>Licences</dt><dd><span class="kde-discover-app-detail__license">${meta.license}</span></dd></div>` : '',
+            meta.ageRating ? `<div><dt>Âges</dt><dd>${meta.ageRating}</dd></div>` : '',
+        ].filter(Boolean).join('');
+        const originLabel = meta.origin ? `De ${meta.origin}` : '';
         panel.innerHTML = `
-            <header class="kde-discover-app-detail__header">
-                <button type="button" class="kde-discover-app-detail__back" data-discover-app-back aria-label="Retour">← Retour</button>
-            </header>
+            <button type="button" class="kde-discover-app-detail__back sr-only" data-discover-app-back aria-label="Retour">Retour</button>
             <article class="kde-discover-app-detail__body">
-                <div class="kde-discover-app-detail__hero">
-                    <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
-                    <div class="kde-discover-app-detail__meta">
-                        <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
-                        <p class="kde-discover-app-detail__summary">${summary}</p>
-                        <dl class="kde-discover-app-detail__facts">
-                            ${meta.developer ? `<div><dt>Développeur</dt><dd>${meta.developer}</dd></div>` : ''}
-                            ${meta.version ? `<div><dt>Version</dt><dd>${meta.version}</dd></div>` : ''}
-                            ${meta.size ? `<div><dt>Taille</dt><dd>${meta.size}</dd></div>` : ''}
-                            ${meta.license ? `<div><dt>Licence</dt><dd>${meta.license}</dd></div>` : ''}
-                            ${meta.origin ? `<div><dt>Origine</dt><dd>${meta.origin}</dd></div>` : ''}
-                        </dl>
-                        <button type="button" class="kde-discover-app-detail__install" data-discover-app-install="${app.id || ''}">Installer</button>
-                        <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
+                <div class="kde-discover-app-detail__toolbar">
+                    <div class="kde-discover-app-detail__toolbar-actions">
+                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--share" data-discover-app-action="share">Partager</button>
+                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--remove" data-discover-app-action="remove">Supprimer</button>
+                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--primary" data-discover-app-install="${app.id || ''}">${primaryAction}</button>
                     </div>
+                    ${originLabel ? `<span class="kde-discover-app-detail__origin">${originLabel} ▾</span>` : ''}
                 </div>
-                ${galleryMarkup}
+                <div class="kde-discover-app-detail__top">
+                    <div class="kde-discover-app-detail__identity">
+                        <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
+                        <div class="kde-discover-app-detail__identity-text">
+                            <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
+                            ${developerLine}
+                            ${renderRating(meta)}
+                        </div>
+                    </div>
+                    ${facts ? `<dl class="kde-discover-app-detail__facts">${facts}</dl>` : ''}
+                </div>
+                ${renderScreenshotSlides(screenshots)}
                 <section class="kde-discover-app-detail__description">
-                    <h2 class="kde-discover-app-detail__description-title">Description</h2>
+                    <h2 class="kde-discover-app-detail__description-title">${summary}</h2>
                     <p class="kde-discover-app-detail__description-text">${description}</p>
                 </section>
+                <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
             </article>
         `;
+        bindAppDetailCarousel(root);
     }
 
     function showAppDetail(root, catalog, appId) {

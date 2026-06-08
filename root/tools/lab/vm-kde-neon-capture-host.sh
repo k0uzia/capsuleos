@@ -26,7 +26,8 @@ DISCOVER_UPDATES=false
 DISCOVER_ABOUT=false
 DISCOVER_CONFIG=false
 DISCOVER_DETAIL=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ]; do
+DISCOVER_DETAIL_LIVE=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -57,6 +58,9 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   if [ "${1:-}" = "--discover-detail" ]; then
     DISCOVER_DETAIL=true
   fi
+  if [ "${1:-}" = "--discover-detail-live" ]; then
+    DISCOVER_DETAIL_LIVE=true
+  fi
   shift
 done
 DEST="${1:-$DEFAULT_DEST}"
@@ -78,11 +82,50 @@ export XDG_RUNTIME_DIR=/run/user/\$(id -u); \
 export WAYLAND_DISPLAY=wayland-0; \
 export DISPLAY=:1; \
 export XDG_CURRENT_DESKTOP=KDE; \
+XAUTH_FILE=\$(ls /run/user/\$(id -u)/xauth_* 2>/dev/null | head -1); \
+[ -n \"\$XAUTH_FILE\" ] && export XAUTHORITY=\"\$XAUTH_FILE\"; \
 ${cmd}"
 }
 
+# Wayland : plasma-discover natif — script KWin (xdotool ne voit pas la fenêtre).
+dismiss_discover_update_dialog() {
+  prep_env "SCRIPT=/tmp/capsuleos-discover-capture-kwin.js
+    cat > \"\$SCRIPT\" <<'KWINJS'
+var ws = workspace;
+var windows = ws.windowList();
+var discover = null;
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || \"\";
+    if (cap === "Problème de mises à jour" || cap.indexOf("Update problem") === 0) {
+        w.closeWindow();
+        continue;
+    }
+    if (cap.indexOf("VLC") >= 0 && cap.indexOf("Discover") >= 0) {
+        discover = w;
+    }
+}
+if (discover) {
+    ws.activeWindow = discover;
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" capsuleos-discover-capture >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.5
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true"
+}
+
+require_discover_window() {
+  prep_env 'pgrep plasma-discover >/dev/null || { echo "plasma-discover absent — abandon capture" >&2; exit 1; }'
+}
+
 reset_apps() {
-  prep_env 'killall plasma-discover dolphin 2>/dev/null || true'
+  prep_env 'killall plasma-discover dolphin konsole firefox 2>/dev/null || true'
+}
+
+focus_discover_window() {
+  dismiss_discover_update_dialog
 }
 
 open_kickoff() {
@@ -323,27 +366,78 @@ fi
 
 open_discover_app() {
   local uri="$1"
-  prep_env "killall plasma-discover 2>/dev/null || true
+  prep_env "killall plasma-discover konsole firefox dolphin 2>/dev/null || true
     sleep 0.5
     nohup plasma-discover --application ${uri} >/dev/null 2>&1 &
-    for i in \$(seq 1 20); do
+    for i in \$(seq 1 25); do
       pgrep plasma-discover >/dev/null && break
       sleep 1
     done
-    sleep 6"
+    sleep 7"
+}
+
+scroll_discover_detail() {
+  prep_env "SCRIPT=/tmp/capsuleos-discover-scroll-kwin.js
+    cat > \"\$SCRIPT\" <<'KWINJS'
+var ws = workspace;
+var target = null;
+for (var i = 0; i < ws.windowList().length; i++) {
+    var w = ws.windowList()[i];
+    var cap = w.caption || \"\";
+    if (cap.indexOf(\"VLC\") >= 0 && cap.indexOf(\"Discover\") >= 0) {
+        target = w;
+        break;
+    }
+}
+if (target) {
+    ws.activeWindow = target;
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-scroll 2>/dev/null || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" capsuleos-discover-scroll >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.3
+    for i in 1 2 3 4; do
+      xdotool key Page_Down 2>/dev/null || true
+      sleep 0.15
+    done
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-scroll 2>/dev/null || true"
 }
 
 capture_discover_detail_shots() {
   reset_apps
   sleep 1
   open_discover_app appstream://org.videolan.vlc
+  require_discover_window
+  sleep 2
+  dismiss_discover_update_dialog
+  sleep 0.8
   shot "$DEST/vm-discover-detail-vlc.png"
+  scroll_discover_detail
+  sleep 0.6
+  shot "$DEST/vm-discover-detail-vlc-scrolled.png"
   reset_apps
 }
 
+capture_discover_detail_live() {
+  require_discover_window
+  dismiss_discover_update_dialog
+  sleep 0.8
+  shot "$DEST/vm-discover-detail-vlc.png"
+  scroll_discover_detail
+  sleep 0.6
+  shot "$DEST/vm-discover-detail-vlc-scrolled.png"
+}
+
+if $DISCOVER_DETAIL_LIVE; then
+  capture_discover_detail_live
+  echo "=== Terminé : vm-discover-detail-vlc.png + scrolled (--discover-detail-live) ==="
+  exit 0
+fi
+
 if $DISCOVER_DETAIL; then
   capture_discover_detail_shots
-  echo "=== Terminé : vm-discover-detail-vlc.png (--discover-detail) ==="
+  echo "=== Terminé : vm-discover-detail-vlc.png + scrolled (--discover-detail) ==="
   exit 0
 fi
 

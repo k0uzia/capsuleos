@@ -6,12 +6,12 @@
 | Zone | VM (Firefox 151 Proton) | CapsuleOS | Statut v4 |
 |------|-------------------------|-----------|-----------|
 | Titlebar Breeze | Séparée du chrome Proton (`browser.tabs.inTitlebar=0`) | `#windowHeader` Breeze + Proton sous-jacent | ✅ |
-| Onglets | Barre sombre Proton | `.capsule-browser__tabsbar` | ✅ smoke |
+| Onglets | Barre claire Proton (vm-firefox.png) | `.capsule-browser__tabsbar` fond `#f9f9fb` | ✅ |
 | Nouvel onglet | `+` | `[data-browser-action="new-tab"]` | ✅ smoke |
 | Retour / Suivant | Flèches navigation | `back` / `forward` | ✅ smoke |
 | Recharger | ↻ | `reload` | ✅ smoke |
 | Accueil | 🏠 | `home` | ✅ smoke |
-| Barre adresse | Champ URL Proton | `[data-browser-address]` | ✅ smoke |
+| Barre adresse | Champ URL Proton clair, bordure accent au focus | `[data-browser-address]` fond blanc | ✅ |
 | Bouton Aller | Masqué (Proton) | `go` masqué (`display:none`) | ✅ smoke |
 | Signets | Toggle barre | `toggle-bookmarks` | ✅ smoke |
 | Menu ☰ | Proton app menu | `menu` + icône mask CSS | ✅ smoke |
@@ -35,4 +35,4 @@ node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon 
 
 ## Verdict v4 P1
 
-Toolbar Firefox **classée Vp** : tous les contrôles Proton essentiels présents et testés par smoke.
+Toolbar Firefox **réalignée Proton clair** (vm-firefox.png). Clôture Vp après compare capture post-fix.

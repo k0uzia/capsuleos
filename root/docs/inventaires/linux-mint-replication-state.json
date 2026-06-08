@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T13:30:00Z",
+  "updatedAt": "2026-06-08T14:10:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,15 +33,15 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 17,
-      "partiel": 35,
+      "ok": 19,
+      "partiel": 31,
       "absent": 49,
-      "coverageOkPct": 17
+      "coverageOkPct": 19
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
-      "ok": 15,
-      "partiel": 2
+      "ok": 17,
+      "partiel": 0
     },
     "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
@@ -55,29 +55,14 @@
       "label": "Vérité machine & inventaire",
       "predicates": ["H2", "M", "I", "ManΣ"],
       "status": "completed",
-      "commit": "c3a3a00",
-      "gates": [
-        "validate-all.mjs",
-        "collect-mint-inventory.mjs --write-doc",
-        "smoke-vm-distribution-manifest.mjs"
-      ]
+      "commit": "c3a3a00"
     },
     {
       "id": "P1",
       "label": "Shell Cinnamon (panel, WM, tray, bureau)",
       "predicates": ["Ve-shell", "Vμ-shell", "L-panel"],
       "status": "completed",
-      "commit": "9cbcb8b",
-      "objects": [
-        "shell.panel.menu",
-        "shell.panel.grouped-window-list",
-        "shell.tray.*",
-        "shell.desktop.favorites",
-        "shell.window.muffin",
-        "shell.alt-tab"
-      ],
-      "target": "compare-os-parity panel-checklist 6/6 VM + Capsule",
-      "notes": "Panel VM 6/6 via os-probe.sh (2026-06-08)"
+      "commit": "9cbcb8b"
     },
     {
       "id": "P2",
@@ -85,16 +70,16 @@
       "predicates": ["Va", "Ve", "Vm", "Vμ", "VΣ"],
       "status": "in_progress",
       "artifact": "linux-mint-ui-state-effects-matrix.json",
-      "orchestrator": "run-ui-state-effects-pass.mjs --id linux-mint",
-      "notes": "Burst VM collecté ; capsuleMatch partial sur 8 surfaces shell"
+      "notes": "capsuleMatch partial sur 8 surfaces shell"
     },
     {
       "id": "P3",
       "label": "Apps VM — surface visible (panel, favoris, menu P0)",
       "predicates": ["AppΣ"],
-      "status": "in_progress",
+      "status": "completed",
       "target": "17 surfaces VM → statut ok + smoke",
-      "notes": "#16 cinnamon-settings ok (2026-06-08) · surface 15/17"
+      "notes": "17/17 — xviewer + xreader clôturés (2026-06-08)",
+      "commit": "pending"
     },
     {
       "id": "P4",
@@ -102,7 +87,7 @@
       "predicates": ["AppΣ-full"],
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "17/101 ok · #16 Paramètres clôturé",
+      "notes": "19/101 ok · visionneurs #19/#20 clôturés",
       "commit": "66540da"
     },
     {
@@ -110,7 +95,8 @@
       "label": "Clôture réplique intégrale",
       "predicates": ["D", "VΣ", "Tf", "H6"],
       "status": "pending",
-      "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert"
+      "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert",
+      "notes": "manifestDrift 148 — pas d'outil dédié trouvé ; ManΣ P5"
     }
   ],
   "predicates": {
@@ -119,22 +105,22 @@
     "I": { "ok": true, "file": "linux-mint-vm.json" },
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
-    "AppΣ": { "ok": false, "surfaceOk": "15/17" },
-    "AppΣ-full": { "ok": false, "ok": "17/101" },
-    "VΣ": { "ok": false, "matrix": "partial", "burstAt": "2026-06-08T12:12:00Z" },
-    "D": { "ok": false, "drift": 148 }
+    "AppΣ": { "ok": true, "surfaceOk": "17/17" },
+    "AppΣ-full": { "ok": false, "ok": "19/101" },
+    "VΣ": { "ok": false, "matrix": "partial" },
+    "D": { "ok": false, "drift": 148, "note": "outil drift→0 non identifié hors ManΣ" }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
       "49 apps catalogue absentes sur 101",
-      "Matrice VΣ shell — capsuleMatch partial (effets E(δ) à affiner)",
-      "manifestDrift 148 → P5 (ManΣ assets VM vs manifeste)"
+      "Matrice VΣ shell — capsuleMatch partial",
+      "manifestDrift 148 → P5 ManΣ"
     ]
   },
   "nextActions": [
-    "P3 : surfaces restantes (visionneur_images, visionneur_pdf partiels)",
-    "P4 : catalogue alphabétique #17+",
-    "P5 : drift manifest → 0, VΣ capsuleMatch ok"
+    "P4 : catalogue alphabétique apps absentes (#21+)",
+    "P5 : passe ManΣ drift manifest → 0",
+    "P2 : affiner VΣ capsuleMatch ok"
   ]
 }

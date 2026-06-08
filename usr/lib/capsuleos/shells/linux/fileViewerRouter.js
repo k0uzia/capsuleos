@@ -92,7 +92,7 @@ const getFileViewerTitle = (appId) => {
     }
     const titles = {
         visionneur_images: "Visionneur d'images",
-        visionneur_pdf: 'Visionneur PDF',
+        visionneur_pdf: 'Visionneur de documents',
         lecteur_multimedia: 'Lecteur multimédia',
         text_editor: 'Éditeur de texte'
     };
@@ -309,6 +309,10 @@ const renderFileViewer = (appId) => {
     if (appId === 'text_editor') {
         renderTextEditorViewer(payload);
     }
+
+    if (typeof window.onMintViewerRendered === 'function') {
+        window.onMintViewerRendered(appId);
+    }
 };
 
 const resolveViewerHref = (href) => {
@@ -408,3 +412,4 @@ window.renderFileViewer = renderFileViewer;
 window.getMintViewerTargetByExtension = getFileViewerTargetByExtension;
 window.openMintFileInViewer = openFileInViewer;
 window.renderMintViewer = renderFileViewer;
+window.fileViewerState = fileViewerState;

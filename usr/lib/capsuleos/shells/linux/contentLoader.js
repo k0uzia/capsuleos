@@ -432,15 +432,33 @@ const SLOT_INIT_HANDLERS = {
         }
     },
     visionneur_images: () => {
+        if (typeof initVisionneurImagesApp === 'function' && document.getElementById('visionneurImages')) {
+            initVisionneurImagesApp();
+        }
         runFirstAvailable([
-            { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['visionneur_images'] },
-            { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['visionneur_images'] }
+            {
+                fn: typeof renderFileViewer === 'function' ? renderFileViewer : null,
+                args: ['visionneur_images']
+            },
+            {
+                fn: typeof renderMintViewer === 'function' ? renderMintViewer : null,
+                args: ['visionneur_images']
+            }
         ]);
     },
     visionneur_pdf: () => {
+        if (typeof initVisionneurPdfApp === 'function' && document.getElementById('visionneurPdf')) {
+            initVisionneurPdfApp();
+        }
         runFirstAvailable([
-            { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['visionneur_pdf'] },
-            { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['visionneur_pdf'] }
+            {
+                fn: typeof renderFileViewer === 'function' ? renderFileViewer : null,
+                args: ['visionneur_pdf']
+            },
+            {
+                fn: typeof renderMintViewer === 'function' ? renderMintViewer : null,
+                args: ['visionneur_pdf']
+            }
         ]);
     },
     lecteur_multimedia: () => {

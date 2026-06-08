@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T09:19:56.671Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T09:26:33.287Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -44,8 +44,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 16 | Paramètres du système | cinnamon-settings.desktop | themes | ✅ | P0 |
 | 17 | Terminal | org.gnome.Terminal.desktop | terminal | ✅ | P0 |
 | 18 | Thèmes | cinnamon-settings-themes.desktop | themes | ✅ | P0 |
-| 19 | Visionneur d'images | xviewer.desktop | visionneur_images | 🔶 | P1 |
-| 20 | Visionneur de documents | xreader.desktop | visionneur_pdf | 🔶 | P1 |
+| 19 | Visionneur d'images | xviewer.desktop | visionneur_images | ✅ | P1 |
+| 20 | Visionneur de documents | xreader.desktop | visionneur_pdf | ✅ | P1 |
 
 ## Composants shell (hors applications)
 
@@ -131,7 +131,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Panel | Panel | cinnamon-settings-panel.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Paramètres du système | System Settings | cinnamon-settings.desktop | themes | ✅ | M,F | Sous-panneau Paramètres système |
 | Passwords and Keys | Passwords and Keys | org.gnome.seahorse.Application.desktop | — | ⬜ | — |  |
-| Pix | Pix | pix.desktop | visionneur_images | 🔶 | — |  |
+| Pix | Pix | pix.desktop | visionneur_images | ✅ | — |  |
 | Power Management | Power Management | cinnamon-settings-power.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Power Statistics | Power Statistics | org.gnome.PowerStats.desktop | — | ⬜ | — |  |
 | Preferred Applications | Preferred Applications | cinnamon-settings-default.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -158,8 +158,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Users and Groups | Users and Groups | cinnamon-settings-users.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Vim | Vim | vim.desktop | — | ⬜ | — |  |
 | Virtual keyboard | Virtual keyboard | cinnamon-onscreen-keyboard.desktop | — | ⬜ | — |  |
-| Visionneur d'images | Image Viewer | xviewer.desktop | visionneur_images | 🔶 | M |  |
-| Visionneur de documents | Document Viewer | xreader.desktop | visionneur_pdf | 🔶 | M |  |
+| Visionneur d'images | Image Viewer | xviewer.desktop | visionneur_images | ✅ | M |  |
+| Visionneur de documents | Document Viewer | xreader.desktop | visionneur_pdf | ✅ | M |  |
 | Warpinator | Warpinator | org.x.Warpinator.desktop | warpinator | ⬜ | — |  |
 | Windows | Windows | cinnamon-settings-windows.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Workspaces | Workspaces | cinnamon-settings-workspaces.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -185,8 +185,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `text_editor` — ✅
 - `themes` — ✅
 - `update_manager` — ✅
-- `visionneur_images` — 🔶
-- `visionneur_pdf` — 🔶
+- `visionneur_images` — ✅
+- `visionneur_pdf` — ✅
 
 ## Références
 

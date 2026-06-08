@@ -56,9 +56,14 @@ for (const asset of inv.assets || []) {
   };
 
   if (!asset.existsOnVm) {
-    missingVm += 1;
-    row.status = 'missing-vm';
-    errors.push(`VM: fichier absent ${asset.vmPathPrimary || asset.vmPath}`);
+    if (asset.optionalOnVm) {
+      row.status = 'optional-missing-vm';
+      aligned += 1;
+    } else {
+      missingVm += 1;
+      row.status = 'missing-vm';
+      errors.push(`VM: fichier absent ${asset.vmPathPrimary || asset.vmPath}`);
+    }
   } else if (!row.existsInCapsule) {
     missingCapsule += 1;
     row.status = 'missing-capsule';

@@ -93,6 +93,7 @@ for asset in MATRIX.get("assets", []):
         "capsulePath": asset.get("capsulePath"),
         "transcodeFromVm": asset.get("transcodeFromVm"),
         "skipShaCompare": asset.get("skipShaCompare"),
+        "optionalOnVm": asset.get("optionalOnVm"),
         "existsOnVm": exists,
         "sizeBytes": None,
         "sha256": None,

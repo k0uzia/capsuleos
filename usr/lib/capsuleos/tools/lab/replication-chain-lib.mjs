@@ -73,14 +73,25 @@ export const evaluatePredicates = (registryId, domain = 'gnome-settings-playbook
   const inv = readJsonIfExists(p.visualInvestigation);
   const domainPreds = contract.domains[domain]?.predicates || [];
 
+  const formal = readJsonIfExists(path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`));
+  const assetsDrift = readJsonIfExists(path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-assets-drift.json`));
+  const playbookJson = path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-playbook.json`);
+
   const state = {
-    H2: null,
+    H2: formal?.gates?.H2?.ok ?? null,
     M: fs.existsSync(path.join(ROOT, 'etc/capsuleos/lab-inventory.json')),
     I: fs.existsSync(path.join(ROOT, 'root/docs/inventaires', `${registryId}-vm.json`)),
-    A: null,
+    A: assetsDrift
+      ? ((assetsDrift.missingCapsuleCount ?? assetsDrift.summary?.missingCapsule ?? 1) === 0
+        && (assetsDrift.driftCount ?? assetsDrift.summary?.drift ?? 1) === 0)
+      : null,
     S: fs.existsSync(p.assetsInventory),
     T: fs.existsSync(p.sourceVmTxt) && fs.readFileSync(p.sourceVmTxt, 'utf8').trim().length > 0,
-    L: null,
+    L: (() => {
+      const labState = readJsonIfExists(path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-lab-state.json`));
+      if (labState?.gates?.L?.ok) return true;
+      return null;
+    })(),
     V: countP0Documented(inv) > 0,
     G: (inv?.gsettingsDeepPass?.p0Enriched || 0) > 0,
     Vc: countP0CapsuleCaptures(inv) > 0,

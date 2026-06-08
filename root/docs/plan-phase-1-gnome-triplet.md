@@ -124,7 +124,60 @@ Commit : `f4d2d70`.
 
 ---
 
-## 5. Hors scope Phase 1
+## 5. Recette lab adaptative (algorithme — juin 2026)
+
+Objectif : modifier la recette **à la volée** (matrices, profils, flags) sans redéployer le code — cloisonnement **P11** / **R-LOC1**.
+
+### Modèle
+
+```text
+P(d)     profil registryId d     → etc/capsuleos/contracts/lab-recipe-profiles.json
+A(d,k)   artefact kind k         → root/tools/lab/gnome-settings-*-matrix-{vendor}.json
+G        graphe gates            → replication-chain.json + capsule-pipeline-layers.json
+next(d)  min prédicat faux       → resolve-lab-recipe.mjs / run-capsule-pipeline.mjs
+```
+
+**Hot-reload** : éditer le profil ou une matrice JSON, ou `CAPSULE_RECIPE_OVERRIDE=/chemin/patch.json` — le prochain collect/pipeline lit la nouvelle recette.
+
+**Profils lab** (`lab-recipe-profiles.json` → `labProfiles`) :
+
+| Profil | Commande | Gate |
+|--------|----------|------|
+| `visual-prereq` | `run-gnome-settings-lab --profile visual-prereq` | **L** |
+| `visual-vm` | `collect-vm-gnome-settings-visual-investigation --filter P0` | **V** |
+
+**Capsule HTTP** : `resolveCapsuleHttpBase(id)` lit `capsuleUrl` dans `lab-inventory.json` (Ubuntu :8765, Rocky :5500).
+
+**Ubuntu P0 visuel** : 4 contrôles automatisables sans gcc (theme, night-light, dynamic-workspaces, dnd) ; 11 autres enquêtes = P1/P2 (panneaux Paramètres).
+
+### Outils
+
+| Commande | Rôle |
+|----------|------|
+| `resolve-lab-recipe.mjs --id <registryId>` | Écarts recette + prochaine action pipeline |
+| `bootstrap-gnome-settings-matrices.mjs --id <id> --write` | Créer matrices locales (proc / toolkit) |
+| `lab-recipe-resolver.mjs` | Bibliothèque — `resolveLabMatrix`, `resolveChainNextAction` |
+
+### R-LOC1 (durci)
+
+- Plus de fallback silencieux vers `gnome-settings-assets-matrix.json` (Rocky).
+- Matrice vendor absente → **FAIL** explicite + hint bootstrap.
+- Assets VM optionnels : champ `optionalOnVm` dans la matrice (ex. adwaita JXL Ubuntu Wayland).
+
+### Phase 1e — état exécution (VMs actives)
+
+| Étape | Statut |
+|-------|--------|
+| 1e.1 R-LOC1 code | ✅ `lab-recipe-resolver` + collectors |
+| 1e.2 Matrice Ubuntu | ✅ bootstrap + collect VM (gate S) |
+| 1e.3 Pipeline Ubuntu PbΣ | ⏳ V/G/Vc OK · Vp + Pbτ en cours (4 P0 shell documentés) |
+| 1e.4 ManA Rocky/Fedora | ✅ manifestes approuvés |
+| 1e.5 ManΣ Rocky | ⏳ bloqué — `apply-manifest-refs` : marqueurs overview absents sur skin H₆ gelé |
+| 1e.5 ManΣ Fedora | ⏳ après Rocky ou patch agnostique import |
+
+---
+
+## 6. Hors scope Phase 1
 
 - Phase 2 GNOME étendu (alma, anduinos, popos)
 - Refactor Mint toolkit (Phase 3)
@@ -132,7 +185,7 @@ Commit : `f4d2d70`.
 
 ---
 
-## 6. Suite (Phase 2)
+## 7. Suite (Phase 2)
 
 GNOME étendu — **uniquement après** critère done §2 **1e**.
 

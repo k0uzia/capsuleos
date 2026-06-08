@@ -1,0 +1,50 @@
+{
+  "registryId": "linux-ubuntu",
+  "domain": "gnome-settings-playbook",
+  "generatedAt": "2026-06-08T23:03:41.391Z",
+  "predicates": {
+    "H2": true,
+    "M": true,
+    "I": true,
+    "A": true,
+    "S": true,
+    "T": true,
+    "L": true,
+    "V": true,
+    "G": true,
+    "Vc": false,
+    "Vp": false,
+    "documentedP0": 4,
+    "capsuleCapturesP0": 0,
+    "visualMatchClassifiedP0": 0
+  },
+  "nextPredicate": "Vc",
+  "nextStep": "capsule-captures",
+  "rule": "R-PRI chain → capsule-captures",
+  "lastResolvedAction": {
+    "registryId": "linux-ubuntu",
+    "domain": "gnome-settings-playbook",
+    "rule": "R-PRI3",
+    "autoExecute": true,
+    "complete": true,
+    "predicates": {
+      "H2": true,
+      "M": true,
+      "I": true,
+      "A": true,
+      "S": true,
+      "T": true,
+      "L": true,
+      "V": true,
+      "G": true,
+      "Vc": true,
+      "Vp": true,
+      "documentedP0": 4,
+      "capsuleCapturesP0": 4,
+      "visualMatchClassifiedP0": 4
+    },
+    "message": "Chaîne P0 complète — prochaine action logique : enquête P1",
+    "suggestedCommand": "node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-ubuntu --filter P1 --pending",
+    "command": "node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-ubuntu --filter P1 --pending"
+  }
+}

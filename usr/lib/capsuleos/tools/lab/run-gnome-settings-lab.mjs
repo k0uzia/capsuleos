@@ -3,10 +3,11 @@
  * Suite lab Paramètres GNOME — smokes statiques, baseline, chaîne de parité.
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs
- *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --playwright
+ *   node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id linux-ubuntu
+ *   node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id linux-ubuntu --profile visual-prereq
  *   node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --vm --id linux-rocky
  */
+import fs from 'fs';
 import { spawnSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,7 +20,9 @@ const args = process.argv.slice(2);
 const withPlaywright = args.includes('--playwright');
 const withVm = args.includes('--vm');
 const registryIdx = args.indexOf('--id');
+const profileIdx = args.indexOf('--profile');
 const registry = registryIdx >= 0 ? args[registryIdx + 1] : 'linux-rocky';
+const profile = profileIdx >= 0 ? args[profileIdx + 1] : 'full';
 
 function run(script, extraArgs = []) {
   const res = spawnSync(process.execPath, [path.join(LAB, script), ...extraArgs], {
@@ -33,6 +36,24 @@ function run(script, extraArgs = []) {
   }
 }
 
+const writeLabState = (ok) => {
+  const out = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-lab-state.json`);
+  fs.writeFileSync(out, `${JSON.stringify({
+    registryId: registry,
+    profile,
+    gates: { L: { ok, at: new Date().toISOString() } },
+  }, null, 2)}\n`);
+};
+
+if (profile === 'visual-prereq') {
+  run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
+  run('smoke-gnome-settings-visual-matrix.mjs', ['--id', registry]);
+  run('smoke-gnome-settings-interactions.mjs');
+  writeLabState(true);
+  console.log(`✓ run-gnome-settings-lab [visual-prereq] ${registry}`);
+  process.exit(0);
+}
+
 run('generate-gsettings-bindings.mjs');
 run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
 run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
@@ -40,7 +61,7 @@ run('smoke-gnome-settings-playbook.mjs');
 run('smoke-gnome-settings-interaction-playbook.mjs');
 run('smoke-gnome-settings-interactions.mjs');
 run('smoke-gsettings-mappers.mjs');
-run('smoke-gnome-settings-visual-matrix.mjs');
+run('smoke-gnome-settings-visual-matrix.mjs', ['--id', registry]);
 run('compare-playbook-gsettings-capsule.mjs', ['--registry', registry, '--strict']);
 run('enrich-visual-investigation-gsettings-pass.mjs', ['--id', registry]);
 run('collect-capsule-visual-investigation.mjs', ['--id', registry]);
@@ -49,6 +70,7 @@ run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
 run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
 run('smoke-h5-p1-appearance.mjs');
 run('smoke-h5-p0-shell.mjs');
+writeLabState(true);
 
 if (withPlaywright) {
   if (!process.env.CAPSULE_HTTP_BASE) {

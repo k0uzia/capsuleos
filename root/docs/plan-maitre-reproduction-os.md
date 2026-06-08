@@ -214,6 +214,8 @@ Tout artefact ground truth (matrice Paramètres, manifeste, playbook, inventaire
 
 Référence : [fondements-philosophiques.md](fondements-philosophiques.md) §9 **P11** · [logique-formelle.md](logique-formelle.md) **R-LOC1**.
 
+**Implémentation** (juin 2026) : `lab-recipe-resolver.mjs` · `etc/capsuleos/contracts/lab-recipe-profiles.json` · `resolve-lab-recipe.mjs` · `bootstrap-gnome-settings-matrices.mjs`. Détail Phase 1e : [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) §5.
+
 ### 4.4 Recette économe — données avant lignes
 
 Objectif : **moins de lignes**, **moins de Playwright**, **même fluidité UX**.
@@ -548,7 +550,7 @@ Ordre décidé par `resolve-agent-action.mjs --scope pipeline` et **P11** :
 | ID | Sujet | Phase | Priorité |
 |----|--------|-------|----------|
 | B1 | Triplet V1 stable (1e) | 1 | P0 |
-| B2 | P11 / R-LOC1 dans outils lab | 0/1 | P0 |
+| B2 | P11 / R-LOC1 — `lab-recipe-resolver` + collectors | 1/1 | P0 |
 | B3 | Matrice Paramètres Ubuntu | 1 | P0 |
 | B4 | ManΣ Rocky + Fedora (parallèle) | 1 | P0 |
 | B5 | Recette hybride Mint collecte + Rocky clôture | transversal | P1 |

@@ -28,13 +28,15 @@
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-rocky",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T22:47:29.225Z"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-rocky/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T22:47:31.345Z"
   },
   "summary": {
     "total": 84,
@@ -1063,12 +1065,12 @@
     {
       "id": "stage-vm",
       "predicate": "ManSt",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "import",
       "predicate": "ManI",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "integrate-skin",

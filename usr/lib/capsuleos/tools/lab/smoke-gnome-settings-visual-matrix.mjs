@@ -4,22 +4,40 @@
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs
+ *   node usr/lib/capsuleos/tools/lab/smoke-gnome-settings-visual-matrix.mjs --id linux-ubuntu
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolveLabMatrix } from './lab-recipe-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
+
+const args = process.argv.slice(2);
+const idIdx = args.indexOf('--id');
+const registryId = idIdx >= 0 ? args[idIdx + 1] : 'linux-rocky';
 
 const read = (rel) => {
   const abs = path.join(ROOT, rel);
   return fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : '';
 };
 
-const parityMatrix = JSON.parse(read('root/tools/lab/gnome-settings-parity-matrix.json') || '{}');
-const visualMatrix = JSON.parse(read('root/tools/lab/gnome-settings-visual-investigation-matrix.json') || '{}');
+let parityMatrix;
+let visualMatrix;
+try {
+  parityMatrix = JSON.parse(fs.readFileSync(resolveLabMatrix(registryId, 'parity').absolute, 'utf8'));
+  visualMatrix = JSON.parse(fs.readFileSync(resolveLabMatrix(registryId, 'visual').absolute, 'utf8'));
+} catch (e) {
+  console.error(`✗ smoke-gnome-settings-visual-matrix — ${e.message}`);
+  process.exit(1);
+}
+
+if (visualMatrix.registry && visualMatrix.registry !== registryId) {
+  errors.push(`matrice visuelle registry=${visualMatrix.registry} ≠ --id ${registryId}`);
+}
+
 const parityJs = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const themeStorageJs = read('usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
 const themesJs = read('usr/lib/capsuleos/shells/linux/themes.js');
@@ -34,7 +52,7 @@ const prefsCss = read('usr/share/capsuleos/themes/linux/gnome-shell-preferences.
 const procedure = read('root/docs/procedure-creation-playbook-gnome-settings.md');
 
 if (!visualMatrix.investigations?.length) {
-  errors.push('gnome-settings-visual-investigation-matrix.json : investigations vide');
+  errors.push('matrice visuelle : investigations vide');
 }
 
 if (!procedure.includes('Enquête visuelle')) {
@@ -71,7 +89,7 @@ for (const inv of visualMatrix.investigations || []) {
     continue;
   }
   if (!parityControlIds.has(inv.controlId)) {
-    errors.push(`investigation "${inv.controlId}" absent de gnome-settings-parity-matrix.json`);
+    errors.push(`investigation "${inv.controlId}" absent de la matrice parity (${registryId})`);
   }
   const hasHandler = handlerIds.has(inv.controlId) || specialHandlers.has(inv.controlId);
   if (!hasHandler) {
@@ -110,9 +128,9 @@ if (!read(templatePath).includes('gsettingsDeferred')) {
 }
 
 if (errors.length) {
-  console.error('smoke-gnome-settings-visual-matrix — échec\n');
+  console.error(`smoke-gnome-settings-visual-matrix — échec (${registryId})\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
   process.exit(1);
 }
 
-console.log(`✓ smoke-gnome-settings-visual-matrix OK (${visualMatrix.investigations.length} enquêtes)`);
+console.log(`✓ smoke-gnome-settings-visual-matrix OK — ${registryId} (${visualMatrix.investigations.length} enquêtes)`);

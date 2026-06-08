@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "description": "Profils recette lab hot-reload — matrices et scripts par registryId (P11, pas de fallback silencieux). Éditer ce fichier pour adapter la recette à la volée sans toucher au code.",
+  "matrixKinds": {
+    "parity": {
+      "vendorPattern": "root/tools/lab/gnome-settings-parity-matrix-{vendor}.json",
+      "label": "Matrice panneaux Paramètres GNOME"
+    },
+    "assets": {
+      "vendorPattern": "root/tools/lab/gnome-settings-assets-matrix-{vendor}.json",
+      "label": "Matrice assets Paramètres GNOME"
+    },
+    "visual": {
+      "vendorPattern": "root/tools/lab/gnome-settings-visual-investigation-matrix-{vendor}.json",
+      "label": "Matrice enquête visuelle Paramètres"
+    }
+  },
+  "profiles": {
+    "linux-rocky": {
+      "toolkit": "gnome",
+      "vendor": "rocky",
+      "matrices": {
+        "parity": "root/tools/lab/gnome-settings-parity-matrix-rocky.json",
+        "assets": "root/tools/lab/gnome-settings-assets-matrix-rocky.json",
+        "visual": "root/tools/lab/gnome-settings-visual-investigation-matrix-rocky.json"
+      },
+      "scripts": {
+        "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
+        "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
+      }
+    },
+    "linux-fedora": {
+      "toolkit": "gnome",
+      "vendor": "fedora",
+      "matrices": {
+        "parity": "root/tools/lab/gnome-settings-parity-matrix-fedora.json",
+        "assets": "root/tools/lab/gnome-settings-assets-matrix-fedora.json",
+        "visual": "root/tools/lab/gnome-settings-visual-investigation-matrix-fedora.json"
+      },
+      "scripts": {
+        "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
+        "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
+      }
+    },
+    "linux-ubuntu": {
+      "toolkit": "gnome",
+      "vendor": "ubuntu",
+      "matrices": {
+        "parity": "root/tools/lab/gnome-settings-parity-matrix-ubuntu.json",
+        "assets": "root/tools/lab/gnome-settings-assets-matrix-ubuntu.json",
+        "visual": "root/tools/lab/gnome-settings-visual-investigation-matrix-ubuntu.json"
+      },
+      "bootstrap": {
+        "assets": "proc:ubuntu-manifest-playbook",
+        "parity": "toolkit:gnome",
+        "visual": "toolkit:gnome+skinRewrite"
+      },
+      "labProfiles": {
+        "visual-prereq": "run-gnome-settings-lab.mjs --profile visual-prereq",
+        "visual-vm": "collect-vm-gnome-settings-visual-investigation.mjs --filter P0"
+      },
+      "notes": "P0 visuel = 4 contrôles shell (theme, night-light, dynamic-workspaces, dnd) ; P1 requiert gcc",
+      "scripts": {
+        "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
+        "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+body#mint {
+    --blk-bg: #ffffff;
+    --blk-text: #2e2e2e;
+    --blk-muted: #5c5c5c;
+    --blk-header: #ebebeb;
+    --blk-border: #d4d4d4;
+    --blk-accent: #1f9ede;
+    --blk-btn-bg: #f6f6f6;
+    --blk-btn-border: #c8c8c8;
+}

@@ -71,6 +71,41 @@
                 app.name = 'Analyseur d\'espace disque';
                 app.icon = './assets/images/toolkits/gnome/apps/org.gnome.baobab';
             }
+            if (app.name === 'Applications web' || app.name === 'Applications Web') {
+                app.dataLink = 'webapp_manager';
+                app.name = 'Applications Web';
+                app.icon = './assets/images/toolkits/gnome/apps/webapp-manager';
+            }
+            if (app.name === 'Écran d\'accueil' || app.name === 'Écran d\'accueil Mint') {
+                app.dataLink = 'mintwelcome';
+                app.name = 'Écran d\'accueil Mint';
+                app.icon = './assets/images/toolkits/gnome/apps/mintwelcome';
+            }
+            if (app.name === 'Hypnotix') {
+                app.dataLink = 'hypnotix';
+            }
+            if (app.name === 'Notes') {
+                app.dataLink = 'sticky';
+            }
+            if (app.name === 'Outil de sauvegarde') {
+                app.dataLink = 'mintbackup';
+            }
+            if (app.name === 'Renommeur de fichiers' || app.name === 'Renommer fichiers') {
+                app.dataLink = 'bulky';
+                app.name = 'Renommer fichiers';
+            }
+            if (app.name === 'Messagerie Thunderbird') {
+                app.dataLink = 'thunderbird';
+            }
+            if (app.name === 'Timeshift') {
+                app.dataLink = 'timeshift';
+            }
+            if (app.name === 'Transmission') {
+                app.dataLink = 'transmission';
+            }
+            if (app.name === 'Warpinator') {
+                app.dataLink = 'warpinator';
+            }
             if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
                 app.dataLink = 'lecteur_multimedia';
                 app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid';

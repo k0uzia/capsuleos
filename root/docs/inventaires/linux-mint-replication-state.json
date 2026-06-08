@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T15:45:00Z",
+  "updatedAt": "2026-06-08T17:30:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,10 +33,10 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 20,
+      "ok": 30,
       "partiel": 31,
-      "absent": 48,
-      "coverageOkPct": 20
+      "absent": 38,
+      "coverageOkPct": 30
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
@@ -45,7 +45,7 @@
     },
     "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
-    "manifestDrift": 148,
+    "manifestDrift": 64,
     "validateAllH2": true,
     "panelModel": "menu + grouped-window-list (2026-06-08)"
   },
@@ -87,7 +87,7 @@
       "predicates": ["AppΣ-full"],
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "20/101 ok · baobab #21 clôturé",
+      "notes": "30/101 ok · batch P4 #22-31 (10 apps XApp)",
       "commit": "bbe13c0"
     },
     {
@@ -106,21 +106,21 @@
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
     "AppΣ": { "ok": true, "surfaceOk": "17/17" },
-    "AppΣ-full": { "ok": false, "ok": "20/101" },
+    "AppΣ-full": { "ok": false, "ok": "30/101" },
     "VΣ": { "ok": false, "matrix": "partial" },
-    "D": { "ok": false, "drift": 148, "note": "report-manifest-drift.mjs + generate-manifest-replication-playbook.mjs" }
+    "D": { "ok": false, "drift": 64, "note": "refs index.html P4 — 84 app-icons résolus" }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
-      "48 apps catalogue absentes sur 101",
+      "38 apps catalogue absentes sur 101",
       "Matrice VΣ shell — capsuleMatch partial",
-      "manifestDrift 148 → P5 ManΣ"
+      "manifestDrift 64 → wallpapers + mimetypes/places"
     ]
   },
   "nextActions": [
-    "P4 : catalogue alphabétique apps absentes (#22+ — Applications Web, Hypnotix, …)",
-    "P5 : réduire drift ManΣ (rewrite-ref skin refs, report-manifest-drift.mjs --write)",
+    "P4 : suite catalogue alphabétique (#32+ apps sans slot)",
+    "P5 : drift 64 — wallpapers + icônes Nemo/mimetypes dans index.html",
     "P2 : affiner VΣ capsuleMatch ok"
   ]
 }

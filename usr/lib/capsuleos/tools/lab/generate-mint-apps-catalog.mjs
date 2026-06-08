@@ -41,6 +41,16 @@ const SLOT_STATUS = {
   file_roller: { statut: 'ok', slot: 'file_roller', note: 'File Roller 43 — headerbar, vide, smoke OK' },
   mintdrivers: { statut: 'ok', slot: 'mintdrivers', note: 'Driver Manager — recherche puis aucun pilote, smoke OK' },
   baobab: { statut: 'ok', slot: 'baobab', note: 'Baobab — sidebar places, anneau, smoke OK' },
+  webapp_manager: { statut: 'ok', slot: 'webapp_manager', note: 'Web App Manager — Matrix demo, smoke OK' },
+  sticky: { statut: 'ok', slot: 'sticky', note: 'Notes — liste + éditeur, smoke OK' },
+  warpinator: { statut: 'ok', slot: 'warpinator', note: 'Warpinator — peers, smoke OK' },
+  hypnotix: { statut: 'ok', slot: 'hypnotix', note: 'Hypnotix — chaînes IPTV, smoke OK' },
+  transmission: { statut: 'ok', slot: 'transmission', note: 'Transmission — liste torrents, smoke OK' },
+  mintbackup: { statut: 'ok', slot: 'mintbackup', note: 'Backup Tool — assistant source/dest, smoke OK' },
+  bulky: { statut: 'ok', slot: 'bulky', note: 'Bulky — aperçu renommage, smoke OK' },
+  timeshift: { statut: 'ok', slot: 'timeshift', note: 'Timeshift — instantanés, smoke OK' },
+  thunderbird: { statut: 'ok', slot: 'thunderbird', note: 'Thunderbird — boîte + messages, smoke OK' },
+  mintwelcome: { statut: 'ok', slot: 'mintwelcome', note: 'Welcome Screen — cartes Mint 22.3, smoke OK' },
   librecalc: { statut: 'ok', slot: 'librecalc', note: 'Calc — grille, barre de formule, menus, smoke OK' },
 };
 

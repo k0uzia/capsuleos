@@ -525,6 +525,56 @@ const SLOT_INIT_HANDLERS = {
             initBaobabApp();
         }
     },
+    webapp_manager: () => {
+        if (typeof initWebappManagerApp === 'function') {
+            initWebappManagerApp();
+        }
+    },
+    sticky: () => {
+        if (typeof initStickyApp === 'function') {
+            initStickyApp();
+        }
+    },
+    warpinator: () => {
+        if (typeof initWarpinatorApp === 'function') {
+            initWarpinatorApp();
+        }
+    },
+    hypnotix: () => {
+        if (typeof initHypnotixApp === 'function') {
+            initHypnotixApp();
+        }
+    },
+    transmission: () => {
+        if (typeof initTransmissionApp === 'function') {
+            initTransmissionApp();
+        }
+    },
+    mintbackup: () => {
+        if (typeof initMintbackupApp === 'function') {
+            initMintbackupApp();
+        }
+    },
+    bulky: () => {
+        if (typeof initBulkyApp === 'function') {
+            initBulkyApp();
+        }
+    },
+    timeshift: () => {
+        if (typeof initTimeshiftApp === 'function') {
+            initTimeshiftApp();
+        }
+    },
+    thunderbird: () => {
+        if (typeof initThunderbirdApp === 'function') {
+            initThunderbirdApp();
+        }
+    },
+    mintwelcome: () => {
+        if (typeof initMintwelcomeApp === 'function') {
+            initMintwelcomeApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

@@ -28,6 +28,16 @@
         file_roller: 'Gestionnaire d\'archives',
         mintdrivers: 'Gestionnaire de pilotes',
         baobab: 'Analyseur d\'espace disque',
+        webapp_manager: 'Applications Web',
+        sticky: 'Notes',
+        warpinator: 'Warpinator',
+        hypnotix: 'Hypnotix',
+        transmission: 'Transmission',
+        mintbackup: 'Sauvegarde',
+        bulky: 'Renommer fichiers',
+        timeshift: 'Timeshift',
+        thunderbird: 'Thunderbird',
+        mintwelcome: 'Accueil Mint',
     };
 
     let overlay = null;

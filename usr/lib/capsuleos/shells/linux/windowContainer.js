@@ -18,6 +18,16 @@
         mintinstall: 'Logithèque',
         system_monitor: 'Moniteur système',
         baobab: 'Analyseur d\'espace disque',
+        webapp_manager: 'Applications Web',
+        sticky: 'Notes',
+        warpinator: 'Warpinator',
+        hypnotix: 'Hypnotix',
+        transmission: 'Transmission',
+        mintbackup: 'Outil de sauvegarde',
+        bulky: 'Renommer fichiers',
+        timeshift: 'Timeshift',
+        thunderbird: 'Thunderbird',
+        mintwelcome: 'Écran d\'accueil Mint',
         update_manager: 'Gestionnaire de mise à jour',
     };
 

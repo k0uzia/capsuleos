@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T09:35:01.530Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T09:43:33.944Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -69,7 +69,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Agenda | Calendar | org.gnome.Calendar.desktop | calendar | ✅ | F | Popover horloge |
 | Analyseur d'espace disque | Disk Usage Analyzer | org.gnome.baobab.desktop | baobab | ✅ | — |  |
 | Applets | Applets | cinnamon-settings-applets.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Applications Web | Web Apps | webapp-manager.desktop | webapp_manager | ⬜ | — |  |
+| Applications Web | Web Apps | webapp-manager.desktop | webapp_manager | ✅ | — |  |
 | Backgrounds | Backgrounds | cinnamon-settings-backgrounds.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Bluetooth Adapters | Bluetooth Adapters | blueman-adapters.desktop | — | ⬜ | — |  |
 | Bluetooth Manager | Bluetooth Manager | blueman-manager.desktop | — | ⬜ | — |  |
@@ -85,7 +85,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Disks | Disks | org.gnome.DiskUtility.desktop | — | ⬜ | — |  |
 | Display | Display | cinnamon-display-panel.desktop | — | ⬜ | — |  |
 | Document Scanner | Document Scanner | simple-scan.desktop | — | ⬜ | — |  |
-| Écran d'accueil Mint | Welcome Screen | mintwelcome.desktop | mintwelcome | ⬜ | — |  |
+| Écran d'accueil Mint | Welcome Screen | mintwelcome.desktop | mintwelcome | ✅ | — |  |
 | Éditeur de texte | Text Editor | org.x.editor.desktop | text_editor | ✅ | M,F |  |
 | Effects | Effects | cinnamon-settings-effects.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Extensions | Extensions | cinnamon-settings-extensions.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -104,7 +104,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |
 | Graphics Tablet | Graphics Tablet | cinnamon-wacom-panel.desktop | — | ⬜ | — |  |
 | Hot Corners | Hot Corners | cinnamon-settings-hotcorner.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Hypnotix | Hypnotix | hypnotix.desktop | hypnotix | ⬜ | — |  |
+| Hypnotix | Hypnotix | hypnotix.desktop | hypnotix | ✅ | — |  |
 | IBus Preferences | IBus Preferences | org.freedesktop.IBus.Setup.desktop | — | ⬜ | — |  |
 | Input method | Input method | mintlocale-im.desktop | — | ⬜ | — |  |
 | Keyboard | Keyboard | cinnamon-settings-keyboard.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
@@ -123,11 +123,11 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Mouse and Touchpad | Mouse and Touchpad | cinnamon-settings-mouse.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Network | Network | cinnamon-network-panel.desktop | — | ⬜ | — |  |
 | Night Light | Night Light | cinnamon-settings-nightlight.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Notes | Notes | sticky.desktop | sticky | ⬜ | — |  |
+| Notes | Notes | sticky.desktop | sticky | ✅ | — |  |
 | Notifications | Notifications | cinnamon-settings-notifications.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Onboard | Onboard | onboard.desktop | — | ⬜ | — |  |
 | Online Accounts | Online Accounts | gnome-online-accounts-gtk.desktop | — | ⬜ | — |  |
-| Outil de sauvegarde | Backup Tool | mintbackup.desktop | mintbackup | ⬜ | — |  |
+| Outil de sauvegarde | Backup Tool | mintbackup.desktop | mintbackup | ✅ | — |  |
 | Panel | Panel | cinnamon-settings-panel.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Paramètres du système | System Settings | cinnamon-settings.desktop | themes | ✅ | M,F | Sous-panneau Paramètres système |
 | Passwords and Keys | Passwords and Keys | org.gnome.seahorse.Application.desktop | — | ⬜ | — |  |
@@ -137,7 +137,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Preferred Applications | Preferred Applications | cinnamon-settings-default.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Printers | Printers | system-config-printer.desktop | — | ⬜ | — |  |
 | Privacy | Privacy | cinnamon-settings-privacy.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Renommer fichiers | File Renamer | bulky.desktop | bulky | ⬜ | — |  |
+| Renommer fichiers | File Renamer | bulky.desktop | bulky | ✅ | — |  |
 | Rhythmbox | Rhythmbox | org.gnome.Rhythmbox3.desktop | — | ⬜ | — |  |
 | Screensaver | Screensaver | cinnamon-settings-screensaver.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Software Sources | Software Sources | mintsources.desktop | — | ⬜ | — |  |
@@ -147,10 +147,10 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | System Information | System Information | mintreport.desktop | — | ⬜ | — |  |
 | Terminal | Terminal | org.gnome.Terminal.desktop | terminal | ✅ | M,P |  |
 | Thèmes | Themes | cinnamon-settings-themes.desktop | themes | ✅ | M,P | Sous-panneau Paramètres système |
-| Thunderbird | Thunderbird Mail | thunderbird.desktop | thunderbird | ⬜ | — |  |
+| Thunderbird | Thunderbird Mail | thunderbird.desktop | thunderbird | ✅ | — |  |
 | Thunderbolt | Thunderbolt | cinnamon-settings-thunderbolt.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
-| Timeshift | Timeshift | timeshift-gtk.desktop | timeshift | ⬜ | — |  |
-| Transmission | Transmission | transmission-gtk.desktop | transmission | ⬜ | — |  |
+| Timeshift | Timeshift | timeshift-gtk.desktop | timeshift | ✅ | — |  |
+| Transmission | Transmission | transmission-gtk.desktop | transmission | ✅ | — |  |
 | USB Image Writer | USB Image Writer | mintstick-kde.desktop | — | ⬜ | — |  |
 | USB Image Writer | USB Image Writer | mintstick.desktop | — | ⬜ | — |  |
 | USB Stick Formatter | USB Stick Formatter | mintstick-format-kde.desktop | — | ⬜ | — |  |
@@ -160,34 +160,44 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Virtual keyboard | Virtual keyboard | cinnamon-onscreen-keyboard.desktop | — | ⬜ | — |  |
 | Visionneur d'images | Image Viewer | xviewer.desktop | visionneur_images | ✅ | M |  |
 | Visionneur de documents | Document Viewer | xreader.desktop | visionneur_pdf | ✅ | M |  |
-| Warpinator | Warpinator | org.x.Warpinator.desktop | warpinator | ⬜ | — |  |
+| Warpinator | Warpinator | org.x.Warpinator.desktop | warpinator | ✅ | — |  |
 | Windows | Windows | cinnamon-settings-windows.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 | Workspaces | Workspaces | cinnamon-settings-workspaces.desktop | themes | ✅ | — | Sous-panneau Paramètres système |
 
 ## Slots CapsuleOS actuels (`index.html`)
 
 - `baobab` — ✅
+- `bulky` — ✅
 - `calculator` — ✅
 - `checklist` — 🎓
 - `drawing` — ✅
 - `file_roller` — ✅
 - `firefox` — ✅
+- `hypnotix` — ✅
 - `lecteur_multimedia` — ✅
 - `librecalc` — ✅
 - `librewriter` — ✅
 - `mainMenu` — 🔶
+- `mintbackup` — ✅
 - `mintdrivers` — ✅
 - `mintinstall` — ✅
+- `mintwelcome` — ✅
 - `nemo` — ✅
 - `profile` — ✅
 - `screenshot` — ✅
+- `sticky` — ✅
 - `system_monitor` — ✅
 - `terminal` — ✅
 - `text_editor` — ✅
 - `themes` — ✅
+- `thunderbird` — ✅
+- `timeshift` — ✅
+- `transmission` — ✅
 - `update_manager` — ✅
 - `visionneur_images` — ✅
 - `visionneur_pdf` — ✅
+- `warpinator` — ✅
+- `webapp_manager` — ✅
 
 ## Références
 

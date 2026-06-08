@@ -1,29 +1,39 @@
 {
-  "generatedAt": "2026-06-08T09:35:01.530Z",
+  "generatedAt": "2026-06-08T09:43:33.944Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "baobab",
+    "bulky",
     "calculator",
     "checklist",
     "drawing",
     "file_roller",
     "firefox",
+    "hypnotix",
     "lecteur_multimedia",
     "librecalc",
     "librewriter",
     "mainMenu",
+    "mintbackup",
     "mintdrivers",
     "mintinstall",
+    "mintwelcome",
     "nemo",
     "profile",
     "screenshot",
+    "sticky",
     "system_monitor",
     "terminal",
     "text_editor",
     "themes",
+    "thunderbird",
+    "timeshift",
+    "transmission",
     "update_manager",
     "visionneur_images",
-    "visionneur_pdf"
+    "visionneur_pdf",
+    "warpinator",
+    "webapp_manager"
   ],
   "menuAppCount": 0,
   "rows": [
@@ -147,14 +157,14 @@
       "desktop": "webapp-manager.desktop",
       "priorite": "P2",
       "slotCapsule": "webapp_manager",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/webapp_manager.html"
+      "fichiers": "apps/webapp_manager.html · Mint/style/apps/webapp_manager.skin.css"
     },
     {
       "ordreAlpha": "Backgrounds",
@@ -406,14 +416,14 @@
       "desktop": "mintwelcome.desktop",
       "priorite": "P2",
       "slotCapsule": "mintwelcome",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/mintwelcome.html"
+      "fichiers": "apps/mintwelcome.html · Mint/style/apps/mintwelcome.skin.css"
     },
     {
       "ordreAlpha": "Éditeur de texte",
@@ -716,14 +726,14 @@
       "desktop": "hypnotix.desktop",
       "priorite": "P2",
       "slotCapsule": "hypnotix",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/hypnotix.html"
+      "fichiers": "apps/hypnotix.html · Mint/style/apps/hypnotix.skin.css"
     },
     {
       "ordreAlpha": "IBus Preferences",
@@ -1025,14 +1035,14 @@
       "desktop": "sticky.desktop",
       "priorite": "P2",
       "slotCapsule": "sticky",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/sticky.html"
+      "fichiers": "apps/sticky.html · Mint/style/apps/sticky.skin.css"
     },
     {
       "ordreAlpha": "Notifications",
@@ -1089,14 +1099,14 @@
       "desktop": "mintbackup.desktop",
       "priorite": "P2",
       "slotCapsule": "mintbackup",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/mintbackup.html"
+      "fichiers": "apps/mintbackup.html · Mint/style/apps/mintbackup.skin.css"
     },
     {
       "ordreAlpha": "Panel",
@@ -1250,14 +1260,14 @@
       "desktop": "bulky.desktop",
       "priorite": "P2",
       "slotCapsule": "bulky",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/bulky.html"
+      "fichiers": "apps/bulky.html · Mint/style/apps/bulky.skin.css"
     },
     {
       "ordreAlpha": "Rhythmbox",
@@ -1412,14 +1422,14 @@
       "desktop": "thunderbird.desktop",
       "priorite": "P2",
       "slotCapsule": "thunderbird",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/thunderbird.html"
+      "fichiers": "apps/thunderbird.html · Mint/style/apps/thunderbird.skin.css"
     },
     {
       "ordreAlpha": "Thunderbolt",
@@ -1444,14 +1454,14 @@
       "desktop": "timeshift-gtk.desktop",
       "priorite": "P2",
       "slotCapsule": "timeshift",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/timeshift.html"
+      "fichiers": "apps/timeshift.html · Mint/style/apps/timeshift.skin.css"
     },
     {
       "ordreAlpha": "Transmission",
@@ -1460,14 +1470,14 @@
       "desktop": "transmission-gtk.desktop",
       "priorite": "P2",
       "slotCapsule": "transmission",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/transmission.html"
+      "fichiers": "apps/transmission.html · Mint/style/apps/transmission.skin.css"
     },
     {
       "ordreAlpha": "USB Image Writer",
@@ -1622,14 +1632,14 @@
       "desktop": "org.x.Warpinator.desktop",
       "priorite": "P2",
       "slotCapsule": "warpinator",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/warpinator.html"
+      "fichiers": "apps/warpinator.html · Mint/style/apps/warpinator.skin.css"
     },
     {
       "ordreAlpha": "Windows",

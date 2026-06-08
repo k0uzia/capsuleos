@@ -26,7 +26,7 @@ const SLOT_STATUS = {
   profile: { statut: 'ok', slot: 'profile', note: 'À propos Mint' },
   update_manager: { statut: 'partiel', slot: 'update_manager', note: 'mintupdate + mintinstall' },
   text_editor: { statut: 'ok', slot: 'text_editor', note: 'xed — menus, barre d\'outils, statut' },
-  librewriter: { statut: 'partiel', slot: 'librewriter', note: 'Writer — simulation' },
+  librewriter: { statut: 'ok', slot: 'librewriter', note: 'Writer — page A4, menus, barre d\'outils, smoke OK' },
   visionneur_images: { statut: 'partiel', slot: 'visionneur_images', note: 'xviewer / Pix' },
   visionneur_pdf: { statut: 'partiel', slot: 'visionneur_pdf', note: 'xreader' },
   lecteur_multimedia: { statut: 'ok', slot: 'lecteur_multimedia', note: 'Celluloid 0.21 — menubar, zone noire, contrôles, smoke OK' },

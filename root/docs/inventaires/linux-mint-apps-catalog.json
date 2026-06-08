@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T08:05:33.440Z",
+  "generatedAt": "2026-06-08T08:10:26.835Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -891,8 +891,8 @@
       "desktop": "libreoffice-writer.desktop",
       "priorite": "P0",
       "slotCapsule": "librewriter",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": true,
@@ -1873,8 +1873,8 @@
       "desktop": "libreoffice-writer.desktop",
       "priorite": "P0",
       "slotCapsule": "librewriter",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": true,

@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T08:05:33.440Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T08:10:26.835Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -38,7 +38,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ✅ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | P1 |
-| 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | P0 |
+| 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | ✅ | P0 |
 | 14 | Logithèque | mintinstall-kde.desktop | update_manager | 🔶 | P0 |
 | 15 | Moniteur système | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | P1 |
 | 16 | Paramètres du système | cinnamon-settings.desktop | themes | 🔶 | P0 |
@@ -115,7 +115,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | LibreOffice Calc | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | M |  |
 | LibreOffice Draw | LibreOffice Draw | libreoffice-draw.desktop | — | ⬜ | — |  |
 | LibreOffice Impress | LibreOffice Impress | libreoffice-impress.desktop | — | ⬜ | — |  |
-| LibreOffice Writer | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | M,P |  |
+| LibreOffice Writer | LibreOffice Writer | libreoffice-writer.desktop | librewriter | ✅ | M,P |  |
 | Login Window | Login Window | lightdm-settings.desktop | — | ⬜ | — |  |
 | Logithèque | Software Manager | mintinstall-kde.desktop | update_manager | 🔶 | — |  |
 | Logithèque | Software Manager | mintinstall.desktop | update_manager | 🔶 | M,F |  |
@@ -173,7 +173,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `firefox` — ✅
 - `lecteur_multimedia` — ✅
 - `librecalc` — ✅
-- `librewriter` — 🔶
+- `librewriter` — ✅
 - `mainMenu` — 🔶
 - `mintdrivers` — ✅
 - `nemo` — ✅

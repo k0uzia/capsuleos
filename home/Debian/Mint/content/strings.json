@@ -12,6 +12,7 @@
     "mintdrivers.noDriversBody": "Votre ordinateur n'a besoin d'aucun pilote supplémentaire.",
     "lecteur_multimedia.windowTitle": "Celluloid",
     "librecalc.windowTitle": "Sans nom 1 - LibreOffice Calc",
+    "librewriter.windowTitle": "Sans nom 1 - LibreOffice Writer",
     "text_editor.windowTitle": "Sans titre",
     "text_editor.placeholder": "Saisissez votre texte…"
 }

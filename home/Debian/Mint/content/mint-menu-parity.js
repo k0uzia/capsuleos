@@ -39,6 +39,7 @@
                 app.icon = panelIcon + 'preferences-desktop-theme.png';
             }
             if (app.name === 'LibreOffice Writer') {
+                app.dataLink = 'librewriter';
                 app.icon = panelIcon + 'libreoffice-writer.webp';
             }
             if (app.name === 'LibreOffice Calc') {

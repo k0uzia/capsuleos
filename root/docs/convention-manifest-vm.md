@@ -63,7 +63,27 @@ Catalogue médias v2 : blocs `toolkits` + `vendors` avec héritage `extends` —
 
 Ne pas mélanger deux phases dans un même commit sauf **ManΣ** initial (bootstrap vendor).
 
-**Enchaînement agent (campagne v2)** : à chaque pallier clôturé (gates + smokes du périmètre) → **commit + push auto** → pallier suivant sans approbation humaine. État : `linux-mint-replication-state.json`.
+**Enchaînement agent (campagne v2)** : à chaque pallier clôturé (gates + smokes du périmètre) → **sync vues** → **commit + push auto** → pallier suivant sans approbation humaine. État : `linux-mint-replication-state.json`.
+
+## Vues avant push (obligatoire)
+
+Toute poussée Git doit précéder la régénération des **vues dérivées** (façades `OS/linux/families/`, embeds offline, manifestes `home/public/`) :
+
+```bash
+node usr/lib/capsuleos/tools/sync-all-views.mjs
+# puis commit si des fichiers ont changé
+```
+
+**Automatisation** :
+
+| Mécanisme | Rôle |
+|-----------|------|
+| `sync-all-views.mjs` | Gate unique — manifest public + `sync-linux-skin-closure` + embed Android + validation façades |
+| `.githooks/pre-push` | Refuse le push si le working tree diffère après sync (vues périmées dans le commit) |
+| `root/tools/install-git-hooks.sh` | Copie le hook dans `.git/hooks/` (une fois par clone) |
+| `push-with-view-sync.sh` | Wrapper agent : sync → commit auto des vues → push |
+
+Ordre campagne : smokes verts du périmètre → `sync-all-views.mjs` → commit → `git push` (ou `push-with-view-sync.sh`).
 
 **AppV** est dérivé du manifeste (plus de scrape bash partiel) :
 

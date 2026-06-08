@@ -12,7 +12,7 @@ await page.waitForFunction(() => typeof window.openWindowByDataLink === 'functio
 
 await page.evaluate(() => window.openWindowByDataLink('nemo'));
 await page.waitForSelector('div[data-link="nemo"]', { state: 'visible', timeout: 15000 });
-await page.waitForTimeout(900);
+await page.waitForTimeout(180);
 
 const home = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -28,7 +28,7 @@ const home = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const docs = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -40,7 +40,7 @@ const docs = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-nemo-bookmark="true"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const bookmark = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -48,7 +48,7 @@ const bookmark = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 await page.waitForFunction(() => {
   const empty = document.querySelector('div[data-link="nemo"] .nemo-app__empty');
   return empty && empty.textContent && empty.textContent.length > 0;
@@ -60,7 +60,7 @@ const trash = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] #precedent');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const back = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -68,7 +68,7 @@ const back = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] .nemo-app__toolbar-group--view a img[src*="view-grid"]');
-await page.waitForTimeout(350);
+await page.waitForTimeout(90);
 
 const iconsView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -79,7 +79,7 @@ const iconsView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] .nemo-app__toolbar-group--view a img[src*="view-list"]');
-await page.waitForTimeout(350);
+await page.waitForTimeout(90);
 
 const listView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -90,7 +90,7 @@ const listView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #nemo-search');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const searchUi = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -106,7 +106,7 @@ const searchUi = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Système de fichiers"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const vfsRoot = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -145,7 +145,7 @@ const sidebarIcons = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Récent"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const recentView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -159,7 +159,7 @@ const recentView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #home');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const homeFolders = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -177,7 +177,7 @@ const homeFolders = await page.evaluate(() => {
 
 if (searchUi.hasInput) {
   await page.fill('div[data-link="nemo"] #nemo-search-input', 'doc');
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(40);
 }
 
 const searchFilter = await page.evaluate(() => ({
@@ -199,11 +199,11 @@ await page.evaluate(() => {
   }
 });
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
-await page.waitForTimeout(600);
+await page.waitForTimeout(50);
 const txtSelector = 'div[data-link="nemo"] .nemoElement a[data-item-name="introduction-bash.txt"]';
 if (await page.$(txtSelector)) {
   await page.click(txtSelector);
-  await page.waitForTimeout(1200);
+  await page.waitForTimeout(280);
 }
 
 const xedFromNemo = await page.evaluate(() => {
@@ -257,7 +257,7 @@ const breadcrumbNav = await page.evaluate(async () => {
   const rootCrumb = crumbs[0];
   rootCrumb.click();
   await new Promise((resolve) => {
-    setTimeout(resolve, 600);
+    setTimeout(resolve, 180);
   });
   const path = window.getExplorerCurrentPath('nemo');
   const title = document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent || '';

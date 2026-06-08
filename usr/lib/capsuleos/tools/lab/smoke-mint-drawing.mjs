@@ -11,11 +11,11 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 await page.fill('#menu-search', 'Dessin');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 
 const before = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="drawing"]');
@@ -36,7 +36,7 @@ if (box) {
   await page.mouse.move(box.x + 180, box.y + 140, { steps: 6 });
   await page.mouse.up();
 }
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 
 const after = await page.evaluate(() => {
   const canvas = document.getElementById('drawing-canvas');

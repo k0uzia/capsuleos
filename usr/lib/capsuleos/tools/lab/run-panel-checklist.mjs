@@ -115,7 +115,7 @@ done
 pkill -x ptyxis 2>/dev/null || true
 pkill -x firefox 2>/dev/null || true
 pkill -x nautilus 2>/dev/null || true
-sleep 0.8`;
+sleep 0.35`;
   spawnSync(
     'ssh',
     ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, target, script],

@@ -18,7 +18,7 @@ async function probeSlot(slotId) {
     window.openWindowByDataLink(id);
   }, slotId);
   await page.waitForSelector(`div[data-link="${slotId}"]`, { state: 'visible', timeout: 15000 });
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(50);
   return page.evaluate((id) => {
     const win = document.querySelector(`div[data-link="${id}"]`);
     const header = win?.querySelector(':scope > #windowHeader');
@@ -49,11 +49,11 @@ for (const slot of slots) {
 }
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 await page.fill('#menu-search', 'Gestionnaire d\'archives');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 
 const fileRoller = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="file_roller"]');

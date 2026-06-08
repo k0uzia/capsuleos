@@ -11,11 +11,11 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 await page.fill('#menu-search', 'Capture');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(700);
+await page.waitForTimeout(160);
 
 const before = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="screenshot"]');
@@ -29,7 +29,7 @@ const before = await page.evaluate(() => {
 });
 
 await page.click('#gnome-shot-capture');
-await page.waitForTimeout(900);
+await page.waitForTimeout(180);
 
 const after = await page.evaluate(() => {
   const result = document.getElementById('gnome-shot-result');

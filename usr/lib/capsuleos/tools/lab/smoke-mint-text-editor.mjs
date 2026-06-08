@@ -16,7 +16,7 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('a.desktop-shortcut[data-link="text_editor"]');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 
 const menuOpen = await page.evaluate(() => {
   const trigger = document.querySelector('.xed-menu__trigger');
@@ -25,7 +25,7 @@ const menuOpen = await page.evaluate(() => {
   const dropdown = trigger.parentElement.querySelector('.xed-menu__dropdown');
   return { ok: dropdown && !dropdown.hidden };
 });
-await page.waitForTimeout(150);
+await page.waitForTimeout(50);
 
 await page.evaluate(() => {
   document.querySelectorAll('.xed-menu__dropdown').forEach((d) => { d.hidden = true; });
@@ -35,7 +35,7 @@ await page.keyboard.press('Control+a');
 await page.keyboard.press('Control+c');
 await page.fill('#xed-area', '');
 await page.click('#xed-toolbar [data-xed-action="paste"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const after = await page.evaluate(() => {
   const area = document.getElementById('xed-area');

@@ -11,7 +11,7 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('.desktop-shortcut[data-link="calculator"]');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 
 const state = await page.evaluate(() => {
   const root = document.getElementById('gnomeCalculatorApp');
@@ -29,7 +29,7 @@ await page.click('[data-calc="digit"][data-digit="2"]');
 await page.click('[data-calc="op"][data-op="+"]');
 await page.click('[data-calc="digit"][data-digit="3"]');
 await page.click('[data-calc="equals"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const after = await page.evaluate(() => {
   return document.getElementById('gnome-calc-value')?.textContent;

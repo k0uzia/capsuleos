@@ -28,7 +28,7 @@ const results = [];
 
 for (const row of TRAY_CASES) {
   await page.click(row.btn);
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(70);
   const state = await page.evaluate(({ btnSel, popSel }) => {
     const btn = document.querySelector(btnSel);
     const pop = document.querySelector(popSel);
@@ -43,13 +43,17 @@ for (const row of TRAY_CASES) {
     ok: state.expanded === 'true' && state.popHidden === false,
   });
   await page.keyboard.press('Escape');
-  await page.waitForTimeout(120);
+  await page.waitForTimeout(45);
 }
 
 await page.evaluate(() => window.openWindowByDataLink('nemo'));
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 await page.click('#tray-btn-cornerbar');
-await page.waitForTimeout(300);
+await page.waitForFunction(() => {
+  const nemo = document.querySelector('div[data-link="nemo"]');
+  return nemo && nemo.style.display === 'none';
+}, null, { timeout: 3000 }).catch(() => {});
+await page.waitForTimeout(40);
 const cornerbarHide = await page.evaluate(() => {
   const nemo = document.querySelector('div[data-link="nemo"]');
   const btn = document.getElementById('tray-btn-cornerbar');
@@ -60,7 +64,11 @@ const cornerbarHide = await page.evaluate(() => {
 });
 
 await page.click('#tray-btn-cornerbar');
-await page.waitForTimeout(400);
+await page.waitForFunction(() => {
+  const nemo = document.querySelector('div[data-link="nemo"]');
+  return nemo && nemo.style.display !== 'none';
+}, null, { timeout: 3000 }).catch(() => {});
+await page.waitForTimeout(40);
 const cornerbarRestore = await page.evaluate(() => {
   const nemo = document.querySelector('div[data-link="nemo"]');
   const btn = document.getElementById('tray-btn-cornerbar');

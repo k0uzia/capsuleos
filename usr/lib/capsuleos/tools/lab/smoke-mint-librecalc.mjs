@@ -11,11 +11,11 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 await page.fill('#menu-search', 'LibreOffice Calc');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(600);
+await page.waitForTimeout(50);
 
 const state = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="librecalc"]');

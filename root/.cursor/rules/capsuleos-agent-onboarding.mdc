@@ -19,6 +19,7 @@ alwaysApply: true
 - ¬**H₂** → corriger validate-all / gate zone
 - ¬**I** → inventaire VM avant patch skin
 - ¬**A** → `kernel-supervisor` + `pull-vm-assets.sh`
+- **Push** → `node usr/lib/capsuleos/tools/sync-all-views.mjs` avant **chaque** `git push` (hook `.githooks/pre-push` ; install : `bash root/tools/install-git-hooks.sh`)
 
 ## Skills
 

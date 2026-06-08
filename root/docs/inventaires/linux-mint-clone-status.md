@@ -71,7 +71,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#7 Firefox** — P0 barre Muffin + P1 New Tab Proton, icônes toolbar, multi-onglets — [`linux-mint-firefox-vm.md`](linux-mint-firefox-vm.md) · `smoke-mint-firefox.mjs`
 - [x] **#8 Gestionnaire d'archives** — analyse VM [`linux-mint-file-roller-vm.md`](inventaires/linux-mint-file-roller-vm.md), slot `file_roller`, smoke `smoke-mint-file-roller.mjs`
 - [x] **#9 Gestionnaire de mises à jour** — analyse VM [`linux-mint-update-manager-vm.md`](inventaires/linux-mint-update-manager-vm.md), écran d'accueil + état à jour, smoke `smoke-mint-update-manager.mjs`
-- [ ] Reproduction **une app par passe** (suite : #10) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#8 Gestionnaire d'archives** — `file_roller`, smoke `smoke-mint-file-roller.mjs` OK (2026-06-08)
+- [ ] Reproduction **une app par passe** (suite : #10 mintdrivers) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Zone de notification (2026-06-04)

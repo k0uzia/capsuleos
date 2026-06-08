@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T07:40:15.216Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T07:47:58.398Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -33,7 +33,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 5 | Éditeur de texte | org.x.editor.desktop | text_editor | ✅ | P0 |
 | 6 | Fichiers | nemo.desktop | nemo | ✅ | P0 |
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
-| 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ⬜ | P1 |
+| 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
 | 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ⬜ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | P0 |
@@ -96,7 +96,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Font Selection | Font Selection | cinnamon-settings-fonts.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Fonts | Fonts | org.gnome.font-viewer.desktop | — | ⬜ | — |  |
 | General | General | cinnamon-settings-general.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
-| Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ⬜ | M |  |
+| Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M |  |
 | Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | 🔶 | — |  |
 | Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | 🔶 | T |  |
 | Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ⬜ | — |  |
@@ -169,7 +169,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `calculator` — ✅
 - `checklist` — 🎓
 - `drawing` — ✅
-- `file_roller` — ⬜
+- `file_roller` — ✅
 - `firefox` — ✅
 - `lecteur_multimedia` — 🔶
 - `librewriter` — 🔶

@@ -12,7 +12,7 @@ await page.waitForFunction(() => typeof window.openWindowByDataLink === 'functio
 
 await page.click('footer nav a[data-link="mainMenu"]');
 await page.waitForTimeout(500);
-await page.fill('#menu-search', 'Gestionnaire d\'archives');
+await page.fill('#menu-search', 'Archive');
 await page.waitForTimeout(300);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
 await page.waitForTimeout(800);

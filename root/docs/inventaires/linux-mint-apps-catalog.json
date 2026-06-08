@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T07:40:15.216Z",
+  "generatedAt": "2026-06-08T07:47:58.398Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -580,8 +580,8 @@
       "desktop": "org.gnome.FileRoller.desktop",
       "priorite": "P1",
       "slotCapsule": "file_roller",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,
@@ -1786,8 +1786,8 @@
       "desktop": "org.gnome.FileRoller.desktop",
       "priorite": "P1",
       "slotCapsule": "file_roller",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": true,
       "favoriBureau": false,
       "panel": false,

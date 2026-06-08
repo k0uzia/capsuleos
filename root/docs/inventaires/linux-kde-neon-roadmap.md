@@ -165,20 +165,20 @@ node root/tools/lab/capture-capsule-kde-neon.mjs
 
 #### Discover
 
-- [ ] Filtres catalogue (sidebar catégories actifs)
-- [ ] Fiches application (détail + bouton installer simulé)
-- [ ] Captures VM ↔ Capsule onglets Installed / Updates / About / Config
+- [x] Filtres catalogue (sidebar catégories actifs)
+- [x] Fiches application (détail + bouton installer simulé)
+- [x] Captures VM ↔ Capsule onglets Installed / Updates / About / Config (`plasma-discover --mode`)
 
 #### Tray
 
-- [ ] Klipper : historique simulé (3 entrées)
-- [ ] Réseau : états déconnecté / Wi-Fi (toggle)
-- [ ] Badge MAJ Discover dynamique
+- [x] Klipper : historique simulé (3 entrées)
+- [x] Réseau : états déconnecté / Wi-Fi (toggle)
+- [x] Badge MAJ Discover dynamique
 
 #### Konsole
 
-- [ ] Polish `terminal.skin.css` (titlebar, toolbar onglets)
-- [ ] Smoke `smoke-kde-neon-terminal.mjs`
+- [x] Polish `terminal.skin.css` (titlebar, toolbar onglets)
+- [x] Smoke `smoke-kde-neon-terminal.mjs`
 
 **Critère sortie P2** : Dolphin §7–9 clôturés ou ⚠️ P1 documentés · Discover filtres · 2 tray popovers dynamiques.
 

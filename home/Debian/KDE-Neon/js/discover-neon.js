@@ -195,6 +195,103 @@
         });
     }
 
+    function findAppById(catalog, appId) {
+        if (!catalog || !appId) {
+            return null;
+        }
+        let app = null;
+        (catalog.homeSections || []).some((section) => {
+            return (section.apps || []).some((entry) => {
+                if (entry.id === appId) {
+                    app = entry;
+                    return true;
+                }
+                return false;
+            });
+        });
+        if (!app && Array.isArray(catalog.installed)) {
+            catalog.installed.some((entry) => {
+                if (entry.id === appId) {
+                    app = entry;
+                    return true;
+                }
+                return false;
+            });
+        }
+        return app;
+    }
+
+    function ensureAppDetailPanel(root) {
+        let panel = root.querySelector('[data-discover-app-detail]');
+        if (panel) {
+            return panel;
+        }
+        panel = document.createElement('main');
+        panel.className = 'kde-updates__main kde-discover-panel kde-discover-panel--app-detail';
+        panel.dataset.discoverAppDetail = 'true';
+        panel.hidden = true;
+        panel.setAttribute('aria-label', 'Fiche application');
+        const panels = root.querySelector('.kde-discover-panels');
+        if (panels) {
+            panels.appendChild(panel);
+        }
+        return panel;
+    }
+
+    function renderAppDetail(root, catalog, app) {
+        const panel = ensureAppDetailPanel(root);
+        const meta = (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
+        const iconUrl = resolveIconUrl(app);
+        const summary = meta.summary || app.desc || '';
+        panel.innerHTML = `
+            <header class="kde-discover-app-detail__header">
+                <button type="button" class="kde-discover-app-detail__back" data-discover-app-back aria-label="Retour">← Retour</button>
+            </header>
+            <article class="kde-discover-app-detail__body">
+                <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
+                <div class="kde-discover-app-detail__meta">
+                    <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
+                    <p class="kde-discover-app-detail__summary">${summary}</p>
+                    <dl class="kde-discover-app-detail__facts">
+                        ${meta.version ? `<div><dt>Version</dt><dd>${meta.version}</dd></div>` : ''}
+                        ${meta.size ? `<div><dt>Taille</dt><dd>${meta.size}</dd></div>` : ''}
+                        ${meta.license ? `<div><dt>Licence</dt><dd>${meta.license}</dd></div>` : ''}
+                        ${meta.origin ? `<div><dt>Origine</dt><dd>${meta.origin}</dd></div>` : ''}
+                    </dl>
+                    <button type="button" class="kde-discover-app-detail__install" data-discover-app-install="${app.id || ''}">Installer</button>
+                    <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
+                </div>
+            </article>
+        `;
+    }
+
+    function showAppDetail(root, catalog, appId) {
+        const app = findAppById(catalog, appId);
+        if (!app) {
+            return;
+        }
+        state.detailAppId = appId;
+        state.view = 'app-detail';
+        root.querySelectorAll('[data-discover-panel]').forEach((panelEl) => {
+            panelEl.hidden = true;
+        });
+        renderAppDetail(root, catalog, app);
+        const detailPanel = root.querySelector('[data-discover-app-detail]');
+        if (detailPanel) {
+            detailPanel.hidden = false;
+        }
+        setWindowTitle(`${app.name} — Discover`);
+    }
+
+    function closeAppDetail(root, catalog) {
+        state.detailAppId = null;
+        const detailPanel = root.querySelector('[data-discover-app-detail]');
+        if (detailPanel) {
+            detailPanel.hidden = true;
+        }
+        switchView(root, catalog, 'home');
+    }
+
     function filterAppsForCategory(catalog, categoryId) {
         if (!catalog || categoryId === 'all') {
             return null;
@@ -463,6 +560,10 @@
     }
 
     function setVisiblePanel(root, viewId) {
+        const detailPanel = root.querySelector('[data-discover-app-detail]');
+        if (detailPanel) {
+            detailPanel.hidden = true;
+        }
         root.querySelectorAll('[data-discover-panel]').forEach((panel) => {
             const show = panel.getAttribute('data-discover-panel') === viewId;
             panel.hidden = !show;
@@ -548,6 +649,42 @@
 
     function bindUpdatesActions(root) {
         root.addEventListener('click', (event) => {
+            const card = event.target.closest('.kde-discover-card');
+            if (card && root.contains(card)) {
+                event.preventDefault();
+                const appId = card.getAttribute('data-discover-app');
+                loadCatalog().then((catalog) => {
+                    if (catalog && appId) {
+                        showAppDetail(root, catalog, appId);
+                    }
+                });
+                return;
+            }
+
+            const backBtn = event.target.closest('[data-discover-app-back]');
+            if (backBtn && root.contains(backBtn)) {
+                event.preventDefault();
+                loadCatalog().then((catalog) => {
+                    if (catalog) {
+                        closeAppDetail(root, catalog);
+                    }
+                });
+                return;
+            }
+
+            const installBtn = event.target.closest('[data-discover-app-install]');
+            if (installBtn && root.contains(installBtn)) {
+                event.preventDefault();
+                const status = root.querySelector('[data-discover-app-status]');
+                if (status) {
+                    status.hidden = false;
+                    status.textContent = 'Installation simulée — application ajoutée au catalogue lab.';
+                }
+                installBtn.disabled = true;
+                installBtn.setAttribute('aria-disabled', 'true');
+                return;
+            }
+
             const navBtn = event.target.closest('[data-discover-nav]');
             if (navBtn && root.contains(navBtn)) {
                 event.preventDefault();
@@ -573,6 +710,7 @@
                     }
                     catalog.updates = [];
                     renderUpdates(root, catalog);
+                    syncUpdatesChrome(root, catalog);
                 });
             }
         });

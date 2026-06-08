@@ -51,6 +51,7 @@
         <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
         <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
         <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+        <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
     </object>
     <footer id="tableau">
         <nav class="taskbar-pins" aria-label="Applications épinglées">
@@ -165,7 +166,8 @@
         <header class="kde-tray-popover__header">
             <h2 class="kde-tray-popover__title">Presse-papiers</h2>
         </header>
-        <p class="kde-tray-popover__empty">Le presse-papiers est vide</p>
+        <p class="kde-tray-popover__empty" id="kde-tray-clipboard-empty">Le presse-papiers est vide</p>
+        <ul class="kde-tray-popover__history" id="kde-tray-clipboard-history" role="list" hidden></ul>
         <footer class="kde-tray-popover__footer">
             <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-clipboard-clear">Effacer l'historique</button>
         </footer>
@@ -185,11 +187,16 @@
         <header class="kde-tray-popover__header">
             <h2 class="kde-tray-popover__title">Réseaux</h2>
         </header>
-        <button type="button" class="kde-tray-popover__row is-active">
+        <button type="button" class="kde-tray-popover__row is-active" data-network-wired>
             <img class="kde-tray-popover__row-icon" src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-wired.svg" alt="" aria-hidden="true">
             <span class="kde-tray-popover__row-label">Connexion filaire — Connecté</span>
         </button>
+        <button type="button" class="kde-tray-popover__row" data-network-wifi hidden>
+            <img class="kde-tray-popover__row-icon" src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-wired.svg" alt="" aria-hidden="true">
+            <span class="kde-tray-popover__row-label">Wi-Fi — Déconnecté</span>
+        </button>
         <footer class="kde-tray-popover__footer">
+            <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-network-toggle">Basculer Wi-Fi / filaire</button>
             <button type="button" class="kde-tray-popover__footer-btn" id="kde-tray-network-settings">Paramètres réseau…</button>
         </footer>
     </div>

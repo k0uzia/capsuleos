@@ -49,10 +49,10 @@ node root/tools/lab/capture-capsule-kde-neon.mjs             # scènes Neon incl
 | Vue icônes (grille) | ✅ | 🔄 réaudit | espacement colonnes ⚠️ |
 | Vues Synthétique / Détails | ✅ | 🔄 réaudit | — |
 | Split + hamburger structurel | ✅ | 🔄 réaudit | sélection volet droit ⚠️ P2 |
-| **Recherche + filtre** | — | 🟡 code | captures VM + matrice §7 |
-| **Hamburger flyouts** | — | 🟡 code | captures VM + matrice §8 |
+| **Recherche + filtre** | — | ✅ | captures VM filtre + Capsule ✅ 2026-06-08 |
+| **Hamburger flyouts** | — | ✅ | smoke icônes + captures VM ✅ |
 | Sidebar | ✅ | 🔄 réaudit | Périphériques ⏸ P2 |
-| Menu contextuel | partiel | ⏳ P2 | flyouts, dupliquer, étiquettes |
+| Menu contextuel | partiel | 🟡 P2 | flyouts simulation ✅ |
 | Footer status | ✅ masqué | 🔄 | — |
 
 ---
@@ -130,6 +130,7 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 | Menu filtre (portée, indexer…) | radios KDE | `data-dolphin-filter-v=2` | 🟡 |
 | Icônes indexation | Breeze | `./assets/...` + `resolveCapsuleResourceUrl` | 🟡 |
 | Capture paire VM | `vm-dolphin-search-open.png` | `capsule-dolphin-search-open.png` | ✅ 2026-06-08 |
+| Capture paire filtre | `vm-dolphin-search-filter-open.png` | `capsule-dolphin-search-filter-open.png` | ✅ 2026-06-08 |
 
 ### 8. Menu hamburger + flyouts — 🟡 ouvert v2
 

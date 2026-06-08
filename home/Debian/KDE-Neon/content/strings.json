@@ -22,6 +22,9 @@
     "checklist.hint.open-profile": "Ouvre le profil KDE Neon",
     "profile.windowTitle": "À propos - KDE Neon",
     "firefox.windowTitle": "Navigateur Web — Firefox",
-    "update_manager.windowTitle": "Page d'accueil — Discover"
+    "update_manager.windowTitle": "Page d'accueil — Discover",
+    "text_editor.windowTitle": "Kate — Éditeur de texte",
+    "visionneur_pdf.windowTitle": "Okular",
+    "visionneur_images.windowTitle": "Gwenview"
 }
 

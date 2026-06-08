@@ -2,7 +2,7 @@
   "registryId": "linux-kde-neon",
   "campaign": "v3-full-parity",
   "roadmap": "linux-kde-neon-roadmap.md",
-  "pallier": 2,
+  "pallier": 3,
   "pallierStatus": "in_progress",
   "vm": {
     "host": "goupil@192.168.123.52",
@@ -31,7 +31,9 @@
     "captureSurfaces": "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs",
     "smokeFirefox": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs",
     "smokeDolphin": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs",
+    "smokeDiscover": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs",
     "smokeTerminal": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-terminal.mjs",
+    "smokeKickoff": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-kickoff.mjs",
     "seedParityIndex": "usr/lib/capsuleos/tools/lab/seed-kde-neon-parity-index.mjs",
     "validationPlan": "usr/lib/capsuleos/tools/print-validation-plan.mjs"
   },
@@ -46,15 +48,15 @@
     "status_global": "partiel",
     "shell": {
       "panel": "p1-closed",
-      "mainMenu": "p1-closed",
-      "tray": "p2-in-progress",
+      "mainMenu": "p3-closed",
+      "tray": "p2-closed",
       "desktop": "p1-closed"
     },
     "apps": {
-      "nemo": "p2-context-flyouts",
-      "update_manager": "p2-category-filters",
+      "nemo": "p2-dolphin-7-9",
+      "update_manager": "p2-discover-detail",
       "firefox": "p1-closed",
-      "terminal": "p2-smoke"
+      "terminal": "p2-polish"
     }
   },
   "predicates": {
@@ -76,14 +78,6 @@
     "smokeFirefox": true,
     "compareNote": "Horloge figée CAPTURE_CLOCK_ISO + reset fenêtres entre scènes"
   },
-  "p0Deliverables": {
-    "parityIndex": true,
-    "interactionsMainMenu": true,
-    "interactionsPanel": true,
-    "interactionsTerminal": true,
-    "inventoryRefresh": true,
-    "inventoryVersionsNote": "plasmashell/dolphin/firefox/konsole vides en SSH batch — session Plasma requise pour compléter"
-  },
   "p1Deliverables": {
     "assetsJsAudit": true,
     "cssAssetsAuditDoc": true,
@@ -96,15 +90,36 @@
     "captureCompareStable": true
   },
   "p2Deliverables": {
+    "dolphinSearchFilterVmCapture": true,
     "dolphinContextFlyouts": true,
-    "dolphinSmokeHamburgerIcons": "smoke-kde-neon-dolphin.mjs",
+    "dolphinSmokeHamburgerIcons": true,
     "discoverCategoryFilters": true,
+    "discoverAppDetail": true,
+    "discoverVmTabCaptures": true,
+    "discoverVmTabCaptureFix": "plasma-discover --mode (update|settings|about)",
     "trayClipboardHistory": true,
     "trayNetworkToggle": true,
-    "terminalSmoke": "smoke-kde-neon-terminal.mjs",
-    "discoverAppDetail": false,
-    "dolphinSplitSelection": false
+    "trayUpdatesBadgeDynamic": true,
+    "terminalSmoke": true,
+    "terminalToolbarPolish": true,
+    "shellPolishTraySmoke": true,
+    "dolphinSplitSelection": false,
+    "discoverAppDetailScreenshots": false
   },
-  "nextStep": "P2 suite — fiches Discover, polish Konsole CSS, captures VM filtre Dolphin",
-  "updatedAt": "2026-06-08T14:10:00.000Z"
+  "p3Deliverables": {
+    "kickoffAppsLinked": "30/30",
+    "textEditorSlotKate": true,
+    "textEditorSkinCss": true,
+    "execLinkMapExpanded": true,
+    "smokeKickoff": true,
+    "batchB1OkularGwenviewKate": true,
+    "batchB2Utilities": false,
+    "batchB3System": false,
+    "noteKonversation": "absent inventaire VM lab"
+  },
+  "nextStep": "P4 propagation toolkit KDE (opensuse, mx-kde, debian-kde)",
+  "p3ClosedAt": "2026-06-08T16:00:00.000Z",
+  "p4StartedAt": "2026-06-08T16:05:00.000Z",
+  "pallier": 4,
+  "updatedAt": "2026-06-08T16:00:00.000Z"
 }

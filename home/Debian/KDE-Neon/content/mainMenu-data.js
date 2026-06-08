@@ -137,14 +137,16 @@ const MENU_APPS = [
         desktop: "org.kde.kuserfeedback-console.desktop",
         icon: "./assets/images/vendors/neon/kickoff/system-search.svg",
         name: "Console de retours des utilisateurs",
-        desc: "Outil d\'analyse et d\'administration pour les serveurs pour les retours des utilisateurs."
+        desc: "Outil d\'analyse et d\'administration pour les serveurs pour les retours des utilisateurs.",
+        dataLink: "checklist"
     },
     {
         catId: "dev",
         desktop: "org.kde.kate.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kate.png",
         name: "Kate",
-        desc: "Éditeur de texte avancé de KDE"
+        desc: "Éditeur de texte avancé de KDE",
+        dataLink: "text_editor"
     },
     {
         catId: "graph",
@@ -167,21 +169,24 @@ const MENU_APPS = [
         desktop: "org.kde.kdeconnect.nonplasma.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "Indicateur de KDEConnect",
-        desc: "Afficher les informations de vos périphériques"
+        desc: "Afficher les informations de vos périphériques",
+        dataLink: "profile"
     },
     {
         catId: "internet",
         desktop: "org.kde.kdeconnect.app.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "KDEConnect",
-        desc: "Unifiez vos périphériques"
+        desc: "Unifiez vos périphériques",
+        dataLink: "profile"
     },
     {
         catId: "internet",
         desktop: "org.kde.kdeconnect.sms.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "SMS par KDEConnect",
-        desc: "Lire et envoyer des SMS à partir des périphériques connectés"
+        desc: "Lire et envoyer des SMS à partir des périphériques connectés",
+        dataLink: "profile"
     },
     {
         catId: "sonvideo",
@@ -196,14 +201,16 @@ const MENU_APPS = [
         desktop: "org.kde.drkonqi.coredump.gui.desktop",
         icon: "./assets/images/vendors/neon/kickoff/tools-report-bug.svg",
         name: "Afficheur de processus plantés",
-        desc: "Présente un affichage détaillé des plantages antérieurs"
+        desc: "Présente un affichage détaillé des plantages antérieurs",
+        dataLink: "checklist"
     },
     {
         catId: "system",
         desktop: "org.kde.kinfocenter.desktop",
         icon: "./assets/images/vendors/neon/kickoff/hwinfo.svg",
         name: "Centre d\'informations",
-        desc: "En savoir plus sur le matériel et l\'état du système"
+        desc: "En savoir plus sur le matériel et l\'état du système",
+        dataLink: "profile"
     },
     {
         catId: "system",
@@ -226,14 +233,16 @@ const MENU_APPS = [
         desktop: "org.kde.partitionmanager.desktop",
         icon: "./assets/images/vendors/neon/kickoff/partitionmanager.svg",
         name: "Gestionnaire de partitions de KDE",
-        desc: "Gérer les disques, les partitions et les systèmes de fichiers"
+        desc: "Gérer les disques, les partitions et les systèmes de fichiers",
+        dataLink: "nemo"
     },
     {
         catId: "system",
         desktop: "org.kde.keepsecret.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kwalletmanager.png",
         name: "KeepSecret",
-        desc: "Gérer des mots de passe"
+        desc: "Gérer des mots de passe",
+        dataLink: "themes"
     },
     {
         catId: "system",
@@ -248,69 +257,79 @@ const MENU_APPS = [
         desktop: "org.kde.kwalletmanager.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kwalletmanager.png",
         name: "KWalletManager",
-        desc: "Enregistrez et gérez vos mots de passe"
+        desc: "Enregistrez et gérez vos mots de passe",
+        dataLink: "themes"
     },
     {
         catId: "system",
         desktop: "org.kde.plasma-systemmonitor.desktop",
         icon: "./assets/images/vendors/neon/kickoff/utilities-system-monitor.svg",
         name: "Surveillance du système",
-        desc: "Surveiller l\'utilisation des applications et des ressources du système"
+        desc: "Surveiller l\'utilisation des applications et des ressources du système",
+        dataLink: "profile"
     },
     {
         catId: "system",
         desktop: "org.gnome.Terminal.desktop",
         icon: "./assets/images/vendors/neon/kickoff/org.gnome.Terminal.svg",
         name: "Terminal",
-        desc: "Use the command line"
+        desc: "Use the command line",
+        dataLink: "terminal"
     },
     {
         catId: "system",
         desktop: "org.kde.kmenuedit.desktop",
         icon: "./assets/images/vendors/neon/kickoff/kmenuedit.png",
         name: "Éditeur de menus",
-        desc: "Modifier la présentation des applications dans les lanceurs d\'applications"
+        desc: "Modifier la présentation des applications dans les lanceurs d\'applications",
+        dataLink: "themes"
     },
     {
         catId: "utilities",
         desktop: "org.kde.ark.desktop",
         icon: "./assets/images/vendors/neon/kickoff/ark.png",
         name: "Ark",
-        desc: "Travailler avec des archives de fichiers"
+        desc: "Travailler avec des archives de fichiers",
+        dataLink: "nemo"
     },
     {
         catId: "utilities",
         desktop: "yelp.desktop",
         icon: "./assets/images/vendors/neon/kickoff/org.gnome.Yelp.png",
         name: "Help",
-        desc: "Get help with GNOME"
+        desc: "Get help with GNOME",
+        dataLink: "profile"
     },
     {
         catId: "utilities",
         desktop: "org.kde.spectacle.desktop",
         icon: "./assets/images/vendors/neon/kickoff/spectacle.svg",
         name: "Spectacle",
-        desc: "Effectuer des captures d\'écran et des enregistrements d\'écran"
+        desc: "Effectuer des captures d\'écran et des enregistrements d\'écran",
+        dataLink: "profile"
     },
     {
         catId: "utilities",
         desktop: "org.kde.plasma.emojier.desktop",
         icon: "./assets/images/vendors/neon/kickoff/preferences-desktop-emoticons.svg",
         name: "Sélecteur d\'émoticônes",
-        desc: "Copier les émoticônes dans le presse-papier"
+        desc: "Copier les émoticônes dans le presse-papier",
+        dataLink: "profile"
     },
     {
         catId: "utilities",
         desktop: "info.desktop",
         icon: "./assets/images/vendors/neon/kickoff/dialog-information.svg",
         name: "TeXInfo",
-        desc: "The viewer for TexInfo documents"
+        desc: "The viewer for TexInfo documents",
+        dataLink: "profile"
     },
     {
         catId: "utilities",
         desktop: "vim.desktop",
         icon: "./assets/images/vendors/neon/kickoff/gvim.png",
         name: "Vim",
-        desc: "Éditer des fichiers texte"
+        desc: "Éditer des fichiers texte",
+        dataLink: "text_editor"
     }
 ];

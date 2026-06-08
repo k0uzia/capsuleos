@@ -132,6 +132,29 @@
       { "name": "Dan Leinir Turthra Jensen", "role": "KNewStuff", "email": "admin@leinir.dk", "web": "https://leinir.dk/" }
     ]
   },
+  "appDetails": {
+    "vlc": {
+      "summary": "Lecteur multimédia libre capable de lire la plupart des formats audio et vidéo.",
+      "version": "3.0.21",
+      "size": "42 Mo",
+      "license": "GPL v2",
+      "origin": "Ubuntu"
+    },
+    "gimp": {
+      "summary": "Éditeur d'images GNU avec outils de retouche et composition avancés.",
+      "version": "2.10.36",
+      "size": "98 Mo",
+      "license": "GPL v3",
+      "origin": "Ubuntu"
+    },
+    "firefox": {
+      "summary": "Navigateur web rapide axé sur la vie privée.",
+      "version": "151.0.3",
+      "size": "72 Mo",
+      "license": "MPL 2.0",
+      "origin": "Ubuntu"
+    }
+  },
   "categoryFilters": {
     "all": { "label": "Toutes les applications" },
     "internet": { "label": "Internet", "appIds": ["firefox", "steam", "wine"] },

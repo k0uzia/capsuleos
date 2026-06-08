@@ -250,6 +250,16 @@ body#kde-neon div[data-link="terminal"] .capsule-terminal-toolbar__btn {
     cursor: default;
 }
 
+body#kde-neon div[data-link="terminal"] .capsule-terminal-toolbar__btn:hover:not(:disabled),
+body#kde-neon div[data-link="terminal"] .capsule-terminal-toolbar__btn:focus-visible:not(:disabled) {
+    background: rgba(239, 240, 241, 0.12);
+    outline: none;
+}
+
+body#kde-neon div[data-link="terminal"].windowElementActive .capsule-terminal-toolbar {
+    border-bottom-color: rgba(61, 174, 233, 0.35);
+}
+
 body#kde-neon div[data-link="terminal"] .capsule-terminal-toolbar__btn:not(.capsule-terminal-toolbar__btn--disabled):hover {
     background: rgba(239, 240, 241, 0.08);
 }

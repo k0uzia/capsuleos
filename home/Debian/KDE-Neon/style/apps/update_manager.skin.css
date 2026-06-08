@@ -1109,3 +1109,93 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
     border-radius: 0;
 }
 
+.update-manager--kde-neon .kde-discover-panel--app-detail {
+    overflow: auto;
+    background: #f6f7f8;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header {
+    padding: 0.65rem 0.85rem 0.35rem;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__back {
+    border: 0;
+    background: transparent;
+    color: #3daee9;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__body {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.35rem 1rem 1.25rem;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__icon {
+    width: 6rem;
+    height: 6rem;
+    object-fit: contain;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__name {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #232629;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__summary {
+    margin: 0 0 0.75rem;
+    color: #4d5359;
+    line-height: 1.45;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__facts {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__facts dt {
+    display: inline;
+    font-weight: 600;
+    color: #232629;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__facts dt::after {
+    content: " : ";
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__facts dd {
+    display: inline;
+    margin: 0;
+    color: #4d5359;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__install {
+    min-width: 7.5rem;
+    padding: 0.45rem 1rem;
+    border: 0;
+    border-radius: 0.28rem;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    background: #3daee9;
+    cursor: pointer;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__install:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__status {
+    margin: 0.65rem 0 0;
+    color: #27ae60;
+    font-size: 0.85rem;
+}
+

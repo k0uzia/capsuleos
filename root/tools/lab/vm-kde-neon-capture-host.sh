@@ -7,6 +7,8 @@
 # --dolphin-views vm-dolphin.png + vm-dolphin-compact.png + vm-dolphin-list.png (point 5 parité)
 # --dolphin-split vm-dolphin-split-only.png (vue scindée, action dbus split_view)
 # --dolphin-search vm-dolphin-search-open.png (toggle_search dbus)
+# --dolphin-search-filter vm-dolphin-search-filter-open.png (recherche + menu filtre)
+# --discover-updates|--discover-about|--discover-config captures onglets Discover (plasma-discover --mode)
 #
 # Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
 # Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
@@ -18,8 +20,12 @@ DOLPHIN_ONLY=false
 DOLPHIN_VIEWS=false
 DOLPHIN_SPLIT=false
 DOLPHIN_SEARCH=false
+DOLPHIN_SEARCH_FILTER=false
 DOLPHIN_HAMBURGER=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-hamburger" ]; do
+DISCOVER_UPDATES=false
+DISCOVER_ABOUT=false
+DISCOVER_CONFIG=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -32,8 +38,20 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   if [ "${1:-}" = "--dolphin-search" ]; then
     DOLPHIN_SEARCH=true
   fi
+  if [ "${1:-}" = "--dolphin-search-filter" ]; then
+    DOLPHIN_SEARCH_FILTER=true
+  fi
   if [ "${1:-}" = "--dolphin-hamburger" ]; then
     DOLPHIN_HAMBURGER=true
+  fi
+  if [ "${1:-}" = "--discover-updates" ]; then
+    DISCOVER_UPDATES=true
+  fi
+  if [ "${1:-}" = "--discover-about" ]; then
+    DISCOVER_ABOUT=true
+  fi
+  if [ "${1:-}" = "--discover-config" ]; then
+    DISCOVER_CONFIG=true
   fi
   shift
 done
@@ -81,20 +99,24 @@ open_discover() {
     sleep 4'
 }
 
-open_discover_installed() {
-  prep_env 'killall plasma-discover 2>/dev/null || true
-    nohup plasma-discover >/dev/null 2>&1 &
-    for i in $(seq 1 15); do
+open_discover_mode() {
+  local mode="$1"
+  prep_env "killall plasma-discover 2>/dev/null || true
+    nohup plasma-discover --mode ${mode} >/dev/null 2>&1 &
+    for i in \$(seq 1 15); do
       pgrep plasma-discover >/dev/null && break
       sleep 1
     done
-    sleep 5
-    if command -v ydotool >/dev/null 2>&1; then
-      ydotool key 148:1 148:0 sleep 0.3 148:1 148:0 sleep 0.3 28:1 28:0
-    elif command -v wtype >/dev/null 2>&1; then
-      wtype -k Tab -k Tab -k Return
-    fi
-    sleep 2'
+    sleep 5"
+}
+
+open_discover_installed() {
+  open_discover_mode installed
+}
+
+discover_nav_tab() {
+  local mode="$1"
+  open_discover_mode "$mode"
 }
 
 open_dolphin() {
@@ -225,6 +247,23 @@ capture_dolphin_search_shots() {
   reset_apps
 }
 
+capture_dolphin_search_filter_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_trigger_action toggle_search
+  sleep 1.2
+  prep_env 'if command -v ydotool >/dev/null 2>&1; then
+      ydotool key 15:1 15:0 sleep 0.15
+      ydotool key 57:1 57:0
+    elif command -v wtype >/dev/null 2>&1; then
+      wtype -k Tab -k space
+    fi
+    sleep 1'
+  shot "$DEST/vm-dolphin-search-filter-open.png"
+  reset_apps
+}
+
 capture_dolphin_hamburger_shots() {
   reset_apps
   sleep 1
@@ -241,6 +280,12 @@ capture_dolphin_hamburger_shots() {
 if $DOLPHIN_HAMBURGER; then
   capture_dolphin_hamburger_shots
   echo "=== Terminé : vm-dolphin-hamburger-open.png (--dolphin-hamburger) ==="
+  exit 0
+fi
+
+if $DOLPHIN_SEARCH_FILTER; then
+  capture_dolphin_search_filter_shots
+  echo "=== Terminé : vm-dolphin-search-filter-open.png (--dolphin-search-filter) ==="
   exit 0
 fi
 
@@ -269,6 +314,33 @@ if $DOLPHIN_ONLY; then
   shot "$DEST/vm-dolphin.png"
   reset_apps
   echo "=== Terminé : vm-dolphin.png (--dolphin-only) ==="
+  exit 0
+fi
+
+if $DISCOVER_UPDATES; then
+  reset_apps
+  discover_nav_tab update
+  shot "$DEST/vm-discover-updates.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-updates.png (--discover-updates) ==="
+  exit 0
+fi
+
+if $DISCOVER_CONFIG; then
+  reset_apps
+  discover_nav_tab settings
+  shot "$DEST/vm-discover-config.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-config.png (--discover-config) ==="
+  exit 0
+fi
+
+if $DISCOVER_ABOUT; then
+  reset_apps
+  discover_nav_tab about
+  shot "$DEST/vm-discover-about.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-about.png (--discover-about) ==="
   exit 0
 fi
 

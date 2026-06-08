@@ -107,6 +107,42 @@ if (chromePath) {
       };
     });
 
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(200);
+
+    await page.click('#tray-btn-clipboard');
+    await page.waitForSelector('#kde-tray-popover-clipboard:not([hidden])', { timeout: 5000 });
+    const clipboard = await page.evaluate(() => ({
+      items: document.querySelectorAll('#kde-tray-clipboard-history .kde-tray-popover__history-item').length,
+    }));
+
+    await page.click('#tray-btn-network');
+    await page.waitForSelector('#kde-tray-popover-network:not([hidden])', { timeout: 5000 });
+    const networkBefore = await page.evaluate(() => document.getElementById('tray-btn-network')?.title || '');
+    await page.click('#kde-tray-network-toggle');
+    const networkAfter = await page.evaluate(() => document.getElementById('tray-btn-network')?.title || '');
+
+    await page.evaluate(() => window.openWindowByDataLink('update_manager'));
+    await page.waitForFunction(
+      () => document.querySelector('[data-discover-nav="updates"]'),
+      null,
+      { timeout: 15000 },
+    );
+    await page.click('[data-discover-nav="updates"]');
+    await page.waitForFunction(
+      () => document.querySelector('[data-discover-updates-mount] .kde-updates__row'),
+      null,
+      { timeout: 15000 },
+    );
+    const updatesBefore = await page.evaluate(() => document.querySelector('[data-update-manager-tray]')?.dataset.hasUpdates);
+    await page.click('[data-um-kde-action="updateAll"]');
+    await page.waitForFunction(
+      () => document.querySelector('[data-update-manager-tray]')?.dataset.hasUpdates === 'false',
+      null,
+      { timeout: 8000 },
+    );
+    const updatesAfter = await page.evaluate(() => document.querySelector('[data-update-manager-tray]')?.dataset.hasUpdates);
+
     await browser.close();
 
     if (runtime.bodyId !== 'kde-neon') {
@@ -132,6 +168,15 @@ if (chromePath) {
     }
     if (kickoff.height < 480 || kickoff.height > 540) {
       errors.push(`runtime : kickoff height=${kickoff.height}px (cible VM ~513)`);
+    }
+    if (clipboard.items < 3) {
+      errors.push(`tray klipper : entrées=${clipboard.items} (attendu ≥3)`);
+    }
+    if (networkBefore === networkAfter) {
+      errors.push('tray réseau : toggle sans changement titre');
+    }
+    if (updatesBefore !== 'true' || updatesAfter !== 'false') {
+      errors.push(`tray MAJ : badge ${updatesBefore} → ${updatesAfter} (attendu true → false)`);
     }
   } catch (err) {
     errors.push(`playwright : ${err.message || err}`);

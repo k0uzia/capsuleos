@@ -54,7 +54,7 @@ const main = () => {
   const opts = parseArgs();
   process.stdout.write(`=== run-agent-auto ${opts.id} (max ${opts.maxSteps}) ===\n`);
 
-  const scopes = ['formal', 'general', 'gnome-settings-playbook'];
+  const scopes = ['pipeline', 'formal', 'general', 'gnome-settings-playbook'];
   let steps = 0;
 
   while (steps < opts.maxSteps) {

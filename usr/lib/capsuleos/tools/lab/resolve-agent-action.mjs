@@ -22,6 +22,7 @@ import {
   loadPlaybookGeneral,
 } from './playbook-general-lib.mjs';
 import { evaluateFormalRules } from './formal-rules-lib.mjs';
+import { resolvePipeline } from './capsule-pipeline-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ALIASES_PATH = path.join(ROOT, 'etc/capsuleos/contracts/agent-action-aliases.json');
@@ -277,6 +278,15 @@ const main = () => {
   const opts = parseArgs();
   const contract = loadContract();
   const aliases = JSON.parse(fs.readFileSync(ALIASES_PATH, 'utf8'));
+
+  if (opts.scope === 'pipeline') {
+    const out = resolvePipeline(opts.id);
+    const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-pipeline-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+    if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    else process.stdout.write(`${out.command || out.message}\n`);
+    return;
+  }
 
   if (opts.scope === 'formal') {
     const decision = evaluateFormalRules(opts.id);

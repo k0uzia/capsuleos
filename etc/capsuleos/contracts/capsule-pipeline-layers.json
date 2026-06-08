@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "description": "Couches pipeline CapsuleOS — ordre séquentiel (§5.2 plan maître reproduction OS)",
+  "entrypoint": "usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs",
+  "resolver": "usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --scope pipeline",
+  "layers": [
+    {
+      "id": "socle",
+      "label": "Socle dépôt",
+      "predicates": ["H2"]
+    },
+    {
+      "id": "ground-truth",
+      "label": "Vérité machine manifeste",
+      "predicates": ["ManΣ"]
+    },
+    {
+      "id": "apps",
+      "label": "Catalogue applications",
+      "predicates": ["AppΣ"]
+    },
+    {
+      "id": "playbook",
+      "label": "Playbook général",
+      "predicates": ["PbΣ"]
+    },
+    {
+      "id": "visual",
+      "label": "Parité visuelle shell",
+      "predicates": ["Vp"]
+    },
+    {
+      "id": "fidelity",
+      "label": "Fidélité visuelle transversale",
+      "predicates": ["Tf"]
+    },
+    {
+      "id": "release",
+      "label": "Clôture release",
+      "predicates": ["H6"]
+    }
+  ]
+}

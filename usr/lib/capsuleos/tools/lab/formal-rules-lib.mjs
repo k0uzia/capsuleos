@@ -31,6 +31,7 @@ export const loadFormalState = (registryId) => {
   const shell2 = readJson(shellPolish2Path(registryId));
   const universal = evaluateUniversal(registryId);
   const replication = evaluatePredicates(registryId);
+  const repState = replication.state || {};
   const apps = evaluateAppsPredicates(registryId);
   const appsReplication = evaluateAppsReplicationPredicates(registryId);
   const fidelity = evaluateVisualFidelity(registryId);
@@ -69,6 +70,9 @@ export const loadFormalState = (registryId) => {
     Tm: fidelity.Tm || !!base.gates?.Tm?.ok,
     Ta: fidelity.Ta || !!base.gates?.Ta?.ok,
     Tf: (fidelity.Tf && typoViolations.length === 0) || !!base.gates?.Tf?.ok,
+    V: !!repState.V,
+    Vc: !!repState.Vc,
+    Vp: !!repState.Vp || !!base.gates?.Vp?.ok,
   };
 
   return {

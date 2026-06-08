@@ -1,0 +1,11 @@
+{
+  "registryId": "linux-ubuntu",
+  "gates": {
+    "H2": {
+      "ok": true,
+      "at": "2026-06-08T20:59:34.537Z",
+      "via": "run-capsule-pipeline"
+    }
+  },
+  "updatedAt": "2026-06-08T20:59:34.537Z"
+}

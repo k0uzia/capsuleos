@@ -452,8 +452,8 @@
                 light: `${base}/wallpaper-racoon-light.webp`,
                 thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
                 thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
-                gsettingsDark: 'gnome/adwaita-d.jxl',
-                gsettingsLight: 'gnome/adwaita-l.jxl',
+                gsettingsDark: 'gnome/adwaita-d.webp',
+                gsettingsLight: 'gnome/adwaita-l.webp',
             },
             {
                 id: 'racoon',

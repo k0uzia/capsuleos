@@ -1,7 +1,7 @@
 {
   "registryId": "linux-ubuntu",
   "domain": "gnome-settings-playbook",
-  "generatedAt": "2026-06-08T23:03:41.391Z",
+  "generatedAt": "2026-06-08T23:37:13.155Z",
   "predicates": {
     "H2": true,
     "M": true,
@@ -22,29 +22,10 @@
   "nextStep": "capsule-captures",
   "rule": "R-PRI chain → capsule-captures",
   "lastResolvedAction": {
-    "registryId": "linux-ubuntu",
-    "domain": "gnome-settings-playbook",
-    "rule": "R-PRI3",
-    "autoExecute": true,
-    "complete": true,
-    "predicates": {
-      "H2": true,
-      "M": true,
-      "I": true,
-      "A": true,
-      "S": true,
-      "T": true,
-      "L": true,
-      "V": true,
-      "G": true,
-      "Vc": true,
-      "Vp": true,
-      "documentedP0": 4,
-      "capsuleCapturesP0": 4,
-      "visualMatchClassifiedP0": 4
-    },
-    "message": "Chaîne P0 complète — prochaine action logique : enquête P1",
-    "suggestedCommand": "node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-ubuntu --filter P1 --pending",
-    "command": "node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs --id linux-ubuntu --filter P1 --pending"
-  }
+    "rule": "R-H6",
+    "message": "H6 clôturé — domaine gnome-settings-playbook"
+  },
+  "H6": true,
+  "h6ClosedAt": "2026-06-08T23:37:13.154Z",
+  "h6Closure": "root/docs/inventaires/linux-ubuntu-gnome-settings-h6-closure.json"
 }

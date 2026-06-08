@@ -1,6 +1,6 @@
 # Rapport d'avancement formel — CapsuleOS
 
-> Généré : `2026-06-08T21:58:19.333Z` · Commit : `f4d2d70 Phase 1d Ubuntu : refs icon-pack manifeste et drift à zéro.`
+> Généré : `2026-06-08T23:37:28.811Z` · Commit : `4572601 Phase 1e Fedora : AppΣ, fidélité visuelle et pipeline complet.`
 > Outil : `generate-formal-advancement-report.mjs` · Référence : [logique-formelle.md](../logique-formelle.md)
 
 ## 1. Synthèse globale
@@ -16,26 +16,26 @@
 
 | Registry | Tier | Toolkit | Posture | H₆ | ManΣ | AppΣ | Tf | Prochaine règle |
 |----------|------|---------|---------|----|------|------|----|-----------------|
-| linux-mint | P0 | cinnamon | socle H₂ | ✗ | ✗ | ✗ | ✗ | R-H1 |
-| linux-ubuntu | P0 | gnome | amorçage | ✗ | ✓ | ✓ | ✓ | R-A1 |
-| linux-fedora | P1 | gnome | H6 sans ManΣ | ✓ | ✗ | ✗ | ✗ | R-SHELL-POLISH |
+| linux-mint | P0 | cinnamon | migration manifeste | ✗ | ✗ | ✗ | ✗ | R-MAN4 |
+| linux-ubuntu | P0 | gnome | clôturé | ✓ | ✓ | ✓ | ✓ | R-A1 |
+| linux-fedora | P1 | gnome | clôturé | ✓ | ✓ | ✓ | ✓ | R-A1 |
 | linux-opensuse | P1 | kde | socle H₂ | ✗ | ✗ | ✗ | ✗ | R-H1 |
 | linux-popos | P2 | cosmic | socle H₂ | ✗ | ✗ | ✗ | ✗ | R-H1 |
 | linux-anduinos | P3 | gnome | socle H₂ | ✗ | ✗ | ✗ | ✗ | R-H1 |
-| linux-rocky | P1 | gnome | H6 sans ManΣ | ✓ | ✗ | ✓ | ✓ | R-MAN3 |
+| linux-rocky | P1 | gnome | clôturé | ✓ | ✓ | ✓ | ✓ | R-H6-DONE |
 | linux-alma | P3 | gnome | socle H₂ | ✗ | ✗ | ✗ | ✗ | R-H1 |
 
 ## 3. Chaîne manifeste (ManΣ)
 
 | Registry | ManV | ManS | PbM | ManA | ManSt | ManI | proc/ | Playbook pull/drift |
 |----------|------|------|-----|------|-------|------|-------|---------------------|
-| linux-mint | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — |
+| linux-mint | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ | 0/0/177 |
 | linux-ubuntu | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1/0/118 |
-| linux-fedora | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ | 55/44/29 |
+| linux-fedora | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 0/0/128 |
 | linux-opensuse | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — |
 | linux-popos | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — |
 | linux-anduinos | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — |
-| linux-rocky | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ | 9/54/21 |
+| linux-rocky | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 0/0/84 |
 | linux-alma | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — |
 
 ## 4. Zones à ne pas perturber
@@ -47,20 +47,20 @@
 
 ### linux-mint (Linux Mint (Cinnamon))
 
-- **Règle** : `R-H1` — ¬H₂ — gate validate-all (socle dépôt)
-- **Commande** : `node usr/lib/capsuleos/tools/validate-all.mjs`
-- **Playbook général** : `R-PB1` — chaîne manifeste distribution incomplète
+- **Règle** : `R-MAN4` — ManA ∧ ¬ManSt — staging VM manifeste
+- **Commande** : `node usr/lib/capsuleos/tools/lab/run-manifest-staging-on-vm.mjs --id linux-mint --write`
+- **Playbook général** : `R-PB2` — Toolkit cinnamon — playbook stub, reporter ou implémenter
 
 ### linux-ubuntu (Ubuntu 26.04 LTS)
 
 - **Règle** : `R-A1` — H₂ ∧ ¬A — vérification assets playbook
 - **Commande** : `node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-ubuntu --strict`
-- **Playbook général** : `R-PB2` — toolkit
+- **Playbook général** : `R-PB4` — PbΣ — prêt H5 ciblé ou H6
 
 ### linux-fedora (Fedora Workstation)
 
-- **Règle** : `R-SHELL-POLISH` — H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus
-- **Commande** : `CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+- **Règle** : `R-A1` — H₂ ∧ ¬A — vérification assets playbook
+- **Commande** : `node usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-fedora --strict`
 - **Playbook général** : `R-PB4` — PbΣ — prêt H5 ciblé ou H6
 
 ### linux-opensuse (openSUSE Tumbleweed)
@@ -83,8 +83,8 @@
 
 ### linux-rocky (Rocky Linux (GNOME))
 
-- **Règle** : `R-MAN3` — ManS ∧ PbM ∧ ¬ManA — approbation manifeste (humain)
-- **Commande** : `node usr/lib/capsuleos/tools/lab/approve-vm-distribution-manifest.mjs --id linux-rocky --write`
+- **Règle** : `R-H6-DONE` — Chaîne formelle complète (shell + apps P0 + fidélité visuelle) — maintenance validate-all
+- **Commande** : `node usr/lib/capsuleos/tools/validate-all.mjs`
 - **Playbook général** : `R-PB4` — PbΣ — prêt H5 ciblé ou H6
 
 ### linux-alma (AlmaLinux (GNOME))

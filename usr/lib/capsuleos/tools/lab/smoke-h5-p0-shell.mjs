@@ -1,15 +1,22 @@
 #!/usr/bin/env node
 /**
  * Smoke H5 P0 — night-light, dynamic-workspaces, dnd (Playwright + statique).
+ *
+ * Usage :
+ *   node usr/lib/capsuleos/tools/lab/smoke-h5-p0-shell.mjs --id linux-ubuntu
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
+import { h6Profile, parseRegistryId } from './h6-gnome-settings-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
+
+const registry = parseRegistryId();
+const profile = h6Profile(registry);
 
 const read = (rel) => {
   const abs = path.join(ROOT, rel);
@@ -21,6 +28,7 @@ const workspacesJs = read('usr/lib/capsuleos/shells/linux/gnome-workspaces.js');
 const parityJs = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const calendarJs = read('usr/lib/capsuleos/shells/linux/calendar-popover.js');
 const prefsCss = read('usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css');
+const skinIndex = read(profile.skinRel);
 
 if (!themeStorage.includes('nightLightTransition')) errors.push('nightLightTransition absent');
 if (!workspacesJs.includes('is-spring-update')) errors.push('workspaces spring absent');
@@ -28,6 +36,9 @@ if (!parityJs.includes('syncDndChrome')) errors.push('syncDndChrome absent');
 if (!calendarJs.includes('capsule:dnd-changed')) errors.push('calendar DND listener absent');
 if (!prefsCss.includes('gnome-workspace-spring-in')) errors.push('spring keyframes absent');
 if (!prefsCss.includes('night-light-transition')) errors.push('night-light transition CSS absent');
+if (!skinIndex.includes('gnome-workspaces.js')) {
+  errors.push(`${profile.skinRel} : gnome-workspaces.js absent`);
+}
 
 async function runPlaywright() {
   let chromium;
@@ -46,10 +57,11 @@ async function runPlaywright() {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 
   try {
-    await page.goto(resolveCapsuleOsUrl('linux-rocky'), { waitUntil: 'networkidle', timeout: 60000 });
+    await page.goto(resolveCapsuleOsUrl(registry), { waitUntil: 'networkidle', timeout: 60000 });
     await page.waitForFunction(
-      () => window.CapsuleThemeStorage && window.CapsuleGnomeSettingsParity && window.CapsuleGnomeWorkspaces,
-      null,
+      (bodyId) => window.CapsuleThemeStorage && window.CapsuleGnomeSettingsParity && window.CapsuleGnomeWorkspaces
+        && document.getElementById(bodyId),
+      profile.bodyId,
       { timeout: 30000 },
     );
 
@@ -103,7 +115,7 @@ async function runPlaywright() {
     if (result.failed?.length) {
       errors.push(`Playwright H5 P0 : ${result.failed.join(', ')}`);
     } else {
-      process.stdout.write(`  Playwright H5 P0 : ${result.checks.length} checks OK\n`);
+      process.stdout.write(`  Playwright H5 P0 (${registry}) : ${result.checks.length} checks OK\n`);
     }
   } catch (err) {
     errors.push(`Playwright H5 P0 : ${err.message}`);
@@ -115,9 +127,9 @@ async function runPlaywright() {
 await runPlaywright();
 
 if (errors.length) {
-  console.error('smoke-h5-p0-shell — échec\n');
+  console.error(`smoke-h5-p0-shell ${registry} — échec\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
   process.exit(1);
 }
 
-console.log('✓ smoke-h5-p0-shell OK');
+console.log(`✓ smoke-h5-p0-shell ${registry} OK`);

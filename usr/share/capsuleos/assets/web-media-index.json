@@ -40,7 +40,67 @@
     {
       "output": "images/vendors/fedora/panel/firefox-48.webp",
       "source": "images/vendors/fedora/panel/firefox-48.png",
-      "preparedAt": "2026-06-07T09:12:14.264Z",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/adwaita-d.webp",
+      "source": "images/vendors/fedora/wallpaper/adwaita-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/adwaita-l.webp",
+      "source": "images/vendors/fedora/wallpaper/adwaita-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/balls-d.webp",
+      "source": "images/vendors/fedora/wallpaper/balls-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/balls-l.webp",
+      "source": "images/vendors/fedora/wallpaper/balls-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/blendpills-d.webp",
+      "source": "images/vendors/fedora/wallpaper/blendpills-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/blendpills-l.webp",
+      "source": "images/vendors/fedora/wallpaper/blendpills-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/curvy-d.webp",
+      "source": "images/vendors/fedora/wallpaper/curvy-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/curvy-l.webp",
+      "source": "images/vendors/fedora/wallpaper/curvy-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/dithered-sun-d.webp",
+      "source": "images/vendors/fedora/wallpaper/dithered-sun-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/dithered-sun-l.webp",
+      "source": "images/vendors/fedora/wallpaper/dithered-sun-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
       "encoder": "ffmpeg+convert"
     },
     {
@@ -53,6 +113,48 @@
       "output": "images/vendors/fedora/wallpaper/f44-01-night.webp",
       "source": "images/vendors/fedora/wallpaper/f44-01-night.jxl",
       "preparedAt": "2026-06-07T02:29:03.818Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/glass-chip-d.webp",
+      "source": "images/vendors/fedora/wallpaper/glass-chip-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/glass-chip-l.webp",
+      "source": "images/vendors/fedora/wallpaper/glass-chip-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/lcd-rainbow-d.webp",
+      "source": "images/vendors/fedora/wallpaper/lcd-rainbow-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/lcd-rainbow-l.webp",
+      "source": "images/vendors/fedora/wallpaper/lcd-rainbow-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/pixel-pusher-d.webp",
+      "source": "images/vendors/fedora/wallpaper/pixel-pusher-d.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/pixel-pusher-l.webp",
+      "source": "images/vendors/fedora/wallpaper/pixel-pusher-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/fedora/wallpaper/pixels-l.webp",
+      "source": "images/vendors/fedora/wallpaper/pixels-l.jxl",
+      "preparedAt": "2026-06-08T23:28:23.024Z",
       "encoder": "ffmpeg+convert"
     },
     {
@@ -722,5 +824,5 @@
       "encoder": "ffmpeg+convert"
     }
   ],
-  "updatedAt": "2026-06-08T20:57:02.243Z"
+  "updatedAt": "2026-06-08T23:28:23.048Z"
 }

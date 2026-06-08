@@ -75,7 +75,7 @@ Commit : `f4d2d70`.
 
 ---
 
-### 1e — Clôture triplet V1 ⏳
+### 1e — Clôture triplet V1 ✅
 
 **Bloquant Phase 2** ([plan-maitre](plan-maitre-reproduction-os.md) §6).
 
@@ -83,12 +83,12 @@ Commit : `f4d2d70`.
 |-------|----------|---------------------|------|
 | 1e.1 | **Tous** | Durcir `collect-vm-gnome-settings-assets` — **R-LOC1** (pas de fallback Rocky) | FAIL explicite |
 | 1e.2 | **ubuntu** | `gnome-settings-assets-matrix-ubuntu.json` depuis VM/`proc/` | **S** local |
-| 1e.3 | **ubuntu** | `run-capsule-pipeline.mjs --id linux-ubuntu` | **PbΣ** |
+| 1e.3 | **ubuntu** | `run-capsule-pipeline.mjs --id linux-ubuntu` | **PbΣ** ✅ |
 | 1e.4 | **rocky** | `approve-vm-distribution-manifest.mjs --id linux-rocky --write` | **ManA** |
-| 1e.5 | **rocky** | Chaîne auto : staging → import → `apply-manifest-refs` | **ManΣ** |
-| 1e.6 | **fedora** | Idem 1e.4–1e.5 | **ManΣ** |
-| 1e.7 | **fedora** | `registryOverrides` + `generate-apps-catalog` | **AppΣ** |
-| 1e.8 | **global** | `validate-all.mjs` + `generate-formal-advancement-report.mjs --write` | **H₂** |
+| 1e.5 | **rocky** | Chaîne auto : staging → import → `apply-manifest-refs` | **ManΣ** ✅ |
+| 1e.6 | **fedora** | Idem 1e.4–1e.5 | **ManΣ** ✅ |
+| 1e.7 | **fedora** | `registryOverrides` + `generate-apps-catalog` | **AppΣ** ✅ |
+| 1e.8 | **global** | `validate-all.mjs` + `generate-formal-advancement-report.mjs --write` | **H₂** ✅ |
 
 **Critère done Phase 1** : triplet V1 stable = Ubuntu **PbΣ** (puis H₆) **et** Rocky **ManΣ** **et** Fedora **ManΣ ∧ AppΣ** **et** **H₂** global.
 
@@ -170,10 +170,12 @@ next(d)  min prédicat faux       → resolve-lab-recipe.mjs / run-capsule-pipel
 |-------|--------|
 | 1e.1 R-LOC1 code | ✅ `lab-recipe-resolver` + collectors |
 | 1e.2 Matrice Ubuntu | ✅ bootstrap + collect VM (gate S) |
-| 1e.3 Pipeline Ubuntu PbΣ | ⏳ V/G/Vc OK · Vp + Pbτ en cours (4 P0 shell documentés) |
+| 1e.3 Pipeline Ubuntu PbΣ + H₆ | ✅ PbΣ · H₆ clôturé (`close-h6-gnome-settings --id linux-ubuntu`) |
 | 1e.4 ManA Rocky/Fedora | ✅ manifestes approuvés |
-| 1e.5 ManΣ Rocky | ⏳ bloqué — `apply-manifest-refs` : marqueurs overview absents sur skin H₆ gelé |
-| 1e.5 ManΣ Fedora | ⏳ après Rocky ou patch agnostique import |
+| 1e.5 ManΣ Rocky | ✅ pipeline complet + overview grid |
+| 1e.5 ManΣ Fedora | ✅ pipeline complet |
+| 1e.7 AppΣ Fedora | ✅ `run-apps-lab` + Tf |
+| 1e.8 H₂ global | ✅ `validate-all` exit 0 · rapport `avancement-formel-2026-06-08` |
 
 ---
 

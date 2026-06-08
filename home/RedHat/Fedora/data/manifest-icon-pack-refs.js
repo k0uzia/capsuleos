@@ -366,13 +366,13 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-adwaita-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-d.jxl",
+        "id": "wallpaper-adwaita-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-adwaita-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-l.jxl",
+        "id": "wallpaper-adwaita-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-l.webp",
         "iconName": null
       },
       {
@@ -386,43 +386,43 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-balls-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/balls-d.jxl",
+        "id": "wallpaper-balls-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/balls-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-balls-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/balls-l.jxl",
+        "id": "wallpaper-balls-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/balls-l.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-blendpills-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-d.jxl",
+        "id": "wallpaper-blendpills-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-blendpills-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-l.jxl",
+        "id": "wallpaper-blendpills-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-l.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-curvy-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-d.jxl",
+        "id": "wallpaper-curvy-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-curvy-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-l.jxl",
+        "id": "wallpaper-curvy-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-l.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-dithered-sun-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-d.jxl",
+        "id": "wallpaper-dithered-sun-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-dithered-sun-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-l.jxl",
+        "id": "wallpaper-dithered-sun-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-l.webp",
         "iconName": null
       },
       {
@@ -436,23 +436,23 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-glass-chip-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-d.jxl",
+        "id": "wallpaper-glass-chip-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-glass-chip-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-l.jxl",
+        "id": "wallpaper-glass-chip-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-l.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-lcd-rainbow-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-d.jxl",
+        "id": "wallpaper-lcd-rainbow-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-lcd-rainbow-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-l.jxl",
+        "id": "wallpaper-lcd-rainbow-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-l.webp",
         "iconName": null
       },
       {
@@ -466,13 +466,13 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-pixel-pusher-d.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-d.jxl",
+        "id": "wallpaper-pixel-pusher-d.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-d.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-pixel-pusher-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-l.jxl",
+        "id": "wallpaper-pixel-pusher-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-l.webp",
         "iconName": null
       },
       {
@@ -481,8 +481,8 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-pixels-l.jxl",
-        "capsuleRelative": "images/vendors/fedora/wallpaper/pixels-l.jxl",
+        "id": "wallpaper-pixels-l.webp",
+        "capsuleRelative": "images/vendors/fedora/wallpaper/pixels-l.webp",
         "iconName": null
       },
       {
@@ -552,18 +552,18 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/fedora/panel/firefox-48.webp",
     "images/vendors/fedora/panel/org.gnome.Nautilus.svg",
     "images/vendors/fedora/panel/org.gnome.Ptyxis.svg",
-    "images/vendors/fedora/wallpaper/adwaita-d.jxl",
-    "images/vendors/fedora/wallpaper/adwaita-l.jxl",
+    "images/vendors/fedora/wallpaper/adwaita-d.webp",
+    "images/vendors/fedora/wallpaper/adwaita-l.webp",
     "images/vendors/fedora/wallpaper/amber-d.jxl",
     "images/vendors/fedora/wallpaper/amber-l.jxl",
-    "images/vendors/fedora/wallpaper/balls-d.jxl",
-    "images/vendors/fedora/wallpaper/balls-l.jxl",
-    "images/vendors/fedora/wallpaper/blendpills-d.jxl",
-    "images/vendors/fedora/wallpaper/blendpills-l.jxl",
-    "images/vendors/fedora/wallpaper/curvy-d.jxl",
-    "images/vendors/fedora/wallpaper/curvy-l.jxl",
-    "images/vendors/fedora/wallpaper/dithered-sun-d.jxl",
-    "images/vendors/fedora/wallpaper/dithered-sun-l.jxl",
+    "images/vendors/fedora/wallpaper/balls-d.webp",
+    "images/vendors/fedora/wallpaper/balls-l.webp",
+    "images/vendors/fedora/wallpaper/blendpills-d.webp",
+    "images/vendors/fedora/wallpaper/blendpills-l.webp",
+    "images/vendors/fedora/wallpaper/curvy-d.webp",
+    "images/vendors/fedora/wallpaper/curvy-l.webp",
+    "images/vendors/fedora/wallpaper/dithered-sun-d.webp",
+    "images/vendors/fedora/wallpaper/dithered-sun-l.webp",
     "images/vendors/fedora/wallpaper/f44-01-day.jxl",
     "images/vendors/fedora/wallpaper/f44-01-night.jxl",
     "images/vendors/fedora/wallpaper/flight_dark.webp",
@@ -572,12 +572,12 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/fedora/wallpaper/fold-l.jxl",
     "images/vendors/fedora/wallpaper/futurecity_dark.webp",
     "images/vendors/fedora/wallpaper/futurecity_light.webp",
-    "images/vendors/fedora/wallpaper/glass-chip-d.jxl",
-    "images/vendors/fedora/wallpaper/glass-chip-l.jxl",
+    "images/vendors/fedora/wallpaper/glass-chip-d.webp",
+    "images/vendors/fedora/wallpaper/glass-chip-l.webp",
     "images/vendors/fedora/wallpaper/glasscurtains_dark.webp",
     "images/vendors/fedora/wallpaper/glasscurtains_light.webp",
-    "images/vendors/fedora/wallpaper/lcd-rainbow-d.jxl",
-    "images/vendors/fedora/wallpaper/lcd-rainbow-l.jxl",
+    "images/vendors/fedora/wallpaper/lcd-rainbow-d.webp",
+    "images/vendors/fedora/wallpaper/lcd-rainbow-l.webp",
     "images/vendors/fedora/wallpaper/mermaid_dark.webp",
     "images/vendors/fedora/wallpaper/mermaid_light.webp",
     "images/vendors/fedora/wallpaper/montclair_dark.webp",
@@ -586,10 +586,10 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/fedora/wallpaper/petals_light.webp",
     "images/vendors/fedora/wallpaper/pills-d.jxl",
     "images/vendors/fedora/wallpaper/pills-l.jxl",
-    "images/vendors/fedora/wallpaper/pixel-pusher-d.jxl",
-    "images/vendors/fedora/wallpaper/pixel-pusher-l.jxl",
+    "images/vendors/fedora/wallpaper/pixel-pusher-d.webp",
+    "images/vendors/fedora/wallpaper/pixel-pusher-l.webp",
     "images/vendors/fedora/wallpaper/pixels-d.jxl",
-    "images/vendors/fedora/wallpaper/pixels-l.jxl",
+    "images/vendors/fedora/wallpaper/pixels-l.webp",
     "images/vendors/fedora/wallpaper/progress-d.jxl",
     "images/vendors/fedora/wallpaper/progress-l.jxl",
     "images/vendors/fedora/watermark/fedora_logo_darkbackground.svg"

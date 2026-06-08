@@ -125,6 +125,34 @@ const openSlot = async (page, slot, scene = {}) => {
       );
       await sleep(page, 1200);
     }
+    if (scene.dolphinSplitSelection) {
+      await page.waitForFunction(
+        () => {
+          const secondaryGrid = document.querySelector('.dolphin-content-pane[data-pane="secondary"] .nemo-app__content-grid');
+          return secondaryGrid && secondaryGrid.querySelectorAll('a[data-item-name]').length >= 1;
+        },
+        null,
+        { timeout: 10000 },
+      );
+      await page.evaluate(() => {
+        const primaryGrid = document.querySelector('.dolphin-content-pane[data-pane="primary"] .nemo-app__content-grid');
+        const secondaryGrid = document.querySelector('.dolphin-content-pane[data-pane="secondary"] .nemo-app__content-grid');
+        const primaryLink = primaryGrid && primaryGrid.querySelector('a[data-item-name]');
+        const secondaryLinks = secondaryGrid && secondaryGrid.querySelectorAll('a[data-item-name]');
+        const secondaryLink = secondaryLinks && secondaryLinks.length > 1
+          ? secondaryLinks[1]
+          : (secondaryLinks && secondaryLinks[0]);
+        if (primaryLink) {
+          primaryLink.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
+          primaryLink.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
+        }
+        if (secondaryLink) {
+          secondaryLink.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
+          secondaryLink.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
+        }
+      });
+      await sleep(page, 500);
+    }
     if (scene.dolphinHamburger) {
       await page.click('#dolphin-main-menu');
       await page.waitForFunction(
@@ -240,6 +268,17 @@ const openSlot = async (page, slot, scene = {}) => {
         );
       }
       await sleep(page, 400);
+    } else if (scene.discoverAppDetail) {
+      await page.click(`[data-discover-home-mount] .kde-discover-card[data-discover-app="${scene.discoverAppDetail}"]`);
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector('[data-discover-app-detail]');
+          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__gallery-track');
+        },
+        null,
+        { timeout: 10000 },
+      );
+      await sleep(page, 500);
     } else {
       await page.evaluate(() => {
         const nav = document.querySelector('[data-discover-nav="home"]');
@@ -280,10 +319,21 @@ const main = async () => {
     { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
     { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
     { file: 'capsule-dolphin-split.png', slots: ['nemo'], dolphinSplit: true },
+    {
+      file: 'capsule-dolphin-split-selection.png',
+      slots: ['nemo'],
+      dolphinSplit: true,
+      dolphinSplitSelection: true,
+    },
     { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinHamburger: true },
     { file: 'capsule-dolphin-search-open.png', slots: ['nemo'], dolphinSearch: true },
     { file: 'capsule-dolphin-search-filter-open.png', slots: ['nemo'], dolphinSearch: true, dolphinSearchFilter: true },
     { file: 'capsule-discover.png', slots: ['update_manager'] },
+    {
+      file: 'capsule-discover-detail-vlc.png',
+      slots: ['update_manager'],
+      discoverAppDetail: 'vlc',
+    },
     {
       file: 'capsule-discover-installed.png',
       slots: ['update_manager'],

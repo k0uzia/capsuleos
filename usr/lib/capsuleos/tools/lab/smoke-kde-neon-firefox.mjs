@@ -109,20 +109,47 @@ const homeView = await page.evaluate(() => {
   };
 });
 
+const toolbar = await page.evaluate(() => {
+  const app = document.querySelector('#firefox [data-firefox-app]');
+  const actions = app
+    ? [...app.querySelectorAll('[data-browser-action]')].map((btn) => btn.dataset.browserAction)
+    : [];
+  const address = app && app.querySelector('[data-browser-address]');
+  const menuBtn = app && app.querySelector('[data-browser-action="menu"]');
+  return {
+    actions,
+    hasAddress: !!address,
+    addressVisible: address ? getComputedStyle(address).display !== 'none' : false,
+    hasBack: actions.includes('back'),
+    hasForward: actions.includes('forward'),
+    hasReload: actions.includes('reload'),
+    hasHome: actions.includes('home'),
+    hasNewTab: actions.includes('new-tab'),
+    hasBookmarksToggle: actions.includes('toggle-bookmarks'),
+    hasMenu: actions.includes('menu'),
+    menuProtonIcon: menuBtn ? getComputedStyle(menuBtn, '::before').maskImage !== 'none' : false,
+  };
+});
+
 const titleOk = chrome.titleText.indexOf('Firefox') >= 0
   || chrome.titleText.indexOf('Navigateur') >= 0;
+
+const toolbarOk = toolbar.hasAddress && toolbar.hasBack && toolbar.hasForward
+  && toolbar.hasReload && toolbar.hasHome && toolbar.hasNewTab
+  && toolbar.hasBookmarksToggle && toolbar.hasMenu;
 
 const ok = chrome.visible && chrome.noCsdClass && chrome.initialized
   && !chrome.headerInTabs && chrome.headerBeforeApp
   && titleOk
   && chrome.newtabVisible && chrome.hasNewtabSearch && chrome.hasNewtabLogo
   && chrome.bookmarksHidden && chrome.initialTabCount === 1 && chrome.goHidden
+  && toolbarOk
   && multiTab.count === 2 && multiTab.activeIsSecond
   && osPage.view === 'os-lacapsule' && osPage.redirectVisible
   && osPage.tabLabel.indexOf('Capsule') >= 0
   && bookmarksToggle.visible && bookmarksToggle.pressed
   && homeView.view === 'home' && homeView.homeVisible;
 
-console.log(JSON.stringify({ chrome, multiTab, osPage, bookmarksToggle, homeView, ok }, null, 2));
+console.log(JSON.stringify({ chrome, toolbar, multiTab, osPage, bookmarksToggle, homeView, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

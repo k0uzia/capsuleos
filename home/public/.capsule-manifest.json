@@ -36,60 +36,14 @@
         }
       ]
     },
-    "../../../home/public/Images/screen_KDE-Neon/vm-test": {
-      "label": "vm-test",
-      "items": [
-        {
-          "type": "file",
-          "name": "desktop-test.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-test/desktop-test.png"
-        },
-        {
-          "type": "file",
-          "name": "discover-test.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-test/discover-test.png"
-        },
-        {
-          "type": "file",
-          "name": "kickoff-test.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-test/kickoff-test.png"
-        },
-        {
-          "type": "file",
-          "name": "kickoff-test2.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-test/kickoff-test2.png"
-        }
-      ]
-    },
     "../../../home/public/Images/screen_KDE-Neon": {
       "label": "screen_KDE-Neon",
       "items": [
-        {
-          "type": "folder",
-          "name": "vm-test",
-          "path": "../../../home/public/Images/screen_KDE-Neon/vm-test"
-        },
-        {
-          "type": "file",
-          "name": "capsule-desktop-baseline-20260606-183610.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-desktop-baseline-20260606-183610.png"
-        },
         {
           "type": "file",
           "name": "capsule-desktop.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-desktop.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-discover-20260606-183647.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-20260606-183647.png"
         },
         {
           "type": "file",
@@ -147,93 +101,9 @@
         },
         {
           "type": "file",
-          "name": "capsule-dolphin-after-split-close.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-after-split-close.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-chrome-fix.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-chrome-fix.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-chrome.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-chrome.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-compact-docs.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-compact-docs.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-compact-home.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-compact-home.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-compact-wrap-small.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-compact-wrap-small.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-compact-wrap-test.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-compact-wrap-test.png"
-        },
-        {
-          "type": "file",
           "name": "capsule-dolphin-compact.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-compact.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-configure.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-configure.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-create-new.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-create-new.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-help.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-help.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-more.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-more.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-panels.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-panels.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-template-document.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-template-document.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-hamburger-view-actions.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-hamburger-view-actions.png"
         },
         {
           "type": "file",
@@ -246,12 +116,6 @@
           "name": "capsule-dolphin-list.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-list.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-dolphin-max.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-max.png"
         },
         {
           "type": "file",
@@ -273,21 +137,9 @@
         },
         {
           "type": "file",
-          "name": "capsule-dolphin-view-menu.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-view-menu.png"
-        },
-        {
-          "type": "file",
           "name": "capsule-dolphin.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin.png"
-        },
-        {
-          "type": "file",
-          "name": "capsule-kickoff-20260606-183631.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-kickoff-20260606-183631.png"
         },
         {
           "type": "file",
@@ -297,15 +149,21 @@
         },
         {
           "type": "file",
-          "name": "capsule-post-merge-check.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-post-merge-check.png"
-        },
-        {
-          "type": "file",
           "name": "vm-desktop.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-desktop.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-about.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-about.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-config.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-config.png"
         },
         {
           "type": "file",
@@ -315,45 +173,21 @@
         },
         {
           "type": "file",
+          "name": "vm-discover-updates.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-updates.png"
+        },
+        {
+          "type": "file",
           "name": "vm-discover.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover.png"
         },
         {
           "type": "file",
-          "name": "vm-dolphin-compact.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-compact.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-context-menu-folder.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-context-menu-folder.png"
-        },
-        {
-          "type": "file",
           "name": "vm-dolphin-hamburger-open.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-hamburger-open.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-hamburger-test.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-hamburger-test.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-list.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-list.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-live.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-live.png"
         },
         {
           "type": "file",
@@ -369,51 +203,27 @@
         },
         {
           "type": "file",
-          "name": "vm-dolphin-split-hamburger.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-split-hamburger.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-split-only.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-split-only.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-view-config.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-view-config.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-view-config2.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-view-config2.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-view-menu.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-view-menu.png"
-        },
-        {
-          "type": "file",
-          "name": "vm-dolphin-view-properties.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-view-properties.png"
-        },
-        {
-          "type": "file",
           "name": "vm-dolphin.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin.png"
         },
         {
           "type": "file",
+          "name": "vm-firefox.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-firefox.png"
+        },
+        {
+          "type": "file",
           "name": "vm-kickoff.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-kickoff.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-terminal.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-terminal.png"
         }
       ]
     },

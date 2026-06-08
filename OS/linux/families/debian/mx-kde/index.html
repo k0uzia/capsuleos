@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./style/style.css?v=20260514b" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
+    <link rel="stylesheet" href="./style/apps/mainMenu.skin.css?v=20260608p4" type="text/css">
     <title>MX Linux KDE - CapsuleOS</title>
 </head>
 <body id="mx-kde">
@@ -69,33 +70,44 @@
         </nav>
         <div class="taskbar-right">
             <div class="taskbar-tray" aria-label="Zone de notification">
-                <a class="taskbar-tray__link" target="windowElement" data-link="terminal" title="Terminal">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/terminal.svg" alt="" aria-hidden="true">
-                </a>
-                <span class="taskbar-tray__item" title="Presse-papiers">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/clipboard.svg" alt="" aria-hidden="true">
-                </span>
-                <a class="taskbar-tray__link" target="windowElement" data-link="themes" title="Configuration système">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg" alt="" aria-hidden="true">
-                </a>
-                <span class="taskbar-tray__item" title="Affichage">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/display.svg" alt="" aria-hidden="true">
-                </span>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--updates"
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-notifications"
+                        aria-expanded="false" aria-controls="kde-tray-popover-notifications"
+                        title="Notifications" aria-label="Notifications">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/preferences-desktop-notification-bell.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button"
+                        class="taskbar-tray__btn taskbar-tray__btn--updates"
                         data-update-manager-tray
                         data-has-updates="true"
                         aria-label="Mises à jour disponibles"
                         title="Mises à jour">
-                    <span class="taskbar-tray__icon taskbar-tray__icon--updates" aria-hidden="true"></span>
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/update-low.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-clipboard"
+                        aria-expanded="false" aria-controls="kde-tray-popover-clipboard"
+                        title="Presse-papiers" aria-label="Presse-papiers">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/edit-paste.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-brightness"
+                        aria-expanded="false" aria-controls="kde-tray-popover-brightness"
+                        title="Luminosité et couleur" aria-label="Luminosité et couleur">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/brightness-high.svg" alt="" aria-hidden="true">
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
+                        aria-expanded="false" aria-controls="kde-tray-popover-network"
+                        title="Réseaux" aria-label="Réseaux">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/network-wired.svg" alt="" aria-hidden="true">
                 </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
                         aria-expanded="false" aria-controls="volume-popover"
-                        aria-label="Contrôle du volume">
+                        aria-label="Contrôle du volume" title="Volume">
                     <span class="taskbar-tray__icon" id="tray-sound-icon" aria-hidden="true"></span>
                 </button>
-                <span class="taskbar-tray__item" title="Réseau">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/network.svg" alt="" aria-hidden="true">
-                </span>
+                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--expand" id="tray-btn-expand"
+                        aria-expanded="false" aria-controls="kde-tray-popover-expand"
+                        title="Statut et notifications" aria-label="Statut et notifications">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray-expand.svg" alt="" aria-hidden="true">
+                </button>
             </div>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
                 <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
@@ -162,6 +174,7 @@
     <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
     <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/plasma-panel-mode.js?v=20260611c"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
@@ -212,7 +225,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/tray-popover-kde.js?v=20260608p4"></script>
+<script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>

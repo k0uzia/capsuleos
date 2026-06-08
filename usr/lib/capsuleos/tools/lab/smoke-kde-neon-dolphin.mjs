@@ -105,11 +105,63 @@ try {
     errors.push('context-menu : flyout étiquettes non visible');
   }
 
+  await page.click('#dolphin-split-toggle');
+  await page.waitForFunction(
+    () => {
+      const state = window.fileExplorerState;
+      return state && state.splitView === true
+        && document.querySelector('.dolphin-content-pane--secondary:not([hidden])');
+    },
+    null,
+    { timeout: 8000 },
+  );
+
+  const splitSelection = await page.evaluate(() => {
+    const primaryGrid = document.querySelector('.dolphin-content-pane[data-pane="primary"] .nemo-app__content-grid');
+    const secondaryGrid = document.querySelector('.dolphin-content-pane[data-pane="secondary"] .nemo-app__content-grid');
+    const primaryLink = primaryGrid && primaryGrid.querySelector('a[data-item-name]');
+    const secondaryLink = secondaryGrid && secondaryGrid.querySelector('a[data-item-name]');
+    if (!primaryLink || !secondaryLink || primaryLink === secondaryLink) {
+      return { ok: false, reason: 'missing-pane-items' };
+    }
+    primaryLink.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
+    primaryLink.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
+    const primarySelected = primaryGrid.querySelector('a.nemo-app__item--selected');
+    secondaryLink.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
+    secondaryLink.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 0 }));
+    const secondarySelected = secondaryGrid.querySelector('a.nemo-app__item--selected');
+    const primaryStill = primaryGrid.querySelector('a.nemo-app__item--selected');
+    return {
+      ok: Boolean(primarySelected && secondarySelected && primaryStill),
+      primaryName: primarySelected && primarySelected.dataset.itemName,
+      secondaryName: secondarySelected && secondarySelected.dataset.itemName,
+      primaryRetained: Boolean(primaryStill),
+    };
+  });
+
+  if (!splitSelection.ok) {
+    errors.push(`split-selection : ${splitSelection.reason || 'sélections non indépendantes'}`);
+  }
+
+  const peripherals = await page.evaluate(() => {
+    const section = document.querySelector('[data-neon-peripherals-section]');
+    const heading = section && section.querySelector('.dolphin-sidebar__heading');
+    return {
+      present: Boolean(section),
+      label: heading ? heading.textContent.trim() : '',
+    };
+  });
+  if (!peripherals.present || peripherals.label !== 'Périphériques') {
+    errors.push('sidebar : section Périphériques absente');
+  }
+
   console.log(JSON.stringify({
     ok: errors.length === 0,
     errors,
     hamburgerIcons: hamburgerIcons.length,
     flyouts,
+    splitSelection,
+    peripherals,
   }, null, 2));
 } catch (err) {
   errors.push(err.message || String(err));

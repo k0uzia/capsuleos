@@ -8,9 +8,9 @@
   "displayName": "KDE neon User Edition",
   "bodyId": "kde-neon",
   "embedKey": "kde-neon",
-  "tier": "P2",
+  "tier": "P1",
   "status": "active",
-  "fidelityLevel": 2,
+  "fidelityLevel": 3,
   "upstreamId": "linux-debian-kde",
   "clusterIds": [
     "explorer.dolphin.kde",

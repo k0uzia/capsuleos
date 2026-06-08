@@ -1,7 +1,7 @@
 # Inventaire parité — KDE neon User Edition VM → CapsuleOS
 
 > Collecte VM : 2026-06-06 · Registre : `linux-kde-neon`  
-> **Campagne v2** clôturée H₆ (2026-06-08) · **Roadmap v3** : [`linux-kde-neon-roadmap.md`](inventaires/linux-kde-neon-roadmap.md) · État : [`linux-kde-neon-replication-state.json`](inventaires/linux-kde-neon-replication-state.json)  
+> **Campagne v3** clôturée H₆ v3 + P1 référence (2026-06-08) · **v4** : [`linux-kde-neon-roadmap-v4.md`](inventaires/linux-kde-neon-roadmap-v4.md) · État : [`linux-kde-neon-replication-state.json`](inventaires/linux-kde-neon-replication-state.json)  
 > **HIG KDE** : [kde-hig-ressources.md](kde-hig-ressources.md) · branche : [branche-plasma-kde.md](branche-plasma-kde.md)  
 > Inventaire : [`inventaires/linux-kde-neon-vm.json`](inventaires/linux-kde-neon-vm.json)  
 > **Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md) — 🔄 **réaudit v2**  

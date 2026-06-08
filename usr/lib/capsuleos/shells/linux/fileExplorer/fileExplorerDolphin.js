@@ -574,6 +574,9 @@
             });
             link.classList.add('nemo-app__item--selected');
         }
+        if (typeof window.rememberDolphinPaneSelection === 'function') {
+            window.rememberDolphinPaneSelection(paneId, link);
+        }
     };
 
     const showFolderPreviewPlaceholder = () => {
@@ -805,6 +808,18 @@
         }, true);
 
         document.body.dataset.dolphinPointerActivation = 'true';
+
+        document.addEventListener('pointerdown', (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+            const paneEl = event.target.closest('.dolphin-content-pane[data-pane]');
+            if (!paneEl || !resolveGridItemLinkFromEvent(event)) {
+                if (paneEl && paneEl.dataset.pane) {
+                    setActivePane(paneEl.dataset.pane);
+                }
+            }
+        }, true);
     };
 
     const setExplorerStatusMessage = (message) => {

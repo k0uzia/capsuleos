@@ -135,10 +135,17 @@
   "appDetails": {
     "vlc": {
       "summary": "Lecteur multimédia libre capable de lire la plupart des formats audio et vidéo.",
+      "description": "VLC est un lecteur multimédia libre et open source qui lit la plupart des fichiers multimédias ainsi que des DVD, des CD audio, des protocoles de diffusion en continu et divers formats de diffusion en continu.",
       "version": "3.0.21",
       "size": "42 Mo",
       "license": "GPL v2",
-      "origin": "Ubuntu"
+      "origin": "Ubuntu",
+      "developer": "VideoLAN",
+      "screenshots": [
+        { "id": "player", "label": "Lecture", "tone": "#1b2838" },
+        { "id": "playlist", "label": "Liste de lecture", "tone": "#232629" },
+        { "id": "settings", "label": "Préférences", "tone": "#31363b" }
+      ]
     },
     "gimp": {
       "summary": "Éditeur d'images GNU avec outils de retouche et composition avancés.",

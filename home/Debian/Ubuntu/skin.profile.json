@@ -5,7 +5,7 @@
   "kernelId": "linux",
   "branchId": "ubuntu",
   "vendor": "ubuntu",
-  "displayName": "Ubuntu 26.04 LTS",
+  "displayName": "Ubuntu 25.10",
   "bodyId": "ubuntu",
   "embedKey": "ubuntu",
   "tier": "P0",
@@ -30,8 +30,7 @@
     "toolkitPack": "toolkits/gnome",
     "vendorPack": "vendors/ubuntu",
     "iconPacks": [
-      "icons/gnome",
-      "icons/gnome/yaru"
+      "icons/gnome"
     ]
   },
   "capsuleGlobals": {

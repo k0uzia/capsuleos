@@ -23,6 +23,11 @@ html:not([data-theme="light"]) body#kde-neon {
 #kde-neon {
     --taskbar-height: calc(var(--head) * 1.02);
     --kde-neon-panel-anchor-bottom: calc(var(--kde-neon-panel-dock-inset) + var(--taskbar-height));
+    --kde-plasma-panel-anchor-bottom: var(--kde-neon-panel-anchor-bottom);
+    --kde-plasma-menu-divider: var(--kde-neon-menu-divider, rgba(0, 0, 0, 0.08));
+    --kde-plasma-menu-hover: var(--kde-neon-menu-hover, rgba(61, 174, 233, 0.14));
+    --kde-plasma-accent: var(--kde-neon-plasma-accent, #3daee9);
+    --kde-plasma-tray-icon-filter: var(--kde-neon-tray-icon-filter, brightness(0));
     /* Kickoff : même marge gauche que le panel flottant (réf. VM) */
     --kde-neon-menu-anchor-left: var(--kde-neon-panel-dock-inset);
     /* Calendrier : même marge droite que le panel flottant */

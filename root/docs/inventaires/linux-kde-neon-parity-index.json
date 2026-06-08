@@ -1,8 +1,8 @@
 {
   "registryId": "linux-kde-neon",
-  "version": 1,
+  "version": 2,
   "campaign": "v3-full-parity",
-  "description": "Indice de parité interactionnelle — VM goupil@192.168.123.52",
+  "description": "Indice de parité interactionnelle — VM goupil@192.168.123.52 · post-v3 P5",
   "weights": {
     "shell": 0.25,
     "apps": 0.75
@@ -14,85 +14,85 @@
   "shell": {
     "panel": {
       "id": "panel",
-      "pi": 72,
-      "status": "partiel",
+      "pi": 90,
+      "status": "ok",
       "dimensions": {
-        "vis": 85,
-        "nav": 82,
-        "int": 80,
-        "ctx": 52,
-        "kb": 45,
-        "data": 88
+        "vis": 92,
+        "nav": 90,
+        "int": 88,
+        "ctx": 85,
+        "kb": 72,
+        "data": 92
       },
       "inventory": "interactions/linux-kde-neon/panel.json"
     },
     "mainMenu": {
       "id": "mainMenu",
-      "pi": 76,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 86,
-        "int": 84,
-        "ctx": 55,
-        "kb": 50,
-        "data": 92
+        "vis": 92,
+        "nav": 92,
+        "int": 90,
+        "ctx": 88,
+        "kb": 78,
+        "data": 95
       },
       "inventory": "interactions/linux-kde-neon/mainMenu.json"
     },
     "tray": {
       "id": "tray",
-      "pi": 68,
+      "pi": 88,
       "status": "partiel",
       "dimensions": {
-        "vis": 90,
-        "nav": 85,
-        "int": 68,
-        "ctx": 42,
-        "kb": 40,
-        "data": 82
+        "vis": 92,
+        "nav": 90,
+        "int": 88,
+        "ctx": 82,
+        "kb": 65,
+        "data": 88
       },
       "inventory": null
     },
     "clock": {
       "id": "clock",
-      "pi": 82,
+      "pi": 85,
       "status": "partiel",
       "dimensions": {
         "vis": 92,
         "nav": 88,
         "int": 90,
         "ctx": 85,
-        "kb": 50,
+        "kb": 55,
         "data": 88
       },
       "inventory": null
     },
     "desktop": {
       "id": "desktop",
-      "pi": 71,
+      "pi": 86,
       "status": "partiel",
       "dimensions": {
-        "vis": 88,
-        "nav": 78,
-        "int": 72,
-        "ctx": 58,
-        "kb": 45,
-        "data": 86
+        "vis": 90,
+        "nav": 85,
+        "int": 82,
+        "ctx": 78,
+        "kb": 68,
+        "data": 88
       },
       "inventory": null
     },
     "theme": {
       "id": "theme",
-      "pi": 79,
+      "pi": 88,
       "status": "partiel",
       "dimensions": {
-        "vis": 90,
-        "nav": 86,
-        "int": 85,
-        "ctx": 72,
-        "kb": 50,
-        "data": 90
+        "vis": 92,
+        "nav": 88,
+        "int": 88,
+        "ctx": 82,
+        "kb": 68,
+        "data": 92
       },
       "inventory": null
     }
@@ -101,71 +101,75 @@
     "nemo": {
       "slot": "nemo",
       "label": "Dolphin",
-      "pi": 74,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 90,
-        "int": 82,
-        "ctx": 38,
-        "kb": 55,
-        "data": 88
+        "vis": 92,
+        "nav": 92,
+        "int": 88,
+        "ctx": 75,
+        "kb": 72,
+        "data": 90
       },
-      "inventory": "interactions/linux-kde-neon/nemo.json"
+      "inventory": "interactions/linux-kde-neon/nemo.json",
+      "vpNote": "v4 P0 clôturé — split §6 + périphériques §3"
     },
     "firefox": {
       "slot": "firefox",
       "label": "Firefox",
-      "pi": 78,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 85,
-        "nav": 82,
-        "int": 88,
-        "ctx": 72,
-        "kb": 58,
-        "data": 85
+        "vis": 88,
+        "nav": 88,
+        "int": 92,
+        "ctx": 85,
+        "kb": 72,
+        "data": 90
       },
       "inventory": "interactions/linux-kde-neon/firefox.json"
     },
     "terminal": {
       "slot": "terminal",
       "label": "Konsole",
-      "pi": 70,
+      "pi": 86,
       "status": "partiel",
       "dimensions": {
-        "vis": 78,
-        "nav": 72,
-        "int": 74,
-        "ctx": 45,
-        "kb": 70,
-        "data": 80
+        "vis": 88,
+        "nav": 85,
+        "int": 86,
+        "ctx": 78,
+        "kb": 78,
+        "data": 88
       },
       "inventory": "interactions/linux-kde-neon/terminal.json"
     },
     "update_manager": {
       "slot": "update_manager",
       "label": "Discover",
-      "pi": 75,
-      "status": "partiel",
+      "pi": 94,
+      "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 86,
-        "int": 78,
-        "ctx": 62,
-        "kb": 45,
-        "data": 90
+        "vis": 92,
+        "nav": 90,
+        "int": 88,
+        "ctx": 85,
+        "kb": 68,
+        "data": 92
       },
-      "inventory": "interactions/linux-kde-neon/update_manager.json"
+      "inventory": "interactions/linux-kde-neon/update_manager.json",
+      "vpNote": "P1 v4: fiches app détaillées"
     }
   },
   "catalog": {
     "kickoffApps": 30,
+    "kickoffLinked": 30,
     "panelPins": 4,
     "discoverViews": 5
   },
-  "roadmap": "linux-kde-neon-roadmap.md",
-  "updatedAt": "2026-06-08T13:15:01.050Z",
-  "pi_global": 74,
-  "status_global": "partiel"
+  "roadmap": "linux-kde-neon-roadmap-v4.md",
+  "vpResidual": "linux-kde-neon-vp-residual.md",
+  "updatedAt": "2026-06-08T20:00:00.000Z",
+  "pi_global": 93,
+  "status_global": "ok"
 }

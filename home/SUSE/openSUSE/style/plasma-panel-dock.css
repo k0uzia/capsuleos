@@ -11,6 +11,11 @@ html:has(#opensuse) {
 
 #opensuse {
     --opensuse-panel-anchor-bottom: calc(var(--opensuse-panel-dock-inset) + var(--taskbar-height));
+    --kde-plasma-panel-anchor-bottom: var(--opensuse-panel-anchor-bottom);
+    --kde-plasma-menu-divider: rgba(35, 38, 41, 0.1);
+    --kde-plasma-menu-hover: rgba(61, 174, 233, 0.14);
+    --kde-plasma-accent: var(--opensuse-breeze-accent, #3daee9);
+    --kde-plasma-tray-icon-filter: brightness(0);
 }
 
 #opensuse[data-plasma-panel="expanded"] {

@@ -35,6 +35,11 @@
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/fedora.png"
                 },
                 {
+                    "name": "KDE neon User Edition",
+                    "href": "./OS/linux/families/debian/kde-neon/index.html",
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                },
+                {
                     "name": "openSUSE Tumbleweed",
                     "href": "./OS/linux/families/suse/opensuse/index.html",
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/opensuse.png"
@@ -43,11 +48,6 @@
                     "name": "Rocky Linux (GNOME)",
                     "href": "./OS/linux/families/redhat/rocky/index.html",
                     "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/rocky.png"
-                },
-                {
-                    "name": "KDE neon User Edition",
-                    "href": "./OS/linux/families/debian/kde-neon/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
                 },
                 {
                     "name": "Pop!_OS",
@@ -158,7 +158,7 @@
             "href": "./OS/linux/families/debian/kde-neon/index.html",
             "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png",
             "status": "active",
-            "tier": "P2"
+            "tier": "P1"
         },
         "linux-opensuse": {
             "id": "linux-opensuse",

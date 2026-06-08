@@ -7,15 +7,18 @@
   "campaign": "v2-reopen-post-merge",
   "parityTiers": {
     "structural": {
-      "status": "partial",
-      "pallier": "P1"
+      "status": "ok",
+      "pallier": "v4-p1"
     },
     "interactional": {
       "status": "smoke-ok",
       "items": [
         "toolbar-proton",
         "new-tab",
-        "multi-tabs"
+        "multi-tabs",
+        "navigation-controls",
+        "bookmarks-toggle",
+        "address-bar"
       ]
     }
   },
@@ -24,10 +27,8 @@
     "kernel": "usr/lib/capsuleos/shells/linux/firefoxBrowser.js",
     "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs"
   },
-  "nextSteps": [
-    "Compare visuel 04-firefox baseline ↔ vm-firefox.png ↔ capsule (smoke OK)",
-    "Compléter themes kdeglobals en session Plasma (collecte SSH batch vide)"
-  ],
+  "nextSteps": [],
   "vmInventory": "linux-kde-neon-firefox-vm.json",
-  "notes": "Pass 4 — skin Proton + smoke exit 0 (2026-06-08). Inventaire VM Firefox 151.0.3 (2026-06-08)."
+  "toolbarMatrix": "linux-kde-neon-firefox-toolbar-matrix.md",
+  "notes": "v4 P1 — toolbar classée Vp · smoke toolbar étendu (2026-06-08)."
 }

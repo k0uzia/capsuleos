@@ -131,6 +131,7 @@ const fileExplorerState = {
     previewOpen: false,
     splitView: false,
     activePane: 'primary',
+    paneSelection: { primary: null, secondary: null },
     selectedPreview: null,
     pathNavigationMode: 'label',
     listExpandedPaths: { primary: [], secondary: [] }
@@ -870,6 +871,42 @@ const alignDolphinPathBarToContentGrid = () => {
     pathGroup.style.marginLeft = `${nextMarginLeft}px`;
 };
 
+const rememberDolphinPaneSelection = (pane, link) => {
+    if (!isDolphinTemplate() || !link) {
+        return;
+    }
+    if (!fileExplorerState.paneSelection) {
+        fileExplorerState.paneSelection = { primary: null, secondary: null };
+    }
+    const itemName = link.dataset.itemName || '';
+    const folderPath = link.dataset.itemFolderPath || '';
+    if (!itemName) {
+        fileExplorerState.paneSelection[pane] = null;
+        return;
+    }
+    fileExplorerState.paneSelection[pane] = { folderPath, itemName };
+};
+
+const restoreDolphinPaneSelection = (pane, nemoElement, directoryPath) => {
+    if (!isDolphinTemplate() || !nemoElement) {
+        return;
+    }
+    const store = fileExplorerState.paneSelection;
+    const sel = store && store[pane];
+    if (!sel || !sel.itemName || sel.folderPath !== directoryPath) {
+        return;
+    }
+    const grid = nemoElement.closest('.nemo-app__content-grid') || nemoElement;
+    const link = grid.querySelector(`a[data-item-name="${sel.itemName.replace(/"/g, '\\"')}"]`);
+    if (!link) {
+        return;
+    }
+    grid.querySelectorAll('.nemo-app__item--selected').forEach((el) => {
+        el.classList.remove('nemo-app__item--selected');
+    });
+    link.classList.add('nemo-app__item--selected');
+};
+
 const buildNautilusEmptyStateMarkup = (kind) => {
     const specs = {
         folder: { modifier: 'folder', title: 'Le dossier est vide' },
@@ -1552,7 +1589,11 @@ const renderDirectory = (path, options = {}) => {
 
     applyFileExplorerViewMode();
     applyNautilusPlaceChrome(path);
-    updateNautilusSelectionStatus(null);
+    if (isDolphinTemplate()) {
+        restoreDolphinPaneSelection(pane, nemoElement, path);
+    } else {
+        updateNautilusSelectionStatus(null);
+    }
 };
 
 const pushHistory = (path) => {
@@ -2798,6 +2839,7 @@ window.normalizeDirectoryPathForExplorer = normalizeDirectoryPath;
 window.getFileExtension = getFileExtension;
 window.getFileViewerTargetByItem = getFileViewerTargetByItem;
 window.updateDolphinSidebarActive = updateDolphinSidebarActive;
+window.rememberDolphinPaneSelection = rememberDolphinPaneSelection;
 window.setFileExplorerViewMode = setFileExplorerViewMode;
 window.applyFileExplorerViewMode = applyFileExplorerViewMode;
 window.isDolphinListTreeViewActive = isDolphinListTreeView;

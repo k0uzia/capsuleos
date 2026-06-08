@@ -6,8 +6,8 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **registryId** | `linux-kde-neon` |
-| **Tier registre** | P2 → cible **P1** |
-| **Maturité estimée** | **~78 %** (juin 2026, post-v2) → cible **≥ 90 %** |
+| **Tier registre** | **P1** (clôturé v3 P5) |
+| **Maturité estimée** | **~91 %** (juin 2026, post-v3) · cible v4 **≥ 95 %** |
 | **VM lab** | `goupil@192.168.123.52` · virsh `KDE-Neon` |
 | **Skin** | `home/Debian/KDE-Neon/` |
 | **Viewport lab** | 1211×756 (Capsule) · 1280×800 (VM virsh) |
@@ -205,31 +205,33 @@ node root/tools/lab/generate-kde-neon-kickoff-data.mjs
 
 ---
 
-### P4 — Propagation toolkit KDE (8–15 h)
+### P4 — Propagation toolkit KDE (8–15 h) ✅
 
 **Objectif** : Neon reste source ; dérivés alignés.
 
-| Cible | Propagation | Spécificité vendor |
-|-------|-------------|-------------------|
-| `linux-opensuse` | tokens panel, tray JS, kickoff chrome | Geeko launcher |
-| `linux-mx-kde` | coque Plasma Neon | pack MX |
-| `linux-debian-kde` | tokens Breeze, footer | branding Debian |
+| Cible | Propagation | Statut |
+|-------|-------------|--------|
+| `linux-opensuse` | tokens panel, tray JS, kickoff chrome | ✅ Geeko conservé |
+| `linux-mx-kde` | coque Plasma Neon, panel dock | ✅ logo MX conservé |
+| `linux-debian-kde` | tokens Breeze, footer, panel dock | ✅ branding Debian |
 
-Pas de script `sync-kde-from-neon.mjs` en v3 — checklist manuelle par skin + `validate-all` global.
+Doc écarts : [linux-kde-p4-propagation-ecarts.md](linux-kde-p4-propagation-ecarts.md)
 
-**Critère sortie P4** : 3 skins KDE `validate-all` vert · doc écarts par dérivé.
+**Critère sortie P4** : 3 skins KDE `validate-all` vert · doc écarts par dérivé. ✅
 
 ---
 
-### P5 — Clôture référence P1 (4–10 h)
+### P5 — Clôture référence P1 (4–10 h) ✅
 
 **Objectif** : équivalent Mint v2 clôture.
 
-- [ ] `reactivate-os.mjs` ou mise à jour registre : `tier: P1`, `fidelityLevel: 3`
-- [ ] `linux-kde-neon-replication-state.json` : **H₆ v3 true**, Vp classé
-- [ ] `capture-clone-surfaces --compare` + smokes (shell, firefox, dolphin, terminal)
-- [ ] Brief + parité + roadmap marqués **clôturés v3**
-- [ ] Entrée [roadmap.md](../roadmap.md) : maturité **≥ 90 %**
+- [x] `reactivate-os.mjs` ou mise à jour registre : `tier: P1`, `fidelityLevel: 3`
+- [x] `linux-kde-neon-replication-state.json` : **H₆ v3 true**, Vp classé
+- [x] `capture-clone-surfaces --compare` + smokes (shell, firefox, dolphin, terminal, kickoff)
+- [x] Brief + parité + roadmap marqués **clôturés v3**
+- [x] Entrée [roadmap.md](../roadmap.md) : maturité **≥ 90 %**
+
+**Clôturé** : 2026-06-08 · baseline v3 régénérée · suite → [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md)
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
@@ -322,16 +324,13 @@ Référence : [logique-formelle.md](../logique-formelle.md)
 |----------|---------|----------|
 | **v1** | 2026-06-06 → 06-07 | Clôtures Discover, Kickoff, panel, Dolphin P0 |
 | **v2** | 2026-06-08 | Réaudit post-merge · tokens · Dolphin §7–8 captures · Firefox smoke · H₆ v2 |
-| **v3** | à planifier | Roadmap présente doc · cible P1 référence Plasma |
+| **v3** | 2026-06-08 | P0→P5 clôturés · tier P1 · H₆ v3 · propagation 3 skins KDE |
+| **v4** | en cours | [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md) · cible Π ≥ 95 % |
 
 ---
 
 ## 8. Prochaine action immédiate (agent)
 
-**P0.1** — sans VM : ✅ fait (parity-index, interactions, validate-all)
+**Campagne v3 clôturée P5** (2026-06-08).
 
-**P0.2** — avec VM : ✅ inventaire refresh · captures VM desktop/kickoff → P1
-
-**P1.1** — premier livrable visible :
-
-Audit assets JS (`home/Debian/KDE-Neon/js/*.js`) → `./assets/` + `smoke-kde-neon-shell-polish.mjs`.
+**Campagne v4** — voir [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md) · **V4-P0** Dolphin §3 + §6.

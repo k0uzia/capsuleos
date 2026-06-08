@@ -8,7 +8,7 @@
 # --dolphin-split vm-dolphin-split-only.png (vue scindée, action dbus split_view)
 # --dolphin-search vm-dolphin-search-open.png (toggle_search dbus)
 # --dolphin-search-filter vm-dolphin-search-filter-open.png (recherche + menu filtre)
-# --discover-updates|--discover-about|--discover-config captures onglets Discover (plasma-discover --mode)
+# --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
 #
 # Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
 # Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
@@ -25,7 +25,8 @@ DOLPHIN_HAMBURGER=false
 DISCOVER_UPDATES=false
 DISCOVER_ABOUT=false
 DISCOVER_CONFIG=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ]; do
+DISCOVER_DETAIL=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -52,6 +53,9 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--discover-config" ]; then
     DISCOVER_CONFIG=true
+  fi
+  if [ "${1:-}" = "--discover-detail" ]; then
+    DISCOVER_DETAIL=true
   fi
   shift
 done
@@ -314,6 +318,32 @@ if $DOLPHIN_ONLY; then
   shot "$DEST/vm-dolphin.png"
   reset_apps
   echo "=== Terminé : vm-dolphin.png (--dolphin-only) ==="
+  exit 0
+fi
+
+open_discover_app() {
+  local uri="$1"
+  prep_env "killall plasma-discover 2>/dev/null || true
+    sleep 0.5
+    nohup plasma-discover --application ${uri} >/dev/null 2>&1 &
+    for i in \$(seq 1 20); do
+      pgrep plasma-discover >/dev/null && break
+      sleep 1
+    done
+    sleep 6"
+}
+
+capture_discover_detail_shots() {
+  reset_apps
+  sleep 1
+  open_discover_app appstream://org.videolan.vlc
+  shot "$DEST/vm-discover-detail-vlc.png"
+  reset_apps
+}
+
+if $DISCOVER_DETAIL; then
+  capture_discover_detail_shots
+  echo "=== Terminé : vm-discover-detail-vlc.png (--discover-detail) ==="
   exit 0
 fi
 

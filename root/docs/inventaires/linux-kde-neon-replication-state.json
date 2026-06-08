@@ -1,9 +1,14 @@
 {
   "registryId": "linux-kde-neon",
-  "campaign": "v3-full-parity",
-  "roadmap": "linux-kde-neon-roadmap.md",
-  "pallier": 3,
-  "pallierStatus": "in_progress",
+  "campaign": "v4-deep-parity",
+  "campaignStatus": "in_progress",
+  "roadmap": "linux-kde-neon-roadmap-v4.md",
+  "previousCampaign": "v3-full-parity",
+  "v4StartedAt": "2026-06-08T20:15:00.000Z",
+  "v4P0ClosedAt": "2026-06-08T21:00:00.000Z",
+  "pallier": 2,
+  "pallierStatus": "pending",
+  "v4P1ClosedAt": "2026-06-08T21:30:00.000Z",
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
@@ -16,110 +21,36 @@
     "dolphinDiff": "linux-kde-neon-dolphin-diff.md",
     "cloneStatus": "linux-kde-neon-clone-status.md",
     "brief": "root/docs/briefs/linux-kde-neon.md",
-    "cssAssetsAudit": "linux-kde-neon-css-assets-audit.md"
+    "firefoxToolbar": "linux-kde-neon-firefox-toolbar-matrix.md",
+    "vpResidual": "linux-kde-neon-vp-residual.md"
   },
-  "priorityQueue": [
-    "nemo",
-    "update_manager",
-    "terminal",
-    "firefox",
-    "mainMenu"
-  ],
-  "tools": {
-    "captureCapsule": "root/tools/lab/capture-capsule-kde-neon.mjs",
-    "captureVm": "root/tools/lab/vm-kde-neon-capture-host.sh",
-    "captureSurfaces": "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs",
-    "smokeFirefox": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs",
-    "smokeDolphin": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs",
-    "smokeDiscover": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs",
-    "smokeTerminal": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-terminal.mjs",
-    "smokeKickoff": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-kickoff.mjs",
-    "seedParityIndex": "usr/lib/capsuleos/tools/lab/seed-kde-neon-parity-index.mjs",
-    "validationPlan": "usr/lib/capsuleos/tools/print-validation-plan.mjs"
-  },
-  "baselineCapture": "root/docs/inventaires/captures/linux-kde-neon/baseline/",
-  "reopenedAt": "2026-06-08T15:00:00.000Z",
-  "v2ClosedAt": "2026-06-08T18:00:00.000Z",
-  "v3StartedAt": "2026-06-08T19:00:00.000Z",
-  "p1ClosedAt": "2026-06-08T14:00:00.000Z",
-  "p2StartedAt": "2026-06-08T14:05:00.000Z",
+  "priorityQueue": ["mainMenu"],
   "paritySnapshot": {
-    "pi_global": 74,
-    "status_global": "partiel",
-    "shell": {
-      "panel": "p1-closed",
-      "mainMenu": "p3-closed",
-      "tray": "p2-closed",
-      "desktop": "p1-closed"
-    },
+    "pi_global": 93,
+    "status_global": "ok",
     "apps": {
-      "nemo": "p2-dolphin-7-9",
-      "update_manager": "p2-discover-detail",
-      "firefox": "p1-closed",
-      "terminal": "p2-polish"
+      "nemo": "v4-p0-closed",
+      "update_manager": "v4-p1-closed",
+      "firefox": "v4-p1-closed",
+      "terminal": "p5-closed"
     }
   },
-  "predicates": {
-    "H2": true,
-    "M": true,
-    "I": "partial",
-    "A": true,
-    "S": "partial",
-    "V": true,
-    "G": true,
-    "Vc": true,
-    "Vp": "partial",
-    "H6": true
+  "v4P0Deliverables": {
+    "peripheralsSidebarSection": true,
+    "splitSelectionIndependent": true,
+    "vmCaptureSplit": "vm-dolphin-split-only.png",
+    "capsuleCaptureSplitSelection": "capsule-dolphin-split-selection.png",
+    "dolphinDiffClosed": true
   },
-  "h6Gates": {
-    "validateAll": true,
-    "syncSkinClosure": true,
-    "captureCompare": true,
-    "smokeFirefox": true,
-    "compareNote": "Horloge figée CAPTURE_CLOCK_ISO + reset fenêtres entre scènes"
+  "v4P1Deliverables": {
+    "discoverAppDetailGallery": true,
+    "discoverCatalogVlcMeta": true,
+    "vmCaptureDiscoverDetail": "vm-discover-detail-vlc.png",
+    "capsuleCaptureDiscoverDetail": "capsule-discover-detail-vlc.png",
+    "firefoxToolbarMatrix": true,
+    "smokeDiscoverExtended": true,
+    "smokeFirefoxToolbar": true
   },
-  "p1Deliverables": {
-    "assetsJsAudit": true,
-    "cssAssetsAuditDoc": true,
-    "smokeShellPolish": true,
-    "panelVmCompare": true,
-    "panelCapsuleChecklist": "6/6",
-    "firefoxVmInventory": true,
-    "kickoffDataRegenerated": true,
-    "kickoffDimensions677x513": true,
-    "captureCompareStable": true
-  },
-  "p2Deliverables": {
-    "dolphinSearchFilterVmCapture": true,
-    "dolphinContextFlyouts": true,
-    "dolphinSmokeHamburgerIcons": true,
-    "discoverCategoryFilters": true,
-    "discoverAppDetail": true,
-    "discoverVmTabCaptures": true,
-    "discoverVmTabCaptureFix": "plasma-discover --mode (update|settings|about)",
-    "trayClipboardHistory": true,
-    "trayNetworkToggle": true,
-    "trayUpdatesBadgeDynamic": true,
-    "terminalSmoke": true,
-    "terminalToolbarPolish": true,
-    "shellPolishTraySmoke": true,
-    "dolphinSplitSelection": false,
-    "discoverAppDetailScreenshots": false
-  },
-  "p3Deliverables": {
-    "kickoffAppsLinked": "30/30",
-    "textEditorSlotKate": true,
-    "textEditorSkinCss": true,
-    "execLinkMapExpanded": true,
-    "smokeKickoff": true,
-    "batchB1OkularGwenviewKate": true,
-    "batchB2Utilities": false,
-    "batchB3System": false,
-    "noteKonversation": "absent inventaire VM lab"
-  },
-  "nextStep": "P4 propagation toolkit KDE (opensuse, mx-kde, debian-kde)",
-  "p3ClosedAt": "2026-06-08T16:00:00.000Z",
-  "p4StartedAt": "2026-06-08T16:05:00.000Z",
-  "pallier": 4,
-  "updatedAt": "2026-06-08T16:00:00.000Z"
+  "nextStep": "V4-P2 Kickoff batches B2/B3",
+  "updatedAt": "2026-06-08T21:30:00.000Z"
 }

@@ -5,7 +5,7 @@
   "kernelId": "linux",
   "branchId": "ubuntu",
   "vendor": "ubuntu",
-  "displayName": "Ubuntu 26.04 LTS",
+  "displayName": "Ubuntu 25.10",
   "bodyId": "ubuntu",
   "embedKey": "ubuntu",
   "tier": "P0",
@@ -30,8 +30,7 @@
     "toolkitPack": "toolkits/gnome",
     "vendorPack": "vendors/ubuntu",
     "iconPacks": [
-      "icons/gnome",
-      "icons/gnome/yaru"
+      "icons/gnome"
     ]
   },
   "capsuleGlobals": {
@@ -45,8 +44,6 @@
     "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
-    "CAPSULE_TERMINAL_USER": "capsule",
-    "CAPSULE_TERMINAL_HOST": "ubuntu",
     "CAPSULE_WINDOW_CHROME_CONTEXT": {
       "toolkitId": "gnome",
       "explorerTemplate": "nemo-gnome",

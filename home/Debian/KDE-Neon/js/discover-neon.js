@@ -238,29 +238,57 @@
         return panel;
     }
 
+    function renderScreenshotTile(shot) {
+        const label = shot.label || shot.id || '';
+        const tone = shot.tone || '#31363b';
+        return `
+            <figure class="kde-discover-app-detail__shot" style="--discover-shot-tone: ${tone}">
+                <span class="kde-discover-app-detail__shot-frame" aria-hidden="true"></span>
+                <figcaption class="kde-discover-app-detail__shot-label">${label}</figcaption>
+            </figure>
+        `;
+    }
+
     function renderAppDetail(root, catalog, app) {
         const panel = ensureAppDetailPanel(root);
         const meta = (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
         const iconUrl = resolveIconUrl(app);
         const summary = meta.summary || app.desc || '';
+        const description = meta.description || summary;
+        const screenshots = Array.isArray(meta.screenshots) ? meta.screenshots : [];
+        const galleryMarkup = screenshots.length
+            ? `<section class="kde-discover-app-detail__gallery" aria-label="Captures d'écran">
+                <div class="kde-discover-app-detail__gallery-track" role="list">
+                    ${screenshots.map(renderScreenshotTile).join('')}
+                </div>
+               </section>`
+            : '';
         panel.innerHTML = `
             <header class="kde-discover-app-detail__header">
                 <button type="button" class="kde-discover-app-detail__back" data-discover-app-back aria-label="Retour">← Retour</button>
             </header>
             <article class="kde-discover-app-detail__body">
-                <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
-                <div class="kde-discover-app-detail__meta">
-                    <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
-                    <p class="kde-discover-app-detail__summary">${summary}</p>
-                    <dl class="kde-discover-app-detail__facts">
-                        ${meta.version ? `<div><dt>Version</dt><dd>${meta.version}</dd></div>` : ''}
-                        ${meta.size ? `<div><dt>Taille</dt><dd>${meta.size}</dd></div>` : ''}
-                        ${meta.license ? `<div><dt>Licence</dt><dd>${meta.license}</dd></div>` : ''}
-                        ${meta.origin ? `<div><dt>Origine</dt><dd>${meta.origin}</dd></div>` : ''}
-                    </dl>
-                    <button type="button" class="kde-discover-app-detail__install" data-discover-app-install="${app.id || ''}">Installer</button>
-                    <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
+                <div class="kde-discover-app-detail__hero">
+                    <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
+                    <div class="kde-discover-app-detail__meta">
+                        <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
+                        <p class="kde-discover-app-detail__summary">${summary}</p>
+                        <dl class="kde-discover-app-detail__facts">
+                            ${meta.developer ? `<div><dt>Développeur</dt><dd>${meta.developer}</dd></div>` : ''}
+                            ${meta.version ? `<div><dt>Version</dt><dd>${meta.version}</dd></div>` : ''}
+                            ${meta.size ? `<div><dt>Taille</dt><dd>${meta.size}</dd></div>` : ''}
+                            ${meta.license ? `<div><dt>Licence</dt><dd>${meta.license}</dd></div>` : ''}
+                            ${meta.origin ? `<div><dt>Origine</dt><dd>${meta.origin}</dd></div>` : ''}
+                        </dl>
+                        <button type="button" class="kde-discover-app-detail__install" data-discover-app-install="${app.id || ''}">Installer</button>
+                        <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
+                    </div>
                 </div>
+                ${galleryMarkup}
+                <section class="kde-discover-app-detail__description">
+                    <h2 class="kde-discover-app-detail__description-title">Description</h2>
+                    <p class="kde-discover-app-detail__description-text">${description}</p>
+                </section>
             </article>
         `;
     }

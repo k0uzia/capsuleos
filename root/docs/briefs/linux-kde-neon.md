@@ -1,11 +1,11 @@
 # Brief agent — KDE neon User Edition
 
-> Campagne **v2** clôturée H₆ (2026-06-08) · **Roadmap v3** : [`linux-kde-neon-roadmap.md`](../inventaires/linux-kde-neon-roadmap.md)
+> Campagne **v3** clôturée H₆ v3 + P1 référence (2026-06-08) · **Campagne v4** : [`linux-kde-neon-roadmap-v4.md`](../inventaires/linux-kde-neon-roadmap-v4.md)
 
 ## Contexte
 
 - **ID registre** : `linux-kde-neon`
-- **Famille** : linux · **Tier** : P2 · **Statut** : active
+- **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 3
 - **Toolkit** : kde / Plasma · **Vendor** : neon
 - **embedKey** / **bodyId** : `kde-neon` / `kde-neon`
 - **VM lab** : `goupil@192.168.123.52` · clé `~/.ssh/capsuleos-lab`
@@ -13,9 +13,9 @@
 ## Clone VM (ground truth)
 
 - Parité : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)
-- Statut : [`linux-kde-neon-clone-status.md`](../inventaires/linux-kde-neon-clone-status.md)
+- État : [`linux-kde-neon-replication-state.json`](../inventaires/linux-kde-neon-replication-state.json)
+- Écarts Vp : [`linux-kde-neon-vp-residual.md`](../inventaires/linux-kde-neon-vp-residual.md)
 - Dolphin diff : [`linux-kde-neon-dolphin-diff.md`](../inventaires/linux-kde-neon-dolphin-diff.md)
-- Interactions : `root/docs/inventaires/interactions/linux-kde-neon/*.json`
 
 ## Chemins
 
@@ -23,47 +23,35 @@
 - **Skin** : `home/Debian/KDE-Neon/index.html`
 - **Assets vendor** : `usr/share/capsuleos/assets/images/vendors/neon/`
 
-## Gates H₆ (campagne v2)
+## Gates H₆ v3 (maintenance)
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon --compare
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs
 node usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-terminal.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-kickoff.mjs
 ```
 
-Captures lab :
+## Campagne v3 — livré ✅
 
-```bash
-python3 -m http.server 5500 --bind 127.0.0.1
-node root/tools/lab/capture-capsule-kde-neon.mjs
-KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-capture-host.sh --dolphin-search
-```
+| Pallier | Contenu |
+|---------|---------|
+| P0 | Parity-index, interactions, validate-all |
+| P1 | Audit assets JS, shell polish, panel VM compare |
+| P2 | Dolphin §7–9, Discover tabs, tray dynamique, Konsole |
+| P3 | Kickoff 30/30 dataLink, slot Kate `text_editor` |
+| P4 | Propagation tray/panel → openSUSE, MX-KDE, Debian-KDE |
+| P5 | Tier P1, H₆ v3, baseline v3, smokes complets |
 
-## Campagne v2 — livré
+## Suite — campagne v4
 
-| Pass | Contenu |
-|------|---------|
-| 0 | merge upstream, validate-all, baseline |
-| 1 | replication-state, docs réouverts |
-| 2 | tokens `--kde-neon-*`, assets Dolphin, interactions JSON |
-| 3 | captures VM/Capsule recherche + hamburger + filtre |
-| 4 | `firefox.skin.css`, `smoke-kde-neon-firefox.mjs` |
-| 5 | compare baseline stable (horloge figée), brief |
+Voir [`linux-kde-neon-roadmap-v4.md`](../inventaires/linux-kde-neon-roadmap-v4.md).
 
-## Suite — campagne v3
-
-Voir [`linux-kde-neon-roadmap.md`](../inventaires/linux-kde-neon-roadmap.md) (palliers P0→P5).
-
-**Prochaine action** : **P1** — audit assets JS + `smoke-kde-neon-shell-polish.mjs` (voir roadmap § P1).
-
-## Backlog (résumé)
-
-- Menu contextuel Dolphin flyouts complets (diff §9)
-- Tray popovers dynamiques (Klipper, réseau)
-- Périphériques sidebar Dolphin
-- Audit `resolveCapsuleResourceUrl` Discover/tray (CSS `usr/share` restants)
-- Inventaire VM Firefox détaillé
+**Prochaine action** : **V4-P2** — Kickoff batches B2/B3 (voir [`linux-kde-neon-roadmap-v4.md`](../inventaires/linux-kde-neon-roadmap-v4.md)).
 
 ## Interdits
 

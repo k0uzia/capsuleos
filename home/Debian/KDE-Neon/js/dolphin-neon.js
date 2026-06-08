@@ -1855,6 +1855,41 @@
         });
     }
 
+    function ensurePeripheralsSidebar() {
+        const slot = getSlot();
+        const sidebar = slot && slot.querySelector('#voletnemo');
+        if (!sidebar || sidebar.querySelector('[data-neon-peripherals-section]')) {
+            return;
+        }
+        let insertBefore = null;
+        sidebar.querySelectorAll('.dolphin-sidebar__section').forEach((section) => {
+            const heading = section.querySelector('.dolphin-sidebar__heading');
+            if (heading && heading.textContent.trim() === 'Distant') {
+                insertBefore = section;
+            }
+        });
+        const section = global.document.createElement('div');
+        section.className = 'dolphin-sidebar__section';
+        section.dataset.neonPeripheralsSection = 'true';
+        const heading = global.document.createElement('h4');
+        heading.className = 'dolphin-sidebar__heading';
+        heading.textContent = 'Périphériques';
+        const nav = global.document.createElement('nav');
+        nav.className = 'dolphin-sidebar__nav dolphin-sidebar__nav--peripherals';
+        nav.setAttribute('aria-label', 'Périphériques');
+        const empty = global.document.createElement('p');
+        empty.className = 'dolphin-sidebar__empty';
+        empty.textContent = 'Aucun périphérique connecté';
+        nav.appendChild(empty);
+        section.appendChild(heading);
+        section.appendChild(nav);
+        if (insertBefore) {
+            sidebar.insertBefore(section, insertBefore);
+        } else {
+            sidebar.appendChild(section);
+        }
+    }
+
     function bindNeonDolphinUi() {
         const slot = getSlot();
         if (!slot || !slot.querySelector('.dolphin-app')) {
@@ -1911,6 +1946,7 @@
         ensureDolphinSearchBar();
         ensureSecondaryPathBar();
         ensureHamburgerMenu();
+        ensurePeripheralsSidebar();
         ensureContextMenuFlyouts(slot);
         syncViewModeUi();
         syncNeonSplitChrome();

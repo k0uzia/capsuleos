@@ -54,6 +54,22 @@ try {
     { timeout: 8000 },
   );
 
+  const detailBeforeInstall = await page.evaluate(() => ({
+    name: document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim(),
+    galleryShots: document.querySelectorAll('.kde-discover-app-detail__shot').length,
+    description: document.querySelector('.kde-discover-app-detail__description-text')?.textContent?.trim(),
+    developer: document.querySelector('.kde-discover-app-detail__facts dd')?.textContent?.trim(),
+  }));
+
+  if (!detailBeforeInstall.name || detailBeforeInstall.name.indexOf('VLC') === -1) {
+    errors.push(`fiche app : titre=${detailBeforeInstall.name || '(vide)'}`);
+  }
+  if (detailBeforeInstall.galleryShots < 2) {
+    errors.push(`fiche app : galerie=${detailBeforeInstall.galleryShots} captures`);
+  }
+  if (!detailBeforeInstall.description || detailBeforeInstall.description.length < 20) {
+    errors.push('fiche app : description absente ou trop courte');
+  }
   await page.click('[data-discover-app-install="vlc"]');
   await page.waitForFunction(
     () => {
@@ -63,6 +79,14 @@ try {
     null,
     { timeout: 5000 },
   );
+
+  const detailAfterInstall = await page.evaluate(() => ({
+    installDisabled: document.querySelector('[data-discover-app-install="vlc"]')?.disabled,
+    status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
+  }));
+  if (!detailAfterInstall.installDisabled) {
+    errors.push('fiche app : bouton Installer non désactivé après clic');
+  }
 
   await page.click('[data-discover-app-back]');
   await page.waitForFunction(
@@ -85,20 +109,14 @@ try {
     errors.push(`filtre internet : cartes=${filtered.cards}`);
   }
 
-  const detail = await page.evaluate(() => ({
-    name: document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim(),
-    installDisabled: document.querySelector('[data-discover-app-install="vlc"]')?.disabled,
-    status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
-  }));
-
-  if (!detail.name || detail.name.indexOf('VLC') === -1) {
-    errors.push(`fiche app : titre=${detail.name || '(vide)'}`);
-  }
-  if (!detail.installDisabled) {
-    errors.push('fiche app : bouton Installer non désactivé après clic');
-  }
-
-  console.log(JSON.stringify({ ok: errors.length === 0, errors, cats, filtered, detail }, null, 2));
+  console.log(JSON.stringify({
+    ok: errors.length === 0,
+    errors,
+    cats,
+    detailBeforeInstall,
+    detailAfterInstall,
+    filtered,
+  }, null, 2));
 } catch (err) {
   errors.push(err.message || String(err));
   console.log(JSON.stringify({ ok: false, errors }, null, 2));

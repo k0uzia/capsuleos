@@ -8,7 +8,7 @@
 @import url(./windows.css?v=20260612);
 @import url(./calendar-popover.css?v=20260612);
 @import url(./a11y-overrides.css?v=20260612);
-@import url(./tray-popover-kde.css?v=20260613a);
+@import url(../../../../usr/share/capsuleos/linux/apps/style/tray-popover-kde.base.css?v=20260608p4);
 @import url(./volume-popover.css?v=20260612);
 @import url(./debian-breeze.css?v=20260612);
 @import url(./debian-desktop.css?v=20260606k7);

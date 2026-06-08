@@ -51,7 +51,7 @@ Un jalon est **réussi** lorsque :
 |---|---|---|---|
 | **Linux Mint** | Cinnamon | ~95 % — référence P0 | P0 — figer |
 | **Rocky Linux 10** | GNOME | ~85 % — référence GNOME RHEL | P1 — polish + pédagogie |
-| **KDE neon** | Plasma | **~78 %** — réf. op. Plasma, H₆ v2 | **P1** — [roadmap v3](inventaires/linux-kde-neon-roadmap.md) |
+| **KDE neon** | Plasma | **~93 %** — réf. Plasma P1, v4 P0–P1 ✅ | **P1** — [roadmap v4](inventaires/linux-kde-neon-roadmap-v4.md) |
 | **MX Linux KDE** | Plasma | ~85 % | P1 |
 | **openSUSE** | Plasma | ~85 % | P1 |
 | **Ubuntu 25.10** | GNOME | ~75 % | P1 |

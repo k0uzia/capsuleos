@@ -49,6 +49,7 @@
       "explorerTemplate": "nemo",
       "dragMode": "unified-titlebar"
     },
+    "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",
       "draggable": true,

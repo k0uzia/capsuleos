@@ -64,6 +64,13 @@ body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img 
     opacity: 1;
 }
 
+body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__nav--peripherals .dolphin-sidebar__empty {
+    margin: 0.35rem 0 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--kde-neon-muted-fg, #7f8c8d);
+    line-height: 1.35;
+}
+
 /* P4 — masquer menubar classique (Dolphin ≥23 = hamburger) */
 body#kde-neon div[data-link="nemo"] .dolphin-app .nemo-app__menubar,
 body#kde-neon div[data-link="nemo"] .dolphin-app .menuOutils {

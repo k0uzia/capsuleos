@@ -64,6 +64,46 @@
         "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
         "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
       }
+    },
+    "linux-alma": {
+      "toolkit": "gnome",
+      "vendor": "alma",
+      "upstreamId": "linux-rocky",
+      "matrices": {
+        "parity": "root/tools/lab/gnome-settings-parity-matrix-alma.json",
+        "assets": "root/tools/lab/gnome-settings-assets-matrix-alma.json",
+        "visual": "root/tools/lab/gnome-settings-visual-investigation-matrix-alma.json"
+      },
+      "bootstrap": {
+        "parity": "toolkit:gnome+upstream:linux-rocky",
+        "assets": "upstream:linux-rocky",
+        "visual": "toolkit:gnome+skinRewrite+upstream:linux-rocky"
+      },
+      "notes": "Phase 2 — héritage Rocky (upstreamId) ; VM lab à ajouter",
+      "scripts": {
+        "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
+        "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
+      }
+    },
+    "linux-anduinos": {
+      "toolkit": "gnome",
+      "vendor": "anduin",
+      "upstreamId": "linux-ubuntu",
+      "matrices": {
+        "parity": "root/tools/lab/gnome-settings-parity-matrix-anduin.json",
+        "assets": "root/tools/lab/gnome-settings-assets-matrix-anduin.json",
+        "visual": "root/tools/lab/gnome-settings-visual-investigation-matrix-anduin.json"
+      },
+      "bootstrap": {
+        "parity": "toolkit:gnome+upstream:linux-ubuntu",
+        "assets": "upstream:linux-ubuntu",
+        "visual": "toolkit:gnome+skinRewrite+upstream:linux-ubuntu"
+      },
+      "notes": "Phase 2 — héritage Ubuntu GNOME ; VM lab à ajouter",
+      "scripts": {
+        "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
+        "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
+      }
     }
   }
 }

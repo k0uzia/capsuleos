@@ -56,9 +56,11 @@ export const loadRecipeProfile = (registryId) => {
     registryId,
     toolkit: base.toolkit || entry.toolkit || 'gnome',
     vendor: base.vendor || vendor,
+    upstreamId: base.upstreamId || entry.upstreamId || null,
     matrices: { ...(base.matrices || {}) },
     scripts: { ...(base.scripts || {}) },
     bootstrap: base.bootstrap || null,
+    notes: base.notes || null,
   };
 
   const overridePath = process.env.CAPSULE_RECIPE_OVERRIDE;

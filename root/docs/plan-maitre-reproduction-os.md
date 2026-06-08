@@ -309,7 +309,7 @@ VM (SSH) → proc/ + inventaire JSON
 | **1b** Rocky manifeste | ✅ | ManA → staging → import → integrate-skin (**sans** patch skin H₆) |
 | **1c** Fedora manifeste + AppV | ✅ | ManA ; `registryOverrides` AppΣ |
 | **1d** drift icon-pack Ubuntu | ✅ | — |
-| **1e** Clôture triplet V1 | ⏳ | Voir critères §6.1 |
+| **1e** Clôture triplet V1 | ✅ | Triplet stable — H₂ global |
 
 **1e — Clôture triplet V1 (bloquant Phase 2)**
 
@@ -321,9 +321,15 @@ VM (SSH) → proc/ + inventaire JSON
 
 **Critère triplet V1 stable** : Ubuntu **H₆** (ou PbΣ vert + H₂) **et** Rocky **et** Fedora **ManΣ** **et** **H₂** global.
 
-### Phase 2 — GNOME étendu (V2) — **après** triplet V1 stable
+### Phase 2 — GNOME étendu (V2) — **en cours**
 
-alma (`extends: rocky`), anduinos, popos (`extends: ubuntu`) — héritage catalogue manifeste, matrices locales **P11**.
+| Registry | Upstream | Première passe | Bloquant |
+|----------|----------|----------------|----------|
+| **linux-alma** | rocky | Profil P11 + matrices bootstrap + marqueurs overview skin | VM lab + ManΣ |
+| **linux-anduinos** | ubuntu | Profil P11 + matrices bootstrap | VM lab + ManΣ |
+| **linux-popos** | ubuntu (cosmic) | Hors GNOME pur — toolkit cosmic | VM + recette dédiée |
+
+Héritage catalogue manifeste, matrices locales **P11** (`lab-recipe-profiles.json` + `bootstrap-gnome-settings-matrices.mjs --id`).
 
 ### Phase 3 — Cinnamon (V3) — Mint
 

@@ -187,8 +187,12 @@ next(d)  min prédicat faux       → resolve-lab-recipe.mjs / run-capsule-pipel
 
 ---
 
-## 7. Suite (Phase 2)
+## 7. Suite (Phase 2) — démarrée
 
-GNOME étendu — **uniquement après** critère done §2 **1e**.
+Critère **1e** atteint. Voir [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §6 Phase 2.
 
-Voir [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §6 Phase 2.
+| Étape | Registry | Statut |
+|-------|----------|--------|
+| 2.1 | **linux-alma** | Profils P11 + matrices bootstrap ✅ · VM lab ⏳ |
+| 2.2 | **linux-anduinos** | Profils P11 + matrices bootstrap ✅ · VM lab ⏳ |
+| 2.3 | **linux-popos** | Toolkit cosmic — hors scope GNOME pur |

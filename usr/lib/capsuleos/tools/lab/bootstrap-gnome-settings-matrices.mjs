@@ -104,7 +104,27 @@ const buildAssetsFromProc = (registryId, vendor) => {
   };
 };
 
-const buildParityFromToolkit = (registryId, vendor) => {
+const upstreamRegistry = (profile) => profile.upstreamId
+  || profile.bootstrap?.assets?.replace(/^upstream:/, '')
+  || profile.bootstrap?.parity?.match(/upstream:(linux-[\w-]+)/)?.[1]
+  || null;
+
+const buildParityFromToolkit = (registryId, vendor, profile) => {
+  const upstream = upstreamRegistry(profile);
+  if (upstream) {
+    const upVendor = vendorFromRegistry(upstream);
+    const upPath = path.join(LAB, `gnome-settings-parity-matrix-${upVendor}.json`);
+    if (fs.existsSync(upPath)) {
+      const template = JSON.parse(fs.readFileSync(upPath, 'utf8'));
+      return {
+        ...template,
+        description: `Matrice panneaux gnome-control-center ↔ CapsuleOS — ${registryId} (bootstrap upstream ${upstream}).`,
+        registry: registryId,
+        vendor,
+        upstreamMatrix: path.basename(upPath),
+      };
+    }
+  }
   const templatePath = path.join(LAB, 'gnome-settings-parity-matrix-fedora.json');
   const fallback = path.join(LAB, 'gnome-settings-parity-matrix-rocky.json');
   const src = fs.existsSync(templatePath) ? templatePath : fallback;
@@ -116,6 +136,26 @@ const buildParityFromToolkit = (registryId, vendor) => {
     description: `Matrice panneaux gnome-control-center ↔ CapsuleOS — ${registryId} (bootstrap toolkit GNOME).`,
     registry: registryId,
     vendor,
+  };
+};
+
+const buildAssetsFromUpstream = (registryId, vendor, profile) => {
+  const upstream = upstreamRegistry(profile);
+  if (!upstream) return null;
+  const upVendor = vendorFromRegistry(upstream);
+  const upPath = path.join(LAB, `gnome-settings-assets-matrix-${upVendor}.json`);
+  if (!fs.existsSync(upPath)) return null;
+  const template = JSON.parse(fs.readFileSync(upPath, 'utf8'));
+  const raw = JSON.stringify(template)
+    .split(`images/vendors/${upVendor}/`)
+    .join(`images/vendors/${vendor}/`);
+  const payload = JSON.parse(raw);
+  return {
+    ...payload,
+    description: `Assets ground truth Paramètres GNOME — ${registryId} (bootstrap upstream ${upstream}).`,
+    registry: registryId,
+    vendor,
+    upstreamMatrix: path.basename(upPath),
   };
 };
 
@@ -135,7 +175,23 @@ const rewriteVisualSkinPaths = (payload, registryId, templateRegistry) => {
   return JSON.parse(raw);
 };
 
-const buildVisualFromVendor = (registryId, vendor) => {
+const buildVisualFromVendor = (registryId, vendor, profile) => {
+  const upstream = upstreamRegistry(profile);
+  if (upstream) {
+    const upVendor = vendorFromRegistry(upstream);
+    const upPath = path.join(LAB, `gnome-settings-visual-investigation-matrix-${upVendor}.json`);
+    if (fs.existsSync(upPath)) {
+      const template = JSON.parse(fs.readFileSync(upPath, 'utf8'));
+      const base = {
+        ...template,
+        registry: registryId,
+        vendor,
+        description: `Matrice enquête visuelle — ${registryId} (bootstrap upstream ${upstream})`,
+        upstreamMatrix: path.basename(upPath),
+      };
+      return rewriteVisualSkinPaths(base, registryId, upstream);
+    }
+  }
   const fedora = path.join(LAB, 'gnome-settings-visual-investigation-matrix-fedora.json');
   const rocky = path.join(LAB, 'gnome-settings-visual-investigation-matrix-rocky.json');
   const templatePath = fs.existsSync(fedora) ? fedora : rocky;
@@ -188,9 +244,11 @@ const main = () => {
 
   for (const kind of kinds) {
     let payload;
-    if (kind === 'assets') payload = buildAssetsFromProc(opts.id, vendor);
-    else if (kind === 'parity') payload = buildParityFromToolkit(opts.id, vendor);
-    else if (kind === 'visual') payload = buildVisualFromVendor(opts.id, vendor);
+    if (kind === 'assets') {
+      payload = buildAssetsFromUpstream(opts.id, vendor, profile)
+        || buildAssetsFromProc(opts.id, vendor);
+    } else if (kind === 'parity') payload = buildParityFromToolkit(opts.id, vendor, profile);
+    else if (kind === 'visual') payload = buildVisualFromVendor(opts.id, vendor, profile);
     else throw new Error(`kind inconnu: ${kind}`);
     writeMatrix(opts.id, kind, payload, opts.write);
   }

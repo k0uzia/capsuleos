@@ -19,28 +19,33 @@
     "vendor": "fedora",
     "iconPack": "icons/gnome/adwaita"
   },
-  "generatedAt": "2026-06-08T21:14:22.268Z",
+  "generatedAt": "2026-06-08T23:12:00.839Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
-    "status": "draft",
-    "approved": false
+    "status": "approved",
+    "approved": true,
+    "smokeOk": true,
+    "approvedAt": "2026-06-08T22:45:03.104Z",
+    "approvedBy": "agent"
   },
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-fedora",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T23:09:43.463Z"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-fedora/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T23:09:45.958Z"
   },
   "summary": {
     "total": 128,
-    "pull": 55,
-    "drift": 44,
-    "skip": 29,
+    "pull": 0,
+    "drift": 0,
+    "skip": 128,
     "onVmFalse": 0
   },
   "items": [
@@ -52,8 +57,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg",
       "stagingPath": "apps/org.gnome.Calendar.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Yelp",
@@ -129,8 +134,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Connections.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Connections.svg",
       "stagingPath": "apps/org.gnome.Connections.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Contacts",
@@ -151,8 +156,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.freedesktop.MalcontentControl.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.freedesktop.MalcontentControl.svg",
       "stagingPath": "apps/org.freedesktop.MalcontentControl.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.DiskUtility",
@@ -184,8 +189,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.fedoraproject.MediaWriter.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.fedoraproject.MediaWriter.png",
       "stagingPath": "apps/org.fedoraproject.MediaWriter.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Nautilus",
@@ -239,8 +244,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Decibels.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Decibels.svg",
       "stagingPath": "apps/org.gnome.Decibels.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Showtime",
@@ -294,8 +299,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "stagingPath": "apps/org.gnome.Software.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Boxes",
@@ -415,8 +420,8 @@
       "capsuleTarget": "fonts/vendors/fedora/Cantarell-Bold.otf",
       "capsuleRelative": "fonts/vendors/fedora/Cantarell-Bold.otf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/Cantarell-Bold.otf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-Cantarell-VF.otf",
@@ -426,8 +431,8 @@
       "capsuleTarget": "fonts/vendors/fedora/Cantarell-VF.otf",
       "capsuleRelative": "fonts/vendors/fedora/Cantarell-VF.otf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/Cantarell-VF.otf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-AdwaitaSans-Italic.ttf",
@@ -437,8 +442,8 @@
       "capsuleTarget": "fonts/vendors/fedora/AdwaitaSans-Italic.ttf",
       "capsuleRelative": "fonts/vendors/fedora/AdwaitaSans-Italic.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/AdwaitaSans-Italic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-AdwaitaSans-Regular.ttf",
@@ -448,8 +453,8 @@
       "capsuleTarget": "fonts/vendors/fedora/AdwaitaSans-Regular.ttf",
       "capsuleRelative": "fonts/vendors/fedora/AdwaitaSans-Regular.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/AdwaitaSans-Regular.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-Italic[wght].ttf",
@@ -459,8 +464,8 @@
       "capsuleTarget": "fonts/vendors/fedora/NotoSans-Italic[wght].ttf",
       "capsuleRelative": "fonts/vendors/fedora/NotoSans-Italic[wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/NotoSans-Italic[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans[wght].ttf",
@@ -470,8 +475,8 @@
       "capsuleTarget": "fonts/vendors/fedora/NotoSans[wght].ttf",
       "capsuleRelative": "fonts/vendors/fedora/NotoSans[wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/NotoSans[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-AdwaitaMono-BoldItalic.ttf",
@@ -481,8 +486,8 @@
       "capsuleTarget": "fonts/vendors/fedora/AdwaitaMono-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/fedora/AdwaitaMono-BoldItalic.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/AdwaitaMono-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-LiberationMono-BoldItalic.ttf",
@@ -492,8 +497,8 @@
       "capsuleTarget": "fonts/vendors/fedora/LiberationMono-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/fedora/LiberationMono-BoldItalic.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/fedora/LiberationMono-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-inode-directory",
@@ -505,8 +510,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/inode-directory.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/inode-directory.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-generic",
@@ -518,8 +523,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/text-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/text-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/text-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-script",
@@ -531,8 +536,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/text-x-script.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/text-x-script.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/text-x-script.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-image-x-generic",
@@ -544,8 +549,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/image-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/image-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/image-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-generic",
@@ -557,8 +562,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/application-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/application-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/application-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-executable",
@@ -570,8 +575,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/application-x-executable.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/application-x-executable.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/application-x-executable.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-package-x-generic",
@@ -583,8 +588,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/package-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/package-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/package-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-x-office-document",
@@ -596,8 +601,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/x-office-document.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/x-office-document.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/x-office-document.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-audio-x-generic",
@@ -609,8 +614,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-video-x-generic",
@@ -622,8 +627,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/video-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/video-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/video-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder",
@@ -635,8 +640,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-documents",
@@ -648,8 +653,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-documents.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-documents.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-documents.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-download",
@@ -661,8 +666,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-download.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-download.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-download.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-music",
@@ -674,8 +679,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-music.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-music.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-music.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-pictures",
@@ -687,8 +692,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-pictures.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-pictures.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-pictures.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-videos",
@@ -700,8 +705,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-videos.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-videos.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-videos.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-templates",
@@ -713,8 +718,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-templates.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-templates.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-templates.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-publicshare",
@@ -726,8 +731,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-publicshare.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-publicshare.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-publicshare.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-desktop",
@@ -739,8 +744,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-desktop.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-desktop.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-desktop.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-home",
@@ -752,8 +757,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-home.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-home.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-home.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-trash",
@@ -765,8 +770,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-trash.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-trash.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-trash.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-network-server",
@@ -778,8 +783,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/network-server.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/network-server.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/network-server.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-up-symbolic",
@@ -791,8 +796,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-previous-symbolic",
@@ -804,8 +809,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-next-symbolic",
@@ -817,8 +822,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-grid-symbolic",
@@ -830,8 +835,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-list-symbolic",
@@ -843,8 +848,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-open-menu-symbolic",
@@ -856,8 +861,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-more-symbolic",
@@ -869,8 +874,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-system-search-symbolic",
@@ -882,8 +887,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-find-location-symbolic",
@@ -895,8 +900,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-sidebar-show-symbolic",
@@ -908,8 +913,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-home-symbolic",
@@ -921,8 +926,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-trash-symbolic",
@@ -934,8 +939,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-network-workgroup-symbolic",
@@ -947,8 +952,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-documents-symbolic",
@@ -960,8 +965,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-music-symbolic",
@@ -973,8 +978,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-pictures-symbolic",
@@ -986,8 +991,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-videos-symbolic",
@@ -999,8 +1004,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-download-symbolic",
@@ -1012,8 +1017,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-templates-symbolic",
@@ -1025,8 +1030,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-publicshare-symbolic",
@@ -1038,8 +1043,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-status-starred-symbolic",
@@ -1051,8 +1056,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-org.gnome.Nautilus",
@@ -1087,8 +1092,8 @@
       "capsuleTarget": "images/vendors/fedora/panel/firefox-48.png",
       "capsuleRelative": "images/vendors/fedora/panel/firefox-48.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/panel/firefox-48.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "branding-logo",
@@ -1098,8 +1103,8 @@
       "capsuleTarget": "images/vendors/fedora/watermark/fedora_logo_darkbackground.svg",
       "capsuleRelative": "images/vendors/fedora/watermark/fedora_logo_darkbackground.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/watermark/fedora_logo_darkbackground.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-f44-01-night.jxl",
@@ -1108,8 +1113,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/f44-01-night.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-night.jxl",
       "stagingPath": "wallpaper/f44-01-night.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-f44-01-day.jxl",
@@ -1118,8 +1123,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/f44-01-day.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-day.jxl",
       "stagingPath": "wallpaper/f44-01-day.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-flight_dark.webp",
@@ -1128,8 +1133,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/flight_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/flight_dark.webp",
       "stagingPath": "wallpaper/flight_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-flight_light.webp",
@@ -1138,8 +1143,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/flight_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/flight_light.webp",
       "stagingPath": "wallpaper/flight_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-futurecity_dark.webp",
@@ -1148,8 +1153,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/futurecity_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/futurecity_dark.webp",
       "stagingPath": "wallpaper/futurecity_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-futurecity_light.webp",
@@ -1158,8 +1163,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/futurecity_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/futurecity_light.webp",
       "stagingPath": "wallpaper/futurecity_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-glasscurtains_dark.webp",
@@ -1168,8 +1173,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/glasscurtains_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/glasscurtains_dark.webp",
       "stagingPath": "wallpaper/glasscurtains_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-glasscurtains_light.webp",
@@ -1178,8 +1183,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/glasscurtains_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/glasscurtains_light.webp",
       "stagingPath": "wallpaper/glasscurtains_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mermaid_dark.webp",
@@ -1188,8 +1193,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/mermaid_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/mermaid_dark.webp",
       "stagingPath": "wallpaper/mermaid_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mermaid_light.webp",
@@ -1198,8 +1203,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/mermaid_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/mermaid_light.webp",
       "stagingPath": "wallpaper/mermaid_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-montclair_dark.webp",
@@ -1208,8 +1213,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/montclair_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/montclair_dark.webp",
       "stagingPath": "wallpaper/montclair_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-montclair_light.webp",
@@ -1218,8 +1223,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/montclair_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/montclair_light.webp",
       "stagingPath": "wallpaper/montclair_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-petals_dark.webp",
@@ -1228,8 +1233,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/petals_dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/petals_dark.webp",
       "stagingPath": "wallpaper/petals_dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-petals_light.webp",
@@ -1238,8 +1243,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/petals_light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/petals_light.webp",
       "stagingPath": "wallpaper/petals_light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-adwaita-d.jxl",
@@ -1248,8 +1253,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/adwaita-d.jxl",
       "stagingPath": "wallpaper/adwaita-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-adwaita-l.jxl",
@@ -1258,8 +1263,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/adwaita-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/adwaita-l.jxl",
       "stagingPath": "wallpaper/adwaita-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-amber-d.jxl",
@@ -1268,8 +1273,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/amber-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/amber-d.jxl",
       "stagingPath": "wallpaper/amber-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-amber-l.jxl",
@@ -1278,8 +1283,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/amber-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/amber-l.jxl",
       "stagingPath": "wallpaper/amber-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-balls-d.jxl",
@@ -1288,8 +1293,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/balls-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/balls-d.jxl",
       "stagingPath": "wallpaper/balls-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-balls-l.jxl",
@@ -1298,8 +1303,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/balls-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/balls-l.jxl",
       "stagingPath": "wallpaper/balls-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-blendpills-d.jxl",
@@ -1308,8 +1313,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/blendpills-d.jxl",
       "stagingPath": "wallpaper/blendpills-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-blendpills-l.jxl",
@@ -1318,8 +1323,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/blendpills-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/blendpills-l.jxl",
       "stagingPath": "wallpaper/blendpills-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-curvy-d.jxl",
@@ -1328,8 +1333,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/curvy-d.jxl",
       "stagingPath": "wallpaper/curvy-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-curvy-l.jxl",
@@ -1338,8 +1343,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/curvy-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/curvy-l.jxl",
       "stagingPath": "wallpaper/curvy-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-dithered-sun-d.jxl",
@@ -1348,8 +1353,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/dithered-sun-d.jxl",
       "stagingPath": "wallpaper/dithered-sun-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-dithered-sun-l.jxl",
@@ -1358,8 +1363,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/dithered-sun-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/dithered-sun-l.jxl",
       "stagingPath": "wallpaper/dithered-sun-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-fold-d.jxl",
@@ -1368,8 +1373,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/fold-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/fold-d.jxl",
       "stagingPath": "wallpaper/fold-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-fold-l.jxl",
@@ -1378,8 +1383,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/fold-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/fold-l.jxl",
       "stagingPath": "wallpaper/fold-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-glass-chip-d.jxl",
@@ -1388,8 +1393,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/glass-chip-d.jxl",
       "stagingPath": "wallpaper/glass-chip-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-glass-chip-l.jxl",
@@ -1398,8 +1403,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/glass-chip-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/glass-chip-l.jxl",
       "stagingPath": "wallpaper/glass-chip-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-lcd-rainbow-d.jxl",
@@ -1408,8 +1413,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/lcd-rainbow-d.jxl",
       "stagingPath": "wallpaper/lcd-rainbow-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-lcd-rainbow-l.jxl",
@@ -1418,8 +1423,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/lcd-rainbow-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/lcd-rainbow-l.jxl",
       "stagingPath": "wallpaper/lcd-rainbow-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pills-d.jxl",
@@ -1428,8 +1433,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pills-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pills-d.jxl",
       "stagingPath": "wallpaper/pills-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pills-l.jxl",
@@ -1438,8 +1443,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pills-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pills-l.jxl",
       "stagingPath": "wallpaper/pills-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pixel-pusher-d.jxl",
@@ -1448,8 +1453,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pixel-pusher-d.jxl",
       "stagingPath": "wallpaper/pixel-pusher-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pixel-pusher-l.jxl",
@@ -1458,8 +1463,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pixel-pusher-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pixel-pusher-l.jxl",
       "stagingPath": "wallpaper/pixel-pusher-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pixels-d.jxl",
@@ -1468,8 +1473,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pixels-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pixels-d.jxl",
       "stagingPath": "wallpaper/pixels-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-pixels-l.jxl",
@@ -1478,8 +1483,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/pixels-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/pixels-l.jxl",
       "stagingPath": "wallpaper/pixels-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-progress-d.jxl",
@@ -1488,8 +1493,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/progress-d.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/progress-d.jxl",
       "stagingPath": "wallpaper/progress-d.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-progress-l.jxl",
@@ -1498,8 +1503,8 @@
       "capsuleRelative": "images/vendors/fedora/wallpaper/progress-l.jxl",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/progress-l.jxl",
       "stagingPath": "wallpaper/progress-l.jxl",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     }
   ],
   "phases": [
@@ -1516,22 +1521,22 @@
     {
       "id": "approve",
       "predicate": "ManA",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "stage-vm",
       "predicate": "ManSt",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "import",
       "predicate": "ManI",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "integrate-skin",
       "predicate": "H5",
-      "status": "pending"
+      "status": "done"
     }
   ]
 }

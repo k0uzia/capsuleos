@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-fedora",
-  "collectedAt": "2026-06-08T21:14:22.470Z",
+  "collectedAt": "2026-06-08T23:12:00.347Z",
   "source": "distribution-manifest",
   "searchPaths": [
     "/usr/share/applications",

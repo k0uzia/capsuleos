@@ -19,11 +19,14 @@
     "vendor": "rocky",
     "iconPack": "icons/gnome/adwaita"
   },
-  "generatedAt": "2026-06-08T21:12:35.443Z",
+  "generatedAt": "2026-06-08T23:12:19.554Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
-    "status": "draft",
-    "approved": false
+    "status": "approved",
+    "approved": true,
+    "smokeOk": true,
+    "approvedAt": "2026-06-08T22:45:02.877Z",
+    "approvedBy": "agent"
   },
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-rocky",
@@ -40,9 +43,9 @@
   },
   "summary": {
     "total": 84,
-    "pull": 9,
-    "drift": 54,
-    "skip": 21,
+    "pull": 0,
+    "drift": 0,
+    "skip": 84,
     "onVmFalse": 0
   },
   "items": [
@@ -142,8 +145,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/setroubleshoot.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/setroubleshoot.svg",
       "stagingPath": "apps/setroubleshoot.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Software",
@@ -153,8 +156,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "stagingPath": "apps/org.gnome.Software.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.SystemMonitor",
@@ -274,8 +277,8 @@
       "capsuleTarget": "fonts/vendors/rocky/NotoSans-Italic[wght].ttf",
       "capsuleRelative": "fonts/vendors/rocky/NotoSans-Italic[wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/rocky/NotoSans-Italic[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans[wght].ttf",
@@ -285,8 +288,8 @@
       "capsuleTarget": "fonts/vendors/rocky/NotoSans[wght].ttf",
       "capsuleRelative": "fonts/vendors/rocky/NotoSans[wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/rocky/NotoSans[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-DejaVuSansMono-BoldOblique.ttf",
@@ -296,8 +299,8 @@
       "capsuleTarget": "fonts/vendors/rocky/DejaVuSansMono-BoldOblique.ttf",
       "capsuleRelative": "fonts/vendors/rocky/DejaVuSansMono-BoldOblique.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/rocky/DejaVuSansMono-BoldOblique.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-inode-directory",
@@ -309,8 +312,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/inode-directory.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/inode-directory.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-generic",
@@ -322,8 +325,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/text-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/text-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/text-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-script",
@@ -335,8 +338,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/text-x-script.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/text-x-script.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/text-x-script.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-image-x-generic",
@@ -348,8 +351,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/image-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/image-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/image-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-generic",
@@ -361,8 +364,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/application-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/application-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/application-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-executable",
@@ -374,8 +377,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/application-x-executable.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/application-x-executable.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/application-x-executable.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-package-x-generic",
@@ -387,8 +390,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/package-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/package-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/package-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-x-office-document",
@@ -400,8 +403,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/x-office-document.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/x-office-document.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/x-office-document.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-audio-x-generic",
@@ -413,8 +416,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/audio-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-video-x-generic",
@@ -426,8 +429,8 @@
       "capsuleTarget": "icons/gnome/adwaita/mimetypes/video-x-generic.svg",
       "capsuleRelative": "icons/gnome/adwaita/mimetypes/video-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/mimetypes/video-x-generic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder",
@@ -439,8 +442,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-documents",
@@ -452,8 +455,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-documents.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-documents.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-documents.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-download",
@@ -465,8 +468,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-download.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-download.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-download.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-music",
@@ -478,8 +481,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-music.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-music.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-music.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-pictures",
@@ -491,8 +494,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-pictures.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-pictures.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-pictures.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-videos",
@@ -504,8 +507,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-videos.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-videos.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-videos.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-templates",
@@ -517,8 +520,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-templates.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-templates.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-templates.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-publicshare",
@@ -530,8 +533,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/folder-publicshare.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/folder-publicshare.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/folder-publicshare.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-desktop",
@@ -543,8 +546,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-desktop.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-desktop.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-desktop.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-home",
@@ -556,8 +559,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-home.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-home.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-home.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-trash",
@@ -569,8 +572,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/user-trash.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/user-trash.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/user-trash.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-network-server",
@@ -582,8 +585,8 @@
       "capsuleTarget": "icons/gnome/adwaita/places/network-server.svg",
       "capsuleRelative": "icons/gnome/adwaita/places/network-server.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/places/network-server.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-up-symbolic",
@@ -595,8 +598,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-up-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-previous-symbolic",
@@ -608,8 +611,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-next-symbolic",
@@ -621,8 +624,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/go-next-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-grid-symbolic",
@@ -634,8 +637,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-list-symbolic",
@@ -647,8 +650,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-list-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-open-menu-symbolic",
@@ -660,8 +663,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/open-menu-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-more-symbolic",
@@ -673,8 +676,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-system-search-symbolic",
@@ -686,8 +689,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/system-search-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-find-location-symbolic",
@@ -699,8 +702,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/find-location-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-sidebar-show-symbolic",
@@ -712,8 +715,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/actions/sidebar-show-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-home-symbolic",
@@ -725,8 +728,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/user-home-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-trash-symbolic",
@@ -738,8 +741,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/user-trash-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-network-workgroup-symbolic",
@@ -751,8 +754,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/network-workgroup-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-documents-symbolic",
@@ -764,8 +767,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-documents-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-music-symbolic",
@@ -777,8 +780,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-music-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-pictures-symbolic",
@@ -790,8 +793,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-pictures-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-videos-symbolic",
@@ -803,8 +806,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-videos-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-download-symbolic",
@@ -816,8 +819,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-download-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-templates-symbolic",
@@ -829,8 +832,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-templates-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-publicshare-symbolic",
@@ -842,8 +845,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/places/folder-publicshare-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-status-starred-symbolic",
@@ -855,8 +858,8 @@
       "capsuleTarget": "icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
       "capsuleRelative": "icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/adwaita/symbolic/status/starred-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-org.gnome.Nautilus",
@@ -902,8 +905,8 @@
       "capsuleTarget": "images/vendors/rocky/watermark/fedora_logo_darkbackground.svg",
       "capsuleRelative": "images/vendors/rocky/watermark/fedora_logo_darkbackground.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_darkbackground.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-gemstone-skies-night.png",
@@ -912,8 +915,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png",
       "stagingPath": "wallpaper/rocky-default-10-gemstone-skies-night.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-1-day.png",
@@ -922,8 +925,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-1-day.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-1-night.png",
@@ -932,8 +935,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-1-night.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-2.png",
@@ -942,8 +945,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-2.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-3.png",
@@ -952,8 +955,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-3.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-4.png",
@@ -962,8 +965,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-4.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-abstract-5.png",
@@ -972,8 +975,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.png",
       "stagingPath": "wallpaper/rocky-default-10-abstract-5.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-arizona-sunrise.jpg",
@@ -982,8 +985,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.jpg",
       "stagingPath": "wallpaper/rocky-default-10-arizona-sunrise.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-arizona-sunset.jpg",
@@ -992,8 +995,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.jpg",
       "stagingPath": "wallpaper/rocky-default-10-arizona-sunset.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-gemstone-skies-day.png",
@@ -1002,8 +1005,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png",
       "stagingPath": "wallpaper/rocky-default-10-gemstone-skies-day.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-quartz-forest-day.jpg",
@@ -1012,8 +1015,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.jpg",
       "stagingPath": "wallpaper/rocky-default-10-quartz-forest-day.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-quartz-forest-night.jpg",
@@ -1022,8 +1025,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.jpg",
       "stagingPath": "wallpaper/rocky-default-10-quartz-forest-night.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-sapphire-light.png",
@@ -1032,8 +1035,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.png",
       "stagingPath": "wallpaper/rocky-default-10-sapphire-light.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rocky-default-10-sapphire.png",
@@ -1042,8 +1045,8 @@
       "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-sapphire.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.png",
       "stagingPath": "wallpaper/rocky-default-10-sapphire.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     }
   ],
   "phases": [
@@ -1060,7 +1063,7 @@
     {
       "id": "approve",
       "predicate": "ManA",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "stage-vm",
@@ -1075,7 +1078,7 @@
     {
       "id": "integrate-skin",
       "predicate": "H5",
-      "status": "pending"
+      "status": "done"
     }
   ]
 }

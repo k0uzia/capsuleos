@@ -9,7 +9,7 @@
       "icon": "org.gnome.Calendar",
       "categories": "GNOME;GTK;Office;Calendar;Core;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "calendar",
       "grid": true,
       "dash": false
     },
@@ -31,7 +31,7 @@
       "icon": "org.gnome.baobab",
       "categories": "GTK;GNOME;System;Filesystem;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "baobab",
       "grid": true,
       "dash": false
     },
@@ -42,9 +42,9 @@
       "icon": "org.gnome.Calculator",
       "categories": "GNOME;GTK;Utility;Calculator;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "calculator",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "org.gnome.Snapshot",
@@ -53,7 +53,7 @@
       "icon": "org.gnome.Snapshot",
       "categories": "AudioVideo;Video;Recorder;GNOME;GTK;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "snapshot",
       "grid": true,
       "dash": false
     },
@@ -64,7 +64,7 @@
       "icon": "org.gnome.Characters",
       "categories": "GNOME;GTK;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "characters",
       "grid": true,
       "dash": false
     },
@@ -130,7 +130,7 @@
       "icon": "org.gnome.Papers",
       "categories": "GNOME;GTK;Office;Viewer;Graphics;2DGraphics;VectorGraphics;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "visionneur_pdf",
       "grid": true,
       "dash": false
     },
@@ -152,9 +152,9 @@
       "icon": "org.gnome.Nautilus",
       "categories": "GNOME;GTK;Utility;Core;FileManager;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "nemo",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "firefox",
@@ -163,9 +163,9 @@
       "icon": "firefox",
       "categories": "Network;WebBrowser;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "firefox",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "org.gnome.clocks",
@@ -174,7 +174,7 @@
       "icon": "org.gnome.clocks",
       "categories": "GNOME;GTK;Utility;Clock;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "clocks",
       "grid": true,
       "dash": false
     },
@@ -240,7 +240,7 @@
       "icon": "libreoffice-writer",
       "categories": "Office;WordProcessor;X-Red-Hat-Base;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "librewriter",
       "grid": true,
       "dash": false
     },
@@ -251,9 +251,9 @@
       "icon": "org.gnome.Software",
       "categories": "GNOME;GTK;System;PackageManager;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "update_manager",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "org.gnome.Boxes",
@@ -273,7 +273,7 @@
       "icon": "org.gnome.SystemMonitor",
       "categories": "GNOME;GTK;System;Monitor;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "system_monitor",
       "grid": true,
       "dash": false
     },
@@ -306,7 +306,7 @@
       "icon": "org.gnome.Settings",
       "categories": "GNOME;GTK;Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -328,9 +328,9 @@
       "icon": "org.gnome.Ptyxis",
       "categories": "GNOME;GTK;System;TerminalEmulator;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "terminal",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "org.gnome.Loupe",
@@ -339,7 +339,7 @@
       "icon": "org.gnome.Loupe",
       "categories": "GNOME;GTK;Graphics;2DGraphics;RasterGraphics;Viewer;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "visionneur_images",
       "grid": true,
       "dash": false
     },
@@ -350,7 +350,7 @@
       "icon": "org.gnome.Tour",
       "categories": "GNOME;GTK;Documentation;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "tour",
       "grid": true,
       "dash": false
     },
@@ -361,9 +361,9 @@
       "icon": "org.gnome.TextEditor",
       "categories": "GNOME;GTK;Utility;TextEditor;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "text_editor",
       "grid": true,
-      "dash": false
+      "dash": true
     }
   ],
   "notInstalledOnVm": [],
@@ -371,5 +371,5 @@
   "manifestPath": "proc/linux-fedora/distribution-manifest.json",
   "collectedAt": "2026-06-08T21:14:22Z",
   "flatpakCount": 0,
-  "updatedAt": "2026-06-08T21:14:22.473Z"
+  "updatedAt": "2026-06-08T23:12:00.352Z"
 }

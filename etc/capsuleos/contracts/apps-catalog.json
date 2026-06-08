@@ -99,6 +99,34 @@
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
         { "slot": "profile", "labelFr": "À propos Ubuntu", "statut": "ok", "placement": { "desktop": true } }
       ]
+    },
+    "linux-fedora": {
+      "toolkit": "gnome",
+      "vmAppsSource": "root/docs/inventaires/linux-fedora-vm-apps-installed.json",
+      "apps": {
+        "org.gnome.Nautilus": { "labelFr": "Fichiers", "priorite": "P0", "slot": "nemo", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Ptyxis": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Software": { "labelFr": "Logiciels", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.TextEditor": { "labelFr": "Éditeur de texte", "priorite": "P0", "slot": "text_editor", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Calculator": { "labelFr": "Calculatrice", "priorite": "P0", "slot": "calculator", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Settings": { "labelFr": "Paramètres", "priorite": "P0", "slot": "themes", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "quickSettings": true } },
+        "org.gnome.Yelp": { "labelFr": "Aide", "priorite": "P1", "slot": null, "statut": "partiel", "requiresSlot": false, "placement": { "overview": true } },
+        "org.gnome.clocks": { "labelFr": "Horloges", "priorite": "P1", "slot": "clocks", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Papers": { "labelFr": "Papers", "priorite": "P1", "slot": "visionneur_pdf", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Loupe": { "labelFr": "Loupe", "priorite": "P1", "slot": "visionneur_images", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Snapshot": { "labelFr": "Caméra", "priorite": "P1", "slot": "snapshot", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Tour": { "labelFr": "Visite guidée", "priorite": "P2", "slot": "tour", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.baobab": { "labelFr": "Utilisation des disques", "priorite": "P2", "slot": "baobab", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.SystemMonitor": { "labelFr": "Moniteur système", "priorite": "P2", "slot": "system_monitor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Characters": { "labelFr": "Caractères", "priorite": "P2", "slot": "characters", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "partiel", "requiresSlot": true, "placement": { "overview": true } }
+      },
+      "capsuleOnly": [
+        { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
+        { "slot": "profile", "labelFr": "À propos Fedora", "statut": "ok", "placement": { "desktop": true } }
+      ]
     }
   }
 }

@@ -127,15 +127,5 @@
   "viewport": {
     "width": 1280,
     "height": 800
-  },
-  "visualDiff": [
-    {
-      "file": "01-desktop-panel.png",
-      "absoluteError": "/bin/sh: ligne 1: compare : commande introuvable"
-    },
-    {
-      "file": "02-menu.png",
-      "absoluteError": "/bin/sh: ligne 1: compare : commande introuvable"
-    }
-  ]
+  }
 }

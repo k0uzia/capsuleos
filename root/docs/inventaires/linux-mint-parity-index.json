@@ -110,10 +110,10 @@
         "cacheBust": "20260608pxperfect",
         "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T14:11:42.015Z",
+      "lastPass": "2026-06-08T15:35:01.532Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:11:42.015Z"
+      "updatedAt": "2026-06-08T15:35:01.532Z"
     },
     "tray": {
       "id": "tray",
@@ -127,10 +127,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T14:11:42.015Z",
+      "lastPass": "2026-06-08T15:35:01.533Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:11:42.015Z"
+      "updatedAt": "2026-06-08T15:35:01.533Z"
     },
     "clock": {
       "id": "clock",
@@ -144,10 +144,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T14:11:42.015Z",
+      "lastPass": "2026-06-08T15:35:01.533Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:11:42.015Z"
+      "updatedAt": "2026-06-08T15:35:01.533Z"
     },
     "desktop": {
       "id": "desktop",
@@ -1064,7 +1064,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T14:12:05.130Z",
+  "updatedAt": "2026-06-08T15:35:01.533Z",
   "pi_global": 98,
   "status_global": "ok"
 }

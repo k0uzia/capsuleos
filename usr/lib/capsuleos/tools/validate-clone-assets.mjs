@@ -27,6 +27,7 @@ const runOne = (registryId) => {
     ['validate-skin-profiles.mjs', []],
     ['validate-toolkit-paradigm.mjs', ['--id', registryId]],
     ['linux/sync-cinnamon-app-icons.mjs', []],
+    ['validate-skin-icon-paths.mjs', ['--id', registryId]],
   ];
 
   let failed = false;

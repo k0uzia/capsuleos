@@ -231,7 +231,7 @@
         'folder-new': './assets/icons/gnome/adwaita/symbolic/actions/folder-new-symbolic.svg',
         'user-trash': './assets/icons/gnome/adwaita/places/user-trash-symbolic.svg',
         'utilities-terminal': './assets/images/toolkits/kde/apps/utilities-terminal.svg',
-        'edit-undo': './assets/icons/gnome/adwaita/symbolic/actions/edit-undo-symbolic.svg',
+        'edit-undo': './assets/icons/gnome/adwaita/symbolic/actions/go-previous-symbolic.svg',
         'document-properties': './assets/icons/gnome/adwaita/symbolic/actions/view-more-symbolic.svg',
         'edit-select-all': './assets/icons/gnome/adwaita/symbolic/actions/view-grid-symbolic.svg',
     };

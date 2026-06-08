@@ -11,10 +11,10 @@
         { id: 'thunderbird', name: 'Thunderbird', desc: 'Client de messagerie', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/thunderbird.png' },
         { id: 'transmission', name: 'Transmission', desc: 'Client BitTorrent', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/transmission.png' },
         { id: 'librewriter', name: 'LibreOffice Writer', desc: 'Traitement de texte', cat: 'office', icon: './assets/images/vendors/mint/panel/libreoffice-writer.webp' },
-        { id: 'librecalc', name: 'LibreOffice Calc', desc: 'Tableur', cat: 'office', icon: './assets/images/toolkits/gnome/apps/libreoffice-calc.png' },
+        { id: 'librecalc', name: 'LibreOffice Calc', desc: 'Tableur', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-calc' },
         { id: 'gimp', name: 'GIMP', desc: 'Éditeur d\'images', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/gimp.png' },
         { id: 'drawing', name: 'Dessin', desc: 'Dessin vectoriel', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png' },
-        { id: 'celluloid', name: 'Celluloid', desc: 'Lecteur vidéo', cat: 'multimedia', icon: './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.png' },
+        { id: 'celluloid', name: 'Celluloid', desc: 'Lecteur vidéo', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid' },
         { id: 'vlc', name: 'VLC', desc: 'Lecteur multimédia', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/vlc.svg' },
         { id: 'audacity', name: 'Audacity', desc: 'Éditeur audio', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/audacity.svg' },
         { id: 'filezilla', name: 'FileZilla', desc: 'Client FTP', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/filezilla.svg' },
@@ -90,7 +90,11 @@
         li.setAttribute('data-mi-pkg', entry.id);
         var icon = global.document.createElement('img');
         icon.className = 'mi-app__list-icon';
-        icon.src = entry.icon;
+        icon.src = typeof global.resolveCapsuleAssetUrl === 'function'
+            ? global.resolveCapsuleAssetUrl(entry.icon)
+            : (typeof global.resolveCapsuleResourceUrl === 'function'
+                ? global.resolveCapsuleResourceUrl(entry.icon)
+                : entry.icon);
         icon.alt = '';
         var body = global.document.createElement('div');
         body.className = 'mi-app__list-body';
@@ -133,6 +137,17 @@
 
         var winEl = getWindowEl(root);
         syncWindowTitle(winEl);
+
+        var featuredImgs = root.querySelectorAll('.mi-app__featured img[src^="./assets/"]');
+        var fi;
+        for (fi = 0; fi < featuredImgs.length; fi += 1) {
+            var featSrc = featuredImgs[fi].getAttribute('src');
+            if (typeof global.resolveCapsuleAssetUrl === 'function') {
+                featuredImgs[fi].src = global.resolveCapsuleAssetUrl(featSrc);
+            } else if (typeof global.resolveCapsuleResourceUrl === 'function') {
+                featuredImgs[fi].src = global.resolveCapsuleResourceUrl(featSrc);
+            }
+        }
 
         var searchInput = root.querySelector('#mi-search');
         var listEl = root.querySelector('#mi-app-list');

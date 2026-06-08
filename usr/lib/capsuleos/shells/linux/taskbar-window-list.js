@@ -9,16 +9,29 @@
     const PINNED_SLOTS = new Set(['nemo', 'mintinstall', 'terminal']);
 
     const WINDOW_ICONS = {
-        nemo: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp',
-        firefox: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp',
-        terminal: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp',
-        text_editor: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp',
-        update_manager: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintupdate.webp',
-        mintinstall: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp',
-        themes: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp',
-        calculator: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
-        librewriter: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/libreoffice-writer.webp',
+        nemo: './assets/images/vendors/mint/panel/system-file-manager.webp',
+        firefox: './assets/images/vendors/mint/panel/firefox.webp',
+        terminal: './assets/images/vendors/mint/panel/org.gnome.Terminal.webp',
+        text_editor: './assets/images/vendors/mint/panel/accessories-text-editor.webp',
+        update_manager: './assets/images/vendors/mint/panel/mintupdate.webp',
+        mintinstall: './assets/images/vendors/mint/panel/mintinstall.webp',
+        themes: './assets/images/vendors/mint/panel/preferences-desktop-theme.webp',
+        calculator: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
+        librewriter: './assets/images/vendors/mint/panel/libreoffice-writer.webp',
     };
+
+    function resolveTaskbarIconUrl(path) {
+        if (!path) {
+            return '';
+        }
+        if (typeof global.resolveCapsuleAssetUrl === 'function') {
+            return global.resolveCapsuleAssetUrl(path);
+        }
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(path);
+        }
+        return path;
+    }
 
     const WINDOW_LABELS = {
         nemo: 'Nemo',
@@ -184,7 +197,7 @@
             btn.setAttribute('role', 'listitem');
             btn.title = resolveWindowLabel(dataLink, container);
 
-            const iconSrc = resolveWindowIcon(dataLink);
+            const iconSrc = resolveTaskbarIconUrl(resolveWindowIcon(dataLink));
             if (iconSrc) {
                 const img = document.createElement('img');
                 img.className = 'taskbar-window-list__icon';

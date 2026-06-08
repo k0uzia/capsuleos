@@ -160,7 +160,14 @@
                     && typeof global.CapsuleExplorerIconBase.remapPath === 'function'
                     ? global.CapsuleExplorerIconBase.remapPath
                     : null;
-                icon.src = remap ? remap(iconSrc) : iconSrc;
+                var resolvedIconSrc = remap ? remap(iconSrc) : iconSrc;
+                if (typeof global.resolveCapsuleAssetUrl === 'function') {
+                    icon.src = global.resolveCapsuleAssetUrl(resolvedIconSrc);
+                } else if (typeof global.resolveCapsuleResourceUrl === 'function') {
+                    icon.src = global.resolveCapsuleResourceUrl(resolvedIconSrc);
+                } else {
+                    icon.src = resolvedIconSrc;
+                }
                 icon.alt = '';
                 icon.setAttribute('aria-hidden', 'true');
                 crumb.appendChild(icon);

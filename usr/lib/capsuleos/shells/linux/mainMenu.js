@@ -74,9 +74,11 @@ function initMainMenu() {
         if (shortcutConfig && shortcutConfig.icon) {
             const shortcutImg = link.querySelector('img');
             if (shortcutImg) {
-                const iconUrl = typeof resolveCapsuleResourceUrl === 'function'
-                    ? resolveCapsuleResourceUrl(shortcutConfig.icon)
-                    : shortcutConfig.icon;
+                const iconUrl = typeof resolveCapsuleAssetUrl === 'function'
+                    ? resolveCapsuleAssetUrl(shortcutConfig.icon)
+                    : (typeof resolveCapsuleResourceUrl === 'function'
+                        ? resolveCapsuleResourceUrl(shortcutConfig.icon)
+                        : shortcutConfig.icon);
                 shortcutImg.src = iconUrl;
             }
         }
@@ -280,9 +282,11 @@ function initMainMenu() {
 
             const icon = document.createElement('img');
             icon.className = 'menu-app-item__icon';
-            icon.src = typeof resolveCapsuleResourceUrl === 'function'
-                ? resolveCapsuleResourceUrl(app.icon)
-                : app.icon;
+            icon.src = typeof resolveCapsuleAssetUrl === 'function'
+                ? resolveCapsuleAssetUrl(app.icon)
+                : (typeof resolveCapsuleResourceUrl === 'function'
+                    ? resolveCapsuleResourceUrl(app.icon)
+                    : app.icon);
             icon.alt = '';
 
             const info = document.createElement('div');

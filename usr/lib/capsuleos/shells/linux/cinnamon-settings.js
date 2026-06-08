@@ -219,7 +219,12 @@
             btn.setAttribute('aria-label', panel.label);
             var img = global.document.createElement('img');
             img.className = 'cs-app__nav-icon';
-            img.src = ICON_BASE + panel.icon + '.png';
+            var iconPath = ICON_BASE + panel.icon + '.png';
+            img.src = typeof global.resolveCapsuleAssetUrl === 'function'
+                ? global.resolveCapsuleAssetUrl(iconPath)
+                : (typeof global.resolveCapsuleResourceUrl === 'function'
+                    ? global.resolveCapsuleResourceUrl(iconPath)
+                    : iconPath);
             img.alt = '';
             btn.appendChild(img);
             sidebar.appendChild(btn);

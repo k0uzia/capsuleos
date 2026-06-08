@@ -274,10 +274,21 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
             }
         }
         if (templateId === 'themes' && text) {
-            const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
-            const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
-            if (gnomeResp.ok) {
-                text = `${text}\n${await gnomeResp.text()}`;
+            const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+                ? String(window.CAPSULE_EMBED_SKIN_KEY)
+                : '';
+            if (embedKey === 'mint') {
+                const cinnamonFile = `${appsBase}/style/themes_cinnamon.base.css`;
+                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
+                if (cinnamonResp.ok) {
+                    text = `${text}\n${await cinnamonResp.text()}`;
+                }
+            } else {
+                const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
+                const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
+                if (gnomeResp.ok) {
+                    text = `${text}\n${await gnomeResp.text()}`;
+                }
             }
         }
         if (templateId === 'terminal' && text) {
@@ -394,7 +405,9 @@ const SLOT_INIT_HANDLERS = {
         ]);
     },
     themes: () => {
-        if (typeof initThemesApp === 'function') {
+        if (typeof initCinnamonSettingsApp === 'function' && document.getElementById('cinnamonSettingsApp')) {
+            initCinnamonSettingsApp();
+        } else if (typeof initThemesApp === 'function') {
             initThemesApp();
         }
     },

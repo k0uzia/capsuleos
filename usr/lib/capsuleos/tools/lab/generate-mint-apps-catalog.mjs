@@ -22,7 +22,7 @@ const SLOT_STATUS = {
   nemo: { statut: 'ok', slot: 'nemo', note: 'Nemo — sidebar Places, titre dynamique, getExplorerCurrentPath' },
   firefox: { statut: 'ok', slot: 'firefox', note: 'Navigateur' },
   terminal: { statut: 'ok', slot: 'terminal', note: 'gnome-terminal' },
-  themes: { statut: 'partiel', slot: 'themes', note: 'cinnamon-settings — UI minimale' },
+  themes: { statut: 'ok', slot: 'themes', note: 'cinnamon-settings 6.6 — 30 panneaux, recherche, thèmes VM, smoke OK' },
   profile: { statut: 'ok', slot: 'profile', note: 'À propos Mint' },
   update_manager: { statut: 'ok', slot: 'update_manager', note: 'mintupdate 7.1.4 — écran accueil, à jour, liste simulée, smoke OK' },
   mintinstall: { statut: 'ok', slot: 'mintinstall', note: 'Logithèque 8.4 — recherche, catégories, vedette, smoke OK' },

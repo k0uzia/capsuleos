@@ -364,12 +364,16 @@ function handleGnomeSettingsWindowOpened(container) {
 
 if (typeof window !== 'undefined') {
     window.setCapsuleSettingsPanel = setCapsuleSettingsPanel;
+    window.buildWallpaperGrid = buildWallpaperGrid;
     document.addEventListener('capsule:window-opened', (event) => {
         if (!event.detail || event.detail.slotId !== 'themes') {
             return;
         }
         handleGnomeSettingsWindowOpened(event.detail.container);
         if (document.body && document.body.id === 'mint') {
+            if (document.getElementById('cinnamonSettingsApp')) {
+                return;
+            }
             initThemesApp();
             const panelId = consumePendingGnomeSettingsPanel(null);
             if (panelId === 'background') {

@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T12:15:00Z",
+  "updatedAt": "2026-06-08T13:30:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -33,15 +33,15 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 16,
-      "partiel": 36,
+      "ok": 17,
+      "partiel": 35,
       "absent": 49,
-      "coverageOkPct": 16
+      "coverageOkPct": 17
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
-      "ok": 14,
-      "partiel": 3
+      "ok": 15,
+      "partiel": 2
     },
     "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
@@ -94,14 +94,15 @@
       "predicates": ["AppΣ"],
       "status": "in_progress",
       "target": "17 surfaces VM → statut ok + smoke",
-      "notes": "#15 system_monitor ok (2026-06-08) · suite #16 Paramètres"
+      "notes": "#16 cinnamon-settings ok (2026-06-08) · surface 15/17"
     },
     {
       "id": "P4",
       "label": "Apps VM — catalogue complet (101 entrées menu)",
       "predicates": ["AppΣ-full"],
-      "status": "pending",
-      "target": "101/101 slots ou équivalent VM documenté"
+      "status": "in_progress",
+      "target": "101/101 slots ou équivalent VM documenté",
+      "notes": "17/101 ok · #16 Paramètres clôturé"
     },
     {
       "id": "P5",
@@ -112,13 +113,13 @@
     }
   ],
   "predicates": {
-    "H2": { "ok": true, "note": "validate-all vert (gnome-sysmon anchor + overview)" },
+    "H2": { "ok": true, "note": "validate-all vert" },
     "M": { "ok": true, "verifiedAt": "2026-06-08T10:56:00Z" },
     "I": { "ok": true, "file": "linux-mint-vm.json" },
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": true, "vm": "6/6", "capsule": "6/6" },
-    "AppΣ": { "ok": false, "surfaceOk": "14/17" },
-    "AppΣ-full": { "ok": false, "ok": "16/101" },
+    "AppΣ": { "ok": false, "surfaceOk": "15/17" },
+    "AppΣ-full": { "ok": false, "ok": "17/101" },
     "VΣ": { "ok": false, "matrix": "partial", "burstAt": "2026-06-08T12:12:00Z" },
     "D": { "ok": false, "drift": 148 }
   },
@@ -127,12 +128,12 @@
     "activeP0": [
       "49 apps catalogue absentes sur 101",
       "Matrice VΣ shell — capsuleMatch partial (effets E(δ) à affiner)",
-      "manifestDrift 148 → P5"
+      "manifestDrift 148 → P5 (ManΣ assets VM vs manifeste)"
     ]
   },
   "nextActions": [
-    "P3 : apps surface restantes (#16 Paramètres, …)",
-    "P4 : catalogue alphabétique #16+",
+    "P3 : surfaces restantes (visionneur_images, visionneur_pdf partiels)",
+    "P4 : catalogue alphabétique #17+",
     "P5 : drift manifest → 0, VΣ capsuleMatch ok"
   ]
 }

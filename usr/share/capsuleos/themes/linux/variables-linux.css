@@ -101,3 +101,11 @@
     --win-lecteur_multimedia-min-width: calc(var(--head) * 17);
     --win-lecteur_multimedia-min-height: calc(var(--head) * 10);
 }
+
+/** cinnamon-settings 6.6 — géométrie VM wmctrl (800×600) */
+html:has(body#mint) {
+    --win-themes-width: 800px;
+    --win-themes-height: 600px;
+    --win-themes-min-width: 720px;
+    --win-themes-min-height: 480px;
+}

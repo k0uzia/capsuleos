@@ -79,8 +79,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#12 LibreOffice Calc** — `librecalc`, smoke `smoke-mint-librecalc.mjs` OK (2026-06-08)
 - [x] **#13 LibreOffice Writer** — `librewriter`, smoke `smoke-mint-librewriter.mjs` OK (2026-06-08)
 - [x] **#14 Logithèque** — slot `mintinstall` dédié (≠ `update_manager`), smoke `smoke-mint-mintinstall.mjs` OK (2026-06-08) · [`linux-mint-mintinstall-vm.md`](linux-mint-mintinstall-vm.md)
-- [x] **#15 Moniteur système** — slot `system_monitor` (GNOME System Monitor), smoke `smoke-mint-system-monitor.mjs` OK (2026-06-08)
-- [ ] Reproduction **une app par passe** (suite : **#16 Paramètres**) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#16 Paramètres du système** — slot `themes` / cinnamon-settings 6.6 (30 panneaux, recherche, thèmes VM), smoke `smoke-mint-cinnamon-settings.mjs` OK (2026-06-08)
+- [ ] Reproduction **une app par passe** (suite : **#17+**) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Campagne v2 — shell panel (2026-06-08)

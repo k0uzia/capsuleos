@@ -74,7 +74,7 @@
       "status": "completed",
       "artifact": "linux-mint-ui-state-effects-matrix.json",
       "notes": "8/8 surfaces capsuleMatch ok · run-ui-state-effects-pass.mjs --write --vm-burst",
-      "commit": "pending"
+      "commit": "7f3ccee"
     },
     {
       "id": "P3",
@@ -101,7 +101,7 @@
       "status": "completed",
       "target": "drift P0 = 0, CapsuleOnly = 0, validate-all vert",
       "notes": "D=0 · VΣ 8/8 · checklist CapsuleOnly retirée · validate-all vert",
-      "commit": "pending"
+      "commit": "7f3ccee"
     }
   ],
   "predicates": {

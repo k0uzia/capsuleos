@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Génère la grille « Afficher les applications » (Ubuntu dock) depuis le catalogue AppC.
+ * Génère la grille « Afficher les applications » depuis le manifeste VM (appIcons).
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/generate-overview-apps-grid.mjs --id linux-ubuntu --write
@@ -9,10 +9,12 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { buildCatalog, skinIndexPath } from './apps-catalog-lib.mjs';
+import { resolveAppIconCapsuleRelative } from './manifest-playbook-lib.mjs';
+import { loadManifest } from './vm-manifest-lib.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ASSETS = '../../../usr/share/capsuleos/assets/images/toolkits/gnome';
+const ASSET_PREFIX = '../../../usr/share/capsuleos/assets/';
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -24,42 +26,32 @@ const parseArgs = () => {
   return opts;
 };
 
-const ICON_BY_VM = {
-  'org.gnome.Nautilus': `${ASSETS}/apps/dash/org.gnome.Nautilus.svg`,
-  firefox: `${ASSETS}/apps/firefox.webp`,
-  'org.mozilla.Firefox': `${ASSETS}/apps/firefox.webp`,
-  'org.gnome.Rhythmbox3': `${ASSETS}/apps/dash/org.gnome.Rhythmbox3.webp`,
-  'libreoffice-writer': `${ASSETS}/apps/dash/libreoffice-writer.webp`,
-  'snap-store': `${ASSETS}/dock/software-store.png`,
-  'org.gnome.Ptyxis': `${ASSETS}/apps/overview/terminal.png`,
-  'org.gnome.TextEditor': `${ASSETS}/apps/overview/text-editor.png`,
-  'org.gnome.Calculator': `${ASSETS}/apps/overview/calculator.png`,
-  'org.gnome.Settings': `${ASSETS}/apps/overview/settings.png`,
-  'org.gnome.clocks': `${ASSETS}/apps/overview/clocks.png`,
-  'org.gnome.Characters': `${ASSETS}/apps/overview/characters.png`,
-  'org.gnome.Loupe': `${ASSETS}/apps/overview/org.gnome.Loupe.svg`,
-  'org.gnome.Papers': `${ASSETS}/apps/overview/org.gnome.Papers.svg`,
-  'org.gnome.Yelp': `${ASSETS}/apps/overview/org.gnome.Yelp.svg`,
-  'org.gnome.baobab': `${ASSETS}/apps/overview/baobab.png`,
-  'org.gnome.DiskUtility': `${ASSETS}/apps/overview/disks.png`,
-  'org.gnome.Logs': `${ASSETS}/apps/overview/logs.png`,
-  'org.gnome.Sysprof': `${ASSETS}/apps/overview/sysprof.png`,
-  'org.gnome.Tecla': `${ASSETS}/apps/overview/tecla.png`,
-  'org.gnome.font-viewer': `${ASSETS}/apps/overview/fonts.png`,
-  'org.gnome.seahorse.Application': `${ASSETS}/apps/overview/seahorse.png`,
+const assetRef = (capsuleRelative) => `${ASSET_PREFIX}${capsuleRelative}`;
+
+const buildIconLookup = (registryId) => {
+  const manifest = loadManifest(registryId);
+  if (!manifest) throw new Error(`Manifeste absent: ${registryId}`);
+
+  const byDesktopId = new Map();
+  const byAppId = new Map();
+  for (const icon of manifest.media?.appIcons || []) {
+    const rel = resolveAppIconCapsuleRelative(icon, manifest);
+    if (!rel) continue;
+    const ref = assetRef(rel);
+    if (icon.desktopId) byDesktopId.set(icon.desktopId, ref);
+    if (icon.appId) byAppId.set(icon.appId, ref);
+  }
+  return { byDesktopId, byAppId, manifest };
 };
 
-const iconForRow = (row) => {
-  if (row.vmId && ICON_BY_VM[row.vmId]) return ICON_BY_VM[row.vmId];
-  if (row.slotCapsule === 'update_manager') return `${ASSETS}/dock/software-store.png`;
-  if (row.slotCapsule === 'nemo') return `${ASSETS}/dock/files.png`;
-  if (row.vmId) {
-    const dash = `${ASSETS}/apps/dash/${row.vmId}.svg`;
-    const overview = `${ASSETS}/apps/overview/${row.vmId}.svg`;
-    const overviewPng = `${ASSETS}/apps/overview/${row.vmId.replace(/^org\.gnome\./, '').toLowerCase()}.png`;
-    return overview;
+const iconForRow = (row, lookup) => {
+  const { byDesktopId, byAppId } = lookup;
+  if (row.vmId && byDesktopId.has(row.vmId)) return byDesktopId.get(row.vmId);
+  if (row.vmId && byAppId.has(row.vmId)) return byAppId.get(row.vmId);
+  if (row.slotCapsule === 'update_manager') {
+    return byAppId.get('snap-store') || byDesktopId.get('snap-store') || null;
   }
-  return `${ASSETS}/apps/overview/settings.png`;
+  return null;
 };
 
 const truncateLabel = (label) => {
@@ -78,6 +70,7 @@ const prioriteRank = (p) => {
 
 const buildGrid = (registryId) => {
   const catalog = buildCatalog(registryId);
+  const lookup = buildIconLookup(registryId);
   const rows = catalog.rows
     .filter((r) => r.placement?.overview && r.onVm !== false)
     .sort((a, b) => {
@@ -86,21 +79,32 @@ const buildGrid = (registryId) => {
       return String(a.labelFr).localeCompare(String(b.labelFr), 'fr');
     });
 
-  return {
-    version: 1,
-    registryId,
-    generatedAt: new Date().toISOString(),
-    source: `root/docs/inventaires/${registryId}-apps-catalog.json`,
-    apps: rows.map((row) => ({
+  const missing = [];
+  const apps = rows.map((row) => {
+    const icon = iconForRow(row, lookup);
+    if (!icon) missing.push(row.vmId || row.slotCapsule);
+    return {
       vmId: row.vmId,
       labelFr: row.labelFr,
       labelShort: truncateLabel(row.labelFr),
       slotCapsule: row.slotCapsule,
-      icon: iconForRow(row),
+      icon,
       dataLink: row.slotCapsule || null,
       launchable: Boolean(row.slotCapsule),
       priorite: row.priorite,
-    })),
+    };
+  });
+
+  if (missing.length) {
+    console.warn(`⚠ ${missing.length} app(s) overview sans icône manifeste: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? '…' : ''}`);
+  }
+
+  return {
+    version: 2,
+    registryId,
+    generatedAt: new Date().toISOString(),
+    source: `proc/${registryId}/distribution-manifest.json`,
+    apps,
   };
 };
 
@@ -116,9 +120,9 @@ window.CAPSULE_OVERVIEW_APPS_GRID = ${JSON.stringify(grid, null, 2)};
 
 const renderGridHtml = (grid) => grid.apps.map((app) => {
   const linkAttr = app.dataLink ? ` data-overview-link="${app.dataLink}"` : '';
-  const disabledClass = app.launchable ? '' : '';
-  return `                <button type="button" class="fedora-overview__app${disabledClass}"${linkAttr} aria-label="${app.labelFr}">
-                    <img src="${app.icon}" alt="">
+  const iconSrc = app.icon || `${ASSET_PREFIX}images/toolkits/gnome/apps/overview/settings.png`;
+  return `                <button type="button" class="fedora-overview__app"${linkAttr} aria-label="${app.labelFr}">
+                    <img src="${iconSrc}" alt="">
                     <span>${app.labelShort}</span>
                 </button>`;
 }).join('\n');

@@ -15,7 +15,11 @@
     "sessionType": "tty",
     "detected": []
   },
-  "generatedAt": "2026-06-07T23:00:51.429Z",
+  "mediaCatalog": {
+    "vendor": "ubuntu",
+    "iconPack": "icons/gnome/yaru"
+  },
+  "generatedAt": "2026-06-08T20:52:42.914Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "draft",
@@ -34,9 +38,9 @@
   },
   "summary": {
     "total": 119,
-    "pull": 60,
+    "pull": 51,
     "drift": 54,
-    "skip": 5,
+    "skip": 14,
     "onVmFalse": 0
   },
   "items": [
@@ -45,8 +49,8 @@
       "category": "app-icon",
       "appId": "firmware-updater",
       "vmPath": "/snap/firmware-updater/current/meta/gui/icon.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/firmware-updater",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/firmware-updater",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/firmware-updater.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firmware-updater.png",
       "stagingPath": "apps/firmware-updater.png",
       "status": "pull",
       "action": "pull"
@@ -56,8 +60,8 @@
       "category": "app-icon",
       "appId": "nm-connection-editor",
       "vmPath": "/usr/share/icons/Yaru/256x256/categories/preferences-system-network.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/nm-connection-editor",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/nm-connection-editor",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/nm-connection-editor.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/nm-connection-editor.png",
       "stagingPath": "apps/nm-connection-editor.png",
       "status": "pull",
       "action": "pull"
@@ -67,19 +71,19 @@
       "category": "app-icon",
       "appId": "org.gnome.Calculator",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Calculator.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Calculator",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Calculator",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg",
       "stagingPath": "apps/org.gnome.Calculator.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-snap-store",
       "category": "app-icon",
       "appId": "snap-store",
       "vmPath": "/snap/snap-store/current/bin/data/flutter_assets/assets/app-center.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/snap-store",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/snap-store",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/snap-store.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/snap-store.png",
       "stagingPath": "apps/snap-store.png",
       "status": "pull",
       "action": "pull"
@@ -89,8 +93,8 @@
       "category": "app-icon",
       "appId": "desktop-security-center",
       "vmPath": "/snap/desktop-security-center/current/meta/gui/desktop-security-center.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/desktop-security-center",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/desktop-security-center",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/desktop-security-center.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/desktop-security-center.png",
       "stagingPath": "apps/desktop-security-center.png",
       "status": "pull",
       "action": "pull"
@@ -100,41 +104,41 @@
       "category": "app-icon",
       "appId": "org.gnome.Characters",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Characters.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Characters",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Characters",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Characters.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg",
       "stagingPath": "apps/org.gnome.Characters.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.clocks",
       "category": "app-icon",
       "appId": "org.gnome.clocks",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.clocks.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.clocks",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.clocks",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
       "stagingPath": "apps/org.gnome.clocks.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.baobab",
       "category": "app-icon",
       "appId": "org.gnome.baobab",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.baobab.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.baobab",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.baobab",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.baobab.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg",
       "stagingPath": "apps/org.gnome.baobab.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.DiskUtility",
       "category": "app-icon",
       "appId": "org.gnome.DiskUtility",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.DiskUtility.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.DiskUtility",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.DiskUtility",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "stagingPath": "apps/org.gnome.DiskUtility.svg",
       "status": "pull",
       "action": "pull"
@@ -144,19 +148,19 @@
       "category": "app-icon",
       "appId": "org.gnome.Papers",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Papers.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Papers",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Papers",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Papers.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg",
       "stagingPath": "apps/org.gnome.Papers.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Nautilus",
       "category": "app-icon",
       "appId": "org.gnome.Nautilus",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Nautilus",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Nautilus",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "stagingPath": "apps/org.gnome.Nautilus.svg",
       "status": "pull",
       "action": "pull"
@@ -166,8 +170,8 @@
       "category": "app-icon",
       "appId": "firefox",
       "vmPath": "/snap/firefox/current/default256.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/firefox",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/firefox.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png",
       "stagingPath": "apps/firefox.png",
       "status": "pull",
       "action": "pull"
@@ -177,8 +181,8 @@
       "category": "app-icon",
       "appId": "org.gnome.font-viewer",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.font-viewer.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.font-viewer",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.font-viewer",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "stagingPath": "apps/org.gnome.font-viewer.svg",
       "status": "pull",
       "action": "pull"
@@ -188,30 +192,30 @@
       "category": "app-icon",
       "appId": "org.gnome.Yelp",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Yelp.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Yelp",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Yelp",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg",
       "stagingPath": "apps/org.gnome.Yelp.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Loupe",
       "category": "app-icon",
       "appId": "org.gnome.Loupe",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Loupe.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Loupe",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Loupe",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg",
       "stagingPath": "apps/org.gnome.Loupe.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-gnome-language-selector",
       "category": "app-icon",
       "appId": "gnome-language-selector",
       "vmPath": "/usr/share/icons/Yaru/256x256/categories/preferences-desktop-locale.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/gnome-language-selector",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/gnome-language-selector",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/gnome-language-selector.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/gnome-language-selector.png",
       "stagingPath": "apps/gnome-language-selector.png",
       "status": "pull",
       "action": "pull"
@@ -221,8 +225,8 @@
       "category": "app-icon",
       "appId": "org.gnome.Logs",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Logs.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Logs",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Logs",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
       "stagingPath": "apps/org.gnome.Logs.svg",
       "status": "pull",
       "action": "pull"
@@ -232,8 +236,8 @@
       "category": "app-icon",
       "appId": "org.gnome.seahorse.Application",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.seahorse.Application.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.seahorse.Application",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.seahorse.Application",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.seahorse.Application.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.seahorse.Application.svg",
       "stagingPath": "apps/org.gnome.seahorse.Application.svg",
       "status": "pull",
       "action": "pull"
@@ -243,8 +247,8 @@
       "category": "app-icon",
       "appId": "net.nokyan.Resources",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/net.nokyan.Resources.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/net.nokyan.Resources",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/net.nokyan.Resources",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/net.nokyan.Resources.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/net.nokyan.Resources.svg",
       "stagingPath": "apps/net.nokyan.Resources.svg",
       "status": "pull",
       "action": "pull"
@@ -254,19 +258,19 @@
       "category": "app-icon",
       "appId": "org.gnome.Settings",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Settings.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Settings",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Settings",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Settings.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg",
       "stagingPath": "apps/org.gnome.Settings.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-update-manager",
       "category": "app-icon",
       "appId": "update-manager",
       "vmPath": "/usr/share/icons/Yaru/256x256/apps/system-software-update.png",
-      "capsuleRelative": "images/toolkits/gnome/apps/update-manager",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/update-manager",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/update-manager.png",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/update-manager.png",
       "stagingPath": "apps/update-manager.png",
       "status": "pull",
       "action": "pull"
@@ -276,8 +280,8 @@
       "category": "app-icon",
       "appId": "org.gnome.Sysprof",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Sysprof.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Sysprof",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Sysprof",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Sysprof.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Sysprof.svg",
       "stagingPath": "apps/org.gnome.Sysprof.svg",
       "status": "pull",
       "action": "pull"
@@ -287,19 +291,19 @@
       "category": "app-icon",
       "appId": "org.gnome.Ptyxis",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.Ptyxis.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.Ptyxis",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Ptyxis",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg",
       "stagingPath": "apps/org.gnome.Ptyxis.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.TextEditor",
       "category": "app-icon",
       "appId": "org.gnome.TextEditor",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.gnome.TextEditor.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/org.gnome.TextEditor",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.TextEditor",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "stagingPath": "apps/org.gnome.TextEditor.svg",
       "status": "pull",
       "action": "pull"
@@ -309,8 +313,8 @@
       "category": "app-icon",
       "appId": "vim",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/gvim.svg",
-      "capsuleRelative": "images/toolkits/gnome/apps/vim",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/vim",
+      "capsuleRelative": "images/toolkits/gnome/apps/overview/vim.svg",
+      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/vim.svg",
       "stagingPath": "apps/vim.svg",
       "status": "pull",
       "action": "pull"

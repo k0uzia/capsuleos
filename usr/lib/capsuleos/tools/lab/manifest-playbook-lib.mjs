@@ -32,6 +32,21 @@ export const normalizeCapsuleTarget = (target) => {
     .replace(/\/$/, '');
 };
 
+const IMAGE_EXT = /\.(png|svg|webp|jpe?g|gif|ico)$/i;
+
+/** Résout capsuleRelative canonique pour une icône d'app (overview/ + extension). */
+export const resolveAppIconCapsuleRelative = (icon, manifest) => {
+  const toolkit = manifest?.toolkit?.id || 'gnome';
+  const vmPath = icon.vmPaths?.[0] || '';
+  const ext = path.extname(vmPath) || '.png';
+  let rel = normalizeCapsuleTarget(icon.capsuleTarget);
+  if (!rel) return null;
+  if (IMAGE_EXT.test(path.basename(rel))) return rel;
+  const appId = icon.appId || path.basename(rel);
+  if (rel.includes('/overview/')) return `${rel}${ext}`;
+  return `images/toolkits/${toolkit}/apps/overview/${appId}${ext}`;
+};
+
 const fileExists = (abs) => {
   try {
     return fs.existsSync(abs) && fs.statSync(abs).isFile();
@@ -69,7 +84,7 @@ export const buildReplicationItems = (registryId) => {
   for (const icon of manifest.media?.appIcons || []) {
     const vmPath = icon.vmPaths?.[0];
     if (!vmPath) continue;
-    const rel = normalizeCapsuleTarget(icon.capsuleTarget);
+    const rel = resolveAppIconCapsuleRelative(icon, manifest);
     const capsuleAbs = rel ? capsuleAssetPath(rel) : null;
     const ext = path.extname(vmPath) || '.png';
     const destName = `${icon.appId}${ext}`;
@@ -266,7 +281,7 @@ export const buildPlaybook = (registryId) => {
     distribution: manifest.distribution,
     toolkit: manifest.toolkit,
     mediaCatalog: {
-      vendor: manifest.mediaCatalogVendor || vendor,
+      vendor: manifest.mediaCatalogVendor || manifest.distribution?.id,
       iconPack: manifest.media?.iconPack || null,
     },
     generatedAt: new Date().toISOString(),

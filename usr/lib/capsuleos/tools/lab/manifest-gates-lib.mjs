@@ -19,6 +19,9 @@ export const evaluateManifestGates = (registryId) => {
   const ManSt = playbook?.staging?.status === 'completed';
   const ManI = playbook?.import?.status === 'completed'
     || manifest?.import?.status === 'completed';
+  const ManInt = (playbook?.phases || []).some(
+    (p) => p.id === 'integrate-skin' && p.status === 'done',
+  );
 
   return {
     ManV,
@@ -27,7 +30,8 @@ export const evaluateManifestGates = (registryId) => {
     ManA,
     ManSt,
     ManI,
-    ManΣ: ManV && ManS && ManA && ManSt && ManI,
+    ManInt,
+    ManΣ: ManV && ManS && ManA && ManSt && ManI && ManInt,
     manifestVersion: manifest?.manifestVersion || 0,
     playbookSummary: playbook?.summary || null,
   };

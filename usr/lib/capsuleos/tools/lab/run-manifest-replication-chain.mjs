@@ -34,7 +34,7 @@ const STEPS = [
   },
   {
     id: 'generate-playbook',
-    gate: (g) => g.ManV && !g.PbM,
+    gate: (g) => g.ManV && g.ManS && (!g.PbM || !g.ManA),
     cmd: ['generate-manifest-replication-playbook.mjs', '--write'],
   },
   {
@@ -65,11 +65,16 @@ const STEPS = [
     gate: (g) => g.ManSt && !g.ManI,
     cmd: ['import-manifest-staging.mjs', '--write'],
   },
+  {
+    id: 'apply-manifest-refs',
+    gate: (g) => g.ManI && !g.ManInt,
+    cmd: ['apply-manifest-refs.mjs', '--write'],
+  },
 ];
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-ubuntu', auto: false, write: false, maxSteps: 12 };
+  const opts = { id: 'linux-ubuntu', auto: false, write: false, maxSteps: 14 };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--auto') opts.auto = true;

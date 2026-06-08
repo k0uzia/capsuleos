@@ -89,7 +89,7 @@
       "status": "completed",
       "target": "101/101 slots ou équivalent VM documenté",
       "notes": "101/101 ok · batch final mintstick/font_viewer/power_stats + alias + csPanel",
-      "commit": "pending"
+      "commit": "505ebe5"
     },
     {
       "id": "P5",

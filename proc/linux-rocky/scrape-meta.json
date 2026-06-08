@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "registryId": "linux-rocky",
+  "collectedAt": "2026-06-08T21:12:35.648Z",
+  "source": "distribution-manifest",
+  "searchPaths": [
+    "/usr/share/applications",
+    "/var/lib/snapd/desktop/applications",
+    "/usr/local/share/applications"
+  ],
+  "gridVisible": 18,
+  "total": 85
+}

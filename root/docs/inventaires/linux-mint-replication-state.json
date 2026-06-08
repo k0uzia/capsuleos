@@ -89,7 +89,7 @@
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
       "notes": "87/101 ok · batch P4 #32-39 (8 apps) + csPanel Cinnamon · 38 slots autonomes",
-      "commit": "pending"
+      "commit": "57bc3c4"
     },
     {
       "id": "P5",

@@ -146,6 +146,67 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     plan.actions.push({ type: 'wait', ms: 200 });
     plan.assertions.push({ type: 'textContains', selector: 'div[data-link="mintinstall"] .mintinstall-results, #mi-search-list', text: 'Firefox' });
   }
+  if (scenario.id === 'mintinstall-categories') {
+    const cats = [
+      { cat: 'internet', expect: 'Firefox' },
+      { cat: 'graphics', expect: 'GIMP' },
+      { cat: 'accessories', expect: 'Calculatrice' },
+    ];
+    cats.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          {
+            type: 'click',
+            selector: `div[data-link="mintinstall"] [data-mi-cat="${step.cat}"]`,
+            desc: `catégorie ${step.cat}`,
+          },
+          { type: 'wait', ms: 280 },
+        ],
+        assertions: [
+          {
+            type: 'hasClass',
+            selector: `div[data-link="mintinstall"] [data-mi-cat="${step.cat}"]`,
+            className: 'is-active',
+          },
+          {
+            type: 'textContains',
+            selector: 'div[data-link="mintinstall"] #mi-app-list',
+            text: step.expect,
+          },
+        ],
+      });
+    });
+  }
+  if (scenario.id === 'mintinstall-app-detail') {
+    plan.actions.push({ type: 'fill', selector: 'div[data-link="mintinstall"] #mi-search', value: 'vlc' });
+    plan.actions.push({ type: 'wait', ms: 220 });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="mintinstall"] .mi-app__list-item[data-mi-pkg="vlc"] .mi-app__list-body',
+      desc: 'ouvrir fiche VLC',
+    });
+    plan.actions.push({ type: 'wait', ms: 200 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="mintinstall"] .mintinstall-detail:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="mintinstall"] #mi-detail-name',
+      text: 'VLC',
+    });
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="mintinstall"] .mintinstall-install-btn',
+      desc: 'simuler installation',
+    });
+    plan.actions.push({ type: 'wait', ms: 150 });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="mintinstall"] #mi-status',
+      text: 'installé',
+    });
+  }
 
   return plan;
 };
@@ -272,7 +333,7 @@ const runScenarioAssertions = async (page, plan, errors) => {
         if (node.hidden) {
           return 0;
         }
-        return node.querySelectorAll('a, .nemo-app__list-row, .nemo-app__context-item').length;
+        return node.querySelectorAll('a, .nemo-app__list-row, .nemo-app__context-item, .mi-app__list-item').length;
       }, a.selector);
       if (count < (a.min || 1)) {
         errors.push(`Enfants insuffisants (${count} < ${a.min}) dans ${a.selector}`);

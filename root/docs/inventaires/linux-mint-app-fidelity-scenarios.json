@@ -586,11 +586,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".mintinstall-sidebar",
@@ -919,15 +919,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 5,
-    "smokeOk": 5,
-    "measured": 5,
+    "implemented": 6,
+    "smokeOk": 6,
+    "measured": 6,
     "avgPi": 100,
     "appsTotal": 11,
     "appsAtPi100": 1,
     "documentedPct": 100,
-    "implementedPct": 15,
-    "smokePct": 15
+    "implementedPct": 18,
+    "smokePct": 18
   },
-  "updatedAt": "2026-06-08T17:03:44.885Z"
+  "updatedAt": "2026-06-08T17:04:11.167Z"
 }

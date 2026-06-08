@@ -78,7 +78,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#11 Lecteur vidéo** — `lecteur_multimedia` / Celluloid, smoke `smoke-mint-celluloid.mjs` OK (2026-06-08)
 - [x] **#12 LibreOffice Calc** — `librecalc`, smoke `smoke-mint-librecalc.mjs` OK (2026-06-08)
 - [x] **#13 LibreOffice Writer** — `librewriter`, smoke `smoke-mint-librewriter.mjs` OK (2026-06-08)
-- [ ] Reproduction **une app par passe** (suite : **#14 Logithèque** / `mintinstall`, slot dédié) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#14 Logithèque** — slot `mintinstall` dédié (≠ `update_manager`), smoke `smoke-mint-mintinstall.mjs` OK (2026-06-08) · [`linux-mint-mintinstall-vm.md`](linux-mint-mintinstall-vm.md)
+- [ ] Reproduction **une app par passe** (suite : **#15 Moniteur système**) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
 ## Campagne v2 — shell panel (2026-06-08)

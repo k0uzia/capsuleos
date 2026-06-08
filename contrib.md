@@ -45,7 +45,8 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 6. **H5** — Implémentation minimale
 7. **H6** — `validate-all.mjs` + regen embed si besoin + test hors ligne
 
-Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
+Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)  
+**Gates par type de changement** : [`root/docs/agent-validation-discipline.md`](root/docs/agent-validation-discipline.md) · `node usr/lib/capsuleos/tools/print-validation-plan.mjs`
 
 ### Comparaison avec un environnement réel (VM / Proxmox)
 

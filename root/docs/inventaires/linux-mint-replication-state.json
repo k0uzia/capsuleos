@@ -2,10 +2,12 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
+  "updatedAt": "2026-06-08T11:05:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
     "labInventory": "etc/capsuleos/lab-inventory.json",
+    "costEstimate": "root/docs/inventaires/linux-mint-replication-cost-estimate.md",
     "rules": [
       "Tout élément présent sur la VM doit exister dans Capsule avec le même rôle (objet modale Σ(S), transitions δ, effets E(δ)).",
       "CapsuleOnly interdit en clôture (checklist, retour accueil, lanceurs panel fictifs, etc.).",
@@ -14,7 +16,7 @@
     ]
   },
   "vmSnapshot": {
-    "collectedAt": "2026-06-08T08:20:09Z",
+    "collectedAt": "2026-06-08T10:56:00Z",
     "os": "Linux Mint 22.3 Zena",
     "cinnamon": "6.6.7",
     "nemo": "6.6.3",
@@ -31,20 +33,20 @@
   "metrics": {
     "appsCatalog": {
       "total": 101,
-      "ok": 13,
-      "partiel": 38,
-      "absent": 50,
-      "coverageOkPct": 13
+      "ok": 15,
+      "partiel": 37,
+      "absent": 49,
+      "coverageOkPct": 15
     },
     "surfaceVm": {
       "panelMenuFavorisTray": 17,
-      "ok": 12,
-      "partiel": 5
+      "ok": 13,
+      "partiel": 4
     },
     "panelChecklistVm": "4/6",
     "panelChecklistCapsule": "6/6",
     "manifestDrift": 148,
-    "validateAllH2": false,
+    "validateAllH2": true,
     "panelModel": "menu + grouped-window-list (2026-06-08)"
   },
   "palliers": [
@@ -88,8 +90,9 @@
       "id": "P3",
       "label": "Apps VM — surface visible (panel, favoris, menu P0)",
       "predicates": ["AppΣ"],
-      "status": "pending",
-      "target": "17 surfaces VM → statut ok + smoke"
+      "status": "in_progress",
+      "target": "17 surfaces VM → statut ok + smoke",
+      "notes": "#14 mintinstall slot dédié (2026-06-08)"
     },
     {
       "id": "P4",
@@ -107,31 +110,29 @@
     }
   ],
   "predicates": {
-    "H2": { "ok": false, "note": "validate-all rouge — liens façade Ubuntu (hors Mint)" },
-    "M": { "ok": true, "verifiedAt": "2026-06-08T08:20:09Z" },
+    "H2": { "ok": true, "note": "validate-all vert (overview Ubuntu + zone Mint)" },
+    "M": { "ok": true, "verifiedAt": "2026-06-08T10:56:00Z" },
     "I": { "ok": true, "file": "linux-mint-vm.json" },
     "ManΣ": { "ok": true, "lastPass": "integration-pass-2026-06-08.json" },
     "L-panel": { "ok": false, "vm": "4/6", "capsule": "6/6" },
-    "AppΣ": { "ok": false, "surfaceOk": "12/17" },
-    "AppΣ-full": { "ok": false, "ok": "13/101" },
-    "VΣ": { "ok": false, "matrix": false },
+    "AppΣ": { "ok": false, "surfaceOk": "13/17" },
+    "AppΣ-full": { "ok": false, "ok": "15/101" },
+    "VΣ": { "ok": false, "matrix": "partial" },
     "D": { "ok": false, "drift": 148 }
   },
   "gapClasses": {
     "retiredForClosure": ["CapsuleOnly", "P1-assumed-permanent"],
     "activeP0": [
       "Panel VM checklist 4/6 (Firefox focus, minimize — sonde lab)",
-      "Panel checklist VM 4/6 (Firefox focus, minimize/running-link)",
-      "Éléments CapsuleOnly : checklist panel, librewriter panel, retour accueil",
-      "50 apps catalogue absentes sur 101",
-      "Matrice VΣ Cinnamon absente"
+      "49 apps catalogue absentes sur 101",
+      "Matrice VΣ shell — collecte burst VM en attente",
+      "manifestDrift 148 → P5"
     ]
   },
   "nextActions": [
-    "Corriger H2 (assets overview Ubuntu manquants)",
-    "P1 : matrice VΣ shell (`linux-mint-ui-state-effects-matrix.json`)",
-    "P1 : sonde VM panel-checklist (Firefox focus étape 1)",
-    "P2 : extend-ui-state-effects-matrix.mjs --id linux-mint --write --ensure-apps",
-    "P3 : reprendre catalogue #14 Logithèque sous contrainte réplique exacte"
+    "P2 : collect-ui-state-effects.mjs burst VM + Vμ par surface",
+    "P3 : apps surface restantes (#15 Moniteur système, #16 Paramètres, …)",
+    "P4 : catalogue alphabétique #15+",
+    "P5 : drift manifest → 0, panel VM 6/6 si sonde lab OK"
   ]
 }

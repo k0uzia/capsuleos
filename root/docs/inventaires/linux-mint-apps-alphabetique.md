@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T08:20:11.208Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T08:59:09.660Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -34,12 +34,12 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 6 | Fichiers | nemo.desktop | nemo | ✅ | P0 |
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
 | 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
-| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
+| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | ✅ | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ✅ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | ✅ | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ✅ | P1 |
 | 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | ✅ | P0 |
-| 14 | Logithèque | mintinstall-kde.desktop | update_manager | 🔶 | P0 |
+| 14 | Logithèque | mintinstall-kde.desktop | mintinstall | ✅ | P0 |
 | 15 | Moniteur système | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | P1 |
 | 16 | Paramètres du système | cinnamon-settings.desktop | themes | 🔶 | P0 |
 | 17 | Terminal | org.gnome.Terminal.desktop | terminal | ✅ | P0 |
@@ -97,8 +97,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Fonts | Fonts | org.gnome.font-viewer.desktop | — | ⬜ | — |  |
 | General | General | cinnamon-settings-general.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M |  |
-| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | 🔶 | — |  |
-| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | 🔶 | T |  |
+| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | ✅ | — |  |
+| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | ✅ | T |  |
 | Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ✅ | — |  |
 | Gestures | Gestures | cinnamon-settings-gestures.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |
@@ -117,8 +117,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | LibreOffice Impress | LibreOffice Impress | libreoffice-impress.desktop | — | ⬜ | — |  |
 | LibreOffice Writer | LibreOffice Writer | libreoffice-writer.desktop | librewriter | ✅ | M,P |  |
 | Login Window | Login Window | lightdm-settings.desktop | — | ⬜ | — |  |
-| Logithèque | Software Manager | mintinstall-kde.desktop | update_manager | 🔶 | — |  |
-| Logithèque | Software Manager | mintinstall.desktop | update_manager | 🔶 | M,F |  |
+| Logithèque | Software Manager | mintinstall-kde.desktop | mintinstall | ✅ | — |  |
+| Logithèque | Software Manager | mintinstall.desktop | mintinstall | ✅ | M,F |  |
 | Moniteur système | System Monitor | org.gnome.SystemMonitor.desktop | system_monitor | ⬜ | — |  |
 | Mouse and Touchpad | Mouse and Touchpad | cinnamon-settings-mouse.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Network | Network | cinnamon-network-panel.desktop | — | ⬜ | — |  |
@@ -176,13 +176,14 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `librewriter` — ✅
 - `mainMenu` — 🔶
 - `mintdrivers` — ✅
+- `mintinstall` — ✅
 - `nemo` — ✅
 - `profile` — ✅
 - `screenshot` — ✅
 - `terminal` — ✅
 - `text_editor` — ✅
 - `themes` — 🔶
-- `update_manager` — 🔶
+- `update_manager` — ✅
 - `visionneur_images` — 🔶
 - `visionneur_pdf` — 🔶
 

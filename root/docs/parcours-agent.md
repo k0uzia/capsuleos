@@ -5,7 +5,8 @@ Chemin logique pour qu’un agent Cursor **comprenne CapsuleOS** avant de modifi
 **Guide racine** : [`contrib.md`](../../contrib.md)  
 **Logique formelle** : [logique-formelle.md](logique-formelle.md) — **document fondateur** des gates et de la décision agent  
 **Skill associé** : [`../skills/onboarding/SKILL.md`](../skills/onboarding/SKILL.md)  
-**Gate unique** : `node usr/lib/capsuleos/tools/validate-all.mjs`
+**Gate release** : `node usr/lib/capsuleos/tools/validate-all.mjs`  
+**Discrimination par type de changement** : [agent-validation-discipline.md](agent-validation-discipline.md) · `print-validation-plan.mjs`
 
 ---
 
@@ -113,13 +114,17 @@ flowchart TD
 ## Commandes gate (ordre release)
 
 ```bash
-# Gate complet (recommandé avant merge)
+# Plan selon fichiers modifiés (éviter validate-all sur typo doc)
+node usr/lib/capsuleos/tools/print-validation-plan.mjs
+
+# Gate complet (obligatoire avant merge significatif — H₆)
 node usr/lib/capsuleos/tools/validate-all.mjs
 
-# Ciblés
+# Ciblés (patch minimal)
 node usr/lib/capsuleos/tools/validate-assets-all.mjs
 node usr/lib/capsuleos/tools/validate-capsule.mjs
 node usr/lib/capsuleos/tools/validate-quality-all.mjs
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs   # skin Linux
 ```
 
 Brief agent pour une entrée catalogue (P2+ planifié) :
@@ -150,6 +155,7 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 
 ## Liens
 
+- [agent-validation-discipline.md](agent-validation-discipline.md) — matrice gates par type de changement
 - [logique-formelle.md](logique-formelle.md) — paradigme agent (référence canonique)
 - [equipe-agentique.md](equipe-agentique.md) — staffing
 - [manifeste-noyau.md](manifeste-noyau.md) — hydratation technique H0–H6 noyau

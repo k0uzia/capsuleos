@@ -35,6 +35,25 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs --list --tier P2 --status pla
 
 Sortie optionnelle : `root/docs/briefs/<id>.md`.
 
+## Validation discriminée (pas validate-all à chaque typo)
+
+**Référence** : [agent-validation-discipline.md](../../docs/agent-validation-discipline.md)
+
+```bash
+# Plan selon fichiers modifiés (git diff ou chemins explicites)
+node usr/lib/capsuleos/tools/print-validation-plan.mjs
+node usr/lib/capsuleos/tools/print-validation-plan.mjs --staged
+```
+
+| Moment | Gate |
+|--------|------|
+| Première session / gros patch | **H₂** : `validate-all.mjs` (baseline, noter dette hors zone) |
+| Patch ciblé (assets, JS, skin…) | Gate **minimale** du type (voir matrice doc) |
+| Merge / push significatif | **H₆** : `validate-all.mjs` exit 0 |
+| Skin Linux `home/` touché | `sync-linux-skin-closure.mjs` + **Rv** ([convention-rafraichissement-vues.md](../../docs/convention-rafraichissement-vues.md)) |
+
+**Rectifier au fil de l'eau** : corriger les rouges `validate-*` **dans la zone du patch** ; ne pas élargir au dépôt entier sauf tâche CI.
+
 ## Gate release
 
 ```bash
@@ -66,9 +85,18 @@ Détail des sous-gates : assets (`validate-assets-all`), registre/façades (`val
 | ES6 / JSON | `code-quality` |
 | Multi-familles release | `coordinator` |
 
+## Checklist push (skin Linux P0, ex. Mint)
+
+1. **Rv** — vues alignées sur le modèle après chaque action slot touché
+2. `sync-linux-skin-closure.mjs` si `home/` ou gabarits `usr/share/capsuleos/linux/apps/`
+3. Smokes lab optionnels — attentes conditionnelles (`mint-smoke-open.mjs`, pas de sleeps >200 ms sans raison)
+4. `validate-all.mjs` avant merge / push
+
 ## Ne pas
 
+- Lancer `validate-all` sur une modification doc seule
 - Sauter H2 (`validate-all`) avant un gros patch
+- Modifier `home/` sans `sync-linux-skin-closure` en clôture
 - Créer médias sous `OS/*/media/` ou `home/*/media/img/`
 - Travailler sans skill OS sur un skin
 - Dupliquer `writing.md` — lire le fichier workspace parent
@@ -79,6 +107,8 @@ Détail des sous-gates : assets (`validate-assets-all`), registre/façades (`val
 - [convention-reproduction-os.md](../../docs/convention-reproduction-os.md) — clone VM, CSS/JS imposés
 - [contrib.md](../../../contrib.md) — guide racine contributeurs + agents
 - [parcours-agent.md](../../docs/parcours-agent.md)
+- [agent-validation-discipline.md](../../docs/agent-validation-discipline.md)
+- [convention-rafraichissement-vues.md](../../docs/convention-rafraichissement-vues.md)
 - [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md)
 - [AGENTS.md](../../AGENTS.md)
 - [equipe-agentique.md](../../docs/equipe-agentique.md)

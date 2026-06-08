@@ -9,6 +9,16 @@ Contrat machine : `etc/capsuleos/contracts/agent-action-aliases.json`
 Playbook général : `etc/capsuleos/contracts/playbook-general.json` · `root/docs/procedure-playbook-general.md`  
 Référence : `root/docs/logique-formelle.md` · `root/docs/procedure-replication-formelle.md`
 
+## Validation discriminée
+
+Avant d'enchaîner des gates lourds :
+
+```bash
+node usr/lib/capsuleos/tools/print-validation-plan.mjs
+```
+
+Matrice : `root/docs/agent-validation-discipline.md` — **H₂** baseline session, gates ciblées en cours de patch, **H₆** `validate-all` avant merge/push ; skin Linux → `sync-linux-skin-closure` + **Rv**.
+
 ## Décision par passage (R-AUTO)
 
 Avant chaque action lab ou gate :

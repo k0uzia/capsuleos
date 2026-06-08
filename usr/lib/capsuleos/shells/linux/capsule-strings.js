@@ -77,6 +77,7 @@ function buildWindowTitles(merged) {
         librecalc: m['librecalc.windowTitle'] || 'Sans nom 1 - LibreOffice Calc',
         terminal: m['terminal.windowTitle'] || 'Terminal',
         update_manager: m['update_manager.windowTitle'] || 'Gestionnaire de mise à jour',
+        mintinstall: m['mintinstall.windowTitle'] || 'Logithèque',
         themes: m['themes.windowTitle'] || 'Thèmes',
         checklist: m['checklist.windowTitle'] || 'Missions',
         mainMenu: m['mainMenu.windowTitle'] || 'Menu',

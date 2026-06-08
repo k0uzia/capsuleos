@@ -49,6 +49,13 @@ div.windowElement[data-link="update_manager"]:not(#mainMenu) {
     min-height: var(--win-update_manager-min-height);
 }
 
+div.windowElement[data-link="mintinstall"]:not(#mainMenu) {
+    width: var(--win-mintinstall-width);
+    min-width: var(--win-mintinstall-min-width);
+    height: var(--win-mintinstall-height);
+    min-height: var(--win-mintinstall-min-height);
+}
+
 div.windowElement[data-link="file_roller"]:not(#mainMenu) {
     width: var(--win-file_roller-width);
     min-width: var(--win-file_roller-min-width);

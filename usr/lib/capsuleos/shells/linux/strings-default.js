@@ -61,6 +61,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'librecalc.windowTitle': 'Sans nom 1 - LibreOffice Calc',
     'terminal.windowTitle': 'Terminal',
     'update_manager.windowTitle': 'Gestionnaire de mise à jour',
+    'mintinstall.windowTitle': 'Logithèque',
     'themes.windowTitle': 'Thèmes',
     'checklist.windowTitle': 'Missions',
     'checklist.description': 'Explore Linux Mint en accomplissant ces missions. Ta progression est sauvegardée.',

@@ -17,7 +17,7 @@
     if (typeof MENU_SHORTCUTS !== 'undefined') {
         MENU_SHORTCUTS.calculator = { dataLink: 'calculator' };
         MENU_SHORTCUTS['text-editor'] = { dataLink: 'text_editor' };
-        MENU_SHORTCUTS['software-manager'] = { dataLink: 'update_manager' };
+        MENU_SHORTCUTS['software-manager'] = { dataLink: 'mintinstall' };
         MENU_SHORTCUTS['system-settings'] = { dataLink: 'themes' };
     }
 
@@ -32,7 +32,7 @@
                 app.icon = panelIcon + 'accessories-text-editor.png';
             }
             if (app.name === 'Logithèque') {
-                app.dataLink = 'update_manager';
+                app.dataLink = 'mintinstall';
                 app.icon = panelIcon + 'mintinstall.png';
             }
             if (app.name === 'Thèmes') {

@@ -1,0 +1,36 @@
+/**
+ * Logithèque — mintinstall 8.4 · géométrie VM wmctrl 852×784 (2026-06-08).
+ */
+body#mint {
+    --mi-bg: #f5f5f5;
+    --mi-text: #2e2e2e;
+    --mi-muted: #666666;
+    --mi-header-bg: #ebebeb;
+    --mi-sidebar-bg: #ececec;
+    --mi-content-bg: #fafafa;
+    --mi-border: #d4d4d4;
+    --mi-search-bg: #ffffff;
+    --mi-search-border: #c8c8c8;
+    --mi-btn-bg: #f6f6f6;
+    --mi-btn-border: #c8c8c8;
+    --mi-icon: #3d3d3d;
+    --mi-accent: #1f9ede;
+    --mi-cat-active: #d8eaf6;
+    --mi-tile-bg: #ffffff;
+    --mi-tile-border: #e0e0e0;
+    --mi-row-hover: #edf5ff;
+    --mi-row-border: #ececec;
+}
+
+body#mint main#mintInstallApp {
+    font-size: 13px;
+}
+
+body#mint .mi-app__sidebar {
+    width: 200px;
+    min-width: 180px;
+}
+
+body#mint .mi-app__header {
+    min-height: 46px;
+}

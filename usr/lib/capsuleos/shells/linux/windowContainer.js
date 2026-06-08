@@ -15,6 +15,8 @@
         drawing: 'Sans titre — Dessin',
         file_roller: 'Gestionnaire d\'archives',
         mintdrivers: 'Gestionnaire de pilotes',
+        mintinstall: 'Logithèque',
+        update_manager: 'Gestionnaire de mise à jour',
     };
 
     const WINDOW_TASK_MAP = {
@@ -251,6 +253,9 @@
             if (slotId === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
                 window.initUpdateManagerApp();
             }
+            if (slotId === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+                window.initMintInstallApp();
+            }
         },
     });
 
@@ -262,6 +267,9 @@
         const ok = nativeOpen(dataLink);
         if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
             window.initUpdateManagerApp();
+        }
+        if (ok && dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+            window.initMintInstallApp();
         }
         return ok;
     };

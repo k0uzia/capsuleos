@@ -444,6 +444,11 @@ const SLOT_INIT_HANDLERS = {
             initUpdateManagerApp();
         }
     },
+    mintinstall: () => {
+        if (typeof initMintInstallApp === 'function') {
+            initMintInstallApp();
+        }
+    },
     calculator: () => {
         if (typeof initCalculatorApp === 'function') {
             initCalculatorApp();

@@ -150,10 +150,34 @@ export const collectA11yViaSsh = (registryId) => {
   };
 };
 
+const TYPOGRAPHY_VENDOR_PROFILES = {
+  ubuntu: {
+    uiFamily: 'Ubuntu',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/ubuntu',
+    cssFile: 'home/Debian/Ubuntu/ubuntu-fonts.css',
+  },
+  rocky: {
+    uiFamily: 'Red Hat Text',
+    monoFamily: 'Red Hat Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/redhat',
+    cssFile: 'home/RedHat/Rocky/rocky-fonts.css',
+  },
+  fedora: {
+    uiFamily: 'Red Hat Text',
+    monoFamily: 'Red Hat Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/fedora',
+    cssFile: 'home/RedHat/Fedora/fedora-fonts.css',
+  },
+};
+
 export const collectTypographyFontsViaSsh = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
+  const profile = TYPOGRAPHY_VENDOR_PROFILES[vendor] || TYPOGRAPHY_VENDOR_PROFILES.rocky;
   const script = [
-    'fc-list "Red Hat Text" -f "%{file}\\n" | head -1',
-    'fc-list "Red Hat Mono" -f "%{file}\\n" | head -1',
+    `fc-list "${profile.uiFamily}" -f "%{file}\\n" | head -1`,
+    `fc-list "${profile.monoFamily}" -f "%{file}\\n" | head -1`,
   ].join('\n');
   const res = spawnSync(process.execPath, [
     path.join(__dirname, 'lab-ssh.mjs'),
@@ -169,8 +193,8 @@ export const collectTypographyFontsViaSsh = (registryId) => {
       ui: lines[0] || null,
       mono: lines[1] || null,
     },
-    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/redhat',
-    cssFile: 'home/RedHat/Rocky/rocky-fonts.css',
+    capsuleDir: profile.capsuleDir,
+    cssFile: profile.cssFile,
     collectedFrom: 'lab-ssh.mjs — fc-list',
   };
 };
@@ -217,8 +241,8 @@ export const buildVisualFidelityInventory = (registryId) => {
         tokenFile: defaults.typography?.tokenFile || null,
         uiStack: defaults.typography?.uiStack || [],
         monoStack: defaults.typography?.monoStack || [],
-        uiSizePt: defaults.typography?.uiSizePt || null,
-        monoSizePt: defaults.typography?.monoSizePt || null,
+        uiSizePt: defaults.typography?.uiSizePt ?? null,
+        monoSizePt: defaults.typography?.monoSizePt ?? null,
       },
       status: theme.fontName ? 'documented' : 'pending',
     },
@@ -252,12 +276,18 @@ export const buildVisualFidelityInventory = (registryId) => {
   };
 
   if (inv.typography.vm.fontName) inv.typography.status = 'documented';
-  inv.accessibility.cssImports = [
+  const a11yCss = defaults.accessibility?.cssImports || [
     'home/RedHat/Rocky/style/gnome-shell/a11y-fedora.css',
     'usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css',
   ];
+  inv.accessibility.cssImports = a11yCss;
   inv.accessibility.playbookControls = ['font-scale', 'contrast', 'display-scale'];
-  if (registryId === 'linux-rocky') inv.accessibility.status = 'documented';
+  if (defaults.typography?.tokenFile) {
+    inv.typography.capsule.tokenFile = defaults.typography.tokenFile;
+  }
+  if (registryId === 'linux-rocky' || registryId === 'linux-ubuntu') {
+    inv.accessibility.status = 'documented';
+  }
 
   return recomputePredicates(inv);
 };
@@ -341,13 +371,15 @@ export const scanTypographyViolations = (registryId) => {
 
   const embedding = evaluateVisualFidelity(registryId).inventory?.typography?.fontEmbedding;
   if (embedding?.capsuleDir) {
-    const uiLocal = path.join(ROOT, embedding.capsuleDir, 'RedHatText[wght].ttf');
-    const monoLocal = path.join(ROOT, embedding.capsuleDir, 'RedHatMono[wght].ttf');
-    if (!fs.existsSync(uiLocal)) {
-      errors.push(`${embedding.capsuleDir}/RedHatText[wght].ttf absent — pull-vm-assets.sh`);
-    }
-    if (!fs.existsSync(monoLocal)) {
-      errors.push(`${embedding.capsuleDir}/RedHatMono[wght].ttf absent — pull-vm-assets.sh`);
+    const vendor = registryId.replace(/^linux-/, '');
+    const fontChecks = vendor === 'ubuntu'
+      ? ['Ubuntu-R.ttf', 'UbuntuMono-R.ttf']
+      : ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
+    for (const name of fontChecks) {
+      const local = path.join(ROOT, embedding.capsuleDir, name);
+      if (!fs.existsSync(local)) {
+        errors.push(`${embedding.capsuleDir}/${name} absent — import manifeste ou pull-vm-assets`);
+      }
     }
     const cssFile = embedding.cssFile;
     if (cssFile && !fs.existsSync(path.join(ROOT, cssFile))) {

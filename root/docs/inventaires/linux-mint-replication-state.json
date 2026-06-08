@@ -102,7 +102,8 @@
       "predicates": ["AppΣ-full"],
       "status": "in_progress",
       "target": "101/101 slots ou équivalent VM documenté",
-      "notes": "17/101 ok · #16 Paramètres clôturé"
+      "notes": "17/101 ok · #16 Paramètres clôturé",
+      "commit": "66540da"
     },
     {
       "id": "P5",

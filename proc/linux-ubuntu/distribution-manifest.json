@@ -18,11 +18,11 @@
   "collectedAt": "2026-06-07T23:00:50Z",
   "source": "root/tools/lab/vm-distribution-manifest.py",
   "validation": {
-    "status": "draft",
-    "smokeOk": false,
-    "approved": false,
-    "approvedAt": null,
-    "approvedBy": null
+    "status": "approved",
+    "smokeOk": true,
+    "approved": true,
+    "approvedAt": "2026-06-08T20:56:08.703Z",
+    "approvedBy": "agent"
   },
   "packages": {
     "dpkgCount": 1643,

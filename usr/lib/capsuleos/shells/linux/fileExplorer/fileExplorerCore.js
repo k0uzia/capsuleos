@@ -393,7 +393,14 @@ const isNemoTemplate = () => {
     if (isNautilusGnomeTemplate()) {
         return false;
     }
-    return !!queryExplorerSlot('main#gestionnaire.nemo-app:not(.nautilus-app)');
+    if (queryExplorerSlot('main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CapsuleExplorerRegistry
+        && typeof window.CapsuleExplorerRegistry.isNemoFamily === 'function') {
+        return window.CapsuleExplorerRegistry.isNemoFamily();
+    }
+    return false;
 };
 window.isNautilusGnomeTemplate = isNautilusGnomeTemplate;
 window.isNemoTemplate = isNemoTemplate;

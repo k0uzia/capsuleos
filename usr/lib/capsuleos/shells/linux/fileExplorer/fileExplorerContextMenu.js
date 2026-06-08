@@ -20,9 +20,31 @@
 
     const resolveContextMenuRoot = (scope) => scope || getNemoRoot();
 
+    const queryScopeMain = (root, selector) => (
+        root && typeof root.querySelector === 'function' ? root.querySelector(selector) : null
+    );
+
+    const isRegistryNautilusFamily = () => (
+        typeof global.CapsuleExplorerRegistry !== 'undefined'
+        && typeof global.CapsuleExplorerRegistry.isNautilusFamily === 'function'
+        && global.CapsuleExplorerRegistry.isNautilusFamily()
+    );
+
+    const isRegistryNemoFamily = () => (
+        typeof global.CapsuleExplorerRegistry !== 'undefined'
+        && typeof global.CapsuleExplorerRegistry.isNemoFamily === 'function'
+        && global.CapsuleExplorerRegistry.isNemoFamily()
+    );
+
     const isNautilusGnomeScope = (scope) => {
         const root = resolveContextMenuRoot(scope);
-        if (root && root.querySelector('main#gestionnaire.nautilus-app')) {
+        if (queryScopeMain(root, 'main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+            return false;
+        }
+        if (queryScopeMain(root, 'main#gestionnaire.nautilus-app')) {
+            return true;
+        }
+        if (isRegistryNautilusFamily()) {
             return true;
         }
         return isNautilusGnome();
@@ -30,7 +52,13 @@
 
     const isNemoCinnamonScope = (scope) => {
         const root = resolveContextMenuRoot(scope);
-        if (root && root.querySelector('main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+        if (queryScopeMain(root, 'main#gestionnaire.nautilus-app')) {
+            return false;
+        }
+        if (queryScopeMain(root, 'main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+            return true;
+        }
+        if (isRegistryNemoFamily()) {
             return true;
         }
         if (typeof global.isNemoTemplate === 'function') {
@@ -370,7 +398,7 @@
     };
 
     function bindNautilusGnomeContextMenu(scope) {
-        if (!isNautilusGnome()) {
+        if (!isNautilusGnomeScope(scope)) {
             return;
         }
         const root = scope || getNemoRoot();
@@ -495,15 +523,14 @@
             return;
         }
 
-        var content = scope.querySelector('.nemoElement');
-        if (!content) {
-            return;
-        }
-
         var menu = ensureNemoMenu(scope);
         var activeItem = null;
 
-        content.addEventListener('contextmenu', function (event) {
+        scope.addEventListener('contextmenu', function (event) {
+            var content = scope.querySelector('.nemoElement, .nemo-app__content-grid');
+            if (!content || !content.contains(event.target)) {
+                return;
+            }
             if (event.target.closest('.nemo-app__context-menu')) {
                 return;
             }
@@ -550,7 +577,9 @@
         }
         if (isNautilusGnomeScope(root)) {
             bindNautilusGnomeContextMenu(root);
-            return;
+            if (root.dataset.nemoContextMenuInit === 'true') {
+                return;
+            }
         }
         if (isNemoCinnamonScope(root)) {
             bindNemoContextMenu(root);

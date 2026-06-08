@@ -9,6 +9,8 @@ function resetFileExplorerSlotBindings(fileExplorerRoot) {
         'nemoZoomInit',
         'nemoSidebarDelegation',
         'nemoContextMenuInit',
+        'nemoContextMenuBound',
+        'nemoSidebarContextMenuBound',
         'nautilusTabsInit',
         'nemoPropertiesInit',
         'nautilusKeyboardInit',

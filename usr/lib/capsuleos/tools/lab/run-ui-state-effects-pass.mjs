@@ -110,7 +110,8 @@ async function runShellChecks(page, surfaces) {
     }
 
     if (surface === 'panel') {
-      await openMintSlot(page, 'nemo');
+      const panelSlot = 'firefox';
+      await openMintSlot(page, panelSlot);
       await page.waitForFunction(() => {
         if (window.CapsuleTaskbarWindowList && typeof window.CapsuleTaskbarWindowList.refresh === 'function') {
           window.CapsuleTaskbarWindowList.refresh();
@@ -118,21 +119,22 @@ async function runShellChecks(page, surfaces) {
         return document.querySelectorAll('#taskbar-window-list .taskbar-window-list__btn').length >= 1;
       }, null, { timeout: 8000 }).catch(() => {});
       await page.waitForTimeout(80);
-      const list = await page.evaluate(() => {
+      const list = await page.evaluate((slot) => {
         const links = document.querySelectorAll('#taskbar-window-list .taskbar-window-list__btn');
-        const nemo = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
+        const activeBtn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + slot + '"]');
         return {
           count: links.length,
-          nemoActive: nemo ? nemo.classList.contains('is-active') : false,
+          slotActive: activeBtn ? activeBtn.classList.contains('is-active') : false,
+          slot,
         };
-      });
+      }, panelSlot);
       push('window-list', 'nav', list.count >= 1, list);
-      push('panel-vis', 'vis', list.nemoActive, list);
+      push('panel-vis', 'vis', list.slotActive, list);
 
-      const focus = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      const focus = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display !== 'none';
-      });
+      }, panelSlot);
       push('panel-focus', 'int', focus, {});
 
       await page.evaluate(() => {
@@ -140,20 +142,20 @@ async function runShellChecks(page, surfaces) {
           window.CapsuleTaskbarWindowList.refresh();
         }
       });
-      await page.locator('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]').click({ force: true });
-      await page.waitForFunction(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      await page.locator('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + panelSlot + '"]').click({ force: true });
+      await page.waitForFunction((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display === 'none';
-      }, null, { timeout: 3000 }).catch(() => {});
+      }, panelSlot, { timeout: 3000 }).catch(() => {});
       await page.waitForTimeout(40);
-      const minimized = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
-        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
+      const minimized = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
+        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + slot + '"]');
         return {
           hidden: win && win.style.display === 'none',
           isMinimized: btn && btn.classList.contains('is-minimized'),
         };
-      });
+      }, panelSlot);
       push('panel-minimize', 'ctx', minimized.hidden && minimized.isMinimized, minimized);
 
       await page.evaluate(() => {
@@ -162,10 +164,10 @@ async function runShellChecks(page, surfaces) {
       });
       await page.keyboard.press('Enter');
       await page.waitForTimeout(60);
-      const restored = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      const restored = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display !== 'none';
-      });
+      }, panelSlot);
       push('panel-restore-kb', 'kb', restored, {});
 
       push('panel-data', 'data', list.count >= 1, list);

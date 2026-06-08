@@ -198,9 +198,17 @@
         var current = global.localStorage.getItem(storageKey) || 'fr';
 
         function syncRows() {
+            var trayLabel = global.document.querySelector('#tray-btn-keyboard .taskbar-tray__kbd-label');
             for (var i = 0; i < rows.length; i++) {
                 var code = rows[i].getAttribute('data-mint-layout');
                 rows[i].classList.toggle('is-active', code === current);
+            }
+            if (trayLabel) {
+                trayLabel.textContent = current;
+            }
+            var trayBtn = global.document.getElementById('tray-btn-keyboard');
+            if (trayBtn) {
+                trayBtn.setAttribute('aria-label', 'Disposition du clavier : ' + (current === 'en' ? 'anglais' : 'français'));
             }
         }
 
@@ -319,7 +327,8 @@
         });
 
         var updatesBtn = global.document.querySelector('[data-update-manager-tray]');
-        if (updatesBtn) {
+        if (updatesBtn && updatesBtn.dataset.mintTrayPopoverBound !== 'true') {
+            updatesBtn.dataset.mintTrayPopoverBound = 'true';
             updatesBtn.addEventListener('click', function onUpdatesClick() {
                 closeAll();
             });

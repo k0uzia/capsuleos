@@ -101,6 +101,22 @@ Hook Mint
 
 Token : `--taskbar-height` réassigné à `--mint-panel-height` dans `mint-y-dark-aqua-tokens.css` (évite bleed portal 1.25×head).
 
+### Carte panel Mint — applet → noyau → skin (Cinnamon)
+
+| Applet panel | Module noyau | Hook skin Mint | Test smoke |
+|--------------|--------------|----------------|------------|
+| Menu principal | `mainMenu.js` · `openWindowByDataLink('mainMenu')` | `a.mint-panel__menu-btn[data-link="mainMenu"]` · `mainMenu.skin.css` | `run-ui-state-effects-pass --shell mainMenu` |
+| Lanceurs épinglés (nemo, mintinstall, terminal) | `capsule-window-shell.js` · `taskbar-launcher-state.js` | `content/mint-panel-pinned.js` (fallback) · `mint-panel.css` | `run-capsule-panel-browser` 6/6 |
+| grouped-window-list | `taskbar-window-list.js` (slots ≠ épinglés) | CSS `mint-panel.css` uniquement | `run-ui-state-effects-pass --shell panel` (firefox) |
+| Bouclier mises à jour | `update-manager.js` · `[data-update-manager-tray]` | `mint-tray.js` ferme popovers tray | `smoke-mint-tray` · `smoke-mint-update-manager` |
+| Clavier (fr/en) | — (stub Cinnamon) | `mint-tray.js` · `#mint-tray-popover-keyboard` | `smoke-mint-tray` |
+| Réseau | pattern `volume.js` (popover) | `mint-tray.js` · `#mint-tray-popover-network` | `smoke-mint-tray` · `run-ui-state-effects-pass --shell tray` |
+| Volume | `volume.js` · `#tray-sound-btn` | `volume-popover.css` | `smoke-mint-tray` |
+| Horloge / calendrier | `calendar-popover.js` · `date.js` | `calendar-popover.css` | `run-ui-state-effects-pass --shell clock` |
+| Verrou / déconnexion / arrêt (menu) | `mainMenu.js` · `#menu-btn-lock/logout/power` | gabarit `mainMenu.html` footer | menu footer clic → `CapsulePickReturn` |
+
+Applets VM masquées sur clone (`mint-tray--vm-collapsed` + `hidden`) : XApp, notifications, imprimantes, amovibles, alimentation tray, cornerbar — popovers présents mais non testés tant que masqués.
+
 ---
 
 ## Branchement — WM et Alt+Tab

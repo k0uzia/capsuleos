@@ -9,6 +9,7 @@ function initMainMenu() {
     const catsList    = document.getElementById('menu-cats');
     const appList     = document.getElementById('menu-app-list');
     const searchInput = document.getElementById('menu-search');
+    const btnLock     = document.getElementById('menu-btn-lock');
     const btnLogout   = document.getElementById('menu-btn-logout');
     const btnPower    = document.getElementById('menu-btn-power');
     const menuEl      = document.querySelector('div[data-link="mainMenu"]');
@@ -108,6 +109,9 @@ function initMainMenu() {
     };
 
     // ── Boutons système (retour accueil avec modale Linux) ──
+    if (btnLock) {
+        btnLock.addEventListener('click', returnToPickHome);
+    }
     if (btnLogout) {
         btnLogout.addEventListener('click', returnToPickHome);
     }

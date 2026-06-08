@@ -17,6 +17,7 @@ const TRAY_CASES = [
   { btn: '#tray-btn-network', popover: '#mint-tray-popover-network' },
   { btn: '#tray-sound-btn', popover: '#volume-popover' },
   { btn: '.taskbar-tray__btn--power', popover: '#mint-power-menu' },
+  { btn: '[data-update-manager-tray]', action: 'open-update-manager' },
 ];
 
 const browser = await chromium.launch({ headless: true, executablePath: chromePath });
@@ -27,6 +28,26 @@ await page.waitForFunction(() => typeof window.CapsuleMintTray === 'object', nul
 const results = [];
 
 for (const row of TRAY_CASES) {
+  const visible = await page.evaluate((btnSel) => {
+    const el = document.querySelector(btnSel);
+    if (!el) return false;
+    if (el.hidden) return false;
+    return getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden';
+  }, row.btn);
+  if (!visible) {
+    results.push({ btn: row.btn, skipped: true, ok: true });
+    continue;
+  }
+  if (row.action === 'open-update-manager') {
+    await page.click(row.btn);
+    await page.waitForTimeout(120);
+    const opened = await page.evaluate(() => {
+      const win = document.querySelector('div[data-link="update_manager"]');
+      return win && win.style.display !== 'none';
+    });
+    results.push({ btn: row.btn, action: row.action, ok: opened });
+    continue;
+  }
   await page.click(row.btn);
   await page.waitForTimeout(70);
   const state = await page.evaluate(({ btnSel, popSel }) => {
@@ -46,40 +67,51 @@ for (const row of TRAY_CASES) {
   await page.waitForTimeout(45);
 }
 
-await page.evaluate(() => window.openWindowByDataLink('nemo'));
-await page.waitForTimeout(45);
-await page.click('#tray-btn-cornerbar');
-await page.waitForFunction(() => {
-  const nemo = document.querySelector('div[data-link="nemo"]');
-  return nemo && nemo.style.display === 'none';
-}, null, { timeout: 3000 }).catch(() => {});
-await page.waitForTimeout(40);
-const cornerbarHide = await page.evaluate(() => {
-  const nemo = document.querySelector('div[data-link="nemo"]');
+const cornerbarVisible = await page.evaluate(() => {
   const btn = document.getElementById('tray-btn-cornerbar');
-  return {
-    pressed: btn ? btn.getAttribute('aria-pressed') : null,
-    nemoHidden: nemo ? nemo.style.display === 'none' : false,
-  };
+  return btn && !btn.hidden && getComputedStyle(btn).display !== 'none';
 });
 
-await page.click('#tray-btn-cornerbar');
-await page.waitForFunction(() => {
-  const nemo = document.querySelector('div[data-link="nemo"]');
-  return nemo && nemo.style.display !== 'none';
-}, null, { timeout: 3000 }).catch(() => {});
-await page.waitForTimeout(40);
-const cornerbarRestore = await page.evaluate(() => {
-  const nemo = document.querySelector('div[data-link="nemo"]');
-  const btn = document.getElementById('tray-btn-cornerbar');
-  return {
-    pressed: btn ? btn.getAttribute('aria-pressed') : null,
-    nemoVisible: nemo ? nemo.style.display !== 'none' : false,
-  };
-});
+let cornerbarHide = { skipped: true };
+let cornerbarRestore = { skipped: true };
+let cornerOk = true;
+
+if (cornerbarVisible) {
+  await page.evaluate(() => window.openWindowByDataLink('nemo'));
+  await page.waitForTimeout(45);
+  await page.click('#tray-btn-cornerbar');
+  await page.waitForFunction(() => {
+    const nemo = document.querySelector('div[data-link="nemo"]');
+    return nemo && nemo.style.display === 'none';
+  }, null, { timeout: 3000 }).catch(() => {});
+  await page.waitForTimeout(40);
+  cornerbarHide = await page.evaluate(() => {
+    const nemo = document.querySelector('div[data-link="nemo"]');
+    const btn = document.getElementById('tray-btn-cornerbar');
+    return {
+      pressed: btn ? btn.getAttribute('aria-pressed') : null,
+      nemoHidden: nemo ? nemo.style.display === 'none' : false,
+    };
+  });
+
+  await page.click('#tray-btn-cornerbar');
+  await page.waitForFunction(() => {
+    const nemo = document.querySelector('div[data-link="nemo"]');
+    return nemo && nemo.style.display !== 'none';
+  }, null, { timeout: 3000 }).catch(() => {});
+  await page.waitForTimeout(40);
+  cornerbarRestore = await page.evaluate(() => {
+    const nemo = document.querySelector('div[data-link="nemo"]');
+    const btn = document.getElementById('tray-btn-cornerbar');
+    return {
+      pressed: btn ? btn.getAttribute('aria-pressed') : null,
+      nemoVisible: nemo ? nemo.style.display !== 'none' : false,
+    };
+  });
+  cornerOk = cornerbarHide.nemoHidden && cornerbarRestore.nemoVisible;
+}
 
 const trayOk = results.every((r) => r.ok);
-const cornerOk = cornerbarHide.nemoHidden && cornerbarRestore.nemoVisible;
 
 console.log(JSON.stringify({ results, cornerbarHide, cornerbarRestore, trayOk, cornerOk }, null, 2));
 await browser.close();

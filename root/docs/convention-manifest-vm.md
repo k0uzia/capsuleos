@@ -59,8 +59,11 @@ Catalogue médias v2 : blocs `toolkits` + `vendors` avec héritage `extends` —
 | Intégration | **Int** | inventaires parité + rapport `integration-pass-*.json` | `Mint Int : inventaire VM et playbook aligné.` |
 | Parité panel | **Vp** | `compare-os-parity` / outillage lab | `Mint Vp : compare panel export 6 étapes.` |
 | Application | **App#N** | une app du catalogue alphabétique | `Mint App#10 : gestionnaire pilotes (mintdrivers).` |
+| Campagne v2 pallier | **P0…P5** | clôture d’un pallier réplique exacte VM | `Mint P1 : panel grouped-window-list (réplique VM).` |
 
 Ne pas mélanger deux phases dans un même commit sauf **ManΣ** initial (bootstrap vendor).
+
+**Enchaînement agent (campagne v2)** : à chaque pallier clôturé (gates + smokes du périmètre) → **commit + push auto** → pallier suivant sans approbation humaine. État : `linux-mint-replication-state.json`.
 
 **AppV** est dérivé du manifeste (plus de scrape bash partiel) :
 

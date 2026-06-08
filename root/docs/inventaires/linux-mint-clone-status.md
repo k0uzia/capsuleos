@@ -87,6 +87,14 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [ ] Reproduction **une app par passe** (suite catalogue #32+) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
 
+## Passe parité panel + menu (2026-06-08 PM)
+
+- [x] **Icônes menu** : 97/97 chargées (symlinks `.svg`/`.png` sur assets ManΣ + extensions dans `mainMenu-data-cinnamon.js`)
+- [x] **Panel** : séparateur Cinnamon après menu, logo circulaire, tray 24px, favoris 22px
+- [x] **Menu** : tokens Mint-Y-Dark-Aqua, libellés FR, géométrie sidebar/catégories/apps
+- [x] Captures : `capture-mint-panel-menu.mjs --compare` → `captures/linux-mint/20260608-104657/`
+- [x] Checklist panel **6/6** VM + Capsule (`compare-os-parity --capsule-json`)
+
 ## Campagne v2 — shell panel (2026-06-08)
 
 - [x] Panel : **menu + grouped-window-list** (lanceurs fixes / checklist / accueil retirés)

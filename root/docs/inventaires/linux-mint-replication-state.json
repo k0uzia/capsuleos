@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaignId": "mint-v2-exact-vm",
   "startedAt": "2026-06-08T08:20:09Z",
-  "updatedAt": "2026-06-08T20:10:00Z",
+  "updatedAt": "2026-06-08T10:47:00Z",
   "scope": {
     "definition": "Réplique exacte de la VM modèle (ground truth unique) — capsule@192.168.1.146, Cinnamon 6.6.7, Mint 22.3 Zena.",
     "groundTruth": "root/docs/inventaires/linux-mint-vm.json",
@@ -46,6 +46,7 @@
     },
     "panelChecklistVm": "6/6",
     "panelChecklistCapsule": "6/6",
+    "menuIconsOk": "97/97",
     "manifestDrift": 0,
     "validateAllH2": true,
     "panelModel": "menu + grouped-window-list (2026-06-08)",
@@ -124,5 +125,12 @@
   "nextActions": [
     "Maintenance : smoke régulier run-ui-state-effects-pass.mjs après changements shell",
     "Firefox Proton : parité visuelle P2 optionnelle (firefox-vm.md)"
-  ]
+  ],
+  "lastPanelMenuPass": {
+    "at": "2026-06-08T10:47:00Z",
+    "tool": "capture-mint-panel-menu.mjs",
+    "iconStats": { "total": 97, "ok": 97, "broken": 0 },
+    "panelChecklist": "6/6 VM + 6/6 Capsule",
+    "captures": "root/docs/inventaires/captures/linux-mint/20260608-104657/"
+  }
 }

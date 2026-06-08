@@ -7,6 +7,16 @@ html > body > footer > nav {
     gap: calc(var(--head) / 14);
 }
 
+body#mint .taskbar-separator {
+    display: var(--bl);
+    width: 1px;
+    height: calc(var(--head) * 0.62);
+    margin: 0 calc(var(--head) / 10);
+    background: var(--mint-tray-separator);
+    flex-shrink: 0;
+    align-self: center;
+}
+
 .taskbar-window-list {
     display: var(--f);
     flex-flow: var(--rnw);
@@ -74,8 +84,8 @@ html > body > footer > nav {
 
 .taskbar-favorites__btn {
     display: var(--bl);
-    width: calc(var(--head) * 1.05);
-    height: calc(var(--head) * 1.05);
+    width: var(--mint-favorites-icon-size);
+    height: var(--mint-favorites-icon-size);
     padding: calc(var(--head) / 10);
     border: 1px solid transparent;
     border-radius: calc(var(--head) / 12);

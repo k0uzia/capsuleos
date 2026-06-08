@@ -82,8 +82,29 @@
         'Utilisateurs et groupes': 'users'
     };
 
+    var FRENCH_APP_NAMES = {
+        'Calculator': 'Calculatrice',
+        'Calendar': 'Agenda',
+        'Archive Manager': 'Gestionnaire d\'archives',
+        'Celluloid': 'Lecteur vidéo',
+        'Firefox': 'Firefox',
+        'Files': 'Fichiers',
+        'Library': 'Bibliothèque',
+        'Welcome Screen': 'Écran d\'accueil Mint',
+        'Text Editor': 'Éditeur de texte',
+        'Drawing': 'Dessin',
+        'Document Scanner': 'Numérisation de documents',
+        'Disk Usage Analyzer': 'Analyseur d\'espace disque',
+        'Update Manager': 'Gestionnaire de mise à jour',
+        'Software Manager': 'Logithèque',
+        'System Monitor': 'Moniteur système'
+    };
+
     if (typeof MENU_APPS !== 'undefined' && MENU_APPS.length) {
         MENU_APPS.forEach(function patchApp(app) {
+            if (FRENCH_APP_NAMES[app.name]) {
+                app.name = FRENCH_APP_NAMES[app.name];
+            }
             if (CS_PANEL_BY_NAME[app.name] && app.dataLink === 'themes' && !app.csPanel) {
                 app.csPanel = CS_PANEL_BY_NAME[app.name];
             }
@@ -102,7 +123,7 @@
             if (app.name === 'System Monitor' || app.name === 'Moniteur système') {
                 app.dataLink = 'system_monitor';
                 app.name = 'Moniteur système';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor.svg';
             }
             if (app.name === 'Thèmes') {
                 app.icon = panelIcon + 'preferences-desktop-theme.webp';
@@ -122,37 +143,37 @@
             }
             if (app.name === 'LibreOffice Calc') {
                 app.dataLink = 'librecalc';
-                app.icon = './assets/images/toolkits/gnome/apps/libreoffice-calc';
+                app.icon = './assets/images/toolkits/gnome/apps/libreoffice-calc.svg';
             }
             if (app.name === 'Capture d\'écran') {
                 app.dataLink = 'screenshot';
             }
             if (app.name === 'Dessin') {
                 app.dataLink = 'drawing';
-                app.icon = './assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing';
+                app.icon = './assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing.svg';
             }
             if (app.name === 'Gestionnaire d\'archives') {
                 app.dataLink = 'file_roller';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg';
             }
             if (app.name === 'Gestionnaire de pilotes') {
                 app.dataLink = 'mintdrivers';
-                app.icon = './assets/images/toolkits/gnome/apps/mintdrivers';
+                app.icon = './assets/images/toolkits/gnome/apps/mintdrivers.svg';
             }
             if (app.name === 'Analyseur d\'espace disque' || app.name === 'Disk Usage Analyzer') {
                 app.dataLink = 'baobab';
                 app.name = 'Analyseur d\'espace disque';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.baobab';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.baobab.svg';
             }
             if (app.name === 'Applications web' || app.name === 'Applications Web') {
                 app.dataLink = 'webapp_manager';
                 app.name = 'Applications Web';
-                app.icon = './assets/images/toolkits/gnome/apps/webapp-manager';
+                app.icon = './assets/images/toolkits/gnome/apps/webapp-manager.svg';
             }
             if (app.name === 'Écran d\'accueil' || app.name === 'Écran d\'accueil Mint') {
                 app.dataLink = 'mintwelcome';
                 app.name = 'Écran d\'accueil Mint';
-                app.icon = './assets/images/toolkits/gnome/apps/mintwelcome';
+                app.icon = './assets/images/toolkits/gnome/apps/mintwelcome.svg';
             }
             if (app.name === 'Hypnotix') {
                 app.dataLink = 'hypnotix';
@@ -181,7 +202,14 @@
             }
             if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
                 app.dataLink = 'lecteur_multimedia';
-                app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid';
+                app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.svg';
+            }
+            if (app.name === 'Gestionnaire d\'archives') {
+                app.dataLink = 'file_roller';
+                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg';
+            }
+            if (app.name === 'Agenda') {
+                app.icon = panelIcon + 'org.gnome.Calendar.webp';
             }
         });
         var hasScreenshot = false;
@@ -195,7 +223,7 @@
         if (!hasScreenshot) {
             MENU_APPS.push({
                 catId: 'access',
-                icon: './assets/images/toolkits/gnome/apps/org.gnome.Screenshot',
+                icon: './assets/images/toolkits/gnome/apps/org.gnome.Screenshot.svg',
                 name: 'Capture d\'écran',
                 desc: 'Prenez une photo de l\'écran',
                 dataLink: 'screenshot'

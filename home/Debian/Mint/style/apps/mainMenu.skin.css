@@ -86,3 +86,79 @@ body#mint footer nav > a[data-link="mainMenu"].active-link {
 body#mint footer nav > a[data-link="mainMenu"].running-link:not(.active-link) {
     box-shadow: inset 0 -2px 0 var(--menu-accent);
 }
+
+body#mint div[data-link="mainMenu"] .menu-user {
+    border-bottom-color: var(--menu-sidebar-separator);
+}
+
+body#mint div[data-link="mainMenu"] .menu-user__name {
+    font-size: calc(var(--head) / 2.6);
+}
+
+body#mint div[data-link="mainMenu"] .menu-shortcut {
+    font-size: calc(var(--head) / 2.85);
+    border-left-width: 0;
+}
+
+body#mint div[data-link="mainMenu"] .menu-shortcut img {
+    width: calc(var(--head) / 2);
+    height: calc(var(--head) / 2);
+}
+
+body#mint div[data-link="mainMenu"] .menu-categories {
+    width: calc(var(--head) * 5.2);
+}
+
+body#mint div[data-link="mainMenu"] .menu-cat {
+    font-size: calc(var(--head) / 2.85);
+    padding: calc(var(--head) / 3.5) calc(var(--head) / 4);
+    border-left-width: 0;
+}
+
+body#mint div[data-link="mainMenu"] .menu-cat.is-active {
+    border-left-width: 0;
+    font-weight: bold;
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item {
+    min-height: calc(var(--head) * 1.05);
+    padding: calc(var(--head) / 10) calc(var(--head) / 3.5);
+    border-left-width: 0;
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item__icon {
+    width: calc(var(--head) * 0.68);
+    height: calc(var(--head) * 0.68);
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item__name {
+    font-size: calc(var(--head) / 2.85);
+    font-weight: normal;
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item__desc {
+    font-size: calc(var(--head) / 3.2);
+    opacity: 0.72;
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item.is-unavailable {
+    opacity: 0.42;
+}
+
+body#mint div[data-link="mainMenu"] .menu-search-wrap {
+    border-top-color: var(--menu-sidebar-separator);
+}
+
+body#mint div[data-link="mainMenu"] .menu-search {
+    height: calc(var(--head) / 1.15);
+    font-size: calc(var(--head) / 2.85);
+}
+
+body#mint div[data-link="mainMenu"] .menu-actions {
+    border-top-color: var(--menu-sidebar-separator);
+}
+
+body#mint div[data-link="mainMenu"] .menu-action img {
+    filter: none;
+    opacity: 0.92;
+}

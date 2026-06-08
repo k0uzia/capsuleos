@@ -98,6 +98,35 @@ async function runShellChecks(page, surfaces) {
         document.querySelectorAll('#menu-app-list .menu-app-item:not(.is-unavailable)').length >= 1
       ));
       push('menu-search', 'int', search, {});
+
+      await page.evaluate(() => {
+        const item = document.querySelector('#menu-app-list .menu-app-item:not(.is-unavailable)');
+        if (!item) {
+          return;
+        }
+        const event = new MouseEvent('contextmenu', {
+          bubbles: true,
+          cancelable: true,
+          clientX: 280,
+          clientY: 220,
+        });
+        item.dispatchEvent(event);
+      });
+      await page.waitForTimeout(80);
+      const menuCtx = await page.evaluate(() => {
+        const ctxMenu = document.getElementById('menu-app-context-menu');
+        return ctxMenu && !ctxMenu.hidden && !ctxMenu.hasAttribute('hidden');
+      });
+      push('menu-app-ctx', 'ctx', menuCtx, {});
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(40);
+      const ctxClosed = await page.evaluate(() => {
+        const ctxMenu = document.getElementById('menu-app-context-menu');
+        return !ctxMenu || ctxMenu.hidden || ctxMenu.hasAttribute('hidden');
+      });
+      push('menu-ctx-kb', 'kb', ctxClosed, {});
+
       push('menu-data', 'data', search, {});
 
       await page.keyboard.press('Escape');

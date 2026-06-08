@@ -394,3 +394,47 @@ body#mint div[data-link="mainMenu"] .menu-action img {
     filter: none;
     opacity: 0.92;
 }
+
+body#mint .menu-app-context-menu {
+    position: fixed;
+    z-index: 750;
+    min-width: calc(var(--head) * 6.5);
+    margin: 0;
+    padding: calc(var(--head) / 10) 0;
+    border: var(--mint-desktop-context-border, 1px solid rgba(255, 255, 255, 0.1));
+    border-radius: calc(var(--head) / 10);
+    background: var(--mint-desktop-context-bg, rgba(32, 32, 36, 0.96));
+    box-shadow: var(--mint-desktop-context-shadow, 0 8px 28px rgba(0, 0, 0, 0.45));
+    color: var(--mint-desktop-context-text, #f5f6f8);
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.8);
+}
+
+body#mint .menu-app-context-menu[hidden] {
+    display: none;
+}
+
+body#mint .menu-app-context-menu__item {
+    display: block;
+    width: 100%;
+    padding: calc(var(--head) / 5) calc(var(--head) / 2.5);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: default;
+}
+
+body#mint .menu-app-context-menu__item:hover:not(:disabled) {
+    background: var(--mint-desktop-context-hover, rgba(255, 255, 255, 0.1));
+}
+
+body#mint .menu-app-context-menu__separator {
+    height: 1px;
+    margin: calc(var(--head) / 12) calc(var(--head) / 6);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body#mint div[data-link="mainMenu"] .menu-app-item.is-context-target {
+    background: var(--menu-app-hover-bg, rgba(255, 255, 255, 0.08));
+}

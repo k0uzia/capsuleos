@@ -14,13 +14,13 @@
   "shell": {
     "mainMenu": {
       "id": "mainMenu",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
+        "ctx": 100,
         "kb": 100,
         "data": 100
       },
@@ -62,10 +62,10 @@
         "cacheBust": "20260608pxperfect",
         "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T14:11:42.015Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T14:11:42.015Z"
+      "lastPass": "2026-06-08T15:51:54.110Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T15:51:54.110Z"
     },
     "panel": {
       "id": "panel",
@@ -1064,7 +1064,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T15:35:01.533Z",
+  "updatedAt": "2026-06-08T15:51:54.110Z",
   "pi_global": 98,
   "status_global": "ok"
 }

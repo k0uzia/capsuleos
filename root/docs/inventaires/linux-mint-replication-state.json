@@ -8,7 +8,7 @@
   },
   "catalog": {
     "vmMenuEntries": 101,
-    "capsuleSlots": 45,
+    "capsuleSlots": 44,
     "slotsOpenOk": 101,
     "interactionParityMeasured": true
   },
@@ -34,7 +34,7 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "pallier": 8,
+  "pallier": 9,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
   "pallier3Commit": "aa71cce",
@@ -43,7 +43,7 @@
   "pallier6Commit": "9a547e1",
   "pallier7Commit": "fc7396e",
   "pallier8Commit": "bb64562",
-  "updatedAt": "2026-06-08T14:15:00.000Z",
+  "updatedAt": "2026-06-08T15:55:00.000Z",
   "integralPass": {
     "date": "2026-06-08",
     "doc": "root/docs/recette-clone-mint-integral.md",
@@ -56,7 +56,7 @@
     "validateAll": "ok",
     "toolkitParadigmAll": "ok",
     "manifestDriftPull": 0,
-    "manifestDriftRefs": 68
+    "manifestDriftRefs": 0
   },
   "paritySnapshot": {
     "pi_global": 98,
@@ -72,7 +72,7 @@
       "themes": 100
     },
     "shell": {
-      "mainMenu": 92,
+      "mainMenu": 100,
       "panel": 100,
       "tray": 100,
       "desktop": 92,
@@ -82,27 +82,39 @@
       "windowChrome": 100
     }
   },
-  "nonConformites": [
+  "nonConformites": [],
+  "resolvedDebts": [
+    {
+      "id": "MENU-CTX-50",
+      "severity": "P2",
+      "resolvedAt": "2026-06-08",
+      "summary": "Menu contextuel apps Cinnamon (#menu-app-context-menu) — ctx Π=100"
+    },
     {
       "id": "MAN-DRIFT-68",
       "severity": "P2",
-      "summary": "68 rewrite-ref ManΣ (icônes GTK → gnome/apps) — pull=0"
+      "resolvedAt": "2026-06-08",
+      "summary": "ManΣ capsuleTarget → toolkits/cinnamon/apps — drift=0"
     },
     {
       "id": "CAPS-ONLY-2",
       "severity": "CapsuleOnly",
-      "summary": "librewriter + checklist panel — pédagogie hors VM"
-    },
-    {
-      "id": "MENU-CTX-50",
-      "severity": "P2",
-      "summary": "mainMenu ctx Π=50 — menus contextuels apps secondaires"
+      "resolvedAt": "2026-06-08",
+      "summary": "librewriter retiré DOM/panel ; Writer → libreoffice_startcenter ; checklist absent panel"
     }
   ],
+  "currentFocus": "linux-mint-only",
+  "nextPallier": 10,
+  "nextQueue": [
+    "desktop-ctx-polish",
+    "text_editor-p1",
+    "file_roller-p1"
+  ],
   "notes": [
-    "Pallier 8 — recette intégrale re-exécutée : VM seule vérité, smokes viewport 1280×800, altTab/windowChrome Π=100.",
+    "Windows 11 mis en pause (2026-06-08) — campagne Mint seule.",
+    "Pallier 9 — menu principal Π=100 (nav/int/ctx/kb/data), géométrie maxDelta 0.7px.",
     "101/101 catalogue : slots ouverts OK.",
     "Π_global 98 — 0 slot < 90.",
-    "ManΣ pull=0 ; drift refs 68 documenté (apps GNOME upstream sur Mint)."
+    "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps."
   ]
 }

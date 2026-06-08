@@ -131,7 +131,7 @@
                 app.icon = panelIcon + 'preferences-desktop-theme.webp';
             }
             if (app.name === 'LibreOffice Writer') {
-                app.dataLink = 'librewriter';
+                app.dataLink = 'libreoffice_startcenter';
                 app.icon = panelIcon + 'libreoffice-writer.webp';
             }
             if (app.name === 'LibreOffice') {

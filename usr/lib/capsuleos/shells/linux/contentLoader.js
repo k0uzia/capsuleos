@@ -326,10 +326,21 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
             }
         }
         if (templateId === 'themes' && text) {
-            const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
-            const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
-            if (gnomeResp.ok) {
-                text = `${text}\n${await gnomeResp.text()}`;
+            const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+                ? String(window.CAPSULE_EMBED_SKIN_KEY)
+                : '';
+            if (embedKey === 'mint') {
+                const cinnamonFile = `${appsBase}/style/themes_cinnamon.base.css`;
+                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
+                if (cinnamonResp.ok) {
+                    text = `${text}\n${await cinnamonResp.text()}`;
+                }
+            } else {
+                const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
+                const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
+                if (gnomeResp.ok) {
+                    text = `${text}\n${await gnomeResp.text()}`;
+                }
             }
         }
         if (templateId === 'terminal' && text) {
@@ -467,7 +478,9 @@ const SLOT_INIT_HANDLERS = {
         ]);
     },
     themes: () => {
-        if (typeof initThemesApp === 'function') {
+        if (typeof initCinnamonSettingsApp === 'function' && document.getElementById('cinnamonSettingsApp')) {
+            initCinnamonSettingsApp();
+        } else if (typeof initThemesApp === 'function') {
             initThemesApp();
         }
     },
@@ -486,19 +499,45 @@ const SLOT_INIT_HANDLERS = {
             initLibreWriter();
         }
     },
+    librecalc: () => {
+        if (typeof initLibreCalc === 'function') {
+            initLibreCalc();
+        }
+    },
     visionneur_images: () => {
+        if (typeof initVisionneurImagesApp === 'function' && document.getElementById('visionneurImages')) {
+            initVisionneurImagesApp();
+        }
         runFirstAvailable([
-            { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['visionneur_images'] },
-            { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['visionneur_images'] }
+            {
+                fn: typeof renderFileViewer === 'function' ? renderFileViewer : null,
+                args: ['visionneur_images']
+            },
+            {
+                fn: typeof renderMintViewer === 'function' ? renderMintViewer : null,
+                args: ['visionneur_images']
+            }
         ]);
     },
     visionneur_pdf: () => {
+        if (typeof initVisionneurPdfApp === 'function' && document.getElementById('visionneurPdf')) {
+            initVisionneurPdfApp();
+        }
         runFirstAvailable([
-            { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['visionneur_pdf'] },
-            { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['visionneur_pdf'] }
+            {
+                fn: typeof renderFileViewer === 'function' ? renderFileViewer : null,
+                args: ['visionneur_pdf']
+            },
+            {
+                fn: typeof renderMintViewer === 'function' ? renderMintViewer : null,
+                args: ['visionneur_pdf']
+            }
         ]);
     },
     lecteur_multimedia: () => {
+        if (typeof initCelluloidApp === 'function') {
+            initCelluloidApp();
+        }
         runFirstAvailable([
             { fn: typeof renderFileViewer === 'function' ? renderFileViewer : null, args: ['lecteur_multimedia'] },
             { fn: typeof renderMintViewer === 'function' ? renderMintViewer : null, args: ['lecteur_multimedia'] }
@@ -507,6 +546,16 @@ const SLOT_INIT_HANDLERS = {
     update_manager: () => {
         if (typeof initUpdateManagerApp === 'function') {
             initUpdateManagerApp();
+        }
+    },
+    mintinstall: () => {
+        if (typeof initMintInstallApp === 'function') {
+            initMintInstallApp();
+        }
+    },
+    system_monitor: () => {
+        if (typeof initSystemMonitorApp === 'function') {
+            initSystemMonitorApp();
         }
     },
     calculator: () => {
@@ -537,6 +586,131 @@ const SLOT_INIT_HANDLERS = {
     file_roller: () => {
         if (typeof initFileRollerApp === 'function') {
             initFileRollerApp();
+        }
+    },
+    mintdrivers: () => {
+        if (typeof initMintDriversApp === 'function') {
+            initMintDriversApp();
+        }
+    },
+    baobab: () => {
+        if (typeof initBaobabApp === 'function') {
+            initBaobabApp();
+        }
+    },
+    webapp_manager: () => {
+        if (typeof initWebappManagerApp === 'function') {
+            initWebappManagerApp();
+        }
+    },
+    sticky: () => {
+        if (typeof initStickyApp === 'function') {
+            initStickyApp();
+        }
+    },
+    warpinator: () => {
+        if (typeof initWarpinatorApp === 'function') {
+            initWarpinatorApp();
+        }
+    },
+    hypnotix: () => {
+        if (typeof initHypnotixApp === 'function') {
+            initHypnotixApp();
+        }
+    },
+    transmission: () => {
+        if (typeof initTransmissionApp === 'function') {
+            initTransmissionApp();
+        }
+    },
+    mintbackup: () => {
+        if (typeof initMintbackupApp === 'function') {
+            initMintbackupApp();
+        }
+    },
+    bulky: () => {
+        if (typeof initBulkyApp === 'function') {
+            initBulkyApp();
+        }
+    },
+    timeshift: () => {
+        if (typeof initTimeshiftApp === 'function') {
+            initTimeshiftApp();
+        }
+    },
+    thunderbird: () => {
+        if (typeof initThunderbirdApp === 'function') {
+            initThunderbirdApp();
+        }
+    },
+    mintwelcome: () => {
+        if (typeof initMintwelcomeApp === 'function') {
+            initMintwelcomeApp();
+        }
+    },
+    gucharmap: () => {
+        if (typeof initGucharmapApp === 'function') {
+            initGucharmapApp();
+        }
+    },
+    simple_scan: () => {
+        if (typeof initSimpleScanApp === 'function') {
+            initSimpleScanApp();
+        }
+    },
+    thingy: () => {
+        if (typeof initThingyApp === 'function') {
+            initThingyApp();
+        }
+    },
+    rhythmbox: () => {
+        if (typeof initRhythmboxApp === 'function') {
+            initRhythmboxApp();
+        }
+    },
+    gnome_disks: () => {
+        if (typeof initGnomeDisksApp === 'function') {
+            initGnomeDisksApp();
+        }
+    },
+    libreoffice_startcenter: () => {
+        if (typeof initLibreofficeStartcenterApp === 'function') {
+            initLibreofficeStartcenterApp();
+        }
+    },
+    libreoffice_draw: () => {
+        if (typeof initLibreofficeDrawApp === 'function') {
+            initLibreofficeDrawApp();
+        }
+    },
+    libreoffice_impress: () => {
+        if (typeof initLibreofficeImpressApp === 'function') {
+            initLibreofficeImpressApp();
+        }
+    },
+    mintstick: () => {
+        if (typeof initMintstickApp === 'function') {
+            initMintstickApp();
+        }
+    },
+    mintstick_format: () => {
+        if (typeof initMintstickFormatApp === 'function') {
+            initMintstickFormatApp();
+        }
+    },
+    font_viewer: () => {
+        if (typeof initFontViewerApp === 'function') {
+            initFontViewerApp();
+        }
+    },
+    power_stats: () => {
+        if (typeof initPowerStatsApp === 'function') {
+            initPowerStatsApp();
+        }
+    },
+    mate_color_select: () => {
+        if (typeof initMateColorSelectApp === 'function') {
+            initMateColorSelectApp();
         }
     },
     text_editor: () => {

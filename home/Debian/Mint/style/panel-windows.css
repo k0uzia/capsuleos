@@ -7,6 +7,16 @@ html > body > footer > nav {
     gap: calc(var(--head) / 14);
 }
 
+body#mint .taskbar-separator {
+    display: var(--bl);
+    width: 1px;
+    height: calc(var(--head) * 0.62);
+    margin: 0 calc(var(--head) / 10);
+    background: var(--mint-tray-separator);
+    flex-shrink: 0;
+    align-self: center;
+}
+
 .taskbar-window-list {
     display: var(--f);
     flex-flow: var(--rnw);
@@ -27,21 +37,73 @@ html > body > footer > nav {
 }
 
 .taskbar-window-list__btn {
-    display: var(--bl);
-    max-width: calc(var(--head) * 5.5);
-    padding: calc(var(--head) / 8) calc(var(--head) / 3);
-    border: 1px solid var(--t);
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    gap: calc(var(--head) / 6);
+    max-width: calc(var(--head) * 8);
+    height: calc(var(--head) * 1.15);
+    padding: 0 calc(var(--head) / 4);
+    border: 1px solid transparent;
     border-radius: calc(var(--head) / 10);
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(0, 0, 0, 0.12);
     color: var(--texte);
     font-family: var(--font-ui);
-    font-size: calc(var(--head) / 2.6);
+    font-size: calc(var(--head) / 2.8);
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     cursor: default;
     transition: background-color var(--eas2), border-color var(--eas2), transform var(--eas2);
+}
+
+.taskbar-window-list__icon {
+    width: calc(var(--head) * 0.95);
+    height: calc(var(--head) * 0.95);
+    flex-shrink: 0;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.taskbar-window-list__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.taskbar-window-list__btn.is-minimized {
+    opacity: 0.72;
+}
+
+.taskbar-favorites {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    gap: calc(var(--head) / 14);
+    margin: 0 calc(var(--head) / 10);
+}
+
+.taskbar-favorites__btn {
+    display: var(--bl);
+    width: var(--mint-favorites-icon-size);
+    height: var(--mint-favorites-icon-size);
+    padding: calc(var(--head) / 10);
+    border: 1px solid transparent;
+    border-radius: calc(var(--head) / 12);
+    background: transparent;
+    cursor: default;
+    transition: background-color var(--eas2), border-color var(--eas2);
+}
+
+.taskbar-favorites__btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.taskbar-favorites__btn:hover {
+    background: var(--mint-clock-hover-bg);
+    border-color: var(--mint-taskbar-item-border-hover);
 }
 
 .taskbar-window-list__btn:hover {

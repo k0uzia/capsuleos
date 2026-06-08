@@ -1,0 +1,142 @@
+{
+  "registryId": "linux-mint",
+  "slot": "firefox",
+  "label": "Firefox",
+  "collectedAt": "2026-06-08T11:41:04.965Z",
+  "source": "vm-doc+template",
+  "vmDoc": "linux-mint-firefox-vm.md",
+  "vm": {
+    "md": "root/docs/inventaires/linux-mint-firefox-vm.md",
+    "json": {
+      "collectedAt": "2026-06-04T16:05:45Z",
+      "firefoxVersion": "Mozilla Firefox 151.0.1",
+      "package": "firefox 151.0.1+linuxmint1+zena",
+      "distribution": {
+        "iniPath": "/usr/lib/firefox/distribution/distribution.ini",
+        "preferences": {
+          "app.distributor.channel": "zena",
+          "app.distributor": "mint",
+          "app.partner.mint": "mint",
+          "app.update.enabled": "false",
+          "browser.shell.checkDefaultBrowser": "false",
+          "intl.locale.requested": "",
+          "mozilla.partner.id": "mint",
+          "widget.content.gtk-theme-override": "#",
+          "browser.backspace_action": "0",
+          "browser.tabs.inTitlebar": "0"
+        },
+        "langpacks": [
+          "langpack-en-CA@firefox.mozilla.org.xpi",
+          "langpack-fr@firefox.mozilla.org.xpi",
+          "langpack-en-GB@firefox.mozilla.org.xpi"
+        ]
+      },
+      "desktopEntry": {
+        "path": "/usr/share/applications/firefox.desktop",
+        "nameFr": "Navigateur Web Firefox",
+        "name": "Firefox Web Browser",
+        "exec": "firefox %u",
+        "icon": "firefox"
+      },
+      "themes": {
+        "cinnamon": "Mint-Y-Dark-Aqua",
+        "gtk": "Mint-Y-Aqua",
+        "icons": "Mint-Y-Sand"
+      },
+      "windowManager": {
+        "windows": [
+          {
+            "id": "0x03c00003",
+            "wm_class": "Navigator.firefox",
+            "title": "Mozilla Firefox"
+          },
+          {
+            "id": "0x03c00011",
+            "wm_class": "Navigator.firefox",
+            "title": "Mozilla Firefox"
+          },
+          {
+            "id": "0x03c0004b",
+            "wm_class": "Navigator.firefox",
+            "title": "Mozilla Firefox"
+          },
+          {
+            "id": "0x03c0006d",
+            "wm_class": "Navigator.firefox",
+            "title": "Mozilla Firefox"
+          },
+          {
+            "id": "0x03c00092",
+            "wm_class": "Navigator.firefox",
+            "title": "Mozilla Firefox"
+          }
+        ],
+        "sampleGeometry": {
+          "window": "62914563",
+          "x": "0",
+          "y": "64",
+          "width": "1280",
+          "height": "728",
+          "screen": "0"
+        },
+        "wmClass": "Navigator.firefox"
+      },
+      "iconPaths": [
+        "/usr/share/icons/Mint-Y/apps/24/firefox.png",
+        "/usr/share/icons/Mint-Y/apps/64/firefox.png",
+        "/usr/share/icons/Mint-Y/apps/48/firefox.png",
+        "/usr/share/icons/Mint-Y/apps/256/firefox.png",
+        "/usr/share/icons/Mint-Y/apps/256@2x/firefox.png"
+      ],
+      "notes": [
+        "browser.tabs.inTitlebar=0 → barre de titre Muffin séparée (pas d’onglets dans le chrome WM).",
+        "Profil utilisateur lab souvent absent sur live ISO → prefs utilisateur non collectées ici."
+      ]
+    }
+  },
+  "vmProbe": {
+    "skipped": true
+  },
+  "checks": [
+    {
+      "id": "chrome-layout",
+      "dimension": "vis",
+      "type": "eval",
+      "expect": "header before tabs, Proton chrome",
+      "pass": null,
+      "note": "header before tabs, Proton chrome"
+    },
+    {
+      "id": "new-tab",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-browser-action=\"new-tab\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "address-nav",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "[data-browser-newtab-link]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "bookmarks-bar",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "[data-browser-action=\"toggle-bookmarks\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "app-menu",
+      "dimension": "nav",
+      "type": "click",
+      "selector": ".capsule-browser__btn--icon-menu",
+      "pass": null,
+      "note": ""
+    }
+  ]
+}

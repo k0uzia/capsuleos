@@ -176,11 +176,25 @@
     },
     "mint": {
       "extends": "toolkit:cinnamon",
+      "panel": [
+        { "icon": "nemo", "capsule": "images/vendors/mint/panel/nemo.png" },
+        { "icon": "firefox", "size": "48x48", "capsule": "images/vendors/mint/panel/firefox-48.png" },
+        { "icon": "org.gnome.Terminal", "capsule": "images/vendors/mint/panel/org.gnome.Terminal.svg" },
+        { "icon": "accessories-text-editor", "capsule": "images/vendors/mint/panel/accessories-text-editor.png" }
+      ],
       "fonts": [
         {
           "vmCandidates": [
             "/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf",
-            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+            "/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf",
+            "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+            "/usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf",
+            "/usr/share/fonts/truetype/ubuntu/UbuntuMono-B.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+            "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+            "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"
           ],
           "capsuleDir": "fonts/vendors/mint"
         }
@@ -188,10 +202,15 @@
       "branding": {
         "vmCandidates": [
           "/usr/share/icons/hicolor/scalable/apps/mint-logo.svg",
-          "/usr/share/linuxmint/logo.png"
+          "/usr/share/linuxmint/logo.png",
+          "/usr/share/pixmaps/linuxmint-logo.png"
         ],
         "capsule": "images/vendors/mint/mint-logo.svg"
-      }
+      },
+      "wallpaperCandidates": [
+        "/usr/share/backgrounds/linuxmint/default_background.jpg",
+        "/usr/share/backgrounds/linuxmint/linuxmint.jpg"
+      ]
     },
     "popos": {
       "extends": "toolkit:gnome",

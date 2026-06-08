@@ -270,3 +270,73 @@ div[data-link="text_editor"] #windowTitle {
     opacity: 0;
     pointer-events: none;
 }
+
+.xed-dialog {
+    position: absolute;
+    inset: 0;
+    z-index: 600;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: calc(var(--head) * 1.2);
+    background: rgba(0, 0, 0, 0.28);
+}
+
+.xed-dialog[hidden] {
+    display: none !important;
+}
+
+.xed-dialog__panel {
+    min-width: calc(var(--head) * 7);
+    padding: calc(var(--head) / 2.5);
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.14));
+    border-radius: calc(var(--head) / 10);
+    background: var(--xed-menu-surface-bg, #f8f8f8);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.xed-dialog__title {
+    margin: 0 0 calc(var(--head) / 3);
+    font-size: calc(var(--head) / 2.5);
+    font-weight: 600;
+}
+
+.xed-dialog__field {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.25rem;
+    margin-bottom: calc(var(--head) / 4);
+    font-size: calc(var(--head) / 2.85);
+}
+
+.xed-dialog__input {
+    width: 100%;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.18));
+    border-radius: 4px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.xed-dialog__actions {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    margin-top: calc(var(--head) / 4);
+}
+
+.xed-dialog__btn {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.14));
+    border-radius: 4px;
+    background: #ececec;
+    font: inherit;
+    cursor: var(--p);
+}
+
+.xed-dialog__btn--primary {
+    background: var(--xed-accent, #1f9ede);
+    border-color: transparent;
+    color: #fff;
+}

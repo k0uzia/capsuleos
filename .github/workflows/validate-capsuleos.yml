@@ -1,0 +1,23 @@
+name: validate-capsuleos
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Gate release (validate-all)
+        run: node usr/lib/capsuleos/tools/validate-all.mjs
+
+      - name: Checkpoints clone — assets skins Linux P0
+        run: node usr/lib/capsuleos/tools/validate-clone-checkpoints.mjs --tier P0

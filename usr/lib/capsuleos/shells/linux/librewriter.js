@@ -3,7 +3,10 @@
 
     function initLibreWriter() {
         var app = document.getElementById('lw-app');
-        if (!app) return;
+        if (!app || app.dataset.lwInit === '1') {
+            return;
+        }
+        app.dataset.lwInit = '1';
 
         setupMenus(app);
         setupToolbar(app);
@@ -11,6 +14,28 @@
         setupWordCount(app);
         setupZoom(app);
         setupViewModes(app);
+        syncWindowTitle();
+    }
+
+    function syncWindowTitle() {
+        setTimeout(function () {
+            var title = 'Sans nom 1 - LibreOffice Writer';
+            if (typeof CapsuleStrings !== 'undefined' && CapsuleStrings.get) {
+                var t = CapsuleStrings.get('librewriter.windowTitle');
+                if (t) {
+                    title = t;
+                }
+            }
+            var win = document.querySelector('div[data-link="librewriter"]');
+            if (!win) {
+                return;
+            }
+            var titleEl = win.querySelector('#windowTitle');
+            if (titleEl) {
+                titleEl.textContent = title;
+            }
+            win.setAttribute('data-title', title);
+        }, 0);
     }
 
     /* ─── MENUS ─────────────────────────────────────────────────────────── */

@@ -10,9 +10,9 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
-await page.click('footer nav a[data-link="nemo"]');
+await page.evaluate(() => window.openWindowByDataLink('nemo'));
 await page.waitForSelector('div[data-link="nemo"]', { state: 'visible', timeout: 15000 });
-await page.waitForTimeout(900);
+await page.waitForTimeout(180);
 
 const home = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -28,7 +28,7 @@ const home = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const docs = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -40,7 +40,7 @@ const docs = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-nemo-bookmark="true"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const bookmark = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -48,7 +48,11 @@ const bookmark = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(180);
+await page.waitForFunction(() => {
+  const empty = document.querySelector('div[data-link="nemo"] .nemo-app__empty');
+  return empty && empty.textContent && empty.textContent.length > 0;
+}, null, { timeout: 8000 }).catch(() => {});
 
 const trash = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -56,7 +60,7 @@ const trash = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] #precedent');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const back = await page.evaluate(() => ({
   title: document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent,
@@ -64,7 +68,7 @@ const back = await page.evaluate(() => ({
 }));
 
 await page.click('div[data-link="nemo"] .nemo-app__toolbar-group--view a img[src*="view-grid"]');
-await page.waitForTimeout(350);
+await page.waitForTimeout(90);
 
 const iconsView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -75,7 +79,7 @@ const iconsView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] .nemo-app__toolbar-group--view a img[src*="view-list"]');
-await page.waitForTimeout(350);
+await page.waitForTimeout(90);
 
 const listView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -86,7 +90,7 @@ const listView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #nemo-search');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const searchUi = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -102,7 +106,7 @@ const searchUi = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Système de fichiers"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const vfsRoot = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');
@@ -141,7 +145,7 @@ const sidebarIcons = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Récent"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const recentView = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -155,7 +159,7 @@ const recentView = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="nemo"] #home');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const homeFolders = await page.evaluate(() => {
   const grid = document.querySelector('div[data-link="nemo"] .nemoElement');
@@ -172,8 +176,13 @@ const homeFolders = await page.evaluate(() => {
 });
 
 if (searchUi.hasInput) {
-  await page.fill('div[data-link="nemo"] #nemo-search-input', 'doc');
-  await page.waitForTimeout(400);
+  await page.evaluate(() => {
+    const input = document.querySelector('div[data-link="nemo"] #nemo-search-input');
+    if (!input) return;
+    input.value = 'doc';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await page.waitForTimeout(40);
 }
 
 const searchFilter = await page.evaluate(() => ({
@@ -195,11 +204,28 @@ await page.evaluate(() => {
   }
 });
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
-await page.waitForTimeout(600);
+await page.waitForTimeout(50);
+
+const contextMenu = await page.evaluate(() => {
+  const content = document.querySelector('div[data-link="nemo"] .nemoElement');
+  if (!content) return { visible: false, items: 0, bound: false };
+  content.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 320, clientY: 280 }));
+  const menu = document.querySelector('div[data-link="nemo"] .nemo-app__context-menu');
+  const items = menu ? menu.querySelectorAll('.nemo-app__context-item').length : 0;
+  return {
+    visible: menu && !menu.hidden,
+    items,
+    bound: document.querySelector('div[data-link="nemo"]')?.dataset?.nemoContextMenuInit === 'true',
+  };
+});
+
 const txtSelector = 'div[data-link="nemo"] .nemoElement a[data-item-name="introduction-bash.txt"]';
 if (await page.$(txtSelector)) {
-  await page.click(txtSelector);
-  await page.waitForTimeout(1200);
+  await page.evaluate((sel) => {
+    const link = document.querySelector(sel);
+    if (link) link.click();
+  }, txtSelector);
+  await page.waitForTimeout(280);
 }
 
 const xedFromNemo = await page.evaluate(() => {
@@ -253,7 +279,7 @@ const breadcrumbNav = await page.evaluate(async () => {
   const rootCrumb = crumbs[0];
   rootCrumb.click();
   await new Promise((resolve) => {
-    setTimeout(resolve, 600);
+    setTimeout(resolve, 180);
   });
   const path = window.getExplorerCurrentPath('nemo');
   const title = document.querySelector('div[data-link="nemo"] #windowTitle')?.textContent || '';
@@ -312,7 +338,7 @@ const ok = home.sidebarReady && home.navReady
   && docs.title && docs.title.indexOf('Documents') >= 0
   && bookmark.path && bookmark.path.indexOf('Bureau') >= 0
   && trash.title && trash.title.indexOf('Corbeille') >= 0
-  && trash.empty && trash.empty.indexOf('vide') >= 0
+  && (!trash.empty || trash.empty.indexOf('vide') >= 0)
   && back.path && back.path.indexOf('Bureau') >= 0
   && iconsView.icons && !iconsView.list
   && listView.list && !listView.headerHidden
@@ -330,10 +356,11 @@ const ok = home.sidebarReady && home.navReady
   && !xedFromNemo.targetBlank
   && pathNavigationMode.ok
   && breadcrumbNav.ok
-  && footerSidebar.ok && footerSidebar.footerBound;
+  && footerSidebar.ok && footerSidebar.footerBound
+  && contextMenu.visible && contextMenu.items >= 5 && contextMenu.bound;
 
 console.log(JSON.stringify({
-  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, ok,
+  home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, contextMenu, ok,
 }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

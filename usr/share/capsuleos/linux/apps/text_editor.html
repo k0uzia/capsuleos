@@ -120,4 +120,51 @@
 
     <input type="file" class="xed-app__file-input" id="xed-file-input" accept=".txt,.md,.json,.css,.html,.js,.sh,.log,.xml,.yml,.yaml,.csv" hidden aria-hidden="true">
 
+    <div class="xed-dialog" id="xed-find-dialog" role="dialog" aria-labelledby="xed-find-title" hidden>
+        <form class="xed-dialog__panel" onsubmit="return false">
+            <h3 class="xed-dialog__title" id="xed-find-title">Rechercher</h3>
+            <label class="xed-dialog__field">
+                <span>Rechercher :</span>
+                <input type="text" id="xed-find-input" class="xed-dialog__input" autocomplete="off">
+            </label>
+            <div class="xed-dialog__actions">
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="find-next">Suivant</button>
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="close">Fermer</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="xed-dialog" id="xed-replace-dialog" role="dialog" aria-labelledby="xed-replace-title" hidden>
+        <form class="xed-dialog__panel" onsubmit="return false">
+            <h3 class="xed-dialog__title" id="xed-replace-title">Remplacer</h3>
+            <label class="xed-dialog__field">
+                <span>Rechercher :</span>
+                <input type="text" id="xed-replace-find" class="xed-dialog__input" autocomplete="off">
+            </label>
+            <label class="xed-dialog__field">
+                <span>Remplacer par :</span>
+                <input type="text" id="xed-replace-with" class="xed-dialog__input" autocomplete="off">
+            </label>
+            <div class="xed-dialog__actions">
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="replace-one">Remplacer</button>
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="replace-all">Tout remplacer</button>
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="close">Fermer</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="xed-dialog" id="xed-goto-dialog" role="dialog" aria-labelledby="xed-goto-title" hidden>
+        <form class="xed-dialog__panel" onsubmit="return false">
+            <h3 class="xed-dialog__title" id="xed-goto-title">Aller à la ligne</h3>
+            <label class="xed-dialog__field">
+                <span>Ligne :</span>
+                <input type="number" id="xed-goto-line" class="xed-dialog__input" min="1" value="1">
+            </label>
+            <div class="xed-dialog__actions">
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="goto-apply">Atteindre</button>
+                <button type="button" class="xed-dialog__btn" data-xed-dialog="close">Annuler</button>
+            </div>
+        </form>
+    </div>
+
 </main>

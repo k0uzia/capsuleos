@@ -88,6 +88,8 @@ Playbook dédié : [fs-sync-playbook.json](inventaires/fs-sync-playbook.json) ·
 
 **Interdit** : considérer la reproduction terminée si un scénario P0 du playbook laisse **V** stale.
 
+**Avant push** (lot skin / slot interactif) : vérifier **Rv** sur les scénarios touchés, puis `sync-linux-skin-closure.mjs` si Linux, puis `validate-all.mjs` — ordre détaillé : [agent-validation-discipline.md](agent-validation-discipline.md) §4.
+
 ---
 
 ## 6. Classification écarts

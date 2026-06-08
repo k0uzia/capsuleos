@@ -598,3 +598,37 @@ div[data-link="firefox"] #windowTitle {
         padding: 0;
     }
 }
+
+.capsule-browser__toolbar-actions {
+    position: relative;
+}
+
+.capsule-browser__menu-popover {
+    position: absolute;
+    z-index: 30;
+    top: 100%;
+    right: 0;
+    min-width: 11rem;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0;
+    border: 1px solid var(--firefox-toolbar-border, rgba(255, 255, 255, 0.12));
+    border-radius: 6px;
+    background: var(--firefox-toolbar-bg, #2b2a33);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.capsule-browser__menu-item {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 0.85rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.capsule-browser__menu-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}

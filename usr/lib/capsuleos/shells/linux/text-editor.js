@@ -345,69 +345,139 @@
             }
         }
 
-        function findText(advance) {
-            var query = lastFind;
-            if (!advance) {
-                var prompted = global.prompt('Rechercher :', lastFind);
-                if (prompted === null) {
-                    return;
-                }
-                query = prompted;
-                lastFind = query;
-                lastFindIndex = -1;
+        function closeAllDialogs() {
+            root.querySelectorAll('.xed-dialog').forEach(function closeDlg(dlg) {
+                dlg.hidden = true;
+            });
+        }
+
+        function openDialog(id) {
+            closeAllDialogs();
+            closeAllMenus();
+            var dlg = global.document.getElementById(id);
+            if (dlg) {
+                dlg.hidden = false;
             }
-            if (!query) {
-                return;
+        }
+
+        function applyFindQuery(query, advance) {
+            var q = (query || '').replace(/^\s+|\s+$/g, '');
+            if (!q) {
+                return false;
             }
+            lastFind = q;
             var startAt = advance && lastFindIndex >= 0 ? lastFindIndex + 1 : 0;
-            var idx = area.value.indexOf(query, startAt);
+            var idx = area.value.indexOf(q, startAt);
             if (idx < 0 && startAt > 0) {
-                idx = area.value.indexOf(query, 0);
+                idx = area.value.indexOf(q, 0);
             }
             if (idx < 0) {
-                global.alert('Occurrence introuvable.');
-                return;
+                return false;
             }
             lastFindIndex = idx;
             area.focus();
             area.selectionStart = idx;
-            area.selectionEnd = idx + query.length;
+            area.selectionEnd = idx + q.length;
             updateStatus();
+            return true;
+        }
+
+        function findText(advance) {
+            if (!advance) {
+                var findInput = global.document.getElementById('xed-find-input');
+                if (findInput && lastFind) {
+                    findInput.value = lastFind;
+                }
+                openDialog('xed-find-dialog');
+                if (findInput) {
+                    findInput.focus();
+                    findInput.select();
+                }
+                return;
+            }
+            if (!applyFindQuery(lastFind, true)) {
+                return;
+            }
         }
 
         function replaceText() {
-            var findQ = global.prompt('Rechercher :', lastFind);
-            if (findQ === null) {
+            var findInput = global.document.getElementById('xed-replace-find');
+            var withInput = global.document.getElementById('xed-replace-with');
+            if (findInput && lastFind) {
+                findInput.value = lastFind;
+            }
+            if (withInput && !withInput.value) {
+                withInput.value = '';
+            }
+            openDialog('xed-replace-dialog');
+            if (findInput) {
+                findInput.focus();
+            }
+        }
+
+        function applyReplaceOne() {
+            var findInput = global.document.getElementById('xed-replace-find');
+            var withInput = global.document.getElementById('xed-replace-with');
+            if (!findInput || !withInput) {
                 return;
             }
-            findQ = findQ.replace(/^\s+|\s+$/g, '');
+            var findQ = findInput.value.replace(/^\s+|\s+$/g, '');
             if (!findQ) {
                 return;
             }
             lastFind = findQ;
-            var repl = global.prompt('Remplacer par :', '');
-            if (repl === null) {
-                return;
-            }
+            var repl = withInput.value;
             var sel = getSelectionText();
             if (sel === findQ) {
                 insertTextAtCursor(repl);
-                findText(true);
+                applyFindQuery(findQ, true);
                 return;
             }
-            findText(false);
+            if (!applyFindQuery(findQ, false) && getSelectionText() !== findQ) {
+                return;
+            }
             if (getSelectionText() === findQ) {
                 insertTextAtCursor(repl);
-                findText(true);
+                applyFindQuery(findQ, true);
             }
         }
 
-        function goToLine() {
-            var raw = global.prompt('Aller à la ligne :', '1');
-            if (raw === null) {
+        function applyReplaceAll() {
+            var findInput = global.document.getElementById('xed-replace-find');
+            var withInput = global.document.getElementById('xed-replace-with');
+            if (!findInput || !withInput) {
                 return;
             }
-            var num = parseInt(raw, 10);
+            var findQ = findInput.value.replace(/^\s+|\s+$/g, '');
+            if (!findQ) {
+                return;
+            }
+            var repl = withInput.value;
+            if (area.value.indexOf(findQ) < 0) {
+                return;
+            }
+            area.value = area.value.split(findQ).join(repl);
+            lastFind = findQ;
+            lastFindIndex = -1;
+            setDirty(area.value !== savedValue);
+            updateStatus();
+        }
+
+        function goToLine() {
+            var lineInput = global.document.getElementById('xed-goto-line');
+            openDialog('xed-goto-dialog');
+            if (lineInput) {
+                lineInput.focus();
+                lineInput.select();
+            }
+        }
+
+        function applyGoToLine() {
+            var lineInput = global.document.getElementById('xed-goto-line');
+            if (!lineInput) {
+                return;
+            }
+            var num = parseInt(lineInput.value, 10);
             if (!num || num < 1) {
                 return;
             }
@@ -418,6 +488,7 @@
             for (i = 0; i < line - 1; i++) {
                 pos += lines[i].length + 1;
             }
+            closeAllDialogs();
             area.focus();
             area.selectionStart = pos;
             area.selectionEnd = pos;
@@ -670,8 +741,75 @@
             });
         }
 
+        function setupDialogs() {
+            root.querySelectorAll('[data-xed-dialog]').forEach(function bindDialogBtn(btn) {
+                btn.addEventListener('click', function onDialogClick(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var action = btn.getAttribute('data-xed-dialog');
+                    if (action === 'close') {
+                        closeAllDialogs();
+                        return;
+                    }
+                    if (action === 'find-next') {
+                        var findInput = global.document.getElementById('xed-find-input');
+                        if (findInput) {
+                            applyFindQuery(findInput.value, lastFindIndex >= 0);
+                        }
+                        return;
+                    }
+                    if (action === 'replace-one') {
+                        applyReplaceOne();
+                        return;
+                    }
+                    if (action === 'replace-all') {
+                        applyReplaceAll();
+                        return;
+                    }
+                    if (action === 'goto-apply') {
+                        applyGoToLine();
+                    }
+                });
+            });
+
+            var findInput = global.document.getElementById('xed-find-input');
+            if (findInput) {
+                findInput.addEventListener('keydown', function onFindKey(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        applyFindQuery(findInput.value, lastFindIndex >= 0);
+                    }
+                    if (e.key === 'Escape') {
+                        closeAllDialogs();
+                    }
+                });
+            }
+
+            var gotoInput = global.document.getElementById('xed-goto-line');
+            if (gotoInput) {
+                gotoInput.addEventListener('keydown', function onGotoKey(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        applyGoToLine();
+                    }
+                    if (e.key === 'Escape') {
+                        closeAllDialogs();
+                    }
+                });
+            }
+
+            root.querySelectorAll('.xed-dialog').forEach(function bindOverlay(dlg) {
+                dlg.addEventListener('click', function onOverlayClick(e) {
+                    if (e.target === dlg) {
+                        closeAllDialogs();
+                    }
+                });
+            });
+        }
+
         setupMenus();
         setupActions();
+        setupDialogs();
         setupKeyboard();
         refreshTitle();
         syncDocumentsMenu();

@@ -49,11 +49,32 @@ div.windowElement[data-link="update_manager"]:not(#mainMenu) {
     min-height: var(--win-update_manager-min-height);
 }
 
+div.windowElement[data-link="mintinstall"]:not(#mainMenu) {
+    width: var(--win-mintinstall-width);
+    min-width: var(--win-mintinstall-min-width);
+    height: var(--win-mintinstall-height);
+    min-height: var(--win-mintinstall-min-height);
+}
+
+div.windowElement[data-link="system_monitor"]:not(#mainMenu) {
+    width: var(--win-system_monitor-width);
+    min-width: var(--win-system_monitor-min-width);
+    height: var(--win-system_monitor-height);
+    min-height: var(--win-system_monitor-min-height);
+}
+
 div.windowElement[data-link="file_roller"]:not(#mainMenu) {
     width: var(--win-file_roller-width);
     min-width: var(--win-file_roller-min-width);
     height: var(--win-file_roller-height);
     min-height: var(--win-file_roller-min-height);
+}
+
+div.windowElement[data-link="mintdrivers"]:not(#mainMenu) {
+    width: var(--win-mintdrivers-width);
+    min-width: var(--win-mintdrivers-min-width);
+    height: var(--win-mintdrivers-height);
+    min-height: var(--win-mintdrivers-min-height);
 }
 
 div.windowElement[data-link="text_editor"]:not(#mainMenu) {
@@ -68,6 +89,13 @@ div.windowElement[data-link="librewriter"]:not(#mainMenu) {
     min-width: var(--win-librewriter-min-width);
     height: var(--win-librewriter-height);
     min-height: var(--win-librewriter-min-height);
+}
+
+div.windowElement[data-link="librecalc"]:not(#mainMenu) {
+    width: var(--win-librecalc-width);
+    min-width: var(--win-librecalc-min-width);
+    height: var(--win-librecalc-height);
+    min-height: var(--win-librecalc-min-height);
 }
 
 div.windowElement[data-link="visionneur_images"]:not(#mainMenu),

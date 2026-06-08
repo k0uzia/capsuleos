@@ -423,6 +423,8 @@ def scan_theme_media(toolkit_id: str) -> dict[str, Any]:
         icon_theme = run("kreadconfig6 --file kdeglobals --group Icons --key Theme") or "breeze"
     elif toolkit_id == "cinnamon":
         icon_theme = run("gsettings get org.cinnamon.desktop.interface icon-theme").strip("'") or "Mint-Y"
+        gtk_theme = run("gsettings get org.cinnamon.desktop.interface gtk-theme").strip("'")
+        bg_uri = run("gsettings get org.cinnamon.desktop.background picture-uri").strip("'")
 
     wallpapers: list[dict[str, Any]] = []
     if bg_uri.startswith("file://"):
@@ -453,9 +455,27 @@ def scan_theme_media(toolkit_id: str) -> dict[str, Any]:
         "gtkTheme": gtk_theme,
         "backgroundUri": bg_uri or None,
         "wallpapers": wallpapers,
-        "cursorTheme": gget("org.gnome.desktop.interface", "cursor-theme").strip("'") if toolkit_id == "gnome" else "",
-        "fontName": gget("org.gnome.desktop.interface", "font-name").strip("'") if toolkit_id == "gnome" else "",
-        "monospaceFontName": gget("org.gnome.desktop.interface", "monospace-font-name").strip("'") if toolkit_id == "gnome" else "",
+        "cursorTheme": (
+            gget("org.gnome.desktop.interface", "cursor-theme").strip("'")
+            if toolkit_id == "gnome"
+            else run("gsettings get org.cinnamon.desktop.interface cursor-theme").strip("'")
+            if toolkit_id == "cinnamon"
+            else ""
+        ),
+        "fontName": (
+            gget("org.gnome.desktop.interface", "font-name").strip("'")
+            if toolkit_id == "gnome"
+            else run("gsettings get org.cinnamon.desktop.interface font-name").strip("'")
+            if toolkit_id == "cinnamon"
+            else ""
+        ),
+        "monospaceFontName": (
+            gget("org.gnome.desktop.interface", "monospace-font-name").strip("'")
+            if toolkit_id == "gnome"
+            else run("gsettings get org.cinnamon.desktop.interface monospace-font-name").strip("'")
+            if toolkit_id == "cinnamon"
+            else ""
+        ),
         "documentFontName": gget("org.gnome.desktop.interface", "document-font-name").strip("'") if toolkit_id == "gnome" else "",
     }
 
@@ -497,10 +517,16 @@ def scan_fonts(toolkit_id: str, vendor_id: str, catalog: dict[str, Any]) -> dict
     if toolkit_id == "gnome":
         ui_raw = gget("org.gnome.desktop.interface", "font-name").strip("'")
         mono_raw = gget("org.gnome.desktop.interface", "monospace-font-name").strip("'")
-        if ui_raw:
-            ui_prefs.append(ui_raw.split()[0])
-        if mono_raw:
-            mono_prefs.append(mono_raw.split()[0])
+    elif toolkit_id == "cinnamon":
+        ui_raw = run("gsettings get org.cinnamon.desktop.interface font-name").strip("'")
+        mono_raw = run("gsettings get org.cinnamon.desktop.interface monospace-font-name").strip("'")
+    else:
+        ui_raw = ""
+        mono_raw = ""
+    if ui_raw:
+        ui_prefs.append(ui_raw.split()[0])
+    if mono_raw:
+        mono_prefs.append(mono_raw.split()[0])
 
     priority_ui = ui_prefs + ["Ubuntu", "Cantarell", "Adwaita Sans", "Noto Sans", "Inter"]
     priority_mono = mono_prefs + ["Ubuntu Mono", "Adwaita Mono", "DejaVu Sans Mono", "Liberation Mono"]
@@ -565,9 +591,12 @@ def scan_symbolic_set(
 
 
 def scan_panel_icons(catalog: dict[str, Any], icon_theme: str) -> list[dict[str, Any]]:
-    entries = []
+    entries: list[dict[str, Any]] = []
+    seen_icons: set[str] = set()
     for spec in catalog.get("panel", []):
         icon = spec.get("icon", "")
+        if not icon or icon in seen_icons:
+            continue
         size = spec.get("size", "scalable")
         vm_path = None
         if size == "48x48":
@@ -578,6 +607,7 @@ def scan_panel_icons(catalog: dict[str, Any], icon_theme: str) -> list[dict[str,
             vm_path = resolve_theme_icon_in_context(icon, "hicolor", "apps")
         if not vm_path:
             continue
+        seen_icons.add(icon)
         entries.append({
             "iconName": icon,
             "vmPath": vm_path,

@@ -1,6 +1,6 @@
 {
   "toolkit": "cinnamon",
-  "collectedAt": "2026-06-04T09:54:47Z",
+  "collectedAt": "2026-06-08T08:53:49Z",
   "os": {
     "release": "22.3",
     "codename": "zena",
@@ -23,7 +23,7 @@
   },
   "themes": {
     "cinnamon": "Mint-Y-Dark-Aqua",
-    "gtk": "Mint-Y-Aqua",
+    "gtk": "Mint-Y-Dark-Aqua",
     "icons": "Mint-Y-Sand",
     "wallpaper": "file:///usr/share/backgrounds/linuxmint/default_background.jpg"
   },

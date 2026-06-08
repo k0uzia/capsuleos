@@ -35,6 +35,10 @@ const chromePath = process.env.PLAYWRIGHT_CHROME || defaultChrome;
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
+/** Délai entre actions checklist — conditionnel si possible. */
+const ACTION_SETTLE_MS = 120;
+const STEP_SETTLE_MS = 80;
+
 const resetPanel = async (page) => {
   await page.evaluate(() => {
     document.querySelectorAll('.windowElement[data-link]').forEach((win) => {
@@ -100,10 +104,26 @@ const runAction = async (page, cmd, arg) => {
   }
   if (cmd === 'minimize-launcher') {
     await page.evaluate((slot) => {
+      const btn = document.querySelector(
+        '.taskbar-window-list__btn.is-active[data-window-link="' + slot + '"]',
+      );
+      if (btn) {
+        btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        return;
+      }
       const container = document.querySelector('.windowElement[data-link="' + slot + '"]');
-      if (container?.classList.contains('windowElementActive')
-        && typeof window.openWindowByDataLink === 'function') {
-        window.openWindowByDataLink(slot);
+      if (!container || container.style.display === 'none') {
+        return;
+      }
+      if (window.CapsuleTaskbarLauncherState && window.CapsuleTaskbarLauncherState.markRunning) {
+        window.CapsuleTaskbarLauncherState.markRunning(container);
+      } else if (container.dataset) {
+        container.dataset.capsuleRunning = 'true';
+      }
+      container.style.display = 'none';
+      container.classList.remove('windowElementActive', 'active');
+      if (window.CapsuleTaskbarWindowList && window.CapsuleTaskbarWindowList.refresh) {
+        window.CapsuleTaskbarWindowList.refresh();
       }
     }, arg);
     return;
@@ -120,7 +140,12 @@ const runAction = async (page, cmd, arg) => {
         docLink.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
       }
     }, arg);
-    await sleep(page, 500);
+    await page.waitForFunction(() => {
+      const p = typeof window.getExplorerCurrentPath === 'function'
+        ? window.getExplorerCurrentPath('nemo') : '';
+      return typeof p === 'string' && /documents/i.test(p);
+    }, null, { timeout: 8000 }).catch(() => {});
+    await sleep(page, 80);
   }
 };
 
@@ -138,15 +163,15 @@ const main = async () => {
   });
 
   await resetPanel(page);
-  await sleep(page, 400);
+  await sleep(page, 100);
 
   const out = [];
   for (const st of STEPS) {
     for (const [cmd, arg] of st.actions) {
       await runAction(page, cmd, arg);
-      await sleep(page, 900);
+      await sleep(page, ACTION_SETTLE_MS);
     }
-    await sleep(page, 400);
+    await sleep(page, STEP_SETTLE_MS);
     await page.evaluate(() => {
       if (window.CapsuleTaskbarLauncherState && window.CapsuleTaskbarLauncherState.refresh) {
         window.CapsuleTaskbarLauncherState.refresh();

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { chromium } from 'playwright';
+import { openMintSlot, openMintMainMenu } from './mint-smoke-open.mjs';
 
 const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
 const chromePath = process.env.PLAYWRIGHT_CHROME
@@ -10,8 +11,7 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
-await page.click('footer nav a[data-link="nemo"]');
-await page.waitForTimeout(1200);
+await openMintSlot(page, 'nemo');
 
 const before = await page.evaluate(() => {
   const n = document.querySelector('div[data-link="nemo"]');
@@ -24,15 +24,14 @@ await page.mouse.move(box.x + 40, box.y + 10);
 await page.mouse.down();
 await page.mouse.move(box.x + 140, box.y + 60, { steps: 8 });
 await page.mouse.up();
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 
 const after = await page.evaluate(() => {
   const n = document.querySelector('div[data-link="nemo"]');
   return { left: n.style.left, top: n.style.top };
 });
 
-await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(600);
+await openMintMainMenu(page);
 
 const menu = await page.evaluate(() => {
   const m = document.getElementById('mainMenu');

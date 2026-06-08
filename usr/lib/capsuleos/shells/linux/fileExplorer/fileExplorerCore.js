@@ -2491,8 +2491,9 @@ const bindFileExplorerSearchControls = () => {
 
     if (searchInput && searchInput.dataset.feSearchBound !== 'true') {
         const applySearchFromInput = () => {
-            const chromeMode = fileExplorerState.nautilusChromeMode
-                || (fileExplorerState.locationBarMode === 'path' ? 'location' : 'breadcrumb');
+            const barMode = fileExplorerState.locationBarMode || 'search';
+            const chromeMode = (!isNemoTemplate() && fileExplorerState.nautilusChromeMode)
+                || (barMode === 'path' ? 'location' : barMode === 'search' ? 'search' : 'breadcrumb');
             if (chromeMode === 'location' || chromeMode === 'breadcrumb') {
                 return;
             }
@@ -2695,7 +2696,7 @@ const bindFileExplorerNavigationControls = () => {
         window.bindFileExplorerProperties();
     }
     if (typeof window.bindFileExplorerContextMenu === 'function') {
-        window.bindFileExplorerContextMenu();
+        window.bindFileExplorerContextMenu(nemoRoot);
     }
 
     if (nemoRoot.dataset.nemoControlsInit === 'true') {

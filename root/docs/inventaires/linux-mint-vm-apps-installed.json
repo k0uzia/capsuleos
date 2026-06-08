@@ -996,7 +996,7 @@
   "notInstalledOnVm": [],
   "source": "distribution-manifest → vm-manifest-lib.mjs",
   "manifestPath": "proc/linux-mint/distribution-manifest.json",
-  "collectedAt": "2026-06-08T06:55:27Z",
+  "collectedAt": "2026-06-08T07:34:36Z",
   "flatpakCount": 0,
-  "updatedAt": "2026-06-08T07:01:49.903Z"
+  "updatedAt": "2026-06-08T07:41:24.567Z"
 }

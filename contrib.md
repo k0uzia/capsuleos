@@ -13,7 +13,8 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 | 1 | Lire ce fichier et la section [Formation agents](#formation-agents-ia) si vous utilisez un agent |
 | 2 | `node usr/lib/capsuleos/tools/validate-all.mjs` — baseline locale (**exit 0** attendu avant gros patch) |
 | 3 | Travailler sous `CapsuleOS/` uniquement (`home/`, `usr/`, `OS/`, `var/`, `index.html`) |
-| 4 | Clôture : si skin Linux (`home/…` ou gabarits `usr/share/capsuleos/linux/apps/`) → `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs` puis `validate-all.mjs` (échoue si façade pick-os ≠ `home/`) |
+| 4 | Clôture : `node usr/lib/capsuleos/tools/sync-all-views.mjs` (façades pick-os + embeds **toutes** distros Linux + Android) puis `validate-all.mjs` |
+| 5 | **Avant chaque push** : `sync-all-views.mjs` obligatoire — hook `pre-push` via `bash root/tools/install-git-hooks.sh` |
 
 Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parcours H0–H6).
 
@@ -44,7 +45,8 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 6. **H5** — Implémentation minimale
 7. **H6** — `validate-all.mjs` + regen embed si besoin + test hors ligne
 
-Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
+Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)  
+**Gates par type de changement** : [`root/docs/agent-validation-discipline.md`](root/docs/agent-validation-discipline.md) · `node usr/lib/capsuleos/tools/print-validation-plan.mjs`
 
 ### Comparaison avec un environnement réel (VM / Proxmox)
 
@@ -555,7 +557,13 @@ Doc : [`root/docs/politique-assets.md`](root/docs/politique-assets.md)
 
 Après changement de gabarits ou de `home/public/` :
 
-Gate unique (recommandé) :
+Gate unique avant commit/push (recommandé) :
+
+```bash
+node usr/lib/capsuleos/tools/sync-all-views.mjs
+```
+
+Embeds seuls (sans façades pick-os) :
 
 ```bash
 node usr/lib/capsuleos/tools/build-embeds-all.mjs

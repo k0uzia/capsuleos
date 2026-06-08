@@ -3,7 +3,9 @@
 Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depuis-vm.md) · Checklist : [`templates/clone-os-checklist.md`](../templates/clone-os-checklist.md)
 
 **registryId** : `linux-mint` · **vendor** : `mint` · **toolkit** : `cinnamon`  
-**Dernière campagne** : 2026-06-04 — **recréation procédure clonage** (validation bout en bout)
+**Dernière campagne** : 2026-06-08 — **ManΣ + passe intégration** ([`integration-pass-2026-06-08.json`](../../../proc/linux-mint/integration-pass-2026-06-08.json))
+
+**Campagne v2 (en cours)** : **réplique exacte VM modèle** — périmètre = tout ce qui est sur `capsule@192.168.1.146` ; état formel : [`linux-mint-replication-state.json`](linux-mint-replication-state.json). CapsuleOnly et P1 permanents **hors clôture**.
 
 **Ground truth** : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md)
 
@@ -28,7 +30,8 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 
 ## Phase 3 — Assets
 
-- [x] `vendors/mint/panel/` + `default_background.jpg`
+- [x] **ManΣ** (2026-06-08) : manifeste approuvé, staging 157 fichiers, import playbook `pull=0`
+- [x] `vendors/mint/panel/` (nemo, firefox, terminal, xed) + **41** fonds `linuxmint/`
 - [x] `validate-asset-zones.mjs` OK
 
 ## Phase 4 — Shell / panel
@@ -70,8 +73,41 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **#7 Firefox** — P0 barre Muffin + P1 New Tab Proton, icônes toolbar, multi-onglets — [`linux-mint-firefox-vm.md`](linux-mint-firefox-vm.md) · `smoke-mint-firefox.mjs`
 - [x] **#8 Gestionnaire d'archives** — analyse VM [`linux-mint-file-roller-vm.md`](inventaires/linux-mint-file-roller-vm.md), slot `file_roller`, smoke `smoke-mint-file-roller.mjs`
 - [x] **#9 Gestionnaire de mises à jour** — analyse VM [`linux-mint-update-manager-vm.md`](inventaires/linux-mint-update-manager-vm.md), écran d'accueil + état à jour, smoke `smoke-mint-update-manager.mjs`
-- [ ] Reproduction **une app par passe** (suite : #10) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
+- [x] **#8 Gestionnaire d'archives** — `file_roller`, smoke `smoke-mint-file-roller.mjs` OK (2026-06-08)
+- [x] **#10 Gestionnaire de pilotes** — `mintdrivers`, smoke `smoke-mint-mintdrivers.mjs` OK (2026-06-08)
+- [x] **#11 Lecteur vidéo** — `lecteur_multimedia` / Celluloid, smoke `smoke-mint-celluloid.mjs` OK (2026-06-08)
+- [x] **#12 LibreOffice Calc** — `librecalc`, smoke `smoke-mint-librecalc.mjs` OK (2026-06-08)
+- [x] **#13 LibreOffice Writer** — `librewriter`, smoke `smoke-mint-librewriter.mjs` OK (2026-06-08)
+- [x] **#14 Logithèque** — slot `mintinstall` dédié (≠ `update_manager`), smoke `smoke-mint-mintinstall.mjs` OK (2026-06-08) · [`linux-mint-mintinstall-vm.md`](linux-mint-mintinstall-vm.md)
+- [x] **#16 Paramètres du système** — slot `themes` / cinnamon-settings 6.6 (30 panneaux, recherche, thèmes VM), smoke `smoke-mint-cinnamon-settings.mjs` OK (2026-06-08)
+- [x] **#19 Visionneur d'images** — xviewer 3.0, smoke `smoke-mint-xviewer.mjs` OK (2026-06-08)
+- [x] **#20 Visionneur de documents** — xreader 4.0, smoke `smoke-mint-xreader.mjs` OK (2026-06-08)
+- [x] **#21 Analyseur d'espace disque** — `baobab`, smoke `smoke-mint-baobab.mjs` OK (2026-06-08)
+- [x] **#22–31 Batch XApp** — `webapp_manager`, `sticky`, `warpinator`, `hypnotix`, `transmission`, `mintbackup`, `bulky`, `timeshift`, `thunderbird`, `mintwelcome` — smoke `smoke-mint-p4-batch.mjs` OK (2026-06-08)
+- [ ] Reproduction **une app par passe** (suite catalogue #32+) — [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 - Outil : `node usr/lib/capsuleos/tools/lab/generate-mint-apps-catalog.mjs --write`
+
+## Passe parité panel + menu (2026-06-08 PM)
+
+- [x] **Icônes menu** : 97/97 chargées (symlinks `.svg`/`.png` sur assets ManΣ + extensions dans `mainMenu-data-cinnamon.js`)
+- [x] **Panel** : séparateur Cinnamon après menu, logo circulaire, tray 24px, favoris 22px
+- [x] **Menu** : tokens Mint-Y-Dark-Aqua, libellés FR, géométrie sidebar/catégories/apps
+- [x] Captures : `capture-mint-panel-menu.mjs --compare` → `captures/linux-mint/20260608-104657/`
+- [x] Captures post-géométrie (`430cfcb`) : `captures/linux-mint/20260608-143806/` · baseline clone `clone-baseline/` · métriques dans `linux-mint-parity-index.json` (layoutMetrics shell)
+- [x] Checklist panel **6/6** VM + Capsule (`compare-os-parity --capsule-json`)
+
+## Campagne v2 — shell panel (2026-06-08)
+
+- [x] Panel : **menu + grouped-window-list** (lanceurs fixes / checklist / accueil retirés)
+- [x] Applet **favoris** tray (5 favoris bureau VM)
+- [x] Minimize → `capsuleRunning` + entrée grouped-list minimisée
+- [x] Smokes panel : `run-capsule-panel-browser.mjs` **6/6**
+- [x] Panel VM : **6/6** (sonde lab — 2026-06-08)
+
+## Campagne v2 — objets modaux (P2)
+
+- [x] Matrice bootstrap **VΣ** — [`linux-mint-ui-state-effects-matrix.json`](linux-mint-ui-state-effects-matrix.json) (8 surfaces shell P0/P1)
+- [x] Collecte burst VM + prédicats Ve/Vμ/VΣ (`run-ui-state-effects-pass.mjs --write`, capsuleMatch partial)
 
 ## Zone de notification (2026-06-04)
 

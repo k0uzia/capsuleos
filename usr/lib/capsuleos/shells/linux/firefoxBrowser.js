@@ -408,10 +408,107 @@ function initFirefoxBrowser() {
         });
     }
 
-    if (btnMenu) {
-        btnMenu.addEventListener('click', function onMenuClick() {
-            setStatus(capsuleStr('firefox.statusMenuSoon', 'Menu Firefox : bientôt disponible.'));
+    let menuPopover = browserRoot.querySelector('[data-browser-menu]');
+    if (!menuPopover && btnMenu) {
+        menuPopover = document.createElement('div');
+        menuPopover.className = 'capsule-browser__menu-popover';
+        menuPopover.hidden = true;
+        menuPopover.setAttribute('data-browser-menu', '');
+        menuPopover.setAttribute('role', 'menu');
+        const menuItems = [
+            capsuleStr('firefox.menuNewTab', 'Nouvel onglet'),
+            capsuleStr('firefox.menuNewWindow', 'Nouvelle fenêtre'),
+            capsuleStr('firefox.menuHistory', 'Historique'),
+            capsuleStr('firefox.menuDownloads', 'Téléchargements'),
+            capsuleStr('firefox.menuQuit', 'Quitter'),
+        ];
+        menuItems.forEach(function appendMenuItem(label) {
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'capsule-browser__menu-item';
+            item.setAttribute('role', 'menuitem');
+            item.textContent = label;
+            menuPopover.appendChild(item);
         });
+        const menuHost = btnMenu.parentElement;
+        if (menuHost) {
+            menuHost.appendChild(menuPopover);
+        }
+    }
+
+    function closeMenuPopover() {
+        if (!menuPopover || !btnMenu) {
+            return;
+        }
+        menuPopover.hidden = true;
+        btnMenu.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggleMenuPopover() {
+        if (!menuPopover || !btnMenu) {
+            return;
+        }
+        const open = menuPopover.hidden;
+        menuPopover.hidden = !open;
+        btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    if (btnMenu) {
+        btnMenu.addEventListener('click', function onMenuClick(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleMenuPopover();
+        });
+    }
+
+    if (menuPopover) {
+        menuPopover.addEventListener('click', function onMenuItemClick(event) {
+            const item = event.target.closest('.capsule-browser__menu-item');
+            if (!item || !menuPopover.contains(item)) {
+                return;
+            }
+            event.preventDefault();
+            const label = item.textContent || '';
+            closeMenuPopover();
+            if (label.indexOf('Nouvel onglet') >= 0) {
+                addTab();
+                return;
+            }
+            setStatus(
+                capsuleStrFmt('firefox.statusMenuItem', { label: label }, 'Menu : ' + label)
+            );
+        });
+    }
+
+    document.addEventListener('click', function onDocMenuClose(event) {
+        if (!menuPopover || menuPopover.hidden) {
+            return;
+        }
+        if (menuPopover.contains(event.target) || event.target === btnMenu) {
+            return;
+        }
+        closeMenuPopover();
+    });
+
+    browserRoot.setAttribute('tabindex', '-1');
+    if (browserRoot.dataset.firefoxKeysBound !== 'true') {
+        browserRoot.addEventListener('keydown', function onFirefoxKeys(event) {
+            if (!event.ctrlKey) {
+                return;
+            }
+            const key = event.key;
+            if (key === 't' || key === 'T') {
+                event.preventDefault();
+                addTab();
+                return;
+            }
+            if (key === 'l' || key === 'L') {
+                event.preventDefault();
+                addressInput.focus();
+                addressInput.select();
+            }
+        });
+        browserRoot.dataset.firefoxKeysBound = 'true';
     }
 
     tabsList.addEventListener('click', function onTabsListClick(event) {

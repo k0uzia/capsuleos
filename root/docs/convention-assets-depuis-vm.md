@@ -1,6 +1,7 @@
 # Convention — assets images et icônes depuis la VM (ground truth)
 
-> **Règle obligatoire** pour tout clone de distribution à partir d’une VM lab : les icônes et fonds d’écran affichés dans CapsuleOS doivent provenir de la **VM réelle**, pas d’un autre skin (Fedora générique, Mint-Y, pack Cinnamon du dépôt) ni d’icônes « proches » réinventées.
+> **Règle obligatoire** pour tout clone de distribution à partir d’une VM lab : les icônes et fonds d’écran affichés dans CapsuleOS doivent provenir de la **VM réelle**, pas d’un autre skin (Fedora générique, Mint-Y, pack Cinnamon du dépôt) ni d’icônes « proches » réinventées.  
+> Chemins VM + specs Internet : [referentiel-assets-vm-officiels.md](referentiel-assets-vm-officiels.md).
 
 Formalisation : prédicats **A**, **S**, **T** et règles **R-A1**–**R-S2** dans [logique-formelle.md](logique-formelle.md).
 

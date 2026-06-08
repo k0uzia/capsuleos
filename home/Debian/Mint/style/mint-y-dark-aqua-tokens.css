@@ -3,6 +3,8 @@
  * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
  */
 body#mint {
+    /* VM Cinnamon panel1 height = 40 px (--head), pas le défaut portal 1.25× */
+    --taskbar-height: var(--head);
     --texte: #e1e1e1;
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
@@ -10,6 +12,9 @@ body#mint {
     --mint-clock-hover-bg: #303036;
     --mint-taskbar-item-border-hover: #3c3c44;
     --mint-tray-separator: rgba(255, 255, 255, 0.12);
+    --mint-tray-item-size: 24px;
+    --mint-tray-icon-size: 24px;
+    --mint-favorites-icon-size: 22px;
     --mint-tray-color: #e1e1e1;
     --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.08);
     --menu-sidebar-bg: #27272b;

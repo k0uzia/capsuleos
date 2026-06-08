@@ -7,6 +7,18 @@
 
     const EXCLUDED_SLOTS = new Set(['mainMenu']);
 
+    const WINDOW_ICONS = {
+        nemo: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp',
+        firefox: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp',
+        terminal: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp',
+        text_editor: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/accessories-text-editor.webp',
+        update_manager: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintupdate.webp',
+        mintinstall: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp',
+        themes: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/preferences-desktop-theme.webp',
+        calculator: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
+        librewriter: '../../../usr/share/capsuleos/assets/images/vendors/mint/panel/libreoffice-writer.webp',
+    };
+
     const WINDOW_LABELS = {
         nemo: 'Nemo',
         firefox: 'Firefox',
@@ -15,10 +27,13 @@
         profile: 'À Propos',
         checklist: 'Missions',
         librewriter: 'LibreOffice Writer',
+        librecalc: 'LibreOffice Calc',
         visionneur_images: 'Visionneur d\'images',
         visionneur_pdf: 'Visionneur PDF',
         lecteur_multimedia: 'Lecteur vidéo',
-        update_manager: 'Mises à jour',
+        update_manager: 'Gestionnaire de mises à jour',
+        mintinstall: 'Logithèque',
+        system_monitor: 'Moniteur système',
         text_editor: 'Éditeur de texte',
         calculator: 'Calculatrice',
         clocks: 'Horloges',
@@ -26,6 +41,31 @@
         screenshot: 'Capture d\'écran',
         drawing: 'Dessin',
         file_roller: 'Gestionnaire d\'archives',
+        mintdrivers: 'Gestionnaire de pilotes',
+        baobab: 'Analyseur d\'espace disque',
+        webapp_manager: 'Applications Web',
+        sticky: 'Notes',
+        warpinator: 'Warpinator',
+        hypnotix: 'Hypnotix',
+        transmission: 'Transmission',
+        mintbackup: 'Sauvegarde',
+        bulky: 'Renommer fichiers',
+        timeshift: 'Timeshift',
+        thunderbird: 'Thunderbird',
+        mintwelcome: 'Accueil Mint',
+        gucharmap: 'Table des caractères',
+        simple_scan: 'Numérisation',
+        thingy: 'Bibliothèque',
+        rhythmbox: 'Rhythmbox',
+        gnome_disks: 'Disques',
+        libreoffice_startcenter: 'LibreOffice',
+        libreoffice_draw: 'LibreOffice Draw',
+        libreoffice_impress: 'LibreOffice Impress',
+        mintstick: 'Créateur clé USB',
+        mintstick_format: 'Formateur clé USB',
+        font_viewer: 'Polices',
+        power_stats: 'Statistiques alim.',
+        mate_color_select: 'Sélecteur couleur',
         'Dossier personnel': 'Dossier personnel',
     };
 
@@ -64,26 +104,57 @@
         return !!(container && container.style.display !== 'none');
     }
 
+    function markWindowRunning(container) {
+        if (!container) {
+            return;
+        }
+        if (global.CapsuleTaskbarLauncherState
+            && typeof global.CapsuleTaskbarLauncherState.markRunning === 'function') {
+            global.CapsuleTaskbarLauncherState.markRunning(container);
+            return;
+        }
+        container.dataset.capsuleRunning = 'true';
+    }
+
     function getOpenWindows() {
         return Array.from(document.querySelectorAll('.windowElement'))
             .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
             .filter(isWindowVisible);
     }
 
+    function getRunningWindows() {
+        return Array.from(document.querySelectorAll('.windowElement'))
+            .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
+            .filter((container) => {
+                return isWindowVisible(container)
+                    || (container.dataset && container.dataset.capsuleRunning === 'true');
+            });
+    }
+
+    function resolveWindowIcon(dataLink) {
+        if (WINDOW_ICONS[dataLink]) {
+            return WINDOW_ICONS[dataLink];
+        }
+        return '';
+    }
+
     function focusWindow(dataLink) {
         const container = document.querySelector(`.windowElement[data-link="${dataLink}"]`);
-        if (!container || !isWindowVisible(container)) {
+        if (!container) {
             return;
         }
         if (typeof global.openWindowByDataLink === 'function') {
             global.openWindowByDataLink(dataLink);
             return;
         }
+        if (!isWindowVisible(container)) {
+            return;
+        }
         container.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
     }
 
     function renderWindowList(listEl) {
-        const openWindows = getOpenWindows();
+        const runningWindows = getRunningWindows();
         const activeContainer = document.querySelector('.windowElementActive');
         const activeLink = activeContainer && !EXCLUDED_SLOTS.has(activeContainer.dataset.link)
             ? activeContainer.dataset.link
@@ -91,28 +162,43 @@
 
         listEl.innerHTML = '';
 
-        if (openWindows.length === 0) {
+        if (runningWindows.length === 0) {
             listEl.hidden = true;
             return;
         }
 
         listEl.hidden = false;
 
-        openWindows.forEach((container) => {
+        runningWindows.forEach((container) => {
             const dataLink = container.dataset.link;
+            const visible = isWindowVisible(container);
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'taskbar-window-list__btn'
-                + (dataLink === activeLink ? ' is-active' : '');
+                + (visible && dataLink === activeLink ? ' is-active' : '')
+                + (visible ? '' : ' is-minimized');
             btn.dataset.windowLink = dataLink;
             btn.setAttribute('role', 'listitem');
             btn.title = resolveWindowLabel(dataLink, container);
-            btn.textContent = resolveWindowLabel(dataLink, container);
+
+            const iconSrc = resolveWindowIcon(dataLink);
+            if (iconSrc) {
+                const img = document.createElement('img');
+                img.className = 'taskbar-window-list__icon';
+                img.src = iconSrc;
+                img.alt = '';
+                btn.appendChild(img);
+            }
+            const label = document.createElement('span');
+            label.className = 'taskbar-window-list__label';
+            label.textContent = resolveWindowLabel(dataLink, container);
+            btn.appendChild(label);
 
             btn.addEventListener('click', (event) => {
                 event.preventDefault();
-                if (dataLink === activeLink && isWindowVisible(container)) {
+                if (visible && dataLink === activeLink) {
                     const applyHide = () => {
+                        markWindowRunning(container);
                         container.style.display = 'none';
                         container.classList.remove('active', 'windowElementActive');
                         if (typeof global.CustomEvent === 'function') {

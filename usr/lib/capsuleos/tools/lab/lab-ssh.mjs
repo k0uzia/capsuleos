@@ -28,7 +28,7 @@ const parseArgs = () => {
   return opts;
 };
 
-const loadHost = (registryId) => {
+export const loadHost = (registryId) => {
   const inv = JSON.parse(fs.readFileSync(INVENTORY, 'utf8'));
   const host = (inv.hosts || []).find((h) => h.registryId === registryId);
   if (!host) throw new Error(`Hôte inconnu: ${registryId}`);

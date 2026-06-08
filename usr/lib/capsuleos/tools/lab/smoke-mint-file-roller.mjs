@@ -11,11 +11,11 @@ await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(500);
-await page.fill('#menu-search', 'Gestionnaire d\'archives');
-await page.waitForTimeout(300);
+await page.waitForTimeout(45);
+await page.fill('#menu-search', 'Archive');
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(800);
+await page.waitForTimeout(180);
 
 const empty = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="file_roller"]');
@@ -39,9 +39,9 @@ const empty = await page.evaluate(() => {
 });
 
 await page.click('[data-fr-action="menu"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 await page.click('[data-fr-menu="open-demo"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const open = await page.evaluate(() => {
   const rows = document.querySelectorAll('#fr-list-body tr');

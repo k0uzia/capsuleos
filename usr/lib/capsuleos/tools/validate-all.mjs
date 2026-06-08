@@ -19,6 +19,10 @@ const steps = [
   { label: 'quality', script: 'validate-quality-all.mjs' },
 ];
 
+if (process.env.CAPSULE_VALIDATE_CLONE === '1') {
+  steps.push({ label: 'clone-checkpoints', script: 'validate-clone-checkpoints.mjs' });
+}
+
 let failed = false;
 
 console.log('CapsuleOS validate-all —', steps.map((s) => s.label).join(' + '));

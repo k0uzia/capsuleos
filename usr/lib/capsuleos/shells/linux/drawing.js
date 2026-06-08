@@ -12,12 +12,32 @@
         '#986a44', '#cdab8f'
     ];
 
+    function getWindowEl(root) {
+        var el = root;
+        while (el) {
+            if (el.getAttribute && el.getAttribute('data-link') === 'drawing') {
+                return el;
+            }
+            el = el.parentElement;
+        }
+        return null;
+    }
+
     function initDrawingAppOnce() {
         var root = global.document.getElementById('drawingApp');
         if (!root || root.dataset.drawingInit === 'true') {
             return;
         }
         root.dataset.drawingInit = 'true';
+
+        var winEl = getWindowEl(root);
+        if (winEl) {
+            var wmTitle = winEl.querySelector('#windowTitle');
+            if (wmTitle) {
+                wmTitle.textContent = 'Dessin';
+            }
+            winEl.setAttribute('data-title', 'Dessin');
+        }
 
         var canvas = global.document.getElementById('drawing-canvas');
         var paletteEl = global.document.getElementById('drawing-palette');

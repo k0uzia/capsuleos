@@ -14,11 +14,20 @@ alwaysApply: true
 3. **H₃** — skill `onboarding` + `os-<famille>` + `role-*`
 4. Appliquer **logique formelle** §4 pour la prochaine action (**R-AUTO**)
 
-## Gates
+## Gates (discrimination)
 
-- ¬**H₂** → corriger validate-all / gate zone
+Doc : `root/docs/agent-validation-discipline.md` · outil :
+
+```bash
+node usr/lib/capsuleos/tools/print-validation-plan.mjs
+```
+
+- ¬**H₂** → baseline `validate-all` (session) ou gate zone ciblée
+- Skin Linux touché → `sync-linux-skin-closure.mjs` + **Rv** avant push
+- Merge / push → **H₆** `validate-all` exit 0 ; rectifier rouges **zone touchée** seulement
 - ¬**I** → inventaire VM avant patch skin
 - ¬**A** → `kernel-supervisor` + `pull-vm-assets.sh`
+- **Push** → `node usr/lib/capsuleos/tools/sync-all-views.mjs` avant **chaque** `git push` (hook `.githooks/pre-push` ; install : `bash root/tools/install-git-hooks.sh`)
 
 ## Skills
 

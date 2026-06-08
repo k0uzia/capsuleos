@@ -1,0 +1,197 @@
+main#cinnamonSettingsApp {
+    position: var(--rel);
+    display: grid;
+    grid-template-columns: 13rem 1fr;
+    width: var(--full);
+    height: var(--full);
+    overflow: hidden;
+    font-family: var(--font-ui);
+    color: #e1e1e1;
+    background: #2e2e33;
+}
+
+.cs-app__sidebar {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.15rem;
+    padding: 0.5rem 0.35rem;
+    border-right: 1px solid #202023;
+    background: #27272b;
+    overflow-y: auto;
+}
+
+.cs-app__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.45rem 0.55rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: var(--p);
+}
+
+.cs-app__nav:hover,
+.cs-app__nav.is-active {
+    background: rgba(31, 158, 222, 0.18);
+}
+
+.cs-app__nav[hidden] {
+    display: none !important;
+}
+
+.cs-app__nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.cs-app__main {
+    display: flex;
+    flex-flow: column nowrap;
+    min-width: 0;
+    min-height: 0;
+}
+
+.cs-app__header {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.45rem;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid #202023;
+}
+
+.cs-app__search {
+    width: 100%;
+    max-width: 18rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #404046;
+    border-radius: 4px;
+    background: #222226;
+    color: inherit;
+    font: inherit;
+}
+
+.cs-app__panel-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.cs-app__panels {
+    flex: 1;
+    overflow: auto;
+    padding: 0.75rem 0.85rem;
+}
+
+.cs-panel[hidden] {
+    display: none !important;
+}
+
+.cs-panel.is-active {
+    display: block;
+}
+
+.cs-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cs-row__label {
+    flex: 1;
+}
+
+.cs-switch {
+    width: 2.6rem;
+    height: 1.35rem;
+    border: 0;
+    border-radius: 999px;
+    background: #555;
+    cursor: var(--p);
+    position: relative;
+}
+
+.cs-switch.is-on {
+    background: #1f9ede;
+}
+
+.cs-switch::after {
+    content: "";
+    position: absolute;
+    top: 0.15rem;
+    left: 0.15rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.15s ease;
+}
+
+.cs-switch.is-on::after {
+    transform: translateX(1.2rem);
+}
+
+.cs-panel--themes {
+    overflow-y: auto;
+    padding: 0.65rem 0.85rem;
+}
+
+.cs-panel--themes #themesApp {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #e1e1e1;
+}
+
+.themes-style-popover {
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    min-width: 12rem;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0;
+    border: 1px solid #3a3a40;
+    border-radius: 4px;
+    background: #2e2e33;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.themes-app__control {
+    position: relative;
+}
+
+.themes-style-popover__item {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: var(--p);
+}
+
+.themes-style-popover__item:hover,
+.themes-style-popover__item.is-active {
+    background: rgba(31, 158, 222, 0.22);
+}

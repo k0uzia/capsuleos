@@ -7,12 +7,41 @@
     const WINDOW_TITLE_MAP = {
         profile: 'À Propos',
         librewriter: 'Sans nom 1 - LibreOffice Writer',
+        librecalc: 'Sans nom 1 - LibreOffice Calc',
         calculator: 'Calculatrice',
         clocks: 'Horloges',
         calendar: 'Calendrier',
         screenshot: 'Capture d\'écran',
         drawing: 'Sans titre — Dessin',
         file_roller: 'Gestionnaire d\'archives',
+        mintdrivers: 'Gestionnaire de pilotes',
+        mintinstall: 'Logithèque',
+        system_monitor: 'Moniteur système',
+        baobab: 'Analyseur d\'espace disque',
+        webapp_manager: 'Applications Web',
+        sticky: 'Notes',
+        warpinator: 'Warpinator',
+        hypnotix: 'Hypnotix',
+        transmission: 'Transmission',
+        mintbackup: 'Outil de sauvegarde',
+        bulky: 'Renommer fichiers',
+        timeshift: 'Timeshift',
+        thunderbird: 'Thunderbird',
+        mintwelcome: 'Écran d\'accueil Mint',
+        gucharmap: 'Table des caractères',
+        simple_scan: 'Numérisation de documents',
+        thingy: 'Bibliothèque',
+        rhythmbox: 'Rhythmbox',
+        gnome_disks: 'Disques',
+        libreoffice_startcenter: 'LibreOffice',
+        libreoffice_draw: 'Sans nom 1 — LibreOffice Draw',
+        libreoffice_impress: 'Sans nom 1 — LibreOffice Impress',
+        mintstick: 'Créateur de clé USB',
+        mintstick_format: 'Formateur de clé USB',
+        font_viewer: 'Polices',
+        power_stats: 'Statistiques d\'alimentation',
+        mate_color_select: 'Sélecteur de couleur',
+        update_manager: 'Gestionnaire de mise à jour',
     };
 
     const WINDOW_TASK_MAP = {
@@ -249,6 +278,12 @@
             if (slotId === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
                 window.initUpdateManagerApp();
             }
+            if (slotId === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+                window.initMintInstallApp();
+            }
+            if (slotId === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+                window.initSystemMonitorApp();
+            }
         },
     });
 
@@ -260,6 +295,12 @@
         const ok = nativeOpen(dataLink);
         if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
             window.initUpdateManagerApp();
+        }
+        if (ok && dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+            window.initMintInstallApp();
+        }
+        if (ok && dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+            window.initSystemMonitorApp();
         }
         return ok;
     };

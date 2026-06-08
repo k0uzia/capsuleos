@@ -1,0 +1,11 @@
+/* Mint — Paramètres système (cinnamon-settings 6.6) */
+body#mint div[data-link="themes"].windowElement {
+    width: calc(var(--head) * 24);
+    min-width: calc(var(--head) * 20);
+    height: calc(var(--head) * 17);
+}
+
+body#mint main#cinnamonSettingsApp .cs-app__search:focus {
+    outline: 2px solid #1f9ede;
+    outline-offset: 1px;
+}

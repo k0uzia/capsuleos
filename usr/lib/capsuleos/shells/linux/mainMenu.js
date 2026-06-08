@@ -205,10 +205,18 @@ function initMainMenu() {
             li.appendChild(info);
 
             if (app.dataLink) {
-                li.addEventListener('click', () => openApp(app.dataLink));
+                li.addEventListener('click', () => {
+                    if (app.csPanel && typeof window !== 'undefined') {
+                        window.CAPSULE_CS_PENDING_PANEL = app.csPanel;
+                    }
+                    openApp(app.dataLink);
+                });
                 li.addEventListener('keydown', event => {
                     if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
+                        if (app.csPanel && typeof window !== 'undefined') {
+                            window.CAPSULE_CS_PENDING_PANEL = app.csPanel;
+                        }
                         openApp(app.dataLink);
                     }
                 });

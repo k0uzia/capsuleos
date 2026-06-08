@@ -10,8 +10,8 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
-await page.click('footer nav a[data-link="firefox"]');
-await page.waitForTimeout(900);
+await page.evaluate(() => window.openWindowByDataLink('firefox'));
+await page.waitForTimeout(180);
 
 const chrome = await page.evaluate(() => {
   const win = document.getElementById('firefox');
@@ -48,7 +48,7 @@ const chrome = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="firefox"] [data-browser-action="new-tab"]');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 
 const multiTab = await page.evaluate(() => {
   const app = document.querySelector('#firefox [data-firefox-app]');
@@ -57,7 +57,7 @@ const multiTab = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="firefox"] [data-browser-newtab-link="os-lacapsule"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const osPage = await page.evaluate(() => {
   const app = document.querySelector('#firefox [data-firefox-app]');
@@ -73,7 +73,7 @@ const osPage = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="firefox"] [data-browser-action="toggle-bookmarks"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const bookmarksToggle = await page.evaluate(() => {
   const bar = document.querySelector('#firefox [data-browser-bookmarks]');
@@ -85,7 +85,7 @@ const bookmarksToggle = await page.evaluate(() => {
 });
 
 await page.click('div[data-link="firefox"] [data-browser-action="home"]');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 
 const homeView = await page.evaluate(() => {
   const app = document.querySelector('#firefox [data-firefox-app]');

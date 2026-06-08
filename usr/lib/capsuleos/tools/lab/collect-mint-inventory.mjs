@@ -207,7 +207,7 @@ const buildReport = (vm) => {
   lines.push('| org.gnome.Calculator.desktop | Bureau → menu → terminal | P1 simulation |');
   lines.push('| org.gnome.Calendar.desktop | Bureau → popover horloge | OK |');
   lines.push('| org.x.editor.desktop (xed) | Bureau + `text_editor` | P2 clone |');
-  lines.push('| mintinstall.desktop | Bureau + `update_manager` | OK |');
+  lines.push('| mintinstall.desktop | Bureau + favoris → `mintinstall` | OK |');
   lines.push('| cinnamon-settings.desktop | Bureau → `themes` | OK |');
   lines.push('');
   lines.push('| Panel CapsuleOS | VM panel | Statut |');

@@ -35,7 +35,10 @@ window_wm_class() {
     return
   fi
   local raw
-  raw=$(xprop -id "$wid" WM_CLASS 2>/dev/null | sed -n 's/^WM_CLASS(STRING) = "\([^"]*\)".*/\1/p')
+  raw=$(xprop -id "$wid" WM_CLASS 2>/dev/null | sed -n 's/^WM_CLASS(STRING) = "\([^"]*\)", "\([^"]*\)".*/\1 \2/p')
+  if [[ -z "$raw" ]]; then
+    raw=$(xprop -id "$wid" WM_CLASS 2>/dev/null | sed -n 's/^WM_CLASS(STRING) = "\([^"]*\)".*/\1/p')
+  fi
   if [[ -z "$raw" ]]; then
     raw=$(xprop -id "$wid" WM_CLASS 2>/dev/null | sed -n 's/.*"\([^"]*\)".*/\1/p' | tail -1)
   fi
@@ -47,6 +50,7 @@ launcher_slot_from_class() {
   case "$cls" in
     *nemo-desktop*) echo "" ;;
     *nemo*) echo "nemo" ;;
+    *navigator*) echo "firefox" ;;
     *firefox*) echo "firefox" ;;
     *terminal*|*gnome-terminal*|*mate-terminal*|*xterm*) echo "terminal" ;;
     *) echo "" ;;
@@ -62,17 +66,22 @@ state_cinnamon() {
   require_cmd xdotool
   require_cmd xprop
 
-  local ts wid focus_cls focus_title
+  local ts wid focus_cls focus_title focus_slot
   ts=$(timestamp_utc)
   wid=$(active_window_id)
   focus_cls=$(window_wm_class "$wid")
+  focus_slot=$(launcher_slot_from_class "$focus_cls")
+  if [[ -z "$focus_slot" ]]; then
+    local cls_part
+    for cls_part in $focus_cls; do
+      focus_slot=$(launcher_slot_from_class "$cls_part")
+      [[ -n "$focus_slot" ]] && break
+    done
+  fi
   focus_title=$(xprop -id "$wid" WM_NAME 2>/dev/null | sed 's/^WM_NAME(UTF8_STRING) = "\(.*\)"$/\1/' | sed 's/^WM_NAME(STRING) = "\(.*\)"$/\1/' || echo "")
   if [[ -z "$focus_title" ]]; then
     focus_title=$(wmctrl -lp 2>/dev/null | awk -v w="$wid" '$1==w {for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
   fi
-
-  local focus_slot
-  focus_slot=$(launcher_slot_from_class "$focus_cls")
 
   local -A running=()
   local windows_json=""
@@ -108,10 +117,25 @@ state_cinnamon() {
   fi
 
   local explorer_path=""
-  local nemo_line
-  nemo_line=$(wmctrl -lx 2>/dev/null | grep -i '\.Nemo' | grep -vi 'nemo-desktop' | tail -1 || true)
-  if [[ -n "$nemo_line" ]]; then
-    explorer_path=$(echo "$nemo_line" | awk '{for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+  local nemo_line nemo_title
+  if [[ "$focus_slot" == "nemo" && -n "$wid" ]]; then
+    explorer_path=$(wmctrl -lp 2>/dev/null | awk -v w="$wid" '$1==w {for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+  fi
+  if [[ -z "$explorer_path" ]]; then
+    while IFS= read -r nemo_line; do
+      [[ -z "$nemo_line" ]] && continue
+      nemo_title=$(echo "$nemo_line" | awk '{for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+      if echo "$nemo_title" | grep -qiE 'documents|document'; then
+        explorer_path="$nemo_title"
+        break
+      fi
+    done < <(wmctrl -lx 2>/dev/null | grep -i '\.Nemo' | grep -vi 'nemo-desktop' || true)
+  fi
+  if [[ -z "$explorer_path" ]]; then
+    nemo_line=$(wmctrl -lx 2>/dev/null | grep -i '\.Nemo' | grep -vi 'nemo-desktop' | tail -1 || true)
+    if [[ -n "$nemo_line" ]]; then
+      explorer_path=$(echo "$nemo_line" | awk '{for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+    fi
   fi
 
   printf '{"toolkit":"cinnamon","timestamp":"%s","focused":%s,"windows":%s,"launchers":%s,"explorer":{"nemo":{"currentPath":"%s"}},"actions":{"last":"state"}}\n' \
@@ -178,20 +202,54 @@ action_focus_launcher() {
 
 action_minimize_launcher() {
   local slot="$1"
-  local wid
-  wid=$(wmctrl_id_for_slot "$slot")
-  if [[ -n "$wid" ]]; then
-    wmctrl -ir "$wid" -b add,hidden 2>/dev/null || xdotool windowminimize "$wid" 2>/dev/null || true
-  fi
+  local line id cls
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    cls=$(echo "$line" | awk '{print $3}')
+    [[ "$(launcher_slot_from_class "$cls")" != "$slot" ]] && continue
+    id=$(echo "$line" | awk '{print $1}')
+    wmctrl -ir "$id" -b add,hidden 2>/dev/null || xdotool windowminimize "$id" 2>/dev/null || true
+  done < <(wmctrl -lx 2>/dev/null)
+  sleep 0.35
+  local other
+  for other in firefox terminal nemo; do
+    if [[ "$other" != "$slot" ]]; then
+      local owid
+      owid=$(wmctrl_id_for_slot "$other")
+      if [[ -n "$owid" ]]; then
+        action_focus_launcher "$other"
+        return
+      fi
+    fi
+  done
   xdotool key super+d 2>/dev/null || true
-  sleep 0.5
+  sleep 0.35
 }
 
 action_nemo_sidebar() {
   local folder="$1"
-  action_focus_launcher nemo
-  sleep 0.2
+  local wid
+  wid=$(wmctrl_id_for_slot nemo)
+  if [[ -n "$wid" ]]; then
+    wmctrl -ir "$wid" -b remove,hidden 2>/dev/null || true
+    wmctrl -ia "$wid" 2>/dev/null || true
+    xdotool windowactivate "$wid" 2>/dev/null || true
+    sleep 0.35
+  fi
   nohup nemo "$HOME/${folder}" >/dev/null 2>&1 &
+  sleep 1.0
+  wid=$(wmctrl -lx 2>/dev/null | grep -i '\.Nemo' | grep -vi 'nemo-desktop' | while IFS= read -r line; do
+    local title
+    title=$(echo "$line" | awk '{for(i=5;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+    if echo "$title" | grep -qiE "${folder,,}|documents|document"; then
+      echo "$line" | awk '{print $1}'
+      break
+    fi
+  done)
+  if [[ -n "$wid" ]]; then
+    wmctrl -ia "$wid" 2>/dev/null || true
+    xdotool windowactivate "$wid" 2>/dev/null || true
+  fi
   sleep 0.5
 }
 

@@ -1,0 +1,80 @@
+{
+  "registryId": "linux-mint",
+  "slot": "mintinstall",
+  "label": "Logithèque",
+  "collectedAt": "2026-06-08T11:19:29.875Z",
+  "source": "vm-doc+template",
+  "vmDoc": "root/docs/inventaires/linux-mint-mintinstall-vm.md",
+  "vm": {
+    "md": "root/docs/inventaires/linux-mint-mintinstall-vm.md",
+    "json": {
+      "collectedAt": "2026-06-08T10:58:00Z",
+      "package": "mintinstall 8.4.0",
+      "desktop": "mintinstall.desktop",
+      "titleFr": "Logithèque",
+      "titleEn": "Software Manager",
+      "wmClass": "mintinstall.py.Mintinstall.py",
+      "geometry": {
+        "width": 852,
+        "height": 784,
+        "minWidth": 720,
+        "minHeight": 560
+      },
+      "slotCapsule": "mintinstall",
+      "distinctFrom": "update_manager",
+      "categoriesSample": [
+        "Accueil",
+        "Tous les logiciels",
+        "Flatpak",
+        "Internet",
+        "Bureautique",
+        "Graphisme",
+        "Jeux",
+        "Multimédia"
+      ],
+      "featuredApps": [
+        "vlc",
+        "audacity",
+        "filezilla",
+        "com.visualstudio.code"
+      ]
+    }
+  },
+  "vmProbe": {
+    "skipped": true
+  },
+  "checks": [
+    {
+      "id": "search",
+      "dimension": "int",
+      "type": "fill",
+      "selector": "#mi-search",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "categories",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "[data-mi-cat=\"internet\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "hamburger-menu",
+      "dimension": "ctx",
+      "type": "click",
+      "selector": "[data-mi-action=\"menu\"]",
+      "pass": null,
+      "note": ""
+    },
+    {
+      "id": "install",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-mi-install]",
+      "pass": null,
+      "note": ""
+    }
+  ]
+}

@@ -20,11 +20,11 @@ await page.evaluate(() => {
 });
 
 await page.click('footer nav a[data-link="mainMenu"]');
-await page.waitForTimeout(400);
+await page.waitForTimeout(40);
 await page.fill('#menu-search', 'Gestionnaire de mise à jour');
-await page.waitForTimeout(300);
+await page.waitForTimeout(80);
 await page.click('#menu-app-list .menu-app-item:not(.is-unavailable)');
-await page.waitForTimeout(900);
+await page.waitForTimeout(180);
 
 const welcome = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="update_manager"]');
@@ -46,7 +46,7 @@ const welcome = await page.evaluate(() => {
 });
 
 await page.click('[data-um-welcome="finish"]');
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const uptodate = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="update_manager"]');
@@ -68,16 +68,16 @@ const uptodate = await page.evaluate(() => {
 });
 
 await page.click('[data-um-menu="file"]');
-await page.waitForTimeout(150);
+await page.waitForTimeout(50);
 const menu = await page.evaluate(() => ({
   fileOpen: !document.querySelector('[data-um-menu="file"]')
     ?.parentElement?.querySelector('.update-manager__menu-dropdown')?.hidden,
 }));
 
 await page.keyboard.press('Escape');
-await page.waitForTimeout(100);
+await page.waitForTimeout(40);
 await page.click('[data-um-mirror="no"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const mirror = await page.evaluate(() => {
   const banner = document.getElementById('um-mirror-banner');
@@ -90,7 +90,19 @@ const mirror = await page.evaluate(() => {
 });
 
 await page.click('[data-um-action="refresh"]');
-await page.waitForTimeout(1100);
+await page.waitForFunction(() => {
+  const table = document.getElementById('um-tablewrap');
+  const status = document.getElementById('um-status-text')?.textContent || '';
+  const installBtn = document.querySelector('[data-um-action="install"]');
+  const selectedRow = document.querySelector('#um-tablewrap tbody tr.is-selected');
+  const panel = document.getElementById('um-panel');
+  return table && !table.hidden
+    && status.indexOf('sélectionnée') !== -1
+    && installBtn && !installBtn.disabled
+    && selectedRow
+    && panel && panel.textContent.indexOf('alsa-lib') !== -1;
+}, null, { timeout: 5000 });
+await page.waitForTimeout(50);
 
 const updates = await page.evaluate(() => ({
   tableVisible: !document.getElementById('um-tablewrap')?.hidden,
@@ -102,7 +114,7 @@ const updates = await page.evaluate(() => ({
 }));
 
 await page.click('[data-um-action="clear"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const cleared = await page.evaluate(() => ({
   status: document.getElementById('um-status-text')?.textContent,
@@ -112,7 +124,7 @@ const cleared = await page.evaluate(() => ({
 }));
 
 await page.click('[data-um-action="selectAll"]');
-await page.waitForTimeout(200);
+await page.waitForTimeout(70);
 
 const selectedAll = await page.evaluate(() => ({
   status: document.getElementById('um-status-text')?.textContent,
@@ -120,7 +132,19 @@ const selectedAll = await page.evaluate(() => ({
 }));
 
 await page.click('[data-um-action="install"]');
-await page.waitForTimeout(5200);
+await page.waitForFunction(() => {
+  const tray = document.querySelector('[data-update-manager-tray]');
+  const empty = document.getElementById('um-empty');
+  const table = document.getElementById('um-tablewrap');
+  const installBtn = document.querySelector('[data-um-action="install"]');
+  const app = document.getElementById('updateManagerApp');
+  return empty && !empty.hidden
+    && table && table.hidden
+    && installBtn && installBtn.disabled
+    && tray && tray.dataset.hasUpdates === 'false'
+    && app && app.dataset.umBusy !== 'true';
+}, null, { timeout: 6000 });
+await page.waitForTimeout(50);
 
 const installed = await page.evaluate(() => {
   const tray = document.querySelector('[data-update-manager-tray]');

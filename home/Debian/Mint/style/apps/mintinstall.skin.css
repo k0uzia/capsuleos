@@ -1,0 +1,10 @@
+/* Mint — Logithèque (mintinstall 8.4) */
+body#mint div[data-link="mintinstall"].windowElement {
+    width: calc(var(--head) * 21);
+    min-width: calc(var(--head) * 18);
+    height: calc(var(--head) * 19.5);
+}
+
+body#mint main#mintInstallApp {
+    background: #f6f6f6;
+}

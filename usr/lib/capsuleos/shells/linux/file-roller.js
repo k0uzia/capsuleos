@@ -309,6 +309,25 @@
             closeMenu();
         });
 
+        root.addEventListener('keydown', function onFrKeyboard(event) {
+            if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {
+                event.preventDefault();
+                if (!searchOpen) {
+                    toggleSearch();
+                }
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            if (event.key === 'Escape') {
+                if (menuOpen) {
+                    closeMenu();
+                } else if (searchOpen) {
+                    toggleSearch();
+                }
+            }
+        });
+
         showEmptyState();
 
         global.openFileRollerDemoArchive = function openFileRollerDemoArchive() {

@@ -34,7 +34,7 @@ await page.evaluate(() => {
   window.openWindowByDataLink('nemo');
 });
 await page.waitForSelector('div[data-link="nemo"]', { state: 'visible', timeout: 15000 });
-await page.waitForTimeout(500);
+await page.waitForTimeout(45);
 
 const metrics = await page.evaluate(() => {
   const win = document.querySelector('div[data-link="nemo"]');

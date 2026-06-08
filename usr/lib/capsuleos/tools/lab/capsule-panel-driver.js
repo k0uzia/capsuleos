@@ -33,6 +33,10 @@
             return;
         }
         if (!container.classList.contains('windowElementActive')) {
+            if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink(slot);
+                return;
+            }
             clickLauncher(slot);
         }
     }
@@ -43,7 +47,25 @@
             return;
         }
         if (container.classList.contains('windowElementActive')) {
-            clickLauncher(slot);
+            const listBtn = document.querySelector(
+                '.taskbar-window-list__btn.is-active[data-window-link="' + slot + '"]',
+            );
+            if (listBtn) {
+                listBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                return;
+            }
+            if (global.CapsuleTaskbarLauncherState
+                && typeof global.CapsuleTaskbarLauncherState.markRunning === 'function') {
+                global.CapsuleTaskbarLauncherState.markRunning(container);
+            } else if (container.dataset) {
+                container.dataset.capsuleRunning = 'true';
+            }
+            container.style.display = 'none';
+            container.classList.remove('windowElementActive', 'active');
+            if (global.CapsuleTaskbarWindowList
+                && typeof global.CapsuleTaskbarWindowList.refresh === 'function') {
+                global.CapsuleTaskbarWindowList.refresh();
+            }
         }
     }
 

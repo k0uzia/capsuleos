@@ -1,0 +1,66 @@
+<main id="mintInstallApp" class="mi-app" aria-label="Logithèque">
+
+    <header class="mi-app__header">
+        <div class="mi-app__search-wrap">
+            <input type="search" class="mi-app__search" id="mi-search" placeholder="Rechercher des applications…" autocomplete="off" aria-label="Rechercher">
+        </div>
+        <button type="button" class="mi-app__menu-btn" data-mi-action="menu" aria-haspopup="true" aria-expanded="false" title="Menu">☰</button>
+        <nav class="mi-app__menu" id="mi-menu" hidden aria-label="Menu application">
+            <button type="button" class="mi-app__menu-item" data-mi-menu="refresh">Actualiser le cache</button>
+            <button type="button" class="mi-app__menu-item" data-mi-menu="sources">Modifier les sources de logiciels</button>
+            <button type="button" class="mi-app__menu-item" data-mi-menu="about">À propos</button>
+        </nav>
+    </header>
+
+    <div class="mi-app__body">
+        <aside class="mi-app__sidebar" aria-label="Catégories">
+            <button type="button" class="mi-app__cat is-active" data-mi-cat="home">Accueil</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="all">Tous les logiciels</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="flatpak">Flatpak</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="internet">Internet</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="office">Bureautique</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="graphics">Graphisme</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="multimedia">Multimédia</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="development">Développement</button>
+            <button type="button" class="mi-app__cat" data-mi-cat="installed">Installés</button>
+        </aside>
+
+        <section class="mi-app__content">
+            <section class="mi-app__page mi-app__page--home" data-mi-page="home" aria-label="Accueil">
+                <h2 class="mi-app__page-title">Applications en vedette</h2>
+                <ul class="mi-app__featured">
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/vlc.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">VLC</span>
+                    </li>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/audacity.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">Audacity</span>
+                    </li>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/filezilla.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">FileZilla</span>
+                    </li>
+                    <li class="mi-app__featured-card">
+                        <img src="./assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg" alt="" width="48" height="48">
+                        <span class="mi-app__featured-name">VS Code</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="mi-app__page" data-mi-page="list" hidden aria-label="Liste">
+                <h2 class="mi-app__page-title" id="mi-list-title">Tous les logiciels</h2>
+                <ul class="mi-app__list" id="mi-app-list"></ul>
+            </section>
+
+            <section class="mi-app__page" data-mi-page="search" hidden aria-label="Résultats de recherche">
+                <h2 class="mi-app__page-title" id="mi-search-title">Résultats</h2>
+                <ul class="mi-app__list" id="mi-search-list"></ul>
+                <p class="mi-app__empty" id="mi-search-empty" hidden>Aucun logiciel trouvé.</p>
+            </section>
+        </section>
+    </div>
+
+    <footer class="mi-app__status" id="mi-status" aria-live="polite"></footer>
+
+</main>

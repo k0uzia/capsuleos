@@ -43,6 +43,8 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 | **Contrôle** | [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) | Sonde JSON, `compare-os-parity.mjs` |
 | **Réplication formelle** | [procedure-replication-formelle.md](procedure-replication-formelle.md) | Chaîne **V → G → Vc → Vp** (Paramètres GNOME, tous vendors) |
 
+**Estimation coût clone VM** : [`linux-mint-replication-cost-estimate.md`](inventaires/linux-mint-replication-cost-estimate.md) (tous vendors — modèle Mint).
+
 ```text
 VM (ground truth) → inventaire JSON/MD → skin home/ → sync façades → validate-all
 ```
@@ -65,6 +67,7 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | 4b | Slot **terminal** : inventaire `*-terminal-vm.json` (**Ti**), puis **TΣ** | [convention-shell-global.md](convention-shell-global.md) · `validate-terminal-commands.mjs` · `smoke-fs-terminal-explorer-sync.mjs` |
 | 5 | Assets VM → `pull-vm-assets.sh` | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | 6 | Clôture Linux : `sync-linux-skin-closure.mjs` | façades ≡ home |
+| 6b | **Avant push** : **Rv** sur slots touchés + smokes lab (attentes conditionnelles) | [agent-validation-discipline.md](agent-validation-discipline.md) §4 |
 | 7 | `validate-all.mjs` + captures comparatives | — |
 | 7a | **Passe visuelle shell** : `run-visual-parity-pass.mjs` | **Vp** — skill `visual-parity-lab` |
 | 7b | **Apps VM** : `collect-vm-apps-inventory` → `generate-apps-catalog` | **AppV**, **AppC** |

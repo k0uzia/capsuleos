@@ -1,0 +1,27 @@
+{
+  "collectedAt": "2026-06-08T10:58:00Z",
+  "package": "mintinstall 8.4.0",
+  "desktop": "mintinstall.desktop",
+  "titleFr": "Logithèque",
+  "titleEn": "Software Manager",
+  "wmClass": "mintinstall.py.Mintinstall.py",
+  "geometry": {
+    "width": 852,
+    "height": 784,
+    "minWidth": 720,
+    "minHeight": 560
+  },
+  "slotCapsule": "mintinstall",
+  "distinctFrom": "update_manager",
+  "categoriesSample": [
+    "Accueil",
+    "Tous les logiciels",
+    "Flatpak",
+    "Internet",
+    "Bureautique",
+    "Graphisme",
+    "Jeux",
+    "Multimédia"
+  ],
+  "featuredApps": ["vlc", "audacity", "filezilla", "com.visualstudio.code"]
+}

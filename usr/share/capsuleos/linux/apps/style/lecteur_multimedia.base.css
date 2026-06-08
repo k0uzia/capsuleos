@@ -1,106 +1,181 @@
-main#lecteurMultimedia {
-    position: var(--rel);
-    top: var(--z);
-    right: var(--z);
-    bottom: var(--z);
-    left: var(--z);
-    display: var(--f);
-    flex-flow: var(--cnw);
-    align-items: var(--fs);
-    justify-content: var(--fs);
-    width: calc(var(--full) - calc(var(--head) / 20));
-    height: calc(var(--full) - calc(var(--head) / 1.4));
-    margin-bottom: calc(var(--head) / 12);
-    border-radius: var(--z) var(--z) calc(var(--head) / 4) calc(var(--head) / 4);
-    color: var(--nemo-text-primary);
-    background-color: var(--nemo-bg-primary);
-    overflow: var(--h);
-}
-
-div[data-link="lecteur_multimedia"] #windowHeader {
-    background: var(--nemo-header-bg);
-}
-
-div[data-link="lecteur_multimedia"] #windowTitle {
-    color: var(--nemo-text-primary);
-    text-shadow: var(--n);
-    filter: var(--n);
-}
-
-#lecteurMultimedia .viewer-app__toolbar {
-    position: var(--rel);
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--fs);
-    width: var(--full);
-    margin: var(--z);
-    padding: calc(var(--head) / 5) calc(var(--head) / 3);
-    border-bottom: solid 1px var(--nemo-border);
-    color: var(--nemo-text-primary);
-    background: var(--nemo-header-bg);
-    overflow: var(--h);
-}
-
-#lecteurMultimedia .viewer-app__label {
-    margin: var(--z);
-    padding: var(--z);
-    font-weight: var(--wb);
-    color: var(--nemo-text-muted);
-}
-
-#lecteurMultimedia .viewer-app__filename {
-    margin: var(--z) var(--z) var(--z) calc(var(--head) / 6);
-    padding: var(--z);
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: var(--h);
+    border: 0;
 }
 
-#lecteurMultimedia .viewer-app__content {
-    position: var(--rel);
-    display: var(--f);
-    flex-flow: var(--cnw);
-    align-items: var(--c);
-    justify-content: var(--c);
-    width: var(--full);
-    height: var(--full);
-    margin: var(--z);
-    padding: calc(var(--head) / 3);
-    background-color: var(--nemo-bg-primary);
-    overflow: var(--h);
+main#lecteurMultimedia.celluloid-app {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: #e8e8e8;
+    background: #1a1a1a;
 }
 
-#lecteurMultimedia .viewer-app__media {
-    display: var(--bl);
-    width: var(--full);
-    max-height: var(--full);
-    margin: var(--z);
-    border: solid 1px var(--nemo-border);
-    border-radius: calc(var(--head) / 8);
-    background-color: var(--menuDefaultCcol);
+.celluloid-app__menubar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 2px;
+    flex: 0 0 auto;
+    padding: 4px 8px;
+    border-bottom: 1px solid #2e2e2e;
+    background: #2b2b2b;
 }
 
-#lecteurMultimedia audio.viewer-app__media {
-    width: calc(var(--full) - calc(var(--head) / 2));
-    max-width: calc(var(--head) * 15);
+.celluloid-app__menu-btn {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 3px;
+    font: inherit;
+    color: #e8e8e8;
+    background: transparent;
+    cursor: default;
 }
 
-#lecteurMultimedia .viewer-app__message {
-    margin: var(--z);
-    padding: calc(var(--head) / 3);
-    border: solid 1px var(--nemo-border);
-    border-radius: calc(var(--head) / 8);
-    color: var(--nemo-text-muted);
-    background-color: var(--nemo-menu-surface-bg);
+.celluloid-app__menu-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
-#lecteurMultimedia .viewer-app__external-link {
-    display: var(--in-bl);
-    margin-top: calc(var(--head) / 4);
-    padding: calc(var(--head) / 6) calc(var(--head) / 4);
-    border: solid 1px var(--nemo-border);
-    border-radius: calc(var(--head) / 8);
-    color: var(--nemo-text-primary);
-    background-color: var(--nemo-toolbar-bg);
+.celluloid-app__stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-flow: column;
+    background: #000000;
+}
+
+.celluloid-app__viewport {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+}
+
+.celluloid-app__viewport .viewer-app__media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    object-fit: contain;
+    background: #000000;
+}
+
+.celluloid-app__viewport .viewer-app__message {
+    margin: 0;
+    padding: 16px;
+    color: #9a9a9a;
+    text-align: center;
+}
+
+.celluloid-app__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    padding: 6px 8px;
+    border-top: 1px solid #2e2e2e;
+    background: #2b2b2b;
+}
+
+.celluloid-app__ctl {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background: transparent center / 18px 18px no-repeat;
+    opacity: 0.85;
+    cursor: default;
+}
+
+.celluloid-app__ctl:disabled {
+    opacity: 0.45;
+}
+
+.celluloid-app__ctl--open {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8e8e8'%3E%3Cpath d='M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z'/%3E%3C/svg%3E");
+}
+
+.celluloid-app__ctl--play {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8e8e8'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+}
+
+.celluloid-app__ctl--seek-back,
+.celluloid-app__ctl--seek-fwd {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8e8e8'%3E%3Cpath d='M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z'/%3E%3C/svg%3E");
+}
+
+.celluloid-app__ctl--seek-fwd {
+    transform: scaleX(-1);
+}
+
+.celluloid-app__ctl--volume {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8e8e8'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z'/%3E%3C/svg%3E");
+}
+
+.celluloid-app__ctl--fullscreen {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8e8e8'%3E%3Cpath d='M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z'/%3E%3C/svg%3E");
+}
+
+.celluloid-app__timeline {
+    flex: 1 1 auto;
+    min-width: 80px;
+    padding: 0 4px;
+}
+
+.celluloid-app__timeline-track {
+    height: 4px;
+    border-radius: 2px;
+    background: #4a4a4a;
+    overflow: hidden;
+}
+
+.celluloid-app__timeline-fill {
+    width: 0;
+    height: 100%;
+    background: #1f9ede;
+}
+
+.celluloid-app--playing .celluloid-app__ctl:not(:disabled),
+.celluloid-app--playing .celluloid-app__ctl {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.celluloid-app--playing .celluloid-app__ctl:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.celluloid-app--playing .celluloid-app__timeline-fill {
+    width: 18%;
+}
+
+.celluloid-app__time {
+    flex: 0 0 auto;
+    min-width: 72px;
+    font-size: 12px;
+    color: #c8c8c8;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
 }

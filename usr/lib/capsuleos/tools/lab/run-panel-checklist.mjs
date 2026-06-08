@@ -82,14 +82,15 @@ const runSsh = (host, remoteCmd) => {
   const at = host.ssh.indexOf('@');
   const user = host.ssh.slice(0, at);
   const ip = host.ssh.slice(at + 1);
-  const identity = expandHome(host.sshIdentity || '~/.ssh/capsuleos-lab');
+  const identityPath = expandHome(host.sshIdentity || '~/.ssh/capsuleos-lab');
   const probe = remoteProbeCmd(host);
   const full = `${buildX11ExportScript(host)}; export PATH=$HOME/.local/bin:$PATH; ${probe} ${remoteCmd}`;
-  const res = spawnSync(
-    'ssh',
-    ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, `${user}@${ip}`, full],
-    { encoding: 'utf8', timeout: 120000 },
-  );
+  const sshArgs = ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes'];
+  if (fs.existsSync(identityPath)) {
+    sshArgs.push('-i', identityPath);
+  }
+  sshArgs.push(`${user}@${ip}`, full);
+  const res = spawnSync('ssh', sshArgs, { encoding: 'utf8', timeout: 120000 });
   if (res.status !== 0) {
     throw new Error((res.stderr || res.stdout || '').trim());
   }
@@ -115,7 +116,7 @@ done
 pkill -x ptyxis 2>/dev/null || true
 pkill -x firefox 2>/dev/null || true
 pkill -x nautilus 2>/dev/null || true
-sleep 0.8`;
+sleep 0.35`;
   spawnSync(
     'ssh',
     ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, target, script],

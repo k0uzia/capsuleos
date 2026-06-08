@@ -14,6 +14,9 @@ const mergeArrays = (base, patch) => {
   return [...new Set(merged)];
 };
 
+/** Tableaux dont le vendor remplace entièrement le toolkit (pas de concat). */
+const ARRAY_REPLACE_KEYS = new Set(['panel']);
+
 const deepMerge = (base, patch) => {
   if (!base) return patch ? { ...patch } : {};
   if (!patch) return { ...base };
@@ -21,7 +24,11 @@ const deepMerge = (base, patch) => {
   for (const [key, val] of Object.entries(patch)) {
     if (key === 'extends') continue;
     if (Array.isArray(val) && Array.isArray(out[key])) {
-      out[key] = mergeArrays(out[key], val);
+      if (ARRAY_REPLACE_KEYS.has(key)) {
+        out[key] = [...val];
+      } else {
+        out[key] = mergeArrays(out[key], val);
+      }
     } else if (val && typeof val === 'object' && !Array.isArray(val) && typeof out[key] === 'object' && !Array.isArray(out[key])) {
       out[key] = deepMerge(out[key], val);
     } else {

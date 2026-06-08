@@ -43,6 +43,7 @@ const KDE_NEON_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde_neo
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
 const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
 const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
+const MINT_CINNAMON_SETTINGS_HTML = path.join(APPS_DIR, 'cinnamon_settings.html');
 const OUT_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.js');
 const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
 
@@ -101,6 +102,10 @@ function buildCssBase(templateId) {
         const gnomeBase = path.join(STYLE_DIR, 'themes_gnome.base.css');
         if (fs.existsSync(gnomeBase)) {
             text = `${text}\n${readUtf8(gnomeBase)}`;
+        }
+        const csBase = path.join(STYLE_DIR, 'cinnamon_settings.base.css');
+        if (fs.existsSync(csBase)) {
+            text = `${text}\n${readUtf8(csBase)}`;
         }
     }
     return text;
@@ -223,6 +228,11 @@ function main() {
         }
     }
 
+    if (fs.existsSync(MINT_CINNAMON_SETTINGS_HTML)) {
+        skinTemplates.mint = skinTemplates.mint || {};
+        skinTemplates.mint.themes = { html: readUtf8(MINT_CINNAMON_SETTINGS_HTML) };
+    }
+
     const skins = {};
     const embedStrings = {};
     for (const { key, dir, strings } of SKIN_DIRS) {
@@ -234,6 +244,12 @@ function main() {
             const isKdeFamily = key === 'opensuse' || key === 'mxkde' || key === 'debian-kde' || key === 'kde-neon';
             if (isKdeFamily && id === 'update_manager' && fs.existsSync(KDE_COMMON_SKIN)) {
                 css = `${readUtf8(KDE_COMMON_SKIN)}\n${css}`;
+            }
+            if (key === 'mint' && id === 'themes') {
+                const csSkin = path.join(dir, 'cinnamon_settings.skin.css');
+                if (fs.existsSync(csSkin)) {
+                    css = css ? `${css}\n${readUtf8(csSkin)}` : readUtf8(csSkin);
+                }
             }
             skins[key][id] = css;
         }

@@ -1,0 +1,90 @@
+{
+  "registryId": "linux-mint",
+  "campaign": "v2-deep-pass",
+  "vm": {
+    "host": "capsule@192.168.1.146",
+    "inventory": "linux-mint-vm.json",
+    "labConfig": "etc/capsuleos/lab-inventory.json"
+  },
+  "catalog": {
+    "vmMenuEntries": 101,
+    "capsuleSlots": 45,
+    "slotsOpenOk": 101,
+    "interactionParityMeasured": true
+  },
+  "parity": {
+    "index": "linux-mint-parity-index.json",
+    "doc": "linux-mint-parity-index.md",
+    "matrix": "linux-mint-ui-state-effects-matrix.json"
+  },
+  "priorityQueue": [
+    "nemo",
+    "firefox",
+    "text_editor",
+    "calculator",
+    "file_roller",
+    "update_manager",
+    "mintinstall",
+    "themes"
+  ],
+  "tools": {
+    "collect": "usr/lib/capsuleos/tools/lab/collect-app-interaction-inventory.mjs",
+    "parityPass": "usr/lib/capsuleos/tools/lab/run-app-parity-pass.mjs",
+    "uiEffects": "usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs",
+    "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
+    "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
+  },
+  "pallier": 7,
+  "pallier1Commit": "00816fb",
+  "pallier2Commit": "aa466ab",
+  "pallier3Commit": "aa71cce",
+  "pallier4Commit": "37cf71f",
+  "pallier5Commit": "39d115b",
+  "pallier6Commit": "9a547e1",
+  "updatedAt": "2026-06-08T16:00:00.000Z",
+  "paritySnapshot": {
+    "pi_global": 98,
+    "status_global": "ok",
+    "priorityApps": {
+      "nemo": 100,
+      "firefox": 100,
+      "text_editor": 92,
+      "calculator": 100,
+      "file_roller": 92,
+      "update_manager": 100,
+      "mintinstall": 100,
+      "themes": 100
+    },
+    "catalogue": {
+      "baobab": 100,
+      "bulky": 100,
+      "drawing": 100,
+      "font_viewer": 100,
+      "gnome_disks": 100,
+      "simple_scan": 100,
+      "libreoffice_draw": 100,
+      "libreoffice_impress": 100,
+      "mate_color_select": 100,
+      "terminal": 100,
+      "mintdrivers": 100,
+      "mintwelcome": 100,
+      "system_monitor": 100,
+      "thunderbird": 100,
+      "webapp_manager": 100
+    },
+    "shell": {
+      "mainMenu": 92,
+      "panel": 100,
+      "tray": 100,
+      "desktop": 92,
+      "clock": 100,
+      "theme": 100
+    }
+  },
+  "notes": [
+    "101/101 catalogue : slots ouverts OK (smoke basique).",
+    "Pallier 6 (9a547e1) : utilitaires Mint + visionneurs Π≥92 ; panel/tray Π=100 ; Π_global 88.",
+    "Pallier 7 : catalogue résiduel + stubs + terminal + shell clock/theme → tous slots ≥90.",
+    "Π_global 98 — campagne v2-deep-pass clôturée côté parité interactionnelle."
+  ]
+}

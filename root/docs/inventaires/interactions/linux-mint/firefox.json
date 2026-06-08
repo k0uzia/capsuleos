@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "firefox",
   "label": "Firefox",
-  "collectedAt": "2026-06-08T11:19:29.336Z",
+  "collectedAt": "2026-06-08T11:41:04.965Z",
   "source": "vm-doc+template",
   "vmDoc": "linux-mint-firefox-vm.md",
   "vm": {

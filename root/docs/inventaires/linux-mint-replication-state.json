@@ -34,16 +34,17 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "pallier": 3,
+  "pallier": 4,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
-  "updatedAt": "2026-06-08T12:00:00.000Z",
+  "pallier3Commit": "aa71cce",
+  "updatedAt": "2026-06-08T12:30:00.000Z",
   "paritySnapshot": {
-    "pi_global": 65,
+    "pi_global": 68,
     "status_global": "partiel",
     "priorityApps": {
-      "nemo": 75,
-      "firefox": 75,
+      "nemo": 100,
+      "firefox": 100,
       "text_editor": 92,
       "calculator": 100,
       "file_roller": 92,
@@ -51,18 +52,20 @@
       "mintinstall": 75,
       "themes": 100
     },
-    "catalogueStarted": {
+    "catalogue": {
       "baobab": 83,
       "bulky": 75,
-      "drawing": 58
+      "drawing": 83,
+      "font_viewer": 83,
+      "gnome_disks": 75,
+      "gucharmap": 67,
+      "hypnotix": 67
     }
   },
   "notes": [
     "101/101 catalogue : slots ouverts OK (smoke basique).",
-    "Pallier 1 (00816fb) : infra Π, nemo ctx, calc modes, run-app-parity-pass.",
-    "Pallier 2 (aa466ab) : xed dialogs, mintinstall, cinnamon_settings.",
-    "Pallier 3 : #themesApp Mint-Y dans cinnamon-settings (Π=100), calc/file_roller ≥75, baobab/bulky noyau.",
-    "Catalogue suite : drawing Π=58 mesuré.",
+    "Pallier 4 : nemo/firefox Π=100 (menu FF, F9 Nemo, raccourcis clavier).",
+    "Catalogue : drawing 83, font_viewer 83, gnome_disks 75, gucharmap/hypnotix 67.",
     "Shell menu/panel/bureau : Π partiel — passe UI state effects en cours."
   ]
 }

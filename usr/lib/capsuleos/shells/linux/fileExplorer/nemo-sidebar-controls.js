@@ -394,6 +394,10 @@
             });
         }
 
+        if (!root.hasAttribute('tabindex')) {
+            root.setAttribute('tabindex', '-1');
+        }
+
         if (root.dataset.nemoF9Bound !== 'true') {
             root.addEventListener('keydown', function onF9(event) {
                 if (event.key !== 'F9') {

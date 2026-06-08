@@ -79,6 +79,23 @@ async function runSlotChecks(page, slot) {
     });
     push('win-open', 'int', home.nav && home.sidebar, home);
 
+    const nemoChrome0 = await page.evaluate(() => {
+      const win = document.querySelector('div[data-link="nemo"]');
+      return {
+        title: win?.querySelector('#windowTitle')?.textContent || '',
+        toolkit: win?.getAttribute('data-window-chrome-toolkit'),
+        provider: win?.getAttribute('data-window-chrome-provider'),
+        drag: !!win?.querySelector('#windowHeader[data-window-drag-handle]'),
+        path: typeof window.getExplorerCurrentPath === 'function'
+          ? window.getExplorerCurrentPath('nemo') : '',
+      };
+    });
+    push('nemo-chrome', 'vis', nemoChrome0.toolkit === 'cinnamon'
+      && nemoChrome0.provider === 'nemo' && nemoChrome0.drag
+      && nemoChrome0.title.indexOf('Nemo') >= 0, nemoChrome0);
+    push('home-data', 'data', nemoChrome0.path.indexOf('Dossier personnel') >= 0
+      || nemoChrome0.path.indexOf('home') >= 0, nemoChrome0);
+
     await page.click(`${winSel} #voletnemo a[data-link="Documents"]`);
     await page.waitForTimeout(40);
     const docs = await page.evaluate(() => window.getExplorerCurrentPath('nemo') || '');
@@ -129,10 +146,42 @@ async function runSlotChecks(page, slot) {
     });
     push('context-menu', 'ctx', ctx, {});
 
+    await page.click('div[data-link="nemo"]');
+    await page.focus('div[data-link="nemo"]');
+    await page.keyboard.press('F9');
+    await page.waitForTimeout(50);
+    const f9Hide = await page.evaluate(() => {
+      const sidebar = document.getElementById('voletnemo');
+      return sidebar?.classList.contains('is-sidebar-hidden');
+    });
+    await page.keyboard.press('F9');
+    await page.waitForTimeout(50);
+    const f9Show = await page.evaluate(() => {
+      const sidebar = document.getElementById('voletnemo');
+      return sidebar && !sidebar.classList.contains('is-sidebar-hidden');
+    });
+    push('f9-sidebar', 'kb', f9Hide && f9Show, { f9Hide, f9Show });
+
     return results;
   }
 
   if (slot === 'firefox') {
+    const initial = await page.evaluate(() => {
+      const win = document.getElementById('firefox');
+      const app = win?.querySelector('[data-firefox-app]');
+      const home = app?.querySelector('[data-browser-home]');
+      const title = win?.querySelector('#windowTitle')?.textContent || '';
+      return {
+        init: app?.dataset.initialized === 'true',
+        homeVisible: home && !home.hidden,
+        tabs: app ? app.querySelectorAll('[data-browser-tab-id]').length : 0,
+        titleOk: title.indexOf('Mozilla Firefox') >= 0,
+        hasNewtabSearch: !!app?.querySelector('[data-browser-newtab-input]'),
+      };
+    });
+    push('initial-home', 'data', initial.init && initial.homeVisible
+      && initial.tabs === 1 && initial.titleOk && initial.hasNewtabSearch, initial);
+
     const chrome = await page.evaluate(() => {
       const app = document.querySelector('#firefox [data-firefox-app]');
       const header = document.querySelector('#firefox #windowHeader');
@@ -142,6 +191,18 @@ async function runSlotChecks(page, slot) {
       return app?.dataset.initialized === 'true' && headerIdx >= 0 && appHostIdx > headerIdx;
     });
     push('chrome-layout', 'vis', chrome, {});
+
+    await page.click(`${winSel} [data-browser-action="menu"]`);
+    await page.waitForTimeout(50);
+    const menu = await page.evaluate(() => {
+      const pop = document.querySelector('#firefox [data-browser-menu]');
+      return pop && !pop.hidden;
+    });
+    push('menu-popover', 'ctx', menu, {});
+    if (menu) {
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(30);
+    }
 
     await page.click(`${winSel} [data-browser-action="new-tab"]`);
     await page.waitForTimeout(70);
@@ -157,6 +218,22 @@ async function runSlotChecks(page, slot) {
       return bar && !bar.hidden;
     });
     push('bookmarks-bar', 'nav', bm, {});
+
+    await page.click('#firefox [data-firefox-app]');
+    await page.focus('#firefox [data-firefox-app]');
+    await page.keyboard.press('Control+t');
+    await page.waitForTimeout(60);
+    const kbTab = await page.evaluate(() => (
+      document.querySelectorAll('#firefox [data-browser-tab-id]').length >= 3
+    ));
+    push('kb-new-tab', 'kb', kbTab, {});
+
+    await page.keyboard.press('Control+l');
+    await page.waitForTimeout(40);
+    const kbUrl = await page.evaluate(() => (
+      document.activeElement?.matches('[data-browser-address]') === true
+    ));
+    push('kb-focus-url', 'kb', kbUrl, {});
     return results;
   }
 
@@ -582,6 +659,191 @@ async function runSlotChecks(page, slot) {
     return results;
   }
 
+  if (slot === 'drawing') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('drawingApp')?.dataset.drawingInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="drawing"] #windowTitle')?.textContent,
+      canvas: !!document.getElementById('drawing-canvas'),
+    }));
+    push('drawing-chrome', 'vis', chrome.title.indexOf('Dessin') >= 0 && chrome.canvas, chrome);
+
+    await page.click('.drawing-app__tool[data-tool="eraser"]');
+    await page.waitForTimeout(40);
+    const tool = await page.evaluate(() => (
+      document.querySelector('.drawing-app__tool[data-tool="eraser"]')?.classList.contains('is-active')
+    ));
+    push('tool-switch', 'int', tool, {});
+
+    await page.click('#drawing-palette .drawing-app__swatch');
+    await page.waitForTimeout(30);
+    const palette = await page.evaluate(() => (
+      document.querySelectorAll('#drawing-palette .drawing-app__swatch.is-active').length >= 1
+    ));
+    push('palette-pick', 'int', palette, {});
+
+    const canvas = await page.locator('#drawing-canvas').boundingBox();
+    if (canvas) {
+      await page.mouse.move(canvas.x + 40, canvas.y + 40);
+      await page.mouse.down();
+      await page.mouse.move(canvas.x + 120, canvas.y + 80, { steps: 6 });
+      await page.mouse.up();
+      await page.waitForTimeout(40);
+    }
+    const stroke = await page.evaluate(() => {
+      const c = document.getElementById('drawing-canvas');
+      if (!c) return false;
+      const ctx = c.getContext('2d');
+      const data = ctx.getImageData(0, 0, c.width, c.height).data;
+      let dark = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i] < 250 || data[i + 1] < 250 || data[i + 2] < 250) dark += 1;
+      }
+      return dark > 20;
+    });
+    push('canvas-stroke', 'data', stroke, {});
+
+    await page.click('[data-drawing-action="undo"]');
+    await page.waitForTimeout(40);
+    const undo = await page.evaluate(() => {
+      const c = document.getElementById('drawing-canvas');
+      if (!c) return false;
+      const ctx = c.getContext('2d');
+      const data = ctx.getImageData(0, 0, c.width, c.height).data;
+      let white = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i] > 250 && data[i + 1] > 250 && data[i + 2] > 250) white += 1;
+      }
+      return white > data.length / 16;
+    });
+    push('undo-action', 'nav', undo, {});
+    return results;
+  }
+
+  if (slot === 'font_viewer') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('fontViewerApp')?.dataset.fontViewerInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="font_viewer"] #windowTitle')?.textContent,
+      meta: document.getElementById('fnv-meta')?.textContent,
+    }));
+    push('fnv-chrome', 'vis', chrome.title === 'Polices', chrome);
+    push('fnv-default', 'data', chrome.meta === 'Ubuntu · 12 pt', chrome);
+
+    await page.click('[data-font-id="noto"]');
+    await page.waitForTimeout(40);
+    const noto = await page.evaluate(() => ({
+      selected: document.querySelector('[data-font-id="noto"]')?.classList.contains('is-selected'),
+      meta: document.getElementById('fnv-meta')?.textContent,
+    }));
+    push('font-select', 'int', noto.selected && noto.meta === 'Noto Sans · 12 pt', noto);
+
+    await page.focus('#fnv-font-list');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(30);
+    const kbFont = await page.evaluate(() => (
+      document.querySelector('.fnv-app__font.is-selected')?.getAttribute('data-font-id') === 'liberation'
+    ));
+    push('font-kb-nav', 'kb', kbFont, {});
+    return results;
+  }
+
+  if (slot === 'gnome_disks') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('gnomeDisksApp')?.dataset.gnomeDisksInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="gnome_disks"] #windowTitle')?.textContent,
+      detail: document.getElementById('gdk-detail')?.textContent,
+    }));
+    push('gdk-chrome', 'vis', chrome.title === 'Disques', chrome);
+    push('gdk-default', 'data', chrome.detail.indexOf('Linux Mint') >= 0, chrome);
+
+    await page.click('#gdk-list .gdk-app__disk:nth-child(2)');
+    await page.waitForTimeout(40);
+    const usb = await page.evaluate(() => ({
+      selected: document.querySelector('#gdk-list .gdk-app__disk:nth-child(2)')?.classList.contains('is-selected'),
+      detail: document.getElementById('gdk-detail')?.textContent,
+    }));
+    push('disk-select', 'int', usb.selected && usb.detail.indexOf('FAT32') >= 0, usb);
+    return results;
+  }
+
+  if (slot === 'gucharmap') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('gucharmapApp')?.dataset.gucharmapInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="gucharmap"] #windowTitle')?.textContent,
+      cells: document.querySelectorAll('#gcm-grid .gcm-app__cell').length,
+    }));
+    push('gcm-chrome', 'vis', chrome.title === 'Table des caractères' && chrome.cells >= 20, chrome);
+
+    await page.click('#gcm-grid .gcm-app__cell:nth-child(5)');
+    await page.waitForTimeout(40);
+    const cell = await page.evaluate(() => ({
+      preview: document.getElementById('gcm-preview')?.textContent,
+      selected: document.querySelector('#gcm-grid .gcm-app__cell.is-selected')?.textContent,
+    }));
+    push('char-select', 'int', cell.preview.indexOf('sélectionné') >= 0, cell);
+    return results;
+  }
+
+  if (slot === 'mate_color_select') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('mateColorSelectApp')?.dataset.mateColorSelectInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="mate_color_select"] #windowTitle')?.textContent,
+      hex: document.getElementById('mcs-hex')?.textContent,
+    }));
+    push('mcs-chrome', 'vis', chrome.title === 'Sélecteur de couleur', chrome);
+    push('mcs-default', 'data', chrome.hex === '#3584e4', chrome);
+
+    await page.click('.mcs-app__swatch:nth-child(3)');
+    await page.waitForTimeout(40);
+    const swatch = await page.evaluate(() => ({
+      hex: document.getElementById('mcs-hex')?.textContent,
+      selected: document.querySelector('.mcs-app__swatch.is-selected')?.getAttribute('data-mcs-color'),
+    }));
+    push('swatch-pick', 'int', swatch.hex === '#f66151', swatch);
+    return results;
+  }
+
+  if (slot === 'hypnotix') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('hypnotixApp')?.dataset.hypnotixInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="hypnotix"] #windowTitle')?.textContent,
+    }));
+    push('hyp-chrome', 'vis', chrome.title === 'Hypnotix', chrome);
+
+    await page.click('.hyp-app__channel');
+    await page.waitForTimeout(40);
+    const channel = await page.evaluate(() => ({
+      selected: document.querySelector('.hyp-app__channel.is-selected') !== null,
+      player: document.getElementById('hyp-player')?.textContent,
+    }));
+    push('channel-select', 'int', channel.selected && channel.player.indexOf('simulation') >= 0, channel);
+    return results;
+  }
+
   const visible = await page.evaluate((sel) => {
     const win = document.querySelector(sel);
     return win && win.style.display !== 'none';
@@ -642,6 +904,8 @@ const pathToSmoke = (slot) => {
     themes: 'usr/lib/capsuleos/tools/lab/smoke-mint-themes.mjs',
     baobab: 'usr/lib/capsuleos/tools/lab/smoke-mint-baobab.mjs',
     bulky: 'usr/lib/capsuleos/tools/lab/smoke-mint-bulky.mjs',
+    drawing: 'usr/lib/capsuleos/tools/lab/smoke-mint-drawing.mjs',
+    gucharmap: 'usr/lib/capsuleos/tools/lab/smoke-mint-gucharmap.mjs',
   };
   const rel = map[slot];
   return rel ? path.join(ROOT, rel) : '';

@@ -34,11 +34,21 @@ const APP_EFFECTS = {
     { effect: 'menubar-bind', kernel: 'fileExplorerHeader.js', note: 'masqué Mint skin' },
     { effect: 'context-menu', kernel: 'fileExplorerContextMenu.js' },
     { effect: 'search-filter', kernel: 'fileExplorerCore.js' },
+    { effect: 'f9-sidebar-toggle', kernel: 'nemo-sidebar-controls.js' },
   ],
   firefox: [
     { effect: 'tabs-multi', kernel: 'firefoxBrowser.js' },
     { effect: 'bookmarks-toggle', kernel: 'firefoxBrowser.js' },
     { effect: 'newtab-home', kernel: 'firefoxBrowser.js' },
+    { effect: 'menu-popover', kernel: 'firefoxBrowser.js' },
+    { effect: 'keyboard-shortcuts', kernel: 'firefoxBrowser.js' },
+  ],
+  drawing: [
+    { effect: 'tool-palette', kernel: 'drawing.js' },
+    { effect: 'canvas-undo', kernel: 'drawing.js' },
+  ],
+  gnome_disks: [
+    { effect: 'disk-select', kernel: 'gnome-disks.js' },
   ],
   text_editor: [
     { effect: 'menus-dropdown', kernel: 'text-editor.js' },

@@ -26,6 +26,11 @@ const MENU_SEARCH = {
   terminal: 'Terminal',
   baobab: 'Analyseur d\'espace disque',
   bulky: 'Renommer fichiers',
+  drawing: 'Dessin',
+  font_viewer: 'Polices',
+  gnome_disks: 'Disques',
+  gucharmap: 'Table des caractères',
+  hypnotix: 'Hypnotix',
 };
 
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);

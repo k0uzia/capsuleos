@@ -74,14 +74,14 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 2. **P1** : `update_manager`, `mintinstall`, `themes`
 3. Catalogue alphabétique : apps avec **Π_app < 90**
 
-### Snapshot pallier 3 (2026-06-08)
+### Snapshot pallier 4 (2026-06-08)
 
-**Π_global** : 65 (`partiel`)
+**Π_global** : 67 (`partiel`)
 
 | Slot | Π_app | Statut |
 |------|-------|--------|
-| nemo | 75 | partiel |
-| firefox | 75 | partiel |
+| nemo | 100 | ok |
+| firefox | 100 | ok |
 | text_editor | 92 | ok |
 | calculator | 100 | ok |
 | file_roller | 92 | ok |
@@ -90,7 +90,11 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | themes | 100 | ok |
 | baobab | 83 | partiel |
 | bulky | 75 | partiel |
-| drawing | 58 | absent (catalogue suite) |
+| drawing | 83 | partiel |
+| font_viewer | 83 | partiel |
+| gnome_disks | 75 | partiel |
+| gucharmap | 67 | partiel |
+| hypnotix | 67 | partiel |
 
 ## Patterns noyau extraits (campagne)
 
@@ -104,3 +108,6 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | Cinnamon Settings shell | `cinnamon_settings.html` + `build-linux-embed.mjs` override `themes` |
 | Panneau Thèmes `#themesApp` | `cinnamon-settings.js` + popover Mint-Y `themes.js` |
 | Baobab / Bulky noyau | `baobab.js` / `bulky.js` + gabarits source |
+| Menu Firefox + Ctrl+T/L | `firefoxBrowser.js` |
+| F9 panneau Nemo | `nemo-sidebar-controls.js` |
+| Disques (gnome-disks) | `gnome-disks.js` |

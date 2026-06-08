@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-mint",
-  "generatedAt": "2026-06-08T11:35:49.912Z",
+  "generatedAt": "2026-06-08T11:41:04.674Z",
   "shell": [
     {
       "id": "mainMenu",
@@ -145,6 +145,10 @@
         {
           "effect": "search-filter",
           "kernel": "fileExplorerCore.js"
+        },
+        {
+          "effect": "f9-sidebar-toggle",
+          "kernel": "nemo-sidebar-controls.js"
         }
       ],
       "smoke": "smoke-mint-nemo.mjs"
@@ -163,6 +167,14 @@
         },
         {
           "effect": "newtab-home",
+          "kernel": "firefoxBrowser.js"
+        },
+        {
+          "effect": "menu-popover",
+          "kernel": "firefoxBrowser.js"
+        },
+        {
+          "effect": "keyboard-shortcuts",
           "kernel": "firefoxBrowser.js"
         }
       ],

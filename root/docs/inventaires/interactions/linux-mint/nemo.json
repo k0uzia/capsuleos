@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "slot": "nemo",
   "label": "Fichiers (Nemo)",
-  "collectedAt": "2026-06-08T11:19:29.219Z",
+  "collectedAt": "2026-06-08T11:41:04.814Z",
   "source": "vm-doc+template",
   "vmDoc": "linux-mint-nemo-vm.md",
   "vm": {

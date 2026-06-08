@@ -155,22 +155,22 @@
     "drawing": {
       "slot": "drawing",
       "label": "drawing",
-      "pi": 58,
-      "status": "absent",
+      "pi": 83,
+      "status": "partiel",
       "dimensions": {
-        "vis": 50,
-        "nav": 50,
+        "vis": 100,
+        "nav": 100,
         "int": 100,
         "ctx": 50,
         "kb": 50,
-        "data": 50
+        "data": 100
       },
       "inventory": null,
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:35:52.107Z",
-      "checksPassed": 1,
-      "checksTotal": 1,
-      "updatedAt": "2026-06-08T11:35:52.487Z"
+      "lastPass": "2026-06-08T11:40:28.314Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T11:40:29.143Z"
     },
     "file_roller": {
       "slot": "file_roller",
@@ -195,86 +195,102 @@
     "firefox": {
       "slot": "firefox",
       "label": "firefox",
+      "pi": 100,
+      "status": "ok",
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
+      "vmDoc": "linux-mint-firefox-vm.md",
+      "lastPass": "2026-06-08T11:40:24.510Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T11:40:25.435Z"
+    },
+    "font_viewer": {
+      "slot": "font_viewer",
+      "label": "font_viewer",
+      "pi": 83,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 100,
+        "data": 100
+      },
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:40:32.052Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:40:32.568Z"
+    },
+    "gnome_disks": {
+      "slot": "gnome_disks",
+      "label": "gnome_disks",
       "pi": 75,
       "status": "partiel",
       "dimensions": {
         "vis": 100,
-        "nav": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
+      },
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:40:35.490Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:40:35.956Z"
+    },
+    "gucharmap": {
+      "slot": "gucharmap",
+      "label": "gucharmap",
+      "pi": 67,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 100,
+        "nav": 50,
         "int": 100,
         "ctx": 50,
         "kb": 50,
         "data": 50
       },
-      "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
-      "vmDoc": "linux-mint-firefox-vm.md",
-      "lastPass": "2026-06-08T11:10:32.576Z",
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:40:38.911Z",
       "checksPassed": 3,
       "checksTotal": 3,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
-    },
-    "font_viewer": {
-      "slot": "font_viewer",
-      "label": "font_viewer",
-      "pi": 54,
-      "status": "absent",
-      "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
-      },
-      "inventory": "interactions/linux-mint/font_viewer.json",
-      "vmDoc": null
-    },
-    "gnome_disks": {
-      "slot": "gnome_disks",
-      "label": "gnome_disks",
-      "pi": 54,
-      "status": "absent",
-      "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
-      },
-      "inventory": "interactions/linux-mint/gnome_disks.json",
-      "vmDoc": null
-    },
-    "gucharmap": {
-      "slot": "gucharmap",
-      "label": "gucharmap",
-      "pi": 54,
-      "status": "absent",
-      "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
-      },
-      "inventory": "interactions/linux-mint/gucharmap.json",
-      "vmDoc": null
+      "updatedAt": "2026-06-08T11:40:39.380Z"
     },
     "hypnotix": {
       "slot": "hypnotix",
       "label": "hypnotix",
-      "pi": 54,
-      "status": "absent",
+      "pi": 67,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 50
       },
-      "inventory": "interactions/linux-mint/hypnotix.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:40:42.593Z",
+      "checksPassed": 3,
+      "checksTotal": 3,
+      "updatedAt": "2026-06-08T11:40:43.072Z"
     },
     "lecteur_multimedia": {
       "slot": "lecteur_multimedia",
@@ -375,18 +391,22 @@
     "mate_color_select": {
       "slot": "mate_color_select",
       "label": "mate_color_select",
-      "pi": 54,
-      "status": "absent",
+      "pi": 75,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/mate_color_select.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:41:04.047Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:41:04.596Z"
     },
     "mintbackup": {
       "slot": "mintbackup",
@@ -491,22 +511,22 @@
     "nemo": {
       "slot": "nemo",
       "label": "nemo",
-      "pi": 75,
-      "status": "partiel",
+      "pi": 100,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
+        "vis": 100,
         "nav": 100,
         "int": 100,
         "ctx": 100,
-        "kb": 50,
-        "data": 50
+        "kb": 100,
+        "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/nemo.json",
       "vmDoc": "linux-mint-nemo-vm.md",
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 7,
-      "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:40:20.754Z",
+      "checksPassed": 10,
+      "checksTotal": 10,
+      "updatedAt": "2026-06-08T11:40:21.640Z"
     },
     "power_stats": {
       "slot": "power_stats",
@@ -813,7 +833,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T11:35:52.487Z",
-  "pi_global": 65,
+  "updatedAt": "2026-06-08T11:41:04.596Z",
+  "pi_global": 68,
   "status_global": "partiel"
 }

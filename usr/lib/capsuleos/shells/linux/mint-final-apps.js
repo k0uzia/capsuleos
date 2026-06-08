@@ -89,24 +89,53 @@
             noto: 'Noto Sans · 12 pt',
             liberation: 'Liberation Sans · 12 pt'
         };
+        function selectFontItem(item) {
+            if (!item || !list) {
+                return;
+            }
+            var items = list.querySelectorAll('.fnv-app__font');
+            var i;
+            for (i = 0; i < items.length; i += 1) {
+                items[i].classList.remove('is-selected');
+            }
+            item.classList.add('is-selected');
+            var fontId = item.getAttribute('data-font-id');
+            if (meta && labels[fontId]) {
+                meta.textContent = labels[fontId];
+            }
+            if (sample) {
+                sample.style.fontFamily = fontId === 'noto' ? 'Noto Sans, sans-serif' : 'Ubuntu, sans-serif';
+            }
+        }
+
         if (list) {
+            list.setAttribute('tabindex', '0');
+            list.addEventListener('keydown', function onFontKey(ev) {
+                var items = list.querySelectorAll('.fnv-app__font');
+                if (!items.length) {
+                    return;
+                }
+                var activeIdx = 0;
+                var ai;
+                for (ai = 0; ai < items.length; ai += 1) {
+                    if (items[ai].classList.contains('is-selected')) {
+                        activeIdx = ai;
+                        break;
+                    }
+                }
+                if (ev.key === 'ArrowDown') {
+                    ev.preventDefault();
+                    selectFontItem(items[Math.min(items.length - 1, activeIdx + 1)]);
+                } else if (ev.key === 'ArrowUp') {
+                    ev.preventDefault();
+                    selectFontItem(items[Math.max(0, activeIdx - 1)]);
+                }
+            });
             list.addEventListener('click', function onFontClick(ev) {
                 var item = ev.target;
                 while (item && item !== list) {
                     if (item.classList && item.classList.contains('fnv-app__font')) {
-                        var items = list.querySelectorAll('.fnv-app__font');
-                        var i;
-                        for (i = 0; i < items.length; i += 1) {
-                            items[i].classList.remove('is-selected');
-                        }
-                        item.classList.add('is-selected');
-                        var fontId = item.getAttribute('data-font-id');
-                        if (meta && labels[fontId]) {
-                            meta.textContent = labels[fontId];
-                        }
-                        if (sample) {
-                            sample.style.fontFamily = fontId === 'noto' ? 'Noto Sans, sans-serif' : 'Ubuntu, sans-serif';
-                        }
+                        selectFontItem(item);
                         return;
                     }
                     item = item.parentElement;

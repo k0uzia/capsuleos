@@ -164,8 +164,8 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     cssFile: 'home/RedHat/Rocky/rocky-fonts.css',
   },
   fedora: {
-    uiFamily: 'Red Hat Text',
-    monoFamily: 'Red Hat Mono',
+    uiFamily: 'Adwaita Sans',
+    monoFamily: 'Adwaita Mono',
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/fedora',
     cssFile: 'home/RedHat/Fedora/fedora-fonts.css',
   },
@@ -372,9 +372,12 @@ export const scanTypographyViolations = (registryId) => {
   const embedding = evaluateVisualFidelity(registryId).inventory?.typography?.fontEmbedding;
   if (embedding?.capsuleDir) {
     const vendor = registryId.replace(/^linux-/, '');
-    const fontChecks = vendor === 'ubuntu'
-      ? ['Ubuntu-R.ttf', 'UbuntuMono-R.ttf']
-      : ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
+    const fontChecksByVendor = {
+      ubuntu: ['Ubuntu-R.ttf', 'UbuntuMono-R.ttf'],
+      fedora: ['AdwaitaSans-Regular.ttf', 'AdwaitaMono-BoldItalic.ttf'],
+      rocky: ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'],
+    };
+    const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {
       const local = path.join(ROOT, embedding.capsuleDir, name);
       if (!fs.existsSync(local)) {

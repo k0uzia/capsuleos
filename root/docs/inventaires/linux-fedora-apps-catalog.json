@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-fedora",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-08T23:12:02.482Z",
+  "generatedAt": "2026-06-08T23:18:10.984Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-fedora-vm-apps-installed.json",
@@ -23,7 +23,12 @@
     "text_editor",
     "calculator",
     "clocks",
-    "calendar"
+    "calendar",
+    "snapshot",
+    "baobab",
+    "system_monitor",
+    "tour",
+    "characters"
   ],
   "summary": {
     "vmInstalled": 33,

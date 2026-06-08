@@ -19,30 +19,32 @@
     "vendor": "ubuntu",
     "iconPack": "icons/gnome/yaru"
   },
-  "generatedAt": "2026-06-08T20:52:42.914Z",
+  "generatedAt": "2026-06-08T21:19:49.478Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
-    "status": "draft",
-    "approved": false
+    "status": "approved",
+    "approved": true,
+    "smokeOk": true,
+    "approvedAt": "2026-06-08T20:56:08.703Z",
+    "approvedBy": "agent"
   },
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-ubuntu",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
-    "status": "completed",
-    "completedAt": "2026-06-08T20:56:15.585Z"
+    "status": "completed"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-ubuntu/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
     "status": "completed",
-    "completedAt": "2026-06-08T20:56:17.758Z"
+    "completedAt": "2026-06-08T20:00:00Z"
   },
   "summary": {
     "total": 119,
-    "pull": 51,
-    "drift": 54,
-    "skip": 14,
+    "pull": 1,
+    "drift": 0,
+    "skip": 118,
     "onVmFalse": 0
   },
   "items": [
@@ -54,8 +56,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/firmware-updater.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firmware-updater.png",
       "stagingPath": "apps/firmware-updater.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-nm-connection-editor",
@@ -65,8 +67,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/nm-connection-editor.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/nm-connection-editor.png",
       "stagingPath": "apps/nm-connection-editor.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Calculator",
@@ -87,8 +89,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/snap-store.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/snap-store.png",
       "stagingPath": "apps/snap-store.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-desktop-security-center",
@@ -98,8 +100,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/desktop-security-center.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/desktop-security-center.png",
       "stagingPath": "apps/desktop-security-center.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Characters",
@@ -142,8 +144,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "stagingPath": "apps/org.gnome.DiskUtility.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Papers",
@@ -164,8 +166,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "stagingPath": "apps/org.gnome.Nautilus.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-firefox",
@@ -175,8 +177,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/firefox.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png",
       "stagingPath": "apps/firefox.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.font-viewer",
@@ -186,8 +188,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "stagingPath": "apps/org.gnome.font-viewer.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Yelp",
@@ -219,8 +221,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/gnome-language-selector.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/gnome-language-selector.png",
       "stagingPath": "apps/gnome-language-selector.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Logs",
@@ -230,8 +232,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
       "stagingPath": "apps/org.gnome.Logs.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.seahorse.Application",
@@ -241,8 +243,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.seahorse.Application.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.seahorse.Application.svg",
       "stagingPath": "apps/org.gnome.seahorse.Application.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-net.nokyan.Resources",
@@ -252,8 +254,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/net.nokyan.Resources.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/net.nokyan.Resources.svg",
       "stagingPath": "apps/net.nokyan.Resources.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Settings",
@@ -274,8 +276,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/update-manager.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/update-manager.png",
       "stagingPath": "apps/update-manager.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Sysprof",
@@ -285,8 +287,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.Sysprof.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Sysprof.svg",
       "stagingPath": "apps/org.gnome.Sysprof.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-org.gnome.Ptyxis",
@@ -307,8 +309,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "stagingPath": "apps/org.gnome.TextEditor.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "app-icon-vim",
@@ -318,8 +320,8 @@
       "capsuleRelative": "images/toolkits/gnome/apps/overview/vim.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/vim.svg",
       "stagingPath": "apps/vim.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-Ubuntu[wdth,wght].ttf",
@@ -373,8 +375,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-BoldItalic.ttf",
@@ -384,8 +386,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/NotoSans-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/NotoSans-BoldItalic.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/NotoSans-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-NotoSans-Bold.ttf",
@@ -395,8 +397,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/NotoSans-Bold.ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/NotoSans-Bold.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/NotoSans-Bold.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-UbuntuMono-Italic[wght].ttf",
@@ -406,8 +408,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/UbuntuMono-Italic[wght].ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/UbuntuMono-Italic[wght].ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/UbuntuMono-Italic[wght].ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-DejaVuSansMono-BoldOblique.ttf",
@@ -417,8 +419,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/DejaVuSansMono-BoldOblique.ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/DejaVuSansMono-BoldOblique.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/DejaVuSansMono-BoldOblique.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "font-LiberationMono-BoldItalic.ttf",
@@ -428,8 +430,8 @@
       "capsuleTarget": "fonts/vendors/ubuntu/LiberationMono-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/ubuntu/LiberationMono-BoldItalic.ttf",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/ubuntu/LiberationMono-BoldItalic.ttf",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-inode-directory",
@@ -441,8 +443,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/inode-directory.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/inode-directory.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-generic",
@@ -454,8 +456,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/text-x-generic.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/text-x-generic.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/text-x-generic.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-script",
@@ -467,8 +469,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/text-x-script.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/text-x-script.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/text-x-script.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-image-x-generic",
@@ -480,8 +482,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/image-x-generic.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/image-x-generic.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/image-x-generic.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-generic",
@@ -493,8 +495,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/application-x-generic.svg",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/application-x-generic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/application-x-generic.svg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-x-executable",
@@ -506,8 +508,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/application-x-executable.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/application-x-executable.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/application-x-executable.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-package-x-generic",
@@ -519,8 +521,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/package-x-generic.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/package-x-generic.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/package-x-generic.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-x-office-document",
@@ -532,8 +534,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/x-office-document.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/x-office-document.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/x-office-document.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-audio-x-generic",
@@ -545,8 +547,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/audio-x-generic.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/audio-x-generic.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/audio-x-generic.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-video-x-generic",
@@ -558,8 +560,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/video-x-generic.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/video-x-generic.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/video-x-generic.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-text-x-preview",
@@ -571,8 +573,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/text-x-preview.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/text-x-preview.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/text-x-preview.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-pdf",
@@ -584,8 +586,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/application-pdf.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/application-pdf.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/application-pdf.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "mime-application-rtf",
@@ -597,8 +599,8 @@
       "capsuleTarget": "icons/gnome/yaru/mimetypes/application-rtf.png",
       "capsuleRelative": "icons/gnome/yaru/mimetypes/application-rtf.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/mimetypes/application-rtf.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder",
@@ -610,8 +612,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-documents",
@@ -623,8 +625,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-documents.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-documents.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-documents.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-download",
@@ -636,8 +638,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-download.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-download.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-download.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-music",
@@ -649,8 +651,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-music.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-music.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-music.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-pictures",
@@ -662,8 +664,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-pictures.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-pictures.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-pictures.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-videos",
@@ -675,8 +677,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-videos.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-videos.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-videos.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-templates",
@@ -688,8 +690,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-templates.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-templates.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-templates.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-folder-publicshare",
@@ -701,8 +703,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/folder-publicshare.png",
       "capsuleRelative": "icons/gnome/yaru/places/folder-publicshare.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/folder-publicshare.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-desktop",
@@ -714,8 +716,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/user-desktop.png",
       "capsuleRelative": "icons/gnome/yaru/places/user-desktop.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/user-desktop.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-home",
@@ -727,8 +729,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/user-home.png",
       "capsuleRelative": "icons/gnome/yaru/places/user-home.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/user-home.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-user-trash",
@@ -740,8 +742,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/user-trash.png",
       "capsuleRelative": "icons/gnome/yaru/places/user-trash.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/user-trash.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "place-network-server",
@@ -753,8 +755,8 @@
       "capsuleTarget": "icons/gnome/yaru/places/network-server.png",
       "capsuleRelative": "icons/gnome/yaru/places/network-server.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/places/network-server.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-default",
@@ -766,8 +768,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-default.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-default.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-default.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-shared",
@@ -779,8 +781,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-shared.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-shared.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-shared.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-favorite",
@@ -792,8 +794,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-favorite.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-favorite.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-favorite.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-important",
@@ -805,8 +807,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-important.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-important.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-important.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-new",
@@ -818,8 +820,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-new.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-new.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-new.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-readonly",
@@ -831,8 +833,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-readonly.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-readonly.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-readonly.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-symbolic-link",
@@ -844,8 +846,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-symbolic-link.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-symbolic-link.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-symbolic-link.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "emblem-emblem-unreadable",
@@ -857,8 +859,8 @@
       "capsuleTarget": "icons/gnome/yaru/emblems/emblem-unreadable.png",
       "capsuleRelative": "icons/gnome/yaru/emblems/emblem-unreadable.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/emblems/emblem-unreadable.png",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-up-symbolic",
@@ -870,8 +872,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/go-up-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/go-up-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/go-up-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-previous-symbolic",
@@ -883,8 +885,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/go-previous-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/go-previous-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/go-previous-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-go-next-symbolic",
@@ -896,8 +898,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/go-next-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/go-next-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/go-next-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-grid-symbolic",
@@ -909,8 +911,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/view-grid-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/view-grid-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/view-grid-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-list-symbolic",
@@ -922,8 +924,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/view-list-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/view-list-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/view-list-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-open-menu-symbolic",
@@ -935,8 +937,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/open-menu-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/open-menu-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/open-menu-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-view-more-symbolic",
@@ -948,8 +950,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/view-more-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/view-more-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/view-more-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-system-search-symbolic",
@@ -961,8 +963,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/system-search-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/system-search-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/system-search-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-find-location-symbolic",
@@ -974,8 +976,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/find-location-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/find-location-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/find-location-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-sidebar-show-symbolic",
@@ -987,8 +989,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/sidebar-show-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/sidebar-show-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-actions-folder-new-symbolic",
@@ -1000,8 +1002,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/actions/folder-new-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/actions/folder-new-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/actions/folder-new-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-home-symbolic",
@@ -1013,8 +1015,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/user-home-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/user-home-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/user-home-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-user-trash-symbolic",
@@ -1026,8 +1028,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/user-trash-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/user-trash-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/user-trash-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-network-workgroup-symbolic",
@@ -1039,8 +1041,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/network-workgroup-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/network-workgroup-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-documents-symbolic",
@@ -1052,8 +1054,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-documents-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-documents-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-documents-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-music-symbolic",
@@ -1065,8 +1067,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-music-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-music-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-music-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-pictures-symbolic",
@@ -1078,8 +1080,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-pictures-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-pictures-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-videos-symbolic",
@@ -1091,8 +1093,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-videos-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-videos-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-videos-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-download-symbolic",
@@ -1104,8 +1106,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-download-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-download-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-download-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-templates-symbolic",
@@ -1117,8 +1119,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-templates-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-templates-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-templates-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-places-folder-publicshare-symbolic",
@@ -1130,8 +1132,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/places/folder-publicshare-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/places/folder-publicshare-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "symbolic-status-starred-symbolic",
@@ -1143,8 +1145,8 @@
       "capsuleTarget": "icons/gnome/yaru/symbolic/status/starred-symbolic.svg",
       "capsuleRelative": "icons/gnome/yaru/symbolic/status/starred-symbolic.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/gnome/yaru/symbolic/status/starred-symbolic.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-org.gnome.Nautilus",
@@ -1167,8 +1169,8 @@
       "capsuleTarget": "images/vendors/ubuntu/panel/org.gnome.Ptyxis.svg",
       "capsuleRelative": "images/vendors/ubuntu/panel/org.gnome.Ptyxis.svg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/panel/org.gnome.Ptyxis.svg",
-      "status": "drift",
-      "action": "rewrite-ref"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "panel-firefox",
@@ -1189,8 +1191,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.png",
       "stagingPath": "wallpaper/ubuntu-wallpaper-d.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-cnusr25-Simple_Raccoon_Dark.png",
@@ -1199,8 +1201,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Dark.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Dark.png",
       "stagingPath": "wallpaper/cnusr25-Simple_Raccoon_Dark.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-cnusr25-Simple_Raccoon_Light.png",
@@ -1209,8 +1211,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.png",
       "stagingPath": "wallpaper/cnusr25-Simple_Raccoon_Light.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-endycal-Flying_Boxes_Dark.png",
@@ -1219,8 +1221,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.png",
       "stagingPath": "wallpaper/endycal-Flying_Boxes_Dark.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-endycal-Flying_Boxes_Light.png",
@@ -1229,8 +1231,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.png",
       "stagingPath": "wallpaper/endycal-Flying_Boxes_Light.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Dark.png",
@@ -1239,8 +1241,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
       "stagingPath": "wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Light.png",
@@ -1249,8 +1251,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
       "stagingPath": "wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-iryge-Anomaly.png",
@@ -1259,8 +1261,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/iryge-Anomaly.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/iryge-Anomaly.png",
       "stagingPath": "wallpaper/iryge-Anomaly.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jdituicha-raccoon1-dark.jpg",
@@ -1269,8 +1271,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-dark.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-dark.jpg",
       "stagingPath": "wallpaper/jdituicha-raccoon1-dark.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-jdituicha-raccoon1-light.jpg",
@@ -1279,8 +1281,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.jpg",
       "stagingPath": "wallpaper/jdituicha-raccoon1-light.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-manuej-Vor.jpg",
@@ -1289,8 +1291,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/manuej-Vor.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/manuej-Vor.jpg",
       "stagingPath": "wallpaper/manuej-Vor.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mendhak-Bluebells_Suspended_In_Time.jpg",
@@ -1299,8 +1301,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
       "stagingPath": "wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mendhak-Red_Acer.jpg",
@@ -1309,8 +1311,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.jpg",
       "stagingPath": "wallpaper/mendhak-Red_Acer.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mizuno-as-Big_Dipper.jpg",
@@ -1319,8 +1321,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.jpg",
       "stagingPath": "wallpaper/mizuno-as-Big_Dipper.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-mizuno-as-Winter_Grand_Triangle.jpg",
@@ -1329,8 +1331,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
       "stagingPath": "wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-moskalenko-v-Low_poly_Raccoon_Dark.webp",
@@ -1339,8 +1341,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Dark.webp",
       "stagingPath": "wallpaper/moskalenko-v-Low_poly_Raccoon_Dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-moskalenko-v-Low_poly_Raccoon_Light.webp",
@@ -1349,8 +1351,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Light.webp",
       "stagingPath": "wallpaper/moskalenko-v-Low_poly_Raccoon_Light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
@@ -1359,8 +1361,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
       "stagingPath": "wallpaper/moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-moskalenko-v-Snowy_Ubuntu_Dark.webp",
@@ -1369,8 +1371,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Dark.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Dark.webp",
       "stagingPath": "wallpaper/moskalenko-v-Snowy_Ubuntu_Dark.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-moskalenko-v-Snowy_Ubuntu_Light.webp",
@@ -1379,8 +1381,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Light.webp",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Light.webp",
       "stagingPath": "wallpaper/moskalenko-v-Snowy_Ubuntu_Light.webp",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-osselo-Ask_a_friend.jpg",
@@ -1389,8 +1391,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.jpg",
       "stagingPath": "wallpaper/osselo-Ask_a_friend.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
@@ -1399,8 +1401,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
       "stagingPath": "wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
@@ -1409,8 +1411,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
       "stagingPath": "wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-rubenslp-Twin_brothers.png",
@@ -1419,8 +1421,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.png",
       "stagingPath": "wallpaper/rubenslp-Twin_brothers.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
@@ -1429,8 +1431,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
       "stagingPath": "wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     },
     {
       "id": "wallpaper-warty-final-ubuntu.png",
@@ -1439,8 +1441,8 @@
       "capsuleRelative": "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.png",
       "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/warty-final-ubuntu.png",
       "stagingPath": "wallpaper/warty-final-ubuntu.png",
-      "status": "pull",
-      "action": "pull"
+      "status": "skip",
+      "action": "skip"
     }
   ],
   "phases": [
@@ -1457,17 +1459,17 @@
     {
       "id": "approve",
       "predicate": "ManA",
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": "stage-vm",
       "predicate": "ManSt",
-      "status": "done"
+      "status": "pending"
     },
     {
       "id": "import",
       "predicate": "ManI",
-      "status": "done"
+      "status": "pending"
     },
     {
       "id": "integrate-skin",

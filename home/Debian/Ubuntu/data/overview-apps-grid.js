@@ -2,7 +2,7 @@
 window.CAPSULE_OVERVIEW_APPS_GRID = {
   "version": 2,
   "registryId": "linux-ubuntu",
-  "generatedAt": "2026-06-08T20:56:17.969Z",
+  "generatedAt": "2026-06-08T21:19:49.387Z",
   "source": "proc/linux-ubuntu/distribution-manifest.json",
   "apps": [
     {

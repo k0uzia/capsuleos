@@ -9,7 +9,12 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
-import { loadPlaybook, writePlaybook } from './manifest-playbook-lib.mjs';
+import {
+  loadPlaybook,
+  writePlaybook,
+  buildPlaybook,
+} from './manifest-playbook-lib.mjs';
+import { writeIconPackRefs, ICON_PACK_CATEGORIES } from './manifest-icon-pack-refs-lib.mjs';
 import { skinIndexPath } from './apps-catalog-lib.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
 
@@ -63,7 +68,7 @@ const patchWallpaperRefs = (registryId, items, write) => {
 
 const main = () => {
   const opts = parseArgs();
-  const playbook = loadPlaybook(opts.id);
+  let playbook = loadPlaybook(opts.id);
   if (!playbook) {
     console.error('Playbook absent');
     process.exit(1);
@@ -76,10 +81,12 @@ const main = () => {
   const rewriteItems = (playbook.items || []).filter((i) => i.action === 'rewrite-ref');
   const appIcons = rewriteItems.filter((i) => i.category === 'app-icon');
   const wallpapers = rewriteItems.filter((i) => i.category === 'wallpaper');
-  const deferred = rewriteItems.filter((i) => !['app-icon', 'wallpaper'].includes(i.category));
+  const mediaDrift = rewriteItems.filter((i) => ICON_PACK_CATEGORIES.has(i.category));
 
   console.log(`── apply-manifest-refs ${opts.id} ──`);
-  console.log(`  rewrite-ref: ${rewriteItems.length} (apps=${appIcons.length}, wallpaper=${wallpapers.length}, deferred=${deferred.length})`);
+  console.log(
+    `  rewrite-ref: ${rewriteItems.length} (apps=${appIcons.length}, wallpaper=${wallpapers.length}, media=${mediaDrift.length})`,
+  );
 
   if (appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) {
     console.log('→ generate-overview-apps-grid');
@@ -91,8 +98,15 @@ const main = () => {
   const wpPatched = patchWallpaperRefs(opts.id, wallpapers, opts.write);
   if (wpPatched) console.log(`  ✓ ${wpPatched} ref(s) wallpaper`);
 
-  if (deferred.length) {
-    console.log(`  ⏸ ${deferred.length} drift(s) icon pack — intégration skin différée (mimetype/place/symbolic)`);
+  const { pathCount, outPath } = writeIconPackRefs(opts.id, playbook, opts.write);
+  console.log(`  ✓ manifest media refs — ${pathCount} chemins → ${outPath.replace(`${ROOT}/`, '')}`);
+
+  if (opts.write) {
+    playbook = buildPlaybook(opts.id);
+    writePlaybook(opts.id, playbook);
+    console.log(
+      `  ✓ playbook régénéré — pull=${playbook.summary.pull} drift=${playbook.summary.drift} skip=${playbook.summary.skip}`,
+    );
   }
 
   if (!opts.skipSync && opts.write) {
@@ -104,10 +118,11 @@ const main = () => {
   }
 
   if (opts.write) {
-    playbook.phases = (playbook.phases || []).map((p) => (
+    const final = loadPlaybook(opts.id);
+    final.phases = (final.phases || []).map((p) => (
       p.id === 'integrate-skin' ? { ...p, status: 'done' } : p
     ));
-    writePlaybook(opts.id, playbook);
+    writePlaybook(opts.id, final);
     console.log('✓ integrate-skin — playbook mis à jour');
   } else {
     console.log('Dry-run — ajouter --write pour appliquer');

@@ -94,7 +94,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **Menu** : tokens Mint-Y-Dark-Aqua, libellés FR, géométrie sidebar/catégories/apps
 - [x] Captures : `capture-mint-panel-menu.mjs --compare` → `captures/linux-mint/20260608-104657/`
 - [x] Captures post-géométrie (`430cfcb`) : `captures/linux-mint/20260608-143806/` · baseline clone `clone-baseline/` · métriques dans `linux-mint-parity-index.json` (layoutMetrics shell)
-- [x] P1 polish panel/menu : libellés sidebar complets, menu 680px, favoris tray gap 2px · `captures/linux-mint/20260608-144337/`
+- [x] **Zéro compromis** panel/menu (2026-06-08) : proportions VM strictes 600px · 20/25/55 %, ellipsis comme `baseline/`, favoris tray VM (gap `head/14`, box 121px) — compromis c3ee064 **annulé** · `captures/linux-mint/20260608-144804/`
 - [x] Checklist panel **6/6** VM + Capsule (`compare-os-parity --capsule-json`)
 
 ## Campagne v2 — shell panel (2026-06-08)

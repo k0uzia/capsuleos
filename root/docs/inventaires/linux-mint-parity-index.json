@@ -25,37 +25,35 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:38:06Z",
-        "commit": "430cfcb",
+        "auditAt": "2026-06-08T14:48:04Z",
+        "policy": "zéro compromis — proportions VM strictes, ellipsis comme baseline",
         "viewport": "1280x800",
+        "vmSource": "capsule@192.168.1.146 gsettings panels-height 40px · baseline/ captures",
         "vmTarget": {
-          "panelHeightPx": 40,
-          "menuBottomGapPx": 2,
           "menuWidthPx": 600,
-          "menuColsPct": [20, 25, 55],
-          "searchHeightPx": 35
-        },
-        "preFix": {
-          "panelHeightPx": 50,
-          "menuBottomGapPx": 52,
-          "menuColsPct": [23, 35, 42],
-          "note": "double comptage taskbar-height dans #desktop"
-        },
-        "postFix": {
-          "panelHeightPx": 40,
+          "menuHeightPx": 480,
           "menuBottomGapPx": 2,
-          "menuWidthPx": 680,
-          "menuColsPct": [32, 25, 42],
-          "searchWidthPx": 152,
+          "menuColsPct": [20, 25, 55],
           "searchHeightPx": 35,
-          "sidebarLabelsTruncated": 0
+          "searchWidthPx": 132,
+          "labelBehavior": "ellipsis CSS (Télécharg…, Éditeur de…, Paramètre…)"
         },
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144337/"
+        "measuredClone": {
+          "menuWidthPx": 600,
+          "menuHeightPx": 480,
+          "menuBottomGapPx": 2,
+          "menuColsPct": [20, 25, 55],
+          "searchHeightPx": 35,
+          "searchWidthPx": 132,
+          "maxDeltaPx": 0
+        },
+        "revertedCompromise": "c3ee064 menu 680px / sidebar 32% — annulé",
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144804/"
       },
       "lastPass": "2026-06-08T11:54:04.866Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T14:43:37Z"
+      "updatedAt": "2026-06-08T14:48:04Z"
     },
     "panel": {
       "id": "panel",
@@ -70,35 +68,33 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:38:06Z",
-        "commit": "430cfcb",
+        "auditAt": "2026-06-08T14:48:04Z",
+        "policy": "zéro compromis",
         "viewport": "1280x800",
+        "vmSource": "gsettings panels-height ['1:40'] · zone right 24px",
         "vmTarget": {
           "panelHeightPx": 40,
           "trayIconPx": 24,
-          "favoritesIconPx": 22
+          "favoritesIconPx": 22,
+          "favoritesBoxWidthPx": 121,
+          "favoritesGapPx": 2.86,
+          "favoritesCount": 5
         },
-        "preFix": {
-          "panelHeightPx": 50,
-          "trayIconPx": 20,
-          "deltaPanelPx": 10,
-          "deltaTrayIconPx": -4
-        },
-        "postFix": {
+        "measuredClone": {
           "panelHeightPx": 40,
           "trayIconPx": 24,
           "favoritesIconPx": 22,
-          "favoritesGapPx": 2,
-          "favoritesBoxWidthPx": 120,
-          "favoritesCount": 5,
-          "trayCenterYPx": 775
+          "favoritesBoxWidthPx": 121,
+          "favoritesGapPx": 2.86,
+          "maxDeltaPx": 0
         },
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144337/"
+        "revertedCompromise": "c3ee064 favoris gap 2px / padding 0 — annulé",
+        "captures": "root/docs/inventaires/captures/linux-mint/20260608-144804/"
       },
       "lastPass": "2026-06-08T12:08:05.137Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:43:37Z"
+      "updatedAt": "2026-06-08T14:48:04Z"
     },
     "tray": {
       "id": "tray",
@@ -1015,7 +1011,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T14:43:37Z",
+  "updatedAt": "2026-06-08T14:48:04Z",
   "pi_global": 98,
   "status_global": "ok"
 }

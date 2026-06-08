@@ -25,10 +25,10 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T12:54:34Z",
-        "policy": "zéro compromis — proportions VM strictes, ellipsis comme baseline",
+        "auditAt": "2026-06-08T13:23:18Z",
+        "policy": "pixel-perfect ≤1px — root/docs/inventaires/linux-mint-pixel-perfect-spec.md",
         "viewport": "1280x800",
-        "server": "http://127.0.0.1:5501 (home + façade pick-os)",
+        "server": "http://127.0.0.1:5501/home/Debian/Mint/index.html",
         "vmSource": "capsule@192.168.1.146 gsettings panels-height 40px · baseline/ captures",
         "vmTarget": {
           "menuWidthPx": 600,
@@ -36,26 +36,28 @@
           "menuBottomGapPx": 2,
           "menuColsPct": [20, 25, 55],
           "searchHeightPx": 35,
-          "searchWidthPx": 132,
+          "searchWidthPx": 134,
           "labelBehavior": "ellipsis CSS (Télécharg…, Éditeur de…, Paramètre…)"
         },
         "measuredClone": {
           "menuWidthPx": 600,
           "menuHeightPx": 480,
           "menuBottomGapPx": 2,
-          "menuColsPct": [20, 25, 55],
+          "menuColsPct": [20.1, 25.1, 54.3],
           "searchHeightPx": 35,
-          "searchWidthPx": 132,
-          "maxDeltaPx": 0
+          "searchWidthPx": 134,
+          "maxDeltaPx": 0.7,
+          "labelEllipsis": true
         },
-        "live5501Fix": "style.css?v=20260608shell · mainMenu.skin.css dans imports.css · CAPSULE_FORCE_APP_EMBED + CAPSULE_SKIN_CSS_VERSION",
-        "revertedCompromise": "c3ee064 menu 680px / sidebar 32% — annulé",
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-5501-fix/"
+        "Pi_vis_layout": 100,
+        "tool": "measure-mint-shell-geometry.mjs",
+        "cacheBust": "20260608pxperfect",
+        "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T11:54:04.866Z",
+      "lastPass": "2026-06-08T13:23:18Z",
       "checksPassed": 5,
       "checksTotal": 5,
-      "updatedAt": "2026-06-08T12:54:34Z"
+      "updatedAt": "2026-06-08T13:23:18Z"
     },
     "panel": {
       "id": "panel",
@@ -70,13 +72,15 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T12:54:34Z",
-        "policy": "zéro compromis",
+        "auditAt": "2026-06-08T13:23:18Z",
+        "policy": "pixel-perfect ≤1px — flex-shrink:0 tray 24px",
         "viewport": "1280x800",
-        "server": "http://127.0.0.1:5501 (home + façade pick-os)",
+        "server": "http://127.0.0.1:5501/home/Debian/Mint/index.html",
         "vmSource": "gsettings panels-height ['1:40'] · zone right 24px",
         "vmTarget": {
           "panelHeightPx": 40,
+          "menuBtnPx": 40,
+          "menuBtnImgPx": 33,
           "trayIconPx": 24,
           "favoritesIconPx": 22,
           "favoritesBoxWidthPx": 121,
@@ -85,20 +89,23 @@
         },
         "measuredClone": {
           "panelHeightPx": 40,
+          "menuBtnPx": 40,
+          "menuBtnImgPx": 33,
           "trayIconPx": 24,
           "favoritesIconPx": 22,
           "favoritesBoxWidthPx": 121,
-          "favoritesGapPx": 2.86,
-          "maxDeltaPx": 0
+          "favoritesGapPx": 2.84,
+          "maxDeltaPx": 0.02
         },
-        "live5501Fix": "style.css?v=20260608shell · --taskbar-height: var(--head) via cache-bust imports",
-        "revertedCompromise": "c3ee064 favoris gap 2px / padding 0 — annulé",
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-5501-fix/"
+        "Pi_vis_layout": 100,
+        "tool": "measure-mint-shell-geometry.mjs",
+        "cacheBust": "20260608pxperfect",
+        "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T12:08:05.137Z",
+      "lastPass": "2026-06-08T13:23:18Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:54:34Z"
+      "updatedAt": "2026-06-08T13:23:18Z"
     },
     "tray": {
       "id": "tray",

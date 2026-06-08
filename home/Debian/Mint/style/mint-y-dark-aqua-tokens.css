@@ -6,6 +6,7 @@ body#mint {
     /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
     --mint-panel-height: 40px;
     --taskbar-height: var(--mint-panel-height);
+    --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
     --texte: #e1e1e1;
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;

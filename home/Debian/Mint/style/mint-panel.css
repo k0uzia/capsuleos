@@ -199,8 +199,11 @@ html[data-theme="light"] .taskbar-window-list__btn {
 
 .taskbar-tray__icon {
     display: var(--bl);
+    flex-shrink: 0;
     width: var(--mint-tray-icon-size);
     height: var(--mint-tray-icon-size);
+    min-width: var(--mint-tray-icon-size);
+    min-height: var(--mint-tray-icon-size);
     opacity: 0.9;
     background: currentColor;
     -webkit-mask-size: contain;

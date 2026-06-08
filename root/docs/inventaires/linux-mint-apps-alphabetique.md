@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T10:01:10.270Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T13:44:19.040Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -169,7 +169,6 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `baobab` — ✅
 - `bulky` — ✅
 - `calculator` — ✅
-- `checklist` — 🎓
 - `drawing` — ✅
 - `file_roller` — ✅
 - `firefox` — ✅

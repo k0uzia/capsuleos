@@ -41,7 +41,16 @@
   "pallier4Commit": "37cf71f",
   "pallier5Commit": "39d115b",
   "pallier6Commit": "9a547e1",
-  "updatedAt": "2026-06-08T16:00:00.000Z",
+  "updatedAt": "2026-06-08T18:30:00.000Z",
+  "integralPass": {
+    "date": "2026-06-08",
+    "doc": "root/docs/recette-clone-mint-integral.md",
+    "cloisonnementScore": 94,
+    "panelChecklist": "6/6",
+    "vmParity": "6/6",
+    "validateAll": "ok",
+    "toolkitParadigmAll": "ok"
+  },
   "paritySnapshot": {
     "pi_global": 98,
     "status_global": "ok",
@@ -85,6 +94,7 @@
     "101/101 catalogue : slots ouverts OK (smoke basique).",
     "Pallier 6 (9a547e1) : utilitaires Mint + visionneurs Π≥92 ; panel/tray Π=100 ; Π_global 88.",
     "Pallier 7 : catalogue résiduel + stubs + terminal + shell clock/theme → tous slots ≥90.",
-    "Π_global 98 — campagne v2-deep-pass clôturée côté parité interactionnelle."
+    "Π_global 98 — campagne v2-deep-pass clôturée côté parité interactionnelle.",
+    "Passe intégrale recette clone 2026-06-08 : panel 6/6, VM 6/6, cloisonnement 94/100, docs recette + branchement."
   ]
 }

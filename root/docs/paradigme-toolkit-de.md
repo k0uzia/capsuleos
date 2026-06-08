@@ -1,7 +1,7 @@
 # Paradigme toolkit — environnements de bureau Linux
 
 > **Statut** : référence architecturale multi-DE.  
-> Spécialisation Cinnamon : [paradigme-toolkit-cinnamon.md](paradigme-toolkit-cinnamon.md) · audit Mint : [inventaires/linux-mint-cinnamon-vs-gnome-audit.md](inventaires/linux-mint-cinnamon-vs-gnome-audit.md) · cloisonnement : [inventaires/toolkit-cloisonnement-audit.md](inventaires/toolkit-cloisonnement-audit.md).
+> Spécialisation Cinnamon : [paradigme-toolkit-cinnamon.md](paradigme-toolkit-cinnamon.md) · audit Mint : [inventaires/linux-mint-cinnamon-vs-gnome-audit.md](inventaires/linux-mint-cinnamon-vs-gnome-audit.md) · cloisonnement : [toolkit-cloisonnement-audit.md](toolkit-cloisonnement-audit.md) · recette intégrale : [recette-clone-mint-integral.md](recette-clone-mint-integral.md).
 
 CapsuleOS modélise chaque skin Linux avec un **toolkit** distinct. Le noyau JS partage des gabarits (Nemo slot `data-link="nemo"`) mais **branche** par toolkit pour menus, icônes et chrome fenêtre.
 

@@ -3,8 +3,9 @@
  * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
  */
 body#mint {
-    /* VM Cinnamon panel1 height = 40 px (--head), pas le défaut portal 1.25× */
-    --taskbar-height: var(--head);
+    /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
+    --mint-panel-height: 40px;
+    --taskbar-height: var(--mint-panel-height);
     --texte: #e1e1e1;
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;

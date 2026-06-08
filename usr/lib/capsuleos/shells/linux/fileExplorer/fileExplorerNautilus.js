@@ -202,8 +202,10 @@
 
             if (ctrl && !event.shiftKey && (key === 'n' || key === 'N')) {
                 event.preventDefault();
-                if (typeof global.openWindowByDataLink === 'function') {
-                    global.openWindowByDataLink('nemo');
+                if (typeof global.openNewWindowByDataLink === 'function') {
+                    global.openNewWindowByDataLink('nemo');
+                } else if (typeof global.openWindowByDataLink === 'function') {
+                    global.openWindowByDataLink('nemo', { newWindow: true });
                 }
                 return;
             }
@@ -268,6 +270,12 @@
             }
 
             if (key === 'F2') {
+                if (event.target && event.target.closest('.nemo-app__item-rename-input')) {
+                    return;
+                }
+                if (global.document.querySelector('.nemo-app__item--renaming')) {
+                    return;
+                }
                 event.preventDefault();
                 if (typeof global.renameExplorerSelection === 'function') {
                     global.renameExplorerSelection();

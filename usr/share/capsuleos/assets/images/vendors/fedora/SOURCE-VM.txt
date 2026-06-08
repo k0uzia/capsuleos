@@ -1,0 +1,7 @@
+Assets copiés depuis la VM lab (capsule@192.168.122.91) le 2026-06-07T00:12:19Z.
+Vendor : fedora · toolkit : gnome
+Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
+Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/fedora/
+MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
+Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
+Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

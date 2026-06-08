@@ -18,10 +18,15 @@
             return bg;
         }
         var rel = './assets/images/vendors/mint/default_background.jpg';
-        if (bodyId === 'rocky' || bodyId === 'fedora' || bodyId === 'alma') {
-            rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png';
+        if (bodyId === 'fedora') {
+            rel = './assets/images/vendors/fedora/wallpaper/f44-01-night.webp';
             if (global.document.documentElement.dataset.theme === 'light') {
-                rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png';
+                rel = './assets/images/vendors/fedora/wallpaper/f44-01-day.webp';
+            }
+        } else if (bodyId === 'rocky' || bodyId === 'alma') {
+            rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp';
+            if (global.document.documentElement.dataset.theme === 'light') {
+                rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp';
             }
         }
         if (typeof global.CapsuleResource !== 'undefined' && global.CapsuleResource.resolve) {

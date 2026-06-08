@@ -156,7 +156,11 @@
             if (iconSrc) {
                 const icon = global.document.createElement('img');
                 icon.className = 'nautilus-app__path-crumb-icon';
-                icon.src = iconSrc;
+                const remap = global.CapsuleExplorerIconBase
+                    && typeof global.CapsuleExplorerIconBase.remapPath === 'function'
+                    ? global.CapsuleExplorerIconBase.remapPath
+                    : null;
+                icon.src = remap ? remap(iconSrc) : iconSrc;
                 icon.alt = '';
                 icon.setAttribute('aria-hidden', 'true');
                 crumb.appendChild(icon);
@@ -187,6 +191,35 @@
         }
     };
 
+    const exitNautilusSearchChrome = (options = {}) => {
+        const state = getState();
+        const root = getNemoRoot();
+        if (!state || !root) {
+            return false;
+        }
+        const mode = getChromeMode(state);
+        if (mode !== 'search-everywhere' && mode !== 'search-folder') {
+            return false;
+        }
+        state.nautilusChromeMode = 'breadcrumb';
+        state.locationBarMode = 'search';
+        if (!options.keepQuery) {
+            state.searchQuery = '';
+            const input = root.querySelector('#nemo-search-input');
+            if (input) {
+                input.value = '';
+            }
+        }
+        applyChrome();
+        if (options.render !== false && typeof global.renderDirectory === 'function' && state.currentPath) {
+            global.renderDirectory(state.currentPath, { pane: state.activePane || 'primary' });
+        }
+        if (typeof global.updatePathDisplay === 'function') {
+            global.updatePathDisplay();
+        }
+        return true;
+    };
+
     const applyChrome = () => {
         const state = getState();
         const root = getNemoRoot();
@@ -195,6 +228,10 @@
         }
 
         const mode = getChromeMode(state);
+        const main = root.querySelector('main#gestionnaire, main.nautilus-app');
+        if (main) {
+            main.dataset.nautilusChromeMode = mode;
+        }
         const crumbbar = root.querySelector('#nautilus-path-crumbbar');
         const searchWrap = root.querySelector('#nemo-search-wrap');
         const input = root.querySelector('#nemo-search-input');
@@ -418,8 +455,12 @@
 
     const runMainMenuAction = (action) => {
         closePopover();
-        if (action === 'new-window' && typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink('nemo');
+        if (action === 'new-window') {
+            if (typeof global.openNewWindowByDataLink === 'function') {
+                global.openNewWindowByDataLink('nemo');
+            } else if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('nemo', { newWindow: true });
+            }
             return;
         }
         if (action === 'new-tab' && typeof global.openNautilusTab === 'function') {
@@ -480,8 +521,13 @@
             global.addNautilusBookmark();
             return;
         }
-        if (action === 'open-terminal' && typeof global.openWindowByDataLink === 'function') {
-            global.openWindowByDataLink('terminal');
+        if (action === 'open-terminal') {
+            const cwd = global.fileExplorerState && global.fileExplorerState.currentPath;
+            if (typeof global.openTerminalWithExplorerContext === 'function') {
+                global.openTerminalWithExplorerContext(cwd);
+            } else if (typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('terminal');
+            }
         }
     };
 
@@ -780,6 +826,7 @@
 
     global.bindFileExplorerNautilusHeaderbar = bindFileExplorerNautilusHeaderbar;
     global.setNautilusChromeMode = setChromeMode;
+    global.exitNautilusSearchChrome = exitNautilusSearchChrome;
     global.applyNautilusChrome = applyChrome;
     global.setNautilusLocationBarMode = setLocationBarMode;
     global.toggleNautilusLocationBarMode = toggleLocationBarMode;

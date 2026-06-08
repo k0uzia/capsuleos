@@ -78,6 +78,27 @@
         { "labelFr": "LibreOffice Impress", "statut": "notOnVm", "placement": { "overview": true } },
         { "labelFr": "Aide", "statut": "notOnVm", "placement": { "overview": true } }
       ]
+    },
+    "linux-ubuntu": {
+      "toolkit": "gnome",
+      "vmAppsSource": "root/docs/inventaires/linux-ubuntu-vm-apps-installed.json",
+      "apps": {
+        "org.gnome.Nautilus": { "labelFr": "Fichiers", "priorite": "P0", "slot": "nemo", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Rhythmbox3": { "labelFr": "Rhythmbox", "priorite": "P0", "slot": "lecteur_multimedia", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Référence Ubuntu retail — absent VM lab actuelle ; simulé CapsuleOS" },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS" },
+        "snap-store": { "labelFr": "Snap Store", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
+        "org.gnome.Yelp": { "labelFr": "Aide Ubuntu", "priorite": "P1", "slot": null, "statut": "partiel", "requiresSlot": false, "placement": { "dash": true } },
+        "org.gnome.Ptyxis": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.TextEditor": { "labelFr": "Éditeur de texte", "priorite": "P0", "slot": "text_editor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Calculator": { "labelFr": "Calculatrice", "priorite": "P0", "slot": "calculator", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
+        "org.gnome.Settings": { "labelFr": "Paramètres", "priorite": "P0", "slot": "themes", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "quickSettings": true } },
+        "org.gnome.Evolution": { "labelFr": "Evolution", "priorite": "P1", "slot": null, "statut": "absent", "requiresSlot": false, "placement": { "dash": true }, "note": "Favori VM — slot à créer" }
+      },
+      "capsuleOnly": [
+        { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
+        { "slot": "profile", "labelFr": "À propos Ubuntu", "statut": "ok", "placement": { "desktop": true } }
+      ]
     }
   }
 }

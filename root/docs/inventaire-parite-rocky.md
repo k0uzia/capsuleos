@@ -57,6 +57,19 @@
 
 Gabarit : `themes_gnome.html` · JS : `themes.js` (`setCapsuleSettingsPanel`, navigation sidebar).
 
+**Playbook H6 (parité outillage Fedora)** — juin 2026 :
+
+| Artefact | Fichier |
+|----------|---------|
+| Matrice parité | `root/tools/lab/gnome-settings-parity-matrix-rocky.json` |
+| Matrice assets (`.webp`) | `root/tools/lab/gnome-settings-assets-matrix-rocky.json` |
+| Matrice investigation visuelle | `root/tools/lab/gnome-settings-visual-investigation-matrix-rocky.json` |
+| Inventaire playbook | [`linux-rocky-gnome-settings-playbook.json`](inventaires/linux-rocky-gnome-settings-playbook.json) — **18/18** panneaux |
+| Clôture H6 | [`linux-rocky-gnome-settings-h6-closure.json`](inventaires/linux-rocky-gnome-settings-h6-closure.json) |
+| Investigation P0 | [`linux-rocky-gnome-settings-visual-investigation.json`](inventaires/linux-rocky-gnome-settings-visual-investigation.json) — doc=4 · Vc=4 · Vp=4 |
+
+Smokes : `smoke-rocky-gnome-settings-playbook.mjs` · `smoke-rocky-gnome-settings-visual.mjs` (lab **8765**). Collecte assets VM : `collect-vm-gnome-settings-assets.mjs --id linux-rocky` (SSH) ou `--local` quand les chemins VM sont présents sur l'hôte.
+
 ---
 
 ## Lanceurs (checklist panel)
@@ -112,8 +125,9 @@ Référence slots : [`linux-gnome-capsule-slots.md`](inventaires/linux-gnome-cap
 | Accent | `blue` (#3584e4) | `--menu-accent` | OK |
 | GTK | Adwaita | Tokens Nautilus + CSD apps (`gnome-app-csd.base.css`) | OK |
 | Bordures fenêtre | Thème clair/sombre | `--capsule-chrome-window-border` · skins Rocky/Fedora/Ubuntu | OK |
-| Fond | gemstone-skies XML | PNG jour/nuit pull VM | OK |
-| Icônes panel | VM `/usr/share/icons` | `vendors/rocky/panel/` | OK (pull VM) |
+| Fond | gemstone-skies XML | **WebP** jour/nuit (`vendors/rocky/wallpaper/*.webp`) | OK |
+| Icônes panel | VM `/usr/share/icons` | `vendors/rocky/panel/` (`firefox-48.webp`) | OK (pull VM) |
+| Icône toolkit Aperçu | `hicolor/48x48/apps/firefox.png` | `toolkits/gnome/apps/firefox.webp` (recherche/overview) | OK |
 
 Snapshot : [`linux-rocky-vm-theme.json`](inventaires/linux-rocky-vm-theme.json).
 
@@ -232,19 +246,41 @@ Commande : `node usr/lib/capsuleos/tools/lab/run-vm-deep-audit-phases.mjs --id l
 
 ---
 
+## Passe lab juin 2026 (suite)
+
+| Étape | Résultat |
+|-------|----------|
+| Fonds Rocky PNG → WebP | 10 wallpapers + `capsule-theme-storage` |
+| Panel `firefox-48` WebP | rocky / alma |
+| Toolkit `firefox.png` → WebP | `toolkits/gnome/apps/firefox.webp` · refs overview/dash Fedora/Rocky/Alma |
+| Playbook Paramètres H6 Rocky | matrices `*-rocky.json` + smokes playbook/visual OK |
+| Captures Capsule | 20 PNG régénérées (`capture-capsule-rocky.mjs`) |
+| Comparaison VM↔Capsule | 14/14 paires — [`linux-rocky-comparaison-visuelle.md`](inventaires/linux-rocky-comparaison-visuelle.md) |
+| Audit Nautilus | `audit-nautilus-rocky.mjs` OK (Adwaita, fil d'Ariane) |
+| Smoke shell visuel | `smoke-rocky-shell-visual.mjs` — overview, dash 7, CSD, fond WebP |
+
+VM lab (`192.168.122.234`) : **en ligne** juin 2026 — pull assets, captures VM (8 PNG), assets Paramètres **12/12**, comparaison **14/14** paires. Checklist panel : `active` VM fragile Wayland (P1, `running` OK).
+
+---
+
 ## Commandes de revalidation
 
 ```bash
-# Audit static + interactif
+# Audit static + interactif (VM up)
 node usr/lib/capsuleos/tools/lab/collect-vm-deep-audit.mjs --id linux-rocky --phase static --write-doc
 node usr/lib/capsuleos/tools/lab/run-vm-deep-audit-phases.mjs --id linux-rocky --phases 2,3,4,5
 
 # Sonde VM
 node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id linux-rocky --cmd '$HOME/capsuleos-lab/os-probe-gnome.sh state'
 
-# Smokes
+# Smokes (HTTP lab 8765)
 node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs
-CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs
+node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-settings-playbook.mjs
+node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-settings-visual.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-visual.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs
+node root/tools/lab/audit-nautilus-rocky.mjs
+node root/tools/lab/compare-rocky-visual-pass.mjs
 
 # Clôture + validation
 ./root/tools/lab/update-rocky-nautilus.sh

@@ -153,17 +153,63 @@
         syncPasteMenuState();
     };
 
+    const isContextActionDisabled = (action, state, selectedCount) => {
+        const path = state && state.currentPath;
+        const profile = global.__nautilusContextMenuProfile || 'background';
+        const virtualPlace = typeof global.isCapsuleVirtualPlace === 'function' && path
+            ? global.isCapsuleVirtualPlace(path)
+            : false;
+        const vfsPath = typeof global.CapsuleExplorerVfs !== 'undefined'
+            && global.CapsuleExplorerVfs.isExplorerVfsPath
+            && path
+            ? global.CapsuleExplorerVfs.isExplorerVfsPath(path)
+            : false;
+        const inTrashContext = profile === 'trash' || profile === 'trash-item'
+            || path === global.CAPSULE_PLACE_TRASH;
+        if (action === 'empty-trash') {
+            return profile !== 'trash' || !getTrashStore().length;
+        }
+        if (action === 'open-terminal') {
+            return profile !== 'background' || virtualPlace || vfsPath;
+        }
+        if (action === 'restore-trash' || action === 'delete-forever') {
+            return profile !== 'trash-item' || selectedCount === 0;
+        }
+        if (action === 'paste') {
+            const clip = state && state.explorerClipboard;
+            return inTrashContext
+                || !(clip && Array.isArray(clip.entries) && clip.entries.length
+                    && path && !virtualPlace && !vfsPath);
+        }
+        if (['rename', 'open', 'open-with'].includes(action)) {
+            return selectedCount !== 1 || inTrashContext;
+        }
+        if (['cut', 'copy', 'move-to', 'copy-to', 'compress', 'trash'].includes(action)) {
+            return selectedCount === 0 || inTrashContext;
+        }
+        if (action === 'new-folder') {
+            return virtualPlace || vfsPath || profile !== 'background';
+        }
+        if (action === 'select-all') {
+            return profile !== 'background';
+        }
+        return false;
+    };
+
     const syncPasteMenuState = () => {
         const root = getNemoRoot();
         const state = getState();
-        const pasteBtn = root && root.querySelector('[data-nemo-ctx="paste"]');
-        if (!pasteBtn) {
+        if (!root) {
             return;
         }
-        const clip = state && state.explorerClipboard;
-        const canPaste = !!(clip && Array.isArray(clip.entries) && clip.entries.length
-            && state.currentPath && !(global.isCapsuleVirtualPlace && global.isCapsuleVirtualPlace(state.currentPath)));
-        pasteBtn.disabled = !canPaste;
+        const selectedCount = getSelectedItemLinks().length;
+        root.querySelectorAll('[data-nemo-ctx]').forEach((btn) => {
+            const action = btn.dataset.nemoCtx;
+            if (!action) {
+                return;
+            }
+            btn.disabled = isContextActionDisabled(action, state, selectedCount);
+        });
     };
 
     const setExplorerClipboard = (op, entries) => {
@@ -275,6 +321,9 @@
         if (links.length !== 1) {
             return { ok: false };
         }
+        if (typeof global.startExplorerInlineRename === 'function') {
+            return global.startExplorerInlineRename(links[0]);
+        }
         const entry = linkToEntry(links[0]);
         if (!entry || typeof global.renameExplorerItem !== 'function') {
             return { ok: false };
@@ -305,6 +354,105 @@
         }
         refreshView();
         return { ok: trashed > 0, count: trashed };
+    };
+
+    const findTrashEntriesForLinks = (links) => {
+        const store = getTrashStore();
+        const names = links.map((link) => link.dataset.itemName).filter(Boolean);
+        return names.map((name) => {
+            const index = store.findIndex((entry) => {
+                const entryName = (entry.item && entry.item.name) || entry.name;
+                return entryName === name;
+            });
+            if (index < 0) {
+                return null;
+            }
+            return { index, entry: store[index], name };
+        }).filter(Boolean);
+    };
+
+    const emptyNautilusTrash = async () => {
+        const store = getTrashStore();
+        if (!store.length) {
+            return { ok: true, count: 0 };
+        }
+        if (typeof global.confirm === 'function' && !global.confirm('Vider la corbeille ?')) {
+            return { ok: false, cancelled: true };
+        }
+        setTrashStore([]);
+        refreshView();
+        return { ok: true, count: store.length };
+    };
+
+    const restoreNautilusTrashSelection = async () => {
+        const links = getSelectedItemLinks();
+        const loadManifest = global.loadManifestForFileExplorer || global.loadManifest;
+        if (!links.length || typeof loadManifest !== 'function') {
+            return { ok: false };
+        }
+        try {
+            await loadManifest();
+        } catch (error) {
+            return { ok: false };
+        }
+        const state = getState();
+        const manifest = state && state.manifest;
+        if (!manifest || !manifest.folders) {
+            return { ok: false };
+        }
+        const store = getTrashStore();
+        const matches = findTrashEntriesForLinks(links);
+        if (!matches.length) {
+            return { ok: false };
+        }
+        let restored = 0;
+        const remaining = store.slice();
+        const removeIndexes = [];
+        matches.forEach(({ index, entry }) => {
+            const parent = entry.parentPath;
+            const parentNode = manifest.folders[parent];
+            const item = entry.item;
+            if (!parentNode || !Array.isArray(parentNode.items) || !item) {
+                return;
+            }
+            if (parentNode.items.some((it) => it.name === item.name)) {
+                return;
+            }
+            parentNode.items.push(JSON.parse(JSON.stringify(item)));
+            if (item.type === 'folder' && item.path) {
+                manifest.folders[item.path] = manifest.folders[item.path] || { label: item.name, items: [] };
+            }
+            removeIndexes.push(index);
+            restored += 1;
+        });
+        if (!restored) {
+            return { ok: false, message: 'Impossible de restaurer (conflit ou dossier d’origine absent).' };
+        }
+        removeIndexes.sort((a, b) => b - a).forEach((idx) => remaining.splice(idx, 1));
+        if (typeof global.persistExplorerManifest === 'function') {
+            global.persistExplorerManifest(manifest);
+        }
+        setTrashStore(remaining);
+        refreshView();
+        return { ok: true, count: restored };
+    };
+
+    const deleteNautilusTrashSelectionPermanently = async () => {
+        const links = getSelectedItemLinks();
+        if (!links.length) {
+            return { ok: false };
+        }
+        const store = getTrashStore();
+        const matches = findTrashEntriesForLinks(links);
+        if (!matches.length) {
+            return { ok: false };
+        }
+        const removeIndexes = matches.map((match) => match.index).sort((a, b) => b - a);
+        const remaining = store.slice();
+        removeIndexes.forEach((idx) => remaining.splice(idx, 1));
+        setTrashStore(remaining);
+        refreshView();
+        return { ok: true, count: matches.length };
     };
 
     const compressExplorerSelection = async () => {
@@ -393,13 +541,20 @@
             }
             node.items.forEach((item) => {
                 const enriched = Object.assign({}, item, {
-                    folderPath,
+                    folderPath: folderPath,
                     searchParentLabel: typeof global.findFolderLabel === 'function'
                         ? global.findFolderLabel(folderPath)
                         : folderPath,
                 });
-                if (item.type === 'folder' && item.path) {
-                    enriched.targetPath = item.path;
+                if (item.type === 'folder') {
+                    const resolvedPath = item.path
+                        || (item.name && typeof global.joinExplorerPath === 'function'
+                            ? global.joinExplorerPath(folderPath, item.name)
+                            : (item.name ? `${folderPath}/${item.name}` : ''));
+                    if (resolvedPath) {
+                        enriched.path = resolvedPath;
+                        enriched.targetPath = resolvedPath;
+                    }
                 }
                 results.push(enriched);
             });
@@ -425,7 +580,7 @@
         nemoElement.innerHTML = '';
         nemoElement.hidden = false;
         const nemoRoot = getNemoRoot();
-        const empty = nemoRoot ? nemoRoot.querySelector('#nautilus-search-empty') : null;
+        const empty = nemoRoot && nemoRoot.querySelector('#nautilus-search-empty');
         if (empty) {
             empty.hidden = true;
         }
@@ -599,6 +754,9 @@
     global.transferExplorerSelectionToPath = transferSelectionToPath;
     global.renameExplorerSelection = renameExplorerSelection;
     global.trashExplorerSelection = trashExplorerSelection;
+    global.emptyNautilusTrash = emptyNautilusTrash;
+    global.restoreNautilusTrashSelection = restoreNautilusTrashSelection;
+    global.deleteNautilusTrashSelectionPermanently = deleteNautilusTrashSelectionPermanently;
     global.compressExplorerSelection = compressExplorerSelection;
     global.openExplorerSelectionWith = openExplorerSelectionWith;
     global.addNautilusBookmark = addBookmarkForCurrentPath;

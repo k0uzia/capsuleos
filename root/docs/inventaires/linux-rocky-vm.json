@@ -162,6 +162,9 @@
   "validation": {
     "smokeStatic": "node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs",
     "smokeNautilus": "node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-routing.mjs",
+    "terminalInventory": "root/docs/inventaires/linux-rocky-terminal-vm.json",
+    "smokeTerminalFsSync": "CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs",
+    "validateTerminalCommands": "node usr/lib/capsuleos/tools/validate-terminal-commands.mjs",
     "closure": "./root/tools/lab/update-rocky-nautilus.sh",
     "full": "node usr/lib/capsuleos/tools/validate-all.mjs"
   },

@@ -221,7 +221,7 @@
       "kernelId": "linux",
       "branchId": "ubuntu",
       "vendor": "ubuntu",
-      "displayName": "Ubuntu 25.10",
+      "displayName": "Ubuntu 26.04 LTS",
       "tier": "P0",
       "status": "active",
       "fidelityLevel": 3,

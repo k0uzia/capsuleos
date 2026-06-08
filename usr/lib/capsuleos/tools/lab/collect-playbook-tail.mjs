@@ -68,6 +68,10 @@ const OFFICIAL_SOURCES = {
   rocky: [
     { title: 'Rocky Linux 10 Release Notes', url: 'https://docs.rockylinux.org/release_notes/10_0/', role: 'composants EL10' },
   ],
+  fedora: [
+    { title: 'Fedora Workstation Documentation', url: 'https://docs.fedoraproject.org/en-US/fedora/latest/', role: 'composants Workstation' },
+    { title: 'Fedora 44 Release Notes', url: 'https://docs.fedoraproject.org/en-US/fedora/f44/release-notes/', role: 'version courante' },
+  ],
 };
 
 const main = () => {
@@ -85,7 +89,13 @@ const main = () => {
 
   const vmJson = readJsonIfExists(path.join(ROOT, 'root/docs/inventaires', `${opts.id}-vm.json`));
   const visualInv = readJsonIfExists(path.join(ROOT, 'root/docs/inventaires', `${opts.id}-gnome-settings-visual-investigation.json`));
-  const parityMd = path.join(ROOT, 'root/docs/inventaire-parite-rocky.md');
+  const parityMdVendor = path.join(ROOT, `root/docs/inventaire-parite-${vendor}.md`);
+  const parityMdRocky = path.join(ROOT, 'root/docs/inventaire-parite-rocky.md');
+  const parityMd = fs.existsSync(parityMdVendor)
+    ? parityMdVendor
+    : fs.existsSync(parityMdRocky)
+      ? parityMdRocky
+      : null;
   const host = loadHost(opts.id);
   const vmProbe = host ? sshProbe(host) : null;
 
@@ -119,7 +129,9 @@ const main = () => {
       reviewedAt: null,
     })),
     vmInventoryRef: vmJson ? `root/docs/inventaires/${opts.id}-vm.json` : null,
-    parityDocRef: fs.existsSync(parityMd) ? 'root/docs/inventaire-parite-rocky.md' : null,
+    parityDocRef: parityMd
+      ? path.relative(ROOT, parityMd).split(path.sep).join('/')
+      : null,
     gaps: gapsFromVisual,
     agentInteractionNotes: [
       'Compléter delta après lecture doc officielle (VM prime en cas de contradiction).',

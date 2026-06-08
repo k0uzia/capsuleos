@@ -1,0 +1,24 @@
+{
+  "registryId": "linux-fedora",
+  "h6Ready": true,
+  "pbSigma": true,
+  "h5Completed": [
+    "theme",
+    "night-light",
+    "dynamic-workspaces",
+    "dnd",
+    "accent",
+    "wallpaper",
+    "display-scale",
+    "hot-corner",
+    "contrast",
+    "font-scale",
+    "power-mode",
+    "search-files",
+    "notifications",
+    "power-dim",
+    "wifi"
+  ],
+  "gate": "smoke-h6-gnome-settings-ready.mjs",
+  "generatedAt": "2026-06-07T01:32:04.448Z"
+}

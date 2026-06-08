@@ -32,18 +32,23 @@ Référence : [Nautilus sur Ubuntu-fr](https://doc.ubuntu-fr.org/nautilus), capt
 | Nouveau dossier (bouton, `Shift+Ctrl+N`, menu contextuel) | `createNewFolderInCurrentDirectory` | OK |
 | Actualiser (`F5`, menu contextuel) | `refreshFileExplorerDirectory` | OK |
 | Menu contextuel élément / fond de liste | `#nemo-context-menu` (scopes item/background) | OK |
+| Clic simple grille (sélection + focus) | `fileExplorerNautilusItemInteraction.js` | OK |
+| Double-clic grille (ouvrir) | `activateNautilusExplorerItem` | OK |
+| Renommage inline (F2, dbl-clic nom) | `fileExplorerInlineRename.js` | OK |
+| Troncature libellés (ellipsis) | `.nemo-app__item-name` dans `header-gnome.css` | OK |
 | États vides (dossier, favoris, réseau…) | `.nautilus-folder-empty` | OK |
 | Barre connexion réseau + aide protocoles | `#nautilus-network-bar` + `#nautilus-network-info-menu` | OK |
 | Fil d’Ariane multi-segments cliquable | `#nautilus-path-crumbs` | OK |
 | Pastille sélection « X sélectionné » | `#nemo-status-label` + `updateNautilusSelectionStatus` | OK |
 | Propriétés | `#nemo-properties-dialog` + `fileExplorerProperties.js` | OK |
 | Bureau — Nouveau dossier (menu bureau) | `gnome-desktop-context-menu.js` | OK |
-| Onglets (`Ctrl+T`) | `#nautilus-tabstrip` + `fileExplorerTabs.js` (état isolé + `localStorage`) | OK |
+| Onglets (`Ctrl+T`) | `#nautilus-tabstrip` + `fileExplorerTabs.js` (SESSION : `CapsuleWindowMemory`, purgé à la fermeture) | OK |
+| Ouvrir dossier depuis résultats recherche | double-clic → `exitNautilusSearchChrome` + `navigateToFileExplorerDirectory` | OK |
 | Thème clair / sombre | `nautilus.skin.css` (`html[data-theme]`) | OK |
 | Icônes Adwaita (remap Cinnamon) | `explorer-icon-base.js` | OK |
 | Glisser-déposer (sidebar + grille) | `fileExplorerDnD.js` | OK |
 | Couper / Copier / Coller | `fileExplorerNautilusOps.js` + raccourcis | OK |
-| Renommer (`F2`) | `renameExplorerItem` | OK |
+| Renommer (`F2`, inline) | `fileExplorerInlineRename.js` + `renameExplorerItem` | OK |
 | Corbeille (`Suppr`) | `trashExplorerItem` + `localStorage` | OK |
 | Compresser | `compressExplorerItems` | OK |
 | Rechercher partout (manifeste entier) | `renderNautilusSearchEverywhere` | OK |
@@ -79,6 +84,30 @@ Réinjection gabarit : `resetFileExplorerSlotBindings()` dans `contentLoader` é
 | Corbeille | `CAPSULE_PLACE_TRASH` | État vide |
 | Réseau | `CAPSULE_PLACE_NETWORK` | État vide |
 | Système de fichiers | `CAPSULE_PLACE_FILESYSTEM` | Racine VFS ou lien vers home |
+
+## Playbooks interactions & vigilance
+
+Référence machine : `root/docs/inventaires/nautilus-interactions-playbook.json`
+
+| Playbook VM (`vm-gnome-deep-playbooks.sh`) | Vérification |
+|--------------------------------------------|--------------|
+| `nautilus-item-select` | Clic simple = sélection + focus, pas d’ouverture |
+| `nautilus-item-open-dblclick` | Double-clic = ouvrir dossier / fichier |
+| `nautilus-item-rename-inline` | F2 / édition inline |
+| `nautilus-contextmenu` | Menu fond + vigilance placement entrées |
+
+### Points de vigilance (élaboration Capsule)
+
+1. **Clic simple vs double-clic** — ne jamais ouvrir au simple clic ; module dédié `fileExplorerNautilusItemInteraction.js`.
+2. **Focus distinct du hover** — `:hover` léger si non sélectionné ; `:focus-visible` avec anneau ; sélection = fond accent.
+3. **Course au focus multi-fenêtres** — `activateExplorerWindow` ne rafraîchit que si changement réel de fenêtre.
+4. **Catalogue MIME** — `fileExplorerInfo.js` obligatoire sur profils GNOME ; `remapPath` sur toutes les icônes.
+5. **Visionneurs / href** — résolution absolue avant iframe ou `<audio>`.
+6. **Lecteur multimédia** — `resetMediaViewer()` à la fermeture fenêtre.
+7. **Terminal contextuel** — CWD `/` par défaut, chemin Nautilus via `manifestPathToTerminalPath`.
+8. **Menu contextuel** — sélection automatique de la cible au clic droit ; `open-with` sur élément uniquement.
+9. **Troncature texte** — ellipsis sur `.nemo-app__item-name` ; comparer VM pour fondu gradient (mask) si écart visuel.
+10. **Chaîne scripts** — VFS, inline rename, interaction module dans `NAUTILUS_SCRIPTS` / `index.html` Red Hat.
 
 ## Smokes lab
 

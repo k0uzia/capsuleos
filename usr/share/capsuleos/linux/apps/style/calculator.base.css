@@ -16,52 +16,143 @@ main#gnomeCalculatorApp {
 }
 
 .gnome-calc__header {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--fs);
-    padding: calc(var(--head) / 5) calc(var(--head) / 3);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: calc(var(--head) / 10);
+    min-height: var(--gnome-adw-headerbar-h, 2.875rem);
+    padding: 0 calc(var(--head) / 6);
+}
+
+.gnome-calc__toolbar-start {
+    grid-column: 1;
+    justify-self: start;
 }
 
 .gnome-calc__mode {
-    padding: calc(var(--head) / 10) calc(var(--head) / 3);
-    border: 1px solid var(--t);
+    grid-column: 2;
+    justify-self: center;
+}
+
+.gnome-calc__header > .gnome-app__header-fill {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.gnome-calc__header > .gnome-app__header-end {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+}
+
+.gnome-calc__toolbar-start {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    gap: 0.15rem;
+}
+
+.gnome-calc__icon-btn {
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
     border-radius: 999px;
-    background: var(--t);
+    background: transparent;
+    color: inherit;
+    opacity: 0.42;
+    cursor: default;
+}
+
+.gnome-calc__icon-btn:first-child::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 auto;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 6.5 9.5 11 11 9.5 5.5 4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 6.5 9.5 11 11 9.5 5.5 4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    transform: rotate(-90deg);
+}
+
+.gnome-calc__icon-btn:last-child::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 auto;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 6.5 9.5 11 11 9.5 5.5 4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 6.5 9.5 11 11 9.5 5.5 4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    transform: rotate(90deg);
+}
+
+.gnome-calc__mode {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
     color: inherit;
     font: inherit;
-    font-size: calc(var(--head) / 2.8);
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: var(--p);
+}
+
+.gnome-calc__mode-chevron {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    opacity: 0.72;
 }
 
 .gnome-calc__display {
     display: var(--f);
     flex-flow: var(--cnw);
-    align-items: var(--fe);
+    align-items: stretch;
     justify-content: var(--fe);
     flex: 1;
-    min-height: calc(var(--head) * 2.2);
-    padding: calc(var(--head) / 4) calc(var(--head) / 2.5);
-    gap: calc(var(--head) / 12);
+    min-height: calc(var(--head) * 2.4);
+    padding: calc(var(--head) / 5) calc(var(--head) / 3);
+    gap: calc(var(--head) / 10);
 }
 
-.gnome-calc__expr {
+.gnome-calc__history {
     width: var(--full);
-    min-height: calc(var(--head) / 2.2);
-    font-size: calc(var(--head) / 3.2);
+    min-height: calc(var(--head) / 2);
+    font-size: calc(var(--head) / 3.4);
     text-align: right;
-    opacity: 0.55;
+    color: var(--gnome-calc-expr, rgba(255, 255, 255, 0.5));
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.gnome-calc__value {
+.gnome-calc__entry {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    justify-content: var(--fe);
+    gap: 0.5rem;
     width: var(--full);
-    font-size: calc(var(--head) * 1.35);
-    font-weight: 300;
-    line-height: 1.1;
+}
+
+.gnome-calc__value {
+    flex: 1;
+    min-width: 0;
+    font-size: calc(var(--head) * 1.15);
+    font-weight: 400;
+    line-height: 1.15;
     text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -69,53 +160,95 @@ main#gnomeCalculatorApp {
     font-variant-numeric: tabular-nums;
 }
 
+.gnome-calc__backspace {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    opacity: 0.55;
+    cursor: var(--p);
+}
+
+.gnome-calc__backspace::before {
+    content: "";
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0 auto;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M11.2 3.5 8.6 6.1 6 3.5 4.9 4.6l2.6 2.6-2.6 2.6 1.1 1.1 2.6-2.6 2.6 2.6 1.1-1.1-2.6-2.6 2.6-2.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M11.2 3.5 8.6 6.1 6 3.5 4.9 4.6l2.6 2.6-2.6 2.6 1.1 1.1 2.6-2.6 2.6 2.6 1.1-1.1-2.6-2.6 2.6-2.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
 .gnome-calc__keypad {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: calc(var(--head) / 10);
-    padding: calc(var(--head) / 5) calc(var(--head) / 4) calc(var(--head) / 3);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    padding: 12px;
+    min-width: calc(60px * 5 + 4px * 4);
+    min-height: calc(44px * 5 + 4px * 4);
 }
 
 .gnome-calc__key {
     display: var(--f);
     align-items: var(--c);
     justify-content: var(--c);
-    min-height: calc(var(--head) * 1.05);
-    border: 1px solid var(--t);
-    border-radius: calc(var(--head) / 2.2);
-    background: var(--gnome-calc-key-bg, #303030);
+    min-height: 44px;
+    margin: 0;
+    padding: 2px 4px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: var(--gnome-calc-key-bg, #3d3d3d);
     color: inherit;
     font: inherit;
-    font-size: calc(var(--head) / 2.4);
+    font-size: 1.1em;
     cursor: var(--p);
-    transition: background-color var(--eas2), transform var(--eas2);
+    transition: background-color 120ms ease, filter 120ms ease;
+}
+
+.gnome-calc__key--digit {
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 .gnome-calc__key:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.06);
 }
 
 .gnome-calc__key:active {
-    transform: scale(0.96);
+    filter: brightness(0.94);
 }
 
+.gnome-calc__key--clear,
 .gnome-calc__key--fn {
-    background: var(--gnome-calc-fn-bg, #3d3d3d);
+    background: var(--gnome-calc-fn-bg, #4d4d4d);
+    font-weight: 600;
+}
+
+.gnome-calc__key--decor {
+    font-size: 0.82em;
+    font-weight: 500;
+    opacity: 0.72;
+    pointer-events: none;
 }
 
 .gnome-calc__key--op {
-    background: var(--gnome-calc-op-bg, #ff7800);
-    color: #ffffff;
+    background: var(--gnome-calc-op-bg, #4d4d4d);
     font-weight: 600;
 }
 
 .gnome-calc__key--op.is-active {
-    filter: brightness(1.15);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+    background: var(--gnome-calc-op-active-bg, var(--menu-accent, #3584e4));
+    color: #ffffff;
 }
 
 .gnome-calc__key--eq {
-    background: var(--gnome-calc-op-bg, #ff7800);
+    background: var(--gnome-calc-eq-bg, var(--menu-accent, #3584e4));
     color: #ffffff;
     font-weight: 700;
 }
@@ -124,7 +257,13 @@ main#gnomeCalculatorApp {
     grid-column: span 2;
 }
 
+.gnome-calc__key--tall {
+    grid-column: 5;
+    grid-row: 4 / span 2;
+    min-height: calc(44px * 2 + 4px);
+}
+
 .gnome-calc__key:focus-visible {
-    outline: 2px solid var(--menu-accent, #1f9ede);
+    outline: 2px solid var(--menu-accent, #3584e4);
     outline-offset: 2px;
 }

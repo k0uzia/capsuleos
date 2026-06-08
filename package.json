@@ -1,0 +1,11 @@
+{
+  "name": "capsuleos",
+  "private": true,
+  "description": "Dépendances Node pour les smokes lab (Playwright).",
+  "devDependencies": {
+    "playwright": "1.60.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

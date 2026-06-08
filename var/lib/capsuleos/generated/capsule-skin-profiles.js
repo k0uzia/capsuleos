@@ -49,7 +49,9 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "alma",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "alma",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -249,6 +251,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
+      "CAPSULE_TERMINAL_USER": "fed",
+      "CAPSULE_TERMINAL_HOST": "fedora",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -641,8 +645,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
+      "CAPSULE_LOCALE": "fr-FR",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "rocky",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -650,6 +657,13 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_MNT_BASE": "../../../mnt",
+      "CAPSULE_MNT_MODULES": [
+        "debutant/linux-bases"
+      ],
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -677,7 +691,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "kernelId": "linux",
     "branchId": "ubuntu",
     "vendor": "ubuntu",
-    "displayName": "Ubuntu 25.10",
+    "displayName": "Ubuntu 26.04 LTS",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
@@ -702,7 +716,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "toolkitPack": "toolkits/gnome",
       "vendorPack": "vendors/ubuntu",
       "iconPacks": [
-        "icons/gnome"
+        "icons/gnome",
+        "icons/gnome/yaru"
       ]
     },
     "capsuleGlobals": {
@@ -716,6 +731,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "ubuntu",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -793,7 +810,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/alma/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
-      "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_PROFILE": "alma",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "alma",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -993,6 +1012,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/fedora/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "fedora",
+      "CAPSULE_TERMINAL_USER": "fed",
+      "CAPSULE_TERMINAL_HOST": "fedora",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -1385,8 +1406,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EMBED_SKIN_KEY": "rocky",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
+      "CAPSULE_LOCALE": "fr-FR",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "rocky",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "rocky",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",
@@ -1394,6 +1418,13 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
+      "CAPSULE_MNT_BASE": "../../../mnt",
+      "CAPSULE_MNT_MODULES": [
+        "debutant/linux-bases"
+      ],
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1421,7 +1452,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "kernelId": "linux",
     "branchId": "ubuntu",
     "vendor": "ubuntu",
-    "displayName": "Ubuntu 25.10",
+    "displayName": "Ubuntu 26.04 LTS",
     "bodyId": "ubuntu",
     "embedKey": "ubuntu",
     "tier": "P0",
@@ -1446,7 +1477,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "toolkitPack": "toolkits/gnome",
       "vendorPack": "vendors/ubuntu",
       "iconPacks": [
-        "icons/gnome"
+        "icons/gnome",
+        "icons/gnome/yaru"
       ]
     },
     "capsuleGlobals": {
@@ -1460,6 +1492,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/ubuntu/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
       "CAPSULE_TERMINAL_PROFILE": "debian",
+      "CAPSULE_TERMINAL_USER": "capsule",
+      "CAPSULE_TERMINAL_HOST": "ubuntu",
       "CAPSULE_WINDOW_CHROME_CONTEXT": {
         "toolkitId": "gnome",
         "explorerTemplate": "nemo-gnome",

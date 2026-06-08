@@ -17,6 +17,8 @@
     const NAUTILUS_SCRIPTS = [
         'fileExplorer/fileExplorerNautilus.js',
         'fileExplorer/fileExplorerNautilusOps.js',
+        'fileExplorer/fileExplorerInlineRename.js',
+        'fileExplorer/fileExplorerNautilusItemInteraction.js',
         'fileExplorer/fileExplorerNautilusHeaderbar.js',
         'fileExplorer/fileExplorerTabs.js',
         'fileExplorer/fileExplorerProperties.js',

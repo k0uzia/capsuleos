@@ -103,6 +103,30 @@
         return null;
     }
 
+    function manifestPathToTerminalPath(explorerPath) {
+        if (!explorerPath) {
+            return '/';
+        }
+        const vfsTerminalPath = explorerPathToTerminalPath(explorerPath);
+        if (vfsTerminalPath) {
+            return vfsTerminalPath;
+        }
+        if (typeof global.getFileExplorerRoot !== 'function') {
+            return getTerminalLogicalHome();
+        }
+        const manifestRoot = String(global.getFileExplorerRoot()).replace(/\/+$/, '');
+        const home = getTerminalLogicalHome();
+        const key = String(explorerPath).replace(/\/+$/, '');
+        if (!key || key === manifestRoot) {
+            return home;
+        }
+        if (manifestRoot && (key === manifestRoot || key.indexOf(`${manifestRoot}/`) === 0)) {
+            const suffix = key.slice(manifestRoot.length);
+            return normalizeTerminalPath(`${home}${suffix}`);
+        }
+        return home;
+    }
+
     function isExplorerVfsPath(path) {
         if (!path || typeof path !== 'string') {
             return false;
@@ -183,6 +207,7 @@
         explorerPathToTerminalPath,
         terminalPathToExplorerPath,
         resolveManifestPathFromTerminal,
+        manifestPathToTerminalPath,
         isExplorerVfsPath,
         getExplorerParentPath,
         getExplorerPathLabel,

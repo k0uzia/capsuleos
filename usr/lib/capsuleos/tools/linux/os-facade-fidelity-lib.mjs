@@ -36,7 +36,7 @@ export const resolveOsFacadeRel = (registryId) => {
 
 export const resolveCapsuleOsUrl = (registryId, httpBase) => {
   const facadeRel = resolveOsFacadeRel(registryId);
-  const base = (httpBase || process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500').replace(/\/$/, '');
+  const base = (httpBase || process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
   return `${base}/${facadeRel}`;
 };
 

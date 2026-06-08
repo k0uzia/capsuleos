@@ -1,0 +1,10 @@
+{"phase":"vm","method":"ssh-screenshot","step":"dark-desktop","action":"color-scheme prefer-dark; screenshot bureau","file":"ubuntu-dark-desktop.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:38:55Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"dark-overview","action":"Main.overview.show(); screenshot","file":"audit/ubuntu-dark-overview.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:38:57Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"dark-nautilus","action":"nautilus + focus; screenshot","file":"ubuntu-dark-nautilus.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:01Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"dark-firefox","action":"firefox + focus; screenshot","file":"ubuntu-dark-firefox.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:05Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"dark-text-editor","action":"gnome-text-editor; screenshot","file":"ubuntu-dark-text-editor.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:09Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"dark-calculator","action":"gnome-calculator; screenshot","file":"ubuntu-dark-calculator.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:12Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"light-desktop","action":"color-scheme prefer-light; screenshot","file":"ubuntu-light-desktop.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:16Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"light-firefox","action":"firefox focus; screenshot","file":"ubuntu-light-firefox.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:16Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"light-nautilus","action":"nautilus focus; screenshot","file":"ubuntu-light-nautilus.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:20Z"}
+{"phase":"vm","method":"ssh-screenshot","step":"light-overview","action":"overview clair; screenshot","file":"audit/ubuntu-light-overview.png","ok":false,"bytes":0,"timestamp":"2026-06-07T21:39:22Z"}

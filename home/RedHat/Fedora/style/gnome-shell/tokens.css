@@ -4,11 +4,26 @@
  */
 
 html:has(#fedora) {
+    /* GNOME 50 / F44 — police UI VM : Adwaita Sans 11 */
+    --font-ui: "Adwaita Sans", Cantarell, system-ui, sans-serif;
+    --fedora-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/fedora/watermark/fedora_logo_darkbackground.svg");
+    --fedora-watermark-width: 9%;
+    --fedora-watermark-inset: max(calc(var(--head) / 1.4), 2.8rem);
     --menu-accent: #3584e4;
     --fedora-shell-text: #f6f7f9;
     --fedora-shell-border-soft: rgba(255, 255, 255, 0.1);
     --fedora-top-bar-height: calc(var(--head) * 0.82);
-    --fedora-dock-width: calc(var(--head) * 1.32);
+    --fedora-overview-bg: transparent;
+    --fedora-overview-scrim: rgba(14, 14, 18, 0.58);
+    --fedora-overview-backdrop-blur: 32px;
+    --fedora-overview-text: #f5f5f5;
+    --fedora-overview-text-muted: rgba(255, 255, 255, 0.58);
+    --fedora-overview-search-bg: rgba(62, 64, 72, 0.88);
+    --fedora-overview-search-border: rgba(255, 255, 255, 0.1);
+    --fedora-overview-dash-bg: rgba(46, 46, 50, 0.82);
+    --fedora-overview-dash-border: rgba(255, 255, 255, 0.07);
+    --fedora-overview-workspace-radius: calc(var(--head) / 2.4);
+    --fedora-dock-width: 0px;
     --fedora-shell-topbar-bg: rgba(18, 18, 18, 0.97);
     --fedora-shell-topbar-border: 1px solid rgba(0, 0, 0, 0.55);
     --fedora-shell-topbar-text: #f6f7f9;
@@ -59,8 +74,21 @@ html:has(#fedora) {
     --fedora-app-field-border: #255a91;
     --fedora-app-field-text: #e9eef5;
     --fedora-app-icon-muted: #b8c8d8;
-    --fedora-terminal-prompt: #19c37d;
+    --fedora-terminal-prompt: #33d17a;
+    --fedora-terminal-prompt-user: #33d17a;
+    --fedora-terminal-prompt-text: var(--fedora-app-text);
+    --fedora-terminal-prompt-path-seg: var(--fedora-app-text);
+    --fedora-terminal-success: #33d17a;
+    --fedora-terminal-history-weight: 400;
     --fedora-terminal-error: #ff7b72;
+    --terminal-window-radius: 0.8rem;
+    --terminal-body-padding: 0.5rem 0.65rem;
+    --terminal-tab-gap: 0.35rem;
+    --terminal-tab-min-width: 0;
+    --win-terminal-width: calc(var(--head) * 20.8);
+    --win-terminal-height: calc(var(--head) * 13.6);
+    --win-terminal-min-width: calc(var(--head) * 16);
+    --win-terminal-min-height: calc(var(--head) * 10.4);
     --calendar-popover-radius: 12px;
     --calendar-popover-bg: rgba(48, 48, 48, 0.98);
     --calendar-popover-border: 1px solid rgba(255, 255, 255, 0.08);
@@ -106,6 +134,7 @@ html:has(#fedora) {
 }
 
 html[data-theme="light"]:has(#fedora) {
+    --fedora-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/fedora/watermark/fedora_lightbackground.svg");
     --fedora-shell-text: var(--fedora-shell-topbar-text);
     --fedora-shell-border-soft: rgba(255, 255, 255, 0.1);
     --fedora-top-bar-bg: var(--fedora-shell-topbar-bg);
@@ -146,8 +175,21 @@ html[data-theme="light"]:has(#fedora) {
     --fedora-app-field-border: #3584e4;
     --fedora-app-field-text: #1e1e1e;
     --fedora-app-icon-muted: #4f5f70;
-    --fedora-terminal-prompt: #0f8b5f;
+    --fedora-terminal-prompt: #1a7f37;
+    --fedora-terminal-prompt-user: #1a7f37;
+    --fedora-terminal-prompt-text: var(--fedora-app-text);
+    --fedora-terminal-prompt-path-seg: var(--fedora-app-text);
+    --fedora-terminal-success: #1a7f37;
+    --fedora-terminal-history-weight: 400;
     --fedora-terminal-error: #c01c28;
+    --terminal-window-radius: 0.8rem;
+    --terminal-body-padding: 0.5rem 0.65rem;
+    --terminal-tab-gap: 0.35rem;
+    --terminal-tab-min-width: 0;
+    --win-terminal-width: calc(var(--head) * 20.8);
+    --win-terminal-height: calc(var(--head) * 13.6);
+    --win-terminal-min-width: calc(var(--head) * 16);
+    --win-terminal-min-height: calc(var(--head) * 10.4);
     --calendar-popover-bg: rgba(255, 255, 255, 0.98);
     --calendar-popover-border: 1px solid rgba(0, 0, 0, 0.1);
     --calendar-popover-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);

@@ -21,6 +21,26 @@
       "capsuleUrl": "http://127.0.0.1:5500/home/Fedora/index.html"
     },
     {
+      "registryId": "linux-fedora",
+      "family": "linux",
+      "vendor": "fedora",
+      "ssh": "capsule@192.168.122.91",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "$HOME/capsuleos-lab/os-probe-gnome.sh",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome",
+      "hypervisor": "libvirt",
+      "virshName": "fedora",
+      "capsuleUrl": "http://127.0.0.1:8765/home/RedHat/Fedora/index.html",
+      "labInputTools": ["xdotool", "wmctrl"],
+      "labBootstrap": "root/tools/lab/vm-fedora-lab-bootstrap.sh",
+      "labPlaybookCapture": "root/tools/lab/vm-fedora-playbook-capture.sh",
+      "labSettingsCapture": "root/tools/lab/vm-fedora-settings-playbook-capture.sh",
+      "notes": "Fedora Workstation GNOME — bootstrap xdotool+wmctrl puis playbook-capture ou run-vm-deep-audit-phases --id linux-fedora."
+    },
+    {
       "registryId": "linux-rocky",
       "family": "linux",
       "vendor": "rocky",
@@ -34,6 +54,24 @@
       "hypervisor": "libvirt",
       "virshName": "Rocky10",
       "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html"
+    },
+    {
+      "registryId": "linux-ubuntu",
+      "family": "linux",
+      "vendor": "ubuntu",
+      "ssh": "capsule@192.168.122.141",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "$HOME/capsuleos-lab/os-probe-gnome.sh",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome",
+      "hypervisor": "libvirt",
+      "virshName": "ubuntu25.10",
+      "capsuleUrl": "http://127.0.0.1:8765/OS/linux/families/debian/ubuntu/index.html",
+      "labBootstrap": "root/tools/lab/vm-ubuntu-lab-bootstrap.sh",
+      "visualParity": "node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu",
+      "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md ; skill root/skills/visual-parity-lab/"
     }
   ]
 }

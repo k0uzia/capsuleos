@@ -6,6 +6,8 @@ const FILE_VIEWER_BY_EXTENSION = {
     png: 'visionneur_images',
     jpg: 'visionneur_images',
     jpeg: 'visionneur_images',
+    docx: 'text_editor',
+    doc: 'text_editor',
     gif: 'visionneur_images',
     webp: 'visionneur_images',
     svg: 'visionneur_images',
@@ -27,6 +29,49 @@ const fileViewerState = {
     visionneur_pdf: null,
     lecteur_multimedia: null,
     text_editor: null
+};
+
+let activeMediaElement = null;
+
+const MEDIA_VIEWER_PLACEHOLDER = 'Ouvrez un fichier audio ou vidéo depuis Nemo pour le lire ici.';
+
+const stopMediaElement = (mediaEl) => {
+    if (!mediaEl) {
+        return;
+    }
+    try {
+        mediaEl.pause();
+    } catch (error) {
+        /* ignore */
+    }
+    mediaEl.querySelectorAll('source').forEach((source) => {
+        source.removeAttribute('src');
+        source.remove();
+    });
+    mediaEl.removeAttribute('src');
+    try {
+        mediaEl.load();
+    } catch (error) {
+        /* ignore */
+    }
+};
+
+const resetMediaViewer = () => {
+    const contentElement = document.getElementById('mint-media-viewer-content');
+    const fileNameElement = document.getElementById('mint-media-viewer-filename');
+    if (contentElement) {
+        contentElement.querySelectorAll('audio, video').forEach(stopMediaElement);
+        contentElement.innerHTML = '';
+        const messageElement = document.createElement('p');
+        messageElement.className = 'viewer-app__message';
+        messageElement.textContent = MEDIA_VIEWER_PLACEHOLDER;
+        contentElement.appendChild(messageElement);
+    }
+    if (fileNameElement) {
+        fileNameElement.textContent = 'Aucun média sélectionné';
+    }
+    activeMediaElement = null;
+    fileViewerState.lecteur_multimedia = null;
 };
 
 const getFileViewerTargetByExtension = (extension) => {
@@ -213,6 +258,10 @@ const renderMediaViewer = (payload) => {
         renderViewerMessage(contentElement, 'Le codec de ce media n\'est pas supporte par le navigateur.', payload.href);
     });
 
+    if (activeMediaElement && activeMediaElement !== mediaElement) {
+        stopMediaElement(activeMediaElement);
+    }
+    activeMediaElement = mediaElement;
     contentElement.appendChild(mediaElement);
 };
 
@@ -249,6 +298,23 @@ const renderFileViewer = (appId) => {
     }
 };
 
+const resolveViewerHref = (href) => {
+    if (!href) {
+        return href;
+    }
+    if (typeof resolveCapsuleResourceUrl === 'function') {
+        return resolveCapsuleResourceUrl(href);
+    }
+    if (typeof CapsuleResource !== 'undefined' && typeof CapsuleResource.resolve === 'function') {
+        return CapsuleResource.resolve(href);
+    }
+    try {
+        return new URL(href, window.location.href).href;
+    } catch (error) {
+        return href;
+    }
+};
+
 const openFileInViewer = (href, extension, name) => {
     const appId = getFileViewerTargetByExtension(extension);
     if (!appId) {
@@ -256,7 +322,7 @@ const openFileInViewer = (href, extension, name) => {
     }
 
     fileViewerState[appId] = {
-        href,
+        href: resolveViewerHref(href),
         extension: String(extension).toLowerCase(),
         name
     };
@@ -290,13 +356,40 @@ const bindViewerLaunchers = () => {
     });
 };
 
+const bindMediaViewerLifecycle = () => {
+    document.addEventListener('capsule:window-closed', (event) => {
+        const detail = event.detail || {};
+        if (detail.slotId === 'lecteur_multimedia') {
+            resetMediaViewer();
+        }
+    });
+
+    if (window.CapsuleWindowMemory && typeof window.CapsuleWindowMemory.register === 'function') {
+        const tier = window.CapsuleMemoryConventions
+            && window.CapsuleMemoryConventions.TIERS
+            ? window.CapsuleMemoryConventions.TIERS.SESSION
+            : 'session';
+        window.CapsuleWindowMemory.register({
+            slotId: 'lecteur_multimedia',
+            tier,
+            purgeRuntime: () => resetMediaViewer(),
+            onReopen: () => resetMediaViewer(),
+        });
+    }
+};
+
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindViewerLaunchers);
+    document.addEventListener('DOMContentLoaded', () => {
+        bindViewerLaunchers();
+        bindMediaViewerLifecycle();
+    });
 } else {
     bindViewerLaunchers();
+    bindMediaViewerLifecycle();
 }
 
 window.getFileViewerTargetByExtension = getFileViewerTargetByExtension;
+window.resetMediaViewer = resetMediaViewer;
 window.openFileInViewer = openFileInViewer;
 window.renderFileViewer = renderFileViewer;
 window.getMintViewerTargetByExtension = getFileViewerTargetByExtension;

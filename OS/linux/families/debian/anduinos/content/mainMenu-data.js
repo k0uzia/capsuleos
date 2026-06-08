@@ -5,7 +5,7 @@ const ANDUIN_MENU_FAVORITES = [
     {
         id: 'firefox',
         name: 'Navigateur Web Firefox',
-        icon: './assets/images/toolkits/gnome/menu/favorites/firefox.png',
+        icon: './assets/images/toolkits/gnome/menu/favorites/firefox.webp',
         dataLink: 'firefox'
     },
     {

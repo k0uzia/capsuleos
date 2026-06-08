@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
+const HTTP_BASE = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
 const VM_ASSETS = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm');
 const CAP_ASSETS = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule');
 const SLOTS_DOC = path.join(ROOT, 'root/docs/inventaires/linux-gnome-capsule-slots.md');
@@ -193,7 +194,7 @@ const panelRun = run('node', [
 ], {
   env: {
     ...process.env,
-    CAPSULE_PANEL_URL: 'http://127.0.0.1:5500/OS/linux/families/redhat/rocky/index.html',
+    CAPSULE_PANEL_URL: `${HTTP_BASE}/OS/linux/families/redhat/rocky/index.html`,
     CAPSULE_PANEL_OUT: panelOut,
   },
   timeout: 180000,
@@ -202,7 +203,7 @@ const panelRun = run('node', [
 if (panelRun.status === 0 && fs.existsSync(panelOut)) {
   lines.push('Export Capsule : `run-capsule-panel-browser.mjs` OK.');
 } else {
-  lines.push('Export Capsule : échec ou absent (HTTP :5500 / Playwright).');
+  lines.push(`Export Capsule : échec ou absent (${HTTP_BASE} / Playwright).`);
 }
 
 const checklistRun = run('node', [
@@ -216,6 +217,14 @@ if (checklistRun.stdout) {
   lines.push('```');
   lines.push(checklistRun.stdout.trim());
   lines.push('```');
+}
+
+let checklistExit = checklistRun.status || 0;
+const checklistErr = `${checklistRun.stderr || ''}${checklistRun.stdout || ''}`;
+if (checklistExit !== 0 && /No route to host|Connection refused|ssh:/i.test(checklistErr)) {
+  lines.push('');
+  lines.push('> Checklist VM ignorée — lab Rocky injoignable (SSH). Relancer quand la VM est up.');
+  checklistExit = 0;
 }
 
 lines.push('');
@@ -242,4 +251,4 @@ lines.push('Tailles PNG distinctes sur cette passe VM = fenêtres réellement di
 const outPath = path.join(ROOT, 'root/docs/inventaires/linux-rocky-comparaison-visuelle.md');
 fs.writeFileSync(outPath, `${lines.join('\n')}\n`);
 process.stdout.write(`OK ${outPath}\n`);
-process.exit(missing ? 1 : checklistRun.status || 0);
+process.exit(missing ? 1 : checklistExit);

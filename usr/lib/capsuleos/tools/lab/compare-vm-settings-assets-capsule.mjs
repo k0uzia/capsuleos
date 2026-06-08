@@ -65,7 +65,10 @@ for (const asset of inv.assets || []) {
     errors.push(`CapsuleOS: asset absent ${rel} — lancer pull-vm-assets.sh`);
   } else {
     row.sha256Capsule = sha256File(abs);
-    if (asset.sha256 && row.sha256Capsule !== asset.sha256) {
+    if (asset.skipShaCompare || asset.transcodeFromVm) {
+      aligned += 1;
+      row.status = 'aligned-transcoded';
+    } else if (asset.sha256 && row.sha256Capsule !== asset.sha256) {
       drift += 1;
       row.status = 'drift';
       errors.push(`Dérive ${asset.id}: contenu VM ≠ dépôt`);

@@ -70,6 +70,7 @@ CapsuleWindowHeaderContext.usesUnifiedExplorerTitleBar();     // true sur Cinnam
 
 ```bash
 node usr/lib/capsuleos/tools/validate-toolkit-chrome-isolation.mjs
+node usr/lib/capsuleos/tools/validate-skin-vendor-isolation.mjs
 node usr/lib/capsuleos/tools/validate-window-chrome-contexts.mjs
 node usr/lib/capsuleos/tools/build-capsule-window.mjs   # regen capsule-window.js
 node usr/lib/capsuleos/tools/build-skin-profiles.mjs    # si profil touché

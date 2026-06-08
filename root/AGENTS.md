@@ -78,12 +78,15 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 |--------|---------|
 | **Manifeste noyau & hydratation** | [`root/docs/manifeste-noyau.md`](docs/manifeste-noyau.md) |
 | **Catalogue OS (57 entrées, gel noyau)** | [`root/docs/manifeste-kernels.md`](docs/manifeste-kernels.md), [`etc/capsuleos/kernels.json`](../etc/capsuleos/kernels.json), [`etc/capsuleos/os-registry.json`](../etc/capsuleos/os-registry.json) |
-| **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) |
+| **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) · **Lj_fr** défaut, **Lj_en**/QWERTY prévus (§7, `locale-scalability.json`) |
 | **Staffing agents** | [`root/docs/equipe-agentique.md`](docs/equipe-agentique.md) |
 | **Logique formelle (gates & décision)** | [`root/docs/logique-formelle.md`](docs/logique-formelle.md), `.cursor/rules/logique-formelle-capsuleos.mdc` |
 | **GNOME HIG (toolkit gnome)** | [`root/docs/gnome-hig-ressources.md`](docs/gnome-hig-ressources.md), skill [`gnome-hig-replication`](skills/gnome-hig-replication/SKILL.md) |
 | **KDE HIG (toolkit kde)** | [`root/docs/kde-hig-ressources.md`](docs/kde-hig-ressources.md), skill [`kde-hig-replication`](skills/kde-hig-replication/SKILL.md) |
 | **Réplication formelle (tous vendors)** | [`root/docs/procedure-replication-formelle.md`](docs/procedure-replication-formelle.md) |
+| **Socle shell global (terminal)** | [`root/docs/convention-shell-global.md`](docs/convention-shell-global.md), prédicats **Ti–TΣ′** |
+| **Rendu sorties terminal** | [`root/docs/convention-terminal-rendu-sortie.md`](docs/convention-terminal-rendu-sortie.md), **To**, **Tb**, bashrc |
+| **Modules pédagogiques `/mnt`** | [`root/docs/convention-modules-mnt.md`](docs/convention-modules-mnt.md), **Pm**, `mnt/catalog.json` |
 | **Parcours agent (H0–H6)** | [`root/docs/parcours-agent.md`](docs/parcours-agent.md), skill [`onboarding`](skills/onboarding/SKILL.md) |
 | **Ajouter distro / vendor** | [`root/docs/ajouter-os-scalable.md`](docs/ajouter-os-scalable.md) |
 | **Hiérarchie skills** | [`root/docs/skills-hierarchie.md`](docs/skills-hierarchie.md), `seed-agent-skills.mjs --write` |

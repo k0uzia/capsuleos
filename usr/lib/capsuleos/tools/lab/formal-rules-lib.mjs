@@ -8,6 +8,7 @@ import { evaluateUniversal } from './playbook-general-lib.mjs';
 import { evaluateAppsPredicates } from './apps-catalog-lib.mjs';
 import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
+import { evaluateManifestGates } from './manifest-gates-lib.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
@@ -34,9 +35,18 @@ export const loadFormalState = (registryId) => {
   const appsReplication = evaluateAppsReplicationPredicates(registryId);
   const fidelity = evaluateVisualFidelity(registryId);
   const typoViolations = scanTypographyViolations(registryId);
+  const manifest = evaluateManifestGates(registryId);
 
   const gates = {
     ...base.gates,
+    M: !!universal.state.M,
+    ManV: manifest.ManV,
+    ManS: manifest.ManS,
+    PbM: manifest.PbM,
+    ManA: manifest.ManA,
+    ManSt: manifest.ManSt,
+    ManI: manifest.ManI,
+    ManΣ: manifest.ManΣ,
     H6: !!h6?.status && h6.status === 'closed',
     H2: !!base.gates?.H2?.ok,
     A: !!base.gates?.A?.ok,
@@ -138,9 +148,57 @@ export const evaluateFormalRules = (registryId) => {
       gateOnSuccess: 'LabShell',
     },
     {
+      rule: 'R-MAN0',
+      when: () => gates.M && !gates.ManV,
+      message: 'M ∧ ¬ManV — assurer catalogue vendor + collecte manifeste distribution',
+      command: `node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id ${registryId} --write --max-steps 2`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN1',
+      when: () => gates.ManV && !gates.ManS,
+      message: 'ManV ∧ ¬ManS — smoke manifeste distribution',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-vm-distribution-manifest.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN2',
+      when: () => gates.ManS && !gates.PbM,
+      message: 'ManS ∧ ¬PbM — playbook réplication manifeste',
+      command: `node usr/lib/capsuleos/tools/lab/generate-manifest-replication-playbook.mjs --id ${registryId} --write`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN3',
+      when: () => gates.ManS && gates.PbM && !gates.ManA,
+      message: 'ManS ∧ PbM ∧ ¬ManA — approbation manifeste (humain)',
+      command: `node usr/lib/capsuleos/tools/lab/approve-vm-distribution-manifest.mjs --id ${registryId} --write`,
+      autoExecute: false,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN4',
+      when: () => gates.ManA && !gates.ManSt,
+      message: 'ManA ∧ ¬ManSt — staging VM manifeste',
+      command: `node usr/lib/capsuleos/tools/lab/run-manifest-staging-on-vm.mjs --id ${registryId} --write`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN5',
+      when: () => gates.ManSt && !gates.ManI,
+      message: 'ManSt ∧ ¬ManI — import staging → assets noyau',
+      command: `node usr/lib/capsuleos/tools/lab/import-manifest-staging.mjs --id ${registryId} --write`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
       rule: 'R-APP1',
-      when: () => gates.H6 && !gates.AppV,
-      message: 'H₆ ∧ ¬AppV — inventaire applications VM',
+      when: () => gates.ManV && !gates.AppV,
+      message: 'ManV ∧ ¬AppV — inventaire applications (dérivé manifeste)',
       command: `node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id ${registryId} --write`,
       autoExecute: true,
       gateOnSuccess: null,

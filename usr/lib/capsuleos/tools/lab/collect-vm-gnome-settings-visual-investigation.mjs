@@ -10,21 +10,32 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadRegistryEntry, pathsForRegistry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
 const SCRIPT = path.join(ROOT, 'root/tools/lab/vm-gnome-settings-visual-investigation.sh');
-const MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
-const CAPTURES_BASE = path.join(ROOT, 'root/docs/inventaires/captures/linux-rocky/gnome-settings-visual');
+
+const resolveVisualMatrix = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-visual-investigation-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+};
+
+const capturesBaseFor = (registryId) => pathsForRegistry(registryId).vmCapturesDir;
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-rocky', filter: 'P0', local: false, pending: false };
+  const opts = { id: 'linux-rocky', filter: 'P0', local: false, pending: false, only: [] };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--filter' && args[i + 1]) opts.filter = args[++i];
-    else if (args[i] === '--local') opts.local = true;
+    else if (args[i] === '--only' && args[i + 1]) {
+      opts.only = args[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    } else if (args[i] === '--local') opts.local = true;
     else if (args[i] === '--pending') opts.pending = true;
   }
   return opts;
@@ -67,13 +78,14 @@ const parseJsonStdout = (stdout) => {
   return JSON.parse(stdout.slice(jsonStart));
 };
 
-const runLocal = (filter, onlyIds = []) => {
+const runLocal = (registryId, filter, onlyIds = []) => {
+  const matrixPath = resolveVisualMatrix(registryId);
   const outDir = `/tmp/capsuleos-visual-${Date.now()}`;
   const res = spawnSync('bash', [SCRIPT], {
     encoding: 'utf8',
     env: {
       ...process.env,
-      CAPSULE_VISUAL_MATRIX: MATRIX,
+      CAPSULE_VISUAL_MATRIX: matrixPath,
       CAPSULE_VISUAL_OUT: outDir,
       CAPSULE_VISUAL_FILTER: filter,
       CAPSULE_VISUAL_ONLY_IDS: onlyIds.join(','),
@@ -86,12 +98,14 @@ const runLocal = (filter, onlyIds = []) => {
   return { payload: parseJsonStdout(res.stdout || ''), remoteOutDir: outDir };
 };
 
-const runOnVm = (host, filter, onlyIds = []) => {
-  const matrixB64 = Buffer.from(fs.readFileSync(MATRIX, 'utf8')).toString('base64');
+const runOnVm = (host, registryId, filter, onlyIds = []) => {
+  const matrixPath = resolveVisualMatrix(registryId);
+  const matrixB64 = Buffer.from(fs.readFileSync(matrixPath, 'utf8')).toString('base64');
   const scriptBody = fs.readFileSync(SCRIPT, 'utf8');
   const remoteOut = '/tmp/capsuleos-visual-investigation';
   const remoteScript = `
 ${remoteEnv(host)}
+export PATH=\$HOME/.local/bin:\$PATH
 MATRIX_FILE=$(mktemp /tmp/capsule-visual-matrix.XXXXXX.json)
 echo '${matrixB64}' | base64 -d > "$MATRIX_FILE"
 export CAPSULE_SETTINGS_ASSETS_MATRIX="$MATRIX_FILE"
@@ -124,13 +138,14 @@ rm -f "$MATRIX_FILE"
   return { payload: parseJsonStdout(res.stdout || ''), remoteOutDir: remoteOut, host, identity, user, ip };
 };
 
-const scpCaptures = ({ host, identity, user, ip, remoteOutDir }) => {
-  fs.mkdirSync(CAPTURES_BASE, { recursive: true });
+const scpCaptures = ({ host, identity, user, ip, remoteOutDir, registryId }) => {
+  const capturesBase = capturesBaseFor(registryId);
+  fs.mkdirSync(capturesBase, { recursive: true });
   const sshTarget = `${user}@${ip}`;
   const sshOpts = ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity];
   const res = spawnSync(
     'scp',
-    [...sshOpts, '-r', `${sshTarget}:${remoteOutDir}/`, `${CAPTURES_BASE}/`],
+    [...sshOpts, '-r', `${sshTarget}:${remoteOutDir}/`, `${capturesBase}/`],
     { encoding: 'utf8', timeout: 120000 },
   );
   if (res.status !== 0) {
@@ -149,9 +164,12 @@ const sshRun = (host, identity, user, ip, cmd) => {
   );
 };
 
-const virshShot = (host, relPath) => {
-  const vmName = host.virshName || process.env.ROCKY_VIRSH_NAME || 'Rocky10';
-  const abs = path.join(CAPTURES_BASE, relPath);
+const virshShot = (host, registryId, relPath) => {
+  const vmName = host.virshName
+    || (registryId === 'linux-fedora' ? 'fedora' : null)
+    || process.env.ROCKY_VIRSH_NAME
+    || 'Rocky10';
+  const abs = path.join(capturesBaseFor(registryId), relPath);
   fs.mkdirSync(path.dirname(abs), { recursive: true });
   const res = spawnSync(
     'virsh',
@@ -161,8 +179,8 @@ const virshShot = (host, relPath) => {
   return res.status === 0 && fs.existsSync(abs) && fs.statSync(abs).size > 0;
 };
 
-const relCapture = (controlId, file) =>
-  path.join('root/docs/inventaires/captures/linux-rocky/gnome-settings-visual', controlId, file);
+const relCapture = (registryId, controlId, file) =>
+  path.join('root/docs/inventaires/captures', registryId, 'gnome-settings-visual', controlId, file);
 
 const applyControlState = (host, identity, user, ip, controlId, rawValue) => {
   const value = String(rawValue || '').replace(/'/g, '').trim();
@@ -274,7 +292,7 @@ const applyControlState = (host, identity, user, ip, controlId, rawValue) => {
   return false;
 };
 
-const enrichVirshCaptures = (host, identity, user, ip, payload) => {
+const enrichVirshCaptures = (host, identity, user, ip, registryId, payload) => {
   if (payload.screenshotBackend !== 'host-virsh') {
     return payload;
   }
@@ -283,8 +301,9 @@ const enrichVirshCaptures = (host, identity, user, ip, payload) => {
     return payload;
   }
 
+  const capturesBase = capturesBaseFor(registryId);
   process.stderr.write('=== captures host-virsh (Shell.Screenshot refusé en SSH) ===\n');
-  fs.mkdirSync(CAPTURES_BASE, { recursive: true });
+  fs.mkdirSync(capturesBase, { recursive: true });
 
   for (const inv of payload.investigations || []) {
     if (inv.status !== 'documented') continue;
@@ -297,8 +316,8 @@ const enrichVirshCaptures = (host, identity, user, ip, payload) => {
     if (before && applyControlState(host, identity, user, ip, controlId, before)) {
       spawnSync('sleep', ['1']);
     }
-    if (virshShot(host, `${controlId}/before.png`)) {
-      captures.push({ phase: 'before', path: relCapture(controlId, 'before.png'), timestamp: new Date().toISOString() });
+    if (virshShot(host, registryId, `${controlId}/before.png`)) {
+      captures.push({ phase: 'before', path: relCapture(registryId, controlId, 'before.png'), timestamp: new Date().toISOString() });
     }
 
     const appliedAfter = controlId === 'dnd'
@@ -306,16 +325,16 @@ const enrichVirshCaptures = (host, identity, user, ip, payload) => {
       : applyControlState(host, identity, user, ip, controlId, after);
     if (appliedAfter) {
       spawnSync('sleep', [String(Math.max(transMs / 2000, 0.25))]);
-      if (virshShot(host, `${controlId}/during-${Math.round(transMs / 2)}ms.png`)) {
+      if (virshShot(host, registryId, `${controlId}/during-${Math.round(transMs / 2)}ms.png`)) {
         captures.push({
           phase: 'during-transition',
-          path: relCapture(controlId, `during-${Math.round(transMs / 2)}ms.png`),
+          path: relCapture(registryId, controlId, `during-${Math.round(transMs / 2)}ms.png`),
           elapsedMs: Math.round(transMs / 2),
         });
       }
       spawnSync('sleep', [String(Math.max(transMs / 2000, 0.25))]);
-      if (virshShot(host, `${controlId}/after.png`)) {
-        captures.push({ phase: 'after', path: relCapture(controlId, 'after.png'), elapsedMs: transMs });
+      if (virshShot(host, registryId, `${controlId}/after.png`)) {
+        captures.push({ phase: 'after', path: relCapture(registryId, controlId, 'after.png'), elapsedMs: transMs });
       }
     }
 
@@ -327,7 +346,7 @@ const enrichVirshCaptures = (host, identity, user, ip, payload) => {
     if (captures.length) {
       inv.transitionObserved = {
         ...(inv.transitionObserved || {}),
-        notes: `captures host-virsh (${host.virshName || process.env.ROCKY_VIRSH_NAME || 'Rocky10'}) — app Snapshot présente sur VM pour usage interactif`,
+        notes: `captures host-virsh (${host.virshName || 'VM'}) — ${registryId}`,
       };
     }
   }
@@ -338,7 +357,7 @@ const enrichVirshCaptures = (host, identity, user, ip, payload) => {
   return payload;
 };
 
-const remapCapturePath = (vmPath, generatedAt) => {
+const remapCapturePath = (registryId, vmPath) => {
   if (!vmPath) return null;
   if (vmPath.startsWith('root/docs/')) {
     const abs = path.join(ROOT, vmPath);
@@ -346,7 +365,7 @@ const remapCapturePath = (vmPath, generatedAt) => {
   }
   const rel = path.basename(path.dirname(vmPath));
   const file = path.basename(vmPath);
-  const local = path.join('root/docs/inventaires/captures/linux-rocky/gnome-settings-visual', rel, file);
+  const local = relCapture(registryId, rel, file);
   const abs = path.join(ROOT, local);
   return fs.existsSync(abs) ? local : vmPath;
 };
@@ -365,7 +384,7 @@ const mergeInventory = (registryId, payload) => {
     const prev = byId.get(row.controlId) || {};
     const vmCaptures = (row.vmCaptures || []).map((cap) => ({
       ...cap,
-      path: remapCapturePath(cap.path, payload.generatedAt),
+      path: remapCapturePath(registryId, cap.path),
     }));
     const { capsuleParity: rowParity, ...rowRest } = row;
     const mergedParity = { ...(prev.capsuleParity || {}), ...(rowParity || {}) };
@@ -408,7 +427,7 @@ const mergeInventory = (registryId, payload) => {
       captureStrategy: payload.captureStrategy || null,
       snapshotAppInstalled: payload.snapshotAppInstalled ?? null,
       note: payload.captureStrategy === 'host-virsh'
-        ? 'Rocky 10 : Snapshot (GUI) sur VM ; captures lab automatisées via virsh screenshot depuis l’hôte'
+        ? `${registryId} : captures lab automatisées via virsh screenshot depuis l’hôte`
         : (base.vmEnvironment?.note || null),
     },
     summary: {
@@ -427,8 +446,12 @@ const mergeInventory = (registryId, payload) => {
 
 const main = () => {
   const opts = parseArgs();
-  const onlyIds = opts.pending ? pendingControlIds(opts.id, opts.filter) : [];
-  if (opts.pending && !onlyIds.length) {
+  const onlyIds = opts.only.length
+    ? opts.only
+    : opts.pending
+      ? pendingControlIds(opts.id, opts.filter)
+      : [];
+  if ((opts.pending || opts.only.length) && !onlyIds.length) {
     process.stderr.write(`✓ Aucun contrôle ${opts.filter} en attente — rien à collecter\n`);
     process.exit(0);
   }
@@ -437,15 +460,17 @@ const main = () => {
     + `${onlyIds.length ? ` pending=${onlyIds.join(',')}` : ''} ===\n`,
   );
 
+  process.stderr.write(`Matrice : ${path.relative(ROOT, resolveVisualMatrix(opts.id))}\n`);
+
   const { payload, remoteOutDir, host, identity, user, ip } = opts.local
-    ? { ...runLocal(opts.filter, onlyIds), host: null }
-    : runOnVm(loadHost(opts.id), opts.filter, onlyIds);
+    ? { ...runLocal(opts.id, opts.filter, onlyIds), host: null }
+    : runOnVm(loadHost(opts.id), opts.id, opts.filter, onlyIds);
 
   if (!opts.local && host) {
     if (payload.screenshotBackend === 'host-virsh') {
-      enrichVirshCaptures(host, identity, user, ip, payload);
+      enrichVirshCaptures(host, identity, user, ip, opts.id, payload);
     } else if (payload.screenshotTool) {
-      scpCaptures({ host, identity, user, ip, remoteOutDir });
+      scpCaptures({ host, identity, user, ip, remoteOutDir, registryId: opts.id });
     }
   }
 

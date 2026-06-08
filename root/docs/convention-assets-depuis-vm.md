@@ -45,6 +45,23 @@ bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
 
 Prérequis : `etc/capsuleos/lab-inventory.json`, clé SSH lab, session GNOME active sur la VM.
 
+### 2bis. Normalisation web (post-pull)
+
+Pipeline complet (pull + WebP + miniatures fonds + captures lab) :
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id linux-<vendor>
+```
+
+Ou manuellement — formats VM non affichables (ex. fonds **JXL**) :
+
+```bash
+node usr/lib/capsuleos/tools/prepare-web-media.mjs --vendor rocky --rewrite-refs --wallpaper-thumbnails
+# ou opt-in : PREPARE_WEB_MEDIA=1 bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
+```
+
+Voir [spec-prepare-web-media.md](spec-prepare-web-media.md). Les **SVG** et **polices** ne passent pas par WebP. Miniatures sélecteur fonds : `wallpaper/thumbnails/*-thumb.webp`.
+
 ### 3. Câblage noyau
 
 - Profil skin : `iconPacks: ["icons/gnome"]` dans `etc/capsuleos/profiles/linux-rocky.json`.

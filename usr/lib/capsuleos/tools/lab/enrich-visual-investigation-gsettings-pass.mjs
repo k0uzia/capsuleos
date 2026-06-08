@@ -10,17 +10,25 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
 const PROBE_SCRIPT = path.join(ROOT, 'root/tools/lab/vm-gnome-settings-gsettings-deep-pass.sh');
-const VISUAL_MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+
+const resolveVisualMatrix = (registryId) => {
+  const vendor = loadRegistryEntry(registryId).vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-visual-investigation-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-visual-investigation-matrix.json');
+};
 const PARITY_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const THEME_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
 const WORKSPACES_JS = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-workspaces.js');
 const PREFS_CSS = path.join(ROOT, 'usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css');
-const DRIFT_PATH = path.join(ROOT, 'root/docs/inventaires/linux-rocky-gsettings-playbook-capsule-drift.json');
+const driftPathFor = (registryId) =>
+  path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-parity-drift.json`);
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -183,11 +191,12 @@ const main = () => {
   const host = loadHost(opts.id);
   const probe = opts.local || !host ? runProbeLocal() : runProbeVm(host);
 
-  const visualMatrix = readJson(VISUAL_MATRIX);
+  const visualMatrix = readJson(resolveVisualMatrix(opts.id));
   const matrixById = Object.fromEntries((visualMatrix.investigations || []).map((i) => [i.controlId, i]));
   const shellText = [PARITY_JS, THEME_JS, WORKSPACES_JS].map(readText).join('\n');
   const cssText = readText(PREFS_CSS);
-  const drift = fs.existsSync(DRIFT_PATH) ? readJson(DRIFT_PATH) : { driftCount: null };
+  const driftPath = driftPathFor(opts.id);
+  const drift = fs.existsSync(driftPath) ? readJson(driftPath) : { driftCount: null };
 
   const inv = readJson(invPath);
   const now = probe.generatedAt || new Date().toISOString();

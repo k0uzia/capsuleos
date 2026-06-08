@@ -43,7 +43,7 @@ body#ubuntu {
     --nemo-sidebar-muted: rgba(255, 255, 255, 0.62);
     --nemo-footer-bg: #383838;
     --nemo-status-text: rgba(255, 255, 255, 0.62);
-    --nemo-accent: #E95420;
+    --nemo-accent: #ff7800;
     --nemo-tooltip-bg: #1e1e1e;
     --nemo-tooltip-text: #f5f5f5;
     --nemo-file-icon-bg: #4a4a50;
@@ -171,10 +171,14 @@ body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__headerbar {
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__leading,
-body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__center,
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__trailing {
     align-self: center;
     min-height: 0;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__center {
+    align-self: stretch;
+    min-height: var(--nautilus-path-h);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-app .nautilus-app__leading {
@@ -217,6 +221,33 @@ body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__head-plate {
 body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-field {
     background: var(--nemo-pathbar-bg);
     border-color: var(--nemo-pathbar-border);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-field:focus-within {
+    background: var(--nemo-pathbar-bg);
+    border-color: var(--nemo-pathbar-border);
+    box-shadow: none;
+    outline: none;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-input,
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-input:focus,
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-input:focus-visible {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+    background: transparent;
+    color: var(--nemo-pathbar-text);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 #nautilus-tabstrip {
+    width: 100%;
+    min-width: 0;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__tab {
+    flex: 1 1 0;
+    max-width: none;
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__icon-btn img {
@@ -355,8 +386,16 @@ body#ubuntu div[data-link="nemo"] .nautilus-app--n47 .nemo-app__sidebar-xdg > a.
 body#ubuntu div[data-link="nemo"] .nemo-app__content-wrap {
     flex: 1 1 auto;
     width: auto;
+    min-height: 0;
+    height: 100%;
     border-left: 0;
     background: var(--nemo-bg-primary);
+}
+
+body#ubuntu div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemoElement[hidden],
+body#ubuntu div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemo-app__content-grid[hidden],
+body#ubuntu div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nautilus-search-empty[hidden] {
+    display: none !important;
 }
 
 body#ubuntu div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemo-app__content-grid,
@@ -526,9 +565,9 @@ body#ubuntu div[data-link="nemo"] .nautilus-context-menu__item {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 0.65rem;
     width: 100%;
-    padding: 0.45rem 1rem;
+    padding: 0.45rem 0.85rem 0.45rem 0.65rem;
     border: 0;
     background: transparent;
     color: var(--nemo-text-primary);
@@ -561,6 +600,37 @@ body#ubuntu div[data-link="nemo"] .nautilus-context-menu__separator {
     height: 1px;
     margin: 0.35rem 0.65rem;
     background: var(--nemo-border);
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-context-menu__icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    opacity: 0.92;
+}
+
+body#ubuntu div[data-link="nemo"] .nautilus-context-menu__label {
+    flex: 1 1 auto;
+}
+
+body#ubuntu div[data-link="nemo"] {
+    --nemo-focus-ring: rgba(98, 160, 234, 0.55);
+    --nemo-focus-ring-strong: rgba(98, 160, 234, 0.9);
+}
+
+body#ubuntu div[data-link="nemo"] .nemo-app__content-grid > a:hover:not(.nemo-app__item--selected):not(.nemo-app__item--renaming) {
+    background: var(--nemo-content-hover-bg);
+}
+
+body#ubuntu div[data-link="nemo"] .nemo-app__content-grid > a.nemo-app__item--selected {
+    background: var(--nemo-item-active-bg);
+}
+
+body#ubuntu div[data-link="nemo"] .nemo-app__item-rename-input {
+    background: var(--nemo-bg-primary);
+    color: var(--nemo-text-primary);
+    border-color: var(--nemo-accent, #62a0ea);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--nemo-accent, #62a0ea) 40%, transparent);
 }
 
 body#ubuntu div[data-link="nemo"] .nautilus-properties-dialog {

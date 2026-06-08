@@ -3,7 +3,7 @@
  * Gate pré-H6 — contrat τ (h6Ready) + smokes critiques Paramètres GNOME Rocky.
  *
  * Usage :
- *   CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs
+ *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs
  */
 import fs from 'fs';
 import { spawnSync } from 'child_process';
@@ -36,7 +36,7 @@ const scripts = [
 
 const env = {
   ...process.env,
-  CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500',
+  CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765',
 };
 
 for (const script of scripts) {

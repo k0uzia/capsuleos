@@ -1,7 +1,7 @@
 # Convention — reproduction d’un OS dans CapsuleOS
 
 **Contrat unique** pour agents IA et contributeurs humains qui clonent un bureau réel (VM) vers une simulation web.  
-Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité).
+Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**), [convention-shell-global.md](convention-shell-global.md) (socle terminal **Ti–TΣ**, agnosticité noyau), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité), [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) (prédicats **Rv₁–Rv** : cohérence vue ↔ modèle après action).
 
 ---
 
@@ -25,6 +25,7 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 | **Vendor pack** | `usr/share/capsuleos/assets/images/vendors/<vendor>/` | Logos, panel, fonds **propres au vendor** (jamais empruntés) |
 | **Toolkit** | `gnome`, `cinnamon`, `kde`, `cosmic` | Patron DE (shell, chrome fenêtre, slots apps) |
 | **Slot** | `data-link="nemo"`, `firefox`, `terminal`… | Fenêtre applicative dans le DOM bureau |
+| **Socle shell** | `usr/lib/capsuleos/shells/linux/terminal/` | Moteur CLI agnostique + pont `CapsuleUserFs` — [convention-shell-global.md](convention-shell-global.md) |
 | **Gabarit explorateur** | `nemo`, `nemo-gnome`, `dolphin`… | HTML embarqué via `build-linux-embed.mjs` |
 | **Chrome context** | `etc/capsuleos/contracts/window-chrome-contexts.json` | Provider drag/header par toolkit — [window-chrome-contexts.md](window-chrome-contexts.md) |
 | **Embed** | `var/lib/capsuleos/generated/` | Projection offline ; régénérer après gabarit/skin partagé |
@@ -60,10 +61,27 @@ Spécialisation de [logique-formelle.md §5](logique-formelle.md) — prédicats
 | 3 | Inventaire versionné `root/docs/inventaires/<id>-vm.json` | — |
 | 3b | **Audit profond VM** : [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) → `<id>-deep-audit.json` | `collect-vm-deep-audit.mjs` |
 | 3c | **Fidélité visuelle** : typo, contextes de vue, MIME, a11y → `<id>-visual-fidelity.json` | `collect-visual-fidelity-inventory.mjs` · **bloquant avant H5 typo/MIME/a11y** |
-| 4 | Implémentation **sous `home/`** uniquement | — |
+| 4 | Implémentation **sous `home/`** (+ noyau si sync vues) | **Rv** sur scénarios slot — [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) |
+| 4b | Slot **terminal** : inventaire `*-terminal-vm.json` (**Ti**), puis **TΣ** | [convention-shell-global.md](convention-shell-global.md) · `validate-terminal-commands.mjs` · `smoke-fs-terminal-explorer-sync.mjs` |
 | 5 | Assets VM → `pull-vm-assets.sh` | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | 6 | Clôture Linux : `sync-linux-skin-closure.mjs` | façades ≡ home |
 | 7 | `validate-all.mjs` + captures comparatives | — |
+| 7a | **Passe visuelle shell** : `run-visual-parity-pass.mjs` | **Vp** — skill `visual-parity-lab` |
+| 7b | **Apps VM** : `collect-vm-apps-inventory` → `generate-apps-catalog` | **AppV**, **AppC** |
+| 7c | **États UI & effets** : `run-ui-state-effects-pass.mjs` | **Va → VΣ** — apps détectées étendent la matrice auto |
+| 7d | **Clôture P1 → Vp** (ordre obligatoire GNOME) | voir §4bis ci-dessous |
+
+### 4bis. Ordre P1 shell — hooks noyau avant pixels (**R-VΣ1**)
+
+Après **Tp** (assets WebP) et avant de considérer **Vp** acquis :
+
+1. **Hooks noyau** — scripts/DOM partagés manquants (`gnome-desktop-context-menu`, export `window.CapsuleGnomeOverview`, `data-overview-link` sur apps grille).
+2. **Alignement inventaire VM** — favoris dock/dash (`dashFavoritesVm` → slots Capsule ; apps non simulées en `*-unavailable`).
+3. **Clôture façade** — `sync-linux-skin-closure.mjs` **avant** toute sonde Capsule : `lab-inventory.json` → `capsuleUrl` pointe vers `OS/linux/families/…`, pas `home/` ; sans sync, `--capsule-only` reste `missing` alors que le skin source est prêt.
+4. **Gaps VΣ sémantiques** — `collect-ui-state-effects.mjs --capsule-only` jusqu'à `visualMatch ≠ unknown` sur P0 (cible : `partial` ou mieux).
+5. **Passe visuelle shell** — `run-visual-parity-pass.mjs` (Capsule : `CapsuleGnomeOverview` ; VM Ubuntu GNOME ≥ 41 : `OverviewActive` D-Bus — pas `Eval`/`xdotool` ; virsh via `lab-capture-session.sh` si sudo requis).
+
+Règle : **ne pas** lancer une passe **Vp** complète tant que les transitions P0 restent `missing` par absence de hook DOM ou de façade non synchronisée (étapes 1–4).
 
 **Interdit** : patch massif du skin sans inventaire ; édition manuelle de `OS/linux/families/...` ; icônes d’un autre vendor ; `px` en dur si un token `--*` existe.
 
@@ -96,6 +114,7 @@ Skill : `css-variables-contract`, `role-web-designer`.
 | **ES6 strict** | Modules IIFE `'use strict'` ; pas de framework |
 | **API globales explicites** | `CapsuleWindow`, `CapsuleResource`, `window.CAPSULE_*` |
 | **Pas de fork par distro** | Étendre le noyau ou le provider chrome, pas copier `fileExplorerCore.js` |
+| **Rafraîchissement vues** | Toute mutation **M** (navigation, FS, onglets) synchronise **V** — **Rv₁** ; pas de re-render au seul focus — **Rv₂** |
 | **Init slots** | `data-link` + `capsule-window-shell` ; drag selon chrome context |
 | **Embeds** | Après modif gabarit `usr/share/capsuleos/linux/` → `build-linux-embed.mjs` |
 
@@ -145,7 +164,8 @@ Inventaire : [linux-rocky-vm.md](inventaires/linux-rocky-vm.md) · JSON : [linux
 1. `onboarding`
 2. `os-clone-from-vm` (cette convention)
 3. `os-linux` + `capsuleos-distro-<id>` + `capsuleos-vendor-<vendor>`
-4. `role-integrator` ; `asset-pipeline` si assets ; `css-variables-contract` si CSS
+4. `visual-parity-lab` puis `ui-state-effects-replication` (fidélité visuelle complète)
+5. `role-integrator` ; `asset-pipeline` si assets ; `css-variables-contract` si CSS
 
 ---
 
@@ -154,4 +174,6 @@ Inventaire : [linux-rocky-vm.md](inventaires/linux-rocky-vm.md) · JSON : [linux
 - [contrib.md](../../contrib.md) — formation H0–H6
 - [politique-assets.md](politique-assets.md)
 - [contrats-ui-bureau.md](contrats-ui-bureau.md)
+- [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md)
+- [view-refresh-vigilance-playbook.json](inventaires/view-refresh-vigilance-playbook.json)
 - [linux-gnome-capsule-slots.md](inventaires/linux-gnome-capsule-slots.md)

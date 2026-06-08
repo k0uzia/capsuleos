@@ -56,9 +56,25 @@
             help: 'Crée un nouveau répertoire',
             examples: ['mkdir docs']
         },
+        cp: {
+            help: 'Copie des fichiers ou répertoires',
+            examples: ['cp notes.txt notes.bak', 'cp -r dossier dossier-copy']
+        },
         mv: {
             help: 'Déplace ou renomme des fichiers',
             examples: ['mv old.txt new.txt', 'mv notes.txt /tmp']
+        },
+        wc: {
+            help: 'Compte lignes, mots et octets',
+            examples: ['wc notes.txt', 'wc -l notes.txt']
+        },
+        sort: {
+            help: 'Trie les lignes d’un fichier texte',
+            examples: ['sort names.txt']
+        },
+        chmod: {
+            help: 'Modifie les permissions (simulation)',
+            examples: ['chmod 644 notes.txt', 'chmod 755 script.sh']
         },
         rm: {
             help: 'Supprime un fichier ou un dossier',

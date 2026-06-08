@@ -58,11 +58,28 @@ def os_release():
         pass
     return data
 
+DESKTOP_DIRS = (
+    "/usr/share/applications",
+    "/var/lib/snapd/desktop/applications",
+    os.path.expanduser("~/.local/share/applications"),
+)
+
 def desktop_entry(name):
-    path = f"/usr/share/applications/{name}"
-    if not os.path.isfile(path):
-        return None
-    data = {"desktop": name}
+    path = None
+    for base in DESKTOP_DIRS:
+        candidate = os.path.join(base, name)
+        if os.path.isfile(candidate):
+            path = candidate
+            break
+    if not path:
+        return {
+            "desktop": name,
+            "name": name.replace(".desktop", ""),
+            "icon": None,
+            "exec": None,
+            "unresolved": True,
+        }
+    data = {"desktop": name, "path": path}
     with open(path, encoding="utf-8", errors="ignore") as f:
         for line in f:
             if line.startswith("Name=") and "name" not in data:

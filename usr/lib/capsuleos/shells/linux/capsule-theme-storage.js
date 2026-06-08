@@ -103,8 +103,52 @@
         return resolved;
     }
 
-    function getWallpaperStorageKey() {
-        return 'gnome-wallpaper';
+    function getWallpaperStorageKey(id) {
+        const resolved = id || bodyId();
+        if (resolved === 'mint') {
+            return 'mint-wallpaper';
+        }
+        return resolved ? `gnome-wallpaper:${resolved}` : 'gnome-wallpaper';
+    }
+
+    function isWallpaperUriAllowedForBody(uri, id) {
+        const bid = id || bodyId();
+        const u = String(uri || '').toLowerCase();
+        if (!u) {
+            return true;
+        }
+        const isRhel = bid === 'fedora' || bid === 'rocky' || bid === 'alma';
+        if (isRhel && (u.includes('/ubuntu/') || u.includes('racoon') || u.includes('warty') || u.includes('questing'))) {
+            return false;
+        }
+        if (bid === 'ubuntu' && (u.includes('/fedora/') || u.includes('f44-01') || u.includes('rocky-default'))) {
+            return false;
+        }
+        if (bid === 'fedora' && u.includes('rocky-default') && !u.includes('f44-01')) {
+            return false;
+        }
+        if ((bid === 'rocky' || bid === 'alma') && u.includes('f44-01')) {
+            return false;
+        }
+        return true;
+    }
+
+    function wallpaperIdAllowedForBody(wallpaperId, id) {
+        const bid = id || bodyId();
+        if (!wallpaperId || wallpaperId === 'custom') {
+            return wallpaperId === 'custom';
+        }
+        const catalog = getWallpaperCatalog(bid);
+        return catalog.some((entry) => entry.id === wallpaperId);
+    }
+
+    function migrateLegacyWallpaperKey(id) {
+        const key = getWallpaperStorageKey(id);
+        const legacy = global.localStorage.getItem('gnome-wallpaper');
+        if (legacy && !global.localStorage.getItem(key)) {
+            global.localStorage.setItem(key, legacy);
+        }
+        return key;
     }
 
     function resolveWallpaperIdFromUri(uri) {
@@ -128,44 +172,76 @@
         if (file.includes('sapphire')) {
             return 'sapphire';
         }
+        if (file.includes('f44-01')) {
+            return 'f44-01';
+        }
         if (file.includes('gemstone')) {
             return 'gemstone-skies';
         }
+        if (file.includes('racoon') || file.includes('warty') || file.includes('questing')) {
+            return 'racoon';
+        }
+        if (file.includes('adwaita-d') || file.includes('adwaita-l') || file.includes('ubuntu-wallpaper')) {
+            return 'adwaita';
+        }
         return null;
+    }
+
+    function shellBackgroundVar(id) {
+        const bid = id || bodyId();
+        if (bid === 'mint') {
+            return '--mint';
+        }
+        if (bid === 'ubuntu') {
+            return '--ubuntu-bg';
+        }
+        return '--fedora-bg';
     }
 
     function wallpaperIdToGsettingsUri(wallpaperId, skinId) {
         const entry = findWallpaperEntry(wallpaperId, skinId);
         const theme = global.document && global.document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-        const rel = entry.type === 'color' ? '' : (theme === 'light' ? entry.light : entry.dark);
-        if (!rel) {
+        if (entry.type === 'color') {
             return `file:///usr/share/backgrounds/rocky-default-10-${wallpaperId}-day.png`;
         }
+        if (entry.gsettingsDark || entry.gsettingsLight) {
+            const rel = theme === 'light' ? entry.gsettingsLight : entry.gsettingsDark;
+            return `file:///usr/share/backgrounds/${rel}`;
+        }
+        const rel = theme === 'light' ? entry.light : entry.dark;
         const file = rel.split('/').pop();
         return `file:///usr/share/backgrounds/${file}`;
     }
 
-    function readSavedWallpaper() {
-        const key = getWallpaperStorageKey();
+    function readSavedWallpaper(id) {
+        const bid = id || bodyId();
+        const key = migrateLegacyWallpaperKey(bid);
         const gs = global.CapsuleGnomeGSettings;
-        if (gs && gs.hasBinding(key)) {
-            const uri = gs.getCapsule(key, null);
-            const mapped = resolveWallpaperIdFromUri(uri);
-            if (mapped) {
-                return mapped;
+        if (gs && gs.hasBinding('gnome-wallpaper')) {
+            const uri = gs.getCapsule('gnome-wallpaper', null);
+            if (isWallpaperUriAllowedForBody(uri, bid)) {
+                const mapped = resolveWallpaperIdFromUri(uri);
+                if (mapped && wallpaperIdAllowedForBody(mapped, bid)) {
+                    return mapped;
+                }
             }
         }
-        return global.localStorage.getItem(key) || 'gemstone-skies';
+        const stored = global.localStorage.getItem(key);
+        if (stored && wallpaperIdAllowedForBody(stored, bid)) {
+            return stored;
+        }
+        return defaultWallpaperId(bid);
     }
 
     function persistWallpaper(wallpaperId, skinId) {
         if (!wallpaperId) {
             return wallpaperId;
         }
-        const key = getWallpaperStorageKey();
+        const bid = skinId || bodyId();
+        const key = getWallpaperStorageKey(bid);
         const gs = global.CapsuleGnomeGSettings;
-        if (gs && gs.hasBinding(key)) {
-            gs.setCapsule(key, wallpaperIdToGsettingsUri(wallpaperId, skinId));
+        if (gs && gs.hasBinding('gnome-wallpaper')) {
+            gs.setCapsule('gnome-wallpaper', wallpaperIdToGsettingsUri(wallpaperId, bid));
         }
         global.localStorage.setItem(key, wallpaperId);
         return wallpaperId;
@@ -219,61 +295,127 @@
     }
 
     function getWallpaperVendor(bodyId) {
-        return ['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos'].includes(bodyId) ? 'rocky' : 'rocky';
+        const vendorMap = {
+            mint: 'mint',
+            rocky: 'rocky',
+            alma: 'alma',
+            fedora: 'fedora',
+            ubuntu: 'ubuntu',
+            anduinos: 'anduinos',
+        };
+        return vendorMap[bodyId] || 'rocky';
     }
 
-    function getWallpaperCatalog(bodyId) {
-        const base = `vendors/${getWallpaperVendor(bodyId)}/wallpaper`;
+    function defaultWallpaperId(bodyId) {
+        if (bodyId === 'mint') {
+            return 'linuxmint';
+        }
+        if (bodyId === 'fedora') {
+            return 'f44-01';
+        }
+        if (bodyId === 'ubuntu') {
+            return 'racoon';
+        }
+        return 'gemstone-skies';
+    }
+
+    function mintWallpaperCatalog() {
+        const injected = global.CAPSULE_MINT_WALLPAPER_CATALOG;
+        if (Array.isArray(injected) && injected.length) {
+            return injected;
+        }
+        return [
+            {
+                id: 'linuxmint',
+                label: 'Linux Mint',
+                type: 'image',
+                dark: 'vendors/mint/wallpaper/linuxmint.jpg',
+                light: 'vendors/mint/wallpaper/linuxmint.jpg',
+                default: true,
+            },
+        ];
+    }
+
+    function fedoraWallpaperCatalog(base) {
+        return [
+            {
+                id: 'f44-01',
+                label: 'Fedora 44',
+                type: 'image',
+                dark: `${base}/f44-01-night.webp`,
+                light: `${base}/f44-01-day.webp`,
+                gsettingsDark: 'f44/default/f44-01-night.webp',
+                gsettingsLight: 'f44/default/f44-01-day.webp',
+                default: true,
+            },
+            {
+                id: 'solid-graphite',
+                label: 'Graphite',
+                type: 'color',
+                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+            },
+            {
+                id: 'solid-ocean',
+                label: 'Océan',
+                type: 'color',
+                dark: 'linear-gradient(145deg, #1a3d5c 0%, #0c1f33 55%, #061018 100%)',
+                light: 'linear-gradient(145deg, #8ecae6 0%, #caf0f8 55%, #e8f6fc 100%)',
+            },
+        ];
+    }
+
+    function rockyWallpaperCatalog(base) {
         return [
             {
                 id: 'gemstone-skies',
                 label: 'Ciel de pierres',
                 type: 'image',
-                dark: `${base}/rocky-default-10-gemstone-skies-night.png`,
-                light: `${base}/rocky-default-10-gemstone-skies-day.png`,
+                dark: `${base}/rocky-default-10-gemstone-skies-night.webp`,
+                light: `${base}/rocky-default-10-gemstone-skies-day.webp`,
                 default: true,
             },
             {
                 id: 'sapphire',
                 label: 'Saphir',
                 type: 'image',
-                dark: `${base}/rocky-default-10-sapphire.png`,
-                light: `${base}/rocky-default-10-sapphire-light.png`,
+                dark: `${base}/rocky-default-10-sapphire.webp`,
+                light: `${base}/rocky-default-10-sapphire-light.webp`,
             },
             {
                 id: 'abstract-1',
                 label: 'Abstrait 1',
                 type: 'image',
-                dark: `${base}/rocky-default-10-abstract-1-night.png`,
-                light: `${base}/rocky-default-10-abstract-1-day.png`,
+                dark: `${base}/rocky-default-10-abstract-1-night.webp`,
+                light: `${base}/rocky-default-10-abstract-1-day.webp`,
             },
             {
                 id: 'abstract-2',
                 label: 'Abstrait 2',
                 type: 'image',
-                dark: `${base}/rocky-default-10-abstract-2.png`,
-                light: `${base}/rocky-default-10-abstract-2.png`,
+                dark: `${base}/rocky-default-10-abstract-2.webp`,
+                light: `${base}/rocky-default-10-abstract-2.webp`,
             },
             {
                 id: 'abstract-3',
                 label: 'Abstrait 3',
                 type: 'image',
-                dark: `${base}/rocky-default-10-abstract-3.png`,
-                light: `${base}/rocky-default-10-abstract-3.png`,
+                dark: `${base}/rocky-default-10-abstract-3.webp`,
+                light: `${base}/rocky-default-10-abstract-3.webp`,
             },
             {
                 id: 'abstract-4',
                 label: 'Abstrait 4',
                 type: 'image',
-                dark: `${base}/rocky-default-10-abstract-4.png`,
-                light: `${base}/rocky-default-10-abstract-4.png`,
+                dark: `${base}/rocky-default-10-abstract-4.webp`,
+                light: `${base}/rocky-default-10-abstract-4.webp`,
             },
             {
                 id: 'abstract-5',
                 label: 'Abstrait 5',
                 type: 'image',
-                dark: `${base}/rocky-default-10-abstract-5.png`,
-                light: `${base}/rocky-default-10-abstract-5.png`,
+                dark: `${base}/rocky-default-10-abstract-5.webp`,
+                light: `${base}/rocky-default-10-abstract-5.webp`,
             },
             {
                 id: 'solid-graphite',
@@ -297,6 +439,55 @@
                 light: 'linear-gradient(155deg, #e8b4c8 0%, #f8e0ea 100%)',
             },
         ];
+    }
+
+    function ubuntuWallpaperCatalog(base) {
+        const thumbs = `${base}/thumbnails`;
+        return [
+            {
+                id: 'adwaita',
+                label: 'Adwaita',
+                type: 'image',
+                dark: `${base}/wallpaper-adwaita-dark.webp`,
+                light: `${base}/wallpaper-racoon-light.webp`,
+                thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
+                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
+                gsettingsDark: 'gnome/adwaita-d.jxl',
+                gsettingsLight: 'gnome/adwaita-l.jxl',
+            },
+            {
+                id: 'racoon',
+                label: 'Resolute Raccoon',
+                type: 'image',
+                dark: `${base}/wallpaper-racoon.webp`,
+                light: `${base}/wallpaper-racoon-light.webp`,
+                thumbDark: `${thumbs}/wallpaper-racoon-thumb.webp`,
+                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
+                default: true,
+            },
+            {
+                id: 'solid-graphite',
+                label: 'Graphite',
+                type: 'color',
+                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+            },
+        ];
+    }
+
+    function getWallpaperCatalog(bodyId) {
+        const vendor = getWallpaperVendor(bodyId);
+        const base = `vendors/${vendor}/wallpaper`;
+        if (vendor === 'mint') {
+            return mintWallpaperCatalog();
+        }
+        if (vendor === 'fedora') {
+            return fedoraWallpaperCatalog(base);
+        }
+        if (vendor === 'ubuntu') {
+            return ubuntuWallpaperCatalog(base);
+        }
+        return rockyWallpaperCatalog(base);
     }
 
     function resolveWallpaperEntry(entry, theme) {
@@ -329,7 +520,7 @@
     function applyWallpaperBackground(value, wallpaperId) {
         const doc = global.document.documentElement;
         doc.dataset.wallpaperTransition = 'on';
-        setShellVar('--fedora-bg', value);
+        setShellVar(shellBackgroundVar(), value);
         doc.dataset.gnomeWallpaper = wallpaperId || '';
         if (global.document.body) {
             global.document.body.dataset.gnomeWallpaper = wallpaperId || '';

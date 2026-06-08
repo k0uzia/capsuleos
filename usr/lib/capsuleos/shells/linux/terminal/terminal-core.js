@@ -41,6 +41,10 @@
     };
 
     const formatPrompt = (state) => {
+        if (state.shellEnv && state.shellEnv.ps1 && window.CapsuleTerminalBashrc
+            && typeof window.CapsuleTerminalBashrc.resolvePs1 === 'function') {
+            return window.CapsuleTerminalBashrc.resolvePs1(state.shellEnv.ps1, state);
+        }
         const home = normalizePath(state.home || '/');
         let pathLabel = state.cwd === '/' ? '/' : `/${state.cwd.substring(1)}`;
         if (home !== '/' && state.cwd === home) {
@@ -62,8 +66,13 @@
             fs: options.fs || (typeof fileSystem !== 'undefined' ? fileSystem : {}),
             fileContents: options.fileContents || {},
             fileHrefs: options.fileHrefs || {},
-            kernelName: options.kernelName || 'CapsuleOS Linux'
+            kernelName: options.kernelName || 'CapsuleOS Linux',
+            shellEnv: options.shellEnv || {}
         };
+
+        if (window.CapsuleTerminalBashrc && typeof window.CapsuleTerminalBashrc.applyToState === 'function') {
+            window.CapsuleTerminalBashrc.applyToState(state);
+        }
 
         return {
             state,

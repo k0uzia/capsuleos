@@ -61,7 +61,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/org.kde.dolphin.svg" alt="">
                 </a>
                 <a href="#" target="windowElement" data-link="firefox" title="Firefox">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/firefox.png" alt="">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/firefox.webp" alt="">
                 </a>
                 <a href="#" target="windowElement" data-link="terminal" title="Konsole">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/konsole.svg" alt="">
@@ -175,6 +175,8 @@
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
+        <script src="../../../usr/lib/capsuleos/shells/common/capsule-memory-conventions.js"></script>
+<script src="../../../usr/lib/capsuleos/shells/common/capsule-window-memory.js"></script>
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
     <script src="./content/mainMenu-data.js?v=20260610"></script>
@@ -187,11 +189,15 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260610c"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-window-instances.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js?v=20260605"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js?v=20260528y"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerWindowState.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDolphin.js?v=20260605"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
@@ -200,13 +206,20 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
     <script src="./js/calendar-popover-kde.js?v=20260528d"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-core.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-profile-builder.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/suse.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-vendor-extensions.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-bashrc.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
     <script src="../../../usr/lib/capsuleos/common/terminal-completion.js"></script>
     <script src="../../../usr/lib/capsuleos/common/terminal-editors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-tabs.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-konsole-chrome.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-shell-parse.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-package-managers.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>

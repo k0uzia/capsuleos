@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-04T10:36:34.507Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T07:01:04.999Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -33,8 +33,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 5 | Éditeur de texte | org.x.editor.desktop | text_editor | ✅ | P0 |
 | 6 | Fichiers | nemo.desktop | nemo | ✅ | P0 |
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
-| 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
-| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | ✅ | P0 |
+| 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ⬜ | P1 |
+| 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
 | 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ⬜ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | P1 |
@@ -96,9 +96,9 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Font Selection | Font Selection | cinnamon-settings-fonts.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | Fonts | Fonts | org.gnome.font-viewer.desktop | — | ⬜ | — |  |
 | General | General | cinnamon-settings-general.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
-| Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M | linux-mint-file-roller-vm.md |
-| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | ✅ | — | linux-mint-update-manager-vm.md |
-| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | ✅ | T | linux-mint-update-manager-vm.md |
+| Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ⬜ | M |  |
+| Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | 🔶 | — |  |
+| Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | 🔶 | T |  |
 | Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ⬜ | — |  |
 | Gestures | Gestures | cinnamon-settings-gestures.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |
@@ -169,6 +169,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `calculator` — ✅
 - `checklist` — 🎓
 - `drawing` — ✅
+- `file_roller` — ⬜
 - `firefox` — ✅
 - `lecteur_multimedia` — 🔶
 - `librewriter` — 🔶

@@ -108,6 +108,96 @@ Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `a
 
 Contrat : `etc/capsuleos/contracts/visual-fidelity.json` · Convention : [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md)
 
+### 2.11 États UI & effets visuels (VΣ)
+
+Extension de **V** / **Vp** — menus, transitions, ombres, dégradés par action et contexte.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Va** | Apps VM intégrées à la matrice VΣ | `*-ui-state-effects-matrix.json` · `discoveredApps[]` · `extend-ui-state-effects-matrix.mjs` |
+| **Ve** | Matrice états/transitions P0 complète (shell + apps) | `*-ui-state-effects.json` · `summary.predicates.Ve` |
+| **Vx** | Transitions mesurées (durée, easing, propriétés CSS) | `effectsMeasured` ≥ transitions P0 |
+| **Vm** | Menus, sous-menus, popovers énumérés | `menuCatalog` · `menusEnumerated` |
+| **Vμ** | Capsule reproduit l’effet (computed + capture) | `capsuleParity.visualMatch` ≠ `unknown` pour P0 |
+| **VΣ** | Clôture effets UI | **Va ∧ Ve ∧ Vx ∧ Vm ∧ Vμ** · `smoke-ui-state-effects.mjs` |
+
+Contrat : `etc/capsuleos/contracts/ui-state-effects.json` · Procédure : [procedure-audit-etats-ui-effets.md](procedure-audit-etats-ui-effets.md) · Skill : `ui-state-effects-replication`
+
+```
+R-Va1   Vp ∧ ¬AppV    →  collect-vm-apps-inventory.mjs --write --ssh
+R-Va2   AppV ∧ ¬Va    →  generate-apps-catalog.mjs --write puis extend-ui-state-effects-matrix.mjs --ensure-apps
+R-VΣ1   Va ∧ ¬Ve      →  collect-ui-state-effects.mjs --write
+R-VΣ2   Ve ∧ ¬Vx      →  burst captures VM (rejouer transition)
+R-VΣ3   Vx ∧ ¬Vm      →  énumérer items menu (playbook + capture)
+R-VΣ4   Vm ∧ ¬Vμ      →  patch skin + collect --capsule
+R-VΣ5   VΣ            →  smoke-ui-state-effects + H6
+```
+
+### 2.12 Shell global — terminal (T)
+
+Chaîne **investigation → conversion → réplication** — socle CLI du bureau simulé. Convention : [convention-shell-global.md](convention-shell-global.md).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Ti** | Inventaire VM terminal | `inventaires/<id>-terminal-vm.json` (`commandAudit`, `packageManager`) |
+| **Tc** | Noyau terminal défini | `command-core.js` ≡ contrat `layers.core` |
+| **Tf** | Extensions famille déclarées | profils `linux:{debian,redhat,suse,arch}` |
+| **Tv** | Singularités vendor résolues | `terminal-vendor-extensions.js` (si inventaire le requiert) |
+| **Te** | Registre ↔ exécuteur | `validate-terminal-commands.mjs` |
+| **Ts** | Sync FS terminal ↔ explorateur | `smoke-fs-terminal-explorer-sync.mjs` (T1–T8) |
+| **Tr** | Scénarios réplication P0 | `replicationScenarios[]` dans inventaire terminal |
+| **TΣ** | **Ti ∧ Tc ∧ Tf ∧ Te ∧ Ts ∧ Tr** | clôture shell slot terminal P0 |
+| **To** | Rendu sortie (indentation, sauts, couleurs) | [convention-terminal-rendu-sortie.md](convention-terminal-rendu-sortie.md) · `outputSamples` |
+| **Tb** | Profil `~/.bashrc` virtuel | `terminal-bashrc.js` · `bashrcSnapshot` inventaire |
+| **TΣ′** | **TΣ ∧ To** | clôture terminal P0 stricte |
+
+**Agnosticité noyau** : moteur unique `usr/lib/capsuleos/shells/linux/terminal/` ; projections par famille/vendor/skin — **R-AGN1**. **Tb** requis pour scénarios personnalisation shell.
+
+Contrats : `terminal-commands.json`, `terminal-replication-chain.json`, `terminal-output-fidelity.json` · Opératoire : [procedure-terminal-commandes.md](procedure-terminal-commandes.md)
+
+### 2.13 Locale et clavier (Lj, Lk)
+
+**FR par défaut** ; portage **en-US / QWERTY** en couche additive — voir [scalabilite-noyau.md §7](scalabilite-noyau.md).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Lj_fr** | Locale projet fr-FR (défaut) | docs FR, `strings-default.js`, registre sans `locale: en-US` |
+| **Lj_en** | Projection en-US disponible | `strings.en.json` ou provider terminal `en-US` |
+| **Lj** | **Lj_fr** tant qu'aucune variante internationale n'est déclarée active | `locale-scalability.json` |
+| **Lk_azerty** | Clavier AZERTY (défaut FR) | planned — `CAPSULE_KEYBOARD_LAYOUT` |
+| **Lk_qwerty** | Clavier QWERTY US (international) | planned |
+
+**Règle** : parité VM (**R-INV1**) utilise la **locale de l'inventaire** pour reproduction (ex. sortie `dnf` FR) ; le défaut projet **Lj_fr** ne s'applique pas pour masquer un écart VM documenté.
+
+Contrat : `etc/capsuleos/contracts/locale-scalability.json`
+
+### 2.14 Modules pédagogiques (`/mnt`)
+
+Métaphore **points de montage** — parcours modulaires branchés sans fork noyau. Convention : [convention-modules-mnt.md](convention-modules-mnt.md).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Pm** | Module sous `mnt/<niveau>/<id>/` | arborescence + `module.json` |
+| **Pm_Σ** | Manifeste et scénarios valides | `validate-pedagogical-modules.mjs` |
+| **Pm_mount** | Module monté au boot skin | `CAPSULE_MNT_MODULES` |
+| **PΣ** | Parcours actif | skin ∧ modules montés |
+
+Contrat : `etc/capsuleos/contracts/pedagogical-modules.json`
+
+### 2.11 Rafraîchissement des vues (Rv)
+
+Condition **sine qua non** de la reproduction fidèle : distinguer **réel** (`V = projection(M)` après action) et **irréel** (`V ≠ projection(M)` ou refresh sans `ΔM`).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Rv₁** | Vue cohérente **après** action utilisateur | Scénarios playbook + smokes slot (`smoke-fs-terminal-explorer-sync`, tests manuels documentés) |
+| **Rv₂** | Pas de refresh **parasite** (focus, race, timer) | Audit listeners ; ex. `fileExplorerWindowState` — refresh si changement d’instance seulement |
+| **Rv** | **Rv₁ ∧ Rv₂** | Admissible pour clôture slot interactif P0 |
+
+Contrat : `etc/capsuleos/contracts/view-refresh-vigilance.json` · Convention : [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) · Playbook : `inventaires/view-refresh-vigilance-playbook.json`
+
+**Règle reproduction** : pendant **H5**, toute action `A_user` documentée doit être vérifiée contre **Rv** — la VM (ou le playbook slot) définit `projection(M)` ; l’agent ne valide pas au feeling.
+
 ### 2.8 Post-H6 shell Rocky (extensions)
 
 | Symbole | Signification | Vérification |
@@ -157,6 +247,30 @@ R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d
 
 R-IMP1  ¬H₂  →  interdit H5 (implémentation) sauf tâche « fix CI » explicite
 R-IMP2  P0 documenté absent  →  ne pas reclasser en P1 pour masquer
+
+R-RV1   H5 slot interactif ∧ ¬Rv₁  →  sync explicite V après action (render, sync*Tabs, événement FS)
+R-RV2   ¬Rv₂  →  audit listeners focus/async ; refresh uniquement sur déclencheur légitime (contrat view-refresh)
+
+R-TI1   H5 slot terminal ∧ ¬Ti  →  inventaire VM terminal (`*-terminal-vm.json`) avant patch commandes
+R-TC1   Ti ∧ ¬Te               →  validate-terminal-commands.mjs
+R-TS1   Te ∧ mutation FS ∧ ¬Ts  →  smoke-fs-terminal-explorer-sync.mjs
+R-TR1   Ts ∧ ¬Tr               →  exécuter replicationScenarios P0 de l’inventaire terminal
+R-TΣ1   Tr ∧ Ts ∧ Te ∧ Tc ∧ Ti →  TΣ — shell admissible pour clôture skin terminal
+R-AGN1  comportement commun ≥2 OS → noyau usr/lib ; interdit fork executeCommand par distro dans home/
+
+R-TO1   Tr ∧ sortie P0 ∧ ¬To₁  →  whitespace / colonnes ls avant chrome
+R-TO2   To₁ ∧ ¬To₃             →  tokens CSS + spans (pas hex dans executeCommand)
+R-TB1   scénario bashrc ∧ ¬Tb  →  terminal-bashrc.js + ~/.bashrc manifeste
+R-TΣ2   clôture terminal P0 stricte  →  TΣ′ = TΣ ∧ To
+
+R-LJ1   ¬Lj_fr  →  maintenir fr-FR comme défaut projet (docs, strings, UX)
+R-LJ2   parité VM locale documentée ∧ sortie terminal ≠ inventaire  →  provider locale (pas de priorité en-US sur fr-FR)
+R-LJ3   besoin international  →  projection Lj_en (strings + providers) — jamais fork noyau par langue
+R-LK1   Lk_qwerty demandé  →  CAPSULE_KEYBOARD_LAYOUT + tests saisie — après Lj_en ou en parallèle skin
+
+R-PM1   besoin parcours ∧ ¬Pm     →  créer module mnt/ avant missions skin
+R-PM2   Pm ∧ ¬Pm_Σ                →  validate-pedagogical-modules.mjs
+R-PM3   Pm_mount ∧ conflit slot   →  propriétaire unique ou fusion documentée
 
 R-PB1    ¬PbU  →  couche universal (inventaire, assets, T)
 R-PB2    PbU ∧ ¬PbT  →  orchestrateur toolkit (ex. run-replication-chain --auto)
@@ -248,6 +362,8 @@ flowchart TD
 | Clone VM → skin | **H₂**, **M**, **I**, **A**, **S** | `onboarding`, `os-clone-from-vm`, `os-linux`, `role-integrator` |
 | Parité Paramètres GNOME | **A**, **T**, **L**, **S**, puis **V**, **G**, **Vc**, **Vp** | `capsuleos-distro-*`, `role-integrator`, [procedure-replication-formelle.md](procedure-replication-formelle.md) |
 | UI / tokens CSS | **H₂**, contrats UI | `role-web-designer`, `css-variables-contract` |
+| Slot interactif (Nautilus, terminal…) | **H₂**, **Rv** | `vanilla-js-interactivity`, [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) |
+| Shell global / commandes terminal | **Ti**, **TΣ**, **Ts**, **Rv** | [convention-shell-global.md](convention-shell-global.md), [procedure-terminal-commandes.md](procedure-terminal-commandes.md) |
 | Release multi-OS | **H₆**, **R** | `coordinator`, `role-manager` |
 
 Charger **un skill OS + un skill rôle** minimum ; ajouter `coordinator` si multi-familles ; `kernel-supervisor` dès que **¬A** ou migration noyau.
@@ -266,6 +382,12 @@ Les procédures détaillent prédicats et commandes **locales**. Elles **doivent
 | Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) § annexe | matrice visuelle, §10 |
 | Catalogue applications | [procedure-apps-catalog.md](procedure-apps-catalog.md) | **AppV**, **AppC**, **AppP0**, **AppΣ** |
 | Fidélité visuelle | [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) | **Tp**, **Tv**, **Tm**, **Ta**, **Tf** |
+| **Rafraîchissement vues** | [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) | **Rv₁**, **Rv₂**, **Rv** |
+| **Socle shell global** | [convention-shell-global.md](convention-shell-global.md) | **Ti**, **Ts**, **Tr**, **TΣ**, agnosticité noyau |
+| **Rendu sorties terminal** | [convention-terminal-rendu-sortie.md](convention-terminal-rendu-sortie.md) | **To₁–To₃**, **To**, **Tb**, **TΣ′** |
+| **Locale / international** | [scalabilite-noyau.md §7](scalabilite-noyau.md) | **Lj**, **Lj_fr**, **Lj_en**, **Lk_*** |
+| **Modules pédagogiques** | [convention-modules-mnt.md](convention-modules-mnt.md) | **Pm**, **Pm_Σ**, **Pm_mount**, **PΣ** |
+| **Commandes terminal** | [procedure-terminal-commandes.md](procedure-terminal-commandes.md) | **Tc**, **Tf**, **Tv**, **Te** |
 | Réplication applications | [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) | **AppL**, **AppVv**, **AppVc**, **AppVp** |
 | Assets vendor | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | **A**, **S**, **T** |
 | Lab Rocky GNOME | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | **M**, phases 1–5 |
@@ -301,6 +423,10 @@ node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id <registryId>
 
 # Brief registre
 node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
+
+# Shell terminal — référentiel + sync FS
+node usr/lib/capsuleos/tools/validate-terminal-commands.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs
 ```
 
 ---
@@ -315,6 +441,7 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
 6. **Demander à l’utilisateur** quand **R-AUTO** s’applique (une seule action admissible).
 7. Fork noyau (`contentLoader`, `CapsuleWindow`) par distro.
 8. Images hors `usr/share/capsuleos/assets/` et `home/public/Images/`.
+9. **H5 slot interactif sans Rv** — vue stale ou refresh parasite après action documentée.
 
 ---
 
@@ -336,4 +463,4 @@ node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>
 
 ---
 
-*Dernière extension : réplication applications calquée gsettings (AppL–AppVp, procedure-apps-replication-formelle.md).*
+*Dernière extension : vigilance rafraîchissement des vues (Rv₁–Rv, convention-rafraichissement-vues.md).*

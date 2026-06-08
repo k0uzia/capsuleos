@@ -58,7 +58,7 @@ Voir [lab-vm-rhel-wayland.md](../lab-vm-rhel-wayland.md).
 | Noyau fenêtres | `CapsuleWindow`, `windowContainer.js` | — |
 | Shell GNOME | Copie skin **Fedora** (`fedora-*` classes CSS, tokens sous `html:has(#rocky)`) | `body#rocky`, logos `vendors/rocky/` |
 | Apps | Gabarits `usr/share/capsuleos/linux/apps/` + `.skin.css` | `CAPSULE_EMBED_SKIN_KEY`: `rocky` |
-| Terminal | Profil `linux:redhat` (`dnf`, `rpm`) | `bodyId` `rocky` |
+| Terminal | Profil `linux:redhat` (`dnf`, `rpm`) | `bodyId` `rocky` · inventaire **Ti** : [`linux-rocky-terminal-vm.json`](linux-rocky-terminal-vm.json) (**TΣ** validé) |
 | Explorateur | Template `nemo` (Nautilus/Fichiers) | Titre « Fichiers » |
 
 ## Écarts P0 / P1 (à affiner avec VM ouverte)
@@ -70,7 +70,7 @@ Voir [lab-vm-rhel-wayland.md](../lab-vm-rhel-wayland.md).
 | Aperçu activités | Grille apps + recherche | `overview.js` (hérité Fedora) | P2 |
 | Fichiers | `org.gnome.Nautilus` | Slot `nemo` | P0 — même gabarit, titre Fichiers |
 | Firefox | Présent | Slot `firefox` | P1 |
-| Terminal | Ptyxis / gnome-terminal | Chrome terminal style Fedora | P1 — prompt `fed@fedora` à adapter rocky |
+| Terminal | Ptyxis | Chrome terminal style Fedora | P1 — prompt `capsule@rocky` OK ; chrome visuel Ptyxis à affiner |
 | Mises à jour | `dnf update` / app « Logiciels » | `update_manager` générique | P2 |
 
 ## Apps `.desktop` observées (extrait SSH)

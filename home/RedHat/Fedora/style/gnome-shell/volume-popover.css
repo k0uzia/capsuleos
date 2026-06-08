@@ -12,7 +12,7 @@
     color: var(--volume-popover-text);
     background: rgba(62, 58, 59, 0.97);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     overflow: hidden;
 }
 

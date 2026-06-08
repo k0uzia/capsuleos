@@ -26,6 +26,7 @@ Le noyau ne « possède » pas l’interface : il **distribue** des briques réu
 | **Composants CSS** | `usr/share/capsuleos/themes/` | Tokens, chrome, apps `.base.css` |
 | **Gabarits HTML** | `usr/share/capsuleos/<os>/apps/` | Structure sémantique des applications |
 | **Artefacts générés** | `var/lib/capsuleos/generated/` | Embeds offline (opt-in au build) |
+| **Modules montés** | `mnt/` | Parcours pédagogiques (débutant → cybertech) — [convention-modules-mnt.md](convention-modules-mnt.md) |
 
 La magie opère dans la **résolution logique → physique** : chemins stables dans le code, bases configurables par skin via `CAPSULE_*`.
 

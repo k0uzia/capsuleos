@@ -131,10 +131,34 @@
     }
 
     function readDockInsetPx() {
-        return readLinuxCssVarPx('--fedora-dock-width', 'width')
-            || readLinuxCssVarPx('--ubuntu-dock-width', 'width')
-            || readLinuxCssVarPx('--popos-dock-width', 'width')
-            || 0;
+        const bodyId = document.body && document.body.id ? document.body.id : '';
+        const gnomeNoPersistentDock = new Set(['fedora', 'rocky', 'alma']);
+        if (gnomeNoPersistentDock.has(bodyId)) {
+            const reserved = readLinuxCssVarPx('--fedora-dock-width', 'width');
+            if (!reserved) {
+                return 0;
+            }
+        }
+        const dockEl = document.querySelector('#tableau.fedora-dock, aside.fedora-dock');
+        if (dockEl) {
+            const cs = getComputedStyle(dockEl);
+            if (cs.display === 'none' || cs.visibility === 'hidden') {
+                return 0;
+            }
+            const measured = dockEl.offsetWidth;
+            if (measured > 0) {
+                return measured;
+            }
+        }
+        const dockVarByBody = {
+            ubuntu: '--ubuntu-dock-width',
+            popos: '--popos-dock-width',
+            fedora: '--fedora-dock-width',
+            rocky: '--fedora-dock-width',
+            alma: '--fedora-dock-width',
+        };
+        const varName = dockVarByBody[bodyId];
+        return varName ? (readLinuxCssVarPx(varName, 'width') || 0) : 0;
     }
 
     function readTopBarInsetPx() {
@@ -229,7 +253,10 @@
     });
 
     const nativeOpen = window.openWindowByDataLink;
-    window.openWindowByDataLink = function (dataLink) {
+    window.openWindowByDataLink = function (dataLink, options) {
+        if (options && options.newWindow === true && typeof window.openNewWindowByDataLink === 'function') {
+            return window.openNewWindowByDataLink(dataLink);
+        }
         const ok = nativeOpen(dataLink);
         if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
             window.initUpdateManagerApp();

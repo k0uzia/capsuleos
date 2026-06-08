@@ -26,7 +26,8 @@
       "controlId": "wallpaper",
       "label": "Ciel de pierres (nuit)",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-night.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-gemstone-skies-day",
@@ -34,63 +35,72 @@
       "controlId": "wallpaper",
       "label": "Ciel de pierres (jour)",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-day.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-1-night",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-night.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-1-day",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-2",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-2.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-3",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-3.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-4",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-4.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-abstract-5",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-5.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-sapphire",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "wallpaper-sapphire-light",
       "category": "wallpaper",
       "controlId": "wallpaper",
       "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire-light.png",
-      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.png"
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.webp",
+      "transcodeFromVm": true
     },
     {
       "id": "watermark-fedora-logo-dark",

@@ -8,9 +8,29 @@
     const PATHS = {
         cinnamon: './assets/icons/cinnamon/nemo',
         gnome: './assets/icons/gnome/adwaita',
+        yaru: './assets/icons/gnome/yaru',
         kde: './assets/icons/kde/nemo',
         cosmic: './assets/images/toolkits/cosmic/elements/nemo',
     };
+
+    const YARU_BODY_IDS = new Set(['ubuntu']);
+
+    function gnomeIconPackId() {
+        const bodyId = global.document && global.document.body ? global.document.body.id : '';
+        if (bodyId && YARU_BODY_IDS.has(bodyId)) {
+            return 'yaru';
+        }
+        const packs = global.CAPSULE_SKIN_PROFILE_ICON_PACKS;
+        if (Array.isArray(packs) && packs.includes('icons/gnome/yaru')) {
+            return 'yaru';
+        }
+        return 'gnome';
+    }
+
+    function gnomeIconBase() {
+        const pack = gnomeIconPackId();
+        return PATHS[pack] || PATHS.gnome;
+    }
 
     const GNOME_BODY_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos']);
     const KDE_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
@@ -59,5 +79,7 @@
         catalogBase: catalogBase,
         activeBase: activeBase,
         catalogIcon: catalogIcon,
+        gnomeIconPackId: gnomeIconPackId,
+        gnomeIconBase: gnomeIconBase,
     };
 }(typeof window !== 'undefined' ? window : globalThis));

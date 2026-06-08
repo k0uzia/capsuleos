@@ -5,3 +5,4 @@
  */
 @import url(../../linux/gnome-shell-preferences.base.css);
 @import url(../../linux/window-chrome.gnome.base.css);
+@import url(../../linux/window-chrome.gnome.terminal-exempt.css);

@@ -24,6 +24,7 @@
       "kernelId": "linux",
       "toolkitId": "gnome",
       "chromeContract": "gnome",
+      "packPath": "usr/share/capsuleos/themes/clusters/toolkit-gnome/pack.json",
       "behaviorsModule": "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"
     },
     {
@@ -140,7 +141,8 @@
       "paths": {
         "html": "usr/share/capsuleos/linux/apps/terminal.html",
         "css": [
-          "usr/share/capsuleos/linux/apps/style/terminal.base.css"
+          "usr/share/capsuleos/linux/apps/style/terminal.base.css",
+          "usr/share/capsuleos/linux/apps/style/terminal-ptyxis.base.css"
         ]
       }
     },
@@ -174,6 +176,7 @@
     "kernelId": "linux",
     "toolkitId": "gnome",
     "chromeContract": "gnome",
+    "packPath": "usr/share/capsuleos/themes/clusters/toolkit-gnome/pack.json",
     "behaviorsModule": "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"
   },
   "toolkit.kde": {
@@ -290,7 +293,8 @@
     "paths": {
       "html": "usr/share/capsuleos/linux/apps/terminal.html",
       "css": [
-        "usr/share/capsuleos/linux/apps/style/terminal.base.css"
+        "usr/share/capsuleos/linux/apps/style/terminal.base.css",
+        "usr/share/capsuleos/linux/apps/style/terminal-ptyxis.base.css"
       ]
     }
   },
@@ -409,7 +413,8 @@
     "paths": {
       "html": "usr/share/capsuleos/linux/apps/terminal.html",
       "css": [
-        "usr/share/capsuleos/linux/apps/style/terminal.base.css"
+        "usr/share/capsuleos/linux/apps/style/terminal.base.css",
+        "usr/share/capsuleos/linux/apps/style/terminal-ptyxis.base.css"
       ]
     }
   }

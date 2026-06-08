@@ -1,4 +1,4 @@
-const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement#nemo[data-link="nemo"]';
+const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement[data-link="nemo"]';
 
 const getExplorerWindowSlot = () => {
     if (typeof window !== 'undefined' && typeof window.getExplorerWindowSlot === 'function') {
@@ -9,6 +9,15 @@ const getExplorerWindowSlot = () => {
     }
     return document.getElementById('nemo')
         || document.querySelector(EXPLORER_WINDOW_SLOT_SELECTOR);
+};
+
+const resolveExplorerSlotRoot = (root) => (
+    root || getExplorerWindowSlot() || document.querySelector(EXPLORER_WINDOW_SLOT_SELECTOR)
+);
+
+const queryExplorerSlot = (selector, root) => {
+    const slot = resolveExplorerSlotRoot(root);
+    return slot && typeof slot.querySelector === 'function' ? slot.querySelector(selector) : null;
 };
 
 const getFileExplorerRoot = () => {
@@ -230,16 +239,23 @@ const getFileExplorerIconOverride = (key) => {
     return null;
 };
 
-const getFileExtension = (item) => {
-    if (item.extension) {
-        return String(item.extension).toLowerCase();
-    }
+const FILE_EXPLORER_EXTENSION_ALIASES = {
+    docx: 'doc',
+    htm: 'html',
+    jpeg: 'jpg',
+};
 
-    if (!item.name || !item.name.includes('.')) {
+const getFileExtension = (item) => {
+    let extension = '';
+    if (item.extension) {
+        extension = String(item.extension).toLowerCase();
+    } else if (item.name && item.name.includes('.')) {
+        extension = item.name.split('.').pop().toLowerCase();
+    }
+    if (!extension) {
         return '';
     }
-
-    return item.name.split('.').pop().toLowerCase();
+    return FILE_EXPLORER_EXTENSION_ALIASES[extension] || extension;
 };
 
 const getFileViewerTargetByItem = (item) => {
@@ -277,20 +293,28 @@ const resolveItemIcon = (item) => {
     const resolveUrl = typeof resolveCapsuleResourceUrl === 'function'
         ? resolveCapsuleResourceUrl
         : (url) => url;
-    const folderFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath)
+    const remapIconPath = (path) => {
+        if (!path) {
+            return path;
+        }
+        if (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath) {
+            return CapsuleExplorerIconBase.remapPath(path);
+        }
+        return path;
+    };
+    const toIconUrl = (path) => resolveUrl(remapIconPath(path));
+    const folderFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.catalogIcon)
         ? CapsuleExplorerIconBase.catalogIcon('folder.svg')
         : (window.CapsuleExplorerToolkitPaths
             ? window.CapsuleExplorerToolkitPaths.catalogIcon('folder.svg')
             : './assets/icons/cinnamon/nemo/folder.svg');
-    const fileFallback = (typeof CapsuleExplorerIconBase !== 'undefined' && CapsuleExplorerIconBase.remapPath)
-        ? CapsuleExplorerIconBase.remapPath('./assets/icons/kde/mimeTypes/application-x-generic.svg')
-        : './assets/icons/kde/mimeTypes/application-x-generic.svg';
+    const fileFallback = toIconUrl('./assets/icons/kde/mimeTypes/application-x-generic.svg');
 
     if (item && item.vfsEntry === true) {
         const icon = getFileExplorerCatalogIcon('folder')
             || getFileExplorerIconOverride('folder')
             || folderFallback;
-        return resolveUrl(icon);
+        return toIconUrl(icon);
     }
 
     if (item.type === 'folder') {
@@ -299,7 +323,7 @@ const resolveItemIcon = (item) => {
             || getFileExplorerIconOverride('folder')
             || getFileExplorerCatalogIcon('folder')
             || folderFallback;
-        return resolveUrl(icon);
+        return toIconUrl(icon);
     }
 
     const extension = getFileExtension(item);
@@ -307,8 +331,8 @@ const resolveItemIcon = (item) => {
         || getFileExplorerCatalogIcon(extension)
         || getFileExplorerIconOverride('txt')
         || getFileExplorerCatalogIcon('txt')
-        || fileFallback;
-    return resolveUrl(icon);
+        || './assets/icons/kde/mimeTypes/application-x-generic.svg';
+    return toIconUrl(icon);
 };
 
 const findFolderLabel = (path) => {
@@ -352,11 +376,11 @@ const findFolderLabel = (path) => {
     return segments[segments.length - 1] || 'Dossier personnel';
 };
 
-const isDolphinTemplate = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.dolphin-app`);
+const isDolphinTemplate = () => !!queryExplorerSlot('main#gestionnaire.dolphin-app');
 window.isDolphinTemplate = isDolphinTemplate;
 
 const isNautilusGnomeTemplate = () => {
-    const main = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire`);
+    const main = queryExplorerSlot('main#gestionnaire');
     if (main && main.classList.contains('nautilus-app')) {
         return true;
     }
@@ -371,12 +395,12 @@ const isNemoTemplate = () => {
     if (isNautilusGnomeTemplate()) {
         return false;
     }
-    return !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.nemo-app:not(.nautilus-app)`);
+    return !!queryExplorerSlot('main#gestionnaire.nemo-app:not(.nautilus-app)');
 };
 window.isNautilusGnomeTemplate = isNautilusGnomeTemplate;
 window.isNemoTemplate = isNemoTemplate;
 
-const isCosmicFilesExplorer = () => !!document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} main#gestionnaire.cosmic-files-app`);
+const isCosmicFilesExplorer = () => !!queryExplorerSlot('main#gestionnaire.cosmic-files-app');
 
 const usesNemoListView = () => (
     isCosmicFilesExplorer()
@@ -607,7 +631,7 @@ const ensureNemoListViewChrome = () => {
         return;
     }
 
-    const voletContainer = document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} #voletContainer`);
+    const voletContainer = queryExplorerSlot('#voletContainer');
     if (!voletContainer) {
         return;
     }
@@ -1028,7 +1052,7 @@ const updatePathDisplay = () => {
     const nemoRoot = getExplorerWindowSlot();
     const pathLabelElement = nemoRoot
         ? nemoRoot.querySelector('.nemo-app__path-current, #nemo-path-label')
-        : document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemo-app__path-current`);
+        : queryExplorerSlot('.nemo-app__path-current');
     if (!pathLabelElement) {
         return;
     }
@@ -1140,8 +1164,15 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane, depth = 0) =>
             }
         }
     }
-    if (item.type === 'folder' && item.path) {
-        itemLink.dataset.itemTargetPath = item.path;
+    if (item.type === 'folder') {
+        const folderTarget = item.path || item.targetPath
+            || (path && item.name ? joinExplorerPath(path, item.name) : '');
+        if (folderTarget) {
+            itemLink.dataset.itemTargetPath = folderTarget;
+        }
+    }
+    if (item.trashedFrom) {
+        itemLink.dataset.itemTrashedFrom = item.trashedFrom;
     }
     if (isDolphinTemplate()) {
         if (item.extension) {
@@ -1212,6 +1243,8 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane, depth = 0) =>
         }
         itemLink.href = '#';
         window.attachDolphinItemHandlers(itemLink, item, path, pane);
+    } else if (isNautilusGnomeTemplate() && typeof window.attachNautilusGridItemHandlers === 'function') {
+        window.attachNautilusGridItemHandlers(itemLink, item, path, { selectGridItem });
     } else if (item.networkUri) {
         itemLink.classList.add('nemo-app__item--folder');
         itemLink.href = '#';
@@ -1237,11 +1270,28 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane, depth = 0) =>
         });
         itemLink.addEventListener('click', (event) => {
             event.preventDefault();
-            navigateToFileExplorerDirectory(item.path, { updateHistory: true });
+            const targetPath = item.path || itemLink.dataset.itemTargetPath;
+            const explorerRoot = itemLink.closest('.windowElement[data-link="nemo"]');
+            if (targetPath) {
+                navigateToFileExplorerDirectory(targetPath, {
+                    updateHistory: true,
+                    explorerRoot: explorerRoot || undefined,
+                });
+            }
         });
     } else {
         const fileHref = item.href || `${path}/${item.name}`;
-        itemLink.href = fileHref;
+        const resolveViewerHref = typeof resolveCapsuleResourceUrl === 'function'
+            ? resolveCapsuleResourceUrl
+            : (href) => {
+                try {
+                    return new URL(href, window.location.href).href;
+                } catch (error) {
+                    return href;
+                }
+            };
+        const resolvedFileHref = resolveViewerHref(fileHref);
+        itemLink.href = resolvedFileHref;
 
         const viewerPayload = getFileViewerTargetByItem(item);
         if (viewerPayload && viewerPayload.target) {
@@ -1256,7 +1306,7 @@ const appendFileExplorerGridItem = (nemoElement, item, path, pane, depth = 0) =>
 
                 const openViewer = window.openFileInViewer || window.openMintFileInViewer;
                 if (typeof openViewer === 'function') {
-                    openViewer(fileHref, viewerPayload.extension, item.name);
+                    openViewer(resolvedFileHref, viewerPayload.extension, item.name);
                 }
             });
         } else {
@@ -1409,9 +1459,10 @@ const renderVfsExplorerDirectory = (path, pane, nemoElement) => {
 
 const renderDirectory = (path, options = {}) => {
     const pane = options.pane || 'primary';
+    const explorerRoot = resolveExplorerSlotRoot(options.explorerRoot);
     const nemoElement = (isDolphinTemplate() && typeof window.getDolphinPaneGrid === 'function')
-        ? window.getDolphinPaneGrid(pane)
-        : document.querySelector(`${EXPLORER_WINDOW_SLOT_SELECTOR} .nemoElement`);
+        ? window.getDolphinPaneGrid(pane, explorerRoot)
+        : (explorerRoot && explorerRoot.querySelector('.nemoElement'));
 
     if (!nemoElement || !fileExplorerState.manifest || !fileExplorerState.manifest.folders) {
         return;
@@ -1671,6 +1722,16 @@ const renameExplorerItem = async (parentPath, oldName, newName) => {
         const newPath = joinExplorerPath(parent, nextName);
         relocateFolderSubtree(manifest, item.path, newPath);
         item.path = newPath;
+    } else if (item.type === 'file') {
+        const dot = nextName.lastIndexOf('.');
+        if (dot > 0) {
+            item.extension = nextName.slice(dot + 1).toLowerCase();
+        } else if (item.extension) {
+            delete item.extension;
+        }
+        if (item.href && typeof item.href === 'string' && item.href.endsWith(`/${oldName}`)) {
+            item.href = `${item.href.slice(0, -(oldName.length))}${nextName}`;
+        }
     }
     parentNode.items = sortExplorerItems(parentNode.items);
     persistExplorerManifest(manifest);
@@ -1765,6 +1826,20 @@ const compressExplorerItems = async (parentPath, entries, archiveName) => {
     return { ok: true, name };
 };
 
+const resolveUniqueExplorerFolderName = (parentNode, baseName = 'Nouveau dossier') => {
+    if (!parentNode || !Array.isArray(parentNode.items)) {
+        return baseName;
+    }
+    if (!findItemInFolder(parentNode, baseName)) {
+        return baseName;
+    }
+    let index = 2;
+    while (findItemInFolder(parentNode, `${baseName} ${index}`)) {
+        index += 1;
+    }
+    return `${baseName} ${index}`;
+};
+
 const createNewFolderInCurrentDirectory = async (options = {}) => {
     const parentPath = options.parentPath || fileExplorerState.currentPath;
     if (!parentPath || isCapsuleVirtualPlace(parentPath)) {
@@ -1774,8 +1849,24 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
         return { ok: false, message: 'Impossible de créer un dossier ici.' };
     }
 
+    const useInlineRename = !options.skipPrompt
+        && typeof window.isNautilusGnomeTemplate === 'function'
+        && window.isNautilusGnomeTemplate()
+        && typeof window.scheduleExplorerInlineRename === 'function';
+
     let name = options.defaultName || 'Nouveau dossier';
-    if (!options.skipPrompt && typeof window.prompt === 'function') {
+    if (useInlineRename) {
+        try {
+            await loadManifest();
+            const parentNode = fileExplorerState.manifest
+                && fileExplorerState.manifest.folders[normalizeDirectoryPath(parentPath)];
+            if (parentNode) {
+                name = resolveUniqueExplorerFolderName(parentNode, name);
+            }
+        } catch (error) {
+            /* garde le nom par défaut */
+        }
+    } else if (!options.skipPrompt && typeof window.prompt === 'function') {
         const input = window.prompt('Nom du nouveau dossier :', name);
         if (input === null) {
             return { ok: false, cancelled: true };
@@ -1787,7 +1878,11 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
         return { ok: false, message: 'Nom de dossier vide.' };
     }
 
-    return createFolderInExplorer(parentPath, name);
+    const result = await createFolderInExplorer(parentPath, name);
+    if (result.ok && useInlineRename) {
+        window.scheduleExplorerInlineRename(result.name, parentPath);
+    }
+    return result;
 };
 
 const toggleExplorerHiddenFiles = () => {
@@ -2007,10 +2102,22 @@ const loadManifest = async () => {
 };
 
 const navigateToFileExplorerDirectory = async (directory, options = {}) => {
-    const { updateHistory = true, pane = fileExplorerState.activePane || 'primary' } = options;
+    const {
+        updateHistory = true,
+        pane = fileExplorerState.activePane || 'primary',
+        explorerRoot = getExplorerWindowSlot(),
+    } = options;
 
     try {
         await loadManifest();
+
+        if (isNautilusGnomeTemplate()
+            && (fileExplorerState.nautilusChromeMode === 'search-everywhere'
+                || fileExplorerState.nautilusChromeMode === 'search-folder'
+                || (fileExplorerState.searchQuery || '').trim())
+            && typeof window.exitNautilusSearchChrome === 'function') {
+            window.exitNautilusSearchChrome({ render: false });
+        }
 
         const path = normalizeDirectoryPath(directory);
         const isVirtual = isCapsuleVirtualPlace(path);
@@ -2018,7 +2125,7 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
             && window.CapsuleExplorerVfs.isExplorerVfsPath(path);
         if (!isVirtual && !isVfs && !fileExplorerState.manifest.folders[path]) {
             console.warn(`Chemin explorateur introuvable: ${path}`);
-            renderDirectory('__invalid__', { pane });
+            renderDirectory('__invalid__', { pane, explorerRoot });
             return;
         }
 
@@ -2043,7 +2150,7 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
             }
         }
 
-        renderDirectory(path, { pane });
+        renderDirectory(path, { pane, explorerRoot });
         updatePathDisplay();
         updateNavigationControls();
         applyFileExplorerViewMode();
@@ -2059,6 +2166,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
 
         if (typeof window.applyNautilusLocationBarMode === 'function') {
             window.applyNautilusLocationBarMode();
+        }
+
+        if (typeof window.syncNautilusTabs === 'function') {
+            window.syncNautilusTabs();
         }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
@@ -2598,12 +2709,24 @@ const bindFileExplorerNavigationControls = () => {
                 chromeClose.click();
                 return;
             }
+            const dispatchNemoWindowClosed = () => {
+                if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
+                    document.dispatchEvent(new CustomEvent('capsule:window-closed', {
+                        detail: {
+                            container: nemoRoot,
+                            slotId: nemoRoot.dataset.link || 'nemo',
+                        },
+                    }));
+                }
+            };
             if (typeof window.capsuleBeforeWindowHide === 'function') {
                 window.capsuleBeforeWindowHide(nemoRoot, () => {
                     nemoRoot.style.display = 'none';
+                    dispatchNemoWindowClosed();
                 });
             } else {
                 nemoRoot.style.display = 'none';
+                dispatchNemoWindowClosed();
             }
         });
         closeIntegrated.dataset.feNavBound = 'true';
@@ -2703,3 +2826,26 @@ window.refreshFileExplorerDirectory = function refreshFileExplorerDirectory() {
     updatePathDisplay();
     updateNavigationControls();
 };
+
+(function bindCapsuleFsChangedListener() {
+    if (typeof window === 'undefined' || window.__capsuleFsChangedBound) {
+        return;
+    }
+    window.__capsuleFsChangedBound = true;
+    window.addEventListener('capsule:fs-changed', (event) => {
+        const detail = event && event.detail ? event.detail : {};
+        const affected = Array.isArray(detail.affectedParents) ? detail.affectedParents : [];
+        if (!affected.length || !fileExplorerState.currentPath) {
+            return;
+        }
+        const current = normalizeDirectoryPath(fileExplorerState.currentPath);
+        const shouldRefresh = affected.some((parentPath) => (
+            normalizeDirectoryPath(parentPath) === current
+        ));
+        if (!shouldRefresh) {
+            return;
+        }
+        renderDirectory(current, { pane: fileExplorerState.activePane || 'primary' });
+        updatePathDisplay();
+    });
+}());

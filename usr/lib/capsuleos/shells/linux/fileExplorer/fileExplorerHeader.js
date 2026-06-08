@@ -3,11 +3,13 @@
  * Appeler bindFileExplorerMenubar(slot explorateur) après injection du gabarit (contentLoader).
  */
 (function initFileExplorerMenubar() {
-    const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement#nemo[data-link="nemo"]';
+    const EXPLORER_WINDOW_SLOT_SELECTOR = 'div.windowElement[data-link="nemo"]';
     const EXPLORER_WINDOW_SLOT_QUERIES = [
+        '.windowElement.windowElementActive[data-link="nemo"]',
         EXPLORER_WINDOW_SLOT_SELECTOR,
         `object#desktop ${EXPLORER_WINDOW_SLOT_SELECTOR}`,
         `#desktop ${EXPLORER_WINDOW_SLOT_SELECTOR}`,
+        'div.windowElement#nemo[data-link="nemo"]',
     ];
 
     const isExplorerSlotElement = (node) => (
@@ -23,6 +25,12 @@
     function getExplorerWindowSlot() {
         if (typeof document === 'undefined') {
             return null;
+        }
+        if (typeof window.getActiveExplorerWindowRoot === 'function') {
+            const tracked = window.getActiveExplorerWindowRoot();
+            if (isExplorerSlotElement(tracked)) {
+                return tracked;
+            }
         }
         for (let index = 0; index < EXPLORER_WINDOW_SLOT_QUERIES.length; index += 1) {
             const candidate = document.querySelector(EXPLORER_WINDOW_SLOT_QUERIES[index]);

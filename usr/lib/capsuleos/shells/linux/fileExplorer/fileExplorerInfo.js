@@ -41,6 +41,10 @@ const fileExplorerSystemLink = {
             "image": "./assets/icons/kde/mimeTypes/x-office-document.svg",
             "link": "/*.docx"
         },
+        "docx": {
+            "image": "./assets/icons/kde/mimeTypes/x-office-document.svg",
+            "link": "/*.docx"
+        },
         "md": {
             "image": "./assets/icons/kde/mimeTypes/text-x-generic.svg",
             "link": "/*.md"

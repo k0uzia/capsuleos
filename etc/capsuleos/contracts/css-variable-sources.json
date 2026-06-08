@@ -12,7 +12,8 @@
     "usr/share/capsuleos/themes/clusters/toolkit-kde/variables.css",
     "usr/share/capsuleos/themes/linux/variables-linux.css",
     "usr/share/capsuleos/themes/linux/variables-linux-computed.css",
-    "usr/share/capsuleos/themes/linux/variables-apps.css"
+    "usr/share/capsuleos/themes/linux/variables-apps.css",
+    "usr/share/capsuleos/themes/linux/gnome-app-csd.base.css"
   ],
   "scanGlobs": [
     "usr/share/capsuleos/themes/kernels/**/*.css",

@@ -12,10 +12,15 @@
 
 1. `common/user-home.js` (déjà requis pour le FS `home/public`)
 2. `terminal/config/command-registry.js`
-3. Profil distro (`config/profiles/linux/debian.js`, etc.)
-4. `terminal-profile.js`, `terminal-core.js`
+3. **`terminal/config/command-core.js`** — noyau partagé (32 cmd)
+4. **`terminal/config/terminal-profile-builder.js`**
+5. Profil famille (`config/profiles/linux/debian.js`, `redhat.js`, `suse.js`…)
+6. **`terminal/config/terminal-vendor-extensions.js`** — singularités vendor (ex. `cinnamon` sur Mint)
+7. `terminal-profile.js`, **`terminal-bashrc.js`**, `terminal-core.js`
+
+Contrat et procédure : `etc/capsuleos/contracts/terminal-commands.json` · `root/docs/procedure-terminal-commandes.md`
 5. **`common/terminal-completion.js`**, puis **`common/terminal-editors.js`** ← avant `terminal.js` et `executeCommand.js`
-6. `terminal.js`, `executeCommand.js`, `filesystem.js`, `virtual-shell.js`, `manuel.js`
+6. `terminal.js`, **`terminal-shell-parse.js`**, **`terminal-package-managers.js`**, `executeCommand.js`, `filesystem.js`, `virtual-shell.js`, `manuel.js`
 7. (optionnel) `terminal-konsole-chrome.js` après `terminal.js` — skins Konsole : `opensuse`, `mx-kde`, `debian-kde` (colorise le prompt actif + l’historique ; barre d’outils décorative)
 
 ### Konsole (Plasma)
@@ -29,7 +34,7 @@ Les trois skins KDE partagent le gabarit `terminal.html` (toolbar Konsole). **De
 
 ## Linux (8 skins + facades `OS/linux/families/`)
 
-Profils : `linux:debian`, `linux:redhat`, `linux:suse`, `linux:arch` — tous incluent `nano` et `vim`.
+Profils : `linux:debian`, `linux:redhat`, `linux:suse`, `linux:arch` — noyau commun + extensions famille ; `nano`/`vim` dans le noyau.
 
 `executeCommand.js` délègue à `CapsuleTerminalEditors.prepareCommand` ; `terminal.js` monte l’overlay in-terminal.
 

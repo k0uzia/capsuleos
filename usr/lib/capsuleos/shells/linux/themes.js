@@ -369,6 +369,16 @@ if (typeof window !== 'undefined') {
             return;
         }
         handleGnomeSettingsWindowOpened(event.detail.container);
+        if (document.body && document.body.id === 'mint') {
+            initThemesApp();
+            const panelId = consumePendingGnomeSettingsPanel(null);
+            if (panelId === 'background') {
+                const section = document.querySelector('[data-mint-wallpaper-section]');
+                if (section) {
+                    window.setTimeout(() => section.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 60);
+                }
+            }
+        }
     });
     document.addEventListener('capsule:gnome-theme-changed', () => {
         const root = document.querySelector('#themes #themesApp');
@@ -424,7 +434,7 @@ if (typeof window !== 'undefined') {
     if (isGnomeShell && typeof storage.applyAccentColor === 'function') {
         storage.applyAccentColor(storage.readSavedAccent());
     }
-    if (isGnomeShell && typeof storage.applyWallpaper === 'function') {
+    if ((isGnomeShell || bodyId === 'mint') && typeof storage.applyWallpaper === 'function') {
         storage.applyWallpaper(storage.readSavedWallpaper(), bodyId);
     }
     if (isGnomeShell && typeof storage.applyGnomeShellPreferences === 'function') {

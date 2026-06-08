@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-06-04T10:36:34.507Z",
+  "generatedAt": "2026-06-08T07:01:04.999Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
     "checklist",
     "drawing",
+    "file_roller",
     "firefox",
     "lecteur_multimedia",
     "librewriter",
@@ -99,7 +100,7 @@
       "panel": false,
       "tray": false,
       "note": "Popover horloge",
-      "fichiers": "calendar-popover.js (shell)",
+      "fichiers": "apps/calendar.html",
       "rangReproduction": 1
     },
     {
@@ -116,7 +117,7 @@
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/baobab.html"
+      "fichiers": "apps/baobab.html"
     },
     {
       "ordreAlpha": "Applets",
@@ -586,7 +587,7 @@
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/file_roller.html",
+      "fichiers": "apps/file_roller.html · Mint/style/apps/file_roller.skin.css",
       "rangReproduction": 8
     },
     {
@@ -961,7 +962,7 @@
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/system_monitor.html",
+      "fichiers": "apps/system_monitor.html",
       "rangReproduction": 15
     },
     {
@@ -1673,7 +1674,7 @@
       "panel": false,
       "tray": false,
       "note": "Popover horloge",
-      "fichiers": "calendar-popover.js (shell)",
+      "fichiers": "apps/calendar.html",
       "rangReproduction": 1
     },
     {
@@ -1792,7 +1793,7 @@
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/file_roller.html",
+      "fichiers": "apps/file_roller.html · Mint/style/apps/file_roller.skin.css",
       "rangReproduction": 8
     },
     {
@@ -1911,7 +1912,7 @@
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/system_monitor.html",
+      "fichiers": "apps/system_monitor.html",
       "rangReproduction": 15
     },
     {

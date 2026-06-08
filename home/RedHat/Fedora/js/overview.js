@@ -1,5 +1,5 @@
-(function initRockyOverview() {
-    const shell = document.getElementById('rocky');
+(function initFedoraOverview() {
+    const shell = document.getElementById('fedora');
     const trigger = document.querySelector('.fedora-overview-trigger');
     const overview = document.querySelector('.fedora-overview');
     const searchForm = overview ? overview.querySelector('[data-overview-search-form]') : null;
@@ -39,7 +39,7 @@
             label: 'Firefox',
             aliases: ['navigateur', 'browser', 'web', 'internet'],
             description: 'Navigateur web',
-            icon: './assets/images/toolkits/gnome/apps/firefox.png',
+            icon: './assets/images/toolkits/gnome/apps/firefox.webp',
             dataLink: 'firefox'
         },
         {
@@ -170,10 +170,14 @@
         if (isOpen) {
             setOverviewMode(mode);
             window.setTimeout(() => {
+                if (window.CapsuleGnomeWorkspaces
+                    && typeof window.CapsuleGnomeWorkspaces.refreshWorkspacePreviews === 'function') {
+                    window.CapsuleGnomeWorkspaces.refreshWorkspacePreviews();
+                }
                 if (searchInput) {
                     searchInput.focus();
                 }
-            }, 0);
+            }, 80);
         } else {
             clearSearch(false);
             setOverviewMode('workspace');
@@ -183,6 +187,20 @@
     const toggleOverview = () => {
         const isOpen = shell.classList.contains('is-overview');
         setOverview(!isOpen, 'workspace');
+    };
+
+    const isTypingTarget = (target) => {
+        if (!target) {
+            return false;
+        }
+        const tag = target.tagName;
+        return tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable;
+    };
+
+    window.CapsuleGnomeOverview = {
+        setOverview,
+        toggleOverview,
+        isOpen: () => shell.classList.contains('is-overview'),
     };
 
     trigger.setAttribute('aria-pressed', 'false');
@@ -196,6 +214,9 @@
     const openOverviewLink = (linkId) => {
         if (!linkId) {
             return;
+        }
+        if (linkId === 'themes' && typeof window.setCapsuleSettingsPanel === 'function') {
+            window.setCapsuleSettingsPanel('wifi');
         }
         const target = getLaunchTarget(linkId);
         setOverview(false, 'workspace');
@@ -339,6 +360,11 @@
     });
 
     document.addEventListener('keydown', (event) => {
+        if (event.key === 'Meta' && !event.repeat && !event.ctrlKey && !event.altKey && !isTypingTarget(event.target)) {
+            event.preventDefault();
+            toggleOverview();
+            return;
+        }
         if (event.key === 'Escape' && shell.classList.contains('is-overview')) {
             if (searchInput && searchInput.value.trim()) {
                 event.preventDefault();

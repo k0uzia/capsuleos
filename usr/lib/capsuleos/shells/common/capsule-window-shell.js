@@ -306,31 +306,77 @@
         });
     }
 
+    function bindFocusForWindow(windowElement) {
+        if (!windowElement || windowElement.dataset.capsuleFocusBound === 'true') {
+            return;
+        }
+        windowElement.dataset.capsuleFocusBound = 'true';
+        windowElement.addEventListener('mousedown', () => {
+            if (!isHidden(windowElement)) {
+                activateWindow(windowElement);
+                if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
+                    document.dispatchEvent(new CustomEvent('capsule:window-focused', {
+                        detail: {
+                            container: windowElement,
+                            slotId: windowElement.dataset.link,
+                        },
+                    }));
+                }
+            }
+        });
+    }
+
     function bindFocusOnMousedown() {
         const winSelector = config.windowSelector || '.windowElement';
         const desktop = document.querySelector('object#desktop, #desktop');
         const windows = desktop && typeof desktop.querySelectorAll === 'function'
             ? desktop.querySelectorAll(winSelector)
             : document.querySelectorAll(winSelector);
-        windows.forEach((windowElement) => {
-            if (windowElement.dataset.capsuleFocusBound === 'true') {
-                return;
+        windows.forEach(bindFocusForWindow);
+    }
+
+    function openWindowContainer(container, slotId, link) {
+        if (!container) {
+            return false;
+        }
+        const launcher = link || {
+            dataset: { link: slotId },
+            classList: { add() {}, remove() {} },
+        };
+
+        showContainer(container, slotId);
+
+        if (typeof config.beforeOpen === 'function') {
+            config.beforeOpen(container, slotId, launcher);
+        }
+
+        if (!shouldSkip(slotId, container)) {
+            applyChromeAndInteraction(container, slotId);
+            const windowTitle = container.querySelector('#windowTitle');
+            if (windowTitle) {
+                windowTitle.textContent = resolveTitle(slotId, launcher);
             }
-            windowElement.dataset.capsuleFocusBound = 'true';
-            windowElement.addEventListener('mousedown', () => {
-                if (!isHidden(windowElement)) {
-                    activateWindow(windowElement);
-                    if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
-                        document.dispatchEvent(new CustomEvent('capsule:window-focused', {
-                            detail: {
-                                container: windowElement,
-                                slotId: windowElement.dataset.link,
-                            },
-                        }));
-                    }
-                }
-            });
-        });
+        }
+
+        if (typeof config.onOpen === 'function') {
+            config.onOpen(container, slotId, launcher);
+        }
+
+        activateWindow(container);
+
+        if (typeof config.afterOpen === 'function') {
+            config.afterOpen(container, slotId, launcher);
+        }
+
+        if (typeof document !== 'undefined' && typeof CustomEvent === 'function') {
+            document.dispatchEvent(new CustomEvent('capsule:window-opened', {
+                detail: { container: container, slotId: slotId },
+            }));
+            document.dispatchEvent(new CustomEvent('capsule:window-focused', {
+                detail: { container: container, slotId: slotId },
+            }));
+        }
+        return true;
     }
 
     function openByDataLink(dataLink) {
@@ -374,8 +420,10 @@
         init: init,
         handleOpen: handleOpen,
         openByDataLink: openByDataLink,
+        openWindowContainer: openWindowContainer,
         resolveWindowSlot: resolveWindowSlot,
         activateWindow: activateWindow,
+        bindFocusForWindow: bindFocusForWindow,
         ensureMacHeader: ensureMacHeader,
         applyChromeAndInteraction: applyChromeAndInteraction,
     };

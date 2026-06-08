@@ -99,7 +99,7 @@ Contenu τ :
 
 1. **Documentation officielle** — vendor (Rocky release notes), toolkit (GNOME Help, HIG), à confronter (`matchesObservation`, `delta`).
 2. **VM lab** — sonde SSH, écarts issus inventaire / enquête visuelle.
-3. **Interactions agents** — notes pour la passe **H5** minimale (`nextH5[]`).
+3. **Interactions agents** — notes pour la passe **H5** minimale (`nextH5[]`) ; vérifier **Rv** (rafraîchissement vues) sur chaque action documentée — [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md).
 4. **Règle** : VM prime sur doc ; écarts P0 bloquants avant merge skin.
 
 Modèle : [`_template-playbook-tail.json`](inventaires/_template-playbook-tail.json).

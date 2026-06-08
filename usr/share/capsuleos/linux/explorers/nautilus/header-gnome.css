@@ -54,6 +54,8 @@ div[data-link="nemo"] main.nautilus-app--n47 > #nautilus-tabstrip {
     flex-flow: row nowrap;
     align-items: stretch;
     gap: 0;
+    width: 100%;
+    min-width: 0;
     min-height: var(--nautilus-tabstrip-h, 2.125rem);
     padding: 0;
     border-bottom: 1px solid var(--nemo-toolbar-border, rgba(0, 0, 0, 0.08));
@@ -77,11 +79,13 @@ div[data-link="nemo"] main.nautilus-app--n47:has(#nautilus-tabstrip:empty) > #ne
 }
 
 .nautilus-app--n47 .nautilus-app__tab {
-    display: inline-flex;
+    display: flex;
+    flex: 1 1 0;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.4rem;
     min-width: 0;
-    max-width: 14rem;
+    max-width: none;
     height: 100%;
     padding: 0 0.85rem;
     border: 0;
@@ -93,6 +97,14 @@ div[data-link="nemo"] main.nautilus-app--n47:has(#nautilus-tabstrip:empty) > #ne
     font-weight: 600;
     cursor: default;
     white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.nautilus-app--n47 .nautilus-app__tab > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .nautilus-app--n47 .nautilus-app__tab.has-separator {
@@ -106,6 +118,7 @@ div[data-link="nemo"] main.nautilus-app--n47:has(#nautilus-tabstrip:empty) > #ne
 
 .nautilus-app--n47 .nautilus-app__tab-close {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     width: 1.15rem;
@@ -270,28 +283,30 @@ main#gestionnaire.nautilus-app--n47 > #nemoMainContainer > .nautilus-app__conten
 /* voletContainer n’est plus enfant direct de #nemoMainContainer — rétablir la vue grille (row wrap) */
 main#gestionnaire.nautilus-app--n47 #voletContainer,
 div[data-link="nemo"] main.nautilus-app--n47 #voletContainer {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    justify-content: flex-start;
+    position: relative;
+    display: block;
     flex: 1 1 auto;
     width: 100%;
     min-width: 0;
     min-height: 0;
-    height: auto;
+    height: 100%;
     margin: 0;
     overflow: hidden;
 }
 
+main#gestionnaire.nautilus-app--n47 #voletContainer > .nautilus-search-empty,
 main#gestionnaire.nautilus-app--n47 #voletContainer > .nemoElement,
 main#gestionnaire.nautilus-app--n47 #voletContainer > section.nemo-app__content-grid,
-div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemoElement {
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nautilus-search-empty,
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemoElement,
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > section.nemo-app__content-grid {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
-    flex: 1 1 auto;
     width: 100%;
     min-width: 0;
     min-height: 0;
@@ -299,6 +314,23 @@ div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemoElement {
     margin: 0;
     overflow: auto;
     box-sizing: border-box;
+}
+
+main#gestionnaire.nautilus-app--n47 #voletContainer > .nautilus-search-empty,
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nautilus-search-empty {
+    flex-flow: column nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+main#gestionnaire.nautilus-app--n47 #voletContainer > .nautilus-search-empty[hidden],
+main#gestionnaire.nautilus-app--n47 #voletContainer > .nemoElement[hidden],
+main#gestionnaire.nautilus-app--n47 #voletContainer > section.nemo-app__content-grid[hidden],
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nautilus-search-empty[hidden],
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > .nemoElement[hidden],
+div[data-link="nemo"] main.nautilus-app--n47 #voletContainer > section.nemo-app__content-grid[hidden] {
+    display: none !important;
 }
 
 main#gestionnaire.nautilus-app--n47 #voletContainer > .nemo-app__content-grid--list,
@@ -342,18 +374,23 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     position: relative;
     display: flex;
     flex: 1 1 auto;
-    align-items: center;
+    align-items: stretch;
+    align-self: stretch;
     min-width: 0;
+    min-height: var(--nautilus-path-h, 2.125rem);
 }
 
 .nautilus-app--n47 .nautilus-app__path-crumbbar {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 1;
     display: flex;
-    flex: 1 1 auto;
+    flex: none;
     align-items: center;
     justify-content: center;
+    width: 100%;
     min-width: 0;
+    margin: 0;
 }
 
 .nautilus-app--n47 .nautilus-app__path-crumbbar[hidden] {
@@ -484,12 +521,14 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    flex: 1 1 auto;
     gap: 0.65rem;
-    min-height: 18rem;
+    min-height: 0;
+    height: 100%;
     padding: 2.5rem 1.5rem 4rem;
     text-align: center;
     background: var(--nemo-bg-primary, #fff);
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 .nautilus-app--n47 .nautilus-search-empty[hidden] {
@@ -546,10 +585,11 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
 }
 
 .nautilus-app--n47 #voletContainer {
-    display: flex;
-    flex-flow: column nowrap;
+    position: relative;
+    display: block;
     flex: 1 1 auto;
     min-height: 0;
+    height: 100%;
 }
 
 .nautilus-app--n47 .nautilus-folder-empty {
@@ -692,7 +732,71 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 0.65rem;
+}
+
+.nautilus-app--n47 .nautilus-context-menu__icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    opacity: 0.92;
+    object-fit: contain;
+}
+
+.nautilus-app--n47 .nautilus-context-menu__icon--spacer {
+    display: inline-block;
+    width: 1rem;
+    flex: 0 0 1rem;
+}
+
+.nautilus-app--n47 .nautilus-context-menu__label {
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+.nautilus-app--n47 .nemo-app__item--renaming {
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.nautilus-app--n47 .nemo-app__item-rename-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    max-width: 100%;
+}
+
+.nautilus-app--n47 .nemo-app__item-rename-input {
+    box-sizing: border-box;
+    min-width: 4.5rem;
+    max-width: min(100%, 14rem);
+    margin: 0;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--nemo-accent, #3584e4);
+    border-radius: 0.25rem;
+    background: var(--nemo-bg-primary, #fff);
+    color: var(--nemo-text-primary, #1e1e1e);
+    font: inherit;
+    line-height: 1.35;
+    outline: none;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--nemo-accent, #3584e4) 35%, transparent);
+}
+
+.nautilus-app--n47 .nemo-app__content-grid > a.nemo-app__item--renaming {
+    background: var(--nemo-item-active-bg, rgba(53, 132, 228, 0.16));
+    border-radius: 0.5rem;
+}
+
+.nautilus-app--n47 .nemo-app__item-rename-suffix {
+    opacity: 0.85;
+    font: inherit;
+    white-space: nowrap;
+}
+
+.nautilus-app--n47 .nemo-app__list-header + .nemoElement a.nemo-app__item--renaming .nemo-app__item-rename-input,
+.nautilus-app--n47 .nemo-app__content-grid--list a.nemo-app__item--renaming .nemo-app__item-rename-input {
+    max-width: 100%;
+    width: 100%;
 }
 
 .nautilus-app--n47 .nautilus-context-menu__item kbd {
@@ -709,15 +813,59 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     display: none;
 }
 
-.nautilus-app--n47 .nemo-app__content-grid > a:hover,
-.nautilus-app--n47 .nemo-app__content-grid > a:focus-visible {
-    background: var(--nemo-content-hover-bg, rgba(0, 0, 0, 0.04));
+.nautilus-app--n47 .nemo-app__content-grid > a {
+    box-sizing: border-box;
+    max-width: 7.5rem;
+    padding: 0.35rem 0.25rem;
+    border: 1px solid transparent;
     border-radius: 0.5rem;
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nautilus-app--n47 .nemo-app__content-grid > a .nemo-app__item-name {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.nautilus-app--n47 .nemo-app__content-grid--list > a {
+    max-width: none;
+    width: 100%;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nautilus-app--n47 .nemo-app__content-grid--list > a .nemo-app__item-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+}
+
+.nautilus-app--n47 .nemo-app__content-grid > a:hover:not(.nemo-app__item--selected):not(.nemo-app__item--renaming) {
+    background: var(--nemo-content-hover-bg, rgba(0, 0, 0, 0.04));
 }
 
 .nautilus-app--n47 .nemo-app__content-grid > a.nemo-app__item--selected {
     background: var(--nemo-item-active-bg, rgba(53, 132, 228, 0.16));
-    border-radius: 0.5rem;
+}
+
+.nautilus-app--n47 .nemo-app__content-grid > a:focus-visible {
+    border-color: var(--nemo-focus-ring, rgba(53, 132, 228, 0.55));
+    box-shadow: 0 0 0 1px var(--nemo-focus-ring, rgba(53, 132, 228, 0.35));
+}
+
+.nautilus-app--n47 .nemo-app__content-grid > a.nemo-app__item--selected:focus-visible {
+    background: var(--nemo-item-active-bg, rgba(53, 132, 228, 0.16));
+    border-color: var(--nemo-focus-ring-strong, rgba(53, 132, 228, 0.85));
+    box-shadow: 0 0 0 2px var(--nemo-focus-ring, rgba(53, 132, 228, 0.45));
 }
 
 .nautilus-app--n47 .nautilus-info-dialog {
@@ -886,15 +1034,18 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
 }
 
 .nautilus-app--n47 .nautilus-app__search-field {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 1;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    flex: 1 1 auto;
+    flex: none;
     gap: 0.25rem;
+    width: 100%;
     min-width: 0;
-    height: var(--nautilus-path-h, 2.125rem);
+    height: 100%;
+    margin: 0;
     padding: 0 0.35rem 0 0.5rem;
     border: 1px solid var(--nemo-pathbar-border, rgba(0, 0, 0, 0.1));
     border-radius: var(--nautilus-corner, 0.5rem);
@@ -910,6 +1061,12 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     filter: var(--nemo-toolbar-icon-filter, none);
 }
 
+.nautilus-app--n47 .nautilus-app__search-field:focus-within {
+    border-color: var(--nemo-pathbar-border, rgba(0, 0, 0, 0.1));
+    box-shadow: none;
+    outline: none;
+}
+
 .nautilus-app--n47 .nautilus-app__search-input {
     flex: 1 1 auto;
     min-width: 0;
@@ -922,6 +1079,24 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     font: inherit;
     font-size: 0.8125rem;
     outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.nautilus-app--n47 .nautilus-app__search-input:focus,
+.nautilus-app--n47 .nautilus-app__search-input:focus-visible {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.nautilus-app--n47 .nautilus-app__search-input::-webkit-search-decoration,
+.nautilus-app--n47 .nautilus-app__search-input::-webkit-search-cancel-button,
+.nautilus-app--n47 .nautilus-app__search-input::-webkit-search-results-button,
+.nautilus-app--n47 .nautilus-app__search-input::-webkit-search-results-decoration {
+    display: none;
+    -webkit-appearance: none;
 }
 
 .nautilus-app--n47 .nautilus-app__search-input::placeholder {

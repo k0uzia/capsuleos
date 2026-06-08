@@ -62,9 +62,15 @@ Distros `toolkit: gnome` : charger **`gnome-hig-replication`** + [gnome-hig-ress
 
 Distros `toolkit: kde` : charger **`kde-hig-replication`** + [kde-hig-ressources.md](../../docs/kde-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/kde-hig-resources.json`. Branche : [branche-plasma-kde.md](../../docs/branche-plasma-kde.md).
 
+## Manifeste distribution (tous vendors Linux)
+
+Avant import assets massif : skill **`vm-distribution-manifest`** → `run-manifest-replication-chain.mjs --id <registryId>`.  
+Sorties : `proc/<id>/distribution-manifest.json`, playbook, staging → `usr/share/capsuleos/assets/` via `manifest.media.iconPack`.
+
 ## Ajouter une distro / version / vendor
 
-Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md). Gate : `validate-all.mjs`.
+Avant toute création : skill `onboarding` → [ajouter-os-scalable.md](../../docs/ajouter-os-scalable.md).  
+Scaffold catalogue : `ensure-vm-manifest-vendor.mjs --write`. Gate : `validate-all.mjs`.
 
 ## Rôles fréquents
 

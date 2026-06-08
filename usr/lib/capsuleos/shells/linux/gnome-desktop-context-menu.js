@@ -60,6 +60,15 @@
                     if (typeof global.openWindowByDataLink === 'function') {
                         global.openWindowByDataLink('themes');
                     }
+                    return;
+                }
+                if (action === 'change-background') {
+                    if (typeof global.setCapsuleSettingsPanel === 'function') {
+                        global.setCapsuleSettingsPanel('background');
+                    }
+                    if (typeof global.openWindowByDataLink === 'function') {
+                        global.openWindowByDataLink('themes');
+                    }
                 }
             });
         });

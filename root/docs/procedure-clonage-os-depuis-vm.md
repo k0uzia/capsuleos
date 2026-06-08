@@ -6,6 +6,7 @@ Objectif : reproduire de façon **fidèle et documentée** un environnement de b
 |---------|-----------------|------------------|
 | **Cinnamon** | Linux Mint (`linux-mint`) | Ce document (modèle historique) |
 | **GNOME / RHEL** | Rocky Linux (`linux-rocky`) | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) · [branche-redhat-gnome.md](branche-redhat-gnome.md) |
+| **GNOME / Ubuntu** | Ubuntu (`linux-ubuntu`) | [procedure-lab-linux-ubuntu-gnome.md](procedure-lab-linux-ubuntu-gnome.md) · dock Yaru · profil terminal `debian` |
 
 > **Contrat agent (résumé imposé)** : [convention-reproduction-os.md](convention-reproduction-os.md) — concepts, workflow, CSS/JS. Skill : [`os-clone-from-vm`](../skills/os-clone-from-vm/SKILL.md).
 

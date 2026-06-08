@@ -11,12 +11,28 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
 const PLAYBOOK = path.join(ROOT, 'root/tools/lab/vm-gnome-settings-playbook.sh');
-const MATRIX = path.join(ROOT, 'root/tools/lab/gnome-settings-parity-matrix.json');
+
+const resolveParityMatrix = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-parity-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-parity-matrix.json');
+};
+
+const resolveAssetsMatrix = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
+  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-assets-matrix-${vendor}.json`);
+  if (fs.existsSync(vendorMatrix)) return vendorMatrix;
+  return path.join(ROOT, 'root/tools/lab/gnome-settings-assets-matrix.json');
+};
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -55,10 +71,13 @@ const remoteEnv = (host) => {
   return parts.join('; ');
 };
 
-const runLocal = (panel) => {
+const runLocal = (registryId, panel) => {
+  const matrixPath = resolveParityMatrix(registryId);
+  const assetsPath = resolveAssetsMatrix(registryId);
   const env = {
     ...process.env,
-    CAPSULE_SETTINGS_MATRIX: MATRIX,
+    CAPSULE_SETTINGS_MATRIX: matrixPath,
+    CAPSULE_SETTINGS_ASSETS_MATRIX: assetsPath,
     CAPSULE_SETTINGS_DWELL_MS: process.env.CAPSULE_SETTINGS_DWELL_MS || '800',
   };
   const args = panel ? ['--panel', panel] : [];
@@ -69,24 +88,31 @@ const runLocal = (panel) => {
   return parseJsonStdout(res.stdout || '');
 };
 
-const runOnVm = (host, panel) => {
+const runOnVm = (host, registryId, panel) => {
+  const matrixPath = resolveParityMatrix(registryId);
+  const assetsPath = resolveAssetsMatrix(registryId);
   if (!fs.existsSync(PLAYBOOK)) throw new Error(`Script absent: ${PLAYBOOK}`);
-  if (!fs.existsSync(MATRIX)) throw new Error(`Matrice absente: ${MATRIX}`);
+  if (!fs.existsSync(matrixPath)) throw new Error(`Matrice absente: ${matrixPath}`);
 
-  const matrixB64 = Buffer.from(fs.readFileSync(MATRIX, 'utf8')).toString('base64');
+  const matrixB64 = Buffer.from(fs.readFileSync(matrixPath, 'utf8')).toString('base64');
+  const assetsB64 = Buffer.from(fs.readFileSync(assetsPath, 'utf8')).toString('base64');
   const playbookBody = fs.readFileSync(PLAYBOOK, 'utf8');
   const panelArg = panel ? ` --panel ${panel}` : '';
 
   const remoteScript = `
 ${remoteEnv(host)}
+export PATH=\$HOME/.local/bin:\$PATH
 MATRIX_FILE=$(mktemp /tmp/capsule-settings-matrix.XXXXXX.json)
+ASSETS_FILE=$(mktemp /tmp/capsule-assets-matrix.XXXXXX.json)
 echo '${matrixB64}' | base64 -d > "$MATRIX_FILE"
+echo '${assetsB64}' | base64 -d > "$ASSETS_FILE"
 export CAPSULE_SETTINGS_MATRIX="$MATRIX_FILE"
+export CAPSULE_SETTINGS_ASSETS_MATRIX="$ASSETS_FILE"
 export CAPSULE_SETTINGS_DWELL_MS=${process.env.CAPSULE_SETTINGS_DWELL_MS || '1400'}
 bash -s${panelArg} <<'PLAYBOOK_EOF'
 ${playbookBody}
 PLAYBOOK_EOF
-rm -f "$MATRIX_FILE"
+rm -f "$MATRIX_FILE" "$ASSETS_FILE"
 `;
 
   const at = host.ssh.indexOf('@');
@@ -167,11 +193,15 @@ const writeOutputs = (registryId, payload) => {
 
 const main = () => {
   const opts = parseArgs();
-  process.stderr.write(`=== collect-vm-gnome-settings-playbook ${opts.id}${opts.panel ? ` panel=${opts.panel}` : ''} ===\n`);
+  const matrixPath = resolveParityMatrix(opts.id);
+  process.stderr.write(
+    `=== collect-vm-gnome-settings-playbook ${opts.id}${opts.panel ? ` panel=${opts.panel}` : ''} ===\n`
+    + `Matrice : ${path.relative(ROOT, matrixPath)}\n`,
+  );
 
   const payload = opts.local
-    ? runLocal(opts.panel)
-    : runOnVm(loadHost(opts.id), opts.panel);
+    ? runLocal(opts.id, opts.panel)
+    : runOnVm(loadHost(opts.id), opts.id, opts.panel);
 
   if (payload.error) {
     throw new Error(payload.error);

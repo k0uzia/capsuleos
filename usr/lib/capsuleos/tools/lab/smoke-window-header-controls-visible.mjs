@@ -10,6 +10,7 @@ const chromePath = process.env.PLAYWRIGHT_CHROME
     || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
 const TARGETS = [
+    { id: 'rocky-terminal', url: `${BASE}/home/RedHat/Rocky/index.html`, slot: 'terminal', toolkit: 'gnome', csd: false },
     { id: 'rocky', url: `${BASE}/home/RedHat/Rocky/index.html`, slot: 'profile', toolkit: 'gnome', csd: true },
     { id: 'rocky-baobab', url: `${BASE}/home/RedHat/Rocky/index.html`, slot: 'baobab', toolkit: 'gnome', csd: true },
     { id: 'rocky-characters', url: `${BASE}/home/RedHat/Rocky/index.html`, slot: 'characters', toolkit: 'gnome', csd: true },
@@ -33,7 +34,18 @@ for (const target of TARGETS) {
     }, target.slot);
 
     await page.waitForSelector(`div[data-link="${target.slot}"]`, { state: 'visible', timeout: 15000 });
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(target.slot === 'terminal' ? 1500 : 500);
+
+    if (target.slot === 'terminal') {
+        await page.evaluate(() => {
+            for (let index = 0; index < 6; index += 1) {
+                if (typeof window.openTerminalTab === 'function') {
+                    window.openTerminalTab();
+                }
+            }
+        });
+        await page.waitForTimeout(400);
+    }
 
     await page.evaluate((slot) => {
         const win = document.querySelector(`div[data-link="${slot}"]`);
@@ -58,7 +70,8 @@ for (const target of TARGETS) {
             : win.querySelector(':scope > #windowHeader #closeBtn');
         const header = csd
             ? win.querySelector('.gnome-app__header-end, .profile-app__header, .gnome-settings__headerbar, .xed-app__menubar')
-            : win.querySelector(':scope > #windowHeader');
+            : (win.querySelector(':scope > #windowHeader')
+                || win.querySelector('.fedora-terminal-header'));
 
         if (!closeBtn || !header) {
             return { ok: false, reason: 'missing-elements' };

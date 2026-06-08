@@ -4,8 +4,8 @@
  */
 
 html:has(#ubuntu) {
-    --menu-accent: #E95420;
-    --ubuntu-bg: url("../../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png");
+    --menu-accent: #ff7800;
+    --ubuntu-bg: url("../../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp");
     --ubuntu-shell-text: #f6f7f9;
     --ubuntu-shell-border-soft: rgba(255, 255, 255, 0.1);
     --ubuntu-top-bar-height: calc(var(--head) * 0.82);
@@ -62,6 +62,7 @@ html:has(#ubuntu) {
     --ubuntu-app-field-text: #e9eef5;
     --ubuntu-app-icon-muted: #b8c8d8;
     --ubuntu-terminal-prompt: #19c37d;
+    --ubuntu-terminal-prompt-path-seg: #6cb6ff;
     --ubuntu-terminal-error: #ff7b72;
     --calendar-popover-radius: 12px;
     --calendar-popover-bg: rgba(48, 48, 48, 0.98);
@@ -87,8 +88,8 @@ html:has(#ubuntu) {
     --calendar-popover-today-hover-bg: #4a94ef;
     --calendar-popover-today-text: #ffffff;
     --calendar-popover-selected-ring: 0 0 0 2px rgba(53, 132, 228, 0.75);
-    --ubuntu-qs-accent: #E95420;
-    --ubuntu-qs-accent-hover: #f06834;
+    --ubuntu-qs-accent: #ff7800;
+    --ubuntu-qs-accent-hover: #ff8f26;
     --ubuntu-qs-panel-bg: rgba(58, 56, 56, 0.98);
     --ubuntu-qs-control-bg: rgba(255, 255, 255, 0.1);
     --ubuntu-qs-control-bg-hover: rgba(255, 255, 255, 0.14);
@@ -155,6 +156,7 @@ html[data-theme="light"]:has(#ubuntu) {
     --ubuntu-app-field-text: #1e1e1e;
     --ubuntu-app-icon-muted: #4f5f70;
     --ubuntu-terminal-prompt: #0f8b5f;
+    --ubuntu-terminal-prompt-path-seg: #1a5fb4;
     --ubuntu-terminal-error: #c01c28;
     --calendar-popover-bg: rgba(255, 255, 255, 0.98);
     --calendar-popover-border: 1px solid rgba(0, 0, 0, 0.1);

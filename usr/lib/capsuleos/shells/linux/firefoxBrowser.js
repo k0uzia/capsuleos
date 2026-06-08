@@ -529,9 +529,73 @@ function initFirefoxBrowser() {
         );
     });
 
+    browserRoot.__capsuleFirefoxSession = state;
     browserRoot.dataset.initialized = 'true';
     setBookmarksVisible(false);
     showHome('');
+}
+
+function purgeFirefoxWindowRuntime(windowElement) {
+    const root = windowElement || document.getElementById('firefox');
+    const app = root && root.querySelector('[data-firefox-app]');
+    if (!app) {
+        return;
+    }
+    delete app.__capsuleFirefoxSession;
+    delete app.dataset.initialized;
+
+    const addressInput = app.querySelector('[data-browser-address]');
+    const status = app.querySelector('[data-browser-status]');
+    const homeView = app.querySelector('[data-browser-home]');
+    const redirectView = app.querySelector('[data-browser-redirect]');
+    const redirectFrame = app.querySelector('[data-browser-redirect-frame]');
+    const tabsList = app.querySelector('[data-browser-tabs]');
+    const newtabInput = app.querySelector('[data-browser-newtab-input]');
+
+    if (addressInput) {
+        addressInput.value = '';
+    }
+    if (newtabInput) {
+        newtabInput.value = '';
+    }
+    if (status) {
+        status.hidden = true;
+        status.textContent = '';
+    }
+    if (tabsList) {
+        tabsList.innerHTML = '';
+    }
+    if (redirectFrame) {
+        redirectFrame.src = 'about:blank';
+    }
+    if (redirectView) {
+        redirectView.hidden = true;
+    }
+    if (homeView) {
+        homeView.hidden = false;
+    }
+}
+
+function reopenFirefoxWindow(windowElement) {
+    purgeFirefoxWindowRuntime(windowElement);
+    if (typeof initFirefoxBrowser === 'function') {
+        initFirefoxBrowser();
+    }
+}
+
+if (typeof window !== 'undefined'
+    && window.CapsuleWindowMemory
+    && typeof window.CapsuleWindowMemory.register === 'function') {
+    const sessionTier = (window.CapsuleMemoryConventions && window.CapsuleMemoryConventions.TIERS)
+        ? window.CapsuleMemoryConventions.TIERS.SESSION
+        : (window.CapsuleWindowMemory.TIERS && window.CapsuleWindowMemory.TIERS.SESSION);
+    window.CapsuleWindowMemory.register({
+        slotId: 'firefox',
+        tier: sessionTier || 'session',
+        resolveStorageKeys: () => [],
+        purgeRuntime: purgeFirefoxWindowRuntime,
+        onReopen: reopenFirefoxWindow,
+    });
 }
 
 window.initFirefoxBrowser = initFirefoxBrowser;

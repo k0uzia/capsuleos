@@ -18,13 +18,13 @@ const TARGETS = [
         out: path.join(ROOT, 'home/RedHat/Fedora/style/gnome-workstation.css'),
         header: '/**\n * Fedora Workstation — coque GNOME (structure Rocky).\n */\n',
         rootBlock: `#${'fedora'} {
-    --linux-skin-label: "Fedora Linux";
+    --linux-skin-label: "Fedora Linux 44";
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
-    --fedora-bg: linear-gradient(155deg, #2b4a7a 0%, #1e3d66 32%, #122a4a 58%, #0a1628 100%);
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-night.webp");
     --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);`,
         dockDisplay: 'none',
-        lightThemeBg: null
+        lightThemeBg: 'url("../../../../usr/share/capsuleos/assets/images/vendors/fedora/wallpaper/f44-01-day.webp")',
     },
     {
         id: 'alma',
@@ -44,18 +44,19 @@ const TARGETS = [
         id: 'ubuntu',
         bodyId: 'ubuntu',
         out: path.join(ROOT, 'home/Debian/Ubuntu/style/gnome-workstation.css'),
-        header: '/**\n * Ubuntu 25.10 — coque GNOME (structure Rocky, dock Unity).\n */\n',
+        header: '/**\n * Ubuntu 26.04 LTS — coque GNOME (branche Debian, dock latéral).\n */\n',
         rootBlock: `#${'ubuntu'} {
-    --linux-skin-label: "Ubuntu 25.10";
+    --linux-skin-label: "Ubuntu 26.04 LTS";
     --ubuntu-dock-gap: calc(var(--head) / 11);
     --ubuntu-dock-item: calc(var(--head) * 1.02);
-    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.png) center/cover no-repeat;
+    --ubuntu-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp) center/cover no-repeat;
     --gnome-shell-taskbar-bg: var(--ubuntu-top-bar-bg);`,
         dockDisplay: 'flex',
-        lightThemeBg: null,
+        lightThemeBg: 'url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.webp") center/cover no-repeat',
         varMap: [
             ['--fedora-dock-', '--ubuntu-dock-'],
             ['--fedora-top-bar-', '--ubuntu-top-bar-'],
+            ['--fedora-bg:', '--ubuntu-bg:'],
             ['var(--fedora-dock-width)', 'var(--ubuntu-dock-width)'],
             ['var(--fedora-top-bar-height)', 'var(--ubuntu-top-bar-height)'],
             ['var(--fedora-bg)', 'var(--ubuntu-bg)'],
@@ -80,7 +81,10 @@ function buildForTarget(target, sourceText) {
     }
 
     if (target.rootBlock) {
-        css = css.replace(/#[a-z]+ \{[\s\S]*?--mint-taskbar-bg:[^;]+;/m, target.rootBlock);
+        css = css.replace(
+            /#[a-z]+ \{[\s\S]*?--gnome-shell-taskbar-bg:[^;]+;/m,
+            target.rootBlock,
+        );
     }
 
     if (target.dockDisplay) {
@@ -92,6 +96,21 @@ function buildForTarget(target, sourceText) {
 
     if (target.id === 'ubuntu') {
         css = css.replace('--mint-taskbar-bg: var(--ubuntu-top-bar-height);', '--mint-taskbar-bg: var(--ubuntu-top-bar-bg);');
+    }
+
+    if (target.lightThemeBg) {
+        const bgProp = target.id === 'ubuntu' ? '--ubuntu-bg' : '--fedora-bg';
+        const lightRe = new RegExp(
+            `html\\[data-theme="light"\\]:has\\(#${target.bodyId}\\) #${target.bodyId} \\{\\n    --(?:fedora|ubuntu)-bg: url\\("[^"]+"\\);`,
+        );
+        css = css.replace(
+            lightRe,
+            `html[data-theme="light"]:has(#${target.bodyId}) #${target.bodyId} {\n    ${bgProp}: ${target.lightThemeBg}`,
+        );
+    }
+
+    if (target.id === 'fedora') {
+        css = css.split('--rocky-watermark').join('--fedora-watermark');
     }
 
     return `${target.header}${css.trim()}\n`;

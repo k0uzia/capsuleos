@@ -1,7 +1,7 @@
 # Paradigme toolkit Cinnamon — Linux Mint
 
 > **Statut** : référence architecturale pour le skin `linux-mint`.  
-> Complète [contrib.md § Cinnamon](../../contrib.md#5-cinnamon--linux-mint) et [politique-assets.md](politique-assets.md).
+> Vue multi-DE : [paradigme-toolkit-de.md](paradigme-toolkit-de.md) · Complète [contrib.md § Cinnamon](../../contrib.md#5-cinnamon--linux-mint) et [politique-assets.md](politique-assets.md).
 
 Linux Mint n’utilise **pas** GNOME Shell. Le bureau est **Cinnamon** (Muffin WM, Nemo, mint-* apps). CapsuleOS modélise cela comme un toolkit distinct de `gnome`.
 

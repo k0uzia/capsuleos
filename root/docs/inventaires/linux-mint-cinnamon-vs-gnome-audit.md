@@ -115,12 +115,26 @@ Commande sync : `node usr/lib/capsuleos/tools/linux/sync-cinnamon-app-icons.mjs`
 
 ---
 
-## 7. Validation post-patch
+## 7. Cloisonnement multi-DE (2026-06-08)
+
+Audit étendu Rocky/Ubuntu/KDE + réparation menu contextuel Nautilus GNOME (régression `00816fb`) :
+
+- Matrice DE : [paradigme-toolkit-de.md](../paradigme-toolkit-de.md)
+- Rapport cloisonnement : [toolkit-cloisonnement-audit.md](toolkit-cloisonnement-audit.md)
+- Fix : `fileExplorerContextMenu.js` — dispatch `bindNautilusGnomeContextMenu` (Rocky/Ubuntu) vs `bindNemoContextMenu` (Mint)
+
+**Cause Rocky** : le passage Mint v2 a remplacé le menu Nautilus HTML (`#nemo-context-menu`) par le menu Nemo dynamique sans garde toolkit.
+
+---
+
+## 8. Validation post-patch
 
 ```bash
+node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --all
 node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-mint
 node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id linux-mint
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
+node usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-interactions.mjs --profile=linux-rocky
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 node usr/lib/capsuleos/tools/lab/run-capsule-panel-browser.mjs
 ```

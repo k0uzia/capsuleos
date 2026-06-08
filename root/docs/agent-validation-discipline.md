@@ -86,12 +86,16 @@ Ordre **obligatoire** avant push / merge d’un lot skin ou noyau interactif :
 4. **Checkpoints post-clonage** (P0 skin VM) :
 
    ```bash
-   node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id linux-mint
+   node usr/lib/capsuleos/tools/validate-clone-checkpoints.mjs --tier P0
+   # ou : validate-clone-assets.mjs --all --tier P0
    python3 -m http.server 5500 --bind 127.0.0.1   # autre terminal
-   node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-mint
+   node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-mint --write-baseline
+   node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-mint --compare
    ```
 
    Matrice : **assets checkpoint** (existence + hash optionnel `--hash`) → **capture checkpoint** (panel, menu, bureau, 3 apps) → parité lab si VM disponible.
+
+   **CI** : `.github/workflows/validate-capsuleos.yml` — `validate-all` + `validate-clone-checkpoints --tier P0`. Option locale : `CAPSULE_VALIDATE_CLONE=1 node usr/lib/capsuleos/tools/validate-all.mjs`.
 
 5. **Gate release** :
 

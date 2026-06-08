@@ -466,6 +466,11 @@ const SLOT_INIT_HANDLERS = {
             initFileRollerApp();
         }
     },
+    mintdrivers: () => {
+        if (typeof initMintDriversApp === 'function') {
+            initMintDriversApp();
+        }
+    },
     text_editor: () => {
         if (typeof initTextEditorApp === 'function') {
             initTextEditorApp();

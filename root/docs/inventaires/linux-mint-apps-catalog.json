@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T07:47:58.398Z",
+  "generatedAt": "2026-06-08T07:52:13.910Z",
   "vmAppCount": 101,
   "capsuleSlots": [
     "calculator",
@@ -10,6 +10,7 @@
     "lecteur_multimedia",
     "librewriter",
     "mainMenu",
+    "mintdrivers",
     "nemo",
     "profile",
     "screenshot",
@@ -630,14 +631,14 @@
       "desktop": "mintdrivers.desktop",
       "priorite": "P1",
       "slotCapsule": "mintdrivers",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/mintdrivers.html",
+      "fichiers": "apps/mintdrivers.html · Mint/style/apps/mintdrivers.skin.css",
       "rangReproduction": 10
     },
     {
@@ -1820,14 +1821,14 @@
       "desktop": "mintdrivers.desktop",
       "priorite": "P1",
       "slotCapsule": "mintdrivers",
-      "statut": "absent",
-      "glyph": "⬜",
+      "statut": "ok",
+      "glyph": "✅",
       "menuMint": false,
       "favoriBureau": false,
       "panel": false,
       "tray": false,
       "note": "",
-      "fichiers": "à créer apps/mintdrivers.html",
+      "fichiers": "apps/mintdrivers.html · Mint/style/apps/mintdrivers.skin.css",
       "rangReproduction": 10
     },
     {

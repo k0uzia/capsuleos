@@ -2,7 +2,7 @@
 
 Ground truth : VM Mint 22.3 Zena (`collect-mint-inventory.mjs`) · Registre `linux-mint`
 
-Généré : `2026-06-08T07:47:58.398Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
+Généré : `2026-06-08T07:52:13.910Z` · 101 entrées menu VM visibles · 0 entrées MENU_APPS
 
 **Procédure de reproduction** : traiter **une application par passe**, dans l’ordre du tableau « File de reproduction » ci-dessous (tri alphabétique FR), puis mettre à jour la colonne Statut.
 
@@ -35,7 +35,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | 7 | Firefox | firefox.desktop | firefox | ✅ | P0 |
 | 8 | Gestionnaire d'archives | org.gnome.FileRoller.desktop | file_roller | ✅ | P1 |
 | 9 | Gestionnaire de mises à jour | mintupdate-kde.desktop | update_manager | 🔶 | P0 |
-| 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ⬜ | P1 |
+| 10 | Gestionnaire de pilotes | mintdrivers.desktop | mintdrivers | ✅ | P1 |
 | 11 | Lecteur vidéo | io.github.celluloid_player.Celluloid.desktop | lecteur_multimedia | 🔶 | P0 |
 | 12 | LibreOffice Calc | libreoffice-calc.desktop | librecalc | ⬜ | P1 |
 | 13 | LibreOffice Writer | libreoffice-writer.desktop | librewriter | 🔶 | P0 |
@@ -99,7 +99,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 | Gestionnaire d'archives | Archive Manager | org.gnome.FileRoller.desktop | file_roller | ✅ | M |  |
 | Gestionnaire de mises à jour | Update Manager | mintupdate-kde.desktop | update_manager | 🔶 | — |  |
 | Gestionnaire de mises à jour | Update Manager | mintupdate.desktop | update_manager | 🔶 | T |  |
-| Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ⬜ | — |  |
+| Gestionnaire de pilotes | Driver Manager | mintdrivers.desktop | mintdrivers | ✅ | — |  |
 | Gestures | Gestures | cinnamon-settings-gestures.desktop | themes | 🔶 | — | Sous-panneau Paramètres système |
 | GNOME System Monitor | GNOME System Monitor | gnome-system-monitor-kde.desktop | — | ⬜ | — |  |
 | Graphics Tablet | Graphics Tablet | cinnamon-wacom-panel.desktop | — | ⬜ | — |  |
@@ -174,6 +174,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 - `lecteur_multimedia` — 🔶
 - `librewriter` — 🔶
 - `mainMenu` — 🔶
+- `mintdrivers` — ✅
 - `nemo` — ✅
 - `profile` — ✅
 - `screenshot` — ✅

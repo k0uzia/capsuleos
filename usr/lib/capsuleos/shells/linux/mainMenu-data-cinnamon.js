@@ -74,7 +74,7 @@ const MENU_APPS = [
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/cinnamon-settings-power', name: 'Gestion de l’alimentation', desc: 'Power Management', dataLink: 'themes' },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/blueman-manager', name: 'Gestionnaire Bluetooth', desc: 'Bluetooth Manager', dataLink: 'themes' },
     { catId: 'admin', icon: './assets/images/toolkits/gnome/apps/mintupdate', name: 'Gestionnaire de mise à jour', desc: 'Update Manager', dataLink: 'update_manager' },
-    { catId: 'admin', icon: './assets/images/toolkits/gnome/apps/mintdrivers', name: 'Gestionnaire de pilotes', desc: 'Driver Manager', dataLink: 'update_manager' },
+    { catId: 'admin', icon: './assets/images/toolkits/gnome/apps/mintdrivers', name: 'Gestionnaire de pilotes', desc: 'Driver Manager', dataLink: 'mintdrivers' },
     { catId: 'sonvideo', icon: './assets/images/toolkits/gnome/apps/hypnotix', name: 'Hypnotix', desc: 'Hypnotix', dataLink: null },
     { catId: 'prefs', icon: './assets/images/toolkits/gnome/apps/mintlocale', name: 'Langues', desc: 'Languages', dataLink: 'themes' },
     { catId: 'bureau', icon: './assets/images/toolkits/gnome/apps/libreoffice-startcenter', name: 'LibreOffice', desc: 'LibreOffice', dataLink: 'librewriter' },

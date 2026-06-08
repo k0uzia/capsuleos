@@ -65,6 +65,10 @@
     --win-file_roller-height: 579px;
     --win-file_roller-min-width: 600px;
     --win-file_roller-min-height: 480px;
+    --win-mintdrivers-width: 640px;
+    --win-mintdrivers-height: 480px;
+    --win-mintdrivers-min-width: 520px;
+    --win-mintdrivers-min-height: 400px;
 
     --win-visionneur_images-width: calc(var(--head) * 20);
     --win-visionneur_images-height: calc(var(--head) * 14);

@@ -13,6 +13,7 @@
         screenshot: 'Capture d\'écran',
         drawing: 'Sans titre — Dessin',
         file_roller: 'Gestionnaire d\'archives',
+        mintdrivers: 'Gestionnaire de pilotes',
     };
 
     const WINDOW_TASK_MAP = {

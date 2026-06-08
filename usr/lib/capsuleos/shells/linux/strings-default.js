@@ -74,6 +74,11 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'screenshot.windowTitle': 'Capture d\'écran',
     'drawing.windowTitle': 'Sans titre — Dessin',
     'file_roller.windowTitle': 'Gestionnaire d\'archives',
+    'mintdrivers.windowTitle': 'Gestionnaire de pilotes',
+    'mintdrivers.lookingTitle': 'Recherche de pilotes',
+    'mintdrivers.waitHint': 'Veuillez patienter…',
+    'mintdrivers.noDriversTitle': 'Aucun pilote nécessaire',
+    'mintdrivers.noDriversBody': 'Votre ordinateur n\'a besoin d\'aucun pilote supplémentaire.',
     'text_editor.windowTitle': 'Éditeur de texte',
     'clocks.windowTitle': 'Horloges',
     'calendar.windowTitle': 'Calendrier'

@@ -25,6 +25,7 @@
         screenshot: 'Capture d\'écran',
         drawing: 'Dessin',
         file_roller: 'Gestionnaire d\'archives',
+        mintdrivers: 'Gestionnaire de pilotes',
     };
 
     let overlay = null;

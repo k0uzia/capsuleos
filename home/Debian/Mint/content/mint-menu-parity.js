@@ -52,6 +52,10 @@
                 app.dataLink = 'file_roller';
                 app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.FileRoller.png';
             }
+            if (app.name === 'Gestionnaire de pilotes') {
+                app.dataLink = 'mintdrivers';
+                app.icon = './assets/images/toolkits/gnome/apps/mintdrivers';
+            }
         });
         var hasScreenshot = false;
         var ai;

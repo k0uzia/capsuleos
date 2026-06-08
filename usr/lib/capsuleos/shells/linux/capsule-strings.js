@@ -86,6 +86,7 @@ function buildWindowTitles(merged) {
         screenshot: m['screenshot.windowTitle'] || 'Capture d\'écran',
         drawing: m['drawing.windowTitle'] || 'Sans titre — Dessin',
         file_roller: m['file_roller.windowTitle'] || 'Gestionnaire d\'archives',
+        mintdrivers: m['mintdrivers.windowTitle'] || 'Gestionnaire de pilotes',
         text_editor: m['text_editor.windowTitle'] || 'Éditeur de texte',
         clocks: m['clocks.windowTitle'] || 'Horloges',
         calendar: m['calendar.windowTitle'] || 'Calendrier',

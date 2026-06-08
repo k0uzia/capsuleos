@@ -25,7 +25,7 @@ const DESKTOP_SLOT = {
   'vim.desktop': { slot: 'text_editor', catId: 'access' },
   'mintinstall.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintupdate.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintdrivers.desktop': { slot: 'update_manager', catId: 'admin' },
+  'mintdrivers.desktop': { slot: 'mintdrivers', catId: 'admin' },
   'mintbackup.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintstick.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintstick-format.desktop': { slot: 'update_manager', catId: 'admin' },

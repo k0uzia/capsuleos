@@ -5,22 +5,17 @@
     'use strict';
 
     const CATALOG_URL = './content/discover-catalog.json';
-    const DISCOVER_ASSET_BASE = '../../../usr/share/capsuleos/assets/images/vendors/neon/discover/';
-    const PANEL_ASSET_BASE = '../../../usr/share/capsuleos/assets/images/vendors/neon/panel/';
+    const DISCOVER_ASSET_BASE = './assets/images/vendors/neon/discover/';
+    const PANEL_ASSET_BASE = './assets/images/vendors/neon/panel/';
 
-    let catalogPromise = null;
-    let state = {
-        view: 'home',
-        maximized: false,
-    };
-
-    function findRoot() {
-        return document.getElementById('updateManagerApp');
-    }
-
-    function findWindowShell() {
-        const root = findRoot();
-        return root ? root.closest('.windowElement[data-link="update_manager"]') : null;
+    function resolveAssetUrl(path) {
+        if (!path) {
+            return '';
+        }
+        if (typeof resolveCapsuleResourceUrl === 'function') {
+            return resolveCapsuleResourceUrl(path);
+        }
+        return path;
     }
 
     function resolveIconUrl(app) {
@@ -29,9 +24,30 @@
         }
         if (app.iconBase === 'panel' || app.icon.indexOf('../panel/') === 0) {
             const name = app.icon.replace(/^\.\.\/panel\//, '');
-            return PANEL_ASSET_BASE + name;
+            return resolveAssetUrl(PANEL_ASSET_BASE + name);
         }
-        return DISCOVER_ASSET_BASE + app.icon;
+        return resolveAssetUrl(DISCOVER_ASSET_BASE + app.icon);
+    }
+
+    let catalogPromise = null;
+    let state = {
+        view: 'home',
+        maximized: false,
+        categoryId: 'all',
+    };
+
+    const DISCOVER_CAT_IDS = [
+        'all', 'accessibility', 'office', 'development', 'education', 'graphics',
+        'internet', 'games', 'multimedia', 'science', 'system', 'utilities', 'addons',
+    ];
+
+    function findRoot() {
+        return document.getElementById('updateManagerApp');
+    }
+
+    function findWindowShell() {
+        const root = findRoot();
+        return root ? root.closest('.windowElement[data-link="update_manager"]') : null;
     }
 
     function loadCatalog() {
@@ -179,13 +195,43 @@
         });
     }
 
+    function filterAppsForCategory(catalog, categoryId) {
+        if (!catalog || categoryId === 'all') {
+            return null;
+        }
+        const filters = catalog.categoryFilters || {};
+        const spec = filters[categoryId];
+        if (!spec || !Array.isArray(spec.appIds) || !spec.appIds.length) {
+            return [];
+        }
+        const allowed = new Set(spec.appIds);
+        const apps = [];
+        (catalog.homeSections || []).forEach((section) => {
+            (section.apps || []).forEach((app) => {
+                if (app.id && allowed.has(app.id)) {
+                    apps.push(app);
+                }
+            });
+        });
+        return apps;
+    }
+
     function renderHome(root, catalog) {
         const mount = root.querySelector('[data-discover-home-mount]');
         if (!mount || !catalog || !Array.isArray(catalog.homeSections)) {
             return;
         }
 
-        const sections = catalog.homeSections.filter((section) => !section.hidden);
+        const filteredApps = filterAppsForCategory(catalog, state.categoryId);
+        const filters = catalog.categoryFilters || {};
+        const catMeta = filters[state.categoryId];
+        const sections = filteredApps !== null
+            ? [{
+                id: state.categoryId,
+                title: catMeta && catMeta.label ? catMeta.label : 'Applications',
+                apps: filteredApps,
+            }]
+            : catalog.homeSections.filter((section) => !section.hidden);
 
         const heading = catalog.views && catalog.views.home
             ? catalog.views.home.heading
@@ -276,7 +322,7 @@
     }
 
     function renderAboutLink(link) {
-        const iconUrl = `${DISCOVER_ASSET_BASE}${link.icon}`;
+        const iconUrl = resolveAssetUrl(`${DISCOVER_ASSET_BASE}${link.icon}`);
         return `
             <button type="button" class="kde-form-delegate kde-form-delegate--link" disabled aria-disabled="true">
                 <span class="kde-form-delegate__icon" style="--kde-form-icon: url('${iconUrl}')" aria-hidden="true"></span>
@@ -319,9 +365,9 @@
             return;
         }
 
-        const logoUrl = `${DISCOVER_ASSET_BASE}plasmadiscover-48.png`;
-        const licenseIcon = `${DISCOVER_ASSET_BASE}license-symbolic.svg`;
-        const copyIcon = `${DISCOVER_ASSET_BASE}edit-copy-symbolic.svg`;
+        const logoUrl = resolveAssetUrl(`${DISCOVER_ASSET_BASE}plasmadiscover-48.png`);
+        const licenseIcon = resolveAssetUrl(`${DISCOVER_ASSET_BASE}license-symbolic.svg`);
+        const copyIcon = resolveAssetUrl(`${DISCOVER_ASSET_BASE}edit-copy-symbolic.svg`);
         const links = Array.isArray(about.links) ? about.links : [];
         const libraries = Array.isArray(about.libraries) ? about.libraries : [];
         const authors = Array.isArray(about.authors) ? about.authors : [];
@@ -464,6 +510,42 @@
         });
     }
 
+    function syncCategoryNav(root) {
+        root.querySelectorAll('.kde-updates__cat').forEach((btn) => {
+            const catId = btn.dataset.discoverCat || 'all';
+            const active = catId === state.categoryId;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+    }
+
+    function bindCategoryNav(root, catalog) {
+        if (root.dataset.discoverCatsInit === 'true') {
+            return;
+        }
+        root.dataset.discoverCatsInit = 'true';
+        root.querySelectorAll('.kde-updates__cat').forEach((btn, index) => {
+            const catId = DISCOVER_CAT_IDS[index] || 'all';
+            btn.dataset.discoverCat = catId;
+            btn.removeAttribute('disabled');
+            btn.removeAttribute('aria-disabled');
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                state.categoryId = catId;
+                state.view = 'home';
+                loadCatalog().then((nextCatalog) => {
+                    if (!nextCatalog) {
+                        return;
+                    }
+                    renderHome(root, nextCatalog);
+                    switchView(root, nextCatalog, 'home');
+                    syncCategoryNav(root);
+                });
+            });
+        });
+        syncCategoryNav(root);
+    }
+
     function bindUpdatesActions(root) {
         root.addEventListener('click', (event) => {
             const navBtn = event.target.closest('[data-discover-nav]');
@@ -498,10 +580,13 @@
 
     function bindOnce() {
         const root = findRoot();
-        if (!root || !root.classList.contains('update-manager--kde-neon') || root.dataset.discoverInit === 'true') {
+        if (!root || !root.classList.contains('update-manager--kde-neon')) {
             return false;
         }
-        root.dataset.discoverInit = 'true';
+        if (root.dataset.discoverInit === 'true') {
+            const hasCards = root.querySelector('[data-discover-home-mount] .kde-discover-card');
+            return !!hasCards;
+        }
 
         loadCatalog().then((catalog) => {
             if (!catalog) {
@@ -513,7 +598,10 @@
             renderConfig(root, catalog);
             renderAbout(root, catalog);
             switchView(root, catalog, state.view);
+            bindCategoryNav(root, catalog);
             observeWindowChrome(root);
+            syncUpdatesChrome(root, catalog);
+            root.dataset.discoverInit = 'true';
         });
 
         bindUpdatesActions(root);

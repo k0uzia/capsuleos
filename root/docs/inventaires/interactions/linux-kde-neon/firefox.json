@@ -25,8 +25,9 @@
     "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs"
   },
   "nextSteps": [
-    "Inventaire VM Firefox (toolbar détail, capture VM dédiée)",
-    "Stabiliser compare 04-firefox baseline"
+    "Compare visuel 04-firefox baseline ↔ vm-firefox.png ↔ capsule (smoke OK)",
+    "Compléter themes kdeglobals en session Plasma (collecte SSH batch vide)"
   ],
-  "notes": "Pass 4 — skin Proton + smoke exit 0 (2026-06-08). VM inventaire détaillé restant."
+  "vmInventory": "linux-kde-neon-firefox-vm.json",
+  "notes": "Pass 4 — skin Proton + smoke exit 0 (2026-06-08). Inventaire VM Firefox 151.0.3 (2026-06-08)."
 }

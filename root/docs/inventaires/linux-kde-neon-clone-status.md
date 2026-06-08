@@ -3,7 +3,7 @@
 Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depuis-vm.md) · Discipline gates : [`agent-validation-discipline.md`](../agent-validation-discipline.md)
 
 **registryId** : `linux-kde-neon` · **vendor** : `neon` · **toolkit** : `kde` / Plasma  
-**Campagne** : **v2 réouverture post-merge** (2026-06-08) — état formel : [`linux-kde-neon-replication-state.json`](linux-kde-neon-replication-state.json)
+**Campagne v3** : P0 ✅ · **Suite** : P1 — [`linux-kde-neon-roadmap.md`](linux-kde-neon-roadmap.md)
 
 **Ground truth** : [`linux-kde-neon-vm.json`](linux-kde-neon-vm.json) · [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)
 
@@ -25,15 +25,21 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] `linux-kde-neon-replication-state.json` (campagne v2)
 - [x] Cette checklist + réouverture [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)
 - [x] [`linux-kde-neon-dolphin-diff.md`](linux-kde-neon-dolphin-diff.md) — points 7–9 (interactionnel)
-- [x] `interactions/linux-kde-neon/*.json` (nemo, firefox, update_manager)
-- [ ] `linux-kde-neon-parity-index.json` (indice Π — optionnel P1)
+- [x] `interactions/linux-kde-neon/*.json` (6 slots : nemo, firefox, update_manager, mainMenu, panel, terminal)
+- [x] `linux-kde-neon-parity-index.json` (Π_global=74, campagne v3 P0)
 
-## Phase 2 — Shell (réaudit)
+## Phase P0 — Fondations v3 ✅ (2026-06-08)
+
+- [x] `linux-kde-neon-parity-index.json` + `seed-kde-neon-parity-index.mjs`
+- [x] Interactions `mainMenu.json`, `panel.json`, `terminal.json`
+- [x] Inventaire VM refresh (`collectedAt` 2026-06-08)
+
+## Phase P1 — Shell + assets (en cours)
 
 | Zone | Clôture v1 | Statut v2 | Action |
 |------|------------|-----------|--------|
-| Panel + pins | 2026-06-06 | 🔄 réaudit | capture baseline + compare |
-| Kickoff | 2026-06-06 | ✅ tokens | `--opensuse-*` → `--kde-neon-*` (2026-06-08) |
+| Panel + pins | 2026-06-06 | 🔄 P1 | smoke shell ✅ · VM compare ⏳ |
+| Kickoff | 2026-06-06 | 🔄 P1 | smoke ✅ · dimensions 677×513 ⏳ |
 | Tray + popovers | 2026-06-06 | 🔄 réaudit | contenu dynamique P2 |
 | Calendrier / volume | 2026-06-06 | 🔄 réaudit | smoke HTTP |
 
@@ -70,7 +76,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] `smoke-kde-neon-firefox.mjs` exit 0
 - [x] Brief agent [`linux-kde-neon.md`](../briefs/linux-kde-neon.md)
 
-**Backlog P2** (hors clôture) : menu contextuel Dolphin §9, tray dynamique, audit assets CSS, Konsole polish.
+**Backlog** : voir palliers P1–P5 dans [`linux-kde-neon-roadmap.md`](linux-kde-neon-roadmap.md).
 
 ---
 

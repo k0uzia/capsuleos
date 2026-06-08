@@ -159,13 +159,13 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 - [ ] Captures Capsule paires régénérées
 - [ ] Matrice 1–6 revalidée visuellement HTTP
 
-### Interactionnel (points 7–9) — ouvert
+### Interactionnel (points 7–9) — P2 en cours
 
 - [x] Code recherche + filtre (`dolphin-neon.js`, `dolphin.skin.css`)
 - [x] Code hamburger v4 + flyouts + icônes
-- [x] Captures VM paires recherche / hamburger / filtre (Capsule : `search-filter-open` ; VM filtre : P2)
-- [ ] Playwright audit icônes (naturalWidth > 0)
-- [ ] Menu contextuel P2 planifié
+- [x] Captures VM paires recherche / hamburger (2026-06-08)
+- [x] Playwright audit icônes hamburger (`smoke-kde-neon-dolphin.mjs`)
+- [x] Menu contextuel flyouts (dupliquer, étiquettes, activités — simulation P2)
 
 ---
 

@@ -1,6 +1,6 @@
 # Brief agent — KDE neon User Edition
 
-> Campagne **v2** clôturée H₆ (2026-06-08) · État : [`linux-kde-neon-replication-state.json`](../inventaires/linux-kde-neon-replication-state.json)
+> Campagne **v2** clôturée H₆ (2026-06-08) · **Roadmap v3** : [`linux-kde-neon-roadmap.md`](../inventaires/linux-kde-neon-roadmap.md)
 
 ## Contexte
 
@@ -51,7 +51,13 @@ KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-capture-host.
 | 4 | `firefox.skin.css`, `smoke-kde-neon-firefox.mjs` |
 | 5 | compare baseline stable (horloge figée), brief |
 
-## Backlog P2 (hors H₆)
+## Suite — campagne v3
+
+Voir [`linux-kde-neon-roadmap.md`](../inventaires/linux-kde-neon-roadmap.md) (palliers P0→P5).
+
+**Prochaine action** : **P1** — audit assets JS + `smoke-kde-neon-shell-polish.mjs` (voir roadmap § P1).
+
+## Backlog (résumé)
 
 - Menu contextuel Dolphin flyouts complets (diff §9)
 - Tray popovers dynamiques (Klipper, réseau)

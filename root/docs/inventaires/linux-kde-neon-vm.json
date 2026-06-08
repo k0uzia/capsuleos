@@ -1,7 +1,7 @@
 {
     "registryId": "linux-kde-neon",
     "toolkit": "kde",
-    "collectedAt": "2026-06-06T16:35:02Z",
+    "collectedAt": "2026-06-08T13:15:05Z",
     "os": {
         "prettyName": "KDE neon User Edition",
         "name": "KDE neon",
@@ -89,12 +89,16 @@
         ],
         "kickoff": {
             "popupWidth": 677,
-            "popupHeight": 513,
+            "popupHeight": 509,
             "favorites": [
                 {
                     "resource": "preferred://browser",
                     "name": "Firefox",
                     "desktop": "firefox.desktop"
+                },
+                {
+                    "resource": "org.kde.kontact.desktop",
+                    "desktop": "org.kde.kontact.desktop"
                 },
                 {
                     "resource": "applications:systemsettings.desktop",
@@ -119,11 +123,6 @@
                 }
             ]
         }
-    },
-    "officialDocAlignment": {
-        "kdeHig": "https://develop.kde.org/hig/",
-        "kdeHigCatalog": "root/docs/kde-hig-ressources.md",
-        "plasmaBranch": "root/docs/branche-plasma-kde.md"
     },
     "branding": {
         "logoCandidates": []

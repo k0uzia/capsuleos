@@ -118,6 +118,20 @@ open_dolphin() {
     sleep 3'
 }
 
+open_firefox() {
+  prep_env 'killall firefox 2>/dev/null || true
+    sleep 0.5
+    kstart firefox >/dev/null 2>&1 &
+    sleep 6'
+}
+
+open_konsole() {
+  prep_env 'killall konsole 2>/dev/null || true
+    sleep 0.5
+    kstart konsole >/dev/null 2>&1 &
+    sleep 4'
+}
+
 # Modes Dolphin : actions dbus « icons » | « compact » | « details » (dolphinui.rc).
 # Repli clavier : Ctrl+1 / Ctrl+2 / Ctrl+3 (menu Affichage CapsuleOS).
 dolphin_set_view_mode() {
@@ -281,4 +295,12 @@ open_dolphin
 shot "$DEST/vm-dolphin.png"
 
 reset_apps
-echo "=== Terminé : vm-desktop.png, vm-kickoff.png, vm-discover*.png, vm-dolphin.png ==="
+open_firefox
+shot "$DEST/vm-firefox.png"
+
+reset_apps
+open_konsole
+shot "$DEST/vm-terminal.png"
+
+reset_apps
+echo "=== Terminé : vm-desktop.png, vm-kickoff.png, vm-discover*.png, vm-dolphin.png, vm-firefox.png, vm-terminal.png ==="

@@ -227,6 +227,16 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     background: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/go-next-symbolic.svg") center / contain no-repeat;
 }
 
+.update-manager--kde-neon .kde-updates__cat.is-active {
+    color: #232629;
+    background: #def1fb;
+    font-weight: 600;
+}
+
+.update-manager--kde-neon .kde-updates__cat.is-active .kde-updates__caticon {
+    opacity: 1;
+}
+
 .kde-updates__badge {
     display: inline-flex;
     align-items: center;

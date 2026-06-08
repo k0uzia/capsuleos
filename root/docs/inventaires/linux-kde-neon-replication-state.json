@@ -1,22 +1,28 @@
 {
   "registryId": "linux-kde-neon",
-  "campaign": "v2-reopen-post-merge",
+  "campaign": "v3-full-parity",
+  "roadmap": "linux-kde-neon-roadmap.md",
+  "pallier": 2,
+  "pallierStatus": "in_progress",
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
+    "inventoryCollectedAt": "2026-06-08T13:15:05Z",
     "labConfig": "etc/capsuleos/lab-inventory.json"
   },
   "parity": {
     "doc": "inventaire-parite-neon.md",
+    "index": "linux-kde-neon-parity-index.json",
     "dolphinDiff": "linux-kde-neon-dolphin-diff.md",
     "cloneStatus": "linux-kde-neon-clone-status.md",
-    "brief": "root/docs/briefs/linux-kde-neon.md"
+    "brief": "root/docs/briefs/linux-kde-neon.md",
+    "cssAssetsAudit": "linux-kde-neon-css-assets-audit.md"
   },
   "priorityQueue": [
     "nemo",
-    "firefox",
-    "terminal",
     "update_manager",
+    "terminal",
+    "firefox",
     "mainMenu"
   ],
   "tools": {
@@ -24,27 +30,31 @@
     "captureVm": "root/tools/lab/vm-kde-neon-capture-host.sh",
     "captureSurfaces": "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs",
     "smokeFirefox": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs",
+    "smokeDolphin": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs",
+    "smokeTerminal": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-terminal.mjs",
+    "seedParityIndex": "usr/lib/capsuleos/tools/lab/seed-kde-neon-parity-index.mjs",
     "validationPlan": "usr/lib/capsuleos/tools/print-validation-plan.mjs"
   },
-  "pallier": 1,
   "baselineCapture": "root/docs/inventaires/captures/linux-kde-neon/baseline/",
   "reopenedAt": "2026-06-08T15:00:00.000Z",
-  "closedAt": "2026-06-08T18:00:00.000Z",
-  "reopenReason": "Campagne v2 post-merge N0r3f : re-audit conventions, Dolphin interactionnel, gates H₂/H₆.",
+  "v2ClosedAt": "2026-06-08T18:00:00.000Z",
+  "v3StartedAt": "2026-06-08T19:00:00.000Z",
+  "p1ClosedAt": "2026-06-08T14:00:00.000Z",
+  "p2StartedAt": "2026-06-08T14:05:00.000Z",
   "paritySnapshot": {
-    "pi_global": null,
-    "status_global": "h6-v2",
+    "pi_global": 74,
+    "status_global": "partiel",
     "shell": {
-      "panel": "reaudit-baseline",
-      "mainMenu": "tokens-ok",
-      "tray": "p2-backlog",
-      "desktop": "reaudit-baseline"
+      "panel": "p1-closed",
+      "mainMenu": "p1-closed",
+      "tray": "p2-in-progress",
+      "desktop": "p1-closed"
     },
     "apps": {
-      "nemo": "interactionnel-partial",
-      "update_manager": "reaudit-baseline",
-      "firefox": "smoke-ok",
-      "terminal": "partial"
+      "nemo": "p2-context-flyouts",
+      "update_manager": "p2-category-filters",
+      "firefox": "p1-closed",
+      "terminal": "p2-smoke"
     }
   },
   "predicates": {
@@ -64,8 +74,37 @@
     "syncSkinClosure": true,
     "captureCompare": true,
     "smokeFirefox": true,
-    "compareNote": "Horloge figée CAPTURE_CLOCK_ISO + reset fenêtres entre scènes (capture-clone-surfaces.mjs)"
+    "compareNote": "Horloge figée CAPTURE_CLOCK_ISO + reset fenêtres entre scènes"
   },
-  "nextStep": "Backlog P2 — menu contextuel Dolphin §9, tray dynamique, audit assets CSS restants",
-  "updatedAt": "2026-06-08T18:00:00.000Z"
+  "p0Deliverables": {
+    "parityIndex": true,
+    "interactionsMainMenu": true,
+    "interactionsPanel": true,
+    "interactionsTerminal": true,
+    "inventoryRefresh": true,
+    "inventoryVersionsNote": "plasmashell/dolphin/firefox/konsole vides en SSH batch — session Plasma requise pour compléter"
+  },
+  "p1Deliverables": {
+    "assetsJsAudit": true,
+    "cssAssetsAuditDoc": true,
+    "smokeShellPolish": true,
+    "panelVmCompare": true,
+    "panelCapsuleChecklist": "6/6",
+    "firefoxVmInventory": true,
+    "kickoffDataRegenerated": true,
+    "kickoffDimensions677x513": true,
+    "captureCompareStable": true
+  },
+  "p2Deliverables": {
+    "dolphinContextFlyouts": true,
+    "dolphinSmokeHamburgerIcons": "smoke-kde-neon-dolphin.mjs",
+    "discoverCategoryFilters": true,
+    "trayClipboardHistory": true,
+    "trayNetworkToggle": true,
+    "terminalSmoke": "smoke-kde-neon-terminal.mjs",
+    "discoverAppDetail": false,
+    "dolphinSplitSelection": false
+  },
+  "nextStep": "P2 suite — fiches Discover, polish Konsole CSS, captures VM filtre Dolphin",
+  "updatedAt": "2026-06-08T14:10:00.000Z"
 }

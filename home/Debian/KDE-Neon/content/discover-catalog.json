@@ -131,5 +131,16 @@
       { "name": "Nate Graham", "role": "Contrôle qualité, conception et ergonomie", "email": "nate@kde.org", "web": "https://pointieststick.com/" },
       { "name": "Dan Leinir Turthra Jensen", "role": "KNewStuff", "email": "admin@leinir.dk", "web": "https://leinir.dk/" }
     ]
+  },
+  "categoryFilters": {
+    "all": { "label": "Toutes les applications" },
+    "internet": { "label": "Internet", "appIds": ["firefox", "steam", "wine"] },
+    "graphics": { "label": "Graphisme", "appIds": ["gimp", "kolourpaint", "krita"] },
+    "multimedia": { "label": "Multimédia", "appIds": ["vlc", "kdenlive"] },
+    "development": { "label": "Développement", "appIds": ["kate", "kdenlive"] },
+    "office": { "label": "Bureautique", "appIds": ["kolourpaint", "kate"] },
+    "games": { "label": "Jeux", "appIds": ["kpat", "steam"] },
+    "utilities": { "label": "Utilitaires", "appIds": ["wine", "kpat"] },
+    "system": { "label": "Système", "appIds": ["discover", "systemsettings"] }
   }
 }

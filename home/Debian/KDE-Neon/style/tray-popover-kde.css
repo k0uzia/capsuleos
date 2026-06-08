@@ -186,3 +186,28 @@
     object-fit: contain;
     filter: var(--kde-neon-tray-icon-filter);
 }
+
+#kde-neon .kde-tray-popover__history {
+    margin: 0;
+    padding: calc(var(--head) / 5) 0;
+    list-style: none;
+}
+
+#kde-neon .kde-tray-popover__history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    padding: calc(var(--head) / 4.5) calc(var(--head) / 2.2);
+    border-bottom: 1px solid var(--kde-neon-menu-divider, rgba(0, 0, 0, 0.06));
+}
+
+#kde-neon .kde-tray-popover__history-label {
+    font-size: calc(var(--head) / 2.55);
+    font-weight: 600;
+    color: var(--volume-popover-text);
+}
+
+#kde-neon .kde-tray-popover__history-preview {
+    font-size: calc(var(--head) / 2.85);
+    color: var(--volume-popover-muted, #7f8c8d);
+}

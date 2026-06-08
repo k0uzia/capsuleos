@@ -1602,6 +1602,47 @@ body#kde-neon div[data-link="nemo"] .dolphin-context-menu .nautilus-context-menu
 
 body#kde-neon div[data-link="nemo"] .nautilus-context-menu__item--submenu {
     padding-right: 0.55rem;
+    position: relative;
+}
+
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__flyout {
+    position: absolute;
+    left: calc(100% - 2px);
+    top: 0;
+    z-index: 1400;
+    min-width: 12.5rem;
+    padding: 0.22rem 0;
+    border: 1px solid rgba(35, 38, 41, 0.12);
+    border-radius: 3px;
+    background: #fcfcfc;
+    box-shadow: 0 4px 16px rgba(35, 38, 41, 0.16);
+}
+
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__flyout[hidden] {
+    display: none !important;
+}
+
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__flyout-item {
+    display: block;
+    width: 100%;
+    min-height: 2rem;
+    padding: 0.22rem 0.85rem;
+    border: 0;
+    background: transparent;
+    color: #232629;
+    font: inherit;
+    text-align: left;
+    cursor: default;
+}
+
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__flyout-item:hover,
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__flyout-item:focus-visible {
+    background: rgba(61, 174, 233, 0.22);
+    outline: none;
+}
+
+body#kde-neon div[data-link="nemo"] .nautilus-context-menu__item.is-open {
+    background: rgba(61, 174, 233, 0.22);
 }
 
 body#kde-neon div[data-link="nemo"] .nautilus-context-menu__item kbd {

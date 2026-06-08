@@ -1,7 +1,7 @@
 # Inventaire parité — KDE neon User Edition VM → CapsuleOS
 
 > Collecte VM : 2026-06-06 · Registre : `linux-kde-neon`  
-> **Campagne v2 (réouverte)** : 2026-06-08 post-merge — [`linux-kde-neon-clone-status.md`](inventaires/linux-kde-neon-clone-status.md) · [`linux-kde-neon-replication-state.json`](inventaires/linux-kde-neon-replication-state.json)  
+> **Campagne v2** clôturée H₆ (2026-06-08) · **Roadmap v3** : [`linux-kde-neon-roadmap.md`](inventaires/linux-kde-neon-roadmap.md) · État : [`linux-kde-neon-replication-state.json`](inventaires/linux-kde-neon-replication-state.json)  
 > **HIG KDE** : [kde-hig-ressources.md](kde-hig-ressources.md) · branche : [branche-plasma-kde.md](branche-plasma-kde.md)  
 > Inventaire : [`inventaires/linux-kde-neon-vm.json`](inventaires/linux-kde-neon-vm.json)  
 > **Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md) — 🔄 **réaudit v2**  
@@ -40,7 +40,7 @@ Détail v1 : [`linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon
 
 | Aspect | Statut v1 | Statut v2 | Note |
 |--------|-----------|-----------|------|
-| Transparence, icônes, apps, favoris | ✅ | 🔄 | tokens `--opensuse-*` à renommer |
+| Transparence, icônes, apps, favoris | ✅ | ✅ | tokens `--kde-neon-*` (v2) |
 | Dimensions 677×513 | ✅ | 🔄 | capture baseline compare |
 
 ## Discover — réouvert v2
@@ -69,9 +69,11 @@ Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright.
 | `wallpaper/neon-default.png` | ✅ pull VM |
 | `panel/`, `tray/`, `kickoff/`, `discover/` | ✅ — révalider post-merge |
 
-## Roadmap campagne v2
+## Roadmap
 
-### Pass 0 — baseline ✅ (2026-06-08)
+> **Document canon v3** : [`linux-kde-neon-roadmap.md`](inventaires/linux-kde-neon-roadmap.md) — palliers P0→P5, maturité, estimations, prochaine action.
+
+### Campagne v2 — archivée ✅ (2026-06-08)
 
 - [x] Merge upstream + correctifs HTTP
 - [x] `validate-all.mjs` exit 0
@@ -108,9 +110,9 @@ Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright.
 - [x] `capture-clone-surfaces --compare` stable (horloge figée + waits scènes)
 - [x] Brief agent à jour · `replication-state.json` H₆=true
 
-**Backlog P2** : context menu Dolphin, tray, audit assets CSS restants.
+**Backlog P2** : voir palliers P1–P2 de [`linux-kde-neon-roadmap.md`](inventaires/linux-kde-neon-roadmap.md).
 
-## Gates (campagne v2)
+## Gates (maintenance)
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
@@ -118,9 +120,9 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 node usr/lib/capsuleos/tools/print-validation-plan.mjs home/Debian/KDE-Neon/
 ```
 
-Résultat Pass 0 : `validate-all` ✅ · profil **`active`** (conservé) · clôtures **réouvertes** pour réaudit.
+Résultat v2 : `validate-all` ✅ · H₆ v2 ✅ · **suite** → roadmap v3.
 
-### P2 (inchangé, reporté après v2)
+### P2 (reporté — détail roadmap v3)
 
 - [ ] Popovers tray dynamiques (Klipper, réseau KCM)
 - [ ] Périphériques sidebar Dolphin

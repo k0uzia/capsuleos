@@ -12,7 +12,8 @@ Ce document fixe la **cartographie conceptuelle**, la **confrontation avec le KD
 | [kde-hig-ressources.md](kde-hig-ressources.md) | Catalogue HIG officiel (22 pages) |
 | [inventaire-parite-neon.md](inventaire-parite-neon.md) | Écarts classés P0/P1/P2 |
 | [inventaires/linux-kde-neon-vm.json](inventaires/linux-kde-neon-vm.json) | Inventaire machine-readable |
-| [inventaires/linux-kde-neon-repair-checklist.md](inventaires/linux-kde-neon-repair-checklist.md) | Checklist réparation |
+| [inventaires/linux-kde-neon-roadmap.md](inventaires/linux-kde-neon-roadmap.md) | **Roadmap complète v3** (palliers, maturité, outils) |
+| [inventaires/linux-kde-neon-repair-checklist.md](inventaires/linux-kde-neon-repair-checklist.md) | Historique réparation v1 + campagne v2 |
 | [inventaires/linux-kde-neon-discover-closure.md](inventaires/linux-kde-neon-discover-closure.md) | Clôture Discover |
 | [inventaires/linux-kde-neon-kickoff-closure.md](inventaires/linux-kde-neon-kickoff-closure.md) | Clôture Kickoff |
 | [inventaires/linux-kde-neon-panel-tray-closure.md](inventaires/linux-kde-neon-panel-tray-closure.md) | Clôture panel + tray |
@@ -127,14 +128,14 @@ Pas de script `sync-kde-*-skin.mjs` généralisé en v1 — propagation manuelle
 
 ---
 
-## 5. Backlog aligné HIG (juin 2026)
+| **P0** | Fondations | Inventaire VM, indice Π, interactions JSON complètes | 4–8 h |
+| **P1** | Shell + assets | Panel compare, kickoff Vp, audit `./assets/`, Firefox VM | 8–16 h |
+| **P2** | Apps profondes | Dolphin §9, Discover filtres, tray dynamique, Konsole | 12–25 h |
+| **P3** | Catalogue | 30 apps kickoff avec slots | 15–30 h |
+| **P4** | Propagation | openSUSE, MX-KDE, Debian-KDE | 8–15 h |
+| **P5** | Clôture P1 | tier P1, H₆ v3, maturité ≥ 90 % | 4–10 h |
 
-| Priorité | Surface | HIG + VM |
-|----------|---------|----------|
-| **P0** | Dolphin (`nemo`) | displaying_content, icons/places, icons/mimetype |
-| P1 | Firefox chrome | layout_and_nav (apps tierces) |
-| P1 | Tokens `--opensuse-*` → `--kde-neon-*` | Cohérence naming skin |
-| P2 | Tray dynamique (Klipper, réseau KCM) | status_changes, getting_input |
+Source détaillée : [linux-kde-neon-roadmap.md](linux-kde-neon-roadmap.md).
 
 ---
 

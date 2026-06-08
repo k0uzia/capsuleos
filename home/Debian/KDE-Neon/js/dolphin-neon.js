@@ -1768,6 +1768,93 @@
         panes.forEach((pane) => neonCompactResizeObserver.observe(pane));
     }
 
+    const DOLPHIN_CTX_FLYOUTS = {
+        'open-with': ['Autre application…'],
+        'create-new': ['Nouveau fichier vierge…', 'Nouveau dossier…'],
+        'open-terminal': ['Ouvrir un terminal ici'],
+        'compress': ['Compresser au format ZIP…', 'Compresser au format TAR…'],
+        'assign-tags': ['Important', 'Favori', 'À revoir'],
+        'activities': ['Nouvelle activité…', 'Gérer les activités…'],
+    };
+
+    function closeContextMenuFlyouts(menu) {
+        if (!menu) {
+            return;
+        }
+        menu.querySelectorAll('.nautilus-context-menu__flyout').forEach((flyout) => {
+            flyout.hidden = true;
+        });
+        menu.querySelectorAll('.nautilus-context-menu__item.is-open').forEach((item) => {
+            item.classList.remove('is-open');
+        });
+    }
+
+    function ensureContextMenuFlyouts(slot) {
+        const menu = slot.querySelector('#nemo-context-menu.dolphin-context-menu');
+        if (!menu || menu.dataset.ctxFlyoutsInit === 'true') {
+            return;
+        }
+        menu.dataset.ctxFlyoutsInit = 'true';
+        menu.querySelectorAll('.nautilus-context-menu__item--submenu').forEach((item) => {
+            const ctx = item.dataset.nemoCtx;
+            const entries = DOLPHIN_CTX_FLYOUTS[ctx];
+            if (!entries || !entries.length) {
+                return;
+            }
+            let flyout = item.querySelector('.nautilus-context-menu__flyout');
+            if (!flyout) {
+                flyout = global.document.createElement('div');
+                flyout.className = 'nautilus-context-menu__flyout';
+                flyout.setAttribute('role', 'menu');
+                flyout.hidden = true;
+                entries.forEach((label) => {
+                    const btn = global.document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'nautilus-context-menu__flyout-item';
+                    btn.setAttribute('role', 'menuitem');
+                    btn.textContent = label;
+                    btn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        menu.hidden = true;
+                        closeContextMenuFlyouts(menu);
+                        if (typeof global.setExplorerStatusMessage === 'function') {
+                            global.setExplorerStatusMessage(`${label} (simulation)`);
+                        }
+                    });
+                    flyout.appendChild(btn);
+                });
+                item.appendChild(flyout);
+            }
+            item.addEventListener('mouseenter', () => {
+                closeContextMenuFlyouts(menu);
+                item.classList.add('is-open');
+                flyout.hidden = false;
+            });
+        });
+        menu.addEventListener('mouseleave', () => {
+            closeContextMenuFlyouts(menu);
+        });
+    }
+
+    function watchContextMenu(slot) {
+        if (!slot || slot.dataset.ctxMenuWatch === 'true') {
+            return;
+        }
+        slot.dataset.ctxMenuWatch = 'true';
+        const observer = new MutationObserver(() => {
+            const menu = slot.querySelector('#nemo-context-menu.dolphin-context-menu');
+            if (menu && !menu.hidden) {
+                ensureContextMenuFlyouts(slot);
+            }
+        });
+        observer.observe(slot, {
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['hidden'],
+        });
+    }
+
     function bindNeonDolphinUi() {
         const slot = getSlot();
         if (!slot || !slot.querySelector('.dolphin-app')) {
@@ -1776,6 +1863,7 @@
         if (!neonBindingsReady) {
             global.document.addEventListener('click', handleNeonDolphinClick, true);
             slot.addEventListener('mouseover', handleHamburgerMenuPointer);
+            watchContextMenu(slot);
             slot.addEventListener('change', (event) => {
                 if (event.target.closest('#dolphin-view-config')) {
                     updateViewConfigApplyState();
@@ -1823,6 +1911,7 @@
         ensureDolphinSearchBar();
         ensureSecondaryPathBar();
         ensureHamburgerMenu();
+        ensureContextMenuFlyouts(slot);
         syncViewModeUi();
         syncNeonSplitChrome();
         observeNemoWindowGeometry();

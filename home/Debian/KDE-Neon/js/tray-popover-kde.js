@@ -8,7 +8,7 @@
         return;
     }
 
-    const TRAY_BASE = '../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/';
+    const TRAY_BASE = './assets/images/toolkits/kde/panel/tray/';
     const entries = [];
 
     function dispatchTrayOpen(id) {
@@ -140,6 +140,56 @@
         });
     }
 
+    function bindClipboardHistory() {
+        const popover = document.getElementById('kde-tray-popover-clipboard');
+        const list = document.getElementById('kde-tray-clipboard-history');
+        const empty = document.getElementById('kde-tray-clipboard-empty');
+        if (!popover || !list) {
+            return;
+        }
+        const entries = [
+            { label: 'goupil@192.168.123.52', preview: 'ssh capsuleos-lab' },
+            { label: 'https://neon.kde.org', preview: 'KDE neon User Edition' },
+            { label: 'node capture-capsule-kde-neon.mjs', preview: 'Commande lab' },
+        ];
+        list.innerHTML = entries.map((entry) => (
+            `<li class="kde-tray-popover__history-item" role="listitem">`
+            + `<span class="kde-tray-popover__history-label">${entry.label}</span>`
+            + `<span class="kde-tray-popover__history-preview">${entry.preview}</span>`
+            + `</li>`
+        )).join('');
+        list.hidden = false;
+        if (empty) {
+            empty.hidden = true;
+        }
+    }
+
+    function bindNetworkToggle() {
+        const trayBtn = document.getElementById('tray-btn-network');
+        const popover = document.getElementById('kde-tray-popover-network');
+        const toggleBtn = document.getElementById('kde-tray-network-toggle');
+        const wiredRow = popover ? popover.querySelector('[data-network-wired]') : null;
+        const wifiRow = popover ? popover.querySelector('[data-network-wifi]') : null;
+        if (!toggleBtn || !wiredRow || !wifiRow || !trayBtn) {
+            return;
+        }
+        let wifiMode = false;
+        const syncNetworkUi = () => {
+            wiredRow.hidden = wifiMode;
+            wifiRow.hidden = !wifiMode;
+            wiredRow.classList.toggle('is-active', !wifiMode);
+            wifiRow.classList.toggle('is-active', wifiMode);
+            trayBtn.title = wifiMode ? 'Wi-Fi — Déconnecté' : 'Connexion filaire — Connecté';
+            trayBtn.setAttribute('aria-label', trayBtn.title);
+        };
+        toggleBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            wifiMode = !wifiMode;
+            syncNetworkUi();
+        });
+        syncNetworkUi();
+    }
+
     function bindFooterActions() {
         const notifClear = document.getElementById('kde-tray-notifications-clear');
         const notifPopover = document.getElementById('kde-tray-popover-notifications');
@@ -154,11 +204,17 @@
 
         const clipClear = document.getElementById('kde-tray-clipboard-clear');
         const clipPopover = document.getElementById('kde-tray-popover-clipboard');
+        const clipHistory = document.getElementById('kde-tray-clipboard-history');
+        const clipEmpty = document.getElementById('kde-tray-clipboard-empty');
         if (clipClear && clipPopover) {
             clipClear.addEventListener('click', () => {
-                const empty = clipPopover.querySelector('.kde-tray-popover__empty');
-                if (empty) {
-                    empty.textContent = 'Le presse-papiers est vide';
+                if (clipHistory) {
+                    clipHistory.hidden = true;
+                    clipHistory.innerHTML = '';
+                }
+                if (clipEmpty) {
+                    clipEmpty.hidden = false;
+                    clipEmpty.textContent = 'Le presse-papiers est vide';
                 }
             });
         }
@@ -252,6 +308,8 @@
 
         bindBrightnessSlider();
         bindFooterActions();
+        bindClipboardHistory();
+        bindNetworkToggle();
         bindUpdatesTray();
         bindGlobalDismiss();
     }

@@ -27,6 +27,18 @@
         var grid = root.querySelector('#gcm-grid');
         var preview = root.querySelector('#gcm-preview');
         if (!grid) return;
+        var search = root.querySelector('#gcm-search');
+        if (search) {
+            search.addEventListener('input', function onSearch() {
+                var q = search.value.trim().toLowerCase();
+                var cells = grid.querySelectorAll('.gcm-app__cell');
+                var cj;
+                for (cj = 0; cj < cells.length; cj += 1) {
+                    var match = !q || cells[cj].textContent.toLowerCase().indexOf(q) >= 0;
+                    cells[cj].hidden = !match;
+                }
+            });
+        }
         var ci;
         for (ci = 0; ci < CHARS.length; ci += 1) {
             var cell = global.document.createElement('button');

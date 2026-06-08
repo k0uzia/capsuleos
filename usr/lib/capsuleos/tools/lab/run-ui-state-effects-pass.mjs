@@ -129,17 +129,76 @@ async function runShellChecks(page, surfaces) {
       push('window-list', 'nav', list.count >= 1, list);
       push('panel-vis', 'vis', list.nemoActive, list);
 
-      const nemoLink = await page.$('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
-      if (nemoLink) {
-        await nemoLink.click();
-        await page.waitForTimeout(60);
-      }
       const focus = await page.evaluate(() => {
         const win = document.querySelector('div[data-link="nemo"]');
         return win && win.style.display !== 'none';
       });
       push('panel-focus', 'int', focus, {});
+
+      await page.evaluate(() => {
+        if (window.CapsuleTaskbarWindowList && typeof window.CapsuleTaskbarWindowList.refresh === 'function') {
+          window.CapsuleTaskbarWindowList.refresh();
+        }
+      });
+      await page.locator('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]').click({ force: true });
+      await page.waitForFunction(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        return win && win.style.display === 'none';
+      }, null, { timeout: 3000 }).catch(() => {});
+      await page.waitForTimeout(40);
+      const minimized = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
+        return {
+          hidden: win && win.style.display === 'none',
+          isMinimized: btn && btn.classList.contains('is-minimized'),
+        };
+      });
+      push('panel-minimize', 'ctx', minimized.hidden && minimized.isMinimized, minimized);
+
+      await page.evaluate(() => {
+        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn.is-minimized');
+        if (btn) btn.focus();
+      });
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(60);
+      const restored = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        return win && win.style.display !== 'none';
+      });
+      push('panel-restore-kb', 'kb', restored, {});
+
       push('panel-data', 'data', list.count >= 1, list);
+    }
+
+    if (surface === 'tray') {
+      const trayVis = await page.evaluate(() => ({
+        buttons: document.querySelectorAll('.taskbar-tray__btn').length,
+      }));
+      push('tray-vis', 'vis', trayVis.buttons >= 6, trayVis);
+      push('tray-data', 'data', trayVis.buttons >= 6, trayVis);
+
+      await page.click('#tray-btn-network');
+      await page.waitForTimeout(70);
+      const pop = await page.evaluate(() => {
+        const btn = document.getElementById('tray-btn-network');
+        const panel = document.getElementById('mint-tray-popover-network');
+        return {
+          expanded: btn ? btn.getAttribute('aria-expanded') === 'true' : false,
+          open: panel && !panel.hasAttribute('hidden'),
+        };
+      });
+      push('tray-popover', 'nav', pop.expanded && pop.open, pop);
+      push('tray-int', 'int', pop.open, pop);
+      push('tray-ctx', 'ctx', pop.open, pop);
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(45);
+      const kb = await page.evaluate(() => {
+        const panel = document.getElementById('mint-tray-popover-network');
+        return panel && panel.hasAttribute('hidden');
+      });
+      push('tray-kb', 'kb', kb, {});
     }
 
     if (surface === 'desktop') {

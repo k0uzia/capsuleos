@@ -58,6 +58,12 @@
             if (action === 'next') {
                 showStep(root, 'dest');
             }
+            if (action === 'backup') {
+                var title = root.querySelector('.mbk-app__title');
+                if (title) {
+                    title.textContent = 'Sauvegarde en cours… (simulation)';
+                }
+            }
         });
     }
 

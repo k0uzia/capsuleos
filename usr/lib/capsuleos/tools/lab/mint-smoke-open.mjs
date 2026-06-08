@@ -39,6 +39,18 @@ const MENU_SEARCH = {
   libreoffice_draw: 'LibreOffice Draw',
   libreoffice_impress: 'LibreOffice Impress',
   simple_scan: 'Numérisation de documents',
+  transmission: 'Transmission',
+  rhythmbox: 'Rhythmbox',
+  sticky: 'Notes',
+  timeshift: 'Timeshift',
+  mintbackup: 'Outil de sauvegarde',
+  thingy: 'Bibliothèque',
+  warpinator: 'Warpinator',
+  mintstick: 'Créateur de clé USB',
+  mintstick_format: 'Formateur de clé USB',
+  power_stats: 'Statistiques d\'alimentation',
+  visionneur_images: 'Visionneur d\'images',
+  visionneur_pdf: 'Visionneur de documents',
 };
 
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);

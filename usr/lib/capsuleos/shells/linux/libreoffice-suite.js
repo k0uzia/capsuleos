@@ -8,15 +8,26 @@
         if (!root || root.dataset.libreofficeStartcenterInit === 'true') return;
         root.dataset.libreofficeStartcenterInit = 'true';
         syncWindowTitle(getWindowEl(root));
+        var tiles = root.querySelectorAll('.lsc-app__tile');
+        var ti;
+        for (ti = 0; ti < tiles.length; ti += 1) {
+            tiles[ti].setAttribute('tabindex', '0');
+        }
         root.addEventListener('click', function (ev) {
             var tile = ev.target.closest('.lsc-app__tile');
             if (!tile || !root.contains(tile)) return;
-            var tiles = root.querySelectorAll('.lsc-app__tile');
-            var ti;
-            for (ti = 0; ti < tiles.length; ti += 1) {
-                tiles[ti].classList.remove('is-active');
+            var all = root.querySelectorAll('.lsc-app__tile');
+            var tj;
+            for (tj = 0; tj < all.length; tj += 1) {
+                all[tj].classList.remove('is-active');
             }
             tile.classList.add('is-active');
+        });
+        root.addEventListener('keydown', function (ev) {
+            if (ev.key !== 'Enter') return;
+            var tile = ev.target.closest('.lsc-app__tile');
+            if (!tile || !root.contains(tile)) return;
+            tile.click();
         });
     }
     global.initLibreofficeStartcenterApp = function () { initLibreofficeStartcenterAppOnce(); };

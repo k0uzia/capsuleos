@@ -38,6 +38,31 @@
 
         var grid = root.querySelector('#hyp-grid');
         var player = root.querySelector('#hyp-player');
+        var search = root.querySelector('#hyp-search');
+        if (search && grid) {
+            search.addEventListener('input', function onSearch() {
+                var q = search.value.trim().toLowerCase();
+                var channels = grid.querySelectorAll('.hyp-app__channel');
+                var hi;
+                for (hi = 0; hi < channels.length; hi += 1) {
+                    var name = channels[hi].querySelector('.hyp-app__channel-name');
+                    var label = name ? name.textContent.toLowerCase() : '';
+                    channels[hi].hidden = !!(q && label.indexOf(q) < 0);
+                }
+            });
+        }
+        root.addEventListener('click', function onCatClick(ev) {
+            var cat = ev.target;
+            if (!cat || !cat.getAttribute || !cat.getAttribute('data-hyp-cat')) {
+                return;
+            }
+            var cats = root.querySelectorAll('.hyp-app__cat');
+            var ci;
+            for (ci = 0; ci < cats.length; ci += 1) {
+                cats[ci].classList.remove('is-active');
+            }
+            cat.classList.add('is-active');
+        });
         if (grid) {
             grid.addEventListener('click', function onGridClick(ev) {
                 var ch = ev.target;

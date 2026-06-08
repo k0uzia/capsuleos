@@ -56,6 +56,18 @@
         if (deviceSelect) {
             deviceSelect.addEventListener('change', refreshWriteBtn);
         }
+        root.addEventListener('click', function onWrite(ev) {
+            var btn = ev.target;
+            if (!btn || !btn.getAttribute) {
+                return;
+            }
+            if (btn.getAttribute('data-mstk-action') === 'write' && !btn.disabled) {
+                var title = root.querySelector('.mstk-app__title');
+                if (title) {
+                    title.textContent = 'Écriture en cours… (simulation)';
+                }
+            }
+        });
     }
 
     function initMintstickFormatAppOnce() {
@@ -72,6 +84,18 @@
                 formatBtn.disabled = !deviceSelect.value;
             });
         }
+        root.addEventListener('click', function onFormat(ev) {
+            var btn = ev.target;
+            if (!btn || !btn.getAttribute) {
+                return;
+            }
+            if (btn.getAttribute('data-mstk-fmt-action') === 'format' && !btn.disabled) {
+                var title = root.querySelector('.mstk-fmt-app__title');
+                if (title) {
+                    title.textContent = 'Formatage en cours… (simulation)';
+                }
+            }
+        });
     }
 
     function initFontViewerAppOnce() {
@@ -151,6 +175,36 @@
         }
         root.dataset.powerStatsInit = 'true';
         syncWindowTitle(getWindowEl(root, 'power_stats'), 'Statistiques d\'alimentation');
+        var bars = root.querySelectorAll('.pwr-app__bar');
+        var bi;
+        for (bi = 0; bi < bars.length; bi += 1) {
+            bars[bi].addEventListener('click', function onBarClick() {
+                var all = root.querySelectorAll('.pwr-app__bar');
+                var bj;
+                for (bj = 0; bj < all.length; bj += 1) {
+                    all[bj].classList.remove('is-selected');
+                }
+                this.classList.add('is-selected');
+            });
+        }
+    }
+
+    function initVisionneurImagesAppOnce() {
+        var root = global.document.getElementById('visionneurImages');
+        if (!root || root.dataset.visionneurImagesInit === 'true') {
+            return;
+        }
+        root.dataset.visionneurImagesInit = 'true';
+        syncWindowTitle(getWindowEl(root, 'visionneur_images'), 'Visionneur d\'images');
+    }
+
+    function initVisionneurPdfAppOnce() {
+        var root = global.document.getElementById('visionneurPdf');
+        if (!root || root.dataset.visionneurPdfInit === 'true') {
+            return;
+        }
+        root.dataset.visionneurPdfInit = 'true';
+        syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), 'Visionneur de documents');
     }
 
     function initMateColorSelectAppOnce() {
@@ -200,5 +254,7 @@
     global.initMintstickFormatApp = function initMintstickFormatApp() { initMintstickFormatAppOnce(); };
     global.initFontViewerApp = function initFontViewerApp() { initFontViewerAppOnce(); };
     global.initPowerStatsApp = function initPowerStatsApp() { initPowerStatsAppOnce(); };
+    global.initVisionneurImagesApp = function initVisionneurImagesApp() { initVisionneurImagesAppOnce(); };
+    global.initVisionneurPdfApp = function initVisionneurPdfApp() { initVisionneurPdfAppOnce(); };
     global.initMateColorSelectApp = function initMateColorSelectApp() { initMateColorSelectAppOnce(); };
 }(typeof window !== 'undefined' ? window : globalThis));

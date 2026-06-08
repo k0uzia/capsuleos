@@ -106,6 +106,32 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 
 **Shell** : mainMenu 92 · panel 83 · desktop 92
 
+### Snapshot pallier 6 (2026-06-08)
+
+**Π_global** : 88 (`partiel`) — cible 80+ atteinte
+
+| Slot | Π_app | Statut |
+|------|-------|--------|
+| libreoffice_startcenter | 92 | ok |
+| gucharmap | 92 | ok |
+| hypnotix | 92 | ok |
+| transmission | 100 | ok |
+| sticky | 92 | ok |
+| timeshift | 92 | ok |
+| mintbackup | 92 | ok |
+| thingy | 100 | ok |
+| rhythmbox | 100 | ok |
+| warpinator | 92 | ok |
+| mintstick | 100 | ok |
+| mintstick_format | 100 | ok |
+| power_stats | 100 | ok |
+| visionneur_images | 100 | ok |
+| visionneur_pdf | 100 | ok |
+
+**Shell** : mainMenu 92 · **panel 100** · **tray 100** · desktop 92
+
+**Reste catalogue Π &lt; 90** : `baobab`, `bulky`, `drawing`, `font_viewer`, `gnome_disks`, `libreoffice_draw/impress`, `simple_scan`, `mate_color_select`, `terminal`, stubs (`mintdrivers`, `mintwelcome`, …).
+
 ## Patterns noyau extraits (campagne)
 
 | Pattern | Module |

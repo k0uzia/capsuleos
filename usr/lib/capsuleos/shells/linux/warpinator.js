@@ -35,6 +35,21 @@
         }
         root.dataset.warpinatorInit = 'true';
         syncWindowTitle(getWindowEl(root));
+
+        root.addEventListener('click', function onAction(ev) {
+            var btn = ev.target;
+            if (!btn || !btn.getAttribute) {
+                return;
+            }
+            var action = btn.getAttribute('data-wrp-action');
+            var hint = root.querySelector('.wrp-app__drop-hint');
+            if (action === 'send' && hint) {
+                hint.textContent = 'Sélection de fichiers… (simulation)';
+            }
+            if (action === 'prefs' && hint) {
+                hint.textContent = 'Préférences Warpinator (simulation)';
+            }
+        });
     }
 
     global.initWarpinatorApp = function initWarpinatorApp() {

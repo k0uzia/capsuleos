@@ -36,6 +36,26 @@
         root.dataset.timeshiftInit = 'true';
         syncWindowTitle(getWindowEl(root));
 
+        root.addEventListener('click', function onNav(ev) {
+            var btn = ev.target;
+            if (!btn || !btn.getAttribute) {
+                return;
+            }
+            var view = btn.getAttribute('data-tsh-view');
+            if (!view) {
+                return;
+            }
+            var navs = root.querySelectorAll('.tsh-app__nav');
+            var ni;
+            for (ni = 0; ni < navs.length; ni += 1) {
+                navs[ni].classList.toggle('is-active', navs[ni].getAttribute('data-tsh-view') === view);
+            }
+            var panel = root.querySelector('.tsh-app__main');
+            if (panel) {
+                panel.setAttribute('data-tsh-panel', view);
+            }
+        });
+
         var list = root.querySelector('#tsh-list');
         if (list) {
             list.addEventListener('click', function onListClick(ev) {

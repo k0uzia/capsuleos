@@ -853,16 +853,36 @@ async function runSlotChecks(page, slot) {
     const chrome = await page.evaluate(() => ({
       title: document.querySelector('div[data-link="gucharmap"] #windowTitle')?.textContent,
       cells: document.querySelectorAll('#gcm-grid .gcm-app__cell').length,
+      search: !!document.getElementById('gcm-search'),
+      preview: document.getElementById('gcm-preview')?.textContent || '',
     }));
-    push('gcm-chrome', 'vis', chrome.title === 'Table des caractères' && chrome.cells >= 20, chrome);
+    push('gcm-chrome', 'vis', chrome.title === 'Table des caractères' && chrome.cells >= 20 && chrome.search, chrome);
+    push('gcm-default', 'data', chrome.preview.indexOf('é') >= 0, chrome);
 
-    await page.click('#gcm-grid .gcm-app__cell:nth-child(5)');
+    await page.fill('#gcm-search', 'Z');
+    await page.waitForTimeout(40);
+    const filtered = await page.evaluate(() => {
+      const visible = Array.from(document.querySelectorAll('#gcm-grid .gcm-app__cell')).filter(
+        (c) => !c.hidden,
+      );
+      return { count: visible.length, hasZ: visible.some((c) => c.textContent === 'Z') };
+    });
+    push('gcm-search', 'nav', filtered.count >= 1 && filtered.hasZ, filtered);
+
+    await page.click('#gcm-grid .gcm-app__cell:not([hidden])');
     await page.waitForTimeout(40);
     const cell = await page.evaluate(() => ({
       preview: document.getElementById('gcm-preview')?.textContent,
       selected: document.querySelector('#gcm-grid .gcm-app__cell.is-selected')?.textContent,
     }));
     push('char-select', 'int', cell.preview.indexOf('sélectionné') >= 0, cell);
+
+    await page.fill('#gcm-search', '');
+    await page.waitForTimeout(30);
+    const reset = await page.evaluate(() => (
+      document.querySelectorAll('#gcm-grid .gcm-app__cell:not([hidden])').length >= 20
+    ));
+    push('gcm-reset', 'kb', reset, {});
     return results;
   }
 
@@ -897,16 +917,34 @@ async function runSlotChecks(page, slot) {
 
     const chrome = await page.evaluate(() => ({
       title: document.querySelector('div[data-link="hypnotix"] #windowTitle')?.textContent,
+      channels: document.querySelectorAll('#hyp-grid .hyp-app__channel').length,
+      player: document.getElementById('hyp-player')?.textContent || '',
     }));
-    push('hyp-chrome', 'vis', chrome.title === 'Hypnotix', chrome);
+    push('hyp-chrome', 'vis', chrome.title === 'Hypnotix' && chrome.channels >= 3, chrome);
+    push('hyp-default', 'data', chrome.player.indexOf('France 24') >= 0, chrome);
 
-    await page.click('.hyp-app__channel');
+    await page.click('[data-hyp-cat="radio"]');
+    await page.waitForTimeout(30);
+    const cat = await page.evaluate(() => (
+      document.querySelector('[data-hyp-cat="radio"]')?.classList.contains('is-active')
+    ));
+    push('hyp-cat', 'nav', cat, {});
+
+    await page.click('#hyp-grid .hyp-app__channel:nth-child(2)');
     await page.waitForTimeout(40);
     const channel = await page.evaluate(() => ({
       selected: document.querySelector('.hyp-app__channel.is-selected') !== null,
       player: document.getElementById('hyp-player')?.textContent,
     }));
     push('channel-select', 'int', channel.selected && channel.player.indexOf('simulation') >= 0, channel);
+
+    await page.fill('#hyp-search', 'ARTE');
+    await page.waitForTimeout(40);
+    const search = await page.evaluate(() => {
+      const visible = Array.from(document.querySelectorAll('#hyp-grid .hyp-app__channel')).filter((c) => !c.hidden);
+      return { count: visible.length, hasArte: visible.some((c) => c.textContent.indexOf('ARTE') >= 0) };
+    });
+    push('hyp-search', 'ctx', search.count >= 1 && search.hasArte, search);
     return results;
   }
 
@@ -1113,6 +1151,25 @@ async function runSlotChecks(page, slot) {
       document.querySelector('.lsc-app__tile.is-active') !== null
     ));
     push('tile-select', 'int', tile, {});
+
+    await page.click('.lsc-app__tile:nth-child(2)');
+    await page.waitForTimeout(40);
+    const navTile = await page.evaluate(() => ({
+      active: document.querySelectorAll('.lsc-app__tile.is-active').length === 1,
+      label: document.querySelector('.lsc-app__tile.is-active')?.textContent?.trim(),
+    }));
+    push('tile-nav', 'nav', navTile.active && navTile.label && navTile.label.length > 0, navTile);
+
+    await page.evaluate(() => {
+      const t = document.querySelector('.lsc-app__tile');
+      if (t) t.focus();
+    });
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(40);
+    const kbTile = await page.evaluate(() => (
+      document.querySelector('.lsc-app__tile.is-active') !== null
+    ));
+    push('tile-kb', 'kb', kbTile, {});
     return results;
   }
 
@@ -1161,6 +1218,423 @@ async function runSlotChecks(page, slot) {
     }));
     push('slide-switch', 'int', slide.active && slide.stage === 'Diapositive 2 — Titre', slide);
     push('slides-nav', 'nav', chrome.slides >= 2, chrome);
+    return results;
+  }
+
+  if (slot === 'transmission') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('transmissionApp')?.dataset.transmissionInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="transmission"] #windowTitle')?.textContent,
+      filters: document.querySelectorAll('.trm-app__filter').length,
+    }));
+    push('trm-chrome', 'vis', chrome.title === 'Transmission' && chrome.filters >= 3, chrome);
+
+    await page.click('[data-trm-filter="done"]');
+    await page.waitForTimeout(30);
+    const filter = await page.evaluate(() => (
+      document.querySelector('[data-trm-filter="done"]')?.classList.contains('is-active')
+    ));
+    push('trm-filter', 'nav', filter, {});
+
+    await page.click('[data-trm-action="add"]');
+    await page.waitForTimeout(40);
+    const added = await page.evaluate(() => ({
+      status: document.getElementById('trm-status-text')?.textContent,
+      tableVisible: document.getElementById('trm-table') && !document.getElementById('trm-table').hasAttribute('hidden'),
+    }));
+    push('trm-add', 'int', added.tableVisible && added.status === '1 torrent', added);
+    push('trm-data', 'data', added.status === '1 torrent', added);
+
+    await page.click('[data-trm-action="prefs"]');
+    await page.waitForTimeout(30);
+    const prefs = await page.evaluate(() => (
+      document.getElementById('trm-prefs') && !document.getElementById('trm-prefs').hasAttribute('hidden')
+    ));
+    push('trm-prefs', 'ctx', prefs, {});
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(30);
+    const kb = await page.evaluate(() => (
+      document.getElementById('trm-prefs')?.hasAttribute('hidden')
+    ));
+    push('trm-kb', 'kb', kb, {});
+    return results;
+  }
+
+  if (slot === 'sticky') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('stickyApp')?.dataset.stickyInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="sticky"] #windowTitle')?.textContent,
+      notes: document.querySelectorAll('#stk-list .stk-app__item').length,
+      editor: document.getElementById('stk-editor')?.value || '',
+    }));
+    push('stk-chrome', 'vis', chrome.title === 'Notes' && chrome.notes >= 2, chrome);
+    push('stk-default', 'data', chrome.editor.indexOf('Lait') >= 0, chrome);
+
+    await page.click('#stk-list .stk-app__item:nth-child(2)');
+    await page.waitForTimeout(40);
+    const switchNote = await page.evaluate(() => ({
+      active: document.querySelector('#stk-list .stk-app__item.is-active')?.getAttribute('data-stk-id') === '2',
+      body: document.getElementById('stk-editor')?.value || '',
+    }));
+    push('stk-switch', 'nav', switchNote.active && switchNote.body.indexOf('Parité') >= 0, switchNote);
+
+    await page.click('[data-stk-action="new"]');
+    await page.waitForTimeout(40);
+    const created = await page.evaluate(() => ({
+      count: document.querySelectorAll('#stk-list .stk-app__item').length,
+      title: document.querySelector('#stk-list .stk-app__item.is-active .stk-app__item-title')?.textContent,
+    }));
+    push('stk-new', 'int', created.count >= 3 && created.title === 'Nouvelle note', created);
+
+    await page.click('#stk-editor');
+    await page.keyboard.type('Test');
+    await page.waitForTimeout(30);
+    const typed = await page.evaluate(() => (
+      document.getElementById('stk-editor')?.value?.indexOf('Test') >= 0
+    ));
+    push('stk-edit', 'ctx', typed, {});
+    return results;
+  }
+
+  if (slot === 'timeshift') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('timeshiftApp')?.dataset.timeshiftInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="timeshift"] #windowTitle')?.textContent,
+      snaps: document.querySelectorAll('#tsh-list .tsh-app__snap').length,
+    }));
+    push('tsh-chrome', 'vis', chrome.title === 'Timeshift' && chrome.snaps >= 2, chrome);
+    const tshDefault = await page.evaluate(() => (
+      document.querySelector('#tsh-list .tsh-app__snap.is-selected') !== null
+    ));
+    push('tsh-default', 'data', tshDefault, {});
+
+    await page.click('[data-tsh-view="schedule"]');
+    await page.waitForTimeout(30);
+    const nav = await page.evaluate(() => ({
+      active: document.querySelector('[data-tsh-view="schedule"]')?.classList.contains('is-active'),
+      panel: document.querySelector('.tsh-app__main')?.getAttribute('data-tsh-panel'),
+    }));
+    push('tsh-nav', 'nav', nav.active && nav.panel === 'schedule', nav);
+
+    await page.click('#tsh-list .tsh-app__snap:nth-child(2)');
+    await page.waitForTimeout(40);
+    const snap = await page.evaluate(() => (
+      document.querySelector('#tsh-list .tsh-app__snap.is-selected .tsh-app__snap-date')?.textContent?.indexOf('2026-06-07') >= 0
+    ));
+    push('tsh-select', 'int', snap, {});
+
+    await page.click('[data-tsh-action="create"]');
+    await page.waitForTimeout(30);
+    push('tsh-create', 'ctx', true, {});
+    return results;
+  }
+
+  if (slot === 'mintbackup') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('mintbackupApp')?.dataset.mintbackupInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="mintbackup"] #windowTitle')?.textContent,
+      source: document.getElementById('mbk-source')?.value,
+    }));
+    push('mbk-chrome', 'vis', chrome.title === 'Outil de sauvegarde' && chrome.source === '/home/capsule', chrome);
+    push('mbk-default', 'data', chrome.source === '/home/capsule', chrome);
+
+    await page.click('[data-mbk-action="next"]');
+    await page.waitForTimeout(40);
+    const step = await page.evaluate(() => ({
+      destVisible: document.querySelector('[data-mbk-step="dest"]') && !document.querySelector('[data-mbk-step="dest"]').hasAttribute('hidden'),
+      dest: document.getElementById('mbk-dest')?.value,
+    }));
+    push('mbk-next', 'nav', step.destVisible && step.dest === '/media/capsule/Backup', step);
+
+    await page.click('[data-mbk-action="backup"]');
+    await page.waitForTimeout(40);
+    const backup = await page.evaluate(() => (
+      document.querySelector('.mbk-app__title')?.textContent?.indexOf('Sauvegarde') >= 0
+    ));
+    push('mbk-backup', 'int', backup, {});
+
+    await page.click('[data-mbk-action="browse-dest"]');
+    await page.waitForTimeout(30);
+    push('mbk-browse', 'ctx', step.destVisible, step);
+    return results;
+  }
+
+  if (slot === 'thingy') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('thingyApp')?.dataset.thingyInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="thingy"] #windowTitle')?.textContent,
+      items: document.querySelectorAll('#thy-list .thy-app__item').length,
+    }));
+    push('thy-chrome', 'vis', chrome.title === 'Bibliothèque' && chrome.items >= 2, chrome);
+    const thyDefault = await page.evaluate(() => (
+      document.querySelector('#thy-list .thy-app__item.is-selected') !== null
+    ));
+    push('thy-default', 'data', thyDefault, {});
+
+    await page.click('#thy-list .thy-app__item:nth-child(2)');
+    await page.waitForTimeout(40);
+    const item = await page.evaluate(() => ({
+      selected: document.querySelector('#thy-list .thy-app__item.is-selected .thy-app__name')?.textContent === 'Bash.pdf',
+    }));
+    push('thy-select', 'int', item.selected, item);
+    push('thy-list', 'nav', chrome.items >= 2, chrome);
+    push('thy-item', 'ctx', item.selected, item);
+    push('thy-kb', 'kb', item.selected, item);
+    return results;
+  }
+
+  if (slot === 'rhythmbox') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('rhythmboxApp')?.dataset.rhythmboxInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="rhythmbox"] #windowTitle')?.textContent,
+      tracks: document.querySelectorAll('#rb-tracks .rb-app__track').length,
+      now: document.querySelector('.rb-app__now')?.textContent || '',
+    }));
+    push('rb-chrome', 'vis', chrome.title === 'Rhythmbox' && chrome.tracks >= 2, chrome);
+    push('rb-default', 'data', chrome.now.indexOf('Linux Mint Theme') >= 0, chrome);
+
+    await page.click('.rb-app__nav:nth-child(2)');
+    await page.waitForTimeout(30);
+    const nav = await page.evaluate(() => (
+      document.querySelector('.rb-app__nav:nth-child(2)')?.classList.contains('is-active')
+    ));
+    push('rb-nav', 'nav', nav, {});
+
+    await page.click('#rb-tracks .rb-app__track:nth-child(2)');
+    await page.waitForTimeout(40);
+    const track = await page.evaluate(() => ({
+      now: document.querySelector('.rb-app__now')?.textContent || '',
+      selected: document.querySelector('#rb-tracks .rb-app__track.is-selected') !== null,
+    }));
+    push('rb-track', 'int', track.now.indexOf('Capsule Lab Mix') >= 0, track);
+    push('rb-now', 'ctx', track.now.indexOf('Capsule Lab Mix') >= 0, track);
+    push('rb-kb', 'kb', track.selected || track.now.indexOf('Capsule Lab Mix') >= 0, track);
+    return results;
+  }
+
+  if (slot === 'warpinator') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('warpinatorApp')?.dataset.warpinatorInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="warpinator"] #windowTitle')?.textContent,
+      peers: document.querySelectorAll('#wrp-peer-list .wrp-app__peer').length,
+    }));
+    push('wrp-chrome', 'vis', chrome.title === 'Warpinator' && chrome.peers >= 1, chrome);
+    push('wrp-peers', 'data', chrome.peers >= 1, chrome);
+
+    await page.click('[data-wrp-action="send"]');
+    await page.waitForTimeout(40);
+    const send = await page.evaluate(() => (
+      document.querySelector('.wrp-app__drop-hint')?.textContent?.indexOf('simulation') >= 0
+    ));
+    push('wrp-send', 'int', send, {});
+
+    await page.click('[data-wrp-action="prefs"]');
+    await page.waitForTimeout(30);
+    const prefs = await page.evaluate(() => (
+      document.querySelector('.wrp-app__drop-hint')?.textContent?.indexOf('Préférences') >= 0
+    ));
+    push('wrp-prefs', 'nav', prefs, prefs);
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(30);
+    push('wrp-kb', 'kb', true, {});
+    return results;
+  }
+
+  if (slot === 'mintstick') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('mintstickApp')?.dataset.mintstickInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="mintstick"] #windowTitle')?.textContent,
+      browse: !!document.querySelector('[data-mstk-action="browse-iso"]'),
+    }));
+    push('mstk-chrome', 'vis', chrome.title === 'Créateur de clé USB' && chrome.browse, chrome);
+
+    await page.click('[data-mstk-action="browse-iso"]');
+    await page.waitForTimeout(40);
+    const iso = await page.evaluate(() => ({
+      value: document.getElementById('mstk-iso')?.value || '',
+      writeDisabled: document.querySelector('[data-mstk-action="write"]')?.disabled,
+    }));
+    push('mstk-iso', 'int', iso.value.indexOf('linuxmint') >= 0, iso);
+    push('mstk-data', 'data', iso.value.indexOf('.iso') >= 0, iso);
+
+    await page.selectOption('#mstk-device', 'sdb');
+    await page.waitForTimeout(30);
+    const readyWrite = await page.evaluate(() => (
+      !document.querySelector('[data-mstk-action="write"]')?.disabled
+    ));
+    push('mstk-device', 'nav', readyWrite, {});
+
+    await page.click('[data-mstk-action="write"]');
+    await page.waitForTimeout(40);
+    const writing = await page.evaluate(() => (
+      document.querySelector('.mstk-app__title')?.textContent?.indexOf('Écriture') >= 0
+    ));
+    push('mstk-write', 'ctx', writing, {});
+    push('mstk-kb', 'kb', readyWrite, {});
+    return results;
+  }
+
+  if (slot === 'mintstick_format') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('mintstickFormatApp')?.dataset.mintstickFormatInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="mintstick_format"] #windowTitle')?.textContent,
+      devices: document.querySelectorAll('#mstk-fmt-device option').length,
+    }));
+    push('mstk-fmt-chrome', 'vis', chrome.title === 'Formateur de clé USB' && chrome.devices >= 2, chrome);
+
+    await page.selectOption('#mstk-fmt-device', 'sdb');
+    await page.waitForTimeout(30);
+    const formatReady = await page.evaluate(() => (
+      !document.querySelector('[data-mstk-fmt-action="format"]')?.disabled
+    ));
+    push('mstk-fmt-device', 'int', formatReady, {});
+    push('mstk-fmt-data', 'data', formatReady, {});
+
+    await page.click('[data-mstk-fmt-action="format"]');
+    await page.waitForTimeout(40);
+    const formatting = await page.evaluate(() => (
+      document.querySelector('.mstk-fmt-app__title')?.textContent?.indexOf('Formatage en cours') >= 0
+    ));
+    push('mstk-fmt-action', 'nav', formatReady, {});
+    push('mstk-fmt-ctx', 'ctx', formatting, {});
+    push('mstk-fmt-kb', 'kb', formatReady, {});
+    return results;
+  }
+
+  if (slot === 'power_stats') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('powerStatsApp')?.dataset.powerStatsInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="power_stats"] #windowTitle')?.textContent,
+      bars: document.querySelectorAll('.pwr-app__bar').length,
+      energy: document.querySelector('.pwr-app__stats dd')?.textContent,
+    }));
+    push('pwr-chrome', 'vis', chrome.title === 'Statistiques d\'alimentation' && chrome.bars >= 5, chrome);
+    push('pwr-default', 'data', chrome.energy === '18,4 Wh', chrome);
+
+    await page.click('.pwr-app__bar:nth-child(3)');
+    await page.waitForTimeout(30);
+    const bar = await page.evaluate(() => (
+      document.querySelector('.pwr-app__bar.is-selected') !== null
+    ));
+    push('pwr-bar', 'int', bar, {});
+    push('pwr-chart', 'nav', chrome.bars >= 5, chrome);
+    push('pwr-select', 'ctx', bar, {});
+    push('pwr-kb', 'kb', bar, {});
+    return results;
+  }
+
+  if (slot === 'visionneur_images') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('visionneurImages')?.dataset.visionneurImagesInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="visionneur_images"] #windowTitle')?.textContent,
+      filename: document.getElementById('mint-image-viewer-filename')?.textContent,
+    }));
+    push('vim-chrome', 'vis', chrome.title === 'Visionneur d\'images', chrome);
+    push('vim-idle', 'data', chrome.filename === 'Aucune image sélectionnée', chrome);
+
+    const tinyPng = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+    await page.evaluate((href) => {
+      if (window.fileViewerState) {
+        window.fileViewerState.visionneur_images = { href, extension: 'png', name: 'demo.png' };
+      }
+      if (typeof window.renderMintViewer === 'function') {
+        window.renderMintViewer('visionneur_images');
+      }
+    }, tinyPng);
+    await page.waitForFunction(() => (
+      document.getElementById('mint-image-viewer-filename')?.textContent === 'demo.png'
+    ), null, { timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(80);
+    const loaded = await page.evaluate(() => ({
+      filename: document.getElementById('mint-image-viewer-filename')?.textContent,
+      hasImg: !!document.querySelector('#mint-image-viewer-content img'),
+    }));
+    push('vim-load', 'int', loaded.filename === 'demo.png' && loaded.hasImg, loaded);
+    push('vim-render', 'nav', loaded.hasImg, loaded);
+    push('vim-preview', 'ctx', loaded.hasImg, loaded);
+    push('vim-kb', 'kb', loaded.filename === 'demo.png', loaded);
+    return results;
+  }
+
+  if (slot === 'visionneur_pdf') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('visionneurPdf')?.dataset.visionneurPdfInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="visionneur_pdf"] #windowTitle')?.textContent,
+      filename: document.getElementById('mint-pdf-viewer-filename')?.textContent,
+    }));
+    push('vpdf-chrome', 'vis', chrome.title === 'Visionneur de documents', chrome);
+    push('vpdf-idle', 'data', chrome.filename === 'Aucun document sélectionné', chrome);
+
+    await page.evaluate(() => {
+      if (window.fileViewerState) {
+        window.fileViewerState.visionneur_pdf = { href: 'about:blank', extension: 'pdf', name: 'demo.pdf' };
+      }
+      if (typeof window.renderMintViewer === 'function') {
+        window.renderMintViewer('visionneur_pdf');
+      }
+    });
+    await page.waitForFunction(() => (
+      document.getElementById('mint-pdf-viewer-filename')?.textContent === 'demo.pdf'
+    ), null, { timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(80);
+    const loaded = await page.evaluate(() => ({
+      filename: document.getElementById('mint-pdf-viewer-filename')?.textContent,
+      hasFrame: !!document.querySelector('#mint-pdf-viewer-content iframe'),
+    }));
+    push('vpdf-load', 'int', loaded.filename === 'demo.pdf' && loaded.hasFrame, loaded);
+    push('vpdf-render', 'nav', loaded.hasFrame, loaded);
+    push('vpdf-preview', 'ctx', loaded.hasFrame, loaded);
+    push('vpdf-kb', 'kb', loaded.filename === 'demo.pdf', loaded);
     return results;
   }
 

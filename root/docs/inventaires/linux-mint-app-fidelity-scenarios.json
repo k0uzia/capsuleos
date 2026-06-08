@@ -28,7 +28,7 @@
     {
       "id": "firefox",
       "label": "Firefox",
-      "pi_credibility": null
+      "pi_credibility": 100
     },
     {
       "id": "text_editor",
@@ -244,11 +244,11 @@
       "capsuleCapture": null,
       "predicates": {
         "CredV": true,
-        "CredC": false,
-        "CredS": false
+        "CredC": true,
+        "CredS": true
       },
-      "pi_credibility": null,
-      "phase": "P-A",
+      "pi_credibility": 100,
+      "phase": "P-E",
       "selectors": {
         "capsule": [
           ".firefox-appmenu-button",
@@ -920,15 +920,15 @@
   "summary": {
     "totalScenarios": 34,
     "documented": 34,
-    "implemented": 12,
-    "smokeOk": 12,
-    "measured": 12,
+    "implemented": 13,
+    "smokeOk": 13,
+    "measured": 13,
     "avgPi": 100,
     "appsTotal": 11,
-    "appsAtPi100": 3,
+    "appsAtPi100": 4,
     "documentedPct": 100,
-    "implementedPct": 35,
-    "smokePct": 35
+    "implementedPct": 38,
+    "smokePct": 38
   },
-  "updatedAt": "2026-06-08T19:30:00.000Z"
+  "updatedAt": "2026-06-08T17:20:08.636Z"
 }

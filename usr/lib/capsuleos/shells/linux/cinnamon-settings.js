@@ -121,6 +121,51 @@
         winEl.setAttribute('data-title', WINDOW_TITLE);
     }
 
+    var THEMES_PANEL_HTML = ''
+        + '<main id="themesApp" class="themes-app" aria-label="Thèmes">'
+        + '<section class="themes-app__section">'
+        + '<h2 class="themes-app__label">Style</h2>'
+        + '<div class="themes-app__control">'
+        + '<button type="button" class="themes-app__select" aria-haspopup="listbox" aria-expanded="false">'
+        + '<span>Mint-Y-Dark-Aqua</span>'
+        + '<span class="themes-app__caret" aria-hidden="true">▼</span>'
+        + '</button></div></section>'
+        + '<section class="themes-app__section themes-app__section--vm-labels">'
+        + '<h2 class="themes-app__label">Thème GTK</h2>'
+        + '<p class="themes-app__vm-value" data-themes-gtk>Mint-Y-Aqua</p></section>'
+        + '<section class="themes-app__section themes-app__section--vm-labels">'
+        + '<h2 class="themes-app__label">Thème des icônes</h2>'
+        + '<p class="themes-app__vm-value" data-themes-icons>Mint-Y-Sand</p></section>'
+        + '<section class="themes-app__section">'
+        + '<h2 class="themes-app__label">Apparence</h2>'
+        + '<div class="themes-app__cards" role="radiogroup" aria-label="Choix du thème">'
+        + '<button type="button" class="themes-card" data-theme-option="dark" role="radio" aria-checked="true">'
+        + '<span class="themes-card__preview themes-card__preview--dark" aria-hidden="true"></span>'
+        + '<span class="themes-card__title">Sombre</span></button>'
+        + '<button type="button" class="themes-card" data-theme-option="light" role="radio" aria-checked="false">'
+        + '<span class="themes-card__preview themes-card__preview--light" aria-hidden="true"></span>'
+        + '<span class="themes-card__title">Clair</span></button></div>'
+        + '<p class="themes-app__help" data-themes-help>Le thème sombre est actif.</p></section>'
+        + '<section class="themes-app__section themes-app__section--backgrounds" data-mint-wallpaper-section>'
+        + '<h2 class="themes-app__label">Arrière-plan</h2>'
+        + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
+        + '</section></main>';
+
+    function ensureThemesPanel(panelsRoot) {
+        var existing = panelsRoot.querySelector('[data-cs-panel="themes"]');
+        if (existing) {
+            return existing;
+        }
+        var section = global.document.createElement('section');
+        section.className = 'cs-panel cs-panel--themes';
+        section.setAttribute('data-cs-panel', 'themes');
+        section.setAttribute('hidden', 'hidden');
+        section.setAttribute('aria-label', 'Thèmes');
+        section.innerHTML = THEMES_PANEL_HTML;
+        panelsRoot.appendChild(section);
+        return section;
+    }
+
     function ensureGenericPanel(panelsRoot, panelId, label) {
         var existing = panelsRoot.querySelector('[data-cs-panel="' + panelId + '"]');
         if (existing) {
@@ -161,7 +206,11 @@
         var pi;
         for (pi = 0; pi < PANELS.length; pi += 1) {
             var panel = PANELS[pi];
-            ensureGenericPanel(panelsRoot, panel.id, panel.label);
+            if (panel.id === 'themes') {
+                ensureThemesPanel(panelsRoot);
+            } else {
+                ensureGenericPanel(panelsRoot, panel.id, panel.label);
+            }
             var btn = global.document.createElement('button');
             btn.type = 'button';
             btn.className = 'cs-app__nav' + (panel.id === 'general' ? ' is-active' : '');

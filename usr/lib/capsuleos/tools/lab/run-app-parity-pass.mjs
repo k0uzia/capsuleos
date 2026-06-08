@@ -245,6 +245,13 @@ async function runSlotChecks(page, slot) {
     ));
     push('win-open', 'int', ready, {});
 
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="calculator"] #windowTitle')?.textContent,
+      initial: document.getElementById('gnome-calc-value')?.textContent,
+    }));
+    push('calc-chrome', 'vis', chrome.title === 'Calculatrice', chrome);
+    push('calc-initial', 'data', chrome.initial === '0', chrome);
+
     await page.click('[data-calc="digit"][data-digit="2"]');
     await page.click('[data-calc="op"][data-op="+"]');
     await page.click('[data-calc="digit"][data-digit="3"]');
@@ -260,6 +267,7 @@ async function runSlotChecks(page, slot) {
       return pop && !pop.hidden;
     });
     push('mode-switch', 'nav', mode, {});
+    push('mode-popover', 'ctx', mode, {});
 
     if (mode) {
       await page.click('[data-calc-mode="advanced"]');
@@ -276,25 +284,81 @@ async function runSlotChecks(page, slot) {
     await page.waitForTimeout(40);
     const bs = await page.evaluate(() => document.getElementById('gnome-calc-value')?.textContent);
     push('backspace', 'int', bs === '0', { bs });
+
+    await page.click('#gnomeCalculatorApp');
+    await page.focus('#gnomeCalculatorApp');
+    await page.keyboard.press('4');
+    await page.keyboard.press('+');
+    await page.keyboard.press('5');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(50);
+    const kbVal = await page.evaluate(() => document.getElementById('gnome-calc-value')?.textContent);
+    push('kb-arithmetic', 'kb', kbVal === '9', { kbVal });
     return results;
   }
 
   if (slot === 'file_roller') {
     const empty = await page.evaluate(() => {
       const app = document.getElementById('fileRollerApp');
-      return app?.dataset.fileRollerInit === 'true'
-        && !document.getElementById('fr-empty')?.hidden;
+      const win = document.querySelector('div[data-link="file_roller"]');
+      return {
+        ready: app?.dataset.fileRollerInit === 'true',
+        emptyVisible: !document.getElementById('fr-empty')?.hidden,
+        title: win?.querySelector('#windowTitle')?.textContent,
+      };
     });
-    push('empty-state', 'data', empty, {});
+    push('empty-state', 'data', empty.ready && empty.emptyVisible, empty);
+    push('fr-chrome', 'vis', empty.title === 'Gestionnaire d\'archives', empty);
 
     await page.click('[data-fr-action="menu"]');
     await page.waitForTimeout(50);
+    const menu = await page.evaluate(() => {
+      const m = document.getElementById('fr-menu');
+      return m && !m.hidden;
+    });
+    push('hamburger-menu', 'nav', menu, {});
+
     await page.click('[data-fr-menu="open-demo"]');
     await page.waitForTimeout(60);
     const open = await page.evaluate(() => (
       document.querySelector('div[data-link="file_roller"] #windowTitle')?.textContent === 'demo.zip'
     ));
     push('open-demo', 'int', open, {});
+
+    await page.click('[data-fr-action="search"]');
+    await page.waitForTimeout(40);
+    const search = await page.evaluate(() => !document.getElementById('fr-search-row')?.hidden);
+    push('search-toggle', 'int', search, {});
+
+    await page.keyboard.press('Control+f');
+    await page.waitForTimeout(40);
+    const kbSearch = await page.evaluate(() => {
+      const row = document.getElementById('fr-search-row');
+      const input = document.getElementById('fr-search-input');
+      return row && !row.hidden && document.activeElement === input;
+    });
+    push('fr-kb-search', 'kb', kbSearch, {});
+
+    const headerBox = await page.locator('div[data-link="file_roller"] #windowHeader').boundingBox();
+    if (headerBox) {
+      const dragBefore = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="file_roller"]');
+        return win ? win.getBoundingClientRect().left : null;
+      });
+      await page.mouse.move(headerBox.x + headerBox.width / 2, headerBox.y + headerBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(headerBox.x + headerBox.width / 2 + 60, headerBox.y + headerBox.height / 2, { steps: 6 });
+      await page.mouse.up();
+      await page.waitForTimeout(40);
+      const dragAfter = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="file_roller"]');
+        return win ? win.getBoundingClientRect().left : null;
+      });
+      push('window-drag', 'vis', dragBefore !== null && dragAfter !== null
+        && Math.abs(dragAfter - dragBefore) > 12, { dragBefore, dragAfter });
+    } else {
+      push('window-drag', 'vis', false, {});
+    }
     return results;
   }
 
@@ -390,6 +454,46 @@ async function runSlotChecks(page, slot) {
     push('panel-search', 'nav', search, {});
 
     await page.fill('#cs-search', '');
+    await page.click('[data-cs-nav="themes"]');
+    await page.waitForTimeout(80);
+    const themesPanel = await page.evaluate(() => {
+      const panel = document.querySelector('[data-cs-panel="themes"]');
+      const app = document.getElementById('themesApp');
+      const styleLabel = app?.querySelector('.themes-app__select span')?.textContent;
+      return {
+        active: panel && panel.classList.contains('is-active') && !panel.hidden,
+        appVisible: app && !app.hidden,
+        mintY: styleLabel === 'Mint-Y-Dark-Aqua',
+        gtk: app?.querySelector('[data-themes-gtk]')?.textContent,
+      };
+    });
+    push('themes-app-panel', 'vis', themesPanel.active && themesPanel.appVisible, themesPanel);
+    push('mint-y-default', 'data', themesPanel.mintY && themesPanel.gtk === 'Mint-Y-Aqua', themesPanel);
+
+    await page.click('#cinnamonSettingsApp .themes-app__select');
+    await page.waitForTimeout(50);
+    const popover = await page.evaluate(() => {
+      const pop = document.getElementById('themes-style-popover');
+      return pop && !pop.hidden;
+    });
+    push('style-popover', 'ctx', popover, {});
+
+    if (popover) {
+      await page.click('[data-mint-style="Mint-Y-Aqua"]');
+      await page.waitForTimeout(40);
+    }
+    const styleChanged = await page.evaluate(() => (
+      document.querySelector('#cinnamonSettingsApp .themes-app__select span')?.textContent === 'Mint-Y-Aqua'
+    ));
+    push('style-select', 'int', styleChanged, {});
+
+    await page.click('#cinnamonSettingsApp [data-theme-option="light"]');
+    await page.waitForTimeout(50);
+    const lightTheme = await page.evaluate(() => (
+      document.documentElement.dataset.theme === 'light'
+    ));
+    push('theme-light', 'int', lightTheme, {});
+
     await page.click('[data-cs-nav="panel"]');
     await page.waitForTimeout(40);
     const panelSwitch = await page.evaluate(() => (
@@ -406,6 +510,75 @@ async function runSlotChecks(page, slot) {
       return before !== after;
     });
     push('panel-toggle', 'int', switchToggle, {});
+
+    await page.evaluate(() => {
+      const search = document.getElementById('cs-search');
+      if (search) {
+        search.focus();
+        search.value = '';
+      }
+    });
+    await page.keyboard.type('Bluetooth');
+    await page.waitForTimeout(60);
+    const kbSearch = await page.evaluate(() => (
+      document.getElementById('cs-panel-title')?.textContent === 'Bluetooth'
+    ));
+    push('cs-kb-search', 'kb', kbSearch, {});
+    return results;
+  }
+
+  if (slot === 'baobab') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('gnomeBaobabApp')?.dataset.baobabInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="baobab"] #windowTitle')?.textContent,
+      ring: document.querySelector('.gnome-baobab__ring-center')?.textContent,
+    }));
+    push('baobab-chrome', 'vis', chrome.title === 'Analyseur d\'espace disque', chrome);
+    push('ring-data', 'data', chrome.ring === '62 %', chrome);
+
+    await page.click('.gnome-baobab__place:nth-child(2)');
+    await page.waitForTimeout(40);
+    const place = await page.evaluate(() => ({
+      active: document.querySelector('.gnome-baobab__place--active .gnome-baobab__place-label')?.textContent,
+      ring: document.querySelector('.gnome-baobab__ring-center')?.textContent,
+      scanEnabled: !document.querySelector('.gnome-baobab__scan-btn')?.disabled,
+    }));
+    push('place-switch', 'nav', place.active === 'Dossier personnel' && place.ring === '34 %', place);
+    push('scan-enable', 'int', place.scanEnabled, place);
+    return results;
+  }
+
+  if (slot === 'bulky') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('bulkyApp')?.dataset.bulkyInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="bulky"] #windowTitle')?.textContent,
+      preview: document.querySelector('#blk-body .blk-app__preview')?.textContent,
+    }));
+    push('bulky-chrome', 'vis', chrome.title === 'Renommer fichiers', chrome);
+    push('preview-data', 'data', chrome.preview === 'IMG_001.jpg', chrome);
+
+    await page.fill('#blk-prefix', 'VAC_');
+    await page.waitForTimeout(40);
+    const prefix = await page.evaluate(() => (
+      document.querySelector('#blk-body .blk-app__preview')?.textContent === 'VAC_001.jpg'
+    ));
+    push('prefix-update', 'int', prefix, {});
+
+    await page.click('[data-blk-action="rename"]');
+    await page.waitForTimeout(50);
+    const renamed = await page.evaluate(() => ({
+      first: document.querySelector('#blk-body tr td:first-child')?.textContent,
+      btn: document.querySelector('[data-blk-action="rename"]')?.textContent,
+    }));
+    push('rename-action', 'int', renamed.first === 'VAC_001.jpg' && renamed.btn === 'Renommé', renamed);
     return results;
   }
 
@@ -467,6 +640,8 @@ const pathToSmoke = (slot) => {
     update_manager: 'usr/lib/capsuleos/tools/lab/smoke-mint-update-manager.mjs',
     mintinstall: 'usr/lib/capsuleos/tools/lab/smoke-mint-mintinstall.mjs',
     themes: 'usr/lib/capsuleos/tools/lab/smoke-mint-themes.mjs',
+    baobab: 'usr/lib/capsuleos/tools/lab/smoke-mint-baobab.mjs',
+    bulky: 'usr/lib/capsuleos/tools/lab/smoke-mint-bulky.mjs',
   };
   const rel = map[slot];
   return rel ? path.join(ROOT, rel) : '';

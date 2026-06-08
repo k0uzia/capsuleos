@@ -1,19 +1,6 @@
-/**
- * Baobab (Analyseur d'espace disque) — Linux Mint Cinnamon, thème Mint-Y-Dark-Aqua.
- */
-body#mint {
-    --gnome-baobab-bg: #2f343f;
-    --gnome-baobab-text: #eeeeec;
-    --gnome-baobab-border: rgba(255, 255, 255, 0.1);
-    --gnome-baobab-header-bg: #3a4150;
-    --gnome-baobab-ring-used: #87cf3e;
-    --gnome-baobab-ring-free: #4a5568;
-}
-
-body#mint div[data-link="baobab"] .gnome-baobab__title {
-    font-weight: 600;
-}
-
-body#mint div[data-link="baobab"] .gnome-baobab__place--active {
-    background: rgba(135, 207, 62, 0.12);
+/* Mint — Baobab (analyseur d'espace disque) */
+body#mint div[data-link="baobab"].windowElement {
+    width: calc(var(--head) * 18);
+    min-width: calc(var(--head) * 15);
+    height: calc(var(--head) * 13);
 }

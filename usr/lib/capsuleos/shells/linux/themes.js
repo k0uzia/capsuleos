@@ -458,12 +458,86 @@ function resolveThemesAccessibilityRoot(root) {
         || root;
 }
 
+function bindMintStyleSelect(root) {
+    const selectBtn = root.querySelector('.themes-app__select');
+    if (!selectBtn || selectBtn.dataset.mintStyleBound === 'true') {
+        return;
+    }
+    let popover = root.querySelector('#themes-style-popover');
+    if (!popover) {
+        popover = document.createElement('div');
+        popover.id = 'themes-style-popover';
+        popover.className = 'themes-style-popover';
+        popover.hidden = true;
+        popover.setAttribute('role', 'listbox');
+        popover.setAttribute('aria-label', 'Styles Cinnamon');
+        const styles = ['Mint-Y-Dark-Aqua', 'Mint-Y-Aqua', 'Mint-Y-Dark', 'Mint-Y'];
+        styles.forEach((styleName) => {
+            const opt = document.createElement('button');
+            opt.type = 'button';
+            opt.className = 'themes-style-popover__item' + (styleName === 'Mint-Y-Dark-Aqua' ? ' is-active' : '');
+            opt.setAttribute('data-mint-style', styleName);
+            opt.setAttribute('role', 'option');
+            opt.textContent = styleName;
+            popover.appendChild(opt);
+        });
+        const control = selectBtn.parentElement;
+        if (control) {
+            control.appendChild(popover);
+        }
+    }
+    selectBtn.dataset.mintStyleBound = 'true';
+    selectBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const open = popover.hidden;
+        popover.hidden = !open;
+        selectBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    popover.querySelectorAll('[data-mint-style]').forEach((opt) => {
+        opt.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const styleName = opt.getAttribute('data-mint-style');
+            const label = selectBtn.querySelector('span');
+            if (label) {
+                label.textContent = styleName;
+            }
+            popover.querySelectorAll('[data-mint-style]').forEach((entry) => {
+                entry.classList.toggle('is-active', entry === opt);
+            });
+            const gtkEl = root.querySelector('[data-themes-gtk]');
+            const iconsEl = root.querySelector('[data-themes-icons]');
+            if (gtkEl) {
+                gtkEl.textContent = styleName.indexOf('Dark') >= 0 ? 'Mint-Y-Dark' : 'Mint-Y-Aqua';
+            }
+            if (iconsEl) {
+                iconsEl.textContent = styleName.indexOf('Aqua') >= 0 ? 'Mint-Y-Aqua' : 'Mint-Y-Sand';
+            }
+            popover.hidden = true;
+            selectBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    document.addEventListener('click', (event) => {
+        if (popover.hidden) {
+            return;
+        }
+        if (popover.contains(event.target) || event.target === selectBtn) {
+            return;
+        }
+        popover.hidden = true;
+        selectBtn.setAttribute('aria-expanded', 'false');
+    });
+}
+
 function initThemesApp() {
-    const root = document.querySelector('#themes #themesApp');
+    const root = document.querySelector('#themes #themesApp')
+        || document.querySelector('#cinnamonSettingsApp #themesApp');
     if (!root) {
         return;
     }
 
+    bindMintStyleSelect(root);
     bindGnomeSettingsNavigation(root);
     bindSettingsSwitches(root);
     buildWallpaperGrid(root);

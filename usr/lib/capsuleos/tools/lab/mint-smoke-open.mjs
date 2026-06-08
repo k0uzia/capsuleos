@@ -24,6 +24,8 @@ const MENU_SEARCH = {
   mintinstall: 'Logithèque',
   themes: 'Paramètres',
   terminal: 'Terminal',
+  baobab: 'Analyseur d\'espace disque',
+  bulky: 'Renommer fichiers',
 };
 
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);

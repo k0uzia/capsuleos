@@ -55,6 +55,7 @@
             return;
         }
         root.dataset.calcInit = 'true';
+        root.setAttribute('tabindex', '0');
 
         var exprEl = global.document.getElementById('gnome-calc-expr');
         var valueEl = global.document.getElementById('gnome-calc-value');

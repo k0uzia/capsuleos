@@ -54,6 +54,7 @@ const APP_EFFECTS = {
   file_roller: [
     { effect: 'empty-open-archive', kernel: 'file-roller.js' },
     { effect: 'headerbar-chrome', kernel: 'file-roller.js' },
+    { effect: 'search-kb-shortcut', kernel: 'file-roller.js' },
   ],
   update_manager: [
     { effect: 'welcome-dismiss', kernel: 'update-manager.js' },
@@ -61,8 +62,17 @@ const APP_EFFECTS = {
   ],
   themes: [
     { effect: 'panel-router', kernel: 'cinnamon-settings.js' },
-    { effect: 'search-panels', kernel: 'cinnamon-settings.js' },
-    { effect: 'cs-switch-toggle', kernel: 'cinnamon-settings.js' },
+    { effect: 'themes-app-embed', kernel: 'cinnamon-settings.js' },
+    { effect: 'mint-style-popover', kernel: 'themes.js' },
+    { effect: 'theme-preview', kernel: 'themes.js' },
+  ],
+  baobab: [
+    { effect: 'place-switch', kernel: 'baobab.js' },
+    { effect: 'ring-preview', kernel: 'baobab.js' },
+  ],
+  bulky: [
+    { effect: 'prefix-preview', kernel: 'bulky.js' },
+    { effect: 'rename-batch', kernel: 'bulky.js' },
   ],
   mintinstall: [
     { effect: 'category-nav', kernel: 'mintinstall.js' },

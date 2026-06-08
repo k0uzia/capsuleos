@@ -139,3 +139,59 @@ main#cinnamonSettingsApp {
 .cs-switch.is-on::after {
     transform: translateX(1.2rem);
 }
+
+.cs-panel--themes {
+    overflow-y: auto;
+    padding: 0.65rem 0.85rem;
+}
+
+.cs-panel--themes #themesApp {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #e1e1e1;
+}
+
+.themes-style-popover {
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    min-width: 12rem;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0;
+    border: 1px solid #3a3a40;
+    border-radius: 4px;
+    background: #2e2e33;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.themes-app__control {
+    position: relative;
+}
+
+.themes-style-popover__item {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: var(--p);
+}
+
+.themes-style-popover__item:hover,
+.themes-style-popover__item.is-active {
+    background: rgba(31, 158, 222, 0.22);
+}

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-mint",
-  "generatedAt": "2026-06-08T11:19:30.082Z",
+  "generatedAt": "2026-06-08T11:35:49.912Z",
   "shell": [
     {
       "id": "mainMenu",
@@ -221,6 +221,10 @@
         {
           "effect": "headerbar-chrome",
           "kernel": "file-roller.js"
+        },
+        {
+          "effect": "search-kb-shortcut",
+          "kernel": "file-roller.js"
         }
       ],
       "smoke": "smoke-mint-file-roller.mjs"
@@ -261,22 +265,56 @@
     },
     "themes": {
       "label": "Paramètres système (cinnamon-settings)",
-      "interactions": 4,
+      "interactions": 7,
       "effects": [
         {
           "effect": "panel-router",
           "kernel": "cinnamon-settings.js"
         },
         {
-          "effect": "search-panels",
+          "effect": "themes-app-embed",
           "kernel": "cinnamon-settings.js"
         },
         {
-          "effect": "cs-switch-toggle",
-          "kernel": "cinnamon-settings.js"
+          "effect": "mint-style-popover",
+          "kernel": "themes.js"
+        },
+        {
+          "effect": "theme-preview",
+          "kernel": "themes.js"
         }
       ],
       "smoke": "smoke-mint-themes.mjs"
+    },
+    "baobab": {
+      "label": "Analyseur d'espace disque",
+      "interactions": 3,
+      "effects": [
+        {
+          "effect": "place-switch",
+          "kernel": "baobab.js"
+        },
+        {
+          "effect": "ring-preview",
+          "kernel": "baobab.js"
+        }
+      ],
+      "smoke": "smoke-mint-baobab.mjs"
+    },
+    "bulky": {
+      "label": "Renommer fichiers",
+      "interactions": 3,
+      "effects": [
+        {
+          "effect": "prefix-preview",
+          "kernel": "bulky.js"
+        },
+        {
+          "effect": "rename-batch",
+          "kernel": "bulky.js"
+        }
+      ],
+      "smoke": "smoke-mint-bulky.mjs"
     }
   },
   "gates": [

@@ -88,8 +88,27 @@ export const SLOT_TEMPLATES = {
     checks: [
       { id: 'sidebar-panels', dimension: 'nav', type: 'eval', expect: 'panel list + search' },
       { id: 'panel-search', dimension: 'nav', type: 'fill', selector: '#cs-search' },
-      { id: 'panel-switch', dimension: 'int', type: 'click', selector: '[data-cs-nav]' },
-      { id: 'panel-toggle', dimension: 'int', type: 'eval', expect: 'cs-switch toggle' },
+      { id: 'themes-app-panel', dimension: 'vis', type: 'eval', expect: '#themesApp in themes panel' },
+      { id: 'mint-y-default', dimension: 'data', type: 'eval', expect: 'Mint-Y-Dark-Aqua default' },
+      { id: 'style-popover', dimension: 'ctx', type: 'click', selector: '.themes-app__select' },
+      { id: 'theme-light', dimension: 'int', type: 'click', selector: '[data-theme-option="light"]' },
+      { id: 'cs-kb-search', dimension: 'kb', type: 'keyboard', expect: 'search filter panels' },
+    ],
+  },
+  baobab: {
+    label: 'Analyseur d\'espace disque',
+    checks: [
+      { id: 'win-open', dimension: 'int', type: 'eval', expect: 'baobabInit' },
+      { id: 'place-switch', dimension: 'nav', type: 'click', selector: '.gnome-baobab__place' },
+      { id: 'scan-enable', dimension: 'int', type: 'eval', expect: 'scan button enabled' },
+    ],
+  },
+  bulky: {
+    label: 'Renommer fichiers',
+    checks: [
+      { id: 'win-open', dimension: 'int', type: 'eval', expect: 'bulkyInit' },
+      { id: 'prefix-update', dimension: 'int', type: 'fill', selector: '#blk-prefix' },
+      { id: 'rename-action', dimension: 'int', type: 'click', selector: '[data-blk-action="rename"]' },
     ],
   },
 };

@@ -95,6 +95,66 @@
     "baobab": {
       "slot": "baobab",
       "label": "baobab",
+      "pi": 83,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
+      },
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:35:17.482Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:35:17.971Z"
+    },
+    "bulky": {
+      "slot": "bulky",
+      "label": "bulky",
+      "pi": 75,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
+      },
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:35:21.463Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:35:22.021Z"
+    },
+    "calculator": {
+      "slot": "calculator",
+      "label": "calculator",
+      "pi": 100,
+      "status": "ok",
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:35:08.899Z",
+      "checksPassed": 9,
+      "checksTotal": 9,
+      "updatedAt": "2026-06-08T11:35:09.970Z"
+    },
+    "drawing": {
+      "slot": "drawing",
+      "label": "drawing",
       "pi": 58,
       "status": "absent",
       "dimensions": {
@@ -107,82 +167,30 @@
       },
       "inventory": null,
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:27:32.305Z",
+      "lastPass": "2026-06-08T11:35:52.107Z",
       "checksPassed": 1,
       "checksTotal": 1,
-      "updatedAt": "2026-06-08T11:27:32.836Z"
-    },
-    "bulky": {
-      "slot": "bulky",
-      "label": "bulky",
-      "pi": 54,
-      "status": "absent",
-      "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
-      },
-      "inventory": "interactions/linux-mint/bulky.json",
-      "vmDoc": null
-    },
-    "calculator": {
-      "slot": "calculator",
-      "label": "calculator",
-      "pi": 67,
-      "status": "partiel",
-      "dimensions": {
-        "vis": 50,
-        "nav": 100,
-        "int": 100,
-        "ctx": 50,
-        "kb": 50,
-        "data": 50
-      },
-      "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
-      "vmDoc": null,
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
-    },
-    "drawing": {
-      "slot": "drawing",
-      "label": "drawing",
-      "pi": 54,
-      "status": "absent",
-      "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
-      },
-      "inventory": "interactions/linux-mint/drawing.json",
-      "vmDoc": null
+      "updatedAt": "2026-06-08T11:35:52.487Z"
     },
     "file_roller": {
       "slot": "file_roller",
       "label": "file_roller",
-      "pi": 67,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
-        "nav": 50,
+        "vis": 100,
+        "nav": 100,
         "int": 100,
         "ctx": 50,
-        "kb": 50,
+        "kb": 100,
         "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/file_roller.json",
       "vmDoc": "linux-mint-file-roller-vm.md",
-      "lastPass": "2026-06-08T11:10:32.576Z",
-      "checksPassed": 2,
-      "checksTotal": 2,
-      "updatedAt": "2026-06-08T11:10:36.076Z"
+      "lastPass": "2026-06-08T11:35:13.519Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T11:35:14.428Z"
     },
     "firefox": {
       "slot": "firefox",
@@ -635,22 +643,22 @@
     "themes": {
       "slot": "themes",
       "label": "themes",
-      "pi": 67,
-      "status": "partiel",
+      "pi": 100,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
+        "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
-        "kb": 50,
-        "data": 50
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:19:19.296Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T11:19:20.468Z"
+      "lastPass": "2026-06-08T11:35:03.868Z",
+      "checksPassed": 11,
+      "checksTotal": 11,
+      "updatedAt": "2026-06-08T11:35:05.817Z"
     },
     "thingy": {
       "slot": "thingy",
@@ -805,7 +813,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T11:27:32.836Z",
-  "pi_global": 62,
+  "updatedAt": "2026-06-08T11:35:52.487Z",
+  "pi_global": 65,
   "status_global": "partiel"
 }

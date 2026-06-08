@@ -27,6 +27,8 @@ description: Reproduces a real desktop OS from a VM into CapsuleOS following the
 12. `validate-all.mjs` — **H₆** + captures VM/Capsule si campagne parité :
     - `visual-parity-lab` → `run-visual-parity-pass.mjs` (**Vp**)
     - `ui-state-effects-replication` → `run-ui-state-effects-pass.mjs` (**Va → VΣ**, apps détectées auto)
+13. **Cycles clone** — orchestrateur campagne : `run-clone-cycle.mjs --id <registryId> --status` puis `--run-next` / `--auto` ; doc [moteur-clonage-experience.md](../../docs/moteur-clonage-experience.md). **11 cycles** typiques vers Π=100.
+14. **Cross-régression** — après tout touch `fileExplorer/`, `contentLoader.js`, `mainMenu.js` : `run-cross-regression-gates.mjs --kernel-touch` (Mint Nemo + Rocky Nautilus).
 
 ## Ubuntu GNOME (refonte depuis VM)
 

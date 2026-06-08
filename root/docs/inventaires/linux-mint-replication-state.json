@@ -32,7 +32,16 @@
     "parityPass": "usr/lib/capsuleos/tools/lab/run-app-parity-pass.mjs",
     "uiEffects": "usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs",
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
-    "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
+    "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs",
+    "cloneCycle": "usr/lib/capsuleos/tools/lab/run-clone-cycle.mjs",
+    "crossRegression": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs"
+  },
+  "cloneEngine": {
+    "contract": "etc/capsuleos/contracts/clone-cycle-engine.json",
+    "doc": "root/docs/moteur-clonage-experience.md",
+    "currentCycle": "C9",
+    "nextCycle": "C10",
+    "cyclesToPi100": { "minimum": 10, "typical": 11, "remaining": 1 }
   },
   "pallier": 9,
   "pallier1Commit": "00816fb",

@@ -45,6 +45,8 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 
 **Estimation coût clone VM** : [`linux-mint-replication-cost-estimate.md`](inventaires/linux-mint-replication-cost-estimate.md) (tous vendors — modèle Mint).
 
+**Moteur de cycles** : [`moteur-clonage-experience.md`](moteur-clonage-experience.md) — **10–11 cycles automatiques** (C0–C10) pour Π_global=100 ; cross-régression `run-cross-regression-gates.mjs` après touch noyau partagé. Contrat : `etc/capsuleos/contracts/clone-cycle-engine.json`.
+
 ```text
 VM (ground truth) → inventaire JSON/MD → skin home/ → sync façades → validate-all
 ```

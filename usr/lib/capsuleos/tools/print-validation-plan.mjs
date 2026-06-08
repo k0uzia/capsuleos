@@ -73,6 +73,9 @@ files.forEach((f) => {
   if (/usr\/lib\/capsuleos/.test(f)) {
     add('node usr/lib/capsuleos/tools/validate-quality-all.mjs', 'JS noyau');
   }
+  if (/fileExplorer\/|contentLoader\.js|mainMenu\.js|capsule-window\.js/.test(f)) {
+    add('CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs --kernel-touch', 'Cross-régression Mint Nemo + Rocky Nautilus');
+  }
   if (/etc\/capsuleos|os-registry/.test(f)) {
     add('node usr/lib/capsuleos/tools/validate-capsule.mjs', 'Registre / profils');
   }

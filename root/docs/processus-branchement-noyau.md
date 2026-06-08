@@ -57,6 +57,17 @@ Le noyau CapsuleOS (`usr/lib/capsuleos/`) expose des **comportements partagés**
 
 **Anti-pattern** : remplacer `bindNautilusGnomeContextMenu` par le menu Nemo Mint sans test Rocky — régression P0 observée (commit `00816fb`).
 
+### Dispatch renforcé (pallier post-9, commit `74ba268`)
+
+| Garde | Rôle |
+|-------|------|
+| Exclusion `.nemo-app` dans `isNautilusGnomeScope` | Évite early-return Nautilus sans bind sur Mint |
+| Repli `CapsuleExplorerRegistry.isNemoFamily()` | Scope Nemo même si gabarit pas encore injecté |
+| Fall-through | Si Nautilus n’initialise pas, tenter `bindNemoContextMenu` |
+| Délégation sur slot + reset `nemoContextMenuBound` | Course `contentLoader` / fenêtres secondaires |
+
+**Gate obligatoire** après patch : `run-cross-regression-gates.mjs` — voir [moteur-clonage-experience.md](moteur-clonage-experience.md).
+
 ---
 
 ## Branchement — menu, panel, tray

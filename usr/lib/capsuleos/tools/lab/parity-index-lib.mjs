@@ -106,6 +106,23 @@ export function updateAppParity(index, slot, patch) {
   return recomputeGlobal(index);
 }
 
+export function updateShellParity(index, surfaceId, patch) {
+  if (!index.shell) index.shell = {};
+  const prev = index.shell[surfaceId] || { dimensions: {} };
+  const dims = { ...prev.dimensions, ...(patch.dimensions || {}) };
+  const entry = {
+    ...prev,
+    ...patch,
+    id: surfaceId,
+    dimensions: dims,
+    pi: computePiApp(dims),
+    status: parityStatus(computePiApp(dims)),
+    updatedAt: new Date().toISOString(),
+  };
+  index.shell[surfaceId] = entry;
+  return recomputeGlobal(index);
+}
+
 export function dimensionScoresFromChecks(checks) {
   const buckets = { vis: [], nav: [], int: [], ctx: [], kb: [], data: [] };
   checks.forEach((c) => {

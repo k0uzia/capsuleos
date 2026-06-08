@@ -288,6 +288,29 @@
             });
         }
 
+        global.document.addEventListener('keydown', function onMintInstallKeydown(event) {
+            if (!root || !root.isConnected) {
+                return;
+            }
+            var winEl = getWindowEl(root);
+            if (!winEl || winEl.style.display === 'none') {
+                return;
+            }
+            if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {
+                event.preventDefault();
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            }
+            if (event.key === 'Escape' && menuEl && !menuEl.hidden) {
+                menuEl.setAttribute('hidden', 'hidden');
+                if (menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+
         showPage(root, 'home');
         setActiveCategory(root, 'home');
     }

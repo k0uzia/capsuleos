@@ -14,29 +14,37 @@
   "shell": {
     "mainMenu": {
       "id": "mainMenu",
-      "pi": 66,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 75,
-        "nav": 68,
-        "int": 70,
-        "ctx": 55,
-        "kb": 50,
-        "data": 80
-      }
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 100,
+        "data": 100
+      },
+      "lastPass": "2026-06-08T11:54:04.866Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:54:04.866Z"
     },
     "panel": {
       "id": "panel",
-      "pi": 67,
+      "pi": 83,
       "status": "partiel",
       "dimensions": {
-        "vis": 78,
-        "nav": 72,
-        "int": 74,
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
         "ctx": 50,
-        "kb": 45,
-        "data": 82
-      }
+        "kb": 50,
+        "data": 100
+      },
+      "lastPass": "2026-06-08T11:54:04.866Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:54:04.866Z"
     },
     "tray": {
       "id": "tray",
@@ -66,16 +74,20 @@
     },
     "desktop": {
       "id": "desktop",
-      "pi": 64,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 72,
-        "nav": 65,
-        "int": 68,
-        "ctx": 60,
-        "kb": 45,
-        "data": 75
-      }
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "lastPass": "2026-06-08T11:54:04.866Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:54:04.866Z"
     },
     "theme": {
       "id": "theme",
@@ -295,98 +307,122 @@
     "lecteur_multimedia": {
       "slot": "lecteur_multimedia",
       "label": "lecteur_multimedia",
-      "pi": 54,
-      "status": "absent",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 100,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/lecteur_multimedia.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:51:54.449Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T11:51:55.476Z"
     },
     "librecalc": {
       "slot": "librecalc",
       "label": "librecalc",
-      "pi": 54,
-      "status": "absent",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 100,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/librecalc.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:51:58.667Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T11:51:59.287Z"
     },
     "libreoffice_draw": {
       "slot": "libreoffice_draw",
       "label": "libreoffice_draw",
-      "pi": 54,
-      "status": "absent",
+      "pi": 83,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/libreoffice_draw.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:52:13.770Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:52:14.263Z"
     },
     "libreoffice_impress": {
       "slot": "libreoffice_impress",
       "label": "libreoffice_impress",
-      "pi": 54,
-      "status": "absent",
+      "pi": 83,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/libreoffice_impress.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:52:17.531Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:52:18.002Z"
     },
     "libreoffice_startcenter": {
       "slot": "libreoffice_startcenter",
       "label": "libreoffice_startcenter",
-      "pi": 54,
-      "status": "absent",
+      "pi": 75,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 50,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/libreoffice_startcenter.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:52:10.150Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-08T11:52:10.629Z"
     },
     "librewriter": {
       "slot": "librewriter",
       "label": "librewriter",
-      "pi": 54,
-      "status": "absent",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 100,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/librewriter.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:52:06.133Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T11:52:06.805Z"
     },
     "mate_color_select": {
       "slot": "mate_color_select",
@@ -443,22 +479,22 @@
     "mintinstall": {
       "slot": "mintinstall",
       "label": "mintinstall",
-      "pi": 75,
-      "status": "partiel",
+      "pi": 100,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
+        "vis": 100,
         "nav": 100,
         "int": 100,
         "ctx": 100,
-        "kb": 50,
-        "data": 50
+        "kb": 100,
+        "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:19:15.451Z",
-      "checksPassed": 4,
-      "checksTotal": 4,
-      "updatedAt": "2026-06-08T11:19:16.210Z"
+      "lastPass": "2026-06-08T11:51:46.105Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "updatedAt": "2026-06-08T11:51:47.196Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -563,34 +599,42 @@
     "screenshot": {
       "slot": "screenshot",
       "label": "screenshot",
-      "pi": 54,
-      "status": "absent",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/screenshot.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:51:50.381Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T11:51:51.113Z"
     },
     "simple_scan": {
       "slot": "simple_scan",
       "label": "simple_scan",
-      "pi": 54,
-      "status": "absent",
+      "pi": 83,
+      "status": "partiel",
       "dimensions": {
-        "vis": 70,
-        "nav": 55,
-        "int": 60,
-        "ctx": 40,
-        "kb": 35,
-        "data": 65
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 50,
+        "kb": 50,
+        "data": 100
       },
-      "inventory": "interactions/linux-mint/simple_scan.json",
-      "vmDoc": null
+      "inventory": null,
+      "vmDoc": null,
+      "lastPass": "2026-06-08T11:52:02.407Z",
+      "checksPassed": 5,
+      "checksTotal": 5,
+      "updatedAt": "2026-06-08T11:52:02.969Z"
     },
     "sticky": {
       "slot": "sticky",
@@ -747,22 +791,22 @@
     "update_manager": {
       "slot": "update_manager",
       "label": "update_manager",
-      "pi": 75,
-      "status": "partiel",
+      "pi": 100,
+      "status": "ok",
       "dimensions": {
-        "vis": 50,
+        "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
-        "kb": 50,
+        "ctx": 100,
+        "kb": 100,
         "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
       "vmDoc": "linux-mint-update-manager-vm.md",
-      "lastPass": "2026-06-08T11:19:10.766Z",
-      "checksPassed": 4,
-      "checksTotal": 4,
-      "updatedAt": "2026-06-08T11:19:12.449Z"
+      "lastPass": "2026-06-08T11:51:40.972Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T11:51:42.899Z"
     },
     "visionneur_images": {
       "slot": "visionneur_images",
@@ -833,7 +877,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T11:41:04.596Z",
-  "pi_global": 68,
+  "updatedAt": "2026-06-08T11:54:04.866Z",
+  "pi_global": 76,
   "status_global": "partiel"
 }

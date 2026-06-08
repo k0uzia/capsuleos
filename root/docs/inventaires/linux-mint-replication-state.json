@@ -34,13 +34,14 @@
     "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
     "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs"
   },
-  "pallier": 4,
+  "pallier": 5,
   "pallier1Commit": "00816fb",
   "pallier2Commit": "aa466ab",
   "pallier3Commit": "aa71cce",
-  "updatedAt": "2026-06-08T12:30:00.000Z",
+  "pallier4Commit": "37cf71f",
+  "updatedAt": "2026-06-08T11:55:00.000Z",
   "paritySnapshot": {
-    "pi_global": 68,
+    "pi_global": 76,
     "status_global": "partiel",
     "priorityApps": {
       "nemo": 100,
@@ -48,11 +49,19 @@
       "text_editor": 92,
       "calculator": 100,
       "file_roller": 92,
-      "update_manager": 75,
-      "mintinstall": 75,
+      "update_manager": 100,
+      "mintinstall": 100,
       "themes": 100
     },
     "catalogue": {
+      "screenshot": 92,
+      "lecteur_multimedia": 92,
+      "librecalc": 92,
+      "librewriter": 92,
+      "simple_scan": 83,
+      "libreoffice_startcenter": 75,
+      "libreoffice_draw": 83,
+      "libreoffice_impress": 83,
       "baobab": 83,
       "bulky": 75,
       "drawing": 83,
@@ -60,12 +69,17 @@
       "gnome_disks": 75,
       "gucharmap": 67,
       "hypnotix": 67
+    },
+    "shell": {
+      "mainMenu": 92,
+      "panel": 83,
+      "desktop": 92
     }
   },
   "notes": [
     "101/101 catalogue : slots ouverts OK (smoke basique).",
-    "Pallier 4 : nemo/firefox Π=100 (menu FF, F9 Nemo, raccourcis clavier).",
-    "Catalogue : drawing 83, font_viewer 83, gnome_disks 75, gucharmap/hypnotix 67.",
-    "Shell menu/panel/bureau : Π partiel — passe UI state effects en cours."
+    "Pallier 5 : update_manager/mintinstall Π=100 ; catalogue LibreOffice/Celluloid/Calc ≥83.",
+    "Shell : mainMenu/desktop Π=92, panel Π=83 (passe UI state effects).",
+    "Π_global 76 — prochain pallier : slots catalogue restants <90."
   ]
 }

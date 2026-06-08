@@ -8,6 +8,16 @@
         if (!root || root.dataset.libreofficeStartcenterInit === 'true') return;
         root.dataset.libreofficeStartcenterInit = 'true';
         syncWindowTitle(getWindowEl(root));
+        root.addEventListener('click', function (ev) {
+            var tile = ev.target.closest('.lsc-app__tile');
+            if (!tile || !root.contains(tile)) return;
+            var tiles = root.querySelectorAll('.lsc-app__tile');
+            var ti;
+            for (ti = 0; ti < tiles.length; ti += 1) {
+                tiles[ti].classList.remove('is-active');
+            }
+            tile.classList.add('is-active');
+        });
     }
     global.initLibreofficeStartcenterApp = function () { initLibreofficeStartcenterAppOnce(); };
 }(typeof window !== 'undefined' ? window : globalThis));
@@ -22,6 +32,18 @@
         if (!root || root.dataset.libreofficeDrawInit === 'true') return;
         root.dataset.libreofficeDrawInit = 'true';
         syncWindowTitle(getWindowEl(root));
+        var canvas = root.querySelector('#ldr-canvas');
+        if (canvas) {
+            canvas.addEventListener('click', function () {
+                canvas.dataset.hasShape = 'true';
+                if (!canvas.querySelector('.ldr-app__shape')) {
+                    var shape = global.document.createElement('div');
+                    shape.className = 'ldr-app__shape';
+                    shape.setAttribute('aria-hidden', 'true');
+                    canvas.appendChild(shape);
+                }
+            });
+        }
     }
     global.initLibreofficeDrawApp = function () { initLibreofficeDrawAppOnce(); };
 }(typeof window !== 'undefined' ? window : globalThis));
@@ -36,6 +58,21 @@
         if (!root || root.dataset.libreofficeImpressInit === 'true') return;
         root.dataset.libreofficeImpressInit = 'true';
         syncWindowTitle(getWindowEl(root));
+        root.addEventListener('click', function (ev) {
+            var slide = ev.target.closest('.lim-app__slide');
+            if (!slide || !root.contains(slide)) return;
+            var slides = root.querySelectorAll('.lim-app__slide');
+            var si;
+            for (si = 0; si < slides.length; si += 1) {
+                slides[si].classList.remove('is-active');
+            }
+            slide.classList.add('is-active');
+            var stage = root.querySelector('.lim-app__stage');
+            var label = slide.textContent || '1';
+            if (stage) {
+                stage.textContent = 'Diapositive ' + label + ' — Titre';
+            }
+        });
     }
     global.initLibreofficeImpressApp = function () { initLibreofficeImpressAppOnce(); };
 }(typeof window !== 'undefined' ? window : globalThis));

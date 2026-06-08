@@ -470,6 +470,42 @@ async function runSlotChecks(page, slot) {
       return rows >= 1;
     });
     push('refresh-list', 'int', refresh, { rows: refresh });
+
+    const umChrome = await page.evaluate(() => {
+      const win = document.querySelector('div[data-link="update_manager"]');
+      const menubar = document.querySelector('.update-manager__menubar');
+      const toolbar = document.querySelector('.update-manager__toolbar');
+      const menubarBox = menubar ? menubar.getBoundingClientRect() : null;
+      const toolbarBox = toolbar ? toolbar.getBoundingClientRect() : null;
+      return {
+        title: win?.querySelector('#windowTitle')?.textContent,
+        menubarH: menubarBox ? Math.round(menubarBox.height) : 0,
+        toolbarH: toolbarBox ? Math.round(toolbarBox.height) : 0,
+      };
+    });
+    push('um-chrome', 'vis', umChrome.title === 'Gestionnaire de mise à jour'
+      && umChrome.menubarH >= 24 && umChrome.menubarH <= 32
+      && umChrome.toolbarH >= 56 && umChrome.toolbarH <= 64, umChrome);
+
+    await page.click('#um-tablewrap tbody tr:first-child input[type="checkbox"]');
+    await page.waitForTimeout(40);
+    const rowCtx = await page.evaluate(() => {
+      const row = document.querySelector('#um-tablewrap tbody tr.is-selected');
+      const cb = document.querySelector('#um-tablewrap tbody tr:first-child input[type="checkbox"]');
+      return { selected: !!row, checked: cb ? cb.checked : false };
+    });
+    push('row-select', 'ctx', rowCtx.selected || rowCtx.checked, rowCtx);
+
+    await page.click('[data-um-menu="edit"]');
+    await page.waitForTimeout(40);
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(40);
+    const umKb = await page.evaluate(() => {
+      const dd = document.querySelector('[data-um-menu="edit"]')
+        ?.parentElement?.querySelector('.update-manager__menu-dropdown');
+      return dd && dd.hidden;
+    });
+    push('um-kb-menu', 'kb', umKb, {});
     return results;
   }
 
@@ -507,6 +543,36 @@ async function runSlotChecks(page, slot) {
       return m && !m.hidden;
     });
     push('hamburger-menu', 'ctx', menu, {});
+
+    await page.keyboard.press('Escape');
+    await page.click('[data-mi-cat="home"]');
+    await page.waitForTimeout(60);
+
+    const miChrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="mintinstall"] #windowTitle')?.textContent,
+      search: !!document.getElementById('mi-search'),
+      home: !document.querySelector('[data-mi-page="home"]')?.hidden,
+    }));
+    push('mi-chrome', 'vis', miChrome.title === 'Logithèque' && miChrome.search, miChrome);
+    push('mi-home', 'data', miChrome.home, miChrome);
+
+    await page.click('[data-mi-cat="internet"]');
+    await page.waitForTimeout(60);
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-install="firefox"]');
+      if (btn) btn.click();
+    });
+    await page.waitForTimeout(50);
+    const install = await page.evaluate(() => ({
+      status: document.getElementById('mi-status')?.textContent,
+      disabled: document.querySelector('[data-mi-install="firefox"]')?.disabled,
+    }));
+    push('mi-install', 'int', install.status && install.status.indexOf('Firefox') >= 0 && install.disabled, install);
+
+    await page.keyboard.press('Control+f');
+    await page.waitForTimeout(40);
+    const miKb = await page.evaluate(() => document.activeElement?.id === 'mi-search');
+    push('mi-kb-search', 'kb', miKb, {});
     return results;
   }
 
@@ -844,6 +910,260 @@ async function runSlotChecks(page, slot) {
     return results;
   }
 
+  if (slot === 'screenshot') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('gnomeScreenshotApp')?.dataset.shotInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="screenshot"] #windowTitle')?.textContent,
+      capture: !!document.getElementById('gnome-shot-capture'),
+    }));
+    push('shot-chrome', 'vis', chrome.title === 'Capture d\'écran' && chrome.capture, chrome);
+
+    await page.click('input[name="gnome-shot-area"][value="window"]');
+    await page.waitForTimeout(30);
+    const area = await page.evaluate(() => (
+      document.querySelector('input[name="gnome-shot-area"]:checked')?.value === 'window'
+    ));
+    push('area-option', 'nav', area, {});
+
+    await page.click('#gnome-shot-capture');
+    await page.waitForTimeout(180);
+    const captured = await page.evaluate(() => ({
+      result: document.getElementById('gnome-shot-result') && !document.getElementById('gnome-shot-result').hasAttribute('hidden'),
+      preview: document.getElementById('gnome-shot-preview')?.src || '',
+    }));
+    push('capture-action', 'int', captured.result, captured);
+    push('capture-preview', 'data', captured.preview.indexOf('data:image') === 0, captured);
+    push('result-panel', 'ctx', captured.result, captured);
+    return results;
+  }
+
+  if (slot === 'lecteur_multimedia') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('lecteurMultimedia')?.dataset.celluloidInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="lecteur_multimedia"] #windowTitle')?.textContent,
+      menus: document.querySelectorAll('.celluloid-app__menu-btn').length,
+    }));
+    push('celluloid-chrome', 'vis', chrome.title === 'Celluloid' && chrome.menus >= 6, chrome);
+
+    await page.click('.celluloid-app__menu-btn');
+    await page.waitForTimeout(40);
+    const menu = await page.evaluate(() => {
+      const dd = document.querySelector('.celluloid-app__menu-dropdown');
+      return dd && !dd.hasAttribute('hidden');
+    });
+    push('media-menu', 'nav', menu, {});
+
+    await page.evaluate(() => {
+      if (typeof window.onCelluloidMediaLoaded === 'function') {
+        window.onCelluloidMediaLoaded({ name: 'demo.mp4' });
+      }
+    });
+    await page.waitForTimeout(40);
+    const media = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="lecteur_multimedia"] #windowTitle')?.textContent,
+      playEnabled: !document.querySelector('.celluloid-app__ctl--play')?.disabled,
+    }));
+    push('media-load', 'data', media.title === 'demo.mp4', media);
+    push('play-controls', 'int', media.playEnabled, media);
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(30);
+    const kb = await page.evaluate(() => {
+      const dd = document.querySelector('.celluloid-app__menu-dropdown');
+      return !dd || dd.hasAttribute('hidden');
+    });
+    push('celluloid-kb', 'kb', kb, {});
+    return results;
+  }
+
+  if (slot === 'librecalc') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('lc-app')?.dataset.lcInit === '1'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="librecalc"] #windowTitle')?.textContent,
+      cellRef: document.getElementById('lc-cell-ref')?.textContent,
+    }));
+    push('lc-chrome', 'vis', chrome.title.indexOf('LibreOffice Calc') >= 0, chrome);
+    push('lc-default', 'data', chrome.cellRef === 'A1', chrome);
+
+    await page.click('.lc-menubar .lw-menu__trigger');
+    await page.waitForTimeout(40);
+    const fileMenu = await page.evaluate(() => {
+      const dd = document.querySelector('.lc-menubar .lw-menu__dropdown');
+      return dd && !dd.hidden;
+    });
+    push('lc-menu', 'nav', fileMenu, {});
+
+    await page.click('.lc-grid__cell[data-col="1"][data-row="2"]');
+    await page.waitForTimeout(40);
+    const cell = await page.evaluate(() => ({
+      ref: document.getElementById('lc-cell-ref')?.textContent,
+      selected: document.querySelector('.lc-grid__cell.is-selected')?.dataset.col === '1',
+    }));
+    push('cell-select', 'int', cell.ref === 'B2' && cell.selected, cell);
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(30);
+    const lcKb = await page.evaluate(() => {
+      const dd = document.querySelector('.lc-menubar .lw-menu__dropdown');
+      return dd && dd.hidden;
+    });
+    push('lc-kb', 'kb', lcKb, {});
+    return results;
+  }
+
+  if (slot === 'simple_scan') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('simpleScanApp')?.dataset.simpleScanInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="simple_scan"] #windowTitle')?.textContent,
+      scanBtn: !!document.querySelector('[data-scn-action="scan"]'),
+    }));
+    push('scn-chrome', 'vis', chrome.title === 'Numérisation de documents' && chrome.scanBtn, chrome);
+
+    await page.click('[data-scn-action="scan"]');
+    await page.waitForTimeout(40);
+    const scan = await page.evaluate(() => ({
+      preview: document.getElementById('scn-preview')?.textContent || '',
+      saveEnabled: !document.querySelector('[data-scn-action="save"]')?.disabled,
+    }));
+    push('scan-action', 'int', scan.preview.indexOf('numérisation simulée') >= 0, scan);
+    push('scan-data', 'data', scan.saveEnabled, scan);
+
+    await page.click('[data-scn-action="save"]');
+    await page.waitForTimeout(40);
+    const saved = await page.evaluate(() => ({
+      saved: document.getElementById('scn-preview')?.dataset.saved === 'true',
+    }));
+    push('save-action', 'nav', saved.saved, saved);
+    return results;
+  }
+
+  if (slot === 'librewriter') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('lw-app')?.dataset.lwInit === '1'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="librewriter"] #windowTitle')?.textContent,
+      page: !!document.getElementById('lw-page'),
+    }));
+    push('lw-chrome', 'vis', chrome.title.indexOf('LibreOffice Writer') >= 0 && chrome.page, chrome);
+
+    await page.click('.lw-menubar .lw-menu__trigger');
+    await page.waitForTimeout(40);
+    const fileMenu = await page.evaluate(() => {
+      const dd = document.querySelector('.lw-menubar .lw-menu__dropdown');
+      return dd && !dd.hidden;
+    });
+    push('lw-menu', 'nav', fileMenu, {});
+
+    await page.click('#lw-page');
+    await page.keyboard.type('Test');
+    await page.waitForTimeout(40);
+    const bold = await page.evaluate(() => (
+      document.getElementById('lw-page')?.textContent?.indexOf('Test') >= 0
+    ));
+    push('lw-edit', 'int', bold, {});
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(30);
+    const lwKb = await page.evaluate(() => {
+      const dd = document.querySelector('.lw-menubar .lw-menu__dropdown');
+      return dd && dd.hidden;
+    });
+    push('lw-kb', 'kb', lwKb, {});
+
+    const words = await page.evaluate(() => document.getElementById('lw-word-count')?.textContent || '');
+    push('lw-data', 'data', words.indexOf('mot') >= 0 || words.length > 0, { words });
+    return results;
+  }
+
+  if (slot === 'libreoffice_startcenter') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('libreofficeStartcenterApp')?.dataset.libreofficeStartcenterInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="libreoffice_startcenter"] #windowTitle')?.textContent,
+      tiles: document.querySelectorAll('.lsc-app__tile').length,
+    }));
+    push('lsc-chrome', 'vis', chrome.title === 'LibreOffice' && chrome.tiles >= 4, chrome);
+    push('lsc-tiles', 'data', chrome.tiles === 4, chrome);
+
+    await page.click('.lsc-app__tile');
+    await page.waitForTimeout(40);
+    const tile = await page.evaluate(() => (
+      document.querySelector('.lsc-app__tile.is-active') !== null
+    ));
+    push('tile-select', 'int', tile, {});
+    return results;
+  }
+
+  if (slot === 'libreoffice_draw') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('libreofficeDrawApp')?.dataset.libreofficeDrawInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="libreoffice_draw"] #windowTitle')?.textContent,
+      canvas: !!document.getElementById('ldr-canvas'),
+    }));
+    push('ldr-chrome', 'vis', chrome.title.indexOf('Draw') >= 0 && chrome.canvas, chrome);
+
+    await page.click('#ldr-canvas');
+    await page.waitForTimeout(40);
+    const shape = await page.evaluate(() => (
+      document.getElementById('ldr-canvas')?.dataset.hasShape === 'true'
+    ));
+    push('canvas-click', 'int', shape, {});
+    push('ldr-toolbar', 'nav', chrome.title.indexOf('Draw') >= 0, chrome);
+    push('shape-data', 'data', shape, {});
+    return results;
+  }
+
+  if (slot === 'libreoffice_impress') {
+    const ready = await page.evaluate(() => (
+      document.getElementById('libreofficeImpressApp')?.dataset.libreofficeImpressInit === 'true'
+    ));
+    push('win-open', 'int', ready, {});
+
+    const chrome = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="libreoffice_impress"] #windowTitle')?.textContent,
+      slides: document.querySelectorAll('.lim-app__slide').length,
+      stage: document.querySelector('.lim-app__stage')?.textContent,
+    }));
+    push('lim-chrome', 'vis', chrome.title.indexOf('Impress') >= 0 && chrome.slides >= 2, chrome);
+    push('lim-default', 'data', chrome.stage === 'Diapositive 1 — Titre', chrome);
+
+    await page.click('.lim-app__slide:nth-child(2)');
+    await page.waitForTimeout(40);
+    const slide = await page.evaluate(() => ({
+      active: document.querySelector('.lim-app__slide.is-active')?.textContent === '2',
+      stage: document.querySelector('.lim-app__stage')?.textContent,
+    }));
+    push('slide-switch', 'int', slide.active && slide.stage === 'Diapositive 2 — Titre', slide);
+    push('slides-nav', 'nav', chrome.slides >= 2, chrome);
+    return results;
+  }
+
   const visible = await page.evaluate((sel) => {
     const win = document.querySelector(sel);
     return win && win.style.display !== 'none';
@@ -906,6 +1226,11 @@ const pathToSmoke = (slot) => {
     bulky: 'usr/lib/capsuleos/tools/lab/smoke-mint-bulky.mjs',
     drawing: 'usr/lib/capsuleos/tools/lab/smoke-mint-drawing.mjs',
     gucharmap: 'usr/lib/capsuleos/tools/lab/smoke-mint-gucharmap.mjs',
+    screenshot: 'usr/lib/capsuleos/tools/lab/smoke-mint-screenshot.mjs',
+    lecteur_multimedia: 'usr/lib/capsuleos/tools/lab/smoke-mint-celluloid.mjs',
+    librecalc: 'usr/lib/capsuleos/tools/lab/smoke-mint-librecalc.mjs',
+    librewriter: 'usr/lib/capsuleos/tools/lab/smoke-mint-librewriter.mjs',
+    simple_scan: 'usr/lib/capsuleos/tools/lab/smoke-mint-simple-scan.mjs',
   };
   const rel = map[slot];
   return rel ? path.join(ROOT, rel) : '';

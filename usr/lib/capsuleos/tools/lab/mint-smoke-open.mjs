@@ -31,6 +31,14 @@ const MENU_SEARCH = {
   gnome_disks: 'Disques',
   gucharmap: 'Table des caractères',
   hypnotix: 'Hypnotix',
+  screenshot: 'Capture d\'écran',
+  lecteur_multimedia: 'Lecteur vidéo',
+  librecalc: 'LibreOffice Calc',
+  librewriter: 'LibreOffice Writer',
+  libreoffice_startcenter: 'LibreOffice',
+  libreoffice_draw: 'LibreOffice Draw',
+  libreoffice_impress: 'LibreOffice Impress',
+  simple_scan: 'Numérisation de documents',
 };
 
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);

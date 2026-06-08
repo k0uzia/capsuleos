@@ -74,9 +74,9 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 2. **P1** : `update_manager`, `mintinstall`, `themes`
 3. Catalogue alphabétique : apps avec **Π_app < 90**
 
-### Snapshot pallier 4 (2026-06-08)
+### Snapshot pallier 5 (2026-06-08)
 
-**Π_global** : 67 (`partiel`)
+**Π_global** : 76 (`partiel`)
 
 | Slot | Π_app | Statut |
 |------|-------|--------|
@@ -85,9 +85,17 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | text_editor | 92 | ok |
 | calculator | 100 | ok |
 | file_roller | 92 | ok |
-| update_manager | 75 | partiel |
-| mintinstall | 75 | partiel |
+| update_manager | 100 | ok |
+| mintinstall | 100 | ok |
 | themes | 100 | ok |
+| screenshot | 92 | ok |
+| lecteur_multimedia | 92 | ok |
+| librecalc | 92 | ok |
+| librewriter | 92 | ok |
+| simple_scan | 83 | partiel |
+| libreoffice_draw | 83 | partiel |
+| libreoffice_impress | 83 | partiel |
+| libreoffice_startcenter | 75 | partiel |
 | baobab | 83 | partiel |
 | bulky | 75 | partiel |
 | drawing | 83 | partiel |
@@ -95,6 +103,8 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | gnome_disks | 75 | partiel |
 | gucharmap | 67 | partiel |
 | hypnotix | 67 | partiel |
+
+**Shell** : mainMenu 92 · panel 83 · desktop 92
 
 ## Patterns noyau extraits (campagne)
 

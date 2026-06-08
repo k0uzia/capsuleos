@@ -90,6 +90,64 @@
         }
     }
 
+    function setupMenubar(root) {
+        var menus = root.querySelectorAll('.celluloid-app__menu');
+        var mi;
+        function closeAll() {
+            var mj;
+            for (mj = 0; mj < menus.length; mj += 1) {
+                var dd = menus[mj].querySelector('.celluloid-app__menu-dropdown');
+                var btn = menus[mj].querySelector('.celluloid-app__menu-btn');
+                if (dd) {
+                    dd.setAttribute('hidden', 'hidden');
+                }
+                if (btn) {
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        }
+        for (mi = 0; mi < menus.length; mi += 1) {
+            (function bindMenu(menuEl) {
+                var btn = menuEl.querySelector('.celluloid-app__menu-btn');
+                if (!btn) {
+                    return;
+                }
+                var dropdown = menuEl.querySelector('.celluloid-app__menu-dropdown');
+                if (!dropdown) {
+                    dropdown = global.document.createElement('ul');
+                    dropdown.className = 'celluloid-app__menu-dropdown';
+                    dropdown.setAttribute('role', 'menu');
+                    dropdown.setAttribute('hidden', 'hidden');
+                    var item = global.document.createElement('li');
+                    item.setAttribute('role', 'none');
+                    var action = global.document.createElement('button');
+                    action.type = 'button';
+                    action.className = 'celluloid-app__menu-item';
+                    action.setAttribute('role', 'menuitem');
+                    action.textContent = btn.textContent + '…';
+                    item.appendChild(action);
+                    dropdown.appendChild(item);
+                    menuEl.appendChild(dropdown);
+                }
+                btn.addEventListener('click', function onMenuClick(event) {
+                    event.stopPropagation();
+                    var wasOpen = dropdown && !dropdown.hidden;
+                    closeAll();
+                    if (!wasOpen && dropdown) {
+                        dropdown.removeAttribute('hidden');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            }(menus[mi]));
+        }
+        global.document.addEventListener('click', closeAll);
+        global.document.addEventListener('keydown', function onMenuKey(event) {
+            if (event.key === 'Escape') {
+                closeAll();
+            }
+        });
+    }
+
     function initCelluloidAppOnce() {
         var root = getRoot();
         if (!root || root.dataset.celluloidInit === 'true') {
@@ -100,6 +158,7 @@
             return;
         }
         resetCelluloidIdle();
+        setupMenubar(root);
         global.setTimeout(function syncTitleAfterOpen() {
             syncWindowTitle(DEFAULT_TITLE);
         }, 0);

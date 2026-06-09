@@ -1,0 +1,5 @@
+# Import manifeste linux-alma
+collectedAt: 2026-06-09T17:07:41Z
+importedAt: 2026-06-09T17:08:24.607Z
+ssh: capsule@192.168.122.199
+bundles: app-icons, fonts, mimetypes-icons, places-icons, panel-icons, symbolic-actions, symbolic-places, symbolic-status, wallpapers

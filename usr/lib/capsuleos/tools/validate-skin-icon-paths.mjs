@@ -56,6 +56,39 @@ const SKIN_SCOPES = {
     ],
     kernelExtras: [],
   },
+  'linux-rocky': {
+    skin: 'home/RedHat/Rocky',
+    skinPage: 'home/RedHat/Rocky/index.html',
+    scanRoots: [
+      'home/RedHat/Rocky',
+      'usr/lib/capsuleos/shells/linux',
+      'usr/share/capsuleos/linux/apps',
+      'usr/share/capsuleos/linux/explorers',
+    ],
+    kernelExtras: [],
+  },
+  'linux-fedora': {
+    skin: 'home/RedHat/Fedora',
+    skinPage: 'home/RedHat/Fedora/index.html',
+    scanRoots: [
+      'home/RedHat/Fedora',
+      'usr/lib/capsuleos/shells/linux',
+      'usr/share/capsuleos/linux/apps',
+      'usr/share/capsuleos/linux/explorers',
+    ],
+    kernelExtras: [],
+  },
+  'linux-alma': {
+    skin: 'home/RedHat/Alma',
+    skinPage: 'home/RedHat/Alma/index.html',
+    scanRoots: [
+      'home/RedHat/Alma',
+      'usr/lib/capsuleos/shells/linux',
+      'usr/share/capsuleos/linux/apps',
+      'usr/share/capsuleos/linux/explorers',
+    ],
+    kernelExtras: [],
+  },
 };
 
 const parseArgs = () => {

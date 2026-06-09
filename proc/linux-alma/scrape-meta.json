@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "registryId": "linux-alma",
+  "collectedAt": "2026-06-09T17:08:38.826Z",
+  "source": "distribution-manifest",
+  "searchPaths": [
+    "/usr/share/applications",
+    "/var/lib/snapd/desktop/applications",
+    "/usr/local/share/applications"
+  ],
+  "gridVisible": 18,
+  "total": 85
+}

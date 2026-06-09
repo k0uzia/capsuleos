@@ -1452,7 +1452,7 @@
       "labelFr": "Utilisation des disques",
       "vmId": "org.gnome.baobab",
       "parityPriority": "P2",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Utilisation des disques",
         "components": [
@@ -1506,8 +1506,47 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C3",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.baobab requise."
+          },
+          {
+            "id": "real-disk-scan",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Analyse disque simulée — pas de lecture réelle du système de fichiers VM (sandbox CapsuleOS)."
+          },
+          {
+            "id": "treemap-drill-down",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Treemap statique un niveau — navigation récursive Baobab non simulée (hors P2)."
+          }
+        ],
+        "resolved": [
+          "volume-list-three-mounts-fr",
+          "donut-chart-per-volume",
+          "scan-progress-bar",
+          "treemap-css-simulation",
+          "path-breadcrumb-fr",
+          "window-proportions-40x26",
+          "rocky-adwaita-tokens"
+        ]
+      },
+      "note": "Phase C3 — org.gnome.baobab : volumes RL10, anneau d'usage, analyse avec barre de progression et treemap."
     },
     {
       "controlId": "tour",

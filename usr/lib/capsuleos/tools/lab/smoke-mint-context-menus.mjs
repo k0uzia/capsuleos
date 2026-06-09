@@ -45,6 +45,8 @@ const KNOWN_ACTIONS = new Set([
   'toggle-maximize',
   'close',
   'always-on-top',
+  'add-applets',
+  'configure-panel',
 ]);
 
 const readMatrix = () => JSON.parse(fs.readFileSync(MATRIX_PATH, 'utf8'));
@@ -447,6 +449,67 @@ results['window.title'].ok = results['window.title'].visible
 results['window.title'].missing = windowTitleCheck.missing;
 
 await page.keyboard.press('Escape');
+await page.waitForTimeout(80);
+
+const panelHit = await page.evaluate(() => {
+  const el = document.elementFromPoint(520, 785);
+  return {
+    hitTag: el?.tagName || '',
+    hitPanel: !!el?.closest('#tableau.mint-panel'),
+  };
+});
+
+await page.mouse.click(520, 785, { button: 'right' });
+await page.waitForTimeout(120);
+
+results['panel.background'] = await page.evaluate((knownActions) => {
+  const menu = document.getElementById('mint-panel-context-menu');
+  const menuOpen = !!(menu && !menu.hidden);
+  const items = menuOpen
+    ? [...menu.querySelectorAll('[data-mint-panel-action]')].filter((n) => !n.hidden)
+    : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.mintPanelAction || '').trim()).filter(Boolean);
+  const wired = items.length > 0 && items.every((n) => {
+    const action = String(n.dataset.mintPanelAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
+  return {
+    init: document.body.dataset.capsuleMintPanelCtxInit === 'true',
+    visible: menuOpen,
+    labels,
+    actions,
+    wired,
+  };
+}, [...KNOWN_ACTIONS]);
+results['panel.background'].hitTag = panelHit.hitTag;
+results['panel.background'].hitPanel = panelHit.hitPanel;
+
+const panelBgCtx = matrix.contexts.find((c) => c.id === 'panel.background');
+const panelBgCheck = matchExpected(results['panel.background'].labels, panelBgCtx.expectedLabels);
+results['panel.background'].ok = results['panel.background'].visible
+  && results['panel.background'].init
+  && results['panel.background'].wired
+  && results['panel.background'].hitPanel
+  && panelBgCheck.ok;
+results['panel.background'].missing = panelBgCheck.missing;
+
+await page.click('#mint-panel-context-menu [data-mint-panel-action="configure-panel"]', { force: true }).catch(() => {});
+await page.waitForTimeout(200);
+results['panel.background'].configureOpensThemes = await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="themes"]');
+  const app = document.getElementById('cinnamonSettingsApp');
+  return {
+    themesVisible: !!(win && win.style.display !== 'none'),
+    panelActive: app?.dataset?.csActivePanel === 'panel',
+  };
+});
+results['panel.background'].ok = results['panel.background'].ok
+  && results['panel.background'].configureOpensThemes.themesVisible
+  && results['panel.background'].configureOpensThemes.panelActive;
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(80);
 
 const smokeIds = [
   'desktop.background',
@@ -458,6 +521,7 @@ const smokeIds = [
   'nemo.trash.background',
   'nemo.trash.item',
   'window.title',
+  'panel.background',
 ];
 const ok = smokeIds.every((id) => results[id] && results[id].ok !== false);
 

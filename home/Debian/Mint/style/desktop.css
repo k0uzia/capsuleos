@@ -81,3 +81,8 @@ html[data-theme="light"] .desktop-context-menu__separator {
     margin-right: 0.15em;
     opacity: 0.9;
 }
+
+/* Menu contextuel panel Cinnamon — au-dessus du footer #tableau */
+.mint-panel-context-menu {
+    z-index: 8000;
+}

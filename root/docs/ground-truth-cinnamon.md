@@ -119,4 +119,6 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 
 **Critères done étape 4** : menu contextuel barre titre (`#muffin-window-context-menu`) branché via `cinnamon-window-behaviors.js` sur `#windowHeader` des fenêtres `data-window-chrome-toolkit="cinnamon"` ; libellés VM fr (Réduire, Agrandir/Restaurer, Fermer, Toujours au premier plan) ; smoke `window.title` exit 0 ; règle **R-CIN-CTX4**.
 
-Contextes **P2** documentés (non bloquants CinΣ) : panel, Compresser Nemo — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.
+**Critères done étape 5** : menu contextuel panel (`#mint-panel-context-menu`) branché via `mint-panel-context-menu.js` sur zone vide `#tableau.mint-panel` ; actions → `CAPSULE_CS_PENDING_PANEL` + `openWindowByDataLink('themes')` (applets / panel) ; smoke `panel.background` exit 0 ; règle **R-CIN-CTX5**.
+
+Contextes **P2** documentés (non bloquants CinΣ) : Compresser Nemo — voir matrice § `vmExtraLabels`.

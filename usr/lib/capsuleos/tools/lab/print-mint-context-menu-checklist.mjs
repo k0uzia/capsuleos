@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Checklist humaine — matrice menus contextuels Mint.
+ * Checklist libellés menus contextuels Cinnamon Mint — matrice context-menus.json.
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs
@@ -17,34 +17,21 @@ const MATRIX_PATH = path.join(
 );
 
 const matrix = JSON.parse(fs.readFileSync(MATRIX_PATH, 'utf8'));
+const contexts = matrix.contexts || [];
 
-process.stdout.write(`\n=== Checklist menus contextuels — ${matrix.registryId} ===\n`);
-if (matrix.workflow) {
-  process.stdout.write(`Cycle : ${matrix.workflow.cycle}\n`);
-  process.stdout.write(`Smoke : ${matrix.workflow.smokeGate}\n\n`);
-}
-
-matrix.contexts.forEach((ctx) => {
-  process.stdout.write(`[${ctx.priority || '—'}] ${ctx.id} — ${ctx.label}\n`);
-  process.stdout.write(`  Cible : ${ctx.capsuleTarget || '—'}\n`);
-  (ctx.expectedLabels || []).forEach((label) => {
-    process.stdout.write(`  ✓ ${label}\n`);
-  });
-  (ctx.vmExtraLabels || []).forEach((label) => {
-    process.stdout.write(`  ○ ${label} (P2 / VM extra)\n`);
-  });
-  if (ctx.capsuleStatus) {
-    process.stdout.write(`  Statut Capsule : ${ctx.capsuleStatus}\n`);
+process.stdout.write(`\n=== Mint context menus (${matrix.registryId}) ===\n`);
+contexts.forEach((ctx) => {
+  const status = ctx.capsuleStatus || (ctx.capsuleTarget ? 'implemented' : 'planned');
+  const labels = (ctx.expectedLabels || []).join(' · ');
+  process.stdout.write(`[${ctx.priority}] ${ctx.id} (${status})\n`);
+  process.stdout.write(`  ${labels}\n`);
+  if (ctx.capsuleTarget) {
+    process.stdout.write(`  → ${ctx.capsuleTarget}${ctx.capsuleSelector ? ` ${ctx.capsuleSelector}` : ''}\n`);
   }
-  if (ctx.vmNote) {
-    process.stdout.write(`  Note VM : ${ctx.vmNote}\n`);
+  if (ctx.vmExtraLabels?.length) {
+    process.stdout.write(`  P2 VM extra: ${ctx.vmExtraLabels.join(' · ')}\n`);
   }
-  if (ctx.vmExtraNote) {
-    process.stdout.write(`  Note : ${ctx.vmExtraNote}\n`);
-  }
-  process.stdout.write('\n');
 });
 
-process.stdout.write('Gates :\n');
-process.stdout.write('  CAPSULE_MINT_URL=… node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs\n');
-process.stdout.write('  node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write\n');
+const planned = contexts.filter((c) => c.capsuleStatus === 'planned' || !c.capsuleTarget);
+process.stdout.write(`\nPlanned / absent: ${planned.length ? planned.map((c) => c.id).join(', ') : 'none'}\n`);

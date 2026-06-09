@@ -144,10 +144,16 @@
       "id": "panel.background",
       "label": "Panel Cinnamon",
       "openMethod": "clic droit barre des tâches",
-      "capsuleTarget": null,
+      "capsuleTarget": "mint-panel-context-menu.js",
+      "capsuleSelector": "#mint-panel-context-menu",
       "expectedLabels": ["Ajouter des applets", "Configurer le panel"],
       "priority": "P2",
-      "capsuleStatus": "planned"
+      "capsuleStatus": "implemented",
+      "vmNote": "VM Cinnamon 6.6.7 fr : entrées courtes « Applets » + « Paramètres des panneaux » (panel.js) ; Capsule libellés pédagogiques alignés matrice",
+      "smoke": {
+        "trigger": "playwright-right-click",
+        "coords": [520, 785]
+      }
     },
     {
       "id": "window.title",

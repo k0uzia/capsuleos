@@ -117,9 +117,39 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "appCt": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "contentSpec": {
+        "phase": "C1",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Calculator requise."
+          },
+          {
+            "id": "programming-mode-keypad",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Mode Programmation — sélecteur présent ; pavé hex/bitwise non simulé (hors P0)."
+          }
+        ],
+        "resolved": [
+          "basic-keypad-4-columns",
+          "hide-scientific-row-basic-mode",
+          "negate-percent-row1-fr",
+          "window-proportions-4col",
+          "rocky-adwaita-tokens",
+          "history-toggle-header"
+        ]
+      },
+      "note": "Phase C1 — mode Basique RL10 : pavé 4×5, ± et %, sans ligne sin/cos/π."
     },
     {
       "controlId": "characters",

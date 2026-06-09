@@ -1,0 +1,103 @@
+# Ouvre une PR de sync quand N0r3f/CapsuleOS avance sur main.
+# Déclencheurs : cron (6 h), manuel, ou repository_dispatch depuis l'amont.
+name: sync-upstream
+
+on:
+  schedule:
+    - cron: '15 */6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [upstream-updated]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  UPSTREAM_REPO: N0r3f/CapsuleOS
+  UPSTREAM_BRANCH: main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configurer Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Récupérer l'amont
+        run: |
+          git remote add upstream "https://github.com/${UPSTREAM_REPO}.git" || true
+          git fetch upstream "${UPSTREAM_BRANCH}"
+
+      - name: Vérifier si en retard
+        id: behind
+        run: |
+          count="$(git rev-list --count "HEAD..upstream/${UPSTREAM_BRANCH}")"
+          echo "count=${count}" >> "$GITHUB_OUTPUT"
+          echo "Retard sur upstream : ${count} commit(s)"
+
+      - name: Arrêt — déjà à jour
+        if: steps.behind.outputs.count == '0'
+        run: echo "Aucune sync nécessaire."
+
+      - name: Branche de sync + merge
+        if: steps.behind.outputs.count != '0'
+        id: merge
+        run: |
+          STAMP="$(date -u +%Y%m%d-%H%M)"
+          BRANCH="sync/upstream-${STAMP}"
+          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
+          git checkout -b "${BRANCH}"
+          git merge "upstream/${UPSTREAM_BRANCH}" -m "Sync upstream ${UPSTREAM_REPO} @ ${STAMP}"
+
+      - name: Régénérer embed si templates touchés
+        if: steps.behind.outputs.count != '0'
+        run: |
+          node usr/lib/capsuleos/tools/generate-public-manifest.mjs
+          node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
+          git add home/public/.capsule-manifest.json \
+                  home/public/.capsule-finder-manifest.json \
+                  var/lib/capsuleos/generated/capsule-app-embed.js || true
+          git diff --cached --quiet || git commit -m "Sync embed après merge upstream."
+
+      - name: Pousser la branche
+        if: steps.behind.outputs.count != '0'
+        run: git push -u origin "${{ steps.merge.outputs.branch }}"
+
+      - name: Ouvrir ou mettre à jour la PR
+        if: steps.behind.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          EXISTING="$(gh pr list --head "${{ steps.merge.outputs.branch }}" --json number -q '.[0].number' || true)"
+          if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
+            echo "PR #${EXISTING} déjà ouverte."
+            exit 0
+          fi
+          gh pr create \
+            --title "Sync upstream N0r3f/CapsuleOS ($(date -u +%Y-%m-%d))" \
+            --body "$(cat <<EOF
+## Sync automatique
+
+Merge de \`${UPSTREAM_REPO}@${UPSTREAM_BRANCH}\` dans ce fork.
+
+- **Retard comblé** : ${{ steps.behind.outputs.count }} commit(s)
+- **Branche** : \`${{ steps.merge.outputs.branch }}\`
+
+### Test plan
+- [ ] \`node usr/lib/capsuleos/tools/validate-all.mjs\`
+- [ ] Vérifier les conflits résolus (Dolphin / KDE Neon si concernés)
+
+> Déclenché par : ${{ github.event_name }}
+EOF
+)"

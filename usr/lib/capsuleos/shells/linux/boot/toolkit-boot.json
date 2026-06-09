@@ -7,6 +7,8 @@
       "explorerRegistry": "usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js",
       "explorerToolkitPaths": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js",
       "explorerIconBase": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js",
+      "fileExplorerVfs": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js",
+      "capsuleUserFs": "usr/lib/capsuleos/shells/common/capsule-user-fs.js",
       "themeStorage": "usr/lib/capsuleos/shells/linux/capsule-theme-storage.js",
       "windowBehaviors": [
         "usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js",
@@ -19,6 +21,8 @@
       "explorerRegistry": "usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js",
       "explorerToolkitPaths": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js",
       "explorerIconBase": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js",
+      "fileExplorerVfs": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js",
+      "capsuleUserFs": "usr/lib/capsuleos/shells/common/capsule-user-fs.js",
       "themeStorage": "usr/lib/capsuleos/shells/linux/capsule-theme-storage.js",
       "windowBehaviors": [
         "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"
@@ -29,6 +33,8 @@
       "explorerRegistry": "usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js",
       "explorerToolkitPaths": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js",
       "explorerIconBase": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js",
+      "fileExplorerVfs": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js",
+      "capsuleUserFs": "usr/lib/capsuleos/shells/common/capsule-user-fs.js",
       "themeStorage": "usr/lib/capsuleos/shells/linux/capsule-theme-storage.js",
       "windowBehaviors": []
     },
@@ -37,6 +43,8 @@
       "explorerRegistry": "usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js",
       "explorerToolkitPaths": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js",
       "explorerIconBase": "usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js",
+      "fileExplorerVfs": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js",
+      "capsuleUserFs": "usr/lib/capsuleos/shells/common/capsule-user-fs.js",
       "themeStorage": "usr/lib/capsuleos/shells/linux/capsule-theme-storage.js",
       "windowBehaviors": []
     }

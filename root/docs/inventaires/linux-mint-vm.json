@@ -491,5 +491,6 @@
     "logoCandidates": [
       "/usr/share/linuxmint/logo.png"
     ]
-  }
+  },
+  "terminalInventory": "root/docs/inventaires/linux-mint-terminal-vm.json"
 }

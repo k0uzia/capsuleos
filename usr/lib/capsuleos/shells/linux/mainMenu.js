@@ -440,15 +440,34 @@ function initMainMenu() {
         return null;
     }
 
+    function normalizeMenuDirectory(directory) {
+        if (!directory || typeof directory !== 'string') {
+            return directory;
+        }
+        const legacyPrefix = './apps/system/Dossier_personnel';
+        if (directory.indexOf(legacyPrefix) !== 0) {
+            return directory;
+        }
+        let root = 'home/public';
+        if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
+            root = String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
+        } else if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+            root = window.CapsuleUserHome.resolveRelative();
+        }
+        const suffix = directory.slice(legacyPrefix.length).replace(/^\//, '');
+        return suffix ? `${root}/${suffix}` : root;
+    }
+
     function openNemoDirectory(directory) {
+        const target = normalizeMenuDirectory(directory);
         window.setTimeout(() => {
             if (typeof navigateToDirectory === 'function') {
-                navigateToDirectory(directory);
+                navigateToDirectory(target);
                 return;
             }
 
             if (typeof loadDirectory === 'function') {
-                loadDirectory(directory);
+                loadDirectory(target);
             }
         }, 0);
     }

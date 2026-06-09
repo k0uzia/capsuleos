@@ -45,6 +45,17 @@ const SKIN_SCOPES = {
       'usr/lib/capsuleos/shells/linux/plasma-panel-mode.js',
     ],
   },
+  'linux-ubuntu': {
+    skin: 'home/Debian/Ubuntu',
+    skinPage: 'home/Debian/Ubuntu/index.html',
+    scanRoots: [
+      'home/Debian/Ubuntu',
+      'usr/lib/capsuleos/shells/linux',
+      'usr/share/capsuleos/linux/apps',
+      'usr/share/capsuleos/linux/explorers',
+    ],
+    kernelExtras: [],
+  },
 };
 
 const parseArgs = () => {

@@ -154,5 +154,17 @@
     "full": "node usr/lib/capsuleos/tools/validate-all.mjs"
   },
   "upstreamId": "linux-rocky",
-  "terminalInventory": "root/docs/inventaires/linux-ubuntu-terminal-vm.json"
+  "terminalInventory": "root/docs/inventaires/linux-ubuntu-terminal-vm.json",
+  "gnomeSettings": {
+    "domain": "gnome-settings-playbook",
+    "h6Ready": "root/docs/inventaires/linux-ubuntu-gnome-settings-h6-ready.json",
+    "h6Closure": "root/docs/inventaires/linux-ubuntu-gnome-settings-h6-closure.json",
+    "visualInvestigation": "root/docs/inventaires/linux-ubuntu-gnome-settings-visual-investigation.json",
+    "pbSigma": true,
+    "h6Closed": true
+  },
+  "formalState": {
+    "PbΣ": true,
+    "H6": true
+  }
 }

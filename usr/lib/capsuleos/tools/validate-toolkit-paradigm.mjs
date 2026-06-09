@@ -20,7 +20,19 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const ALL_FLAG = process.argv.includes('--all');
 const idArg = process.argv.find((a, i) => process.argv[i - 1] === '--id');
 const TARGET_IDS = ALL_FLAG
-  ? ['linux-mint', 'linux-rocky', 'linux-ubuntu', 'linux-debian-kde', 'linux-kde-neon', 'linux-opensuse']
+  ? [
+    'linux-mint',
+    'linux-rocky',
+    'linux-ubuntu',
+    'linux-fedora',
+    'linux-alma',
+    'linux-anduinos',
+    'linux-popos',
+    'linux-debian-kde',
+    'linux-mx-kde',
+    'linux-kde-neon',
+    'linux-opensuse',
+  ]
   : [idArg || 'linux-mint'];
 
 /** @type {Record<string, { skin: string, toolkit: string, explorer: string, forbidden: RegExp[], allowed?: RegExp[] }>} */
@@ -168,6 +180,135 @@ const PARADIGMS = {
       /update_manager_kde/,
     ],
   },
+  'linux-fedora': {
+    skin: 'home/RedHat/Fedora',
+    toolkit: 'gnome',
+    explorer: 'nemo-gnome',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /cinnamon-settings\.js/,
+      /mint-menu-parity/,
+      /mint-panel/,
+      /CAPSULE_EXPLORER_TEMPLATE.*"nemo"(?!-)/,
+    ],
+    allowed: [
+      /toolkits\/gnome/,
+      /gnome-window-behaviors/,
+      /themes_gnome/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /fedora-dock/,
+      /fedora-top-bar/,
+      /fedora-overview/,
+      /dolphin-sidebar/,
+    ],
+  },
+  'linux-alma': {
+    skin: 'home/RedHat/Alma',
+    toolkit: 'gnome',
+    explorer: 'nemo-gnome',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /cinnamon-settings\.js/,
+      /mint-menu-parity/,
+      /mint-panel/,
+      /CAPSULE_EXPLORER_TEMPLATE.*"nemo"(?!-)/,
+    ],
+    allowed: [
+      /toolkits\/gnome/,
+      /gnome-window-behaviors/,
+      /themes_gnome/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /fedora-dock/,
+      /fedora-top-bar/,
+      /fedora-overview/,
+      /dolphin-sidebar/,
+    ],
+  },
+  'linux-anduinos': {
+    skin: 'home/Debian/AnduinOS',
+    toolkit: 'gnome',
+    explorer: 'nemo-gnome',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /cinnamon-settings\.js/,
+      /mint-menu-parity/,
+      /mint-panel/,
+    ],
+    allowed: [
+      /toolkits\/gnome/,
+      /gnome-window-behaviors/,
+      /themes_gnome/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /gnome-settings/,
+      /mainMenu-gnome/,
+      /menu-gnome/,
+      /menu-root--gnome/,
+      /anduin-/,
+      /dolphin-sidebar/,
+    ],
+  },
+  'linux-popos': {
+    skin: 'home/Debian/PopOS',
+    toolkit: 'cosmic',
+    explorer: 'nemo-cosmic',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /mint-menu-parity/,
+      /mint-panel/,
+      /toolkits\/kde/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /themes_gnome/,
+      /gnome-window-behaviors/,
+    ],
+    allowed: [
+      /toolkits\/cosmic/,
+      /toolkits\/gnome/,
+      /nemo-cosmic/,
+      /cosmic-/,
+      /shell-cosmic/,
+    ],
+  },
+  'linux-mx-kde': {
+    skin: 'home/Debian/MX-KDE',
+    toolkit: 'kde',
+    explorer: 'dolphin',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /mint-menu-parity/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /fileExplorerNautilus\.js/,
+      /themes_gnome/,
+      /gnome-window-behaviors/,
+    ],
+    allowed: [
+      /toolkits\/kde/,
+      /icons\/kde/,
+      /vendors\/mx/,
+      /dolphin/,
+      /fileExplorerNautilusOps/,
+      /fileExplorerAdvancedChrome/,
+      /plasma-panel/,
+      /tray-popover-kde/,
+      /update_manager_kde/,
+      /calendar-popover-kde/,
+      /mainMenu-plasma/,
+    ],
+  },
 };
 
 const errors = [];
@@ -245,6 +386,9 @@ const validateProfile = (targetId, paradigm) => {
     }
     if (paradigm.toolkit === 'kde' && profile.assets && profile.assets.toolkitPack !== 'toolkits/kde') {
       errors.push(`${rel}: assets.toolkitPack attendu toolkits/kde`);
+    }
+    if (paradigm.toolkit === 'cosmic' && profile.assets && profile.assets.toolkitPack !== 'toolkits/cosmic') {
+      errors.push(`${rel}: assets.toolkitPack attendu toolkits/cosmic`);
     }
   });
 };

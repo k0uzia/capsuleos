@@ -496,7 +496,7 @@
       },
       "extends": "kernel:linux/branch:ubuntu/toolkit:kde",
       "assets": {
-        "pickIcon": "images/platforms/pick-os/linux/debian.png"
+        "pickIcon": "images/vendors/neon/neon-logo.svg"
       },
       "referencePaths": {
         "facade": "OS/linux/families/debian/kde-neon/index.html",
@@ -1034,7 +1034,7 @@
       },
       "extends": "kernel:linux/branch:rhel/toolkit:gnome",
       "assets": {
-        "pickIcon": "images/platforms/pick-os/linux/debian.png"
+        "pickIcon": "images/vendors/alma/alma-logo.svg"
       },
       "referencePaths": {
         "facade": "OS/linux/families/redhat/alma/index.html",

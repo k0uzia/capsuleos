@@ -153,11 +153,18 @@
       "id": "window.title",
       "label": "Barre titre fenêtre (Muffin)",
       "openMethod": "clic droit #windowHeader",
-      "capsuleTarget": "cinnamon-window-behaviors.js",
+      "capsuleTarget": "cinnamon-window-behaviors.js#bindTitleContextMenu",
+      "capsuleSelector": "#muffin-window-context-menu",
       "expectedLabels": ["Réduire", "Agrandir", "Fermer", "Toujours au premier plan"],
+      "vmMaximizedLabel": "Restaurer",
+      "vmNote": "VM fr : cinnamon.mo Minimize→Réduire, Maximize→Agrandir, Restore window→Restaurer la fenêtre ; entrée courte maximisée « Restaurer » (y=66 capture) ; Always on _Top→Toujours au premier plan",
       "priority": "P2",
-      "capsuleStatus": "planned",
-      "note": "GNOME Rocky : capsule-window-context-menu.js — pas encore porté Cinnamon"
+      "capsuleStatus": "implemented",
+      "smoke": {
+        "slot": "nemo",
+        "trigger": "contextmenu-on",
+        "selector": "div[data-link=\"nemo\"] #windowHeader"
+      }
     }
   ],
   "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs"

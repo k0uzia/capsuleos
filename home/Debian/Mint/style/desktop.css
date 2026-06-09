@@ -68,3 +68,16 @@ html[data-theme="light"] body#mint {
 html[data-theme="light"] .desktop-context-menu__separator {
     background: rgba(0, 0, 0, 0.1);
 }
+
+/* Menu contextuel barre titre Muffin — réutilise tokens bureau */
+.muffin-window-context-menu {
+    z-index: 12000;
+}
+
+.muffin-window-context-menu__item--checked::before {
+    content: "✓";
+    display: inline-block;
+    width: 1.1em;
+    margin-right: 0.15em;
+    opacity: 0.9;
+}

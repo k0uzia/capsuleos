@@ -33,19 +33,18 @@ const KNOWN_ACTIONS = new Set([
   'properties',
   'new-folder',
   'new-document',
-  'open',
   'open-with',
-  'cut',
-  'copy',
   'paste',
-  'rename',
   'trash',
   'restore-trash',
   'delete-forever',
   'open-terminal',
   'select-all',
   'empty-trash',
-  'properties',
+  'minimize',
+  'toggle-maximize',
+  'close',
+  'always-on-top',
 ]);
 
 const readMatrix = () => JSON.parse(fs.readFileSync(MATRIX_PATH, 'utf8'));
@@ -372,9 +371,84 @@ if (!results['nemo.trash.item'].emptyTrash) {
   results['nemo.trash.item'].skipped = true;
 }
 
+await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  if (win && win.style.display === 'none') {
+    const btn = document.querySelector(
+      '#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]',
+    );
+    if (btn) {
+      btn.click();
+    } else if (typeof window.openWindowByDataLink === 'function') {
+      window.openWindowByDataLink('nemo');
+    }
+  }
+});
+await page.waitForFunction(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  return win && win.style.display !== 'none' && !!win.querySelector(':scope > #windowHeader');
+}, null, { timeout: 8000 });
+await page.waitForTimeout(120);
+
+const headerBox = await page.locator('div[data-link="nemo"] > #windowHeader').boundingBox();
+if (headerBox) {
+  await page.mouse.click(
+    headerBox.x + Math.min(120, headerBox.width * 0.35),
+    headerBox.y + headerBox.height / 2,
+    { button: 'right' },
+  );
+}
+await page.waitForTimeout(120);
+
+results['window.title'] = await page.evaluate((knownActions) => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const menu = document.getElementById('muffin-window-context-menu');
+  const menuOpen = !!(menu && !menu.hasAttribute('hidden'));
+  const items = menuOpen
+    ? [...menu.querySelectorAll('[data-muffin-ctx-action]')].filter((n) => !n.hidden)
+    : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.muffinCtxAction || '').trim()).filter(Boolean);
+  const wired = items.length > 0 && items.every((n) => {
+    const action = String(n.dataset.muffinCtxAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
+  return {
+    init: document.body.dataset.capsuleMuffinWindowCtxInit === 'true',
+    toolkit: win?.dataset?.windowChromeToolkit || '',
+    visible: menuOpen,
+    labels,
+    actions,
+    wired,
+    hasHeader: !!win?.querySelector(':scope > #windowHeader'),
+    visibleBefore: !!(win && win.style.display !== 'none'),
+  };
+}, [...KNOWN_ACTIONS]);
+
+await page.click('#muffin-window-context-menu [data-muffin-ctx-action="minimize"]', { force: true }).catch(() => {});
+await page.waitForFunction(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  return win && win.style.display === 'none';
+}, null, { timeout: 3000 }).catch(() => {});
+results['window.title'].minimizeWorks = results['window.title'].visibleBefore
+  && (await page.evaluate(() => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    return !!(win && win.style.display === 'none');
+  }));
+
+const windowTitleCtx = matrix.contexts.find((c) => c.id === 'window.title');
+const windowTitleCheck = matchExpected(results['window.title'].labels, windowTitleCtx.expectedLabels);
+results['window.title'].ok = results['window.title'].visible
+  && results['window.title'].init
+  && results['window.title'].wired
+  && results['window.title'].toolkit === 'cinnamon'
+  && windowTitleCheck.ok
+  && results['window.title'].minimizeWorks;
+results['window.title'].missing = windowTitleCheck.missing;
+
 await page.keyboard.press('Escape');
 
-const p1Ids = [
+const smokeIds = [
   'desktop.background',
   'desktop.icon',
   'nemo.list.background',
@@ -383,8 +457,9 @@ const p1Ids = [
   'nemo.sidebar.trash',
   'nemo.trash.background',
   'nemo.trash.item',
+  'window.title',
 ];
-const ok = p1Ids.every((id) => results[id] && results[id].ok !== false);
+const ok = smokeIds.every((id) => results[id] && results[id].ok !== false);
 
 console.log(JSON.stringify({ matrix: MATRIX_PATH.replace(`${ROOT}/`, ''), results, ok }, null, 2));
 await browser.close();

@@ -365,6 +365,37 @@ async function runShellChecks(page, surfaces) {
       push('chrome-controls', 'int', ctrlOk, chrome);
       push('chrome-bleed', 'nav', bleedOk, chrome);
       push('chrome-gutter', 'ctx', chrome.paddingTop <= 1, chrome);
+
+      const titleCtx = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        const header = win?.querySelector(':scope > #windowHeader');
+        if (!header) {
+          return { open: false, labels: [] };
+        }
+        const rect = header.getBoundingClientRect();
+        header.dispatchEvent(new MouseEvent('contextmenu', {
+          bubbles: true,
+          cancelable: true,
+          clientX: rect.left + 80,
+          clientY: rect.top + rect.height / 2,
+        }));
+        const menu = document.getElementById('muffin-window-context-menu');
+        const labels = menu && !menu.hidden
+          ? [...menu.querySelectorAll('[data-muffin-ctx-action]')].map((n) => n.textContent.trim())
+          : [];
+        return {
+          open: !!(menu && !menu.hidden),
+          labels,
+          init: document.body.dataset.capsuleMuffinWindowCtxInit === 'true',
+        };
+      });
+      const titleCtxOk = titleCtx.open
+        && titleCtx.init
+        && ['Réduire', 'Agrandir', 'Fermer', 'Toujours au premier plan']
+          .every((label) => titleCtx.labels.indexOf(label) >= 0);
+      push('chrome-title-ctx', 'ctx', titleCtxOk, titleCtx);
+      await page.keyboard.press('Escape');
+
       push('chrome-kb', 'kb', chrome.hasControls, chrome);
     }
 

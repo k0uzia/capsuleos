@@ -117,4 +117,6 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 
 **Critères done étape 3** : raccourcis bureau visibles (Dossier personnel, Corbeille) ; menu contextuel icône (`#desktop-icon-context-menu`) branché via `mint-desktop-icons.js` ; smoke `desktop.icon` exit 0.
 
-Contextes **P2** documentés (non bloquants CinΣ) : panel, barre titre Muffin, Compresser Nemo — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.
+**Critères done étape 4** : menu contextuel barre titre (`#muffin-window-context-menu`) branché via `cinnamon-window-behaviors.js` sur `#windowHeader` des fenêtres `data-window-chrome-toolkit="cinnamon"` ; libellés VM fr (Réduire, Agrandir/Restaurer, Fermer, Toujours au premier plan) ; smoke `window.title` exit 0 ; règle **R-CIN-CTX4**.
+
+Contextes **P2** documentés (non bloquants CinΣ) : panel, Compresser Nemo — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.

@@ -18,12 +18,12 @@
     "credSigma": true
   },
   "nextPredicate": null,
-  "evaluatedAt": "2026-06-09T11:42:02.739Z",
-  "updatedAt": "2026-06-09T11:42:02.739Z",
+  "evaluatedAt": "2026-06-09T12:15:32.134Z",
+  "updatedAt": "2026-06-09T12:15:32.134Z",
   "gates": {
     "CinΣ": {
       "ok": true,
-      "at": "2026-06-09T11:42:02.739Z",
+      "at": "2026-06-09T12:15:32.134Z",
       "rule": "R-CIN-Σ"
     }
   }

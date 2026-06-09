@@ -9,7 +9,7 @@
     "Triple couche — inventaire texte → captures VM/Capsule → smoke Playwright",
     "Prédicats séquentiels — CredV documente, CredC implémente, CredS smoke, CredΠ mesure",
     "Façade OS canonique — resolveCapsuleOsUrl(registryId), jamais home/ direct",
-    "Extension progressive — priorityQueue → catalogue 44 slots → menu 101 entrées"
+    "Extension ciblée P-F v2 — cartographie gaps (P-F1) puis tiers B par slot, pas 101 apps linéaires"
   ],
   "domains": {
     "app-fidelity": {
@@ -46,7 +46,11 @@
     { "id": "P-C", "label": "Implémentation clone", "predicate": "CredC", "requires": ["CredV"] },
     { "id": "P-D", "label": "Smoke scénario", "predicate": "CredS", "requires": ["CredC"] },
     { "id": "P-E", "label": "Parité classée pi_credibility", "predicate": "CredΠ", "requires": ["CredS"] },
-    { "id": "P-F", "label": "Extension catalogue/menu", "requires": ["CredΠ"] }
+    { "id": "P-F1", "label": "Cartographie menu→slots→gaps", "artifact": "root/docs/inventaires/{id}-app-fidelity-gaps.json" },
+    { "id": "P-F2", "label": "Alignement taxonomie slot/variant", "requires": ["P-F1"] },
+    { "id": "P-F3", "label": "Crédibilité tier B par slot gap", "requires": ["P-F1"], "predicate": "CredΠ" },
+    { "id": "P-F4", "label": "ManΣ Mint proc/", "requires": ["P-F1"] },
+    { "id": "P-F5", "label": "Captures VM burst", "requires": ["CredV"] }
   ],
   "steps": [
     {

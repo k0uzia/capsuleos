@@ -10,7 +10,7 @@ description: Campagne crédibilité pédagogique — scénarios utilisateur fid�
 - Campagne **v3-credibility-pass** ou « crédibilité pédagogique »
 - Utilisateur veut que le clone **se comporte** comme la VM (menus, sous-menus, états)
 - **Π_global=100** atteint mais parcours utilisateur encore incomplets
-- Extension au-delà des 8 apps P0 (catalogue 44 slots, menu 101 entrées)
+- Extension **P-F v2** : cartographie gaps (`map-gaps`) puis tier B par slot (~32 gaps, pas 101 apps linéaires)
 
 ## Prérequis
 
@@ -22,6 +22,9 @@ description: Campagne crédibilité pédagogique — scénarios utilisateur fid�
 ## Séquence par application
 
 ```bash
+# 0. Cartographie P-F1 (après clôture P0)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase map-gaps
+
 # 1. État campagne
 node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase status
 

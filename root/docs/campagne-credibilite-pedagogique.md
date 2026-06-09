@@ -1,6 +1,6 @@
 # Campagne crédibilité pédagogique — clone fidèle à la VM
 
-> **Statut** : Phase 0 scaffolding — campagne `v3-credibility-pass` (juin 2026)  
+> **Statut** : P0 clôturé (34/34) — **P-F v2** en cours — campagne `v3-credibility-pass` (juin 2026)  
 > **Contrat machine** : [`etc/capsuleos/contracts/app-fidelity-scenarios.json`](../../etc/capsuleos/contracts/app-fidelity-scenarios.json)  
 > **Orchestrateur** : `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs`  
 > **Skill agent** : [`root/skills/vm-app-fidelity-pass/SKILL.md`](../skills/vm-app-fidelity-pass/SKILL.md)
@@ -15,7 +15,7 @@ Complète sans remplacer : [moteur-clonage-experience.md](moteur-clonage-experie
 |-----------|----------------------|------------------------------|
 | **Question** | Le clone **ressemble** et **s'ouvre** comme la VM ? | L'utilisateur **se sent** sur la VM en **parcourant** menus et sous-écrans ? |
 | **Mesure** | `pi_global`, `AppVp`, surfaces shell | `pi_credibility` par app et par scénario |
-| **Périmètre** | 8 apps P0 + shell 8/8 | File prioritaire → catalogue 44 slots → menu 101 entrées |
+| **Périmètre** | 8 apps P0 + shell 8/8 | **Gaps cartographiés** (slots sans π=100), pas 101 apps linéaires |
 | **Preuve** | Captures classées, matrices UI | Scénarios utilisateur documentés + smoke Playwright |
 
 **Π=100** clôt la campagne structurelle Mint (pallier 10). La campagne **v3** élève la **crédibilité pédagogique** : parcours utilisateur réaliste (persona, étapes, états hover/focus/erreur/vide) validés contre la VM `capsule@192.168.1.146`.
@@ -31,7 +31,32 @@ Complète sans remplacer : [moteur-clonage-experience.md](moteur-clonage-experie
 | **P-C** | impl | Implémenter interactions clone (gabarits, JS slot) | **CredC** |
 | **P-D** | smoke | Smoke scénario Playwright (`smoke-app-fidelity-scenario.mjs`) | **CredS** |
 | **P-E** | parité | Classer écarts, mesurer `pi_credibility` | **CredΠ** |
-| **P-F** | extension | Étendre au-delà des 8 P0 (catalogue + menu) | file élargie |
+| **P-F** | extension ciblée | Voir **§2 bis** (P-F1→P-F5) | gaps `*-app-fidelity-gaps.json` |
+
+### 2 bis. Extension P-F v2 (post-P0)
+
+> **Révision juin 2026** : ne pas viser 101 apps × 3 scénarios. La cartographie P-F1 montre que **64/101** entrées menu sont déjà couvertes par 11 slots π=100 et **52/101** par Paramètres (`themes`). Il reste **~32 slots** catalogue sans crédibilité.
+
+| Sous-phase | Id | Objectif | Livrable |
+|------------|-----|----------|----------|
+| **P-F1** | cartographie | Menu 101 → slots 44 → scénarios existants | `linux-mint-app-fidelity-gaps.json` |
+| **P-F2** | taxonomie | Variants Cinnamon (slot→variant toolkit) avant nouveaux gabarits | alignement [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) |
+| **P-F3** | crédibilité par tiers | **Tier B** : ≥3 scénarios / slot gap (vague 1 P0+P1, puis P2) | inventaire scénarios enrichi |
+| **P-F4** | ManΣ Mint | Clôturer ManSt/ManI sur `proc/linux-mint/` | alignement avancement-formel |
+| **P-F5** | VM burst | Captures P-B pour scénarios sans π=100 | `vmCapture` renseigné |
+
+**Tiers de travail** :
+
+| Tier | Critère | Action |
+|------|---------|--------|
+| **A** | Slot π=100 ou structure seule suffisante | Aucun — déjà couvert |
+| **B** | Slot catalogue sans π=100 | 3 scénarios CredV→CredS par slot |
+| **C** | Entrée menu → `themes` (cs-*) | Couvert par campagne Paramètres ; pas de slot dédié |
+
+**Vagues P-F3** (générées par `map-app-fidelity-gaps.mjs`) :
+
+1. **Vague 1** — slots P0+P1 : `calendar`, `screenshot`, `drawing`, `lecteur_multimedia`, `libreoffice_startcenter`, `mintdrivers`, `librecalc`, `system_monitor`, `visionneur_images`, `visionneur_pdf`
+2. **Vague 2** — slots P2 restants (~22)
 
 Boucle **récursive par application** :
 
@@ -104,25 +129,34 @@ flowchart TB
 
 ## 5. File prioritaire Mint
 
-État initial : `priorityQueue` (8 apps P0) dans [`linux-mint-replication-state.json`](inventaires/linux-mint-replication-state.json).
+### P0 — clôturé (juin 2026)
 
-| Étape | Périmètre | Cible |
-|-------|-----------|-------|
-| 1 | `priorityQueue` | 8 apps × ≥3 scénarios documentés |
-| 2 | `catalog.capsuleSlots` (44) | Slots restants du toolkit Cinnamon |
-| 3 | `catalog.vmMenuEntries` (101) | Entrées menu principal non encore couvertes |
+11 apps π=100 · 34 scénarios CredC/CredS · commit `a4e1918`.
 
-Apps pilotes supplémentaires (phase 0) : `terminal`, `pix`, `sticky` — interactions bureau typiques Mint.
+### P-F — extension ciblée
+
+Inventaire gaps : [`linux-mint-app-fidelity-gaps.json`](inventaires/linux-mint-app-fidelity-gaps.json) (régénérer avec `map-gaps`).
+
+| Métrique | Valeur (P-F1) |
+|----------|---------------|
+| Entrées menu VM | 101 |
+| Couvertes par slots π=100 | ~64 |
+| Via Paramètres (`themes`) | 52 |
+| Slots gap crédibilité | ~32 |
+| Scénarios à ajouter (cible 3/slot) | ~96 max · vague 1 ≈ 30 |
 
 ---
 
 ## 6. Commandes opérationnelles
 
 ```bash
+# Cartographie P-F1 (menu → slots → gaps)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase map-gaps
+
 # État campagne
 node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase status
 
-# Prochain scénario / app
+# Prochain scénario / app (file vague 1 après P0)
 node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next
 
 # Dry-run chaîne (collect VM, smoke, validate)
@@ -135,7 +169,7 @@ node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-scenario.mjs --id linux-mint
 node usr/lib/capsuleos/tools/validate-all.mjs
 ```
 
-**Reprise demain** : `run-app-fidelity-campaign.mjs --id linux-mint --phase next`
+**Reprise** : `map-gaps` puis `next --app calendar` (vague 1 P0)
 
 ---
 

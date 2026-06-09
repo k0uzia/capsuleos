@@ -52,12 +52,20 @@
     "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
     "inventory": "linux-mint-app-fidelity-scenarios.json",
     "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
-    "currentPhase": "P-F",
+    "currentPhase": "P-F1",
     "p0Complete": true,
     "p0Commit": "a4e1918",
     "scenarios": { "total": 34, "credV": 34, "credC": 34, "credS": 34, "appsAtPi100": 11 },
     "predicates": ["CredV", "CredC", "CredS", "CredΠ"],
-    "nextScope": "catalogue-44-slots-menu-101"
+    "gapMap": "linux-mint-app-fidelity-gaps.json",
+    "gapSummary": {
+      "menuEntriesVm": 101,
+      "gapSlotsTotal": 32,
+      "gapSlotsWave1P0P1": 10,
+      "scenariosToAdd": 96,
+      "nextWave1Slot": "calendar"
+    },
+    "nextScope": "P-F2-taxonomie puis P-F3-vague1-P0P1"
   },
   "pallier": 10,
   "pallier10Commit": null,
@@ -137,7 +145,8 @@
     "Bureau VM vide : checks desktop alignés (0 raccourci = vérité).",
     "101/101 catalogue : slots ouverts OK.",
     "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps.",
-    "Campagne v3 crédibilité P0 clôturée — CredC/CredS 34/34, apps π=100 11/11 (commit a4e1918). Extension P-F : catalogue 44 slots / menu 101 entrées."
+    "Campagne v3 P0 clôturée (a4e1918). P-F v2 : cartographie gaps — 32 slots, vague1 P0+P1=10, pas 101 apps linéaires.",
+    "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
   ],
-  "updatedAt": "2026-06-08T18:00:00.000Z"
+  "updatedAt": "2026-06-09T07:00:00.000Z"
 }

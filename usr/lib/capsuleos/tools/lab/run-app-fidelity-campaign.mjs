@@ -6,8 +6,10 @@
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase status
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase list
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase map-gaps
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase run --app nemo --dry-run
  */
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -39,8 +41,19 @@ const loadJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const inventoryPath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-app-fidelity-scenarios.json`);
 
+const gapsPath = (registryId) =>
+  path.join(ROOT, 'root/docs/inventaires', `${registryId}-app-fidelity-gaps.json`);
+
 const replicationStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-replication-state.json`);
+
+const loadGaps = (registryId) => {
+  const p = gapsPath(registryId);
+  if (!fs.existsSync(p)) {
+    return null;
+  }
+  return loadJson(p);
+};
 
 const loadInventory = (registryId) => {
   const p = inventoryPath(registryId);
@@ -145,7 +158,7 @@ const nextScenario = (inventory, appFilter) => {
   return null;
 };
 
-const nextApp = (inventory) => {
+const nextApp = (inventory, gaps) => {
   const queue = inventory.appQueue || [];
   const apps = inventory.apps || [];
   for (let i = 0; i < queue.length; i += 1) {
@@ -155,7 +168,25 @@ const nextApp = (inventory) => {
       return appId;
     }
   }
-  return queue.length > 0 ? queue[0] : null;
+  if (gaps && gaps.waveQueue) {
+    const wave1 = gaps.waveQueue.wave1P0P1 || [];
+    for (let i = 0; i < wave1.length; i += 1) {
+      const slot = wave1[i];
+      const appMeta = apps.find((a) => a.id === slot);
+      if (!appMeta || appMeta.pi_credibility === null || appMeta.pi_credibility < 100) {
+        return slot;
+      }
+    }
+    const wave2 = gaps.waveQueue.wave2P2 || [];
+    for (let j = 0; j < wave2.length; j += 1) {
+      const slot2 = wave2[j];
+      const appMeta2 = apps.find((a) => a.id === slot2);
+      if (!appMeta2 || appMeta2.pi_credibility === null || appMeta2.pi_credibility < 100) {
+        return slot2;
+      }
+    }
+  }
+  return null;
 };
 
 const buildRunCommands = (contract, registryId, scenario, app) => {
@@ -185,10 +216,10 @@ const buildRunCommands = (contract, registryId, scenario, app) => {
   return cmds;
 };
 
-const printStatus = (registryId, inventory, contract) => {
+const printStatus = (registryId, inventory, contract, gaps) => {
   const summary = inventory.summary || computeSummary(inventory);
   const next = nextScenario(inventory, null);
-  const nextAppId = nextApp(inventory);
+  const nextAppId = nextApp(inventory, gaps);
 
   process.stdout.write(`\n=== app-fidelity-campaign ${registryId} ===\n`);
   process.stdout.write(`Campagne: ${inventory.campaign || contract.campaignId}\n`);
@@ -199,6 +230,13 @@ const printStatus = (registryId, inventory, contract) => {
       `CredS ${summary.smokeOk}/${summary.totalScenarios} (${summary.smokePct}%)\n`,
   );
   process.stdout.write(`Apps π=100: ${summary.appsAtPi100}/${summary.appsTotal}\n`);
+  if (gaps && gaps.summary) {
+    const gs = gaps.summary;
+    process.stdout.write(
+      `P-F gaps: ${gs.gapSlotsTotal} slots · vague1 P0+P1: ${gs.gapSlotsP0 + gs.gapSlotsP1} · ` +
+        `scénarios à ajouter: ${gs.scenariosToAdd}\n`,
+    );
+  }
   if (nextAppId) {
     process.stdout.write(`Prochaine app file: ${nextAppId}\n`);
   }
@@ -206,8 +244,12 @@ const printStatus = (registryId, inventory, contract) => {
     process.stdout.write(
       `Prochain scénario: ${next.scenario.id} (${next.scenario.app}) — ${next.reason} [${next.phase}]\n`,
     );
+  } else if (gaps && gaps.summary && gaps.summary.gapSlotsTotal > 0) {
+    process.stdout.write(
+      '→ P-F2 : documenter CredV pour le prochain slot gap (map-gaps wave1)\n',
+    );
   } else {
-    process.stdout.write('✓ Tous les scénarios documentés ont CredS et π mesuré — extension P-F\n');
+    process.stdout.write('✓ Campagne crédibilité clôturée sur le périmètre cartographié\n');
   }
 };
 
@@ -229,11 +271,30 @@ const printList = (inventory) => {
   });
 };
 
+const runMapGaps = (registryId) => {
+  const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/map-app-fidelity-gaps.mjs');
+  execSync(`node "${script}" --id ${registryId} --write`, { stdio: 'inherit', cwd: ROOT });
+};
+
 const main = () => {
   const opts = parseArgs();
   const contract = loadJson(CONTRACT_PATH);
   let inventory = loadInventory(opts.id);
   inventory = refreshSummary(inventory);
+  let gaps = loadGaps(opts.id);
+
+  if (opts.phase === 'map-gaps') {
+    runMapGaps(opts.id);
+    gaps = loadGaps(opts.id);
+    if (gaps) {
+      const gs = gaps.summary;
+      process.stdout.write(
+        `\n✓ Cartographie P-F1 — ${gs.gapSlotsTotal} slots gap · ` +
+          `${gs.scenariosToAdd} scénarios à produire\n`,
+      );
+    }
+    return;
+  }
 
   if (opts.phase === 'list') {
     printList(inventory);
@@ -242,15 +303,15 @@ const main = () => {
   }
 
   if (opts.phase === 'status') {
-    printStatus(opts.id, inventory, contract);
+    printStatus(opts.id, inventory, contract, gaps);
     saveInventory(opts.id, inventory);
     return;
   }
 
   if (opts.phase === 'next') {
-    const appFilter = opts.app || nextApp(inventory);
+    const appFilter = opts.app || nextApp(inventory, gaps);
     const next = nextScenario(inventory, appFilter);
-    printStatus(opts.id, inventory, contract);
+    printStatus(opts.id, inventory, contract, gaps);
     if (next) {
       process.stdout.write(`\n→ Action: ${next.reason}\n`);
       process.stdout.write(`  App: ${next.scenario.app}\n`);
@@ -268,7 +329,7 @@ const main = () => {
   }
 
   if (opts.phase === 'run') {
-    const appFilter = opts.app || nextApp(inventory);
+    const appFilter = opts.app || nextApp(inventory, gaps);
     const next = nextScenario(inventory, appFilter);
     if (!next) {
       process.stdout.write('Aucun scénario en attente — campagne P-F ou extension file\n');
@@ -289,7 +350,7 @@ const main = () => {
     return;
   }
 
-  process.stderr.write(`Phase inconnue: ${opts.phase} (list|status|next|run)\n`);
+  process.stderr.write(`Phase inconnue: ${opts.phase} (list|status|next|run|map-gaps)\n`);
   process.exit(1);
 };
 

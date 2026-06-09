@@ -21,7 +21,15 @@ Les phases H ci-dessous sont des **instances** des prédicats du [manifeste logi
 | H5 | implémentation | **R-IMP1** : interdit si ¬**H₂** |
 | H6 | **H₆** | `validate-all.mjs` clôture |
 
-**Décision autonome** : après **H₂**, appliquer §4 de `logique-formelle.md` (inventaire **I**, assets **A∧S**, lab **L**, etc.) — ne pas demander à l’utilisateur si **R-AUTO** s’applique.
+**Décision autonome** : après **H₂**, résoudre le pipeline :
+
+```bash
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId> --scope pipeline
+```
+
+Puis §4 de `logique-formelle.md` si le domaine n’est pas couvert par le pipeline — ne pas demander à l’utilisateur si **R-AUTO** / `autoExecute` s’applique.
+
+**Ne pas** lire `roadmap.md` pour choisir la prochaine tâche — voir [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §14 et [README.md](README.md).
 
 ---
 

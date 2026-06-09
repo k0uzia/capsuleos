@@ -2,6 +2,8 @@
 
 Procédure **distro · version · environnement de bureau · vendor** sans explosion du noyau JS.
 
+**Cadre contributeur (obligatoire)** : [convention-accueil-os.md](convention-accueil-os.md) — espace dédié, recette, zones interdites, deux chemins d’accueil.
+
 **Prérequis agent** : [parcours-agent.md](parcours-agent.md) phases H0–H3 · gate `validate-all.mjs` vert en baseline.
 
 > **Parité VM requise** : en parallèle du catalogue, suivre [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (inventaire SSH → assets → comportements → apps → FS). Référence modèle : **linux-mint** (annexe A). Mesure automatisée : [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md).

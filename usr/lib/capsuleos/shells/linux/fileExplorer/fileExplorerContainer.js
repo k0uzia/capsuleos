@@ -9,7 +9,8 @@ function resetFileExplorerSlotBindings(fileExplorerRoot) {
         'nemoZoomInit',
         'nemoSidebarDelegation',
         'nemoContextMenuInit',
-        'nemoContextMenuHostBound',
+        'nemoContextMenuBound',
+        'nemoSidebarContextMenuBound',
         'nautilusTabsInit',
         'nemoPropertiesInit',
         'nautilusKeyboardInit',
@@ -21,10 +22,6 @@ function resetFileExplorerSlotBindings(fileExplorerRoot) {
     keys.forEach((key) => {
         delete fileExplorerRoot.dataset[key];
     });
-    const contextHost = fileExplorerRoot.querySelector('#voletContainer, .dolphin-content-wrap');
-    if (contextHost && contextHost.dataset) {
-        delete contextHost.dataset.nemoContextMenuHostBound;
-    }
 }
 
 function initFileExplorerContainer(rootContainer) {
@@ -60,9 +57,6 @@ function initFileExplorerContainer(rootContainer) {
         if (!directory) {
             return;
         }
-        if (typeof window.closeDolphinSearchBar === 'function') {
-            window.closeDolphinSearchBar();
-        }
         if (typeof window.exitNautilusSearchChrome === 'function') {
             window.exitNautilusSearchChrome({ render: false });
         }
@@ -75,21 +69,10 @@ function initFileExplorerContainer(rootContainer) {
         }
     }
 
-    const bindExplorerSidebarPlaces = (root) => {
-        if (!root) {
-            return;
-        }
-        if (typeof window.repairExplorerSidebarPlaceLinks === 'function') {
-            window.repairExplorerSidebarPlaceLinks(root);
-        }
-        if (root.dataset.nemoSidebarDelegation === 'true') {
-            return;
-        }
-        const sidebar = root.querySelector('#voletnemo');
-        if (!sidebar) {
-            return;
-        }
-        sidebar.addEventListener('click', (event) => {
+    if (fileExplorerRoot.dataset.nemoSidebarDelegation !== 'true') {
+        const sidebar = fileExplorerRoot.querySelector('#voletnemo');
+        if (sidebar) {
+            sidebar.addEventListener('click', (event) => {
                 const sectionToggle = event.target.closest('[data-nemo-section-toggle]');
                 if (sectionToggle && sidebar.contains(sectionToggle)) {
                     event.preventDefault();
@@ -118,21 +101,13 @@ function initFileExplorerContainer(rootContainer) {
                     event.preventDefault();
                     navigatePlaceKey(key);
                 }
-        });
-        root.dataset.nemoSidebarDelegation = 'true';
-    };
-
-    bindExplorerSidebarPlaces(fileExplorerRoot);
+            });
+            fileExplorerRoot.dataset.nemoSidebarDelegation = 'true';
+        }
+    }
 
     if (typeof bindNemoSidebarFooterControls === 'function') {
         bindNemoSidebarFooterControls(fileExplorerRoot);
-    }
-
-    if (typeof window.ensureExplorerAdvancedChrome === 'function') {
-        window.ensureExplorerAdvancedChrome(fileExplorerRoot);
-    }
-    if (typeof window.bindFileExplorerContextMenu === 'function') {
-        window.bindFileExplorerContextMenu();
     }
 
     if (fileExplorerRoot.dataset.fileExplorerInit === 'true' || fileExplorerRoot.dataset.nemoInit === 'true') {

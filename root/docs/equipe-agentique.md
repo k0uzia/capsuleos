@@ -193,7 +193,11 @@ Sortie : `root/docs/briefs/<id>.md`. Modèle manuel ci-dessous si besoin.
 
 Copier depuis [`skills/os-stub/SKILL.md`](../skills/os-stub/SKILL.md).
 
-**Créés juin 2026 :** `kernel-supervisor`, `asset-pipeline`, `kernel-guardian`.
+**Créés juin 2026 :** `kernel-supervisor`, `asset-pipeline`, `kernel-guardian`, [`vm-app-fidelity-pass`](../skills/vm-app-fidelity-pass/SKILL.md) (campagne crédibilité pédagogique v3).
+
+### [`vm-app-fidelity-pass`](../skills/vm-app-fidelity-pass/SKILL.md)
+
+Campagne **v3-credibility-pass** — scénarios utilisateur fidèles à la VM (au-delà de Π structurel C0–C10). Pairing : `os-clone-from-vm`, `role-integrator`, `distributions/linux-mint`. Orchestrateur : `run-app-fidelity-campaign.mjs`.
 
 ---
 

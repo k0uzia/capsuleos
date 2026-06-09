@@ -6,6 +6,7 @@ import path from 'path';
 import { ROOT, loadRegistryEntry } from './replication-chain-lib.mjs';
 import { loadManifest, pathsForManifest } from './vm-manifest-lib.mjs';
 import { loadAppsContract, skinIndexPath } from './apps-catalog-lib.mjs';
+import { loadSkinIntegrationContext, skinReferencesAsset } from './manifest-icon-pack-refs-lib.mjs';
 
 export const playbookPath = (registryId) => {
   const manifest = loadManifest(registryId);
@@ -32,6 +33,21 @@ export const normalizeCapsuleTarget = (target) => {
     .replace(/\/$/, '');
 };
 
+const IMAGE_EXT = /\.(png|svg|webp|jpe?g|gif|ico)$/i;
+
+/** Résout capsuleRelative canonique pour une icône d'app (overview/ + extension). */
+export const resolveAppIconCapsuleRelative = (icon, manifest) => {
+  const toolkit = manifest?.toolkit?.id || 'gnome';
+  const vmPath = icon.vmPaths?.[0] || '';
+  const ext = path.extname(vmPath) || '.png';
+  let rel = normalizeCapsuleTarget(icon.capsuleTarget);
+  if (!rel) return null;
+  if (IMAGE_EXT.test(path.basename(rel))) return rel;
+  const appId = icon.appId || path.basename(rel);
+  if (rel.includes('/overview/')) return `${rel}${ext}`;
+  return `images/toolkits/${toolkit}/apps/overview/${appId}${ext}`;
+};
+
 const fileExists = (abs) => {
   try {
     return fs.existsSync(abs) && fs.statSync(abs).isFile();
@@ -40,13 +56,7 @@ const fileExists = (abs) => {
   }
 };
 
-const skinReferencesTarget = (indexHtml, relAsset) => {
-  const base = path.basename(relAsset);
-  const dir = path.dirname(relAsset).split('/').slice(-2).join('/');
-  return indexHtml.includes(relAsset)
-    || indexHtml.includes(base)
-    || (dir && indexHtml.includes(dir));
-};
+const skinReferencesTarget = (relAsset, skinCtx) => skinReferencesAsset(relAsset, skinCtx);
 
 export const buildReplicationItems = (registryId) => {
   const manifest = loadManifest(registryId);
@@ -54,8 +64,7 @@ export const buildReplicationItems = (registryId) => {
 
   const appsContract = loadAppsContract();
   const overrides = appsContract.registryOverrides?.[registryId]?.apps || {};
-  const indexPath = skinIndexPath(registryId);
-  const indexHtml = fs.existsSync(indexPath) ? fs.readFileSync(indexPath, 'utf8') : '';
+  const skinCtx = loadSkinIntegrationContext(registryId);
 
   const items = [];
   const seen = new Set();
@@ -69,12 +78,12 @@ export const buildReplicationItems = (registryId) => {
   for (const icon of manifest.media?.appIcons || []) {
     const vmPath = icon.vmPaths?.[0];
     if (!vmPath) continue;
-    const rel = normalizeCapsuleTarget(icon.capsuleTarget);
+    const rel = resolveAppIconCapsuleRelative(icon, manifest);
     const capsuleAbs = rel ? capsuleAssetPath(rel) : null;
     const ext = path.extname(vmPath) || '.png';
     const destName = `${icon.appId}${ext}`;
     const present = capsuleAbs && fileExists(capsuleAbs);
-    const referenced = present && rel && skinReferencesTarget(indexHtml, rel);
+    const referenced = present && rel && skinReferencesTarget(rel, skinCtx);
     const spec = overrides[icon.appId];
     if (spec?.onVm === false) {
       pushItem({
@@ -130,7 +139,7 @@ export const buildReplicationItems = (registryId) => {
     const ext = path.extname(vmPath) || path.extname(rel || '') || '.png';
     const stagingName = base.stagingName || `${path.basename(rel || base.id || 'asset', path.extname(rel || ''))}${ext}`;
     const present = capsuleAbs && fileExists(capsuleAbs);
-    const referenced = present && rel && skinReferencesTarget(indexHtml, rel);
+    const referenced = present && rel && skinReferencesTarget(rel, skinCtx);
     let status = 'pull';
     let action = 'pull';
     if (present && referenced) {
@@ -223,7 +232,7 @@ export const buildReplicationItems = (registryId) => {
     const rel = `images/vendors/${vendor}/wallpaper/${path.basename(wp.vmPath)}`;
     const capsuleAbs = capsuleAssetPath(rel);
     const present = fileExists(capsuleAbs);
-    const referenced = present && skinReferencesTarget(indexHtml, rel);
+    const referenced = present && skinReferencesTarget(rel, skinCtx);
     let status = 'pull';
     let action = 'pull';
     if (present && referenced) {
@@ -248,8 +257,14 @@ export const buildReplicationItems = (registryId) => {
   return items;
 };
 
+const mergePlaybookPhases = (fresh, existing) => {
+  const byId = Object.fromEntries((existing || []).map((p) => [p.id, p]));
+  return fresh.map((p) => (byId[p.id]?.status === 'done' ? { ...p, status: 'done' } : p));
+};
+
 export const buildPlaybook = (registryId) => {
   const manifest = loadManifest(registryId);
+  const existing = loadPlaybook(registryId);
   const items = buildReplicationItems(registryId);
   const summary = {
     total: items.length,
@@ -259,19 +274,23 @@ export const buildPlaybook = (registryId) => {
     onVmFalse: items.filter((i) => i.status === 'on-vm-false').length,
   };
 
-  return {
+  const approved = manifest?.validation?.approved || manifest?.validation?.status === 'approved';
+
+  const playbook = {
     version: 1,
     registryId,
     manifestRef: pathsForManifest(registryId).manifest.replace(`${ROOT}/`, ''),
     distribution: manifest.distribution,
     toolkit: manifest.toolkit,
     mediaCatalog: {
-      vendor: manifest.mediaCatalogVendor || vendor,
+      vendor: manifest.mediaCatalogVendor || manifest.distribution?.id,
       iconPack: manifest.media?.iconPack || null,
     },
     generatedAt: new Date().toISOString(),
     source: 'generate-manifest-replication-playbook.mjs',
-    validation: { status: 'draft', approved: false },
+    validation: approved
+      ? { status: 'approved', approved: true, ...manifest.validation }
+      : { status: 'draft', approved: false },
     staging: {
       remoteDir: stagingRemoteDir(registryId),
       remoteScript: 'root/tools/lab/vm-manifest-staging-collect.sh',
@@ -288,12 +307,26 @@ export const buildPlaybook = (registryId) => {
     phases: [
       { id: 'discover', predicate: 'ManV', status: 'done' },
       { id: 'diff', predicate: 'PbM', status: 'generated' },
-      { id: 'approve', predicate: 'ManA', status: 'pending' },
+      { id: 'approve', predicate: 'ManA', status: approved ? 'done' : 'pending' },
       { id: 'stage-vm', predicate: 'ManSt', status: 'pending' },
       { id: 'import', predicate: 'ManI', status: 'pending' },
       { id: 'integrate-skin', predicate: 'H5', status: 'pending' },
     ],
   };
+
+  if (existing?.staging?.status === 'completed') {
+    playbook.staging = { ...playbook.staging, ...existing.staging };
+    playbook.phases = mergePlaybookPhases(playbook.phases, existing.phases);
+  }
+  if (existing?.import?.status === 'completed') {
+    playbook.import = { ...playbook.import, ...existing.import };
+    playbook.phases = mergePlaybookPhases(playbook.phases, existing.phases);
+  }
+  if (existing?.phases) {
+    playbook.phases = mergePlaybookPhases(playbook.phases, existing.phases);
+  }
+
+  return playbook;
 };
 
 export const loadPlaybook = (registryId) => {

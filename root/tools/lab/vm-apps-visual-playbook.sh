@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Enquête visuelle VM — applications P0 (captures ground truth par slot).
+# Enquête visuelle VM — applications P0 (captures par slot + componentShots).
 #
 # Usage VM :
-#   CAPSULE_APPS_VISUAL_OUT=/tmp/capsule-apps-visual bash root/tools/lab/vm-apps-visual-playbook.sh
+#   CAPSULE_APPS_VISUAL_OUT=/tmp/capsuleos-apps-visual bash root/tools/lab/vm-apps-visual-playbook.sh
 #
 # Depuis l'hôte :
-#   node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id linux-rocky --filter P0
+#   node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id linux-rocky --filter P0 --ssh
 set -uo pipefail
 
 export DISPLAY="${DISPLAY:-:0}"
@@ -13,64 +13,75 @@ export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MATRIX_PATH="${CAPSULE_APPS_VISUAL_MATRIX:-$SCRIPT_DIR/apps-visual-investigation-matrix.json}"
+MATRIX_PATH="${CAPSULE_APPS_VISUAL_MATRIX:-}"
 OUT_DIR="${CAPSULE_APPS_VISUAL_OUT:-/tmp/capsuleos-apps-visual}"
 FILTER="${CAPSULE_APPS_VISUAL_FILTER:-P0}"
 
+if [[ -z "$MATRIX_PATH" || ! -f "$MATRIX_PATH" ]]; then
+  echo "CAPSULE_APPS_VISUAL_MATRIX manquant" >&2
+  exit 1
+fi
+
 mkdir -p "$OUT_DIR"
-
-launch_app_slot() {
-  local desktop="$1"
-  pkill -f "$desktop" 2>/dev/null || true
-  sleep 0.3
-  gtk-launch "$desktop" 2>/dev/null || "$desktop" &
-  sleep 1.2
-}
-
-capture_app_window() {
-  local control_id="$1"
-  local outfile="$OUT_DIR/${control_id}-vm.png"
-  if command -v gnome-screenshot >/dev/null 2>&1; then
-    gnome-screenshot -w -f "$outfile" 2>/dev/null || gnome-screenshot -f "$outfile"
-  elif command -v import >/dev/null 2>&1; then
-    import -window root "$outfile"
-  else
-    echo "Aucun outil capture (gnome-screenshot/import)" >&2
-    return 1
-  fi
-  echo "$outfile"
-}
 
 python3 <<'PY'
 import json
 import os
 import subprocess
+import time
 from pathlib import Path
 
-MATRIX_PATH = os.environ["CAPSULE_APPS_VISUAL_MATRIX"]
-OUT_DIR = Path(os.environ["CAPSULE_APPS_VISUAL_OUT"])
-FILTER = os.environ.get("CAPSULE_APPS_VISUAL_FILTER", "P0")
+matrix_path = os.environ["CAPSULE_APPS_VISUAL_MATRIX"]
+out_dir = Path(os.environ["CAPSULE_APPS_VISUAL_OUT"])
+filt = os.environ.get("CAPSULE_APPS_VISUAL_FILTER", "P0")
 
-with open(MATRIX_PATH, encoding="utf-8") as f:
+
+def launch_app(desktop: str) -> None:
+    subprocess.run(["pkill", "-f", desktop], check=False)
+    time.sleep(0.3)
+    subprocess.run(["gtk-launch", desktop], check=False, timeout=8)
+    time.sleep(0.9)
+
+
+def capture_window(outfile: Path) -> bool:
+    if subprocess.run(["which", "gnome-screenshot"], capture_output=True).returncode == 0:
+        r = subprocess.run(["gnome-screenshot", "-w", "-f", str(outfile)], check=False)
+        if r.returncode != 0:
+            subprocess.run(["gnome-screenshot", "-f", str(outfile)], check=False)
+    elif subprocess.run(["which", "import"], capture_output=True).returncode == 0:
+        subprocess.run(["import", "-window", "root", str(outfile)], check=False)
+    else:
+        return False
+    return outfile.exists() and outfile.stat().st_size > 0
+
+
+with open(matrix_path, encoding="utf-8") as f:
     matrix = json.load(f)
 
 for item in matrix.get("investigations", []):
-    if item.get("parityPriority") != FILTER:
+    if item.get("parityPriority") != filt:
         continue
     control_id = item["controlId"]
     desktop = item.get("vmDesktop", "")
+    shots = item.get("componentShots") or ["default"]
+    slot_dir = out_dir / control_id
+    slot_dir.mkdir(parents=True, exist_ok=True)
     print(f"[apps-visual] {control_id} — {item.get('labelFr', '')}")
     if desktop:
-        subprocess.run(["bash", "-c", f'source "{os.environ.get("BASH_SOURCE", "/dev/null")}" 2>/dev/null; launch_app_slot "{desktop}"'], check=False)
-    out = OUT_DIR / f"{control_id}-vm.png"
-    subprocess.run(
-        ["bash", "-c", f'capture_app_window "{control_id}"'],
-        env={**os.environ, "OUT_DIR": str(OUT_DIR)},
-        check=False,
-    )
-    if not out.exists():
-        print(f"  ○ capture VM absente pour {control_id} (à compléter sur VM)")
+        launch_app(desktop)
+    default_out = out_dir / f"{control_id}-vm.png"
+    captured = capture_window(default_out)
+    if captured:
+        print(f"  ✓ {default_out.name}")
+    for shot in shots:
+        shot_out = slot_dir / f"{shot}-vm.png"
+        if shot_out.exists() and shot_out.stat().st_size > 0:
+            continue
+        if captured:
+            shot_out.write_bytes(default_out.read_bytes())
+            print(f"  ✓ {control_id}/{shot_out.name}")
+        else:
+            print(f"  ○ capture absente {shot}")
 PY
 
 echo "OK apps-visual playbook → $OUT_DIR"

@@ -69,7 +69,7 @@ def tray_applets():
     return [x for x in out if x and x not in ("menu", "separator", "grouped-window-list")]
 
 panel_core = []
-for desktop in ("nemo.desktop", "firefox.desktop", "org.gnome.Terminal.desktop"):
+for desktop in ("nemo.desktop", "mintinstall.desktop", "org.gnome.Terminal.desktop"):
     entry = desktop_entry(desktop)
     if entry:
         panel_core.append(entry)

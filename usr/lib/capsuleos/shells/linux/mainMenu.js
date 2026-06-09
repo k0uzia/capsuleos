@@ -9,12 +9,17 @@ function initMainMenu() {
     const catsList    = document.getElementById('menu-cats');
     const appList     = document.getElementById('menu-app-list');
     const searchInput = document.getElementById('menu-search');
+    const btnLock     = document.getElementById('menu-btn-lock');
     const btnLogout   = document.getElementById('menu-btn-logout');
     const btnPower    = document.getElementById('menu-btn-power');
     const menuEl      = document.querySelector('div[data-link="mainMenu"]');
     const menuBtn     = document.querySelector('a[target="windowElement"][data-link="mainMenu"]');
 
     if (!catsList || !appList || !searchInput) return;
+
+    const isMintCinnamonMenu = document.body && document.body.id === 'mint';
+    let menuAppContextMenu = null;
+    let menuAppContextTarget = null;
 
     if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
         const root = String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
@@ -66,6 +71,18 @@ function initMainMenu() {
         const shortcutConfig = MENU_SHORTCUTS[link.dataset.shortcutId];
         link.tabIndex = 0;
 
+        if (shortcutConfig && shortcutConfig.icon) {
+            const shortcutImg = link.querySelector('img');
+            if (shortcutImg) {
+                const iconUrl = typeof resolveCapsuleAssetUrl === 'function'
+                    ? resolveCapsuleAssetUrl(shortcutConfig.icon)
+                    : (typeof resolveCapsuleResourceUrl === 'function'
+                        ? resolveCapsuleResourceUrl(shortcutConfig.icon)
+                        : shortcutConfig.icon);
+                shortcutImg.src = iconUrl;
+            }
+        }
+
         if (!shortcutConfig || !shortcutConfig.dataLink) {
             link.classList.add('is-unavailable');
             link.setAttribute('aria-disabled', 'true');
@@ -98,6 +115,9 @@ function initMainMenu() {
     };
 
     // ── Boutons système (retour accueil avec modale Linux) ──
+    if (btnLock) {
+        btnLock.addEventListener('click', returnToPickHome);
+    }
     if (btnLogout) {
         btnLogout.addEventListener('click', returnToPickHome);
     }
@@ -142,11 +162,96 @@ function initMainMenu() {
     }
 
     function closeMainMenu() {
+        closeMenuAppContextMenu();
         if (!menuEl) return;
         menuEl.style.display = 'none';
         menuEl.classList.remove('windowElementActive');
         if (menuBtn) menuBtn.classList.remove('active-link');
         if (menuBtn) menuBtn.focus();
+    }
+
+    function ensureMenuAppContextMenu() {
+        if (menuAppContextMenu) {
+            return menuAppContextMenu;
+        }
+        if (!isMintCinnamonMenu) {
+            return null;
+        }
+
+        const existing = document.getElementById('menu-app-context-menu');
+        if (existing) {
+            menuAppContextMenu = existing;
+            return menuAppContextMenu;
+        }
+
+        const menu = document.createElement('nav');
+        menu.id = 'menu-app-context-menu';
+        menu.className = 'menu-app-context-menu';
+        menu.setAttribute('role', 'menu');
+        menu.hidden = true;
+
+        const items = [
+            { action: 'add-favorite', label: 'Ajouter aux favoris' },
+            { action: 'add-desktop', label: 'Ajouter au bureau' },
+            { sep: true },
+            { action: 'uninstall', label: 'Désinstaller…' },
+        ];
+
+        items.forEach(item => {
+            if (item.sep) {
+                const hr = document.createElement('div');
+                hr.className = 'menu-app-context-menu__separator';
+                hr.setAttribute('role', 'separator');
+                menu.appendChild(hr);
+                return;
+            }
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'menu-app-context-menu__item';
+            btn.setAttribute('role', 'menuitem');
+            btn.dataset.menuAppCtxAction = item.action;
+            btn.textContent = item.label;
+            menu.appendChild(btn);
+        });
+
+        menu.querySelectorAll('[data-menu-app-ctx-action]').forEach(btn => {
+            btn.addEventListener('click', event => {
+                event.preventDefault();
+                closeMenuAppContextMenu();
+            });
+        });
+
+        document.body.appendChild(menu);
+        menuAppContextMenu = menu;
+        return menuAppContextMenu;
+    }
+
+    function closeMenuAppContextMenu() {
+        if (!menuAppContextMenu) {
+            return;
+        }
+        menuAppContextMenu.hidden = true;
+        menuAppContextTarget = null;
+    }
+
+    function openMenuAppContextMenu(clientX, clientY, itemEl, app) {
+        const menu = ensureMenuAppContextMenu();
+        if (!menu || !itemEl) {
+            return;
+        }
+
+        menuAppContextTarget = app || null;
+        appList.querySelectorAll('.menu-app-item.is-context-target').forEach(node => {
+            node.classList.remove('is-context-target');
+        });
+        itemEl.classList.add('is-context-target');
+
+        menu.hidden = false;
+        const rect = menu.getBoundingClientRect();
+        const maxLeft = window.innerWidth - rect.width - 8;
+        const maxTop = window.innerHeight - rect.height - 8;
+        menu.style.left = `${Math.max(8, Math.min(clientX, maxLeft))}px`;
+        menu.style.top = `${Math.max(8, Math.min(clientY, maxTop))}px`;
     }
 
     function renderApps(catId, query) {
@@ -183,9 +288,11 @@ function initMainMenu() {
 
             const icon = document.createElement('img');
             icon.className = 'menu-app-item__icon';
-            icon.src = typeof resolveCapsuleResourceUrl === 'function'
-                ? resolveCapsuleResourceUrl(app.icon)
-                : app.icon;
+            icon.src = typeof resolveCapsuleAssetUrl === 'function'
+                ? resolveCapsuleAssetUrl(app.icon)
+                : (typeof resolveCapsuleResourceUrl === 'function'
+                    ? resolveCapsuleResourceUrl(app.icon)
+                    : app.icon);
             icon.alt = '';
 
             const info = document.createElement('div');
@@ -205,6 +312,7 @@ function initMainMenu() {
             li.appendChild(info);
 
             if (app.dataLink) {
+                li.dataset.menuAppLink = app.dataLink;
                 li.addEventListener('click', () => {
                     if (app.csPanel && typeof window !== 'undefined') {
                         window.CAPSULE_CS_PENDING_PANEL = app.csPanel;
@@ -219,6 +327,13 @@ function initMainMenu() {
                         }
                         openApp(app.dataLink);
                     }
+                });
+            }
+
+            if (isMintCinnamonMenu && app.dataLink) {
+                li.addEventListener('contextmenu', event => {
+                    event.preventDefault();
+                    openMenuAppContextMenu(event.clientX, event.clientY, li, app);
                 });
             }
 
@@ -308,8 +423,10 @@ function initMainMenu() {
     function resolveLauncher(dataLink) {
         const selectors = [
             `footer a[target="windowElement"][data-link="${dataLink}"]`,
+            `footer a.mint-panel__launcher[target="windowElement"][data-link="${dataLink}"]`,
             `#desktop > a[target="windowElement"][data-link="${dataLink}"]`,
             `a.desktop-shortcut[target="windowElement"][data-link="${dataLink}"]`,
+            `a.mint-panel__launcher[target="windowElement"][data-link="${dataLink}"]`,
             `a[target="windowElement"][data-link="${dataLink}"]`
         ];
 
@@ -388,9 +505,34 @@ function initMainMenu() {
         container.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
     }
 
+    if (isMintCinnamonMenu && !document.body.dataset.menuAppContextMenuBound) {
+        document.addEventListener('click', (event) => {
+            if (!menuAppContextMenu || menuAppContextMenu.hidden) {
+                return;
+            }
+            if (menuAppContextMenu.contains(event.target)) {
+                return;
+            }
+            closeMenuAppContextMenu();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape' || !menuAppContextMenu || menuAppContextMenu.hidden) {
+                return;
+            }
+            event.preventDefault();
+            closeMenuAppContextMenu();
+        });
+
+        document.body.dataset.menuAppContextMenuBound = 'true';
+    }
+
     // Ferme le menu quand on clique à l'extérieur (vide / autre fenêtre).
     if (!document.body.dataset.mainMenuOutsideCloseBound) {
         document.addEventListener('click', (event) => {
+            if (menuAppContextMenu && !menuAppContextMenu.hidden && menuAppContextMenu.contains(event.target)) {
+                return;
+            }
             if (!isMainMenuOpen()) return;
             if (menuBtn && menuBtn.contains(event.target)) return;
             if (menuEl && menuEl.contains(event.target)) return;
@@ -398,6 +540,11 @@ function initMainMenu() {
         });
 
         document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && menuAppContextMenu && !menuAppContextMenu.hidden) {
+                closeMenuAppContextMenu();
+                return;
+            }
+
             if (event.key === 'Escape' && isMainMenuOpen()) {
                 closeMainMenu();
                 return;

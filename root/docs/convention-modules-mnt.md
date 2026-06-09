@@ -7,7 +7,9 @@
 
 ## 1. Positionnement formel
 
-CapsuleOS simule un **rootfs**. Le dossier `mnt/` à la racine du dépôt joue le rôle de **`/mnt`** : y sont exposés des **volumes pédagogiques** montés par déclaration, à l’image de `mount` / `umount` sur une distro réelle.
+CapsuleOS simule un **rootfs**. Le dossier `mnt/` est le **répertoire d’injection de scénarios pédagogiques** : parcours, missions et contenus didactiques pouvant être **déployés sur n’importe quel OS** du catalogue (GNOME, Windows, macOS…). La métaphore Linux `mount` reste utile en documentation ; l’essentiel est la **portabilité cross-OS** des scénarios, sans fork du noyau.
+
+Voir [fondements-philosophiques.md](fondements-philosophiques.md) §4.3.
 
 ```mermaid
 flowchart TB

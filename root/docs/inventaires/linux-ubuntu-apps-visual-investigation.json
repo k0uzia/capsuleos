@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "registryId": "linux-ubuntu",
+  "updatedAt": "2026-06-08T21:02:11.318Z",
+  "procedure": "procedure-apps-replication-formelle.md",
+  "summary": {
+    "documentedP0": 7,
+    "capsuleCapturesP0": 0,
+    "visualMatchClassifiedP0": 0
+  },
+  "investigations": [
+    {
+      "controlId": "calculator",
+      "labelFr": "Calculatrice",
+      "vmId": "org.gnome.Calculator",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "text_editor",
+      "labelFr": "Éditeur de texte",
+      "vmId": "org.gnome.TextEditor",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "nemo",
+      "labelFr": "Fichiers",
+      "vmId": "org.gnome.Nautilus",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "firefox",
+      "labelFr": "Firefox",
+      "vmId": "firefox",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "themes",
+      "labelFr": "Paramètres",
+      "vmId": "org.gnome.Settings",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "update_manager",
+      "labelFr": "Snap Store",
+      "vmId": "snap-store",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    },
+    {
+      "controlId": "terminal",
+      "labelFr": "Terminal",
+      "vmId": "org.gnome.Ptyxis",
+      "parityPriority": "P0",
+      "status": "documented",
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+    }
+  ]
+}

@@ -184,6 +184,7 @@
             }
             var val = parseDisplay(current);
             var result = compute(accumulator, val, operator);
+            var exprLabel = formatDisplay(accumulator) + ' ' + OP_SYMBOL[operator] + ' ' + formatDisplay(val) + ' =';
             if (!isFinite(result)) {
                 current = 'Erreur';
                 accumulator = null;
@@ -191,6 +192,7 @@
                 fresh = true;
             } else {
                 current = String(result);
+                pushHistory(exprLabel, result);
                 accumulator = null;
                 operator = null;
                 fresh = true;
@@ -246,6 +248,10 @@
             }
             if (action === 'equals') {
                 equals();
+                return;
+            }
+            if (action === 'fn') {
+                applyScientificFn(btn.getAttribute('data-fn'));
             }
         }
 
@@ -257,7 +263,89 @@
 
         var modeBtn = global.document.getElementById('gnome-calc-mode');
         var modePopover = global.document.getElementById('gnome-calc-mode-popover');
+        var advancedKeypad = global.document.getElementById('gnome-calc-keypad-advanced');
+        var historyPanel = global.document.getElementById('gnome-calc-history-panel');
+        var historyList = global.document.getElementById('gnome-calc-history-list');
+        var historyToggle = root.querySelector('[data-calc="history-toggle"]');
+        var calcHistory = [];
         var currentMode = 'basic';
+
+        if (historyToggle) {
+            historyToggle.addEventListener('click', function onHistoryToggle(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleHistoryPanel();
+            });
+        }
+
+        function renderHistory() {
+            if (!historyList) {
+                return;
+            }
+            historyList.innerHTML = '';
+            var i;
+            for (i = calcHistory.length - 1; i >= 0; i -= 1) {
+                var entry = calcHistory[i];
+                var li = global.document.createElement('li');
+                var btn = global.document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'gnome-calc__history-item';
+                btn.setAttribute('data-calc-history-idx', String(i));
+                btn.textContent = entry.label;
+                li.appendChild(btn);
+                historyList.appendChild(li);
+            }
+        }
+
+        function pushHistory(label, value) {
+            calcHistory.push({ label: label, value: value });
+            if (calcHistory.length > 20) {
+                calcHistory.shift();
+            }
+            renderHistory();
+        }
+
+        function toggleHistoryPanel(forceOpen) {
+            if (!historyPanel || !historyToggle) {
+                return;
+            }
+            var open = typeof forceOpen === 'boolean' ? forceOpen : historyPanel.hidden;
+            historyPanel.hidden = !open;
+            historyToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            historyToggle.classList.toggle('is-active', open);
+        }
+
+        function applyScientificFn(fnName) {
+            var val = parseDisplay(current);
+            var result;
+            if (fnName === 'sin') {
+                result = Math.sin(val * Math.PI / 180);
+            } else if (fnName === 'cos') {
+                result = Math.cos(val * Math.PI / 180);
+            } else if (fnName === 'pi') {
+                setCurrent(String(Math.PI));
+                fresh = false;
+                return;
+            } else {
+                return;
+            }
+            if (!isFinite(result)) {
+                current = 'Erreur';
+            } else {
+                current = String(result);
+            }
+            fresh = true;
+            render();
+        }
+
+        function syncAdvancedKeypad() {
+            var showAdvanced = currentMode === 'advanced' || currentMode === 'programming';
+            root.classList.toggle('gnome-calc--advanced', showAdvanced);
+            root.classList.toggle('gnome-calc--programming', currentMode === 'programming');
+            if (advancedKeypad) {
+                advancedKeypad.hidden = !showAdvanced;
+            }
+        }
 
         function setMode(mode) {
             currentMode = mode;
@@ -269,8 +357,7 @@
             if (modeBtn) {
                 modeBtn.setAttribute('aria-expanded', 'false');
             }
-            root.classList.toggle('gnome-calc--advanced', mode === 'advanced' || mode === 'programming');
-            root.classList.toggle('gnome-calc--programming', mode === 'programming');
+            syncAdvancedKeypad();
             if (modePopover) {
                 modePopover.hidden = true;
                 modePopover.querySelectorAll('.gnome-calc__mode-option').forEach(function (opt) {
@@ -287,6 +374,22 @@
             var open = modePopover.hidden;
             modePopover.hidden = !open;
             modeBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        if (historyList) {
+            historyList.addEventListener('click', function onHistoryClick(event) {
+                var item = event.target.closest('[data-calc-history-idx]');
+                if (!item) {
+                    return;
+                }
+                var idx = parseInt(item.getAttribute('data-calc-history-idx'), 10);
+                var entry = calcHistory[idx];
+                if (entry) {
+                    setCurrent(String(entry.value));
+                    fresh = true;
+                    toggleHistoryPanel(false);
+                }
+            });
         }
 
         if (modeBtn && modePopover) {

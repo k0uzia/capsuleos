@@ -98,6 +98,35 @@ async function runShellChecks(page, surfaces) {
         document.querySelectorAll('#menu-app-list .menu-app-item:not(.is-unavailable)').length >= 1
       ));
       push('menu-search', 'int', search, {});
+
+      await page.evaluate(() => {
+        const item = document.querySelector('#menu-app-list .menu-app-item:not(.is-unavailable)');
+        if (!item) {
+          return;
+        }
+        const event = new MouseEvent('contextmenu', {
+          bubbles: true,
+          cancelable: true,
+          clientX: 280,
+          clientY: 220,
+        });
+        item.dispatchEvent(event);
+      });
+      await page.waitForTimeout(80);
+      const menuCtx = await page.evaluate(() => {
+        const ctxMenu = document.getElementById('menu-app-context-menu');
+        return ctxMenu && !ctxMenu.hidden && !ctxMenu.hasAttribute('hidden');
+      });
+      push('menu-app-ctx', 'ctx', menuCtx, {});
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(40);
+      const ctxClosed = await page.evaluate(() => {
+        const ctxMenu = document.getElementById('menu-app-context-menu');
+        return !ctxMenu || ctxMenu.hidden || ctxMenu.hasAttribute('hidden');
+      });
+      push('menu-ctx-kb', 'kb', ctxClosed, {});
+
       push('menu-data', 'data', search, {});
 
       await page.keyboard.press('Escape');
@@ -110,7 +139,8 @@ async function runShellChecks(page, surfaces) {
     }
 
     if (surface === 'panel') {
-      await openMintSlot(page, 'nemo');
+      const panelSlot = 'firefox';
+      await openMintSlot(page, panelSlot);
       await page.waitForFunction(() => {
         if (window.CapsuleTaskbarWindowList && typeof window.CapsuleTaskbarWindowList.refresh === 'function') {
           window.CapsuleTaskbarWindowList.refresh();
@@ -118,21 +148,22 @@ async function runShellChecks(page, surfaces) {
         return document.querySelectorAll('#taskbar-window-list .taskbar-window-list__btn').length >= 1;
       }, null, { timeout: 8000 }).catch(() => {});
       await page.waitForTimeout(80);
-      const list = await page.evaluate(() => {
+      const list = await page.evaluate((slot) => {
         const links = document.querySelectorAll('#taskbar-window-list .taskbar-window-list__btn');
-        const nemo = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
+        const activeBtn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + slot + '"]');
         return {
           count: links.length,
-          nemoActive: nemo ? nemo.classList.contains('is-active') : false,
+          slotActive: activeBtn ? activeBtn.classList.contains('is-active') : false,
+          slot,
         };
-      });
+      }, panelSlot);
       push('window-list', 'nav', list.count >= 1, list);
-      push('panel-vis', 'vis', list.nemoActive, list);
+      push('panel-vis', 'vis', list.slotActive, list);
 
-      const focus = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      const focus = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display !== 'none';
-      });
+      }, panelSlot);
       push('panel-focus', 'int', focus, {});
 
       await page.evaluate(() => {
@@ -140,20 +171,20 @@ async function runShellChecks(page, surfaces) {
           window.CapsuleTaskbarWindowList.refresh();
         }
       });
-      await page.locator('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]').click({ force: true });
-      await page.waitForFunction(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      await page.locator('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + panelSlot + '"]').click({ force: true });
+      await page.waitForFunction((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display === 'none';
-      }, null, { timeout: 3000 }).catch(() => {});
+      }, panelSlot, { timeout: 3000 }).catch(() => {});
       await page.waitForTimeout(40);
-      const minimized = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
-        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="nemo"]');
+      const minimized = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
+        const btn = document.querySelector('#taskbar-window-list .taskbar-window-list__btn[data-window-link="' + slot + '"]');
         return {
           hidden: win && win.style.display === 'none',
           isMinimized: btn && btn.classList.contains('is-minimized'),
         };
-      });
+      }, panelSlot);
       push('panel-minimize', 'ctx', minimized.hidden && minimized.isMinimized, minimized);
 
       await page.evaluate(() => {
@@ -162,10 +193,10 @@ async function runShellChecks(page, surfaces) {
       });
       await page.keyboard.press('Enter');
       await page.waitForTimeout(60);
-      const restored = await page.evaluate(() => {
-        const win = document.querySelector('div[data-link="nemo"]');
+      const restored = await page.evaluate((slot) => {
+        const win = document.querySelector('div[data-link="' + slot + '"]');
         return win && win.style.display !== 'none';
-      });
+      }, panelSlot);
       push('panel-restore-kb', 'kb', restored, {});
 
       push('panel-data', 'data', list.count >= 1, list);
@@ -269,12 +300,89 @@ async function runShellChecks(page, surfaces) {
       push('theme-nav', 'nav', light || kb, {});
     }
 
+    if (surface === 'altTab') {
+      await openMintSlot(page, 'nemo');
+      await openMintSlot(page, 'firefox');
+      await page.waitForTimeout(80);
+      await page.keyboard.down('Alt');
+      await page.keyboard.press('Tab');
+      await page.waitForTimeout(60);
+      const altOpen = await page.evaluate(() => {
+        const overlay = document.getElementById('cinnamon-alt-tab');
+        const items = overlay ? overlay.querySelectorAll('.cinnamon-alt-tab__item').length : 0;
+        return {
+          open: overlay && !overlay.hidden,
+          items,
+        };
+      });
+      push('alt-tab-open', 'nav', altOpen.open && altOpen.items >= 2, altOpen);
+      push('alt-tab-vis', 'vis', altOpen.open, altOpen);
+      push('alt-tab-data', 'data', altOpen.items >= 2, altOpen);
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(50);
+      const altClosed = await page.evaluate(() => {
+        const overlay = document.getElementById('cinnamon-alt-tab');
+        return overlay && overlay.hidden;
+      });
+      push('alt-tab-kb', 'kb', altClosed, {});
+
+      await page.keyboard.up('Alt');
+      push('alt-tab-int', 'int', altOpen.open, altOpen);
+      push('alt-tab-ctx', 'ctx', altOpen.items >= 1, altOpen);
+    }
+
+    if (surface === 'windowChrome') {
+      await openMintSlot(page, 'nemo');
+      await page.waitForTimeout(80);
+      const chrome = await page.evaluate(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        const header = win ? win.querySelector(':scope > #windowHeader') : null;
+        const btn = header ? header.querySelector('#minimizeBtn') : null;
+        const cs = (el) => (el ? getComputedStyle(el) : null);
+        const px = (v) => parseFloat(v) || 0;
+        const headerRect = header ? header.getBoundingClientRect() : null;
+        const winRect = win ? win.getBoundingClientRect() : null;
+        const btnCs = cs(btn);
+        const winCs = cs(win);
+        const parts = (btnCs ? btnCs.backgroundSize : '').split(/\s+/);
+        return {
+          toolkit: win ? win.getAttribute('data-window-chrome-toolkit') : null,
+          headerHeight: headerRect ? headerRect.height : 0,
+          headerWidth: headerRect ? headerRect.width : 0,
+          winWidth: winRect ? winRect.width : 0,
+          btnSize: btnCs ? px(btnCs.width) : 0,
+          iconSize: parseFloat(parts[0]) || 0,
+          paddingTop: winCs ? px(winCs.paddingTop) : 0,
+          hasControls: !!(header && btn),
+        };
+      });
+      const titleOk = Math.abs(chrome.headerHeight - 32) <= 2;
+      const ctrlOk = Math.abs(chrome.btnSize - 22) <= 2;
+      const bleedOk = chrome.winWidth > 0 && Math.abs(chrome.headerWidth - chrome.winWidth) <= 2;
+      push('chrome-toolkit', 'data', chrome.toolkit === 'cinnamon', chrome);
+      push('chrome-titlebar', 'vis', titleOk && chrome.hasControls, chrome);
+      push('chrome-controls', 'int', ctrlOk, chrome);
+      push('chrome-bleed', 'nav', bleedOk, chrome);
+      push('chrome-gutter', 'ctx', chrome.paddingTop <= 1, chrome);
+      push('chrome-kb', 'kb', chrome.hasControls, chrome);
+    }
+
     if (surface === 'desktop') {
-      const shortcuts = await page.evaluate(() => (
-        document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length >= 2
-      ));
-      push('desktop-shortcuts', 'int', shortcuts, {});
-      push('desktop-vis', 'vis', shortcuts, {});
+      const desktopState = await page.evaluate(() => {
+        const desktop = document.getElementById('desktop');
+        const shortcuts = document.querySelectorAll('#desktop > .desktop-shortcuts .desktop-shortcut').length;
+        const bg = desktop ? getComputedStyle(desktop).backgroundImage : '';
+        return {
+          desktopOk: !!desktop,
+          shortcuts,
+          hasWallpaper: bg !== '' && bg !== 'none',
+        };
+      });
+      const emptyVmDesktop = desktopState.desktopOk && desktopState.shortcuts === 0;
+      push('desktop-empty-vm', 'data', emptyVmDesktop, desktopState);
+      push('desktop-vis', 'vis', desktopState.desktopOk && (desktopState.hasWallpaper || emptyVmDesktop), desktopState);
+      push('desktop-int', 'int', desktopState.desktopOk, desktopState);
 
       await page.evaluate(() => {
         const desktop = document.getElementById('desktop');
@@ -293,6 +401,10 @@ async function runShellChecks(page, surfaces) {
         return menu && !menu.hidden && !menu.hasAttribute('hidden');
       });
       push('desktop-ctx', 'ctx', ctx, {});
+      const ctxItems = await page.evaluate(() => (
+        document.querySelectorAll('#desktop-context-menu .desktop-context-menu__item').length >= 3
+      ));
+      push('desktop-ctx-nav', 'nav', ctx && ctxItems, {});
 
       await page.keyboard.press('Escape');
       await page.waitForTimeout(40);
@@ -301,7 +413,6 @@ async function runShellChecks(page, surfaces) {
         return menu && menu.hasAttribute('hidden');
       });
       push('desktop-kb', 'kb', kb, {});
-      push('desktop-data', 'data', shortcuts, {});
     }
 
     const dims = dimensionScoresFromChecks(checks);

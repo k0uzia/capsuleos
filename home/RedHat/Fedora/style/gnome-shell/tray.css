@@ -71,7 +71,7 @@ body#fedora .taskbar-clock-trigger {
     border-radius: calc(var(--head) / 6);
     background: transparent;
     color: var(--fedora-shell-text, #f2f4f8);
-    font-family: "Cantarell", "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     font-size: calc(var(--head) / 2.55);
     font-weight: 400;
     font-variant-numeric: tabular-nums;

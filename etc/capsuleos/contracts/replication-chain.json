@@ -16,7 +16,7 @@
   },
   "predicateChecks": {
     "H2": { "gate": "validate-all", "script": "usr/lib/capsuleos/tools/validate-all.mjs" },
-    "A": { "gate": "verify-playbook-assets", "script": "usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs", "args": ["--strict"] },
+    "A": { "gate": "verify-playbook-assets", "script": "usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs", "args": ["--registry", "--strict"] },
     "S": { "inventory": "root/docs/inventaires/{id}-gnome-settings-assets.json" },
     "T": { "file": "usr/share/capsuleos/assets/images/vendors/{vendor}/SOURCE-VM.txt", "nonEmpty": true },
     "L": { "gate": "run-gnome-settings-lab", "script": "usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs" },
@@ -27,7 +27,7 @@
   },
   "steps": [
     { "id": "collect-vm-assets", "requires": ["M", "A"], "negates": ["S"], "script": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs", "args": ["--id"] },
-    { "id": "verify-assets", "requires": ["A"], "script": "usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs", "args": ["--registry", "--strict"] },
+    { "id": "verify-assets", "requires": ["M", "S"], "negates": ["A"], "script": "usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs", "args": ["--registry", "--strict"] },
     { "id": "visual-investigation", "requires": ["L", "S"], "negates": ["V"], "script": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs", "args": ["--id", "--filter", "P0"] },
     { "id": "gsettings-deep-pass", "requires": ["V"], "negates": ["G"], "script": "usr/lib/capsuleos/tools/lab/enrich-visual-investigation-gsettings-pass.mjs", "args": ["--id"] },
     { "id": "capsule-captures", "requires": ["G"], "negates": ["Vc"], "script": "usr/lib/capsuleos/tools/lab/collect-capsule-visual-investigation.mjs", "args": ["--id"] },

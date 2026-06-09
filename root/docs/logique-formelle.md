@@ -35,7 +35,17 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **H₂** | Baseline dépôt saine | `node usr/lib/capsuleos/tools/validate-all.mjs` → exit 0 (ou gate zone ciblée) |
 | **H₆** | Clôture release | `validate-all.mjs` après patch + embeds regen si besoin |
 
-### 2.2 Assets & traçabilité (A, S, T)
+### 2.2 Taxonomie & identités (Tax)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Tax** | Profils actifs cohérents (`extends`, `clusterIds`, `toolkitPack`) | `validate-taxonomy.mjs` |
+| **TaxV** | Variants slot sans collision toolkit (embed html↔cssBase) | `validate-taxonomy.mjs` + `validate-slot-variant-wiring.mjs` |
+| **TaxΣ** | Tax ∧ TaxV ∧ isolation chrome toolkit | `run-toolkit-skin-recipe.mjs` ou gates ci-dessus |
+
+Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) · contrat `etc/capsuleos/contracts/taxonomy.json`.
+
+### 2.3 Assets & traçabilité (A, S, T)
 
 | Symbole | Signification | Vérification |
 |---------|---------------|--------------|
@@ -43,7 +53,7 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **S** | Sources VM inventoriées et alignées | Inventaire `*-assets.json` ; `compare-vm-settings-assets-capsule.mjs` (domaine settings) ; `pull-vm-assets.sh` |
 | **T** | Traçabilité copie VM | `vendors/<vendor>/SOURCE-VM.txt` non vide |
 
-### 2.3 VM & inventaire (M, I)
+### 2.4 VM & inventaire (M, I)
 
 | Symbole | Signification | Vérification |
 |---------|---------------|--------------|
@@ -244,6 +254,7 @@ R-PRI2c Vc ∧ ¬Vp  →  croisement VM↔Capsule, classer visualMatch
 R-PRI3  Vp ∧ lot P1 ouvert  →  étendre enquête visuelle P1
 R-PRI3b H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
 R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d
+R-LOC1  registryId(d) ∧ ¬artefact_local(d)  →  FAIL visible — interdit fallback artefact d′≠d (matrice, manifeste, playbook, inventaire) ; voir fondements **P11**
 
 R-IMP1  ¬H₂  →  interdit H5 (implémentation) sauf tâche « fix CI » explicite
 R-IMP2  P0 documenté absent  →  ne pas reclasser en P1 pour masquer

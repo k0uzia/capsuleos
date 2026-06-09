@@ -165,6 +165,11 @@
         "shellId": "cinnamon",
         "clusterId": "toolkit.cinnamon"
       },
+      "desktopEnvironment": {
+        "id": "cinnamon",
+        "version": "6.6",
+        "windowManager": "muffin"
+      },
       "apps": {
         "explorer": {
           "template": "nemo",

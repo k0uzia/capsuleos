@@ -94,7 +94,19 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 - [x] **Menu** : tokens Mint-Y-Dark-Aqua, libellés FR, géométrie sidebar/catégories/apps
 - [x] Captures : `capture-mint-panel-menu.mjs --compare` → `captures/linux-mint/20260608-104657/`
 - [x] Captures post-géométrie (`430cfcb`) : `captures/linux-mint/20260608-143806/` · baseline clone `clone-baseline/` · métriques dans `linux-mint-parity-index.json` (layoutMetrics shell)
+- [x] **Zéro compromis** panel/menu (2026-06-08) : proportions VM strictes 600px · 20/25/55 %, ellipsis comme `baseline/`, favoris tray VM (gap `head/14`, box 121px) — compromis c3ee064 **annulé** · `captures/linux-mint/20260608-144804/`
+- [x] **Fidélité live :5501** (2026-06-08) : cache-bust `style.css?v=20260608shell`, `mainMenu.skin.css` dans `imports.css`, `CAPSULE_FORCE_APP_EMBED` + `CAPSULE_SKIN_CSS_VERSION` — `run-capsule-panel-browser` 6/6 sur `:5501` · `captures/linux-mint/20260608-5501-fix/`
 - [x] Checklist panel **6/6** VM + Capsule (`compare-os-parity --capsule-json`)
+
+## Panel / menu v3 rewrite (2026-06-08)
+
+- [x] **Strip** : `footer.css` + `panel-windows.css` supprimés (doublons, héritage portal `--taskbar-height`)
+- [x] **Panel** : module unique `mint-panel.css` — régions sémantiques `mint-panel__*` (menu, séparateur, window-list, tray, favoris)
+- [x] **Tokens** : `--mint-panel-height: 40px` explicite dans `mint-y-dark-aqua-tokens.css` (pas portal 1.25×)
+- [x] **Menu** : `mainMenu.skin.css` réécrit — grille CSS 600×480 · 20/25/55 % · gap 2px ; `mint-menu-parity.js` data-only
+- [x] **Noyau** : `CAPSULE_STATIC_SKIN_SLOTS` + skip `mainMenu.base.css` embed (évite double injection CSS)
+- [x] **Adaptateurs** : `mint-panel-favorites.js` (créé) + `mint-tray.js` inchangés — `openWindowByDataLink` noyau
+- [x] `run-capsule-panel-browser` **6/6** sur `:5501` · `validate-all` vert · `sync-all-views` OK
 
 ## Campagne v2 — shell panel (2026-06-08)
 

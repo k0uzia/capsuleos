@@ -101,6 +101,29 @@
     ]
   },
   "registryDefaults": {
+    "linux-ubuntu": {
+      "typography": {
+        "uiStack": ["Ubuntu", "Noto Sans", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/Debian/Ubuntu/ubuntu-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Yaru",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/Ubuntu/style/gnome-shell/a11y-ubuntu.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      }
+    },
     "linux-rocky": {
       "typography": {
         "uiStack": ["Red Hat Text", "Cantarell"],
@@ -116,6 +139,23 @@
       "mime": {
         "iconTheme": "Adwaita",
         "notes": "Collecte complète via collect-visual-fidelity-inventory.mjs --ssh"
+      }
+    },
+    "linux-fedora": {
+      "typography": {
+        "uiStack": ["Adwaita Sans", "Cantarell", "Noto Sans"],
+        "monoStack": ["Adwaita Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/RedHat/Fedora/fedora-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Adwaita",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
       }
     }
   }

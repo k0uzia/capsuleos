@@ -1,22 +1,13 @@
 {
   "id": "linux-rocky",
-  "version": 2,
+  "version": 1,
   "family": "linux",
-  "kernelId": "linux",
-  "branchId": "rhel",
   "vendor": "rocky",
   "displayName": "Rocky Linux (GNOME)",
   "bodyId": "rocky",
   "embedKey": "rocky",
-  "tier": "P1",
+  "tier": "P3",
   "status": "active",
-  "fidelityLevel": 4,
-  "upstreamId": null,
-  "clusterIds": [
-    "explorer.nautilus.gnome",
-    "toolkit.gnome"
-  ],
-  "extends": "kernel:linux/branch:rhel/toolkit:gnome",
   "paths": {
     "facade": "OS/linux/families/redhat/rocky/index.html",
     "skin": "home/RedHat/Rocky/index.html"
@@ -41,38 +32,10 @@
     "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
     "CAPSULE_EMBED_SKIN_KEY": "rocky",
     "CAPSULE_SITE_HOME": "../../../index.html",
-    "CAPSULE_LINUX_HUB": "../../../OS/linux/families/redhat/rocky/index.html",
+    "CAPSULE_LINUX_HUB": "../../../OS/linux/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "rocky",
-    "CAPSULE_TERMINAL_USER": "capsule",
-    "CAPSULE_TERMINAL_HOST": "rocky",
-    "CAPSULE_WINDOW_CHROME_CONTEXT": {
-      "toolkitId": "gnome",
-      "explorerTemplate": "nemo-gnome",
-      "dragMode": "app-headerbar-passthrough"
-    },
-    "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
     "CAPSULE_CHECKLIST_STORAGE_KEY": "rocky-checklist",
-    "CAPSULE_TEMPLATE_OVERRIDES": {
-      "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
-    },
-    "CAPSULE_WINDOW_CONTEXT": {
-      "family": "linux",
-      "draggable": true,
-      "resizable": true,
-      "forceOnOpen": true,
-      "requireHeader": false,
-      "headerLayout": "capsule",
-      "edgeTiling": false,
-      "skipSlots": [
-        "mainMenu"
-      ],
-      "bounds": {
-        "mainSelector": "main.fedora-desktop-area",
-        "desktopSelector": "object#desktop",
-        "footerSelector": "header.fedora-top-bar, #tableau",
-        "subtractFooter": false
-      }
-    }
+    "CAPSULE_EXPLORER_SKIN_KEY": "nautilus"
   }
 }

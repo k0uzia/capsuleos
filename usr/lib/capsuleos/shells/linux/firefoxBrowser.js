@@ -1,3 +1,5 @@
+'use strict';
+
 function capsuleStr(key, fallback) {
     const m = (typeof window !== 'undefined' && window.CAPSULE_STRINGS_MERGED) || {};
     if (m[key] !== undefined && m[key] !== null && String(m[key]).length > 0) {
@@ -89,6 +91,7 @@ function initFirefoxBrowser() {
     const homeView = browserRoot.querySelector('[data-browser-home]');
     const redirectView = browserRoot.querySelector('[data-browser-redirect]');
     const redirectFrame = browserRoot.querySelector('[data-browser-redirect-frame]');
+    const siteView = browserRoot.querySelector('[data-browser-site]');
     const bookmarksBar = browserRoot.querySelector('[data-browser-bookmarks]');
     const tabsList = browserRoot.querySelector('[data-browser-tabs]');
     const newtabForm = browserRoot.querySelector('[data-browser-newtab-form]');
@@ -133,6 +136,14 @@ function initFirefoxBrowser() {
         return String(value || '').trim().toLowerCase();
     }
 
+    function normalizeUrlHost(value) {
+        let host = normalizeInput(value);
+        host = host.replace(/^https?:\/\//, '');
+        host = host.replace(/\/.*$/, '');
+        host = host.replace(/^www\./, '');
+        return host;
+    }
+
     function isHomeTarget(value) {
         const normalized = normalizeInput(value);
         return normalized === ''
@@ -146,6 +157,11 @@ function initFirefoxBrowser() {
         return normalized === 'os-lacapsule'
             || normalized === 'capsuleos://os-lacapsule'
             || normalized === 'la capsule';
+    }
+
+    function isLinuxMintTarget(value) {
+        const host = normalizeUrlHost(value);
+        return host === 'linuxmint.com' || host.endsWith('.linuxmint.com');
     }
 
     function getActiveTab() {
@@ -179,13 +195,21 @@ function initFirefoxBrowser() {
     }
 
     function switchView(view) {
-        const showHomeView = view === 'home';
+        const showHome = view === 'home';
+        const showRedirect = view === 'os-lacapsule';
+        const showSite = view === 'site';
 
-        homeView.hidden = !showHomeView;
-        redirectView.hidden = showHomeView;
+        homeView.hidden = !showHome;
+        redirectView.hidden = !showRedirect;
+        if (siteView) {
+            siteView.hidden = !showSite;
+        }
 
-        homeView.style.display = showHomeView ? 'flex' : 'none';
-        redirectView.style.display = showHomeView ? 'none' : 'block';
+        homeView.style.display = showHome ? 'flex' : 'none';
+        redirectView.style.display = showRedirect ? 'block' : 'none';
+        if (siteView) {
+            siteView.style.display = showSite ? 'block' : 'none';
+        }
 
         browserRoot.setAttribute('data-browser-current-view', view);
     }
@@ -243,10 +267,21 @@ function initFirefoxBrowser() {
         }
     }
 
+    function showSitePage(rawValue) {
+        const host = normalizeUrlHost(rawValue) || 'linuxmint.com';
+        const address = host;
+        persistActiveTab('site', address, tabLabelForView('site', address));
+        setStatus('');
+    }
+
     function navigateFromInput(rawValue, message) {
         const value = String(rawValue || '').trim();
         if (isHomeTarget(value)) {
             showHome(message || capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
+            return;
+        }
+        if (isLinuxMintTarget(value)) {
+            showSitePage(value);
             return;
         }
         if (isOsLaCapsuleTarget(value)) {
@@ -265,7 +300,8 @@ function initFirefoxBrowser() {
             const isActive = tab.id === state.activeTabId;
             const tabBtn = document.createElement('button');
             tabBtn.type = 'button';
-            tabBtn.className = 'capsule-browser__tab' + (isActive ? ' capsule-browser__tab--active' : '');
+            tabBtn.className = 'capsule-browser__tab firefox-tab'
+                + (isActive ? ' capsule-browser__tab--active' : '');
             tabBtn.setAttribute('data-browser-tab-id', tab.id);
             tabBtn.setAttribute('role', 'tab');
             tabBtn.setAttribute('aria-selected', isActive ? 'true' : 'false');
@@ -378,6 +414,10 @@ function initFirefoxBrowser() {
             );
             return;
         }
+        if (tab && tab.view === 'site' && tab.address) {
+            showSitePage(tab.address);
+            return;
+        }
 
         showHome(capsuleStr('firefox.statusHomeReloaded', 'Page Accueil rechargee.'));
     });
@@ -411,7 +451,7 @@ function initFirefoxBrowser() {
     let menuPopover = browserRoot.querySelector('[data-browser-menu]');
     if (!menuPopover && btnMenu) {
         menuPopover = document.createElement('div');
-        menuPopover.className = 'capsule-browser__menu-popover';
+        menuPopover.className = 'capsule-browser__menu-popover firefox-appmenu';
         menuPopover.hidden = true;
         menuPopover.setAttribute('data-browser-menu', '');
         menuPopover.setAttribute('role', 'menu');
@@ -490,25 +530,45 @@ function initFirefoxBrowser() {
         closeMenuPopover();
     });
 
+    function handleFirefoxShortcutKeys(event) {
+        if (!event.ctrlKey) {
+            return;
+        }
+        const key = event.key;
+        if (key === 't' || key === 'T') {
+            event.preventDefault();
+            addTab();
+            return;
+        }
+        if (key === 'l' || key === 'L') {
+            event.preventDefault();
+            addressInput.focus();
+            addressInput.select();
+        }
+    }
+
+    browserRoot.__capsuleFirefoxHandleKeys = handleFirefoxShortcutKeys;
+
     browserRoot.setAttribute('tabindex', '-1');
     if (browserRoot.dataset.firefoxKeysBound !== 'true') {
         browserRoot.addEventListener('keydown', function onFirefoxKeys(event) {
-            if (!event.ctrlKey) {
-                return;
-            }
-            const key = event.key;
-            if (key === 't' || key === 'T') {
-                event.preventDefault();
-                addTab();
-                return;
-            }
-            if (key === 'l' || key === 'L') {
-                event.preventDefault();
-                addressInput.focus();
-                addressInput.select();
-            }
+            handleFirefoxShortcutKeys(event);
         });
         browserRoot.dataset.firefoxKeysBound = 'true';
+    }
+
+    if (document.documentElement.dataset.firefoxGlobalKeysBound !== 'true') {
+        document.addEventListener('keydown', function onGlobalFirefoxKeys(event) {
+            const win = document.getElementById('firefox');
+            if (!win || !win.classList.contains('windowElementActive')) {
+                return;
+            }
+            const app = win.querySelector('[data-firefox-app]');
+            if (app && typeof app.__capsuleFirefoxHandleKeys === 'function') {
+                app.__capsuleFirefoxHandleKeys(event);
+            }
+        });
+        document.documentElement.dataset.firefoxGlobalKeysBound = 'true';
     }
 
     tabsList.addEventListener('click', function onTabsListClick(event) {
@@ -639,6 +699,7 @@ function purgeFirefoxWindowRuntime(windowElement) {
         return;
     }
     delete app.__capsuleFirefoxSession;
+    delete app.__capsuleFirefoxHandleKeys;
     delete app.dataset.initialized;
 
     const addressInput = app.querySelector('[data-browser-address]');
@@ -667,6 +728,10 @@ function purgeFirefoxWindowRuntime(windowElement) {
     }
     if (redirectView) {
         redirectView.hidden = true;
+    }
+    const siteView = app.querySelector('[data-browser-site]');
+    if (siteView) {
+        siteView.hidden = true;
     }
     if (homeView) {
         homeView.hidden = false;

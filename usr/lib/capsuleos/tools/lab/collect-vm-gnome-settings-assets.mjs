@@ -10,22 +10,16 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
-import { loadRegistryEntry } from './replication-chain-lib.mjs';
+import {
+  ROOT,
+  buildRemoteEnv,
+  loadLabHost,
+  resolveLabMatrix,
+  resolveSshIdentity,
+} from './lab-recipe-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
-const INVENTORY = path.join(ROOT, 'etc/capsuleos/lab-inventory.json');
 const SCRIPT = path.join(ROOT, 'root/tools/lab/vm-gnome-settings-assets-inventory.sh');
-
-function resolveAssetsMatrix(registryId) {
-  const entry = loadRegistryEntry(registryId);
-  const vendor = entry.vendor || registryId.replace(/^linux-/, '');
-  const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-assets-matrix-${vendor}.json`);
-  if (fs.existsSync(vendorMatrix)) {
-    return vendorMatrix;
-  }
-  return path.join(ROOT, 'root/tools/lab/gnome-settings-assets-matrix.json');
-}
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -35,27 +29,6 @@ const parseArgs = () => {
     else if (args[i] === '--local') opts.local = true;
   }
   return opts;
-};
-
-const loadHost = (registryId) => {
-  if (!fs.existsSync(INVENTORY)) throw new Error('etc/capsuleos/lab-inventory.json manquant');
-  const inv = JSON.parse(fs.readFileSync(INVENTORY, 'utf8'));
-  const host = (inv.hosts || []).find((h) => h.registryId === registryId);
-  if (!host) throw new Error(`Hôte inconnu: ${registryId}`);
-  return host;
-};
-
-const remoteEnv = (host) => {
-  const parts = [
-    `export DISPLAY=${host.display || ':0'}`,
-    'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus',
-    'export XDG_RUNTIME_DIR=/run/user/$(id -u)',
-    'export XDG_CURRENT_DESKTOP=GNOME',
-  ];
-  if (host.xauthorityDiscovery === 'mutter-xwayland') {
-    parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
-  }
-  return parts.join('; ');
 };
 
 const parseJsonStdout = (stdout) => {
@@ -80,7 +53,7 @@ const runOnVm = (host, matrixPath) => {
   const matrixB64 = Buffer.from(fs.readFileSync(matrixPath, 'utf8')).toString('base64');
   const scriptBody = fs.readFileSync(SCRIPT, 'utf8');
   const remoteScript = `
-${remoteEnv(host)}
+${buildRemoteEnv(host)}
 MATRIX_FILE=$(mktemp /tmp/capsule-assets-matrix.XXXXXX.json)
 echo '${matrixB64}' | base64 -d > "$MATRIX_FILE"
 export CAPSULE_SETTINGS_ASSETS_MATRIX="$MATRIX_FILE"
@@ -93,9 +66,7 @@ rm -f "$MATRIX_FILE"
   const at = host.ssh.indexOf('@');
   const user = host.ssh.slice(0, at);
   const ip = host.ssh.slice(at + 1);
-  const identity = process.env.CAPSULE_LAB_SSH_IDENTITY
-    || (host.sshIdentity ? path.join(process.env.HOME || '', host.sshIdentity.replace(/^~\//, '')) : null)
-    || path.join(process.env.HOME || '', '.ssh/capsuleos-lab');
+  const identity = resolveSshIdentity(host);
 
   const res = spawnSync(
     'ssh',
@@ -112,9 +83,9 @@ const main = () => {
   const opts = parseArgs();
   process.stderr.write(`=== collect-vm-gnome-settings-assets ${opts.id} ===\n`);
 
-  const matrixPath = resolveAssetsMatrix(opts.id);
-  process.stderr.write(`Matrice assets : ${path.relative(ROOT, matrixPath)}\n`);
-  const payload = opts.local ? runLocal(matrixPath) : runOnVm(loadHost(opts.id), matrixPath);
+  const matrix = resolveLabMatrix(opts.id, 'assets');
+  process.stderr.write(`Matrice assets : ${matrix.relative} (${matrix.source})\n`);
+  const payload = opts.local ? runLocal(matrix.absolute) : runOnVm(loadLabHost(opts.id), matrix.absolute);
   const jsonPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-gnome-settings-assets.json`);
   fs.writeFileSync(jsonPath, `${JSON.stringify(payload, null, 2)}\n`);
   process.stdout.write(`OK ${jsonPath}\n`);

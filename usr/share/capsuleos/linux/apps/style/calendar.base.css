@@ -86,6 +86,11 @@ main#gnomeCalendarApp {
     visibility: hidden;
 }
 
+.gnome-calendar-app__day--selected:not(.gnome-calendar-app__day--today) {
+    border-color: rgba(53, 132, 228, 0.55);
+    background: rgba(53, 132, 228, 0.2);
+}
+
 .gnome-calendar-app__today {
     flex-shrink: 0;
     margin: calc(var(--head) / 4) calc(var(--head) / 3) calc(var(--head) / 3);

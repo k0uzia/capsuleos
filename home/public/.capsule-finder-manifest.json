@@ -71,6 +71,18 @@
         },
         {
           "type": "file",
+          "name": "capsule-discover-detail-vlc-scrolled.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-detail-vlc-scrolled.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-detail-vlc.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-detail-vlc.png"
+        },
+        {
+          "type": "file",
           "name": "capsule-discover-installed-windowed.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-installed-windowed.png"
@@ -131,6 +143,12 @@
         },
         {
           "type": "file",
+          "name": "capsule-dolphin-split-selection.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-split-selection.png"
+        },
+        {
+          "type": "file",
           "name": "capsule-dolphin-split.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-dolphin-split.png"
@@ -167,6 +185,18 @@
         },
         {
           "type": "file",
+          "name": "vm-discover-detail-vlc-scrolled.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-detail-vlc-scrolled.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-detail-vlc.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-detail-vlc.png"
+        },
+        {
+          "type": "file",
           "name": "vm-discover-installed.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-installed.png"
@@ -200,6 +230,12 @@
           "name": "vm-dolphin-search-open.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-search-open.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-split-only.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-split-only.png"
         },
         {
           "type": "file",

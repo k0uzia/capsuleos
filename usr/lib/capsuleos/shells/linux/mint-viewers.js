@@ -84,11 +84,116 @@
                 } else if (action === 'rotate') {
                     xviewerState.rotate = (xviewerState.rotate + 90) % 360;
                     applyXviewerZoom(root);
+                } else if (action === 'slideshow') {
+                    toggleXviewerSlideshow(root);
                 }
             });
         });
+        bindXviewerMenus(root);
         root.dataset.xviewerBound = 'true';
     }
+
+    function bindXviewerMenus(root) {
+        var fileBtn = root.querySelector('[data-xv-menu="file"]');
+        var fileMenu = root.querySelector('#xviewer-menu-file');
+        if (fileBtn && fileMenu) {
+            fileBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                fileMenu.hidden = !fileMenu.hidden;
+            });
+        }
+        root.querySelectorAll('[data-xv-menu-action]').forEach(function (item) {
+            item.addEventListener('click', function () {
+                var cmd = item.getAttribute('data-xv-menu-action');
+                if (fileMenu) {
+                    fileMenu.hidden = true;
+                }
+                if (cmd === 'open') {
+                    openPixDemoImage();
+                    return;
+                }
+                if (cmd === 'save-as') {
+                    openXviewerExportDialog(root);
+                }
+            });
+        });
+        global.document.addEventListener('click', function onDoc(ev) {
+            if (!fileMenu || fileMenu.hidden) {
+                return;
+            }
+            if (fileMenu.contains(ev.target) || (fileBtn && fileBtn.contains(ev.target))) {
+                return;
+            }
+            fileMenu.hidden = true;
+        });
+    }
+
+    function openXviewerExportDialog(root) {
+        var dialog = root.querySelector('#xviewer-export-dialog');
+        if (!dialog) {
+            return;
+        }
+        dialog.hidden = false;
+        dialog.querySelectorAll('[data-xv-export]').forEach(function (btn) {
+            if (btn.dataset.xvExportBound === 'true') {
+                return;
+            }
+            btn.dataset.xvExportBound = 'true';
+            btn.addEventListener('click', function () {
+                dialog.hidden = true;
+            });
+        });
+    }
+
+    function toggleXviewerSlideshow(root) {
+        var overlay = root.querySelector('#xviewer-slideshow');
+        var content = root.querySelector('#mint-image-viewer-content');
+        if (!overlay) {
+            return;
+        }
+        var img = content ? content.querySelector('.viewer-app__image') : null;
+        if (overlay.hidden) {
+            if (!img) {
+                return;
+            }
+            overlay.innerHTML = '';
+            var clone = img.cloneNode(true);
+            clone.className = 'viewer-app__image xviewer-app__slideshow-image';
+            overlay.appendChild(clone);
+            overlay.hidden = false;
+        } else {
+            overlay.hidden = true;
+            overlay.innerHTML = '';
+        }
+    }
+
+    function renderDemoImage(root) {
+        var content = root.querySelector('#mint-image-viewer-content');
+        if (!content) {
+            return;
+        }
+        content.innerHTML = '';
+        var img = global.document.createElement('img');
+        img.className = 'viewer-app__image';
+        img.alt = 'demo.png';
+        img.src = '../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.jpg';
+        content.appendChild(img);
+        onXviewerRendered(root, { name: 'demo.png' });
+        var slideshowBtn = root.querySelector('[data-xv-action="slideshow"]');
+        if (slideshowBtn) {
+            slideshowBtn.disabled = false;
+        }
+    }
+
+    global.openPixDemoImage = function openPixDemoImage() {
+        var root = global.document.getElementById('visionneurImages');
+        if (!root) {
+            return;
+        }
+        initVisionneurImagesApp();
+        renderDemoImage(root);
+    };
 
     function bindXreaderToolbar(root) {
         if (!root || root.dataset.xreaderBound === 'true') {

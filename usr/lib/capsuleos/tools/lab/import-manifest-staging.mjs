@@ -102,6 +102,13 @@ const main = () => {
       p.id === 'import' ? { ...p, status: 'done' } : p
     ));
     writePlaybook(opts.id, playbook);
+
+    try {
+      fs.rmSync(localStaging, { recursive: true, force: true });
+      console.log(`✓ cache staging supprimé (${localStaging.replace(`${ROOT}/`, '')})`);
+    } catch (err) {
+      console.warn(`⚠ suppression cache staging: ${err.message}`);
+    }
   } else {
     console.log(`Dry-run — ${integrated.length} fichier(s) à intégrer ; ajouter --write`);
   }

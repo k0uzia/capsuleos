@@ -11,14 +11,16 @@
         { id: 'thunderbird', name: 'Thunderbird', desc: 'Client de messagerie', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/thunderbird.png' },
         { id: 'transmission', name: 'Transmission', desc: 'Client BitTorrent', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/transmission.png' },
         { id: 'librewriter', name: 'LibreOffice Writer', desc: 'Traitement de texte', cat: 'office', icon: './assets/images/vendors/mint/panel/libreoffice-writer.webp' },
-        { id: 'librecalc', name: 'LibreOffice Calc', desc: 'Tableur', cat: 'office', icon: './assets/images/toolkits/gnome/apps/libreoffice-calc.png' },
+        { id: 'librecalc', name: 'LibreOffice Calc', desc: 'Tableur', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-calc' },
         { id: 'gimp', name: 'GIMP', desc: 'Éditeur d\'images', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/gimp.png' },
         { id: 'drawing', name: 'Dessin', desc: 'Dessin vectoriel', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png' },
-        { id: 'celluloid', name: 'Celluloid', desc: 'Lecteur vidéo', cat: 'multimedia', icon: './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.png' },
+        { id: 'celluloid', name: 'Celluloid', desc: 'Lecteur vidéo', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid' },
         { id: 'vlc', name: 'VLC', desc: 'Lecteur multimédia', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/vlc.svg' },
         { id: 'audacity', name: 'Audacity', desc: 'Éditeur audio', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/audacity.svg' },
         { id: 'filezilla', name: 'FileZilla', desc: 'Client FTP', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/filezilla.svg' },
-        { id: 'code', name: 'Visual Studio Code', desc: 'Éditeur de code', cat: 'development', icon: './assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg' }
+        { id: 'code', name: 'Visual Studio Code', desc: 'Éditeur de code', cat: 'development', icon: './assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg' },
+        { id: 'calculator', name: 'Calculatrice', desc: 'Calculatrice GNOME', cat: 'accessories', icon: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp' },
+        { id: 'xed', name: 'Éditeur de texte', desc: 'Xed — éditeur de texte', cat: 'accessories', icon: './assets/images/vendors/mint/panel/accessories-text-editor.webp' }
     ];
 
     var CAT_LABELS = {
@@ -90,7 +92,11 @@
         li.setAttribute('data-mi-pkg', entry.id);
         var icon = global.document.createElement('img');
         icon.className = 'mi-app__list-icon';
-        icon.src = entry.icon;
+        icon.src = typeof global.resolveCapsuleAssetUrl === 'function'
+            ? global.resolveCapsuleAssetUrl(entry.icon)
+            : (typeof global.resolveCapsuleResourceUrl === 'function'
+                ? global.resolveCapsuleResourceUrl(entry.icon)
+                : entry.icon);
         icon.alt = '';
         var body = global.document.createElement('div');
         body.className = 'mi-app__list-body';
@@ -124,6 +130,26 @@
         return pkgId;
     }
 
+    function catalogEntry(pkgId) {
+        var ei;
+        for (ei = 0; ei < CATALOG.length; ei += 1) {
+            if (CATALOG[ei].id === pkgId) {
+                return CATALOG[ei];
+            }
+        }
+        return null;
+    }
+
+    function resolveIconUrl(iconPath) {
+        if (typeof global.resolveCapsuleAssetUrl === 'function') {
+            return global.resolveCapsuleAssetUrl(iconPath);
+        }
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(iconPath);
+        }
+        return iconPath;
+    }
+
     function initMintInstallAppOnce() {
         var root = global.document.getElementById('mintInstallApp');
         if (!root || root.dataset.mintInstallInit === 'true') {
@@ -134,6 +160,17 @@
         var winEl = getWindowEl(root);
         syncWindowTitle(winEl);
 
+        var featuredImgs = root.querySelectorAll('.mi-app__featured img[src^="./assets/"]');
+        var fi;
+        for (fi = 0; fi < featuredImgs.length; fi += 1) {
+            var featSrc = featuredImgs[fi].getAttribute('src');
+            if (typeof global.resolveCapsuleAssetUrl === 'function') {
+                featuredImgs[fi].src = global.resolveCapsuleAssetUrl(featSrc);
+            } else if (typeof global.resolveCapsuleResourceUrl === 'function') {
+                featuredImgs[fi].src = global.resolveCapsuleResourceUrl(featSrc);
+            }
+        }
+
         var searchInput = root.querySelector('#mi-search');
         var listEl = root.querySelector('#mi-app-list');
         var searchListEl = root.querySelector('#mi-search-list');
@@ -143,9 +180,15 @@
         var menuEl = root.querySelector('#mi-menu');
         var menuBtn = root.querySelector('[data-mi-action="menu"]');
         var statusEl = root.querySelector('#mi-status');
+        var detailName = root.querySelector('#mi-detail-name');
+        var detailDesc = root.querySelector('#mi-detail-desc');
+        var detailBlurb = root.querySelector('#mi-detail-blurb');
+        var detailIcon = root.querySelector('#mi-detail-icon');
+        var detailInstallBtn = root.querySelector('[data-mi-detail-install]');
 
         var installed = {};
         var currentCat = 'home';
+        var detailPkgId = null;
 
         function setStatus(msg) {
             if (statusEl) {
@@ -235,6 +278,44 @@
             }
         }
 
+        function syncDetailInstallBtn(pkgId) {
+            if (!detailInstallBtn) {
+                return;
+            }
+            detailInstallBtn.setAttribute('data-mi-detail-install', pkgId);
+            if (installed[pkgId]) {
+                detailInstallBtn.textContent = 'Installé';
+                detailInstallBtn.classList.add('is-installed');
+                detailInstallBtn.disabled = true;
+            } else {
+                detailInstallBtn.textContent = 'Installer';
+                detailInstallBtn.classList.remove('is-installed');
+                detailInstallBtn.disabled = false;
+            }
+        }
+
+        function openDetail(pkgId) {
+            var entry = catalogEntry(pkgId);
+            if (!entry) {
+                return;
+            }
+            detailPkgId = pkgId;
+            if (detailName) {
+                detailName.textContent = entry.name;
+            }
+            if (detailDesc) {
+                detailDesc.textContent = entry.desc;
+            }
+            if (detailBlurb) {
+                detailBlurb.textContent = entry.desc + ' — paquet simulé pour le clone pédagogique.';
+            }
+            if (detailIcon) {
+                detailIcon.src = resolveIconUrl(entry.icon);
+            }
+            syncDetailInstallBtn(pkgId);
+            showPage(root, 'detail');
+        }
+
         function markInstalled(pkgId, btn) {
             installed[pkgId] = true;
             if (btn) {
@@ -242,6 +323,14 @@
                 btn.classList.add('is-installed');
                 btn.disabled = true;
             }
+            if (detailPkgId === pkgId) {
+                syncDetailInstallBtn(pkgId);
+            }
+            root.querySelectorAll('[data-mi-install="' + pkgId + '"]').forEach(function syncListBtn(listBtn) {
+                listBtn.textContent = 'Installé';
+                listBtn.classList.add('is-installed');
+                listBtn.disabled = true;
+            });
             setStatus(entryName(pkgId) + ' installé');
         }
 
@@ -253,6 +342,21 @@
             var catBtn = target.closest('[data-mi-cat]');
             if (catBtn) {
                 onCategoryClick(catBtn.getAttribute('data-mi-cat'));
+                return;
+            }
+            var backBtn = target.closest('[data-mi-back]');
+            if (backBtn) {
+                onCategoryClick(currentCat);
+                return;
+            }
+            var listOpen = target.closest('.mi-app__list-item');
+            if (listOpen && !target.closest('[data-mi-install]')) {
+                openDetail(listOpen.getAttribute('data-mi-pkg'));
+                return;
+            }
+            var detailInstall = target.closest('[data-mi-detail-install]');
+            if (detailInstall && !detailInstall.disabled) {
+                markInstalled(detailInstall.getAttribute('data-mi-detail-install'), detailInstall);
                 return;
             }
             var installBtn = target.closest('[data-mi-install]');

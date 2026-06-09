@@ -113,6 +113,9 @@
             if (explorerRoot && explorerRoot.dataset) {
                 delete explorerRoot.dataset.nemoContextMenuInit;
             }
+            shell.querySelectorAll('[data-nemo-context-menu-bound="true"]').forEach((node) => {
+                delete node.dataset.nemoContextMenuBound;
+            });
         }
         const template = global.document.createElement('template');
         template.innerHTML = menuMarkup.trim();

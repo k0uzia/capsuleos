@@ -340,3 +340,76 @@ div[data-link="text_editor"] #windowTitle {
     border-color: transparent;
     color: #fff;
 }
+
+.xed-searchbar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    flex-shrink: 0;
+    gap: calc(var(--head) / 10);
+    width: 100%;
+    padding: calc(var(--head) / 10) calc(var(--head) / 5);
+    border-bottom: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
+    background: var(--xed-chrome-bg, #ececec);
+    box-sizing: border-box;
+}
+
+.xed-searchbar[hidden] {
+    display: none !important;
+}
+
+.xed-searchbar__label {
+    font-size: calc(var(--head) / 2.85);
+    white-space: nowrap;
+}
+
+.xed-searchbar__input {
+    flex: 1 1 8rem;
+    min-width: 6rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.18));
+    border-radius: 4px;
+    font: inherit;
+}
+
+.xed-searchbar__btn {
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.14));
+    border-radius: 4px;
+    background: #ececec;
+    font: inherit;
+    cursor: var(--p);
+}
+
+.xed-prefs-dialog__tabs {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.35rem;
+    margin-bottom: calc(var(--head) / 4);
+}
+
+.xed-prefs-dialog__tab {
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--xed-border, rgba(0, 0, 0, 0.14));
+    border-radius: 4px;
+    background: transparent;
+    font: inherit;
+    cursor: var(--p);
+}
+
+.xed-prefs-dialog__tab.is-active {
+    background: var(--xed-accent, #1f9ede);
+    border-color: transparent;
+    color: #fff;
+}
+
+.xed-prefs-dialog__page {
+    min-height: calc(var(--head) * 2.2);
+    margin-bottom: calc(var(--head) / 5);
+}
+
+.xed-prefs-dialog__hint {
+    margin: 0 0 0.5rem;
+    font-size: calc(var(--head) / 2.9);
+    opacity: 0.85;
+}

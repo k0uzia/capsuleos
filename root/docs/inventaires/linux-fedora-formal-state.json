@@ -1,0 +1,11 @@
+{
+  "registryId": "linux-fedora",
+  "gates": {
+    "H2": {
+      "ok": true,
+      "at": "2026-06-08T23:09:30.785Z",
+      "via": "sequence-phase-1e"
+    }
+  },
+  "updatedAt": "2026-06-08T23:09:30.786Z"
+}

@@ -12,7 +12,7 @@
         'aside.fedora-dock a[target="windowElement"]',
     ].join(', ');
 
-    const PANEL_SLOTS = ['nemo', 'firefox', 'terminal'];
+    const PANEL_SLOTS = ['nemo', 'mintinstall', 'terminal'];
 
     function isLinuxLauncherPanel() {
         if (global.CAPSULE_WINDOW_FAMILY === 'linux') {

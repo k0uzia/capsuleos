@@ -19,7 +19,7 @@ const PROBE = fs.readFileSync(path.join(__dirname, 'capsule-probe-snippet.js'), 
 
 const STEPS = [
   { step: 0, actions: [['open-launcher', 'nemo']] },
-  { step: 1, actions: [['open-launcher', 'firefox'], ['focus-launcher', 'firefox']] },
+  { step: 1, actions: [['open-launcher', 'mintinstall'], ['focus-launcher', 'mintinstall']] },
   { step: 2, actions: [['open-launcher', 'terminal'], ['focus-launcher', 'terminal']] },
   { step: 3, actions: [['focus-launcher', 'nemo']] },
   { step: 4, actions: [['minimize-launcher', 'nemo']] },

@@ -53,11 +53,11 @@ const DESKTOP_SLOT = {
   'cinnamon-network-panel.desktop': { slot: 'themes', catId: 'prefs' },
   'cinnamon-color-panel.desktop': { slot: 'themes', catId: 'prefs' },
   'cinnamon-wacom-panel.desktop': { slot: 'themes', catId: 'prefs' },
-  'libreoffice-writer.desktop': { slot: 'librewriter', catId: 'bureau' },
+  'libreoffice-writer.desktop': { slot: 'libreoffice_startcenter', catId: 'bureau' },
   'libreoffice-calc.desktop': { slot: 'librecalc', catId: 'bureau' },
-  'libreoffice-impress.desktop': { slot: 'librewriter', catId: 'bureau' },
-  'libreoffice-draw.desktop': { slot: 'librewriter', catId: 'bureau' },
-  'libreoffice-startcenter.desktop': { slot: 'librewriter', catId: 'bureau' },
+  'libreoffice-impress.desktop': { slot: 'libreoffice_impress', catId: 'bureau' },
+  'libreoffice-draw.desktop': { slot: 'libreoffice_draw', catId: 'bureau' },
+  'libreoffice-startcenter.desktop': { slot: 'libreoffice_startcenter', catId: 'bureau' },
   'io.github.celluloid_player.Celluloid.desktop': { slot: 'lecteur_multimedia', catId: 'sonvideo' },
   'xviewer.desktop': { slot: 'visionneur_images', catId: 'graph' },
   'pix.desktop': { slot: 'visionneur_images', catId: 'graph' },
@@ -139,9 +139,9 @@ const slotForEntry = (entry) => {
 };
 
 const resolveIcon = (appId, vmIcon) => {
-  const gnomeBare = path.join(ROOT, 'usr/share/capsuleos/assets/images/toolkits/gnome/apps', appId);
-  if (fs.existsSync(gnomeBare)) {
-    return `./assets/images/toolkits/gnome/apps/${appId}`;
+  const cinnamonBare = path.join(ROOT, 'usr/share/capsuleos/assets/images/toolkits/cinnamon/apps', appId);
+  if (fs.existsSync(cinnamonBare)) {
+    return `./assets/images/toolkits/cinnamon/apps/${appId}`;
   }
   const exts = ['.png', '.svg', '.webp'];
   for (const ext of exts) {
@@ -156,14 +156,10 @@ const resolveIcon = (appId, vmIcon) => {
       if (fs.existsSync(byIcon)) {
         return `./assets/images/toolkits/cinnamon/apps/${vmIcon}${ext}`;
       }
-      const gnomeIcon = path.join(ROOT, `usr/share/capsuleos/assets/images/toolkits/gnome/apps/${vmIcon}${ext}`);
-      if (fs.existsSync(gnomeIcon)) {
-        return `./assets/images/toolkits/gnome/apps/${vmIcon}${ext}`;
-      }
     }
-    const gnomeBareIcon = path.join(ROOT, 'usr/share/capsuleos/assets/images/toolkits/gnome/apps', vmIcon);
-    if (fs.existsSync(gnomeBareIcon)) {
-      return `./assets/images/toolkits/gnome/apps/${vmIcon}`;
+    const cinnamonBareIcon = path.join(ROOT, 'usr/share/capsuleos/assets/images/toolkits/cinnamon/apps', vmIcon);
+    if (fs.existsSync(cinnamonBareIcon)) {
+      return `./assets/images/toolkits/cinnamon/apps/${vmIcon}`;
     }
   }
   return './assets/images/toolkits/cinnamon/apps/preferences-system.png';

@@ -11,13 +11,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { chromium } from 'playwright';
+import { chromePath, MINT_URL, waitMintReady } from './mint-smoke-open.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const VM_JSON = path.join(ROOT, 'root/docs/inventaires/linux-mint-window-chrome-vm.json');
-const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
-const chromePath = process.env.PLAYWRIGHT_CHROME
-  || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
 const vm = JSON.parse(fs.readFileSync(VM_JSON, 'utf8'));
 const expectedTitlebar = vm.aggregates.ssdTitlebarTopMedian || 32;
@@ -27,8 +25,7 @@ const tolerance = 2;
 
 const browser = await chromium.launch({ headless: true, executablePath: chromePath });
 const page = await browser.newPage();
-await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
-await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
+await waitMintReady(page);
 
 await page.evaluate(() => {
   window.openWindowByDataLink('nemo');

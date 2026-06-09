@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 /**
- * Gate pré-H6 — contrat τ (h6Ready) + smokes critiques Paramètres GNOME Rocky.
+ * Gate pré-H6 — contrat τ (h6Ready) + smokes critiques Paramètres GNOME.
  *
  * Usage :
- *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs
+ *   CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs --id linux-ubuntu
  */
 import fs from 'fs';
 import { spawnSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { h6Profile, parseRegistryId } from './h6-gnome-settings-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const LAB = path.join(ROOT, 'usr/lib/capsuleos/tools/lab');
-const registry = process.argv.includes('--id')
-  ? process.argv[process.argv.indexOf('--id') + 1]
-  : 'linux-rocky';
+
+const registry = parseRegistryId();
+const profile = h6Profile(registry);
 
 const tailPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-playbook-tail.json`);
 if (!fs.existsSync(tailPath)) {
@@ -28,27 +29,26 @@ if (!tail.h6Ready) {
   process.exit(1);
 }
 
-const scripts = [
-  'verify-gnome-settings-parity-chain.mjs',
-  'smoke-h5-p0-shell.mjs',
-  'smoke-h5-p1-appearance.mjs',
-];
-
 const env = {
   ...process.env,
   CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765',
 };
 
-for (const script of scripts) {
-  const extra = script === 'verify-gnome-settings-parity-chain.mjs' ? ['--strict'] : [];
-  const res = spawnSync(process.execPath, [path.join(LAB, script), ...extra], {
+const run = (script, extra = []) => {
+  const res = spawnSync(process.execPath, [path.join(LAB, script), '--id', registry, ...extra], {
     cwd: ROOT,
     stdio: 'inherit',
     env,
   });
-  if (res.status !== 0) {
-    process.exit(res.status || 1);
-  }
+  if (res.status !== 0) process.exit(res.status || 1);
+};
+
+run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
+run('smoke-h5-p0-shell.mjs');
+if (!profile.skipH5P1) {
+  run('smoke-h5-p1-appearance.mjs');
+} else {
+  process.stdout.write(`○ smoke-h5-p1-appearance ${registry} ignoré (playbook τ P0-only)\n`);
 }
 
 const statePath = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-h6-ready.json`);
@@ -57,8 +57,9 @@ fs.writeFileSync(statePath, `${JSON.stringify({
   h6Ready: true,
   pbSigma: true,
   h5Completed: tail.h5Completed || [],
+  skipH5P1: profile.skipH5P1,
   gate: 'smoke-h6-gnome-settings-ready.mjs',
   generatedAt: new Date().toISOString(),
 }, null, 2)}\n`);
 
-process.stdout.write(`✓ smoke-h6-gnome-settings-ready OK — ${statePath}\n`);
+process.stdout.write(`✓ smoke-h6-gnome-settings-ready ${registry} OK — ${statePath.replace(`${ROOT}/`, '')}\n`);

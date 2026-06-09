@@ -7,5 +7,9 @@ root/.cursor/*
 # .cursor (symlink → root/.cursor) : rules + hooks versionnés
 etc/capsuleos/lab-inventory.json
 etc/capsuleos/git-push-token
-# Captures lab accidentelles (argv dest-dir mal passé à capture-capsule-kde-neon.mjs)
-/--only/
+proc/*/staging/
+# Instantanés resolve-agent (éphémères — voir root/docs/README.md §3)
+root/docs/inventaires/*-pipeline-resolve.json
+root/docs/inventaires/*-formal-resolve.json
+root/docs/inventaires/*-playbook-general-resolve.json
+root/tools/lab/__pycache__/

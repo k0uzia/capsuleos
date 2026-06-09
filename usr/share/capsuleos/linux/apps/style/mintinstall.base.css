@@ -204,3 +204,37 @@ main#mintInstallApp {
     font-size: 0.85em;
     background: #ececec;
 }
+
+.mi-app__back {
+    margin: 0 0 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    background: transparent;
+    color: #1a6fa0;
+    font: inherit;
+    cursor: var(--p);
+}
+
+.mi-app__detail-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    margin-bottom: 0.75rem;
+}
+
+.mi-app__detail-icon {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+}
+
+.mi-app__detail-desc {
+    margin: 0.25rem 0 0;
+    opacity: 0.8;
+}
+
+.mi-app__detail-blurb {
+    margin: 0 0 1rem;
+    line-height: 1.45;
+}

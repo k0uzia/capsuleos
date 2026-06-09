@@ -1,27 +1,27 @@
 {
   "id": "linux-rocky",
   "url": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html",
-  "stamp": "20260608-103631",
+  "stamp": "20260608-140453",
   "captures": [
     {
       "name": "01-desktop-shell",
-      "file": "root/docs/inventaires/captures/linux-rocky/20260608-103631/01-desktop-shell.png"
+      "file": "root/docs/inventaires/captures/linux-rocky/20260608-140453/01-desktop-shell.png"
     },
     {
       "name": "02-overview",
-      "file": "root/docs/inventaires/captures/linux-rocky/20260608-103631/02-overview.png"
+      "file": "root/docs/inventaires/captures/linux-rocky/20260608-140453/02-overview.png"
     },
     {
       "name": "03-nemo",
-      "file": "root/docs/inventaires/captures/linux-rocky/20260608-103631/03-nemo.png"
+      "file": "root/docs/inventaires/captures/linux-rocky/20260608-140453/03-nemo.png"
     },
     {
       "name": "04-firefox",
-      "file": "root/docs/inventaires/captures/linux-rocky/20260608-103631/04-firefox.png"
+      "file": "root/docs/inventaires/captures/linux-rocky/20260608-140453/04-firefox.png"
     },
     {
       "name": "05-terminal",
-      "file": "root/docs/inventaires/captures/linux-rocky/20260608-103631/05-terminal.png"
+      "file": "root/docs/inventaires/captures/linux-rocky/20260608-140453/05-terminal.png"
     }
   ]
 }

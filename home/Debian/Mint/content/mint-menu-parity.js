@@ -1,31 +1,33 @@
 /**
- * Parité menu Cinnamon Mint — panneau panel (toggle logo, pas fenêtre WM).
+ * Parité menu Cinnamon Mint v3 — données uniquement (libellés FR, icônes, dataLink).
+ * Layout : mainMenu.skin.css · comportement : mainMenu.js (noyau).
  */
 (function applyMintMenuParity() {
     'use strict';
 
     var panelIcon = './assets/images/vendors/mint/panel/';
 
-    var shortcutIcons = {
-        calculator: 'org.gnome.Calculator.webp',
-        agenda: 'org.gnome.Calendar.webp',
-        'text-editor': 'accessories-text-editor.webp',
-        'software-manager': 'mintinstall.webp',
-        'system-settings': 'preferences-desktop-theme.webp',
-    };
-
-    function resolveIcon(url) {
-        if (typeof resolveCapsuleResourceUrl === 'function') {
-            return resolveCapsuleResourceUrl(url);
-        }
-        return url;
-    }
-
     if (typeof MENU_SHORTCUTS !== 'undefined') {
-        MENU_SHORTCUTS.calculator = { dataLink: 'calculator' };
-        MENU_SHORTCUTS['text-editor'] = { dataLink: 'text_editor' };
-        MENU_SHORTCUTS['software-manager'] = { dataLink: 'mintinstall' };
-        MENU_SHORTCUTS['system-settings'] = { dataLink: 'themes' };
+        MENU_SHORTCUTS.calculator = {
+            dataLink: 'calculator',
+            icon: panelIcon + 'org.gnome.Calculator.webp'
+        };
+        MENU_SHORTCUTS.agenda = {
+            dataLink: 'calendar',
+            icon: panelIcon + 'org.gnome.Calendar.webp'
+        };
+        MENU_SHORTCUTS['text-editor'] = {
+            dataLink: 'text_editor',
+            icon: panelIcon + 'accessories-text-editor.webp'
+        };
+        MENU_SHORTCUTS['software-manager'] = {
+            dataLink: 'mintinstall',
+            icon: panelIcon + 'mintinstall.webp'
+        };
+        MENU_SHORTCUTS['system-settings'] = {
+            dataLink: 'themes',
+            icon: panelIcon + 'preferences-desktop-theme.webp'
+        };
     }
 
     var CS_PANEL_BY_NAME = {
@@ -123,13 +125,13 @@
             if (app.name === 'System Monitor' || app.name === 'Moniteur système') {
                 app.dataLink = 'system_monitor';
                 app.name = 'Moniteur système';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.SystemMonitor.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.SystemMonitor';
             }
             if (app.name === 'Thèmes') {
                 app.icon = panelIcon + 'preferences-desktop-theme.webp';
             }
             if (app.name === 'LibreOffice Writer') {
-                app.dataLink = 'librewriter';
+                app.dataLink = 'libreoffice_startcenter';
                 app.icon = panelIcon + 'libreoffice-writer.webp';
             }
             if (app.name === 'LibreOffice') {
@@ -143,37 +145,37 @@
             }
             if (app.name === 'LibreOffice Calc') {
                 app.dataLink = 'librecalc';
-                app.icon = './assets/images/toolkits/gnome/apps/libreoffice-calc.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/libreoffice-calc';
             }
             if (app.name === 'Capture d\'écran') {
                 app.dataLink = 'screenshot';
             }
             if (app.name === 'Dessin') {
                 app.dataLink = 'drawing';
-                app.icon = './assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing';
             }
             if (app.name === 'Gestionnaire d\'archives') {
                 app.dataLink = 'file_roller';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.FileRoller';
             }
             if (app.name === 'Gestionnaire de pilotes') {
                 app.dataLink = 'mintdrivers';
-                app.icon = './assets/images/toolkits/gnome/apps/mintdrivers.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/mintdrivers';
             }
             if (app.name === 'Analyseur d\'espace disque' || app.name === 'Disk Usage Analyzer') {
                 app.dataLink = 'baobab';
                 app.name = 'Analyseur d\'espace disque';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.baobab.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.baobab';
             }
             if (app.name === 'Applications web' || app.name === 'Applications Web') {
                 app.dataLink = 'webapp_manager';
                 app.name = 'Applications Web';
-                app.icon = './assets/images/toolkits/gnome/apps/webapp-manager.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/webapp-manager';
             }
             if (app.name === 'Écran d\'accueil' || app.name === 'Écran d\'accueil Mint') {
                 app.dataLink = 'mintwelcome';
                 app.name = 'Écran d\'accueil Mint';
-                app.icon = './assets/images/toolkits/gnome/apps/mintwelcome.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/mintwelcome';
             }
             if (app.name === 'Hypnotix') {
                 app.dataLink = 'hypnotix';
@@ -202,16 +204,13 @@
             }
             if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
                 app.dataLink = 'lecteur_multimedia';
-                app.icon = './assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.svg';
-            }
-            if (app.name === 'Gestionnaire d\'archives') {
-                app.dataLink = 'file_roller';
-                app.icon = './assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg';
+                app.icon = './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid';
             }
             if (app.name === 'Agenda') {
                 app.icon = panelIcon + 'org.gnome.Calendar.webp';
             }
         });
+
         var hasScreenshot = false;
         var ai;
         for (ai = 0; ai < MENU_APPS.length; ai++) {
@@ -223,70 +222,11 @@
         if (!hasScreenshot) {
             MENU_APPS.push({
                 catId: 'access',
-                icon: './assets/images/toolkits/gnome/apps/org.gnome.Screenshot.svg',
+                icon: './assets/images/toolkits/cinnamon/apps/org.gnome.Screenshot',
                 name: 'Capture d\'écran',
                 desc: 'Prenez une photo de l\'écran',
                 dataLink: 'screenshot'
             });
         }
-    }
-
-    function patchMenuShortcutImages() {
-        var menuRoot = document.getElementById('mainMenu');
-        if (!menuRoot) {
-            return;
-        }
-        Object.keys(shortcutIcons).forEach(function patchShortcut(id) {
-            var link = menuRoot.querySelector('.menu-shortcut[data-shortcut-id="' + id + '"]');
-            if (!link) {
-                return;
-            }
-            var img = link.querySelector('img');
-            if (img) {
-                img.src = resolveIcon(panelIcon + shortcutIcons[id]);
-            }
-            if (id === 'text-editor' && !link.classList.contains('is-unavailable')) {
-                link.removeAttribute('aria-disabled');
-                link.classList.remove('is-unavailable');
-                link.tabIndex = 0;
-            }
-        });
-    }
-
-    function bindMenuLauncherToggle() {
-        var menuBtn = document.querySelector('footer nav a[target="windowElement"][data-link="mainMenu"]');
-        var menuEl = document.getElementById('mainMenu');
-        if (!menuBtn || !menuEl || menuBtn.dataset.mintMenuToggleBound === 'true') {
-            return;
-        }
-        menuBtn.dataset.mintMenuToggleBound = 'true';
-        menuBtn.addEventListener('click', function onMenuClick() {
-            window.setTimeout(function afterShellOpen() {
-                if (menuEl.style.display === 'none') {
-                    return;
-                }
-                patchMenuShortcutImages();
-                var searchInput = document.getElementById('menu-search');
-                var firstApp = document.querySelector('#menu-app-list .menu-app-item[tabindex="0"]');
-                if (searchInput) {
-                    searchInput.focus();
-                } else if (firstApp) {
-                    firstApp.focus();
-                }
-            }, 80);
-        });
-    }
-
-    if (typeof document !== 'undefined') {
-        document.addEventListener('DOMContentLoaded', function onReady() {
-            patchMenuShortcutImages();
-            bindMenuLauncherToggle();
-            document.addEventListener('capsule:window-opened', function onMenuOpen(event) {
-                var detail = event.detail || {};
-                if (detail.slotId === 'mainMenu') {
-                    window.setTimeout(patchMenuShortcutImages, 50);
-                }
-            });
-        });
     }
 })();

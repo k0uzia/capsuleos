@@ -1,8 +1,7 @@
 {
-  "version": 2,
+  "version": 1,
   "registryId": "linux-ubuntu",
-  "collectedAt": "2026-06-07T23:00:50Z",
-  "source": "distribution-manifest",
+  "collectedAt": "2026-06-08T20:56:13.605Z",
   "entryCount": 92,
   "entries": [
     {

@@ -1,8 +1,8 @@
-<main id="fileRollerApp" class="fr-app" aria-label="Gestionnaire d'archives">
+<main id="fileRollerApp" class="fr-app file-roller" aria-label="Gestionnaire d'archives">
 
-    <header class="fr-app__headerbar" aria-label="En-tête">
-        <div class="fr-app__header-start">
-            <button type="button" class="fr-app__btn fr-app__btn--extract" data-fr-action="extract" disabled>
+    <header class="fr-app__headerbar file-roller-menubar" aria-label="En-tête">
+        <div class="fr-app__header-start file-roller-toolbar">
+            <button type="button" class="fr-app__btn fr-app__btn--extract file-roller-extract" data-fr-action="extract" disabled>
                 Extraire
             </button>
             <button type="button" class="fr-app__btn fr-app__btn--icon" data-fr-action="add" title="Ajouter des fichiers" aria-label="Ajouter des fichiers">
@@ -48,7 +48,7 @@
 
     <div class="fr-app__body" id="fr-body">
         <div class="fr-app__empty" id="fr-empty" aria-hidden="false"></div>
-        <div class="fr-app__list-wrap" id="fr-list-wrap" hidden>
+        <div class="fr-app__list-wrap file-roller-list" id="fr-list-wrap" hidden>
             <table class="fr-app__table" aria-label="Contenu de l'archive">
                 <thead>
                     <tr>

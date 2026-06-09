@@ -5,7 +5,18 @@
   "description": "Indice de parité interactionnelle — VM capsule@192.168.1.146",
   "weights": {
     "shell": 0.25,
-    "apps": 0.75
+    "apps": 0.75,
+    "appsScope": "priority",
+    "prioritySlots": [
+      "nemo",
+      "firefox",
+      "text_editor",
+      "calculator",
+      "file_roller",
+      "update_manager",
+      "mintinstall",
+      "themes"
+    ]
   },
   "thresholds": {
     "ok": 90,
@@ -14,46 +25,58 @@
   "shell": {
     "mainMenu": {
       "id": "mainMenu",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
+        "ctx": 100,
         "kb": 100,
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:38:06Z",
-        "commit": "430cfcb",
+        "auditAt": "2026-06-08T13:23:18Z",
+        "policy": "pixel-perfect ≤1px — root/docs/inventaires/linux-mint-pixel-perfect-spec.md",
         "viewport": "1280x800",
+        "server": "http://127.0.0.1:5501/home/Debian/Mint/index.html",
+        "vmSource": "capsule@192.168.1.146 gsettings panels-height 40px · baseline/ captures",
         "vmTarget": {
-          "panelHeightPx": 40,
-          "menuBottomGapPx": 2,
           "menuWidthPx": 600,
-          "menuColsPct": [20, 25, 55],
-          "searchHeightPx": 35
-        },
-        "preFix": {
-          "panelHeightPx": 50,
-          "menuBottomGapPx": 52,
-          "menuColsPct": [23, 35, 42],
-          "note": "double comptage taskbar-height dans #desktop"
-        },
-        "postFix": {
-          "panelHeightPx": 40,
+          "menuHeightPx": 480,
           "menuBottomGapPx": 2,
-          "menuWidthPx": 600,
-          "menuColsPct": [20, 25, 55],
-          "searchHeightPx": 35
+          "menuColsPct": [
+            20,
+            25,
+            55
+          ],
+          "searchHeightPx": 35,
+          "searchWidthPx": 134,
+          "labelBehavior": "ellipsis CSS (Télécharg…, Éditeur de…, Paramètre…)"
         },
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-143806/"
+        "measuredClone": {
+          "menuWidthPx": 600,
+          "menuHeightPx": 480,
+          "menuBottomGapPx": 2,
+          "menuColsPct": [
+            20.1,
+            25.1,
+            54.3
+          ],
+          "searchHeightPx": 35,
+          "searchWidthPx": 134,
+          "maxDeltaPx": 0.7,
+          "labelEllipsis": true
+        },
+        "Pi_vis_layout": 100,
+        "tool": "measure-mint-shell-geometry.mjs",
+        "cacheBust": "20260608pxperfect",
+        "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T11:54:04.866Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T14:38:06Z"
+      "lastPass": "2026-06-08T15:51:54.110Z",
+      "checksPassed": 7,
+      "checksTotal": 7,
+      "updatedAt": "2026-06-08T15:51:54.110Z"
     },
     "panel": {
       "id": "panel",
@@ -68,32 +91,40 @@
         "data": 100
       },
       "layoutMetrics": {
-        "auditAt": "2026-06-08T14:38:06Z",
-        "commit": "430cfcb",
+        "auditAt": "2026-06-08T13:23:18Z",
+        "policy": "pixel-perfect ≤1px — flex-shrink:0 tray 24px",
         "viewport": "1280x800",
+        "server": "http://127.0.0.1:5501/home/Debian/Mint/index.html",
+        "vmSource": "gsettings panels-height ['1:40'] · zone right 24px",
         "vmTarget": {
           "panelHeightPx": 40,
-          "trayIconPx": 24,
-          "favoritesIconPx": 22
-        },
-        "preFix": {
-          "panelHeightPx": 50,
-          "trayIconPx": 20,
-          "deltaPanelPx": 10,
-          "deltaTrayIconPx": -4
-        },
-        "postFix": {
-          "panelHeightPx": 40,
+          "menuBtnPx": 40,
+          "menuBtnImgPx": 33,
           "trayIconPx": 24,
           "favoritesIconPx": 22,
-          "trayCenterYPx": 775
+          "favoritesBoxWidthPx": 121,
+          "favoritesGapPx": 2.86,
+          "favoritesCount": 5
         },
-        "captures": "root/docs/inventaires/captures/linux-mint/20260608-143806/"
+        "measuredClone": {
+          "panelHeightPx": 40,
+          "menuBtnPx": 40,
+          "menuBtnImgPx": 33,
+          "trayIconPx": 24,
+          "favoritesIconPx": 22,
+          "favoritesBoxWidthPx": 121,
+          "favoritesGapPx": 2.84,
+          "maxDeltaPx": 0.02
+        },
+        "Pi_vis_layout": 100,
+        "tool": "measure-mint-shell-geometry.mjs",
+        "cacheBust": "20260608pxperfect",
+        "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T12:08:05.137Z",
+      "lastPass": "2026-06-08T15:35:01.532Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T14:38:06Z"
+      "updatedAt": "2026-06-08T15:35:01.532Z"
     },
     "tray": {
       "id": "tray",
@@ -107,10 +138,10 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:08:05.137Z",
+      "lastPass": "2026-06-08T15:35:01.533Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:08:05.137Z"
+      "updatedAt": "2026-06-08T15:35:01.533Z"
     },
     "clock": {
       "id": "clock",
@@ -124,27 +155,27 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:15:38.052Z",
+      "lastPass": "2026-06-08T15:35:01.533Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:15:38.053Z"
+      "updatedAt": "2026-06-08T15:35:01.533Z"
     },
     "desktop": {
       "id": "desktop",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
-        "nav": 50,
+        "nav": 100,
         "int": 100,
         "ctx": 100,
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T11:54:04.866Z",
-      "checksPassed": 5,
-      "checksTotal": 5,
-      "updatedAt": "2026-06-08T11:54:04.866Z"
+      "lastPass": "2026-06-08T16:15:04.322Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-08T16:15:04.324Z"
     },
     "theme": {
       "id": "theme",
@@ -158,10 +189,44 @@
         "kb": 100,
         "data": 100
       },
-      "lastPass": "2026-06-08T12:15:38.053Z",
+      "lastPass": "2026-06-08T14:11:42.015Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T12:15:38.053Z"
+      "updatedAt": "2026-06-08T14:11:42.015Z"
+    },
+    "altTab": {
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "pi": 100,
+      "status": "ok",
+      "lastPass": "2026-06-08T14:11:42.015Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "id": "altTab",
+      "updatedAt": "2026-06-08T14:11:42.015Z"
+    },
+    "windowChrome": {
+      "dimensions": {
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
+      },
+      "pi": 100,
+      "status": "ok",
+      "lastPass": "2026-06-08T14:11:42.015Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "id": "windowChrome",
+      "updatedAt": "2026-06-08T14:11:42.015Z"
     }
   },
   "apps": {
@@ -220,10 +285,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/calculator.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:35:08.899Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 9,
       "checksTotal": 9,
-      "updatedAt": "2026-06-08T11:35:09.970Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "drawing": {
       "slot": "drawing",
@@ -248,22 +313,22 @@
     "file_roller": {
       "slot": "file_roller",
       "label": "file_roller",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 50,
+        "ctx": 100,
         "kb": 100,
         "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/file_roller.json",
       "vmDoc": "linux-mint-file-roller-vm.md",
-      "lastPass": "2026-06-08T11:35:13.519Z",
-      "checksPassed": 7,
-      "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:35:14.428Z"
+      "lastPass": "2026-06-08T16:15:57.166Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "firefox": {
       "slot": "firefox",
@@ -280,10 +345,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/firefox.json",
       "vmDoc": "linux-mint-firefox-vm.md",
-      "lastPass": "2026-06-08T11:40:24.510Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:40:25.435Z"
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "font_viewer": {
       "slot": "font_viewer",
@@ -465,26 +530,6 @@
       "checksTotal": 6,
       "updatedAt": "2026-06-08T12:01:38.917Z"
     },
-    "librewriter": {
-      "slot": "librewriter",
-      "label": "librewriter",
-      "pi": 92,
-      "status": "ok",
-      "dimensions": {
-        "vis": 100,
-        "nav": 100,
-        "int": 100,
-        "ctx": 50,
-        "kb": 100,
-        "data": 100
-      },
-      "inventory": null,
-      "vmDoc": null,
-      "lastPass": "2026-06-08T11:52:06.133Z",
-      "checksPassed": 6,
-      "checksTotal": 6,
-      "updatedAt": "2026-06-08T11:52:06.805Z"
-    },
     "mate_color_select": {
       "slot": "mate_color_select",
       "label": "mate_color_select",
@@ -560,10 +605,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:51:46.105Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 8,
       "checksTotal": 8,
-      "updatedAt": "2026-06-08T11:51:47.196Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -640,10 +685,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/nemo.json",
       "vmDoc": "linux-mint-nemo-vm.md",
-      "lastPass": "2026-06-08T11:40:20.754Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 10,
       "checksTotal": 10,
-      "updatedAt": "2026-06-08T11:40:21.640Z"
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "power_stats": {
       "slot": "power_stats",
@@ -788,7 +833,7 @@
     "text_editor": {
       "slot": "text_editor",
       "label": "text_editor",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
         "vis": 100,
@@ -796,14 +841,14 @@
         "int": 100,
         "ctx": 100,
         "kb": 100,
-        "data": 50
+        "data": 100
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/text_editor.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:18:07.700Z",
-      "checksPassed": 9,
-      "checksTotal": 9,
-      "updatedAt": "2026-06-08T11:18:08.479Z"
+      "lastPass": "2026-06-08T16:15:57.166Z",
+      "checksPassed": 10,
+      "checksTotal": 10,
+      "updatedAt": "2026-06-08T16:16:05.141Z"
     },
     "themes": {
       "slot": "themes",
@@ -820,10 +865,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/themes.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T11:35:03.868Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 11,
       "checksTotal": 11,
-      "updatedAt": "2026-06-08T11:35:05.817Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "thingy": {
       "slot": "thingy",
@@ -920,10 +965,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/update_manager.json",
       "vmDoc": "linux-mint-update-manager-vm.md",
-      "lastPass": "2026-06-08T11:51:40.972Z",
+      "lastPass": "2026-06-08T16:15:57.166Z",
       "checksPassed": 7,
       "checksTotal": 7,
-      "updatedAt": "2026-06-08T11:51:42.899Z"
+      "updatedAt": "2026-06-08T16:16:05.142Z"
     },
     "visionneur_images": {
       "slot": "visionneur_images",
@@ -1010,7 +1055,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T14:38:06Z",
-  "pi_global": 98,
+  "updatedAt": "2026-06-08T16:16:05.142Z",
+  "pi_global": 100,
   "status_global": "ok"
 }

@@ -253,6 +253,61 @@ function resolveTerminalAboutLabel() {
     return 'À propos du terminal';
 }
 
+function ensureMintTerminalPrefsDialog(windowElement) {
+    if (!windowElement) {
+        return null;
+    }
+    let dialog = windowElement.querySelector('#mint-terminal-prefs');
+    if (dialog) {
+        return dialog;
+    }
+    dialog = document.createElement('div');
+    dialog.id = 'mint-terminal-prefs';
+    dialog.className = 'terminal-prefs fedora-terminal-popover';
+    dialog.hidden = true;
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-label', 'Préférences du terminal');
+    dialog.innerHTML = [
+        '<div class="terminal-prefs__tabs" role="tablist">',
+        '<button type="button" class="terminal-prefs__tab is-active" data-terminal-prefs-tab="general">Général</button>',
+        '<button type="button" class="terminal-prefs__tab" data-terminal-prefs-tab="colors">Couleurs</button>',
+        '<button type="button" class="terminal-prefs__tab" data-terminal-prefs-tab="compat">Compatibilité</button>',
+        '</div>',
+        '<div class="terminal-prefs__panel" data-terminal-prefs-panel="general">',
+        '<p>Profil par défaut : capsule@mint</p>',
+        '</div>',
+        '<div class="terminal-prefs__panel" data-terminal-prefs-panel="colors" hidden>',
+        '<p>Schéma Mint Yaru intégré</p>',
+        '</div>',
+        '<div class="terminal-prefs__panel" data-terminal-prefs-panel="compat" hidden>',
+        '<p>Compatibilité bash 5.1</p>',
+        '</div>',
+        '<button type="button" class="terminal-prefs__close" data-terminal-prefs-close>Fermer</button>',
+    ].join('');
+    windowElement.appendChild(dialog);
+    dialog.querySelectorAll('[data-terminal-prefs-tab]').forEach((tabBtn) => {
+        tabBtn.addEventListener('click', () => {
+            dialog.querySelectorAll('[data-terminal-prefs-tab]').forEach((node) => {
+                node.classList.toggle('is-active', node === tabBtn);
+            });
+            dialog.querySelectorAll('[data-terminal-prefs-panel]').forEach((panel) => {
+                panel.hidden = panel.getAttribute('data-terminal-prefs-panel') !== tabBtn.dataset.terminalPrefsTab;
+            });
+        });
+    });
+    dialog.querySelector('[data-terminal-prefs-close]').addEventListener('click', () => {
+        dialog.hidden = true;
+    });
+    return dialog;
+}
+
+function openMintTerminalPrefs(windowElement) {
+    const dialog = ensureMintTerminalPrefsDialog(windowElement);
+    if (dialog) {
+        dialog.hidden = false;
+    }
+}
+
 function createFedoraTerminalMenu(windowElement) {
     let menu = windowElement.querySelector('#fedora-terminal-main-menu');
     if (menu) {
@@ -330,6 +385,10 @@ function runFedoraTerminalMenuAction(action, windowElement, header) {
         return;
     }
     if (action === 'preferences') {
+        if (document.body && document.body.id === 'mint') {
+            openMintTerminalPrefs(windowElement);
+            return;
+        }
         if (typeof window.openWindowByDataLink === 'function') {
             window.openWindowByDataLink('themes');
         }
@@ -719,6 +778,9 @@ function decorateGnomeTerminalWindow(container) {
     if (applyChrome()) {
         refreshGnomeTerminalPromptChrome();
         bindGnomeTerminalChromeInteractions(windowElement);
+        if (document.body && document.body.id === 'mint' && typeof window.scheduleTerminalTabsBind === 'function') {
+            window.scheduleTerminalTabsBind(windowElement);
+        }
     } else if (windowElement.dataset.gnomeTerminalObserver !== 'true') {
         windowElement.dataset.gnomeTerminalObserver = 'true';
         const observer = new MutationObserver(() => {
@@ -726,6 +788,9 @@ function decorateGnomeTerminalWindow(container) {
                 observer.disconnect();
                 refreshGnomeTerminalPromptChrome();
                 bindGnomeTerminalChromeInteractions(windowElement);
+                if (document.body && document.body.id === 'mint' && typeof window.scheduleTerminalTabsBind === 'function') {
+                    window.scheduleTerminalTabsBind(windowElement);
+                }
             }
         });
         observer.observe(windowElement, { childList: true });

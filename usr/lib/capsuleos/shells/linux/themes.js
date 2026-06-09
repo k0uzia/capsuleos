@@ -247,7 +247,7 @@ function buildWallpaperGrid(root) {
         const background = storage.resolveWallpaperEntry(entry, theme);
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'gnome-settings-wallpaper';
+        btn.className = 'gnome-settings-wallpaper cs-wallpaper-thumb';
         btn.classList.add(entry.type === 'color' ? 'gnome-settings-wallpaper--solid' : 'gnome-settings-wallpaper--photo');
         btn.dataset.wallpaperId = entry.id;
         btn.setAttribute('role', 'listitem');

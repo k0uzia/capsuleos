@@ -16,7 +16,7 @@ body#ubuntu .volume-popover {
     color: var(--volume-popover-text);
     background: var(--volume-popover-bg);
     box-shadow: var(--volume-popover-shadow);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     overflow: hidden;
 }
 

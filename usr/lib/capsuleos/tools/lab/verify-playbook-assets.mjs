@@ -11,9 +11,9 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { ROOT, resolveLabMatrix } from './lab-recipe-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
 
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');
@@ -38,14 +38,15 @@ const sha256File = (abs) => {
   return hash.digest('hex');
 };
 
-const matrix = readJson('root/tools/lab/gnome-settings-assets-matrix.json');
-if (!matrix) {
-  console.error('✗ verify-playbook-assets — matrice absente');
+let matrixRel;
+let matrix;
+try {
+  const resolved = resolveLabMatrix(registry, 'assets');
+  matrixRel = resolved.relative;
+  matrix = readJson(matrixRel);
+} catch (e) {
+  console.error(`✗ verify-playbook-assets — ${e.message}`);
   process.exit(1);
-}
-
-if (matrix.registry && matrix.registry !== registry) {
-  warnings.push(`Matrice registry=${matrix.registry} ≠ --registry ${registry}`);
 }
 
 const traceRel = matrix.sourceTraceFile;
@@ -62,6 +63,7 @@ let missing = 0;
 const missingList = [];
 
 for (const asset of assets) {
+  if (asset.optionalOnVm) continue;
   const rel = asset.capsulePath;
   if (!rel) {
     errors.push(`Asset "${asset.id}" sans capsulePath`);

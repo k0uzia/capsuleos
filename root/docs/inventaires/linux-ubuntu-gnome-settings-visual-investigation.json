@@ -1,0 +1,497 @@
+{
+  "registry": "linux-ubuntu",
+  "investigations": [
+    {
+      "controlId": "theme",
+      "label": "Thème clair / sombre",
+      "status": "documented",
+      "vmToggle": {
+        "before": "default",
+        "after": "prefer-dark"
+      },
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 300,
+        "easing": "ease-out",
+        "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
+      },
+      "transitionObserved": {
+        "durationMs": 708,
+        "easing": "ease-out",
+        "properties": [],
+        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/before.png",
+          "timestamp": "2026-06-08T23:00:43.108Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/during-150ms.png",
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/after.png",
+          "elapsedMs": 300
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "top-bar",
+        "overview",
+        "window-chrome",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Appearance",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
+          "matchesObservation": true,
+          "delta": "VM bascule prefer-dark↔prefer-light via color-scheme ; fonds URI inchangés sur profil Rocky par défaut."
+        },
+        {
+          "title": "interface color-scheme",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": true,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings)."
+      },
+      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "color-scheme",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.interface",
+            "gtk-theme"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri-dark"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "color-scheme": "'default'",
+            "gtk-theme": "'Yaru-dark'"
+          },
+          "linked": {
+            "picture-uri": "'file:///usr/share/backgrounds/gnome/adwaita-l.jxl'",
+            "picture-uri-dark": "'file:///usr/share/backgrounds/gnome/adwaita-d.jxl'",
+            "picture-options": "'zoom'"
+          },
+          "notes": "color-scheme pilote GTK/Shell ; fonds jour/nuit peuvent rester identiques sur RL10."
+        },
+        "deepPassNotes": "VM RL10 : color-scheme pilote clair/sombre ; gtk-theme reste Adwaita ; picture-uri et picture-uri-dark identiques (rocky-default-10-abstract-1-day.png). Capsule : themes.js + capsule-theme-storage ; vérifier variante fond nuit si picture-uri-dark diverge sur d’autres profils."
+      },
+      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/theme/dark-desktop.png",
+          "source": "ubuntu-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/theme/light-desktop.png",
+          "source": "ubuntu-capsule-light-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/theme/dark-settings-appearance.png",
+          "source": "ubuntu-capsule-dark-settings-appearance.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/theme/panel-appearance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+    },
+    {
+      "controlId": "night-light",
+      "label": "Éclairage nocturne",
+      "status": "documented",
+      "vmToggle": {
+        "before": "false",
+        "after": "true"
+      },
+      "transitionExpected": {
+        "type": "ease-in-out",
+        "durationMs": 1000,
+        "property": "color-temperature",
+        "notes": "gsd-color anime la température sur ~1 s."
+      },
+      "transitionObserved": {
+        "durationMs": 1086,
+        "easing": null,
+        "properties": [
+          "color-temperature"
+        ],
+        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/before.png",
+          "timestamp": "2026-06-08T23:01:02.485Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/during-500ms.png",
+          "elapsedMs": 500
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/after.png",
+          "elapsedMs": 1000
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "overview",
+        "top-bar-excluded"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Night Light",
+          "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
+          "matchesObservation": true,
+          "delta": "Durée observée ~1 s alignée doc gsd-color."
+        },
+        {
+          "title": "gsd plugins color",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
+          "matchesObservation": true,
+          "delta": "Température 2700 K par défaut VM."
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
+      },
+      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.settings-daemon.plugins.color",
+        "key": "night-light-enabled",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-temperature"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-from"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-to"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "night-light-enabled": "false",
+            "night-light-temperature": "uint32 2700",
+            "night-light-schedule-from": "20.0",
+            "night-light-schedule-to": "6.0"
+          },
+          "linked": {
+            "show-banners": "true"
+          },
+          "notes": "Exclusion top bar = rendu gsd-color, pas de clé gsettings dédiée."
+        },
+        "deepPassNotes": "Clés liées : night-light-temperature (2700), horaires schedule-from/to. Exclusion top bar = gsd-color (pas de clé gsettings) — reproduire via html[data-night-light=on] sans filtre sur .fedora-top-bar."
+      },
+      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/night-light/dark-desktop.png",
+          "source": "ubuntu-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/night-light/panel-displays.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+    },
+    {
+      "controlId": "dynamic-workspaces",
+      "label": "Bureaux dynamiques",
+      "status": "documented",
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "transitionExpected": {
+        "type": "spring",
+        "durationMs": 350,
+        "easing": "ease-out",
+        "notes": "St animation overview workspaces."
+      },
+      "transitionObserved": {
+        "durationMs": 775,
+        "easing": "ease-out",
+        "properties": [],
+        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/before.png",
+          "timestamp": "2026-06-08T23:01:16.086Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/during-175ms.png",
+          "elapsedMs": 175
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/after.png",
+          "elapsedMs": 350
+        }
+      ],
+      "surfaces": [
+        "overview-mini-workspaces",
+        "workspace-indicator"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Workspaces",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
+          "matchesObservation": true,
+          "delta": "dynamic-workspaces bool contrôle miniatures Aperçu."
+        },
+        {
+          "title": "org.gnome.mutter dynamic-workspaces",
+          "url": "https://gitlab.gnome.org/GNOME/mutter",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
+      },
+      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.mutter",
+        "key": "dynamic-workspaces",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.mutter",
+            "workspaces-only-on-primary"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "dynamic-workspaces": "true",
+            "workspaces-only-on-primary": "false"
+          },
+          "notes": "Bascule booléenne ; animation overview = gnome-shell/mutter."
+        },
+        "deepPassNotes": "VM : bool dynamic-workspaces seul ; workspaces-only-on-primary=false. Capsule : gnome-workspaces.js + dataset dynamicWorkspaces ; animation overview documentée en enquête visuelle."
+      },
+      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/dynamic-workspaces/dark-overview.png",
+          "source": "ubuntu-capsule-dark-overview.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+    },
+    {
+      "controlId": "dnd",
+      "label": "Ne pas déranger",
+      "status": "documented",
+      "vmToggle": {
+        "before": "(false, '')",
+        "after": "toggled"
+      },
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 200,
+        "property": "opacity"
+      },
+      "transitionObserved": {
+        "durationMs": 660,
+        "easing": null,
+        "properties": [
+          "opacity"
+        ],
+        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/before.png",
+          "timestamp": "2026-06-08T23:01:28.757Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "quick-settings-tile",
+        "calendar-popover",
+        "notification-banners-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Notifications",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
+          "matchesObservation": true,
+          "delta": "DND session shell ; bannières contrôlées séparément (show-banners)."
+        },
+        {
+          "title": "Shell DND session",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": true,
+          "delta": "Schéma simulé CapsuleOS documenté dans parity-matrix."
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
+      },
+      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "source": "simulated-gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.notifications",
+            "show-banners"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "shell-session": "no-gsettings-key"
+          },
+          "linked": {
+            "show-banners": "true",
+            "show-in-lock-screen": "true"
+          },
+          "notes": "DND = session gnome-shell (_dndToggle) ; bannières indépendantes de DND."
+        },
+        "deepPassNotes": "RL10 : DND session gnome-shell (_dndToggle), pas de clé gsettings VM. Schéma simulé org.capsuleos.gnome.shell aligné playbook (drift 0). show-banners indépendant ; QS tile volume.js + handler parity."
+      },
+      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/dnd/dark-quick-settings.png",
+          "source": "ubuntu-capsule-dark-quick-settings.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+    }
+  ],
+  "generatedAt": "2026-06-08T23:02:05.627086+00:00",
+  "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
+  "vmEnvironment": {
+    "sessionType": "wayland",
+    "screenshotTool": true,
+    "screenshotBackend": "host-virsh",
+    "captureStrategy": "host-virsh",
+    "snapshotAppInstalled": false,
+    "note": "linux-ubuntu : captures lab automatisées via virsh screenshot depuis l’hôte"
+  },
+  "summary": {
+    "investigationsTotal": 4,
+    "documented": 4,
+    "capsuleImplemented": 4,
+    "gaps": 0,
+    "p0Open": 0,
+    "capsuleCapturesP0": 4,
+    "visualMatchClassifiedP0": 4,
+    "visualMatchClassifiedP1": 0,
+    "visualMatchClassifiedP2": 0
+  },
+  "gsettingsDeepPass": {
+    "generatedAt": "2026-06-08T23:02:05.627086+00:00",
+    "investigator": "enrich-visual-investigation-gsettings-pass.mjs",
+    "probeSource": "vm-gnome-settings-gsettings-deep-pass.sh",
+    "playbookCapsuleDrift": 0,
+    "p0Enriched": 4
+  },
+  "crossCuttingFindings": [
+    "RL10 : gnome-screenshot absent ; Snapshot GUI + virsh screenshot hôte pour captures lab.",
+    "DND et certains états shell : schémas simulés org.capsuleos.gnome.shell (pas de clé VM unique).",
+    "Night Light : exclusion top bar = rendu compositor/gsd, reproduite en CSS Capsule."
+  ],
+  "nextGsettingsPass": [
+    {
+      "controlId": "accent",
+      "priority": "P1",
+      "action": "Valider accent-color system vs gtk-theme"
+    },
+    {
+      "controlId": "wallpaper",
+      "priority": "P1",
+      "action": "Lier picture-uri / picture-uri-dark au bascule thème"
+    },
+    {
+      "controlId": "hot-corner",
+      "priority": "P1",
+      "action": "org.gnome.desktop.interface enable-hot-corners"
+    },
+    {
+      "controlId": "notifications",
+      "priority": "P2",
+      "action": "show-banners + test notify-send VM"
+    }
+  ],
+  "capsuleVisualCollect": {
+    "generatedAt": "2026-06-08T23:03:35.465Z",
+    "investigator": "collect-capsule-visual-investigation.mjs",
+    "filter": "P0",
+    "files": 8
+  },
+  "visualParityClose": {
+    "generatedAt": "2026-06-08T23:03:41.272Z",
+    "investigator": "enrich-visual-investigation-capsule-parity.mjs",
+    "p0Classified": 4,
+    "p1Classified": 0
+  }
+}

@@ -243,6 +243,15 @@ async function runSlotChecks(page, slot) {
     ));
     push('win-open', 'int', ready, {});
 
+    const initial = await page.evaluate(() => ({
+      title: document.querySelector('div[data-link="text_editor"] #windowTitle')?.textContent,
+      area: document.getElementById('xed-area')?.value || '',
+      chars: document.getElementById('xed-status-chars')?.textContent || '',
+    }));
+    push('initial-doc', 'data', initial.title === 'Sans titre'
+      && initial.area === ''
+      && initial.chars.indexOf('0 caract') >= 0, initial);
+
     const menus = await page.evaluate(() => {
       const triggers = [...document.querySelectorAll('.xed-menu__trigger')];
       const openMenu = (idx) => {
@@ -394,6 +403,7 @@ async function runSlotChecks(page, slot) {
       return m && !m.hidden;
     });
     push('hamburger-menu', 'nav', menu, {});
+    push('menu-popover', 'ctx', menu, {});
 
     await page.click('[data-fr-menu="open-demo"]');
     await page.waitForTimeout(60);

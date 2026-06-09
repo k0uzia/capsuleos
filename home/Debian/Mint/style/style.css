@@ -6,6 +6,10 @@ html {
     color: var(--texte);
 }
 
+body#mint #desktop > .desktop-shortcuts {
+    display: none !important;
+}
+
 #mint {
     display: var(--f);
     flex-flow: var(--cnw);
@@ -102,16 +106,4 @@ body#mint .desktop-shortcut:focus-visible {
     text-align: var(--c);
     line-height: 1.2;
     font-size: calc(var(--head) / 3.2);
-}
-
-#tableau {
-    display: var(--f);
-    flex-flow: var(--rnw);
-    align-items: var(--c);
-    justify-content: var(--sb);
-    width: var(--full);
-    height: var(--taskbar-height);
-    padding: var(--z) calc(var(--head) / 4) var(--z) calc(var(--head) / 4);
-    border: var(--n);
-    background: var(--mint-taskbar-bg);
 }

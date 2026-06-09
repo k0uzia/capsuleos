@@ -1,0 +1,14 @@
+{
+  "registryId": "linux-ubuntu",
+  "h6Ready": true,
+  "pbSigma": true,
+  "h5Completed": [
+    "theme",
+    "night-light",
+    "dynamic-workspaces",
+    "dnd"
+  ],
+  "skipH5P1": true,
+  "gate": "smoke-h6-gnome-settings-ready.mjs",
+  "generatedAt": "2026-06-08T23:37:05.601Z"
+}

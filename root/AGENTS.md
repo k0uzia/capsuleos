@@ -4,9 +4,17 @@
 
 CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`home/`, `usr/`, `OS/`, `var/`, `index.html`). Le dossier `root/` documente **comment** travailler sur ce dépôt, pas du code utilisateur final.
 
-## Logique formelle (paradigme agent)
+## Fondements et logique formelle
+
+**Philosophie du projet** : [`docs/fondements-philosophiques.md`](docs/fondements-philosophiques.md) — mimesis pédagogique, ontologie des couches, épistémologie `proc/`, éthique de la représentation.
 
 **Référence canonique** : [`docs/logique-formelle.md`](docs/logique-formelle.md) — prédicats (**H₂**, **A**, **S**, **I**, **L**, **V**…), règles d’inférence, procédure de décision autonome.
+
+**Corpus unique (obligatoire P12)** : [`docs/README.md`](docs/README.md) · [`docs/convention-taxonomie-semantique.md`](docs/convention-taxonomie-semantique.md) · [`docs/convention-clean-code.md`](docs/convention-clean-code.md)
+
+**Roadmap exécution** : [`docs/plan-maitre-reproduction-os.md`](docs/plan-maitre-reproduction-os.md) — seule source d’ordre des phases · Phase 1 détail : [`plan-phase-1-gnome-triplet.md`](docs/plan-phase-1-gnome-triplet.md).
+
+**Décision pipeline** : `node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id <registryId>` ou `resolve-agent-action.mjs --scope pipeline`.
 
 | Règle agent | Comportement |
 |-------------|--------------|
@@ -14,6 +22,8 @@ CapsuleOS est un **rootfs web** : le code applicatif vit sous `CapsuleOS/` (`hom
 | **R-INV1** | ¬**I** → inventaire VM avant code skin |
 | **R-A1** | ¬**A** → `pull-vm-assets.sh`, jamais d’asset inventé |
 | **R-AUTO** | Une seule action admissible → exécuter sans demander |
+| **R-LOC1** / **P11** | Artefact local manquant → FAIL visible ; jamais fallback cross-vendor |
+| **Tax** | Profils `extends` + variants + embed cohérents → `validate-taxonomy.mjs` |
 
 Règle Cursor projet : `.cursor/rules/logique-formelle-capsuleos.mdc` (`alwaysApply`).
 
@@ -90,6 +100,9 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | **Parcours agent (H0–H6)** | [`root/docs/parcours-agent.md`](docs/parcours-agent.md), skill [`onboarding`](skills/onboarding/SKILL.md) |
 | **Ajouter distro / vendor** | [`root/docs/ajouter-os-scalable.md`](docs/ajouter-os-scalable.md) |
 | **Hiérarchie skills** | [`root/docs/skills-hierarchie.md`](docs/skills-hierarchie.md), `seed-agent-skills.mjs --write` |
+| **Taxonomie (pierre angulaire)** | [`docs/convention-taxonomie-semantique.md`](docs/convention-taxonomie-semantique.md), `etc/capsuleos/contracts/taxonomy.json` |
+| **Gate taxonomie** | `node usr/lib/capsuleos/tools/validate-taxonomy.mjs` |
+| **Recette skin/toolkit** | `node usr/lib/capsuleos/tools/linux/run-toolkit-skin-recipe.mjs` |
 | **Gate release complète** | `node usr/lib/capsuleos/tools/validate-all.mjs` |
 | **Liens & médias (file:// + HTTP)** | [`root/docs/routage-donnees-medias.md`](docs/routage-donnees-medias.md), skill [`link-routing`](skills/link-routing/SKILL.md) |
 | Toolkits GUI Linux (GTK/Qt/Cinnamon/COSMIC) | [contrib.md § toolkits](../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) |

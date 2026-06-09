@@ -54,6 +54,8 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'firefox.statusBookmarkUnmapped': 'Favori « {label} » non mappe pour le moment.',
     'firefox.statusTabSimulated': 'Onglet « {label} » simule.',
     'firefox.statusErrorOsLaCapsule': "Erreur de chargement: impossible d'ouvrir la page os-lacapsule.",
+    'firefox.siteLinuxMintTitle': 'Linux Mint',
+    'firefox.siteLinuxMintLead': 'From freedom came elegance — linuxmint.com',
     'mainMenu.userName': 'capsule',
     'mainMenu.searchPlaceholder': 'Rechercher...',
     'profile.windowTitle': 'À Propos',

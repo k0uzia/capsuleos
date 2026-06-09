@@ -1,4 +1,8 @@
 /**
- * Surcharges mineures Fedora (dernier lien CSS dans index si besoin).
- * Le shell principal est dans style/gnome-workstation.css.
+ * Surcharges Fedora — tokens typographie (--font-ui / --font-mono) et dernier lien CSS du skin.
+ * Shell principal : style/gnome-workstation.css + style/gnome-shell/tokens.css
  */
+html:has(#fedora) {
+    --font-ui: "Adwaita Sans", Cantarell, system-ui, sans-serif;
+    --font-mono: "Adwaita Mono", "DejaVu Sans Mono", ui-monospace, monospace;
+}

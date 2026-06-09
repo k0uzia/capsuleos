@@ -308,7 +308,7 @@
 
     function defaultWallpaperId(bodyId) {
         if (bodyId === 'mint') {
-            return 'linuxmint';
+            return 'default_background';
         }
         if (bodyId === 'fedora') {
             return 'f44-01';
@@ -452,8 +452,8 @@
                 light: `${base}/wallpaper-racoon-light.webp`,
                 thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
                 thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
-                gsettingsDark: 'gnome/adwaita-d.jxl',
-                gsettingsLight: 'gnome/adwaita-l.jxl',
+                gsettingsDark: 'gnome/adwaita-d.webp',
+                gsettingsLight: 'gnome/adwaita-l.webp',
             },
             {
                 id: 'racoon',

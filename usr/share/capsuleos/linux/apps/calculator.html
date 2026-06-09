@@ -2,8 +2,7 @@
 
     <header class="gnome-calc__header">
         <div class="gnome-calc__toolbar-start" aria-label="Historique">
-            <button type="button" class="gnome-calc__icon-btn" disabled aria-label="Annuler" title="Annuler"></button>
-            <button type="button" class="gnome-calc__icon-btn" disabled aria-label="Rétablir" title="Rétablir"></button>
+            <button type="button" class="gnome-calc__icon-btn" data-calc="history-toggle" aria-label="Historique des calculs" title="Historique" aria-expanded="false" aria-controls="gnome-calc-history-panel"></button>
         </div>
         <div class="gnome-calc__mode-wrap">
             <button type="button" class="gnome-calc__mode" id="gnome-calc-mode" aria-haspopup="listbox" aria-expanded="false" aria-controls="gnome-calc-mode-popover">
@@ -24,6 +23,17 @@
             <div class="gnome-calc__value" id="gnome-calc-value" role="status" aria-live="polite" aria-atomic="true">0</div>
             <button type="button" class="gnome-calc__backspace" data-calc="backspace" aria-label="Effacer le dernier chiffre" title="Effacer"></button>
         </div>
+    </div>
+
+    <aside class="gnome-calc__history-panel calc-history" id="gnome-calc-history-panel" aria-label="Historique" hidden>
+        <p class="gnome-calc__history-title">Historique</p>
+        <ul class="gnome-calc__history-list" id="gnome-calc-history-list"></ul>
+    </aside>
+
+    <div class="gnome-calc__keypad-advanced calc-scientific-mode" id="gnome-calc-keypad-advanced" role="group" aria-label="Fonctions scientifiques" hidden>
+        <button type="button" class="gnome-calc__key gnome-calc__key--fn" data-calc="fn" data-fn="sin" aria-label="Sinus">sin</button>
+        <button type="button" class="gnome-calc__key gnome-calc__key--fn" data-calc="fn" data-fn="cos" aria-label="Cosinus">cos</button>
+        <button type="button" class="gnome-calc__key gnome-calc__key--fn" data-calc="fn" data-fn="pi" aria-label="Pi">π</button>
     </div>
 
     <div class="gnome-calc__keypad math-buttons" id="gnome-calc-keypad" role="group" aria-label="Pavé numérique">

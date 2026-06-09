@@ -1,6 +1,6 @@
 <main id="gestionnaire" class="nemo-app">
         <header id="nemoHeaderContainer" class="nemo-app__header" data-window-drag-handle>
-                <section class="menuOutils nemo-app__menubar">
+                <section class="menuOutils nemo-app__menubar nemo-menubar">
                         <nav class="nemo-app__menubar-nav">
                                 <ul class="menuHeader nemo-app__menu">
                                         <li>
@@ -302,14 +302,14 @@
                         </nav>
                 </section>
                 <section class="menuOutils nemo-app__toolbar">
-                        <div class="sousMenuOutils nemo-app__toolbar-group nemo-app__toolbar-group--path">
+                        <div class="sousMenuOutils nemo-app__toolbar-group nemo-app__toolbar-group--path nemo-pathbar">
                             <a href="#" id="precedent"><img src="./assets/icons/cinnamon/nemo/go-previous-symbolic.svg"
                                     title="Va à l'emplacement visité précédent"></a>
                             <a href="#" id="suivant"><img src="./assets/icons/cinnamon/nemo/go-next-symbolic.svg"
                                     title="Va à l'emplacement visité suivant"></a>
                             <a href="#" id="parent"><img src="./assets/icons/cinnamon/nemo/go-up-symbolic.svg" title="Aller au dossier parent"></a>
                             <a href="#" id="home"><img src="./assets/icons/cinnamon/nemo/pan-start-symbolic.svg" title="Retourner au dossier personnel"></a>
-                            <div class="nemo-app__path-current" id="nemo-path-label" role="navigation" aria-label="Emplacement actuel" title="Dossier personnel">Dossier personnel</div>
+                            <div class="nemo-app__path-current nemo-pathbar__label" id="nemo-path-label" role="navigation" aria-label="Emplacement actuel" title="Dossier personnel">Dossier personnel</div>
                             <div class="nemo-app__search-wrap" id="nemo-search-wrap" hidden>
                                 <input type="search" id="nemo-search-input" class="nemo-app__search-input"
                                     placeholder="Rechercher…" aria-label="Rechercher des fichiers" autocomplete="off">
@@ -331,38 +331,38 @@
                     </section>
         </header>
         <main id="nemoMainContainer" class="nemo-app__main">
-                <aside id="voletnemo" class="nemo-app__sidebar">
+                <aside id="voletnemo" class="nemo-app__sidebar nemo-sidebar">
                         <a href="#" class="nemo-sidebar__section" data-nemo-section-toggle="places" aria-expanded="true">
                             <img src="./assets/icons/cinnamon/nemo/pan-down-symbolic.svg" alt="">Poste de travail
                         </a>
                         <div data-nemo-section-body="places">
-                                <a data-link="Dossier Personnel" title="Ouvrir le dossier personnel"><img src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg" alt="">Dossier personnel</a>
-                                <a data-link="Bureau" title="Ouvrir le bureau"><img
+                                <a class="places-item" data-link="Dossier Personnel" title="Ouvrir le dossier personnel"><img src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg" alt="">Dossier personnel</a>
+                                <a class="places-item" data-link="Bureau" title="Ouvrir le bureau"><img
                                                 src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg"
                                                 title="Ouvre le contenu de votre bureau dans un dossier">Bureau</a>
-                                <a data-link="Documents" title="Ouvrir les documents"><img
+                                <a class="places-item" data-link="Documents" title="Ouvrir les documents"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg"
                                                 title="/home/utilisateur.../Documents">Documents</a>
-                                <a data-link="Musique" title="Ouvrir la musique"><img
+                                <a class="places-item" data-link="Musique" title="Ouvrir la musique"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-music-symbolic.svg"
                                                 title="/home/utilisateur.../Musique">Musique</a>
-                                <a data-link="Images" title="Ouvrir les images"><img
+                                <a class="places-item" data-link="Images" title="Ouvrir les images"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-pictures-symbolic.svg"
                                                 title="/home/utilisateur.../Images">Images</a>
-                                <a data-link="Vidéos" title="Ouvrir les vidéos"><img
+                                <a class="places-item" data-link="Vidéos" title="Ouvrir les vidéos"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-videos-symbolic.svg"
                                                 title="/home/utilisateur.../Vidéos">Vidéos</a>
-                                <a data-link="Téléchargements"
+                                <a class="places-item" data-link="Téléchargements"
                                         title="Ouvrir les téléchargements"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-download-symbolic.svg"
                                                 title="/home/utilisateur.../Téléchargements">Téléchargements</a>
-                                <a data-link="Récent" title="Fichiers récents"><img
+                                <a class="places-item" data-link="Récent" title="Fichiers récents"><img
                                                 src="./assets/icons/cinnamon/nemo/places/folder-recent-symbolic.svg"
                                                 alt="">Récent</a>
-                                <a data-link="Système de fichiers" title="Système de fichiers"><img
+                                <a class="places-item" data-link="Système de fichiers" title="Système de fichiers"><img
                                                 src="./assets/icons/cinnamon/nemo/media-removable-symbolic.svg"
                                                 alt="">Système de fichiers</a>
-                                <a data-link="Corbeille" title="Ouvrir la corbeille"><img
+                                <a class="places-item" data-link="Corbeille" title="Ouvrir la corbeille"><img
                                                 src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg"
                                                 alt="">Corbeille</a>
                         </div>
@@ -383,8 +383,8 @@
                                                 alt="">Réseau</a>
                         </div>
                 </aside>
-                <aside id="voletContainer" class="nemo-app__content-wrap">
-                        <section class="nemoElement nemo-app__content-grid">
+                <aside id="voletContainer" class="nemo-app__content-wrap nemo-content">
+                        <section class="nemoElement nemo-app__content-grid nemo-file-list">
                                 <!-- AFFICHAGE DES DOSSIERS ET FICHIERS -->
                         </section>
                 </aside>

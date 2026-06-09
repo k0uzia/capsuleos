@@ -38,7 +38,7 @@ node usr/lib/capsuleos/tools/print-validation-plan.mjs home/Debian/Mint/style/ap
 | **Registre / profils** | `etc/capsuleos/`, `os-registry-entries.mjs` | [ajouter-os-scalable.md](ajouter-os-scalable.md) | `build-os-registry.mjs` chaîne + `validate-capsule.mjs` | `print-agent-brief.mjs <id>` |
 | **Liens HTML statiques** | `*.html` hors skin, hubs `OS/` | [link-routing](../skills/link-routing/SKILL.md) | `validate-links-all.mjs` | `fix-static-html-asset-urls.mjs` |
 | **Lab / smokes** | `usr/lib/capsuleos/tools/lab/` | [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) | Smokes touchés (Playwright) | Pas de `validate-all` si lab seul |
-| **Clone VM / parité** | inventaires, playbooks lab | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | `validate-clone-assets.mjs --id <registryId>` puis `capture-clone-surfaces.mjs --id <registryId>` ; chaîne domaine (`compare-os-parity`) | `resolve-agent-action.mjs --auto` |
+| **Clone VM / parité** | inventaires, playbooks lab | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [moteur-clonage-experience.md](moteur-clonage-experience.md) | `run-clone-cycle.mjs --id <registryId> --status` ; `validate-clone-assets.mjs --id <registryId>` ; `validate-skin-icon-paths.mjs --id <registryId>` ; `capture-clone-surfaces.mjs` | `run-cross-regression-gates.mjs` si noyau `fileExplorer/` touché |
 
 **Release (merge / PR significative)** : toujours terminer par :
 
@@ -122,9 +122,10 @@ Ordre **obligatoire** avant push / merge d’un lot skin ou noyau interactif :
 
 1. `validate-all` sur chaque commit doc.
 2. Modifier `home/` sans `sync-linux-skin-closure` avant fin de tâche.
-3. Ignorer un échec `validate-capsule` « parce que c'était déjà rouge » **dans la zone touchée**.
-4. Smokes lab avec sleeps >1 s sans attente conditionnelle (régression perf CI).
-5. Push sans **Rv** sur un slot interactif modifié.
+3. **Mint panel/menu** : double CSS (`imports.css` + inject `contentLoader`), `footer.css`/`panel-windows.css` parallèles, layout menu dans `mint-menu-parity.js`, `--taskbar-height` portal — voir skill `os-linux` § Panel/menu Mint v3.
+4. Ignorer un échec `validate-capsule` « parce que c'était déjà rouge » **dans la zone touchée**.
+5. Smokes lab avec sleeps >1 s sans attente conditionnelle (régression perf CI).
+6. Push sans **Rv** sur un slot interactif modifié.
 
 ---
 

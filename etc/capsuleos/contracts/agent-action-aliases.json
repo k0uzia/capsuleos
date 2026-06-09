@@ -143,6 +143,13 @@
       "command": "node usr/lib/capsuleos/tools/lab/run-agent-auto.mjs --id {id}",
       "autoExecute": true
     },
+    "capsule-pipeline": {
+      "predicate": "*",
+      "rule": "R-PIPELINE",
+      "command": "node usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs --id {id}",
+      "autoExecute": true,
+      "note": "Orchestrateur unifié §5.2 — couches socle → ManΣ → AppΣ → PbΣ → Vp → Tf → H6"
+    },
     "formal-chain": {
       "predicate": "*",
       "rule": "R-FORMAL",

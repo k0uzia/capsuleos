@@ -27,7 +27,8 @@ const main = () => {
   for (const item of inv.investigations || []) {
     if (item.parityPriority !== 'P0' || item.status !== 'documented') continue;
     const hasCapsule = (item.capsuleCaptures || []).length > 0;
-    const hasVm = (item.vmCaptures || []).length > 0;
+    const hasVm = (item.vmCaptures || []).length > 0
+      || (item.componentShots || []).some((s) => s.vmCapture);
     let visualMatch = 'unknown';
     if (hasCapsule && hasVm) visualMatch = 'partial';
     else if (hasCapsule) visualMatch = 'partial';

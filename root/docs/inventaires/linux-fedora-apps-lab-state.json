@@ -1,0 +1,9 @@
+{
+  "registryId": "linux-fedora",
+  "status": "done",
+  "updatedAt": "2026-06-08T23:18:11.948Z",
+  "gate": "run-apps-lab.mjs",
+  "playwright": false,
+  "vm": false,
+  "shell": false
+}

@@ -241,7 +241,8 @@
             const rel = path.slice(ADWAITA_BASE.length + 1);
             return gnomeAssetPath(rel);
         }
-        if (path.indexOf('./assets/images/toolkits/gnome/elements/nemo/') === 0) {
+        if (path.indexOf('./assets/images/toolkits/gnome/elements/nemo/') === 0
+            || path.indexOf('./assets/images/toolkits/cinnamon/elements/nemo/') === 0) {
             const leaf = path.split('/').pop();
             return gnomeAssetPath(remapLeaf(leaf));
         }

@@ -9,7 +9,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 
 export const MINT_URL = process.env.CAPSULE_MINT_URL
-  || 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
+  || 'http://127.0.0.1:5501/home/Debian/Mint/index.html';
+
+export const MINT_VIEWPORT = { width: 1280, height: 800 };
 
 export const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
@@ -67,6 +69,7 @@ const MENU_SEARCH = {
 const DESKTOP_SHORTCUT_SLOTS = new Set(['calculator', 'text_editor', 'mintinstall', 'themes']);
 
 export async function waitMintReady(page) {
+  await page.setViewportSize(MINT_VIEWPORT);
   await page.goto(MINT_URL, { waitUntil: 'networkidle', timeout: 60000 });
   await page.waitForFunction(
     () => typeof window.openWindowByDataLink === 'function',

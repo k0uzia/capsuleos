@@ -679,9 +679,10 @@ def build_media_bundle(
     panel = scan_panel_icons(catalog, icon_theme)
     branding = scan_branding(catalog)
     wallpapers = discover_wallpapers(catalog.get("wallpaperCandidates"))
-    app_icons = build_app_icons(applications, icon_theme)
+    app_icons = build_app_icons(applications, icon_theme, toolkit_id)
 
     return {
+        "toolkitId": toolkit_id,
         "iconPack": icon_pack,
         "fonts": fonts,
         "mimetypes": {"theme": icon_theme, "entries": mimetypes, "entryCount": len(mimetypes)},
@@ -695,17 +696,24 @@ def build_media_bundle(
     }
 
 
-def build_app_icons(applications: dict[str, Any], icon_theme: str) -> list[dict[str, Any]]:
+def build_app_icons(
+    applications: dict[str, Any],
+    icon_theme: str,
+    toolkit_id: str = "gnome",
+) -> list[dict[str, Any]]:
     icons: list[dict[str, Any]] = []
     for app in applications.get("gridVisible", []):
         icon_name = app.get("icon") or ""
         paths = resolve_icon_paths(icon_name, icon_theme)
+        vm_path = paths[0] if paths else ""
+        ext = os.path.splitext(vm_path)[1] or ".png"
+        app_id = app["normalizedId"]
         icons.append({
-            "appId": app["normalizedId"],
+            "appId": app_id,
             "desktopId": app["id"],
             "iconName": icon_name,
             "vmPaths": paths,
-            "capsuleTarget": f"images/toolkits/gnome/apps/{app['normalizedId']}",
+            "capsuleTarget": f"images/toolkits/{toolkit_id}/apps/overview/{app_id}{ext}",
         })
     return icons
 
@@ -727,10 +735,14 @@ def build_import_plan(vendor: str, media: dict[str, Any]) -> dict[str, Any]:
     bundles: list[dict[str, Any]] = []
     assets = "usr/share/capsuleos/assets"
 
+    toolkit = media.get("toolkitId", "gnome")
     app_paths = [i["vmPaths"][0] for i in media.get("appIcons", []) if i.get("vmPaths")]
-    b = _bundle_from_entries("app-icons", "applications", f"{assets}/images/toolkits/gnome/apps", [
-        {"vmPath": p} for p in app_paths
-    ])
+    b = _bundle_from_entries(
+        "app-icons",
+        "applications",
+        f"{assets}/images/toolkits/{toolkit}/apps/overview",
+        [{"vmPath": p} for p in app_paths],
+    )
     if b:
         bundles.append(b)
 

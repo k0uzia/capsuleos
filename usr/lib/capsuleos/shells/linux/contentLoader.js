@@ -22,6 +22,9 @@ const getEmbedSkinKey = () => {
 /** Kickoff Plasma : le gabarit HTML + skin.css suffisent — mainMenu.base.css (MX/Cinnamon) casse le layout. */
 const PLASMA_MAIN_MENU_SKINS = new Set(['opensuse', 'kde-neon', 'mxkde', 'debian-kde']);
 const PLASMA_MAIN_MENU_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
+/** Mint Cinnamon : menu panneau — layout entièrement dans mainMenu.skin.css (imports statiques). */
+const CINNAMON_PANEL_MENU_SKINS = new Set(['mint']);
+const CINNAMON_PANEL_MENU_BODY_IDS = new Set(['mint']);
 
 /** Discover KDE : CSS commun (grille sidebar) embarqué au build — doit aussi être fetché en HTTP. */
 const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde']);
@@ -53,8 +56,22 @@ const shouldSkipMainMenuBaseCss = (templateId, htmlHint) => {
     if (PLASMA_MAIN_MENU_SKINS.has(getEmbedSkinKey())) {
         return true;
     }
+    if (CINNAMON_PANEL_MENU_SKINS.has(getEmbedSkinKey())) {
+        return true;
+    }
     const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
-    return !!(bodyId && PLASMA_MAIN_MENU_BODY_IDS.has(bodyId));
+    if (bodyId && PLASMA_MAIN_MENU_BODY_IDS.has(bodyId)) {
+        return true;
+    }
+    return !!(bodyId && CINNAMON_PANEL_MENU_BODY_IDS.has(bodyId));
+};
+
+const shouldSkipDynamicSkinCss = (slotId) => {
+    const staticSlots = typeof window !== 'undefined' && window.CAPSULE_STATIC_SKIN_SLOTS;
+    if (!Array.isArray(staticSlots)) {
+        return false;
+    }
+    return staticSlots.indexOf(slotId) !== -1;
 };
 
 const shouldUseAppEmbed = (templateId) => {
@@ -107,6 +124,58 @@ const resolveCssBaseTemplateId = (templateId) => {
         return 'mainMenu-gnome';
     }
     return templateId;
+};
+
+/**
+ * Slot logique → id de gabarit effectif (CAPSULE_TEMPLATE_OVERRIDES ou slot brut).
+ * Ex. update_manager + override …/update_manager_gnome.html → update_manager_gnome.
+ */
+const resolveEffectiveTemplateId = (slotId, templateId) => {
+    if (typeof window !== 'undefined'
+        && window.CAPSULE_TEMPLATE_OVERRIDES
+        && window.CAPSULE_TEMPLATE_OVERRIDES[slotId]) {
+        const override = String(window.CAPSULE_TEMPLATE_OVERRIDES[slotId]);
+        const fileName = override.split('/').pop() || '';
+        const stem = fileName.replace(/\.html$/i, '');
+        if (stem) {
+            return stem;
+        }
+    }
+    return templateId;
+};
+
+const resolveEmbedSkinOverride = (skinKey, templateId) => {
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    if (!embed || !embed.skinTemplates || !skinKey) {
+        return null;
+    }
+    return embed.skinTemplates[skinKey] && embed.skinTemplates[skinKey][templateId]
+        ? embed.skinTemplates[skinKey][templateId]
+        : null;
+};
+
+const resolveEmbeddedCssBase = (slotId, templateId, htmlHint) => {
+    if (shouldSkipMainMenuBaseCss(templateId, htmlHint)) {
+        return '';
+    }
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    if (!embed || !embed.templates) {
+        return '';
+    }
+    const skinKey = getEmbedSkinKey();
+    const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
+    if (skinOverride && skinOverride.cssBase) {
+        return skinOverride.cssBase;
+    }
+    const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
+    const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
+    if (embed.templates[cssBaseTemplateId] && embed.templates[cssBaseTemplateId].cssBase) {
+        return embed.templates[cssBaseTemplateId].cssBase;
+    }
+    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
+        return embed.templates[templateId].cssBase;
+    }
+    return '';
 };
 
 const normalizeExplorerSkinId = (skinId, templateId) => {
@@ -206,36 +275,33 @@ const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
     return candidates;
 };
 
-const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile) => {
+const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile) => {
     const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
     if (shouldUseAppEmbed(templateId) && embed && embed.templates && embed.templates[templateId]) {
         const skinKey = getEmbedSkinKey();
         const skinMap = embed.skins && embed.skins[skinKey];
         if (skinMap) {
             const t = embed.templates[templateId];
-            const skinOverride = embed.skinTemplates
-                && embed.skinTemplates[skinKey]
-                && embed.skinTemplates[skinKey][templateId];
-            const cssSkin = skinMap[skinId] != null
-                ? skinMap[skinId]
-                : (skinMap[templateId] != null ? skinMap[templateId] : '');
-            const cssBaseId = (templateId === 'update_manager' && isKdeDiscoverContext())
-                ? resolveKdeDiscoverCssBaseId()
-                : templateId;
-            const cssBaseFromEmbed = (embed.templates[cssBaseId] && embed.templates[cssBaseId].cssBase)
-                || (cssBaseId !== templateId && embed.templates[templateId] && embed.templates[templateId].cssBase)
-                || t.cssBase;
+            const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
+            const resolvedHtml = skinOverride && skinOverride.html ? skinOverride.html : t.html;
+            const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
+            const cssSkin = skipDynamicSkin
+                ? ''
+                : (skinMap[skinId] != null
+                    ? skinMap[skinId]
+                    : (skinMap[templateId] != null ? skinMap[templateId] : ''));
             return Promise.resolve({
-                html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
-                cssBase: shouldSkipMainMenuBaseCss(templateId, skinOverride && skinOverride.html ? skinOverride.html : t.html) ? '' : cssBaseFromEmbed,
+                html: resolvedHtml,
+                cssBase: resolveEmbeddedCssBase(slotId, templateId, resolvedHtml),
                 cssSkin
             });
         }
         console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
     }
 
+    const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
     const htmlCandidates = resolveTemplateHtmlCandidates(templateId, appsBase, skinBase);
-    const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
+    const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
     const cssBaseFile = `${appsBase}/style/${cssBaseTemplateId}.base.css`;
 
     const resolveEmbedHtml = () => {
@@ -251,7 +317,7 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
 
     const fetchHtml = (async () => {
         const skinKey = getEmbedSkinKey();
-        const skinOverride = embed && embed.skinTemplates && embed.skinTemplates[skinKey] && embed.skinTemplates[skinKey][templateId];
+        const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
         if (skinOverride && skinOverride.html) {
             return skinOverride.html;
         }
@@ -309,9 +375,10 @@ const loadSlotAssets = (templateId, skinId, appsBase, skinBase, cssSkinFile, css
         let text = '';
         const response = await fetch(cssBaseFile, { cache: 'no-store' });
         if (!response.ok) {
-            if (embed && embed.templates && embed.templates[templateId] && embed.templates[templateId].cssBase) {
-                console.warn(`CapsuleOS: CSS base ${templateId} via embed (HTTP ${response.status})`);
-                text = embed.templates[templateId].cssBase;
+            const embeddedCssBase = resolveEmbeddedCssBase(slotId, templateId);
+            if (embeddedCssBase) {
+                console.warn(`CapsuleOS: CSS base ${cssBaseTemplateId} via embed (HTTP ${response.status})`);
+                text = embeddedCssBase;
             } else {
                 throw new Error(`HTTP ${response.status} ${cssBaseFile}`);
             }
@@ -456,6 +523,9 @@ const SLOT_INIT_HANDLERS = {
         runFirstAvailable([
             { fn: typeof initFileExplorerDnD === 'function' ? initFileExplorerDnD : null }
         ]);
+        if (typeof window.bindFileExplorerContextMenu === 'function') {
+            window.bindFileExplorerContextMenu(container);
+        }
     },
     terminal: (container) => {
         runFirstAvailable([
@@ -790,12 +860,15 @@ const startCapsuleContentLoad = () => {
                 const skinId = resolveSkinId(slotId, templateId);
                 const appsBase = getAppsBase();
                 const skinBase = getSkinBase();
-                const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
-                const cssSkinFallbackFile = skinBase
+                const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
+                const cssSkinFile = !skipDynamicSkin && skinBase
+                    ? `${skinBase}/style/apps/${skinId}.skin.css`
+                    : null;
+                const cssSkinFallbackFile = !skipDynamicSkin && skinBase
                     ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
                     : null;
 
-                return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
+                return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
                     .then(({ html, cssBase, cssSkin }) => {
                         injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
                     })
@@ -828,12 +901,15 @@ const reloadCapsuleSlot = (container, slotId) => {
     const skinId = resolveSkinId(slotId, templateId);
     const appsBase = getAppsBase();
     const skinBase = getSkinBase();
-    const cssSkinFile = skinBase ? `${skinBase}/style/apps/${skinId}.skin.css` : null;
-    const cssSkinFallbackFile = skinBase
+    const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
+    const cssSkinFile = !skipDynamicSkin && skinBase
+        ? `${skinBase}/style/apps/${skinId}.skin.css`
+        : null;
+    const cssSkinFallbackFile = !skipDynamicSkin && skinBase
         ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
         : null;
 
-    return loadSlotAssets(templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
+    return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
         .then(({ html, cssBase, cssSkin }) => {
             injectSlot(container, slotId, templateId, html, cssBase, cssSkin);
         });

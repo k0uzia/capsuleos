@@ -44,7 +44,7 @@
                     <span class="update-manager__tool-icon" aria-hidden="true"></span>
                     <span>Tout sélectionner</span>
                 </button>
-                <button type="button" class="update-manager__tool" data-um-action="refresh">
+                <button type="button" class="update-manager__tool update-manager-refresh" data-um-action="refresh">
                     <span class="update-manager__tool-icon" aria-hidden="true"></span>
                     <span>Actualiser</span>
                 </button>
@@ -116,7 +116,7 @@
             <p class="update-manager__empty-text">Votre système est à jour</p>
         </section>
 
-        <section class="update-manager__tablewrap" id="um-tablewrap" aria-label="Liste des mises à jour" hidden>
+        <section class="update-manager__tablewrap update-manager-list" id="um-tablewrap" aria-label="Liste des mises à jour" hidden>
             <table class="update-manager__table">
                 <thead>
                     <tr>
@@ -210,10 +210,10 @@
         </section>
 
         <section class="update-manager__bottom" aria-label="Détails">
-            <nav class="update-manager__tabs" aria-label="Onglets">
-                <button type="button" class="update-manager__tab is-active" data-um-tab="info">Renseignements</button>
-                <button type="button" class="update-manager__tab" data-um-tab="packages">Paquets</button>
-                <button type="button" class="update-manager__tab" data-um-tab="changelog">Journal des changements</button>
+            <nav class="update-manager__tabs update-manager-tabs" aria-label="Onglets">
+                <button type="button" class="update-manager__tab tab is-active" data-um-tab="info">Renseignements</button>
+                <button type="button" class="update-manager__tab tab" data-um-tab="packages">Paquets</button>
+                <button type="button" class="update-manager__tab tab" data-um-tab="changelog">Journal des changements</button>
             </nav>
             <section class="update-manager__panel" id="um-panel" aria-label="Contenu onglet">
                 <p class="update-manager__placeholder">Sélectionne une mise à jour pour afficher des informations (simulation).</p>

@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 /**
- * Vérifie la chaîne complète Paramètres : matrice ↔ parity ↔ HTML ↔ baseline VM ↔ interactions.
+ * Vérifie la chaîne Paramètres : matrice ↔ parity ↔ HTML ↔ baseline VM ↔ interactions.
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs
- *   node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --strict
+ *   node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id linux-rocky
+ *   node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id linux-ubuntu --strict
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { ROOT } from './replication-chain-lib.mjs';
+import { resolveLabMatrix } from './lab-recipe-resolver.mjs';
+import { h6Profile, parseRegistryId } from './h6-gnome-settings-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
 const warnings = [];
 
@@ -21,20 +23,30 @@ const read = (rel) => {
 };
 
 const strict = process.argv.includes('--strict');
-const registry = 'linux-rocky';
+const registry = parseRegistryId();
+const profile = h6Profile(registry);
 
-const matrix = JSON.parse(read('root/tools/lab/gnome-settings-parity-matrix.json') || '{}');
+let matrix;
+try {
+  const resolved = resolveLabMatrix(registry, 'parity', { strict: true });
+  matrix = JSON.parse(fs.readFileSync(resolved.absolute, 'utf8'));
+} catch (err) {
+  errors.push(err.message);
+  matrix = { panels: [] };
+}
+
+try {
+  resolveLabMatrix(registry, 'assets', { strict: true });
+} catch (err) {
+  errors.push(err.message);
+}
+
 const parityJs = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
 const gsettingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js');
 const bindingsJs = read('usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js');
 const themesHtml = read('usr/share/capsuleos/linux/apps/themes_gnome.html');
-const rockyIndex = read('home/RedHat/Rocky/index.html');
+const skinIndex = read(profile.skinRel);
 const baselineJs = read(`usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-${registry}.js`);
-
-const assetsMatrix = read('root/tools/lab/gnome-settings-assets-matrix.json');
-if (!assetsMatrix.includes('"capsulePath"')) {
-  errors.push('gnome-settings-assets-matrix.json absent ou invalide');
-}
 
 const playbookPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-playbook.json`);
 const interactionPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-gnome-settings-interaction.json`);
@@ -53,14 +65,14 @@ const switchIds = handlerIds(parityJs, 'SWITCH_HANDLERS');
 const selectIds = handlerIds(parityJs, 'SELECT_HANDLERS');
 const sliderIds = handlerIds(parityJs, 'SLIDER_HANDLERS');
 
-if (!rockyIndex.includes(`gnome-settings-vm-baseline-${registry}.js`)) {
-  errors.push(`Rocky index : baseline VM script absent`);
+if (profile.requiresBaseline && !skinIndex.includes(`gnome-settings-vm-baseline-${registry}.js`)) {
+  errors.push(`${profile.skinRel} : baseline VM script absent`);
 }
-if (!rockyIndex.includes('gnome-hot-corners.js')) {
-  errors.push('Rocky index : gnome-hot-corners.js absent (H5 P1 hot-corner)');
+if (profile.requiresHotCorners && !skinIndex.includes('gnome-hot-corners.js')) {
+  errors.push(`${profile.skinRel} : gnome-hot-corners.js absent (H5 P1 hot-corner)`);
 }
-if (!baselineJs.includes('CAPSULE_VM_SETTINGS_BASELINE')) {
-  errors.push('Baseline JS : CAPSULE_VM_SETTINGS_BASELINE absent');
+if (profile.requiresBaseline && !baselineJs.includes('CAPSULE_VM_SETTINGS_BASELINE')) {
+  errors.push(`Baseline JS : CAPSULE_VM_SETTINGS_BASELINE absent pour ${registry}`);
 }
 if (!parityJs.includes('mergeVmSettingsBaseline')) {
   errors.push('parity.js : mergeVmSettingsBaseline absent');
@@ -80,20 +92,20 @@ if (!gsettingsJs.includes('searchProviderToggle')) {
 if (!bindingsJs.includes('CAPSULE_GSETTINGS_BINDINGS')) {
   errors.push('gnome-gsettings-bindings.js : CAPSULE_GSETTINGS_BINDINGS absent');
 }
-if (!rockyIndex.includes('gnome-gsettings-bindings.js')) {
-  errors.push('Rocky index : gnome-gsettings-bindings.js absent');
+if (!skinIndex.includes('gnome-gsettings-bindings.js')) {
+  errors.push(`${profile.skinRel} : gnome-gsettings-bindings.js absent`);
 }
-if (!rockyIndex.includes('gnome-gsettings-store.js')) {
-  errors.push('Rocky index : gnome-gsettings-store.js absent');
+if (!skinIndex.includes('gnome-gsettings-store.js')) {
+  errors.push(`${profile.skinRel} : gnome-gsettings-store.js absent`);
 }
-const bindingsPos = rockyIndex.indexOf('gnome-gsettings-bindings.js');
-const gsettingsPos = rockyIndex.indexOf('gnome-gsettings-store.js');
-const parityPos = rockyIndex.indexOf('gnome-settings-parity.js');
+const bindingsPos = skinIndex.indexOf('gnome-gsettings-bindings.js');
+const gsettingsPos = skinIndex.indexOf('gnome-gsettings-store.js');
+const parityPos = skinIndex.indexOf('gnome-settings-parity.js');
 if (bindingsPos >= 0 && gsettingsPos >= 0 && bindingsPos > gsettingsPos) {
-  errors.push('Rocky index : gnome-gsettings-bindings.js doit précéder gnome-gsettings-store.js');
+  errors.push(`${profile.skinRel} : gnome-gsettings-bindings.js doit précéder gnome-gsettings-store.js`);
 }
 if (gsettingsPos >= 0 && parityPos >= 0 && gsettingsPos > parityPos) {
-  errors.push('Rocky index : gnome-gsettings-store.js doit précéder gnome-settings-parity.js');
+  errors.push(`${profile.skinRel} : gnome-gsettings-store.js doit précéder gnome-settings-parity.js`);
 }
 
 let generatedBindings = {};
@@ -162,7 +174,7 @@ for (const panel of matrix.panels || []) {
   }
 }
 
-if (fs.existsSync(playbookPath)) {
+if (profile.requiresPlaybook && fs.existsSync(playbookPath)) {
   const playbook = JSON.parse(fs.readFileSync(playbookPath, 'utf8'));
   const baselineMatch = baselineJs.match(/CAPSULE_VM_SETTINGS_BASELINE = (\{[\s\S]*?\});/);
   let baseline = {};
@@ -180,11 +192,11 @@ if (fs.existsSync(playbookPath)) {
       }
     }
   }
-} else {
-  warnings.push('Playbook inventaire absent — baseline non vérifiée');
+} else if (profile.requiresPlaybook) {
+  warnings.push(`Playbook inventaire absent pour ${registry} — baseline non vérifiée`);
 }
 
-if (fs.existsSync(interactionPath)) {
+if (profile.requiresInteractionInventory && fs.existsSync(interactionPath)) {
   const interaction = JSON.parse(fs.readFileSync(interactionPath, 'utf8'));
   const failed = [];
   for (const panel of interaction.panels || []) {
@@ -198,17 +210,17 @@ if (fs.existsSync(interactionPath)) {
   if ((interaction.summary?.ok || 0) < 20) {
     warnings.push(`Interactions VM : seulement ${interaction.summary?.ok || 0} OK`);
   }
-} else {
+} else if (profile.requiresInteractionInventory) {
   warnings.push('Inventaire interaction absent');
 }
 
 if (errors.length) {
-  console.error('verify-gnome-settings-parity-chain — échec\n');
+  console.error(`verify-gnome-settings-parity-chain ${registry} — échec\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
   if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
   process.exit(1);
 }
 
-console.log('✓ verify-gnome-settings-parity-chain OK');
+console.log(`✓ verify-gnome-settings-parity-chain ${registry} OK`);
 if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
 if (strict && warnings.length) process.exit(1);

@@ -1,6 +1,11 @@
 /**
  * Surcharges Ubuntu (dernier lien CSS dans index.html).
  */
+html:has(#ubuntu) {
+    --font-ui: "Ubuntu", "Noto Sans", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "Ubuntu Mono", "DejaVu Sans Mono", ui-monospace, monospace;
+}
+
 body#ubuntu .fedora-overview__brand,
 body#ubuntu .ubuntu-overview__brand {
     text-transform: lowercase;

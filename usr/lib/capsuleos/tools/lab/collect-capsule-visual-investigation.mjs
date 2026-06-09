@@ -15,6 +15,7 @@ import {
   pathsForRegistry,
   skinUrlFromRegistry,
 } from './replication-chain-lib.mjs';
+import { resolveCapsuleHttpBase, resolveLabMatrix } from './lab-recipe-resolver.mjs';
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -30,6 +31,11 @@ const parseArgs = () => {
 };
 
 const resolveVisualMatrix = (registryId) => {
+  try {
+    return resolveLabMatrix(registryId, 'visual').absolute;
+  } catch {
+    /* fallback legacy */
+  }
   const vendor = loadRegistryEntry(registryId).vendor || registryId.replace(/^linux-/, '');
   const vendorMatrix = path.join(ROOT, 'root/tools/lab', `gnome-settings-visual-investigation-matrix-${vendor}.json`);
   if (fs.existsSync(vendorMatrix)) return vendorMatrix;
@@ -279,7 +285,8 @@ const main = async () => {
   const opts = parseArgs();
   const contract = loadContract();
   const paths = pathsForRegistry(opts.id);
-  const base = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500').replace(/\/$/, '');
+  const base = resolveCapsuleHttpBase(opts.id);
+  process.stderr.write(`Capsule HTTP : ${base}\n`);
   const skin = loadRegistryEntry(opts.id).referencePaths?.skin || '';
   const url = `${base}/${skin.replace(/^\//, '')}`;
 

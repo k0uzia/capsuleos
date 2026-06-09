@@ -19,6 +19,7 @@ description: >-
 
 | Document | Rôle |
 |----------|------|
+| [convention-composants-gnome.md](../../docs/convention-composants-gnome.md) | **Composants + apps par défaut** — modèle toolkit |
 | [gnome-hig-ressources.md](../../docs/gnome-hig-ressources.md) | **Catalogue humain** — 58 pages HIG + outils |
 | [gnome-hig-resources.json](../../docs/inventaires/gnome-hig-resources.json) | **Inventaire machine** — URLs crawlées |
 | [reference-gnome-expert.md](../../docs/reference-gnome-expert.md) | Stack Mutter, apps, gsettings |
@@ -73,6 +74,14 @@ Commit le JSON si de nouvelles pages apparaissent (montée GNOME).
 - Le HIG documente **apps GTK 4 / libadwaita**, pas tout le **GNOME Shell** (Aperçu, dash, peek workspaces).
 - Shell : wiki GnomeShell/Design + captures VM + `design-shell-layout`.
 - Extensions tierces (Dash to Dock) ≠ modèle RHEL natif.
+
+## Catalogue composants (apps default)
+
+```bash
+node usr/lib/capsuleos/tools/validate-ui-components-gnome.mjs
+```
+
+Contrat : `etc/capsuleos/contracts/ui-components-gnome.json` — acquisition VM par `acquisitionOrder` par slot.
 
 ## Gates CapsuleOS
 

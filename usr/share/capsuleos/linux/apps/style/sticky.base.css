@@ -85,3 +85,52 @@ main#stickyApp {
 .stk-app__editor:focus {
     outline: none;
 }
+
+.stk-app__colors {
+    display: flex;
+    gap: 4px;
+}
+
+.stk-app__color {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 1px solid var(--stk-btn-border, rgba(0, 0, 0, 0.15));
+    border-radius: 999px;
+    cursor: default;
+}
+
+.stk-app__color[data-stk-color="yellow"] {
+    background: #fff176;
+}
+
+.stk-app__color[data-stk-color="green"] {
+    background: #a5d6a7;
+}
+
+.stk-app__color[data-stk-color="pink"] {
+    background: #f48fb1;
+}
+
+.stk-app__editor--yellow {
+    background: #fff9c4;
+}
+
+.stk-app__editor--green {
+    background: #e8f5e9;
+}
+
+.stk-app__editor--pink {
+    background: #fce4ec;
+}
+
+.stk-app__delete-confirm {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.72);
+    color: #fff;
+    font-size: 12px;
+}

@@ -75,11 +75,27 @@
         return WINDOW_LABELS[dataLink] || dataLink;
     }
 
+    function resolveIconUrl(path) {
+        if (!path) {
+            return '';
+        }
+        if (typeof global.resolveCapsuleAssetUrl === 'function') {
+            return global.resolveCapsuleAssetUrl(path);
+        }
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(path);
+        }
+        return path;
+    }
+
     function resolveIconSrc(dataLink) {
         const launcher = global.document.querySelector(
             `a[target="windowElement"][data-link="${dataLink}"] img`
         );
-        return launcher ? launcher.getAttribute('src') : '';
+        if (!launcher) {
+            return '';
+        }
+        return resolveIconUrl(launcher.getAttribute('src') || '');
     }
 
     function isVisible(container) {
@@ -171,7 +187,7 @@
             if (entry.iconSrc) {
                 const img = global.document.createElement('img');
                 img.className = 'cinnamon-alt-tab__icon';
-                img.src = entry.iconSrc;
+                img.src = resolveIconUrl(entry.iconSrc);
                 img.alt = '';
                 btn.appendChild(img);
             } else {

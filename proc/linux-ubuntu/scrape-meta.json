@@ -1,13 +1,12 @@
 {
-  "version": 2,
+  "version": 1,
   "registryId": "linux-ubuntu",
-  "collectedAt": "2026-06-07T23:00:50Z",
-  "source": "collect-vm-distribution-manifest.mjs",
-  "manifestPath": "proc/linux-ubuntu/distribution-manifest.json",
+  "collectedAt": "2026-06-08T20:56:13.605Z",
+  "source": "distribution-manifest",
   "searchPaths": [
     "/usr/share/applications",
     "/var/lib/snapd/desktop/applications",
-    "/home/capsule/.local/share/applications"
+    "/usr/local/share/applications"
   ],
   "gridVisible": 25,
   "total": 92

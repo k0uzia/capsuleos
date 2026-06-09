@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "toolkit": "cinnamon",
+  "scope": "default-apps",
+  "status": "skeleton",
+  "description": "Squelette catalogue composants Cinnamon (Linux Mint) — extension miroir du modèle GNOME. Apps par défaut Mint uniquement.",
+  "modelRef": "etc/capsuleos/contracts/ui-components-gnome.json",
+  "referenceRegistryId": "linux-mint",
+  "sources": {
+    "cinnamonProject": "https://projects.linuxmint.com/cinnamon/",
+    "cinnamonGithub": "https://github.com/linuxmint/Cinnamon",
+    "nemoGithub": "https://github.com/linuxmint/nemo",
+    "mintUserGuide": "https://linuxmint.com/documentation.php",
+    "capsuleParadigm": "root/docs/paradigme-toolkit-cinnamon.md",
+    "capsuleDoc": "root/docs/convention-composants-cinnamon.md"
+  },
+  "levels": {
+    "N0": {
+      "label": "Primitives design (tokens Cinnamon)",
+      "paths": [
+        "usr/share/capsuleos/themes/clusters/toolkit-cinnamon/variables.css",
+        "usr/share/capsuleos/themes/clusters/toolkit-cinnamon/chrome.css",
+        "usr/share/capsuleos/themes/linux/window-chrome.base.css"
+      ]
+    },
+    "N1": {
+      "label": "Composants plateforme documentés",
+      "contractKey": "components"
+    },
+    "N2": {
+      "label": "Compositions applicatives (slots Mint)",
+      "contractKey": "appCompositions"
+    }
+  },
+  "components": {
+    "cinnamon.muffin-window": {
+      "labelFr": "Fenêtre Muffin (SSD rail Capsule)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/themes/clusters/toolkit-cinnamon/chrome.css"],
+      "capsuleSelectors": ["#windowHeader", ".windowElement[data-window-chrome-toolkit=\"cinnamon\"]"],
+      "states": ["default", "maximized", "tiled"],
+      "acquisitionVm": ["rail 3 boutons droite", "titlebar drag", "coins arrondis actif/inactif"]
+    },
+    "cinnamon.panel": {
+      "labelFr": "Panel Cinnamon (40px)",
+      "status": "skeleton",
+      "capsuleSelectors": [".mint-panel", ".mint-panel__menu-btn", ".mint-panel__window-list", ".mint-panel__tray"],
+      "states": ["default", "menu-open", "window-list-grouped"],
+      "acquisitionVm": ["régions menu | fenêtres | tray", "applets ordonnés VM"]
+    },
+    "cinnamon.menu-popup": {
+      "labelFr": "Menu Démarrer (grille Cinnamon)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/mainMenu.base.css"],
+      "capsuleSelectors": ["#mainMenu", ".mainMenu-grid"],
+      "states": ["closed", "open", "search-active"],
+      "acquisitionVm": ["grille 600×480", "catégories", "champ recherche"]
+    },
+    "cinnamon.nemo-explorer": {
+      "labelFr": "Nemo (explorateur Cinnamon)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/nemo.base.css"],
+      "capsuleSelectors": [".nemo-app", ".nemo-app__context-menu"],
+      "states": ["default", "context-menu-item", "context-menu-background"],
+      "acquisitionVm": ["sidebar places", "toolbar", "menu contextuel dynamique 7 entrées"]
+    },
+    "cinnamon.tray-applets": {
+      "labelFr": "Zone tray + applets",
+      "status": "skeleton",
+      "capsuleSelectors": [".mint-panel__tray", ".mint-tray-popover"],
+      "states": ["default", "popover-open"],
+      "acquisitionVm": ["volume", "réseau", "calendrier", "notifications"]
+    },
+    "cinnamon.settings-panels": {
+      "labelFr": "Paramètres système Cinnamon",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/themes_cinnamon.base.css"],
+      "states": ["sidebar", "panel-content"],
+      "acquisitionVm": ["liste panneaux gauche", "sous-panneaux mint-*"]
+    },
+    "cinnamon.xapp-window": {
+      "labelFr": "Fenêtre XApp (apps mint-*)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/themes/linux/window-chrome.base.css"],
+      "states": ["default"],
+      "acquisitionVm": ["headerbar XApp", "boutons window classiques"]
+    }
+  },
+  "appCompositions": {
+    "nemo": {
+      "labelFr": "Nemo",
+      "vmDesktopIds": ["nemo.desktop", "nemo-autorun.desktop"],
+      "planned": true,
+      "components": ["cinnamon.muffin-window", "cinnamon.nemo-explorer"],
+      "template": "usr/share/capsuleos/linux/explorers/nemo.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/nemo.base.css",
+      "skinCss": "nemo.skin.css",
+      "chromeProvider": "cinnamon",
+      "acquisitionOrder": ["toolbar", "places-sidebar", "context-menu"]
+    },
+    "firefox": {
+      "labelFr": "Firefox",
+      "planned": true,
+      "components": ["cinnamon.muffin-window"],
+      "template": "usr/share/capsuleos/linux/apps/firefox.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/firefox.base.css",
+      "skinCss": "firefox.skin.css",
+      "acquisitionOrder": ["tabs", "url-bar"]
+    },
+    "terminal": {
+      "labelFr": "Terminal",
+      "planned": true,
+      "components": ["cinnamon.muffin-window"],
+      "template": "usr/share/capsuleos/linux/apps/terminal.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/terminal.base.css",
+      "skinCss": "terminal.skin.css",
+      "acquisitionOrder": ["window-chrome", "tabs"]
+    },
+    "themes": {
+      "labelFr": "Paramètres système",
+      "vmDesktopIds": ["cinnamon-settings.desktop"],
+      "planned": true,
+      "components": ["cinnamon.muffin-window", "cinnamon.settings-panels"],
+      "template": "usr/share/capsuleos/linux/apps/themes.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/themes_cinnamon.base.css",
+      "skinCss": "themes.skin.css",
+      "acquisitionOrder": ["panel-list", "display-panel", "themes-panel"]
+    },
+    "mintinstall": {
+      "labelFr": "Gestionnaire de logiciels",
+      "planned": true,
+      "components": ["cinnamon.xapp-window"],
+      "template": "usr/share/capsuleos/linux/apps/mintinstall.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/mintinstall.base.css",
+      "skinCss": "mintinstall.skin.css",
+      "acquisitionOrder": ["featured", "categories", "app-detail"]
+    },
+    "update_manager": {
+      "labelFr": "Gestionnaire de mises à jour",
+      "planned": true,
+      "components": ["cinnamon.xapp-window"],
+      "template": "usr/share/capsuleos/linux/apps/update_manager.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/update_manager.base.css",
+      "skinCss": "update_manager.skin.css",
+      "acquisitionOrder": ["updates-list", "changelog"]
+    },
+    "mainMenu": {
+      "labelFr": "Menu Démarrer (shell)",
+      "planned": true,
+      "shellSurface": true,
+      "components": ["cinnamon.menu-popup"],
+      "baseCss": "usr/share/capsuleos/linux/apps/style/mainMenu.base.css",
+      "skinCss": "mainMenu.skin.css",
+      "acquisitionOrder": ["grid", "favorites", "search"]
+    }
+  },
+  "distroExtension": {
+    "description": "Compléter slotSpecs dans apps-catalog.json toolkits.cinnamon lors de la sortie du statut skeleton.",
+    "futureValidator": "validate-ui-components-cinnamon.mjs"
+  }
+}

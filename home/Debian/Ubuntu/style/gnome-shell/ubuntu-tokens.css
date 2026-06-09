@@ -9,6 +9,8 @@ html:has(#ubuntu) {
     --ubuntu-shell-text: #f6f7f9;
     --ubuntu-shell-border-soft: rgba(255, 255, 255, 0.1);
     --ubuntu-top-bar-height: calc(var(--head) * 0.82);
+    /* Cloisonnement : ne pas hériter --taskbar-height du portail (Mint 1.25×head). */
+    --taskbar-height: var(--ubuntu-top-bar-height);
     --ubuntu-dock-width: calc(var(--head) * 1.32);
     --ubuntu-shell-topbar-bg: rgba(18, 18, 18, 0.97);
     --ubuntu-shell-topbar-border: 1px solid rgba(0, 0, 0, 0.55);

@@ -3986,7 +3986,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-universal-access.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-universal-access"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-universal-access"
       },
       {
         "appId": "cinnamon-settings-actions",
@@ -3995,7 +3995,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-actions.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-actions"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-actions"
       },
       {
         "appId": "mintsysadm",
@@ -4004,7 +4004,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintsysadm.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintsysadm"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintsysadm"
       },
       {
         "appId": "nm-connection-editor",
@@ -4017,7 +4017,7 @@
           "/usr/share/icons/Yaru/24x24/categories/preferences-system-network.png",
           "/usr/share/icons/Yaru/16x16/categories/preferences-system-network.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/nm-connection-editor"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/nm-connection-editor"
       },
       {
         "appId": "cinnamon-display-panel",
@@ -4026,7 +4026,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-display.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-display-panel"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-display-panel"
       },
       {
         "appId": "cinnamon-settings-applets",
@@ -4035,7 +4035,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-applets.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-applets"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-applets"
       },
       {
         "appId": "cinnamon-settings-startup",
@@ -4044,7 +4044,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-startup-programs.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-startup"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-startup"
       },
       {
         "appId": "cinnamon-settings-default",
@@ -4053,7 +4053,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-default-applications.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-default"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-default"
       },
       {
         "appId": "webapp-manager",
@@ -4062,7 +4062,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/webapp-manager.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/webapp-manager"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/webapp-manager"
       },
       {
         "appId": "org.gnome.FileRoller",
@@ -4076,7 +4076,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.FileRoller.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.FileRoller.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.FileRoller"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.FileRoller"
       },
       {
         "appId": "thingy",
@@ -4085,7 +4085,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/thingy.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/thingy"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/thingy"
       },
       {
         "appId": "cinnamon-settings-desktop",
@@ -4094,7 +4094,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-desktop.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-desktop"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-desktop"
       },
       {
         "appId": "org.gnome.Calculator",
@@ -4108,7 +4108,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.Calculator.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.Calculator.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.Calculator"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.Calculator"
       },
       {
         "appId": "org.gnome.Calendar",
@@ -4122,7 +4122,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.Calendar.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.Calendar.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.Calendar"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.Calendar"
       },
       {
         "appId": "io.github.celluloid_player.Celluloid",
@@ -4136,7 +4136,7 @@
           "/usr/share/icons/Yaru/24x24/apps/io.github.celluloid_player.Celluloid.png",
           "/usr/share/icons/Yaru/16x16/apps/io.github.celluloid_player.Celluloid.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid"
       },
       {
         "appId": "cinnamon-settings-fonts",
@@ -4145,7 +4145,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-fonts.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-fonts"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-fonts"
       },
       {
         "appId": "cinnamon-settings-keyboard",
@@ -4154,7 +4154,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-keyboard.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-keyboard"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-keyboard"
       },
       {
         "appId": "cinnamon-onscreen-keyboard",
@@ -4163,7 +4163,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/cinnamon-virtual-keyboard.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-onscreen-keyboard"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-onscreen-keyboard"
       },
       {
         "appId": "cinnamon-settings-hotcorner",
@@ -4172,7 +4172,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-overview.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-hotcorner"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-hotcorner"
       },
       {
         "appId": "gnome-online-accounts-gtk",
@@ -4181,7 +4181,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/gnome-online-accounts-gtk.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/gnome-online-accounts-gtk"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/gnome-online-accounts-gtk"
       },
       {
         "appId": "cinnamon-color-panel",
@@ -4190,7 +4190,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-color.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-color-panel"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-color-panel"
       },
       {
         "appId": "mintstick",
@@ -4202,7 +4202,7 @@
           "/usr/share/icons/hicolor/24x24/apps/mintstick.png",
           "/usr/share/icons/hicolor/16x16/apps/mintstick.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintstick"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintstick"
       },
       {
         "appId": "cinnamon-settings-calendar",
@@ -4211,7 +4211,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-date-time.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-calendar"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-calendar"
       },
       {
         "appId": "cinnamon-settings-desklets",
@@ -4220,7 +4220,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-desklets.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-desklets"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-desklets"
       },
       {
         "appId": "com.github.maoschanz.drawing",
@@ -4233,7 +4233,7 @@
           "/usr/share/icons/hicolor/128x128/apps/com.github.maoschanz.drawing.png",
           "/usr/share/icons/hicolor/48x48/apps/com.github.maoschanz.drawing.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/com.github.maoschanz.drawing"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/com.github.maoschanz.drawing"
       },
       {
         "appId": "org.gnome.baobab",
@@ -4247,7 +4247,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.baobab.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.baobab.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.baobab"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.baobab"
       },
       {
         "appId": "org.gnome.DiskUtility",
@@ -4261,7 +4261,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.DiskUtility.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.DiskUtility.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.DiskUtility"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.DiskUtility"
       },
       {
         "appId": "simple-scan",
@@ -4275,7 +4275,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.SimpleScan.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.SimpleScan.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/simple-scan"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/simple-scan"
       },
       {
         "appId": "cinnamon-settings-user",
@@ -4284,7 +4284,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-user.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-user"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-user"
       },
       {
         "appId": "cinnamon-settings-effects",
@@ -4293,7 +4293,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-desktop-effects.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-effects"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-effects"
       },
       {
         "appId": "fingwit",
@@ -4302,7 +4302,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/fingwit.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/fingwit"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/fingwit"
       },
       {
         "appId": "cinnamon-settings-workspaces",
@@ -4311,7 +4311,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-workspaces.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-workspaces"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-workspaces"
       },
       {
         "appId": "cinnamon-settings-extensions",
@@ -4320,7 +4320,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-extensions.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-extensions"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-extensions"
       },
       {
         "appId": "lightdm-settings",
@@ -4333,7 +4333,7 @@
           "/usr/share/icons/hicolor/24x24/apps/lightdm-settings.png",
           "/usr/share/icons/hicolor/16x16/apps/lightdm-settings.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/lightdm-settings"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/lightdm-settings"
       },
       {
         "appId": "cinnamon-settings-windows",
@@ -4342,7 +4342,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-windows.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-windows"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-windows"
       },
       {
         "appId": "nemo",
@@ -4355,7 +4355,7 @@
           "/usr/share/icons/Yaru/24x24/apps/system-file-manager.png",
           "/usr/share/icons/Yaru/16x16/apps/system-file-manager.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/nemo"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/nemo"
       },
       {
         "appId": "gufw",
@@ -4365,7 +4365,7 @@
           "/usr/share/icons/hicolor/scalable/apps/gufw.svg",
           "/usr/share/icons/hicolor/48x48/apps/gufw.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/gufw"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/gufw"
       },
       {
         "appId": "cinnamon-settings-backgrounds",
@@ -4374,7 +4374,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-backgrounds.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-backgrounds"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-backgrounds"
       },
       {
         "appId": "org.gnome.font-viewer",
@@ -4388,7 +4388,7 @@
           "/usr/share/icons/Yaru/24x24/categories/org.gnome.font-viewer.png",
           "/usr/share/icons/Yaru/16x16/categories/org.gnome.font-viewer.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.font-viewer"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.font-viewer"
       },
       {
         "appId": "mintstick-format",
@@ -4400,7 +4400,7 @@
           "/usr/share/icons/hicolor/24x24/apps/mintstick.png",
           "/usr/share/icons/hicolor/16x16/apps/mintstick.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintstick-format"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintstick-format"
       },
       {
         "appId": "cinnamon-settings-gestures",
@@ -4409,7 +4409,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-gestures.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-gestures"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-gestures"
       },
       {
         "appId": "cinnamon-settings-power",
@@ -4418,7 +4418,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-power.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-power"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-power"
       },
       {
         "appId": "blueman-manager",
@@ -4434,7 +4434,7 @@
           "/usr/share/icons/hicolor/24x24/apps/blueman.png",
           "/usr/share/icons/hicolor/16x16/apps/blueman.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/blueman-manager"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/blueman-manager"
       },
       {
         "appId": "mintupdate",
@@ -4446,7 +4446,7 @@
           "/usr/share/icons/hicolor/24x24/apps/mintupdate.png",
           "/usr/share/icons/hicolor/16x16/apps/mintupdate.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintupdate"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintupdate"
       },
       {
         "appId": "mintdrivers",
@@ -4455,7 +4455,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintdrivers.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintdrivers"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintdrivers"
       },
       {
         "appId": "cinnamon-settings-general",
@@ -4464,7 +4464,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-general.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-general"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-general"
       },
       {
         "appId": "hypnotix",
@@ -4473,7 +4473,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/hypnotix.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/hypnotix"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/hypnotix"
       },
       {
         "appId": "mintlocale",
@@ -4486,7 +4486,7 @@
           "/usr/share/icons/Yaru/24x24/categories/preferences-desktop-locale.png",
           "/usr/share/icons/Yaru/16x16/categories/preferences-desktop-locale.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintlocale"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintlocale"
       },
       {
         "appId": "libreoffice-startcenter",
@@ -4502,7 +4502,7 @@
           "/usr/share/icons/hicolor/32x32/apps/libreoffice-startcenter.png",
           "/usr/share/icons/hicolor/24x24/apps/libreoffice-startcenter.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/libreoffice-startcenter"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/libreoffice-startcenter"
       },
       {
         "appId": "libreoffice-calc",
@@ -4518,7 +4518,7 @@
           "/usr/share/icons/hicolor/32x32/apps/libreoffice-calc.png",
           "/usr/share/icons/hicolor/24x24/apps/libreoffice-calc.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/libreoffice-calc"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/libreoffice-calc"
       },
       {
         "appId": "libreoffice-draw",
@@ -4534,7 +4534,7 @@
           "/usr/share/icons/hicolor/32x32/apps/libreoffice-draw.png",
           "/usr/share/icons/hicolor/24x24/apps/libreoffice-draw.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/libreoffice-draw"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/libreoffice-draw"
       },
       {
         "appId": "libreoffice-impress",
@@ -4550,7 +4550,7 @@
           "/usr/share/icons/hicolor/32x32/apps/libreoffice-impress.png",
           "/usr/share/icons/hicolor/24x24/apps/libreoffice-impress.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/libreoffice-impress"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/libreoffice-impress"
       },
       {
         "appId": "libreoffice-writer",
@@ -4566,7 +4566,7 @@
           "/usr/share/icons/hicolor/32x32/apps/libreoffice-writer.png",
           "/usr/share/icons/hicolor/24x24/apps/libreoffice-writer.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/libreoffice-writer"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/libreoffice-writer"
       },
       {
         "appId": "mintinstall",
@@ -4575,7 +4575,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintinstall.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintinstall"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintinstall"
       },
       {
         "appId": "webapp-OnlineChat4519",
@@ -4591,7 +4591,7 @@
           "/usr/share/icons/hicolor/24x24/apps/mintchat.png",
           "/usr/share/icons/hicolor/16x16/apps/mintchat.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/webapp-OnlineChat4519"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/webapp-OnlineChat4519"
       },
       {
         "appId": "thunderbird",
@@ -4606,7 +4606,7 @@
           "/usr/share/icons/hicolor/24x24/apps/thunderbird.png",
           "/usr/share/icons/hicolor/16x16/apps/thunderbird.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/thunderbird"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/thunderbird"
       },
       {
         "appId": "cinnamon-settings-nightlight",
@@ -4615,7 +4615,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-nightlight.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-nightlight"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-nightlight"
       },
       {
         "appId": "mintlocale-im",
@@ -4627,7 +4627,7 @@
           "/usr/share/icons/hicolor/24x24/apps/mintlocale-im.png",
           "/usr/share/icons/hicolor/16x16/apps/mintlocale-im.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintlocale-im"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintlocale-im"
       },
       {
         "appId": "firefox",
@@ -4638,7 +4638,7 @@
           "/usr/share/icons/hicolor/32x32/apps/firefox.png",
           "/usr/share/icons/hicolor/16x16/apps/firefox.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/firefox"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/firefox"
       },
       {
         "appId": "sticky",
@@ -4647,7 +4647,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/sticky.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/sticky"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/sticky"
       },
       {
         "appId": "cinnamon-settings-notifications",
@@ -4656,7 +4656,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-notifications.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-notifications"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-notifications"
       },
       {
         "appId": "onboard",
@@ -4668,7 +4668,7 @@
           "/usr/share/icons/hicolor/24x24/apps/onboard.png",
           "/usr/share/icons/hicolor/16x16/apps/onboard.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/onboard"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/onboard"
       },
       {
         "appId": "mintbackup",
@@ -4677,7 +4677,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintbackup.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintbackup"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintbackup"
       },
       {
         "appId": "cinnamon-settings-panel",
@@ -4686,7 +4686,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-panel.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-panel"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-panel"
       },
       {
         "appId": "cinnamon-settings",
@@ -4699,7 +4699,7 @@
           "/usr/share/icons/Yaru/24x24/apps/preferences-desktop.png",
           "/usr/share/icons/Yaru/16x16/apps/preferences-desktop.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings"
       },
       {
         "appId": "org.gnome.seahorse.Application",
@@ -4713,7 +4713,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.seahorse.Application.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.seahorse.Application.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.seahorse.Application"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.seahorse.Application"
       },
       {
         "appId": "pix",
@@ -4725,7 +4725,7 @@
           "/usr/share/icons/hicolor/16x16/apps/pix.svg",
           "/usr/share/icons/hicolor/16x16/apps/pix.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/pix"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/pix"
       },
       {
         "appId": "system-config-printer",
@@ -4739,7 +4739,7 @@
           "/usr/share/icons/Yaru/24x24/devices/printer.png",
           "/usr/share/icons/Yaru/16x16/devices/printer.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/system-config-printer"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/system-config-printer"
       },
       {
         "appId": "cinnamon-settings-privacy",
@@ -4748,7 +4748,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-privacy.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-privacy"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-privacy"
       },
       {
         "appId": "bulky",
@@ -4757,7 +4757,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/bulky.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/bulky"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/bulky"
       },
       {
         "appId": "mintreport",
@@ -4766,7 +4766,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintreport.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintreport"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintreport"
       },
       {
         "appId": "org.gnome.Rhythmbox3",
@@ -4780,7 +4780,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.Rhythmbox3.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.Rhythmbox3.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.Rhythmbox3"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.Rhythmbox3"
       },
       {
         "appId": "cinnamon-network-panel",
@@ -4789,7 +4789,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-network.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-network-panel"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-network-panel"
       },
       {
         "appId": "org.gnome.Screenshot",
@@ -4803,7 +4803,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.Screenshot.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.Screenshot.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.Screenshot"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.Screenshot"
       },
       {
         "appId": "cinnamon-settings-sound",
@@ -4812,14 +4812,14 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-sound.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-sound"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-sound"
       },
       {
         "appId": "mintsources",
         "desktopId": "mintsources",
         "iconName": "mintsources",
         "vmPaths": [],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintsources"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintsources"
       },
       {
         "appId": "cinnamon-settings-mouse",
@@ -4828,7 +4828,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-mouse.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-mouse"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-mouse"
       },
       {
         "appId": "org.gnome.SystemMonitor",
@@ -4842,7 +4842,7 @@
           "/usr/share/icons/Yaru/24x24/apps/org.gnome.SystemMonitor.png",
           "/usr/share/icons/Yaru/16x16/apps/org.gnome.SystemMonitor.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.gnome.SystemMonitor"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.gnome.SystemMonitor"
       },
       {
         "appId": "gucharmap",
@@ -4855,7 +4855,7 @@
           "/usr/share/icons/Yaru/24x24/apps/accessories-character-map.png",
           "/usr/share/icons/Yaru/16x16/apps/accessories-character-map.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/gucharmap"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/gucharmap"
       },
       {
         "appId": "cinnamon-wacom-panel",
@@ -4864,7 +4864,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-tablet.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-wacom-panel"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-wacom-panel"
       },
       {
         "appId": "cinnamon-settings-thunderbolt",
@@ -4873,7 +4873,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-thunderbolt.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-thunderbolt"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-thunderbolt"
       },
       {
         "appId": "cinnamon-settings-themes",
@@ -4882,7 +4882,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-themes.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-themes"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-themes"
       },
       {
         "appId": "timeshift-gtk",
@@ -4896,7 +4896,7 @@
           "/usr/share/icons/hicolor/24x24/apps/timeshift.png",
           "/usr/share/icons/hicolor/16x16/apps/timeshift.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/timeshift-gtk"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/timeshift-gtk"
       },
       {
         "appId": "transmission-gtk",
@@ -4910,7 +4910,7 @@
           "/usr/share/icons/Yaru/24x24/apps/transmission.png",
           "/usr/share/icons/Yaru/16x16/apps/transmission.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/transmission-gtk"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/transmission-gtk"
       },
       {
         "appId": "cinnamon-settings-users",
@@ -4923,7 +4923,7 @@
           "/usr/share/icons/Yaru/24x24/categories/system-users.png",
           "/usr/share/icons/Yaru/16x16/categories/system-users.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-users"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-users"
       },
       {
         "appId": "vim",
@@ -4933,7 +4933,7 @@
           "/usr/share/icons/hicolor/scalable/apps/gvim.svg",
           "/usr/share/icons/hicolor/48x48/apps/gvim.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/vim"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/vim"
       },
       {
         "appId": "xreader",
@@ -4945,7 +4945,7 @@
           "/usr/share/icons/hicolor/24x24/apps/xreader.png",
           "/usr/share/icons/hicolor/16x16/apps/xreader.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/xreader"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/xreader"
       },
       {
         "appId": "xviewer",
@@ -4958,7 +4958,7 @@
           "/usr/share/icons/hicolor/24x24/apps/xviewer.png",
           "/usr/share/icons/hicolor/16x16/apps/xviewer.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/xviewer"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/xviewer"
       },
       {
         "appId": "org.x.Warpinator",
@@ -4973,7 +4973,7 @@
           "/usr/share/icons/hicolor/24x24/apps/org.x.Warpinator.png",
           "/usr/share/icons/hicolor/16x16/apps/org.x.Warpinator.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.x.Warpinator"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.x.Warpinator"
       },
       {
         "appId": "cinnamon-settings-screensaver",
@@ -4982,7 +4982,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/categories/cs-screensaver.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/cinnamon-settings-screensaver"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/cinnamon-settings-screensaver"
       },
       {
         "appId": "mintwelcome",
@@ -4991,7 +4991,7 @@
         "vmPaths": [
           "/usr/share/icons/hicolor/scalable/apps/mintwelcome.svg"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/mintwelcome"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/mintwelcome"
       },
       {
         "appId": "org.x.editor",
@@ -5004,7 +5004,7 @@
           "/usr/share/icons/Yaru/24x24/apps/accessories-text-editor.png",
           "/usr/share/icons/Yaru/16x16/apps/accessories-text-editor.png"
         ],
-        "capsuleTarget": "images/toolkits/gnome/apps/org.x.editor"
+        "capsuleTarget": "images/toolkits/cinnamon/apps/org.x.editor"
       }
     ],
     "iconTheme": "Mint-Y-Sand",
@@ -5024,7 +5024,7 @@
       {
         "id": "app-icons",
         "category": "applications",
-        "destRoot": "usr/share/capsuleos/assets/images/toolkits/gnome/apps",
+        "destRoot": "usr/share/capsuleos/assets/images/toolkits/cinnamon/apps",
         "vmPaths": [
           "/usr/share/icons/Adwaita/scalable/devices/printer.svg",
           "/usr/share/icons/Yaru/256x256/apps/accessories-character-map.png",

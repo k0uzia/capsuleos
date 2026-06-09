@@ -1,0 +1,31 @@
+{
+  "registryId": "linux-ubuntu",
+  "domain": "gnome-settings-playbook",
+  "generatedAt": "2026-06-08T23:37:13.155Z",
+  "predicates": {
+    "H2": true,
+    "M": true,
+    "I": true,
+    "A": true,
+    "S": true,
+    "T": true,
+    "L": true,
+    "V": true,
+    "G": true,
+    "Vc": false,
+    "Vp": false,
+    "documentedP0": 4,
+    "capsuleCapturesP0": 0,
+    "visualMatchClassifiedP0": 0
+  },
+  "nextPredicate": "Vc",
+  "nextStep": "capsule-captures",
+  "rule": "R-PRI chain → capsule-captures",
+  "lastResolvedAction": {
+    "rule": "R-H6",
+    "message": "H6 clôturé — domaine gnome-settings-playbook"
+  },
+  "H6": true,
+  "h6ClosedAt": "2026-06-08T23:37:13.154Z",
+  "h6Closure": "root/docs/inventaires/linux-ubuntu-gnome-settings-h6-closure.json"
+}

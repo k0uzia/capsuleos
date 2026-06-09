@@ -400,7 +400,14 @@ const isNemoTemplate = () => {
     if (isNautilusGnomeTemplate()) {
         return false;
     }
-    return !!queryExplorerSlot('main#gestionnaire.nemo-app:not(.nautilus-app)');
+    if (queryExplorerSlot('main#gestionnaire.nemo-app:not(.nautilus-app)')) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CapsuleExplorerRegistry
+        && typeof window.CapsuleExplorerRegistry.isNemoFamily === 'function') {
+        return window.CapsuleExplorerRegistry.isNemoFamily();
+    }
+    return false;
 };
 window.isNautilusGnomeTemplate = isNautilusGnomeTemplate;
 window.isNemoTemplate = isNemoTemplate;
@@ -2705,6 +2712,14 @@ const bindFileExplorerNavigationControls = () => {
         window.resolveFileExplorerMenuAction = (label, context, scope) => {
             if (label === 'Basculer le mode de navigation') {
                 togglePathNavigationMode();
+                return true;
+            }
+            if (label === 'Créer un nouveau dossier' && typeof createNewFolderInCurrentDirectory === 'function') {
+                createNewFolderInCurrentDirectory();
+                return true;
+            }
+            if (label === 'Fermer' && typeof window.closeFileExplorerWindow === 'function') {
+                window.closeFileExplorerWindow();
                 return true;
             }
             if (typeof previousMenuResolver === 'function') {

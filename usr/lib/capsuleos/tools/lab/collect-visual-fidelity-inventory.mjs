@@ -38,7 +38,16 @@ const main = () => {
   let merged = existing ? {
     ...existing,
     ...built,
-    typography: { ...built.typography, ...existing.typography, vm: { ...built.typography.vm, ...existing.typography?.vm } },
+    typography: {
+      ...built.typography,
+      ...existing.typography,
+      vm: { ...built.typography.vm, ...existing.typography?.vm },
+      capsule: {
+        ...built.typography.capsule,
+        ...existing.typography?.capsule,
+        tokenFile: existing.typography?.capsule?.tokenFile || built.typography.capsule.tokenFile,
+      },
+    },
     mime: { ...built.mime, ...existing.mime },
     accessibility: { ...built.accessibility, ...existing.accessibility },
     updatedAt: new Date().toISOString(),

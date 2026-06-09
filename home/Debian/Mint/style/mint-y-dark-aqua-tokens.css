@@ -3,9 +3,15 @@
  * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
  */
 body#mint {
-    /* VM Cinnamon panel1 height = 40 px (--head), pas le défaut portal 1.25× */
-    --taskbar-height: var(--head);
+    /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
+    --mint-panel-height: 40px;
+    --taskbar-height: var(--mint-panel-height);
+    --mint: url(../../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg);
+    --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
     --texte: #e1e1e1;
+    /* html{color:var(--texte)} portail — réappliquer teinte VM #e1e1e1 + stack Cantarell/Noto */
+    color: var(--texte);
+    font-family: var(--font-ui);
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
     --mint-taskbar-bg: #2e2e33;

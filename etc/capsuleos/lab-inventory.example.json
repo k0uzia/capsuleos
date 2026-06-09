@@ -72,6 +72,27 @@
       "labBootstrap": "root/tools/lab/vm-ubuntu-lab-bootstrap.sh",
       "visualParity": "node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id linux-ubuntu",
       "notes": "Ubuntu GNOME — dock Yaru ; procédure root/docs/procedure-lab-linux-ubuntu-gnome.md ; skill root/skills/visual-parity-lab/"
+    },
+    {
+      "registryId": "windows-11",
+      "family": "windows",
+      "vendor": "microsoft",
+      "toolkit": "windows-shell",
+      "probeType": "manual",
+      "hypervisor": "libvirt",
+      "virshName": "win11_483ec3b2",
+      "ssh": "Quickemu@192.168.1.XXX",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "display": {
+        "width": 1280,
+        "height": 800,
+        "scalePercent": 100
+      },
+      "edition": "Pro",
+      "windowsRelease": "21H2",
+      "locale": "fr-FR",
+      "capsuleUrl": "http://127.0.0.1:5500/OS/windows/versions/11/index.html",
+      "notes": "Protocole direct hôte lab → VM (comme Mint). Pas de sshJumpHost. Prérequis : bridge LAN dans virt-manager (pas macvtap) + OpenSSH + clé capsuleos-lab. Recette : root/docs/recette-clone-windows-11.md"
     }
   ]
 }

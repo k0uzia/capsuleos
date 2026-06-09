@@ -16,6 +16,7 @@ import {
   loadContract,
   pathsForRegistry,
 } from './replication-chain-lib.mjs';
+import { resolveChainNextAction } from './lab-recipe-resolver.mjs';
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -82,8 +83,19 @@ const main = () => {
     process.stdout.write(`Prochain: ${state.nextPredicate || 'H6'} → step ${state.nextStep || 'done'}\n`);
 
     if (!state.nextStep) {
-      process.stdout.write('✓ Chaîne complète pour ce domaine\n');
-      return;
+      const fallback = resolveChainNextAction(opts.id, opts.domain);
+      if (fallback.complete || !fallback.command) {
+        process.stdout.write('✓ Chaîne complète pour ce domaine\n');
+        return;
+      }
+      process.stdout.write(`Prochain (gate ${fallback.nextPredicate}): ${fallback.command}\n`);
+      if (opts.dryRun) return;
+      const runRes = spawnSync(fallback.command, { cwd: ROOT, shell: true, stdio: 'inherit', encoding: 'utf8' });
+      if (runRes.status !== 0) process.exit(runRes.status || 1);
+      stepsRun += 1;
+      process.stdout.write(`✓ gate ${fallback.nextPredicate} terminé (${stepsRun})\n`);
+      if (!opts.auto) break;
+      continue;
     }
     if (opts.dryRun) {
       process.stdout.write(`(dry-run) ${state.nextStep}\n`);

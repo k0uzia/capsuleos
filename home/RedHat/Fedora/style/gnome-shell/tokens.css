@@ -6,6 +6,7 @@
 html:has(#fedora) {
     /* GNOME 50 / F44 — police UI VM : Adwaita Sans 11 */
     --font-ui: "Adwaita Sans", Cantarell, system-ui, sans-serif;
+    --font-mono: "Adwaita Mono", "DejaVu Sans Mono", ui-monospace, monospace;
     --fedora-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/fedora/watermark/fedora_logo_darkbackground.svg");
     --fedora-watermark-width: 9%;
     --fedora-watermark-inset: max(calc(var(--head) / 1.4), 2.8rem);

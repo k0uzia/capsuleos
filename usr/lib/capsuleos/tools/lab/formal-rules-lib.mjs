@@ -31,6 +31,7 @@ export const loadFormalState = (registryId) => {
   const shell2 = readJson(shellPolish2Path(registryId));
   const universal = evaluateUniversal(registryId);
   const replication = evaluatePredicates(registryId);
+  const repState = replication.state || {};
   const apps = evaluateAppsPredicates(registryId);
   const appsReplication = evaluateAppsReplicationPredicates(registryId);
   const fidelity = evaluateVisualFidelity(registryId);
@@ -46,6 +47,7 @@ export const loadFormalState = (registryId) => {
     ManA: manifest.ManA,
     ManSt: manifest.ManSt,
     ManI: manifest.ManI,
+    ManInt: manifest.ManInt,
     ManΣ: manifest.ManΣ,
     H6: !!h6?.status && h6.status === 'closed',
     H2: !!base.gates?.H2?.ok,
@@ -68,6 +70,9 @@ export const loadFormalState = (registryId) => {
     Tm: fidelity.Tm || !!base.gates?.Tm?.ok,
     Ta: fidelity.Ta || !!base.gates?.Ta?.ok,
     Tf: (fidelity.Tf && typoViolations.length === 0) || !!base.gates?.Tf?.ok,
+    V: !!repState.V,
+    Vc: !!repState.Vc,
+    Vp: !!repState.Vp || !!base.gates?.Vp?.ok,
   };
 
   return {
@@ -101,7 +106,7 @@ export const evaluateFormalRules = (registryId) => {
   const rules = [
     {
       rule: 'R-H1',
-      when: () => !gates.H2,
+      when: () => !gates.H2 && !(gates.ManV && !gates.ManI),
       message: '¬H₂ — gate validate-all (socle dépôt)',
       command: 'node usr/lib/capsuleos/tools/validate-all.mjs',
       autoExecute: true,
@@ -192,6 +197,14 @@ export const evaluateFormalRules = (registryId) => {
       when: () => gates.ManSt && !gates.ManI,
       message: 'ManSt ∧ ¬ManI — import staging → assets noyau',
       command: `node usr/lib/capsuleos/tools/lab/import-manifest-staging.mjs --id ${registryId} --write`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-MAN6',
+      when: () => gates.ManI && !gates.ManInt,
+      message: 'ManI ∧ ¬ManInt — intégration skin (grille overview + refs manifeste)',
+      command: `node usr/lib/capsuleos/tools/lab/apply-manifest-refs.mjs --id ${registryId} --write`,
       autoExecute: true,
       gateOnSuccess: null,
     },

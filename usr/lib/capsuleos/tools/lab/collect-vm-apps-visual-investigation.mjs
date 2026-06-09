@@ -196,7 +196,7 @@ ls -la "${remoteOut}" 2>/dev/null || true
   fs.mkdirSync(localBase, { recursive: true });
   const scp = spawnSync(
     'scp',
-    ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, '-r', `${user}@${ip}:${remoteOut}/`, `${localBase}/`],
+    ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity, '-r', `${user}@${ip}:${remoteOut}/*`, localBase],
     { encoding: 'utf8', timeout: 120000 },
   );
   if (scp.status !== 0) {
@@ -253,9 +253,10 @@ const main = () => {
     for (const inv of investigations) {
       if (inv.parityPriority !== opts.filter || inv.status !== 'documented') continue;
       const legacy = path.join(ROOT, 'root/docs/inventaires/captures', opts.id, 'apps-visual', `${inv.controlId}-vm.png`);
-      if (!fs.existsSync(legacy) || fs.statSync(legacy).size === 0) {
+      const hasPlaybookCapture = fs.existsSync(legacy) && fs.statSync(legacy).size > 0;
+      if (!hasPlaybookCapture) {
         if (virshScreenshot(host, opts.id, inv.controlId)) {
-          process.stderr.write(`⚡ virsh screenshot ${inv.controlId}\n`);
+          process.stderr.write(`⚡ virsh screenshot ${inv.controlId} (repli — gtk-launch indisponible)\n`);
         }
       }
     }

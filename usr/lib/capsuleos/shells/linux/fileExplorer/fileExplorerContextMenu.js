@@ -509,7 +509,10 @@
         { action: 'open-terminal', label: 'Ouvrir dans un terminal', scopes: 'background' },
         { action: 'select-all', label: 'Tout sélectionner', scopes: 'background' },
         { action: 'empty-trash', label: 'Vider la corbeille', scopes: 'trash sidebar-trash' },
-        { action: 'properties', label: 'Propriétés', scopes: 'background item multi' },
+        { action: 'open', label: 'Ouvrir', scopes: 'sidebar-place' },
+        { action: 'remove-place', label: 'Supprimer', scopes: 'sidebar-place' },
+        { action: 'empty-trash', label: 'Vider la corbeille', scopes: 'sidebar-place' },
+        { action: 'properties', label: 'Propriétés', scopes: 'background item multi sidebar-place' },
     ];
 
     function ensureNemoMenu(scope) {
@@ -612,6 +615,9 @@
         if (options.sidebarTrash) {
             return 'sidebar-trash';
         }
+        if (options.sidebarPlace) {
+            return 'sidebar-place';
+        }
         if (options.multiSelect) {
             return 'multi';
         }
@@ -663,8 +669,10 @@
                 disabled = !itemLink;
             } else if (['restore-trash', 'delete-forever'].indexOf(action) >= 0) {
                 disabled = !itemLink;
+            } else if (action === 'remove-place') {
+                disabled = profile !== 'sidebar-place';
             } else if (action === 'empty-trash') {
-                disabled = profile !== 'trash' && profile !== 'sidebar-trash';
+                disabled = profile !== 'trash' && profile !== 'sidebar-trash' && profile !== 'sidebar-place';
                 if (!disabled) {
                     try {
                         var trashKey = typeof global.getExplorerStorageKey === 'function'
@@ -801,6 +809,15 @@
         if (action === 'delete-forever' && typeof global.deleteNautilusTrashSelectionPermanently === 'function') {
             global.deleteNautilusTrashSelectionPermanently();
         }
+        if (action === 'remove-place' && options && options.sidebarPlaceLink) {
+            var placeRow = options.sidebarPlaceLink.closest('.places-item, a[data-link]');
+            if (placeRow && placeRow.parentNode) {
+                placeRow.parentNode.removeChild(placeRow);
+            }
+        }
+        if (action === 'open' && options && options.sidebarPlaceLink && typeof options.sidebarPlaceLink.click === 'function') {
+            options.sidebarPlaceLink.click();
+        }
     }
 
     function selectNemoContextItem(scope, itemLink) {
@@ -820,14 +837,16 @@
         if (!scope) {
             return;
         }
-        if (scope.dataset.nemoContextMenuInit === 'true') {
-            return;
+        if (scope.__nemoCtxMenuHandler) {
+            scope.removeEventListener('contextmenu', scope.__nemoCtxMenuHandler);
+            scope.__nemoCtxMenuHandler = null;
         }
 
         var menu = ensureNemoMenu(scope);
         var activeItem = null;
+        var activeSidebarPlace = null;
 
-        scope.addEventListener('contextmenu', function (event) {
+        scope.__nemoCtxMenuHandler = function (event) {
             if (event.target.closest('.nemo-app__context-menu')) {
                 return;
             }
@@ -835,7 +854,17 @@
             if (trashLink && scope.contains(trashLink)) {
                 event.preventDefault();
                 activeItem = null;
+                activeSidebarPlace = null;
                 syncNemoMenuScope(menu, 'sidebar-trash', null);
+                openNemoMenu(menu, event.clientX, event.clientY);
+                return;
+            }
+            var placeLink = event.target.closest('#voletnemo a.places-item[data-link], #voletnemo .nemo-app__sidebar-places a[data-link]');
+            if (placeLink && scope.contains(placeLink) && placeLink.dataset.link !== 'Corbeille') {
+                event.preventDefault();
+                activeItem = null;
+                activeSidebarPlace = placeLink;
+                syncNemoMenuScope(menu, 'sidebar-place', null);
                 openNemoMenu(menu, event.clientX, event.clientY);
                 return;
             }
@@ -843,6 +872,7 @@
             if (pathbarHit && scope.contains(pathbarHit)) {
                 event.preventDefault();
                 activeItem = null;
+                activeSidebarPlace = null;
                 syncNemoMenuScope(menu, 'background', null);
                 openNemoMenu(menu, event.clientX, event.clientY);
                 return;
@@ -852,18 +882,22 @@
                 return;
             }
             event.preventDefault();
+            activeSidebarPlace = null;
             var selectedCount = countNemoSelectedItems(scope);
             activeItem = getNemoTargetItem(event, scope);
             if (selectedCount > 1) {
                 activeItem = content.querySelector('a.nemo-app__item--selected') || activeItem;
             }
-            selectNemoContextItem(scope, activeItem);
+            if (selectedCount <= 1) {
+                selectNemoContextItem(scope, activeItem);
+            }
             var profile = resolveNemoProfile(activeItem, {
                 multiSelect: selectedCount > 1,
             });
             syncNemoMenuScope(menu, profile, activeItem);
             openNemoMenu(menu, event.clientX, event.clientY);
-        });
+        };
+        scope.addEventListener('contextmenu', scope.__nemoCtxMenuHandler);
 
         function hideNemoSubmenus() {
             menu.querySelectorAll('.nemo-app__context-submenu').forEach(function (sub) {
@@ -907,6 +941,7 @@
                 runNemoAction(action, activeItem, scope, {
                     appId: btn.dataset.nemoCtxAppId || '',
                     fileName: btn.dataset.nemoCtxFileName || '',
+                    sidebarPlaceLink: activeSidebarPlace || null,
                 });
             });
         });
@@ -950,6 +985,10 @@
         global.document.addEventListener('capsule:slot-injected', function onNemoContextRebind(event) {
             var detail = event.detail || {};
             if (detail.slotId === 'nemo' && detail.container && detail.container.dataset) {
+                if (detail.container.__nemoCtxMenuHandler) {
+                    detail.container.removeEventListener('contextmenu', detail.container.__nemoCtxMenuHandler);
+                    detail.container.__nemoCtxMenuHandler = null;
+                }
                 delete detail.container.dataset.nemoContextMenuInit;
                 var staleSidebar = detail.container.querySelector('#voletnemo');
                 if (staleSidebar && staleSidebar.dataset) {

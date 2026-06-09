@@ -110,6 +110,23 @@
 
 ---
 
+## Checkpoint pré-push Nemo (obligatoire avant commit/push remote)
+
+Point d'étape auto-critique — **NO-GO** si un smoke pré-campagne régresse ou **P0 > 0**.
+
+| # | Étape | Commande |
+|---|--------|----------|
+| 1 | Gate globale | `node usr/lib/capsuleos/tools/validate-all.mjs` |
+| 2 | Smokes Nemo (tous exit 0) | `CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs` · `smoke-mint-nemo.mjs` |
+| 3 | Campagne recette | `run-mint-nemo-context-campaign.mjs` |
+| 4 | Comparateur VM | `compare-mint-nemo-context-campaign.mjs --write` |
+| 5 | Rapport checkpoint | Rédiger [`nemo-fidelity-checkpoint.md`](inventaires/interactions/linux-mint/nemo-fidelity-checkpoint.md) (date, écarts avant/après, risques, verdict GO/NO-GO) |
+| 6 | Clôture skin (si `home/` touché) | `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs linux-mint` |
+
+Dernier checkpoint : **GO** — 2026-06-09 · 0 P0 · 0 P1 campagne + cross-diff VM.
+
+---
+
 ## Références
 
 - Statut clone : [inventaires/linux-mint-clone-status.md](inventaires/linux-mint-clone-status.md)

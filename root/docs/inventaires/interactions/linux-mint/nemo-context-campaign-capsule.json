@@ -1,12 +1,12 @@
 {
-  "collectedAt": "2026-06-09T13:53:46.157Z",
+  "collectedAt": "2026-06-09T14:12:43.080Z",
   "source": "capsule-playwright",
-  "url": "http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html",
+  "url": "http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html?v=nemoctx3",
   "scenariosPath": "root/docs/inventaires/interactions/linux-mint/nemo-context-scenarios.json",
   "matrixPath": "root/docs/inventaires/interactions/linux-mint/context-menus.json",
   "scenarioCount": 29,
   "p0Gaps": 0,
-  "p1Gaps": 12,
+  "p1Gaps": 0,
   "consoleErrors": [],
   "results": {
     "desktop.background": {
@@ -211,72 +211,677 @@
     },
     "window.title": {
       "scenarioId": "window.title",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Barre titre fenêtre Nemo",
+      "priority": "P2",
+      "group": "shell",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "home"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "selector": "div[data-link=\"nemo\"] > #windowHeader"
+      },
+      "visible": true,
+      "labels": [
+        "Réduire",
+        "Agrandir",
+        "Fermer",
+        "Toujours au premier plan"
+      ],
+      "actions": [
+        "minimize",
+        "toggle-maximize",
+        "close",
+        "always-on-top"
+      ],
+      "errors": [],
+      "expectedLabels": [
+        "Réduire",
+        "Agrandir",
+        "Fermer",
+        "Toujours au premier plan"
+      ],
       "gap": {
+        "priority": "P2",
+        "expected": [
+          "Réduire",
+          "Agrandir",
+          "Fermer",
+          "Toujours au premier plan"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Réduire",
+            "Agrandir",
+            "Fermer",
+            "Toujours au premier plan"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
         "p1": false
       }
     },
     "nemo.list.background.home": {
       "scenarioId": "nemo.list.background.home",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fond liste (Dossier personnel)",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "home"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "content",
+        "coords": [
+          420,
+          300
+        ]
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller [disabled]",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
+      "actions": [
+        "new-folder",
+        "new-document",
+        "paste",
+        "open-terminal",
+        "select-all",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 411,
+        "y": 775.34375,
+        "width": 898,
+        "height": 141.65625
+      },
+      "clipped": true,
+      "item": null,
+      "errors": [],
+      "expectedLabels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Créer un nouveau dossier",
+          "Créer un nouveau document",
+          "Coller",
+          "Ouvrir dans un terminal",
+          "Tout sélectionner",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Créer un nouveau dossier",
+            "Créer un nouveau document",
+            "Coller",
+            "Ouvrir dans un terminal",
+            "Tout sélectionner",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.background.documents": {
       "scenarioId": "nemo.list.background.documents",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fond liste (Documents)",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "Documents"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "content",
+        "coords": [
+          420,
+          300
+        ]
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller [disabled]",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
+      "actions": [
+        "new-folder",
+        "new-document",
+        "paste",
+        "open-terminal",
+        "select-all",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 411,
+        "y": 742.09375,
+        "width": 898,
+        "height": 174.90625
+      },
+      "clipped": true,
+      "item": null,
+      "errors": [],
+      "expectedLabels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Créer un nouveau dossier",
+          "Créer un nouveau document",
+          "Coller",
+          "Ouvrir dans un terminal",
+          "Tout sélectionner",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Créer un nouveau dossier",
+            "Créer un nouveau document",
+            "Coller",
+            "Ouvrir dans un terminal",
+            "Tout sélectionner",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.background.desktop": {
       "scenarioId": "nemo.list.background.desktop",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fond liste (Bureau)",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "Bureau"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "content",
+        "coords": [
+          420,
+          300
+        ]
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller [disabled]",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
+      "actions": [
+        "new-folder",
+        "new-document",
+        "paste",
+        "open-terminal",
+        "select-all",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 411,
+        "y": 742.09375,
+        "width": 898,
+        "height": 174.90625
+      },
+      "clipped": true,
+      "item": null,
+      "errors": [],
+      "expectedLabels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Coller",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Créer un nouveau dossier",
+          "Créer un nouveau document",
+          "Coller",
+          "Ouvrir dans un terminal",
+          "Tout sélectionner",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Créer un nouveau dossier",
+            "Créer un nouveau document",
+            "Coller",
+            "Ouvrir dans un terminal",
+            "Tout sélectionner",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.file.txt": {
       "scenarioId": "nemo.list.file.txt",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fichier .txt",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "Documents"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "item",
+        "itemName": "introduction-bash.txt"
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller [disabled]",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "open-with",
+        "cut",
+        "copy",
+        "paste",
+        "rename",
+        "compress",
+        "trash",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 411,
+        "y": 569.078125,
+        "width": 898,
+        "height": 226.921875
+      },
+      "clipped": true,
+      "item": "introduction-bash.txt",
+      "errors": [],
+      "expectedLabels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Ouvrir",
+          "Ouvrir avec…",
+          "Couper",
+          "Copier",
+          "Coller",
+          "Renommer",
+          "Compresser…",
+          "Déplacer vers la corbeille",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Ouvrir",
+            "Ouvrir avec…",
+            "Couper",
+            "Copier",
+            "Coller",
+            "Renommer",
+            "Compresser…",
+            "Déplacer vers la corbeille",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.file.pdf": {
       "scenarioId": "nemo.list.file.pdf",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fichier .pdf",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "Documents"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "item",
+        "itemName": "Bash.pdf"
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller [disabled]",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "open-with",
+        "cut",
+        "copy",
+        "paste",
+        "rename",
+        "compress",
+        "trash",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 326,
+        "y": 569.078125,
+        "width": 898,
+        "height": 226.921875
+      },
+      "clipped": false,
+      "item": "Bash.pdf",
+      "errors": [],
+      "expectedLabels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Ouvrir",
+          "Ouvrir avec…",
+          "Couper",
+          "Copier",
+          "Coller",
+          "Renommer",
+          "Compresser…",
+          "Déplacer vers la corbeille",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Ouvrir",
+            "Ouvrir avec…",
+            "Couper",
+            "Copier",
+            "Coller",
+            "Renommer",
+            "Compresser…",
+            "Déplacer vers la corbeille",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.file.png": {
       "scenarioId": "nemo.list.file.png",
-      "visible": false,
-      "labels": [],
-      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "label": "Nemo — fichier .png",
+      "priority": "P1",
+      "group": "nemo",
+      "setup": {
+        "slot": "nemo",
+        "navigate": "Images"
+      },
+      "trigger": {
+        "type": "contextmenu",
+        "target": "item",
+        "itemName": "lunaire-bureau.png"
+      },
+      "bound": true,
+      "visible": true,
+      "labels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller [disabled]",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "open-with",
+        "cut",
+        "copy",
+        "paste",
+        "rename",
+        "compress",
+        "trash",
+        "properties"
+      ],
+      "separators": 0,
+      "wired": true,
+      "zIndex": "12000",
+      "rect": {
+        "x": 326,
+        "y": 569.078125,
+        "width": 898,
+        "height": 226.921875
+      },
+      "clipped": false,
+      "item": "lunaire-bureau.png",
+      "errors": [],
+      "expectedLabels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller",
+        "Renommer",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
       "gap": {
+        "priority": "P1",
+        "expected": [
+          "Ouvrir",
+          "Ouvrir avec…",
+          "Couper",
+          "Copier",
+          "Coller",
+          "Renommer",
+          "Compresser…",
+          "Déplacer vers la corbeille",
+          "Propriétés"
+        ],
+        "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
+          "missing": [
+            "Ouvrir",
+            "Ouvrir avec…",
+            "Couper",
+            "Copier",
+            "Coller",
+            "Renommer",
+            "Compresser…",
+            "Déplacer vers la corbeille",
+            "Propriétés"
+          ],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": false
+        },
+        "crossDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.file.odt": {
@@ -495,19 +1100,19 @@
       "bound": true,
       "visible": true,
       "labels": [
-        "Créer un nouveau dossier",
-        "Créer un nouveau document",
+        "Couper",
+        "Copier",
         "Coller [disabled]",
-        "Ouvrir dans un terminal",
-        "Tout sélectionner",
+        "Compresser…",
+        "Déplacer vers la corbeille",
         "Propriétés"
       ],
       "actions": [
-        "new-folder",
-        "new-document",
+        "cut",
+        "copy",
         "paste",
-        "open-terminal",
-        "select-all",
+        "compress",
+        "trash",
         "properties"
       ],
       "separators": 0,
@@ -523,12 +1128,9 @@
       "item": null,
       "errors": [],
       "expectedLabels": [
-        "Ouvrir",
-        "Ouvrir avec…",
         "Couper",
         "Copier",
         "Coller",
-        "Renommer",
         "Compresser…",
         "Déplacer vers la corbeille",
         "Propriétés"
@@ -536,43 +1138,24 @@
       "gap": {
         "priority": "P1",
         "expected": [
-          "Ouvrir",
-          "Ouvrir avec…",
           "Couper",
           "Copier",
           "Coller",
-          "Renommer",
           "Compresser…",
           "Déplacer vers la corbeille",
           "Propriétés"
         ],
         "capsuleDiff": {
-          "missing": [
-            "Ouvrir",
-            "Ouvrir avec…",
-            "Couper",
-            "Copier",
-            "Renommer",
-            "Compresser…",
-            "Déplacer vers la corbeille"
-          ],
-          "extras": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner"
-          ],
+          "missing": [],
+          "extras": [],
           "orderMismatch": false,
-          "ok": false
+          "ok": true
         },
         "vmDiff": {
           "missing": [
-            "Ouvrir",
-            "Ouvrir avec…",
             "Couper",
             "Copier",
             "Coller",
-            "Renommer",
             "Compresser…",
             "Déplacer vers la corbeille",
             "Propriétés"
@@ -589,7 +1172,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.sidebar.place.home": {
@@ -607,54 +1190,56 @@
         "place": "Dossier Personnel"
       },
       "bound": true,
-      "visible": false,
-      "labels": [],
-      "actions": [],
+      "visible": true,
+      "labels": [
+        "Ouvrir [disabled]",
+        "Supprimer",
+        "Vider la corbeille [disabled]",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "remove-place",
+        "empty-trash",
+        "properties"
+      ],
       "separators": 0,
       "wired": true,
       "zIndex": "12000",
-      "rect": null,
+      "rect": {
+        "x": 158,
+        "y": 647.765625,
+        "width": 898,
+        "height": 102.234375
+      },
       "clipped": false,
       "item": null,
       "errors": [],
       "expectedLabels": [
-        "Créer un nouveau dossier",
-        "Créer un nouveau document",
-        "Coller",
-        "Ouvrir dans un terminal",
-        "Tout sélectionner",
+        "Ouvrir",
+        "Supprimer",
+        "Vider la corbeille",
         "Propriétés"
       ],
       "gap": {
         "priority": "P1",
         "expected": [
-          "Créer un nouveau dossier",
-          "Créer un nouveau document",
-          "Coller",
-          "Ouvrir dans un terminal",
-          "Tout sélectionner",
+          "Ouvrir",
+          "Supprimer",
+          "Vider la corbeille",
           "Propriétés"
         ],
         "capsuleDiff": {
-          "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
-            "Propriétés"
-          ],
+          "missing": [],
           "extras": [],
           "orderMismatch": false,
-          "ok": false
+          "ok": true
         },
         "vmDiff": {
           "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
+            "Ouvrir",
+            "Supprimer",
+            "Vider la corbeille",
             "Propriétés"
           ],
           "extras": [],
@@ -669,7 +1254,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.sidebar.place.documents": {
@@ -687,54 +1272,56 @@
         "place": "Documents"
       },
       "bound": true,
-      "visible": false,
-      "labels": [],
-      "actions": [],
+      "visible": true,
+      "labels": [
+        "Ouvrir [disabled]",
+        "Supprimer",
+        "Vider la corbeille [disabled]",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "remove-place",
+        "empty-trash",
+        "properties"
+      ],
       "separators": 0,
       "wired": true,
       "zIndex": "12000",
-      "rect": null,
+      "rect": {
+        "x": 158,
+        "y": 669.953125,
+        "width": 898,
+        "height": 128.046875
+      },
       "clipped": false,
       "item": null,
       "errors": [],
       "expectedLabels": [
-        "Créer un nouveau dossier",
-        "Créer un nouveau document",
-        "Coller",
-        "Ouvrir dans un terminal",
-        "Tout sélectionner",
+        "Ouvrir",
+        "Supprimer",
+        "Vider la corbeille",
         "Propriétés"
       ],
       "gap": {
         "priority": "P1",
         "expected": [
-          "Créer un nouveau dossier",
-          "Créer un nouveau document",
-          "Coller",
-          "Ouvrir dans un terminal",
-          "Tout sélectionner",
+          "Ouvrir",
+          "Supprimer",
+          "Vider la corbeille",
           "Propriétés"
         ],
         "capsuleDiff": {
-          "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
-            "Propriétés"
-          ],
+          "missing": [],
           "extras": [],
           "orderMismatch": false,
-          "ok": false
+          "ok": true
         },
         "vmDiff": {
           "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
+            "Ouvrir",
+            "Supprimer",
+            "Vider la corbeille",
             "Propriétés"
           ],
           "extras": [],
@@ -749,7 +1336,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.sidebar.place.downloads": {
@@ -767,54 +1354,56 @@
         "place": "Téléchargements"
       },
       "bound": true,
-      "visible": false,
-      "labels": [],
-      "actions": [],
+      "visible": true,
+      "labels": [
+        "Ouvrir [disabled]",
+        "Supprimer",
+        "Vider la corbeille [disabled]",
+        "Propriétés"
+      ],
+      "actions": [
+        "open",
+        "remove-place",
+        "empty-trash",
+        "properties"
+      ],
       "separators": 0,
       "wired": true,
       "zIndex": "12000",
-      "rect": null,
-      "clipped": false,
+      "rect": {
+        "x": 158,
+        "y": 765.953125,
+        "width": 898,
+        "height": 128.046875
+      },
+      "clipped": true,
       "item": null,
       "errors": [],
       "expectedLabels": [
-        "Créer un nouveau dossier",
-        "Créer un nouveau document",
-        "Coller",
-        "Ouvrir dans un terminal",
-        "Tout sélectionner",
+        "Ouvrir",
+        "Supprimer",
+        "Vider la corbeille",
         "Propriétés"
       ],
       "gap": {
         "priority": "P1",
         "expected": [
-          "Créer un nouveau dossier",
-          "Créer un nouveau document",
-          "Coller",
-          "Ouvrir dans un terminal",
-          "Tout sélectionner",
+          "Ouvrir",
+          "Supprimer",
+          "Vider la corbeille",
           "Propriétés"
         ],
         "capsuleDiff": {
-          "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
-            "Propriétés"
-          ],
+          "missing": [],
           "extras": [],
           "orderMismatch": false,
-          "ok": false
+          "ok": true
         },
         "vmDiff": {
           "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
+            "Ouvrir",
+            "Supprimer",
+            "Vider la corbeille",
             "Propriétés"
           ],
           "extras": [],
@@ -829,7 +1418,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.sidebar.trash": {
@@ -1750,38 +2339,21 @@
       "gap": {
         "priority": "P1",
         "expected": [
-          "Créer un nouveau dossier",
-          "Créer un nouveau document",
-          "Coller",
-          "Ouvrir dans un terminal",
-          "Tout sélectionner",
-          "Propriétés"
+          "Document vide",
+          "Feuille de calcul",
+          "Présentation"
         ],
         "capsuleDiff": {
-          "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
-            "Propriétés"
-          ],
-          "extras": [
-            "Document vide",
-            "Feuille de calcul",
-            "Présentation"
-          ],
+          "missing": [],
+          "extras": [],
           "orderMismatch": false,
-          "ok": false
+          "ok": true
         },
         "vmDiff": {
           "missing": [
-            "Créer un nouveau dossier",
-            "Créer un nouveau document",
-            "Coller",
-            "Ouvrir dans un terminal",
-            "Tout sélectionner",
-            "Propriétés"
+            "Document vide",
+            "Feuille de calcul",
+            "Présentation"
           ],
           "extras": [],
           "orderMismatch": false,
@@ -1795,7 +2367,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     },
     "nemo.list.file.submenu.open-with": {
@@ -1842,48 +2414,23 @@
       "gap": {
         "priority": "P1",
         "expected": [
-          "Ouvrir",
-          "Ouvrir avec…",
-          "Couper",
-          "Copier",
-          "Coller",
-          "Renommer",
-          "Compresser…",
-          "Déplacer vers la corbeille",
-          "Propriétés"
+          "Éditeur de texte",
+          "Visionneur d'images",
+          "Visionneur de documents",
+          "Lecteur multimédia"
         ],
         "capsuleDiff": {
+          "missing": [],
+          "extras": [],
+          "orderMismatch": false,
+          "ok": true
+        },
+        "vmDiff": {
           "missing": [
-            "Ouvrir",
-            "Ouvrir avec…",
-            "Couper",
-            "Copier",
-            "Coller",
-            "Renommer",
-            "Compresser…",
-            "Déplacer vers la corbeille",
-            "Propriétés"
-          ],
-          "extras": [
             "Éditeur de texte",
             "Visionneur d'images",
             "Visionneur de documents",
             "Lecteur multimédia"
-          ],
-          "orderMismatch": false,
-          "ok": false
-        },
-        "vmDiff": {
-          "missing": [
-            "Ouvrir",
-            "Ouvrir avec…",
-            "Couper",
-            "Copier",
-            "Coller",
-            "Renommer",
-            "Compresser…",
-            "Déplacer vers la corbeille",
-            "Propriétés"
           ],
           "extras": [],
           "orderMismatch": false,
@@ -1897,7 +2444,7 @@
         },
         "vmPedagogical": [],
         "p0": false,
-        "p1": true
+        "p1": false
       }
     }
   }

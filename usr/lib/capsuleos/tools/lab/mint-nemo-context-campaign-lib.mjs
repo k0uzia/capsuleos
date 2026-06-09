@@ -25,6 +25,7 @@ export const KNOWN_ACTIONS = new Set([
   'open', 'cut', 'copy', 'rename', 'delete', 'properties', 'new-folder', 'new-document',
   'open-with', 'paste', 'trash', 'restore-trash', 'delete-forever', 'open-terminal',
   'select-all', 'empty-trash', 'compress', 'new-document-template', 'open-with-app',
+  'remove-place',
   'minimize', 'toggle-maximize', 'close', 'always-on-top', 'add-applets', 'configure-panel',
 ]);
 
@@ -131,6 +132,29 @@ export async function dismissMenus(page) {
   await page.waitForTimeout(60);
 }
 
+const CAMPAIGN_WINDOW_SLOTS = [
+  'themes', 'text_editor', 'visionneur_pdf', 'visionneur_images', 'lecteur_multimedia',
+  'firefox', 'calculator', 'terminal',
+];
+
+export async function isolateNemoCampaignWindows(page) {
+  await page.evaluate((slots) => {
+    const nemo = document.querySelector('div[data-link="nemo"]');
+    slots.forEach((slot) => {
+      const other = document.querySelector(`div[data-link="${slot}"]`);
+      if (other && other !== nemo) {
+        other.style.display = 'none';
+        other.classList.remove('windowElementActive');
+      }
+    });
+    if (nemo) {
+      nemo.style.display = 'block';
+      nemo.classList.add('windowElementActive');
+    }
+  }, CAMPAIGN_WINDOW_SLOTS);
+  await page.waitForTimeout(80);
+}
+
 export async function ensureNemoWindowVisible(page) {
   await page.evaluate(() => {
     const win = document.querySelector('div[data-link="nemo"]');
@@ -161,6 +185,9 @@ export async function ensureNemoWindowVisible(page) {
   }, null, { timeout: 8000 }).catch(() => {});
   await page.waitForTimeout(100);
 }
+
+/** Alias campagne — garantir Nemo visible avant chaque scénario navigable. */
+export const ensureNemoOpen = ensureNemoWindowVisible;
 
 export async function navigateNemo(page, place) {
   const link = place === 'home' ? '#home' : `a[data-link="${place}"]`;
@@ -224,7 +251,9 @@ export async function setupScenario(page, scenario, openMintSlot) {
 
   if (setup.slot === 'nemo') {
     await dismissMenus(page);
-    await ensureNemoWindowVisible(page);
+    await ensureNemoOpen(page);
+    await isolateNemoCampaignWindows(page);
+    await ensureNemoOpen(page);
     await openMintSlot(page, 'nemo');
     await ensureNemoWindowVisible(page);
     await page.waitForFunction(() => {
@@ -534,7 +563,10 @@ export function filterPedagogicalLabels(labels, matrix) {
 export function classifyGap(scenario, capsuleResult, vmResult, matrix) {
   const ctx = scenario.matrixContextId ? matrixContext(matrix, scenario.matrixContextId) : null;
   const priority = scenario.priority || ctx?.priority || 'P2';
-  const expected = ctx?.expectedLabels || [];
+  let expected = ctx?.expectedLabels || [];
+  if (scenario.submenuKey && ctx?.submenus?.[scenario.submenuKey]) {
+    expected = ctx.submenus[scenario.submenuKey];
+  }
   const capsuleLabels = (capsuleResult?.labels || []).map((l) => l.replace(' [disabled]', ''));
   const vmRaw = vmResult?.labels || [];
   const vmLabels = filterPedagogicalLabels(vmRaw, matrix);

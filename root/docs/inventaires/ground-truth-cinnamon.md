@@ -47,12 +47,27 @@ Dernière mise à jour : 2026-06-09
 
 
 
+
+## Checkpoint pré-push Nemo
+
+Avant tout **commit/push remote** touchant Nemo / menus contextuels :
+
+1. `node usr/lib/capsuleos/tools/validate-all.mjs`
+2. `smoke-mint-context-menus.mjs` + `smoke-mint-nemo.mjs` (exit 0)
+3. `run-mint-nemo-context-campaign.mjs` + `compare-mint-nemo-context-campaign.mjs --write`
+4. Rapport [`nemo-fidelity-checkpoint.md`](interactions/linux-mint/nemo-fidelity-checkpoint.md) — verdict **GO/NO-GO**
+5. Si `home/` modifié : `sync-linux-skin-closure.mjs linux-mint`
+
+**NO-GO** si régression smoke pré-campagne ou P0 > 0.
+
+Dernier checkpoint : **GO** 2026-06-09 — voir rapport détaillé.
+
 ## Campagne clic droit Nemo (VM vs recette)
 
 Dernière passe : **2026-06-09**
 
 - Scénarios : `nemo-context-scenarios.json` (29)
-- Écarts : **0 P0**, **12 P1**
+- Écarts : **0 P0**, **0 P1**
 - Rapport : [`nemo-context-campaign-report.md`](interactions/linux-mint/nemo-context-campaign-report.md)
 
 Workflow :

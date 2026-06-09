@@ -139,7 +139,7 @@
       "setup": { "slot": "nemo", "navigate": "Documents", "select": ["introduction-bash.txt", "Bash.pdf"] },
       "trigger": { "type": "contextmenu", "target": "multi", "coords": [300, 250] },
       "expectedVmProfile": "nemo.list.multi",
-      "matrixContextId": "nemo.list.file",
+      "matrixContextId": "nemo.list.multi",
       "vmNote": "VM : menu fichier multi-sélection — sous-ensemble commun (pas Ouvrir avec… par fichier)"
     },
     {
@@ -150,8 +150,9 @@
       "setup": { "slot": "nemo", "navigate": "home" },
       "trigger": { "type": "contextmenu", "target": "sidebar-place", "place": "Dossier Personnel" },
       "expectedVmProfile": "nemo.sidebar.place",
-      "matrixContextId": "nemo.list.background",
-      "vmNote": "VM Nemo : places sidebar — menu contextuel limité ou absent selon zone"
+      "matrixContextId": "nemo.sidebar.place",
+      "optional": true,
+      "vmNote": "VM Nemo : Dossier personnel — menu absent (skip si non visible)"
     },
     {
       "id": "nemo.sidebar.place.documents",
@@ -161,7 +162,7 @@
       "setup": { "slot": "nemo", "navigate": "Documents" },
       "trigger": { "type": "contextmenu", "target": "sidebar-place", "place": "Documents" },
       "expectedVmProfile": "nemo.sidebar.place",
-      "matrixContextId": "nemo.list.background"
+      "matrixContextId": "nemo.sidebar.place"
     },
     {
       "id": "nemo.sidebar.place.downloads",
@@ -171,7 +172,7 @@
       "setup": { "slot": "nemo", "navigate": "Téléchargements" },
       "trigger": { "type": "contextmenu", "target": "sidebar-place", "place": "Téléchargements" },
       "expectedVmProfile": "nemo.sidebar.place",
-      "matrixContextId": "nemo.list.background"
+      "matrixContextId": "nemo.sidebar.place"
     },
     {
       "id": "nemo.sidebar.trash",

@@ -20,6 +20,8 @@ import {
   classifyGap,
   dismissMenus,
   ensureDir,
+  ensureNemoOpen,
+  isolateNemoCampaignWindows,
   readJson,
   setupScenario,
   triggerScenario,
@@ -73,6 +75,11 @@ page.on('console', (msg) => {
 
 for (const scenario of scenarios) {
   try {
+    if (scenario.group === 'nemo' || scenario.setup?.slot === 'nemo') {
+      await dismissMenus(page);
+      await ensureNemoOpen(page);
+      await isolateNemoCampaignWindows(page);
+    }
     await setupScenario(page, scenario, openMintSlot);
     const capture = await triggerScenario(page, scenario);
     const ctx = scenario.matrixContextId

@@ -140,6 +140,57 @@
       "priority": "P1"
     },
     {
+      "id": "nemo.list.multi",
+      "label": "Nemo — sélection multiple",
+      "openMethod": "clic droit fond avec ≥2 éléments sélectionnés",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": [
+        "Couper",
+        "Copier",
+        "Coller",
+        "Compresser…",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
+      "vmNote": "VM Nemo 6.6.3 fr : pas Ouvrir / Ouvrir avec… / Renommer en multi ; pas Créer dossier/document ni Tout sélectionner",
+      "vmExtraLabels": [
+        "Créer un nouveau dossier",
+        "Créer un nouveau document",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner",
+        "Warpinator",
+        "Ajouter des desklets"
+      ],
+      "priority": "P1"
+    },
+    {
+      "id": "nemo.sidebar.place",
+      "label": "Nemo — place sidebar (Documents, Téléchargements…)",
+      "openMethod": "clic droit entrée Places",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": [
+        "Ouvrir",
+        "Supprimer",
+        "Vider la corbeille",
+        "Propriétés"
+      ],
+      "vmNote": "VM pyatspi : menu GTK étendu (signets, desklets…) — matrice pédagogique = sous-ensemble Nemo standard fr",
+      "vmExtraLabels": [
+        "Ouvrir dans un nouvel onglet",
+        "Ouvrir dans une nouvelle fenêtre",
+        "Ajouter un signet",
+        "Renommer…",
+        "Créer un nouveau lanceur ici…",
+        "Envoyer avec Warpinator"
+      ],
+      "priority": "P1",
+      "smoke": {
+        "slot": "nemo",
+        "trigger": "contextmenu-on",
+        "selector": "#voletnemo a.places-item[data-link=\"Documents\"]"
+      }
+    },
+    {
       "id": "nemo.sidebar.trash",
       "label": "Nemo — corbeille (sidebar)",
       "openMethod": "clic droit entrée Corbeille",
@@ -221,74 +272,13 @@
   ],
   "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
   "campaign": {
-    "collectedAt": "2026-06-09T13:53:50.287Z",
+    "collectedAt": "2026-06-09T14:12:47.713Z",
     "scenarios": "root/docs/inventaires/interactions/linux-mint/nemo-context-scenarios.json",
     "capsule": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-capsule.json",
     "vm": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-vm.json",
     "report": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-report.md",
     "p0Gaps": 0,
-    "p1Gaps": 12,
-    "notes": [
-      {
-        "id": "nemo.list.background.home",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.background.documents",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.background.desktop",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.file.txt",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.file.pdf",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.file.png",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.list.multi",
-        "verdict": "P1",
-        "note": "Capsule: Créer un nouveau dossier | Créer un nouveau document | Coller | Ouvrir dans un terminal | Tout sélectionner | Propriétés · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
-      },
-      {
-        "id": "nemo.sidebar.place.home",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: —"
-      },
-      {
-        "id": "nemo.sidebar.place.documents",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Ouvrir | Supprimer | Vider la corbeille | Propriétés"
-      },
-      {
-        "id": "nemo.sidebar.place.downloads",
-        "verdict": "P1",
-        "note": "Capsule: — · VM: Ouvrir | Supprimer | Vider la corbeille | Propriétés"
-      },
-      {
-        "id": "nemo.list.background.submenu.new-document",
-        "verdict": "P1",
-        "note": "Capsule: Document vide | Feuille de calcul | Présentation · VM: —"
-      },
-      {
-        "id": "nemo.list.file.submenu.open-with",
-        "verdict": "P1",
-        "note": "Capsule: Éditeur de texte | Visionneur d'images | Visionneur de documents | Lecteur multimédia · VM: —"
-      }
-    ]
+    "p1Gaps": 0,
+    "notes": []
   }
 }

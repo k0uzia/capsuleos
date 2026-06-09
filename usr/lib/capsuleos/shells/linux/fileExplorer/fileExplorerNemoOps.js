@@ -1,5 +1,5 @@
 /**
- * Opérations Nemo Cinnamon — presse-papiers et propriétés (sans charger NautilusOps).
+ * Opérations Nemo Cinnamon — presse-papiers, corbeille, renommage, ouvrir avec.
  */
 (function initFileExplorerNemoOps(global) {
     'use strict';
@@ -16,6 +16,46 @@
         }
         return global.document.getElementById('nemo')
             || global.document.querySelector('div.windowElement#nemo[data-link="nemo"]');
+    };
+
+    const getStorageKey = (suffix) => {
+        const skin = global.document && global.document.body ? global.document.body.id : 'default';
+        const root = typeof global.getFileExplorerRoot === 'function'
+            ? global.getFileExplorerRoot()
+            : 'home/public';
+        return `capsule-nautilus-${suffix}:${skin}:${root}`;
+    };
+
+    const readJsonStorage = (key, fallback) => {
+        try {
+            const raw = global.localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+            return fallback;
+        }
+    };
+
+    const writeJsonStorage = (key, value) => {
+        try {
+            global.localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+            /* quota */
+        }
+    };
+
+    const getTrashStore = () => readJsonStorage(getStorageKey('trash'), []);
+    const setTrashStore = (items) => writeJsonStorage(getStorageKey('trash'), items);
+
+    const getSelectedItemLinks = () => {
+        const root = getNemoRoot();
+        if (!root) {
+            return [];
+        }
+        const grid = root.querySelector('.nemoElement, .nemo-app__content-grid');
+        if (!grid) {
+            return [];
+        }
+        return Array.prototype.slice.call(grid.querySelectorAll('a.nemo-app__item--selected[data-item-name]'));
     };
 
     const linkToEntry = (link) => {
@@ -39,14 +79,6 @@
         return entry;
     };
 
-    const setExplorerClipboard = (op, entries) => {
-        const state = getState();
-        if (!state) {
-            return;
-        }
-        state.explorerClipboard = entries && entries.length ? { op: op, entries: entries } : null;
-    };
-
     const refreshView = () => {
         const state = getState();
         if (!state || !state.currentPath) {
@@ -56,7 +88,17 @@
             global.navigateToFileExplorerDirectory(state.currentPath, { updateHistory: false });
         } else if (typeof global.loadFileExplorerDirectory === 'function') {
             global.loadFileExplorerDirectory(state.currentPath);
+        } else if (typeof global.renderDirectory === 'function') {
+            global.renderDirectory(state.currentPath, { pane: state.activePane || 'primary' });
         }
+    };
+
+    const setExplorerClipboard = (op, entries) => {
+        const state = getState();
+        if (!state) {
+            return;
+        }
+        state.explorerClipboard = entries && entries.length ? { op: op, entries: entries } : null;
     };
 
     const cutExplorerSelection = (link) => {
@@ -112,6 +154,191 @@
         return !!(clip && clip.entries && clip.entries.length);
     };
 
+    const findTrashEntriesForLinks = (links) => {
+        const store = getTrashStore();
+        const names = links.map((link) => link.dataset.itemName).filter(Boolean);
+        return names.map((name) => {
+            const index = store.findIndex((entry) => {
+                const entryName = (entry.item && entry.item.name) || entry.name;
+                return entryName === name;
+            });
+            if (index < 0) {
+                return null;
+            }
+            return { index: index, entry: store[index], name: name };
+        }).filter(Boolean);
+    };
+
+    const emptyNautilusTrash = async () => {
+        const store = getTrashStore();
+        if (!store.length) {
+            return { ok: true, count: 0 };
+        }
+        if (typeof global.confirm === 'function' && !global.confirm('Vider la corbeille ?')) {
+            return { ok: false, cancelled: true };
+        }
+        setTrashStore([]);
+        refreshView();
+        return { ok: true, count: store.length };
+    };
+
+    const restoreNautilusTrashSelection = async () => {
+        const links = getSelectedItemLinks();
+        const loadManifest = global.loadManifestForFileExplorer || global.loadManifest;
+        if (!links.length || typeof loadManifest !== 'function') {
+            return { ok: false };
+        }
+        try {
+            await loadManifest();
+        } catch (error) {
+            return { ok: false };
+        }
+        const state = getState();
+        const manifest = state && state.manifest;
+        if (!manifest || !manifest.folders) {
+            return { ok: false };
+        }
+        const store = getTrashStore();
+        const matches = findTrashEntriesForLinks(links);
+        if (!matches.length) {
+            return { ok: false };
+        }
+        let restored = 0;
+        const remaining = store.slice();
+        const removeIndexes = [];
+        matches.forEach((match) => {
+            const entry = match.entry;
+            const parent = entry.parentPath;
+            const parentNode = manifest.folders[parent];
+            const item = entry.item;
+            if (!parentNode || !Array.isArray(parentNode.items) || !item) {
+                return;
+            }
+            if (parentNode.items.some((it) => it.name === item.name)) {
+                return;
+            }
+            parentNode.items.push(JSON.parse(JSON.stringify(item)));
+            if (item.type === 'folder' && item.path) {
+                manifest.folders[item.path] = manifest.folders[item.path] || { label: item.name, items: [] };
+            }
+            removeIndexes.push(match.index);
+            restored += 1;
+        });
+        if (!restored) {
+            return { ok: false, message: 'Impossible de restaurer (conflit ou dossier d’origine absent).' };
+        }
+        removeIndexes.sort((a, b) => b - a).forEach((idx) => remaining.splice(idx, 1));
+        if (typeof global.persistExplorerManifest === 'function') {
+            global.persistExplorerManifest(manifest);
+        }
+        setTrashStore(remaining);
+        refreshView();
+        return { ok: true, count: restored };
+    };
+
+    const deleteNautilusTrashSelectionPermanently = async () => {
+        const links = getSelectedItemLinks();
+        if (!links.length) {
+            return { ok: false };
+        }
+        const store = getTrashStore();
+        const matches = findTrashEntriesForLinks(links);
+        if (!matches.length) {
+            return { ok: false };
+        }
+        const removeIndexes = matches.map((match) => match.index).sort((a, b) => b - a);
+        const remaining = store.slice();
+        removeIndexes.forEach((idx) => remaining.splice(idx, 1));
+        setTrashStore(remaining);
+        refreshView();
+        return { ok: true, count: matches.length };
+    };
+
+    const renameExplorerSelection = async (itemLink) => {
+        const link = itemLink || getSelectedItemLinks()[0];
+        if (!link) {
+            return { ok: false };
+        }
+        if (typeof global.startExplorerInlineRename === 'function') {
+            return global.startExplorerInlineRename(link);
+        }
+        const entry = linkToEntry(link);
+        if (!entry || typeof global.renameExplorerItem !== 'function') {
+            return { ok: false };
+        }
+        if (typeof global.prompt !== 'function') {
+            return { ok: false };
+        }
+        const next = global.prompt('Nouveau nom :', entry.name);
+        if (next === null) {
+            return { ok: false, cancelled: true };
+        }
+        const result = await global.renameExplorerItem(entry.parentPath, entry.name, next.trim());
+        refreshView();
+        return result;
+    };
+
+    const trashExplorerSelection = async (itemLink) => {
+        const link = itemLink || getSelectedItemLinks()[0];
+        const entry = linkToEntry(link);
+        if (!entry || typeof global.trashExplorerItem !== 'function') {
+            return { ok: false };
+        }
+        const result = await global.trashExplorerItem(entry.parentPath, entry.name);
+        refreshView();
+        return result;
+    };
+
+    const openExplorerSelectionWith = (itemLink) => {
+        const link = itemLink || getSelectedItemLinks()[0];
+        if (!link) {
+            return { ok: false };
+        }
+        if (link.dataset.itemType === 'folder') {
+            if (typeof link.click === 'function') {
+                link.click();
+            }
+            return { ok: true };
+        }
+        const name = link.dataset.itemName || '';
+        const href = link.dataset.itemHref || link.getAttribute('href') || '#';
+        const dot = name.lastIndexOf('.');
+        const extension = dot > 0 ? name.slice(dot + 1).toLowerCase() : 'txt';
+        if (typeof global.openFileInViewer === 'function') {
+            const appId = typeof global.getFileViewerTargetByExtension === 'function'
+                ? global.getFileViewerTargetByExtension(extension)
+                : null;
+            if (!appId && typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink('text_editor');
+            }
+            const opened = global.openFileInViewer(href, extension, name);
+            return { ok: !!opened };
+        }
+        if (typeof link.click === 'function') {
+            link.click();
+            return { ok: true };
+        }
+        return { ok: false };
+    };
+
+    const getVirtualPlaceItems = (placePath) => {
+        if (placePath === global.CAPSULE_PLACE_TRASH) {
+            return getTrashStore().map((entry) => ({
+                type: (entry.item && entry.item.type) || 'file',
+                name: (entry.item && entry.item.name) || entry.name || 'Élément',
+                path: entry.item && entry.item.path,
+                href: entry.item && entry.item.href,
+                extension: entry.item && entry.item.extension,
+                trashedFrom: entry.parentPath,
+            }));
+        }
+        return null;
+    };
+
+    function usesAdvancedExplorerOps() {
+        return isNemoCinnamon();
+    }
+
     function openFileExplorerProperties(itemLink) {
         if (typeof global.openExplorerProperties !== 'function') {
             return false;
@@ -129,13 +356,24 @@
             return;
         }
         root.dataset.nemoOpsInit = 'true';
+        if (typeof global.bindFileExplorerInlineRename === 'function') {
+            global.bindFileExplorerInlineRename(root);
+        }
     }
 
+    global.usesAdvancedExplorerOps = usesAdvancedExplorerOps;
     global.cutExplorerSelection = cutExplorerSelection;
     global.copyExplorerSelection = copyExplorerSelection;
     global.pasteExplorerClipboard = pasteExplorerClipboard;
     global.nemoHasPasteClipboard = hasPasteClipboard;
     global.openFileExplorerProperties = openFileExplorerProperties;
+    global.getNautilusVirtualPlaceItems = getVirtualPlaceItems;
+    global.emptyNautilusTrash = emptyNautilusTrash;
+    global.restoreNautilusTrashSelection = restoreNautilusTrashSelection;
+    global.deleteNautilusTrashSelectionPermanently = deleteNautilusTrashSelectionPermanently;
+    global.renameExplorerSelection = renameExplorerSelection;
+    global.trashExplorerSelection = trashExplorerSelection;
+    global.openExplorerSelectionWith = openExplorerSelectionWith;
     global.bindFileExplorerNemoOps = bindFileExplorerNemoOps;
 
     if (global.document) {

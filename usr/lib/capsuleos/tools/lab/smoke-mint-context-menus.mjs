@@ -24,21 +24,29 @@ const MATRIX_PATH = path.join(
   'root/docs/inventaires/interactions/linux-mint/context-menus.json',
 );
 
+const KNOWN_ACTIONS = new Set([
+  'new-folder',
+  'new-document',
+  'open',
+  'open-with',
+  'cut',
+  'copy',
+  'paste',
+  'rename',
+  'trash',
+  'restore-trash',
+  'delete-forever',
+  'open-terminal',
+  'select-all',
+  'empty-trash',
+  'properties',
+]);
+
 const readMatrix = () => JSON.parse(fs.readFileSync(MATRIX_PATH, 'utf8'));
 
 const matchExpected = (labels, expected) => {
   const missing = expected.filter((label) => labels.indexOf(label) < 0);
   return { ok: missing.length === 0, missing, labels };
-};
-
-const readVisibleLabels = (menu, itemSelector) => {
-  if (!menu || menu.hidden) {
-    return [];
-  }
-  return [...menu.querySelectorAll(itemSelector)]
-    .filter((node) => !node.hidden)
-    .map((node) => String(node.textContent || '').trim())
-    .filter(Boolean);
 };
 
 const browser = await chromium.launch({ headless: true, executablePath: chromePath });
@@ -80,7 +88,7 @@ await openMintSlot(page, 'nemo');
 await page.waitForSelector('div[data-link="nemo"]', { state: 'visible', timeout: 15000 });
 await page.waitForTimeout(220);
 
-results['nemo.list.background'] = await page.evaluate(() => {
+results['nemo.list.background'] = await page.evaluate((knownActions) => {
   const win = document.querySelector('div[data-link="nemo"]');
   const content = win?.querySelector('.nemoElement');
   content?.dispatchEvent(new MouseEvent('contextmenu', {
@@ -90,29 +98,39 @@ results['nemo.list.background'] = await page.evaluate(() => {
     clientY: 300,
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
-  const labels = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden).map((n) => n.textContent.trim())
+  const items = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
     : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
+  const wired = items.every((n) => {
+    const action = String(n.dataset.nemoCtxAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
   return {
     bound: win?.dataset?.nemoContextMenuInit === 'true',
     visible: !!(menu && !menu.hidden),
     labels,
+    actions,
+    wired,
   };
-});
+}, [...KNOWN_ACTIONS]);
 
 const nemoBgCtx = matrix.contexts.find((c) => c.id === 'nemo.list.background');
 const nemoBgCheck = matchExpected(results['nemo.list.background'].labels, nemoBgCtx.expectedLabels);
 results['nemo.list.background'].ok = results['nemo.list.background'].visible
   && results['nemo.list.background'].bound
+  && results['nemo.list.background'].wired
   && nemoBgCheck.ok;
 results['nemo.list.background'].missing = nemoBgCheck.missing;
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
 await page.waitForTimeout(160);
 
-results['nemo.list.file'] = await page.evaluate(() => {
+results['nemo.list.file'] = await page.evaluate((knownActions) => {
   const win = document.querySelector('div[data-link="nemo"]');
-  const link = win?.querySelector('.nemoElement a[data-item-name]');
+  const links = win ? [...win.querySelectorAll('.nemoElement a[data-item-name]')] : [];
+  const link = links.find((node) => node.dataset.itemType !== 'folder') || links[0];
   if (!link) {
     return { visible: false, labels: [], noItem: true };
   }
@@ -123,21 +141,36 @@ results['nemo.list.file'] = await page.evaluate(() => {
     clientY: 250,
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
-  const labels = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden).map((n) => n.textContent.trim())
+  const items = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
     : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
+  const wired = items.every((n) => {
+    const action = String(n.dataset.nemoCtxAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
   return {
     item: link.dataset.itemName,
+    itemType: link.dataset.itemType,
     visible: !!(menu && !menu.hidden),
     labels,
+    actions,
+    wired,
   };
-});
+}, [...KNOWN_ACTIONS]);
 
 const nemoFileCtx = matrix.contexts.find((c) => c.id === 'nemo.list.file');
 if (!results['nemo.list.file'].noItem) {
   const nemoFileCheck = matchExpected(results['nemo.list.file'].labels, nemoFileCtx.expectedLabels);
-  results['nemo.list.file'].ok = results['nemo.list.file'].visible && nemoFileCheck.ok;
+  results['nemo.list.file'].ok = results['nemo.list.file'].visible
+    && results['nemo.list.file'].wired
+    && nemoFileCheck.ok;
   results['nemo.list.file'].missing = nemoFileCheck.missing;
+  if (nemoFileCtx.vmExtraLabels) {
+    const extraCheck = matchExpected(results['nemo.list.file'].labels, nemoFileCtx.vmExtraLabels);
+    results['nemo.list.file'].p2Missing = extraCheck.missing;
+  }
 } else {
   results['nemo.list.file'].ok = false;
   results['nemo.list.file'].missing = ['no file item in Documents'];
@@ -146,7 +179,53 @@ if (!results['nemo.list.file'].noItem) {
 await page.keyboard.press('Escape');
 await page.waitForTimeout(80);
 
-results['nemo.sidebar.trash'] = await page.evaluate(() => {
+results['nemo.list.folder'] = await page.evaluate((knownActions) => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const link = win?.querySelector('.nemoElement a[data-item-type="folder"]');
+  if (!link) {
+    return { visible: false, labels: [], noFolder: true };
+  }
+  link.dispatchEvent(new MouseEvent('contextmenu', {
+    bubbles: true,
+    cancelable: true,
+    clientX: 320,
+    clientY: 260,
+  }));
+  const menu = win?.querySelector('.nemo-app__context-menu');
+  const items = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
+    : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
+  const wired = items.every((n) => {
+    const action = String(n.dataset.nemoCtxAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
+  return {
+    item: link.dataset.itemName,
+    visible: !!(menu && !menu.hidden),
+    labels,
+    actions,
+    wired,
+  };
+}, [...KNOWN_ACTIONS]);
+
+const nemoFolderCtx = matrix.contexts.find((c) => c.id === 'nemo.list.folder');
+if (!results['nemo.list.folder'].noFolder) {
+  const nemoFolderCheck = matchExpected(results['nemo.list.folder'].labels, nemoFolderCtx.expectedLabels);
+  results['nemo.list.folder'].ok = results['nemo.list.folder'].visible
+    && results['nemo.list.folder'].wired
+    && nemoFolderCheck.ok;
+  results['nemo.list.folder'].missing = nemoFolderCheck.missing;
+} else {
+  results['nemo.list.folder'].ok = true;
+  results['nemo.list.folder'].skipped = true;
+}
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(80);
+
+results['nemo.sidebar.trash'] = await page.evaluate((knownActions) => {
   const win = document.querySelector('div[data-link="nemo"]');
   const link = win?.querySelector('#voletnemo a[data-link="Corbeille"]');
   link?.dispatchEvent(new MouseEvent('contextmenu', {
@@ -156,21 +235,29 @@ results['nemo.sidebar.trash'] = await page.evaluate(() => {
     clientY: 210,
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
-  const labels = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden).map((n) => n.textContent.trim())
+  const items = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
     : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const wired = items.every((n) => {
+    const action = String(n.dataset.nemoCtxAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
   return {
     visible: !!(menu && !menu.hidden),
     labels,
+    wired,
   };
-});
+}, [...KNOWN_ACTIONS]);
 
 const sidebarTrashCtx = matrix.contexts.find((c) => c.id === 'nemo.sidebar.trash');
 const sidebarTrashCheck = matchExpected(
   results['nemo.sidebar.trash'].labels,
   sidebarTrashCtx.expectedLabels,
 );
-results['nemo.sidebar.trash'].ok = results['nemo.sidebar.trash'].visible && sidebarTrashCheck.ok;
+results['nemo.sidebar.trash'].ok = results['nemo.sidebar.trash'].visible
+  && results['nemo.sidebar.trash'].wired
+  && sidebarTrashCheck.ok;
 results['nemo.sidebar.trash'].missing = sidebarTrashCheck.missing;
 
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
@@ -243,6 +330,7 @@ const p1Ids = [
   'desktop.background',
   'nemo.list.background',
   'nemo.list.file',
+  'nemo.list.folder',
   'nemo.sidebar.trash',
   'nemo.trash.background',
   'nemo.trash.item',

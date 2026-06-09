@@ -97,6 +97,17 @@ body#mint div[data-link="nemo"] .nemo-app__context-item[hidden] {
     display: none !important;
 }
 
+body#mint div[data-link="nemo"] .nemo-app__item-rename-input {
+    background: var(--nemo-bg-primary, #222226);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    border: 1px solid var(--nemo-accent, #1f9ede);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--nemo-accent, #1f9ede) 40%, transparent);
+    font: inherit;
+    font-size: inherit;
+    padding: 0.1rem 0.25rem;
+    min-width: 4rem;
+}
+
 body#mint div[data-link="nemo"] .nemo-properties-dialog {
     padding: 0;
     border: 1px solid var(--nemo-border, #202023);

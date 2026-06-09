@@ -84,6 +84,13 @@
       "autoExecute": true
     },
     {
+      "id": "R-CIN-CTX2",
+      "requires": ["H2"],
+      "command": "node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs",
+      "note": "Étape 2 Nemo — vérifie matrice context-menus.json avant smoke R-CIN-CTX",
+      "autoExecute": false
+    },
+    {
       "id": "R-CIN-CRED-LIVE",
       "requires": ["CinCred"],
       "negates": ["CinCred_live"],

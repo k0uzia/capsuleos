@@ -101,11 +101,18 @@ node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint -
 
 Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux-mint/context-menus.json`](inventaires/interactions/linux-mint/context-menus.json)
 
+**Cycle** : VM inventaire → `context-menus.json` → impl (`bindNemoContextMenu` + `fileExplorerNemoOps.js`) → smoke → `map-cinnamon-ground-truth-gaps.mjs --write`
+
 | Étape | Commande | Attendu |
 |-------|----------|---------|
-| Smoke P0/P1 | `CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs` | exit 0 — bureau, Nemo fond/fichier/corbeille |
-| Nemo intégration | `node usr/lib/capsuleos/tools/lab/smoke-mint-nemo.mjs` | exit 0 — menu fond liste + délégation |
+| Checklist | `node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs` | libellés P0/P1 + P2 documentés |
+| **Étape 2 — Nemo P1+** | patch `NEMO_ITEMS` + ops corbeille / renommage / terminal / document | `expectedLabels` matrice alignés VM fr |
+| Smoke P0/P1 | `CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs` | exit 0 — libellés + `data-nemo-ctx-action` branchés |
+| Nemo intégration | `node usr/lib/capsuleos/tools/lab/smoke-mint-nemo.mjs` | exit 0 — navigation + chrome |
+| Gap map | `node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write` | état formal mis à jour |
 | UI state shell | `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint --shell desktop,mainMenu,panel` | desktop ctx visible |
 | Inventaire VM | `ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 …'` | relire libellés fr si drift Nemo |
 
-Contextes **P2** documentés (non bloquants CinΣ) : icône bureau, panel, barre titre Muffin — voir matrice § `capsuleStatus: planned`.
+**Critères done étape 2** : fond liste (document, terminal, tout sélectionner) ; fichier/dossier (ouvrir avec…, renommer, corbeille) ; smoke exit 0 ; P2 « Compresser » et sous-menu modèles document restent dans `vmExtraLabels`.
+
+Contextes **P2** documentés (non bloquants CinΣ) : icône bureau, panel, barre titre Muffin, Compresser — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.

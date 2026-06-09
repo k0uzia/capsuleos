@@ -2,6 +2,12 @@
   "registryId": "linux-mint",
   "collectedAt": "2026-06-09T12:00:00Z",
   "source": "vm-locale+capsule-playwright",
+  "workflow": {
+    "cycle": "VM inventaire → context-menus.json → impl (bindNemoContextMenu + NemoOps) → smoke-mint-context-menus.mjs → map-cinnamon-ground-truth-gaps.mjs --write",
+    "matrix": "root/docs/inventaires/interactions/linux-mint/context-menus.json",
+    "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
+    "checklist": "node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs"
+  },
   "vm": {
     "host": "capsule@192.168.1.146",
     "cinnamon": "6.6.7",
@@ -45,13 +51,11 @@
       "capsuleSelector": ".nemo-app__context-menu",
       "expectedLabels": [
         "Créer un nouveau dossier",
-        "Coller",
-        "Propriétés"
-      ],
-      "vmExtraLabels": [
         "Créer un nouveau document",
+        "Coller",
         "Ouvrir dans un terminal",
-        "Tout sélectionner"
+        "Tout sélectionner",
+        "Propriétés"
       ],
       "priority": "P1",
       "smoke": {
@@ -65,8 +69,18 @@
       "label": "Nemo — fichier",
       "openMethod": "clic droit élément fichier",
       "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
-      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Coller", "Propriétés"],
-      "vmExtraLabels": ["Ouvrir avec…", "Renommer", "Compresser", "Déplacer vers la corbeille"],
+      "expectedLabels": [
+        "Ouvrir",
+        "Ouvrir avec…",
+        "Couper",
+        "Copier",
+        "Coller",
+        "Renommer",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
+      "vmExtraLabels": ["Compresser"],
+      "vmExtraNote": "P2 — archive zip via prompt ; sous-menu modèles « Créer un nouveau document » non porté",
       "priority": "P1"
     },
     {
@@ -74,7 +88,15 @@
       "label": "Nemo — dossier",
       "openMethod": "clic droit dossier",
       "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
-      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Coller", "Propriétés"],
+      "expectedLabels": [
+        "Ouvrir",
+        "Couper",
+        "Copier",
+        "Coller",
+        "Renommer",
+        "Déplacer vers la corbeille",
+        "Propriétés"
+      ],
       "priority": "P1"
     },
     {

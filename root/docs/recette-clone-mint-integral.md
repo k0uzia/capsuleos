@@ -79,6 +79,7 @@
 | Sync vues | `sync-all-views.mjs` | ✅ (à relancer avant push) |
 | Gate zone Mint | `validate-all.mjs` + `validate-toolkit-paradigm.mjs --all` | ✅ |
 | **Clic droit P0/P1** | `smoke-mint-context-menus.mjs` sur `:5501` | ✅ matrice [`context-menus.json`](inventaires/interactions/linux-mint/context-menus.json) |
+| **Nemo menu étape 2** | `bindNemoContextMenu` + `fileExplorerNemoOps.js` | ✅ fond liste (document, terminal, tout sélectionner) ; fichier (ouvrir avec…, renommer, corbeille) ; checklist `print-mint-context-menu-checklist.mjs` |
 | État réplication | `linux-mint-replication-state.json` | ✅ pallier **8** · Π_global 98 · non-conformités listées |
 | Rapport conformité | `linux-mint-clone-conformity-report.md` | ✅ matrice VM↔clone |
 
@@ -90,7 +91,7 @@
 - **Toolkit paths** : `toolkits/cinnamon/header|elements|apps`, `icons/cinnamon`, `vendors/mint/panel`.
 - **Panel** : `mint-panel.css` — régions `mint-panel__*` (menu, window-list, tray, favoris).
 - **Menu** : `mainMenu-data-cinnamon.js` + `mainMenu.skin.css` statique (`CAPSULE_STATIC_SKIN_SLOTS`).
-- **Nemo context menu** : `bindNemoContextMenu` — menu dynamique `.nemo-app__context-menu`, pas `#nemo-context-menu` GNOME.
+- **Nemo context menu** : `bindNemoContextMenu` — menu dynamique `.nemo-app__context-menu`, pas `#nemo-context-menu` GNOME. Cycle VM → matrice → impl → `smoke-mint-context-menus.mjs` → gap map `--write`.
 - **WM** : `cinnamon-window-behaviors.js`, `cinnamon-alt-tab.js`, `cinnamon-window-effects.js` — garde `isMintDesktop()`.
 - **Assets runtime** : `capsule-resource.js` → `./assets/...` (profil `assetsBase`).
 

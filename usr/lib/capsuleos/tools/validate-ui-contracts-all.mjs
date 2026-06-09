@@ -17,6 +17,7 @@ const steps = [
     'validate-skin-vendor-isolation.mjs',
     'validate-terminal-skin-lock.mjs',
     'validate-gnome-toolkit-pack.mjs',
+    'validate-ui-components-gnome.mjs',
     'validate-gnome-chrome-apps.mjs',
     'validate-gnome-overview-search-icons.mjs',
     'validate-css-selectors-contract.mjs',

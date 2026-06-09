@@ -64,6 +64,8 @@ node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id <registryId> --sc
 
 Les **spécificités techniques** par slot GNOME sont dans `toolkits.gnome.slotSpecs` (provider chrome, template, skin CSS, `functionalDepth`).
 
+**Compositions UI réutilisables** (composants N1 + assemblage N2, sources HIG officielles) : [`etc/capsuleos/contracts/ui-components-gnome.json`](../../etc/capsuleos/contracts/ui-components-gnome.json) · [convention-composants-gnome.md](convention-composants-gnome.md) · validateur `validate-ui-components-gnome.mjs`.
+
 ### 3.3 Collecte VM
 
 ```bash

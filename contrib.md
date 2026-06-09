@@ -44,7 +44,7 @@ Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parc
 2. **H1** — [`etc/capsuleos/kernels.json`](etc/capsuleos/kernels.json), [`etc/capsuleos/os-registry.json`](etc/capsuleos/os-registry.json), [`root/docs/manifeste-kernels.md`](root/docs/manifeste-kernels.md), [`root/docs/manifeste-noyau.md`](root/docs/manifeste-noyau.md)
 3. **H2** — `node usr/lib/capsuleos/tools/validate-all.mjs`
 4. **H3** — Skill [`root/skills/onboarding/SKILL.md`](root/skills/onboarding/SKILL.md) puis skill OS + rôle (voir [équipe agentique](root/docs/equipe-agentique.md))
-5. **H4** — Nouvel OS : [`root/docs/ajouter-os-scalable.md`](root/docs/ajouter-os-scalable.md)
+5. **H4** — Nouvel OS : [`root/docs/convention-accueil-os.md`](root/docs/convention-accueil-os.md) (cadre contributeur) · détail catalogue [`root/docs/ajouter-os-scalable.md`](root/docs/ajouter-os-scalable.md)
 6. **H5** — Implémentation minimale
 7. **H6** — `validate-all.mjs` + regen embed si besoin + test hors ligne
 

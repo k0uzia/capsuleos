@@ -101,10 +101,11 @@ Checklist commit : convention-clean-code §5.
 
 | Domaine | Documents |
 |---------|-----------|
+| Accueil nouvel OS (participatif) | [convention-accueil-os.md](convention-accueil-os.md) |
 | ManΣ / clone VM | [convention-manifest-vm.md](convention-manifest-vm.md) · [convention-reproduction-os.md](convention-reproduction-os.md) |
 | GNOME design (réf.) | [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) |
 | Cinnamon collecte (réf.) | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) |
-| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) |
+| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) · [convention-composants-ui.md](convention-composants-ui.md) · [convention-composants-gnome.md](convention-composants-gnome.md) |
 | Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) |
 | Assets VM | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | Styles / JS navigateur | [contrib.md](../../contrib.md) · `writing.md` |

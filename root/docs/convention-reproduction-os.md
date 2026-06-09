@@ -41,6 +41,7 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 
 | Couche | Document | Quand |
 |--------|----------|-------|
+| **Accueil contributeur** | [convention-accueil-os.md](convention-accueil-os.md) | Espace dédié, recette, périmètre PR, accueil à froid |
 | **Catalogue** | [ajouter-os-scalable.md](ajouter-os-scalable.md) | Entrée registre, pick-os, profil minimal |
 | **Clonage** | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) | Parité VM → skin (inventaire d’abord) |
 | **Contrôle** | [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) | Sonde JSON, `compare-os-parity.mjs` |

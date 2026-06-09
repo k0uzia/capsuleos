@@ -111,9 +111,9 @@ Pour chaque slot P0, exécuter `acquisitionOrder` du contrat :
 | 7 | `themes` | Wi-Fi, Affichage, À propos (playbook Paramètres) |
 
 ```bash
-node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id linux-rocky --write --ssh
-node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-rocky --write
-node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id linux-rocky --write
+node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id linux-rocky --filter P0 --ssh
+node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-rocky
+node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id linux-rocky
 ```
 
 ### Phase C — Parité et clôture

@@ -1,10 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "registryId": "linux-rocky",
-  "updatedAt": "2026-06-06T17:28:33.871Z",
+  "updatedAt": "2026-06-09T00:47:54.034Z",
   "procedure": "procedure-apps-replication-formelle.md",
+  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
     "documentedP0": 7,
+    "vmCapturesP0": 7,
+    "componentShotsPlanned": 31,
+    "componentShotsCaptured": 31,
     "capsuleCapturesP0": 7,
     "visualMatchClassifiedP0": 7
   },
@@ -15,7 +19,97 @@
       "vmId": "org.gnome.Calculator",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Calculatrice",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.popover",
+          "gnome.gtk-grid-view"
+        ],
+        "acquisitionOrder": [
+          "mode-selector",
+          "display",
+          "keypad-basic",
+          "keypad-advanced",
+          "history-panel"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "mode-selector",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.popover",
+            "gnome.gtk-grid-view"
+          ],
+          "labelFr": "mode selector",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/mode-selector-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "display",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.popover",
+            "gnome.gtk-grid-view"
+          ],
+          "labelFr": "display",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/display-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "keypad-basic",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.popover",
+            "gnome.gtk-grid-view"
+          ],
+          "labelFr": "keypad basic",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/keypad-basic-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "keypad-advanced",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.popover",
+            "gnome.gtk-grid-view"
+          ],
+          "labelFr": "keypad advanced",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/keypad-advanced-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "history-panel",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.popover",
+            "gnome.gtk-grid-view"
+          ],
+          "labelFr": "history panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/history-panel-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-calculator.png",
@@ -25,7 +119,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "characters",
@@ -33,6 +127,56 @@
       "vmId": "org.gnome.Characters",
       "parityPriority": "P2",
       "status": "pending",
+      "composition": {
+        "labelFr": "Caractères",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.character-grid"
+        ],
+        "acquisitionOrder": [
+          "character-grid",
+          "detail-pane",
+          "search"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "character-grid",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.character-grid"
+          ],
+          "labelFr": "character grid",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "detail-pane",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.character-grid"
+          ],
+          "labelFr": "detail pane",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "search",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.character-grid"
+          ],
+          "labelFr": "search",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -45,7 +189,73 @@
       "vmId": "org.gnome.TextEditor",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Éditeur de texte",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.monospace-editor"
+        ],
+        "acquisitionOrder": [
+          "menubar",
+          "editor-area",
+          "status-line",
+          "open-dialog"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "menubar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "menubar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/menubar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "editor-area",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "editor area",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/editor-area-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "status-line",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "status line",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/status-line-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "open-dialog",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "open dialog",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/open-dialog-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-text-editor.png",
@@ -55,7 +265,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "nemo",
@@ -63,7 +273,118 @@
       "vmId": "org.gnome.Nautilus",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Fichiers (Nautilus)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.adw-navigation-split",
+          "gnome.gtk-column-view",
+          "gnome.gtk-search-entry"
+        ],
+        "acquisitionOrder": [
+          "sidebar",
+          "column-headers",
+          "pathbar",
+          "context-menu-item",
+          "context-menu-background",
+          "trash"
+        ],
+        "chromeProvider": "nemo-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "sidebar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "sidebar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/sidebar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "column-headers",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "column headers",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/column-headers-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "pathbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "pathbar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/pathbar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "context-menu-item",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "context menu item",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/context-menu-item-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "context-menu-background",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "context menu background",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/context-menu-background-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "trash",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "trash",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/trash-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-nautilus.png",
@@ -73,15 +394,81 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "firefox",
       "labelFr": "Firefox",
-      "vmId": "org.mozilla.Firefox",
+      "vmId": "firefox",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Firefox",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.browser-chrome"
+        ],
+        "acquisitionOrder": [
+          "tab-bar",
+          "url-bar",
+          "bookmarks",
+          "menu-hamburger"
+        ],
+        "chromeProvider": "firefox-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "tab-bar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "tab bar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/tab-bar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "url-bar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "url bar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/url-bar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "bookmarks",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "bookmarks",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/bookmarks-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "menu-hamburger",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "menu hamburger",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/menu-hamburger-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-firefox.png",
@@ -91,7 +478,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "clocks",
@@ -99,6 +486,68 @@
       "vmId": "org.gnome.clocks",
       "parityPriority": "P1",
       "status": "pending",
+      "composition": {
+        "labelFr": "Horloges",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.clocks-face"
+        ],
+        "acquisitionOrder": [
+          "world-tab",
+          "alarm-tab",
+          "timer-tab",
+          "stopwatch-tab"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "world-tab",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.clocks-face"
+          ],
+          "labelFr": "world tab",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "alarm-tab",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.clocks-face"
+          ],
+          "labelFr": "alarm tab",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "timer-tab",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.clocks-face"
+          ],
+          "labelFr": "timer tab",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "stopwatch-tab",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.clocks-face"
+          ],
+          "labelFr": "stopwatch tab",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -111,7 +560,83 @@
       "vmId": "org.gnome.Software",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Logiciels (GNOME Software)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.software-grid",
+          "gnome.gtk-search-entry"
+        ],
+        "acquisitionOrder": [
+          "explore-grid",
+          "updates-banner",
+          "app-detail",
+          "categories"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "explore-grid",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-grid",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "explore grid",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/explore-grid-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "updates-banner",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-grid",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "updates banner",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/updates-banner-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "app-detail",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-grid",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "app detail",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/app-detail-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "categories",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-grid",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "categories",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/categories-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software.png",
@@ -121,7 +646,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "visionneur_images",
@@ -129,6 +654,56 @@
       "vmId": "org.gnome.Loupe",
       "parityPriority": "P1",
       "status": "pending",
+      "composition": {
+        "labelFr": "Loupe (images)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-toolbar-view",
+          "gnome.media-viewer"
+        ],
+        "acquisitionOrder": [
+          "toolbar",
+          "image-canvas",
+          "metadata-pane"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "toolbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "toolbar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "image-canvas",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "image canvas",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "metadata-pane",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "metadata pane",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -141,6 +716,56 @@
       "vmId": "org.gnome.SystemMonitor",
       "parityPriority": "P2",
       "status": "pending",
+      "composition": {
+        "labelFr": "Moniteur système",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.system-metrics"
+        ],
+        "acquisitionOrder": [
+          "cpu-chart",
+          "memory-chart",
+          "process-table"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "cpu-chart",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "cpu chart",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "memory-chart",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "memory chart",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "process-table",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "process table",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -153,6 +778,68 @@
       "vmId": "org.gnome.Papers",
       "parityPriority": "P1",
       "status": "pending",
+      "composition": {
+        "labelFr": "Papers (PDF)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-toolbar-view",
+          "gnome.media-viewer"
+        ],
+        "acquisitionOrder": [
+          "toolbar",
+          "page-canvas",
+          "sidebar-thumbs",
+          "zoom-controls"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "toolbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "toolbar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "page-canvas",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "page canvas",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "sidebar-thumbs",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "sidebar thumbs",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "zoom-controls",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "zoom controls",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -165,7 +852,83 @@
       "vmId": "org.gnome.Settings",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Paramètres",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.adw-preferences-page",
+          "gnome.adw-preferences-group"
+        ],
+        "acquisitionOrder": [
+          "sidebar-panels",
+          "wifi-row",
+          "display-panel",
+          "about-panel"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "sidebar-panels",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "sidebar panels",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/sidebar-panels-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "wifi-row",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "wifi row",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/wifi-row-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "display-panel",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "display panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/display-panel-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "about-panel",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "about panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/about-panel-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-settings-appearance.png",
@@ -175,7 +938,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "snapshot",
@@ -183,6 +946,56 @@
       "vmId": "org.gnome.Snapshot",
       "parityPriority": "P1",
       "status": "pending",
+      "composition": {
+        "labelFr": "Snapshot (caméra)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.camera-preview"
+        ],
+        "acquisitionOrder": [
+          "preview",
+          "shutter-button",
+          "effects-strip"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "preview",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.camera-preview"
+          ],
+          "labelFr": "preview",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "shutter-button",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.camera-preview"
+          ],
+          "labelFr": "shutter button",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "effects-strip",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.camera-preview"
+          ],
+          "labelFr": "effects strip",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -195,7 +1008,73 @@
       "vmId": "org.gnome.Ptyxis",
       "parityPriority": "P0",
       "status": "documented",
-      "vmCaptures": [],
+      "composition": {
+        "labelFr": "Terminal (Ptyxis)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.terminal-chrome"
+        ],
+        "acquisitionOrder": [
+          "headerbar",
+          "tab-strip",
+          "prompt-colors",
+          "preferences"
+        ],
+        "chromeProvider": "terminal-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "headerbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "headerbar",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/headerbar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "tab-strip",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "tab strip",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/tab-strip-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "prompt-colors",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "prompt colors",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/prompt-colors-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        },
+        {
+          "shotId": "preferences",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "preferences",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/preferences-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-terminal.png",
@@ -205,7 +1084,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)"
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "baobab",
@@ -213,6 +1092,56 @@
       "vmId": "org.gnome.baobab",
       "parityPriority": "P2",
       "status": "pending",
+      "composition": {
+        "labelFr": "Utilisation des disques",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-toolbar-view",
+          "gnome.chart-disk-usage"
+        ],
+        "acquisitionOrder": [
+          "volume-list",
+          "treemap",
+          "scan-progress"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "volume-list",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.chart-disk-usage"
+          ],
+          "labelFr": "volume list",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "treemap",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.chart-disk-usage"
+          ],
+          "labelFr": "treemap",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "scan-progress",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.chart-disk-usage"
+          ],
+          "labelFr": "scan progress",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -225,6 +1154,41 @@
       "vmId": "org.gnome.Tour",
       "parityPriority": "P2",
       "status": "pending",
+      "composition": {
+        "labelFr": "Visite guidée",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.welcome-flow"
+        ],
+        "acquisitionOrder": [
+          "welcome-card",
+          "step-navigation"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "welcome-card",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.welcome-flow"
+          ],
+          "labelFr": "welcome card",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "step-navigation",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.welcome-flow"
+          ],
+          "labelFr": "step navigation",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {

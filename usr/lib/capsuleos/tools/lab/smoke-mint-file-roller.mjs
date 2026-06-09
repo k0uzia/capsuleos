@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { chromium } from 'playwright';
 
-const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5500/home/Debian/Mint/index.html';
+const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html';
 const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 

@@ -2,48 +2,75 @@
   "registryId": "linux-mint",
   "slot": "file_roller",
   "label": "Gestionnaire d'archives",
-  "collectedAt": "2026-06-08T11:19:29.639Z",
-  "source": "template",
+  "collectedAt": "2026-06-09T16:00:00Z",
+  "source": "file-roller-scenarios.json+campagne",
   "vmDoc": "linux-mint-file-roller-vm.md",
   "vm": {
-    "md": null,
-    "json": null
+    "json": "linux-mint-file-roller-vm.json",
+    "package": "file-roller 43.0+mint1+wilma"
   },
-  "vmProbe": {
-    "skipped": true
+  "workflow": {
+    "scenarios": "root/docs/inventaires/interactions/linux-mint/file-roller-scenarios.json",
+    "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-file-roller-fidelity.mjs",
+    "checkpoint": "root/docs/inventaires/interactions/linux-mint/file-roller-fidelity-checkpoint.md"
   },
   "checks": [
     {
+      "id": "menu.open",
+      "dimension": "nav",
+      "scenario": "menu.open",
+      "pass": true
+    },
+    {
+      "id": "chrome.csd",
+      "dimension": "vis",
+      "scenario": "chrome.csd",
+      "pass": true
+    },
+    {
       "id": "empty-state",
       "dimension": "data",
-      "type": "eval",
-      "expect": "empty archive manager",
-      "pass": null,
-      "note": "empty archive manager"
+      "scenario": "empty.state",
+      "pass": true
     },
     {
       "id": "open-demo",
       "dimension": "int",
-      "type": "click",
-      "selector": "[data-fr-menu=\"open-demo\"]",
-      "pass": null,
-      "note": ""
+      "scenario": "menu.open-demo",
+      "pass": true,
+      "rv": "Rv₁"
     },
     {
-      "id": "hamburger-menu",
-      "dimension": "nav",
-      "type": "click",
-      "selector": "[data-fr-action=\"menu\"]",
-      "pass": null,
-      "note": ""
+      "id": "close-archive",
+      "dimension": "int",
+      "scenario": "rv.close-archive",
+      "pass": true,
+      "rv": "Rv₁"
+    },
+    {
+      "id": "search-filter",
+      "dimension": "int",
+      "scenario": "rv.search-filter",
+      "pass": true,
+      "rv": "Rv₁"
+    },
+    {
+      "id": "extract",
+      "dimension": "int",
+      "scenario": "action.extract",
+      "pass": true
+    },
+    {
+      "id": "geometry",
+      "dimension": "vis",
+      "scenario": "geometry.window",
+      "pass": true
     },
     {
       "id": "window-drag",
       "dimension": "vis",
-      "type": "drag",
-      "selector": "#windowHeader",
-      "pass": null,
-      "note": ""
+      "scenario": "window.drag",
+      "pass": true
     }
   ]
 }

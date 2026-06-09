@@ -127,6 +127,25 @@ Dernier checkpoint : **GO** — 2026-06-09 · 0 P0 · 0 P1 campagne + cross-diff
 
 ---
 
+## Checkpoint pré-push App P1 (modèle généralisé — pilote `file_roller`)
+
+Même logique **RecF → RecA** que Nemo : matrice scénarios → campagne Playwright → **Rv** sur actions documentées → verdict GO/NO-GO.
+
+| # | Étape | Commande |
+|---|--------|----------|
+| 1 | H₂ | `node usr/lib/capsuleos/tools/validate-all.mjs` |
+| 2 | Checklist matrice | `node usr/lib/capsuleos/tools/lab/print-mint-app-p1-checklist.mjs file_roller` |
+| 3 | Campagne App P1 | `CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-file-roller-fidelity.mjs` |
+| 4 | Non-régression Nemo | `smoke-mint-context-menus.mjs` · `smoke-mint-nemo.mjs` |
+| 5 | Checkpoint | [`file-roller-fidelity-checkpoint.md`](inventaires/interactions/linux-mint/file-roller-fidelity-checkpoint.md) |
+| 6 | Clôture skin (si `home/` touché) | `sync-linux-skin-closure.mjs linux-mint` |
+
+**Règle formelle** : **AppP1_FR ∧ Rv₁** pour le slot · gate **R-CIN-APP-P1-FR** dans `cinnamon-ground-truth-chain.json`.
+
+Prochaines apps P1 : dupliquer `{slot}-scenarios.json` + adapter campagne (librecalc, visionneurs…).
+
+---
+
 ## Références
 
 - Statut clone : [inventaires/linux-mint-clone-status.md](inventaires/linux-mint-clone-status.md)

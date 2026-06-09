@@ -173,6 +173,15 @@
       "autoExecute": true
     },
     {
+      "id": "R-CIN-APP-P1-FR",
+      "requires": [
+        "H2"
+      ],
+      "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-file-roller-fidelity.mjs",
+      "note": "App P1 pilote — file_roller : matrice file-roller-scenarios.json + campagne + Rv",
+      "autoExecute": false
+    },
+    {
       "id": "R-CIN-DONE",
       "requires": [
         "CinΣ"

@@ -120,3 +120,17 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 **Critères done étape 5** : menu contextuel panel (`#mint-panel-context-menu`) branché via `mint-panel-context-menu.js` sur zone vide `#tableau.mint-panel` ; actions → `CAPSULE_CS_PENDING_PANEL` + `openWindowByDataLink('themes')` (applets / panel) ; smoke `panel.background` exit 0 ; règle **R-CIN-CTX5**.
 
 Contextes **P2** documentés (non bloquants CinΣ) : sous-menu modèles « Créer un nouveau document » — voir matrice § notes VM.
+
+### Phase App P1 — fidélité slot (pilote `file_roller`)
+
+Modèle généralisé du checkpoint Nemo : **RecF → RecA** avec prédicats **AppP1_FR** et **Rv₁**.
+
+| Étape | Commande | Attendu |
+|-------|----------|---------|
+| Matrice | [`file-roller-scenarios.json`](inventaires/interactions/linux-mint/file-roller-scenarios.json) | scénarios P0/P1 + notes VM |
+| Checklist | `print-mint-app-p1-checklist.mjs file_roller` | liste reproductible |
+| Campagne | `smoke-mint-file-roller-fidelity.mjs` | exit 0 · JSON `file-roller-campaign-capsule.json` |
+| Checkpoint | [`file-roller-fidelity-checkpoint.md`](inventaires/interactions/linux-mint/file-roller-fidelity-checkpoint.md) | GO/NO-GO avant push |
+| Gate formelle | **R-CIN-APP-P1-FR** | `cinnamon-ground-truth-chain.json` |
+
+**NO-GO** si P0 campagne > 0 ou régression `smoke-mint-context-menus.mjs` / `smoke-mint-nemo.mjs`.

@@ -4,9 +4,6 @@
 #   bash root/tools/sync-upstream-n0r3f.sh           # fetch + merge si retard
 #   bash root/tools/sync-upstream-n0r3f.sh --dry-run
 #   bash root/tools/sync-upstream-n0r3f.sh --fetch-only
-#
-# Cron / systemd (ex. toutes les 6 h) :
-#   0 */6 * * * cd /chemin/CapsuleOS && bash root/tools/sync-upstream-n0r3f.sh >> /tmp/capsuleos-sync.log 2>&1
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"

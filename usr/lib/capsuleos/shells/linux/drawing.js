@@ -32,11 +32,18 @@
 
         var winEl = getWindowEl(root);
         if (winEl) {
+            var windowTitle = 'Sans titre — Dessin';
+            if (typeof global.CapsuleStrings !== 'undefined' && global.CapsuleStrings.get) {
+                var strTitle = global.CapsuleStrings.get('drawing.windowTitle');
+                if (strTitle) {
+                    windowTitle = strTitle;
+                }
+            }
             var wmTitle = winEl.querySelector('#windowTitle');
             if (wmTitle) {
-                wmTitle.textContent = 'Dessin';
+                wmTitle.textContent = windowTitle;
             }
-            winEl.setAttribute('data-title', 'Dessin');
+            winEl.setAttribute('data-title', windowTitle);
         }
 
         var canvas = global.document.getElementById('drawing-canvas');
@@ -205,7 +212,13 @@
             } else {
                 snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
             }
-            canvas.setPointerCapture(event.pointerId);
+            try {
+                if (event.pointerId !== undefined) {
+                    canvas.setPointerCapture(event.pointerId);
+                }
+            } catch (captureErr) {
+                /* ignore — souris synthétique Playwright */
+            }
             event.preventDefault();
         }
 
@@ -269,6 +282,9 @@
         canvas.addEventListener('pointermove', onPointerMove);
         canvas.addEventListener('pointerup', onPointerUp);
         canvas.addEventListener('pointercancel', onPointerUp);
+        canvas.addEventListener('mousedown', onPointerDown);
+        canvas.addEventListener('mousemove', onPointerMove);
+        canvas.addEventListener('mouseup', onPointerUp);
 
         root.querySelectorAll('[data-drawing-action]').forEach(function bindAction(btn) {
             btn.addEventListener('click', function onAction() {
@@ -281,6 +297,8 @@
                     if (historyIndex > 0) {
                         historyIndex = historyIndex - 1;
                         restoreFromDataUrl(history[historyIndex]);
+                    } else {
+                        clearCanvas();
                     }
                     return;
                 }

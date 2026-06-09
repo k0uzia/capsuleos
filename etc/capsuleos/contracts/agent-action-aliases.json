@@ -24,7 +24,9 @@
       "^git log ",
       "^ls ",
       "^find ",
-      "^chmod \\+x "
+      "^chmod \\+x ",
+      "^bash usr/lib/capsuleos/tools/git-remote-sync\\.sh",
+      "^bash root/tools/install-git-hooks\\.sh"
     ]
   },
   "alwaysAsk": {

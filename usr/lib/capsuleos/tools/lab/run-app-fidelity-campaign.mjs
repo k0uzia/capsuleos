@@ -245,9 +245,12 @@ const printStatus = (registryId, inventory, contract, gaps) => {
       `Prochain scénario: ${next.scenario.id} (${next.scenario.app}) — ${next.reason} [${next.phase}]\n`,
     );
   } else if (gaps && gaps.summary && gaps.summary.gapSlotsTotal > 0) {
-    process.stdout.write(
-      '→ P-F2 : documenter CredV pour le prochain slot gap (map-gaps wave1)\n',
-    );
+    const wave1 = gaps.waveQueue && gaps.waveQueue.wave1P0P1 ? gaps.waveQueue.wave1P0P1.length : 0;
+    if (wave1 > 0) {
+      process.stdout.write('→ P-F3 vague 1 : documenter CredV pour le prochain slot P0/P1\n');
+    } else {
+      process.stdout.write('→ P-F3 vague 2 : documenter CredV pour le prochain slot P2\n');
+    }
   } else {
     process.stdout.write('✓ Campagne crédibilité clôturée sur le périmètre cartographié\n');
   }

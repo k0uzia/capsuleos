@@ -49,9 +49,25 @@
         root.dataset.mintbackupInit = 'true';
         syncWindowTitle(getWindowEl(root));
 
+        var browseSourceBtn = root.querySelector('[data-mbk-action="browse-source"]');
+        if (browseSourceBtn) {
+            browseSourceBtn.addEventListener('click', function onBrowseSource() {
+                var sourceInput = root.querySelector('#mbk-source');
+                if (sourceInput) {
+                    sourceInput.value = '/home/capsule/Documents';
+                }
+            });
+        }
+
         root.addEventListener('click', function onAction(ev) {
             var btn = ev.target;
-            if (!btn || !btn.getAttribute) {
+            while (btn && btn !== root) {
+                if (btn.getAttribute && btn.getAttribute('data-mbk-action')) {
+                    break;
+                }
+                btn = btn.parentElement;
+            }
+            if (!btn || btn === root) {
                 return;
             }
             var action = btn.getAttribute('data-mbk-action');

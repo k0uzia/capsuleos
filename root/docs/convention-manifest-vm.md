@@ -80,8 +80,10 @@ node usr/lib/capsuleos/tools/sync-all-views.mjs
 |-----------|------|
 | `sync-all-views.mjs` | Gate unique — manifest public + `sync-linux-skin-closure` + embed Android + validation façades |
 | `.githooks/pre-push` | Refuse le push si le working tree diffère après sync (vues périmées dans le commit) |
-| `root/tools/install-git-hooks.sh` | Copie le hook dans `.git/hooks/` (une fois par clone) |
-| `push-with-view-sync.sh` | Wrapper agent : sync → commit auto des vues → push |
+| `.githooks/post-commit` | Push auto vers `origin` après chaque commit (via `git-remote-sync.sh`) |
+| `root/tools/install-git-hooks.sh` | Installe `pre-push` + `post-commit` dans `.git/hooks/` (une fois par clone) |
+| `git-remote-sync.sh` | `pull` (ff-only) · `push` (vues + origin) · `sync` (les deux) |
+| `push-with-view-sync.sh` | Implémentation push : sync → commit auto des vues → `git push` |
 
 Ordre campagne : smokes verts du périmètre → `sync-all-views.mjs` → commit → `git push` (ou `push-with-view-sync.sh`).
 

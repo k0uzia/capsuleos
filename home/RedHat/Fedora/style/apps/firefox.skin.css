@@ -1,7 +1,43 @@
 /**
  * fedora — firefox (structure Rocky).
  */
-/* Fedora Firefox header skin. Shared template/texts stay untouched. */
+body#fedora {
+    --firefox-bg-main: #2b2b30;
+    --firefox-bg-accent-1: transparent;
+    --firefox-bg-accent-2: transparent;
+    --firefox-text-main: var(--fedora-app-text);
+    --firefox-chrome-border: 1px solid var(--fedora-app-header-border);
+    --firefox-chrome-bg: var(--fedora-app-header-bg);
+    --firefox-tabs-bg: var(--fedora-app-header-alt-bg);
+    --firefox-tabs-border: 1px solid var(--fedora-app-border);
+    --firefox-tab-border: 1px solid transparent;
+    --firefox-tab-bg: transparent;
+    --firefox-tab-text: var(--fedora-app-muted-text);
+    --firefox-tab-active-text: var(--fedora-app-text);
+    --firefox-tab-active-bg: var(--fedora-app-tab-active-bg);
+    --firefox-tab-close: var(--fedora-app-muted-text);
+    --firefox-toolbar-bg: var(--fedora-app-header-bg);
+    --firefox-toolbar-border: 1px solid var(--fedora-app-border);
+    --firefox-toolbar-top-border: var(--fedora-app-border);
+    --firefox-btn-text: var(--fedora-app-muted-text);
+    --firefox-address-border: 1px solid var(--fedora-app-field-border);
+    --firefox-address-bg: var(--fedora-app-field-bg);
+    --firefox-address-text: var(--fedora-app-field-text);
+    --firefox-address-placeholder: rgba(233, 238, 245, 0.55);
+    --firefox-bookmarks-bg: var(--fedora-app-header-bg);
+    --firefox-bookmark-text: var(--fedora-app-text);
+    --firefox-frame-bg: #2b2b30;
+    --firefox-newtab-bg: #2b2b30;
+    --firefox-newtab-search-bg: #42414d;
+    --firefox-newtab-search-border: 1px solid #5e5c64;
+    --firefox-newtab-search-text: var(--fedora-app-text);
+    --firefox-newtab-shortcut-bg: #38383f;
+    --firefox-newtab-shortcut-text: var(--fedora-app-text);
+    --firefox-newtab-shortcut-border: 1px solid transparent;
+    --firefox-newtab-logo-color: #ff7139;
+    --firefox-home-shortcut-bg: #38383f;
+}
+
 body#fedora #firefox {
     position: relative;
     min-width: calc(var(--head) * 24);
@@ -10,9 +46,14 @@ body#fedora #firefox {
 }
 
 body#fedora #firefox.firefox-window--fedora {
+    width: min(58rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    height: min(42rem, calc(100vh - var(--fedora-top-bar-height, 2.75rem) - 2rem));
+    min-width: 44rem;
+    min-height: 30rem;
     padding: 0;
-    border-radius: 0.8rem;
+    border-radius: 12px;
     overflow: hidden;
+    background: var(--firefox-bg-main);
 }
 
 body#fedora #firefox.firefox-window--fedora > #windowHeader {

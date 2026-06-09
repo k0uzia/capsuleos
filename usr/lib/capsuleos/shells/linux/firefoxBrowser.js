@@ -688,7 +688,7 @@ function initFirefoxBrowser() {
 
     browserRoot.__capsuleFirefoxSession = state;
     browserRoot.dataset.initialized = 'true';
-    setBookmarksVisible(false);
+    setBookmarksVisible(supportsFirefoxGnomeChrome());
     showHome('');
 }
 

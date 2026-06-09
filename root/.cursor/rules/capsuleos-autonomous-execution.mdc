@@ -70,3 +70,5 @@ Hook Cursor `beforeShellExecution` : auto-allow des patterns `autoAllow` ; `alwa
 
 - `.cursor/hooks.json` — chargé via symlink `root/.cursor`
 - Activer dans Cursor : Settings → Hooks
+- **Git remote** : `bash root/tools/install-git-hooks.sh` — `post-commit` push auto · `sessionStart` pull ff-only
+- Push manuel : `bash usr/lib/capsuleos/tools/git-remote-sync.sh sync`

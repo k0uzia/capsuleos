@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaign": "v3-credibility-pass",
   "phase": "P-F1",
-  "generatedAt": "2026-06-09T07:17:42.493Z",
+  "generatedAt": "2026-06-09T08:50:03.692Z",
   "sources": {
     "catalog": "root/docs/inventaires/linux-mint-apps-catalog.json",
     "fidelity": "root/docs/inventaires/linux-mint-app-fidelity-scenarios.json"
@@ -11,40 +11,71 @@
     "menuEntriesVm": 101,
     "catalogSlots": 43,
     "uniqueSlotsInMenu": 42,
-    "menuCoveredByPi100Slots": 65,
+    "menuCoveredByPi100Slots": 101,
     "menuViaThemesSlot": 52,
-    "menuRowsNeedingCredibility": 36,
-    "appsPi100": 12,
+    "menuRowsNeedingCredibility": 0,
+    "appsPi100": 43,
     "appsPi100List": [
+      "baobab",
+      "bulky",
       "calculator",
       "calendar",
+      "drawing",
       "file_roller",
       "firefox",
+      "font_viewer",
+      "gnome_disks",
+      "gucharmap",
+      "hypnotix",
+      "lecteur_multimedia",
+      "librecalc",
+      "libreoffice_draw",
+      "libreoffice_impress",
+      "libreoffice_startcenter",
+      "mate_color_select",
+      "mintbackup",
+      "mintdrivers",
       "mintinstall",
+      "mintstick",
+      "mintstick_format",
+      "mintwelcome",
       "nemo",
       "pix",
+      "power_stats",
+      "rhythmbox",
+      "screenshot",
+      "simple_scan",
       "sticky",
+      "system_monitor",
       "terminal",
       "text_editor",
       "themes",
-      "update_manager"
+      "thingy",
+      "thunderbird",
+      "timeshift",
+      "transmission",
+      "update_manager",
+      "visionneur_images",
+      "visionneur_pdf",
+      "warpinator",
+      "webapp_manager"
     ],
-    "gapSlotsTotal": 31,
-    "gapSlotsP0": 4,
-    "gapSlotsP1": 5,
-    "gapSlotsP2": 22,
-    "scenariosExisting": 37,
-    "scenariosToAdd": 93,
-    "estimatedScenariosAtTarget": 93
+    "gapSlotsTotal": 0,
+    "gapSlotsP0": 0,
+    "gapSlotsP1": 0,
+    "gapSlotsP2": 0,
+    "scenariosExisting": 130,
+    "scenariosToAdd": 0,
+    "estimatedScenariosAtTarget": 0
   },
   "tiers": {
     "A": {
       "label": "Crédibilité acquise (π=100) ou structure seule suffisante",
-      "slotCount": 11
+      "slotCount": 42
     },
     "B": {
       "label": "Slot catalogue — ≥3 scénarios CredC/S à produire",
-      "slotCount": 31
+      "slotCount": 0
     },
     "C": {
       "label": "Entrées menu → Paramètres (themes) — couvert par panneaux cs-*",
@@ -53,47 +84,14 @@
     }
   },
   "waveQueue": {
-    "wave1P0P1": [
-      "drawing",
-      "lecteur_multimedia",
-      "libreoffice_startcenter",
-      "screenshot",
-      "librecalc",
-      "mintdrivers",
-      "system_monitor",
-      "visionneur_images",
-      "visionneur_pdf"
-    ],
-    "wave2P2": [
-      "baobab",
-      "bulky",
-      "font_viewer",
-      "gnome_disks",
-      "gucharmap",
-      "hypnotix",
-      "libreoffice_draw",
-      "libreoffice_impress",
-      "mate_color_select",
-      "mintbackup",
-      "mintstick",
-      "mintstick_format",
-      "mintwelcome",
-      "power_stats",
-      "rhythmbox",
-      "simple_scan",
-      "thingy",
-      "thunderbird",
-      "timeshift",
-      "transmission",
-      "warpinator",
-      "webapp_manager"
-    ]
+    "wave1P0P1": [],
+    "wave2P2": []
   },
   "slots": [
     {
       "slot": "baobab",
-      "label": "baobab",
-      "tier": "B",
+      "label": "Analyseur d'espace disque",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -106,17 +104,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "bulky",
-      "label": "bulky",
-      "tier": "B",
+      "label": "Renommer fichiers",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -129,12 +127,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "calculator",
@@ -184,8 +182,8 @@
     },
     {
       "slot": "drawing",
-      "label": "drawing",
-      "tier": "B",
+      "label": "Dessin",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -198,12 +196,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "file_roller",
@@ -253,8 +251,8 @@
     },
     {
       "slot": "font_viewer",
-      "label": "font_viewer",
-      "tier": "B",
+      "label": "Polices",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -267,17 +265,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "gnome_disks",
-      "label": "gnome_disks",
-      "tier": "B",
+      "label": "Disques",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -290,17 +288,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "gucharmap",
-      "label": "gucharmap",
-      "tier": "B",
+      "label": "Table des caractères",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -313,17 +311,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "hypnotix",
-      "label": "hypnotix",
-      "tier": "B",
+      "label": "Hypnotix",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -336,17 +334,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "lecteur_multimedia",
-      "label": "lecteur_multimedia",
-      "tier": "B",
+      "label": "Celluloid",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -359,17 +357,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "librecalc",
-      "label": "librecalc",
-      "tier": "B",
+      "label": "LibreOffice Calc",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -382,17 +380,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "libreoffice_draw",
-      "label": "libreoffice_draw",
-      "tier": "B",
+      "label": "LibreOffice Draw",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -405,17 +403,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "libreoffice_impress",
-      "label": "libreoffice_impress",
-      "tier": "B",
+      "label": "LibreOffice Impress",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -428,17 +426,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "libreoffice_startcenter",
-      "label": "libreoffice_startcenter",
-      "tier": "B",
+      "label": "LibreOffice",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -458,17 +456,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mate_color_select",
-      "label": "mate_color_select",
-      "tier": "B",
+      "label": "Sélecteur de couleur",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -481,17 +479,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintbackup",
-      "label": "mintbackup",
-      "tier": "B",
+      "label": "Outil de sauvegarde",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -504,17 +502,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintdrivers",
-      "label": "mintdrivers",
-      "tier": "B",
+      "label": "Gestionnaire de pilotes",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -527,12 +525,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintinstall",
@@ -566,8 +564,8 @@
     },
     {
       "slot": "mintstick",
-      "label": "mintstick",
-      "tier": "B",
+      "label": "Créateur de clé USB",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -587,17 +585,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintstick_format",
-      "label": "mintstick_format",
-      "tier": "B",
+      "label": "Formateur de clé USB",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -617,17 +615,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintwelcome",
-      "label": "mintwelcome",
-      "tier": "B",
+      "label": "Écran d'accueil Mint",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -640,12 +638,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "nemo",
@@ -672,8 +670,8 @@
     },
     {
       "slot": "power_stats",
-      "label": "power_stats",
-      "tier": "B",
+      "label": "Statistiques d'alimentation",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -686,17 +684,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "rhythmbox",
-      "label": "rhythmbox",
-      "tier": "B",
+      "label": "Rhythmbox",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -709,17 +707,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "screenshot",
-      "label": "screenshot",
-      "tier": "B",
+      "label": "Capture d'écran",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -732,17 +730,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "simple_scan",
-      "label": "simple_scan",
-      "tier": "B",
+      "label": "Numérisation de documents",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -755,12 +753,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "sticky",
@@ -787,8 +785,8 @@
     },
     {
       "slot": "system_monitor",
-      "label": "system_monitor",
-      "tier": "B",
+      "label": "Moniteur système",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -808,12 +806,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "terminal",
@@ -1250,8 +1248,8 @@
     },
     {
       "slot": "thingy",
-      "label": "thingy",
-      "tier": "B",
+      "label": "Bibliothèque",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1264,17 +1262,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "thunderbird",
-      "label": "thunderbird",
-      "tier": "B",
+      "label": "Thunderbird",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1287,17 +1285,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "timeshift",
-      "label": "timeshift",
-      "tier": "B",
+      "label": "Timeshift",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1310,17 +1308,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "transmission",
-      "label": "transmission",
-      "tier": "B",
+      "label": "Transmission",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1333,12 +1331,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "update_manager",
@@ -1372,8 +1370,8 @@
     },
     {
       "slot": "visionneur_images",
-      "label": "visionneur_images",
-      "tier": "B",
+      "label": "Visionneur d'images",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -1393,17 +1391,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "visionneur_pdf",
-      "label": "visionneur_pdf",
-      "tier": "B",
+      "label": "Visionneur de documents",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1416,17 +1414,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "warpinator",
-      "label": "warpinator",
-      "tier": "B",
+      "label": "Warpinator",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1439,17 +1437,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "webapp_manager",
-      "label": "webapp_manager",
-      "tier": "B",
+      "label": "Applications Web",
+      "tier": "A",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1462,262 +1460,13 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     }
   ],
-  "gapSlots": [
-    {
-      "slot": "baobab",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "bulky",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "drawing",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "font_viewer",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "gnome_disks",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "gucharmap",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "hypnotix",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "lecteur_multimedia",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "librecalc",
-      "prioriteMax": "P1",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "libreoffice_draw",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "libreoffice_impress",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "libreoffice_startcenter",
-      "prioriteMax": "P0",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mate_color_select",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintbackup",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintdrivers",
-      "prioriteMax": "P1",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintstick",
-      "prioriteMax": "P2",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintstick_format",
-      "prioriteMax": "P2",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintwelcome",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "power_stats",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "rhythmbox",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "screenshot",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "simple_scan",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "system_monitor",
-      "prioriteMax": "P1",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "thingy",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "thunderbird",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "timeshift",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "transmission",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "visionneur_images",
-      "prioriteMax": "P1",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "visionneur_pdf",
-      "prioriteMax": "P1",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "warpinator",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "webapp_manager",
-      "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    }
-  ]
+  "gapSlots": []
 }

@@ -16,7 +16,9 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 | 2 | `node usr/lib/capsuleos/tools/validate-all.mjs` — baseline locale (**exit 0** attendu avant gros patch) |
 | 3 | Travailler sous `CapsuleOS/` uniquement (`home/`, `usr/`, `OS/`, `var/`, `index.html`) |
 | 4 | Clôture : `node usr/lib/capsuleos/tools/sync-all-views.mjs` (façades pick-os + embeds **toutes** distros Linux + Android) puis `validate-all.mjs` |
-| 5 | **Avant chaque push** : `sync-all-views.mjs` obligatoire — hook `pre-push` via `bash root/tools/install-git-hooks.sh` |
+| 5 | **Hooks Git** (une fois par clone) : `bash root/tools/install-git-hooks.sh` — `pre-push` (sync vues) + `post-commit` (push auto) |
+| 5b | **Sync remote manuelle** : `bash usr/lib/capsuleos/tools/git-remote-sync.sh sync` — pull ff-only puis push avec vues |
+| 5c | Désactiver push auto : `export CAPSULE_SKIP_AUTO_REMOTE_SYNC=1` |
 
 Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parcours H0–H6).
 

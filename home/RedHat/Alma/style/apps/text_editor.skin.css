@@ -13,6 +13,7 @@ body#alma {
     --xed-toolbar-hover-bg: rgba(255, 255, 255, 0.1);
     --xed-toolbar-active-bg: rgba(53, 132, 228, 0.22);
     --xed-toolbar-icon-filter: brightness(0) invert(1);
+    --xed-mono-font: "Adwaita Mono", "Source Code Pro", "Liberation Mono", ui-monospace, monospace;
 }
 
 html[data-theme="light"]:has(#alma) {
@@ -30,8 +31,12 @@ html[data-theme="light"]:has(#alma) {
 }
 
 body#alma div[data-link="text_editor"].gnome-app--csd {
+    width: min(52rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    height: min(34rem, calc(100vh - var(--fedora-top-bar-height, 2.75rem) - 2rem));
+    min-width: 36rem;
+    min-height: 24rem;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
 }
 
@@ -80,7 +85,8 @@ body#alma .xed-app__tool:hover {
     border-color: var(--menu-accent, #3584e4);
 }
 
-body#alma .xed-app__tool img {
+body#alma .xed-app__tool img,
+body#alma .xed-app__tool-glyph {
     filter: var(--xed-toolbar-icon-filter);
 }
 
@@ -88,4 +94,24 @@ body#alma .xed-app__editor-wrap,
 body#alma .xed-app__area {
     color: var(--xed-buffer-text);
     background: var(--xed-buffer-bg);
+    font-family: var(--xed-mono-font);
+    font-size: 11pt;
+    line-height: 1.5;
+}
+
+body#alma .xed-app__area {
+    padding: 1rem 1.25rem;
+}
+
+body#alma .xed-app__status-pos::before {
+    content: "";
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.35rem;
+    vertical-align: -0.1em;
+    background: currentColor;
+    opacity: 0.55;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 3.5h10v1H3v-1zm0 3h10v1H3v-1zm0 3h7v1H3v-1z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 3.5h10v1H3v-1zm0 3h10v1H3v-1zm0 3h7v1H3v-1z'/%3E%3C/svg%3E") center/contain no-repeat;
 }

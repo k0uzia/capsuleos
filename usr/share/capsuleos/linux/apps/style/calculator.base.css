@@ -153,13 +153,12 @@ main#gnomeCalculatorApp {
 }
 
 .gnome-calc__key--decor {
-    visibility: hidden;
-    pointer-events: none;
+    display: none;
 }
 
 .gnome-calc--advanced .gnome-calc__key--decor,
 .gnome-calc--programming .gnome-calc__key--decor {
-    visibility: visible;
+    display: var(--f);
     pointer-events: auto;
 }
 
@@ -234,11 +233,17 @@ main#gnomeCalculatorApp {
 
 .gnome-calc__keypad {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 4px;
     padding: 12px;
-    min-width: calc(60px * 5 + 4px * 4);
+    min-width: calc(60px * 4 + 4px * 3);
     min-height: calc(44px * 5 + 4px * 4);
+}
+
+.gnome-calc--advanced .gnome-calc__keypad,
+.gnome-calc--programming .gnome-calc__keypad {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-width: calc(60px * 5 + 4px * 4);
 }
 
 .gnome-calc__key {
@@ -305,6 +310,13 @@ main#gnomeCalculatorApp {
 }
 
 .gnome-calc__key--tall {
+    grid-column: 4;
+    grid-row: 5 / span 1;
+    min-height: 44px;
+}
+
+.gnome-calc--advanced .gnome-calc__key--tall,
+.gnome-calc--programming .gnome-calc__key--tall {
     grid-column: 5;
     grid-row: 4 / span 2;
     min-height: calc(44px * 2 + 4px);
@@ -355,13 +367,14 @@ main#gnomeCalculatorApp {
 }
 
 .gnome-calc__keypad-advanced {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4px;
     padding: 0 12px 8px;
 }
 
-.gnome-calc--advanced .gnome-calc__keypad-advanced {
+.gnome-calc--advanced .gnome-calc__keypad-advanced,
+.gnome-calc--programming .gnome-calc__keypad-advanced {
     display: grid;
 }
 

@@ -186,6 +186,25 @@
         }
     }
 
+    function renderDemoPdf(root) {
+        var content = root.querySelector('#mint-pdf-viewer-content');
+        if (!content) {
+            return;
+        }
+        content.innerHTML = '';
+        var frame = global.document.createElement('iframe');
+        frame.className = 'viewer-app__frame';
+        frame.title = 'Bash.pdf';
+        frame.src = '../../../../home/public/Documents/Bash.pdf';
+        content.appendChild(frame);
+        onXreaderRendered(root, { name: 'Bash.pdf' });
+        var sidebar = root.querySelector('#xreader-sidebar');
+        if (sidebar) {
+            sidebar.removeAttribute('hidden');
+            xreaderState.sidebar = true;
+        }
+    }
+
     global.openPixDemoImage = function openPixDemoImage() {
         var root = global.document.getElementById('visionneurImages');
         if (!root) {
@@ -193,6 +212,15 @@
         }
         initVisionneurImagesApp();
         renderDemoImage(root);
+    };
+
+    global.openXreaderDemoPdf = function openXreaderDemoPdf() {
+        var root = global.document.getElementById('visionneurPdf');
+        if (!root) {
+            return;
+        }
+        initVisionneurPdfApp();
+        renderDemoPdf(root);
     };
 
     function bindXreaderToolbar(root) {

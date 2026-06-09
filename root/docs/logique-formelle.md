@@ -35,7 +35,17 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **H₂** | Baseline dépôt saine | `node usr/lib/capsuleos/tools/validate-all.mjs` → exit 0 (ou gate zone ciblée) |
 | **H₆** | Clôture release | `validate-all.mjs` après patch + embeds regen si besoin |
 
-### 2.2 Assets & traçabilité (A, S, T)
+### 2.2 Taxonomie & identités (Tax)
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **Tax** | Profils actifs cohérents (`extends`, `clusterIds`, `toolkitPack`) | `validate-taxonomy.mjs` |
+| **TaxV** | Variants slot sans collision toolkit (embed html↔cssBase) | `validate-taxonomy.mjs` + `validate-slot-variant-wiring.mjs` |
+| **TaxΣ** | Tax ∧ TaxV ∧ isolation chrome toolkit | `run-toolkit-skin-recipe.mjs` ou gates ci-dessus |
+
+Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) · contrat `etc/capsuleos/contracts/taxonomy.json`.
+
+### 2.3 Assets & traçabilité (A, S, T)
 
 | Symbole | Signification | Vérification |
 |---------|---------------|--------------|
@@ -43,7 +53,7 @@ Notation : prédicat en **gras**, négation **¬**, conjonction **∧**, disjonc
 | **S** | Sources VM inventoriées et alignées | Inventaire `*-assets.json` ; `compare-vm-settings-assets-capsule.mjs` (domaine settings) ; `pull-vm-assets.sh` |
 | **T** | Traçabilité copie VM | `vendors/<vendor>/SOURCE-VM.txt` non vide |
 
-### 2.3 VM & inventaire (M, I)
+### 2.4 VM & inventaire (M, I)
 
 | Symbole | Signification | Vérification |
 |---------|---------------|--------------|

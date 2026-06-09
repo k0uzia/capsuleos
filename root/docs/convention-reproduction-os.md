@@ -4,7 +4,7 @@
 
 > **Ordre d’exécution** : [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) §4.2–4.4 · [README.md](README.md) · **P11** / **R-LOC1**.
 
-Complète sans la remplacer : [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, règles **R-INV**), [convention-shell-global.md](convention-shell-global.md) (socle terminal **Ti–TΣ**, agnosticité noyau), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité), [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) (prédicats **Rv₁–Rv** : cohérence vue ↔ modèle après action).
+Complète sans la remplacer : [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) (**pierre angulaire** — slot, variant, cluster, skin), [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) (détail opératoire), [manifeste-noyau.md](manifeste-noyau.md) (vision noyau), [logique-formelle.md](logique-formelle.md) (prédicats **I**, **A**, **S**, **M**, **Tax**, règles **R-INV**), [convention-shell-global.md](convention-shell-global.md) (socle terminal **Ti–TΣ**, agnosticité noyau), [convention-fidelite-visuelle.md](convention-fidelite-visuelle.md) (prédicats **Tp–Tf** : typographie, vues, MIME, accessibilité), [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) (prédicats **Rv₁–Rv** : cohérence vue ↔ modèle après action).
 
 ---
 
@@ -27,7 +27,9 @@ CapsuleOS est une **sandbox statique** : bureaux simulés en HTML5 / CSS3 / ES6,
 | **Profil skin** | `home/.../skin.profile.json`, `etc/capsuleos/profiles/linux-*.json` | `CAPSULE_*`, assets, chrome context |
 | **Vendor pack** | `usr/share/capsuleos/assets/images/vendors/<vendor>/` | Logos, panel, fonds **propres au vendor** (jamais empruntés) |
 | **Toolkit** | `gnome`, `cinnamon`, `kde`, `cosmic` | Patron DE (shell, chrome fenêtre, slots apps) |
-| **Slot** | `data-link="nemo"`, `firefox`, `terminal`… | Fenêtre applicative dans le DOM bureau |
+| **Taxonomie** | [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md), `etc/capsuleos/contracts/taxonomy.json` | Hiérarchie kernel→branch→toolkit→registryId ; gate `validate-taxonomy.mjs` |
+| **Slot** | `data-link="nemo"`, `firefox`, `terminal`… | Ancre logique stable (≠ variant gabarit) |
+| **Variant** | `update_manager_gnome.html`, `themes_gnome.html`… | Gabarit + `*.base.css` par toolkit — voir `apps-catalog.slotSpecs` |
 | **Socle shell** | `usr/lib/capsuleos/shells/linux/terminal/` | Moteur CLI agnostique + pont `CapsuleUserFs` — [convention-shell-global.md](convention-shell-global.md) |
 | **Gabarit explorateur** | `nemo`, `nemo-gnome`, `dolphin`… | HTML embarqué via `build-linux-embed.mjs` |
 | **Chrome context** | `etc/capsuleos/contracts/window-chrome-contexts.json` | Provider drag/header par toolkit — [window-chrome-contexts.md](window-chrome-contexts.md) |

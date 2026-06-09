@@ -52,10 +52,11 @@ Une seule chaîne de décision. Pas de roadmap parallèle, pas d’inventaire JS
 | # | Document | Rôle |
 |---|----------|------|
 | 1 | [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution **P1–P12** |
-| 2 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1** |
-| 3 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
-| 4 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
-| 5 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |
+| 2 | [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) | **Pierre angulaire** — identités, zones, slot/variant/skin |
+| 3 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1**, **Tax** / **TaxΣ** |
+| 4 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
+| 5 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
+| 6 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |
 
 ### 3.2 Décision (exécuter)
 

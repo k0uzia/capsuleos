@@ -1,9 +1,17 @@
 {
   "version": 1,
   "description": "Recette déterministe skin/toolkit — scripts partagés, variants par toolkit, skins par vendor. R-LOC1 : aucun fallback silencieux entre toolkits.",
+  "taxonomyContract": "etc/capsuleos/contracts/taxonomy.json",
+  "conventionDoc": "root/docs/convention-taxonomie-semantique.md",
   "resolutionKey": ["kernelId", "branchId", "toolkitId", "registryId"],
   "catalog": "etc/capsuleos/contracts/apps-catalog.json",
   "phases": [
+    {
+      "id": "taxonomy",
+      "label": "Taxonomie — profils, extends, embed (Tax)",
+      "script": "usr/lib/capsuleos/tools/validate-taxonomy.mjs",
+      "required": true
+    },
     {
       "id": "regenerate-views",
       "label": "Vues dérivées (profils, façades, embed)",

@@ -1,8 +1,8 @@
 /**
  * Résolution slot logique → variant (gabarit + CSS base) par toolkit / registry.
- * Source unique : etc/capsuleos/contracts/apps-catalog.json
+ * Contrats : apps-catalog.json · taxonomy.json · convention-taxonomie-semantique.md
  *
- * Modèle :
+ * Modèle taxonomique :
  *   - Slot stable (data-link) : update_manager, themes, nemo…
  *   - Variant toolkit : update_manager_gnome.html (GNOME) vs update_manager.html (Cinnamon)
  *   - Skin vendor : home/<branch>/<vendor>/style/apps/*.skin.css (tokens Adwaita vs Mint-Aqua)

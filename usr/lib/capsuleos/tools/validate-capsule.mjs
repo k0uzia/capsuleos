@@ -113,6 +113,21 @@ if (toolkitBoot.status !== 0) {
     out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
 }
 
+const taxonomy = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-taxonomy.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (taxonomy.status !== 0) {
+    const out = (taxonomy.stdout || '') + (taxonomy.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Taxonomie — validate-taxonomy.mjs');
+    }
+}
+
 const linuxFacades = spawnSync(
     process.execPath,
     ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],

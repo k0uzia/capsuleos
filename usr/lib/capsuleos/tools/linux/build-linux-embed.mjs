@@ -196,8 +196,14 @@ function main() {
     }
 
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
+        const ubuntuUmHtml = readUtf8(UBUNTU_UPDATE_MANAGER_HTML);
+        const ubuntuUmBase = path.join(STYLE_DIR, 'update_manager_ubuntu.base.css');
+        const ubuntuUmCssBase = fs.existsSync(ubuntuUmBase) ? readUtf8(ubuntuUmBase) : '';
         skinTemplates.ubuntu = skinTemplates.ubuntu || {};
-        skinTemplates.ubuntu.update_manager = { html: readUtf8(UBUNTU_UPDATE_MANAGER_HTML) };
+        skinTemplates.ubuntu.update_manager = {
+            html: ubuntuUmHtml,
+            cssBase: ubuntuUmCssBase
+        };
     }
 
     if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {

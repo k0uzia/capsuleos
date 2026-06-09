@@ -1,4 +1,9 @@
-Pack vendor AlmaLinux — juin 2026.
-Logo vectoriel stylisé (couleurs officielles #081F2D, #00AEEA, #FF4A00).
-Wallpaper : dégradé CSS dans alma-overrides.css (P2 : pull VM lab).
-Panel : icônes GNOME toolkit (Nautilus, Ptyxis, Firefox) en attendant capture VM.
+Assets copiés depuis la VM lab (capsule@192.168.122.199) le 2026-06-09T16:57:34Z.
+Vendor : alma · toolkit : gnome
+Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
+Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/alma/
+MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
+Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places,emblems,symbolic}/ — PNG/SVG depuis VM
+Fonds ubuntu : wallpaper/ + wallpaper/thumbnails/ (scan VM) ; WebP via prepare-web-media.mjs
+Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
+Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

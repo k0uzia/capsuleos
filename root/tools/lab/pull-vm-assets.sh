@@ -32,6 +32,10 @@ while [[ $# -gt 0 ]]; do
         linux-rocky)
           VENDOR="rocky"
           ;;
+        linux-alma)
+          VENDOR="alma"
+          SSH_TARGET="${ALMA_SSH:-capsule@192.168.122.199}"
+          ;;
         linux-mint)
           VENDOR="mint"
           SSH_TARGET="${MINT_SSH:-capsule@192.168.1.146}"

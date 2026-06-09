@@ -1198,9 +1198,57 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "appCt": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "contentSpec": {
+        "phase": "C1",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Ptyxis requise."
+          },
+          {
+            "id": "prompt-format-vm",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Invite bash VM [user@host W]$ vs Capsule user@host:path$ — style Ptyxis pédagogique (linux-rocky-terminal-vm.json)."
+          },
+          {
+            "id": "terminal-window-class-fedora",
+            "dimension": "taxonomie",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Classe terminal-window--fedora = chrome Ptyxis RHEL-family ; renommage gnome-csd différé."
+          },
+          {
+            "id": "ls-long-output",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "ls -l simplifié — permissions/dates non calées VM (hors P0 visuel)."
+          }
+        ],
+        "resolved": [
+          "ptyxis-headerbar-integrated-tabs",
+          "konsole-toolbar-hidden",
+          "prompt-colors-adwaita-green",
+          "capsule-rocky-prompt",
+          "window-proportions-52x36",
+          "red-hat-mono-11pt",
+          "menu-fr-ptyxis",
+          "about-ptyxis-label",
+          "csd-window-controls-grouped",
+          "flex-tabs-balanced"
+        ]
+      },
+      "note": "Phase C1 — org.gnome.Ptyxis : headerbar onglets, invite verte, menu FR, sans barre Konsole."
     },
     {
       "controlId": "baobab",

@@ -5,6 +5,10 @@
  * Invite : user@host #33d17a (Adwaita), : ~ $ couleur texte — cf. rocky-dark-ptyxis.png VM.
  * Tokens : style/gnome-shell/tokens.css --fedora-terminal-prompt-* */
 body#alma .windowElement[data-link="terminal"].terminal-window--fedora {
+    --terminal-font-family: "Red Hat Mono", "Adwaita Mono", "Liberation Mono", ui-monospace, monospace;
+    --terminal-font-size: 11pt;
+    --terminal-line-height: 1.38;
+    --terminal-body-padding: 0.5rem 0.65rem;
     width: min(52rem, calc(100vw - var(--fedora-dock-width, 0px) - 2.5rem));
     height: min(36rem, calc(100vh - var(--fedora-top-bar-height) - 2.5rem));
     min-width: min(40rem, calc(100vw - 3rem));

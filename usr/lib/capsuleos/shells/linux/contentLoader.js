@@ -103,6 +103,58 @@ const resolveCssBaseTemplateId = (templateId) => {
     return templateId;
 };
 
+/**
+ * Slot logique → id de gabarit effectif (CAPSULE_TEMPLATE_OVERRIDES ou slot brut).
+ * Ex. update_manager + override …/update_manager_gnome.html → update_manager_gnome.
+ */
+const resolveEffectiveTemplateId = (slotId, templateId) => {
+    if (typeof window !== 'undefined'
+        && window.CAPSULE_TEMPLATE_OVERRIDES
+        && window.CAPSULE_TEMPLATE_OVERRIDES[slotId]) {
+        const override = String(window.CAPSULE_TEMPLATE_OVERRIDES[slotId]);
+        const fileName = override.split('/').pop() || '';
+        const stem = fileName.replace(/\.html$/i, '');
+        if (stem) {
+            return stem;
+        }
+    }
+    return templateId;
+};
+
+const resolveEmbedSkinOverride = (skinKey, templateId) => {
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    if (!embed || !embed.skinTemplates || !skinKey) {
+        return null;
+    }
+    return embed.skinTemplates[skinKey] && embed.skinTemplates[skinKey][templateId]
+        ? embed.skinTemplates[skinKey][templateId]
+        : null;
+};
+
+const resolveEmbeddedCssBase = (slotId, templateId, htmlHint) => {
+    if (shouldSkipMainMenuBaseCss(templateId, htmlHint)) {
+        return '';
+    }
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    if (!embed || !embed.templates) {
+        return '';
+    }
+    const skinKey = getEmbedSkinKey();
+    const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
+    if (skinOverride && skinOverride.cssBase) {
+        return skinOverride.cssBase;
+    }
+    const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
+    const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
+    if (embed.templates[cssBaseTemplateId] && embed.templates[cssBaseTemplateId].cssBase) {
+        return embed.templates[cssBaseTemplateId].cssBase;
+    }
+    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
+        return embed.templates[templateId].cssBase;
+    }
+    return '';
+};
+
 const normalizeExplorerSkinId = (skinId, templateId) => {
     if (skinId === 'nemo-gnome' || skinId === 'files') {
         return 'nautilus';
@@ -184,9 +236,8 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
         const skinMap = embed.skins && embed.skins[skinKey];
         if (skinMap) {
             const t = embed.templates[templateId];
-            const skinOverride = embed.skinTemplates
-                && embed.skinTemplates[skinKey]
-                && embed.skinTemplates[skinKey][templateId];
+            const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
+            const resolvedHtml = skinOverride && skinOverride.html ? skinOverride.html : t.html;
             const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
             const cssSkin = skipDynamicSkin
                 ? ''
@@ -194,16 +245,17 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                     ? skinMap[skinId]
                     : (skinMap[templateId] != null ? skinMap[templateId] : ''));
             return Promise.resolve({
-                html: skinOverride && skinOverride.html ? skinOverride.html : t.html,
-                cssBase: shouldSkipMainMenuBaseCss(templateId, skinOverride && skinOverride.html ? skinOverride.html : t.html) ? '' : t.cssBase,
+                html: resolvedHtml,
+                cssBase: resolveEmbeddedCssBase(slotId, templateId, resolvedHtml),
                 cssSkin
             });
         }
         console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
     }
 
+    const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
     const htmlCandidates = resolveTemplateHtmlCandidates(templateId, appsBase, skinBase);
-    const cssBaseTemplateId = resolveCssBaseTemplateId(templateId);
+    const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
     const cssBaseFile = `${appsBase}/style/${cssBaseTemplateId}.base.css`;
 
     const resolveEmbedHtml = () => {
@@ -219,7 +271,7 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
 
     const fetchHtml = (async () => {
         const skinKey = getEmbedSkinKey();
-        const skinOverride = embed && embed.skinTemplates && embed.skinTemplates[skinKey] && embed.skinTemplates[skinKey][templateId];
+        const skinOverride = resolveEmbedSkinOverride(skinKey, templateId);
         if (skinOverride && skinOverride.html) {
             return skinOverride.html;
         }
@@ -277,9 +329,10 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
         let text = '';
         const response = await fetch(cssBaseFile, { cache: 'no-store' });
         if (!response.ok) {
-            if (embed && embed.templates && embed.templates[templateId] && embed.templates[templateId].cssBase) {
-                console.warn(`CapsuleOS: CSS base ${templateId} via embed (HTTP ${response.status})`);
-                text = embed.templates[templateId].cssBase;
+            const embeddedCssBase = resolveEmbeddedCssBase(slotId, templateId);
+            if (embeddedCssBase) {
+                console.warn(`CapsuleOS: CSS base ${cssBaseTemplateId} via embed (HTTP ${response.status})`);
+                text = embeddedCssBase;
             } else {
                 throw new Error(`HTTP ${response.status} ${cssBaseFile}`);
             }

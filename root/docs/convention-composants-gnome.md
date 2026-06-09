@@ -116,15 +116,58 @@ node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs -
 node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id linux-rocky
 ```
 
-### Phase C — Parité et clôture
+### Phase C — Fidélité **contenu** applicatif (overview, hors Nautilus / Paramètres)
+
+**Périmètre actif** : apps visibles dans l’**Aperçu** (`data-overview-link`) dont le chrome N1 est déjà crédible, mais le **contenu simulé** (proportions, alignements, libellés, données factices) n’est pas encore aligné VM.
+
+**Hors scope Phase C** (déjà clôturés) :
+
+| Slot | Raison |
+|------|--------|
+| `nemo` | Nautilus — parité explorateur + menus |
+| `themes` | Paramètres GNOME — chaîne gsettings / playbook H₆ |
+
+**Cible** : couche **N2 contenu** — gabarit HTML + `*.skin.css` (grilles, sidebar, textes, états vides), pas le CSD ni le shell.
+
+#### Priorité overview Rocky
+
+| Vague | Slots | `functionalDepth` catalogue | Focus contenu |
+|-------|-------|----------------------------|---------------|
+| **C1 — Dash + overview P0** | `firefox`, `update_manager`, `calculator`, `text_editor`, `terminal` | partial / full | proportions fenêtre, mock data VM, typo `--font-ui` |
+| **C2 — Overview P1** | `clocks`, `visionneur_images`, `visionneur_pdf`, `snapshot` | partial | vues par défaut, barres d’outils, placeholders |
+| **C3 — Overview P2** | `characters`, `system_monitor`, `baobab`, `tour` | partial | grilles, graphiques, cartes |
+| **C4 — Décoratif overview** | icônes sans slot (Disques, Polices, SELinux…) | decorative | icône + libellé grille uniquement |
+
+#### Grille d’audit contenu (par slot)
+
+Pour chaque app, comparer VM ↔ Capsule (même viewport 1280×800) :
+
+| Dimension | Exemple |
+|-----------|---------|
+| **Proportions** | largeur sidebar Logiciels, ratio pavé Calculatrice, hauteur headerbar vs contenu |
+| **Position** | padding contenu, centrage titre, offset recherche |
+| **Alignement** | baseline libellés liste, icônes symboliques 16px |
+| **Contenu pur** | libellés FR VM, compteurs (badges mises à jour), noms paquets fictifs crédibles, état vide |
+
+Livrable par slot : entrée `contentSpec` dans `*-apps-visual-investigation.json` (`contentGaps[]`) + patch `usr/share/.../*.html` et `home/.../style/apps/*.skin.css`.
 
 ```bash
-node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id linux-rocky
-node usr/lib/capsuleos/tools/validate-ui-components-gnome.mjs
-node usr/lib/capsuleos/tools/validate-all.mjs
+# Captures VM réelles par app (une fenêtre ouverte — pas virsh plein bureau)
+# Sur VM : gtk-launch <desktop> puis gnome-screenshot -w
+
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-rocky
+# Comparaison manuelle ou run-visual-parity-pass par slot
+node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id linux-rocky --playwright
 ```
 
-Étiqueter chaque capture : `{slot}/{composantId}/{état}` (ex. `calculator/gnome.gtk-grid-view/pressed-key`).
+Prédicat cible : **AppCt** (contenu aligné) — extension de **AppVp** ; `visualMatch: partial` → `match` quand `contentGaps` est vide.
+
+### Phase D — Clôture globale
+
+```bash
+node usr/lib/capsuleos/tools/lab/validate-ui-components-gnome.mjs
+node usr/lib/capsuleos/tools/validate-all.mjs
+```
 
 ---
 

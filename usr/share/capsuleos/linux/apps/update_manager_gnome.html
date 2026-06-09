@@ -6,7 +6,7 @@
             <nav class="gnome-software__nav" aria-label="Sections">
                 <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
                     <span class="gnome-software__navicon gnome-software__navicon--explore" aria-hidden="true"></span>
-                    <span>Explorer</span>
+                    <span>Découvrir</span>
                 </button>
                 <button type="button" class="gnome-software__navitem" disabled aria-disabled="true">
                     <span class="gnome-software__navicon gnome-software__navicon--work" aria-hidden="true"></span>
@@ -44,7 +44,10 @@
 
             <div class="gnome-software__content">
                 <header class="gnome-software__page-head">
-                    <h2 class="gnome-software__title">Mises à jour</h2>
+                    <div class="gnome-software__title-block">
+                        <h2 class="gnome-software__title">Mises à jour</h2>
+                        <p class="gnome-software__subtitle">4 mises à jour disponibles</p>
+                    </div>
                     <div class="gnome-software__actions">
                         <button type="button" class="gnome-software__action" data-um-gnome-action="check">
                             Rechercher des mises à jour
@@ -55,45 +58,47 @@
                     </div>
                 </header>
 
-                <div class="gnome-software__updates" role="region" aria-label="Mises à jour disponibles">
-                    <article class="gnome-software__update-row" aria-label="Firefox">
-                        <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
-                        <div class="gnome-software__rowtext">
-                            <p class="gnome-software__rowtitle">Firefox</p>
-                            <p class="gnome-software__rowsub">128.10.0-1.el10 → 128.11.0-1.el10</p>
-                        </div>
-                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                    </article>
+                <div class="gnome-software__updates-group" role="region" aria-label="Mises à jour disponibles">
+                    <div class="gnome-software__updates">
+                        <article class="gnome-software__update-row" aria-label="Firefox">
+                            <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Firefox</p>
+                                <p class="gnome-software__rowsub">140.10.0-1.el10 → 140.11.0-1.el10_2</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                        </article>
 
-                    <article class="gnome-software__update-row" aria-label="GNOME Shell">
-                        <span class="gnome-software__appicon gnome-software__appicon--gnome" aria-hidden="true"></span>
-                        <div class="gnome-software__rowtext">
-                            <p class="gnome-software__rowtitle">GNOME Shell</p>
-                            <p class="gnome-software__rowsub">49.4-1.el10 → 49.4-2.el10</p>
-                        </div>
-                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                    </article>
+                        <article class="gnome-software__update-row" aria-label="GNOME Shell">
+                            <span class="gnome-software__appicon gnome-software__appicon--shell" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">GNOME Shell</p>
+                                <p class="gnome-software__rowsub">49.4-3.el10 → 49.4-3.el10_2.rocky.0.2</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                        </article>
 
-                    <article class="gnome-software__update-row" aria-label="Ptyxis">
-                        <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
-                        <div class="gnome-software__rowtext">
-                            <p class="gnome-software__rowtitle">Ptyxis</p>
-                            <p class="gnome-software__rowsub">47.11-1.el10 → 47.12-1.el10</p>
-                        </div>
-                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                    </article>
+                        <article class="gnome-software__update-row" aria-label="Ptyxis">
+                            <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Ptyxis</p>
+                                <p class="gnome-software__rowsub">47.12-1.el10 → 47.13-1.el10</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                        </article>
 
-                    <article class="gnome-software__update-row" aria-label="Nautilus">
-                        <span class="gnome-software__appicon gnome-software__appicon--files" aria-hidden="true"></span>
-                        <div class="gnome-software__rowtext">
-                            <p class="gnome-software__rowtitle">Fichiers</p>
-                            <p class="gnome-software__rowsub">47.5-1.el10 → 47.6-1.el10</p>
-                        </div>
-                        <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                    </article>
+                        <article class="gnome-software__update-row" aria-label="Fichiers">
+                            <span class="gnome-software__appicon gnome-software__appicon--files" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Fichiers</p>
+                                <p class="gnome-software__rowsub">47.5-1.el10 → 47.6-2.el10</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
+                        </article>
+                    </div>
                 </div>
 
-                <p class="gnome-software__status" id="um-status-text" aria-live="polite"></p>
+                <p class="gnome-software__status" id="um-status-text" aria-live="polite">Dernière vérification : aujourd’hui</p>
             </div>
         </section>
     </div>

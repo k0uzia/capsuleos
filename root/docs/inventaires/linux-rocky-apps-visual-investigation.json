@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-rocky",
-  "updatedAt": "2026-06-09T00:47:54.034Z",
+  "updatedAt": "2026-06-09T01:10:13.939Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -644,9 +644,34 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "appCt": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "contentSpec": {
+        "phase": "C1",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "simulated-update-count",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Badge et sous-titre « 4 mises à jour » — scénario pédagogique ; dnf check-update VM RL10 retourne 0 paquet."
+          }
+        ],
+        "resolved": [
+          "template-override-update_manager_gnome",
+          "css-base-embed-chain",
+          "sidebar-13.75rem-boxed-list",
+          "nav-labels-fr-decouvrir",
+          "rpm-versions-el10",
+          "toolkit-app-icons",
+          "navicon-symbolic-masks",
+          "window-proportions-54x38"
+        ]
+      },
+      "note": "Phase C1 — vue Mises à jour ; contenu N2 aligné VM (versions RPM el10, libellés FR, liste groupée)."
     },
     {
       "controlId": "visionneur_images",

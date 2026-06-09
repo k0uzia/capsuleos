@@ -98,16 +98,7 @@ function buildCssBase(templateId) {
         const nemoBase = path.join(STYLE_DIR, 'nemo.base.css');
         text = `${readUtf8(nemoBase)}\n${text}`;
     }
-    if (templateId === 'themes') {
-        const gnomeBase = path.join(STYLE_DIR, 'themes_gnome.base.css');
-        if (fs.existsSync(gnomeBase)) {
-            text = `${text}\n${readUtf8(gnomeBase)}`;
-        }
-        const csBase = path.join(STYLE_DIR, 'cinnamon_settings.base.css');
-        if (fs.existsSync(csBase)) {
-            text = `${text}\n${readUtf8(csBase)}`;
-        }
-    }
+    // Pas de fusion inter-toolkit : themes = Cinnamon ; themes_gnome = GNOME (fichiers distincts).
     return text;
 }
 
@@ -210,22 +201,40 @@ function main() {
     }
 
     if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {
+        const gnomeUmHtml = readUtf8(GNOME_UPDATE_MANAGER_HTML);
+        const gnomeUmBase = path.join(STYLE_DIR, 'update_manager_gnome.base.css');
+        const gnomeUmCssBase = fs.existsSync(gnomeUmBase) ? readUtf8(gnomeUmBase) : '';
         for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
-            skinTemplates[skinKey].update_manager = { html: readUtf8(GNOME_UPDATE_MANAGER_HTML) };
+            skinTemplates[skinKey].update_manager = {
+                html: gnomeUmHtml,
+                cssBase: gnomeUmCssBase
+            };
         }
     }
 
     if (fs.existsSync(GNOME_THEMES_HTML)) {
+        const gnomeThemesHtml = readUtf8(GNOME_THEMES_HTML);
+        const gnomeThemesBase = path.join(STYLE_DIR, 'themes_gnome.base.css');
+        const gnomeThemesCssBase = fs.existsSync(gnomeThemesBase) ? readUtf8(gnomeThemesBase) : '';
         for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos', 'ubuntu']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
-            skinTemplates[skinKey].themes = { html: readUtf8(GNOME_THEMES_HTML) };
+            skinTemplates[skinKey].themes = {
+                html: gnomeThemesHtml,
+                cssBase: gnomeThemesCssBase
+            };
         }
     }
 
     if (fs.existsSync(MINT_CINNAMON_SETTINGS_HTML)) {
+        const mintThemesHtml = readUtf8(MINT_CINNAMON_SETTINGS_HTML);
+        const mintThemesBase = path.join(STYLE_DIR, 'cinnamon_settings.base.css');
+        const mintThemesCssBase = fs.existsSync(mintThemesBase) ? readUtf8(mintThemesBase) : '';
         skinTemplates.mint = skinTemplates.mint || {};
-        skinTemplates.mint.themes = { html: readUtf8(MINT_CINNAMON_SETTINGS_HTML) };
+        skinTemplates.mint.themes = {
+            html: mintThemesHtml,
+            cssBase: mintThemesCssBase
+        };
     }
 
     const skins = {};

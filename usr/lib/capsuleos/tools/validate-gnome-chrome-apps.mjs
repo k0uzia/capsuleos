@@ -150,6 +150,16 @@ for (const file of profileFiles) {
         }
     }
 
+    const templateOverrides = profile.capsuleGlobals?.CAPSULE_TEMPLATE_OVERRIDES || {};
+    if (slots.includes('update_manager') && profileId !== 'linux-ubuntu') {
+        const overridePath = templateOverrides.update_manager || '';
+        if (!overridePath.includes('update_manager_gnome.html')) {
+            errors.push(
+                `${profileId}: CAPSULE_TEMPLATE_OVERRIDES.update_manager doit pointer vers update_manager_gnome.html`
+            );
+        }
+    }
+
     for (const slotId of slots) {
         const providerId = expectedProvider(profileId, slotId);
         if (providerId === 'default') {

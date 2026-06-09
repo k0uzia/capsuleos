@@ -57,7 +57,8 @@
     "CAPSULE_MNT_BASE": "../../../mnt",
     "CAPSULE_MNT_MODULES": ["debutant/linux-bases"],
     "CAPSULE_TEMPLATE_OVERRIDES": {
-      "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+      "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
     },
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",

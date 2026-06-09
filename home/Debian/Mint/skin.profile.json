@@ -57,6 +57,9 @@
       "explorerTemplate": "nemo",
       "dragMode": "unified-titlebar"
     },
+    "CAPSULE_TEMPLATE_OVERRIDES": {
+      "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+    },
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",
       "draggable": true,

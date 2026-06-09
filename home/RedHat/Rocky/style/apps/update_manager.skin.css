@@ -1,258 +1,53 @@
 /**
- * Rocky — GNOME Software (org.gnome.Software) · chrome CSD libadwaita.
+ * Rocky — GNOME Software (org.gnome.Software) · tokens + fenêtre + icônes apps.
  */
 body#rocky {
     --gnome-software-bg: #303030;
     --gnome-software-sidebar-bg: #262626;
     --gnome-software-surface: #383838;
+    --gnome-software-search-bg: #3a3a3a;
     --gnome-software-text: #ffffff;
     --gnome-software-muted: rgba(255, 255, 255, 0.62);
     --gnome-software-border: rgba(255, 255, 255, 0.08);
+    --gnome-software-nav-active: rgba(53, 132, 228, 0.22);
     --gnome-software-accent: #3584e4;
+    --gnome-software-sidebar-w: 13.75rem;
 }
 
 html[data-theme="light"]:has(#rocky) {
     --gnome-software-bg: #fafafa;
     --gnome-software-sidebar-bg: #f3f3f5;
     --gnome-software-surface: #ffffff;
+    --gnome-software-search-bg: #ffffff;
     --gnome-software-text: #1e1e1e;
     --gnome-software-muted: rgba(0, 0, 0, 0.52);
     --gnome-software-border: rgba(0, 0, 0, 0.1);
+    --gnome-software-nav-active: rgba(53, 132, 228, 0.14);
 }
 
 body#rocky div[data-link="update_manager"].gnome-app--csd {
-    width: min(52rem, calc(100vw - var(--fedora-dock-width) - 1.5rem));
-    height: min(36rem, calc(100vh - var(--fedora-top-bar-height) - 1.5rem));
-    min-width: 36rem;
-    min-height: 24rem;
+    width: min(54rem, calc(100vw - var(--fedora-dock-width, 0px) - 2rem));
+    height: min(38rem, calc(100vh - var(--fedora-top-bar-height, 2.75rem) - 2rem));
+    min-width: 42rem;
+    min-height: 28rem;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     background: var(--gnome-software-bg);
 }
 
-body#rocky div[data-link="update_manager"] .gnome-software__headerbar {
-    background: var(--gnome-software-bg);
-    border-bottom: 1px solid var(--gnome-software-border);
+body#rocky .gnome-software__appicon--firefox {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.svg");
 }
 
-body#rocky .gnome-software {
-    display: grid;
-    grid-template-columns: 15.5rem minmax(0, 1fr);
-    width: 100%;
-    height: 100%;
-    color: var(--gnome-software-text);
-    background: var(--gnome-software-bg);
-    font-family: var(--font-ui);
+body#rocky .gnome-software__appicon--shell {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/start-here.svg");
 }
 
-body#rocky .gnome-software__sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    padding: 1.1rem 0.85rem;
-    border-right: 1px solid var(--gnome-software-border);
-    background: var(--gnome-software-sidebar-bg);
+body#rocky .gnome-software__appicon--terminal {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg");
 }
 
-body#rocky .gnome-software__brand {
-    margin: 0 0 0.35rem;
-    padding: 0 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--gnome-software-muted);
-}
-
-body#rocky .gnome-software__nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
-body#rocky .gnome-software__spacer {
-    flex: 1;
-}
-
-body#rocky .gnome-software__navitem {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    min-height: 2.25rem;
-    padding: 0 0.65rem;
-    border: 0;
-    border-radius: 0.5rem;
-    background: transparent;
-    color: var(--gnome-software-muted);
-    font: inherit;
-    font-size: 0.88rem;
-    text-align: left;
-    cursor: default;
-}
-
-body#rocky .gnome-software__navitem.is-active {
-    color: var(--gnome-software-text);
-    background: rgba(53, 132, 228, 0.18);
-}
-
-body#rocky .gnome-software__navicon {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0.2rem;
-    background: currentColor;
-    opacity: 0.55;
-    flex-shrink: 0;
-}
-
-body#rocky .gnome-software__badge {
-    margin-left: auto;
-    min-width: 1.25rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 999px;
-    background: var(--gnome-software-accent);
-    color: #ffffff;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-align: center;
-}
-
-body#rocky .gnome-software__main {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-}
-
-body#rocky .gnome-software__search {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex: 1;
-    min-width: 0;
-    max-width: 22rem;
-    height: 2.125rem;
-    padding: 0 0.75rem;
-    border-radius: 999px;
-    background: var(--gnome-software-surface);
-    border: 1px solid var(--gnome-software-border);
-}
-
-body#rocky .gnome-software__search-icon {
-    width: 0.95rem;
-    height: 0.95rem;
-    background: currentColor;
-    opacity: 0.55;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M10.5 9.5h-.6l-.2-.2a4.2 4.2 0 1 0-.7.7l.2.2v.6l3.2 3.2 1-1-3.2-3.1zm-3.7 0a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z'/%3E%3C/svg%3E") center/contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M10.5 9.5h-.6l-.2-.2a4.2 4.2 0 1 0-.7.7l.2.2v.6l3.2 3.2 1-1-3.2-3.1zm-3.7 0a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z'/%3E%3C/svg%3E") center/contain no-repeat;
-}
-
-body#rocky .gnome-software__search-input {
-    flex: 1;
-    min-width: 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 0.88rem;
-}
-
-body#rocky .gnome-software__content {
-    flex: 1;
-    min-height: 0;
-    padding: 1.25rem 1.35rem 1rem;
-    overflow: auto;
-}
-
-body#rocky .gnome-software__page-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-body#rocky .gnome-software__title {
-    margin: 0;
-    font-size: 1.35rem;
-    font-weight: 700;
-}
-
-body#rocky .gnome-software__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-body#rocky .gnome-software__action {
-    min-height: 2.125rem;
-    padding: 0 0.9rem;
-    border: 1px solid var(--gnome-software-border);
-    border-radius: 999px;
-    background: var(--gnome-software-surface);
-    color: inherit;
-    font: inherit;
-    font-size: 0.84rem;
-    cursor: pointer;
-}
-
-body#rocky .gnome-software__action--primary {
-    border-color: transparent;
-    background: var(--gnome-software-accent);
-    color: #ffffff;
-    font-weight: 600;
-}
-
-body#rocky .gnome-software__updates {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-}
-
-body#rocky .gnome-software__update-row {
-    display: grid;
-    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 0.85rem;
-    border: 1px solid var(--gnome-software-border);
-    border-radius: 0.65rem;
-    background: var(--gnome-software-surface);
-}
-
-body#rocky .gnome-software__appicon {
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 0.45rem;
-    background: rgba(53, 132, 228, 0.25);
-}
-
-body#rocky .gnome-software__rowtitle {
-    margin: 0;
-    font-size: 0.92rem;
-    font-weight: 600;
-}
-
-body#rocky .gnome-software__rowsub {
-    margin: 0.15rem 0 0;
-    font-size: 0.78rem;
-    color: var(--gnome-software-muted);
-}
-
-body#rocky .gnome-software__rowbtn {
-    min-height: 2rem;
-    padding: 0 0.85rem;
-    border: 0;
-    border-radius: 999px;
-    background: var(--gnome-software-accent);
-    color: #ffffff;
-    font: inherit;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-body#rocky .gnome-software__status {
-    margin: 0.85rem 0 0;
-    font-size: 0.82rem;
-    color: var(--gnome-software-muted);
+body#rocky .gnome-software__appicon--files {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg");
 }

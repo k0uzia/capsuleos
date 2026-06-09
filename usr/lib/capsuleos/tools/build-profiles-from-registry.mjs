@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { loadAppsCatalog, buildExpectedTemplateOverrides } from './linux/slot-variant-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -16,6 +17,7 @@ const PROFILES_DIR = path.join(ROOT, 'etc/capsuleos/profiles');
 const OVERRIDES_DIR = path.join(ROOT, 'etc/capsuleos/overrides');
 
 const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
+const appsCatalog = loadAppsCatalog(ROOT);
 
 /** Chemins depuis home/<Vendor>/<Skin>/index.html */
 const ASSETS = '../../../usr/share/capsuleos/assets';
@@ -114,9 +116,15 @@ function buildCapsuleGlobals(entry) {
   if (entry.id === 'linux-mx-kde') {
     globals.CAPSULE_TERMINAL_USER = 'mx-linux';
     globals.CAPSULE_TERMINAL_HOST = 'mx';
-    globals.CAPSULE_TEMPLATE_OVERRIDES = {
-      update_manager: `${APPS}/update_manager_kde.html`
-    };
+  }
+
+  const templateOverrides = buildExpectedTemplateOverrides(appsCatalog, {
+    id: entry.id,
+    toolkit: entry.toolkit,
+    branchId: entry.branchId,
+  });
+  if (Object.keys(templateOverrides).length > 0) {
+    globals.CAPSULE_TEMPLATE_OVERRIDES = templateOverrides;
   }
 
   return Object.fromEntries(Object.entries(globals).filter(([, v]) => v != null));

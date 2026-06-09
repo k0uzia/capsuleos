@@ -1,1 +1,319 @@
-/* GNOME Software — styles structurels dans update_manager.base.css (.update-manager--gnome) et skins vendor. */
+/**
+ * GNOME Software — structure partagée (contenu N2, indépendant du vendor).
+ * Tokens : --gnome-software-* dans *.skin.css vendor.
+ */
+
+.update-manager--gnome .gnome-software {
+    display: grid;
+    grid-template-columns: var(--gnome-software-sidebar-w, 13.75rem) minmax(0, 1fr);
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    color: var(--gnome-software-text, #ffffff);
+    background: var(--gnome-software-bg, #303030);
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.75);
+}
+
+.update-manager--gnome .gnome-software__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.85rem 0.65rem;
+    border-right: 1px solid var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-software-sidebar-bg, #262626);
+    min-height: 0;
+}
+
+.update-manager--gnome .gnome-software__brand {
+    margin: 0 0 0.5rem;
+    padding: 0 0.55rem;
+    font-size: calc(var(--head) / 2.85);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+}
+
+.update-manager--gnome .gnome-software__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.update-manager--gnome .gnome-software__spacer {
+    flex: 1;
+    min-height: 0.5rem;
+}
+
+.update-manager--gnome .gnome-software__navitem {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.125rem;
+    padding: 0 0.55rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+    font: inherit;
+    font-size: calc(var(--head) / 2.9);
+    font-weight: 500;
+    text-align: left;
+    cursor: default;
+}
+
+.update-manager--gnome .gnome-software__navitem.is-active {
+    color: var(--gnome-software-text, #ffffff);
+    background: var(--gnome-software-nav-active, rgba(53, 132, 228, 0.22));
+    font-weight: 600;
+}
+
+.update-manager--gnome .gnome-software__navitem:disabled {
+    opacity: 0.72;
+}
+
+.update-manager--gnome .gnome-software__navicon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    background: currentColor;
+    opacity: 0.88;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.update-manager--gnome .gnome-software__navicon--explore {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1a7 7 0 100 14A7 7 0 008 1zm0 1.2a5.8 5.8 0 110 11.6A5.8 5.8 0 018 2.2zm-.3 2.3v2.2l1.9 1.1.6-1-.9-.5V5.2H7.7z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1a7 7 0 100 14A7 7 0 008 1zm0 1.2a5.8 5.8 0 110 11.6A5.8 5.8 0 018 2.2zm-.3 2.3v2.2l1.9 1.1.6-1-.9-.5V5.2H7.7z'/%3E%3C/svg%3E");
+}
+
+.update-manager--gnome .gnome-software__navicon--work {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 4h8v1H4V4zm0 3h8v1H4V7zm0 3h5v1H4v-1z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 4h8v1H4V4zm0 3h8v1H4V7zm0 3h5v1H4v-1z'/%3E%3C/svg%3E");
+}
+
+.update-manager--gnome .gnome-software__navicon--dev {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M5.2 4.5L2.7 8l2.5 3.5 1-.7L4.7 8l1.5-2.8-1-0.7zm5.6 0l-1 .7L11.3 8l1.5 2.8 1 .7L13.3 8l-2.5-3.5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M5.2 4.5L2.7 8l2.5 3.5 1-.7L4.7 8l1.5-2.8-1-0.7zm5.6 0l-1 .7L11.3 8l1.5 2.8 1 .7L13.3 8l-2.5-3.5z'/%3E%3C/svg%3E");
+}
+
+.update-manager--gnome .gnome-software__navicon--updates {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a6.5 6.5 0 014.2 11.3l-.7-.7A5.5 5.5 0 108 2.5V1l3 2.5L8 6V4.5A4.5 4.5 0 113.5 9H2a6 6 0 006-7.5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M8 1.5a6.5 6.5 0 014.2 11.3l-.7-.7A5.5 5.5 0 108 2.5V1l3 2.5L8 6V4.5A4.5 4.5 0 113.5 9H2a6 6 0 006-7.5z'/%3E%3C/svg%3E");
+}
+
+.update-manager--gnome .gnome-software__navicon--installed {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 3h4v4H3V3zm6 0h4v4H9V3zM3 9h4v4H3V9zm6 0h4v4H9V9z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M3 3h4v4H3V3zm6 0h4v4H9V3zM3 9h4v4H3V9zm6 0h4v4H9V9z'/%3E%3C/svg%3E");
+}
+
+.update-manager--gnome .gnome-software__badge {
+    margin-left: auto;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--gnome-software-accent, #3584e4);
+    color: #ffffff;
+    font-size: calc(var(--head) / 3.35);
+    font-weight: 700;
+    line-height: 1.125rem;
+    text-align: center;
+}
+
+.update-manager--gnome .gnome-software__main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: var(--gnome-software-bg, #303030);
+}
+
+.update-manager--gnome .gnome-software__headerbar {
+    justify-content: flex-start;
+    padding-inline: 0.75rem;
+    border-bottom: 1px solid var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+    background: var(--gnome-software-bg, #303030);
+}
+
+.update-manager--gnome .gnome-software__search {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: min(100%, 20rem);
+    height: 2.125rem;
+    padding: 0 0.7rem;
+    border-radius: 999px;
+    background: var(--gnome-software-search-bg, var(--gnome-software-surface, #383838));
+    border: 1px solid transparent;
+    box-shadow: inset 0 0 0 1px var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+}
+
+.update-manager--gnome .gnome-software__search-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex-shrink: 0;
+    background: currentColor;
+    opacity: 0.55;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M10.5 9.5h-.6l-.2-.2a4.2 4.2 0 10-.7.7l.2.2v.6l3.2 3.2 1-1-3.2-3.1zm-3.7 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M10.5 9.5h-.6l-.2-.2a4.2 4.2 0 10-.7.7l.2.2v.6l3.2 3.2 1-1-3.2-3.1zm-3.7 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.update-manager--gnome .gnome-software__search-input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: calc(var(--head) / 2.9);
+}
+
+.update-manager--gnome .gnome-software__search-input::placeholder {
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+}
+
+.update-manager--gnome .gnome-software__content {
+    flex: 1;
+    min-height: 0;
+    padding: 1.5rem 1.5rem 1rem;
+    overflow: auto;
+}
+
+.update-manager--gnome .gnome-software__page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.65rem 1rem;
+    margin-bottom: 0.35rem;
+}
+
+.update-manager--gnome .gnome-software__title-block {
+    min-width: 0;
+}
+
+.update-manager--gnome .gnome-software__title {
+    margin: 0;
+    font-size: calc(var(--head) / 2.05);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.update-manager--gnome .gnome-software__subtitle {
+    margin: 0.35rem 0 0;
+    font-size: calc(var(--head) / 2.95);
+    font-weight: 500;
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+}
+
+.update-manager--gnome .gnome-software__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+.update-manager--gnome .gnome-software__action {
+    min-height: 2.125rem;
+    padding: 0 0.95rem;
+    border: 1px solid var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+    border-radius: 999px;
+    background: var(--gnome-software-surface, #383838);
+    color: inherit;
+    font: inherit;
+    font-size: calc(var(--head) / 2.95);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.update-manager--gnome .gnome-software__action--primary {
+    border-color: transparent;
+    background: var(--gnome-software-accent, #3584e4);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.update-manager--gnome .gnome-software__updates-group {
+    margin-top: 0.85rem;
+    border: 1px solid var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--gnome-software-surface, #383838);
+}
+
+.update-manager--gnome .gnome-software__updates {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-manager--gnome .gnome-software__update-row {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 0.55rem 0.85rem;
+    border: 0;
+    border-bottom: 1px solid var(--gnome-software-border, rgba(255, 255, 255, 0.08));
+    border-radius: 0;
+    background: transparent;
+}
+
+.update-manager--gnome .gnome-software__update-row:last-child {
+    border-bottom: 0;
+}
+
+.update-manager--gnome .gnome-software__appicon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+    background: transparent center/contain no-repeat;
+    flex-shrink: 0;
+}
+
+.update-manager--gnome .gnome-software__rowtext {
+    min-width: 0;
+}
+
+.update-manager--gnome .gnome-software__rowtitle {
+    margin: 0;
+    font-size: calc(var(--head) / 2.85);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.update-manager--gnome .gnome-software__rowsub {
+    margin: 0.1rem 0 0;
+    font-size: calc(var(--head) / 3.15);
+    font-weight: 400;
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+    line-height: 1.3;
+}
+
+.update-manager--gnome .gnome-software__rowbtn {
+    min-height: 1.9rem;
+    padding: 0 0.8rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--gnome-software-accent, #3584e4);
+    color: #ffffff;
+    font: inherit;
+    font-size: calc(var(--head) / 3.05);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.update-manager--gnome .gnome-software__status {
+    margin: 0.75rem 0 0;
+    font-size: calc(var(--head) / 3.05);
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+}

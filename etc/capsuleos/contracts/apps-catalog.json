@@ -39,7 +39,28 @@
     },
     "cinnamon": {
       "collectPattern": "*.desktop",
-      "note": "Mint — generate-mint-apps-catalog.mjs (legacy) ou generate-apps-catalog.mjs --id linux-mint"
+      "note": "Mint — slotSpecs = variants Cinnamon (pas de gabarits GNOME).",
+      "slotSpecs": {
+        "nemo": { "chromeProvider": "cinnamon", "template": "nemo.html", "skinCss": "nemo.skin.css", "functionalDepth": "full" },
+        "themes": { "chromeProvider": "cinnamon", "template": "cinnamon_settings.html", "skinCss": "cinnamon_settings.skin.css", "functionalDepth": "full" },
+        "update_manager": { "chromeProvider": "cinnamon", "template": "update_manager.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
+        "mainMenu": { "chromeProvider": "cinnamon", "template": "mainMenu.html", "skinCss": "mainMenu.skin.css", "functionalDepth": "full" }
+      }
+    },
+    "kde": {
+      "collectPattern": "*.desktop",
+      "slotSpecs": {
+        "nemo": { "chromeProvider": "default", "template": "dolphin", "skinCss": "dolphin.skin.css", "functionalDepth": "full" },
+        "update_manager": { "chromeProvider": "default", "template": "update_manager_kde.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" }
+      }
+    }
+  },
+  "slotVariantOverrides": {
+    "linux-ubuntu": {
+      "update_manager": {
+        "template": "update_manager_ubuntu.html",
+        "chromeProvider": "update-manager-ubuntu"
+      }
     }
   },
   "registryOverrides": {

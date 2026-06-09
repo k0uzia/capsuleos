@@ -59,7 +59,8 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -134,7 +135,8 @@ window.CAPSULE_SKIN_PROFILES = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -267,7 +269,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -406,6 +409,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -677,7 +683,8 @@ window.CAPSULE_SKIN_PROFILES = {
         "debutant/linux-bases"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -759,7 +766,8 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -838,7 +846,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -913,7 +922,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1046,7 +1056,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "fedora-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1185,6 +1196,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+      },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
         "draggable": true,
@@ -1456,7 +1470,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "debutant/linux-bases"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1538,7 +1553,8 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

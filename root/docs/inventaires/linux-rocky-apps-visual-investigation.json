@@ -808,7 +808,7 @@
       "labelFr": "Loupe",
       "vmId": "org.gnome.Loupe",
       "parityPriority": "P1",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Loupe (images)",
         "components": [
@@ -862,8 +862,48 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C2",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Loupe requise."
+          },
+          {
+            "id": "gestures-touch-zoom",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Gestes pinch / trackpad Loupe non simulés — zoom toolbar uniquement."
+          },
+          {
+            "id": "folder-navigation",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Navigation image préc./suiv. dans dossier non simulée (hors P1)."
+          }
+        ],
+        "resolved": [
+          "loupe-toolbar-glyphs",
+          "zoom-rotate-fit-controls",
+          "empty-state-fr",
+          "metadata-sidebar-toggle",
+          "canvas-dark-chrome",
+          "window-proportions-44x32",
+          "nautilus-open-image",
+          "title-loupe-fr"
+        ]
+      },
+      "note": "Phase C2 — org.gnome.Loupe : toolbar zoom, état vide, panneau propriétés, ouverture Nautilus."
     },
     {
       "controlId": "system_monitor",

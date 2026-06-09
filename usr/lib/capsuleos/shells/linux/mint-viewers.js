@@ -6,8 +6,66 @@
 
     var IMAGE_TITLE = 'Visionneur d\'images';
     var PDF_TITLE = 'Visionneur de documents';
+    var LOUPE_BODY_IDS = { rocky: true, fedora: true, alma: true, ubuntu: true, anduinos: true };
 
-    var xviewerState = { zoom: 100, rotate: 0, hasImage: false };
+    var xviewerState = { zoom: 100, rotate: 0, hasImage: false, metaOpen: false };
+
+    function usesLoupeChrome(root) {
+        return Boolean(root && root.classList && root.classList.contains('loupe-app'));
+    }
+
+    function resolveImageViewerTitle(root) {
+        if (usesLoupeChrome(root)) {
+            return 'Loupe';
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        if (bodyId && LOUPE_BODY_IDS[bodyId]) {
+            return 'Loupe';
+        }
+        return IMAGE_TITLE;
+    }
+
+    function resolveEmptyImageLabel(root) {
+        return usesLoupeChrome(root) ? 'Aucune image ouverte' : 'Aucune image sélectionnée';
+    }
+
+    function syncLoupeEmptyState(root, visible) {
+        var empty = root.querySelector('#loupe-empty-state');
+        if (empty) {
+            empty.hidden = !visible;
+        }
+    }
+
+    function ensureLoupeEmptyState(root) {
+        var content = root.querySelector('#mint-image-viewer-content');
+        if (!content || content.querySelector('.viewer-app__image') || content.querySelector('#loupe-empty-state')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.id = 'loupe-empty-state';
+        wrap.className = 'loupe-app__empty';
+        wrap.innerHTML =
+            '<p class="loupe-app__empty-title">Ouvrir une image</p>' +
+            '<p class="loupe-app__empty-hint">Ouvrez une image depuis Fichiers pour l\'afficher ici.</p>';
+        content.appendChild(wrap);
+    }
+
+    function syncLoupeMetaType(root, payload) {
+        var typeEl = root.querySelector('#loupe-meta-type');
+        if (!typeEl) {
+            return;
+        }
+        if (payload && payload.extension) {
+            typeEl.textContent = String(payload.extension).toUpperCase();
+            return;
+        }
+        if (payload && payload.name) {
+            var parts = String(payload.name).split('.');
+            typeEl.textContent = parts.length > 1 ? parts.pop().toUpperCase() : '—';
+            return;
+        }
+        typeEl.textContent = '—';
+    }
     var xreaderState = { zoom: 100, page: 0, pages: 0, sidebar: false };
 
     function getWindowEl(root, slotId) {
@@ -86,6 +144,18 @@
                     applyXviewerZoom(root);
                 } else if (action === 'slideshow') {
                     toggleXviewerSlideshow(root);
+                } else if (action === 'toggle-meta') {
+                    var pane = root.querySelector('#loupe-meta-pane');
+                    if (!pane) {
+                        return;
+                    }
+                    xviewerState.metaOpen = pane.hasAttribute('hidden');
+                    if (xviewerState.metaOpen) {
+                        pane.removeAttribute('hidden');
+                    } else {
+                        pane.setAttribute('hidden', 'hidden');
+                    }
+                    btn.setAttribute('aria-pressed', xviewerState.metaOpen ? 'true' : 'false');
                 }
             });
         });
@@ -291,12 +361,15 @@
         var img = content ? content.querySelector('.viewer-app__image') : null;
         var nameEl = root.querySelector('#mint-image-viewer-filename');
         var winEl = getWindowEl(root, 'visionneur_images');
+        var titleBase = resolveImageViewerTitle(root);
         if (payload && payload.name) {
             xviewerState.hasImage = true;
             if (nameEl) {
                 nameEl.textContent = payload.name;
             }
-            syncWindowTitle(winEl, payload.name + ' — ' + IMAGE_TITLE);
+            syncLoupeMetaType(root, payload);
+            syncLoupeEmptyState(root, false);
+            syncWindowTitle(winEl, payload.name + ' — ' + titleBase);
             if (img) {
                 updateXviewerDims(root, img);
             }
@@ -306,9 +379,16 @@
         } else {
             xviewerState.hasImage = false;
             if (nameEl) {
-                nameEl.textContent = 'Aucune image sélectionnée';
+                nameEl.textContent = resolveEmptyImageLabel(root);
             }
-            syncWindowTitle(winEl, IMAGE_TITLE);
+            syncLoupeMetaType(root, null);
+            var dimsEl = root.querySelector('#xviewer-dims');
+            if (dimsEl) {
+                dimsEl.textContent = '—';
+            }
+            ensureLoupeEmptyState(root);
+            syncLoupeEmptyState(root, true);
+            syncWindowTitle(winEl, titleBase);
         }
     }
 
@@ -348,7 +428,7 @@
             return;
         }
         bindXviewerToolbar(root);
-        syncWindowTitle(getWindowEl(root, 'visionneur_images'), IMAGE_TITLE);
+        syncWindowTitle(getWindowEl(root, 'visionneur_images'), resolveImageViewerTitle(root));
         root.dataset.xviewerInit = 'true';
     }
 

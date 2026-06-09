@@ -2,9 +2,9 @@
   "registryId": "linux-kde-neon",
   "slot": "panel",
   "label": "Panel Plasma + pins",
-  "collectedAt": "2026-06-08T19:00:00.000Z",
-  "source": "vm-doc+roadmap-v3-p0",
-  "campaign": "v3-full-parity",
+  "collectedAt": "2026-06-09T12:00:00.000Z",
+  "source": "vm-doc+roadmap-v4-p4",
+  "campaign": "v4-deep-parity",
   "vmDoc": "linux-kde-neon-panel-tray-closure.md",
   "capsuleMapping": {
     "html": "home/Debian/KDE-Neon/index.html",
@@ -68,12 +68,9 @@
     }
   ],
   "parityTiers": {
-    "structural": { "status": "reaudit", "pallier": "P1" },
-    "interactional": { "status": "partiel", "pallier": "P1" }
+    "structural": { "status": "ok", "pallier": "v3-closed" },
+    "interactional": { "status": "ok", "pallier": "v4-p4" }
   },
-  "nextSteps": [
-    "layoutMetrics postFix dans parity-index",
-    "Compare visuel paires VM ↔ Capsule (screen_KDE-Neon/)"
-  ],
-  "notes": "Tray détaillé : voir tray-popover-kde.js — popovers P2 séparés."
+  "nextSteps": [],
+  "notes": "5 pins panel + launcher · tray : interactions/linux-kde-neon/tray.json"
 }

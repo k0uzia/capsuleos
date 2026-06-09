@@ -36,6 +36,9 @@
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
     "CAPSULE_TERMINAL_PROFILE": "debian",
     "CAPSULE_EXPLORER_APP_ID": "nemo",
-    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin"
+    "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
+    "CAPSULE_TEMPLATE_OVERRIDES": {
+      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
+    }
   }
 }

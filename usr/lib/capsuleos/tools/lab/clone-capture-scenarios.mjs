@@ -123,6 +123,11 @@ const plasmaShots = [
     name: '07-discover-detail-vlc',
     action: async (page) => {
       await openSlot(page, 'update_manager');
+      await page.waitForSelector(
+        '[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]',
+        { timeout: 20000 },
+      );
+      await sleep(page, 300);
       await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
       await page.waitForFunction(
         () => {
@@ -167,9 +172,9 @@ export const CAPTURE_SCENARIOS = {
   'linux-fedora': {
     shots: gnomeOverviewShots('.fedora-overview-trigger', null),
   },
-  'linux-opensuse': {
-    shots: gnomeOverviewShots('.fedora-overview-trigger', null),
-  },
+  'linux-opensuse': { shots: plasmaShots },
+  'linux-mx-kde': { shots: plasmaShots },
+  'linux-debian-kde': { shots: plasmaShots },
 };
 
 export const getCaptureShots = (registryId) => {

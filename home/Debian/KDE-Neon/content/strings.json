@@ -28,6 +28,7 @@
     "visionneur_images.windowTitle": "Gwenview",
     "spectacle.windowTitle": "Spectacle",
     "kinfocenter.windowTitle": "Centre d'informations",
-    "system_monitor.windowTitle": "Surveillance du système"
+    "system_monitor.windowTitle": "Surveillance du système",
+    "kdeconnect.windowTitle": "KDE Connect"
 }
 

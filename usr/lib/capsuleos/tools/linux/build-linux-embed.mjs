@@ -189,16 +189,17 @@ function main() {
         }
     }
 
-    if (fs.existsSync(KDE_UPDATE_MANAGER_HTML)) {
-        for (const skinKey of ['opensuse', 'mxkde']) {
+  if (fs.existsSync(KDE_NEON_UPDATE_MANAGER_HTML)) {
+        const neonDiscoverHtml = readUtf8(KDE_NEON_UPDATE_MANAGER_HTML);
+        for (const skinKey of ['kde-neon', 'opensuse', 'mxkde', 'debiankde']) {
+            skinTemplates[skinKey] = skinTemplates[skinKey] || {};
+            skinTemplates[skinKey].update_manager = { html: neonDiscoverHtml };
+        }
+    } else if (fs.existsSync(KDE_UPDATE_MANAGER_HTML)) {
+        for (const skinKey of ['opensuse', 'mxkde', 'debiankde']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].update_manager = { html: readUtf8(KDE_UPDATE_MANAGER_HTML) };
         }
-    }
-
-    if (fs.existsSync(KDE_NEON_UPDATE_MANAGER_HTML)) {
-        skinTemplates['kde-neon'] = skinTemplates['kde-neon'] || {};
-        skinTemplates['kde-neon'].update_manager = { html: readUtf8(KDE_NEON_UPDATE_MANAGER_HTML) };
     }
 
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {

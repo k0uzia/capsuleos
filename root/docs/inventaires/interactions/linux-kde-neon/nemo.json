@@ -8,7 +8,7 @@
   "vmDoc": "linux-kde-neon-dolphin-diff.md",
   "capsuleMapping": {
     "template": "dolphin",
-    "skinJs": "home/Debian/KDE-Neon/js/dolphin-neon.js",
+    "skinJs": "usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-kde-chrome.js",
     "skinCss": "home/Debian/KDE-Neon/style/apps/dolphin.skin.css",
     "kernelContextMenu": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js"
   },

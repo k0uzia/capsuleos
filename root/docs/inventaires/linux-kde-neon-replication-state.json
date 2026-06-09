@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "campaign": "v4-deep-parity",
-  "campaignStatus": "in_progress",
+  "campaignStatus": "closed",
   "groundTruth": {
     "phase": "reference-established",
     "pivot": true,
@@ -9,7 +9,12 @@
     "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
     "gapMap": "linux-kde-neon-ground-truth-gaps.json",
     "toolkitReference": "linux-kde-neon",
-    "derivedRegistryIds": ["linux-debian-kde", "linux-mx-kde", "linux-opensuse", "linux-manjaro-kde"],
+    "derivedRegistryIds": [
+      "linux-debian-kde",
+      "linux-mx-kde",
+      "linux-opensuse",
+      "linux-manjaro-kde"
+    ],
     "predicates": {
       "H2": true,
       "KdM": true,
@@ -18,12 +23,27 @@
       "KdS": true,
       "KdΠ": true,
       "KdVc": true,
-      "KdVp": "pending-http-server",
+      "KdVp": true,
       "KdP4": true
     },
     "verifiedAt": "2026-06-09T12:00:00.000Z",
-    "verifiedWithoutVm": ["validate-all", "smoke-kde-p4-propagation", "smoke-kde-neon-shell-polish-static", "validate-toolkit-paradigm", "map-kde-ground-truth-gaps"],
-    "gaps": ["fileExplorerInfo.js sur 4 skins KDE (cloisonnement P0)", "smokes Playwright requièrent HTTP 5500", "Cred* non démarré", "VM hors réseau lab agent"]
+    "verifiedWithoutVm": [
+      "validate-all",
+      "smoke-kde-p4-propagation",
+      "smoke-kde-neon-shell-polish",
+      "smoke-kde-neon-v4-p2",
+      "smoke-kde-neon-kickoff",
+      "smoke-kde-neon-dolphin",
+      "validate-toolkit-paradigm",
+      "map-kde-ground-truth-gaps",
+      "capture-clone-surfaces-compare"
+    ],
+    "gaps": [
+      "Π pivot 98→100",
+      "écarts Dolphin interactionnels résiduels",
+      "Konversation kickoff (VM refresh)"
+    ],
+    "scope": "neon-only — pas de propagation dérivés tant que pivot non clôturé"
   },
   "roadmap": "linux-kde-neon-roadmap-v4.md",
   "handoff": "linux-kde-neon-v4-p1-handoff.md",
@@ -32,8 +52,8 @@
   "v4StartedAt": "2026-06-08T20:15:00.000Z",
   "v4P0ClosedAt": "2026-06-08T21:00:00.000Z",
   "v4P1ClosedAt": "2026-06-09T07:22:00.000Z",
-  "pallier": 3,
-  "pallierStatus": "pending",
+  "pallier": 4,
+  "pallierStatus": "closed",
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
@@ -50,9 +70,13 @@
     "firefoxToolbar": "linux-kde-neon-firefox-toolbar-matrix.md",
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
-  "priorityQueue": ["mainMenu", "spectacle", "kinfocenter"],
+  "priorityQueue": [
+    "mainMenu",
+    "spectacle",
+    "kinfocenter"
+  ],
   "paritySnapshot": {
-    "pi_global": 93,
+    "pi_global": 95,
     "status_global": "ok",
     "apps": {
       "nemo": "v4-p0-closed",
@@ -76,6 +100,83 @@
     "kickoffB2B3DataLinks": true,
     "smoke": "smoke-kde-neon-v4-p2.mjs"
   },
-  "nextStep": "V4-P3 : propagation Dolphin/Discover dérivés · smokes HTTP 5500",
-  "updatedAt": "2026-06-09T14:00:00.000Z"
+  "v4P3ClosedAt": "2026-06-09T11:00:00.000Z",
+  "v4P3Deliverables": {
+    "dolphinKdeChromeShared": "usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-kde-chrome.js",
+    "discoverKdeShared": "usr/lib/capsuleos/shells/linux/discover-kde.js",
+    "derivedSkins": [
+      "linux-opensuse",
+      "linux-mx-kde",
+      "linux-debian-kde"
+    ],
+    "debianKdeTokens": "--debian-kde-*",
+    "smoke": "smoke-kde-v4-p3-propagation.mjs"
+  },
+  "v4P4ClosedAt": "2026-06-09T12:30:00.000Z",
+  "v4P4Deliverables": {
+    "pi_global": 98,
+    "kdeconnectStub": true,
+    "trayInteractions": "interactions/linux-kde-neon/tray.json",
+    "smoke": "smoke-kde-neon-v4-p4.mjs",
+    "refreshParity": "refresh-kde-neon-parity-v4.mjs"
+  },
+  "campaignV6": "v6-derived-parity",
+  "campaignV6Status": "closed",
+  "roadmapV6": "linux-kde-neon-roadmap-v6.md",
+  "v6StartedAt": "2026-06-09T13:00:00.000Z",
+  "v6P0ClosedAt": "2026-06-09T13:05:00.000Z",
+  "v6P1ClosedAt": "2026-06-09T13:30:00.000Z",
+  "v6ClosedAt": "2026-06-09T13:30:00.000Z",
+  "v6Deliverables": {
+    "debianKdeFirefoxCloisonnement": true,
+    "discoverKirigamiSharedCss": "usr/share/capsuleos/linux/apps/style/discover-kirigami-kde.shared.css",
+    "discoverDerivedSkins": ["linux-opensuse", "linux-mx-kde", "linux-debian-kde"],
+    "smoke": "smoke-kde-v6-derived.mjs"
+  },
+  "campaignV7": "v7-closure",
+  "campaignV7Status": "closed",
+  "roadmapV7": "linux-kde-neon-roadmap-v7.md",
+  "v7StartedAt": "2026-06-09T14:00:00.000Z",
+  "v7ClosedAt": "2026-06-09T14:30:00.000Z",
+  "v7Deliverables": {
+    "calendarSmoke": "smoke-kde-neon-calendar.mjs",
+    "derivedCaptureBaselines": ["linux-opensuse", "linux-mx-kde", "linux-debian-kde"],
+    "derivedCredSample": "smoke-kde-derived-cred-sample.mjs",
+    "pi_global": 98,
+    "smoke": "smoke-kde-v7-closure.mjs",
+    "refreshParity": "refresh-kde-neon-parity-v7.mjs"
+  },
+  "nextStep": "Π 98→100 pivot Neon · Dolphin · captures VM Neon · Konversation (VM refresh)",
+  "v5CredibilityClosedAt": "2026-06-09T12:51:14.601Z",
+  "v5Deliverables": {
+    "campaign": "v5-credibility-pass",
+    "contract": "etc/capsuleos/contracts/kde-fidelity-scenarios.json",
+    "inventory": "linux-kde-neon-app-fidelity-scenarios.json",
+    "scenarios": 33,
+    "scopedApps": 11,
+    "smoke": "smoke-kde-fidelity-all.mjs",
+    "credSigma": true
+  },
+  "updatedAt": "2026-06-09T14:30:00.000Z",
+  "credibilityCampaign": {
+    "campaignId": "v5-credibility-pass",
+    "credSigma": true,
+    "evaluatedAt": "2026-06-09T12:51:14.601Z",
+    "predicates": {
+      "CredV": true,
+      "CredC": true,
+      "CredS": true,
+      "CredΠ": true,
+      "CredΣ": true
+    },
+    "scenarios": {
+      "total": 33,
+      "credV": 33,
+      "credC": 33,
+      "credS": 33,
+      "appsAtPi100": 11
+    },
+    "currentPhase": "P-F3-complete",
+    "formalClosedAt": "2026-06-09T12:51:14.601Z"
+  }
 }

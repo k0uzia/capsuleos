@@ -6,7 +6,7 @@ body#debian-kde div[data-link="terminal"] {
     --konsole-chrome-text: #eff0f1;
     --konsole-chrome-muted: #bdc3c7;
     --konsole-toolbar-height: 1.72rem;
-    --konsole-header-height: var(--opensuse-konsole-header-height);
+    --konsole-header-height: var(--debian-kde-konsole-header-height);
     --konsole-workspace: #232629;
     --konsole-prompt-user: #c678dd;
     --konsole-prompt-host: #56b6c2;
@@ -45,18 +45,18 @@ body#debian-kde div[data-link="terminal"] #windowHeader {
     margin: 0;
     padding: 0 0.42rem;
     border: 0;
-    border-bottom: 1px solid var(--opensuse-window-titlebar-border-color);
+    border-bottom: 1px solid var(--debian-kde-window-titlebar-border-color);
     border-radius: 5px 5px 0 0;
-    color: var(--opensuse-window-titlebar-fg);
-    background: var(--opensuse-window-titlebar-bg);
+    color: var(--debian-kde-window-titlebar-fg);
+    background: var(--debian-kde-window-titlebar-bg);
     box-shadow: none;
     user-select: none;
     pointer-events: auto;
 }
 
 body#debian-kde div[data-link="terminal"].windowElementActive #windowHeader {
-    background: var(--opensuse-window-titlebar-bg-active);
-    border-bottom-color: var(--opensuse-window-titlebar-border-color-active);
+    background: var(--debian-kde-window-titlebar-bg-active);
+    border-bottom-color: var(--debian-kde-window-titlebar-border-color-active);
 }
 
 body#debian-kde div[data-link="terminal"] #windowHeader > nav:first-child {
@@ -83,17 +83,17 @@ body#debian-kde div[data-link="terminal"] #windowHeader > nav:first-child::after
 }
 
 body#debian-kde div[data-link="terminal"] #windowHeader > nav:first-child::before {
-    width: var(--opensuse-header-icon-size);
-    height: var(--opensuse-header-icon-size);
+    width: var(--debian-kde-header-icon-size);
+    height: var(--debian-kde-header-icon-size);
     background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/terminal.svg");
     opacity: 0.94;
 }
 
 body#debian-kde div[data-link="terminal"] #windowHeader > nav:first-child::after {
-    width: var(--opensuse-header-pin-size);
-    height: var(--opensuse-header-pin-size);
+    width: var(--debian-kde-header-pin-size);
+    height: var(--debian-kde-header-pin-size);
     background-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/add-pin.svg");
-    filter: var(--opensuse-mono-logo-filter);
+    filter: var(--debian-kde-mono-logo-filter);
     opacity: 0.76;
 }
 
@@ -103,9 +103,9 @@ body#debian-kde div[data-link="terminal"] #windowTitle {
     max-width: calc(100% - 9.5rem);
     margin: 0 auto;
     overflow: hidden;
-    color: var(--opensuse-window-titlebar-fg-muted);
+    color: var(--debian-kde-window-titlebar-fg-muted);
     font-family: "Cantarell", var(--font-ui);
-    font-size: var(--opensuse-header-title-size);
+    font-size: var(--debian-kde-header-title-size);
     font-weight: 500;
     line-height: 1;
     text-align: center;
@@ -150,7 +150,7 @@ body#debian-kde div[data-link="terminal"] #windowHeader > nav:last-child > butto
 body#debian-kde div[data-link="terminal"] #minimizeBtn {
     background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/go-down.svg");
     background-size: 0.72rem;
-    filter: var(--opensuse-header-control-filter);
+    filter: var(--debian-kde-header-control-filter);
 }
 
 body#debian-kde div[data-link="terminal"] #resizeBtn {
@@ -178,7 +178,7 @@ body#debian-kde div[data-link="terminal"] #closeBtn:hover {
 
 html[data-theme="light"] #opensuse div[data-link="terminal"] #windowHeader > nav:last-child > button,
 html[data-theme="light"] #opensuse div[data-link="terminal"] #minimizeBtn {
-    filter: var(--opensuse-header-control-filter-light);
+    filter: var(--debian-kde-header-control-filter-light);
 }
 
 html[data-theme="light"] #opensuse div[data-link="terminal"] #closeBtn:hover {

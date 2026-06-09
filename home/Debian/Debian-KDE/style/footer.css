@@ -105,7 +105,7 @@
 #debian-kde footer .taskbar-pins__launcher > img {
     width: calc(var(--head) * 0.68);
     height: calc(var(--head) * 0.68);
-    filter: var(--opensuse-mono-logo-filter);
+    filter: var(--debian-kde-mono-logo-filter);
 }
 
 /* Discover paraît visuellement plus “plein” → on le réduit un peu pour matcher le dock */

@@ -2,9 +2,9 @@
   "registryId": "linux-kde-neon",
   "slot": "mainMenu",
   "label": "Menu des applications (Kickoff)",
-  "collectedAt": "2026-06-08T19:00:00.000Z",
-  "source": "vm-doc+roadmap-v3-p0",
-  "campaign": "v3-full-parity",
+  "collectedAt": "2026-06-09T10:10:00.000Z",
+  "source": "vm-doc+roadmap-v4-p2",
+  "campaign": "v4-deep-parity",
   "vmDoc": "linux-kde-neon-kickoff-closure.md",
   "vmData": "linux-kde-neon-kickoff-apps.json",
   "capsuleMapping": {
@@ -58,15 +58,32 @@
       "type": "click",
       "selector": "#mainMenu .menu-app-item[data-link=\"firefox\"]",
       "expect": "openWindowByDataLink firefox"
+    },
+    {
+      "id": "b2-spectacle-slot",
+      "dimension": "int",
+      "type": "eval",
+      "expect": "org.kde.spectacle.desktop → dataLink spectacle · template spectacle_kde_neon.html"
+    },
+    {
+      "id": "b3-kinfocenter-slot",
+      "dimension": "int",
+      "type": "eval",
+      "expect": "org.kde.kinfocenter.desktop → dataLink kinfocenter"
+    },
+    {
+      "id": "b3-system-monitor-slot",
+      "dimension": "int",
+      "type": "eval",
+      "expect": "org.kde.plasma-systemmonitor.desktop → dataLink system_monitor"
     }
   ],
   "parityTiers": {
     "structural": { "status": "ok", "pallier": "v1-closed" },
-    "interactional": { "status": "partiel", "pallier": "P1" }
+    "interactional": { "status": "ok", "pallier": "v4-p2-closed" }
   },
   "nextSteps": [
-    "Vp dimensions 677×513 vs capture VM",
-    "Regénérer mainMenu-data.js après inventaire VM refresh"
+    "Vp dimensions 677×513 vs capture VM si refresh inventaire"
   ],
-  "notes": "P0 v3 — tokens --kde-neon-* OK (v2). 30 apps catalogue kickoff."
+  "notes": "v4 P4 — 30 apps kickoff · B2/B3 + KDEConnect (×3) sur slots dédiés."
 }

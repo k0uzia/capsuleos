@@ -64,5 +64,12 @@ if (!sharedJs.includes('mx-kde') || !sharedJs.includes('debian-kde') || !sharedJ
   errors.push('tray-popover-kde.js : body ids dérivés manquants');
 }
 
-console.log(JSON.stringify({ ok: errors.length === 0, errors, skins: skins.length }, null, 2));
+for (const skin of skins) {
+  const html = read(skin.index);
+  if (!html.includes('dolphin-kde-chrome.js')) {
+    errors.push(`${skin.id} : dolphin-kde-chrome.js absent (V4-P3)`);
+  }
+}
+
+console.log(JSON.stringify({ ok: errors.length === 0, errors, skins: skins.length, phase: 'P4+P3' }, null, 2));
 process.exit(errors.length ? 1 : 0);

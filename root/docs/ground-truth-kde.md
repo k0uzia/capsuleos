@@ -216,7 +216,7 @@ node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 1. **P0 cloisonnement** — retirer `fileExplorerInfo.js` des 4 skins KDE + `sync-linux-skin-closure` + smokes verts.
 2. **v4-P2** — Spectacle, Info-centre, System Monitor (kickoff B2/B3).
 3. **v4-P3/P4** — propagation `dolphin-neon.js` / Discover vers dérivés · Π ≥ 95 %.
-4. **Cred* KDE** (optionnel post-Π95) — scénarios kickoff + panel, contrat dérivé `kde-fidelity-scenarios.json`.
+4. **Cred* KDE** — **clôturé** (`v5-credibility-pass`) · 33 scénarios · 11 slots · `CredΣ=true` · contrat `kde-fidelity-scenarios.json`.
 5. **VM lab** — intégrer `linux-kde-neon` dans routine `lab-inventory` + sonde `os-probe.sh` branche Plasma.
 
 ---

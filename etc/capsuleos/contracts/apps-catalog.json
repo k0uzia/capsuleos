@@ -54,7 +54,8 @@
         "update_manager": { "chromeProvider": "default", "template": "update_manager_kde.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
         "spectacle": { "chromeProvider": "default", "template": "spectacle_kde_neon.html", "skinCss": "spectacle.skin.css", "functionalDepth": "partial" },
         "kinfocenter": { "chromeProvider": "default", "template": "kinfocenter_kde_neon.html", "skinCss": "kinfocenter.skin.css", "functionalDepth": "partial" },
-        "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" }
+        "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" },
+        "kdeconnect": { "chromeProvider": "default", "template": "kdeconnect_kde_neon.html", "skinCss": "kdeconnect.skin.css", "functionalDepth": "partial" }
       }
     }
   },
@@ -74,6 +75,24 @@
       },
       "kinfocenter": {
         "template": "kinfocenter_kde_neon.html"
+      },
+      "kdeconnect": {
+        "template": "kdeconnect_kde_neon.html"
+      }
+    },
+    "linux-opensuse": {
+      "update_manager": {
+        "template": "update_manager_kde_neon.html"
+      }
+    },
+    "linux-mx-kde": {
+      "update_manager": {
+        "template": "update_manager_kde_neon.html"
+      }
+    },
+    "linux-debian-kde": {
+      "update_manager": {
+        "template": "update_manager_kde_neon.html"
       }
     }
   },

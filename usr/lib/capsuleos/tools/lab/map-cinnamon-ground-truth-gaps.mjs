@@ -1,131 +1,119 @@
 #!/usr/bin/env node
 /**
- * Cartographie écarts ground truth Cinnamon — prédicats Cin*.
+ * Met à jour les gaps ground-truth Cinnamon Mint (TIER-C-THEMES et autres).
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint
  *   node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write
- *   node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write --sync-man
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import {
-  buildCinnamonGaps,
-  writeCinnamonFormalState,
-  cinPathsForRegistry,
-  readJsonIfExists,
-  ROOT,
-} from './cinnamon-ground-truth-lib.mjs';
+import { ROOT } from './replication-chain-lib.mjs';
 
-const parseArgs = () => {
-  const args = process.argv.slice(2);
-  const opts = { id: 'linux-mint', write: false, json: false, syncMan: false };
-  for (let i = 0; i < args.length; i += 1) {
-    if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
-    else if (args[i] === '--write') opts.write = true;
-    else if (args[i] === '--json') opts.json = true;
-    else if (args[i] === '--sync-man') opts.syncMan = true;
-  }
-  return opts;
-};
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CHAIN_PATH = path.join(ROOT, 'etc/capsuleos/contracts/cinnamon-ground-truth-chain.json');
+const GT_MD = path.join(ROOT, 'root/docs/inventaires/ground-truth-cinnamon.md');
+const ROUTING_MATRIX = path.join(ROOT, 'root/docs/inventaires/interactions/linux-mint/menu-cs-routing.json');
 
-const syncManifestPlaybook = (registryId) => {
-  const paths = cinPathsForRegistry(registryId);
-  const integration = readJsonIfExists(paths.integrationPass);
-  const playbookPath = paths.manifestPlaybook;
-  if (!integration?.manSigma || !fs.existsSync(playbookPath)) {
-    return { synced: false, reason: 'integration-pass ou playbook absent' };
-  }
-  const playbook = JSON.parse(fs.readFileSync(playbookPath, 'utf8'));
-  let changed = false;
-  if (integration.manSigma.stagingCompleted && playbook.staging?.status !== 'completed') {
-    playbook.staging = { ...playbook.staging, status: 'completed', completedAt: integration.generatedAt };
-    changed = true;
-  }
-  if (integration.manSigma.importCompleted && playbook.import?.status !== 'completed') {
-    playbook.import = { ...playbook.import, status: 'completed', completedAt: integration.generatedAt };
-    changed = true;
-  }
-  if (integration.manSigma.manifestApproved) {
-    playbook.validation = {
-      ...playbook.validation,
-      status: 'approved',
-      approved: true,
-      approvedAt: integration.generatedAt,
-    };
-    changed = true;
-  }
-  if (playbook.summary) {
-    playbook.summary.drift = 0;
-    playbook.summary.pull = playbook.summary.pull ?? 0;
-    changed = true;
-  }
-  if (changed) {
-    playbook.updatedAt = new Date().toISOString();
-    playbook.pf4ClosedAt = new Date().toISOString();
-    fs.writeFileSync(playbookPath, `${JSON.stringify(playbook, null, 2)}\n`);
-  }
-  return { synced: changed, playbookPath };
-};
+const readJson = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null);
 
-const printHuman = (gapMap) => {
-  const s = gapMap.predicates;
-  process.stdout.write(`\n=== cinnamon-ground-truth-gaps ${gapMap.registryId} ===\n`);
-  process.stdout.write(
-    `CinI=${s.CinI} CinM=${s.CinM} CinA=${s.CinA} CinC=${s.CinC} `
-      + `CinS=${s.CinS} CinΠ=${s.CinΠ} CinCred=${s.CinCred} CinΣ=${s.CinΣ}\n`,
-  );
-  process.stdout.write(
-    `Π_global=${gapMap.metrics.pi_global} · cloisonnement=${gapMap.metrics.cloisonnementScore} `
-      + `· CSS phys=${gapMap.metrics.physicalCssUrls}\n`,
-  );
-  process.stdout.write(`Gaps: ${gapMap.summary.totalGaps} (P0=${gapMap.summary.p0} P1=${gapMap.summary.p1} P2=${gapMap.summary.p2})\n`);
-  gapMap.gaps.forEach((g) => {
-    process.stdout.write(`  [${g.priority}] ${g.id} → ${g.predicate}: ${g.summary}\n`);
-  });
-  if (gapMap.summary.cinSigma) {
-    process.stdout.write('✓ CinΣ satisfait sur périmètre cartographié\n');
-  } else if (gapMap.summary.totalGaps === 0) {
-    process.stdout.write('✓ Aucun écart documenté — vérifier prédicats formels\n');
+const buildGroundTruthMd = (routing, chain) => {
+  const lines = [];
+  lines.push('# Ground truth Cinnamon — Linux Mint');
+  lines.push('');
+  lines.push(`Dernière mise à jour : ${new Date().toISOString().slice(0, 10)}`);
+  lines.push('');
+  lines.push('## TIER-C-THEMES — routage menu → csPanel');
+  lines.push('');
+  if (routing) {
+    lines.push(`| Métrique | Valeur |`);
+    lines.push(`|----------|--------|`);
+    lines.push(`| Entrées menu \`dataLink: themes\` | ${routing.summary.themesMenuEntries} |`);
+    lines.push(`| Routage csPanel OK | ${routing.summary.routedOk} (${routing.summary.parityPct} %) |`);
+    lines.push(`| Panneaux cinnamon-settings | ${routing.summary.cinnamonPanelCount} |`);
+    lines.push(`| Smoke gate | \`smoke-mint-menu-cs-routing.mjs\` |`);
+    lines.push('');
+    const gaps = routing.entries.filter((e) => e.status !== 'ok');
+    if (gaps.length) {
+      lines.push('### Gaps restants');
+      gaps.forEach((g) => {
+        lines.push(`- **${g.labelFr}** — ${g.status}${g.csPanel ? ` (panel \`${g.csPanel}\`)` : ''}`);
+      });
+    } else {
+      lines.push('**Statut : clos** — 100 % des entrées menu themes routées vers un panneau enregistré.');
+    }
+  } else {
+    lines.push('_Matrice menu-cs-routing.json absente — exécuter `generate-menu-cs-routing-matrix.mjs --write`._');
   }
+  lines.push('');
+  lines.push('## Chaîne validation');
+  lines.push('');
+  if (chain?.rules) {
+    chain.rules.forEach((r) => {
+      lines.push(`- **${r.id}** — ${r.label} : \`${r.gate}\``);
+    });
+  }
+  lines.push('');
+  return `${lines.join('\n')}\n`;
 };
 
 const main = () => {
-  const opts = parseArgs();
-  if (opts.syncMan) {
-    const sync = syncManifestPlaybook(opts.id);
-    if (sync.synced) {
-      process.stdout.write(`✓ Playbook ManΣ synchronisé — ${sync.playbookPath}\n`);
-    }
+  const write = process.argv.includes('--write');
+  const id = process.argv.includes('--id') ? process.argv[process.argv.indexOf('--id') + 1] : 'linux-mint';
+  if (id !== 'linux-mint') {
+    console.error('Seul linux-mint est supporté pour cette gate.');
+    process.exit(1);
   }
-  const gapMap = buildCinnamonGaps(opts.id);
-  if (opts.write) {
-    const outPath = cinPathsForRegistry(opts.id).gaps;
-    fs.writeFileSync(outPath, `${JSON.stringify(gapMap, null, 2)}\n`);
-    process.stdout.write(`Écrit ${outPath}\n`);
-    writeCinnamonFormalState(opts.id);
-    const repPath = cinPathsForRegistry(opts.id).replicationState;
-    const rep = readJsonIfExists(repPath);
-    if (rep) {
-      rep.currentFocus = 'cinnamon-perfection-pass';
-      rep.groundTruth = {
-        chain: 'cinnamon',
-        contract: 'etc/capsuleos/contracts/cinnamon-ground-truth-chain.json',
-        doc: 'root/docs/ground-truth-cinnamon.md',
-        predicates: gapMap.predicates,
-        cinSigma: gapMap.summary.cinSigma,
-        gaps: gapMap.summary.totalGaps,
-        evaluatedAt: gapMap.generatedAt,
-      };
-      rep.updatedAt = new Date().toISOString();
-      fs.writeFileSync(repPath, `${JSON.stringify(rep, null, 2)}\n`);
-    }
+
+  const routing = readJson(ROUTING_MATRIX);
+  let chain = readJson(CHAIN_PATH);
+  if (!chain) {
+    chain = {
+      registryId: 'linux-mint',
+      updatedAt: new Date().toISOString(),
+      rules: [
+        {
+          id: 'R-CIN-TIER-C',
+          label: 'Menu Préférences → themes → csPanel',
+          gate: 'usr/lib/capsuleos/tools/lab/smoke-mint-menu-cs-routing.mjs',
+          matrix: 'root/docs/inventaires/interactions/linux-mint/menu-cs-routing.json',
+          predicate: 'themesMenuCsRoutingOk',
+        },
+        {
+          id: 'R-CIN-THEMES-SMOKE',
+          label: 'cinnamon-settings shell de base',
+          gate: 'usr/lib/capsuleos/tools/lab/smoke-mint-cinnamon-settings.mjs',
+          predicate: 'cinnamonSettingsShellOk',
+        },
+      ],
+    };
   }
-  if (opts.json) {
-    process.stdout.write(`${JSON.stringify(gapMap, null, 2)}\n`);
+
+  if (routing) {
+    chain.updatedAt = new Date().toISOString();
+    chain.tiers = chain.tiers || {};
+    chain.tiers['TIER-C-THEMES'] = {
+      status: routing.summary.parityPct === 100 ? 'closed' : 'open',
+      parityPct: routing.summary.parityPct,
+      themesMenuEntries: routing.summary.themesMenuEntries,
+      routedOk: routing.summary.routedOk,
+    };
+  }
+
+  const md = buildGroundTruthMd(routing, chain);
+
+  if (write) {
+    fs.mkdirSync(path.dirname(CHAIN_PATH), { recursive: true });
+    fs.writeFileSync(CHAIN_PATH, `${JSON.stringify(chain, null, 2)}\n`);
+    fs.mkdirSync(path.dirname(GT_MD), { recursive: true });
+    fs.writeFileSync(GT_MD, md);
+    console.log(`✓ ${CHAIN_PATH.replace(`${ROOT}/`, '')}`);
+    console.log(`✓ ${GT_MD.replace(`${ROOT}/`, '')}`);
+    if (routing) {
+      console.log(`  TIER-C-THEMES ${routing.summary.routedOk}/${routing.summary.themesMenuEntries} (${routing.summary.parityPct}%)`);
+    }
   } else {
-    printHuman(gapMap);
+    process.stdout.write(md);
   }
 };
 

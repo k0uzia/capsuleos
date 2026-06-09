@@ -28,7 +28,7 @@
 | Géométrie shell | `measure-mint-shell-geometry.mjs` | ✅ maxΔ **0,7 px** (≤1) · menu 600×480 gap 2 px |
 | Panel browser | `run-capsule-panel-browser.mjs` sur `:5501` | ✅ **6/6** |
 | Parité VM | `compare-os-parity.mjs --scenario panel-checklist --capsule-json /tmp/capsule-panel.json` | ✅ **6/6** VM + Capsule |
-| UI state effects | `run-ui-state-effects-pass.mjs --shell … --write` | ✅ **8/8** (altTab + windowChrome Π=100) |
+| UI state effects | `run-ui-state-effects-pass.mjs --shell … --write` | ✅ **8/8** (altTab + windowChrome Π=100) · + `smoke-mint-menu-cs-routing` |
 | Captures baseline | `root/docs/inventaires/captures/linux-mint/clone-baseline/` | ✅ `metrics.json` à jour |
 
 ### Phase 2 — Parité index
@@ -46,7 +46,7 @@
 | contentLoader embed Cinnamon | ✅ `CINNAMON_PANEL_MENU_SKINS` + `CAPSULE_FORCE_APP_EMBED` | [processus-branchement-noyau.md](processus-branchement-noyau.md) |
 | Chemins toolkit cinnamon | ✅ `toolkits/cinnamon/` menu + panel | [paradigme-toolkit-cinnamon.md](paradigme-toolkit-cinnamon.md) |
 | `mint-panel.css` unique | ✅ pas de `footer.css` / `panel-windows.css` legacy | clone-status § panel v3 |
-| `mainMenu-data-cinnamon.js` | ✅ 97 icônes cinnamon/apps | audit cinnamon-vs-gnome |
+| `mainMenu-data-cinnamon.js` | ✅ 97 icônes cinnamon/apps · **52/52** entrées `themes` + `csPanel` (TIER-C-THEMES) | audit cinnamon-vs-gnome · [`ground-truth-cinnamon.md`](inventaires/ground-truth-cinnamon.md) |
 | `fileExplorerContextMenu` scopé | ✅ branche Nemo vs Nautilus restaurée | [toolkit-cloisonnement-audit.md](toolkit-cloisonnement-audit.md) |
 | CapsuleResource `./assets/` | ✅ profil + boot manifest | skin.profile.json |
 | Cross-check Rocky/Ubuntu | ✅ aucune import Mint | grep `home/Debian/Mint` → 0 |
@@ -83,6 +83,7 @@
 | **Bureau étape 3** | `mint-desktop-icons.js` + `#desktop-icon-context-menu` | ✅ Dossier personnel + Corbeille visibles ; menu Ouvrir/Couper/Copier/Renommer/Supprimer/Propriétés |
 | **Barre titre étape 4** | `cinnamon-window-behaviors.js` + `#muffin-window-context-menu` | ✅ Réduire/Agrandir/Fermer/Toujours au premier plan ; smoke `window.title` ; **R-CIN-CTX4** |
 | **Panel étape 5** | `mint-panel-context-menu.js` + `#mint-panel-context-menu` | ✅ Ajouter des applets / Configurer le panel → cinnamon-settings ; smoke `panel.background` ; **R-CIN-CTX5** |
+| **Menu étape 7 — TIER-C-THEMES** | `smoke-mint-menu-cs-routing.mjs` + [`menu-cs-routing.json`](inventaires/interactions/linux-mint/menu-cs-routing.json) | ✅ **52/52** entrées `themes` → `csPanel` · **R-CIN-TIER-C** |
 | État réplication | `linux-mint-replication-state.json` | ✅ pallier **8** · Π_global 98 · non-conformités listées |
 | Rapport conformité | `linux-mint-clone-conformity-report.md` | ✅ matrice VM↔clone |
 

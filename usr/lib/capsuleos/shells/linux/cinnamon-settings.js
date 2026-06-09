@@ -52,7 +52,8 @@
         { id: 'system-info', label: 'Informations système', icon: 'cs-general', keywords: 'system information mintreport' },
         { id: 'printers', label: 'Imprimantes', icon: 'cs-general', keywords: 'printers print' },
         { id: 'passwords', label: 'Mots de passe et clés', icon: 'cs-privacy', keywords: 'passwords seahorse keys' },
-        { id: 'online-accounts', label: 'Comptes en ligne', icon: 'cs-user', keywords: 'online accounts google microsoft' }
+        { id: 'online-accounts', label: 'Comptes en ligne', icon: 'cs-user', keywords: 'online accounts google microsoft' },
+        { id: 'disks', label: 'Disques', icon: 'cs-general', keywords: 'disks storage gnome-disks' }
     ];
 
     var GENERIC_ROWS = {
@@ -96,7 +97,8 @@
         'system-info': ['Matériel', 'Système d\'exploitation', 'Rapport système'],
         printers: ['Imprimantes configurées', 'Ajouter une imprimante'],
         passwords: ['Mots de passe', 'Certificats', 'Clés SSH'],
-        'online-accounts': ['Google', 'Microsoft', 'Ajouter un compte']
+        'online-accounts': ['Google', 'Microsoft', 'Ajouter un compte'],
+        disks: ['Volumes', 'Partitionnement', 'SMART']
     };
 
     function getWindowEl(root) {

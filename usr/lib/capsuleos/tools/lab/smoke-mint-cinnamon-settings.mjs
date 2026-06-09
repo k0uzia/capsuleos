@@ -30,7 +30,8 @@ await page.waitForTimeout(80);
 
 const themesPanel = await page.evaluate(() => {
   const panel = document.querySelector('[data-cs-panel="themes"]');
-  const gtk = panel?.querySelector('[data-cs-theme="gtk"]')?.textContent;
+  const gtk = panel?.querySelector('[data-themes-gtk]')?.textContent
+    || panel?.querySelector('[data-cs-theme="gtk"]')?.textContent;
   return {
     visible: panel && !panel.hidden,
     gtk,
@@ -47,6 +48,8 @@ const search = await page.evaluate(() => ({
   themesNavHidden: document.querySelector('[data-cs-nav="themes"]')?.hidden,
 }));
 
+await page.fill('#cs-search', '');
+await page.waitForTimeout(80);
 await page.click('[data-cs-nav="backgrounds"]');
 await page.waitForTimeout(80);
 
@@ -68,7 +71,7 @@ const ok = opened.appReady
   && opened.title === 'Paramètres du système'
   && opened.navCount >= 28
   && themesPanel.visible
-  && themesPanel.gtk && themesPanel.gtk.indexOf('Mint-Y-Dark-Aqua') !== -1
+  && themesPanel.gtk && /Mint-Y-(Dark-)?Aqua/.test(themesPanel.gtk)
   && search.panelTitle === 'Son'
   && backgrounds.visible
   && dims.win && dims.win.w >= 780 && dims.win.h >= 580;

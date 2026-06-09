@@ -38,7 +38,11 @@
     },
     "CinS": {
       "artifact": "root/docs/inventaires/{id}-replication-state.json",
-      "fields": ["integralPass.panelChecklist", "integralPass.uiStateSurfaces", "integralPass.shellGeometryMaxDeltaPx"]
+      "fields": [
+        "integralPass.panelChecklist",
+        "integralPass.uiStateSurfaces",
+        "integralPass.shellGeometryMaxDeltaPx"
+      ]
     },
     "CinΠ": {
       "artifact": "root/docs/inventaires/{id}-parity-index.json",
@@ -51,76 +55,128 @@
     }
   },
   "phases": [
-    { "id": "C-P0", "label": "Baseline H₂ + inventaire VM", "predicate": "CinI" },
-    { "id": "C-P1", "label": "ManΣ assets proc/", "predicate": "CinM" },
-    { "id": "C-P2", "label": "Assets + cloisonnement", "predicates": ["CinA", "CinC"] },
-    { "id": "C-P3", "label": "Shell + parité structurelle", "predicates": ["CinS", "CinΠ"] },
-    { "id": "C-P4", "label": "Crédibilité pédagogique", "predicate": "CinCred" },
-    { "id": "C-P5", "label": "Clôture CinΣ", "predicate": "CinΣ" }
+    {
+      "id": "C-P0",
+      "label": "Baseline H₂ + inventaire VM",
+      "predicate": "CinI"
+    },
+    {
+      "id": "C-P1",
+      "label": "ManΣ assets proc/",
+      "predicate": "CinM"
+    },
+    {
+      "id": "C-P2",
+      "label": "Assets + cloisonnement",
+      "predicates": [
+        "CinA",
+        "CinC"
+      ]
+    },
+    {
+      "id": "C-P3",
+      "label": "Shell + parité structurelle",
+      "predicates": [
+        "CinS",
+        "CinΠ"
+      ]
+    },
+    {
+      "id": "C-P4",
+      "label": "Crédibilité pédagogique",
+      "predicate": "CinCred"
+    },
+    {
+      "id": "C-P5",
+      "label": "Clôture CinΣ",
+      "predicate": "CinΣ"
+    }
   ],
   "rules": [
     {
       "id": "R-CIN-H2",
-      "negates": ["H2"],
+      "negates": [
+        "H2"
+      ],
       "command": "node usr/lib/capsuleos/tools/validate-all.mjs",
       "autoExecute": true
     },
     {
       "id": "R-CIN-GAPS",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id {id} --write",
       "autoExecute": true
     },
     {
       "id": "R-CIN-PARADIGM",
-      "negates": ["CinC"],
+      "negates": [
+        "CinC"
+      ],
       "command": "node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id {id}",
       "autoExecute": true
     },
     {
       "id": "R-CIN-CTX",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
       "autoExecute": true
     },
     {
       "id": "R-CIN-CTX2",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs",
       "note": "Étape 2 Nemo — vérifie matrice context-menus.json avant smoke R-CIN-CTX",
       "autoExecute": false
     },
     {
       "id": "R-CIN-CTX3",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
       "note": "Étape 3 — raccourcis bureau + menu contextuel icône (desktop.icon P2)",
       "autoExecute": false
     },
     {
       "id": "R-CIN-CTX4",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
       "note": "Étape 4 — menu contextuel barre titre Muffin (window.title P2)",
       "autoExecute": false
     },
     {
       "id": "R-CIN-CTX5",
-      "requires": ["H2"],
+      "requires": [
+        "H2"
+      ],
       "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
       "note": "Étape 5 — menu contextuel panel Cinnamon (panel.background P2)",
       "autoExecute": false
     },
     {
       "id": "R-CIN-CRED-LIVE",
-      "requires": ["CinCred"],
-      "negates": ["CinCred_live"],
+      "requires": [
+        "CinCred"
+      ],
+      "negates": [
+        "CinCred_live"
+      ],
       "command": "CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id {id} --sample 20",
       "autoExecute": true
     },
     {
       "id": "R-CIN-DONE",
-      "requires": ["CinΣ"],
+      "requires": [
+        "CinΣ"
+      ],
       "command": "node usr/lib/capsuleos/tools/validate-all.mjs",
       "autoExecute": false
     }
@@ -128,5 +184,14 @@
   "linkedChains": {
     "Cred": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
     "clone": "root/docs/recette-clone-mint-integral.md"
+  },
+  "updatedAt": "2026-06-09T13:06:45.683Z",
+  "tiers": {
+    "TIER-C-THEMES": {
+      "status": "closed",
+      "parityPct": 100,
+      "themesMenuEntries": 52,
+      "routedOk": 52
+    }
   }
 }

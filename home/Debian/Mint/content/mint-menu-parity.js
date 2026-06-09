@@ -81,7 +81,17 @@
         'Tablette graphique': 'wacom',
         'Thèmes': 'themes',
         'Thunderbolt': 'thunderbolt',
-        'Utilisateurs et groupes': 'users'
+        'Utilisateurs et groupes': 'users',
+        'Disks': 'disks',
+        'Disques': 'disks',
+        'Printers': 'printers',
+        'Imprimantes': 'printers',
+        'Passwords and Keys': 'passwords',
+        'Mots de passe et clés': 'passwords',
+        'Sources de logiciels': 'software-sources',
+        'Renseignements sur le système': 'system-info',
+        'Informations système': 'system-info',
+        'Onboard': 'accessibility'
     };
 
     var FRENCH_APP_NAMES = {

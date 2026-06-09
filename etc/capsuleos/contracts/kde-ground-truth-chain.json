@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "description": "Chaîne ground truth toolkit KDE Plasma — référence opérationnelle linux-kde-neon, propagation vers dérivés. Adapté Plasma (panel, kickoff, tray, Dolphin, Discover) — pas de copie Cred* Mint.",
+  "referenceRegistryId": "linux-kde-neon",
+  "pivotJustification": "Skin le plus avancé (P1 active, Π≈93), VM lab documentée, campagne v4 P0–P1 clôturée, upstream technique debian-kde mais vérité opérationnelle Neon.",
+  "doc": "root/docs/ground-truth-kde.md",
+  "brancheDoc": "root/docs/branche-plasma-kde.md",
+  "derivedRegistryIds": [
+    "linux-debian-kde",
+    "linux-mx-kde",
+    "linux-opensuse",
+    "linux-manjaro-kde"
+  ],
+  "principles": [
+    "VM prime — inventaire linux-kde-neon-vm.json avant patch shell/apps KDE",
+    "Référence unique toolkit — évolutions Plasma d'abord sur Neon, puis P4 propagation",
+    "Triple couche — inventaire JSON → captures VM/Capsule → smokes statiques + Playwright",
+    "Prédicats séquentiels Kd* — pas de saut vers H5 skin sans KdI ∧ KdΠ minimal",
+    "Façade OS canonique — resolveCapsuleOsUrl(registryId) en Playwright",
+    "Cloisonnement — pas de fileExplorerInfo (Cinnamon) ni toolkits/gnome sur skins kde",
+    "Cred* Mint non applicable tel quel — kickoff B2/B3 et System Settings Plasma hors scope CredΣ"
+  ],
+  "domains": {
+    "kde-ground-truth": {
+      "label": "Ground truth Plasma KDE",
+      "predicates": ["H2", "KdM", "KdI", "KdA", "KdS", "KdΠ", "KdVc", "KdVp", "KdP4", "H6"],
+      "doc": "root/docs/ground-truth-kde.md"
+    }
+  },
+  "predicateChecks": {
+    "H2": {
+      "gate": "validate-all",
+      "script": "usr/lib/capsuleos/tools/validate-all.mjs"
+    },
+    "KdM": {
+      "inventory": "root/docs/inventaires/{id}-replication-state.json",
+      "field": "registryId"
+    },
+    "KdI": {
+      "inventory": "root/docs/inventaires/{id}-vm.json",
+      "minPanelPins": 4
+    },
+    "KdA": {
+      "gate": "validate-asset-zones",
+      "script": "usr/lib/capsuleos/tools/validate-asset-zones.mjs"
+    },
+    "KdS": {
+      "inventory": "root/docs/inventaires/{id}-css-assets-audit.md",
+      "note": "Chemins resolveCapsuleResourceUrl / ./assets/ sans ../../../usr/ en runtime skin"
+    },
+    "KdΠ": {
+      "inventory": "root/docs/inventaires/{id}-parity-index.json",
+      "field": "pi_global",
+      "min": 90
+    },
+    "KdVc": {
+      "inventory": "root/docs/inventaires/{id}-replication-state.json",
+      "field": "v4P1Deliverables.captureBaselineUpdated"
+    },
+    "KdVp": {
+      "script": "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs",
+      "args": ["--id", "{id}", "--compare"],
+      "note": "Comparaison visuelle paires VM/Capsule — requiert HTTP 5500 + VM optionnelle"
+    },
+    "KdP4": {
+      "gate": "smoke-kde-p4-propagation",
+      "script": "usr/lib/capsuleos/tools/lab/smoke-kde-p4-propagation.mjs"
+    },
+    "H6": {
+      "gate": "validate-all",
+      "script": "usr/lib/capsuleos/tools/validate-all.mjs"
+    }
+  },
+  "shellSurfaces": {
+    "panel": {
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/panel.json",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs"
+    },
+    "mainMenu": {
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/mainMenu.json",
+      "kickoffApps": "root/docs/inventaires/linux-kde-neon-kickoff-apps.json",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-kickoff.mjs"
+    },
+    "tray": {
+      "closure": "root/docs/inventaires/linux-kde-neon-panel-tray-closure.md",
+      "sharedJs": "usr/lib/capsuleos/shells/linux/tray-popover-kde.js"
+    }
+  },
+  "appSlots": {
+    "nemo": {
+      "label": "Dolphin",
+      "template": "dolphin",
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/nemo.json",
+      "diff": "root/docs/inventaires/linux-kde-neon-dolphin-diff.md",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs"
+    },
+    "update_manager": {
+      "label": "Discover",
+      "override": "update_manager_kde_neon.html",
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/update_manager.json",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs"
+    },
+    "firefox": {
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/firefox.json",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs"
+    },
+    "terminal": {
+      "label": "Konsole",
+      "inventory": "root/docs/inventaires/interactions/linux-kde-neon/terminal.json",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-terminal.mjs"
+    }
+  },
+  "smokeLayers": {
+    "static": [
+      "smoke-kde-neon-shell-polish.mjs",
+      "smoke-kde-p4-propagation.mjs",
+      "smoke-plasma-opensuse.mjs",
+      "validate-toolkit-paradigm.mjs"
+    ],
+    "runtime": [
+      "smoke-kde-neon-dolphin.mjs",
+      "smoke-kde-neon-kickoff.mjs",
+      "smoke-kde-neon-discover.mjs",
+      "smoke-kde-neon-firefox.mjs",
+      "smoke-kde-neon-terminal.mjs"
+    ],
+    "capture": [
+      "root/tools/lab/vm-kde-neon-capture-host.sh",
+      "root/tools/lab/capture-capsule-kde-neon.mjs",
+      "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs"
+    ]
+  },
+  "steps": [
+    {
+      "id": "kde-inventory-vm",
+      "requires": ["KdM"],
+      "negates": ["KdI"],
+      "script": "root/tools/lab/vm-kde-neon-inventory.sh",
+      "note": "SSH goupil@192.168.123.52 — manuel si VM hors LAN lab"
+    },
+    {
+      "id": "kde-parity-seed",
+      "requires": ["KdI"],
+      "negates": ["KdΠ"],
+      "script": "usr/lib/capsuleos/tools/lab/seed-kde-neon-parity-index.mjs",
+      "args": ["--write"]
+    },
+    {
+      "id": "kde-gap-map",
+      "requires": ["KdΠ"],
+      "script": "usr/lib/capsuleos/tools/lab/map-kde-ground-truth-gaps.mjs",
+      "args": ["--id", "{id}", "--write"]
+    },
+    {
+      "id": "kde-p4-propagation",
+      "requires": ["KdΠ"],
+      "negates": ["KdP4"],
+      "script": "usr/lib/capsuleos/tools/lab/smoke-kde-p4-propagation.mjs"
+    },
+    {
+      "id": "kde-capsule-captures",
+      "requires": ["KdΠ"],
+      "negates": ["KdVc"],
+      "script": "root/tools/lab/capture-capsule-kde-neon.mjs",
+      "note": "Requiert python3 -m http.server 5500"
+    },
+    {
+      "id": "kde-visual-compare",
+      "requires": ["KdVc"],
+      "negates": ["KdVp"],
+      "script": "usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs",
+      "args": ["--id", "{id}", "--compare"]
+    }
+  ],
+  "registryDefaults": {
+    "linux-kde-neon": {
+      "toolkit": "kde",
+      "facadeUrl": "OS/linux/families/debian/kde-neon/index.html",
+      "skinUrl": "home/Debian/KDE-Neon/index.html",
+      "vmHost": "goupil@192.168.123.52",
+      "capturePrefix": "kde-neon"
+    }
+  }
+}

@@ -2,6 +2,29 @@
   "registryId": "linux-kde-neon",
   "campaign": "v4-deep-parity",
   "campaignStatus": "in_progress",
+  "groundTruth": {
+    "phase": "reference-established",
+    "pivot": true,
+    "doc": "root/docs/ground-truth-kde.md",
+    "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+    "gapMap": "linux-kde-neon-ground-truth-gaps.json",
+    "toolkitReference": "linux-kde-neon",
+    "derivedRegistryIds": ["linux-debian-kde", "linux-mx-kde", "linux-opensuse", "linux-manjaro-kde"],
+    "predicates": {
+      "H2": true,
+      "KdM": true,
+      "KdI": true,
+      "KdA": true,
+      "KdS": true,
+      "KdΠ": true,
+      "KdVc": true,
+      "KdVp": "pending-http-server",
+      "KdP4": true
+    },
+    "verifiedAt": "2026-06-09T12:00:00.000Z",
+    "verifiedWithoutVm": ["validate-all", "smoke-kde-p4-propagation", "smoke-kde-neon-shell-polish-static", "validate-toolkit-paradigm", "map-kde-ground-truth-gaps"],
+    "gaps": ["fileExplorerInfo.js sur 4 skins KDE (cloisonnement P0)", "smokes Playwright requièrent HTTP 5500", "Cred* non démarré", "VM hors réseau lab agent"]
+  },
   "roadmap": "linux-kde-neon-roadmap-v4.md",
   "handoff": "linux-kde-neon-v4-p1-handoff.md",
   "p2Audit": "linux-kde-neon-v4-p2-kickoff-audit.md",
@@ -46,5 +69,5 @@
     "captureBaselineUpdated": "2026-06-09 (03-dolphin Périphériques, 04-firefox clair, 07-discover-detail-vlc)"
   },
   "nextStep": "V4-P2 : Spectacle + Info-centre — stubs kickoff B2/B3",
-  "updatedAt": "2026-06-09T07:25:00.000Z"
+  "updatedAt": "2026-06-09T12:00:00.000Z"
 }

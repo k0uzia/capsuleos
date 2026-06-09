@@ -83,9 +83,12 @@
           "description": "Paramètres GNOME : tour panneaux, interactions, enquête visuelle, gsettings, parité Capsule"
         },
         "kde": {
-          "status": "stub",
-          "doc": "root/docs/procedure-playbook-general.md#toolkit-kde",
-          "description": "À brancher — Plasma settings, dolphin parity"
+          "domain": "kde-ground-truth",
+          "doc": "root/docs/ground-truth-kde.md",
+          "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+          "orchestrator": "usr/lib/capsuleos/tools/lab/map-kde-ground-truth-gaps.mjs",
+          "completeWhen": ["KdΠ", "KdP4"],
+          "description": "Ground truth Plasma — pivot linux-kde-neon, panel/kickoff/tray/Dolphin/Discover, propagation P4"
         },
         "cinnamon": {
           "status": "stub",

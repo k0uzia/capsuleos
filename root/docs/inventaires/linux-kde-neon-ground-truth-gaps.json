@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T09:36:21.027Z",
+  "generatedAt": "2026-06-09T09:41:57.619Z",
   "pivot": {
     "registryId": "linux-kde-neon",
     "justification": "Skin le plus avancé (P1 active, Π≈93), VM lab documentée, campagne v4 P0–P1 clôturée, upstream technique debian-kde mais vérité opérationnelle Neon.",
@@ -38,9 +38,7 @@
       "skinExists": true,
       "kickoffDataLinks": 33,
       "menuGapVsPivot": 5,
-      "cinnamonLeaks": [
-        "fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit)"
-      ],
+      "cinnamonLeaks": [],
       "propagationMissing": [],
       "parityIndex": false,
       "replicationState": false
@@ -52,9 +50,7 @@
       "skinExists": true,
       "kickoffDataLinks": 25,
       "menuGapVsPivot": 13,
-      "cinnamonLeaks": [
-        "fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit)"
-      ],
+      "cinnamonLeaks": [],
       "propagationMissing": [],
       "parityIndex": false,
       "replicationState": false
@@ -67,7 +63,6 @@
       "kickoffDataLinks": 26,
       "menuGapVsPivot": 12,
       "cinnamonLeaks": [
-        "fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit)",
         "référence directe toolkits/cinnamon ou gnome/apps"
       ],
       "propagationMissing": [],
@@ -93,9 +88,7 @@
   ],
   "gaps": {
     "p0": [
-      "linux-opensuse : fuites toolkit — fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit)",
-      "linux-mx-kde : fuites toolkit — fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit)",
-      "linux-debian-kde : fuites toolkit — fileExplorerInfo.js (catalogue Cinnamon — fuite cross-toolkit), référence directe toolkits/cinnamon ou gnome/apps",
+      "linux-debian-kde : fuites toolkit — référence directe toolkits/cinnamon ou gnome/apps",
       "linux-manjaro-kde : fuites toolkit — skin absent"
     ],
     "p1": [

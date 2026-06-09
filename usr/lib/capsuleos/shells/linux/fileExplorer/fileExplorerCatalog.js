@@ -1,7 +1,7 @@
 /**
- * Alias legacy Cinnamon/Mint/GNOME — même catalogue que fileExplorerCatalog.js.
- * Sur Plasma/KDE : charger fileExplorerCatalog.js uniquement (cloisonnement toolkit).
+ * Catalogue fichiers explorateur — structure partagée (chemins catalogue Cinnamon par défaut).
  * Remappés au runtime par CapsuleExplorerIconBase (GNOME Adwaita, KDE, …).
+ * Sur skins Plasma/KDE : charger ce fichier, pas fileExplorerInfo.js (alias legacy Cinnamon).
  */
 const fileExplorerSystemLink = {
     'files': {
@@ -148,24 +148,24 @@ const fileExplorerSystemLink = {
                 "Tester Linux"
             ]
         },
-        "Retour": { 
+        "Retour": {
             "image": "./assets/icons/cinnamon/nemo/undo.svg"
         },
-        "Parent": { 
+        "Parent": {
             "image": "./assets/icons/cinnamon/nemo/undo.svg"
         },
-        "Home": { 
+        "Home": {
             "image": "./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
         },
-        "bsd": { 
+        "bsd": {
             "image": "../usr/share/capsuleos/assets/images/platforms/brands/bsd.webp",
             "link": "../../../../../OS/bsd/ghost/index.html"
         },
-        "macos": { 
+        "macos": {
             "image": "../usr/share/capsuleos/assets/images/platforms/brands/macos.webp",
             "link": "../../../../../OS/macos/sonoma/index.html"
         },
-        "windows": { 
+        "windows": {
             "image": "../usr/share/capsuleos/assets/images/platforms/brands/windows.webp",
             "link": "../../../../../OS/windows/index.html"
         },

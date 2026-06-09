@@ -20,6 +20,14 @@ export const capsuleCaptureCandidates = (controlId) => {
     calculator: ['rocky-capsule-dark-calculator.png'],
     text_editor: ['rocky-capsule-dark-text-editor.png'],
     update_manager: ['rocky-capsule-dark-software.png'],
+    visionneur_images: ['rocky-capsule-dark-loupe.png'],
+    visionneur_pdf: ['rocky-capsule-dark-papers.png'],
+    clocks: ['rocky-capsule-dark-clocks.png'],
+    snapshot: ['rocky-capsule-dark-snapshot.png'],
+    characters: ['rocky-capsule-dark-characters.png'],
+    tour: ['rocky-capsule-dark-tour.png'],
+    baobab: ['rocky-capsule-dark-baobab.png'],
+    system_monitor: ['rocky-capsule-dark-system-monitor.png'],
   };
   return [
     `${controlId}.png`,

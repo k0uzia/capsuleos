@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-rocky",
-  "updatedAt": "2026-06-09T01:10:13.939Z",
+  "updatedAt": "2026-06-09T15:29:39.413Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,7 +10,11 @@
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 31,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7
+    "visualMatchClassifiedP0": 7,
+    "capsuleCapturesP1": 4,
+    "capsuleCapturesP2": 4,
+    "visualMatchClassifiedP1": 4,
+    "visualMatchClassifiedP2": 4
   },
   "investigations": [
     {
@@ -48,8 +52,7 @@
           ],
           "labelFr": "mode selector",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png"
         },
         {
           "shotId": "display",
@@ -61,8 +64,7 @@
           ],
           "labelFr": "display",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png"
         },
         {
           "shotId": "keypad-basic",
@@ -74,8 +76,7 @@
           ],
           "labelFr": "keypad basic",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png"
         },
         {
           "shotId": "keypad-advanced",
@@ -87,8 +88,7 @@
           ],
           "labelFr": "keypad advanced",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png"
         },
         {
           "shotId": "history-panel",
@@ -100,8 +100,7 @@
           ],
           "labelFr": "history panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png"
         }
       ],
       "vmCaptures": [
@@ -120,6 +119,7 @@
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C1 — mode Basique RL10 : pavé 4×5, ± et %, sans ligne sin/cos/π.",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",
@@ -129,8 +129,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Calculator requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Calculator requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "programming-mode-keypad",
@@ -148,8 +148,7 @@
           "rocky-adwaita-tokens",
           "history-toggle-header"
         ]
-      },
-      "note": "Phase C1 — mode Basique RL10 : pavé 4×5, ± et %, sans ligne sin/cos/π."
+      }
     },
     {
       "controlId": "characters",
@@ -181,8 +180,9 @@
             "gnome.character-grid"
           ],
           "labelFr": "character grid",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/characters-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "detail-pane",
@@ -192,8 +192,9 @@
             "gnome.character-grid"
           ],
           "labelFr": "detail pane",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/characters-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "search",
@@ -203,16 +204,28 @@
             "gnome.character-grid"
           ],
           "labelFr": "search",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/characters-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/characters-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-characters.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C3 — org.gnome.Characters : recherche, détail FR, grille récents 16 caractères, sélection interactive.",
       "contentSpec": {
         "phase": "C3",
         "viewport": "1280x800",
@@ -222,8 +235,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Characters requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Characters requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "clipboard-copy",
@@ -248,8 +261,7 @@
           "window-proportions-22x32",
           "rocky-adwaita-tokens"
         ]
-      },
-      "note": "Phase C3 — org.gnome.Characters : recherche, détail FR, grille récents 16 caractères, sélection interactive."
+      }
     },
     {
       "controlId": "text_editor",
@@ -281,8 +293,7 @@
           ],
           "labelFr": "menubar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png"
         },
         {
           "shotId": "editor-area",
@@ -292,8 +303,7 @@
           ],
           "labelFr": "editor area",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png"
         },
         {
           "shotId": "status-line",
@@ -303,8 +313,7 @@
           ],
           "labelFr": "status line",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png"
         },
         {
           "shotId": "open-dialog",
@@ -314,8 +323,7 @@
           ],
           "labelFr": "open dialog",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png"
         }
       ],
       "vmCaptures": [
@@ -334,6 +342,7 @@
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C1 — org.gnome.TextEditor : menus FR, zone claire, barre d'état, sans barre icônes xed.",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",
@@ -343,8 +352,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.TextEditor requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.TextEditor requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "documents-menu-tabs",
@@ -363,8 +372,7 @@
           "status-line-utf8-fr",
           "window-proportions-52x34"
         ]
-      },
-      "note": "Phase C1 — org.gnome.TextEditor : menus FR, zone claire, barre d'état, sans barre icônes xed."
+      }
     },
     {
       "controlId": "nemo",
@@ -404,8 +412,7 @@
           ],
           "labelFr": "sidebar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         },
         {
           "shotId": "column-headers",
@@ -418,8 +425,7 @@
           ],
           "labelFr": "column headers",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         },
         {
           "shotId": "pathbar",
@@ -432,8 +438,7 @@
           ],
           "labelFr": "pathbar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         },
         {
           "shotId": "context-menu-item",
@@ -446,8 +451,7 @@
           ],
           "labelFr": "context menu item",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         },
         {
           "shotId": "context-menu-background",
@@ -460,8 +464,7 @@
           ],
           "labelFr": "context menu background",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         },
         {
           "shotId": "trash",
@@ -474,8 +477,7 @@
           ],
           "labelFr": "trash",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png"
         }
       ],
       "vmCaptures": [
@@ -525,8 +527,7 @@
           ],
           "labelFr": "tab bar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png"
         },
         {
           "shotId": "url-bar",
@@ -536,8 +537,7 @@
           ],
           "labelFr": "url bar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png"
         },
         {
           "shotId": "bookmarks",
@@ -547,8 +547,7 @@
           ],
           "labelFr": "bookmarks",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png"
         },
         {
           "shotId": "menu-hamburger",
@@ -558,8 +557,7 @@
           ],
           "labelFr": "menu hamburger",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png"
         }
       ],
       "vmCaptures": [
@@ -578,6 +576,7 @@
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C1 — nouvel onglet Proton FR, barre favoris Importés/La Capsule/os-lacapsule, palette RL10.",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",
@@ -587,8 +586,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch firefox requise pour parité pixel."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch firefox requise pour parité pixel. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "firefox-window-class-fedora",
@@ -606,8 +605,7 @@
           "chrome-fedora-app-tokens-rocky",
           "typo-font-ui"
         ]
-      },
-      "note": "Phase C1 — nouvel onglet Proton FR, barre favoris Importés/La Capsule/os-lacapsule, palette RL10."
+      }
     },
     {
       "controlId": "clocks",
@@ -640,8 +638,8 @@
             "gnome.clocks-face"
           ],
           "labelFr": "world tab",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/clocks-vm.png"
         },
         {
           "shotId": "alarm-tab",
@@ -651,8 +649,8 @@
             "gnome.clocks-face"
           ],
           "labelFr": "alarm tab",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/clocks-vm.png"
         },
         {
           "shotId": "timer-tab",
@@ -662,8 +660,8 @@
             "gnome.clocks-face"
           ],
           "labelFr": "timer tab",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/clocks-vm.png"
         },
         {
           "shotId": "stopwatch-tab",
@@ -673,16 +671,27 @@
             "gnome.clocks-face"
           ],
           "labelFr": "stopwatch tab",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/clocks-vm.png"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/clocks-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-clocks.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C2 — org.gnome.clocks : navigation Monde/Alarmes/Minuteur/Chronomètre, villes FR live.",
       "contentSpec": {
         "phase": "C2",
         "viewport": "1280x800",
@@ -692,8 +701,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.clocks requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.clocks requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "analog-clock-faces",
@@ -719,8 +728,7 @@
           "window-proportions-24x30",
           "rocky-adwaita-tokens"
         ]
-      },
-      "note": "Phase C2 — org.gnome.clocks : navigation Monde/Alarmes/Minuteur/Chronomètre, villes FR live."
+      }
     },
     {
       "controlId": "update_manager",
@@ -756,8 +764,7 @@
           ],
           "labelFr": "explore grid",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png"
         },
         {
           "shotId": "updates-banner",
@@ -769,8 +776,7 @@
           ],
           "labelFr": "updates banner",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png"
         },
         {
           "shotId": "app-detail",
@@ -782,8 +788,7 @@
           ],
           "labelFr": "app detail",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png"
         },
         {
           "shotId": "categories",
@@ -795,8 +800,7 @@
           ],
           "labelFr": "categories",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png"
         }
       ],
       "vmCaptures": [
@@ -815,6 +819,7 @@
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C1 — vue Mises à jour ; contenu N2 aligné VM (versions RPM el10, libellés FR, liste groupée).",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",
@@ -838,8 +843,7 @@
           "navicon-symbolic-masks",
           "window-proportions-54x38"
         ]
-      },
-      "note": "Phase C1 — vue Mises à jour ; contenu N2 aligné VM (versions RPM el10, libellés FR, liste groupée)."
+      }
     },
     {
       "controlId": "visionneur_images",
@@ -871,8 +875,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "toolbar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_images-vm.png"
         },
         {
           "shotId": "image-canvas",
@@ -882,8 +886,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "image canvas",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_images-vm.png"
         },
         {
           "shotId": "metadata-pane",
@@ -893,16 +897,27 @@
             "gnome.media-viewer"
           ],
           "labelFr": "metadata pane",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_images-vm.png"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_images-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-loupe.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C2 — org.gnome.Loupe : toolbar zoom, état vide, panneau propriétés, ouverture Nautilus.",
       "contentSpec": {
         "phase": "C2",
         "viewport": "1280x800",
@@ -912,8 +927,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Loupe requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Loupe requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "gestures-touch-zoom",
@@ -940,8 +955,7 @@
           "nautilus-open-image",
           "title-loupe-fr"
         ]
-      },
-      "note": "Phase C2 — org.gnome.Loupe : toolbar zoom, état vide, panneau propriétés, ouverture Nautilus."
+      }
     },
     {
       "controlId": "system_monitor",
@@ -973,8 +987,9 @@
             "gnome.system-metrics"
           ],
           "labelFr": "cpu chart",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/system_monitor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "memory-chart",
@@ -984,8 +999,9 @@
             "gnome.system-metrics"
           ],
           "labelFr": "memory chart",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/system_monitor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "process-table",
@@ -995,16 +1011,28 @@
             "gnome.system-metrics"
           ],
           "labelFr": "process table",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/system_monitor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/system_monitor-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-system-monitor.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C3 — org.gnome.SystemMonitor : onglets Processus/Ressources/FS, courbes CPU-réseau animées et données RL10.",
       "contentSpec": {
         "phase": "C3",
         "viewport": "1280x800",
@@ -1014,8 +1042,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.SystemMonitor requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.SystemMonitor requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "real-metrics-proc-kill",
@@ -1041,8 +1069,7 @@
           "window-proportions-48x32",
           "rocky-adwaita-tokens-gsm-bridge"
         ]
-      },
-      "note": "Phase C3 — org.gnome.SystemMonitor : onglets Processus/Ressources/FS, courbes CPU-réseau animées et données RL10."
+      }
     },
     {
       "controlId": "visionneur_pdf",
@@ -1075,8 +1102,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "toolbar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_pdf-vm.png"
         },
         {
           "shotId": "page-canvas",
@@ -1086,8 +1113,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "page canvas",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_pdf-vm.png"
         },
         {
           "shotId": "sidebar-thumbs",
@@ -1097,8 +1124,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "sidebar thumbs",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_pdf-vm.png"
         },
         {
           "shotId": "zoom-controls",
@@ -1108,16 +1135,27 @@
             "gnome.media-viewer"
           ],
           "labelFr": "zoom controls",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_pdf-vm.png"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/visionneur_pdf-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-papers.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C2 — org.gnome.Papers : toolbar pages/zoom, miniatures, état vide, ouverture Nautilus.",
       "contentSpec": {
         "phase": "C2",
         "viewport": "1280x800",
@@ -1127,8 +1165,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Papers requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Papers requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "multi-page-pdf",
@@ -1156,8 +1194,7 @@
           "nautilus-open-pdf",
           "title-papers-fr"
         ]
-      },
-      "note": "Phase C2 — org.gnome.Papers : toolbar pages/zoom, miniatures, état vide, ouverture Nautilus."
+      }
     },
     {
       "controlId": "themes",
@@ -1193,8 +1230,7 @@
           ],
           "labelFr": "sidebar panels",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png"
         },
         {
           "shotId": "wifi-row",
@@ -1206,8 +1242,7 @@
           ],
           "labelFr": "wifi row",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png"
         },
         {
           "shotId": "display-panel",
@@ -1219,8 +1254,7 @@
           ],
           "labelFr": "display panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png"
         },
         {
           "shotId": "about-panel",
@@ -1232,8 +1266,7 @@
           ],
           "labelFr": "about panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png"
         }
       ],
       "vmCaptures": [
@@ -1283,8 +1316,8 @@
             "gnome.camera-preview"
           ],
           "labelFr": "preview",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/snapshot-vm.png"
         },
         {
           "shotId": "shutter-button",
@@ -1294,8 +1327,8 @@
             "gnome.camera-preview"
           ],
           "labelFr": "shutter button",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/snapshot-vm.png"
         },
         {
           "shotId": "effects-strip",
@@ -1305,16 +1338,27 @@
             "gnome.camera-preview"
           ],
           "labelFr": "effects strip",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/snapshot-vm.png"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/snapshot-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-snapshot.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C2 — org.gnome.Snapshot : modes Photo/Vidéo, aperçu, bandeau effets, obturateur.",
       "contentSpec": {
         "phase": "C2",
         "viewport": "1280x800",
@@ -1324,8 +1368,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Snapshot requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Snapshot requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "camera-stream",
@@ -1351,8 +1395,7 @@
           "window-proportions-38x32",
           "rocky-adwaita-tokens"
         ]
-      },
-      "note": "Phase C2 — org.gnome.Snapshot : modes Photo/Vidéo, aperçu, bandeau effets, obturateur."
+      }
     },
     {
       "controlId": "terminal",
@@ -1384,8 +1427,7 @@
           ],
           "labelFr": "headerbar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png"
         },
         {
           "shotId": "tab-strip",
@@ -1395,8 +1437,7 @@
           ],
           "labelFr": "tab strip",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png"
         },
         {
           "shotId": "prompt-colors",
@@ -1406,8 +1447,7 @@
           ],
           "labelFr": "prompt colors",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png"
         },
         {
           "shotId": "preferences",
@@ -1417,8 +1457,7 @@
           ],
           "labelFr": "preferences",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
-          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png"
         }
       ],
       "vmCaptures": [
@@ -1437,6 +1476,7 @@
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C1 — org.gnome.Ptyxis : headerbar onglets, invite verte, menu FR, sans barre Konsole.",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",
@@ -1446,8 +1486,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Ptyxis requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Ptyxis requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "prompt-format-vm",
@@ -1483,8 +1523,7 @@
           "csd-window-controls-grouped",
           "flex-tabs-balanced"
         ]
-      },
-      "note": "Phase C1 — org.gnome.Ptyxis : headerbar onglets, invite verte, menu FR, sans barre Konsole."
+      }
     },
     {
       "controlId": "baobab",
@@ -1516,8 +1555,9 @@
             "gnome.chart-disk-usage"
           ],
           "labelFr": "volume list",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/baobab-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "treemap",
@@ -1527,8 +1567,9 @@
             "gnome.chart-disk-usage"
           ],
           "labelFr": "treemap",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/baobab-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "scan-progress",
@@ -1538,16 +1579,28 @@
             "gnome.chart-disk-usage"
           ],
           "labelFr": "scan progress",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/baobab-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/baobab-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-baobab.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C3 — org.gnome.baobab : volumes RL10, anneau d'usage, analyse avec barre de progression et treemap.",
       "contentSpec": {
         "phase": "C3",
         "viewport": "1280x800",
@@ -1557,8 +1610,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.baobab requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.baobab requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "real-disk-scan",
@@ -1584,8 +1637,7 @@
           "window-proportions-40x26",
           "rocky-adwaita-tokens"
         ]
-      },
-      "note": "Phase C3 — org.gnome.baobab : volumes RL10, anneau d'usage, analyse avec barre de progression et treemap."
+      }
     },
     {
       "controlId": "tour",
@@ -1614,8 +1666,9 @@
             "gnome.welcome-flow"
           ],
           "labelFr": "welcome card",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/tour-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "step-navigation",
@@ -1624,16 +1677,28 @@
             "gnome.welcome-flow"
           ],
           "labelFr": "step navigation",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/tour-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
-      "vmCaptures": [],
-      "capsuleCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/tour-vm.png",
+          "shot": "default"
+        }
+      ],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-tour.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial",
         "appCt": "partial"
       },
+      "note": "Phase C3 — org.gnome.Tour : 5 cartes FR, navigation Suivant/Précédent et indicateur d'étapes.",
       "contentSpec": {
         "phase": "C3",
         "viewport": "1280x800",
@@ -1643,8 +1708,8 @@
             "id": "vm-captures-placeholder",
             "dimension": "acquisition",
             "severity": "medium",
-            "status": "open",
-            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Tour requise."
+            "status": "closed",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Tour requise. Fermé — campagne captures 2026-06-09."
           },
           {
             "id": "tour-illustrations-assets",
@@ -1669,8 +1734,7 @@
           "window-proportions-34x28",
           "rocky-adwaita-tokens"
         ]
-      },
-      "note": "Phase C3 — org.gnome.Tour : 5 cartes FR, navigation Suivant/Précédent et indicateur d'étapes."
+      }
     },
     {
       "controlId": "decorative_disk_utility",
@@ -1680,16 +1744,36 @@
       "status": "documented",
       "composition": {
         "labelFr": "Disques (tuile Aperçu)",
-        "components": ["gnome.overview-app-tile"],
-        "acquisitionOrder": ["overview-tile"],
+        "components": [
+          "gnome.overview-app-tile"
+        ],
+        "acquisitionOrder": [
+          "overview-tile"
+        ],
         "chromeProvider": null,
         "referenceRegistryId": "linux-rocky"
       },
-      "componentShots": [],
-      "vmCaptures": [],
+      "componentShots": [
+        {
+          "shotId": "default",
+          "componentIds": [
+            "gnome.overview-app-tile"
+          ],
+          "labelFr": "vue principale",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_disk_utility-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_disk_utility-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "unknown",
         "appCt": "n/a"
       },
       "contentSpec": {
@@ -1722,16 +1806,36 @@
       "status": "documented",
       "composition": {
         "labelFr": "Polices (tuile Aperçu)",
-        "components": ["gnome.overview-app-tile"],
-        "acquisitionOrder": ["overview-tile"],
+        "components": [
+          "gnome.overview-app-tile"
+        ],
+        "acquisitionOrder": [
+          "overview-tile"
+        ],
         "chromeProvider": null,
         "referenceRegistryId": "linux-rocky"
       },
-      "componentShots": [],
-      "vmCaptures": [],
+      "componentShots": [
+        {
+          "shotId": "default",
+          "componentIds": [
+            "gnome.overview-app-tile"
+          ],
+          "labelFr": "vue principale",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_font_viewer-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_font_viewer-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "unknown",
         "appCt": "n/a"
       },
       "contentSpec": {
@@ -1764,16 +1868,36 @@
       "status": "documented",
       "composition": {
         "labelFr": "Journal SELinux (tuile Aperçu)",
-        "components": ["gnome.overview-app-tile"],
-        "acquisitionOrder": ["overview-tile"],
+        "components": [
+          "gnome.overview-app-tile"
+        ],
+        "acquisitionOrder": [
+          "overview-tile"
+        ],
         "chromeProvider": null,
         "referenceRegistryId": "linux-rocky"
       },
-      "componentShots": [],
-      "vmCaptures": [],
+      "componentShots": [
+        {
+          "shotId": "default",
+          "componentIds": [
+            "gnome.overview-app-tile"
+          ],
+          "labelFr": "vue principale",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_setroubleshoot-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
+        }
+      ],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual/decorative_setroubleshoot-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "unknown",
         "appCt": "n/a"
       },
       "contentSpec": {

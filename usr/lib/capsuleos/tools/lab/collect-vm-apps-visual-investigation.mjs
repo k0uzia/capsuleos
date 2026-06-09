@@ -60,8 +60,22 @@ const buildInvestigation = (row, existing) => {
     vmCaptures: prev?.vmCaptures || [],
     capsuleCaptures: prev?.capsuleCaptures || [],
     capsuleParity: prev?.capsuleParity || { visualMatch: 'unknown' },
+    contentSpec: prev?.contentSpec,
     note: prev?.note,
   };
+};
+
+const hasVmCapture = (inv) => (inv.vmCaptures || []).length > 0
+  || (inv.componentShots || []).some((s) => s.vmCapture);
+
+const closeVmCapturePlaceholderGaps = (inv) => {
+  if (!inv.contentSpec?.contentGaps || !hasVmCapture(inv)) return;
+  for (const gap of inv.contentSpec.contentGaps) {
+    if (gap.id === 'vm-captures-placeholder' && gap.status === 'open') {
+      gap.status = 'closed';
+      gap.note = `${gap.note || ''} Fermé — campagne captures ${new Date().toISOString().slice(0, 10)}.`.trim();
+    }
+  }
 };
 
 const writeMatrix = (registryId, investigations, filter) => {
@@ -141,7 +155,7 @@ const virshScreenshot = (host, registryId, controlId) => {
   return res.status === 0 && fs.existsSync(abs) && fs.statSync(abs).size > 0;
 };
 
-const runPlaybookOnVm = (registryId) => {
+const runPlaybookOnVm = (registryId, filter) => {
   const host = loadLabHost(registryId);
   const matrixPath = path.join(ROOT, MATRIX_REL);
   const playbookPath = path.join(ROOT, PLAYBOOK_REL);
@@ -155,7 +169,7 @@ MATRIX_FILE=$(mktemp /tmp/capsule-apps-matrix.XXXXXX.json)
 echo '${matrixB64}' | base64 -d > "$MATRIX_FILE"
 export CAPSULE_APPS_VISUAL_MATRIX="$MATRIX_FILE"
 export CAPSULE_APPS_VISUAL_OUT="${remoteOut}"
-export CAPSULE_APPS_VISUAL_FILTER="P0"
+export CAPSULE_APPS_VISUAL_FILTER="${filter}"
 rm -rf "${remoteOut}" && mkdir -p "${remoteOut}"
 bash -s <<'PLAY_EOF'
 ${scriptBody}
@@ -200,16 +214,29 @@ const main = () => {
     : null;
 
   const rows = catalog.rows.filter((r) => r.onVm !== false && r.slotCapsule && r.statut === 'ok');
+  const rowIds = new Set(rows.map((r) => r.slotCapsule));
   let investigations = rows.map((r) => buildInvestigation(r, existing));
+  if (existing?.investigations) {
+    for (const prev of existing.investigations) {
+      if (!rowIds.has(prev.controlId)) investigations.push({ ...prev });
+    }
+  }
 
   if (opts.filter) {
     for (const inv of investigations) {
-      if (inv.parityPriority === opts.filter) {
-        inv.status = 'documented';
+      if (inv.parityPriority !== opts.filter) continue;
+      inv.status = 'documented';
+      if (!inv.note) {
         inv.note = 'documented — acquisitionOrder ui-components-gnome.json';
-        if (!(inv.componentShots || []).length) {
-          inv.componentShots = [{ shotId: 'default', componentIds: inv.composition?.components || [], labelFr: 'vue principale', status: 'pending', vmCapture: null }];
-        }
+      }
+      if (!(inv.componentShots || []).length) {
+        inv.componentShots = [{
+          shotId: 'default',
+          componentIds: inv.composition?.components || [],
+          labelFr: 'vue principale',
+          status: 'pending',
+          vmCapture: null,
+        }];
       }
     }
   }
@@ -218,9 +245,10 @@ const main = () => {
 
   let host = null;
   if (opts.ssh) {
-    host = runPlaybookOnVm(opts.id);
+    host = runPlaybookOnVm(opts.id, opts.filter);
   }
   mergeVmCapturesFromDisk(opts.id, investigations);
+  for (const inv of investigations) closeVmCapturePlaceholderGaps(inv);
   if (opts.ssh && host?.virshName) {
     for (const inv of investigations) {
       if (inv.parityPriority !== opts.filter || inv.status !== 'documented') continue;
@@ -232,19 +260,29 @@ const main = () => {
       }
     }
     mergeVmCapturesFromDisk(opts.id, investigations);
+    for (const inv of investigations) closeVmCapturePlaceholderGaps(inv);
   }
 
-  const documentedP0 = investigations.filter((i) => i.parityPriority === 'P0' && i.status === 'documented').length;
-  const vmCapturesP0 = investigations.filter((i) => {
-    if (i.parityPriority !== 'P0' || i.status !== 'documented') return false;
-    return (i.vmCaptures || []).length > 0 || (i.componentShots || []).some((s) => s.vmCapture);
-  }).length;
-  const componentShotsPlanned = investigations
-    .filter((i) => i.parityPriority === 'P0' && i.status === 'documented')
-    .reduce((n, i) => n + (i.componentShots || []).length, 0);
-  const componentShotsCaptured = investigations
-    .filter((i) => i.parityPriority === 'P0' && i.status === 'documented')
-    .reduce((n, i) => n + (i.componentShots || []).filter((s) => s.vmCapture).length, 0);
+  const metricsFor = (prio) => {
+    const documented = investigations.filter((i) => i.parityPriority === prio && i.status === 'documented');
+    return {
+      documented: documented.length,
+      vmCaptures: documented.filter(
+        (i) => (i.vmCaptures || []).length > 0 || (i.componentShots || []).some((s) => s.vmCapture),
+      ).length,
+      componentShotsPlanned: documented.reduce((n, i) => n + (i.componentShots || []).length, 0),
+      componentShotsCaptured: documented.reduce(
+        (n, i) => n + (i.componentShots || []).filter((s) => s.vmCapture).length,
+        0,
+      ),
+    };
+  };
+  const p0 = metricsFor('P0');
+  const run = metricsFor(opts.filter);
+  const documentedP0 = p0.documented;
+  const vmCapturesP0 = p0.vmCaptures;
+  const componentShotsPlanned = p0.componentShotsPlanned;
+  const componentShotsCaptured = p0.componentShotsCaptured;
 
   const out = {
     version: 2,
@@ -268,8 +306,10 @@ const main = () => {
   if (opts.write) {
     fs.writeFileSync(paths.appsVisualInvestigation, `${JSON.stringify(out, null, 2)}\n`);
     console.log(
-      `✓ ${paths.appsVisualInvestigation.replace(`${ROOT}/`, '')} — documentedP0=${documentedP0} ` +
-        `vmCapturesP0=${vmCapturesP0} componentShots=${componentShotsCaptured}/${componentShotsPlanned}`,
+      `✓ ${paths.appsVisualInvestigation.replace(`${ROOT}/`, '')} — filter=${opts.filter} ` +
+        `documented=${run.documented} vmCaptures=${run.vmCaptures} ` +
+        `componentShots=${run.componentShotsCaptured}/${run.componentShotsPlanned} ` +
+        `(P0: ${documentedP0}/${vmCapturesP0})`,
     );
   } else {
     process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);

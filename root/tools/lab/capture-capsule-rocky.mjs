@@ -13,7 +13,7 @@ import { resolveCapsuleOsUrl } from '../../../usr/lib/capsuleos/tools/linux/os-f
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
 const DEST = process.argv[2] || path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-capsule');
-const URL = process.env.CAPSULE_ROCKY_URL || resolveCapsuleOsUrl('linux-rocky');
+const URL = process.env.CAPSULE_ROCKY_URL || resolveCapsuleOsUrl('linux-rocky', process.env.CAPSULE_HTTP_BASE);
 const VIEWPORT = { width: 1280, height: 800 };
 const defaultChrome = [
   '/home/n0r3f/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell',
@@ -231,6 +231,12 @@ const main = async () => {
     { file: 'rocky-capsule-dark-terminal.png', theme: 'dark', slots: ['terminal'], focus: 'terminal' },
     { file: 'rocky-capsule-dark-loupe.png', theme: 'dark', slots: ['visionneur_images'], focus: 'visionneur_images' },
     { file: 'rocky-capsule-dark-papers.png', theme: 'dark', slots: ['visionneur_pdf'], focus: 'visionneur_pdf' },
+    { file: 'rocky-capsule-dark-clocks.png', theme: 'dark', slots: ['clocks'], focus: 'clocks' },
+    { file: 'rocky-capsule-dark-snapshot.png', theme: 'dark', slots: ['snapshot'], focus: 'snapshot' },
+    { file: 'rocky-capsule-dark-characters.png', theme: 'dark', slots: ['characters'], focus: 'characters' },
+    { file: 'rocky-capsule-dark-tour.png', theme: 'dark', slots: ['tour'], focus: 'tour' },
+    { file: 'rocky-capsule-dark-baobab.png', theme: 'dark', slots: ['baobab'], focus: 'baobab' },
+    { file: 'rocky-capsule-dark-system-monitor.png', theme: 'dark', slots: ['system_monitor'], focus: 'system_monitor' },
     {
       file: 'rocky-capsule-dark-settings-appearance.png',
       theme: 'dark',

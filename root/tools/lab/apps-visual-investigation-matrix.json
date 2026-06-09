@@ -5,98 +5,81 @@
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [
     {
-      "controlId": "calculator",
-      "labelFr": "Calculatrice",
-      "vmDesktop": "org.gnome.Calculator.desktop",
-      "parityPriority": "P0",
+      "controlId": "characters",
+      "labelFr": "Caractères",
+      "vmDesktop": "org.gnome.Characters.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "mode-selector",
-        "display",
-        "keypad-basic",
-        "keypad-advanced",
-        "history-panel"
+        "character-grid",
+        "detail-pane",
+        "search"
       ],
-      "launch": "gtk-launch org.gnome.Calculator.desktop"
+      "launch": "gtk-launch org.gnome.Characters.desktop"
     },
     {
-      "controlId": "text_editor",
-      "labelFr": "Éditeur de texte",
-      "vmDesktop": "org.gnome.TextEditor.desktop",
-      "parityPriority": "P0",
+      "controlId": "system_monitor",
+      "labelFr": "Moniteur système",
+      "vmDesktop": "org.gnome.SystemMonitor.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "menubar",
-        "editor-area",
-        "status-line",
-        "open-dialog"
+        "cpu-chart",
+        "memory-chart",
+        "process-table"
       ],
-      "launch": "gtk-launch org.gnome.TextEditor.desktop"
+      "launch": "gtk-launch org.gnome.SystemMonitor.desktop"
     },
     {
-      "controlId": "nemo",
-      "labelFr": "Fichiers",
-      "vmDesktop": "org.gnome.Nautilus.desktop",
-      "parityPriority": "P0",
+      "controlId": "baobab",
+      "labelFr": "Utilisation des disques",
+      "vmDesktop": "org.gnome.baobab.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "sidebar",
-        "column-headers",
-        "pathbar",
-        "context-menu-item",
-        "context-menu-background",
-        "trash"
+        "volume-list",
+        "treemap",
+        "scan-progress"
       ],
-      "launch": "gtk-launch org.gnome.Nautilus.desktop"
+      "launch": "gtk-launch org.gnome.baobab.desktop"
     },
     {
-      "controlId": "firefox",
-      "labelFr": "Firefox",
-      "vmDesktop": "firefox.desktop",
-      "parityPriority": "P0",
+      "controlId": "tour",
+      "labelFr": "Visite guidée",
+      "vmDesktop": "org.gnome.Tour.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "tab-bar",
-        "url-bar",
-        "bookmarks",
-        "menu-hamburger"
+        "welcome-card",
+        "step-navigation"
       ],
-      "launch": "gtk-launch firefox.desktop"
+      "launch": "gtk-launch org.gnome.Tour.desktop"
     },
     {
-      "controlId": "update_manager",
-      "labelFr": "Logiciels",
-      "vmDesktop": "org.gnome.Software.desktop",
-      "parityPriority": "P0",
+      "controlId": "decorative_disk_utility",
+      "labelFr": "Disques",
+      "vmDesktop": "org.gnome.DiskUtility.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "explore-grid",
-        "updates-banner",
-        "app-detail",
-        "categories"
+        "default"
       ],
-      "launch": "gtk-launch org.gnome.Software.desktop"
+      "launch": "gtk-launch org.gnome.DiskUtility.desktop"
     },
     {
-      "controlId": "themes",
-      "labelFr": "Paramètres",
-      "vmDesktop": "org.gnome.Settings.desktop",
-      "parityPriority": "P0",
+      "controlId": "decorative_font_viewer",
+      "labelFr": "Polices",
+      "vmDesktop": "org.gnome.font-viewer.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "sidebar-panels",
-        "wifi-row",
-        "display-panel",
-        "about-panel"
+        "default"
       ],
-      "launch": "gtk-launch org.gnome.Settings.desktop"
+      "launch": "gtk-launch org.gnome.font-viewer.desktop"
     },
     {
-      "controlId": "terminal",
-      "labelFr": "Terminal",
-      "vmDesktop": "org.gnome.Ptyxis.desktop",
-      "parityPriority": "P0",
+      "controlId": "decorative_setroubleshoot",
+      "labelFr": "Journal des alertes SELinux",
+      "vmDesktop": "setroubleshoot.desktop",
+      "parityPriority": "P2",
       "componentShots": [
-        "headerbar",
-        "tab-strip",
-        "prompt-colors",
-        "preferences"
+        "default"
       ],
-      "launch": "gtk-launch org.gnome.Ptyxis.desktop"
+      "launch": "gtk-launch setroubleshoot.desktop"
     }
   ]
 }

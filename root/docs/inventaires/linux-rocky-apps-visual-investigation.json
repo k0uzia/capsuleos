@@ -1514,7 +1514,7 @@
       "labelFr": "Visite guidée",
       "vmId": "org.gnome.Tour",
       "parityPriority": "P2",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Visite guidée",
         "components": [
@@ -1553,8 +1553,46 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C3",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Tour requise."
+          },
+          {
+            "id": "tour-illustrations-assets",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Illustrations en dégradés CSS — assets SVG Tour GNOME non embarqués (hors P2)."
+          },
+          {
+            "id": "tour-finish-dismiss",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Bouton Terminer sans fermeture auto de la fenêtre — sandbox CapsuleOS."
+          }
+        ],
+        "resolved": [
+          "welcome-flow-five-steps-fr",
+          "step-dots-indicator",
+          "prev-next-navigation",
+          "rocky-linux-10-copy",
+          "window-proportions-34x28",
+          "rocky-adwaita-tokens"
+        ]
+      },
+      "note": "Phase C3 — org.gnome.Tour : 5 cartes FR, navigation Suivant/Précédent et indicateur d'étapes."
     }
   ]
 }

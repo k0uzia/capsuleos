@@ -1,13 +1,13 @@
 <main id="gnomeTourApp" class="gnome-tour" aria-label="Visite guidée GNOME">
 
     <header class="gnome-tour__header">
-        <h2 class="gnome-tour__title">Bienvenue dans GNOME</h2>
+        <h2 class="gnome-tour__title" id="gnome-tour-title">Bienvenue dans GNOME</h2>
     </header>
 
-    <section class="gnome-tour__stage" aria-label="Présentation">
-        <div class="gnome-tour__illus" role="img" aria-label="Bureau GNOME"></div>
-        <p class="gnome-tour__lead">Découvrez les raccourcis essentiels de Rocky Linux 10.</p>
-        <ul class="gnome-tour__bullets">
+    <section class="gnome-tour__stage" id="gnome-tour-stage" aria-label="Présentation">
+        <div class="gnome-tour__illus gnome-tour__illus--welcome" id="gnome-tour-illus" role="img" aria-hidden="true"></div>
+        <p class="gnome-tour__lead" id="gnome-tour-lead">Découvrez Rocky Linux 10 et les raccourcis essentiels du bureau GNOME.</p>
+        <ul class="gnome-tour__bullets" id="gnome-tour-bullets">
             <li>Super — ouvrir l’Aperçu et rechercher des applications</li>
             <li>Alt+Tab — changer de fenêtre</li>
             <li>Paramètres rapides — volume, réseau, thème</li>
@@ -15,12 +15,9 @@
     </section>
 
     <footer class="gnome-tour__footer">
-        <div class="gnome-tour__dots" aria-hidden="true">
-            <span class="gnome-tour__dot gnome-tour__dot--active"></span>
-            <span class="gnome-tour__dot"></span>
-            <span class="gnome-tour__dot"></span>
-        </div>
-        <button type="button" class="gnome-tour__next" disabled>Suivant</button>
+        <button type="button" class="gnome-tour__prev" id="gnome-tour-prev" hidden>Précédent</button>
+        <div class="gnome-tour__dots" id="gnome-tour-dots" role="tablist" aria-label="Étapes de la visite"></div>
+        <button type="button" class="gnome-tour__next" id="gnome-tour-next">Suivant</button>
     </footer>
 
 </main>

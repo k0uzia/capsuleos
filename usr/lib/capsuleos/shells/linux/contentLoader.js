@@ -648,6 +648,16 @@ const SLOT_INIT_HANDLERS = {
             initScreenshotApp();
         }
     },
+    spectacle: () => {
+        if (typeof initSpectacleKdeNeonApp === 'function') {
+            initSpectacleKdeNeonApp();
+        }
+    },
+    kinfocenter: () => {
+        if (typeof initKinfocenterKdeNeonApp === 'function') {
+            initKinfocenterKdeNeonApp();
+        }
+    },
     drawing: () => {
         if (typeof initDrawingApp === 'function') {
             initDrawingApp();

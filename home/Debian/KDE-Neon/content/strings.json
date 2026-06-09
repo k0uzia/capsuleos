@@ -25,6 +25,9 @@
     "update_manager.windowTitle": "Page d'accueil — Discover",
     "text_editor.windowTitle": "Kate — Éditeur de texte",
     "visionneur_pdf.windowTitle": "Okular",
-    "visionneur_images.windowTitle": "Gwenview"
+    "visionneur_images.windowTitle": "Gwenview",
+    "spectacle.windowTitle": "Spectacle",
+    "kinfocenter.windowTitle": "Centre d'informations",
+    "system_monitor.windowTitle": "Surveillance du système"
 }
 

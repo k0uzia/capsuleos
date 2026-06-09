@@ -68,6 +68,14 @@
     "visualCompareVpClassified": true,
     "captureBaselineUpdated": "2026-06-09 (03-dolphin Périphériques, 04-firefox clair, 07-discover-detail-vlc)"
   },
-  "nextStep": "V4-P2 : Spectacle + Info-centre — stubs kickoff B2/B3",
-  "updatedAt": "2026-06-09T12:00:00.000Z"
+  "v4P2ClosedAt": "2026-06-09T14:00:00.000Z",
+  "v4P2Deliverables": {
+    "spectacleSlot": true,
+    "kinfocenterSlot": true,
+    "systemMonitorSlot": true,
+    "kickoffB2B3DataLinks": true,
+    "smoke": "smoke-kde-neon-v4-p2.mjs"
+  },
+  "nextStep": "V4-P3 : propagation Dolphin/Discover dérivés · smokes HTTP 5500",
+  "updatedAt": "2026-06-09T14:00:00.000Z"
 }

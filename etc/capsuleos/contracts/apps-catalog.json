@@ -51,7 +51,10 @@
       "collectPattern": "*.desktop",
       "slotSpecs": {
         "nemo": { "chromeProvider": "default", "template": "dolphin", "skinCss": "dolphin.skin.css", "functionalDepth": "full" },
-        "update_manager": { "chromeProvider": "default", "template": "update_manager_kde.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" }
+        "update_manager": { "chromeProvider": "default", "template": "update_manager_kde.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
+        "spectacle": { "chromeProvider": "default", "template": "spectacle_kde_neon.html", "skinCss": "spectacle.skin.css", "functionalDepth": "partial" },
+        "kinfocenter": { "chromeProvider": "default", "template": "kinfocenter_kde_neon.html", "skinCss": "kinfocenter.skin.css", "functionalDepth": "partial" },
+        "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" }
       }
     }
   },
@@ -65,6 +68,12 @@
     "linux-kde-neon": {
       "update_manager": {
         "template": "update_manager_kde_neon.html"
+      },
+      "spectacle": {
+        "template": "spectacle_kde_neon.html"
+      },
+      "kinfocenter": {
+        "template": "kinfocenter_kde_neon.html"
       }
     }
   },

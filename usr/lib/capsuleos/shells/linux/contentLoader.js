@@ -649,6 +649,11 @@ const SLOT_INIT_HANDLERS = {
             initSnapshotApp();
         }
     },
+    characters: () => {
+        if (typeof initCharactersApp === 'function') {
+            initCharactersApp();
+        }
+    },
     calendar: () => {
         if (typeof initCalendarApp === 'function') {
             initCalendarApp();

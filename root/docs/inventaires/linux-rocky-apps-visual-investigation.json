@@ -156,7 +156,7 @@
       "labelFr": "Caractères",
       "vmId": "org.gnome.Characters",
       "parityPriority": "P2",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Caractères",
         "components": [
@@ -210,8 +210,46 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C3",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Characters requise."
+          },
+          {
+            "id": "clipboard-copy",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Bouton Copier présent mais désactivé — sandbox CapsuleOS sans presse-papiers système."
+          },
+          {
+            "id": "unicode-block-browser",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Navigation par blocs Unicode / catégories GNOME non simulée — grille récents statique (hors P2)."
+          }
+        ],
+        "resolved": [
+          "character-grid-8-columns",
+          "detail-pane-glyph-name-code-fr",
+          "search-filter-glyph-name",
+          "recent-section-label-fr",
+          "window-proportions-22x32",
+          "rocky-adwaita-tokens"
+        ]
+      },
+      "note": "Phase C3 — org.gnome.Characters : recherche, détail FR, grille récents 16 caractères, sélection interactive."
     },
     {
       "controlId": "text_editor",

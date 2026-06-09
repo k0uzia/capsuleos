@@ -42,9 +42,24 @@
         }
     }
 
+    var refreshTimerId = null;
+
     function initMintDriversAppOnce() {
         var root = global.document.getElementById('mintDriversApp');
-        if (!root || root.dataset.mintDriversInit === 'true') {
+        if (!root) {
+            return;
+        }
+        if (refreshTimerId !== null) {
+            global.clearTimeout(refreshTimerId);
+            refreshTimerId = null;
+        }
+        if (root.dataset.mintDriversInit === 'true') {
+            showPage(root, 'refresh');
+            refreshTimerId = global.setTimeout(function onRefreshDone() {
+                showPage(root, 'no-drivers');
+                syncWindowTitle(getWindowEl(root));
+                refreshTimerId = null;
+            }, 900);
             return;
         }
         root.dataset.mintDriversInit = 'true';
@@ -53,9 +68,10 @@
         syncWindowTitle(winEl);
         showPage(root, 'refresh');
 
-        global.setTimeout(function onRefreshDone() {
+        refreshTimerId = global.setTimeout(function onRefreshDone() {
             showPage(root, 'no-drivers');
             syncWindowTitle(winEl);
+            refreshTimerId = null;
         }, 900);
     }
 

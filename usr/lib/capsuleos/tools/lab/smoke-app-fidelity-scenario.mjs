@@ -915,6 +915,309 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       min: 1,
     });
   }
+  if (scenario.id === 'drawing-open-canvas') {
+    plan.prepActions = [{ type: 'drawingInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="drawing"] #windowTitle',
+      text: 'Sans titre — Dessin',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'drawingAppReady' });
+  }
+  if (scenario.id === 'drawing-tool-eraser') {
+    plan.prepActions = [{ type: 'drawingInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="drawing"] .drawing-app__tool[data-tool="eraser"]' },
+      { type: 'wait', ms: 80 },
+    );
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="drawing"] .drawing-app__tool[data-tool="eraser"]',
+      className: 'is-active',
+    });
+  }
+  if (scenario.id === 'drawing-stroke-undo') {
+    plan.prepActions = [{ type: 'drawingInit' }];
+    plan.executionBlocks.push({
+      actions: [{ type: 'drawingStroke' }, { type: 'wait', ms: 120 }],
+      assertions: [{ type: 'evaluateTruthy', fn: 'drawingHasInk' }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'click', selector: 'div[data-link="drawing"] [data-drawing-action="undo"]' },
+        { type: 'wait', ms: 900 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'drawingInkCleared' }],
+    });
+  }
+  if (scenario.id === 'celluloid-open-chrome') {
+    plan.prepActions = [{ type: 'celluloidInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="lecteur_multimedia"] #windowTitle',
+      text: 'Celluloid',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'celluloidPlayDisabled' });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="lecteur_multimedia"] .celluloid-app__menubar',
+      min: 6,
+    });
+  }
+  if (scenario.id === 'celluloid-menu-playback') {
+    plan.prepActions = [{ type: 'celluloidInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="lecteur_multimedia"] .celluloid-app__menu-btn' },
+      { type: 'wait', ms: 100 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="lecteur_multimedia"] .celluloid-app__menu-dropdown:not([hidden])',
+    });
+  }
+  if (scenario.id === 'celluloid-demo-media') {
+    plan.prepActions = [{ type: 'celluloidInit' }, { type: 'celluloidDemo' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: '#mint-media-viewer-filename',
+      text: 'demo.mp4',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'celluloidPlayEnabled' });
+  }
+  if (scenario.id === 'lsc-open-grid') {
+    plan.prepActions = [{ type: 'lscInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="libreoffice_startcenter"] #windowTitle',
+      text: 'LibreOffice',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="libreoffice_startcenter"] .lsc-app__grid',
+      min: 4,
+    });
+  }
+  if (scenario.id === 'lsc-tile-select') {
+    plan.prepActions = [{ type: 'lscInit' }];
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="libreoffice_startcenter"] .lsc-app__tile:nth-child(2)',
+      desc: 'tuile Calc',
+    });
+    plan.actions.push({ type: 'wait', ms: 80 });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="libreoffice_startcenter"] .lsc-app__tile:nth-child(2)',
+      className: 'is-active',
+    });
+  }
+  if (scenario.id === 'lsc-launch-calc') {
+    plan.prepActions = [{ type: 'lscInit' }];
+    plan.actions.push({ type: 'lscLaunchCalc' }, { type: 'wait', ms: 400 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="librecalc"]',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'librecalcReady' });
+  }
+  if (scenario.id === 'screenshot-config-open') {
+    plan.prepActions = [{ type: 'shotInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="screenshot"] #windowTitle',
+      text: 'Capture',
+    });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="screenshot"] #gnome-shot-config:not([hidden])',
+    });
+  }
+  if (scenario.id === 'screenshot-area-window') {
+    plan.prepActions = [{ type: 'shotInit' }];
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="screenshot"] input[name="gnome-shot-area"][value="window"]',
+    });
+    plan.actions.push({ type: 'wait', ms: 80 });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="screenshot"] #gnome-shot-hint',
+      text: 'fenêtre',
+    });
+  }
+  if (scenario.id === 'screenshot-capture-preview') {
+    plan.prepActions = [{ type: 'shotInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="screenshot"] #gnome-shot-capture' },
+      { type: 'wait', ms: 250 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="screenshot"] #gnome-shot-result:not([hidden])',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'screenshotPreviewReady' });
+  }
+  if (scenario.id === 'librecalc-open-grid') {
+    plan.prepActions = [{ type: 'lcInit' }];
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'librecalcReady' });
+    plan.assertions.push({
+      type: 'inputValueContains',
+      selector: 'div[data-link="librecalc"] #lc-formula-input',
+      text: '=',
+    });
+  }
+  if (scenario.id === 'librecalc-cell-select') {
+    plan.prepActions = [{ type: 'lcInit' }];
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="librecalc"] .lc-grid__cell[data-col="1"][data-row="3"]',
+      desc: 'cellule B3',
+    });
+    plan.actions.push({ type: 'wait', ms: 80 });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="librecalc"] #lc-cell-ref',
+      text: 'B3',
+    });
+  }
+  if (scenario.id === 'librecalc-menu-file') {
+    plan.prepActions = [{ type: 'lcInit' }];
+    plan.actions.push({
+      type: 'click',
+      selector: 'div[data-link="librecalc"] .lc-menubar .lw-menu:first-child .lw-menu__trigger',
+      desc: 'menu Fichier',
+    });
+    plan.actions.push({ type: 'wait', ms: 100 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="librecalc"] .lc-menubar .lw-menu__dropdown:not([hidden])',
+    });
+  }
+  if (scenario.id === 'mintdrivers-refresh') {
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'mintdriversRefreshStart' });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="mintdrivers"] #windowTitle',
+      text: 'Gestionnaire de pilotes',
+    });
+  }
+  if (scenario.id === 'mintdrivers-settled') {
+    plan.prepActions = [{ type: 'mdInit' }, { type: 'wait', ms: 1000 }];
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="mintdrivers"] [data-md-page="no-drivers"]:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="mintdrivers"] .md-page__title',
+      text: 'pilote',
+    });
+  }
+  if (scenario.id === 'mintdrivers-title') {
+    plan.prepActions = [{ type: 'mdInit' }, { type: 'wait', ms: 1000 }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="mintdrivers"] #windowTitle',
+      text: 'Gestionnaire de pilotes',
+    });
+  }
+  if (scenario.id === 'gsm-open-processes') {
+    plan.prepActions = [{ type: 'gsmInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="system_monitor"] #windowTitle',
+      text: 'Moniteur système',
+    });
+    plan.assertions.push({
+      type: 'childCountMin',
+      selector: 'div[data-link="system_monitor"] #gsm-process-body',
+      min: 4,
+    });
+  }
+  if (scenario.id === 'gsm-select-row') {
+    plan.prepActions = [{ type: 'gsmInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="system_monitor"] #gsm-process-body tr' },
+      { type: 'wait', ms: 80 },
+    );
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'gsmRowSelected' });
+  }
+  if (scenario.id === 'gsm-resources-tab') {
+    plan.prepActions = [{ type: 'gsmInit' }];
+    plan.actions.push(
+      { type: 'click', selector: 'div[data-link="system_monitor"] [data-gsm-tab="resources"]' },
+      { type: 'wait', ms: 120 },
+    );
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="system_monitor"] [data-gsm-panel="resources"]:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="system_monitor"] [data-gsm-panel="resources"]',
+      text: 'Processeurs',
+    });
+  }
+  if (scenario.id === 'xviewer-open-demo') {
+    plan.preOpen = { type: 'xvDemo' };
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="visionneur_images"] .viewer-app__image',
+    });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] .pix-toolbar',
+    });
+  }
+  if (scenario.id === 'xviewer-zoom-in') {
+    plan.preOpen = { type: 'xvDemo' };
+    plan.actions.push({ type: 'xvZoomIn' }, { type: 'wait', ms: 80 });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="visionneur_images"] #xviewer-zoom',
+      text: '125 %',
+    });
+  }
+  if (scenario.id === 'xviewer-export-dialog') {
+    plan.preOpen = { type: 'xvDemo' };
+    plan.actions.push({ type: 'xvMenu', menu: 'Fichier', item: 'Enregistrer sous' });
+    plan.actions.push({ type: 'wait', ms: 120 });
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_images"] #xviewer-export-dialog:not([hidden])',
+    });
+  }
+  if (scenario.id === 'xreader-open-demo') {
+    plan.preOpen = { type: 'xrDemo' };
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="visionneur_pdf"] .viewer-app__frame',
+    });
+    plan.assertions.push({
+      type: 'textContains',
+      selector: '#mint-pdf-viewer-filename',
+      text: 'Bash.pdf',
+    });
+  }
+  if (scenario.id === 'xreader-sidebar-thumb') {
+    plan.preOpen = { type: 'xrDemo' };
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="visionneur_pdf"] #xreader-sidebar:not([hidden])',
+    });
+    plan.assertions.push({
+      type: 'selectorPresent',
+      selector: 'div[data-link="visionneur_pdf"] .xreader-app__thumb',
+    });
+  }
+  if (scenario.id === 'xreader-page-label') {
+    plan.preOpen = { type: 'xrDemo' };
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="visionneur_pdf"] #xreader-page',
+      text: 'Page 1 sur 1',
+    });
+  }
 
   return plan;
 };
@@ -1244,6 +1547,90 @@ const runScenarioActions = async (page, plan) => {
           window.initStickyApp();
         }
       });
+    } else if (action.type === 'drawingInit') {
+      await page.evaluate(() => {
+        if (typeof window.initDrawingApp === 'function') {
+          window.initDrawingApp();
+        }
+      });
+    } else if (action.type === 'drawingStroke') {
+      const strokeBox = await page.locator('#drawing-canvas').boundingBox();
+      if (strokeBox) {
+        await page.mouse.move(strokeBox.x + 80, strokeBox.y + 80);
+        await page.mouse.down();
+        await page.mouse.move(strokeBox.x + 180, strokeBox.y + 140, { steps: 8 });
+        await page.mouse.up();
+      }
+    } else if (action.type === 'celluloidInit') {
+      await page.evaluate(() => {
+        if (typeof window.initCelluloidApp === 'function') {
+          window.initCelluloidApp();
+        }
+      });
+    } else if (action.type === 'celluloidDemo') {
+      await page.evaluate(() => {
+        if (typeof window.openCelluloidDemoMedia === 'function') {
+          window.openCelluloidDemoMedia();
+        }
+      });
+    } else if (action.type === 'lscInit') {
+      await page.evaluate(() => {
+        if (typeof window.initLibreofficeStartcenterApp === 'function') {
+          window.initLibreofficeStartcenterApp();
+        }
+      });
+    } else if (action.type === 'lscLaunchCalc') {
+      await page.evaluate(() => {
+        var tile = document.querySelector('div[data-link="libreoffice_startcenter"] .lsc-app__tile:nth-child(2)');
+        if (tile) {
+          tile.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+        }
+        if (typeof window.initLibreCalc === 'function') {
+          window.initLibreCalc();
+        }
+      });
+    } else if (action.type === 'shotInit') {
+      await page.evaluate(() => {
+        if (typeof window.initScreenshotApp === 'function') {
+          window.initScreenshotApp();
+        }
+      });
+    } else if (action.type === 'lcInit') {
+      await page.evaluate(() => {
+        if (typeof window.initLibreCalc === 'function') {
+          window.initLibreCalc();
+        }
+      });
+    } else if (action.type === 'mdInit') {
+      await page.evaluate(() => {
+        if (typeof window.initMintDriversApp === 'function') {
+          window.initMintDriversApp();
+        }
+      });
+    } else if (action.type === 'mdFreshInit') {
+      await page.evaluate(() => {
+        if (typeof window.initMintDriversApp === 'function') {
+          window.initMintDriversApp();
+        }
+      });
+    } else if (action.type === 'xvZoomIn') {
+      await page.evaluate(() => {
+        var win = document.querySelector('div[data-link="visionneur_images"]');
+        if (win && win.style) {
+          win.style.display = 'block';
+          win.style.zIndex = '9999';
+        }
+        var btn = document.querySelector('div[data-link="visionneur_images"] [data-xv-action="zoom-in"]');
+        if (btn) {
+          btn.click();
+        }
+      });
+    } else if (action.type === 'gsmInit') {
+      await page.evaluate(() => {
+        if (typeof window.initSystemMonitorApp === 'function') {
+          window.initSystemMonitorApp();
+        }
+      });
     } else if (action.type === 'evaluate') {
       await page.evaluate(() => {});
     }
@@ -1343,6 +1730,62 @@ const runScenarioAssertions = async (page, plan, errors) => {
           }
           const after = monthEl ? monthEl.textContent : '';
           return before !== after && after.length > 0;
+        }
+        if (fn === 'drawingAppReady') {
+          const app = document.getElementById('drawingApp');
+          const canvas = document.getElementById('drawing-canvas');
+          return !!(app && app.dataset.drawingInit === 'true' && canvas);
+        }
+        if (fn === 'drawingHasInk' || fn === 'drawingInkCleared') {
+          const canvas = document.getElementById('drawing-canvas');
+          if (!canvas) {
+            return false;
+          }
+          const ctx = canvas.getContext('2d');
+          const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          var nonWhite = 0;
+          var i;
+          for (i = 0; i < data.length; i += 4) {
+            if (data[i] < 250 || data[i + 1] < 250 || data[i + 2] < 250) {
+              nonWhite += 1;
+              if (nonWhite > 20) {
+                break;
+              }
+            }
+          }
+          return fn === 'drawingHasInk' ? nonWhite > 20 : nonWhite <= 20;
+        }
+        if (fn === 'celluloidPlayDisabled') {
+          const btn = document.querySelector('div[data-link="lecteur_multimedia"] .celluloid-app__ctl--play');
+          return !!(btn && btn.disabled);
+        }
+        if (fn === 'celluloidPlayEnabled') {
+          const btn = document.querySelector('div[data-link="lecteur_multimedia"] .celluloid-app__ctl--play');
+          return !!(btn && !btn.disabled);
+        }
+        if (fn === 'librecalcReady') {
+          const app = document.getElementById('lc-app');
+          const cells = app ? app.querySelectorAll('.lc-grid__cell') : [];
+          const ref = document.getElementById('lc-cell-ref');
+          return !!(app && app.dataset.lcInit === '1' && cells.length >= 200
+            && ref && ref.textContent === 'A1');
+        }
+        if (fn === 'screenshotPreviewReady') {
+          const preview = document.getElementById('gnome-shot-preview');
+          return !!(preview && preview.src && preview.src.indexOf('data:image') === 0);
+        }
+        if (fn === 'gsmRowSelected') {
+          const row = document.querySelector('#gsm-process-body tr.is-selected');
+          const stop = document.querySelector('[data-gsm-action="stop"]');
+          return !!(row && stop && !stop.disabled);
+        }
+        if (fn === 'mintdriversRefreshStart') {
+          if (typeof window.initMintDriversApp === 'function') {
+            window.initMintDriversApp();
+          }
+          const title = document.querySelector('#mintDriversApp [data-md-page="refresh"] .md-page__title');
+          const spinner = document.querySelector('#mintDriversApp .md-spinner');
+          return !!(title && title.textContent.indexOf('Recherche') >= 0 && spinner);
         }
         return false;
       }, { fn: a.fn, args: a.args });
@@ -1459,6 +1902,93 @@ const runPlaywright = async (plan) => {
         }
       });
       await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'drawing') {
+      await page.evaluate(() => {
+        if (typeof window.initDrawingApp === 'function') {
+          window.initDrawingApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'lecteur_multimedia') {
+      await page.evaluate(() => {
+        if (typeof window.initCelluloidApp === 'function') {
+          window.initCelluloidApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'libreoffice_startcenter') {
+      await page.evaluate(() => {
+        if (typeof window.initLibreofficeStartcenterApp === 'function') {
+          window.initLibreofficeStartcenterApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'screenshot') {
+      await page.evaluate(() => {
+        if (typeof window.initScreenshotApp === 'function') {
+          window.initScreenshotApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'librecalc') {
+      await page.evaluate(() => {
+        if (typeof window.initLibreCalc === 'function') {
+          window.initLibreCalc();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'mintdrivers' && plan.scenarioId !== 'mintdrivers-refresh') {
+      await page.evaluate(() => {
+        if (typeof window.initMintDriversApp === 'function') {
+          window.initMintDriversApp();
+        }
+      });
+      await page.waitForTimeout(80);
+    }
+
+    if (plan.app === 'system_monitor') {
+      await page.evaluate(() => {
+        if (typeof window.initSystemMonitorApp === 'function') {
+          window.initSystemMonitorApp();
+        }
+      });
+      await page.waitForTimeout(120);
+    }
+
+    if (plan.preOpen && plan.preOpen.type === 'xvDemo') {
+      await page.evaluate(() => {
+        if (typeof window.openWindowByDataLink === 'function') {
+          window.openWindowByDataLink('visionneur_images');
+        }
+        if (typeof window.openPixDemoImage === 'function') {
+          window.openPixDemoImage();
+        }
+      });
+      await page.waitForTimeout(350);
+    }
+
+    if (plan.preOpen && plan.preOpen.type === 'xrDemo') {
+      await page.evaluate(() => {
+        if (typeof window.openWindowByDataLink === 'function') {
+          window.openWindowByDataLink('visionneur_pdf');
+        }
+        if (typeof window.openXreaderDemoPdf === 'function') {
+          window.openXreaderDemoPdf();
+        }
+      });
+      await page.waitForTimeout(350);
     }
 
     if (plan.prepActions && plan.prepActions.length > 0) {

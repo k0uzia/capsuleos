@@ -1,7 +1,18 @@
 (function initLibreofficeStartcenterAppModule(global) {
     'use strict';
     var WINDOW_TITLE = 'LibreOffice';
+    var MODULE_SLOTS = { Writer: 'librewriter', Calc: 'librecalc', Draw: 'libreoffice_draw', Impress: 'libreoffice_impress' };
     function getWindowEl(root) { var el = root; while (el) { if (el.getAttribute && el.getAttribute('data-link') === 'libreoffice_startcenter') return el; el = el.parentElement; } return null; }
+    function resolveTileSlot(tile) {
+        var label = tile.querySelector('span');
+        if (!label) return null;
+        return MODULE_SLOTS[label.textContent.replace(/\s+/g, ' ').trim()] || null;
+    }
+    function launchTileModule(tile) {
+        var slot = resolveTileSlot(tile);
+        if (!slot || typeof global.openWindowByDataLink !== 'function') return;
+        global.openWindowByDataLink(slot);
+    }
     function syncWindowTitle(winEl) { if (!winEl) return; var t = winEl.querySelector('#windowTitle'); if (t) t.textContent = WINDOW_TITLE; winEl.setAttribute('data-title', WINDOW_TITLE); }
     function initLibreofficeStartcenterAppOnce() {
         var root = global.document.getElementById('libreofficeStartcenterApp');
@@ -28,6 +39,12 @@
             var tile = ev.target.closest('.lsc-app__tile');
             if (!tile || !root.contains(tile)) return;
             tile.click();
+            launchTileModule(tile);
+        });
+        root.addEventListener('dblclick', function (ev) {
+            var tile = ev.target.closest('.lsc-app__tile');
+            if (!tile || !root.contains(tile)) return;
+            launchTileModule(tile);
         });
     }
     global.initLibreofficeStartcenterApp = function () { initLibreofficeStartcenterAppOnce(); };

@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaign": "v3-credibility-pass",
   "phase": "P-F1",
-  "generatedAt": "2026-06-09T07:17:42.493Z",
+  "generatedAt": "2026-06-09T07:47:37.406Z",
   "sources": {
     "catalog": "root/docs/inventaires/linux-mint-apps-catalog.json",
     "fidelity": "root/docs/inventaires/linux-mint-app-fidelity-scenarios.json"
@@ -11,40 +11,49 @@
     "menuEntriesVm": 101,
     "catalogSlots": 43,
     "uniqueSlotsInMenu": 42,
-    "menuCoveredByPi100Slots": 65,
+    "menuCoveredByPi100Slots": 77,
     "menuViaThemesSlot": 52,
-    "menuRowsNeedingCredibility": 36,
-    "appsPi100": 12,
+    "menuRowsNeedingCredibility": 24,
+    "appsPi100": 21,
     "appsPi100List": [
       "calculator",
       "calendar",
+      "drawing",
       "file_roller",
       "firefox",
+      "lecteur_multimedia",
+      "librecalc",
+      "libreoffice_startcenter",
+      "mintdrivers",
       "mintinstall",
       "nemo",
       "pix",
+      "screenshot",
       "sticky",
+      "system_monitor",
       "terminal",
       "text_editor",
       "themes",
-      "update_manager"
+      "update_manager",
+      "visionneur_images",
+      "visionneur_pdf"
     ],
-    "gapSlotsTotal": 31,
-    "gapSlotsP0": 4,
-    "gapSlotsP1": 5,
+    "gapSlotsTotal": 22,
+    "gapSlotsP0": 0,
+    "gapSlotsP1": 0,
     "gapSlotsP2": 22,
-    "scenariosExisting": 37,
-    "scenariosToAdd": 93,
-    "estimatedScenariosAtTarget": 93
+    "scenariosExisting": 64,
+    "scenariosToAdd": 66,
+    "estimatedScenariosAtTarget": 66
   },
   "tiers": {
     "A": {
       "label": "Crédibilité acquise (π=100) ou structure seule suffisante",
-      "slotCount": 11
+      "slotCount": 20
     },
     "B": {
       "label": "Slot catalogue — ≥3 scénarios CredC/S à produire",
-      "slotCount": 31
+      "slotCount": 22
     },
     "C": {
       "label": "Entrées menu → Paramètres (themes) — couvert par panneaux cs-*",
@@ -53,17 +62,7 @@
     }
   },
   "waveQueue": {
-    "wave1P0P1": [
-      "drawing",
-      "lecteur_multimedia",
-      "libreoffice_startcenter",
-      "screenshot",
-      "librecalc",
-      "mintdrivers",
-      "system_monitor",
-      "visionneur_images",
-      "visionneur_pdf"
-    ],
+    "wave1P0P1": [],
     "wave2P2": [
       "baobab",
       "bulky",
@@ -184,8 +183,8 @@
     },
     {
       "slot": "drawing",
-      "label": "drawing",
-      "tier": "B",
+      "label": "Dessin",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -198,12 +197,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "file_roller",
@@ -345,8 +344,8 @@
     },
     {
       "slot": "lecteur_multimedia",
-      "label": "lecteur_multimedia",
-      "tier": "B",
+      "label": "Celluloid",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -359,17 +358,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "librecalc",
-      "label": "librecalc",
-      "tier": "B",
+      "label": "LibreOffice Calc",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -382,12 +381,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "libreoffice_draw",
@@ -437,8 +436,8 @@
     },
     {
       "slot": "libreoffice_startcenter",
-      "label": "libreoffice_startcenter",
-      "tier": "B",
+      "label": "LibreOffice",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -458,12 +457,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mate_color_select",
@@ -513,8 +512,8 @@
     },
     {
       "slot": "mintdrivers",
-      "label": "mintdrivers",
-      "tier": "B",
+      "label": "Gestionnaire de pilotes",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -527,12 +526,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "mintinstall",
@@ -718,8 +717,8 @@
     },
     {
       "slot": "screenshot",
-      "label": "screenshot",
-      "tier": "B",
+      "label": "Capture d'écran",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -732,12 +731,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "simple_scan",
@@ -787,8 +786,8 @@
     },
     {
       "slot": "system_monitor",
-      "label": "system_monitor",
-      "tier": "B",
+      "label": "Moniteur système",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -808,12 +807,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "terminal",
@@ -1372,8 +1371,8 @@
     },
     {
       "slot": "visionneur_images",
-      "label": "visionneur_images",
-      "tier": "B",
+      "label": "Visionneur d'images",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 2,
       "menuEntries": [
@@ -1393,17 +1392,17 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "visionneur_pdf",
-      "label": "visionneur_pdf",
-      "tier": "B",
+      "label": "Visionneur de documents",
+      "tier": "A",
       "prioriteMax": "P1",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -1416,12 +1415,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "warpinator",
@@ -1488,14 +1487,6 @@
       "structuralOk": true
     },
     {
-      "slot": "drawing",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
       "slot": "font_viewer",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
@@ -1528,22 +1519,6 @@
       "structuralOk": true
     },
     {
-      "slot": "lecteur_multimedia",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "librecalc",
-      "prioriteMax": "P1",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
       "slot": "libreoffice_draw",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
@@ -1560,14 +1535,6 @@
       "structuralOk": true
     },
     {
-      "slot": "libreoffice_startcenter",
-      "prioriteMax": "P0",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
       "slot": "mate_color_select",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
@@ -1578,14 +1545,6 @@
     {
       "slot": "mintbackup",
       "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "mintdrivers",
-      "prioriteMax": "P1",
       "menuEntryCount": 1,
       "scenarioCount": 0,
       "scenariosNeeded": 3,
@@ -1632,25 +1591,9 @@
       "structuralOk": true
     },
     {
-      "slot": "screenshot",
-      "prioriteMax": "P0",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
       "slot": "simple_scan",
       "prioriteMax": "P2",
       "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "system_monitor",
-      "prioriteMax": "P1",
-      "menuEntryCount": 2,
       "scenarioCount": 0,
       "scenariosNeeded": 3,
       "structuralOk": true
@@ -1682,22 +1625,6 @@
     {
       "slot": "transmission",
       "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "visionneur_images",
-      "prioriteMax": "P1",
-      "menuEntryCount": 2,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "visionneur_pdf",
-      "prioriteMax": "P1",
       "menuEntryCount": 1,
       "scenarioCount": 0,
       "scenariosNeeded": 3,

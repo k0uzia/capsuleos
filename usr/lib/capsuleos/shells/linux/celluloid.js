@@ -164,11 +164,29 @@
         }, 0);
     }
 
+    function openCelluloidDemoMedia() {
+        initCelluloidAppOnce();
+        var root = getRoot();
+        var content = global.document.getElementById('mint-media-viewer-content');
+        if (content) {
+            content.innerHTML = '<div class="celluloid-app__placeholder" aria-hidden="true"></div>';
+        }
+        onMediaLoaded({ name: 'demo.mp4' });
+        var fileName = global.document.getElementById('mint-media-viewer-filename');
+        if (fileName) {
+            fileName.textContent = 'demo.mp4';
+        }
+        if (root) {
+            root.dataset.celluloidDemo = 'true';
+        }
+    }
+
     global.initCelluloidApp = function initCelluloidApp() {
         initCelluloidAppOnce();
     };
     global.resetCelluloidIdle = resetCelluloidIdle;
     global.onCelluloidMediaLoaded = onMediaLoaded;
+    global.openCelluloidDemoMedia = openCelluloidDemoMedia;
     global.getCelluloidWindowTitle = function getCelluloidWindowTitle() {
         return isMintSkin() ? DEFAULT_TITLE : 'Lecteur multimédia';
     };

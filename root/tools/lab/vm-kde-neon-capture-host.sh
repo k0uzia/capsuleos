@@ -1,0 +1,502 @@
+#!/usr/bin/env bash
+# Captures KDE Neon VM : prépare l'état via SSH (session Plasma Wayland), image via virsh.
+# Usage :
+#   bash root/tools/lab/vm-kde-neon-capture-host.sh [--dolphin-only|--dolphin-views|--dolphin-split|--dolphin-search] [dest-dir]
+#
+# --dolphin-only  vm-dolphin.png (vue icônes, défaut Dolphin)
+# --dolphin-views vm-dolphin.png + vm-dolphin-compact.png + vm-dolphin-list.png (point 5 parité)
+# --dolphin-split vm-dolphin-split-only.png (vue scindée, action dbus split_view)
+# --dolphin-search vm-dolphin-search-open.png (toggle_search dbus)
+# --dolphin-search-filter vm-dolphin-search-filter-open.png (recherche + menu filtre)
+# --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
+#
+# Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
+# Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+DEFAULT_DEST="$ROOT/home/public/Images/screen_KDE-Neon"
+DOLPHIN_ONLY=false
+DOLPHIN_VIEWS=false
+DOLPHIN_SPLIT=false
+DOLPHIN_SEARCH=false
+DOLPHIN_SEARCH_FILTER=false
+DOLPHIN_HAMBURGER=false
+DISCOVER_UPDATES=false
+DISCOVER_ABOUT=false
+DISCOVER_CONFIG=false
+DISCOVER_DETAIL=false
+DISCOVER_DETAIL_LIVE=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ]; do
+  if [ "${1:-}" = "--dolphin-only" ]; then
+    DOLPHIN_ONLY=true
+  fi
+  if [ "${1:-}" = "--dolphin-views" ]; then
+    DOLPHIN_VIEWS=true
+  fi
+  if [ "${1:-}" = "--dolphin-split" ]; then
+    DOLPHIN_SPLIT=true
+  fi
+  if [ "${1:-}" = "--dolphin-search" ]; then
+    DOLPHIN_SEARCH=true
+  fi
+  if [ "${1:-}" = "--dolphin-search-filter" ]; then
+    DOLPHIN_SEARCH_FILTER=true
+  fi
+  if [ "${1:-}" = "--dolphin-hamburger" ]; then
+    DOLPHIN_HAMBURGER=true
+  fi
+  if [ "${1:-}" = "--discover-updates" ]; then
+    DISCOVER_UPDATES=true
+  fi
+  if [ "${1:-}" = "--discover-about" ]; then
+    DISCOVER_ABOUT=true
+  fi
+  if [ "${1:-}" = "--discover-config" ]; then
+    DISCOVER_CONFIG=true
+  fi
+  if [ "${1:-}" = "--discover-detail" ]; then
+    DISCOVER_DETAIL=true
+  fi
+  if [ "${1:-}" = "--discover-detail-live" ]; then
+    DISCOVER_DETAIL_LIVE=true
+  fi
+  shift
+done
+DEST="${1:-$DEFAULT_DEST}"
+VM_NAME="${KDE_NEON_VIRSH_NAME:-KDE-Neon}"
+SSH_TARGET="${KDE_NEON_SSH:-capsule@192.168.122.2}"
+IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
+SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
+
+mkdir -p "$DEST"
+
+remote() {
+  ssh "${SSH_OPTS[@]}" "$SSH_TARGET" "$@"
+}
+
+prep_env() {
+  local cmd="${*:-:}"
+  remote "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$(id -u)/bus; \
+export XDG_RUNTIME_DIR=/run/user/\$(id -u); \
+export WAYLAND_DISPLAY=wayland-0; \
+export DISPLAY=:1; \
+export XDG_CURRENT_DESKTOP=KDE; \
+XAUTH_FILE=\$(ls /run/user/\$(id -u)/xauth_* 2>/dev/null | head -1); \
+[ -n \"\$XAUTH_FILE\" ] && export XAUTHORITY=\"\$XAUTH_FILE\"; \
+${cmd}"
+}
+
+# Wayland : plasma-discover natif — script KWin (xdotool ne voit pas la fenêtre).
+dismiss_discover_update_dialog() {
+  prep_env "SCRIPT=/tmp/capsuleos-discover-capture-kwin.js
+    cat > \"\$SCRIPT\" <<'KWINJS'
+var ws = workspace;
+var windows = ws.windowList();
+var discover = null;
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || \"\";
+    if (cap === "Problème de mises à jour" || cap.indexOf("Update problem") === 0) {
+        w.closeWindow();
+        continue;
+    }
+    if (cap.indexOf("VLC") >= 0 && cap.indexOf("Discover") >= 0) {
+        discover = w;
+    }
+}
+if (discover) {
+    ws.activeWindow = discover;
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" capsuleos-discover-capture >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.5
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true"
+}
+
+require_discover_window() {
+  prep_env 'pgrep plasma-discover >/dev/null || { echo "plasma-discover absent — abandon capture" >&2; exit 1; }'
+}
+
+reset_apps() {
+  prep_env 'killall plasma-discover dolphin konsole firefox 2>/dev/null || true'
+}
+
+focus_discover_window() {
+  dismiss_discover_update_dialog
+}
+
+open_kickoff() {
+  prep_env 'qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.activateLauncherMenu'
+}
+
+close_kickoff() {
+  prep_env 'qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.activateLauncherMenu 2>/dev/null || true'
+}
+
+open_discover() {
+  prep_env 'killall plasma-discover 2>/dev/null || true
+    nohup plasma-discover >/dev/null 2>&1 &
+    for i in $(seq 1 15); do
+      pgrep plasma-discover >/dev/null && break
+      sleep 1
+    done
+    sleep 4'
+}
+
+open_discover_mode() {
+  local mode="$1"
+  prep_env "killall plasma-discover 2>/dev/null || true
+    nohup plasma-discover --mode ${mode} >/dev/null 2>&1 &
+    for i in \$(seq 1 15); do
+      pgrep plasma-discover >/dev/null && break
+      sleep 1
+    done
+    sleep 5"
+}
+
+open_discover_installed() {
+  open_discover_mode installed
+}
+
+discover_nav_tab() {
+  local mode="$1"
+  open_discover_mode "$mode"
+}
+
+open_dolphin() {
+  # kstart (session Plasma) affiche la fenêtre ; nohup/dolphin seul laisse le processus sans surface Wayland.
+  prep_env 'killall dolphin 2>/dev/null || true
+    sleep 0.5
+    kstart dolphin "$HOME" >/dev/null 2>&1 &
+    svc=""
+    for i in $(seq 1 25); do
+      svc=$(qdbus6 2>/dev/null | grep -o "org.kde.dolphin-[0-9]*" | head -1)
+      [ -n "$svc" ] && break
+      sleep 1
+    done
+    if [ -n "$svc" ]; then
+      qdbus6 "$svc" /dolphin/Dolphin_1 org.kde.dolphin.MainWindow.activateWindow "" 2>/dev/null || true
+      for j in $(seq 1 12); do
+        qdbus6 "$svc" /dolphin/Dolphin_1 org.kde.dolphin.MainWindow.isUrlOpen "file://$HOME" 2>/dev/null | grep -q true && break
+        sleep 0.5
+      done
+    fi
+    sleep 3'
+}
+
+open_firefox() {
+  prep_env 'killall firefox 2>/dev/null || true
+    sleep 0.5
+    kstart firefox >/dev/null 2>&1 &
+    sleep 6'
+}
+
+open_konsole() {
+  prep_env 'killall konsole 2>/dev/null || true
+    sleep 0.5
+    kstart konsole >/dev/null 2>&1 &
+    sleep 4'
+}
+
+# Modes Dolphin : actions dbus « icons » | « compact » | « details » (dolphinui.rc).
+# Repli clavier : Ctrl+1 / Ctrl+2 / Ctrl+3 (menu Affichage CapsuleOS).
+dolphin_set_view_mode() {
+  local mode="$1"
+  local action=""
+  local ctrl_digit=""
+  case "$mode" in
+    icons) action=icons; ctrl_digit=1 ;;
+    compact) action=compact; ctrl_digit=2 ;;
+    list|details) action=details; ctrl_digit=3 ;;
+    *)
+      echo "  ✗ mode Dolphin inconnu : $mode (icons|compact|list)" >&2
+      return 1
+      ;;
+  esac
+  prep_env "svc=\$(qdbus6 2>/dev/null | grep -o 'org.kde.dolphin-[0-9]*' | head -1)
+    ok=0
+    if [ -n \"\$svc\" ]; then
+      if qdbus6 \"\$svc\" /dolphin/Dolphin_1/actions/${action} org.qtproject.Qt.QAction.trigger 2>/dev/null; then
+        ok=1
+      fi
+    fi
+    if [ \"\$ok\" -eq 0 ]; then
+      if command -v wtype >/dev/null 2>&1; then
+        wtype -M ctrl -k ${ctrl_digit} -m ctrl
+      elif command -v ydotool >/dev/null 2>&1; then
+        case ${ctrl_digit} in
+          1) ydotool key 29:1 2:1 2:0 29:0 ;;
+          2) ydotool key 29:1 3:1 3:0 29:0 ;;
+          3) ydotool key 29:1 4:1 4:0 29:0 ;;
+        esac
+      fi
+    fi
+    sleep 2"
+}
+
+capture_dolphin_view_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_set_view_mode icons
+  sleep 1
+  shot "$DEST/vm-dolphin.png"
+  dolphin_set_view_mode compact
+  sleep 1
+  shot "$DEST/vm-dolphin-compact.png"
+  dolphin_set_view_mode list
+  sleep 1
+  shot "$DEST/vm-dolphin-list.png"
+  reset_apps
+}
+
+dolphin_trigger_action() {
+  local action="$1"
+  prep_env "svc=\$(qdbus6 2>/dev/null | grep -o 'org.kde.dolphin-[0-9]*' | head -1)
+    if [ -n \"\$svc\" ]; then
+      qdbus6 \"\$svc\" /dolphin/Dolphin_1/actions/${action} org.qtproject.Qt.QAction.trigger 2>/dev/null || true
+    fi
+    sleep 2"
+}
+
+capture_dolphin_split_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_trigger_action split_view
+  sleep 2
+  shot "$DEST/vm-dolphin-split-only.png"
+  reset_apps
+}
+
+shot() {
+  local file="$1"
+  if ! virsh -c qemu:///system screenshot "$VM_NAME" --file "$file" 2>/dev/null; then
+    echo "  ✗ virsh screenshot échec — VM « $VM_NAME » démarrée ?" >&2
+    return 1
+  fi
+  echo "  → $file ($(wc -c <"$file") octets)"
+}
+
+
+echo "=== Captures KDE Neon VM ($VM_NAME) → $DEST ==="
+
+capture_dolphin_search_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_trigger_action toggle_search
+  sleep 1.5
+  shot "$DEST/vm-dolphin-search-open.png"
+  reset_apps
+}
+
+capture_dolphin_search_filter_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  dolphin_trigger_action toggle_search
+  sleep 1.2
+  prep_env 'if command -v ydotool >/dev/null 2>&1; then
+      ydotool key 15:1 15:0 sleep 0.15
+      ydotool key 57:1 57:0
+    elif command -v wtype >/dev/null 2>&1; then
+      wtype -k Tab -k space
+    fi
+    sleep 1'
+  shot "$DEST/vm-dolphin-search-filter-open.png"
+  reset_apps
+}
+
+capture_dolphin_hamburger_shots() {
+  reset_apps
+  sleep 1
+  open_dolphin
+  prep_env 'svc=$(qdbus6 2>/dev/null | grep -o "org.kde.dolphin-[0-9]*" | head -1)
+    if [ -n "$svc" ]; then
+      qdbus6 "$svc" /dolphin/Dolphin_1/actions/hamburger_menu org.qtproject.Qt.QAction.trigger 2>/dev/null || true
+    fi
+    sleep 1'
+  shot "$DEST/vm-dolphin-hamburger-open.png"
+  reset_apps
+}
+
+if $DOLPHIN_HAMBURGER; then
+  capture_dolphin_hamburger_shots
+  echo "=== Terminé : vm-dolphin-hamburger-open.png (--dolphin-hamburger) ==="
+  exit 0
+fi
+
+if $DOLPHIN_SEARCH_FILTER; then
+  capture_dolphin_search_filter_shots
+  echo "=== Terminé : vm-dolphin-search-filter-open.png (--dolphin-search-filter) ==="
+  exit 0
+fi
+
+if $DOLPHIN_SEARCH; then
+  capture_dolphin_search_shots
+  echo "=== Terminé : vm-dolphin-search-open.png (--dolphin-search) ==="
+  exit 0
+fi
+
+if $DOLPHIN_VIEWS; then
+  capture_dolphin_view_shots
+  echo "=== Terminé : vm-dolphin.png, vm-dolphin-compact.png, vm-dolphin-list.png (--dolphin-views) ==="
+  exit 0
+fi
+
+if $DOLPHIN_SPLIT; then
+  capture_dolphin_split_shots
+  echo "=== Terminé : vm-dolphin-split-only.png (--dolphin-split) ==="
+  exit 0
+fi
+
+if $DOLPHIN_ONLY; then
+  reset_apps
+  sleep 1
+  open_dolphin
+  shot "$DEST/vm-dolphin.png"
+  reset_apps
+  echo "=== Terminé : vm-dolphin.png (--dolphin-only) ==="
+  exit 0
+fi
+
+open_discover_app() {
+  local uri="$1"
+  prep_env "killall plasma-discover konsole firefox dolphin 2>/dev/null || true
+    sleep 0.5
+    nohup plasma-discover --application ${uri} >/dev/null 2>&1 &
+    for i in \$(seq 1 25); do
+      pgrep plasma-discover >/dev/null && break
+      sleep 1
+    done
+    sleep 7"
+}
+
+scroll_discover_detail() {
+  prep_env "SCRIPT=/tmp/capsuleos-discover-scroll-kwin.js
+    cat > \"\$SCRIPT\" <<'KWINJS'
+var ws = workspace;
+var target = null;
+for (var i = 0; i < ws.windowList().length; i++) {
+    var w = ws.windowList()[i];
+    var cap = w.caption || \"\";
+    if (cap.indexOf(\"VLC\") >= 0 && cap.indexOf(\"Discover\") >= 0) {
+        target = w;
+        break;
+    }
+}
+if (target) {
+    ws.activeWindow = target;
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-scroll 2>/dev/null || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" capsuleos-discover-scroll >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.3
+    for i in 1 2 3 4; do
+      xdotool key Page_Down 2>/dev/null || true
+      sleep 0.15
+    done
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-scroll 2>/dev/null || true"
+}
+
+capture_discover_detail_shots() {
+  reset_apps
+  sleep 1
+  open_discover_app appstream://org.videolan.vlc
+  require_discover_window
+  sleep 2
+  dismiss_discover_update_dialog
+  sleep 0.8
+  shot "$DEST/vm-discover-detail-vlc.png"
+  scroll_discover_detail
+  sleep 0.6
+  shot "$DEST/vm-discover-detail-vlc-scrolled.png"
+  reset_apps
+}
+
+capture_discover_detail_live() {
+  require_discover_window
+  dismiss_discover_update_dialog
+  sleep 0.8
+  shot "$DEST/vm-discover-detail-vlc.png"
+  scroll_discover_detail
+  sleep 0.6
+  shot "$DEST/vm-discover-detail-vlc-scrolled.png"
+}
+
+if $DISCOVER_DETAIL_LIVE; then
+  capture_discover_detail_live
+  echo "=== Terminé : vm-discover-detail-vlc.png + scrolled (--discover-detail-live) ==="
+  exit 0
+fi
+
+if $DISCOVER_DETAIL; then
+  capture_discover_detail_shots
+  echo "=== Terminé : vm-discover-detail-vlc.png + scrolled (--discover-detail) ==="
+  exit 0
+fi
+
+if $DISCOVER_UPDATES; then
+  reset_apps
+  discover_nav_tab update
+  shot "$DEST/vm-discover-updates.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-updates.png (--discover-updates) ==="
+  exit 0
+fi
+
+if $DISCOVER_CONFIG; then
+  reset_apps
+  discover_nav_tab settings
+  shot "$DEST/vm-discover-config.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-config.png (--discover-config) ==="
+  exit 0
+fi
+
+if $DISCOVER_ABOUT; then
+  reset_apps
+  discover_nav_tab about
+  shot "$DEST/vm-discover-about.png"
+  reset_apps
+  echo "=== Terminé : vm-discover-about.png (--discover-about) ==="
+  exit 0
+fi
+
+reset_apps
+sleep 1
+
+shot "$DEST/vm-desktop.png"
+
+open_kickoff
+sleep 2
+shot "$DEST/vm-kickoff.png"
+
+close_kickoff
+reset_apps
+open_discover
+shot "$DEST/vm-discover.png"
+
+reset_apps
+open_discover_installed
+shot "$DEST/vm-discover-installed.png"
+
+reset_apps
+open_dolphin
+shot "$DEST/vm-dolphin.png"
+
+reset_apps
+open_firefox
+shot "$DEST/vm-firefox.png"
+
+reset_apps
+open_konsole
+shot "$DEST/vm-terminal.png"
+
+reset_apps
+echo "=== Terminé : vm-desktop.png, vm-kickoff.png, vm-discover*.png, vm-dolphin.png, vm-firefox.png, vm-terminal.png ==="

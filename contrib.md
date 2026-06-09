@@ -526,8 +526,8 @@ Documentation détaillée : [usr/lib/capsuleos/common/window/README.md](usr/lib/
 
 Utiliser captures officielles ou VM uniquement pour **valider** une passe fidélité — l’implémentation reste HTML/CSS :
 
-- [GNOME HIG](https://developer.gnome.org/hig/) — headerbar, patterns apps GTK 4.
-- [KDE Human Interface Guidelines](https://develop.kde.org/hig/) — Breeze, Dolphin, Konsole.
+- [GNOME HIG](https://developer.gnome.org/hig/) — headerbar, patterns apps GTK 4 · catalogue interne : [`root/docs/gnome-hig-ressources.md`](root/docs/gnome-hig-ressources.md).
+- [KDE Human Interface Guidelines](https://develop.kde.org/hig/) — Breeze, Dolphin, Konsole, Discover · catalogue interne : [`root/docs/kde-hig-ressources.md`](root/docs/kde-hig-ressources.md).
 - [Linux Mint style](https://linuxmint.com/) — Cinnamon, Nemo, Mint-Y (marketing / screenshots communauté).
 - [System76 COSMIC](https://github.com/pop-os/cosmic) — dock, launcher, identité cyan.
 

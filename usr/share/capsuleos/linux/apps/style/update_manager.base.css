@@ -19,7 +19,8 @@ main#updateManagerApp {
 }
 
 /* ---- KDE template (Discover) : neutraliser le cadre Mint ---- */
-main#updateManagerApp.update-manager--kde {
+main#updateManagerApp.update-manager--kde,
+main#updateManagerApp.update-manager--kde-neon {
     position: relative;
     display: block;
     width: 100%;

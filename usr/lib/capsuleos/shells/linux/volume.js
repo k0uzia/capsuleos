@@ -82,6 +82,9 @@
         if (document.body && document.body.id === 'mint') {
             document.dispatchEvent(new CustomEvent('capsule:mint-tray-open', { detail: { id: 'volume' } }));
         }
+        if (document.body && document.body.id === 'kde-neon') {
+            document.dispatchEvent(new CustomEvent('capsule:kde-neon-tray-open', { detail: { id: 'volume' } }));
+        }
         const rect        = btn.getBoundingClientRect();
         const rightOffset = window.innerWidth - rect.right;
         popover.style.right = Math.max(4, rightOffset) + 'px';

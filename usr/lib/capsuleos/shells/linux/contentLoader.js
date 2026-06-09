@@ -26,6 +26,26 @@ const PLASMA_MAIN_MENU_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde',
 const CINNAMON_PANEL_MENU_SKINS = new Set(['mint']);
 const CINNAMON_PANEL_MENU_BODY_IDS = new Set(['mint']);
 
+/** Discover KDE : CSS commun (grille sidebar) embarqué au build — doit aussi être fetché en HTTP. */
+const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde']);
+const KDE_DISCOVER_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
+
+const isKdeDiscoverContext = () => {
+    if (KDE_DISCOVER_SKINS.has(getEmbedSkinKey())) {
+        return true;
+    }
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    return !!(bodyId && KDE_DISCOVER_BODY_IDS.has(bodyId));
+};
+
+const resolveKdeDiscoverCssBaseId = () => {
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    if (getEmbedSkinKey() === 'kde-neon' || bodyId === 'kde-neon') {
+        return 'update_manager_kde_neon';
+    }
+    return 'update_manager_kde';
+};
+
 const shouldSkipMainMenuBaseCss = (templateId, htmlHint) => {
     if (templateId !== 'mainMenu') {
         return false;
@@ -94,6 +114,9 @@ const resolveTemplateId = (slotId) => {
 
 /** Gabarit HTML dérivé de Nautilus (ex. nemo-gnome) → CSS de base `nemo.base.css`. */
 const resolveCssBaseTemplateId = (templateId) => {
+    if (templateId === 'update_manager' && isKdeDiscoverContext()) {
+        return resolveKdeDiscoverCssBaseId();
+    }
     if (templateId === 'nemo-gnome' || templateId === 'nemo-cosmic') {
         return 'nemo';
     }
@@ -216,10 +239,33 @@ const resolveTemplateHtmlFile = (templateId, appsBase) => {
     return `${appsBase}/${templateId}.html`;
 };
 
-/** Candidats HTML : skin d’abord (Kickoff Plasma, etc.), puis noyau partagé. */
+/** Override HTML local au skin (Kickoff Plasma, Discover Neon, etc.) — pas de probe 404 pour les autres slots. */
+const hasSkinHtmlOverride = (templateId) => {
+    const embed = typeof window !== 'undefined' && window.CAPSULE_APP_EMBED;
+    const skinKey = getEmbedSkinKey();
+    const skinMap = embed && embed.skinTemplates && embed.skinTemplates[skinKey];
+    if (skinMap && skinMap[templateId] && skinMap[templateId].html) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
+        return true;
+    }
+    if (typeof window !== 'undefined' && window.CAPSULE_SKIN_APP_OVERRIDES) {
+        const list = window.CAPSULE_SKIN_APP_OVERRIDES;
+        if (Array.isArray(list) && list.includes(templateId)) {
+            return true;
+        }
+        if (list && typeof list === 'object' && list[templateId]) {
+            return true;
+        }
+    }
+    return false;
+};
+
+/** Candidats HTML : skin d’abord si override connu, puis noyau partagé. */
 const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
     const candidates = [];
-    if (skinBase) {
+    if (skinBase && hasSkinHtmlOverride(templateId)) {
         candidates.push(`${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`);
     }
     const shared = resolveTemplateHtmlFile(templateId, appsBase);
@@ -381,19 +427,37 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
         skinCssVersion && url ? `${url}${url.includes('?') ? '&' : '?'}v=${encodeURIComponent(skinCssVersion)}` : url
     );
 
-    const fetchCssSkin = cssSkinFile
-        ? fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' }).then((response) => {
-            if (response.ok) {
-                return response.text();
+    const fetchCssSkin = (async () => {
+        let skinText = '';
+        if (cssSkinFile) {
+            try {
+                const response = await fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' });
+                if (response.ok) {
+                    skinText = await response.text();
+                } else if (cssSkinFallbackFile && cssSkinFallbackFile !== cssSkinFile) {
+                    const fallbackResponse = await fetch(withSkinCssBust(cssSkinFallbackFile), { cache: 'no-store' });
+                    if (fallbackResponse.ok) {
+                        skinText = await fallbackResponse.text();
+                    }
+                }
+            } catch (_) {
+                skinText = '';
             }
-            if (cssSkinFallbackFile && cssSkinFallbackFile !== cssSkinFile) {
-                return fetch(withSkinCssBust(cssSkinFallbackFile), { cache: 'no-store' }).then((fallbackResponse) => (
-                    fallbackResponse.ok ? fallbackResponse.text() : ''
-                ));
+        }
+        if (templateId === 'update_manager' && isKdeDiscoverContext()) {
+            const kdeCommonFile = `${appsBase}/style/skins/kde/update_manager.skin.css`;
+            try {
+                const response = await fetch(withSkinCssBust(kdeCommonFile), { cache: 'no-store' });
+                if (response.ok) {
+                    const commonText = await response.text();
+                    skinText = commonText + (skinText ? `\n${skinText}` : '');
+                }
+            } catch (_) {
+                /* repli embed géré par l’appelant si besoin */
             }
-            return '';
-        })
-        : Promise.resolve('');
+        }
+        return skinText;
+    })();
 
     return Promise.all([fetchHtml, fetchCssBase, fetchCssSkin]).then(([html, cssBase, cssSkin]) => ({
         html,
@@ -420,6 +484,9 @@ const SLOT_INIT_HANDLERS = {
     nemo: (container) => {
         if (typeof window.initExplorerWindowInstance === 'function') {
             window.initExplorerWindowInstance(container);
+        }
+        if (typeof window.preloadExplorerAdvancedChrome === 'function') {
+            window.preloadExplorerAdvancedChrome();
         }
         if (typeof window.resetFileExplorerSlotBindings === 'function') {
             window.resetFileExplorerSlotBindings(container);

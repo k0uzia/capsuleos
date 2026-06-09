@@ -61,6 +61,11 @@
         "template": "update_manager_ubuntu.html",
         "chromeProvider": "update-manager-ubuntu"
       }
+    },
+    "linux-kde-neon": {
+      "update_manager": {
+        "template": "update_manager_kde_neon.html"
+      }
     }
   },
   "registryOverrides": {

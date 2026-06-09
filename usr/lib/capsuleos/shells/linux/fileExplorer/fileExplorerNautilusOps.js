@@ -14,8 +14,8 @@
             || global.document.querySelector('div.windowElement#nemo[data-link="nemo"]');
     };
 
-    const isNautilusGnome = () => (
-        typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
+    const usesAdvancedExplorerOps = () => (
+        typeof global.usesAdvancedExplorerOps === 'function' && global.usesAdvancedExplorerOps()
     );
 
     const getState = () => global.fileExplorerState || null;
@@ -153,6 +153,38 @@
         syncPasteMenuState();
     };
 
+    const isPasteDestinationValid = (destPath) => {
+        if (!destPath) {
+            return false;
+        }
+        if (typeof global.isCapsuleVirtualPlace === 'function' && global.isCapsuleVirtualPlace(destPath)) {
+            return false;
+        }
+        if (typeof global.CapsuleExplorerVfs !== 'undefined'
+            && global.CapsuleExplorerVfs.isExplorerVfsPath
+            && global.CapsuleExplorerVfs.isExplorerVfsPath(destPath)) {
+            return false;
+        }
+        return true;
+    };
+
+    const resolvePasteDestination = (state, destPath) => {
+        if (destPath) {
+            return destPath;
+        }
+        const profile = global.__nautilusContextMenuProfile || 'background';
+        if (profile === 'item-folder') {
+            const links = getSelectedItemLinks();
+            if (links.length === 1 && links[0].dataset.itemType === 'folder') {
+                const folderPath = links[0].dataset.itemTargetPath;
+                if (folderPath) {
+                    return folderPath;
+                }
+            }
+        }
+        return state && state.currentPath;
+    };
+
     const isContextActionDisabled = (action, state, selectedCount) => {
         const path = state && state.currentPath;
         const profile = global.__nautilusContextMenuProfile || 'background';
@@ -170,16 +202,24 @@
             return profile !== 'trash' || !getTrashStore().length;
         }
         if (action === 'open-terminal') {
-            return profile !== 'background' || virtualPlace || vfsPath;
+            const allowedProfile = profile === 'background'
+                || profile === 'item-folder'
+                || profile === 'item';
+            return !allowedProfile || virtualPlace || vfsPath;
         }
         if (action === 'restore-trash' || action === 'delete-forever') {
             return profile !== 'trash-item' || selectedCount === 0;
         }
         if (action === 'paste') {
             const clip = state && state.explorerClipboard;
+            const pasteDest = resolvePasteDestination(state);
             return inTrashContext
                 || !(clip && Array.isArray(clip.entries) && clip.entries.length
-                    && path && !virtualPlace && !vfsPath);
+                    && isPasteDestinationValid(pasteDest));
+        }
+        if (action === 'copy-location') {
+            const onItem = profile === 'item-folder' || profile === 'item-file' || profile === 'item';
+            return inTrashContext || !onItem || selectedCount !== 1;
         }
         if (['rename', 'open', 'open-with'].includes(action)) {
             return selectedCount !== 1 || inTrashContext;
@@ -221,6 +261,55 @@
         syncPasteMenuState();
     };
 
+    const entryLocationPath = (entry) => {
+        if (!entry) {
+            return '';
+        }
+        if (entry.targetPath) {
+            return entry.targetPath;
+        }
+        if (entry.parentPath && entry.name) {
+            return `${entry.parentPath}/${entry.name}`;
+        }
+        if (entry.parentPath && entry.name) {
+            return `${entry.parentPath}/${entry.name}`;
+        }
+        return entry.parentPath || '';
+    };
+
+    const writeTextToClipboard = async (text) => {
+        if (!text) {
+            return false;
+        }
+        try {
+            if (global.navigator && global.navigator.clipboard && global.navigator.clipboard.writeText) {
+                await global.navigator.clipboard.writeText(text);
+                return true;
+            }
+        } catch (error) {
+            /* fallback */
+        }
+        return false;
+    };
+
+    const copyExplorerSelectionLocation = async () => {
+        const links = getSelectedItemLinks();
+        let location = '';
+        if (links.length === 1) {
+            location = entryLocationPath(linkToEntry(links[0]));
+        } else {
+            const state = getState();
+            location = state && state.currentPath ? state.currentPath : '';
+        }
+        if (!location) {
+            return { ok: false, message: 'Emplacement indisponible.' };
+        }
+        const copied = await writeTextToClipboard(location);
+        return copied
+            ? { ok: true, path: location }
+            : { ok: false, message: 'Copie d’emplacement indisponible dans ce navigateur.' };
+    };
+
     const copyExplorerSelection = () => {
         const entries = getSelectedItemLinks().map(linkToEntry).filter(Boolean);
         if (!entries.length) {
@@ -242,8 +331,8 @@
     const pasteExplorerClipboard = async (destPath) => {
         const state = getState();
         const clip = state && state.explorerClipboard;
-        const target = destPath || (state && state.currentPath);
-        if (!clip || !clip.entries.length || !target || (global.isCapsuleVirtualPlace && global.isCapsuleVirtualPlace(target))) {
+        const target = resolvePasteDestination(state, destPath);
+        if (!clip || !clip.entries.length || !isPasteDestinationValid(target)) {
             return { ok: false, message: 'Impossible de coller ici.' };
         }
 
@@ -736,7 +825,7 @@
     };
 
     function bindFileExplorerNautilusOps() {
-        if (!isNautilusGnome()) {
+        if (!usesAdvancedExplorerOps()) {
             return;
         }
         syncUndoMenuState();
@@ -749,6 +838,7 @@
     global.collectNautilusSearchEverywhereItems = collectSearchEverywhereItems;
     global.getNautilusVirtualPlaceItems = getVirtualPlaceItems;
     global.copyExplorerSelection = copyExplorerSelection;
+    global.copyExplorerSelectionLocation = copyExplorerSelectionLocation;
     global.cutExplorerSelection = cutExplorerSelection;
     global.pasteExplorerClipboard = pasteExplorerClipboard;
     global.transferExplorerSelectionToPath = transferSelectionToPath;

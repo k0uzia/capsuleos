@@ -1,0 +1,50 @@
+{
+  "registryId": "linux-kde-neon",
+  "campaign": "v4-deep-parity",
+  "campaignStatus": "in_progress",
+  "roadmap": "linux-kde-neon-roadmap-v4.md",
+  "handoff": "linux-kde-neon-v4-p1-handoff.md",
+  "p2Audit": "linux-kde-neon-v4-p2-kickoff-audit.md",
+  "previousCampaign": "v3-full-parity",
+  "v4StartedAt": "2026-06-08T20:15:00.000Z",
+  "v4P0ClosedAt": "2026-06-08T21:00:00.000Z",
+  "v4P1ClosedAt": "2026-06-09T07:22:00.000Z",
+  "pallier": 3,
+  "pallierStatus": "pending",
+  "vm": {
+    "host": "goupil@192.168.123.52",
+    "inventory": "linux-kde-neon-vm.json",
+    "inventoryCollectedAt": "2026-06-08T13:15:05Z",
+    "labConfig": "etc/capsuleos/lab-inventory.json"
+  },
+  "parity": {
+    "doc": "inventaire-parite-neon.md",
+    "index": "linux-kde-neon-parity-index.json",
+    "dolphinDiff": "linux-kde-neon-dolphin-diff.md",
+    "discoverDetailDiff": "linux-kde-neon-discover-detail-diff.md",
+    "cloneStatus": "linux-kde-neon-clone-status.md",
+    "brief": "root/docs/briefs/linux-kde-neon.md",
+    "firefoxToolbar": "linux-kde-neon-firefox-toolbar-matrix.md",
+    "vpResidual": "linux-kde-neon-vp-residual.md"
+  },
+  "priorityQueue": ["mainMenu", "spectacle", "kinfocenter"],
+  "paritySnapshot": {
+    "pi_global": 93,
+    "status_global": "ok",
+    "apps": {
+      "nemo": "v4-p0-closed",
+      "update_manager": "v4-p1-closed",
+      "firefox": "v4-p1-closed",
+      "terminal": "p5-closed"
+    }
+  },
+  "v4P1Deliverables": {
+    "discoverKirigamiLayout": true,
+    "discoverVlcScreenshotsAssets": true,
+    "firefoxProtonLightSkin": true,
+    "visualCompareVpClassified": true,
+    "captureBaselineUpdated": "2026-06-09 (03-dolphin Périphériques, 04-firefox clair, 07-discover-detail-vlc)"
+  },
+  "nextStep": "V4-P2 : Spectacle + Info-centre — stubs kickoff B2/B3",
+  "updatedAt": "2026-06-09T07:25:00.000Z"
+}

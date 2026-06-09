@@ -32,6 +32,19 @@ const SKIN_SCOPES = {
       'usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js',
     ],
   },
+  'linux-kde-neon': {
+    skin: 'home/Debian/KDE-Neon',
+    skinPage: 'home/Debian/KDE-Neon/index.html',
+    scanRoots: [
+      'home/Debian/KDE-Neon',
+      'usr/share/capsuleos/linux/apps',
+      'usr/share/capsuleos/linux/explorers/dolphin',
+    ],
+    kernelExtras: [
+      'usr/lib/capsuleos/shells/linux/tray-popover-kde.js',
+      'usr/lib/capsuleos/shells/linux/plasma-panel-mode.js',
+    ],
+  },
 };
 
 const parseArgs = () => {

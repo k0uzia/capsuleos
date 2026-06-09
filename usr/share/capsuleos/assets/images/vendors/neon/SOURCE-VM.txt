@@ -11,3 +11,8 @@ panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png
 panel/konsole.svg ← /usr/share/icons/breeze/apps/48/utilities-terminal.svg
 panel/discover.svg ← /usr/share/icons/breeze/apps/48/plasmadiscover.svg
 panel/dolphin.svg ← org.kde.dolphin (breeze/hicolor, VM)
+
+# Discover fiche VLC — screenshots VideoLAN (catalogue AppStream + remplacement net)
+discover/screenshots/vlc-screenshot-win7.jpg ← http://images.videolan.org/vlc/screenshots/2.0.0/vlc-2.0-win7.jpg (sha256 17c9b925…)
+discover/screenshots/vlc-screenshot-lion.jpg ← …/vlc-2.0-lion.jpg (sha256 4eceb7ec…)
+discover/screenshots/vlc-screenshot-poney.jpg ← …/vlc-2.0-poney.jpg (sha256 cce040bf…)

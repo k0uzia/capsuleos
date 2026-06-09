@@ -25,7 +25,9 @@
       "level": "toolkit",
       "kernelId": "linux",
       "toolkitId": "kde",
-      "chromeContract": "kde"
+      "chromeContract": "kde",
+      "behaviorsModule": "usr/lib/capsuleos/shells/linux/plasma-panel-mode.js",
+      "trayModule": "usr/lib/capsuleos/shells/linux/tray-popover-kde.js"
     },
     {
       "id": "toolkit.cosmic",

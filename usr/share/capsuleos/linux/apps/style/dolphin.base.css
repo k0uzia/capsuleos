@@ -21,7 +21,7 @@ div[data-link="nemo"] {
     --dolphin-hover: rgba(61, 174, 233, 0.32);
     --dolphin-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
     --dolphin-radius: 5px;
-    --dolphin-sidebar-w: clamp(200px, calc(var(--head) * 7), 280px);
+    --dolphin-sidebar-w: var(--explorer-sidebar-width);
 
     --dolphin-header-gradient-start: #323232;
     --dolphin-header-gradient-end: #2b2b2b;
@@ -105,12 +105,12 @@ div[data-link="nemo"] .dolphin-app #nemoHeaderContainer {
     border-bottom: 1px solid var(--dolphin-chrome-border);
     box-shadow: none;
     height: auto;
-    min-height: calc(var(--head) * 1.35);
+    min-height: var(--explorer-titlebar-min-height);
 }
 
 div[data-link="nemo"] .dolphin-app #nemoHeaderContainer .menuHeader a,
 div[data-link="nemo"] .dolphin-app #nemoHeaderContainer .menuOutils a {
-    font-size: calc(var(--head) / 2.2);
+    font-size: var(--explorer-font-md);
     font-weight: 500;
     letter-spacing: 0.01em;
 }
@@ -404,7 +404,7 @@ div[data-link="nemo"] .dolphin-app .dolphin-sidebar__removable-label {
 
 div[data-link="nemo"] .dolphin-app .dolphin-sidebar__eject {
     opacity: 0.65;
-    font-size: calc(var(--head) / 2.2);
+    font-size: var(--explorer-font-md);
 }
 
 div[data-link="nemo"] .dolphin-app .nemo-app__content-wrap.dolphin-content-wrap {
@@ -498,12 +498,13 @@ div[data-link="nemo"] #windowTitle {
 /* === Dolphin central themes/layout === */
 /**
  * Dolphin Breeze — thèmes centralisés (clair / sombre).
- * Skins KDE : openSUSE + Debian-KDE = clair ; MX-KDE = sombre (clair si html[data-theme="light"]).
+ * Skins KDE : openSUSE + Debian-KDE + KDE Neon = clair ; MX-KDE = sombre (clair si html[data-theme="light"]).
  */
 
 /* ── Thème clair ── */
 body#opensuse div[data-link="nemo"],
 body#debian-kde div[data-link="nemo"],
+html[data-theme="light"] body#kde-neon div[data-link="nemo"],
 html[data-theme="light"] body#mx-kde div[data-link="nemo"] {
     --dolphin-chrome: #eff0f1;
     --dolphin-chrome-border: #bdc3c7;
@@ -591,6 +592,7 @@ html[data-theme="light"] body#mx-kde div[data-link="nemo"] {
 
 body#opensuse div[data-link="nemo"] .dolphin-app,
 body#debian-kde div[data-link="nemo"] .dolphin-app,
+html[data-theme="light"] body#kde-neon div[data-link="nemo"] .dolphin-app,
 html[data-theme="light"] body#mx-kde div[data-link="nemo"] .dolphin-app {
     --nemo-bg-primary: var(--dolphin-view);
     --nemo-header-bg: var(--dolphin-chrome);
@@ -685,6 +687,115 @@ body#mx-kde div[data-link="nemo"] {
     --dolphin-pathbar-font-size: calc(var(--head) / 2.55);
 }
 
+/* ── KDE Neon sombre (bascule html[data-theme]) ── */
+html:not([data-theme="light"]) body#kde-neon div[data-link="nemo"] {
+    --dolphin-chrome: #31363b;
+    --dolphin-chrome-border: #3e4450;
+    --dolphin-view: #232629;
+    --dolphin-sidebar: #2a2e32;
+    --dolphin-sidebar-border: #3a3f47;
+    --dolphin-text: #eff0f1;
+    --dolphin-text-muted: #9aa0a6;
+    --dolphin-toolbar-text: #eff0f1;
+    --dolphin-accent: #3daee9;
+    --dolphin-accent-soft: rgba(61, 174, 233, 0.24);
+    --dolphin-accent-ring: rgba(61, 174, 233, 0.4);
+    --dolphin-hover: rgba(61, 174, 233, 0.2);
+    --dolphin-shadow: 0 8px 24px rgba(0, 0, 0, 0.42);
+    --dolphin-header-gradient-start: #31363b;
+    --dolphin-header-gradient-end: #31363b;
+    --dolphin-menu-surface-bg: #31363b;
+    --dolphin-content-split-border: #3a3f47;
+    --dolphin-icon-filter-sidebar: brightness(0) invert(1);
+    --dolphin-icon-filter-toolbar: brightness(0) invert(1);
+    --dolphin-icon-opacity-sidebar: 0.88;
+    --dolphin-folder-filter-grid: brightness(1.08) saturate(1.2);
+    --dolphin-pathbar-border-strong: #4a525e;
+    --dolphin-sidebar-active-bg: rgba(61, 174, 233, 0.28);
+    --dolphin-sidebar-hover-bg: rgba(61, 174, 233, 0.14);
+    --dolphin-grid-item-hover-bg: rgba(61, 174, 233, 0.16);
+    --dolphin-grid-item-hover-outline: rgba(61, 174, 233, 0.45);
+    --dolphin-grid-selected-bg: rgba(61, 174, 233, 0.2);
+    --dolphin-grid-selected-outline: #3daee9;
+    --dolphin-pill-text: #eff0f1;
+    --dolphin-pill-bg: rgba(35, 38, 41, 0.88);
+    --dolphin-pill-border: rgba(255, 255, 255, 0.12);
+    --dolphin-pill-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --dolphin-usage-track-bg: #42484f;
+    --dolphin-usage-fill-start: #3daee9;
+    --dolphin-usage-fill-end: #2980b9;
+    --dolphin-window-header-start: #31363b;
+    --dolphin-window-header-end: #31363b;
+    --dolphin-window-header-active-start: #3d444b;
+    --dolphin-window-header-active-end: #3d444b;
+    --dolphin-window-title-fg: #eff0f1;
+    --dolphin-window-titlebar-border: rgba(255, 255, 255, 0.08);
+    --dolphin-titlebar-height: calc(var(--head) * 0.9);
+    --dolphin-titlebar-font-size: calc(var(--head) / 2.72);
+    --dolphin-titlebar-app-icon: calc(var(--head) / 2.5);
+    --dolphin-titlebar-pin-icon: calc(var(--head) / 2.85);
+    --dolphin-titlebar-control-size: calc(var(--head) / 1.78);
+    --dolphin-titlebar-glyph-size: calc(var(--head) / 2.95);
+    --dolphin-window-shell-border: #3a3f47;
+    --dolphin-sidebar-w: clamp(178px, calc(var(--head) * 4.8), 208px);
+    --nemo-toolbar-icon-filter: brightness(0) invert(1);
+    --dolphin-toolbar-margin-top: 0;
+    --dolphin-toolbar-pad-top-bottom: calc(var(--head) / 8);
+    --dolphin-toolbar-pad-right: calc(var(--head) / 11);
+    --dolphin-toolbar-pad-left: calc(var(--head) / 22);
+    --dolphin-toolbar-gap: calc(var(--head) / 12);
+    --dolphin-actions-gap: calc(var(--head) / 13);
+    --dolphin-actions-right-offset: calc(var(--head) / 5.5);
+    --dolphin-actions-icon-shift-x: calc(var(--head) / -4.2);
+    --dolphin-split-min-width: calc(var(--head) * 1.45);
+    --dolphin-split-pad-right: calc(var(--head) / 9.5);
+    --dolphin-split-pad-left: calc(var(--head) / 15);
+    --dolphin-split-gap: calc(var(--head) / 20);
+    --dolphin-split-margin-right: calc(var(--head) / 10);
+    --dolphin-content-grid-pad-x: calc(var(--head) / 1.25);
+    --dolphin-nav-block-width: calc((var(--head) / 1.32) * 5 + var(--head) / 7);
+    --dolphin-path-gap: calc(var(--head) / 9.5);
+    --dolphin-path-left-offset: max(
+        0px,
+        calc(
+            (
+                var(--dolphin-sidebar-w) + var(--dolphin-content-grid-pad-x) -
+                var(--dolphin-toolbar-pad-left) - var(--dolphin-nav-block-width) -
+                var(--dolphin-toolbar-gap)
+            ) * 3 / 8
+        )
+    );
+    --dolphin-path-right-offset: 0;
+    --dolphin-crumb-left: calc(var(--head) / 6.8);
+    --dolphin-pathbar-min-height: calc(var(--head) / 1.42);
+    --dolphin-pathbar-padding-left: calc(var(--head) / 4.6);
+    --dolphin-pathbar-padding-right: calc(var(--head) / 5.4);
+    --dolphin-pathbar-font-size: calc(var(--head) / 2.55);
+}
+
+html:not([data-theme="light"]) body#kde-neon div[data-link="nemo"] .dolphin-app {
+    --nemo-bg-primary: var(--dolphin-view);
+    --nemo-header-bg: var(--dolphin-chrome);
+    --nemo-border: var(--dolphin-chrome-border);
+    --nemo-text-primary: var(--dolphin-text);
+    --nemo-text-muted: var(--dolphin-text-muted);
+    --nemo-item-active-bg: var(--dolphin-accent-soft);
+    --nemo-menu-surface-bg: var(--dolphin-menu-surface-bg);
+    --nemo-toolbar-bg: var(--dolphin-chrome);
+    --nemo-toolbar-border: var(--dolphin-chrome-border);
+    --nemo-toolbar-button-border: #4a525e;
+    --nemo-toolbar-button-bg: linear-gradient(180deg, #3a4048 0%, #31363b 100%);
+    --nemo-toolbar-button-hover-bg: linear-gradient(180deg, #424850 0%, #383d44 100%);
+    --nemo-pathbar-bg: #2a2e32;
+    --nemo-pathbar-border: #4a525e;
+    --nemo-pathbar-text: var(--dolphin-text);
+    --nemo-sidebar-bg: var(--dolphin-sidebar);
+    --nemo-footer-bg: var(--dolphin-chrome);
+    --nemo-status-text: var(--dolphin-text-muted);
+    --nemo-toolbar-icon-filter: var(--dolphin-icon-filter-toolbar);
+    --nemo-accent: var(--dolphin-accent);
+}
+
 /**
  * Dolphin — layout Breeze partagé (toolbar, titlebar, grille, footer).
  * Couleurs : themes.css (clair / sombre).
@@ -773,13 +884,13 @@ div[data-link="nemo"] #windowHeader > nav:first-child::after {
 }
 
 div[data-link="nemo"] #windowHeader > nav:first-child::before {
-    background-image: url("../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/org.kde.dolphin.svg");
+    background-image: url("../../../assets/images/toolkits/kde/apps/org.kde.dolphin.svg");
 }
 
 div[data-link="nemo"] #windowHeader > nav:first-child::after {
     width: var(--dolphin-titlebar-pin-icon);
     height: var(--dolphin-titlebar-pin-icon);
-    background-image: url("../../../../../../usr/share/capsuleos/assets/icons/kde/nemo/add-pin.svg");
+    background-image: url("../../../assets/icons/kde/nemo/add-pin.svg");
     opacity: 0.78;
 }
 
@@ -835,7 +946,7 @@ div[data-link="nemo"] #windowHeader > nav:last-child > button {
 }
 
 div[data-link="nemo"] #windowHeader > nav:last-child > button#minimizeBtn {
-    background-image: url("../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg");
+    background-image: url("../../../assets/images/toolkits/kde/header/minimize.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -844,7 +955,7 @@ div[data-link="nemo"] #windowHeader > nav:last-child > button#minimizeBtn {
 }
 
 div[data-link="nemo"] #resizeBtn {
-    background-image: url("../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-restore.svg");
+    background-image: url("../../../assets/images/toolkits/kde/header/window-restore.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -853,7 +964,7 @@ div[data-link="nemo"] #resizeBtn {
 }
 
 div[data-link="nemo"] #closeBtn {
-    background-image: url("../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/window-close.svg");
+    background-image: url("../../../assets/images/toolkits/kde/header/window-close.svg");
     background-size: var(--dolphin-titlebar-glyph-size);
     background-repeat: no-repeat;
     background-position: center;
@@ -923,6 +1034,50 @@ div[data-link="nemo"] .dolphin-app .nemo-app__toolbar.dolphin-toolbar > .sousMen
 div[data-link="nemo"] .dolphin-app .dolphin-toolbar__nav {
     order: 1;
     margin-right: calc(var(--head) / 28);
+}
+
+/* Icônes toolbar Dolphin (spans .dolphin-ico dans shell.html) */
+div[data-link="nemo"] .dolphin-app .dolphin-ico {
+    display: inline-block;
+    width: calc(var(--head) / 2.05);
+    height: calc(var(--head) / 2.05);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: var(--dolphin-icon-filter-toolbar);
+    opacity: 0.9;
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--back {
+    background-image: url("../../../assets/icons/kde/nemo/go-previous-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--forward {
+    background-image: url("../../../assets/icons/kde/nemo/go-next-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-grid {
+    background-image: url("../../../assets/icons/kde/nemo/view-grid-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-compact {
+    background-image: url("../../../assets/icons/kde/nemo/view-compact-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--view-list {
+    background-image: url("../../../assets/icons/kde/nemo/view-list-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--search {
+    background-image: url("../../../assets/icons/kde/nemo/search-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--preview {
+    background-image: url("../../../assets/icons/kde/nemo/view-preview-symbolic.svg");
+}
+
+div[data-link="nemo"] .dolphin-app .dolphin-ico--split {
+    background-image: url("../../../assets/icons/kde/nemo/view-split-left-right.svg");
 }
 
 div[data-link="nemo"] .dolphin-app .dolphin-toolbar__view {
@@ -1258,7 +1413,7 @@ body#mx-kde div[data-link="nemo"] #windowHeader > nav:last-child > button {
 }
 
 body#mx-kde div[data-link="nemo"] #minimizeBtn {
-    background-image: url("../../../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/go-down.svg");
+    background-image: url("../../../assets/images/toolkits/kde/header/go-down.svg");
     filter: brightness(0) invert(1);
 }
 
@@ -1272,13 +1427,12 @@ html[data-theme="light"] #mx-kde div[data-link="nemo"] #minimizeBtn {
     filter: brightness(0) saturate(100%);
 }
 
-.nemo-app__drop-target {
-    outline: 2px dashed var(--menu-accent, var(--nemo-accent, #3daee9));
-    outline-offset: -2px;
-    background-color: color-mix(in srgb, var(--menu-accent, var(--nemo-accent, #3daee9)) 14%, transparent);
+div[data-link="nemo"] .nemo-app__drop-target {
+    outline: 2px dashed var(--dolphin-accent, #3daee9);
+    outline-offset: -4px;
+    background: rgba(61, 174, 233, 0.12);
 }
 
-a.nemo-app__item--dragging {
+div[data-link="nemo"] a[data-item-name].nemo-app__item--dragging {
     opacity: 0.55;
 }
-

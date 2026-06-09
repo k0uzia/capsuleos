@@ -27,10 +27,12 @@ description: CapsuleOS distribution openSUSE Tumbleweed (linux-opensuse) — lin
 | Ordre | Skill |
 |-------|--------|
 | 1 | `onboarding` |
-| 2 | `os-linux` (famille) |
-| 3 | `capsuleos-vendor-opensuse` (vendor) |
-| 4 | `capsuleos-distro-linux-opensuse` (cette fiche) |
-| 5 | `capsuleos-lang-*` selon fichiers |
+| 2 | `os-clone-from-vm` |
+| 3 | `kde-hig-replication` (HIG officiel — Breeze, patterns Plasma) |
+| 4 | `os-linux` (famille) |
+| 5 | `capsuleos-vendor-opensuse` (vendor) |
+| 6 | `capsuleos-distro-linux-opensuse` (cette fiche) |
+| 7 | `capsuleos-lang-*` selon fichiers |
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-opensuse`
 

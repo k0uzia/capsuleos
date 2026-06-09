@@ -36,55 +36,9 @@
         }
       ]
     },
-    "../../../home/public/Images/screen_OpenSUSE": {
-      "label": "screen_OpenSUSE",
-      "items": [
-        {
-          "type": "file",
-          "name": "calendar.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/calendar.png"
-        },
-        {
-          "type": "file",
-          "name": "desk.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/desk.png"
-        },
-        {
-          "type": "file",
-          "name": "Dolphin.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/Dolphin.png"
-        },
-        {
-          "type": "file",
-          "name": "menu.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/menu.png"
-        },
-        {
-          "type": "file",
-          "name": "search.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/search.png"
-        },
-        {
-          "type": "file",
-          "name": "terminal.png",
-          "extension": "png",
-          "href": "../../../home/public/Images/screen_OpenSUSE/terminal.png"
-        }
-      ]
-    },
     "../../../home/public/Images": {
       "label": "Images",
       "items": [
-        {
-          "type": "folder",
-          "name": "screen_OpenSUSE",
-          "path": "../../../home/public/Images/screen_OpenSUSE"
-        },
         {
           "type": "file",
           "name": "lunaire-bureau.png",

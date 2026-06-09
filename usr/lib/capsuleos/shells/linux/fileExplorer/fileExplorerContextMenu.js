@@ -67,6 +67,14 @@
         return false;
     };
 
+    const isDolphinScope = (scope) => {
+        const root = resolveContextMenuRoot(scope);
+        if (queryScopeMain(root, 'main#gestionnaire.dolphin-app')) {
+            return true;
+        }
+        return typeof global.isDolphinTemplate === 'function' && global.isDolphinTemplate();
+    };
+
     /* ── GNOME Nautilus (shell-gnome.html, #nemo-context-menu) ── */
 
     let contextTarget = null;
@@ -92,7 +100,26 @@
         if (path === trashPlace) {
             return target ? 'trash-item' : 'trash';
         }
-        return target ? 'item' : 'background';
+        if (!target) {
+            return 'background';
+        }
+        if (isDolphinScope(root)) {
+            const itemType = target.dataset && target.dataset.itemType === 'folder' ? 'folder' : 'file';
+            return itemType === 'folder' ? 'item-folder' : 'item-file';
+        }
+        return 'item';
+    };
+
+    const syncDolphinContextLabels = (menu, profile) => {
+        menu.querySelectorAll('[data-dolphin-ctx-label-folder]').forEach((labelNode) => {
+            const folderLabel = labelNode.dataset.dolphinCtxLabelFolder;
+            const fileLabel = labelNode.dataset.dolphinCtxLabelFile;
+            if (profile === 'item-file' && fileLabel) {
+                labelNode.textContent = fileLabel;
+            } else if (folderLabel) {
+                labelNode.textContent = folderLabel;
+            }
+        });
     };
 
     const applyMenuScope = (menu, profile) => {
@@ -100,9 +127,15 @@
         global.__nautilusContextMenuProfile = contextProfile;
         menu.querySelectorAll('[data-nemo-ctx-scope]').forEach((node) => {
             const scopes = String(node.dataset.nemoCtxScope || '').split(/\s+/).filter(Boolean);
-            const show = scopes.includes(profile) || scopes.includes('both');
+            const show = scopes.includes(profile)
+                || scopes.includes('both')
+                || (profile === 'item-folder' && scopes.includes('item'))
+                || (profile === 'item-file' && scopes.includes('item'));
             node.hidden = !show;
         });
+        if (isDolphinScope()) {
+            syncDolphinContextLabels(menu, profile);
+        }
         if (typeof global.syncNautilusClipboardUi === 'function') {
             global.syncNautilusClipboardUi();
         }
@@ -398,7 +431,7 @@
     };
 
     function bindNautilusGnomeContextMenu(scope) {
-        if (!isNautilusGnomeScope(scope)) {
+        if (!isNautilusGnomeScope(scope) && !isDolphinScope(scope)) {
             return;
         }
         const root = scope || getNemoRoot();
@@ -575,7 +608,7 @@
         if (!root) {
             return;
         }
-        if (isNautilusGnomeScope(root)) {
+        if (isDolphinScope(root) || isNautilusGnomeScope(root)) {
             bindNautilusGnomeContextMenu(root);
             if (root.dataset.nemoContextMenuInit === 'true') {
                 return;

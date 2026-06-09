@@ -1,29 +1,33 @@
 <section class="menu-root menu-root--plasma" aria-label="Menu des applications">
 
     <header class="menu-plasma-header">
-        <div class="menu-user" aria-label="Utilisateur">
-            <span class="menu-user__avatar" aria-hidden="true"></span>
-            <span class="menu-user__name" data-capsule-text="mainMenu.userName">capsule</span>
+        <div class="menu-plasma-header__sidebar">
+            <div class="menu-user" aria-label="Utilisateur">
+                <span class="menu-user__avatar" aria-hidden="true"></span>
+                <span class="menu-user__name" data-capsule-text="mainMenu.userName">capsule</span>
+            </div>
         </div>
-        <div class="menu-search-wrap">
-            <input
-                type="search"
-                class="menu-search"
-                id="menu-search"
-                data-capsule-attr="placeholder:mainMenu.searchPlaceholder,aria-label:mainMenu.searchPlaceholder"
-                placeholder="Rechercher…"
-                autocomplete="off"
-                spellcheck="false"
-                enterkeyhint="search"
-            >
-            <button type="button" class="menu-search-clear" id="menu-search-clear" hidden
-                    data-capsule-attr="aria-label:mainMenu.searchClear" aria-label="Effacer la recherche"></button>
-        </div>
-        <div class="menu-plasma-chrome" aria-label="Actions du menu">
-            <button type="button" class="menu-plasma-chrome__btn" id="menu-btn-filter"
-                    data-capsule-attr="title:mainMenu.filterTitle,aria-label:mainMenu.filterTitle" title="Filtres" aria-label="Filtres"></button>
-            <button type="button" class="menu-plasma-chrome__btn" id="menu-btn-pin"
-                    data-capsule-attr="title:mainMenu.pinTitle,aria-label:mainMenu.pinTitle" title="Épingler" aria-label="Épingler"></button>
+        <div class="menu-plasma-header__main">
+            <div class="menu-search-wrap">
+                <input
+                    type="search"
+                    class="menu-search"
+                    id="menu-search"
+                    data-capsule-attr="placeholder:mainMenu.searchPlaceholder,aria-label:mainMenu.searchPlaceholder"
+                    placeholder="Rechercher…"
+                    autocomplete="off"
+                    spellcheck="false"
+                    enterkeyhint="search"
+                >
+                <button type="button" class="menu-search-clear" id="menu-search-clear" hidden
+                        data-capsule-attr="aria-label:mainMenu.searchClear" aria-label="Effacer la recherche"></button>
+            </div>
+            <div class="menu-plasma-chrome" aria-label="Actions du menu">
+                <button type="button" class="menu-plasma-chrome__btn" id="menu-btn-filter"
+                        data-capsule-attr="title:mainMenu.filterTitle,aria-label:mainMenu.filterTitle" title="Filtres" aria-label="Filtres"></button>
+                <button type="button" class="menu-plasma-chrome__btn" id="menu-btn-pin"
+                        data-capsule-attr="title:mainMenu.pinTitle,aria-label:mainMenu.pinTitle" title="Épingler" aria-label="Épingler"></button>
+            </div>
         </div>
     </header>
 

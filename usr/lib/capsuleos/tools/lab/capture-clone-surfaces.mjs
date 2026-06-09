@@ -15,6 +15,8 @@ import { fileURLToPath } from 'url';
 import { listCloneTargets } from '../clone-checkpoints-lib.mjs';
 import { getCaptureShots } from './clone-capture-scenarios.mjs';
 
+const CAPTURE_CLOCK_ISO = '2026-06-08T14:30:00+02:00';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const REGISTRY = path.join(ROOT, 'etc/capsuleos/os-registry.json');
@@ -64,8 +66,26 @@ const captureOne = async (registryId, chromium, options = {}) => {
   });
 
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  await page.clock.install({ time: new Date(CAPTURE_CLOCK_ISO) });
   await page.goto(URL, { waitUntil: 'networkidle', timeout: 30000 });
-  await sleep(page, 500);
+  await page.evaluate((iso) => {
+    const fixed = new Date(iso);
+    const clock = document.getElementById('taskbar-clock');
+    const dateLabel = document.getElementById('taskbar-date');
+    const shortTime = fixed.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    if (clock) {
+      clock.textContent = shortTime;
+      clock.setAttribute('datetime', fixed.toISOString());
+    }
+    if (dateLabel) {
+      dateLabel.textContent = fixed.toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+    }
+  }, CAPTURE_CLOCK_ISO);
+  await sleep(page, 400);
 
   const manifest = { id: registryId, url: URL, stamp, captures: [] };
 

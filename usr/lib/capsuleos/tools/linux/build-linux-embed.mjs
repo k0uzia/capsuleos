@@ -39,6 +39,7 @@ const EXPLORER_TEMPLATES = {
 };
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
+const KDE_NEON_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde_neon.html');
 const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
 const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
 const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
@@ -189,10 +190,15 @@ function main() {
     }
 
     if (fs.existsSync(KDE_UPDATE_MANAGER_HTML)) {
-        for (const skinKey of ['opensuse', 'mxkde', 'kde-neon']) {
+        for (const skinKey of ['opensuse', 'mxkde']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].update_manager = { html: readUtf8(KDE_UPDATE_MANAGER_HTML) };
         }
+    }
+
+    if (fs.existsSync(KDE_NEON_UPDATE_MANAGER_HTML)) {
+        skinTemplates['kde-neon'] = skinTemplates['kde-neon'] || {};
+        skinTemplates['kde-neon'].update_manager = { html: readUtf8(KDE_NEON_UPDATE_MANAGER_HTML) };
     }
 
     if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {

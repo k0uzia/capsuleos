@@ -16,6 +16,14 @@
         typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
     );
 
+    const isDolphin = () => (
+        typeof global.isDolphinTemplate === 'function' && global.isDolphinTemplate()
+    );
+
+    const usesAdvancedExplorerOps = () => (
+        typeof global.usesAdvancedExplorerOps === 'function' && global.usesAdvancedExplorerOps()
+    );
+
     const focusSearchInput = (selectAll) => {
         const root = getNemoRoot();
         const input = root && root.querySelector('#nemo-search-input');
@@ -118,7 +126,7 @@
         }
 
         global.document.addEventListener('keydown', (event) => {
-            if (!isNautilusGnome()) {
+            if (!usesAdvancedExplorerOps()) {
                 return;
             }
             const win = getNemoRoot();
@@ -135,7 +143,7 @@
             const ctrl = event.ctrlKey || event.metaKey;
             const key = event.key;
 
-            if (ctrl && !event.shiftKey && (key === 'l' || key === 'L')) {
+            if (!isDolphin() && ctrl && !event.shiftKey && (key === 'l' || key === 'L')) {
                 event.preventDefault();
                 if (typeof global.setNautilusChromeMode === 'function') {
                     global.setNautilusChromeMode('location');
@@ -149,7 +157,9 @@
 
             if (ctrl && !event.shiftKey && (key === 'f' || key === 'F')) {
                 event.preventDefault();
-                if (typeof global.setNautilusChromeMode === 'function') {
+                if (isDolphin() && typeof global.openDolphinSearchBar === 'function') {
+                    global.openDolphinSearchBar();
+                } else if (typeof global.setNautilusChromeMode === 'function') {
                     global.setNautilusChromeMode('search-folder');
                 } else {
                     focusSearchInput(true);
@@ -165,7 +175,7 @@
                 return;
             }
 
-            if (ctrl && !event.shiftKey && key === '1') {
+            if (!isDolphin() && ctrl && !event.shiftKey && key === '1') {
                 event.preventDefault();
                 if (typeof global.setFileExplorerViewMode === 'function') {
                     global.setFileExplorerViewMode('icons');
@@ -173,7 +183,7 @@
                 return;
             }
 
-            if (ctrl && !event.shiftKey && key === '2') {
+            if (!isDolphin() && ctrl && !event.shiftKey && key === '2') {
                 event.preventDefault();
                 if (typeof global.setFileExplorerViewMode === 'function') {
                     global.setFileExplorerViewMode('list');
@@ -189,7 +199,7 @@
                 return;
             }
 
-            if (ctrl && !event.shiftKey && (key === 't' || key === 'T')) {
+            if (!isDolphin() && ctrl && !event.shiftKey && (key === 't' || key === 'T')) {
                 event.preventDefault();
                 if (typeof global.openNautilusTab === 'function') {
                     const root = typeof global.getFileExplorerRoot === 'function'
@@ -200,7 +210,7 @@
                 return;
             }
 
-            if (ctrl && !event.shiftKey && (key === 'n' || key === 'N')) {
+            if (!isDolphin() && ctrl && !event.shiftKey && (key === 'n' || key === 'N')) {
                 event.preventDefault();
                 if (typeof global.openNewWindowByDataLink === 'function') {
                     global.openNewWindowByDataLink('nemo');
@@ -210,10 +220,27 @@
                 return;
             }
 
-            if (ctrl && !event.shiftKey && (key === 'd' || key === 'D')) {
+            if (!isDolphin() && ctrl && !event.shiftKey && (key === 'd' || key === 'D')) {
                 event.preventDefault();
                 if (typeof global.addNautilusBookmark === 'function') {
                     global.addNautilusBookmark();
+                }
+                return;
+            }
+
+            if (ctrl && event.altKey && !event.shiftKey && (key === 'c' || key === 'C')) {
+                event.preventDefault();
+                if (typeof global.copyExplorerSelectionLocation === 'function') {
+                    global.copyExplorerSelectionLocation().then((result) => {
+                        if (typeof global.setExplorerStatusMessage !== 'function') {
+                            return;
+                        }
+                        if (result && result.ok) {
+                            global.setExplorerStatusMessage(`Emplacement copié : ${result.path}`);
+                        } else if (result && result.message) {
+                            global.setExplorerStatusMessage(result.message);
+                        }
+                    });
                 }
                 return;
             }
@@ -280,6 +307,30 @@
                 if (typeof global.renameExplorerSelection === 'function') {
                     global.renameExplorerSelection();
                 }
+                return;
+            }
+
+            const openSelectedExplorerProperties = () => {
+                const selected = win.querySelector('a.nemo-app__item--selected[data-item-name]');
+                let item = null;
+                if (selected && selected.dataset) {
+                    item = {
+                        name: selected.dataset.itemName,
+                        type: selected.dataset.itemType || 'file',
+                        folderPath: selected.dataset.itemFolderPath || '',
+                        targetPath: selected.dataset.itemTargetPath || '',
+                        href: selected.dataset.itemHref || '',
+                    };
+                }
+                if (typeof global.openExplorerProperties === 'function') {
+                    global.openExplorerProperties(item);
+                }
+            };
+
+            if (event.altKey && !ctrl && !event.shiftKey
+                && (key === 'Enter' || key === 'Backspace' || key === 'BrowserBack')) {
+                event.preventDefault();
+                openSelectedExplorerProperties();
                 return;
             }
 
@@ -417,17 +468,18 @@
     };
 
     function bindFileExplorerNautilusFeatures() {
-        if (!isNautilusGnome()) {
-            return;
-        }
         const root = getNemoRoot();
         if (!root) {
             return;
         }
-        bindNewFolderButton(root);
-        bindLocationBar(root);
-        bindNetworkPlaceChrome(root);
-        bindKeyboardShortcuts(root);
+        if (isNautilusGnome()) {
+            bindNewFolderButton(root);
+            bindLocationBar(root);
+            bindNetworkPlaceChrome(root);
+        }
+        if (usesAdvancedExplorerOps()) {
+            bindKeyboardShortcuts(root);
+        }
     }
 
     global.bindFileExplorerNautilusFeatures = bindFileExplorerNautilusFeatures;

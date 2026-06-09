@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-06-05",
+  "updated": "2026-06-08",
   "description": "Répertoire canonique CapsuleOS — gel noyau (0 active) ; source unique portail, agents, CI.",
   "tiers": {
     "P0": "Référence pédagogique — figer, ne pas casser",
@@ -201,7 +201,7 @@
         "skin": "home/Debian/Mint/index.html",
         "embedKey": "mint",
         "bodyId": "mint",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/debian/mint/index.html",
       "skin": "home/Debian/Mint/index.html",
@@ -226,7 +226,7 @@
       "kernelId": "linux",
       "branchId": "ubuntu",
       "vendor": "ubuntu",
-      "displayName": "Ubuntu 26.04 LTS",
+      "displayName": "Ubuntu 25.10",
       "tier": "P0",
       "status": "active",
       "fidelityLevel": 3,
@@ -267,7 +267,7 @@
         "skin": "home/Debian/Ubuntu/index.html",
         "embedKey": "ubuntu",
         "bodyId": "ubuntu",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/debian/ubuntu/index.html",
       "skin": "home/Debian/Ubuntu/index.html",
@@ -333,7 +333,7 @@
         "skin": "home/RedHat/Fedora/index.html",
         "embedKey": "fedora",
         "bodyId": "fedora",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/redhat/fedora/index.html",
       "skin": "home/RedHat/Fedora/index.html",
@@ -391,7 +391,7 @@
         "skin": "home/Debian/MX-KDE/index.html",
         "embedKey": "mxkde",
         "bodyId": "mx-kde",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "assetPacks": [
         "toolkits/kde",
@@ -449,7 +449,7 @@
         "skin": "home/Debian/Debian-KDE/index.html",
         "embedKey": "debiankde",
         "bodyId": "debian-kde",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "licenseNotes": "Breeze ; pack usr/share/capsuleos/assets/icons/kde/",
       "iconPacks": [
@@ -463,9 +463,9 @@
       "branchId": "ubuntu",
       "vendor": "neon",
       "displayName": "KDE neon User Edition",
-      "tier": "P2",
-      "status": "planned",
-      "fidelityLevel": 2,
+      "tier": "P1",
+      "status": "active",
+      "fidelityLevel": 3,
       "kernelSpecVersion": 1,
       "toolkit": {
         "id": "kde",
@@ -503,8 +503,12 @@
         "skin": "home/Debian/KDE-Neon/index.html",
         "embedKey": "kde-neon",
         "bodyId": "kde-neon",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
+      "facade": "OS/linux/families/debian/kde-neon/index.html",
+      "skin": "home/Debian/KDE-Neon/index.html",
+      "embedKey": "kde-neon",
+      "bodyId": "kde-neon",
       "assetPacks": [
         "toolkits/kde",
         "vendors/neon"
@@ -558,7 +562,7 @@
         "skin": "home/SUSE/openSUSE/index.html",
         "embedKey": "opensuse",
         "bodyId": "opensuse",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/suse/opensuse/index.html",
       "skin": "home/SUSE/openSUSE/index.html",
@@ -616,7 +620,7 @@
         "skin": "home/Debian/PopOS/index.html",
         "embedKey": "popos",
         "bodyId": "popos",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/debian/popos/index.html",
       "skin": "home/Debian/PopOS/index.html",
@@ -682,7 +686,7 @@
         "skin": "home/Debian/AnduinOS/index.html",
         "embedKey": "anduinos",
         "bodyId": "anduinos",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/debian/anduinos/index.html",
       "skin": "home/Debian/AnduinOS/index.html",
@@ -740,7 +744,7 @@
         "skin": "home/RedHat/Rocky/index.html",
         "embedKey": "rocky",
         "bodyId": "rocky",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/redhat/rocky/index.html",
       "skin": "home/RedHat/Rocky/index.html",
@@ -1037,7 +1041,7 @@
         "skin": "home/RedHat/Alma/index.html",
         "embedKey": "alma",
         "bodyId": "alma",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/linux/families/redhat/alma/index.html",
       "skin": "home/RedHat/Alma/index.html",
@@ -1444,7 +1448,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/95/index.html",
         "embedKey": "win95",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1499,7 +1503,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/98/index.html",
         "embedKey": "win98",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1554,7 +1558,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/me/index.html",
         "embedKey": "winme",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1609,7 +1613,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/2000/index.html",
         "embedKey": "win2000",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1664,7 +1668,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/xp/index.html",
         "embedKey": "winxp",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1719,7 +1723,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/vista/index.html",
         "embedKey": "winvista",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1774,7 +1778,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/7/index.html",
         "embedKey": "win7",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1829,7 +1833,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/8/index.html",
         "embedKey": "win8",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1884,7 +1888,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/8.1/index.html",
         "embedKey": "win8.1",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -1939,7 +1943,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/10/index.html",
         "embedKey": "win10",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/windows/versions/10/index.html",
       "embedKey": "win10",
@@ -1996,7 +2000,7 @@
       "referencePaths": {
         "facade": "OS/windows/versions/11/index.html",
         "embedKey": "win11",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/windows/versions/11/index.html",
       "embedKey": "win11",
@@ -2053,7 +2057,7 @@
       "referencePaths": {
         "facade": "OS/macos/sonoma/index.html",
         "embedKey": "sonoma",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/macos/sonoma/index.html",
       "embedKey": "sonoma",
@@ -2281,7 +2285,7 @@
       },
       "referencePaths": {
         "facade": "OS/ios/15/index.html",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "facade": "OS/ios/15/index.html",
       "licenseNotes": "Récréation stricte UIKit patterns",
@@ -2416,7 +2420,7 @@
       "referencePaths": {
         "facade": "OS/android/index.html",
         "embedKey": "android",
-        "frozenAt": "2026-06-05"
+        "frozenAt": "2026-06-08"
       },
       "sources": [
         {
@@ -2948,11 +2952,11 @@
   ],
   "stats": {
     "total": 57,
-    "active": 12,
-    "planned": 35,
+    "active": 13,
+    "planned": 34,
     "stub": 10,
     "frozen": false,
-    "reactivated": 12
+    "reactivated": 13
   },
   "assetPolicy": {
     "default": "Icônes FOSS uniquement (Adwaita, Breeze, Papirus, Material Symbols…)",

@@ -105,7 +105,7 @@
 #kde-neon footer .taskbar-pins__launcher > img {
     width: calc(var(--head) * 0.68);
     height: calc(var(--head) * 0.68);
-    filter: var(--opensuse-mono-logo-filter);
+    filter: var(--kde-neon-mono-logo-filter);
 }
 
 /* Discover paraît visuellement plus “plein” → on le réduit un peu pour matcher le dock */
@@ -137,7 +137,7 @@
     justify-content: var(--c);
     align-self: center;
     gap: calc(var(--head) / 12);
-    color: var(--mint-tray-color);
+    color: var(--kde-plasma-tray-color);
     padding: 0 calc(var(--head) / 12);
     border-radius: calc(var(--head) / 10);
     background: var(--mint-taskbar-right-bg);
@@ -166,15 +166,40 @@
 #kde-neon footer .taskbar-tray__btn:hover {
     background: var(--mint-taskbar-item-bg-hover);
     border-color: var(--mint-taskbar-item-border-hover);
+    cursor: default;
+}
+
+#kde-neon footer .taskbar-tray__btn--updates {
+    position: relative;
+}
+
+#kde-neon footer .taskbar-tray__btn--updates[data-has-updates="true"]::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--kde-neon-plasma-accent, #3daee9);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+}
+
+#kde-neon footer .taskbar-tray__btn[aria-expanded="true"] {
+    background: var(--mint-taskbar-item-bg-hover);
+    border-color: var(--mint-taskbar-item-border-hover);
 }
 
 #kde-neon footer .taskbar-tray__link > img,
-#kde-neon footer .taskbar-tray__item > img {
+#kde-neon footer .taskbar-tray__item > img,
+#kde-neon footer .taskbar-tray__btn > img {
     display: var(--bl);
     width: calc(var(--head) * 0.5);
     height: calc(var(--head) * 0.5);
     object-fit: contain;
     opacity: 0.9;
+    filter: var(--kde-neon-tray-icon-filter);
 }
 
 /* Icône volume: le JS applique maskImage sur cet élément (sinon carré plein) */
@@ -206,7 +231,7 @@
     border-top: 2px solid transparent;
     border-radius: calc(var(--head) / 10);
     background: transparent;
-    color: var(--opensuse-plasma-text, var(--texte));
+    color: var(--kde-neon-plasma-text, var(--texte));
     font-family: var(--font-ui);
     font-size: calc(var(--head) / 2.5);
     cursor: default;
@@ -222,7 +247,7 @@
 
 #kde-neon footer .taskbar-clock-trigger[aria-expanded="true"] {
     border-color: var(--mint-taskbar-item-border-hover);
-    border-top-color: var(--opensuse-plasma-accent, #3daee9);
+    border-top-color: var(--kde-neon-plasma-accent, #3daee9);
     background: var(--kde-neon-clock-expanded-bg, rgba(61, 174, 233, 0.1));
 }
 
@@ -270,10 +295,10 @@
 
 #kde-neon footer .taskbar-show-desktop > img {
     display: var(--bl);
-    width: calc(var(--head) * 0.5);
-    height: calc(var(--head) * 0.5);
+    width: calc(var(--head) * 0.46);
+    height: calc(var(--head) * 0.46);
     object-fit: contain;
-    opacity: 0.9;
+    opacity: 0.92;
 }
 
 #kde-neon footer .taskbar-show-desktop:hover {

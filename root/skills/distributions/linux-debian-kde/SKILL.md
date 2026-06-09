@@ -27,10 +27,12 @@ description: CapsuleOS distribution Debian KDE (Plasma) (linux-debian-kde) — l
 | Ordre | Skill |
 |-------|--------|
 | 1 | `onboarding` |
-| 2 | `os-linux` (famille) |
-| 3 | `capsuleos-vendor-debian` (vendor) |
-| 4 | `capsuleos-distro-linux-debian-kde` (cette fiche) |
-| 5 | `capsuleos-lang-*` selon fichiers |
+| 2 | `os-clone-from-vm` |
+| 3 | `kde-hig-replication` (HIG officiel — Breeze, patterns Plasma) |
+| 4 | `os-linux` (famille) |
+| 5 | `capsuleos-vendor-debian` (vendor) |
+| 6 | `capsuleos-distro-linux-debian-kde` (cette fiche) |
+| 7 | `capsuleos-lang-*` selon fichiers |
 
 Brief détaillé : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-debian-kde`
 

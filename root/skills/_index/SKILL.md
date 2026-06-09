@@ -32,6 +32,11 @@ Skills **famille** (transverses) : `os-linux`, `os-windows`, … — inchangés 
 - [gnome-hig-replication](gnome-hig-replication/SKILL.md) — HIG officiel, palette, patterns, outils design (distros toolkit gnome)
 - [design-shell-layout](design-shell-layout/SKILL.md) — templating, espacements `--head`, alignements top bar / Aperçu GNOME
 
+## KDE / HIG
+
+- [kde-hig-replication](kde-hig-replication/SKILL.md) — HIG officiel, Breeze, patterns Kirigami (distros toolkit kde)
+- Doc branche : [branche-plasma-kde.md](../../docs/branche-plasma-kde.md) — panel, Kickoff, Neon référence opérationnelle
+
 ## Contrats UI bureau (4)
 
 - [window-side-effects](window-side-effects/SKILL.md) — effets de bord fenêtres

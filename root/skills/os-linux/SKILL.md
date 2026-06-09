@@ -104,6 +104,10 @@ Distros `toolkit: gnome` (Ubuntu, Fedora, Rocky, AnduinOS) : charger **`gnome-hi
 
 **Ne pas** appliquer les patterns GNOME Shell (overview, dash `toolkits/gnome/apps/dash`) au skin Mint.
 
+## Toolkit KDE (Plasma + Qt/Kirigami)
+
+Distros `toolkit: kde` : charger **`kde-hig-replication`** + [kde-hig-ressources.md](../../docs/kde-hig-ressources.md). Inventaire crawl : `root/docs/inventaires/kde-hig-resources.json`. Branche : [branche-plasma-kde.md](../../docs/branche-plasma-kde.md).
+
 ## Manifeste distribution (tous vendors Linux)
 
 Avant import assets massif : skill **`vm-distribution-manifest`** → `run-manifest-replication-chain.mjs --id <registryId>`.  

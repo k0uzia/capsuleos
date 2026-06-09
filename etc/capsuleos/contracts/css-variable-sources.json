@@ -21,6 +21,7 @@
     "usr/share/capsuleos/themes/clusters/toolkit-*/chrome.css",
     "usr/share/capsuleos/themes/linux/window-chrome.base.css",
     "usr/share/capsuleos/themes/linux/window-chrome.gnome.base.css",
+    "usr/share/capsuleos/themes/linux/gnome-app-csd.base.css",
     "usr/share/capsuleos/themes/linux/window-chrome.interactions.css",
     "usr/share/capsuleos/linux/apps/style/**/*.css",
     "home/**/style/apps/nemo*.css",

@@ -6,8 +6,8 @@
 
     let activeRename = null;
 
-    const isNautilusGnome = () => (
-        typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
+    const usesAdvancedExplorerOps = () => (
+        typeof global.usesAdvancedExplorerOps === 'function' && global.usesAdvancedExplorerOps()
     );
 
     const getRenameLabelNode = (link) => {
@@ -58,6 +58,7 @@
         }
         if (labelNode) {
             labelNode.hidden = false;
+            labelNode.classList.remove('nemo-app__item-name--renaming-host');
             if (restoreOriginal) {
                 labelNode.textContent = originalName;
             }
@@ -143,22 +144,22 @@
         input.spellcheck = false;
 
         let suffixNode = null;
-        labelNode.hidden = true;
         if (!isFolder && parts.suffix) {
             suffixNode = global.document.createElement('span');
             suffixNode.className = 'nemo-app__item-rename-suffix';
             suffixNode.textContent = parts.suffix;
         }
 
-        const host = labelNode.parentElement || link;
+        labelNode.textContent = '';
+        labelNode.classList.add('nemo-app__item-name--renaming-host');
         if (suffixNode) {
             const wrap = global.document.createElement('span');
             wrap.className = 'nemo-app__item-rename-wrap';
             wrap.appendChild(input);
             wrap.appendChild(suffixNode);
-            host.insertBefore(wrap, labelNode.nextSibling);
+            labelNode.appendChild(wrap);
         } else {
-            host.insertBefore(input, labelNode.nextSibling);
+            labelNode.appendChild(input);
         }
 
         link.classList.add('nemo-app__item--renaming');
@@ -231,7 +232,7 @@
     };
 
     function startExplorerInlineRename(link) {
-        if (!isNautilusGnome() || !link) {
+        if (!usesAdvancedExplorerOps() || !link) {
             return { ok: false };
         }
         if (activeRename) {
@@ -286,6 +287,37 @@
         });
     }
 
+    function bindFileExplorerInlineRename(root) {
+        if (!usesAdvancedExplorerOps() || !root) {
+            return;
+        }
+        if (root.dataset.feInlineRenameBound === 'true') {
+            return;
+        }
+        root.addEventListener('keydown', (event) => {
+            if (event.key !== 'F2') {
+                return;
+            }
+            if (event.target && event.target.closest('.nemo-app__item-rename-input')) {
+                return;
+            }
+            if (root.querySelector('.nemo-app__item--renaming')) {
+                return;
+            }
+            event.preventDefault();
+            const selected = root.querySelector('a.nemo-app__item--selected[data-item-name]');
+            if (selected && typeof global.startExplorerInlineRename === 'function') {
+                global.startExplorerInlineRename(selected);
+                return;
+            }
+            if (typeof global.renameExplorerSelection === 'function') {
+                global.renameExplorerSelection();
+            }
+        });
+        root.dataset.feInlineRenameBound = 'true';
+    }
+
+    global.bindFileExplorerInlineRename = bindFileExplorerInlineRename;
     global.startExplorerInlineRename = startExplorerInlineRename;
     global.scheduleExplorerInlineRename = scheduleExplorerInlineRename;
     global.cancelExplorerInlineRename = cancelInlineRename;

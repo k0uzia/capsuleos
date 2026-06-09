@@ -12,8 +12,8 @@
             || global.document.querySelector('div.windowElement#nemo[data-link="nemo"]');
     };
 
-    const isNautilusGnome = () => (
-        typeof global.isNautilusGnomeTemplate === 'function' && global.isNautilusGnomeTemplate()
+    const usesAdvancedExplorerOps = () => (
+        typeof global.usesAdvancedExplorerOps === 'function' && global.usesAdvancedExplorerOps()
     );
 
     const setField = (root, id, value) => {
@@ -119,7 +119,7 @@
     }
 
     function bindFileExplorerProperties() {
-        if (!isNautilusGnome()) {
+        if (!usesAdvancedExplorerOps()) {
             return;
         }
         const root = getNemoRoot();

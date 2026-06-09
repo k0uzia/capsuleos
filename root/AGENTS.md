@@ -91,6 +91,8 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | **Scalabilité statique** | [`root/docs/scalabilite-noyau.md`](docs/scalabilite-noyau.md) · **Lj_fr** défaut, **Lj_en**/QWERTY prévus (§7, `locale-scalability.json`) |
 | **Staffing agents** | [`root/docs/equipe-agentique.md`](docs/equipe-agentique.md) |
 | **Logique formelle (gates & décision)** | [`root/docs/logique-formelle.md`](docs/logique-formelle.md), `.cursor/rules/logique-formelle-capsuleos.mdc` |
+| **GNOME HIG (toolkit gnome)** | [`root/docs/gnome-hig-ressources.md`](docs/gnome-hig-ressources.md), skill [`gnome-hig-replication`](skills/gnome-hig-replication/SKILL.md) |
+| **KDE HIG (toolkit kde)** | [`root/docs/kde-hig-ressources.md`](docs/kde-hig-ressources.md), skill [`kde-hig-replication`](skills/kde-hig-replication/SKILL.md) |
 | **Réplication formelle (tous vendors)** | [`root/docs/procedure-replication-formelle.md`](docs/procedure-replication-formelle.md) |
 | **Socle shell global (terminal)** | [`root/docs/convention-shell-global.md`](docs/convention-shell-global.md), prédicats **Ti–TΣ′** |
 | **Rendu sorties terminal** | [`root/docs/convention-terminal-rendu-sortie.md`](docs/convention-terminal-rendu-sortie.md), **To**, **Tb**, bashrc |

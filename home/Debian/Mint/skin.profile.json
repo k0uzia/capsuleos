@@ -25,11 +25,6 @@
     "id": "cinnamon",
     "shell": "cinnamon"
   },
-  "desktopEnvironment": {
-    "id": "cinnamon",
-    "version": "6.6",
-    "windowManager": "muffin"
-  },
   "assets": {
     "assetsBase": "../../../usr/share/capsuleos/assets",
     "toolkitPack": "toolkits/cinnamon",
@@ -45,9 +40,6 @@
     "CAPSULE_EXPLORER_DISPLAY_NAME": "Nemo",
     "CAPSULE_EXPLORER_TEMPLATE": "nemo",
     "CAPSULE_EMBED_SKIN_KEY": "mint",
-    "CAPSULE_FORCE_APP_EMBED": true,
-    "CAPSULE_SKIN_CSS_VERSION": "20260608pxperfect",
-    "CAPSULE_STATIC_SKIN_SLOTS": ["mainMenu"],
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/mint/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",
@@ -57,6 +49,7 @@
       "explorerTemplate": "nemo",
       "dragMode": "unified-titlebar"
     },
+    "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
     "CAPSULE_TEMPLATE_OVERRIDES": {
       "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
     },

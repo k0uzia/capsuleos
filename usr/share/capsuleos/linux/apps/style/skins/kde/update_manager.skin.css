@@ -12,13 +12,20 @@ main#updateManagerApp.update-manager--kde {
     grid-template-columns: 286px 1fr;
     width: 100%;
     height: 100%;
+    min-height: 0;
+    overflow: hidden;
     background: #ffffff;
 }
 
 .kde-updates__sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: 100%;
     padding: 8px 8px;
     border-right: 1px solid #d9d9d9;
     background: #ffffff;
+    overflow: hidden;
 }
 
 .kde-updates__search {
@@ -66,6 +73,7 @@ main#updateManagerApp.update-manager--kde {
     align-items: center;
     gap: 10px;
     height: 30px;
+    flex-shrink: 0;
     padding: 0 10px;
     border: 1px solid transparent;
     border-radius: 6px;
@@ -95,6 +103,30 @@ main#updateManagerApp.update-manager--kde {
     -webkit-mask-position: center;
     mask-position: center;
 }
+
+/* Icônes catégories Discover (Breeze — pull VM Neon) */
+.kde-updates__caticon {
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.kde-updates__caticon--all { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-all.svg"); }
+.kde-updates__caticon--accessibility { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/preferences-desktop-accessibility.svg"); }
+.kde-updates__caticon--office { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-office.svg"); }
+.kde-updates__caticon--development { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-development.svg"); }
+.kde-updates__caticon--education { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-education.svg"); }
+.kde-updates__caticon--graphics { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-graphics.svg"); }
+.kde-updates__caticon--internet { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-internet.svg"); }
+.kde-updates__caticon--games { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-games.svg"); }
+.kde-updates__caticon--multimedia { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-multimedia.svg"); }
+.kde-updates__caticon--science { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-science.svg"); }
+.kde-updates__caticon--system { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-system.svg"); }
+.kde-updates__caticon--utilities { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/applications-utilities.svg"); }
+.kde-updates__caticon--addons { background-image: url("../../../../../assets/images/toolkits/kde/discover/categories/preferences-plugin.svg"); }
 
 .kde-updates__badge {
     display: inline-flex;

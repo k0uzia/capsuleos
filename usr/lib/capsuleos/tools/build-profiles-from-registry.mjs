@@ -59,7 +59,8 @@ const CHECKLIST_KEYS = {
   'linux-ubuntu': 'ubuntu-checklist',
   'linux-fedora': 'fedora-checklist',
   'linux-rocky': 'rocky-checklist',
-  'linux-mx-kde': 'mxkde-checklist'
+  'linux-mx-kde': 'mxkde-checklist',
+  'linux-kde-neon': 'kde-neon-checklist'
 };
 
 function mergeGlobals(base, override) {

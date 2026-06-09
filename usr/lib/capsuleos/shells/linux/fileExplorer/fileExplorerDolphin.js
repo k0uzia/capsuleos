@@ -574,6 +574,9 @@
             });
             link.classList.add('nemo-app__item--selected');
         }
+        if (typeof window.rememberDolphinPaneSelection === 'function') {
+            window.rememberDolphinPaneSelection(paneId, link);
+        }
     };
 
     const showFolderPreviewPlaceholder = () => {
@@ -606,6 +609,27 @@
 
         if (item.type === 'folder') {
             state.selectedPreview = null;
+            if (typeof window.isDolphinListTreeViewActive === 'function' && window.isDolphinListTreeViewActive()) {
+                const targetPath = resolveFolderTargetPath(item, folderPath);
+                if (typeof window.dolphinFolderHasVisibleChildren === 'function'
+                    && !window.dolphinFolderHasVisibleChildren(targetPath)) {
+                    if (event && typeof event.preventDefault === 'function') {
+                        event.preventDefault();
+                    }
+                    return;
+                }
+                if (typeof window.toggleDolphinListFolderExpanded === 'function') {
+                    window.toggleDolphinListFolderExpanded(targetPath, paneId);
+                }
+                const currentPath = getPanePath(paneId);
+                if (currentPath && typeof window.renderDirectory === 'function') {
+                    window.renderDirectory(currentPath, { pane: paneId });
+                }
+                if (event && typeof event.preventDefault === 'function') {
+                    event.preventDefault();
+                }
+                return;
+            }
             if (isPreviewModeActive()) {
                 state.previewOpen = true;
                 showFolderPreviewPlaceholder();
@@ -640,6 +664,9 @@
         setActivePane(paneId);
 
         if (item.type === 'folder') {
+            if (typeof window.clearDolphinListExpandedPaths === 'function') {
+                window.clearDolphinListExpandedPaths(paneId);
+            }
             navigateDolphinDirectory(resolveFolderTargetPath(item, folderPath), {
                 pane: paneId,
                 updateHistory: true
@@ -781,6 +808,18 @@
         }, true);
 
         document.body.dataset.dolphinPointerActivation = 'true';
+
+        document.addEventListener('pointerdown', (event) => {
+            if (event.button !== 0) {
+                return;
+            }
+            const paneEl = event.target.closest('.dolphin-content-pane[data-pane]');
+            if (!paneEl || !resolveGridItemLinkFromEvent(event)) {
+                if (paneEl && paneEl.dataset.pane) {
+                    setActivePane(paneEl.dataset.pane);
+                }
+            }
+        }, true);
     };
 
     const setExplorerStatusMessage = (message) => {
@@ -884,17 +923,22 @@
 
     const ensureDolphinWindowVisible = () => {
         const root = getRoot();
-        if (!root) {
+        const container = root
+            || document.querySelector('div.windowElement[data-link="nemo"]')
+            || document.querySelector('div[data-link="nemo"]');
+        if (!container) {
+            openCapsuleApp('nemo');
             return;
         }
-        const container = document.querySelector('div[data-link="nemo"]');
-        const hidden = (container && container.style.display === 'none')
-            || root.style.display === 'none';
+        const hidden = container.style.display === 'none';
         if (hidden) {
             openCapsuleApp('nemo');
             return;
         }
-        openCapsuleApp('nemo');
+        if (typeof window.CapsuleWindowShell !== 'undefined'
+            && typeof window.CapsuleWindowShell.activateWindow === 'function') {
+            window.CapsuleWindowShell.activateWindow(container);
+        }
     };
 
     const getActivePaneDirectoryPath = () => {
@@ -1044,6 +1088,61 @@
         setActivePane('primary');
     };
 
+    const openDolphinSplitWithItem = (itemData) => {
+        ensureDolphinWindowVisible();
+        const state = getState();
+        if (!state) {
+            return;
+        }
+        if (!state.splitView) {
+            state.splitView = true;
+            updateSplitChrome();
+        }
+        const secondaryPath = itemData && itemData.type === 'folder' && itemData.targetPath
+            ? itemData.targetPath
+            : (state.secondaryPath || state.currentPath || (typeof window.getFileExplorerRoot === 'function'
+                ? window.getFileExplorerRoot()
+                : ''));
+        if (secondaryPath) {
+            navigateDolphinDirectory(secondaryPath, {
+                pane: 'secondary',
+                updateHistory: true,
+            });
+        }
+        setActivePane('secondary');
+        setExplorerStatusMessage('Vue scindée ouverte.');
+    };
+
+    window.bindAdvancedExplorerModules = function bindAdvancedExplorerModules() {
+        if (typeof window.usesAdvancedExplorerOps !== 'function' || !window.usesAdvancedExplorerOps()) {
+            return;
+        }
+        if (typeof window.bindFileExplorerNautilusOps === 'function') {
+            window.bindFileExplorerNautilusOps();
+        }
+        if (typeof window.bindFileExplorerContextMenu === 'function') {
+            window.bindFileExplorerContextMenu();
+        }
+        if (typeof window.bindFileExplorerProperties === 'function') {
+            window.bindFileExplorerProperties();
+        }
+        if (typeof window.bindFileExplorerNautilusFeatures === 'function') {
+            window.bindFileExplorerNautilusFeatures();
+        }
+        if (typeof window.ensureExplorerAdvancedChrome === 'function') {
+            const root = getRoot();
+            if (root) {
+                window.ensureExplorerAdvancedChrome(root);
+            }
+        }
+        if (typeof window.repairExplorerSidebarPlaceLinks === 'function') {
+            const root = getRoot();
+            if (root) {
+                window.repairExplorerSidebarPlaceLinks(root);
+            }
+        }
+    };
+
     const bindFileExplorerDolphinFeatures = () => {
         if (!hasDolphinShell() && !isDolphin()) {
             return;
@@ -1060,6 +1159,7 @@
 
         if (root.dataset.dolphinFeaturesInit === 'true') {
             updateDolphinExplorerChrome();
+            bindAdvancedExplorerModules();
             return;
         }
 
@@ -1125,16 +1225,22 @@
 
         root.dataset.dolphinFeaturesInit = 'true';
         updateDolphinExplorerChrome();
+        bindAdvancedExplorerModules();
     };
 
-    const updateDolphinFolderPillForPane = (folderNode, paneId) => {
+    const updateDolphinFolderPillForPane = (folderNode, paneId, directoryPath) => {
         const pillId = paneId === 'secondary' ? 'dolphin-folder-pill-secondary' : 'dolphin-folder-pill';
         const pill = document.getElementById(pillId);
-        if (!pill || typeof window.countFoldersInItems !== 'function') {
+        if (!pill) {
             return;
         }
-        const n = folderNode && Array.isArray(folderNode.items)
-            ? window.countFoldersInItems(folderNode.items)
+        const path = directoryPath
+            || (paneId === 'secondary' ? state.secondaryPath : state.currentPath);
+        const countFn = typeof window.countVisibleFoldersInItems === 'function'
+            ? window.countVisibleFoldersInItems
+            : window.countFoldersInItems;
+        const n = folderNode && Array.isArray(folderNode.items) && typeof countFn === 'function'
+            ? countFn(folderNode.items, path)
             : 0;
         const label = typeof window.formatDolphinFolderPill === 'function'
             ? window.formatDolphinFolderPill(n)
@@ -1142,8 +1248,76 @@
         pill.textContent = label;
     };
 
+    const collectDolphinSearchEverywhereItems = (query) => {
+        const state = getState();
+        const manifest = state && state.manifest;
+        if (!manifest || !manifest.folders || !query) {
+            return [];
+        }
+        const results = [];
+        Object.keys(manifest.folders).forEach((folderPath) => {
+            const node = manifest.folders[folderPath];
+            if (!node || !Array.isArray(node.items)) {
+                return;
+            }
+            node.items.forEach((item) => {
+                const enriched = Object.assign({}, item, {
+                    folderPath: folderPath,
+                    searchParentLabel: typeof window.findFolderLabel === 'function'
+                        ? window.findFolderLabel(folderPath)
+                        : folderPath,
+                });
+                if (item.type === 'folder') {
+                    const resolvedPath = item.path
+                        || (item.name && typeof window.joinExplorerPath === 'function'
+                            ? window.joinExplorerPath(folderPath, item.name)
+                            : (item.name ? `${folderPath}/${item.name}` : ''));
+                    if (resolvedPath) {
+                        enriched.path = resolvedPath;
+                        enriched.targetPath = resolvedPath;
+                    }
+                }
+                results.push(enriched);
+            });
+        });
+        return filterItemsBySearch(results, query);
+    };
+
+    const renderDolphinSearchEverywhere = (nemoElement, query) => {
+        if (!nemoElement || !query) {
+            return;
+        }
+        const items = collectDolphinSearchEverywhereItems(query);
+        const state = getState();
+        nemoElement.innerHTML = '';
+        if (!items.length) {
+            nemoElement.innerHTML = typeof window.buildNautilusEmptyStateMarkup === 'function'
+                ? window.buildNautilusEmptyStateMarkup('search')
+                : '<p class="nemo-app__empty">Aucun résultat.</p>';
+            if (typeof window.applyFileExplorerViewMode === 'function') {
+                window.applyFileExplorerViewMode();
+            }
+            return;
+        }
+        items.forEach((item) => {
+            const parent = item.folderPath || (state && state.currentPath);
+            if (typeof window.appendFileExplorerGridItem === 'function') {
+                window.appendFileExplorerGridItem(
+                    nemoElement,
+                    item,
+                    parent,
+                    (state && state.activePane) || 'primary'
+                );
+            }
+        });
+        if (typeof window.applyFileExplorerViewMode === 'function') {
+            window.applyFileExplorerViewMode();
+        }
+    };
+
     window.getDolphinPaneGrid = getPaneGrid;
     window.filterFileExplorerItemsBySearch = filterItemsBySearch;
+    window.renderDolphinSearchEverywhere = renderDolphinSearchEverywhere;
     window.attachDolphinItemHandlers = attachDolphinItemHandlers;
     window.navigateDolphinDirectory = navigateDolphinDirectory;
     window.bindFileExplorerDolphinFeatures = bindFileExplorerDolphinFeatures;
@@ -1159,12 +1333,17 @@
             mountDolphinShellLayout();
             bindFileExplorerDolphinFeatures();
             bindDolphinMenubar();
+            bindAdvancedExplorerModules();
         } finally {
             layoutRootOverride = null;
         }
     };
     window.bindDolphinMenubar = bindDolphinMenubar;
     window.mountDolphinShellLayout = mountDolphinShellLayout;
+    window.openDolphinNewTab = openDolphinNewTab;
+    window.openDolphinNewWindow = openDolphinNewWindow;
+    window.openDolphinSplitWithItem = openDolphinSplitWithItem;
+    window.setExplorerStatusMessage = setExplorerStatusMessage;
     window.fileExplorerState = window.fileExplorerState || null;
 
     bindDolphinFilePointerActivation();

@@ -10,6 +10,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
+import {
+  applyWave2Plan,
+  runWave2PrepAction,
+  evaluateWave2Truthy,
+} from './wave2-pf3-smoke-hooks.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -1219,6 +1224,8 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
     });
   }
 
+  applyWave2Plan(scenario, plan);
+
   return plan;
 };
 
@@ -1631,6 +1638,8 @@ const runScenarioActions = async (page, plan) => {
           window.initSystemMonitorApp();
         }
       });
+    } else if (await runWave2PrepAction(page, action)) {
+      /* wave2 P-F3 */
     } else if (action.type === 'evaluate') {
       await page.evaluate(() => {});
     }
@@ -1684,6 +1693,13 @@ const runScenarioAssertions = async (page, plan, errors) => {
         errors.push(`Élément absent: ${a.selector}`);
       }
     } else if (a.type === 'evaluateTruthy') {
+      if (a.fn && a.fn.indexOf('wave2') === 0) {
+        const ok = await page.evaluate(evaluateWave2Truthy, a.fn);
+        if (!ok) {
+          errors.push(`Assertion evaluateTruthy échouée: ${a.fn}`);
+        }
+        continue;
+      }
       const ok = await page.evaluate(({ fn, args }) => {
         if (fn === 'xedFindSelection') {
           const area = document.getElementById('xed-area');

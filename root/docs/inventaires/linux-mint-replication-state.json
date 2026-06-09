@@ -63,7 +63,8 @@
       "gapSlotsTotal": 32,
       "gapSlotsWave1P0P1": 10,
       "scenariosToAdd": 96,
-      "nextWave1Slot": "calendar"
+      "nextWave1Slot": "drawing",
+      "wave1Complete": ["calendar"]
     },
     "nextScope": "P-F2-taxonomie puis P-F3-vague1-P0P1"
   },

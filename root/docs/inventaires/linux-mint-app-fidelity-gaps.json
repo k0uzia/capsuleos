@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaign": "v3-credibility-pass",
   "phase": "P-F1",
-  "generatedAt": "2026-06-09T06:57:11.451Z",
+  "generatedAt": "2026-06-09T07:17:42.493Z",
   "sources": {
     "catalog": "root/docs/inventaires/linux-mint-apps-catalog.json",
     "fidelity": "root/docs/inventaires/linux-mint-app-fidelity-scenarios.json"
@@ -11,26 +11,40 @@
     "menuEntriesVm": 101,
     "catalogSlots": 43,
     "uniqueSlotsInMenu": 42,
-    "menuCoveredByPi100Slots": 64,
+    "menuCoveredByPi100Slots": 65,
     "menuViaThemesSlot": 52,
-    "menuRowsNeedingCredibility": 37,
-    "appsPi100": 11,
-    "gapSlotsTotal": 32,
-    "gapSlotsP0": 5,
+    "menuRowsNeedingCredibility": 36,
+    "appsPi100": 12,
+    "appsPi100List": [
+      "calculator",
+      "calendar",
+      "file_roller",
+      "firefox",
+      "mintinstall",
+      "nemo",
+      "pix",
+      "sticky",
+      "terminal",
+      "text_editor",
+      "themes",
+      "update_manager"
+    ],
+    "gapSlotsTotal": 31,
+    "gapSlotsP0": 4,
     "gapSlotsP1": 5,
     "gapSlotsP2": 22,
-    "scenariosExisting": 34,
-    "scenariosToAdd": 96,
-    "estimatedScenariosAtTarget": 96
+    "scenariosExisting": 37,
+    "scenariosToAdd": 93,
+    "estimatedScenariosAtTarget": 93
   },
   "tiers": {
     "A": {
       "label": "Crédibilité acquise (π=100) ou structure seule suffisante",
-      "slotCount": 10
+      "slotCount": 11
     },
     "B": {
       "label": "Slot catalogue — ≥3 scénarios CredC/S à produire",
-      "slotCount": 32
+      "slotCount": 31
     },
     "C": {
       "label": "Entrées menu → Paramètres (themes) — couvert par panneaux cs-*",
@@ -40,7 +54,6 @@
   },
   "waveQueue": {
     "wave1P0P1": [
-      "calendar",
       "drawing",
       "lecteur_multimedia",
       "libreoffice_startcenter",
@@ -148,8 +161,8 @@
     },
     {
       "slot": "calendar",
-      "label": "calendar",
-      "tier": "B",
+      "label": "Calendrier",
+      "tier": "A",
       "prioriteMax": "P0",
       "menuEntryCount": 1,
       "menuEntries": [
@@ -162,12 +175,12 @@
         }
       ],
       "structuralOk": true,
-      "pi_credibility": null,
-      "scenarioCount": 0,
+      "pi_credibility": 100,
+      "scenarioCount": 3,
       "scenariosTarget": 3,
-      "scenariosComplete": false,
-      "credibilityGap": true,
-      "scenariosNeeded": 3
+      "scenariosComplete": true,
+      "credibilityGap": false,
+      "scenariosNeeded": 0
     },
     {
       "slot": "drawing",
@@ -1469,14 +1482,6 @@
     {
       "slot": "bulky",
       "prioriteMax": "P2",
-      "menuEntryCount": 1,
-      "scenarioCount": 0,
-      "scenariosNeeded": 3,
-      "structuralOk": true
-    },
-    {
-      "slot": "calendar",
-      "prioriteMax": "P0",
       "menuEntryCount": 1,
       "scenarioCount": 0,
       "scenariosNeeded": 3,

@@ -6,6 +6,7 @@
 
     var viewYear;
     var viewMonth;
+    var selectedDay = null;
 
     function pad(n) {
         return n < 10 ? '0' + n : String(n);
@@ -57,6 +58,7 @@
             btn.type = 'button';
             btn.className = 'gnome-calendar-app__day';
             btn.textContent = String(cell.day);
+            btn.setAttribute('data-day', String(cell.day));
             if (
                 today.getFullYear() === viewYear &&
                 today.getMonth() === viewMonth &&
@@ -65,6 +67,14 @@
                 btn.classList.add('gnome-calendar-app__day--today');
                 btn.setAttribute('aria-current', 'date');
             }
+            if (selectedDay === cell.day) {
+                btn.classList.add('gnome-calendar-app__day--selected');
+                btn.setAttribute('aria-selected', 'true');
+            }
+            btn.addEventListener('click', function () {
+                selectedDay = cell.day;
+                render();
+            });
             grid.appendChild(btn);
         });
     }

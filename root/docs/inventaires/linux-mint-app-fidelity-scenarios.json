@@ -17,7 +17,17 @@
     "themes",
     "terminal",
     "pix",
-    "sticky"
+    "sticky",
+    "calendar",
+    "drawing",
+    "lecteur_multimedia",
+    "libreoffice_startcenter",
+    "screenshot",
+    "librecalc",
+    "mintdrivers",
+    "system_monitor",
+    "visionneur_images",
+    "visionneur_pdf"
   ],
   "apps": [
     {
@@ -73,6 +83,11 @@
     {
       "id": "sticky",
       "label": "Notes",
+      "pi_credibility": 100
+    },
+    {
+      "id": "calendar",
+      "label": "Calendrier",
       "pi_credibility": 100
     }
   ],
@@ -917,17 +932,94 @@
           ".sticky-applet"
         ]
       }
+    },
+    {
+      "id": "calendar-open-month",
+      "app": "calendar",
+      "persona": "utilisateur bureau — ouvrir Calendrier",
+      "steps": [
+        "Ouvrir Calendrier depuis le menu principal",
+        "Vérifier titre mois courant et grille des jours",
+        "Le jour actuel est mis en évidence"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-F3",
+      "selectors": {
+        "capsule": [
+          "#gnomeCalendarApp",
+          "#gnome-cal-month",
+          "#gnome-cal-grid"
+        ]
+      }
+    },
+    {
+      "id": "calendar-nav-month",
+      "app": "calendar",
+      "persona": "utilisateur bureau — navigation mois",
+      "steps": [
+        "Ouvrir Calendrier",
+        "Cliquer flèche mois suivant",
+        "Vérifier que le libellé du mois change"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-F3",
+      "selectors": {
+        "capsule": [
+          "#gnome-cal-prev",
+          "#gnome-cal-next",
+          "#gnome-cal-month"
+        ]
+      }
+    },
+    {
+      "id": "calendar-today-panel",
+      "app": "calendar",
+      "persona": "utilisateur bureau — événements du jour",
+      "steps": [
+        "Ouvrir Calendrier",
+        "Consulter le panneau Aujourd'hui sous la grille",
+        "Message « Aucun évènement » si agenda vide"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-F3",
+      "selectors": {
+        "capsule": [
+          ".gnome-calendar-app__today",
+          ".gnome-calendar-app__today-empty"
+        ]
+      }
     }
   ],
   "summary": {
-    "totalScenarios": 34,
-    "documented": 34,
-    "implemented": 34,
-    "smokeOk": 34,
-    "measured": 34,
+    "totalScenarios": 37,
+    "documented": 37,
+    "implemented": 37,
+    "smokeOk": 37,
+    "measured": 37,
     "avgPi": 100,
-    "appsTotal": 11,
-    "appsAtPi100": 11,
+    "appsTotal": 12,
+    "appsAtPi100": 12,
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100

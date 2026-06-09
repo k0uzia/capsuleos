@@ -629,6 +629,31 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       min: 3,
     });
   }
+  if (scenario.id === 'calendar-open-month') {
+    plan.prepActions = [{ type: 'calendarInit' }];
+    plan.assertions.push({
+      type: 'selectorVisible',
+      selector: 'div[data-link="calendar"] #gnome-cal-month',
+    });
+    plan.assertions.push({
+      type: 'hasClass',
+      selector: 'div[data-link="calendar"] .gnome-calendar-app__day--today',
+      className: 'gnome-calendar-app__day--today',
+    });
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'calendarGridRendered' });
+  }
+  if (scenario.id === 'calendar-nav-month') {
+    plan.prepActions = [{ type: 'calendarInit' }];
+    plan.assertions.push({ type: 'evaluateTruthy', fn: 'calendarNavNext' });
+  }
+  if (scenario.id === 'calendar-today-panel') {
+    plan.prepActions = [{ type: 'calendarInit' }];
+    plan.assertions.push({
+      type: 'textContains',
+      selector: 'div[data-link="calendar"] .gnome-calendar-app__today-empty',
+      text: 'Aucun évènement',
+    });
+  }
   if (scenario.id === 'calculator-basic') {
     plan.prepActions = [{ type: 'calcInit' }];
     plan.actions.push(
@@ -1053,6 +1078,12 @@ const runScenarioActions = async (page, plan) => {
           }
         }
       }, { menu: action.menu, item: action.item });
+    } else if (action.type === 'calendarInit') {
+      await page.evaluate(() => {
+        if (typeof window.initCalendarApp === 'function') {
+          window.initCalendarApp();
+        }
+      });
     } else if (action.type === 'calcInit') {
       await page.evaluate(() => {
         if (typeof window.initCalculatorApp === 'function') {
@@ -1294,6 +1325,24 @@ const runScenarioAssertions = async (page, plan, errors) => {
         if (fn === 'terminalHasOutput') {
           const output = document.querySelector('div[data-link="terminal"] #output');
           return !!(output && output.textContent && output.textContent.trim().length > 0);
+        }
+        if (fn === 'calendarGridRendered') {
+          const grid = document.querySelector('div[data-link="calendar"] #gnome-cal-grid');
+          if (!grid) {
+            return false;
+          }
+          return grid.querySelectorAll('.gnome-calendar-app__day:not(.gnome-calendar-app__day--empty)').length >= 28;
+        }
+        if (fn === 'calendarNavNext') {
+          const scope = document.querySelector('div[data-link="calendar"]');
+          const monthEl = scope ? scope.querySelector('#gnome-cal-month') : null;
+          const before = monthEl ? monthEl.textContent : '';
+          const nextBtn = scope ? scope.querySelector('#gnome-cal-next') : null;
+          if (nextBtn) {
+            nextBtn.click();
+          }
+          const after = monthEl ? monthEl.textContent : '';
+          return before !== after && after.length > 0;
         }
         return false;
       }, { fn: a.fn, args: a.args });

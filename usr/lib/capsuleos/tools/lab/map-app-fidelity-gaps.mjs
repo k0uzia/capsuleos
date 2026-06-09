@@ -14,19 +14,20 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 
-const PI100_APPS = new Set([
-  'nemo',
-  'firefox',
-  'text_editor',
-  'calculator',
-  'file_roller',
-  'update_manager',
-  'mintinstall',
-  'themes',
-  'terminal',
-  'pix',
-  'sticky',
-]);
+const loadPi100Apps = (registryId) => {
+  const fidelityPath = path.join(ROOT, 'root/docs/inventaires', `${registryId}-app-fidelity-scenarios.json`);
+  if (!fs.existsSync(fidelityPath)) {
+    return new Set();
+  }
+  const fidelity = loadJson(fidelityPath);
+  const set = new Set();
+  (fidelity.apps || []).forEach((a) => {
+    if (a.pi_credibility === 100) {
+      set.add(a.id);
+    }
+  });
+  return set;
+};
 
 const SCENARIOS_TARGET = 3;
 
@@ -59,6 +60,7 @@ const buildGapMap = (registryId) => {
 
   const catalog = loadJson(catalogPath);
   const fidelity = fs.existsSync(fidelityPath) ? loadJson(fidelityPath) : { apps: [], scenarios: [] };
+  const PI100_APPS = loadPi100Apps(registryId);
 
   const appsById = {};
   (fidelity.apps || []).forEach((a) => {
@@ -182,6 +184,7 @@ const buildGapMap = (registryId) => {
       menuViaThemesSlot: menuViaThemes,
       menuRowsNeedingCredibility: menuGapRows,
       appsPi100: PI100_APPS.size,
+      appsPi100List: Array.from(PI100_APPS).sort(),
       gapSlotsTotal: gapSlots.length,
       gapSlotsP0: gapSlotsP0.length,
       gapSlotsP1: gapSlotsP1.length,

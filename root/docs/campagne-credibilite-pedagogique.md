@@ -1,6 +1,6 @@
 # Campagne crédibilité pédagogique — clone fidèle à la VM
 
-> **Statut** : P0 + vague 1 P-F3 clôturés (64/64) — **vague 2 P2** en cours — campagne `v3-credibility-pass` (juin 2026)  
+> **Statut** : **P-F clôturé** — 43 apps π=100 · 130 scénarios CredV/C/S — campagne `v3-credibility-pass` (juin 2026)  
 > **Contrat machine** : [`etc/capsuleos/contracts/app-fidelity-scenarios.json`](../../etc/capsuleos/contracts/app-fidelity-scenarios.json)  
 > **Orchestrateur** : `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs`  
 > **Skill agent** : [`root/skills/vm-app-fidelity-pass/SKILL.md`](../skills/vm-app-fidelity-pass/SKILL.md)
@@ -133,17 +133,16 @@ flowchart TB
 
 11 apps π=100 · 34 scénarios CredC/CredS · commit `a4e1918`.
 
-### P-F — extension ciblée
+### P-F — clôturé (juin 2026)
 
-Inventaire gaps : [`linux-mint-app-fidelity-gaps.json`](inventaires/linux-mint-app-fidelity-gaps.json) (régénérer avec `map-gaps`).
+Inventaire gaps : [`linux-mint-app-fidelity-gaps.json`](inventaires/linux-mint-app-fidelity-gaps.json) — **0 slot tier B restant**.
 
-| Métrique | Valeur (P-F1) |
-|----------|---------------|
-| Entrées menu VM | 101 |
-| Couvertes par slots π=100 | ~64 |
-| Via Paramètres (`themes`) | 52 |
-| Slots gap crédibilité | ~32 |
-| Scénarios à ajouter (cible 3/slot) | ~96 max · vague 1 ≈ 30 |
+| Métrique | Final |
+|----------|-------|
+| Apps catalogue π=100 | **43/43** |
+| Scénarios CredV/CredS | **130/130** |
+| Vague 1 P0+P1 | 10 slots · commit `224c728` |
+| Vague 2 P2 | 22 slots · commit `a5efaf9` |
 
 ---
 

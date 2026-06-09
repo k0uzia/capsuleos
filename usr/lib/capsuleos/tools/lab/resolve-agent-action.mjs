@@ -6,6 +6,7 @@
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --domain gnome-settings-playbook
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --scope formal
+ *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
  */
 import fs from 'fs';
 import path from 'path';
@@ -22,6 +23,7 @@ import {
   loadPlaybookGeneral,
 } from './playbook-general-lib.mjs';
 import { evaluateFormalRules } from './formal-rules-lib.mjs';
+import { evaluateCredRules } from './app-fidelity-lib.mjs';
 import { resolvePipeline } from './capsule-pipeline-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -302,6 +304,28 @@ const main = () => {
       predicates: decision.predicates,
     };
     const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-formal-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+    if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    else process.stdout.write(`${out.command || out.message}\n`);
+    return;
+  }
+
+  if (opts.scope === 'app-fidelity') {
+    const decision = evaluateCredRules(opts.id);
+    const out = {
+      registryId: opts.id,
+      scope: 'app-fidelity',
+      rule: decision.rule,
+      message: decision.message,
+      command: decision.command,
+      autoExecute: decision.autoExecute,
+      gateOnSuccess: decision.gateOnSuccess || null,
+      unique: decision.unique,
+      predicates: decision.predicates,
+      summary: decision.summary,
+      nextPredicate: decision.nextPredicate,
+    };
+    const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-credibility-formal-resolve.json`);
     fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
     if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
     else process.stdout.write(`${out.command || out.message}\n`);

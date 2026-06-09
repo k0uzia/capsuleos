@@ -219,6 +219,33 @@ Contrat : `etc/capsuleos/contracts/view-refresh-vigilance.json` · Convention : 
 
 Gates persistés **H₂**, **A**, **L** (socle) : `*-formal-state.json` — enregistrés par `run-formal-chain.mjs` après succès des règles correspondantes.
 
+### 2.9 Crédibilité pédagogique (Cred*)
+
+Domaine **post-C10** : parcours utilisateur documenté, implémenté et validé live — au-delà du **Π structurel** (`pi_global`, AppVp).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **CredV** | Scénarios documentés (steps VM, persona) | `summary.documented === summary.totalScenarios` ∧ total > 0 |
+| **CredC** | Interactions clone implémentées | `summary.implemented === total` |
+| **CredS** | Smokes scénario verts (inventaire + gate live) | `summary.smokeOk === total` ; gate `CredS.liveVerified` dans `*-credibility-formal-state.json` |
+| **CredΠ** | Parité crédibilité par app (tier B) | `appsAtPi100 === appsTotal` ∧ `gapSlotsTotal === 0` dans `*-app-fidelity-gaps.json` |
+| **CredΣ** | **CredV ∧ CredC ∧ CredS ∧ CredΠ** | Clôture `replication-state.credibilityCampaign.credSigma` |
+
+Chaîne séquentielle : **CredV → CredC → CredS → CredΠ → CredΣ** (phases P-A…P-F3, campagne `v3-credibility-pass`).
+
+| Règle | Antécédents | Action |
+|-------|-------------|--------|
+| **R-CRED-H2** | ¬**H₂** | `validate-all.mjs` |
+| **R-CRED-SMOKE-ALL** | **CredC** ∧ ¬CredS_live | `smoke-app-fidelity-all.mjs` |
+| **R-CRED-FORMAL** | **CredS** inventaire ∧ ¬état formel | `--phase formal-write` |
+| **R-CRED-Σ** | **CredΣ** ∧ ¬clôture replication-state | patch `credibilityCampaign` |
+
+Outils : `app-fidelity-lib.mjs` · `run-app-fidelity-campaign.mjs --phase formal|formal-write|resolve` · `run-app-fidelity-formal-chain.mjs` · `resolve-agent-action.mjs --scope app-fidelity`.
+
+Lien **P-F** : P-F1 cartographie gaps → P-F3 crédibilité tier B ; **CredΣ** clôt la campagne quand inventaire 100 % et gaps à 0.
+
+Contrat : `etc/capsuleos/contracts/app-fidelity-scenarios.json` · procédure : [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md).
+
 ### 2.7 Catalogue (R)
 
 | Symbole | Signification |
@@ -400,6 +427,7 @@ Les procédures détaillent prédicats et commandes **locales**. Elles **doivent
 | **Modules pédagogiques** | [convention-modules-mnt.md](convention-modules-mnt.md) | **Pm**, **Pm_Σ**, **Pm_mount**, **PΣ** |
 | **Commandes terminal** | [procedure-terminal-commandes.md](procedure-terminal-commandes.md) | **Tc**, **Tf**, **Tv**, **Te** |
 | Réplication applications | [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) | **AppL**, **AppVv**, **AppVc**, **AppVp** |
+| **Crédibilité pédagogique** | [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md) | **CredV**, **CredC**, **CredS**, **CredΠ**, **CredΣ** |
 | Assets vendor | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | **A**, **S**, **T** |
 | Lab Rocky GNOME | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | **M**, phases 1–5 |
 | Audit VM profond | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | **I⁺**, phases JSON |
@@ -431,6 +459,11 @@ node usr/lib/capsuleos/tools/lab/run-replication-chain.mjs --id <registryId> --d
 # Fidélité visuelle (typo, vues, MIME, a11y)
 node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id <registryId> --write
 node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id <registryId>
+
+# Crédibilité pédagogique (Mint post-C10)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs --id linux-mint --max-steps 8
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
 
 # Brief registre
 node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>

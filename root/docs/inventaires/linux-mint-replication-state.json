@@ -43,7 +43,11 @@
     "doc": "root/docs/moteur-clonage-experience.md",
     "currentCycle": "C10",
     "nextCycle": "Cred",
-    "cyclesToPi100": { "minimum": 10, "typical": 11, "remaining": 0 },
+    "cyclesToPi100": {
+      "minimum": 10,
+      "typical": 11,
+      "remaining": 0
+    },
     "appsScope": "priority"
   },
   "credibilityCampaign": {
@@ -59,8 +63,20 @@
     "wave1Commit": "224c728",
     "wave2Complete": true,
     "wave2Slots": 22,
-    "scenarios": { "total": 130, "credV": 130, "credC": 130, "credS": 130, "appsAtPi100": 43 },
-    "predicates": ["CredV", "CredC", "CredS", "CredΠ"],
+    "scenarios": {
+      "total": 130,
+      "credV": 130,
+      "credC": 130,
+      "credS": 130,
+      "appsAtPi100": 43
+    },
+    "predicates": {
+      "CredV": true,
+      "CredC": true,
+      "CredS": true,
+      "CredΠ": true,
+      "CredΣ": true
+    },
     "gapMap": "linux-mint-app-fidelity-gaps.json",
     "gapSummary": {
       "menuEntriesVm": 101,
@@ -70,7 +86,10 @@
       "scenariosToAdd": 0,
       "nextWave2Slot": null
     },
-    "nextScope": null
+    "nextScope": null,
+    "credSigma": true,
+    "evaluatedAt": "2026-06-09T09:06:17.115Z",
+    "formalClosedAt": "2026-06-09T09:06:17.115Z"
   },
   "pallier": 10,
   "pallier10Commit": null,
@@ -154,5 +173,5 @@
     "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
     "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
   ],
-  "updatedAt": "2026-06-09T08:45:00.000Z"
+  "updatedAt": "2026-06-09T09:06:17.115Z"
 }

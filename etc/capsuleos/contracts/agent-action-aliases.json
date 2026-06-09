@@ -268,7 +268,40 @@
       "command": "node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id {id} --auto",
       "autoExecute": true,
       "requiresContract": "etc/capsuleos/contracts/playbook-general.json"
+    },
+    "app-fidelity-formal-chain": {
+      "predicate": "CredΣ",
+      "rule": "R-CRED-CHAIN",
+      "command": "node usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs --id {id} --max-steps 8",
+      "autoExecute": true,
+      "requiresContract": "etc/capsuleos/contracts/app-fidelity-scenarios.json"
+    },
+    "app-fidelity-formal-eval": {
+      "predicate": "*",
+      "rule": "R-CRED-FORMAL",
+      "command": "node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id {id} --phase formal",
+      "autoExecute": true
+    },
+    "app-fidelity-formal-write": {
+      "predicate": "CredΣ",
+      "rule": "R-CRED-Σ",
+      "command": "node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id {id} --phase formal-write",
+      "autoExecute": true
+    },
+    "app-fidelity-resolve": {
+      "predicate": "*",
+      "rule": "R-CRED-AUTO",
+      "command": "node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id {id} --scope app-fidelity",
+      "autoExecute": true
     }
+  },
+  "appFidelity": {
+    "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
+    "procedure": "root/docs/campagne-credibilite-pedagogique.md",
+    "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
+    "formalChain": "usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs",
+    "defaultScope": "app-fidelity",
+    "predicates": ["CredV", "CredC", "CredS", "CredΠ", "CredΣ"]
   },
   "playbookGeneral": {
     "contract": "etc/capsuleos/contracts/playbook-general.json",

@@ -392,4 +392,26 @@
                         <input type="range" name="zoom" id="zoom" min="80" max="140" step="10" value="100" aria-label="Zoom des icones">
                 </section>
         </footer>
+        <dialog id="nemo-properties-dialog" class="nemo-properties-dialog" aria-labelledby="nemo-properties-title">
+                <form method="dialog" class="nemo-properties-dialog__panel">
+                        <header class="nemo-properties-dialog__header">
+                                <h2 id="nemo-properties-title">Propriétés</h2>
+                                <button type="submit" class="nemo-properties-dialog__close" value="close">Fermer</button>
+                        </header>
+                        <div class="nemo-properties-dialog__body">
+                                <dl>
+                                        <dt>Nom</dt>
+                                        <dd id="nemo-properties-name">—</dd>
+                                        <dt>Type</dt>
+                                        <dd id="nemo-properties-type">—</dd>
+                                        <dt>Emplacement</dt>
+                                        <dd id="nemo-properties-location">—</dd>
+                                        <dt>Contenu</dt>
+                                        <dd id="nemo-properties-size">—</dd>
+                                        <dt>Modifié</dt>
+                                        <dd id="nemo-properties-modified">—</dd>
+                                </dl>
+                        </div>
+                </form>
+        </dialog>
 </main>

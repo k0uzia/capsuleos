@@ -92,6 +92,61 @@ body#mint div[data-link="nemo"] .nemo-app__context-sep {
     border-top: 1px solid var(--nemo-border, #202023);
 }
 
+body#mint div[data-link="nemo"] .nemo-app__context-sep[hidden],
+body#mint div[data-link="nemo"] .nemo-app__context-item[hidden] {
+    display: none !important;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog {
+    padding: 0;
+    border: 1px solid var(--nemo-border, #202023);
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg, #303036);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    max-width: 24rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--nemo-border, #202023);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body {
+    padding: 0.75rem 1rem 1rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dl {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.35rem 0.75rem;
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dt {
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dd {
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__close {
+    border: 0;
+    border-radius: 0.3rem;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    background: var(--nemo-item-hover-bg, rgba(255, 255, 255, 0.12));
+    color: inherit;
+}
+
 body#mint div[data-link="nemo"] #nemoHeaderContainer {
     display: var(--f);
     flex-flow: var(--cnw);

@@ -2751,6 +2751,12 @@ const bindFileExplorerNavigationControls = () => {
     if (typeof window.bindFileExplorerProperties === 'function') {
         window.bindFileExplorerProperties();
     }
+    if (typeof window.bindFileExplorerNemoOps === 'function') {
+        window.bindFileExplorerNemoOps();
+    }
+    if (typeof window.bindFileExplorerProperties === 'function') {
+        window.bindFileExplorerProperties();
+    }
     if (typeof window.bindFileExplorerContextMenu === 'function') {
         window.bindFileExplorerContextMenu(nemoRoot);
     }

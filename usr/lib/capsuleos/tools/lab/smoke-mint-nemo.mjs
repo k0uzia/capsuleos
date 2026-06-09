@@ -208,14 +208,17 @@ await page.waitForTimeout(50);
 
 const contextMenu = await page.evaluate(() => {
   const content = document.querySelector('div[data-link="nemo"] .nemoElement');
-  if (!content) return { visible: false, items: 0, bound: false };
+  if (!content) return { visible: false, items: 0, bound: false, hasNewFolder: false };
   content.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 320, clientY: 280 }));
   const menu = document.querySelector('div[data-link="nemo"] .nemo-app__context-menu');
-  const items = menu ? menu.querySelectorAll('.nemo-app__context-item').length : 0;
+  const items = menu ? menu.querySelectorAll('.nemo-app__context-item:not([hidden])').length : 0;
+  const newFolder = menu ? menu.querySelector('[data-nemo-ctx-action="new-folder"]') : null;
   return {
     visible: menu && !menu.hidden,
     items,
+    hasNewFolder: !!(newFolder && !newFolder.hidden),
     bound: document.querySelector('div[data-link="nemo"]')?.dataset?.nemoContextMenuInit === 'true',
+    hasPropertiesFn: typeof window.openFileExplorerProperties === 'function',
   };
 });
 
@@ -357,7 +360,8 @@ const ok = home.sidebarReady && home.navReady
   && pathNavigationMode.ok
   && breadcrumbNav.ok
   && footerSidebar.ok && footerSidebar.footerBound
-  && contextMenu.visible && contextMenu.items >= 5 && contextMenu.bound;
+  && contextMenu.visible && contextMenu.items >= 3 && contextMenu.bound
+  && contextMenu.hasNewFolder && contextMenu.hasPropertiesFn;
 
 console.log(JSON.stringify({
   home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, contextMenu, ok,

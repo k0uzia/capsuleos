@@ -468,14 +468,15 @@
     var NEMO_MENU_ID = 'nemo-file-context-menu';
 
     var NEMO_ITEMS = [
-        { action: 'open', label: 'Ouvrir' },
-        { action: 'open-new-tab', label: 'Ouvrir dans un nouvel onglet' },
-        { sep: true },
-        { action: 'cut', label: 'Couper' },
-        { action: 'copy', label: 'Copier' },
-        { action: 'paste', label: 'Coller' },
-        { sep: true },
-        { action: 'properties', label: 'Propriétés' },
+        { action: 'new-folder', label: 'Créer un nouveau dossier', scopes: 'background' },
+        { sep: true, scopes: 'background item' },
+        { action: 'open', label: 'Ouvrir', scopes: 'item' },
+        { sep: true, scopes: 'item' },
+        { action: 'cut', label: 'Couper', scopes: 'item' },
+        { action: 'copy', label: 'Copier', scopes: 'item' },
+        { action: 'paste', label: 'Coller', scopes: 'background item' },
+        { sep: true, scopes: 'background item' },
+        { action: 'properties', label: 'Propriétés', scopes: 'background item' },
     ];
 
     function ensureNemoMenu(scope) {
@@ -494,6 +495,7 @@
             if (item.sep) {
                 var hr = global.document.createElement('hr');
                 hr.className = 'nemo-app__context-sep';
+                hr.dataset.nemoCtxScope = item.scopes || 'background item';
                 menu.appendChild(hr);
                 return;
             }
@@ -502,6 +504,7 @@
             btn.className = 'nemo-app__context-item';
             btn.setAttribute('role', 'menuitem');
             btn.dataset.nemoCtxAction = item.action;
+            btn.dataset.nemoCtxScope = item.scopes || 'background item';
             btn.textContent = item.label;
             menu.appendChild(btn);
         });
@@ -534,25 +537,75 @@
         return null;
     }
 
+    function syncNemoMenuScope(menu, profile, itemLink) {
+        menu.querySelectorAll('[data-nemo-ctx-scope]').forEach(function (node) {
+            var scopes = String(node.dataset.nemoCtxScope || '').split(/\s+/);
+            var show = scopes.indexOf(profile) >= 0;
+            if (node.classList.contains('nemo-app__context-sep')) {
+                node.hidden = !show;
+                return;
+            }
+            node.hidden = !show;
+            if (!show) {
+                return;
+            }
+            var action = node.dataset.nemoCtxAction;
+            var disabled = false;
+            if (action === 'paste') {
+                disabled = !(typeof global.nemoHasPasteClipboard === 'function'
+                    && global.nemoHasPasteClipboard());
+            } else if (action === 'new-folder') {
+                disabled = profile !== 'background';
+            } else if (action === 'properties' && profile === 'item') {
+                disabled = !itemLink;
+            } else if (['open', 'cut', 'copy'].indexOf(action) >= 0) {
+                disabled = !itemLink;
+            }
+            node.disabled = disabled;
+        });
+        var prevHidden = true;
+        menu.querySelectorAll('.nemo-app__context-sep').forEach(function (sep) {
+            if (sep.hidden) {
+                return;
+            }
+            if (prevHidden) {
+                sep.hidden = true;
+            }
+            prevHidden = false;
+        });
+    }
+
     function runNemoAction(action, itemLink) {
+        if (action === 'new-folder' && typeof global.createNewFolderInCurrentDirectory === 'function') {
+            global.createNewFolderInCurrentDirectory();
+            return;
+        }
         if (action === 'properties' && typeof global.openFileExplorerProperties === 'function') {
-            global.openFileExplorerProperties(itemLink);
+            global.openFileExplorerProperties(itemLink || null);
             return;
         }
         if (action === 'open' && itemLink && typeof itemLink.click === 'function') {
             itemLink.click();
             return;
         }
-        if (action === 'copy' && itemLink) {
-            var name = itemLink.getAttribute('data-item-name') || '';
-            if (global.fileExplorerState) {
-                global.fileExplorerState.clipboard = { mode: 'copy', name: name };
-            }
+        if (action === 'copy' && itemLink && typeof global.copyExplorerSelection === 'function') {
+            global.copyExplorerSelection(itemLink);
+            return;
+        }
+        if (action === 'cut' && itemLink && typeof global.cutExplorerSelection === 'function') {
+            global.cutExplorerSelection(itemLink);
+            return;
+        }
+        if (action === 'paste' && typeof global.pasteExplorerClipboard === 'function') {
+            global.pasteExplorerClipboard();
         }
     }
 
     function bindNemoContextMenu(scope) {
-        if (!scope || scope.dataset.nemoContextMenuInit === 'true') {
+        if (!scope) {
+            return;
+        }
+        if (scope.dataset.nemoContextMenuInit === 'true') {
             return;
         }
 
@@ -569,10 +622,8 @@
             }
             event.preventDefault();
             activeItem = getNemoTargetItem(event, scope);
-            menu.querySelectorAll('.nemo-app__context-item').forEach(function (btn) {
-                var needsItem = btn.dataset.nemoCtxAction !== 'paste';
-                btn.disabled = needsItem && !activeItem;
-            });
+            var profile = activeItem ? 'item' : 'background';
+            syncNemoMenuScope(menu, profile, activeItem);
             openNemoMenu(menu, event.clientX, event.clientY);
         });
 
@@ -620,4 +671,20 @@
     }
 
     global.bindFileExplorerContextMenu = bindFileExplorerContextMenu;
+
+    if (global.document) {
+        global.document.addEventListener('capsule:slot-injected', function onNemoContextRebind(event) {
+            var detail = event.detail || {};
+            if (detail.slotId === 'nemo' && detail.container && detail.container.dataset) {
+                delete detail.container.dataset.nemoContextMenuInit;
+                var stale = detail.container.querySelector('.nemo-app__context-menu');
+                if (stale) {
+                    stale.parentNode.removeChild(stale);
+                }
+                global.setTimeout(function () {
+                    bindFileExplorerContextMenu(detail.container);
+                }, 0);
+            }
+        });
+    }
 }(typeof window !== 'undefined' ? window : globalThis));

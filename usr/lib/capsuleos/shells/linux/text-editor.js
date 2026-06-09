@@ -36,6 +36,17 @@
         return null;
     }
 
+    /** org.gnome.TextEditor — barre d'icônes xed masquée par défaut (menus suffisent). */
+    function prefersGnomeTextEditorLayout() {
+        var bodyId = global.document.body && global.document.body.id;
+        return bodyId === 'rocky'
+            || bodyId === 'fedora'
+            || bodyId === 'alma'
+            || bodyId === 'ubuntu'
+            || bodyId === 'popos'
+            || bodyId === 'anduinos';
+    }
+
     function initTextEditorAppOnce() {
         var root = global.document.getElementById('xedApp');
         if (!root || root.dataset.xedInit === 'true') {
@@ -986,6 +997,16 @@
         setupActions();
         setupDialogs();
         setupKeyboard();
+
+        if (prefersGnomeTextEditorLayout()) {
+            toolbarVisible = false;
+            root.classList.add('is-toolbar-hidden');
+            var toolbarMenuItem = root.querySelector('[data-xed-action="toggle-toolbar"]');
+            if (toolbarMenuItem) {
+                toolbarMenuItem.classList.remove('xed-menu__item--checked');
+            }
+        }
+
         refreshTitle();
         syncDocumentsMenu();
         updateStatus();

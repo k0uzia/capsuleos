@@ -467,18 +467,41 @@
 
     var NEMO_MENU_ID = 'nemo-file-context-menu';
 
+    var NEMO_OPEN_WITH_APPS = [
+        { action: 'open-with-app', label: 'Éditeur de texte', appId: 'text_editor' },
+        { action: 'open-with-app', label: 'Visionneur d\'images', appId: 'visionneur_images' },
+        { action: 'open-with-app', label: 'Visionneur de documents', appId: 'visionneur_pdf' },
+        { action: 'open-with-app', label: 'Lecteur multimédia', appId: 'lecteur_multimedia' },
+    ];
+
+    var NEMO_DOCUMENT_TEMPLATES = [
+        { action: 'new-document-template', label: 'Document texte vide', fileName: 'Nouveau document.txt' },
+        { action: 'new-document-template', label: 'Feuille de calcul', fileName: 'Nouvelle feuille.ods' },
+        { action: 'new-document-template', label: 'Présentation', fileName: 'Nouvelle présentation.odp' },
+    ];
+
     var NEMO_ITEMS = [
         { action: 'new-folder', label: 'Créer un nouveau dossier', scopes: 'background' },
-        { action: 'new-document', label: 'Créer un nouveau document', scopes: 'background' },
+        {
+            action: 'new-document',
+            label: 'Créer un nouveau document',
+            scopes: 'background',
+            submenu: NEMO_DOCUMENT_TEMPLATES,
+        },
         { sep: true, scopes: 'background item' },
         { action: 'open', label: 'Ouvrir', scopes: 'item' },
-        { action: 'open-with', label: 'Ouvrir avec…', scopes: 'item' },
+        {
+            action: 'open-with',
+            label: 'Ouvrir avec…',
+            scopes: 'item',
+            submenu: NEMO_OPEN_WITH_APPS,
+        },
         { sep: true, scopes: 'item' },
         { action: 'cut', label: 'Couper', scopes: 'item' },
         { action: 'copy', label: 'Copier', scopes: 'item' },
         { action: 'paste', label: 'Coller', scopes: 'background item' },
         { action: 'rename', label: 'Renommer', scopes: 'item' },
-        { action: 'compress', label: 'Compresser', scopes: 'item' },
+        { action: 'compress', label: 'Compresser…', scopes: 'item' },
         { action: 'trash', label: 'Déplacer vers la corbeille', scopes: 'item' },
         { action: 'restore-trash', label: 'Restaurer', scopes: 'trash-item' },
         { action: 'delete-forever', label: 'Supprimer définitivement', scopes: 'trash-item' },
@@ -509,14 +532,43 @@
                 menu.appendChild(hr);
                 return;
             }
+            var row = global.document.createElement('div');
+            row.className = 'nemo-app__context-row';
+            row.dataset.nemoCtxScope = item.scopes || 'background item';
             var btn = global.document.createElement('button');
             btn.type = 'button';
             btn.className = 'nemo-app__context-item';
             btn.setAttribute('role', 'menuitem');
             btn.dataset.nemoCtxAction = item.action;
-            btn.dataset.nemoCtxScope = item.scopes || 'background item';
             btn.textContent = item.label;
-            menu.appendChild(btn);
+            if (item.submenu && item.submenu.length) {
+                btn.classList.add('has-submenu');
+                btn.setAttribute('aria-haspopup', 'true');
+                var sub = global.document.createElement('div');
+                sub.className = 'nemo-app__context-submenu';
+                sub.setAttribute('role', 'menu');
+                sub.hidden = true;
+                item.submenu.forEach(function (subItem) {
+                    var subBtn = global.document.createElement('button');
+                    subBtn.type = 'button';
+                    subBtn.className = 'nemo-app__context-item';
+                    subBtn.setAttribute('role', 'menuitem');
+                    subBtn.dataset.nemoCtxAction = subItem.action;
+                    subBtn.textContent = subItem.label;
+                    if (subItem.appId) {
+                        subBtn.dataset.nemoCtxAppId = subItem.appId;
+                    }
+                    if (subItem.fileName) {
+                        subBtn.dataset.nemoCtxFileName = subItem.fileName;
+                    }
+                    sub.appendChild(subBtn);
+                });
+                row.appendChild(btn);
+                row.appendChild(sub);
+            } else {
+                row.appendChild(btn);
+            }
+            menu.appendChild(row);
         });
 
         scope.appendChild(menu);
@@ -572,7 +624,13 @@
             if (!show) {
                 return;
             }
-            var action = node.dataset.nemoCtxAction;
+            var btn = node.classList.contains('nemo-app__context-item')
+                ? node
+                : node.querySelector('.nemo-app__context-item');
+            if (!btn) {
+                return;
+            }
+            var action = btn.dataset.nemoCtxAction;
             var disabled = false;
             if (action === 'paste') {
                 disabled = !(typeof global.nemoHasPasteClipboard === 'function'
@@ -583,7 +641,7 @@
                 disabled = profile !== 'background';
             } else if (action === 'properties' && profile === 'item') {
                 disabled = !itemLink;
-            } else if (['open', 'cut', 'copy', 'rename', 'trash'].indexOf(action) >= 0) {
+            } else if (['open', 'cut', 'copy', 'rename', 'trash', 'compress'].indexOf(action) >= 0) {
                 disabled = !itemLink;
             } else if (action === 'open-with') {
                 disabled = !itemLink || (itemLink.dataset && itemLink.dataset.itemType === 'folder');
@@ -592,7 +650,7 @@
             } else if (action === 'empty-trash') {
                 disabled = profile !== 'trash' && profile !== 'sidebar-trash';
             }
-            node.disabled = disabled;
+            btn.disabled = disabled;
         });
         var prevHidden = true;
         menu.querySelectorAll('.nemo-app__context-sep').forEach(function (sep) {
@@ -633,13 +691,19 @@
         });
     }
 
-    function runNemoAction(action, itemLink, scope) {
+    function runNemoAction(action, itemLink, scope, options) {
+        options = options || {};
         if (action === 'new-folder' && typeof global.createNewFolderInCurrentDirectory === 'function') {
             global.createNewFolderInCurrentDirectory();
             return;
         }
         if (action === 'new-document' && typeof global.createNewDocumentInCurrentDirectory === 'function') {
             global.createNewDocumentInCurrentDirectory();
+            return;
+        }
+        if (action === 'new-document-template' && typeof global.createNewDocumentInCurrentDirectory === 'function') {
+            var templateName = options && options.fileName ? options.fileName : 'Nouveau document.txt';
+            global.createNewDocumentInCurrentDirectory({ defaultName: templateName });
             return;
         }
         if (action === 'properties' && typeof global.openFileExplorerProperties === 'function') {
@@ -652,6 +716,11 @@
         }
         if (action === 'open-with' && typeof global.openExplorerSelectionWith === 'function') {
             global.openExplorerSelectionWith(itemLink);
+            return;
+        }
+        if (action === 'open-with-app' && typeof global.openExplorerSelectionWith === 'function') {
+            var forcedApp = options && options.appId ? options.appId : '';
+            global.openExplorerSelectionWith(itemLink, forcedApp);
             return;
         }
         if (action === 'copy' && itemLink && typeof global.copyExplorerSelection === 'function') {
@@ -752,13 +821,43 @@
             openNemoMenu(menu, event.clientX, event.clientY);
         });
 
+        function hideNemoSubmenus() {
+            menu.querySelectorAll('.nemo-app__context-submenu').forEach(function (sub) {
+                sub.hidden = true;
+            });
+        }
+
+        menu.querySelectorAll('.nemo-app__context-row').forEach(function (row) {
+            var parentBtn = row.querySelector(':scope > .nemo-app__context-item.has-submenu');
+            var sub = row.querySelector('.nemo-app__context-submenu');
+            if (parentBtn && sub) {
+                parentBtn.addEventListener('mouseenter', function () {
+                    if (parentBtn.disabled) {
+                        return;
+                    }
+                    hideNemoSubmenus();
+                    sub.hidden = false;
+                });
+                row.addEventListener('mouseleave', function () {
+                    sub.hidden = true;
+                });
+            }
+        });
+
         menu.querySelectorAll('.nemo-app__context-item').forEach(function (btn) {
             btn.addEventListener('click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
+                if (btn.classList.contains('has-submenu')) {
+                    return;
+                }
                 var action = btn.dataset.nemoCtxAction;
                 closeNemoMenu(menu);
-                runNemoAction(action, activeItem, scope);
+                hideNemoSubmenus();
+                runNemoAction(action, activeItem, scope, {
+                    appId: btn.dataset.nemoCtxAppId || '',
+                    fileName: btn.dataset.nemoCtxFileName || '',
+                });
             });
         });
 

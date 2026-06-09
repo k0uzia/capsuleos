@@ -41,6 +41,7 @@ const KNOWN_ACTIONS = new Set([
   'open-terminal',
   'select-all',
   'empty-trash',
+  'compress',
   'minimize',
   'toggle-maximize',
   'close',
@@ -148,7 +149,7 @@ results['nemo.list.background'] = await page.evaluate((knownActions) => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const items = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')]
     : [];
   const labels = items.map((n) => n.textContent.trim());
   const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
@@ -191,7 +192,7 @@ results['nemo.list.file'] = await page.evaluate((knownActions) => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const items = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')]
     : [];
   const labels = items.map((n) => n.textContent.trim());
   const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
@@ -242,7 +243,7 @@ results['nemo.list.folder'] = await page.evaluate((knownActions) => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const items = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')]
     : [];
   const labels = items.map((n) => n.textContent.trim());
   const actions = items.map((n) => String(n.dataset.nemoCtxAction || '').trim()).filter(Boolean);
@@ -285,7 +286,7 @@ results['nemo.sidebar.trash'] = await page.evaluate((knownActions) => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const items = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden)
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')]
     : [];
   const labels = items.map((n) => n.textContent.trim());
   const wired = items.every((n) => {
@@ -323,7 +324,7 @@ results['nemo.trash.background'] = await page.evaluate(() => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const labels = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden).map((n) => n.textContent.trim())
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')].map((n) => n.textContent.trim())
     : [];
   return {
     path: typeof window.getExplorerCurrentPath === 'function'
@@ -353,7 +354,7 @@ results['nemo.trash.item'] = await page.evaluate(() => {
   }));
   const menu = win?.querySelector('.nemo-app__context-menu');
   const labels = menu && !menu.hidden
-    ? [...menu.querySelectorAll('.nemo-app__context-item')].filter((n) => !n.hidden).map((n) => n.textContent.trim())
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')].map((n) => n.textContent.trim())
     : [];
   return {
     item: link.dataset.itemName,

@@ -9,7 +9,7 @@ const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
 const APPS = [
-  { search: 'Table des caractères', slot: 'gucharmap', ready: (d) => d.gucharmapInit === 'true', title: 'Table des caractères' },
+  { search: 'Table de caractères', slot: 'gucharmap', ready: (d) => d.gucharmapInit === 'true', title: 'Table de caractères' },
   { search: 'Numérisation', slot: 'simple_scan', ready: (d) => d.simpleScanInit === 'true', title: 'Numérisation de documents' },
   { search: 'Bibliothèque', slot: 'thingy', ready: (d) => d.thingyInit === 'true', title: 'Bibliothèque' },
   { search: 'Rhythmbox', slot: 'rhythmbox', ready: (d) => d.rhythmboxInit === 'true', title: 'Rhythmbox' },

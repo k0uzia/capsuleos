@@ -69,6 +69,14 @@
         "Tout sélectionner",
         "Propriétés"
       ],
+      "submenus": {
+        "new-document": [
+          "Document vide",
+          "Feuille de calcul",
+          "Présentation"
+        ]
+      },
+      "vmNote": "Sous-menu document : gettext nemo « _Empty Document » → Document vide ; Spreadsheet / Presentation",
       "priority": "P1",
       "smoke": {
         "slot": "nemo",
@@ -92,6 +100,15 @@
         "Déplacer vers la corbeille",
         "Propriétés"
       ],
+      "submenus": {
+        "open-with": [
+          "Éditeur de texte",
+          "Visionneur d'images",
+          "Visionneur de documents",
+          "Lecteur multimédia"
+        ]
+      },
+      "vmNote": "Compresser… : nemo-extensions.mo fr ; Ouvrir avec… : flyout apps associées Mint",
       "priority": "P1"
     },
     {

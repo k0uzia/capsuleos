@@ -475,7 +475,7 @@
     ];
 
     var NEMO_DOCUMENT_TEMPLATES = [
-        { action: 'new-document-template', label: 'Document texte vide', fileName: 'Nouveau document.txt' },
+        { action: 'new-document-template', label: 'Document vide', fileName: 'Nouveau document.txt' },
         { action: 'new-document-template', label: 'Feuille de calcul', fileName: 'Nouvelle feuille.ods' },
         { action: 'new-document-template', label: 'Présentation', fileName: 'Nouvelle présentation.odp' },
     ];
@@ -837,6 +837,12 @@
                     }
                     hideNemoSubmenus();
                     sub.hidden = false;
+                    sub.classList.remove('nemo-app__context-submenu--flip-left');
+                    var rowRect = row.getBoundingClientRect();
+                    var subWidth = sub.offsetWidth || sub.scrollWidth || 176;
+                    if (rowRect.right + subWidth > global.innerWidth - 8) {
+                        sub.classList.add('nemo-app__context-submenu--flip-left');
+                    }
                 });
                 row.addEventListener('mouseleave', function () {
                     sub.hidden = true;

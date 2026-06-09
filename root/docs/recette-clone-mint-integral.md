@@ -79,7 +79,8 @@
 | Sync vues | `sync-all-views.mjs` | ✅ (à relancer avant push) |
 | Gate zone Mint | `validate-all.mjs` + `validate-toolkit-paradigm.mjs --all` | ✅ |
 | **Clic droit P0/P1/P2 bureau** | `smoke-mint-context-menus.mjs` sur `:5501` | ✅ matrice [`context-menus.json`](inventaires/interactions/linux-mint/context-menus.json) incl. `desktop.icon` |
-| **Nemo menu étape 2** | `bindNemoContextMenu` + `fileExplorerNemoOps.js` | ✅ fond liste (document, terminal, tout sélectionner) ; fichier (ouvrir avec…, renommer, corbeille) ; checklist `print-mint-context-menu-checklist.mjs` |
+| **Nemo menu étape 2** | `bindNemoContextMenu` + `fileExplorerNemoOps.js` | ✅ fond liste (document, terminal, tout sélectionner) ; fichier (ouvrir avec…, renommer, corbeille) ; sous-menus flyout + smoke `nemo.list.*.submenu` ; checklist `print-mint-context-menu-checklist.mjs` |
+| **P4 batch #33** | `smoke-mint-p4-batch33.mjs` | ✅ baobab · Pix · moniteur système (menu Cinnamon) |
 | **Bureau étape 3** | `mint-desktop-icons.js` + `#desktop-icon-context-menu` | ✅ Dossier personnel + Corbeille visibles ; menu Ouvrir/Couper/Copier/Renommer/Supprimer/Propriétés |
 | **Barre titre étape 4** | `cinnamon-window-behaviors.js` + `#muffin-window-context-menu` | ✅ Réduire/Agrandir/Fermer/Toujours au premier plan ; smoke `window.title` ; **R-CIN-CTX4** |
 | **Panel étape 5** | `mint-panel-context-menu.js` + `#mint-panel-context-menu` | ✅ Ajouter des applets / Configurer le panel → cinnamon-settings ; smoke `panel.background` ; **R-CIN-CTX5** |

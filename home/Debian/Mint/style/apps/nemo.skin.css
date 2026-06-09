@@ -127,6 +127,13 @@ body#mint div[data-link="nemo"] .nemo-app__context-submenu[hidden] {
     display: none !important;
 }
 
+body#mint div[data-link="nemo"] .nemo-app__context-submenu--flip-left {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 2px;
+}
+
 body#mint div[data-link="nemo"] .nemo-app__item-rename-input {
     background: var(--nemo-bg-primary, #222226);
     color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));

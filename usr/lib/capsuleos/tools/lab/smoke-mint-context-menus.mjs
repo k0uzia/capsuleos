@@ -42,6 +42,8 @@ const KNOWN_ACTIONS = new Set([
   'select-all',
   'empty-trash',
   'compress',
+  'new-document-template',
+  'open-with-app',
   'minimize',
   'toggle-maximize',
   'close',
@@ -174,13 +176,87 @@ results['nemo.list.background'].ok = results['nemo.list.background'].visible
   && nemoBgCheck.ok;
 results['nemo.list.background'].missing = nemoBgCheck.missing;
 
+const nemoDocSubCtx = nemoBgCtx.submenus && nemoBgCtx.submenus['new-document'];
+if (nemoDocSubCtx) {
+  results['nemo.list.background.submenu'] = await page.evaluate((expectedLabels) => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    const content = win?.querySelector('.nemoElement');
+    content?.dispatchEvent(new MouseEvent('contextmenu', {
+      bubbles: true,
+      cancelable: true,
+      clientX: 420,
+      clientY: 300,
+    }));
+    const menu = win?.querySelector('.nemo-app__context-menu');
+    const docBtn = menu
+      ? [...menu.querySelectorAll('.nemo-app__context-item')].find((node) => (
+        node.dataset.nemoCtxAction === 'new-document'
+      ))
+      : null;
+    if (!docBtn) {
+      return { visible: false, labels: [], reason: 'no-new-document-item' };
+    }
+    docBtn.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    const sub = docBtn.closest('.nemo-app__context-row')?.querySelector('.nemo-app__context-submenu');
+    const labels = sub && !sub.hidden
+      ? [...sub.querySelectorAll('.nemo-app__context-item')].map((node) => node.textContent.trim())
+      : [];
+    const missing = expectedLabels.filter((label) => labels.indexOf(label) < 0);
+    return {
+      visible: !!(sub && !sub.hidden),
+      labels,
+      missing,
+      flipLeft: !!(sub && sub.classList.contains('nemo-app__context-submenu--flip-left')),
+    };
+  }, nemoDocSubCtx);
+  const docSubCheck = matchExpected(
+    results['nemo.list.background.submenu'].labels || [],
+    nemoDocSubCtx,
+  );
+  results['nemo.list.background.submenu'].ok = results['nemo.list.background.submenu'].visible
+    && docSubCheck.ok;
+  results['nemo.list.background.submenu'].missing = docSubCheck.missing;
+
+  const beforeDocCount = await page.evaluate(() => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    return win ? win.querySelectorAll('.nemoElement a[data-item-name]').length : 0;
+  });
+  await page.evaluate(() => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    const menu = win?.querySelector('.nemo-app__context-menu');
+    const docBtn = menu
+      ? [...menu.querySelectorAll('.nemo-app__context-item')].find((node) => (
+        node.dataset.nemoCtxAction === 'new-document'
+      ))
+      : null;
+    const subBtn = docBtn?.closest('.nemo-app__context-row')
+      ?.querySelector('.nemo-app__context-submenu [data-nemo-ctx-action="new-document-template"]');
+    subBtn?.click();
+  });
+  await page.waitForTimeout(160);
+  results['nemo.list.background.submenu'].createsFile = await page.evaluate((beforeCount) => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    const afterCount = win ? win.querySelectorAll('.nemoElement a[data-item-name]').length : 0;
+    const created = [...(win?.querySelectorAll('.nemoElement a[data-item-name]') || [])]
+      .some((node) => /^Nouveau document/.test(node.dataset.itemName || ''));
+    return { beforeCount, afterCount, created, grew: afterCount > beforeCount };
+  }, beforeDocCount);
+  results['nemo.list.background.submenu'].ok = results['nemo.list.background.submenu'].ok
+    && results['nemo.list.background.submenu'].createsFile.created;
+}
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(80);
+
 await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
 await page.waitForTimeout(160);
 
 results['nemo.list.file'] = await page.evaluate((knownActions) => {
   const win = document.querySelector('div[data-link="nemo"]');
   const links = win ? [...win.querySelectorAll('.nemoElement a[data-item-name]')] : [];
-  const link = links.find((node) => node.dataset.itemType !== 'folder') || links[0];
+  const link = links.find((node) => node.dataset.itemName === 'introduction-bash.txt')
+    || links.find((node) => node.dataset.itemType !== 'folder')
+    || links[0];
   if (!link) {
     return { visible: false, labels: [], noItem: true };
   }
@@ -226,6 +302,96 @@ if (!results['nemo.list.file'].noItem) {
   results['nemo.list.file'].missing = ['no file item in Documents'];
 }
 
+const nemoOpenWithSubCtx = nemoFileCtx.submenus && nemoFileCtx.submenus['open-with'];
+if (!results['nemo.list.file'].noItem && nemoOpenWithSubCtx) {
+  results['nemo.list.file.submenu'] = await page.evaluate((expectedLabels) => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    const links = win ? [...win.querySelectorAll('.nemoElement a[data-item-name]')] : [];
+    const link = links.find((node) => node.dataset.itemName === 'introduction-bash.txt')
+      || links.find((node) => node.dataset.itemType !== 'folder')
+      || links[0];
+    link?.dispatchEvent(new MouseEvent('contextmenu', {
+      bubbles: true,
+      cancelable: true,
+      clientX: 300,
+      clientY: 250,
+    }));
+    const menu = win?.querySelector('.nemo-app__context-menu');
+    const openWithBtn = menu
+      ? [...menu.querySelectorAll('.nemo-app__context-item')].find((node) => (
+        node.dataset.nemoCtxAction === 'open-with'
+      ))
+      : null;
+    if (!openWithBtn) {
+      return { visible: false, labels: [], reason: 'no-open-with-item' };
+    }
+    openWithBtn.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    const sub = openWithBtn.closest('.nemo-app__context-row')?.querySelector('.nemo-app__context-submenu');
+    const labels = sub && !sub.hidden
+      ? [...sub.querySelectorAll('.nemo-app__context-item')].map((node) => node.textContent.trim())
+      : [];
+    const actions = sub && !sub.hidden
+      ? [...sub.querySelectorAll('.nemo-app__context-item')].map((node) => (
+        String(node.dataset.nemoCtxAction || '').trim()
+      ))
+      : [];
+    return {
+      visible: !!(sub && !sub.hidden),
+      labels,
+      actions,
+      missing: expectedLabels.filter((label) => labels.indexOf(label) < 0),
+      flipLeft: !!(sub && sub.classList.contains('nemo-app__context-submenu--flip-left')),
+    };
+  }, nemoOpenWithSubCtx);
+  const openWithSubCheck = matchExpected(
+    results['nemo.list.file.submenu'].labels || [],
+    nemoOpenWithSubCtx,
+  );
+  results['nemo.list.file.submenu'].ok = results['nemo.list.file.submenu'].visible
+    && openWithSubCheck.ok
+    && (results['nemo.list.file.submenu'].actions || []).every((action) => (
+      action === 'open-with-app'
+    ));
+  results['nemo.list.file.submenu'].missing = openWithSubCheck.missing;
+
+  await page.evaluate(() => {
+    const win = document.querySelector('div[data-link="nemo"]');
+    const menu = win?.querySelector('.nemo-app__context-menu');
+    const openWithBtn = menu
+      ? [...menu.querySelectorAll('.nemo-app__context-item')].find((node) => (
+        node.dataset.nemoCtxAction === 'open-with'
+      ))
+      : null;
+    const subBtn = openWithBtn?.closest('.nemo-app__context-row')
+      ?.querySelector('.nemo-app__context-submenu [data-nemo-ctx-app-id="text_editor"]');
+    subBtn?.click();
+  });
+  await page.waitForTimeout(180);
+  results['nemo.list.file.submenu'].opensEditor = await page.evaluate(() => {
+    const editor = document.querySelector('div[data-link="text_editor"]');
+    return {
+      visible: !!(editor && editor.style.display !== 'none'),
+      init: document.getElementById('textEditorApp')?.dataset?.textEditorInit === 'true',
+    };
+  });
+  results['nemo.list.file.submenu'].ok = results['nemo.list.file.submenu'].ok
+    && results['nemo.list.file.submenu'].opensEditor.visible;
+}
+
+await page.evaluate(() => {
+  ['text_editor', 'visionneur_pdf', 'visionneur_images', 'lecteur_multimedia'].forEach((slot) => {
+    const win = document.querySelector(`div[data-link="${slot}"]`);
+    if (win) {
+      win.style.display = 'none';
+      win.classList.remove('windowElementActive');
+    }
+  });
+  const nemo = document.querySelector('div[data-link="nemo"]');
+  if (nemo) {
+    nemo.classList.add('windowElementActive');
+    nemo.style.display = 'block';
+  }
+});
 await page.keyboard.press('Escape');
 await page.waitForTimeout(80);
 
@@ -516,7 +682,9 @@ const smokeIds = [
   'desktop.background',
   'desktop.icon',
   'nemo.list.background',
+  'nemo.list.background.submenu',
   'nemo.list.file',
+  'nemo.list.file.submenu',
   'nemo.list.folder',
   'nemo.sidebar.trash',
   'nemo.trash.background',

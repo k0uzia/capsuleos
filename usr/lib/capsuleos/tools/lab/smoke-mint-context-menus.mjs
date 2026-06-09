@@ -678,6 +678,101 @@ results['panel.background'].ok = results['panel.background'].ok
 await page.keyboard.press('Escape');
 await page.waitForTimeout(80);
 
+await page.evaluate(() => {
+  const nemo = document.querySelector('div[data-link="nemo"]');
+  if (nemo && nemo.style.display === 'none' && typeof window.openWindowByDataLink === 'function') {
+    window.openWindowByDataLink('nemo');
+  }
+  ['themes'].forEach((slot) => {
+    const win = document.querySelector(`div[data-link="${slot}"]`);
+    if (win) win.style.display = 'none';
+  });
+});
+await page.waitForTimeout(120);
+
+results['nemo.pathbar'] = await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const bar = win?.querySelector('.nemo-pathbar, #nemo-path-label');
+  if (!bar) return { visible: false, labels: [], noPathbar: true };
+  const rect = bar.getBoundingClientRect();
+  bar.dispatchEvent(new MouseEvent('contextmenu', {
+    bubbles: true, cancelable: true,
+    clientX: rect.left + rect.width / 2,
+    clientY: rect.top + rect.height / 2,
+  }));
+  const menu = win?.querySelector('.nemo-app__context-menu');
+  const labels = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')].map((n) => n.textContent.trim())
+    : [];
+  return { visible: !!(menu && !menu.hidden), labels };
+});
+const pathbarCtx = { expectedLabels: ['Créer un nouveau dossier', 'Créer un nouveau document', 'Coller', 'Ouvrir dans un terminal', 'Tout sélectionner', 'Propriétés'] };
+const pathbarCheck = matchExpected(results['nemo.pathbar'].labels, pathbarCtx.expectedLabels);
+results['nemo.pathbar'].ok = results['nemo.pathbar'].visible && pathbarCheck.ok;
+results['nemo.pathbar'].missing = pathbarCheck.missing;
+
+await page.keyboard.press('Escape');
+await page.click('div[data-link="nemo"] #voletnemo a[data-link="Documents"]');
+await page.waitForTimeout(140);
+await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const grid = win?.querySelector('.nemoElement');
+  const names = ['introduction-bash.txt', 'Bash.pdf'];
+  grid?.querySelectorAll('.nemo-app__item--selected').forEach((el) => el.classList.remove('nemo-app__item--selected'));
+  names.forEach((name) => {
+    grid?.querySelector(`a[data-item-name="${name}"]`)?.classList.add('nemo-app__item--selected');
+  });
+});
+await page.waitForTimeout(80);
+
+results['nemo.list.multi'] = await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const content = win?.querySelector('.nemoElement');
+  content?.dispatchEvent(new MouseEvent('contextmenu', {
+    bubbles: true, cancelable: true, clientX: 300, clientY: 250,
+  }));
+  const menu = win?.querySelector('.nemo-app__context-menu');
+  const labels = menu && !menu.hidden
+    ? [...menu.querySelectorAll('.nemo-app__context-row:not([hidden]) > .nemo-app__context-item')].map((n) => n.textContent.trim())
+    : [];
+  const hasOpenWith = labels.indexOf('Ouvrir avec…') >= 0;
+  return { visible: !!(menu && !menu.hidden), labels, hasOpenWith };
+});
+results['nemo.list.multi'].ok = results['nemo.list.multi'].visible && !results['nemo.list.multi'].hasOpenWith;
+
+await page.keyboard.press('Escape');
+await page.click('div[data-link="nemo"] #voletnemo a[data-link="Corbeille"]');
+await page.waitForTimeout(200);
+await page.evaluate(async () => {
+  if (typeof window.emptyNautilusTrash === 'function') {
+    await window.emptyNautilusTrash();
+  }
+});
+await page.waitForTimeout(120);
+
+results['nemo.empty-trash-disabled'] = await page.evaluate(() => {
+  const win = document.querySelector('div[data-link="nemo"]');
+  const link = win?.querySelector('#voletnemo a[data-link="Corbeille"]');
+  const rect = link?.getBoundingClientRect();
+  link?.dispatchEvent(new MouseEvent('contextmenu', {
+    bubbles: true, cancelable: true,
+    clientX: rect ? rect.left + rect.width / 2 : 60,
+    clientY: rect ? rect.top + rect.height / 2 : 210,
+  }));
+  const menu = win?.querySelector('.nemo-app__context-menu');
+  const btn = menu ? [...menu.querySelectorAll('.nemo-app__context-item')].find((n) => n.dataset.nemoCtxAction === 'empty-trash') : null;
+  return {
+    visible: !!(menu && !menu.hidden),
+    labels: btn ? [btn.textContent.trim()] : [],
+    emptyTrashDisabled: !!(btn && btn.disabled),
+  };
+});
+results['nemo.empty-trash-disabled'].ok = results['nemo.empty-trash-disabled'].visible
+  && results['nemo.empty-trash-disabled'].emptyTrashDisabled;
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(80);
+
 const smokeIds = [
   'desktop.background',
   'desktop.icon',
@@ -689,6 +784,9 @@ const smokeIds = [
   'nemo.sidebar.trash',
   'nemo.trash.background',
   'nemo.trash.item',
+  'nemo.pathbar',
+  'nemo.list.multi',
+  'nemo.empty-trash-disabled',
   'window.title',
   'panel.background',
 ];

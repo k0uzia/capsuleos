@@ -488,7 +488,7 @@
             scopes: 'background',
             submenu: NEMO_DOCUMENT_TEMPLATES,
         },
-        { sep: true, scopes: 'background item' },
+        { sep: true, scopes: 'background item multi' },
         { action: 'open', label: 'Ouvrir', scopes: 'item' },
         {
             action: 'open-with',
@@ -496,20 +496,20 @@
             scopes: 'item',
             submenu: NEMO_OPEN_WITH_APPS,
         },
-        { sep: true, scopes: 'item' },
-        { action: 'cut', label: 'Couper', scopes: 'item' },
-        { action: 'copy', label: 'Copier', scopes: 'item' },
-        { action: 'paste', label: 'Coller', scopes: 'background item' },
+        { sep: true, scopes: 'item multi' },
+        { action: 'cut', label: 'Couper', scopes: 'item multi' },
+        { action: 'copy', label: 'Copier', scopes: 'item multi' },
+        { action: 'paste', label: 'Coller', scopes: 'background item multi' },
         { action: 'rename', label: 'Renommer', scopes: 'item' },
-        { action: 'compress', label: 'Compresser…', scopes: 'item' },
-        { action: 'trash', label: 'Déplacer vers la corbeille', scopes: 'item' },
+        { action: 'compress', label: 'Compresser…', scopes: 'item multi' },
+        { action: 'trash', label: 'Déplacer vers la corbeille', scopes: 'item multi' },
         { action: 'restore-trash', label: 'Restaurer', scopes: 'trash-item' },
         { action: 'delete-forever', label: 'Supprimer définitivement', scopes: 'trash-item' },
         { sep: true, scopes: 'background item trash trash-item sidebar-trash' },
         { action: 'open-terminal', label: 'Ouvrir dans un terminal', scopes: 'background' },
         { action: 'select-all', label: 'Tout sélectionner', scopes: 'background' },
         { action: 'empty-trash', label: 'Vider la corbeille', scopes: 'trash sidebar-trash' },
-        { action: 'properties', label: 'Propriétés', scopes: 'background item' },
+        { action: 'properties', label: 'Propriétés', scopes: 'background item multi' },
     ];
 
     function ensureNemoMenu(scope) {
@@ -599,10 +599,21 @@
         return null;
     }
 
+    function countNemoSelectedItems(scope) {
+        var grid = scope && scope.querySelector('.nemoElement, .nemo-app__content-grid');
+        if (!grid) {
+            return 0;
+        }
+        return grid.querySelectorAll('a.nemo-app__item--selected').length;
+    }
+
     function resolveNemoProfile(activeItem, options) {
         options = options || {};
         if (options.sidebarTrash) {
             return 'sidebar-trash';
+        }
+        if (options.multiSelect) {
+            return 'multi';
         }
         var path = global.fileExplorerState && global.fileExplorerState.currentPath;
         var trashPlace = global.CAPSULE_PLACE_TRASH || '__capsule/place/trash';
@@ -639,16 +650,35 @@
                 disabled = profile !== 'background';
             } else if (action === 'open-terminal' || action === 'select-all') {
                 disabled = profile !== 'background';
-            } else if (action === 'properties' && profile === 'item') {
+            } else if (action === 'properties' && (profile === 'item' || profile === 'multi')) {
                 disabled = !itemLink;
-            } else if (['open', 'cut', 'copy', 'rename', 'trash', 'compress'].indexOf(action) >= 0) {
-                disabled = !itemLink;
+            } else if (action === 'open' && profile === 'multi') {
+                disabled = true;
             } else if (action === 'open-with') {
-                disabled = !itemLink || (itemLink.dataset && itemLink.dataset.itemType === 'folder');
+                disabled = !itemLink || profile === 'multi'
+                    || (itemLink.dataset && itemLink.dataset.itemType === 'folder');
+            } else if (['cut', 'copy', 'rename', 'trash', 'compress'].indexOf(action) >= 0) {
+                disabled = !itemLink;
+            } else if (action === 'open') {
+                disabled = !itemLink;
             } else if (['restore-trash', 'delete-forever'].indexOf(action) >= 0) {
                 disabled = !itemLink;
             } else if (action === 'empty-trash') {
                 disabled = profile !== 'trash' && profile !== 'sidebar-trash';
+                if (!disabled) {
+                    try {
+                        var trashKey = typeof global.getExplorerStorageKey === 'function'
+                            ? global.getExplorerStorageKey('trash')
+                            : 'capsule-nemo-trash';
+                        var rawTrash = global.localStorage && global.localStorage.getItem(trashKey);
+                        var trashItems = rawTrash ? JSON.parse(rawTrash) : [];
+                        if (!Array.isArray(trashItems) || trashItems.length === 0) {
+                            disabled = true;
+                        }
+                    } catch (emptyErr) {
+                        disabled = true;
+                    }
+                }
             }
             btn.disabled = disabled;
         });
@@ -809,14 +839,28 @@
                 openNemoMenu(menu, event.clientX, event.clientY);
                 return;
             }
+            var pathbarHit = event.target.closest('.nemo-pathbar, .nemo-app__path-current, #nemo-path-label, #nemo-toggle-path-mode');
+            if (pathbarHit && scope.contains(pathbarHit)) {
+                event.preventDefault();
+                activeItem = null;
+                syncNemoMenuScope(menu, 'background', null);
+                openNemoMenu(menu, event.clientX, event.clientY);
+                return;
+            }
             var content = scope.querySelector('.nemoElement, .nemo-app__content-grid');
             if (!content || !content.contains(event.target)) {
                 return;
             }
             event.preventDefault();
+            var selectedCount = countNemoSelectedItems(scope);
             activeItem = getNemoTargetItem(event, scope);
+            if (selectedCount > 1) {
+                activeItem = content.querySelector('a.nemo-app__item--selected') || activeItem;
+            }
             selectNemoContextItem(scope, activeItem);
-            var profile = resolveNemoProfile(activeItem, {});
+            var profile = resolveNemoProfile(activeItem, {
+                multiSelect: selectedCount > 1,
+            });
             syncNemoMenuScope(menu, profile, activeItem);
             openNemoMenu(menu, event.clientX, event.clientY);
         });

@@ -26,11 +26,16 @@
         "Paramètres du bureau",
         "Actualiser le bureau"
       ],
-      "separatorsAfter": [1],
+      "separatorsAfter": [
+        1
+      ],
       "priority": "P0",
       "smoke": {
         "trigger": "playwright-right-click",
-        "coords": [640, 400]
+        "coords": [
+          640,
+          400
+        ]
       }
     },
     {
@@ -39,7 +44,14 @@
       "openMethod": "clic droit raccourci bureau",
       "capsuleTarget": "desktop-context-menu.js#desktop-icon",
       "capsuleSelector": "#desktop-icon-context-menu",
-      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Renommer", "Supprimer", "Propriétés"],
+      "expectedLabels": [
+        "Ouvrir",
+        "Couper",
+        "Copier",
+        "Renommer",
+        "Supprimer",
+        "Propriétés"
+      ],
       "priority": "P2",
       "capsuleStatus": "implemented",
       "vmDesktopIcons": {
@@ -132,7 +144,9 @@
       "label": "Nemo — corbeille (sidebar)",
       "openMethod": "clic droit entrée Corbeille",
       "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
-      "expectedLabels": ["Vider la corbeille"],
+      "expectedLabels": [
+        "Vider la corbeille"
+      ],
       "priority": "P1",
       "smoke": {
         "slot": "nemo",
@@ -145,7 +159,9 @@
       "label": "Nemo — vue corbeille (fond)",
       "openMethod": "clic droit zone vide en vue Corbeille",
       "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
-      "expectedLabels": ["Vider la corbeille"],
+      "expectedLabels": [
+        "Vider la corbeille"
+      ],
       "priority": "P1"
     },
     {
@@ -153,7 +169,10 @@
       "label": "Nemo — élément corbeille",
       "openMethod": "clic droit fichier en corbeille",
       "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
-      "expectedLabels": ["Restaurer", "Supprimer définitivement"],
+      "expectedLabels": [
+        "Restaurer",
+        "Supprimer définitivement"
+      ],
       "priority": "P1"
     },
     {
@@ -162,13 +181,19 @@
       "openMethod": "clic droit barre des tâches",
       "capsuleTarget": "mint-panel-context-menu.js",
       "capsuleSelector": "#mint-panel-context-menu",
-      "expectedLabels": ["Ajouter des applets", "Configurer le panel"],
+      "expectedLabels": [
+        "Ajouter des applets",
+        "Configurer le panel"
+      ],
       "priority": "P2",
       "capsuleStatus": "implemented",
       "vmNote": "VM Cinnamon 6.6.7 fr : entrées courtes « Applets » + « Paramètres des panneaux » (panel.js) ; Capsule libellés pédagogiques alignés matrice",
       "smoke": {
         "trigger": "playwright-right-click",
-        "coords": [520, 785]
+        "coords": [
+          520,
+          785
+        ]
       }
     },
     {
@@ -177,7 +202,12 @@
       "openMethod": "clic droit #windowHeader",
       "capsuleTarget": "cinnamon-window-behaviors.js#bindTitleContextMenu",
       "capsuleSelector": "#muffin-window-context-menu",
-      "expectedLabels": ["Réduire", "Agrandir", "Fermer", "Toujours au premier plan"],
+      "expectedLabels": [
+        "Réduire",
+        "Agrandir",
+        "Fermer",
+        "Toujours au premier plan"
+      ],
       "vmMaximizedLabel": "Restaurer",
       "vmNote": "VM fr : cinnamon.mo Minimize→Réduire, Maximize→Agrandir, Restore window→Restaurer la fenêtre ; entrée courte maximisée « Restaurer » (y=66 capture) ; Always on _Top→Toujours au premier plan",
       "priority": "P2",
@@ -189,5 +219,76 @@
       }
     }
   ],
-  "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs"
+  "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
+  "campaign": {
+    "collectedAt": "2026-06-09T13:53:50.287Z",
+    "scenarios": "root/docs/inventaires/interactions/linux-mint/nemo-context-scenarios.json",
+    "capsule": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-capsule.json",
+    "vm": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-vm.json",
+    "report": "root/docs/inventaires/interactions/linux-mint/nemo-context-campaign-report.md",
+    "p0Gaps": 0,
+    "p1Gaps": 12,
+    "notes": [
+      {
+        "id": "nemo.list.background.home",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.background.documents",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.background.desktop",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.file.txt",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.file.pdf",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.file.png",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.list.multi",
+        "verdict": "P1",
+        "note": "Capsule: Créer un nouveau dossier | Créer un nouveau document | Coller | Ouvrir dans un terminal | Tout sélectionner | Propriétés · VM: Créer un nouveau dossier | Ouvrir dans un terminal | Coller | Propriétés"
+      },
+      {
+        "id": "nemo.sidebar.place.home",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: —"
+      },
+      {
+        "id": "nemo.sidebar.place.documents",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Ouvrir | Supprimer | Vider la corbeille | Propriétés"
+      },
+      {
+        "id": "nemo.sidebar.place.downloads",
+        "verdict": "P1",
+        "note": "Capsule: — · VM: Ouvrir | Supprimer | Vider la corbeille | Propriétés"
+      },
+      {
+        "id": "nemo.list.background.submenu.new-document",
+        "verdict": "P1",
+        "note": "Capsule: Document vide | Feuille de calcul | Présentation · VM: —"
+      },
+      {
+        "id": "nemo.list.file.submenu.open-with",
+        "verdict": "P1",
+        "note": "Capsule: Éditeur de texte | Visionneur d'images | Visionneur de documents | Lecteur multimédia · VM: —"
+      }
+    ]
+  }
 }

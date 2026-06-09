@@ -45,3 +45,21 @@ Dernière mise à jour : 2026-06-09
 - **R-CIN-CRED-LIVE** — undefined : `undefined`
 - **R-CIN-DONE** — undefined : `undefined`
 
+
+
+## Campagne clic droit Nemo (VM vs recette)
+
+Dernière passe : **2026-06-09**
+
+- Scénarios : `nemo-context-scenarios.json` (29)
+- Écarts : **0 P0**, **12 P1**
+- Rapport : [`nemo-context-campaign-report.md`](interactions/linux-mint/nemo-context-campaign-report.md)
+
+Workflow :
+
+```bash
+node usr/lib/capsuleos/tools/lab/run-mint-nemo-context-campaign.mjs
+node usr/lib/capsuleos/tools/lab/run-mint-nemo-context-campaign-vm.mjs
+node usr/lib/capsuleos/tools/lab/compare-mint-nemo-context-campaign.mjs --write
+```
+

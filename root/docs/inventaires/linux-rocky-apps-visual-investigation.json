@@ -948,7 +948,7 @@
       "labelFr": "Moniteur système",
       "vmId": "org.gnome.SystemMonitor",
       "parityPriority": "P2",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Moniteur système",
         "components": [
@@ -1002,8 +1002,47 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C3",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.SystemMonitor requise."
+          },
+          {
+            "id": "real-metrics-proc-kill",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Métriques et liste processus simulées — pas de lecture /proc ni signal kill (sandbox CapsuleOS)."
+          },
+          {
+            "id": "gsm-menubar-legacy",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Barre menus Fichier/Édition conservée (layout GSM 46) — header Adwaita compact VM non calé pixel (hors P2)."
+          }
+        ],
+        "resolved": [
+          "process-table-gnome-shell-fr",
+          "process-search-and-selection",
+          "cpu-net-live-charts",
+          "memory-swap-labels-fr",
+          "filesystem-tab-rl10-mounts",
+          "window-proportions-48x32",
+          "rocky-adwaita-tokens-gsm-bridge"
+        ]
+      },
+      "note": "Phase C3 — org.gnome.SystemMonitor : onglets Processus/Ressources/FS, courbes CPU-réseau animées et données RL10."
     },
     {
       "controlId": "visionneur_pdf",

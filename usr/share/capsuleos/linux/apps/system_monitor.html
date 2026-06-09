@@ -58,7 +58,7 @@
                 <h3 class="gsm-app__chart-title">Mémoire et échange</h3>
                 <div class="gsm-app__chart-area gsm-app__chart-area--mem">
                     <div class="gsm-app__mem-bar"><span>Mémoire</span><span id="gsm-mem-used">2,1 Go (27 %)</span></div>
-                    <div class="gsm-app__mem-bar"><span>Échange</span><span>0 o (0 %)</span></div>
+                    <div class="gsm-app__mem-bar"><span>Échange</span><span id="gsm-swap-used">0 o (0 %)</span></div>
                 </div>
             </div>
             <div class="gsm-app__chart gsm-app__chart--net">
@@ -80,16 +80,7 @@
                     <th scope="col">Utilisé</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>/dev/sda2</td>
-                    <td>/</td>
-                    <td>ext4</td>
-                    <td>98,4 Go</td>
-                    <td>72,1 Go</td>
-                    <td>26,3 Go (27 %)</td>
-                </tr>
-            </tbody>
+            <tbody id="gsm-fs-body"></tbody>
         </table>
     </section>
 

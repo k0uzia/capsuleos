@@ -1181,7 +1181,7 @@
       "labelFr": "Snapshot",
       "vmId": "org.gnome.Snapshot",
       "parityPriority": "P1",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Snapshot (caméra)",
         "components": [
@@ -1235,8 +1235,47 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C2",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Snapshot requise."
+          },
+          {
+            "id": "camera-stream",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Flux caméra réel non simulé — sandbox CapsuleOS sans accès périphérique."
+          },
+          {
+            "id": "effects-recording",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Effets et enregistrement vidéo — placeholders désactivés (hors P1)."
+          }
+        ],
+        "resolved": [
+          "photo-video-mode-switch",
+          "no-camera-empty-state-fr",
+          "effects-strip-placeholder",
+          "shutter-gallery-switch-controls",
+          "preview-viewport-4x3",
+          "window-proportions-38x32",
+          "rocky-adwaita-tokens"
+        ]
+      },
+      "note": "Phase C2 — org.gnome.Snapshot : modes Photo/Vidéo, aperçu, bandeau effets, obturateur."
     },
     {
       "controlId": "terminal",

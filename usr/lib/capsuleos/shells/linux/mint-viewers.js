@@ -50,6 +50,46 @@
         content.appendChild(wrap);
     }
 
+    function usesPapersChrome(root) {
+        return Boolean(root && root.classList && root.classList.contains('papers-app'));
+    }
+
+    function resolvePdfViewerTitle(root) {
+        if (usesPapersChrome(root)) {
+            return 'Papers';
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        if (bodyId && LOUPE_BODY_IDS[bodyId]) {
+            return 'Papers';
+        }
+        return PDF_TITLE;
+    }
+
+    function resolveEmptyPdfLabel(root) {
+        return usesPapersChrome(root) ? 'Aucun document ouvert' : 'Aucun document sélectionné';
+    }
+
+    function syncPapersEmptyState(root, visible) {
+        var empty = root.querySelector('#papers-empty-state');
+        if (empty) {
+            empty.hidden = !visible;
+        }
+    }
+
+    function ensurePapersEmptyState(root) {
+        var content = root.querySelector('#mint-pdf-viewer-content');
+        if (!content || content.querySelector('.viewer-app__frame') || content.querySelector('#papers-empty-state')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.id = 'papers-empty-state';
+        wrap.className = 'papers-app__empty';
+        wrap.innerHTML =
+            '<p class="papers-app__empty-title">Ouvrir un document</p>' +
+            '<p class="papers-app__empty-hint">Ouvrez un fichier PDF depuis Fichiers pour l\'afficher ici.</p>';
+        content.appendChild(wrap);
+    }
+
     function syncLoupeMetaType(root, payload) {
         var typeEl = root.querySelector('#loupe-meta-type');
         if (!typeEl) {
@@ -396,25 +436,29 @@
         var nameEl = root.querySelector('#mint-pdf-viewer-filename');
         var winEl = getWindowEl(root, 'visionneur_pdf');
         var sidebar = root.querySelector('#xreader-sidebar');
+        var titleBase = resolvePdfViewerTitle(root);
         if (payload && payload.name) {
             xreaderState.pages = 1;
             xreaderState.page = 1;
             if (nameEl) {
                 nameEl.textContent = payload.name;
             }
-            syncWindowTitle(winEl, payload.name + ' — ' + PDF_TITLE);
+            syncPapersEmptyState(root, false);
+            syncWindowTitle(winEl, payload.name + ' — ' + titleBase);
             if (sidebar) {
-                sidebar.innerHTML = '<p class="xreader-app__thumb is-active" aria-current="page">1</p>';
+                sidebar.innerHTML = '<button type="button" class="papers-app__thumb is-active" aria-current="page">1</button>';
             }
         } else {
             xreaderState.pages = 0;
             xreaderState.page = 0;
             if (nameEl) {
-                nameEl.textContent = 'Aucun document sélectionné';
+                nameEl.textContent = resolveEmptyPdfLabel(root);
             }
-            syncWindowTitle(winEl, PDF_TITLE);
+            ensurePapersEmptyState(root);
+            syncPapersEmptyState(root, true);
+            syncWindowTitle(winEl, titleBase);
             if (sidebar) {
-                sidebar.innerHTML = '<p class="xreader-app__sidebar-hint">Aucun document</p>';
+                sidebar.innerHTML = '<p class="papers-app__sidebar-hint">Aucun document</p>';
             }
         }
         xreaderState.zoom = 100;
@@ -438,7 +482,7 @@
             return;
         }
         bindXreaderToolbar(root);
-        syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), PDF_TITLE);
+        syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), resolvePdfViewerTitle(root));
         root.dataset.xreaderInit = 'true';
     }
 

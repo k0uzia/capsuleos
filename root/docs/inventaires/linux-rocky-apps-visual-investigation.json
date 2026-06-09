@@ -972,7 +972,7 @@
       "labelFr": "Papers",
       "vmId": "org.gnome.Papers",
       "parityPriority": "P1",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Papers (PDF)",
         "components": [
@@ -1038,8 +1038,49 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C2",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.Papers requise."
+          },
+          {
+            "id": "multi-page-pdf",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "PDF mono-page simulé — navigation multi-pages et miniatures réelles non implémentées."
+          },
+          {
+            "id": "annotations-search",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Annotations, recherche et signets Papers non simulés (hors P1)."
+          }
+        ],
+        "resolved": [
+          "papers-toolbar-glyphs",
+          "page-indicator-fr",
+          "sidebar-thumbs-toggle",
+          "zoom-fit-controls",
+          "empty-state-fr",
+          "canvas-dark-chrome",
+          "window-proportions-46x34",
+          "nautilus-open-pdf",
+          "title-papers-fr"
+        ]
+      },
+      "note": "Phase C2 — org.gnome.Papers : toolbar pages/zoom, miniatures, état vide, ouverture Nautilus."
     },
     {
       "controlId": "themes",

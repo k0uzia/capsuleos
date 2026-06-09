@@ -39,9 +39,16 @@
       "capture-clone-surfaces-compare"
     ],
     "gaps": [
-      "Π pivot 98→100",
-      "écarts Dolphin interactionnels résiduels",
-      "Konversation kickoff (VM refresh)"
+      "Π pivot 99→100",
+      "captures VM compare live (virsh)"
+    ],
+    "passOrder": [
+      "run-kde-neon-pass",
+      "refresh-kde-neon-parity-v8",
+      "vm-kde-neon-inventory.sh",
+      "konversation-kickoff",
+      "capture-vm-compare",
+      "pi-100-closure"
     ],
     "scope": "neon-only — pas de propagation dérivés tant que pivot non clôturé"
   },
@@ -57,8 +64,10 @@
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
-    "inventoryCollectedAt": "2026-06-08T13:15:05Z",
-    "labConfig": "etc/capsuleos/lab-inventory.json"
+    "inventoryCollectedAt": "2026-06-09T14:55:47Z",
+    "labConfig": "etc/capsuleos/lab-inventory.json",
+    "konversationOnVm": false,
+    "konversationNote": "org.kde.konversation.desktop absent — pas d'entrée kickoff VM"
   },
   "parity": {
     "doc": "inventaire-parite-neon.md",
@@ -130,7 +139,11 @@
   "v6Deliverables": {
     "debianKdeFirefoxCloisonnement": true,
     "discoverKirigamiSharedCss": "usr/share/capsuleos/linux/apps/style/discover-kirigami-kde.shared.css",
-    "discoverDerivedSkins": ["linux-opensuse", "linux-mx-kde", "linux-debian-kde"],
+    "discoverDerivedSkins": [
+      "linux-opensuse",
+      "linux-mx-kde",
+      "linux-debian-kde"
+    ],
     "smoke": "smoke-kde-v6-derived.mjs"
   },
   "campaignV7": "v7-closure",
@@ -140,13 +153,28 @@
   "v7ClosedAt": "2026-06-09T14:30:00.000Z",
   "v7Deliverables": {
     "calendarSmoke": "smoke-kde-neon-calendar.mjs",
-    "derivedCaptureBaselines": ["linux-opensuse", "linux-mx-kde", "linux-debian-kde"],
+    "derivedCaptureBaselines": [
+      "linux-opensuse",
+      "linux-mx-kde",
+      "linux-debian-kde"
+    ],
     "derivedCredSample": "smoke-kde-derived-cred-sample.mjs",
     "pi_global": 98,
     "smoke": "smoke-kde-v7-closure.mjs",
     "refreshParity": "refresh-kde-neon-parity-v7.mjs"
   },
-  "nextStep": "Π 98→100 pivot Neon · Dolphin · captures VM Neon · Konversation (VM refresh)",
+  "passNeon": {
+    "roadmap": "linux-kde-neon-roadmap-pass.md",
+    "orchestrator": "run-kde-neon-pass.mjs",
+    "frozen": "vp-residual zones ✅ + CredΣ + baseline captures"
+  },
+  "nextStep": "captures VM virsh · Π 99→100",
+  "campaignV8": "v8-pi-neon-pass",
+  "campaignV8Status": "in_progress",
+  "v8PiGlobal": 99,
+  "v8VmRefreshAt": "2026-06-09T14:55:47Z",
+  "v8VmCapture": "home/public/Images/screen_KDE-Neon/vm-dolphin.png",
+  "v8VmCaptureAt": "2026-06-09T14:56:00.000Z",
   "v5CredibilityClosedAt": "2026-06-09T12:51:14.601Z",
   "v5Deliverables": {
     "campaign": "v5-credibility-pass",
@@ -157,7 +185,7 @@
     "smoke": "smoke-kde-fidelity-all.mjs",
     "credSigma": true
   },
-  "updatedAt": "2026-06-09T14:30:00.000Z",
+  "updatedAt": "2026-06-09T14:51:15.259Z",
   "credibilityCampaign": {
     "campaignId": "v5-credibility-pass",
     "credSigma": true,
@@ -178,5 +206,12 @@
     },
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
+  },
+  "lastNeonPass": {
+    "evaluatedAt": "2026-06-09T14:51:15.259Z",
+    "passOk": true,
+    "pi_global": 98,
+    "tool": "run-kde-neon-pass.mjs",
+    "captureCompare": "no drift"
   }
 }

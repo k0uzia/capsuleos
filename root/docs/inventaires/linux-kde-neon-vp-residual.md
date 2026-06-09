@@ -11,7 +11,8 @@
 | **P1** | Kickoff | Batches B2/B3 surfaces dédiées (Spectacle, Info-centre, Moniteur) | `spectacle_kde_neon.html`, `kinfocenter_kde_neon.html`, `system_monitor` | ✅ v4 |
 | **P2** | Kickoff | KDEConnect (×3) → stub dédié | `kdeconnect_kde_neon.html` | ✅ v4 P4 |
 | **P2** | Tray | Polish calendrier (smoke dédié) | `calendar-popover-kde.js` | ✅ v7 |
-| **P2** | Kickoff | Konversation (absente inventaire VM) | — | VM refresh |
+| **P2** | Dolphin | Menu contextuel flyouts + icônes KDE | `dolphin-kde-chrome.js` §ctx | ✅ pass Neon |
+| **P2** | Kickoff | Konversation | — | **hors VM** (desktop absent juin 2026) |
 | **P2** | Dérivés | Discover Kirigami full sur dérivés | openSUSE, MX, Debian | ✅ v6 P1 |
 | **P2** | Dérivés | Baselines captures Capsule | `capture-derived-kde-baselines.mjs` | ✅ v7 |
 | **P2** | Debian-KDE | Icônes Firefox `toolkits/gnome/apps` (fuite) | `index.html`, kickoff | ✅ v6 P0 |

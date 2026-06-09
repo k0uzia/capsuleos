@@ -16,8 +16,8 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 | **Skin canonique** | `home/Debian/KDE-Neon/` |
 | **Façade** | `OS/linux/families/debian/kde-neon/index.html` |
 | **VM lab** | `goupil@192.168.123.52` (virsh `KDE-Neon`) |
-| **Π actuel** | ~93 % ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
-| **Campagne** | v4 deep-parity — P0 Dolphin ✅ · P1 Discover/Firefox ✅ · P2 kickoff B2/B3 🔄 |
+| **Π actuel** | **98** ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
+| **Campagne** | v4–v7 clôturées · passes pivot : [`linux-kde-neon-roadmap-pass.md`](inventaires/linux-kde-neon-roadmap-pass.md) |
 
 **Pourquoi Neon et pas `linux-debian-kde` ?**
 
@@ -51,9 +51,10 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 | **KdP4** | Propagation dérivés | `smoke-kde-p4-propagation.mjs` |
 | **H₆** | Clôture | `validate-all.mjs` |
 
-**Hors scope Kd*** (différent de Mint Cred*) :
+**Cred* KDE Neon** (adapté Plasma, ≠ Mint 101 entrées) :
 
-- CredV/CredC/CredS/CredΠ — campagne menu 101 entrées Cinnamon ; KDE kickoff = 30 apps VM, pas de `app-fidelity-scenarios.json` dédié.
+- Contrat : `etc/capsuleos/contracts/kde-fidelity-scenarios.json` · 33 scénarios · **CredΣ** clôturé v5.
+- Passes : `run-kde-neon-pass.mjs` — ne réécrit pas l'inventaire sans échec smoke.
 - Playbook Paramètres GNOME (`replication-chain.json`) — remplacé par surfaces Plasma (panel, kickoff, tray, System Settings stub).
 
 Cartographie écarts :

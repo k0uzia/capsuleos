@@ -23,9 +23,9 @@ const read = (rel) => {
 const indexHtml = read('home/Debian/KDE-Neon/index.html');
 const breezeCss = read('home/Debian/KDE-Neon/style/debian-breeze.css');
 const footerCss = read('home/Debian/KDE-Neon/style/footer.css');
-const discoverJs = read('home/Debian/KDE-Neon/js/discover-neon.js');
+const discoverJs = read('usr/lib/capsuleos/shells/linux/discover-kde.js');
 const trayJs = read('home/Debian/KDE-Neon/js/tray-popover-kde.js');
-const dolphinJs = read('home/Debian/KDE-Neon/js/dolphin-neon.js');
+const dolphinJs = read('usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-kde-chrome.js');
 
 if (!indexHtml.includes('id="kde-neon"')) {
   errors.push('index.html : body#kde-neon absent');
@@ -42,14 +42,20 @@ if (!breezeCss.includes('--kde-neon-window-titlebar-bg')) {
 if (footerCss.includes('--opensuse-')) {
   errors.push('footer.css : tokens --opensuse-* résiduels');
 }
+if (!indexHtml.includes('discover-kde.js')) {
+  errors.push('index.html : discover-kde.js (usr/lib) absent');
+}
+if (!indexHtml.includes('dolphin-kde-chrome.js')) {
+  errors.push('index.html : dolphin-kde-chrome.js (usr/lib) absent');
+}
 if (discoverJs.includes('../../../usr/share/')) {
-  errors.push('discover-neon.js : chemins usr/share en dur');
+  errors.push('discover-kde.js : chemins usr/share en dur');
 }
 if (trayJs.includes('../../../usr/share/')) {
   errors.push('tray-popover-kde.js : chemins usr/share en dur');
 }
 if (!dolphinJs.includes('./assets/') || !dolphinJs.includes('resolveCapsuleResourceUrl')) {
-  errors.push('dolphin-neon.js : convention assets incomplète');
+  errors.push('dolphin-kde-chrome.js : convention assets incomplète');
 }
 
 const chromePath = [

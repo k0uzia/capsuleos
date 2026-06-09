@@ -1,8 +1,8 @@
 {
   "registryId": "linux-kde-neon",
   "version": 2,
-  "campaign": "v7-closure-parity",
-  "description": "Indice Π post CredΣ + v6 dérivés + calendrier tray — VM goupil@192.168.123.52",
+  "campaign": "v8-pi-neon-pass",
+  "description": "Π pivot Neon — post ctx Dolphin · CredΣ · calendrier",
   "weights": {
     "shell": 0.25,
     "apps": 0.75
@@ -20,12 +20,12 @@
         "vis": 98,
         "nav": 98,
         "int": 98,
-        "ctx": 97,
+        "ctx": 98,
         "kb": 96,
         "data": 98
       },
       "inventory": "interactions/linux-kde-neon/panel.json",
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "updatedAt": "2026-06-09T14:54:14.026Z"
     },
     "mainMenu": {
       "id": "mainMenu",
@@ -40,7 +40,7 @@
         "data": 98
       },
       "inventory": "interactions/linux-kde-neon/mainMenu.json",
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "updatedAt": "2026-06-09T14:54:14.026Z"
     },
     "tray": {
       "id": "tray",
@@ -50,128 +50,128 @@
         "vis": 98,
         "nav": 98,
         "int": 98,
-        "ctx": 97,
+        "ctx": 98,
         "kb": 96,
         "data": 98
       },
       "inventory": "interactions/linux-kde-neon/tray.json",
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "updatedAt": "2026-06-09T14:54:14.026Z"
     },
     "clock": {
       "id": "clock",
-      "pi": 97,
+      "pi": 98,
       "status": "ok",
       "dimensions": {
         "vis": 98,
         "nav": 98,
         "int": 98,
-        "ctx": 97,
-        "kb": 94,
+        "ctx": 98,
+        "kb": 95,
         "data": 98
       },
       "inventory": null,
-      "updatedAt": "2026-06-09T13:29:08.227Z",
-      "vpNote": "v7 — smoke-kde-neon-calendar (grille 6×7, nav mois, Escape)"
+      "updatedAt": "2026-06-09T14:54:14.026Z",
+      "vpNote": "v7 calendrier + smoke-kde-neon-calendar"
     },
     "desktop": {
       "id": "desktop",
-      "pi": 96,
+      "pi": 97,
       "status": "ok",
       "dimensions": {
-        "vis": 97,
+        "vis": 98,
         "nav": 97,
         "int": 97,
-        "ctx": 96,
-        "kb": 94,
-        "data": 97
+        "ctx": 97,
+        "kb": 95,
+        "data": 98
       },
       "inventory": null,
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "updatedAt": "2026-06-09T14:54:14.026Z"
     },
     "theme": {
       "id": "theme",
-      "pi": 96,
+      "pi": 97,
       "status": "ok",
       "dimensions": {
-        "vis": 97,
+        "vis": 98,
         "nav": 97,
         "int": 97,
-        "ctx": 96,
-        "kb": 94,
-        "data": 97
+        "ctx": 97,
+        "kb": 95,
+        "data": 98
       },
       "inventory": null,
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "updatedAt": "2026-06-09T14:54:14.026Z"
     }
   },
   "apps": {
     "nemo": {
       "slot": "nemo",
       "label": "Dolphin",
-      "pi": 97,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 98,
-        "nav": 98,
-        "int": 98,
-        "ctx": 97,
-        "kb": 94,
-        "data": 98
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 96,
+        "data": 99
       },
       "inventory": "interactions/linux-kde-neon/nemo.json",
-      "vpNote": "v4 P0+P3 + CredΣ dolphin",
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "vpNote": "CredΣ + pass ctx flyouts/icônes KDE (smoke 22 icônes)",
+      "updatedAt": "2026-06-09T14:54:14.027Z"
     },
     "firefox": {
       "slot": "firefox",
       "label": "Firefox",
-      "pi": 97,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 98,
-        "nav": 98,
-        "int": 98,
-        "ctx": 97,
-        "kb": 94,
-        "data": 98
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 96,
+        "data": 99
       },
       "inventory": "interactions/linux-kde-neon/firefox.json",
-      "updatedAt": "2026-06-09T13:29:08.227Z",
-      "vpNote": "v4 Proton + CredΣ"
+      "updatedAt": "2026-06-09T14:54:14.027Z",
+      "vpNote": "CredΣ firefox (3 scénarios)"
     },
     "terminal": {
       "slot": "terminal",
       "label": "Konsole",
-      "pi": 98,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 98,
-        "nav": 98,
-        "int": 98,
-        "ctx": 97,
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
         "kb": 96,
-        "data": 98
+        "data": 99
       },
       "inventory": "interactions/linux-kde-neon/terminal.json",
-      "updatedAt": "2026-06-09T13:29:08.227Z",
+      "updatedAt": "2026-06-09T14:54:14.027Z",
       "vpNote": "CredΣ konsole"
     },
     "update_manager": {
       "slot": "update_manager",
       "label": "Discover",
-      "pi": 98,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 98,
-        "nav": 98,
-        "int": 98,
-        "ctx": 97,
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
         "kb": 96,
-        "data": 98
+        "data": 99
       },
       "inventory": "interactions/linux-kde-neon/update_manager.json",
-      "vpNote": "v4 Kirigami VLC + v6 propagation dérivés",
-      "updatedAt": "2026-06-09T13:29:08.227Z"
+      "vpNote": "CredΣ discover",
+      "updatedAt": "2026-06-09T14:54:14.027Z"
     }
   },
   "catalog": {
@@ -186,9 +186,9 @@
       "linux-debian-kde"
     ]
   },
-  "roadmap": "linux-kde-neon-roadmap-v7.md",
+  "roadmap": "linux-kde-neon-roadmap-pass.md",
   "vpResidual": "linux-kde-neon-vp-residual.md",
-  "updatedAt": "2026-06-09T13:29:08.227Z",
-  "pi_global": 98,
+  "updatedAt": "2026-06-09T14:54:14.027Z",
+  "pi_global": 99,
   "status_global": "ok"
 }

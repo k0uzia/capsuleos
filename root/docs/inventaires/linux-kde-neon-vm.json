@@ -1,7 +1,7 @@
 {
     "registryId": "linux-kde-neon",
     "toolkit": "kde",
-    "collectedAt": "2026-06-08T13:15:05Z",
+    "collectedAt": "2026-06-09T14:55:47Z",
     "os": {
         "prettyName": "KDE neon User Edition",
         "name": "KDE neon",

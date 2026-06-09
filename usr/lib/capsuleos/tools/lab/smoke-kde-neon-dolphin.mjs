@@ -91,10 +91,13 @@ try {
   const flyouts = await page.evaluate(() => {
     const menu = document.querySelector('#nemo-context-menu.dolphin-context-menu');
     const panel = menu ? menu.querySelector('.nautilus-context-menu__flyout:not([hidden])') : null;
+    const icons = menu ? [...menu.querySelectorAll('.nautilus-context-menu__icon')] : [];
     return {
       submenuCount: menu ? menu.querySelectorAll('.nautilus-context-menu__item--submenu').length : 0,
       flyoutVisible: !!panel,
       flyoutItems: panel ? panel.querySelectorAll('.nautilus-context-menu__flyout-item').length : 0,
+      ctxIconsLoaded: icons.filter((img) => img.naturalWidth > 0).length,
+      ctxIconsKde: icons.filter((img) => /toolkits\/kde|icons\/kde/.test(img.src || '')).length,
     };
   });
 
@@ -103,6 +106,30 @@ try {
   }
   if (!flyouts.flyoutVisible || flyouts.flyoutItems < 1) {
     errors.push('context-menu : flyout étiquettes non visible');
+  }
+  if (flyouts.ctxIconsLoaded < 8) {
+    errors.push(`context-menu : icônes KDE chargées=${flyouts.ctxIconsLoaded} (attendu ≥8)`);
+  }
+
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#nemo-context-menu.dolphin-context-menu[hidden]', { timeout: 3000 }).catch(() => {});
+  await page.click('a[data-item-type="folder"]', { button: 'right' });
+  await page.waitForSelector('#nemo-context-menu.dolphin-context-menu:not([hidden])', { timeout: 8000 });
+  const activitiesItem = await page.$('[data-nemo-ctx="activities"]');
+  if (activitiesItem) {
+    await activitiesItem.hover();
+    await page.waitForTimeout(200);
+  }
+  const activitiesFlyout = await page.evaluate(() => {
+    const item = document.querySelector('[data-nemo-ctx="activities"]');
+    const panel = item && item.querySelector('.nautilus-context-menu__flyout:not([hidden])');
+    return {
+      visible: !!panel,
+      items: panel ? panel.querySelectorAll('.nautilus-context-menu__flyout-item').length : 0,
+    };
+  });
+  if (!activitiesFlyout.visible || activitiesFlyout.items < 2) {
+    errors.push('context-menu : flyout activités absent');
   }
 
   await page.click('#dolphin-split-toggle');

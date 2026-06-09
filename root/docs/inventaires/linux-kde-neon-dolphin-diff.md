@@ -147,13 +147,14 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 | Actions branchées | natif | open-tab, split, panneaux, etc. | 🟡 |
 | Capture paire VM | `vm-dolphin-hamburger-open.png` | `capsule-dolphin-hamburger.png` | ✅ 2026-06-08 |
 
-### 9. Menu contextuel — ⏳ V4-P1 backlog
+### 9. Menu contextuel — ✅ pass Neon (juin 2026)
 
 | Élément | Statut | Note |
 |---------|--------|------|
-| Clic droit fichier/dossier/fond | ✅ partiel | noyau `fileExplorerContextMenu.js` |
-| Flyouts sous-menus | ⏳ | dupliquer, étiquettes, activités |
-| Icônes KDE | ✅ | `DOLPHIN_CONTEXT_MENU_ICONS` |
+| Clic droit fichier/dossier/fond | ✅ | noyau `fileExplorerContextMenu.js` + fragment Dolphin |
+| Flyouts sous-menus | ✅ | étiquettes, activités, compresser, terminal… · `DOLPHIN_CTX_FLYOUTS` |
+| Icônes KDE | ✅ | `DOLPHIN_CONTEXT_MENU_ICONS` dans `dolphin-kde-chrome.js` |
+| Smoke | ✅ | `smoke-kde-neon-dolphin.mjs` (flyouts + icônes) |
 
 ---
 

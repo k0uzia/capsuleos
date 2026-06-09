@@ -1782,6 +1782,58 @@
         'activities': ['Nouvelle activité…', 'Gérer les activités…'],
     };
 
+    const DOLPHIN_CONTEXT_MENU_ICONS = {
+        'tab-new': `${KDE_NEMO_ASSETS}tab-new.svg`,
+        'window-new': `${KDE_NEMO_ASSETS}screen.svg`,
+        'view-split': `${KDE_NEMO_ASSETS}view-split-left-right.svg`,
+        'open-menu': `${KDE_NEMO_ASSETS}open-menu-symbolic.svg`,
+        'list-add': `${KDE_NEMO_ASSETS}add-new-file.svg`,
+        'edit-cut': `${KDE_NEMO_ASSETS}cut.svg`,
+        'edit-copy': `${KDE_NEMO_ASSETS}copy.svg`,
+        location: `${KDE_NEMO_ASSETS}location-symbolic.svg`,
+        'edit-paste': `${KDE_NEMO_ASSETS}paste.svg`,
+        'edit-duplicate': `${KDE_NEMO_ASSETS}copy.svg`,
+        'edit-rename': `${KDE_NEMO_ASSETS}document-properties.svg`,
+        'user-trash': `${KDE_NEMO_ASSETS}user-trash-symbolic.svg`,
+        'utilities-terminal': `${KDE_APPS_ASSETS}utilities-terminal.svg`,
+        package: `${KDE_APPS_ASSETS}archive-manager.png`,
+        tag: `${KDE_NEMO_ASSETS}starred-symbolic.svg`,
+        activities: './assets/icons/kde/elements/folder-activities.svg',
+        'folder-new': `${KDE_NEMO_ASSETS}new-folder.svg`,
+        'edit-select-all': `${KDE_NEMO_ASSETS}view-grid-symbolic.svg`,
+        'edit-undo': `${KDE_NEMO_ASSETS}undo.svg`,
+        'document-properties': `${KDE_NEMO_ASSETS}document-properties.svg`,
+    };
+
+    function resolveKdeCtxIcon(path) {
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(path);
+        }
+        return path;
+    }
+
+    function decorateDolphinContextMenuIcons(menu) {
+        if (!menu || !menu.classList.contains('dolphin-context-menu')) {
+            return;
+        }
+        menu.querySelectorAll('[data-nemo-ctx-icon]').forEach((item) => {
+            const key = item.dataset.nemoCtxIcon;
+            const path = DOLPHIN_CONTEXT_MENU_ICONS[key];
+            if (!path) {
+                return;
+            }
+            let icon = item.querySelector('.nautilus-context-menu__icon');
+            if (!icon) {
+                icon = global.document.createElement('img');
+                icon.className = 'nautilus-context-menu__icon';
+                icon.alt = '';
+                item.insertBefore(icon, item.firstChild);
+            }
+            icon.src = resolveKdeCtxIcon(path);
+        });
+        menu.dataset.kdeCtxIcons = 'true';
+    }
+
     function closeContextMenuFlyouts(menu) {
         if (!menu) {
             return;
@@ -1800,6 +1852,7 @@
             return;
         }
         menu.dataset.ctxFlyoutsInit = 'true';
+        decorateDolphinContextMenuIcons(menu);
         menu.querySelectorAll('.nautilus-context-menu__item--submenu').forEach((item) => {
             const ctx = item.dataset.nemoCtx;
             const entries = DOLPHIN_CTX_FLYOUTS[ctx];
@@ -1836,8 +1889,16 @@
                 item.classList.add('is-open');
                 flyout.hidden = false;
             });
+            flyout.addEventListener('mouseenter', () => {
+                item.classList.add('is-open');
+                flyout.hidden = false;
+            });
         });
-        menu.addEventListener('mouseleave', () => {
+        menu.addEventListener('mouseleave', (event) => {
+            const related = event.relatedTarget;
+            if (related && menu.contains(related)) {
+                return;
+            }
             closeContextMenuFlyouts(menu);
         });
     }

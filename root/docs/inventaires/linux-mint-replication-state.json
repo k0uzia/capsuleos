@@ -160,7 +160,7 @@
       "summary": "librewriter retiré DOM/panel ; Writer → libreoffice_startcenter ; checklist absent panel"
     }
   ],
-  "currentFocus": "v3-credibility-pass",
+  "currentFocus": "cinnamon-perfection-pass",
   "nextPallier": null,
   "nextQueue": [],
   "notes": [
@@ -173,5 +173,25 @@
     "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
     "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
   ],
-  "updatedAt": "2026-06-09T09:06:17.115Z"
+  "updatedAt": "2026-06-09T10:09:48.875Z",
+  "groundTruth": {
+    "chain": "cinnamon",
+    "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
+    "doc": "root/docs/ground-truth-cinnamon.md",
+    "predicates": {
+      "CinI": true,
+      "CinM": true,
+      "CinA": true,
+      "CinC": true,
+      "CinS": true,
+      "CinΠ": true,
+      "CinPi": true,
+      "CinCred": true,
+      "CinCred_live": true,
+      "CinΣ": true
+    },
+    "cinSigma": true,
+    "gaps": 2,
+    "evaluatedAt": "2026-06-09T10:09:47.699Z"
+  }
 }

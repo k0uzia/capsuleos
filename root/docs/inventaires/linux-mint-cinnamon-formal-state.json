@@ -1,0 +1,30 @@
+{
+  "registryId": "linux-mint",
+  "predicates": {
+    "CinI": true,
+    "CinM": true,
+    "CinA": true,
+    "CinC": true,
+    "CinS": true,
+    "CinΠ": true,
+    "CinCred": true,
+    "CinΣ": true
+  },
+  "metrics": {
+    "pi_global": 100,
+    "cloisonnementScore": 94,
+    "physicalCssUrls": 7,
+    "manifestDrift": 0,
+    "credSigma": true
+  },
+  "nextPredicate": null,
+  "evaluatedAt": "2026-06-09T10:09:48.855Z",
+  "updatedAt": "2026-06-09T10:09:48.855Z",
+  "gates": {
+    "CinΣ": {
+      "ok": true,
+      "at": "2026-06-09T10:09:48.855Z",
+      "rule": "R-CIN-Σ"
+    }
+  }
+}

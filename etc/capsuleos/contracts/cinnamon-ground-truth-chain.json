@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "description": "Chaîne ground truth Cinnamon — Linux Mint (miroir logique Cred* / KDE ground truth).",
+  "registryId": "linux-mint",
+  "toolkit": "cinnamon",
+  "doc": "root/docs/ground-truth-cinnamon.md",
+  "vm": {
+    "host": "capsule@192.168.1.146",
+    "inventory": "root/docs/inventaires/linux-mint-vm.json"
+  },
+  "predicates": {
+    "CinI": "Inventaire VM documenté et à jour",
+    "CinM": "ManΣ proc/linux-mint — drift=0, staging/import clôturés",
+    "CinA": "Assets zones autorisées + validate-clone-assets",
+    "CinC": "Cloisonnement toolkit Cinnamon (validate-toolkit-paradigm)",
+    "CinS": "Shell parity — panel 6/6, UI state 8/8, géométrie ≤1 px",
+    "CinΠ": "Π_global = 100 (apps prioritaires + shell)",
+    "CinCred": "CredΣ — campagne v3-credibility-pass clôturée",
+    "CinΣ": "CinI ∧ CinM ∧ CinA ∧ CinC ∧ CinS ∧ CinΠ ∧ CinCred"
+  },
+  "predicateChecks": {
+    "CinI": {
+      "artifact": "root/docs/inventaires/{id}-vm.json",
+      "field": "collectedAt"
+    },
+    "CinM": {
+      "artifacts": [
+        "proc/{id}/integration-pass-*.json",
+        "proc/{id}/linuxmint-manifest-playbook.json"
+      ],
+      "gate": "usr/lib/capsuleos/tools/lab/report-manifest-drift.mjs --id {id}"
+    },
+    "CinA": {
+      "gate": "usr/lib/capsuleos/tools/validate-clone-assets.mjs --id {id}"
+    },
+    "CinC": {
+      "gate": "usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id {id}"
+    },
+    "CinS": {
+      "artifact": "root/docs/inventaires/{id}-replication-state.json",
+      "fields": ["integralPass.panelChecklist", "integralPass.uiStateSurfaces", "integralPass.shellGeometryMaxDeltaPx"]
+    },
+    "CinΠ": {
+      "artifact": "root/docs/inventaires/{id}-parity-index.json",
+      "field": "pi_global",
+      "min": 100
+    },
+    "CinCred": {
+      "artifact": "root/docs/inventaires/{id}-credibility-formal-state.json",
+      "field": "predicates.CredΣ"
+    }
+  },
+  "phases": [
+    { "id": "C-P0", "label": "Baseline H₂ + inventaire VM", "predicate": "CinI" },
+    { "id": "C-P1", "label": "ManΣ assets proc/", "predicate": "CinM" },
+    { "id": "C-P2", "label": "Assets + cloisonnement", "predicates": ["CinA", "CinC"] },
+    { "id": "C-P3", "label": "Shell + parité structurelle", "predicates": ["CinS", "CinΠ"] },
+    { "id": "C-P4", "label": "Crédibilité pédagogique", "predicate": "CinCred" },
+    { "id": "C-P5", "label": "Clôture CinΣ", "predicate": "CinΣ" }
+  ],
+  "rules": [
+    {
+      "id": "R-CIN-H2",
+      "negates": ["H2"],
+      "command": "node usr/lib/capsuleos/tools/validate-all.mjs",
+      "autoExecute": true
+    },
+    {
+      "id": "R-CIN-GAPS",
+      "requires": ["H2"],
+      "command": "node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id {id} --write",
+      "autoExecute": true
+    },
+    {
+      "id": "R-CIN-PARADIGM",
+      "negates": ["CinC"],
+      "command": "node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id {id}",
+      "autoExecute": true
+    },
+    {
+      "id": "R-CIN-CRED-LIVE",
+      "requires": ["CinCred"],
+      "negates": ["CinCred_live"],
+      "command": "CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id {id} --sample 20",
+      "autoExecute": true
+    },
+    {
+      "id": "R-CIN-DONE",
+      "requires": ["CinΣ"],
+      "command": "node usr/lib/capsuleos/tools/validate-all.mjs",
+      "autoExecute": false
+    }
+  ],
+  "linkedChains": {
+    "Cred": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
+    "clone": "root/docs/recette-clone-mint-integral.md"
+  }
+}

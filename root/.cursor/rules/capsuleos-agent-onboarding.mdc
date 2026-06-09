@@ -27,7 +27,9 @@ node usr/lib/capsuleos/tools/print-validation-plan.mjs
 - Merge / push → **H₆** `validate-all` exit 0 ; rectifier rouges **zone touchée** seulement
 - ¬**I** → inventaire VM avant patch skin
 - ¬**A** → `kernel-supervisor` + `pull-vm-assets.sh`
-- **Push** → `node usr/lib/capsuleos/tools/sync-all-views.mjs` avant **chaque** `git push` (hook `.githooks/pre-push` ; install : `bash root/tools/install-git-hooks.sh`)
+- **Hooks Git** → `bash root/tools/install-git-hooks.sh` (une fois) : `pre-push` sync vues · `post-commit` push auto
+- **Push manuel** → `bash usr/lib/capsuleos/tools/git-remote-sync.sh push` (ou `sync` pour pull + push)
+- **Désactiver push auto** → `CAPSULE_SKIP_AUTO_REMOTE_SYNC=1`
 
 ## Skills
 

@@ -101,6 +101,7 @@ L’utilisateur peut nommer un skill : « utilise le skill os-linux et role-inte
 | **Taxonomie (pierre angulaire)** | [`docs/convention-taxonomie-semantique.md`](docs/convention-taxonomie-semantique.md), `etc/capsuleos/contracts/taxonomy.json` |
 | **Gate taxonomie** | `node usr/lib/capsuleos/tools/validate-taxonomy.mjs` |
 | **Recette skin/toolkit** | `node usr/lib/capsuleos/tools/linux/run-toolkit-skin-recipe.mjs` |
+| **Sync remote Git** | `bash usr/lib/capsuleos/tools/git-remote-sync.sh sync` · hooks : `bash root/tools/install-git-hooks.sh` |
 | **Gate release complète** | `node usr/lib/capsuleos/tools/validate-all.mjs` |
 | **Liens & médias (file:// + HTTP)** | [`root/docs/routage-donnees-medias.md`](docs/routage-donnees-medias.md), skill [`link-routing`](skills/link-routing/SKILL.md) |
 | Toolkits GUI Linux (GTK/Qt/Cinnamon/COSMIC) | [contrib.md § toolkits](../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) |

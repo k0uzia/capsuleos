@@ -476,9 +476,39 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "appCt": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "contentSpec": {
+        "phase": "C1",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch firefox requise pour parité pixel."
+          },
+          {
+            "id": "firefox-window-class-fedora",
+            "dimension": "taxonomie",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Classe technique firefox-window--fedora = CSD GNOME RHEL-family (firefoxBrowser.js) ; renommage gnome-csd différé."
+          }
+        ],
+        "resolved": [
+          "rocky-firefox-tokens-flat-dark",
+          "bookmarks-bar-default-gnome-csd",
+          "newtab-shortcuts-fr",
+          "window-proportions-58x42",
+          "chrome-fedora-app-tokens-rocky",
+          "typo-font-ui"
+        ]
+      },
+      "note": "Phase C1 — nouvel onglet Proton FR, barre favoris Importés/La Capsule/os-lacapsule, palette RL10."
     },
     {
       "controlId": "clocks",

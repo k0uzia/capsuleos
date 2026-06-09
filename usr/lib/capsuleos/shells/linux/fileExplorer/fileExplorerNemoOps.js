@@ -289,6 +289,28 @@
         return result;
     };
 
+    const compressExplorerSelection = async (itemLink) => {
+        const links = itemLink ? [itemLink] : getSelectedItemLinks();
+        const entries = links.map(linkToEntry).filter(Boolean);
+        const state = getState();
+        const parentPath = state && state.currentPath;
+        if (!entries.length || !parentPath || typeof global.compressExplorerItems !== 'function') {
+            return { ok: false };
+        }
+        const defaultName = entries.length === 1
+            ? `${entries[0].name}.zip`
+            : 'archive.zip';
+        const name = typeof global.prompt === 'function'
+            ? global.prompt('Nom de l’archive :', defaultName)
+            : defaultName;
+        if (name === null || !String(name).trim()) {
+            return { ok: false, cancelled: name === null };
+        }
+        const result = await global.compressExplorerItems(parentPath, entries, String(name).trim());
+        refreshView();
+        return result;
+    };
+
     const openExplorerSelectionWith = (itemLink) => {
         const link = itemLink || getSelectedItemLinks()[0];
         if (!link) {
@@ -373,6 +395,7 @@
     global.deleteNautilusTrashSelectionPermanently = deleteNautilusTrashSelectionPermanently;
     global.renameExplorerSelection = renameExplorerSelection;
     global.trashExplorerSelection = trashExplorerSelection;
+    global.compressExplorerSelection = compressExplorerSelection;
     global.openExplorerSelectionWith = openExplorerSelectionWith;
     global.bindFileExplorerNemoOps = bindFileExplorerNemoOps;
 

@@ -102,7 +102,6 @@
 
 | Anti-pattern | Fichier(s) | Niveau | Justification |
 |--------------|------------|--------|---------------|
-| Chemins physiques `../../../../usr/share/...` en `url()` CSS | `windows.css`, `cinnamon-window-chrome.css`, `firefox.skin.css` | P2 | Fonctionnels ; migration `rewrite-css-asset-urls` planifiée |
 | Classes DOM `gnome-*` sur apps GTK partagées | `terminal.skin.css`, `calculator.skin.css`, `screenshot.skin.css` | Exception | Apps upstream GNOME sur Mint — voir paradigme § exceptions |
 | Slots `librewriter`, `checklist` | `index.html` | CapsuleOnly | Pédagogie — absents VM panel |
 | `ctx` menu Π=50 | `linux-mint-parity-index.json` | P2 | Menu contextuel apps secondaires — hors P0 shell |

@@ -105,7 +105,7 @@
     "date": "2026-06-08",
     "doc": "root/docs/recette-clone-mint-integral.md",
     "conformityReport": "root/docs/inventaires/linux-mint-clone-conformity-report.md",
-    "cloisonnementScore": 94,
+    "cloisonnementScore": 100,
     "panelChecklist": "6/6",
     "vmParity": "6/6",
     "shellGeometryMaxDeltaPx": 0.7,
@@ -173,7 +173,7 @@
     "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
     "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
   ],
-  "updatedAt": "2026-06-09T12:37:22.803Z",
+  "updatedAt": "2026-06-09T13:00:46.048Z",
   "groundTruth": {
     "chain": "cinnamon",
     "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
@@ -191,7 +191,7 @@
       "CinΣ": true
     },
     "cinSigma": true,
-    "gaps": 2,
-    "evaluatedAt": "2026-06-09T12:37:21.546Z"
+    "gaps": 0,
+    "evaluatedAt": "2026-06-09T13:00:44.908Z"
   }
 }

@@ -88,11 +88,10 @@
         "Copier",
         "Coller",
         "Renommer",
+        "Compresser",
         "Déplacer vers la corbeille",
         "Propriétés"
       ],
-      "vmExtraLabels": ["Compresser"],
-      "vmExtraNote": "P2 — archive zip via prompt ; sous-menu modèles « Créer un nouveau document » non porté",
       "priority": "P1"
     },
     {

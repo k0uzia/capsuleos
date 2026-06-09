@@ -12,18 +12,18 @@
   },
   "metrics": {
     "pi_global": 100,
-    "cloisonnementScore": 94,
-    "physicalCssUrls": 7,
+    "cloisonnementScore": 100,
+    "physicalCssUrls": 0,
     "manifestDrift": 0,
     "credSigma": true
   },
   "nextPredicate": null,
-  "evaluatedAt": "2026-06-09T12:37:22.787Z",
-  "updatedAt": "2026-06-09T12:37:22.787Z",
+  "evaluatedAt": "2026-06-09T13:00:46.028Z",
+  "updatedAt": "2026-06-09T13:00:46.028Z",
   "gates": {
     "CinΣ": {
       "ok": true,
-      "at": "2026-06-09T12:37:22.787Z",
+      "at": "2026-06-09T13:00:46.028Z",
       "rule": "R-CIN-Σ"
     }
   }

@@ -191,8 +191,11 @@ const scanSkin = (skinRel, paradigm) => {
       const rel = path.join(base, name).replace(/\\/g, '/');
       let st;
       try {
-        st = fs.statSync(full);
+        st = fs.lstatSync(full);
       } catch {
+        continue;
+      }
+      if (st.isSymbolicLink()) {
         continue;
       }
       if (st.isDirectory()) {

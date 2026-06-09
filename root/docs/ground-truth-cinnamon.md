@@ -80,8 +80,6 @@ node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --scope cinnamon --id 
 
 | ID | Priorité | État |
 |----|----------|------|
-| CSS-URL-PHYS | P2 | `url()` physiques dans `windows.css`, `cinnamon-window-chrome.css`, `firefox.skin.css` |
-| CLOIS-SCORE | P2 | Score recette 94/100 — exceptions GTK upstream documentées |
 | TIER-C-THEMES | P2 | 52 entrées menu → slot `themes` (cs-*) |
 | CRED-S-LIVE | P1 | Rejouer smoke batch HTTP si gate skip inventory |
 
@@ -113,7 +111,7 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 | UI state shell | `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint --shell desktop,mainMenu,panel` | desktop ctx visible |
 | Inventaire VM | `ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 …'` | relire libellés fr si drift Nemo |
 
-**Critères done étape 2** : fond liste (document, terminal, tout sélectionner) ; fichier/dossier (ouvrir avec…, renommer, corbeille) ; smoke exit 0 ; P2 « Compresser » et sous-menu modèles document restent dans `vmExtraLabels`.
+**Critères done étape 2** : fond liste (document, terminal, tout sélectionner) ; fichier/dossier (ouvrir avec…, renommer, corbeille, compresser) ; smoke exit 0 ; sous-menu modèles « Créer un nouveau document » reste P2 documenté.
 
 **Critères done étape 3** : raccourcis bureau visibles (Dossier personnel, Corbeille) ; menu contextuel icône (`#desktop-icon-context-menu`) branché via `mint-desktop-icons.js` ; smoke `desktop.icon` exit 0.
 
@@ -121,4 +119,4 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 
 **Critères done étape 5** : menu contextuel panel (`#mint-panel-context-menu`) branché via `mint-panel-context-menu.js` sur zone vide `#tableau.mint-panel` ; actions → `CAPSULE_CS_PENDING_PANEL` + `openWindowByDataLink('themes')` (applets / panel) ; smoke `panel.background` exit 0 ; règle **R-CIN-CTX5**.
 
-Contextes **P2** documentés (non bloquants CinΣ) : Compresser Nemo — voir matrice § `vmExtraLabels`.
+Contextes **P2** documentés (non bloquants CinΣ) : sous-menu modèles « Créer un nouveau document » — voir matrice § notes VM.

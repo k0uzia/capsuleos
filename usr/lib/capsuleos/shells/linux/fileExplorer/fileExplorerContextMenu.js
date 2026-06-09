@@ -478,6 +478,7 @@
         { action: 'copy', label: 'Copier', scopes: 'item' },
         { action: 'paste', label: 'Coller', scopes: 'background item' },
         { action: 'rename', label: 'Renommer', scopes: 'item' },
+        { action: 'compress', label: 'Compresser', scopes: 'item' },
         { action: 'trash', label: 'Déplacer vers la corbeille', scopes: 'item' },
         { action: 'restore-trash', label: 'Restaurer', scopes: 'trash-item' },
         { action: 'delete-forever', label: 'Supprimer définitivement', scopes: 'trash-item' },
@@ -667,6 +668,10 @@
         }
         if (action === 'rename' && typeof global.renameExplorerSelection === 'function') {
             global.renameExplorerSelection(itemLink);
+            return;
+        }
+        if (action === 'compress' && typeof global.compressExplorerSelection === 'function') {
+            global.compressExplorerSelection(itemLink);
             return;
         }
         if (action === 'trash' && typeof global.trashExplorerSelection === 'function') {

@@ -6,7 +6,7 @@ body#mint {
     /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
     --mint-panel-height: 40px;
     --taskbar-height: var(--mint-panel-height);
-    --mint: url(../../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg);
+    --mint: url(./assets/images/vendors/mint/wallpaper/default_background.jpg);
     --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
     --texte: #e1e1e1;
     /* html{color:var(--texte)} portail — réappliquer teinte VM #e1e1e1 + stack Cantarell/Noto */

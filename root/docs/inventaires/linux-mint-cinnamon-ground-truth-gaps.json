@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "campaign": "cinnamon-perfection-pass",
-  "generatedAt": "2026-06-09T12:37:21.546Z",
+  "generatedAt": "2026-06-09T13:00:44.908Z",
   "predicates": {
     "CinI": true,
     "CinM": true,
@@ -16,32 +16,17 @@
   },
   "metrics": {
     "pi_global": 100,
-    "cloisonnementScore": 94,
-    "physicalCssUrls": 7,
+    "cloisonnementScore": 100,
+    "physicalCssUrls": 0,
     "manifestDrift": 0,
     "credSigma": true
   },
-  "gaps": [
-    {
-      "id": "CSS-URL-PHYS",
-      "priority": "P2",
-      "predicate": "CinC",
-      "summary": "7 url() CSS physiques usr/share/assets (hors ./assets/)",
-      "action": "rewrite-css-asset-urls ou migration mint-panel tokens"
-    },
-    {
-      "id": "CLOIS-SCORE",
-      "priority": "P2",
-      "predicate": "CinC",
-      "summary": "Score cloisonnement 94/100 — dettes P2 documentées",
-      "action": "root/docs/recette-clone-mint-integral.md § Non-conformes résiduels"
-    }
-  ],
+  "gaps": [],
   "summary": {
-    "totalGaps": 2,
+    "totalGaps": 0,
     "p0": 0,
     "p1": 0,
-    "p2": 2,
+    "p2": 0,
     "cinSigma": true
   }
 }

@@ -25,6 +25,12 @@ const MATRIX_PATH = path.join(
 );
 
 const KNOWN_ACTIONS = new Set([
+  'open',
+  'cut',
+  'copy',
+  'rename',
+  'delete',
+  'properties',
   'new-folder',
   'new-document',
   'open',
@@ -82,6 +88,48 @@ const desktopCtx = matrix.contexts.find((c) => c.id === 'desktop.background');
 const desktopCheck = matchExpected(results['desktop.background'].labels, desktopCtx.expectedLabels);
 results['desktop.background'].ok = results['desktop.background'].visible && desktopCheck.ok;
 results['desktop.background'].missing = desktopCheck.missing;
+
+results['desktop.icon'] = await page.evaluate((knownActions) => {
+  const shortcut = document.querySelector('.desktop-shortcuts .desktop-shortcut[data-desktop-icon="home"]');
+  if (!shortcut) {
+    return { visible: false, labels: [], noIcon: true };
+  }
+  const rect = shortcut.getBoundingClientRect();
+  shortcut.dispatchEvent(new MouseEvent('contextmenu', {
+    bubbles: true,
+    cancelable: true,
+    clientX: rect.left + rect.width / 2,
+    clientY: rect.top + rect.height / 2,
+  }));
+  const menu = document.getElementById('desktop-icon-context-menu');
+  const items = menu && !menu.hidden
+    ? [...menu.querySelectorAll('[data-desktop-icon-action]')].filter((n) => !n.hidden)
+    : [];
+  const labels = items.map((n) => n.textContent.trim());
+  const actions = items.map((n) => String(n.dataset.desktopIconAction || '').trim()).filter(Boolean);
+  const wired = items.every((n) => {
+    const action = String(n.dataset.desktopIconAction || '').trim();
+    return action.length > 0 && knownActions.indexOf(action) >= 0;
+  });
+  return {
+    visible: !!(menu && !menu.hidden),
+    labels,
+    actions,
+    wired,
+  };
+}, [...KNOWN_ACTIONS]);
+
+const desktopIconCtx = matrix.contexts.find((c) => c.id === 'desktop.icon');
+if (!results['desktop.icon'].noIcon) {
+  const desktopIconCheck = matchExpected(results['desktop.icon'].labels, desktopIconCtx.expectedLabels);
+  results['desktop.icon'].ok = results['desktop.icon'].visible
+    && results['desktop.icon'].wired
+    && desktopIconCheck.ok;
+  results['desktop.icon'].missing = desktopIconCheck.missing;
+} else {
+  results['desktop.icon'].ok = false;
+  results['desktop.icon'].missing = ['no desktop icon shortcut'];
+}
 
 await page.keyboard.press('Escape');
 await openMintSlot(page, 'nemo');
@@ -328,6 +376,7 @@ await page.keyboard.press('Escape');
 
 const p1Ids = [
   'desktop.background',
+  'desktop.icon',
   'nemo.list.background',
   'nemo.list.file',
   'nemo.list.folder',

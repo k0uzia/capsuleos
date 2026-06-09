@@ -115,4 +115,6 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 
 **Critères done étape 2** : fond liste (document, terminal, tout sélectionner) ; fichier/dossier (ouvrir avec…, renommer, corbeille) ; smoke exit 0 ; P2 « Compresser » et sous-menu modèles document restent dans `vmExtraLabels`.
 
-Contextes **P2** documentés (non bloquants CinΣ) : icône bureau, panel, barre titre Muffin, Compresser — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.
+**Critères done étape 3** : raccourcis bureau visibles (Dossier personnel, Corbeille) ; menu contextuel icône (`#desktop-icon-context-menu`) branché via `mint-desktop-icons.js` ; smoke `desktop.icon` exit 0.
+
+Contextes **P2** documentés (non bloquants CinΣ) : panel, barre titre Muffin, Compresser Nemo — voir matrice § `vmExtraLabels` / `capsuleStatus: planned`.

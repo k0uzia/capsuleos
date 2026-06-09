@@ -12,6 +12,16 @@
 </head>
 <body id="mint">
     <div id="desktop" role="application" aria-label="Bureau Linux Mint">
+        <div class="desktop-shortcuts" aria-label="Icônes du bureau">
+            <a class="desktop-shortcut" href="#" data-desktop-icon="home" title="Dossier personnel">
+                <img src="../../../usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-home.svg" alt="">
+                <span>Dossier personnel</span>
+            </a>
+            <a class="desktop-shortcut" href="#" data-desktop-icon="trash" title="Corbeille">
+                <img src="../../../usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-trash.svg" alt="">
+                <span>Corbeille</span>
+            </a>
+        </div>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
         <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
@@ -231,6 +241,15 @@
         <button type="button" class="desktop-context-menu__item" data-desktop-action="desktop-settings">Paramètres du bureau</button>
         <div class="desktop-context-menu__separator" role="separator"></div>
         <button type="button" class="desktop-context-menu__item" data-desktop-action="refresh">Actualiser le bureau</button>
+    </div>
+
+    <div id="desktop-icon-context-menu" class="desktop-context-menu" role="menu" hidden>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="open">Ouvrir</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="cut">Couper</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="copy">Copier</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="rename">Renommer</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="delete">Supprimer</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="properties">Propriétés</button>
     </div>
 
     <div class="calendar-popover" id="taskbar-calendar-popover" role="dialog" aria-label="Calendrier" hidden>
@@ -466,7 +485,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=20260609icon"></script>
+    <script src="./content/mint-desktop-icons.js?v=20260609"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
     <script src="./content/mint-panel-pinned.js?v=20260608vmref"></script>
     <script src="./content/mint-tray.js?v=20260608panelA"></script>

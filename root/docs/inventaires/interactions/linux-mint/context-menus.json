@@ -37,11 +37,23 @@
       "id": "desktop.icon",
       "label": "Icône bureau (nemo-desktop)",
       "openMethod": "clic droit raccourci bureau",
-      "capsuleTarget": "desktop-context-menu.js",
+      "capsuleTarget": "desktop-context-menu.js#desktop-icon",
+      "capsuleSelector": "#desktop-icon-context-menu",
       "expectedLabels": ["Ouvrir", "Couper", "Copier", "Renommer", "Supprimer", "Propriétés"],
       "priority": "P2",
-      "capsuleStatus": "planned",
-      "note": "Raccourcis bureau masqués en skin actuel (.desktop-shortcuts display:none)"
+      "capsuleStatus": "implemented",
+      "vmDesktopIcons": {
+        "showDesktopIcons": true,
+        "homeIconVisible": false,
+        "trashIconVisible": false,
+        "volumesVisible": true,
+        "desktopFolderEmpty": true
+      },
+      "vmNote": "VM lab : bureau vide (home/trash masqués via gsettings) — Capsule affiche Dossier personnel + Corbeille (défaut Cinnamon activable)",
+      "smoke": {
+        "trigger": "contextmenu-on",
+        "selector": ".desktop-shortcuts .desktop-shortcut[data-desktop-icon=\"home\"]"
+      }
     },
     {
       "id": "nemo.list.background",

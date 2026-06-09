@@ -91,6 +91,13 @@
       "autoExecute": false
     },
     {
+      "id": "R-CIN-CTX3",
+      "requires": ["H2"],
+      "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
+      "note": "Étape 3 — raccourcis bureau + menu contextuel icône (desktop.icon P2)",
+      "autoExecute": false
+    },
+    {
       "id": "R-CIN-CRED-LIVE",
       "requires": ["CinCred"],
       "negates": ["CinCred_live"],

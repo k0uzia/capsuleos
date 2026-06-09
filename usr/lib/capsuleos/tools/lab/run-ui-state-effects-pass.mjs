@@ -380,8 +380,10 @@ async function runShellChecks(page, surfaces) {
         };
       });
       const emptyVmDesktop = desktopState.desktopOk && desktopState.shortcuts === 0;
+      const cinnamonDesktopIcons = desktopState.desktopOk && desktopState.shortcuts >= 2;
       push('desktop-empty-vm', 'data', emptyVmDesktop, desktopState);
-      push('desktop-vis', 'vis', desktopState.desktopOk && (desktopState.hasWallpaper || emptyVmDesktop), desktopState);
+      push('desktop-icons', 'data', cinnamonDesktopIcons, desktopState);
+      push('desktop-vis', 'vis', desktopState.desktopOk && (desktopState.hasWallpaper || emptyVmDesktop || cinnamonDesktopIcons), desktopState);
       push('desktop-int', 'int', desktopState.desktopOk, desktopState);
 
       await page.evaluate(() => {

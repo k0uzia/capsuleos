@@ -173,7 +173,7 @@
     "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
     "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
   ],
-  "updatedAt": "2026-06-09T11:14:55.160Z",
+  "updatedAt": "2026-06-09T11:42:02.762Z",
   "groundTruth": {
     "chain": "cinnamon",
     "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
@@ -192,6 +192,6 @@
     },
     "cinSigma": true,
     "gaps": 2,
-    "evaluatedAt": "2026-06-09T11:14:54.080Z"
+    "evaluatedAt": "2026-06-09T11:42:01.429Z"
   }
 }

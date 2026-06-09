@@ -33,6 +33,12 @@ matrix.contexts.forEach((ctx) => {
   (ctx.vmExtraLabels || []).forEach((label) => {
     process.stdout.write(`  ○ ${label} (P2 / VM extra)\n`);
   });
+  if (ctx.capsuleStatus) {
+    process.stdout.write(`  Statut Capsule : ${ctx.capsuleStatus}\n`);
+  }
+  if (ctx.vmNote) {
+    process.stdout.write(`  Note VM : ${ctx.vmNote}\n`);
+  }
   if (ctx.vmExtraNote) {
     process.stdout.write(`  Note : ${ctx.vmExtraNote}\n`);
   }

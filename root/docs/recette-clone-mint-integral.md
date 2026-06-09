@@ -78,8 +78,9 @@
 |-------|----------|----------|
 | Sync vues | `sync-all-views.mjs` | ✅ (à relancer avant push) |
 | Gate zone Mint | `validate-all.mjs` + `validate-toolkit-paradigm.mjs --all` | ✅ |
-| **Clic droit P0/P1** | `smoke-mint-context-menus.mjs` sur `:5501` | ✅ matrice [`context-menus.json`](inventaires/interactions/linux-mint/context-menus.json) |
+| **Clic droit P0/P1/P2 bureau** | `smoke-mint-context-menus.mjs` sur `:5501` | ✅ matrice [`context-menus.json`](inventaires/interactions/linux-mint/context-menus.json) incl. `desktop.icon` |
 | **Nemo menu étape 2** | `bindNemoContextMenu` + `fileExplorerNemoOps.js` | ✅ fond liste (document, terminal, tout sélectionner) ; fichier (ouvrir avec…, renommer, corbeille) ; checklist `print-mint-context-menu-checklist.mjs` |
+| **Bureau étape 3** | `mint-desktop-icons.js` + `#desktop-icon-context-menu` | ✅ Dossier personnel + Corbeille visibles ; menu Ouvrir/Couper/Copier/Renommer/Supprimer/Propriétés |
 | État réplication | `linux-mint-replication-state.json` | ✅ pallier **8** · Π_global 98 · non-conformités listées |
 | Rapport conformité | `linux-mint-clone-conformity-report.md` | ✅ matrice VM↔clone |
 

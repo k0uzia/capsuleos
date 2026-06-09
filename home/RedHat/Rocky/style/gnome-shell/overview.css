@@ -464,10 +464,23 @@ body#rocky .fedora-overview__app[data-overview-link] {
     cursor: pointer;
 }
 
+body#rocky .fedora-overview__app--decorative,
+body#rocky .fedora-overview__app[data-overview-decorative] {
+    cursor: default;
+}
+
 body#rocky .fedora-overview__app:hover,
 body#rocky .fedora-overview__app:focus-visible {
     background: rgba(255, 255, 255, 0.08);
     outline: none;
+}
+
+body#rocky .fedora-overview__app--decorative:hover,
+body#rocky .fedora-overview__app--decorative:focus-visible,
+body#rocky .fedora-overview__app[data-overview-decorative]:hover,
+body#rocky .fedora-overview__app[data-overview-decorative]:focus-visible {
+    background: transparent;
+    transform: none;
 }
 
 body#rocky .fedora-overview__app img,

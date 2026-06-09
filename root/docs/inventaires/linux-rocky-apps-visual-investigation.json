@@ -1671,6 +1671,132 @@
         ]
       },
       "note": "Phase C3 — org.gnome.Tour : 5 cartes FR, navigation Suivant/Précédent et indicateur d'étapes."
+    },
+    {
+      "controlId": "decorative_disk_utility",
+      "labelFr": "Disques",
+      "vmId": "org.gnome.DiskUtility",
+      "parityPriority": "P2",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Disques (tuile Aperçu)",
+        "components": ["gnome.overview-app-tile"],
+        "acquisitionOrder": ["overview-tile"],
+        "chromeProvider": null,
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "partial",
+        "appCt": "n/a"
+      },
+      "contentSpec": {
+        "phase": "C4",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "no-window-slot",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "App décorative overview — pas de fenêtre Capsule (hors périmètre slot)."
+          }
+        ],
+        "resolved": [
+          "overview-icon-vm-svg",
+          "overview-label-fr",
+          "search-catalog-decorative",
+          "non-launchable-grid-tile"
+        ]
+      },
+      "note": "Phase C4 — tuile Aperçu org.gnome.DiskUtility sans lancement."
+    },
+    {
+      "controlId": "decorative_font_viewer",
+      "labelFr": "Polices",
+      "vmId": "org.gnome.font-viewer",
+      "parityPriority": "P2",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Polices (tuile Aperçu)",
+        "components": ["gnome.overview-app-tile"],
+        "acquisitionOrder": ["overview-tile"],
+        "chromeProvider": null,
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "partial",
+        "appCt": "n/a"
+      },
+      "contentSpec": {
+        "phase": "C4",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "no-window-slot",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "App décorative overview — pas de fenêtre Capsule (hors périmètre slot)."
+          }
+        ],
+        "resolved": [
+          "overview-icon-vm-svg",
+          "overview-label-fr",
+          "search-catalog-decorative",
+          "non-launchable-grid-tile"
+        ]
+      },
+      "note": "Phase C4 — tuile Aperçu org.gnome.font-viewer sans lancement."
+    },
+    {
+      "controlId": "decorative_setroubleshoot",
+      "labelFr": "Journal des alertes SELinux",
+      "vmId": "setroubleshoot",
+      "parityPriority": "P2",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Journal SELinux (tuile Aperçu)",
+        "components": ["gnome.overview-app-tile"],
+        "acquisitionOrder": ["overview-tile"],
+        "chromeProvider": null,
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "partial",
+        "appCt": "n/a"
+      },
+      "contentSpec": {
+        "phase": "C4",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "no-window-slot",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "App décorative overview — pas de fenêtre Capsule (hors périmètre slot)."
+          }
+        ],
+        "resolved": [
+          "overview-icon-vm-svg",
+          "overview-label-fr-short",
+          "search-catalog-decorative",
+          "non-launchable-grid-tile"
+        ]
+      },
+      "note": "Phase C4 — tuile Aperçu setroubleshoot sans lancement."
     }
   ]
 }

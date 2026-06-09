@@ -167,6 +167,24 @@
             dataLink: 'characters'
         },
         {
+            label: 'Disques',
+            aliases: ['disques', 'disk utility', 'udisks', 'gnome-disks'],
+            description: 'Gestion des disques (grille décorative RL10)',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg'
+        },
+        {
+            label: 'Polices',
+            aliases: ['polices', 'fonts', 'font viewer', 'typographie'],
+            description: 'Visionneuse de polices (grille décorative RL10)',
+            icon: './assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg'
+        },
+        {
+            label: 'Journal des alertes SELinux',
+            aliases: ['selinux', 'setroubleshoot', 'alertes', 'audit'],
+            description: 'Journal SELinux (grille décorative RL10)',
+            icon: './assets/images/toolkits/gnome/apps/overview/setroubleshoot.svg'
+        },
+        {
             label: 'Contacts',
             aliases: ['contact', 'adresse'],
             description: 'Non installé sur cette VM RL10',

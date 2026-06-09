@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaign": "v3-credibility-pass",
   "phase": "P-F1",
-  "generatedAt": "2026-06-09T07:47:37.406Z",
+  "generatedAt": "2026-06-09T07:50:41.880Z",
   "sources": {
     "catalog": "root/docs/inventaires/linux-mint-apps-catalog.json",
     "fidelity": "root/docs/inventaires/linux-mint-app-fidelity-scenarios.json"

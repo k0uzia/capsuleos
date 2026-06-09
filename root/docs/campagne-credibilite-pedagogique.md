@@ -1,6 +1,6 @@
 # Campagne crédibilité pédagogique — clone fidèle à la VM
 
-> **Statut** : P0 clôturé (34/34) — **P-F v2** en cours — campagne `v3-credibility-pass` (juin 2026)  
+> **Statut** : P0 + vague 1 P-F3 clôturés (64/64) — **vague 2 P2** en cours — campagne `v3-credibility-pass` (juin 2026)  
 > **Contrat machine** : [`etc/capsuleos/contracts/app-fidelity-scenarios.json`](../../etc/capsuleos/contracts/app-fidelity-scenarios.json)  
 > **Orchestrateur** : `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs`  
 > **Skill agent** : [`root/skills/vm-app-fidelity-pass/SKILL.md`](../skills/vm-app-fidelity-pass/SKILL.md)

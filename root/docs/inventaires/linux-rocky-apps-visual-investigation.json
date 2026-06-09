@@ -576,7 +576,7 @@
       "labelFr": "Horloges",
       "vmId": "org.gnome.clocks",
       "parityPriority": "P1",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Horloges",
         "components": [
@@ -642,8 +642,47 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial",
+        "appCt": "partial"
+      },
+      "contentSpec": {
+        "phase": "C2",
+        "viewport": "1280x800",
+        "vmReference": "linux-rocky",
+        "contentGaps": [
+          {
+            "id": "vm-captures-placeholder",
+            "dimension": "acquisition",
+            "severity": "medium",
+            "status": "open",
+            "note": "Captures VM virsh bureau — recapture gtk-launch org.gnome.clocks requise."
+          },
+          {
+            "id": "analog-clock-faces",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Vue Monde en cartes texte — cadrans analogiques GNOME 49 non simulés (hors P1)."
+          },
+          {
+            "id": "alarms-timer-interactive",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Alarmes / minuteur / chrono — états vides et affichages statiques ; pas de création ni décompte."
+          }
+        ],
+        "resolved": [
+          "sidebar-nav-four-views-fr",
+          "world-tab-default-paris-london-ny",
+          "header-title-per-view",
+          "add-button-world-alarms",
+          "empty-states-fr",
+          "window-proportions-24x30",
+          "rocky-adwaita-tokens"
+        ]
+      },
+      "note": "Phase C2 — org.gnome.clocks : navigation Monde/Alarmes/Minuteur/Chronomètre, villes FR live."
     },
     {
       "controlId": "update_manager",

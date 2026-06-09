@@ -1,5 +1,9 @@
-# Déprécié — apps legacy
+Ce répertoire est déprécié.
 
-**Canon** : `usr/share/capsuleos/linux/apps/` et `usr/share/capsuleos/linux/explorers/`
+L'embed offline Linux est généré par :
 
-Ce répertoire reste référencé par `build-capsule-embed.mjs` jusqu'à migration vers les chunks kernel (`capsule-embed-index.json`).
+`node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs`
+
+→ `var/lib/capsuleos/generated/capsule-app-embed.js`
+
+Voir `var/lib/capsuleos/generated/capsule-embed-index.json`.

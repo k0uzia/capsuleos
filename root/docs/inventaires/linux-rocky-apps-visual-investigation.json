@@ -48,8 +48,8 @@
           ],
           "labelFr": "mode selector",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/mode-selector-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "display",
@@ -61,8 +61,8 @@
           ],
           "labelFr": "display",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/display-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "keypad-basic",
@@ -74,8 +74,8 @@
           ],
           "labelFr": "keypad basic",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/keypad-basic-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "keypad-advanced",
@@ -87,8 +87,8 @@
           ],
           "labelFr": "keypad advanced",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/keypad-advanced-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "history-panel",
@@ -100,8 +100,8 @@
           ],
           "labelFr": "history panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator/history-panel-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/calculator-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -213,8 +213,8 @@
           ],
           "labelFr": "menubar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/menubar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "editor-area",
@@ -224,8 +224,8 @@
           ],
           "labelFr": "editor area",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/editor-area-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "status-line",
@@ -235,8 +235,8 @@
           ],
           "labelFr": "status line",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/status-line-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "open-dialog",
@@ -246,8 +246,8 @@
           ],
           "labelFr": "open dialog",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor/open-dialog-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/text_editor-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -305,8 +305,8 @@
           ],
           "labelFr": "sidebar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/sidebar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "column-headers",
@@ -319,8 +319,8 @@
           ],
           "labelFr": "column headers",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/column-headers-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "pathbar",
@@ -333,8 +333,8 @@
           ],
           "labelFr": "pathbar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/pathbar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "context-menu-item",
@@ -347,8 +347,8 @@
           ],
           "labelFr": "context menu item",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/context-menu-item-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "context-menu-background",
@@ -361,8 +361,8 @@
           ],
           "labelFr": "context menu background",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/context-menu-background-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "trash",
@@ -375,8 +375,8 @@
           ],
           "labelFr": "trash",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo/trash-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/nemo-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -426,8 +426,8 @@
           ],
           "labelFr": "tab bar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/tab-bar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "url-bar",
@@ -437,8 +437,8 @@
           ],
           "labelFr": "url bar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/url-bar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "bookmarks",
@@ -448,8 +448,8 @@
           ],
           "labelFr": "bookmarks",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/bookmarks-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "menu-hamburger",
@@ -459,8 +459,8 @@
           ],
           "labelFr": "menu hamburger",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox/menu-hamburger-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/firefox-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -588,8 +588,8 @@
           ],
           "labelFr": "explore grid",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/explore-grid-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "updates-banner",
@@ -601,8 +601,8 @@
           ],
           "labelFr": "updates banner",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/updates-banner-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "app-detail",
@@ -614,8 +614,8 @@
           ],
           "labelFr": "app detail",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/app-detail-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "categories",
@@ -627,8 +627,8 @@
           ],
           "labelFr": "categories",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager/categories-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/update_manager-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -905,8 +905,8 @@
           ],
           "labelFr": "sidebar panels",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/sidebar-panels-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "wifi-row",
@@ -918,8 +918,8 @@
           ],
           "labelFr": "wifi row",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/wifi-row-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "display-panel",
@@ -931,8 +931,8 @@
           ],
           "labelFr": "display panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/display-panel-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "about-panel",
@@ -944,8 +944,8 @@
           ],
           "labelFr": "about panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes/about-panel-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/themes-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [
@@ -1057,8 +1057,8 @@
           ],
           "labelFr": "headerbar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/headerbar-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "tab-strip",
@@ -1068,8 +1068,8 @@
           ],
           "labelFr": "tab strip",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/tab-strip-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "prompt-colors",
@@ -1079,8 +1079,8 @@
           ],
           "labelFr": "prompt colors",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/prompt-colors-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         },
         {
           "shotId": "preferences",
@@ -1090,8 +1090,8 @@
           ],
           "labelFr": "preferences",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal/preferences-vm.png",
-          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
+          "vmCapture": "root/docs/inventaires/captures/linux-rocky/apps-visual/terminal-vm.png",
+          "note": "placeholder virsh bureau — shot distinct purgé ; recapture gtk-launch requise"
         }
       ],
       "vmCaptures": [

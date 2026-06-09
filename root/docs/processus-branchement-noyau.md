@@ -170,4 +170,4 @@ node usr/lib/capsuleos/tools/validate-interactions-contract.mjs
 node usr/lib/capsuleos/tools/lab/compare-os-parity.mjs --id linux-mint --scenario panel-checklist
 ```
 
-Voir aussi : [recette-clone-mint-integral.md](recette-clone-mint-integral.md) · [toolkit-cloisonnement-audit.md](toolkit-cloisonnement-audit.md).
+Voir aussi : [recette-clone-mint-integral.md](recette-clone-mint-integral.md) · [inventaires/toolkit-cloisonnement-audit.md](inventaires/toolkit-cloisonnement-audit.md).

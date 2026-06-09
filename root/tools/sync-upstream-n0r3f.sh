@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
-# Synchronise la branche courante avec N0r3f/CapsuleOS (remote n0r3f ou upstream).
+# Récupère N0r3f/CapsuleOS (remote n0r3f ou upstream) — fetch manuel, pas de merge auto.
 # Usage :
-#   bash root/tools/sync-upstream-n0r3f.sh           # fetch + merge si retard
-#   bash root/tools/sync-upstream-n0r3f.sh --dry-run
-#   bash root/tools/sync-upstream-n0r3f.sh --fetch-only
-#
-# Cron / systemd (ex. toutes les 6 h) :
-#   0 */6 * * * cd /chemin/CapsuleOS && bash root/tools/sync-upstream-n0r3f.sh >> /tmp/capsuleos-sync.log 2>&1
+#   bash root/tools/sync-upstream-n0r3f.sh              # fetch + rapport retard/avance
+#   bash root/tools/sync-upstream-n0r3f.sh --merge      # fetch puis merge (explicite)
+#   bash root/tools/sync-upstream-n0r3f.sh --dry-run     # liste les commits en retard
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -15,14 +12,17 @@ cd "$ROOT"
 UPSTREAM_URL="${CAPSULEOS_UPSTREAM_URL:-https://github.com/N0r3f/CapsuleOS.git}"
 UPSTREAM_BRANCH="${CAPSULEOS_UPSTREAM_BRANCH:-main}"
 DRY_RUN=0
-FETCH_ONLY=0
+DO_MERGE=0
 
 for arg in "$@"; do
   case "$arg" in
     --dry-run) DRY_RUN=1 ;;
-    --fetch-only) FETCH_ONLY=1 ;;
+    --merge) DO_MERGE=1 ;;
+  --fetch-only)
+      echo "⚠ --fetch-only est obsolète (fetch seul par défaut). Utilisez --merge pour merger." >&2
+      ;;
     -h|--help)
-      sed -n '2,12p' "$0"
+      sed -n '2,7p' "$0"
       exit 0
       ;;
     *)
@@ -48,10 +48,12 @@ resolve_remote() {
 REMOTE="$(resolve_remote)"
 REF="${REMOTE}/${UPSTREAM_BRANCH}"
 
-if ! git diff --quiet || ! git diff --cached --quiet; then
-  echo "✗ Copie de travail non propre — committez ou stash avant sync." >&2
-  git status --short
-  exit 1
+if [ "$DO_MERGE" -eq 1 ]; then
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "✗ Copie de travail non propre — committez ou stash avant merge." >&2
+    git status --short
+    exit 1
+  fi
 fi
 
 echo "→ fetch $REMOTE ($UPSTREAM_URL)…"
@@ -68,19 +70,18 @@ if [ "$BEHIND" -eq 0 ]; then
   exit 0
 fi
 
-if [ "$FETCH_ONLY" -eq 1 ]; then
-  echo "→ Nouveaux commits disponibles (mode --fetch-only)."
-  git log --oneline "HEAD..${REF}" | head -10
-  exit 10
-fi
+echo "→ Nouveaux commits sur ${REF} :"
+git log --oneline "HEAD..${REF}" | head -15
 
-if [ "$DRY_RUN" -eq 1 ]; then
-  echo "→ Mode dry-run — commits à merger :"
-  git log --oneline "HEAD..${REF}" | head -20
+if [ "$DRY_RUN" -eq 1 ] || [ "$DO_MERGE" -eq 0 ]; then
+  echo ""
+  echo "→ Fetch terminé. Merge manuel :"
+  echo "  git merge ${REF}"
+  echo "  # ou : bash $0 --merge"
   exit 0
 fi
 
-MSG="Merge remote ${REMOTE}/${UPSTREAM_BRANCH} (N0r3f/CapsuleOS) — sync automatique $(date -u +%Y-%m-%dT%H:%MZ)."
+MSG="Merge remote ${REMOTE}/${UPSTREAM_BRANCH} (N0r3f/CapsuleOS) — $(date -u +%Y-%m-%dT%H:%MZ)."
 
 echo "→ merge ${REF}…"
 if git merge "$REF" -m "$MSG"; then

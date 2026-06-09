@@ -44,45 +44,36 @@ node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
 
 ---
 
-### V4-P1 — Discover + Firefox détail (6–12 h)
+### V4-P1 — Discover + Firefox détail (6–12 h) ✅
 
 **Objectif** : fiches Discover et toolbar Firefox au niveau VM.
 
-**Handoff détaillé** : [linux-kde-neon-v4-p1-handoff.md](linux-kde-neon-v4-p1-handoff.md)
+**Handoff** : [linux-kde-neon-v4-p1-handoff.md](linux-kde-neon-v4-p1-handoff.md)
 
-- [x] Layout Kirigami fiche VLC (`discover-neon.js` + CSS)
-- [x] Assets screenshots VideoLAN (3 JPG, A/S/T)
-- [x] Dismiss popup MAJ via script KWin (`--discover-detail-live`)
-- [x] Captures VM sans popup (`vm-discover-detail-vlc.png`)
-- [x] Captures Capsule paires + variantes scrollées
-- [x] Firefox Proton **clair** (`firefox.skin.css`)
-- [x] Smokes discover + firefox OK · `validate-all` OK
-- [ ] Compare visuel Vp (`capture-clone-surfaces --compare`)
-- [ ] Clôture formelle pallier (vp-residual + replication-state)
+- [x] Layout Kirigami fiche VLC + assets VideoLAN (A/S/T)
+- [x] Dismiss popup MAJ (KWin) · captures VM/Capsule paires
+- [x] Firefox Proton clair · baseline `04-firefox` régénérée
+- [x] `07-discover-detail-vlc` ajouté aux scénarios capture
+- [x] `capture-clone-surfaces --compare` OK (2026-06-09)
 
-**Statut** : 🔄 **en cours** — reprise documentée 2026-06-08 · **ne pas enchaîner V4-P2 avant clôture**
-
-```bash
-# VM Discover déjà ouvert sur VLC
-KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-detail-live
-node usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs
-node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon --compare
-```
-
-**Critère sortie** : fiche VLC navigable · assets locaux · popup absent captures VM · compare Vp classé · Firefox clair validé.
+**Clôturé** : 2026-06-09 · suite → **V4-P2**
 
 ---
 
-### V4-P2 — Kickoff B2/B3 (10–20 h)
+### V4-P2 — Kickoff B2/B3 (10–20 h) 🔄
 
-**Objectif** : utilitaires et apps système au-delà des stubs B1.
+**Objectif** : utilitaires et apps système avec surfaces dédiées (pas seulement `profile`).
 
-- [ ] Batch B2 : KCalc, Spectacle, Info-centre, KFind, …
-- [ ] Batch B3 : Paramètres système, Sauvegarde, Imprimantes, …
-- [ ] Slots CapsuleOS manquants → créer ou stub enrichi (icône + titre VM)
-- [ ] `generate-kde-neon-kickoff-data.mjs` + `smoke-kde-neon-kickoff.mjs` (ouverture B2/B3)
+**Audit** : [linux-kde-neon-v4-p2-kickoff-audit.md](linux-kde-neon-v4-p2-kickoff-audit.md)
 
-**Critère sortie** : kickoff B2/B3 ouverts sans erreur · dataLink ou stub documenté.
+- [x] Smoke structurel 30/30 (`smoke-kde-neon-kickoff.mjs`)
+- [ ] Spectacle → slot dédié
+- [ ] Info-centre (kinfocenter) → slot dédié
+- [ ] System Monitor → slot dédié
+- [ ] KDEConnect → stub UI
+- [ ] Smoke étendu (titre fenêtre par app B2/B3)
+
+**Critère sortie** : apps B2/B3 listées ouvrent un slot documenté · smoke étendu vert.
 
 ---
 
@@ -130,6 +121,4 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 ## Prochaine action immédiate
 
-**Reprendre V4-P1** — compare visuel Vp puis clôture · handoff : [linux-kde-neon-v4-p1-handoff.md](linux-kde-neon-v4-p1-handoff.md)
-
-Ensuite → **V4-P2** Kickoff batches B2/B3.
+**V4-P2** — Spectacle + Info-centre : [linux-kde-neon-v4-p2-kickoff-audit.md](linux-kde-neon-v4-p2-kickoff-audit.md)

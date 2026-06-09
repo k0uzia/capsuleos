@@ -35,4 +35,4 @@ node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon 
 
 ## Verdict v4 P1
 
-Toolbar Firefox **réalignée Proton clair** (vm-firefox.png). Clôture Vp après compare capture post-fix.
+Toolbar Firefox **classée Vp** — Proton clair aligné `vm-firefox.png` · baseline `04-firefox` régénérée 2026-06-09.

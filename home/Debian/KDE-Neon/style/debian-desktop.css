@@ -53,6 +53,7 @@ html[data-theme="light"] body#kde-neon {
     --kde-neon-mono-logo-filter: brightness(0) saturate(100%);
     --kde-neon-taskbar-notch: #eff0f1;
     --kde-neon-tray-icon-filter: brightness(0) saturate(100%);
+    --kde-plasma-tray-item-hover-bg: rgba(0, 0, 0, 0.08);
     --kde-neon-show-desktop-hover-bg: rgba(0, 0, 0, 0.06);
     --kde-neon-clock-expanded-bg: rgba(61, 174, 233, 0.1);
     --calendar-popover-chrome-bg: #eff0f1;
@@ -134,7 +135,9 @@ html:not([data-theme="light"]) body#kde-neon {
 html:has(#kde-neon) {
     --mint-taskbar-bg: var(--kde-neon-plasma-panel-bg);
     --mint-taskbar-top-border: 1px solid var(--kde-neon-plasma-panel-border);
-    --mint-tray-color: var(--kde-neon-plasma-text);
+    --kde-plasma-tray-color: var(--kde-neon-plasma-text);
+    --kde-plasma-tray-item-size: calc(var(--head) * 0.72);
+    --kde-plasma-tray-item-hover-bg: rgba(255, 255, 255, 0.06);
     --mint-clock-date-color: var(--kde-neon-plasma-text-muted);
 }
 

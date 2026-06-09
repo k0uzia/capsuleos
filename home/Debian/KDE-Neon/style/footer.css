@@ -137,7 +137,7 @@
     justify-content: var(--c);
     align-self: center;
     gap: calc(var(--head) / 12);
-    color: var(--mint-tray-color);
+    color: var(--kde-plasma-tray-color);
     padding: 0 calc(var(--head) / 12);
     border-radius: calc(var(--head) / 10);
     background: var(--mint-taskbar-right-bg);

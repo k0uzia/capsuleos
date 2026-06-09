@@ -6,9 +6,9 @@
 |----------|---------|-------|----------------|------------|
 | **P0** | Dolphin | Sélection indépendante volet droit (split) | `dolphin-neon.js` §6 | ✅ v4 |
 | **P0** | Dolphin | Section Périphériques sidebar (empty-state) | `dolphin-neon.js` §3 | ✅ v4 |
-| **P1** | Discover | Fiche VLC Kirigami + assets · compare Vp pending | `discover-neon.js` | 🔄 v4 |
-| **P1** | Firefox | Proton clair livré · compare pending | `firefox.skin.css` | 🔄 v4 |
-| **P1** | Kickoff | Batches B2/B3 (utilitaires + système) | `mainMenu-data.js` | V4-P2 |
+| **P1** | Discover | Fiche VLC Kirigami + assets + compare | `discover-neon.js` | ✅ v4 |
+| **P1** | Firefox | Proton clair + baseline régénérée | `firefox.skin.css` | ✅ v4 |
+| **P1** | Kickoff | Batches B2/B3 surfaces dédiées | `mainMenu-data.js` | 🔄 V4-P2 |
 | **P2** | Tray | Polish calendrier (smoke dédié) | `calendar-popover-kde.js` | backlog |
 | **P2** | Kickoff | Konversation (absente inventaire VM) | — | VM refresh |
 | **P2** | Dérivés | `dolphin-neon.js` / `discover-neon.js` non propagés | openSUSE, MX, Debian | V4-P3 |
@@ -16,11 +16,11 @@
 
 ## Verdict v4 P1
 
-**Non clôturé** (2026-06-08) — handoff : [linux-kde-neon-v4-p1-handoff.md](linux-kde-neon-v4-p1-handoff.md)
+**Clôturé** (2026-06-09) — handoff : [linux-kde-neon-v4-p1-handoff.md](linux-kde-neon-v4-p1-handoff.md)
 
-- Discover fiche VLC : layout Kirigami + 3 JPG VideoLAN + smokes OK · **compare Vp à rejouer**
-- Firefox : skin Proton clair livré · **compare baseline à rejouer**
-- Prochaine priorité : **clôturer P1** puis **V4-P2** kickoff B2/B3
+- Discover fiche VLC : Kirigami + assets VideoLAN · `07-discover-detail-vlc` baseline
+- Firefox : Proton clair · baseline `04-firefox` mise à jour
+- Prochaine priorité : **V4-P2** — audit [linux-kde-neon-v4-p2-kickoff-audit.md](linux-kde-neon-v4-p2-kickoff-audit.md)
 
 ## Références
 

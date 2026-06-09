@@ -4,14 +4,13 @@
   "campaignStatus": "in_progress",
   "roadmap": "linux-kde-neon-roadmap-v4.md",
   "handoff": "linux-kde-neon-v4-p1-handoff.md",
+  "p2Audit": "linux-kde-neon-v4-p2-kickoff-audit.md",
   "previousCampaign": "v3-full-parity",
   "v4StartedAt": "2026-06-08T20:15:00.000Z",
   "v4P0ClosedAt": "2026-06-08T21:00:00.000Z",
-  "pallier": 2,
-  "pallierStatus": "in_progress",
-  "v4P1ClosedAt": null,
-  "v4P1ReopenedAt": "2026-06-08T14:00:00.000Z",
-  "v4P1HandoffAt": "2026-06-08T17:00:00.000Z",
+  "v4P1ClosedAt": "2026-06-09T07:22:00.000Z",
+  "pallier": 3,
+  "pallierStatus": "pending",
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
@@ -28,44 +27,24 @@
     "firefoxToolbar": "linux-kde-neon-firefox-toolbar-matrix.md",
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
-  "priorityQueue": ["update_manager", "firefox", "mainMenu"],
+  "priorityQueue": ["mainMenu", "spectacle", "kinfocenter"],
   "paritySnapshot": {
     "pi_global": 93,
     "status_global": "ok",
     "apps": {
       "nemo": "v4-p0-closed",
-      "update_manager": "v4-p1-in-progress",
-      "firefox": "v4-p1-in-progress",
+      "update_manager": "v4-p1-closed",
+      "firefox": "v4-p1-closed",
       "terminal": "p5-closed"
     }
   },
-  "v4P0Deliverables": {
-    "peripheralsSidebarSection": true,
-    "splitSelectionIndependent": true,
-    "vmCaptureSplit": "vm-dolphin-split-only.png",
-    "capsuleCaptureSplitSelection": "capsule-dolphin-split-selection.png",
-    "dolphinDiffClosed": true
-  },
   "v4P1Deliverables": {
     "discoverKirigamiLayout": true,
-    "discoverAppDetailCarousel": true,
-    "discoverCatalogVlcMeta": true,
     "discoverVlcScreenshotsAssets": true,
-    "vmCaptureDiscoverDetailNoPopup": true,
-    "vmCaptureDiscoverDetailScrolled": "partial",
-    "capsuleCaptureDiscoverDetail": "capsule-discover-detail-vlc.png",
-    "capsuleCaptureDiscoverDetailScrolled": "capsule-discover-detail-vlc-scrolled.png",
     "firefoxProtonLightSkin": true,
-    "firefoxToolbarMatrix": true,
-    "smokeDiscoverExtended": true,
-    "smokeFirefoxToolbar": true,
-    "visualCompareVpClassified": false
+    "visualCompareVpClassified": true,
+    "captureBaselineUpdated": "2026-06-09 (03-dolphin Périphériques, 04-firefox clair, 07-discover-detail-vlc)"
   },
-  "v4P1Blockers": [
-    "capture-clone-surfaces --compare non rejoué post-fix Discover/Firefox",
-    "scroll VM discover detail peu fiable (Wayland)",
-    "vm carousel screenshots gris (backend Discover, pas Capsule)"
-  ],
-  "nextStep": "Clôturer V4-P1 : compare visuel Vp puis V4-P2 Kickoff B2/B3",
-  "updatedAt": "2026-06-08T17:00:00.000Z"
+  "nextStep": "V4-P2 : Spectacle + Info-centre — stubs kickoff B2/B3",
+  "updatedAt": "2026-06-09T07:25:00.000Z"
 }

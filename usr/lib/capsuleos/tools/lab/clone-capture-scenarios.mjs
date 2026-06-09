@@ -119,6 +119,22 @@ const plasmaShots = [
   },
   { name: '05-terminal', action: async (page) => openSlot(page, 'terminal') },
   { name: '06-discover', action: async (page) => openSlot(page, 'update_manager') },
+  {
+    name: '07-discover-detail-vlc',
+    action: async (page) => {
+      await openSlot(page, 'update_manager');
+      await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector('[data-discover-app-detail]');
+          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img');
+        },
+        null,
+        { timeout: 15000 },
+      );
+      await sleep(page, 500);
+    },
+  },
 ];
 
 const gnomeOverviewShots = (triggerSel, showAppsSel) => [

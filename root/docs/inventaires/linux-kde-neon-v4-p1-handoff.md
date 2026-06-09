@@ -1,7 +1,7 @@
 # Handoff V4-P1 — Discover fiche VLC + Firefox toolbar
 
 > **Dernière session** : 2026-06-08 (round 1 + round 2)  
-> **Statut** : 🔄 **non clôturé** — reprise prioritaire avant V4-P2  
+> **Statut** : ✅ **clôturé** (2026-06-09) — suite V4-P2  
 > **registryId** : `linux-kde-neon` · VM : `goupil@192.168.123.52` · virsh `KDE-Neon`
 
 ---

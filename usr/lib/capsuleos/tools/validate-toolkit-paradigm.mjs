@@ -20,7 +20,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const ALL_FLAG = process.argv.includes('--all');
 const idArg = process.argv.find((a, i) => process.argv[i - 1] === '--id');
 const TARGET_IDS = ALL_FLAG
-  ? ['linux-mint', 'linux-rocky', 'linux-ubuntu', 'linux-debian-kde']
+  ? ['linux-mint', 'linux-rocky', 'linux-ubuntu', 'linux-debian-kde', 'linux-kde-neon', 'linux-opensuse']
   : [idArg || 'linux-mint'];
 
 /** @type {Record<string, { skin: string, toolkit: string, explorer: string, forbidden: RegExp[], allowed?: RegExp[] }>} */
@@ -110,6 +110,62 @@ const PARADIGMS = {
       /toolkits\/kde/,
       /icons\/kde/,
       /dolphin/,
+    ],
+  },
+  'linux-kde-neon': {
+    skin: 'home/Debian/KDE-Neon',
+    toolkit: 'kde',
+    explorer: 'dolphin',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /mint-menu-parity/,
+      /mint-tray/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /fileExplorerNautilus\.js/,
+      /themes_gnome/,
+      /gnome-window-behaviors/,
+    ],
+    allowed: [
+      /toolkits\/kde/,
+      /icons\/kde/,
+      /vendors\/neon/,
+      /dolphin/,
+      /fileExplorerNautilusOps/,
+      /fileExplorerAdvancedChrome/,
+      /discover-neon/,
+      /plasma-panel/,
+      /tray-popover-kde/,
+      /update_manager_kde/,
+      /calendar-popover-kde/,
+      /mainMenu-plasma/,
+    ],
+  },
+  'linux-opensuse': {
+    skin: 'home/SUSE/openSUSE',
+    toolkit: 'kde',
+    explorer: 'dolphin',
+    forbidden: [
+      /toolkits\/cinnamon/,
+      /mainMenu-data-cinnamon/,
+      /cinnamon-window-behaviors/,
+      /mint-menu-parity/,
+      /nemo-gnome/,
+      /nautilus-app/,
+      /fileExplorerNautilus\.js/,
+    ],
+    allowed: [
+      /toolkits\/kde/,
+      /icons\/kde/,
+      /vendors\/opensuse/,
+      /fileExplorerNautilusOps/,
+      /fileExplorerAdvancedChrome/,
+      /dolphin/,
+      /plasma-panel/,
+      /tray-popover-kde/,
+      /update_manager_kde/,
     ],
   },
 };

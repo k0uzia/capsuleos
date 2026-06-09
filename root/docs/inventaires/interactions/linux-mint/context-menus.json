@@ -1,0 +1,130 @@
+{
+  "registryId": "linux-mint",
+  "collectedAt": "2026-06-09T12:00:00Z",
+  "source": "vm-locale+capsule-playwright",
+  "vm": {
+    "host": "capsule@192.168.1.146",
+    "cinnamon": "6.6.7",
+    "nemo": "6.6.3+zena",
+    "locale": "fr_FR"
+  },
+  "contexts": [
+    {
+      "id": "desktop.background",
+      "label": "Bureau vide (fond d'écran)",
+      "openMethod": "clic droit zone vide sous panel",
+      "capsuleTarget": "desktop-context-menu.js",
+      "capsuleSelector": "#desktop-context-menu",
+      "expectedLabels": [
+        "Changer le fond d'écran…",
+        "Paramètres du bureau",
+        "Actualiser le bureau"
+      ],
+      "separatorsAfter": [1],
+      "priority": "P0",
+      "smoke": {
+        "trigger": "playwright-right-click",
+        "coords": [640, 400]
+      }
+    },
+    {
+      "id": "desktop.icon",
+      "label": "Icône bureau (nemo-desktop)",
+      "openMethod": "clic droit raccourci bureau",
+      "capsuleTarget": "desktop-context-menu.js",
+      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Renommer", "Supprimer", "Propriétés"],
+      "priority": "P2",
+      "capsuleStatus": "planned",
+      "note": "Raccourcis bureau masqués en skin actuel (.desktop-shortcuts display:none)"
+    },
+    {
+      "id": "nemo.list.background",
+      "label": "Nemo — zone liste vide",
+      "openMethod": "clic droit fond de liste",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "capsuleSelector": ".nemo-app__context-menu",
+      "expectedLabels": [
+        "Créer un nouveau dossier",
+        "Coller",
+        "Propriétés"
+      ],
+      "vmExtraLabels": [
+        "Créer un nouveau document",
+        "Ouvrir dans un terminal",
+        "Tout sélectionner"
+      ],
+      "priority": "P1",
+      "smoke": {
+        "slot": "nemo",
+        "trigger": "contextmenu-on",
+        "selector": ".nemoElement"
+      }
+    },
+    {
+      "id": "nemo.list.file",
+      "label": "Nemo — fichier",
+      "openMethod": "clic droit élément fichier",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Coller", "Propriétés"],
+      "vmExtraLabels": ["Ouvrir avec…", "Renommer", "Compresser", "Déplacer vers la corbeille"],
+      "priority": "P1"
+    },
+    {
+      "id": "nemo.list.folder",
+      "label": "Nemo — dossier",
+      "openMethod": "clic droit dossier",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": ["Ouvrir", "Couper", "Copier", "Coller", "Propriétés"],
+      "priority": "P1"
+    },
+    {
+      "id": "nemo.sidebar.trash",
+      "label": "Nemo — corbeille (sidebar)",
+      "openMethod": "clic droit entrée Corbeille",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": ["Vider la corbeille"],
+      "priority": "P1",
+      "smoke": {
+        "slot": "nemo",
+        "trigger": "contextmenu-on",
+        "selector": "#voletnemo a[data-link=\"Corbeille\"]"
+      }
+    },
+    {
+      "id": "nemo.trash.background",
+      "label": "Nemo — vue corbeille (fond)",
+      "openMethod": "clic droit zone vide en vue Corbeille",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": ["Vider la corbeille"],
+      "priority": "P1"
+    },
+    {
+      "id": "nemo.trash.item",
+      "label": "Nemo — élément corbeille",
+      "openMethod": "clic droit fichier en corbeille",
+      "capsuleTarget": "fileExplorerContextMenu.js#bindNemoContextMenu",
+      "expectedLabels": ["Restaurer", "Supprimer définitivement"],
+      "priority": "P1"
+    },
+    {
+      "id": "panel.background",
+      "label": "Panel Cinnamon",
+      "openMethod": "clic droit barre des tâches",
+      "capsuleTarget": null,
+      "expectedLabels": ["Ajouter des applets", "Configurer le panel"],
+      "priority": "P2",
+      "capsuleStatus": "planned"
+    },
+    {
+      "id": "window.title",
+      "label": "Barre titre fenêtre (Muffin)",
+      "openMethod": "clic droit #windowHeader",
+      "capsuleTarget": "cinnamon-window-behaviors.js",
+      "expectedLabels": ["Réduire", "Agrandir", "Fermer", "Toujours au premier plan"],
+      "priority": "P2",
+      "capsuleStatus": "planned",
+      "note": "GNOME Rocky : capsule-window-context-menu.js — pas encore porté Cinnamon"
+    }
+  ],
+  "smokeGate": "usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs"
+}

@@ -78,6 +78,12 @@
       "autoExecute": true
     },
     {
+      "id": "R-CIN-CTX",
+      "requires": ["H2"],
+      "command": "CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs",
+      "autoExecute": true
+    },
+    {
       "id": "R-CIN-CRED-LIVE",
       "requires": ["CinCred"],
       "negates": ["CinCred_live"],

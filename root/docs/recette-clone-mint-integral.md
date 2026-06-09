@@ -65,6 +65,8 @@
 | Gap | Sévérité | Action passe |
 |-----|----------|--------------|
 | Régression menu clic droit Nautilus (00816fb) | **P0 Rocky** | ✅ `bindFileExplorerContextMenu` dispatch Nautilus/Nemo |
+| Bureau Mint — `#desktop { pointer-events: none }` | **P0 Mint** | ✅ `style.css` + repli `body#mint` dans `desktop-context-menu.js` |
+| Nemo corbeille — profils trash/sidebar absents | **P1 Mint** | ✅ `bindNemoContextMenu` profils trash + smoke dédié |
 | Fuites `toolkits/gnome/apps` dans Mint | P0 Mint | ✅ corrigé b5e39bc + gate paradigm |
 | `--taskbar-height` portal hérité | P1 | ✅ alias `--mint-panel-height: 40px` dans tokens |
 | Chemins physiques `../../../../usr/` en CSS | P2 | Documenté — migration `./assets/` différée |
@@ -76,6 +78,7 @@
 |-------|----------|----------|
 | Sync vues | `sync-all-views.mjs` | ✅ (à relancer avant push) |
 | Gate zone Mint | `validate-all.mjs` + `validate-toolkit-paradigm.mjs --all` | ✅ |
+| **Clic droit P0/P1** | `smoke-mint-context-menus.mjs` sur `:5501` | ✅ matrice [`context-menus.json`](inventaires/interactions/linux-mint/context-menus.json) |
 | État réplication | `linux-mint-replication-state.json` | ✅ pallier **8** · Π_global 98 · non-conformités listées |
 | Rapport conformité | `linux-mint-clone-conformity-report.md` | ✅ matrice VM↔clone |
 

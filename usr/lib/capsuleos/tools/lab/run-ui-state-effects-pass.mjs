@@ -466,6 +466,7 @@ const main = async () => {
   const steps = [
     { name: 'validate-window-side-effects', run: () => run('usr/lib/capsuleos/tools/validate-window-side-effects.mjs') },
     { name: 'smoke-mint-interaction', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-interaction.mjs') },
+    { name: 'smoke-mint-context-menus', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs') },
     { name: 'smoke-mint-window-chrome-parity', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome-parity.mjs') },
   ];
 

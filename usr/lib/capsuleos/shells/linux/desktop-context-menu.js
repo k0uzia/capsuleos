@@ -49,6 +49,21 @@
         });
     }
 
+    function isDesktopBackgroundEvent(event, desktop) {
+        if (event.target.closest('.windowElement, .desktop-shortcut, a, button, input')) {
+            return false;
+        }
+        if (event.target === desktop || (desktop.contains(event.target) && event.target.id === 'desktop')) {
+            return true;
+        }
+        if (event.target.id === 'mint' || event.target === document.body) {
+            const rect = desktop.getBoundingClientRect();
+            return event.clientX >= rect.left && event.clientX <= rect.right
+                && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        }
+        return false;
+    }
+
     function init() {
         if (!isMintDesktop()) {
             return;
@@ -62,13 +77,16 @@
 
         bindActions(menu);
 
-        desktop.addEventListener('contextmenu', (event) => {
-            if (event.target.closest('.windowElement, .desktop-shortcut, a, button, input')) {
+        const onDesktopContextMenu = (event) => {
+            if (!isDesktopBackgroundEvent(event, desktop)) {
                 return;
             }
             event.preventDefault();
             openMenu(menu, event.clientX, event.clientY);
-        });
+        };
+
+        desktop.addEventListener('contextmenu', onDesktopContextMenu);
+        document.body.addEventListener('contextmenu', onDesktopContextMenu);
 
         document.addEventListener('click', (event) => {
             if (!menu.hidden && !menu.contains(event.target)) {

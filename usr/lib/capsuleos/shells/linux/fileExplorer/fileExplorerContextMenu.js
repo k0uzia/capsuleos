@@ -475,7 +475,10 @@
         { action: 'cut', label: 'Couper', scopes: 'item' },
         { action: 'copy', label: 'Copier', scopes: 'item' },
         { action: 'paste', label: 'Coller', scopes: 'background item' },
-        { sep: true, scopes: 'background item' },
+        { action: 'restore-trash', label: 'Restaurer', scopes: 'trash-item' },
+        { action: 'delete-forever', label: 'Supprimer définitivement', scopes: 'trash-item' },
+        { sep: true, scopes: 'background item trash trash-item sidebar-trash' },
+        { action: 'empty-trash', label: 'Vider la corbeille', scopes: 'trash sidebar-trash' },
         { action: 'properties', label: 'Propriétés', scopes: 'background item' },
     ];
 
@@ -537,6 +540,19 @@
         return null;
     }
 
+    function resolveNemoProfile(activeItem, options) {
+        options = options || {};
+        if (options.sidebarTrash) {
+            return 'sidebar-trash';
+        }
+        var path = global.fileExplorerState && global.fileExplorerState.currentPath;
+        var trashPlace = global.CAPSULE_PLACE_TRASH || '__capsule/place/trash';
+        if (path === trashPlace) {
+            return activeItem ? 'trash-item' : 'trash';
+        }
+        return activeItem ? 'item' : 'background';
+    }
+
     function syncNemoMenuScope(menu, profile, itemLink) {
         menu.querySelectorAll('[data-nemo-ctx-scope]').forEach(function (node) {
             var scopes = String(node.dataset.nemoCtxScope || '').split(/\s+/);
@@ -560,6 +576,10 @@
                 disabled = !itemLink;
             } else if (['open', 'cut', 'copy'].indexOf(action) >= 0) {
                 disabled = !itemLink;
+            } else if (['restore-trash', 'delete-forever'].indexOf(action) >= 0) {
+                disabled = !itemLink;
+            } else if (action === 'empty-trash') {
+                disabled = profile !== 'trash' && profile !== 'sidebar-trash';
             }
             node.disabled = disabled;
         });
@@ -598,6 +618,31 @@
         }
         if (action === 'paste' && typeof global.pasteExplorerClipboard === 'function') {
             global.pasteExplorerClipboard();
+            return;
+        }
+        if (action === 'empty-trash' && typeof global.emptyNautilusTrash === 'function') {
+            global.emptyNautilusTrash();
+            return;
+        }
+        if (action === 'restore-trash' && typeof global.restoreNautilusTrashSelection === 'function') {
+            global.restoreNautilusTrashSelection();
+            return;
+        }
+        if (action === 'delete-forever' && typeof global.deleteNautilusTrashSelectionPermanently === 'function') {
+            global.deleteNautilusTrashSelectionPermanently();
+        }
+    }
+
+    function selectNemoContextItem(scope, itemLink) {
+        var grid = scope.querySelector('.nemoElement, .nemo-app__content-grid');
+        if (!grid) {
+            return;
+        }
+        grid.querySelectorAll('.nemo-app__item--selected').forEach(function (el) {
+            el.classList.remove('nemo-app__item--selected');
+        });
+        if (itemLink) {
+            itemLink.classList.add('nemo-app__item--selected');
         }
     }
 
@@ -613,16 +658,25 @@
         var activeItem = null;
 
         scope.addEventListener('contextmenu', function (event) {
+            if (event.target.closest('.nemo-app__context-menu')) {
+                return;
+            }
+            var trashLink = event.target.closest('#voletnemo a[data-link="Corbeille"]');
+            if (trashLink && scope.contains(trashLink)) {
+                event.preventDefault();
+                activeItem = null;
+                syncNemoMenuScope(menu, 'sidebar-trash', null);
+                openNemoMenu(menu, event.clientX, event.clientY);
+                return;
+            }
             var content = scope.querySelector('.nemoElement, .nemo-app__content-grid');
             if (!content || !content.contains(event.target)) {
                 return;
             }
-            if (event.target.closest('.nemo-app__context-menu')) {
-                return;
-            }
             event.preventDefault();
             activeItem = getNemoTargetItem(event, scope);
-            var profile = activeItem ? 'item' : 'background';
+            selectNemoContextItem(scope, activeItem);
+            var profile = resolveNemoProfile(activeItem, {});
             syncNemoMenuScope(menu, profile, activeItem);
             openNemoMenu(menu, event.clientX, event.clientY);
         });
@@ -677,6 +731,10 @@
             var detail = event.detail || {};
             if (detail.slotId === 'nemo' && detail.container && detail.container.dataset) {
                 delete detail.container.dataset.nemoContextMenuInit;
+                var staleSidebar = detail.container.querySelector('#voletnemo');
+                if (staleSidebar && staleSidebar.dataset) {
+                    delete staleSidebar.dataset.nemoSidebarContextMenuBound;
+                }
                 var stale = detail.container.querySelector('.nemo-app__context-menu');
                 if (stale) {
                     stale.parentNode.removeChild(stale);

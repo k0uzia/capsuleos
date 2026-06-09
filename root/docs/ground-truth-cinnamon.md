@@ -96,3 +96,16 @@ node usr/lib/capsuleos/tools/lab/run-cinnamon-formal-chain.mjs --id linux-mint
 CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id linux-mint --sample 20
 node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
 ```
+
+### Phase interactivité — menus contextuels (clic droit)
+
+Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux-mint/context-menus.json`](inventaires/interactions/linux-mint/context-menus.json)
+
+| Étape | Commande | Attendu |
+|-------|----------|---------|
+| Smoke P0/P1 | `CAPSULE_MINT_URL=http://127.0.0.1:5501/OS/linux/families/debian/mint/index.html node usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs` | exit 0 — bureau, Nemo fond/fichier/corbeille |
+| Nemo intégration | `node usr/lib/capsuleos/tools/lab/smoke-mint-nemo.mjs` | exit 0 — menu fond liste + délégation |
+| UI state shell | `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint --shell desktop,mainMenu,panel` | desktop ctx visible |
+| Inventaire VM | `ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 …'` | relire libellés fr si drift Nemo |
+
+Contextes **P2** documentés (non bloquants CinΣ) : icône bureau, panel, barre titre Muffin — voir matrice § `capsuleStatus: planned`.

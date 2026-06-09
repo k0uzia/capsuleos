@@ -38,7 +38,7 @@ Complète : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [conventio
 | Toolkit | Sources web obligatoires | Contrat CapsuleOS |
 |---------|-------------------------|-------------------|
 | **GNOME** (modèle) | [HIG](https://developer.gnome.org/hig/) · [Components](https://developer.gnome.org/components/) · [apps.gnome.org](https://apps.gnome.org/fr/) · libadwaita CSS | `ui-components-gnome.json` |
-| **Cinnamon** | Projet Linux Mint / Cinnamon docs · Nemo | `ui-components-cinnamon.json` *(à créer)* |
+| **Cinnamon** | [Cinnamon](https://projects.linuxmint.com/cinnamon/) · Nemo · [convention-composants-cinnamon.md](convention-composants-cinnamon.md) | `ui-components-cinnamon.json` *(squelette)* |
 | **KDE** | [HIG Plasma](https://develop.kde.org/hig/) · Dolphin | `ui-components-kde.json` *(à créer)* |
 | **COSMIC** | System76 COSMIC docs | `ui-components-cosmic.json` *(à créer)* |
 

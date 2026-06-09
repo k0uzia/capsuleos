@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-rocky",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-06T17:26:59.367Z",
+  "generatedAt": "2026-06-09T00:19:24.025Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-rocky-vm-apps-installed.json",
@@ -32,8 +32,8 @@
     "screenshot"
   ],
   "summary": {
-    "vmInstalled": 15,
-    "catalogRows": 26,
+    "vmInstalled": 18,
+    "catalogRows": 29,
     "p0Total": 7,
     "p0Ok": 7,
     "p0Gaps": 0,
@@ -174,6 +174,26 @@
       "note": null
     },
     {
+      "vmId": "org.gnome.DiskUtility",
+      "desktop": "org.gnome.DiskUtility.desktop",
+      "labelFr": "Disques",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
       "vmId": "org.gnome.TextEditor",
       "desktop": "org.gnome.TextEditor.desktop",
       "labelFr": "Éditeur de texte",
@@ -224,7 +244,7 @@
       "note": null
     },
     {
-      "vmId": "org.mozilla.Firefox",
+      "vmId": "firefox",
       "desktop": "firefox.desktop",
       "labelFr": "Firefox",
       "priorite": "P0",
@@ -271,6 +291,26 @@
         "skinCss": "clocks.skin.css",
         "functionalDepth": "partial"
       },
+      "note": null
+    },
+    {
+      "vmId": "setroubleshoot",
+      "desktop": "setroubleshoot.desktop",
+      "labelFr": "Journal des alertes SELinux",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
       "note": null
     },
     {
@@ -516,6 +556,26 @@
         "skinCss": "themes.skin.css",
         "functionalDepth": "full"
       },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.font-viewer",
+      "desktop": "org.gnome.font-viewer.desktop",
+      "labelFr": "Polices",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
       "note": null
     },
     {

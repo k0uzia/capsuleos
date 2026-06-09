@@ -15,14 +15,14 @@
     "detected": []
   },
   "mediaCatalogVendor": "rocky",
-  "collectedAt": "2026-06-08T21:12:35Z",
+  "collectedAt": "2026-06-09T00:19:18Z",
   "source": "root/tools/lab/vm-distribution-manifest.py",
   "validation": {
-    "status": "approved",
-    "smokeOk": true,
-    "approved": true,
-    "approvedAt": "2026-06-08T22:45:02.877Z",
-    "approvedBy": "agent"
+    "status": "draft",
+    "smokeOk": false,
+    "approved": false,
+    "approvedAt": null,
+    "approvedBy": null
   },
   "packages": {
     "dpkgCount": 0,

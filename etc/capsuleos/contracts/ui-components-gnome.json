@@ -496,6 +496,7 @@
     "syncPack": "usr/share/capsuleos/themes/clusters/toolkit-gnome/pack.json",
     "futureContracts": {
       "cinnamon": "etc/capsuleos/contracts/ui-components-cinnamon.json",
+      "cinnamonStatus": "skeleton",
       "kde": "etc/capsuleos/contracts/ui-components-kde.json",
       "cosmic": "etc/capsuleos/contracts/ui-components-cosmic.json"
     }

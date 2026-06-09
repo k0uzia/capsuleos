@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-rocky",
-  "collectedAt": "2026-06-08T21:12:35Z",
+  "collectedAt": "2026-06-09T00:19:18Z",
   "ssh": "capsule@192.168.122.234",
   "source": "distribution-manifest → vm-manifest-lib.mjs",
   "installed": [
@@ -78,9 +78,9 @@
       "icon": "firefox",
       "categories": "Network;WebBrowser;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "firefox",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "org.gnome.clocks",
@@ -227,5 +227,5 @@
   "note": "Calendar en favoris gsettings mais paquet absent sur VM lab — P1 sonde.",
   "manifestPath": "proc/linux-rocky/distribution-manifest.json",
   "flatpakCount": 0,
-  "updatedAt": "2026-06-08T21:12:35.649Z"
+  "updatedAt": "2026-06-09T00:19:19.112Z"
 }

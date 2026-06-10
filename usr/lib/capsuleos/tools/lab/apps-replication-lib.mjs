@@ -17,7 +17,13 @@ export const capsuleCaptureCandidates = (controlId) => {
     firefox: ['rocky-capsule-dark-firefox.png', 'rocky-capsule-light-firefox.png'],
     terminal: ['rocky-capsule-dark-terminal.png'],
     themes: ['rocky-capsule-dark-settings-appearance.png', 'rocky-capsule-dark-settings-displays.png'],
-    calculator: ['rocky-capsule-dark-calculator.png'],
+    calculator: [
+      'rocky-capsule-dark-calculator.png',
+      'rocky-capsule-dark-calculator-basic.png',
+      'rocky-capsule-dark-calculator-chain-clear.png',
+      'rocky-capsule-dark-calculator-advanced.png',
+      'rocky-capsule-dark-calculator-copy.png',
+    ],
     text_editor: [
       'rocky-capsule-dark-text-editor.png',
       'rocky-capsule-dark-text-editor-new-doc.png',

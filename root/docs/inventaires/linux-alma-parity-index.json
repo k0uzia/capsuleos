@@ -237,20 +237,27 @@
     "calculator": {
       "slot": "calculator",
       "label": "Calculatrice",
-      "pi": 82,
-      "status": "partiel",
+      "pi": 91,
+      "status": "ok",
       "dimensions": {
-        "vis": 85,
-        "nav": 82,
-        "int": 80,
-        "ctx": 77,
-        "kb": 83,
-        "data": 85
+        "vis": 88,
+        "nav": 90,
+        "int": 92,
+        "ctx": 89,
+        "kb": 90,
+        "data": 92
       },
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "lastPass": "2026-06-10T11:15:53.126Z",
-      "checksPassed": 6,
-      "checksTotal": 8
+      "updatedAt": "2026-06-10T18:30:00.000Z",
+      "notes": "C17 — scénarios pédagogiques C1–C4 (basique, chaîne/effacer, mode Avancé, copier résultat) ; contrat calculator-user-scenarios ; smoke-gnome-calculator-scenarios",
+      "smoke": "smoke-gnome-calculator-scenarios.mjs --id linux-alma",
+      "lastPass": "2026-06-10T18:30:00.000Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "scenarios": {
+        "contract": "etc/capsuleos/contracts/calculator-user-scenarios.json",
+        "p0": ["C1", "C2", "C3", "C4"],
+        "smoke": "smoke-gnome-calculator-scenarios.mjs"
+      }
     },
     "clocks": {
       "slot": "clocks",
@@ -291,7 +298,7 @@
       "checksTotal": 8
     }
   },
-  "pi_global": 93,
+  "pi_global": 94,
   "status_global": "ok",
   "gaps": [
     "Captures VM pixel-perfect Software : D-Bus AccessDenied — compensé captures Capsule C14",
@@ -299,5 +306,5 @@
     "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
     "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
   ],
-  "updatedAt": "2026-06-10T17:30:00.000Z"
+  "updatedAt": "2026-06-10T18:30:00.000Z"
 }

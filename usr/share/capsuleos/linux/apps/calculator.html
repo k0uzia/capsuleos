@@ -1,8 +1,9 @@
 <main id="gnomeCalculatorApp" class="gnome-calc" aria-label="Calculatrice">
 
     <header class="gnome-calc__header">
-        <div class="gnome-calc__toolbar-start" aria-label="Historique">
+        <div class="gnome-calc__toolbar-start" aria-label="Actions">
             <button type="button" class="gnome-calc__icon-btn" data-calc="history-toggle" aria-label="Historique des calculs" title="Historique" aria-expanded="false" aria-controls="gnome-calc-history-panel"></button>
+            <button type="button" class="gnome-calc__icon-btn gnome-calc__icon-btn--copy" data-calc-gnome-action="copy-result" aria-label="Copier le résultat dans le presse-papiers" title="Copier"></button>
         </div>
         <div class="gnome-calc__mode-wrap">
             <button type="button" class="gnome-calc__mode" id="gnome-calc-mode" aria-haspopup="listbox" aria-expanded="false" aria-controls="gnome-calc-mode-popover">
@@ -11,7 +12,7 @@
             </button>
             <div class="gnome-calc__mode-popover" id="gnome-calc-mode-popover" role="listbox" hidden>
                 <button type="button" class="gnome-calc__mode-option is-active" data-calc-mode="basic" role="option">Basique</button>
-                <button type="button" class="gnome-calc__mode-option" data-calc-mode="advanced" role="option">Avancée</button>
+                <button type="button" class="gnome-calc__mode-option" data-calc-mode="advanced" role="option">Avancé</button>
                 <button type="button" class="gnome-calc__mode-option" data-calc-mode="programming" role="option">Programmation</button>
             </div>
         </div>
@@ -20,7 +21,7 @@
     <div class="gnome-calc__display" aria-label="Affichage">
         <div class="gnome-calc__history" id="gnome-calc-expr" aria-hidden="true"></div>
         <div class="gnome-calc__entry">
-            <div class="gnome-calc__value" id="gnome-calc-value" role="status" aria-live="polite" aria-atomic="true">0</div>
+            <div class="gnome-calc__value" id="gnome-calc-value" data-calc-gnome-display role="status" aria-live="polite" aria-atomic="true">0</div>
             <button type="button" class="gnome-calc__backspace" data-calc="backspace" aria-label="Effacer le dernier chiffre" title="Effacer"></button>
         </div>
     </div>
@@ -66,5 +67,7 @@
         <button type="button" class="gnome-calc__key gnome-calc__key--eq gnome-calc__key--tall" data-calc="equals" aria-label="Égal">=</button>
         <button type="button" class="gnome-calc__key gnome-calc__key--fn gnome-calc__key--decor" data-calc="noop" tabindex="-1" aria-hidden="true">f(x)</button>
     </div>
+
+    <div class="gnome-calc__toast" data-calc-gnome-toast hidden role="status" aria-live="polite"></div>
 
 </main>

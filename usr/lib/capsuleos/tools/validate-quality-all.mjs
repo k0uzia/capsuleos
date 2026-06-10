@@ -22,6 +22,7 @@ const steps = [
   'validate-pedagogical-modules.mjs',
   'validate-software-user-scenarios.mjs',
   'validate-text-editor-user-scenarios.mjs',
+  'validate-calculator-user-scenarios.mjs',
 ];
 
 let failed = false;

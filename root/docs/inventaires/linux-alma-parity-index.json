@@ -212,20 +212,27 @@
     "text_editor": {
       "slot": "text_editor",
       "label": "Éditeur de texte",
-      "pi": 83,
-      "status": "partiel",
+      "pi": 92,
+      "status": "ok",
       "dimensions": {
-        "vis": 86,
-        "nav": 83,
-        "int": 81,
-        "ctx": 78,
-        "kb": 84,
-        "data": 86
+        "vis": 90,
+        "nav": 91,
+        "int": 92,
+        "ctx": 90,
+        "kb": 91,
+        "data": 93
       },
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "lastPass": "2026-06-10T11:15:53.126Z",
-      "checksPassed": 6,
-      "checksTotal": 8
+      "updatedAt": "2026-06-10T17:30:00.000Z",
+      "notes": "C16 — scénarios pédagogiques T1–T4 (nouveau doc, ouvrir VFS, enregistrer sous, onglets) ; contrat text-editor-user-scenarios ; smoke-gnome-text-editor-scenarios",
+      "smoke": "smoke-gnome-text-editor-scenarios.mjs --id linux-alma",
+      "lastPass": "2026-06-10T17:30:00.000Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "scenarios": {
+        "contract": "etc/capsuleos/contracts/text-editor-user-scenarios.json",
+        "p0": ["T1", "T2", "T3", "T4"],
+        "smoke": "smoke-gnome-text-editor-scenarios.mjs"
+      }
     },
     "calculator": {
       "slot": "calculator",
@@ -284,7 +291,7 @@
       "checksTotal": 8
     }
   },
-  "pi_global": 92,
+  "pi_global": 93,
   "status_global": "ok",
   "gaps": [
     "Captures VM pixel-perfect Software : D-Bus AccessDenied — compensé captures Capsule C14",
@@ -292,5 +299,5 @@
     "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
     "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
   ],
-  "updatedAt": "2026-06-10T16:00:00.000Z"
+  "updatedAt": "2026-06-10T17:30:00.000Z"
 }

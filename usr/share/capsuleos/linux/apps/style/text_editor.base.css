@@ -461,3 +461,58 @@ div[data-link="text_editor"] #windowTitle {
     font-size: calc(var(--head) / 2.9);
     opacity: 0.85;
 }
+
+.xed-app__tabs {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    flex-shrink: 0;
+    gap: calc(var(--head) / 32);
+    min-height: calc(var(--head) / 1.8);
+    padding: 0 calc(var(--head) / 8);
+    border-bottom: 1px solid var(--xed-border, rgba(0, 0, 0, 0.1));
+    background: var(--xed-chrome-bg, #ececec);
+    overflow-x: auto;
+}
+
+.xed-app__tab {
+    display: inline-flex;
+    align-items: center;
+    max-width: 12rem;
+    padding: calc(var(--head) / 10) calc(var(--head) / 5);
+    border: none;
+    border-radius: calc(var(--head) / 8);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.xed-app__tab.is-active {
+    background: var(--xed-toolbar-active-bg, rgba(53, 132, 228, 0.14));
+}
+
+.xed-te-toast {
+    position: absolute;
+    right: calc(var(--head) / 4);
+    bottom: calc(var(--head) / 2);
+    z-index: 20;
+    padding: calc(var(--head) / 6) calc(var(--head) / 3);
+    border-radius: calc(var(--head) / 8);
+    background: rgba(30, 30, 30, 0.92);
+    color: #fff;
+    font-size: calc(var(--head) / 2.8);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+.text-editor--gnome.is-gnome-tabs .xed-menu__item--gnome-only {
+    display: block;
+}
+
+.xed-menu__item--gnome-only {
+    display: none;
+}

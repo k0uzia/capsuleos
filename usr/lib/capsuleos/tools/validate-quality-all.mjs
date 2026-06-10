@@ -21,6 +21,7 @@ const steps = [
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',
   'validate-software-user-scenarios.mjs',
+  'validate-text-editor-user-scenarios.mjs',
 ];
 
 let failed = false;

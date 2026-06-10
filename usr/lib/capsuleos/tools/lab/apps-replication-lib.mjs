@@ -18,7 +18,13 @@ export const capsuleCaptureCandidates = (controlId) => {
     terminal: ['rocky-capsule-dark-terminal.png'],
     themes: ['rocky-capsule-dark-settings-appearance.png', 'rocky-capsule-dark-settings-displays.png'],
     calculator: ['rocky-capsule-dark-calculator.png'],
-    text_editor: ['rocky-capsule-dark-text-editor.png'],
+    text_editor: [
+      'rocky-capsule-dark-text-editor.png',
+      'rocky-capsule-dark-text-editor-new-doc.png',
+      'rocky-capsule-dark-text-editor-open-file.png',
+      'rocky-capsule-dark-text-editor-save-as.png',
+      'rocky-capsule-dark-text-editor-tabs.png',
+    ],
     update_manager: [
       'rocky-capsule-dark-software.png',
       'rocky-capsule-dark-software-updates.png',

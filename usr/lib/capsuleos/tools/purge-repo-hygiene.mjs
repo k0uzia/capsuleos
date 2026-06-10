@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import { purgeLinuxFacadeOrphans } from './linux/linux-skin-facade-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -16,6 +17,8 @@ const LEGACY_PATHS = [
     'usr/lib/capsuleos/tools/build-capsule-embed.mjs',
     'OS/linux/kernel/js/capsule-app-embed.js',
     'root/docs/toolkit-cloisonnement-audit.md',
+    'OS/linux/shared/apps',
+    'OS/linux/shared/content',
 ];
 
 const APPS_VISUAL = path.join(ROOT, 'root/docs/inventaires/captures/linux-rocky/apps-visual');
@@ -59,6 +62,16 @@ function rmEmptyDirs(dir) {
 
 for (const rel of LEGACY_PATHS) {
     rm(rel);
+}
+
+const facadeOrphans = purgeLinuxFacadeOrphans({ dryRun });
+if (facadeOrphans.length) {
+    console.log(`Façades pick-os — ${facadeOrphans.length} orphelin(s)${dryRun ? ' (dry-run)' : ''}`);
+    facadeOrphans.slice(0, 8).forEach((rel) => console.log(`  ${dryRun ? '[dry-run] ' : ''}${rel}`));
+    if (facadeOrphans.length > 8) {
+        console.log(`  … +${facadeOrphans.length - 8} autre(s)`);
+    }
+    removed.push(...facadeOrphans);
 }
 
 if (fs.existsSync(APPS_VISUAL)) {
@@ -112,13 +125,19 @@ if (fs.existsSync(INVESTIGATION) && removed.some((r) => r.includes('apps-visual/
 if (fs.existsSync(path.join(ROOT, 'OS/linux/shared/DEPRECATED.md'))) {
     const dep = `Ce répertoire est déprécié.
 
-L'embed offline Linux est généré par :
+Les gabarits apps et contenus Linux canoniques sont sous :
+
+- \`usr/share/capsuleos/linux/apps/\`
+- \`usr/share/capsuleos/linux/content/\`
+- \`usr/share/capsuleos/linux/explorers/\`
+
+L'embed offline est généré par :
 
 \`node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs\`
 
 → \`var/lib/capsuleos/generated/capsule-app-embed.js\`
 
-Voir \`var/lib/capsuleos/generated/capsule-embed-index.json\`.
+Purge legacy : \`node usr/lib/capsuleos/tools/purge-repo-hygiene.mjs\`
 `;
     if (!dryRun) {
         fs.writeFileSync(path.join(ROOT, 'OS/linux/shared/DEPRECATED.md'), dep, 'utf8');

@@ -15,7 +15,7 @@ Z0 contrats/proc  →  Z1 usr/lib + usr/share  →  Z2 home/<Vendor>  →  Z3 OS
 | **Z0** | `etc/capsuleos/contracts/` (56 JSON), `proc/linux-*/` | Cohérent ; OsRepro + 7 chaînes replication |
 | **Z1** | `usr/lib/capsuleos/`, `usr/share/capsuleos/` | Canon ; ground store (`gnome-software-ground.js`) |
 | **Z2** | `home/RedHat|Debian|SUSE/...` | 11 skins bureau actifs ; Rocky gel ManA |
-| **Z3** | `OS/linux/families/*/index.html` | Généré ; drift si pas `sync-linux-skin-closure` |
+| **Z3** | `OS/linux/families/*/index.html` (seul fichier par façade) | Généré ; `<base href>` → `home/` ; gate `validate-linux-facades.mjs` |
 | **Z4** | `var/lib/capsuleos/generated/` | 8 artefacts ; régénérer via build/sync |
 
 **Interdit confirmé** : logique commune dans `home/` — noyau `usr/lib` (P12).
@@ -26,9 +26,10 @@ Z0 contrats/proc  →  Z1 usr/lib + usr/share  →  Z2 home/<Vendor>  →  Z3 OS
 
 | Signal | Détail | Cible |
 |--------|--------|-------|
-| Legacy apps | `OS/linux/shared/apps/` vs `usr/share/capsuleos/linux/apps/` | `migrate-linux-usr-paths.mjs` |
+| Legacy apps | ~~`OS/linux/shared/apps/`~~ → purgé ; canon `usr/share/capsuleos/linux/apps/` | `purge-repo-hygiene.mjs` |
+| Legacy kernel | `OS/linux/kernel/js/` (archivé) vs `usr/lib/capsuleos/shells/linux/` | hors scope — ne pas étendre |
 | Dual lab | `root/tools/lab/` (83 fichiers shell/matrices) + `usr/lib/.../lab/` (~250 Node) | Split intentionnel ; matrices vendor par distro |
-| Dual façade | `home/*/index.html` + `OS/.../index.html` | sync-linux-skin-closure obligatoire |
+| Dual façade | `home/*/index.html` + `OS/.../index.html` uniquement | sync-linux-skin-closure · orphelins Z3 interdits |
 | Assets vendor | Doc `vendors/` vs réalité `usr/share/capsuleos/assets/images/vendors/` | Convention assets à jour |
 
 ---

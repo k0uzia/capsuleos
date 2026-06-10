@@ -468,7 +468,7 @@ window.CAPSULE_TEMPLATE_OVERRIDES = {
 
 ### 10. Pièges post-refactor rootfs
 
-1. **Miroir `OS/` ↔ `home/`** : source de vérité = `home/…/index.html` ; pick-os charge `OS/linux/families/…/index.html` (URL stable + `<base href>` vers `home/`). Après tout patch skin : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs` — `validate-all` refuse une façade périmée.
+1. **Façade pick-os `OS/linux/families/`** : source de vérité = `home/…/` ; chaque façade ne contient que `index.html` (`<base href>` → `home/`). Orphelins interdits — gate `validate-linux-facades.mjs` · purge : `purge-repo-hygiene.mjs`. Après patch skin : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
 2. **Embed offline** : après tout changement sous `usr/share/.../apps/`, `explorers/`, `home/public/` ou `*.skin.css` :
 
    ```bash

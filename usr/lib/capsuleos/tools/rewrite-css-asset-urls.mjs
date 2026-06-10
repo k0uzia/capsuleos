@@ -14,7 +14,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const DRY = process.argv.includes('--dry-run');
 const KERNEL = 'usr/share/capsuleos/assets';
 
-const SCAN = ['home', 'OS/linux/families', 'usr/share/capsuleos/linux/apps/style', 'OS/linux/shared'];
+const SCAN = ['home', 'OS/linux/families', 'usr/share/capsuleos/linux/apps/style'];
 const SKIP_DIRS = new Set(['node_modules', '.git', 'var']);
 
 const depthPrefix = (filePath) => {

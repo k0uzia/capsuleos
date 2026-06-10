@@ -91,3 +91,73 @@ export function validateLinuxFacadesSync() {
     });
     return errors;
 }
+
+/** Seul index.html est autorisé sous OS/linux/families/<facade>/ (base → home/). */
+export const FACADE_ALLOWED_RELATIVE = new Set(['index.html']);
+
+export function listLinuxFacadeOrphans() {
+    const orphans = [];
+    for (const { facade } of LINUX_SKIN_FACADES) {
+        const facadeRoot = path.join(ROOT, 'OS/linux', facade);
+        if (!fs.existsSync(facadeRoot)) {
+            continue;
+        }
+        const walk = (dir) => {
+            for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+                const abs = path.join(dir, ent.name);
+                if (ent.isDirectory()) {
+                    walk(abs);
+                    continue;
+                }
+                const rel = path.relative(facadeRoot, abs).replace(/\\/g, '/');
+                if (!FACADE_ALLOWED_RELATIVE.has(rel)) {
+                    orphans.push(`OS/linux/${facade}/${rel}`);
+                }
+            }
+        };
+        walk(facadeRoot);
+    }
+    return orphans.sort();
+}
+
+export function validateLinuxFacadeOrphans() {
+    return listLinuxFacadeOrphans().map(
+        (rel) => `Fichier orphelin sous façade pick-os (supprimer ou migrer vers home/) : ${rel}`
+    );
+}
+
+export function purgeLinuxFacadeOrphans({ dryRun = false } = {}) {
+    const removed = [];
+    for (const rel of listLinuxFacadeOrphans()) {
+        const abs = path.join(ROOT, rel);
+        if (!fs.existsSync(abs)) {
+            continue;
+        }
+        if (dryRun) {
+            removed.push(rel);
+            continue;
+        }
+        fs.rmSync(abs, { force: true });
+        removed.push(rel);
+    }
+    if (!dryRun) {
+        for (const { facade } of LINUX_SKIN_FACADES) {
+            const facadeRoot = path.join(ROOT, 'OS/linux', facade);
+            if (!fs.existsSync(facadeRoot)) {
+                continue;
+            }
+            const pruneEmpty = (dir) => {
+                for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+                    if (ent.isDirectory()) {
+                        pruneEmpty(path.join(dir, ent.name));
+                    }
+                }
+                if (dir !== facadeRoot && fs.existsSync(dir) && fs.readdirSync(dir).length === 0) {
+                    fs.rmdirSync(dir);
+                }
+            };
+            pruneEmpty(facadeRoot);
+        }
+    }
+    return removed;
+}

@@ -161,9 +161,6 @@
         if (!root || !container.querySelector('[data-um-gnome-chrome-actions]')) {
             return false;
         }
-        if (root.dataset.umGnomeChrome === 'gs47-sidebar') {
-            return false;
-        }
         if (root.dataset.umGnomeChrome === 'gs50-tabs') {
             return true;
         }

@@ -74,7 +74,7 @@
     },
     {
       "id": "shared-nemo-manifest",
-      "path": "OS/linux/shared/content/Dossier_personnel/nemo-manifest.json",
+      "path": "usr/share/capsuleos/linux/content/Dossier_personnel/nemo-manifest.json",
       "severity": "P2",
       "note": "Hors zone canonique home/public"
     }

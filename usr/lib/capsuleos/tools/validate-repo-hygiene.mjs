@@ -17,6 +17,8 @@ const LEGACY_PATHS = [
     'usr/lib/capsuleos/tools/build-capsule-embed.mjs',
     'OS/linux/kernel/js/capsule-app-embed.js',
     'root/docs/toolkit-cloisonnement-audit.md',
+    'OS/linux/shared/apps',
+    'OS/linux/shared/content',
 ];
 
 const errors = [];

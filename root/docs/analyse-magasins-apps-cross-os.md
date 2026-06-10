@@ -22,9 +22,9 @@
 | linux-ubuntu | update_manager | gnome | 11 | OK | actif (GS50, libellé « Logiciels ») |
 | linux-popos | update_manager | cosmic→gnome | 11 | deferred | catalogue actif ; smoke bloqué layout COSMIC (dock) |
 | linux-anduinos | update_manager | gnome | 11 | OK | actif |
-| linux-mint | mintinstall | cinnamon | 0 | deferred | branché (`mint-store-catalog.js`) |
-| linux-kde-neon | update_manager | kde | 0 | deferred | gap UI Discover |
-| linux-opensuse | update_manager | kde | 0 | deferred | gap UI Discover |
+| linux-mint | mintinstall | cinnamon | 19 (VM) | `smoke-mint-mintinstall.mjs` | actif — catalogue VM + fusion `mintinstall.js` |
+| linux-kde-neon | update_manager | kde | 0 | deferred | gap UI Discover (grille store) |
+| linux-opensuse | update_manager | kde | 0 | deferred | gap UI Discover (grille store) |
 
 ## Fronts magasin par OS
 
@@ -123,18 +123,19 @@ Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/
 
 ## Mint (Logithèque)
 
-- Catalogue généré : **0 apps** (`storeCatalogStatus: vm-preinstalled` — ground truth VM pré-installé)
+- Catalogue généré : **19 apps VM** (`storeCatalogStatus: active` — ground truth pré-installé Mint)
 - Runtime : `capsule-store-catalog.js` + `mint-store-catalog.js` branchés sur `home/Debian/Mint/`
-- UI : `mintinstall.js` conserve son catalogue pédagogique hardcodé ; fusion store généré = vague ultérieure
-- Smoke : `smoke-mint-nemo.mjs` (pas de régression Nemo)
+- UI : `mintinstall.js` fusionne le catalogue contrat (`buildCatalogFromRegistry`) ; section « À découvrir » alimentée par `CapsuleMintStore.getDiscoverApps()` quand des extensions `storeInstallable` existent (sinon cartes vedette statiques du gabarit)
+- Smoke : `smoke-mint-mintinstall.mjs` · `smoke-mint-nemo.mjs`
 
 ## KDE (deferred)
 
-- `linux-kde-neon` / `linux-opensuse` : `presentation-bindings` + `storeCatalogStatus: deferred`
-- Catalogue généré vide (0 apps) — pas de `toolkitVariants.kde` pour slots store P1
-- UI Discover (`update_manager_kde*.html`) sans grille « À découvrir » store — documenter avant implémentation
+- `linux-kde-neon` / `linux-opensuse` : `presentation-bindings.storeCatalogStatus: deferred` (aligné `storeFrontByRegistry`)
+- Catalogue généré vide (0 apps) — skins KDE ne chargent pas encore `capsule-store-catalog.js`
+- UI Discover (`update_manager_kde*.html`) sans grille « À découvrir » store — implémentation après `toolkitVariants.kde`
 
 ## Prochaines vagues
 
-- Mint : fusion catalogue généré → section Logithèque « À découvrir »
-- KDE : slots store + UI Discover grille (quand `toolkitVariants.kde` aboutis)
+- Mint : extensions magasin `storeInstallable` (apps absentes du ground truth VM) pour alimenter « À découvrir »
+- KDE : branchement catalogue + UI Discover grille (quand `toolkitVariants.kde` aboutis)
+- Pop!_OS : smoke store après stabilisation layout COSMIC (dock)

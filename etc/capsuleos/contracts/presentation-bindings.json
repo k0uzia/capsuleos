@@ -86,7 +86,7 @@
       "bodyId": "kde-neon",
       "toolkit": "kde",
       "localeDefault": "fr",
-      "storeCatalogStatus": "active",
+      "storeCatalogStatus": "deferred",
       "storeFront": {
         "slot": "update_manager",
         "labelFr": "Discover",
@@ -98,7 +98,7 @@
       "bodyId": "opensuse",
       "toolkit": "kde",
       "localeDefault": "fr",
-      "storeCatalogStatus": "active",
+      "storeCatalogStatus": "deferred",
       "storeFront": {
         "slot": "update_manager",
         "labelFr": "Discover",

@@ -1,7 +1,7 @@
 /**
  * Catalogue magasin Logithèque Mint — runtime browser.
  * Données : var/lib/capsuleos/generated/capsule-store-catalog.js (généré depuis contrats).
- * VM ground truth : apps pré-installées — section À découvrir vide si catalogue contrat = 0 apps.
+ * VM ground truth : apps pré-installées — section « À découvrir » via getDiscoverApps (storeInstallable ou defaultInstalled:false).
  */
 (function initCapsuleMintStoreCatalog(global) {
     'use strict';
@@ -24,6 +24,16 @@
         return STORE_APPS_BY_REGISTRY[registryId] || [];
     }
 
+    function isDiscoverEntry(entry) {
+        if (!entry) {
+            return false;
+        }
+        if (entry.storeInstallable === true) {
+            return true;
+        }
+        return entry.defaultInstalled === false;
+    }
+
     function getDiscoverApps(installedIds) {
         var storeList = getStoreList();
         var installed = installedIds || {};
@@ -31,7 +41,10 @@
         var i;
         for (i = 0; i < storeList.length; i += 1) {
             var entry = storeList[i];
-            if (installed[entry.id] === true) {
+            if (!isDiscoverEntry(entry)) {
+                continue;
+            }
+            if (installed[entry.id] === true || installed[entry.storeSlot] === true) {
                 continue;
             }
             result.push(entry);

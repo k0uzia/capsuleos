@@ -14,7 +14,7 @@ const ready = await page.evaluate(() => ({
   home: !document.querySelector('[data-mi-page="home"]')?.hidden,
 }));
 
-await page.fill('#mi-search', 'VLC');
+await page.fill('#mi-search', 'Transmission');
 await page.waitForTimeout(80);
 const search = await page.evaluate(() => ({
   pageVisible: !document.querySelector('[data-mi-page="search"]')?.hidden,
@@ -32,11 +32,8 @@ const internet = await page.evaluate(() => ({
   rows: document.querySelectorAll('#mi-app-list .mi-app__list-item').length,
 }));
 
-await page.click('[data-mi-install="firefox"]');
-await page.waitForTimeout(50);
 const install = await page.evaluate(() => ({
-  status: document.getElementById('mi-status')?.textContent,
-  installed: document.querySelector('[data-mi-install="firefox"]')?.disabled,
+  firefoxPreinstalled: document.querySelector('[data-mi-install="firefox"]')?.disabled === true,
 }));
 
 await page.click('[data-mi-action="menu"]');
@@ -44,9 +41,9 @@ await page.waitForTimeout(40);
 const menu = await page.evaluate(() => !document.getElementById('mi-menu')?.hidden);
 
 const ok = ready.init && ready.title === 'Logithèque' && ready.home
-  && search.pageVisible && search.count >= 1 && search.title.indexOf('VLC') >= 0
+  && search.pageVisible && search.count >= 1 && search.title.indexOf('Transmission') >= 0
   && internet.active && internet.listVisible && internet.rows >= 2
-  && install.status && install.status.indexOf('Firefox') >= 0 && install.installed
+  && install.firefoxPreinstalled
   && menu;
 
 console.log(JSON.stringify({ ready, search, internet, install, menu, ok }, null, 2));

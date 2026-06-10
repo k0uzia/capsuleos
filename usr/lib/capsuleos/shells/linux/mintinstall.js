@@ -87,8 +87,58 @@
         return out.length ? out : null;
     }
 
+    function buildDiscoverCatalog(installed) {
+        var store = global.CapsuleMintStore;
+        if (!store || typeof store.getDiscoverApps !== 'function') {
+            return [];
+        }
+        var list = store.getDiscoverApps(installed || {});
+        if (!list.length) {
+            return [];
+        }
+        var out = [];
+        var i;
+        for (i = 0; i < list.length; i += 1) {
+            var mapped = mapStoreEntryToMint(list[i]);
+            if (mapped) {
+                out.push(mapped);
+            }
+        }
+        return out;
+    }
+
     function getCatalog() {
         return buildCatalogFromRegistry() || CATALOG_FALLBACK;
+    }
+
+    function renderFeaturedDiscover(root, installed) {
+        var featuredEl = root.querySelector('.mi-app__featured');
+        if (!featuredEl) {
+            return;
+        }
+        var discover = buildDiscoverCatalog(installed);
+        if (!discover.length) {
+            return;
+        }
+        featuredEl.innerHTML = '';
+        var di;
+        for (di = 0; di < discover.length && di < 8; di += 1) {
+            var entry = discover[di];
+            var card = global.document.createElement('li');
+            card.className = 'mi-app__featured-card';
+            card.setAttribute('data-mi-pkg', entry.id);
+            var icon = global.document.createElement('img');
+            icon.src = resolveIconUrl(entry.icon);
+            icon.alt = '';
+            icon.width = 48;
+            icon.height = 48;
+            var name = global.document.createElement('span');
+            name.className = 'mi-app__featured-name';
+            name.textContent = entry.name;
+            card.appendChild(icon);
+            card.appendChild(name);
+            featuredEl.appendChild(card);
+        }
     }
 
     var CAT_LABELS = {
@@ -266,6 +316,8 @@
                 installed[catalog[ci].id] = true;
             }
         }
+
+        renderFeaturedDiscover(root, installed);
 
         function setStatus(msg) {
             if (statusEl) {

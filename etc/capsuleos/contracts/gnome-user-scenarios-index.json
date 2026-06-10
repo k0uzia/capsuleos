@@ -23,7 +23,8 @@
     "screenshot": "screenshot-user-scenarios.json",
     "nemo": "nautilus-user-scenarios.json",
     "firefox": "firefox-user-scenarios.json",
-    "terminal": "terminal-user-scenarios.json"
+    "terminal": "terminal-user-scenarios.json",
+    "librewriter": "librewriter-user-scenarios.json"
   },
   "contracts": [
     {
@@ -194,17 +195,21 @@
       "campaign": "C28",
       "status": "ok",
       "note": "Ptyxis 47.x · invite capsule@host · Te1–Te4 commandes/onglets · anti-régression Mint Konsole"
+    },
+    {
+      "id": "librewriter",
+      "slot": "librewriter",
+      "labelFr": "LibreOffice Writer",
+      "contract": "etc/capsuleos/contracts/librewriter-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-librewriter-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-librewriter-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-librewriter-views.mjs",
+      "campaign": "C29",
+      "status": "ok",
+      "note": "LibreOffice 24.x FR simulé · Lw1–Lw4 · cohérent Software S1 · ≠ text_editor"
     }
   ],
   "backlog": [
-    {
-      "slot": "librewriter",
-      "labelFr": "LibreOffice Writer",
-      "priorite": "P0",
-      "placement": ["dash", "overview"],
-      "campaign": "C29",
-      "note": "Slot partiel — kernel minimal, gabarit à enrichir data-lw-gnome-*"
-    },
     {
       "slot": "checklist",
       "labelFr": "Missions CapsuleOS",

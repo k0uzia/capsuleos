@@ -72,7 +72,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 |------|-------|---|--------------|---------|
 | `nemo` | Fichiers | **94** | **N1–N4** | `nautilus-user-scenarios.json` |
 | `firefox` | Firefox | **94** | **F1–F4** | `firefox-user-scenarios.json` |
-| `terminal` | Ptyxis | 90 | — | `smoke-terminal-ptyxis-chrome` |
+| `terminal` | Ptyxis | **94** | **Te1–Te4** | `terminal-user-scenarios.json` |
 | `themes` | Paramètres | **94** | **Th1–Th4** · **Vc C23** | `themes-user-scenarios.json` |
 | `update_manager` | Logiciels | **100** | S1–S4 | `software-user-scenarios.json` |
 | `text_editor` | Éditeur | 92 | T1–T4 | `text-editor-user-scenarios.json` |
@@ -97,6 +97,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C26 | Fichiers (Nautilus) | N1 home · N2 Documents/Téléchargements · N3 nouveau dossier · N4 Favoris/Réseau | `smoke-gnome-nautilus-scenarios.mjs` |
 | C27 | Firefox | F1 accueil · F2 barre adresse · F3 onglets · F4 favori La Capsule | `smoke-gnome-firefox-scenarios.mjs` |
 | C28 | Terminal (Ptyxis) | Te1 invite · Te2 pwd/ls · Te3 onglet · Te4 whoami/help | `smoke-gnome-terminal-scenarios.mjs` |
+| C29 | LibreOffice Writer | Lw1 ouvrir · Lw2 saisie · Lw3 gras · Lw4 enregistrer/nouveau | `smoke-gnome-librewriter-scenarios.mjs` |
 
 ### Apps P2
 
@@ -136,14 +137,13 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 | grid | `snapshot` | Caméra | — | **Sn1–Sn4** | `snapshot-user-scenarios.json` |
 | grid | `characters` | Caractères | — | **Ch1–Ch4** | `characters-user-scenarios.json` |
 | grid | `system_monitor` | Moniteur | — | **Sm1–Sm4** | `system-monitor-user-scenarios.json` |
-| grid | `librewriter` | LibreOffice Writer | gabarit partiel | — | backlog **C29** |
+| grid | `librewriter` | LibreOffice Writer | gabarit partiel | **Lw1–Lw4** | `librewriter-user-scenarios.json` |
 | dock | `checklist` | Missions | capsuleOnly | — | backlog **C30** |
 
 ### Gaps P0 overview — backlog C29+
 
 | Cycle | Slot | Action prévue |
 |-------|------|---------------|
-| **C29** | `librewriter` | Kernel `data-lw-gnome-*` + 4 scénarios document |
 | **C30** | `checklist` | Scénarios Missions `/mnt` |
 
 Manifeste : `etc/capsuleos/contracts/gnome-user-scenarios-index.json` · doc : [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md).

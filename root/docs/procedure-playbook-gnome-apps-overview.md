@@ -85,8 +85,8 @@ Index machine : `etc/capsuleos/contracts/gnome-user-scenarios-index.json`
 
 | Champ | Usage |
 |-------|-------|
-| `contracts[]` | Contrats livrés (14 slots juin 2026, dont Firefox C27) |
-| `backlog[]` | Slots P0 sans scénarios (C28+) |
+| `contracts[]` | Contrats livrés (16 slots juin 2026, dont LibreOffice Writer C29) |
+| `backlog[]` | Slots P0 sans scénarios (C30+) |
 | `predicateChecks.ScAll` | Gate agrégée |
 
 Gate agrégée :
@@ -144,11 +144,18 @@ Intégrée dans `validate-quality-all.mjs` et donc `validate-all.mjs`.
 
 > Ptyxis 47.13 Alma · chrome header onglets · scénarios Te1–Te4 (invite, pwd/ls, onglet, whoami/help).
 
-### Gaps P0 — backlog C29+
+### Slots câblés C29 (LibreOffice Writer)
+
+| Zone | Slot | Label | Contrat | Cycle |
+|------|------|-------|---------|-------|
+| grid + dock | `librewriter` | LibreOffice Writer | `librewriter-user-scenarios.json` | **C29** |
+
+> LibreOffice 24.x FR simulé (absent VM el10) · scénarios Lw1–Lw4 (document vide, saisie, gras, enregistrer/nouveau) · cohérent Software S1 (`libreoffice-writer` → `librewriter`) · ≠ slot `text_editor`.
+
+### Gaps P0 — backlog C30+
 
 | Slot | Label | Zone | Smoke structurel existant | Cycle prévu |
 |------|-------|------|---------------------------|-------------|
-| `librewriter` | LibreOffice Writer | grid + dock | — | **C29** |
 | `checklist` | Missions | dock | capsuleOnly | **C30** |
 
 ### Apps overview décoratives (sans slot — P2/P3)

@@ -515,6 +515,36 @@
         "p0": ["Sc1", "Sc2", "Sc3", "Sc4"],
         "smoke": "smoke-gnome-screenshot-scenarios.mjs"
       }
+    },
+    "librewriter": {
+      "slot": "librewriter",
+      "label": "LibreOffice Writer",
+      "pi": 88,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 90,
+        "nav": 88,
+        "int": 86,
+        "ctx": 86,
+        "kb": 88,
+        "data": 90
+      },
+      "priorite": "P0",
+      "capsuleOnly": true,
+      "notes": "C29 — scénarios Lw1–Lw4 (ouvrir, saisie, gras, enregistrer/nouveau) ; libreoffice-writer absent VM el10 — spec LibreOffice 24.x FR ; cohérent Software S1",
+      "smoke": "smoke-gnome-librewriter-scenarios.mjs --id linux-alma",
+      "updatedAt": "2026-06-10T31:00:00.000Z",
+      "lastPass": "2026-06-10T31:00:00.000Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "scenarios": {
+        "contract": "etc/capsuleos/contracts/librewriter-user-scenarios.json",
+        "p0": ["Lw1", "Lw2", "Lw3", "Lw4"],
+        "smoke": "smoke-gnome-librewriter-scenarios.mjs",
+        "capture": "capture-capsule-librewriter-views.mjs",
+        "campaign": "C29",
+        "status": "pass"
+      }
     }
   },
   "pi_global": 96,
@@ -525,19 +555,18 @@
     "appsScope": "all",
     "note": "Π indicatif incluant tous slots P2 documentés — hors gate validate-all (prioritySlots reste la référence campagne)"
   },
-  "pi_global_extended": 92,
+  "pi_global_extended": 93,
   "status_global_extended": "ok",
   "overviewScenarios": {
     "audit": "usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs",
     "manifest": "etc/capsuleos/contracts/gnome-user-scenarios-index.json",
     "doc": "root/docs/procedure-playbook-gnome-apps-overview.md",
-    "wiredWithScenarios": 12,
+    "wiredWithScenarios": 13,
     "wiredTotal": 15,
     "gapsP0": [
-      { "slot": "librewriter", "label": "LibreOffice Writer", "zone": "overviewGrid", "campaign": "C29" },
       { "slot": "checklist", "label": "Missions CapsuleOS", "zone": "dock", "campaign": "C30" }
     ],
-    "updatedAt": "2026-06-10T30:00:00.000Z"
+    "updatedAt": "2026-06-10T31:00:00.000Z"
   },
   "cloneClosure": {
     "cycle": "C25",

@@ -1,4 +1,4 @@
-<main id="gestionnaire" class="nemo-app nautilus-app nautilus-app--split nautilus-app--n47">
+<main id="gestionnaire" class="nemo-app nautilus-app nautilus-app--split nautilus-app--n47" data-nautilus-gnome-root>
         <header class="nautilus-app__win-head" id="nemoHeaderContainer">
                 <div class="nautilus-app__head-plate" data-window-drag-region>
                         <button type="button" class="nautilus-app__icon-btn nautilus-app__plate-search"
@@ -6,7 +6,7 @@
                                 <img src="./assets/icons/cinnamon/nemo/search-symbolic.svg" alt=""
                                         width="16" height="16">
                         </button>
-                        <h1 class="nautilus-app__win-title" data-window-drag-region>Fichiers</h1>
+                        <h1 class="nautilus-app__win-title" data-nautilus-gnome-title data-window-drag-region>Fichiers</h1>
                         <button type="button" class="nautilus-app__icon-btn nautilus-app__sidebar-menu-btn"
                                 aria-label="Menu principal" title="Menu principal">
                                 <img src="./assets/icons/cinnamon/nemo/open-menu-symbolic.svg" alt=""
@@ -36,7 +36,7 @@
                         <div class="nautilus-app__center" data-nautilus-chrome>
                                 <span class="window-drag-region window-drag-region--layer"
                                         data-window-drag-region aria-hidden="true"></span>
-                                <div class="nautilus-app__path-crumbbar" id="nautilus-path-crumbbar">
+                                <div class="nautilus-app__path-crumbbar" id="nautilus-path-crumbbar" data-nautilus-gnome-path-crumbbar>
                                         <div class="nautilus-app__path-pill" role="group" aria-label="Emplacement actuel">
                                                 <button type="button" class="nautilus-app__path-pill-main"
                                                         id="nautilus-path-pill" title="Emplacement actuel">
@@ -81,6 +81,7 @@
                                 <span class="window-drag-region window-drag-region--gap"
                                         data-window-drag-region aria-hidden="true"></span>
                                 <button type="button" class="nautilus-app__icon-btn nautilus-app__new-folder-btn"
+                                        data-nautilus-gnome-action="new-folder"
                                         aria-label="Nouveau dossier" title="Nouveau dossier">
                                         <img src="./assets/icons/cinnamon/nemo/tab-new.svg" alt=""
                                                 width="16" height="16">
@@ -110,23 +111,23 @@
                 </section>
         </header>
         <div class="nautilus-app__tabstrip-rail" aria-hidden="true"></div>
-        <div class="nautilus-app__tabstrip" id="nautilus-tabstrip" role="tablist" aria-label="Onglets"></div>
+        <div class="nautilus-app__tabstrip" id="nautilus-tabstrip" role="tablist" aria-label="Onglets" data-nautilus-gnome-tabstrip></div>
         <div id="nemoMainContainer" class="nemo-app__main nautilus-app__split-body">
-                <aside id="voletnemo" class="nemo-app__sidebar nemo-app__sidebar--gnome nautilus-app__places">
-                        <div class="nemo-app__sidebar-places">
-                                <a data-link="Dossier Personnel"
+                <aside id="voletnemo" class="nemo-app__sidebar nemo-app__sidebar--gnome nautilus-app__places" data-nautilus-gnome-sidebar>
+                        <div class="nemo-app__sidebar-places" data-nautilus-gnome-sidebar-section="places">
+                                <a data-link="Dossier Personnel" data-nautilus-gnome-sidebar="home"
                                         title="Dossier personnel"><img
                                                 src="./assets/icons/cinnamon/nemo/user-home-symbolic.svg"
                                                 alt="">Dossier personnel</a>
-                                <a data-link="Récent" title="Récents"><img src="./assets/icons/cinnamon/nemo/recent.svg" alt="">Récents</a>
-                                <a data-link="Favoris" title="Favoris"><img src="./assets/icons/cinnamon/nemo/starred-symbolic.svg" alt="">Favoris</a>
-                                <a data-link="Réseau" title="Réseau"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg" alt="">Réseau</a>
-                                <a data-link="Corbeille" title="Corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
+                                <a data-link="Récent" data-nautilus-gnome-sidebar="recent" title="Récents"><img src="./assets/icons/cinnamon/nemo/recent.svg" alt="">Récents</a>
+                                <a data-link="Favoris" data-nautilus-gnome-sidebar="starred" title="Favoris"><img src="./assets/icons/cinnamon/nemo/starred-symbolic.svg" alt="">Favoris</a>
+                                <a data-link="Réseau" data-nautilus-gnome-sidebar="network" title="Réseau"><img src="./assets/icons/cinnamon/nemo/network-workgroup-symbolic.svg" alt="">Réseau</a>
+                                <a data-link="Corbeille" data-nautilus-gnome-sidebar="trash" title="Corbeille"><img src="./assets/icons/cinnamon/nemo/user-trash-symbolic.svg" alt="">Corbeille</a>
                         </div>
-                        <div class="nemo-app__sidebar-xdg">
-                                <a data-link="Bureau" title="Bureau"><img
+                        <div class="nemo-app__sidebar-xdg" data-nautilus-gnome-sidebar-section="other-places">
+                                <a data-link="Bureau" data-nautilus-gnome-sidebar="desktop" title="Bureau"><img
                                                 src="./assets/icons/cinnamon/nemo/user-desktop-symbolic.svg" alt="">Bureau</a>
-                                <a data-link="Documents" title="Documents"><img
+                                <a data-link="Documents" data-nautilus-gnome-sidebar="documents" title="Documents"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-documents-symbolic.svg" alt="">Documents</a>
                                 <a data-link="Musique" title="Musique"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-music-symbolic.svg" alt="">Musique</a>
@@ -134,7 +135,7 @@
                                                 src="./assets/icons/cinnamon/nemo/folder-pictures-symbolic.svg" alt="">Images</a>
                                 <a data-link="Vidéos" title="Vidéos"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-videos-symbolic.svg" alt="">Vidéos</a>
-                                <a data-link="Téléchargements" title="Téléchargements"><img
+                                <a data-link="Téléchargements" data-nautilus-gnome-sidebar="downloads" title="Téléchargements"><img
                                                 src="./assets/icons/cinnamon/nemo/folder-download-symbolic.svg" alt="">Téléchargements</a>
                         </div>
                 </aside>
@@ -148,7 +149,7 @@
                                         <button type="button" class="nautilus-search-empty__settings"
                                                 data-nautilus-chrome="search-settings">Paramètres de recherche</button>
                                 </section>
-                                <section class="nemoElement nemo-app__content-grid">
+                                <section class="nemoElement nemo-app__content-grid" data-nautilus-gnome-grid>
                                         <!-- AFFICHAGE DES DOSSIERS ET FICHIERS -->
                                 </section>
                         </aside>

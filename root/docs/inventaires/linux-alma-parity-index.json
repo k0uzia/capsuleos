@@ -126,22 +126,30 @@
     "nemo": {
       "slot": "nemo",
       "label": "Fichiers (Nautilus)",
-      "pi": 91,
+      "pi": 94,
       "status": "ok",
       "dimensions": {
         "vis": 93,
-        "nav": 91,
-        "int": 90,
-        "ctx": 88,
-        "kb": 92,
-        "data": 93
+        "nav": 95,
+        "int": 93,
+        "ctx": 90,
+        "kb": 94,
+        "data": 95
       },
-      "notes": "Capture Capsule Nautilus ; smoke routing GNOME OK ; VM capture bloquée Wayland",
+      "scenarios": {
+        "ids": ["N1", "N2", "N3", "N4"],
+        "contract": "etc/capsuleos/contracts/nautilus-user-scenarios.json",
+        "smoke": "smoke-gnome-nautilus-scenarios.mjs",
+        "capture": "capture-capsule-nautilus-views.mjs",
+        "campaign": "C26",
+        "status": "pass"
+      },
+      "notes": "Nautilus 47.6 VM · scénarios N1–N4 · slot nemo / gabarit nemo-gnome · anti-régression Mint OK",
       "upstream": "linux-rocky",
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "lastPass": "2026-06-10T11:15:53.125Z",
-      "checksPassed": 8,
-      "checksTotal": 8
+      "updatedAt": "2026-06-10T28:00:00.000Z",
+      "lastPass": "2026-06-10T28:00:00.000Z",
+      "checksPassed": 12,
+      "checksTotal": 12
     },
     "firefox": {
       "slot": "firefox",
@@ -509,7 +517,6 @@
     "wiredWithScenarios": 10,
     "wiredTotal": 15,
     "gapsP0": [
-      { "slot": "nemo", "label": "Fichiers", "zone": "overviewDash", "campaign": "C26" },
       { "slot": "firefox", "label": "Firefox", "zone": "overviewDash", "campaign": "C27" },
       { "slot": "terminal", "label": "Terminal", "zone": "overviewDash", "campaign": "C28" },
       { "slot": "librewriter", "label": "LibreOffice Writer", "zone": "overviewGrid", "campaign": "C29" },

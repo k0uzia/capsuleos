@@ -2349,6 +2349,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
         if (typeof window.syncNautilusTabs === 'function') {
             window.syncNautilusTabs();
         }
+
+        if (typeof window.syncNautilusGnomeDataset === 'function') {
+            window.syncNautilusGnomeDataset();
+        }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
     }

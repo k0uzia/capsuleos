@@ -20,7 +20,8 @@
     "snapshot": "snapshot-user-scenarios.json",
     "characters": "characters-user-scenarios.json",
     "system_monitor": "system-monitor-user-scenarios.json",
-    "screenshot": "screenshot-user-scenarios.json"
+    "screenshot": "screenshot-user-scenarios.json",
+    "nemo": "nautilus-user-scenarios.json"
   },
   "contracts": [
     {
@@ -155,18 +156,21 @@
       "campaign": "C25",
       "status": "ok",
       "note": "Capsule-only sur Alma el10 (gnome-screenshot absent VM)"
+    },
+    {
+      "id": "nautilus",
+      "slot": "nemo",
+      "labelFr": "Fichiers (Nautilus)",
+      "contract": "etc/capsuleos/contracts/nautilus-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-nautilus-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-nautilus-views.mjs",
+      "campaign": "C26",
+      "status": "ok",
+      "note": "Slot CapsuleOS nemo = Nautilus VM (≠ Nemo Cinnamon Mint)"
     }
   ],
   "backlog": [
-    {
-      "slot": "nemo",
-      "labelFr": "Fichiers (Nautilus)",
-      "priorite": "P0",
-      "placement": ["dash", "overviewSearch"],
-      "smokeStructurel": "smoke-gnome-nautilus-routing.mjs",
-      "campaign": "C26",
-      "note": "Routing + interactions existants — contrat scénarios utilisateur à créer"
-    },
     {
       "slot": "firefox",
       "labelFr": "Firefox",

@@ -70,7 +70,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 
 | Slot | Label | Π | Scénarios P0 | Contrat |
 |------|-------|---|--------------|---------|
-| `nemo` | Fichiers | 91 | — | routing smoke |
+| `nemo` | Fichiers | **94** | **N1–N4** | `nautilus-user-scenarios.json` |
 | `firefox` | Firefox | 92 | — | onglets Proton C11 |
 | `terminal` | Ptyxis | 90 | — | `smoke-terminal-ptyxis-chrome` |
 | `themes` | Paramètres | **94** | **Th1–Th4** · **Vc C23** | `themes-user-scenarios.json` |
@@ -94,6 +94,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C25 | Caractères | Ch1 défaut · Ch2 recherche euro · Ch3 sélection © · Ch4 copier | `smoke-gnome-characters-scenarios.mjs` |
 | C25 | Moniteur système | Sm1 processus · Sm2 ressources · Sm3 recherche · Sm4 FS | `smoke-gnome-system-monitor-scenarios.mjs` |
 | C25 | Capture d'écran | Sc1 config · Sc2 fenêtre · Sc3 capture · Sc4 nouvelle (Capsule-only) | `smoke-gnome-screenshot-scenarios.mjs` |
+| C26 | Fichiers (Nautilus) | N1 home · N2 Documents/Téléchargements · N3 nouveau dossier · N4 Favoris/Réseau | `smoke-gnome-nautilus-scenarios.mjs` |
 
 ### Apps P2
 
@@ -124,7 +125,7 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 | dash | `text_editor` | Éditeur | smoke structurel | **T1–T4** | `text-editor-user-scenarios.json` |
 | dash | `calendar` | Calendrier | — | **Cal1–Cal4** | `calendar-user-scenarios.json` |
 | dash | `terminal` | Terminal | chrome Ptyxis | routing seul | — |
-| dash | `nemo` | Fichiers | routing Nautilus | routing seul | — |
+| dash | `nemo` | Fichiers | routing Nautilus | **N1–N4** | `nautilus-user-scenarios.json` |
 | dash | `firefox` | Firefox | onglets Proton | shell polish seul | — |
 | grid | `themes` | Paramètres | playbook | **Th1–Th4** | `themes-user-scenarios.json` |
 | grid | `clocks` | Horloges | — | **H1–H4** | `clocks-user-scenarios.json` |
@@ -140,7 +141,6 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 
 | Cycle | Slot | Action prévue |
 |-------|------|---------------|
-| **C26** | `nemo` | Contrat navigation Fichiers (sidebar, ouvrir dossier, marque-page) |
 | **C27** | `firefox` | Contrat navigation (onglet, URL, recherche) |
 | **C28** | `terminal` | Contrat commandes pédagogiques (réutiliser `terminal-replication-chain`) |
 | **C29** | `librewriter` | Kernel `data-lw-gnome-*` + 4 scénarios document |
@@ -209,7 +209,7 @@ Artefacts :
 
 ## Prochaines étapes
 
-1. **C26–C30** — scénarios P0 overview gaps : `nemo` → `firefox` → `terminal` → `librewriter` → `checklist`
+1. **C27–C30** — scénarios P0 overview gaps : `firefox` → `terminal` → `librewriter` → `checklist`
 2. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
 3. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
 

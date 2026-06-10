@@ -85,7 +85,7 @@ Index machine : `etc/capsuleos/contracts/gnome-user-scenarios-index.json`
 
 | Champ | Usage |
 |-------|-------|
-| `contracts[]` | Contrats livrés (12 slots juin 2026) |
+| `contracts[]` | Contrats livrés (13 slots juin 2026, dont Nautilus C26) |
 | `backlog[]` | Slots P0 sans scénarios (C26+) |
 | `predicateChecks.ScAll` | Gate agrégée |
 
@@ -120,11 +120,18 @@ Intégrée dans `validate-quality-all.mjs` et donc `validate-all.mjs`.
 
 *(+ `calculator` via recherche overview ; `screenshot` via quick settings)*
 
-### Gaps P0 — backlog C26+
+### Slots câblés C26 (Nautilus)
+
+| Zone | Slot | Label | Contrat | Cycle |
+|------|------|-------|---------|-------|
+| dash | `nemo` | Fichiers (Nautilus) | `nautilus-user-scenarios.json` | **C26** |
+
+> Slot technique `nemo` ; application VM **Nautilus** (`org.gnome.Nautilus`) ; gabarit **`nemo-gnome`**. Ne pas confondre avec **Nemo Cinnamon** (`linux-mint`).
+
+### Gaps P0 — backlog C27+
 
 | Slot | Label | Zone | Smoke structurel existant | Cycle prévu |
 |------|-------|------|---------------------------|-------------|
-| `nemo` | Fichiers | dash | `smoke-gnome-nautilus-routing.mjs` | **C26** |
 | `firefox` | Firefox | dash | `smoke-rocky-shell-polish.mjs` | **C27** |
 | `terminal` | Terminal | dash + grid | `smoke-terminal-ptyxis-chrome.mjs` | **C28** |
 | `librewriter` | LibreOffice Writer | grid + dock | — | **C29** |

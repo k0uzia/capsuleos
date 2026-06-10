@@ -20,6 +20,7 @@ const steps = [
   'validate-ui-contracts-all.mjs',
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',
+  'validate-software-user-scenarios.mjs',
 ];
 
 let failed = false;

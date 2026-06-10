@@ -65,6 +65,8 @@
     "template": "update_manager_gnome.html",
     "kernel": "usr/lib/capsuleos/shells/linux/update-manager.js",
     "views": ["explore", "category", "search", "updates", "installed", "detail"],
+    "scenariosContract": "etc/capsuleos/contracts/software-user-scenarios.json",
+    "scenariosP0": ["S1", "S2", "S3", "S4"],
     "versionsAligned": true
   }
 }

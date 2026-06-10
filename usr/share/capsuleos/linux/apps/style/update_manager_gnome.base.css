@@ -608,6 +608,54 @@
     flex-shrink: 0;
 }
 
+.update-manager--gnome .gnome-software__detail-install.is-installing {
+    opacity: 0.85;
+    cursor: wait;
+}
+
+.update-manager--gnome .gnome-software__detail-install.is-open {
+    background: var(--gnome-software-accent, #3584e4);
+}
+
+.update-manager--gnome .gnome-software__install-progress {
+    padding: 0 1.5rem 0.75rem;
+}
+
+.update-manager--gnome .gnome-software__install-progress-track {
+    height: 0.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+}
+
+.update-manager--gnome .gnome-software__install-progress-bar {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--gnome-software-accent, #3584e4);
+    transition: width 0.35s ease;
+}
+
+.update-manager--gnome .gnome-software__install-progress-label {
+    margin: 0.45rem 0 0;
+    font-size: calc(var(--head) / 3.1);
+    color: var(--gnome-software-muted, rgba(255, 255, 255, 0.62));
+}
+
+.update-manager--gnome .gnome-software__network-error {
+    margin: 0 1.5rem 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.5rem;
+    background: rgba(224, 27, 36, 0.18);
+    color: #ffbeb8;
+    font-size: calc(var(--head) / 3.05);
+}
+
+.update-manager--gnome .gnome-software__update-row--installed .gnome-software__rowactions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
 .update-manager--gnome .gnome-software__detail-body {
     flex: 1;
     min-height: 0;

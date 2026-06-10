@@ -91,6 +91,47 @@ const setSoftwareView = async (page, view, extra) => {
   await sleep(page, 500);
 };
 
+const runScenarioAction = async (page, action) => {
+  if (action === 'reset-installed') {
+    await page.evaluate(() => {
+      window.sessionStorage.removeItem('capsule-gnome-software-installed');
+    });
+    return;
+  }
+  if (action === 'install-writer') {
+    await page.evaluate(async () => {
+      const root = document.getElementById('updateManagerApp');
+      root.querySelector('[data-um-gnome-app="libreoffice-writer"]')?.click();
+      await new Promise((r) => setTimeout(r, 400));
+      root.querySelector('[data-um-gnome-action="install"]')?.click();
+    });
+    await page.waitForFunction(
+      () => document.querySelector('.gnome-software__detail-install')?.textContent === 'Ouvrir',
+      null,
+      { timeout: 12000 },
+    );
+    return;
+  }
+  if (action === 'search-writer') {
+    await page.fill('[data-um-gnome-search]', 'writer');
+    await sleep(page, 500);
+    return;
+  }
+  if (action === 'updates-empty') {
+    await page.click('[data-um-gnome-nav="updates"]');
+    await sleep(page, 300);
+    await page.click('[data-um-gnome-action="updateAll"]');
+    await page.waitForSelector('[data-um-gnome-updates-empty]:not([hidden])', { timeout: 8000 });
+    return;
+  }
+  if (action === 'installed-open-firefox') {
+    await page.click('[data-um-gnome-nav="installed"]');
+    await sleep(page, 400);
+    await page.click('[data-um-gnome-installed-list] [data-um-gnome-action="open"][data-um-gnome-app="firefox"]');
+    await sleep(page, 600);
+  }
+};
+
 const main = async () => {
   const opts = parseArgs();
   const paths = appsPathsForRegistry(opts.id);
@@ -120,12 +161,25 @@ const main = async () => {
     { file: 'rocky-capsule-dark-software-installed.png', view: 'installed' },
     { file: 'rocky-capsule-dark-software-detail.png', view: 'detail', extra: { appId: 'firefox' } },
     { file: 'rocky-capsule-dark-software-categories.png', view: 'category', extra: { categoryId: 'productivity' } },
+    { file: 'rocky-capsule-dark-software-install-open.png', view: 'detail', extra: { appId: 'libreoffice-writer' }, before: ['reset-installed', 'install-writer'] },
+    { file: 'rocky-capsule-dark-software-search-install.png', view: 'search', before: ['reset-installed', 'search-writer'] },
+    { file: 'rocky-capsule-dark-software-updates-empty.png', view: 'updates', before: ['updates-empty'] },
+    { file: 'rocky-capsule-dark-software-installed-open.png', view: 'installed', before: ['installed-open-firefox'] },
   ];
 
   await openSoftware(page);
   for (const shot of shots) {
     await openSoftware(page);
-    await setSoftwareView(page, shot.view, shot.extra);
+    if (shot.before) {
+      for (const action of shot.before) {
+        await runScenarioAction(page, action);
+      }
+    }
+    if (shot.view === 'search') {
+      await page.waitForSelector('[data-um-gnome-pane="search"]:not([hidden])', { timeout: 5000 }).catch(() => {});
+    } else {
+      await setSoftwareView(page, shot.view, shot.extra);
+    }
     const out = path.join(dest, shot.file);
     await page.screenshot({ path: out, fullPage: false });
     process.stdout.write(`  → ${out}\n`);

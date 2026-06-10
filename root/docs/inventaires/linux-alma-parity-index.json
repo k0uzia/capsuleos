@@ -193,16 +193,21 @@
         "vis": 100,
         "nav": 100,
         "int": 100,
-        "ctx": 98,
+        "ctx": 100,
         "kb": 100,
         "data": 100
       },
-      "updatedAt": "2026-06-10T14:30:00.000Z",
-      "notes": "C14 — 6 vues, inventaire VM SSH, 5 captures Capsule, smoke-gnome-software-views ; Vc VM accepté",
-      "smoke": "smoke-gnome-software-views.mjs --id linux-alma",
-      "lastPass": "2026-06-10T14:30:00.000Z",
+      "updatedAt": "2026-06-10T16:00:00.000Z",
+      "notes": "C15 — scénarios pédagogiques S1–S4 (install, recherche, MAJ, lancer) ; contrat software-user-scenarios ; smoke-gnome-software-scenarios",
+      "smoke": "smoke-gnome-software-views.mjs + smoke-gnome-software-scenarios.mjs --id linux-alma",
+      "lastPass": "2026-06-10T16:00:00.000Z",
       "checksPassed": 8,
-      "checksTotal": 8
+      "checksTotal": 8,
+      "scenarios": {
+        "contract": "etc/capsuleos/contracts/software-user-scenarios.json",
+        "p0": ["S1", "S2", "S3", "S4"],
+        "smoke": "smoke-gnome-software-scenarios.mjs"
+      }
     },
     "text_editor": {
       "slot": "text_editor",
@@ -287,5 +292,5 @@
     "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
     "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
   ],
-  "updatedAt": "2026-06-10T14:30:00.000Z"
+  "updatedAt": "2026-06-10T16:00:00.000Z"
 }

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "description": "Scénarios utilisateur pédagogiques GNOME Software — patterns réutilisables toolkit gnome (Rocky, Fedora, Alma, Ubuntu).",
+  "doc": "root/docs/inventaires/linux-alma-software-vm-inventory.json",
+  "slot": "update_manager",
+  "template": "update_manager_gnome.html",
+  "kernel": "usr/lib/capsuleos/shells/linux/update-manager.js",
+  "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-ubuntu"],
+  "predicates": {
+    "ScΣ": "Contrat valide + kernel implémente handlers data-um-gnome-*",
+    "Sc1": "S1 install simulé LibreOffice Writer → Ouvrir",
+    "Sc2": "S2 recherche → fiche → install",
+    "Sc3": "S3 mises à jour → tout mettre à jour → état vide",
+    "Sc4": "S4 onglet Installées → lancer application"
+  },
+  "scenarios": [
+    {
+      "id": "S1",
+      "priority": "P0",
+      "title": "Découvrir et installer une application",
+      "locale": "fr-FR",
+      "vmGroundTruth": {
+        "appId": "libreoffice-writer",
+        "rpm": "libreoffice-writer",
+        "onVm": false,
+        "buttonFlow": ["Installer", "Installation…", "Ouvrir"]
+      },
+      "steps": [
+        { "id": "open-software", "action": "openWindowByDataLink", "target": "update_manager", "label": "Ouvrir Logiciels" },
+        { "id": "explore-card", "selector": "[data-um-gnome-app=\"libreoffice-writer\"]", "label": "Sélectionner LibreOffice Writer à la une" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "expectTextBefore": "Installer", "label": "Cliquer Installer" },
+        { "id": "install-progress", "predicate": "dataset.umGnomeInstalling", "label": "Progression simulée" },
+        { "id": "install-open", "selector": "[data-um-gnome-action=\"install\"]", "expectTextAfter": "Ouvrir", "label": "Bouton Ouvrir disponible" },
+        { "id": "launch-app", "selector": "[data-um-gnome-action=\"install\"]", "expectWindow": "librewriter", "label": "Ouvrir l'application installée" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S1",
+        "capture": "rocky-capsule-dark-software-install-open.png"
+      }
+    },
+    {
+      "id": "S2",
+      "priority": "P0",
+      "title": "Rechercher et installer",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "search", "selector": "[data-um-gnome-search]", "value": "writer", "label": "Rechercher writer" },
+        { "id": "search-result", "selector": "[data-um-gnome-search-grid] [data-um-gnome-app=\"libreoffice-writer\"]", "label": "Ouvrir fiche depuis résultats" },
+        { "id": "install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer depuis fiche recherche" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S2",
+        "capture": "rocky-capsule-dark-software-search-install.png"
+      }
+    },
+    {
+      "id": "S3",
+      "priority": "P0",
+      "title": "Appliquer toutes les mises à jour",
+      "locale": "fr-FR",
+      "vmNote": "dnf check-update — scénario pédagogique simule 4 MAJ applicatives",
+      "steps": [
+        { "id": "nav-updates", "selector": "[data-um-gnome-nav=\"updates\"]", "label": "Onglet Mises à jour" },
+        { "id": "update-all", "selector": "[data-um-gnome-action=\"updateAll\"]", "label": "Tout mettre à jour" },
+        { "id": "empty-state", "selector": "[data-um-gnome-updates-empty]:not([hidden])", "label": "État système à jour" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S3",
+        "capture": "rocky-capsule-dark-software-updates-empty.png"
+      }
+    },
+    {
+      "id": "S4",
+      "priority": "P0",
+      "title": "Lancer depuis Installées",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "nav-installed", "selector": "[data-um-gnome-nav=\"installed\"]", "label": "Onglet Installées" },
+        { "id": "open-firefox", "selector": "[data-um-gnome-installed-list] [data-um-gnome-action=\"open\"][data-um-gnome-app=\"firefox\"]", "label": "Ouvrir Firefox" },
+        { "id": "firefox-window", "expectWindow": "firefox", "label": "Fenêtre Firefox visible" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S4",
+        "capture": "rocky-capsule-dark-software-installed-open.png"
+      }
+    },
+    {
+      "id": "S5",
+      "priority": "P2",
+      "title": "Erreur réseau (optionnel)",
+      "locale": "fr-FR",
+      "optional": true,
+      "steps": [
+        { "id": "trigger-network-error", "selector": "[data-um-gnome-action=\"simulateNetworkError\"]", "label": "Simuler indisponibilité réseau" },
+        { "id": "error-banner", "selector": "[data-um-gnome-network-error]:not([hidden])", "label": "Bandeau erreur affiché" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S5 --optional"
+      }
+    }
+  ],
+  "predicateChecks": {
+    "ScΣ": {
+      "script": "usr/lib/capsuleos/tools/validate-software-user-scenarios.mjs"
+    }
+  }
+}

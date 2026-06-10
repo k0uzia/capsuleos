@@ -145,7 +145,7 @@
                 <header class="gnome-software__page-head">
                     <div class="gnome-software__title-block">
                         <h2 class="gnome-software__title">Mises à jour</h2>
-                        <p class="gnome-software__subtitle" data-um-gnome-updates-subtitle">4 mises à jour disponibles</p>
+                        <p class="gnome-software__subtitle" data-um-gnome-updates-subtitle="">4 mises à jour disponibles</p>
                     </div>
                     <div class="gnome-software__actions">
                         <button type="button" class="gnome-software__action" data-um-gnome-action="check">
@@ -204,7 +204,7 @@
                 <p class="gnome-software__status" aria-live="polite">Dernière vérification : aujourd’hui</p>
             </div>
 
-            <!-- Vue Installées -->
+            <!-- Vue Installées (liste rendue par update-manager.js) -->
             <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="installed" hidden>
                 <header class="gnome-software__page-head">
                     <div class="gnome-software__title-block">
@@ -214,61 +214,7 @@
                 </header>
 
                 <div class="gnome-software__updates-group" role="region" aria-label="Applications installées">
-                    <div class="gnome-software__updates">
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Firefox">
-                            <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Firefox</p>
-                                <p class="gnome-software__rowsub">140.11.0esr · Navigateur Web</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
-                                    data-um-gnome-app="firefox">Détails</button>
-                        </article>
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Fichiers">
-                            <span class="gnome-software__appicon gnome-software__appicon--files" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Fichiers</p>
-                                <p class="gnome-software__rowsub">47.6 · Gestionnaire de fichiers</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
-                                    data-um-gnome-app="files">Détails</button>
-                        </article>
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Terminal">
-                            <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Terminal</p>
-                                <p class="gnome-software__rowsub">47.13 · Ligne de commande</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
-                                    data-um-gnome-app="terminal">Détails</button>
-                        </article>
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Éditeur de texte">
-                            <span class="gnome-software__appicon gnome-software__appicon--text-editor" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Éditeur de texte</p>
-                                <p class="gnome-software__rowsub">47.4 · Éditeur simple</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
-                                    data-um-gnome-app="text-editor">Détails</button>
-                        </article>
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Calculatrice">
-                            <span class="gnome-software__appicon gnome-software__appicon--calculator" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Calculatrice</p>
-                                <p class="gnome-software__rowsub">46.3 · Calculs et conversions</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
-                                    data-um-gnome-app="calculator">Détails</button>
-                        </article>
-                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Logiciels">
-                            <span class="gnome-software__appicon gnome-software__appicon--software" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Logiciels</p>
-                                <p class="gnome-software__rowsub">47.5 · Centre d’applications</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary" disabled>Détails</button>
-                        </article>
-                    </div>
+                    <div class="gnome-software__updates" data-um-gnome-installed-list></div>
                 </div>
             </div>
 
@@ -290,6 +236,15 @@
                         Installer
                     </button>
                 </header>
+                <div class="gnome-software__install-progress" data-um-gnome-install-progress hidden aria-hidden="true">
+                    <div class="gnome-software__install-progress-track" aria-hidden="true">
+                        <div class="gnome-software__install-progress-bar" data-um-gnome-install-bar style="width: 0%"></div>
+                    </div>
+                    <p class="gnome-software__install-progress-label" data-um-gnome-install-label>Installation…</p>
+                </div>
+                <p class="gnome-software__network-error" data-um-gnome-network-error hidden role="alert">
+                    Impossible de contacter le dépôt. Vérifiez votre connexion réseau.
+                </p>
                 <div class="gnome-software__detail-body">
                     <p class="gnome-software__detail-desc" data-um-gnome-detail-desc>
                         Navigateur Web libre et open source développé par Mozilla.

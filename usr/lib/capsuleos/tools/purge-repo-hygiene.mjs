@@ -19,6 +19,8 @@ const LEGACY_PATHS = [
     'root/docs/toolkit-cloisonnement-audit.md',
     'OS/linux/shared/apps',
     'OS/linux/shared/content',
+    'OS/linux/kernel/js',
+    'OS/linux/kernel/style',
 ];
 
 const APPS_VISUAL = path.join(ROOT, 'root/docs/inventaires/captures/linux-rocky/apps-visual');
@@ -141,6 +143,26 @@ Purge legacy : \`node usr/lib/capsuleos/tools/purge-repo-hygiene.mjs\`
 `;
     if (!dryRun) {
         fs.writeFileSync(path.join(ROOT, 'OS/linux/shared/DEPRECATED.md'), dep, 'utf8');
+    }
+}
+
+const kernelDepPath = path.join(ROOT, 'OS/linux/kernel/DEPRECATED.md');
+if (fs.existsSync(path.dirname(kernelDepPath))) {
+    const kernelDep = `# Déprécié — noyau Linux legacy (purgé)
+
+Ce répertoire ne doit plus contenir de code exécutable.
+
+**Canon Linux** :
+- Noyau commun : \`usr/lib/capsuleos/common/\`
+- Shells / slots : \`usr/lib/capsuleos/shells/linux/\`
+- Gabarits : \`usr/share/capsuleos/linux/\`
+- Variables thème : \`usr/share/capsuleos/themes/linux/\`
+
+Purge : \`node usr/lib/capsuleos/tools/purge-repo-hygiene.mjs\`
+`;
+    if (!dryRun) {
+        fs.mkdirSync(path.dirname(kernelDepPath), { recursive: true });
+        fs.writeFileSync(kernelDepPath, kernelDep, 'utf8');
     }
 }
 

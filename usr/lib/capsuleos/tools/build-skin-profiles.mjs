@@ -5,7 +5,6 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -40,6 +39,3 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = ${JSON.stringify(byRegistryId, null, 2)};
 
 fs.writeFileSync(OUT, out, 'utf8');
 console.log(`Écrit ${OUT} — ${Object.keys(byRegistryId).length} profils`);
-
-const sync = path.join(__dirname, 'sync-capsule-resource.mjs');
-spawnSync(process.execPath, [sync], { stdio: 'inherit', cwd: ROOT });

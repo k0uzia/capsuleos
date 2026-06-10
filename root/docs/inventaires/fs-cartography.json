@@ -67,12 +67,6 @@
       "mitigation": "mainMenu.normalizeMenuDirectory() runtime"
     },
     {
-      "id": "os-linux-kernel-legacy",
-      "path": "OS/linux/kernel/js/fileExplorer/",
-      "severity": "P1",
-      "note": "DEPRECATED — ne pas éditer"
-    },
-    {
       "id": "shared-nemo-manifest",
       "path": "usr/share/capsuleos/linux/content/Dossier_personnel/nemo-manifest.json",
       "severity": "P2",

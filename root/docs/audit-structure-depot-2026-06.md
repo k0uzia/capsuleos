@@ -27,7 +27,7 @@ Z0 contrats/proc  →  Z1 usr/lib + usr/share  →  Z2 home/<Vendor>  →  Z3 OS
 | Signal | Détail | Cible |
 |--------|--------|-------|
 | Legacy apps | ~~`OS/linux/shared/apps/`~~ → purgé ; canon `usr/share/capsuleos/linux/apps/` | `purge-repo-hygiene.mjs` |
-| Legacy kernel | `OS/linux/kernel/js/` (archivé) vs `usr/lib/capsuleos/shells/linux/` | hors scope — ne pas étendre |
+| Legacy kernel | ~~`OS/linux/kernel/js/`~~ → purgé ; canon `usr/lib/capsuleos/shells/linux/` | `purge-repo-hygiene.mjs` |
 | Dual lab | `root/tools/lab/` (83 fichiers shell/matrices) + `usr/lib/.../lab/` (~250 Node) | Split intentionnel ; matrices vendor par distro |
 | Dual façade | `home/*/index.html` + `OS/.../index.html` uniquement | sync-linux-skin-closure · orphelins Z3 interdits |
 | Assets vendor | Doc `vendors/` vs réalité `usr/share/capsuleos/assets/images/vendors/` | Convention assets à jour |

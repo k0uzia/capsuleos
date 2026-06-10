@@ -19,6 +19,8 @@ const LEGACY_PATHS = [
     'root/docs/toolkit-cloisonnement-audit.md',
     'OS/linux/shared/apps',
     'OS/linux/shared/content',
+    'OS/linux/kernel/js',
+    'OS/linux/kernel/style',
 ];
 
 const errors = [];

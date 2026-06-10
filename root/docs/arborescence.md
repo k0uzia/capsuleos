@@ -23,8 +23,8 @@ Résumé pour naviguer le dépôt ; détail produit : [`README.md`](../../README
 
 ## Flux typique Linux
 
-1. Entrée : `OS/linux/families/<famille>/<distro>/index.html` ou miroir `home/<Vendor>/<Distro>/index.html`.
-2. Noyau : `OS/linux/kernel/js/` + `usr/lib/capsuleos/shells/linux/`.
+1. Entrée : `OS/linux/families/<famille>/<distro>/index.html` (`<base href>` → `home/<Vendor>/<Distro>/`).
+2. Noyau : `usr/lib/capsuleos/common/` + `usr/lib/capsuleos/shells/linux/`.
 3. Apps partagées : `usr/share/capsuleos/linux/apps/` + `style/*.base.css` / skins `home/.../style/apps/*.skin.css`.
 4. Explorateur : gabarits `usr/share/capsuleos/linux/explorers/` ; données `home/public/` + manifestes JSON.
 5. Offline : régénérer embed après changement gabarits/public — voir README racine dépôt.

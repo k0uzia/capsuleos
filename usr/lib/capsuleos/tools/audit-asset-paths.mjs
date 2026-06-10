@@ -15,11 +15,9 @@ const EXT = /\.(html|css|js|json)$/i;
 
 const SKIP_FILES = new Set([
   'usr/lib/capsuleos/common/capsule-resource.js',
-  'OS/linux/kernel/js/capsule-resource.js',
   'usr/share/capsuleos/assets/manifest.json',
   'var/lib/capsuleos/generated/capsule-assets-manifest.js',
   'usr/lib/capsuleos/shells/linux/linux-shell-config.js',
-  'OS/linux/kernel/js/linux-shell-config.js',
 ]);
 
 const LEGACY_PATTERNS = [

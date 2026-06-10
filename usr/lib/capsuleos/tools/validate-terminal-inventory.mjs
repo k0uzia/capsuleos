@@ -16,6 +16,7 @@ const REQUIRED_TI = new Set([
   'linux-mint',
   'linux-ubuntu',
   'linux-rocky',
+  'linux-alma',
 ]);
 
 const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));

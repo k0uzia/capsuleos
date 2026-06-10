@@ -1,0 +1,14 @@
+{
+  "registryId": "linux-alma",
+  "h6Ready": true,
+  "pbSigma": true,
+  "h5Completed": [
+    "theme",
+    "night-light",
+    "dynamic-workspaces",
+    "dnd"
+  ],
+  "skipH5P1": true,
+  "gate": "smoke-h6-gnome-settings-ready.mjs",
+  "generatedAt": "2026-06-10T09:42:32.165Z"
+}

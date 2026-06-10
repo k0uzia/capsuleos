@@ -5,7 +5,7 @@
     --linux-skin-label: "AlmaLinux";
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
-    --fedora-bg: linear-gradient(155deg, #1a4d6e 0%, #0f3d52 32%, #0a2a3a 58%, #051820 100%);
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-night.jpg");
     --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;
@@ -324,7 +324,7 @@ body#alma.is-overview .fedora-top-bar {
 }
 
 html[data-theme="light"]:has(#alma) #alma {
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-day.jpg");
 }
 
 html[data-theme="light"]:has(#alma) #alma #tableau.fedora-dock a:hover {

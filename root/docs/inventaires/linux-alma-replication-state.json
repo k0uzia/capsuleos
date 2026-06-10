@@ -4,5 +4,14 @@
   "nextPallier": 11,
   "lastCycle": "C10",
   "lastCycleAt": "2026-06-10T07:20:06.953Z",
-  "updatedAt": "2026-06-10T07:20:06.954Z"
+  "updatedAt": "2026-06-10T07:20:06.954Z",
+  "domain": "gnome-settings-playbook",
+  "H6": true,
+  "h6ClosedAt": "2026-06-10T09:42:43.201Z",
+  "h6Closure": "root/docs/inventaires/linux-alma-gnome-settings-h6-closure.json",
+  "lastResolvedAction": {
+    "rule": "R-H6",
+    "message": "H6 clôturé — domaine gnome-settings-playbook"
+  },
+  "generatedAt": "2026-06-10T09:42:43.250Z"
 }

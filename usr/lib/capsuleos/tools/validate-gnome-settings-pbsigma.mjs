@@ -15,6 +15,7 @@ const REGISTRY = path.join(ROOT, 'etc/capsuleos/os-registry.json');
 const REQUIRED_PB = new Set([
   'linux-rocky',
   'linux-ubuntu',
+  'linux-alma',
 ]);
 
 const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));

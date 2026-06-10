@@ -48,6 +48,12 @@ export const h6Profile = (registryId) => {
       requiresPlaybook: false,
       requiresInteractionInventory: false,
     },
+    'linux-alma': {
+      requiresHotCorners: false,
+      requiresBaseline: false,
+      requiresPlaybook: true,
+      requiresInteractionInventory: false,
+    },
   };
 
   const base = byRegistry[registryId] || {

@@ -67,6 +67,8 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.
 
+**AlmaLinux GNOME (cycles C0–C18, scénarios pédagogiques)** : [`root/docs/procedure-lab-linux-alma-gnome.md`](root/docs/procedure-lab-linux-alma-gnome.md) · parité [`root/docs/inventaire-parite-alma.md`](root/docs/inventaire-parite-alma.md) · pattern scénarios [`root/docs/procedure-scenarios-pedagogiques-gnome.md`](root/docs/procedure-scenarios-pedagogiques-gnome.md).
+
 **Assets depuis la VM (tous clones)** : [`root/docs/convention-assets-depuis-vm.md`](root/docs/convention-assets-depuis-vm.md) — icônes et fonds **toujours** copiés depuis la VM (`pull-vm-assets.sh`), jamais empruntés à un autre vendor.
 
 Pour qu’un agent **voie et compare** Cinnamon, Nemo, le panel, etc. avec CapsuleOS (secours visuel / Proxmox) :
@@ -227,6 +229,7 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 | **Linux Mint** | `mint` | **Cinnamon** (GTK 3, Nemo, Muffin) | Panel bas `footer.css`, fenêtres Mint | `nemo` → **Nemo** | `terminal-window--gnome` | `mainMenu.html` + `mainMenu.skin.css` |
 | **Ubuntu 25.10** | `ubuntu` | **GNOME** 46+ (GTK 4, libadwaita, Nautilus « Fichiers ») | `gnome-shell/*`, dock Ubuntu | `nemo-gnome` → **Fichiers** | `terminal-window--gnome` | Overview + dock (`index.html`) |
 | **Rocky** | `rocky` | **GNOME Workstation** (référence Nautilus VM) | `gnome-shell/*` | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
+| **AlmaLinux** | `alma` | **GNOME Workstation** (dérivé Rocky) | `gnome-shell/*` | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview · fonds `almalinux-day/night` |
 | **Fedora** | `fedora` | **GNOME Workstation** (dérivé Rocky) | `gnome-shell/*` (tokens Fedora) | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
 | **Pop!_OS** | `popos` | **COSMIC** (Rust, pas GTK classique ; UI proche GNOME) | `cosmic-shell/*` | `nemo-cosmic` → **Fichiers COSMIC** | `terminal-window--cosmic` | Dock + grille `#cosmic-applications-grid` |
 | **MX Linux KDE** | `mx-kde` | **Plasma** (Qt 5/6, Breeze, Dolphin, Konsole) | `footer.css` + panel KDE | `dolphin` → **Dolphin** | skin Konsole (`terminal.skin.css`) | `content/mainMenu-data.js` + Plasma chrome JS |

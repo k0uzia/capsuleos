@@ -169,3 +169,24 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 - [manifeste-noyau.md](manifeste-noyau.md) — hydratation technique H0–H6 noyau
 - [kernel-supervisor/SKILL.md](../skills/kernel-supervisor/SKILL.md) — migration assets
 - [code-quality/SKILL.md](../skills/code-quality/SKILL.md) — ES6 + JSON
+
+---
+
+## AlmaLinux GNOME — campagne clone (juin 2026)
+
+Référence dédiée pour les agents travaillant sur `linux-alma` :
+
+| Document | Contenu |
+|----------|---------|
+| [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md) | VM, cycles C0–C18, gates, commandes copy-paste |
+| [inventaire-parite-alma.md](inventaire-parite-alma.md) | État Π, gaps **Vc**, prochaines étapes |
+| [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) | Pattern contrat → validateur → smoke → capture |
+| [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) | Indice machine Π par slot |
+
+**Scénarios P0 Alma (C15–C18)** : Logiciels S1–S4 · Éditeur T1–T4 · Calculatrice C1–C4 · Paramètres Th1–Th4.
+
+```bash
+# Exemple smoke scénarios Paramètres
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
+  node usr/lib/capsuleos/tools/lab/smoke-gnome-themes-scenarios.mjs --id linux-alma
+```

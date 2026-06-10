@@ -23,6 +23,7 @@ const steps = [
   'validate-software-user-scenarios.mjs',
   'validate-text-editor-user-scenarios.mjs',
   'validate-calculator-user-scenarios.mjs',
+  'validate-themes-user-scenarios.mjs',
 ];
 
 let failed = false;

@@ -168,21 +168,27 @@
     "themes": {
       "slot": "themes",
       "label": "Paramètres des thèmes",
-      "pi": 87,
-      "status": "partiel",
+      "pi": 93,
+      "status": "ok",
       "dimensions": {
-        "vis": 90,
-        "nav": 86,
-        "int": 85,
-        "ctx": 83,
-        "kb": 88,
-        "data": 90
+        "vis": 92,
+        "nav": 90,
+        "int": 92,
+        "ctx": 88,
+        "kb": 90,
+        "data": 93
       },
-      "notes": "Capture settings-appearance/displays ; catalogue fonds Alma",
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "lastPass": "2026-06-10T11:15:53.126Z",
-      "checksPassed": 6,
-      "checksTotal": 8
+      "notes": "C18 — scénarios pédagogiques Th1–Th4 (mode sombre, fond Alma, accent, Écrans) ; contrat themes-user-scenarios ; smoke-gnome-themes-scenarios",
+      "smoke": "smoke-gnome-themes-scenarios.mjs --id linux-alma",
+      "updatedAt": "2026-06-10T19:30:00.000Z",
+      "lastPass": "2026-06-10T19:30:00.000Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "scenarios": {
+        "contract": "etc/capsuleos/contracts/themes-user-scenarios.json",
+        "p0": ["Th1", "Th2", "Th3", "Th4"],
+        "smoke": "smoke-gnome-themes-scenarios.mjs"
+      }
     },
     "update_manager": {
       "slot": "update_manager",
@@ -298,13 +304,14 @@
       "checksTotal": 8
     }
   },
-  "pi_global": 94,
+  "pi_global": 96,
   "status_global": "ok",
   "gaps": [
-    "Captures VM pixel-perfect Software : D-Bus AccessDenied — compensé captures Capsule C14",
+    "Captures VM pixel-perfect apps : D-Bus AccessDenied — compensé captures Capsule C14/C18",
     "Captures VM apps P0/P1 autres slots : D-Bus Shell.Screenshot AccessDenied + virsh almalinux10 absent hôte agent",
     "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
-    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
+    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback",
+    "P2 slots clocks/calendar — Π ~63"
   ],
-  "updatedAt": "2026-06-10T18:30:00.000Z"
+  "updatedAt": "2026-06-10T19:30:00.000Z"
 }

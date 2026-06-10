@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 91** (inclut apps P2 `clocks`/`calendar`/`baobab`/`tour`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C24** baobab + tour clôturé (suite C23 Vc Paramètres).
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 92** (15 slots apps documentés, 8 P2) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C25** clôture P2 restants + clone Π.
 
 ---
 
@@ -13,7 +13,7 @@
 |-----------|-------|-----------|
 | Shell | 0,25 | topBar, overview, tray, wallpaper |
 | Apps | 0,75 | 7 slots **priority** (gate campagne) : nemo, firefox, terminal, themes, update_manager, text_editor, calculator |
-| Apps étendu | 0,75 | 11 slots (priority + P2 `clocks`, `calendar`, `baobab`, `tour`) → **Π étendu = 91** (indicatif, non gate) |
+| Apps étendu | 0,75 | 15 slots (priority + 8 P2) → **Π étendu = 92** (indicatif, non gate) |
 
 Dimensions par slot : `vis`, `nav`, `int`, `ctx`, `kb`, `data` (0–100).
 
@@ -90,6 +90,10 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C20 | Agenda | Cal1 vue mois · Cal2 créer évènement · Cal3 vue semaine · Cal4 mois suivant | `smoke-gnome-calendar-scenarios.mjs` |
 | C24 | Baobab | B1 home · B2 Ordinateur · B3 treemap · B4 /boot | `smoke-gnome-baobab-scenarios.mjs` |
 | C24 | Visite guidée | T1 lancer · T2 avancer · T3 terminer · T4 précédent | `smoke-gnome-tour-scenarios.mjs` |
+| C25 | Caméra | Sn1 Photo · Sn2 Vidéo · Sn3 sans caméra · Sn4 libellés FR | `smoke-gnome-snapshot-scenarios.mjs` |
+| C25 | Caractères | Ch1 défaut · Ch2 recherche euro · Ch3 sélection © · Ch4 copier | `smoke-gnome-characters-scenarios.mjs` |
+| C25 | Moniteur système | Sm1 processus · Sm2 ressources · Sm3 recherche · Sm4 FS | `smoke-gnome-system-monitor-scenarios.mjs` |
+| C25 | Capture d'écran | Sc1 config · Sc2 fenêtre · Sc3 capture · Sc4 nouvelle (Capsule-only) | `smoke-gnome-screenshot-scenarios.mjs` |
 
 ### Apps P2
 
@@ -99,6 +103,10 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | `calendar` | Agenda | **87** | **Cal1–Cal4** | `calendar-user-scenarios.json` |
 | `baobab` | Utilisation des disques | **88** | **B1–B4** | `baobab-user-scenarios.json` |
 | `tour` | Visite guidée | **87** | **T1–T4** | `tour-user-scenarios.json` |
+| `snapshot` | Caméra | **86** | **Sn1–Sn4** | `snapshot-user-scenarios.json` |
+| `characters` | Caractères | **88** | **Ch1–Ch4** | `characters-user-scenarios.json` |
+| `system_monitor` | Moniteur système | **88** | **Sm1–Sm4** | `system-monitor-user-scenarios.json` |
+| `screenshot` | Capture d'écran | **87** | **Sc1–Sc4** (Capsule-only) | `screenshot-user-scenarios.json` |
 
 Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md).
 
@@ -164,7 +172,17 @@ Artefacts :
 ## Prochaines étapes
 
 1. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
-2. **P1 apps résiduelles** — snapshot, characters, system_monitor (hors campagne Alma courante)
+2. **Campagne Cred** — scénarios pédagogiques transversal si moteur clone le permet
+
+## Clôture clone Π (C25)
+
+| Élément | Valeur |
+|---------|--------|
+| Π priority | **96** (inchangé — formula prioritySlots) |
+| Π étendu | **92** (15 slots apps) |
+| P2 documentés | 8/8 (`clocks` … `screenshot`) |
+| État | [`linux-alma-replication-state.json`](inventaires/linux-alma-replication-state.json) |
+| Gaps honnêtes | Vc VM D-Bus · screenshot Capsule-only · snapshot sans webcam lab |
 
 ---
 

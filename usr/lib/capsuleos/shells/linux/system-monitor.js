@@ -85,17 +85,26 @@
         winEl.setAttribute('data-title', WINDOW_TITLE);
     }
 
+    function syncGsmDataset(root) {
+        if (!root) {
+            return;
+        }
+        root.dataset.gsmInit = 'true';
+        root.dataset.gsmActiveTab = activeTab;
+        root.dataset.gsmProcessCount = String(processSource.length);
+    }
+
     function showTab(root, tabId) {
         activeTab = tabId;
-        var tabs = root.querySelectorAll('[data-gsm-tab]');
-        var panels = root.querySelectorAll('[data-gsm-panel]');
+        var tabs = root.querySelectorAll('[data-gsm-gnome-tab]');
+        var panels = root.querySelectorAll('[data-gsm-gnome-panel]');
         tabs.forEach(function (tab) {
-            var active = tab.getAttribute('data-gsm-tab') === tabId;
+            var active = tab.getAttribute('data-gsm-gnome-tab') === tabId;
             tab.classList.toggle('is-active', active);
             tab.setAttribute('aria-selected', active ? 'true' : 'false');
         });
         panels.forEach(function (panel) {
-            if (panel.getAttribute('data-gsm-panel') === tabId) {
+            if (panel.getAttribute('data-gsm-gnome-panel') === tabId) {
                 panel.removeAttribute('hidden');
             } else {
                 panel.setAttribute('hidden', 'hidden');
@@ -106,6 +115,7 @@
         } else {
             stopMetricsTick();
         }
+        syncGsmDataset(root);
     }
 
     function renderProcesses(tbody, list) {
@@ -242,8 +252,8 @@
         var fsBody = root.querySelector('#gsm-fs-body');
         var searchRow = root.querySelector('#gsm-search-row');
         var searchInput = root.querySelector('#gsm-search');
-        var stopBtn = root.querySelector('[data-gsm-action="stop"]');
-        var killBtn = root.querySelector('[data-gsm-action="kill"]');
+        var stopBtn = root.querySelector('[data-gsm-gnome-action="stop"]');
+        var killBtn = root.querySelector('[data-gsm-gnome-action="kill"]');
 
         renderProcesses(tbody, processSource);
         renderFilesystems(fsBody);
@@ -254,12 +264,12 @@
             if (!target || !target.closest) {
                 return;
             }
-            var tabBtn = target.closest('[data-gsm-tab]');
+            var tabBtn = target.closest('[data-gsm-gnome-tab]');
             if (tabBtn) {
-                showTab(root, tabBtn.getAttribute('data-gsm-tab'));
+                showTab(root, tabBtn.getAttribute('data-gsm-gnome-tab'));
                 return;
             }
-            var searchBtn = target.closest('[data-gsm-action="search"]');
+            var searchBtn = target.closest('[data-gsm-gnome-action="search"]');
             if (searchBtn && searchRow) {
                 if (searchRow.hidden) {
                     searchRow.removeAttribute('hidden');
@@ -301,6 +311,7 @@
         }
 
         showTab(root, 'processes');
+        syncGsmDataset(root);
     }
 
     global.initSystemMonitorApp = function initSystemMonitorApp() {

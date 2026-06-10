@@ -54,6 +54,17 @@
         return -1;
     }
 
+    function syncCharactersDataset(root) {
+        if (!root) {
+            return;
+        }
+        var entry = CHARS[selectedIndex];
+        root.dataset.charactersInit = 'true';
+        root.dataset.charactersSelected = entry ? entry.glyph : '';
+        root.dataset.charactersSearchQuery = searchQuery;
+        root.dataset.charactersCopyEnabled = entry ? 'true' : 'false';
+    }
+
     function updatePreview(root, entry) {
         var glyph = root.querySelector('#gnome-characters-glyph');
         var name = root.querySelector('#gnome-characters-name');
@@ -64,6 +75,11 @@
         glyph.textContent = entry.glyph;
         name.textContent = entry.name;
         code.textContent = entry.code;
+        var copyBtn = root.querySelector('[data-characters-gnome-action="copy"]');
+        if (copyBtn) {
+            copyBtn.disabled = !entry;
+        }
+        syncCharactersDataset(root);
     }
 
     function renderGrid(root) {
@@ -86,6 +102,7 @@
                 btn.classList.add('gnome-characters__cell--active');
             }
             btn.setAttribute('role', 'listitem');
+            btn.setAttribute('data-characters-gnome-glyph', entry.glyph);
             btn.setAttribute('aria-label', entry.name);
             btn.setAttribute('aria-pressed', index === selectedIndex ? 'true' : 'false');
             btn.textContent = entry.glyph;
@@ -105,6 +122,23 @@
         renderGrid(root);
     }
 
+    function bindCopy(root) {
+        var copyBtn = root.querySelector('[data-characters-gnome-action="copy"]');
+        if (!copyBtn) {
+            return;
+        }
+        copyBtn.addEventListener('click', function () {
+            var entry = CHARS[selectedIndex];
+            if (!entry) {
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(entry.glyph).catch(function () {});
+            }
+            root.dataset.charactersCopied = entry.glyph;
+        });
+    }
+
     function bindSearch(root) {
         var search = root.querySelector('#gnome-characters-search');
         if (!search) {
@@ -121,6 +155,7 @@
                 }
             }
             renderGrid(root);
+            syncCharactersDataset(root);
         });
     }
 
@@ -138,7 +173,9 @@
         }
         updatePreview(root, CHARS[selectedIndex]);
         bindSearch(root);
+        bindCopy(root);
         renderGrid(root);
+        syncCharactersDataset(root);
     }
 
     global.initCharactersApp = initCharactersApp;

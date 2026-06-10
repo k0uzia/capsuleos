@@ -1,42 +1,48 @@
 {
   "registryId": "linux-alma",
-  "pallier": 10,
-  "nextPallier": 11,
-  "lastCycle": "C10",
-  "lastCycleAt": "2026-06-10T07:20:06.953Z",
-  "updatedAt": "2026-06-10T07:20:06.954Z",
-  "domain": "gnome-settings-playbook",
-  "H6": true,
-  "h6ClosedAt": "2026-06-10T09:42:43.201Z",
-  "h6Closure": "root/docs/inventaires/linux-alma-gnome-settings-h6-closure.json",
-  "lastResolvedAction": {
-    "registryId": "linux-alma",
-    "domain": "gnome-settings-playbook",
-    "rule": "R-PRI2",
-    "predicate": "H2",
-    "stepId": "gsettings-deep-pass",
-    "autoExecute": true,
-    "requiresPassword": false,
-    "unique": true,
-    "command": "node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-gsettings-pass.mjs --id linux-alma",
-    "alias": "gsettings-deep-pass",
-    "predicates": {
-      "H2": null,
-      "M": true,
-      "I": true,
-      "A": true,
-      "S": true,
-      "T": true,
-      "L": null,
-      "V": true,
-      "G": false,
-      "Vc": false,
-      "Vp": false,
-      "documentedP0": 4,
-      "capsuleCapturesP0": 0,
-      "visualMatchClassifiedP0": 0
-    },
-    "passwordBundle": null
+  "campaign": "c12-apps-parity-pass",
+  "vm": {
+    "host": "capsule@192.168.122.199",
+    "inventory": "linux-alma-vm.json",
+    "labConfig": "etc/capsuleos/lab-inventory.json"
   },
-  "generatedAt": "2026-06-10T14:35:51.334Z"
+  "parity": {
+    "index": "linux-alma-parity-index.json",
+    "doc": "inventaire-parite-alma.md",
+    "procedure": "procedure-lab-linux-alma-gnome.md"
+  },
+  "cloneEngine": {
+    "currentCycle": "C25",
+    "nextCycle": "Cred",
+    "doc": "root/docs/moteur-clonage-experience.md",
+    "appsScope": "priority"
+  },
+  "cloneClosure": {
+    "cycle": "C25",
+    "p2Complete": true,
+    "piGlobal": 96,
+    "piGlobalExtended": 92,
+    "formalClosedAt": "2026-06-10T25:00:00.000Z",
+    "gapsRemaining": [
+      "Vc VM D-Bus screenshot",
+      "screenshot Capsule-only",
+      "snapshot sans webcam lab"
+    ]
+  },
+  "predicates": {
+    "H2": true,
+    "I": true,
+    "AppΣ": true,
+    "ScΣ_P2": true,
+    "Vc_Capsule": true,
+    "pi_global_ok": true
+  },
+  "paritySnapshot": {
+    "pi_global": 96,
+    "pi_global_extended": 92,
+    "status_global": "ok",
+    "p2Slots": 8,
+    "prioritySlots": 7
+  },
+  "updatedAt": "2026-06-10T25:00:00.000Z"
 }

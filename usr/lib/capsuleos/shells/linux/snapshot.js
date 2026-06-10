@@ -15,11 +15,20 @@
         }
     };
 
+    function syncSnapshotDataset(root, mode) {
+        if (!root) {
+            return;
+        }
+        root.dataset.snapshotInit = 'true';
+        root.dataset.snapshotMode = mode || 'photo';
+        root.dataset.snapshotCamera = 'none';
+    }
+
     function switchSnapshotMode(root, mode) {
         var copy = EMPTY_COPY[mode] || EMPTY_COPY.photo;
         root.classList.toggle('gnome-snapshot--video', mode === 'video');
-        root.querySelectorAll('[data-snapshot-mode]').forEach(function (btn) {
-            var active = btn.dataset.snapshotMode === mode;
+        root.querySelectorAll('[data-snapshot-gnome-mode]').forEach(function (btn) {
+            var active = btn.getAttribute('data-snapshot-gnome-mode') === mode;
             btn.classList.toggle('is-active', active);
             btn.setAttribute('aria-selected', active ? 'true' : 'false');
         });
@@ -36,12 +45,13 @@
             shutter.setAttribute('aria-label', mode === 'video' ? 'Enregistrer une vidéo' : 'Prendre une photo');
             shutter.title = shutter.getAttribute('aria-label');
         }
+        syncSnapshotDataset(root, mode);
     }
 
     function bindSnapshotModes(root) {
-        root.querySelectorAll('[data-snapshot-mode]').forEach(function (btn) {
+        root.querySelectorAll('[data-snapshot-gnome-mode]').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                switchSnapshotMode(root, btn.dataset.snapshotMode);
+                switchSnapshotMode(root, btn.getAttribute('data-snapshot-gnome-mode'));
             });
         });
     }

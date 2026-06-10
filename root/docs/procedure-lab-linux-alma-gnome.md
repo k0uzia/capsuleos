@@ -37,6 +37,7 @@ flowchart LR
   C21 --> C22[C22_Watermark]
   C22 --> C23[C23_Vc_Settings]
   C23 --> C24[C24_Baobab_Tour]
+  C24 --> C25[C25_P2_cloture_Pi]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -59,7 +60,24 @@ flowchart LR
 | **C21** | `3201ec12` | Playbook Paramètres GNOME dédié (18 panneaux) | **96** (Π étendu **93**) |
 | **C22** | `832b23c1` | Filigrane bureau Alma (`smoke-alma-watermark`) | **96** |
 | **C23** | `10db0422` | **Vc** Paramètres GNOME — captures Capsule P0/P1 | **96** |
-| **C24** | (cette passe) | **ScΣ** Baobab B1–B4 + Tour T1–T4 | **96** (Π étendu **91**) |
+| **C24** | `316a9cab` | **ScΣ** Baobab B1–B4 + Tour T1–T4 | **96** (Π étendu **91**) |
+| **C25** | (cette passe) | **ScΣ** snapshot/characters/system_monitor/screenshot + clôture Π | **96** (Π étendu **92**) |
+
+### Clôture clone Π (C25)
+
+Tous les slots P2 Alma documentés (8/8) avec contrats scénarios, smokes Playwright verts et captures Capsule.
+
+```bash
+# Smokes C25 (exemple)
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
+  node usr/lib/capsuleos/tools/lab/smoke-gnome-snapshot-scenarios.mjs --id linux-alma
+
+# État réplication
+cat root/docs/inventaires/linux-alma-replication-state.json
+cat root/docs/inventaires/linux-alma-parity-index.json | jq '.cloneClosure,.pi_global_extended'
+```
+
+Gaps restants honnêtes : Vc VM (D-Bus) · `screenshot` Capsule-only (rpm absent el10) · `snapshot` sans webcam lab.
 
 ---
 

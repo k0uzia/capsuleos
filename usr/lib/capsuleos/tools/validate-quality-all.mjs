@@ -28,6 +28,10 @@ const steps = [
   'validate-calendar-user-scenarios.mjs',
   'validate-baobab-user-scenarios.mjs',
   'validate-tour-user-scenarios.mjs',
+  'validate-snapshot-user-scenarios.mjs',
+  'validate-characters-user-scenarios.mjs',
+  'validate-system-monitor-user-scenarios.mjs',
+  'validate-screenshot-user-scenarios.mjs',
 ];
 
 let failed = false;

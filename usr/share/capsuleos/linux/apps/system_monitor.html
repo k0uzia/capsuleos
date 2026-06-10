@@ -1,31 +1,31 @@
 <main id="systemMonitorApp" class="gsm-app" aria-label="Moniteur système">
 
     <header class="gnome-sysmon__header gsm-app__menubar" aria-label="Menu">
-        <button type="button" class="gsm-app__menu" data-gsm-menu="file">Fichier</button>
-        <button type="button" class="gsm-app__menu" data-gsm-menu="edit">Édition</button>
-        <button type="button" class="gsm-app__menu" data-gsm-menu="view">Affichage</button>
-        <button type="button" class="gsm-app__menu" data-gsm-menu="help">Aide</button>
+        <button type="button" class="gsm-app__menu" data-gsm-gnome-menu="file">Fichier</button>
+        <button type="button" class="gsm-app__menu" data-gsm-gnome-menu="edit">Édition</button>
+        <button type="button" class="gsm-app__menu" data-gsm-gnome-menu="view">Affichage</button>
+        <button type="button" class="gsm-app__menu" data-gsm-gnome-menu="help">Aide</button>
     </header>
 
     <div class="gsm-app__toolbar" aria-label="Actions">
-        <button type="button" class="gsm-app__tool" data-gsm-action="search" title="Rechercher des processus" aria-label="Rechercher">
+        <button type="button" class="gsm-app__tool" data-gsm-gnome-action="search" title="Rechercher des processus" aria-label="Rechercher">
             <span class="gsm-app__tool-icon gsm-app__tool-icon--search" aria-hidden="true"></span>
         </button>
-        <button type="button" class="gsm-app__tool" data-gsm-action="stop" title="Terminer le processus" aria-label="Terminer" disabled>
+        <button type="button" class="gsm-app__tool" data-gsm-gnome-action="stop" title="Terminer le processus" aria-label="Terminer" disabled>
             <span class="gsm-app__tool-icon gsm-app__tool-icon--stop" aria-hidden="true"></span>
         </button>
-        <button type="button" class="gsm-app__tool" data-gsm-action="kill" title="Forcer à quitter" aria-label="Forcer à quitter" disabled>
+        <button type="button" class="gsm-app__tool" data-gsm-gnome-action="kill" title="Forcer à quitter" aria-label="Forcer à quitter" disabled>
             <span class="gsm-app__tool-icon gsm-app__tool-icon--kill" aria-hidden="true"></span>
         </button>
     </div>
 
     <div class="gsm-app__tabs" role="tablist" aria-label="Vues">
-        <button type="button" class="gsm-app__tab is-active" role="tab" aria-selected="true" data-gsm-tab="processes">Processus</button>
-        <button type="button" class="gsm-app__tab" role="tab" aria-selected="false" data-gsm-tab="resources">Ressources</button>
-        <button type="button" class="gsm-app__tab" role="tab" aria-selected="false" data-gsm-tab="filesystems">Système de fichiers</button>
+        <button type="button" class="gsm-app__tab is-active" role="tab" aria-selected="true" data-gsm-gnome-tab="processes">Processus</button>
+        <button type="button" class="gsm-app__tab" role="tab" aria-selected="false" data-gsm-gnome-tab="resources">Ressources</button>
+        <button type="button" class="gsm-app__tab" role="tab" aria-selected="false" data-gsm-gnome-tab="filesystems">Système de fichiers</button>
     </div>
 
-    <section class="gsm-app__panel" data-gsm-panel="processes" aria-label="Processus">
+    <section class="gsm-app__panel" data-gsm-gnome-panel="processes" aria-label="Processus">
         <div class="gsm-app__search-row" id="gsm-search-row" hidden>
             <input type="search" class="gsm-app__search" id="gsm-search" placeholder="Rechercher des processus…" autocomplete="off">
         </div>
@@ -48,7 +48,7 @@
         </div>
     </section>
 
-    <section class="gsm-app__panel" data-gsm-panel="resources" hidden aria-label="Ressources">
+    <section class="gsm-app__panel" data-gsm-gnome-panel="resources" hidden aria-label="Ressources">
         <div class="gsm-app__resources">
             <div class="gsm-app__chart gsm-app__chart--cpu">
                 <h3 class="gsm-app__chart-title">Processeurs (1)</h3>
@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <section class="gsm-app__panel" data-gsm-panel="filesystems" hidden aria-label="Système de fichiers">
+    <section class="gsm-app__panel" data-gsm-gnome-panel="filesystems" hidden aria-label="Système de fichiers">
         <table class="gsm-app__table gsm-app__table--fs" aria-label="Systèmes de fichiers">
             <thead>
                 <tr>

@@ -23,10 +23,15 @@
             if (global.document.documentElement.dataset.theme === 'light') {
                 rel = './assets/images/vendors/fedora/wallpaper/f44-01-day.webp';
             }
-        } else if (bodyId === 'rocky' || bodyId === 'alma') {
+        } else if (bodyId === 'rocky') {
             rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp';
             if (global.document.documentElement.dataset.theme === 'light') {
                 rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp';
+            }
+        } else if (bodyId === 'alma') {
+            rel = './assets/images/vendors/alma/wallpaper/almalinux-night.jpg';
+            if (global.document.documentElement.dataset.theme === 'light') {
+                rel = './assets/images/vendors/alma/wallpaper/almalinux-day.jpg';
             }
         }
         if (typeof global.CapsuleResource !== 'undefined' && global.CapsuleResource.resolve) {

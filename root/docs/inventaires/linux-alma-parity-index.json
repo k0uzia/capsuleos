@@ -1,0 +1,260 @@
+{
+  "registryId": "linux-alma",
+  "version": 1,
+  "campaign": "c11-fidelity-pass",
+  "description": "Indice de parité AlmaLinux GNOME — VM capsule@192.168.122.199, skin dérivé linux-rocky",
+  "upstreamId": "linux-rocky",
+  "weights": {
+    "shell": 0.25,
+    "apps": 0.75,
+    "appsScope": "priority",
+    "prioritySlots": [
+      "nemo",
+      "firefox",
+      "terminal",
+      "themes",
+      "update_manager",
+      "text_editor",
+      "calculator"
+    ]
+  },
+  "thresholds": {
+    "ok": 90,
+    "partiel": 60
+  },
+  "shell": {
+    "topBar": {
+      "id": "topBar",
+      "pi": 98,
+      "status": "ok",
+      "dimensions": {
+        "vis": 98,
+        "nav": 100,
+        "int": 98,
+        "ctx": 95,
+        "kb": 100,
+        "data": 100
+      },
+      "smoke": "smoke-rocky-shell-polish.mjs --playwright",
+      "server": "http://127.0.0.1:5501/home/RedHat/Alma/index.html",
+      "vmSource": "capsule@192.168.122.199 gsettings org.gnome.desktop.interface",
+      "lastPass": "2026-06-10T09:46:46.584Z",
+      "checksPassed": 8,
+      "checksTotal": 8,
+      "updatedAt": "2026-06-10T09:46:46.584Z"
+    },
+    "overview": {
+      "id": "overview",
+      "pi": 95,
+      "status": "ok",
+      "dimensions": {
+        "vis": 95,
+        "nav": 95,
+        "int": 95,
+        "ctx": 90,
+        "kb": 95,
+        "data": 95
+      },
+      "notes": "overview.js corrigé body#alma ; dash Firefox is-running/is-focused validé Playwright",
+      "lastPass": "2026-06-10T09:46:46.584Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-10T09:46:46.584Z"
+    },
+    "tray": {
+      "id": "tray",
+      "pi": 98,
+      "status": "ok",
+      "dimensions": {
+        "vis": 98,
+        "nav": 100,
+        "int": 98,
+        "ctx": 95,
+        "kb": 100,
+        "data": 100
+      },
+      "lastPass": "2026-06-10T09:46:46.584Z",
+      "checksPassed": 3,
+      "checksTotal": 3,
+      "updatedAt": "2026-06-10T09:46:46.584Z"
+    },
+    "wallpaper": {
+      "id": "wallpaper",
+      "pi": 95,
+      "status": "ok",
+      "dimensions": {
+        "vis": 95,
+        "nav": 100,
+        "int": 95,
+        "ctx": 100,
+        "kb": 100,
+        "data": 90
+      },
+      "vmPaths": {
+        "dark": "/usr/share/backgrounds/almalinux-night.jpg",
+        "light": "/usr/share/backgrounds/almalinux-day.jpg"
+      },
+      "capsulePaths": {
+        "dark": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-night.jpg",
+        "light": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-day.jpg"
+      },
+      "notes": "404 Rocky gemstone-skies éliminés ; catalogue almaWallpaperCatalog dans capsule-theme-storage.js",
+      "lastPass": "2026-06-10T09:50:00.000Z",
+      "checksPassed": 4,
+      "checksTotal": 4,
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    }
+  },
+  "apps": {
+    "nemo": {
+      "slot": "nemo",
+      "label": "Fichiers (Nautilus)",
+      "pi": 88,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 90,
+        "nav": 88,
+        "int": 85,
+        "ctx": 85,
+        "kb": 90,
+        "data": 90
+      },
+      "notes": "Skin hérité Rocky ; captures VM Alma P1 en attente",
+      "upstream": "linux-rocky",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "firefox": {
+      "slot": "firefox",
+      "label": "Firefox",
+      "pi": 90,
+      "status": "ok",
+      "dimensions": {
+        "vis": 92,
+        "nav": 90,
+        "int": 88,
+        "ctx": 88,
+        "kb": 90,
+        "data": 92
+      },
+      "smoke": "smoke-rocky-shell-polish.mjs onglets Proton",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "terminal": {
+      "slot": "terminal",
+      "label": "Terminal (Ptyxis)",
+      "pi": 85,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 88,
+        "nav": 85,
+        "int": 82,
+        "ctx": 80,
+        "kb": 88,
+        "data": 88
+      },
+      "notes": "Profil terminal alma verrouillé ; invite VM non re-auditée Alma",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "themes": {
+      "slot": "themes",
+      "label": "Paramètres des thèmes",
+      "pi": 82,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 85,
+        "nav": 80,
+        "int": 80,
+        "ctx": 78,
+        "kb": 85,
+        "data": 85
+      },
+      "notes": "Catalogue fonds Alma (almalinux-day/night) ; playbook GNOME settings Rocky non dupliqué Alma",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "update_manager": {
+      "slot": "update_manager",
+      "label": "Logiciels (GNOME Software)",
+      "pi": 80,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 82,
+        "nav": 78,
+        "int": 78,
+        "ctx": 75,
+        "kb": 82,
+        "data": 85
+      },
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "text_editor": {
+      "slot": "text_editor",
+      "label": "Éditeur de texte",
+      "pi": 78,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 80,
+        "nav": 78,
+        "int": 75,
+        "ctx": 72,
+        "kb": 80,
+        "data": 82
+      },
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "calculator": {
+      "slot": "calculator",
+      "label": "Calculatrice",
+      "pi": 75,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 78,
+        "nav": 75,
+        "int": 72,
+        "ctx": 70,
+        "kb": 78,
+        "data": 78
+      },
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "clocks": {
+      "slot": "clocks",
+      "label": "Horloges",
+      "pi": 60,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 65,
+        "nav": 60,
+        "int": 55,
+        "ctx": 55,
+        "kb": 60,
+        "data": 65
+      },
+      "priorite": "P2",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    },
+    "calendar": {
+      "slot": "calendar",
+      "label": "Calendrier",
+      "pi": 60,
+      "status": "partiel",
+      "dimensions": {
+        "vis": 65,
+        "nav": 60,
+        "int": 55,
+        "ctx": 55,
+        "kb": 60,
+        "data": 65
+      },
+      "priorite": "P2",
+      "updatedAt": "2026-06-10T09:50:00.000Z"
+    }
+  },
+  "pi_global": 86,
+  "status_global": "partiel",
+  "gaps": [
+    "Captures VM Alma dédiées P1 (apps) non encore collectées",
+    "Playbook GNOME Settings Alma non cloné depuis Rocky",
+    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS en fallback"
+  ],
+  "updatedAt": "2026-06-10T09:50:00.000Z"
+}

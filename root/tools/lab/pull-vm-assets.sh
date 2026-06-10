@@ -162,7 +162,14 @@ pull_vm_wallpaper_thumbs() {
   done <<< "$remote_list"
 }
 
-if [[ "$VENDOR" == "rocky" || "$VENDOR" == "alma" ]]; then
+if [[ "$VENDOR" == "alma" ]]; then
+  for bg in almalinux-day.jpg almalinux-night.jpg; do
+    pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
+  done
+  pull /usr/share/almalinux-logos/almalinux-logo.svg "$VENDOR_DIR/alma-logo.svg" || true
+fi
+
+if [[ "$VENDOR" == "rocky" ]]; then
   for bg in \
     rocky-default-10-gemstone-skies-night.png \
     rocky-default-10-gemstone-skies-day.png \

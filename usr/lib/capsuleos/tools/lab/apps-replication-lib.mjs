@@ -60,8 +60,20 @@ export const capsuleCaptureCandidates = (controlId) => {
     ],
     snapshot: ['rocky-capsule-dark-snapshot.png'],
     characters: ['rocky-capsule-dark-characters.png'],
-    tour: ['rocky-capsule-dark-tour.png'],
-    baobab: ['rocky-capsule-dark-baobab.png'],
+    tour: [
+      'rocky-capsule-dark-tour.png',
+      'rocky-capsule-dark-tour-welcome.png',
+      'rocky-capsule-dark-tour-overview.png',
+      'rocky-capsule-dark-tour-workspaces.png',
+      'rocky-capsule-dark-tour-finish.png',
+    ],
+    baobab: [
+      'rocky-capsule-dark-baobab.png',
+      'rocky-capsule-dark-baobab-home.png',
+      'rocky-capsule-dark-baobab-computer.png',
+      'rocky-capsule-dark-baobab-treemap.png',
+      'rocky-capsule-dark-baobab-boot.png',
+    ],
     system_monitor: ['rocky-capsule-dark-system-monitor.png'],
   };
   return [

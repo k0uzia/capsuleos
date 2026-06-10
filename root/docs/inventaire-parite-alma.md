@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C23** Vc Paramètres GNOME clôturé (suite C22 watermark).
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 91** (inclut apps P2 `clocks`/`calendar`/`baobab`/`tour`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C24** baobab + tour clôturé (suite C23 Vc Paramètres).
 
 ---
 
@@ -13,7 +13,7 @@
 |-----------|-------|-----------|
 | Shell | 0,25 | topBar, overview, tray, wallpaper |
 | Apps | 0,75 | 7 slots **priority** (gate campagne) : nemo, firefox, terminal, themes, update_manager, text_editor, calculator |
-| Apps étendu | 0,75 | 9 slots (priority + P2 `clocks`, `calendar`) → **Π étendu = 93** (indicatif, non gate) |
+| Apps étendu | 0,75 | 11 slots (priority + P2 `clocks`, `calendar`, `baobab`, `tour`) → **Π étendu = 91** (indicatif, non gate) |
 
 Dimensions par slot : `vis`, `nav`, `int`, `ctx`, `kb`, `data` (0–100).
 
@@ -88,13 +88,17 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C18 | Paramètres | Th1 mode sombre · Th2 fond Alma · Th3 accent · Th4 panneau Écrans | `smoke-gnome-themes-scenarios.mjs` |
 | C19 | Horloges | H1 Monde/Tokyo · H2 chronomètre · H3 minuteur · H4 alarme | `smoke-gnome-clocks-scenarios.mjs` |
 | C20 | Agenda | Cal1 vue mois · Cal2 créer évènement · Cal3 vue semaine · Cal4 mois suivant | `smoke-gnome-calendar-scenarios.mjs` |
+| C24 | Baobab | B1 home · B2 Ordinateur · B3 treemap · B4 /boot | `smoke-gnome-baobab-scenarios.mjs` |
+| C24 | Visite guidée | T1 lancer · T2 avancer · T3 terminer · T4 précédent | `smoke-gnome-tour-scenarios.mjs` |
 
 ### Apps P2
 
 | Slot | Label | Π | Scénarios P0 | Contrat |
 |------|-------|---|--------------|---------|
 | `clocks` | Horloges | **87** | **H1–H4** | `clocks-user-scenarios.json` |
-| `calendar` | Agenda | **63→87** | **Cal1–Cal4** | `calendar-user-scenarios.json` |
+| `calendar` | Agenda | **87** | **Cal1–Cal4** | `calendar-user-scenarios.json` |
+| `baobab` | Utilisation des disques | **88** | **B1–B4** | `baobab-user-scenarios.json` |
+| `tour` | Visite guidée | **87** | **T1–T4** | `tour-user-scenarios.json` |
 
 Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md).
 
@@ -153,15 +157,14 @@ Artefacts :
 |-----|-----|-------|
 | Captures VM pixel-perfect | **Vc** P1 | D-Bus `Shell.Screenshot` AccessDenied via SSH |
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
-| **baobab**, **tour** | P2 | Scénarios pédagogiques — cycle **C24** |
+| **Vc VM** apps P2 | P1 | D-Bus screenshot bloqué — compensé captures Capsule C24 |
 
 ---
 
 ## Prochaines étapes
 
-1. **P2 baobab** — sonde VM, contrat `baobab-user-scenarios.json`, smoke + capture
-2. **P2 tour** — idem pattern Cal/H/Th
-3. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
+1. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
+2. **P1 apps résiduelles** — snapshot, characters, system_monitor (hors campagne Alma courante)
 
 ---
 

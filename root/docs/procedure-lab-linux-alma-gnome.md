@@ -36,6 +36,7 @@ flowchart LR
   C20 --> C21[C21_Playbook_Settings]
   C21 --> C22[C22_Watermark]
   C22 --> C23[C23_Vc_Settings]
+  C23 --> C24[C24_Baobab_Tour]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -57,7 +58,8 @@ flowchart LR
 | **C20** | `aa606f82` | **ScΣ** Agenda Cal1–Cal4 | **96** |
 | **C21** | `3201ec12` | Playbook Paramètres GNOME dédié (18 panneaux) | **96** (Π étendu **93**) |
 | **C22** | `832b23c1` | Filigrane bureau Alma (`smoke-alma-watermark`) | **96** |
-| **C23** | (cette passe) | **Vc** Paramètres GNOME — captures Capsule P0/P1 | **96** |
+| **C23** | `10db0422` | **Vc** Paramètres GNOME — captures Capsule P0/P1 | **96** |
+| **C24** | (cette passe) | **ScΣ** Baobab B1–B4 + Tour T1–T4 | **96** (Π étendu **91**) |
 
 ---
 
@@ -304,7 +306,7 @@ Checklist humaine :
 | Watermark Alma (`fedora_logo_*`) | P2 | Inventaire VM ou gradient CSS fallback |
 | `clocks`, `calendar` | P2 | Π **87** (H1–H4, Cal1–Cal4) · **Vc** Capsule |
 | Vc Paramètres GNOME VM | P2 | D-Bus bloqué — **compensé Capsule C23** (`smoke-alma-gnome-settings-visual`) |
-| **baobab**, **tour** | P2 | Scénarios pédagogiques — cycle **C24** |
+| `baobab`, `tour` | P2 | Π **88** / **87** (B1–B4, T1–T4) · **Vc** Capsule C24 |
 
 ---
 
@@ -334,3 +336,4 @@ Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma`
 | 2026-06-10 | C21 playbook Settings | Matrice Alma · 18/18 VM · smoke + verify chain |
 | 2026-06-10 | C22 watermark | Filigrane `background-logo` · tokens `--alma-watermark` |
 | 2026-06-10 | C23 Vc Settings | Captures Capsule P0/P1 · Vc=4 Vp=4 · baobab → C24 |
+| 2026-06-10 | C24 baobab + tour | B1–B4 · T1–T4 · rpm VM confirmés · Π étendu **91** |

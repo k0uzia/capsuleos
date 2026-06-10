@@ -89,6 +89,8 @@ Schéma :
 | Paramètres | `data-theme-option`, `data-accent-chip`, `data-gnome-settings-panel` | `[data-accent-chip="blue"]` |
 | Horloges | `data-clocks-*`, `data-clocks-gnome-*` | `[data-clocks-view="stopwatch"]` |
 | Agenda | `data-cal-gnome-*` | `[data-cal-gnome-view="week"]` |
+| Baobab | `data-baobab-gnome-*` | `[data-baobab-gnome-volume="home"]` |
+| Visite guidée | `data-tour-gnome-*` | `[data-tour-gnome-action="next"]` |
 
 ### Étape 3 — Validateur contrat
 

@@ -2,7 +2,7 @@
 
     <header class="gnome-baobab__header">
         <h2 class="gnome-baobab__title" id="gnome-baobab-title">Analyseur d'espace disque</h2>
-        <button type="button" class="gnome-baobab__scan-btn" id="gnome-baobab-scan" aria-label="Analyser le dossier">Analyser</button>
+        <button type="button" class="gnome-baobab__scan-btn" id="gnome-baobab-scan" data-baobab-gnome-action="scan" aria-label="Analyser le dossier">Analyser</button>
     </header>
 
     <div class="gnome-baobab__body">
@@ -10,7 +10,7 @@
             <ul class="gnome-baobab__places" id="gnome-baobab-places" role="list"></ul>
         </aside>
         <section class="gnome-baobab__main" aria-label="Répartition">
-            <div class="gnome-baobab__view gnome-baobab__view--overview is-active" id="gnome-baobab-overview" data-baobab-view="overview">
+            <div class="gnome-baobab__view gnome-baobab__view--overview is-active" id="gnome-baobab-overview" data-baobab-view="overview" data-baobab-gnome-view="overview">
                 <div class="gnome-baobab__ring" id="gnome-baobab-ring" role="img" aria-label="Espace utilisé">
                     <span class="gnome-baobab__ring-center" id="gnome-baobab-ring-center">62 %</span>
                 </div>
@@ -19,7 +19,7 @@
                     <li><span class="gnome-baobab__swatch gnome-baobab__swatch--free"></span> <span id="gnome-baobab-free-label">Disponible — 16,0 Go</span></li>
                 </ul>
             </div>
-            <div class="gnome-baobab__view gnome-baobab__view--treemap" id="gnome-baobab-treemap" data-baobab-view="treemap" hidden>
+            <div class="gnome-baobab__view gnome-baobab__view--treemap" id="gnome-baobab-treemap" data-baobab-view="treemap" data-baobab-gnome-view="treemap" hidden>
                 <p class="gnome-baobab__path" id="gnome-baobab-path">/home/user</p>
                 <div class="gnome-baobab__treemap-grid" id="gnome-baobab-treemap-grid" role="img" aria-label="Carte des dossiers"></div>
                 <ul class="gnome-baobab__treemap-legend" id="gnome-baobab-treemap-legend"></ul>

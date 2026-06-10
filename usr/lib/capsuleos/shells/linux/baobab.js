@@ -9,7 +9,7 @@
     var VOLUMES = [
         {
             id: 'root',
-            label: 'Système de fichiers',
+            label: 'Ordinateur',
             path: '/',
             icon: 'disk',
             total: 42.1,
@@ -58,7 +58,7 @@
         }
     ];
 
-    var activeVolumeId = 'root';
+    var activeVolumeId = 'home';
     var activeView = 'overview';
     var scanTimer = null;
 
@@ -75,6 +75,10 @@
         return VOLUMES[0];
     }
 
+    function getRootEl() {
+        return global.document.getElementById('gnomeBaobabApp');
+    }
+
     function getWindowEl(root) {
         var el = root;
         while (el) {
@@ -86,6 +90,21 @@
         return null;
     }
 
+    function syncBaobabDataset(root) {
+        var appRoot = root || getRootEl();
+        if (!appRoot) {
+            return;
+        }
+        var vol = getVolume(activeVolumeId);
+        var scanBtn = appRoot.querySelector('#gnome-baobab-scan');
+        appRoot.dataset.baobabInit = 'true';
+        appRoot.dataset.baobabVolume = activeVolumeId;
+        appRoot.dataset.baobabView = activeView;
+        appRoot.dataset.baobabScanning = scanBtn && scanBtn.dataset.baobabScanning === '1' ? 'true' : 'false';
+        appRoot.dataset.baobabTreemapReady = activeView === 'treemap' ? 'true' : 'false';
+        appRoot.dataset.baobabVolumeLabel = vol.label;
+    }
+
     function setWindowTitle(root) {
         var winEl = getWindowEl(root);
         if (!winEl) {
@@ -93,9 +112,9 @@
         }
         var wmTitle = winEl.querySelector('#windowTitle');
         if (wmTitle) {
-            wmTitle.textContent = 'Analyseur d\'espace disque';
+            wmTitle.textContent = 'Analyseur d\u2019utilisation des disques';
         }
-        winEl.setAttribute('data-title', 'Analyseur d\'espace disque');
+        winEl.setAttribute('data-title', 'Analyseur d\u2019utilisation des disques');
     }
 
     function renderPlaces(root) {
@@ -110,6 +129,7 @@
             btn.className = 'gnome-baobab__place';
             btn.setAttribute('role', 'listitem');
             btn.dataset.baobabVolume = vol.id;
+            btn.setAttribute('data-baobab-gnome-volume', vol.id);
             if (vol.id === activeVolumeId) {
                 btn.classList.add('gnome-baobab__place--active');
             }
@@ -172,6 +192,7 @@
             var color = TREEMAP_COLORS[index % TREEMAP_COLORS.length];
             var cell = document.createElement('div');
             cell.className = 'gnome-baobab__treemap-cell';
+            cell.setAttribute('data-baobab-gnome-treemap-cell', entry.label.toLowerCase());
             cell.style.flexGrow = String(entry.weight);
             cell.style.flexBasis = Math.max(entry.weight * 2, 18) + '%';
             cell.style.background = color;
@@ -200,6 +221,7 @@
             treemap.classList.toggle('is-active', viewId === 'treemap');
             treemap.hidden = viewId !== 'treemap';
         }
+        syncBaobabDataset(root);
     }
 
     function setScanPanel(root, visible) {
@@ -217,6 +239,7 @@
         var scanning = scanBtn.dataset.baobabScanning === '1';
         scanBtn.disabled = scanning || !vol.treemap || vol.treemap.length === 0;
         scanBtn.textContent = scanning ? 'Analyse…' : 'Analyser';
+        syncBaobabDataset(root);
     }
 
     function selectVolume(root, volumeId) {
@@ -247,6 +270,7 @@
         scanBtn.textContent = 'Analyse…';
         setScanPanel(root, true);
         setView(root, 'overview');
+        syncBaobabDataset(root);
 
         var value = 0;
         if (progress) {
@@ -293,14 +317,14 @@
     }
 
     function initBaobabAppOnce() {
-        var root = global.document.getElementById('gnomeBaobabApp');
+        var root = getRootEl();
         if (!root || root.dataset.baobabInit === 'true') {
             return;
         }
-        root.dataset.baobabInit = 'true';
         setWindowTitle(root);
         bindScan(root);
         selectVolume(root, activeVolumeId);
+        syncBaobabDataset(root);
     }
 
     global.initBaobabApp = function initBaobabApp() {

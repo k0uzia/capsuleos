@@ -26,6 +26,8 @@ const steps = [
   'validate-themes-user-scenarios.mjs',
   'validate-clocks-user-scenarios.mjs',
   'validate-calendar-user-scenarios.mjs',
+  'validate-baobab-user-scenarios.mjs',
+  'validate-tour-user-scenarios.mjs',
 ];
 
 let failed = false;

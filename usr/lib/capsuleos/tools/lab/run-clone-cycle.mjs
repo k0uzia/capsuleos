@@ -20,6 +20,7 @@ import {
   gateNeedsHttp,
   writeReplicationState,
 } from './clone-cycle-lib.mjs';
+import { loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -47,10 +48,19 @@ const parseArgs = () => {
   return opts;
 };
 
+const toolkitOf = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const t = entry.toolkit;
+  if (t && typeof t === 'object' && t.id) return t.id;
+  if (typeof t === 'string') return t;
+  return 'cinnamon';
+};
+
 const runGate = (gate, registryId, httpBase) => {
-  const scriptPath = path.join(ROOT, gate.script);
-  const argv = expandGateArgs(gate, registryId);
+  let scriptRel = gate.script;
+  let argv = expandGateArgs(gate, registryId);
   const env = { ...process.env };
+  const tk = toolkitOf(registryId);
   if (gateNeedsHttp(gate)) {
     env.CAPSULE_HTTP_BASE = gate.env && gate.env.CAPSULE_HTTP_BASE
       ? gate.env.CAPSULE_HTTP_BASE
@@ -60,7 +70,19 @@ const runGate = (gate, registryId, httpBase) => {
     process.stdout.write(`(skip) ${gate.script} — toolkit cinnamon / id ${registryId}\n`);
     return true;
   }
-  process.stdout.write(`\n── ${gate.label || gate.script} ──\n`);
+  if (tk === 'gnome' && scriptRel.includes('run-app-parity-pass.mjs')) {
+    scriptRel = 'usr/lib/capsuleos/tools/lab/smoke-apps-interactions.mjs';
+    argv = ['--id', registryId];
+  }
+  if (tk === 'gnome' && scriptRel.includes('run-ui-state-effects-pass.mjs')) {
+    const shellArgIdx = argv.indexOf('--shell');
+    if (shellArgIdx >= 0 && argv[shellArgIdx + 1] && argv[shellArgIdx + 1].indexOf('mainMenu') >= 0) {
+      process.stdout.write(`(skip) ${gate.script} — mainMenu cinnamon / ${registryId}\n`);
+      return true;
+    }
+  }
+  const scriptPath = path.join(ROOT, scriptRel);
+  process.stdout.write(`\n── ${gate.label || scriptRel} ──\n`);
   const r = spawnSync(process.execPath, [scriptPath, ...argv], {
     cwd: ROOT,
     stdio: 'inherit',

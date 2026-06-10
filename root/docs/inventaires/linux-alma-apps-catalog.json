@@ -1,0 +1,537 @@
+{
+  "version": 1,
+  "registryId": "linux-alma",
+  "toolkit": "gnome",
+  "generatedAt": "2026-06-10T07:20:15.856Z",
+  "procedure": "procedure-apps-catalog.md",
+  "contract": "etc/capsuleos/contracts/apps-catalog.json",
+  "vmAppsSource": "root/docs/inventaires/linux-alma-vm-apps-installed.json",
+  "skinIndex": "home/RedHat/Alma/index.html",
+  "capsuleSlots": [
+    "mainMenu",
+    "nemo",
+    "firefox",
+    "terminal",
+    "themes",
+    "profile",
+    "checklist",
+    "visionneur_images",
+    "visionneur_pdf",
+    "lecteur_multimedia",
+    "librewriter",
+    "update_manager",
+    "text_editor",
+    "calculator",
+    "clocks",
+    "calendar"
+  ],
+  "summary": {
+    "vmInstalled": 18,
+    "catalogRows": 21,
+    "p0Total": 7,
+    "p0Ok": 7,
+    "p0Gaps": 0,
+    "p1Gaps": 0,
+    "p2Gaps": 0,
+    "nextGap": null
+  },
+  "rows": [
+    {
+      "vmId": null,
+      "desktop": null,
+      "labelFr": "À propos AlmaLinux",
+      "priorite": "CapsuleOnly",
+      "slotCapsule": "profile",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": false,
+      "onVm": false,
+      "placement": {
+        "desktop": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "profile.html",
+        "skinCss": "profile.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": "CapsuleOnly"
+    },
+    {
+      "vmId": "org.gnome.Calculator",
+      "desktop": "org.gnome.Calculator.desktop",
+      "labelFr": "Calculatrice",
+      "priorite": "P0",
+      "slotCapsule": "calculator",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "calculator.html",
+        "skinCss": "calculator.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": null
+    },
+    {
+      "vmId": null,
+      "desktop": null,
+      "labelFr": "Capture d'écran",
+      "priorite": "CapsuleOnly",
+      "slotCapsule": "screenshot",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": false,
+      "onVm": false,
+      "placement": {
+        "quickSettings": true,
+        "overviewSearch": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "screenshot.html",
+        "skinCss": "screenshot.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": "CapsuleOnly"
+    },
+    {
+      "vmId": "org.gnome.Characters",
+      "desktop": "org.gnome.Characters.desktop",
+      "labelFr": "Caractères",
+      "priorite": "P2",
+      "slotCapsule": "characters",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "characters.html",
+        "skinCss": "characters.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.DiskUtility",
+      "desktop": "org.gnome.DiskUtility.desktop",
+      "labelFr": "Disques",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.TextEditor",
+      "desktop": "org.gnome.TextEditor.desktop",
+      "labelFr": "Éditeur de texte",
+      "priorite": "P0",
+      "slotCapsule": "text_editor",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "text_editor.html",
+        "skinCss": "text_editor.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Nautilus",
+      "desktop": "org.gnome.Nautilus.desktop",
+      "labelFr": "Fichiers",
+      "priorite": "P0",
+      "slotCapsule": "nemo",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "nemo-gnome",
+        "template": "nemo-gnome",
+        "skinCss": "nautilus.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": null
+    },
+    {
+      "vmId": "firefox",
+      "desktop": "firefox.desktop",
+      "labelFr": "Firefox",
+      "priorite": "P0",
+      "slotCapsule": "firefox",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "firefox-gnome",
+        "template": "firefox.html",
+        "skinCss": "firefox.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.clocks",
+      "desktop": "org.gnome.clocks.desktop",
+      "labelFr": "Horloges",
+      "priorite": "P1",
+      "slotCapsule": "clocks",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "clocks.html",
+        "skinCss": "clocks.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "setroubleshoot",
+      "desktop": "setroubleshoot.desktop",
+      "labelFr": "Journal SELinux",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Software",
+      "desktop": "org.gnome.Software.desktop",
+      "labelFr": "Logiciels",
+      "priorite": "P0",
+      "slotCapsule": "update_manager",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "update_manager_gnome.html",
+        "skinCss": "update_manager.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Loupe",
+      "desktop": "org.gnome.Loupe.desktop",
+      "labelFr": "Loupe",
+      "priorite": "P1",
+      "slotCapsule": "visionneur_images",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "visionneur_images.html",
+        "skinCss": "visionneur_images.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": null,
+      "desktop": null,
+      "labelFr": "Missions CapsuleOS",
+      "priorite": "CapsuleOnly",
+      "slotCapsule": "checklist",
+      "statut": "capsuleOnly",
+      "glyph": "🎓",
+      "requiresSlot": false,
+      "onVm": false,
+      "placement": {},
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "checklist.html",
+        "skinCss": "checklist.skin.css",
+        "functionalDepth": "capsuleOnly"
+      },
+      "note": "CapsuleOnly"
+    },
+    {
+      "vmId": "org.gnome.SystemMonitor",
+      "desktop": "org.gnome.SystemMonitor.desktop",
+      "labelFr": "Moniteur système",
+      "priorite": "P2",
+      "slotCapsule": "system_monitor",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "system_monitor.html",
+        "skinCss": "system_monitor.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Papers",
+      "desktop": "org.gnome.Papers.desktop",
+      "labelFr": "Papers",
+      "priorite": "P1",
+      "slotCapsule": "visionneur_pdf",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "visionneur_pdf.html",
+        "skinCss": "visionneur_pdf.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Settings",
+      "desktop": "org.gnome.Settings.desktop",
+      "labelFr": "Paramètres",
+      "priorite": "P0",
+      "slotCapsule": "themes",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "themes_gnome.html",
+        "skinCss": "themes.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.font-viewer",
+      "desktop": "org.gnome.font-viewer.desktop",
+      "labelFr": "Polices",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Snapshot",
+      "desktop": "org.gnome.Snapshot.desktop",
+      "labelFr": "Snapshot",
+      "priorite": "P1",
+      "slotCapsule": "snapshot",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "snapshot.html",
+        "skinCss": "snapshot.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Ptyxis",
+      "desktop": "org.gnome.Ptyxis.desktop",
+      "labelFr": "Terminal",
+      "priorite": "P0",
+      "slotCapsule": "terminal",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": true,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "terminal-gnome",
+        "template": "terminal.html",
+        "skinCss": "terminal.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.baobab",
+      "desktop": "org.gnome.baobab.desktop",
+      "labelFr": "Utilisation des disques",
+      "priorite": "P2",
+      "slotCapsule": "baobab",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "baobab.html",
+        "skinCss": "baobab.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Tour",
+      "desktop": "org.gnome.Tour.desktop",
+      "labelFr": "Visite guidée",
+      "priorite": "P2",
+      "slotCapsule": "tour",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "tour.html",
+        "skinCss": "tour.skin.css",
+        "functionalDepth": "partial"
+      },
+      "note": null
+    }
+  ]
+}

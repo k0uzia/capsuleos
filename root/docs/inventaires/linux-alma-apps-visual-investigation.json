@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-alma",
-  "updatedAt": "2026-06-10T11:14:12.489Z",
+  "updatedAt": "2026-06-10T11:28:40.820Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -606,9 +606,42 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok",
+        "appCt": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "Phase C13 — vue Découvrir par défaut, grille explore, bannière mises à jour, catégories, fiche app, navigation sidebar.",
+      "contentSpec": {
+        "phase": "C13",
+        "viewport": "1280x800",
+        "vmReference": "linux-alma",
+        "contentGaps": [
+          {
+            "id": "vm-captures-blocked",
+            "dimension": "Vc",
+            "severity": "medium",
+            "status": "open",
+            "note": "D-Bus Shell.Screenshot AccessDenied via SSH ; virsh almalinux10 absent hôte agent."
+          },
+          {
+            "id": "simulated-update-count",
+            "dimension": "contenu",
+            "severity": "low",
+            "status": "accepted",
+            "note": "Badge « 4 mises à jour » — scénario pédagogique ; dnf check-update VM retourne surtout kernel security."
+          }
+        ],
+        "resolved": [
+          "explore-grid-default-view",
+          "updates-banner-explore",
+          "sidebar-nav-explore-updates-installed",
+          "categories-row-productivity-creation-dev-utils",
+          "app-detail-pane-back-install",
+          "search-input-simulation",
+          "gnome-software-grid-card-selectors",
+          "toolkit-card-icons-base-css",
+          "installed-list-view"
+        ]
+      }
     },
     {
       "controlId": "visionneur_images",

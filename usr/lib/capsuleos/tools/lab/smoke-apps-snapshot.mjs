@@ -34,7 +34,7 @@ const P0_RUNTIME_SELECTORS = {
   text_editor: '.xed-app, #xedApp',
   nemo: '.nautilus-app__headerbar, .nemo-app main',
   firefox: '.capsule-browser, .firefox-chrome',
-  update_manager: '.gnome-software, .gnome-software__sidebar',
+  update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
   themes: '#themesApp.gnome-settings, .gnome-settings',
   terminal: '.capsule-terminal-shell, #terminalContainer',
 };

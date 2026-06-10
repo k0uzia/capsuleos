@@ -11,7 +11,22 @@
     "xauthority": "/run/user/UID/.mutter-Xwaylandauth.*",
     "capsuleUrl": "http://127.0.0.1:5501/home/RedHat/Alma/index.html",
     "probeScript": "$HOME/capsuleos-lab/os-probe-gnome.sh",
-    "virshName": "AlmaLinux"
+    "virshName": "almalinux10",
+    "screenshotCapture": {
+      "sessionRequired": "GDM — utilisateur capsule connecté au bureau Wayland",
+      "primaryBackend": "org.gnome.Shell.Screenshot (D-Bus session)",
+      "fallbackBackend": "gnome-screenshot -w (non installé sur el10 CRB par défaut)",
+      "hostFallback": "virsh screenshot almalinux10 — domaine absent sur hôte agent courant",
+      "packages": ["wmctrl", "gtk-launch"],
+      "packagesOptional": ["gnome-screenshot"],
+      "sshEnv": "DISPLAY=:0, XAUTHORITY=/run/user/UID/.mutter-Xwaylandauth.*, DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/UID/bus",
+      "knownBlockers": [
+        "D-Bus Shell.Screenshot → AccessDenied via SSH (session distante)",
+        "virshName almalinux10 introuvable sur hôte agent — VM accessible uniquement par IP NAT"
+      ],
+      "playbook": "root/tools/lab/vm-apps-visual-playbook.sh",
+      "collector": "node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id linux-alma --filter P0 --ssh"
+    }
   },
   "distribution": {
     "id": "alma",

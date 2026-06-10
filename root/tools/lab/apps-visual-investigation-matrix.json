@@ -5,54 +5,98 @@
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [
     {
-      "controlId": "clocks",
-      "labelFr": "Horloges",
-      "vmDesktop": "org.gnome.clocks.desktop",
-      "parityPriority": "P1",
+      "controlId": "calculator",
+      "labelFr": "Calculatrice",
+      "vmDesktop": "org.gnome.Calculator.desktop",
+      "parityPriority": "P0",
       "componentShots": [
-        "world-tab",
-        "alarm-tab",
-        "timer-tab",
-        "stopwatch-tab"
+        "mode-selector",
+        "display",
+        "keypad-basic",
+        "keypad-advanced",
+        "history-panel"
       ],
-      "launch": "gtk-launch org.gnome.clocks.desktop"
+      "launch": "gtk-launch org.gnome.Calculator.desktop"
     },
     {
-      "controlId": "visionneur_images",
-      "labelFr": "Loupe",
-      "vmDesktop": "org.gnome.Loupe.desktop",
-      "parityPriority": "P1",
+      "controlId": "text_editor",
+      "labelFr": "Éditeur de texte",
+      "vmDesktop": "org.gnome.TextEditor.desktop",
+      "parityPriority": "P0",
       "componentShots": [
-        "toolbar",
-        "image-canvas",
-        "metadata-pane"
+        "menubar",
+        "editor-area",
+        "status-line",
+        "open-dialog"
       ],
-      "launch": "gtk-launch org.gnome.Loupe.desktop"
+      "launch": "gtk-launch org.gnome.TextEditor.desktop"
     },
     {
-      "controlId": "visionneur_pdf",
-      "labelFr": "Papers",
-      "vmDesktop": "org.gnome.Papers.desktop",
-      "parityPriority": "P1",
+      "controlId": "nemo",
+      "labelFr": "Fichiers",
+      "vmDesktop": "org.gnome.Nautilus.desktop",
+      "parityPriority": "P0",
       "componentShots": [
-        "toolbar",
-        "page-canvas",
-        "sidebar-thumbs",
-        "zoom-controls"
+        "sidebar",
+        "column-headers",
+        "pathbar",
+        "context-menu-item",
+        "context-menu-background",
+        "trash"
       ],
-      "launch": "gtk-launch org.gnome.Papers.desktop"
+      "launch": "gtk-launch org.gnome.Nautilus.desktop"
     },
     {
-      "controlId": "snapshot",
-      "labelFr": "Snapshot",
-      "vmDesktop": "org.gnome.Snapshot.desktop",
-      "parityPriority": "P1",
+      "controlId": "firefox",
+      "labelFr": "Firefox",
+      "vmDesktop": "firefox.desktop",
+      "parityPriority": "P0",
       "componentShots": [
-        "preview",
-        "shutter-button",
-        "effects-strip"
+        "tab-bar",
+        "url-bar",
+        "bookmarks",
+        "menu-hamburger"
       ],
-      "launch": "gtk-launch org.gnome.Snapshot.desktop"
+      "launch": "gtk-launch firefox.desktop"
+    },
+    {
+      "controlId": "update_manager",
+      "labelFr": "Logiciels",
+      "vmDesktop": "org.gnome.Software.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "explore-grid",
+        "updates-banner",
+        "app-detail",
+        "categories"
+      ],
+      "launch": "gtk-launch org.gnome.Software.desktop"
+    },
+    {
+      "controlId": "themes",
+      "labelFr": "Paramètres",
+      "vmDesktop": "org.gnome.Settings.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "sidebar-panels",
+        "wifi-row",
+        "display-panel",
+        "about-panel"
+      ],
+      "launch": "gtk-launch org.gnome.Settings.desktop"
+    },
+    {
+      "controlId": "terminal",
+      "labelFr": "Terminal",
+      "vmDesktop": "org.gnome.Ptyxis.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "headerbar",
+        "tab-strip",
+        "prompt-colors",
+        "preferences"
+      ],
+      "launch": "gtk-launch org.gnome.Ptyxis.desktop"
     }
   ]
 }

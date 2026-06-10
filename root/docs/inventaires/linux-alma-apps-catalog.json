@@ -298,7 +298,7 @@
         "skinCss": "update_manager.skin.css",
         "functionalDepth": "partial"
       },
-      "note": null
+      "note": "C13 — explore grid + catégories + fiche app (template partagé GNOME RHEL)"
     },
     {
       "vmId": "org.gnome.Loupe",

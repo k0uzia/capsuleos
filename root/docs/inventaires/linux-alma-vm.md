@@ -20,6 +20,19 @@
 - **GNOME Text Editor** → slot `text_editor`
 - **Calculator** → slot `calculator`
 
+## Captures écran VM (apps P0)
+
+| Prérequis | Détail |
+|-----------|--------|
+| Session | GDM — utilisateur `capsule` connecté au bureau Wayland |
+| Backend primaire | `org.gnome.Shell.Screenshot` (D-Bus session) |
+| Repli | `gnome-screenshot -w` (absent du CRB el10 par défaut) |
+| Repli hôte | `virsh screenshot almalinux10` (domaine non listé sur hôte agent) |
+| Paquets VM | `wmctrl`, `gtk-launch` ; optionnel `gnome-screenshot` |
+| Variables SSH | `DISPLAY=:0`, `XAUTHORITY=/run/user/UID/.mutter-Xwaylandauth.*`, `DBUS_SESSION_BUS_ADDRESS` |
+
+**Écarts connus (2026-06-10)** : D-Bus `AccessDenied` via SSH ; `virsh list` sur hôte agent ne montre pas `almalinux10` (VM joignable en `192.168.122.199`). Playbook : `root/tools/lab/vm-apps-visual-playbook.sh` · collecteur : `collect-vm-apps-visual-investigation.mjs --id linux-alma --ssh`.
+
 ## Suite playbook
 
 ```bash

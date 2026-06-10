@@ -698,6 +698,201 @@
         });
     }
 
+    function gnomeAppCatalog() {
+        return {
+            firefox: {
+                title: 'Firefox',
+                sub: 'Navigateur Web',
+                desc: 'Navigateur Web libre et open source développé par Mozilla.',
+                version: '140.11.0esr',
+                size: '~95 Mo',
+                iconClass: 'gnome-software__cardicon--firefox',
+                installed: true
+            },
+            'libreoffice-writer': {
+                title: 'LibreOffice Writer',
+                sub: 'Traitement de texte',
+                desc: 'Suite bureautique libre — éditeur de documents.',
+                version: '24.8',
+                size: '~120 Mo',
+                iconClass: 'gnome-software__cardicon--libreoffice-writer',
+                installed: false
+            },
+            files: {
+                title: 'Fichiers',
+                sub: 'Gestionnaire de fichiers',
+                desc: 'Parcourez et organisez les fichiers et dossiers.',
+                version: '47.6',
+                size: '~4 Mo',
+                iconClass: 'gnome-software__cardicon--files',
+                installed: true
+            },
+            'text-editor': {
+                title: 'Éditeur de texte',
+                sub: 'Éditeur simple',
+                desc: 'Éditeur de texte léger pour notes et scripts.',
+                version: '47.0',
+                size: '~2 Mo',
+                iconClass: 'gnome-software__cardicon--text-editor',
+                installed: true
+            },
+            calculator: {
+                title: 'Calculatrice',
+                sub: 'Calculs et conversions',
+                desc: 'Effectuez des calculs arithmétiques et des conversions.',
+                version: '47.0',
+                size: '~1 Mo',
+                iconClass: 'gnome-software__cardicon--calculator',
+                installed: true
+            },
+            terminal: {
+                title: 'Terminal',
+                sub: 'Ligne de commande',
+                desc: 'Accédez au shell système via une interface graphique.',
+                version: '47.13',
+                size: '~3 Mo',
+                iconClass: 'gnome-software__cardicon--terminal',
+                installed: true
+            }
+        };
+    }
+
+    function setGnomeView(root, viewId) {
+        var panes = root.querySelectorAll('[data-um-gnome-pane]');
+        var i;
+        for (i = 0; i < panes.length; i += 1) {
+            var pane = panes[i];
+            var paneId = pane.getAttribute('data-um-gnome-pane');
+            var show = paneId === viewId;
+            pane.hidden = !show;
+        }
+        root.dataset.umGnomeView = viewId;
+        var navItems = root.querySelectorAll('[data-um-gnome-nav]');
+        for (i = 0; i < navItems.length; i += 1) {
+            var nav = navItems[i];
+            var navId = nav.getAttribute('data-um-gnome-nav');
+            var active = navId === viewId && viewId !== 'detail';
+            nav.classList.toggle('is-active', active);
+            if (active) {
+                nav.setAttribute('aria-current', 'page');
+            } else {
+                nav.removeAttribute('aria-current');
+            }
+        }
+    }
+
+    function showGnomeDetail(root, appId) {
+        var catalog = gnomeAppCatalog();
+        var app = catalog[appId];
+        if (!app) {
+            return;
+        }
+        var icon = root.querySelector('[data-um-gnome-detail-icon]');
+        var title = root.querySelector('[data-um-gnome-detail-title]');
+        var sub = root.querySelector('[data-um-gnome-detail-sub]');
+        var desc = root.querySelector('[data-um-gnome-detail-desc]');
+        var version = root.querySelector('[data-um-gnome-detail-version]');
+        var size = root.querySelector('[data-um-gnome-detail-size]');
+        var installBtn = root.querySelector('.gnome-software__detail-install');
+        if (icon) {
+            icon.className = 'gnome-software__detail-icon gnome-software__cardicon ' + app.iconClass;
+        }
+        if (title) {
+            title.textContent = app.title;
+        }
+        if (sub) {
+            sub.textContent = app.sub;
+        }
+        if (desc) {
+            desc.textContent = app.desc;
+        }
+        if (version) {
+            version.textContent = app.version;
+        }
+        if (size) {
+            size.textContent = app.size;
+        }
+        if (installBtn) {
+            installBtn.textContent = app.installed ? 'Ouvrir' : 'Installer';
+        }
+        root.dataset.umGnomeDetailApp = appId;
+        setGnomeView(root, 'detail');
+    }
+
+    function bindGnomeSoftware(root) {
+        setGnomeView(root, 'explore');
+        root.addEventListener('click', function onGnomeClick(event) {
+            var nav = event.target.closest('[data-um-gnome-nav]');
+            if (nav && root.contains(nav)) {
+                event.preventDefault();
+                var navId = nav.getAttribute('data-um-gnome-nav');
+                setGnomeView(root, navId);
+                return;
+            }
+            var appBtn = event.target.closest('[data-um-gnome-app]');
+            if (appBtn && root.contains(appBtn)) {
+                event.preventDefault();
+                showGnomeDetail(root, appBtn.getAttribute('data-um-gnome-app'));
+                return;
+            }
+            var category = event.target.closest('[data-um-gnome-category]');
+            if (category && root.contains(category)) {
+                event.preventDefault();
+                var catLabel = category.textContent ? category.textContent.trim() : 'Catégorie';
+                setStatus('Catégorie « ' + catLabel + ' » (simulation).');
+                return;
+            }
+            var action = event.target.closest('[data-um-gnome-action]');
+            if (!action || !root.contains(action)) {
+                return;
+            }
+            event.preventDefault();
+            var id = action.getAttribute('data-um-gnome-action');
+            if (id === 'check') {
+                setStatus('Recherche de mises à jour… (simulation)');
+                return;
+            }
+            if (id === 'updateAll') {
+                setStatus('Toutes les mises à jour installées (simulation).');
+                setTrayBadgeVisible(false);
+                var badge = root.querySelector('[data-um-gnome-badge]');
+                if (badge) {
+                    badge.hidden = true;
+                }
+                var banner = root.querySelector('.gnome-software__updates-banner');
+                if (banner) {
+                    banner.hidden = true;
+                }
+                return;
+            }
+            if (id === 'updateOne') {
+                setStatus('Mise à jour installée (simulation).');
+                return;
+            }
+            if (id === 'install') {
+                var detailApp = root.dataset.umGnomeDetailApp || '';
+                var detailCatalog = gnomeAppCatalog();
+                var detailEntry = detailCatalog[detailApp];
+                if (detailEntry && detailEntry.installed) {
+                    setStatus(detailEntry.title + ' est déjà installé (simulation).');
+                } else {
+                    setStatus('Installation simulée.');
+                }
+            }
+        });
+        var search = root.querySelector('[data-um-gnome-search]');
+        if (search) {
+            search.addEventListener('input', function onGnomeSearch() {
+                var query = search.value.trim();
+                if (!query) {
+                    setStatus('Catalogue AppStream (simulation)');
+                    return;
+                }
+                setStatus('Recherche « ' + query + ' » (simulation).');
+            });
+        }
+    }
+
     function bindOnce() {
         const root = findRoot();
         if (!root || root.dataset.umInit === 'true') {
@@ -729,26 +924,7 @@
         }
         if (root.classList.contains('update-manager--gnome')) {
             root.dataset.umInit = 'true';
-            root.addEventListener('click', (event) => {
-                const action = event.target.closest('[data-um-gnome-action]');
-                if (!action || !root.contains(action)) {
-                    return;
-                }
-                event.preventDefault();
-                const id = action.getAttribute('data-um-gnome-action');
-                if (id === 'check') {
-                    setStatus('Recherche de mises à jour… (simulation)');
-                    return;
-                }
-                if (id === 'updateAll') {
-                    setStatus('Toutes les mises à jour installées (simulation).');
-                    setTrayBadgeVisible(false);
-                    return;
-                }
-                if (id === 'updateOne') {
-                    setStatus('Mise à jour installée (simulation).');
-                }
-            });
+            bindGnomeSoftware(root);
             return;
         }
         detectLayout();

@@ -187,20 +187,20 @@
     "update_manager": {
       "slot": "update_manager",
       "label": "Logiciels (GNOME Software)",
-      "pi": 85,
-      "status": "partiel",
+      "pi": 96,
+      "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 84,
-        "int": 83,
-        "ctx": 80,
-        "kb": 86,
-        "data": 88
+        "vis": 97,
+        "nav": 96,
+        "int": 95,
+        "ctx": 93,
+        "kb": 96,
+        "data": 96
       },
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "notes": "Capture software ; slot P0 smoke OK",
-      "lastPass": "2026-06-10T11:15:53.126Z",
-      "checksPassed": 6,
+      "updatedAt": "2026-06-10T12:00:00.000Z",
+      "notes": "C13 — explore grid, catégories, fiche app, bannière MAJ ; capture Capsule OK ; VM D-Bus bloquée",
+      "lastPass": "2026-06-10T12:00:00.000Z",
+      "checksPassed": 8,
       "checksTotal": 8
     },
     "text_editor": {
@@ -278,12 +278,12 @@
       "checksTotal": 8
     }
   },
-  "pi_global": 90,
+  "pi_global": 91,
   "status_global": "ok",
   "gaps": [
-    "Captures VM apps P0/P1 : D-Bus Shell.Screenshot AccessDenied + virsh indisponible sur hôte agent",
+    "Captures VM apps P0/P1 : D-Bus Shell.Screenshot AccessDenied + virsh almalinux10 absent hôte agent",
     "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
     "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
   ],
-  "updatedAt": "2026-06-10T11:15:53.127Z"
+  "updatedAt": "2026-06-10T12:00:00.000Z"
 }

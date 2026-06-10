@@ -158,6 +158,7 @@ function updateTerminalPrompt(elements, session) {
     paintTerminalPrompt(elements.prompt, promptText);
     const windowElement = elements.app.closest('.windowElement');
     syncGnomeTerminalTitle(windowElement, promptText);
+    syncTerminalGnomeDataset(windowElement);
 }
 
 function createFedoraTerminalButton(className, label, text) {
@@ -175,10 +176,68 @@ function resolveFedoraTerminalPrompt() {
     const profile = typeof window.CAPSULE_TERMINAL_PROFILE === 'string'
         ? window.CAPSULE_TERMINAL_PROFILE
         : '';
-    if ((document.body && document.body.id === 'rocky') || profile === 'rocky') {
+    const bodyId = document.body && document.body.id ? document.body.id : '';
+    if (bodyId === 'rocky' || profile === 'rocky') {
         return 'capsule@rocky:~';
     }
+    if (bodyId === 'alma' || profile === 'alma') {
+        return 'capsule@alma:~';
+    }
+    if (bodyId === 'ubuntu' || profile === 'ubuntu') {
+        return 'capsule@ubuntu:~';
+    }
     return 'fed@fedora:~';
+}
+
+function supportsTerminalGnomeDataset() {
+    return usesPtyxisTerminalChrome();
+}
+
+function syncTerminalGnomeDataset(windowElement) {
+    if (!supportsTerminalGnomeDataset()) {
+        return;
+    }
+    const win = windowElement && windowElement.dataset && windowElement.dataset.link === 'terminal'
+        ? windowElement
+        : (windowElement && windowElement.closest
+            ? windowElement.closest('.windowElement[data-link="terminal"]')
+            : null)
+        || document.querySelector('.windowElement.windowElementActive[data-link="terminal"]')
+        || document.querySelector('.windowElement[data-link="terminal"]');
+    if (!win) {
+        return;
+    }
+    const app = win.querySelector('[data-terminal-app]');
+    const session = app && app.__capsuleTerminalSession;
+    const tabState = win.__capsuleTerminalTabState;
+    const promptText = session && typeof session.getPrompt === 'function'
+        ? session.getPrompt()
+        : `${resolveFedoraTerminalPrompt()}$ `;
+    const tabCount = tabState && Array.isArray(tabState.tabs) ? tabState.tabs.length : 1;
+    const activeTabId = tabState && tabState.activeTabId ? tabState.activeTabId : 'tab-1';
+    const cwd = session && session.state ? session.state.cwd : '/';
+    const history = session && session.state && Array.isArray(session.state.history)
+        ? session.state.history
+        : [];
+    const lastCmd = history.length ? history[history.length - 1] : '';
+    const ready = app && app.dataset.terminalReady === 'true';
+    const markers = [
+        win.querySelector('[data-terminal-gnome-root]'),
+        win.querySelector('#terminalContainer'),
+        app,
+    ].filter(Boolean);
+    markers.forEach((node) => {
+        node.dataset.terminalGnomeInit = ready ? 'true' : 'false';
+        node.dataset.terminalGnomePrompt = String(promptText).replace(/\$\s*$/, '').trim();
+        node.dataset.terminalGnomeTabCount = String(tabCount);
+        node.dataset.terminalGnomeActiveTabId = activeTabId;
+        node.dataset.terminalGnomeCwd = cwd;
+        node.dataset.ptyxisGnomeProvider = 'ptyxis-gnome';
+        node.dataset.terminalGnomeChrome = 'ptyxis';
+        if (lastCmd) {
+            node.dataset.terminalGnomeLastCommand = lastCmd;
+        }
+    });
 }
 
 function ensureFedoraTerminalWindowControls(header) {
@@ -1106,12 +1165,14 @@ function initTerminalForContainer(windowElement) {
             if (typeof window.syncTerminalTabs === 'function') {
                 window.syncTerminalTabs(host);
             }
+            syncTerminalGnomeDataset(host);
             elements.commandInput.focus();
         });
 
         if (typeof window.scheduleTerminalTabsBind === 'function') {
             window.scheduleTerminalTabsBind(host);
         }
+        syncTerminalGnomeDataset(host);
         delete window.CAPSULE_TERMINAL_FORCE_FRESH;
 
         if (host.classList.contains('windowElementActive')) {
@@ -1204,6 +1265,8 @@ if (typeof window !== 'undefined') {
     window.updateTerminalPrompt = updateTerminalPrompt;
     window.scrollTerminalToBottom = scrollTerminalToBottom;
     window.resolveFedoraTerminalPrompt = resolveFedoraTerminalPrompt;
+    window.supportsTerminalGnomeDataset = supportsTerminalGnomeDataset;
+    window.syncTerminalGnomeDataset = syncTerminalGnomeDataset;
     window.initTerminalForContainer = initTerminalForContainer;
     window.initTerminalWhenReady = initTerminalWhenReady;
     window.mapExplorerPathToTerminalCwd = mapExplorerPathToTerminalCwd;

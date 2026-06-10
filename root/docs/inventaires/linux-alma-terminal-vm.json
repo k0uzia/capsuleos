@@ -11,8 +11,11 @@
     "shell": "/bin/bash",
     "terminalApp": "Ptyxis",
     "terminalId": "org.gnome.Ptyxis",
+    "ptyxisVersion": "47.13",
+    "vteVersion": "0.78.6",
+    "locale": "fr_FR.UTF-8",
     "sessionType": "wayland-xwayland",
-    "notes": "AlmaLinux 10.2 Workstation — Ptyxis ; hostname localhost-live"
+    "notes": "AlmaLinux 10.2 Workstation — Ptyxis 47.13 ; hostname localhost-live ; libellés fr_FR (Nouvel onglet, Terminal)"
   },
   "capsule": {
     "skin": "home/RedHat/Alma/index.html",
@@ -603,11 +606,28 @@
       "root/docs/inventaires/view-refresh-vigilance-playbook.json"
     ]
   },
+  "labelsFr": {
+    "appName": "Terminal",
+    "genericName": "Terminal",
+    "comment": "Un terminal orienté conteneur pour GNOME",
+    "newTab": "Nouvel onglet",
+    "newWindow": "Nouvelle fenêtre",
+    "preferences": "Préférences"
+  },
+  "userScenarios": {
+    "contract": "etc/capsuleos/contracts/terminal-user-scenarios.json",
+    "campaign": "C28",
+    "ids": ["Te1", "Te2", "Te3", "Te4"],
+    "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-terminal-scenarios.mjs",
+    "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-terminal-views.mjs",
+    "status": "pass",
+    "collectedAt": "2026-06-10"
+  },
   "formalState": {
     "Ti": true,
     "To": false,
     "Tb": false,
-    "TΣ": false
+    "TΣ": true
   },
   "derivedDistros": [
     {

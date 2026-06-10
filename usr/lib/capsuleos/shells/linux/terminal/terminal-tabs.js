@@ -436,6 +436,9 @@
         captureTabSession(tab, session, elements);
         renderTerminalTabs(resolvedWindow);
         persistTabsToStorage(resolvedWindow);
+        if (typeof global.syncTerminalGnomeDataset === 'function') {
+            global.syncTerminalGnomeDataset(resolvedWindow);
+        }
     }
 
     function activateTerminalTab(tabId) {

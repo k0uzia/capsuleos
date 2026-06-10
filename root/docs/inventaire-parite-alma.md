@@ -96,6 +96,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C25 | Capture d'écran | Sc1 config · Sc2 fenêtre · Sc3 capture · Sc4 nouvelle (Capsule-only) | `smoke-gnome-screenshot-scenarios.mjs` |
 | C26 | Fichiers (Nautilus) | N1 home · N2 Documents/Téléchargements · N3 nouveau dossier · N4 Favoris/Réseau | `smoke-gnome-nautilus-scenarios.mjs` |
 | C27 | Firefox | F1 accueil · F2 barre adresse · F3 onglets · F4 favori La Capsule | `smoke-gnome-firefox-scenarios.mjs` |
+| C28 | Terminal (Ptyxis) | Te1 invite · Te2 pwd/ls · Te3 onglet · Te4 whoami/help | `smoke-gnome-terminal-scenarios.mjs` |
 
 ### Apps P2
 
@@ -125,7 +126,7 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 | dash | `update_manager` | Logiciels | smoke structurel | **S1–S4** | `software-user-scenarios.json` |
 | dash | `text_editor` | Éditeur | smoke structurel | **T1–T4** | `text-editor-user-scenarios.json` |
 | dash | `calendar` | Calendrier | — | **Cal1–Cal4** | `calendar-user-scenarios.json` |
-| dash | `terminal` | Terminal | chrome Ptyxis | routing seul | — |
+| dash | `terminal` | Terminal | chrome Ptyxis | **Te1–Te4** | `terminal-user-scenarios.json` |
 | dash | `nemo` | Fichiers | routing Nautilus | **N1–N4** | `nautilus-user-scenarios.json` |
 | dash | `firefox` | Firefox | onglets Proton | **F1–F4** | `firefox-user-scenarios.json` |
 | grid | `themes` | Paramètres | playbook | **Th1–Th4** | `themes-user-scenarios.json` |
@@ -138,11 +139,10 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 | grid | `librewriter` | LibreOffice Writer | gabarit partiel | — | backlog **C29** |
 | dock | `checklist` | Missions | capsuleOnly | — | backlog **C30** |
 
-### Gaps P0 overview — backlog C28+
+### Gaps P0 overview — backlog C29+
 
 | Cycle | Slot | Action prévue |
 |-------|------|---------------|
-| **C28** | `terminal` | Contrat commandes pédagogiques (réutiliser `terminal-replication-chain`) |
 | **C29** | `librewriter` | Kernel `data-lw-gnome-*` + 4 scénarios document |
 | **C30** | `checklist` | Scénarios Missions `/mnt` |
 
@@ -209,7 +209,7 @@ Artefacts :
 
 ## Prochaines étapes
 
-1. **C28–C30** — scénarios P0 overview gaps : `terminal` → `librewriter` → `checklist`
+1. **C29–C30** — scénarios P0 overview gaps : `librewriter` → `checklist`
 2. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
 3. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
 

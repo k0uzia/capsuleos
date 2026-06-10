@@ -22,7 +22,8 @@
     "system_monitor": "system-monitor-user-scenarios.json",
     "screenshot": "screenshot-user-scenarios.json",
     "nemo": "nautilus-user-scenarios.json",
-    "firefox": "firefox-user-scenarios.json"
+    "firefox": "firefox-user-scenarios.json",
+    "terminal": "terminal-user-scenarios.json"
   },
   "contracts": [
     {
@@ -181,18 +182,21 @@
       "campaign": "C27",
       "status": "ok",
       "note": "Firefox 140 ESR · chrome Proton GNOME · F1–F4 navigation/onglets/favoris"
+    },
+    {
+      "id": "terminal",
+      "slot": "terminal",
+      "labelFr": "Terminal (Ptyxis)",
+      "contract": "etc/capsuleos/contracts/terminal-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-terminal-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-terminal-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-terminal-views.mjs",
+      "campaign": "C28",
+      "status": "ok",
+      "note": "Ptyxis 47.x · invite capsule@host · Te1–Te4 commandes/onglets · anti-régression Mint Konsole"
     }
   ],
   "backlog": [
-    {
-      "slot": "terminal",
-      "labelFr": "Terminal (Ptyxis)",
-      "priorite": "P0",
-      "placement": ["dash", "overview"],
-      "smokeStructurel": "smoke-terminal-ptyxis-chrome.mjs",
-      "campaign": "C28",
-      "note": "Chaîne terminal-replication-chain — scénarios pédagogiques commandes"
-    },
     {
       "slot": "librewriter",
       "labelFr": "LibreOffice Writer",

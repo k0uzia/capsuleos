@@ -136,11 +136,18 @@ Intégrée dans `validate-quality-all.mjs` et donc `validate-all.mjs`.
 
 > Firefox 140 ESR Alma · chrome Proton GNOME · scénarios F1–F4 (accueil, barre adresse, onglets, favori La Capsule).
 
-### Gaps P0 — backlog C28+
+### Slots câblés C28 (Terminal Ptyxis)
+
+| Zone | Slot | Label | Contrat | Cycle |
+|------|------|-------|---------|-------|
+| dash | `terminal` | Terminal | `terminal-user-scenarios.json` | **C28** |
+
+> Ptyxis 47.13 Alma · chrome header onglets · scénarios Te1–Te4 (invite, pwd/ls, onglet, whoami/help).
+
+### Gaps P0 — backlog C29+
 
 | Slot | Label | Zone | Smoke structurel existant | Cycle prévu |
 |------|-------|------|---------------------------|-------------|
-| `terminal` | Terminal | dash + grid | `smoke-terminal-ptyxis-chrome.mjs` | **C28** |
 | `librewriter` | LibreOffice Writer | grid + dock | — | **C29** |
 | `checklist` | Missions | dock | capsuleOnly | **C30** |
 

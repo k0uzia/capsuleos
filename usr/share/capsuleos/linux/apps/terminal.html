@@ -1,4 +1,4 @@
-<div id="terminalContainer" class="capsule-terminal-shell">
+<div id="terminalContainer" class="capsule-terminal-shell" data-terminal-gnome-root data-ptyxis-gnome-root>
     <header class="capsule-terminal-toolbar" data-konsole-toolbar aria-label="Barre d'outils Konsole">
         <div class="capsule-terminal-toolbar__group capsule-terminal-toolbar__group--left">
             <button type="button" class="capsule-terminal-toolbar__btn" data-konsole-action="new-tab">
@@ -30,14 +30,16 @@
             </button>
         </div>
     </header>
-    <section class="capsule-terminal" data-terminal-app>
-        <div id="output" class="capsule-terminal__output" data-terminal-output></div>
-        <form id="input" class="capsule-terminal__input" data-terminal-form>
-            <span id="prompt" class="capsule-terminal__prompt" data-terminal-prompt></span>
+    <section class="capsule-terminal" data-terminal-app data-ptyxis-gnome-app>
+        <div id="output" class="capsule-terminal__output" data-terminal-output data-terminal-gnome-output data-ptyxis-gnome-output></div>
+        <form id="input" class="capsule-terminal__input" data-terminal-form data-terminal-gnome-input-row>
+            <span id="prompt" class="capsule-terminal__prompt" data-terminal-prompt data-terminal-gnome-prompt data-ptyxis-gnome-prompt></span>
             <input
                 id="command"
                 class="capsule-terminal__command"
                 data-terminal-command
+                data-terminal-gnome-command
+                data-ptyxis-gnome-command
                 type="text"
                 autocomplete="off"
                 spellcheck="false"

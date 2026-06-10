@@ -152,14 +152,18 @@ export const resolveStoreEntries = (registryId) => {
   return entries;
 };
 
+export const resolveStoreToolkit = (binding) => binding?.storeToolkit || binding?.toolkit || 'gnome';
+
 export const buildStoreAppsByRegistry = () => {
   const bindings = loadPresentationBindings();
   const out = {};
-  for (const registryId of Object.keys(bindings.bindings || {})) {
-    const entries = buildStoreCatalogEntries(registryId);
-    if (entries.length) {
-      out[registryId] = entries;
+  for (const [registryId, binding] of Object.entries(bindings.bindings || {})) {
+    if (binding.storeCatalogStatus === 'deferred') {
+      out[registryId] = [];
+      continue;
     }
+    const entries = buildStoreCatalogEntries(registryId);
+    out[registryId] = entries;
   }
   return out;
 };

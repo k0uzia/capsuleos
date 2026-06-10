@@ -16,19 +16,23 @@ Couche dérivée runtime : `var/lib/capsuleos/generated/capsule-store-catalog.js
 
 Chaque OS expose un **StoreFront** (slot UI du magasin natif) :
 
-| registryId | StoreFront slot | Label |
-|------------|-----------------|-------|
-| linux-alma | `update_manager` | Logiciels |
-| linux-rocky | `update_manager` | Logiciels |
-| linux-fedora | `update_manager` | Logiciels |
-| linux-ubuntu | `update_manager` | Centre d'applications |
-| linux-mint | `mintinstall` | Logithèque |
+| registryId | StoreFront slot | Label | Apps magasin |
+|------------|-----------------|-------|--------------|
+| linux-alma | `update_manager` | Logiciels | 11 |
+| linux-rocky | `update_manager` | Logiciels | 11 |
+| linux-fedora | `update_manager` | Logiciels | 11 |
+| linux-ubuntu | `update_manager` | Centre d'applications | 11 |
+| linux-popos | `update_manager` | Pop Shop | 11 |
+| linux-anduinos | `update_manager` | Logiciels | 11 |
+| linux-mint | `mintinstall` | Logithèque | 0 (VM pré-installé) |
+| linux-kde-neon | `update_manager` | Discover | 0 (deferred) |
+| linux-opensuse | `update_manager` | Discover | 0 (deferred) |
 
 `resolveAppContext(registryId, slotId)` (via `capsule-app-resolver.mjs`) fusionne :
 
 1. `registryOverrides` VM (`apps-catalog.json`)
 2. entrées `storeInstallable` du registry
-3. variant toolkit depuis `slots-manifest` + `slotVariantOverrides`
+3. variant toolkit depuis `slots-manifest` + `slotVariantOverrides` (`storeToolkit` pour cosmic → gnome)
 
 ## Règle « nouvel OS = 4 fichiers seulement »
 
@@ -63,7 +67,11 @@ StoreΣ(r) ≡ SlotF ∧ PresB(r) ∧ GenStore(r) ∧ StoreIntegrity
 | **GenStore** | `capsule-store-catalog.js` à jour | `validate-store-catalog-generated.mjs` |
 | **StoreIntegrity** | store ↔ slots ↔ toolkit variants | `validate-app-catalog-integrity.mjs` |
 
-Pilote actuel : **linux-alma** et **linux-rocky** — 11 apps magasin chacun, scénarios S1–S12 (S5–S12 partagés Alma/Rocky).
+Pilotes GNOME actifs : **11 apps** chacun (S1–S12 partagés Alma/Rocky/Fedora/Ubuntu/PopOS/AnduinOS).
+
+KDE (`linux-kde-neon`, `linux-opensuse`) : `storeCatalogStatus: deferred` — catalogue généré vide, UI Discover sans grille store P1.
+
+Mint : `storeCatalogStatus: vm-preinstalled` — catalogue généré branché (`mint-store-catalog.js`), Logithèque conserve son catalogue hardcodé.
 
 ## Flux génération
 
@@ -90,7 +98,7 @@ flowchart LR
 
 | Outil | Usage |
 |-------|-------|
-| `capsule-app-resolver.mjs` | `resolveSlotManifest`, `resolveStoreEntries`, `resolvePresentation` |
+| `capsule-app-resolver.mjs` | `resolveSlotManifest`, `resolveStoreEntries`, `resolvePresentation`, `resolveStoreToolkit` |
 | `generate-store-catalog.mjs` | Régénère le catalogue runtime |
 | `generate-mint-registry-overrides.mjs` | Bootstrap `registryOverrides.linux-mint` depuis inventaire |
 | `validate-app-catalog-integrity.mjs` | Gate agrégateur StoreΣ |

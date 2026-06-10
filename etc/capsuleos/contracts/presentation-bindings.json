@@ -51,10 +51,58 @@
       "bodyId": "mint",
       "toolkit": "cinnamon",
       "localeDefault": "fr",
+      "storeCatalogStatus": "vm-preinstalled",
       "storeFront": {
         "slot": "mintinstall",
         "labelFr": "Logithèque",
         "sources": ["apt", "flatpak"]
+      }
+    },
+    "linux-popos": {
+      "registryId": "linux-popos",
+      "bodyId": "popos",
+      "toolkit": "cosmic",
+      "storeToolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Pop Shop",
+        "sources": ["deb", "flatpak"]
+      }
+    },
+    "linux-anduinos": {
+      "registryId": "linux-anduinos",
+      "bodyId": "anduinos",
+      "toolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Logiciels",
+        "sources": ["deb", "flatpak"]
+      }
+    },
+    "linux-kde-neon": {
+      "registryId": "linux-kde-neon",
+      "bodyId": "kde-neon",
+      "toolkit": "kde",
+      "localeDefault": "fr",
+      "storeCatalogStatus": "deferred",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Discover",
+        "sources": ["apt", "flatpak"]
+      }
+    },
+    "linux-opensuse": {
+      "registryId": "linux-opensuse",
+      "bodyId": "opensuse",
+      "toolkit": "kde",
+      "localeDefault": "fr",
+      "storeCatalogStatus": "deferred",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Discover",
+        "sources": ["rpm", "flatpak"]
       }
     }
   }

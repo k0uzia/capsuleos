@@ -1,6 +1,6 @@
 # Analyse magasins apps cross-OS
 
-**Statut contrat** : `store-installable-apps.json` — **actif** (pilotes Alma + Rocky, architecture centralisée juin 2026)  
+**Statut contrat** : `store-installable-apps.json` — **actif** (tous OS Linux actifs, architecture centralisée juin 2026)  
 **Architecture** : [`architecture-catalogue-apps.md`](architecture-catalogue-apps.md) — slots-manifest + presentation-bindings + générateur `capsule-store-catalog.js`  
 **Référence vision** : analyse `de155a70` · Wave store extension · matrice [`inventaires/store-installable-matrix.json`](inventaires/store-installable-matrix.json)
 
@@ -12,15 +12,33 @@
 | Extension magasin | Apps `storeInstallable: true`, `defaultInstalled: false` — installables via Logiciels / Logithèque simulé |
 | Slot Capsule | Gabarit déjà abouti (Mint v3 ou GNOME ScΣ) — pas de nouveau template inventé |
 
+## Matrice OS actifs × catalogue magasin (juin 2026)
+
+| registryId | StoreFront | Toolkit | Apps store | Smoke S5–S12 | Statut |
+|------------|------------|---------|------------|--------------|--------|
+| linux-alma | update_manager | gnome | 11 | OK | actif |
+| linux-rocky | update_manager | gnome | 11 | OK | actif |
+| linux-fedora | update_manager | gnome | 11 | OK | actif |
+| linux-ubuntu | update_manager | gnome | 11 | deferred | catalogue actif, UI `update_manager_ubuntu` sans grille GNOME |
+| linux-popos | update_manager | cosmic→gnome | 11 | deferred | catalogue actif ; smoke bloqué layout COSMIC (dock) |
+| linux-anduinos | update_manager | gnome | 11 | OK | actif |
+| linux-mint | mintinstall | cinnamon | 0 | deferred | branché (`mint-store-catalog.js`) |
+| linux-kde-neon | update_manager | kde | 0 | deferred | gap UI Discover |
+| linux-opensuse | update_manager | kde | 0 | deferred | gap UI Discover |
+
 ## Fronts magasin par OS
 
 | registryId | Slot UI | Label FR | Sources |
 |------------|---------|----------|---------|
 | linux-mint | mintinstall | Logithèque | apt, flatpak |
 | linux-rocky | update_manager | Logiciels | rpm, flatpak |
-| **linux-alma** | **update_manager** | **Logiciels** | **rpm, flatpak** |
+| linux-alma | update_manager | Logiciels | rpm, flatpak |
 | linux-fedora | update_manager | Logiciels | rpm, flatpak |
 | linux-ubuntu | update_manager (snap-store) | Centre d'applications | snap, deb, flatpak |
+| linux-popos | update_manager (Pop Shop) | Pop Shop | deb, flatpak |
+| linux-anduinos | update_manager | Logiciels | deb, flatpak |
+| linux-kde-neon | update_manager (Discover) | Discover | apt, flatpak — catalogue deferred |
+| linux-opensuse | update_manager (Discover) | Discover | rpm, flatpak — catalogue deferred |
 
 ## Pilote Alma (Wave store juin 2026)
 
@@ -94,7 +112,7 @@ Contrat : `etc/capsuleos/contracts/software-user-scenarios.json`
 | **S12** | Numériseur simple rpm → Installées |
 | S8 | Erreur réseau (optionnel) |
 
-Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma` · `smoke-gnome-software-scenarios.mjs --id linux-rocky`
+Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma` · `--id linux-rocky` · `--id linux-fedora` · `--id linux-anduinos` — Ubuntu/Pop!_OS : deferred (templates/layout)
 
 Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/alma-capsule-store-*.png`
 
@@ -103,9 +121,20 @@ Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/
 - `validate-store-installable-apps.mjs` — P0×3 + P1×8 Alma
 - `validate-software-user-scenarios.mjs` — S1–S7 + S9–S12
 
+## Mint (Logithèque)
+
+- Catalogue généré : **0 apps** (`storeCatalogStatus: vm-preinstalled` — ground truth VM pré-installé)
+- Runtime : `capsule-store-catalog.js` + `mint-store-catalog.js` branchés sur `home/Debian/Mint/`
+- UI : `mintinstall.js` conserve son catalogue pédagogique hardcodé ; fusion store généré = vague ultérieure
+- Smoke : `smoke-mint-nemo.mjs` (pas de régression Nemo)
+
+## KDE (deferred)
+
+- `linux-kde-neon` / `linux-opensuse` : `presentation-bindings` + `storeCatalogStatus: deferred`
+- Catalogue généré vide (0 apps) — pas de `toolkitVariants.kde` pour slots store P1
+- UI Discover (`update_manager_kde*.html`) sans grille « À découvrir » store — documenter avant implémentation
+
 ## Prochaines vagues
 
-- **Rocky** : activé (juin 2026) — voir § Pilote Rocky
-- Fedora : activer skin + scénarios (catalogue contrat déjà prêt)
-- Mint : Logithèque (`mintinstall`) — pattern apt/flatpak distinct
-- Ubuntu : snap-store + flatpak via plugin gnome-software
+- Mint : fusion catalogue généré → section Logithèque « À découvrir »
+- KDE : slots store + UI Discover grille (quand `toolkitVariants.kde` aboutis)

@@ -64,11 +64,16 @@ if (!kernel.includes('bindGnomeSoftware')) {
 if (!html.includes('data-um-gnome-discover-grid')) {
     errors.push('update_manager_gnome.html : grille À découvrir absente');
 }
-if (opts.id === 'linux-alma' && !storeGenerated.includes('"linux-alma"')) {
-    errors.push('capsule-store-catalog.js : pilote Alma absent');
-}
-if (opts.id === 'linux-rocky' && !storeGenerated.includes('"linux-rocky"')) {
-    errors.push('capsule-store-catalog.js : catalogue Rocky absent');
+const STORE_PILOTES = {
+    'linux-alma': 11,
+    'linux-rocky': 11,
+    'linux-fedora': 11,
+    'linux-ubuntu': 11,
+    'linux-popos': 11,
+    'linux-anduinos': 11,
+};
+if (STORE_PILOTES[opts.id] && !storeGenerated.includes(`"${opts.id}"`)) {
+    errors.push(`capsule-store-catalog.js : catalogue ${opts.id} absent`);
 }
 if (!storeKernel.includes('CAPSULE_STORE_APPS_BY_REGISTRY')) {
     errors.push('gnome-store-catalog.js : consommation catalogue généré absente');

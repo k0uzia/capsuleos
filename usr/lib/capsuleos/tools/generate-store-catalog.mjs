@@ -40,6 +40,7 @@ const out = `${banner}(function initCapsuleStoreCatalog(global) {
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, out, 'utf8');
 
-const almaCount = runtimeEntries['linux-alma']?.length || 0;
-const rockyCount = runtimeEntries['linux-rocky']?.length || 0;
-console.log(`Écrit ${path.relative(ROOT, OUT)} — ${Object.keys(runtimeEntries).length} registry, linux-alma: ${almaCount} apps, linux-rocky: ${rockyCount} apps`);
+const parts = Object.entries(runtimeEntries)
+  .map(([id, list]) => `${id}: ${list.length}`)
+  .join(', ');
+console.log(`Écrit ${path.relative(ROOT, OUT)} — ${Object.keys(runtimeEntries).length} registry (${parts})`);

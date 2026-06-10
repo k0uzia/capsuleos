@@ -14,7 +14,9 @@
     "namespace": "capsule-store-installed",
     "keyTemplate": "capsule-store-installed:{registryId}",
     "valueShape": {
-      "appIds": ["string — desktopId ou flatpak app id"],
+      "appIds": [
+        "string — desktopId ou flatpak app id"
+      ],
       "installedAt": "ISO8601",
       "source": "rpm | apt | flatpak | snap"
     },
@@ -31,37 +33,95 @@
     "linux-mint": {
       "slot": "mintinstall",
       "labelFr": "Logithèque",
-      "sources": ["apt", "flatpak"],
+      "sources": [
+        "apt",
+        "flatpak"
+      ],
       "doc": "https://mintguide.miraheze.org/wiki/Software_Manager"
     },
     "linux-rocky": {
       "slot": "update_manager",
       "appId": "org.gnome.Software",
       "labelFr": "Logiciels",
-      "sources": ["rpm", "flatpak"],
+      "sources": [
+        "rpm",
+        "flatpak"
+      ],
       "doc": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/administering_rhel_by_using_the_gnome_desktop_environment/installing-applications-by-using-flatpak"
     },
     "linux-alma": {
       "slot": "update_manager",
       "appId": "org.gnome.Software",
       "labelFr": "Logiciels",
-      "sources": ["rpm", "flatpak"],
+      "sources": [
+        "rpm",
+        "flatpak"
+      ],
       "doc": "https://flathub.org/en/setup/AlmaLinux"
     },
     "linux-fedora": {
       "slot": "update_manager",
       "appId": "org.gnome.Software",
       "labelFr": "Logiciels",
-      "sources": ["rpm", "flatpak"],
+      "sources": [
+        "rpm",
+        "flatpak"
+      ],
       "doc": "https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/"
     },
     "linux-ubuntu": {
       "slot": "update_manager",
       "appId": "snap-store",
       "labelFr": "Centre d'applications",
-      "sources": ["snap", "deb", "flatpak"],
+      "sources": [
+        "snap",
+        "deb",
+        "flatpak"
+      ],
       "flatpakNote": "Flatpak via gnome-software + plugin — absent App Center par défaut",
       "doc": "https://ubuntu.fan/en/docs/desktop-use/basics/software-install"
+    },
+    "linux-popos": {
+      "slot": "update_manager",
+      "appId": "pop-shop",
+      "labelFr": "Pop Shop",
+      "sources": [
+        "deb",
+        "flatpak"
+      ],
+      "doc": "https://support.system76.com/articles/install-pop-shop/"
+    },
+    "linux-anduinos": {
+      "slot": "update_manager",
+      "appId": "org.gnome.Software",
+      "labelFr": "Logiciels",
+      "sources": [
+        "deb",
+        "flatpak"
+      ],
+      "doc": "https://wiki.gnome.org/Apps/Software"
+    },
+    "linux-kde-neon": {
+      "slot": "update_manager",
+      "appId": "org.kde.discover",
+      "labelFr": "Discover",
+      "sources": [
+        "apt",
+        "flatpak"
+      ],
+      "storeCatalogStatus": "deferred",
+      "doc": "https://apps.kde.org/discover/"
+    },
+    "linux-opensuse": {
+      "slot": "update_manager",
+      "appId": "org.kde.discover",
+      "labelFr": "Discover",
+      "sources": [
+        "rpm",
+        "flatpak"
+      ],
+      "storeCatalogStatus": "deferred",
+      "doc": "https://en.opensuse.org/Portal:Software_management"
     }
   },
   "apps": [
@@ -73,11 +133,32 @@
       "crossOs": true,
       "recommendation": "P0-store",
       "sources": {
-        "linux-mint": { "apt": "firefox", "flatpak": "org.mozilla.firefox", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "firefox", "flatpak": "org.mozilla.firefox", "defaultInstalled": true },
-        "linux-alma": { "rpm": "firefox", "flatpak": "org.mozilla.firefox", "defaultInstalled": true },
-        "linux-fedora": { "rpm": "firefox", "flatpak": "org.mozilla.firefox", "defaultInstalled": true },
-        "linux-ubuntu": { "snap": "firefox", "deb": "firefox", "defaultInstalled": true, "note": "Snap recommandé archive Ubuntu 26.04" }
+        "linux-mint": {
+          "apt": "firefox",
+          "flatpak": "org.mozilla.firefox",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "firefox",
+          "flatpak": "org.mozilla.firefox",
+          "defaultInstalled": true
+        },
+        "linux-alma": {
+          "rpm": "firefox",
+          "flatpak": "org.mozilla.firefox",
+          "defaultInstalled": true
+        },
+        "linux-fedora": {
+          "rpm": "firefox",
+          "flatpak": "org.mozilla.firefox",
+          "defaultInstalled": true
+        },
+        "linux-ubuntu": {
+          "snap": "firefox",
+          "deb": "firefox",
+          "defaultInstalled": true,
+          "note": "Snap recommandé archive Ubuntu 26.04"
+        }
       }
     },
     {
@@ -88,11 +169,28 @@
       "crossOs": true,
       "recommendation": "P0-store",
       "sources": {
-        "linux-mint": { "apt": "xed", "desktopId": "org.x.editor.desktop", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "gnome-text-editor", "desktopId": "org.gnome.TextEditor.desktop", "defaultInstalled": true },
-        "linux-alma": { "rpm": "gnome-text-editor", "defaultInstalled": true },
-        "linux-fedora": { "rpm": "gnome-text-editor", "defaultInstalled": true },
-        "linux-ubuntu": { "deb": "gnome-text-editor", "defaultInstalled": true }
+        "linux-mint": {
+          "apt": "xed",
+          "desktopId": "org.x.editor.desktop",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "gnome-text-editor",
+          "desktopId": "org.gnome.TextEditor.desktop",
+          "defaultInstalled": true
+        },
+        "linux-alma": {
+          "rpm": "gnome-text-editor",
+          "defaultInstalled": true
+        },
+        "linux-fedora": {
+          "rpm": "gnome-text-editor",
+          "defaultInstalled": true
+        },
+        "linux-ubuntu": {
+          "deb": "gnome-text-editor",
+          "defaultInstalled": true
+        }
       }
     },
     {
@@ -103,11 +201,27 @@
       "crossOs": true,
       "recommendation": "P0-store",
       "sources": {
-        "linux-mint": { "apt": "gnome-calculator", "desktopId": "org.gnome.Calculator.desktop", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "gnome-calculator", "defaultInstalled": true },
-        "linux-alma": { "rpm": "gnome-calculator", "defaultInstalled": true },
-        "linux-fedora": { "rpm": "gnome-calculator", "defaultInstalled": true },
-        "linux-ubuntu": { "deb": "gnome-calculator", "defaultInstalled": true }
+        "linux-mint": {
+          "apt": "gnome-calculator",
+          "desktopId": "org.gnome.Calculator.desktop",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "gnome-calculator",
+          "defaultInstalled": true
+        },
+        "linux-alma": {
+          "rpm": "gnome-calculator",
+          "defaultInstalled": true
+        },
+        "linux-fedora": {
+          "rpm": "gnome-calculator",
+          "defaultInstalled": true
+        },
+        "linux-ubuntu": {
+          "deb": "gnome-calculator",
+          "defaultInstalled": true
+        }
       }
     },
     {
@@ -125,15 +239,53 @@
         "version": "47.0",
         "size": "~5 Mo",
         "iconClass": "gnome-software__cardicon--calendar",
-        "categories": ["productivity"],
-        "placement": { "overview": true, "dash": true }
+        "categories": [
+          "productivity"
+        ],
+        "placement": {
+          "overview": true,
+          "dash": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "gnome-calendar", "desktopId": "org.gnome.Calendar.desktop", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "org.gnome.Calendar", "desktopId": "org.gnome.Calendar.desktop", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "org.gnome.Calendar", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "gnome-calendar", "defaultInstalled": true },
-        "linux-ubuntu": { "deb": "gnome-calendar", "flatpak": "org.gnome.Calendar", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "gnome-calendar",
+          "desktopId": "org.gnome.Calendar.desktop",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "org.gnome.Calendar",
+          "desktopId": "org.gnome.Calendar.desktop",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "org.gnome.Calendar",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "gnome-calendar",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "gnome-calendar",
+          "flatpak": "org.gnome.Calendar",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "gnome-calendar",
+          "flatpak": "org.gnome.Calendar",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "org.gnome.Calendar",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -150,15 +302,49 @@
         "version": "43.0",
         "size": "~2 Mo",
         "iconClass": "gnome-software__cardicon--file-roller",
-        "categories": ["utilities"],
-        "placement": { "overview": true }
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "file-roller", "desktopId": "org.gnome.FileRoller.desktop", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "file-roller", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "rpm": "file-roller", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "file-roller", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "file-roller", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "file-roller",
+          "desktopId": "org.gnome.FileRoller.desktop",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "file-roller",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "rpm": "file-roller",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "file-roller",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "file-roller",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "file-roller",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "defaultInstalled": false,
+          "storeInstallable": true,
+          "deb": "file-roller"
+        }
       }
     },
     {
@@ -169,7 +355,12 @@
       "crossOs": true,
       "recommendation": "P1-store",
       "postInstallSlot": "librewriter",
-      "relatedSlots": ["librecalc", "libreoffice_draw", "libreoffice_impress", "librewriter"],
+      "relatedSlots": [
+        "librecalc",
+        "libreoffice_draw",
+        "libreoffice_impress",
+        "librewriter"
+      ],
       "storeCatalog": {
         "id": "libreoffice",
         "sub": "Suite bureautique",
@@ -177,15 +368,51 @@
         "version": "24.8",
         "size": "~280 Mo",
         "iconClass": "gnome-software__cardicon--libreoffice",
-        "categories": ["productivity", "creation"],
-        "placement": { "overview": true, "dash": true }
+        "categories": [
+          "productivity",
+          "creation"
+        ],
+        "placement": {
+          "overview": true,
+          "dash": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "libreoffice", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "org.libreoffice.LibreOffice", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "org.libreoffice.LibreOffice", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "libreoffice", "flatpak": "org.libreoffice.LibreOffice", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "libreoffice", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "libreoffice",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "libreoffice",
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "libreoffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "libreoffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -202,15 +429,48 @@
         "version": "128.0",
         "size": "~85 Mo",
         "iconClass": "gnome-software__cardicon--thunderbird",
-        "categories": ["productivity"],
-        "placement": { "overview": true }
+        "categories": [
+          "productivity"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "thunderbird", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "org.mozilla.Thunderbird", "rpm": "thunderbird", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "org.mozilla.Thunderbird", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "thunderbird", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "snap": "thunderbird", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "thunderbird",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "org.mozilla.Thunderbird",
+          "rpm": "thunderbird",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "org.mozilla.Thunderbird",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "thunderbird",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "snap": "thunderbird",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "org.mozilla.Thunderbird",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -227,15 +487,49 @@
         "version": "4.0",
         "size": "~8 Mo",
         "iconClass": "gnome-software__cardicon--transmission",
-        "categories": ["utilities"],
-        "placement": { "overview": true }
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "transmission-gtk", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "transmission", "flatpak": "com.transmissionbt.Transmission", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "com.transmissionbt.Transmission", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "transmission", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "transmission-gtk", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "transmission-gtk",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "transmission",
+          "flatpak": "com.transmissionbt.Transmission",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "com.transmissionbt.Transmission",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "transmission",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "transmission-gtk",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "transmission-gtk",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "com.transmissionbt.Transmission",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -252,15 +546,48 @@
         "version": "3.4",
         "size": "~12 Mo",
         "iconClass": "gnome-software__cardicon--rhythmbox",
-        "categories": ["multimedia"],
-        "placement": { "overview": true }
+        "categories": [
+          "multimedia"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "rhythmbox", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "rhythmbox", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "rpm": "rhythmbox", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "rhythmbox", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "rhythmbox", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "rhythmbox",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "rhythmbox",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "rpm": "rhythmbox",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "rhythmbox",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "rhythmbox",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "rhythmbox",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "defaultInstalled": false,
+          "storeInstallable": true,
+          "deb": "rhythmbox"
+        }
       }
     },
     {
@@ -278,15 +605,50 @@
         "version": "0.27",
         "size": "~5 Mo",
         "iconClass": "gnome-software__cardicon--lecteur-multimedia",
-        "categories": ["multimedia"],
-        "placement": { "overview": true }
+        "categories": [
+          "multimedia"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "celluloid", "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "totem", "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "totem", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "celluloid",
+          "flatpak": "io.github.celluloid_player.Celluloid",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "io.github.celluloid_player.Celluloid",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "io.github.celluloid_player.Celluloid",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "totem",
+          "flatpak": "io.github.celluloid_player.Celluloid",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "totem",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "totem",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "io.github.celluloid_player.Celluloid",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -303,15 +665,51 @@
         "version": "1.2",
         "size": "~3 Mo",
         "iconClass": "gnome-software__cardicon--drawing",
-        "categories": ["creation"],
-        "placement": { "overview": true }
+        "categories": [
+          "creation"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "drawing", "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "flatpak": "com.github.maoschanz.drawing", "deb": "drawing", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "drawing",
+          "flatpak": "com.github.maoschanz.drawing",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "deb": "drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "deb": "drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "com.github.maoschanz.drawing",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -328,15 +726,48 @@
         "version": "46.0",
         "size": "~4 Mo",
         "iconClass": "gnome-software__cardicon--simple-scan",
-        "categories": ["utilities"],
-        "placement": { "overview": true }
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "simple-scan", "defaultInstalled": true },
-        "linux-rocky": { "rpm": "simple-scan", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "rpm": "simple-scan", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "simple-scan", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "deb": "simple-scan", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "simple-scan",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "rpm": "simple-scan",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "rpm": "simple-scan",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "simple-scan",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "deb": "simple-scan",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "deb": "simple-scan",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "defaultInstalled": false,
+          "storeInstallable": true,
+          "deb": "simple-scan"
+        }
       }
     },
     {
@@ -347,7 +778,10 @@
       "crossOs": false,
       "recommendation": "decorative-only",
       "sources": {
-        "linux-mint": { "apt": "mintdrivers", "defaultInstalled": true }
+        "linux-mint": {
+          "apt": "mintdrivers",
+          "defaultInstalled": true
+        }
       }
     },
     {
@@ -359,7 +793,10 @@
       "recommendation": "decorative-only",
       "note": "Magasin lui-même — équivalent GNOME : org.gnome.Software / Ubuntu : snap-store",
       "sources": {
-        "linux-mint": { "apt": "mintinstall", "defaultInstalled": true }
+        "linux-mint": {
+          "apt": "mintinstall",
+          "defaultInstalled": true
+        }
       }
     },
     {
@@ -376,15 +813,48 @@
         "version": "1.0",
         "size": "~2 Mo",
         "iconClass": "gnome-software__cardicon--warpinator",
-        "categories": ["utilities"],
-        "placement": { "overview": true }
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "warpinator", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "org.x.Warpinator", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "org.x.Warpinator", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "flatpak": "org.x.Warpinator", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "flatpak": "org.x.Warpinator", "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "warpinator",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-anduinos": {
+          "flatpak": "org.x.Warpinator",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     },
     {
@@ -402,15 +872,51 @@
         "version": "24.0",
         "size": "~15 Mo",
         "iconClass": "gnome-software__cardicon--timeshift",
-        "categories": ["utilities"],
-        "placement": { "overview": true }
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
       },
       "sources": {
-        "linux-mint": { "apt": "timeshift", "defaultInstalled": true },
-        "linux-rocky": { "flatpak": "com.timeshift.TimeShift", "defaultInstalled": false, "storeInstallable": true },
-        "linux-alma": { "flatpak": "com.timeshift.TimeShift", "defaultInstalled": false, "storeInstallable": true },
-        "linux-fedora": { "rpm": "timeshift", "defaultInstalled": false, "storeInstallable": true },
-        "linux-ubuntu": { "apt": "timeshift", "ppa": true, "defaultInstalled": false, "storeInstallable": true }
+        "linux-mint": {
+          "apt": "timeshift",
+          "defaultInstalled": true
+        },
+        "linux-rocky": {
+          "flatpak": "com.timeshift.TimeShift",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-alma": {
+          "flatpak": "com.timeshift.TimeShift",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-fedora": {
+          "rpm": "timeshift",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-ubuntu": {
+          "apt": "timeshift",
+          "ppa": true,
+          "defaultInstalled": false,
+          "storeInstallable": true
+        },
+        "linux-popos": {
+          "apt": "timeshift",
+          "ppa": true,
+          "defaultInstalled": false,
+          "storeInstallable": true,
+          "deb": "timeshift"
+        },
+        "linux-anduinos": {
+          "flatpak": "com.timeshift.TimeShift",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
       }
     }
   ]

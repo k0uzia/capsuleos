@@ -29,6 +29,18 @@
         if (bodyId === 'mint') {
             return 'linux-mint';
         }
+        if (bodyId === 'popos') {
+            return 'linux-popos';
+        }
+        if (bodyId === 'anduinos') {
+            return 'linux-anduinos';
+        }
+        if (bodyId === 'kde-neon') {
+            return 'linux-kde-neon';
+        }
+        if (bodyId === 'opensuse') {
+            return 'linux-opensuse';
+        }
         return '';
     }
 

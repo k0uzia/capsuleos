@@ -635,6 +635,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       }
     }
   },
@@ -1425,6 +1428,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       }
     }
   },

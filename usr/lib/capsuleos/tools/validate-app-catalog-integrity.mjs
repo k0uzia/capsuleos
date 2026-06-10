@@ -12,6 +12,7 @@ import {
   loadStoreContract,
   loadPresentationBindings,
   loadAppsCatalogContract,
+  resolveStoreToolkit,
 } from './lab/capsule-app-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -52,7 +53,10 @@ for (const app of store.apps || []) {
       warnings.push(`${app.slot}/${registryId} : storeInstallable sans presentation-binding`);
       continue;
     }
-    const toolkit = binding.toolkit;
+    if (binding.storeCatalogStatus === 'deferred') {
+      continue;
+    }
+    const toolkit = resolveStoreToolkit(binding);
     const slot = slotsManifest.slots[app.slot];
     const depth = slot?.functionalDepth;
     if ((depth === 'full' || depth === 'partial') && !slot.toolkitVariants?.[toolkit]) {

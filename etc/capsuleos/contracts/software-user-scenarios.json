@@ -6,7 +6,7 @@
   "template": "update_manager_gnome.html",
   "kernel": "usr/lib/capsuleos/shells/linux/update-manager.js",
   "storeKernel": "usr/lib/capsuleos/shells/linux/gnome-store-catalog.js",
-  "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-ubuntu"],
+  "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
   "predicates": {
     "ScΣ": "Contrat valide + kernel implémente handlers data-um-gnome-*",
     "Sc1": "S1 install simulé LibreOffice Writer → Ouvrir",
@@ -97,7 +97,7 @@
       "priority": "P0",
       "title": "Magasin — installer Gestionnaire d'archives",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "file-roller",
         "rpm": "file-roller",
@@ -122,7 +122,7 @@
       "priority": "P0",
       "title": "Magasin — installer LibreOffice (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "libreoffice",
         "flatpak": "org.libreoffice.LibreOffice",
@@ -146,7 +146,7 @@
       "priority": "P0",
       "title": "Magasin — installer Agenda (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "calendar",
         "flatpak": "org.gnome.Calendar",
@@ -184,7 +184,7 @@
       "priority": "P1",
       "title": "Magasin — installer Thunderbird (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "thunderbird",
         "flatpak": "org.mozilla.Thunderbird",
@@ -209,7 +209,7 @@
       "priority": "P1",
       "title": "Magasin — installer Transmission (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "transmission",
         "flatpak": "com.transmissionbt.Transmission",
@@ -234,7 +234,7 @@
       "priority": "P1",
       "title": "Magasin — installer Warpinator (Flatpak communautaire)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "warpinator",
         "flatpak": "org.x.Warpinator",
@@ -258,7 +258,7 @@
       "priority": "P1",
       "title": "Magasin — installer Numériseur simple (RPM)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma", "linux-rocky"],
+      "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-anduinos"],
       "vmGroundTruth": {
         "appId": "simple-scan",
         "rpm": "simple-scan",

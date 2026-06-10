@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C20** calendar clôturé.
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C21** playbook Paramètres GNOME dédié clôturé.
 
 ---
 
@@ -12,11 +12,14 @@
 | Composant | Poids | Périmètre |
 |-----------|-------|-----------|
 | Shell | 0,25 | topBar, overview, tray, wallpaper |
-| Apps | 0,75 | 7 slots priority : nemo, firefox, terminal, themes, update_manager, text_editor, calculator |
+| Apps | 0,75 | 7 slots **priority** (gate campagne) : nemo, firefox, terminal, themes, update_manager, text_editor, calculator |
+| Apps étendu | 0,75 | 9 slots (priority + P2 `clocks`, `calendar`) → **Π étendu = 93** (indicatif, non gate) |
 
 Dimensions par slot : `vis`, `nav`, `int`, `ctx`, `kb`, `data` (0–100).
 
 Seuils : **ok ≥ 90** · **partiel ≥ 60**.
+
+Champ machine : `linux-alma-parity-index.json` → `pi_global` (priority) · `pi_global_extended` (tous slots apps documentés).
 
 ---
 
@@ -84,22 +87,46 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 
 ---
 
+## Playbook Paramètres GNOME (C21)
+
+| Étape | Artefact / commande | Résultat |
+|-------|---------------------|----------|
+| Matrice parité | `gnome-settings-parity-matrix-alma.json` | 18 panneaux · `registry: linux-alma` (dérivé Rocky, non legacy) |
+| Matrice assets | `gnome-settings-assets-matrix-alma.json` | 4 entrées : `almalinux-day/night` + watermarks |
+| Collecte VM | `collect-vm-gnome-settings-playbook.mjs --id linux-alma` | **18/18** panneaux · **28** mappés · **0** dérive |
+| Smoke | `smoke-alma-gnome-settings-playbook.mjs` | OK |
+| Chaîne | `verify-gnome-settings-parity-chain.mjs --id linux-alma` | Profil H6 relaxed (sans baseline VM stricte) |
+| H6 | `linux-alma-gnome-settings-h6-closure.json` | Clôturé PbΣ (juin 2026) |
+
+**Dérives Alma vs Rocky** (ground truth VM) :
+
+| Zone | Rocky | Alma |
+|------|-------|------|
+| Fond actif | `rocky-default-10-gemstone-skies-*.png` | `almalinux-day.jpg` / `almalinux-night.jpg` |
+| Catalogue Paramètres | 10 fonds WebP Rocky | tuile `almalinux` (`almaWallpaperCatalog`) |
+| gcc | GNOME 47.x | **47.7** (identique famille) |
+| Baseline JS | `gnome-settings-vm-baseline-linux-rocky.js` | **absent** (profil `requiresBaseline: false`) |
+| Panneaux absents | — | aucun (18/18 comme Rocky) |
+
+Inventaire : [`linux-alma-gnome-settings-playbook.json`](inventaires/linux-alma-gnome-settings-playbook.json)
+
+---
+
 ## Gaps ouverts
 
 | Gap | Tag | Notes |
 |-----|-----|-------|
 | Captures VM pixel-perfect | **Vc** P1 | D-Bus `Shell.Screenshot` AccessDenied via SSH |
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
-| Playbook GNOME Settings Alma | P2 | Hérité Rocky — pas de matrice dupliquée |
-| Watermark Alma | P2 | `fedora_logo_*` non inventorié — gradient CSS |
-| `calendar` | P2 | Π **87** — flatpak org.gnome.Calendar 50.0 (dnf absent) · **Vc** Capsule C20 |
+| Watermark Alma polish | P2 | Assets `fedora_logo_*` (paquet `almalinux-logos`) en dépôt — CSS `--rocky-watermark` à affiner |
+| Vc Paramètres GNOME | P2 | Tour playbook VM OK ; captures comparables Capsule non collectées |
 
 ---
 
 ## Prochaines étapes
 
-1. **C20 clôture calendar** — Cal1–Cal4 verts · Π slot **87** · captures Capsule
-2. **Vc VM** — session GDM locale ou fix D-Bus screenshot
+1. **Vc VM** — session GDM locale ou fix D-Bus screenshot
+2. **Watermark CSS** — aligner `--rocky-watermark` sur filigrane Alma (P2)
 3. **P2 apps** — baobab, tour
 
 ---

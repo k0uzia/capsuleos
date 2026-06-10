@@ -81,7 +81,7 @@
         "assets": "upstream:linux-rocky",
         "visual": "toolkit:gnome+skinRewrite+upstream:linux-rocky"
       },
-      "notes": "Phase 2 — héritage Rocky (upstreamId) ; VM lab à ajouter",
+      "notes": "C21 — matrices vendor dédiées (bootstrap upstream Rocky) ; VM capsule@192.168.122.199",
       "scripts": {
         "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
         "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"

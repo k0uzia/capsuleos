@@ -11,7 +11,7 @@
 | Infra VM SSH/Wayland | [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) |
 | Scénarios pédagogiques GNOME | [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) |
 | Parité JSON | [inventaire-parite-alma.md](inventaire-parite-alma.md) · [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) |
-| Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (hérité Rocky, non dupliqué) |
+| Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) · matrice `gnome-settings-parity-matrix-alma.json` (C21) |
 
 ---
 
@@ -33,6 +33,7 @@ flowchart LR
   C17 --> C18[C18_Th1-Th4_themes]
   C18 --> C19[C19_H1-H4_clocks]
   C19 --> C20[C20_Cal1-Cal4_calendar]
+  C20 --> C21[C21_Playbook_Settings]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -51,7 +52,8 @@ flowchart LR
 | **C17** | `8f947d14` | **ScΣ** Calculatrice C1–C4 | **94** |
 | **C18** | `5c50a1cc` | **ScΣ** Paramètres Th1–Th4 | **96** |
 | **C19** | `244cff54` | **ScΣ** Horloges H1–H4 | **96** |
-| **C20** | (cette passe) | **ScΣ** Agenda Cal1–Cal4 | **96** |
+| **C20** | `aa606f82` | **ScΣ** Agenda Cal1–Cal4 | **96** |
+| **C21** | (cette passe) | Playbook Paramètres GNOME dédié | **96** (Π étendu **93**) |
 
 ---
 
@@ -235,6 +237,36 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
 
 ---
 
+## Phase 4b — Playbook Paramètres GNOME (C21)
+
+Matrice vendor dédiée (R-LOC1) — plus d'emprunt silencieux sur `gnome-settings-parity-matrix-rocky.json`.
+
+```bash
+# Bootstrap initial (déjà fait) — recréer si dérive
+node usr/lib/capsuleos/tools/lab/bootstrap-gnome-settings-matrices.mjs --id linux-alma --write
+
+# Collecte tour panneaux VM (SSH capsule@192.168.122.199)
+node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs --id linux-alma
+
+# Gates
+node usr/lib/capsuleos/tools/lab/smoke-alma-gnome-settings-playbook.mjs
+node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id linux-alma
+```
+
+**Profil H6 Alma** (`h6-gnome-settings-lib.mjs`) : `requiresBaseline: false` — pas de `gnome-settings-vm-baseline-linux-alma.js` ; playbook inventaire + clôture `linux-alma-gnome-settings-h6-closure.json` suffisent.
+
+Ground truth VM (juin 2026) :
+
+- `picture-uri` → `file:///usr/share/backgrounds/almalinux-day.jpg`
+- `picture-uri-dark` → `almalinux-night.jpg`
+- `accent-color` → `blue`
+
+Inventaires : [`linux-alma-gnome-settings-playbook.json`](inventaires/linux-alma-gnome-settings-playbook.json) · [`linux-alma-gnome-settings-parity-drift.json`](inventaires/linux-alma-gnome-settings-parity-drift.json)
+
+**Π global** : `pi_global` reste sur les 7 slots priority (gate campagne). `pi_global_extended` documente l'inclusion P2 `clocks` (87) et `calendar` (87) — voir [`inventaire-parite-alma.md`](inventaire-parite-alma.md).
+
+---
+
 ## Phase 5 — Clôture technique
 
 ```bash
@@ -260,7 +292,7 @@ Checklist humaine :
 | `virsh almalinux10` absent hôte | P1 | Enregistrer domaine libvirt ou documenter IP seule |
 | Watermark Alma (`fedora_logo_*`) | P2 | Inventaire VM ou gradient CSS fallback |
 | `clocks`, `calendar` | P2 | Π **87** (H1–H4, Cal1–Cal4) · **Vc** Capsule |
-| Playbook GNOME Settings Alma dédié | P2 | Hérité Rocky — matrice non dupliquée |
+| Vc Paramètres GNOME (captures comparables) | P2 | Tour playbook VM OK ; D-Bus screenshot bloqué |
 
 ---
 
@@ -287,3 +319,4 @@ Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma`
 | 2026-06-10 | C18 themes | Th1–Th4 · Π **96** |
 | 2026-06-10 | C19 clocks | H1–H4 · Π slot **87** |
 | 2026-06-10 | C20 calendar | Cal1–Cal4 · flatpak 50.0 · Π slot **87** |
+| 2026-06-10 | C21 playbook Settings | Matrice Alma · 18/18 VM · smoke + verify chain |

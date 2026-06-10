@@ -1,6 +1,6 @@
 # Playbook Paramètres GNOME — linux-alma
 
-> Généré : 2026-06-10T09:32:58.370326+00:00
+> Généré : 2026-06-10T14:25:00.540346+00:00
 > Script : [`vm-gnome-settings-playbook.sh`](../../tools/lab/vm-gnome-settings-playbook.sh)
 
 ## Résumé

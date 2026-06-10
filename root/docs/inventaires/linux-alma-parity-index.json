@@ -320,12 +320,19 @@
   },
   "pi_global": 96,
   "status_global": "ok",
+  "weightsExtended": {
+    "shell": 0.25,
+    "apps": 0.75,
+    "appsScope": "all",
+    "note": "Π indicatif incluant slots P2 clocks et calendar — hors gate validate-all (prioritySlots reste la référence campagne)"
+  },
+  "pi_global_extended": 93,
+  "status_global_extended": "ok",
   "gaps": [
-    "Captures VM pixel-perfect apps : D-Bus AccessDenied — compensé captures Capsule C14/C18/C19",
+    "Captures VM pixel-perfect apps : D-Bus AccessDenied — compensé captures Capsule C14/C18/C19/C20",
     "Captures VM apps P0/P1 autres slots : D-Bus Shell.Screenshot AccessDenied + virsh almalinux10 absent hôte agent",
-    "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
-    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback",
-    "P2 slots clocks — Π 87 (H1–H4) ; calendar — Π 87 (Cal1–Cal4, C20)"
+    "Watermark Alma : filigrane VM = fedora_logo_* (paquet almalinux-logos) — assets dépôt OK, polish CSS P2",
+    "Vc Paramètres GNOME : captures VM playbook bloquées (même contrainte D-Bus)"
   ],
-  "updatedAt": "2026-06-10T22:00:00.000Z"
+  "updatedAt": "2026-06-10T14:30:00.000Z"
 }

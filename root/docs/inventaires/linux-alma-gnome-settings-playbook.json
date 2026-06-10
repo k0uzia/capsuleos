@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-10T09:32:58.370326+00:00",
+  "generatedAt": "2026-06-10T14:25:00.540346+00:00",
   "source": "vm-gnome-settings-playbook.sh",
   "matrixVersion": 1,
-  "matrixPath": "/tmp/capsule-settings-matrix.WlUDIJ.json",
+  "matrixPath": "/tmp/capsule-settings-matrix.kxsitB.json",
   "dwellMs": 1400,
   "panelFilter": null,
   "summary": {
@@ -16,7 +16,7 @@
   },
   "assetSources": {
     "status": "ok",
-    "matrixPath": "/tmp/capsule-assets-matrix.vXYrjf.json",
+    "matrixPath": "/tmp/capsule-assets-matrix.6lcxfG.json",
     "summary": {
       "assetsTotal": 4,
       "presentOnVm": 4,
@@ -95,7 +95,7 @@
           "source": "nmcli"
         }
       ],
-      "openedAt": "2026-06-10T09:32:29.364559+00:00"
+      "openedAt": "2026-06-10T14:24:29.238159+00:00"
     },
     {
       "id": "network",
@@ -116,7 +116,7 @@
           "note": "NM ipv4.method"
         }
       ],
-      "openedAt": "2026-06-10T09:32:30.958280+00:00"
+      "openedAt": "2026-06-10T14:24:31.092539+00:00"
     },
     {
       "id": "bluetooth",
@@ -137,7 +137,7 @@
           "note": "rfkill indisponible"
         }
       ],
-      "openedAt": "2026-06-10T09:32:32.561321+00:00"
+      "openedAt": "2026-06-10T14:24:32.709019+00:00"
     },
     {
       "id": "appearance",
@@ -180,7 +180,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:34.203761+00:00"
+      "openedAt": "2026-06-10T14:24:35.033416+00:00"
     },
     {
       "id": "background",
@@ -211,7 +211,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:35.861745+00:00"
+      "openedAt": "2026-06-10T14:24:36.714381+00:00"
     },
     {
       "id": "notifications",
@@ -262,7 +262,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:37.531216+00:00"
+      "openedAt": "2026-06-10T14:24:38.385124+00:00"
     },
     {
       "id": "search",
@@ -317,7 +317,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:39.186738+00:00"
+      "openedAt": "2026-06-10T14:24:40.036810+00:00"
     },
     {
       "id": "multitasking",
@@ -370,7 +370,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:40.891482+00:00"
+      "openedAt": "2026-06-10T14:24:41.736753+00:00"
     },
     {
       "id": "sound",
@@ -413,7 +413,7 @@
           "note": "volume-step ≠ curseur %"
         }
       ],
-      "openedAt": "2026-06-10T09:32:42.621746+00:00"
+      "openedAt": "2026-06-10T14:24:43.653264+00:00"
     },
     {
       "id": "power",
@@ -464,7 +464,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:44.306704+00:00"
+      "openedAt": "2026-06-10T14:24:45.610196+00:00"
     },
     {
       "id": "displays",
@@ -505,7 +505,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:45.962805+00:00"
+      "openedAt": "2026-06-10T14:24:47.291224+00:00"
     },
     {
       "id": "mouse",
@@ -582,7 +582,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:47.881763+00:00"
+      "openedAt": "2026-06-10T14:24:49.207083+00:00"
     },
     {
       "id": "keyboard",
@@ -623,7 +623,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:49.646860+00:00"
+      "openedAt": "2026-06-10T14:24:50.995900+00:00"
     },
     {
       "id": "printers",
@@ -637,7 +637,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-10T09:32:51.298282+00:00"
+      "openedAt": "2026-06-10T14:24:52.695899+00:00"
     },
     {
       "id": "accessibility",
@@ -678,7 +678,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:53.036745+00:00"
+      "openedAt": "2026-06-10T14:24:54.474518+00:00"
     },
     {
       "id": "privacy",
@@ -749,7 +749,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T09:32:54.749326+00:00"
+      "openedAt": "2026-06-10T14:24:56.203540+00:00"
     },
     {
       "id": "sharing",
@@ -782,7 +782,7 @@
           "note": "simulated"
         }
       ],
-      "openedAt": "2026-06-10T09:32:56.355889+00:00"
+      "openedAt": "2026-06-10T14:24:57.812753+00:00"
     },
     {
       "id": "about",
@@ -796,7 +796,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-10T09:32:57.972288+00:00"
+      "openedAt": "2026-06-10T14:24:59.869891+00:00"
     }
   ],
   "errors": []

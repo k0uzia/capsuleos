@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 94** (`status_global: ok`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky`.
+**État global** : **Π = 96** (`status_global: ok`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C19** clocks en cours.
 
 ---
 
@@ -62,7 +62,7 @@ Ground truth VM :
 | `text_editor` | Éditeur | 92 | T1–T4 | `text-editor-user-scenarios.json` |
 | `calculator` | Calculatrice | 91 | C1–C4 | `calculator-user-scenarios.json` |
 
-### Scénarios pédagogiques (C15–C18)
+### Scénarios pédagogiques (C15–C19)
 
 | Cycle | Slot | Scénarios | Smoke |
 |-------|------|-----------|-------|
@@ -70,6 +70,14 @@ Ground truth VM :
 | C16 | Éditeur | T1 nouveau · T2 ouvrir VFS · T3 enregistrer sous · T4 onglets | `smoke-gnome-text-editor-scenarios.mjs` |
 | C17 | Calculatrice | C1 basique · C2 chaîne/effacer · C3 Avancé · C4 copier | `smoke-gnome-calculator-scenarios.mjs` |
 | C18 | Paramètres | Th1 mode sombre · Th2 fond Alma · Th3 accent · Th4 panneau Écrans | `smoke-gnome-themes-scenarios.mjs` |
+| C19 | Horloges | H1 Monde/Tokyo · H2 chronomètre · H3 minuteur · H4 alarme | `smoke-gnome-clocks-scenarios.mjs` |
+
+### Apps P2
+
+| Slot | Label | Π | Scénarios P0 | Contrat |
+|------|-------|---|--------------|---------|
+| `clocks` | Horloges | **63→87** | **H1–H4** | `clocks-user-scenarios.json` |
+| `calendar` | Calendrier | 63 | — | prochain **C20** |
 
 Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md).
 
@@ -83,16 +91,16 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
 | Playbook GNOME Settings Alma | P2 | Hérité Rocky — pas de matrice dupliquée |
 | Watermark Alma | P2 | `fedora_logo_*` non inventorié — gradient CSS |
-| `clocks`, `calendar` | P2 | Π ~63 — post-thèmes |
+| `calendar` | P2 | Π ~63 — inventaire VM + scénarios **C20** |
 
 ---
 
 ## Prochaines étapes
 
-1. **C18 clôture themes** — Th1–Th4 verts · Π slot ≥ 93 · Π global **96**
-2. **Vc VM** — session GDM locale ou fix D-Bus screenshot
-3. **P2 apps** — clocks, calendar, baobab, tour
-4. **ManΣ Alma** — alignement manifeste proc si campagne formalisée
+1. **C19 clôture clocks** — H1–H4 verts · Π slot **87** · captures Capsule
+2. **C20 calendar** — inventaire VM + scénarios pédagogiques
+3. **Vc VM** — session GDM locale ou fix D-Bus screenshot
+4. **P2 apps** — baobab, tour
 
 ---
 
@@ -102,7 +110,7 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 node usr/lib/capsuleos/tools/lab/compare-os-parity.mjs --id linux-alma
 node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma
 
-# Smokes scénarios (exemple themes)
+# Smokes scénarios (exemple clocks)
 CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
-  node usr/lib/capsuleos/tools/lab/smoke-gnome-themes-scenarios.mjs --id linux-alma
+  node usr/lib/capsuleos/tools/lab/smoke-gnome-clocks-scenarios.mjs --id linux-alma
 ```

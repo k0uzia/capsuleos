@@ -213,6 +213,20 @@ main#gnomeClocksApp {
     font-size: 0.82rem;
 }
 
+.gnome-clocks__face-btn {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.5rem;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+}
+
 .gnome-clocks__timer-face,
 .gnome-clocks__stopwatch-face {
     margin: 0;
@@ -221,4 +235,24 @@ main#gnomeClocksApp {
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.03em;
     line-height: 1;
+}
+
+.gnome-clocks__alarm-list {
+    width: 100%;
+}
+
+.gnome-clocks__alarm {
+    align-items: flex-start;
+}
+
+.gnome-clocks__alarm-time {
+    font-size: 2rem;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+}
+
+.gnome-clocks__alarm-label {
+    font-size: 0.82rem;
+    opacity: 0.75;
 }

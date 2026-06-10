@@ -87,6 +87,7 @@ Schéma :
 | Éditeur | `data-te-gnome-*` | `[data-te-gnome-action="save-as"]` |
 | Calculatrice | `data-calc-*`, `data-calc-gnome-*` | `[data-calc="equals"]` |
 | Paramètres | `data-theme-option`, `data-accent-chip`, `data-gnome-settings-panel` | `[data-accent-chip="blue"]` |
+| Horloges | `data-clocks-*`, `data-clocks-gnome-*` | `[data-clocks-view="stopwatch"]` |
 
 ### Étape 3 — Validateur contrat
 
@@ -154,7 +155,8 @@ Mettre à jour `root/docs/inventaires/linux-<distro>-parity-index.json` :
 | `update_manager` | S1–S4 | 100 | ✓ C15 |
 | `text_editor` | T1–T4 | 92 | ✓ C16 |
 | `calculator` | C1–C4 | 91 | ✓ C17 |
-| `themes` | Th1–Th4 | 87→93 | C18 |
+| `themes` | Th1–Th4 | 93 | ✓ C18 |
+| `clocks` | H1–H4 | 87 | ✓ C19 |
 
 ---
 

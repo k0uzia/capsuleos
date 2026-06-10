@@ -252,6 +252,16 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 
 **Objectif :** élargir le catalogue et industrialiser la maintenance.
 
+#### Jalon — Wave store extension (juin 2026)
+
+| # | Livrable | Détail |
+|---|---|---|
+| 4.0 | **Analyse magasins cross-OS** | [analyse-magasins-apps-cross-os.md](analyse-magasins-apps-cross-os.md) · contrat draft [`store-installable-apps.json`](../etc/capsuleos/contracts/store-installable-apps.json) |
+| 4.0b | **Scénarios magasin S1+** | Extension `software-user-scenarios` · install simulée · sessionStorage · top 10 apps Mint → GNOME |
+| 4.0c | **Gate StoreΣ** | `validate-store-installable-catalog.mjs` · smoke install depuis Logiciels / Logithèque |
+
+Principe : ground truth VM par défaut ; l'utilisateur ajoute des apps via le magasin natif de sa distro (apt / rpm / flatpak / snap).
+
 | # | Livrable | Détail |
 |---|---|---|
 | 4.1 | **Linux Arch + Slackware** | Pattern `os-stub`, façades `OS/linux/families/` |
@@ -302,4 +312,4 @@ Cocher ici ou dans les PR associées :
 - [~] Phase 3 — pédagogie validée terrain (checklist Rocky à rédiger · Alma **17 contrats** OK)
 - [ ] Phase 4 — Arch + CI + 1 jalon Windows
 
-**Dernière mise à jour :** 10 juin 2026 — campagne Alma **C26–C30** (17 contrats scénarios, overview 15/15) · audit transversal [point-etape-2026-06.md](point-etape-2026-06.md).
+**Dernière mise à jour :** 10 juin 2026 — campagne Alma **C26–C30** (17 contrats scénarios, overview 15/15) · analyse [magasins cross-OS](analyse-magasins-apps-cross-os.md) · audit [point-etape-2026-06.md](point-etape-2026-06.md).

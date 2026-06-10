@@ -109,7 +109,23 @@ Alignement arborescence : `usr/lib/capsuleos/` (common, shells, core) · `usr/sh
 
 ---
 
-## 6. Docs corrigés (cette passe)
+## 6. Magasins cross-OS
+
+Extension produit : **VM default + magasin simulé** pour ajouter des apps au-delà du ground truth inventorié.
+
+| Artefact | Rôle |
+|----------|------|
+| [analyse-magasins-apps-cross-os.md](analyse-magasins-apps-cross-os.md) | Matrice Mint abouti × Rocky/Alma/Fedora/Ubuntu × apt/rpm/flatpak/snap |
+| [store-installable-matrix.json](inventaires/store-installable-matrix.json) | Données structurées gates futures |
+| [store-installable-apps.json](../etc/capsuleos/contracts/store-installable-apps.json) | Contrat draft · champs `storeInstallable` / `defaultInstalled` |
+
+**Synthèse** : 41 slots Mint aboutis (Π≥92) · ~16 exportables magasin GNOME (P0–P2) · gap principal **Calendar flatpak-only EL10** · apps Mint meta en `decorative-only`.
+
+Prochaine wave : scénarios `software-user-scenarios` **S1+** (install simulée → sessionStorage → épinglage shell).
+
+---
+
+## 7. Docs corrigés (cette passe)
 
 | Fichier | Correction |
 |---------|------------|

@@ -63,6 +63,8 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Campagne crédibilité pédagogique** (post Π=100) : [`root/docs/campagne-credibilite-pedagogique.md`](root/docs/campagne-credibilite-pedagogique.md) — scénarios utilisateur VM → clone (menus, sous-menus, états) ; `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next`.
 
+**Extension magasin cross-OS** (VM default + install simulée) : [`root/docs/analyse-magasins-apps-cross-os.md`](root/docs/analyse-magasins-apps-cross-os.md) · contrat draft [`etc/capsuleos/contracts/store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json).
+
 **Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
 
 **Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.

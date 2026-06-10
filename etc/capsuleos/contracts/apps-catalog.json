@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Contrat catalogue applications VM → CapsuleOS — vendor-agnostique, overrides par registryId.",
+  "description": "Contrat catalogue applications VM → CapsuleOS — vendor-agnostique, overrides par registryId. Extension magasin (draft) : store-installable-apps.json — champs optionnels storeInstallable / defaultInstalled par app.",
   "statutCodes": ["ok", "partiel", "absent", "decorative", "capsuleOnly", "notOnVm"],
   "priorites": ["P0", "P1", "P2", "P3"],
   "predicates": {

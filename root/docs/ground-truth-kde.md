@@ -16,8 +16,9 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 | **Skin canonique** | `home/Debian/KDE-Neon/` |
 | **Façade** | `OS/linux/families/debian/kde-neon/index.html` |
 | **VM lab** | `goupil@192.168.123.52` (virsh `KDE-Neon`) |
-| **Π actuel** | **98** ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
-| **Campagne** | v4–v7 clôturées · passes pivot : [`linux-kde-neon-roadmap-pass.md`](inventaires/linux-kde-neon-roadmap-pass.md) |
+| **Π formel** | **100** ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
+| **Campagne** | v4–v9 clôturées · **ground** : [`linux-kde-neon-roadmap-ground.md`](inventaires/linux-kde-neon-roadmap-ground.md) |
+| **Propagation** | **gelée** — dérivés après excellence produit Neon |
 
 **Pourquoi Neon et pas `linux-debian-kde` ?**
 
@@ -25,14 +26,14 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 - `linux-kde-neon` concentre les avancées juin 2026 : Discover Kirigami, `dolphin-neon.js`, tray partagé P4, 30 apps kickoff, interactions JSON, campagne v4.
 - Analogie Rocky GNOME : Rocky = référence opérationnelle GNOME malgré la branche RHEL ; Neon = référence opérationnelle Plasma malgré `upstreamId: linux-debian-kde`.
 
-**Dérivés toolkit** (propagation P4) :
+**Dérivés toolkit** (propagation P4 — **gelée** juin 2026) :
 
 | registryId | Tier | Statut | Rôle |
 |------------|------|--------|------|
-| `linux-opensuse` | P1 | active | Coque Plasma mature, launcher Geeko |
-| `linux-mx-kde` | P1 | planned | Pack MX, flyout kickoff |
-| `linux-debian-kde` | P2 | planned | Base debian branding |
-| `linux-manjaro-kde` | P2 | planned | Breeze Manjaro |
+| `linux-opensuse` | P1 | frozen | Reprise après ground Neon |
+| `linux-mx-kde` | P1 | frozen | idem |
+| `linux-debian-kde` | P2 | frozen | idem |
+| `linux-manjaro-kde` | P2 | planned | skin absent |
 
 ---
 

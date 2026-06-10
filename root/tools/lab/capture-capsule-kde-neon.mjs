@@ -24,6 +24,47 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
+const ensureDolphinSplit = async (page) => {
+  const isReady = () => page.evaluate(() => {
+    const state = window.fileExplorerState;
+    const root = document.querySelector('.windowElement[data-link="nemo"]');
+    const domSplit = root && (
+      root.querySelector('.dolphin-content-wrap--split')
+      || root.querySelector('.dolphin-content-panes--split')
+      || root.querySelector('.dolphin-content-pane--secondary:not([hidden])')
+    );
+    return !!(state && state.splitView && domSplit);
+  });
+  if (await isReady()) {
+    return;
+  }
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    await page.evaluate(() => {
+      const btn = document.querySelector('.windowElement[data-link="nemo"] #dolphin-split-toggle');
+      if (btn) {
+        btn.click();
+      }
+    });
+    try {
+      await page.waitForFunction(() => {
+        const state = window.fileExplorerState;
+        const root = document.querySelector('.windowElement[data-link="nemo"]');
+        const domSplit = root && (
+          root.querySelector('.dolphin-content-wrap--split')
+          || root.querySelector('.dolphin-content-panes--split')
+          || root.querySelector('.dolphin-content-pane--secondary:not([hidden])')
+        );
+        return !!(state && state.splitView && domSplit);
+      }, null, { timeout: 12000 });
+      await sleep(page, 800);
+      return;
+    } catch {
+      await sleep(page, 600);
+    }
+  }
+  throw new Error('Impossible d\'activer la vue scindée Dolphin');
+};
+
 const resetShell = async (page) => {
   await page.evaluate(() => {
     document.querySelectorAll('.windowElement[data-link]').forEach((win) => {
@@ -108,22 +149,7 @@ const openSlot = async (page, slot, scene = {}) => {
       await sleep(page, 600);
     }
     if (scene.dolphinSplit) {
-      await page.click('#dolphin-split-toggle');
-      await page.waitForFunction(
-        () => {
-          const open = window.fileExplorerState && window.fileExplorerState.splitView;
-          const root = document.querySelector('.windowElement[data-link="nemo"]');
-          const domSplit = root && (
-            root.querySelector('.dolphin-content-wrap--split')
-            || root.querySelector('.dolphin-content-panes--split')
-            || root.querySelector('.dolphin-content-pane--secondary:not([hidden])')
-          );
-          return !!(open || domSplit);
-        },
-        null,
-        { timeout: 15000 },
-      );
-      await sleep(page, 1200);
+      await ensureDolphinSplit(page);
     }
     if (scene.dolphinSplitSelection) {
       await page.waitForFunction(
@@ -269,7 +295,18 @@ const openSlot = async (page, slot, scene = {}) => {
       }
       await sleep(page, 400);
     } else if (scene.discoverAppDetail) {
-      await page.click(`[data-discover-home-mount] .kde-discover-card[data-discover-app="${scene.discoverAppDetail}"]`);
+      await page.evaluate((appId) => {
+        const nav = document.querySelector('[data-discover-nav="home"]');
+        if (nav && !nav.classList.contains('is-active')) nav.click();
+        const card = document.querySelector(
+          `[data-discover-home-mount] .kde-discover-card[data-discover-app="${appId}"]`,
+        );
+        if (card) {
+          card.scrollIntoView({ block: 'center', inline: 'nearest' });
+          card.click();
+        }
+      }, scene.discoverAppDetail);
+      await sleep(page, scene.discoverAppDetailScroll ? 300 : 500);
       await page.waitForFunction(
         () => {
           const panel = document.querySelector('[data-discover-app-detail]');
@@ -394,6 +431,9 @@ const main = async () => {
       discoverView: 'config',
       maximize: false,
     },
+    { file: 'capsule-spectacle.png', slots: ['spectacle'] },
+    { file: 'capsule-kinfocenter.png', slots: ['kinfocenter'] },
+    { file: 'capsule-system-monitor.png', slots: ['system_monitor'] },
   ];
 
   for (const scene of shots) {

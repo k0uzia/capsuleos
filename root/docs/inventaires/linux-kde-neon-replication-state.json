@@ -37,16 +37,23 @@
       "map-kde-ground-truth-gaps",
       "capture-clone-surfaces-compare"
     ],
-    "gaps": [],
-    "passOrder": [
-      "run-kde-neon-pass",
-      "refresh-kde-neon-parity-v8",
-      "vm-kde-neon-inventory.sh",
-      "konversation-kickoff",
-      "capture-vm-compare",
-      "pi-100-closure"
+    "gaps": [
+      "KdVp live VM ↔ Capsule (panel, kickoff, dolphin multi-vues)",
+      "Kickoff B1/B2 apps profondes (Okular, Gwenview, Kate, polish B2/B3)",
+      "Discover captures VM 5 onglets",
+      "Firefox toolbar matrix VM",
+      "Dolphin §7–8 compare VM search/hamburger"
     ],
-    "scope": "pivot clôturé Π=100 — propagation dérivés sur instruction explicite",
+    "passOrder": [
+      "vm-kde-neon-inventory.sh",
+      "capture-capsule-kde-neon.mjs",
+      "run-kde-neon-pass",
+      "kickoff-b1-b2-depth",
+      "dolphin-vm-compare",
+      "discover-vm-captures"
+    ],
+    "scope": "ground KDE Neon uniquement — propagation dérivés gelée jusqu'à excellence produit",
+    "propagationPolicy": "frozen — pas de patch dérivés tant que ground incomplet",
     "verifiedAt": "2026-06-10T11:25:51.380Z"
   },
   "roadmap": "linux-kde-neon-roadmap-v4.md",
@@ -61,7 +68,7 @@
   "vm": {
     "host": "goupil@192.168.123.52",
     "inventory": "linux-kde-neon-vm.json",
-    "inventoryCollectedAt": "2026-06-09T14:55:47Z",
+    "inventoryCollectedAt": "2026-06-10T13:28:41Z",
     "labConfig": "etc/capsuleos/lab-inventory.json",
     "konversationOnVm": false,
     "konversationNote": "org.kde.konversation.desktop absent — pas d'entrée kickoff VM"
@@ -77,9 +84,12 @@
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
   "priorityQueue": [
-    "mainMenu",
-    "spectacle",
-    "kinfocenter"
+    "vm-compare-panel-kickoff",
+    "kickoff-b1-okular-gwenview-kate",
+    "kickoff-b2-spectacle-kinfocenter-monitor",
+    "dolphin-vm-views",
+    "discover-vm-tabs",
+    "firefox-toolbar-vm"
   ],
   "paritySnapshot": {
     "pi_global": 95,
@@ -162,10 +172,61 @@
   },
   "passNeon": {
     "roadmap": "linux-kde-neon-roadmap-pass.md",
+    "groundRoadmap": "linux-kde-neon-roadmap-ground.md",
     "orchestrator": "run-kde-neon-pass.mjs",
-    "frozen": "vp-residual zones ✅ + CredΣ + baseline captures"
+    "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "pivot clôturé — propagation dérivés gelée jusqu'à instruction",
+  "nextStep": "ground G6 — Discover complet (captures VM 5 onglets · filtres · About/Config)",
+  "campaignGround": "ground-kde-neon-excellence",
+  "campaignGroundStatus": "in_progress",
+  "campaignGroundStartedAt": "2026-06-10T12:00:00.000Z",
+  "groundProgress": {
+    "G1_inventory": "2026-06-10T13:28:41Z",
+    "G1_vmCaptures": "complet — shell · dolphin · discover (kstart + recherche VLC)",
+    "G2_capsuleCaptures": "complet — 24 scènes capture-capsule-kde-neon.mjs",
+    "G2_pairsReady": [
+      "desktop",
+      "kickoff",
+      "dolphin-all-views",
+      "discover-all-tabs",
+      "discover-detail-vlc",
+      "spectacle",
+      "kinfocenter",
+      "system-monitor"
+    ],
+    "G2_fixes": [
+      "plasma-discover: kstart remplace nohup (segfault)",
+      "discover-detail VM: recherche VLC (évite --application segfault)",
+      "capsule split: ensureDolphinSplit retry"
+    ],
+    "G3_B1ClosedAt": "2026-06-10T14:00:00.000Z",
+    "G3_deliverables": {
+      "okular": "okular_kde_neon.html + visionneur_pdf.skin.css",
+      "gwenview": "gwenview_kde_neon.html + visionneur_images.skin.css",
+      "kate": "text_editor.skin.css (titre Kate)",
+      "smoke": "smoke-kde-neon-b1-kickoff.mjs"
+    },
+    "G4_B2B3ClosedAt": "2026-06-10T15:30:00.000Z",
+    "G4_deliverables": {
+      "kinfocenter": "facts VM lab (Plasma 6.6.5 · i5-6500T · 7,6 Go)",
+      "captures": "vm/capsule-spectacle · kinfocenter · system-monitor",
+      "smoke": "smoke-kde-neon-v4-p2.mjs",
+      "vmFlag": "--b2-b3-apps"
+    },
+    "G5_DolphinClosedAt": "2026-06-10T16:20:00.000Z",
+    "G5_deliverables": {
+      "vmCapture": "--dolphin-g5 (vues + search + filtre + hamburger)",
+      "gridPolish": "dolphin.skin.css gap/width/padding icônes",
+      "smoke": "smoke-kde-neon-dolphin.mjs (+ filtre recherche)",
+      "doc": "linux-kde-neon-dolphin-diff.md"
+    },
+    "G6_next": "Discover complet — discover-closure.md"
+  },
+  "campaignGroundRoadmap": "linux-kde-neon-roadmap-ground.md",
+  "campaignV10": "v10-derived-post-pivot",
+  "campaignV10Status": "frozen",
+  "campaignV10Note": "gelé — ground Neon prioritaire ; pas de propagation dérivés",
+  "v10P1CapsuleOnlyAt": "2026-06-10T11:38:54.902Z",
   "campaignV8": "v8-pi-neon-pass",
   "campaignV8Status": "closed",
   "v8ClosedAt": "2026-06-10T11:25:51.380Z",
@@ -187,7 +248,7 @@
     "smoke": "smoke-kde-fidelity-all.mjs",
     "credSigma": true
   },
-  "updatedAt": "2026-06-10T11:25:51.380Z",
+  "updatedAt": "2026-06-10T14:00:00.000Z",
   "credibilityCampaign": {
     "campaignId": "v5-credibility-pass",
     "credSigma": true,

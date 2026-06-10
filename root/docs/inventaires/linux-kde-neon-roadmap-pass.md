@@ -1,6 +1,6 @@
 # Passes KDE Neon — recette pivot seul
 
-> **Scope** : `linux-kde-neon` uniquement · pas de propagation dérivés pendant les passes.
+> **Scope** : `linux-kde-neon` uniquement · **propagation dérivés gelée** jusqu'à excellence ground ([`linux-kde-neon-roadmap-ground.md`](linux-kde-neon-roadmap-ground.md)).
 
 ## Principe
 
@@ -64,8 +64,13 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde
 | ~~P2~~ | ~~Π 98→99~~ | ✅ `refresh-kde-neon-parity-v8.mjs` |
 | ~~P3~~ | ~~VM refresh inventaire~~ | ✅ 2026-06-09 `linux-kde-neon-vm.json` |
 | ~~P4~~ | ~~Konversation~~ | **hors scope** — desktop absent sur VM |
-| P5 | Compare VM live KdVp | `vm-kde-neon-capture-host.sh` + compare |
-| P6 | Π 99→100 | après P5 · espace disque captures |
+| ~~P5~~ | ~~Compare captures Capsule~~ | ✅ `capture-clone-surfaces --compare` |
+| ~~P6~~ | ~~Π 99→100~~ | ✅ `refresh-kde-neon-parity-v9.mjs` · v9 closed |
+
+## Post-pivot
+
+→ Suite **ground excellence** : [linux-kde-neon-roadmap-ground.md](linux-kde-neon-roadmap-ground.md)  
+→ v10 dérivés : **gelé** ([linux-kde-neon-roadmap-v10.md](linux-kde-neon-roadmap-v10.md))
 
 ## Références
 

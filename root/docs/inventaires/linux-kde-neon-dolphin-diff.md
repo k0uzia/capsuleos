@@ -48,7 +48,7 @@ node root/tools/lab/capture-capsule-kde-neon.mjs             # scènes Neon incl
 |------|-----------|--------------|--------------|
 | Titlebar | 🔄 réaudit | ✅ | — |
 | Toolbar (pathbar, loupe, scinder, ☰) | 🔄 réaudit | ✅ | — |
-| Vue icônes (grille) | 🔄 réaudit | ✅ | espacement colonnes ⚠️ mineur |
+| Vue icônes (grille) | 🔄 réaudit | ✅ | espacement G5 (`gap head/2` · `width 3.32`) |
 | Vues Synthétique / Détails | 🔄 réaudit | ✅ | — |
 | Split structurel | 🔄 réaudit | ✅ | capture VM 2026-06-08 |
 | **Sélection split §6** | ⚠️ P2 | ✅ | smoke + capture Capsule |
@@ -101,7 +101,7 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 | 8 dossiers Breeze bleus | ✅ |
 | Bureau preview wallpaper | ✅ |
 | Pill « 8 dossiers » | ✅ |
-| Grille 4 colonnes / padding | ⚠️ mineur |
+| Grille 4 colonnes / padding | ✅ G5 (4+4 · gap ~20px) |
 
 ### 5. Vues Synthétique / Détails — ✅
 

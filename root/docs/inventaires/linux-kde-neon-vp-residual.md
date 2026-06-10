@@ -26,7 +26,9 @@
 - **V4-P2** clôturé (Spectacle, Info-centre, Moniteur) — smoke `smoke-kde-neon-v4-p2.mjs` vert
 - **V4-P4** clôturé — Π_global **95** · KDEConnect stub · interactions tray
 - **V7** clôturé — calendrier tray · baselines dérivés · Cred* échantillon · Π **98**
-- Prochaine priorité : captures VM dérivés · Π 98→100 · Konversation (VM refresh)
+- **Pivot** clôturé Π=100 (v9) · Konversation hors VM
+- **Propagation dérivés gelée** — excellence ground Neon d'abord
+- Prochaine priorité : [`linux-kde-neon-roadmap-ground.md`](linux-kde-neon-roadmap-ground.md) — VM compare live · kickoff B1/B2 · Dolphin §7–8
 
 ## Références
 

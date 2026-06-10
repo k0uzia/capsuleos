@@ -349,7 +349,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
-        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1140,7 +1142,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
-        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

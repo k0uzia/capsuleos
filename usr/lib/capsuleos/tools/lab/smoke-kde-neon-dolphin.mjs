@@ -62,6 +62,17 @@ try {
     errors.push(`hamburger : ${badIcons.length} icône(s) naturalWidth=0`);
   }
 
+  await page.evaluate(() => {
+    const menu = document.querySelector('#dolphin-hamburger-menu');
+    if (menu) {
+      menu.hidden = true;
+    }
+    const btn = document.querySelector('#dolphin-main-menu');
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
   await page.click('.dolphin-toolbar__search, .dolphin-toolbar__btn--search');
   await page.waitForFunction(
     () => {
@@ -71,6 +82,25 @@ try {
     null,
     { timeout: 5000 },
   );
+
+  await page.click('#dolphin-search-filter-btn', { force: true });
+  await page.waitForFunction(
+    () => {
+      const menu = document.querySelector('#dolphin-search-filter-menu');
+      return menu && !menu.hidden;
+    },
+    null,
+    { timeout: 5000 },
+  );
+  const filterOptions = await page.evaluate(() => {
+    const menu = document.querySelector('#dolphin-search-filter-menu');
+    return menu ? menu.querySelectorAll('.dolphin-search-filter-menu__option').length : 0;
+  });
+  if (filterOptions < 2) {
+    errors.push(`search-filter : options=${filterOptions} (attendu ≥2)`);
+  }
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(200);
 
   await page.click('a[data-item-name]', { button: 'right' });
   await page.waitForFunction(

@@ -96,8 +96,10 @@ const report = {
     'baselines captures linux-kde-neon/baseline',
   ],
   openBacklog: [
-    'Konversation kickoff (hors scope — absent VM lab)',
-    'propagation dérivés (gelée post pivot)',
+    'ground G1–G2 : VM refresh + compare live panel/kickoff/dolphin',
+    'ground G3–G4 : kickoff B1/B2 apps profondes',
+    'ground G5–G8 : dolphin VM · discover onglets · firefox · tray',
+    'propagation dérivés : gelée',
   ],
 };
 

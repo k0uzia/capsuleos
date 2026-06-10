@@ -55,7 +55,9 @@
         "spectacle": { "chromeProvider": "default", "template": "spectacle_kde_neon.html", "skinCss": "spectacle.skin.css", "functionalDepth": "partial" },
         "kinfocenter": { "chromeProvider": "default", "template": "kinfocenter_kde_neon.html", "skinCss": "kinfocenter.skin.css", "functionalDepth": "partial" },
         "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" },
-        "kdeconnect": { "chromeProvider": "default", "template": "kdeconnect_kde_neon.html", "skinCss": "kdeconnect.skin.css", "functionalDepth": "partial" }
+        "kdeconnect": { "chromeProvider": "default", "template": "kdeconnect_kde_neon.html", "skinCss": "kdeconnect.skin.css", "functionalDepth": "partial" },
+        "visionneur_pdf": { "chromeProvider": "default", "template": "visionneur_pdf.html", "skinCss": "visionneur_pdf.skin.css", "functionalDepth": "partial" },
+        "visionneur_images": { "chromeProvider": "default", "template": "visionneur_images.html", "skinCss": "visionneur_images.skin.css", "functionalDepth": "partial" }
       }
     }
   },
@@ -78,6 +80,12 @@
       },
       "kdeconnect": {
         "template": "kdeconnect_kde_neon.html"
+      },
+      "visionneur_pdf": {
+        "template": "okular_kde_neon.html"
+      },
+      "visionneur_images": {
+        "template": "gwenview_kde_neon.html"
       }
     },
     "linux-opensuse": {

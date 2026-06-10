@@ -135,13 +135,21 @@ kernelNeedles.forEach((needle) => {
 if (!storeRuntime.includes('CAPSULE_STORE_APPS_BY_REGISTRY')) {
     errors.push('gnome-store-catalog.js : consommation CAPSULE_STORE_APPS_BY_REGISTRY absente');
 }
-if (!storeGenerated.includes('"linux-alma"')) {
-    errors.push('capsule-store-catalog.js : pilote linux-alma absent');
+const STORE_REGISTRY_PILOTS = [
+    { id: 'linux-alma', count: 11 },
+    { id: 'linux-rocky', count: 11 },
+    { id: 'linux-fedora', count: 11 },
+];
+for (const { id, count } of STORE_REGISTRY_PILOTS) {
+    if (!storeGenerated.includes(`"${id}"`)) {
+        errors.push(`capsule-store-catalog.js : pilote ${id} absent`);
+    }
+    const generatedEntries = buildStoreCatalogEntries(id);
+    if (generatedEntries.length !== count) {
+        errors.push(`capsule-store-catalog.js : attendu ${count} apps ${id} (actuel: ${generatedEntries.length})`);
+    }
 }
 const generatedEntries = buildStoreCatalogEntries('linux-alma');
-if (generatedEntries.length !== 11) {
-    errors.push(`capsule-store-catalog.js : attendu 11 apps Alma (actuel: ${generatedEntries.length})`);
-}
 ALMA_STORE_APP_IDS.forEach((id) => {
     if (!storeGenerated.includes('"' + id + '"')) {
         errors.push(`capsule-store-catalog.js : app store ${id} absente`);
@@ -168,5 +176,5 @@ if (errors.length) {
     process.exit(1);
 }
 
-console.log('✓ validate-store-installable-apps OK — pilote Alma actif (11 apps générées)');
+console.log('✓ validate-store-installable-apps OK — triplet GNOME Alma/Rocky/Fedora (11 apps chacun)');
 process.exit(0);

@@ -351,7 +351,7 @@
       "slot": "libreoffice_startcenter",
       "labelFr": "LibreOffice",
       "capsuleStatus": "ok",
-      "functionalDepth": "partial",
+      "functionalDepth": "full",
       "crossOs": true,
       "recommendation": "P1-store",
       "postInstallSlot": "librewriter",
@@ -412,6 +412,189 @@
           "flatpak": "org.libreoffice.LibreOffice",
           "defaultInstalled": false,
           "storeInstallable": true
+        }
+      }
+    },
+    {
+      "slot": "librecalc",
+      "labelFr": "LibreOffice Calc",
+      "capsuleStatus": "ok",
+      "functionalDepth": "full",
+      "crossOs": true,
+      "recommendation": "P1-store-module",
+      "storeCatalog": {
+        "id": "libreoffice-calc",
+        "sub": "Tableur",
+        "desc": "Tableur LibreOffice — module Calc (inclus dans la suite ou carte séparée selon distro).",
+        "version": "24.8",
+        "size": "~95 Mo",
+        "iconClass": "gnome-software__cardicon--libreoffice-calc",
+        "categories": [
+          "productivity",
+          "creation"
+        ],
+        "placement": {
+          "overview": true
+        }
+      },
+      "sources": {
+        "linux-mint": {
+          "apt": "libreoffice-calc",
+          "defaultInstalled": true,
+          "storeInstallable": false
+        },
+        "linux-rocky": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-alma": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-fedora": {
+          "rpm": "libreoffice-calc",
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-ubuntu": {
+          "deb": "libreoffice-calc",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-popos": {
+          "deb": "libreoffice-calc",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-anduinos": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        }
+      }
+    },
+    {
+      "slot": "libreoffice_impress",
+      "labelFr": "LibreOffice Impress",
+      "capsuleStatus": "ok",
+      "functionalDepth": "full",
+      "crossOs": true,
+      "recommendation": "P1-store-module",
+      "storeCatalog": {
+        "id": "libreoffice-impress",
+        "sub": "Présentations",
+        "desc": "Présentations LibreOffice — module Impress (inclus dans la suite ou carte séparée selon distro).",
+        "version": "24.8",
+        "size": "~90 Mo",
+        "iconClass": "gnome-software__cardicon--libreoffice-impress",
+        "categories": [
+          "productivity",
+          "creation"
+        ],
+        "placement": {
+          "overview": true
+        }
+      },
+      "sources": {
+        "linux-mint": {
+          "apt": "libreoffice-impress",
+          "defaultInstalled": true,
+          "storeInstallable": false
+        },
+        "linux-rocky": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-alma": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-fedora": {
+          "rpm": "libreoffice-impress",
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-ubuntu": {
+          "deb": "libreoffice-impress",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-popos": {
+          "deb": "libreoffice-impress",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-anduinos": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        }
+      }
+    },
+    {
+      "slot": "libreoffice_draw",
+      "labelFr": "LibreOffice Draw",
+      "capsuleStatus": "ok",
+      "functionalDepth": "full",
+      "crossOs": true,
+      "recommendation": "P1-store-module",
+      "storeCatalog": {
+        "id": "libreoffice-draw",
+        "sub": "Dessin vectoriel",
+        "desc": "Dessin vectoriel LibreOffice — module Draw (inclus dans la suite ou carte séparée selon distro).",
+        "version": "24.8",
+        "size": "~85 Mo",
+        "iconClass": "gnome-software__cardicon--libreoffice-draw",
+        "categories": [
+          "productivity",
+          "creation"
+        ],
+        "placement": {
+          "overview": true
+        }
+      },
+      "sources": {
+        "linux-mint": {
+          "apt": "libreoffice-draw",
+          "defaultInstalled": true,
+          "storeInstallable": false
+        },
+        "linux-rocky": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-alma": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-fedora": {
+          "rpm": "libreoffice-draw",
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-ubuntu": {
+          "deb": "libreoffice-draw",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-popos": {
+          "deb": "libreoffice-draw",
+          "defaultInstalled": false,
+          "storeInstallable": false
+        },
+        "linux-anduinos": {
+          "flatpak": "org.libreoffice.LibreOffice",
+          "defaultInstalled": false,
+          "storeInstallable": false
         }
       }
     },

@@ -18,7 +18,7 @@
         "firefox": { "chromeProvider": "firefox-gnome", "template": "firefox.html", "skinCss": "firefox.skin.css", "functionalDepth": "partial" },
         "terminal": { "chromeProvider": "terminal-gnome", "template": "terminal.html", "skinCss": "terminal.skin.css", "functionalDepth": "full" },
         "themes": { "chromeProvider": "libadwaita-gnome", "template": "themes_gnome.html", "skinCss": "themes.skin.css", "functionalDepth": "full" },
-        "update_manager": { "chromeProvider": "libadwaita-gnome", "template": "update_manager_gnome.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
+        "update_manager": { "chromeProvider": "libadwaita-gnome", "template": "update_manager_gnome.html", "skinCss": "update_manager.skin.css", "functionalDepth": "full" },
         "text_editor": { "chromeProvider": "libadwaita-gnome", "template": "text_editor.html", "skinCss": "text_editor.skin.css", "functionalDepth": "full" },
         "calculator": { "chromeProvider": "libadwaita-gnome", "template": "calculator.html", "skinCss": "calculator.skin.css", "functionalDepth": "full" },
         "calendar": { "chromeProvider": "libadwaita-gnome", "template": "calendar.html", "skinCss": "calendar.skin.css", "functionalDepth": "partial" },
@@ -27,7 +27,11 @@
         "visionneur_pdf": { "chromeProvider": "libadwaita-gnome", "template": "visionneur_pdf.html", "skinCss": "visionneur_pdf.skin.css", "functionalDepth": "partial" },
         "snapshot": { "chromeProvider": "libadwaita-gnome", "template": "snapshot.html", "skinCss": "snapshot.skin.css", "functionalDepth": "partial" },
         "screenshot": { "chromeProvider": "libadwaita-gnome", "template": "screenshot.html", "skinCss": "screenshot.skin.css", "functionalDepth": "partial" },
-        "librewriter": { "chromeProvider": "libadwaita-gnome", "template": "librewriter.html", "skinCss": "librewriter.skin.css", "functionalDepth": "partial" },
+        "librewriter": { "chromeProvider": "libadwaita-gnome", "template": "librewriter.html", "skinCss": "librewriter.skin.css", "functionalDepth": "full" },
+        "libreoffice_startcenter": { "chromeProvider": "libadwaita-gnome", "template": "libreoffice_startcenter.html", "skinCss": "libreoffice_startcenter.skin.css", "functionalDepth": "full" },
+        "librecalc": { "chromeProvider": "libadwaita-gnome", "template": "librecalc.html", "skinCss": "librecalc.skin.css", "functionalDepth": "full" },
+        "libreoffice_impress": { "chromeProvider": "libadwaita-gnome", "template": "libreoffice_impress.html", "skinCss": "libreoffice_impress.skin.css", "functionalDepth": "full" },
+        "libreoffice_draw": { "chromeProvider": "libadwaita-gnome", "template": "libreoffice_draw.html", "skinCss": "libreoffice_draw.skin.css", "functionalDepth": "full" },
         "lecteur_multimedia": { "chromeProvider": "libadwaita-gnome", "template": "lecteur_multimedia.html", "skinCss": "lecteur_multimedia.skin.css", "functionalDepth": "decorative" },
         "profile": { "chromeProvider": "libadwaita-gnome", "template": "profile.html", "skinCss": "profile.skin.css", "functionalDepth": "full" },
         "checklist": { "chromeProvider": "libadwaita-gnome", "template": "checklist.html", "skinCss": "checklist.skin.css", "functionalDepth": "capsuleOnly" },
@@ -44,7 +48,12 @@
         "nemo": { "chromeProvider": "cinnamon", "template": "nemo.html", "skinCss": "nemo.skin.css", "functionalDepth": "full" },
         "themes": { "chromeProvider": "cinnamon", "template": "cinnamon_settings.html", "skinCss": "cinnamon_settings.skin.css", "functionalDepth": "full" },
         "update_manager": { "chromeProvider": "cinnamon", "template": "update_manager.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
-        "mainMenu": { "chromeProvider": "cinnamon", "template": "mainMenu.html", "skinCss": "mainMenu.skin.css", "functionalDepth": "full" }
+        "mainMenu": { "chromeProvider": "cinnamon", "template": "mainMenu.html", "skinCss": "mainMenu.skin.css", "functionalDepth": "full" },
+        "librewriter": { "chromeProvider": "cinnamon", "template": "librewriter.html", "skinCss": "librewriter.skin.css", "functionalDepth": "full" },
+        "libreoffice_startcenter": { "chromeProvider": "cinnamon", "template": "libreoffice_startcenter.html", "skinCss": "libreoffice_startcenter.skin.css", "functionalDepth": "full" },
+        "librecalc": { "chromeProvider": "cinnamon", "template": "librecalc.html", "skinCss": "librecalc.skin.css", "functionalDepth": "full" },
+        "libreoffice_impress": { "chromeProvider": "cinnamon", "template": "libreoffice_impress.html", "skinCss": "libreoffice_impress.skin.css", "functionalDepth": "full" },
+        "libreoffice_draw": { "chromeProvider": "cinnamon", "template": "libreoffice_draw.html", "skinCss": "libreoffice_draw.skin.css", "functionalDepth": "full" }
       }
     },
     "kde": {
@@ -54,17 +63,16 @@
         "update_manager": { "chromeProvider": "default", "template": "update_manager_kde.html", "skinCss": "update_manager.skin.css", "functionalDepth": "partial" },
         "spectacle": { "chromeProvider": "default", "template": "spectacle_kde_neon.html", "skinCss": "spectacle.skin.css", "functionalDepth": "partial" },
         "kinfocenter": { "chromeProvider": "default", "template": "kinfocenter_kde_neon.html", "skinCss": "kinfocenter.skin.css", "functionalDepth": "partial" },
-        "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" }
+        "system_monitor": { "chromeProvider": "default", "template": "system_monitor.html", "skinCss": "system_monitor.skin.css", "functionalDepth": "partial" },
+        "librewriter": { "chromeProvider": "default", "template": "librewriter.html", "skinCss": "librewriter.skin.css", "functionalDepth": "full" },
+        "libreoffice_startcenter": { "chromeProvider": "default", "template": "libreoffice_startcenter.html", "skinCss": "libreoffice_startcenter.skin.css", "functionalDepth": "full" },
+        "librecalc": { "chromeProvider": "default", "template": "librecalc.html", "skinCss": "librecalc.skin.css", "functionalDepth": "full" },
+        "libreoffice_impress": { "chromeProvider": "default", "template": "libreoffice_impress.html", "skinCss": "libreoffice_impress.skin.css", "functionalDepth": "full" },
+        "libreoffice_draw": { "chromeProvider": "default", "template": "libreoffice_draw.html", "skinCss": "libreoffice_draw.skin.css", "functionalDepth": "full" }
       }
     }
   },
   "slotVariantOverrides": {
-    "linux-ubuntu": {
-      "update_manager": {
-        "template": "update_manager_ubuntu.html",
-        "chromeProvider": "update-manager-ubuntu"
-      }
-    },
     "linux-kde-neon": {
       "update_manager": {
         "template": "update_manager_kde_neon.html"
@@ -100,7 +108,10 @@
         "org.gnome.FileRoller": { "labelFr": "Gestionnaire d'archives", "priorite": "P1", "slot": "file_roller", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "storeInstallable": true, "note": "RPM file-roller — extension magasin Rocky" },
         "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak org.gnome.Calendar — extension magasin Rocky" },
         "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Scénario S6 Logiciels — simulé CapsuleOS" },
-        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — ouvre Writer post-install (S6)" }
+        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "libreoffice_startcenter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6)" },
+        "libreoffice-calc": { "labelFr": "LibreOffice Calc", "priorite": "P1", "slot": "librecalc", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-impress": { "labelFr": "LibreOffice Impress", "priorite": "P1", "slot": "libreoffice_impress", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-draw": { "labelFr": "LibreOffice Draw", "priorite": "P1", "slot": "libreoffice_draw", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" }
       },
       "capsuleOnly": [
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
@@ -108,11 +119,9 @@
         { "slot": "screenshot", "labelFr": "Capture d'écran", "statut": "ok", "placement": { "quickSettings": true, "overviewSearch": true } }
       ],
       "notOnVmOverview": [
-        { "labelFr": "LibreOffice Calc", "statut": "notOnVm", "placement": { "overview": true } },
         { "labelFr": "Numériseur", "statut": "notOnVm", "placement": { "overview": true } },
         { "labelFr": "Machines", "statut": "notOnVm", "placement": { "overview": true } },
         { "labelFr": "Lecteur vidéos", "statut": "notOnVm", "placement": { "overview": true } },
-        { "labelFr": "LibreOffice Impress", "statut": "notOnVm", "placement": { "overview": true } },
         { "labelFr": "Aide", "statut": "notOnVm", "placement": { "overview": true } }
       ]
     },
@@ -141,7 +150,10 @@
         "org.gnome.FileRoller": { "labelFr": "Gestionnaire d'archives", "priorite": "P1", "slot": "file_roller", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "storeInstallable": true, "note": "RPM file-roller — extension magasin Alma" },
         "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak org.gnome.Calendar — extension magasin Alma" },
         "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Scénario S1 Logiciels — simulé CapsuleOS" },
-        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — ouvre Writer post-install (S6)" }
+        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "libreoffice_startcenter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6)" },
+        "libreoffice-calc": { "labelFr": "LibreOffice Calc", "priorite": "P1", "slot": "librecalc", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-impress": { "labelFr": "LibreOffice Impress", "priorite": "P1", "slot": "libreoffice_impress", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-draw": { "labelFr": "LibreOffice Draw", "priorite": "P1", "slot": "libreoffice_draw", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" }
       },
       "capsuleOnly": [
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
@@ -157,7 +169,8 @@
         "firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
         "org.gnome.Rhythmbox3": { "labelFr": "Rhythmbox", "priorite": "P0", "slot": "lecteur_multimedia", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Référence Ubuntu retail — absent VM lab actuelle ; simulé CapsuleOS" },
         "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true }, "onVm": false, "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS" },
-        "snap-store": { "labelFr": "Snap Store", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true } },
+        "snap-store": { "labelFr": "Snap Store", "priorite": "P1", "slot": null, "statut": "notOnVm", "requiresSlot": false, "note": "Retail Ubuntu — CapsuleOS utilise org.gnome.Software (GS50)" },
+        "org.gnome.Software": { "labelFr": "Logiciels", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
         "org.gnome.Yelp": { "labelFr": "Aide Ubuntu", "priorite": "P1", "slot": null, "statut": "partiel", "requiresSlot": false, "placement": { "dash": true } },
         "org.gnome.Ptyxis": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "org.gnome.TextEditor": { "labelFr": "Éditeur de texte", "priorite": "P0", "slot": "text_editor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
@@ -191,7 +204,11 @@
         "org.gnome.SystemMonitor": { "labelFr": "Moniteur système", "priorite": "P2", "slot": "system_monitor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "org.gnome.Characters": { "labelFr": "Caractères", "priorite": "P2", "slot": "characters", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
-        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "partiel", "requiresSlot": true, "placement": { "overview": true } }
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "partiel", "requiresSlot": true, "placement": { "overview": true } },
+        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "libreoffice_startcenter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6)" },
+        "libreoffice-calc": { "labelFr": "LibreOffice Calc", "priorite": "P1", "slot": "librecalc", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-impress": { "labelFr": "LibreOffice Impress", "priorite": "P1", "slot": "libreoffice_impress", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" },
+        "libreoffice-draw": { "labelFr": "LibreOffice Draw", "priorite": "P1", "slot": "libreoffice_draw", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Module suite LO — épinglage post-install" }
       },
       "capsuleOnly": [
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },

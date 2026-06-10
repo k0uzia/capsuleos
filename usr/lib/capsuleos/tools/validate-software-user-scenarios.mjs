@@ -34,7 +34,32 @@ const requiredSelectors = [
     'data-um-gnome-search',
     'data-um-gnome-installed-list',
     'data-um-gnome-discover-grid',
+    'data-um-gnome-updates-rows',
+    'data-um-gnome-detail-source',
+    'data-um-gnome-hero',
+    'data-um-gnome-featured-grid',
+    'data-um-gnome-category-hero-grid',
+    'gnome-software__titlebar',
+    'toggleSearch',
 ];
+
+const groundPath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-software-ground.js');
+if (!fs.existsSync(groundPath)) {
+    errors.push('gnome-software-ground.js manquant');
+} else if (!kernel.includes('CapsuleGnomeSoftwareGround')) {
+    errors.push('update-manager.js ne consomme pas CapsuleGnomeSoftwareGround');
+}
+
+const contentContractPath = path.join(ROOT, 'etc/capsuleos/contracts/gnome-software-store-content.json');
+const contentOutPath = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-gnome-software-content.js');
+if (!fs.existsSync(contentContractPath)) {
+    errors.push('gnome-software-store-content.json manquant');
+}
+if (!fs.existsSync(contentOutPath)) {
+    errors.push('capsule-gnome-software-content.js manquant — generate-store-catalog.mjs');
+} else if (!kernel.includes('CAPSULE_GNOME_SOFTWARE_CONTENT')) {
+    errors.push('update-manager.js ne consomme pas CAPSULE_GNOME_SOFTWARE_CONTENT');
+}
 
 requiredSelectors.forEach((sel) => {
     if (!html.includes(sel) && !kernel.includes(sel)) {

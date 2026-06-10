@@ -36,6 +36,10 @@
         "profile": "libadwaita-gnome",
         "checklist": "libadwaita-gnome",
         "librewriter": "libadwaita-gnome",
+        "libreoffice_startcenter": "libadwaita-gnome",
+        "librecalc": "libadwaita-gnome",
+        "libreoffice_impress": "libadwaita-gnome",
+        "libreoffice_draw": "libadwaita-gnome",
         "themes": "libadwaita-gnome",
         "visionneur_images": "libadwaita-gnome",
         "visionneur_pdf": "libadwaita-gnome",
@@ -57,9 +61,6 @@
         "default": "default"
       },
       "slotChromeProviderOverrides": {
-        "linux-ubuntu": {
-          "update_manager": "update-manager-ubuntu"
-        }
       }
     },
     "kde": {

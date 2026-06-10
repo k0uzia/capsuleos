@@ -5,7 +5,7 @@
     --linux-skin-label: "AlmaLinux";
     --fedora-dock-gap: calc(var(--head) / 11);
     --fedora-dock-item: calc(var(--head) * 1.02);
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-night.jpg");
+    --fedora-bg: linear-gradient(155deg, #1a4d6e 0%, #0f3d52 32%, #0a2a3a 58%, #051820 100%);
     --gnome-shell-taskbar-bg: var(--fedora-top-bar-bg);
     position: relative;
     display: flex;
@@ -25,16 +25,16 @@
     background-position: center;
 }
 
-/* Extension VM background-logo@fedorahosted.org — logo-size 12.5 %, border 50 px, bottom-left */
+/* Extension VM background-logo@fedorahosted.org — logo-size 9 %, border 50 px, bottom-right */
 body#alma:not(.is-overview)::after {
     content: "";
     position: absolute;
-    left: var(--alma-watermark-inset);
-    bottom: var(--alma-watermark-inset);
-    width: var(--alma-watermark-width);
+    right: var(--rocky-watermark-inset);
+    bottom: var(--rocky-watermark-inset);
+    width: var(--rocky-watermark-width);
     aspect-ratio: 907.78 / 415.08;
-    background: var(--alma-watermark) no-repeat left bottom / contain;
-    opacity: var(--alma-watermark-opacity);
+    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    opacity: 1;
     pointer-events: none;
     z-index: 2;
 }
@@ -324,7 +324,7 @@ body#alma.is-overview .fedora-top-bar {
 }
 
 html[data-theme="light"]:has(#alma) #alma {
-    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-day.jpg");
+    --fedora-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp");
 }
 
 html[data-theme="light"]:has(#alma) #alma #tableau.fedora-dock a:hover {

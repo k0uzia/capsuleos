@@ -117,7 +117,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "night-light",
@@ -230,7 +230,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -322,7 +322,7 @@
           "source": "fedora-capsule-dark-overview.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "dnd",
@@ -419,7 +419,7 @@
           "source": "fedora-capsule-dark-quick-settings.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "accent",
@@ -493,7 +493,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "wallpaper",
@@ -569,7 +569,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "display-scale",
@@ -641,7 +641,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "hot-corner",
@@ -714,7 +714,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "contrast",
@@ -786,7 +786,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "font-scale",
@@ -850,7 +850,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "power-mode",
@@ -913,7 +913,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "search-files",
@@ -975,7 +975,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "notifications",
@@ -991,12 +991,28 @@
         "easing": "ease-out"
       },
       "transitionObserved": {
-        "durationMs": 688,
+        "durationMs": 689,
         "easing": "ease-out",
         "properties": [],
-        "notes": "show-banners ; effet bannière simulé en enquête P2"
+        "notes": "captures host-virsh (fedora) — linux-fedora"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/notifications/before.png",
+          "timestamp": "2026-06-10T19:55:47.511Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/notifications/during-150ms.png",
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/notifications/after.png",
+          "elapsedMs": 300
+        }
+      ],
       "surfaces": [
         "notification-area",
         "calendar-popover"
@@ -1016,7 +1032,7 @@
         "parityPriority": "P2",
         "gapNotes": "P2 : dataset notificationsEnabled + show-banners miroir."
       },
-      "generatedAt": "2026-06-07T01:23:08.607154+00:00",
+      "generatedAt": "2026-06-10T19:55:35.806626+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -1024,7 +1040,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "power-dim",
@@ -1088,7 +1104,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     },
     {
       "controlId": "wifi",
@@ -1152,10 +1168,10 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-07T01:25:52.837Z"
+      "visualParityClosedAt": "2026-06-10T21:36:15.696Z"
     }
   ],
-  "generatedAt": "2026-06-07T01:25:43.107641+00:00",
+  "generatedAt": "2026-06-10T19:55:35.806626+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
@@ -1171,7 +1187,6 @@
     "capsuleImplemented": 4,
     "gaps": 0,
     "p0Open": 0,
-    "capsuleCapturesP2": 3,
     "visualMatchClassifiedP0": 4,
     "visualMatchClassifiedP1": 8,
     "visualMatchClassifiedP2": 3
@@ -1217,7 +1232,7 @@
     "files": 3
   },
   "visualParityClose": {
-    "generatedAt": "2026-06-07T01:25:52.837Z",
+    "generatedAt": "2026-06-10T21:36:15.696Z",
     "investigator": "enrich-visual-investigation-capsule-parity.mjs",
     "p0Classified": 4,
     "p1Classified": 8

@@ -26,67 +26,66 @@
         </aside>
 
         <section class="gnome-software__main" aria-label="Contenu principal">
-            <header class="gnome-software__headerbar" aria-label="En-tête">
-                <div class="gnome-software__search">
+            <header class="gnome-software__titlebar gnome-software__search--collapsed" aria-label="Barre de titre">
+                <button type="button" class="gnome-software__search-toggle" data-um-gnome-action="toggleSearch"
+                        aria-label="Rechercher des applications" title="Rechercher"></button>
+                <div class="gnome-software__search" data-um-gnome-search-panel>
                     <span class="gnome-software__search-icon" aria-hidden="true"></span>
                     <input class="gnome-software__search-input" type="search"
                            placeholder="Rechercher des applications" aria-label="Rechercher des applications"
                            data-um-gnome-search>
+                    <button type="button" class="gnome-software__search-close" data-um-gnome-action="closeSearch"
+                            aria-label="Fermer la recherche" title="Fermer la recherche"></button>
+                </div>
+                <div class="gnome-software__chrome-actions" data-um-gnome-chrome-actions hidden>
+                    <button type="button" class="gnome-software__menu-btn" data-um-gnome-action="menu"
+                            aria-label="Menu principal" title="Menu" aria-haspopup="true" aria-expanded="false"></button>
+                    <nav class="gnome-software__menu" data-um-gnome-menu hidden aria-label="Menu Logiciels">
+                        <button type="button" class="gnome-software__menu-item" data-um-gnome-menu-action="refresh">
+                            Actualiser le cache logiciel
+                        </button>
+                        <button type="button" class="gnome-software__menu-item" data-um-gnome-menu-action="about">
+                            À propos de Logiciels
+                        </button>
+                    </nav>
                 </div>
             </header>
 
             <!-- Vue Découvrir -->
             <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="explore">
                 <button type="button" class="gnome-software__updates-banner" data-um-gnome-nav="updates"
-                        aria-label="4 mises à jour disponibles — afficher">
+                        data-um-gnome-updates-banner aria-label="Mises à jour disponibles — afficher">
                     <span class="gnome-software__updates-banner-icon" aria-hidden="true"></span>
                     <span class="gnome-software__updates-banner-text">
-                        <strong>4 mises à jour disponibles</strong>
-                        <span>Cliquez pour afficher les mises à jour</span>
+                        <strong data-um-gnome-banner-strong>4 mises à jour disponibles</strong>
+                        <span data-um-gnome-banner-sub>Cliquez pour afficher les mises à jour</span>
                     </span>
                     <span class="gnome-software__updates-banner-chevron" aria-hidden="true"></span>
                 </button>
 
-                <section class="gnome-software__section" aria-labelledby="gs-featured-title">
-                    <h2 class="gnome-software__section-title" id="gs-featured-title">À la une</h2>
-                    <div class="gnome-software__grid" role="list">
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="firefox" aria-label="Firefox">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--firefox" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">Firefox</span>
-                            <span class="gnome-software__cardsub">Navigateur Web</span>
-                        </button>
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="libreoffice-writer" aria-label="LibreOffice Writer">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--libreoffice-writer" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">LibreOffice Writer</span>
-                            <span class="gnome-software__cardsub">Traitement de texte</span>
-                        </button>
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="files" aria-label="Fichiers">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--files" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">Fichiers</span>
-                            <span class="gnome-software__cardsub">Gestionnaire de fichiers</span>
-                        </button>
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="text-editor" aria-label="Éditeur de texte">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--text-editor" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">Éditeur de texte</span>
-                            <span class="gnome-software__cardsub">Éditeur simple</span>
-                        </button>
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="calculator" aria-label="Calculatrice">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--calculator" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">Calculatrice</span>
-                            <span class="gnome-software__cardsub">Calculs et conversions</span>
-                        </button>
-                        <button type="button" class="gnome-software__card" role="listitem"
-                                data-um-gnome-app="terminal" aria-label="Terminal">
-                            <span class="gnome-software__cardicon gnome-software__cardicon--terminal" aria-hidden="true"></span>
-                            <span class="gnome-software__cardname">Terminal</span>
-                            <span class="gnome-software__cardsub">Ligne de commande</span>
-                        </button>
-                    </div>
+                <section class="gnome-software__hero" data-um-gnome-hero hidden aria-labelledby="gs-hero-title">
+                    <button type="button" class="gnome-software__hero-nav gnome-software__hero-nav--prev"
+                            data-um-gnome-hero-prev aria-label="Application précédente" hidden></button>
+                    <button type="button" class="gnome-software__hero-card" data-um-gnome-hero-card>
+                        <span class="gnome-software__hero-icon gnome-software__cardicon gnome-software__cardicon--has-icon"
+                              data-um-gnome-hero-icon aria-hidden="true"></span>
+                        <span>
+                            <h2 class="gnome-software__hero-title" id="gs-hero-title" data-um-gnome-hero-title>À la une</h2>
+                            <p class="gnome-software__hero-sub" data-um-gnome-hero-sub></p>
+                        </span>
+                    </button>
+                    <button type="button" class="gnome-software__hero-nav gnome-software__hero-nav--next"
+                            data-um-gnome-hero-next aria-label="Application suivante" hidden></button>
+                    <div class="gnome-software__hero-dots" data-um-gnome-hero-dots aria-hidden="true" hidden></div>
+                </section>
+
+                <section class="gnome-software__section" data-um-gnome-category-hero-section hidden>
+                    <div class="gnome-software__category-hero-grid" role="list" data-um-gnome-category-hero-grid></div>
+                </section>
+
+                <section class="gnome-software__section" aria-labelledby="gs-featured-title" data-um-gnome-featured-section>
+                    <h2 class="gnome-software__section-title" id="gs-featured-title">Populaires</h2>
+                    <div class="gnome-software__grid" role="list" data-um-gnome-featured-grid></div>
                 </section>
 
                 <section class="gnome-software__section" aria-labelledby="gs-discover-title"
@@ -95,7 +94,8 @@
                     <div class="gnome-software__grid" role="list" data-um-gnome-discover-grid></div>
                 </section>
 
-                <section class="gnome-software__section" aria-labelledby="gs-categories-title">
+                <section class="gnome-software__section" aria-labelledby="gs-categories-title"
+                         data-um-gnome-legacy-categories>
                     <h2 class="gnome-software__section-title" id="gs-categories-title">Catégories</h2>
                     <div class="gnome-software__categories" role="list">
                         <button type="button" class="gnome-software__category" role="listitem" data-um-gnome-category="productivity">
@@ -168,49 +168,13 @@
                 </p>
 
                 <div class="gnome-software__updates-group" role="region" aria-label="Mises à jour disponibles" data-um-gnome-updates-list>
-                    <div class="gnome-software__updates">
-                        <article class="gnome-software__update-row" aria-label="Firefox">
-                            <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Firefox</p>
-                                <p class="gnome-software__rowsub">140.10.0-1.el10 → 140.11.0-1.el10_2</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                        </article>
-
-                        <article class="gnome-software__update-row" aria-label="GNOME Shell">
-                            <span class="gnome-software__appicon gnome-software__appicon--shell" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">GNOME Shell</p>
-                                <p class="gnome-software__rowsub">49.4-3.el10 → 49.4-3.el10_2.rocky.0.2</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                        </article>
-
-                        <article class="gnome-software__update-row" aria-label="Ptyxis">
-                            <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Ptyxis</p>
-                                <p class="gnome-software__rowsub">47.12-1.el10 → 47.13-1.el10</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                        </article>
-
-                        <article class="gnome-software__update-row" aria-label="Fichiers">
-                            <span class="gnome-software__appicon gnome-software__appicon--files" aria-hidden="true"></span>
-                            <div class="gnome-software__rowtext">
-                                <p class="gnome-software__rowtitle">Fichiers</p>
-                                <p class="gnome-software__rowsub">47.5-1.el10 → 47.6-2.el10</p>
-                            </div>
-                            <button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>
-                        </article>
-                    </div>
+                    <div class="gnome-software__updates" data-um-gnome-updates-rows></div>
                 </div>
 
                 <p class="gnome-software__status" aria-live="polite">Dernière vérification : aujourd’hui</p>
             </div>
 
-            <!-- Vue Installées (liste rendue par update-manager.js) -->
+            <!-- Vue Installées -->
             <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="installed" hidden>
                 <header class="gnome-software__page-head">
                     <div class="gnome-software__title-block">
@@ -231,16 +195,26 @@
                             aria-label="Retour">
                         <span aria-hidden="true"></span>
                     </button>
-                    <span class="gnome-software__detail-icon gnome-software__cardicon gnome-software__cardicon--firefox"
+                    <span class="gnome-software__detail-icon gnome-software__cardicon gnome-software__cardicon--firefox gnome-software__cardicon--has-icon"
                           data-um-gnome-detail-icon aria-hidden="true"></span>
                     <div class="gnome-software__detail-titles">
                         <h2 class="gnome-software__detail-title" data-um-gnome-detail-title>Firefox</h2>
                         <p class="gnome-software__detail-sub" data-um-gnome-detail-sub>Navigateur Web</p>
+                        <p class="gnome-software__detail-developer" data-um-gnome-detail-developer hidden></p>
+                        <p class="gnome-software__detail-rating" data-um-gnome-detail-rating hidden></p>
                     </div>
-                    <button type="button" class="gnome-software__action gnome-software__action--primary gnome-software__detail-install"
-                            data-um-gnome-action="install">
-                        Installer
-                    </button>
+                    <div class="gnome-software__detail-actions">
+                        <span class="gnome-software__detail-source" data-um-gnome-detail-source-chip hidden>
+                            <span class="gnome-software__detail-source-icon" aria-hidden="true"></span>
+                            <span data-um-gnome-detail-source-text>AppStream · RPM</span>
+                        </span>
+                        <button type="button" class="gnome-software__detail-uninstall" data-um-gnome-action="uninstall"
+                                aria-label="Désinstaller" title="Désinstaller" hidden></button>
+                        <button type="button" class="gnome-software__action gnome-software__action--primary gnome-software__detail-install"
+                                data-um-gnome-action="install">
+                            Installer
+                        </button>
+                    </div>
                 </header>
                 <div class="gnome-software__install-progress" data-um-gnome-install-progress hidden aria-hidden="true">
                     <div class="gnome-software__install-progress-track" aria-hidden="true">
@@ -251,14 +225,19 @@
                 <p class="gnome-software__network-error" data-um-gnome-network-error hidden role="alert">
                     Impossible de contacter le dépôt. Vérifiez votre connexion réseau.
                 </p>
+                <div class="gnome-software__detail-screenshots" data-um-gnome-detail-screenshots hidden>
+                    <button type="button" class="gnome-software__screenshot-nav" aria-label="Capture précédente" hidden></button>
+                    <div class="gnome-software__screenshot-frame" data-um-gnome-screenshot aria-hidden="true"></div>
+                    <button type="button" class="gnome-software__screenshot-nav" aria-label="Capture suivante" hidden></button>
+                </div>
                 <div class="gnome-software__detail-body">
-                    <p class="gnome-software__detail-desc" data-um-gnome-detail-desc>
-                        Navigateur Web libre et open source développé par Mozilla.
-                    </p>
+                    <p class="gnome-software__detail-long" data-um-gnome-detail-long></p>
                     <dl class="gnome-software__detail-meta">
                         <div><dt>Version</dt><dd data-um-gnome-detail-version>140.11.0esr</dd></div>
                         <div><dt>Taille</dt><dd data-um-gnome-detail-size>~95 Mo</dd></div>
-                        <div><dt>Source</dt><dd>AppStream · RPM</dd></div>
+                        <div><dt>Licence</dt><dd data-um-gnome-detail-license>Licence libre</dd></div>
+                        <div><dt>Origine</dt><dd data-um-gnome-detail-origin>Fedora Linux</dd></div>
+                        <div><dt>Source</dt><dd data-um-gnome-detail-source>AppStream · RPM</dd></div>
                     </dl>
                 </div>
             </div>

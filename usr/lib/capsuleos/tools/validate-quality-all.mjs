@@ -17,6 +17,7 @@ const steps = [
   'validate-vanilla-js.mjs',
   'validate-browser-capabilities.mjs',
   'validate-repo-hygiene.mjs',
+  'validate-os-reproduction-coherence.mjs',
   'validate-ui-contracts-all.mjs',
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',

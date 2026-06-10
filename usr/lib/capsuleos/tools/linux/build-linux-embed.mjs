@@ -201,22 +201,11 @@ function main() {
         skinTemplates['kde-neon'].update_manager = { html: readUtf8(KDE_NEON_UPDATE_MANAGER_HTML) };
     }
 
-    if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
-        const ubuntuUmHtml = readUtf8(UBUNTU_UPDATE_MANAGER_HTML);
-        const ubuntuUmBase = path.join(STYLE_DIR, 'update_manager_ubuntu.base.css');
-        const ubuntuUmCssBase = fs.existsSync(ubuntuUmBase) ? readUtf8(ubuntuUmBase) : '';
-        skinTemplates.ubuntu = skinTemplates.ubuntu || {};
-        skinTemplates.ubuntu.update_manager = {
-            html: ubuntuUmHtml,
-            cssBase: ubuntuUmCssBase
-        };
-    }
-
     if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {
         const gnomeUmHtml = readUtf8(GNOME_UPDATE_MANAGER_HTML);
         const gnomeUmBase = path.join(STYLE_DIR, 'update_manager_gnome.base.css');
         const gnomeUmCssBase = fs.existsSync(gnomeUmBase) ? readUtf8(gnomeUmBase) : '';
-        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos', 'ubuntu']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].update_manager = {
                 html: gnomeUmHtml,

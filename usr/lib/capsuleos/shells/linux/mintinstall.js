@@ -6,22 +6,90 @@
 
     var WINDOW_TITLE = 'Logithèque';
 
-    var CATALOG = [
+    var MINT_CAT_BY_SLOT = {
+        firefox: 'internet',
+        thunderbird: 'internet',
+        transmission: 'internet',
+        librewriter: 'office',
+        librecalc: 'office',
+        libreoffice_impress: 'office',
+        libreoffice_draw: 'office',
+        libreoffice_startcenter: 'office',
+        drawing: 'graphics',
+        lecteur_multimedia: 'multimedia',
+        rhythmbox: 'multimedia',
+        calculator: 'accessories',
+        text_editor: 'accessories',
+        file_roller: 'accessories',
+        calendar: 'accessories',
+        simple_scan: 'accessories',
+        warpinator: 'internet',
+        timeshift: 'accessories'
+    };
+
+    var MINT_ICON_BY_SLOT = {
+        firefox: './assets/images/vendors/mint/panel/firefox.webp',
+        thunderbird: './assets/images/toolkits/cinnamon/apps/thunderbird.png',
+        transmission: './assets/images/toolkits/cinnamon/apps/transmission.png',
+        librewriter: './assets/images/vendors/mint/panel/libreoffice-writer.webp',
+        librecalc: './assets/images/toolkits/cinnamon/apps/libreoffice-calc',
+        libreoffice_impress: './assets/images/toolkits/cinnamon/apps/libreoffice-impress',
+        libreoffice_draw: './assets/images/toolkits/cinnamon/apps/libreoffice-draw',
+        libreoffice_startcenter: './assets/images/toolkits/cinnamon/apps/libreoffice-startcenter',
+        drawing: './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png',
+        lecteur_multimedia: './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid',
+        rhythmbox: './assets/images/toolkits/cinnamon/apps/rhythmbox.png',
+        calculator: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
+        text_editor: './assets/images/vendors/mint/panel/accessories-text-editor.webp'
+    };
+
+    var CATALOG_FALLBACK = [
         { id: 'firefox', name: 'Firefox', desc: 'Navigateur web', cat: 'internet', icon: './assets/images/vendors/mint/panel/firefox.webp' },
-        { id: 'thunderbird', name: 'Thunderbird', desc: 'Client de messagerie', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/thunderbird.png' },
-        { id: 'transmission', name: 'Transmission', desc: 'Client BitTorrent', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/transmission.png' },
         { id: 'librewriter', name: 'LibreOffice Writer', desc: 'Traitement de texte', cat: 'office', icon: './assets/images/vendors/mint/panel/libreoffice-writer.webp' },
         { id: 'librecalc', name: 'LibreOffice Calc', desc: 'Tableur', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-calc' },
-        { id: 'gimp', name: 'GIMP', desc: 'Éditeur d\'images', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/gimp.png' },
-        { id: 'drawing', name: 'Dessin', desc: 'Dessin vectoriel', cat: 'graphics', icon: './assets/images/toolkits/cinnamon/apps/com.github.maoschanz.drawing.png' },
-        { id: 'celluloid', name: 'Celluloid', desc: 'Lecteur vidéo', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid' },
-        { id: 'vlc', name: 'VLC', desc: 'Lecteur multimédia', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/vlc.svg' },
-        { id: 'audacity', name: 'Audacity', desc: 'Éditeur audio', cat: 'multimedia', icon: './assets/images/toolkits/cinnamon/apps/audacity.svg' },
-        { id: 'filezilla', name: 'FileZilla', desc: 'Client FTP', cat: 'internet', icon: './assets/images/toolkits/cinnamon/apps/filezilla.svg' },
-        { id: 'code', name: 'Visual Studio Code', desc: 'Éditeur de code', cat: 'development', icon: './assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg' },
-        { id: 'calculator', name: 'Calculatrice', desc: 'Calculatrice GNOME', cat: 'accessories', icon: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp' },
-        { id: 'xed', name: 'Éditeur de texte', desc: 'Xed — éditeur de texte', cat: 'accessories', icon: './assets/images/vendors/mint/panel/accessories-text-editor.webp' }
+        { id: 'libreoffice_impress', name: 'LibreOffice Impress', desc: 'Présentations', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-impress' },
+        { id: 'libreoffice_draw', name: 'LibreOffice Draw', desc: 'Dessin vectoriel', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-draw' }
     ];
+
+    function mapStoreEntryToMint(entry) {
+        var slot = entry.storeSlot || entry.slot;
+        if (!slot) {
+            return null;
+        }
+        return {
+            id: slot,
+            name: entry.title,
+            desc: entry.sub || entry.desc || entry.title,
+            cat: MINT_CAT_BY_SLOT[slot] || 'accessories',
+            icon: entry.iconPath || MINT_ICON_BY_SLOT[slot] || './assets/images/toolkits/cinnamon/apps/default.png',
+            defaultInstalled: entry.defaultInstalled === true,
+            storeInstallable: entry.storeInstallable === true
+        };
+    }
+
+    function buildCatalogFromRegistry() {
+        var store = global.CapsuleMintStore;
+        if (!store || typeof store.getStoreList !== 'function') {
+            return null;
+        }
+        var list = store.getStoreList();
+        if (!list.length) {
+            return null;
+        }
+        var out = [];
+        var i;
+        for (i = 0; i < list.length; i += 1) {
+            var mapped = mapStoreEntryToMint(list[i]);
+            if (mapped) {
+                out.push(mapped);
+            }
+        }
+        return out.length ? out : null;
+    }
+
+    function getCatalog() {
+        return buildCatalogFromRegistry() || CATALOG_FALLBACK;
+    }
 
     var CAT_LABELS = {
         home: 'Accueil',
@@ -121,20 +189,22 @@
     }
 
     function entryName(pkgId) {
+        var catalog = getCatalog();
         var ei;
-        for (ei = 0; ei < CATALOG.length; ei += 1) {
-            if (CATALOG[ei].id === pkgId) {
-                return CATALOG[ei].name;
+        for (ei = 0; ei < catalog.length; ei += 1) {
+            if (catalog[ei].id === pkgId) {
+                return catalog[ei].name;
             }
         }
         return pkgId;
     }
 
     function catalogEntry(pkgId) {
+        var catalog = getCatalog();
         var ei;
-        for (ei = 0; ei < CATALOG.length; ei += 1) {
-            if (CATALOG[ei].id === pkgId) {
-                return CATALOG[ei];
+        for (ei = 0; ei < catalog.length; ei += 1) {
+            if (catalog[ei].id === pkgId) {
+                return catalog[ei];
             }
         }
         return null;
@@ -189,6 +259,13 @@
         var installed = {};
         var currentCat = 'home';
         var detailPkgId = null;
+        var catalog = getCatalog();
+        var ci;
+        for (ci = 0; ci < catalog.length; ci += 1) {
+            if (catalog[ci].defaultInstalled) {
+                installed[catalog[ci].id] = true;
+            }
+        }
 
         function setStatus(msg) {
             if (statusEl) {
@@ -197,24 +274,25 @@
         }
 
         function filterCatalog(catId) {
+            var activeCatalog = getCatalog();
             if (catId === 'all' || catId === 'flatpak') {
-                return CATALOG.slice();
+                return activeCatalog.slice();
             }
             if (catId === 'installed') {
                 var out = [];
                 var ci;
-                for (ci = 0; ci < CATALOG.length; ci += 1) {
-                    if (installed[CATALOG[ci].id]) {
-                        out.push(CATALOG[ci]);
+                for (ci = 0; ci < activeCatalog.length; ci += 1) {
+                    if (installed[activeCatalog[ci].id]) {
+                        out.push(activeCatalog[ci]);
                     }
                 }
                 return out;
             }
             var filtered = [];
             var fi;
-            for (fi = 0; fi < CATALOG.length; fi += 1) {
-                if (CATALOG[fi].cat === catId) {
-                    filtered.push(CATALOG[fi]);
+            for (fi = 0; fi < activeCatalog.length; fi += 1) {
+                if (activeCatalog[fi].cat === catId) {
+                    filtered.push(activeCatalog[fi]);
                 }
             }
             return filtered;
@@ -258,10 +336,11 @@
             }
             showPage(root, 'search');
             searchTitle.textContent = 'Résultats pour « ' + query.trim() + ' »';
+            var activeCatalog = getCatalog();
             var matches = [];
             var si;
-            for (si = 0; si < CATALOG.length; si += 1) {
-                var entry = CATALOG[si];
+            for (si = 0; si < activeCatalog.length; si += 1) {
+                var entry = activeCatalog[si];
                 if (entry.name.toLowerCase().indexOf(q) !== -1
                     || entry.desc.toLowerCase().indexOf(q) !== -1) {
                     matches.push(entry);

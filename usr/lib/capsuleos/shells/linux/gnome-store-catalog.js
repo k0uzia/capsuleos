@@ -84,6 +84,21 @@
         return meta;
     }
 
+    function removeStoreInstall(registryId, appId) {
+        var meta = loadStoreInstalledMeta(registryId);
+        var ids = meta.appIds || [];
+        var next = [];
+        var i;
+        for (i = 0; i < ids.length; i += 1) {
+            if (ids[i] !== appId) {
+                next.push(ids[i]);
+            }
+        }
+        meta.appIds = next;
+        saveStoreInstalledMeta(registryId, meta);
+        return meta;
+    }
+
     function mergeStoreApps(baseCatalog) {
         var registryId = resolveRegistryId();
         var merged = {};
@@ -106,12 +121,15 @@
                 version: entry.version,
                 size: entry.size,
                 iconClass: entry.iconClass,
+                iconPath: entry.iconPath || null,
                 installed: false,
                 slot: entry.slot,
                 categories: entry.categories,
                 storeSlot: entry.storeSlot,
+                postInstallSlot: entry.postInstallSlot || null,
+                relatedSlots: entry.relatedSlots || null,
                 source: entry.source,
-                storeInstallable: true,
+                storeInstallable: entry.storeInstallable !== false,
                 placement: entry.placement
             };
         }
@@ -159,6 +177,7 @@
         loadStoreInstalledMeta: loadStoreInstalledMeta,
         saveStoreInstalledMeta: saveStoreInstalledMeta,
         recordStoreInstall: recordStoreInstall,
+        removeStoreInstall: removeStoreInstall,
         mergeStoreApps: mergeStoreApps,
         getDiscoverApps: getDiscoverApps,
         getStoreAppEntry: getStoreAppEntry

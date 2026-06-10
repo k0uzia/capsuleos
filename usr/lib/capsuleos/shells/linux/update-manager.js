@@ -775,6 +775,16 @@
                 installed: true,
                 slot: 'terminal',
                 categories: ['development', 'utilities']
+            },
+            netsleuth: {
+                title: 'Netsleuth',
+                sub: 'Analyseur de trafic réseau',
+                desc: 'Inspectez les connexions réseau actives sur votre système.',
+                version: '0.1',
+                size: '~2 Mo',
+                iconClass: 'gnome-software__cardicon--netsleuth',
+                installed: false,
+                categories: ['utilities', 'development']
             }
         };
         if (typeof window.CapsuleGnomeStore !== 'undefined'
@@ -852,17 +862,155 @@
         var registryId = window.CapsuleGnomeStore.resolveRegistryId();
         var source = app && app.source ? app.source : 'rpm';
         window.CapsuleGnomeStore.recordStoreInstall(registryId, appId, source);
-        if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function') {
+        if (typeof document === 'undefined' || typeof document.dispatchEvent !== 'function') {
+            return;
+        }
+        var storeEntry = typeof window.CapsuleGnomeStore.getStoreAppEntry === 'function'
+            ? window.CapsuleGnomeStore.getStoreAppEntry(appId)
+            : null;
+        var slots = [];
+        var seen = {};
+        function pushSlot(slotId) {
+            if (!slotId || seen[slotId]) {
+                return;
+            }
+            seen[slotId] = true;
+            slots.push(slotId);
+        }
+        if (storeEntry && storeEntry.relatedSlots && storeEntry.relatedSlots.length) {
+            var ri;
+            for (ri = 0; ri < storeEntry.relatedSlots.length; ri += 1) {
+                pushSlot(storeEntry.relatedSlots[ri]);
+            }
+            pushSlot(storeEntry.storeSlot);
+        } else if (app && app.slot) {
+            pushSlot(app.slot);
+        } else if (storeEntry && storeEntry.slot) {
+            pushSlot(storeEntry.slot);
+        }
+        var si;
+        for (si = 0; si < slots.length; si += 1) {
             document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
                 detail: {
                     appId: appId,
-                    slot: app && app.slot ? app.slot : '',
-                    storeSlot: app && app.storeSlot ? app.storeSlot : '',
+                    slot: slots[si],
+                    storeSlot: storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : (app && app.storeSlot ? app.storeSlot : ''),
                     registryId: registryId,
-                    source: source
+                    source: source,
+                    suiteInstall: !!(storeEntry && storeEntry.relatedSlots && storeEntry.relatedSlots.length)
                 }
             }));
         }
+    }
+
+    function notifyStoreAppUninstalled(appId, app) {
+        if (typeof window.CapsuleGnomeStore !== 'undefined'
+            && typeof window.CapsuleGnomeStore.removeStoreInstall === 'function') {
+            var registryId = window.CapsuleGnomeStore.resolveRegistryId();
+            window.CapsuleGnomeStore.removeStoreInstall(registryId, appId);
+        }
+        if (typeof document === 'undefined' || typeof document.dispatchEvent !== 'function') {
+            return;
+        }
+        var storeEntry = typeof window.CapsuleGnomeStore !== 'undefined'
+            && typeof window.CapsuleGnomeStore.getStoreAppEntry === 'function'
+            ? window.CapsuleGnomeStore.getStoreAppEntry(appId)
+            : null;
+        document.dispatchEvent(new CustomEvent('capsule:store-app-uninstalled', {
+            detail: {
+                appId: appId,
+                slot: app && app.slot ? app.slot : (storeEntry && storeEntry.slot ? storeEntry.slot : ''),
+                storeSlot: storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : '',
+                registryId: typeof window.CapsuleGnomeStore !== 'undefined'
+                    ? window.CapsuleGnomeStore.resolveRegistryId()
+                    : ''
+            }
+        }));
+    }
+
+    function canUninstallGnomeApp(appId) {
+        if (!appId || appId === 'gnome-software') {
+            return false;
+        }
+        return isGnomeAppInstalled(appId);
+    }
+
+    function collapseGnomeSearch(root, options) {
+        if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+            && typeof window.CapsuleGnomeSoftwareGround.collapseSearch === 'function') {
+            window.CapsuleGnomeSoftwareGround.collapseSearch(root, options);
+        }
+    }
+
+    function closeGnomeSoftwareMenu(root) {
+        var menu = root.querySelector('[data-um-gnome-menu]');
+        var btn = root.querySelector('[data-um-gnome-action="menu"]');
+        if (menu) {
+            menu.hidden = true;
+        }
+        if (btn) {
+            btn.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    function toggleGnomeSoftwareMenu(root) {
+        var menu = root.querySelector('[data-um-gnome-menu]');
+        var btn = root.querySelector('[data-um-gnome-action="menu"]');
+        if (!menu) {
+            return;
+        }
+        var open = menu.hidden;
+        menu.hidden = !open;
+        if (btn) {
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+    }
+
+    function onGnomeMenuAction(actionId, root) {
+        closeGnomeSoftwareMenu(root);
+        if (actionId === 'refresh') {
+            setGnomeLoading(root, true, 'Actualisation du cache logiciel…');
+            window.setTimeout(function onRefreshDone() {
+                setGnomeLoading(root, false);
+                renderDiscoverSection(root);
+                renderGnomeInstalledList(root);
+                setStatus('Cache logiciel actualisé (simulation).');
+            }, 700);
+            return;
+        }
+        if (actionId === 'about') {
+            var content = resolveGnomeSoftwareContent(resolveGnomeRegistryId());
+            var version = content.softwarePackageVersion || '50.0';
+            setStatus('Logiciels ' + version + ' — simulation CapsuleOS.');
+        }
+    }
+
+    function syncGnomeDetailUninstallButton(root, appId) {
+        var uninstallBtn = root.querySelector('[data-um-gnome-detail-uninstall]');
+        if (!uninstallBtn) {
+            return;
+        }
+        uninstallBtn.hidden = !canUninstallGnomeApp(appId);
+    }
+
+    function handleGnomeUninstall(root, appId) {
+        if (!canUninstallGnomeApp(appId)) {
+            return;
+        }
+        var catalog = gnomeAppCatalog();
+        var app = catalog[appId];
+        if (!app) {
+            return;
+        }
+        setGnomeAppInstalled(appId, false);
+        notifyStoreAppUninstalled(appId, app);
+        renderGnomeInstalledList(root);
+        renderDiscoverSection(root);
+        if (root.dataset.umGnomeView === 'detail' && root.dataset.umGnomeDetailApp === appId) {
+            syncGnomeDetailInstallButton(root, appId);
+            syncGnomeDetailUninstallButton(root, appId);
+        }
+        setStatus(app.title + ' désinstallé.');
     }
 
     function renderDiscoverSection(root) {
@@ -903,11 +1051,114 @@
         }
     }
 
-    function gnomeMetaInstalledRows() {
+    function resolveGnomeRegistryId() {
+        if (typeof window.CapsuleGnomeStore !== 'undefined'
+            && typeof window.CapsuleGnomeStore.resolveRegistryId === 'function') {
+            return window.CapsuleGnomeStore.resolveRegistryId() || 'linux-rocky';
+        }
+        return 'linux-rocky';
+    }
+
+    function resolveGnomeSoftwareContent(registryId) {
+        var map = window.CAPSULE_GNOME_SOFTWARE_CONTENT || {};
+        if (registryId && map[registryId]) {
+            return map[registryId];
+        }
+        return map['linux-rocky'] || {
+            softwarePackageVersion: '47.5',
+            updatesCount: 4,
+            updatesBanner: {
+                strong: '4 mises à jour disponibles',
+                sub: 'Cliquez pour afficher les mises à jour'
+            },
+            updatesSubtitle: '4 mises à jour disponibles',
+            distributionLabel: 'Red Hat Enterprise Linux',
+            updatesRows: []
+        };
+    }
+
+    function formatGnomeDetailSource(registryId, app) {
+        var content = resolveGnomeSoftwareContent(registryId);
+        var source = app && app.source ? app.source : 'rpm';
+        var channel = source === 'flatpak' ? 'Flathub' : 'AppStream';
+        var pkg = source === 'flatpak' ? 'Flatpak' : 'RPM';
+        var label = channel + ' · ' + pkg;
+        if (content.distributionLabel && source !== 'flatpak') {
+            label += ' · ' + content.distributionLabel;
+        }
+        return label;
+    }
+
+    function renderGnomeUpdatesList(root, content) {
+        var container = root.querySelector('[data-um-gnome-updates-rows]');
+        if (!container) {
+            return;
+        }
+        var rows = content.updatesRows || [];
+        var html = '';
+        var i;
+        for (i = 0; i < rows.length; i += 1) {
+            var row = rows[i];
+            html += '<article class="gnome-software__update-row" aria-label="' + row.title + '">'
+                + '<span class="gnome-software__appicon ' + row.iconClass + '" aria-hidden="true"></span>'
+                + '<div class="gnome-software__rowtext">'
+                + '<p class="gnome-software__rowtitle">' + row.title + '</p>'
+                + '<p class="gnome-software__rowsub">' + row.versionLine + '</p>'
+                + '</div>'
+                + '<button type="button" class="gnome-software__rowbtn" data-um-gnome-action="updateOne">Mettre à jour</button>'
+                + '</article>';
+        }
+        container.innerHTML = html;
+        var list = root.querySelector('[data-um-gnome-updates-list]');
+        if (list) {
+            list.hidden = rows.length === 0;
+        }
+    }
+
+    function applyGnomeSoftwareContent(root) {
+        var registryId = resolveGnomeRegistryId();
+        var content = resolveGnomeSoftwareContent(registryId);
+        var count = content.updatesCount || 0;
+        var badge = root.querySelector('[data-um-gnome-badge]');
+        if (badge) {
+            badge.textContent = String(count);
+            badge.setAttribute('aria-label', count + ' mise' + (count > 1 ? 's' : '') + ' à jour');
+            badge.hidden = count === 0;
+        }
+        var bannerStrong = root.querySelector('[data-um-gnome-banner-strong]');
+        var bannerSub = root.querySelector('[data-um-gnome-banner-sub]');
+        var banner = root.querySelector('[data-um-gnome-updates-banner]');
+        if (bannerStrong && content.updatesBanner) {
+            bannerStrong.textContent = content.updatesBanner.strong || bannerStrong.textContent;
+        }
+        if (bannerSub && content.updatesBanner) {
+            bannerSub.textContent = content.updatesBanner.sub || bannerSub.textContent;
+        }
+        if (banner) {
+            banner.setAttribute('aria-label', (content.updatesBanner && content.updatesBanner.strong)
+                ? content.updatesBanner.strong + ' — afficher'
+                : 'Mises à jour disponibles — afficher');
+            if (content.hideExploreUpdatesBanner
+                && (content.chromeProfile || 'gs47-sidebar') === 'gs50-tabs') {
+                banner.hidden = true;
+                banner.dataset.umGnomeBannerSuppressed = 'gs50-explore';
+            } else if (banner.dataset.umGnomeBannerSuppressed !== 'gs50-explore') {
+                banner.hidden = count === 0;
+            }
+        }
+        var subtitle = root.querySelector('[data-um-gnome-updates-subtitle]');
+        if (subtitle) {
+            subtitle.textContent = content.updatesSubtitle || subtitle.textContent;
+        }
+        renderGnomeUpdatesList(root, content);
+    }
+
+    function gnomeMetaInstalledRows(registryId) {
+        var content = resolveGnomeSoftwareContent(registryId);
         return [{
             id: 'gnome-software',
             title: 'Logiciels',
-            sub: '47.5 · Centre d\'applications',
+            sub: (content.softwarePackageVersion || '47.5') + ' · Centre d\'applications',
             iconClass: 'gnome-software__appicon--software',
             noOpen: true,
             noDetails: true
@@ -943,10 +1194,15 @@
                     + id + '">Ouvrir</button>';
             }
             html += '<button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary" data-um-gnome-app="'
-                + id + '">Détails</button>'
-                + '</div></article>';
+                + id + '">Détails</button>';
+            if (canUninstallGnomeApp(id)) {
+                html += '<button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--danger" data-um-gnome-action="uninstall" data-um-gnome-app="'
+                    + id + '">Désinstaller</button>';
+            }
+            html += '</div></article>';
         }
-        var metaRows = gnomeMetaInstalledRows();
+        var registryId = resolveGnomeRegistryId();
+        var metaRows = gnomeMetaInstalledRows(registryId);
         for (i = 0; i < metaRows.length; i += 1) {
             var meta = metaRows[i];
             html += '<article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="'
@@ -1039,6 +1295,7 @@
                 }
                 renderGnomeInstalledList(root);
                 renderDiscoverSection(root);
+                syncGnomeDetailUninstallButton(root, appId);
                 setStatus(app.title + ' installé.');
                 gnomeBusy = false;
                 root.dataset.umGnomeInstalling = 'false';
@@ -1155,7 +1412,7 @@
             var entry = apps[i];
             html += '<button type="button" class="gnome-software__card" role="listitem"'
                 + ' data-um-gnome-app="' + entry.id + '" aria-label="' + entry.app.title + '">'
-                + '<span class="gnome-software__cardicon ' + entry.app.iconClass + '" aria-hidden="true"></span>'
+                + '<span class="gnome-software__cardicon gnome-software__cardicon--has-icon ' + entry.app.iconClass + '" aria-hidden="true"></span>'
                 + '<span class="gnome-software__cardname">' + entry.app.title + '</span>'
                 + '<span class="gnome-software__cardsub">' + entry.app.sub + '</span>'
                 + '</button>';
@@ -1275,12 +1532,14 @@
         var icon = root.querySelector('[data-um-gnome-detail-icon]');
         var title = root.querySelector('[data-um-gnome-detail-title]');
         var sub = root.querySelector('[data-um-gnome-detail-sub]');
-        var desc = root.querySelector('[data-um-gnome-detail-desc]');
+        var desc = root.querySelector('[data-um-gnome-detail-long]');
         var version = root.querySelector('[data-um-gnome-detail-version]');
         var size = root.querySelector('[data-um-gnome-detail-size]');
         var installBtn = root.querySelector('.gnome-software__detail-install');
+        var sourceEl = root.querySelector('[data-um-gnome-detail-source]');
+        var registryId = resolveGnomeRegistryId();
         if (icon) {
-            icon.className = 'gnome-software__detail-icon gnome-software__cardicon ' + app.iconClass;
+            icon.className = 'gnome-software__detail-icon gnome-software__cardicon gnome-software__cardicon--has-icon ' + app.iconClass;
         }
         if (title) {
             title.textContent = app.title;
@@ -1297,24 +1556,64 @@
         if (size) {
             size.textContent = app.size;
         }
+        if (sourceEl) {
+            if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+                && typeof window.CapsuleGnomeSoftwareGround.formatDetailSource === 'function') {
+                sourceEl.textContent = window.CapsuleGnomeSoftwareGround.formatDetailSource(registryId, app, resolveGnomeSoftwareContent(registryId));
+            } else {
+                sourceEl.textContent = formatGnomeDetailSource(registryId, app);
+            }
+        }
+        if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+            && typeof window.CapsuleGnomeSoftwareGround.enrichDetailPane === 'function') {
+            window.CapsuleGnomeSoftwareGround.enrichDetailPane(
+                root,
+                app,
+                appId,
+                registryId,
+                resolveGnomeSoftwareContent(registryId),
+                { installed: isGnomeAppInstalled(appId) }
+            );
+        }
         if (installBtn) {
             syncGnomeDetailInstallButton(root, appId);
         }
+        syncGnomeDetailUninstallButton(root, appId);
         root.dataset.umGnomeDetailApp = appId;
         setGnomeView(root, 'detail');
     }
 
     function bindGnomeSoftware(root) {
+        if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+            && typeof window.CapsuleGnomeSoftwareGround.applyGround === 'function') {
+            window.CapsuleGnomeSoftwareGround.applyGround(root, gnomeAppCatalog());
+        }
+        applyGnomeSoftwareContent(root);
         renderGnomeInstalledList(root);
         renderDiscoverSection(root);
+        if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+            && typeof window.CapsuleGnomeSoftwareGround.patchRenderedCardIcons === 'function') {
+            window.CapsuleGnomeSoftwareGround.patchRenderedCardIcons(root);
+        }
         setGnomeView(root, 'explore');
         root.addEventListener('click', function onGnomeClick(event) {
             if (gnomeBusy) {
                 return;
             }
+            var menuEntry = event.target.closest('[data-um-gnome-menu-action]');
+            if (menuEntry && root.contains(menuEntry)) {
+                event.preventDefault();
+                onGnomeMenuAction(menuEntry.getAttribute('data-um-gnome-menu-action'), root);
+                return;
+            }
+            if (!event.target.closest('[data-um-gnome-menu]')
+                && !event.target.closest('[data-um-gnome-action="menu"]')) {
+                closeGnomeSoftwareMenu(root);
+            }
             var nav = event.target.closest('[data-um-gnome-nav]');
             if (nav && root.contains(nav)) {
                 event.preventDefault();
+                collapseGnomeSearch(root);
                 var navId = nav.getAttribute('data-um-gnome-nav');
                 if (navId === 'explore') {
                     var searchInput = root.querySelector('[data-um-gnome-search]');
@@ -1371,9 +1670,35 @@
                     }
                     return;
                 }
+                if (id === 'toggleSearch') {
+                    if (typeof window.CapsuleGnomeSoftwareGround !== 'undefined'
+                        && typeof window.CapsuleGnomeSoftwareGround.toggleSearch === 'function') {
+                        window.CapsuleGnomeSoftwareGround.toggleSearch(root);
+                    }
+                    return;
+                }
+                if (id === 'closeSearch') {
+                    collapseGnomeSearch(root);
+                    if (root.dataset.umGnomeView === 'search') {
+                        setGnomeView(root, 'explore');
+                        setStatus('Catalogue AppStream (simulation)');
+                    }
+                    return;
+                }
+                if (id === 'menu') {
+                    toggleGnomeSoftwareMenu(root);
+                    return;
+                }
                 if (id === 'install') {
                     var detailApp = root.dataset.umGnomeDetailApp || '';
                     handleGnomeInstallOrOpen(root, detailApp);
+                    return;
+                }
+                if (id === 'uninstall') {
+                    var uninstallAppId = action.getAttribute('data-um-gnome-app')
+                        || root.dataset.umGnomeDetailApp
+                        || '';
+                    handleGnomeUninstall(root, uninstallAppId);
                     return;
                 }
                 if (id === 'simulateNetworkError') {
@@ -1409,14 +1734,26 @@
             });
             search.addEventListener('keydown', function onGnomeSearchKey(event) {
                 if (event.key === 'Escape') {
-                    search.value = '';
-                    setGnomeView(root, 'explore');
-                    setStatus('Catalogue AppStream (simulation)');
+                    event.preventDefault();
+                    collapseGnomeSearch(root);
+                    if (root.dataset.umGnomeView === 'search') {
+                        setGnomeView(root, 'explore');
+                        setStatus('Catalogue AppStream (simulation)');
+                    }
                 }
             });
         }
         root.addEventListener('keydown', function onGnomeKeydown(event) {
             if (event.key !== 'Escape') {
+                return;
+            }
+            closeGnomeSoftwareMenu(root);
+            if (root.querySelector('.gnome-software__titlebar.gnome-software__search--expanded')) {
+                collapseGnomeSearch(root);
+                if (root.dataset.umGnomeView === 'search') {
+                    setGnomeView(root, 'explore');
+                    setStatus('Catalogue AppStream (simulation)');
+                }
                 return;
             }
             if (root.dataset.umGnomeView === 'detail') {

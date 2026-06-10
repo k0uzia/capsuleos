@@ -1,6 +1,8 @@
 {
   "version": 1,
   "description": "Profils recette lab hot-reload — matrices et scripts par registryId (P11, pas de fallback silencieux). Éditer ce fichier pour adapter la recette à la volée sans toucher au code.",
+  "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+  "storeChain": "etc/capsuleos/contracts/store-replication-chain.json",
   "skinToolkitRecipe": "etc/capsuleos/contracts/skin-toolkit-recipe.json",
   "skinToolkitRunner": "usr/lib/capsuleos/tools/linux/run-toolkit-skin-recipe.mjs",
   "matrixKinds": {
@@ -21,6 +23,14 @@
     "linux-rocky": {
       "toolkit": "gnome",
       "vendor": "rocky",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "storeCampaign": {
+        "chain": "etc/capsuleos/contracts/store-replication-chain.json",
+        "groundReferenceRegistryId": "linux-fedora",
+        "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+        "chromeProfile": "gs47-sidebar",
+        "campaignPhases": ["CR-0", "CR-3", "CR-5", "CR-6"]
+      },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-rocky.json",
         "assets": "root/tools/lab/gnome-settings-assets-matrix-rocky.json",
@@ -34,6 +44,14 @@
     "linux-fedora": {
       "toolkit": "gnome",
       "vendor": "fedora",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "storeCampaign": {
+        "chain": "etc/capsuleos/contracts/store-replication-chain.json",
+        "groundReferenceRegistryId": "linux-fedora",
+        "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+        "chromeProfile": "gs50-tabs",
+        "campaignPhases": ["CR-0", "CR-1", "CR-2", "CR-3", "CR-4", "CR-5", "CR-6"]
+      },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-fedora.json",
         "assets": "root/tools/lab/gnome-settings-assets-matrix-fedora.json",
@@ -71,6 +89,14 @@
       "toolkit": "gnome",
       "vendor": "alma",
       "upstreamId": "linux-rocky",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "storeCampaign": {
+        "chain": "etc/capsuleos/contracts/store-replication-chain.json",
+        "groundReferenceRegistryId": "linux-fedora",
+        "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+        "chromeProfile": "gs47-sidebar",
+        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+      },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-alma.json",
         "assets": "root/tools/lab/gnome-settings-assets-matrix-alma.json",
@@ -91,6 +117,14 @@
       "toolkit": "gnome",
       "vendor": "anduin",
       "upstreamId": "linux-ubuntu",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "storeCampaign": {
+        "chain": "etc/capsuleos/contracts/store-replication-chain.json",
+        "groundReferenceRegistryId": "linux-fedora",
+        "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+        "chromeProfile": "gs47-sidebar",
+        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+      },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-anduin.json",
         "assets": "root/tools/lab/gnome-settings-assets-matrix-anduin.json",

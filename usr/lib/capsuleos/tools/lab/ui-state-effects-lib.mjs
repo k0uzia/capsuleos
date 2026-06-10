@@ -25,6 +25,41 @@ export const loadMatrix = (registryId) => {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 };
 
+const GNOME_BASE_MATRIX = path.join(ROOT, 'root/tools/lab/ui-state-effects-matrix-gnome.json');
+
+/** Matrice registry ou fusion depuis ground GNOME (Va bootstrap). */
+export const loadMergedMatrix = (registryId) => {
+  const regPath = registryMatrixPath(registryId);
+  if (fs.existsSync(regPath)) {
+    return JSON.parse(fs.readFileSync(regPath, 'utf8'));
+  }
+  if (!fs.existsSync(GNOME_BASE_MATRIX)) {
+    throw new Error(`Matrice GNOME base absente : ${GNOME_BASE_MATRIX}`);
+  }
+  const base = JSON.parse(fs.readFileSync(GNOME_BASE_MATRIX, 'utf8'));
+  return {
+    ...base,
+    version: base.version || 1,
+    registryId,
+    baseMatrix: 'root/tools/lab/ui-state-effects-matrix-gnome.json',
+    discoveredApps: [],
+    generatedAt: null,
+  };
+};
+
+/** Crée la matrice registry depuis ground GNOME + catalogue apps si absente. */
+export const bootstrapRegistryMatrix = (registryId) => {
+  const regPath = registryMatrixPath(registryId);
+  if (fs.existsSync(regPath)) {
+    return { path: regPath, created: false, matrix: loadMatrix(registryId) };
+  }
+  const matrix = loadMergedMatrix(registryId);
+  writeMatrix(registryId, matrix);
+  const extended = extendMatrixFromCatalog(registryId);
+  writeMatrix(registryId, extended);
+  return { path: regPath, created: true, matrix: extended };
+};
+
 export const writeMatrix = (registryId, matrix) => {
   const p = registryMatrixPath(registryId);
   fs.writeFileSync(p, `${JSON.stringify(matrix, null, 2)}\n`);

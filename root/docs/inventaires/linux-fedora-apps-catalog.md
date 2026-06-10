@@ -1,6 +1,6 @@
 # Catalogue applications — linux-fedora
 
-> Généré : `2026-06-08T23:18:10.984Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-10T22:01:07.143Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-fedora --write
@@ -39,10 +39,8 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-fedora
 | Journaux | org.gnome.Logs | P2 | — | 🔷 decorative |  | ✓ | — |
 | Lecteur audio | org.gnome.Decibels | P2 | — | 🔷 decorative |  | ✓ | — |
 | Lecteur vidéo | org.gnome.Showtime | P2 | — | 🔷 decorative |  | ✓ | — |
-| LibreOffice Calc | libreoffice-calc | P2 | — | 🔷 decorative |  | ✓ | — |
-| LibreOffice Impress | libreoffice-impress | P2 | — | 🔷 decorative |  | ✓ | — |
-| LibreOffice Writer | libreoffice-writer | P2 | librewriter | 🔶 partiel |  | ✓ | libadwaita-gnome · partial |
-| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · partial |
+| LibreOffice Writer | libreoffice-writer | P2 | librewriter | 🔶 partiel |  | ✓ | libadwaita-gnome · full |
+| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · full |
 | Loupe | org.gnome.Loupe | P1 | visionneur_images | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Machines | org.gnome.Boxes | P2 | — | 🔷 decorative |  | ✓ | — |
 | Météo | org.gnome.Weather | P2 | — | 🔷 decorative |  | ✓ | — |
@@ -58,5 +56,9 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-fedora
 ## CapsuleOnly / hors VM
 
 - ✅ **À propos Fedora** — ok (CapsuleOnly)
+- ✅ **LibreOffice** — ok (Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6))
+- ✅ **LibreOffice Calc** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Draw** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Impress** — ok (Module suite LO — épinglage post-install)
 - 🎓 **Missions CapsuleOS** — capsuleOnly (CapsuleOnly)
 

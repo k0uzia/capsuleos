@@ -30,10 +30,14 @@
       "text_editor": { "anchor": "xed-app__menubar" },
       "calendar": { "anchor": "gnome-calendar-app__header" },
       "clocks": { "anchor": "gnome-clocks__header" },
-      "update_manager": { "anchor": "gnome-software__headerbar" },
+      "update_manager": { "anchor": "gnome-software__titlebar" },
       "profile": { "anchor": "gnome-app__window-chrome", "runtimeAnchor": true },
       "checklist": { "anchor": "checklist-app__header" },
       "librewriter": { "anchor": "lw-menubar" },
+      "libreoffice_startcenter": { "anchor": "lsc-app", "runtimeAnchor": true },
+      "librecalc": { "anchor": "lc-menubar", "runtimeAnchor": true },
+      "libreoffice_impress": { "anchor": "lim-app", "runtimeAnchor": true },
+      "libreoffice_draw": { "anchor": "ldr-app", "runtimeAnchor": true },
       "themes": { "anchor": "gnome-settings__headerbar" },
       "visionneur_images": { "anchor": "viewer-app__toolbar" },
       "visionneur_pdf": { "anchor": "viewer-app__toolbar" },
@@ -56,7 +60,12 @@
   "sync": {
     "canonicalSkinRoot": "home/RedHat/Rocky",
     "targets": [
-      { "id": "fedora", "bodyId": "fedora", "skinRoot": "home/RedHat/Fedora", "profileId": "linux-fedora" },
+      {
+        "id": "fedora",
+        "bodyId": "fedora",
+        "skinRoot": "home/RedHat/Fedora",
+        "profileId": "linux-fedora"
+      },
       { "id": "ubuntu", "bodyId": "ubuntu", "skinRoot": "home/Debian/Ubuntu", "profileId": "linux-ubuntu" },
       { "id": "alma", "bodyId": "alma", "skinRoot": "home/RedHat/Alma", "profileId": "linux-alma" },
       { "id": "anduinos", "bodyId": "anduinos", "skinRoot": "home/Debian/AnduinOS", "profileId": "linux-anduinos" }
@@ -89,6 +98,10 @@
           "profile",
           "checklist",
           "librewriter",
+          "libreoffice_startcenter",
+          "librecalc",
+          "libreoffice_impress",
+          "libreoffice_draw",
           "themes",
           "visionneur_images",
           "visionneur_pdf",

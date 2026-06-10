@@ -42,7 +42,7 @@
       "localeDefault": "fr",
       "storeFront": {
         "slot": "update_manager",
-        "labelFr": "Centre d'applications",
+        "labelFr": "Logiciels",
         "sources": ["snap", "deb", "flatpak"]
       }
     },
@@ -51,7 +51,7 @@
       "bodyId": "mint",
       "toolkit": "cinnamon",
       "localeDefault": "fr",
-      "storeCatalogStatus": "vm-preinstalled",
+      "storeCatalogStatus": "active",
       "storeFront": {
         "slot": "mintinstall",
         "labelFr": "Logithèque",
@@ -86,7 +86,7 @@
       "bodyId": "kde-neon",
       "toolkit": "kde",
       "localeDefault": "fr",
-      "storeCatalogStatus": "deferred",
+      "storeCatalogStatus": "active",
       "storeFront": {
         "slot": "update_manager",
         "labelFr": "Discover",
@@ -98,7 +98,7 @@
       "bodyId": "opensuse",
       "toolkit": "kde",
       "localeDefault": "fr",
-      "storeCatalogStatus": "deferred",
+      "storeCatalogStatus": "active",
       "storeFront": {
         "slot": "update_manager",
         "labelFr": "Discover",

@@ -9,6 +9,8 @@ import { evaluateAppsPredicates } from './apps-catalog-lib.mjs';
 import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
 import { evaluateManifestGates } from './manifest-gates-lib.mjs';
+import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replication-lib.mjs';
+import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
@@ -37,6 +39,7 @@ export const loadFormalState = (registryId) => {
   const fidelity = evaluateVisualFidelity(registryId);
   const typoViolations = scanTypographyViolations(registryId);
   const manifest = evaluateManifestGates(registryId);
+  const store = evaluateStorePredicates(registryId);
 
   const gates = {
     ...base.gates,
@@ -73,11 +76,16 @@ export const loadFormalState = (registryId) => {
     V: !!repState.V,
     Vc: !!repState.Vc,
     Vp: !!repState.Vp || !!base.gates?.Vp?.ok,
+    StoreG: store.state.StoreG,
+    StoreΣ: store.state.StoreΣ,
+    StoreVc: store.state.StoreVc,
+    StoreVp: store.state.StoreVp,
   };
 
   return {
     registryId,
     gates,
+    store,
     apps,
     universal: universal.state,
     replication: replication.state,
@@ -218,7 +226,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP2',
-      when: () => gates.H6 && gates.AppV && !gates.AppC,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppV && !gates.AppC,
       message: 'AppV — génération catalogue strict + smoke',
       command: `node usr/lib/capsuleos/tools/lab/generate-apps-catalog.mjs --id ${registryId} --write && node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id ${registryId}`,
       autoExecute: true,
@@ -226,7 +234,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP3',
-      when: () => gates.H6 && gates.AppC && !gates.AppP0,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppC && !gates.AppP0,
       message: 'AppC ∧ ¬AppP0 — écart catalogue apps (implémentation H5 ciblée)',
       command: null,
       autoExecute: false,
@@ -235,7 +243,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP-LAB',
-      when: () => gates.H6 && gates.AppP0 && !gates.AppL,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppP0 && !gates.AppL,
       message: 'AppP0 ∧ ¬AppL — suite lab applications (structure, façade OS)',
       command: `node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id ${registryId}`,
       autoExecute: true,
@@ -264,6 +272,46 @@ export const evaluateFormalRules = (registryId) => {
       command: `node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id ${registryId}`,
       autoExecute: true,
       gateOnSuccess: 'AppVp',
+    },
+    {
+      rule: 'R-STORE-G',
+      when: () => gates.H2 && gates.ManΣ && storeAppliesToRegistry(registryId) && !gates.StoreG,
+      message: 'ManΣ ∧ ¬StoreG — brancher ground magasin + catalogue',
+      command: `node usr/lib/capsuleos/tools/linux/sync-gnome-toolkit-pack.mjs && node usr/lib/capsuleos/tools/generate-store-catalog.mjs`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-SIGMA',
+      when: () => gates.StoreG && !gates.StoreΣ,
+      message: 'StoreG ∧ ¬StoreΣ — régénérer catalogue store',
+      command: 'node usr/lib/capsuleos/tools/generate-store-catalog.mjs',
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-VC',
+      when: () => gates.StoreG && !gates.StoreVc,
+      message: 'StoreG ∧ ¬StoreVc — captures Capsule multi-vues store',
+      command: `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/capture-capsule-software-views.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-VP',
+      when: () => gates.StoreVc && !gates.StoreVp,
+      message: 'StoreVc ∧ ¬StoreVp — clôture parité store',
+      command: `node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-CHAIN',
+      when: () => storeAppliesToRegistry(registryId) && gates.ManΣ && (!gates.StoreG || !gates.StoreΣ || !gates.StoreVp),
+      message: 'Chaîne store — orchestrateur run-store-replication-chain',
+      command: `node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id ${registryId} --auto`,
+      autoExecute: true,
+      gateOnSuccess: null,
     },
     {
       rule: 'R-FID1',

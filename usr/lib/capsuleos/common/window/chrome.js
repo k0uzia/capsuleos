@@ -68,11 +68,14 @@
         text_editor: '.xed-app__menubar',
         calendar: '.gnome-calendar-app__header',
         clocks: '.gnome-clocks__header',
-        update_manager: '.gnome-software__headerbar',
+        update_manager: '.gnome-software__titlebar',
         profile: '.gnome-app__window-chrome',
         checklist: '.checklist-app__header',
         librewriter: '.lw-menubar',
         librecalc: '.lc-menubar',
+        libreoffice_startcenter: '.mint-app__header',
+        libreoffice_impress: '.lim-app__toolbar',
+        libreoffice_draw: '.ldr-app__toolbar',
         themes: '.gnome-settings__headerbar',
         visionneur_images: '.viewer-app__toolbar',
         visionneur_pdf: '.viewer-app__toolbar',
@@ -83,6 +86,13 @@
         system_monitor: '.gnome-sysmon__header',
         tour: '.gnome-tour__header',
         characters: '.gnome-characters__header',
+        thunderbird: '.tbd-app__menubar',
+        transmission: '.trm-app__toolbar',
+        rhythmbox: '.rb-app__header',
+        drawing: '.drawing-app__menubar',
+        simple_scan: '.scn-app__header',
+        warpinator: '.wrp-app__header',
+        timeshift: '.tsh-app__header',
     };
 
     const LIBADWAITA_DEDICATED_CHROME_ROW_SLOTS = {
@@ -134,29 +144,114 @@
         return fill;
     }
 
+    function ensureGs50SoftwareControlsWrap(host) {
+        let csdWrap = host.querySelector(':scope > .gnome-app__window-controls');
+        if (!csdWrap) {
+            csdWrap = document.createElement('div');
+            csdWrap.className = 'gnome-app__window-controls';
+            csdWrap.setAttribute('role', 'group');
+            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+            host.appendChild(csdWrap);
+        }
+        return csdWrap;
+    }
+
+    function resolvesGs50SoftwareChrome(container) {
+        const root = container.querySelector('#updateManagerApp.update-manager--gnome');
+        if (!root || !container.querySelector('[data-um-gnome-chrome-actions]')) {
+            return false;
+        }
+        if (root.dataset.umGnomeChrome === 'gs47-sidebar') {
+            return false;
+        }
+        if (root.dataset.umGnomeChrome === 'gs50-tabs') {
+            return true;
+        }
+        const body = container.ownerDocument && container.ownerDocument.body;
+        const gs50BodyIds = { fedora: true, rocky: true, alma: true, ubuntu: true, anduinos: true };
+        return !!(body && gs50BodyIds[body.id]);
+    }
+
+    function ensureGs50SoftwareHeaderDrag(container) {
+        const shell = container.querySelector('.gnome-software');
+        if (!shell || !resolvesGs50SoftwareChrome(container)) {
+            return;
+        }
+        let drag = shell.querySelector('[data-um-gnome-header-drag]');
+        if (!drag) {
+            drag = document.createElement('div');
+            drag.className = 'gnome-software__header-drag window-drag-region';
+            drag.setAttribute('data-um-gnome-header-drag', '');
+            drag.setAttribute('data-window-drag-region', '');
+            drag.setAttribute('aria-hidden', 'true');
+            shell.insertBefore(drag, shell.firstChild);
+        }
+    }
+
+    function reparentGs50SoftwareControls(container, header, gs50Actions) {
+        gs50Actions.hidden = false;
+        const csdWrap = ensureGs50SoftwareControlsWrap(gs50Actions);
+        const buttons = [
+            header.querySelector('#minimizeBtn'),
+            header.querySelector('#resizeBtn'),
+            header.querySelector('#closeBtn'),
+        ];
+        buttons.forEach((btn) => {
+            if (btn && !csdWrap.contains(btn)) {
+                csdWrap.appendChild(btn);
+            }
+        });
+        const strayEnd = container.querySelector('.gnome-software__titlebar > .gnome-app__header-end');
+        if (strayEnd) {
+            strayEnd.querySelectorAll('button').forEach((btn) => {
+                if (!csdWrap.contains(btn)) {
+                    csdWrap.appendChild(btn);
+                }
+            });
+            const strayWrap = strayEnd.querySelector('.gnome-app__window-controls');
+            if (strayWrap && !strayWrap.childElementCount) {
+                strayWrap.remove();
+            }
+            if (!strayEnd.childElementCount) {
+                strayEnd.remove();
+            }
+        }
+        ensureGs50SoftwareHeaderDrag(container);
+    }
+
     function relocateLibadwaitaWindowControls(container, slotId) {
         const header = container.querySelector(':scope > #windowHeader');
         const anchor = resolveLibadwaitaAnchor(container, slotId);
+        const gs50Actions = slotId === 'update_manager'
+            ? container.querySelector('[data-um-gnome-chrome-actions]')
+            : null;
         if (!header || !anchor) {
             return false;
         }
         if (header.dataset.libadwaitaCsd === 'true') {
+            if (gs50Actions) {
+                reparentGs50SoftwareControls(container, header, gs50Actions);
+            }
             return true;
         }
 
         header.dataset.libadwaitaCsd = 'true';
         container.classList.add('gnome-app--csd');
 
-        const headerEnd = ensureLibadwaitaHeaderEnd(anchor);
-        ensureLibadwaitaDragFill(anchor);
-
-        let csdWrap = headerEnd.querySelector('.gnome-app__window-controls');
-        if (!csdWrap) {
-            csdWrap = document.createElement('div');
-            csdWrap.className = 'gnome-app__window-controls';
-            csdWrap.setAttribute('role', 'group');
-            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
-            headerEnd.appendChild(csdWrap);
+        let csdWrap;
+        if (gs50Actions) {
+            csdWrap = ensureGs50SoftwareControlsWrap(gs50Actions);
+        } else {
+            const headerEnd = ensureLibadwaitaHeaderEnd(anchor);
+            ensureLibadwaitaDragFill(anchor);
+            csdWrap = headerEnd.querySelector('.gnome-app__window-controls');
+            if (!csdWrap) {
+                csdWrap = document.createElement('div');
+                csdWrap.className = 'gnome-app__window-controls';
+                csdWrap.setAttribute('role', 'group');
+                csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+                headerEnd.appendChild(csdWrap);
+            }
         }
 
         const minBtn = header.querySelector('#minimizeBtn');
@@ -171,6 +266,10 @@
         const title = header.querySelector('#windowTitle');
         if (title) {
             title.setAttribute('aria-hidden', 'true');
+        }
+
+        if (gs50Actions) {
+            reparentGs50SoftwareControls(container, header, gs50Actions);
         }
 
         return true;
@@ -484,6 +583,29 @@
         }
 
         if (providerId === 'libadwaita-gnome') {
+            if (slotId === 'update_manager' && resolvesGs50SoftwareChrome(container)) {
+                ensureGs50SoftwareHeaderDrag(container);
+                const shell = container.querySelector('.gnome-software');
+                if (shell) {
+                    if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                        targetsApi().markDragPassthrough(shell);
+                    } else {
+                        shell.setAttribute('data-window-drag-handle', '');
+                        shell.setAttribute('data-window-drag-passthrough', 'true');
+                    }
+                }
+                const titlebar = container.querySelector('.gnome-software__titlebar');
+                if (titlebar) {
+                    titlebar.removeAttribute('data-window-drag-handle');
+                    titlebar.removeAttribute('data-window-drag-passthrough');
+                }
+                if (header) {
+                    header.removeAttribute('data-window-drag-handle');
+                    header.removeAttribute('data-window-drag-passthrough');
+                    header.setAttribute('aria-hidden', 'true');
+                }
+                return;
+            }
             const anchorSelector = LIBADWAITA_CSD_ANCHORS[slotId];
             const anchor = anchorSelector ? container.querySelector(anchorSelector) : null;
             if (anchor) {

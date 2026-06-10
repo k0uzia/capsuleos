@@ -83,7 +83,7 @@ for (const slotId of listGenericAppSkinSlots(pack)) {
             errors.push(`${target.id} : skin manquant — style/apps/${slotId}.skin.css`);
             continue;
         }
-        const expected = buildAppSkinForTarget(sourceText, target, slotId);
+        const expected = buildAppSkinForTarget(sourceText, target, slotId, ROOT);
         const actual = fs.readFileSync(out, 'utf8');
         if (normalizeCssForCompare(expected) !== normalizeCssForCompare(actual)) {
             errors.push(

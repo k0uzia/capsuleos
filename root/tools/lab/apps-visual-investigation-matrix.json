@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "registryId": "linux-alma",
+  "registryId": "linux-fedora",
   "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [

@@ -14,7 +14,7 @@ body#rocky {
     --gnome-software-sidebar-w: 13.75rem;
 }
 
-html[data-theme="light"]:has(#rocky) {
+html[data-theme="light"]:has(#rocky) body#rocky {
     --gnome-software-bg: #fafafa;
     --gnome-software-sidebar-bg: #f3f3f5;
     --gnome-software-surface: #ffffff;

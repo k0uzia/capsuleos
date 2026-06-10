@@ -27,6 +27,10 @@ const prioritiesForFilter = (filter) => {
 };
 
 const classifyParity = (item) => {
+  const existing = item.capsuleParity?.visualMatch;
+  if (existing === 'ok' || existing === 'accepted') {
+    return;
+  }
   const hasCapsule = (item.capsuleCaptures || []).length > 0;
   const hasVm = (item.vmCaptures || []).length > 0
     || (item.componentShots || []).some((s) => s.vmCapture);

@@ -49,6 +49,36 @@ export const resolvePresentation = (registryId, slotId = null) => {
   return out;
 };
 
+const REGISTRY_SOURCE_FALLBACK = {
+  'linux-kde-neon': 'linux-rocky',
+  'linux-opensuse': 'linux-fedora',
+};
+
+const resolveRegistrySource = (app, registryId) => {
+  const direct = app.sources?.[registryId];
+  if (direct) {
+    return direct;
+  }
+  const fallbackId = REGISTRY_SOURCE_FALLBACK[registryId];
+  if (fallbackId) {
+    return app.sources?.[fallbackId] || null;
+  }
+  return null;
+};
+
+const includeInStoreCatalog = (registryId, src, binding) => {
+  if (!src) {
+    return false;
+  }
+  if (src.storeInstallable === true) {
+    return true;
+  }
+  if (registryId === 'linux-mint' && binding?.storeCatalogStatus === 'active') {
+    return true;
+  }
+  return false;
+};
+
 const primarySource = (src) => {
   if (!src || typeof src !== 'object') return 'rpm';
   if (src.rpm) return 'rpm';
@@ -57,6 +87,31 @@ const primarySource = (src) => {
   if (src.deb) return 'deb';
   if (src.apt) return 'apt';
   return 'rpm';
+};
+
+const resolveStoreDesc = (app, registryId, sourceType) => {
+  const catalog = app.storeCatalog || {};
+  if (catalog.descByRegistry?.[registryId]) {
+    return catalog.descByRegistry[registryId];
+  }
+  if (catalog.descBySource?.[sourceType]) {
+    return catalog.descBySource[sourceType];
+  }
+  const base = catalog.desc;
+  if (base) {
+    if (sourceType === 'rpm' && /flatpak/i.test(base)) {
+      const pkg = app.sources?.[registryId]?.rpm || app.slot;
+      return `${app.labelFr} — paquet RPM (${pkg}).`;
+    }
+    if (sourceType === 'flatpak' && !/flatpak/i.test(base)) {
+      const fp = app.sources?.[registryId]?.flatpak || '';
+      return fp
+        ? `${app.labelFr} (Flatpak ${fp}).`
+        : `${app.labelFr} — installation Flatpak.`;
+    }
+    return base;
+  }
+  return `${app.labelFr} — installation simulée CapsuleOS.`;
 };
 
 const catalogIdForApp = (app) => {
@@ -73,12 +128,13 @@ export const buildStoreCatalogEntries = (registryId) => {
   const store = loadStoreContract();
   const manifest = loadSlotsManifest();
   const presentation = resolvePresentation(registryId);
+  const binding = loadPresentationBindings().bindings?.[registryId];
   const storeFrontSlot = presentation?.storeFront?.slot || 'update_manager';
   const entries = [];
 
   for (const app of store.apps || []) {
-    const src = app.sources?.[registryId];
-    if (!src?.storeInstallable) continue;
+    const src = resolveRegistrySource(app, registryId);
+    if (!includeInStoreCatalog(registryId, src, binding)) continue;
 
     const slotManifest = manifest.slots?.[app.slot];
     if (!slotManifest) {
@@ -89,12 +145,13 @@ export const buildStoreCatalogEntries = (registryId) => {
     const id = catalogIdForApp(app);
     const postSlot = postInstallSlotFor(app, slotManifest);
 
+    const sourceType = primarySource(src);
     entries.push({
       id,
       storeSlot: app.slot,
       title: app.labelFr,
       sub: catalog.sub || app.labelFr,
-      desc: catalog.desc || `${app.labelFr} — installation simulée CapsuleOS.`,
+      desc: resolveStoreDesc(app, registryId, sourceType),
       version: catalog.version || '1.0',
       size: catalog.size || '~5 Mo',
       iconClass: catalog.iconClass || `gnome-software__cardicon--${id}`,
@@ -104,6 +161,9 @@ export const buildStoreCatalogEntries = (registryId) => {
       placement: catalog.placement || { overview: true },
       storeFrontSlot,
       postInstallSlot: postSlot !== app.slot ? postSlot : null,
+      relatedSlots: app.relatedSlots || null,
+      defaultInstalled: src.defaultInstalled !== false,
+      storeInstallable: src.storeInstallable === true,
     });
   }
   return entries;
@@ -134,7 +194,7 @@ export const resolveStoreEntries = (registryId) => {
   }
 
   for (const app of store.apps || []) {
-    const src = app.sources?.[registryId];
+    const src = resolveRegistrySource(app, registryId);
     if (!src) continue;
     const storeFrontSlot = presentation?.storeFront?.slot || null;
     entries.push({
@@ -145,6 +205,7 @@ export const resolveStoreEntries = (registryId) => {
       source: primarySource(src),
       storeFrontSlot,
       postInstallSlot: app.postInstallSlot || resolveSlotManifest(app.slot)?.postInstallSlot || null,
+      relatedSlots: app.relatedSlots || null,
       registryId,
     });
   }

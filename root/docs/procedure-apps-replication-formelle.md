@@ -1,9 +1,10 @@
 # Procédure — réplication formelle applications (tous vendors)
 
 > **Statut** : extension de [procedure-apps-catalog.md](procedure-apps-catalog.md) · **Modèle** : [procedure-replication-formelle.md](procedure-replication-formelle.md) (gsettings)  
-> Contrat : `etc/capsuleos/contracts/apps-replication-chain.json`
+> Contrat : `etc/capsuleos/contracts/apps-replication-chain.json`  
+> Cohérence : `etc/capsuleos/contracts/os-reproduction-coherence.json` · [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md)
 
-**Principe** : la fidélité **gsettings** (structure → Playwright façade OS → VM → captures classées) devient le **patron** pour chaque application du catalogue.
+**Principe** : la fidélité **gsettings** (structure → Playwright façade OS → VM → captures classées) devient le **patron** pour chaque application du catalogue. La **grille d'argumentation** (5 dimensions) et les **contentGaps** s'appliquent avant toute implémentation H5 (C3, C6).
 
 ---
 

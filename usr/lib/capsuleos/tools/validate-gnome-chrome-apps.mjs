@@ -31,6 +31,10 @@ const GNOME_SLOT_PROVIDERS = {
     profile: 'libadwaita-gnome',
     checklist: 'libadwaita-gnome',
     librewriter: 'libadwaita-gnome',
+    libreoffice_startcenter: 'libadwaita-gnome',
+    librecalc: 'libadwaita-gnome',
+    libreoffice_impress: 'libadwaita-gnome',
+    libreoffice_draw: 'libadwaita-gnome',
     themes: 'libadwaita-gnome',
     visionneur_images: 'libadwaita-gnome',
     visionneur_pdf: 'libadwaita-gnome',
@@ -61,15 +65,10 @@ const LIBADWAITA_RUNTIME_ANCHORS = new Set(
         .map(([slotId]) => slotId)
 );
 
-const PROFILE_PROVIDER_OVERRIDES = {
-    'linux-ubuntu': {
-        update_manager: 'update-manager-ubuntu',
-    },
-};
+const PROFILE_PROVIDER_OVERRIDES = {};
 
 const PROFILE_TEMPLATE_OVERRIDES = {
     'linux-ubuntu': {
-        update_manager: 'update_manager_ubuntu.html',
         themes: 'themes_gnome.html',
     },
 };
@@ -79,7 +78,7 @@ const EMBED_GNOME_TEMPLATE_OVERRIDES = {
     fedora: { update_manager: 'update_manager_gnome.html', themes: 'themes_gnome.html' },
     alma: { update_manager: 'update_manager_gnome.html', themes: 'themes_gnome.html' },
     anduinos: { update_manager: 'update_manager_gnome.html', themes: 'themes_gnome.html' },
-    ubuntu: { themes: 'themes_gnome.html' },
+    ubuntu: { update_manager: 'update_manager_gnome.html', themes: 'themes_gnome.html' },
 };
 
 const errors = [];
@@ -159,7 +158,7 @@ for (const file of profileFiles) {
     }
 
     const templateOverrides = profile.capsuleGlobals?.CAPSULE_TEMPLATE_OVERRIDES || {};
-    if (slots.includes('update_manager') && profileId !== 'linux-ubuntu') {
+    if (slots.includes('update_manager')) {
         const overridePath = templateOverrides.update_manager || '';
         if (!overridePath.includes('update_manager_gnome.html')) {
             errors.push(

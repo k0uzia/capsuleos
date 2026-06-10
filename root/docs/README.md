@@ -53,7 +53,10 @@ Une seule chaîne de décision. Pas de roadmap parallèle, pas d’inventaire JS
 |---|----------|------|
 | 1 | [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution **P1–P12** |
 | 2 | [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) | **Pierre angulaire** — identités, zones, slot/variant/skin |
-| 3 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1**, **Tax** / **TaxΣ** |
+| 3 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1**, **Tax** / **TaxΣ**, **OsRepro** |
+| 3b | [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md) | Cohérence, déduction, grille argumentation, critères reproduction parfaite |
+| 3c | [convention-raisonnement-inductif-deductif.md](convention-raisonnement-inductif-deductif.md) | Induction VM → déduction gates (campagnes) |
+| 3d | [audit-structure-depot-2026-06.md](audit-structure-depot-2026-06.md) · [audit-processus-campagnes-2026-06.md](audit-processus-campagnes-2026-06.md) | Audits architecture et processus |
 | 4 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
 | 5 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
 | 6 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |

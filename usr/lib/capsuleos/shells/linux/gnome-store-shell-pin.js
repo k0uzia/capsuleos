@@ -20,6 +20,27 @@
             overview: true,
             dash: true
         },
+        libreoffice_startcenter: {
+            label: 'LibreOffice',
+            icon: ASSET_PREFIX + 'libreoffice-startcenter',
+            overview: true,
+            dash: true
+        },
+        librecalc: {
+            label: 'LibreOffice Calc',
+            icon: ASSET_PREFIX + 'overview/libreoffice-calc.svg',
+            overview: true
+        },
+        libreoffice_impress: {
+            label: 'LibreOffice Impress',
+            icon: ASSET_PREFIX + 'overview/libreoffice-impress.svg',
+            overview: true
+        },
+        libreoffice_draw: {
+            label: 'LibreOffice Draw',
+            icon: ASSET_PREFIX + 'libreoffice-draw',
+            overview: true
+        },
         calendar: {
             label: 'Agenda',
             icon: ASSET_PREFIX + 'dash/org.gnome.Calendar.svg',
@@ -125,19 +146,57 @@
         }
     }
 
+    function collectInstallSlots(appId, detail) {
+        var slots = [];
+        var seen = {};
+        function pushSlot(slotId) {
+            if (!slotId || seen[slotId]) {
+                return;
+            }
+            seen[slotId] = true;
+            slots.push(slotId);
+        }
+        var storeApi = global.CapsuleGnomeStore;
+        var entry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
+            ? storeApi.getStoreAppEntry(appId)
+            : null;
+        if (entry && entry.relatedSlots && entry.relatedSlots.length) {
+            var ri;
+            for (ri = 0; ri < entry.relatedSlots.length; ri += 1) {
+                pushSlot(entry.relatedSlots[ri]);
+            }
+            pushSlot(entry.storeSlot);
+            return slots;
+        }
+        if (detail && detail.slot) {
+            pushSlot(detail.slot);
+        } else if (entry && entry.slot) {
+            pushSlot(entry.slot);
+        }
+        return slots;
+    }
+
     function pinStoreApp(detail) {
-        if (!detail || !detail.slot) {
+        if (!detail) {
             return;
         }
-        var slotId = detail.slot;
-        var config = STORE_PIN_BY_SLOT[slotId];
-        revealOverviewPin(slotId);
-        if (config) {
-            if (config.overview) {
-                appendOverviewApp(slotId, config.label, config.icon);
-            }
-            if (config.dash) {
-                appendDashApp(slotId, config.label, config.icon);
+        var appId = detail.appId || '';
+        var slots = collectInstallSlots(appId, detail);
+        if (!slots.length && detail.slot) {
+            slots = [detail.slot];
+        }
+        var si;
+        for (si = 0; si < slots.length; si += 1) {
+            var slotId = slots[si];
+            var config = STORE_PIN_BY_SLOT[slotId];
+            revealOverviewPin(slotId);
+            if (config) {
+                if (config.overview) {
+                    appendOverviewApp(slotId, config.label, config.icon);
+                }
+                if (config.dash) {
+                    appendDashApp(slotId, config.label, config.icon);
+                }
             }
         }
         if (global.CapsuleTaskbarLauncherState && typeof global.CapsuleTaskbarLauncherState.refresh === 'function') {
@@ -159,8 +218,10 @@
         var i;
         for (i = 0; i < ids.length; i += 1) {
             var entry = storeApi.getStoreAppEntry(ids[i]);
-            if (entry && entry.slot) {
-                pinStoreApp({ slot: entry.slot, appId: ids[i] });
+            if (entry && entry.relatedSlots && entry.relatedSlots.length) {
+                pinStoreApp({ appId: ids[i], slot: entry.slot, storeSlot: entry.storeSlot });
+            } else if (entry && entry.slot) {
+                pinStoreApp({ appId: ids[i], slot: entry.slot });
             }
         }
         global.document.addEventListener('capsule:store-app-installed', function onStoreInstall(event) {

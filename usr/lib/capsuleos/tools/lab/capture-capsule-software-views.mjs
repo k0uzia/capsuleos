@@ -9,6 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { appsPathsForRegistry } from './apps-replication-lib.mjs';
+import { resolvePresentation } from './capsule-app-resolver.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
@@ -17,9 +18,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-alma' };
+  const opts = { id: 'linux-alma', theme: 'dark', only: null };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
+    else if (args[i] === '--theme' && args[i + 1]) opts.theme = args[++i];
+    else if (args[i] === '--only' && args[i + 1]) opts.only = args[++i];
   }
   return opts;
 };
@@ -113,6 +116,14 @@ const runScenarioAction = async (page, action) => {
     return;
   }
   if (action === 'search-writer') {
+    await page.evaluate(() => {
+      const root = document.getElementById('updateManagerApp');
+      const titlebar = root?.querySelector('.gnome-software__titlebar');
+      if (titlebar?.classList.contains('gnome-software__search--collapsed')) {
+        root.querySelector('[data-um-gnome-action="toggleSearch"]')?.click();
+      }
+    });
+    await page.waitForSelector('[data-um-gnome-search-panel] input[data-um-gnome-search]', { timeout: 8000 });
     await page.fill('[data-um-gnome-search]', 'writer');
     await sleep(page, 500);
     return;
@@ -146,47 +157,78 @@ const main = async () => {
     headless: true,
     ...(defaultChrome ? { executablePath: defaultChrome } : {}),
   });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  const theme = opts.theme === 'light' ? 'light' : 'dark';
+  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  await context.addInitScript((resolved) => {
+    localStorage.setItem('gnome-theme', resolved);
+    localStorage.setItem(
+      'gsettings::org.gnome.desktop.interface::color-scheme',
+      resolved === 'light' ? "'prefer-light'" : "'prefer-dark'",
+    );
+  }, theme);
+  const page = await context.newPage();
 
   await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
   await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 30000 });
-  await page.evaluate(() => {
-    document.documentElement.dataset.theme = 'dark';
-    localStorage.setItem('gnome-theme', 'dark');
-  });
 
-  const shots = [
-    { file: 'rocky-capsule-dark-software.png', view: 'explore' },
-    { file: 'rocky-capsule-dark-software-updates.png', view: 'updates' },
-    { file: 'rocky-capsule-dark-software-installed.png', view: 'installed' },
-    { file: 'rocky-capsule-dark-software-detail.png', view: 'detail', extra: { appId: 'firefox' } },
-    { file: 'rocky-capsule-dark-software-categories.png', view: 'category', extra: { categoryId: 'productivity' } },
-    { file: 'rocky-capsule-dark-software-install-open.png', view: 'detail', extra: { appId: 'libreoffice-writer' }, before: ['reset-installed', 'install-writer'] },
-    { file: 'rocky-capsule-dark-software-search-install.png', view: 'search', before: ['reset-installed', 'search-writer'] },
-    { file: 'rocky-capsule-dark-software-updates-empty.png', view: 'updates', before: ['updates-empty'] },
-    { file: 'rocky-capsule-dark-software-installed-open.png', view: 'installed', before: ['installed-open-firefox'] },
+  const bodyId = resolvePresentation(opts.id)?.bodyId || 'rocky';
+  const themeTag = theme === 'light' ? 'light' : 'dark';
+  const prefix = `${bodyId}-capsule-${themeTag}-software`;
+  const allShots = [
+    { id: 'explore', file: `${prefix}.png`, view: 'explore' },
+    { id: 'updates', file: `${prefix}-updates.png`, view: 'updates' },
+    { id: 'installed', file: `${prefix}-installed.png`, view: 'installed' },
+    { id: 'detail', file: `${prefix}-detail.png`, view: 'detail', extra: { appId: 'firefox' } },
+    { id: 'categories', file: `${prefix}-categories.png`, view: 'category', extra: { categoryId: 'productivity' } },
+    { id: 'install-open', file: `${prefix}-install-open.png`, view: 'detail', extra: { appId: 'libreoffice-writer' }, before: ['reset-installed', 'install-writer'] },
+    { id: 'search-install', file: `${prefix}-search-install.png`, view: 'search', before: ['reset-installed', 'search-writer'] },
+    { id: 'updates-empty', file: `${prefix}-updates-empty.png`, view: 'updates', before: ['updates-empty'] },
+    { id: 'installed-open', file: `${prefix}-installed-open.png`, view: 'installed', before: ['installed-open-firefox'] },
   ];
+  const shots = opts.only
+    ? allShots.filter((shot) => shot.id === opts.only)
+    : allShots;
+  if (!shots.length) {
+    throw new Error(`Aucune vue « ${opts.only} » — ids: ${allShots.map((s) => s.id).join(', ')}`);
+  }
 
-  await openSoftware(page);
-  for (const shot of shots) {
     await openSoftware(page);
-    if (shot.before) {
-      for (const action of shot.before) {
-        await runScenarioAction(page, action);
-      }
-    }
-    if (shot.view === 'search') {
-      await page.waitForSelector('[data-um-gnome-pane="search"]:not([hidden])', { timeout: 5000 }).catch(() => {});
-    } else {
-      await setSoftwareView(page, shot.view, shot.extra);
-    }
+    for (const shot of shots) {
+        await openSoftware(page);
+        if (shot.before) {
+            for (const action of shot.before) {
+                await runScenarioAction(page, action);
+            }
+        }
+        if (shot.view === 'search') {
+            await page.waitForSelector('[data-um-gnome-pane="search"]:not([hidden])', { timeout: 5000 }).catch(() => {});
+        } else {
+            await setSoftwareView(page, shot.view, shot.extra);
+        }
+        if (shot.view === 'explore') {
+            await page.waitForFunction(
+                () => {
+                    const root = document.getElementById('updateManagerApp');
+                    return root
+                        && root.dataset.umGnomeChrome
+                        && document.querySelector('[data-um-gnome-hero-dots] .gnome-software__hero-dot');
+                },
+                null,
+                { timeout: 8000 },
+            ).catch(() => {});
+        }
     const out = path.join(dest, shot.file);
-    await page.screenshot({ path: out, fullPage: false });
+    const win = page.locator('.windowElement[data-link="update_manager"]');
+    if (await win.count()) {
+      await win.screenshot({ path: out });
+    } else {
+      await page.screenshot({ path: out, fullPage: false });
+    }
     process.stdout.write(`  → ${out}\n`);
   }
 
   await browser.close();
-  console.log(`✓ capture-capsule-software-views ${opts.id} — ${shots.length} fichiers`);
+  console.log(`✓ capture-capsule-software-views ${opts.id} (${theme}) — ${shots.length} fichier(s)`);
 };
 
 main().catch((err) => {

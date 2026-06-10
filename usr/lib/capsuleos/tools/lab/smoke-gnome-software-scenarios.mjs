@@ -135,6 +135,17 @@ async function runScenario(page, scenario, url) {
     }
     if (scenario.id === 'S2') {
         await openSoftware(page, url);
+        await page.evaluate(() => {
+            const root = document.getElementById('updateManagerApp');
+            const titlebar = root?.querySelector('.gnome-software__titlebar');
+            if (titlebar?.classList.contains('gnome-software__search--collapsed')) {
+                root.querySelector('[data-um-gnome-action="toggleSearch"]')?.click();
+            }
+        });
+        await page.waitForSelector('[data-um-gnome-search-panel] input[data-um-gnome-search]', {
+            state: 'visible',
+            timeout: 8000,
+        });
         await page.fill('[data-um-gnome-search]', 'writer');
         await page.waitForTimeout(400);
         await page.click('[data-um-gnome-search-grid] [data-um-gnome-app="libreoffice-writer"]');

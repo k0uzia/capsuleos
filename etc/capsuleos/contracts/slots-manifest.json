@@ -1,16 +1,18 @@
 {
   "version": 1,
   "description": "Manifeste canonique des slots CapsuleOS — fonction (kernel), variants toolkit, profondeur.",
+  "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+  "compositionPolicy": "C8 — référentiel slots pour SlotMap ; ne pas dupliquer gabarit par distro sans variant/toolkit documenté",
   "slotsManifestRef": "etc/capsuleos/contracts/slots-manifest.json",
   "prioritySlots": {
     "P0": ["nemo", "firefox", "terminal", "update_manager", "themes", "text_editor", "calculator", "mainMenu"],
-    "P1": ["calendar", "file_roller", "libreoffice_startcenter", "librewriter", "visionneur_images", "visionneur_pdf", "snapshot", "mintinstall", "thunderbird", "transmission", "rhythmbox", "lecteur_multimedia", "drawing", "simple_scan"],
+    "P1": ["calendar", "file_roller", "libreoffice_startcenter", "librewriter", "librecalc", "libreoffice_impress", "libreoffice_draw", "visionneur_images", "visionneur_pdf", "snapshot", "mintinstall", "thunderbird", "transmission", "rhythmbox", "lecteur_multimedia", "drawing", "simple_scan"],
     "P2": ["baobab", "system_monitor", "tour", "characters", "warpinator", "timeshift", "mintdrivers", "mintwelcome", "warpinator", "hypnotix", "webapp_manager"]
   },
   "mintSlotsAboutisRef": "root/docs/inventaires/linux-mint-apps-catalog.json",
   "mintSlotsAboutis": [
     "nemo", "firefox", "terminal", "themes", "update_manager", "mintinstall", "mainMenu",
-    "text_editor", "calculator", "calendar", "file_roller", "libreoffice_startcenter", "librewriter",
+    "text_editor", "calculator", "calendar", "file_roller", "libreoffice_startcenter", "librewriter", "librecalc", "libreoffice_impress", "libreoffice_draw",
     "visionneur_images", "visionneur_pdf", "lecteur_multimedia", "system_monitor", "thunderbird",
     "transmission", "rhythmbox", "drawing", "simple_scan", "warpinator", "timeshift", "mintdrivers",
     "mintwelcome", "screenshot", "profile", "checklist"
@@ -57,8 +59,11 @@
     "update_manager": {
       "slotId": "update_manager",
       "labelFr": "Logiciels",
-      "functionalDepth": "partial",
+      "functionalDepth": "full",
       "kernelModule": "usr/lib/capsuleos/shells/linux/update-manager.js",
+      "groundKernelModule": "usr/lib/capsuleos/shells/linux/gnome-software-ground.js",
+      "groundContentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+      "groundReferenceRegistryId": "linux-fedora",
       "scenariosContract": "etc/capsuleos/contracts/software-user-scenarios.json",
       "postInstallSlot": null,
       "toolkitVariants": {
@@ -126,23 +131,66 @@
     "libreoffice_startcenter": {
       "slotId": "libreoffice_startcenter",
       "labelFr": "LibreOffice",
-      "functionalDepth": "partial",
+      "functionalDepth": "full",
       "kernelModule": "usr/lib/capsuleos/shells/linux/libreoffice-suite.js",
       "scenariosContract": null,
       "postInstallSlot": "librewriter",
       "toolkitVariants": {
-        "gnome": { "template": "libreoffice_startcenter.html", "chromeProvider": "libadwaita-gnome", "skinCss": "libreoffice_startcenter.skin.css" }
+        "gnome": { "template": "libreoffice_startcenter.html", "chromeProvider": "libadwaita-gnome", "skinCss": "libreoffice_startcenter.skin.css" },
+        "cinnamon": { "template": "libreoffice_startcenter.html", "chromeProvider": "cinnamon", "skinCss": "libreoffice_startcenter.skin.css" },
+        "kde": { "template": "libreoffice_startcenter.html", "chromeProvider": "default", "skinCss": "libreoffice_startcenter.skin.css" }
+      }
+    },
+    "librecalc": {
+      "slotId": "librecalc",
+      "labelFr": "LibreOffice Calc",
+      "functionalDepth": "full",
+      "kernelModule": "usr/lib/capsuleos/shells/linux/librecalc.js",
+      "scenariosContract": null,
+      "postInstallSlot": null,
+      "toolkitVariants": {
+        "gnome": { "template": "librecalc.html", "chromeProvider": "libadwaita-gnome", "skinCss": "librecalc.skin.css" },
+        "cinnamon": { "template": "librecalc.html", "chromeProvider": "cinnamon", "skinCss": "librecalc.skin.css" },
+        "kde": { "template": "librecalc.html", "chromeProvider": "default", "skinCss": "librecalc.skin.css" }
+      }
+    },
+    "libreoffice_impress": {
+      "slotId": "libreoffice_impress",
+      "labelFr": "LibreOffice Impress",
+      "functionalDepth": "full",
+      "kernelModule": "usr/lib/capsuleos/shells/linux/libreoffice-suite.js",
+      "scenariosContract": null,
+      "postInstallSlot": null,
+      "toolkitVariants": {
+        "gnome": { "template": "libreoffice_impress.html", "chromeProvider": "libadwaita-gnome", "skinCss": "libreoffice_impress.skin.css" },
+        "cinnamon": { "template": "libreoffice_impress.html", "chromeProvider": "cinnamon", "skinCss": "libreoffice_impress.skin.css" },
+        "kde": { "template": "libreoffice_impress.html", "chromeProvider": "default", "skinCss": "libreoffice_impress.skin.css" }
+      }
+    },
+    "libreoffice_draw": {
+      "slotId": "libreoffice_draw",
+      "labelFr": "LibreOffice Draw",
+      "functionalDepth": "full",
+      "kernelModule": "usr/lib/capsuleos/shells/linux/libreoffice-suite.js",
+      "scenariosContract": null,
+      "postInstallSlot": null,
+      "toolkitVariants": {
+        "gnome": { "template": "libreoffice_draw.html", "chromeProvider": "libadwaita-gnome", "skinCss": "libreoffice_draw.skin.css" },
+        "cinnamon": { "template": "libreoffice_draw.html", "chromeProvider": "cinnamon", "skinCss": "libreoffice_draw.skin.css" },
+        "kde": { "template": "libreoffice_draw.html", "chromeProvider": "default", "skinCss": "libreoffice_draw.skin.css" }
       }
     },
     "librewriter": {
       "slotId": "librewriter",
       "labelFr": "LibreOffice Writer",
-      "functionalDepth": "partial",
+      "functionalDepth": "full",
       "kernelModule": "usr/lib/capsuleos/shells/linux/librewriter.js",
       "scenariosContract": null,
       "postInstallSlot": null,
       "toolkitVariants": {
-        "gnome": { "template": "librewriter.html", "chromeProvider": "libadwaita-gnome", "skinCss": "librewriter.skin.css" }
+        "gnome": { "template": "librewriter.html", "chromeProvider": "libadwaita-gnome", "skinCss": "librewriter.skin.css" },
+        "cinnamon": { "template": "librewriter.html", "chromeProvider": "cinnamon", "skinCss": "librewriter.skin.css" },
+        "kde": { "template": "librewriter.html", "chromeProvider": "default", "skinCss": "librewriter.skin.css" }
       }
     },
     "thunderbird": {

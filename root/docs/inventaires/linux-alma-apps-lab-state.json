@@ -1,0 +1,9 @@
+{
+  "registryId": "linux-alma",
+  "status": "done",
+  "updatedAt": "2026-06-10T11:15:40.009Z",
+  "gate": "run-apps-lab.mjs",
+  "playwright": true,
+  "vm": false,
+  "shell": false
+}

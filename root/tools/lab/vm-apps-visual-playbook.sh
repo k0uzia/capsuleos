@@ -130,6 +130,10 @@ def launch_app(desktop: str) -> None:
     time.sleep(1.2)
 
 
+def launch_app_slot(desktop: str) -> None:
+    launch_app(desktop)
+
+
 def capture_window(outfile: Path, desktop: str) -> bool:
     focus_window(desktop.replace(".desktop", ""))
     if BACKEND == "org.gnome.Shell.Screenshot":
@@ -146,6 +150,10 @@ def capture_window(outfile: Path, desktop: str) -> bool:
     return False
 
 
+def capture_app_window(outfile: Path, desktop: str) -> bool:
+    return capture_window(outfile, desktop)
+
+
 with open(matrix_path, encoding="utf-8") as f:
     matrix = json.load(f)
 
@@ -159,9 +167,9 @@ for item in matrix.get("investigations", []):
     slot_dir.mkdir(parents=True, exist_ok=True)
     print(f"[apps-visual] {control_id} — {item.get('labelFr', '')} (backend={BACKEND})", flush=True)
     if desktop:
-        launch_app(desktop)
+        launch_app_slot(desktop)
     default_out = out_dir / f"{control_id}-vm.png"
-    captured = capture_window(default_out, desktop) if BACKEND else False
+    captured = capture_app_window(default_out, desktop) if BACKEND else False
     if captured:
         print(f"  ✓ {default_out.name} (fenêtre)", flush=True)
     else:

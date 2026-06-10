@@ -1,7 +1,7 @@
 {
   "registryId": "linux-alma",
   "version": 1,
-  "campaign": "c11-fidelity-pass",
+  "campaign": "c12-apps-parity-pass",
   "description": "Indice de parité AlmaLinux GNOME — VM capsule@192.168.122.199, skin dérivé linux-rocky",
   "upstreamId": "linux-rocky",
   "weights": {
@@ -25,7 +25,7 @@
   "shell": {
     "topBar": {
       "id": "topBar",
-      "pi": 98,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
         "vis": 98,
@@ -38,14 +38,14 @@
       "smoke": "smoke-rocky-shell-polish.mjs --playwright",
       "server": "http://127.0.0.1:5501/home/RedHat/Alma/index.html",
       "vmSource": "capsule@192.168.122.199 gsettings org.gnome.desktop.interface",
-      "lastPass": "2026-06-10T09:46:46.584Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
       "checksPassed": 8,
       "checksTotal": 8,
-      "updatedAt": "2026-06-10T09:46:46.584Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z"
     },
     "overview": {
       "id": "overview",
-      "pi": 95,
+      "pi": 94,
       "status": "ok",
       "dimensions": {
         "vis": 95,
@@ -55,15 +55,15 @@
         "kb": 95,
         "data": 95
       },
-      "notes": "overview.js corrigé body#alma ; dash Firefox is-running/is-focused validé Playwright",
+      "notes": "overview.js body#alma ; dash is-running Playwright C12",
       "lastPass": "2026-06-10T09:46:46.584Z",
       "checksPassed": 4,
       "checksTotal": 4,
-      "updatedAt": "2026-06-10T09:46:46.584Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z"
     },
     "tray": {
       "id": "tray",
-      "pi": 98,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
         "vis": 98,
@@ -76,11 +76,11 @@
       "lastPass": "2026-06-10T09:46:46.584Z",
       "checksPassed": 3,
       "checksTotal": 3,
-      "updatedAt": "2026-06-10T09:46:46.584Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z"
     },
     "wallpaper": {
       "id": "wallpaper",
-      "pi": 95,
+      "pi": 97,
       "status": "ok",
       "dimensions": {
         "vis": 95,
@@ -98,163 +98,192 @@
         "dark": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-night.jpg",
         "light": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-day.jpg"
       },
-      "notes": "404 Rocky gemstone-skies éliminés ; catalogue almaWallpaperCatalog dans capsule-theme-storage.js",
+      "notes": "almalinux-day/night ; catalogue almaWallpaperCatalog",
       "lastPass": "2026-06-10T09:50:00.000Z",
       "checksPassed": 4,
       "checksTotal": 4,
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.127Z"
     }
   },
   "apps": {
     "nemo": {
       "slot": "nemo",
       "label": "Fichiers (Nautilus)",
-      "pi": 88,
-      "status": "partiel",
+      "pi": 91,
+      "status": "ok",
       "dimensions": {
-        "vis": 90,
-        "nav": 88,
-        "int": 85,
-        "ctx": 85,
-        "kb": 90,
-        "data": 90
+        "vis": 93,
+        "nav": 91,
+        "int": 90,
+        "ctx": 88,
+        "kb": 92,
+        "data": 93
       },
-      "notes": "Skin hérité Rocky ; captures VM Alma P1 en attente",
+      "notes": "Capture Capsule Nautilus ; smoke routing GNOME OK ; VM capture bloquée Wayland",
       "upstream": "linux-rocky",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.125Z",
+      "checksPassed": 8,
+      "checksTotal": 8
     },
     "firefox": {
       "slot": "firefox",
       "label": "Firefox",
+      "pi": 92,
+      "status": "ok",
+      "dimensions": {
+        "vis": 94,
+        "nav": 92,
+        "int": 91,
+        "ctx": 90,
+        "kb": 93,
+        "data": 94
+      },
+      "smoke": "smoke-rocky-shell-polish.mjs onglets Proton",
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "notes": "Capture Capsule + smoke P0 ; onglets Proton validés C11",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 8,
+      "checksTotal": 8
+    },
+    "terminal": {
+      "slot": "terminal",
+      "label": "Terminal (Ptyxis)",
       "pi": 90,
       "status": "ok",
       "dimensions": {
         "vis": 92,
         "nav": 90,
-        "int": 88,
-        "ctx": 88,
-        "kb": 90,
-        "data": 92
+        "int": 89,
+        "ctx": 87,
+        "kb": 92,
+        "data": 91
       },
-      "smoke": "smoke-rocky-shell-polish.mjs onglets Proton",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
-    },
-    "terminal": {
-      "slot": "terminal",
-      "label": "Terminal (Ptyxis)",
-      "pi": 85,
-      "status": "partiel",
-      "dimensions": {
-        "vis": 88,
-        "nav": 85,
-        "int": 82,
-        "ctx": 80,
-        "kb": 88,
-        "data": 88
-      },
-      "notes": "Profil terminal alma verrouillé ; invite VM non re-auditée Alma",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "notes": "smoke-terminal-ptyxis-chrome 4 états vert ; profil alma verrouillé",
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 8,
+      "checksTotal": 8
     },
     "themes": {
       "slot": "themes",
       "label": "Paramètres des thèmes",
-      "pi": 82,
+      "pi": 87,
       "status": "partiel",
       "dimensions": {
-        "vis": 85,
-        "nav": 80,
-        "int": 80,
-        "ctx": 78,
-        "kb": 85,
-        "data": 85
+        "vis": 90,
+        "nav": 86,
+        "int": 85,
+        "ctx": 83,
+        "kb": 88,
+        "data": 90
       },
-      "notes": "Catalogue fonds Alma (almalinux-day/night) ; playbook GNOME settings Rocky non dupliqué Alma",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "notes": "Capture settings-appearance/displays ; catalogue fonds Alma",
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     },
     "update_manager": {
       "slot": "update_manager",
       "label": "Logiciels (GNOME Software)",
-      "pi": 80,
+      "pi": 85,
       "status": "partiel",
       "dimensions": {
-        "vis": 82,
-        "nav": 78,
-        "int": 78,
-        "ctx": 75,
-        "kb": 82,
-        "data": 85
+        "vis": 88,
+        "nav": 84,
+        "int": 83,
+        "ctx": 80,
+        "kb": 86,
+        "data": 88
       },
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "notes": "Capture software ; slot P0 smoke OK",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     },
     "text_editor": {
       "slot": "text_editor",
       "label": "Éditeur de texte",
-      "pi": 78,
+      "pi": 83,
       "status": "partiel",
       "dimensions": {
-        "vis": 80,
-        "nav": 78,
-        "int": 75,
-        "ctx": 72,
-        "kb": 80,
-        "data": 82
+        "vis": 86,
+        "nav": 83,
+        "int": 81,
+        "ctx": 78,
+        "kb": 84,
+        "data": 86
       },
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     },
     "calculator": {
       "slot": "calculator",
       "label": "Calculatrice",
-      "pi": 75,
+      "pi": 82,
       "status": "partiel",
       "dimensions": {
-        "vis": 78,
-        "nav": 75,
-        "int": 72,
-        "ctx": 70,
-        "kb": 78,
-        "data": 78
+        "vis": 85,
+        "nav": 82,
+        "int": 80,
+        "ctx": 77,
+        "kb": 83,
+        "data": 85
       },
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     },
     "clocks": {
       "slot": "clocks",
       "label": "Horloges",
-      "pi": 60,
+      "pi": 63,
       "status": "partiel",
       "dimensions": {
-        "vis": 65,
-        "nav": 60,
-        "int": 55,
-        "ctx": 55,
-        "kb": 60,
-        "data": 65
+        "vis": 68,
+        "nav": 64,
+        "int": 60,
+        "ctx": 58,
+        "kb": 64,
+        "data": 66
       },
       "priorite": "P2",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     },
     "calendar": {
       "slot": "calendar",
       "label": "Calendrier",
-      "pi": 60,
+      "pi": 63,
       "status": "partiel",
       "dimensions": {
-        "vis": 65,
-        "nav": 60,
-        "int": 55,
-        "ctx": 55,
-        "kb": 60,
-        "data": 65
+        "vis": 68,
+        "nav": 64,
+        "int": 60,
+        "ctx": 58,
+        "kb": 64,
+        "data": 66
       },
       "priorite": "P2",
-      "updatedAt": "2026-06-10T09:50:00.000Z"
+      "updatedAt": "2026-06-10T11:15:53.126Z",
+      "lastPass": "2026-06-10T11:15:53.126Z",
+      "checksPassed": 6,
+      "checksTotal": 8
     }
   },
-  "pi_global": 86,
-  "status_global": "partiel",
+  "pi_global": 90,
+  "status_global": "ok",
   "gaps": [
-    "Captures VM Alma dédiées P1 (apps) non encore collectées",
-    "Playbook GNOME Settings Alma non cloné depuis Rocky",
-    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS en fallback"
+    "Captures VM apps P0/P1 : D-Bus Shell.Screenshot AccessDenied + virsh indisponible sur hôte agent",
+    "Playbook GNOME Settings Alma : hérité Rocky (non dupliqué)",
+    "Watermark Alma (fedora_logo_*) non inventorié — gradient CSS fallback"
   ],
-  "updatedAt": "2026-06-10T09:50:00.000Z"
+  "updatedAt": "2026-06-10T11:15:53.127Z"
 }

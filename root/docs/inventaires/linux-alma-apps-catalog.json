@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-alma",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-10T07:20:15.856Z",
+  "generatedAt": "2026-06-10T11:15:00.654Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-alma-vm-apps-installed.json",
@@ -23,7 +23,13 @@
     "text_editor",
     "calculator",
     "clocks",
-    "calendar"
+    "calendar",
+    "snapshot",
+    "baobab",
+    "system_monitor",
+    "tour",
+    "characters",
+    "screenshot"
   ],
   "summary": {
     "vmInstalled": 18,

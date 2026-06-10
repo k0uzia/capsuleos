@@ -1,85 +1,58 @@
 {
   "version": 2,
-  "registryId": "linux-rocky",
+  "registryId": "linux-alma",
   "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [
     {
-      "controlId": "characters",
-      "labelFr": "Caractères",
-      "vmDesktop": "org.gnome.Characters.desktop",
-      "parityPriority": "P2",
+      "controlId": "clocks",
+      "labelFr": "Horloges",
+      "vmDesktop": "org.gnome.clocks.desktop",
+      "parityPriority": "P1",
       "componentShots": [
-        "character-grid",
-        "detail-pane",
-        "search"
+        "world-tab",
+        "alarm-tab",
+        "timer-tab",
+        "stopwatch-tab"
       ],
-      "launch": "gtk-launch org.gnome.Characters.desktop"
+      "launch": "gtk-launch org.gnome.clocks.desktop"
     },
     {
-      "controlId": "system_monitor",
-      "labelFr": "Moniteur système",
-      "vmDesktop": "org.gnome.SystemMonitor.desktop",
-      "parityPriority": "P2",
+      "controlId": "visionneur_images",
+      "labelFr": "Loupe",
+      "vmDesktop": "org.gnome.Loupe.desktop",
+      "parityPriority": "P1",
       "componentShots": [
-        "cpu-chart",
-        "memory-chart",
-        "process-table"
+        "toolbar",
+        "image-canvas",
+        "metadata-pane"
       ],
-      "launch": "gtk-launch org.gnome.SystemMonitor.desktop"
+      "launch": "gtk-launch org.gnome.Loupe.desktop"
     },
     {
-      "controlId": "baobab",
-      "labelFr": "Utilisation des disques",
-      "vmDesktop": "org.gnome.baobab.desktop",
-      "parityPriority": "P2",
+      "controlId": "visionneur_pdf",
+      "labelFr": "Papers",
+      "vmDesktop": "org.gnome.Papers.desktop",
+      "parityPriority": "P1",
       "componentShots": [
-        "volume-list",
-        "treemap",
-        "scan-progress"
+        "toolbar",
+        "page-canvas",
+        "sidebar-thumbs",
+        "zoom-controls"
       ],
-      "launch": "gtk-launch org.gnome.baobab.desktop"
+      "launch": "gtk-launch org.gnome.Papers.desktop"
     },
     {
-      "controlId": "tour",
-      "labelFr": "Visite guidée",
-      "vmDesktop": "org.gnome.Tour.desktop",
-      "parityPriority": "P2",
+      "controlId": "snapshot",
+      "labelFr": "Snapshot",
+      "vmDesktop": "org.gnome.Snapshot.desktop",
+      "parityPriority": "P1",
       "componentShots": [
-        "welcome-card",
-        "step-navigation"
+        "preview",
+        "shutter-button",
+        "effects-strip"
       ],
-      "launch": "gtk-launch org.gnome.Tour.desktop"
-    },
-    {
-      "controlId": "decorative_disk_utility",
-      "labelFr": "Disques",
-      "vmDesktop": "org.gnome.DiskUtility.desktop",
-      "parityPriority": "P2",
-      "componentShots": [
-        "default"
-      ],
-      "launch": "gtk-launch org.gnome.DiskUtility.desktop"
-    },
-    {
-      "controlId": "decorative_font_viewer",
-      "labelFr": "Polices",
-      "vmDesktop": "org.gnome.font-viewer.desktop",
-      "parityPriority": "P2",
-      "componentShots": [
-        "default"
-      ],
-      "launch": "gtk-launch org.gnome.font-viewer.desktop"
-    },
-    {
-      "controlId": "decorative_setroubleshoot",
-      "labelFr": "Journal des alertes SELinux",
-      "vmDesktop": "setroubleshoot.desktop",
-      "parityPriority": "P2",
-      "componentShots": [
-        "default"
-      ],
-      "launch": "gtk-launch setroubleshoot.desktop"
+      "launch": "gtk-launch org.gnome.Snapshot.desktop"
     }
   ]
 }

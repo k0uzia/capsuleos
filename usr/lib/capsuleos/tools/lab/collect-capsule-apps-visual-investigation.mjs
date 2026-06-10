@@ -13,6 +13,9 @@ import { spawnSync } from 'child_process';
 import { appsPathsForRegistry, capsuleCaptureCandidates } from './apps-replication-lib.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
+
+const GNOME_RHEL_CAPTURE_IDS = ['linux-rocky', 'linux-alma', 'linux-fedora'];
 
 const PRIORITIES = ['P0', 'P1', 'P2'];
 
@@ -46,7 +49,7 @@ const main = () => {
   const httpBase = resolveCapsuleHttpBase(opts.id);
   process.env.CAPSULE_HTTP_BASE = httpBase;
 
-  if (opts.id === 'linux-rocky') {
+  if (GNOME_RHEL_CAPTURE_IDS.includes(opts.id)) {
     const script = path.join(ROOT, 'root/tools/lab/capture-capsule-rocky.mjs');
     if (fs.existsSync(script)) {
       const dest = paths.capsuleCapturesDir;
@@ -54,7 +57,11 @@ const main = () => {
       const res = spawnSync(process.execPath, [script, dest], {
         cwd: ROOT,
         stdio: 'inherit',
-        env: { ...process.env, CAPSULE_HTTP_BASE: httpBase },
+        env: {
+          ...process.env,
+          CAPSULE_HTTP_BASE: httpBase,
+          CAPSULE_ROCKY_URL: resolveCapsuleOsUrl(opts.id, httpBase),
+        },
       });
       if (res.status !== 0) process.exit(res.status || 1);
     }

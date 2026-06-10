@@ -1,6 +1,6 @@
 # Catalogue applications — linux-alma
 
-> Généré : `2026-06-10T07:20:15.856Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-10T11:15:00.654Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-alma --write

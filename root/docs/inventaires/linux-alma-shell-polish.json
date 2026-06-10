@@ -2,7 +2,7 @@
   "registryId": "linux-alma",
   "domain": "gnome-shell-polish",
   "status": "done",
-  "polishedAt": "2026-06-10T09:46:46.584Z",
+  "polishedAt": "2026-06-10T11:14:20.710Z",
   "targets": [
     "top-bar",
     "overview-dash",

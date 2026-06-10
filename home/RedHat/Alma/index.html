@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./style/imports.css?v=20260428" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=20260424" type="text/css">
+    <link rel="stylesheet" href="./alma-fonts.css?v=20260610" type="text/css">
     <link rel="stylesheet" href="./alma-overrides.css?v=20260424" type="text/css">
     <title>AlmaLinux - CapsuleOS</title>
 </head>
@@ -98,6 +99,12 @@
                 <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
                 <div class="windowElement" data-link="clocks" id="clocks" style="display: none;"></div>
                 <div class="windowElement" data-link="calendar" id="calendar" style="display: none;"></div>
+                <div class="windowElement" data-link="snapshot" id="snapshot" style="display: none;"></div>
+                <div class="windowElement" data-link="baobab" id="baobab" style="display: none;"></div>
+                <div class="windowElement" data-link="system_monitor" id="system_monitor" style="display: none;"></div>
+                <div class="windowElement" data-link="tour" id="tour" style="display: none;"></div>
+                <div class="windowElement" data-link="characters" id="characters" style="display: none;"></div>
+                <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
             </object>
         </main>
     </div>
@@ -168,11 +175,11 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg" alt="">
                     <span>Lecteur vi...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Caméra">
+                <button type="button" class="fedora-overview__app" data-overview-link="snapshot" aria-label="Snapshot">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg" alt="">
-                    <span>Caméra</span>
+                    <span>Snapshot</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Caractères">
+                <button type="button" class="fedora-overview__app" data-overview-link="characters" aria-label="Caractères">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg" alt="">
                     <span>Caractères</span>
                 </button>
@@ -188,9 +195,17 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg" alt="">
                     <span>LibreOffic...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Visite guidée">
+                <button type="button" class="fedora-overview__app" data-overview-link="system_monitor" aria-label="Moniteur système">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg" alt="">
+                    <span>Moniteur ...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="baobab" aria-label="Utilisation des disques">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg" alt="">
+                    <span>Utilisati...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="tour" aria-label="Visite guidée">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg" alt="">
-                    <span>Visite guid...</span>
+                    <span>Visite gu...</span>
                 </button>
                 <button type="button" class="fedora-overview__app" aria-label="Aide">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg" alt="">
@@ -402,6 +417,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/characters.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/tour.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/baobab.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>

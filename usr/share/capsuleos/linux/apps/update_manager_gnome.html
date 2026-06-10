@@ -114,6 +114,32 @@
                 <p class="gnome-software__status" id="um-status-text" aria-live="polite">Catalogue AppStream (simulation)</p>
             </div>
 
+            <!-- Vue catégorie -->
+            <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="category" hidden>
+                <header class="gnome-software__page-head">
+                    <div class="gnome-software__title-block">
+                        <h2 class="gnome-software__title" data-um-gnome-category-title>Catégorie</h2>
+                        <p class="gnome-software__subtitle" data-um-gnome-category-sub>Applications de la catégorie</p>
+                    </div>
+                    <button type="button" class="gnome-software__action" data-um-gnome-nav="explore">Retour</button>
+                </header>
+                <div class="gnome-software__grid" role="list" data-um-gnome-category-grid></div>
+            </div>
+
+            <!-- Vue recherche -->
+            <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="search" hidden>
+                <header class="gnome-software__page-head">
+                    <div class="gnome-software__title-block">
+                        <h2 class="gnome-software__title">Résultats</h2>
+                        <p class="gnome-software__subtitle" data-um-gnome-search-sub>Aucune recherche</p>
+                    </div>
+                </header>
+                <div class="gnome-software__grid" role="list" data-um-gnome-search-grid></div>
+                <p class="gnome-software__empty" data-um-gnome-search-empty hidden>
+                    Aucune application ne correspond à votre recherche.
+                </p>
+            </div>
+
             <!-- Vue Mises à jour -->
             <div class="gnome-software__content gnome-software__pane" data-um-gnome-pane="updates" hidden>
                 <header class="gnome-software__page-head">
@@ -131,7 +157,11 @@
                     </div>
                 </header>
 
-                <div class="gnome-software__updates-group" role="region" aria-label="Mises à jour disponibles">
+                <p class="gnome-software__empty" data-um-gnome-updates-empty hidden>
+                    Le système est à jour. Aucune mise à jour disponible.
+                </p>
+
+                <div class="gnome-software__updates-group" role="region" aria-label="Mises à jour disponibles" data-um-gnome-updates-list>
                     <div class="gnome-software__updates">
                         <article class="gnome-software__update-row" aria-label="Firefox">
                             <span class="gnome-software__appicon gnome-software__appicon--firefox" aria-hidden="true"></span>
@@ -203,6 +233,33 @@
                             <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
                                     data-um-gnome-app="files">Détails</button>
                         </article>
+                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Terminal">
+                            <span class="gnome-software__appicon gnome-software__appicon--terminal" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Terminal</p>
+                                <p class="gnome-software__rowsub">47.13 · Ligne de commande</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
+                                    data-um-gnome-app="terminal">Détails</button>
+                        </article>
+                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Éditeur de texte">
+                            <span class="gnome-software__appicon gnome-software__appicon--text-editor" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Éditeur de texte</p>
+                                <p class="gnome-software__rowsub">47.4 · Éditeur simple</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
+                                    data-um-gnome-app="text-editor">Détails</button>
+                        </article>
+                        <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Calculatrice">
+                            <span class="gnome-software__appicon gnome-software__appicon--calculator" aria-hidden="true"></span>
+                            <div class="gnome-software__rowtext">
+                                <p class="gnome-software__rowtitle">Calculatrice</p>
+                                <p class="gnome-software__rowsub">46.3 · Calculs et conversions</p>
+                            </div>
+                            <button type="button" class="gnome-software__rowbtn gnome-software__rowbtn--secondary"
+                                    data-um-gnome-app="calculator">Détails</button>
+                        </article>
                         <article class="gnome-software__update-row gnome-software__update-row--installed" aria-label="Logiciels">
                             <span class="gnome-software__appicon gnome-software__appicon--software" aria-hidden="true"></span>
                             <div class="gnome-software__rowtext">
@@ -243,6 +300,11 @@
                         <div><dt>Source</dt><dd>AppStream · RPM</dd></div>
                     </dl>
                 </div>
+            </div>
+
+            <div class="gnome-software__loading" data-um-gnome-loading hidden aria-live="polite" aria-busy="true">
+                <span class="gnome-software__loading-spinner" aria-hidden="true"></span>
+                <span data-um-gnome-loading-text>Chargement…</span>
             </div>
         </section>
     </div>

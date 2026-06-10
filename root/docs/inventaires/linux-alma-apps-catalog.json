@@ -298,7 +298,7 @@
         "skinCss": "update_manager.skin.css",
         "functionalDepth": "partial"
       },
-      "note": "C13 — explore grid + catégories + fiche app (template partagé GNOME RHEL)"
+      "note": "C14 — 6 vues GNOME Software, inventaire VM SSH, captures Capsule multi-vues"
     },
     {
       "vmId": "org.gnome.Loupe",

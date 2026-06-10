@@ -109,6 +109,13 @@
     }
 
     function setStatus(text) {
+        const root = findRoot();
+        if (root && root.classList.contains('update-manager--gnome')) {
+            root.querySelectorAll('.gnome-software__status').forEach(function setLine(el) {
+                el.textContent = text;
+            });
+            return;
+        }
         const el = document.getElementById('um-status-text');
         if (el) {
             el.textContent = text;
@@ -704,10 +711,11 @@
                 title: 'Firefox',
                 sub: 'Navigateur Web',
                 desc: 'Navigateur Web libre et open source développé par Mozilla.',
-                version: '140.11.0esr',
+                version: '140.11.0',
                 size: '~95 Mo',
                 iconClass: 'gnome-software__cardicon--firefox',
-                installed: true
+                installed: true,
+                categories: ['productivity']
             },
             'libreoffice-writer': {
                 title: 'LibreOffice Writer',
@@ -716,7 +724,8 @@
                 version: '24.8',
                 size: '~120 Mo',
                 iconClass: 'gnome-software__cardicon--libreoffice-writer',
-                installed: false
+                installed: false,
+                categories: ['productivity', 'creation']
             },
             files: {
                 title: 'Fichiers',
@@ -725,25 +734,28 @@
                 version: '47.6',
                 size: '~4 Mo',
                 iconClass: 'gnome-software__cardicon--files',
-                installed: true
+                installed: true,
+                categories: ['productivity', 'utilities']
             },
             'text-editor': {
                 title: 'Éditeur de texte',
                 sub: 'Éditeur simple',
                 desc: 'Éditeur de texte léger pour notes et scripts.',
-                version: '47.0',
+                version: '47.4',
                 size: '~2 Mo',
                 iconClass: 'gnome-software__cardicon--text-editor',
-                installed: true
+                installed: true,
+                categories: ['productivity', 'development']
             },
             calculator: {
                 title: 'Calculatrice',
                 sub: 'Calculs et conversions',
                 desc: 'Effectuez des calculs arithmétiques et des conversions.',
-                version: '47.0',
+                version: '46.3',
                 size: '~1 Mo',
                 iconClass: 'gnome-software__cardicon--calculator',
-                installed: true
+                installed: true,
+                categories: ['utilities']
             },
             terminal: {
                 title: 'Terminal',
@@ -752,9 +764,143 @@
                 version: '47.13',
                 size: '~3 Mo',
                 iconClass: 'gnome-software__cardicon--terminal',
-                installed: true
+                installed: true,
+                categories: ['development', 'utilities']
             }
         };
+    }
+
+    var GNOME_CATEGORY_LABELS = {
+        productivity: 'Productivité',
+        creation: 'Création',
+        development: 'Développement',
+        utilities: 'Utilitaires'
+    };
+
+    function gnomeAppsForCategory(categoryId) {
+        var catalog = gnomeAppCatalog();
+        var ids = Object.keys(catalog);
+        var result = [];
+        var i;
+        for (i = 0; i < ids.length; i += 1) {
+            var id = ids[i];
+            var app = catalog[id];
+            if ((app.categories || []).indexOf(categoryId) !== -1) {
+                result.push({ id: id, app: app });
+            }
+        }
+        return result;
+    }
+
+    function gnomeAppsForSearch(query) {
+        var catalog = gnomeAppCatalog();
+        var needle = String(query || '').trim().toLowerCase();
+        if (!needle) {
+            return [];
+        }
+        var ids = Object.keys(catalog);
+        var result = [];
+        var i;
+        for (i = 0; i < ids.length; i += 1) {
+            var id = ids[i];
+            var app = catalog[id];
+            var hay = (app.title + ' ' + app.sub + ' ' + app.desc).toLowerCase();
+            if (hay.indexOf(needle) !== -1) {
+                result.push({ id: id, app: app });
+            }
+        }
+        return result;
+    }
+
+    function renderGnomeAppGrid(root, container, apps) {
+        if (!container) {
+            return;
+        }
+        var html = '';
+        var i;
+        for (i = 0; i < apps.length; i += 1) {
+            var entry = apps[i];
+            html += '<button type="button" class="gnome-software__card" role="listitem"'
+                + ' data-um-gnome-app="' + entry.id + '" aria-label="' + entry.app.title + '">'
+                + '<span class="gnome-software__cardicon ' + entry.app.iconClass + '" aria-hidden="true"></span>'
+                + '<span class="gnome-software__cardname">' + entry.app.title + '</span>'
+                + '<span class="gnome-software__cardsub">' + entry.app.sub + '</span>'
+                + '</button>';
+        }
+        container.innerHTML = html;
+    }
+
+    function setGnomeLoading(root, visible, text) {
+        var overlay = root.querySelector('[data-um-gnome-loading]');
+        var label = root.querySelector('[data-um-gnome-loading-text]');
+        if (!overlay) {
+            return;
+        }
+        overlay.hidden = !visible;
+        if (label && text) {
+            label.textContent = text;
+        }
+    }
+
+    function showGnomeCategory(root, categoryId) {
+        var label = GNOME_CATEGORY_LABELS[categoryId] || 'Catégorie';
+        var title = root.querySelector('[data-um-gnome-category-title]');
+        var sub = root.querySelector('[data-um-gnome-category-sub]');
+        var grid = root.querySelector('[data-um-gnome-category-grid]');
+        if (title) {
+            title.textContent = label;
+        }
+        if (sub) {
+            sub.textContent = 'Applications de la catégorie « ' + label + ' »';
+        }
+        renderGnomeAppGrid(root, grid, gnomeAppsForCategory(categoryId));
+        root.dataset.umGnomeCategory = categoryId;
+        setGnomeView(root, 'category');
+        setStatus('Catégorie « ' + label + ' »');
+    }
+
+    function showGnomeSearch(root, query) {
+        var sub = root.querySelector('[data-um-gnome-search-sub]');
+        var grid = root.querySelector('[data-um-gnome-search-grid]');
+        var empty = root.querySelector('[data-um-gnome-search-empty]');
+        var trimmed = String(query || '').trim();
+        var apps = gnomeAppsForSearch(trimmed);
+        if (sub) {
+            sub.textContent = trimmed
+                ? apps.length + ' résultat(s) pour « ' + trimmed + ' »'
+                : 'Saisissez un terme dans la barre de recherche';
+        }
+        renderGnomeAppGrid(root, grid, apps);
+        if (grid) {
+            grid.hidden = apps.length === 0;
+        }
+        if (empty) {
+            empty.hidden = apps.length !== 0 || !trimmed;
+        }
+        if (trimmed) {
+            setGnomeView(root, 'search');
+        }
+    }
+
+    function showGnomeUpdatesEmpty(root) {
+        var empty = root.querySelector('[data-um-gnome-updates-empty]');
+        var list = root.querySelector('[data-um-gnome-updates-list]');
+        var subtitle = root.querySelector('[data-um-gnome-updates-subtitle]');
+        var actions = root.querySelector('[data-um-gnome-pane="updates"] .gnome-software__actions');
+        if (empty) {
+            empty.hidden = false;
+        }
+        if (list) {
+            list.hidden = true;
+        }
+        if (subtitle) {
+            subtitle.textContent = 'Le système est à jour';
+        }
+        if (actions) {
+            actions.querySelectorAll('[data-um-gnome-action="updateAll"]').forEach(function hideBtn(btn) {
+                btn.hidden = true;
+            });
+        }
     }
 
     function setGnomeView(root, viewId) {
@@ -766,12 +912,18 @@
             var show = paneId === viewId;
             pane.hidden = !show;
         }
+        if (viewId !== 'detail' && viewId !== 'search' && viewId !== 'category') {
+            root.dataset.umGnomeBackView = viewId;
+        }
         root.dataset.umGnomeView = viewId;
         var navItems = root.querySelectorAll('[data-um-gnome-nav]');
         for (i = 0; i < navItems.length; i += 1) {
             var nav = navItems[i];
             var navId = nav.getAttribute('data-um-gnome-nav');
-            var active = navId === viewId && viewId !== 'detail';
+            var active = navId === viewId
+                && viewId !== 'detail'
+                && viewId !== 'search'
+                && viewId !== 'category';
             nav.classList.toggle('is-active', active);
             if (active) {
                 nav.setAttribute('aria-current', 'page');
@@ -826,6 +978,12 @@
             if (nav && root.contains(nav)) {
                 event.preventDefault();
                 var navId = nav.getAttribute('data-um-gnome-nav');
+                if (navId === 'explore') {
+                    var searchInput = root.querySelector('[data-um-gnome-search]');
+                    if (searchInput) {
+                        searchInput.value = '';
+                    }
+                }
                 setGnomeView(root, navId);
                 return;
             }
@@ -838,8 +996,7 @@
             var category = event.target.closest('[data-um-gnome-category]');
             if (category && root.contains(category)) {
                 event.preventDefault();
-                var catLabel = category.textContent ? category.textContent.trim() : 'Catégorie';
-                setStatus('Catégorie « ' + catLabel + ' » (simulation).');
+                showGnomeCategory(root, category.getAttribute('data-um-gnome-category'));
                 return;
             }
             var action = event.target.closest('[data-um-gnome-action]');
@@ -849,24 +1006,38 @@
             event.preventDefault();
             var id = action.getAttribute('data-um-gnome-action');
             if (id === 'check') {
-                setStatus('Recherche de mises à jour… (simulation)');
+                setGnomeLoading(root, true, 'Recherche de mises à jour…');
+                setStatus('Recherche de mises à jour…');
+                window.setTimeout(function onCheckDone() {
+                    setGnomeLoading(root, false);
+                    setStatus('Dernière vérification : aujourd’hui (simulation)');
+                }, 900);
                 return;
             }
             if (id === 'updateAll') {
-                setStatus('Toutes les mises à jour installées (simulation).');
-                setTrayBadgeVisible(false);
-                var badge = root.querySelector('[data-um-gnome-badge]');
-                if (badge) {
-                    badge.hidden = true;
-                }
-                var banner = root.querySelector('.gnome-software__updates-banner');
-                if (banner) {
-                    banner.hidden = true;
-                }
+                setGnomeLoading(root, true, 'Installation des mises à jour…');
+                window.setTimeout(function onUpdateAllDone() {
+                    setGnomeLoading(root, false);
+                    setStatus('Toutes les mises à jour installées (simulation).');
+                    setTrayBadgeVisible(false);
+                    var badge = root.querySelector('[data-um-gnome-badge]');
+                    if (badge) {
+                        badge.hidden = true;
+                    }
+                    var banner = root.querySelector('.gnome-software__updates-banner');
+                    if (banner) {
+                        banner.hidden = true;
+                    }
+                    showGnomeUpdatesEmpty(root);
+                }, 1200);
                 return;
             }
             if (id === 'updateOne') {
                 setStatus('Mise à jour installée (simulation).');
+                var row = action.closest('.gnome-software__update-row');
+                if (row) {
+                    row.hidden = true;
+                }
                 return;
             }
             if (id === 'install') {
@@ -885,12 +1056,30 @@
             search.addEventListener('input', function onGnomeSearch() {
                 var query = search.value.trim();
                 if (!query) {
+                    setGnomeView(root, 'explore');
                     setStatus('Catalogue AppStream (simulation)');
                     return;
                 }
-                setStatus('Recherche « ' + query + ' » (simulation).');
+                showGnomeSearch(root, query);
+                setStatus('Recherche « ' + query + ' »');
+            });
+            search.addEventListener('keydown', function onGnomeSearchKey(event) {
+                if (event.key === 'Escape') {
+                    search.value = '';
+                    setGnomeView(root, 'explore');
+                    setStatus('Catalogue AppStream (simulation)');
+                }
             });
         }
+        root.addEventListener('keydown', function onGnomeKeydown(event) {
+            if (event.key !== 'Escape') {
+                return;
+            }
+            if (root.dataset.umGnomeView === 'detail') {
+                var backView = root.dataset.umGnomeBackView || 'explore';
+                setGnomeView(root, backView);
+            }
+        });
     }
 
     function bindOnce() {

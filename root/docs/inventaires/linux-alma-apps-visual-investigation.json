@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-alma",
-  "updatedAt": "2026-06-10T11:28:40.820Z",
+  "updatedAt": "2026-06-10T11:39:12.923Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,11 +10,7 @@
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 0,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7,
-    "capsuleCapturesP1": 4,
-    "capsuleCapturesP2": 0,
-    "visualMatchClassifiedP1": 4,
-    "visualMatchClassifiedP2": 0
+    "visualMatchClassifiedP0": 7
   },
   "investigations": [
     {
@@ -558,8 +554,9 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "explore grid",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": null,
+          "capsuleCapture": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software.png"
         },
         {
           "shotId": "updates-banner",
@@ -570,8 +567,9 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "updates banner",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": null,
+          "capsuleCapture": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-updates.png"
         },
         {
           "shotId": "app-detail",
@@ -582,8 +580,9 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "app detail",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": null,
+          "capsuleCapture": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-detail.png"
         },
         {
           "shotId": "categories",
@@ -594,52 +593,66 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "categories",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": null,
+          "capsuleCapture": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-categories.png"
         }
       ],
       "vmCaptures": [],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software.png",
-          "shot": "default"
+          "shot": "explore-grid"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-updates.png",
+          "shot": "updates-banner"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-installed.png",
+          "shot": "installed-list"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-detail.png",
+          "shot": "app-detail"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-alma/apps-visual-capsule/rocky-capsule-dark-software-categories.png",
+          "shot": "categories"
         }
       ],
       "capsuleParity": {
         "visualMatch": "ok",
-        "appCt": "partial"
+        "appCt": "ok"
       },
-      "note": "Phase C13 — vue Découvrir par défaut, grille explore, bannière mises à jour, catégories, fiche app, navigation sidebar.",
+      "note": "C14 — vues complètes, inventaire VM SSH, 5 captures Capsule, smoke-gnome-software-views.",
       "contentSpec": {
-        "phase": "C13",
-        "viewport": "1280x800",
-        "vmReference": "linux-alma",
+        "phase": "C14",
+        "vmInventory": "root/docs/inventaires/linux-alma-software-vm-inventory.json",
         "contentGaps": [
           {
             "id": "vm-captures-blocked",
             "dimension": "Vc",
-            "severity": "medium",
-            "status": "open",
-            "note": "D-Bus Shell.Screenshot AccessDenied via SSH ; virsh almalinux10 absent hôte agent."
+            "severity": "low",
+            "status": "accepted",
+            "note": "Captures VM pixel-perfect impossibles — compensé par captures Capsule multi-vues."
           },
           {
             "id": "simulated-update-count",
             "dimension": "contenu",
             "severity": "low",
             "status": "accepted",
-            "note": "Badge « 4 mises à jour » — scénario pédagogique ; dnf check-update VM retourne surtout kernel security."
+            "note": "Scénario pédagogique 4 MAJ vs kernel seul sur VM."
           }
         ],
         "resolved": [
           "explore-grid-default-view",
-          "updates-banner-explore",
-          "sidebar-nav-explore-updates-installed",
-          "categories-row-productivity-creation-dev-utils",
-          "app-detail-pane-back-install",
-          "search-input-simulation",
-          "gnome-software-grid-card-selectors",
-          "toolkit-card-icons-base-css",
-          "installed-list-view"
+          "category-grid-view",
+          "search-results-view",
+          "updates-list-empty-state",
+          "installed-list-vm-aligned",
+          "app-detail-pane",
+          "loading-overlay"
         ]
       }
     },

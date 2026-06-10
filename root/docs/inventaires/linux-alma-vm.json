@@ -169,5 +169,6 @@
     "full": "node usr/lib/capsuleos/tools/validate-all.mjs"
   },
   "upstreamId": "linux-rocky",
-  "terminalInventory": "root/docs/inventaires/linux-alma-terminal-vm.json"
+  "terminalInventory": "root/docs/inventaires/linux-alma-terminal-vm.json",
+  "softwareInventory": "root/docs/inventaires/linux-alma-software-vm-inventory.json"
 }

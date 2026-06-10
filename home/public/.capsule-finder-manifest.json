@@ -36,9 +36,25 @@
         }
       ]
     },
+    "../../../home/public/Images/screen_KDE-Neon": {
+      "label": "screen_KDE-Neon",
+      "items": [
+        {
+          "type": "file",
+          "name": "vm-dolphin.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin.png"
+        }
+      ]
+    },
     "../../../home/public/Images": {
       "label": "Images",
       "items": [
+        {
+          "type": "folder",
+          "name": "screen_KDE-Neon",
+          "path": "../../../home/public/Images/screen_KDE-Neon"
+        },
         {
           "type": "file",
           "name": "lunaire-bureau.png",

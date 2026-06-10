@@ -9,7 +9,7 @@
 | Couche | Document |
 |--------|----------|
 | Infra VM SSH/Wayland | [lab-vm-rhel-wayland.md](lab-vm-rhel-wayland.md) |
-| Scénarios pédagogiques GNOME | [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) |
+| Scénarios pédagogiques GNOME | [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) · [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) · [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) |
 | Parité JSON | [inventaire-parite-alma.md](inventaire-parite-alma.md) · [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) |
 | Playbook Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) · matrice `gnome-settings-parity-matrix-alma.json` (C21) |
 
@@ -78,6 +78,18 @@ cat root/docs/inventaires/linux-alma-parity-index.json | jq '.cloneClosure,.pi_g
 ```
 
 Gaps restants honnêtes : Vc VM (D-Bus) · `screenshot` Capsule-only (rpm absent el10) · `snapshot` sans webcam lab.
+
+### C26 — Généralisation pattern scénarios (tous skins GNOME)
+
+| Livrable | Chemin |
+|----------|--------|
+| Manifeste contrats | `etc/capsuleos/contracts/gnome-user-scenarios-index.json` |
+| Gate agrégée | `validate-gnome-user-scenarios-all.mjs` |
+| Audit overview | `audit-gnome-overview-scenarios.mjs --id <registryId>` |
+| Playbook overview | [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) |
+| Procédure générique | [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) |
+
+Backlog overview P0 : voir [inventaire-parite-alma.md § Overview](inventaire-parite-alma.md#overview-alma--scénarios-avant--après-c26-doc).
 
 ---
 

@@ -20,18 +20,7 @@ const steps = [
   'validate-ui-contracts-all.mjs',
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',
-  'validate-software-user-scenarios.mjs',
-  'validate-text-editor-user-scenarios.mjs',
-  'validate-calculator-user-scenarios.mjs',
-  'validate-themes-user-scenarios.mjs',
-  'validate-clocks-user-scenarios.mjs',
-  'validate-calendar-user-scenarios.mjs',
-  'validate-baobab-user-scenarios.mjs',
-  'validate-tour-user-scenarios.mjs',
-  'validate-snapshot-user-scenarios.mjs',
-  'validate-characters-user-scenarios.mjs',
-  'validate-system-monitor-user-scenarios.mjs',
-  'validate-screenshot-user-scenarios.mjs',
+  'validate-gnome-user-scenarios-all.mjs',
 ];
 
 let failed = false;

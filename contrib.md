@@ -67,7 +67,18 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.
 
-**AlmaLinux GNOME (cycles C0–C18, scénarios pédagogiques)** : [`root/docs/procedure-lab-linux-alma-gnome.md`](root/docs/procedure-lab-linux-alma-gnome.md) · parité [`root/docs/inventaire-parite-alma.md`](root/docs/inventaire-parite-alma.md) · pattern scénarios [`root/docs/procedure-scenarios-pedagogiques-gnome.md`](root/docs/procedure-scenarios-pedagogiques-gnome.md).
+**Scénarios pédagogiques GNOME (tous vendors : Rocky, Fedora, Alma, Ubuntu)** :
+
+| Document | Rôle |
+|----------|------|
+| [`root/docs/procedure-scenarios-pedagogiques-gnome.md`](root/docs/procedure-scenarios-pedagogiques-gnome.md) | Pattern contrat → validateur → smoke → capture |
+| [`root/docs/procedure-playbook-gnome-apps-overview.md`](root/docs/procedure-playbook-gnome-apps-overview.md) | Overview → slot → contrat → gates |
+| [`root/docs/procedure-lab-linux-gnome-scenarios.md`](root/docs/procedure-lab-linux-gnome-scenarios.md) | Procédure lab générique (sans duplication par distro) |
+| [`etc/capsuleos/contracts/gnome-user-scenarios-index.json`](etc/capsuleos/contracts/gnome-user-scenarios-index.json) | Manifeste 12 contrats + backlog C26+ |
+
+Gate agrégée : `node usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs` · audit overview : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id <registryId>`.
+
+**AlmaLinux GNOME (cycles C0–C25)** : [`root/docs/procedure-lab-linux-alma-gnome.md`](root/docs/procedure-lab-linux-alma-gnome.md) · parité [`root/docs/inventaire-parite-alma.md`](root/docs/inventaire-parite-alma.md).
 
 **Assets depuis la VM (tous clones)** : [`root/docs/convention-assets-depuis-vm.md`](root/docs/convention-assets-depuis-vm.md) — icônes et fonds **toujours** copiés depuis la VM (`pull-vm-assets.sh`), jamais empruntés à un autre vendor.
 

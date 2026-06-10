@@ -112,6 +112,44 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 
 ---
 
+## Overview Alma — scénarios avant / après (C26 doc)
+
+Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id linux-alma`
+
+### Slots câblés **avec** scénarios P0 (après C25)
+
+| Zone | Slot | Label | Scénarios avant | Scénarios après | Contrat |
+|------|------|-------|-----------------|-----------------|---------|
+| dash | `update_manager` | Logiciels | smoke structurel | **S1–S4** | `software-user-scenarios.json` |
+| dash | `text_editor` | Éditeur | smoke structurel | **T1–T4** | `text-editor-user-scenarios.json` |
+| dash | `calendar` | Calendrier | — | **Cal1–Cal4** | `calendar-user-scenarios.json` |
+| dash | `terminal` | Terminal | chrome Ptyxis | routing seul | — |
+| dash | `nemo` | Fichiers | routing Nautilus | routing seul | — |
+| dash | `firefox` | Firefox | onglets Proton | shell polish seul | — |
+| grid | `themes` | Paramètres | playbook | **Th1–Th4** | `themes-user-scenarios.json` |
+| grid | `clocks` | Horloges | — | **H1–H4** | `clocks-user-scenarios.json` |
+| grid | `baobab` | Disques | — | **B1–B4** | `baobab-user-scenarios.json` |
+| grid | `tour` | Visite guidée | — | **T1–T4** | `tour-user-scenarios.json` |
+| grid | `snapshot` | Caméra | — | **Sn1–Sn4** | `snapshot-user-scenarios.json` |
+| grid | `characters` | Caractères | — | **Ch1–Ch4** | `characters-user-scenarios.json` |
+| grid | `system_monitor` | Moniteur | — | **Sm1–Sm4** | `system-monitor-user-scenarios.json` |
+| grid | `librewriter` | LibreOffice Writer | gabarit partiel | — | backlog **C29** |
+| dock | `checklist` | Missions | capsuleOnly | — | backlog **C30** |
+
+### Gaps P0 overview — backlog C26+
+
+| Cycle | Slot | Action prévue |
+|-------|------|---------------|
+| **C26** | `nemo` | Contrat navigation Fichiers (sidebar, ouvrir dossier, marque-page) |
+| **C27** | `firefox` | Contrat navigation (onglet, URL, recherche) |
+| **C28** | `terminal` | Contrat commandes pédagogiques (réutiliser `terminal-replication-chain`) |
+| **C29** | `librewriter` | Kernel `data-lw-gnome-*` + 4 scénarios document |
+| **C30** | `checklist` | Scénarios Missions `/mnt` |
+
+Manifeste : `etc/capsuleos/contracts/gnome-user-scenarios-index.json` · doc : [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md).
+
+---
+
 ## Playbook Paramètres GNOME (C21)
 
 | Étape | Artefact / commande | Résultat |
@@ -171,8 +209,9 @@ Artefacts :
 
 ## Prochaines étapes
 
-1. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
-2. **Campagne Cred** — scénarios pédagogiques transversal si moteur clone le permet
+1. **C26–C30** — scénarios P0 overview gaps : `nemo` → `firefox` → `terminal` → `librewriter` → `checklist`
+2. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
+3. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
 
 ## Clôture clone Π (C25)
 

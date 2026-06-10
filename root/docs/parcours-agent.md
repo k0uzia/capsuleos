@@ -172,21 +172,37 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 
 ---
 
-## AlmaLinux GNOME — campagne clone (juin 2026)
+## Scénarios pédagogiques GNOME (tous vendors)
 
-Référence dédiée pour les agents travaillant sur `linux-alma` :
+Pattern reproductible Rocky · Fedora · Alma · Ubuntu :
 
 | Document | Contenu |
 |----------|---------|
-| [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md) | VM, cycles C0–C18, gates, commandes copy-paste |
-| [inventaire-parite-alma.md](inventaire-parite-alma.md) | État Π, gaps **Vc**, prochaines étapes |
 | [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) | Pattern contrat → validateur → smoke → capture |
-| [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) | Indice machine Π par slot |
-
-**Scénarios P0 Alma (C15–C18)** : Logiciels S1–S4 · Éditeur T1–T4 · Calculatrice C1–C4 · Paramètres Th1–Th4.
+| [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) | Overview → slot → contrat → gates |
+| [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) | Procédure lab générique |
+| [`gnome-user-scenarios-index.json`](../etc/capsuleos/contracts/gnome-user-scenarios-index.json) | Manifeste 12 contrats + backlog |
 
 ```bash
-# Exemple smoke scénarios Paramètres
+# Audit gaps overview P0
+node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id linux-alma
+
+# Gate agrégée scénarios
+node usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs
+
+# Smoke (paramétrable --id)
 CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
   node usr/lib/capsuleos/tools/lab/smoke-gnome-themes-scenarios.mjs --id linux-alma
 ```
+
+## AlmaLinux GNOME — campagne clone (juin 2026)
+
+Référence dédiée `linux-alma` (cycles C0–C25, Π = 96) :
+
+| Document | Contenu |
+|----------|---------|
+| [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md) | VM, cycles, gates, commandes |
+| [inventaire-parite-alma.md](inventaire-parite-alma.md) | État Π, overview gaps C26+ |
+| [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) | Indice machine Π par slot |
+
+**12 slots scénarisés** (C15–C25) · **5 gaps P0 overview** : `nemo`, `firefox`, `terminal`, `librewriter`, `checklist`.

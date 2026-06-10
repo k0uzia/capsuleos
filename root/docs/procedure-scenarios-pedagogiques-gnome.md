@@ -2,7 +2,15 @@
 
 > **Objectif** : documenter le pattern **contrat → validateur → smoke → capture** applicable à tout slot GNOME (Rocky, Fedora, Alma, Ubuntu).
 
-**Référence campagne** : [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md) · **Alma procédure** : [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md).
+**Documents liés** :
+
+| Document | Rôle |
+|----------|------|
+| [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) | Overview → slot → contrat → gates |
+| [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) | Procédure lab générique (tous vendors) |
+| [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md) | Campagne référence Alma C15–C25 |
+| `etc/capsuleos/contracts/gnome-user-scenarios-index.json` | Manifeste des 12 contrats + backlog C26+ |
+| [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md) | Campagne crédibilité post-Π |
 
 ---
 
@@ -151,23 +159,53 @@ Mettre à jour `root/docs/inventaires/linux-<distro>-parity-index.json` :
 
 ---
 
-## 3. Slots Alma — état juin 2026
+## 3. Manifeste & réplication multi-vendor
 
-| Slot | IDs P0 | Π slot | Statut ScΣ |
-|------|--------|--------|------------|
-| `update_manager` | S1–S4 | 100 | ✓ C15 |
-| `text_editor` | T1–T4 | 92 | ✓ C16 |
-| `calculator` | C1–C4 | 91 | ✓ C17 |
-| `themes` | Th1–Th4 | 93 | ✓ C18 |
-| `clocks` | H1–H4 | 87 | ✓ C19 |
-| `calendar` | Cal1–Cal4 | 87 | ✓ C20 |
+Index machine : `etc/capsuleos/contracts/gnome-user-scenarios-index.json`
+
+Chaque contrat déclare `registryIds: ["linux-alma", "linux-rocky", "linux-fedora", "linux-ubuntu"]` — le **kernel toolkit** est partagé ; seuls CSS vendor et captures diffèrent.
+
+Audit overview (gaps P0) :
+
+```bash
+node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id linux-alma
+node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id linux-rocky
+```
+
+Pour Rocky/Fedora/Ubuntu : réutiliser les mêmes smokes avec `--id <registryId>` après vérification `parity-index`.
 
 ---
 
-## 4. Gates
+## 4. Slots livrés — état juin 2026 (12 contrats)
+
+| Slot | IDs P0 | Cycle | Gate |
+|------|--------|-------|------|
+| `update_manager` | S1–S4 | C15 | `validate-software-user-scenarios.mjs` |
+| `text_editor` | T1–T4 | C16 | `validate-text-editor-user-scenarios.mjs` |
+| `calculator` | C1–C4 | C17 | `validate-calculator-user-scenarios.mjs` |
+| `themes` | Th1–Th4 | C18 | `validate-themes-user-scenarios.mjs` |
+| `clocks` | H1–H4 | C19 | `validate-clocks-user-scenarios.mjs` |
+| `calendar` | Cal1–Cal4 | C20 | `validate-calendar-user-scenarios.mjs` |
+| `baobab` | B1–B4 | C24 | `validate-baobab-user-scenarios.mjs` |
+| `tour` | T1–T4 | C24 | `validate-tour-user-scenarios.mjs` |
+| `snapshot` | Sn1–Sn4 | C25 | `validate-snapshot-user-scenarios.mjs` |
+| `characters` | Ch1–Ch4 | C25 | `validate-characters-user-scenarios.mjs` |
+| `system_monitor` | Sm1–Sm4 | C25 | `validate-system-monitor-user-scenarios.mjs` |
+| `screenshot` | Sc1–Sc4 | C25 | `validate-screenshot-user-scenarios.mjs` |
+
+**Backlog P0 overview** (C26+) : `nemo`, `firefox`, `terminal`, `librewriter`, `checklist` — voir [procedure-playbook-gnome-apps-overview.md §6](procedure-playbook-gnome-apps-overview.md#6-alma--tableau-overview-juin-2026).
+
+---
+
+## 5. Gates
 
 ```bash
+# Un slot
 node usr/lib/capsuleos/tools/validate-<slot>-user-scenarios.mjs
+
+# Agrégée (12 contrats — validate-quality-all)
+node usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs
+
 node usr/lib/capsuleos/tools/validate-quality-all.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 ```
@@ -176,7 +214,7 @@ Skin Linux touché → `sync-linux-skin-closure.mjs` avant push.
 
 ---
 
-## 5. Anti-patterns
+## 6. Anti-patterns
 
 1. Scénario sans ground truth VM inventorié (**R-INV1**).
 2. Sélecteurs inventés non présents dans le gabarit HTML.

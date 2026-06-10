@@ -502,6 +502,21 @@
   },
   "pi_global_extended": 92,
   "status_global_extended": "ok",
+  "overviewScenarios": {
+    "audit": "usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs",
+    "manifest": "etc/capsuleos/contracts/gnome-user-scenarios-index.json",
+    "doc": "root/docs/procedure-playbook-gnome-apps-overview.md",
+    "wiredWithScenarios": 10,
+    "wiredTotal": 15,
+    "gapsP0": [
+      { "slot": "nemo", "label": "Fichiers", "zone": "overviewDash", "campaign": "C26" },
+      { "slot": "firefox", "label": "Firefox", "zone": "overviewDash", "campaign": "C27" },
+      { "slot": "terminal", "label": "Terminal", "zone": "overviewDash", "campaign": "C28" },
+      { "slot": "librewriter", "label": "LibreOffice Writer", "zone": "overviewGrid", "campaign": "C29" },
+      { "slot": "checklist", "label": "Missions CapsuleOS", "zone": "dock", "campaign": "C30" }
+    ],
+    "updatedAt": "2026-06-10T26:00:00.000Z"
+  },
   "cloneClosure": {
     "cycle": "C25",
     "campaign": "c12-apps-parity-pass",

@@ -709,7 +709,7 @@
     }
 
     function gnomeAppCatalog() {
-        return {
+        var base = {
             firefox: {
                 title: 'Firefox',
                 sub: 'Navigateur Web',
@@ -777,6 +777,11 @@
                 categories: ['development', 'utilities']
             }
         };
+        if (typeof window.CapsuleGnomeStore !== 'undefined'
+            && typeof window.CapsuleGnomeStore.mergeStoreApps === 'function') {
+            return window.CapsuleGnomeStore.mergeStoreApps(base);
+        }
+        return base;
     }
 
     function initGnomeInstalledFromCatalog() {
@@ -789,15 +794,27 @@
         } catch (e) {
             saved = null;
         }
-        if (saved) {
-            return saved;
-        }
         var catalog = gnomeAppCatalog();
         var state = {};
         var ids = Object.keys(catalog);
         var i;
         for (i = 0; i < ids.length; i += 1) {
             state[ids[i]] = catalog[ids[i]].installed === true;
+        }
+        if (saved) {
+            var savedIds = Object.keys(saved);
+            for (i = 0; i < savedIds.length; i += 1) {
+                state[savedIds[i]] = saved[savedIds[i]] === true;
+            }
+        }
+        if (typeof window.CapsuleGnomeStore !== 'undefined'
+            && typeof window.CapsuleGnomeStore.loadStoreInstalledMeta === 'function') {
+            var registryId = window.CapsuleGnomeStore.resolveRegistryId();
+            var storeMeta = window.CapsuleGnomeStore.loadStoreInstalledMeta(registryId);
+            var storeIds = storeMeta.appIds || [];
+            for (i = 0; i < storeIds.length; i += 1) {
+                state[storeIds[i]] = true;
+            }
         }
         return state;
     }
@@ -826,6 +843,46 @@
         var state = getGnomeInstalledState();
         state[appId] = value === true;
         saveGnomeInstalledState();
+    }
+
+    function notifyStoreAppInstalled(appId, app) {
+        if (typeof window.CapsuleGnomeStore === 'undefined') {
+            return;
+        }
+        var registryId = window.CapsuleGnomeStore.resolveRegistryId();
+        var source = app && app.source ? app.source : 'rpm';
+        window.CapsuleGnomeStore.recordStoreInstall(registryId, appId, source);
+        if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function') {
+            document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
+                detail: {
+                    appId: appId,
+                    slot: app && app.slot ? app.slot : '',
+                    storeSlot: app && app.storeSlot ? app.storeSlot : '',
+                    registryId: registryId,
+                    source: source
+                }
+            }));
+        }
+    }
+
+    function renderDiscoverSection(root) {
+        var section = root.querySelector('[data-um-gnome-discover-section]');
+        var grid = root.querySelector('[data-um-gnome-discover-grid]');
+        if (!section || !grid) {
+            return;
+        }
+        if (typeof window.CapsuleGnomeStore === 'undefined'
+            || typeof window.CapsuleGnomeStore.getDiscoverApps !== 'function') {
+            section.hidden = true;
+            return;
+        }
+        var apps = window.CapsuleGnomeStore.getDiscoverApps(getGnomeInstalledState());
+        if (!apps.length) {
+            section.hidden = true;
+            return;
+        }
+        section.hidden = false;
+        renderGnomeAppGrid(root, grid, apps);
     }
 
     function openGnomeAppSlot(slot) {
@@ -967,6 +1024,9 @@
         function nextStep() {
             if (idx >= steps.length) {
                 setGnomeAppInstalled(appId, true);
+                if (app.storeInstallable === true) {
+                    notifyStoreAppInstalled(appId, app);
+                }
                 if (installBtn) {
                     installBtn.disabled = false;
                     installBtn.textContent = 'Ouvrir';
@@ -978,10 +1038,19 @@
                     progress.setAttribute('aria-hidden', 'true');
                 }
                 renderGnomeInstalledList(root);
+                renderDiscoverSection(root);
                 setStatus(app.title + ' installé.');
                 gnomeBusy = false;
                 root.dataset.umGnomeInstalling = 'false';
-                root.dataset.umGnomeScenario = 'S1-complete';
+                if (appId === 'libreoffice-writer') {
+                    root.dataset.umGnomeScenario = 'S1-complete';
+                } else if (appId === 'file-roller') {
+                    root.dataset.umGnomeScenario = 'S5-complete';
+                } else if (appId === 'libreoffice') {
+                    root.dataset.umGnomeScenario = 'S6-complete';
+                } else if (appId === 'calendar') {
+                    root.dataset.umGnomeScenario = 'S7-complete';
+                }
                 return;
             }
             var step = steps[idx];
@@ -1023,7 +1092,7 @@
             banner.hidden = false;
         }
         setStatus('Erreur réseau (simulation).');
-        root.dataset.umGnomeScenario = 'S5-network-error';
+        root.dataset.umGnomeScenario = 'S8-network-error';
     }
 
     var GNOME_CATEGORY_LABELS = {
@@ -1229,6 +1298,7 @@
 
     function bindGnomeSoftware(root) {
         renderGnomeInstalledList(root);
+        renderDiscoverSection(root);
         setGnomeView(root, 'explore');
         root.addEventListener('click', function onGnomeClick(event) {
             if (gnomeBusy) {
@@ -1300,6 +1370,7 @@
                 }
                 if (id === 'simulateNetworkError') {
                     showGnomeNetworkError(root);
+                    root.dataset.umGnomeScenario = 'S8-network-error';
                 }
                 return;
             }

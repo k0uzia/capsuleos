@@ -135,7 +135,11 @@
         "org.gnome.Characters": { "labelFr": "Caractères", "priorite": "P2", "slot": "characters", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "setroubleshoot": { "labelFr": "Journal SELinux", "priorite": "P2", "slot": null, "statut": "decorative", "requiresSlot": false, "placement": { "overview": true } },
         "org.gnome.DiskUtility": { "labelFr": "Disques", "priorite": "P2", "slot": null, "statut": "decorative", "requiresSlot": false, "placement": { "overview": true } },
-        "org.gnome.font-viewer": { "labelFr": "Polices", "priorite": "P2", "slot": null, "statut": "decorative", "requiresSlot": false, "placement": { "overview": true } }
+        "org.gnome.font-viewer": { "labelFr": "Polices", "priorite": "P2", "slot": null, "statut": "decorative", "requiresSlot": false, "placement": { "overview": true } },
+        "org.gnome.FileRoller": { "labelFr": "Gestionnaire d'archives", "priorite": "P1", "slot": "file_roller", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "storeInstallable": true, "note": "RPM file-roller — extension magasin Alma" },
+        "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak org.gnome.Calendar — extension magasin Alma" },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P0", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Scénario S1 Logiciels — simulé CapsuleOS" },
+        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — ouvre Writer post-install (S6)" }
       },
       "capsuleOnly": [
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },

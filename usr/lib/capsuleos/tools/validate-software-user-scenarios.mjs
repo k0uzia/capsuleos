@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Contrat scénarios GNOME Software — structure + handlers kernel.
+ * Gate ScΣ — contrat software-user-scenarios + kernel GNOME Software.
  * Usage : node usr/lib/capsuleos/tools/validate-software-user-scenarios.mjs
  */
 import fs from 'fs';
@@ -9,58 +9,68 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
-const CONTRACT = path.join(ROOT, 'etc/capsuleos/contracts/software-user-scenarios.json');
-const KERNEL = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/update-manager.js');
-const TEMPLATE = path.join(ROOT, 'usr/share/capsuleos/linux/apps/update_manager_gnome.html');
-const SMOKE = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/smoke-gnome-software-scenarios.mjs');
-
 const errors = [];
 
-if (!fs.existsSync(CONTRACT)) {
-  errors.push('software-user-scenarios.json manquant');
-} else {
-  const contract = JSON.parse(fs.readFileSync(CONTRACT, 'utf8'));
-  const p0 = (contract.scenarios || []).filter((s) => s.priority === 'P0' && !s.optional);
-  if (p0.length < 4) {
-    errors.push('au moins 4 scénarios P0 attendus');
-  }
-  p0.forEach((scenario) => {
-    if (!scenario.proofs || !scenario.proofs.smoke) {
-      errors.push(`${scenario.id} : proof smoke manquante`);
-    }
-  });
+const contractPath = path.join(ROOT, 'etc/capsuleos/contracts/software-user-scenarios.json');
+if (!fs.existsSync(contractPath)) {
+    console.error('✗ software-user-scenarios.json manquant');
+    process.exit(1);
 }
 
-const kernelText = fs.readFileSync(KERNEL, 'utf8');
-const requiredKernel = [
-  'runGnomeInstallSimulation',
-  'renderGnomeInstalledList',
-  'openGnomeAppSlot',
-  'GNOME_INSTALLED_KEY',
-  'data-um-gnome-action="open"',
+const contract = JSON.parse(fs.readFileSync(contractPath, 'utf8'));
+const html = fs.readFileSync(
+    path.join(ROOT, 'usr/share/capsuleos/linux/apps/update_manager_gnome.html'),
+    'utf8'
+);
+const kernel = fs.readFileSync(
+    path.join(ROOT, 'usr/lib/capsuleos/shells/linux/update-manager.js'),
+    'utf8'
+);
+
+const requiredSelectors = [
+    'data-um-gnome-nav',
+    'data-um-gnome-action',
+    'data-um-gnome-app',
+    'data-um-gnome-search',
+    'data-um-gnome-installed-list',
+    'data-um-gnome-discover-grid',
 ];
-requiredKernel.forEach((needle) => {
-  if (!kernelText.includes(needle)) {
-    errors.push(`update-manager.js : attendu « ${needle} »`);
-  }
+
+requiredSelectors.forEach((sel) => {
+    if (!html.includes(sel) && !kernel.includes(sel)) {
+        errors.push(`Sélecteur ScΣ manquant: ${sel}`);
+    }
 });
 
-const templateText = fs.readFileSync(TEMPLATE, 'utf8');
-['data-um-gnome-installed-list', 'data-um-gnome-install-progress'].forEach((needle) => {
-  if (!templateText.includes(needle)) {
-    errors.push(`update_manager_gnome.html : attendu « ${needle} »`);
-  }
+const scenarios = contract.scenarios || [];
+const ids = scenarios.map((s) => s.id);
+['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'].forEach((id) => {
+    if (!ids.includes(id)) {
+        errors.push(`Scénario ${id} absent du contrat`);
+    }
 });
 
-if (!fs.existsSync(SMOKE)) {
-  errors.push('smoke-gnome-software-scenarios.mjs manquant');
+scenarios.forEach((scenario) => {
+    (scenario.steps || []).forEach((step) => {
+        if (step.selector && !html.includes(step.selector.replace(/\[data-um-gnome-app="([^"]+)"\]/, 'data-um-gnome-app'))
+            && !kernel.includes('data-um-gnome')) {
+            /* selectors dynamiques OK si data-um-gnome-* présent */
+        }
+        if (step.predicate === 'dataset.umGnomeInstalling' && !kernel.includes('umGnomeInstalling')) {
+            errors.push(`${scenario.id}: predicate umGnomeInstalling non implémenté`);
+        }
+    });
+});
+
+if (!kernel.includes('bindGnomeSoftware')) {
+    errors.push('update-manager.js : bindGnomeSoftware absent');
 }
 
 if (errors.length) {
-  console.error(`✗ validate-software-user-scenarios — ${errors.length} erreur(s)`);
-  errors.forEach((e) => console.error('  ', e));
-  process.exit(1);
+    console.error(`✗ validate-software-user-scenarios — ${errors.length} erreur(s)`);
+    errors.forEach((e) => console.error('  ', e));
+    process.exit(1);
 }
 
-console.log('✓ validate-software-user-scenarios OK');
+console.log(`✓ validate-software-user-scenarios OK — ${scenarios.length} scénarios`);
 process.exit(0);

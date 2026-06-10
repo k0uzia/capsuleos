@@ -46,6 +46,7 @@
         "characters": "libadwaita-gnome",
         "system_monitor": "libadwaita-gnome",
         "tour": "libadwaita-gnome",
+        "file_roller": "file-roller-gtk",
         "default": "default"
       },
       "slotChromeProviderOverrides": {

@@ -1,17 +1,21 @@
 {
-  "version": 1,
+  "version": 2,
   "description": "Scénarios utilisateur pédagogiques GNOME Software — patterns réutilisables toolkit gnome (Rocky, Fedora, Alma, Ubuntu).",
   "doc": "root/docs/inventaires/linux-alma-software-vm-inventory.json",
   "slot": "update_manager",
   "template": "update_manager_gnome.html",
   "kernel": "usr/lib/capsuleos/shells/linux/update-manager.js",
+  "storeKernel": "usr/lib/capsuleos/shells/linux/gnome-store-catalog.js",
   "registryIds": ["linux-alma", "linux-rocky", "linux-fedora", "linux-ubuntu"],
   "predicates": {
     "ScΣ": "Contrat valide + kernel implémente handlers data-um-gnome-*",
     "Sc1": "S1 install simulé LibreOffice Writer → Ouvrir",
     "Sc2": "S2 recherche → fiche → install",
     "Sc3": "S3 mises à jour → tout mettre à jour → état vide",
-    "Sc4": "S4 onglet Installées → lancer application"
+    "Sc4": "S4 onglet Installées → lancer application",
+    "Sc5": "S5 store file_roller → Installées",
+    "Sc6": "S6 store LibreOffice flatpak → librewriter",
+    "Sc7": "S7 store Agenda flatpak → calendar"
   },
   "scenarios": [
     {
@@ -86,6 +90,79 @@
     },
     {
       "id": "S5",
+      "priority": "P0",
+      "title": "Magasin — installer Gestionnaire d'archives",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "file-roller",
+        "rpm": "file-roller",
+        "onVm": false,
+        "storeInstallable": true
+      },
+      "steps": [
+        { "id": "open-software", "action": "openWindowByDataLink", "target": "update_manager", "label": "Ouvrir Logiciels" },
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"file-roller\"]", "label": "Sélectionner Gestionnaire d'archives (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "expectTextBefore": "Installer", "label": "Cliquer Installer" },
+        { "id": "install-complete", "predicate": "dataset.umGnomeScenario", "expectValue": "S5-complete", "label": "Installation terminée" },
+        { "id": "nav-installed", "selector": "[data-um-gnome-nav=\"installed\"]", "label": "Onglet Installées" },
+        { "id": "listed", "selector": "[data-um-gnome-installed-list] [data-um-gnome-app=\"file-roller\"]", "label": "Apparaît dans Installées" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S5",
+        "capture": "alma-capsule-store-file-roller-installed.png"
+      }
+    },
+    {
+      "id": "S6",
+      "priority": "P0",
+      "title": "Magasin — installer LibreOffice (Flatpak)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "libreoffice",
+        "flatpak": "org.libreoffice.LibreOffice",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "librewriter"
+      },
+      "steps": [
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"libreoffice\"]", "label": "Sélectionner LibreOffice (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-open", "selector": "[data-um-gnome-action=\"install\"]", "expectTextAfter": "Ouvrir", "label": "Bouton Ouvrir" },
+        { "id": "launch-app", "selector": "[data-um-gnome-action=\"install\"]", "expectWindow": "librewriter", "label": "Ouvre LibreOffice Writer" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S6",
+        "capture": "alma-capsule-store-libreoffice-open.png"
+      }
+    },
+    {
+      "id": "S7",
+      "priority": "P0",
+      "title": "Magasin — installer Agenda (Flatpak)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "calendar",
+        "flatpak": "org.gnome.Calendar",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "calendar"
+      },
+      "steps": [
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"calendar\"]", "label": "Sélectionner Agenda (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-open", "selector": "[data-um-gnome-action=\"install\"]", "expectTextAfter": "Ouvrir", "label": "Bouton Ouvrir" },
+        { "id": "launch-app", "selector": "[data-um-gnome-action=\"install\"]", "expectWindow": "calendar", "label": "Ouvre Agenda" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S7",
+        "capture": "alma-capsule-store-calendar-open.png"
+      }
+    },
+    {
+      "id": "S8",
       "priority": "P2",
       "title": "Erreur réseau (optionnel)",
       "locale": "fr-FR",
@@ -95,7 +172,7 @@
         { "id": "error-banner", "selector": "[data-um-gnome-network-error]:not([hidden])", "label": "Bandeau erreur affiché" }
       ],
       "proofs": {
-        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S5 --optional"
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S8 --optional"
       }
     }
   ],

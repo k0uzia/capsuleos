@@ -531,6 +531,18 @@
     background-image: url("../../../assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg");
 }
 
+.update-manager--gnome .gnome-software__cardicon--file-roller {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.FileRoller");
+}
+
+.update-manager--gnome .gnome-software__cardicon--calendar {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg");
+}
+
+.update-manager--gnome .gnome-software__cardicon--libreoffice {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg");
+}
+
 .update-manager--gnome .gnome-software__appicon--software {
     background-image: url("../../../assets/images/toolkits/gnome/apps/dash/org.gnome.Software.svg");
 }

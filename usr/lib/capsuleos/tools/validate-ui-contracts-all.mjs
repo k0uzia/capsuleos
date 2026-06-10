@@ -21,6 +21,8 @@ const steps = [
     'validate-ui-components-gnome.mjs',
     'validate-gnome-chrome-apps.mjs',
     'validate-gnome-overview-search-icons.mjs',
+    'validate-store-installable-apps.mjs',
+    'validate-software-user-scenarios.mjs',
     'validate-css-selectors-contract.mjs',
     'validate-css-variables-contract.mjs',
     'validate-vanilla-interactivity.mjs',

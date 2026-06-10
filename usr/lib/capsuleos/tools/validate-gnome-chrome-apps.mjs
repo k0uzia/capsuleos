@@ -41,6 +41,7 @@ const GNOME_SLOT_PROVIDERS = {
     system_monitor: 'libadwaita-gnome',
     tour: 'libadwaita-gnome',
     characters: 'libadwaita-gnome',
+    file_roller: 'file-roller-gtk',
 };
 
 /** Ancres CSD libadwaita (manifeste toolkit-gnome/pack.json). */

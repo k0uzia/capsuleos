@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "draft",
+  "status": "pilot-alma",
   "description": "Catalogue apps installables via le magasin natif de chaque OS — extension pédagogique au-delà du ground truth VM (defaultInstalled: false).",
   "principles": [
     "VM prime : seules les apps onVm=true restent dans le shell par défaut",

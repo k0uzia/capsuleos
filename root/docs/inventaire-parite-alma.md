@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C19** clocks en cours.
+**État global** : **Π = 96** (`status_global: ok`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C20** calendar clôturé.
 
 ---
 
@@ -71,13 +71,14 @@ Ground truth VM :
 | C17 | Calculatrice | C1 basique · C2 chaîne/effacer · C3 Avancé · C4 copier | `smoke-gnome-calculator-scenarios.mjs` |
 | C18 | Paramètres | Th1 mode sombre · Th2 fond Alma · Th3 accent · Th4 panneau Écrans | `smoke-gnome-themes-scenarios.mjs` |
 | C19 | Horloges | H1 Monde/Tokyo · H2 chronomètre · H3 minuteur · H4 alarme | `smoke-gnome-clocks-scenarios.mjs` |
+| C20 | Agenda | Cal1 vue mois · Cal2 créer évènement · Cal3 vue semaine · Cal4 mois suivant | `smoke-gnome-calendar-scenarios.mjs` |
 
 ### Apps P2
 
 | Slot | Label | Π | Scénarios P0 | Contrat |
 |------|-------|---|--------------|---------|
-| `clocks` | Horloges | **63→87** | **H1–H4** | `clocks-user-scenarios.json` |
-| `calendar` | Calendrier | 63 | — | prochain **C20** |
+| `clocks` | Horloges | **87** | **H1–H4** | `clocks-user-scenarios.json` |
+| `calendar` | Agenda | **63→87** | **Cal1–Cal4** | `calendar-user-scenarios.json` |
 
 Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md).
 
@@ -91,16 +92,15 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
 | Playbook GNOME Settings Alma | P2 | Hérité Rocky — pas de matrice dupliquée |
 | Watermark Alma | P2 | `fedora_logo_*` non inventorié — gradient CSS |
-| `calendar` | P2 | Π ~63 — inventaire VM + scénarios **C20** |
+| `calendar` | P2 | Π **87** — flatpak org.gnome.Calendar 50.0 (dnf absent) · **Vc** Capsule C20 |
 
 ---
 
 ## Prochaines étapes
 
-1. **C19 clôture clocks** — H1–H4 verts · Π slot **87** · captures Capsule
-2. **C20 calendar** — inventaire VM + scénarios pédagogiques
-3. **Vc VM** — session GDM locale ou fix D-Bus screenshot
-4. **P2 apps** — baobab, tour
+1. **C20 clôture calendar** — Cal1–Cal4 verts · Π slot **87** · captures Capsule
+2. **Vc VM** — session GDM locale ou fix D-Bus screenshot
+3. **P2 apps** — baobab, tour
 
 ---
 
@@ -110,7 +110,7 @@ Pattern documenté : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 node usr/lib/capsuleos/tools/lab/compare-os-parity.mjs --id linux-alma
 node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma
 
-# Smokes scénarios (exemple clocks)
+# Smokes scénarios (exemple calendar)
 CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
-  node usr/lib/capsuleos/tools/lab/smoke-gnome-clocks-scenarios.mjs --id linux-alma
+  node usr/lib/capsuleos/tools/lab/smoke-gnome-calendar-scenarios.mjs --id linux-alma
 ```

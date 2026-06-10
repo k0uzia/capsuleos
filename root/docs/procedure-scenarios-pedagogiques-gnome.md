@@ -88,6 +88,7 @@ Schéma :
 | Calculatrice | `data-calc-*`, `data-calc-gnome-*` | `[data-calc="equals"]` |
 | Paramètres | `data-theme-option`, `data-accent-chip`, `data-gnome-settings-panel` | `[data-accent-chip="blue"]` |
 | Horloges | `data-clocks-*`, `data-clocks-gnome-*` | `[data-clocks-view="stopwatch"]` |
+| Agenda | `data-cal-gnome-*` | `[data-cal-gnome-view="week"]` |
 
 ### Étape 3 — Validateur contrat
 
@@ -157,6 +158,7 @@ Mettre à jour `root/docs/inventaires/linux-<distro>-parity-index.json` :
 | `calculator` | C1–C4 | 91 | ✓ C17 |
 | `themes` | Th1–Th4 | 93 | ✓ C18 |
 | `clocks` | H1–H4 | 87 | ✓ C19 |
+| `calendar` | Cal1–Cal4 | 87 | ✓ C20 |
 
 ---
 

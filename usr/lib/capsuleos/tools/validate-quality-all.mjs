@@ -25,6 +25,7 @@ const steps = [
   'validate-calculator-user-scenarios.mjs',
   'validate-themes-user-scenarios.mjs',
   'validate-clocks-user-scenarios.mjs',
+  'validate-calendar-user-scenarios.mjs',
 ];
 
 let failed = false;

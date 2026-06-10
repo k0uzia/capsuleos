@@ -15,7 +15,7 @@
 
 ---
 
-## Vue d'ensemble — cycles Alma (C0–C18)
+## Vue d'ensemble — cycles Alma (C0–C20)
 
 ```mermaid
 flowchart LR
@@ -31,6 +31,8 @@ flowchart LR
   C15 --> C16[C16_T1-T4]
   C16 --> C17[C17_C1-C4]
   C17 --> C18[C18_Th1-Th4_themes]
+  C18 --> C19[C19_H1-H4_clocks]
+  C19 --> C20[C20_Cal1-Cal4_calendar]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -47,7 +49,9 @@ flowchart LR
 | **C15** | `2c98dc36` | **ScΣ** Software S1–S4 | — |
 | **C16** | `2417c650` | **ScΣ** Éditeur T1–T4 | — |
 | **C17** | `8f947d14` | **ScΣ** Calculatrice C1–C4 | **94** |
-| **C18** | en cours | **ScΣ** Paramètres Th1–Th4 | cible **96+** |
+| **C18** | `5c50a1cc` | **ScΣ** Paramètres Th1–Th4 | **96** |
+| **C19** | `244cff54` | **ScΣ** Horloges H1–H4 | **96** |
+| **C20** | (cette passe) | **ScΣ** Agenda Cal1–Cal4 | **96** |
 
 ---
 
@@ -181,6 +185,8 @@ contrat JSON → validateur → smoke Playwright → captures Capsule → parity
 | Éditeur | `text-editor-user-scenarios.json` | T1–T4 | `smoke-gnome-text-editor-scenarios.mjs` | `capture-capsule-text-editor-views.mjs` |
 | Calculatrice | `calculator-user-scenarios.json` | C1–C4 | `smoke-gnome-calculator-scenarios.mjs` | `capture-capsule-calculator-views.mjs` |
 | Paramètres | `themes-user-scenarios.json` | Th1–Th4 | `smoke-gnome-themes-scenarios.mjs` | `capture-capsule-themes-views.mjs` |
+| Horloges | `clocks-user-scenarios.json` | H1–H4 | `smoke-gnome-clocks-scenarios.mjs` | `capture-capsule-clocks-views.mjs` |
+| Agenda | `calendar-user-scenarios.json` | Cal1–Cal4 | `smoke-gnome-calendar-scenarios.mjs` | `capture-capsule-calendar-views.mjs` |
 
 Exemple copy-paste (Calculatrice, Alma) :
 
@@ -195,6 +201,37 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
 ```
 
 Détail du pattern : [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md).
+
+### C20 — Agenda (org.gnome.Calendar)
+
+**Install VM** : le RPM `gnome-calendar` est absent des dépôts el10. Contournement lab — Flatpak Flathub :
+
+```bash
+ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.199 \
+  'sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
+   sudo flatpak install -y flathub org.gnome.Calendar'
+```
+
+| Source | Version | Libellé fr_FR |
+|--------|---------|---------------|
+| flatpak `org.gnome.Calendar` | **50.0** | Agenda |
+| rpm `gnome-calendar` | absent | — |
+
+Inventaire : [`linux-alma-calendar-vm-inventory.json`](inventaires/linux-alma-calendar-vm-inventory.json)
+
+Scénarios P0 : Cal1 vue mois · Cal2 créer évènement · Cal3 vue semaine · Cal4 mois suivant.
+
+```bash
+node usr/lib/capsuleos/tools/validate-calendar-user-scenarios.mjs
+
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
+  node usr/lib/capsuleos/tools/lab/smoke-gnome-calendar-scenarios.mjs --id linux-alma
+
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
+  node usr/lib/capsuleos/tools/lab/capture-capsule-calendar-views.mjs --id linux-alma
+```
+
+Π slot calendar : **63 → 87**. **Vc VM** : pending (captures Capsule documentées).
 
 ---
 
@@ -222,7 +259,7 @@ Checklist humaine :
 | **Vc VM** pixel-perfect apps | P1 | D-Bus screenshot ou console GDM locale |
 | `virsh almalinux10` absent hôte | P1 | Enregistrer domaine libvirt ou documenter IP seule |
 | Watermark Alma (`fedora_logo_*`) | P2 | Inventaire VM ou gradient CSS fallback |
-| `clocks`, `calendar` | P2 | Π ~63 — campagne P2 post-thèmes |
+| `clocks`, `calendar` | P2 | Π **87** (H1–H4, Cal1–Cal4) · **Vc** Capsule |
 | Playbook GNOME Settings Alma dédié | P2 | Hérité Rocky — matrice non dupliquée |
 
 ---
@@ -247,4 +284,6 @@ Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma`
 | 2026-06-10 | C11–C12 AppΣ | Captures Capsule · Π **90** |
 | 2026-06-10 | C13–C14 Software | Explore grid · Π slot **100** |
 | 2026-06-10 | C15–C17 scénarios | S/T/C P0 · Π global **94** |
-| 2026-06-10 | C18 themes | Th1–Th4 · cible Π **96+** |
+| 2026-06-10 | C18 themes | Th1–Th4 · Π **96** |
+| 2026-06-10 | C19 clocks | H1–H4 · Π slot **87** |
+| 2026-06-10 | C20 calendar | Cal1–Cal4 · flatpak 50.0 · Π slot **87** |

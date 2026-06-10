@@ -51,6 +51,13 @@ export const capsuleCaptureCandidates = (controlId) => {
       'rocky-capsule-dark-clocks-timer-running.png',
       'rocky-capsule-dark-clocks-alarm-added.png',
     ],
+    calendar: [
+      'rocky-capsule-dark-calendar.png',
+      'rocky-capsule-dark-calendar-month.png',
+      'rocky-capsule-dark-calendar-event-added.png',
+      'rocky-capsule-dark-calendar-week.png',
+      'rocky-capsule-dark-calendar-next-month.png',
+    ],
     snapshot: ['rocky-capsule-dark-snapshot.png'],
     characters: ['rocky-capsule-dark-characters.png'],
     tour: ['rocky-capsule-dark-tour.png'],

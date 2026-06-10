@@ -378,7 +378,8 @@
       "scenariosContract": null,
       "postInstallSlot": null,
       "toolkitVariants": {
-        "gnome": { "template": "snapshot.html", "chromeProvider": "libadwaita-gnome", "skinCss": "snapshot.skin.css" }
+        "gnome": { "template": "snapshot.html", "chromeProvider": "libadwaita-gnome", "skinCss": "snapshot.skin.css" },
+        "cinnamon": { "template": "snapshot.html", "chromeProvider": "cinnamon", "skinCss": "snapshot.skin.css" }
       }
     },
     "screenshot": {

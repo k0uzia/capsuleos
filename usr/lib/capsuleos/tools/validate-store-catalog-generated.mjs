@@ -21,7 +21,7 @@ const EXPECTED_STORE_APPS = {
   'linux-ubuntu': 11,
   'linux-popos': 11,
   'linux-anduinos': 11,
-  'linux-mint': 19,
+  'linux-mint': 21,
   'linux-kde-neon': 0,
   'linux-opensuse': 0,
 };

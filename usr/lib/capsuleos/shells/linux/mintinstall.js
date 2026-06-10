@@ -24,7 +24,9 @@
         calendar: 'accessories',
         simple_scan: 'accessories',
         warpinator: 'internet',
-        timeshift: 'accessories'
+        timeshift: 'accessories',
+        baobab: 'accessories',
+        snapshot: 'graphics'
     };
 
     var MINT_ICON_BY_SLOT = {
@@ -40,7 +42,9 @@
         lecteur_multimedia: './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid',
         rhythmbox: './assets/images/toolkits/cinnamon/apps/rhythmbox.png',
         calculator: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
-        text_editor: './assets/images/vendors/mint/panel/accessories-text-editor.webp'
+        text_editor: './assets/images/vendors/mint/panel/accessories-text-editor.webp',
+        baobab: './assets/images/toolkits/cinnamon/apps/org.gnome.baobab',
+        snapshot: './assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg'
     };
 
     var CATALOG_FALLBACK = [
@@ -463,6 +467,21 @@
                 listBtn.disabled = true;
             });
             setStatus(entryName(pkgId) + ' installé');
+            var storeApi = global.CapsuleMintStore;
+            var registryId = storeApi && typeof storeApi.resolveRegistryId === 'function'
+                ? storeApi.resolveRegistryId()
+                : 'linux-mint';
+            if (typeof global.document !== 'undefined' && typeof global.document.dispatchEvent === 'function') {
+                global.document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
+                    detail: {
+                        appId: pkgId,
+                        slot: pkgId,
+                        storeSlot: pkgId,
+                        registryId: registryId,
+                        source: 'apt'
+                    }
+                }));
+            }
         }
 
         root.addEventListener('click', function onClick(event) {

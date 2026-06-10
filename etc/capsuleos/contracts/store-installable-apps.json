@@ -1101,6 +1101,65 @@
           "storeInstallable": true
         }
       }
+    },
+    {
+      "slot": "baobab",
+      "labelFr": "Analyseur d'espace disque",
+      "capsuleStatus": "ok",
+      "functionalDepth": "partial",
+      "crossOs": false,
+      "recommendation": "P2-store",
+      "storeCatalog": {
+        "id": "baobab",
+        "sub": "Utilisation des disques",
+        "desc": "Visualisez l'utilisation de l'espace disque (org.gnome.baobab).",
+        "version": "46.0",
+        "size": "~2 Mo",
+        "iconClass": "gnome-software__cardicon--baobab",
+        "categories": [
+          "utilities"
+        ],
+        "placement": {
+          "overview": true
+        }
+      },
+      "sources": {
+        "linux-mint": {
+          "apt": "baobab",
+          "desktopId": "org.gnome.baobab",
+          "defaultInstalled": true
+        }
+      }
+    },
+    {
+      "slot": "snapshot",
+      "labelFr": "Snapshot",
+      "capsuleStatus": "ok",
+      "functionalDepth": "partial",
+      "crossOs": false,
+      "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "snapshot",
+        "sub": "Caméra",
+        "desc": "Prenez des photos et enregistrez de courtes vidéos (Flatpak org.gnome.Snapshot).",
+        "version": "47.0",
+        "size": "~8 Mo",
+        "iconClass": "gnome-software__cardicon--snapshot",
+        "categories": [
+          "multimedia"
+        ],
+        "placement": {
+          "overview": true
+        }
+      },
+      "sources": {
+        "linux-mint": {
+          "apt": "snapshot",
+          "flatpak": "org.gnome.Snapshot",
+          "defaultInstalled": false,
+          "storeInstallable": true
+        }
+      }
     }
   ]
 }

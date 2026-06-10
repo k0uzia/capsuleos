@@ -1443,6 +1443,50 @@
       "relatedSlots": null,
       "defaultInstalled": true,
       "storeInstallable": false
+    },
+    {
+      "id": "baobab",
+      "storeSlot": "baobab",
+      "title": "Analyseur d'espace disque",
+      "sub": "Utilisation des disques",
+      "desc": "Visualisez l'utilisation de l'espace disque (org.gnome.baobab).",
+      "version": "46.0",
+      "size": "~2 Mo",
+      "iconClass": "gnome-software__cardicon--baobab",
+      "slot": "baobab",
+      "source": "apt",
+      "categories": [
+        "utilities"
+      ],
+      "placement": {
+        "overview": true
+      },
+      "postInstallSlot": null,
+      "relatedSlots": null,
+      "defaultInstalled": true,
+      "storeInstallable": false
+    },
+    {
+      "id": "snapshot",
+      "storeSlot": "snapshot",
+      "title": "Snapshot",
+      "sub": "Caméra",
+      "desc": "Prenez des photos et enregistrez de courtes vidéos (Flatpak org.gnome.Snapshot).",
+      "version": "47.0",
+      "size": "~8 Mo",
+      "iconClass": "gnome-software__cardicon--snapshot",
+      "slot": "snapshot",
+      "source": "flatpak",
+      "categories": [
+        "multimedia"
+      ],
+      "placement": {
+        "overview": true
+      },
+      "postInstallSlot": null,
+      "relatedSlots": null,
+      "defaultInstalled": false,
+      "storeInstallable": true
     }
   ],
   "linux-popos": [

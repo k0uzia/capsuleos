@@ -20,9 +20,9 @@
 | linux-rocky | update_manager | gnome | 11 | OK | actif |
 | linux-fedora | update_manager | gnome | 11 | OK | actif |
 | linux-ubuntu | update_manager | gnome | 11 | OK | actif (GS50, libellé « Logiciels ») |
-| linux-popos | update_manager | cosmic→gnome | 11 | deferred | catalogue actif ; smoke bloqué layout COSMIC (dock) |
+| linux-popos | update_manager | cosmic→gnome | 11 | smoke S1+ (GS50 branché) | actif — layout COSMIC scroll corrigé |
 | linux-anduinos | update_manager | gnome | 11 | OK | actif |
-| linux-mint | mintinstall | cinnamon | 19 (VM) | `smoke-mint-mintinstall.mjs` | actif — catalogue VM + fusion `mintinstall.js` |
+| linux-mint | mintinstall | cinnamon | 21 (VM + extensions) | `smoke-mint-mintinstall.mjs` | actif — fusion `mintinstall.js` |
 | linux-kde-neon | update_manager | kde | 0 | deferred | gap UI Discover (grille store) |
 | linux-opensuse | update_manager | kde | 0 | deferred | gap UI Discover (grille store) |
 
@@ -123,7 +123,7 @@ Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/
 
 ## Mint (Logithèque)
 
-- Catalogue généré : **19 apps VM** (`storeCatalogStatus: active` — ground truth pré-installé Mint)
+- Catalogue généré : **21 apps** (19 VM + Baobab ground truth + Snapshot extension magasin)
 - Runtime : `capsule-store-catalog.js` + `mint-store-catalog.js` branchés sur `home/Debian/Mint/`
 - UI : `mintinstall.js` fusionne le catalogue contrat (`buildCatalogFromRegistry`) ; section « À découvrir » alimentée par `CapsuleMintStore.getDiscoverApps()` quand des extensions `storeInstallable` existent (sinon cartes vedette statiques du gabarit)
 - Smoke : `smoke-mint-mintinstall.mjs` · `smoke-mint-nemo.mjs`
@@ -136,6 +136,6 @@ Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/
 
 ## Prochaines vagues
 
-- Mint : extensions magasin `storeInstallable` (apps absentes du ground truth VM) pour alimenter « À découvrir »
+- Mint : extensions magasin `storeInstallable` (ex. Snapshot) + ground truth Baobab VM
 - KDE : branchement catalogue + UI Discover grille (quand `toolkitVariants.kde` aboutis)
 - Pop!_OS : smoke store après stabilisation layout COSMIC (dock)

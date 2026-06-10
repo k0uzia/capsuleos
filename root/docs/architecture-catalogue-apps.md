@@ -24,7 +24,7 @@ Chaque OS expose un **StoreFront** (slot UI du magasin natif) :
 | linux-ubuntu | `update_manager` | Centre d'applications | 11 |
 | linux-popos | `update_manager` | Pop Shop | 11 |
 | linux-anduinos | `update_manager` | Logiciels | 11 |
-| linux-mint | `mintinstall` | Logithèque | 0 (VM pré-installé) |
+| linux-mint | `mintinstall` | Logithèque | 21 (actif) |
 | linux-kde-neon | `update_manager` | Discover | 0 (deferred) |
 | linux-opensuse | `update_manager` | Discover | 0 (deferred) |
 
@@ -71,7 +71,7 @@ Pilotes GNOME actifs : **11 apps** chacun (S1–S12 partagés Alma/Rocky/Fedora/
 
 KDE (`linux-kde-neon`, `linux-opensuse`) : `storeCatalogStatus: deferred` — catalogue généré vide, UI Discover sans grille store P1.
 
-Mint : `storeCatalogStatus: vm-preinstalled` — catalogue généré branché (`mint-store-catalog.js`), Logithèque conserve son catalogue hardcodé.
+Mint : `storeCatalogStatus: active` — catalogue généré (`capsule-store-catalog.js` → `mint-store-catalog.js`), fusion runtime dans `mintinstall.js` ; « À découvrir » via `getDiscoverApps()` (extensions `storeInstallable`), le reste = navigation VM.
 
 ## Flux génération
 

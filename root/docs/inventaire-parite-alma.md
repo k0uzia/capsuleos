@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 92** (15 slots apps documentés, 8 P2) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C25** clôture P2 restants + clone Π.
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 92** (15 slots apps documentés, 8 P2) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · campagne scénarios **C15–C30 clôturée** · overview **15/15**.
 
 ---
 
@@ -209,8 +209,8 @@ Artefacts :
 ## Prochaines étapes
 
 1. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
-2. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
-3. Overview Alma **15/15** clôturé (C30 checklist) — audit vert
+2. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables ; Rocky : gaps Loupe/Papers P1)
+3. **`registryOverrides.linux-mint`** — débloquer `smoke-apps-snapshot` et AppΣ Mint
 
 ## Clôture clone Π (C25)
 

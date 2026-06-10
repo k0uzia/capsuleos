@@ -17,7 +17,7 @@ Résumé pour naviguer le dépôt ; détail produit : [`README.md`](../../README
 | `root/` | **Ce dossier** — skills et doc agents uniquement |
 | [`contrib.md`](../../contrib.md) (racine) | Guide contributeur ; [§ toolkits Linux](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (GTK / Qt / Cinnamon / COSMIC) |
 | `root/docs/manifeste-noyau.md` | Vision noyau, hydratation, assets |
-| `root/docs/repertoire-os.md` | Catalogue OS (52 entrées) |
+| `root/docs/repertoire-os.md` | Catalogue OS (57 entrées) |
 | `root/docs/scalabilite-noyau.md` | Stratégie scale statique |
 | `root/docs/equipe-agentique.md` | Staffing agents |
 

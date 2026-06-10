@@ -181,7 +181,7 @@ Pattern reproductible Rocky · Fedora · Alma · Ubuntu :
 | [procedure-scenarios-pedagogiques-gnome.md](procedure-scenarios-pedagogiques-gnome.md) | Pattern contrat → validateur → smoke → capture |
 | [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) | Overview → slot → contrat → gates |
 | [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) | Procédure lab générique |
-| [`gnome-user-scenarios-index.json`](../etc/capsuleos/contracts/gnome-user-scenarios-index.json) | Manifeste 12 contrats + backlog |
+| [`gnome-user-scenarios-index.json`](../etc/capsuleos/contracts/gnome-user-scenarios-index.json) | Manifeste **17 contrats** · backlog vide · [point-etape-2026-06.md](point-etape-2026-06.md) |
 
 ```bash
 # Audit gaps overview P0
@@ -197,12 +197,13 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
 
 ## AlmaLinux GNOME — campagne clone (juin 2026)
 
-Référence dédiée `linux-alma` (cycles C0–C25, Π = 96) :
+Référence dédiée `linux-alma` (cycles C0–C30, Π priority = 96, overview **15/15**) :
 
 | Document | Contenu |
 |----------|---------|
 | [procedure-lab-linux-alma-gnome.md](procedure-lab-linux-alma-gnome.md) | VM, cycles, gates, commandes |
-| [inventaire-parite-alma.md](inventaire-parite-alma.md) | État Π, overview gaps C26+ |
+| [inventaire-parite-alma.md](inventaire-parite-alma.md) | État Π, clôture overview C30 |
+| [point-etape-2026-06.md](point-etape-2026-06.md) | Audit transversal post C30 |
 | [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json) | Indice machine Π par slot |
 
-**12 slots scénarisés** (C15–C25) · **5 gaps P0 overview** : `nemo`, `firefox`, `terminal`, `librewriter`, `checklist`.
+**17 contrats scénarios** (C15–C30) · backlog manifeste **vide** · prochaine priorité : réplication vers Rocky / Fedora / Ubuntu.

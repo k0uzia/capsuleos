@@ -15,7 +15,7 @@
 
 ---
 
-## Vue d'ensemble — cycles Alma (C0–C23)
+## Vue d'ensemble — cycles Alma (C0–C30)
 
 ```mermaid
 flowchart LR
@@ -38,6 +38,11 @@ flowchart LR
   C22 --> C23[C23_Vc_Settings]
   C23 --> C24[C24_Baobab_Tour]
   C24 --> C25[C25_P2_cloture_Pi]
+  C25 --> C26[C26_Nautilus]
+  C26 --> C27[C27_Firefox]
+  C27 --> C28[C28_Ptyxis]
+  C28 --> C29[C29_LibreWriter]
+  C29 --> C30[C30_Checklist_15-15]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -62,24 +67,24 @@ flowchart LR
 | **C23** | `10db0422` | **Vc** Paramètres GNOME — captures Capsule P0/P1 | **96** |
 | **C24** | `316a9cab` | **ScΣ** Baobab B1–B4 + Tour T1–T4 | **96** (Π étendu **91**) |
 | **C25** | (cette passe) | **ScΣ** snapshot/characters/system_monitor/screenshot + clôture Π | **96** (Π étendu **92**) |
+| **C26** | — | **ScΣ** Nautilus N1–N4 · slot `nemo` | **96** |
+| **C27** | — | **ScΣ** Firefox F1–F4 | **96** |
+| **C28** | — | **ScΣ** Terminal Ptyxis Te1–Te4 | **96** |
+| **C29** | — | **ScΣ** LibreWriter Lw1–Lw4 | **96** |
+| **C30** | — | **ScΣ** Checklist Ck1–Ck4 · overview **15/15** | **96** |
 
-### Clôture clone Π (C25)
+### Clôture overview scénarios (C30)
 
-Tous les slots P2 Alma documentés (8/8) avec contrats scénarios, smokes Playwright verts et captures Capsule.
+Tous les slots overview Alma câblés avec contrats scénarios (15/15). Backlog manifeste `gnome-user-scenarios-index.json` : **[]**.
 
 ```bash
-# Smokes C25 (exemple)
-CAPSULE_HTTP_BASE=http://127.0.0.1:5501 \
-  node usr/lib/capsuleos/tools/lab/smoke-gnome-snapshot-scenarios.mjs --id linux-alma
-
-# État réplication
-cat root/docs/inventaires/linux-alma-replication-state.json
-cat root/docs/inventaires/linux-alma-parity-index.json | jq '.cloneClosure,.pi_global_extended'
+node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id linux-alma
+node usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs
 ```
 
-Gaps restants honnêtes : Vc VM (D-Bus) · `screenshot` Capsule-only (rpm absent el10) · `snapshot` sans webcam lab.
+Gaps restants honnêtes : Vc VM (D-Bus) · `screenshot` Capsule-only (rpm absent el10) · `snapshot` sans webcam lab · LibreOffice absent VM RL10.
 
-### C26 — Généralisation pattern scénarios (tous skins GNOME)
+### Clôture clone Π structurel (C25)
 
 | Livrable | Chemin |
 |----------|--------|
@@ -89,7 +94,7 @@ Gaps restants honnêtes : Vc VM (D-Bus) · `screenshot` Capsule-only (rpm absent
 | Playbook overview | [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) |
 | Procédure générique | [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) |
 
-Backlog overview P0 : voir [inventaire-parite-alma.md § Overview](inventaire-parite-alma.md#overview-alma--scénarios-avant--après-c26-doc).
+Overview Alma **15/15** — voir [inventaire-parite-alma.md § Overview](inventaire-parite-alma.md#overview-alma--scénarios-avant--après-c27-doc) · [point-etape-2026-06.md](point-etape-2026-06.md).
 
 ---
 

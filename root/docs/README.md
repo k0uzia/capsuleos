@@ -131,6 +131,7 @@ En cas de conflit entre procédure et plan maître → **plan maître prime**.
 
 | Document | Rôle |
 |----------|------|
+| [point-etape-2026-06.md](point-etape-2026-06.md) | **État transversal** juin 2026 — Alma C30, classification apps, gates |
 | [roadmap.md](roadmap.md) | Vision pédagogique, % maturité — **pas** l’ordre d’exécution |
 | [architecture-globale.md](architecture-globale.md) | Navigation dépôt |
 | [manifeste-noyau.md](manifeste-noyau.md) | Hydratation technique noyau |
@@ -157,4 +158,4 @@ En cas de conflit entre procédure et plan maître → **plan maître prime**.
 
 ---
 
-*Dernière mise à jour : juin 2026 — corpus singulier, P11/P12, Phase 1e.*
+*Dernière mise à jour : juin 2026 — corpus singulier, P11/P12, Phase 1e, [point-etape-2026-06.md](point-etape-2026-06.md).*

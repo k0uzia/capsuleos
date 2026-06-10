@@ -89,9 +89,6 @@ Object.values(GNOME_SLOT_PROVIDERS).forEach((providerId) => {
         errors.push(`chrome.js : provider « ${providerId} » manquant`);
     }
 });
-if (!chromeSrc.includes("'update-manager-ubuntu'")) {
-    errors.push('chrome.js : provider update-manager-ubuntu manquant');
-}
 
 function readTemplateHtml(profileId, slotId, embedKey) {
     const overrides = PROFILE_TEMPLATE_OVERRIDES[profileId] || {};
@@ -196,13 +193,6 @@ for (const file of profileFiles) {
                 : null;
             if (!fs.existsSync(skinPath) && !(explorerSkin && fs.existsSync(explorerSkin))) {
                 errors.push(`${profileId}: skin chrome manquant — style/apps/${slotId}.skin.css`);
-            }
-        }
-
-        if (providerId === 'update-manager-ubuntu') {
-            const html = readTemplateHtml(profileId, slotId, embedKey);
-            if (!html || !html.includes('ubuntu-software__topbar')) {
-                errors.push(`${profileId}: update_manager — gabarit ubuntu-software__topbar requis`);
             }
         }
 

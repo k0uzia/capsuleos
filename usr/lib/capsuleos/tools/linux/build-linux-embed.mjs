@@ -40,7 +40,6 @@ const EXPLORER_TEMPLATES = {
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const KDE_NEON_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde_neon.html');
-const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
 const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
 const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
 const MINT_CINNAMON_SETTINGS_HTML = path.join(APPS_DIR, 'cinnamon_settings.html');

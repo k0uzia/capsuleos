@@ -28,7 +28,7 @@
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
-        "chromeProfile": "gs47-sidebar",
+        "chromeProfile": "gs50-tabs",
         "campaignPhases": ["CR-0", "CR-3", "CR-5", "CR-6"]
       },
       "matrices": {
@@ -65,6 +65,14 @@
     "linux-ubuntu": {
       "toolkit": "gnome",
       "vendor": "ubuntu",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "storeCampaign": {
+        "chain": "etc/capsuleos/contracts/store-replication-chain.json",
+        "groundReferenceRegistryId": "linux-fedora",
+        "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
+        "chromeProfile": "gs50-tabs",
+        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+      },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-ubuntu.json",
         "assets": "root/tools/lab/gnome-settings-assets-matrix-ubuntu.json",
@@ -94,7 +102,7 @@
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
-        "chromeProfile": "gs47-sidebar",
+        "chromeProfile": "gs50-tabs",
         "campaignPhases": ["CR-0", "CR-5", "CR-6"]
       },
       "matrices": {
@@ -122,7 +130,7 @@
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
-        "chromeProfile": "gs47-sidebar",
+        "chromeProfile": "gs50-tabs",
         "campaignPhases": ["CR-0", "CR-5", "CR-6"]
       },
       "matrices": {

@@ -23,7 +23,7 @@
 | Icônes | Adwaita (VM) | **Yaru** (VM) |
 | Paquets sonde | `dnf` + EPEL | `apt` |
 | Terminal VM | Ptyxis | Ptyxis ou GNOME Terminal — **à noter dans Ti** |
-| Mises à jour | `dnf` / Logiciels | `apt` / **Centre de logiciels** (`update_manager_ubuntu`) |
+| Mises à jour | `dnf` / Logiciels | `apt` / **Logiciels** (`update_manager_gnome.html`, GS50) |
 | Skin Capsule | `home/RedHat/Rocky/` | `home/Debian/Ubuntu/` · `body#ubuntu` |
 
 **Règle anti-porosité** : toute règle dock / fond / token Ubuntu sous `body#ubuntu` ; gate `validate-skin-vendor-isolation.mjs`.

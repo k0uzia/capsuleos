@@ -119,7 +119,7 @@ if (pipeline && !pipeline.coherenceContract) {
 }
 
 const labProfiles = readJson('etc/capsuleos/contracts/lab-recipe-profiles.json');
-const gnomeIds = ['linux-rocky', 'linux-fedora', 'linux-alma', 'linux-anduinos'];
+const gnomeIds = ['linux-rocky', 'linux-fedora', 'linux-alma', 'linux-anduinos', 'linux-ubuntu'];
 if (labProfiles?.profiles) {
     for (const id of gnomeIds) {
         const prof = labProfiles.profiles[id];
@@ -142,6 +142,18 @@ if (storeContent) {
     const ref = storeContent.referenceRegistryId;
     if (ref && !storeContent.byRegistry?.[ref]) {
         errors.push(`gnome-software-store-content: byRegistry[${ref}] absent`);
+    }
+    if (labProfiles?.profiles) {
+        for (const [registryId, content] of Object.entries(storeContent.byRegistry || {})) {
+            const prof = labProfiles.profiles[registryId];
+            const labChrome = prof?.storeCampaign?.chromeProfile;
+            const contentChrome = content?.chromeProfile;
+            if (labChrome && contentChrome && labChrome !== contentChrome) {
+                errors.push(
+                    `chromeProfile incohérent ${registryId}: lab-recipe=${labChrome} vs store-content=${contentChrome}`
+                );
+            }
+        }
     }
 }
 

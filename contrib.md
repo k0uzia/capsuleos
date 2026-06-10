@@ -63,7 +63,7 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Campagne crédibilité pédagogique** (post Π=100) : [`root/docs/campagne-credibilite-pedagogique.md`](root/docs/campagne-credibilite-pedagogique.md) — scénarios utilisateur VM → clone (menus, sous-menus, états) ; `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next`.
 
-**Architecture catalogue centralisée** (fonction / présentation / magasin) : [`root/docs/architecture-catalogue-apps.md`](root/docs/architecture-catalogue-apps.md) · contrats [`slots-manifest.json`](etc/capsuleos/contracts/slots-manifest.json) · [`presentation-bindings.json`](etc/capsuleos/contracts/presentation-bindings.json) · [`store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json) · générateur `generate-store-catalog.mjs`.
+**Architecture catalogue centralisée** (fonction / présentation / magasin) : [`root/docs/architecture-catalogue-apps.md`](root/docs/architecture-catalogue-apps.md) · contrats [`slots-manifest.json`](etc/capsuleos/contracts/slots-manifest.json) · [`presentation-bindings.json`](etc/capsuleos/contracts/presentation-bindings.json) · [`store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json) · [`gnome-software-store-content.json`](etc/capsuleos/contracts/gnome-software-store-content.json) (ground GS50) · générateur `generate-store-catalog.mjs` · runtime `gnome-software-ground.js`.
 
 **Extension magasin cross-OS** (VM default + install simulée) : [`root/docs/analyse-magasins-apps-cross-os.md`](root/docs/analyse-magasins-apps-cross-os.md).
 
@@ -274,7 +274,7 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 | Nautilus | **Fichiers** (GNOME) | `data-link="nemo"` + template `nemo-gnome` + skin `nautilus` | `style/apps/nautilus.skin.css` (réf. Rocky ; sync via `sync-gnome-nautilus-skin.mjs`) |
 | Nemo | **Nemo** (Cinnamon / Mint uniquement) | `data-link="nemo"` + template `nemo` | `style/apps/nemo.skin.css` |
 | gnome-terminal | **Terminal** | `terminal` | `style/apps/terminal.skin.css` + classe `terminal-window--gnome` ou `--fedora` |
-| GNOME Software | **Ubuntu Software** / **Software** | `update_manager` | `update_manager.skin.css` ; override `update_manager_ubuntu.html` (Ubuntu) |
+| GNOME Software | **Logiciels** / **Software** | `update_manager` | `update_manager_gnome.html` + `update_manager.skin.css` (tokens `--gnome-software-*`, chrome GS50) |
 | Paramètres | **Settings** | `themes` | `themes.skin.css` |
 | Menu apps | **Overview** / grille | `mainMenu` | `gnome-shell/overview.css`, `mainMenu.skin.css` |
 
@@ -458,7 +458,7 @@ Overrides HTML par distro (dans `index.html`) :
 
 ```javascript
 window.CAPSULE_TEMPLATE_OVERRIDES = {
-  update_manager: '.../update_manager_ubuntu.html',  // Ubuntu
+  update_manager: '.../update_manager_gnome.html',  // GNOME (Fedora, Rocky, Alma, Ubuntu, AnduinOS)
   update_manager: '.../update_manager_kde.html',     // KDE
   mainMenu: './apps/mainMenu.html'                   // Debian-KDE
 };

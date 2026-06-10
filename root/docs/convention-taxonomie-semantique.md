@@ -87,7 +87,7 @@ Exemple : `kernel:linux/branch:rhel/toolkit:gnome` pour Rocky et Alma.
 - **Nommage** :
   - `{slot}.html` — variant **canon** du toolkit quand slot = fichier (Cinnamon `update_manager.html`) ;
   - `{slot}_{toolkit}.html` — variant explicite (`update_manager_gnome.html`) ;
-  - `{slot}_{flavor}.html` — variante registry (`update_manager_ubuntu.html`).
+  - `{slot}_{flavor}.html` — variante registry historique (ex. `update_manager_kde.html`).
 - **Catalogue** : `apps-catalog.json` → `toolkits.{toolkitId}.slotSpecs`.
 - **Runtime** : `CAPSULE_TEMPLATE_OVERRIDES` quand le variant ≠ `{slot}.html`.
 - **Explorateurs** : résolus via `CAPSULE_EXPLORER_TEMPLATE` + `cluster-registry.json`, pas via overrides slot classiques.
@@ -102,7 +102,7 @@ Exemple : `kernel:linux/branch:rhel/toolkit:gnome` pour Rocky et Alma.
 
 - **Définition** : comportement fenêtre (SSD/CSD, drag, headerbar).
 - **Source** : `window-chrome-contexts.json` + `chrome.js`.
-- **Exemples** : `libadwaita-gnome`, `nemo-gnome`, `cinnamon`, `update-manager-ubuntu`.
+- **Exemples** : `libadwaita-gnome`, `nemo-gnome`, `cinnamon`, `file-roller-gtk`.
 
 ### 4.5 Skin CSS (vendor)
 
@@ -166,14 +166,14 @@ node usr/lib/capsuleos/tools/linux/run-toolkit-skin-recipe.mjs
 
 ## 7. Matrice sémantique — exemple `update_manager`
 
-| Entité | Rocky (GNOME) | Mint (Cinnamon) | Ubuntu (GNOME retail) |
-|--------|---------------|-----------------|------------------------|
+| Entité | Rocky (GNOME) | Mint (Cinnamon) | Ubuntu (GNOME) |
+|--------|---------------|-----------------|----------------|
 | Slot | `update_manager` | `update_manager` | `update_manager` |
-| Variant | `update_manager_gnome.html` | `update_manager.html` | `update_manager_ubuntu.html` |
-| Base CSS | `update_manager_gnome.base.css` | `update_manager.base.css` | `update_manager_ubuntu.base.css` |
-| Chrome | `libadwaita-gnome` | `cinnamon` | `update-manager-ubuntu` |
+| Variant | `update_manager_gnome.html` | `update_manager.html` | `update_manager_gnome.html` |
+| Base CSS | `update_manager_gnome.base.css` | `update_manager.base.css` | `update_manager_gnome.base.css` |
+| Chrome | `libadwaita-gnome` | `cinnamon` | `libadwaita-gnome` |
 | Skin CSS | `Rocky/.../update_manager.skin.css` | `Mint/.../update_manager.skin.css` | `Ubuntu/.../update_manager.skin.css` |
-| Libellé FR | Logiciels | Gestionnaire de mises à jour | Snap Store |
+| Libellé FR | Logiciels | Gestionnaire de mises à jour | Logiciels |
 
 ---
 

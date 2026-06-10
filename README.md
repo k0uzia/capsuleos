@@ -22,7 +22,7 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 Architecture en une ligne : **noyau agnostique → toolkit → skin vendor → `proc/` → façade `OS/`**.
 
-Stade actuel (juin 2026) : **Phase 1e** — clôture triplet GNOME (Ubuntu PbΣ, Rocky/Fedora ManΣ). Détail : [plan-phase-1-gnome-triplet.md](root/docs/plan-phase-1-gnome-triplet.md).
+Stade actuel (juin 2026) : **Phase 1e** — triplet GNOME + Ubuntu + Alma + AnduinOS ; magasin **Logiciels** unifié (chrome GS50, `gnome-software-ground.js`). Détail : [plan-phase-1-gnome-triplet.md](root/docs/plan-phase-1-gnome-triplet.md) · store : [analyse-magasins-apps-cross-os.md](root/docs/analyse-magasins-apps-cross-os.md).
 
 [TOC]
 

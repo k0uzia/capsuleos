@@ -1139,7 +1139,7 @@
                 ? content.updatesBanner.strong + ' — afficher'
                 : 'Mises à jour disponibles — afficher');
             if (content.hideExploreUpdatesBanner
-                && (content.chromeProfile || 'gs47-sidebar') === 'gs50-tabs') {
+                && (content.chromeProfile || 'gs50-tabs') === 'gs50-tabs') {
                 banner.hidden = true;
                 banner.dataset.umGnomeBannerSuppressed = 'gs50-explore';
             } else if (banner.dataset.umGnomeBannerSuppressed !== 'gs50-explore') {

@@ -1,11 +1,9 @@
 /**
- * Ground truth GNOME Software — chrome GS47/GS50, hero, grilles, fiche détail.
+ * Ground truth GNOME Software — chrome GS50 (onglets), hero, grilles, fiche détail.
  * Consomme CAPSULE_GNOME_SOFTWARE_CONTENT + CapsuleGnomeStore.
  */
 (function initCapsuleGnomeSoftwareGround(global) {
     'use strict';
-
-    var GS47_PROFILES = {};
 
     function resolveRegistryId() {
         if (global.CapsuleGnomeStore && typeof global.CapsuleGnomeStore.resolveRegistryId === 'function') {
@@ -26,7 +24,7 @@
         if (content.chromeProfile) {
             return content.chromeProfile;
         }
-        return GS47_PROFILES[registryId] ? 'gs47-sidebar' : 'gs50-tabs';
+        return 'gs50-tabs';
     }
 
     function applyChromeProfile(root, registryId, content) {

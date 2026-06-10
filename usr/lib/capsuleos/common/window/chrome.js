@@ -275,35 +275,6 @@
         return true;
     }
 
-    function applyUbuntuSoftwareCsd(container) {
-        const header = container.querySelector(':scope > #windowHeader');
-        const topbar = container.querySelector('.ubuntu-software__topbar');
-        if (!header || !topbar) {
-            return false;
-        }
-        if (header.dataset.ubuntuSoftwareCsd === 'true') {
-            return true;
-        }
-
-        header.dataset.ubuntuSoftwareCsd = 'true';
-        container.classList.add('gnome-app--csd');
-
-        header.querySelectorAll('#minimizeBtn, #resizeBtn, #closeBtn').forEach((btn) => {
-            btn.remove();
-        });
-        header.setAttribute('aria-hidden', 'true');
-        header.style.display = 'none';
-
-        if (!topbar.querySelector('[data-window-drag-region]')) {
-            const search = topbar.querySelector('.ubuntu-software__search');
-            if (search) {
-                search.setAttribute('data-window-drag-region', '');
-            }
-        }
-
-        return true;
-    }
-
     function relocateFileRollerWindowControls(container) {
         const header = container.querySelector(':scope > #windowHeader');
         const headerEnd = container.querySelector('.fr-app__header-end');
@@ -564,24 +535,6 @@
             return;
         }
 
-        if (providerId === 'update-manager-ubuntu') {
-            const topbar = container.querySelector('.ubuntu-software__topbar');
-            if (topbar) {
-                if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
-                    targetsApi().markDragPassthrough(topbar);
-                } else {
-                    topbar.setAttribute('data-window-drag-handle', '');
-                    topbar.setAttribute('data-window-drag-passthrough', 'true');
-                }
-            }
-            if (header) {
-                header.removeAttribute('data-window-drag-handle');
-                header.removeAttribute('data-window-drag-passthrough');
-                header.setAttribute('aria-hidden', 'true');
-            }
-            return;
-        }
-
         if (providerId === 'libadwaita-gnome') {
             if (slotId === 'update_manager' && resolvesGs50SoftwareChrome(container)) {
                 ensureGs50SoftwareHeaderDrag(container);
@@ -735,17 +688,6 @@
         afterInject(container, slotId) {
             relocateLibadwaitaWindowControls(container, slotId);
             applyDragHandlePolicy(container, slotId, 'libadwaita-gnome');
-        },
-    };
-
-    providers['update-manager-ubuntu'] = {
-        id: 'update-manager-ubuntu',
-        ensureHeader(container) {
-            return providers.default.ensureHeader(container);
-        },
-        afterInject(container, slotId) {
-            applyUbuntuSoftwareCsd(container);
-            applyDragHandlePolicy(container, slotId, 'update-manager-ubuntu');
         },
     };
 

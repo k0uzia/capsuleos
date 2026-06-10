@@ -19,7 +19,7 @@
 | linux-alma | update_manager | gnome | 11 | OK | actif |
 | linux-rocky | update_manager | gnome | 11 | OK | actif |
 | linux-fedora | update_manager | gnome | 11 | OK | actif |
-| linux-ubuntu | update_manager | gnome | 11 | deferred | catalogue actif, UI `update_manager_ubuntu` sans grille GNOME |
+| linux-ubuntu | update_manager | gnome | 11 | OK | actif (GS50, libellé « Logiciels ») |
 | linux-popos | update_manager | cosmic→gnome | 11 | deferred | catalogue actif ; smoke bloqué layout COSMIC (dock) |
 | linux-anduinos | update_manager | gnome | 11 | OK | actif |
 | linux-mint | mintinstall | cinnamon | 0 | deferred | branché (`mint-store-catalog.js`) |
@@ -34,7 +34,7 @@
 | linux-rocky | update_manager | Logiciels | rpm, flatpak |
 | linux-alma | update_manager | Logiciels | rpm, flatpak |
 | linux-fedora | update_manager | Logiciels | rpm, flatpak |
-| linux-ubuntu | update_manager (snap-store) | Centre d'applications | snap, deb, flatpak |
+| linux-ubuntu | update_manager | Logiciels | snap, deb, flatpak |
 | linux-popos | update_manager (Pop Shop) | Pop Shop | deb, flatpak |
 | linux-anduinos | update_manager | Logiciels | deb, flatpak |
 | linux-kde-neon | update_manager (Discover) | Discover | apt, flatpak — catalogue deferred |
@@ -112,7 +112,7 @@ Contrat : `etc/capsuleos/contracts/software-user-scenarios.json`
 | **S12** | Numériseur simple rpm → Installées |
 | S8 | Erreur réseau (optionnel) |
 
-Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma` · `--id linux-rocky` · `--id linux-fedora` · `--id linux-anduinos` — Ubuntu/Pop!_OS : deferred (templates/layout)
+Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma` · `--id linux-rocky` · `--id linux-fedora` · `--id linux-ubuntu` · `--id linux-anduinos` — Pop!_OS : deferred (layout COSMIC)
 
 Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/alma-capsule-store-*.png`
 

@@ -21,8 +21,7 @@
     "nemo": "nemo-gnome",
     "firefox": "firefox-gnome",
     "terminal": "terminal-gnome",
-    "defaultLibadwaita": "libadwaita-gnome",
-    "ubuntuUpdateManager": "update-manager-ubuntu"
+    "defaultLibadwaita": "libadwaita-gnome"
   },
   "libadwaita": {
     "slots": {

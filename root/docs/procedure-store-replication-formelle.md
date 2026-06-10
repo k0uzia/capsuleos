@@ -78,8 +78,8 @@ node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --i
 ### Triplet (Alma / Rocky / AnduinOS)
 
 - Contenu : `gnome-software-store-content.json` → `byRegistry[registryId]`  
-- Chrome : `pack.json` slotOverlays + profil `gs47-sidebar` ou `gs50-tabs`  
-- **Rocky** : gel ManA — ne pas régresser sans instruction explicite  
+- Chrome : `update_manager_gnome.base.css` (GS50) + profil `gs50-tabs` dans `gnome-software-store-content.json`  
+- **Profils GNOME actifs** (Fedora, Rocky, Alma, Ubuntu, AnduinOS) : chrome GS50 unifié  
 
 ---
 
@@ -107,12 +107,11 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 ## 6. État actuel (juin 2026)
 
-| Élément | Fedora | Rocky |
-|---------|--------|-------|
-| StoreG | ✅ branché | ✅ branché (profil gs47) |
-| StoreΣ | ✅ 11 apps | ✅ structure |
-| StoreVc | ✅ captures | partiel |
-| StoreVp | partial | gel ManA |
-| Inventaire VM store dédié | à compléter | — |
+| Élément | Profils GNOME (Fedora, Rocky, Alma, Ubuntu, AnduinOS) |
+|---------|--------------------------------------------------------|
+| StoreG | ✅ branché (`gnome-software-ground.js` + contenu GS50) |
+| StoreΣ | ✅ 11 apps (catalogue généré) |
+| StoreVc | ✅ captures Fedora · partiel triplet |
+| StoreVp | partial — parité VM store dédiée en cours |
 
 **Prochaine étape store** (après ce cadre) : inventaire VM Fedora store dédié, fermeture gaps chrome/content, assets icônes manquantes, `visual-parity-close`.

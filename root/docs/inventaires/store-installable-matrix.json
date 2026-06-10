@@ -1,316 +1,118 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-10T12:00:00Z",
-  "description": "Matrice store-installable — Mint abouti (v3) × catalogues distro × statut Capsule. Source draft : store-installable-apps.json",
-  "referenceDoc": "root/docs/analyse-magasins-apps-cross-os.md",
-  "mintGroundTruth": {
-    "registryId": "linux-mint",
-    "vmAppCount": 101,
-    "capsuleSlots": 43,
-    "parityPiGlobal": 100,
-    "credibilityCampaign": "v3-credibility-pass",
-    "appsAtPi100": 43,
-    "scenarios": 130
+  "generatedFrom": "etc/capsuleos/contracts/store-installable-apps.json",
+  "description": "Matrice machine App × OS × magasin — extension storeInstallable Alma pilote (juin 2026).",
+  "statusAlmaPilot": {
+    "wave1": ["file_roller", "libreoffice_startcenter", "calendar"],
+    "wave2P1": ["thunderbird", "transmission", "rhythmbox", "lecteur_multimedia", "drawing", "simple_scan", "warpinator", "timeshift"]
   },
-  "storeFronts": {
-    "linux-mint": { "slot": "mintinstall", "formats": ["apt", "flatpak"] },
-    "linux-rocky": { "slot": "update_manager", "appId": "org.gnome.Software", "formats": ["rpm", "flatpak"] },
-    "linux-alma": { "slot": "update_manager", "appId": "org.gnome.Software", "formats": ["rpm", "flatpak"] },
-    "linux-fedora": { "slot": "update_manager", "appId": "org.gnome.Software", "formats": ["rpm", "flatpak"] },
-    "linux-ubuntu": { "slot": "update_manager", "appId": "snap-store", "formats": ["snap", "deb", "flatpak"] }
-  },
-  "recommendationLegend": {
-    "P0-store": "Première vague extension magasin — slot abouti + disponibilité confirmée sur ≥4 OS",
-    "P1-store": "Deuxième vague — utilitaires bureautique/multimédia",
-    "P2-store": "Troisième vague — apps Mint/Flatpak communautaire",
-    "decorative-only": "Pas d'export store — coquille menu ou outil distro-spécifique"
-  },
-  "rows": [
-    {
-      "slot": "firefox",
-      "labelFr": "Firefox",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P0-store",
-      "store": {
-        "mint": "apt+flatpak",
-        "rocky": "rpm+flatpak",
-        "alma": "rpm+flatpak",
-        "fedora": "rpm+flatpak",
-        "ubuntu": "snap+deb"
-      },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": true }
-    },
-    {
-      "slot": "nemo",
-      "labelFr": "Fichiers",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P0-store",
-      "note": "Explorateur — toujours defaultInstalled ; magasin = mise à jour seulement",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": true }
-    },
-    {
-      "slot": "terminal",
-      "labelFr": "Terminal",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P0-store",
-      "variantNote": "Mint gnome-terminal · GNOME RHEL Ptyxis",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": true }
-    },
-    {
-      "slot": "text_editor",
-      "labelFr": "Éditeur de texte",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P0-store",
-      "variantNote": "Mint xed · GNOME TextEditor",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": true }
-    },
-    {
-      "slot": "calculator",
-      "labelFr": "Calculatrice",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P0-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": true }
-    },
-    {
-      "slot": "calendar",
-      "labelFr": "Agenda",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P1-store",
-      "gap": "flatpak-only Rocky/Alma lab — absent rpm AppStream EL10",
-      "store": { "mint": "apt", "rocky": "flatpak", "alma": "flatpak", "fedora": "rpm", "ubuntu": "deb+flatpak" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": true, "ubuntu": false }
-    },
+  "entries": [
     {
       "slot": "file_roller",
-      "labelFr": "Archives",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "labelFr": "Gestionnaire d'archives",
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "file-roller",
+      "almaWave": "wave1",
+      "almaScenario": "S5",
+      "linux-alma": { "source": "rpm", "package": "file-roller", "storeInstallable": true, "inCatalog": true }
     },
     {
       "slot": "libreoffice_startcenter",
       "labelFr": "LibreOffice",
-      "capsuleMint": "ok",
-      "piMint": 92,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "flatpak", "alma": "flatpak", "fedora": "rpm+flatpak", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "libreoffice",
+      "almaWave": "wave1",
+      "almaScenario": "S6",
+      "linux-alma": { "source": "flatpak", "package": "org.libreoffice.LibreOffice", "storeInstallable": true, "inCatalog": true, "opensSlot": "librewriter" }
+    },
+    {
+      "slot": "calendar",
+      "labelFr": "Agenda",
+      "capsuleStatus": "ok",
+      "recommendation": "P1-store",
+      "almaCatalogId": "calendar",
+      "almaWave": "wave1",
+      "almaScenario": "S7",
+      "linux-alma": { "source": "flatpak", "package": "org.gnome.Calendar", "storeInstallable": true, "inCatalog": true }
     },
     {
       "slot": "thunderbird",
       "labelFr": "Thunderbird",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "flatpak", "alma": "flatpak", "fedora": "rpm", "ubuntu": "snap" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "thunderbird",
+      "almaWave": "wave2P1",
+      "almaScenario": "S9",
+      "linux-alma": { "source": "flatpak", "package": "org.mozilla.Thunderbird", "storeInstallable": true, "inCatalog": true }
     },
     {
       "slot": "transmission",
       "labelFr": "Transmission",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm+flatpak", "alma": "flatpak", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "transmission",
+      "almaWave": "wave2P1",
+      "almaScenario": "S10",
+      "linux-alma": { "source": "flatpak", "package": "com.transmissionbt.Transmission", "storeInstallable": true, "inCatalog": true }
     },
     {
       "slot": "rhythmbox",
       "labelFr": "Rhythmbox",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "capsuleStatus": "ok",
+      "functionalDepth": "decorative",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "rhythmbox",
+      "almaWave": "wave2P1",
+      "linux-alma": { "source": "rpm", "package": "rhythmbox", "storeInstallable": true, "inCatalog": true, "note": "Slot decorative — gabarit rhythmbox.html existant" }
     },
     {
       "slot": "lecteur_multimedia",
       "labelFr": "Lecteur vidéo",
-      "capsuleMint": "ok",
-      "piMint": 92,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "variantNote": "Celluloid Mint · Totem/flatpak GNOME",
-      "store": { "mint": "apt+flatpak", "rocky": "flatpak", "alma": "flatpak", "fedora": "rpm+flatpak", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "lecteur-multimedia",
+      "almaWave": "wave2P1",
+      "linux-alma": { "source": "flatpak", "package": "io.github.celluloid_player.Celluloid", "storeInstallable": true, "inCatalog": true, "overviewPin": "data-store-pin lecteur_multimedia" }
     },
     {
       "slot": "drawing",
       "labelFr": "Dessin",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt+flatpak", "rocky": "flatpak", "alma": "flatpak", "fedora": "flatpak", "ubuntu": "deb+flatpak" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "drawing",
+      "almaWave": "wave2P1",
+      "linux-alma": { "source": "flatpak", "package": "com.github.maoschanz.drawing", "storeInstallable": true, "inCatalog": true }
     },
     {
       "slot": "simple_scan",
       "labelFr": "Numérisation",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
+      "capsuleStatus": "ok",
       "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
+      "almaCatalogId": "simple-scan",
+      "almaWave": "wave2P1",
+      "almaScenario": "S12",
+      "linux-alma": { "source": "rpm", "package": "simple-scan", "storeInstallable": true, "inCatalog": true, "overviewPin": "data-store-pin simple_scan" }
     },
     {
-      "slot": "baobab",
-      "labelFr": "Utilisation disques",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": false }
+      "slot": "warpinator",
+      "labelFr": "Warpinator",
+      "capsuleStatus": "ok",
+      "recommendation": "P2-store",
+      "almaCatalogId": "warpinator",
+      "almaWave": "wave2P1",
+      "almaScenario": "S11",
+      "linux-alma": { "source": "flatpak", "package": "org.x.Warpinator", "storeInstallable": true, "inCatalog": true, "note": "Flatpak communautaire Flathub" }
     },
     {
-      "slot": "system_monitor",
-      "labelFr": "Moniteur système",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P1-store",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": false }
-    },
-    {
-      "slot": "visionneur_images",
-      "labelFr": "Pix / Loupe",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P1-store",
-      "variantNote": "pix Mint · org.gnome.Loupe GNOME RHEL",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": false }
-    },
-    {
-      "slot": "visionneur_pdf",
-      "labelFr": "Visionneur PDF",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": true,
-      "recommendation": "P1-store",
-      "variantNote": "xreader Mint · org.gnome.Papers GNOME RHEL",
-      "store": { "mint": "apt", "rocky": "rpm", "alma": "rpm", "fedora": "rpm", "ubuntu": "deb" },
-      "defaultInstalled": { "mint": true, "rocky": true, "alma": true, "fedora": true, "ubuntu": false }
-    },
-    {
-      "slot": "mintdrivers",
-      "labelFr": "Pilotes Mint",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "gap": "Aucun équivalent magasin GNOME RHEL",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "mintbackup",
-      "labelFr": "Sauvegarde Mint",
-      "capsuleMint": "ok",
-      "piMint": 92,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "bulky",
-      "labelFr": "Renommer fichiers",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "webapp_manager",
-      "labelFr": "Applications Web",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "thingy",
-      "labelFr": "Bibliothèque",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "hypnotix",
-      "labelFr": "Hypnotix",
-      "capsuleMint": "ok",
-      "piMint": 92,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    },
-    {
-      "slot": "mintwelcome",
-      "labelFr": "Accueil Mint",
-      "capsuleMint": "ok",
-      "piMint": 100,
-      "crossOs": false,
-      "recommendation": "decorative-only",
-      "store": { "mint": "apt", "rocky": "—", "alma": "—", "fedora": "—", "ubuntu": "—" },
-      "defaultInstalled": { "mint": true, "rocky": false, "alma": false, "fedora": false, "ubuntu": false }
-    }
-  ],
-  "gapsSummary": [
-    {
-      "id": "calendar-flatpak-el10",
-      "severity": "P1",
-      "description": "org.gnome.Calendar absent rpm VM Rocky/Alma — extension magasin flatpak-only"
-    },
-    {
-      "id": "mint-meta-no-rhel",
-      "severity": "P2",
-      "description": "mintdrivers, mintbackup, bulky, webapp_manager, thingy — pas d'équivalent AppStream"
-    },
-    {
-      "id": "ubuntu-snap-divergence",
-      "severity": "P1",
-      "description": "Firefox/Thunderbird snap-first — pédagogie magasin ≠ Mint apt"
-    },
-    {
-      "id": "libreoffice-vm-absent-rl10",
-      "severity": "P2",
-      "description": "Suite LO installée Mint · flatpak optionnel Rocky — slot librewriter partiel"
+      "slot": "timeshift",
+      "labelFr": "Timeshift",
+      "capsuleStatus": "ok",
+      "recommendation": "P2-store",
+      "almaCatalogId": "timeshift",
+      "almaWave": "wave2P1",
+      "linux-alma": { "source": "flatpak", "package": "com.timeshift.TimeShift", "storeInstallable": true, "inCatalog": true }
     }
   ]
 }

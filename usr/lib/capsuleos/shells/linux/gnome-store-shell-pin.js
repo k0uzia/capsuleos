@@ -6,6 +6,67 @@
     'use strict';
 
     var GNOME_BODY_IDS = { alma: true, rocky: true, fedora: true, ubuntu: true };
+    var ASSET_PREFIX = '../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/';
+
+    var STORE_PIN_BY_SLOT = {
+        file_roller: {
+            label: 'Gestionnaire d\'archives',
+            icon: ASSET_PREFIX + 'org.gnome.FileRoller',
+            overview: true
+        },
+        librewriter: {
+            label: 'LibreOffice Writer',
+            icon: ASSET_PREFIX + 'overview/libreoffice-writer.svg',
+            overview: true,
+            dash: true
+        },
+        calendar: {
+            label: 'Agenda',
+            icon: ASSET_PREFIX + 'dash/org.gnome.Calendar.svg',
+            overview: true,
+            dash: true
+        },
+        thunderbird: {
+            label: 'Thunderbird',
+            icon: ASSET_PREFIX + 'thunderbird',
+            overview: true
+        },
+        transmission: {
+            label: 'Transmission',
+            icon: ASSET_PREFIX + 'transmission-gtk',
+            overview: true
+        },
+        rhythmbox: {
+            label: 'Rhythmbox',
+            icon: ASSET_PREFIX + 'org.gnome.Rhythmbox3',
+            overview: true
+        },
+        lecteur_multimedia: {
+            label: 'Lecteur vidéos',
+            icon: ASSET_PREFIX + 'io.github.celluloid_player.Celluloid',
+            overview: true
+        },
+        drawing: {
+            label: 'Drawing',
+            icon: ASSET_PREFIX + 'com.github.maoschanz.drawing',
+            overview: true
+        },
+        simple_scan: {
+            label: 'Numériseur simple',
+            icon: ASSET_PREFIX + 'overview/org.gnome.SimpleScan.svg',
+            overview: true
+        },
+        warpinator: {
+            label: 'Warpinator',
+            icon: ASSET_PREFIX + 'org.x.Warpinator',
+            overview: true
+        },
+        timeshift: {
+            label: 'Timeshift',
+            icon: ASSET_PREFIX + 'timeshift-gtk',
+            overview: true
+        }
+    };
 
     function isGnomeShell() {
         var bodyId = global.document && global.document.body ? global.document.body.id : '';
@@ -35,7 +96,33 @@
         img.src = iconPath;
         img.alt = '';
         btn.appendChild(img);
+        var span = global.document.createElement('span');
+        span.textContent = label.length > 10 ? label.slice(0, 9) + '…' : label;
+        btn.appendChild(span);
         grid.appendChild(btn);
+    }
+
+    function appendDashApp(slotId, label, iconPath) {
+        var dash = global.document.querySelector('.fedora-overview__dash');
+        if (!dash || dash.querySelector('[data-overview-link="' + slotId + '"]')) {
+            return;
+        }
+        var btn = global.document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'fedora-overview__dash-item';
+        btn.setAttribute('data-overview-link', slotId);
+        btn.setAttribute('data-store-pin', slotId);
+        btn.setAttribute('aria-label', label);
+        var img = global.document.createElement('img');
+        img.src = iconPath;
+        img.alt = '';
+        btn.appendChild(img);
+        var appsBtn = dash.querySelector('[data-overview-apps]');
+        if (appsBtn) {
+            dash.insertBefore(btn, appsBtn);
+        } else {
+            dash.appendChild(btn);
+        }
     }
 
     function pinStoreApp(detail) {
@@ -43,13 +130,15 @@
             return;
         }
         var slotId = detail.slot;
+        var config = STORE_PIN_BY_SLOT[slotId];
         revealOverviewPin(slotId);
-        if (slotId === 'file_roller') {
-            appendOverviewApp(
-                slotId,
-                'Gestionnaire d\'archives',
-                '../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.FileRoller'
-            );
+        if (config) {
+            if (config.overview) {
+                appendOverviewApp(slotId, config.label, config.icon);
+            }
+            if (config.dash) {
+                appendDashApp(slotId, config.label, config.icon);
+            }
         }
         if (global.CapsuleTaskbarLauncherState && typeof global.CapsuleTaskbarLauncherState.refresh === 'function') {
             global.CapsuleTaskbarLauncherState.refresh();

@@ -44,7 +44,7 @@ requiredSelectors.forEach((sel) => {
 
 const scenarios = contract.scenarios || [];
 const ids = scenarios.map((s) => s.id);
-['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'].forEach((id) => {
+['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S9', 'S10', 'S11', 'S12'].forEach((id) => {
     if (!ids.includes(id)) {
         errors.push(`Scénario ${id} absent du contrat`);
     }

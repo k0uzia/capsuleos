@@ -1050,6 +1050,14 @@
                     root.dataset.umGnomeScenario = 'S6-complete';
                 } else if (appId === 'calendar') {
                     root.dataset.umGnomeScenario = 'S7-complete';
+                } else if (appId === 'thunderbird') {
+                    root.dataset.umGnomeScenario = 'S9-complete';
+                } else if (appId === 'transmission') {
+                    root.dataset.umGnomeScenario = 'S10-complete';
+                } else if (appId === 'warpinator') {
+                    root.dataset.umGnomeScenario = 'S11-complete';
+                } else if (appId === 'simple-scan') {
+                    root.dataset.umGnomeScenario = 'S12-complete';
                 }
                 return;
             }

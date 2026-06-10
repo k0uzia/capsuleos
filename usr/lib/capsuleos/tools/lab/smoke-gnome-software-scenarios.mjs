@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Smoke scénarios GNOME Software S1–S7 (pilote Alma store S5–S7).
+ * Smoke scénarios GNOME Software S1–S12 (pilote Alma store S5–S12).
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/smoke-gnome-software-scenarios.mjs --id linux-alma
@@ -47,7 +47,7 @@ const scenarios = (contract.scenarios || []).filter((s) => {
     if (opts.optional && !s.optional) {
         return false;
     }
-    if (s.registryIds && s.registryIds.indexOf(opts.id) === -1 && ['S5', 'S6', 'S7'].includes(s.id)) {
+    if (s.registryIds && s.registryIds.indexOf(opts.id) === -1 && /^S(5|6|7|9|10|11|12)$/.test(s.id)) {
         return false;
     }
     return true;
@@ -111,7 +111,8 @@ async function runInstallFlow(page, appId) {
 }
 
 async function runScenario(page, scenario, url) {
-    if (scenario.id === 'S1' || scenario.id.startsWith('S5') || scenario.id.startsWith('S6') || scenario.id.startsWith('S7')) {
+    const storeScenarios = ['S1', 'S5', 'S6', 'S7', 'S9', 'S10', 'S11', 'S12'];
+    if (storeScenarios.includes(scenario.id)) {
         await openSoftware(page, url);
     }
     if (scenario.id === 'S1') {
@@ -166,6 +167,42 @@ async function runScenario(page, scenario, url) {
         await runInstallFlow(page, 'calendar');
         await page.click('.gnome-software__detail-install');
         await page.waitForSelector('div[data-link="calendar"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'S9') {
+        await page.waitForSelector('[data-um-gnome-discover-grid] [data-um-gnome-app="thunderbird"]', { timeout: 8000 });
+        await runInstallFlow(page, 'thunderbird');
+        await page.click('.gnome-software__detail-install');
+        await page.waitForSelector('div[data-link="thunderbird"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'S10') {
+        await page.waitForSelector('[data-um-gnome-discover-grid] [data-um-gnome-app="transmission"]', { timeout: 8000 });
+        await runInstallFlow(page, 'transmission');
+        await page.click('[data-um-gnome-nav="installed"]');
+        await page.waitForSelector('[data-um-gnome-installed-list] [data-um-gnome-app="transmission"]', { timeout: 8000 });
+        const scenarioTag = await page.evaluate(() => document.getElementById('updateManagerApp')?.dataset?.umGnomeScenario);
+        if (scenarioTag !== 'S10-complete') {
+            errors.push('S10 : dataset.umGnomeScenario !== S10-complete');
+        }
+        return;
+    }
+    if (scenario.id === 'S11') {
+        await page.waitForSelector('[data-um-gnome-discover-grid] [data-um-gnome-app="warpinator"]', { timeout: 8000 });
+        await runInstallFlow(page, 'warpinator');
+        await page.click('.gnome-software__detail-install');
+        await page.waitForSelector('div[data-link="warpinator"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'S12') {
+        await page.waitForSelector('[data-um-gnome-discover-grid] [data-um-gnome-app="simple-scan"]', { timeout: 8000 });
+        await runInstallFlow(page, 'simple-scan');
+        await page.click('[data-um-gnome-nav="installed"]');
+        await page.waitForSelector('[data-um-gnome-installed-list] [data-um-gnome-app="simple-scan"]', { timeout: 8000 });
+        const scenarioTag = await page.evaluate(() => document.getElementById('updateManagerApp')?.dataset?.umGnomeScenario);
+        if (scenarioTag !== 'S12-complete') {
+            errors.push('S12 : dataset.umGnomeScenario !== S12-complete');
+        }
         return;
     }
     if (scenario.id === 'S8') {

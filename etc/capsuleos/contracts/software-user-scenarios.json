@@ -15,7 +15,11 @@
     "Sc4": "S4 onglet Installées → lancer application",
     "Sc5": "S5 store file_roller → Installées",
     "Sc6": "S6 store LibreOffice flatpak → librewriter",
-    "Sc7": "S7 store Agenda flatpak → calendar"
+    "Sc7": "S7 store Agenda flatpak → calendar",
+    "Sc8": "S9 thunderbird flatpak → thunderbird",
+    "Sc9": "S10 transmission flatpak → Installées",
+    "Sc10": "S11 warpinator flatpak communautaire → warpinator",
+    "Sc11": "S12 simple_scan rpm → Installées"
   },
   "scenarios": [
     {
@@ -173,6 +177,105 @@
       ],
       "proofs": {
         "smoke": "smoke-gnome-software-scenarios.mjs --scenario S8 --optional"
+      }
+    },
+    {
+      "id": "S9",
+      "priority": "P1",
+      "title": "Magasin — installer Thunderbird (Flatpak)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "thunderbird",
+        "flatpak": "org.mozilla.Thunderbird",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "thunderbird"
+      },
+      "steps": [
+        { "id": "open-software", "action": "openWindowByDataLink", "target": "update_manager", "label": "Ouvrir Logiciels" },
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"thunderbird\"]", "label": "Sélectionner Thunderbird (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-open", "selector": "[data-um-gnome-action=\"install\"]", "expectTextAfter": "Ouvrir", "label": "Bouton Ouvrir" },
+        { "id": "launch-app", "selector": "[data-um-gnome-action=\"install\"]", "expectWindow": "thunderbird", "label": "Ouvre Thunderbird" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S9",
+        "capture": "alma-capsule-store-thunderbird-open.png"
+      }
+    },
+    {
+      "id": "S10",
+      "priority": "P1",
+      "title": "Magasin — installer Transmission (Flatpak)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "transmission",
+        "flatpak": "com.transmissionbt.Transmission",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "transmission"
+      },
+      "steps": [
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"transmission\"]", "label": "Sélectionner Transmission (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-complete", "predicate": "dataset.umGnomeScenario", "expectValue": "S10-complete", "label": "Installation terminée" },
+        { "id": "nav-installed", "selector": "[data-um-gnome-nav=\"installed\"]", "label": "Onglet Installées" },
+        { "id": "listed", "selector": "[data-um-gnome-installed-list] [data-um-gnome-app=\"transmission\"]", "label": "Apparaît dans Installées" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S10",
+        "capture": "alma-capsule-store-transmission-installed.png"
+      }
+    },
+    {
+      "id": "S11",
+      "priority": "P1",
+      "title": "Magasin — installer Warpinator (Flatpak communautaire)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "warpinator",
+        "flatpak": "org.x.Warpinator",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "warpinator"
+      },
+      "steps": [
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"warpinator\"]", "label": "Sélectionner Warpinator (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-open", "selector": "[data-um-gnome-action=\"install\"]", "expectTextAfter": "Ouvrir", "label": "Bouton Ouvrir" },
+        { "id": "launch-app", "selector": "[data-um-gnome-action=\"install\"]", "expectWindow": "warpinator", "label": "Ouvre Warpinator" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S11",
+        "capture": "alma-capsule-store-warpinator-open.png"
+      }
+    },
+    {
+      "id": "S12",
+      "priority": "P1",
+      "title": "Magasin — installer Numériseur simple (RPM)",
+      "locale": "fr-FR",
+      "registryIds": ["linux-alma"],
+      "vmGroundTruth": {
+        "appId": "simple-scan",
+        "rpm": "simple-scan",
+        "onVm": false,
+        "storeInstallable": true,
+        "opensSlot": "simple_scan"
+      },
+      "steps": [
+        { "id": "discover-card", "selector": "[data-um-gnome-discover-grid] [data-um-gnome-app=\"simple-scan\"]", "label": "Sélectionner Numériseur simple (À découvrir)" },
+        { "id": "detail-install", "selector": "[data-um-gnome-action=\"install\"]", "label": "Installer" },
+        { "id": "install-complete", "predicate": "dataset.umGnomeScenario", "expectValue": "S12-complete", "label": "Installation terminée" },
+        { "id": "nav-installed", "selector": "[data-um-gnome-nav=\"installed\"]", "label": "Onglet Installées" },
+        { "id": "listed", "selector": "[data-um-gnome-installed-list] [data-um-gnome-app=\"simple-scan\"]", "label": "Apparaît dans Installées" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-software-scenarios.mjs --scenario S12",
+        "capture": "alma-capsule-store-simple-scan-installed.png"
       }
     }
   ],

@@ -43,7 +43,14 @@
       "baobab": { "anchor": "gnome-baobab__header" },
       "system_monitor": { "anchor": "gnome-sysmon__header" },
       "tour": { "anchor": "gnome-tour__header" },
-      "characters": { "anchor": "gnome-characters__header" }
+      "characters": { "anchor": "gnome-characters__header" },
+      "thunderbird": { "anchor": "tbd-app__menubar", "runtimeAnchor": true },
+      "transmission": { "anchor": "trm-app__toolbar", "runtimeAnchor": true },
+      "rhythmbox": { "anchor": "rb-app__header", "runtimeAnchor": true },
+      "drawing": { "anchor": "drawing-app__menubar", "runtimeAnchor": true },
+      "simple_scan": { "anchor": "scn-app__header", "runtimeAnchor": true },
+      "warpinator": { "anchor": "wrp-app__header", "runtimeAnchor": true },
+      "timeshift": { "anchor": "tsh-app__header", "runtimeAnchor": true }
     }
   },
   "sync": {

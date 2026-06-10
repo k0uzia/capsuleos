@@ -543,6 +543,38 @@
     background-image: url("../../../assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg");
 }
 
+.update-manager--gnome .gnome-software__cardicon--thunderbird {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/thunderbird");
+}
+
+.update-manager--gnome .gnome-software__cardicon--transmission {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/transmission-gtk");
+}
+
+.update-manager--gnome .gnome-software__cardicon--rhythmbox {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3");
+}
+
+.update-manager--gnome .gnome-software__cardicon--lecteur-multimedia {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid");
+}
+
+.update-manager--gnome .gnome-software__cardicon--drawing {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing");
+}
+
+.update-manager--gnome .gnome-software__cardicon--simple-scan {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/simple-scan");
+}
+
+.update-manager--gnome .gnome-software__cardicon--warpinator {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.x.Warpinator");
+}
+
+.update-manager--gnome .gnome-software__cardicon--timeshift {
+    background-image: url("../../../assets/images/toolkits/gnome/apps/timeshift-gtk");
+}
+
 .update-manager--gnome .gnome-software__appicon--software {
     background-image: url("../../../assets/images/toolkits/gnome/apps/dash/org.gnome.Software.svg");
 }

@@ -1,7 +1,7 @@
 # Analyse magasins apps cross-OS
 
-**Statut contrat** : `store-installable-apps.json` — **pilote Alma** (juin 2026)  
-**Référence vision** : analyse `de155a70` · Wave store extension
+**Statut contrat** : `store-installable-apps.json` — **pilote Alma étendu** (juin 2026)  
+**Référence vision** : analyse `de155a70` · Wave store extension · matrice [`inventaires/store-installable-matrix.json`](inventaires/store-installable-matrix.json)
 
 ## Principe
 
@@ -23,7 +23,7 @@
 
 ## Pilote Alma (Wave store juin 2026)
 
-### Apps P0 magasin
+### Apps P0 magasin (wave 1)
 
 | Slot contrat | App ID Logiciels | Source Alma | Slot Capsule post-install |
 |--------------|------------------|-------------|---------------------------|
@@ -31,11 +31,27 @@
 | libreoffice_startcenter | libreoffice | flatpak org.libreoffice.LibreOffice | librewriter |
 | calendar | calendar | flatpak org.gnome.Calendar | calendar |
 
+### Apps P1 magasin (wave 2 — extension juin 2026)
+
+| Slot contrat | App ID Logiciels | Source Alma | Slot Capsule | Scénario |
+|--------------|------------------|-------------|--------------|----------|
+| thunderbird | thunderbird | flatpak org.mozilla.Thunderbird | thunderbird | S9 |
+| transmission | transmission | flatpak com.transmissionbt.Transmission | transmission | S10 |
+| rhythmbox | rhythmbox | rpm rhythmbox | rhythmbox | — (decorative) |
+| lecteur_multimedia | lecteur-multimedia | flatpak io.github.celluloid_player.Celluloid | lecteur_multimedia | overview pin |
+| drawing | drawing | flatpak com.github.maoschanz.drawing | drawing | — |
+| simple_scan | simple-scan | rpm simple-scan | simple_scan | S12 |
+| warpinator | warpinator | flatpak org.x.Warpinator | warpinator | S11 |
+| timeshift | timeshift | flatpak com.timeshift.TimeShift | timeshift | — |
+
+Slots réutilisés depuis Mint v3 / toolkit GNOME — aucun gabarit inventé. `rhythmbox` : profondeur decorative (lecteur minimal). Overview : lanceurs `data-store-pin` masqués révélés à l'install (`simple_scan`, `lecteur_multimedia`).
+
 ### Kernel
 
-- Catalogue : `usr/lib/capsuleos/shells/linux/gnome-store-catalog.js`
+- Catalogue : `usr/lib/capsuleos/shells/linux/gnome-store-catalog.js` — **11 apps** `linux-alma`
 - UI Logiciels : `update-manager.js` + `update_manager_gnome.html` (section **À découvrir**)
-- Épinglage shell : `gnome-store-shell-pin.js` · événement `capsule:store-app-installed`
+- Icônes grille : `update_manager_gnome.base.css` — classes `gnome-software__cardicon--*`
+- Épinglage shell : `gnome-store-shell-pin.js` · événement `capsule:store-app-installed` · overview + dash
 
 ### sessionStorage (choix documenté)
 
@@ -53,17 +69,23 @@ Contrat : `etc/capsuleos/contracts/software-user-scenarios.json`
 | ID | Titre |
 |----|-------|
 | S1–S4 | Flux Logiciels GNOME baseline (Writer, recherche, MAJ, Installées) |
-| **S5** | À découvrir → file_roller → Installées |
-| **S6** | LibreOffice flatpak → Ouvrir librewriter |
-| **S7** | Agenda flatpak → Ouvrir calendar |
+| S5 | À découvrir → file_roller → Installées |
+| S6 | LibreOffice flatpak → Ouvrir librewriter |
+| S7 | Agenda flatpak → Ouvrir calendar |
+| **S9** | Thunderbird flatpak → Ouvrir thunderbird |
+| **S10** | Transmission flatpak → Installées |
+| **S11** | Warpinator flatpak communautaire → Ouvrir warpinator |
+| **S12** | Numériseur simple rpm → Installées |
 | S8 | Erreur réseau (optionnel) |
 
 Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma`
 
+Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/alma-capsule-store-*.png`
+
 ### Gates
 
-- `validate-store-installable-apps.mjs`
-- `validate-software-user-scenarios.mjs`
+- `validate-store-installable-apps.mjs` — P0×3 + P1×8 Alma
+- `validate-software-user-scenarios.mjs` — S1–S7 + S9–S12
 
 ## Prochaines vagues
 

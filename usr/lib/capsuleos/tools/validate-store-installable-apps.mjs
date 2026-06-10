@@ -30,6 +30,61 @@ const storeCatalog = fs.readFileSync(
     path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-store-catalog.js'),
     'utf8'
 );
+const storeCss = fs.readFileSync(
+    path.join(ROOT, 'usr/share/capsuleos/linux/apps/style/update_manager_gnome.base.css'),
+    'utf8'
+);
+
+const ALMA_P0_SLOTS = ['file_roller', 'libreoffice_startcenter', 'calendar'];
+const ALMA_P1_SLOTS = [
+    'thunderbird',
+    'transmission',
+    'rhythmbox',
+    'lecteur_multimedia',
+    'drawing',
+    'simple_scan',
+    'warpinator',
+    'timeshift',
+];
+const ALMA_STORE_APP_IDS = [
+    'file-roller',
+    'libreoffice',
+    'calendar',
+    'thunderbird',
+    'transmission',
+    'rhythmbox',
+    'lecteur-multimedia',
+    'drawing',
+    'simple-scan',
+    'warpinator',
+    'timeshift',
+];
+const CARDICON_CLASSES = [
+    'gnome-software__cardicon--file-roller',
+    'gnome-software__cardicon--libreoffice',
+    'gnome-software__cardicon--calendar',
+    'gnome-software__cardicon--thunderbird',
+    'gnome-software__cardicon--transmission',
+    'gnome-software__cardicon--rhythmbox',
+    'gnome-software__cardicon--lecteur-multimedia',
+    'gnome-software__cardicon--drawing',
+    'gnome-software__cardicon--simple-scan',
+    'gnome-software__cardicon--warpinator',
+    'gnome-software__cardicon--timeshift',
+];
+
+function assertAlmaStoreSlot(slot) {
+    const apps = store.apps || [];
+    const entry = apps.find((a) => a.slot === slot);
+    if (!entry) {
+        errors.push(`store-installable-apps.json : slot ${slot} absent du catalogue`);
+        return;
+    }
+    const almaSrc = entry.sources && entry.sources['linux-alma'];
+    if (!almaSrc || almaSrc.storeInstallable !== true || almaSrc.defaultInstalled !== false) {
+        errors.push(`store-installable-apps.json : linux-alma.${slot} doit avoir storeInstallable:true defaultInstalled:false`);
+    }
+}
 
 if (store) {
     if (store.status !== 'pilot-alma') {
@@ -38,19 +93,8 @@ if (store) {
     if (!store.storeFrontByRegistry || !store.storeFrontByRegistry['linux-alma']) {
         errors.push('store-installable-apps.json : storeFrontByRegistry.linux-alma absent');
     }
-    const almaP0Slots = ['file_roller', 'libreoffice_startcenter', 'calendar'];
-    const apps = store.apps || [];
-    almaP0Slots.forEach((slot) => {
-        const entry = apps.find((a) => a.slot === slot);
-        if (!entry) {
-            errors.push(`store-installable-apps.json : slot ${slot} absent du catalogue`);
-            return;
-        }
-        const almaSrc = entry.sources && entry.sources['linux-alma'];
-        if (!almaSrc || almaSrc.storeInstallable !== true || almaSrc.defaultInstalled !== false) {
-            errors.push(`store-installable-apps.json : linux-alma.${slot} doit avoir storeInstallable:true defaultInstalled:false`);
-        }
-    });
+    ALMA_P0_SLOTS.forEach(assertAlmaStoreSlot);
+    ALMA_P1_SLOTS.forEach(assertAlmaStoreSlot);
 }
 
 if (appsCatalog && appsCatalog.registryOverrides) {
@@ -80,9 +124,15 @@ kernelNeedles.forEach((needle) => {
 if (!storeCatalog.includes("'linux-alma'")) {
     errors.push('gnome-store-catalog.js : pilote linux-alma absent');
 }
-['file-roller', 'libreoffice', 'calendar'].forEach((id) => {
+ALMA_STORE_APP_IDS.forEach((id) => {
     if (!storeCatalog.includes("'" + id + "'")) {
         errors.push(`gnome-store-catalog.js : app store ${id} absente`);
+    }
+});
+
+CARDICON_CLASSES.forEach((cls) => {
+    if (!storeCss.includes(cls)) {
+        errors.push(`update_manager_gnome.base.css : classe ${cls} absente`);
     }
 });
 
@@ -100,5 +150,5 @@ if (errors.length) {
     process.exit(1);
 }
 
-console.log('✓ validate-store-installable-apps OK — pilote Alma (file_roller, LibreOffice, Agenda)');
+console.log('✓ validate-store-installable-apps OK — pilote Alma (P0×3 + P1×8)');
 process.exit(0);

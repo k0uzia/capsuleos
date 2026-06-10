@@ -107,6 +107,13 @@
                 <div class="windowElement" data-link="tour" id="tour" style="display: none;"></div>
                 <div class="windowElement" data-link="characters" id="characters" style="display: none;"></div>
                 <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
+                <div class="windowElement" data-link="thunderbird" id="thunderbird" style="display: none;"></div>
+                <div class="windowElement" data-link="transmission" id="transmission" style="display: none;"></div>
+                <div class="windowElement" data-link="rhythmbox" id="rhythmbox" style="display: none;"></div>
+                <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+                <div class="windowElement" data-link="simple_scan" id="simple_scan" style="display: none;"></div>
+                <div class="windowElement" data-link="warpinator" id="warpinator" style="display: none;"></div>
+                <div class="windowElement" data-link="timeshift" id="timeshift" style="display: none;"></div>
                 <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
             </object>
         </main>
@@ -162,7 +169,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg" alt="">
                     <span>LibreOffice Calc</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Numériseur">
+                <button type="button" class="fedora-overview__app" data-overview-link="simple_scan" data-store-pin="simple_scan" aria-label="Numériseur" hidden>
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SimpleScan.svg" alt="">
                     <span>Numérise...</span>
                 </button>
@@ -174,7 +181,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Boxes.svg" alt="">
                     <span>Machines</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Lecteur vidéos">
+                <button type="button" class="fedora-overview__app" data-overview-link="lecteur_multimedia" data-store-pin="lecteur_multimedia" aria-label="Lecteur vidéos" hidden>
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg" alt="">
                     <span>Lecteur vi...</span>
                 </button>
@@ -424,6 +431,13 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/thunderbird.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/transmission.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/rhythmbox.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/simple-scan.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/warpinator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/timeshift.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-catalog.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-shell-pin.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>

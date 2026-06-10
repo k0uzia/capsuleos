@@ -47,6 +47,13 @@
         "system_monitor": "libadwaita-gnome",
         "tour": "libadwaita-gnome",
         "file_roller": "file-roller-gtk",
+        "thunderbird": "libadwaita-gnome",
+        "transmission": "libadwaita-gnome",
+        "rhythmbox": "libadwaita-gnome",
+        "drawing": "libadwaita-gnome",
+        "simple_scan": "libadwaita-gnome",
+        "warpinator": "libadwaita-gnome",
+        "timeshift": "libadwaita-gnome",
         "default": "default"
       },
       "slotChromeProviderOverrides": {

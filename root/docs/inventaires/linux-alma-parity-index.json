@@ -80,15 +80,15 @@
     },
     "wallpaper": {
       "id": "wallpaper",
-      "pi": 97,
+      "pi": 98,
       "status": "ok",
       "dimensions": {
-        "vis": 95,
+        "vis": 97,
         "nav": 100,
-        "int": 95,
+        "int": 97,
         "ctx": 100,
         "kb": 100,
-        "data": 90
+        "data": 92
       },
       "vmPaths": {
         "dark": "/usr/share/backgrounds/almalinux-night.jpg",
@@ -98,11 +98,28 @@
         "dark": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-night.jpg",
         "light": "usr/share/capsuleos/assets/images/vendors/alma/wallpaper/almalinux-day.jpg"
       },
-      "notes": "almalinux-day/night ; catalogue almaWallpaperCatalog",
-      "lastPass": "2026-06-10T09:50:00.000Z",
-      "checksPassed": 4,
-      "checksTotal": 4,
-      "updatedAt": "2026-06-10T11:15:53.127Z"
+      "watermark": {
+        "vmExtension": "background-logo@fedorahosted.org",
+        "vmGsettings": {
+          "logoPosition": "bottom-left",
+          "logoSize": 12.5,
+          "logoBorder": 50,
+          "logoFile": "/usr/share/almalinux-logos/fedora_logo_darkbackground.svg",
+          "logoFileDark": "/usr/share/almalinux-logos/fedora_logo_darkbackground.svg"
+        },
+        "capsuleTokens": ["--alma-watermark", "--alma-watermark-width", "--alma-watermark-inset"],
+        "capsuleAssets": [
+          "usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_darkbackground.svg",
+          "usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_lightbackground.svg"
+        ],
+        "smoke": "smoke-alma-watermark.mjs",
+        "campaign": "C22"
+      },
+      "notes": "almalinux-day/night ; filigrane bottom-left 12.5 % ; smoke-alma-watermark C22",
+      "lastPass": "2026-06-10T23:00:00.000Z",
+      "checksPassed": 6,
+      "checksTotal": 6,
+      "updatedAt": "2026-06-10T23:00:00.000Z"
     }
   },
   "apps": {
@@ -331,8 +348,7 @@
   "gaps": [
     "Captures VM pixel-perfect apps : D-Bus AccessDenied — compensé captures Capsule C14/C18/C19/C20",
     "Captures VM apps P0/P1 autres slots : D-Bus Shell.Screenshot AccessDenied + virsh almalinux10 absent hôte agent",
-    "Watermark Alma : filigrane VM = fedora_logo_* (paquet almalinux-logos) — assets dépôt OK, polish CSS P2",
     "Vc Paramètres GNOME : captures VM playbook bloquées (même contrainte D-Bus)"
   ],
-  "updatedAt": "2026-06-10T14:30:00.000Z"
+  "updatedAt": "2026-06-10T23:00:00.000Z"
 }

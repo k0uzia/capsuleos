@@ -166,6 +166,9 @@ if [[ "$VENDOR" == "alma" ]]; then
   for bg in almalinux-day.jpg almalinux-night.jpg; do
     pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
   done
+  for logo in fedora_logo_darkbackground fedora_logo_lightbackground; do
+    pull "/usr/share/almalinux-logos/${logo}.svg" "$WATERMARK_DIR/${logo}.svg"
+  done
   pull /usr/share/almalinux-logos/almalinux-logo.svg "$VENDOR_DIR/alma-logo.svg" || true
 fi
 

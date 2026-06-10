@@ -5,9 +5,11 @@
 
 html:has(#alma) {
     --menu-accent: #3584e4;
-    --rocky-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_darkbackground.svg");
-    --rocky-watermark-width: 9%;
-    --rocky-watermark-inset: max(calc(var(--head) / 1.4), 2.8rem);
+    /* VM background-logo@fedorahosted.org : size 12.5 %, border 50 px, bottom-left */
+    --alma-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_darkbackground.svg");
+    --alma-watermark-width: 12.5%;
+    --alma-watermark-inset: max(3.125rem, calc(var(--head) / 1.28));
+    --alma-watermark-opacity: 1;
     --desktop-shortcut-text: #f6f6f6;
     --desktop-shortcut-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
     --desktop-shortcut-hover-bg: rgba(0, 0, 0, 0.28);
@@ -135,7 +137,7 @@ html:has(#alma) {
 }
 
 html[data-theme="light"]:has(#alma) {
-    --rocky-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_lightbackground.svg");
+    --alma-watermark: url("../../../../../usr/share/capsuleos/assets/images/vendors/alma/watermark/fedora_logo_lightbackground.svg");
     --desktop-shortcut-text: #1a1a1a;
     --desktop-shortcut-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
     --desktop-shortcut-hover-bg: rgba(255, 255, 255, 0.42);

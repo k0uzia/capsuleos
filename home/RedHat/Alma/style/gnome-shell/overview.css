@@ -346,16 +346,17 @@ body#alma .fedora-overview__workspace-next {
 
 body#alma .fedora-overview__brand {
     position: absolute;
-    right: calc(var(--head) / 2.2);
-    bottom: calc(var(--head) / 2.4);
+    left: var(--alma-watermark-inset);
+    bottom: var(--alma-watermark-inset);
     z-index: 2;
     display: block;
-    width: var(--rocky-watermark-width);
+    width: var(--alma-watermark-width);
     aspect-ratio: 907.78 / 415.08;
     margin: 0;
     padding: 0;
     border: 0;
-    background: var(--rocky-watermark) no-repeat right bottom / contain;
+    background: var(--alma-watermark) no-repeat left bottom / contain;
+    opacity: var(--alma-watermark-opacity);
     font-size: 0;
     color: transparent;
     pointer-events: none;

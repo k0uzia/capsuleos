@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C21** playbook Paramètres GNOME dédié clôturé.
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C22** watermark bureau Alma clôturé (suite C21).
 
 ---
 
@@ -43,13 +43,26 @@ Champ machine : `linux-alma-parity-index.json` → `pi_global` (priority) · `pi
 | topBar | 99 | `smoke-rocky-shell-polish.mjs --playwright` |
 | overview | 94 | dash is-running Playwright C12 |
 | tray | 99 | checks 3/3 |
-| wallpaper | 97 | fonds `almalinux-day/night` · catalogue `almaWallpaperCatalog` |
+| wallpaper | **98** | fonds `almalinux-day/night` · filigrane `background-logo` · catalogue `almaWallpaperCatalog` |
 
 Ground truth VM :
 
 - `accent-color`: **blue** (`#3584e4`)
 - `picture-uri`: `file:///usr/share/backgrounds/almalinux-day.jpg`
 - `picture-uri-dark`: `almalinux-night.jpg`
+- Extension `background-logo@fedorahosted.org` : `logo-position` **bottom-left** · `logo-size` **12.5** · `logo-border` **50** · fichiers `/usr/share/almalinux-logos/fedora_logo_{dark,light}background.svg`
+
+### Watermark bureau (C22)
+
+| Paramètre VM | CapsuleOS |
+|--------------|-----------|
+| `logo-position` bottom-left | `body#alma::after` · `left` + `background-position: left bottom` |
+| `logo-size` 12.5 % | `--alma-watermark-width: 12.5%` |
+| `logo-border` 50 px | `--alma-watermark-inset: max(3.125rem, …)` |
+| dark → `fedora_logo_darkbackground.svg` | tokens sombre + assets SHA256 VM |
+| clair pédagogique → `fedora_logo_lightbackground.svg` | `html[data-theme="light"]:has(#alma)` (VM utilise darkbackground pour les deux clés gsettings ; choix pédagogique standard RHEL) |
+
+Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures/linux-alma/*-watermark-*.png`
 
 ---
 
@@ -118,7 +131,6 @@ Inventaire : [`linux-alma-gnome-settings-playbook.json`](inventaires/linux-alma-
 |-----|-----|-------|
 | Captures VM pixel-perfect | **Vc** P1 | D-Bus `Shell.Screenshot` AccessDenied via SSH |
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
-| Watermark Alma polish | P2 | Assets `fedora_logo_*` (paquet `almalinux-logos`) en dépôt — CSS `--rocky-watermark` à affiner |
 | Vc Paramètres GNOME | P2 | Tour playbook VM OK ; captures comparables Capsule non collectées |
 
 ---
@@ -126,8 +138,7 @@ Inventaire : [`linux-alma-gnome-settings-playbook.json`](inventaires/linux-alma-
 ## Prochaines étapes
 
 1. **Vc VM** — session GDM locale ou fix D-Bus screenshot
-2. **Watermark CSS** — aligner `--rocky-watermark` sur filigrane Alma (P2)
-3. **P2 apps** — baobab, tour
+2. **P2 apps** — baobab, tour
 
 ---
 

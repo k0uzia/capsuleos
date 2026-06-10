@@ -1,7 +1,9 @@
 {
   "version": 1,
-  "status": "pilot-alma",
+  "status": "active",
   "description": "Catalogue apps installables via le magasin natif de chaque OS — extension pédagogique au-delà du ground truth VM (defaultInstalled: false).",
+  "slotsManifestRef": "etc/capsuleos/contracts/slots-manifest.json",
+  "presentationBindingsRef": "etc/capsuleos/contracts/presentation-bindings.json",
   "principles": [
     "VM prime : seules les apps onVm=true restent dans le shell par défaut",
     "storeInstallable=true : l'utilisateur peut simuler une installation depuis le magasin OS",
@@ -116,6 +118,16 @@
       "crossOs": true,
       "recommendation": "P1-store",
       "gapNote": "Absent paquet RPM Alma/Rocky lab — flatpak org.gnome.Calendar sur Flathub / remote RH",
+      "storeCatalog": {
+        "id": "calendar",
+        "sub": "Calendrier et rendez-vous",
+        "desc": "Consultez vos événements et rendez-vous (Flatpak org.gnome.Calendar).",
+        "version": "47.0",
+        "size": "~5 Mo",
+        "iconClass": "gnome-software__cardicon--calendar",
+        "categories": ["productivity"],
+        "placement": { "overview": true, "dash": true }
+      },
       "sources": {
         "linux-mint": { "apt": "gnome-calendar", "desktopId": "org.gnome.Calendar.desktop", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "org.gnome.Calendar", "desktopId": "org.gnome.Calendar.desktop", "defaultInstalled": false, "storeInstallable": true },
@@ -131,6 +143,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "file-roller",
+        "sub": "Archives compressées",
+        "desc": "Créez, ouvrez et extrayez des archives (tar, zip, …).",
+        "version": "43.0",
+        "size": "~2 Mo",
+        "iconClass": "gnome-software__cardicon--file-roller",
+        "categories": ["utilities"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "file-roller", "desktopId": "org.gnome.FileRoller.desktop", "defaultInstalled": true },
         "linux-rocky": { "rpm": "file-roller", "defaultInstalled": false, "storeInstallable": true },
@@ -146,7 +168,18 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "postInstallSlot": "librewriter",
       "relatedSlots": ["librecalc", "libreoffice_draw", "libreoffice_impress", "librewriter"],
+      "storeCatalog": {
+        "id": "libreoffice",
+        "sub": "Suite bureautique",
+        "desc": "Suite bureautique libre — Writer, Calc, Impress (Flatpak Flathub).",
+        "version": "24.8",
+        "size": "~280 Mo",
+        "iconClass": "gnome-software__cardicon--libreoffice",
+        "categories": ["productivity", "creation"],
+        "placement": { "overview": true, "dash": true }
+      },
       "sources": {
         "linux-mint": { "apt": "libreoffice", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "org.libreoffice.LibreOffice", "defaultInstalled": false, "storeInstallable": true },
@@ -162,6 +195,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "thunderbird",
+        "sub": "Messagerie électronique",
+        "desc": "Client de messagerie libre (Flatpak org.mozilla.Thunderbird).",
+        "version": "128.0",
+        "size": "~85 Mo",
+        "iconClass": "gnome-software__cardicon--thunderbird",
+        "categories": ["productivity"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "thunderbird", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "org.mozilla.Thunderbird", "rpm": "thunderbird", "defaultInstalled": false, "storeInstallable": true },
@@ -177,6 +220,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "transmission",
+        "sub": "Client BitTorrent",
+        "desc": "Téléchargez des fichiers via BitTorrent (Flatpak com.transmissionbt.Transmission).",
+        "version": "4.0",
+        "size": "~8 Mo",
+        "iconClass": "gnome-software__cardicon--transmission",
+        "categories": ["utilities"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "transmission-gtk", "defaultInstalled": true },
         "linux-rocky": { "rpm": "transmission", "flatpak": "com.transmissionbt.Transmission", "defaultInstalled": false, "storeInstallable": true },
@@ -192,6 +245,16 @@
       "functionalDepth": "decorative",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "rhythmbox",
+        "sub": "Lecteur de musique",
+        "desc": "Organisez et écoutez votre bibliothèque musicale (RPM rhythmbox).",
+        "version": "3.4",
+        "size": "~12 Mo",
+        "iconClass": "gnome-software__cardicon--rhythmbox",
+        "categories": ["multimedia"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "rhythmbox", "defaultInstalled": true },
         "linux-rocky": { "rpm": "rhythmbox", "defaultInstalled": false, "storeInstallable": true },
@@ -208,6 +271,16 @@
       "crossOs": true,
       "recommendation": "P1-store",
       "equivalentNote": "Celluloid (Mint) · Totem absent RL10 · flatpak org.gnome.Totem ou io.github.celluloid_player.Celluloid",
+      "storeCatalog": {
+        "id": "lecteur-multimedia",
+        "sub": "Celluloid",
+        "desc": "Lisez vos fichiers vidéo (Flatpak io.github.celluloid_player.Celluloid).",
+        "version": "0.27",
+        "size": "~5 Mo",
+        "iconClass": "gnome-software__cardicon--lecteur-multimedia",
+        "categories": ["multimedia"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "celluloid", "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "io.github.celluloid_player.Celluloid", "defaultInstalled": false, "storeInstallable": true },
@@ -223,6 +296,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "drawing",
+        "sub": "Dessin et annotation",
+        "desc": "Dessinez et annotez des images (Flatpak com.github.maoschanz.drawing).",
+        "version": "1.2",
+        "size": "~3 Mo",
+        "iconClass": "gnome-software__cardicon--drawing",
+        "categories": ["creation"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "drawing", "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "com.github.maoschanz.drawing", "defaultInstalled": false, "storeInstallable": true },
@@ -238,6 +321,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P1-store",
+      "storeCatalog": {
+        "id": "simple-scan",
+        "sub": "Numérisation",
+        "desc": "Numérisez des documents avec votre scanner (RPM simple-scan).",
+        "version": "46.0",
+        "size": "~4 Mo",
+        "iconClass": "gnome-software__cardicon--simple-scan",
+        "categories": ["utilities"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "simple-scan", "defaultInstalled": true },
         "linux-rocky": { "rpm": "simple-scan", "defaultInstalled": false, "storeInstallable": true },
@@ -276,6 +369,16 @@
       "functionalDepth": "partial",
       "crossOs": true,
       "recommendation": "P2-store",
+      "storeCatalog": {
+        "id": "warpinator",
+        "sub": "Partage de fichiers",
+        "desc": "Envoyez des fichiers sur le réseau local (Flatpak org.x.Warpinator).",
+        "version": "1.0",
+        "size": "~2 Mo",
+        "iconClass": "gnome-software__cardicon--warpinator",
+        "categories": ["utilities"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "warpinator", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "org.x.Warpinator", "defaultInstalled": false, "storeInstallable": true },
@@ -292,6 +395,16 @@
       "crossOs": true,
       "recommendation": "P2-store",
       "gapNote": "Absent AppStream EL10 par défaut — flatpak com.timeshift.TimeShift ou dépôt tiers",
+      "storeCatalog": {
+        "id": "timeshift",
+        "sub": "Sauvegardes système",
+        "desc": "Créez des instantanés du système (Flatpak com.timeshift.TimeShift).",
+        "version": "24.0",
+        "size": "~15 Mo",
+        "iconClass": "gnome-software__cardicon--timeshift",
+        "categories": ["utilities"],
+        "placement": { "overview": true }
+      },
       "sources": {
         "linux-mint": { "apt": "timeshift", "defaultInstalled": true },
         "linux-rocky": { "flatpak": "com.timeshift.TimeShift", "defaultInstalled": false, "storeInstallable": true },

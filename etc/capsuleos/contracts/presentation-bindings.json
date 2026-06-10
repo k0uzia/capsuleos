@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "description": "Couche présentation par registryId — bodyId, toolkit, StoreFront, locale.",
+  "bindings": {
+    "linux-alma": {
+      "registryId": "linux-alma",
+      "bodyId": "alma",
+      "toolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Logiciels",
+        "sources": ["rpm", "flatpak"]
+      }
+    },
+    "linux-rocky": {
+      "registryId": "linux-rocky",
+      "bodyId": "rocky",
+      "toolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Logiciels",
+        "sources": ["rpm", "flatpak"]
+      }
+    },
+    "linux-fedora": {
+      "registryId": "linux-fedora",
+      "bodyId": "fedora",
+      "toolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Logiciels",
+        "sources": ["rpm", "flatpak"]
+      }
+    },
+    "linux-ubuntu": {
+      "registryId": "linux-ubuntu",
+      "bodyId": "ubuntu",
+      "toolkit": "gnome",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "update_manager",
+        "labelFr": "Centre d'applications",
+        "sources": ["snap", "deb", "flatpak"]
+      }
+    },
+    "linux-mint": {
+      "registryId": "linux-mint",
+      "bodyId": "mint",
+      "toolkit": "cinnamon",
+      "localeDefault": "fr",
+      "storeFront": {
+        "slot": "mintinstall",
+        "labelFr": "Logithèque",
+        "sources": ["apt", "flatpak"]
+      }
+    }
+  }
+}

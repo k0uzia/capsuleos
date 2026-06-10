@@ -43,7 +43,8 @@ Un jalon est **réussi** lorsque :
 | Noyau Linux `usr/lib/capsuleos/shells/linux/` | ✅ fenêtres, explorateurs, embed offline |
 | FS simulé `home/public/` + manifestes | ✅ partagé inter-OS |
 | Pipeline embed | ✅ `build-linux-embed.mjs` — 30 templates, 11 skins |
-| Validateurs UI | ✅ `validate-all` — chrome toolkits, GNOME apps, overview icons, resize bounds |
+| **Catalogue apps canonique** | ✅ `slots-manifest` + `presentation-bindings` + `generate-store-catalog.mjs` — [architecture-catalogue-apps.md](architecture-catalogue-apps.md) |
+| Validateurs UI | ✅ `validate-all` — chrome toolkits, GNOME apps, overview icons, resize bounds, **StoreΣ** |
 | Doc agents `root/` | ✅ skills, AGENTS.md |
 | Mappings apps erronés (Fedora, Pop!_OS, Debian-KDE) | ✅ corrigés juin 2026 |
 | App `text_editor` | ✅ créée ; skins et épinglages partiels |

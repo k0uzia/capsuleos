@@ -103,8 +103,9 @@ Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantiqu
 | **AppVc** | Captures Capsule par slot P0 | `capsuleCapturesP0` |
 | **AppVp** | Parité visuelle apps classée | `visualMatchClassifiedP0` |
 | **AppΣ** | Catalogue apps clôturé (structure) | **AppV ∧ AppC ∧ AppP0 ∧ AppL** |
+| **StoreΣ** | Extension magasin structurellement cohérente (pilote registry) | **SlotF ∧ PresB ∧ GenStore ∧ StoreIntegrity** — voir [architecture-catalogue-apps.md](architecture-catalogue-apps.md) |
 
-Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `apps-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md)
+Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Magasin : `slots-manifest.json` · `store-installable-apps.json` · Chaîne fidélité : `apps-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md)
 
 ### 2.10 Fidélité visuelle (Tf)
 

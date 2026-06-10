@@ -63,7 +63,9 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Campagne crédibilité pédagogique** (post Π=100) : [`root/docs/campagne-credibilite-pedagogique.md`](root/docs/campagne-credibilite-pedagogique.md) — scénarios utilisateur VM → clone (menus, sous-menus, états) ; `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next`.
 
-**Extension magasin cross-OS** (VM default + install simulée) : [`root/docs/analyse-magasins-apps-cross-os.md`](root/docs/analyse-magasins-apps-cross-os.md) · contrat draft [`etc/capsuleos/contracts/store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json).
+**Architecture catalogue centralisée** (fonction / présentation / magasin) : [`root/docs/architecture-catalogue-apps.md`](root/docs/architecture-catalogue-apps.md) · contrats [`slots-manifest.json`](etc/capsuleos/contracts/slots-manifest.json) · [`presentation-bindings.json`](etc/capsuleos/contracts/presentation-bindings.json) · [`store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json) · générateur `generate-store-catalog.mjs`.
+
+**Extension magasin cross-OS** (VM default + install simulée) : [`root/docs/analyse-magasins-apps-cross-os.md`](root/docs/analyse-magasins-apps-cross-os.md).
 
 **Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
 

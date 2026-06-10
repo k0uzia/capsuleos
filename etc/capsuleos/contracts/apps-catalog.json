@@ -195,6 +195,22 @@
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
         { "slot": "profile", "labelFr": "À propos Fedora", "statut": "ok", "placement": { "desktop": true } }
       ]
+    },
+    "linux-mint": {
+      "toolkit": "cinnamon",
+      "vmAppsSource": "root/docs/inventaires/linux-mint-vm-apps-installed.json",
+      "apps": {
+        "nemo": { "labelFr": "Fichiers", "priorite": "P0", "slot": "nemo", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "firefox": { "labelFr": "Firefox", "priorite": "P0", "slot": "firefox", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "org.gnome.Terminal": { "labelFr": "Terminal", "priorite": "P0", "slot": "terminal", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "mintupdate": { "labelFr": "Gestionnaire de mises à jour", "priorite": "P0", "slot": "update_manager", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overview": true } },
+        "cinnamon-settings": { "labelFr": "Paramètres du système", "priorite": "P0", "slot": "themes", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "quickSettings": true } }
+      },
+      "capsuleOnly": [
+        { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },
+        { "slot": "profile", "labelFr": "À propos Linux Mint", "statut": "ok", "placement": { "desktop": true } },
+        { "slot": "screenshot", "labelFr": "Capture d'écran", "statut": "ok", "placement": { "quickSettings": true } }
+      ]
     }
   }
 }

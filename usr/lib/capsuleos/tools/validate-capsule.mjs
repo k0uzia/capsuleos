@@ -167,6 +167,19 @@ if (fsRouting.status !== 0) {
     }
 }
 
+const appCatalogIntegrity = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (appCatalogIntegrity.status !== 0) {
+    const out = (appCatalogIntegrity.stdout || '') + (appCatalogIntegrity.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('catalogue apps — validate-app-catalog-integrity.mjs');
+    }
+}
+
 const clusterRegistry = spawnSync(
     process.execPath,
     ['usr/lib/capsuleos/tools/build-cluster-registry.mjs', '--check'],

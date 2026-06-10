@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
- * Gate StoreΣ — contrat store-installable-apps + slots Alma référencés.
+ * Gate StoreΣ — contrat store-installable-apps + catalogue généré Alma.
  * Usage : node usr/lib/capsuleos/tools/validate-store-installable-apps.mjs
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { buildStoreCatalogEntries } from './lab/capsule-app-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -22,14 +23,19 @@ function readJson(rel) {
 
 const store = readJson('etc/capsuleos/contracts/store-installable-apps.json');
 const appsCatalog = readJson('etc/capsuleos/contracts/apps-catalog.json');
+const presentation = readJson('etc/capsuleos/contracts/presentation-bindings.json');
 const updateManager = fs.readFileSync(
     path.join(ROOT, 'usr/lib/capsuleos/shells/linux/update-manager.js'),
     'utf8'
 );
-const storeCatalog = fs.readFileSync(
+const storeRuntime = fs.readFileSync(
     path.join(ROOT, 'usr/lib/capsuleos/shells/linux/gnome-store-catalog.js'),
     'utf8'
 );
+const storeGeneratedPath = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-store-catalog.js');
+const storeGenerated = fs.existsSync(storeGeneratedPath)
+    ? fs.readFileSync(storeGeneratedPath, 'utf8')
+    : '';
 const storeCss = fs.readFileSync(
     path.join(ROOT, 'usr/share/capsuleos/linux/apps/style/update_manager_gnome.base.css'),
     'utf8'
@@ -87,11 +93,16 @@ function assertAlmaStoreSlot(slot) {
 }
 
 if (store) {
-    if (store.status !== 'pilot-alma') {
-        errors.push(`store-installable-apps.json : status attendu pilot-alma (actuel: ${store.status})`);
+    if (store.status !== 'active') {
+        errors.push(`store-installable-apps.json : status attendu active (actuel: ${store.status})`);
     }
-    if (!store.storeFrontByRegistry || !store.storeFrontByRegistry['linux-alma']) {
-        errors.push('store-installable-apps.json : storeFrontByRegistry.linux-alma absent');
+    if (!store.slotsManifestRef) {
+        errors.push('store-installable-apps.json : slotsManifestRef absent');
+    }
+    const almaFront = presentation?.bindings?.['linux-alma']?.storeFront
+        || store.storeFrontByRegistry?.['linux-alma'];
+    if (!almaFront) {
+        errors.push('presentation-bindings / storeFront linux-alma absent');
     }
     ALMA_P0_SLOTS.forEach(assertAlmaStoreSlot);
     ALMA_P1_SLOTS.forEach(assertAlmaStoreSlot);
@@ -121,12 +132,19 @@ kernelNeedles.forEach((needle) => {
     }
 });
 
-if (!storeCatalog.includes("'linux-alma'")) {
-    errors.push('gnome-store-catalog.js : pilote linux-alma absent');
+if (!storeRuntime.includes('CAPSULE_STORE_APPS_BY_REGISTRY')) {
+    errors.push('gnome-store-catalog.js : consommation CAPSULE_STORE_APPS_BY_REGISTRY absente');
+}
+if (!storeGenerated.includes('"linux-alma"')) {
+    errors.push('capsule-store-catalog.js : pilote linux-alma absent');
+}
+const generatedEntries = buildStoreCatalogEntries('linux-alma');
+if (generatedEntries.length !== 11) {
+    errors.push(`capsule-store-catalog.js : attendu 11 apps Alma (actuel: ${generatedEntries.length})`);
 }
 ALMA_STORE_APP_IDS.forEach((id) => {
-    if (!storeCatalog.includes("'" + id + "'")) {
-        errors.push(`gnome-store-catalog.js : app store ${id} absente`);
+    if (!storeGenerated.includes('"' + id + '"')) {
+        errors.push(`capsule-store-catalog.js : app store ${id} absente`);
     }
 });
 
@@ -150,5 +168,5 @@ if (errors.length) {
     process.exit(1);
 }
 
-console.log('✓ validate-store-installable-apps OK — pilote Alma (P0×3 + P1×8)');
+console.log('✓ validate-store-installable-apps OK — pilote Alma actif (11 apps générées)');
 process.exit(0);

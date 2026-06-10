@@ -12,6 +12,7 @@ const ROOT = path.resolve(__dirname, '../../../../..');
 
 const steps = [
     ['../build-skin-profiles.mjs', 'Profils embed capsule-skin-profiles.js'],
+    ['../generate-store-catalog.mjs', 'Catalogue magasin capsule-store-catalog.js'],
     ['build-linux-facades.mjs', 'Façades OS/linux/families → home/'],
     ['build-linux-embed.mjs', 'Embed capsule-app-embed.js']
 ];

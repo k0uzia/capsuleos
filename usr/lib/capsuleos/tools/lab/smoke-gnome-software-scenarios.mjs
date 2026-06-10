@@ -55,6 +55,7 @@ const scenarios = (contract.scenarios || []).filter((s) => {
 
 const kernel = read('usr/lib/capsuleos/shells/linux/update-manager.js');
 const storeKernel = read('usr/lib/capsuleos/shells/linux/gnome-store-catalog.js');
+const storeGenerated = read('var/lib/capsuleos/generated/capsule-store-catalog.js');
 const html = read('usr/share/capsuleos/linux/apps/update_manager_gnome.html');
 
 if (!kernel.includes('bindGnomeSoftware')) {
@@ -63,8 +64,11 @@ if (!kernel.includes('bindGnomeSoftware')) {
 if (!html.includes('data-um-gnome-discover-grid')) {
     errors.push('update_manager_gnome.html : grille À découvrir absente');
 }
-if (opts.id === 'linux-alma' && !storeKernel.includes("'linux-alma'")) {
-    errors.push('gnome-store-catalog.js : pilote Alma absent');
+if (opts.id === 'linux-alma' && !storeGenerated.includes('"linux-alma"')) {
+    errors.push('capsule-store-catalog.js : pilote Alma absent');
+}
+if (!storeKernel.includes('CAPSULE_STORE_APPS_BY_REGISTRY')) {
+    errors.push('gnome-store-catalog.js : consommation catalogue généré absente');
 }
 
 scenarios.forEach((scenario) => {

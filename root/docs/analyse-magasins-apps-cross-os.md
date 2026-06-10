@@ -1,6 +1,7 @@
 # Analyse magasins apps cross-OS
 
-**Statut contrat** : `store-installable-apps.json` — **pilote Alma étendu** (juin 2026)  
+**Statut contrat** : `store-installable-apps.json` — **actif** (pilote Alma, architecture centralisée juin 2026)  
+**Architecture** : [`architecture-catalogue-apps.md`](architecture-catalogue-apps.md) — slots-manifest + presentation-bindings + générateur `capsule-store-catalog.js`  
 **Référence vision** : analyse `de155a70` · Wave store extension · matrice [`inventaires/store-installable-matrix.json`](inventaires/store-installable-matrix.json)
 
 ## Principe
@@ -48,7 +49,7 @@ Slots réutilisés depuis Mint v3 / toolkit GNOME — aucun gabarit inventé. `r
 
 ### Kernel
 
-- Catalogue : `usr/lib/capsuleos/shells/linux/gnome-store-catalog.js` — **11 apps** `linux-alma`
+- Catalogue : `var/lib/capsuleos/generated/capsule-store-catalog.js` (généré) consommé par `gnome-store-catalog.js` — **11 apps** `linux-alma`
 - UI Logiciels : `update-manager.js` + `update_manager_gnome.html` (section **À découvrir**)
 - Icônes grille : `update_manager_gnome.base.css` — classes `gnome-software__cardicon--*`
 - Épinglage shell : `gnome-store-shell-pin.js` · événement `capsule:store-app-installed` · overview + dash

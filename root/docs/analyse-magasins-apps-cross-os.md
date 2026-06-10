@@ -1,6 +1,6 @@
 # Analyse magasins apps cross-OS
 
-**Statut contrat** : `store-installable-apps.json` — **actif** (pilote Alma, architecture centralisée juin 2026)  
+**Statut contrat** : `store-installable-apps.json` — **actif** (pilotes Alma + Rocky, architecture centralisée juin 2026)  
 **Architecture** : [`architecture-catalogue-apps.md`](architecture-catalogue-apps.md) — slots-manifest + presentation-bindings + générateur `capsule-store-catalog.js`  
 **Référence vision** : analyse `de155a70` · Wave store extension · matrice [`inventaires/store-installable-matrix.json`](inventaires/store-installable-matrix.json)
 
@@ -45,11 +45,26 @@
 | warpinator | warpinator | flatpak org.x.Warpinator | warpinator | S11 |
 | timeshift | timeshift | flatpak com.timeshift.TimeShift | timeshift | — |
 
+## Pilote Rocky (activation juin 2026)
+
+Même **11 apps** que Alma via `generate-store-catalog.mjs` — écarts sources documentés (priorité RPM Rocky quand les deux existent) :
+
+| App ID Logiciels | Source Alma | Source Rocky (UI Logiciels) |
+|------------------|-------------|----------------------------|
+| thunderbird | flatpak | **rpm** thunderbird (+ flatpak optionnel contrat) |
+| transmission | flatpak | **rpm** transmission (+ flatpak optionnel contrat) |
+| calendar, libreoffice, lecteur-multimedia, drawing, warpinator, timeshift | flatpak | flatpak (identique) |
+| file-roller, rhythmbox, simple-scan | rpm | rpm (identique) |
+
+Skin `home/RedHat/Rocky/` : slots store (`file_roller`, `thunderbird`, …), scripts `capsule-store-catalog.js` + `gnome-store-catalog.js` + `gnome-store-shell-pin.js`. Overview : épinglage dynamique post-install.
+
+Smoke Rocky : `smoke-gnome-software-scenarios.mjs --id linux-rocky` (S5–S12).
+
 Slots réutilisés depuis Mint v3 / toolkit GNOME — aucun gabarit inventé. `rhythmbox` : profondeur decorative (lecteur minimal). Overview : lanceurs `data-store-pin` masqués révélés à l'install (`simple_scan`, `lecteur_multimedia`).
 
 ### Kernel
 
-- Catalogue : `var/lib/capsuleos/generated/capsule-store-catalog.js` (généré) consommé par `gnome-store-catalog.js` — **11 apps** `linux-alma`
+- Catalogue : `var/lib/capsuleos/generated/capsule-store-catalog.js` (généré) consommé par `gnome-store-catalog.js` — **11 apps** `linux-alma` · **11 apps** `linux-rocky`
 - UI Logiciels : `update-manager.js` + `update_manager_gnome.html` (section **À découvrir**)
 - Icônes grille : `update_manager_gnome.base.css` — classes `gnome-software__cardicon--*`
 - Épinglage shell : `gnome-store-shell-pin.js` · événement `capsule:store-app-installed` · overview + dash
@@ -79,7 +94,7 @@ Contrat : `etc/capsuleos/contracts/software-user-scenarios.json`
 | **S12** | Numériseur simple rpm → Installées |
 | S8 | Erreur réseau (optionnel) |
 
-Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma`
+Smoke : `smoke-gnome-software-scenarios.mjs --id linux-alma` · `smoke-gnome-software-scenarios.mjs --id linux-rocky`
 
 Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/alma-capsule-store-*.png`
 
@@ -90,6 +105,7 @@ Captures Capsule (échantillon P1) : `root/docs/inventaires/captures/linux-alma/
 
 ## Prochaines vagues
 
-- Rocky / Fedora : activer `STORE_APPS_BY_REGISTRY` (catalogue contrat déjà prêt)
+- **Rocky** : activé (juin 2026) — voir § Pilote Rocky
+- Fedora : activer skin + scénarios (catalogue contrat déjà prêt)
 - Mint : Logithèque (`mintinstall`) — pattern apt/flatpak distinct
 - Ubuntu : snap-store + flatpak via plugin gnome-software

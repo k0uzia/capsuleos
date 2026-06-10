@@ -41,4 +41,5 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, out, 'utf8');
 
 const almaCount = runtimeEntries['linux-alma']?.length || 0;
-console.log(`Écrit ${path.relative(ROOT, OUT)} — ${Object.keys(runtimeEntries).length} registry, linux-alma: ${almaCount} apps`);
+const rockyCount = runtimeEntries['linux-rocky']?.length || 0;
+console.log(`Écrit ${path.relative(ROOT, OUT)} — ${Object.keys(runtimeEntries).length} registry, linux-alma: ${almaCount} apps, linux-rocky: ${rockyCount} apps`);

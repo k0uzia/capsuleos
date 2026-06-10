@@ -67,6 +67,9 @@ if (!html.includes('data-um-gnome-discover-grid')) {
 if (opts.id === 'linux-alma' && !storeGenerated.includes('"linux-alma"')) {
     errors.push('capsule-store-catalog.js : pilote Alma absent');
 }
+if (opts.id === 'linux-rocky' && !storeGenerated.includes('"linux-rocky"')) {
+    errors.push('capsule-store-catalog.js : catalogue Rocky absent');
+}
 if (!storeKernel.includes('CAPSULE_STORE_APPS_BY_REGISTRY')) {
     errors.push('gnome-store-catalog.js : consommation catalogue généré absente');
 }
@@ -80,15 +83,15 @@ scenarios.forEach((scenario) => {
 async function openSoftware(page, url) {
     await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
     await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 30000 });
-    await page.evaluate(() => {
+    await page.evaluate((registryId) => {
         try {
             window.sessionStorage.removeItem('capsule-gnome-software-installed');
-            window.sessionStorage.removeItem('capsule-store-installed:linux-alma');
+            window.sessionStorage.removeItem('capsule-store-installed:' + registryId);
         } catch (e) {
             /* ignore */
         }
         window.openWindowByDataLink('update_manager');
-    });
+    }, opts.id);
     await page.waitForSelector('div[data-link="update_manager"]', { state: 'visible', timeout: 15000 });
     await page.waitForSelector('#updateManagerApp.update-manager--gnome', { timeout: 15000 });
     await page.waitForSelector('[data-um-gnome-pane="explore"]:not([hidden])', { timeout: 8000 });

@@ -97,7 +97,7 @@
       "priority": "P0",
       "title": "Magasin — installer Gestionnaire d'archives",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "file-roller",
         "rpm": "file-roller",
@@ -122,7 +122,7 @@
       "priority": "P0",
       "title": "Magasin — installer LibreOffice (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "libreoffice",
         "flatpak": "org.libreoffice.LibreOffice",
@@ -146,7 +146,7 @@
       "priority": "P0",
       "title": "Magasin — installer Agenda (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "calendar",
         "flatpak": "org.gnome.Calendar",
@@ -184,7 +184,7 @@
       "priority": "P1",
       "title": "Magasin — installer Thunderbird (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "thunderbird",
         "flatpak": "org.mozilla.Thunderbird",
@@ -209,7 +209,7 @@
       "priority": "P1",
       "title": "Magasin — installer Transmission (Flatpak)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "transmission",
         "flatpak": "com.transmissionbt.Transmission",
@@ -234,7 +234,7 @@
       "priority": "P1",
       "title": "Magasin — installer Warpinator (Flatpak communautaire)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "warpinator",
         "flatpak": "org.x.Warpinator",
@@ -258,7 +258,7 @@
       "priority": "P1",
       "title": "Magasin — installer Numériseur simple (RPM)",
       "locale": "fr-FR",
-      "registryIds": ["linux-alma"],
+      "registryIds": ["linux-alma", "linux-rocky"],
       "vmGroundTruth": {
         "appId": "simple-scan",
         "rpm": "simple-scan",

@@ -21,8 +21,12 @@ if (!fs.existsSync(OUT)) {
 } else {
   const expected = buildStoreAppsByRegistry();
   const expectedAlma = (expected['linux-alma'] || []).map((e) => e.id).sort();
+  const expectedRocky = (expected['linux-rocky'] || []).map((e) => e.id).sort();
   if (expectedAlma.length !== 11) {
     errors.push(`linux-alma : attendu 11 apps store, contrat en donne ${expectedAlma.length}`);
+  }
+  if (expectedRocky.length !== 11) {
+    errors.push(`linux-rocky : attendu 11 apps store, contrat en donne ${expectedRocky.length}`);
   }
 
   const content = fs.readFileSync(OUT, 'utf8');
@@ -32,6 +36,16 @@ if (!fs.existsSync(OUT)) {
   for (const id of expectedAlma) {
     if (!content.includes(`"${id}"`)) {
       errors.push(`linux-alma : appId "${id}" absent du fichier généré`);
+    }
+  }
+  const rockyBlock = content.match(/"linux-rocky":\s*\[([\s\S]*?)\n  \]/);
+  if (!rockyBlock) {
+    errors.push('linux-rocky : section absente du fichier généré');
+  } else {
+    for (const id of expectedRocky) {
+      if (!rockyBlock[1].includes(`"id": "${id}"`)) {
+        errors.push(`linux-rocky : appId "${id}" absent du fichier généré`);
+      }
     }
   }
 
@@ -51,4 +65,4 @@ if (errors.length) {
   errors.forEach((e) => console.error(`  ✗ ${e}`));
   process.exit(1);
 }
-console.log('✓ validate-store-catalog-generated OK — Alma 11 apps, fichier à jour');
+console.log('✓ validate-store-catalog-generated OK — Alma + Rocky 11 apps, fichier à jour');

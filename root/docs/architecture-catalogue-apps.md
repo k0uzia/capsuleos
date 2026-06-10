@@ -63,7 +63,7 @@ StoreΣ(r) ≡ SlotF ∧ PresB(r) ∧ GenStore(r) ∧ StoreIntegrity
 | **GenStore** | `capsule-store-catalog.js` à jour | `validate-store-catalog-generated.mjs` |
 | **StoreIntegrity** | store ↔ slots ↔ toolkit variants | `validate-app-catalog-integrity.mjs` |
 
-Pilote actuel : **linux-alma** — 11 apps magasin, scénarios S1–S12.
+Pilote actuel : **linux-alma** et **linux-rocky** — 11 apps magasin chacun, scénarios S1–S12 (S5–S12 partagés Alma/Rocky).
 
 ## Flux génération
 

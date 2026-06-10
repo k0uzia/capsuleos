@@ -97,8 +97,10 @@
         "org.gnome.baobab": { "labelFr": "Utilisation des disques", "priorite": "P2", "slot": "baobab", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "org.gnome.SystemMonitor": { "labelFr": "Moniteur système", "priorite": "P2", "slot": "system_monitor", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
         "org.gnome.Characters": { "labelFr": "Caractères", "priorite": "P2", "slot": "characters", "statut": "ok", "requiresSlot": true, "placement": { "overview": true } },
-        "org.gnome.Calendar": { "labelFr": "Calendrier", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "dash": true, "overviewSearch": true }, "onVm": false, "note": "Favori gsettings VM — app simulée (paquet absent lab RL10)" },
-        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "partiel", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Flatpak optionnel RL10" }
+        "org.gnome.FileRoller": { "labelFr": "Gestionnaire d'archives", "priorite": "P1", "slot": "file_roller", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "storeInstallable": true, "note": "RPM file-roller — extension magasin Rocky" },
+        "org.gnome.Calendar": { "labelFr": "Agenda", "priorite": "P1", "slot": "calendar", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak org.gnome.Calendar — extension magasin Rocky" },
+        "libreoffice-writer": { "labelFr": "LibreOffice Writer", "priorite": "P2", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true }, "onVm": false, "note": "Scénario S6 Logiciels — simulé CapsuleOS" },
+        "org.libreoffice.LibreOffice": { "labelFr": "LibreOffice", "priorite": "P1", "slot": "librewriter", "statut": "ok", "requiresSlot": true, "placement": { "overview": true, "dash": true }, "onVm": false, "storeInstallable": true, "note": "Flatpak suite — ouvre Writer post-install (S6)" }
       },
       "capsuleOnly": [
         { "slot": "checklist", "labelFr": "Missions CapsuleOS", "statut": "capsuleOnly" },

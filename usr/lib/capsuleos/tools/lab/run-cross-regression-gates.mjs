@@ -30,7 +30,12 @@ const parseArgs = () => {
 };
 
 const run = (label, scriptRel, argv, env) => {
-  const script = scriptRel.startsWith('usr/') ? path.join(ROOT, scriptRel) : path.join(LAB, scriptRel);
+  let script = scriptRel;
+  if (scriptRel.startsWith('usr/')) {
+    script = path.join(ROOT, scriptRel);
+  } else if (!path.isAbsolute(scriptRel)) {
+    script = path.join(LAB, scriptRel);
+  }
   process.stdout.write(`\n── ${label} ──\n`);
   const r = spawnSync(process.execPath, [script, ...argv], {
     cwd: ROOT,

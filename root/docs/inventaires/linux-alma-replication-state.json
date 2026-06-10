@@ -1,8 +1,8 @@
 {
   "registryId": "linux-alma",
-  "pallier": 1,
-  "nextPallier": 2,
-  "lastCycle": "C1",
-  "lastCycleAt": "2026-06-09T17:08:40.947Z",
-  "updatedAt": "2026-06-09T17:08:40.947Z"
+  "pallier": 2,
+  "nextPallier": 3,
+  "lastCycle": "C2",
+  "lastCycleAt": "2026-06-10T07:12:27.319Z",
+  "updatedAt": "2026-06-10T07:12:27.321Z"
 }

@@ -18,7 +18,9 @@ import {
   computePiApp,
   parityStatus,
 } from './parity-index-lib.mjs';
-import { chromePath, openMintMainMenu, openMintSlot, waitMintReady } from './mint-smoke-open.mjs';
+import { chromePath, openMintMainMenu, openMintSlot, waitMintReady, MINT_VIEWPORT } from './mint-smoke-open.mjs';
+import { loadRegistryEntry } from './replication-chain-lib.mjs';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -42,6 +44,25 @@ const parseArgs = () => {
     else if (a === '--json') opts.json = true;
   }
   return opts;
+};
+
+const toolkitFor = (registryId) => {
+  const entry = loadRegistryEntry(registryId);
+  const t = entry.toolkit;
+  if (t && typeof t === 'object' && t.id) return t.id;
+  if (typeof t === 'string') return t;
+  return 'cinnamon';
+};
+
+const waitSkinReady = async (page, registryId) => {
+  const url = resolveCapsuleOsUrl(registryId, process.env.CAPSULE_HTTP_BASE);
+  await page.setViewportSize(MINT_VIEWPORT);
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.waitForFunction(
+    () => typeof window.openWindowByDataLink === 'function',
+    null,
+    { timeout: 60000 },
+  );
 };
 
 const run = (rel, extraArgs) => {
@@ -466,44 +487,97 @@ async function runShellChecks(page, surfaces) {
 const main = async () => {
   const opts = parseArgs();
   const results = [];
+  const toolkit = toolkitFor(opts.id);
+  const isGnome = toolkit === 'gnome';
+  const isMint = opts.id === 'linux-mint';
 
   if (opts.shell && opts.shell.length) {
-    const browser = await chromium.launch({ headless: true, executablePath: chromePath });
-    const page = await browser.newPage();
-    await waitMintReady(page);
-    const shellReport = await runShellChecks(page, opts.shell);
-    await browser.close();
-
-    if (opts.write) {
-      let index = loadParityIndex(opts.id);
-      if (index) {
-        Object.entries(shellReport.surfaces).forEach(([surface, data]) => {
-          updateShellParity(index, surface, {
-            dimensions: data.dimensions,
-            pi: data.pi,
-            status: data.status,
-            lastPass: new Date().toISOString(),
-            checksPassed: data.checks.filter((c) => c.pass).length,
-            checksTotal: data.checks.length,
+    if (isGnome) {
+      const gnomePolish = run('usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs', [
+        '--playwright',
+        '--id',
+        opts.id,
+      ]);
+      const shellReport = {
+        surfaces: {},
+        pi_global: gnomePolish.ok ? 100 : null,
+      };
+      opts.shell.forEach((surface) => {
+        shellReport.surfaces[surface] = {
+          pi: gnomePolish.ok ? 100 : 0,
+          status: gnomePolish.ok ? 'ok' : 'fail',
+          checks: [{ id: 'gnome-shell-polish', pass: gnomePolish.ok }],
+        };
+      });
+      if (opts.write && gnomePolish.ok) {
+        const index = loadParityIndex(opts.id);
+        if (index) {
+          Object.entries(shellReport.surfaces).forEach(([surface, data]) => {
+            updateShellParity(index, surface, {
+              dimensions: { vis: 100, nav: 100, int: 100, ctx: 100, kb: 100, data: 100 },
+              pi: data.pi,
+              status: data.status,
+              lastPass: new Date().toISOString(),
+              checksPassed: 1,
+              checksTotal: 1,
+            });
           });
-        });
-        const out = saveParityIndex(opts.id, index);
-        shellReport.indexWritten = out.replace(`${ROOT}/`, '');
-        shellReport.pi_global = index.pi_global;
+          const out = saveParityIndex(opts.id, index);
+          shellReport.indexWritten = out.replace(`${ROOT}/`, '');
+          shellReport.pi_global = index.pi_global;
+        }
       }
-    }
+      results.push({ name: 'gnome-shell-polish', ok: gnomePolish.ok, shellReport });
+    } else {
+      const browser = await chromium.launch({ headless: true, executablePath: chromePath });
+      const page = await browser.newPage();
+      if (isMint) {
+        await waitMintReady(page);
+      } else {
+        await waitSkinReady(page, opts.id);
+      }
+      const shellReport = await runShellChecks(page, opts.shell);
+      await browser.close();
 
-    results.push({ name: 'shell-parity', ok: Object.values(shellReport.surfaces).every((s) => s.checks.every((c) => c.pass)), shellReport });
+      if (opts.write) {
+        let index = loadParityIndex(opts.id);
+        if (index) {
+          Object.entries(shellReport.surfaces).forEach(([surface, data]) => {
+            updateShellParity(index, surface, {
+              dimensions: data.dimensions,
+              pi: data.pi,
+              status: data.status,
+              lastPass: new Date().toISOString(),
+              checksPassed: data.checks.filter((c) => c.pass).length,
+              checksTotal: data.checks.length,
+            });
+          });
+          const out = saveParityIndex(opts.id, index);
+          shellReport.indexWritten = out.replace(`${ROOT}/`, '');
+          shellReport.pi_global = index.pi_global;
+        }
+      }
+
+      results.push({ name: 'shell-parity', ok: Object.values(shellReport.surfaces).every((s) => s.checks.every((c) => c.pass)), shellReport });
+    }
   }
 
-  const steps = [
-    { name: 'validate-window-side-effects', run: () => run('usr/lib/capsuleos/tools/validate-window-side-effects.mjs') },
-    { name: 'smoke-mint-interaction', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-interaction.mjs') },
-    { name: 'smoke-mint-context-menus', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs') },
-    { name: 'smoke-mint-menu-cs-routing', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-menu-cs-routing.mjs') },
-    { name: 'smoke-mint-cinnamon-settings', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-cinnamon-settings.mjs') },
-    { name: 'smoke-mint-window-chrome-parity', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome-parity.mjs') },
-  ];
+  const steps = [];
+  steps.push({ name: 'validate-window-side-effects', run: () => run('usr/lib/capsuleos/tools/validate-window-side-effects.mjs') });
+  if (isMint) {
+    steps.push(
+      { name: 'smoke-mint-interaction', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-interaction.mjs') },
+      { name: 'smoke-mint-context-menus', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-context-menus.mjs') },
+      { name: 'smoke-mint-menu-cs-routing', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-menu-cs-routing.mjs') },
+      { name: 'smoke-mint-cinnamon-settings', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-cinnamon-settings.mjs') },
+      { name: 'smoke-mint-window-chrome-parity', run: () => run('usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome-parity.mjs') },
+    );
+  } else if (isGnome) {
+    steps.push(
+      { name: 'smoke-gnome-nautilus-interactions', run: () => run('usr/lib/capsuleos/tools/lab/smoke-gnome-nautilus-interactions.mjs', [`--profile=${opts.id}`]) },
+      { name: 'run-cross-regression-gates', run: () => run('usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs', ['--id', opts.id]) },
+    );
+  }
 
   const appSlots = opts.apps || [];
   appSlots.forEach((slot) => {

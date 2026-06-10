@@ -1,0 +1,13 @@
+{
+  "registryId": "linux-alma",
+  "domain": "gnome-shell-polish",
+  "status": "done",
+  "polishedAt": "2026-06-10T07:11:15.992Z",
+  "targets": [
+    "top-bar",
+    "overview-dash",
+    "firefox-chrome",
+    "nautilus-focus"
+  ],
+  "smoke": "smoke-rocky-shell-polish.mjs"
+}

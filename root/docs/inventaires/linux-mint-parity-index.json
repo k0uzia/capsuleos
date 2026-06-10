@@ -121,10 +121,10 @@
         "cacheBust": "20260608pxperfect",
         "captures": "root/docs/inventaires/captures/linux-mint/clone-baseline/"
       },
-      "lastPass": "2026-06-08T15:35:01.532Z",
+      "lastPass": "2026-06-10T07:02:52.744Z",
       "checksPassed": 6,
       "checksTotal": 6,
-      "updatedAt": "2026-06-08T15:35:01.532Z"
+      "updatedAt": "2026-06-10T07:02:52.744Z"
     },
     "tray": {
       "id": "tray",
@@ -1055,7 +1055,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-08T16:16:05.142Z",
+  "updatedAt": "2026-06-10T07:02:52.745Z",
   "pi_global": 100,
   "status_global": "ok"
 }

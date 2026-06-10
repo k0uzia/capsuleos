@@ -26,7 +26,6 @@
       "KdVp": true,
       "KdP4": true
     },
-    "verifiedAt": "2026-06-09T12:00:00.000Z",
     "verifiedWithoutVm": [
       "validate-all",
       "smoke-kde-p4-propagation",
@@ -38,10 +37,7 @@
       "map-kde-ground-truth-gaps",
       "capture-clone-surfaces-compare"
     ],
-    "gaps": [
-      "Π pivot 99→100",
-      "captures VM compare live (virsh)"
-    ],
+    "gaps": [],
     "passOrder": [
       "run-kde-neon-pass",
       "refresh-kde-neon-parity-v8",
@@ -50,7 +46,8 @@
       "capture-vm-compare",
       "pi-100-closure"
     ],
-    "scope": "neon-only — pas de propagation dérivés tant que pivot non clôturé"
+    "scope": "pivot clôturé Π=100 — propagation dérivés sur instruction explicite",
+    "verifiedAt": "2026-06-10T11:25:51.380Z"
   },
   "roadmap": "linux-kde-neon-roadmap-v4.md",
   "handoff": "linux-kde-neon-v4-p1-handoff.md",
@@ -168,10 +165,15 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures"
   },
-  "nextStep": "captures VM virsh · Π 99→100",
+  "nextStep": "pivot clôturé — propagation dérivés gelée jusqu'à instruction",
   "campaignV8": "v8-pi-neon-pass",
-  "campaignV8Status": "in_progress",
-  "v8PiGlobal": 99,
+  "campaignV8Status": "closed",
+  "v8ClosedAt": "2026-06-10T11:25:51.380Z",
+  "v8PiGlobal": 100,
+  "campaignV9": "v9-pi-vm-closure",
+  "campaignV9Status": "closed",
+  "v9ClosedAt": "2026-06-10T11:25:51.380Z",
+  "v9PiGlobal": 100,
   "v8VmRefreshAt": "2026-06-09T14:55:47Z",
   "v8VmCapture": "home/public/Images/screen_KDE-Neon/vm-dolphin.png",
   "v8VmCaptureAt": "2026-06-09T14:56:00.000Z",
@@ -185,7 +187,7 @@
     "smoke": "smoke-kde-fidelity-all.mjs",
     "credSigma": true
   },
-  "updatedAt": "2026-06-09T14:51:15.259Z",
+  "updatedAt": "2026-06-10T11:25:51.380Z",
   "credibilityCampaign": {
     "campaignId": "v5-credibility-pass",
     "credSigma": true,
@@ -208,10 +210,12 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-09T14:51:15.259Z",
+    "evaluatedAt": "2026-06-10T11:25:51.380Z",
     "passOk": true,
-    "pi_global": 98,
+    "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
-    "captureCompare": "no drift"
+    "captureCompare": "no drift",
+    "vmInventoryAt": "2026-06-09T14:55:47Z",
+    "konversationOnVm": false
   }
 }

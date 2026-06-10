@@ -96,9 +96,8 @@ const report = {
     'baselines captures linux-kde-neon/baseline',
   ],
   openBacklog: [
-    'Π 99→100 (VM)',
-    'vm-kde-neon-inventory.sh',
-    'Konversation kickoff',
+    'Konversation kickoff (hors scope — absent VM lab)',
+    'propagation dérivés (gelée post pivot)',
   ],
 };
 

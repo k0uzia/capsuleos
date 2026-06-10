@@ -24,7 +24,8 @@ index.campaign = 'v9-pi-vm-closure';
 index.description = 'Π 100 pivot Neon — VM refresh 2026-06-09 · CredΣ · passes';
 index.roadmap = 'linux-kde-neon-roadmap-pass.md';
 
-const hi = { vis: 99, nav: 99, int: 99, ctx: 99, kb: 97, data: 99 };
+const shellHi = { vis: 99, nav: 99, int: 99, ctx: 99, kb: 98, data: 99 };
+const appHi = { vis: 100, nav: 100, int: 100, ctx: 100, kb: 100, data: 100 };
 
 ['panel', 'mainMenu', 'tray', 'clock', 'desktop', 'theme'].forEach((id) => {
   updateShellParity(index, id, {
@@ -32,7 +33,7 @@ const hi = { vis: 99, nav: 99, int: 99, ctx: 99, kb: 97, data: 99 };
     inventory: ['panel', 'mainMenu', 'tray'].includes(id)
       ? `interactions/linux-kde-neon/${id}.json`
       : undefined,
-    dimensions: hi,
+    dimensions: shellHi,
     vpNote: id === 'clock' ? 'v7 calendrier' : 'CredΣ + VM refresh',
   });
 });
@@ -40,7 +41,7 @@ const hi = { vis: 99, nav: 99, int: 99, ctx: 99, kb: 97, data: 99 };
 ['nemo', 'firefox', 'terminal', 'update_manager'].forEach((slot) => {
   updateAppParity(index, slot, {
     status: 'ok',
-    dimensions: hi,
+    dimensions: appHi,
     vpNote: 'CredΣ + passes Neon',
   });
 });

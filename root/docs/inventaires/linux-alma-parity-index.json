@@ -185,20 +185,20 @@
     "themes": {
       "slot": "themes",
       "label": "Paramètres des thèmes",
-      "pi": 93,
+      "pi": 94,
       "status": "ok",
       "dimensions": {
-        "vis": 92,
+        "vis": 94,
         "nav": 90,
         "int": 92,
         "ctx": 88,
         "kb": 90,
         "data": 93
       },
-      "notes": "C18 — scénarios pédagogiques Th1–Th4 (mode sombre, fond Alma, accent, Écrans) ; contrat themes-user-scenarios ; smoke-gnome-themes-scenarios",
+      "notes": "C18 Th1–Th4 · C23 Vc Paramètres GNOME (captures Capsule P0/P1 : thème, nuit, bureaux, DND, accent, fond) — VM D-Bus bloquée, compensation Capsule",
       "smoke": "smoke-gnome-themes-scenarios.mjs --id linux-alma",
-      "updatedAt": "2026-06-10T19:30:00.000Z",
-      "lastPass": "2026-06-10T19:30:00.000Z",
+      "updatedAt": "2026-06-10T23:30:00.000Z",
+      "lastPass": "2026-06-10T23:30:00.000Z",
       "checksPassed": 8,
       "checksTotal": 8,
       "scenarios": {
@@ -348,7 +348,7 @@
   "gaps": [
     "Captures VM pixel-perfect apps : D-Bus AccessDenied — compensé captures Capsule C14/C18/C19/C20",
     "Captures VM apps P0/P1 autres slots : D-Bus Shell.Screenshot AccessDenied + virsh almalinux10 absent hôte agent",
-    "Vc Paramètres GNOME : captures VM playbook bloquées (même contrainte D-Bus)"
+    "Vc Paramètres GNOME VM : D-Bus bloqué — compensé captures Capsule C23 (smoke-alma-gnome-settings-visual)"
   ],
-  "updatedAt": "2026-06-10T23:00:00.000Z"
+  "updatedAt": "2026-06-10T23:30:00.000Z"
 }

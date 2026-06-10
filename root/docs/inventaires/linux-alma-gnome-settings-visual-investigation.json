@@ -33,24 +33,80 @@
         {
           "title": "GNOME Help — Appearance",
           "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "VM bascule prefer-dark↔prefer-light via color-scheme ; fonds URI inchangés sur profil Rocky par défaut."
         },
         {
           "title": "interface color-scheme",
           "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
-          "matchesObservation": null,
+          "matchesObservation": true,
           "delta": null
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "Hooks présents ; captures croisées incomplètes."
       },
-      "generatedAt": "2026-06-10T09:33:08.707717+00:00"
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.desktop.interface",
+        "key": "color-scheme",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.interface",
+            "gtk-theme"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri"
+          ],
+          [
+            "org.gnome.desktop.background",
+            "picture-uri-dark"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "color-scheme": "'default'",
+            "gtk-theme": "'Adwaita'"
+          },
+          "linked": {
+            "picture-uri": "'file:///usr/share/backgrounds/almalinux-day.jpg'",
+            "picture-uri-dark": "'file:///usr/share/backgrounds/almalinux-night.jpg'",
+            "picture-options": "'zoom'"
+          },
+          "notes": "color-scheme pilote GTK/Shell ; fonds jour/nuit peuvent rester identiques sur RL10."
+        },
+        "deepPassNotes": "VM RL10 : color-scheme pilote clair/sombre ; gtk-theme reste Adwaita ; picture-uri et picture-uri-dark identiques (rocky-default-10-abstract-1-day.png). Capsule : themes.js + capsule-theme-storage ; vérifier variante fond nuit si picture-uri-dark diverge sur d’autres profils."
+      },
+      "gsettingsDeepPassAt": "2026-06-10T14:36:21.983261+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/theme/dark-desktop.png",
+          "source": "alma-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/theme/light-desktop.png",
+          "source": "alma-capsule-light-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/theme/dark-settings-appearance.png",
+          "source": "alma-capsule-dark-settings-appearance.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/theme/panel-appearance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
     },
     {
       "controlId": "night-light",
@@ -84,24 +140,75 @@
         {
           "title": "GNOME Help — Night Light",
           "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "Durée observée ~1 s alignée doc gsd-color."
         },
         {
           "title": "gsd plugins color",
           "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "Température 2700 K par défaut VM."
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
       },
-      "generatedAt": "2026-06-10T09:33:08.707717+00:00"
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.settings-daemon.plugins.color",
+        "key": "night-light-enabled",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-temperature"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-from"
+          ],
+          [
+            "org.gnome.settings-daemon.plugins.color",
+            "night-light-schedule-to"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "night-light-enabled": "false",
+            "night-light-temperature": "uint32 2700",
+            "night-light-schedule-from": "20.0",
+            "night-light-schedule-to": "6.0"
+          },
+          "linked": {
+            "show-banners": "true"
+          },
+          "notes": "Exclusion top bar = rendu gsd-color, pas de clé gsettings dédiée."
+        },
+        "deepPassNotes": "Clés liées : night-light-temperature (2700), horaires schedule-from/to. Exclusion top bar = gsd-color (pas de clé gsettings) — reproduire via html[data-night-light=on] sans filtre sur .fedora-top-bar."
+      },
+      "gsettingsDeepPassAt": "2026-06-10T14:36:21.983261+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/night-light/dark-settings-displays.png",
+          "source": "alma-capsule-dark-settings-displays.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/night-light/dark-desktop.png",
+          "source": "alma-capsule-dark-desktop.png"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/night-light/panel-displays.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -132,8 +239,8 @@
         {
           "title": "GNOME Help — Workspaces",
           "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "dynamic-workspaces bool contrôle miniatures Aperçu."
         },
         {
           "title": "org.gnome.mutter dynamic-workspaces",
@@ -143,13 +250,41 @@
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": null
+        "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
       },
-      "generatedAt": "2026-06-10T09:33:08.707717+00:00"
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.gnome.mutter",
+        "key": "dynamic-workspaces",
+        "source": "gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.mutter",
+            "workspaces-only-on-primary"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "dynamic-workspaces": "true",
+            "workspaces-only-on-primary": "false"
+          },
+          "notes": "Bascule booléenne ; animation overview = gnome-shell/mutter."
+        },
+        "deepPassNotes": "VM : bool dynamic-workspaces seul ; workspaces-only-on-primary=false. Capsule : gnome-workspaces.js + dataset dynamicWorkspaces ; animation overview documentée en enquête visuelle."
+      },
+      "gsettingsDeepPassAt": "2026-06-10T14:36:21.983261+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/dynamic-workspaces/dark-overview.png",
+          "source": "alma-capsule-dark-overview.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
     },
     {
       "controlId": "dnd",
@@ -182,27 +317,134 @@
         {
           "title": "GNOME Help — Notifications",
           "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
-          "matchesObservation": null,
-          "delta": null
+          "matchesObservation": true,
+          "delta": "DND session shell ; bannières contrôlées séparément (show-banners)."
         },
         {
           "title": "Shell DND session",
           "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": true,
+          "delta": "Schéma simulé CapsuleOS documenté dans parity-matrix."
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P0",
+        "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
+      },
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "gsettingsDeferred": {
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "source": "simulated-gsettings",
+        "secondaryKeys": [
+          [
+            "org.gnome.desktop.notifications",
+            "show-banners"
+          ]
+        ],
+        "vmSnapshot": {
+          "primary": {
+            "shell-session": "no-gsettings-key"
+          },
+          "linked": {
+            "show-banners": "true",
+            "show-in-lock-screen": "true"
+          },
+          "notes": "DND = session gnome-shell (_dndToggle) ; bannières indépendantes de DND."
+        },
+        "deepPassNotes": "RL10 : DND session gnome-shell (_dndToggle), pas de clé gsettings VM. Schéma simulé org.capsuleos.gnome.shell aligné playbook (drift 0). show-banners indépendant ; QS tile volume.js + handler parity."
+      },
+      "gsettingsDeepPassAt": "2026-06-10T14:36:21.983261+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/dnd/dark-quick-settings.png",
+          "source": "alma-capsule-dark-quick-settings.png"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
+    },
+    {
+      "controlId": "accent",
+      "capsulePanel": "appearance",
+      "label": "Couleur d'accent",
+      "status": "documented",
+      "vmCaptures": [],
+      "surfaces": [
+        "settings-app",
+        "top-bar-selection",
+        "overview-search",
+        "quick-settings"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "HIG — Style",
+          "url": "https://developer.gnome.org/hig/",
           "matchesObservation": null,
           "delta": null
         }
       ],
       "capsuleParity": {
-        "datasetPresent": null,
-        "cssHookPresent": null,
-        "visualMatch": "unknown",
-        "parityPriority": "P0",
-        "gapNotes": null
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM."
       },
-      "generatedAt": "2026-06-10T09:33:08.707717+00:00"
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/accent/panel-appearance-accentorange.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
+    },
+    {
+      "controlId": "wallpaper",
+      "capsulePanel": "background",
+      "label": "Fond d'écran",
+      "status": "documented",
+      "vmCaptures": [],
+      "surfaces": [
+        "desktop",
+        "overview-background",
+        "lock-screen-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Background",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-desktopbackground.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème."
+      },
+      "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/wallpaper/panel-background-wallpaperabstract2.png",
+          "source": "playwright"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/wallpaper/desktop-wallpaperabstract2.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-10T14:37:15.989Z"
     }
   ],
-  "generatedAt": "2026-06-10T09:33:08.707717+00:00",
+  "generatedAt": "2026-06-10T14:36:21.983261+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
@@ -213,10 +455,61 @@
     "note": "linux-alma : captures lab automatisées via virsh screenshot depuis l’hôte"
   },
   "summary": {
-    "investigationsTotal": 4,
-    "documented": 4,
-    "capsuleImplemented": 0,
+    "investigationsTotal": 6,
+    "documented": 6,
+    "capsuleImplemented": 4,
     "gaps": 0,
-    "p0Open": 0
+    "p0Open": 0,
+    "capsuleCapturesP0": 4,
+    "capsuleCapturesP1": 2,
+    "visualMatchClassifiedP0": 4,
+    "visualMatchClassifiedP1": 2,
+    "visualMatchClassifiedP2": 0
+  },
+  "gsettingsDeepPass": {
+    "generatedAt": "2026-06-10T14:36:21.983261+00:00",
+    "investigator": "enrich-visual-investigation-gsettings-pass.mjs",
+    "probeSource": "vm-gnome-settings-gsettings-deep-pass.sh",
+    "playbookCapsuleDrift": 0,
+    "p0Enriched": 4
+  },
+  "crossCuttingFindings": [
+    "RL10 : gnome-screenshot absent ; Snapshot GUI + virsh screenshot hôte pour captures lab.",
+    "DND et certains états shell : schémas simulés org.capsuleos.gnome.shell (pas de clé VM unique).",
+    "Night Light : exclusion top bar = rendu compositor/gsd, reproduite en CSS Capsule."
+  ],
+  "nextGsettingsPass": [
+    {
+      "controlId": "accent",
+      "priority": "P1",
+      "action": "Valider accent-color system vs gtk-theme"
+    },
+    {
+      "controlId": "wallpaper",
+      "priority": "P1",
+      "action": "Lier picture-uri / picture-uri-dark au bascule thème"
+    },
+    {
+      "controlId": "hot-corner",
+      "priority": "P1",
+      "action": "org.gnome.desktop.interface enable-hot-corners"
+    },
+    {
+      "controlId": "notifications",
+      "priority": "P2",
+      "action": "show-banners + test notify-send VM"
+    }
+  ],
+  "capsuleVisualCollect": {
+    "generatedAt": "2026-06-10T14:37:13.533Z",
+    "investigator": "collect-capsule-visual-investigation.mjs",
+    "filter": "P1",
+    "files": 9
+  },
+  "visualParityClose": {
+    "generatedAt": "2026-06-10T14:37:15.989Z",
+    "investigator": "enrich-visual-investigation-capsule-parity.mjs",
+    "p0Classified": 4,
+    "p1Classified": 2
   }
 }

@@ -10,8 +10,33 @@
   "h6ClosedAt": "2026-06-10T09:42:43.201Z",
   "h6Closure": "root/docs/inventaires/linux-alma-gnome-settings-h6-closure.json",
   "lastResolvedAction": {
-    "rule": "R-H6",
-    "message": "H6 clôturé — domaine gnome-settings-playbook"
+    "registryId": "linux-alma",
+    "domain": "gnome-settings-playbook",
+    "rule": "R-PRI2",
+    "predicate": "H2",
+    "stepId": "gsettings-deep-pass",
+    "autoExecute": true,
+    "requiresPassword": false,
+    "unique": true,
+    "command": "node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-gsettings-pass.mjs --id linux-alma",
+    "alias": "gsettings-deep-pass",
+    "predicates": {
+      "H2": null,
+      "M": true,
+      "I": true,
+      "A": true,
+      "S": true,
+      "T": true,
+      "L": null,
+      "V": true,
+      "G": false,
+      "Vc": false,
+      "Vp": false,
+      "documentedP0": 4,
+      "capsuleCapturesP0": 0,
+      "visualMatchClassifiedP0": 0
+    },
+    "passwordBundle": null
   },
-  "generatedAt": "2026-06-10T09:42:43.250Z"
+  "generatedAt": "2026-06-10T14:35:51.334Z"
 }

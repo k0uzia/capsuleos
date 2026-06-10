@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C22** watermark bureau Alma clôturé (suite C21).
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 93** (inclut apps P2 `clocks`/`calendar`) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · cycle **C23** Vc Paramètres GNOME clôturé (suite C22 watermark).
 
 ---
 
@@ -32,7 +32,7 @@ Champ machine : `linux-alma-parity-index.json` → `pi_global` (priority) · `pi
 | Explorateur | **Nautilus 47** | Slot `nemo` · `nemo-gnome` | OK (Π 91) |
 | Terminal | **Ptyxis** | Slot `terminal` · profil Alma | OK (Π 90) |
 | Logiciels | **GNOME Software 49** | Slot `update_manager` | OK (Π **100**) |
-| Paramètres | **gnome-control-center** | Slot `themes` · `themes_gnome.html` | Partiel (Π **87→93**) |
+| Paramètres | **gnome-control-center** | Slot `themes` · `themes_gnome.html` | OK (Π **94**, Vc Capsule C23) |
 
 ---
 
@@ -73,7 +73,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | `nemo` | Fichiers | 91 | — | routing smoke |
 | `firefox` | Firefox | 92 | — | onglets Proton C11 |
 | `terminal` | Ptyxis | 90 | — | `smoke-terminal-ptyxis-chrome` |
-| `themes` | Paramètres | **87→93** | **Th1–Th4** | `themes-user-scenarios.json` |
+| `themes` | Paramètres | **94** | **Th1–Th4** · **Vc C23** | `themes-user-scenarios.json` |
 | `update_manager` | Logiciels | **100** | S1–S4 | `software-user-scenarios.json` |
 | `text_editor` | Éditeur | 92 | T1–T4 | `text-editor-user-scenarios.json` |
 | `calculator` | Calculatrice | 91 | C1–C4 | `calculator-user-scenarios.json` |
@@ -125,20 +125,43 @@ Inventaire : [`linux-alma-gnome-settings-playbook.json`](inventaires/linux-alma-
 
 ---
 
+## Vc Paramètres GNOME — compensation Capsule (C23)
+
+| Contrôle | Priorité | Captures Capsule | Smoke |
+|----------|----------|------------------|-------|
+| `theme` | P0 | bureau clair/sombre · panneau Apparence | `smoke-alma-gnome-settings-visual` |
+| `night-light` | P0 | bureau · panneau Écrans | idem |
+| `dynamic-workspaces` | P0 | overview bureaux | idem |
+| `dnd` | P0 | réglages rapides | idem |
+| `accent` | P1 | panneau Apparence (orange) | idem |
+| `wallpaper` | P1 | panneau Fond · bureau Alma | idem |
+
+Artefacts :
+
+- Inventaire : [`linux-alma-gnome-settings-visual-investigation.json`](inventaires/linux-alma-gnome-settings-visual-investigation.json) — `capsuleCapturesP0: 4` · `visualMatchClassifiedP0: 4`
+- PNG : `root/docs/inventaires/captures/linux-alma/gnome-settings-visual-capsule/`
+- Source Playwright : `capture-capsule-alma.mjs` → `vendors/alma/inventory/alma-capsule/`
+- Chaîne : `collect-capsule-visual-investigation.mjs --id linux-alma` · `enrich-visual-investigation-capsule-parity.mjs`
+
+**Vc VM** reste bloqué (D-Bus `Shell.Screenshot` AccessDenied) — parité documentée côté Capsule uniquement.
+
+---
+
 ## Gaps ouverts
 
 | Gap | Tag | Notes |
 |-----|-----|-------|
 | Captures VM pixel-perfect | **Vc** P1 | D-Bus `Shell.Screenshot` AccessDenied via SSH |
 | `virsh almalinux10` absent hôte | P1 | VM accessible IP ; playbook `screenshotCapture` documenté |
-| Vc Paramètres GNOME | P2 | Tour playbook VM OK ; captures comparables Capsule non collectées |
+| **baobab**, **tour** | P2 | Scénarios pédagogiques — cycle **C24** |
 
 ---
 
 ## Prochaines étapes
 
-1. **Vc VM** — session GDM locale ou fix D-Bus screenshot
-2. **P2 apps** — baobab, tour
+1. **P2 baobab** — sonde VM, contrat `baobab-user-scenarios.json`, smoke + capture
+2. **P2 tour** — idem pattern Cal/H/Th
+3. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
 
 ---
 

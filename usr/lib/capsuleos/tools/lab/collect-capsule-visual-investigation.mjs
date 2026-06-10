@@ -52,9 +52,13 @@ const runPrepare = async (page, prepare) => {
     const storage = window.CapsuleThemeStorage;
     if (p === 'accent-orange' && storage?.applyAccentColor) {
       storage.applyAccentColor('orange');
+    } else if (p === 'wallpaper-almalinux' && storage?.applyWallpaper) {
+      storage.applyWallpaper('almalinux', 'alma');
     } else if ((p === 'wallpaper-f44' || p === 'wallpaper-abstract-2') && storage?.applyWallpaper) {
-      const vendor = bodyId === 'fedora' ? 'fedora' : 'rocky';
-      const wpId = (p === 'wallpaper-f44' || vendor === 'fedora') ? 'f44-01' : 'abstract-2';
+      const vendor = bodyId === 'alma' ? 'alma' : (bodyId === 'fedora' ? 'fedora' : 'rocky');
+      const wpId = p === 'wallpaper-almalinux' || bodyId === 'alma'
+        ? 'almalinux'
+        : ((p === 'wallpaper-f44' || vendor === 'fedora') ? 'f44-01' : 'abstract-2');
       storage.applyWallpaper(wpId, vendor);
     } else if (p === 'hot-corners-off') {
       document.documentElement.dataset.hotCorners = 'off';
@@ -300,6 +304,15 @@ const main = async () => {
       if (!scene.playwright?.prepare) return scene;
       const prepare = scene.playwright.prepare === 'wallpaper-abstract-2'
         ? 'wallpaper-f44'
+        : scene.playwright.prepare;
+      return { ...scene, playwright: { ...scene.playwright, prepare } };
+    });
+  }
+  if (opts.id === 'linux-alma') {
+    scenes = scenes.map((scene) => {
+      if (!scene.playwright?.prepare) return scene;
+      const prepare = scene.playwright.prepare === 'wallpaper-abstract-2'
+        ? 'wallpaper-almalinux'
         : scene.playwright.prepare;
       return { ...scene, playwright: { ...scene.playwright, prepare } };
     });

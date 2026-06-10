@@ -15,7 +15,7 @@
 
 ---
 
-## Vue d'ensemble — cycles Alma (C0–C20)
+## Vue d'ensemble — cycles Alma (C0–C23)
 
 ```mermaid
 flowchart LR
@@ -34,6 +34,8 @@ flowchart LR
   C18 --> C19[C19_H1-H4_clocks]
   C19 --> C20[C20_Cal1-Cal4_calendar]
   C20 --> C21[C21_Playbook_Settings]
+  C21 --> C22[C22_Watermark]
+  C22 --> C23[C23_Vc_Settings]
 ```
 
 | Cycle | Commit / passe | Prédicats atteints | Π global |
@@ -53,7 +55,9 @@ flowchart LR
 | **C18** | `5c50a1cc` | **ScΣ** Paramètres Th1–Th4 | **96** |
 | **C19** | `244cff54` | **ScΣ** Horloges H1–H4 | **96** |
 | **C20** | `aa606f82` | **ScΣ** Agenda Cal1–Cal4 | **96** |
-| **C21** | (cette passe) | Playbook Paramètres GNOME dédié | **96** (Π étendu **93**) |
+| **C21** | `3201ec12` | Playbook Paramètres GNOME dédié (18 panneaux) | **96** (Π étendu **93**) |
+| **C22** | `832b23c1` | Filigrane bureau Alma (`smoke-alma-watermark`) | **96** |
+| **C23** | (cette passe) | **Vc** Paramètres GNOME — captures Capsule P0/P1 | **96** |
 
 ---
 
@@ -248,9 +252,16 @@ node usr/lib/capsuleos/tools/lab/bootstrap-gnome-settings-matrices.mjs --id linu
 # Collecte tour panneaux VM (SSH capsule@192.168.122.199)
 node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs --id linux-alma
 
-# Gates
+# Gates playbook
 node usr/lib/capsuleos/tools/lab/smoke-alma-gnome-settings-playbook.mjs
 node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id linux-alma
+
+# Vc Paramètres (C23 — compensation Capsule, VM D-Bus bloquée)
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node root/tools/lab/capture-capsule-alma.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/collect-capsule-visual-investigation.mjs --id linux-alma --filter P0
+CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/collect-capsule-visual-investigation.mjs --id linux-alma --filter P1
+node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-capsule-parity.mjs --id linux-alma
+node usr/lib/capsuleos/tools/lab/smoke-alma-gnome-settings-visual.mjs
 ```
 
 **Profil H6 Alma** (`h6-gnome-settings-lib.mjs`) : `requiresBaseline: false` — pas de `gnome-settings-vm-baseline-linux-alma.js` ; playbook inventaire + clôture `linux-alma-gnome-settings-h6-closure.json` suffisent.
@@ -292,7 +303,8 @@ Checklist humaine :
 | `virsh almalinux10` absent hôte | P1 | Enregistrer domaine libvirt ou documenter IP seule |
 | Watermark Alma (`fedora_logo_*`) | P2 | Inventaire VM ou gradient CSS fallback |
 | `clocks`, `calendar` | P2 | Π **87** (H1–H4, Cal1–Cal4) · **Vc** Capsule |
-| Vc Paramètres GNOME (captures comparables) | P2 | Tour playbook VM OK ; D-Bus screenshot bloqué |
+| Vc Paramètres GNOME VM | P2 | D-Bus bloqué — **compensé Capsule C23** (`smoke-alma-gnome-settings-visual`) |
+| **baobab**, **tour** | P2 | Scénarios pédagogiques — cycle **C24** |
 
 ---
 
@@ -320,3 +332,5 @@ Brief : `node usr/lib/capsuleos/tools/print-agent-brief.mjs linux-alma`
 | 2026-06-10 | C19 clocks | H1–H4 · Π slot **87** |
 | 2026-06-10 | C20 calendar | Cal1–Cal4 · flatpak 50.0 · Π slot **87** |
 | 2026-06-10 | C21 playbook Settings | Matrice Alma · 18/18 VM · smoke + verify chain |
+| 2026-06-10 | C22 watermark | Filigrane `background-logo` · tokens `--alma-watermark` |
+| 2026-06-10 | C23 Vc Settings | Captures Capsule P0/P1 · Vc=4 Vp=4 · baobab → C24 |

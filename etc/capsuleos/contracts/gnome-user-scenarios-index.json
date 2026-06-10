@@ -21,7 +21,8 @@
     "characters": "characters-user-scenarios.json",
     "system_monitor": "system-monitor-user-scenarios.json",
     "screenshot": "screenshot-user-scenarios.json",
-    "nemo": "nautilus-user-scenarios.json"
+    "nemo": "nautilus-user-scenarios.json",
+    "firefox": "firefox-user-scenarios.json"
   },
   "contracts": [
     {
@@ -168,18 +169,21 @@
       "campaign": "C26",
       "status": "ok",
       "note": "Slot CapsuleOS nemo = Nautilus VM (≠ Nemo Cinnamon Mint)"
+    },
+    {
+      "id": "firefox",
+      "slot": "firefox",
+      "labelFr": "Firefox",
+      "contract": "etc/capsuleos/contracts/firefox-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-firefox-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-firefox-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-firefox-views.mjs",
+      "campaign": "C27",
+      "status": "ok",
+      "note": "Firefox 140 ESR · chrome Proton GNOME · F1–F4 navigation/onglets/favoris"
     }
   ],
   "backlog": [
-    {
-      "slot": "firefox",
-      "labelFr": "Firefox",
-      "priorite": "P0",
-      "placement": ["dash", "overview"],
-      "smokeStructurel": "smoke-rocky-shell-polish.mjs",
-      "campaign": "C27",
-      "note": "Onglets Proton C11 — scénarios navigation P0 à formaliser"
-    },
     {
       "slot": "terminal",
       "labelFr": "Terminal (Ptyxis)",

@@ -154,22 +154,30 @@
     "firefox": {
       "slot": "firefox",
       "label": "Firefox",
-      "pi": 92,
+      "pi": 94,
       "status": "ok",
       "dimensions": {
         "vis": 94,
-        "nav": 92,
-        "int": 91,
-        "ctx": 90,
-        "kb": 93,
-        "data": 94
+        "nav": 94,
+        "int": 93,
+        "ctx": 92,
+        "kb": 94,
+        "data": 95
       },
-      "smoke": "smoke-rocky-shell-polish.mjs onglets Proton",
-      "updatedAt": "2026-06-10T11:15:53.126Z",
-      "notes": "Capture Capsule + smoke P0 ; onglets Proton validés C11",
-      "lastPass": "2026-06-10T11:15:53.126Z",
-      "checksPassed": 8,
-      "checksTotal": 8
+      "scenarios": {
+        "ids": ["F1", "F2", "F3", "F4"],
+        "contract": "etc/capsuleos/contracts/firefox-user-scenarios.json",
+        "smoke": "smoke-gnome-firefox-scenarios.mjs",
+        "capture": "capture-capsule-firefox-views.mjs",
+        "campaign": "C27",
+        "status": "pass"
+      },
+      "smoke": "smoke-gnome-firefox-scenarios.mjs --id linux-alma",
+      "updatedAt": "2026-06-10T29:00:00.000Z",
+      "notes": "Firefox 140.11 ESR VM · scénarios F1–F4 · chrome Proton GNOME · barre favoris · anti-régression Mint OK",
+      "lastPass": "2026-06-10T29:00:00.000Z",
+      "checksPassed": 12,
+      "checksTotal": 12
     },
     "terminal": {
       "slot": "terminal",
@@ -514,15 +522,14 @@
     "audit": "usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs",
     "manifest": "etc/capsuleos/contracts/gnome-user-scenarios-index.json",
     "doc": "root/docs/procedure-playbook-gnome-apps-overview.md",
-    "wiredWithScenarios": 10,
+    "wiredWithScenarios": 11,
     "wiredTotal": 15,
     "gapsP0": [
-      { "slot": "firefox", "label": "Firefox", "zone": "overviewDash", "campaign": "C27" },
       { "slot": "terminal", "label": "Terminal", "zone": "overviewDash", "campaign": "C28" },
       { "slot": "librewriter", "label": "LibreOffice Writer", "zone": "overviewGrid", "campaign": "C29" },
       { "slot": "checklist", "label": "Missions CapsuleOS", "zone": "dock", "campaign": "C30" }
     ],
-    "updatedAt": "2026-06-10T26:00:00.000Z"
+    "updatedAt": "2026-06-10T29:00:00.000Z"
   },
   "cloneClosure": {
     "cycle": "C25",

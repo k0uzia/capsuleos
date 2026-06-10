@@ -85,8 +85,8 @@ Index machine : `etc/capsuleos/contracts/gnome-user-scenarios-index.json`
 
 | Champ | Usage |
 |-------|-------|
-| `contracts[]` | Contrats livrés (13 slots juin 2026, dont Nautilus C26) |
-| `backlog[]` | Slots P0 sans scénarios (C26+) |
+| `contracts[]` | Contrats livrés (14 slots juin 2026, dont Firefox C27) |
+| `backlog[]` | Slots P0 sans scénarios (C28+) |
 | `predicateChecks.ScAll` | Gate agrégée |
 
 Gate agrégée :
@@ -128,11 +128,18 @@ Intégrée dans `validate-quality-all.mjs` et donc `validate-all.mjs`.
 
 > Slot technique `nemo` ; application VM **Nautilus** (`org.gnome.Nautilus`) ; gabarit **`nemo-gnome`**. Ne pas confondre avec **Nemo Cinnamon** (`linux-mint`).
 
-### Gaps P0 — backlog C27+
+### Slots câblés C27 (Firefox)
+
+| Zone | Slot | Label | Contrat | Cycle |
+|------|------|-------|---------|-------|
+| dash | `firefox` | Firefox | `firefox-user-scenarios.json` | **C27** |
+
+> Firefox 140 ESR Alma · chrome Proton GNOME · scénarios F1–F4 (accueil, barre adresse, onglets, favori La Capsule).
+
+### Gaps P0 — backlog C28+
 
 | Slot | Label | Zone | Smoke structurel existant | Cycle prévu |
 |------|-------|------|---------------------------|-------------|
-| `firefox` | Firefox | dash | `smoke-rocky-shell-polish.mjs` | **C27** |
 | `terminal` | Terminal | dash + grid | `smoke-terminal-ptyxis-chrome.mjs` | **C28** |
 | `librewriter` | LibreOffice Writer | grid + dock | — | **C29** |
 | `checklist` | Missions | dock | capsuleOnly | **C30** |

@@ -1,11 +1,11 @@
-  <section class="capsule-browser" data-firefox-app>
-    <header class="capsule-browser__chrome" data-capsule-attr="aria-label:firefox.chromeAriaLabel" aria-label="Interface navigateur">
-      <div class="capsule-browser__tabsbar firefox-tabbar" data-capsule-attr="aria-label:firefox.tabsAriaLabel" aria-label="Onglets">
-        <div class="capsule-browser__tabs-list" data-browser-tabs role="tablist"></div>
+  <section class="capsule-browser" data-firefox-app data-firefox-gnome-root>
+    <header class="capsule-browser__chrome" data-capsule-attr="aria-label:firefox.chromeAriaLabel" aria-label="Interface navigateur" data-firefox-gnome-chrome>
+      <div class="capsule-browser__tabsbar firefox-tabbar" data-capsule-attr="aria-label:firefox.tabsAriaLabel" aria-label="Onglets" data-firefox-gnome-tabstrip>
+        <div class="capsule-browser__tabs-list" data-browser-tabs data-firefox-gnome-tabs role="tablist"></div>
         <button type="button" class="capsule-browser__tab-add" data-browser-action="new-tab" aria-label="Nouvel onglet" data-capsule-attr="aria-label:firefox.tabNewButtonAria">+</button>
       </div>
 
-      <div class="capsule-browser__toolbar" data-capsule-attr="aria-label:firefox.toolbarAriaLabel" aria-label="Barre de navigation">
+      <div class="capsule-browser__toolbar" data-capsule-attr="aria-label:firefox.toolbarAriaLabel" aria-label="Barre de navigation" data-firefox-gnome-toolbar>
         <div class="capsule-browser__nav-actions">
           <button type="button" class="capsule-browser__btn capsule-browser__btn--icon-back" data-browser-action="back" disabled data-capsule-attr="aria-label:firefox.backAria">
             <span class="sr-only">Retour</span>
@@ -26,6 +26,7 @@
             class="capsule-browser__address-input"
             type="text"
             data-browser-address
+            data-firefox-gnome-address
             data-capsule-attr="placeholder:firefox.addressPlaceholder"
             placeholder="Rechercher avec Google ou saisir une adresse"
             autocomplete="off"
@@ -53,7 +54,7 @@
         </div>
       </div>
 
-      <nav class="capsule-browser__bookmarks" data-browser-bookmarks hidden data-capsule-attr="aria-label:firefox.bookmarksBarAria" aria-label="Favoris">
+      <nav class="capsule-browser__bookmarks" data-browser-bookmarks data-firefox-gnome-bookmarks hidden data-capsule-attr="aria-label:firefox.bookmarksBarAria" aria-label="Favoris">
         <a href="#" class="capsule-browser__bookmark" data-browser-bookmark="Importés" data-browser-route="noop" data-capsule-text="firefox.bookmarkImported">Importés</a>
         <a href="#" class="capsule-browser__bookmark capsule-browser__bookmark--primary" data-browser-bookmark="La Capsule" data-browser-route="os-lacapsule" data-capsule-text="firefox.bookmarkLaCapsule">La Capsule</a>
         <a href="#" class="capsule-browser__bookmark" data-browser-bookmark="os-lacapsule" data-browser-route="os-lacapsule" data-capsule-text="firefox.bookmarkOsLaCapsule">os-lacapsule</a>
@@ -63,7 +64,7 @@
     <p class="capsule-browser__status" data-browser-status role="status" aria-live="polite" hidden></p>
 
     <main class="capsule-browser__viewport firefox-content" data-browser-view="home">
-      <section class="capsule-browser-newtab" data-browser-home>
+      <section class="capsule-browser-newtab" data-browser-home data-firefox-gnome-newtab>
         <div class="capsule-browser-newtab__logo" aria-hidden="true"></div>
         <form class="capsule-browser-newtab__search" data-browser-newtab-form>
           <label class="sr-only" for="capsule-browser-newtab-input" data-capsule-text="firefox.newtabSearchLabel">Rechercher</label>

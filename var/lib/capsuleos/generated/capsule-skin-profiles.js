@@ -56,6 +56,7 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
@@ -845,6 +846,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"

@@ -24,7 +24,8 @@
     "nemo": "nautilus-user-scenarios.json",
     "firefox": "firefox-user-scenarios.json",
     "terminal": "terminal-user-scenarios.json",
-    "librewriter": "librewriter-user-scenarios.json"
+    "librewriter": "librewriter-user-scenarios.json",
+    "checklist": "checklist-user-scenarios.json"
   },
   "contracts": [
     {
@@ -207,19 +208,21 @@
       "campaign": "C29",
       "status": "ok",
       "note": "LibreOffice 24.x FR simulé · Lw1–Lw4 · cohérent Software S1 · ≠ text_editor"
-    }
-  ],
-  "backlog": [
+    },
     {
+      "id": "checklist",
       "slot": "checklist",
       "labelFr": "Missions CapsuleOS",
-      "priorite": "P0",
-      "placement": ["dash"],
-      "statut": "capsuleOnly",
+      "contract": "etc/capsuleos/contracts/checklist-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-checklist-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-checklist-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-checklist-views.mjs",
       "campaign": "C30",
-      "note": "Capsule-only — scénarios pédagogiques /mnt à lier"
+      "status": "ok",
+      "note": "Capsule-only · Ck1–Ck4 · module pédagogique /mnt · chrome GNOME Alma · pas d'app VM"
     }
   ],
+  "backlog": [],
   "predicateChecks": {
     "ScAll": {
       "script": "usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs"

@@ -85,8 +85,8 @@ Index machine : `etc/capsuleos/contracts/gnome-user-scenarios-index.json`
 
 | Champ | Usage |
 |-------|-------|
-| `contracts[]` | Contrats livrés (16 slots juin 2026, dont LibreOffice Writer C29) |
-| `backlog[]` | Slots P0 sans scénarios (C30+) |
+| `contracts[]` | Contrats livrés (17 slots juin 2026, clôture overview C30) |
+| `backlog[]` | Slots P0 sans scénarios (vide après C30) |
 | `predicateChecks.ScAll` | Gate agrégée |
 
 Gate agrégée :
@@ -152,11 +152,17 @@ Intégrée dans `validate-quality-all.mjs` et donc `validate-all.mjs`.
 
 > LibreOffice 24.x FR simulé (absent VM el10) · scénarios Lw1–Lw4 (document vide, saisie, gras, enregistrer/nouveau) · cohérent Software S1 (`libreoffice-writer` → `librewriter`) · ≠ slot `text_editor`.
 
-### Gaps P0 — backlog C30+
+### Slots câblés C30 (Missions CapsuleOS) — clôture overview 15/15
 
-| Slot | Label | Zone | Smoke structurel existant | Cycle prévu |
-|------|-------|------|---------------------------|-------------|
-| `checklist` | Missions | dock | capsuleOnly | **C30** |
+| Zone | Slot | Label | Contrat | Cycle |
+|------|------|-------|---------|-------|
+| dock | `checklist` | Missions | `checklist-user-scenarios.json` | **C30** |
+
+> Module pédagogique Capsule-only (pas d'app GNOME VM) · scénarios Ck1–Ck4 (ouvrir liste, consulter mission, cocher, progression/persistance) · chrome libadwaita GNOME Alma · pont `capsule:task` vers slots GNOME.
+
+### Clôture overview Alma (C26–C30)
+
+Campagne **C26–C30** : Nautilus → Firefox → Terminal → LibreOffice Writer → **Missions checklist**. Audit `audit-gnome-overview-scenarios.mjs --id linux-alma` : **15/15** slots overview câblés, **0 gap P0**.
 
 ### Apps overview décoratives (sans slot — P2/P3)
 

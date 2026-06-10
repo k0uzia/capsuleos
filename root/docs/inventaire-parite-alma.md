@@ -98,6 +98,7 @@ Smoke : `smoke-alma-watermark.mjs` · captures : `root/docs/inventaires/captures
 | C27 | Firefox | F1 accueil · F2 barre adresse · F3 onglets · F4 favori La Capsule | `smoke-gnome-firefox-scenarios.mjs` |
 | C28 | Terminal (Ptyxis) | Te1 invite · Te2 pwd/ls · Te3 onglet · Te4 whoami/help | `smoke-gnome-terminal-scenarios.mjs` |
 | C29 | LibreOffice Writer | Lw1 ouvrir · Lw2 saisie · Lw3 gras · Lw4 enregistrer/nouveau | `smoke-gnome-librewriter-scenarios.mjs` |
+| C30 | Missions CapsuleOS | Ck1 ouvrir · Ck2 consulter · Ck3 cocher · Ck4 progression | `smoke-gnome-checklist-scenarios.mjs` |
 
 ### Apps P2
 
@@ -138,13 +139,11 @@ Audit : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --i
 | grid | `characters` | Caractères | — | **Ch1–Ch4** | `characters-user-scenarios.json` |
 | grid | `system_monitor` | Moniteur | — | **Sm1–Sm4** | `system-monitor-user-scenarios.json` |
 | grid | `librewriter` | LibreOffice Writer | gabarit partiel | **Lw1–Lw4** | `librewriter-user-scenarios.json` |
-| dock | `checklist` | Missions | capsuleOnly | — | backlog **C30** |
+| dock | `checklist` | Missions | capsuleOnly | **Ck1–Ck4** | `checklist-user-scenarios.json` |
 
-### Gaps P0 overview — backlog C29+
+### Clôture overview C26–C30
 
-| Cycle | Slot | Action prévue |
-|-------|------|---------------|
-| **C30** | `checklist` | Scénarios Missions `/mnt` |
+Overview Alma **15/15** slots câblés avec scénarios P0 (juin 2026). Dernier gap **C30 checklist** fermé — module pédagogique Capsule-only documenté dans `linux-alma-checklist-capsule-inventory.json`.
 
 Manifeste : `etc/capsuleos/contracts/gnome-user-scenarios-index.json` · doc : [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md).
 
@@ -209,9 +208,9 @@ Artefacts :
 
 ## Prochaines étapes
 
-1. **C29–C30** — scénarios P0 overview gaps : `librewriter` → `checklist`
-2. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
-3. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
+1. **Vc VM** — session GDM locale ou fix D-Bus screenshot (non bloquant si Capsule OK)
+2. Réplication scénarios vers `linux-rocky` / `linux-fedora` / `linux-ubuntu` (smokes `--id` déjà paramétrables)
+3. Overview Alma **15/15** clôturé (C30 checklist) — audit vert
 
 ## Clôture clone Π (C25)
 

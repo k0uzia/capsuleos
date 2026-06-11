@@ -60,47 +60,60 @@ node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
 
 ---
 
-### V4-P2 — Kickoff B2/B3 (10–20 h) 🔄
+### V4-P2 — Kickoff B2/B3 (10–20 h) ✅
 
 **Objectif** : utilitaires et apps système avec surfaces dédiées (pas seulement `profile`).
 
 **Audit** : [linux-kde-neon-v4-p2-kickoff-audit.md](linux-kde-neon-v4-p2-kickoff-audit.md)
 
 - [x] Smoke structurel 30/30 (`smoke-kde-neon-kickoff.mjs`)
-- [ ] Spectacle → slot dédié
-- [ ] Info-centre (kinfocenter) → slot dédié
-- [ ] System Monitor → slot dédié
-- [ ] KDEConnect → stub UI
-- [ ] Smoke étendu (titre fenêtre par app B2/B3)
+- [x] Spectacle → slot dédié (`spectacle_kde_neon.html` + override profil)
+- [x] Info-centre (kinfocenter) → slot dédié (`kinfocenter_kde_neon.html`)
+- [x] System Monitor → slot dédié (`system_monitor.skin.css` tokens Breeze)
+- [ ] KDEConnect → stub UI (backlog — reste `profile`)
+- [x] Smoke étendu (`smoke-kde-neon-v4-p2.mjs` — runtime Playwright OK)
 
-**Critère sortie** : apps B2/B3 listées ouvrent un slot documenté · smoke étendu vert.
+**Clôturé** : 2026-06-09 · suite → **V4-P3**
+
+**Critère sortie** : apps B2/B3 prioritaires ouvrent un slot documenté · smoke étendu vert. ✅
 
 ---
 
-### V4-P3 — Propagation profonde dérivés (8–14 h)
+### V4-P3 — Propagation profonde dérivés (8–14 h) ✅
 
 **Objectif** : porter Dolphin/Discover Neon vers openSUSE, MX-KDE, Debian-KDE.
 
-- [ ] Audit delta post-P4 ([linux-kde-p4-propagation-ecarts.md](linux-kde-p4-propagation-ecarts.md))
-- [ ] Propagation ciblée `dolphin-neon.js` overrides par vendor
-- [ ] Propagation `discover-neon.js` où applicable
-- [ ] Renommer tokens `--opensuse-*` → `--debian-kde-*` (Debian-KDE)
-- [ ] `smoke-kde-p4-propagation.mjs` étendu
-- [ ] `validate-all` vert sur 4 skins KDE
+- [x] Audit delta post-P4 ([linux-kde-p4-propagation-ecarts.md](linux-kde-p4-propagation-ecarts.md))
+- [x] `dolphin-kde-chrome.js` partagé (`usr/lib`) · 4 skins KDE
+- [x] `discover-kde.js` partagé — **pivot Neon** ; dérivés conservent `update_manager_kde.html`
+- [x] Tokens `--debian-kde-*` + alias legacy (Debian-KDE)
+- [x] `smoke-kde-v4-p3-propagation.mjs` + extension `smoke-kde-p4-propagation.mjs`
+- [x] `validate-all` vert sur 4 skins KDE
 
-**Critère sortie** : doc écarts v4 · 4 skins KDE gates verts.
+**Clôturé** : 2026-06-09 · suite → **V4-P4**
+
+```bash
+node usr/lib/capsuleos/tools/lab/smoke-kde-v4-p3-propagation.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-p4-propagation.mjs
+```
+
+**Critère sortie** : doc écarts v4 · 4 skins KDE gates verts. ✅
 
 ---
 
-### V4-P4 — Clôture Π ≥ 95 % (4–8 h)
+### V4-P4 — Clôture Π ≥ 95 % (4–8 h) ✅
 
 **Objectif** : équivalent Mint deep-pass sur les 5 slots panel.
 
-- [ ] `linux-kde-neon-parity-index.json` : Π_global ≥ 95, status ok
-- [ ] Interactions JSON à jour (panel, tray, nemo, discover, firefox, terminal)
-- [ ] `capture-clone-surfaces --compare` stable
-- [ ] Brief + parité v4 clôturés
+- [x] `linux-kde-neon-parity-index.json` : Π_global **95**, status ok
+- [x] Interactions JSON à jour (+ `tray.json`, panel/mainMenu v4)
+- [x] Stub **KDEConnect** (`kdeconnect_kde_neon.html` + kickoff ×3)
+- [x] `smoke-kde-neon-v4-p4.mjs` vert
+- [x] `validate-all` vert
+- [x] `capture-clone-surfaces --compare` stable (fix `discover-kde.js` globalThis)
 - [ ] Historique campagnes § v4 dans [linux-kde-neon-roadmap.md](linux-kde-neon-roadmap.md)
+
+**Clôturé** : 2026-06-09 · campagne v4-deep-parity prête merge
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs

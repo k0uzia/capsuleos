@@ -290,7 +290,10 @@ const printList = (inventory) => {
 };
 
 const runMapGaps = (registryId) => {
-  const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/map-app-fidelity-gaps.mjs');
+  const mapScript = registryId === 'linux-kde-neon'
+    ? 'map-kde-fidelity-gaps.mjs'
+    : 'map-app-fidelity-gaps.mjs';
+  const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab', mapScript);
   execSync(`node "${script}" --id ${registryId} --write`, { stdio: 'inherit', cwd: ROOT });
 };
 

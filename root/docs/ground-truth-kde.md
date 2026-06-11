@@ -16,8 +16,9 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 | **Skin canonique** | `home/Debian/KDE-Neon/` |
 | **Façade** | `OS/linux/families/debian/kde-neon/index.html` |
 | **VM lab** | `goupil@192.168.123.52` (virsh `KDE-Neon`) |
-| **Π actuel** | ~93 % ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
-| **Campagne** | v4 deep-parity — P0 Dolphin ✅ · P1 Discover/Firefox ✅ · P2 kickoff B2/B3 🔄 |
+| **Π formel** | **100** ([`linux-kde-neon-parity-index.json`](inventaires/linux-kde-neon-parity-index.json)) |
+| **Campagne** | v4–v9 clôturées · **ground** : [`linux-kde-neon-roadmap-ground.md`](inventaires/linux-kde-neon-roadmap-ground.md) |
+| **Propagation** | **gelée** — dérivés après excellence produit Neon |
 
 **Pourquoi Neon et pas `linux-debian-kde` ?**
 
@@ -25,14 +26,14 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 - `linux-kde-neon` concentre les avancées juin 2026 : Discover Kirigami, `dolphin-neon.js`, tray partagé P4, 30 apps kickoff, interactions JSON, campagne v4.
 - Analogie Rocky GNOME : Rocky = référence opérationnelle GNOME malgré la branche RHEL ; Neon = référence opérationnelle Plasma malgré `upstreamId: linux-debian-kde`.
 
-**Dérivés toolkit** (propagation P4) :
+**Dérivés toolkit** (propagation P4 — **gelée** juin 2026) :
 
 | registryId | Tier | Statut | Rôle |
 |------------|------|--------|------|
-| `linux-opensuse` | P1 | active | Coque Plasma mature, launcher Geeko |
-| `linux-mx-kde` | P1 | planned | Pack MX, flyout kickoff |
-| `linux-debian-kde` | P2 | planned | Base debian branding |
-| `linux-manjaro-kde` | P2 | planned | Breeze Manjaro |
+| `linux-opensuse` | P1 | frozen | Reprise après ground Neon |
+| `linux-mx-kde` | P1 | frozen | idem |
+| `linux-debian-kde` | P2 | frozen | idem |
+| `linux-manjaro-kde` | P2 | planned | skin absent |
 
 ---
 
@@ -51,9 +52,10 @@ Ce document fixe la **référence bureau KDE** pour le cloisonnement toolkit, le
 | **KdP4** | Propagation dérivés | `smoke-kde-p4-propagation.mjs` |
 | **H₆** | Clôture | `validate-all.mjs` |
 
-**Hors scope Kd*** (différent de Mint Cred*) :
+**Cred* KDE Neon** (adapté Plasma, ≠ Mint 101 entrées) :
 
-- CredV/CredC/CredS/CredΠ — campagne menu 101 entrées Cinnamon ; KDE kickoff = 30 apps VM, pas de `app-fidelity-scenarios.json` dédié.
+- Contrat : `etc/capsuleos/contracts/kde-fidelity-scenarios.json` · 33 scénarios · **CredΣ** clôturé v5.
+- Passes : `run-kde-neon-pass.mjs` — ne réécrit pas l'inventaire sans échec smoke.
 - Playbook Paramètres GNOME (`replication-chain.json`) — remplacé par surfaces Plasma (panel, kickoff, tray, System Settings stub).
 
 Cartographie écarts :
@@ -216,7 +218,7 @@ node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 1. **P0 cloisonnement** — retirer `fileExplorerInfo.js` des 4 skins KDE + `sync-linux-skin-closure` + smokes verts.
 2. **v4-P2** — Spectacle, Info-centre, System Monitor (kickoff B2/B3).
 3. **v4-P3/P4** — propagation `dolphin-neon.js` / Discover vers dérivés · Π ≥ 95 %.
-4. **Cred* KDE** (optionnel post-Π95) — scénarios kickoff + panel, contrat dérivé `kde-fidelity-scenarios.json`.
+4. **Cred* KDE** — **clôturé** (`v5-credibility-pass`) · 33 scénarios · 11 slots · `CredΣ=true` · contrat `kde-fidelity-scenarios.json`.
 5. **VM lab** — intégrer `linux-kde-neon` dans routine `lab-inventory` + sonde `os-probe.sh` branche Plasma.
 
 ---

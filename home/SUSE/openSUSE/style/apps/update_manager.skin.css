@@ -266,3 +266,6 @@ main#updateManagerApp {
     opacity: 0.9;
 }
 
+/* V6 — Kirigami Discover partagé (pivot Neon) */
+@import url("../../../../../usr/share/capsuleos/linux/apps/style/discover-kirigami-kde.shared.css");
+

@@ -8,7 +8,7 @@
   "vmDoc": "linux-kde-neon-discover-closure.md",
   "capsuleMapping": {
     "template": "update_manager_kde_neon",
-    "skinJs": "home/Debian/KDE-Neon/js/discover-neon.js",
+    "skinJs": "usr/lib/capsuleos/shells/linux/discover-kde.js",
     "skinCss": "home/Debian/KDE-Neon/style/apps/update_manager.skin.css",
     "catalog": "home/Debian/KDE-Neon/content/discover-catalog.json"
   },

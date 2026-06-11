@@ -42,10 +42,11 @@ const sleep = (page, ms) => page.waitForTimeout(ms);
 const resolveEntry = (registryId) => {
   const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
   const entry = registry.entries.find((e) => e.id === registryId);
-  if (!entry || !entry.skin) {
+  const skin = entry?.referencePaths?.skin || entry?.skin;
+  if (!entry || !skin) {
     throw new Error(`entrée introuvable: ${registryId}`);
   }
-  return entry;
+  return { ...entry, skin };
 };
 
 const captureOne = async (registryId, chromium, options = {}) => {

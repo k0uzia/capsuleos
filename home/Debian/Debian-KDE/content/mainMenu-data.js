@@ -50,14 +50,14 @@ const MENU_SHORTCUTS = {
 };
 
 const MENU_APPS = [
-    { catId: 'favorites', icon: './assets/images/toolkits/gnome/apps/firefox.webp', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
+    { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/firefox.svg', name: 'Firefox', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/libreoffice-writer.svg', name: 'LibreOffice Writer', desc: 'Traitement de texte', dataLink: 'librewriter' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/dolphin.svg', name: 'Dolphin', desc: 'Gestionnaire de fichiers', dataLink: 'nemo' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/systemsettings.svg', name: 'Configuration du système', desc: 'Paramètres Plasma', dataLink: 'themes' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/terminal.svg', name: 'Konsole', desc: 'Terminal', dataLink: 'terminal' },
     { catId: 'favorites', icon: './assets/images/toolkits/kde/apps/discover.svg', name: 'Discover', desc: 'Gestionnaire de logiciels', dataLink: 'checklist' },
 
-    { catId: 'internet', icon: './assets/images/toolkits/gnome/apps/firefox.webp', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
+    { catId: 'internet', icon: './assets/images/toolkits/kde/apps/firefox.svg', name: 'Firefox ESR', desc: 'Navigateur Web', dataLink: 'firefox' },
     { catId: 'internet', icon: './assets/images/toolkits/kde/apps/terminal.svg', name: 'SSH', desc: 'Connexion distante', },
     { catId: 'internet', icon: './assets/images/toolkits/kde/apps/dolphin.svg', name: 'Téléchargements', desc: 'Accéder au dossier Téléchargements', dataLink: { dataLink: 'nemo', directory: './apps/system/Dossier_personnel/Téléchargements' } },
 

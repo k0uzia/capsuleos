@@ -36,3 +36,15 @@ node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon 
 ## Verdict v4 P1
 
 Toolbar Firefox **classée Vp** — Proton clair aligné `vm-firefox.png` · baseline `04-firefox` régénérée 2026-06-09.
+
+## Ground G7 (2026-06-11)
+
+| Check | Statut |
+|-------|--------|
+| Capture VM `--firefox-g7` | ✅ `vm-firefox.png` rafraîchi |
+| Baseline Capsule `04-firefox` | ✅ compare KdVp |
+| `smoke-kde-neon-firefox.mjs` | ✅ |
+| Toolbar (onglets, nav, URL, menu) | ✅ Vp |
+| Contenu nouvel onglet (tuiles Google VM) | P2 — hors scope toolbar |
+
+Gate ground : paire **toolbar** VM ↔ Capsule, pas pixel-perfect du flux Discover/Google.

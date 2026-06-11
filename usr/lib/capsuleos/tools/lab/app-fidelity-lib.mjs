@@ -9,10 +9,23 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, '../../../../..');
 
 const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/app-fidelity-scenarios.json');
+const KDE_CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/kde-fidelity-scenarios.json');
+
+const KDE_FIDELITY_REGISTRY_IDS = new Set(['linux-kde-neon']);
+
+export const contractPathForRegistry = (registryId) => (
+  KDE_FIDELITY_REGISTRY_IDS.has(registryId) ? KDE_CONTRACT_PATH : CONTRACT_PATH
+);
+
+export const smokeFidelityScriptForRegistry = (registryId) => (
+  KDE_FIDELITY_REGISTRY_IDS.has(registryId)
+    ? 'usr/lib/capsuleos/tools/lab/smoke-kde-fidelity-all.mjs'
+    : 'usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs'
+);
 
 export const credPathsForRegistry = (registryId) => ({
   registryId,
-  contract: CONTRACT_PATH,
+  contract: contractPathForRegistry(registryId),
   inventory: path.join(ROOT, 'root/docs/inventaires', `${registryId}-app-fidelity-scenarios.json`),
   gaps: path.join(ROOT, 'root/docs/inventaires', `${registryId}-app-fidelity-gaps.json`),
   replicationState: path.join(ROOT, 'root/docs/inventaires', `${registryId}-replication-state.json`),
@@ -22,7 +35,10 @@ export const credPathsForRegistry = (registryId) => ({
 
 export const readJsonIfExists = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null);
 
-export const loadCredContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
+export const loadCredContract = (registryId = 'linux-mint') => {
+  const p = contractPathForRegistry(registryId);
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+};
 
 export const loadInventory = (registryId) => {
   const p = credPathsForRegistry(registryId).inventory;
@@ -101,7 +117,7 @@ export const loadCredFormalState = (registryId) => {
 };
 
 export const evaluateCredPredicates = (registryId) => {
-  const contract = loadCredContract();
+  const contract = loadCredContract(registryId);
   const inventory = loadInventory(registryId);
   const gaps = loadGaps(registryId);
   const summary = inventory.summary || computeSummary(inventory);
@@ -235,7 +251,7 @@ export const evaluateCredRules = (registryId) => {
       rule: 'R-CRED-SMOKE-ALL',
       when: () => evalResult.state.CredC && !formal.gates.CredS_live,
       message: 'CredC ∧ ¬CredS_live — smoke batch tous scénarios',
-      command: `CAPSULE_HTTP_BASE=${process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500'} node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id ${registryId}`,
+      command: `CAPSULE_HTTP_BASE=${process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500'} node ${smokeFidelityScriptForRegistry(registryId)} --id ${registryId} --write`,
       autoExecute: true,
       gateOnSuccess: 'CredS',
     },

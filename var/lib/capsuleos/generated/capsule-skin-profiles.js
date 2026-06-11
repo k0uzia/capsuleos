@@ -211,7 +211,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
       }
     }
   },
@@ -349,7 +349,10 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
-        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html"
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -503,7 +506,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_USER": "mx-linux",
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
       }
     }
   },
@@ -561,9 +564,10 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
-        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html"
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1004,7 +1008,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
       }
     }
   },
@@ -1142,7 +1146,10 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
-        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html"
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1296,7 +1303,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_USER": "mx-linux",
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
       }
     }
   },
@@ -1354,9 +1361,10 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
-        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html"
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

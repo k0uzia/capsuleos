@@ -2,17 +2,17 @@
 
 /* Les règles openSUSE sont scoppées sur body#opensuse : on les duplique pour Debian KDE. */
 body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHeader {
-    height: var(--opensuse-konsole-header-height);
-    min-height: var(--opensuse-konsole-header-height);
+    height: var(--debian-kde-konsole-header-height);
+    min-height: var(--debian-kde-konsole-header-height);
 }
 
 body#debian-kde div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
-    height: calc(100% - var(--opensuse-konsole-header-height));
-    min-height: calc(100% - var(--opensuse-konsole-header-height));
+    height: calc(100% - var(--debian-kde-konsole-header-height));
+    min-height: calc(100% - var(--debian-kde-konsole-header-height));
 }
 
 html[data-theme="light"] #debian-kde #windowTitle {
-    color: var(--opensuse-window-titlebar-fg);
+    color: var(--debian-kde-window-titlebar-fg);
     filter: none;
     text-shadow: none;
 }

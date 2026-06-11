@@ -10,8 +10,8 @@ html:has(#debian-kde) {
     --kde-plasma-panel-anchor-bottom: var(--debian-kde-panel-anchor-bottom);
     --kde-plasma-menu-divider: rgba(35, 38, 41, 0.1);
     --kde-plasma-menu-hover: rgba(61, 174, 233, 0.14);
-    --kde-plasma-accent: var(--opensuse-breeze-accent, #3daee9);
-    --kde-plasma-tray-icon-filter: var(--opensuse-mono-logo-filter, brightness(0));
+    --kde-plasma-accent: var(--debian-kde-breeze-accent, #3daee9);
+    --kde-plasma-tray-icon-filter: var(--debian-kde-mono-logo-filter, brightness(0));
 }
 
 #debian-kde {
@@ -37,10 +37,10 @@ html:has(#debian-kde) {
     max-width: none;
     height: var(--taskbar-height);
     margin: 0;
-    padding: var(--z) var(--opensuse-taskbar-edge-gap) var(--z) calc(var(--head) / 4);
-    border: 1px solid var(--opensuse-plasma-panel-border);
+    padding: var(--z) var(--debian-kde-taskbar-edge-gap) var(--z) calc(var(--head) / 4);
+    border: 1px solid var(--debian-kde-plasma-panel-border);
     border-radius: var(--debian-kde-panel-radius);
-    background: var(--opensuse-plasma-panel-bg, rgba(239, 240, 241, 0.9));
+    background: var(--debian-kde-plasma-panel-bg, rgba(239, 240, 241, 0.9));
     box-shadow: var(--debian-kde-panel-shadow);
     backdrop-filter: blur(18px) saturate(1.1);
     -webkit-backdrop-filter: blur(18px) saturate(1.1);

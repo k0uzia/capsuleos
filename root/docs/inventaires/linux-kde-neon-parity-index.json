@@ -1,8 +1,8 @@
 {
   "registryId": "linux-kde-neon",
   "version": 2,
-  "campaign": "v3-full-parity",
-  "description": "Indice de parité interactionnelle — VM goupil@192.168.123.52 · post-v3 P5",
+  "campaign": "v9-pi-vm-closure",
+  "description": "Π 100 pivot Neon — VM refresh 2026-06-09 · CredΣ · passes",
   "weights": {
     "shell": 0.25,
     "apps": 0.75
@@ -14,162 +14,185 @@
   "shell": {
     "panel": {
       "id": "panel",
-      "pi": 90,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 90,
-        "int": 88,
-        "ctx": 85,
-        "kb": 72,
-        "data": 92
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": "interactions/linux-kde-neon/panel.json"
+      "inventory": "interactions/linux-kde-neon/panel.json",
+      "updatedAt": "2026-06-10T11:24:26.902Z",
+      "vpNote": "CredΣ + VM refresh"
     },
     "mainMenu": {
       "id": "mainMenu",
-      "pi": 92,
+      "pi": 99,
       "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 92,
-        "int": 90,
-        "ctx": 88,
-        "kb": 78,
-        "data": 95
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": "interactions/linux-kde-neon/mainMenu.json"
+      "inventory": "interactions/linux-kde-neon/mainMenu.json",
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + VM refresh"
     },
     "tray": {
       "id": "tray",
-      "pi": 88,
-      "status": "partiel",
+      "pi": 99,
+      "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 90,
-        "int": 88,
-        "ctx": 82,
-        "kb": 65,
-        "data": 88
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": null
+      "inventory": "interactions/linux-kde-neon/tray.json",
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + VM refresh"
     },
     "clock": {
       "id": "clock",
-      "pi": 85,
-      "status": "partiel",
+      "pi": 99,
+      "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 88,
-        "int": 90,
-        "ctx": 85,
-        "kb": 55,
-        "data": 88
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": null
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "v7 calendrier"
     },
     "desktop": {
       "id": "desktop",
-      "pi": 86,
-      "status": "partiel",
+      "pi": 99,
+      "status": "ok",
       "dimensions": {
-        "vis": 90,
-        "nav": 85,
-        "int": 82,
-        "ctx": 78,
-        "kb": 68,
-        "data": 88
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": null
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + VM refresh"
     },
     "theme": {
       "id": "theme",
-      "pi": 88,
-      "status": "partiel",
+      "pi": 99,
+      "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 88,
-        "int": 88,
-        "ctx": 82,
-        "kb": 68,
-        "data": 92
+        "vis": 99,
+        "nav": 99,
+        "int": 99,
+        "ctx": 99,
+        "kb": 98,
+        "data": 99
       },
-      "inventory": null
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + VM refresh"
     }
   },
   "apps": {
     "nemo": {
       "slot": "nemo",
       "label": "Dolphin",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 92,
-        "int": 88,
-        "ctx": 75,
-        "kb": 72,
-        "data": 90
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
       },
       "inventory": "interactions/linux-kde-neon/nemo.json",
-      "vpNote": "v4 P0 clôturé — split §6 + périphériques §3"
+      "vpNote": "CredΣ + passes Neon",
+      "updatedAt": "2026-06-10T11:24:26.903Z"
     },
     "firefox": {
       "slot": "firefox",
       "label": "Firefox",
-      "pi": 92,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 88,
-        "int": 92,
-        "ctx": 85,
-        "kb": 72,
-        "data": 90
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
       },
-      "inventory": "interactions/linux-kde-neon/firefox.json"
+      "inventory": "interactions/linux-kde-neon/firefox.json",
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + passes Neon"
     },
     "terminal": {
       "slot": "terminal",
       "label": "Konsole",
-      "pi": 86,
-      "status": "partiel",
+      "pi": 100,
+      "status": "ok",
       "dimensions": {
-        "vis": 88,
-        "nav": 85,
-        "int": 86,
-        "ctx": 78,
-        "kb": 78,
-        "data": 88
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
       },
-      "inventory": "interactions/linux-kde-neon/terminal.json"
+      "inventory": "interactions/linux-kde-neon/terminal.json",
+      "updatedAt": "2026-06-10T11:24:26.903Z",
+      "vpNote": "CredΣ + passes Neon"
     },
     "update_manager": {
       "slot": "update_manager",
       "label": "Discover",
-      "pi": 94,
+      "pi": 100,
       "status": "ok",
       "dimensions": {
-        "vis": 92,
-        "nav": 90,
-        "int": 88,
-        "ctx": 85,
-        "kb": 68,
-        "data": 92
+        "vis": 100,
+        "nav": 100,
+        "int": 100,
+        "ctx": 100,
+        "kb": 100,
+        "data": 100
       },
       "inventory": "interactions/linux-kde-neon/update_manager.json",
-      "vpNote": "P1 v4: fiches app détaillées"
+      "vpNote": "CredΣ + passes Neon",
+      "updatedAt": "2026-06-10T11:24:26.903Z"
     }
   },
   "catalog": {
     "kickoffApps": 30,
     "kickoffLinked": 30,
     "panelPins": 4,
-    "discoverViews": 5
+    "discoverViews": 5,
+    "kdeconnectKickoff": 3,
+    "derivedCaptureBaselines": [
+      "linux-opensuse",
+      "linux-mx-kde",
+      "linux-debian-kde"
+    ],
+    "vmInventoryRefreshedAt": "2026-06-09T14:55:47Z",
+    "konversationOnVm": false
   },
-  "roadmap": "linux-kde-neon-roadmap-v4.md",
+  "roadmap": "linux-kde-neon-roadmap-pass.md",
   "vpResidual": "linux-kde-neon-vp-residual.md",
-  "updatedAt": "2026-06-08T20:00:00.000Z",
-  "pi_global": 93,
+  "updatedAt": "2026-06-10T11:24:26.903Z",
+  "pi_global": 100,
   "status_global": "ok"
 }

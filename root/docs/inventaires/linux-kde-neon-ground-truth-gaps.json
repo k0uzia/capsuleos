@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T09:41:57.619Z",
+  "generatedAt": "2026-06-09T10:13:33.379Z",
   "pivot": {
     "registryId": "linux-kde-neon",
     "justification": "Skin le plus avancé (P1 active, Π≈93), VM lab documentée, campagne v4 P0–P1 clôturée, upstream technique debian-kde mais vérité opérationnelle Neon.",

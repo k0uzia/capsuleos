@@ -55,7 +55,7 @@
     "CAPSULE_TERMINAL_USER": "mx-linux",
     "CAPSULE_TERMINAL_HOST": "mx",
     "CAPSULE_TEMPLATE_OVERRIDES": {
-      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
     }
   }
 }

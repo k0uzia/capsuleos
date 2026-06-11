@@ -123,16 +123,38 @@ const plasmaShots = [
     name: '07-discover-detail-vlc',
     action: async (page) => {
       await openSlot(page, 'update_manager');
+      await page.waitForSelector(
+        '[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]',
+        { timeout: 20000 },
+      );
+      await sleep(page, 300);
       await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
       await page.waitForFunction(
         () => {
           const panel = document.querySelector('[data-discover-app-detail]');
-          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img');
+          if (!panel || panel.hidden) {
+            return false;
+          }
+          const name = document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim();
+          const imgs = [...panel.querySelectorAll('.kde-discover-app-detail__shot-img')];
+          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0);
+          return name && name.includes('VLC') && loaded.length >= 1;
         },
         null,
-        { timeout: 15000 },
+        { timeout: 20000 },
       );
-      await sleep(page, 500);
+      await page.evaluate(() => {
+        const dot = document.querySelector('[data-discover-carousel-dot="0"]');
+        if (dot) {
+          dot.click();
+        }
+        document.querySelectorAll('[data-discover-slide]').forEach((slide, i) => {
+          const active = i === 0;
+          slide.hidden = !active;
+          slide.dataset.active = active ? 'true' : 'false';
+        });
+      });
+      await sleep(page, 1200);
     },
   },
 ];
@@ -167,9 +189,9 @@ export const CAPTURE_SCENARIOS = {
   'linux-fedora': {
     shots: gnomeOverviewShots('.fedora-overview-trigger', null),
   },
-  'linux-opensuse': {
-    shots: gnomeOverviewShots('.fedora-overview-trigger', null),
-  },
+  'linux-opensuse': { shots: plasmaShots },
+  'linux-mx-kde': { shots: plasmaShots },
+  'linux-debian-kde': { shots: plasmaShots },
 };
 
 export const getCaptureShots = (registryId) => {

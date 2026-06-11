@@ -48,7 +48,7 @@ node root/tools/lab/capture-capsule-kde-neon.mjs             # scènes Neon incl
 |------|-----------|--------------|--------------|
 | Titlebar | 🔄 réaudit | ✅ | — |
 | Toolbar (pathbar, loupe, scinder, ☰) | 🔄 réaudit | ✅ | — |
-| Vue icônes (grille) | 🔄 réaudit | ✅ | espacement colonnes ⚠️ mineur |
+| Vue icônes (grille) | 🔄 réaudit | ✅ | espacement G5 (`gap head/2` · `width 3.32`) |
 | Vues Synthétique / Détails | 🔄 réaudit | ✅ | — |
 | Split structurel | 🔄 réaudit | ✅ | capture VM 2026-06-08 |
 | **Sélection split §6** | ⚠️ P2 | ✅ | smoke + capture Capsule |
@@ -101,7 +101,7 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 | 8 dossiers Breeze bleus | ✅ |
 | Bureau preview wallpaper | ✅ |
 | Pill « 8 dossiers » | ✅ |
-| Grille 4 colonnes / padding | ⚠️ mineur |
+| Grille 4 colonnes / padding | ✅ G5 (4+4 · gap ~20px) |
 
 ### 5. Vues Synthétique / Détails — ✅
 
@@ -147,13 +147,14 @@ Légende : ✅ OK · ⚠️ écart mineur · 🟡 code sans clôture VM · ❌ P
 | Actions branchées | natif | open-tab, split, panneaux, etc. | 🟡 |
 | Capture paire VM | `vm-dolphin-hamburger-open.png` | `capsule-dolphin-hamburger.png` | ✅ 2026-06-08 |
 
-### 9. Menu contextuel — ⏳ V4-P1 backlog
+### 9. Menu contextuel — ✅ pass Neon (juin 2026)
 
 | Élément | Statut | Note |
 |---------|--------|------|
-| Clic droit fichier/dossier/fond | ✅ partiel | noyau `fileExplorerContextMenu.js` |
-| Flyouts sous-menus | ⏳ | dupliquer, étiquettes, activités |
-| Icônes KDE | ✅ | `DOLPHIN_CONTEXT_MENU_ICONS` |
+| Clic droit fichier/dossier/fond | ✅ | noyau `fileExplorerContextMenu.js` + fragment Dolphin |
+| Flyouts sous-menus | ✅ | étiquettes, activités, compresser, terminal… · `DOLPHIN_CTX_FLYOUTS` |
+| Icônes KDE | ✅ | `DOLPHIN_CONTEXT_MENU_ICONS` dans `dolphin-kde-chrome.js` |
+| Smoke | ✅ | `smoke-kde-neon-dolphin.mjs` (flyouts + icônes) |
 
 ---
 

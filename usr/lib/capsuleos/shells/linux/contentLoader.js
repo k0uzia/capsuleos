@@ -27,7 +27,7 @@ const CINNAMON_PANEL_MENU_SKINS = new Set(['mint']);
 const CINNAMON_PANEL_MENU_BODY_IDS = new Set(['mint']);
 
 /** Discover KDE : CSS commun (grille sidebar) embarqué au build — doit aussi être fetché en HTTP. */
-const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde']);
+const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde', 'debiankde']);
 const KDE_DISCOVER_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
 
 const isKdeDiscoverContext = () => {
@@ -39,8 +39,16 @@ const isKdeDiscoverContext = () => {
 };
 
 const resolveKdeDiscoverCssBaseId = () => {
+    const overrides = typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES;
+    if (overrides && overrides.update_manager
+        && String(overrides.update_manager).includes('update_manager_kde_neon')) {
+        return 'update_manager_kde_neon';
+    }
     const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
     if (getEmbedSkinKey() === 'kde-neon' || bodyId === 'kde-neon') {
+        return 'update_manager_kde_neon';
+    }
+    if (isKdeDiscoverContext()) {
         return 'update_manager_kde_neon';
     }
     return 'update_manager_kde';

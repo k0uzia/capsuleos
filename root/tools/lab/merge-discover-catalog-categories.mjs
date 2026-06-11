@@ -27,7 +27,7 @@ const HOME_CATEGORY_SEED = {
   accessibility: [],
   office: ['kolourpaint', 'kate'],
   development: ['kate', 'kdenlive', 'libreoffice'],
-  education: ['kpat'],
+  education: ['kpat', 'kmplot', 'parley', 'ktouch', 'kalzium', 'step'],
   graphics: ['gimp', 'kolourpaint', 'krita'],
   internet: ['firefox', 'wine', 'steam'],
   games: ['steam', 'kpat', 'wine'],
@@ -56,6 +56,8 @@ const INSTALLED_CATEGORY_SEED = {
 };
 
 /** Catalogue magasin CapsuleOS — apps « À découvrir » par catégorie sidebar. */
+const ACCESSIBILITY_CATEGORY_SEED = ['kcm-access', 'orca'];
+
 const STORE_CATEGORY_SEED = {
   internet: ['thunderbird', 'transmission', 'warpinator'],
   multimedia: ['rhythmbox', 'lecteur-multimedia'],
@@ -119,8 +121,9 @@ for (const [catId, block] of Object.entries(inv.categories || {})) {
     });
   }
   const storeForCat = (STORE_CATEGORY_SEED[catId] || []);
+  const a11yForCat = catId === 'accessibility' ? ACCESSIBILITY_CATEGORY_SEED : [];
   const vmFiltered = vmIds.filter((id) => !SKIP_BROWSE_IDS.has(id));
-  const merged = [...new Set([...homeForCat, ...installedForCat, ...vmFiltered, ...storeForCat])];
+  const merged = [...new Set([...homeForCat, ...installedForCat, ...vmFiltered, ...storeForCat, ...a11yForCat])];
   categoryFilters[catId] = {
     label: block.label || categoryFilters[catId]?.label || catId,
     appIds: merged,

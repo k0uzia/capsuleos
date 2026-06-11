@@ -2,15 +2,43 @@
   "registryId": "linux-kde-neon",
   "surface": "discover-category-apps",
   "vm": "goupil@192.168.123.52",
-  "collectedAt": "2026-06-11T15:01:51Z",
+  "collectedAt": "2026-06-11T15:07:13Z",
   "maxPerCategory": 6,
   "method": "desktop-files Categories= → icônes hicolor/breeze",
   "categories": {
     "accessibility": {
       "label": "Accessibilité",
       "source": "desktop-files",
-      "appIds": [],
-      "apps": []
+      "appIds": [
+        "orca",
+        "kcm-access"
+      ],
+      "apps": [
+        {
+          "id": "orca",
+          "name": "Orca",
+          "desc": "Lecteur d'écran",
+          "componentId": "manual:orca",
+          "iconName": "orca.png",
+          "iconRemote": "/usr/share/icons/hicolor/48x48/apps/orca.png",
+          "iconDest": "orca.png",
+          "sha256": "b600e5eae0a12841bc2c34e39088491adce51f666ac3f0b38bfa1dc90c6ed36a",
+          "bytes": 3201,
+          "source": "manual-vm"
+        },
+        {
+          "id": "kcm-access",
+          "name": "Accessibilité",
+          "desc": "Configurer les fonctionnalités d'accessibilité",
+          "componentId": "manual:kcm-access",
+          "iconName": "preferences-desktop-accessibility.svg",
+          "iconRemote": "/usr/share/icons/breeze/preferences/22/preferences-desktop-accessibility.svg",
+          "iconDest": "kcm-access.svg",
+          "sha256": "64c86ebd76874be479977029de8fa15076d765303f5d92ffb92cffaeaf3c333d",
+          "bytes": 2723,
+          "source": "manual-vm"
+        }
+      ]
     },
     "office": {
       "label": "Bureautique",
@@ -53,10 +81,77 @@
       ]
     },
     "education": {
-      "label": "Education",
+      "label": "Éducation",
       "source": "desktop-files",
-      "appIds": [],
-      "apps": []
+      "appIds": [
+        "step",
+        "kalzium",
+        "ktouch",
+        "parley",
+        "kmplot"
+      ],
+      "apps": [
+        {
+          "id": "step",
+          "name": "Step",
+          "desc": "Simulateur de physique",
+          "componentId": "manual:step",
+          "iconName": "step.svg",
+          "iconRemote": "/usr/share/icons/breeze/apps/48/step.svg",
+          "iconDest": "step.svg",
+          "sha256": "422d4aea6424868b4706b51123909de38fa0c5e881424733ac0df558f31a0c62",
+          "bytes": 3699,
+          "source": "manual-vm"
+        },
+        {
+          "id": "kalzium",
+          "name": "Kalzium",
+          "desc": "Tableau périodique des éléments",
+          "componentId": "manual:kalzium",
+          "iconName": "org.kde.kalzium.svg",
+          "iconRemote": "/usr/share/icons/breeze/apps/48/org.kde.kalzium.svg",
+          "iconDest": "kalzium.svg",
+          "sha256": "f67974bedcc6c4ecba9ea4a60bf2d913cdd76200c1998b2b5c0f5156abaa5f73",
+          "bytes": 5288,
+          "source": "manual-vm"
+        },
+        {
+          "id": "ktouch",
+          "name": "KTouch",
+          "desc": "Apprendre la dactylographie",
+          "componentId": "manual:ktouch",
+          "iconName": "org.kde.ktouch.svg",
+          "iconRemote": "/usr/share/icons/breeze/apps/48/org.kde.ktouch.svg",
+          "iconDest": "ktouch.svg",
+          "sha256": "7ef040ac75e9273fbf23e0454d28ebbfcf12d9a8047df4a783fb137776f52256",
+          "bytes": 38378,
+          "source": "manual-vm"
+        },
+        {
+          "id": "parley",
+          "name": "Parley",
+          "desc": "Apprendre des vocabulaires",
+          "componentId": "manual:parley",
+          "iconName": "parley.svg",
+          "iconRemote": "/usr/share/icons/breeze/apps/48/parley.svg",
+          "iconDest": "parley.svg",
+          "sha256": "681d92ea2399e697a3537a8a5d7414fa90c340b4608fe5fa42d2117fa660d88d",
+          "bytes": 80724,
+          "source": "manual-vm"
+        },
+        {
+          "id": "kmplot",
+          "name": "KmPlot",
+          "desc": "Traceur de fonctions mathématiques",
+          "componentId": "manual:kmplot",
+          "iconName": "org.kde.kmplot.svg",
+          "iconRemote": "/usr/share/icons/breeze/apps/48/org.kde.kmplot.svg",
+          "iconDest": "kmplot.svg",
+          "sha256": "642c169d0b74668d4f256576757b378110374832e8c229363310a3221deb6b77",
+          "bytes": 250032,
+          "source": "manual-vm"
+        }
+      ]
     },
     "graphics": {
       "label": "Graphisme",
@@ -349,6 +444,26 @@
   },
   "browseApps": [
     {
+      "id": "orca",
+      "name": "Orca",
+      "desc": "Lecteur d'écran",
+      "icon": "orca.png",
+      "categories": [
+        "accessibility"
+      ],
+      "componentId": "manual:orca"
+    },
+    {
+      "id": "kcm-access",
+      "name": "Accessibilité",
+      "desc": "Configurer les fonctionnalités d'accessibilité",
+      "icon": "kcm-access.svg",
+      "categories": [
+        "accessibility"
+      ],
+      "componentId": "manual:kcm-access"
+    },
+    {
       "id": "okular",
       "name": "Okular",
       "desc": "Universal document viewer",
@@ -367,6 +482,56 @@
         "development"
       ],
       "componentId": "org.kde.kate.desktop"
+    },
+    {
+      "id": "step",
+      "name": "Step",
+      "desc": "Simulateur de physique",
+      "icon": "step.svg",
+      "categories": [
+        "education"
+      ],
+      "componentId": "manual:step"
+    },
+    {
+      "id": "kalzium",
+      "name": "Kalzium",
+      "desc": "Tableau périodique des éléments",
+      "icon": "kalzium.svg",
+      "categories": [
+        "education"
+      ],
+      "componentId": "manual:kalzium"
+    },
+    {
+      "id": "ktouch",
+      "name": "KTouch",
+      "desc": "Apprendre la dactylographie",
+      "icon": "ktouch.svg",
+      "categories": [
+        "education"
+      ],
+      "componentId": "manual:ktouch"
+    },
+    {
+      "id": "parley",
+      "name": "Parley",
+      "desc": "Apprendre des vocabulaires",
+      "icon": "parley.svg",
+      "categories": [
+        "education"
+      ],
+      "componentId": "manual:parley"
+    },
+    {
+      "id": "kmplot",
+      "name": "KmPlot",
+      "desc": "Traceur de fonctions mathématiques",
+      "icon": "kmplot.svg",
+      "categories": [
+        "education"
+      ],
+      "componentId": "manual:kmplot"
     },
     {
       "id": "gwenview",
@@ -541,6 +706,18 @@
   ],
   "icons": [
     {
+      "dest": "orca.png",
+      "remotePath": "/usr/share/icons/hicolor/48x48/apps/orca.png",
+      "sha256": "b600e5eae0a12841bc2c34e39088491adce51f666ac3f0b38bfa1dc90c6ed36a",
+      "bytes": 3201
+    },
+    {
+      "dest": "kcm-access.svg",
+      "remotePath": "/usr/share/icons/breeze/preferences/22/preferences-desktop-accessibility.svg",
+      "sha256": "64c86ebd76874be479977029de8fa15076d765303f5d92ffb92cffaeaf3c333d",
+      "bytes": 2723
+    },
+    {
       "dest": "okular.png",
       "remotePath": "/usr/share/icons/hicolor/48x48/apps/okular.png",
       "sha256": "c879e5e6e95e63c4960d53811094d1a0bbe28a4f854163a6724bb414fbd5e541",
@@ -551,6 +728,36 @@
       "remotePath": "/usr/share/icons/hicolor/48x48/apps/kate.png",
       "sha256": "1c8a5373b1d84f12be35b5efde62ddbb4b5c99c7acb3fa861cd356b3c471fb7d",
       "bytes": 2723
+    },
+    {
+      "dest": "step.svg",
+      "remotePath": "/usr/share/icons/breeze/apps/48/step.svg",
+      "sha256": "422d4aea6424868b4706b51123909de38fa0c5e881424733ac0df558f31a0c62",
+      "bytes": 3699
+    },
+    {
+      "dest": "kalzium.svg",
+      "remotePath": "/usr/share/icons/breeze/apps/48/org.kde.kalzium.svg",
+      "sha256": "f67974bedcc6c4ecba9ea4a60bf2d913cdd76200c1998b2b5c0f5156abaa5f73",
+      "bytes": 5288
+    },
+    {
+      "dest": "ktouch.svg",
+      "remotePath": "/usr/share/icons/breeze/apps/48/org.kde.ktouch.svg",
+      "sha256": "7ef040ac75e9273fbf23e0454d28ebbfcf12d9a8047df4a783fb137776f52256",
+      "bytes": 38378
+    },
+    {
+      "dest": "parley.svg",
+      "remotePath": "/usr/share/icons/breeze/apps/48/parley.svg",
+      "sha256": "681d92ea2399e697a3537a8a5d7414fa90c340b4608fe5fa42d2117fa660d88d",
+      "bytes": 80724
+    },
+    {
+      "dest": "kmplot.svg",
+      "remotePath": "/usr/share/icons/breeze/apps/48/org.kde.kmplot.svg",
+      "sha256": "642c169d0b74668d4f256576757b378110374832e8c229363310a3221deb6b77",
+      "bytes": 250032
     },
     {
       "dest": "gwenview.png",
@@ -657,7 +864,7 @@
   ],
   "counts": {
     "categories": 12,
-    "browseApps": 19,
-    "icons": 19
+    "browseApps": 26,
+    "icons": 26
   }
 }

@@ -473,12 +473,20 @@
     },
     "accessibility": {
       "label": "Accessibilité",
-      "appIds": []
+      "appIds": [
+        "orca",
+        "kcm-access"
+      ]
     },
     "education": {
-      "label": "Education",
+      "label": "Éducation",
       "appIds": [
         "kpat",
+        "step",
+        "kalzium",
+        "ktouch",
+        "parley",
+        "kmplot",
         "calendar"
       ]
     },
@@ -632,11 +640,60 @@
       "name": "Surveillance du système",
       "desc": "Surveiller l'utilisation des ressources par les applications",
       "icon": "systemmonitor.svg"
+    },
+    {
+      "id": "orca",
+      "name": "Orca",
+      "desc": "Lecteur d'écran",
+      "icon": "orca.png",
+      "componentId": "manual:orca"
+    },
+    {
+      "id": "kcm-access",
+      "name": "Accessibilité",
+      "desc": "Configurer les fonctionnalités d'accessibilité",
+      "icon": "kcm-access.svg",
+      "componentId": "manual:kcm-access"
+    },
+    {
+      "id": "step",
+      "name": "Step",
+      "desc": "Simulateur de physique",
+      "icon": "step.svg",
+      "componentId": "manual:step"
+    },
+    {
+      "id": "kalzium",
+      "name": "Kalzium",
+      "desc": "Tableau périodique des éléments",
+      "icon": "kalzium.svg",
+      "componentId": "manual:kalzium"
+    },
+    {
+      "id": "ktouch",
+      "name": "KTouch",
+      "desc": "Apprendre la dactylographie",
+      "icon": "ktouch.svg",
+      "componentId": "manual:ktouch"
+    },
+    {
+      "id": "parley",
+      "name": "Parley",
+      "desc": "Apprendre des vocabulaires",
+      "icon": "parley.svg",
+      "componentId": "manual:parley"
+    },
+    {
+      "id": "kmplot",
+      "name": "KmPlot",
+      "desc": "Traceur de fonctions mathématiques",
+      "icon": "kmplot.svg",
+      "componentId": "manual:kmplot"
     }
   ],
   "categoryAppsMeta": {
     "source": "vm-kde-neon-discover-category-apps-inventory.sh",
-    "collectedAt": "2026-06-11T15:01:51Z",
+    "collectedAt": "2026-06-11T15:07:13Z",
     "vm": "goupil@192.168.123.52",
     "maxPerCategory": 6
   }

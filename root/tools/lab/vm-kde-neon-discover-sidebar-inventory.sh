@@ -120,7 +120,7 @@ cat_map = [
     ("categories", "kde-updates__caticon--accessibility", "preferences-desktop-accessibility", "Accessibilité"),
     ("categories", "kde-updates__caticon--office", "applications-office", "Bureautique"),
     ("categories", "kde-updates__caticon--development", "applications-development", "Développement"),
-    ("categories", "kde-updates__caticon--education", "applications-education", "Education"),
+    ("categories", "kde-updates__caticon--education", "applications-education", "Éducation"),
     ("categories", "kde-updates__caticon--graphics", "applications-graphics", "Graphisme"),
     ("categories", "kde-updates__caticon--internet", "applications-internet", "Internet"),
     ("categories", "kde-updates__caticon--games", "applications-games", "Jeux"),
@@ -128,7 +128,7 @@ cat_map = [
     ("categories", "kde-updates__caticon--science", "applications-science", "Science & Mathématiques"),
     ("categories", "kde-updates__caticon--system", "applications-system", "Système"),
     ("categories", "kde-updates__caticon--utilities", "applications-utilities", "Utilitaires"),
-    ("categories", "kde-updates__caticon--addons", "preferences-plugin", "Modules d applications"),
+    ("categories", "kde-updates__caticon--addons", "preferences-plugin", "Modules d'applications"),
 ]
 
 icons = []

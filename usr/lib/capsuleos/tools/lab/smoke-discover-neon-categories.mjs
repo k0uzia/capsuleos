@@ -22,7 +22,7 @@ const requiredCats = [
 
 for (const catId of requiredCats) {
   const spec = catalog.categoryFilters?.[catId];
-  const minApps = ['addons', 'accessibility'].includes(catId) ? 0 : 2;
+  const minApps = catId === 'addons' ? 1 : 2;
   if (!spec?.appIds?.length) {
     if (minApps > 0) {
       errors.push(`categoryFilters.${catId} : appIds vide`);
@@ -102,7 +102,7 @@ if (chromePath && !errors.length) {
     });
     await page.waitForSelector('[data-discover-home-mount] .kde-discover-card', { timeout: 30000 });
 
-    for (const catId of ['internet', 'office', 'games']) {
+    for (const catId of ['internet', 'accessibility', 'education', 'office']) {
       await page.click(`.kde-updates__cat[data-discover-cat="${catId}"]`);
       await page.waitForFunction(
         (id) => {

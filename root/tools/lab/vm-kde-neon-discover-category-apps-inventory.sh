@@ -52,7 +52,7 @@ LABELS = {
     "accessibility": "Accessibilité",
     "office": "Bureautique",
     "development": "Développement",
-    "education": "Education",
+    "education": "Éducation",
     "graphics": "Graphisme",
     "internet": "Internet",
     "games": "Jeux",
@@ -62,6 +62,17 @@ LABELS = {
     "utilities": "Utilitaires",
     "addons": "Modules d'applications",
 }
+
+# VM lab — apps sans Categories= ou hors menu (ciblées accessibilité / éducation KDE).
+MANUAL_VM_APPS = [
+    ("accessibility", "kcm-access", "Accessibilité", "Configurer les fonctionnalités d'accessibilité", "/usr/share/icons/breeze/preferences/22/preferences-desktop-accessibility.svg"),
+    ("accessibility", "orca", "Orca", "Lecteur d'écran", "/usr/share/icons/hicolor/48x48/apps/orca.png"),
+    ("education", "kmplot", "KmPlot", "Traceur de fonctions mathématiques", "/usr/share/icons/breeze/apps/48/org.kde.kmplot.svg"),
+    ("education", "parley", "Parley", "Apprendre des vocabulaires", "/usr/share/icons/breeze/apps/48/parley.svg"),
+    ("education", "ktouch", "KTouch", "Apprendre la dactylographie", "/usr/share/icons/breeze/apps/48/org.kde.ktouch.svg"),
+    ("education", "kalzium", "Kalzium", "Tableau périodique des éléments", "/usr/share/icons/breeze/apps/48/org.kde.kalzium.svg"),
+    ("education", "step", "Step", "Simulateur de physique", "/usr/share/icons/breeze/apps/48/step.svg"),
+]
 
 
 def slug_from_desktop(filename):
@@ -78,8 +89,8 @@ def resolve_icon(icon_name):
         names.extend([icon_name + ".png", icon_name + ".svg"])
     for name in names:
         for root in ("/usr/share/icons/hicolor", "/usr/share/icons/breeze"):
-            for size in ("48x48", "scalable", "64x64"):
-                for sub in ("apps", "mimetypes"):
+            for size in ("48x48", "scalable", "64x64", "22", "24", "32"):
+                for sub in ("apps", "mimetypes", "preferences"):
                     path = f"{root}/{size}/{sub}/{name}"
                     if os.path.isfile(path):
                         return path
@@ -150,7 +161,30 @@ def scan_desktop_apps():
     return by_cat
 
 
+def apply_manual_vm_apps(by_cat):
+    for cat_id, app_id, name, desc, icon_remote in MANUAL_VM_APPS:
+        if not os.path.isfile(icon_remote):
+            continue
+        ext = os.path.splitext(icon_remote)[1] or ".png"
+        row = {
+            "id": app_id,
+            "name": name,
+            "desc": desc,
+            "componentId": f"manual:{app_id}",
+            "iconName": os.path.basename(icon_remote),
+            "iconRemote": icon_remote,
+            "iconDest": f"{app_id}{ext}",
+            "sha256": sha_file(icon_remote),
+            "bytes": os.path.getsize(icon_remote),
+            "source": "manual-vm",
+        }
+        pool = by_cat.setdefault(cat_id, [])
+        pool = [row] + [a for a in pool if a.get("id") != app_id]
+        by_cat[cat_id] = pool[:MAX_PER_CAT]
+
+
 by_cat = scan_desktop_apps()
+apply_manual_vm_apps(by_cat)
 categories = {}
 icon_index = {}
 

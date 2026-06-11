@@ -157,3 +157,12 @@ discover/yelp.svg ← /usr/share/icons/hicolor/scalable/apps/org.gnome.Yelp.svg 
 
 # Discover catégories — pull 2026-06-11T15:01:52Z (goupil@192.168.123.52)
 discover/plasma-kdeconnect.svg ← /usr/share/icons/hicolor/scalable/apps/kdeconnect.svg (sha256 eb466ac43c6dd056afd9675d3698ff8b3e138b8275cb8e3f4bf9f8e11db3b85a)
+
+# Discover catégories — pull 2026-06-11T15:07:15Z (goupil@192.168.123.52)
+discover/orca.png ← /usr/share/icons/hicolor/48x48/apps/orca.png (sha256 b600e5eae0a12841bc2c34e39088491adce51f666ac3f0b38bfa1dc90c6ed36a)
+discover/kcm-access.svg ← /usr/share/icons/breeze/preferences/22/preferences-desktop-accessibility.svg (sha256 64c86ebd76874be479977029de8fa15076d765303f5d92ffb92cffaeaf3c333d)
+discover/step.svg ← /usr/share/icons/breeze/apps/48/step.svg (sha256 422d4aea6424868b4706b51123909de38fa0c5e881424733ac0df558f31a0c62)
+discover/kalzium.svg ← /usr/share/icons/breeze/apps/48/org.kde.kalzium.svg (sha256 f67974bedcc6c4ecba9ea4a60bf2d913cdd76200c1998b2b5c0f5156abaa5f73)
+discover/ktouch.svg ← /usr/share/icons/breeze/apps/48/org.kde.ktouch.svg (sha256 7ef040ac75e9273fbf23e0454d28ebbfcf12d9a8047df4a783fb137776f52256)
+discover/parley.svg ← /usr/share/icons/breeze/apps/48/parley.svg (sha256 681d92ea2399e697a3537a8a5d7414fa90c340b4608fe5fa42d2117fa660d88d)
+discover/kmplot.svg ← /usr/share/icons/breeze/apps/48/org.kde.kmplot.svg (sha256 642c169d0b74668d4f256576757b378110374832e8c229363310a3221deb6b77)

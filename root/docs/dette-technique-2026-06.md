@@ -10,6 +10,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | `linux-mint` — 5 apps P0 seulement | `generate-mint-registry-overrides.mjs` → **102** entrées depuis inventaire |
 | `audit-gnome-overview-scenarios.mjs` crash | Contrat présent ; audit cinnamon/KDE documenté (skip overview GNOME) |
 | Gate `validate-app-catalog-integrity.mjs` manquante | Ajoutée + intégrée `validate-ui-contracts-all.mjs` |
+| Ubuntu store UI — smoke S5–S12 `deferred` | **Option A** : `CAPSULE_TEMPLATE_OVERRIDES.update_manager` → `update_manager_gnome.html` (comme Pop!_OS) ; branding snap-store conservé dans `presentation-bindings` (Centre d'applications, sources snap/deb/flatpak) ; smoke `smoke-gnome-software-scenarios.mjs --id linux-ubuntu` |
 
 ### Comptage overrides (post-cycle)
 
@@ -25,12 +26,21 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | linux-kde-neon | 13 |
 | linux-opensuse | 10 |
 
+## P1 résolus (scénarios overview — juin 2026)
+
+| Écart | Résolution |
+|-------|------------|
+| Rocky Loupe (`visionneur_images`) — ¬ScΣ | Contrat `loupe-user-scenarios.json` · Li1–Li4 · `syncLoupeGnomeDataset` · smoke + captures |
+| Rocky Papers (`visionneur_pdf`) — ¬ScΣ | Contrat `papers-user-scenarios.json` · Pa1–Pa4 · `syncPapersGnomeDataset` · navigation pages |
+| Ubuntu Rhythmbox (`lecteur_multimedia`) — ¬ScΣ dash+overview | Contrat `rhythmbox-user-scenarios.json` · Rb1–Rb4 · override `rhythmbox.html` · smoke Ubuntu |
+
+Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index.json`).
+
 ## P1 restants
 
 | Domaine | Détail |
 |---------|--------|
-| Ubuntu store UI | Snap Store retail vs GS50 simulé — `snap-store` notOnVm |
-| Rocky Loupe / Papers | Parité P1 overview — slots ok, polish visuel Vc |
+| Rocky Loupe / Papers | Polish visuel Vc ground truth (captures VM dédiées Papers) |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
 | KDE Discover store | `storeCatalogStatus: deferred` — neon + openSUSE (0 apps magasin) |
 | Pop!_OS COSMIC | Toolkit `cosmic` sans `slotSpecs` dédiés — résolution via `storeToolkit: gnome` |

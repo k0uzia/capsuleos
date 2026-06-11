@@ -619,6 +619,12 @@ const SLOT_INIT_HANDLERS = {
         ]);
     },
     lecteur_multimedia: () => {
+        if (document.getElementById('rhythmboxApp')) {
+            if (typeof initRhythmboxApp === 'function') {
+                initRhythmboxApp();
+            }
+            return;
+        }
         if (typeof initCelluloidApp === 'function') {
             initCelluloidApp();
         }

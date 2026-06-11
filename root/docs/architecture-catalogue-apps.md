@@ -67,7 +67,7 @@ StoreΣ(r) ≡ SlotF ∧ PresB(r) ∧ GenStore(r) ∧ StoreIntegrity
 | **GenStore** | `capsule-store-catalog.js` à jour | `validate-store-catalog-generated.mjs` |
 | **StoreIntegrity** | store ↔ slots ↔ toolkit variants | `validate-app-catalog-integrity.mjs` |
 
-Pilotes GNOME actifs : **11 apps** chacun (S1–S12 partagés Alma/Rocky/Fedora/Ubuntu/PopOS/AnduinOS).
+Pilotes GNOME actifs : **11 apps** chacun (S1–S12 partagés Alma/Rocky/Fedora/Ubuntu/PopOS/AnduinOS). Ubuntu réutilise le gabarit `update_manager_gnome.html` (Option A) — singularité vendor limitée au StoreFront (`Centre d'applications`, sources snap/deb/flatpak) et au skin CSS `update_manager.skin.css`.
 
 KDE (`linux-kde-neon`, `linux-opensuse`) : `storeCatalogStatus: deferred` — catalogue généré vide, UI Discover sans grille store P1.
 

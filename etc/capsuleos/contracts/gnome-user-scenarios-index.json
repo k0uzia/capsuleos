@@ -25,7 +25,10 @@
     "firefox": "firefox-user-scenarios.json",
     "terminal": "terminal-user-scenarios.json",
     "librewriter": "librewriter-user-scenarios.json",
-    "checklist": "checklist-user-scenarios.json"
+    "checklist": "checklist-user-scenarios.json",
+    "visionneur_images": "loupe-user-scenarios.json",
+    "visionneur_pdf": "papers-user-scenarios.json",
+    "lecteur_multimedia": "rhythmbox-user-scenarios.json"
   },
   "contracts": [
     {
@@ -220,6 +223,42 @@
       "campaign": "C30",
       "status": "ok",
       "note": "Capsule-only · Ck1–Ck4 · module pédagogique /mnt · chrome GNOME Alma · pas d'app VM"
+    },
+    {
+      "id": "loupe",
+      "slot": "visionneur_images",
+      "labelFr": "Loupe (visionneur d'images)",
+      "contract": "etc/capsuleos/contracts/loupe-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-loupe-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-loupe-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-loupe-views.mjs",
+      "campaign": "C31",
+      "status": "ok",
+      "note": "org.gnome.Loupe · Li1–Li4 · functionalDepth partial · Rocky overview P1"
+    },
+    {
+      "id": "papers",
+      "slot": "visionneur_pdf",
+      "labelFr": "Papers (visionneur PDF)",
+      "contract": "etc/capsuleos/contracts/papers-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-papers-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-papers-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-papers-views.mjs",
+      "campaign": "C31",
+      "status": "ok",
+      "note": "org.gnome.Papers · Pa1–Pa4 · functionalDepth partial · Rocky overview P1"
+    },
+    {
+      "id": "rhythmbox",
+      "slot": "lecteur_multimedia",
+      "labelFr": "Rhythmbox (lecteur multimédia Ubuntu)",
+      "contract": "etc/capsuleos/contracts/rhythmbox-user-scenarios.json",
+      "validator": "usr/lib/capsuleos/tools/validate-rhythmbox-user-scenarios.mjs",
+      "smoke": "usr/lib/capsuleos/tools/lab/smoke-gnome-rhythmbox-scenarios.mjs",
+      "capture": "usr/lib/capsuleos/tools/lab/capture-capsule-rhythmbox-views.mjs",
+      "campaign": "C31",
+      "status": "ok",
+      "note": "org.gnome.Rhythmbox3 · Rb1–Rb4 · override gabarit Ubuntu · dash+overview P0"
     }
   ],
   "backlog": [],

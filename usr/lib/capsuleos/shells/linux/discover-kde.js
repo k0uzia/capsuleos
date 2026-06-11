@@ -8,6 +8,9 @@
     const CATALOG_URL = env.CAPSULE_DISCOVER_CATALOG_URL || './content/discover-catalog.json';
     const DISCOVER_ASSET_BASE = './assets/images/vendors/neon/discover/';
     const PANEL_ASSET_BASE = './assets/images/vendors/neon/panel/';
+    const DISCOVER_CATEGORY_ICON_BASE = '../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/';
+    const STORE_SECTION_ID = 'capsule-discover';
+    const STORE_SECTION_TITLE = 'À découvrir';
 
     function resolveAssetUrl(path) {
         if (!path) {
@@ -23,11 +26,108 @@
         if (!app || !app.icon) {
             return '';
         }
+        if (app.iconBase === 'category') {
+            return resolveAssetUrl(DISCOVER_CATEGORY_ICON_BASE + app.icon);
+        }
         if (app.iconBase === 'panel' || app.icon.indexOf('../panel/') === 0) {
             const name = app.icon.replace(/^\.\.\/panel\//, '');
             return resolveAssetUrl(PANEL_ASSET_BASE + name);
         }
         return resolveAssetUrl(DISCOVER_ASSET_BASE + app.icon);
+    }
+
+    function resolveRegistryId() {
+        if (typeof window !== 'undefined' && window.CAPSULE_SKIN_PROFILE_ID) {
+            return window.CAPSULE_SKIN_PROFILE_ID;
+        }
+        const bodyId = typeof document !== 'undefined' && document.body ? document.body.id : '';
+        if (bodyId === 'kde-neon') {
+            return 'linux-kde-neon';
+        }
+        if (bodyId === 'opensuse') {
+            return 'linux-opensuse';
+        }
+        return '';
+    }
+
+    function storeInstalledIds(registryId) {
+        if (typeof window.CapsuleGnomeStore === 'undefined'
+            || typeof window.CapsuleGnomeStore.loadStoreInstalledMeta !== 'function') {
+            return [];
+        }
+        const meta = window.CapsuleGnomeStore.loadStoreInstalledMeta(registryId);
+        return meta && Array.isArray(meta.appIds) ? meta.appIds : [];
+    }
+
+    function categoryIconForStoreEntry(entry) {
+        const categories = entry && Array.isArray(entry.categories) ? entry.categories : [];
+        if (categories.indexOf('productivity') !== -1) {
+            return 'applications-office.svg';
+        }
+        if (categories.indexOf('multimedia') !== -1) {
+            return 'applications-multimedia.svg';
+        }
+        if (categories.indexOf('creation') !== -1) {
+            return 'applications-graphics.svg';
+        }
+        if (categories.indexOf('development') !== -1) {
+            return 'applications-development.svg';
+        }
+        return 'applications-utilities.svg';
+    }
+
+    function getStoreDiscoverApps() {
+        const registryId = resolveRegistryId();
+        const storeList = typeof window !== 'undefined' && window.CAPSULE_STORE_APPS_BY_REGISTRY
+            ? window.CAPSULE_STORE_APPS_BY_REGISTRY[registryId]
+            : null;
+        if (!registryId || !storeList || !storeList.length) {
+            return [];
+        }
+        const installed = new Set(storeInstalledIds(registryId));
+        const apps = [];
+        for (let i = 0; i < storeList.length; i += 1) {
+            const entry = storeList[i];
+            if (!entry || !entry.id || installed.has(entry.id)) {
+                continue;
+            }
+            apps.push({
+                id: entry.id,
+                name: entry.title || entry.id,
+                desc: entry.sub || entry.desc || '',
+                icon: categoryIconForStoreEntry(entry),
+                iconBase: 'category',
+                storeEntry: entry,
+                storeInstallable: entry.storeInstallable !== false,
+            });
+        }
+        return apps;
+    }
+
+    function notifyStoreInstall(app) {
+        if (!app || !app.storeEntry || typeof window.CapsuleGnomeStore === 'undefined') {
+            return;
+        }
+        const registryId = resolveRegistryId();
+        const entry = app.storeEntry;
+        const source = entry.source || 'apt';
+        if (typeof window.CapsuleGnomeStore.recordStoreInstall === 'function') {
+            window.CapsuleGnomeStore.recordStoreInstall(registryId, entry.id, source);
+        }
+        if (typeof document === 'undefined' || typeof document.dispatchEvent !== 'function') {
+            return;
+        }
+        const slot = entry.slot || entry.postInstallSlot || '';
+        document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
+            detail: {
+                appId: entry.id,
+                slot: slot,
+                storeSlot: entry.storeSlot || '',
+                registryId: registryId,
+                source: source,
+                suiteInstall: !!(entry.relatedSlots && entry.relatedSlots.length),
+            },
+        }));
     }
 
     let catalogPromise = null;
@@ -210,6 +310,15 @@
                 return false;
             });
         });
+        if (!app) {
+            const storeApps = getStoreDiscoverApps();
+            for (let i = 0; i < storeApps.length; i += 1) {
+                if (storeApps[i].id === appId) {
+                    app = storeApps[i];
+                    break;
+                }
+            }
+        }
         if (!app && Array.isArray(catalog.installed)) {
             catalog.installed.some((entry) => {
                 if (entry.id === appId) {
@@ -345,7 +454,15 @@
 
     function renderAppDetail(root, catalog, app) {
         const panel = ensureAppDetailPanel(root);
-        const meta = (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
+        const storeMeta = app && app.storeEntry ? {
+            summary: app.storeEntry.sub || app.desc || '',
+            description: app.storeEntry.desc || app.desc || '',
+            version: app.storeEntry.version || '',
+            size: app.storeEntry.size || '',
+            license: app.storeEntry.source === 'flatpak' ? 'Flathub' : 'Ubuntu',
+            origin: app.storeEntry.source === 'flatpak' ? 'Flathub' : 'Ubuntu noble',
+        } : null;
+        const meta = storeMeta || (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
         const iconUrl = resolveIconUrl(app);
         const summary = meta.summary || app.desc || '';
         const description = meta.description || summary;
@@ -459,6 +576,15 @@
             }]
             : catalog.homeSections.filter((section) => !section.hidden);
 
+        const storeApps = filteredApps === null ? getStoreDiscoverApps() : [];
+        if (storeApps.length) {
+            sections.push({
+                id: STORE_SECTION_ID,
+                title: STORE_SECTION_TITLE,
+                apps: storeApps,
+            });
+        }
+
         const heading = catalog.views && catalog.views.home
             ? catalog.views.home.heading
             : 'Page d\'accueil';
@@ -468,7 +594,7 @@
                 <h1 class="kde-discover-home__title">${heading}</h1>
             </header>
             ${sections.map((section) => `
-                <section class="kde-discover-home__section" aria-label="${section.title}">
+                <section class="kde-discover-home__section" aria-label="${section.title}"${section.id === STORE_SECTION_ID ? ' data-discover-store-section' : ''}>
                     <h2 class="kde-discover-home__section-title">${section.title}</h2>
                     <div class="kde-discover-home__grid" role="list">
                         ${(section.apps || []).map(renderAppCard).join('')}
@@ -804,13 +930,25 @@
             const installBtn = event.target.closest('[data-discover-app-install]');
             if (installBtn && root.contains(installBtn)) {
                 event.preventDefault();
+                const appId = installBtn.getAttribute('data-discover-app-install') || '';
                 const status = root.querySelector('[data-discover-app-status]');
-                if (status) {
-                    status.hidden = false;
-                    status.textContent = 'Installation simulée — application ajoutée au catalogue lab.';
-                }
-                installBtn.disabled = true;
-                installBtn.setAttribute('aria-disabled', 'true');
+                loadCatalog().then((catalog) => {
+                    const app = catalog ? findAppById(catalog, appId) : null;
+                    if (app && app.storeInstallable && app.storeEntry) {
+                        notifyStoreInstall(app);
+                    }
+                    if (status) {
+                        status.hidden = false;
+                        status.textContent = app && app.storeInstallable
+                            ? `${app.name || 'Application'} installée (simulation magasin CapsuleOS).`
+                            : 'Installation simulée — application ajoutée au catalogue lab.';
+                    }
+                    installBtn.disabled = true;
+                    installBtn.setAttribute('aria-disabled', 'true');
+                    if (catalog && app && app.storeInstallable) {
+                        renderHome(root, catalog);
+                    }
+                });
                 return;
             }
 

@@ -109,7 +109,6 @@
         "apt",
         "flatpak"
       ],
-      "storeCatalogStatus": "deferred",
       "doc": "https://apps.kde.org/discover/"
     },
     "linux-opensuse": {

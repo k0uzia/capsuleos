@@ -50,7 +50,7 @@ export const resolvePresentation = (registryId, slotId = null) => {
 };
 
 const REGISTRY_SOURCE_FALLBACK = {
-  'linux-kde-neon': 'linux-rocky',
+  'linux-kde-neon': 'linux-ubuntu',
   'linux-opensuse': 'linux-fedora',
 };
 

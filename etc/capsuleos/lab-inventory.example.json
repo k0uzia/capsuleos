@@ -74,6 +74,21 @@
       "notes": "AlmaLinux 10.2 GNOME — dérivé Rocky ; procédure root/docs/procedure-lab-linux-alma-gnome.md ; screenshotCapture documenté dans linux-alma-vm.json"
     },
     {
+      "registryId": "linux-kde-neon",
+      "family": "linux",
+      "vendor": "neon",
+      "ssh": "capsule@192.168.123.52",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "bash root/tools/lab/vm-kde-neon-inventory.sh",
+      "display": ":1",
+      "sessionType": "wayland",
+      "toolkit": "kde",
+      "hypervisor": "libvirt",
+      "virshName": "KDE-Neon",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html",
+      "notes": "KDE neon User Edition — Discover (plasma-discover). Contrat : etc/capsuleos/contracts/linux-kde-neon-vm.json"
+    },
+    {
       "registryId": "linux-ubuntu",
       "family": "linux",
       "vendor": "ubuntu",

@@ -33,6 +33,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | Rocky Loupe (`visionneur_images`) — ¬ScΣ | Contrat `loupe-user-scenarios.json` · Li1–Li4 · `syncLoupeGnomeDataset` · smoke + captures |
 | Rocky Papers (`visionneur_pdf`) — ¬ScΣ | Contrat `papers-user-scenarios.json` · Pa1–Pa4 · `syncPapersGnomeDataset` · navigation pages |
 | Ubuntu Rhythmbox (`lecteur_multimedia`) — ¬ScΣ dash+overview | Contrat `rhythmbox-user-scenarios.json` · Rb1–Rb4 · override `rhythmbox.html` · smoke Ubuntu |
+| KDE Discover store (`linux-kde-neon`) | `storeCatalogStatus: active` · **11** apps magasin · section « À découvrir » dans `discover-kde.js` · smoke `smoke-discover-kde-neon.mjs` |
 
 Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index.json`).
 
@@ -42,7 +43,8 @@ Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index
 |---------|--------|
 | Rocky Loupe / Papers | Polish visuel Vc ground truth (captures VM dédiées Papers) |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
-| KDE Discover store | `storeCatalogStatus: deferred` — neon + openSUSE (0 apps magasin) |
+| KDE Discover store (openSUSE) | `storeCatalogStatus: deferred` — 0 apps magasin (priorité neon levée) |
+| KDE neon VM lab | `192.168.123.52` hors réseau au 2026-06-11 — réinventaire plasma-discover/flatpak à reprendre |
 | Pop!_OS COSMIC | Toolkit `cosmic` sans `slotSpecs` dédiés — résolution via `storeToolkit: gnome` |
 | Inventaires VM | `*-vm-apps-installed.json` absent hors rocky/ubuntu/mint |
 
@@ -56,3 +58,5 @@ Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index
 
 - [architecture-catalogue-apps.md](architecture-catalogue-apps.md) § bootstrap overrides
 - [procedure-apps-catalog.md](procedure-apps-catalog.md)
+- [inventaires/linux-kde-neon-discover-closure.md](inventaires/linux-kde-neon-discover-closure.md)
+- Contrat lab : `etc/capsuleos/contracts/linux-kde-neon-vm.json`

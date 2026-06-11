@@ -1,52 +1,22 @@
 # Point d'étape — juin 2026
 
-## §7 — Architecture catalogue centralisée (10 juin 2026)
+## Synthèse
 
-**Livré** : vérité unique contrats + générateur + gates StoreΣ — sans nouvelles apps store.
+Cycle **architecture catalogue apps** : contrats centralisés (`apps-catalog.json`, `store-installable-apps.json`, `presentation-bindings.json`) + générateurs + gates StoreΣ.
 
-| Artefact | Chemin |
-|----------|--------|
-| Manifeste slots | `etc/capsuleos/contracts/slots-manifest.json` |
-| Présentation OS | `etc/capsuleos/contracts/presentation-bindings.json` |
-| Magasin (actif) | `etc/capsuleos/contracts/store-installable-apps.json` |
-| Généré runtime | `var/lib/capsuleos/generated/capsule-store-catalog.js` |
-| Résolveur Node | `usr/lib/capsuleos/tools/lab/capsule-app-resolver.mjs` |
-| Gate agrégateur | `validate-app-catalog-integrity.mjs` |
-| Doc | `root/docs/architecture-catalogue-apps.md` |
-| Mint P0 | `registryOverrides.linux-mint` (5 apps) via `generate-mint-registry-overrides.mjs` |
+## Livrables récents
 
-**Règle nouvel OS** : 4 fichiers (profil + registryOverrides + presentation-binding + sources store) — pas de duplication dans `gnome-store-catalog.js`.
+- **registryOverrides P0** — tous les OS Linux actifs couverts ([dette technique](dette-technique-2026-06.md))
+- Catalogue Mint étendu (102 apps) aligné inventaire VM
+- Générateurs : `generate-mint-registry-overrides.mjs`, `generate-registry-overrides.mjs`
+- Gates : `validate-app-catalog-integrity.mjs`, `audit-gnome-overview-scenarios.mjs`
 
-```bash
-node usr/lib/capsuleos/tools/generate-store-catalog.mjs
-node usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs
-```
+## Prochain focus
 
-## Wave store Alma (10 juin 2026)
+1. Inventaires VM KDE / Pop!_OS / AnduinOS
+2. Store Discover actif (KDE neon, openSUSE)
+3. Captures Vc parité visuelle Rocky référence
 
-**Commit cible** : `feat(alma): wave store — install magasin file_roller, LibreOffice, Agenda (S5–S7)`
+## Dette
 
-### Livré
-
-- Kernel magasin GNOME : `gnome-store-catalog.js`, section **À découvrir** Logiciels
-- 3 apps installables Alma P0 : file_roller (rpm), LibreOffice (flatpak → librewriter), Agenda (flatpak)
-- Scénarios S5–S7 + smoke Playwright
-- Gates StoreΣ + ScΣ
-- Skin Alma : slot `file_roller`, `file_roller.skin.css`
-
-### Captures Capsule (S5–S7)
-
-À collecter :
-
-```bash
-CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-alma --filter store
-```
-
-Fichiers attendus : `alma-capsule-store-file-roller-installed.png`, `alma-capsule-store-libreoffice-open.png`, `alma-capsule-store-calendar-open.png`
-
-### Validation
-
-```bash
-CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-gnome-software-scenarios.mjs --id linux-alma
-node usr/lib/capsuleos/tools/validate-all.mjs
-```
+Voir le registre détaillé : **[dette-technique-2026-06.md](dette-technique-2026-06.md)**

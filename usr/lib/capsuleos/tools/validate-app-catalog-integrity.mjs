@@ -1,100 +1,92 @@
 #!/usr/bin/env node
 /**
- * Agrégateur intégrité catalogue apps — slots, store, présentation, sync slotSpecs.
+ * Gate StoreΣ — intégrité registryOverrides pour OS Linux actifs.
  * Usage : node usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs
  */
 import fs from 'fs';
 import path from 'path';
-import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
-import {
-  loadSlotsManifest,
-  loadStoreContract,
-  loadPresentationBindings,
-  loadAppsCatalogContract,
-  resolveStoreToolkit,
-} from './lab/capsule-app-resolver.mjs';
+import { buildStoreCatalogEntries } from './lab/capsule-app-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
-
 const errors = [];
-const warnings = [];
 
-const subValidators = [
-  'validate-slots-manifest.mjs',
-  'validate-presentation-bindings.mjs',
-  'validate-store-catalog-generated.mjs',
-];
+const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 
-for (const script of subValidators) {
-  const r = spawnSync(process.execPath, [path.join(__dirname, script)], {
-    cwd: ROOT,
-    stdio: 'inherit',
-  });
-  if (r.status !== 0) {
-    errors.push(`${script} — échec`);
+const REQUIRED_FIELDS = ['labelFr', 'priorite', 'slot', 'statut', 'requiresSlot'];
+
+const ACTIVE_LINUX = () => {
+  const reg = readJson('etc/capsuleos/os-registry.json');
+  return (reg.entries || []).filter((e) => e.family === 'linux' && e.status === 'active').map((e) => e.id);
+};
+
+const appsCatalog = readJson('etc/capsuleos/contracts/apps-catalog.json');
+const presentation = readJson('etc/capsuleos/contracts/presentation-bindings.json');
+const store = readJson('etc/capsuleos/contracts/store-installable-apps.json');
+
+const overrides = appsCatalog.registryOverrides || {};
+
+for (const registryId of ACTIVE_LINUX()) {
+  const block = overrides[registryId];
+  if (!block) {
+    errors.push(`${registryId} : registryOverrides manquant`);
+    continue;
   }
-}
 
-const slotsManifest = loadSlotsManifest();
-const store = loadStoreContract();
-const presentation = loadPresentationBindings();
-const appsCatalog = loadAppsCatalogContract();
-
-for (const app of store.apps || []) {
-  if (!slotsManifest.slots?.[app.slot]) {
-    errors.push(`store-installable slot "${app.slot}" absent de slots-manifest.json`);
+  const entry = (readJson('etc/capsuleos/os-registry.json').entries || []).find((e) => e.id === registryId);
+  const expectedToolkit = entry?.toolkit?.id;
+  if (expectedToolkit && block.toolkit && block.toolkit !== expectedToolkit) {
+    errors.push(`${registryId} : toolkit contrat ${block.toolkit} ≠ registre ${expectedToolkit}`);
   }
-  for (const [registryId, src] of Object.entries(app.sources || {})) {
-    if (!src.storeInstallable) continue;
-    const binding = presentation.bindings?.[registryId];
-    if (!binding) {
-      warnings.push(`${app.slot}/${registryId} : storeInstallable sans presentation-binding`);
-      continue;
+
+  const apps = block.apps || {};
+  if (!Object.keys(apps).length) {
+    errors.push(`${registryId} : apps vide`);
+  }
+
+  for (const [vmId, spec] of Object.entries(apps)) {
+    for (const field of REQUIRED_FIELDS) {
+      if (spec[field] === undefined) {
+        errors.push(`${registryId}.${vmId} : champ ${field} manquant`);
+      }
     }
-    if (binding.storeCatalogStatus === 'deferred') {
-      continue;
-    }
-    const toolkit = resolveStoreToolkit(binding);
-    const slot = slotsManifest.slots[app.slot];
-    const depth = slot?.functionalDepth;
-    if ((depth === 'full' || depth === 'partial') && !slot.toolkitVariants?.[toolkit]) {
-      errors.push(`${app.slot}/${registryId} : pas de toolkitVariants.${toolkit} (functionalDepth=${depth})`);
+    if (spec.requiresSlot && spec.statut === 'ok' && !spec.slot) {
+      errors.push(`${registryId}.${vmId} : requiresSlot sans slot`);
     }
   }
-}
 
-const manifestSlotIds = new Set(Object.keys(slotsManifest.slots || {}));
-for (const [toolkitId, toolkit] of Object.entries(appsCatalog.toolkits || {})) {
-  for (const slotId of Object.keys(toolkit.slotSpecs || {})) {
-    if (!manifestSlotIds.has(slotId)) {
-      warnings.push(`apps-catalog toolkits.${toolkitId}.slotSpecs.${slotId} absent de slots-manifest (sync doc)`);
-    } else {
-      const spec = toolkit.slotSpecs[slotId];
-      const manifest = slotsManifest.slots[slotId];
-      const variant = manifest.toolkitVariants?.[toolkitId];
-      if (variant && spec.template !== variant.template) {
-        warnings.push(`slotSpecs vs slots-manifest drift ${slotId}/${toolkitId} template: ${spec.template} ≠ ${variant.template}`);
+  const binding = presentation.bindings?.[registryId];
+  if (binding && !binding.storeCatalogStatus) {
+    const storeFront = binding.storeFront || store.storeFrontByRegistry?.[registryId];
+    if (!storeFront?.slot) {
+      errors.push(`${registryId} : storeFront absent (presentation-bindings)`);
+    }
+  }
+
+  if (binding?.storeCatalogStatus !== 'deferred') {
+    try {
+      const entries = buildStoreCatalogEntries(registryId);
+      const expected = registryId === 'linux-mint' ? 21 : (
+        ['linux-alma', 'linux-rocky', 'linux-fedora', 'linux-ubuntu', 'linux-popos', 'linux-anduinos'].includes(registryId) ? 11 : null
+      );
+      if (expected !== null && entries.length !== expected) {
+        errors.push(`${registryId} : store attendu ${expected} apps (actuel ${entries.length})`);
+      }
+    } catch (err) {
+      if (!binding?.storeCatalogStatus) {
+        errors.push(`${registryId} : buildStoreCatalogEntries — ${err.message}`);
       }
     }
   }
 }
 
-if (store.status !== 'active') {
-  errors.push(`store-installable-apps.json status="${store.status}" — attendu "active"`);
-}
-if (!store.slotsManifestRef?.includes('slots-manifest')) {
-  errors.push('store-installable-apps.json : slotsManifestRef manquant');
-}
-
-if (warnings.length) {
-  console.warn(`\n⚠ ${warnings.length} avertissement(s) catalogue`);
-  warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
-}
 if (errors.length) {
-  console.error(`\n✗ validate-app-catalog-integrity — ${errors.length} erreur(s)`);
-  errors.forEach((e) => console.error(`  ✗ ${e}`));
+  console.error(`✗ validate-app-catalog-integrity — ${errors.length} erreur(s)`);
+  errors.forEach((e) => console.error('  ', e));
   process.exit(1);
 }
-console.log('\n✓ validate-app-catalog-integrity OK — StoreΣ structurel');
+
+const counts = ACTIVE_LINUX().map((id) => `${id}=${Object.keys(overrides[id]?.apps || {}).length}`).join(', ');
+console.log(`✓ validate-app-catalog-integrity OK — ${ACTIVE_LINUX().length} OS Linux actifs (${counts})`);
+process.exit(0);

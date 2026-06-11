@@ -94,14 +94,41 @@ flowchart LR
   OUT --> RT
 ```
 
+## Bootstrap registryOverrides
+
+Pour tout `registryId` Linux actif sans bloc `registryOverrides` :
+
+```bash
+# Mint — catalogue alphabétique VM (toutes apps ok)
+node usr/lib/capsuleos/tools/lab/generate-mint-registry-overrides.mjs --write
+
+# GNOME / COSMIC / KDE — scan skin + magasin
+node usr/lib/capsuleos/tools/lab/generate-registry-overrides.mjs --id <registryId> --write
+
+# AnduinOS — dérivé Ubuntu + extensions store
+node usr/lib/capsuleos/tools/lab/generate-registry-overrides.mjs --id linux-anduinos --write
+```
+
+Puis :
+
+```bash
+node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id <registryId>
+node usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs
+```
+
+Cinnamon (`linux-mint`) : l'audit overview GNOME est ignoré (toolkit dédié). KDE : pas de grille overview GNOME — contrôle structurel uniquement.
+
 ## Outils
 
 | Outil | Usage |
 |-------|-------|
 | `capsule-app-resolver.mjs` | `resolveSlotManifest`, `resolveStoreEntries`, `resolvePresentation`, `resolveStoreToolkit` |
 | `generate-store-catalog.mjs` | Régénère le catalogue runtime |
-| `generate-mint-registry-overrides.mjs` | Bootstrap `registryOverrides.linux-mint` depuis inventaire |
-| `validate-app-catalog-integrity.mjs` | Gate agrégateur StoreΣ |
+| `generate-mint-registry-overrides.mjs` | Bootstrap `registryOverrides.linux-mint` depuis `linux-mint-apps-catalog.json` |
+| `generate-registry-overrides.mjs` | Bootstrap unifié `--id <registryId>` (skin + store) |
+| `generate-registry-overrides-from-skin.mjs` | Bibliothèque scan `data-link` / dock COSMIC / taskbar KDE |
+| `audit-gnome-overview-scenarios.mjs` | Smoke `buildCatalog` sans throw (GNOME/COSMIC) |
+| `validate-app-catalog-integrity.mjs` | Gate agrégateur StoreΣ — tous OS Linux actifs |
 
 ## Références
 

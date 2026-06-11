@@ -1,22 +1,34 @@
 #!/usr/bin/env node
 /**
- * Smoke scénarios magasin Logithèque Cinnamon (Mi1–Mi6) — pilote linux-mint.
+ * Smoke scénarios Logithèque Mi1–Mi12 (linux-mint).
  *
  * Usage :
- *   CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-mint-store-scenarios.mjs
+ *   node usr/lib/capsuleos/tools/lab/smoke-mint-store-scenarios.mjs
+ *   CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/smoke-mint-store-scenarios.mjs --scenario Mi8
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { chromium } from 'playwright';
-import { buildStoreCatalogEntries } from './capsule-app-resolver.mjs';
-import { MINT_URL, MINT_VIEWPORT, chromePath, openMintSlot, openMintMainMenu } from './mint-smoke-open.mjs';
+import { MINT_URL, chromePath, openMintSlot, waitMintReady } from './mint-smoke-open.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const BASE = (process.env.CAPSULE_HTTP_BASE || '').replace(/\/$/, '');
-const URL = BASE ? `${BASE}/home/Debian/Mint/index.html` : MINT_URL;
+const URL = BASE ? MINT_URL.replace('http://127.0.0.1:5501', BASE) : MINT_URL;
 
+const parseArgs = () => {
+    const args = process.argv.slice(2);
+    const opts = { scenario: null };
+    for (let i = 0; i < args.length; i += 1) {
+        if (args[i] === '--scenario' && args[i + 1]) {
+            opts.scenario = args[++i];
+        }
+    }
+    return opts;
+};
+
+const opts = parseArgs();
 const errors = [];
 
 function read(rel) {
@@ -24,162 +36,291 @@ function read(rel) {
     return fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : '';
 }
 
-const template = read('usr/share/capsuleos/linux/apps/mintinstall.html');
-const mintinstallJs = read('usr/lib/capsuleos/shells/linux/mintinstall.js');
-const storeCatalogJs = read('usr/lib/capsuleos/shells/linux/mint-store-catalog.js');
+const contract = JSON.parse(read('etc/capsuleos/contracts/mintinstall-user-scenarios.json') || '{}');
+const scenarios = (contract.scenarios || []).filter((s) => {
+    if (opts.scenario && s.id !== opts.scenario) {
+        return false;
+    }
+    return true;
+});
 
-if (!template.includes('data-mi-discover-grid')) {
+const kernel = read('usr/lib/capsuleos/shells/linux/mintinstall.js');
+const storeKernel = read('usr/lib/capsuleos/shells/linux/mint-store-catalog.js');
+const html = read('usr/share/capsuleos/linux/apps/mintinstall.html');
+
+if (!kernel.includes('data-mi-open')) {
+    errors.push('mintinstall.js : data-mi-open absent');
+}
+if (!html.includes('data-mi-discover-grid')) {
     errors.push('mintinstall.html : grille À découvrir absente');
 }
-if (!template.includes('data-mi-cat="games"')) {
-    errors.push('mintinstall.html : catégorie Jeux absente');
-}
-if (!mintinstallJs.includes('renderDiscoverSection')) {
-    errors.push('mintinstall.js : renderDiscoverSection absent');
-}
-if (!storeCatalogJs.includes('recordStoreInstall')) {
-    errors.push('mint-store-catalog.js : recordStoreInstall absent');
+if (!storeKernel.includes('CapsuleMintStore')) {
+    errors.push('mint-store-catalog.js : CapsuleMintStore absent');
 }
 
-const storeEntries = buildStoreCatalogEntries('linux-mint');
-const discoverCount = storeEntries.filter((e) => e.storeInstallable === true || e.defaultInstalled === false).length;
-if (!discoverCount) {
-    errors.push('catalogue linux-mint : 0 entrée À découvrir');
-}
-
-if (errors.length) {
-    console.error('smoke-mint-store-scenarios — statique ÉCHEC');
-    errors.forEach((msg) => console.error(`  • ${msg}`));
-    process.exit(1);
-}
-
-const browser = await chromium.launch({ headless: true, executablePath: chromePath });
-const page = await browser.newPage({ viewport: MINT_VIEWPORT });
-await page.setViewportSize(MINT_VIEWPORT);
-await page.goto(URL, { waitUntil: 'networkidle', timeout: 45000 });
-await page.waitForFunction(
-    () => typeof window.openWindowByDataLink === 'function',
-    null,
-    { timeout: 60000 },
-);
-
-await page.evaluate(() => {
-    try {
-        window.sessionStorage.removeItem('capsule-store-installed:linux-mint');
-    } catch (e) {
-        /* ignore */
+scenarios.forEach((scenario) => {
+    if (!scenario.proofs || !scenario.proofs.smoke) {
+        errors.push(`${scenario.id} : proofs.smoke absent`);
     }
 });
 
-await openMintSlot(page, 'mintinstall');
-await page.waitForTimeout(250);
-
-const mi1 = await page.evaluate(() => ({
-    title: document.querySelector('div[data-link="mintinstall"] #windowTitle')?.textContent,
-    featured: document.querySelectorAll('.mi-app__featured .mi-app__featured-card').length,
-    discoverTitle: document.querySelector('.mi-app__discover-title')?.textContent,
-}));
-
-if (mi1.title !== 'Logithèque' || mi1.featured < 4) {
-    errors.push(`Mi1 accueil VM : title=${mi1.title} featured=${mi1.featured}`);
-}
-if (mi1.discoverTitle !== 'À découvrir') {
-    errors.push('Mi2 section À découvrir : titre absent');
-}
-
-const mi2 = await page.evaluate(() => document.querySelectorAll('#mi-discover-grid .mi-app__discover-card').length);
-if (mi2 < 3) {
-    errors.push(`Mi2 grille discover : ${mi2} cartes (attendu ≥3)`);
-}
-
-await page.click('[data-mi-cat="games"]');
-await page.waitForTimeout(80);
-const mi3 = await page.evaluate(() => ({
-    active: document.querySelector('[data-mi-cat="games"]')?.classList.contains('is-active'),
-    list: document.querySelectorAll('#mi-app-list .mi-app__list-item').length,
-}));
-if (!mi3.active) {
-    errors.push('Mi3 catégorie Jeux : non active');
-}
-
-await page.click('[data-mi-cat="home"]');
-await page.waitForTimeout(60);
-
-const installTarget = await page.evaluate(() => {
-    const prefer = ['thunderbird', 'transmission', 'rhythmbox', 'warpinator', 'simple-scan', 'snapshot'];
-    var pi;
-    for (pi = 0; pi < prefer.length; pi += 1) {
-        const btn = document.querySelector(`#mi-discover-grid [data-mi-install="${prefer[pi]}"]:not(:disabled)`);
-        if (btn) {
-            return prefer[pi];
-        }
-    }
-    const fallback = document.querySelector('#mi-discover-grid [data-mi-install]:not(:disabled)');
-    return fallback ? fallback.getAttribute('data-mi-install') : null;
-});
-
-if (!installTarget) {
-    errors.push('Mi4 install : aucun bouton discover disponible');
-} else {
-    await page.evaluate((appId) => {
-        const btn = document.querySelector(`#mi-discover-grid [data-mi-install="${appId}"]`);
-        if (btn) {
-            btn.click();
-        }
-    }, installTarget);
-    await page.waitForTimeout(120);
-    const mi4 = await page.evaluate((appId) => {
-        const btn = document.querySelector(`#mi-discover-grid [data-mi-install="${appId}"]`);
-        let stored = [];
+async function clearStoreSession(page) {
+    await page.evaluate(() => {
         try {
-            const raw = window.sessionStorage.getItem('capsule-store-installed:linux-mint');
-            if (raw) {
-                stored = JSON.parse(raw).appIds || [];
-            }
+            window.sessionStorage.removeItem('capsule-store-installed:linux-mint');
         } catch (e) {
             /* ignore */
         }
-        return {
-            stillVisible: !!btn,
-            disabled: btn ? btn.disabled : false,
-            stored: stored.indexOf(appId) !== -1,
-            status: document.getElementById('mi-status')?.textContent || '',
-        };
-    }, installTarget);
-    if (!mi4.stored || (mi4.stillVisible && !mi4.disabled)) {
-        errors.push(`Mi4 install ${installTarget} : stored=${mi4.stored} visible=${mi4.stillVisible} disabled=${mi4.disabled}`);
-    }
+    });
 }
 
-await openMintMainMenu(page);
-await page.waitForTimeout(120);
-const mi5 = await page.evaluate((appId) => {
-    const storeEntry = window.CapsuleMintStore && window.CapsuleMintStore.getStoreAppEntry
-        ? window.CapsuleMintStore.getStoreAppEntry(appId)
-        : null;
-    const slot = storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : appId;
-    if (!window.MENU_APPS) {
-        return { menuApps: false };
-    }
-    var i;
-    for (i = 0; i < window.MENU_APPS.length; i += 1) {
-        if (window.MENU_APPS[i].dataLink === slot) {
-            return { menuLinked: true, slot: slot };
+async function focusMintinstall(page) {
+    await page.evaluate(() => {
+        if (typeof window.openWindowByDataLink === 'function') {
+            window.openWindowByDataLink('mintinstall');
         }
-    }
-    return { menuLinked: false, slot: slot };
-}, installTarget || 'thunderbird');
-
-if (installTarget && !mi5.menuLinked) {
-    errors.push(`Mi5 menu pin : slot ${mi5.slot} non lié après install`);
+    });
+    await page.waitForSelector('div[data-link="mintinstall"]', { state: 'visible', timeout: 8000 });
+    await page.waitForTimeout(150);
 }
 
-await browser.close();
+async function ensureMintHome(page) {
+    await page.evaluate(() => {
+        const home = document.querySelector('[data-mi-cat="home"]');
+        if (home) {
+            home.click();
+        }
+    });
+    await page.waitForSelector('[data-mi-page="home"]:not([hidden])', { timeout: 8000 });
+}
+
+async function openMintinstall(page) {
+    await waitMintReady(page);
+    await clearStoreSession(page);
+    await openMintSlot(page, 'mintinstall');
+    await page.waitForSelector('#mintInstallApp[data-mint-install-init="true"]', { timeout: 15000 });
+    await ensureMintHome(page);
+    await page.waitForTimeout(200);
+}
+
+async function clickInstallButton(page, appId) {
+    const clicked = await page.evaluate((id) => {
+        var card = document.querySelector('[data-mi-discover-grid] [data-mi-pkg="' + id + '"]');
+        if (card && card.scrollIntoView) {
+            card.scrollIntoView({ block: 'center' });
+        }
+        var btn = document.querySelector('[data-mi-discover-grid] [data-mi-pkg="' + id + '"] [data-mi-install="' + id + '"]')
+            || document.querySelector('[data-mi-install="' + id + '"]');
+        if (!btn) {
+            return false;
+        }
+        btn.click();
+        return true;
+    }, appId);
+    if (!clicked) {
+        throw new Error('bouton install ' + appId + ' introuvable');
+    }
+}
+
+async function waitInstallComplete(page, appId) {
+    await page.waitForFunction((id) => {
+        var root = document.getElementById('mintInstallApp');
+        if (!root || root.dataset.miInstalling === 'true') {
+            return false;
+        }
+        if (root.querySelector('[data-mi-open]')) {
+            return true;
+        }
+        var stillInstall = root.querySelector('[data-mi-install="' + id + '"]');
+        return stillInstall && stillInstall.textContent.trim() === 'Ouvrir';
+    }, appId, { timeout: 25000 });
+}
+
+async function runInstallFlow(page, appId) {
+    await focusMintinstall(page);
+    await ensureMintHome(page);
+    await clickInstallButton(page, appId);
+    await waitInstallComplete(page, appId);
+}
+
+async function runScenario(page, scenario) {
+    if (scenario.id === 'Mi1') {
+        await openMintinstall(page);
+        await page.click('[data-mi-cat="office"]');
+        await page.waitForTimeout(200);
+        await page.click('[data-mi-pkg="librewriter"]');
+        await page.waitForTimeout(200);
+        await page.click('[data-mi-detail-install]');
+        await page.waitForFunction(() => {
+            const root = document.getElementById('mintInstallApp');
+            return root && root.dataset.miInstalling !== 'true'
+                && root.querySelector('[data-mi-open="librewriter"]');
+        }, null, { timeout: 20000 });
+        await page.click('[data-mi-open="librewriter"]');
+        await page.waitForSelector('div[data-link="librewriter"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi2') {
+        await openMintinstall(page);
+        await page.fill('#mi-search', 'writer');
+        await page.waitForTimeout(400);
+        await page.click('#mi-search-list [data-mi-pkg="librewriter"]');
+        await page.waitForSelector('[data-mi-page="detail"]:not([hidden])', { timeout: 8000 });
+        await page.evaluate(() => {
+            var btn = document.querySelector('[data-mi-detail-install]')
+                || document.querySelector('[data-mi-open="librewriter"]');
+            if (btn) {
+                btn.click();
+            }
+        });
+        await waitInstallComplete(page, 'librewriter');
+        return;
+    }
+    if (scenario.id === 'Mi3') {
+        await openMintinstall(page);
+        await page.evaluate(() => window.openWindowByDataLink('update_manager'));
+        await page.waitForSelector('div[data-link="update_manager"]', { state: 'visible', timeout: 8000 });
+        const welcome = page.locator('#um-welcome:not([hidden])');
+        if (await welcome.count()) {
+            await page.click('[data-um-welcome="finish"]');
+        }
+        await page.click('[data-um-action="refresh"]');
+        await page.waitForTimeout(1000);
+        await page.click('[data-um-action="selectAll"]');
+        await page.click('[data-um-action="install"]');
+        await page.waitForSelector('#um-empty:not([hidden])', { timeout: 20000 });
+        return;
+    }
+    if (scenario.id === 'Mi4') {
+        await openMintinstall(page);
+        await page.click('[data-mi-cat="installed"]');
+        await page.waitForTimeout(300);
+        await page.click('#mi-app-list [data-mi-open="firefox"]');
+        await page.waitForSelector('div[data-link="firefox"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi5') {
+        await openMintinstall(page);
+        await page.click('[data-mi-cat="accessories"]');
+        await page.waitForTimeout(300);
+        await page.click('[data-mi-open="file_roller"]');
+        await page.waitForSelector('div[data-link="file_roller"]', { state: 'visible', timeout: 8000 });
+        await focusMintinstall(page);
+        await page.click('[data-mi-cat="installed"]', { force: true });
+        await page.waitForSelector('#mi-app-list [data-mi-pkg="file-roller"]', { timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi6') {
+        await openMintinstall(page);
+        await page.click('[data-mi-cat="office"]');
+        await page.waitForTimeout(300);
+        await page.click('[data-mi-open="librewriter"]');
+        await page.waitForSelector('div[data-link="librewriter"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi7') {
+        await openMintinstall(page);
+        await page.click('[data-mi-cat="accessories"]');
+        await page.waitForTimeout(300);
+        await page.click('[data-mi-open="calendar"]');
+        await page.waitForSelector('div[data-link="calendar"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi8') {
+        await openMintinstall(page);
+        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="thunderbird"]', { timeout: 8000 });
+        await runInstallFlow(page, 'thunderbird');
+        await focusMintinstall(page);
+        await page.evaluate(() => {
+            var btn = document.querySelector('[data-mi-open="thunderbird"]');
+            if (btn) {
+                btn.click();
+            }
+        });
+        await page.waitForSelector('div[data-link="thunderbird"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi9') {
+        await openMintinstall(page);
+        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="transmission"]', { timeout: 8000 });
+        await runInstallFlow(page, 'transmission');
+        await focusMintinstall(page);
+        await page.click('[data-mi-cat="installed"]', { force: true });
+        await page.waitForSelector('#mi-app-list [data-mi-pkg="transmission"]', { timeout: 8000 });
+        const tag = await page.evaluate(() => document.getElementById('mintInstallApp').dataset.miScenario);
+        if (tag !== 'Mi9-complete') {
+            errors.push('Mi9 : dataset.miScenario !== Mi9-complete');
+        }
+        return;
+    }
+    if (scenario.id === 'Mi10') {
+        await openMintinstall(page);
+        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="warpinator"]', { timeout: 8000 });
+        await runInstallFlow(page, 'warpinator');
+        await focusMintinstall(page);
+        await page.evaluate(() => {
+            var btn = document.querySelector('[data-mi-open="warpinator"]');
+            if (btn) {
+                btn.click();
+            }
+        });
+        await page.waitForSelector('div[data-link="warpinator"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi11') {
+        await openMintinstall(page);
+        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="rhythmbox"]', { timeout: 8000 });
+        await runInstallFlow(page, 'rhythmbox');
+        await focusMintinstall(page);
+        await page.evaluate(() => {
+            var btn = document.querySelector('[data-mi-open="rhythmbox"]');
+            if (btn) {
+                btn.click();
+            }
+        });
+        await page.waitForSelector('div[data-link="rhythmbox"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+    if (scenario.id === 'Mi12') {
+        await openMintinstall(page);
+        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="simple-scan"]', { timeout: 8000 });
+        await runInstallFlow(page, 'simple-scan');
+        await focusMintinstall(page);
+        await page.evaluate(() => {
+            var btn = document.querySelector('[data-mi-open="simple_scan"]');
+            if (btn) {
+                btn.click();
+            }
+        });
+        await page.waitForSelector('div[data-link="simple_scan"]', { state: 'visible', timeout: 8000 });
+        return;
+    }
+}
+
+if (BASE || URL) {
+    const browser = await chromium.launch({ headless: true, executablePath: chromePath });
+    const page = await browser.newPage();
+    try {
+        for (const scenario of scenarios) {
+            try {
+                await runScenario(page, scenario);
+            } catch (e) {
+                errors.push(`${scenario.id} Playwright : ${e.message}`);
+            }
+        }
+    } finally {
+        await browser.close();
+    }
+} else {
+    process.stdout.write('○ smoke-mint-store-scenarios Playwright ignoré — CAPSULE_HTTP_BASE non défini\n');
+}
 
 if (errors.length) {
-    console.error('smoke-mint-store-scenarios — ÉCHEC');
-    errors.forEach((msg) => console.error(`  • ${msg}`));
+    console.error(`✗ smoke-mint-store-scenarios — ${errors.length} erreur(s)`);
+    errors.forEach((e) => console.error(`  ✗ ${e}`));
     process.exit(1);
 }
 
-console.log(`smoke-mint-store-scenarios — OK (discover=${mi2}, install=${installTarget || 'n/a'})`);
+const ran = scenarios.map((s) => s.id).join(', ');
+console.log(`✓ smoke-mint-store-scenarios OK — linux-mint [${ran}]${BASE ? ' (Playwright)' : ' (statique)'}`);
+process.exit(0);

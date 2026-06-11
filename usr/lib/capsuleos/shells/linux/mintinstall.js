@@ -6,6 +6,18 @@
 
     var WINDOW_TITLE = 'Logithèque';
 
+    var MI_SCENARIO_BY_APP = {
+        'librewriter': 'Mi1-complete',
+        'file-roller': 'Mi5-complete',
+        'libreoffice': 'Mi6-complete',
+        'calendar': 'Mi7-complete',
+        'thunderbird': 'Mi8-complete',
+        'transmission': 'Mi9-complete',
+        'warpinator': 'Mi10-complete',
+        'rhythmbox': 'Mi11-complete',
+        'simple-scan': 'Mi12-complete'
+    };
+
     var MINT_CAT_BY_SLOT = {
         firefox: 'internet',
         thunderbird: 'internet',
@@ -43,6 +55,9 @@
         rhythmbox: './assets/images/toolkits/cinnamon/apps/rhythmbox.png',
         calculator: './assets/images/vendors/mint/panel/org.gnome.Calculator.webp',
         text_editor: './assets/images/vendors/mint/panel/accessories-text-editor.webp',
+        file_roller: './assets/images/toolkits/cinnamon/apps/file-roller',
+        calendar: './assets/images/toolkits/cinnamon/apps/org.gnome.Calendar',
+        simple_scan: './assets/images/toolkits/cinnamon/apps/simple-scan',
         baobab: './assets/images/toolkits/cinnamon/apps/org.gnome.baobab',
         snapshot: './assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg'
     };
@@ -54,6 +69,13 @@
         { id: 'libreoffice_impress', name: 'LibreOffice Impress', desc: 'Présentations', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-impress' },
         { id: 'libreoffice_draw', name: 'LibreOffice Draw', desc: 'Dessin vectoriel', cat: 'office', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-draw' }
     ];
+
+    function getSkinCatalog() {
+        if (global.CAPSULE_MINTINSTALL_CATALOG) {
+            return global.CAPSULE_MINTINSTALL_CATALOG;
+        }
+        return null;
+    }
 
     function mapStoreEntryToMint(entry) {
         var slot = entry.storeSlot || entry.slot;
@@ -113,10 +135,97 @@
     }
 
     function getCatalog() {
-        return buildCatalogFromRegistry() || CATALOG_FALLBACK;
+        var fromRegistry = buildCatalogFromRegistry();
+        if (!fromRegistry) {
+            return CATALOG_FALLBACK;
+        }
+        var merged = fromRegistry.slice();
+        var fi;
+        for (fi = 0; fi < CATALOG_FALLBACK.length; fi += 1) {
+            var found = false;
+            var mi;
+            for (mi = 0; mi < merged.length; mi += 1) {
+                if (merged[mi].id === CATALOG_FALLBACK[fi].id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                merged.push(CATALOG_FALLBACK[fi]);
+            }
+        }
+        return merged;
     }
 
-    function renderDiscoverSection(root, installed) {
+    function resolveOpenSlot(pkgId, storeApi) {
+        var storeEntry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
+            ? storeApi.getStoreAppEntry(pkgId)
+            : null;
+        if (storeEntry) {
+            if (storeEntry.postInstallSlot) {
+                return storeEntry.postInstallSlot;
+            }
+            if (storeEntry.storeSlot) {
+                return storeEntry.storeSlot;
+            }
+            if (storeEntry.slot) {
+                return storeEntry.slot;
+            }
+        }
+        var entry = catalogEntry(pkgId);
+        if (entry && entry.slot) {
+            return entry.slot;
+        }
+        return pkgId;
+    }
+
+    function createPkgActionButton(entry, isInstalled, storeApi) {
+        var btn = global.document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mi-app__install';
+        if (isInstalled) {
+            var openSlot = resolveOpenSlot(entry.id, storeApi);
+            btn.textContent = 'Ouvrir';
+            btn.classList.add('is-open');
+            btn.setAttribute('data-mi-open', openSlot);
+        } else {
+            btn.textContent = 'Installer';
+            btn.setAttribute('data-mi-install', entry.id);
+        }
+        return btn;
+    }
+
+    function renderFeaturedSection(root) {
+        var skinCatalog = getSkinCatalog();
+        var featuredWrap = root.querySelector('.mi-app__featured');
+        if (!featuredWrap || !skinCatalog || !skinCatalog.featured || !skinCatalog.featured.length) {
+            return;
+        }
+        featuredWrap.innerHTML = '';
+        var fi;
+        for (fi = 0; fi < skinCatalog.featured.length; fi += 1) {
+            var feat = skinCatalog.featured[fi];
+            var card = global.document.createElement('li');
+            card.className = 'mi-app__featured-card';
+            var icon = global.document.createElement('img');
+            icon.src = resolveIconUrl(feat.icon);
+            icon.alt = '';
+            icon.width = 48;
+            icon.height = 48;
+            var label = global.document.createElement('span');
+            label.className = 'mi-app__featured-name';
+            label.textContent = feat.name;
+            card.appendChild(icon);
+            card.appendChild(label);
+            featuredWrap.appendChild(card);
+        }
+        var discoverTitle = root.querySelector('.mi-app__discover-title');
+        if (discoverTitle && skinCatalog.discover && skinCatalog.discover.title) {
+            discoverTitle.textContent = skinCatalog.discover.title;
+        }
+    }
+
+    function renderDiscoverSection(root, installed, storeApi) {
         var grid = root.querySelector('[data-mi-discover-grid]');
         if (!grid) {
             return;
@@ -147,18 +256,9 @@
             desc.textContent = entry.desc;
             info.appendChild(name);
             info.appendChild(desc);
-            var installBtn = global.document.createElement('button');
-            installBtn.type = 'button';
-            installBtn.className = 'mi-app__install';
-            installBtn.setAttribute('data-mi-install', entry.id);
-            installBtn.textContent = installed[entry.id] ? 'Installé' : 'Installer';
-            if (installed[entry.id]) {
-                installBtn.classList.add('is-installed');
-                installBtn.disabled = true;
-            }
             card.appendChild(icon);
             card.appendChild(info);
-            card.appendChild(installBtn);
+            card.appendChild(createPkgActionButton(entry, installed[entry.id], storeApi));
             grid.appendChild(card);
         }
     }
@@ -169,9 +269,6 @@
         for (ci = 0; ci < catalog.length; ci += 1) {
             if (catalog[ci].defaultInstalled) {
                 installed[catalog[ci].id] = true;
-                if (catalog[ci].slot) {
-                    installed[catalog[ci].slot] = true;
-                }
             }
         }
         if (storeApi && typeof storeApi.loadStoreInstalledMeta === 'function') {
@@ -183,6 +280,9 @@
                 var storeEntry = storeApi.getStoreAppEntry(ids[ii]);
                 if (storeEntry && storeEntry.storeSlot) {
                     installed[storeEntry.storeSlot] = true;
+                }
+                if (storeEntry && storeEntry.slot) {
+                    installed[storeEntry.slot] = true;
                 }
             }
         }
@@ -252,17 +352,13 @@
         }
     }
 
-    function renderListItem(entry, isInstalled) {
+    function renderListItem(entry, isInstalled, storeApi) {
         var li = global.document.createElement('li');
         li.className = 'mi-app__list-item';
         li.setAttribute('data-mi-pkg', entry.id);
         var icon = global.document.createElement('img');
         icon.className = 'mi-app__list-icon';
-        icon.src = typeof global.resolveCapsuleAssetUrl === 'function'
-            ? global.resolveCapsuleAssetUrl(entry.icon)
-            : (typeof global.resolveCapsuleResourceUrl === 'function'
-                ? global.resolveCapsuleResourceUrl(entry.icon)
-                : entry.icon);
+        icon.src = resolveIconUrl(entry.icon);
         icon.alt = '';
         var body = global.document.createElement('div');
         body.className = 'mi-app__list-body';
@@ -274,15 +370,9 @@
         desc.textContent = entry.desc;
         body.appendChild(name);
         body.appendChild(desc);
-        var installBtn = global.document.createElement('button');
-        installBtn.type = 'button';
-        installBtn.className = 'mi-app__install' + (isInstalled ? ' is-installed' : '');
-        installBtn.setAttribute('data-mi-install', entry.id);
-        installBtn.textContent = isInstalled ? 'Installé' : 'Installer';
-        installBtn.disabled = !!isInstalled;
         li.appendChild(icon);
         li.appendChild(body);
-        li.appendChild(installBtn);
+        li.appendChild(createPkgActionButton(entry, isInstalled, storeApi));
         return li;
     }
 
@@ -327,17 +417,7 @@
 
         var winEl = getWindowEl(root);
         syncWindowTitle(winEl);
-
-        var featuredImgs = root.querySelectorAll('.mi-app__featured img[src^="./assets/"]');
-        var fi;
-        for (fi = 0; fi < featuredImgs.length; fi += 1) {
-            var featSrc = featuredImgs[fi].getAttribute('src');
-            if (typeof global.resolveCapsuleAssetUrl === 'function') {
-                featuredImgs[fi].src = global.resolveCapsuleAssetUrl(featSrc);
-            } else if (typeof global.resolveCapsuleResourceUrl === 'function') {
-                featuredImgs[fi].src = global.resolveCapsuleResourceUrl(featSrc);
-            }
-        }
+        renderFeaturedSection(root);
 
         var searchInput = root.querySelector('#mi-search');
         var listEl = root.querySelector('#mi-app-list');
@@ -362,13 +442,129 @@
         var detailPkgId = null;
         var catalog = getCatalog();
         var installed = loadInstalledState(catalog, storeApi, registryId);
+        var miBusy = false;
 
-        renderDiscoverSection(root, installed);
+        renderDiscoverSection(root, installed, storeApi);
 
         function setStatus(msg) {
             if (statusEl) {
                 statusEl.textContent = msg || '';
             }
+        }
+
+        function setMiScenario(pkgId) {
+            if (MI_SCENARIO_BY_APP[pkgId]) {
+                root.dataset.miScenario = MI_SCENARIO_BY_APP[pkgId];
+            }
+        }
+
+        function openPkgSlot(pkgId) {
+            var openSlot = resolveOpenSlot(pkgId, storeApi);
+            if (openSlot && typeof global.openWindowByDataLink === 'function') {
+                global.openWindowByDataLink(openSlot);
+                setStatus(entryName(pkgId) + ' ouvert.');
+            }
+        }
+
+        function applyOpenStateToButton(btn, pkgId) {
+            var openSlot = resolveOpenSlot(pkgId, storeApi);
+            btn.textContent = 'Ouvrir';
+            btn.disabled = false;
+            btn.classList.remove('is-installing', 'is-installed');
+            btn.classList.add('is-open');
+            btn.removeAttribute('data-mi-install');
+            btn.removeAttribute('data-mi-detail-install');
+            btn.setAttribute('data-mi-open', openSlot);
+        }
+
+        function syncPkgButtons(pkgId) {
+            var openSlot = resolveOpenSlot(pkgId, storeApi);
+            root.querySelectorAll('[data-mi-install="' + pkgId + '"]').forEach(function syncInstallBtn(btn) {
+                applyOpenStateToButton(btn, pkgId);
+            });
+            root.querySelectorAll('[data-mi-open="' + openSlot + '"]').forEach(function noop() {
+                /* déjà ouvert */
+            });
+            if (detailPkgId === pkgId) {
+                syncDetailInstallBtn(pkgId);
+            }
+        }
+
+        function finishInstall(pkgId) {
+            installed[pkgId] = true;
+            var openSlot = resolveOpenSlot(pkgId, storeApi);
+            installed[openSlot] = true;
+            syncPkgButtons(pkgId);
+            setStatus(entryName(pkgId) + ' installé.');
+            setMiScenario(pkgId);
+            root.dataset.miInstalling = 'false';
+            if (storeApi && typeof storeApi.recordStoreInstall === 'function') {
+                storeApi.recordStoreInstall(registryId, pkgId, 'apt');
+            }
+            openDetail(pkgId);
+            renderDiscoverSection(root, installed, storeApi);
+            if (currentCat !== 'home' && currentCat !== 'installed') {
+                renderCategoryList(currentCat);
+            }
+            if (typeof global.document !== 'undefined' && typeof global.document.dispatchEvent === 'function') {
+                var storeEntry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
+                    ? storeApi.getStoreAppEntry(pkgId)
+                    : null;
+                var installSlot = storeEntry && storeEntry.slot ? storeEntry.slot : pkgId;
+                var installStoreSlot = storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : installSlot;
+                global.document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
+                    detail: {
+                        appId: pkgId,
+                        slot: installSlot,
+                        storeSlot: installStoreSlot,
+                        registryId: registryId,
+                        source: 'apt'
+                    }
+                }));
+            }
+        }
+
+        function runInstallSimulation(pkgId, btn) {
+            if (miBusy || installed[pkgId]) {
+                return;
+            }
+            var steps = [
+                { text: 'Préparation…', ms: 350 },
+                { text: 'Téléchargement…', ms: 500 },
+                { text: 'Installation…', ms: 600 },
+                { text: 'Finalisation…', ms: 450 }
+            ];
+            miBusy = true;
+            root.dataset.miInstalling = 'true';
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Installation…';
+                btn.classList.add('is-installing');
+            }
+            var idx = 0;
+            function nextStep() {
+                if (idx >= steps.length) {
+                    miBusy = false;
+                    finishInstall(pkgId);
+                    return;
+                }
+                var step = steps[idx];
+                if (btn) {
+                    btn.textContent = step.text.indexOf('Installation') === 0 ? 'Installation…' : step.text;
+                }
+                setStatus(step.text + ' — ' + entryName(pkgId));
+                idx += 1;
+                global.setTimeout(nextStep, step.ms);
+            }
+            global.setTimeout(nextStep, steps[0].ms);
+        }
+
+        function handleInstallOrOpen(pkgId, btn) {
+            if (installed[pkgId]) {
+                openPkgSlot(pkgId);
+                return;
+            }
+            runInstallSimulation(pkgId, btn);
         }
 
         function filterCatalog(catId) {
@@ -406,7 +602,7 @@
             var items = filterCatalog(catId);
             var ii;
             for (ii = 0; ii < items.length; ii += 1) {
-                listEl.appendChild(renderListItem(items[ii], installed[items[ii].id]));
+                listEl.appendChild(renderListItem(items[ii], installed[items[ii].id], storeApi));
             }
             showPage(root, 'list');
         }
@@ -451,7 +647,7 @@
             searchEmpty.setAttribute('hidden', 'hidden');
             var mi;
             for (mi = 0; mi < matches.length; mi += 1) {
-                searchListEl.appendChild(renderListItem(matches[mi], installed[matches[mi].id]));
+                searchListEl.appendChild(renderListItem(matches[mi], installed[matches[mi].id], storeApi));
             }
         }
 
@@ -459,16 +655,15 @@
             if (!detailInstallBtn) {
                 return;
             }
-            detailInstallBtn.setAttribute('data-mi-detail-install', pkgId);
+            detailInstallBtn.classList.remove('is-installing', 'is-installed', 'is-open');
+            detailInstallBtn.disabled = false;
             if (installed[pkgId]) {
-                detailInstallBtn.textContent = 'Installé';
-                detailInstallBtn.classList.add('is-installed');
-                detailInstallBtn.disabled = true;
-            } else {
-                detailInstallBtn.textContent = 'Installer';
-                detailInstallBtn.classList.remove('is-installed');
-                detailInstallBtn.disabled = false;
+                applyOpenStateToButton(detailInstallBtn, pkgId);
+                return;
             }
+            detailInstallBtn.textContent = 'Installer';
+            detailInstallBtn.removeAttribute('data-mi-open');
+            detailInstallBtn.setAttribute('data-mi-detail-install', pkgId);
         }
 
         function openDetail(pkgId) {
@@ -493,44 +688,6 @@
             showPage(root, 'detail');
         }
 
-        function markInstalled(pkgId, btn) {
-            installed[pkgId] = true;
-            if (btn) {
-                btn.textContent = 'Installé';
-                btn.classList.add('is-installed');
-                btn.disabled = true;
-            }
-            if (detailPkgId === pkgId) {
-                syncDetailInstallBtn(pkgId);
-            }
-            root.querySelectorAll('[data-mi-install="' + pkgId + '"]').forEach(function syncListBtn(listBtn) {
-                listBtn.textContent = 'Installé';
-                listBtn.classList.add('is-installed');
-                listBtn.disabled = true;
-            });
-            setStatus(entryName(pkgId) + ' installé');
-            if (storeApi && typeof storeApi.recordStoreInstall === 'function') {
-                storeApi.recordStoreInstall(registryId, pkgId, 'apt');
-            }
-            renderDiscoverSection(root, installed);
-            if (typeof global.document !== 'undefined' && typeof global.document.dispatchEvent === 'function') {
-                var storeEntry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
-                    ? storeApi.getStoreAppEntry(pkgId)
-                    : null;
-                var installSlot = storeEntry && storeEntry.slot ? storeEntry.slot : pkgId;
-                var installStoreSlot = storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : installSlot;
-                global.document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
-                    detail: {
-                        appId: pkgId,
-                        slot: installSlot,
-                        storeSlot: installStoreSlot,
-                        registryId: registryId,
-                        source: 'apt'
-                    }
-                }));
-            }
-        }
-
         root.addEventListener('click', function onClick(event) {
             var target = event.target;
             if (!target || !target.closest) {
@@ -546,19 +703,33 @@
                 onCategoryClick(currentCat);
                 return;
             }
+            var openBtn = target.closest('[data-mi-open]');
+            if (openBtn && !openBtn.disabled) {
+                var openSlot = openBtn.getAttribute('data-mi-open');
+                if (openSlot && typeof global.openWindowByDataLink === 'function') {
+                    global.openWindowByDataLink(openSlot);
+                    setStatus('Application ouverte.');
+                }
+                return;
+            }
             var listOpen = target.closest('.mi-app__list-item');
-            if (listOpen && !target.closest('[data-mi-install]')) {
+            if (listOpen && !target.closest('[data-mi-install]') && !target.closest('[data-mi-open]')) {
                 openDetail(listOpen.getAttribute('data-mi-pkg'));
+                return;
+            }
+            var discoverCard = target.closest('.mi-app__discover-card');
+            if (discoverCard && !target.closest('[data-mi-install]') && !target.closest('[data-mi-open]')) {
+                openDetail(discoverCard.getAttribute('data-mi-pkg'));
                 return;
             }
             var detailInstall = target.closest('[data-mi-detail-install]');
             if (detailInstall && !detailInstall.disabled) {
-                markInstalled(detailInstall.getAttribute('data-mi-detail-install'), detailInstall);
+                handleInstallOrOpen(detailInstall.getAttribute('data-mi-detail-install'), detailInstall);
                 return;
             }
             var installBtn = target.closest('[data-mi-install]');
             if (installBtn && !installBtn.disabled) {
-                markInstalled(installBtn.getAttribute('data-mi-install'), installBtn);
+                handleInstallOrOpen(installBtn.getAttribute('data-mi-install'), installBtn);
                 return;
             }
             if (menuBtn && target.closest('[data-mi-action="menu"]')) {
@@ -593,8 +764,8 @@
             if (!root || !root.isConnected) {
                 return;
             }
-            var winEl = getWindowEl(root);
-            if (!winEl || winEl.style.display === 'none') {
+            var activeWin = getWindowEl(root);
+            if (!activeWin || activeWin.style.display === 'none') {
                 return;
             }
             if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {

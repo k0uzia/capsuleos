@@ -235,6 +235,12 @@
           "template": "libreoffice_draw.html",
           "skinCss": "libreoffice_draw.skin.css",
           "functionalDepth": "full"
+        },
+        "mintinstall": {
+          "chromeProvider": "cinnamon",
+          "template": "mintinstall.html",
+          "skinCss": "mintinstall.skin.css",
+          "functionalDepth": "full"
         }
       }
     },

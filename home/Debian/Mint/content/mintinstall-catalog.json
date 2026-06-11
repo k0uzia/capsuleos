@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "registryId": "linux-mint",
+  "doc": "root/docs/inventaires/linux-mint-mintinstall-vm.json",
+  "featured": [
+    {
+      "id": "vlc",
+      "name": "VLC",
+      "icon": "./assets/images/toolkits/cinnamon/apps/vlc.svg"
+    },
+    {
+      "id": "audacity",
+      "name": "Audacity",
+      "icon": "./assets/images/toolkits/cinnamon/apps/audacity.svg"
+    },
+    {
+      "id": "filezilla",
+      "name": "FileZilla",
+      "icon": "./assets/images/toolkits/cinnamon/apps/filezilla.svg"
+    },
+    {
+      "id": "vscode",
+      "name": "VS Code",
+      "icon": "./assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg"
+    }
+  ],
+  "discover": {
+    "title": "À découvrir",
+    "note": "Applications installables depuis la Logithèque — aligné VM mintinstall 8.4"
+  }
+}

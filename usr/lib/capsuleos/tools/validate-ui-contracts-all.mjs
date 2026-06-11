@@ -24,6 +24,8 @@ const steps = [
     'validate-store-installable-apps.mjs',
     'validate-app-catalog-integrity.mjs',
     'validate-software-user-scenarios.mjs',
+    'validate-mintinstall-user-scenarios.mjs',
+    'validate-mint-store-slots.mjs',
     'validate-css-selectors-contract.mjs',
     'validate-css-variables-contract.mjs',
     'validate-vanilla-interactivity.mjs',

@@ -1,10 +1,42 @@
-/* Mint — Logithèque (mintinstall 8.4) */
+/* Mint — Logithèque (mintinstall 8.4) — VM 912×784, sidebar #ececec */
 body#mint div[data-link="mintinstall"].windowElement {
-    width: calc(var(--head) * 21);
-    min-width: calc(var(--head) * 18);
-    height: calc(var(--head) * 19.5);
+    width: var(--win-mintinstall-width);
+    min-width: var(--win-mintinstall-min-width);
+    height: var(--win-mintinstall-height);
+    min-height: var(--win-mintinstall-min-height);
 }
 
 body#mint main#mintInstallApp {
     background: #f6f6f6;
+}
+
+body#mint main#mintInstallApp .mi-app__sidebar.mintinstall-sidebar {
+    background: #ececec;
+    border-right: 1px solid #d4d4d4;
+}
+
+body#mint main#mintInstallApp .mi-app__header {
+    background: #fafafa;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+body#mint main#mintInstallApp .mi-app__search-wrap.mintinstall-search {
+    max-width: 100%;
+}
+
+body#mint main#mintInstallApp .mi-app__search {
+    background: #fff;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+body#mint main#mintInstallApp .mi-app__install.is-open {
+    background: #1f9ede;
+    border-color: #1889c4;
+    color: #fff;
+}
+
+body#mint main#mintInstallApp .mi-app__install.is-installing {
+    opacity: 0.75;
 }

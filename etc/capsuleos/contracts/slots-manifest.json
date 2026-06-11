@@ -296,9 +296,9 @@
     "mintinstall": {
       "slotId": "mintinstall",
       "labelFr": "Logithèque",
-      "functionalDepth": "partial",
+      "functionalDepth": "full",
       "kernelModule": "usr/lib/capsuleos/shells/linux/mintinstall.js",
-      "scenariosContract": null,
+      "scenariosContract": "etc/capsuleos/contracts/mintinstall-user-scenarios.json",
       "postInstallSlot": null,
       "toolkitVariants": {
         "cinnamon": { "template": "mintinstall.html", "chromeProvider": "cinnamon", "skinCss": "mintinstall.skin.css" }

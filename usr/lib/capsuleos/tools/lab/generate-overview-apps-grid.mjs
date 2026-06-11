@@ -83,6 +83,7 @@ const buildGrid = (registryId) => {
   const apps = rows.map((row) => {
     const icon = iconForRow(row, lookup);
     if (!icon) missing.push(row.vmId || row.slotCapsule);
+    const launchable = Boolean(row.slotCapsule);
     return {
       vmId: row.vmId,
       labelFr: row.labelFr,
@@ -90,7 +91,8 @@ const buildGrid = (registryId) => {
       slotCapsule: row.slotCapsule,
       icon,
       dataLink: row.slotCapsule || null,
-      launchable: Boolean(row.slotCapsule),
+      launchable,
+      decorative: !launchable,
       priorite: row.priorite,
     };
   });
@@ -120,8 +122,12 @@ window.CAPSULE_OVERVIEW_APPS_GRID = ${JSON.stringify(grid, null, 2)};
 
 const renderGridHtml = (grid) => grid.apps.map((app) => {
   const linkAttr = app.dataLink ? ` data-overview-link="${app.dataLink}"` : '';
+  const decorativeAttr = app.decorative ? ' data-overview-decorative="true"' : '';
+  const className = app.decorative
+    ? 'fedora-overview__app fedora-overview__app--decorative'
+    : 'fedora-overview__app';
   const iconSrc = app.icon || `${ASSET_PREFIX}images/toolkits/gnome/apps/overview/settings.png`;
-  return `                <button type="button" class="fedora-overview__app"${linkAttr} aria-label="${app.labelFr}">
+  return `                <button type="button" class="${className}"${linkAttr}${decorativeAttr} aria-label="${app.labelFr}">
                     <img src="${iconSrc}" alt="">
                     <span>${app.labelShort}</span>
                 </button>`;

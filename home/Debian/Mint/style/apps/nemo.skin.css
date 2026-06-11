@@ -92,6 +92,109 @@ body#mint div[data-link="nemo"] .nemo-app__context-sep {
     border-top: 1px solid var(--nemo-border, #202023);
 }
 
+body#mint div[data-link="nemo"] .nemo-app__context-sep[hidden],
+body#mint div[data-link="nemo"] .nemo-app__context-item[hidden],
+body#mint div[data-link="nemo"] .nemo-app__context-row[hidden] {
+    display: none !important;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-row {
+    position: relative;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-item.has-submenu::after {
+    content: "▸";
+    float: right;
+    opacity: 0.65;
+    margin-left: 0.75rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    min-width: 11rem;
+    margin-left: 2px;
+    padding: 0.35rem 0;
+    border: 1px solid var(--nemo-border, #202023);
+    border-radius: 0.35rem;
+    background: var(--nemo-menu-surface-bg, #303036);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    z-index: 12001;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu[hidden] {
+    display: none !important;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu--flip-left {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 2px;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__item-rename-input {
+    background: var(--nemo-bg-primary, #222226);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    border: 1px solid var(--nemo-accent, #1f9ede);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--nemo-accent, #1f9ede) 40%, transparent);
+    font: inherit;
+    font-size: inherit;
+    padding: 0.1rem 0.25rem;
+    min-width: 4rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog {
+    padding: 0;
+    border: 1px solid var(--nemo-border, #202023);
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg, #303036);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    max-width: 24rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--nemo-border, #202023);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body {
+    padding: 0.75rem 1rem 1rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dl {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.35rem 0.75rem;
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dt {
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dd {
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__close {
+    border: 0;
+    border-radius: 0.3rem;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    background: var(--nemo-item-hover-bg, rgba(255, 255, 255, 0.12));
+    color: inherit;
+}
+
 body#mint div[data-link="nemo"] #nemoHeaderContainer {
     display: var(--f);
     flex-flow: var(--cnw);

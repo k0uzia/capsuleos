@@ -19,24 +19,42 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
 
-const P0_TEMPLATE_MARKERS = {
-  calculator: 'gnome-calc',
-  text_editor: 'xed-app',
-  nemo: 'nautilus-app',
-  firefox: 'capsule-browser',
-  update_manager: 'gnome-software__sidebar',
-  themes: 'themesApp',
-  terminal: 'capsule-terminal',
+const P0_TEMPLATE_MARKERS_BY_TOOLKIT = {
+  gnome: {
+    calculator: 'gnome-calc',
+    text_editor: 'xed-app',
+    nemo: 'nautilus-app',
+    firefox: 'capsule-browser',
+    update_manager: 'gnome-software__sidebar',
+    themes: 'themesApp',
+    terminal: 'capsule-terminal',
+  },
+  cinnamon: {
+    nemo: 'nemo-app',
+    firefox: 'capsule-browser',
+    update_manager: 'update-manager__layout',
+    themes: 'cs-app',
+    terminal: 'capsule-terminal',
+  },
 };
 
-const P0_RUNTIME_SELECTORS = {
-  calculator: '.gnome-calc__keypad, .gnome-calc',
-  text_editor: '.xed-app, #xedApp',
-  nemo: '.nautilus-app__headerbar, .nemo-app main',
-  firefox: '.capsule-browser, .firefox-chrome',
-  update_manager: '.gnome-software, .gnome-software__sidebar',
-  themes: '#themesApp.gnome-settings, .gnome-settings',
-  terminal: '.capsule-terminal-shell, #terminalContainer',
+const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
+  gnome: {
+    calculator: '.gnome-calc__keypad, .gnome-calc',
+    text_editor: '.xed-app, #xedApp',
+    nemo: '.nautilus-app__headerbar, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
+    themes: '#themesApp.gnome-settings, .gnome-settings',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+  },
+  cinnamon: {
+    nemo: '.nemo-app__header, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.update-manager, .update-manager__layout',
+    themes: '#cinnamonSettingsApp.cs-app, .cs-app',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+  },
 };
 
 const parseArgs = () => {
@@ -60,6 +78,9 @@ const read = (rel) => {
 const main = async () => {
   const opts = parseArgs();
   const catalog = buildCatalog(opts.id);
+  const toolkitId = catalog.toolkit || 'gnome';
+  const P0_TEMPLATE_MARKERS = P0_TEMPLATE_MARKERS_BY_TOOLKIT[toolkitId] || P0_TEMPLATE_MARKERS_BY_TOOLKIT.gnome;
+  const P0_RUNTIME_SELECTORS = P0_RUNTIME_SELECTORS_BY_TOOLKIT[toolkitId] || P0_RUNTIME_SELECTORS_BY_TOOLKIT.gnome;
   const embedPath = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.js');
   const embed = fs.existsSync(embedPath) ? fs.readFileSync(embedPath, 'utf8') : '';
 

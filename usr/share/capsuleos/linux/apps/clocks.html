@@ -1,7 +1,7 @@
 <main id="gnomeClocksApp" class="gnome-clocks" aria-label="Horloges">
     <header class="gnome-clocks__header">
         <h2 class="gnome-clocks__title" id="gnome-clocks-title">Monde</h2>
-        <button type="button" class="gnome-clocks__add" id="gnome-clocks-add" aria-label="Ajouter une ville" title="Ajouter">
+        <button type="button" class="gnome-clocks__add" id="gnome-clocks-add" data-clocks-action="add-city" aria-label="Ajouter une ville" title="Ajouter">
             <span class="gnome-clocks__add-glyph" aria-hidden="true"></span>
         </button>
     </header>
@@ -22,18 +22,23 @@
         </nav>
         <div class="gnome-clocks__content">
             <section class="gnome-clocks__panel is-active" id="gnome-clocks-panel-world" data-clocks-panel="world" role="tabpanel" aria-labelledby="gnome-clocks-tab-world">
-                <ul class="gnome-clocks__list" id="gnome-clocks-list" aria-live="polite"></ul>
+                <ul class="gnome-clocks__list" id="gnome-clocks-list" data-clocks-gnome-list="world" aria-live="polite"></ul>
             </section>
             <section class="gnome-clocks__panel gnome-clocks__panel--empty" id="gnome-clocks-panel-alarms" data-clocks-panel="alarms" role="tabpanel" aria-labelledby="gnome-clocks-tab-alarms" hidden>
-                <p class="gnome-clocks__empty">Aucune alarme</p>
+                <p class="gnome-clocks__empty" data-clocks-gnome-empty="alarms">Aucune alarme</p>
+                <ul class="gnome-clocks__list gnome-clocks__alarm-list" data-clocks-gnome-alarm-list hidden></ul>
             </section>
             <section class="gnome-clocks__panel gnome-clocks__panel--timer" id="gnome-clocks-panel-timer" data-clocks-panel="timer" role="tabpanel" aria-labelledby="gnome-clocks-tab-timer" hidden>
-                <p class="gnome-clocks__timer-face" aria-hidden="true">0:00:00</p>
-                <p class="gnome-clocks__empty gnome-clocks__empty--hint">Appuyez pour démarrer</p>
+                <button type="button" class="gnome-clocks__face-btn" data-clocks-action="timer-toggle" aria-label="Démarrer le minuteur">
+                    <p class="gnome-clocks__timer-face" data-clocks-gnome-face="timer" aria-hidden="true">0:05:00</p>
+                    <p class="gnome-clocks__empty gnome-clocks__empty--hint" data-clocks-gnome-hint="timer">Appuyez pour démarrer</p>
+                </button>
             </section>
             <section class="gnome-clocks__panel gnome-clocks__panel--stopwatch" id="gnome-clocks-panel-stopwatch" data-clocks-panel="stopwatch" role="tabpanel" aria-labelledby="gnome-clocks-tab-stopwatch" hidden>
-                <p class="gnome-clocks__stopwatch-face" aria-hidden="true">00:00,00</p>
-                <p class="gnome-clocks__empty gnome-clocks__empty--hint">Appuyez pour démarrer</p>
+                <button type="button" class="gnome-clocks__face-btn" data-clocks-action="stopwatch-toggle" aria-label="Démarrer le chronomètre">
+                    <p class="gnome-clocks__stopwatch-face" data-clocks-gnome-face="stopwatch" aria-hidden="true">00:00,00</p>
+                    <p class="gnome-clocks__empty gnome-clocks__empty--hint" data-clocks-gnome-hint="stopwatch">Appuyez pour démarrer</p>
+                </button>
             </section>
         </div>
     </div>

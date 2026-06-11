@@ -107,17 +107,36 @@ function buildManifest(relRoot) {
     };
 }
 
-function main() {
-    const relRoot = parseArgs();
+function writeManifests(relRoot) {
     const manifest = buildManifest(relRoot);
     const linuxPath = path.join(PUBLIC_DIR, '.capsule-manifest.json');
     const finderPath = path.join(PUBLIC_DIR, '.capsule-finder-manifest.json');
+    const payload = `${JSON.stringify(manifest, null, 2)}\n`;
 
     fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-    fs.writeFileSync(linuxPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-    fs.writeFileSync(finderPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+    fs.writeFileSync(linuxPath, payload, 'utf8');
+    fs.writeFileSync(finderPath, payload, 'utf8');
 
-    const folderCount = Object.keys(manifest.folders).length;
+    return { manifest, linuxPath, finderPath, folderCount: Object.keys(manifest.folders).length };
+}
+
+function main() {
+    const relRoot = parseArgs();
+    const checkOnly = process.argv.includes('--check');
+
+    if (checkOnly) {
+        const linuxPath = path.join(PUBLIC_DIR, '.capsule-manifest.json');
+        const expected = `${JSON.stringify(buildManifest(relRoot), null, 2)}\n`;
+        const current = fs.existsSync(linuxPath) ? fs.readFileSync(linuxPath, 'utf8') : '';
+        if (current !== expected) {
+            console.error('✗ .capsule-manifest.json désynchronisé — node usr/lib/capsuleos/tools/generate-public-manifest.mjs');
+            process.exit(1);
+        }
+        console.log('✓ generate-public-manifest --check OK');
+        process.exit(0);
+    }
+
+    const { linuxPath, finderPath, folderCount } = writeManifests(relRoot);
     console.log(`Écrit ${linuxPath} (${folderCount} dossiers, root=${relRoot})`);
     console.log(`Écrit ${finderPath}`);
 }

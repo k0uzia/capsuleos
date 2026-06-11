@@ -96,6 +96,10 @@
                 <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
                 <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
                 <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_startcenter" id="libreoffice_startcenter" style="display: none;"></div>
+                <div class="windowElement" data-link="librecalc" id="librecalc" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_impress" id="libreoffice_impress" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_draw" id="libreoffice_draw" style="display: none;"></div>
                 <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
                 <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
                 <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
@@ -104,7 +108,15 @@
                 <div class="windowElement" data-link="snapshot" id="snapshot" style="display: none;"></div>
                 <div class="windowElement" data-link="baobab" id="baobab" style="display: none;"></div>
                 <div class="windowElement" data-link="system_monitor" id="system_monitor" style="display: none;"></div>
-                <div class="windowElement" data-link="tour" id="tour" style="display: none;"></div>
+                <div class="windowElement" data-link="tour" id="tour" style="display: none;"></div>                <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
+                <div class="windowElement" data-link="thunderbird" id="thunderbird" style="display: none;"></div>
+                <div class="windowElement" data-link="transmission" id="transmission" style="display: none;"></div>
+                <div class="windowElement" data-link="rhythmbox" id="rhythmbox" style="display: none;"></div>
+                <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+                <div class="windowElement" data-link="simple_scan" id="simple_scan" style="display: none;"></div>
+                <div class="windowElement" data-link="warpinator" id="warpinator" style="display: none;"></div>
+                <div class="windowElement" data-link="timeshift" id="timeshift" style="display: none;"></div>
+
                 <div class="windowElement" data-link="characters" id="characters" style="display: none;"></div>
             </object>
         </main>
@@ -231,13 +243,21 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg" alt="">
                     <span>Lecteur v...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="LibreOffice Calc">
+                <button type="button" class="fedora-overview__app" data-overview-link="librecalc" data-store-pin="librecalc" aria-label="LibreOffice Calc" hidden>
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg" alt="">
                     <span>LibreOffi...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="LibreOffice Impress">
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_impress" data-store-pin="libreoffice_impress" aria-label="LibreOffice Impress" hidden>
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg" alt="">
                     <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_draw" data-store-pin="libreoffice_draw" aria-label="LibreOffice Draw" hidden>
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_startcenter" data-store-pin="libreoffice_startcenter" aria-label="LibreOffice" hidden>
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-startcenter" alt="">
+                    <span>LibreOffice</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="librewriter" aria-label="LibreOffice Writer">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg" alt="">
@@ -462,10 +482,30 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librecalc.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/libreoffice-suite.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/clocks.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/snapshot.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/characters.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/tour.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/baobab.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>    <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/thunderbird.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/transmission.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/rhythmbox.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/simple-scan.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/warpinator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/timeshift.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-store-catalog.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-gnome-software-content.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-software-ground.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-catalog.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-shell-pin.js"></script>
+
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
     <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>

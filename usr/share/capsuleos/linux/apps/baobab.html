@@ -1,34 +1,35 @@
 <main id="gnomeBaobabApp" class="gnome-baobab" aria-label="Analyseur d'espace disque">
 
     <header class="gnome-baobab__header">
-        <h2 class="gnome-baobab__title">Analyseur d'espace disque</h2>
-        <button type="button" class="gnome-baobab__scan-btn" disabled aria-label="Analyser le dossier">Analyser</button>
+        <h2 class="gnome-baobab__title" id="gnome-baobab-title">Analyseur d'espace disque</h2>
+        <button type="button" class="gnome-baobab__scan-btn" id="gnome-baobab-scan" data-baobab-gnome-action="scan" aria-label="Analyser le dossier">Analyser</button>
     </header>
 
     <div class="gnome-baobab__body">
         <aside class="gnome-baobab__sidebar" aria-label="Emplacements">
-            <ul class="gnome-baobab__places">
-                <li class="gnome-baobab__place gnome-baobab__place--active">
-                    <span class="gnome-baobab__place-icon" aria-hidden="true"></span>
-                    <span class="gnome-baobab__place-label">Système de fichiers</span>
-                    <span class="gnome-baobab__place-size">42,1 Go</span>
-                </li>
-                <li class="gnome-baobab__place">
-                    <span class="gnome-baobab__place-icon gnome-baobab__place-icon--home" aria-hidden="true"></span>
-                    <span class="gnome-baobab__place-label">Dossier personnel</span>
-                    <span class="gnome-baobab__place-size">8,4 Go</span>
-                </li>
-            </ul>
+            <ul class="gnome-baobab__places" id="gnome-baobab-places" role="list"></ul>
         </aside>
         <section class="gnome-baobab__main" aria-label="Répartition">
-            <div class="gnome-baobab__ring" role="img" aria-label="Espace utilisé 62 pour cent">
-                <span class="gnome-baobab__ring-center">62 %</span>
+            <div class="gnome-baobab__view gnome-baobab__view--overview is-active" id="gnome-baobab-overview" data-baobab-view="overview" data-baobab-gnome-view="overview">
+                <div class="gnome-baobab__ring" id="gnome-baobab-ring" role="img" aria-label="Espace utilisé">
+                    <span class="gnome-baobab__ring-center" id="gnome-baobab-ring-center">62 %</span>
+                </div>
+                <ul class="gnome-baobab__legend" id="gnome-baobab-legend">
+                    <li><span class="gnome-baobab__swatch gnome-baobab__swatch--used"></span> <span id="gnome-baobab-used-label">Utilisé — 26,1 Go</span></li>
+                    <li><span class="gnome-baobab__swatch gnome-baobab__swatch--free"></span> <span id="gnome-baobab-free-label">Disponible — 16,0 Go</span></li>
+                </ul>
             </div>
-            <ul class="gnome-baobab__legend">
-                <li><span class="gnome-baobab__swatch gnome-baobab__swatch--used"></span> Utilisé — 26,1 Go</li>
-                <li><span class="gnome-baobab__swatch gnome-baobab__swatch--free"></span> Disponible — 16,0 Go</li>
-            </ul>
-            <p class="gnome-baobab__hint">Simulation CapsuleOS — analyse disque non connectée à la VM.</p>
+            <div class="gnome-baobab__view gnome-baobab__view--treemap" id="gnome-baobab-treemap" data-baobab-view="treemap" data-baobab-gnome-view="treemap" hidden>
+                <p class="gnome-baobab__path" id="gnome-baobab-path">/home/user</p>
+                <div class="gnome-baobab__treemap-grid" id="gnome-baobab-treemap-grid" role="img" aria-label="Carte des dossiers"></div>
+                <ul class="gnome-baobab__treemap-legend" id="gnome-baobab-treemap-legend"></ul>
+            </div>
+            <div class="gnome-baobab__scan-panel" id="gnome-baobab-scan-panel" hidden>
+                <div class="gnome-baobab__progress" role="progressbar" id="gnome-baobab-progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <span class="gnome-baobab__progress-fill" id="gnome-baobab-progress-fill"></span>
+                </div>
+                <p class="gnome-baobab__progress-label" id="gnome-baobab-progress-label">Analyse en cours…</p>
+            </div>
         </section>
     </div>
 

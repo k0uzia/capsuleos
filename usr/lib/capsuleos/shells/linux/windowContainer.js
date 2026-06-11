@@ -28,7 +28,7 @@
         timeshift: 'Timeshift',
         thunderbird: 'Thunderbird',
         mintwelcome: 'Écran d\'accueil Mint',
-        gucharmap: 'Table des caractères',
+        gucharmap: 'Table de caractères',
         simple_scan: 'Numérisation de documents',
         thingy: 'Bibliothèque',
         rhythmbox: 'Rhythmbox',

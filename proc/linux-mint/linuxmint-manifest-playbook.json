@@ -22,19 +22,22 @@
   "generatedAt": "2026-06-08T15:51:35.976Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
-    "status": "draft",
-    "approved": false
+    "status": "approved",
+    "approved": true,
+    "approvedAt": "2026-06-08T07:45:00Z"
   },
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-mint",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T07:45:00Z"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-mint/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
-    "status": "pending"
+    "status": "completed",
+    "completedAt": "2026-06-08T07:45:00Z"
   },
   "summary": {
     "total": 177,
@@ -2032,5 +2035,7 @@
       "predicate": "H5",
       "status": "pending"
     }
-  ]
+  ],
+  "updatedAt": "2026-06-09T10:07:09.623Z",
+  "pf4ClosedAt": "2026-06-09T10:07:09.623Z"
 }

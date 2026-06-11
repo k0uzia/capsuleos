@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '10 — GNOME',
     tagline: 'Distribution entreprise RHEL-compatible, communauté AlmaLinux OS Foundation.',
     description: 'AlmaLinux est une distribution libre compatible RHEL, maintenue par la fondation AlmaLinux OS. L\'édition GNOME Workstation reprend le socle RPM/DNF avec une politique de stabilité long terme.',
-    logo: '../../../usr/share/capsuleos/assets/images/vendors/alma/alma-logo.svg',
+    logo: './assets/images/vendors/alma/alma-logo.svg',
     logoAlt: 'Logo AlmaLinux',
     url: 'https://almalinux.org/',
     stats: {

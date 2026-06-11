@@ -174,7 +174,7 @@ for (const panel of matrix.panels || []) {
   }
 }
 
-if (profile.requiresPlaybook && fs.existsSync(playbookPath)) {
+if (profile.requiresPlaybook && profile.requiresBaseline && fs.existsSync(playbookPath)) {
   const playbook = JSON.parse(fs.readFileSync(playbookPath, 'utf8'));
   const baselineMatch = baselineJs.match(/CAPSULE_VM_SETTINGS_BASELINE = (\{[\s\S]*?\});/);
   let baseline = {};
@@ -192,7 +192,7 @@ if (profile.requiresPlaybook && fs.existsSync(playbookPath)) {
       }
     }
   }
-} else if (profile.requiresPlaybook) {
+} else if (profile.requiresPlaybook && profile.requiresBaseline && !fs.existsSync(playbookPath)) {
   warnings.push(`Playbook inventaire absent pour ${registry} — baseline non vérifiée`);
 }
 

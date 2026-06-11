@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-fedora",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-08T23:18:10.984Z",
+  "generatedAt": "2026-06-10T22:01:07.143Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-fedora-vm-apps-installed.json",
@@ -19,6 +19,10 @@
     "visionneur_pdf",
     "lecteur_multimedia",
     "librewriter",
+    "libreoffice_startcenter",
+    "librecalc",
+    "libreoffice_impress",
+    "libreoffice_draw",
     "update_manager",
     "text_editor",
     "calculator",
@@ -28,11 +32,19 @@
     "baobab",
     "system_monitor",
     "tour",
+    "file_roller",
+    "thunderbird",
+    "transmission",
+    "rhythmbox",
+    "drawing",
+    "simple_scan",
+    "warpinator",
+    "timeshift",
     "characters"
   ],
   "summary": {
     "vmInstalled": 33,
-    "catalogRows": 35,
+    "catalogRows": 37,
     "p0Total": 7,
     "p0Ok": 7,
     "p0Gaps": 0,
@@ -463,15 +475,37 @@
       "note": null
     },
     {
+      "vmId": "org.libreoffice.LibreOffice",
+      "desktop": "org.libreoffice.LibreOffice.desktop",
+      "labelFr": "LibreOffice",
+      "priorite": "P1",
+      "slotCapsule": "libreoffice_startcenter",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true,
+        "dash": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "libreoffice_startcenter.html",
+        "skinCss": "libreoffice_startcenter.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": "Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6)"
+    },
+    {
       "vmId": "libreoffice-calc",
       "desktop": "libreoffice-calc.desktop",
       "labelFr": "LibreOffice Calc",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
+      "priorite": "P1",
+      "slotCapsule": "librecalc",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
       "placement": {
         "dash": false,
         "overview": true,
@@ -479,19 +513,45 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
-      "note": null
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "librecalc.html",
+        "skinCss": "librecalc.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": "Module suite LO — épinglage post-install"
+    },
+    {
+      "vmId": "libreoffice-draw",
+      "desktop": "libreoffice-draw.desktop",
+      "labelFr": "LibreOffice Draw",
+      "priorite": "P1",
+      "slotCapsule": "libreoffice_draw",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "libreoffice_draw.html",
+        "skinCss": "libreoffice_draw.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": "Module suite LO — épinglage post-install"
     },
     {
       "vmId": "libreoffice-impress",
       "desktop": "libreoffice-impress.desktop",
       "labelFr": "LibreOffice Impress",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
+      "priorite": "P1",
+      "slotCapsule": "libreoffice_impress",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
       "placement": {
         "dash": false,
         "overview": true,
@@ -499,8 +559,13 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
-      "note": null
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "libreoffice_impress.html",
+        "skinCss": "libreoffice_impress.skin.css",
+        "functionalDepth": "full"
+      },
+      "note": "Module suite LO — épinglage post-install"
     },
     {
       "vmId": "libreoffice-writer",
@@ -523,7 +588,7 @@
         "chromeProvider": "libadwaita-gnome",
         "template": "librewriter.html",
         "skinCss": "librewriter.skin.css",
-        "functionalDepth": "partial"
+        "functionalDepth": "full"
       },
       "note": null
     },
@@ -548,7 +613,7 @@
         "chromeProvider": "libadwaita-gnome",
         "template": "update_manager_gnome.html",
         "skinCss": "update_manager.skin.css",
-        "functionalDepth": "partial"
+        "functionalDepth": "full"
       },
       "note": null
     },

@@ -224,6 +224,20 @@
       "command": "node usr/lib/capsuleos/tools/lab/enrich-visual-investigation-capsule-parity.mjs --id {id}",
       "autoExecute": true
     },
+    "slot-gap-delta": {
+      "predicate": "GapΔ",
+      "rule": "R-SLOTMAP",
+      "command": "node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id {id} --write",
+      "autoExecute": true,
+      "description": "SlotMap/GapΔ avant campagne — C8/C9, phases CR filtrées"
+    },
+    "store-replication-chain-auto": {
+      "predicate": "StoreG",
+      "rule": "R-STORE-CHAIN",
+      "command": "node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id {id} --auto",
+      "autoExecute": true,
+      "description": "Chaîne magasin GNOME — campaignPhases filtrées par profil lab-recipe"
+    },
     "replication-chain-auto": {
       "predicate": "*",
       "rule": "R-AUTO",

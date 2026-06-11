@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolvePickIconFile } from './vendor-icon-resolution-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -136,61 +137,6 @@ active.forEach((entry) => {
 });
 
 PORTAL_HUBS.forEach((rel) => checkHtmlFile(rel, { portal: true }));
-
-const VENDOR_ICON = {
-  mint: 'mint.png',
-  ubuntu: 'ubuntu.png',
-  fedora: 'fedora.png',
-  debian: 'debian.png',
-  mx: 'mx.png',
-  opensuse: 'opensuse.png',
-  popos: 'popos.png',
-  anduin: 'anduin.png',
-  rocky: 'rocky.png',
-  redhat: 'redhat.png',
-  google: 'vanillaicecream.png',
-  apple: 'sonoma.png',
-};
-
-const winIcon = (id) => {
-  const ver = id.replace('windows-', '');
-  const map = {
-    95: 'win95',
-    98: 'win98',
-    me: 'winme',
-    2000: 'win2000',
-    xp: 'winxp',
-    vista: 'vista',
-    7: 'win7',
-    8: 'win8',
-    '8.1': 'win8',
-    10: 'win10',
-    11: 'win11',
-  };
-  return `${map[ver] || 'win11'}.png`;
-};
-
-const resolvePickIconFile = (entry) => {
-  if (entry.assets?.pickIcon) {
-    return path.join(ROOT, 'usr/share/capsuleos/assets', entry.assets.pickIcon);
-  }
-  if (entry.family === 'linux') {
-    return path.join(PICK_OS_ICONS, 'linux', VENDOR_ICON[entry.vendor] || 'debian.png');
-  }
-  if (entry.family === 'windows') {
-    return path.join(PICK_OS_ICONS, 'windows', winIcon(entry.id));
-  }
-  if (entry.family === 'macos') {
-    return path.join(PICK_OS_ICONS, 'macos', 'sonoma.png');
-  }
-  if (entry.family === 'android') {
-    return path.join(PICK_OS_ICONS, 'android', 'vanillaicecream.png');
-  }
-  if (entry.family === 'ios') {
-    return path.join(PICK_OS_ICONS, 'ios', 'apple.svg');
-  }
-  return null;
-};
 
 const iconCheckEntries = active.length
   ? active

@@ -68,29 +68,13 @@ const main = () => {
     return;
   }
 
-  const steps = [
-    { name: 'smoke-h6-gnome-settings-ready', fn: () => runLab('smoke-h6-gnome-settings-ready.mjs', ['--id', opts.id]) },
-    { name: 'build-linux-embed', fn: () => runTool('linux/build-linux-embed.mjs') },
-    { name: 'validate-all', fn: () => runTool('validate-all.mjs') },
-  ];
-
-  const results = [];
-  for (const step of steps) {
-    process.stdout.write(`\n── ${step.name} ──\n`);
-    const res = step.fn();
-    results.push({ step: step.name, status: res.status || 0 });
-    if (res.status !== 0) {
-      console.error(`✗ H6 échec sur ${step.name}`);
-      process.exit(res.status || 1);
-    }
-  }
-
   const invPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-gnome-settings-visual-investigation.json`);
   const inv = fs.existsSync(invPath) ? JSON.parse(fs.readFileSync(invPath, 'utf8')) : null;
   const tailPath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-playbook-tail.json`);
   const tail = fs.existsSync(tailPath) ? JSON.parse(fs.readFileSync(tailPath, 'utf8')) : null;
 
-  const closure = {
+  const writeClosure = (steps) => {
+    const closure = {
     registryId: opts.id,
     domain: 'gnome-settings-playbook',
     phase: 'H6',
@@ -111,13 +95,42 @@ const main = () => {
       h5Completed: tail?.h5Completed || ready.h5Completed || [],
       nextH5: tail?.nextH5 || [],
     },
-    steps: results,
+    steps,
     embed: 'var/lib/capsuleos/generated/capsule-app-embed.js',
     validateAll: true,
   };
+    fs.writeFileSync(closurePath, `${JSON.stringify(closure, null, 2)}\n`);
+    return closure;
+  };
 
-  fs.writeFileSync(closurePath, `${JSON.stringify(closure, null, 2)}\n`);
+  const steps = [
+    { name: 'smoke-h6-gnome-settings-ready', fn: () => runLab('smoke-h6-gnome-settings-ready.mjs', ['--id', opts.id]) },
+    { name: 'build-linux-embed', fn: () => runTool('linux/build-linux-embed.mjs') },
+  ];
 
+  const results = [];
+  for (const step of steps) {
+    process.stdout.write(`\n── ${step.name} ──\n`);
+    const res = step.fn();
+    results.push({ step: step.name, status: res.status || 0 });
+    if (res.status !== 0) {
+      console.error(`✗ H6 échec sur ${step.name}`);
+      process.exit(res.status || 1);
+    }
+  }
+
+  writeClosure(results);
+
+  process.stdout.write('\n── validate-all ──\n');
+  const validateRes = runTool('validate-all.mjs');
+  results.push({ step: 'validate-all', status: validateRes.status || 0 });
+  if (validateRes.status !== 0) {
+    console.error('✗ H6 échec sur validate-all');
+    process.exit(validateRes.status || 1);
+  }
+  writeClosure(results);
+
+  const closure = JSON.parse(fs.readFileSync(closurePath, 'utf8'));
   const repState = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-replication-state.json`);
   const rep = fs.existsSync(repState) ? JSON.parse(fs.readFileSync(repState, 'utf8')) : {};
   fs.writeFileSync(repState, `${JSON.stringify({

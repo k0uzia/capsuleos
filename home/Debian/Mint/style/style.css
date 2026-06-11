@@ -6,10 +6,6 @@ html {
     color: var(--texte);
 }
 
-body#mint #desktop > .desktop-shortcuts {
-    display: none !important;
-}
-
 #mint {
     display: var(--f);
     flex-flow: var(--cnw);
@@ -54,16 +50,12 @@ body#mint #desktop > .desktop-shortcuts > .desktop-shortcut {
 }
 
 /* Fenêtres dans #desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
-body#mint #desktop > .windowElement:not(#mainMenu) {
-    position: absolute;
+body#mint #desktop {
     pointer-events: auto;
 }
 
-body#mint #desktop {
-    pointer-events: none;
-}
-
-body#mint #desktop > * {
+body#mint #desktop > .windowElement:not(#mainMenu) {
+    position: absolute;
     pointer-events: auto;
 }
 

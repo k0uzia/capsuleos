@@ -103,8 +103,12 @@ Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantiqu
 | **AppVc** | Captures Capsule par slot P0 | `capsuleCapturesP0` |
 | **AppVp** | Parité visuelle apps classée | `visualMatchClassifiedP0` |
 | **AppΣ** | Catalogue apps clôturé (structure) | **AppV ∧ AppC ∧ AppP0 ∧ AppL** |
+| **StoreΣ** | Extension magasin structurellement cohérente (pilote registry) | **SlotF ∧ PresB ∧ GenStore ∧ StoreIntegrity** — voir [architecture-catalogue-apps.md](architecture-catalogue-apps.md) |
+| **StoreG** | Ground magasin GNOME branché | `gnome-software-ground.js` + `gnome-software-store-content.json` + `groundReferenceRegistryId` |
+| **StoreVc** | Captures Capsule multi-vues store | `summary.softwareViewsCapsule` inventaire visuel |
+| **StoreVp** | Parité magasin classée | `capsuleParity.visualMatch` slot `update_manager` |
 
-Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `apps-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md)
+Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Magasin : `slots-manifest.json` · `store-installable-apps.json` · Cohérence : `os-reproduction-coherence.json` · Chaînes : `apps-replication-chain.json` · `store-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) · [procedure-store-replication-formelle.md](procedure-store-replication-formelle.md)
 
 ### 2.10 Fidélité visuelle (Tf)
 
@@ -193,6 +197,35 @@ Métaphore **points de montage** — parcours modulaires branchés sans fork noy
 | **PΣ** | Parcours actif | skin ∧ modules montés |
 
 Contrat : `etc/capsuleos/contracts/pedagogical-modules.json`
+
+### 2.15 Reproduction parfaite — cohérence OsRepro
+
+Cadre transversal : cohérence (C1–C7), déduction, grille d'argumentation, critères de clôture.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **OsRepro** | Cadre cohérence actif | `validate-os-reproduction-coherence.mjs` |
+| **Grid5** | Grille 5 dimensions slot P0 | chrome, content, catalog, interaction, detail dans `contentGaps[]` |
+| **OsΣ-slot** | Reproduction parfaite slot | ∀ dim P0 : verdict ∈ {ok, accepted} |
+| **OsΣ-registry** | Reproduction parfaite registre | **ManΣ ∧ AppΣ ∧ PbΣ ∧ StoreVp ∧ Tf ∧ H₆** |
+
+Principes **C1–C9** : VM prime · flux Z0→Z3 · prédicats séquentiels · ground avant skin · façade canonique · écart explicite · clôture déductive · **composition par slots (C8)** · **delta VM seulement (C9)**.
+
+Anticipation **P-OS1–P-OS9** : pilote/dérivé · Σ≠Vp · contrat exécutable · spine unique · **P-OS9 réutiliser avant recréer**.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **SlotMap** | Apps VM mappées aux slots dépôt | inventaire VM × `slots-manifest` / `apps-catalog` |
+| **GapΔ** | Écarts explicites à traiter | `contentGaps` ouverts ∨ `p0Gaps` ∨ slot absent |
+| **ReuseΣ** | Slot structurellement réutilisable | kernel + variant + ¬GapΔ sur slot |
+| **RealΣ** | Réalisme vécu slot P0 | **Vp ∧ VΣ ∧ functionalDepth ≠ partial** · `resolve-slot-gap-delta.mjs` |
+| **RealΣ-registry** | Réalisme vécu registre | ∀ slot P0 : **RealΣ** |
+
+Inférences interdites : **AppVp** sans **AppVc** ; patch skin sans **contentSpec** ; ground cross-vendor sans overlay ; implémentation sous **¬H₂** (R-IMP1) ; **campagne complète** si **SlotMap** couvre P0 et **GapΔ** vide (F-FULL-REPRO) ; **clone slot** si **ReuseΣ** (F-CLONE-SLOT) ; **partial P0 silencieux** sans **contentGaps** (F-SILENT-PARTIAL → matérialisation **RealΣ** via `--write`).
+
+Recette campagne **CR-0…CR-6** : socle → inventaire VM → enquête visuelle → grille → ground → captures Capsule → clôture parité.
+
+Contrat : `etc/capsuleos/contracts/os-reproduction-coherence.json` · Convention : [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md)
 
 ### 2.11 Rafraîchissement des vues (Rv)
 

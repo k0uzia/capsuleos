@@ -38,7 +38,7 @@
 
         <p class="gnome-shot__hint" id="gnome-shot-hint" role="status" aria-live="polite"></p>
 
-        <button type="button" class="gnome-shot__primary" id="gnome-shot-capture">
+        <button type="button" class="gnome-shot__primary" id="gnome-shot-capture" data-shot-gnome-action="capture">
             Prendre une capture
         </button>
     </section>
@@ -48,9 +48,9 @@
             <img class="gnome-shot__preview" id="gnome-shot-preview" alt="Aperçu de la capture">
         </div>
         <div class="gnome-shot__actions" role="group" aria-label="Actions">
-            <button type="button" class="gnome-shot__action" data-shot-action="save">Enregistrer sous…</button>
-            <button type="button" class="gnome-shot__action" data-shot-action="copy">Copier dans le presse-papiers</button>
-            <button type="button" class="gnome-shot__action" data-shot-action="new">Nouvelle capture</button>
+            <button type="button" class="gnome-shot__action" data-shot-gnome-action="save">Enregistrer sous…</button>
+            <button type="button" class="gnome-shot__action" data-shot-gnome-action="copy">Copier dans le presse-papiers</button>
+            <button type="button" class="gnome-shot__action" data-shot-gnome-action="new">Nouvelle capture</button>
         </div>
         <p class="gnome-shot__status" id="gnome-shot-status" role="status" aria-live="polite"></p>
     </section>

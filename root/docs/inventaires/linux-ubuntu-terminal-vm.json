@@ -89,8 +89,23 @@
       "capsuleProfile": "linux:debian",
       "outputNotes": "Listing couleurs LS_COLORS (dossiers bleus)",
       "priority": "P0",
-      "replication": "pass",
-      "smokeRef": "fs-sync T1–T8"
+      "replication": "pass"
+    },
+    {
+      "name": "cd",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass"
+    },
+    {
+      "name": "pwd",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass"
     },
     {
       "name": "touch",
@@ -101,6 +116,69 @@
       "priority": "P0",
       "replication": "pass",
       "smokeRef": "fs-sync T3"
+    },
+    {
+      "name": "mkdir",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T4"
+    },
+    {
+      "name": "rm",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T1"
+    },
+    {
+      "name": "rmdir",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T2"
+    },
+    {
+      "name": "mv",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T5"
+    },
+    {
+      "name": "cp",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T6"
+    },
+    {
+      "name": "echo",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T7"
+    },
+    {
+      "name": "grep",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass",
+      "smokeRef": "fs-sync T8"
     },
     {
       "name": "apt",
@@ -121,6 +199,14 @@
       "priority": "P1",
       "replication": "pass",
       "smokeRef": "smoke-terminal-debian-output.mjs"
+    },
+    {
+      "name": "whoami",
+      "layer": "core",
+      "onVm": true,
+      "capsuleProfile": "linux:debian",
+      "priority": "P0",
+      "replication": "pass"
     }
   ],
   "shellFeatures": {
@@ -202,19 +288,19 @@
     "fsSync": {
       "script": "usr/lib/capsuleos/tools/lab/smoke-fs-terminal-explorer-sync.mjs",
       "profile": "linux-ubuntu",
-      "lastRun": "2026-06-07",
+      "lastRun": "2026-06-09",
       "status": "pass",
-      "detail": "T1–T8 OK"
+      "detail": "T1–T8 OK — CAPSULE_HTTP_BASE :5501"
     },
     "debianOutput": {
       "script": "usr/lib/capsuleos/tools/lab/smoke-terminal-debian-output.mjs",
       "profile": "linux-ubuntu",
-      "lastRun": "2026-06-07",
+      "lastRun": "2026-06-09",
       "status": "pass"
     },
     "Te": {
       "script": "usr/lib/capsuleos/tools/validate-terminal-commands.mjs",
-      "lastRun": "2026-06-07",
+      "lastRun": "2026-06-09",
       "status": "pass"
     }
   },
@@ -227,6 +313,6 @@
     "Ts": true,
     "Tr": true,
     "TΣ": true,
-    "notes": "Ts T1–T8 + Tr apt/dpkg + chrome Ptyxis — 2026-06-07. Branche Debian/apt, skin home/Debian/Ubuntu."
+    "notes": "Ts T1–T8 + Tr apt/dpkg + chrome Ptyxis — revalidé 2026-06-09. Branche Debian/apt, skin home/Debian/Ubuntu."
   }
 }

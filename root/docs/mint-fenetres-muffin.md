@@ -41,6 +41,7 @@ CapsuleOS **n’émule pas Muffin** : le noyau `CapsuleWindow` + `CapsuleWindowS
 | **Minimiser** = masquer + entrée panel | `display:none` + liste panel | OK si liste branchée |
 | **Fermer** = retirer du panel | `closeBtn` + retrait liste | OK |
 | Menu contextuel **bureau** (fond) | Clic droit `#desktop` | Branché (`desktop-context-menu.js`) |
+| Menu contextuel **barre titre** | Clic droit `#windowHeader` | Branché (`cinnamon-window-behaviors.js`) |
 
 ### P2 — Paramètres avancés
 

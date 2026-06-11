@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolvePickIconPortalUrl } from './vendor-icon-resolution-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -46,13 +47,7 @@ const catalog = Object.fromEntries(catalogKeys.map((k) => [k, { label: k === 'io
 catalog.linux.label = 'Linux';
 catalog.bsd.label = 'BSD';
 
-const resolveIcon = (entry) => {
-  const pickIcon = entry.assets?.pickIcon;
-  if (pickIcon) {
-    return `./usr/share/capsuleos/assets/${pickIcon}`;
-  }
-  return `${ICON.linux}debian.png`;
-};
+const resolveIcon = (entry) => resolvePickIconPortalUrl(entry);
 
 // Catalogue public : entrées actives uniquement (0 pendant gel)
 registry.entries

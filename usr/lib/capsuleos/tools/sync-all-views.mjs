@@ -5,7 +5,7 @@
  * Périmètre :
  *   - manifest public (home/public → Nemo)
  *   - profils skin + façades pick-os Linux (home/ → OS/linux/families/)
- *   - embed offline Linux (capsule-app-embed.js, capsule-skin-profiles.js)
+ *   - embed offline Linux (capsule-app-embed.js, capsule-skin-profiles.js, capsule-store-catalog.js)
  *   - embed Android (capsule-android-embed.js)
  *   - validation façades Linux
  *

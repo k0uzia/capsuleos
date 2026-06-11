@@ -2,7 +2,7 @@
 window.CAPSULE_OVERVIEW_APPS_GRID = {
   "version": 2,
   "registryId": "linux-rocky",
-  "generatedAt": "2026-06-08T23:12:19.468Z",
+  "generatedAt": "2026-06-09T13:41:15.358Z",
   "source": "proc/linux-rocky/distribution-manifest.json",
   "apps": [
     {
@@ -13,6 +13,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg",
       "dataLink": "calculator",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -23,6 +24,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "dataLink": "text_editor",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -33,6 +35,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "dataLink": "nemo",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -43,6 +46,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png",
       "dataLink": "firefox",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -53,6 +57,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "dataLink": "update_manager",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -63,6 +68,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg",
       "dataLink": "themes",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -73,6 +79,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg",
       "dataLink": "terminal",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -83,6 +90,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
       "dataLink": "clocks",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -93,6 +101,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg",
       "dataLink": "visionneur_images",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -103,6 +112,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg",
       "dataLink": "visionneur_pdf",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -113,6 +123,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg",
       "dataLink": "snapshot",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -123,6 +134,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg",
       "dataLink": "characters",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -133,6 +145,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -143,6 +156,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/setroubleshoot.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -153,6 +167,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg",
       "dataLink": "system_monitor",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -163,6 +178,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -173,6 +189,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg",
       "dataLink": "baobab",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -183,6 +200,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg",
       "dataLink": "tour",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     }
   ]

@@ -4,6 +4,9 @@
 (function initGnomeCalculatorApp(global) {
     'use strict';
 
+    var GNOME_CALC_SESSION_KEY = 'capsule-gnome-calculator-session';
+    var calcGnomeToastTimer = null;
+
     var OP_SYMBOL = {
         '+': '+',
         '-': '−',
@@ -47,6 +50,62 @@
             return a / b;
         }
         return b;
+    }
+
+    function prefersGnomeCalculatorLayout() {
+        var bodyId = global.document.body && global.document.body.id;
+        return bodyId === 'rocky'
+            || bodyId === 'fedora'
+            || bodyId === 'alma'
+            || bodyId === 'ubuntu'
+            || bodyId === 'popos'
+            || bodyId === 'anduinos';
+    }
+
+    function showCalcGnomeToast(root, message) {
+        if (!root) {
+            return;
+        }
+        var toast = root.querySelector('[data-calc-gnome-toast]');
+        if (!toast) {
+            return;
+        }
+        toast.textContent = message || 'Copié dans le presse-papiers';
+        toast.hidden = false;
+        if (calcGnomeToastTimer) {
+            global.clearTimeout(calcGnomeToastTimer);
+        }
+        calcGnomeToastTimer = global.setTimeout(function hideCalcToast() {
+            toast.hidden = true;
+        }, 2200);
+    }
+
+    function syncCalcGnomeDataset(root, state) {
+        if (!root || !prefersGnomeCalculatorLayout()) {
+            return;
+        }
+        root.dataset.calcGnomeMode = state.mode || 'basic';
+        root.dataset.calcGnomeHistoryCount = String(state.historyCount || 0);
+        root.dataset.calcGnomeValue = state.displayValue || '0';
+        if (typeof state.copied === 'boolean') {
+            root.dataset.calcGnomeCopied = state.copied ? 'true' : 'false';
+        }
+    }
+
+    function copyCalcGnomeResult(root, displayText) {
+        var text = String(displayText || '0');
+        syncCalcGnomeDataset(root, {
+            mode: root.dataset.calcGnomeMode || 'basic',
+            historyCount: parseInt(root.dataset.calcGnomeHistoryCount || '0', 10),
+            displayValue: text,
+            copied: true
+        });
+        if (global.navigator && global.navigator.clipboard && global.navigator.clipboard.writeText) {
+            global.navigator.clipboard.writeText(text.replace(/\s/g, '').replace(/,/g, '.')).catch(function noop() {
+                /* presse-papiers indisponible hors HTTPS */
+            });
+        }
+        showCalcGnomeToast(root, 'Copié dans le presse-papiers');
     }
 
     function initCalculatorApp() {
@@ -99,6 +158,7 @@
                 exprEl.textContent = '';
             }
             syncOpHighlight();
+            publishCalcState();
         }
 
         function setCurrent(val) {
@@ -255,7 +315,25 @@
             }
         }
 
+        function onGnomeActionClick(event) {
+            var btn = event.target.closest('[data-calc-gnome-action]');
+            if (!btn || !root.contains(btn)) {
+                return;
+            }
+            var action = btn.getAttribute('data-calc-gnome-action');
+            if (action === 'copy-result') {
+                event.preventDefault();
+                copyCalcGnomeResult(root, valueEl ? valueEl.textContent : '0');
+            }
+            if (action === 'mode-basic' || action === 'mode-advanced' || action === 'mode-programming') {
+                event.preventDefault();
+                event.stopPropagation();
+                setMode(action.replace('mode-', ''));
+            }
+        }
+
         keypad.addEventListener('click', onKeyClick);
+        root.addEventListener('click', onGnomeActionClick);
         var backspaceBtn = global.document.querySelector('[data-calc="backspace"]');
         if (backspaceBtn) {
             backspaceBtn.addEventListener('click', onKeyClick);
@@ -269,6 +347,14 @@
         var historyToggle = root.querySelector('[data-calc="history-toggle"]');
         var calcHistory = [];
         var currentMode = 'basic';
+
+        function publishCalcState() {
+            syncCalcGnomeDataset(root, {
+                mode: currentMode,
+                historyCount: calcHistory.length,
+                displayValue: valueEl ? valueEl.textContent : '0'
+            });
+        }
 
         if (historyToggle) {
             historyToggle.addEventListener('click', function onHistoryToggle(event) {
@@ -295,6 +381,7 @@
                 li.appendChild(btn);
                 historyList.appendChild(li);
             }
+            publishCalcState();
         }
 
         function pushHistory(label, value) {
@@ -349,7 +436,7 @@
 
         function setMode(mode) {
             currentMode = mode;
-            var labels = { basic: 'Basique', advanced: 'Avancée', programming: 'Programmation' };
+            var labels = { basic: 'Basique', advanced: 'Avancé', programming: 'Programmation' };
             var modeLabel = global.document.getElementById('gnome-calc-mode-label');
             if (modeLabel) {
                 modeLabel.textContent = labels[mode] || 'Basique';
@@ -460,7 +547,10 @@
 
         syncAdvancedKeypad();
         clearAll();
+        publishCalcState();
     }
 
+    global.GNOME_CALC_SESSION_KEY = GNOME_CALC_SESSION_KEY;
+    global.copyCalcGnomeResult = copyCalcGnomeResult;
     global.initCalculatorApp = initCalculatorApp;
 }(typeof window !== 'undefined' ? window : this));

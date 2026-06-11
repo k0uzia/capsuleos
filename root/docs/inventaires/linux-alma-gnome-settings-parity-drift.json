@@ -1,0 +1,31 @@
+{
+  "registry": "linux-alma",
+  "generatedAt": "2026-06-10T14:25:00.671Z",
+  "alignedCount": 22,
+  "driftCount": 0,
+  "drifts": [],
+  "aligned": [
+    "wifi",
+    "notifications",
+    "lock-notifications",
+    "dnd",
+    "dynamic-workspaces",
+    "hot-corner",
+    "apps-all-workspaces",
+    "sound-alert",
+    "power-dim",
+    "power-sleep",
+    "night-light",
+    "mouse-handedness",
+    "pointer-speed",
+    "touchpad",
+    "tap-to-click",
+    "scroll-direction",
+    "keyboard-layout",
+    "keyboard-repeat",
+    "camera",
+    "microphone",
+    "auto-lock",
+    "lock-delay"
+  ]
+}

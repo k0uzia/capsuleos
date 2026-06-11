@@ -1,9 +1,11 @@
-# Déprécié — miroir legacy
+# Déprécié — noyau Linux legacy (purgé)
 
-Ce répertoire est un **miroir de build/embed** synchronisé depuis `usr/lib/capsuleos/`.
+Ce répertoire ne doit plus contenir de code exécutable.
 
-**Canon** :
-- JS noyau : `usr/lib/capsuleos/common/`, `usr/lib/capsuleos/core/`
-- Shells Linux : `usr/lib/capsuleos/shells/linux/`
+**Canon Linux** :
+- Noyau commun : `usr/lib/capsuleos/common/`
+- Shells / slots : `usr/lib/capsuleos/shells/linux/`
+- Gabarits : `usr/share/capsuleos/linux/`
+- Variables thème : `usr/share/capsuleos/themes/linux/`
 
-Ne pas éditer ici sauf via les scripts de sync. Suppression prévue après partition des embeds (`var/lib/capsuleos/generated/capsule-embed-index.json`).
+Purge : `node usr/lib/capsuleos/tools/purge-repo-hygiene.mjs`

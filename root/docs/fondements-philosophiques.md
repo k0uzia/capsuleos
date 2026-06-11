@@ -206,6 +206,8 @@ Le cloisonnement n’est pas de la froideur technique : c’est une **séparatio
 
 **Mélanger les couches** (dock Ubuntu sur Rocky) n’est pas une « optimisation » : c’est une **confusion ontologique** qui détruit la crédibilité des deux vendors.
 
+Synthèse post-campagne store (juin 2026) : [introspection-ontologique-2026-06.md](introspection-ontologique-2026-06.md).
+
 ### 7.3 Allowlist + denylist
 
 - **Allowlist** (`skin.profile.json`, `CAPSULE_*`) : ce que le skin **peut** être

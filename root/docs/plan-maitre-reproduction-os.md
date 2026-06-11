@@ -265,6 +265,7 @@ VM (SSH) → proc/ + inventaire JSON
     { "id": "socle", "predicates": ["H2"] },
     { "id": "ground-truth", "predicates": ["ManΣ"] },
     { "id": "apps", "predicates": ["AppΣ"] },
+    { "id": "store", "predicates": ["StoreG", "StoreΣ", "StoreVp"] },
     { "id": "playbook", "predicates": ["PbΣ"] },
     { "id": "visual", "predicates": ["Vp", "VΣ"] },
     { "id": "fidelity", "predicates": ["Tf"] },

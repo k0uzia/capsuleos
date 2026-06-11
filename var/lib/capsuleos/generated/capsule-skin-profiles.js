@@ -56,6 +56,7 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
@@ -638,6 +639,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       }
     }
   },
@@ -773,7 +777,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -849,6 +853,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
@@ -1431,6 +1436,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       }
     }
   },
@@ -1566,7 +1574,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

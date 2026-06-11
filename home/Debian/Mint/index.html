@@ -12,6 +12,16 @@
 </head>
 <body id="mint">
     <div id="desktop" role="application" aria-label="Bureau Linux Mint">
+        <div class="desktop-shortcuts" aria-label="Icônes du bureau">
+            <a class="desktop-shortcut" href="#" data-desktop-icon="home" title="Dossier personnel">
+                <img src="../../../usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-home.svg" alt="">
+                <span>Dossier personnel</span>
+            </a>
+            <a class="desktop-shortcut" href="#" data-desktop-icon="trash" title="Corbeille">
+                <img src="../../../usr/share/capsuleos/assets/icons/cinnamon/mint-y/places/user-trash.svg" alt="">
+                <span>Corbeille</span>
+            </a>
+        </div>
         <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
         <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
         <div class="windowElement" data-link="firefox" id="firefox" style="display: none;"></div>
@@ -29,6 +39,7 @@
         <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
         <div class="windowElement" data-link="calendar" id="calendar" style="display: none;"></div>
         <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
+        <div class="windowElement" data-link="snapshot" id="snapshot" style="display: none;"></div>
         <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
         <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
         <div class="windowElement" data-link="mintdrivers" id="mintdrivers" style="display: none;"></div>
@@ -233,6 +244,20 @@
         <button type="button" class="desktop-context-menu__item" data-desktop-action="refresh">Actualiser le bureau</button>
     </div>
 
+    <div id="desktop-icon-context-menu" class="desktop-context-menu" role="menu" hidden>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="open">Ouvrir</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="cut">Couper</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="copy">Copier</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="rename">Renommer</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="delete">Supprimer</button>
+        <button type="button" class="desktop-context-menu__item" data-desktop-icon-action="properties">Propriétés</button>
+    </div>
+
+    <div id="mint-panel-context-menu" class="desktop-context-menu mint-panel-context-menu" role="menu" hidden>
+        <button type="button" class="desktop-context-menu__item" data-mint-panel-action="add-applets">Ajouter des applets</button>
+        <button type="button" class="desktop-context-menu__item" data-mint-panel-action="configure-panel">Configurer le panel</button>
+    </div>
+
     <div class="calendar-popover" id="taskbar-calendar-popover" role="dialog" aria-label="Calendrier" hidden>
         <header class="calendar-popover__top">
             <div class="calendar-popover__long-date" id="cal-long-date"></div>
@@ -397,13 +422,17 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-window-instances.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-sidebar-controls.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-user-fs.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNemoOps.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInlineRename.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerProperties.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js?v=20260609nemoctx3"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerWindowState.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/celluloid.js"></script>
@@ -431,6 +460,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/snapshot.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mintdrivers.js"></script>
@@ -455,15 +485,19 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/rhythmbox.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-disks.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/libreoffice-suite.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/mint-final-apps.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mint-final-apps.js"></script>    <script src="../../../var/lib/capsuleos/generated/capsule-store-catalog.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mint-store-catalog.js"></script>
+
     <script src="../../../usr/lib/capsuleos/shells/linux/mintinstall.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=20260609ctx4"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=20260609icon"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mint-panel-context-menu.js?v=20260609panel"></script>
+    <script src="./content/mint-desktop-icons.js?v=20260609"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
     <script src="./content/mint-panel-pinned.js?v=20260608vmref"></script>
     <script src="./content/mint-tray.js?v=20260608panelA"></script>

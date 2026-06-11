@@ -25,6 +25,12 @@
         'ctrl+i': 'goto-line'
     };
 
+    var GNOME_TE_SESSION_KEY = 'capsule-gnome-text-editor-session';
+    var GNOME_TE_VFS_SAMPLE = '../../../home/public/Documents/introduction-bash.txt';
+    var gnomeTeDocs = null;
+    var gnomeTeActiveIndex = 0;
+    var teGnomeToastTimer = null;
+
     function getWindowEl(root) {
         var el = root;
         while (el) {
@@ -45,6 +51,68 @@
             || bodyId === 'ubuntu'
             || bodyId === 'popos'
             || bodyId === 'anduinos';
+    }
+
+    function isGnomeTeLayout() {
+        return prefersGnomeTextEditorLayout();
+    }
+
+    function untitledLabel() {
+        return isGnomeTeLayout() ? 'Document sans titre' : 'Sans titre';
+    }
+
+    function createEmptyGnomeDoc() {
+        return {
+            id: String(Date.now()) + '-' + String(Math.random()).slice(2, 8),
+            fileName: '',
+            content: '',
+            savedValue: '',
+            dirty: false
+        };
+    }
+
+    function showTeGnomeSaveToast(message) {
+        var root = global.document.getElementById('xedApp');
+        if (!root) {
+            return;
+        }
+        var toast = root.querySelector('[data-te-gnome-toast]');
+        if (!toast) {
+            return;
+        }
+        toast.textContent = message || 'Document enregistré';
+        toast.hidden = false;
+        if (teGnomeToastTimer) {
+            global.clearTimeout(teGnomeToastTimer);
+        }
+        teGnomeToastTimer = global.setTimeout(function hideToast() {
+            toast.hidden = true;
+        }, 2600);
+    }
+
+    function syncTeGnomeDataset(root, dirtyState) {
+        if (!root || !isGnomeTeLayout()) {
+            return;
+        }
+        root.dataset.teGnomeDirty = dirtyState ? 'true' : 'false';
+        if (gnomeTeDocs) {
+            root.dataset.teGnomeTabCount = String(gnomeTeDocs.length);
+            root.dataset.teGnomeActiveTab = String(gnomeTeActiveIndex);
+        }
+    }
+
+    function persistGnomeTeSession() {
+        if (!isGnomeTeLayout() || !gnomeTeDocs || !global.window.sessionStorage) {
+            return;
+        }
+        try {
+            global.window.sessionStorage.setItem(GNOME_TE_SESSION_KEY, JSON.stringify({
+                docs: gnomeTeDocs,
+                activeIndex: gnomeTeActiveIndex
+            }));
+        } catch (err) {
+            /* ignore quota */
+        }
     }
 
     function initTextEditorAppOnce() {
@@ -73,11 +141,113 @@
         var toolbarVisible = true;
         var statusVisible = true;
         var wrapSoft = false;
+        var gnomeTabsEl = global.document.getElementById('xed-gnome-tabs');
+
+        function snapshotCurrentGnomeDoc() {
+            if (!isGnomeTeLayout() || !gnomeTeDocs || !gnomeTeDocs.length) {
+                return;
+            }
+            var doc = gnomeTeDocs[gnomeTeActiveIndex];
+            if (!doc) {
+                return;
+            }
+            doc.content = area.value;
+            doc.dirty = dirty;
+            doc.savedValue = savedValue;
+            doc.fileName = fileName;
+        }
+
+        function docDisplayLabel(doc) {
+            var base = doc.fileName || untitledLabel();
+            return doc.dirty ? '*' + base : base;
+        }
+
+        function renderGnomeTeTabs() {
+            if (!isGnomeTeLayout() || !gnomeTabsEl || !gnomeTeDocs) {
+                return;
+            }
+            if (gnomeTeDocs.length <= 1) {
+                gnomeTabsEl.hidden = true;
+                gnomeTabsEl.innerHTML = '';
+                return;
+            }
+            gnomeTabsEl.hidden = false;
+            var html = '';
+            var i;
+            for (i = 0; i < gnomeTeDocs.length; i += 1) {
+                var doc = gnomeTeDocs[i];
+                var label = docDisplayLabel(doc);
+                html += '<button type="button" class="xed-app__tab'
+                    + (i === gnomeTeActiveIndex ? ' is-active' : '')
+                    + '" data-te-gnome-tab="' + i + '" aria-selected="'
+                    + (i === gnomeTeActiveIndex ? 'true' : 'false') + '">'
+                    + label + '</button>';
+            }
+            gnomeTabsEl.innerHTML = html;
+            root.classList.add('is-gnome-tabs');
+        }
+
+        function loadGnomeDoc(index, skipSnapshot) {
+            if (!gnomeTeDocs || index < 0 || index >= gnomeTeDocs.length) {
+                return;
+            }
+            if (!skipSnapshot) {
+                snapshotCurrentGnomeDoc();
+            }
+            gnomeTeActiveIndex = index;
+            var doc = gnomeTeDocs[index];
+            area.value = doc.content || '';
+            fileName = doc.fileName || '';
+            savedValue = doc.savedValue || '';
+            dirty = doc.dirty === true;
+            refreshTitle();
+            syncDocumentsMenu();
+            updateStatus();
+            renderGnomeTeTabs();
+            syncTeGnomeDataset(root, dirty);
+            persistGnomeTeSession();
+        }
+
+        function newGnomeTab() {
+            if (!gnomeTeDocs) {
+                gnomeTeDocs = [createEmptyGnomeDoc()];
+            }
+            snapshotCurrentGnomeDoc();
+            gnomeTeDocs.push(createEmptyGnomeDoc());
+            loadGnomeDoc(gnomeTeDocs.length - 1);
+            area.value = '';
+            fileName = '';
+            savedValue = '';
+            setDirty(false);
+            updateStatus();
+        }
+
+        function closeGnomeTab() {
+            if (!gnomeTeDocs || gnomeTeDocs.length <= 1) {
+                clearDocument();
+                return;
+            }
+            snapshotCurrentGnomeDoc();
+            gnomeTeDocs.splice(gnomeTeActiveIndex, 1);
+            if (gnomeTeActiveIndex >= gnomeTeDocs.length) {
+                gnomeTeActiveIndex = gnomeTeDocs.length - 1;
+            }
+            loadGnomeDoc(gnomeTeActiveIndex, true);
+        }
+
+        function openTeGnomeVfsSample(href, name) {
+            var targetHref = href || GNOME_TE_VFS_SAMPLE;
+            var displayName = name || basenameFromHref(targetHref);
+            loadDocumentFromExplorer(targetHref, displayName);
+        }
 
         function setDirty(next) {
             dirty = next === true;
             refreshTitle();
             syncDocumentsMenu();
+            syncTeGnomeDataset(root, dirty);
+            snapshotCurrentGnomeDoc();
+            persistGnomeTeSession();
         }
 
         function refreshTitle() {
@@ -88,7 +258,7 @@
             if (!titleEl) {
                 return;
             }
-            var base = fileName || 'Sans titre';
+            var base = fileName || untitledLabel();
             titleEl.textContent = dirty ? '*' + base : base;
         }
 
@@ -97,11 +267,39 @@
             if (!docBtn) {
                 return;
             }
-            var label = fileName || 'Sans titre';
+            var label = fileName || untitledLabel();
             if (dirty) {
                 label = '*' + label;
             }
             docBtn.textContent = label;
+            if (isGnomeTeLayout() && gnomeTeDocs) {
+                var docsMenu = root.querySelector('.xed-menu:last-child .xed-menu__dropdown');
+                if (docsMenu) {
+                    var existing = docsMenu.querySelectorAll('[data-te-gnome-doc]');
+                    existing.forEach(function removeDocBtn(btn) {
+                        btn.parentElement.remove();
+                    });
+                    var sep = docsMenu.querySelector('.xed-menu__sep');
+                    var i;
+                    for (i = 0; i < gnomeTeDocs.length; i += 1) {
+                        var li = global.document.createElement('li');
+                        li.setAttribute('role', 'none');
+                        var btn = global.document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'xed-menu__item' + (i === gnomeTeActiveIndex ? ' xed-menu__item--checked' : '');
+                        btn.setAttribute('role', 'menuitem');
+                        btn.setAttribute('data-te-gnome-doc', String(i));
+                        btn.textContent = docDisplayLabel(gnomeTeDocs[i]);
+                        btn.addEventListener('click', function onDocSwitch(e) {
+                            e.stopPropagation();
+                            closeAllMenus();
+                            loadGnomeDoc(parseInt(this.getAttribute('data-te-gnome-doc'), 10));
+                        });
+                        li.appendChild(btn);
+                        docsMenu.insertBefore(li, sep || null);
+                    }
+                }
+            }
         }
 
         function updateStatus() {
@@ -343,6 +541,8 @@
             downloadDocument(name);
             refreshTitle();
             syncDocumentsMenu();
+            showTeGnomeSaveToast('« ' + name + ' » enregistré');
+            renderGnomeTeTabs();
         }
 
         function saveDocument(asCopy) {
@@ -357,6 +557,8 @@
                 refreshTitle();
                 syncDocumentsMenu();
             }
+            showTeGnomeSaveToast('Document enregistré');
+            renderGnomeTeTabs();
         }
 
         function revertDocument() {
@@ -697,6 +899,23 @@
                 clearDocument();
                 return;
             }
+            if (action === 'new-tab') {
+                newGnomeTab();
+                return;
+            }
+            if (action === 'close-tab') {
+                closeGnomeTab();
+                return;
+            }
+            if (action === 'open-vfs') {
+                var vfsBtn = root.querySelector('[data-te-gnome-action="open-vfs"]');
+                var vfsHref = vfsBtn ? vfsBtn.getAttribute('data-te-gnome-vfs') : GNOME_TE_VFS_SAMPLE;
+                if (!confirmDiscard()) {
+                    return;
+                }
+                openTeGnomeVfsSample(vfsHref);
+                return;
+            }
             if (action === 'open') {
                 if (!confirmDiscard()) {
                     return;
@@ -719,6 +938,10 @@
                 return;
             }
             if (action === 'close') {
+                if (isGnomeTeLayout() && gnomeTeDocs && gnomeTeDocs.length > 1) {
+                    closeGnomeTab();
+                    return;
+                }
                 closeWindow();
                 return;
             }
@@ -1005,6 +1228,24 @@
             if (toolbarMenuItem) {
                 toolbarMenuItem.classList.remove('xed-menu__item--checked');
             }
+            gnomeTeDocs = [createEmptyGnomeDoc()];
+            root.querySelectorAll('.xed-menu__item--gnome-only').forEach(function revealGnomeItem(el) {
+                el.hidden = false;
+            });
+            if (gnomeTabsEl) {
+                gnomeTabsEl.addEventListener('click', function onTabClick(event) {
+                    var tabBtn = event.target.closest('[data-te-gnome-tab]');
+                    if (!tabBtn) {
+                        return;
+                    }
+                    event.preventDefault();
+                    loadGnomeDoc(parseInt(tabBtn.getAttribute('data-te-gnome-tab'), 10));
+                });
+            }
+            syncTeGnomeDataset(root, false);
+            global.openTeGnomeVfsSample = openTeGnomeVfsSample;
+            global.showTeGnomeSaveToast = showTeGnomeSaveToast;
+            global.renderGnomeTeTabs = renderGnomeTeTabs;
         }
 
         refreshTitle();

@@ -20,8 +20,8 @@ html[data-theme="light"]:has(#fedora) {
 }
 
 body#fedora div[data-link="calendar"].windowElement {
-    width: min(24rem, calc(100vw - 2rem));
-    height: min(30rem, calc(100vh - var(--fedora-top-bar-height, 2.5rem) - 2rem));
+    width: min(36rem, calc(100vw - 2rem));
+    height: min(34rem, calc(100vh - var(--fedora-top-bar-height, 2.5rem) - 2rem));
 }
 
 body#fedora div[data-link="calendar"].gnome-app--csd {
@@ -57,4 +57,25 @@ body#fedora .gnome-calendar-app__day--today {
     background: var(--gnome-cal-selected);
     color: var(--gnome-cal-today);
     font-weight: 700;
+}
+
+body#fedora .gnome-calendar-app__view-btn,
+body#fedora .gnome-calendar-app__new {
+    color: var(--gnome-cal-text);
+}
+
+body#fedora .gnome-calendar-app__sidebar {
+    border-color: var(--gnome-cal-border);
+}
+
+body#fedora .gnome-calendar-app__editor {
+    color: var(--gnome-cal-text);
+    background: var(--gnome-cal-surface);
+    border: 1px solid var(--gnome-cal-border);
+}
+
+body#fedora .gnome-calendar-app__editor-input {
+    color: var(--gnome-cal-text);
+    background: var(--gnome-cal-bg);
+    border-color: var(--gnome-cal-border);
 }

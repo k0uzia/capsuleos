@@ -14,7 +14,7 @@ body#alma {
     --gnome-software-sidebar-w: 13.75rem;
 }
 
-html[data-theme="light"]:has(#alma) {
+html[data-theme="light"]:has(#alma) body#alma {
     --gnome-software-bg: #fafafa;
     --gnome-software-sidebar-bg: #f3f3f5;
     --gnome-software-surface: #ffffff;

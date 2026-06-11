@@ -45,7 +45,7 @@ Contrat : `etc/capsuleos/contracts/desktop-selectors.json`
 
 **IDs critiques :** `windowHeader`, `windowTitle`, `minimizeBtn`, `resizeBtn`, `closeBtn` · slot `nemo` · Nemo : `gestionnaire`, `nemoHeaderContainer`, `nemoMainContainer`, `voletnemo`, `precedent`, `suivant`, `parent`, `home`, `zoom`.
 
-**Workflow :** gabarit `OS/linux/shared/apps/nemo.html` → JS `fileExplorer/*.js`, `chrome.js` → mettre à jour le JSON contractuel → `build-embeds-all.mjs` si embed.
+**Workflow :** gabarit `usr/share/capsuleos/linux/explorers/` ou `linux/apps/` → JS `fileExplorer/*.js`, `chrome.js` → mettre à jour le JSON contractuel → `build-linux-embed.mjs` si embed.
 
 **Pièges :** `contentLoader` remplace le HTML du slot ; `#windowHeader` injecté après template Nemo.
 

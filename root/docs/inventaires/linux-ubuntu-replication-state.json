@@ -1,7 +1,7 @@
 {
   "registryId": "linux-ubuntu",
   "domain": "gnome-settings-playbook",
-  "generatedAt": "2026-06-08T23:37:13.155Z",
+  "generatedAt": "2026-06-09T16:33:47.683Z",
   "predicates": {
     "H2": true,
     "M": true,
@@ -26,6 +26,6 @@
     "message": "H6 clôturé — domaine gnome-settings-playbook"
   },
   "H6": true,
-  "h6ClosedAt": "2026-06-08T23:37:13.154Z",
+  "h6ClosedAt": "2026-06-09T16:33:47.641Z",
   "h6Closure": "root/docs/inventaires/linux-ubuntu-gnome-settings-h6-closure.json"
 }

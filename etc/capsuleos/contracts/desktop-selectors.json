@@ -29,7 +29,6 @@
     ]
   },
   "htmlSources": [
-    "OS/linux/shared/apps/nemo.html",
     "usr/share/capsuleos/linux/apps/nemo.html"
   ],
   "jsScanDirs": [

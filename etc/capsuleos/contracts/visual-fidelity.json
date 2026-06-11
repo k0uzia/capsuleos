@@ -157,6 +157,29 @@
         "iconTheme": "Adwaita",
         "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
       }
+    },
+    "linux-alma": {
+      "typography": {
+        "uiStack": ["Red Hat Text", "Cantarell"],
+        "monoStack": ["Red Hat Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 10,
+        "tokenFile": "home/RedHat/Alma/alma-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/RedHat/Alma/style/gnome-shell/a11y-fedora.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      },
+      "mime": {
+        "iconTheme": "Adwaita",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh — dérivé Rocky"
+      }
     }
   }
 }

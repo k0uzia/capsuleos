@@ -26,7 +26,7 @@ Contrat machine : `etc/capsuleos/contracts/desktop-selectors.json`
 
 ## Workflow modification
 
-1. Modifier le gabarit `OS/linux/shared/apps/nemo.html` (source apps)
+1. Modifier le gabarit `usr/share/capsuleos/linux/apps/nemo.html` (ou variant explorateur sous `usr/share/capsuleos/linux/explorers/`)
 2. Aligner `usr/lib/capsuleos/shells/linux/fileExplorer/*.js` et `common/window/chrome.js`
 3. Mettre à jour `desktop-selectors.json` si nouvel ID contractuel
 4. Lancer le validateur + `build-embeds-all.mjs` si gabarit embarqué

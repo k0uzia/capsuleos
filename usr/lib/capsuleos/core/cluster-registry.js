@@ -8,13 +8,13 @@
 
     /** @type {Record<string, object>} */
     const BY_TEMPLATE = {
-        nemo: { paths: { html: 'nemo/shell.html', css: ['nemo/base.css'] }, explorersBase: true },
         dolphin: { paths: { html: 'dolphin/shell.html', css: ['nemo/base.css', 'dolphin/base.css'] }, explorersBase: true },
-        nautilus: { paths: { html: 'nautilus/shell-gnome.html', css: ['nemo/base.css', 'nautilus/header-gnome.css'] }, explorersBase: true },
-        'nemo-gnome': { paths: { html: 'nautilus/shell-gnome.html', css: ['nemo/base.css', 'nautilus/header-gnome.css'] }, explorersBase: true },
-        'nemo-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
-        'nautilus-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
         firefox: { paths: { html: 'firefox.html', css: ['style/firefox.base.css'] }, explorersBase: false },
+        nautilus: { paths: { html: 'nautilus/shell-gnome.html', css: ['nemo/base.css', 'nautilus/header-gnome.css'] }, explorersBase: true },
+        'nautilus-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
+        nemo: { paths: { html: 'nemo/shell.html', css: ['nemo/base.css'] }, explorersBase: true },
+        'nemo-cosmic': { paths: { html: 'nautilus/shell-cosmic.html', css: ['nemo/base.css'] }, explorersBase: true },
+        'nemo-gnome': { paths: { html: 'nautilus/shell-gnome.html', css: ['nemo/base.css', 'nautilus/header-gnome.css'] }, explorersBase: true },
         terminal: { paths: { html: 'terminal.html', css: ['style/terminal.base.css', 'style/terminal-ptyxis.base.css'] }, explorersBase: false }
     };
 

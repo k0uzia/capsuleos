@@ -1,17 +1,17 @@
-<div class="lw-app" id="lw-app">
+<div class="lw-app" id="lw-app" data-librewriter-gnome-root data-librewriter-gnome-app>
 
   <!-- ═══════════ MENU BAR ═══════════ -->
-  <nav class="lw-menubar" role="menubar" aria-label="Barre de menus">
+  <nav class="lw-menubar" role="menubar" aria-label="Barre de menus" data-librewriter-gnome-menubar>
 
     <div class="lw-menu" role="none">
       <button class="lw-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Fichier</button>
       <ul class="lw-menu__dropdown" role="menu" hidden>
-        <li role="none"><button class="lw-menu__item" role="menuitem">Nouveau<span class="lw-menu__sc">Ctrl+N</span></button></li>
+        <li role="none"><button class="lw-menu__item" role="menuitem" data-librewriter-gnome-action="new">Nouveau<span class="lw-menu__sc">Ctrl+N</span></button></li>
         <li role="none"><button class="lw-menu__item" role="menuitem">Ouvrir…<span class="lw-menu__sc">Ctrl+O</span></button></li>
         <li class="lw-menu__sep" role="separator"></li>
         <li role="none"><button class="lw-menu__item" role="menuitem">Fermer<span class="lw-menu__sc">Ctrl+W</span></button></li>
         <li class="lw-menu__sep" role="separator"></li>
-        <li role="none"><button class="lw-menu__item" role="menuitem">Enregistrer<span class="lw-menu__sc">Ctrl+S</span></button></li>
+        <li role="none"><button class="lw-menu__item" role="menuitem" data-librewriter-gnome-action="save">Enregistrer<span class="lw-menu__sc">Ctrl+S</span></button></li>
         <li role="none"><button class="lw-menu__item" role="menuitem">Enregistrer sous…<span class="lw-menu__sc">Ctrl+⇧+S</span></button></li>
         <li role="none"><button class="lw-menu__item" role="menuitem">Enregistrer une copie…</button></li>
         <li class="lw-menu__sep" role="separator"></li>
@@ -191,15 +191,15 @@
   </nav>
 
   <!-- ═══════════ STANDARD TOOLBAR ═══════════ -->
-  <div class="lw-toolbar lw-toolbar--std" role="toolbar" aria-label="Barre Standard">
+  <div class="lw-toolbar lw-toolbar--std" role="toolbar" aria-label="Barre Standard" data-librewriter-gnome-toolbar-std>
 
-    <button type="button" class="lw-tb-btn" data-tooltip="Nouveau document (Ctrl+N)">
+    <button type="button" class="lw-tb-btn" data-tooltip="Nouveau document (Ctrl+N)" data-librewriter-gnome-action="new">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1h7l3 4v10H3V1z"/><path d="M10 1v4h3"/></svg>
     </button>
     <button type="button" class="lw-tb-btn" data-tooltip="Ouvrir (Ctrl+O)">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4h5l2 2h7v9H1V4z"/></svg>
     </button>
-    <button type="button" class="lw-tb-btn" data-tooltip="Enregistrer (Ctrl+S)">
+    <button type="button" class="lw-tb-btn" data-tooltip="Enregistrer (Ctrl+S)" data-librewriter-gnome-action="save">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="1"/><rect x="5" y="2" width="6" height="4"/><rect x="4" y="9" width="8" height="5"/><line x1="9" y1="2" x2="9" y2="6"/></svg>
     </button>
     <button type="button" class="lw-tb-btn lw-tb-btn--arrow" data-tooltip="Enregistrer sous… (Ctrl+⇧+S)">
@@ -285,7 +285,7 @@
   </div>
 
   <!-- ═══════════ FORMATTING TOOLBAR ═══════════ -->
-  <div class="lw-toolbar lw-toolbar--fmt" role="toolbar" aria-label="Barre de Formatage">
+  <div class="lw-toolbar lw-toolbar--fmt" role="toolbar" aria-label="Barre de Formatage" data-librewriter-gnome-toolbar-fmt>
 
     <select class="lw-tb-select lw-tb-select--style" id="lw-style-select" aria-label="Style de paragraphe" data-tooltip="Style de paragraphe">
       <option value="">Style de paragraph</option>
@@ -418,7 +418,8 @@
              spellcheck="true"
              role="textbox"
              aria-multiline="true"
-             aria-label="Document texte"></div>
+             aria-label="Document texte"
+             data-librewriter-gnome-page></div>
       </div>
 
     </div>

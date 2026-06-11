@@ -136,12 +136,12 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn:activ
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn {
-    --mint-muffin-min-bg: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/minimize.svg);
+    --mint-muffin-min-bg: url(./assets/images/toolkits/cinnamon/header/minimize.svg);
     background-image: var(--mint-muffin-min-bg);
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn {
-    --mint-muffin-max-bg: url(../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/header/maximize.svg);
+    --mint-muffin-max-bg: url(./assets/images/toolkits/cinnamon/header/maximize.svg);
     background-image: var(--mint-muffin-max-bg);
 }
 

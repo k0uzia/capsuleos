@@ -53,7 +53,7 @@
     "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
     "CAPSULE_TEMPLATE_OVERRIDES": {
       "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
-      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
     },
     "CAPSULE_WINDOW_CONTEXT": {
       "family": "linux",

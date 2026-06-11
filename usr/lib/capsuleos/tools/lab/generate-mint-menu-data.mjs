@@ -10,6 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadManifest } from './vm-manifest-lib.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
+import { resolveCsPanel, panelExists } from './mint-desktop-cs-panel.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js');
@@ -29,8 +30,13 @@ const DESKTOP_SLOT = {
   'mintbackup.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintstick.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintstick-format.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintreport.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintsources.desktop': { slot: 'update_manager', catId: 'prefs' },
+  'mintreport.desktop': { slot: 'themes', catId: 'admin' },
+  'mintsources.desktop': { slot: 'themes', catId: 'prefs' },
+  'system-config-printer.desktop': { slot: 'themes', catId: 'prefs' },
+  'org.gnome.seahorse.Application.desktop': { slot: 'themes', catId: 'prefs' },
+  'onboard.desktop': { slot: 'themes', catId: 'prefs' },
+  'blueman-adapters.desktop': { slot: 'themes', catId: 'prefs' },
+  'org.freedesktop.IBus.Setup.desktop': { slot: 'themes', catId: 'prefs' },
   'timeshift-gtk.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintwelcome.desktop': { slot: 'profile', catId: 'prefs' },
   'gufw.desktop': { slot: 'themes', catId: 'prefs' },
@@ -180,13 +186,25 @@ const buildMenuApps = () => {
     const appId = entry.normalizedId || entry.id;
     const slot = slotForEntry({ ...entry, id: appId, desktopPath: entry.desktopPath });
     const dataLink = slot ? `'${esc(slot)}'` : 'null';
+    const name = entry.name || entry.nameEn || appId;
+    const slotRaw = slot ? slot.replace(/^'|'$/g, '') : null;
+    let csPanel = null;
+    if (slotRaw === 'themes') {
+      csPanel = resolveCsPanel({ desktopPath: entry.desktopPath || desktop, name });
+      if (csPanel && !panelExists(csPanel)) {
+        console.warn(`⚠ csPanel "${csPanel}" absent de cinnamon-settings PANELS (${name})`);
+        csPanel = null;
+      }
+    }
     apps.push({
       catId: catFromCategories(entry.categories, desktop),
       icon: resolveIcon(appId, entry.icon),
-      name: entry.name || entry.nameEn || appId,
+      name,
       desc: entry.comment || entry.nameEn || entry.name || 'Application Linux Mint',
       dataLink,
-      sortKey: (entry.name || entry.nameEn || appId).toLowerCase(),
+      csPanel,
+      desktop,
+      sortKey: name.toLowerCase(),
     });
   });
 
@@ -225,7 +243,8 @@ const renderFile = (apps) => {
   lines.push('');
   lines.push('const MENU_APPS = [');
   apps.forEach((app) => {
-    lines.push(`    { catId: '${esc(app.catId)}', icon: '${esc(app.icon)}', name: '${esc(app.name)}', desc: '${esc(app.desc)}', dataLink: ${app.dataLink} },`);
+    const csPart = app.csPanel ? `, csPanel: '${esc(app.csPanel)}'` : '';
+    lines.push(`    { catId: '${esc(app.catId)}', icon: '${esc(app.icon)}', name: '${esc(app.name)}', desc: '${esc(app.desc)}', dataLink: ${app.dataLink}${csPart} },`);
   });
   lines.push('];');
   lines.push('');

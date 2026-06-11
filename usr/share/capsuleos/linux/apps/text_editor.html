@@ -1,18 +1,20 @@
-<main id="xedApp" class="xed-app" aria-label="Éditeur de texte">
+<main id="xedApp" class="xed-app text-editor--gnome" aria-label="Éditeur de texte">
 
     <nav class="xed-app__menubar xed-menubar" role="menubar" aria-label="Menus">
 
         <div class="xed-menu" role="none">
             <button type="button" class="xed-menu__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Fichier</button>
             <ul class="xed-menu__dropdown" role="menu" hidden>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new">Nouveau<span class="xed-menu__sc">Ctrl+N</span></button></li>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="open">Ouvrir…<span class="xed-menu__sc">Ctrl+O</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new" data-te-gnome-action="new">Nouveau<span class="xed-menu__sc">Ctrl+N</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item xed-menu__item--gnome-only" role="menuitem" data-xed-action="new-tab" data-te-gnome-action="new-tab" hidden>Nouvel onglet</button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="open" data-te-gnome-action="open">Ouvrir…<span class="xed-menu__sc">Ctrl+O</span></button></li>
                 <li class="xed-menu__sep" role="separator"></li>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save">Enregistrer<span class="xed-menu__sc">Ctrl+S</span></button></li>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save-as">Enregistrer sous…<span class="xed-menu__sc">Ctrl+Maj+S</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save" data-te-gnome-action="save">Enregistrer<span class="xed-menu__sc">Ctrl+S</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="save-as" data-te-gnome-action="save-as">Enregistrer sous…<span class="xed-menu__sc">Ctrl+Maj+S</span></button></li>
                 <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="revert">Recharger<span class="xed-menu__sc">Ctrl+R</span></button></li>
                 <li class="xed-menu__sep" role="separator"></li>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="close">Fermer<span class="xed-menu__sc">Ctrl+W</span></button></li>
+                <li role="none"><button type="button" class="xed-menu__item xed-menu__item--gnome-only" role="menuitem" data-xed-action="close-tab" data-te-gnome-action="close-tab" hidden>Fermer l'onglet</button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="close" data-te-gnome-action="close">Fermer<span class="xed-menu__sc">Ctrl+W</span></button></li>
             </ul>
         </div>
 
@@ -59,11 +61,14 @@
             <ul class="xed-menu__dropdown" role="menu" hidden>
                 <li role="none"><button type="button" class="xed-menu__item xed-menu__item--checked" role="menuitem" data-xed-doc="0" disabled aria-disabled="true">Sans titre</button></li>
                 <li class="xed-menu__sep" role="separator"></li>
-                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new">Nouveau document</button></li>
+                <li role="none"><button type="button" class="xed-menu__item" role="menuitem" data-xed-action="new" data-te-gnome-action="new-doc">Nouveau document</button></li>
+                <li role="none"><button type="button" class="xed-menu__item xed-menu__item--gnome-only" role="menuitem" data-xed-action="new-tab" data-te-gnome-action="new-tab" hidden>Nouvel onglet</button></li>
             </ul>
         </div>
 
     </nav>
+
+    <nav class="xed-app__tabs" id="xed-gnome-tabs" data-te-gnome-tabs hidden aria-label="Onglets ouverts"></nav>
 
     <header class="xed-app__toolbar" id="xed-toolbar" aria-label="Barre d'outils">
         <button type="button" class="xed-app__tool" data-xed-action="new" title="Nouveau">
@@ -114,6 +119,7 @@
         <textarea
             class="xed-app__area xed-editor"
             id="xed-area"
+            data-te-gnome-area
             data-capsule-attr="placeholder:text_editor.placeholder"
             placeholder="Saisissez votre texte…"
             spellcheck="true"
@@ -163,7 +169,11 @@
         </form>
     </div>
 
-    <div class="xed-dialog" id="xed-save-dialog" role="dialog" aria-labelledby="xed-save-title" hidden>
+    <button type="button" hidden data-xed-action="open-vfs" data-te-gnome-action="open-vfs" data-te-gnome-vfs="../../../home/public/Documents/introduction-bash.txt" aria-hidden="true">Ouvrir VFS</button>
+
+    <div class="xed-te-toast" data-te-gnome-toast hidden role="status" aria-live="polite"></div>
+
+    <div class="xed-dialog" id="xed-save-dialog" data-te-gnome-save-dialog role="dialog" aria-labelledby="xed-save-title" hidden>
         <form class="xed-dialog__panel" onsubmit="return false">
             <h3 class="xed-dialog__title" id="xed-save-title">Enregistrer sous</h3>
             <label class="xed-dialog__field">
@@ -171,7 +181,7 @@
                 <input type="text" id="xed-save-path" class="xed-dialog__input" autocomplete="off" placeholder="~/Documents/document.txt">
             </label>
             <div class="xed-dialog__actions">
-                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="save-apply">Enregistrer</button>
+                <button type="button" class="xed-dialog__btn xed-dialog__btn--primary" data-xed-dialog="save-apply" data-te-gnome-action="save-apply">Enregistrer</button>
                 <button type="button" class="xed-dialog__btn" data-xed-dialog="close">Annuler</button>
             </div>
         </form>

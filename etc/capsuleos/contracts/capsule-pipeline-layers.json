@@ -1,6 +1,8 @@
 {
   "version": 1,
   "description": "Couches pipeline CapsuleOS — ordre séquentiel (§5.2 plan maître reproduction OS)",
+  "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+  "storeChain": "etc/capsuleos/contracts/store-replication-chain.json",
   "entrypoint": "usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs",
   "resolver": "usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --scope pipeline",
   "layers": [
@@ -20,6 +22,12 @@
       "predicates": ["AppΣ"]
     },
     {
+      "id": "store",
+      "label": "Magasin GNOME Software",
+      "predicates": ["StoreG", "StoreΣ", "StoreVp"],
+      "chain": "etc/capsuleos/contracts/store-replication-chain.json"
+    },
+    {
       "id": "playbook",
       "label": "Playbook général",
       "predicates": ["PbΣ"]
@@ -30,14 +38,21 @@
       "predicates": ["Vp"]
     },
     {
-      "id": "fidelity",
-      "label": "Fidélité visuelle transversale",
-      "predicates": ["Tf"]
-    },
-    {
       "id": "release",
       "label": "Clôture release",
       "predicates": ["H6"]
+    },
+    {
+      "id": "apps-parity",
+      "label": "Parité visuelle applications P0",
+      "predicates": ["AppVp"],
+      "chain": "etc/capsuleos/contracts/apps-replication-chain.json",
+      "note": "Après H6 — AppVv → AppVc → AppVp (R-APP-VV/VC/VP)"
+    },
+    {
+      "id": "fidelity",
+      "label": "Fidélité visuelle transversale",
+      "predicates": ["Tf"]
     }
   ]
 }

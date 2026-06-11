@@ -69,10 +69,22 @@ export function transformRockyAppSkin(sourceText, target, { accentPatch = false 
     return css.trim();
 }
 
-export function buildAppSkinForTarget(sourceText, target, slotId) {
+export function resolveSlotOverlay(root, target, slotId) {
+    const rel = target.slotOverlays?.[slotId];
+    if (!rel) return '';
+    const full = path.join(root, rel);
+    if (!fs.existsSync(full)) {
+        throw new Error(`Overlay skin introuvable : ${rel} (${target.id}/${slotId})`);
+    }
+    return `\n${fs.readFileSync(full, 'utf8').trim()}\n`;
+}
+
+export function buildAppSkinForTarget(sourceText, target, slotId, root = ROOT) {
     const accentPatch = slotId === 'firefox' || slotId === 'nautilus';
     const header = `/**\n * ${target.id} — ${slotId} (structure Rocky).\n */\n`;
-    return `${header}${transformRockyAppSkin(sourceText, target, { accentPatch })}\n`;
+    const base = `${header}${transformRockyAppSkin(sourceText, target, { accentPatch })}`;
+    const overlay = resolveSlotOverlay(root, target, slotId);
+    return `${base.trim()}${overlay}`;
 }
 
 export function rockyAppSkinPath(root, pack, slotId) {
@@ -97,7 +109,7 @@ export function syncGenericAppSkins(root = ROOT, { pack = loadGnomePack(root), d
         const sourceText = fs.readFileSync(sourcePath, 'utf8');
         for (const target of getSyncTargets(pack)) {
             const out = targetAppSkinPath(root, target, slotId);
-            const content = buildAppSkinForTarget(sourceText, target, slotId);
+            const content = buildAppSkinForTarget(sourceText, target, slotId, root);
             if (!dryRun) {
                 fs.mkdirSync(path.dirname(out), { recursive: true });
                 fs.writeFileSync(out, content, 'utf8');

@@ -8,11 +8,10 @@
     },
     "CredS": {
       "ok": true,
-      "at": "2026-06-09T09:06:17.014Z",
+      "at": "2026-06-09T10:09:20.602Z",
       "liveVerified": true,
-      "skipped": true,
-      "reason": "inventory-100pct",
-      "scenarios": 130
+      "scenarios": 20,
+      "totalInventory": 130
     },
     "CredΣ": {
       "ok": true,
@@ -20,7 +19,7 @@
       "rule": "R-CRED-Σ"
     }
   },
-  "updatedAt": "2026-06-09T09:06:17.115Z",
+  "updatedAt": "2026-06-09T10:09:20.603Z",
   "predicates": {
     "CredV": true,
     "CredC": true,

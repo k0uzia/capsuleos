@@ -4,16 +4,48 @@
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id linux-rocky
+ *   node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id linux-rocky --filter P1
  */
 import fs from 'fs';
 import { appsPathsForRegistry } from './apps-replication-lib.mjs';
 
+const PRIORITIES = ['P0', 'P1', 'P2'];
+
 const parseArgs = () => {
   const args = process.argv.slice(2);
-  const opts = { id: 'linux-rocky' };
-  for (let i = 0; i < args.length; i += 1) opts.id = args[args.indexOf('--id') + 1] || opts.id;
+  const opts = { id: 'linux-rocky', filter: 'all' };
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
+    else if (args[i] === '--filter' && args[i + 1]) opts.filter = args[++i];
+  }
   return opts;
 };
+
+const prioritiesForFilter = (filter) => {
+  if (filter === 'all') return PRIORITIES;
+  return PRIORITIES.includes(filter) ? [filter] : [filter];
+};
+
+const classifyParity = (item) => {
+  const existing = item.capsuleParity?.visualMatch;
+  if (existing === 'ok' || existing === 'accepted') {
+    return;
+  }
+  const hasCapsule = (item.capsuleCaptures || []).length > 0;
+  const hasVm = (item.vmCaptures || []).length > 0
+    || (item.componentShots || []).some((s) => s.vmCapture);
+  let visualMatch = 'unknown';
+  if (hasCapsule && hasVm) visualMatch = 'partial';
+  else if (hasCapsule) visualMatch = 'partial';
+  else if (item.controlId && ['nemo', 'firefox', 'terminal', 'text_editor'].includes(item.controlId)) {
+    visualMatch = 'partial';
+  }
+  item.capsuleParity = { ...(item.capsuleParity || {}), visualMatch };
+};
+
+const countClassified = (investigations, prio) => (investigations || []).filter(
+  (i) => i.parityPriority === prio && i.capsuleParity?.visualMatch && i.capsuleParity.visualMatch !== 'unknown',
+).length;
 
 const main = () => {
   const opts = parseArgs();
@@ -24,26 +56,24 @@ const main = () => {
   }
 
   const inv = JSON.parse(fs.readFileSync(paths.appsVisualInvestigation, 'utf8'));
+  const priorities = prioritiesForFilter(opts.filter);
+
   for (const item of inv.investigations || []) {
-    if (item.parityPriority !== 'P0' || item.status !== 'documented') continue;
-    const hasCapsule = (item.capsuleCaptures || []).length > 0;
-    const hasVm = (item.vmCaptures || []).length > 0
-      || (item.componentShots || []).some((s) => s.vmCapture);
-    let visualMatch = 'unknown';
-    if (hasCapsule && hasVm) visualMatch = 'partial';
-    else if (hasCapsule) visualMatch = 'partial';
-    else if (item.controlId && ['nemo', 'firefox', 'terminal', 'text_editor'].includes(item.controlId)) {
-      visualMatch = 'partial';
-    }
-    item.capsuleParity = { ...(item.capsuleParity || {}), visualMatch };
+    if (!priorities.includes(item.parityPriority) || item.status !== 'documented') continue;
+    classifyParity(item);
   }
 
-  inv.summary.visualMatchClassifiedP0 = (inv.investigations || []).filter(
-    (i) => i.parityPriority === 'P0' && i.capsuleParity?.visualMatch && i.capsuleParity.visualMatch !== 'unknown',
-  ).length;
+  inv.summary = inv.summary || {};
+  inv.summary.visualMatchClassifiedP0 = countClassified(inv.investigations, 'P0');
+  inv.summary.visualMatchClassifiedP1 = countClassified(inv.investigations, 'P1');
+  inv.summary.visualMatchClassifiedP2 = countClassified(inv.investigations, 'P2');
   inv.updatedAt = new Date().toISOString();
   fs.writeFileSync(paths.appsVisualInvestigation, `${JSON.stringify(inv, null, 2)}\n`);
-  console.log(`✓ AppVp — visualMatchClassifiedP0=${inv.summary.visualMatchClassifiedP0}`);
+  console.log(
+    `✓ AppVp — filter=${opts.filter} ` +
+      `P0=${inv.summary.visualMatchClassifiedP0} P1=${inv.summary.visualMatchClassifiedP1} ` +
+      `P2=${inv.summary.visualMatchClassifiedP2}`,
+  );
 };
 
 main();

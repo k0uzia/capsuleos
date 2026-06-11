@@ -32,6 +32,10 @@ while [[ $# -gt 0 ]]; do
         linux-rocky)
           VENDOR="rocky"
           ;;
+        linux-alma)
+          VENDOR="alma"
+          SSH_TARGET="${ALMA_SSH:-capsule@192.168.122.199}"
+          ;;
         linux-mint)
           VENDOR="mint"
           SSH_TARGET="${MINT_SSH:-capsule@192.168.1.146}"
@@ -158,7 +162,17 @@ pull_vm_wallpaper_thumbs() {
   done <<< "$remote_list"
 }
 
-if [[ "$VENDOR" == "rocky" || "$VENDOR" == "alma" ]]; then
+if [[ "$VENDOR" == "alma" ]]; then
+  for bg in almalinux-day.jpg almalinux-night.jpg; do
+    pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
+  done
+  for logo in fedora_logo_darkbackground fedora_logo_lightbackground; do
+    pull "/usr/share/almalinux-logos/${logo}.svg" "$WATERMARK_DIR/${logo}.svg"
+  done
+  pull /usr/share/almalinux-logos/almalinux-logo.svg "$VENDOR_DIR/alma-logo.svg" || true
+fi
+
+if [[ "$VENDOR" == "rocky" ]]; then
   for bg in \
     rocky-default-10-gemstone-skies-night.png \
     rocky-default-10-gemstone-skies-day.png \

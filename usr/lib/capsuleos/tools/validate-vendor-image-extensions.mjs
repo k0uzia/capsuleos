@@ -49,7 +49,11 @@ function scanSources(dir, issues, staleRaster) {
     if (SKIP_DIRS.has(name)) {
       continue;
     }
-    if (fs.statSync(full).isDirectory()) {
+    const st = fs.lstatSync(full);
+    if (st.isSymbolicLink()) {
+      continue;
+    }
+    if (st.isDirectory()) {
       scanSources(full, issues, staleRaster);
       continue;
     }

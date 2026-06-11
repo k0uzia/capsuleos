@@ -110,7 +110,6 @@ const TOOLKIT_SOURCES = [
   { src: 'OS/android/assets', toolkit: 'android-material', vendor: 'common', flat: true },
   { src: 'OS/ios/15/media/img', toolkit: 'ios', vendor: 'common', flat: true },
   { src: 'OS/bsd/ghost/media/img', toolkit: 'bsd-ghost', vendor: 'common', flat: true },
-  { src: 'OS/linux/shared/media/img', toolkit: 'gnome', vendor: 'common', flat: true },
 ];
 
 // Icône portail iOS (legacy OS/ios/15/assets/apple.svg)

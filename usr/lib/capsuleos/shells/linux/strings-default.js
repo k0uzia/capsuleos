@@ -76,7 +76,7 @@ window.CAPSULE_STRINGS_DEFAULT = {
     'timeshift.windowTitle': 'Timeshift',
     'thunderbird.windowTitle': 'Thunderbird',
     'mintwelcome.windowTitle': 'Écran d\'accueil Mint',
-    'gucharmap.windowTitle': 'Table des caractères',
+    'gucharmap.windowTitle': 'Table de caractères',
     'simple_scan.windowTitle': 'Numérisation de documents',
     'thingy.windowTitle': 'Bibliothèque',
     'rhythmbox.windowTitle': 'Rhythmbox',

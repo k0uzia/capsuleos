@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '10 — GNOME',
     tagline: 'Distribution entreprise compatible RHEL, pour serveurs et postes de travail.',
     description: 'Rocky Linux est une reconstruction communautaire de Red Hat Enterprise Linux, maintenue par RESF. L\'édition GNOME Workstation partage le même socle que Fedora (RPM, DNF, GNOME Shell) avec une politique de stabilité orientée entreprise.',
-    logo: '../../../usr/share/capsuleos/assets/images/vendors/rocky/rocky-logo.svg',
+    logo: './assets/images/vendors/rocky/rocky-logo.svg',
     logoAlt: 'Logo Rocky Linux',
     url: 'https://rockylinux.org/',
     stats: {

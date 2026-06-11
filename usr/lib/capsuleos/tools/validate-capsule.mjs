@@ -128,6 +128,71 @@ if (taxonomy.status !== 0) {
     }
 }
 
+const terminalInventory = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-terminal-inventory.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (terminalInventory.status !== 0) {
+    const out = (terminalInventory.stdout || '') + (terminalInventory.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('terminal-inventory — validate-terminal-inventory.mjs');
+    }
+}
+
+const gnomeSettingsPbSigma = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-gnome-settings-pbsigma.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (gnomeSettingsPbSigma.status !== 0) {
+    const out = (gnomeSettingsPbSigma.stdout || '') + (gnomeSettingsPbSigma.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('gnome-settings-pbsigma — validate-gnome-settings-pbsigma.mjs');
+    }
+}
+
+const fsRouting = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-fs-routing.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (fsRouting.status !== 0) {
+    const out = (fsRouting.stdout || '') + (fsRouting.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('FS routing — validate-fs-routing.mjs');
+    }
+}
+
+const appCatalogIntegrity = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (appCatalogIntegrity.status !== 0) {
+    const out = (appCatalogIntegrity.stdout || '') + (appCatalogIntegrity.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('catalogue apps — validate-app-catalog-integrity.mjs');
+    }
+}
+
+const clusterRegistry = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/build-cluster-registry.mjs', '--check'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (clusterRegistry.status !== 0) {
+    const out = (clusterRegistry.stdout || '') + (clusterRegistry.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('cluster-registry — build-cluster-registry.mjs --check');
+    }
+}
+
 const linuxFacades = spawnSync(
     process.execPath,
     ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],

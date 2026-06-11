@@ -40,7 +40,6 @@ const EXPLORER_TEMPLATES = {
 const KDE_COMMON_SKIN = path.join(STYLE_DIR, 'skins/kde/update_manager.skin.css');
 const KDE_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde.html');
 const KDE_NEON_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_kde_neon.html');
-const UBUNTU_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_ubuntu.html');
 const GNOME_UPDATE_MANAGER_HTML = path.join(APPS_DIR, 'update_manager_gnome.html');
 const GNOME_THEMES_HTML = path.join(APPS_DIR, 'themes_gnome.html');
 const MINT_CINNAMON_SETTINGS_HTML = path.join(APPS_DIR, 'cinnamon_settings.html');
@@ -202,22 +201,11 @@ function main() {
         }
     }
 
-    if (fs.existsSync(UBUNTU_UPDATE_MANAGER_HTML)) {
-        const ubuntuUmHtml = readUtf8(UBUNTU_UPDATE_MANAGER_HTML);
-        const ubuntuUmBase = path.join(STYLE_DIR, 'update_manager_ubuntu.base.css');
-        const ubuntuUmCssBase = fs.existsSync(ubuntuUmBase) ? readUtf8(ubuntuUmBase) : '';
-        skinTemplates.ubuntu = skinTemplates.ubuntu || {};
-        skinTemplates.ubuntu.update_manager = {
-            html: ubuntuUmHtml,
-            cssBase: ubuntuUmCssBase
-        };
-    }
-
     if (fs.existsSync(GNOME_UPDATE_MANAGER_HTML)) {
         const gnomeUmHtml = readUtf8(GNOME_UPDATE_MANAGER_HTML);
         const gnomeUmBase = path.join(STYLE_DIR, 'update_manager_gnome.base.css');
         const gnomeUmCssBase = fs.existsSync(gnomeUmBase) ? readUtf8(gnomeUmBase) : '';
-        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos']) {
+        for (const skinKey of ['rocky', 'fedora', 'alma', 'anduinos', 'ubuntu']) {
             skinTemplates[skinKey] = skinTemplates[skinKey] || {};
             skinTemplates[skinKey].update_manager = {
                 html: gnomeUmHtml,

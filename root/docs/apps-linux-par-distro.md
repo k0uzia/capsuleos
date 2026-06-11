@@ -28,8 +28,8 @@ Voir aussi la [roadmap](roadmap.md) pour le plan de livraison par phases, et [co
 
 Variantes `update_manager` :
 
-- **Mint / défaut** : `update_manager.html`
-- **Ubuntu / GNOME Software** : `update_manager_ubuntu.html` (`CAPSULE_TEMPLATE_OVERRIDES`)
+- **Mint / défaut Cinnamon** : `update_manager.html`
+- **GNOME (Fedora, Rocky, Alma, Ubuntu, AnduinOS)** : `update_manager_gnome.html` + ground `gnome-software-ground.js` (chrome GS50)
 - **KDE Discover** : `update_manager_kde.html` (openSUSE, MX-KDE, Debian-KDE)
 
 ---

@@ -29,6 +29,40 @@ function supportsFirefoxGnomeChrome() {
         || document.body.id === 'popos';
 }
 
+function syncFirefoxGnomeDataset(browserRoot) {
+    const root = browserRoot
+        || document.querySelector('#firefox [data-firefox-gnome-root]');
+    if (!root || !supportsFirefoxGnomeChrome()) {
+        return;
+    }
+    const session = root.__capsuleFirefoxSession;
+    if (!session) {
+        return;
+    }
+    let activeTab = null;
+    session.tabs.forEach((tab) => {
+        if (tab.id === session.activeTabId) {
+            activeTab = tab;
+        }
+    });
+    if (!activeTab) {
+        activeTab = session.tabs[0] || null;
+    }
+    const markers = [
+        root,
+        root.querySelector('[data-firefox-gnome-root]'),
+    ].filter(Boolean);
+    const view = activeTab ? activeTab.view : 'home';
+    markers.forEach((node) => {
+        node.dataset.firefoxGnomeInit = 'true';
+        node.dataset.firefoxGnomeView = view;
+        node.dataset.firefoxGnomeTabCount = String(session.tabs.length);
+        node.dataset.firefoxGnomeActiveTabId = session.activeTabId || '';
+        node.dataset.firefoxGnomeBookmarksVisible = session.bookmarksVisible ? 'true' : 'false';
+        node.dataset.firefoxGnomeChrome = 'proton';
+    });
+}
+
 function decorateFedoraFirefoxWindow(browserRoot) {
     if (!supportsFirefoxGnomeChrome()) {
         return;
@@ -233,6 +267,7 @@ function initFirefoxBrowser() {
         switchView(tab.view);
         syncAddressInput(tab.address);
         renderTabs();
+        syncFirefoxGnomeDataset(browserRoot);
     }
 
     function persistActiveTab(view, address, label) {
@@ -385,6 +420,7 @@ function initFirefoxBrowser() {
             btnToggleBookmarks.setAttribute('aria-pressed', visible ? 'true' : 'false');
             btnToggleBookmarks.classList.toggle('capsule-browser__btn--active', visible);
         }
+        syncFirefoxGnomeDataset(browserRoot);
     }
 
     form.addEventListener('submit', function onAddressSubmit(event) {
@@ -690,7 +726,10 @@ function initFirefoxBrowser() {
     browserRoot.dataset.initialized = 'true';
     setBookmarksVisible(supportsFirefoxGnomeChrome());
     showHome('');
+    syncFirefoxGnomeDataset(browserRoot);
 }
+
+window.syncFirefoxGnomeDataset = syncFirefoxGnomeDataset;
 
 function purgeFirefoxWindowRuntime(windowElement) {
     const root = windowElement || document.getElementById('firefox');

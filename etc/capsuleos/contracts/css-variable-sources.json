@@ -35,6 +35,9 @@
     "home/**/style/gnome-shell/*.css",
     "home/**/style/cosmic-shell/*.css"
   ],
+  "scanExcludeGlobs": [
+    "usr/share/capsuleos/themes/clusters/**/overlays/**"
+  ],
   "aliases": {
     "--f": "display:flex",
     "--n": "none",

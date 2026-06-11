@@ -59,8 +59,8 @@
                 <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/libreoffice-writer.webp" alt="LibreOffice Writer" width="48" height="48">
                 </a>
-                <a target="windowElement" data-link="update_manager" title="Snap Store">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="Snap Store" width="48" height="48">
+                <a target="windowElement" data-link="update_manager" title="Logiciels">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="Logiciels" width="48" height="48">
                 </a>
                 <button type="button" class="ubuntu-dock__help" id="ubuntu-help-theme-btn" title="Aide"
                         aria-label="Aide Ubuntu (changer le thème clair/sombre)">
@@ -97,6 +97,14 @@
                 <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
                 <div class="windowElement" data-link="clocks" id="clocks" style="display: none;"></div>
                 <div class="windowElement" data-link="calendar" id="calendar" style="display: none;"></div>
+                <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
+                <div class="windowElement" data-link="thunderbird" id="thunderbird" style="display: none;"></div>
+                <div class="windowElement" data-link="transmission" id="transmission" style="display: none;"></div>
+                <div class="windowElement" data-link="rhythmbox" id="rhythmbox" style="display: none;"></div>
+                <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+                <div class="windowElement" data-link="simple_scan" id="simple_scan" style="display: none;"></div>
+                <div class="windowElement" data-link="warpinator" id="warpinator" style="display: none;"></div>
+                <div class="windowElement" data-link="timeshift" id="timeshift" style="display: none;"></div>
             </object>
         </main>
     </div>
@@ -150,9 +158,9 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg" alt="">
                     <span>Paramètres</span>
                 </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="update_manager" aria-label="Snap Store">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/snap-store.png" alt="">
-                    <span>Snap Store</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="update_manager" aria-label="Logiciels">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/update-manager.png" alt="">
+                    <span>Logiciels</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="terminal" aria-label="Terminal">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg" alt="">
@@ -241,7 +249,7 @@
             <button type="button" class="fedora-overview__dash-item" data-overview-link="librewriter" aria-label="LibreOffice Writer">
                 <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/libreoffice-writer.webp" alt="">
             </button>
-            <button type="button" class="fedora-overview__dash-item" data-overview-link="update_manager" aria-label="Snap Store">
+            <button type="button" class="fedora-overview__dash-item" data-overview-link="update_manager" aria-label="Logiciels">
                 <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="">
             </button>
             <button type="button" class="fedora-overview__dash-item fedora-overview__dash-item--apps" data-overview-apps aria-label="Afficher les applications">
@@ -432,8 +440,26 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/clocks.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/snapshot.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/characters.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/tour.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/baobab.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>    <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/thunderbird.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/transmission.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/rhythmbox.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/simple-scan.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/warpinator.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/timeshift.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-store-catalog.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-gnome-software-content.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-software-ground.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-catalog.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-shell-pin.js"></script>
+
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
         <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>
     <script src="./data/overview-apps-grid.js?v=20260604"></script>

@@ -1,6 +1,6 @@
 (function initGucharmapAppModule(global) {
     'use strict';
-    var WINDOW_TITLE = 'Table des caractères';
+    var WINDOW_TITLE = 'Table de caractères';
     var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789àâäéèêëïîôùûüç€'.split('');
 
     function getWindowEl(root) {

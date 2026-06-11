@@ -316,6 +316,9 @@
         if (bodyId === 'ubuntu') {
             return 'racoon';
         }
+        if (bodyId === 'alma') {
+            return 'almalinux';
+        }
         return 'gemstone-skies';
     }
 
@@ -346,6 +349,33 @@
                 light: `${base}/f44-01-day.webp`,
                 gsettingsDark: 'f44/default/f44-01-night.webp',
                 gsettingsLight: 'f44/default/f44-01-day.webp',
+                default: true,
+            },
+            {
+                id: 'solid-graphite',
+                label: 'Graphite',
+                type: 'color',
+                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+            },
+            {
+                id: 'solid-ocean',
+                label: 'Océan',
+                type: 'color',
+                dark: 'linear-gradient(145deg, #1a3d5c 0%, #0c1f33 55%, #061018 100%)',
+                light: 'linear-gradient(145deg, #8ecae6 0%, #caf0f8 55%, #e8f6fc 100%)',
+            },
+        ];
+    }
+
+    function almaWallpaperCatalog(base) {
+        return [
+            {
+                id: 'almalinux',
+                label: 'AlmaLinux',
+                type: 'image',
+                dark: `${base}/almalinux-night.jpg`,
+                light: `${base}/almalinux-day.jpg`,
                 default: true,
             },
             {
@@ -486,6 +516,9 @@
         }
         if (vendor === 'ubuntu') {
             return ubuntuWallpaperCatalog(base);
+        }
+        if (vendor === 'alma') {
+            return almaWallpaperCatalog(base);
         }
         return rockyWallpaperCatalog(base);
     }

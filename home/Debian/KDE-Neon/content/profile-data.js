@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '24.04',
     tagline: 'Ubuntu LTS avec Plasma à jour — édition User.',
     description: 'KDE neon repose sur Ubuntu LTS et livre les dernières versions de KDE Plasma. Cette capsule simule le bureau Plasma (Dolphin, Konsole, Discover) pour s’entraîner sur un poste orienté KDE.',
-    logo: '../../../usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg',
+    logo: './assets/images/vendors/neon/neon-logo.svg',
     logoAlt: 'Logo KDE neon',
     url: 'https://neon.kde.org/',
     stats: {

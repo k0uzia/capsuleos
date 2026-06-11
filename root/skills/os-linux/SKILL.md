@@ -9,8 +9,8 @@ description: Expert on CapsuleOS simulated Linux desktops—Debian, Red Hat, SUS
 
 | Zone | Chemin |
 |------|--------|
-| Façades | `OS/linux/families/debian|redhat|suse/<distro>/` |
-| Noyau JS/CSS | `OS/linux/kernel/` |
+| Façades | `OS/linux/families/debian|redhat|suse/<distro>/index.html` |
+| Noyau JS/CSS | `usr/lib/capsuleos/common/` · `usr/lib/capsuleos/shells/linux/` |
 | Skins | `home/Debian/`, `home/RedHat/`, `home/SUSE/` |
 | Apps partagées | `usr/share/capsuleos/linux/apps/` |
 | Explorateurs | `usr/share/capsuleos/linux/explorers/` |

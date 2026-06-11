@@ -43,7 +43,8 @@ Un jalon est **réussi** lorsque :
 | Noyau Linux `usr/lib/capsuleos/shells/linux/` | ✅ fenêtres, explorateurs, embed offline |
 | FS simulé `home/public/` + manifestes | ✅ partagé inter-OS |
 | Pipeline embed | ✅ `build-linux-embed.mjs` — 30 templates, 11 skins |
-| Validateurs UI | ✅ `validate-all` — chrome toolkits, GNOME apps, overview icons, resize bounds |
+| **Catalogue apps canonique** | ✅ `slots-manifest` + `presentation-bindings` + `generate-store-catalog.mjs` — [architecture-catalogue-apps.md](architecture-catalogue-apps.md) |
+| Validateurs UI | ✅ `validate-all` — chrome toolkits, GNOME apps, overview icons, resize bounds, **StoreΣ** |
 | Doc agents `root/` | ✅ skills, AGENTS.md |
 | Mappings apps erronés (Fedora, Pop!_OS, Debian-KDE) | ✅ corrigés juin 2026 |
 | App `text_editor` | ✅ créée ; skins et épinglages partiels |
@@ -54,7 +55,8 @@ Un jalon est **réussi** lorsque :
 | Distribution | Bureau | Maturité estimée | Priorité roadmap |
 |---|---|---|---|
 | **Linux Mint** | Cinnamon | ~95 % — référence P0 | P0 — figer |
-| **Rocky Linux 10** | GNOME | ~85 % — référence GNOME RHEL | P1 — polish + pédagogie |
+| **Rocky Linux 10** | GNOME | ~85 % — référence GNOME RHEL | P1 — polish + réplication scénarios Alma |
+| **AlmaLinux 10** | GNOME | ~90 % — **17 contrats** · overview **15/15** | P1 — Vc VM · réplication siblings |
 | **KDE neon** | Plasma | **~93 %** — réf. Plasma P1, v4 P0–P1 ✅ | **P1** — [roadmap v4](inventaires/linux-kde-neon-roadmap-v4.md) |
 | **MX Linux KDE** | Plasma | ~85 % | P1 |
 | **openSUSE** | Plasma | ~85 % | P1 |
@@ -80,7 +82,7 @@ Détail Rocky : [inventaire-parite-rocky.md](inventaire-parite-rocky.md) · réf
 
 - Historique Git actif (`main` sur GitHub).
 - `.gitignore` `.cursor/` en place.
-- **Juin 2026** : répertoire OS scalable — `etc/capsuleos/os-registry.json` (52 entrées), docs [manifeste-noyau](docs/manifeste-noyau.md), [repertoire-os](docs/repertoire-os.md), [scalabilite-noyau](docs/scalabilite-noyau.md), [equipe-agentique](docs/equipe-agentique.md), arborescence `usr/share/capsuleos/assets/`.
+- **Juin 2026** : répertoire OS scalable — `etc/capsuleos/os-registry.json` (**57 entrées**), docs [manifeste-noyau](docs/manifeste-noyau.md), [repertoire-os](docs/repertoire-os.md), [scalabilite-noyau](docs/scalabilite-noyau.md), [equipe-agentique](docs/equipe-agentique.md), arborescence `usr/share/capsuleos/assets/`.
 
 ---
 
@@ -215,7 +217,8 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 | Slot `themes` (Paramètres) | ✅ | Sidebar GCC, panneaux doc [SUSE SLED 15 SP7](https://documentation.suse.com/sled/15-SP7/html/SLED-all/cha-gnome-settings.html), Apparence fonctionnelle |
 | Ouverture contextuelle Paramètres | ✅ | Aperçu → Wi-Fi · QS → Apparence · bureau → Écrans |
 | Captures lab 15 scènes | ✅ | Aperçu, QS, Loupe, Papers, Paramètres (Apparence/Écrans) — VM Paramètres à collecter |
-| Polish P1 (Nautilus, Firefox, top bar) | 🟡 | Tokens vs captures VM |
+| Scénarios overview GNOME (Alma) | ✅ | **17 contrats** C15–C30 · audit **15/15** · backlog vide |
+| Polish P1 (Nautilus, Firefox, top bar) | 🟡 | Tokens vs captures VM · Rocky Loupe/Papers sans scénarios |
 | Apps P2 (Baobab, System Monitor) | ⬜ | Grille Aperçu OK, slots CSD manquants |
 
 #### Coquilles utilitaires (P1 → P2)
@@ -249,6 +252,16 @@ Regroupement par **famille de bureau** pour mutualiser le JS :
 ### Phase 4 — Extension et consolidation
 
 **Objectif :** élargir le catalogue et industrialiser la maintenance.
+
+#### Jalon — Wave store extension (juin 2026)
+
+| # | Livrable | Détail |
+|---|---|---|
+| 4.0 | **Analyse magasins cross-OS** | [analyse-magasins-apps-cross-os.md](analyse-magasins-apps-cross-os.md) · contrat draft [`store-installable-apps.json`](../etc/capsuleos/contracts/store-installable-apps.json) |
+| 4.0b | **Scénarios magasin S1+** | Extension `software-user-scenarios` · install simulée · sessionStorage · top 10 apps Mint → GNOME |
+| 4.0c | **Gate StoreΣ** | `validate-store-installable-catalog.mjs` · smoke install depuis Logiciels / Logithèque |
+
+Principe : ground truth VM par défaut ; l'utilisateur ajoute des apps via le magasin natif de sa distro (apt / rpm / flatpak / snap).
 
 | # | Livrable | Détail |
 |---|---|---|
@@ -296,8 +309,8 @@ Cocher ici ou dans les PR associées :
 - [x] Phase 0 — fondations (gel + réactivation wave 1, juin 2026)
 - [x] Phase 0.5 — consolidation assets noyau (juin 2026)
 - [ ] Phase 1 — parité apps (3/8 Linux DoD complet — Mint, Ubuntu, openSUSE ; Rocky ~85 % apps cœur)
-- [~] Phase 2 — shells UX (**Rocky GNOME** ~85 % ; Mint ~95 % ; 2/4 bureaux « reconnus »)
-- [ ] Phase 3 — pédagogie validée terrain (checklist Rocky à rédiger)
+- [~] Phase 2 — shells UX (**Rocky GNOME** ~85 % · **Alma** ~90 % scénarios ; Mint ~95 % ; 2/4 bureaux « reconnus »)
+- [~] Phase 3 — pédagogie validée terrain (checklist Rocky à rédiger · Alma **17 contrats** OK)
 - [ ] Phase 4 — Arch + CI + 1 jalon Windows
 
-**Dernière mise à jour :** 4 juin 2026 — refonte **Paramètres GNOME** (doc SUSE, 13 panneaux) · chromes adaptatifs · validateurs GNOME · commit `bba875a` sur `main`.
+**Dernière mise à jour :** 10 juin 2026 — campagne Alma **C26–C30** (17 contrats scénarios, overview 15/15) · analyse [magasins cross-OS](analyse-magasins-apps-cross-os.md) · audit [point-etape-2026-06.md](point-etape-2026-06.md).

@@ -7,6 +7,7 @@
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --domain gnome-settings-playbook
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --scope formal
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
+ *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope cinnamon
  */
 import fs from 'fs';
 import path from 'path';
@@ -24,6 +25,7 @@ import {
 } from './playbook-general-lib.mjs';
 import { evaluateFormalRules } from './formal-rules-lib.mjs';
 import { evaluateCredRules } from './app-fidelity-lib.mjs';
+import { evaluateCinnamonRules } from './cinnamon-ground-truth-lib.mjs';
 import { resolvePipeline } from './capsule-pipeline-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -304,6 +306,28 @@ const main = () => {
       predicates: decision.predicates,
     };
     const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-formal-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+    if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    else process.stdout.write(`${out.command || out.message}\n`);
+    return;
+  }
+
+  if (opts.scope === 'cinnamon') {
+    const decision = evaluateCinnamonRules(opts.id);
+    const out = {
+      registryId: opts.id,
+      scope: 'cinnamon',
+      rule: decision.rule,
+      message: decision.message,
+      command: decision.command,
+      autoExecute: decision.autoExecute,
+      gateOnSuccess: decision.gateOnSuccess || null,
+      unique: decision.unique,
+      predicates: decision.predicates,
+      metrics: decision.metrics,
+      nextPredicate: decision.nextPredicate,
+    };
+    const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-cinnamon-formal-resolve.json`);
     fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
     if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
     else process.stdout.write(`${out.command || out.message}\n`);

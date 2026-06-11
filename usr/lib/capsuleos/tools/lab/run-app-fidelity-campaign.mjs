@@ -11,6 +11,7 @@
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal-write
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase resolve --max-steps 8
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase cinnamon
  */
 import { execSync, spawnSync } from 'child_process';
 import fs from 'fs';
@@ -447,6 +448,12 @@ const main = () => {
 
   if (opts.phase === 'resolve') {
     runResolve(opts.id, opts.maxSteps, opts.dryRun);
+    return;
+  }
+
+  if (opts.phase === 'cinnamon') {
+    const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/run-cinnamon-formal-chain.mjs');
+    execSync(`node "${script}" --id ${opts.id} --max-steps ${opts.maxSteps}`, { stdio: 'inherit', cwd: ROOT });
     return;
   }
 

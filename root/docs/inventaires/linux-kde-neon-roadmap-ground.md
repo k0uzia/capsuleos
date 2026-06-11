@@ -65,7 +65,9 @@ flowchart TD
 | **G4 kickoff B2/B3** | ✅ | Spectacle · Info-centre · Moniteur — facts VM · paires capture · `smoke-kde-neon-v4-p2` |
 | **G5 Dolphin profond** | ✅ | §7–8 VM `--dolphin-g5` · grille · smoke filtre · baseline à régénérer post-G5 |
 | **G6 Discover VM** | ✅ | 5 onglets sans popup · `systemd-run` + `--discover-g6` |
-| **G7 Firefox** | ⏳ | toolbar matrix VM · capture paire |
+| **G7 Firefox** | ✅ | `--firefox-g7` · smoke · paire toolbar Vp |
+| **G8 Tray/panel** | ✅ | `--panel-g8` · captures tray Capsule · smokes shell/calendar/tray |
+| **Ground** | ✅ | G1–G8 clos · `run-kde-neon-pass` vert · propagation dérivés à planifier |
 
 ## Recette passe ground
 

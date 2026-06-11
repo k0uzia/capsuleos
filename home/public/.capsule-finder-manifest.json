@@ -185,6 +185,30 @@
         },
         {
           "type": "file",
+          "name": "capsule-tray-calendar.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-tray-calendar.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-tray-clipboard.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-tray-clipboard.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-tray-network.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-tray-network.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-tray-volume.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-tray-volume.png"
+        },
+        {
+          "type": "file",
           "name": "vm-desktop.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-desktop.png"

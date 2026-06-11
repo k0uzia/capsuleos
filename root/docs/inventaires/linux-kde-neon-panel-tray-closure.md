@@ -64,6 +64,15 @@ node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs   # OK
 node usr/lib/capsuleos/tools/validate-all.mjs                    # OK
 ```
 
+## Ground G8 — réaudit (2026-06-11)
+
+| Check | Statut |
+|-------|--------|
+| VM `--panel-g8` | ✅ bureau sans fenêtre (`pkill -f firefox`) · kickoff |
+| Capsule tray | ✅ `capsule-tray-{calendar,clipboard,network,volume}.png` |
+| Smokes | ✅ shell-polish · calendar · v4-p4 |
+| `run-kde-neon-pass` | ✅ |
+
 ## Réouverture
 
 Réouvrir ce fichier ou l'inventaire parité si la VM change de layout tray ou si une capture côte à côte révèle un écart.

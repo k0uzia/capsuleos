@@ -37,10 +37,7 @@
       "map-kde-ground-truth-gaps",
       "capture-clone-surfaces-compare"
     ],
-    "gaps": [
-      "G7 Firefox toolbar matrix VM",
-      "G8 Tray/panel Vp réaudit"
-    ],
+    "gaps": [],
     "passOrder": [
       "vm-kde-neon-inventory.sh",
       "capture-capsule-kde-neon.mjs",
@@ -50,7 +47,7 @@
       "discover-vm-captures"
     ],
     "scope": "ground KDE Neon uniquement — propagation dérivés gelée jusqu'à excellence produit",
-    "propagationPolicy": "frozen — pas de patch dérivés tant que ground incomplet",
+    "propagationPolicy": "ground clôturé — dérivés un registry à la fois (openSUSE → MX-KDE → Debian-KDE)",
     "verifiedAt": "2026-06-10T11:25:51.380Z"
   },
   "roadmap": "linux-kde-neon-roadmap-v4.md",
@@ -81,8 +78,9 @@
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
   "priorityQueue": [
-    "ground-g7-firefox-toolbar-vm",
-    "ground-g8-tray-panel-vp"
+    "propagation-opensuse-post-ground",
+    "propagation-mx-kde-post-ground",
+    "propagation-debian-kde-post-ground"
   ],
   "paritySnapshot": {
     "pi_global": 95,
@@ -169,9 +167,10 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "ground G7 — Firefox toolbar matrix VM · capture paire",
+  "nextStep": "ground clôturé — propagation dérivés (openSUSE → MX-KDE → Debian-KDE) un registry à la fois",
   "campaignGround": "ground-kde-neon-excellence",
-  "campaignGroundStatus": "in_progress",
+  "campaignGroundStatus": "closed",
+  "campaignGroundClosedAt": "2026-06-11T09:12:00.000Z",
   "campaignGroundStartedAt": "2026-06-10T12:00:00.000Z",
   "groundProgress": {
     "G1_inventory": "2026-06-10T13:28:41Z",
@@ -184,6 +183,9 @@
       "discover-capsule-tabs",
       "discover-detail-vlc",
       "discover-vm-tabs-sans-popup-maj",
+      "firefox-vm-toolbar-pair",
+      "panel-vm-desktop-kickoff",
+      "tray-capsule-popovers",
       "spectacle",
       "kinfocenter",
       "system-monitor"
@@ -222,7 +224,21 @@
       "dismiss": "discover_stabilize_for_shot + kde-neon-discover-capture-kwin.js",
       "doc": "linux-kde-neon-discover-closure.md"
     },
-    "G7_next": "Firefox toolbar matrix VM — linux-kde-neon-firefox-toolbar-matrix.md",
+    "G7_FirefoxClosedAt": "2026-06-11T09:30:00.000Z",
+    "G7_deliverables": {
+      "vmCapture": "vm-firefox.png (--firefox-g7)",
+      "capsuleBaseline": "04-firefox.png",
+      "matrix": "linux-kde-neon-firefox-toolbar-matrix.md",
+      "smoke": "smoke-kde-neon-firefox.mjs",
+      "note": "toolbar Proton Vp ✅ — contenu nouvel onglet VM (raccourcis Google) ≠ Capsule (P2)"
+    },
+    "G8_TrayPanelClosedAt": "2026-06-11T09:12:00.000Z",
+    "G8_deliverables": {
+      "vmCaptures": "vm-desktop.png + vm-kickoff.png (--panel-g8 · pkill firefox)",
+      "capsuleCaptures": "capsule-tray-calendar · clipboard · network · volume",
+      "smokes": "smoke-kde-neon-shell-polish · calendar · v4-p4",
+      "doc": "linux-kde-neon-panel-tray-closure.md (réaudit G8)"
+    },
     "regressionNotes": [
       "2026-06-10 : regen kickoff G3 a remis kdeconnect → profile (corrigé generate-kde-neon-kickoff-data.mjs)",
       "2026-06-10 : G5 grid dolphin → drift baseline 03-dolphin (write-baseline post-polish)",
@@ -278,12 +294,12 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-10T15:28:10.123Z",
+    "evaluatedAt": "2026-06-11T09:11:59.094Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-10T17:30:00.000Z"
+  "updatedAt": "2026-06-11T09:11:59.094Z"
 }

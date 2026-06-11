@@ -13,6 +13,8 @@
 # --dolphin-g5 vm-dolphin §7–8 (search · filtre · hamburger · vues icônes)
 # --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
 # --discover-g6 lot G6 (accueil + installé + mises à jour + config + à propos) — dismiss popup MAJ
+# --firefox-g7 vm-firefox.png (ground G7 — paire toolbar VM)
+# --panel-g8 vm-desktop.png + vm-kickoff.png (ground G8 — panel · kickoff)
 #
 # Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
 # Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
@@ -42,7 +44,9 @@ DISCOVER_HOME=false
 DISCOVER_G6=false
 B2_B3_APPS=false
 DOLPHIN_G5=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
+FIREFOX_G7=false
+PANEL_G8=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -87,6 +91,12 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--dolphin-g5" ]; then
     DOLPHIN_G5=true
+  fi
+  if [ "${1:-}" = "--firefox-g7" ]; then
+    FIREFOX_G7=true
+  fi
+  if [ "${1:-}" = "--panel-g8" ]; then
+    PANEL_G8=true
   fi
   shift
 done
@@ -601,6 +611,30 @@ fi
 if $DISCOVER_G6; then
   capture_discover_g6_shots
   echo "=== Terminé : discover G6 (accueil + installé + MAJ + config + à propos) ==="
+  exit 0
+fi
+
+if $FIREFOX_G7; then
+  reset_apps
+  sleep 1
+  open_firefox
+  shot "$DEST/vm-firefox.png"
+  reset_apps
+  echo "=== Terminé : vm-firefox.png (--firefox-g7) ==="
+  exit 0
+fi
+
+if $PANEL_G8; then
+  remote_session 'killall plasma-discover dolphin konsole spectacle kinfocenter plasma-systemmonitor 2>/dev/null || true
+pkill -9 -f firefox 2>/dev/null || true
+sleep 3'
+  shot "$DEST/vm-desktop.png"
+  open_kickoff
+  sleep 2
+  shot "$DEST/vm-kickoff.png"
+  close_kickoff
+  reset_apps
+  echo "=== Terminé : vm-desktop.png + vm-kickoff.png (--panel-g8) ==="
   exit 0
 fi
 

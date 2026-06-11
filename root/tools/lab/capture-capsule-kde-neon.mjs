@@ -10,7 +10,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
-const DEST = process.argv[2] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
+const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const panelG8 = process.argv.includes('--panel-g8');
+const DEST = args[0] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
 const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
 const VIEWPORT = { width: 1211, height: 756 };
 const defaultChrome = [
@@ -336,9 +338,42 @@ const openSlot = async (page, slot, scene = {}) => {
   await sleep(page, 800);
 };
 
+const TRAY_POPOVERS = {
+  calendar: {
+    btn: '#taskbar-clock-trigger',
+    pop: '#taskbar-calendar-popover:not([hidden])',
+  },
+  clipboard: {
+    btn: '#tray-btn-clipboard',
+    pop: '#kde-tray-popover-clipboard:not([hidden])',
+  },
+  network: {
+    btn: '#tray-btn-network',
+    pop: '#kde-tray-popover-network:not([hidden])',
+  },
+  volume: {
+    btn: '#tray-sound-btn',
+    pop: '#volume-popover:not([hidden])',
+  },
+};
+
+const openTrayPopover = async (page, kind) => {
+  const spec = TRAY_POPOVERS[kind];
+  if (!spec) {
+    throw new Error(`trayPopover inconnu: ${kind}`);
+  }
+  await page.click(spec.btn);
+  await page.waitForSelector(spec.pop, { timeout: 8000 });
+  await sleep(page, 400);
+};
+
 const prepareScene = async (page, scene) => {
   await resetShell(page);
   await sleep(page, 300);
+  if (scene.trayPopover) {
+    await openTrayPopover(page, scene.trayPopover);
+    return;
+  }
   if (scene.slots) {
     for (const slot of scene.slots) {
       await openSlot(page, slot, scene);
@@ -359,9 +394,17 @@ const main = async () => {
     timeout: 60000,
   });
 
-  const shots = [
+  const panelShots = [
     { file: 'capsule-desktop.png' },
     { file: 'capsule-kickoff.png', slots: ['mainMenu'] },
+    { file: 'capsule-tray-calendar.png', trayPopover: 'calendar' },
+    { file: 'capsule-tray-clipboard.png', trayPopover: 'clipboard' },
+    { file: 'capsule-tray-network.png', trayPopover: 'network' },
+    { file: 'capsule-tray-volume.png', trayPopover: 'volume' },
+  ];
+
+  const shots = panelG8 ? panelShots : [
+    ...panelShots,
     { file: 'capsule-dolphin.png', slots: ['nemo'] },
     { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
     { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
@@ -434,7 +477,7 @@ const main = async () => {
     { file: 'capsule-spectacle.png', slots: ['spectacle'] },
     { file: 'capsule-kinfocenter.png', slots: ['kinfocenter'] },
     { file: 'capsule-system-monitor.png', slots: ['system_monitor'] },
-  ];
+  ].filter((scene) => !panelShots.some((p) => p.file === scene.file));
 
   for (const scene of shots) {
     await prepareScene(page, scene);

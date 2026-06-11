@@ -1,6 +1,6 @@
 # Clôture Discover — KDE neon User Edition
 
-> **Statut** : ✅ clôturé (2026-06-06) · Registre `linux-kde-neon`  
+> **Statut** : 🔄 réouvert (2026-06-11) — sidebar icônes Breeze VM · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Checklist réparation : [`linux-kde-neon-repair-checklist.md`](linux-kde-neon-repair-checklist.md)
 

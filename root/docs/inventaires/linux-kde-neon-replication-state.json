@@ -167,14 +167,27 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "Discover VM + magasin clos — propagation dérivés ou prochaine app ground",
+  "nextStep": "campagne discover-sidebar-assets — inventaire VM + pull Breeze + parité captures",
+  "weekendClosuresReopenedAt": "2026-06-11T13:00:00.000Z",
+  "weekendClosuresReopened": [
+    "linux-kde-neon-discover-closure.md",
+    "linux-kde-neon-kickoff-closure.md",
+    "linux-kde-neon-panel-tray-closure.md"
+  ],
+  "campaignScenariosCapture": "scenarios-capture-kde-neon",
+  "campaignScenariosCaptureStatus": "closed",
+  "campaignScenariosCaptureStartedAt": "2026-06-11T11:05:00.000Z",
+  "campaignScenariosCaptureClosedAt": "2026-06-11T11:28:08.757Z",
+  "scenariosCaptureRoadmap": "linux-kde-neon-roadmap-scenarios-capture.md",
+  "scenariosCaptureOrchestrator": "run-kde-neon-scenarios-capture-cycle.mjs",
   "campaignDiscoverVm": "discover-vm-kde-neon",
-  "campaignDiscoverVmStatus": "closed",
+  "campaignDiscoverVmStatus": "reopened",
   "campaignDiscoverVmStartedAt": "2026-06-11T11:00:00.000Z",
   "campaignDiscoverVmClosedAt": "2026-06-11T11:20:00.000Z",
+  "campaignDiscoverVmLastRunAt": "2026-06-11T12:12:10.000Z",
   "discoverVmRoadmap": "linux-kde-neon-roadmap-discover-vm.md",
   "discoverVmProgress": {
-    "V1_vmCaptures": "2026-06-11 — --discover-g6 + --discover-detail",
+    "V1_vmCaptures": "2026-06-11 — --discover-vm-100 (VM Discover ouvert, rerun campagne)",
     "V2_capsulePairs": "screen_KDE-Neon/vm-discover* ↔ capsule-discover*",
     "V3_searchFilter": "discover-kde.js input + smoke-kde-neon-discover",
     "V4_smoke": "smoke-discover-vm-parity.mjs",
@@ -182,7 +195,7 @@
     "piDiscover": 100
   },
   "campaignDiscoverStore": "discover-store-kde-neon",
-  "campaignDiscoverStoreStatus": "closed",
+  "campaignDiscoverStoreStatus": "reopened",
   "campaignDiscoverStoreClosedAt": "2026-06-11T10:35:00.000Z",
   "campaignDiscoverStoreStartedAt": "2026-06-11T10:20:00.000Z",
   "discoverStoreRoadmap": "linux-kde-neon-roadmap-discover-store.md",
@@ -192,6 +205,34 @@
     "D3_installSmoke": "2026-06-11",
     "D4_captureBaseline": "2026-06-11T10:33:00.000Z",
     "smoke": "smoke-discover-kde-neon.mjs"
+  },
+  "campaignDiscoverIconsAssets": "discover-icons-assets-kde-neon",
+  "campaignDiscoverIconsAssetsStatus": "reopened",
+  "campaignDiscoverIconsAssetsNote": "apps installé(s) OK — écart réel = sidebar nav+catégories (campagne dédiée)",
+  "campaignDiscoverIconsAssetsClosedAt": "2026-06-11T12:50:32.000Z",
+  "discoverIconsAssets": {
+    "pull": "root/tools/lab/pull-kde-neon-discover-icons.sh",
+    "smoke": "smoke-discover-neon-icons.mjs",
+    "zone": "usr/share/capsuleos/assets/images/vendors/neon/discover/",
+    "iconsAligned": 16,
+    "predicates": { "A": true, "S": true, "T": true }
+  },
+  "campaignDiscoverSidebarAssets": "discover-sidebar-assets-kde-neon",
+  "campaignDiscoverSidebarAssetsStatus": "open",
+  "campaignDiscoverSidebarAssetsStartedAt": "2026-06-11T13:00:00.000Z",
+  "discoverSidebarAssets": {
+    "inventory": "root/tools/lab/vm-kde-neon-discover-sidebar-inventory.sh",
+    "inventoryJson": "linux-kde-neon-discover-sidebar-icons.json",
+    "inventoryCollectedAt": "2026-06-11T13:05:00.000Z",
+    "pull": "root/tools/lab/pull-kde-neon-discover-sidebar-icons.sh",
+    "smoke": "smoke-discover-neon-sidebar-icons.mjs",
+    "zone": "usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/",
+    "css": "home/Debian/KDE-Neon/style/apps/update_manager.skin.css",
+    "iconsAligned": 20,
+    "categoryIcons": 13,
+    "categoryRender": "mask + breeze *-symbolic (22px) — pas SVG couleur toolkit",
+    "inventoryRelaunchedAt": "2026-06-11T15:00:00.000Z",
+    "predicates": { "I": true, "S": true, "T": true, "A": true }
   },
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "closed",
@@ -243,11 +284,13 @@
       "doc": "linux-kde-neon-dolphin-diff.md"
     },
     "G6_DiscoverClosedAt": "2026-06-10T17:10:00.000Z",
+    "G6_DiscoverReopenedAt": "2026-06-11T13:00:00.000Z",
     "G6_deliverables": {
       "vmCaptures": "vm-discover · installed · updates · config · about (--discover-g6)",
       "fix": "systemd-run --user pour plasma-discover --mode (kstart/setsid instables via ssh)",
       "dismiss": "discover_stabilize_for_shot + kde-neon-discover-capture-kwin.js",
-      "doc": "linux-kde-neon-discover-closure.md"
+      "doc": "linux-kde-neon-discover-closure.md",
+      "sidebarAssets": "réouvert — pull Breeze VM sidebar (nav + catégories)"
     },
     "G7_FirefoxClosedAt": "2026-06-11T09:30:00.000Z",
     "G7_deliverables": {
@@ -319,12 +362,29 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-11T09:11:59.094Z",
+    "evaluatedAt": "2026-06-11T11:30:07.041Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-11T09:11:59.094Z"
+  "updatedAt": "2026-06-11T12:12:10.000Z",
+  "discoverVmLastRun": {
+    "evaluatedAt": "2026-06-11T12:12:10.000Z",
+    "vmFlag": "--discover-vm-100",
+    "smokes": {
+      "smoke-discover-vm-parity": true,
+      "smoke-kde-neon-discover": true,
+      "smoke-discover-kde-neon": true
+    },
+    "pairs": 7,
+    "kdvp07Flaky": "compare baseline 07-discover-detail-vlc ~20% drift (carrousel)"
+  },
+  "scenariosCaptureLastCycle": {
+    "evaluatedAt": "2026-06-11T11:28:08.757Z",
+    "passOk": true,
+    "failures": [],
+    "tool": "run-kde-neon-scenarios-capture-cycle.mjs"
+  }
 }

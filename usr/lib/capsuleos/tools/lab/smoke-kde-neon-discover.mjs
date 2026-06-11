@@ -145,6 +145,41 @@ try {
     errors.push(`recherche VLC : résultats=${searchFiltered.names.join(', ')}`);
   }
 
+  await page.evaluate(() => {
+    const input = document.querySelector('[data-discover-search]');
+    if (input) {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  });
+  await page.click('[data-discover-nav="installed"]');
+  await page.waitForFunction(
+    () => document.querySelector('[data-discover-panel="installed"]:not([hidden])'),
+    null,
+    { timeout: 8000 },
+  );
+  await page.waitForSelector('[data-discover-installed-mount] .kde-discover-card--installed', { timeout: 8000 });
+
+  const installedTab = await page.evaluate(() => ({
+    heading: document.querySelector('[data-discover-installed-heading]')?.textContent?.trim(),
+    sort: document.querySelector('[data-discover-installed-sort-label]')?.textContent?.trim(),
+    cards: document.querySelectorAll('[data-discover-installed-mount] .kde-discover-card--installed').length,
+    withSize: document.querySelectorAll('.kde-discover-card--installed__size').length,
+    withRemove: document.querySelectorAll('.kde-discover-card--installed__remove').length,
+  }));
+  if (!installedTab.heading || installedTab.heading.indexOf('119') === -1) {
+    errors.push(`installé(s) : en-tête=${installedTab.heading || '(vide)'}`);
+  }
+  if (installedTab.sort !== 'Tri : Nom') {
+    errors.push(`installé(s) : tri=${installedTab.sort || '(vide)'}`);
+  }
+  if (installedTab.cards < 6) {
+    errors.push(`installé(s) : cartes=${installedTab.cards}`);
+  }
+  if (installedTab.withSize < 6 || installedTab.withRemove < 6) {
+    errors.push(`installé(s) : taille=${installedTab.withSize} corbeille=${installedTab.withRemove}`);
+  }
+
   console.log(JSON.stringify({
     ok: errors.length === 0,
     errors,
@@ -153,6 +188,7 @@ try {
     detailAfterInstall,
     filtered,
     searchFiltered,
+    installedTab,
   }, null, 2));
 } catch (err) {
   errors.push(err.message || String(err));

@@ -20,6 +20,18 @@ Atteindre **Π Discover = 100** ancré sur la VM Plasma Discover 6.6.5 : paires 
 
 La section **« À découvrir »** (catalogue magasin CapsuleOS) n’existe pas sur la VM réelle — documentée comme surcouche produit (`discover-store-kde-neon`), sans pénalité Π VM.
 
+## Assets icônes Installé(s)
+
+| Outil | Rôle |
+|-------|------|
+| `pull-kde-neon-discover-icons.sh` | Pull VM → `vendors/neon/discover/` (R-A1) |
+| `smoke-discover-neon-icons.mjs` | Gate **S** — SHA256 VM ↔ dépôt |
+
+```bash
+KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/pull-kde-neon-discover-icons.sh
+node usr/lib/capsuleos/tools/lab/smoke-discover-neon-icons.mjs
+```
+
 ## Recette
 
 ```bash

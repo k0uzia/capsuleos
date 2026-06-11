@@ -1,6 +1,6 @@
 # Clôture Panel + zone de notification — KDE neon User Edition
 
-> **Statut** : ✅ clôturé (2026-06-06) · Registre `linux-kde-neon`  
+> **Statut** : 🔄 réouvert (2026-06-11) — réaudit week-end 6–7 juin · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Kickoff : [`linux-kde-neon-kickoff-closure.md`](linux-kde-neon-kickoff-closure.md)  
 > Calendrier : déjà validé visuellement (popover Plasma, hors doc dédiée)

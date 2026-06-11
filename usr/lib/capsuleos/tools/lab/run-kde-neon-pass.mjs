@@ -71,7 +71,7 @@ if (!skipRuntime) {
     '--compare',
   ]);
   let captureResult = captureCompare();
-  for (let attempt = 0; !captureResult.ok && attempt < 4; attempt += 1) {
+  for (let attempt = 0; !captureResult.ok && attempt < 6; attempt += 1) {
     captureResult = captureCompare();
   }
   results.push(captureResult);

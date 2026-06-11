@@ -195,15 +195,56 @@
         `;
     }
 
+    function formatInstalledSizeKb(kb) {
+        const value = Number(kb) || 0;
+        if (value <= 0) {
+            return '';
+        }
+        if (value >= 1024) {
+            return `${(value / 1024).toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mio`;
+        }
+        return `${Math.round(value).toLocaleString('fr-FR')} Kio`;
+    }
+
+    function resolveInstalledSizeLabel(app) {
+        if (app && app.size) {
+            return app.size;
+        }
+        if (app && app.sizeKb) {
+            return formatInstalledSizeKb(app.sizeKb);
+        }
+        return '';
+    }
+
+    function resolveInstalledCount(catalog, visibleCount) {
+        const meta = catalog && catalog.installedMeta ? catalog.installedMeta : null;
+        const query = (state.searchQuery || '').trim();
+        if (query) {
+            return visibleCount;
+        }
+        if (meta && typeof meta.totalCount === 'number') {
+            return meta.totalCount;
+        }
+        return visibleCount;
+    }
+
     function renderInstalledCard(app) {
         const iconUrl = resolveIconUrl(app);
+        const sizeLabel = resolveInstalledSizeLabel(app);
+        const sizeMarkup = sizeLabel
+            ? `<span class="kde-discover-card--installed__size">${sizeLabel}</span>`
+            : '';
         return `
             <article class="kde-discover-card kde-discover-card--installed" role="listitem" data-discover-app="${app.id || ''}">
-                <img class="kde-discover-card__icon" src="${iconUrl}" alt="" width="32" height="32">
+                <img class="kde-discover-card__icon" src="${iconUrl}" alt="" width="48" height="48">
                 <div class="kde-discover-card__text">
                     <span class="kde-discover-card__name">${app.name || ''}</span>
                     <span class="kde-discover-card__desc">${app.desc || ''}</span>
                 </div>
+                <button type="button" class="kde-discover-card--installed__remove" disabled aria-disabled="true" aria-label="Supprimer ${app.name || ''}" title="Supprimer">
+                    <span class="kde-discover-card--installed__remove-icon" aria-hidden="true"></span>
+                </button>
+                ${sizeMarkup}
             </article>
         `;
     }
@@ -580,10 +621,18 @@
 
         const query = (state.searchQuery || '').trim().toLowerCase();
         const storeApps = filteredApps === null ? getStoreDiscoverApps() : [];
-        const visibleSections = sections.map((section) => ({
-            ...section,
-            apps: filterAppsBySearch(section.apps, query),
-        })).filter((section) => section.apps.length > 0);
+        const visibleSections = [];
+        for (let i = 0; i < sections.length; i += 1) {
+            const section = sections[i];
+            const apps = filterAppsBySearch(section.apps, query);
+            if (apps.length) {
+                visibleSections.push({
+                    id: section.id,
+                    title: section.title,
+                    apps,
+                });
+            }
+        }
         if (storeApps.length && filteredApps === null) {
             const filteredStore = filterAppsBySearch(storeApps, query);
             if (filteredStore.length) {
@@ -614,6 +663,27 @@
         `;
     }
 
+    function syncInstalledChrome(root, catalog, visibleCount) {
+        const count = resolveInstalledCount(catalog, visibleCount);
+        const headingText = `Installé(s) - ${count} élément${count > 1 ? 's' : ''}`;
+        const installedPanel = root.querySelector('[data-discover-panel="installed"]');
+        const heading = root.querySelector('[data-discover-installed-heading]')
+            || (installedPanel ? installedPanel.querySelector('[data-discover-view-heading]') : null);
+        if (heading) {
+            heading.textContent = headingText;
+        }
+        const sortLabel = root.querySelector('[data-discover-installed-sort-label]');
+        const sortMeta = catalog && catalog.installedMeta ? catalog.installedMeta : null;
+        if (sortLabel && sortMeta && sortMeta.sortLabel) {
+            sortLabel.textContent = `Tri : ${sortMeta.sortLabel}`;
+        }
+        const viewMeta = catalog && catalog.views && catalog.views.installed;
+        if (viewMeta) {
+            const suffix = viewMeta.titleSuffix || ' — Discover';
+            setWindowTitle(`${headingText}${suffix}`);
+        }
+    }
+
     function renderInstalled(root, catalog) {
         const mount = root.querySelector('[data-discover-installed-mount]');
         if (!mount || !catalog || !Array.isArray(catalog.installed)) {
@@ -622,6 +692,7 @@
         const query = (state.searchQuery || '').trim().toLowerCase();
         const apps = filterAppsBySearch(catalog.installed, query);
         mount.innerHTML = apps.map(renderInstalledCard).join('');
+        syncInstalledChrome(root, catalog, apps.length);
     }
 
     function renderUpdates(root, catalog) {
@@ -796,6 +867,7 @@
     function syncSearchPlaceholder(root, catalog) {
         const input = root.querySelector('[data-discover-search]');
         const meta = catalog && catalog.views && catalog.views[state.view];
+        state.searchQuery = '';
         if (input && meta && meta.searchPlaceholder) {
             input.placeholder = meta.searchPlaceholder;
             input.value = '';
@@ -847,7 +919,11 @@
         setVisiblePanel(root, viewId);
         syncSearchPlaceholder(root, catalog);
         syncViewHeadings(root, catalog);
-        setWindowTitle(catalog.views[viewId].title);
+        if (viewId === 'installed') {
+            renderInstalled(root, catalog);
+        } else {
+            setWindowTitle(catalog.views[viewId].title);
+        }
         if (viewId === 'home') {
             renderHome(root, catalog);
         }

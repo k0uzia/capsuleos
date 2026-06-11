@@ -436,27 +436,148 @@
     color: #232629;
 }
 
-/* Installé(s) — liste cartes Kirigami compacte (VM InstalledPage compact:true) */
+/* Installé(s) — en-tête VM (compteur + tri) */
+.update-manager--kde-neon .kde-discover-installed__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #eff0f1;
+    flex-shrink: 0;
+}
+
+.update-manager--kde-neon .kde-discover-installed__title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #232629;
+}
+
+.update-manager--kde-neon .kde-discover-installed__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #d6d6d8;
+    background: #f6f6f7;
+    color: #232629;
+    font-size: 13px;
+    cursor: default;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon {
+    width: 14px;
+    height: 12px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon::before,
+.update-manager--kde-neon .kde-discover-installed__sort-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: #232629;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon::before {
+    top: 0;
+    width: 14px;
+    box-shadow: 0 5px 0 #232629, 0 10px 0 #232629;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon::after {
+    display: none;
+}
+
+/* Installé(s) — cartes VM (icône 48 px, taille, corbeille) */
 .update-manager--kde-neon .kde-discover-installed {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 0 20px 24px;
+    padding: 12px 20px 24px;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed {
-    min-height: 56px;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "icon text remove"
+        "icon text size";
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 4px;
+    min-height: 72px;
     padding: 10px 14px;
-    gap: 12px;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__icon {
-    width: 32px;
-    height: 32px;
+    grid-area: icon;
+    width: 48px;
+    height: 48px;
+    align-self: center;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__text {
+    grid-area: text;
+    align-self: center;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__name {
     font-weight: 600;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove {
+    grid-area: remove;
+    align-self: start;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #d6d6d8;
+    border-radius: 4px;
+    background: #f6f6f7;
+    cursor: default;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove-icon {
+    width: 18px;
+    height: 18px;
+    background: #c0392b;
+    -webkit-mask-image: url("../../../assets/icons/kde/nemo/user-trash-full-symbolic.svg");
+    mask-image: url("../../../assets/icons/kde/nemo/user-trash-full-symbolic.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__size {
+    grid-area: size;
+    justify-self: end;
+    align-self: end;
+    font-size: 12px;
+    color: #6b7075;
+    white-space: nowrap;
+    padding-top: 2px;
 }
 
 /* Configuration — SourcesPage (Discover 6.6) */
@@ -847,13 +968,17 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-man
     padding: 24px 24px 12px;
 }
 
+body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-installed__header {
+    padding: 20px 24px 14px;
+}
+
 body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-installed {
-    padding: 0 24px 32px;
+    padding: 12px 24px 32px;
     gap: 10px;
 }
 
 body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-card--installed {
-    min-height: 58px;
+    min-height: 72px;
     padding: 10px 16px;
 }
 

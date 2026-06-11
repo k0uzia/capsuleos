@@ -93,9 +93,15 @@
                 <div class="kde-discover-home" data-discover-home-mount></div>
             </main>
 
-            <main class="kde-updates__main kde-discover-panel" data-discover-panel="installed" hidden aria-label="Installé(s)">
-                <header class="kde-discover-view__hero">
-                    <h1 class="kde-discover-view__title" data-discover-view-heading>Installé(s)</h1>
+            <main class="kde-updates__main kde-discover-panel kde-discover-panel--installed" data-discover-panel="installed" hidden aria-label="Installé(s)">
+                <header class="kde-discover-installed__header">
+                    <h1 class="kde-discover-installed__title" data-discover-view-heading data-discover-installed-heading>Installé(s)</h1>
+                    <div class="kde-discover-installed__actions">
+                        <button type="button" class="kde-discover-installed__sort" disabled aria-disabled="true" data-discover-installed-sort>
+                            <span class="kde-discover-installed__sort-icon" aria-hidden="true"></span>
+                            <span data-discover-installed-sort-label>Tri : Nom</span>
+                        </button>
+                    </div>
                 </header>
                 <div class="kde-discover-installed" data-discover-installed-mount role="list"></div>
             </main>

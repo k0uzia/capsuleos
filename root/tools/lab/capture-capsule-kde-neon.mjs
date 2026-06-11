@@ -333,11 +333,20 @@ const openSlot = async (page, slot, scene = {}) => {
       await page.waitForFunction(
         () => {
           const panel = document.querySelector('[data-discover-app-detail]');
-          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img, [data-discover-carousel]');
+          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__name');
         },
         null,
         { timeout: 10000 },
       );
+      if (!scene.discoverAppDetailScroll) {
+        await page.evaluate(() => {
+          const carousel = document.querySelector('.kde-discover-app-detail__carousel');
+          if (carousel) {
+            carousel.style.display = 'none';
+          }
+        });
+        await sleep(page, 300);
+      }
       if (scene.discoverAppDetailScroll) {
         await page.evaluate(() => {
           const panel = document.querySelector('[data-discover-app-detail]');

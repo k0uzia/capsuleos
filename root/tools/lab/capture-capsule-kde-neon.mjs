@@ -12,6 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const panelG8 = process.argv.includes('--panel-g8');
+const discoverOnly = process.argv.includes('--discover-only');
 const DEST = args[0] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
 const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
 const VIEWPORT = { width: 1211, height: 756 };
@@ -243,7 +244,9 @@ const openSlot = async (page, slot, scene = {}) => {
       null,
       { timeout: 60000 },
     );
-    if (!scene.discoverView && !scene.discoverAppDetail) {
+    const skipStoreSection = scene.discoverView || scene.discoverAppDetail
+      || scene.discoverSearch || scene.discoverCategory;
+    if (!skipStoreSection) {
       await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
       await page.waitForFunction(
         () => {
@@ -358,6 +361,25 @@ const openSlot = async (page, slot, scene = {}) => {
       } else {
         await sleep(page, 500);
       }
+    } else if (scene.discoverSearch) {
+      await page.evaluate((query) => {
+        const nav = document.querySelector('[data-discover-nav="home"]');
+        if (nav && !nav.classList.contains('is-active')) nav.click();
+        const input = document.querySelector('[data-discover-search]');
+        if (input) {
+          input.value = query;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }, scene.discoverSearch);
+      await sleep(page, 500);
+    } else if (scene.discoverCategory) {
+      await page.evaluate((cat) => {
+        const nav = document.querySelector('[data-discover-nav="home"]');
+        if (nav && !nav.classList.contains('is-active')) nav.click();
+        const btn = document.querySelector(`.kde-updates__cat[data-discover-cat="${cat}"]`);
+        if (btn) btn.click();
+      }, scene.discoverCategory);
+      await sleep(page, 500);
     } else {
       await page.evaluate(() => {
         const nav = document.querySelector('[data-discover-nav="home"]');
@@ -433,21 +455,7 @@ const main = async () => {
     { file: 'capsule-tray-volume.png', trayPopover: 'volume' },
   ];
 
-  const shots = panelG8 ? panelShots : [
-    ...panelShots,
-    { file: 'capsule-dolphin.png', slots: ['nemo'] },
-    { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
-    { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
-    { file: 'capsule-dolphin-split.png', slots: ['nemo'], dolphinSplit: true },
-    {
-      file: 'capsule-dolphin-split-selection.png',
-      slots: ['nemo'],
-      dolphinSplit: true,
-      dolphinSplitSelection: true,
-    },
-    { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinHamburger: true },
-    { file: 'capsule-dolphin-search-open.png', slots: ['nemo'], dolphinSearch: true },
-    { file: 'capsule-dolphin-search-filter-open.png', slots: ['nemo'], dolphinSearch: true, dolphinSearchFilter: true },
+  const discoverShots = [
     { file: 'capsule-discover.png', slots: ['update_manager'] },
     {
       file: 'capsule-discover-detail-vlc.png',
@@ -459,6 +467,16 @@ const main = async () => {
       slots: ['update_manager'],
       discoverAppDetail: 'vlc',
       discoverAppDetailScroll: true,
+    },
+    {
+      file: 'capsule-discover-search-vlc.png',
+      slots: ['update_manager'],
+      discoverSearch: 'VLC',
+    },
+    {
+      file: 'capsule-discover-category-internet.png',
+      slots: ['update_manager'],
+      discoverCategory: 'internet',
     },
     {
       file: 'capsule-discover-installed.png',
@@ -504,6 +522,24 @@ const main = async () => {
       discoverView: 'config',
       maximize: false,
     },
+  ];
+
+  const shots = discoverOnly ? discoverShots : panelG8 ? panelShots : [
+    ...panelShots,
+    { file: 'capsule-dolphin.png', slots: ['nemo'] },
+    { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
+    { file: 'capsule-dolphin-list.png', slots: ['nemo'], dolphinViewMode: 'list' },
+    { file: 'capsule-dolphin-split.png', slots: ['nemo'], dolphinSplit: true },
+    {
+      file: 'capsule-dolphin-split-selection.png',
+      slots: ['nemo'],
+      dolphinSplit: true,
+      dolphinSplitSelection: true,
+    },
+    { file: 'capsule-dolphin-hamburger.png', slots: ['nemo'], dolphinHamburger: true },
+    { file: 'capsule-dolphin-search-open.png', slots: ['nemo'], dolphinSearch: true },
+    { file: 'capsule-dolphin-search-filter-open.png', slots: ['nemo'], dolphinSearch: true, dolphinSearchFilter: true },
+    ...discoverShots,
     { file: 'capsule-spectacle.png', slots: ['spectacle'] },
     { file: 'capsule-kinfocenter.png', slots: ['kinfocenter'] },
     { file: 'capsule-system-monitor.png', slots: ['system_monitor'] },

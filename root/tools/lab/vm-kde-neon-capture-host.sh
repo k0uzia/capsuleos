@@ -14,6 +14,7 @@
 # --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
 # --discover-g6 lot G6 (accueil + installé + mises à jour + config + à propos) — dismiss popup MAJ
 # --discover-vm-100 G6 + fiche VLC (campagne réalisme VM 100 %)
+# --discover-recursive G6 + VLC + recherche VLC + catégorie Internet + installé fenêtré + inventaire visuel complet
 # --firefox-g7 vm-firefox.png (ground G7 — paire toolbar VM)
 # --panel-g8 vm-desktop.png + vm-kickoff.png (ground G8 — panel · kickoff)
 #
@@ -44,11 +45,12 @@ DISCOVER_DETAIL_LIVE=false
 DISCOVER_HOME=false
 DISCOVER_G6=false
 DISCOVER_VM_100=false
+DISCOVER_RECURSIVE=false
 B2_B3_APPS=false
 DOLPHIN_G5=false
 FIREFOX_G7=false
 PANEL_G8=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-recursive" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -75,6 +77,9 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--discover-vm-100" ]; then
     DISCOVER_VM_100=true
+  fi
+  if [ "${1:-}" = "--discover-recursive" ]; then
+    DISCOVER_RECURSIVE=true
   fi
   if [ "${1:-}" = "--discover-updates" ]; then
     DISCOVER_UPDATES=true
@@ -586,6 +591,90 @@ capture_discover_g6_shots() {
   capture_discover_tab_shot about vm-discover-about.png 4
 }
 
+discover_unmaximize_window() {
+  prep_env 'SCRIPT=/tmp/capsuleos-discover-unmax.js
+    cat > "$SCRIPT" <<'"'"'KWINJS'"'"'
+var ws = workspace;
+var windows = ws.windowList();
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    if (cap.indexOf("Discover") >= 0 && cap.indexOf("Problème") < 0 && cap.indexOf("VLC") < 0) {
+        w.minimized = false;
+        w.maximized = false;
+        ws.activeWindow = w;
+        break;
+    }
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-unmax >/dev/null 2>&1 || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript "$SCRIPT" capsuleos-discover-unmax >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.4
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-unmax >/dev/null 2>&1 || true'
+}
+
+capture_discover_installed_windowed_shot() {
+  reset_apps
+  sleep 2
+  discover_nav_tab installed
+  discover_stabilize_for_shot 5
+  discover_unmaximize_window
+  sleep 0.8
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-installed-windowed.png"
+  reset_apps
+}
+
+capture_discover_search_vlc_shot() {
+  reset_apps
+  sleep 1
+  open_discover
+  discover_stabilize_for_shot 5
+  prep_env 'sleep 0.5
+    if command -v wtype >/dev/null 2>&1; then
+      wtype -M ctrl f
+      sleep 0.4
+      wtype VLC
+      sleep 1.2
+    elif command -v xdotool >/dev/null 2>&1; then
+      xdotool key ctrl+f
+      sleep 0.4
+      xdotool type --delay 25 VLC
+      sleep 1.2
+    fi'
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-search-vlc.png"
+  reset_apps
+}
+
+capture_discover_category_internet_shot() {
+  reset_apps
+  sleep 1
+  open_discover
+  discover_stabilize_for_shot 5
+  prep_env 'WID=$(xdotool search --name "Discover" 2>/dev/null | head -1)
+    if [ -n "$WID" ]; then
+      xdotool windowactivate --sync "$WID" 2>/dev/null || true
+      sleep 0.4
+      xdotool mousemove --window "$WID" 130 300 click 1
+      sleep 0.6
+      xdotool mousemove --window "$WID" 130 430 click 1
+      sleep 1.5
+    fi'
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-category-internet.png"
+  reset_apps
+}
+
+capture_discover_recursive_shots() {
+  capture_discover_g6_shots
+  capture_discover_detail_shots
+  capture_discover_search_vlc_shot
+  capture_discover_category_internet_shot
+  capture_discover_installed_windowed_shot
+}
+
 if $DOLPHIN_G5; then
   capture_dolphin_view_shots
   capture_dolphin_search_shots
@@ -610,6 +699,12 @@ if $B2_B3_APPS; then
   shot "$DEST/vm-system-monitor.png"
   reset_apps
   echo "=== Terminé : vm-spectacle.png, vm-kinfocenter.png, vm-system-monitor.png (--b2-b3-apps) ==="
+  exit 0
+fi
+
+if $DISCOVER_RECURSIVE; then
+  capture_discover_recursive_shots
+  echo "=== Terminé : discover récursif (G6 + VLC + recherche + catégorie + installé fenêtré) ==="
   exit 0
 fi
 

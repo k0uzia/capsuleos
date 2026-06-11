@@ -216,7 +216,10 @@
     "css": "home/Debian/KDE-Neon/style/apps/discover-store-icons.skin.css",
     "assetZone": "usr/share/capsuleos/assets/images/toolkits/gnome/apps/",
     "iconsBranched": 11,
-    "predicates": { "A": true, "branchement": true }
+    "predicates": {
+      "A": true,
+      "branchement": true
+    }
   },
   "campaignDiscoverIconsAssets": "discover-icons-assets-kde-neon",
   "campaignDiscoverIconsAssetsStatus": "reopened",
@@ -227,7 +230,11 @@
     "smoke": "smoke-discover-neon-icons.mjs",
     "zone": "usr/share/capsuleos/assets/images/vendors/neon/discover/",
     "iconsAligned": 16,
-    "predicates": { "A": true, "S": true, "T": true }
+    "predicates": {
+      "A": true,
+      "S": true,
+      "T": true
+    }
   },
   "campaignDiscoverSidebarAssets": "discover-sidebar-assets-kde-neon",
   "campaignDiscoverSidebarAssetsStatus": "open",
@@ -244,7 +251,12 @@
     "categoryIcons": 13,
     "categoryRender": "mask + breeze *-symbolic (22px) — pas SVG couleur toolkit",
     "inventoryRelaunchedAt": "2026-06-11T15:00:00.000Z",
-    "predicates": { "I": true, "S": true, "T": true, "A": true }
+    "predicates": {
+      "I": true,
+      "S": true,
+      "T": true,
+      "A": true
+    }
   },
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "closed",
@@ -324,7 +336,8 @@
       "2026-06-10 : G5 grid dolphin → drift baseline 03-dolphin (write-baseline post-polish)",
       "2026-06-10 : captures VM discover — popup PackageKit (corrigé systemd-run + dismiss KWin)",
       "2026-06-10 : KdVp 07-discover-detail-vlc drift flaky — baseline régénérée 20260610-151302"
-    ]
+    ],
+    "G6_discoverRecursiveAt": "2026-06-11T14:41:02.655Z"
   },
   "campaignGroundRoadmap": "linux-kde-neon-roadmap-ground.md",
   "campaignV10": "v10-derived-post-pivot",
@@ -381,7 +394,7 @@
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-11T12:12:10.000Z",
+  "updatedAt": "2026-06-11T14:45:00.000Z",
   "discoverVmLastRun": {
     "evaluatedAt": "2026-06-11T12:12:10.000Z",
     "vmFlag": "--discover-vm-100",
@@ -398,5 +411,23 @@
     "passOk": true,
     "failures": [],
     "tool": "run-kde-neon-scenarios-capture-cycle.mjs"
+  },
+  "discoverRecursiveLastRun": {
+    "evaluatedAt": "2026-06-11T14:45:00.000Z",
+    "passOk": true,
+    "vmCaptures": 10,
+    "capsuleCaptures": 13,
+    "vmFlag": "--discover-recursive",
+    "newVmShots": [
+      "vm-discover-search-vlc.png",
+      "vm-discover-category-internet.png",
+      "vm-discover-installed-windowed.png"
+    ],
+    "newCapsuleShots": [
+      "capsule-discover-search-vlc.png",
+      "capsule-discover-category-internet.png"
+    ],
+    "failures": [],
+    "tool": "run-discover-kde-neon-recursive-capture.mjs"
   }
 }

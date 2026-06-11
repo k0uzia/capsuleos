@@ -581,6 +581,21 @@
         switchView(root, catalog, 'home');
     }
 
+    function catalogAppIndex(catalog) {
+        const index = new Map();
+        const add = (app) => {
+            if (!app || !app.id || index.has(app.id)) {
+                return;
+            }
+            index.set(app.id, app);
+        };
+        (catalog.homeSections || []).forEach((section) => {
+            (section.apps || []).forEach(add);
+        });
+        (catalog.browseApps || []).forEach(add);
+        return index;
+    }
+
     function filterAppsForCategory(catalog, categoryId) {
         if (!catalog || categoryId === 'all') {
             return null;
@@ -590,15 +605,21 @@
         if (!spec || !Array.isArray(spec.appIds) || !spec.appIds.length) {
             return [];
         }
-        const allowed = new Set(spec.appIds);
-        const apps = [];
-        (catalog.homeSections || []).forEach((section) => {
-            (section.apps || []).forEach((app) => {
-                if (app.id && allowed.has(app.id)) {
-                    apps.push(app);
-                }
-            });
+        const index = catalogAppIndex(catalog);
+        const storeById = new Map();
+        getStoreDiscoverApps().forEach((entry) => {
+            if (entry && entry.id) {
+                storeById.set(entry.id, entry);
+            }
         });
+        const apps = [];
+        for (let i = 0; i < spec.appIds.length; i += 1) {
+            const id = spec.appIds[i];
+            const app = index.get(id) || storeById.get(id);
+            if (app) {
+                apps.push(app);
+            }
+        }
         return apps;
     }
 

@@ -32,21 +32,66 @@
       "id": "popular",
       "title": "Les plus populaires",
       "apps": [
-        { "id": "vlc", "name": "VLC", "desc": "VLC media player, the open-source multimedia player", "icon": "vlc.png" },
-        { "id": "gimp", "name": "Éditeur d'image GIMP", "desc": "Créer des images et modifier des photographies", "icon": "gimp.png" },
-        { "id": "wine", "name": "Wine", "desc": "Run Windows applications on Linux, BSD, Solaris and Mac OS X", "icon": "wine.png" },
-        { "id": "steam", "name": "Steam (installer)", "desc": "Launcher for the Steam software distribution service", "icon": "steam.png" },
-        { "id": "kdenlive", "name": "Kdenlive", "desc": "Éditeur vidéo non linéaire par KDE", "icon": "kdenlive.png" }
+        {
+          "id": "vlc",
+          "name": "VLC",
+          "desc": "VLC media player, the open-source multimedia player",
+          "icon": "vlc.png"
+        },
+        {
+          "id": "gimp",
+          "name": "Éditeur d'image GIMP",
+          "desc": "Créer des images et modifier des photographies",
+          "icon": "gimp.png"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "desc": "Run Windows applications on Linux, BSD, Solaris and Mac OS X",
+          "icon": "wine.png"
+        },
+        {
+          "id": "steam",
+          "name": "Steam (installer)",
+          "desc": "Launcher for the Steam software distribution service",
+          "icon": "steam.png"
+        },
+        {
+          "id": "kdenlive",
+          "name": "Kdenlive",
+          "desc": "Éditeur vidéo non linéaire par KDE",
+          "icon": "kdenlive.png"
+        }
       ]
     },
     {
       "id": "editor-pick",
       "title": "Sélection de l'éditeur",
       "apps": [
-        { "id": "kolourpaint", "name": "KolourPaint", "desc": "Logiciel de dessin", "icon": "kolourpaint.png" },
-        { "id": "kate", "name": "Kate", "desc": "Éditeur de texte avancé", "icon": "kate.png" },
-        { "id": "krita", "name": "Krita", "desc": "Peinture numérique, liberté créatrice", "icon": "krita.png" },
-        { "id": "kpat", "name": "KPatience", "desc": "Jeu de solitaire", "icon": "kpat.svg" }
+        {
+          "id": "kolourpaint",
+          "name": "KolourPaint",
+          "desc": "Logiciel de dessin",
+          "icon": "kolourpaint.png"
+        },
+        {
+          "id": "kate",
+          "name": "Kate",
+          "desc": "Éditeur de texte avancé",
+          "icon": "kate.png"
+        },
+        {
+          "id": "krita",
+          "name": "Krita",
+          "desc": "Peinture numérique, liberté créatrice",
+          "icon": "krita.png"
+        },
+        {
+          "id": "kpat",
+          "name": "KPatience",
+          "desc": "Jeu de solitaire",
+          "icon": "kpat.svg"
+        }
       ]
     }
   ],
@@ -56,20 +101,105 @@
     "source": "VM plasma-discover 6.6.5 — capture 2026-06-11"
   },
   "installed": [
-    { "id": "ark", "name": "Ark", "desc": "Outil d'archivage", "icon": "ark.png", "sizeKb": 7471 },
-    { "id": "discover", "name": "Discover", "desc": "Installer et supprimer des applications et modules", "icon": "discover-installed.png", "sizeKb": 10201 },
-    { "id": "dolphin", "name": "Dolphin", "desc": "Gérer vos fichiers", "icon": "dolphin.svg", "sizeKb": 20047 },
-    { "id": "firefox", "name": "Firefox", "desc": "Navigateur rapide et privé", "icon": "../panel/firefox.png", "iconBase": "panel", "sizeKb": 310072 },
-    { "id": "gwenview", "name": "Gwenview", "desc": "Visionneuse d'images simple", "icon": "gwenview.png", "sizeKb": 14655 },
-    { "id": "khelpcenter", "name": "Centre d'aide", "desc": "Parcourir et rechercher de la documentation", "icon": "khelpcenter.svg", "sizeKb": 9887 },
-    { "id": "kdeconnect", "name": "KDE Connect", "desc": "Faire de tous vos appareils un seul", "icon": "kdeconnect.svg", "sizeKb": 15489 },
-    { "id": "kate", "name": "Kate", "desc": "Éditeur de texte avancé", "icon": "kate-installed.png", "sizeKb": 20059 },
-    { "id": "konsole", "name": "Konsole", "desc": "Accès en ligne de commande", "icon": "konsole.svg", "sizeKb": 8203 },
-    { "id": "okular", "name": "Okular", "desc": "Visionneuse universelle de documents", "icon": "okular.png", "sizeKb": 16695 },
-    { "id": "systemsettings", "name": "Paramètres système", "desc": "Configurer le comportement et l'apparence du système", "icon": "systemsettings.svg", "sizeKb": 1969 },
-    { "id": "spectacle", "name": "Spectacle", "desc": "Prendre des captures d'écran et enregistrements", "icon": "spectacle.svg", "sizeKb": 8446 },
-    { "id": "systemmonitor", "name": "Surveillance du système", "desc": "Surveiller l'utilisation des ressources par les applications", "icon": "systemmonitor.svg", "sizeKb": 5887 },
-    { "id": "vlc", "name": "Lecteur multimédia VLC", "desc": "Lire, capturer et diffuser vos flux multimédias", "icon": "vlc-installed.png", "sizeKb": 195 }
+    {
+      "id": "ark",
+      "name": "Ark",
+      "desc": "Outil d'archivage",
+      "icon": "ark.png",
+      "sizeKb": 7471
+    },
+    {
+      "id": "discover",
+      "name": "Discover",
+      "desc": "Installer et supprimer des applications et modules",
+      "icon": "discover-installed.png",
+      "sizeKb": 10201
+    },
+    {
+      "id": "dolphin",
+      "name": "Dolphin",
+      "desc": "Gérer vos fichiers",
+      "icon": "dolphin.svg",
+      "sizeKb": 20047
+    },
+    {
+      "id": "firefox",
+      "name": "Firefox",
+      "desc": "Navigateur rapide et privé",
+      "icon": "../panel/firefox.png",
+      "iconBase": "panel",
+      "sizeKb": 310072
+    },
+    {
+      "id": "gwenview",
+      "name": "Gwenview",
+      "desc": "Visionneuse d'images simple",
+      "icon": "gwenview.png",
+      "sizeKb": 14655
+    },
+    {
+      "id": "khelpcenter",
+      "name": "Centre d'aide",
+      "desc": "Parcourir et rechercher de la documentation",
+      "icon": "khelpcenter.svg",
+      "sizeKb": 9887
+    },
+    {
+      "id": "kdeconnect",
+      "name": "KDE Connect",
+      "desc": "Faire de tous vos appareils un seul",
+      "icon": "kdeconnect.svg",
+      "sizeKb": 15489
+    },
+    {
+      "id": "kate",
+      "name": "Kate",
+      "desc": "Éditeur de texte avancé",
+      "icon": "kate-installed.png",
+      "sizeKb": 20059
+    },
+    {
+      "id": "konsole",
+      "name": "Konsole",
+      "desc": "Accès en ligne de commande",
+      "icon": "konsole.svg",
+      "sizeKb": 8203
+    },
+    {
+      "id": "okular",
+      "name": "Okular",
+      "desc": "Visionneuse universelle de documents",
+      "icon": "okular.png",
+      "sizeKb": 16695
+    },
+    {
+      "id": "systemsettings",
+      "name": "Paramètres système",
+      "desc": "Configurer le comportement et l'apparence du système",
+      "icon": "systemsettings.svg",
+      "sizeKb": 1969
+    },
+    {
+      "id": "spectacle",
+      "name": "Spectacle",
+      "desc": "Prendre des captures d'écran et enregistrements",
+      "icon": "spectacle.svg",
+      "sizeKb": 8446
+    },
+    {
+      "id": "systemmonitor",
+      "name": "Surveillance du système",
+      "desc": "Surveiller l'utilisation des ressources par les applications",
+      "icon": "systemmonitor.svg",
+      "sizeKb": 5887
+    },
+    {
+      "id": "vlc",
+      "name": "Lecteur multimédia VLC",
+      "desc": "Lire, capturer et diffuser vos flux multimédias",
+      "icon": "vlc-installed.png",
+      "sizeKb": 195
+    }
   ],
   "updates": [
     {
@@ -91,10 +221,26 @@
       "name": "Ubuntu",
       "default": true,
       "sources": [
-        { "id": "ubuntu-main", "label": "archive.ubuntu.com — Ubuntu noble", "checked": true },
-        { "id": "ubuntu-security", "label": "security.ubuntu.com — Ubuntu noble-security", "checked": true },
-        { "id": "ubuntu-updates", "label": "archive.ubuntu.com — Ubuntu noble-updates", "checked": true },
-        { "id": "neon-user", "label": "archive.neon.kde.org — KDE neon noble user", "checked": true }
+        {
+          "id": "ubuntu-main",
+          "label": "archive.ubuntu.com — Ubuntu noble",
+          "checked": true
+        },
+        {
+          "id": "ubuntu-security",
+          "label": "security.ubuntu.com — Ubuntu noble-security",
+          "checked": true
+        },
+        {
+          "id": "ubuntu-updates",
+          "label": "archive.ubuntu.com — Ubuntu noble-updates",
+          "checked": true
+        },
+        {
+          "id": "neon-user",
+          "label": "archive.neon.kde.org — KDE neon noble user",
+          "checked": true
+        }
       ]
     },
     {
@@ -102,14 +248,22 @@
       "name": "Flatpak",
       "addSource": true,
       "sources": [
-        { "id": "flathub", "label": "Flathub", "checked": true }
+        {
+          "id": "flathub",
+          "label": "Flathub",
+          "checked": true
+        }
       ]
     },
     {
       "id": "snap",
       "name": "Snap Store",
       "sources": [
-        { "id": "snap-store", "label": "Snap Store", "checked": true }
+        {
+          "id": "snap-store",
+          "label": "Snap Store",
+          "checked": true
+        }
       ]
     }
   ],
@@ -122,20 +276,59 @@
       "name": "Licence publique générale GNU, version 2 ou ultérieure"
     },
     "links": [
-      { "id": "donate", "label": "Faire un don", "icon": "donate-symbolic.svg" },
-      { "id": "involved", "label": "Contribuer", "icon": "applications-development-symbolic.svg" },
-      { "id": "bug", "label": "Signaler un bogue", "icon": "tools-report-bug-symbolic.svg" }
+      {
+        "id": "donate",
+        "label": "Faire un don",
+        "icon": "donate-symbolic.svg"
+      },
+      {
+        "id": "involved",
+        "label": "Contribuer",
+        "icon": "applications-development-symbolic.svg"
+      },
+      {
+        "id": "bug",
+        "label": "Signaler un bogue",
+        "icon": "tools-report-bug-symbolic.svg"
+      }
     ],
     "libraries": [
-      { "name": "Qt", "version": "6.11.1" },
-      { "name": "KDE Frameworks", "version": "6.12.0" },
-      { "name": "Kirigami Addons", "version": "1.6.0" },
-      { "name": "plasma-discover", "version": "6.6.5" }
+      {
+        "name": "Qt",
+        "version": "6.11.1"
+      },
+      {
+        "name": "KDE Frameworks",
+        "version": "6.12.0"
+      },
+      {
+        "name": "Kirigami Addons",
+        "version": "1.6.0"
+      },
+      {
+        "name": "plasma-discover",
+        "version": "6.6.5"
+      }
     ],
     "authors": [
-      { "name": "Aleix Pol Gonzalez", "role": "", "email": "aleixpol@kde.org", "web": "https://proli.net" },
-      { "name": "Nate Graham", "role": "Contrôle qualité, conception et ergonomie", "email": "nate@kde.org", "web": "https://pointieststick.com/" },
-      { "name": "Dan Leinir Turthra Jensen", "role": "KNewStuff", "email": "admin@leinir.dk", "web": "https://leinir.dk/" }
+      {
+        "name": "Aleix Pol Gonzalez",
+        "role": "",
+        "email": "aleixpol@kde.org",
+        "web": "https://proli.net"
+      },
+      {
+        "name": "Nate Graham",
+        "role": "Contrôle qualité, conception et ergonomie",
+        "email": "nate@kde.org",
+        "web": "https://pointieststick.com/"
+      },
+      {
+        "name": "Dan Leinir Turthra Jensen",
+        "role": "KNewStuff",
+        "email": "admin@leinir.dk",
+        "web": "https://leinir.dk/"
+      }
     ]
   },
   "appDetails": {
@@ -188,14 +381,263 @@
     }
   },
   "categoryFilters": {
-    "all": { "label": "Toutes les applications" },
-    "internet": { "label": "Internet", "appIds": ["firefox", "steam", "wine"] },
-    "graphics": { "label": "Graphisme", "appIds": ["gimp", "kolourpaint", "krita"] },
-    "multimedia": { "label": "Multimédia", "appIds": ["vlc", "kdenlive"] },
-    "development": { "label": "Développement", "appIds": ["kate", "kdenlive"] },
-    "office": { "label": "Bureautique", "appIds": ["kolourpaint", "kate"] },
-    "games": { "label": "Jeux", "appIds": ["kpat", "steam"] },
-    "utilities": { "label": "Utilitaires", "appIds": ["wine", "kpat"] },
-    "system": { "label": "Système", "appIds": ["discover", "systemsettings"] }
+    "all": {
+      "label": "Toutes les applications"
+    },
+    "internet": {
+      "label": "Internet",
+      "appIds": [
+        "wine",
+        "steam",
+        "firefox",
+        "thunderbird",
+        "transmission",
+        "warpinator"
+      ]
+    },
+    "graphics": {
+      "label": "Graphisme",
+      "appIds": [
+        "gimp",
+        "kolourpaint",
+        "krita",
+        "gwenview",
+        "okular",
+        "drawing",
+        "simple-scan"
+      ]
+    },
+    "multimedia": {
+      "label": "Multimédia",
+      "appIds": [
+        "vlc",
+        "kdenlive",
+        "rhythmbox",
+        "lecteur-multimedia"
+      ]
+    },
+    "development": {
+      "label": "Développement",
+      "appIds": [
+        "kate",
+        "kdenlive"
+      ]
+    },
+    "office": {
+      "label": "Bureautique",
+      "appIds": [
+        "kolourpaint",
+        "kate",
+        "okular",
+        "libreoffice",
+        "calendar"
+      ]
+    },
+    "games": {
+      "label": "Jeux",
+      "appIds": [
+        "steam",
+        "kpat",
+        "wine"
+      ]
+    },
+    "utilities": {
+      "label": "Utilitaires",
+      "appIds": [
+        "wine",
+        "kpat",
+        "ark",
+        "spectacle",
+        "keepsecret",
+        "vim",
+        "yelp",
+        "file-roller",
+        "simple-scan"
+      ]
+    },
+    "system": {
+      "label": "Système",
+      "appIds": [
+        "dolphin",
+        "discover",
+        "systemsettings",
+        "spectacle",
+        "systemmonitor",
+        "konsole",
+        "terminal",
+        "keepsecret",
+        "kmenuedit",
+        "kwalletmanager",
+        "timeshift"
+      ]
+    },
+    "accessibility": {
+      "label": "Accessibilité",
+      "appIds": []
+    },
+    "education": {
+      "label": "Education",
+      "appIds": [
+        "kpat",
+        "calendar"
+      ]
+    },
+    "science": {
+      "label": "Science & Mathématiques",
+      "appIds": [
+        "drawing",
+        "simple-scan"
+      ]
+    },
+    "addons": {
+      "label": "Modules d'applications",
+      "appIds": [
+        "kdeconnect"
+      ]
+    }
+  },
+  "browseApps": [
+    {
+      "id": "app",
+      "name": "KDE Connect",
+      "desc": "Make all your devices one",
+      "icon": "app.svg",
+      "componentId": "org.kde.kdeconnect.app.desktop"
+    },
+    {
+      "id": "nonplasma",
+      "name": "KDE Connect Indicator",
+      "desc": "Display information about your devices",
+      "icon": "nonplasma.svg",
+      "componentId": "org.kde.kdeconnect.nonplasma.desktop"
+    },
+    {
+      "id": "sms",
+      "name": "KDE Connect SMS",
+      "desc": "Read and send SMS messages on connected devices",
+      "icon": "sms.svg",
+      "componentId": "org.kde.kdeconnect.sms.desktop"
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "desc": "Use the command line",
+      "icon": "terminal.svg",
+      "componentId": "org.gnome.Terminal.desktop"
+    },
+    {
+      "id": "keepsecret",
+      "name": "KeepSecret",
+      "desc": "Manage passwords",
+      "icon": "keepsecret.png",
+      "componentId": "org.kde.keepsecret.desktop"
+    },
+    {
+      "id": "kmenuedit",
+      "name": "Menu Editor",
+      "desc": "Edit how applications are presented in app launchers",
+      "icon": "kmenuedit.png",
+      "componentId": "org.kde.kmenuedit.desktop"
+    },
+    {
+      "id": "kwalletmanager",
+      "name": "KWalletManager",
+      "desc": "Store and manage your passwords",
+      "icon": "kwalletmanager.png",
+      "componentId": "org.kde.kwalletmanager.desktop"
+    },
+    {
+      "id": "vim",
+      "name": "Vim",
+      "desc": "Edit text files",
+      "icon": "vim.png",
+      "componentId": "vim.desktop"
+    },
+    {
+      "id": "yelp",
+      "name": "Help",
+      "desc": "Get help with GNOME",
+      "icon": "yelp.svg",
+      "componentId": "yelp.desktop"
+    },
+    {
+      "id": "ark",
+      "name": "Ark",
+      "desc": "Outil d'archivage",
+      "icon": "ark.png"
+    },
+    {
+      "id": "discover",
+      "name": "Discover",
+      "desc": "Installer et supprimer des applications et modules",
+      "icon": "discover-installed.png"
+    },
+    {
+      "id": "dolphin",
+      "name": "Dolphin",
+      "desc": "Gérer vos fichiers",
+      "icon": "dolphin.svg"
+    },
+    {
+      "id": "firefox",
+      "name": "Firefox",
+      "desc": "Navigateur rapide et privé",
+      "icon": "../panel/firefox.png",
+      "iconBase": "panel"
+    },
+    {
+      "id": "gwenview",
+      "name": "Gwenview",
+      "desc": "Visionneuse d'images simple",
+      "icon": "gwenview.png"
+    },
+    {
+      "id": "khelpcenter",
+      "name": "Centre d'aide",
+      "desc": "Parcourir et rechercher de la documentation",
+      "icon": "khelpcenter.svg"
+    },
+    {
+      "id": "kdeconnect",
+      "name": "KDE Connect",
+      "desc": "Faire de tous vos appareils un seul",
+      "icon": "kdeconnect.svg"
+    },
+    {
+      "id": "konsole",
+      "name": "Konsole",
+      "desc": "Accès en ligne de commande",
+      "icon": "konsole.svg"
+    },
+    {
+      "id": "okular",
+      "name": "Okular",
+      "desc": "Visionneuse universelle de documents",
+      "icon": "okular.png"
+    },
+    {
+      "id": "systemsettings",
+      "name": "Paramètres système",
+      "desc": "Configurer le comportement et l'apparence du système",
+      "icon": "systemsettings.svg"
+    },
+    {
+      "id": "spectacle",
+      "name": "Spectacle",
+      "desc": "Prendre des captures d'écran et enregistrements",
+      "icon": "spectacle.svg"
+    },
+    {
+      "id": "systemmonitor",
+      "name": "Surveillance du système",
+      "desc": "Surveiller l'utilisation des ressources par les applications",
+      "icon": "systemmonitor.svg"
+    }
+  ],
+  "categoryAppsMeta": {
+    "source": "vm-kde-neon-discover-category-apps-inventory.sh",
+    "collectedAt": "2026-06-11T15:01:51Z",
+    "vm": "goupil@192.168.123.52",
+    "maxPerCategory": 6
   }
 }

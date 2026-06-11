@@ -2,7 +2,7 @@
   "registryId": "linux-kde-neon",
   "surface": "discover-sidebar",
   "vm": "goupil@192.168.123.52",
-  "collectedAt": "2026-06-11T13:49:58Z",
+  "collectedAt": "2026-06-11T14:35:16Z",
   "authority": {
     "categoriesXml": "/usr/share/libdiscover/categories/packagekit-backend-categories.xml",
     "iconTheme": "breeze",

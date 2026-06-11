@@ -13,6 +13,7 @@
 # --dolphin-g5 vm-dolphin §7–8 (search · filtre · hamburger · vues icônes)
 # --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
 # --discover-g6 lot G6 (accueil + installé + mises à jour + config + à propos) — dismiss popup MAJ
+# --discover-vm-100 G6 + fiche VLC (campagne réalisme VM 100 %)
 # --firefox-g7 vm-firefox.png (ground G7 — paire toolbar VM)
 # --panel-g8 vm-desktop.png + vm-kickoff.png (ground G8 — panel · kickoff)
 #
@@ -42,11 +43,12 @@ DISCOVER_DETAIL=false
 DISCOVER_DETAIL_LIVE=false
 DISCOVER_HOME=false
 DISCOVER_G6=false
+DISCOVER_VM_100=false
 B2_B3_APPS=false
 DOLPHIN_G5=false
 FIREFOX_G7=false
 PANEL_G8=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -70,6 +72,9 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--discover-g6" ]; then
     DISCOVER_G6=true
+  fi
+  if [ "${1:-}" = "--discover-vm-100" ]; then
+    DISCOVER_VM_100=true
   fi
   if [ "${1:-}" = "--discover-updates" ]; then
     DISCOVER_UPDATES=true
@@ -605,6 +610,13 @@ if $B2_B3_APPS; then
   shot "$DEST/vm-system-monitor.png"
   reset_apps
   echo "=== Terminé : vm-spectacle.png, vm-kinfocenter.png, vm-system-monitor.png (--b2-b3-apps) ==="
+  exit 0
+fi
+
+if $DISCOVER_VM_100; then
+  capture_discover_g6_shots
+  capture_discover_detail_shots
+  echo "=== Terminé : discover VM-100 (G6 + fiche VLC) ==="
   exit 0
 fi
 

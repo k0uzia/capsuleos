@@ -25,7 +25,7 @@ Brancher le **catalogue magasin CapsuleOS** (`capsule-store-catalog.js`) dans Di
 | D2 | ✅ `discover-kde-store-icons.css` · `getStoreDiscoverApps` |
 | D3 | ✅ smoke runtime install LibreOffice |
 | D4 | ✅ baseline `06-discover` + `capsule-discover.png` (section À découvrir) |
-| D5 | ⏳ backlog |
+| D5 | ✅ recherche filtrante accueil + installé (`discover-kde.js`) |
 
 ## Recette
 

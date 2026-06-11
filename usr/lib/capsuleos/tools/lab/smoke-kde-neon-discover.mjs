@@ -119,6 +119,32 @@ try {
     errors.push(`filtre internet : cartes=${filtered.cards}`);
   }
 
+  await page.click('[data-discover-nav="home"]');
+  await page.waitForTimeout(300);
+  await page.click('.kde-updates__cat[data-discover-cat="all"]');
+  await page.waitForTimeout(300);
+  await page.evaluate(() => {
+    const input = document.querySelector('[data-discover-search]');
+    if (!input) {
+      return;
+    }
+    input.value = 'VLC';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await page.waitForTimeout(400);
+
+  const searchFiltered = await page.evaluate(() => ({
+    cards: document.querySelectorAll('[data-discover-home-mount] .kde-discover-card').length,
+    names: [...document.querySelectorAll('[data-discover-home-mount] .kde-discover-card__name')]
+      .map((el) => el.textContent.trim()),
+  }));
+  if (searchFiltered.cards < 1) {
+    errors.push(`recherche VLC : cartes=${searchFiltered.cards}`);
+  }
+  if (!searchFiltered.names.some((n) => n.indexOf('VLC') !== -1)) {
+    errors.push(`recherche VLC : résultats=${searchFiltered.names.join(', ')}`);
+  }
+
   console.log(JSON.stringify({
     ok: errors.length === 0,
     errors,
@@ -126,6 +152,7 @@ try {
     detailBeforeInstall,
     detailAfterInstall,
     filtered,
+    searchFiltered,
   }, null, 2));
 } catch (err) {
   errors.push(err.message || String(err));

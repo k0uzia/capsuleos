@@ -188,6 +188,7 @@
       "linux-debian-kde"
     ],
     "vmInventoryRefreshedAt": "2026-06-09T14:55:47Z",
+    "vmDiscoverRefreshedAt": "2026-06-11T11:20:00.000Z",
     "konversationOnVm": false
   },
   "roadmap": "linux-kde-neon-roadmap-pass.md",

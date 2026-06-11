@@ -70,7 +70,7 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs         # après edits 
 
 | Écart | Priorité | Note |
 |-------|----------|------|
-| Recherche Discover non filtrante | P2 | Champ UI présent |
+| Recherche Discover | ✅ | Filtre accueil + installé (juin 2026) |
 | Catégories sidebar inactives | P2 | Discover store complet hors scope |
 | Clic carte app Accueil / Installé(s) | P2 | Pas de fiche app |
 | Captures VM par onglet | P1 | Script host instable |

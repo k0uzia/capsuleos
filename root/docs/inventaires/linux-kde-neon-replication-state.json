@@ -167,7 +167,20 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "campagne Discover magasin D1–D3 — section À découvrir + smoke store",
+  "nextStep": "Discover VM + magasin clos — propagation dérivés ou prochaine app ground",
+  "campaignDiscoverVm": "discover-vm-kde-neon",
+  "campaignDiscoverVmStatus": "closed",
+  "campaignDiscoverVmStartedAt": "2026-06-11T11:00:00.000Z",
+  "campaignDiscoverVmClosedAt": "2026-06-11T11:20:00.000Z",
+  "discoverVmRoadmap": "linux-kde-neon-roadmap-discover-vm.md",
+  "discoverVmProgress": {
+    "V1_vmCaptures": "2026-06-11 — --discover-g6 + --discover-detail",
+    "V2_capsulePairs": "screen_KDE-Neon/vm-discover* ↔ capsule-discover*",
+    "V3_searchFilter": "discover-kde.js input + smoke-kde-neon-discover",
+    "V4_smoke": "smoke-discover-vm-parity.mjs",
+    "vmFlag": "--discover-vm-100",
+    "piDiscover": 100
+  },
   "campaignDiscoverStore": "discover-store-kde-neon",
   "campaignDiscoverStoreStatus": "closed",
   "campaignDiscoverStoreClosedAt": "2026-06-11T10:35:00.000Z",

@@ -113,7 +113,23 @@
         view: 'home',
         maximized: false,
         categoryId: 'all',
+        searchQuery: '',
     };
+
+    function matchesSearch(app, query) {
+        if (!query) {
+            return true;
+        }
+        const hay = `${app.name || ''} ${app.desc || ''}`.toLowerCase();
+        return hay.indexOf(query) !== -1;
+    }
+
+    function filterAppsBySearch(apps, query) {
+        if (!query || !Array.isArray(apps)) {
+            return apps || [];
+        }
+        return apps.filter((app) => matchesSearch(app, query));
+    }
 
     const DISCOVER_CAT_IDS = [
         'all', 'accessibility', 'office', 'development', 'education', 'graphics',
@@ -562,13 +578,21 @@
             }]
             : catalog.homeSections.filter((section) => !section.hidden);
 
+        const query = (state.searchQuery || '').trim().toLowerCase();
         const storeApps = filteredApps === null ? getStoreDiscoverApps() : [];
-        if (storeApps.length) {
-            sections.push({
-                id: STORE_SECTION_ID,
-                title: STORE_SECTION_TITLE,
-                apps: storeApps,
-            });
+        const visibleSections = sections.map((section) => ({
+            ...section,
+            apps: filterAppsBySearch(section.apps, query),
+        })).filter((section) => section.apps.length > 0);
+        if (storeApps.length && filteredApps === null) {
+            const filteredStore = filterAppsBySearch(storeApps, query);
+            if (filteredStore.length) {
+                visibleSections.push({
+                    id: STORE_SECTION_ID,
+                    title: STORE_SECTION_TITLE,
+                    apps: filteredStore,
+                });
+            }
         }
 
         const heading = catalog.views && catalog.views.home
@@ -579,7 +603,7 @@
             <header class="kde-discover-home__hero">
                 <h1 class="kde-discover-home__title">${heading}</h1>
             </header>
-            ${sections.map((section) => `
+            ${visibleSections.map((section) => `
                 <section class="kde-discover-home__section" aria-label="${section.title}"${section.id === STORE_SECTION_ID ? ' data-discover-store-section' : ''}>
                     <h2 class="kde-discover-home__section-title">${section.title}</h2>
                     <div class="kde-discover-home__grid" role="list">
@@ -595,7 +619,9 @@
         if (!mount || !catalog || !Array.isArray(catalog.installed)) {
             return;
         }
-        mount.innerHTML = catalog.installed.map(renderInstalledCard).join('');
+        const query = (state.searchQuery || '').trim().toLowerCase();
+        const apps = filterAppsBySearch(catalog.installed, query);
+        mount.innerHTML = apps.map(renderInstalledCard).join('');
     }
 
     function renderUpdates(root, catalog) {
@@ -861,6 +887,30 @@
         });
     }
 
+    function bindSearch(root) {
+        if (root.dataset.discoverSearchInit === 'true') {
+            return;
+        }
+        root.dataset.discoverSearchInit = 'true';
+        const input = root.querySelector('[data-discover-search]');
+        if (!input) {
+            return;
+        }
+        input.addEventListener('input', () => {
+            state.searchQuery = input.value.trim().toLowerCase();
+            loadCatalog().then((catalog) => {
+                if (!catalog) {
+                    return;
+                }
+                if (state.view === 'home') {
+                    renderHome(root, catalog);
+                } else if (state.view === 'installed') {
+                    renderInstalled(root, catalog);
+                }
+            });
+        });
+    }
+
     function bindCategoryNav(root, catalog) {
         if (root.dataset.discoverCatsInit === 'true') {
             return;
@@ -994,6 +1044,7 @@
             renderAbout(root, catalog);
             switchView(root, catalog, state.view);
             bindCategoryNav(root, catalog);
+            bindSearch(root);
             observeWindowChrome(root);
             syncUpdatesChrome(root, catalog);
             root.dataset.discoverInit = 'true';

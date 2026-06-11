@@ -118,7 +118,31 @@ const plasmaShots = [
     },
   },
   { name: '05-terminal', action: async (page) => openSlot(page, 'terminal') },
-  { name: '06-discover', action: async (page) => openSlot(page, 'update_manager') },
+  {
+    name: '06-discover',
+    action: async (page) => {
+      await page.evaluate(() => {
+        sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+      });
+      await openSlot(page, 'update_manager');
+      await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
+      await page.waitForFunction(
+        () => {
+          const section = document.querySelector('[data-discover-store-section]');
+          return section && section.querySelectorAll('.kde-discover-card').length >= 5;
+        },
+        null,
+        { timeout: 15000 },
+      );
+      await page.evaluate(() => {
+        const section = document.querySelector('[data-discover-store-section]');
+        if (section) {
+          section.scrollIntoView({ block: 'start' });
+        }
+      });
+      await sleep(page, 500);
+    },
+  },
   {
     name: '07-discover-detail-vlc',
     action: async (page) => {

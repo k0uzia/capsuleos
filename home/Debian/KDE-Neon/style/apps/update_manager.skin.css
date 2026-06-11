@@ -1,4 +1,5 @@
 /* Surcouche KDE Neon — Discover (Page d'accueil, réf. VM 2026-06-06) */
+@import url("../../../../../usr/share/capsuleos/linux/apps/style/discover-kde-store-icons.css");
 
 /* ---- Chrome fenêtre Discover (Breeze clair, réf. VM #dee0e2) ---- */
 body#kde-neon div[data-link="update_manager"] {

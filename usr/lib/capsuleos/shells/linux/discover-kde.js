@@ -8,7 +8,6 @@
     const CATALOG_URL = env.CAPSULE_DISCOVER_CATALOG_URL || './content/discover-catalog.json';
     const DISCOVER_ASSET_BASE = './assets/images/vendors/neon/discover/';
     const PANEL_ASSET_BASE = './assets/images/vendors/neon/panel/';
-    const DISCOVER_CATEGORY_ICON_BASE = '../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/';
     const STORE_SECTION_ID = 'capsule-discover';
     const STORE_SECTION_TITLE = 'À découvrir';
 
@@ -25,9 +24,6 @@
     function resolveIconUrl(app) {
         if (!app || !app.icon) {
             return '';
-        }
-        if (app.iconBase === 'category') {
-            return resolveAssetUrl(DISCOVER_CATEGORY_ICON_BASE + app.icon);
         }
         if (app.iconBase === 'panel' || app.icon.indexOf('../panel/') === 0) {
             const name = app.icon.replace(/^\.\.\/panel\//, '');
@@ -59,23 +55,6 @@
         return meta && Array.isArray(meta.appIds) ? meta.appIds : [];
     }
 
-    function categoryIconForStoreEntry(entry) {
-        const categories = entry && Array.isArray(entry.categories) ? entry.categories : [];
-        if (categories.indexOf('productivity') !== -1) {
-            return 'applications-office.svg';
-        }
-        if (categories.indexOf('multimedia') !== -1) {
-            return 'applications-multimedia.svg';
-        }
-        if (categories.indexOf('creation') !== -1) {
-            return 'applications-graphics.svg';
-        }
-        if (categories.indexOf('development') !== -1) {
-            return 'applications-development.svg';
-        }
-        return 'applications-utilities.svg';
-    }
-
     function getStoreDiscoverApps() {
         const registryId = resolveRegistryId();
         const storeList = typeof window !== 'undefined' && window.CAPSULE_STORE_APPS_BY_REGISTRY
@@ -95,8 +74,7 @@
                 id: entry.id,
                 name: entry.title || entry.id,
                 desc: entry.sub || entry.desc || '',
-                icon: categoryIconForStoreEntry(entry),
-                iconBase: 'category',
+                iconClass: entry.iconClass || '',
                 storeEntry: entry,
                 storeInstallable: entry.storeInstallable !== false,
             });
@@ -179,11 +157,20 @@
         }
     }
 
-    function renderAppCard(app) {
+    function renderDiscoverIcon(app, className, size) {
+        const dim = size || 48;
+        const classes = className || 'kde-discover-card__icon';
+        if (app && app.iconClass) {
+            return `<span class="${classes} gnome-software__cardicon ${app.iconClass}" style="width:${dim}px;height:${dim}px" role="img" aria-hidden="true"></span>`;
+        }
         const iconUrl = resolveIconUrl(app);
+        return `<img class="${classes}" src="${iconUrl}" alt="" width="${dim}" height="${dim}">`;
+    }
+
+    function renderAppCard(app) {
         return `
             <article class="kde-discover-card" role="listitem" data-discover-app="${app.id || ''}">
-                <img class="kde-discover-card__icon" src="${iconUrl}" alt="" width="48" height="48">
+                ${renderDiscoverIcon(app, 'kde-discover-card__icon', 48)}
                 <div class="kde-discover-card__text">
                     <span class="kde-discover-card__name">${app.name || ''}</span>
                     <span class="kde-discover-card__desc">${app.desc || ''}</span>
@@ -463,7 +450,6 @@
             origin: app.storeEntry.source === 'flatpak' ? 'Flathub' : 'Ubuntu noble',
         } : null;
         const meta = storeMeta || (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
-        const iconUrl = resolveIconUrl(app);
         const summary = meta.summary || app.desc || '';
         const description = meta.description || summary;
         const screenshots = Array.isArray(meta.screenshots) ? meta.screenshots : [];
@@ -491,7 +477,7 @@
                 </div>
                 <div class="kde-discover-app-detail__top">
                     <div class="kde-discover-app-detail__identity">
-                        <img class="kde-discover-app-detail__icon" src="${iconUrl}" alt="" width="96" height="96">
+                        ${renderDiscoverIcon(app, 'kde-discover-app-detail__icon', 96)}
                         <div class="kde-discover-app-detail__identity-text">
                             <h1 class="kde-discover-app-detail__name">${app.name || ''}</h1>
                             ${developerLine}

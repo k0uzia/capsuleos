@@ -231,6 +231,9 @@ const openSlot = async (page, slot, scene = {}) => {
     }
   }
   if (slot === 'update_manager') {
+    await page.evaluate(() => {
+      sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+    });
     await page.waitForFunction(
       () => {
         const root = document.querySelector('.windowElement[data-link="update_manager"]');
@@ -240,6 +243,24 @@ const openSlot = async (page, slot, scene = {}) => {
       null,
       { timeout: 60000 },
     );
+    if (!scene.discoverView && !scene.discoverAppDetail) {
+      await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
+      await page.waitForFunction(
+        () => {
+          const section = document.querySelector('[data-discover-store-section]');
+          return section && section.querySelectorAll('.kde-discover-card').length >= 5;
+        },
+        null,
+        { timeout: 15000 },
+      );
+      await page.evaluate(() => {
+        const section = document.querySelector('[data-discover-store-section]');
+        if (section) {
+          section.scrollIntoView({ block: 'start' });
+        }
+      });
+      await sleep(page, 400);
+    }
     const shouldMaximize = scene.maximize !== false;
     const isMaximized = await page.evaluate(() => {
       const root = document.querySelector('.windowElement[data-link="update_manager"]');

@@ -43,6 +43,7 @@ const staticSmokes = [
   'smoke-kde-neon-kickoff.mjs',
   'smoke-kde-neon-dolphin.mjs',
   'smoke-kde-neon-discover.mjs',
+  'smoke-discover-kde-neon.mjs',
   'smoke-kde-neon-firefox.mjs',
   'smoke-kde-neon-terminal.mjs',
   'smoke-kde-neon-calendar.mjs',

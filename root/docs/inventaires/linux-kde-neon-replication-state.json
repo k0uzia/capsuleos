@@ -167,7 +167,18 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "ground clôturé — propagation dérivés (openSUSE → MX-KDE → Debian-KDE) un registry à la fois",
+  "nextStep": "campagne Discover magasin D1–D3 — section À découvrir + smoke store",
+  "campaignDiscoverStore": "discover-store-kde-neon",
+  "campaignDiscoverStoreStatus": "in_progress",
+  "campaignDiscoverStoreStartedAt": "2026-06-11T10:20:00.000Z",
+  "discoverStoreRoadmap": "linux-kde-neon-roadmap-discover-store.md",
+  "discoverStoreProgress": {
+    "D1_catalogActive": "2026-06-11",
+    "D2_storeSection": "2026-06-11",
+    "D3_installSmoke": "2026-06-11",
+    "D4_captureBaseline": "pending",
+    "smoke": "smoke-discover-kde-neon.mjs"
+  },
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "closed",
   "campaignGroundClosedAt": "2026-06-11T09:12:00.000Z",

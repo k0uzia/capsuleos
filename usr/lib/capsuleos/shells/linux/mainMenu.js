@@ -53,6 +53,12 @@ function initMainMenu() {
     // Rendu initial
     renderApps('all', '');
 
+    if (isMintCinnamonMenu) {
+        document.addEventListener('capsule:cinnamon-store-menu-pin', function onCinnamonStoreMenuPin() {
+            renderApps(activeCatId, searchInput.value.trim());
+        });
+    }
+
     // ── Recherche temps réel ──────────────────────────────────
     searchInput.addEventListener('input', () => {
         const q = searchInput.value.trim();

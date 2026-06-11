@@ -73,7 +73,7 @@ const includeInStoreCatalog = (registryId, src, binding) => {
   if (src.storeInstallable === true) {
     return true;
   }
-  if (registryId === 'linux-mint' && binding?.storeCatalogStatus === 'active') {
+  if (binding && binding.storeCatalogStatus === 'active' && binding.toolkit === 'cinnamon') {
     return true;
   }
   return false;

@@ -472,11 +472,16 @@
                 ? storeApi.resolveRegistryId()
                 : 'linux-mint';
             if (typeof global.document !== 'undefined' && typeof global.document.dispatchEvent === 'function') {
+                var storeEntry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
+                    ? storeApi.getStoreAppEntry(pkgId)
+                    : null;
+                var installSlot = storeEntry && storeEntry.slot ? storeEntry.slot : pkgId;
+                var installStoreSlot = storeEntry && storeEntry.storeSlot ? storeEntry.storeSlot : installSlot;
                 global.document.dispatchEvent(new CustomEvent('capsule:store-app-installed', {
                     detail: {
                         appId: pkgId,
-                        slot: pkgId,
-                        storeSlot: pkgId,
+                        slot: installSlot,
+                        storeSlot: installStoreSlot,
                         registryId: registryId,
                         source: 'apt'
                     }

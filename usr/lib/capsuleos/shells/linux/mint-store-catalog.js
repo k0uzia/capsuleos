@@ -52,9 +52,24 @@
         return result;
     }
 
-    global.CapsuleMintStore = {
+    function getStoreAppEntry(appId) {
+        var storeList = getStoreList();
+        var i;
+        for (i = 0; i < storeList.length; i += 1) {
+            if (storeList[i].id === appId) {
+                return storeList[i];
+            }
+        }
+        return null;
+    }
+
+    var storeApi = {
         resolveRegistryId: resolveRegistryId,
         getStoreList: getStoreList,
-        getDiscoverApps: getDiscoverApps
+        getDiscoverApps: getDiscoverApps,
+        getStoreAppEntry: getStoreAppEntry
     };
+
+    global.CapsuleMintStore = storeApi;
+    global.CapsuleCinnamonStore = storeApi;
 }(typeof window !== 'undefined' ? window : globalThis));

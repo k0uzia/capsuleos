@@ -82,7 +82,7 @@ const MENU_APPS = [
     { catId: 'bureau', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-draw', name: 'LibreOffice Draw', desc: 'LibreOffice Draw', dataLink: 'libreoffice_draw' },
     { catId: 'bureau', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-impress', name: 'LibreOffice Impress', desc: 'LibreOffice Impress', dataLink: 'libreoffice_impress' },
     { catId: 'bureau', icon: './assets/images/toolkits/cinnamon/apps/libreoffice-writer', name: 'LibreOffice Writer', desc: 'LibreOffice Writer', dataLink: 'libreoffice_startcenter' },
-    { catId: 'admin', icon: './assets/images/toolkits/cinnamon/apps/mintinstall', name: 'Logithèque', desc: 'Software Manager', dataLink: 'update_manager' },
+    { catId: 'admin', icon: './assets/images/toolkits/cinnamon/apps/mintinstall', name: 'Logithèque', desc: 'Software Manager', dataLink: 'mintinstall' },
     { catId: 'internet', icon: './assets/images/toolkits/cinnamon/apps/webapp-OnlineChat4519', name: 'Matrix', desc: 'Matrix', dataLink: 'firefox' },
     { catId: 'internet', icon: './assets/images/toolkits/cinnamon/apps/thunderbird', name: 'Messagerie Thunderbird', desc: 'Thunderbird Mail', dataLink: null },
     { catId: 'prefs', icon: './assets/images/toolkits/cinnamon/apps/mintlocale-im', name: 'Méthode de saisie', desc: 'Input method', dataLink: 'themes', csPanel: 'input-method' },
@@ -111,7 +111,7 @@ const MENU_APPS = [
     { catId: 'prefs', icon: './assets/images/toolkits/cinnamon/apps/cinnamon-wacom-panel', name: 'Tablette graphique', desc: 'Graphics Tablet', dataLink: 'themes', csPanel: 'wacom' },
     { catId: 'prefs', icon: './assets/images/toolkits/cinnamon/apps/cinnamon-settings-themes', name: 'Thèmes', desc: 'Themes', dataLink: 'themes', csPanel: 'themes' },
     { catId: 'prefs', icon: './assets/images/toolkits/cinnamon/apps/cinnamon-settings-thunderbolt', name: 'Thunderbolt', desc: 'Thunderbolt', dataLink: 'themes', csPanel: 'thunderbolt' },
-    { catId: 'admin', icon: './assets/images/toolkits/cinnamon/apps/timeshift-gtk', name: 'Timeshift', desc: 'Timeshift', dataLink: 'update_manager' },
+    { catId: 'admin', icon: './assets/images/toolkits/cinnamon/apps/timeshift-gtk', name: 'Timeshift', desc: 'Timeshift', dataLink: 'timeshift' },
     { catId: 'internet', icon: './assets/images/toolkits/cinnamon/apps/transmission-gtk', name: 'Transmission', desc: 'Transmission', dataLink: null },
     { catId: 'prefs', icon: './assets/images/toolkits/cinnamon/apps/cinnamon-settings-users', name: 'Utilisateurs et groupes', desc: 'Users and Groups', dataLink: 'themes', csPanel: 'users' },
     { catId: 'access', icon: './assets/images/toolkits/cinnamon/apps/vim', name: 'Vim', desc: 'Vim', dataLink: 'text_editor' },
@@ -119,4 +119,8 @@ const MENU_APPS = [
     { catId: 'graph', icon: './assets/images/toolkits/cinnamon/apps/xreader', name: 'Visionneur de documents', desc: 'Document Viewer', dataLink: 'visionneur_pdf' },
     { catId: 'access', icon: './assets/images/toolkits/cinnamon/apps/org.x.Warpinator', name: 'Warpinator', desc: 'Warpinator', dataLink: null },
 ];
+
+if (typeof window !== 'undefined') {
+    window.MENU_APPS = MENU_APPS;
+}
 

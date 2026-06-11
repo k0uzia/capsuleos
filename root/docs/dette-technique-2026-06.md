@@ -10,6 +10,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | `linux-mint` — 5 apps P0 seulement | `generate-mint-registry-overrides.mjs` → **102** entrées depuis inventaire |
 | `audit-gnome-overview-scenarios.mjs` crash | Contrat présent ; audit cinnamon/KDE documenté (skip overview GNOME) |
 | Gate `validate-app-catalog-integrity.mjs` manquante | Ajoutée + intégrée `validate-ui-contracts-all.mjs` |
+| Ubuntu store UI — smoke S5–S12 `deferred` | **Option A** : `CAPSULE_TEMPLATE_OVERRIDES.update_manager` → `update_manager_gnome.html` (comme Pop!_OS) ; branding snap-store conservé dans `presentation-bindings` (Centre d'applications, sources snap/deb/flatpak) ; smoke `smoke-gnome-software-scenarios.mjs --id linux-ubuntu` |
 
 ### Comptage overrides (post-cycle)
 
@@ -29,7 +30,6 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 
 | Domaine | Détail |
 |---------|--------|
-| Ubuntu store UI | Snap Store retail vs GS50 simulé — `snap-store` notOnVm |
 | Rocky Loupe / Papers | Parité P1 overview — slots ok, polish visuel Vc |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
 | KDE Discover store | `storeCatalogStatus: deferred` — neon + openSUSE (0 apps magasin) |

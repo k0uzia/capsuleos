@@ -74,9 +74,9 @@
     --win-mintdrivers-min-width: 520px;
     --win-mintdrivers-min-height: 400px;
 
-    /** Logithèque mintinstall 8.4 — géométrie VM wmctrl (912×784) */
-    --win-mintinstall-width: 912px;
-    --win-mintinstall-height: 784px;
+    /** Logithèque mintinstall 8.4 — géométrie VM visible 860×732 (wmctrl 912×784 inclut 26px d'ombre CSD par côté) */
+    --win-mintinstall-width: 860px;
+    --win-mintinstall-height: 732px;
     --win-mintinstall-min-width: 720px;
     --win-mintinstall-min-height: 560px;
 

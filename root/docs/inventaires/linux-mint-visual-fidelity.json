@@ -1,0 +1,65 @@
+{
+  "registryId": "linux-mint",
+  "contract": "etc/capsuleos/contracts/visual-scenes.json",
+  "updatedAt": "2026-06-11T16:32:20.418Z",
+  "slots": {
+    "mintinstall": {
+      "phi": 92.2,
+      "classification": "match",
+      "scenes": [
+        {
+          "id": "home",
+          "priority": "P0",
+          "label": "Accueil mintinstall 8.4 — hero VLC, Logiciels phares, Catégories, Les mieux notés",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/vm/home.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/home.png",
+          "geometry": {
+            "vm": {
+              "width": 860,
+              "height": 732
+            },
+            "clone": {
+              "width": 860,
+              "height": 732
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.2,
+          "pixels": {
+            "compared": 480000,
+            "mismatched": 37376
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/diff/home.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "browse-all",
+          "priority": "P1",
+          "label": "Catégorie Tous les logiciels — sidebar + liste + À découvrir",
+          "vmCapture": null,
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/browse-all.png",
+          "classification": "unmeasured",
+          "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
+        },
+        {
+          "id": "detail",
+          "priority": "P1",
+          "label": "Fiche application — détail VLC/LibreOffice",
+          "vmCapture": null,
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/detail.png",
+          "classification": "unmeasured",
+          "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
+        }
+      ],
+      "updatedAt": "2026-06-11T16:32:20.787Z"
+    }
+  }
+}

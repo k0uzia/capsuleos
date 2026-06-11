@@ -222,6 +222,37 @@ if (linuxFacades.status !== 0) {
     }
 }
 
+// Gates câblage skins : ordre scripts/artefacts + fraîcheur embed (logique-formelle §2.4b, campagne Φ)
+const skinScriptOrder = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-skin-script-order.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (skinScriptOrder.status !== 0) {
+    const out = (skinScriptOrder.stdout || '') + (skinScriptOrder.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Ordre scripts skins — validate-skin-script-order.mjs');
+    }
+}
+
+const embedFreshness = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-embed-freshness.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (embedFreshness.status !== 0) {
+    const out = (embedFreshness.stdout || '') + (embedFreshness.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Embed périmé — validate-embed-freshness.mjs');
+    }
+}
+
 if (warnings.length) {
     console.warn('\nAvertissements:');
     warnings.forEach((w) => console.warn(`  ⚠ ${w}`));

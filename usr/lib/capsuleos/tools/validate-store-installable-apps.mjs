@@ -212,8 +212,8 @@ if (!mintStoreRuntime.includes('getStoreAppEntry')) {
 if (!cinnamonShellPin.includes('capsule:store-app-installed')) {
     errors.push('cinnamon-store-shell-pin.js : écoute capsule:store-app-installed absente');
 }
-if (!mintHtml.includes('mi-app__featured')) {
-    errors.push('mintinstall.html : section vedette absente');
+if (!mintHtml.includes('data-mi-spotlight') && !mintHtml.includes('mi-app__featured')) {
+    errors.push('mintinstall.html : section logiciels phares / vedette absente');
 }
 if (!mintHtml.includes('data-mi-discover-grid')) {
     errors.push('mintinstall.html : section À découvrir absente');

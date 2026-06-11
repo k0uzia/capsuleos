@@ -58,6 +58,8 @@
         file_roller: './assets/images/toolkits/cinnamon/apps/file-roller',
         calendar: './assets/images/toolkits/cinnamon/apps/org.gnome.Calendar',
         simple_scan: './assets/images/toolkits/cinnamon/apps/simple-scan',
+        warpinator: './assets/images/toolkits/cinnamon/apps/org.x.Warpinator',
+        timeshift: './assets/images/toolkits/cinnamon/apps/timeshift-gtk',
         baobab: './assets/images/toolkits/cinnamon/apps/org.gnome.baobab',
         snapshot: './assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg'
     };
@@ -195,39 +197,242 @@
         return btn;
     }
 
-    function renderFeaturedSection(root) {
-        var skinCatalog = getSkinCatalog();
-        var featuredWrap = root.querySelector('.mi-app__featured');
-        if (!featuredWrap || !skinCatalog || !skinCatalog.featured || !skinCatalog.featured.length) {
+    function isVm84Layout(skinCatalog) {
+        return !!(skinCatalog && skinCatalog.layout === 'mintinstall-8.4');
+    }
+
+    function setLayoutMode(root, mode) {
+        if (!root) {
             return;
         }
-        featuredWrap.innerHTML = '';
-        var fi;
-        for (fi = 0; fi < skinCatalog.featured.length; fi += 1) {
-            var feat = skinCatalog.featured[fi];
-            var card = global.document.createElement('li');
-            card.className = 'mi-app__featured-card';
-            var icon = global.document.createElement('img');
-            icon.src = resolveIconUrl(feat.icon);
-            icon.alt = '';
-            icon.width = 48;
-            icon.height = 48;
-            var label = global.document.createElement('span');
-            label.className = 'mi-app__featured-name';
-            label.textContent = feat.name;
-            card.appendChild(icon);
-            card.appendChild(label);
-            featuredWrap.appendChild(card);
+        if (mode === 'home') {
+            root.classList.add('mi-app--mode-home');
+            root.classList.remove('mi-app--mode-browse');
+            return;
         }
+        root.classList.remove('mi-app--mode-home');
+        root.classList.add('mi-app--mode-browse');
+    }
+
+    function renderHero(root, skinCatalog) {
+        var mount = root.querySelector('[data-mi-hero-mount]');
+        if (!mount || !skinCatalog || !skinCatalog.hero || !skinCatalog.hero.length) {
+            return;
+        }
+        mount.innerHTML = '';
+        // Bannière unique pleine largeur — structure mintinstall 8.4 VM (carousel réseau).
+        var slide = skinCatalog.hero[0];
+        var promo = global.document.createElement('div');
+        promo.className = 'mi-app__hero-slide mi-app__hero-slide--banner';
+        if (slide.accent) {
+            promo.style.background = 'linear-gradient(135deg, ' + slide.accent + ' 0%, ' + (slide.accentEnd || slide.accent) + ' 100%)';
+        }
+        var row = global.document.createElement('div');
+        row.className = 'mi-app__hero-promo';
+        var icon = global.document.createElement('img');
+        icon.className = 'mi-app__hero-icon';
+        icon.src = resolveIconUrl(slide.icon);
+        icon.alt = '';
+        var text = global.document.createElement('div');
+        text.className = 'mi-app__hero-text';
+        var name = global.document.createElement('p');
+        name.className = 'mi-app__hero-name';
+        name.textContent = slide.name;
+        var desc = global.document.createElement('p');
+        desc.className = 'mi-app__hero-desc';
+        desc.textContent = slide.desc;
+        text.appendChild(name);
+        text.appendChild(desc);
+        if (slide.flathub) {
+            var badge = global.document.createElement('p');
+            badge.className = 'mi-app__hero-flathub mi-app__spotlight-flathub';
+            badge.textContent = 'Flathub';
+            text.appendChild(badge);
+        }
+        row.appendChild(icon);
+        row.appendChild(text);
+        var nav = global.document.createElement('div');
+        nav.className = 'mi-app__hero-nav';
+        nav.setAttribute('aria-hidden', 'true');
+        var prev = global.document.createElement('button');
+        prev.type = 'button';
+        prev.className = 'mi-app__hero-nav-btn mi-app__hero-nav-btn--prev';
+        prev.setAttribute('tabindex', '-1');
+        prev.textContent = '‹';
+        var dots = global.document.createElement('div');
+        dots.className = 'mi-app__hero-dots';
+        var di;
+        for (di = 0; di < 5; di += 1) {
+            var dot = global.document.createElement('span');
+            dot.className = 'mi-app__hero-dot';
+            if (di === 0) {
+                dot.classList.add('is-active');
+            }
+            dots.appendChild(dot);
+        }
+        var next = global.document.createElement('button');
+        next.type = 'button';
+        next.className = 'mi-app__hero-nav-btn mi-app__hero-nav-btn--next';
+        next.setAttribute('tabindex', '-1');
+        next.textContent = '›';
+        nav.appendChild(prev);
+        nav.appendChild(dots);
+        nav.appendChild(next);
+        promo.appendChild(row);
+        promo.appendChild(nav);
+        mount.appendChild(promo);
+    }
+
+    function renderSpotlight(root, skinCatalog) {
+        var grid = root.querySelector('[data-mi-spotlight]');
+        if (!grid || !skinCatalog || !skinCatalog.spotlight || !skinCatalog.spotlight.length) {
+            return;
+        }
+        grid.innerHTML = '';
+        var si;
+        for (si = 0; si < skinCatalog.spotlight.length; si += 1) {
+            var item = skinCatalog.spotlight[si];
+            var card = global.document.createElement('li');
+            card.className = 'mi-app__spotlight-card';
+            var iconEl = global.document.createElement('img');
+            iconEl.src = resolveIconUrl(item.icon);
+            iconEl.alt = '';
+            var title = global.document.createElement('p');
+            title.className = 'mi-app__spotlight-name';
+            title.textContent = item.name;
+            var blurb = global.document.createElement('p');
+            blurb.className = 'mi-app__spotlight-desc';
+            blurb.textContent = item.desc;
+            var meta = global.document.createElement('div');
+            meta.className = 'mi-app__spotlight-meta';
+            if (item.flathub) {
+                var flat = global.document.createElement('span');
+                flat.className = 'mi-app__spotlight-flathub';
+                flat.textContent = 'Flathub';
+                meta.appendChild(flat);
+            } else {
+                meta.appendChild(global.document.createElement('span'));
+            }
+            if (item.rating) {
+                var rating = global.document.createElement('span');
+                rating.textContent = item.rating + ' ★';
+                meta.appendChild(rating);
+            }
+            card.appendChild(iconEl);
+            card.appendChild(title);
+            card.appendChild(blurb);
+            card.appendChild(meta);
+            grid.appendChild(card);
+        }
+    }
+
+    function renderHomeCategories(root, skinCatalog) {
+        var grid = root.querySelector('[data-mi-home-cats]');
+        if (!grid || !skinCatalog || !skinCatalog.homeCategories || !skinCatalog.homeCategories.length) {
+            return;
+        }
+        grid.innerHTML = '';
+        var ci;
+        for (ci = 0; ci < skinCatalog.homeCategories.length; ci += 1) {
+            var cat = skinCatalog.homeCategories[ci];
+            var li = global.document.createElement('li');
+            var btn = global.document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'mi-app__home-cat';
+            btn.setAttribute('data-mi-home-cat', cat.id);
+            var iconEl = global.document.createElement('img');
+            iconEl.src = resolveIconUrl(cat.icon);
+            iconEl.alt = '';
+            var label = global.document.createElement('span');
+            label.textContent = cat.label;
+            btn.appendChild(iconEl);
+            btn.appendChild(label);
+            li.appendChild(btn);
+            grid.appendChild(li);
+        }
+    }
+
+    function renderTopRated(root, skinCatalog) {
+        var grid = root.querySelector('[data-mi-top-rated]');
+        if (!grid || !skinCatalog || !skinCatalog.topRated || !skinCatalog.topRated.length) {
+            return;
+        }
+        grid.innerHTML = '';
+        var ti;
+        for (ti = 0; ti < skinCatalog.topRated.length; ti += 1) {
+            var item = skinCatalog.topRated[ti];
+            var card = global.document.createElement('li');
+            card.className = 'mi-app__top-rated-card';
+            if (item.id) {
+                card.setAttribute('data-mi-pkg', item.id);
+            }
+            var iconEl = global.document.createElement('img');
+            iconEl.src = resolveIconUrl(item.icon);
+            iconEl.alt = '';
+            var body = global.document.createElement('div');
+            body.className = 'mi-app__top-rated-body';
+            var title = global.document.createElement('p');
+            title.className = 'mi-app__top-rated-name';
+            title.textContent = item.name;
+            var blurb = global.document.createElement('p');
+            blurb.className = 'mi-app__top-rated-desc';
+            blurb.textContent = item.desc;
+            body.appendChild(title);
+            body.appendChild(blurb);
+            var meta = global.document.createElement('div');
+            meta.className = 'mi-app__top-rated-meta';
+            if (item.flathub) {
+                var flat = global.document.createElement('span');
+                flat.className = 'mi-app__top-rated-flathub';
+                flat.textContent = 'Flathub';
+                meta.appendChild(flat);
+            } else {
+                meta.appendChild(global.document.createElement('span'));
+            }
+            if (item.rating) {
+                var rating = global.document.createElement('span');
+                rating.textContent = item.rating + ' ★';
+                meta.appendChild(rating);
+            }
+            card.appendChild(iconEl);
+            card.appendChild(body);
+            card.appendChild(meta);
+            grid.appendChild(card);
+        }
+    }
+
+    function renderHomeVm84(root) {
+        var skinCatalog = getSkinCatalog();
+        if (!isVm84Layout(skinCatalog)) {
+            return;
+        }
+        renderHero(root, skinCatalog);
+        renderSpotlight(root, skinCatalog);
+        renderHomeCategories(root, skinCatalog);
+        renderTopRated(root, skinCatalog);
         var discoverTitle = root.querySelector('.mi-app__discover-title');
         if (discoverTitle && skinCatalog.discover && skinCatalog.discover.title) {
             discoverTitle.textContent = skinCatalog.discover.title;
         }
     }
 
-    function renderDiscoverSection(root, installed, storeApi) {
+    function renderDiscoverSection(root, installed, storeApi, catId) {
+        var section = root.querySelector('[data-mi-discover-section]');
         var grid = root.querySelector('[data-mi-discover-grid]');
         if (!grid) {
+            return;
+        }
+        var showDiscover = catId === 'all';
+        if (section) {
+            if (showDiscover) {
+                section.removeAttribute('hidden');
+            } else {
+                section.setAttribute('hidden', 'hidden');
+            }
+        }
+        if (!showDiscover) {
+            grid.innerHTML = '';
+            grid.setAttribute('hidden', 'hidden');
             return;
         }
         var discover = buildDiscoverCatalog(installed);
@@ -243,6 +448,8 @@
             var card = global.document.createElement('li');
             card.className = 'mi-app__discover-card';
             card.setAttribute('data-mi-pkg', entry.id);
+            var row = global.document.createElement('div');
+            row.className = 'mi-app__discover-card__row';
             var icon = global.document.createElement('img');
             icon.className = 'mi-app__list-icon';
             icon.src = resolveIconUrl(entry.icon);
@@ -256,8 +463,9 @@
             desc.textContent = entry.desc;
             info.appendChild(name);
             info.appendChild(desc);
-            card.appendChild(icon);
-            card.appendChild(info);
+            row.appendChild(icon);
+            row.appendChild(info);
+            card.appendChild(row);
             card.appendChild(createPkgActionButton(entry, installed[entry.id], storeApi));
             grid.appendChild(card);
         }
@@ -417,7 +625,13 @@
 
         var winEl = getWindowEl(root);
         syncWindowTitle(winEl);
-        renderFeaturedSection(root);
+        var skinCatalogInit = getSkinCatalog();
+        var useVm84 = isVm84Layout(skinCatalogInit);
+        if (useVm84) {
+            root.classList.add('mi-app--layout-vm84');
+            setLayoutMode(root, 'home');
+            renderHomeVm84(root);
+        }
 
         var searchInput = root.querySelector('#mi-search');
         var listEl = root.querySelector('#mi-app-list');
@@ -444,7 +658,7 @@
         var installed = loadInstalledState(catalog, storeApi, registryId);
         var miBusy = false;
 
-        renderDiscoverSection(root, installed, storeApi);
+        renderDiscoverSection(root, installed, storeApi, currentCat);
 
         function setStatus(msg) {
             if (statusEl) {
@@ -502,7 +716,7 @@
                 storeApi.recordStoreInstall(registryId, pkgId, 'apt');
             }
             openDetail(pkgId);
-            renderDiscoverSection(root, installed, storeApi);
+            renderDiscoverSection(root, installed, storeApi, currentCat);
             if (currentCat !== 'home' && currentCat !== 'installed') {
                 renderCategoryList(currentCat);
             }
@@ -599,6 +813,7 @@
             var label = CAT_LABELS[catId] || catId;
             listTitle.textContent = label;
             listEl.innerHTML = '';
+            renderDiscoverSection(root, installed, storeApi, catId);
             var items = filterCatalog(catId);
             var ii;
             for (ii = 0; ii < items.length; ii += 1) {
@@ -611,8 +826,15 @@
             currentCat = catId;
             setActiveCategory(root, catId);
             if (catId === 'home') {
+                if (useVm84) {
+                    setLayoutMode(root, 'home');
+                    renderHomeVm84(root);
+                }
                 showPage(root, 'home');
                 return;
+            }
+            if (useVm84) {
+                setLayoutMode(root, 'browse');
             }
             renderCategoryList(catId);
         }
@@ -693,6 +915,11 @@
             if (!target || !target.closest) {
                 return;
             }
+            var homeCatBtn = target.closest('[data-mi-home-cat]');
+            if (homeCatBtn) {
+                onCategoryClick(homeCatBtn.getAttribute('data-mi-home-cat'));
+                return;
+            }
             var catBtn = target.closest('[data-mi-cat]');
             if (catBtn) {
                 onCategoryClick(catBtn.getAttribute('data-mi-cat'));
@@ -720,6 +947,11 @@
             var discoverCard = target.closest('.mi-app__discover-card');
             if (discoverCard && !target.closest('[data-mi-install]') && !target.closest('[data-mi-open]')) {
                 openDetail(discoverCard.getAttribute('data-mi-pkg'));
+                return;
+            }
+            var topRatedCard = target.closest('.mi-app__top-rated-card');
+            if (topRatedCard && topRatedCard.getAttribute('data-mi-pkg')) {
+                openDetail(topRatedCard.getAttribute('data-mi-pkg'));
                 return;
             }
             var detailInstall = target.closest('[data-mi-detail-install]');

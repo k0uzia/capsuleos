@@ -76,8 +76,20 @@ async function clearStoreSession(page) {
 
 async function focusMintinstall(page) {
     await page.evaluate(() => {
-        if (typeof window.openWindowByDataLink === 'function') {
-            window.openWindowByDataLink('mintinstall');
+        var win = document.querySelector('div[data-link="mintinstall"]');
+        if (!win) {
+            return;
+        }
+        var hidden = win.style.display === 'none' || win.offsetParent === null;
+        if (hidden) {
+            if (typeof window.openWindowByDataLink === 'function') {
+                window.openWindowByDataLink('mintinstall');
+            }
+            return;
+        }
+        win.style.display = '';
+        if (typeof window.activateWindow === 'function') {
+            window.activateWindow(win);
         }
     });
     await page.waitForSelector('div[data-link="mintinstall"]', { state: 'visible', timeout: 8000 });
@@ -92,6 +104,40 @@ async function ensureMintHome(page) {
         }
     });
     await page.waitForSelector('[data-mi-page="home"]:not([hidden])', { timeout: 8000 });
+}
+
+/** Accueil VM 8.4 : sidebar masquée sur l'accueil — bascule browse si besoin. */
+async function clickMiCat(page, catId) {
+    await focusMintinstall(page);
+    await page.evaluate((id) => {
+        var root = document.getElementById('mintInstallApp');
+        var homeBtn = document.querySelector('[data-mi-home-cat="' + id + '"]');
+        if (homeBtn) {
+            homeBtn.click();
+            return;
+        }
+        if (root) {
+            root.classList.remove('mi-app--mode-home');
+            root.classList.add('mi-app--mode-browse');
+        }
+        var sideBtn = document.querySelector('[data-mi-cat="' + id + '"]');
+        if (sideBtn) {
+            sideBtn.click();
+        }
+    }, catId);
+    await page.waitForFunction((id) => {
+        var pageEl = document.querySelector('[data-mi-page="' + (id === 'home' ? 'home' : 'list') + '"]');
+        return pageEl && !pageEl.hasAttribute('hidden');
+    }, catId, { timeout: 12000 });
+}
+
+async function ensureDiscoverContext(page) {
+    await clickMiCat(page, 'all');
+    await page.waitForFunction(() => {
+        var grid = document.querySelector('[data-mi-discover-grid]');
+        return grid && !grid.hasAttribute('hidden')
+            && grid.querySelectorAll('.mi-app__discover-card').length >= 1;
+    }, { timeout: 15000 });
 }
 
 async function openMintinstall(page) {
@@ -137,8 +183,7 @@ async function waitInstallComplete(page, appId) {
 }
 
 async function runInstallFlow(page, appId) {
-    await focusMintinstall(page);
-    await ensureMintHome(page);
+    await ensureDiscoverContext(page);
     await clickInstallButton(page, appId);
     await waitInstallComplete(page, appId);
 }
@@ -146,7 +191,7 @@ async function runInstallFlow(page, appId) {
 async function runScenario(page, scenario) {
     if (scenario.id === 'Mi1') {
         await openMintinstall(page);
-        await page.click('[data-mi-cat="office"]');
+        await clickMiCat(page, 'office');
         await page.waitForTimeout(200);
         await page.click('[data-mi-pkg="librewriter"]');
         await page.waitForTimeout(200);
@@ -193,7 +238,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi4') {
         await openMintinstall(page);
-        await page.click('[data-mi-cat="installed"]');
+        await clickMiCat(page, 'installed');
         await page.waitForTimeout(300);
         await page.click('#mi-app-list [data-mi-open="firefox"]');
         await page.waitForSelector('div[data-link="firefox"]', { state: 'visible', timeout: 8000 });
@@ -201,18 +246,18 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi5') {
         await openMintinstall(page);
-        await page.click('[data-mi-cat="accessories"]');
+        await clickMiCat(page, 'accessories');
         await page.waitForTimeout(300);
         await page.click('[data-mi-open="file_roller"]');
         await page.waitForSelector('div[data-link="file_roller"]', { state: 'visible', timeout: 8000 });
         await focusMintinstall(page);
-        await page.click('[data-mi-cat="installed"]', { force: true });
+        await clickMiCat(page, 'installed');
         await page.waitForSelector('#mi-app-list [data-mi-pkg="file-roller"]', { timeout: 8000 });
         return;
     }
     if (scenario.id === 'Mi6') {
         await openMintinstall(page);
-        await page.click('[data-mi-cat="office"]');
+        await clickMiCat(page, 'office');
         await page.waitForTimeout(300);
         await page.click('[data-mi-open="librewriter"]');
         await page.waitForSelector('div[data-link="librewriter"]', { state: 'visible', timeout: 8000 });
@@ -220,7 +265,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi7') {
         await openMintinstall(page);
-        await page.click('[data-mi-cat="accessories"]');
+        await clickMiCat(page, 'accessories');
         await page.waitForTimeout(300);
         await page.click('[data-mi-open="calendar"]');
         await page.waitForSelector('div[data-link="calendar"]', { state: 'visible', timeout: 8000 });
@@ -228,7 +273,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi8') {
         await openMintinstall(page);
-        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="thunderbird"]', { timeout: 8000 });
+        await ensureDiscoverContext(page);
         await runInstallFlow(page, 'thunderbird');
         await focusMintinstall(page);
         await page.evaluate(() => {
@@ -242,10 +287,10 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi9') {
         await openMintinstall(page);
-        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="transmission"]', { timeout: 8000 });
+        await ensureDiscoverContext(page);
         await runInstallFlow(page, 'transmission');
         await focusMintinstall(page);
-        await page.click('[data-mi-cat="installed"]', { force: true });
+        await clickMiCat(page, 'installed');
         await page.waitForSelector('#mi-app-list [data-mi-pkg="transmission"]', { timeout: 8000 });
         const tag = await page.evaluate(() => document.getElementById('mintInstallApp').dataset.miScenario);
         if (tag !== 'Mi9-complete') {
@@ -255,7 +300,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi10') {
         await openMintinstall(page);
-        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="warpinator"]', { timeout: 8000 });
+        await ensureDiscoverContext(page);
         await runInstallFlow(page, 'warpinator');
         await focusMintinstall(page);
         await page.evaluate(() => {
@@ -269,7 +314,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi11') {
         await openMintinstall(page);
-        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="rhythmbox"]', { timeout: 8000 });
+        await ensureDiscoverContext(page);
         await runInstallFlow(page, 'rhythmbox');
         await focusMintinstall(page);
         await page.evaluate(() => {
@@ -283,7 +328,7 @@ async function runScenario(page, scenario) {
     }
     if (scenario.id === 'Mi12') {
         await openMintinstall(page);
-        await page.waitForSelector('[data-mi-discover-grid]:not([hidden]) [data-mi-pkg="simple-scan"]', { timeout: 8000 });
+        await ensureDiscoverContext(page);
         await runInstallFlow(page, 'simple-scan');
         await focusMintinstall(page);
         await page.evaluate(() => {

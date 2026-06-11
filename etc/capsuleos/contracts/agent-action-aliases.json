@@ -59,14 +59,18 @@
       "rule": "R-PWD1",
       "description": "Copie clé SSH lab — une invite (ssh-copy-id ou mot de passe VM)",
       "script": "root/tools/lab/setup-lab-ssh-key.sh",
-      "replaces": ["ssh-copy-id"],
+      "replaces": [
+        "ssh-copy-id"
+      ],
       "when": "¬M_key_auth"
     },
     "vendor-assets-pipeline": {
       "rule": "R-PWD1",
       "description": "Pipeline assets VM complet — pull, WebP, miniatures fonds, inventory-optimize, gates (prérequis VΣ)",
       "script": "usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs",
-      "args": ["--id"],
+      "args": [
+        "--id"
+      ],
       "replaces": [
         "pull-vm-assets.sh",
         "prepare-web-media.mjs --vendor",
@@ -102,7 +106,9 @@
       "command": "node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs --id {id}",
       "autoExecute": true,
       "requiresPassword": false,
-      "requires": ["M"]
+      "requires": [
+        "M"
+      ]
     },
     "visual-investigation-p0": {
       "predicate": "V",
@@ -163,35 +169,45 @@
       "rule": "R-MAN-CHAIN",
       "command": "node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id {id} --auto --write",
       "autoExecute": true,
-      "requires": ["M"]
+      "requires": [
+        "M"
+      ]
     },
     "collect-vm-manifest": {
       "predicate": "ManV",
       "rule": "R-MAN1",
       "command": "node usr/lib/capsuleos/tools/lab/collect-vm-distribution-manifest.mjs --id {id} --write --ssh",
       "autoExecute": true,
-      "requires": ["M"]
+      "requires": [
+        "M"
+      ]
     },
     "approve-vm-manifest": {
       "predicate": "ManA",
       "rule": "R-MAN3",
       "command": "node usr/lib/capsuleos/tools/lab/approve-vm-distribution-manifest.mjs --id {id} --write",
       "autoExecute": false,
-      "requires": ["ManS"]
+      "requires": [
+        "ManS"
+      ]
     },
     "import-vm-manifest": {
       "predicate": "ManI",
       "rule": "R-MAN5",
       "command": "node usr/lib/capsuleos/tools/lab/import-manifest-staging.mjs --id {id} --write",
       "autoExecute": true,
-      "requires": ["ManSt"]
+      "requires": [
+        "ManSt"
+      ]
     },
     "import-vm-manifest-legacy": {
       "predicate": "ManI",
       "rule": "R-MAN5-LEGACY",
       "command": "node usr/lib/capsuleos/tools/lab/import-vm-manifest-assets.mjs --id {id} --write",
       "autoExecute": false,
-      "requires": ["ManA"],
+      "requires": [
+        "ManA"
+      ],
       "note": "Rsync direct depuis manifest.import.bundles — préférer import-manifest-staging.mjs"
     },
     "apps-catalog": {
@@ -307,6 +323,33 @@
       "rule": "R-CRED-AUTO",
       "command": "node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id {id} --scope app-fidelity",
       "autoExecute": true
+    },
+    "visual-fidelity-capture": {
+      "predicate": "PhiC",
+      "rule": "R-PHI1",
+      "command": "node usr/lib/capsuleos/tools/lab/capture-scene-pair.mjs --id {id} --slot {slot}",
+      "autoExecute": true,
+      "requiresPassword": false,
+      "requires": [
+        "M"
+      ]
+    },
+    "visual-fidelity-pass": {
+      "predicate": "PhiM",
+      "rule": "R-PHI2",
+      "command": "node usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs --id {id}",
+      "autoExecute": true,
+      "requiresPassword": false,
+      "requires": [
+        "PhiC"
+      ]
+    },
+    "visual-fidelity-computed": {
+      "predicate": "PhiI",
+      "rule": "R-PHI3",
+      "command": "CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/assert-computed-vs-inventory.mjs --id {id} --slot {slot}",
+      "autoExecute": true,
+      "requiresPassword": false
     }
   },
   "appFidelity": {
@@ -315,7 +358,13 @@
     "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
     "formalChain": "usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs",
     "defaultScope": "app-fidelity",
-    "predicates": ["CredV", "CredC", "CredS", "CredΠ", "CredΣ"]
+    "predicates": [
+      "CredV",
+      "CredC",
+      "CredS",
+      "CredΠ",
+      "CredΣ"
+    ]
   },
   "playbookGeneral": {
     "contract": "etc/capsuleos/contracts/playbook-general.json",

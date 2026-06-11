@@ -40,16 +40,32 @@ await page.evaluate(() => {
   if (findBtn) findBtn.click();
 });
 await page.waitForTimeout(50);
-await page.fill('#xed-find-input', 'beta');
-await page.click('[data-xed-dialog="find-next"]');
+// xed 46 : recherche via barre inline #xed-searchbar (fallback dialogue si absente).
+const usesSearchbar = await page.evaluate(() => {
+  const bar = document.getElementById('xed-searchbar');
+  return !!bar && !bar.hidden;
+});
+if (usesSearchbar) {
+  await page.fill('#xed-searchbar-input', 'beta');
+  await page.click('[data-xed-searchbar="next"]');
+} else {
+  await page.fill('#xed-find-input', 'beta');
+  await page.click('[data-xed-dialog="find-next"]');
+}
 await page.waitForTimeout(40);
 const find = await page.evaluate(() => {
   const area = document.getElementById('xed-area');
   const sel = area ? area.value.substring(area.selectionStart, area.selectionEnd) : '';
+  const bar = document.getElementById('xed-searchbar');
   const dlg = document.getElementById('xed-find-dialog');
-  return { sel, dlgOpen: dlg && !dlg.hidden };
+  return { sel, dlgOpen: (bar && !bar.hidden) || (dlg && !dlg.hidden) };
 });
-await page.click('#xed-find-dialog [data-xed-dialog="close"]');
+await page.evaluate(() => {
+  const closeBar = document.querySelector('[data-xed-searchbar="close"]');
+  if (closeBar) closeBar.click();
+  const close = document.querySelector('#xed-find-dialog [data-xed-dialog="close"]');
+  if (close) close.click();
+});
 
 await page.evaluate(() => {
   const triggers = document.querySelectorAll('.xed-menu__trigger');

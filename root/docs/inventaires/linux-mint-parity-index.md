@@ -26,6 +26,10 @@ L'indice mesure la **fidélité interactionnelle** (pas seulement l'ouverture de
 
 **Π_app** = moyenne des six dimensions · **Π_global** = moyenne pondérée (shell 25 %, apps 75 %).
 
+## Fidélité visuelle mesurée (Φ)
+
+Depuis la campagne `phi-visual-fidelity`, la dimension **Π_vis** intègre le check `phi-visual` : pour tout slot avec scènes P0 déclarées dans [`visual-scenes.json`](../../../etc/capsuleos/contracts/visual-scenes.json), Π=100 exige **Φ mesuré `match`** (diff pixel VM ↔ clone, `compare-visual-fidelity.mjs`). Champs `phi` / `phiClassification` par slot et `phi_global` (min des Φ mesurés) dans l'indice ; slot déclaré non mesuré → `status_global: pending-phi`. Voir `logique-formelle.md` §2.4b et [`linux-mint-visual-fidelity.json`](linux-mint-visual-fidelity.json).
+
 ## Statuts
 
 | Score | Statut |

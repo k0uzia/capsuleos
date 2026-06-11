@@ -1,197 +1,247 @@
 {
-  "registryId": "linux-mint",
-  "campaign": "v3-credibility-pass",
-  "vm": {
-    "host": "capsule@192.168.1.146",
-    "inventory": "linux-mint-vm.json",
-    "labConfig": "etc/capsuleos/lab-inventory.json"
+ "registryId": "linux-mint",
+ "campaign": "v3-credibility-pass",
+ "vm": {
+  "host": "capsule@192.168.1.146",
+  "inventory": "linux-mint-vm.json",
+  "labConfig": "etc/capsuleos/lab-inventory.json"
+ },
+ "catalog": {
+  "vmMenuEntries": 101,
+  "capsuleSlots": 44,
+  "slotsOpenOk": 101,
+  "interactionParityMeasured": true
+ },
+ "parity": {
+  "index": "linux-mint-parity-index.json",
+  "doc": "linux-mint-parity-index.md",
+  "matrix": "linux-mint-ui-state-effects-matrix.json"
+ },
+ "priorityQueue": [
+  "nemo",
+  "firefox",
+  "text_editor",
+  "calculator",
+  "file_roller",
+  "update_manager",
+  "mintinstall",
+  "themes"
+ ],
+ "tools": {
+  "collect": "usr/lib/capsuleos/tools/lab/collect-app-interaction-inventory.mjs",
+  "parityPass": "usr/lib/capsuleos/tools/lab/run-app-parity-pass.mjs",
+  "uiEffects": "usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs",
+  "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
+  "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs",
+  "cloneCycle": "usr/lib/capsuleos/tools/lab/run-clone-cycle.mjs",
+  "crossRegression": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs",
+  "fidelityCampaign": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
+  "fidelitySmoke": "usr/lib/capsuleos/tools/lab/smoke-app-fidelity-scenario.mjs"
+ },
+ "cloneEngine": {
+  "contract": "etc/capsuleos/contracts/clone-cycle-engine.json",
+  "doc": "root/docs/moteur-clonage-experience.md",
+  "currentCycle": "C10",
+  "nextCycle": "Cred",
+  "cyclesToPi100": {
+   "minimum": 10,
+   "typical": 11,
+   "remaining": 0
   },
-  "catalog": {
-    "vmMenuEntries": 101,
-    "capsuleSlots": 44,
-    "slotsOpenOk": 101,
-    "interactionParityMeasured": true
+  "appsScope": "priority"
+ },
+ "credibilityCampaign": {
+  "id": "v3-credibility-pass",
+  "doc": "root/docs/campagne-credibilite-pedagogique.md",
+  "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
+  "inventory": "linux-mint-app-fidelity-scenarios.json",
+  "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
+  "currentPhase": "P-F3-complete",
+  "p0Complete": true,
+  "p0Commit": "a4e1918",
+  "wave1Complete": true,
+  "wave1Commit": "224c728",
+  "wave2Complete": true,
+  "wave2Slots": 22,
+  "scenarios": {
+   "total": 130,
+   "credV": 130,
+   "credC": 130,
+   "credS": 130,
+   "appsAtPi100": 43
   },
-  "parity": {
-    "index": "linux-mint-parity-index.json",
-    "doc": "linux-mint-parity-index.md",
-    "matrix": "linux-mint-ui-state-effects-matrix.json"
+  "predicates": {
+   "CredV": true,
+   "CredC": true,
+   "CredS": true,
+   "CredΠ": true,
+   "CredΣ": true
   },
-  "priorityQueue": [
-    "nemo",
-    "firefox",
-    "text_editor",
-    "calculator",
-    "file_roller",
-    "update_manager",
-    "mintinstall",
-    "themes"
-  ],
-  "tools": {
-    "collect": "usr/lib/capsuleos/tools/lab/collect-app-interaction-inventory.mjs",
-    "parityPass": "usr/lib/capsuleos/tools/lab/run-app-parity-pass.mjs",
-    "uiEffects": "usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs",
-    "extendMatrix": "usr/lib/capsuleos/tools/lab/extend-ui-state-effects-matrix.mjs",
-    "compareVm": "usr/lib/capsuleos/tools/lab/compare-os-parity.mjs",
-    "cloneCycle": "usr/lib/capsuleos/tools/lab/run-clone-cycle.mjs",
-    "crossRegression": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs",
-    "fidelityCampaign": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
-    "fidelitySmoke": "usr/lib/capsuleos/tools/lab/smoke-app-fidelity-scenario.mjs"
+  "gapMap": "linux-mint-app-fidelity-gaps.json",
+  "gapSummary": {
+   "menuEntriesVm": 101,
+   "gapSlotsTotal": 0,
+   "gapSlotsWave1P0P1": 0,
+   "gapSlotsWave2P2": 0,
+   "scenariosToAdd": 0,
+   "nextWave2Slot": null
   },
-  "cloneEngine": {
-    "contract": "etc/capsuleos/contracts/clone-cycle-engine.json",
-    "doc": "root/docs/moteur-clonage-experience.md",
-    "currentCycle": "C10",
-    "nextCycle": "Cred",
-    "cyclesToPi100": {
-      "minimum": 10,
-      "typical": 11,
-      "remaining": 0
-    },
-    "appsScope": "priority"
+  "nextScope": null,
+  "credSigma": true,
+  "evaluatedAt": "2026-06-09T09:06:17.115Z",
+  "formalClosedAt": "2026-06-09T09:06:17.115Z",
+  "phiCondition": "CredΣ maintenu ; clôture visuelle registre conditionnée à Φ (logique-formelle §2.4b) — statut Φ : voir visualFidelity"
+ },
+ "pallier": 10,
+ "pallier10Commit": null,
+ "pallier1Commit": "00816fb",
+ "pallier2Commit": "aa466ab",
+ "pallier3Commit": "aa71cce",
+ "pallier4Commit": "37cf71f",
+ "pallier5Commit": "39d115b",
+ "pallier6Commit": "9a547e1",
+ "pallier7Commit": "fc7396e",
+ "pallier8Commit": "bb64562",
+ "integralPass": {
+  "date": "2026-06-08",
+  "doc": "root/docs/recette-clone-mint-integral.md",
+  "conformityReport": "root/docs/inventaires/linux-mint-clone-conformity-report.md",
+  "cloisonnementScore": 100,
+  "panelChecklist": "6/6",
+  "vmParity": "6/6",
+  "shellGeometryMaxDeltaPx": 0.7,
+  "uiStateSurfaces": "8/8",
+  "validateAll": "ok",
+  "toolkitParadigmAll": "ok",
+  "manifestDriftPull": 0,
+  "manifestDriftRefs": 0
+ },
+ "paritySnapshot": {
+  "pi_global": 100,
+  "status_global": "ok",
+  "priorityApps": {
+   "nemo": 100,
+   "firefox": 100,
+   "text_editor": 100,
+   "calculator": 100,
+   "file_roller": 100,
+   "update_manager": 100,
+   "mintinstall": 100,
+   "themes": 100
   },
-  "credibilityCampaign": {
-    "id": "v3-credibility-pass",
-    "doc": "root/docs/campagne-credibilite-pedagogique.md",
-    "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
-    "inventory": "linux-mint-app-fidelity-scenarios.json",
-    "orchestrator": "usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs",
-    "currentPhase": "P-F3-complete",
-    "p0Complete": true,
-    "p0Commit": "a4e1918",
-    "wave1Complete": true,
-    "wave1Commit": "224c728",
-    "wave2Complete": true,
-    "wave2Slots": 22,
-    "scenarios": {
-      "total": 130,
-      "credV": 130,
-      "credC": 130,
-      "credS": 130,
-      "appsAtPi100": 43
-    },
-    "predicates": {
-      "CredV": true,
-      "CredC": true,
-      "CredS": true,
-      "CredΠ": true,
-      "CredΣ": true
-    },
-    "gapMap": "linux-mint-app-fidelity-gaps.json",
-    "gapSummary": {
-      "menuEntriesVm": 101,
-      "gapSlotsTotal": 0,
-      "gapSlotsWave1P0P1": 0,
-      "gapSlotsWave2P2": 0,
-      "scenariosToAdd": 0,
-      "nextWave2Slot": null
-    },
-    "nextScope": null,
-    "credSigma": true,
-    "evaluatedAt": "2026-06-09T09:06:17.115Z",
-    "formalClosedAt": "2026-06-09T09:06:17.115Z"
-  },
-  "pallier": 10,
-  "pallier10Commit": null,
-  "pallier1Commit": "00816fb",
-  "pallier2Commit": "aa466ab",
-  "pallier3Commit": "aa71cce",
-  "pallier4Commit": "37cf71f",
-  "pallier5Commit": "39d115b",
-  "pallier6Commit": "9a547e1",
-  "pallier7Commit": "fc7396e",
-  "pallier8Commit": "bb64562",
-  "integralPass": {
-    "date": "2026-06-08",
-    "doc": "root/docs/recette-clone-mint-integral.md",
-    "conformityReport": "root/docs/inventaires/linux-mint-clone-conformity-report.md",
-    "cloisonnementScore": 100,
-    "panelChecklist": "6/6",
-    "vmParity": "6/6",
-    "shellGeometryMaxDeltaPx": 0.7,
-    "uiStateSurfaces": "8/8",
-    "validateAll": "ok",
-    "toolkitParadigmAll": "ok",
-    "manifestDriftPull": 0,
-    "manifestDriftRefs": 0
-  },
-  "paritySnapshot": {
-    "pi_global": 100,
-    "status_global": "ok",
-    "priorityApps": {
-      "nemo": 100,
-      "firefox": 100,
-      "text_editor": 100,
-      "calculator": 100,
-      "file_roller": 100,
-      "update_manager": 100,
-      "mintinstall": 100,
-      "themes": 100
-    },
-    "shell": {
-      "mainMenu": 100,
-      "panel": 100,
-      "tray": 100,
-      "desktop": 100,
-      "clock": 100,
-      "theme": 100,
-      "altTab": 100,
-      "windowChrome": 100
-    }
-  },
-  "nonConformites": [],
-  "resolvedDebts": [
-    {
-      "id": "MENU-CTX-50",
-      "severity": "P2",
-      "resolvedAt": "2026-06-08",
-      "summary": "Menu contextuel apps Cinnamon (#menu-app-context-menu) — ctx Π=100"
-    },
-    {
-      "id": "MAN-DRIFT-68",
-      "severity": "P2",
-      "resolvedAt": "2026-06-08",
-      "summary": "ManΣ capsuleTarget → toolkits/cinnamon/apps — drift=0"
-    },
-    {
-      "id": "CAPS-ONLY-2",
-      "severity": "CapsuleOnly",
-      "resolvedAt": "2026-06-08",
-      "summary": "librewriter retiré DOM/panel ; Writer → libreoffice_startcenter ; checklist absent panel"
-    }
-  ],
-  "currentFocus": "cinnamon-perfection-pass",
-  "nextPallier": null,
-  "nextQueue": [],
-  "notes": [
-    "Windows 11 mis en pause (2026-06-08) — campagne Mint seule.",
-    "Pallier 10 / cycle C10 — Π_global=100 (appsScope priority + shell 8/8 à 100).",
-    "Bureau VM vide : checks desktop alignés (0 raccourci = vérité).",
-    "101/101 catalogue : slots ouverts OK.",
-    "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps.",
-    "Vague 1 P-F3 clôturée (224c728) — 21 apps π=100, 64 scénarios.",
-    "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
-    "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
-  ],
-  "updatedAt": "2026-06-09T13:00:46.048Z",
-  "groundTruth": {
-    "chain": "cinnamon",
-    "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
-    "doc": "root/docs/ground-truth-cinnamon.md",
-    "predicates": {
-      "CinI": true,
-      "CinM": true,
-      "CinA": true,
-      "CinC": true,
-      "CinS": true,
-      "CinΠ": true,
-      "CinPi": true,
-      "CinCred": true,
-      "CinCred_live": true,
-      "CinΣ": true
-    },
-    "cinSigma": true,
-    "gaps": 0,
-    "evaluatedAt": "2026-06-09T13:00:44.908Z"
+  "shell": {
+   "mainMenu": 100,
+   "panel": 100,
+   "tray": 100,
+   "desktop": 100,
+   "clock": 100,
+   "theme": 100,
+   "altTab": 100,
+   "windowChrome": 100
   }
+ },
+ "nonConformites": [],
+ "resolvedDebts": [
+  {
+   "id": "MENU-CTX-50",
+   "severity": "P2",
+   "resolvedAt": "2026-06-08",
+   "summary": "Menu contextuel apps Cinnamon (#menu-app-context-menu) — ctx Π=100"
+  },
+  {
+   "id": "MAN-DRIFT-68",
+   "severity": "P2",
+   "resolvedAt": "2026-06-08",
+   "summary": "ManΣ capsuleTarget → toolkits/cinnamon/apps — drift=0"
+  },
+  {
+   "id": "CAPS-ONLY-2",
+   "severity": "CapsuleOnly",
+   "resolvedAt": "2026-06-08",
+   "summary": "librewriter retiré DOM/panel ; Writer → libreoffice_startcenter ; checklist absent panel"
+  }
+ ],
+ "currentFocus": "cinnamon-perfection-pass",
+ "nextPallier": null,
+ "nextQueue": [],
+ "notes": [
+  "Windows 11 mis en pause (2026-06-08) — campagne Mint seule.",
+  "Pallier 10 / cycle C10 — Π_global=100 (appsScope priority + shell 8/8 à 100).",
+  "Bureau VM vide : checks desktop alignés (0 raccourci = vérité).",
+  "101/101 catalogue : slots ouverts OK.",
+  "ManΣ pull=0 drift=0 — icônes apps canonicalisées sous toolkits/cinnamon/apps.",
+  "Vague 1 P-F3 clôturée (224c728) — 21 apps π=100, 64 scénarios.",
+  "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
+  "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
+ ],
+ "updatedAt": "2026-06-09T13:00:46.048Z",
+ "groundTruth": {
+  "chain": "cinnamon",
+  "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
+  "doc": "root/docs/ground-truth-cinnamon.md",
+  "predicates": {
+   "CinI": true,
+   "CinM": true,
+   "CinA": true,
+   "CinC": true,
+   "CinS": true,
+   "CinΠ": true,
+   "CinPi": true,
+   "CinCred": true,
+   "CinCred_live": true,
+   "CinΣ": true
+  },
+  "cinSigma": true,
+  "gaps": 0,
+  "evaluatedAt": "2026-06-09T13:00:44.908Z"
+ },
+ "visualFidelity": {
+  "campaign": "phi-visual-fidelity",
+  "doc": "root/docs/logique-formelle.md §2.4b",
+  "contract": "etc/capsuleos/contracts/visual-scenes.json",
+  "report": "root/docs/inventaires/linux-mint-visual-fidelity.json",
+  "tools": {
+   "capture": "usr/lib/capsuleos/tools/lab/capture-scene-pair.mjs",
+   "compare": "usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs",
+   "computedAssert": "usr/lib/capsuleos/tools/lab/assert-computed-vs-inventory.mjs"
+  },
+  "measuredAt": "2026-06-11",
+  "slots": {
+   "mintinstall": {
+    "phi": 92.2,
+    "classification": "match",
+    "scenesP0": [
+     "home"
+    ],
+    "scenesP1Pending": [
+     "browse-all",
+     "detail"
+    ]
+   },
+   "nemo": {
+    "classification": "unmeasured",
+    "note": "pas de scènes déclarées au contrat — jamais match implicite"
+   },
+   "firefox": {
+    "classification": "unmeasured"
+   },
+   "text_editor": {
+    "classification": "unmeasured"
+   },
+   "calculator": {
+    "classification": "unmeasured"
+   },
+   "file_roller": {
+    "classification": "unmeasured"
+   },
+   "update_manager": {
+    "classification": "unmeasured"
+   },
+   "themes": {
+    "classification": "unmeasured"
+   }
+  },
+  "honestStatus": "Π=100 interactionnel sur 8 slots priority ; Φ mesuré match uniquement sur mintinstall/home — extension scènes P0 aux autres slots requise avant clôture Φ registre",
+  "geometryCorrection": "fenêtre mintinstall : 860×732 visible (wmctrl 912×784 incluait l'ombre CSD) — corrigé variables-linux.css"
+ }
 }

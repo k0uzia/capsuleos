@@ -53,15 +53,15 @@
       "type": "static",
       "selector": "[data-mi-discover-grid]",
       "pass": true,
-      "note": "9 apps alignées VM"
+      "note": "9 apps — vue Tous les logiciels (pas accueil VM)"
     },
     {
       "id": "featured-vm",
       "dimension": "data",
       "type": "static",
-      "selector": ".mi-app__featured",
+      "selector": "[data-mi-spotlight]",
       "pass": true,
-      "note": "4 tuiles VLC/Audacity/FileZilla/VS Code"
+      "note": "Grille 3×9 logiciels phares mintinstall 8.4"
     },
     {
       "id": "store-install",

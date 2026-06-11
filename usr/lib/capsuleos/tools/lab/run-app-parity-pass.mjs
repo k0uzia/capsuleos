@@ -21,6 +21,7 @@ import {
   parityStatus,
   inventoryPath,
   defaultIndexPath,
+  phiStateForSlot,
 } from './parity-index-lib.mjs';
 import { chromePath, openMintSlot, waitMintReady } from './mint-smoke-open.mjs';
 
@@ -283,17 +284,29 @@ async function runSlotChecks(page, slot) {
       if (findItem) findItem.click();
     });
     await page.waitForTimeout(50);
-    await page.fill('#xed-find-input', 'beta');
-    await page.click('[data-xed-dialog="find-next"]');
+    // xed 46 : la recherche ouvre la barre inline #xed-searchbar (fallback dialogue si absente).
+    const usesSearchbar = await page.evaluate(() => {
+      const bar = document.getElementById('xed-searchbar');
+      return !!bar && !bar.hidden;
+    });
+    if (usesSearchbar) {
+      await page.fill('#xed-searchbar-input', 'beta');
+      await page.click('[data-xed-searchbar="next"]');
+    } else {
+      await page.fill('#xed-find-input', 'beta');
+      await page.click('[data-xed-dialog="find-next"]');
+    }
     await page.waitForTimeout(40);
     const findSel = await page.evaluate(() => {
       const area = document.getElementById('xed-area');
       if (!area) return '';
       return area.value.substring(area.selectionStart, area.selectionEnd);
     });
-    push('find-dialog', 'ctx', findSel === 'beta', { findSel });
+    push('find-dialog', 'ctx', findSel === 'beta', { findSel, usesSearchbar });
 
     await page.evaluate(() => {
+      const closeBar = document.querySelector('[data-xed-searchbar="close"]');
+      if (closeBar) closeBar.click();
       const close = document.querySelector('#xed-find-dialog [data-xed-dialog="close"]');
       if (close) close.click();
     });
@@ -541,7 +554,13 @@ async function runSlotChecks(page, slot) {
 
     await page.fill('#mi-search', '');
     await page.waitForTimeout(40);
-    await page.click('[data-mi-cat="internet"]');
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-home-cat="internet"]')
+        || document.querySelector('[data-mi-cat="internet"]');
+      if (btn) {
+        btn.click();
+      }
+    });
     await page.waitForTimeout(60);
     const cat = await page.evaluate(() => {
       const list = document.querySelector('[data-mi-page="list"]');
@@ -560,33 +579,62 @@ async function runSlotChecks(page, slot) {
     push('hamburger-menu', 'ctx', menu, {});
 
     await page.keyboard.press('Escape');
-    await page.click('[data-mi-cat="home"]');
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-cat="home"]');
+      if (btn) {
+        btn.click();
+      }
+    });
     await page.waitForTimeout(60);
 
     const miChrome = await page.evaluate(() => ({
       title: document.querySelector('div[data-link="mintinstall"] #windowTitle')?.textContent,
       search: !!document.getElementById('mi-search'),
       home: !document.querySelector('[data-mi-page="home"]')?.hidden,
+      sidebarHidden: document.querySelector('.mi-app__sidebar')?.offsetParent === null,
+      spotlight: document.querySelectorAll('[data-mi-spotlight] .mi-app__spotlight-card').length,
+      hero: !!document.querySelector('[data-mi-hero-mount] .mi-app__hero-slide--banner, [data-mi-hero-mount] .mi-app__hero-slide--promo'),
+      homeCats: document.querySelectorAll('[data-mi-home-cats] .mi-app__home-cat').length,
     }));
     push('mi-chrome', 'vis', miChrome.title === 'Logithèque' && miChrome.search, miChrome);
-    push('mi-home', 'data', miChrome.home, miChrome);
+    push('mi-home', 'data', miChrome.home && miChrome.sidebarHidden && miChrome.spotlight >= 9, miChrome);
+    push('mi-featured-vm', 'data', miChrome.hero && miChrome.spotlight >= 9 && miChrome.homeCats >= 12, miChrome);
 
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-home-cat="all"]')
+        || document.querySelector('[data-mi-cat="all"]');
+      if (btn) {
+        btn.click();
+      }
+    });
+    await page.waitForTimeout(80);
     const discoverGrid = await page.evaluate(() => ({
       title: document.querySelector('.mi-app__discover-title')?.textContent,
       cards: document.querySelectorAll('#mi-discover-grid .mi-app__discover-card').length,
-      featured: document.querySelectorAll('.mi-app__featured .mi-app__featured-card').length,
+      listVisible: !document.querySelector('[data-mi-page="list"]')?.hidden,
     }));
-    push('mi-discover', 'data', discoverGrid.title === 'À découvrir' && discoverGrid.cards >= 3, discoverGrid);
-    push('mi-featured-vm', 'data', discoverGrid.featured >= 4, discoverGrid);
+    push('mi-discover', 'data', discoverGrid.listVisible && discoverGrid.title === 'À découvrir' && discoverGrid.cards >= 3, discoverGrid);
 
-    await page.click('[data-mi-cat="games"]');
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-home-cat="games"]')
+        || document.querySelector('[data-mi-cat="games"]');
+      if (btn) {
+        btn.click();
+      }
+    });
     await page.waitForTimeout(60);
     const gamesCat = await page.evaluate(() => (
       document.querySelector('[data-mi-cat="games"]')?.classList.contains('is-active')
     ));
     push('mi-games-cat', 'nav', gamesCat, {});
 
-    await page.click('[data-mi-cat="home"]');
+    await page.evaluate(() => {
+      const btn = document.querySelector('[data-mi-home-cat="all"]')
+        || document.querySelector('[data-mi-cat="all"]');
+      if (btn) {
+        btn.click();
+      }
+    });
     await page.waitForTimeout(60);
 
     const installId = await page.evaluate(() => {
@@ -600,10 +648,22 @@ async function runSlotChecks(page, slot) {
           btn.click();
         }
       }, installId);
+      await page.waitForFunction((appId) => {
+        try {
+          const raw = window.sessionStorage.getItem('capsule-store-installed:linux-mint');
+          if (!raw || !appId) {
+            return false;
+          }
+          const ids = JSON.parse(raw).appIds || [];
+          return ids.indexOf(appId) !== -1;
+        } catch (e) {
+          return false;
+        }
+      }, installId, { timeout: 25000 });
     }
-    await page.waitForTimeout(80);
     const install = await page.evaluate((appId) => {
       const btn = appId ? document.querySelector(`#mi-discover-grid [data-mi-install="${appId}"]`) : null;
+      const openBtn = appId ? document.querySelector(`#mi-discover-grid [data-mi-open]`) : null;
       var stored = false;
       try {
         const raw = window.sessionStorage.getItem('capsule-store-installed:linux-mint');
@@ -618,11 +678,12 @@ async function runSlotChecks(page, slot) {
         appId: appId,
         status: document.getElementById('mi-status')?.textContent,
         stillVisible: !!btn,
+        openReady: !!openBtn,
         disabled: btn ? btn.disabled : false,
         stored: stored,
       };
     }, installId);
-    const installOk = !!installId && install.stored && (!install.stillVisible || install.disabled);
+    const installOk = !!installId && install.stored && (install.openReady || !install.stillVisible || install.disabled);
     push('mi-install', 'int', installOk, install);
 
     await page.keyboard.press('Control+f');
@@ -1971,6 +2032,17 @@ async function runPass(opts, slots) {
 
   for (const slot of slots) {
     const checks = await runSlotChecks(page, slot);
+    // Φ — fidélité visuelle mesurée : la dimension vis ne peut pas atteindre 100
+    // si des scènes P0 sont déclarées au contrat sans mesure `match` (logique-formelle §2.4b).
+    const phiState = phiStateForSlot(opts.id, slot);
+    if (phiState.declared > 0) {
+      checks.push({
+        id: 'phi-visual',
+        dimension: 'vis',
+        pass: phiState.classification === 'match',
+        detail: phiState,
+      });
+    }
     const dims = dimensionScoresFromChecks(checks);
     DIMENSIONS_FILL(dims);
     const pi = computePiApp(dims);
@@ -1979,6 +2051,8 @@ async function runPass(opts, slots) {
       status: parityStatus(pi),
       dimensions: dims,
       checks,
+      phi: phiState.phi,
+      phiClassification: phiState.declared > 0 ? phiState.classification : null,
       smokeScript: fs.existsSync(pathToSmoke(slot)) ? pathToSmoke(slot).replace(`${ROOT}/`, '') : null,
     };
   }
@@ -2054,6 +2128,8 @@ const main = async () => {
         lastPass: report.ranAt,
         checksPassed: data.checks.filter((c) => c.pass).length,
         checksTotal: data.checks.length,
+        phi: data.phi,
+        phiClassification: data.phiClassification,
       });
     });
 

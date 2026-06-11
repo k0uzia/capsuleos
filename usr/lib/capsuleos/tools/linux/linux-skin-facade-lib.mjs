@@ -4,6 +4,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -32,10 +33,45 @@ export function stripBaseTag(html) {
         .replace(/\s*<base\s+href="[^"]*"\s*\/?>\s*/gi, '');
 }
 
+const contentHashCache = new Map();
+
+function fileContentVersion(absPath) {
+    if (contentHashCache.has(absPath)) {
+        return contentHashCache.get(absPath);
+    }
+    let version = null;
+    if (fs.existsSync(absPath) && fs.statSync(absPath).isFile()) {
+        version = crypto.createHash('sha256').update(fs.readFileSync(absPath)).digest('hex').slice(0, 10);
+    }
+    contentHashCache.set(absPath, version);
+    return version;
+}
+
+/**
+ * Cache busting unifié : remplace les `?v=` manuels des scripts/CSS locaux par
+ * un hash de contenu généré — la façade n'expose jamais de version périmée.
+ */
+export function injectContentVersions(html, homeRel) {
+    return html.replace(
+        /(<(?:script[^>]+src|link[^>]+href)=")([^"?]+\.(?:js|css))(?:\?v=[^"]*)?(")/g,
+        (full, before, url, after) => {
+            if (/^(?:https?:)?\/\//.test(url) || url.startsWith('data:')) {
+                return full;
+            }
+            const abs = path.resolve(ROOT, homeRel, url.split('#')[0]);
+            const version = fileContentVersion(abs);
+            if (!version) {
+                return full;
+            }
+            return `${before}${url}?v=${version}${after}`;
+        },
+    );
+}
+
 export function buildFacadeHtml(homeRel, canonicalHtml, pickOsPath) {
     const baseLine = `    <base href="${BASE_HREF}${homeRel}/">`;
     const comment = `    <!-- Facade URL stable : pick-os.js → ./OS/linux/${pickOsPath}/index.html -->`;
-    const body = stripBaseTag(canonicalHtml);
+    const body = injectContentVersions(stripBaseTag(canonicalHtml), homeRel);
 
     const headMatch = body.match(/<head[^>]*>/i);
     if (!headMatch) {

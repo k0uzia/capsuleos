@@ -1,5 +1,6 @@
 /**
- * Icônes catalogue magasin Discover KDE — classes gnome-software__cardicon (11 apps Neon).
+ * Icônes catalogue magasin Discover KDE — dérivés / openSUSE.
+ * Ground truth Neon : home/Debian/KDE-Neon/style/apps/discover-store-icons.skin.css
  * Chemins relatifs depuis usr/share/capsuleos/linux/apps/style/
  */
 .update-manager--kde-neon .gnome-software__cardicon {
@@ -14,7 +15,7 @@
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--file-roller {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.FileRoller");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--libreoffice {
@@ -22,33 +23,33 @@
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--thunderbird {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/thunderbird");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/thunderbird.png");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--transmission {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/transmission-gtk");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/transmission-gtk.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--rhythmbox {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--lecteur-multimedia {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--drawing {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--simple-scan {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/simple-scan");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/simple-scan.svg");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--warpinator {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/org.x.Warpinator");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/org.x.Warpinator.png");
 }
 
 .update-manager--kde-neon .gnome-software__cardicon--timeshift {
-    background-image: url("../../../assets/images/toolkits/gnome/apps/timeshift-gtk");
+    background-image: url("../../../assets/images/toolkits/gnome/apps/timeshift-gtk.png");
 }

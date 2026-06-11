@@ -204,7 +204,19 @@
     "D2_storeSection": "2026-06-11",
     "D3_installSmoke": "2026-06-11",
     "D4_captureBaseline": "2026-06-11T10:33:00.000Z",
-    "smoke": "smoke-discover-kde-neon.mjs"
+    "D5_storeIconsBranchement": "2026-06-11 — inventaire + discover-store-icons.skin.css",
+    "smoke": "smoke-discover-kde-neon.mjs",
+    "storeIconsSmoke": "smoke-discover-neon-store-icons.mjs"
+  },
+  "campaignDiscoverStoreIcons": "discover-store-icons-branchement-kde-neon",
+  "campaignDiscoverStoreIconsStatus": "closed",
+  "discoverStoreIcons": {
+    "inventory": "root/tools/lab/inventory-kde-neon-discover-store-icons.mjs",
+    "inventoryJson": "linux-kde-neon-discover-store-icons.json",
+    "css": "home/Debian/KDE-Neon/style/apps/discover-store-icons.skin.css",
+    "assetZone": "usr/share/capsuleos/assets/images/toolkits/gnome/apps/",
+    "iconsBranched": 11,
+    "predicates": { "A": true, "branchement": true }
   },
   "campaignDiscoverIconsAssets": "discover-icons-assets-kde-neon",
   "campaignDiscoverIconsAssetsStatus": "reopened",

@@ -1,5 +1,55 @@
 /* Surcouche KDE Neon — Discover (Page d'accueil, réf. VM 2026-06-06) */
-@import url("../../../../../usr/share/capsuleos/linux/apps/style/discover-kde-store-icons.css");
+/* À découvrir — inline (pas @import : injection contentLoader après skin KDE commun) */
+.update-manager--kde-neon .gnome-software__cardicon {
+    display: inline-block;
+    flex-shrink: 0;
+    background: transparent center / contain no-repeat;
+    border-radius: 4px;
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--calendar {
+    background-image: url("./assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--file-roller {
+    background-image: url("./assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--libreoffice {
+    background-image: url("./assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--thunderbird {
+    background-image: url("./assets/images/toolkits/gnome/apps/thunderbird.png");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--transmission {
+    background-image: url("./assets/images/toolkits/gnome/apps/transmission-gtk.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--rhythmbox {
+    background-image: url("./assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--lecteur-multimedia {
+    background-image: url("./assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--drawing {
+    background-image: url("./assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--simple-scan {
+    background-image: url("./assets/images/toolkits/gnome/apps/simple-scan.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--warpinator {
+    background-image: url("./assets/images/toolkits/gnome/apps/org.x.Warpinator.png");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--timeshift {
+    background-image: url("./assets/images/toolkits/gnome/apps/timeshift-gtk.png");
+}
 
 /* ---- Chrome fenêtre Discover (Breeze clair, réf. VM #dee0e2) ---- */
 body#kde-neon div[data-link="update_manager"] {

@@ -82,8 +82,8 @@ if (!discoverJs.includes('À découvrir')) {
 if (discoverJs.includes('../../../usr/share/')) {
     errors.push('discover-kde.js : chemins usr/share en dur');
 }
-if (!read('usr/share/capsuleos/linux/apps/style/discover-kde-store-icons.css').includes('gnome-software__cardicon--libreoffice')) {
-    errors.push('discover-kde-store-icons.css : icônes magasin absentes');
+if (!read('home/Debian/KDE-Neon/style/apps/discover-store-icons.skin.css').includes('gnome-software__cardicon--libreoffice')) {
+    errors.push('discover-store-icons.skin.css : icônes magasin absentes');
 }
 
 if (errors.length) {

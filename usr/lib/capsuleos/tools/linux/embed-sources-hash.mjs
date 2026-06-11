@@ -87,6 +87,11 @@ export function computeEmbedSourcesHash() {
 
 export function writeEmbedSourcesHash() {
   const { hash, fileCount } = computeEmbedSourcesHash();
+  // Idempotent : hash inchangé → fichier intact (le hook pre-push exige un build déterministe).
+  const previous = readEmbedSourcesHash();
+  if (previous && previous.hash === hash) {
+    return previous;
+  }
   const payload = {
     hash,
     fileCount,

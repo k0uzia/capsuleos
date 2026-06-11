@@ -1,16 +1,20 @@
 {
-  "collectedAt": "2026-06-11T10:47:40.837Z",
+  "collectedAt": "2026-06-11T11:08:07.440Z",
   "package": "mintinstall 8.4.0",
   "desktop": "mintinstall.desktop",
   "titleFr": "Logithèque",
   "titleEn": "Software Manager",
   "wmClass": "mintinstall.py.Mintinstall.py",
   "geometry": {
-    "width": 852,
+    "width": 912,
     "height": 784,
     "minWidth": 720,
     "minHeight": 560,
-    "wmctrlLine": null
+    "wmctrlLine": "0x03a0000c  0 368  0    912  784  capsule-Standard-PC-i440FX-PIIX-1996 Logithèque",
+    "wmctrlPosition": {
+      "x": 368,
+      "y": 0
+    }
   },
   "slotCapsule": "mintinstall",
   "distinctFrom": "update_manager",
@@ -36,7 +40,7 @@
   "sshHost": "capsule@192.168.1.146",
   "probe": {
     "pkgOk": true,
-    "wmctrlOk": false,
+    "wmctrlOk": true,
     "gtkProbe": "gtk-ok"
   },
   "campaign": "cinnamon-store-100"

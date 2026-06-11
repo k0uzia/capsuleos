@@ -28,8 +28,24 @@ function ssh(cmd) {
     return { code: r.status, stdout: (r.stdout || '').trim(), stderr: (r.stderr || '').trim() };
 }
 
+function parseWmctrlGeometry(line) {
+    if (!line) {
+        return { width: 852, height: 784 };
+    }
+    const parts = line.trim().split(/\s+/);
+    if (parts.length >= 7) {
+        const width = parseInt(parts[4], 10);
+        const height = parseInt(parts[5], 10);
+        if (width > 0 && height > 0) {
+            return { width, height, x: parseInt(parts[2], 10), y: parseInt(parts[3], 10) };
+        }
+    }
+    return { width: 852, height: 784 };
+}
+
 const pkg = ssh("dpkg -s mintinstall 2>/dev/null | awk -F': ' '/^Version:/{print $2}'");
-const geometry = ssh('DISPLAY=:0 wmctrl -l -G 2>/dev/null | grep -i logith | head -1');
+const geometry = ssh('DISPLAY=:0 wmctrl -l -G 2>/dev/null | grep -iE "logith|software manager|mintinstall" | head -1');
+const wmParsed = parseWmctrlGeometry(geometry.stdout);
 const categories = ssh("python3 -c \"import gi; gi.require_version('Gtk','3.0'); from gi.repository import Gtk; print('gtk-ok')\" 2>/dev/null || echo gtk-skip");
 
 const payload = {
@@ -41,11 +57,12 @@ const payload = {
     titleEn: 'Software Manager',
     wmClass: 'mintinstall.py.Mintinstall.py',
     geometry: {
-        width: 852,
-        height: 784,
+        width: wmParsed.width,
+        height: wmParsed.height,
         minWidth: 720,
         minHeight: 560,
         wmctrlLine: geometry.stdout || null,
+        wmctrlPosition: wmParsed.x !== undefined ? { x: wmParsed.x, y: wmParsed.y } : null,
     },
     slotCapsule: 'mintinstall',
     distinctFrom: 'update_manager',

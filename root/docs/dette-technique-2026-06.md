@@ -26,11 +26,21 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | linux-kde-neon | 13 |
 | linux-opensuse | 10 |
 
+## P1 résolus (scénarios overview — juin 2026)
+
+| Écart | Résolution |
+|-------|------------|
+| Rocky Loupe (`visionneur_images`) — ¬ScΣ | Contrat `loupe-user-scenarios.json` · Li1–Li4 · `syncLoupeGnomeDataset` · smoke + captures |
+| Rocky Papers (`visionneur_pdf`) — ¬ScΣ | Contrat `papers-user-scenarios.json` · Pa1–Pa4 · `syncPapersGnomeDataset` · navigation pages |
+| Ubuntu Rhythmbox (`lecteur_multimedia`) — ¬ScΣ dash+overview | Contrat `rhythmbox-user-scenarios.json` · Rb1–Rb4 · override `rhythmbox.html` · smoke Ubuntu |
+
+Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index.json`).
+
 ## P1 restants
 
 | Domaine | Détail |
 |---------|--------|
-| Rocky Loupe / Papers | Parité P1 overview — slots ok, polish visuel Vc |
+| Rocky Loupe / Papers | Polish visuel Vc ground truth (captures VM dédiées Papers) |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
 | KDE Discover store | `storeCatalogStatus: deferred` — neon + openSUSE (0 apps magasin) |
 | Pop!_OS COSMIC | Toolkit `cosmic` sans `slotSpecs` dédiés — résolution via `storeToolkit: gnome` |

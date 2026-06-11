@@ -14,6 +14,26 @@
         return Boolean(root && root.classList && root.classList.contains('loupe-app'));
     }
 
+    function supportsLoupeGnomeChrome(root) {
+        if (usesLoupeChrome(root)) {
+            return true;
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        return Boolean(bodyId && LOUPE_BODY_IDS[bodyId]);
+    }
+
+    function syncLoupeGnomeDataset(root) {
+        if (!root || !supportsLoupeGnomeChrome(root)) {
+            return;
+        }
+        root.dataset.loupeGnomeInit = root.dataset.xviewerInit === 'true' ? 'true' : 'false';
+        root.dataset.loupeGnomeHasImage = xviewerState.hasImage ? 'true' : 'false';
+        root.dataset.loupeGnomeZoom = String(xviewerState.zoom);
+        root.dataset.loupeGnomeRotate = String(xviewerState.rotate);
+        root.dataset.loupeGnomeMetaOpen = xviewerState.metaOpen ? 'true' : 'false';
+        root.dataset.loupeGnomeChrome = 'loupe';
+    }
+
     function resolveImageViewerTitle(root) {
         if (usesLoupeChrome(root)) {
             return 'Loupe';
@@ -52,6 +72,27 @@
 
     function usesPapersChrome(root) {
         return Boolean(root && root.classList && root.classList.contains('papers-app'));
+    }
+
+    function supportsPapersGnomeChrome(root) {
+        if (usesPapersChrome(root)) {
+            return true;
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        return Boolean(bodyId && LOUPE_BODY_IDS[bodyId]);
+    }
+
+    function syncPapersGnomeDataset(root) {
+        if (!root || !supportsPapersGnomeChrome(root)) {
+            return;
+        }
+        root.dataset.papersGnomeInit = root.dataset.xreaderInit === 'true' ? 'true' : 'false';
+        root.dataset.papersGnomeHasDocument = xreaderState.pages > 0 ? 'true' : 'false';
+        root.dataset.papersGnomePage = String(xreaderState.page);
+        root.dataset.papersGnomePages = String(xreaderState.pages);
+        root.dataset.papersGnomeZoom = String(xreaderState.zoom);
+        root.dataset.papersGnomeSidebar = xreaderState.sidebar ? 'true' : 'false';
+        root.dataset.papersGnomeChrome = 'papers';
     }
 
     function resolvePdfViewerTitle(root) {
@@ -172,16 +213,20 @@
                 if (action === 'zoom-in') {
                     xviewerState.zoom = Math.min(400, xviewerState.zoom + 25);
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'zoom-out') {
                     xviewerState.zoom = Math.max(25, xviewerState.zoom - 25);
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'zoom-fit') {
                     xviewerState.zoom = 100;
                     xviewerState.rotate = 0;
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'rotate') {
                     xviewerState.rotate = (xviewerState.rotate + 90) % 360;
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'slideshow') {
                     toggleXviewerSlideshow(root);
                 } else if (action === 'toggle-meta') {
@@ -196,6 +241,7 @@
                         pane.setAttribute('hidden', 'hidden');
                     }
                     btn.setAttribute('aria-pressed', xviewerState.metaOpen ? 'true' : 'false');
+                    syncLoupeGnomeDataset(root);
                 }
             });
         });
@@ -308,11 +354,6 @@
         frame.src = '../../../../home/public/Documents/Bash.pdf';
         content.appendChild(frame);
         onXreaderRendered(root, { name: 'Bash.pdf' });
-        var sidebar = root.querySelector('#xreader-sidebar');
-        if (sidebar) {
-            sidebar.removeAttribute('hidden');
-            xreaderState.sidebar = true;
-        }
     }
 
     global.openPixDemoImage = function openPixDemoImage() {
@@ -343,12 +384,15 @@
                 if (action === 'zoom-in') {
                     xreaderState.zoom = Math.min(400, xreaderState.zoom + 25);
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'zoom-out') {
                     xreaderState.zoom = Math.max(50, xreaderState.zoom - 25);
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'zoom-fit') {
                     xreaderState.zoom = 100;
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'sidebar') {
                     xreaderState.sidebar = !xreaderState.sidebar;
                     var sidebar = root.querySelector('#xreader-sidebar');
@@ -360,6 +404,19 @@
                         }
                     }
                     btn.setAttribute('aria-pressed', xreaderState.sidebar ? 'true' : 'false');
+                    syncPapersGnomeDataset(root);
+                } else if (action === 'prev') {
+                    if (xreaderState.page > 1) {
+                        xreaderState.page -= 1;
+                        syncXreaderPage(root);
+                        syncPapersGnomeDataset(root);
+                    }
+                } else if (action === 'next') {
+                    if (xreaderState.pages > 0 && xreaderState.page < xreaderState.pages) {
+                        xreaderState.page += 1;
+                        syncXreaderPage(root);
+                        syncPapersGnomeDataset(root);
+                    }
                 }
             });
         });
@@ -416,6 +473,7 @@
             xviewerState.zoom = 100;
             xviewerState.rotate = 0;
             applyXviewerZoom(root);
+            syncLoupeGnomeDataset(root);
         } else {
             xviewerState.hasImage = false;
             if (nameEl) {
@@ -429,6 +487,7 @@
             ensureLoupeEmptyState(root);
             syncLoupeEmptyState(root, true);
             syncWindowTitle(winEl, titleBase);
+            syncLoupeGnomeDataset(root);
         }
     }
 
@@ -438,7 +497,7 @@
         var sidebar = root.querySelector('#xreader-sidebar');
         var titleBase = resolvePdfViewerTitle(root);
         if (payload && payload.name) {
-            xreaderState.pages = 1;
+            xreaderState.pages = typeof payload.pages === 'number' ? payload.pages : 3;
             xreaderState.page = 1;
             if (nameEl) {
                 nameEl.textContent = payload.name;
@@ -446,7 +505,12 @@
             syncPapersEmptyState(root, false);
             syncWindowTitle(winEl, payload.name + ' — ' + titleBase);
             if (sidebar) {
-                sidebar.innerHTML = '<button type="button" class="papers-app__thumb is-active" aria-current="page">1</button>';
+                var thumbs = '';
+                var pi;
+                for (pi = 1; pi <= xreaderState.pages; pi += 1) {
+                    thumbs += '<button type="button" class="papers-app__thumb' + (pi === 1 ? ' is-active' : '') + '" aria-current="' + (pi === 1 ? 'page' : 'false') + '">' + pi + '</button>';
+                }
+                sidebar.innerHTML = thumbs;
             }
         } else {
             xreaderState.pages = 0;
@@ -464,6 +528,7 @@
         xreaderState.zoom = 100;
         syncXreaderZoom(root);
         syncXreaderPage(root);
+        syncPapersGnomeDataset(root);
     }
 
     function initVisionneurImagesApp(container) {
@@ -474,6 +539,7 @@
         bindXviewerToolbar(root);
         syncWindowTitle(getWindowEl(root, 'visionneur_images'), resolveImageViewerTitle(root));
         root.dataset.xviewerInit = 'true';
+        syncLoupeGnomeDataset(root);
     }
 
     function initVisionneurPdfApp(container) {
@@ -484,6 +550,7 @@
         bindXreaderToolbar(root);
         syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), resolvePdfViewerTitle(root));
         root.dataset.xreaderInit = 'true';
+        syncPapersGnomeDataset(root);
     }
 
     global.onMintViewerRendered = function (appId) {
@@ -514,6 +581,10 @@
 
     global.initVisionneurImagesApp = initVisionneurImagesApp;
     global.initVisionneurPdfApp = initVisionneurPdfApp;
+    global.syncLoupeGnomeDataset = syncLoupeGnomeDataset;
+    global.syncPapersGnomeDataset = syncPapersGnomeDataset;
+    global.supportsLoupeGnomeChrome = supportsLoupeGnomeChrome;
+    global.supportsPapersGnomeChrome = supportsPapersGnomeChrome;
 
     global.document.addEventListener('capsule:window-opened', function (event) {
         if (!event.detail) {

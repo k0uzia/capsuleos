@@ -28,7 +28,7 @@
 - **V7** clôturé — calendrier tray · baselines dérivés · Cred* échantillon · Π **98**
 - **Pivot** clôturé Π=100 (v9) · Konversation hors VM
 - **Propagation dérivés gelée** — excellence ground Neon d'abord
-- Prochaine priorité : [`linux-kde-neon-roadmap-ground.md`](linux-kde-neon-roadmap-ground.md) — VM compare live · kickoff B1/B2 · Dolphin §7–8
+- Prochaine priorité : [`linux-kde-neon-roadmap-ground.md`](linux-kde-neon-roadmap-ground.md) — **G6** Discover VM (sans popup MAJ) · G7 Firefox · G8 tray
 
 ## Références
 

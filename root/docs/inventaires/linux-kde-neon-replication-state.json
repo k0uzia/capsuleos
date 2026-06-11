@@ -38,11 +38,8 @@
       "capture-clone-surfaces-compare"
     ],
     "gaps": [
-      "KdVp live VM ↔ Capsule (panel, kickoff, dolphin multi-vues)",
-      "Kickoff B1/B2 apps profondes (Okular, Gwenview, Kate, polish B2/B3)",
-      "Discover captures VM 5 onglets",
-      "Firefox toolbar matrix VM",
-      "Dolphin §7–8 compare VM search/hamburger"
+      "G7 Firefox toolbar matrix VM",
+      "G8 Tray/panel Vp réaudit"
     ],
     "passOrder": [
       "vm-kde-neon-inventory.sh",
@@ -84,12 +81,8 @@
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
   "priorityQueue": [
-    "vm-compare-panel-kickoff",
-    "kickoff-b1-okular-gwenview-kate",
-    "kickoff-b2-spectacle-kinfocenter-monitor",
-    "dolphin-vm-views",
-    "discover-vm-tabs",
-    "firefox-toolbar-vm"
+    "ground-g7-firefox-toolbar-vm",
+    "ground-g8-tray-panel-vp"
   ],
   "paritySnapshot": {
     "pi_global": 95,
@@ -176,7 +169,7 @@
     "orchestrator": "run-kde-neon-pass.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "ground G6 — Discover complet (captures VM 5 onglets · filtres · About/Config)",
+  "nextStep": "ground G7 — Firefox toolbar matrix VM · capture paire",
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "in_progress",
   "campaignGroundStartedAt": "2026-06-10T12:00:00.000Z",
@@ -188,12 +181,14 @@
       "desktop",
       "kickoff",
       "dolphin-all-views",
-      "discover-all-tabs",
+      "discover-capsule-tabs",
       "discover-detail-vlc",
+      "discover-vm-tabs-sans-popup-maj",
       "spectacle",
       "kinfocenter",
       "system-monitor"
     ],
+    "G2_pairsPending": [],
     "G2_fixes": [
       "plasma-discover: kstart remplace nohup (segfault)",
       "discover-detail VM: recherche VLC (évite --application segfault)",
@@ -220,7 +215,20 @@
       "smoke": "smoke-kde-neon-dolphin.mjs (+ filtre recherche)",
       "doc": "linux-kde-neon-dolphin-diff.md"
     },
-    "G6_next": "Discover complet — discover-closure.md"
+    "G6_DiscoverClosedAt": "2026-06-10T17:10:00.000Z",
+    "G6_deliverables": {
+      "vmCaptures": "vm-discover · installed · updates · config · about (--discover-g6)",
+      "fix": "systemd-run --user pour plasma-discover --mode (kstart/setsid instables via ssh)",
+      "dismiss": "discover_stabilize_for_shot + kde-neon-discover-capture-kwin.js",
+      "doc": "linux-kde-neon-discover-closure.md"
+    },
+    "G7_next": "Firefox toolbar matrix VM — linux-kde-neon-firefox-toolbar-matrix.md",
+    "regressionNotes": [
+      "2026-06-10 : regen kickoff G3 a remis kdeconnect → profile (corrigé generate-kde-neon-kickoff-data.mjs)",
+      "2026-06-10 : G5 grid dolphin → drift baseline 03-dolphin (write-baseline post-polish)",
+      "2026-06-10 : captures VM discover — popup PackageKit (corrigé systemd-run + dismiss KWin)",
+      "2026-06-10 : KdVp 07-discover-detail-vlc drift flaky — baseline régénérée 20260610-151302"
+    ]
   },
   "campaignGroundRoadmap": "linux-kde-neon-roadmap-ground.md",
   "campaignV10": "v10-derived-post-pivot",
@@ -248,7 +256,6 @@
     "smoke": "smoke-kde-fidelity-all.mjs",
     "credSigma": true
   },
-  "updatedAt": "2026-06-10T14:00:00.000Z",
   "credibilityCampaign": {
     "campaignId": "v5-credibility-pass",
     "credSigma": true,
@@ -271,12 +278,12 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-10T11:25:51.380Z",
+    "evaluatedAt": "2026-06-10T15:28:10.123Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
-    "vmInventoryAt": "2026-06-09T14:55:47Z",
-    "konversationOnVm": false
-  }
+    "failures": []
+  },
+  "updatedAt": "2026-06-10T17:30:00.000Z"
 }

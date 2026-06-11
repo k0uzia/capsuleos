@@ -170,7 +170,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "Indicateur de KDEConnect",
         desc: "Afficher les informations de vos périphériques",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "internet",
@@ -178,7 +178,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "KDEConnect",
         desc: "Unifiez vos périphériques",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "internet",
@@ -186,7 +186,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "SMS par KDEConnect",
         desc: "Lire et envoyer des SMS à partir des périphériques connectés",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "sonvideo",

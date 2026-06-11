@@ -132,12 +132,29 @@ const plasmaShots = [
       await page.waitForFunction(
         () => {
           const panel = document.querySelector('[data-discover-app-detail]');
-          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img');
+          if (!panel || panel.hidden) {
+            return false;
+          }
+          const name = document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim();
+          const imgs = [...panel.querySelectorAll('.kde-discover-app-detail__shot-img')];
+          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0);
+          return name && name.includes('VLC') && loaded.length >= 1;
         },
         null,
-        { timeout: 15000 },
+        { timeout: 20000 },
       );
-      await sleep(page, 500);
+      await page.evaluate(() => {
+        const dot = document.querySelector('[data-discover-carousel-dot="0"]');
+        if (dot) {
+          dot.click();
+        }
+        document.querySelectorAll('[data-discover-slide]').forEach((slide, i) => {
+          const active = i === 0;
+          slide.hidden = !active;
+          slide.dataset.active = active ? 'true' : 'false';
+        });
+      });
+      await sleep(page, 1200);
     },
   },
 ];

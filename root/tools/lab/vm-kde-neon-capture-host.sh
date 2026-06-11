@@ -102,16 +102,29 @@ remote() {
   ssh "${SSH_OPTS[@]}" "$SSH_TARGET" "$@"
 }
 
+remote_env_prefix() {
+  printf '%s' 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus; '
+  printf '%s' 'export XDG_RUNTIME_DIR=/run/user/$(id -u); '
+  printf '%s' 'export WAYLAND_DISPLAY=wayland-0; '
+  printf '%s' 'export DISPLAY=:1; '
+  printf '%s' 'export XDG_CURRENT_DESKTOP=KDE; '
+  printf '%s' 'XAUTH_FILE=$(ls /run/user/$(id -u)/xauth_* 2>/dev/null | head -1); '
+  printf '%s' '[ -n "$XAUTH_FILE" ] && export XAUTHORITY="$XAUTH_FILE"; '
+}
+
 prep_env() {
   local cmd="${*:-:}"
-  remote "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$(id -u)/bus; \
-export XDG_RUNTIME_DIR=/run/user/\$(id -u); \
-export WAYLAND_DISPLAY=wayland-0; \
-export DISPLAY=:1; \
-export XDG_CURRENT_DESKTOP=KDE; \
-XAUTH_FILE=\$(ls /run/user/\$(id -u)/xauth_* 2>/dev/null | head -1); \
-[ -n \"\$XAUTH_FILE\" ] && export XAUTHORITY=\"\$XAUTH_FILE\"; \
-${cmd}"
+  remote "$(remote_env_prefix)${cmd}"
+}
+
+# Session ssh multi-lignes fiable (évite & et for loops cassés dans une seule ligne).
+remote_session() {
+  local body="$1"
+  {
+    remote_env_prefix
+    printf '\n'
+    printf '%s\n' "$body"
+  } | ssh "${SSH_OPTS[@]}" "$SSH_TARGET" bash -s
 }
 
 # Wayland : plasma-discover natif — script KWin (xdotool ne voit pas la fenêtre).
@@ -153,7 +166,12 @@ discover_stabilize_for_shot() {
 }
 
 require_discover_window() {
-  prep_env 'for i in $(seq 1 30); do pgrep plasma-discover >/dev/null && exit 0; sleep 1; done; echo "plasma-discover absent — abandon capture" >&2; exit 1'
+  remote_session 'for i in $(seq 1 15); do
+  pgrep plasma-discover >/dev/null && exit 0
+  sleep 1
+done
+echo "plasma-discover absent — abandon capture" >&2
+exit 1'
 }
 
 reset_apps() {
@@ -187,8 +205,14 @@ discover_plasma_mode() {
 }
 
 open_discover() {
-  # Une seule ligne — les retours à la ligne dans prep_env/ssh ne sont pas fiables.
-  prep_env 'killall plasma-discover 2>/dev/null || true; sleep 1; kstart plasma-discover >/dev/null 2>&1 & for i in $(seq 1 20); do pgrep plasma-discover >/dev/null && break; sleep 1; done; sleep 4'
+  remote_session 'killall plasma-discover 2>/dev/null || true
+sleep 1
+kstart plasma-discover >/dev/null 2>&1 &
+for i in $(seq 1 20); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 4'
 }
 
 open_discover_mode() {
@@ -199,9 +223,16 @@ open_discover_mode() {
     open_discover
     return
   fi
-  # kstart --mode segfault sur VM lab (juin 2026) — setsid+nohup pour survivre à la fin de session ssh.
+  # kstart --mode segfault · setsid+nohup instable via ssh — systemd-run --user sur VM lab.
   # Discover --mode Update quitte ~30 s sur VM lab : capturer vite après ouverture.
-  prep_env "killall plasma-discover 2>/dev/null || true; sleep 1; setsid nohup plasma-discover --mode ${plasma_mode} </dev/null >/dev/null 2>&1 & for i in \$(seq 1 20); do pgrep plasma-discover >/dev/null && break; sleep 1; done; sleep 2; pgrep plasma-discover >/dev/null"
+  remote_session "killall plasma-discover 2>/dev/null || true
+sleep 1
+systemd-run --user --scope --collect plasma-discover --mode ${plasma_mode} >/dev/null 2>&1 &
+for i in \$(seq 1 20); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 2"
 }
 
 open_discover_installed() {

@@ -58,12 +58,14 @@ flowchart TD
 |-------|--------|------|
 | G1 inventaire | ✅ | `collectedAt` 2026-06-10T13:28:41Z |
 | G1 captures VM | ✅ | shell · dolphin · discover (kstart · `--discover-home`) |
-| G2 captures Capsule | ✅ | 21 scènes · `ensureDolphinSplit` |
+| G2 captures Capsule | ✅ | 24 scènes · `ensureDolphinSplit` |
 | G2 paires VM↔Capsule | ✅ | `screen_KDE-Neon/vm-*` ↔ `capsule-*` |
 | G3 kickoff regen | ✅ | `mainMenu-data.js` 30 apps |
 | **G3 apps B1** | ✅ | Okular · Gwenview · Kate · `smoke-kde-neon-b1-kickoff` · H₂ vert |
 | **G4 kickoff B2/B3** | ✅ | Spectacle · Info-centre · Moniteur — facts VM · paires capture · `smoke-kde-neon-v4-p2` |
-| **G5 Dolphin profond** | ✅ | §7–8 VM `--dolphin-g5` · grille · smoke filtre · `smoke-kde-neon-dolphin` |
+| **G5 Dolphin profond** | ✅ | §7–8 VM `--dolphin-g5` · grille · smoke filtre · baseline à régénérer post-G5 |
+| **G6 Discover VM** | ✅ | 5 onglets sans popup · `systemd-run` + `--discover-g6` |
+| **G7 Firefox** | ⏳ | toolbar matrix VM · capture paire |
 
 ## Recette passe ground
 

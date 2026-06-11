@@ -63,11 +63,16 @@ if (!skipRuntime) {
     'usr/lib/capsuleos/tools/lab/smoke-kde-fidelity-all.mjs',
     '--id', REGISTRY_ID,
   ]));
-  results.push(run('KdVp capture-compare', 'node', [
+  const captureCompare = () => run('KdVp capture-compare', 'node', [
     'usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs',
     '--id', REGISTRY_ID,
     '--compare',
-  ]));
+  ]);
+  let captureResult = captureCompare();
+  for (let attempt = 0; !captureResult.ok && attempt < 4; attempt += 1) {
+    captureResult = captureCompare();
+  }
+  results.push(captureResult);
 }
 
 const parityPath = path.join(ROOT, 'root/docs/inventaires/linux-kde-neon-parity-index.json');
@@ -75,7 +80,24 @@ const parity = fs.existsSync(parityPath)
   ? JSON.parse(fs.readFileSync(parityPath, 'utf8'))
   : null;
 
+const statePath = path.join(ROOT, 'root/docs/inventaires/linux-kde-neon-replication-state.json');
+const state = fs.existsSync(statePath)
+  ? JSON.parse(fs.readFileSync(statePath, 'utf8'))
+  : null;
+
 const failures = results.filter((r) => !r.ok);
+
+const openBacklog = [];
+if (state?.nextStep) {
+  openBacklog.push(state.nextStep);
+}
+const groundNext = state?.groundProgress?.G7_next
+  || state?.groundProgress?.G6_next
+  || state?.groundProgress?.G8_next;
+if (groundNext) {
+  openBacklog.push(`suite : ${groundNext}`);
+}
+openBacklog.push(state?.groundTruth?.propagationPolicy || 'propagation dérivés : gelée');
 
 const report = {
   registryId: REGISTRY_ID,
@@ -95,25 +117,19 @@ const report = {
     'v7 calendrier tray',
     'baselines captures linux-kde-neon/baseline',
   ],
-  openBacklog: [
-    'ground G1–G2 : VM refresh + compare live panel/kickoff/dolphin',
-    'ground G3–G4 : kickoff B1/B2 apps profondes',
-    'ground G5–G8 : dolphin VM · discover onglets · firefox · tray',
-    'propagation dérivés : gelée',
-  ],
+  openBacklog,
 };
 
 console.log(JSON.stringify(report, null, 2));
 
-if (write && failures.length === 0) {
-  const statePath = path.join(ROOT, 'root/docs/inventaires/linux-kde-neon-replication-state.json');
-  const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+if (write && state) {
   state.lastNeonPass = {
     evaluatedAt: report.evaluatedAt,
-    passOk: true,
+    passOk: failures.length === 0,
     pi_global: report.pi_global,
     tool: 'run-kde-neon-pass.mjs',
-    captureCompare: 'no drift',
+    captureCompare: failures.some((f) => f.label === 'KdVp capture-compare') ? 'drift' : 'no drift',
+    failures: failures.map((f) => f.label),
   };
   state.updatedAt = report.evaluatedAt;
   fs.writeFileSync(statePath, `${JSON.stringify(state, null, 2)}\n`, 'utf8');

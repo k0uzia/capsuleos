@@ -1243,8 +1243,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "transmission",
@@ -1265,8 +1265,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "rhythmbox",
@@ -1287,8 +1287,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "lecteur-multimedia",
@@ -1309,8 +1309,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "drawing",
@@ -1331,8 +1331,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "simple-scan",
@@ -1353,8 +1353,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "mintdrivers",
@@ -1419,8 +1419,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "timeshift",
@@ -1441,8 +1441,8 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": true,
-      "storeInstallable": false
+      "defaultInstalled": false,
+      "storeInstallable": true
     },
     {
       "id": "baobab",

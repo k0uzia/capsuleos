@@ -520,6 +520,11 @@ async function runSlotChecks(page, slot) {
   }
 
   if (slot === 'mintinstall') {
+    await page.evaluate(() => {
+      try {
+        window.sessionStorage.removeItem('capsule-store-installed:linux-mint');
+      } catch (e) { /* ignore */ }
+    });
     const ready = await page.evaluate(() => (
       document.getElementById('mintInstallApp')?.dataset.mintInstallInit === 'true'
     ));
@@ -566,18 +571,59 @@ async function runSlotChecks(page, slot) {
     push('mi-chrome', 'vis', miChrome.title === 'Logithèque' && miChrome.search, miChrome);
     push('mi-home', 'data', miChrome.home, miChrome);
 
-    await page.click('[data-mi-cat="internet"]');
-    await page.waitForTimeout(60);
-    await page.evaluate(() => {
-      const btn = document.querySelector('[data-mi-install="firefox"]');
-      if (btn) btn.click();
-    });
-    await page.waitForTimeout(50);
-    const install = await page.evaluate(() => ({
-      status: document.getElementById('mi-status')?.textContent,
-      disabled: document.querySelector('[data-mi-install="firefox"]')?.disabled,
+    const discoverGrid = await page.evaluate(() => ({
+      title: document.querySelector('.mi-app__discover-title')?.textContent,
+      cards: document.querySelectorAll('#mi-discover-grid .mi-app__discover-card').length,
+      featured: document.querySelectorAll('.mi-app__featured .mi-app__featured-card').length,
     }));
-    push('mi-install', 'int', install.status && install.status.indexOf('Firefox') >= 0 && install.disabled, install);
+    push('mi-discover', 'data', discoverGrid.title === 'À découvrir' && discoverGrid.cards >= 3, discoverGrid);
+    push('mi-featured-vm', 'data', discoverGrid.featured >= 4, discoverGrid);
+
+    await page.click('[data-mi-cat="games"]');
+    await page.waitForTimeout(60);
+    const gamesCat = await page.evaluate(() => (
+      document.querySelector('[data-mi-cat="games"]')?.classList.contains('is-active')
+    ));
+    push('mi-games-cat', 'nav', gamesCat, {});
+
+    await page.click('[data-mi-cat="home"]');
+    await page.waitForTimeout(60);
+
+    const installId = await page.evaluate(() => {
+      const btn = document.querySelector('#mi-discover-grid [data-mi-install]:not(:disabled)');
+      return btn ? btn.getAttribute('data-mi-install') : null;
+    });
+    if (installId) {
+      await page.evaluate((appId) => {
+        const btn = document.querySelector(`#mi-discover-grid [data-mi-install="${appId}"]`);
+        if (btn) {
+          btn.click();
+        }
+      }, installId);
+    }
+    await page.waitForTimeout(80);
+    const install = await page.evaluate((appId) => {
+      const btn = appId ? document.querySelector(`#mi-discover-grid [data-mi-install="${appId}"]`) : null;
+      var stored = false;
+      try {
+        const raw = window.sessionStorage.getItem('capsule-store-installed:linux-mint');
+        if (raw && appId) {
+          const ids = JSON.parse(raw).appIds || [];
+          stored = ids.indexOf(appId) !== -1;
+        }
+      } catch (e) {
+        stored = false;
+      }
+      return {
+        appId: appId,
+        status: document.getElementById('mi-status')?.textContent,
+        stillVisible: !!btn,
+        disabled: btn ? btn.disabled : false,
+        stored: stored,
+      };
+    }, installId);
+    const installOk = !!installId && install.stored && (!install.stillVisible || install.disabled);
+    push('mi-install', 'int', installOk, install);
 
     await page.keyboard.press('Control+f');
     await page.waitForTimeout(40);

@@ -605,10 +605,10 @@
       },
       "inventory": "root/docs/inventaires/interactions/linux-mint/mintinstall.json",
       "vmDoc": null,
-      "lastPass": "2026-06-08T16:15:57.166Z",
-      "checksPassed": 8,
-      "checksTotal": 8,
-      "updatedAt": "2026-06-08T16:16:05.142Z"
+      "lastPass": "2026-06-11T10:54:13.588Z",
+      "checksPassed": 11,
+      "checksTotal": 11,
+      "updatedAt": "2026-06-11T10:54:14.807Z"
     },
     "mintstick": {
       "slot": "mintstick",
@@ -1055,7 +1055,7 @@
     "vmMenuEntries": 101,
     "capsuleSlots": 45
   },
-  "updatedAt": "2026-06-10T07:02:52.745Z",
+  "updatedAt": "2026-06-11T10:54:14.808Z",
   "pi_global": 100,
   "status_global": "ok"
 }

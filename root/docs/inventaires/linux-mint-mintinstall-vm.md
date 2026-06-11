@@ -2,6 +2,8 @@
 
 **Objectif** : ground truth pour le slot `mintinstall` (distinct de `update_manager` / mintupdate).
 
+**Dernière collecte campagne** : 2026-06-11T10:47:40.837Z · SSH `capsule@192.168.1.146` · paquet `mintinstall 8.4.0`
+
 **Collecte** : SSH `capsule@192.168.1.146` · campagne 2026-06-08.
 
 ---

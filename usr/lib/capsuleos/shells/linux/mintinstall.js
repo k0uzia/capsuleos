@@ -61,7 +61,8 @@
             return null;
         }
         return {
-            id: slot,
+            id: entry.id,
+            slot: slot,
             name: entry.title,
             desc: entry.sub || entry.desc || entry.title,
             cat: MINT_CAT_BY_SLOT[slot] || 'accessories',
@@ -115,34 +116,77 @@
         return buildCatalogFromRegistry() || CATALOG_FALLBACK;
     }
 
-    function renderFeaturedDiscover(root, installed) {
-        var featuredEl = root.querySelector('.mi-app__featured');
-        if (!featuredEl) {
+    function renderDiscoverSection(root, installed) {
+        var grid = root.querySelector('[data-mi-discover-grid]');
+        if (!grid) {
             return;
         }
         var discover = buildDiscoverCatalog(installed);
+        grid.innerHTML = '';
         if (!discover.length) {
+            grid.setAttribute('hidden', 'hidden');
             return;
         }
-        featuredEl.innerHTML = '';
+        grid.removeAttribute('hidden');
         var di;
-        for (di = 0; di < discover.length && di < 8; di += 1) {
+        for (di = 0; di < discover.length; di += 1) {
             var entry = discover[di];
             var card = global.document.createElement('li');
-            card.className = 'mi-app__featured-card';
+            card.className = 'mi-app__discover-card';
             card.setAttribute('data-mi-pkg', entry.id);
             var icon = global.document.createElement('img');
+            icon.className = 'mi-app__list-icon';
             icon.src = resolveIconUrl(entry.icon);
             icon.alt = '';
-            icon.width = 48;
-            icon.height = 48;
-            var name = global.document.createElement('span');
-            name.className = 'mi-app__featured-name';
+            var info = global.document.createElement('div');
+            var name = global.document.createElement('p');
+            name.className = 'mi-app__list-name';
             name.textContent = entry.name;
+            var desc = global.document.createElement('p');
+            desc.className = 'mi-app__list-desc';
+            desc.textContent = entry.desc;
+            info.appendChild(name);
+            info.appendChild(desc);
+            var installBtn = global.document.createElement('button');
+            installBtn.type = 'button';
+            installBtn.className = 'mi-app__install';
+            installBtn.setAttribute('data-mi-install', entry.id);
+            installBtn.textContent = installed[entry.id] ? 'Installé' : 'Installer';
+            if (installed[entry.id]) {
+                installBtn.classList.add('is-installed');
+                installBtn.disabled = true;
+            }
             card.appendChild(icon);
-            card.appendChild(name);
-            featuredEl.appendChild(card);
+            card.appendChild(info);
+            card.appendChild(installBtn);
+            grid.appendChild(card);
         }
+    }
+
+    function loadInstalledState(catalog, storeApi, registryId) {
+        var installed = {};
+        var ci;
+        for (ci = 0; ci < catalog.length; ci += 1) {
+            if (catalog[ci].defaultInstalled) {
+                installed[catalog[ci].id] = true;
+                if (catalog[ci].slot) {
+                    installed[catalog[ci].slot] = true;
+                }
+            }
+        }
+        if (storeApi && typeof storeApi.loadStoreInstalledMeta === 'function') {
+            var meta = storeApi.loadStoreInstalledMeta(registryId);
+            var ids = meta.appIds || [];
+            var ii;
+            for (ii = 0; ii < ids.length; ii += 1) {
+                installed[ids[ii]] = true;
+                var storeEntry = storeApi.getStoreAppEntry(ids[ii]);
+                if (storeEntry && storeEntry.storeSlot) {
+                    installed[storeEntry.storeSlot] = true;
+                }
+            }
+        }
+        return installed;
     }
 
     var CAT_LABELS = {
@@ -310,18 +354,16 @@
         var detailIcon = root.querySelector('#mi-detail-icon');
         var detailInstallBtn = root.querySelector('[data-mi-detail-install]');
 
-        var installed = {};
+        var storeApi = global.CapsuleMintStore;
+        var registryId = storeApi && typeof storeApi.resolveRegistryId === 'function'
+            ? storeApi.resolveRegistryId()
+            : 'linux-mint';
         var currentCat = 'home';
         var detailPkgId = null;
         var catalog = getCatalog();
-        var ci;
-        for (ci = 0; ci < catalog.length; ci += 1) {
-            if (catalog[ci].defaultInstalled) {
-                installed[catalog[ci].id] = true;
-            }
-        }
+        var installed = loadInstalledState(catalog, storeApi, registryId);
 
-        renderFeaturedDiscover(root, installed);
+        renderDiscoverSection(root, installed);
 
         function setStatus(msg) {
             if (statusEl) {
@@ -467,10 +509,10 @@
                 listBtn.disabled = true;
             });
             setStatus(entryName(pkgId) + ' installé');
-            var storeApi = global.CapsuleMintStore;
-            var registryId = storeApi && typeof storeApi.resolveRegistryId === 'function'
-                ? storeApi.resolveRegistryId()
-                : 'linux-mint';
+            if (storeApi && typeof storeApi.recordStoreInstall === 'function') {
+                storeApi.recordStoreInstall(registryId, pkgId, 'apt');
+            }
+            renderDiscoverSection(root, installed);
             if (typeof global.document !== 'undefined' && typeof global.document.dispatchEvent === 'function') {
                 var storeEntry = storeApi && typeof storeApi.getStoreAppEntry === 'function'
                     ? storeApi.getStoreAppEntry(pkgId)

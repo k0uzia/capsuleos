@@ -215,6 +215,12 @@ if (!cinnamonShellPin.includes('capsule:store-app-installed')) {
 if (!mintHtml.includes('mi-app__featured')) {
     errors.push('mintinstall.html : section vedette absente');
 }
+if (!mintHtml.includes('data-mi-discover-grid')) {
+    errors.push('mintinstall.html : section À découvrir absente');
+}
+if (!mintStoreRuntime.includes('recordStoreInstall')) {
+    errors.push('mint-store-catalog.js : recordStoreInstall absent');
+}
 
 if (errors.length) {
     console.error(`✗ validate-store-installable-apps — ${errors.length} erreur(s)`);

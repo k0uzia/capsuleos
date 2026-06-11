@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-06-08T10:58:00Z",
+  "collectedAt": "2026-06-11T10:47:40.837Z",
   "package": "mintinstall 8.4.0",
   "desktop": "mintinstall.desktop",
   "titleFr": "Logithèque",
@@ -9,7 +9,8 @@
     "width": 852,
     "height": 784,
     "minWidth": 720,
-    "minHeight": 560
+    "minHeight": 560,
+    "wmctrlLine": null
   },
   "slotCapsule": "mintinstall",
   "distinctFrom": "update_manager",
@@ -21,7 +22,22 @@
     "Bureautique",
     "Graphisme",
     "Jeux",
-    "Multimédia"
+    "Multimédia",
+    "Accessoires",
+    "Développement",
+    "Installés"
   ],
-  "featuredApps": ["vlc", "audacity", "filezilla", "com.visualstudio.code"]
+  "featuredApps": [
+    "vlc",
+    "audacity",
+    "filezilla",
+    "com.visualstudio.code"
+  ],
+  "sshHost": "capsule@192.168.1.146",
+  "probe": {
+    "pkgOk": true,
+    "wmctrlOk": false,
+    "gtkProbe": "gtk-ok"
+  },
+  "campaign": "cinnamon-store-100"
 }

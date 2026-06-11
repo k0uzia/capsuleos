@@ -22,7 +22,9 @@
         librecalc: { slot: 'librecalc', menuMatch: 'libreoffice-calc' },
         libreoffice_impress: { slot: 'libreoffice_impress', menuMatch: 'libreoffice-impress' },
         libreoffice_draw: { slot: 'libreoffice_draw', menuMatch: 'libreoffice-draw' },
-        libreoffice_startcenter: { slot: 'libreoffice_startcenter', menuMatch: 'libreoffice-startcenter' }
+        libreoffice_startcenter: { slot: 'libreoffice_startcenter', menuMatch: 'libreoffice-startcenter' },
+        snapshot: { slot: 'snapshot', menuMatch: 'org.gnome.Snapshot' },
+        simple_scan: { slot: 'simple_scan', menuMatch: 'simple-scan' }
     };
 
     function isCinnamonShell() {

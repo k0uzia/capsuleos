@@ -50,6 +50,12 @@ if (!template.includes('mi-app__featured')) {
 if (!template.includes('data-mi-cat="installed"')) {
     errors.push('mintinstall.html : catégorie Installés absente');
 }
+if (!template.includes('data-mi-discover-grid')) {
+    errors.push('mintinstall.html : grille À découvrir absente');
+}
+if (!mintinstallJs.includes('renderDiscoverSection')) {
+    errors.push('mintinstall.js : renderDiscoverSection absent');
+}
 
 const binding = presentation.bindings && presentation.bindings['linux-mint'];
 if (!binding || binding.storeCatalogStatus !== 'active' || binding.toolkit !== 'cinnamon') {

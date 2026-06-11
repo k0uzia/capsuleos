@@ -86,7 +86,7 @@ node usr/lib/capsuleos/tools/lab/seed-mint-parity-index.mjs --write
 | calculator | 100 | ok |
 | file_roller | 92 | ok |
 | update_manager | 100 | ok |
-| mintinstall | 100 | ok |
+| mintinstall | 100 | ok — campagne cinnamon-store-100 (À découvrir, Jeux, sessionStorage, VM align) |
 | themes | 100 | ok |
 | screenshot | 92 | ok |
 | lecteur_multimedia | 92 | ok |

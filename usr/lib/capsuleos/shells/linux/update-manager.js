@@ -239,9 +239,9 @@
             return;
         }
         if (counts.checked === counts.total) {
-            setStatus('129 mises à jour sont sélectionnées (1,1 Go)');
+            setStatus(counts.total + ' mises à jour sont sélectionnées (214 Mo)');
         } else {
-            setStatus(counts.checked + ' mise(s) sélectionnée(s) dans la liste (129 au total, 1,1 Go)');
+            setStatus(counts.checked + ' mise(s) sélectionnée(s) dans la liste (' + counts.total + ' au total, 214 Mo)');
         }
         if (installBtn && root.dataset.umView === 'updates' && !busy) {
             installBtn.disabled = false;
@@ -325,6 +325,9 @@
                 statusFooter.hidden = false;
             }
             setToolbarState(root, 'updates');
+            if (mirrorDismissed()) {
+                applyMirrorBanner(root);
+            }
             updateSelectionStatus(root);
             return;
         }

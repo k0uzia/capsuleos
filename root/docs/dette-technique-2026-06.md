@@ -34,6 +34,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | Rocky Papers (`visionneur_pdf`) — ¬ScΣ | Contrat `papers-user-scenarios.json` · Pa1–Pa4 · `syncPapersGnomeDataset` · navigation pages |
 | Ubuntu Rhythmbox (`lecteur_multimedia`) — ¬ScΣ dash+overview | Contrat `rhythmbox-user-scenarios.json` · Rb1–Rb4 · override `rhythmbox.html` · smoke Ubuntu |
 | KDE Discover store (`linux-kde-neon`) | `storeCatalogStatus: active` · **11** apps magasin · section « À découvrir » dans `discover-kde.js` · smoke `smoke-discover-kde-neon.mjs` |
+| Cinnamon Logithèque (`linux-mint`) | Socle `CapsuleCinnamonStore` · section « À découvrir » + vedette VM · align `align-mint-store-vm-ground.mjs` · smoke `smoke-mint-store-scenarios.mjs` · **Π_app=100** |
 
 Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index.json`).
 

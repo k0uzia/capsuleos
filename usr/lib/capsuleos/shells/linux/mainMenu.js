@@ -35,7 +35,23 @@ function initMainMenu() {
         const btn = document.createElement('button');
         btn.type        = 'button';
         btn.className   = 'menu-cat' + (cat.id === activeCatId ? ' is-active' : '');
-        btn.textContent = cat.label;
+        if (cat.icon) {
+            const catIcon = document.createElement('img');
+            catIcon.className = 'menu-cat__icon';
+            catIcon.alt = '';
+            catIcon.src = typeof resolveCapsuleAssetUrl === 'function'
+                ? resolveCapsuleAssetUrl(cat.icon)
+                : (typeof resolveCapsuleResourceUrl === 'function'
+                    ? resolveCapsuleResourceUrl(cat.icon)
+                    : cat.icon);
+            btn.appendChild(catIcon);
+            const catLabel = document.createElement('span');
+            catLabel.className = 'menu-cat__label';
+            catLabel.textContent = cat.label;
+            btn.appendChild(catLabel);
+        } else {
+            btn.textContent = cat.label;
+        }
         btn.dataset.catId = cat.id;
 
         btn.addEventListener('click', () => {
@@ -52,6 +68,12 @@ function initMainMenu() {
 
     // Rendu initial
     renderApps('all', '');
+
+    if (isMintCinnamonMenu) {
+        document.addEventListener('capsule:cinnamon-store-menu-pin', function onCinnamonStoreMenuPin() {
+            renderApps(activeCatId, searchInput.value.trim());
+        });
+    }
 
     // ── Recherche temps réel ──────────────────────────────────
     searchInput.addEventListener('input', () => {
@@ -260,7 +282,9 @@ function initMainMenu() {
 
         const effectiveCatId = q ? 'all' : catId;
         let filtered = MENU_APPS.filter(app => {
-            const matchCat = effectiveCatId === 'all' || effectiveCatId === 'recent' || app.catId === effectiveCatId;
+            const matchCat = effectiveCatId === 'all' || effectiveCatId === 'recent'
+                || app.catId === effectiveCatId
+                || (effectiveCatId === 'favorites' && app.favorite);
             const matchQ   = !q || app.name.toLowerCase().includes(q) || app.desc.toLowerCase().includes(q);
             return matchCat && matchQ;
         });
@@ -268,8 +292,10 @@ function initMainMenu() {
         if (q || effectiveCatId === 'all') {
             filtered = dedupeMenuApps(filtered);
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-        } else if (effectiveCatId !== 'favorites') {
-            // Favoris Kickoff : ordre MENU_APPS (VM), pas alpha.
+        } else if (effectiveCatId === 'favorites') {
+            // Ordre VM : gsettings org.cinnamon favorite-apps (pas alpha).
+            filtered.sort((a, b) => (a.favoriteRank ?? 99) - (b.favoriteRank ?? 99));
+        } else {
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
         }
 

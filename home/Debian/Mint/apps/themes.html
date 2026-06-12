@@ -1,98 +1,19 @@
 <main id="cinnamonSettingsApp" class="cs-app" aria-label="Paramètres du système">
 
-    <header class="cs-app__searchbar" aria-label="Recherche">
-        <span class="cs-app__search-icon" aria-hidden="true"></span>
-        <label class="sr-only" for="cs-search">Rechercher dans les paramètres</label>
-        <input type="search" class="cs-app__search" id="cs-search" placeholder="Rechercher…" autocomplete="off">
+    <header class="cs-app__top">
+        <input type="search" class="cs-home__search" id="cs-search" placeholder="Rechercher dans les paramètres…" autocomplete="off" aria-label="Rechercher">
     </header>
 
-    <div class="cs-app__body">
-        <nav class="cs-app__sidebar" id="cs-sidebar" aria-label="Sections"></nav>
+    <section id="cs-home" class="cs-home" aria-label="Accueil des paramètres">
+        <div class="cs-home__scroll" id="cs-home-scroll" aria-live="polite"></div>
+    </section>
 
-        <div class="cs-app__main">
-            <h2 class="cs-app__panel-title" id="cs-panel-title">Général</h2>
-            <div class="cs-app__panels" id="cs-panels">
-
-                <section class="cs-panel cs-panel--general is-active" data-cs-panel="general" aria-label="Général">
-                    <div class="cs-row">
-                        <span class="cs-row__label">Compositing</span>
-                        <button type="button" class="cs-switch is-on" role="switch" aria-checked="true" data-cs-switch="compositing"></button>
-                    </div>
-                    <div class="cs-row">
-                        <span class="cs-row__label">Afficher les icônes sur le bureau</span>
-                        <button type="button" class="cs-switch is-on" role="switch" aria-checked="true" data-cs-switch="desktop-icons"></button>
-                    </div>
-                    <div class="cs-row">
-                        <span class="cs-row__label">Afficher les icônes dans le menu</span>
-                        <button type="button" class="cs-switch is-on" role="switch" aria-checked="true" data-cs-switch="menu-icons"></button>
-                    </div>
-                    <div class="cs-row cs-row--combo">
-                        <span class="cs-row__label">Disposition du menu</span>
-                        <button type="button" class="cs-combo" data-cs-combo="menu-layout">Classique</button>
-                    </div>
-                </section>
-
-                <section class="cs-panel" data-cs-panel="themes" hidden aria-label="Thèmes">
-                    <div id="themesApp" class="cs-themes themes-app">
-                        <div class="cs-row cs-row--combo">
-                            <span class="cs-row__label">Thème Cinnamon</span>
-                            <button type="button" class="cs-combo is-active" data-cs-theme="cinnamon">Mint-Y-Dark-Aqua</button>
-                        </div>
-                        <div class="cs-row cs-row--combo">
-                            <span class="cs-row__label">Style GTK</span>
-                            <button type="button" class="cs-combo is-active" data-cs-theme="gtk">Mint-Y-Dark-Aqua</button>
-                        </div>
-                        <div class="cs-row cs-row--combo">
-                            <span class="cs-row__label">Thème des icônes</span>
-                            <button type="button" class="cs-combo is-active" data-cs-theme="icons">Mint-Y-Sand</button>
-                        </div>
-                        <div class="cs-row cs-row--combo">
-                            <span class="cs-row__label">Thème des curseurs</span>
-                            <button type="button" class="cs-combo" data-cs-theme="cursors">Mint-Y</button>
-                        </div>
-                        <div class="cs-row">
-                            <span class="cs-row__label">Apparence</span>
-                            <div class="themes-app__cards" role="radiogroup" aria-label="Apparence">
-                                <button type="button" class="themes-card is-active" data-theme-option="dark" role="radio" aria-checked="true">
-                                    <span class="themes-card__preview themes-card__preview--dark" aria-hidden="true"></span>
-                                    <span class="themes-card__title">Sombre</span>
-                                </button>
-                                <button type="button" class="themes-card" data-theme-option="light" role="radio" aria-checked="false">
-                                    <span class="themes-card__preview themes-card__preview--light" aria-hidden="true"></span>
-                                    <span class="themes-card__title">Clair</span>
-                                </button>
-                            </div>
-                        </div>
-                        <p class="themes-app__help" data-themes-help>Le thème sombre est actif.</p>
-                    </div>
-                </section>
-
-                <section class="cs-panel cs-backgrounds" data-cs-panel="backgrounds" hidden aria-label="Arrière-plans">
-                    <div class="cs-bg-panel">
-                        <div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d'écran"></div>
-                        <button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d'écran">+</button>
-                    </div>
-                </section>
-
-                <section class="cs-panel" data-cs-panel="panel" hidden aria-label="Barre des tâches">
-                    <div class="cs-row cs-row--combo">
-                        <span class="cs-row__label">Position</span>
-                        <button type="button" class="cs-combo" data-cs-combo="panel-position">Bas</button>
-                    </div>
-                    <div class="cs-row">
-                        <span class="cs-row__label">Taille des icônes du panneau</span>
-                        <input type="range" class="cs-slider" min="16" max="48" value="24" data-cs-slider="panel-icons">
-                    </div>
-                    <div class="cs-row">
-                        <span class="cs-row__label">Autohide panel</span>
-                        <button type="button" class="cs-switch" role="switch" aria-checked="false" data-cs-switch="panel-autohide"></button>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </div>
-
-    <p class="cs-app__status sr-only" id="cs-status" role="status" aria-live="polite"></p>
+    <section id="cs-panel-view" class="cs-panel-view" hidden aria-label="Panneau de paramètres">
+        <header class="cs-panel-view__header">
+            <button type="button" class="cs-panel-view__back" id="cs-back" title="Retour à l'accueil" aria-label="Retour">◀</button>
+            <h2 class="cs-panel-view__title" id="cs-panel-title">Général</h2>
+        </header>
+        <div class="cs-app__panels" id="cs-panels" aria-live="polite"></div>
+    </section>
 
 </main>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
+    <link rel="stylesheet" href="./mint-fonts.css" type="text/css">
     <link rel="stylesheet" href="./style/style.css?v=20260608p9menu" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
@@ -33,6 +34,7 @@
         <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
         <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
         <div class="windowElement" data-link="librecalc" id="librecalc" style="display: none;"></div>
+        <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
         <div class="windowElement" data-link="system_monitor" id="system_monitor" style="display: none;"></div>
         <div class="windowElement" data-link="mintinstall" id="mintinstall" style="display: none;"></div>
         <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
@@ -158,8 +160,8 @@
                 <a class="mint-panel__launcher" target="windowElement" data-link="nemo" title="Fichiers">
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp" alt="">
                 </a>
-                <a class="mint-panel__launcher" target="windowElement" data-link="mintinstall" title="Logithèque">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/mintinstall.webp" alt="">
+                <a class="mint-panel__launcher" target="windowElement" data-link="firefox" title="Firefox">
+                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp" alt="">
                 </a>
                 <a class="mint-panel__launcher" target="windowElement" data-link="terminal" title="Terminal">
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
@@ -388,7 +390,7 @@
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260427"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260611mint84"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
@@ -467,6 +469,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/librecalc.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/baobab.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/webapp-manager.js"></script>
@@ -487,8 +490,9 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/libreoffice-suite.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-final-apps.js"></script>    <script src="../../../var/lib/capsuleos/generated/capsule-store-catalog.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-store-catalog.js"></script>
-
+    <script src="./content/mintinstall-catalog.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mintinstall.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-store-shell-pin.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=20260609ctx4"></script>

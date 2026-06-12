@@ -1,31 +1,34 @@
 /**
- * Menu Cinnamon Mint v3 — panneau ancré panel (600×480 VM, colonnes 20/25/55 %, gap 2px).
- * Remplace mainMenu.base.css pour body#mint (injecté statiquement via imports.css).
+ * Menu Cinnamon Mint — métriques VM mesurées (scène Φ shell/menu, capture 1280×800) :
+ * 665×428 ancré au panel, sidebar 181px (#303036), contenu #222226,
+ * recherche pleine largeur en bas des colonnes catégories+apps.
  */
 
 body#mint {
-    --mint-menu-width: 600px;
-    --mint-menu-height: 480px;
-    --mint-menu-col-gap: 2px;
+    --mint-menu-width: 665px;
+    --mint-menu-height: 428px;
+    --mint-menu-sidebar-width: 181px;
+    --mint-menu-cats-width: 212px;
 }
 
 body#mint #desktop > div[data-link="mainMenu"],
 body#mint div[data-link="mainMenu"]#mainMenu {
     position: absolute;
     left: 0;
-    bottom: var(--mint-menu-col-gap);
+    bottom: 0;
     top: auto;
     width: var(--mint-menu-width);
     max-width: min(var(--mint-menu-width), 92vw);
     height: var(--mint-menu-height);
-    max-height: min(var(--mint-menu-height), calc(100% - var(--mint-panel-height) - var(--mint-menu-col-gap)));
+    max-height: min(var(--mint-menu-height), calc(100% - var(--mint-panel-height)));
     display: none;
     flex-flow: column;
     align-items: stretch;
     justify-content: flex-start;
-    border-radius: 6px 6px 0 0;
+    border-radius: 4px 4px 0 0;
     background: var(--menu-apps-bg);
     border: 1px solid var(--menu-shell-border);
+    border-bottom: none;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     z-index: 600;
@@ -48,12 +51,13 @@ body#mint div[data-link="mainMenu"] > #windowHeader {
     border: none;
 }
 
+/* Grille VM : sidebar pleine hauteur · catégories/apps · recherche en rangée basse commune */
 body#mint div[data-link="mainMenu"] .menu-root {
     position: relative;
     inset: 0;
     display: grid;
-    grid-template-columns: 20% 25% minmax(0, 1fr);
-    column-gap: var(--mint-menu-col-gap);
+    grid-template-columns: var(--mint-menu-sidebar-width) var(--mint-menu-cats-width) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
     align-items: stretch;
     width: 100%;
     height: 100%;
@@ -62,33 +66,60 @@ body#mint div[data-link="mainMenu"] .menu-root {
     font-family: var(--font-ui);
 }
 
-/* Structure menu (ex-mainMenu.base.css — slot statique sans embed base) */
+body#mint div[data-link="mainMenu"] .menu-sidebar {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+/* .menu-categories éclatée dans la grille : cats en haut, recherche rangée 2 (cols 2→4) */
+body#mint div[data-link="mainMenu"] .menu-categories {
+    display: contents;
+}
+
+body#mint div[data-link="mainMenu"] .menu-cats {
+    grid-column: 2;
+    grid-row: 1;
+    background: var(--menu-cats-bg);
+}
+
+body#mint div[data-link="mainMenu"] .menu-search-wrap {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    background: var(--menu-apps-bg);
+}
+
+body#mint div[data-link="mainMenu"] .menu-apps {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+/* Bloc utilisateur VM : avatar 52px centré, nom dessous, séparateur fin */
 body#mint div[data-link="mainMenu"] .menu-user {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     align-items: center;
-    gap: calc(var(--head) / 5);
+    gap: 12px;
     width: 100%;
-    padding: calc(var(--head) / 4);
+    padding: 30px 12px 16px;
     box-sizing: border-box;
     border-bottom: 1px solid var(--menu-sidebar-separator);
     flex-shrink: 0;
 }
 
 body#mint div[data-link="mainMenu"] .menu-user__avatar {
-    width: calc(var(--head) * 0.85);
-    height: calc(var(--head) * 0.85);
-    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    border-radius: 0;
     object-fit: contain;
     flex-shrink: 0;
-    padding: calc(var(--head) / 10);
+    padding: 0;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.12);
-    filter: brightness(0) invert(1) opacity(0.92);
+    background: transparent;
+    filter: brightness(0) invert(0.86);
 }
 
 body#mint div[data-link="mainMenu"] .menu-user__name {
-    font-size: calc(var(--head) / 2.6);
+    font-size: 17px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -100,7 +131,7 @@ body#mint div[data-link="mainMenu"] .menu-shortcuts {
     flex-flow: column nowrap;
     width: 100%;
     flex: 1;
-    padding: calc(var(--head) / 8) 0;
+    padding: 6px 0;
     overflow-y: auto;
     scrollbar-width: none;
     list-style: none;
@@ -111,16 +142,24 @@ body#mint div[data-link="mainMenu"] .menu-shortcuts > li {
     width: 100%;
 }
 
+/* Séparateur VM entre raccourcis dossiers et favoris applis */
+body#mint div[data-link="mainMenu"] .menu-shortcuts > li:nth-child(2) {
+    border-bottom: 1px solid var(--menu-sidebar-separator);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+
+/* Boutons session VM : ronds, verrouiller/déconnexion discrets, arrêt rouge */
 body#mint div[data-link="mainMenu"] .menu-actions {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    gap: calc(var(--head) / 10);
+    gap: 14px;
     width: 100%;
-    padding: calc(var(--head) / 5) calc(var(--head) / 4);
+    padding: 12px 12px 17px;
     box-sizing: border-box;
-    border-top: 1px solid var(--menu-sidebar-separator);
+    border-top: none;
     flex-shrink: 0;
 }
 
@@ -128,27 +167,40 @@ body#mint div[data-link="mainMenu"] .menu-action {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--head) * 0.9);
-    height: calc(var(--head) * 0.9);
+    width: 32px;
+    height: 32px;
     border: 1px solid transparent;
-    border-radius: calc(var(--head) / 8);
-    background: transparent;
+    border-radius: 50%;
+    background: #3c3c42;
     cursor: pointer;
 }
 
+body#mint div[data-link="mainMenu"] .menu-action:hover {
+    background: #46464c;
+}
+
+body#mint div[data-link="mainMenu"] .menu-action#menu-btn-power {
+    background: #cc2f2f;
+}
+
+body#mint div[data-link="mainMenu"] .menu-action#menu-btn-power:hover {
+    background: #d84040;
+}
+
 body#mint div[data-link="mainMenu"] .menu-action img {
-    width: calc(var(--head) / 1.9);
-    height: calc(var(--head) / 1.9);
+    width: 16px;
+    height: 16px;
     object-fit: contain;
+    filter: brightness(0) invert(0.95);
 }
 
 body#mint div[data-link="mainMenu"] .menu-cats {
-    flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: calc(var(--head) / 8) 0;
+    padding: 14px 8px;
     list-style: none;
     margin: 0;
+    box-sizing: border-box;
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat {
@@ -170,7 +222,7 @@ body#mint div[data-link="mainMenu"] .menu-cat {
 body#mint div[data-link="mainMenu"] .menu-app-list {
     flex: 1;
     overflow-y: auto;
-    padding: calc(var(--head) / 8) 0;
+    padding: 14px 6px 8px 2px;
     scrollbar-width: thin;
     list-style: none;
     margin: 0;
@@ -212,18 +264,6 @@ body#mint div[data-link="mainMenu"] .menu-sidebar {
     overflow: hidden;
 }
 
-body#mint div[data-link="mainMenu"] .menu-categories {
-    display: flex;
-    flex-flow: column;
-    width: auto;
-    min-width: 0;
-    height: 100%;
-    background: var(--menu-cats-bg);
-    border-left: none;
-    border-right: none;
-    overflow: hidden;
-}
-
 body#mint div[data-link="mainMenu"] .menu-apps {
     display: flex;
     flex-flow: column;
@@ -237,7 +277,7 @@ body#mint div[data-link="mainMenu"] .menu-cat.is-active {
     background: var(--menu-item-active-bg);
     border-left-color: transparent;
     color: #ffffff;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat:hover {
@@ -291,21 +331,17 @@ body#mint div[data-link="mainMenu"] .menu-user {
     border-bottom-color: var(--menu-sidebar-separator);
 }
 
-body#mint div[data-link="mainMenu"] .menu-user__name {
-    font-size: calc(var(--head) / 2.6);
-}
-
 body#mint div[data-link="mainMenu"] .menu-shortcut {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    gap: calc(var(--head) / 4);
+    gap: 12px;
     width: 100%;
-    padding: calc(var(--head) / 5) calc(var(--head) / 4);
+    padding: 4px 16px;
     box-sizing: border-box;
     text-decoration: none;
     color: var(--texte);
-    font-size: calc(var(--head) / 2.85);
+    font-size: 13.3px;
     border-left-width: 0;
     min-width: 0;
     overflow: hidden;
@@ -322,53 +358,91 @@ body#mint div[data-link="mainMenu"] .menu-shortcut span {
 }
 
 body#mint div[data-link="mainMenu"] .menu-shortcut img {
-    width: calc(var(--head) / 2);
-    height: calc(var(--head) / 2);
+    width: 24px;
+    height: 24px;
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat {
-    font-size: calc(var(--head) / 2.85);
-    padding: calc(var(--head) / 3.5) calc(var(--head) / 4);
+    font-size: 13px;
+    padding: 6px 10px;
+    gap: 10px;
     border-left-width: 0;
+    border-radius: 6px;
+    min-height: 30px;
+}
+
+body#mint div[data-link="mainMenu"] .menu-cat__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    object-fit: contain;
+    /* Recoloration symbolique claire (St.Icon SYMBOLIC) */
+    filter: brightness(0) invert(0.84);
+}
+
+body#mint div[data-link="mainMenu"] .menu-cat__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 body#mint div[data-link="mainMenu"] .menu-cat.is-active {
     border-left-width: 0;
-    font-weight: bold;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item {
-    min-height: calc(var(--head) * 1.05);
-    padding: calc(var(--head) / 10) calc(var(--head) / 3.5);
+    min-height: 44px;
+    padding: 5px 10px;
+    gap: 12px;
     border-left-width: 0;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item__icon {
-    width: calc(var(--head) * 0.68);
-    height: calc(var(--head) * 0.68);
+    width: 26px;
+    height: 26px;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item__name {
-    font-size: calc(var(--head) / 2.85);
+    font-size: 13.5px;
     font-weight: normal;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item__desc {
-    font-size: calc(var(--head) / 3.2);
-    opacity: 0.72;
+    font-size: 12px;
+    opacity: 0.62;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item.is-unavailable {
     opacity: 0.42;
 }
 
+/* Recherche VM : pleine largeur cats+apps, 32px, loupe claire à droite (mask recolorée) */
 body#mint div[data-link="mainMenu"] .menu-search-wrap {
+    position: relative;
     flex-shrink: 0;
-    padding: calc(var(--head) / 6) calc(var(--head) / 5);
-    border-top: 1px solid var(--menu-sidebar-separator);
-    border-top-color: var(--menu-sidebar-separator);
+    padding: 6px 12px 12px 20px;
+    border-top: none;
     min-width: 0;
     box-sizing: border-box;
+}
+
+body#mint div[data-link="mainMenu"] .menu-search-wrap::after {
+    content: '';
+    position: absolute;
+    right: 24px;
+    top: 14px;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    background-color: #dedede;
+    -webkit-mask-image: url('../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/system-search-symbolic.svg');
+    mask-image: url('../../../../usr/share/capsuleos/assets/icons/cinnamon/nemo/system-search-symbolic.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 body#mint div[data-link="mainMenu"] .menu-search {
@@ -376,23 +450,18 @@ body#mint div[data-link="mainMenu"] .menu-search {
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    height: calc(var(--head) / 1.15);
-    font-size: calc(var(--head) / 2.85);
+    height: 32px;
+    font-size: 13.5px;
+    padding: 0 34px 0 10px;
 }
 
+/* Police VM (Ubuntu 10) sur tout le menu — neutralise les stacks system-ui du portail */
 body#mint div[data-link="mainMenu"] .menu-root,
-body#mint div[data-link="mainMenu"] .menu-cat,
-body#mint div[data-link="mainMenu"] .menu-app-item__name {
+body#mint div[data-link="mainMenu"] .menu-root button,
+body#mint div[data-link="mainMenu"] .menu-root a,
+body#mint div[data-link="mainMenu"] .menu-root span,
+body#mint div[data-link="mainMenu"] .menu-root input {
     font-family: var(--font-ui);
-}
-
-body#mint div[data-link="mainMenu"] .menu-actions {
-    border-top-color: var(--menu-sidebar-separator);
-}
-
-body#mint div[data-link="mainMenu"] .menu-action img {
-    filter: none;
-    opacity: 0.92;
 }
 
 body#mint .menu-app-context-menu {

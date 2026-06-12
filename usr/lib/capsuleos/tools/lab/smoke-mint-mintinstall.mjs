@@ -24,7 +24,15 @@ const search = await page.evaluate(() => ({
 
 await page.fill('#mi-search', '');
 await page.waitForTimeout(40);
-await page.click('[data-mi-cat="internet"]');
+// Layout VM 8.4 : sur l'accueil la sidebar est masquée — passer par la tuile catégorie.
+await page.evaluate(() => {
+  const homeBtn = document.querySelector('[data-mi-home-cat="internet"]');
+  if (homeBtn) {
+    homeBtn.click();
+    return;
+  }
+  document.querySelector('[data-mi-cat="internet"]')?.click();
+});
 await page.waitForTimeout(70);
 const internet = await page.evaluate(() => ({
   active: document.querySelector('[data-mi-cat="internet"]')?.classList.contains('is-active'),
@@ -32,9 +40,14 @@ const internet = await page.evaluate(() => ({
   rows: document.querySelectorAll('#mi-app-list .mi-app__list-item').length,
 }));
 
-const install = await page.evaluate(() => ({
-  firefoxPreinstalled: document.querySelector('[data-mi-install="firefox"]')?.disabled === true,
-}));
+const install = await page.evaluate(() => {
+  const row = document.querySelector('#mi-app-list .mi-app__list-item[data-mi-pkg="firefox"]');
+  // Préinstallé = bouton Ouvrir (data-mi-open), pas de bouton Installer actif.
+  return {
+    firefoxPreinstalled: !!row && (!!row.querySelector('[data-mi-open]')
+      || row.querySelector('[data-mi-install]')?.disabled === true),
+  };
+});
 
 await page.click('[data-mi-action="menu"]');
 await page.waitForTimeout(40);

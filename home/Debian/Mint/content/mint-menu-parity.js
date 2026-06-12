@@ -94,19 +94,20 @@
         'Onboard': 'accessibility'
     };
 
+    /* Filets de sécurité si la donnée générée arrive en anglais —
+       les libellés cibles suivent la vérité VM (linux-mint-menu-entries-vm.json). */
     var FRENCH_APP_NAMES = {
         'Calculator': 'Calculatrice',
         'Calendar': 'Agenda',
         'Archive Manager': 'Gestionnaire d\'archives',
-        'Celluloid': 'Lecteur vidéo',
         'Firefox': 'Firefox',
         'Files': 'Fichiers',
         'Library': 'Bibliothèque',
-        'Welcome Screen': 'Écran d\'accueil Mint',
+        'Welcome Screen': 'Écran d\'accueil',
         'Text Editor': 'Éditeur de texte',
         'Drawing': 'Dessin',
-        'Document Scanner': 'Numérisation de documents',
-        'Disk Usage Analyzer': 'Analyseur d\'espace disque',
+        'Document Scanner': 'Numériseur de documents',
+        'Disk Usage Analyzer': 'Analyseur d’utilisation des disques',
         'Update Manager': 'Gestionnaire de mise à jour',
         'Software Manager': 'Logithèque',
         'System Monitor': 'Moniteur système'
@@ -172,9 +173,8 @@
                 app.dataLink = 'mintdrivers';
                 app.icon = './assets/images/toolkits/cinnamon/apps/mintdrivers';
             }
-            if (app.name === 'Analyseur d\'espace disque' || app.name === 'Disk Usage Analyzer') {
+            if (app.name === 'Analyseur d’utilisation des disques' || app.name === 'Disk Usage Analyzer') {
                 app.dataLink = 'baobab';
-                app.name = 'Analyseur d\'espace disque';
                 app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.baobab';
             }
             if (app.name === 'Applications web' || app.name === 'Applications Web') {
@@ -184,7 +184,6 @@
             }
             if (app.name === 'Écran d\'accueil' || app.name === 'Écran d\'accueil Mint') {
                 app.dataLink = 'mintwelcome';
-                app.name = 'Écran d\'accueil Mint';
                 app.icon = './assets/images/toolkits/cinnamon/apps/mintwelcome';
             }
             if (app.name === 'Hypnotix') {
@@ -198,7 +197,6 @@
             }
             if (app.name === 'Renommeur de fichiers' || app.name === 'Renommer fichiers') {
                 app.dataLink = 'bulky';
-                app.name = 'Renommer fichiers';
             }
             if (app.name === 'Messagerie Thunderbird') {
                 app.dataLink = 'thunderbird';
@@ -243,6 +241,9 @@
                 app.dataLink = 'lecteur_multimedia';
                 app.icon = './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid';
             }
+            if (app.name === 'Numériseur de documents' || app.name === 'Numérisation de documents') {
+                app.dataLink = 'simple_scan';
+            }
             if (app.name === 'Agenda') {
                 app.icon = panelIcon + 'org.gnome.Calendar.webp';
             }
@@ -253,10 +254,10 @@
         var hasColorSelect = false;
         var ai;
         for (ai = 0; ai < MENU_APPS.length; ai++) {
-            if (MENU_APPS[ai].name === 'Capture d\'écran') {
+            if (/^Capture d['’]écran$/.test(MENU_APPS[ai].name)) {
                 hasScreenshot = true;
             }
-            if (MENU_APPS[ai].name === 'Statistiques d\'alimentation') {
+            if (/^Statistiques d(e l)?['’]alimentation$/.test(MENU_APPS[ai].name)) {
                 hasPowerStats = true;
             }
             if (MENU_APPS[ai].name === 'Sélecteur de couleur') {

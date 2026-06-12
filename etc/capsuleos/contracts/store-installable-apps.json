@@ -250,7 +250,8 @@
         "linux-mint": {
           "apt": "gnome-calendar",
           "desktopId": "org.gnome.Calendar.desktop",
-          "defaultInstalled": true
+          "defaultInstalled": true,
+          "storeInstallable": false
         },
         "linux-rocky": {
           "flatpak": "org.gnome.Calendar",
@@ -312,7 +313,8 @@
         "linux-mint": {
           "apt": "file-roller",
           "desktopId": "org.gnome.FileRoller.desktop",
-          "defaultInstalled": true
+          "defaultInstalled": true,
+          "storeInstallable": false
         },
         "linux-rocky": {
           "rpm": "file-roller",
@@ -621,7 +623,8 @@
       "sources": {
         "linux-mint": {
           "apt": "thunderbird",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "flatpak": "org.mozilla.Thunderbird",
@@ -679,7 +682,8 @@
       "sources": {
         "linux-mint": {
           "apt": "transmission-gtk",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "rpm": "transmission",
@@ -738,7 +742,8 @@
       "sources": {
         "linux-mint": {
           "apt": "rhythmbox",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "rpm": "rhythmbox",
@@ -798,7 +803,8 @@
         "linux-mint": {
           "apt": "celluloid",
           "flatpak": "io.github.celluloid_player.Celluloid",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "flatpak": "io.github.celluloid_player.Celluloid",
@@ -858,7 +864,8 @@
         "linux-mint": {
           "apt": "drawing",
           "flatpak": "com.github.maoschanz.drawing",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "flatpak": "com.github.maoschanz.drawing",
@@ -918,7 +925,8 @@
       "sources": {
         "linux-mint": {
           "apt": "simple-scan",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "rpm": "simple-scan",
@@ -1005,7 +1013,8 @@
       "sources": {
         "linux-mint": {
           "apt": "warpinator",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "flatpak": "org.x.Warpinator",
@@ -1064,7 +1073,8 @@
       "sources": {
         "linux-mint": {
           "apt": "timeshift",
-          "defaultInstalled": true
+          "defaultInstalled": false,
+          "storeInstallable": true
         },
         "linux-rocky": {
           "flatpak": "com.timeshift.TimeShift",

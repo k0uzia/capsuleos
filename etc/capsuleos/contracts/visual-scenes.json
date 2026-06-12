@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "description": "Contrat scènes fidélité visuelle Φ — paires de captures VM réelle ↔ clone Capsule comparées pixel à pixel. Référence : root/docs/logique-formelle.md §Φ.",
+  "predicates": {
+    "PhiC": "Paire de captures (VM + clone) présente pour chaque scène P0 du slot",
+    "PhiM": "Φ_scene mesuré (diff pixel) pour chaque scène P0",
+    "Phi": "PhiC ∧ PhiM ∧ classification ≥ partial sur toutes les scènes P0 ; clôture H₆ visuelle exige match"
+  },
+  "defaults": {
+    "thresholds": { "match": 88, "partial": 55 },
+    "pixelmatchThreshold": 0.25,
+    "capturesDir": "root/docs/inventaires/captures/<registryId>/visual-fidelity",
+    "reportPath": "root/docs/inventaires/<registryId>-visual-fidelity.json"
+  },
+  "rules": [
+    "Φ_scene = 100 × (1 − pixels divergents / pixels comparés) après masques, sur zone commune centrée",
+    "Écart géométrique fenêtre > 8 px (largeur ou hauteur) → classification plafonnée à partial",
+    "match : Φ ≥ thresholds.match ET géométrie alignée ; partial : Φ ≥ thresholds.partial ; sinon mismatch",
+    "Scène vm.mode=live-window : la VM doit afficher l'application dans l'état décrit (setup décrit les étapes opérateur)",
+    "Scène vm.mode=manual : capture VM déposée manuellement sous vm/<scene>.png — jamais inventée",
+    "Aucune scène P0 mesurée → le slot est pending-phi : la dimension vis de Π ne peut pas atteindre 100",
+    "Les seuils par scène tiennent compte de l'anti-aliasing fontes GTK vs navigateur ; resserrer au fil des campagnes"
+  ],
+  "registries": {
+    "linux-mint": {
+      "facadeUrl": "OS/linux/families/debian/mint/index.html",
+      "vm": {
+        "sshHostEnv": "CAPSULE_MINT_VM_SSH",
+        "sshHostDefault": "capsule@192.168.1.146",
+        "display": ":0",
+        "screenshotCommand": "gnome-screenshot",
+        "theme": "Mint-Y-Dark-Aqua",
+        "screen": { "width": 1280, "height": 800 },
+        "prepScript": "root/tools/lab/vm-mint-scene-prep.sh"
+      },
+      "slots": {
+        "shell": {
+          "windowTitle": null,
+          "wmctrlMatch": "^$",
+          "geometry": { "width": 1280, "height": 800, "note": "écran VM complet — panel Cinnamon 40px en bas" },
+          "scenes": [
+            {
+              "id": "desktop",
+              "priority": "P0",
+              "label": "Bureau Cinnamon nu — fond Mint, icônes bureau, panel bas",
+              "clone": {
+                "open": "none",
+                "waitSelector": "footer nav a[data-link=\"mainMenu\"]",
+                "settleMs": 900,
+                "fullPage": true,
+                "actions": []
+              },
+              "vm": {
+                "mode": "fullscreen",
+                "settleSec": 1,
+                "setup": ["Fermer toutes les fenêtres applicatives (vm-mint-scene-prep.sh --close-windows)"],
+                "setupCommands": [
+                  "wmctrl -l | grep -v ' Bureau$' | awk '{print $1}' | while read -r w; do wmctrl -i -c \"$w\"; done",
+                  "sleep 1.5"
+                ]
+              },
+              "masks": [
+                { "x": 1050, "y": 758, "w": 230, "h": 42, "note": "tray + horloge panel — heure/état réseau non déterministes" }
+              ],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "menu",
+              "priority": "P0",
+              "label": "Menu principal Cinnamon ouvert — favoris, catégories, recherche",
+              "clone": {
+                "open": "none",
+                "waitSelector": "footer nav a[data-link=\"mainMenu\"]",
+                "settleMs": 700,
+                "fullPage": true,
+                "actions": [
+                  { "type": "click", "selector": "footer nav a[data-link=\"mainMenu\"]" },
+                  { "type": "wait", "ms": 500 }
+                ]
+              },
+              "vm": {
+                "mode": "fullscreen",
+                "settleSec": 1,
+                "setup": ["Fermer les fenêtres puis ouvrir le menu (touche Super)"],
+                "setupCommands": [
+                  "wmctrl -l | grep -v ' Bureau$' | awk '{print $1}' | while read -r w; do wmctrl -i -c \"$w\"; done",
+                  "sleep 1.2",
+                  "xdotool key super",
+                  "sleep 1.2"
+                ],
+                "teardownCommands": ["xdotool key Escape"]
+              },
+              "masks": [
+                { "x": 1050, "y": 758, "w": 230, "h": 42, "note": "tray + horloge panel" }
+              ],
+              "thresholds": { "match": 85, "partial": 50 }
+            }
+          ]
+        },
+        "nemo": {
+          "windowTitle": "Dossier personnel",
+          "wmctrlMatch": "dossier personnel|nemo",
+          "geometry": { "width": 1280, "height": 760, "note": "nemo maximisé sur la VM — écran moins panel 40px" },
+          "cloneWindowSelector": "div[data-link=\"nemo\"]",
+          "scenes": [
+            {
+              "id": "home",
+              "priority": "P0",
+              "label": "Dossier personnel — vue icônes, volet latéral Mon ordinateur, fenêtre maximisée",
+              "clone": {
+                "open": "nemo",
+                "waitSelector": "div[data-link=\"nemo\"]",
+                "settleMs": 700,
+                "viewport": "vm",
+                "actions": [
+                  { "type": "dblclick", "selector": "div[data-link=\"nemo\"] > #windowHeader", "note": "maximiser — parité fenêtre VM 1280×760" },
+                  { "type": "wait", "ms": 500 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "nemo",
+                "setup": ["nemo maximisé, dossier personnel, fichiers cachés masqués (défaut Mint rétabli)"]
+              },
+              "masks": [
+                { "x": 0, "y": 728, "w": 1280, "h": 32, "note": "barre d'état — espace libre disque non déterministe" }
+              ],
+              "thresholds": { "match": 85, "partial": 50 }
+            }
+          ]
+        },
+        "themes": {
+          "windowTitle": "Paramètres du système",
+          "wmctrlMatch": "param.tres du syst.me|cinnamon-settings",
+          "geometry": { "width": 800, "height": 632, "note": "fenêtre visible gnome-screenshot -w (wmctrl 800×600 hors barre titre)" },
+          "cloneWindowSelector": "div[data-link=\"themes\"]",
+          "scenes": [
+            {
+              "id": "home",
+              "priority": "P0",
+              "label": "Paramètres du système — accueil, sections Apparence + Préférences",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 700,
+                "actions": []
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "cinnamon-settings",
+                "setup": ["cinnamon-settings ouvert sur l'accueil (taille par défaut 800×632)"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            }
+          ]
+        },
+        "update_manager": {
+          "windowTitle": "Gestionnaire de mise à jour",
+          "wmctrlMatch": "gestionnaire de mise|mintupdate",
+          "geometry": { "width": 790, "height": 570, "note": "fenêtre visible gnome-screenshot -w (wmctrl -l -G)" },
+          "cloneWindowSelector": "div[data-link=\"update_manager\"]",
+          "scenes": [
+            {
+              "id": "main",
+              "priority": "P0",
+              "label": "Gestionnaire de mise à jour — toolbar, liste mises à jour, Renseignements",
+              "clone": {
+                "open": "none",
+                "waitSelector": "body#mint",
+                "settleMs": 400,
+                "actions": [
+                  { "type": "evaluate", "script": "localStorage.setItem('capsule-mintupdate-welcome-dismissed','1'); localStorage.setItem('capsule-mintupdate-mirror-dismissed','1');" },
+                  { "type": "evaluate", "script": "window.openWindowByDataLink('update_manager');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"update_manager\"]:visible" },
+                  { "type": "click", "selector": "div[data-link=\"update_manager\"] [data-um-action=\"refresh\"]" },
+                  { "type": "wait", "ms": 1200 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "mintupdate",
+                "setup": ["mintupdate ouvert, liste chargée (18 mises à jour constatées sur la VM)"],
+                "setupCommands": ["wmctrl -a \"Gestionnaire de mise à jour\"", "sleep 0.5"]
+              },
+              "masks": [
+                { "x": 0, "y": 560, "w": 790, "h": 42, "note": "barre d'état — nombre/Mo de mises à jour sélectionnées dépend du dépôt au jour J" }
+              ],
+              "thresholds": { "match": 80, "partial": 45 }
+            }
+          ]
+        },
+        "mintinstall": {
+          "windowTitle": "Logithèque",
+          "wmctrlMatch": "logith|software manager|mintinstall",
+          "geometry": { "width": 808, "height": 680, "note": "gnome-screenshot -w VM (wmctrl extérieur 860×732)" },
+          "cloneWindowSelector": "div[data-link=\"mintinstall\"]",
+          "scenes": [
+            {
+              "id": "home",
+              "priority": "P0",
+              "label": "Accueil mintinstall 8.4 — hero VLC, Logiciels phares, Catégories, Les mieux notés",
+              "clone": {
+                "open": "mintinstall",
+                "waitSelector": "#mintInstallApp[data-mint-install-init=\"true\"]",
+                "settleMs": 800,
+                "actions": [
+                  { "type": "waitSelector", "selector": "[data-mi-hero-mount] .mi-app__hero-slide--banner, [data-mi-hero-mount] .mi-app__hero-slide--promo" }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "mintinstall",
+                "setup": [
+                  "Lancer la Logithèque sur la VM (état accueil par défaut)",
+                  "Thème sombre Mint-Y-Dark-Aqua actif"
+                ],
+                "setupCommands": [
+                  "wmctrl -a \"Logithèque\"",
+                  "wmctrl -r \"Logithèque\" -e 0,10,10,860,732",
+                  "sleep 0.6"
+                ]
+              },
+              "masks": [
+                { "x": 10, "y": 58, "w": 840, "h": 178, "note": "bannière carousel — contenu réseau non déterministe (Telegram/VLC/…)" }
+              ],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "browse-all",
+              "priority": "P1",
+              "label": "Catégorie Tous les logiciels — sidebar + liste + À découvrir",
+              "clone": {
+                "open": "mintinstall",
+                "waitSelector": "#mintInstallApp[data-mint-install-init=\"true\"]",
+                "settleMs": 400,
+                "actions": [
+                  { "type": "click", "selector": "[data-mi-home-cat=\"all\"]" },
+                  { "type": "waitSelector", "selector": "[data-mi-page=\"list\"]:not([hidden])" }
+                ]
+              },
+              "vm": { "mode": "manual" },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "detail",
+              "priority": "P1",
+              "label": "Fiche application — détail VLC/LibreOffice",
+              "clone": {
+                "open": "mintinstall",
+                "waitSelector": "#mintInstallApp[data-mint-install-init=\"true\"]",
+                "settleMs": 400,
+                "actions": [
+                  { "type": "click", "selector": "[data-mi-home-cat=\"office\"]" },
+                  { "type": "waitSelector", "selector": "[data-mi-page=\"list\"]:not([hidden])" },
+                  { "type": "click", "selector": "[data-mi-pkg=\"librewriter\"]" },
+                  { "type": "waitSelector", "selector": "[data-mi-page=\"detail\"]:not([hidden])" }
+                ]
+              },
+              "vm": { "mode": "manual" },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

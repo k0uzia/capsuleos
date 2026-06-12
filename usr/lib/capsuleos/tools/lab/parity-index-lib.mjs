@@ -96,8 +96,55 @@ export function recomputeGlobal(index) {
 
   index.pi_global = Math.round(shellPi * shellWeight + appPi * appWeight);
   index.status_global = parityStatus(index.pi_global);
+
+  // Φ — fidélité visuelle mesurée (logique-formelle.md §2.4b)
+  const phiEntries = appEntries.filter((e) => typeof e.phi === 'number');
+  index.phi_global = phiEntries.length
+    ? Math.min(...phiEntries.map((e) => e.phi))
+    : null;
+  const phiPending = appEntries.some((e) => e.phiClassification === 'pending-phi'
+    || e.phiClassification === 'unmeasured');
+  if (phiPending && index.status_global === 'ok') {
+    index.status_global = 'pending-phi';
+  }
   index.updatedAt = new Date().toISOString();
   return index;
+}
+
+const VISUAL_SCENES_CONTRACT = path.join(ROOT, 'etc/capsuleos/contracts/visual-scenes.json');
+
+export function visualFidelityReportPath(registryId) {
+  const slug = registryId.replace(/[^a-z0-9-]/gi, '-');
+  return path.join(ROOT, 'root/docs/inventaires', `${slug}-visual-fidelity.json`);
+}
+
+/**
+ * État Φ d'un slot : scènes P0 déclarées au contrat + mesure éventuelle.
+ * Retour : { declared, phi, classification } — classification 'pending-phi' si
+ * des scènes P0 existent au contrat sans mesure correspondante.
+ */
+export function phiStateForSlot(registryId, slot) {
+  let declared = 0;
+  try {
+    const contract = JSON.parse(fs.readFileSync(VISUAL_SCENES_CONTRACT, 'utf8'));
+    const slotSpec = contract.registries?.[registryId]?.slots?.[slot];
+    declared = (slotSpec?.scenes || []).filter((s) => s.priority === 'P0').length;
+  } catch {
+    declared = 0;
+  }
+  if (!declared) {
+    return { declared: 0, phi: null, classification: 'no-scenes' };
+  }
+  const reportFile = visualFidelityReportPath(registryId);
+  if (!fs.existsSync(reportFile)) {
+    return { declared, phi: null, classification: 'pending-phi' };
+  }
+  const report = JSON.parse(fs.readFileSync(reportFile, 'utf8'));
+  const entry = report.slots?.[slot];
+  if (!entry || typeof entry.phi !== 'number') {
+    return { declared, phi: null, classification: 'pending-phi' };
+  }
+  return { declared, phi: entry.phi, classification: entry.classification };
 }
 
 export function updateAppParity(index, slot, patch) {

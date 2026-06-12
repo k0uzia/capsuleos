@@ -15,6 +15,24 @@ import { resolveCsPanel, panelExists } from './mint-desktop-cs-panel.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js');
 
+/**
+ * Vérité VM : libellés/descriptions affichés par le menu Cinnamon (fr_FR, gettext
+ * X-Ubuntu-Gettext-Domain) — root/docs/inventaires/linux-mint-menu-entries-vm.json.
+ */
+const VM_ENTRIES_PATH = path.join(ROOT, 'root/docs/inventaires/linux-mint-menu-entries-vm.json');
+const VM_ENTRIES = fs.existsSync(VM_ENTRIES_PATH)
+  ? new Map(JSON.parse(fs.readFileSync(VM_ENTRIES_PATH, 'utf8')).entries.map((e) => [e.file, e]))
+  : new Map();
+
+/** Favoris VM ordonnés (gsettings org.cinnamon favorite-apps) — sidebar + catégorie Favoris. */
+const FAVORITE_DESKTOPS = [
+  'org.gnome.Calculator.desktop',
+  'org.gnome.Calendar.desktop',
+  'org.x.editor.desktop',
+  'mintinstall.desktop',
+  'cinnamon-settings.desktop',
+];
+
 /** Mapping explicite .desktop → slot CapsuleOS (prioritaire sur les règles heuristiques). */
 const DESKTOP_SLOT = {
   'nemo.desktop': { slot: 'nemo', catId: 'access' },
@@ -24,12 +42,12 @@ const DESKTOP_SLOT = {
   'org.gnome.Calendar.desktop': { slot: 'calendar', catId: 'access' },
   'org.x.editor.desktop': { slot: 'text_editor', catId: 'access' },
   'vim.desktop': { slot: 'text_editor', catId: 'access' },
-  'mintinstall.desktop': { slot: 'update_manager', catId: 'admin' },
+  'mintinstall.desktop': { slot: 'mintinstall', catId: 'admin' },
   'mintupdate.desktop': { slot: 'update_manager', catId: 'admin' },
   'mintdrivers.desktop': { slot: 'mintdrivers', catId: 'admin' },
-  'mintbackup.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintstick.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintstick-format.desktop': { slot: 'update_manager', catId: 'admin' },
+  'mintbackup.desktop': { slot: 'mintbackup', catId: 'admin' },
+  'mintstick.desktop': { slot: 'mintstick', catId: 'admin' },
+  'mintstick-format.desktop': { slot: 'mintstick_format', catId: 'admin' },
   'mintreport.desktop': { slot: 'themes', catId: 'admin' },
   'mintsources.desktop': { slot: 'themes', catId: 'prefs' },
   'system-config-printer.desktop': { slot: 'themes', catId: 'prefs' },
@@ -37,12 +55,26 @@ const DESKTOP_SLOT = {
   'onboard.desktop': { slot: 'themes', catId: 'prefs' },
   'blueman-adapters.desktop': { slot: 'themes', catId: 'prefs' },
   'org.freedesktop.IBus.Setup.desktop': { slot: 'themes', catId: 'prefs' },
-  'timeshift-gtk.desktop': { slot: 'update_manager', catId: 'admin' },
-  'mintwelcome.desktop': { slot: 'profile', catId: 'prefs' },
+  'timeshift-gtk.desktop': { slot: 'timeshift', catId: 'admin' },
+  'mintwelcome.desktop': { slot: 'mintwelcome', catId: 'prefs' },
   'gufw.desktop': { slot: 'themes', catId: 'prefs' },
   'blueman-manager.desktop': { slot: 'themes', catId: 'prefs' },
-  'org.gnome.DiskUtility.desktop': { slot: 'themes', catId: 'prefs' },
-  'webapp-manager.desktop': { slot: 'firefox', catId: 'internet' },
+  'org.gnome.DiskUtility.desktop': { slot: 'gnome_disks', catId: 'prefs' },
+  'org.gnome.baobab.desktop': { slot: 'baobab', catId: 'admin' },
+  'org.gnome.SystemMonitor.desktop': { slot: 'system_monitor', catId: 'admin' },
+  'org.gnome.PowerStats.desktop': { slot: 'power_stats', catId: 'prefs' },
+  'org.gnome.font-viewer.desktop': { slot: 'font_viewer', catId: 'prefs' },
+  'gucharmap.desktop': { slot: 'gucharmap', catId: 'access' },
+  'simple-scan.desktop': { slot: 'simple_scan', catId: 'graph' },
+  'org.gnome.Rhythmbox3.desktop': { slot: 'rhythmbox', catId: 'sonvideo' },
+  'sticky.desktop': { slot: 'sticky', catId: 'access' },
+  'hypnotix.desktop': { slot: 'hypnotix', catId: 'sonvideo' },
+  'transmission-gtk.desktop': { slot: 'transmission', catId: 'internet' },
+  'org.x.Warpinator.desktop': { slot: 'warpinator', catId: 'access' },
+  'thingy.desktop': { slot: 'thingy', catId: 'bureau' },
+  'bulky.desktop': { slot: 'bulky', catId: 'access' },
+  'thunderbird.desktop': { slot: 'thunderbird', catId: 'internet' },
+  'webapp-manager.desktop': { slot: 'webapp_manager', catId: 'internet' },
   'cinnamon-settings.desktop': { slot: 'themes', catId: 'prefs' },
   'cinnamon-settings-themes.desktop': { slot: 'themes', catId: 'prefs' },
   'cinnamon-settings-backgrounds.desktop': { slot: 'themes', catId: 'prefs' },
@@ -186,7 +218,8 @@ const buildMenuApps = () => {
     const appId = entry.normalizedId || entry.id;
     const slot = slotForEntry({ ...entry, id: appId, desktopPath: entry.desktopPath });
     const dataLink = slot ? `'${esc(slot)}'` : 'null';
-    const name = entry.name || entry.nameEn || appId;
+    const vmEntry = VM_ENTRIES.get(desktop);
+    const name = (vmEntry && vmEntry.name) || entry.name || entry.nameEn || appId;
     const slotRaw = slot ? slot.replace(/^'|'$/g, '') : null;
     let csPanel = null;
     if (slotRaw === 'themes') {
@@ -200,9 +233,10 @@ const buildMenuApps = () => {
       catId: catFromCategories(entry.categories, desktop),
       icon: resolveIcon(appId, entry.icon),
       name,
-      desc: entry.comment || entry.nameEn || entry.name || 'Application Linux Mint',
+      desc: (vmEntry && vmEntry.comment) || entry.comment || entry.nameEn || entry.name || 'Application Linux Mint',
       dataLink,
       csPanel,
+      favoriteRank: FAVORITE_DESKTOPS.indexOf(desktop),
       desktop,
       sortKey: name.toLowerCase(),
     });
@@ -218,16 +252,19 @@ const renderFile = (apps) => {
   lines.push(' * Catalogue menu Cinnamon / Linux Mint — généré depuis proc/linux-mint (ManΣ).');
   lines.push(' * node usr/lib/capsuleos/tools/lab/generate-mint-menu-data.mjs --write');
   lines.push(' */');
+  lines.push('// Catégories + icônes symboliques XApp (xsi-*) — vérité VM menu@cinnamon.org');
+  lines.push("const MENU_CAT_ICON_BASE = './assets/images/toolkits/cinnamon/menu/symbolic/';");
   lines.push('const MENU_CATS = [');
-  lines.push("    { id: 'all',      label: 'Toutes les applications' },");
-  lines.push("    { id: 'access',   label: 'Accessoires' },");
-  lines.push("    { id: 'bureau',   label: 'Bureautique' },");
-  lines.push("    { id: 'graph',    label: 'Graphisme' },");
-  lines.push("    { id: 'internet', label: 'Internet' },");
-  lines.push("    { id: 'sonvideo', label: 'Son et vidéo' },");
-  lines.push("    { id: 'prefs',    label: 'Préférences' },");
-  lines.push("    { id: 'admin',    label: 'Administration' },");
-  lines.push("    { id: 'recent',   label: 'Fichiers récents' },");
+  lines.push("    { id: 'all',       label: 'Toutes les applications', icon: MENU_CAT_ICON_BASE + 'cinnamon-all-applications-symbolic.svg' },");
+  lines.push("    { id: 'access',    label: 'Accessoires', icon: MENU_CAT_ICON_BASE + 'xsi-applications-accessories-symbolic.svg' },");
+  lines.push("    { id: 'bureau',    label: 'Bureautique', icon: MENU_CAT_ICON_BASE + 'xsi-applications-office-symbolic.svg' },");
+  lines.push("    { id: 'graph',     label: 'Graphisme', icon: MENU_CAT_ICON_BASE + 'xsi-applications-graphics-symbolic.svg' },");
+  lines.push("    { id: 'internet',  label: 'Internet', icon: MENU_CAT_ICON_BASE + 'xsi-applications-internet-symbolic.svg' },");
+  lines.push("    { id: 'sonvideo',  label: 'Son et vidéo', icon: MENU_CAT_ICON_BASE + 'xsi-applications-multimedia-symbolic.svg' },");
+  lines.push("    { id: 'prefs',     label: 'Préférences', icon: MENU_CAT_ICON_BASE + 'xsi-applications-preferences-symbolic.svg' },");
+  lines.push("    { id: 'admin',     label: 'Administration', icon: MENU_CAT_ICON_BASE + 'xsi-applications-administration-symbolic.svg' },");
+  lines.push("    { id: 'favorites', label: 'Favoris', icon: MENU_CAT_ICON_BASE + 'xsi-user-favorites-symbolic.svg' },");
+  lines.push("    { id: 'recent',    label: 'Fichiers récents', icon: MENU_CAT_ICON_BASE + 'xsi-folder-recent-symbolic.svg' },");
   lines.push('];');
   lines.push('');
   lines.push('const MENU_SHORTCUTS = {');
@@ -244,7 +281,8 @@ const renderFile = (apps) => {
   lines.push('const MENU_APPS = [');
   apps.forEach((app) => {
     const csPart = app.csPanel ? `, csPanel: '${esc(app.csPanel)}'` : '';
-    lines.push(`    { catId: '${esc(app.catId)}', icon: '${esc(app.icon)}', name: '${esc(app.name)}', desc: '${esc(app.desc)}', dataLink: ${app.dataLink}${csPart} },`);
+    const favPart = app.favoriteRank >= 0 ? `, favorite: true, favoriteRank: ${app.favoriteRank}` : '';
+    lines.push(`    { catId: '${esc(app.catId)}', icon: '${esc(app.icon)}', name: '${esc(app.name)}', desc: '${esc(app.desc)}', dataLink: ${app.dataLink}${csPart}${favPart} },`);
   });
   lines.push('];');
   lines.push('');

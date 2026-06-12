@@ -170,11 +170,63 @@ if (!html.includes('data-um-gnome-discover-grid')) {
     errors.push('update_manager_gnome.html : section À découvrir absente');
 }
 
+const MINT_STORE_COUNT = 21;
+const mintStoreRuntime = fs.readFileSync(
+    path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mint-store-catalog.js'),
+    'utf8'
+);
+const mintinstallRuntime = fs.readFileSync(
+    path.join(ROOT, 'usr/lib/capsuleos/shells/linux/mintinstall.js'),
+    'utf8'
+);
+const cinnamonShellPin = fs.readFileSync(
+    path.join(ROOT, 'usr/lib/capsuleos/shells/linux/cinnamon-store-shell-pin.js'),
+    'utf8'
+);
+const mintHtml = fs.readFileSync(
+    path.join(ROOT, 'usr/share/capsuleos/linux/apps/mintinstall.html'),
+    'utf8'
+);
+const mintBinding = presentation?.bindings?.['linux-mint'];
+if (!mintBinding || mintBinding.storeCatalogStatus !== 'active' || mintBinding.toolkit !== 'cinnamon') {
+    errors.push('presentation-bindings linux-mint : storeCatalogStatus active / toolkit cinnamon requis');
+}
+if (!mintBinding?.storeFront || mintBinding.storeFront.slot !== 'mintinstall') {
+    errors.push('presentation-bindings linux-mint : storeFront mintinstall requis');
+}
+const mintGeneratedEntries = buildStoreCatalogEntries('linux-mint');
+if (mintGeneratedEntries.length !== MINT_STORE_COUNT) {
+    errors.push(`capsule-store-catalog.js : attendu ${MINT_STORE_COUNT} apps linux-mint (actuel: ${mintGeneratedEntries.length})`);
+}
+if (!mintStoreRuntime.includes('CapsuleCinnamonStore')) {
+    errors.push('mint-store-catalog.js : CapsuleCinnamonStore absent');
+}
+if (!mintStoreRuntime.includes('getStoreAppEntry')) {
+    errors.push('mint-store-catalog.js : getStoreAppEntry absent');
+}
+['getDiscoverApps', 'capsule:store-app-installed'].forEach((needle) => {
+    if (!mintinstallRuntime.includes(needle)) {
+        errors.push(`mintinstall.js : « ${needle} » absent`);
+    }
+});
+if (!cinnamonShellPin.includes('capsule:store-app-installed')) {
+    errors.push('cinnamon-store-shell-pin.js : écoute capsule:store-app-installed absente');
+}
+if (!mintHtml.includes('data-mi-spotlight') && !mintHtml.includes('mi-app__featured')) {
+    errors.push('mintinstall.html : section logiciels phares / vedette absente');
+}
+if (!mintHtml.includes('data-mi-discover-grid')) {
+    errors.push('mintinstall.html : section À découvrir absente');
+}
+if (!mintStoreRuntime.includes('recordStoreInstall')) {
+    errors.push('mint-store-catalog.js : recordStoreInstall absent');
+}
+
 if (errors.length) {
     console.error(`✗ validate-store-installable-apps — ${errors.length} erreur(s)`);
     errors.forEach((e) => console.error('  ', e));
     process.exit(1);
 }
 
-console.log('✓ validate-store-installable-apps OK — triplet GNOME Alma/Rocky/Fedora (11 apps chacun)');
+console.log('✓ validate-store-installable-apps OK — GNOME Alma/Rocky/Fedora (11 apps) + Cinnamon Mint (21 apps)');
 process.exit(0);

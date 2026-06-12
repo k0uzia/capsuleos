@@ -20,7 +20,9 @@ const opened = await page.evaluate(() => {
     winVisible: win && win.style.display !== 'none',
     appReady: app && app.dataset.cinnamonSettingsInit === 'true',
     title: win?.querySelector('#windowTitle')?.textContent,
-    navCount: app?.querySelectorAll('[data-cs-nav]').length || 0,
+    homeTiles: app?.querySelectorAll('[data-cs-home-module]').length || 0,
+    categories: app?.querySelectorAll('[data-cs-category]').length || 0,
+    view: app?.dataset.csView,
     panelTitle: app?.querySelector('#cs-panel-title')?.textContent,
   };
 });
@@ -39,13 +41,13 @@ const themesPanel = await page.evaluate(() => {
   };
 });
 
-await page.fill('#cs-search', 'son');
+await page.fill('#cs-search', 'thème');
 await page.waitForTimeout(80);
 
 const search = await page.evaluate(() => ({
   panelTitle: document.querySelector('#cs-panel-title')?.textContent,
-  soundNavVisible: !document.querySelector('[data-cs-nav="sound"]')?.hidden,
-  themesNavHidden: document.querySelector('[data-cs-nav="themes"]')?.hidden,
+  themesTileVisible: !document.querySelector('[data-cs-nav="themes"]')?.hidden,
+  generalTileHidden: document.querySelector('[data-cs-nav="general"]')?.hidden,
 }));
 
 await page.fill('#cs-search', '');
@@ -69,12 +71,15 @@ await browser.close();
 
 const ok = opened.appReady
   && opened.title === 'Paramètres du système'
-  && opened.navCount >= 28
+  && opened.homeTiles >= 20
+  && opened.categories === 2
+  && opened.view === 'home'
   && themesPanel.visible
   && themesPanel.gtk && /Mint-Y-(Dark-)?Aqua/.test(themesPanel.gtk)
-  && search.panelTitle === 'Son'
+  && search.panelTitle === 'Thèmes'
+  && search.themesTileVisible
   && backgrounds.visible
-  && dims.win && dims.win.w >= 780 && dims.win.h >= 580;
+  && dims.win && dims.win.w >= 795 && dims.win.h >= 620;
 
 console.log(JSON.stringify({ opened, themesPanel, search, backgrounds, dims, ok }, null, 2));
 process.exit(ok ? 0 : 1);

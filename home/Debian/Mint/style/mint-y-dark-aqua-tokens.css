@@ -7,7 +7,11 @@ body#mint {
     --mint-panel-height: 40px;
     --taskbar-height: var(--mint-panel-height);
     --mint: url(./assets/images/vendors/mint/wallpaper/default_background.jpg);
-    --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
+    /* VM : gsettings font-name = 'Ubuntu 10' (13.3px) */
+    --font-ui: 'Ubuntu', 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
+    /* La règle portail universelle `* { font-family: var(--font) }` court-circuite
+       l'héritage — rebrancher --font sur la pile Ubuntu pour tout le bureau Mint (vérité VM) */
+    --font: var(--font-ui);
     --texte: #e1e1e1;
     /* html{color:var(--texte)} portail — réappliquer teinte VM #e1e1e1 + stack Cantarell/Noto */
     color: var(--texte);
@@ -23,8 +27,9 @@ body#mint {
     --mint-favorites-icon-size: 22px;
     --mint-tray-color: #e1e1e1;
     --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.08);
-    --menu-sidebar-bg: #27272b;
-    --menu-cats-bg: #2a2a2f;
+    /* Mesure pixel VM (scène Φ shell/menu) : sidebar #303036, colonnes contenu #222226 */
+    --menu-sidebar-bg: #303036;
+    --menu-cats-bg: #222226;
     --menu-apps-bg: #222226;
     --menu-shell-border: #1a1a1b;
     --menu-sidebar-separator: #1a1a1b;

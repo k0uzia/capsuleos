@@ -72,6 +72,26 @@ Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantiqu
 | **Vc** | Captures Capsule miroir (lot documenté) | `capsuleCaptures[]` P0 ; `summary.capsuleCapturesP0 > 0` |
 | **Vp** | Parité visuelle classée | `capsuleParity.visualMatch` ≠ `unknown` pour P0 documentés |
 
+### 2.4b Fidélité visuelle mesurée (Φ)
+
+**Φ** est distinct de **Vp** : **Vp** est une classification déclarative (heuristique hooks + présence de captures) ; **Φ** est une **mesure pixel** VM ↔ clone. La crédibilité pédagogique exige Φ — Vp seul ne suffit plus pour clore un domaine visuel.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **ΦC** | Paires de captures VM + clone présentes (scènes P0 du contrat) | `capture-scene-pair.mjs` · `captures/<id>/visual-fidelity/<slot>/{vm,clone}/` |
+| **ΦM** | Φ_scene mesuré (diff pixel, masques appliqués) | `compare-visual-fidelity.mjs` · `<id>-visual-fidelity.json` |
+| **ΦI** | Rendu live conforme inventaire VM (computed + géométrie) | `assert-computed-vs-inventory.mjs` · `computedChecks` dans `<id>-<slot>-vm.json` |
+| **Φ** | Fidélité visuelle mesurée : toutes scènes P0 `classification ≥ partial`, clôture exige `match` | `slots.<slot>.classification` dans `<id>-visual-fidelity.json` |
+
+Règles :
+
+- **`visualMatch: match` est réservé au diff pixel mesuré** — un classifieur déclaratif ne peut produire que `partial` au mieux.
+- Slot avec scènes P0 déclarées dans `visual-scenes.json` mais **non mesurées** → `pending-phi` : la dimension `vis` de **Π** ne peut pas atteindre 100 (check `phi-visual` en échec).
+- Distro sans VM accessible → statut explicite `phi: unmeasured` — jamais `match` implicite.
+- Φ_slot = min des Φ_scene P0 (lecture honnête au pire cas).
+
+Contrat : `etc/capsuleos/contracts/visual-scenes.json` · Rapport : `root/docs/inventaires/<id>-visual-fidelity.json`
+
 ### 2.5 Classification écarts (P)
 
 | Symbole | Signification |
@@ -311,6 +331,10 @@ R-PRI1  L ∧ S ∧ ¬V  →  priorité enquête visuelle / capture VM (lot P0)
 R-PRI2  V ∧ ¬G  →  passe approfondie gsettings / schémas secondaires
 R-PRI2b G ∧ ¬Vc  →  captures Capsule miroir (lot P0 documenté)
 R-PRI2c Vc ∧ ¬Vp  →  croisement VM↔Capsule, classer visualMatch
+R-PHI1  scènes P0 déclarées ∧ ¬ΦC  →  capture-scene-pair.mjs (VM + clone)
+R-PHI2  ΦC ∧ ¬ΦM  →  compare-visual-fidelity.mjs (score Φ + diff)
+R-PHI3  computedChecks déclarés ∧ ¬ΦI  →  assert-computed-vs-inventory.mjs
+R-PHI4  Φ mismatch sur scène P0  →  corriger skin/catalogue puis re-mesurer (interdit clôture H₆ visuelle)
 R-PRI3  Vp ∧ lot P1 ouvert  →  étendre enquête visuelle P1
 R-PRI3b H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
 R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d

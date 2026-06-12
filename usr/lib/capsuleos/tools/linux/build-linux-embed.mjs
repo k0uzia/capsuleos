@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { writeEmbedSourcesHash } from './embed-sources-hash.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -275,8 +276,9 @@ window.CAPSULE_NEMO_MANIFEST_EMBED = window.CAPSULE_FILE_EXPLORER_MANIFEST_EMBED
 
     fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
     fs.writeFileSync(OUT_FILE, `${header}\n${body}\n`, 'utf8');
+    const hashInfo = writeEmbedSourcesHash();
     const explorerIds = Object.keys(EXPLORER_TEMPLATES).filter((id) => templates[id]);
-    console.log(`Écrit ${OUT_FILE} (${Object.keys(templates).length} templates dont ${explorerIds.length} explorateurs, ${SKIN_DIRS.length} skins)`);
+    console.log(`Écrit ${OUT_FILE} (${Object.keys(templates).length} templates dont ${explorerIds.length} explorateurs, ${SKIN_DIRS.length} skins, sources ${hashInfo.fileCount} fichiers hash ${hashInfo.hash.slice(0, 12)})`);
 }
 
 main();

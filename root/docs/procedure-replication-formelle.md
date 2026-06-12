@@ -23,7 +23,8 @@ Notation alignée sur la logique formelle (§2.7).
 | 7 | **G** | Passe gsettings approfondie | `gsettingsDeepPass` dans inventaire |
 | 8 | **Vc** | Captures Capsule miroir | `capsuleCaptures[]` P0 |
 | 9 | **Vp** | Parité visuelle classée | `capsuleParity.visualMatch` ≠ `unknown` |
-| 10 | **H₆** | Clôture release Paramètres | `*-gnome-settings-h6-closure.json` |
+| 9b | **Φ** | Fidélité visuelle mesurée (diff pixel VM ↔ clone + computed vs inventaire) | `<id>-visual-fidelity.json` · scènes P0 `match` |
+| 10 | **H₆** | Clôture release Paramètres | `*-gnome-settings-h6-closure.json` — exige **Φ** sur les slots à scènes P0 déclarées |
 | 11 | **AppV** | Inventaire apps VM | `*-vm-apps-installed.json` |
 | 12 | **AppC** | Catalogue strict apps | `*-apps-catalog.json` |
 | 13 | **AppΣ** | Apps P0 OK | `smoke-apps-catalog.mjs` |
@@ -48,8 +49,13 @@ flowchart LR
 R-PRI2   V ∧ ¬G   →  enrich-visual-investigation-gsettings-pass.mjs
 R-PRI2b  G ∧ ¬Vc  →  collect-capsule-visual-investigation.mjs
 R-PRI2c  Vc ∧ ¬Vp  →  enrich-visual-investigation-capsule-parity.mjs
+R-PHI1   scènes P0 déclarées ∧ ¬ΦC  →  capture-scene-pair.mjs --id <id> --slot <slot>
+R-PHI2   ΦC ∧ ¬ΦM  →  compare-visual-fidelity.mjs --id <id>
+R-PHI3   computedChecks ∧ ¬ΦI  →  assert-computed-vs-inventory.mjs --id <id> --slot <slot>
 R-PRI3   Vp ∧ lot P1 ouvert  →  collect enquête --filter P1
 ```
+
+**Φ vs Vp** : Vp (classement déclaratif) ne suffit plus pour la clôture visuelle — voir `logique-formelle.md` §2.4b. Contrat scènes : `etc/capsuleos/contracts/visual-scenes.json`.
 
 ---
 

@@ -2,6 +2,8 @@
 
 **Objectif** : ground truth pour le slot `mintinstall` (distinct de `update_manager` / mintupdate).
 
+**Dernière collecte campagne** : 2026-06-11T13:43:47.812Z · SSH `capsule@192.168.1.146` · paquet `mintinstall 8.4.0`
+
 **Collecte** : SSH `capsule@192.168.1.146` · campagne 2026-06-08.
 
 ---
@@ -15,7 +17,7 @@
 | `.desktop` | `mintinstall.desktop` — **Logithèque** (FR) / Software Manager (EN) |
 | WM class | `mintinstall.py.Mintinstall.py` |
 | UI | GTK3 + gresource |
-| Géométrie | **852×784** (wmctrl, fenêtre « Logithèque ») |
+| Géométrie | **912×784** (wmctrl live 2026-06-11, fenêtre « Logithèque » ouverte) |
 
 ---
 
@@ -34,7 +36,7 @@
 |------|----------|
 | Slot dédié `mintinstall` (≠ `update_manager`) | **P0** |
 | Titre fenêtre « Logithèque » | **P0** |
-| Géométrie 852×784 | **P0** |
+| Géométrie 912×784 | **P0** |
 | Accueil + vedette (4 apps VM) | **P0** |
 | Recherche + catégories sidebar | **P0** |
 | Installation simulée (bouton → Installé) | **P1** |

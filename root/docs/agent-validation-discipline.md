@@ -39,6 +39,7 @@ node usr/lib/capsuleos/tools/print-validation-plan.mjs home/Debian/Mint/style/ap
 | **Liens HTML statiques** | `*.html` hors skin, hubs `OS/` | [link-routing](../skills/link-routing/SKILL.md) | `validate-links-all.mjs` | `fix-static-html-asset-urls.mjs` |
 | **Lab / smokes** | `usr/lib/capsuleos/tools/lab/` | [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) | Smokes touchés (Playwright) | Pas de `validate-all` si lab seul |
 | **Clone VM / parité** | inventaires, playbooks lab | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) · [moteur-clonage-experience.md](moteur-clonage-experience.md) | `run-clone-cycle.mjs --id <registryId> --status` ; `validate-clone-assets.mjs --id <registryId>` ; `validate-skin-icon-paths.mjs --id <registryId>` ; `capture-clone-surfaces.mjs` | `run-cross-regression-gates.mjs` si noyau `fileExplorer/` touché |
+| **Fidélité visuelle Φ** | `visual-scenes.json`, captures `visual-fidelity/` | [logique-formelle.md §2.4b](logique-formelle.md) | `compare-visual-fidelity.mjs --id <registryId>` ; `assert-computed-vs-inventory.mjs --id <registryId> --slot <slot>` | `capture-scene-pair.mjs` si VM allumée — clôture H₆ visuelle exige scènes P0 `match` |
 
 **Release (merge / PR significative)** : toujours terminer par :
 

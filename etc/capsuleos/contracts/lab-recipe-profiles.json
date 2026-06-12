@@ -29,7 +29,12 @@
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
         "chromeProfile": "gs50-tabs",
-        "campaignPhases": ["CR-0", "CR-3", "CR-5", "CR-6"]
+        "campaignPhases": [
+          "CR-0",
+          "CR-3",
+          "CR-5",
+          "CR-6"
+        ]
       },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-rocky.json",
@@ -50,7 +55,15 @@
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
         "chromeProfile": "gs50-tabs",
-        "campaignPhases": ["CR-0", "CR-1", "CR-2", "CR-3", "CR-4", "CR-5", "CR-6"]
+        "campaignPhases": [
+          "CR-0",
+          "CR-1",
+          "CR-2",
+          "CR-3",
+          "CR-4",
+          "CR-5",
+          "CR-6"
+        ]
       },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-fedora.json",
@@ -71,7 +84,11 @@
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
         "chromeProfile": "gs50-tabs",
-        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+        "campaignPhases": [
+          "CR-0",
+          "CR-5",
+          "CR-6"
+        ]
       },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-ubuntu.json",
@@ -103,7 +120,11 @@
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
         "chromeProfile": "gs50-tabs",
-        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+        "campaignPhases": [
+          "CR-0",
+          "CR-5",
+          "CR-6"
+        ]
       },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-alma.json",
@@ -162,7 +183,11 @@
         "groundReferenceRegistryId": "linux-fedora",
         "contentContract": "etc/capsuleos/contracts/gnome-software-store-content.json",
         "chromeProfile": "gs50-tabs",
-        "campaignPhases": ["CR-0", "CR-5", "CR-6"]
+        "campaignPhases": [
+          "CR-0",
+          "CR-5",
+          "CR-6"
+        ]
       },
       "matrices": {
         "parity": "root/tools/lab/gnome-settings-parity-matrix-anduin.json",
@@ -179,6 +204,30 @@
         "collectAssets": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs",
         "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
       }
+    },
+    "linux-elementary": {
+      "toolkit": "pantheon",
+      "vendor": "elementary",
+      "upstreamId": "linux-ubuntu",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+      "notes": "Squelette AccΣ — pilote linux-ubuntu"
+    },
+    "linux-kali": {
+      "toolkit": "xfce",
+      "vendor": "kali",
+      "upstreamId": "linux-rocky",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+      "notes": "Squelette AccΣ — pilote linux-rocky"
+    },
+    "linux-lxqt": {
+      "toolkit": "lxqt",
+      "vendor": "generic",
+      "upstreamId": "linux-debian-kde",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+      "notes": "Squelette AccΣ — pilote linux-debian-kde"
     }
   }
 }

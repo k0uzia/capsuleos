@@ -29,7 +29,10 @@
       "toolkitVariants": {
         "gnome": { "template": "nemo-gnome", "chromeProvider": "nemo-gnome", "skinCss": "nautilus.skin.css" },
         "cinnamon": { "template": "nemo.html", "chromeProvider": "cinnamon", "skinCss": "nemo.skin.css" },
-        "kde": { "template": "dolphin", "chromeProvider": "default", "skinCss": "dolphin.skin.css" }
+        "kde": { "template": "dolphin", "chromeProvider": "default", "skinCss": "dolphin.skin.css" },
+        "pantheon": { "template": "nemo-gnome", "chromeProvider": "nemo-gnome", "skinCss": "nautilus.skin.css", "note": "scaffold AccΣ" },
+        "xfce": { "template": "nemo.html", "chromeProvider": "cinnamon", "skinCss": "nemo.skin.css", "note": "scaffold AccΣ" },
+        "lxqt": { "template": "nemo.html", "chromeProvider": "cinnamon", "skinCss": "nemo.skin.css", "note": "scaffold AccΣ" }
       }
     },
     "firefox": {
@@ -41,7 +44,10 @@
       "postInstallSlot": null,
       "toolkitVariants": {
         "gnome": { "template": "firefox.html", "chromeProvider": "firefox-gnome", "skinCss": "firefox.skin.css" },
-        "cinnamon": { "template": "firefox.html", "chromeProvider": "cinnamon", "skinCss": "firefox.skin.css" }
+        "cinnamon": { "template": "firefox.html", "chromeProvider": "cinnamon", "skinCss": "firefox.skin.css" },
+        "pantheon": { "template": "firefox.html", "chromeProvider": "firefox-gnome", "skinCss": "firefox.skin.css", "note": "scaffold AccΣ" },
+        "xfce": { "template": "firefox.html", "chromeProvider": "cinnamon", "skinCss": "firefox.skin.css", "note": "scaffold AccΣ" },
+        "lxqt": { "template": "firefox.html", "chromeProvider": "cinnamon", "skinCss": "firefox.skin.css", "note": "scaffold AccΣ" }
       }
     },
     "terminal": {
@@ -53,7 +59,10 @@
       "postInstallSlot": null,
       "toolkitVariants": {
         "gnome": { "template": "terminal.html", "chromeProvider": "terminal-gnome", "skinCss": "terminal.skin.css" },
-        "cinnamon": { "template": "terminal.html", "chromeProvider": "cinnamon", "skinCss": "terminal.skin.css" }
+        "cinnamon": { "template": "terminal.html", "chromeProvider": "cinnamon", "skinCss": "terminal.skin.css" },
+        "pantheon": { "template": "terminal.html", "chromeProvider": "terminal-gnome", "skinCss": "terminal.skin.css", "note": "scaffold AccΣ" },
+        "xfce": { "template": "terminal.html", "chromeProvider": "cinnamon", "skinCss": "terminal.skin.css", "note": "scaffold AccΣ" },
+        "lxqt": { "template": "terminal.html", "chromeProvider": "cinnamon", "skinCss": "terminal.skin.css", "note": "scaffold AccΣ" }
       }
     },
     "update_manager": {
@@ -84,7 +93,10 @@
       "toolkitVariants": {
         "gnome": { "template": "themes_gnome.html", "chromeProvider": "libadwaita-gnome", "skinCss": "themes.skin.css" },
         "cinnamon": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css" },
-        "kde": { "template": "kinfocenter_kde_neon.html", "chromeProvider": "default", "skinCss": "themes.skin.css", "note": "Phase 2b — systemsettings_kde.html" }
+        "kde": { "template": "kinfocenter_kde_neon.html", "chromeProvider": "default", "skinCss": "themes.skin.css", "note": "Phase 2b — systemsettings_kde.html" },
+        "pantheon": { "template": "themes_gnome.html", "chromeProvider": "libadwaita-gnome", "skinCss": "themes.skin.css", "note": "scaffold AccΣ" },
+        "xfce": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css", "note": "scaffold AccΣ" },
+        "lxqt": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css", "note": "scaffold AccΣ" }
       }
     },
     "text_editor": {
@@ -315,7 +327,11 @@
       "scenariosContract": null,
       "postInstallSlot": null,
       "toolkitVariants": {
-        "cinnamon": { "template": "mainMenu.html", "chromeProvider": "cinnamon", "skinCss": "mainMenu.skin.css" }
+        "cinnamon": { "template": "mainMenu.html", "chromeProvider": "cinnamon", "skinCss": "mainMenu.skin.css" },
+        "gnome": { "template": "mainMenu.html", "chromeProvider": "libadwaita-gnome", "skinCss": "mainMenu.skin.css", "note": "overview launcher" },
+        "pantheon": { "template": "mainMenu.html", "chromeProvider": "libadwaita-gnome", "skinCss": "mainMenu.skin.css", "note": "scaffold AccΣ" },
+        "xfce": { "template": "mainMenu.html", "chromeProvider": "cinnamon", "skinCss": "mainMenu.skin.css", "note": "scaffold AccΣ" },
+        "lxqt": { "template": "mainMenu.html", "chromeProvider": "cinnamon", "skinCss": "mainMenu.skin.css", "note": "scaffold AccΣ" }
       }
     },
     "profile": {

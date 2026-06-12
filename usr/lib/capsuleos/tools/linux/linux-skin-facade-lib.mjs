@@ -12,6 +12,9 @@ export const ROOT = path.resolve(__dirname, '../../../../..');
 
 /** facade path (sous OS/linux/families) → home canonique */
 export const LINUX_SKIN_FACADES = [
+    { facade: 'families/debian/lxqt', home: 'home/Debian/LXQt' },
+    { facade: 'families/debian/kali', home: 'home/Debian/Kali' },
+    { facade: 'families/debian/elementary', home: 'home/Debian/Elementary' },
     { facade: 'families/debian/mint', home: 'home/Debian/Mint' },
     { facade: 'families/debian/ubuntu', home: 'home/Debian/Ubuntu' },
     { facade: 'families/debian/popos', home: 'home/Debian/PopOS' },

@@ -902,7 +902,7 @@
       "branchId": "ubuntu",
       "vendor": "elementary",
       "displayName": "elementary OS",
-      "tier": "P2",
+      "tier": "P4",
       "status": "planned",
       "fidelityLevel": 0,
       "kernelSpecVersion": 1,
@@ -917,7 +917,7 @@
           "displayName": "Fichiers"
         }
       },
-      "upstreamId": null,
+      "upstreamId": "linux-ubuntu",
       "clusterIds": [
         "toolkit.pantheon"
       ],
@@ -946,7 +946,18 @@
       "licenseNotes": "elementary icons (GPL) — respecter marque",
       "iconPacks": [
         "elementary"
-      ]
+      ],
+      "referencePaths": {
+        "facade": "OS/linux/families/debian/elementary/index.html",
+        "skin": "home/Debian/Elementary/index.html",
+        "embedKey": "elementary",
+        "bodyId": "elementary",
+        "scaffoldAt": "2026-06-12"
+      },
+      "facade": "OS/linux/families/debian/elementary/index.html",
+      "skin": "home/Debian/Elementary/index.html",
+      "embedKey": "elementary",
+      "bodyId": "elementary"
     },
     {
       "id": "linux-zorin",
@@ -1056,7 +1067,7 @@
       "branchId": "kali",
       "vendor": "kali",
       "displayName": "Kali Linux",
-      "tier": "P3",
+      "tier": "P4",
       "status": "planned",
       "fidelityLevel": 0,
       "kernelSpecVersion": 1,
@@ -1071,7 +1082,7 @@
           "displayName": "Thunar"
         }
       },
-      "upstreamId": null,
+      "upstreamId": "linux-rocky",
       "clusterIds": [
         "toolkit.xfce"
       ],
@@ -1101,7 +1112,18 @@
       "iconPacks": [
         "Papirus",
         "Faenza"
-      ]
+      ],
+      "referencePaths": {
+        "facade": "OS/linux/families/debian/kali/index.html",
+        "skin": "home/Debian/Kali/index.html",
+        "embedKey": "kali",
+        "bodyId": "kali",
+        "scaffoldAt": "2026-06-12"
+      },
+      "facade": "OS/linux/families/debian/kali/index.html",
+      "skin": "home/Debian/Kali/index.html",
+      "embedKey": "kali",
+      "bodyId": "kali"
     },
     {
       "id": "linux-steamos",
@@ -1342,7 +1364,7 @@
           "displayName": "PCManFM-Qt"
         }
       },
-      "upstreamId": null,
+      "upstreamId": "linux-debian-kde",
       "clusterIds": [
         "toolkit.lxqt"
       ],
@@ -1361,7 +1383,18 @@
       "assets": {
         "pickIcon": "images/platforms/pick-os/linux/debian.png"
       },
-      "licenseNotes": "À documenter — entrée auto-générée"
+      "licenseNotes": "À documenter — entrée auto-générée",
+      "referencePaths": {
+        "facade": "OS/linux/families/debian/lxqt/index.html",
+        "skin": "home/Debian/LXQt/index.html",
+        "embedKey": "lxqt",
+        "bodyId": "lxqt",
+        "scaffoldAt": "2026-06-12"
+      },
+      "facade": "OS/linux/families/debian/lxqt/index.html",
+      "skin": "home/Debian/LXQt/index.html",
+      "embedKey": "lxqt",
+      "bodyId": "lxqt"
     },
     {
       "id": "linux-alpine",

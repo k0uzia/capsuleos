@@ -309,6 +309,41 @@
             controls: [
                 { id: 'nemo-actions-enabled', type: 'switch', label: 'Activer les actions Nemo personnalisées', capsuleKey: 'mint-nemo-actions-enabled' }
             ]
+        },
+        {
+            id: 'themes',
+            label: 'Thèmes',
+            controls: [
+                { id: 'gtk-theme', type: 'select', label: 'Thème GTK', capsuleKey: 'mint-gtk-theme', options: [
+                    { value: 'Mint-Y-Dark-Aqua', label: 'Mint-Y-Dark-Aqua (VM)' },
+                    { value: 'Mint-Y-Aqua', label: 'Mint-Y-Aqua' }
+                ]},
+                { id: 'icon-theme', type: 'select', label: 'Thème des icônes', capsuleKey: 'mint-icon-theme', options: [
+                    { value: 'Mint-Y-Sand', label: 'Mint-Y-Sand (VM)' },
+                    { value: 'Mint-X', label: 'Mint-X' }
+                ]}
+            ]
+        },
+        {
+            id: 'backgrounds',
+            label: "Fonds d'écran",
+            controls: [
+                { id: 'picture-options', type: 'select', label: 'Style du fond', capsuleKey: 'mint-bg-picture-options', options: [
+                    { value: 'zoom', label: 'Zoom (VM)' },
+                    { value: 'scaled', label: "Mis à l'échelle" }
+                ]},
+                { id: 'picture-opacity', type: 'select', label: 'Opacité du fond (%)', capsuleKey: 'mint-bg-picture-opacity', options: [
+                    { value: '100', label: '100 (VM)' },
+                    { value: '80', label: '80' }
+                ]}
+            ]
+        },
+        {
+            id: 'nightlight',
+            label: 'Éclairage nocturne',
+            controls: [
+                { id: 'night-light-enabled', type: 'switch', label: "Activer l'éclairage nocturne", capsuleKey: 'mint-night-light-enabled' }
+            ]
         }
     ];
 
@@ -667,6 +702,41 @@
         dispatch('capsule:nemo-actions-changed', {});
     }
 
+    function applyGtkTheme(theme) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleGtkTheme = theme || 'Mint-Y-Dark-Aqua';
+        }
+        dispatch('capsule:gtk-theme-changed', { theme: theme });
+    }
+
+    function applyIconTheme(theme) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleIconTheme = theme || 'Mint-Y-Sand';
+        }
+        dispatch('capsule:icon-theme-changed', { theme: theme });
+    }
+
+    function applyBgPictureOptions(mode) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleBgPictureOptions = mode || 'zoom';
+        }
+        dispatch('capsule:background-gsettings-changed', {});
+    }
+
+    function applyBgPictureOpacity(opacity) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleBgPictureOpacity = String(opacity || '100');
+        }
+        dispatch('capsule:background-gsettings-changed', {});
+    }
+
+    function applyNightLightEnabled(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleNightLightEnabled = on ? 'true' : 'false';
+        }
+        dispatch('capsule:nightlight-changed', {});
+    }
+
     function dispatch(name, detail) {
         if (typeof global.document !== 'undefined') {
             global.document.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
@@ -730,7 +800,12 @@
         'mint-locale-lang': applySystemLocale,
         'mint-oa-whitelist-all': applyOnlineAccountsWhitelist,
         'mint-user-realname': applyUserRealname,
-        'mint-nemo-actions-enabled': function (v) { applyNemoActionsEnabled(v === 'on'); }
+        'mint-nemo-actions-enabled': function (v) { applyNemoActionsEnabled(v === 'on'); },
+        'mint-gtk-theme': applyGtkTheme,
+        'mint-icon-theme': applyIconTheme,
+        'mint-bg-picture-options': applyBgPictureOptions,
+        'mint-bg-picture-opacity': applyBgPictureOpacity,
+        'mint-night-light-enabled': function (v) { applyNightLightEnabled(v === 'on'); }
     };
 
     function applyCapsuleKey(capsuleKey, value) {

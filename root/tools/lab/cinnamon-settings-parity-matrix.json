@@ -366,6 +366,47 @@
       "controls": [
         { "id": "nemo-actions-enabled", "type": "switch", "label": "Activer les actions Nemo personnalisées", "capsuleKey": "mint-nemo-actions-enabled", "schema": "org.cinnamon", "key": "nemo-actions-parity-sim", "map": "boolOnOff", "effect": "nemoActionsEnabled" }
       ]
+    },
+    {
+      "id": "themes",
+      "capsulePanel": "themes",
+      "label": "Thèmes",
+      "module": "cs_themes.py",
+      "controls": [
+        { "id": "gtk-theme", "type": "select", "label": "Thème GTK", "capsuleKey": "mint-gtk-theme", "schema": "org.cinnamon.desktop.interface", "key": "gtk-theme", "map": "passthrough", "effect": "gtkTheme", "options": [
+          { "value": "Mint-Y-Dark-Aqua", "label": "Mint-Y-Dark-Aqua (VM)" },
+          { "value": "Mint-Y-Aqua", "label": "Mint-Y-Aqua" }
+        ]},
+        { "id": "icon-theme", "type": "select", "label": "Thème des icônes", "capsuleKey": "mint-icon-theme", "schema": "org.cinnamon.desktop.interface", "key": "icon-theme", "map": "passthrough", "effect": "iconTheme", "options": [
+          { "value": "Mint-Y-Sand", "label": "Mint-Y-Sand (VM)" },
+          { "value": "Mint-X", "label": "Mint-X" }
+        ]}
+      ]
+    },
+    {
+      "id": "backgrounds",
+      "capsulePanel": "backgrounds",
+      "label": "Fonds d'écran",
+      "module": "cs_backgrounds.py",
+      "controls": [
+        { "id": "picture-options", "type": "select", "label": "Style du fond", "capsuleKey": "mint-bg-picture-options", "schema": "org.cinnamon.desktop.background", "key": "picture-options", "map": "passthrough", "effect": "bgPictureOptions", "options": [
+          { "value": "zoom", "label": "Zoom (VM)" },
+          { "value": "scaled", "label": "Mis à l'échelle" }
+        ]},
+        { "id": "picture-opacity", "type": "select", "label": "Opacité du fond (%)", "capsuleKey": "mint-bg-picture-opacity", "schema": "org.cinnamon.desktop.background", "key": "picture-opacity", "map": "uint32", "effect": "bgPictureOpacity", "options": [
+          { "value": "100", "label": "100 (VM)" },
+          { "value": "80", "label": "80" }
+        ]}
+      ]
+    },
+    {
+      "id": "nightlight",
+      "capsulePanel": "nightlight",
+      "label": "Éclairage nocturne",
+      "module": "cs_nightlight.py",
+      "controls": [
+        { "id": "night-light-enabled", "type": "switch", "label": "Activer l'éclairage nocturne", "capsuleKey": "mint-night-light-enabled", "schema": "org.cinnamon.settings-daemon.plugins.color", "key": "night-light-enabled", "map": "boolOnOff", "effect": "nightLightEnabled" }
+      ]
     }
   ]
 }

@@ -59,7 +59,12 @@
         'org.gnome.system.locale::region': "'fr_FR.UTF-8'",
         'org.gnome.online-accounts::whitelisted-providers': "['all']",
         'org.cinnamon::account-realname-sim': "'capsule'",
-        'org.cinnamon::nemo-actions-parity-sim': 'false'
+        'org.cinnamon::nemo-actions-parity-sim': 'false',
+        'org.cinnamon.desktop.interface::gtk-theme': "'Mint-Y-Dark-Aqua'",
+        'org.cinnamon.desktop.interface::icon-theme': "'Mint-Y-Sand'",
+        'org.cinnamon.desktop.background::picture-options': "'zoom'",
+        'org.cinnamon.desktop.background::picture-opacity': 'uint32 100',
+        'org.cinnamon.settings-daemon.plugins.color::night-light-enabled': 'false'
     };
 
     var HOTCORNER_DEFAULT = "['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']";

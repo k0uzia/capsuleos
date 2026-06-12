@@ -1,18 +1,18 @@
 {
   "id": "linux-mint",
-  "capturedAt": "2026-06-12T14:00:32.340Z",
+  "capturedAt": "2026-06-12T14:29:27.028Z",
   "vm": [
     {
       "slot": "themes",
-      "scene": "actions",
-      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/actions.png"
+      "scene": "nightlight",
+      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/nightlight.png"
     }
   ],
   "clone": [
     {
       "slot": "themes",
-      "scene": "actions",
-      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/actions.png"
+      "scene": "nightlight",
+      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/nightlight.png"
     }
   ],
   "skipped": []

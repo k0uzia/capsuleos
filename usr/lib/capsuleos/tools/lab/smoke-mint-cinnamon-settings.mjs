@@ -32,11 +32,16 @@ await page.waitForTimeout(80);
 
 const themesPanel = await page.evaluate(() => {
   const panel = document.querySelector('[data-cs-panel="themes"]');
-  const gtk = panel?.querySelector('[data-themes-gtk]')?.textContent
-    || panel?.querySelector('[data-cs-theme="gtk"]')?.textContent;
+  const parityBuilt = panel?.dataset?.csParityBuilt === 'true';
+  const gtk = parityBuilt
+    ? document.body?.dataset?.capsuleGtkTheme
+    : (panel?.querySelector('[data-themes-gtk]')?.textContent
+      || panel?.querySelector('[data-cs-theme="gtk"]')?.textContent);
   return {
     visible: panel && !panel.hidden,
+    parityBuilt,
     gtk,
+    parityControls: panel?.querySelectorAll('[data-cs-capsule-key]').length || 0,
     cards: panel?.querySelectorAll('[data-theme-option]').length || 0,
   };
 });
@@ -57,8 +62,14 @@ await page.waitForTimeout(80);
 
 const backgrounds = await page.evaluate(() => {
   const panel = document.querySelector('[data-cs-panel="backgrounds"]');
+  const parityBuilt = panel?.dataset?.csParityBuilt === 'true';
   const tiles = panel?.querySelectorAll('[data-wallpaper-grid] .gnome-settings-wallpaper').length || 0;
-  return { visible: panel && !panel.hidden, tiles };
+  return {
+    visible: panel && !panel.hidden,
+    parityBuilt,
+    parityControls: panel?.querySelectorAll('[data-cs-capsule-key]').length || 0,
+    tiles,
+  };
 });
 
 const dims = await page.evaluate(() => {
@@ -150,14 +161,17 @@ const ok = opened.appReady
   && opened.categories === 2
   && opened.view === 'home'
   && themesPanel.visible
-  && themesPanel.gtk && /Mint-Y-(Dark-)?Aqua/.test(themesPanel.gtk)
+  && (themesPanel.parityBuilt
+    ? themesPanel.parityControls >= 2 && /Mint-Y/.test(themesPanel.gtk || '')
+    : themesPanel.gtk && /Mint-Y-(Dark-)?Aqua/.test(themesPanel.gtk))
   && search.panelTitle === 'Thèmes'
   && search.themesTileVisible
   && backgrounds.visible
+  && (backgrounds.parityBuilt ? backgrounds.parityControls >= 2 : backgrounds.tiles >= 0)
   && dims.win && dims.win.w >= 795 && dims.win.h >= 620
   && parityBoot.store
   && parityBoot.parity
-  && parityBoot.wiredCount >= 28
+  && parityBoot.wiredCount >= 31
   && desktopParity.panelVisible
   && desktopParity.parityBuilt
   && desktopParity.switchCount === 3

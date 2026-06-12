@@ -659,6 +659,72 @@
               },
               "masks": [],
               "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "themes",
+              "priority": "P1",
+              "label": "Paramètres — panneau Thèmes GTK",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"themes\"]')?.click() || window.activateCinnamonSettingsPanel?.('themes');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"themes\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "cinnamon-settings themes",
+                "setup": ["cinnamon-settings panneau Thèmes (cs_themes.py)"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "backgrounds",
+              "priority": "P1",
+              "label": "Paramètres — panneau Fonds d'écran",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"backgrounds\"]')?.click() || window.activateCinnamonSettingsPanel?.('backgrounds');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"backgrounds\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "cinnamon-settings backgrounds",
+                "setup": ["cinnamon-settings panneau Fonds d'écran (cs_backgrounds.py)"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "nightlight",
+              "priority": "P1",
+              "label": "Paramètres — panneau Éclairage nocturne",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"nightlight\"]')?.click() || window.activateCinnamonSettingsPanel?.('nightlight');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"nightlight\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "cinnamon-settings nightlight",
+                "setup": ["cinnamon-settings panneau Éclairage nocturne (cs_nightlight.py)"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
             }
           ]
         },

@@ -512,5 +512,50 @@ window.CAPSULE_CINNAMON_GSETTINGS_BINDINGS = {
         "map": "boolOnOff",
         "effect": "nemoActionsEnabled",
         "effectArg": null
+    },
+    "mint-gtk-theme": {
+        "controlId": "gtk-theme",
+        "panelId": "themes",
+        "schema": "org.cinnamon.desktop.interface",
+        "key": "gtk-theme",
+        "map": "passthrough",
+        "effect": "gtkTheme",
+        "effectArg": null
+    },
+    "mint-icon-theme": {
+        "controlId": "icon-theme",
+        "panelId": "themes",
+        "schema": "org.cinnamon.desktop.interface",
+        "key": "icon-theme",
+        "map": "passthrough",
+        "effect": "iconTheme",
+        "effectArg": null
+    },
+    "mint-bg-picture-options": {
+        "controlId": "picture-options",
+        "panelId": "backgrounds",
+        "schema": "org.cinnamon.desktop.background",
+        "key": "picture-options",
+        "map": "passthrough",
+        "effect": "bgPictureOptions",
+        "effectArg": null
+    },
+    "mint-bg-picture-opacity": {
+        "controlId": "picture-opacity",
+        "panelId": "backgrounds",
+        "schema": "org.cinnamon.desktop.background",
+        "key": "picture-opacity",
+        "map": "uint32",
+        "effect": "bgPictureOpacity",
+        "effectArg": null
+    },
+    "mint-night-light-enabled": {
+        "controlId": "night-light-enabled",
+        "panelId": "nightlight",
+        "schema": "org.cinnamon.settings-daemon.plugins.color",
+        "key": "night-light-enabled",
+        "map": "boolOnOff",
+        "effect": "nightLightEnabled",
+        "effectArg": null
     }
 };

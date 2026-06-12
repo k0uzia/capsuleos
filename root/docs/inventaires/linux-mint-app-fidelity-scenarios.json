@@ -1536,6 +1536,72 @@
       }
     },
     {
+      "id": "themes-gtk-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — thèmes GTK",
+      "steps": [
+        "Paramètres système → Thèmes",
+        "Changer gtk-theme Mint-Y-Dark-Aqua → Mint-Y-Aqua",
+        "data-capsule-gtk-theme"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"themes\"]",
+          "[data-cs-capsule-key=\"mint-gtk-theme\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-backgrounds-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — fonds d'écran gsettings",
+      "steps": [
+        "Paramètres système → Fonds d'écran",
+        "Opacité picture-opacity 100 → 80",
+        "data-capsule-bg-picture-opacity"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"backgrounds\"]",
+          "[data-cs-capsule-key=\"mint-bg-picture-opacity\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-nightlight-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — éclairage nocturne",
+      "steps": [
+        "Paramètres système → Éclairage nocturne",
+        "Activer night-light-enabled",
+        "data-capsule-night-light-enabled=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"nightlight\"]",
+          "[data-cs-capsule-key=\"mint-night-light-enabled\"]"
+        ]
+      }
+    },
+    {
       "id": "terminal-basic-shell",
       "app": "terminal",
       "persona": "utilisateur développeur — shell interactif",
@@ -4185,15 +4251,15 @@
     "totalScenarios": 149,
     "documented": 149,
     "implemented": 149,
-    "smokeOk": 156,
-    "measured": 156,
+    "smokeOk": 159,
+    "measured": 159,
     "avgPi": 100,
     "appsTotal": 43,
     "appsAtPi100": 43,
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100,
-    "settingsParityScenarios": 26,
+    "settingsParityScenarios": 29,
     "settingsParityCampaign": "cinnamon-settings-impacts-v1"
   },
   "updatedAt": "2026-06-12T13:00:00.000Z"

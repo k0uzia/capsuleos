@@ -942,6 +942,89 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       }],
     });
   }
+  if (scenario.id === 'themes-gtk-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-gtk-theme', value: 'Mint-Y-Dark-Aqua' },
+      { type: 'csParityKey', capsuleKey: 'mint-icon-theme', value: 'Mint-Y-Sand' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'themes' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'themes' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-gtk-theme', value: 'Mint-Y-Aqua' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csGtkTheme',
+        args: { theme: 'Mint-Y-Aqua' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-backgrounds-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-bg-picture-options', value: 'zoom' },
+      { type: 'csParityKey', capsuleKey: 'mint-bg-picture-opacity', value: '100' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'backgrounds' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'backgrounds' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-bg-picture-opacity', value: '80' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csBgPictureOpacity',
+        args: { opacity: 80 },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-nightlight-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-night-light-enabled', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'nightlight' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'nightlight' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-night-light-enabled' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csNightLightEnabled',
+        args: { enabled: true },
+      }],
+    });
+  }
   if (scenario.id === 'themes-languages-parity') {
     plan.prepActions = [
       { type: 'csParityKey', capsuleKey: 'mint-locale-lang', value: 'fr_FR.UTF-8' },
@@ -1220,6 +1303,9 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       { id: 'online-accounts', title: 'Comptes en ligne' },
       { id: 'user', title: 'Détails du compte' },
       { id: 'actions', title: 'Actions' },
+      { id: 'themes', title: 'Thèmes' },
+      { id: 'backgrounds', title: "Fonds d'écran" },
+      { id: 'nightlight', title: 'Éclairage nocturne' },
     ];
     wiredPanels.forEach((step) => {
       plan.executionBlocks.push({
@@ -3077,6 +3163,19 @@ const runScenarioAssertions = async (page, plan, errors) => {
           const enabled = !!(args && args.enabled);
           return document.body
             && (document.body.dataset.capsuleNemoActionsEnabled === 'true') === enabled;
+        }
+        if (fn === 'csGtkTheme') {
+          return document.body
+            && document.body.dataset.capsuleGtkTheme === (args && args.theme);
+        }
+        if (fn === 'csBgPictureOpacity') {
+          return document.body
+            && String(document.body.dataset.capsuleBgPictureOpacity) === String(args && args.opacity);
+        }
+        if (fn === 'csNightLightEnabled') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleNightLightEnabled === 'true') === enabled;
         }
         return false;
       }, { fn: a.fn, args: a.args });

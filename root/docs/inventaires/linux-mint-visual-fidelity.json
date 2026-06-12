@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-12T14:00:39.442Z",
+  "updatedAt": "2026-06-12T14:29:33.912Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -969,9 +969,108 @@
             "match": 85,
             "partial": 50
           }
+        },
+        {
+          "id": "themes",
+          "priority": "P1",
+          "label": "Paramètres — panneau Thèmes GTK",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/themes.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/themes.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36681
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/themes.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "backgrounds",
+          "priority": "P1",
+          "label": "Paramètres — panneau Fonds d'écran",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/backgrounds.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/backgrounds.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36523
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/backgrounds.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "nightlight",
+          "priority": "P1",
+          "label": "Paramètres — panneau Éclairage nocturne",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/nightlight.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/nightlight.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36487
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/nightlight.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         }
       ],
-      "updatedAt": "2026-06-12T14:00:44.728Z"
+      "updatedAt": "2026-06-12T14:29:40.391Z"
     },
     "update_manager": {
       "phi": 94.4,

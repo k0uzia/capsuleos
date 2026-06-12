@@ -42,6 +42,8 @@ DISCOVER_ABOUT=false
 DISCOVER_CONFIG=false
 DISCOVER_DETAIL=false
 DISCOVER_DETAIL_LIVE=false
+DISCOVER_INSTALLED_DETAILS=false
+DISCOVER_INSTALLED_DETAILS_LIVE=false
 DISCOVER_HOME=false
 DISCOVER_G6=false
 DISCOVER_VM_100=false
@@ -50,7 +52,7 @@ B2_B3_APPS=false
 DOLPHIN_G5=false
 FIREFOX_G7=false
 PANEL_G8=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-recursive" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-recursive" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--discover-installed-details" ] || [ "${1:-}" = "--discover-installed-details-live" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -95,6 +97,12 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   fi
   if [ "${1:-}" = "--discover-detail-live" ]; then
     DISCOVER_DETAIL_LIVE=true
+  fi
+  if [ "${1:-}" = "--discover-installed-details" ]; then
+    DISCOVER_INSTALLED_DETAILS=true
+  fi
+  if [ "${1:-}" = "--discover-installed-details-live" ]; then
+    DISCOVER_INSTALLED_DETAILS_LIVE=true
   fi
   if [ "${1:-}" = "--b2-b3-apps" ]; then
     B2_B3_APPS=true
@@ -667,12 +675,99 @@ capture_discover_category_internet_shot() {
   reset_apps
 }
 
+INSTALLED_DETAILS_INVENTORY="$ROOT/root/docs/inventaires/linux-kde-neon-discover-installed-app-details.json"
+
+discover_open_installed_app() {
+  local query="$1"
+  prep_env "sleep 0.3
+    if command -v wtype >/dev/null 2>&1; then
+      wtype -M ctrl f
+      sleep 0.35
+      wtype -M ctrl a
+      sleep 0.1
+      wtype -k BackSpace
+      sleep 0.2
+      wtype '${query}'
+      sleep 0.9
+      wtype -k Return
+      sleep 1.8
+      wtype -k Return
+      sleep 2.2
+    elif command -v xdotool >/dev/null 2>&1; then
+      xdotool key ctrl+f
+      sleep 0.35
+      xdotool key ctrl+a BackSpace
+      sleep 0.2
+      xdotool type --delay 20 '${query}'
+      sleep 0.9
+      xdotool key Return
+      sleep 1.8
+      xdotool key Return
+      sleep 2.2
+    fi"
+}
+
+discover_back_from_app_detail() {
+  prep_env 'sleep 0.2
+    if command -v xdotool >/dev/null 2>&1; then
+      xdotool key alt+Left 2>/dev/null || true
+      sleep 1.2
+    elif command -v wtype >/dev/null 2>&1; then
+      wtype -M alt Left
+      sleep 1.2
+    fi'
+}
+
+capture_discover_installed_detail_shots() {
+  local live_mode="${1:-}"
+  if [ ! -f "$INSTALLED_DETAILS_INVENTORY" ]; then
+    echo "Inventaire fiches installées absent — vm-kde-neon-discover-installed-app-details-inventory.sh" >&2
+    exit 1
+  fi
+  local list_file
+  list_file="$(mktemp)"
+  node -e "
+    const j = require(process.argv[1]);
+    for (const [id, app] of Object.entries(j.apps || {})) {
+      console.log(id + '\t' + (app.searchQuery || app.name || id));
+    }
+  " "$INSTALLED_DETAILS_INVENTORY" >"$list_file"
+  if [ "$live_mode" != "live" ]; then
+    reset_apps
+    sleep 1
+    discover_nav_tab installed
+    discover_stabilize_for_shot 5
+  else
+    require_discover_window
+    discover_stabilize_for_shot 2
+  fi
+  local first_live=true
+  # FD 3 : éviter que ssh/prep_env consomment le reste de la liste via stdin.
+  while IFS=$'\t' read -r app_id query <&3; do
+    [ -z "$app_id" ] && continue
+    if [ "$live_mode" = "live" ] && [ "$first_live" = true ]; then
+      first_live=false
+    else
+      discover_back_from_app_detail || true
+      discover_open_installed_app "$query" || true
+    fi
+    discover_stabilize_for_shot 2 || true
+    shot "$DEST/vm-discover-installed-detail-${app_id}.png" || true
+    echo "  → vm-discover-installed-detail-${app_id}.png (${query})"
+  done 3<"$list_file"
+  rm -f "$list_file"
+  if [ "$live_mode" != "live" ]; then
+    reset_apps
+  fi
+}
+
 capture_discover_recursive_shots() {
   capture_discover_g6_shots
   capture_discover_detail_shots
   capture_discover_search_vlc_shot
   capture_discover_category_internet_shot
   capture_discover_installed_windowed_shot
+  capture_discover_installed_detail_shots
 }
 
 if $DOLPHIN_G5; then
@@ -748,6 +843,18 @@ fi
 if $DISCOVER_HOME; then
   capture_discover_tab_shot home vm-discover.png 5
   echo "=== Terminé : vm-discover.png (--discover-home) ==="
+  exit 0
+fi
+
+if $DISCOVER_INSTALLED_DETAILS_LIVE; then
+  capture_discover_installed_detail_shots live
+  echo "=== Terminé : vm-discover-installed-detail-*.png (--discover-installed-details-live) ==="
+  exit 0
+fi
+
+if $DISCOVER_INSTALLED_DETAILS; then
+  capture_discover_installed_detail_shots
+  echo "=== Terminé : vm-discover-installed-detail-*.png (--discover-installed-details) ==="
   exit 0
 fi
 

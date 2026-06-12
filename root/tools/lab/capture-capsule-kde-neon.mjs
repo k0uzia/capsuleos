@@ -245,7 +245,7 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 60000 },
     );
     const skipStoreSection = scene.discoverView || scene.discoverAppDetail
-      || scene.discoverSearch || scene.discoverCategory;
+      || scene.discoverInstalledAppDetail || scene.discoverSearch || scene.discoverCategory;
     if (!skipStoreSection) {
       await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
       await page.waitForFunction(
@@ -319,6 +319,46 @@ const openSlot = async (page, slot, scene = {}) => {
           { timeout: 10000 },
         );
       }
+      await sleep(page, 400);
+    } else if (scene.discoverInstalledAppDetail) {
+      await page.click('[data-discover-nav="installed"]');
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector('[data-discover-panel="installed"]');
+          return panel && !panel.hidden;
+        },
+        null,
+        { timeout: 5000 },
+      );
+      await page.waitForFunction(
+        () => document.querySelectorAll('[data-discover-installed-mount] .kde-discover-card--installed').length >= 6,
+        null,
+        { timeout: 10000 },
+      );
+      await page.evaluate((appId) => {
+        const card = document.querySelector(
+          `[data-discover-installed-mount] .kde-discover-card[data-discover-app="${appId}"]`,
+        );
+        if (card) {
+          card.scrollIntoView({ block: 'center', inline: 'nearest' });
+          card.click();
+        }
+      }, scene.discoverInstalledAppDetail);
+      await sleep(page, 500);
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector('[data-discover-app-detail]');
+          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__name');
+        },
+        null,
+        { timeout: 10000 },
+      );
+      await page.evaluate(() => {
+        const carousel = document.querySelector('.kde-discover-app-detail__carousel');
+        if (carousel && !carousel.querySelector('.kde-discover-app-detail__shot-img')) {
+          carousel.style.display = 'none';
+        }
+      });
       await sleep(page, 400);
     } else if (scene.discoverAppDetail) {
       await page.evaluate((appId) => {
@@ -523,6 +563,21 @@ const main = async () => {
       maximize: false,
     },
   ];
+
+  const catalogPath = path.join(ROOT, 'home/Debian/KDE-Neon/content/discover-catalog.json');
+  if (fs.existsSync(catalogPath)) {
+    const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+    (catalog.installed || []).forEach((app) => {
+      if (!app.id) {
+        return;
+      }
+      discoverShots.push({
+        file: `capsule-discover-installed-detail-${app.id}.png`,
+        slots: ['update_manager'],
+        discoverInstalledAppDetail: app.id,
+      });
+    });
+  }
 
   const shots = discoverOnly ? discoverShots : panelG8 ? panelShots : [
     ...panelShots,

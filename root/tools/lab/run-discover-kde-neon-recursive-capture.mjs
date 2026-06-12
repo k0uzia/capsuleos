@@ -71,6 +71,14 @@ results.push(run('merge catalog catégories', 'node', [
   'root/tools/lab/merge-discover-catalog-categories.mjs',
 ]));
 
+results.push(run('inventaire fiches installées VM', 'bash', [
+  'root/tools/lab/vm-kde-neon-discover-installed-app-details-inventory.sh',
+]));
+
+results.push(run('merge fiches installées', 'node', [
+  'root/tools/lab/merge-discover-installed-app-details.mjs',
+]));
+
 if (!skipVm) {
   results.push(run('VM discover-recursive', 'bash', [
     'root/tools/lab/vm-kde-neon-capture-host.sh',
@@ -93,6 +101,7 @@ if (!skipCapsule) {
   'smoke-discover-kde-neon.mjs',
   'smoke-kde-neon-discover.mjs',
   'smoke-discover-neon-categories.mjs',
+  'smoke-discover-neon-installed-details.mjs',
 ].forEach((script) => {
   results.push(run(`smoke ${script}`, 'node', [`usr/lib/capsuleos/tools/lab/${script}`]));
 });

@@ -496,6 +496,31 @@
         carousel.dataset.bound = 'true';
     }
 
+    function isInstalledApp(catalog, app) {
+        if (!catalog || !app || !app.id) {
+            return false;
+        }
+        if (catalog.appDetails && catalog.appDetails[app.id] && catalog.appDetails[app.id].installed) {
+            return true;
+        }
+        return Array.isArray(catalog.installed)
+            && catalog.installed.some((entry) => entry.id === app.id);
+    }
+
+    function renderDescriptionBlock(meta, summary) {
+        const title = meta.summary || summary || '';
+        const body = meta.description || title;
+        const paragraphs = String(body).split(/\n\n+/).filter(Boolean);
+        const blocks = (paragraphs.length ? paragraphs : [body]).map((paragraph) => (
+            `<p class="kde-discover-app-detail__description-text">${paragraph}</p>`
+        )).join('');
+        return `
+                <section class="kde-discover-app-detail__description">
+                    <h2 class="kde-discover-app-detail__description-title">${title}</h2>
+                    ${blocks}
+                </section>`;
+    }
+
     function renderAppDetail(root, catalog, app) {
         const panel = ensureAppDetailPanel(root);
         const storeMeta = app && app.storeEntry ? {
@@ -508,9 +533,12 @@
         } : null;
         const meta = storeMeta || (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
         const summary = meta.summary || app.desc || '';
-        const description = meta.description || summary;
         const screenshots = Array.isArray(meta.screenshots) ? meta.screenshots : [];
-        const primaryAction = 'Installer';
+        const installed = isInstalledApp(catalog, app);
+        const primaryAction = meta.primaryAction || (installed ? 'Lancer' : 'Installer');
+        const primaryDataAttr = installed
+            ? `data-discover-app-launch="${app.id || ''}"`
+            : `data-discover-app-install="${app.id || ''}"`;
         const developerLine = meta.developer
             ? `<p class="kde-discover-app-detail__developer">${meta.developer}${meta.verifiedDeveloper ? ' <span class="kde-discover-app-detail__verified" aria-label="Développeur vérifié">✓</span>' : ''}</p>`
             : '';
@@ -528,7 +556,7 @@
                     <div class="kde-discover-app-detail__toolbar-actions">
                         <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--share" data-discover-app-action="share">Partager</button>
                         <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--remove" data-discover-app-action="remove">Supprimer</button>
-                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--primary" data-discover-app-install="${app.id || ''}">${primaryAction}</button>
+                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--primary" ${primaryDataAttr}>${primaryAction}</button>
                     </div>
                     ${originLabel ? `<span class="kde-discover-app-detail__origin">${originLabel} ▾</span>` : ''}
                 </div>
@@ -544,10 +572,7 @@
                     ${facts ? `<dl class="kde-discover-app-detail__facts">${facts}</dl>` : ''}
                 </div>
                 ${renderScreenshotSlides(screenshots)}
-                <section class="kde-discover-app-detail__description">
-                    <h2 class="kde-discover-app-detail__description-title">${summary}</h2>
-                    <p class="kde-discover-app-detail__description-text">${description}</p>
-                </section>
+                ${renderDescriptionBlock(meta, summary)}
                 <p class="kde-discover-app-detail__status" data-discover-app-status hidden role="status"></p>
             </article>
         `;
@@ -558,6 +583,9 @@
         const app = findAppById(catalog, appId);
         if (!app) {
             return;
+        }
+        if (state.view !== 'app-detail') {
+            state.detailReturnView = state.view || 'home';
         }
         state.detailAppId = appId;
         state.view = 'app-detail';
@@ -578,7 +606,9 @@
         if (detailPanel) {
             detailPanel.hidden = true;
         }
-        switchView(root, catalog, 'home');
+        const returnView = state.detailReturnView || 'home';
+        state.detailReturnView = null;
+        switchView(root, catalog, returnView);
     }
 
     function catalogAppIndex(catalog) {

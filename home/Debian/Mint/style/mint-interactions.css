@@ -10,6 +10,13 @@ html > body#mint > footer > nav > a:active {
     border-color: var(--menu-accent);
 }
 
+html:not([data-contrast-mode="high"]) > body#mint > footer > nav > a[data-link="mainMenu"]:active,
+html:not([data-contrast-mode="high"]) > body#mint > footer > nav > a[data-link="mainMenu"].active-link:active {
+    background: var(--t);
+    border-color: transparent;
+    box-shadow: none;
+}
+
 html > body#mint > footer > nav > a:focus-visible {
     outline: 2px solid var(--a11y-focus-ring);
     outline-offset: 2px;

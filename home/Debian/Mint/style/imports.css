@@ -12,6 +12,7 @@
 @import url(./windows.css);
 @import url(./calendar-popover.css);
 @import url(./a11y-overrides.css);
+@import url(./a11y-apps.css);
 @import url(./volume-popover.css);
 @import url(./mint-tray-popovers.css);
 @import url(./apps/nemo.skin.css);

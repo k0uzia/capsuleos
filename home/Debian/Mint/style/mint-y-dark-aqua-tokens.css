@@ -3,8 +3,8 @@
  * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
  */
 body#mint {
-    /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
-    --mint-panel-height: 40px;
+    /* VM Cinnamon panel1 = 40 px (= --head à 100 %) — suit texte agrandi via a11y-overrides */
+    --mint-panel-height: var(--head);
     --taskbar-height: var(--mint-panel-height);
     --mint: url(./assets/images/vendors/mint/wallpaper/default_background.jpg);
     /* VM : gsettings font-name = 'Ubuntu 10' (13.3px) */

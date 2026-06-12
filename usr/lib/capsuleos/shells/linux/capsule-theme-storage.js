@@ -667,6 +667,11 @@
         const resolved = ['110', '125'].includes(scale) ? scale : '100';
         global.document.documentElement.dataset.fontScale = resolved;
         persistPref('mint-font-scale', resolved);
+        if (global.document && typeof global.document.dispatchEvent === 'function') {
+            global.document.dispatchEvent(new CustomEvent('capsule:a11y-font-scale-changed', {
+                detail: { scale: resolved, large: resolved === '125' }
+            }));
+        }
         return resolved;
     }
 

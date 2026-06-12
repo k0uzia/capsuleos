@@ -89,6 +89,7 @@ html > body > footer > nav > a.mint-panel__launcher > img {
 }
 
 body#mint .mint-tray--vm-collapsed,
+body#mint .mint-tray--overflow-hidden,
 body#mint #mint-tray-favorites {
     display: none !important;
 }
@@ -272,9 +273,10 @@ html[data-theme="light"] .taskbar-window-list__btn {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
-    justify-content: var(--c);
+    justify-content: flex-end;
     gap: calc(var(--head) / 12);
-    flex-shrink: 0;
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .mint-panel__tray,
@@ -282,8 +284,11 @@ html[data-theme="light"] .taskbar-window-list__btn {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
-    justify-content: var(--c);
+    justify-content: flex-end;
     gap: calc(var(--head) / 8);
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
     color: var(--mint-tray-color);
     padding-right: calc(var(--head) / 9);
     border-left: 1px solid var(--mint-tray-separator);
@@ -325,6 +330,11 @@ html[data-theme="light"] .taskbar-window-list__btn {
 .taskbar-tray__icon--shield {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z'/%3E%3C/svg%3E");
+}
+
+.taskbar-tray__icon--screensaver {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v1h12v-1l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11zM9 16h6v-2H9v2z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v1h12v-1l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11zM9 16h6v-2H9v2z'/%3E%3C/svg%3E");
 }
 
 .taskbar-tray__icon--network {
@@ -415,6 +425,7 @@ html[data-theme="light"] .taskbar-window-list__btn {
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: var(--c);
+    flex-shrink: 0;
     min-width: calc(var(--head) * 1.7);
     height: var(--head);
     margin: var(--z);

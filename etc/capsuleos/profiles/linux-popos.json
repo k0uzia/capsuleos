@@ -48,9 +48,6 @@
       "toolkitId": "cosmic",
       "explorerTemplate": "nemo-cosmic",
       "dragMode": "app-headerbar-passthrough"
-    },
-    "CAPSULE_TEMPLATE_OVERRIDES": {
-      "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
     }
   }
 }

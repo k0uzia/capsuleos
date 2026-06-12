@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-12T14:29:33.912Z",
+  "updatedAt": "2026-06-12T14:49:25.294Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -1068,9 +1068,141 @@
             "match": 85,
             "partial": 50
           }
+        },
+        {
+          "id": "input-method",
+          "priority": "P1",
+          "label": "Paramètres — panneau Méthode de saisie",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/input-method.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/input-method.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37051
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/input-method.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "software-sources",
+          "priority": "P1",
+          "label": "Paramètres — panneau Sources de logiciels",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/software-sources.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/software-sources.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37508
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/software-sources.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "system-info",
+          "priority": "P1",
+          "label": "Paramètres — panneau Informations système",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/system-info.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/system-info.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.4,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 38191
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/system-info.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "bluetooth",
+          "priority": "P1",
+          "label": "Paramètres — panneau Bluetooth",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/bluetooth.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/bluetooth.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36357
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/bluetooth.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         }
       ],
-      "updatedAt": "2026-06-12T14:29:40.391Z"
+      "updatedAt": "2026-06-12T14:49:31.796Z"
     },
     "update_manager": {
       "phi": 94.4,

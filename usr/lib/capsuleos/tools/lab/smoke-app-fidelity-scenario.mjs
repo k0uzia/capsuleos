@@ -1025,6 +1025,114 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       }],
     });
   }
+  if (scenario.id === 'themes-input-method-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-input-per-window', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'input-method' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'input-method' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-input-per-window' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csInputPerWindow',
+        args: { enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-software-sources-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-install-search-category', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'software-sources' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'software-sources' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-install-search-category' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csInstallSearchCategory',
+        args: { enabled: false },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-system-info-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-report-automonitor', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'system-info' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'system-info' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-report-automonitor' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csReportAutomonitor',
+        args: { enabled: false },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-bluetooth-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-bluetooth-nap', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'bluetooth' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'bluetooth' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-bluetooth-nap' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csBluetoothNap',
+        args: { enabled: true },
+      }],
+    });
+  }
   if (scenario.id === 'themes-languages-parity') {
     plan.prepActions = [
       { type: 'csParityKey', capsuleKey: 'mint-locale-lang', value: 'fr_FR.UTF-8' },
@@ -1306,6 +1414,10 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       { id: 'themes', title: 'Thèmes' },
       { id: 'backgrounds', title: "Fonds d'écran" },
       { id: 'nightlight', title: 'Éclairage nocturne' },
+      { id: 'input-method', title: 'Méthode de saisie' },
+      { id: 'software-sources', title: 'Sources de logiciels' },
+      { id: 'system-info', title: 'Informations système' },
+      { id: 'bluetooth', title: 'Bluetooth' },
     ];
     wiredPanels.forEach((step) => {
       plan.executionBlocks.push({
@@ -3176,6 +3288,26 @@ const runScenarioAssertions = async (page, plan, errors) => {
           const enabled = !!(args && args.enabled);
           return document.body
             && (document.body.dataset.capsuleNightLightEnabled === 'true') === enabled;
+        }
+        if (fn === 'csInputPerWindow') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleInputPerWindow === 'true') === enabled;
+        }
+        if (fn === 'csInstallSearchCategory') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleInstallSearchCategory === 'true') === enabled;
+        }
+        if (fn === 'csReportAutomonitor') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleReportAutomonitor === 'true') === enabled;
+        }
+        if (fn === 'csBluetoothNap') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleBluetoothNap === 'true') === enabled;
         }
         return false;
       }, { fn: a.fn, args: a.args });

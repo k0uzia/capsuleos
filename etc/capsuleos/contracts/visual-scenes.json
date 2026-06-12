@@ -725,6 +725,94 @@
               },
               "masks": [],
               "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "input-method",
+              "priority": "P1",
+              "label": "Paramètres — panneau Méthode de saisie",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"input-method\"]')?.click() || window.activateCinnamonSettingsPanel?.('input-method');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"input-method\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "mintlocale-im",
+                "setup": ["org.cinnamon.desktop.input-sources per-window show-all-sources"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "software-sources",
+              "priority": "P1",
+              "label": "Paramètres — panneau Sources de logiciels",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"software-sources\"]')?.click() || window.activateCinnamonSettingsPanel?.('software-sources');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"software-sources\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "mintsources",
+                "setup": ["com.linuxmint.install search-in-category allow-unverified-flatpaks"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "system-info",
+              "priority": "P1",
+              "label": "Paramètres — panneau Informations système",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"system-info\"]')?.click() || window.activateCinnamonSettingsPanel?.('system-info');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"system-info\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "mintreport",
+                "setup": ["com.linuxmint.report automonitor autorefresh"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
+            },
+            {
+              "id": "bluetooth",
+              "priority": "P1",
+              "label": "Paramètres — panneau Bluetooth",
+              "clone": {
+                "open": "themes",
+                "waitSelector": "div[data-link=\"themes\"]",
+                "settleMs": 500,
+                "actions": [
+                  { "type": "evaluate", "script": "document.querySelector('#cinnamonSettingsApp [data-cs-nav=\"bluetooth\"]')?.click() || window.activateCinnamonSettingsPanel?.('bluetooth');" },
+                  { "type": "waitSelector", "selector": "div[data-link=\"themes\"] [data-cs-panel=\"bluetooth\"].is-active" },
+                  { "type": "wait", "ms": 350 }
+                ]
+              },
+              "vm": {
+                "mode": "live-window",
+                "appCommand": "blueman-manager",
+                "setup": ["org.blueman.network nap-enable"]
+              },
+              "masks": [],
+              "thresholds": { "match": 85, "partial": 50 }
             }
           ]
         },

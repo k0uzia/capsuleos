@@ -171,7 +171,7 @@ const ok = opened.appReady
   && dims.win && dims.win.w >= 795 && dims.win.h >= 620
   && parityBoot.store
   && parityBoot.parity
-  && parityBoot.wiredCount >= 31
+  && parityBoot.wiredCount >= 35
   && desktopParity.panelVisible
   && desktopParity.parityBuilt
   && desktopParity.switchCount === 3

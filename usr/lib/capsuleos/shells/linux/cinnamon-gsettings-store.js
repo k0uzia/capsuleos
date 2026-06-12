@@ -64,7 +64,14 @@
         'org.cinnamon.desktop.interface::icon-theme': "'Mint-Y-Sand'",
         'org.cinnamon.desktop.background::picture-options': "'zoom'",
         'org.cinnamon.desktop.background::picture-opacity': 'uint32 100',
-        'org.cinnamon.settings-daemon.plugins.color::night-light-enabled': 'false'
+        'org.cinnamon.settings-daemon.plugins.color::night-light-enabled': 'false',
+        'org.cinnamon.desktop.input-sources::per-window': 'false',
+        'org.cinnamon.desktop.input-sources::show-all-sources': 'false',
+        'com.linuxmint.install::search-in-category': 'true',
+        'com.linuxmint.install::allow-unverified-flatpaks': 'false',
+        'com.linuxmint.report::automonitor': 'true',
+        'com.linuxmint.report::autorefresh': 'true',
+        'org.blueman.network::nap-enable': 'false'
     };
 
     var HOTCORNER_DEFAULT = "['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']";

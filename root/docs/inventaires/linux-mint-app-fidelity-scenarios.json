@@ -1602,6 +1602,94 @@
       }
     },
     {
+      "id": "themes-input-method-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — méthode de saisie IBus",
+      "steps": [
+        "Paramètres système → Méthode de saisie",
+        "Activer per-window",
+        "data-capsule-input-per-window=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"input-method\"]",
+          "[data-cs-capsule-key=\"mint-input-per-window\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-software-sources-parity",
+      "app": "themes",
+      "persona": "utilisateur système — sources de logiciels",
+      "steps": [
+        "Paramètres système → Sources de logiciels",
+        "Désactiver search-in-category",
+        "data-capsule-install-search-category=false"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"software-sources\"]",
+          "[data-cs-capsule-key=\"mint-install-search-category\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-system-info-parity",
+      "app": "themes",
+      "persona": "utilisateur système — rapport matériel",
+      "steps": [
+        "Paramètres système → Informations système",
+        "Désactiver automonitor",
+        "data-capsule-report-automonitor=false"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"system-info\"]",
+          "[data-cs-capsule-key=\"mint-report-automonitor\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-bluetooth-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — Bluetooth NAP",
+      "steps": [
+        "Paramètres système → Bluetooth",
+        "Activer nap-enable",
+        "data-capsule-bluetooth-nap=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"bluetooth\"]",
+          "[data-cs-capsule-key=\"mint-bluetooth-nap\"]"
+        ]
+      }
+    },
+    {
       "id": "terminal-basic-shell",
       "app": "terminal",
       "persona": "utilisateur développeur — shell interactif",

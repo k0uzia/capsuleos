@@ -344,6 +344,37 @@
             controls: [
                 { id: 'night-light-enabled', type: 'switch', label: "Activer l'éclairage nocturne", capsuleKey: 'mint-night-light-enabled' }
             ]
+        },
+        {
+            id: 'input-method',
+            label: 'Méthode de saisie',
+            controls: [
+                { id: 'input-per-window', type: 'switch', label: 'Disposition différente pour chaque fenêtre', capsuleKey: 'mint-input-per-window' },
+                { id: 'input-show-all', type: 'switch', label: 'Afficher toutes les sources de saisie', capsuleKey: 'mint-input-show-all' }
+            ]
+        },
+        {
+            id: 'software-sources',
+            label: 'Sources de logiciels',
+            controls: [
+                { id: 'search-in-category', type: 'switch', label: 'Rechercher dans la catégorie', capsuleKey: 'mint-install-search-category' },
+                { id: 'allow-unverified-flatpaks', type: 'switch', label: 'Autoriser les Flatpak non vérifiés', capsuleKey: 'mint-install-unverified-flatpaks' }
+            ]
+        },
+        {
+            id: 'system-info',
+            label: 'Informations système',
+            controls: [
+                { id: 'report-automonitor', type: 'switch', label: 'Surveillance automatique du matériel', capsuleKey: 'mint-report-automonitor' },
+                { id: 'report-autorefresh', type: 'switch', label: 'Actualisation automatique du rapport', capsuleKey: 'mint-report-autorefresh' }
+            ]
+        },
+        {
+            id: 'bluetooth',
+            label: 'Bluetooth',
+            controls: [
+                { id: 'bluetooth-nap', type: 'switch', label: 'Partage de connexion réseau (NAP)', capsuleKey: 'mint-bluetooth-nap' }
+            ]
         }
     ];
 
@@ -737,6 +768,55 @@
         dispatch('capsule:nightlight-changed', {});
     }
 
+    function applyInputPerWindow(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleInputPerWindow = on ? 'true' : 'false';
+        }
+        dispatch('capsule:input-method-changed', {});
+    }
+
+    function applyInputShowAllSources(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleInputShowAll = on ? 'true' : 'false';
+        }
+        dispatch('capsule:input-method-changed', {});
+    }
+
+    function applyInstallSearchCategory(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleInstallSearchCategory = on ? 'true' : 'false';
+        }
+        dispatch('capsule:install-settings-changed', {});
+    }
+
+    function applyInstallUnverifiedFlatpaks(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleInstallUnverifiedFlatpaks = on ? 'true' : 'false';
+        }
+        dispatch('capsule:install-settings-changed', {});
+    }
+
+    function applyReportAutomonitor(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleReportAutomonitor = on ? 'true' : 'false';
+        }
+        dispatch('capsule:system-report-changed', {});
+    }
+
+    function applyReportAutorefresh(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleReportAutorefresh = on ? 'true' : 'false';
+        }
+        dispatch('capsule:system-report-changed', {});
+    }
+
+    function applyBluetoothNap(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleBluetoothNap = on ? 'true' : 'false';
+        }
+        dispatch('capsule:bluetooth-changed', {});
+    }
+
     function dispatch(name, detail) {
         if (typeof global.document !== 'undefined') {
             global.document.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
@@ -805,7 +885,14 @@
         'mint-icon-theme': applyIconTheme,
         'mint-bg-picture-options': applyBgPictureOptions,
         'mint-bg-picture-opacity': applyBgPictureOpacity,
-        'mint-night-light-enabled': function (v) { applyNightLightEnabled(v === 'on'); }
+        'mint-night-light-enabled': function (v) { applyNightLightEnabled(v === 'on'); },
+        'mint-input-per-window': function (v) { applyInputPerWindow(v === 'on'); },
+        'mint-input-show-all': function (v) { applyInputShowAllSources(v === 'on'); },
+        'mint-install-search-category': function (v) { applyInstallSearchCategory(v === 'on'); },
+        'mint-install-unverified-flatpaks': function (v) { applyInstallUnverifiedFlatpaks(v === 'on'); },
+        'mint-report-automonitor': function (v) { applyReportAutomonitor(v === 'on'); },
+        'mint-report-autorefresh': function (v) { applyReportAutorefresh(v === 'on'); },
+        'mint-bluetooth-nap': function (v) { applyBluetoothNap(v === 'on'); }
     };
 
     function applyCapsuleKey(capsuleKey, value) {

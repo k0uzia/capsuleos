@@ -557,5 +557,68 @@ window.CAPSULE_CINNAMON_GSETTINGS_BINDINGS = {
         "map": "boolOnOff",
         "effect": "nightLightEnabled",
         "effectArg": null
+    },
+    "mint-input-per-window": {
+        "controlId": "input-per-window",
+        "panelId": "input-method",
+        "schema": "org.cinnamon.desktop.input-sources",
+        "key": "per-window",
+        "map": "boolOnOff",
+        "effect": "inputPerWindow",
+        "effectArg": null
+    },
+    "mint-input-show-all": {
+        "controlId": "input-show-all",
+        "panelId": "input-method",
+        "schema": "org.cinnamon.desktop.input-sources",
+        "key": "show-all-sources",
+        "map": "boolOnOff",
+        "effect": "inputShowAllSources",
+        "effectArg": null
+    },
+    "mint-install-search-category": {
+        "controlId": "search-in-category",
+        "panelId": "software-sources",
+        "schema": "com.linuxmint.install",
+        "key": "search-in-category",
+        "map": "boolOnOff",
+        "effect": "installSearchCategory",
+        "effectArg": null
+    },
+    "mint-install-unverified-flatpaks": {
+        "controlId": "allow-unverified-flatpaks",
+        "panelId": "software-sources",
+        "schema": "com.linuxmint.install",
+        "key": "allow-unverified-flatpaks",
+        "map": "boolOnOff",
+        "effect": "installUnverifiedFlatpaks",
+        "effectArg": null
+    },
+    "mint-report-automonitor": {
+        "controlId": "report-automonitor",
+        "panelId": "system-info",
+        "schema": "com.linuxmint.report",
+        "key": "automonitor",
+        "map": "boolOnOff",
+        "effect": "reportAutomonitor",
+        "effectArg": null
+    },
+    "mint-report-autorefresh": {
+        "controlId": "report-autorefresh",
+        "panelId": "system-info",
+        "schema": "com.linuxmint.report",
+        "key": "autorefresh",
+        "map": "boolOnOff",
+        "effect": "reportAutorefresh",
+        "effectArg": null
+    },
+    "mint-bluetooth-nap": {
+        "controlId": "bluetooth-nap",
+        "panelId": "bluetooth",
+        "schema": "org.blueman.network",
+        "key": "nap-enable",
+        "map": "boolOnOff",
+        "effect": "bluetoothNap",
+        "effectArg": null
     }
 };

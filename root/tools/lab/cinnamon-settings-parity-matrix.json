@@ -407,6 +407,45 @@
       "controls": [
         { "id": "night-light-enabled", "type": "switch", "label": "Activer l'éclairage nocturne", "capsuleKey": "mint-night-light-enabled", "schema": "org.cinnamon.settings-daemon.plugins.color", "key": "night-light-enabled", "map": "boolOnOff", "effect": "nightLightEnabled" }
       ]
+    },
+    {
+      "id": "input-method",
+      "capsulePanel": "input-method",
+      "label": "Méthode de saisie",
+      "module": "mintlocale-im",
+      "controls": [
+        { "id": "input-per-window", "type": "switch", "label": "Disposition différente pour chaque fenêtre", "capsuleKey": "mint-input-per-window", "schema": "org.cinnamon.desktop.input-sources", "key": "per-window", "map": "boolOnOff", "effect": "inputPerWindow" },
+        { "id": "input-show-all", "type": "switch", "label": "Afficher toutes les sources de saisie", "capsuleKey": "mint-input-show-all", "schema": "org.cinnamon.desktop.input-sources", "key": "show-all-sources", "map": "boolOnOff", "effect": "inputShowAllSources" }
+      ]
+    },
+    {
+      "id": "software-sources",
+      "capsulePanel": "software-sources",
+      "label": "Sources de logiciels",
+      "module": "mintsources",
+      "controls": [
+        { "id": "search-in-category", "type": "switch", "label": "Rechercher dans la catégorie", "capsuleKey": "mint-install-search-category", "schema": "com.linuxmint.install", "key": "search-in-category", "map": "boolOnOff", "effect": "installSearchCategory" },
+        { "id": "allow-unverified-flatpaks", "type": "switch", "label": "Autoriser les Flatpak non vérifiés", "capsuleKey": "mint-install-unverified-flatpaks", "schema": "com.linuxmint.install", "key": "allow-unverified-flatpaks", "map": "boolOnOff", "effect": "installUnverifiedFlatpaks" }
+      ]
+    },
+    {
+      "id": "system-info",
+      "capsulePanel": "system-info",
+      "label": "Informations système",
+      "module": "mintreport",
+      "controls": [
+        { "id": "report-automonitor", "type": "switch", "label": "Surveillance automatique du matériel", "capsuleKey": "mint-report-automonitor", "schema": "com.linuxmint.report", "key": "automonitor", "map": "boolOnOff", "effect": "reportAutomonitor" },
+        { "id": "report-autorefresh", "type": "switch", "label": "Actualisation automatique du rapport", "capsuleKey": "mint-report-autorefresh", "schema": "com.linuxmint.report", "key": "autorefresh", "map": "boolOnOff", "effect": "reportAutorefresh" }
+      ]
+    },
+    {
+      "id": "bluetooth",
+      "capsulePanel": "bluetooth",
+      "label": "Bluetooth",
+      "module": "blueman",
+      "controls": [
+        { "id": "bluetooth-nap", "type": "switch", "label": "Partage de connexion réseau (NAP)", "capsuleKey": "mint-bluetooth-nap", "schema": "org.blueman.network", "key": "nap-enable", "map": "boolOnOff", "effect": "bluetoothNap" }
+      ]
     }
   ]
 }

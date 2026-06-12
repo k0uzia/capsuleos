@@ -1,10 +1,29 @@
 {
   "version": 1,
-  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon (Phase 2b).",
-  "status": "stub",
+  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon.",
+  "status": "phase-2b-partial",
   "vm": {
     "registryId": "linux-kde-neon",
     "collectedAt": null
   },
-  "panels": []
+  "panels": [
+    {
+      "id": "accessibility",
+      "label": "Accessibilité",
+      "priority": "P0",
+      "effects": [
+        { "capsuleKey": "kde-a11y-high-contrast", "layer": "Se-A11y", "event": "capsule:a11y-contrast-changed" },
+        { "capsuleKey": "kde-a11y-large-text", "layer": "Se-A11y", "event": "capsule:a11y-font-scale-changed" }
+      ]
+    },
+    {
+      "id": "appearance",
+      "label": "Apparence",
+      "priority": "P1",
+      "effects": [
+        { "capsuleKey": "kde-panel-height", "layer": "Se-Shell", "event": "capsule:panel-height-changed" },
+        { "capsuleKey": "kde-window-animations", "layer": "Se-WM", "event": "capsule:window-animations-changed" }
+      ]
+    }
+  ]
 }

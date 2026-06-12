@@ -93,7 +93,7 @@
       "toolkitVariants": {
         "gnome": { "template": "themes_gnome.html", "chromeProvider": "libadwaita-gnome", "skinCss": "themes.skin.css" },
         "cinnamon": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css" },
-        "kde": { "template": "kinfocenter_kde_neon.html", "chromeProvider": "default", "skinCss": "themes.skin.css", "note": "Phase 2b — systemsettings_kde.html" },
+        "kde": { "template": "systemsettings_kde.html", "chromeProvider": "default", "skinCss": "themes.skin.css" },
         "pantheon": { "template": "themes_gnome.html", "chromeProvider": "libadwaita-gnome", "skinCss": "themes.skin.css", "note": "scaffold AccΣ" },
         "xfce": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css", "note": "scaffold AccΣ" },
         "lxqt": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css", "note": "scaffold AccΣ" }

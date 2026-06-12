@@ -1,0 +1,40 @@
+.kde-systemsettings {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-ui, sans-serif);
+    color: #232629;
+    background: #eff0f1;
+}
+
+.kde-systemsettings__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 11rem;
+    padding: 0.75rem;
+    background: #31363b;
+    color: #eff0f1;
+}
+
+.kde-systemsettings__navitem {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.kde-systemsettings__navitem.is-active {
+    background: #3daee9;
+    color: #232629;
+}
+
+.kde-systemsettings__panel {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    overflow: auto;
+}

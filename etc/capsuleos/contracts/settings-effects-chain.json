@@ -99,6 +99,31 @@
         "bus": "usr/lib/capsuleos/shells/linux/se-a11y-bus.js"
       },
       "events": ["capsule:a11y-contrast-changed", "capsule:a11y-font-scale-changed"]
+    },
+    "Se-Shell": {
+      "unification": "semantic-only",
+      "guards": "usr/lib/capsuleos/shells/linux/se-toolkit-guards.js",
+      "emitters": {
+        "cinnamon": ["usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js"],
+        "gnome": ["usr/lib/capsuleos/shells/linux/gnome-settings-parity.js"],
+        "kde": ["usr/lib/capsuleos/shells/linux/kde-settings-parity.js"]
+      },
+      "consumers": {
+        "cinnamon": ["home/Debian/Mint/content/mint-tray.js"],
+        "gnome": ["home/Debian/Ubuntu/style/gnome-shell/ubuntu-dock.css"],
+        "kde": ["home/Debian/KDE-Neon/style/plasma-panel-dock.css"]
+      },
+      "events": ["capsule:panel-height-changed", "capsule:applet-visibility-changed"]
+    },
+    "Se-WM": {
+      "unification": "partial",
+      "guards": "usr/lib/capsuleos/shells/linux/se-toolkit-guards.js",
+      "modules": {
+        "cinnamon": "usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js",
+        "gnome": "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js",
+        "kde": "home/Debian/KDE-Neon/js/mainMenu-plasma.js"
+      },
+      "events": ["capsule:dynamic-workspaces-changed"]
     }
   }
 }

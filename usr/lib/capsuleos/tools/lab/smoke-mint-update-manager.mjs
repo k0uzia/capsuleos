@@ -100,7 +100,7 @@ await page.waitForFunction(() => {
     && status.indexOf('sélectionnée') !== -1
     && installBtn && !installBtn.disabled
     && selectedRow
-    && panel && panel.textContent.indexOf('alsa-lib') !== -1;
+    && panel && panel.textContent.indexOf('cups') !== -1;
 }, null, { timeout: 5000 });
 await page.waitForTimeout(50);
 
@@ -110,7 +110,7 @@ const updates = await page.evaluate(() => ({
   status: document.getElementById('um-status-text')?.textContent,
   installEnabled: !document.querySelector('[data-um-action="install"]')?.disabled,
   selectedRow: !!document.querySelector('#um-tablewrap tbody tr.is-selected'),
-  panelHasPkg: (document.getElementById('um-panel')?.textContent || '').includes('alsa-lib'),
+  panelHasPkg: (document.getElementById('um-panel')?.textContent || '').includes('cups'),
 }));
 
 await page.click('[data-um-action="clear"]');
@@ -198,12 +198,12 @@ const ok = welcome.winVisible && welcome.welcomeVisible && welcome.mainHidden
   && updates.status && updates.installEnabled && updates.selectedRow && updates.panelHasPkg
   && cleared.allUnchecked && cleared.installDisabled
   && cleared.status === 'Aucune mise à jour sélectionnée'
-  && selectedAll.status === '129 mises à jour sont sélectionnées (1,1 Go)'
+  && selectedAll.status === '18 mises à jour sont sélectionnées (214 Mo)'
   && selectedAll.installEnabled
   && installed.emptyVisible && installed.tableHidden && installed.installDisabled
   && installed.trayHasUpdates === false && !installed.busy
   && dims.win && dims.win.w >= 784 && dims.win.w <= 796
-  && dims.win.h >= 564 && dims.win.h <= 576
+  && dims.win.h >= 596 && dims.win.h <= 608
   && dims.menubar && dims.menubar.h >= 24 && dims.menubar.h <= 32
   && dims.toolbar && dims.toolbar.h >= 56 && dims.toolbar.h <= 64
   && dims.header && !dims.header.overflow

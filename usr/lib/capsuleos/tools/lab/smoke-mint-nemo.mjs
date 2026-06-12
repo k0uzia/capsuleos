@@ -39,7 +39,8 @@ const docs = await page.evaluate(() => {
   };
 });
 
-await page.click('div[data-link="nemo"] #voletnemo a[data-nemo-bookmark="true"]');
+// VM : pas de section Marque-pages (aucun signet utilisateur) — navigation Bureau via Mon ordinateur.
+await page.click('div[data-link="nemo"] #voletnemo a[data-link="Bureau"]');
 await page.waitForTimeout(40);
 
 const bookmark = await page.evaluate(() => ({
@@ -250,19 +251,21 @@ const pathNavigationMode = await page.evaluate(() => {
   if (!toggleBtn || !pathLabel) {
     return { ok: false, reason: 'missing-path-controls' };
   }
-  const labelMode = !pathLabel.classList.contains('nemo-app__path-breadcrumb');
-  toggleBtn.click();
-  const breadcrumbOn = pathLabel.classList.contains('nemo-app__path-breadcrumb')
+  // Vérité VM : Nemo démarre en fil d'Ariane ; le toggle bascule vers le libellé simple (Ctrl+L)
+  const breadcrumbDefault = pathLabel.classList.contains('nemo-app__path-breadcrumb')
     && pathLabel.querySelectorAll('.nemo-app__path-crumb').length > 0
     && toggleBtn.getAttribute('aria-pressed') === 'true';
   toggleBtn.click();
-  const labelRestored = !pathLabel.classList.contains('nemo-app__path-breadcrumb')
+  const labelOn = !pathLabel.classList.contains('nemo-app__path-breadcrumb')
     && toggleBtn.getAttribute('aria-pressed') === 'false';
+  toggleBtn.click();
+  const breadcrumbRestored = pathLabel.classList.contains('nemo-app__path-breadcrumb')
+    && toggleBtn.getAttribute('aria-pressed') === 'true';
   return {
-    ok: labelMode && breadcrumbOn && labelRestored,
-    labelMode,
-    breadcrumbOn,
-    labelRestored,
+    ok: breadcrumbDefault && labelOn && breadcrumbRestored,
+    breadcrumbDefault,
+    labelOn,
+    breadcrumbRestored,
   };
 });
 
@@ -336,7 +339,7 @@ const ok = home.sidebarReady && home.navReady
   && home.chromeToolkit === 'cinnamon'
   && home.chromeProvider === 'nemo'
   && home.dragOnHeader
-  && home.title && home.title.indexOf('Nemo') >= 0
+  && home.title === 'Dossier personnel'
   && docs.path && docs.path.indexOf('Documents') >= 0
   && docs.title && docs.title.indexOf('Documents') >= 0
   && bookmark.path && bookmark.path.indexOf('Bureau') >= 0

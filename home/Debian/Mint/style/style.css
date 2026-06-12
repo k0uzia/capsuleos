@@ -32,11 +32,13 @@ html {
     overflow: visible;
 }
 
+/* Ground truth VM (gsettings org.nemo.desktop) : home/trash/computer-icon-visible = false
+   → bureau nu ; DOM conservé pour les scénarios contextuels (dispatch JS). */
 body#mint #desktop > .desktop-shortcuts {
     position: var(--abs);
     top: calc(var(--head) / 2);
     left: calc(var(--head) / 2);
-    display: var(--f);
+    display: none;
     flex-flow: var(--cnw);
     align-items: var(--fs);
     gap: calc(var(--head) / 10);

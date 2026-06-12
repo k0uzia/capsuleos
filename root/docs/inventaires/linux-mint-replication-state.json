@@ -174,7 +174,7 @@
   "Vague 2 P-F3 clôturée — 22 slots P2, +66 scénarios ; 43 apps π=100, 130 scénarios CredV/C/S.",
   "Doc P-F v2 : root/docs/campagne-credibilite-pedagogique.md §2 bis."
  ],
- "updatedAt": "2026-06-09T13:00:46.048Z",
+ "updatedAt": "2026-06-12T08:10:00.000Z",
  "groundTruth": {
   "chain": "cinnamon",
   "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
@@ -196,7 +196,7 @@
   "evaluatedAt": "2026-06-09T13:00:44.908Z"
  },
  "visualFidelity": {
-  "campaign": "phi-visual-fidelity",
+  "campaign": "phi-visual-fidelity-5-nodes",
   "doc": "root/docs/logique-formelle.md §2.4b",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
   "report": "root/docs/inventaires/linux-mint-visual-fidelity.json",
@@ -205,43 +205,21 @@
    "compare": "usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs",
    "computedAssert": "usr/lib/capsuleos/tools/lab/assert-computed-vs-inventory.mjs"
   },
-  "measuredAt": "2026-06-11",
+  "measuredAt": "2026-06-12",
   "slots": {
+   "shell": { "phi": 97.8, "classification": "match", "scenesP0": ["desktop", "menu"] },
+   "nemo": { "phi": 99, "classification": "match", "scenesP0": ["home"] },
+   "themes": { "phi": 88.9, "classification": "match", "scenesP0": ["home"] },
    "mintinstall": {
-    "phi": 92.2,
+    "phi": 91.7,
     "classification": "match",
-    "scenesP0": [
-     "home"
-    ],
-    "scenesP1Pending": [
-     "browse-all",
-     "detail"
-    ]
+    "scenesP0": ["home"],
+    "scenesP1Pending": ["browse-all", "detail"],
+    "scenesP1Note": "vm.mode=manual — captures VM à déposer sous vm/<scene>.png"
    },
-   "nemo": {
-    "classification": "unmeasured",
-    "note": "pas de scènes déclarées au contrat — jamais match implicite"
-   },
-   "firefox": {
-    "classification": "unmeasured"
-   },
-   "text_editor": {
-    "classification": "unmeasured"
-   },
-   "calculator": {
-    "classification": "unmeasured"
-   },
-   "file_roller": {
-    "classification": "unmeasured"
-   },
-   "update_manager": {
-    "classification": "unmeasured"
-   },
-   "themes": {
-    "classification": "unmeasured"
-   }
+   "update_manager": { "phi": 94.4, "classification": "match", "scenesP0": ["main"] }
   },
-  "honestStatus": "Π=100 interactionnel sur 8 slots priority ; Φ mesuré match uniquement sur mintinstall/home — extension scènes P0 aux autres slots requise avant clôture Φ registre",
-  "geometryCorrection": "fenêtre mintinstall : 860×732 visible (wmctrl 912×784 incluait l'ombre CSD) — corrigé variables-linux.css"
+  "honestStatus": "5 nœuds P0 campagne générale : shell, nemo, themes, mintinstall, update_manager — Φ≥partial sur toutes les scènes P0 déclarées ; P1 mintinstall browse/detail non mesurées (VM manuelle)",
+  "geometryCorrection": "gnome-screenshot -w VM : mintinstall 808×680, update_manager 790×602 — aligné variables-linux.css"
  }
 }

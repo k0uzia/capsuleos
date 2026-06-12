@@ -122,10 +122,13 @@ async function runSlotChecks(page, slot) {
       const toggleBtn = document.getElementById('nemo-toggle-path-mode');
       const pathLabel = document.getElementById('nemo-path-label');
       if (!toggleBtn || !pathLabel) return false;
+      // Défaut VM : breadcrumb actif — vérifier l'aller-retour du toggle
+      const initial = pathLabel.classList.contains('nemo-app__path-breadcrumb');
       toggleBtn.click();
-      const on = pathLabel.classList.contains('nemo-app__path-breadcrumb');
+      const flipped = pathLabel.classList.contains('nemo-app__path-breadcrumb') !== initial;
       toggleBtn.click();
-      return on;
+      const restored = pathLabel.classList.contains('nemo-app__path-breadcrumb') === initial;
+      return initial && flipped && restored;
     });
     push('path-breadcrumb', 'nav', pathMode, {});
 

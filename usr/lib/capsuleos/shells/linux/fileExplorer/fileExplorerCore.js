@@ -458,10 +458,11 @@ const shouldHideListViewItem = (item, directoryPath) => {
     if (isCosmicFilesExplorer() && item.name === 'Public') {
         return true;
     }
+    // snap : artefact Ubuntu — jamais présent sur Mint/Cinnamon ni KDE (vérité VM).
     if (
         directoryPath === getFileExplorerRoot()
         && item.name === 'snap'
-        && (usesNemoListViewFrenchColumns() || isDolphinTemplate())
+        && (usesNemoListViewFrenchColumns() || isDolphinTemplate() || isNemoTemplate())
     ) {
         return true;
     }
@@ -1054,6 +1055,18 @@ const togglePathNavigationMode = () => {
     updatePathNavigationToggleButton();
 };
 
+/* Vérité VM Mint : Nemo affiche le fil d'Ariane par défaut (Ctrl+L pour le champ texte). */
+let pathNavigationModeResolved = false;
+const resolveDefaultPathNavigationMode = () => {
+    if (pathNavigationModeResolved) {
+        return;
+    }
+    pathNavigationModeResolved = true;
+    if (isNemoTemplate()) {
+        fileExplorerState.pathNavigationMode = 'breadcrumb';
+    }
+};
+
 const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
     const crumbPrefix = pathLabelElement.querySelector('.dolphin-toolbar__crumb-prefix');
     const label = findFolderLabel(displayPath);
@@ -1088,8 +1101,24 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
         link.href = '#';
         link.className = 'nemo-app__path-crumb';
         link.dataset.path = segment.path;
-        link.textContent = segment.label;
-        link.title = segment.label;
+        // VM Nemo : le crumb racine montre la maison symbolique blanche + nom utilisateur (« capsule »)
+        if (index === 0 && isNemoTemplate() && segment.path === getFileExplorerRoot()) {
+            const homeIcon = document.createElement('img');
+            homeIcon.src = typeof resolveCapsuleResourceUrl === 'function'
+                ? resolveCapsuleResourceUrl('./assets/icons/cinnamon/nemo/user-home-symbolic.svg')
+                : './assets/icons/cinnamon/nemo/user-home-symbolic.svg';
+            homeIcon.alt = '';
+            homeIcon.className = 'nemo-app__path-crumb-icon';
+            link.appendChild(homeIcon);
+            const userLabel = (typeof window !== 'undefined' && window.CAPSULE_USER_NAME)
+                ? String(window.CAPSULE_USER_NAME)
+                : 'capsule';
+            link.appendChild(document.createTextNode(userLabel));
+            link.title = segment.label;
+        } else {
+            link.textContent = segment.label;
+            link.title = segment.label;
+        }
         fragment.appendChild(link);
     });
 
@@ -1097,6 +1126,7 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
 };
 
 const updatePathDisplay = () => {
+    resolveDefaultPathNavigationMode();
     const nemoRoot = getExplorerWindowSlot();
     const pathLabelElement = nemoRoot
         ? nemoRoot.querySelector('.nemo-app__path-current, #nemo-path-label')

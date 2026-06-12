@@ -60,7 +60,7 @@
 
     /** Update Manager 7.1.4 — géométrie VM wmctrl (790×570) */
     --win-update_manager-width: 790px;
-    --win-update_manager-height: 570px;
+    --win-update_manager-height: 602px;
     --win-update_manager-min-width: 640px;
     --win-update_manager-min-height: 460px;
 
@@ -75,8 +75,8 @@
     --win-mintdrivers-min-height: 400px;
 
     /** Logithèque mintinstall 8.4 — géométrie VM visible 860×732 (wmctrl 912×784 inclut 26px d'ombre CSD par côté) */
-    --win-mintinstall-width: 860px;
-    --win-mintinstall-height: 732px;
+    --win-mintinstall-width: 808px;
+    --win-mintinstall-height: 680px;
     --win-mintinstall-min-width: 720px;
     --win-mintinstall-min-height: 560px;
 
@@ -203,10 +203,10 @@
     --win-lecteur_multimedia-min-height: calc(var(--head) * 10);
 }
 
-/** cinnamon-settings 6.6 — géométrie VM wmctrl (800×600) */
+/** cinnamon-settings 6.6 — géométrie VM gnome-screenshot -w (800×632 incl. barre titre 32px) */
 html:has(body#mint) {
     --win-themes-width: 800px;
-    --win-themes-height: 600px;
-    --win-themes-min-width: 720px;
-    --win-themes-min-height: 480px;
+    --win-themes-height: 632px;
+    --win-themes-min-width: 800px;
+    --win-themes-min-height: 632px;
 }

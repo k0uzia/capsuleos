@@ -1,10 +1,10 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-11T16:32:20.418Z",
+  "updatedAt": "2026-06-12T08:05:13.265Z",
   "slots": {
     "mintinstall": {
-      "phi": 92.2,
+      "phi": 91.7,
       "classification": "match",
       "scenes": [
         {
@@ -15,22 +15,22 @@
           "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/home.png",
           "geometry": {
             "vm": {
-              "width": 860,
-              "height": 732
+              "width": 808,
+              "height": 680
             },
             "clone": {
-              "width": 860,
-              "height": 732
+              "width": 808,
+              "height": 680
             },
             "delta": {
               "width": 0,
               "height": 0
             }
           },
-          "phi": 92.2,
+          "phi": 91.7,
           "pixels": {
-            "compared": 480000,
-            "mismatched": 37376
+            "compared": 407396,
+            "mismatched": 33896
           },
           "geometryOk": true,
           "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/diff/home.png",
@@ -59,7 +59,200 @@
           "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
         }
       ],
-      "updatedAt": "2026-06-11T16:32:20.787Z"
+      "updatedAt": "2026-06-12T08:05:15.220Z"
+    },
+    "shell": {
+      "phi": 97.8,
+      "classification": "match",
+      "scenes": [
+        {
+          "id": "desktop",
+          "priority": "P0",
+          "label": "Bureau Cinnamon nu — fond Mint, icônes bureau, panel bas",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/vm/desktop.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/clone/desktop.png",
+          "geometry": {
+            "vm": {
+              "width": 1280,
+              "height": 800
+            },
+            "clone": {
+              "width": 1280,
+              "height": 800
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 99.8,
+          "pixels": {
+            "compared": 1014340,
+            "mismatched": 2382
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/diff/desktop.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "menu",
+          "priority": "P0",
+          "label": "Menu principal Cinnamon ouvert — favoris, catégories, recherche",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/vm/menu.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/clone/menu.png",
+          "geometry": {
+            "vm": {
+              "width": 1280,
+              "height": 800
+            },
+            "clone": {
+              "width": 1280,
+              "height": 800
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 97.8,
+          "pixels": {
+            "compared": 1014340,
+            "mismatched": 22482
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/diff/menu.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        }
+      ],
+      "updatedAt": "2026-06-12T08:05:14.241Z"
+    },
+    "nemo": {
+      "phi": 99,
+      "classification": "match",
+      "scenes": [
+        {
+          "id": "home",
+          "priority": "P0",
+          "label": "Dossier personnel — vue icônes, volet latéral Mon ordinateur, fenêtre maximisée",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/nemo/vm/home.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/nemo/clone/home.png",
+          "geometry": {
+            "vm": {
+              "width": 1280,
+              "height": 760
+            },
+            "clone": {
+              "width": 1280,
+              "height": 760
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 99,
+          "pixels": {
+            "compared": 931840,
+            "mismatched": 9265
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/nemo/diff/home.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        }
+      ],
+      "updatedAt": "2026-06-12T08:05:14.552Z"
+    },
+    "themes": {
+      "phi": 88.9,
+      "classification": "match",
+      "scenes": [
+        {
+          "id": "home",
+          "priority": "P0",
+          "label": "Paramètres du système — accueil, sections Apparence + Préférences",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/home.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/home.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 88.9,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 55958
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/home.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        }
+      ],
+      "updatedAt": "2026-06-12T08:05:14.786Z"
+    },
+    "update_manager": {
+      "phi": 94.4,
+      "classification": "match",
+      "scenes": [
+        {
+          "id": "main",
+          "priority": "P0",
+          "label": "Gestionnaire de mise à jour — toolbar, liste mises à jour, Renseignements",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/update_manager/vm/main.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/update_manager/clone/main.png",
+          "geometry": {
+            "vm": {
+              "width": 790,
+              "height": 602
+            },
+            "clone": {
+              "width": 790,
+              "height": 602
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 94.4,
+          "pixels": {
+            "compared": 442400,
+            "mismatched": 24848
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/update_manager/diff/main.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 80,
+            "partial": 45
+          }
+        }
+      ],
+      "updatedAt": "2026-06-12T08:05:14.997Z"
     }
   }
 }

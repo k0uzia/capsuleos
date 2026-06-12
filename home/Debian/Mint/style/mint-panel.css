@@ -64,8 +64,9 @@ html > body > footer > nav > a.mint-panel__launcher {
 .mint-panel__launcher > img,
 html > body > footer > nav > a.mint-panel__launcher > img {
     display: var(--bl);
-    width: calc(var(--head) * 0.9);
-    height: calc(var(--head) * 0.9);
+    /* VM grouped-window-list : icône ~24px dans panel 40px */
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     image-rendering: var(--a);
     pointer-events: none;
@@ -151,9 +152,10 @@ html > body#mint > footer > nav > a[data-link="mainMenu"] {
 }
 
 html > body#mint > footer > nav > a[data-link="mainMenu"] > img {
-    width: calc(var(--head) * 0.82);
-    height: calc(var(--head) * 0.82);
-    filter: none;
+    /* VM : icône applet menu ~28px, linuxmint-logo-simple-symbolic recoloré clair (#dedede) */
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) invert(0.87);
 }
 
 body#mint .mint-panel__separator,

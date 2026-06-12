@@ -1,11 +1,26 @@
-/* Mint — Paramètres système (cinnamon-settings 6.6) */
+/* Mint — Paramètres système (cinnamon-settings 6.6) — VM wmctrl 800×600 client */
 body#mint div[data-link="themes"].windowElement {
-    width: calc(var(--head) * 24);
-    min-width: calc(var(--head) * 20);
-    height: calc(var(--head) * 17);
+    width: 800px;
+    min-width: 800px;
+    height: 632px;
+    min-height: 632px;
 }
 
-body#mint main#cinnamonSettingsApp .cs-app__search:focus {
+body#mint div[data-link="themes"] button.cs-home__tile,
+body#mint div[data-link="themes"] button.cs-home__tile:hover,
+body#mint div[data-link="themes"] button.cs-home__tile:focus,
+body#mint div[data-link="themes"] button.cs-home__tile:active {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none;
+}
+
+body#mint div[data-link="themes"] input.cs-home__search,
+body#mint div[data-link="themes"] input.cs-home__search:focus {
+    background-color: #222226 !important;
+    color: #e1e1e1 !important;
+    border: 1px solid #404046 !important;
     outline: 2px solid #1f9ede;
-    outline-offset: 1px;
+    outline-offset: 0;
 }

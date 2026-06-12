@@ -298,11 +298,27 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 : (skinMap[skinId] != null
                     ? skinMap[skinId]
                     : (skinMap[templateId] != null ? skinMap[templateId] : ''));
-            return Promise.resolve({
+            let cssBase = resolveEmbeddedCssBase(slotId, templateId, resolvedHtml);
+            const fetchMintinstallBaseCss = async () => {
+                if (templateId !== 'mintinstall' || (cssBase && cssBase.includes('mi-app--mode-home'))) {
+                    return cssBase;
+                }
+                try {
+                    const url = `${appsBase}/style/mintinstall.base.css`;
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (response.ok) {
+                        return await response.text();
+                    }
+                } catch (_) {
+                    /* repli embed */
+                }
+                return cssBase;
+            };
+            return fetchMintinstallBaseCss().then((resolvedCssBase) => ({
                 html: resolvedHtml,
-                cssBase: resolveEmbeddedCssBase(slotId, templateId, resolvedHtml),
+                cssBase: resolvedCssBase,
                 cssSkin
-            });
+            }));
         }
         console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
     }
@@ -356,6 +372,25 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             return '';
         }
 
+        const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+            ? String(window.CAPSULE_EMBED_SKIN_KEY)
+            : '';
+        if (templateId === 'themes' && embedKey === 'mint') {
+            const embeddedMintCs = resolveEmbeddedCssBase(slotId, templateId);
+            if (embeddedMintCs) {
+                return embeddedMintCs;
+            }
+            try {
+                const cinnamonFile = `${appsBase}/style/cinnamon_settings.base.css`;
+                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
+                if (cinnamonResp.ok) {
+                    return await cinnamonResp.text();
+                }
+            } catch (_) {
+                /* repli fetch themes.base ci-dessous */
+            }
+        }
+
         const fetchOneCss = async (url) => {
             const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) {
@@ -371,7 +406,12 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             stackUrls = window.CapsuleExplorerRegistry.resolveCssBasePathsFromAppsBase(appsBase, templateId);
         }
 
-        if (stackUrls.length > 1) {
+        // Pile explorers/ = source de vérité (même contenu que l'embed file://).
+        // Auparavant seuls les stacks multi-fichiers passaient ici, laissant les
+        // templates nemo simples sur la copie legacy apps/style/nemo.base.css (dérive).
+        if (stackUrls.length >= 1
+            && typeof window.CapsuleExplorerRegistry.isExplorerTemplate === 'function'
+            && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId)) {
             try {
                 const chunks = await Promise.all(stackUrls.map((url) => fetchOneCss(url)));
                 return chunks.join('\n');
@@ -401,15 +441,8 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             }
         }
         if (templateId === 'themes' && text) {
-            const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
-                ? String(window.CAPSULE_EMBED_SKIN_KEY)
-                : '';
             if (embedKey === 'mint') {
-                const cinnamonFile = `${appsBase}/style/themes_cinnamon.base.css`;
-                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
-                if (cinnamonResp.ok) {
-                    text = `${text}\n${await cinnamonResp.text()}`;
-                }
+                /* traité en tête de fetchCssBase */
             } else {
                 const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
                 const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
@@ -437,6 +470,15 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
 
     const fetchCssSkin = (async () => {
         let skinText = '';
+        const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+            ? String(window.CAPSULE_EMBED_SKIN_KEY)
+            : '';
+        if (templateId === 'themes' && embedKey === 'mint' && embed && embed.skins && embed.skins.mint) {
+            const embeddedSkin = embed.skins.mint.themes || embed.skins.mint[skinId];
+            if (embeddedSkin) {
+                return embeddedSkin;
+            }
+        }
         if (cssSkinFile) {
             try {
                 const response = await fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' });
@@ -450,6 +492,18 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 }
             } catch (_) {
                 skinText = '';
+            }
+        }
+        if (templateId === 'themes' && embedKey === 'mint' && skinBase) {
+            try {
+                const csSkinFile = `${String(skinBase).replace(/\/+$/, '')}/style/apps/cinnamon_settings.skin.css`;
+                const csResp = await fetch(withSkinCssBust(csSkinFile), { cache: 'no-store' });
+                if (csResp.ok) {
+                    const csText = await csResp.text();
+                    skinText = skinText ? `${skinText}\n${csText}` : csText;
+                }
+            } catch (_) {
+                /* optionnel */
             }
         }
         if (templateId === 'update_manager' && isKdeDiscoverContext()) {

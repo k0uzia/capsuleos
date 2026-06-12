@@ -161,3 +161,24 @@ body#mint main#mintInstallApp.mi-app--layout-vm84 .mi-app__top-rated-flathub::be
 body#mint main#mintInstallApp.mi-app--layout-vm84 .mi-app__content {
     padding: 0.65rem 0.85rem 0.5rem;
 }
+
+/* Règles layout 8.4 (mi-app--mode-home) — doublon défensif si embed sans base.css */
+body#mint main#mintInstallApp.mi-app--mode-home .mi-app__body {
+    grid-template-columns: 1fr;
+}
+
+body#mint main#mintInstallApp.mi-app--mode-home .mi-app__sidebar {
+    display: none !important;
+}
+
+body#mint main#mintInstallApp .mi-app__spotlight {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+}
+
+body#mint main#mintInstallApp .mi-app__home-cats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.45rem;
+}

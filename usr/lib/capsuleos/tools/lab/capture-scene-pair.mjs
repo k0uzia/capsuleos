@@ -75,29 +75,69 @@ function scpFrom(remotePath, localPath) {
 
 const summary = { id: opts.id, capturedAt: new Date().toISOString(), vm: [], clone: [], skipped: [] };
 
+const VM_ENV = `export DISPLAY=${DISPLAY} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus`;
+
+/** Exécute les commandes vm.setupCommands / vm.teardownCommands (xdotool, wmctrl, lancement d'app…). vm.setup reste documentaire. */
+function runVmCommands(commands) {
+  if (!Array.isArray(commands) || !commands.length) {
+    return { code: 0 };
+  }
+  return ssh([VM_ENV, ...commands].join('; '));
+}
+
+function ensureVmWindow(slotId, slotSpec, scene) {
+  const probe = () => ssh(`DISPLAY=${DISPLAY} wmctrl -l 2>/dev/null | grep -iE "${slotSpec.wmctrlMatch}" | head -1`);
+  let found = probe();
+  if (found.stdout) {
+    return true;
+  }
+  if (scene.vm.appCommand) {
+    ssh(`${VM_ENV}; nohup ${scene.vm.appCommand} >/dev/null 2>&1 & sleep 3`);
+    for (let attempt = 0; attempt < 5 && !found.stdout; attempt += 1) {
+      ssh('sleep 1');
+      found = probe();
+    }
+  }
+  return !!found.stdout;
+}
+
 function captureVmScene(slotId, slotSpec, scene) {
-  if (scene.vm.mode !== 'live-window') {
-    summary.skipped.push({ slot: slotId, scene: scene.id, side: 'vm', reason: `vm.mode=${scene.vm.mode}` });
+  const mode = scene.vm.mode;
+  if (mode !== 'live-window' && mode !== 'fullscreen') {
+    summary.skipped.push({ slot: slotId, scene: scene.id, side: 'vm', reason: `vm.mode=${mode}` });
     return;
   }
   const outDir = path.join(capturesBase, slotId, 'vm');
   fs.mkdirSync(outDir, { recursive: true });
   const remote = `/tmp/capsule-phi-${slotId}-${scene.id}.png`;
-  const title = slotSpec.windowTitle;
-  const probe = ssh(`DISPLAY=${DISPLAY} wmctrl -l 2>/dev/null | grep -iE "${slotSpec.wmctrlMatch}" | head -1`);
-  if (!probe.stdout) {
+  const title = scene.vm.windowTitle || slotSpec.windowTitle;
+
+  if (mode === 'live-window' && !ensureVmWindow(slotId, slotSpec, scene)) {
     summary.skipped.push({ slot: slotId, scene: scene.id, side: 'vm', reason: `fenêtre "${title}" absente sur la VM — lancer ${scene.vm.appCommand || slotId}` });
     return;
   }
+
+  const setupResult = runVmCommands(scene.vm.setupCommands);
+  if (setupResult.code !== 0) {
+    summary.skipped.push({ slot: slotId, scene: scene.id, side: 'vm', reason: `vm.setup KO : ${setupResult.stderr}` });
+    return;
+  }
+
   // gnome-screenshot exige le bus de session D-Bus ; capture flaky après wmctrl -a → retries.
-  const shot = ssh([
-    `export DISPLAY=${DISPLAY} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus`,
-    `rm -f ${remote}`,
-    `wmctrl -a "${title}"`,
-    'sleep 0.8',
-    `for i in 1 2 3; do gnome-screenshot -w -f ${remote} 2>/dev/null; test -s ${remote} && break; sleep 0.6; done`,
-    `test -s ${remote}`,
-  ].join('; '));
+  const captureCmd = mode === 'fullscreen'
+    ? `for i in 1 2 3; do gnome-screenshot -f ${remote} 2>/dev/null; test -s ${remote} && break; sleep 0.6; done`
+    : `for i in 1 2 3; do gnome-screenshot -w -f ${remote} 2>/dev/null; test -s ${remote} && break; sleep 0.6; done`;
+  const steps = [VM_ENV, `rm -f ${remote}`];
+  if (mode === 'live-window') {
+    steps.push(`wmctrl -a "${title}"`, 'sleep 0.8');
+  } else {
+    steps.push(`sleep ${scene.vm.settleSec || 0.6}`);
+  }
+  steps.push(captureCmd, `test -s ${remote}`);
+  const shot = ssh(steps.join('; '));
+
+  runVmCommands(scene.vm.teardownCommands);
+
   if (shot.code !== 0) {
     summary.skipped.push({ slot: slotId, scene: scene.id, side: 'vm', reason: `gnome-screenshot KO : ${shot.stderr}` });
     return;
@@ -114,12 +154,22 @@ function captureVmScene(slotId, slotSpec, scene) {
 async function runCloneAction(page, action) {
   if (action.type === 'click') {
     await page.click(action.selector, { timeout: 10000 });
+  } else if (action.type === 'rightclick') {
+    await page.click(action.selector, { button: 'right', timeout: 10000 });
+  } else if (action.type === 'dblclick') {
+    await page.dblclick(action.selector, { timeout: 10000 });
+  } else if (action.type === 'hover') {
+    await page.hover(action.selector, { timeout: 10000 });
+  } else if (action.type === 'press') {
+    await page.keyboard.press(action.key);
   } else if (action.type === 'waitSelector') {
     await page.waitForSelector(action.selector, { timeout: 10000 });
   } else if (action.type === 'fill') {
     await page.fill(action.selector, action.value || '');
   } else if (action.type === 'wait') {
     await page.waitForTimeout(action.ms || 200);
+  } else if (action.type === 'evaluate') {
+    await page.evaluate(action.script || action.fn || 'void 0');
   }
 }
 
@@ -129,13 +179,24 @@ async function captureCloneScenes(slotId, slotSpec, scenes) {
   const outDir = path.join(capturesBase, slotId, 'clone');
   fs.mkdirSync(outDir, { recursive: true });
 
+  const vw = registry.vm.screen || { width: 1280, height: 800 };
   const browser = await chromium.launch({ headless: true, executablePath: chromePath });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 960 }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({
+    viewport: { width: vw.width, height: Math.max(vw.height, 960) },
+    deviceScaleFactor: 1,
+  });
   try {
     for (const scene of scenes) {
+      // viewport: "vm" — fenêtres maximisées : la hauteur viewport doit être l'écran VM exact.
+      await page.setViewportSize(scene.clone.fullPage || scene.clone.viewport === 'vm'
+        ? { width: vw.width, height: vw.height }
+        : { width: vw.width, height: Math.max(vw.height, 960) });
       await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
       await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
-      await page.evaluate((slot) => window.openWindowByDataLink(slot), scene.clone.open || slotId);
+      const openSlot = scene.clone.open === 'none' ? null : (scene.clone.open || slotId);
+      if (openSlot) {
+        await page.evaluate((slot) => window.openWindowByDataLink(slot), openSlot);
+      }
       if (scene.clone.waitSelector) {
         await page.waitForSelector(scene.clone.waitSelector, { timeout: 20000 });
       }
@@ -143,14 +204,21 @@ async function captureCloneScenes(slotId, slotSpec, scenes) {
         await runCloneAction(page, action);
       }
       await page.waitForTimeout(scene.clone.settleMs || 400);
-      const winSel = slotSpec.cloneWindowSelector || `div[data-link="${slotId}"]`;
-      const el = await page.$(winSel);
-      if (!el) {
-        summary.skipped.push({ slot: slotId, scene: scene.id, side: 'clone', reason: `fenêtre ${winSel} introuvable` });
-        continue;
-      }
       const local = path.join(outDir, `${scene.id}.png`);
-      await el.screenshot({ path: local });
+      if (scene.clone.fullPage) {
+        // Scène shell/desktop : viewport = écran VM, capture pleine page.
+        await page.screenshot({ path: local, fullPage: false });
+      } else {
+        const winSel = scene.clone.captureSelector
+          || slotSpec.cloneWindowSelector
+          || `div[data-link="${slotId}"]`;
+        const el = await page.$(winSel);
+        if (!el) {
+          summary.skipped.push({ slot: slotId, scene: scene.id, side: 'clone', reason: `fenêtre ${winSel} introuvable` });
+          continue;
+        }
+        await el.screenshot({ path: local });
+      }
       summary.clone.push({ slot: slotId, scene: scene.id, file: path.relative(ROOT, local) });
     }
   } finally {

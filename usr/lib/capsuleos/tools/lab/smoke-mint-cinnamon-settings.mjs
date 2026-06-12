@@ -67,11 +67,86 @@ const dims = await page.evaluate(() => {
   return { win: box ? { w: Math.round(box.width), h: Math.round(box.height) } : null };
 });
 
+const parityBoot = await page.evaluate(() => ({
+  store: typeof window.CapsuleCinnamonGSettings !== 'undefined',
+  parity: typeof window.CapsuleCinnamonSettingsParity !== 'undefined',
+  wiredCount: window.CapsuleCinnamonSettingsParity?.wiredPanelIds?.length || 0,
+}));
+
+await page.evaluate(() => {
+  document.querySelector('#cinnamonSettingsApp [data-cs-nav="desktop"]')?.click();
+});
+await page.waitForTimeout(120);
+
+const desktopParity = await page.evaluate(() => {
+  const panel = document.querySelector('[data-cs-panel="desktop"]');
+  const switches = panel?.querySelectorAll('.cs-switch[data-cs-capsule-key]') || [];
+  const shortcuts = document.querySelector('.desktop-shortcuts');
+  const showToggle = panel?.querySelector('[data-cs-capsule-key="mint-desktop-show-icons"]');
+  const shortcutsVisible = shortcuts && shortcuts.style.display !== 'none';
+  if (showToggle && shortcutsVisible) {
+    showToggle.click();
+  }
+  const afterHide = shortcuts && shortcuts.style.display === 'none';
+  if (showToggle && afterHide) {
+    showToggle.click();
+  }
+  const restored = shortcuts && shortcuts.style.display !== 'none';
+  const stored = window.CapsuleCinnamonGSettings?.getBool?.('mint-desktop-show-icons', true);
+  return {
+    panelVisible: panel && !panel.hidden,
+    parityBuilt: panel?.dataset?.csParityBuilt === 'true',
+    switchCount: switches.length,
+    shortcutsVisible,
+    toggleHidesIcons: afterHide,
+    toggleRestoresIcons: restored,
+    gsettingsPersist: stored === true,
+  };
+});
+
+const p2Parity = await page.evaluate(() => {
+  const a11yPanel = document.querySelector('[data-cs-panel="accessibility"]');
+  const hotcornerPanel = document.querySelector('[data-cs-panel="hotcorner"]');
+  const appletsPanel = document.querySelector('[data-cs-panel="applets"]');
+  document.querySelector('#cinnamonSettingsApp [data-cs-nav="accessibility"]')?.click();
+  const contrastToggle = a11yPanel?.querySelector('[data-cs-capsule-key="mint-a11y-high-contrast"]');
+  const beforeContrast = document.documentElement.dataset.contrastMode || 'normal';
+  if (contrastToggle) {
+    contrastToggle.click();
+  }
+  const afterContrast = document.documentElement.dataset.contrastMode;
+  if (contrastToggle && afterContrast === 'high') {
+    contrastToggle.click();
+  }
+  document.querySelector('#cinnamonSettingsApp [data-cs-nav="applets"]')?.click();
+  const calToggle = appletsPanel?.querySelector('[data-cs-capsule-key="mint-applet-calendar"]');
+  const clock = document.getElementById('taskbar-clock-trigger');
+  const clockWasVisible = clock && !clock.hasAttribute('hidden');
+  if (calToggle && clockWasVisible) {
+    calToggle.click();
+  }
+  const clockHidden = clock && clock.hasAttribute('hidden');
+  if (calToggle && clockHidden) {
+    calToggle.click();
+  }
+  return {
+    a11yBuilt: a11yPanel?.dataset?.csParityBuilt === 'true',
+    a11ySwitches: a11yPanel?.querySelectorAll('.cs-switch[data-cs-capsule-key]').length || 0,
+    contrastToggles: beforeContrast !== 'high' && afterContrast === 'high',
+    hotcornerBuilt: hotcornerPanel?.dataset?.csParityBuilt === 'true',
+    hotcornerControls: hotcornerPanel?.querySelectorAll('[data-cs-capsule-key]').length || 0,
+    appletsBuilt: appletsPanel?.dataset?.csParityBuilt === 'true',
+    appletsSwitches: appletsPanel?.querySelectorAll('.cs-switch[data-cs-capsule-key]').length || 0,
+    calendarAppletHidesClock: clockWasVisible && clockHidden,
+    calendarAppletRestoresClock: clock && !clock.hasAttribute('hidden'),
+  };
+});
+
 await browser.close();
 
 const ok = opened.appReady
   && opened.title === 'Paramètres du système'
-  && opened.homeTiles >= 20
+  && opened.homeTiles >= 21
   && opened.categories === 2
   && opened.view === 'home'
   && themesPanel.visible
@@ -79,7 +154,27 @@ const ok = opened.appReady
   && search.panelTitle === 'Thèmes'
   && search.themesTileVisible
   && backgrounds.visible
-  && dims.win && dims.win.w >= 795 && dims.win.h >= 620;
+  && dims.win && dims.win.w >= 795 && dims.win.h >= 620
+  && parityBoot.store
+  && parityBoot.parity
+  && parityBoot.wiredCount >= 28
+  && desktopParity.panelVisible
+  && desktopParity.parityBuilt
+  && desktopParity.switchCount === 3
+  && desktopParity.toggleHidesIcons
+  && desktopParity.toggleRestoresIcons
+  && desktopParity.gsettingsPersist
+  && p2Parity.a11yBuilt
+  && p2Parity.a11ySwitches === 2
+  && p2Parity.contrastToggles
+  && p2Parity.hotcornerBuilt
+  && p2Parity.hotcornerControls === 8
+  && p2Parity.appletsBuilt
+  && p2Parity.appletsSwitches === 3
+  && p2Parity.calendarAppletHidesClock
+  && p2Parity.calendarAppletRestoresClock;
 
-console.log(JSON.stringify({ opened, themesPanel, search, backgrounds, dims, ok }, null, 2));
+console.log(JSON.stringify({
+  opened, themesPanel, search, backgrounds, dims, parityBoot, desktopParity, p2Parity, ok,
+}, null, 2));
 process.exit(ok ? 0 : 1);

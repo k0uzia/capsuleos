@@ -10,8 +10,22 @@
         return global.document && global.document.body && global.document.body.id === 'mint';
     }
 
+    function animationsEnabled() {
+        if (!global.document || !global.document.body) {
+            return true;
+        }
+        if (global.document.body.dataset.capsuleAnimations === 'off') {
+            return false;
+        }
+        var gs = global.CapsuleCinnamonGSettings;
+        if (gs && typeof gs.getBool === 'function') {
+            return gs.getBool('mint-enable-animations', true);
+        }
+        return true;
+    }
+
     function runOpenAnimation(windowElement) {
-        if (!windowElement) {
+        if (!windowElement || !animationsEnabled()) {
             return;
         }
         windowElement.classList.remove('capsule-window--animate-out');
@@ -25,6 +39,10 @@
 
     function runCloseAnimation(windowElement, done) {
         if (!windowElement || typeof done !== 'function') {
+            return;
+        }
+        if (!animationsEnabled()) {
+            done();
             return;
         }
         windowElement.classList.remove('capsule-window--animate-in');

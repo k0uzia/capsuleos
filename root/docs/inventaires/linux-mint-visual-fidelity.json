@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-12T08:05:13.265Z",
+  "updatedAt": "2026-06-12T14:00:39.442Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -210,9 +210,768 @@
             "match": 85,
             "partial": 50
           }
+        },
+        {
+          "id": "desktop",
+          "priority": "P1",
+          "label": "Paramètres — panneau Bureau (icônes bureau, switches parity)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/desktop.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/desktop.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.3,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 38836
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/desktop.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "effects",
+          "priority": "P1",
+          "label": "Paramètres — panneau Effets (animations)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/effects.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/effects.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36889
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/effects.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "windows",
+          "priority": "P1",
+          "label": "Paramètres — panneau Fenêtres (WM Muffin)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/windows.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/windows.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37414
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/windows.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "panel",
+          "priority": "P1",
+          "label": "Paramètres — panneau Barre des tâches",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/panel.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/panel.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37043
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/panel.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "accessibility",
+          "priority": "P1",
+          "label": "Paramètres — panneau Accessibilité (contraste, texte agrandi)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/accessibility.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/accessibility.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36662
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/accessibility.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "hotcorner",
+          "priority": "P1",
+          "label": "Paramètres — panneau Coins intelligents (hotcorner-layout)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/hotcorner.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/hotcorner.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.2,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 39363
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/hotcorner.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "applets",
+          "priority": "P1",
+          "label": "Paramètres — panneau Applets (enabled-applets parity)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/applets.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/applets.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.4,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 38492
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/applets.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "keyboard",
+          "priority": "P1",
+          "label": "Paramètres — panneau Clavier (répétition, verrou num)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/keyboard.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/keyboard.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.5,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37812
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/keyboard.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "mouse",
+          "priority": "P1",
+          "label": "Paramètres — panneau Souris (gaucher, défilement)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/mouse.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/mouse.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37007
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/mouse.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "power",
+          "priority": "P1",
+          "label": "Paramètres — panneau Alimentation (veille écran, bouton power)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/power.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/power.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37231
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/power.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "privacy",
+          "priority": "P1",
+          "label": "Paramètres — panneau Confidentialité (fichiers récents)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/privacy.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/privacy.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37458
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/privacy.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "fonts",
+          "priority": "P1",
+          "label": "Paramètres — panneau Choix des polices",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/fonts.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/fonts.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36684
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/fonts.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "display",
+          "priority": "P1",
+          "label": "Paramètres — panneau Affichage (échelle fractionnée)",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/display.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/display.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37586
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/display.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "calendar",
+          "priority": "P1",
+          "label": "Paramètres — panneau Date et heure",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/calendar.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/calendar.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.5,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37670
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/calendar.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "startup",
+          "priority": "P1",
+          "label": "Paramètres — panneau Applications au démarrage",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/startup.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/startup.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36836
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/startup.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "extensions",
+          "priority": "P1",
+          "label": "Paramètres — panneau Extensions",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/extensions.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/extensions.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36385
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/extensions.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "default",
+          "priority": "P1",
+          "label": "Paramètres — panneau Applications par défaut",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/default.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/default.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37096
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/default.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "desklets",
+          "priority": "P1",
+          "label": "Paramètres — panneau Desklets",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/desklets.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/desklets.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37633
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/desklets.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "gestures",
+          "priority": "P1",
+          "label": "Paramètres — panneau Gestes",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/gestures.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/gestures.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36252
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/gestures.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "languages",
+          "priority": "P1",
+          "label": "Paramètres — panneau Langues",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/languages.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/languages.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36550
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/languages.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "online-accounts",
+          "priority": "P1",
+          "label": "Paramètres — panneau Comptes en ligne",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/online-accounts.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/online-accounts.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37047
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/online-accounts.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "user",
+          "priority": "P1",
+          "label": "Paramètres — panneau Détails du compte",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/user.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/user.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36436
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/user.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "actions",
+          "priority": "P1",
+          "label": "Paramètres — panneau Actions",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/actions.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/actions.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36405
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/actions.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         }
       ],
-      "updatedAt": "2026-06-12T08:05:14.786Z"
+      "updatedAt": "2026-06-12T14:00:44.728Z"
     },
     "update_manager": {
       "phi": 94.4,

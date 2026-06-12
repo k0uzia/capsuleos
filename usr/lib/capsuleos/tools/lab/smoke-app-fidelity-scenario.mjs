@@ -271,6 +271,977 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       className: 'is-on',
     });
   }
+  if (scenario.id === 'themes-desktop-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-desktop-show-icons', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'desktop' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'desktop' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-desktop-show-icons' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'csDesktopIconsHidden' }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-desktop-show-icons' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        { type: 'evaluateTruthy', fn: 'csDesktopIconsVisible' },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csGsettingsBool',
+          args: { key: 'mint-desktop-show-icons', expected: true },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-effects-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-enable-animations', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'effects' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'effects' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-enable-animations' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'csAnimationsDisabled' }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-enable-animations' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'csAnimationsEnabled' }],
+    });
+  }
+  if (scenario.id === 'themes-panel-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-panel-height', value: '1:40' },
+      { type: 'csParityKey', capsuleKey: 'mint-panel-autohide', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'panel' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'panel' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-panel-height', value: '1:48' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPanelHeightPx',
+        args: { px: 48 },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-panel-autohide' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'csPanelAutohideOn' }],
+    });
+  }
+  if (scenario.id === 'themes-windows-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-wm-dblclick-titlebar', value: 'toggle-maximize' },
+      { type: 'csParityKey', capsuleKey: 'mint-wm-button-layout', value: ':minimize,maximize,close' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'windows' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'windows' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-wm-dblclick-titlebar', value: 'none' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csWmDblclickAction',
+        args: { action: 'none' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-wm-button-layout', value: 'close,minimize,maximize:' },
+        { type: 'wait', ms: 120 },
+        { type: 'evaluate', script: "window.openWindowByDataLink('nemo');" },
+        { type: 'wait', ms: 400 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csWmButtonLayout',
+          args: { layout: 'close,minimize,maximize:' },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csWmButtonsOnLeft',
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-workspaces-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-dynamic-workspaces', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-number-workspaces', value: '4' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'workspaces' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'workspaces' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-number-workspaces', value: '6' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csWorkspaceIndicatorCount',
+        args: { count: 6 },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-dynamic-workspaces' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csWorkspaceIndicatorDynamic',
+        args: { dynamic: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-screensaver-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-screensaver-idle', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-screensaver-lock-delay', value: '0' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'screensaver' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'screensaver' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-screensaver-idle' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{ type: 'evaluateTruthy', fn: 'csScreensaverTrayActive', args: { active: false } }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-screensaver-idle' },
+        { type: 'wait', ms: 120 },
+        { type: 'csSelectValue', capsuleKey: 'mint-screensaver-lock-delay', value: '300' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        { type: 'evaluateTruthy', fn: 'csScreensaverTrayActive', args: { active: true } },
+        { type: 'evaluateTruthy', fn: 'csScreensaverLockDelay', args: { seconds: 300 } },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-accessibility-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-a11y-high-contrast', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-a11y-large-text', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'accessibility' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'accessibility' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-a11y-high-contrast' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csA11yContrastMode',
+        args: { mode: 'high' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-a11y-high-contrast' },
+        { type: 'csSwitchToggle', capsuleKey: 'mint-a11y-large-text' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csA11yContrastMode',
+          args: { mode: 'normal' },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csA11yFontScaleLarge',
+          args: { large: true },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-hotcorner-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-hotcorner-0-enabled', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-hotcorner-0-action', value: 'expo' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'hotcorner' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'hotcorner' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-hotcorner-0-enabled' },
+        { type: 'csSelectValue', capsuleKey: 'mint-hotcorner-0-action', value: 'scale' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csHotcornerCorner',
+          args: { corner: 0, enabled: true, action: 'scale' },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csGsettingsBool',
+          args: { key: 'mint-hotcorner-0-enabled', expected: true },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-applets-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-applet-calendar', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-applet-notifications', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'applets' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'applets' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-applet-calendar' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csAppletTrayVisible',
+        args: { selector: '#taskbar-clock-trigger', visible: false },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-applet-calendar' },
+        { type: 'csSwitchToggle', capsuleKey: 'mint-applet-notifications' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csAppletTrayVisible',
+          args: { selector: '#taskbar-clock-trigger', visible: true },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csAppletTrayVisible',
+          args: { selector: '#tray-btn-notifications', visible: false },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-keyboard-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-kbd-repeat', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-kbd-numlock', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'keyboard' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'keyboard' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-kbd-repeat' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csKeyboardRepeat',
+        args: { enabled: false },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-kbd-numlock' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csKeyboardNumlock',
+        args: { enabled: false },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-mouse-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-mouse-left-handed', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-mouse-natural-scroll', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'mouse' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'mouse' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-mouse-left-handed' },
+        { type: 'csSwitchToggle', capsuleKey: 'mint-mouse-natural-scroll' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csMouseLeftHanded',
+          args: { enabled: true },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csMouseNaturalScroll',
+          args: { enabled: true },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-power-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-power-sleep-display', value: '1800' },
+      { type: 'csParityKey', capsuleKey: 'mint-power-button-action', value: 'interactive' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'power' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'power' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-power-sleep-display', value: '600' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPowerSleepDisplay',
+        args: { seconds: 600 },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-power-button-action', value: 'suspend' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPowerButtonAction',
+        args: { action: 'suspend' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-privacy-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-privacy-remember-recent', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-privacy-recent-max-age', value: '7' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'privacy' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'privacy' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-privacy-remember-recent' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPrivacyRememberRecent',
+        args: { enabled: false },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-privacy-recent-max-age', value: '30' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPrivacyRecentMaxAge',
+        args: { days: 30 },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-fonts-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-font-interface', value: 'Ubuntu 10' },
+      { type: 'csParityKey', capsuleKey: 'mint-font-antialiasing', value: 'rgba' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'fonts' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'fonts' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-font-interface', value: 'Ubuntu 11' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csInterfaceFont',
+        args: { font: 'Ubuntu 11' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-font-antialiasing', value: 'none' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csFontAntialiasing',
+        args: { mode: 'none' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-display-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-display-orientation-lock', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-display-fractional-scale', value: 'scale-ui-down' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'display' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'display' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-display-orientation-lock' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csDisplayOrientationLock',
+        args: { locked: false },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-display-fractional-scale', value: 'scale-up' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csDisplayFractionalScale',
+          args: { mode: 'scale-up' },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csDisplayScalePercent',
+          args: { percent: '100' },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-calendar-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-clock-24h', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-clock-show-date', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-clock-show-seconds', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'calendar' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'calendar' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-clock-show-date' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csClockShowDate',
+        args: { enabled: true },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-clock-show-seconds' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csClockShowSeconds',
+        args: { enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-startup-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-startup-firefox', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-startup-nemo', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'startup' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'startup' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-startup-firefox' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csStartupAppEnabled',
+        args: { desktop: 'firefox.desktop', enabled: true },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-startup-nemo' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csStartupAppEnabled',
+        args: { desktop: 'nemo.desktop', enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-languages-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-locale-lang', value: 'fr_FR.UTF-8' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'languages' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'languages' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-locale-lang', value: 'en_US.UTF-8' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csSystemLocale',
+        args: { locale: 'en_US.UTF-8' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-online-accounts-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-oa-whitelist-all', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'online-accounts' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'online-accounts' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-oa-whitelist-all' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csOaWhitelistAll',
+        args: { enabled: false },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-user-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-user-realname', value: 'capsule' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'user' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'user' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-user-realname', value: 'Utilisateur Mint' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csUserRealname',
+        args: { name: 'Utilisateur Mint' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-actions-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-nemo-actions-enabled', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'actions' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'actions' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-nemo-actions-enabled' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csNemoActionsEnabled',
+        args: { enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-default-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-default-autorun-never', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-default-terminal', value: 'gnome-terminal' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'default' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'default' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-default-autorun-never' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csDefaultAutorunNever',
+        args: { enabled: true },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-default-terminal', value: 'mate-terminal' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csDefaultTerminal',
+        args: { exec: 'mate-terminal' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-desklets-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-desklet-snap', value: 'on' },
+      { type: 'csParityKey', capsuleKey: 'mint-desklet-lock', value: 'off' },
+      { type: 'csParityKey', capsuleKey: 'mint-desklet-snap-interval', value: '25' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'desklets' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'desklets' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-desklet-lock' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csDeskletLock',
+        args: { locked: true },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-desklet-snap-interval', value: '50' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csDeskletSnapInterval',
+        args: { pixels: 50 },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-gestures-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-gestures-enabled', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'gestures' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'gestures' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-gestures-enabled' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csGesturesEnabled',
+        args: { enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-extensions-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-extension-deskgrid', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'extensions' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'extensions' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-extension-deskgrid' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [
+        {
+          type: 'evaluateTruthy',
+          fn: 'csExtensionEnabled',
+          args: { uuid: 'deskgrid@cinnamon.org', enabled: true },
+        },
+        {
+          type: 'evaluateTruthy',
+          fn: 'csExtensionsActive',
+          args: { active: true },
+        },
+      ],
+    });
+  }
+  if (scenario.id === 'themes-parity-wired-nav') {
+    const wiredPanels = [
+      { id: 'desktop', title: 'Bureau' },
+      { id: 'effects', title: 'Effets' },
+      { id: 'windows', title: 'Fenêtres' },
+      { id: 'panel', title: 'Barre des tâches' },
+      { id: 'workspaces', title: 'Espaces de travail' },
+      { id: 'screensaver', title: "Économiseur d'écran" },
+      { id: 'general', title: 'Général' },
+      { id: 'notifications', title: 'Notifications' },
+      { id: 'sound', title: 'Son' },
+      { id: 'fonts', title: 'Choix des polices' },
+      { id: 'accessibility', title: 'Accessibilité' },
+      { id: 'hotcorner', title: 'Coins intelligents' },
+      { id: 'applets', title: 'Applets' },
+      { id: 'keyboard', title: 'Clavier' },
+      { id: 'mouse', title: 'Souris et pavé tactile' },
+      { id: 'power', title: "Gestion de l'alimentation" },
+      { id: 'privacy', title: 'Confidentialité' },
+      { id: 'display', title: 'Affichage' },
+      { id: 'calendar', title: 'Date et heure' },
+      { id: 'startup', title: 'Applications lancées au démarrage' },
+      { id: 'extensions', title: 'Extensions' },
+      { id: 'default', title: 'Applications par défaut' },
+      { id: 'desklets', title: 'Desklets' },
+      { id: 'gestures', title: 'Gestes' },
+      { id: 'languages', title: 'Langues' },
+      { id: 'online-accounts', title: 'Comptes en ligne' },
+      { id: 'user', title: 'Détails du compte' },
+      { id: 'actions', title: 'Actions' },
+    ];
+    wiredPanels.forEach((step) => {
+      plan.executionBlocks.push({
+        actions: [
+          { type: 'csPanelNav', panelId: step.id },
+          { type: 'wait', ms: 180 },
+        ],
+        assertions: [
+          {
+            type: 'textContains',
+            selector: 'div[data-link="themes"] #cs-panel-title',
+            text: step.title,
+          },
+          {
+            type: 'evaluateTruthy',
+            fn: 'csParityPanelActive',
+            args: { panelId: step.id },
+          },
+        ],
+      });
+    });
+  }
   if (scenario.id === 'firefox-url-bar') {
     plan.actions.push({
       type: 'click',
@@ -1270,6 +2241,58 @@ const runScenarioActions = async (page, plan) => {
       await page.waitForTimeout(action.ms || 200);
     } else if (action.type === 'click') {
       await page.click(action.selector);
+    } else if (action.type === 'csPanelNav') {
+      await page.evaluate((panelId) => {
+        const btn = document.querySelector(
+          'div[data-link="themes"] #cinnamonSettingsApp [data-cs-nav="' + panelId + '"]',
+        );
+        if (btn) {
+          btn.click();
+          return;
+        }
+        if (typeof window.activateCinnamonSettingsPanel === 'function') {
+          window.activateCinnamonSettingsPanel(panelId);
+        }
+      }, action.panelId);
+    } else if (action.type === 'csSwitchToggle') {
+      await page.evaluate((capsuleKey) => {
+        const sw = document.querySelector(
+          'div[data-link="themes"] [data-cs-capsule-key="' + capsuleKey + '"]',
+        );
+        if (sw) {
+          sw.click();
+        }
+      }, action.capsuleKey);
+    } else if (action.type === 'csSelectValue') {
+      await page.evaluate(({ capsuleKey, value }) => {
+        const sel = document.querySelector(
+          'div[data-link="themes"] select[data-cs-capsule-key="' + capsuleKey + '"]',
+        );
+        if (sel) {
+          sel.value = value;
+          sel.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }, { capsuleKey: action.capsuleKey, value: action.value });
+    } else if (action.type === 'csParityKey') {
+      await page.evaluate(({ capsuleKey, value }) => {
+        if (window.CapsuleCinnamonSettingsParity
+          && typeof window.CapsuleCinnamonSettingsParity.applyCapsuleKey === 'function') {
+          window.CapsuleCinnamonSettingsParity.applyCapsuleKey(capsuleKey, value);
+        }
+        const ctrl = document.querySelector(
+          'div[data-link="themes"] [data-cs-capsule-key="' + capsuleKey + '"]',
+        );
+        if (!ctrl) {
+          return;
+        }
+        if (ctrl.classList.contains('cs-switch')) {
+          const on = value === 'on';
+          ctrl.setAttribute('aria-checked', on ? 'true' : 'false');
+          ctrl.classList.toggle('is-on', on);
+        } else if (ctrl.tagName === 'SELECT') {
+          ctrl.value = value;
+        }
+      }, { capsuleKey: action.capsuleKey, value: action.value });
     } else if (action.type === 'fill') {
       await page.fill(action.selector, action.value || '');
     } else if (action.type === 'focus') {
@@ -1641,7 +2664,12 @@ const runScenarioActions = async (page, plan) => {
     } else if (await runWave2PrepAction(page, action)) {
       /* wave2 P-F3 */
     } else if (action.type === 'evaluate') {
-      await page.evaluate(() => {});
+      if (action.script) {
+        await page.evaluate((script) => {
+          // eslint-disable-next-line no-eval
+          eval(script);
+        }, action.script);
+      }
     }
   }
 };
@@ -1802,6 +2830,253 @@ const runScenarioAssertions = async (page, plan, errors) => {
           const title = document.querySelector('#mintDriversApp [data-md-page="refresh"] .md-page__title');
           const spinner = document.querySelector('#mintDriversApp .md-spinner');
           return !!(title && title.textContent.indexOf('Recherche') >= 0 && spinner);
+        }
+        if (fn === 'csParityPanelActive') {
+          const panelId = args && args.panelId;
+          const panel = document.querySelector(
+            'div[data-link="themes"] [data-cs-panel="' + panelId + '"]',
+          );
+          return !!(panel && !panel.hidden && panel.dataset.csParityBuilt === 'true'
+            && panel.querySelector('.cs-row--parity'));
+        }
+        if (fn === 'csDesktopIconsHidden') {
+          const shortcuts = document.querySelector('.desktop-shortcuts');
+          return !!(shortcuts && shortcuts.style.display === 'none');
+        }
+        if (fn === 'csDesktopIconsVisible') {
+          const shortcuts = document.querySelector('.desktop-shortcuts');
+          return !!(shortcuts && shortcuts.style.display !== 'none');
+        }
+        if (fn === 'csGsettingsBool') {
+          const gs = window.CapsuleCinnamonGSettings;
+          if (!gs || typeof gs.getBool !== 'function') {
+            return false;
+          }
+          return gs.getBool(args.key, false) === Boolean(args.expected);
+        }
+        if (fn === 'csAnimationsDisabled') {
+          return document.body && document.body.dataset.capsuleAnimations === 'off';
+        }
+        if (fn === 'csAnimationsEnabled') {
+          return !document.body || document.body.dataset.capsuleAnimations !== 'off';
+        }
+        if (fn === 'csPanelHeightPx') {
+          const px = args && args.px;
+          const raw = document.body
+            ? getComputedStyle(document.body).getPropertyValue('--mint-panel-height').trim()
+            : '';
+          return raw === String(px) + 'px';
+        }
+        if (fn === 'csPanelAutohideOn') {
+          const footer = document.querySelector('body#mint > footer');
+          return !!(footer && footer.classList.contains('mint-panel--autohide'));
+        }
+        if (fn === 'csWmDblclickAction') {
+          return document.body && document.body.dataset.capsuleDblclickTitlebar === (args && args.action);
+        }
+        if (fn === 'csWmButtonLayout') {
+          return document.body && document.body.dataset.capsuleButtonLayout === (args && args.layout);
+        }
+        if (fn === 'csWmButtonsOnLeft') {
+          const header = document.querySelector('div[data-link="nemo"] > #windowHeader');
+          if (!header) {
+            return false;
+          }
+          const leftNav = header.querySelector('nav:first-of-type');
+          const closeBtn = leftNav && leftNav.querySelector('#closeBtn');
+          const rightNav = header.querySelector('nav:last-of-type');
+          return !!(closeBtn && rightNav && !rightNav.querySelector('#closeBtn'));
+        }
+        if (fn === 'csWorkspaceIndicatorCount') {
+          const root = document.getElementById('mint-workspace-indicator');
+          if (!root || root.hidden) {
+            return false;
+          }
+          const dots = root.querySelectorAll('.mint-workspace-indicator__dot');
+          return root.dataset.mode === 'fixed'
+            && dots.length === Number(args && args.count)
+            && Number(root.dataset.workspaceCount) === Number(args && args.count);
+        }
+        if (fn === 'csWorkspaceIndicatorDynamic') {
+          const root = document.getElementById('mint-workspace-indicator');
+          if (!root || root.hidden) {
+            return false;
+          }
+          const want = !!(args && args.dynamic);
+          return want
+            ? root.dataset.mode === 'dynamic'
+            : root.dataset.mode === 'fixed';
+        }
+        if (fn === 'csScreensaverTrayActive') {
+          const btn = document.getElementById('tray-btn-screensaver');
+          const want = !!(args && args.active);
+          return want ? !!(btn && !btn.hidden) : !!(btn && btn.hidden);
+        }
+        if (fn === 'csScreensaverLockDelay') {
+          const btn = document.getElementById('tray-btn-screensaver');
+          const bodyDelay = document.body && document.body.dataset.capsuleLockDelay;
+          const btnDelay = btn && btn.dataset.lockDelay;
+          return String(bodyDelay) === String(args && args.seconds)
+            && String(btnDelay) === String(args && args.seconds);
+        }
+        if (fn === 'csA11yContrastMode') {
+          const mode = (document.documentElement.dataset.contrastMode || 'normal');
+          return mode === (args && args.mode);
+        }
+        if (fn === 'csA11yFontScaleLarge') {
+          const scale = document.documentElement.dataset.fontScale || '100';
+          const want = !!(args && args.large);
+          return want ? scale === '125' : scale === '100';
+        }
+        if (fn === 'csHotcornerCorner') {
+          const gs = window.CapsuleCinnamonGSettings;
+          if (!gs || typeof gs.getCapsule !== 'function') {
+            return false;
+          }
+          const corner = Number(args && args.corner);
+          const enabled = gs.getCapsule('mint-hotcorner-' + corner + '-enabled', 'off') === 'on';
+          const action = gs.getCapsule('mint-hotcorner-' + corner + '-action', 'expo');
+          return enabled === !!(args && args.enabled)
+            && action === (args && args.action);
+        }
+        if (fn === 'csAppletTrayVisible') {
+          const el = document.querySelector(args && args.selector);
+          if (!el) {
+            return false;
+          }
+          const want = !!(args && args.visible);
+          return want ? !el.hasAttribute('hidden') : el.hasAttribute('hidden');
+        }
+        if (fn === 'csKeyboardRepeat') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleKbdRepeat === 'on') === enabled;
+        }
+        if (fn === 'csKeyboardNumlock') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleNumlock === 'on') === enabled;
+        }
+        if (fn === 'csMouseLeftHanded') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleMouseLeftHanded === 'true') === enabled;
+        }
+        if (fn === 'csMouseNaturalScroll') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleNaturalScroll === 'true') === enabled;
+        }
+        if (fn === 'csPowerSleepDisplay') {
+          return document.body
+            && String(document.body.dataset.capsuleSleepDisplayAc) === String(args && args.seconds);
+        }
+        if (fn === 'csPowerButtonAction') {
+          return document.body
+            && document.body.dataset.capsuleButtonPower === (args && args.action);
+        }
+        if (fn === 'csPrivacyRememberRecent') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleRememberRecent === 'true') === enabled;
+        }
+        if (fn === 'csPrivacyRecentMaxAge') {
+          return document.body
+            && String(document.body.dataset.capsuleRecentMaxAge) === String(args && args.days);
+        }
+        if (fn === 'csInterfaceFont') {
+          return document.documentElement
+            && document.documentElement.dataset.capsuleInterfaceFont === (args && args.font);
+        }
+        if (fn === 'csFontAntialiasing') {
+          return document.documentElement
+            && document.documentElement.dataset.capsuleAntialiasing === (args && args.mode);
+        }
+        if (fn === 'csDisplayOrientationLock') {
+          const locked = !!(args && args.locked);
+          return document.body
+            && (document.body.dataset.capsuleOrientationLock === 'true') === locked;
+        }
+        if (fn === 'csDisplayFractionalScale') {
+          return document.body
+            && document.body.dataset.capsuleFractionalScale === (args && args.mode);
+        }
+        if (fn === 'csDisplayScalePercent') {
+          return document.documentElement
+            && document.documentElement.dataset.displayScale === (args && args.percent);
+        }
+        if (fn === 'csClockShowDate') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleClockShowDate === 'true') === enabled;
+        }
+        if (fn === 'csClockShowSeconds') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleClockShowSeconds === 'true') === enabled;
+        }
+        if (fn === 'csStartupAppEnabled') {
+          const gs = window.CapsuleCinnamonGSettings;
+          if (!gs || typeof gs.getBool !== 'function') {
+            return false;
+          }
+          const key = (args && args.desktop) === 'firefox.desktop'
+            ? 'mint-startup-firefox'
+            : 'mint-startup-nemo';
+          return gs.getBool(key, false) === !!(args && args.enabled);
+        }
+        if (fn === 'csExtensionEnabled') {
+          const gs = window.CapsuleCinnamonGSettings;
+          if (!gs || typeof gs.getBool !== 'function') {
+            return false;
+          }
+          return gs.getBool('mint-extension-deskgrid', false) === !!(args && args.enabled);
+        }
+        if (fn === 'csExtensionsActive') {
+          const active = !!(args && args.active);
+          return document.body
+            && (document.body.dataset.capsuleExtensionsActive === 'true') === active;
+        }
+        if (fn === 'csDefaultAutorunNever') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleAutorunNever === 'true') === enabled;
+        }
+        if (fn === 'csDefaultTerminal') {
+          return document.body
+            && document.body.dataset.capsuleDefaultTerminal === (args && args.exec);
+        }
+        if (fn === 'csDeskletLock') {
+          const locked = !!(args && args.locked);
+          return document.body
+            && (document.body.dataset.capsuleDeskletLock === 'true') === locked;
+        }
+        if (fn === 'csDeskletSnapInterval') {
+          return document.body
+            && String(document.body.dataset.capsuleDeskletSnapInterval) === String(args && args.pixels);
+        }
+        if (fn === 'csGesturesEnabled') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleGesturesEnabled === 'true') === enabled;
+        }
+        if (fn === 'csSystemLocale') {
+          return document.body
+            && document.body.dataset.capsuleSystemLocale === (args && args.locale);
+        }
+        if (fn === 'csOaWhitelistAll') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleOaWhitelistAll === 'true') === enabled;
+        }
+        if (fn === 'csUserRealname') {
+          return document.body
+            && document.body.dataset.capsuleUserRealname === (args && args.name);
+        }
+        if (fn === 'csNemoActionsEnabled') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleNemoActionsEnabled === 'true') === enabled;
         }
         return false;
       }, { fn: a.fn, args: a.args });
@@ -1981,6 +3256,15 @@ const runPlaywright = async (plan) => {
         }
       });
       await page.waitForTimeout(120);
+    }
+
+    if (plan.app === 'themes' || plan.openSlot === 'themes') {
+      await page.waitForFunction(() => {
+        const app = document.getElementById('cinnamonSettingsApp');
+        return app && app.dataset.cinnamonSettingsInit === 'true'
+          && typeof window.CapsuleCinnamonSettingsParity !== 'undefined';
+      }, null, { timeout: 20000 });
+      await page.waitForTimeout(150);
     }
 
     if (plan.preOpen && plan.preOpen.type === 'xvDemo') {

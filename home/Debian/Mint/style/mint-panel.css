@@ -169,6 +169,31 @@ body#mint .taskbar-separator {
     align-self: center;
 }
 
+.mint-workspace-indicator {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: var(--c);
+    gap: calc(var(--head) / 16);
+    margin: 0 calc(var(--head) / 12);
+    padding: 0 calc(var(--head) / 14);
+    flex-shrink: 0;
+}
+
+.mint-workspace-indicator__dot {
+    display: var(--bl);
+    width: calc(var(--head) / 3.2);
+    height: calc(var(--head) / 3.2);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-sizing: border-box;
+}
+
+.mint-workspace-indicator__dot.is-active {
+    background: var(--menu-accent);
+    border-color: var(--menu-accent);
+}
+
 .mint-panel__window-list,
 .taskbar-window-list {
     display: var(--f);
@@ -420,6 +445,23 @@ html[data-theme="light"] .taskbar-window-list__btn {
     font-weight: inherit;
     font-variant-numeric: tabular-nums;
     pointer-events: none;
+}
+
+body#mint > footer.mint-panel--autohide {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9000;
+    transform: translateY(calc(100% - 3px));
+    transition: transform 0.22s ease;
+    pointer-events: none;
+}
+
+body#mint > footer.mint-panel--autohide:hover,
+body#mint > footer.mint-panel--autohide:focus-within {
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 @media (max-width: 900px) {

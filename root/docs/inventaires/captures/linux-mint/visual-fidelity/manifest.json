@@ -1,18 +1,18 @@
 {
   "id": "linux-mint",
-  "capturedAt": "2026-06-12T08:04:25.228Z",
+  "capturedAt": "2026-06-12T14:00:32.340Z",
   "vm": [
     {
-      "slot": "mintinstall",
-      "scene": "home",
-      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/vm/home.png"
+      "slot": "themes",
+      "scene": "actions",
+      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/actions.png"
     }
   ],
   "clone": [
     {
-      "slot": "mintinstall",
-      "scene": "home",
-      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/home.png"
+      "slot": "themes",
+      "scene": "actions",
+      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/actions.png"
     }
   ],
   "skipped": []

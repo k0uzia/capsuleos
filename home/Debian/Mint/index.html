@@ -167,6 +167,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
                 </a>
             </div>
+            <div id="mint-workspace-indicator" class="mint-workspace-indicator" role="group" aria-label="Espaces de travail" hidden></div>
             <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
@@ -212,6 +213,10 @@
                         aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
                         aria-label="Disposition du clavier : français" title="Disposition du clavier">
                     <span class="taskbar-tray__kbd-label" aria-hidden="true">fr</span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-screensaver"
+                        aria-label="Économiseur d'écran" title="Économiseur d'écran" hidden>
+                    <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
                         aria-expanded="false" aria-controls="mint-tray-popover-network"
@@ -412,7 +417,27 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260608icons"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings.js?v=20260608"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-gsettings-bindings.js?v=20260612parityP5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-gsettings-store.js?v=20260612parityP5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js?v=20260612parityP5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings.js?v=20260612parityP5"></script>
+    <script src="./content/mint-workspace-indicator.js?v=20260612parity"></script>
+    <script src="./content/mint-screensaver-state.js?v=20260612parity"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-wm-button-layout.js?v=20260612parity"></script>
+    <script src="./content/mint-notifications-sound-state.js?v=20260612parity"></script>
+    <script src="./content/mint-hotcorner-effects.js?v=20260612parityP2"></script>
+    <script src="./content/mint-applet-visibility.js?v=20260612parityP2"></script>
+    <script src="./content/mint-mouse-settings.js?v=20260612parityP3"></script>
+    <script src="./content/mint-clock-parity.js?v=20260612parityP5"></script>
+    <script src="./content/mint-startup-state.js?v=20260612parityP5"></script>
+    <script src="./content/mint-extensions-state.js?v=20260612parityP5"></script>
+    <script src="./content/mint-default-state.js?v=20260612parityP6"></script>
+    <script src="./content/mint-desklets-state.js?v=20260612parityP6"></script>
+    <script src="./content/mint-gestures-state.js?v=20260612parityP6"></script>
+    <script src="./content/mint-locale-state.js?v=20260612parityP7"></script>
+    <script src="./content/mint-online-accounts-state.js?v=20260612parityP7"></script>
+    <script src="./content/mint-user-account-state.js?v=20260612parityP7"></script>
+    <script src="./content/mint-nemo-actions-state.js?v=20260612parityP7"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>

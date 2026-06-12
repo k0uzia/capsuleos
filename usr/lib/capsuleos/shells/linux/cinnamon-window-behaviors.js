@@ -17,6 +17,24 @@
             || global.document.querySelector('.windowElement.active[data-link]');
     }
 
+    function focusMode() {
+        if (global.document.body && global.document.body.dataset.capsuleFocusMode) {
+            return global.document.body.dataset.capsuleFocusMode;
+        }
+        if (global.CapsuleCinnamonGSettings && global.CapsuleCinnamonGSettings.getCapsule) {
+            return global.CapsuleCinnamonGSettings.getCapsule('mint-wm-focus-mode', 'click');
+        }
+        return 'click';
+    }
+
+    function activateWindowElement(windowElement) {
+        if (!windowElement || typeof global.CapsuleWindow === 'undefined' || !global.CapsuleWindow.activateWindow) {
+            windowElement.classList.add('windowElementActive', 'active');
+            return;
+        }
+        global.CapsuleWindow.activateWindow(windowElement);
+    }
+
     function isCinnamonWindow(windowElement) {
         if (!windowElement || windowElement.id === 'mainMenu') {
             return false;
@@ -258,6 +276,20 @@
                 return;
             }
             event.preventDefault();
+            const action = (global.document.body && global.document.body.dataset.capsuleDblclickTitlebar)
+                || (global.CapsuleCinnamonGSettings && global.CapsuleCinnamonGSettings.getCapsule('mint-wm-dblclick-titlebar', 'toggle-maximize'))
+                || 'toggle-maximize';
+            if (action === 'none') {
+                return;
+            }
+            if (action === 'maximize') {
+                maximizeWindow(windowElement);
+                return;
+            }
+            if (action === 'menu') {
+                openContextMenu(windowElement, event.clientX, event.clientY);
+                return;
+            }
             toggleMaximized(windowElement);
         });
     }
@@ -274,6 +306,22 @@
             event.preventDefault();
             event.stopPropagation();
             openContextMenu(windowElement, event.clientX, event.clientY);
+        });
+    }
+
+    function bindFocusFollowsMouse() {
+        global.document.addEventListener('mouseover', function (event) {
+            if (!isMintDesktop() || focusMode() !== 'mouse') {
+                return;
+            }
+            var windowElement = event.target.closest('.windowElement[data-link]');
+            if (!windowElement || windowElement.id === 'mainMenu' || windowElement.style.display === 'none') {
+                return;
+            }
+            if (!isCinnamonWindow(windowElement)) {
+                return;
+            }
+            activateWindowElement(windowElement);
         });
     }
 
@@ -324,6 +372,7 @@
         }
         bindTitleDoubleClick();
         bindTitleContextMenu();
+        bindFocusFollowsMouse();
         bindKeyboardShortcuts();
         bindAlwaysOnTopMaintenance();
         global.document.body.dataset.capsuleMuffinWindowCtxInit = 'true';

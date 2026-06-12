@@ -62,7 +62,7 @@
             id: 'appear',
             label: 'Apparence',
             icon: 'cs-cat-appearance',
-            modules: ['fonts', 'effects', 'backgrounds', 'themes']
+            modules: ['fonts', 'effects', 'backgrounds', 'themes', 'sound', 'notifications']
         },
         {
             id: 'prefs',
@@ -71,7 +71,8 @@
             modules: [
                 'accessibility', 'actions', 'applets', 'startup', 'default', 'desktop',
                 'hotcorner', 'online-accounts', 'calendar', 'desklets', 'user', 'screensaver',
-                'workspaces', 'extensions', 'windows', 'general', 'gestures', 'languages'
+                'panel', 'workspaces', 'extensions', 'windows', 'general', 'gestures', 'languages',
+                'keyboard', 'mouse', 'power', 'privacy', 'display'
             ]
         }
     ];
@@ -311,6 +312,13 @@
     }
 
     function ensurePanelContent(panelsRoot, panel) {
+        var parity = global.CapsuleCinnamonSettingsParity;
+        if (parity && typeof parity.hasRealPanel === 'function' && parity.hasRealPanel(panel.id)) {
+            if (typeof parity.buildPanel === 'function') {
+                parity.buildPanel(panelsRoot, panel.id, panel.label);
+            }
+            return;
+        }
         if (panel.id === 'themes') {
             ensureThemesPanel(panelsRoot);
         } else if (panel.id === 'backgrounds') {
@@ -444,6 +452,7 @@
             global.buildWallpaperGrid(bgPanel || root);
         }
         root.dataset.csActivePanel = panelId;
+        bindSwitches(root);
     }
 
     function filterHome(root, query) {
@@ -469,7 +478,11 @@
     }
 
     function bindSwitches(root) {
-        root.querySelectorAll('.cs-switch').forEach(function (toggle) {
+        var parity = global.CapsuleCinnamonSettingsParity;
+        if (parity && typeof parity.bindControls === 'function') {
+            parity.bindControls(root);
+        }
+        root.querySelectorAll('.cs-switch:not([data-cs-capsule-key])').forEach(function (toggle) {
             if (toggle.dataset.csBound === 'true') {
                 return;
             }
@@ -528,6 +541,9 @@
         buildHomeGrid(root, panelsRoot);
         bindNavigation(root);
         bindSwitches(root);
+        if (global.CapsuleCinnamonSettingsParity && typeof global.CapsuleCinnamonSettingsParity.applyAllEffectsFromStore === 'function') {
+            global.CapsuleCinnamonSettingsParity.applyAllEffectsFromStore();
+        }
         var startPanel = global.CAPSULE_CS_PENDING_PANEL || root.dataset.csActivePanel;
         if (global.CAPSULE_CS_PENDING_PANEL) {
             delete global.CAPSULE_CS_PENDING_PANEL;
@@ -541,6 +557,13 @@
     }
 
     global.initCinnamonSettingsApp = initCinnamonSettingsApp;
+
+    global.activateCinnamonSettingsPanel = function activateCinnamonSettingsPanel(panelId) {
+        var root = global.document.getElementById('cinnamonSettingsApp');
+        if (root) {
+            activatePanel(root, panelId);
+        }
+    };
 
     global.document.addEventListener('capsule:window-opened', function (event) {
         if (!event.detail || event.detail.slotId !== 'themes') {

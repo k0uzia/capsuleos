@@ -892,6 +892,650 @@
       }
     },
     {
+      "id": "themes-desktop-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — icônes bureau (org.nemo.desktop)",
+      "steps": [
+        "Paramètres système → Bureau",
+        "Désactiver « Afficher les icônes du bureau »",
+        "Vérifier masquage .desktop-shortcuts puis restauration",
+        "Persistance gsettings simulée mint-desktop-show-icons"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"desktop\"]",
+          "[data-cs-capsule-key=\"mint-desktop-show-icons\"]",
+          ".desktop-shortcuts"
+        ]
+      }
+    },
+    {
+      "id": "themes-effects-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — animations fenêtres",
+      "steps": [
+        "Paramètres système → Effets",
+        "Désactiver « Activer les animations »",
+        "Vérifier body[data-capsule-animations=off] puis réactivation"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"effects\"]",
+          "[data-cs-capsule-key=\"mint-enable-animations\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-panel-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — barre des tâches Cinnamon",
+      "steps": [
+        "Paramètres système → Barre des tâches",
+        "Changer hauteur à 48 px — --mint-panel-height mis à jour",
+        "Activer masquage automatique — classe mint-panel--autohide sur footer"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"panel\"]",
+          "[data-cs-capsule-key=\"mint-panel-height\"]",
+          "[data-cs-capsule-key=\"mint-panel-autohide\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-windows-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — comportements fenêtre Muffin",
+      "steps": [
+        "Paramètres système → Fenêtres",
+        "Double-clic barre titre → « Aucune action »",
+        "Disposition boutons → à gauche (gsettings button-layout)"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"windows\"]",
+          "[data-cs-capsule-key=\"mint-wm-dblclick-titlebar\"]",
+          "[data-cs-capsule-key=\"mint-wm-button-layout\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-workspaces-parity",
+      "app": "themes",
+      "persona": "utilisateur avancé — espaces de travail Muffin",
+      "steps": [
+        "Paramètres système → Espaces de travail",
+        "Désactiver espaces dynamiques, choisir 6 espaces",
+        "Vérifier indicateur panel (#mint-workspace-indicator) à 6 pastilles"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"workspaces\"]",
+          "#mint-workspace-indicator",
+          "[data-cs-capsule-key=\"mint-dynamic-workspaces\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-screensaver-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — économiseur et verrouillage",
+      "steps": [
+        "Paramètres système → Économiseur d'écran",
+        "Désactiver l'économiseur — icône tray masquée",
+        "Réactiver + délai 5 min — icône tray + data-lock-delay"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"screensaver\"]",
+          "#tray-btn-screensaver",
+          "[data-cs-capsule-key=\"mint-screensaver-idle\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-parity-wired-nav",
+      "app": "themes",
+      "persona": "utilisateur système — panneaux gsettings câblés P0",
+      "steps": [
+        "Paramètres système — parcourir les 21 panneaux parity câblés (Bureau … Extensions)",
+        "Chaque panneau affiche contrôles cs-row--parity (pas placeholder)",
+        "Titre panneau aligné VM cinnamon-settings 6.6"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          ".cs-panel--parity",
+          "[data-cs-parity-built=\"true\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-accessibility-parity",
+      "app": "themes",
+      "persona": "utilisateur accessibilité — contraste et texte agrandi",
+      "steps": [
+        "Paramètres système → Accessibilité",
+        "Activer « Contraste élevé » — html[data-contrast-mode=high]",
+        "Activer « Texte agrandi » — html[data-font-scale=125] puis restauration"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"accessibility\"]",
+          "[data-cs-capsule-key=\"mint-a11y-high-contrast\"]",
+          "[data-cs-capsule-key=\"mint-a11y-large-text\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-hotcorner-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — coins intelligents Cinnamon",
+      "steps": [
+        "Paramètres système → Coins intelligents",
+        "Activer coin supérieur gauche + action « Afficher toutes les fenêtres »",
+        "Vérifier hotcorner-layout gsettings simulé et dataset shell"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"hotcorner\"]",
+          "[data-cs-capsule-key=\"mint-hotcorner-0-enabled\"]",
+          "[data-cs-capsule-key=\"mint-hotcorner-0-action\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-applets-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — applets panel Cinnamon",
+      "steps": [
+        "Paramètres système → Applets",
+        "Désactiver applet Calendrier — masquer #taskbar-clock-trigger",
+        "Désactiver Notifications — masquer #tray-btn-notifications puis restauration"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"applets\"]",
+          "[data-cs-capsule-key=\"mint-applet-calendar\"]",
+          "#taskbar-clock-trigger",
+          "#tray-btn-notifications"
+        ]
+      }
+    },
+    {
+      "id": "themes-keyboard-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — répétition clavier et verrou num",
+      "steps": [
+        "Paramètres système → Clavier",
+        "Désactiver répétition des touches — body[data-capsule-kbd-repeat=off]",
+        "Basculer verrouillage numérique — body[data-capsule-numlock]"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"keyboard\"]",
+          "[data-cs-capsule-key=\"mint-kbd-repeat\"]",
+          "[data-cs-capsule-key=\"mint-kbd-numlock\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-mouse-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — souris gaucher et défilement naturel",
+      "steps": [
+        "Paramètres système → Souris et pavé tactile",
+        "Activer gaucher — data-capsule-mouse-left-handed=true",
+        "Activer défilement inversé — data-capsule-natural-scroll=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"mouse\"]",
+          "[data-cs-capsule-key=\"mint-mouse-left-handed\"]",
+          "[data-cs-capsule-key=\"mint-mouse-natural-scroll\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-power-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — veille écran et bouton alimentation",
+      "steps": [
+        "Paramètres système → Gestion de l'alimentation",
+        "Changer délai extinction écran à 10 min — data-capsule-sleep-display-ac",
+        "Bouton power → Mettre en veille — data-capsule-button-power=suspend"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"power\"]",
+          "[data-cs-capsule-key=\"mint-power-sleep-display\"]",
+          "[data-cs-capsule-key=\"mint-power-button-action\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-privacy-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — confidentialité fichiers récents",
+      "steps": [
+        "Paramètres système → Confidentialité",
+        "Désactiver mémorisation fichiers récents — data-capsule-remember-recent=false",
+        "Changer durée à 30 jours — data-capsule-recent-max-age=30"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"privacy\"]",
+          "[data-cs-capsule-key=\"mint-privacy-remember-recent\"]",
+          "[data-cs-capsule-key=\"mint-privacy-recent-max-age\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-fonts-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — polices interface et anticrénelage",
+      "steps": [
+        "Paramètres système → Choix des polices",
+        "Police Ubuntu 11 — data-capsule-interface-font",
+        "Anticrénelage none — data-capsule-antialiasing=none"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"fonts\"]",
+          "[data-cs-capsule-key=\"mint-font-interface\"]",
+          "[data-cs-capsule-key=\"mint-font-antialiasing\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-display-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — affichage échelle et rotation",
+      "steps": [
+        "Paramètres système → Affichage",
+        "Désactiver verrou rotation — data-capsule-orientation-lock=false",
+        "Échelle fractionnée scale-up — data-display-scale=100 et data-capsule-fractional-scale"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"display\"]",
+          "[data-cs-capsule-key=\"mint-display-orientation-lock\"]",
+          "[data-cs-capsule-key=\"mint-display-fractional-scale\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-calendar-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — format horloge panel",
+      "steps": [
+        "Paramètres système → Date et heure",
+        "Activer affichage date sur l'horloge",
+        "Activer secondes — data-capsule-clock-show-seconds=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"calendar\"]",
+          "#taskbar-clock",
+          "[data-cs-capsule-key=\"mint-clock-show-date\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-startup-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — autostart Firefox/Nemo",
+      "steps": [
+        "Paramètres système → Applications au démarrage",
+        "Activer Firefox au démarrage — startup-applications",
+        "Activer Nemo — data-capsule-startup-apps contient nemo.desktop"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"startup\"]",
+          "[data-cs-capsule-key=\"mint-startup-firefox\"]",
+          "[data-cs-capsule-key=\"mint-startup-nemo\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-extensions-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — extensions Cinnamon",
+      "steps": [
+        "Paramètres système → Extensions",
+        "Activer DeskGrid — enabled-extensions simulé",
+        "data-capsule-extensions-active=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"extensions\"]",
+          "[data-cs-capsule-key=\"mint-extension-deskgrid\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-default-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — applications par défaut",
+      "steps": [
+        "Paramètres système → Applications par défaut",
+        "Activer autorun-never — médias amovibles",
+        "Changer terminal par défaut"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"default\"]",
+          "[data-cs-capsule-key=\"mint-default-autorun-never\"]",
+          "[data-cs-capsule-key=\"mint-default-terminal\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-desklets-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — desklets Cinnamon",
+      "steps": [
+        "Paramètres système → Desklets",
+        "Verrouiller desklets — lock-desklets",
+        "Grille snap 50 px"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"desklets\"]",
+          "[data-cs-capsule-key=\"mint-desklet-lock\"]",
+          "[data-cs-capsule-key=\"mint-desklet-snap-interval\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-gestures-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — gestes Cinnamon",
+      "steps": [
+        "Paramètres système → Gestes",
+        "Activer gestes — org.cinnamon.gestures enabled",
+        "data-capsule-gestures-enabled=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"gestures\"]",
+          "[data-cs-capsule-key=\"mint-gestures-enabled\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-languages-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — langue système",
+      "steps": [
+        "Paramètres système → Langues",
+        "Changer langue fr_FR.UTF-8 → en_US.UTF-8",
+        "data-capsule-system-locale"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"languages\"]",
+          "[data-cs-capsule-key=\"mint-locale-lang\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-online-accounts-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — comptes en ligne",
+      "steps": [
+        "Paramètres système → Comptes en ligne",
+        "Désactiver whitelist all providers",
+        "data-capsule-oa-whitelist-all=false"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"online-accounts\"]",
+          "[data-cs-capsule-key=\"mint-oa-whitelist-all\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-user-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — détails du compte",
+      "steps": [
+        "Paramètres système → Détails du compte",
+        "Changer nom affiché",
+        "data-capsule-user-realname"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"user\"]",
+          "[data-cs-capsule-key=\"mint-user-realname\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-actions-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — actions Nemo",
+      "steps": [
+        "Paramètres système → Actions",
+        "Activer actions Nemo personnalisées",
+        "data-capsule-nemo-actions-enabled=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"actions\"]",
+          "[data-cs-capsule-key=\"mint-nemo-actions-enabled\"]"
+        ]
+      }
+    },
+    {
       "id": "terminal-basic-shell",
       "app": "terminal",
       "persona": "utilisateur développeur — shell interactif",
@@ -3538,17 +4182,19 @@
     }
   ],
   "summary": {
-    "totalScenarios": 130,
-    "documented": 130,
-    "implemented": 130,
-    "smokeOk": 130,
-    "measured": 130,
+    "totalScenarios": 149,
+    "documented": 149,
+    "implemented": 149,
+    "smokeOk": 156,
+    "measured": 156,
     "avgPi": 100,
     "appsTotal": 43,
     "appsAtPi100": 43,
     "documentedPct": 100,
     "implementedPct": 100,
-    "smokePct": 100
+    "smokePct": 100,
+    "settingsParityScenarios": 26,
+    "settingsParityCampaign": "cinnamon-settings-impacts-v1"
   },
-  "updatedAt": "2026-06-09T08:50:53.833Z"
+  "updatedAt": "2026-06-12T13:00:00.000Z"
 }

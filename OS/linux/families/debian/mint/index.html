@@ -169,6 +169,7 @@
                     <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
                 </a>
             </div>
+            <div id="mint-workspace-indicator" class="mint-workspace-indicator" role="group" aria-label="Espaces de travail" hidden></div>
             <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
@@ -214,6 +215,10 @@
                         aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
                         aria-label="Disposition du clavier : français" title="Disposition du clavier">
                     <span class="taskbar-tray__kbd-label" aria-hidden="true">fr</span>
+                </button>
+                <button type="button" class="taskbar-tray__btn" id="tray-btn-screensaver"
+                        aria-label="Économiseur d'écran" title="Économiseur d'écran" hidden>
+                    <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
                         aria-expanded="false" aria-controls="mint-tray-popover-network"
@@ -392,7 +397,7 @@
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js?v=c932ae1095"></script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js?v=5309ff7dda"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=e98e82d4c4"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=68cb9659a7"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=f13bebb6e9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=dd21339878"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js?v=daca9997f4"></script>
@@ -414,7 +419,27 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=c256c5a65b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js?v=bff6de2624"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=4bc32a6a5b"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings.js?v=d71f3355c8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-gsettings-bindings.js?v=a5f9ebd59d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-gsettings-store.js?v=e98a64a86a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js?v=aab99459cb"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-settings.js?v=8656abcff0"></script>
+    <script src="./content/mint-workspace-indicator.js?v=2825edc03e"></script>
+    <script src="./content/mint-screensaver-state.js?v=0fd2b93874"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-wm-button-layout.js?v=c22a7a843d"></script>
+    <script src="./content/mint-notifications-sound-state.js?v=bf90984a8b"></script>
+    <script src="./content/mint-hotcorner-effects.js?v=fc806c8ed2"></script>
+    <script src="./content/mint-applet-visibility.js?v=0efb70719f"></script>
+    <script src="./content/mint-mouse-settings.js?v=9bfc2566fa"></script>
+    <script src="./content/mint-clock-parity.js?v=5a3512eeca"></script>
+    <script src="./content/mint-startup-state.js?v=121908b794"></script>
+    <script src="./content/mint-extensions-state.js?v=d25c5e1782"></script>
+    <script src="./content/mint-default-state.js?v=3fc2e87ee2"></script>
+    <script src="./content/mint-desklets-state.js?v=9693eecd7e"></script>
+    <script src="./content/mint-gestures-state.js?v=8afa100943"></script>
+    <script src="./content/mint-locale-state.js?v=82a3319a30"></script>
+    <script src="./content/mint-online-accounts-state.js?v=8143249a89"></script>
+    <script src="./content/mint-user-account-state.js?v=15fbe2578f"></script>
+    <script src="./content/mint-nemo-actions-state.js?v=5b7ae3d14d"></script>
     <script src="./content/profile-data.js?v=2676676348"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js?v=c73372d8e9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js?v=a0b7115079"></script>
@@ -443,7 +468,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js?v=857468d443"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-viewers.js?v=9c2ef27efc"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js?v=fc6dccd89f"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/date.js?v=b08631b329"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js?v=81a1af8bda"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/calendar-popover.js?v=38b223f82b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js?v=f64cf73fe7"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-core.js?v=934f6aff56"></script>
@@ -496,8 +521,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/mintinstall.js?v=a535491765"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-store-shell-pin.js?v=d299731e41"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js?v=13e35a66b3"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js?v=e31fdfa020"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=66ae97946a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js?v=e4fee25413"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=2732447071"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js?v=f71c64c718"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=600447089b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js?v=8bb08d4a08"></script>

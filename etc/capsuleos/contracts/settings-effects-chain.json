@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "description": "Contrat effets système transversaux (couche Se) — bus sémantique partagé entre toolkits sans fusion des gabarits Paramètres.",
+  "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+  "doc": "root/docs/procedure-replication-formelle.md",
+  "predicates": {
+    "Se": "Effet système documenté dans la matrice parity du registry",
+    "SeΣ": "∀ effet P0 matrice → handler parity ∧ événement capsule:* émis ∧ consommateur documenté ou accepted VM"
+  },
+  "layers": {
+    "Se-Shell": {
+      "label": "Chrome shell (panel, dock, tray, applets)",
+      "unification": "semantic-only"
+    },
+    "Se-WM": {
+      "label": "Comportements fenêtre et espaces",
+      "unification": "partial"
+    },
+    "Se-Desktop": {
+      "label": "Bureau, icônes, thèmes GTK/icon",
+      "unification": "semantic-only"
+    },
+    "Se-A11y": {
+      "label": "Accessibilité (contraste, texte agrandi)",
+      "unification": "full"
+    },
+    "Se-Apps": {
+      "label": "Effets par slot applicatif",
+      "unification": "slot-based"
+    },
+    "Se-System": {
+      "label": "État système (pare-feu, proxy, stubs)",
+      "unification": "dataset-only"
+    }
+  },
+  "sharedHooks": {
+    "dataset": {
+      "fontScale": "html[data-font-scale]",
+      "contrastMode": "html[data-contrast-mode]"
+    },
+    "cssTokens": [
+      "--a11y-font-scale-factor",
+      "--a11y-contrast-text",
+      "--a11y-contrast-surface",
+      "--a11y-contrast-border",
+      "--head"
+    ],
+    "events": {
+      "a11yContrast": "capsule:a11y-contrast-changed",
+      "a11yFontScale": "capsule:a11y-font-scale-changed",
+      "panelHeight": "capsule:panel-height-changed",
+      "dynamicWorkspaces": "capsule:dynamic-workspaces-changed",
+      "appletVisibility": "capsule:applet-visibility-changed",
+      "nightLight": "capsule:nightlight-changed",
+      "dnd": "capsule:dnd-changed"
+    }
+  },
+  "toolkitChains": {
+    "cinnamon": {
+      "matrix": "root/tools/lab/cinnamon-settings-parity-matrix.json",
+      "parity": "usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js",
+      "store": "usr/lib/capsuleos/shells/linux/cinnamon-gsettings-store.js",
+      "bindings": "usr/lib/capsuleos/shells/linux/cinnamon-gsettings-bindings.js",
+      "verifyGate": "usr/lib/capsuleos/tools/lab/verify-cinnamon-settings-parity-chain.mjs",
+      "pilotRegistryId": "linux-mint"
+    },
+    "gnome": {
+      "matrixPattern": "root/tools/lab/gnome-settings-parity-matrix-{vendor}.json",
+      "parity": "usr/lib/capsuleos/shells/linux/gnome-settings-parity.js",
+      "store": "usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js",
+      "bindings": "usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js",
+      "verifyGate": "usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs",
+      "pilotRegistryId": "linux-rocky"
+    },
+    "kde": {
+      "matrix": "root/tools/lab/kde-settings-parity-matrix.json",
+      "parity": "usr/lib/capsuleos/shells/linux/kde-settings-parity.js",
+      "store": "usr/lib/capsuleos/shells/linux/kde-kconfig-store.js",
+      "verifyGate": "usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs",
+      "pilotRegistryId": "linux-kde-neon",
+      "status": "phase-2b"
+    }
+  }
+}

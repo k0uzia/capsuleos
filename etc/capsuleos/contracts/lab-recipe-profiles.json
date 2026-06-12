@@ -121,6 +121,37 @@
         "collectPlaybook": "usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs"
       }
     },
+    "linux-mint": {
+      "toolkit": "cinnamon",
+      "vendor": "mint",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "groundTruth": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
+      "matrices": {
+        "parity": "root/tools/lab/cinnamon-settings-parity-matrix.json"
+      },
+      "scripts": {
+        "verifyParity": "usr/lib/capsuleos/tools/lab/verify-cinnamon-settings-parity-chain.mjs",
+        "formalChain": "usr/lib/capsuleos/tools/lab/run-cinnamon-formal-chain.mjs"
+      },
+      "notes": "Pilote Cinnamon — CredΣ, SeΣ via verify-cinnamon-settings-parity-chain"
+    },
+    "linux-kde-neon": {
+      "toolkit": "kde",
+      "vendor": "neon",
+      "upstreamId": "linux-debian-kde",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "groundTruth": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+      "matrices": {
+        "parity": "root/tools/lab/kde-settings-parity-matrix.json"
+      },
+      "scripts": {
+        "verifyParity": "usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs",
+        "gapMap": "usr/lib/capsuleos/tools/lab/map-kde-ground-truth-gaps.mjs"
+      },
+      "notes": "Pilote KDE — Phase 2b kde-settings-parity.js"
+    },
     "linux-anduinos": {
       "toolkit": "gnome",
       "vendor": "anduin",

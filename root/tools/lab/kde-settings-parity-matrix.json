@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon (Phase 2b).",
+  "status": "stub",
+  "vm": {
+    "registryId": "linux-kde-neon",
+    "collectedAt": null
+  },
+  "panels": []
+}

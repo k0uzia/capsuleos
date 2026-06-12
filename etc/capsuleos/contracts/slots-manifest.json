@@ -79,9 +79,12 @@
       "kernelModule": "usr/lib/capsuleos/shells/linux/cinnamon-settings.js",
       "scenariosContract": null,
       "postInstallSlot": null,
+      "effectSurfaces": ["Se-A11y", "Se-Shell", "Se-WM", "Se-Desktop"],
+      "crossRegressionPeers": ["linux-mint", "linux-rocky", "linux-kde-neon"],
       "toolkitVariants": {
         "gnome": { "template": "themes_gnome.html", "chromeProvider": "libadwaita-gnome", "skinCss": "themes.skin.css" },
-        "cinnamon": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css" }
+        "cinnamon": { "template": "cinnamon_settings.html", "chromeProvider": "cinnamon", "skinCss": "cinnamon_settings.skin.css" },
+        "kde": { "template": "kinfocenter_kde_neon.html", "chromeProvider": "default", "skinCss": "themes.skin.css", "note": "Phase 2b — systemsettings_kde.html" }
       }
     },
     "text_editor": {

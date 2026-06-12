@@ -91,9 +91,12 @@
           "description": "Ground truth Plasma — pivot linux-kde-neon, panel/kickoff/tray/Dolphin/Discover, propagation P4"
         },
         "cinnamon": {
-          "status": "stub",
-          "doc": "root/docs/procedure-playbook-general.md#toolkit-cinnamon",
-          "description": "À brancher — Nemo/Cinnamon control center"
+          "domain": "cinnamon-settings-playbook",
+          "doc": "root/docs/procedure-cinnamon-settings.md",
+          "contract": "etc/capsuleos/contracts/cinnamon-ground-truth-chain.json",
+          "orchestrator": "usr/lib/capsuleos/tools/lab/run-cinnamon-formal-chain.mjs",
+          "completeWhen": ["CinSe", "CinCred"],
+          "description": "Paramètres Cinnamon — matrice 40 panneaux, EFFECT_HANDLERS, bus Se"
         },
         "cosmic": {
           "status": "stub",

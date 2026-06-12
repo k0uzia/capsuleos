@@ -33,6 +33,13 @@
       "predicates": ["PbΣ"]
     },
     {
+      "id": "settings-effects",
+      "label": "Effets système Paramètres (couche Se)",
+      "predicates": ["Se", "SeΣ"],
+      "chain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "note": "Paramètres → bus capsule:* → shell/apps ; distinct de Vp"
+    },
+    {
       "id": "visual",
       "label": "Parité visuelle shell",
       "predicates": ["Vp"]

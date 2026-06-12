@@ -1,120 +1,53 @@
 #!/usr/bin/env node
 /**
- * Met à jour les gaps ground-truth Cinnamon Mint (TIER-C-THEMES et autres).
+ * Cartographie gaps ground truth Cinnamon — agrège gates Cin*.
  *
  * Usage :
+ *   node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint
  *   node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write
  */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 import { ROOT } from './replication-chain-lib.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CHAIN_PATH = path.join(ROOT, 'etc/capsuleos/contracts/cinnamon-ground-truth-chain.json');
-const GT_MD = path.join(ROOT, 'root/docs/inventaires/ground-truth-cinnamon.md');
-const ROUTING_MATRIX = path.join(ROOT, 'root/docs/inventaires/interactions/linux-mint/menu-cs-routing.json');
+const registry = (process.argv.find((a, i) => process.argv[i - 1] === '--id') || 'linux-mint').trim();
+const write = process.argv.includes('--write');
 
-const readJson = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null);
+const contract = JSON.parse(fs.readFileSync(
+  path.join(ROOT, 'etc/capsuleos/contracts/cinnamon-ground-truth-chain.json'),
+  'utf8',
+));
 
-const buildGroundTruthMd = (routing, chain) => {
-  const lines = [];
-  lines.push('# Ground truth Cinnamon — Linux Mint');
-  lines.push('');
-  lines.push(`Dernière mise à jour : ${new Date().toISOString().slice(0, 10)}`);
-  lines.push('');
-  lines.push('## TIER-C-THEMES — routage menu → csPanel');
-  lines.push('');
-  if (routing) {
-    lines.push(`| Métrique | Valeur |`);
-    lines.push(`|----------|--------|`);
-    lines.push(`| Entrées menu \`dataLink: themes\` | ${routing.summary.themesMenuEntries} |`);
-    lines.push(`| Routage csPanel OK | ${routing.summary.routedOk} (${routing.summary.parityPct} %) |`);
-    lines.push(`| Panneaux cinnamon-settings | ${routing.summary.cinnamonPanelCount} |`);
-    lines.push(`| Smoke gate | \`smoke-mint-menu-cs-routing.mjs\` |`);
-    lines.push('');
-    const gaps = routing.entries.filter((e) => e.status !== 'ok');
-    if (gaps.length) {
-      lines.push('### Gaps restants');
-      gaps.forEach((g) => {
-        lines.push(`- **${g.labelFr}** — ${g.status}${g.csPanel ? ` (panel \`${g.csPanel}\`)` : ''}`);
-      });
-    } else {
-      lines.push('**Statut : clos** — 100 % des entrées menu themes routées vers un panneau enregistré.');
-    }
-  } else {
-    lines.push('_Matrice menu-cs-routing.json absente — exécuter `generate-menu-cs-routing-matrix.mjs --write`._');
+const results = [];
+for (const gate of contract.gates || []) {
+  const script = path.join(ROOT, gate.script);
+  const args = (gate.args || []).join(' ');
+  const cmd = `node ${script} ${args}`.trim();
+  let ok = false;
+  let detail = '';
+  try {
+    execSync(cmd, { cwd: ROOT, stdio: 'pipe', encoding: 'utf8' });
+    ok = true;
+  } catch (e) {
+    detail = (e.stderr || e.stdout || e.message || '').split('\n')[0];
   }
-  lines.push('');
-  lines.push('## Chaîne validation');
-  lines.push('');
-  if (chain?.rules) {
-    chain.rules.forEach((r) => {
-      lines.push(`- **${r.id}** — ${r.label} : \`${r.gate}\``);
-    });
-  }
-  lines.push('');
-  return `${lines.join('\n')}\n`;
+  results.push({ predicate: gate.predicate, ok, cmd, detail });
+}
+
+const report = {
+  registryId: registry,
+  evaluatedAt: new Date().toISOString(),
+  contract: 'etc/capsuleos/contracts/cinnamon-ground-truth-chain.json',
+  gates: results,
+  allOk: results.every((r) => r.ok),
 };
 
-const main = () => {
-  const write = process.argv.includes('--write');
-  const id = process.argv.includes('--id') ? process.argv[process.argv.indexOf('--id') + 1] : 'linux-mint';
-  if (id !== 'linux-mint') {
-    console.error('Seul linux-mint est supporté pour cette gate.');
-    process.exit(1);
-  }
+const outPath = path.join(ROOT, 'root/docs/inventaires', `${registry}-cinnamon-ground-truth-gaps.json`);
+if (write) {
+  fs.writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`);
+  console.log(`Écrit ${outPath}`);
+}
 
-  const routing = readJson(ROUTING_MATRIX);
-  let chain = readJson(CHAIN_PATH);
-  if (!chain) {
-    chain = {
-      registryId: 'linux-mint',
-      updatedAt: new Date().toISOString(),
-      rules: [
-        {
-          id: 'R-CIN-TIER-C',
-          label: 'Menu Préférences → themes → csPanel',
-          gate: 'usr/lib/capsuleos/tools/lab/smoke-mint-menu-cs-routing.mjs',
-          matrix: 'root/docs/inventaires/interactions/linux-mint/menu-cs-routing.json',
-          predicate: 'themesMenuCsRoutingOk',
-        },
-        {
-          id: 'R-CIN-THEMES-SMOKE',
-          label: 'cinnamon-settings shell de base',
-          gate: 'usr/lib/capsuleos/tools/lab/smoke-mint-cinnamon-settings.mjs',
-          predicate: 'cinnamonSettingsShellOk',
-        },
-      ],
-    };
-  }
-
-  if (routing) {
-    chain.updatedAt = new Date().toISOString();
-    chain.tiers = chain.tiers || {};
-    chain.tiers['TIER-C-THEMES'] = {
-      status: routing.summary.parityPct === 100 ? 'closed' : 'open',
-      parityPct: routing.summary.parityPct,
-      themesMenuEntries: routing.summary.themesMenuEntries,
-      routedOk: routing.summary.routedOk,
-    };
-  }
-
-  const md = buildGroundTruthMd(routing, chain);
-
-  if (write) {
-    fs.mkdirSync(path.dirname(CHAIN_PATH), { recursive: true });
-    fs.writeFileSync(CHAIN_PATH, `${JSON.stringify(chain, null, 2)}\n`);
-    fs.mkdirSync(path.dirname(GT_MD), { recursive: true });
-    fs.writeFileSync(GT_MD, md);
-    console.log(`✓ ${CHAIN_PATH.replace(`${ROOT}/`, '')}`);
-    console.log(`✓ ${GT_MD.replace(`${ROOT}/`, '')}`);
-    if (routing) {
-      console.log(`  TIER-C-THEMES ${routing.summary.routedOk}/${routing.summary.themesMenuEntries} (${routing.summary.parityPct}%)`);
-    }
-  } else {
-    process.stdout.write(md);
-  }
-};
-
-main();
+console.log(JSON.stringify(report, null, 2));
+process.exit(report.allOk ? 0 : 1);

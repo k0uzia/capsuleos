@@ -24,6 +24,7 @@
       "toolkit": "gnome",
       "vendor": "rocky",
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
       "storeCampaign": {
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
@@ -49,7 +50,9 @@
     "linux-fedora": {
       "toolkit": "gnome",
       "vendor": "fedora",
+      "upstreamId": "linux-rocky",
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
       "storeCampaign": {
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
@@ -79,6 +82,7 @@
       "toolkit": "gnome",
       "vendor": "ubuntu",
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
       "storeCampaign": {
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
@@ -115,6 +119,7 @@
       "vendor": "alma",
       "upstreamId": "linux-rocky",
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
       "storeCampaign": {
         "chain": "etc/capsuleos/contracts/store-replication-chain.json",
         "groundReferenceRegistryId": "linux-fedora",
@@ -228,6 +233,45 @@
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
       "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
       "notes": "Squelette AccΣ — pilote linux-debian-kde"
+    },
+    "linux-debian-kde": {
+      "toolkit": "kde",
+      "vendor": "debian",
+      "upstreamId": "linux-kde-neon",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "groundTruth": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+      "matrices": {
+        "parity": "root/tools/lab/kde-settings-parity-matrix.json"
+      },
+      "scripts": {
+        "verifyParity": "usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs"
+      },
+      "notes": "Dérivé KDE — propagation neon P-OS7"
+    },
+    "linux-mx-kde": {
+      "toolkit": "kde",
+      "vendor": "mx",
+      "upstreamId": "linux-kde-neon",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "groundTruth": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+      "matrices": {
+        "parity": "root/tools/lab/kde-settings-parity-matrix.json"
+      },
+      "notes": "Dérivé KDE — slotOverlays MX"
+    },
+    "linux-opensuse": {
+      "toolkit": "kde",
+      "vendor": "opensuse",
+      "upstreamId": "linux-kde-neon",
+      "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
+      "groundTruth": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+      "matrices": {
+        "parity": "root/tools/lab/kde-settings-parity-matrix.json"
+      },
+      "notes": "Dérivé KDE — VM Tumbleweed ; matrices vendor si GapΔ"
     }
   }
 }

@@ -83,12 +83,12 @@
           "description": "Paramètres GNOME : tour panneaux, interactions, enquête visuelle, gsettings, parité Capsule"
         },
         "kde": {
-          "domain": "kde-ground-truth",
-          "doc": "root/docs/ground-truth-kde.md",
+          "domain": "kde-settings-playbook",
+          "doc": "root/docs/procedure-kde-settings.md",
           "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
-          "orchestrator": "usr/lib/capsuleos/tools/lab/map-kde-ground-truth-gaps.mjs",
-          "completeWhen": ["KdΠ", "KdP4"],
-          "description": "Ground truth Plasma — pivot linux-kde-neon, panel/kickoff/tray/Dolphin/Discover, propagation P4"
+          "orchestrator": "usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs",
+          "completeWhen": ["KdSe", "KdΣ"],
+          "description": "Paramètres KDE — systemsettings, kconfig store, bus Se ; pivot linux-kde-neon"
         },
         "cinnamon": {
           "domain": "cinnamon-settings-playbook",
@@ -101,6 +101,43 @@
         "cosmic": {
           "status": "stub",
           "description": "À brancher — COSMIC settings"
+        },
+        "pantheon": {
+          "status": "planned",
+          "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+          "description": "Squelette elementary — AccΣ Phase 0b"
+        },
+        "xfce": {
+          "status": "planned",
+          "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+          "description": "Squelette Kali/Xubuntu — AccΣ Phase 0b"
+        },
+        "lxqt": {
+          "status": "planned",
+          "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+          "description": "Squelette LXQt — AccΣ Phase 0b"
+        },
+        "windows": {
+          "status": "stub",
+          "phase": 4,
+          "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+          "description": "Vague 2 — bootstrap --kernel windows"
+        },
+        "android": {
+          "status": "stub",
+          "phase": 4,
+          "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
+          "description": "Vague 2 — mobile Material"
+        },
+        "bsd": {
+          "status": "stub",
+          "phase": 4,
+          "description": "Vague 2 — freebsd terminal-first"
+        },
+        "unix": {
+          "status": "stub",
+          "phase": 4,
+          "description": "Vague 2 — home/UNIX squelette"
         }
       }
     },

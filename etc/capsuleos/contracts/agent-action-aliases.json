@@ -350,6 +350,32 @@
       "command": "CAPSULE_HTTP_BASE=http://127.0.0.1:5501 node usr/lib/capsuleos/tools/lab/assert-computed-vs-inventory.mjs --id {id} --slot {slot}",
       "autoExecute": true,
       "requiresPassword": false
+    },
+    "welcome-scaffold-bootstrap": {
+      "predicate": "AccΣ",
+      "rule": "R-INV-SCAFFOLD",
+      "command": "node usr/lib/capsuleos/tools/lab/bootstrap-os-welcome-scaffold.mjs --id {id} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs && node usr/lib/capsuleos/tools/lab/validate-welcome-scaffold.mjs --id {id}",
+      "autoExecute": true,
+      "description": "Accueil à froid planned — squelette Z2 AccΣ"
+    },
+    "settings-effects-verify-cinnamon": {
+      "predicate": "SeΣ",
+      "rule": "R-SE-CIN",
+      "command": "node usr/lib/capsuleos/tools/lab/verify-cinnamon-settings-parity-chain.mjs --id linux-mint",
+      "autoExecute": true
+    },
+    "settings-effects-verify-kde": {
+      "predicate": "KdΣ",
+      "rule": "R-SE-KDE",
+      "command": "node usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
+      "autoExecute": true
+    },
+    "cross-regression-triple": {
+      "predicate": "Cx",
+      "rule": "R-CX-TRIPLE",
+      "command": "node usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs",
+      "autoExecute": true,
+      "description": "Cx Mint ↔ Rocky ↔ KDE-neon après touch Z1 Se"
     }
   },
   "appFidelity": {

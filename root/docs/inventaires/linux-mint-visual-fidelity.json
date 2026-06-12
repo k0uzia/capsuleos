@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-12T14:49:25.294Z",
+  "updatedAt": "2026-06-12T15:11:25.426Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -1200,9 +1200,174 @@
             "match": 85,
             "partial": 50
           }
+        },
+        {
+          "id": "color",
+          "priority": "P1",
+          "label": "Paramètres — panneau Couleur",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/color.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/color.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36588
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/color.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "network",
+          "priority": "P1",
+          "label": "Paramètres — panneau Réseau",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/network.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/network.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37241
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/network.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "printers",
+          "priority": "P1",
+          "label": "Paramètres — panneau Imprimantes",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/printers.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/printers.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.6,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 37323
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/printers.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "firewall",
+          "priority": "P1",
+          "label": "Paramètres — panneau Pare-feu",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/firewall.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/firewall.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.7,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36740
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/firewall.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
+        },
+        {
+          "id": "thunderbolt",
+          "priority": "P1",
+          "label": "Paramètres — panneau Thunderbolt",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/vm/thunderbolt.png",
+          "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/clone/thunderbolt.png",
+          "geometry": {
+            "vm": {
+              "width": 800,
+              "height": 632
+            },
+            "clone": {
+              "width": 800,
+              "height": 632
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 92.8,
+          "pixels": {
+            "compared": 505600,
+            "mismatched": 36452
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/themes/diff/thunderbolt.png",
+          "classification": "match",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         }
       ],
-      "updatedAt": "2026-06-12T14:49:31.796Z"
+      "updatedAt": "2026-06-12T15:11:33.714Z"
     },
     "update_manager": {
       "phi": 94.4,

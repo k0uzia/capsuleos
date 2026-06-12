@@ -1690,6 +1690,116 @@
       }
     },
     {
+      "id": "themes-color-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — calibration couleur",
+      "steps": [
+        "Paramètres système → Couleur",
+        "recalibrate-display-threshold → 100",
+        "data-capsule-color-recalibrate-display=100"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"color\"]",
+          "[data-cs-capsule-key=\"mint-color-recalibrate-display\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-network-parity",
+      "app": "themes",
+      "persona": "utilisateur système — réseau proxy",
+      "steps": [
+        "Paramètres système → Réseau",
+        "proxy mode manual",
+        "data-capsule-proxy-mode=manual"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"network\"]",
+          "[data-cs-capsule-key=\"mint-proxy-mode\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-printers-parity",
+      "app": "themes",
+      "persona": "utilisateur bureau — applet imprimantes",
+      "steps": [
+        "Paramètres système → Imprimantes",
+        "Masquer applet imprimantes",
+        "#tray-btn-printers hidden"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"printers\"]",
+          "[data-cs-capsule-key=\"mint-applet-printers\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-firewall-parity",
+      "app": "themes",
+      "persona": "utilisateur système — pare-feu UFW",
+      "steps": [
+        "Paramètres système → Pare-feu",
+        "Activer UFW",
+        "data-capsule-ufw-enabled=true"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"firewall\"]",
+          "[data-cs-capsule-key=\"mint-ufw-enabled\"]"
+        ]
+      }
+    },
+    {
+      "id": "themes-thunderbolt-parity",
+      "app": "themes",
+      "persona": "utilisateur matériel — Thunderbolt Bolt",
+      "steps": [
+        "Paramètres système → Thunderbolt",
+        "AuthMode disabled",
+        "data-capsule-thunderbolt-auth-mode=disabled"
+      ],
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "cinnamon-settings-impacts-v1",
+      "selectors": {
+        "capsule": [
+          "[data-cs-panel=\"thunderbolt\"]",
+          "[data-cs-capsule-key=\"mint-thunderbolt-auth-mode\"]"
+        ]
+      }
+    },
+    {
       "id": "terminal-basic-shell",
       "app": "terminal",
       "persona": "utilisateur développeur — shell interactif",

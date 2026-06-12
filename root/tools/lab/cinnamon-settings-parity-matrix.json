@@ -446,6 +446,71 @@
       "controls": [
         { "id": "bluetooth-nap", "type": "switch", "label": "Partage de connexion réseau (NAP)", "capsuleKey": "mint-bluetooth-nap", "schema": "org.blueman.network", "key": "nap-enable", "map": "boolOnOff", "effect": "bluetoothNap" }
       ]
+    },
+    {
+      "id": "color",
+      "capsulePanel": "color",
+      "label": "Couleur",
+      "module": "mate-color-select",
+      "controls": [
+        { "id": "recalibrate-display", "type": "select", "label": "Seuil recalibrage écran", "capsuleKey": "mint-color-recalibrate-display", "schema": "org.cinnamon.settings-daemon.plugins.color", "key": "recalibrate-display-threshold", "map": "uint32", "effect": "colorRecalibrateDisplay", "options": [
+          { "value": "0", "label": "0 (VM)" },
+          { "value": "100", "label": "100" }
+        ]},
+        { "id": "recalibrate-printer", "type": "select", "label": "Seuil recalibrage imprimante", "capsuleKey": "mint-color-recalibrate-printer", "schema": "org.cinnamon.settings-daemon.plugins.color", "key": "recalibrate-printer-threshold", "map": "uint32", "effect": "colorRecalibratePrinter", "options": [
+          { "value": "0", "label": "0 (VM)" },
+          { "value": "100", "label": "100" }
+        ]}
+      ]
+    },
+    {
+      "id": "network",
+      "capsulePanel": "network",
+      "label": "Réseau",
+      "module": "cinnamon-network-panel",
+      "controls": [
+        { "id": "proxy-mode", "type": "select", "label": "Mode proxy système", "capsuleKey": "mint-proxy-mode", "schema": "org.gnome.system.proxy", "key": "mode", "map": "passthrough", "effect": "proxyMode", "options": [
+          { "value": "none", "label": "Aucun (VM)" },
+          { "value": "manual", "label": "Manuel" },
+          { "value": "auto", "label": "Automatique" }
+        ]},
+        { "id": "nm-show-applet", "type": "switch", "label": "Afficher l'applet réseau", "capsuleKey": "mint-nm-show-applet", "schema": "org.gnome.nm-applet", "key": "show-applet", "map": "boolOnOff", "effect": "nmShowApplet" }
+      ]
+    },
+    {
+      "id": "printers",
+      "capsulePanel": "printers",
+      "label": "Imprimantes",
+      "module": "system-config-printer",
+      "controls": [
+        { "id": "applet-printers", "type": "switch", "label": "Applet imprimantes dans le panneau", "capsuleKey": "mint-applet-printers", "schema": "org.cinnamon", "key": "enabled-applets", "map": "appletEnabled", "effectArg": "printers@cinnamon.org", "effect": "appletVisibility" },
+        { "id": "lockdown-printing", "type": "switch", "label": "Désactiver l'impression", "capsuleKey": "mint-lockdown-disable-printing", "schema": "org.cinnamon.desktop.lockdown", "key": "disable-printing", "map": "boolOnOff", "effect": "lockdownDisablePrinting" }
+      ]
+    },
+    {
+      "id": "firewall",
+      "capsulePanel": "firewall",
+      "label": "Pare-feu",
+      "module": "gufw",
+      "controls": [
+        { "id": "ufw-enabled", "type": "switch", "label": "Activer le pare-feu (UFW)", "capsuleKey": "mint-ufw-enabled", "schema": "org.ubuntu.ufw", "key": "enabled", "map": "boolOnOff", "effect": "ufwEnabled", "vmSource": "/etc/ufw/ufw.conf ENABLED=no" },
+        { "id": "ufw-logging", "type": "select", "label": "Niveau de journalisation UFW", "capsuleKey": "mint-ufw-logging", "schema": "org.ubuntu.ufw", "key": "logging", "map": "passthrough", "effect": "ufwLogging", "options": [
+          { "value": "low", "label": "Faible (VM)" },
+          { "value": "medium", "label": "Moyen" }
+        ], "vmSource": "/etc/ufw/ufw.conf LOGLEVEL=low" }
+      ]
+    },
+    {
+      "id": "thunderbolt",
+      "capsulePanel": "thunderbolt",
+      "label": "Thunderbolt",
+      "module": "cs_thunderbolt.py",
+      "controls": [
+        { "id": "bolt-auth-mode", "type": "select", "label": "Mode d'authentification Bolt", "capsuleKey": "mint-thunderbolt-auth-mode", "schema": "org.freedesktop.bolt1.Manager", "key": "AuthMode", "map": "passthrough", "effect": "thunderboltAuthMode", "options": [
+          { "value": "enabled", "label": "Activé (VM)" },
+          { "value": "disabled", "label": "Désactivé" }
+        ], "vmSource": "dbus org.freedesktop.bolt1.Manager AuthMode=enabled" }
+      ]
     }
   ]
 }

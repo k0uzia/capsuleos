@@ -620,5 +620,86 @@ window.CAPSULE_CINNAMON_GSETTINGS_BINDINGS = {
         "map": "boolOnOff",
         "effect": "bluetoothNap",
         "effectArg": null
+    },
+    "mint-color-recalibrate-display": {
+        "controlId": "recalibrate-display",
+        "panelId": "color",
+        "schema": "org.cinnamon.settings-daemon.plugins.color",
+        "key": "recalibrate-display-threshold",
+        "map": "uint32",
+        "effect": "colorRecalibrateDisplay",
+        "effectArg": null
+    },
+    "mint-color-recalibrate-printer": {
+        "controlId": "recalibrate-printer",
+        "panelId": "color",
+        "schema": "org.cinnamon.settings-daemon.plugins.color",
+        "key": "recalibrate-printer-threshold",
+        "map": "uint32",
+        "effect": "colorRecalibratePrinter",
+        "effectArg": null
+    },
+    "mint-proxy-mode": {
+        "controlId": "proxy-mode",
+        "panelId": "network",
+        "schema": "org.gnome.system.proxy",
+        "key": "mode",
+        "map": "passthrough",
+        "effect": "proxyMode",
+        "effectArg": null
+    },
+    "mint-nm-show-applet": {
+        "controlId": "nm-show-applet",
+        "panelId": "network",
+        "schema": "org.gnome.nm-applet",
+        "key": "show-applet",
+        "map": "boolOnOff",
+        "effect": "nmShowApplet",
+        "effectArg": null
+    },
+    "mint-applet-printers": {
+        "controlId": "applet-printers",
+        "panelId": "printers",
+        "schema": "org.cinnamon",
+        "key": "enabled-applets",
+        "map": "appletEnabled",
+        "effect": "appletVisibility",
+        "effectArg": "printers@cinnamon.org"
+    },
+    "mint-lockdown-disable-printing": {
+        "controlId": "lockdown-printing",
+        "panelId": "printers",
+        "schema": "org.cinnamon.desktop.lockdown",
+        "key": "disable-printing",
+        "map": "boolOnOff",
+        "effect": "lockdownDisablePrinting",
+        "effectArg": null
+    },
+    "mint-ufw-enabled": {
+        "controlId": "ufw-enabled",
+        "panelId": "firewall",
+        "schema": "org.ubuntu.ufw",
+        "key": "enabled",
+        "map": "boolOnOff",
+        "effect": "ufwEnabled",
+        "effectArg": null
+    },
+    "mint-ufw-logging": {
+        "controlId": "ufw-logging",
+        "panelId": "firewall",
+        "schema": "org.ubuntu.ufw",
+        "key": "logging",
+        "map": "passthrough",
+        "effect": "ufwLogging",
+        "effectArg": null
+    },
+    "mint-thunderbolt-auth-mode": {
+        "controlId": "bolt-auth-mode",
+        "panelId": "thunderbolt",
+        "schema": "org.freedesktop.bolt1.Manager",
+        "key": "AuthMode",
+        "map": "passthrough",
+        "effect": "thunderboltAuthMode",
+        "effectArg": null
     }
 };

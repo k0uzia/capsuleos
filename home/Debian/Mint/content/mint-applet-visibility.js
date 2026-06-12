@@ -7,7 +7,9 @@
     var TARGETS = {
         'calendar@cinnamon.org': '#taskbar-clock-trigger',
         'notifications@cinnamon.org': '#tray-btn-notifications',
-        'cornerbar@cinnamon.org': '#tray-btn-cornerbar'
+        'cornerbar@cinnamon.org': '#tray-btn-cornerbar',
+        'printers@cinnamon.org': '#tray-btn-printers',
+        'network@cinnamon.org': '#tray-btn-network'
     };
 
     function isMint() {

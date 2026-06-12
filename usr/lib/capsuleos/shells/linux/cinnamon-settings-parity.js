@@ -375,6 +375,61 @@
             controls: [
                 { id: 'bluetooth-nap', type: 'switch', label: 'Partage de connexion réseau (NAP)', capsuleKey: 'mint-bluetooth-nap' }
             ]
+        },
+        {
+            id: 'color',
+            label: 'Couleur',
+            controls: [
+                { id: 'recalibrate-display', type: 'select', label: 'Seuil recalibrage écran', capsuleKey: 'mint-color-recalibrate-display', options: [
+                    { value: '0', label: '0 (VM)' },
+                    { value: '100', label: '100' }
+                ]},
+                { id: 'recalibrate-printer', type: 'select', label: 'Seuil recalibrage imprimante', capsuleKey: 'mint-color-recalibrate-printer', options: [
+                    { value: '0', label: '0 (VM)' },
+                    { value: '100', label: '100' }
+                ]}
+            ]
+        },
+        {
+            id: 'network',
+            label: 'Réseau',
+            controls: [
+                { id: 'proxy-mode', type: 'select', label: 'Mode proxy système', capsuleKey: 'mint-proxy-mode', options: [
+                    { value: 'none', label: 'Aucun (VM)' },
+                    { value: 'manual', label: 'Manuel' },
+                    { value: 'auto', label: 'Automatique' }
+                ]},
+                { id: 'nm-show-applet', type: 'switch', label: "Afficher l'applet réseau", capsuleKey: 'mint-nm-show-applet' }
+            ]
+        },
+        {
+            id: 'printers',
+            label: 'Imprimantes',
+            controls: [
+                { id: 'applet-printers', type: 'switch', label: 'Applet imprimantes dans le panneau', capsuleKey: 'mint-applet-printers' },
+                { id: 'lockdown-printing', type: 'switch', label: "Désactiver l'impression", capsuleKey: 'mint-lockdown-disable-printing' }
+            ]
+        },
+        {
+            id: 'firewall',
+            label: 'Pare-feu',
+            controls: [
+                { id: 'ufw-enabled', type: 'switch', label: 'Activer le pare-feu (UFW)', capsuleKey: 'mint-ufw-enabled' },
+                { id: 'ufw-logging', type: 'select', label: 'Niveau de journalisation UFW', capsuleKey: 'mint-ufw-logging', options: [
+                    { value: 'low', label: 'Faible (VM)' },
+                    { value: 'medium', label: 'Moyen' }
+                ]}
+            ]
+        },
+        {
+            id: 'thunderbolt',
+            label: 'Thunderbolt',
+            controls: [
+                { id: 'bolt-auth-mode', type: 'select', label: "Mode d'authentification Bolt", capsuleKey: 'mint-thunderbolt-auth-mode', options: [
+                    { value: 'enabled', label: 'Activé (VM)' },
+                    { value: 'disabled', label: 'Désactivé' }
+                ]}
+            ]
         }
     ];
 
@@ -817,6 +872,62 @@
         dispatch('capsule:bluetooth-changed', {});
     }
 
+    function applyColorRecalibrateDisplay(value) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleColorRecalibrateDisplay = String(value || '0');
+        }
+        dispatch('capsule:color-calibration-changed', {});
+    }
+
+    function applyColorRecalibratePrinter(value) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleColorRecalibratePrinter = String(value || '0');
+        }
+        dispatch('capsule:color-calibration-changed', {});
+    }
+
+    function applyProxyMode(mode) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleProxyMode = mode || 'none';
+        }
+        dispatch('capsule:network-proxy-changed', {});
+    }
+
+    function applyNmShowApplet(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleNmShowApplet = on ? 'true' : 'false';
+        }
+        dispatch('capsule:nm-applet-changed', {});
+    }
+
+    function applyLockdownDisablePrinting(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleLockdownDisablePrinting = on ? 'true' : 'false';
+        }
+        dispatch('capsule:lockdown-printing-changed', {});
+    }
+
+    function applyUfwEnabled(on) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleUfwEnabled = on ? 'true' : 'false';
+        }
+        dispatch('capsule:ufw-changed', {});
+    }
+
+    function applyUfwLogging(level) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleUfwLogging = level || 'low';
+        }
+        dispatch('capsule:ufw-changed', {});
+    }
+
+    function applyThunderboltAuthMode(mode) {
+        if (global.document && global.document.body) {
+            global.document.body.dataset.capsuleThunderboltAuthMode = mode || 'enabled';
+        }
+        dispatch('capsule:thunderbolt-changed', {});
+    }
+
     function dispatch(name, detail) {
         if (typeof global.document !== 'undefined') {
             global.document.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
@@ -892,7 +1003,16 @@
         'mint-install-unverified-flatpaks': function (v) { applyInstallUnverifiedFlatpaks(v === 'on'); },
         'mint-report-automonitor': function (v) { applyReportAutomonitor(v === 'on'); },
         'mint-report-autorefresh': function (v) { applyReportAutorefresh(v === 'on'); },
-        'mint-bluetooth-nap': function (v) { applyBluetoothNap(v === 'on'); }
+        'mint-bluetooth-nap': function (v) { applyBluetoothNap(v === 'on'); },
+        'mint-color-recalibrate-display': applyColorRecalibrateDisplay,
+        'mint-color-recalibrate-printer': applyColorRecalibratePrinter,
+        'mint-proxy-mode': applyProxyMode,
+        'mint-nm-show-applet': function (v) { applyNmShowApplet(v === 'on'); },
+        'mint-applet-printers': applyAppletVisibility,
+        'mint-lockdown-disable-printing': function (v) { applyLockdownDisablePrinting(v === 'on'); },
+        'mint-ufw-enabled': function (v) { applyUfwEnabled(v === 'on'); },
+        'mint-ufw-logging': applyUfwLogging,
+        'mint-thunderbolt-auth-mode': applyThunderboltAuthMode
     };
 
     function applyCapsuleKey(capsuleKey, value) {

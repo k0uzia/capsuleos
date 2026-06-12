@@ -1133,6 +1133,141 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       }],
     });
   }
+  if (scenario.id === 'themes-color-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-color-recalibrate-display', value: '0' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'color' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'color' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-color-recalibrate-display', value: '100' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csColorRecalibrateDisplay',
+        args: { value: '100' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-network-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-proxy-mode', value: 'none' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'network' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'network' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-proxy-mode', value: 'manual' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csProxyMode',
+        args: { mode: 'manual' },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-printers-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-applet-printers', value: 'on' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'printers' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'printers' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-applet-printers' },
+        { type: 'wait', ms: 150 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csPrintersAppletHidden',
+        args: { hidden: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-firewall-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-ufw-enabled', value: 'off' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'firewall' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'firewall' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSwitchToggle', capsuleKey: 'mint-ufw-enabled' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csUfwEnabled',
+        args: { enabled: true },
+      }],
+    });
+  }
+  if (scenario.id === 'themes-thunderbolt-parity') {
+    plan.prepActions = [
+      { type: 'csParityKey', capsuleKey: 'mint-thunderbolt-auth-mode', value: 'enabled' },
+    ];
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csPanelNav', panelId: 'thunderbolt' },
+        { type: 'wait', ms: 200 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csParityPanelActive',
+        args: { panelId: 'thunderbolt' },
+      }],
+    });
+    plan.executionBlocks.push({
+      actions: [
+        { type: 'csSelectValue', capsuleKey: 'mint-thunderbolt-auth-mode', value: 'disabled' },
+        { type: 'wait', ms: 120 },
+      ],
+      assertions: [{
+        type: 'evaluateTruthy',
+        fn: 'csThunderboltAuthMode',
+        args: { mode: 'disabled' },
+      }],
+    });
+  }
   if (scenario.id === 'themes-languages-parity') {
     plan.prepActions = [
       { type: 'csParityKey', capsuleKey: 'mint-locale-lang', value: 'fr_FR.UTF-8' },
@@ -1418,6 +1553,11 @@ const buildPlaywrightPlan = (registryId, scenario, httpBase) => {
       { id: 'software-sources', title: 'Sources de logiciels' },
       { id: 'system-info', title: 'Informations système' },
       { id: 'bluetooth', title: 'Bluetooth' },
+      { id: 'color', title: 'Couleur' },
+      { id: 'network', title: 'Réseau' },
+      { id: 'printers', title: 'Imprimantes' },
+      { id: 'firewall', title: 'Pare-feu' },
+      { id: 'thunderbolt', title: 'Thunderbolt' },
     ];
     wiredPanels.forEach((step) => {
       plan.executionBlocks.push({
@@ -3308,6 +3448,28 @@ const runScenarioAssertions = async (page, plan, errors) => {
           const enabled = !!(args && args.enabled);
           return document.body
             && (document.body.dataset.capsuleBluetoothNap === 'true') === enabled;
+        }
+        if (fn === 'csColorRecalibrateDisplay') {
+          return document.body
+            && document.body.dataset.capsuleColorRecalibrateDisplay === (args && args.value);
+        }
+        if (fn === 'csProxyMode') {
+          return document.body
+            && document.body.dataset.capsuleProxyMode === (args && args.mode);
+        }
+        if (fn === 'csPrintersAppletHidden') {
+          const hidden = !!(args && args.hidden);
+          const btn = document.getElementById('tray-btn-printers');
+          return btn && btn.hasAttribute('hidden') === hidden;
+        }
+        if (fn === 'csUfwEnabled') {
+          const enabled = !!(args && args.enabled);
+          return document.body
+            && (document.body.dataset.capsuleUfwEnabled === 'true') === enabled;
+        }
+        if (fn === 'csThunderboltAuthMode') {
+          return document.body
+            && document.body.dataset.capsuleThunderboltAuthMode === (args && args.mode);
         }
         return false;
       }, { fn: a.fn, args: a.args });

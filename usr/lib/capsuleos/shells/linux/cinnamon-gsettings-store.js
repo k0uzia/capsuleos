@@ -71,7 +71,15 @@
         'com.linuxmint.install::allow-unverified-flatpaks': 'false',
         'com.linuxmint.report::automonitor': 'true',
         'com.linuxmint.report::autorefresh': 'true',
-        'org.blueman.network::nap-enable': 'false'
+        'org.blueman.network::nap-enable': 'false',
+        'org.cinnamon.settings-daemon.plugins.color::recalibrate-display-threshold': '0',
+        'org.cinnamon.settings-daemon.plugins.color::recalibrate-printer-threshold': '0',
+        'org.gnome.system.proxy::mode': 'none',
+        'org.gnome.nm-applet::show-applet': 'true',
+        'org.cinnamon.desktop.lockdown::disable-printing': 'false',
+        'org.ubuntu.ufw::enabled': 'false',
+        'org.ubuntu.ufw::logging': 'low',
+        'org.freedesktop.bolt1.Manager::AuthMode': 'enabled'
     };
 
     var HOTCORNER_DEFAULT = "['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']";

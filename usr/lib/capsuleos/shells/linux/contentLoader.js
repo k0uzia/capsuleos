@@ -1037,3 +1037,23 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
 } else {
     setTimeout(bootCapsuleContentLoad, 0);
 }
+
+(function ensureSeA11yBusScript(global) {
+    if (typeof global.document === 'undefined') {
+        return;
+    }
+    const marker = 'se-a11y-bus.js';
+    const scripts = global.document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; i += 1) {
+        if (scripts[i].src && scripts[i].src.indexOf(marker) >= 0) {
+            return;
+        }
+    }
+    if (global.CapsuleSeA11yBus) {
+        return;
+    }
+    const tag = global.document.createElement('script');
+    tag.src = '../../../usr/lib/capsuleos/shells/linux/se-a11y-bus.js';
+    tag.async = false;
+    global.document.head.appendChild(tag);
+}(typeof window !== 'undefined' ? window : globalThis));

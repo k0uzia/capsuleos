@@ -56,6 +56,9 @@ const main = () => {
   const pairs = contract.crossRegression && contract.crossRegression.siblingPairs
     ? contract.crossRegression.siblingPairs
     : [{ cinnamon: 'linux-mint', gnome: 'linux-rocky' }];
+  const triples = contract.crossRegression && contract.crossRegression.siblingTriples
+    ? contract.crossRegression.siblingTriples
+    : [];
   const env = { CAPSULE_HTTP_BASE: opts.httpBase };
 
   process.stdout.write('=== cross-regression gates ===\n');
@@ -72,6 +75,9 @@ const main = () => {
     pairs.forEach((p) => {
       if (p.cinnamon && ids.indexOf(p.cinnamon) < 0) ids.push(p.cinnamon);
       if (p.gnome && ids.indexOf(p.gnome) < 0) ids.push(p.gnome);
+    });
+    triples.forEach((t) => {
+      if (t.kde && ids.indexOf(t.kde) < 0) ids.push(t.kde);
     });
   }
 

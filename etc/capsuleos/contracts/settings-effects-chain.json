@@ -80,5 +80,25 @@
       "pilotRegistryId": "linux-kde-neon",
       "status": "phase-2b"
     }
+  },
+  "layerConsumers": {
+    "Se-A11y": {
+      "unification": "full",
+      "storageKeys": {
+        "contrast": "mint-contrast-mode",
+        "fontScale": "mint-font-scale"
+      },
+      "emitters": {
+        "cinnamon": ["usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js", "usr/lib/capsuleos/shells/linux/themes.js"],
+        "gnome": ["usr/lib/capsuleos/shells/linux/capsule-theme-storage.js", "usr/lib/capsuleos/shells/linux/themes.js"],
+        "kde": ["usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"]
+      },
+      "consumers": {
+        "dataset": ["html[data-contrast-mode]", "html[data-font-scale]"],
+        "css": ["style/a11y-overrides.css", "style/gnome-shell/a11y-ubuntu.css", "style/gnome-shell/a11y-fedora.css"],
+        "bus": "usr/lib/capsuleos/shells/linux/se-a11y-bus.js"
+      },
+      "events": ["capsule:a11y-contrast-changed", "capsule:a11y-font-scale-changed"]
+    }
   }
 }

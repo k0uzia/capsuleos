@@ -660,6 +660,11 @@
         const resolved = mode === 'high' ? 'high' : 'normal';
         global.document.documentElement.dataset.contrastMode = resolved;
         persistPref('mint-contrast-mode', resolved);
+        if (global.document && typeof global.document.dispatchEvent === 'function') {
+            global.document.dispatchEvent(new CustomEvent('capsule:a11y-contrast-changed', {
+                detail: { high: resolved === 'high', mode: resolved }
+            }));
+        }
         return resolved;
     }
 

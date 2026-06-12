@@ -1116,6 +1116,13 @@
             var ctrl = spec.controls[ci];
             section.appendChild(ctrl.type === 'select' ? buildSelectRow(ctrl) : buildSwitchRow(ctrl));
         }
+        if (panelId === 'backgrounds') {
+            section.classList.add('cs-backgrounds');
+            var ui = global.CapsuleCinnamonSettingsUi;
+            if (ui && typeof ui.appendBackgroundsWallpaperPicker === 'function') {
+                ui.appendBackgroundsWallpaperPicker(section);
+            }
+        }
         panelsRoot.appendChild(section);
         return section;
     }

@@ -6,6 +6,62 @@
 
     var WINDOW_TITLE = 'Paramètres du système';
     var ICON_BASE = './assets/icons/cinnamon/cs/';
+    var TOOLKIT_ICON_BASE = './assets/images/toolkits/cinnamon/apps/';
+
+    /** Icônes haute résolution (SVG/PNG VM) — remplace les cs/*.png 24×24 upscalés. */
+    var PANEL_TOOLKIT_ICONS = {
+        general: 'cinnamon-settings-general',
+        themes: 'cinnamon-settings-themes',
+        backgrounds: 'cinnamon-settings-backgrounds',
+        effects: 'cinnamon-settings-effects',
+        extensions: 'cinnamon-settings-extensions',
+        applets: 'cinnamon-settings-applets',
+        desklets: 'cinnamon-settings-desklets',
+        windows: 'cinnamon-settings-windows',
+        workspaces: 'cinnamon-settings-workspaces',
+        hotcorner: 'cinnamon-settings-hotcorner',
+        gestures: 'cinnamon-settings-gestures',
+        panel: 'cinnamon-settings-panel',
+        desktop: 'cinnamon-settings-desktop',
+        screensaver: 'cinnamon-settings-screensaver',
+        fonts: 'cinnamon-settings-fonts',
+        keyboard: 'cinnamon-settings-keyboard',
+        mouse: 'cinnamon-settings-mouse',
+        accessibility: 'cinnamon-settings-universal-access',
+        sound: 'cinnamon-settings-sound',
+        notifications: 'cinnamon-settings-notifications',
+        privacy: 'cinnamon-settings-privacy',
+        power: 'cinnamon-settings-power',
+        startup: 'cinnamon-settings-startup',
+        default: 'cinnamon-settings-default',
+        calendar: 'cinnamon-settings-calendar',
+        user: 'cinnamon-settings-user',
+        users: 'cinnamon-settings-users',
+        actions: 'cinnamon-settings-actions',
+        nightlight: 'cinnamon-settings-nightlight',
+        thunderbolt: 'cinnamon-settings-thunderbolt',
+        display: 'cinnamon-display-panel',
+        color: 'cinnamon-color-panel',
+        network: 'cinnamon-network-panel',
+        wacom: 'cinnamon-wacom-panel',
+        bluetooth: 'blueman-manager',
+        firewall: 'gufw',
+        languages: 'mintlocale',
+        'input-method': 'cinnamon-onscreen-keyboard',
+        'software-sources': 'cinnamon-settings',
+        'system-info': 'mintreport',
+        printers: 'system-config-printer',
+        passwords: 'org.gnome.seahorse.Application',
+        'online-accounts': 'gnome-online-accounts-gtk',
+        disks: 'disks',
+        fingerprints: 'fingwit',
+        'login-window': 'cinnamon-settings'
+    };
+
+    var CATEGORY_TOOLKIT_ICONS = {
+        appear: 'cinnamon-settings-themes',
+        prefs: 'cinnamon-settings-general'
+    };
 
     var PANELS = [
         { id: 'general', label: 'Général', icon: 'cs-general', keywords: 'general compositing menu' },
@@ -189,19 +245,31 @@
         return section;
     }
 
+    function buildBackgroundsWallpaperPickerMarkup() {
+        return ''
+            + '<div class="cs-bg-panel" data-cs-bg-wallpapers>'
+            + '<h3 class="cs-bg-panel__title">Choisir un arrière-plan</h3>'
+            + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
+            + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>'
+            + '</div>';
+    }
+
+    function appendBackgroundsWallpaperPicker(section) {
+        if (!section || section.querySelector('[data-wallpaper-grid]')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.innerHTML = buildBackgroundsWallpaperPickerMarkup();
+        while (wrap.firstChild) {
+            section.appendChild(wrap.firstChild);
+        }
+    }
+
     function ensureBackgroundsPanel(panelsRoot) {
         var existing = panelsRoot.querySelector('[data-cs-panel="backgrounds"]');
         if (existing) {
             existing.classList.add('cs-backgrounds');
-            if (!existing.querySelector('[data-wallpaper-grid]')) {
-                var wrap = global.document.createElement('div');
-                wrap.className = 'cs-bg-panel';
-                wrap.innerHTML = ''
-                    + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
-                    + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>';
-                existing.innerHTML = '';
-                existing.appendChild(wrap);
-            }
+            appendBackgroundsWallpaperPicker(existing);
             return existing;
         }
         var section = global.document.createElement('section');
@@ -209,11 +277,7 @@
         section.setAttribute('data-cs-panel', 'backgrounds');
         section.setAttribute('hidden', 'hidden');
         section.setAttribute('aria-label', 'Arrière-plans');
-        section.innerHTML = ''
-            + '<div class="cs-bg-panel">'
-            + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
-            + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>'
-            + '</div>';
+        section.innerHTML = buildBackgroundsWallpaperPickerMarkup();
         panelsRoot.appendChild(section);
         return section;
     }
@@ -301,6 +365,22 @@
         return iconPath;
     }
 
+    function resolveCsPanelIconUrl(panelId, iconKey) {
+        var toolkitId = PANEL_TOOLKIT_ICONS[panelId];
+        if (toolkitId) {
+            return resolveIconUrl(TOOLKIT_ICON_BASE + toolkitId);
+        }
+        return resolveIconUrl(ICON_BASE + iconKey + '.png');
+    }
+
+    function resolveCsCategoryIconUrl(categoryId, fallbackIcon) {
+        var toolkitId = CATEGORY_TOOLKIT_ICONS[categoryId];
+        if (toolkitId) {
+            return resolveIconUrl(TOOLKIT_ICON_BASE + toolkitId);
+        }
+        return resolveIconUrl(ICON_BASE + fallbackIcon + '.png');
+    }
+
     function findPanel(panelId) {
         var pi;
         for (pi = 0; pi < PANELS.length; pi += 1) {
@@ -381,7 +461,7 @@
             head.className = 'cs-home__category-head';
             var catIcon = global.document.createElement('img');
             catIcon.className = 'cs-home__category-icon';
-            catIcon.src = resolveIconUrl(ICON_BASE + cat.icon + '.png');
+            catIcon.src = resolveCsCategoryIconUrl(cat.id, cat.icon);
             catIcon.alt = '';
             head.appendChild(catIcon);
             head.appendChild(global.document.createTextNode(cat.label));
@@ -405,7 +485,7 @@
                 tile.setAttribute('aria-label', panel.label);
                 var icon = global.document.createElement('img');
                 icon.className = 'cs-home__tile-icon';
-                icon.src = resolveIconUrl(ICON_BASE + panel.icon + '.png');
+                icon.src = resolveCsPanelIconUrl(panel.id, panel.icon);
                 icon.alt = '';
                 var label = global.document.createElement('span');
                 label.className = 'cs-home__tile-label';
@@ -557,6 +637,10 @@
     }
 
     global.initCinnamonSettingsApp = initCinnamonSettingsApp;
+
+    global.CapsuleCinnamonSettingsUi = {
+        appendBackgroundsWallpaperPicker: appendBackgroundsWallpaperPicker
+    };
 
     global.activateCinnamonSettingsPanel = function activateCinnamonSettingsPanel(panelId) {
         var root = global.document.getElementById('cinnamonSettingsApp');

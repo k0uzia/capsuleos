@@ -5,7 +5,7 @@
       "ok": true,
       "at": "2026-06-11T09:10:37.295Z",
       "liveVerified": true,
-      "scenarios": 33
+      "scenarios": 36
     },
     "CredΣ": {
       "ok": true,
@@ -21,14 +21,14 @@
     "CredΣ": true
   },
   "summary": {
-    "totalScenarios": 33,
-    "documented": 33,
-    "implemented": 33,
-    "smokeOk": 33,
-    "measured": 33,
+    "totalScenarios": 36,
+    "documented": 36,
+    "implemented": 36,
+    "smokeOk": 36,
+    "measured": 36,
     "avgPi": 100,
-    "appsTotal": 11,
-    "appsAtPi100": 11,
+    "appsTotal": 12,
+    "appsAtPi100": 12,
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100

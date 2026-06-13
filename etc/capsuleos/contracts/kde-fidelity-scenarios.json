@@ -81,7 +81,8 @@
     "kdeconnect",
     "spectacle",
     "kinfocenter",
-    "system_monitor"
+    "system_monitor",
+    "themes"
   ],
   "scenariosPerApp": 3
 }

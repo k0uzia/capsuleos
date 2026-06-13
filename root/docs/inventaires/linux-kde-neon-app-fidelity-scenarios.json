@@ -18,7 +18,8 @@
     "kdeconnect",
     "spectacle",
     "kinfocenter",
-    "system_monitor"
+    "system_monitor",
+    "themes"
   ],
   "apps": [
     {
@@ -74,6 +75,11 @@
     {
       "id": "system_monitor",
       "label": "Surveillance du système",
+      "pi_credibility": 100
+    },
+    {
+      "id": "themes",
+      "label": "Paramètres système",
       "pi_credibility": 100
     }
   ],
@@ -1437,17 +1443,116 @@
       },
       "pi_credibility": 100,
       "phase": "P-D"
+    },
+    {
+      "id": "themes-settings-navigation",
+      "app": "themes",
+      "persona": "utilisateur — navigation Paramètres système KDE",
+      "steps": [
+        "Ouvrir Paramètres système (slot themes)",
+        "Naviguer vers Espace de travail",
+        "Vérifier panneau workspace visible"
+      ],
+      "smokePlan": {
+        "actions": [
+          { "type": "openSlot", "slot": "themes" },
+          { "type": "wait", "ms": 600 },
+          { "type": "click", "selector": "[data-kde-panel=\"workspace\"]:not([disabled])" },
+          { "type": "wait", "ms": 300 }
+        ],
+        "assertions": [
+          { "type": "slotVisible", "slot": "themes" },
+          {
+            "type": "evalTruthy",
+            "expr": "!!document.querySelector('[data-kde-panel-content=\"workspace\"]:not([hidden])')"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "g-coherence"
+    },
+    {
+      "id": "discover-install-complete",
+      "app": "update_manager",
+      "persona": "utilisateur — installation VLC depuis Discover",
+      "steps": [
+        "Ouvrir Discover",
+        "Installer VLC",
+        "Vérifier meta store persistée"
+      ],
+      "smokePlan": {
+        "prep": [
+          { "type": "eval", "expr": "sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');" }
+        ],
+        "actions": [
+          { "type": "openSlot", "slot": "update_manager" },
+          { "type": "wait", "ms": 800 },
+          { "type": "click", "selector": "[data-discover-home-mount] .kde-discover-card[data-discover-app=\"vlc\"]" },
+          { "type": "wait", "ms": 400 },
+          { "type": "click", "selector": "[data-discover-app-install=\"vlc\"]" },
+          { "type": "wait", "ms": 3500 }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "(function(){ var s=window.CapsuleGnomeStore; if(!s)return false; var m=s.loadStoreInstalledMeta('linux-kde-neon'); return m&&m.appIds&&m.appIds.indexOf('vlc')!==-1; })()"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "g-coherence"
+    },
+    {
+      "id": "panel-height-effect",
+      "app": "panel",
+      "persona": "utilisateur — hauteur panneau via Paramètres",
+      "steps": [
+        "Ouvrir Paramètres",
+        "Changer hauteur panneau 48px",
+        "Vérifier dataset body"
+      ],
+      "smokePlan": {
+        "actions": [
+          { "type": "openSlot", "slot": "themes" },
+          { "type": "wait", "ms": 600 },
+          {
+            "type": "eval",
+            "expr": "var sel=document.querySelector('[data-kde-setting=\"kde-panel-height\"]'); if(sel){sel.value='48';sel.dispatchEvent(new Event('change',{bubbles:true}));}"
+          },
+          { "type": "wait", "ms": 200 }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.body.dataset.plasmaPanelHeight === '48'"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "pi_credibility": 100,
+      "phase": "P-D",
+      "campaign": "g-coherence"
     }
   ],
   "summary": {
-    "totalScenarios": 33,
-    "documented": 33,
-    "implemented": 33,
-    "smokeOk": 33,
-    "measured": 33,
+    "totalScenarios": 36,
+    "documented": 36,
+    "implemented": 36,
+    "smokeOk": 36,
+    "measured": 36,
     "avgPi": 100,
-    "appsTotal": 11,
-    "appsAtPi100": 11,
+    "appsTotal": 12,
+    "appsAtPi100": 12,
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100

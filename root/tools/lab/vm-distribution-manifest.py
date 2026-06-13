@@ -296,6 +296,12 @@ def resolve_theme_icon_in_context(
                 p = f"{base}/{size}/{ctx_path}/{clean}.{ext}"
                 if os.path.isfile(p):
                     return p
+        # Breeze / KDE : context/size/icon (ex. mimetypes/24/inode-directory.svg)
+        for size in ("16", "22", "24", "32", "48", "64", "128", "256", "512"):
+            for ext in exts:
+                p = f"{base}/{ctx_path}/{size}/{clean}.{ext}"
+                if os.path.isfile(p):
+                    return p
         # Adwaita/Yaru : symbolic souvent sans répertoire de taille
         if ctx_path.startswith("symbolic/"):
             for ext in exts:
@@ -489,7 +495,8 @@ def scan_fonts(toolkit_id: str, vendor_id: str, catalog: dict[str, Any]) -> dict
             return
         seen.add(vm_path)
         base = os.path.basename(vm_path)
-        capsule_dir = catalog.get("fonts", [{}])[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
+        font_groups = catalog.get("fonts") or [{}]
+        capsule_dir = font_groups[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
         entries.append({
             "family": family,
             "style": style,
@@ -835,7 +842,12 @@ def main() -> None:
     catalog = load_media_catalog(vendor_id, toolkit["id"])
     applications = scan_applications(toolkit["id"])
     theme_meta = scan_theme_media(toolkit["id"])
-    icon_theme = theme_meta.get("iconTheme") or "Yaru"
+    theme_fallbacks = {
+        "kde": (catalog.get("iconThemeFallbacks") or ["breeze"])[0],
+        "gnome": "Adwaita",
+        "cinnamon": "Mint-Y",
+    }
+    icon_theme = theme_meta.get("iconTheme") or theme_fallbacks.get(toolkit["id"], "Adwaita")
     media = build_media_bundle(vendor_id, toolkit["id"], icon_theme, catalog, applications)
     media.update({
         k: theme_meta[k] for k in (

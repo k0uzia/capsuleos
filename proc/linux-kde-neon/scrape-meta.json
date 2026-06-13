@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "registryId": "linux-kde-neon",
+  "collectedAt": "2026-06-13T18:57:56.224Z",
+  "source": "distribution-manifest",
+  "searchPaths": [
+    "/usr/share/applications",
+    "/var/lib/snapd/desktop/applications",
+    "/usr/local/share/applications"
+  ],
+  "gridVisible": 26,
+  "total": 201
+}

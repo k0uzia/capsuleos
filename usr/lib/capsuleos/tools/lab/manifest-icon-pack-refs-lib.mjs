@@ -117,9 +117,13 @@ export const patchIndexIconPackScript = (registryId, write) => {
     const block = `${START}\n${scriptTag}\n    ${END}`;
     html = html.replace(new RegExp(`${START}[\\s\\S]*?${END}`), block);
   } else {
-    const anchor = '<script src="./data/overview-apps-grid.js';
-    if (!html.includes(anchor)) {
-      throw new Error('Marqueur overview-apps-grid.js introuvable pour injecter icon-pack-refs');
+    const anchors = [
+      '<script src="./data/overview-apps-grid.js',
+      '<script src="./content/mainMenu-data.js',
+    ];
+    const anchor = anchors.find((a) => html.includes(a));
+    if (!anchor) {
+      throw new Error('Ancre skin introuvable pour injecter manifest-icon-pack-refs');
     }
     html = html.replace(anchor, `${scriptTag}\n    ${anchor}`);
   }

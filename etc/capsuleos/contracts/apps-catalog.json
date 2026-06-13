@@ -3243,7 +3243,7 @@
             "desktop": false
           }
         },
-        "org.kde.systemsettings": {
+        "systemsettings": {
           "labelFr": "Configuration du système",
           "priorite": "P0",
           "slot": "themes",
@@ -3295,7 +3295,7 @@
             "desktop": false
           }
         },
-        "lecteur_multimedia": {
+        "vlc": {
           "labelFr": "Lecteur vidéo",
           "priorite": "P0",
           "slot": "lecteur_multimedia",

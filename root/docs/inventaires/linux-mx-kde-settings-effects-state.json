@@ -1,0 +1,18 @@
+{
+  "registryId": "linux-mx-kde",
+  "domain": "settings-effects",
+  "generatedAt": "2026-06-13T22:43:46.313Z",
+  "predicates": {
+    "Se": true,
+    "SeΣ": true
+  },
+  "gate": "verify-kde-settings-parity-chain.mjs",
+  "phase": "2b",
+  "p0Effects": [
+    "kde-a11y-high-contrast",
+    "kde-a11y-large-text",
+    "kde-click-to-focus",
+    "kde-focus-stealing"
+  ],
+  "warnings": 0
+}

@@ -3,7 +3,7 @@ window.CAPSULE_DISTRO_PROFILE = {
     version: '25.10 "Questing Quokka"',
     tagline: 'GNOME 49, thème Yaru et fond Resolute Raccoon.',
     description: 'Ubuntu est une distribution basée sur Debian, avec un bureau GNOME pensé pour l\'accessibilité. Cette capsule reproduit l\'expérience visuelle elementary OS (dock, activités, Fichiers) pour comparer les usages Linux.',
-    logo: './assets/images/vendors/elementary/elementary-logo.svg',
+    logo: './assets/images/vendors/ubuntu/ubuntu-logo.svg',
     logoAlt: 'Logo Ubuntu',
     url: 'https://elementary.com',
     stats: {

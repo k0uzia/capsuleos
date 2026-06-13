@@ -5,7 +5,7 @@
     --linux-skin-label: "Ubuntu 26.04 LTS";
     --elementary-dock-gap: calc(var(--head) / 11);
     --elementary-dock-item: calc(var(--head) * 1.02);
-    --elementary-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/elementary/wallpaper/wallpaper-racoon.webp) center/cover no-repeat;
+    --elementary-bg: url(../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp) center/cover no-repeat;
     --gnome-shell-taskbar-bg: var(--elementary-top-bar-bg);
     position: relative;
     display: flex;
@@ -324,7 +324,7 @@ body#elementary.is-overview .fedora-top-bar {
 }
 
 html[data-theme="light"]:has(#elementary) #elementary {
-    --elementary-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/elementary/wallpaper/wallpaper-racoon-light.webp") center/cover no-repeat
+    --elementary-bg: url("../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.webp") center/cover no-repeat
 }
 
 html[data-theme="light"]:has(#elementary) #elementary #tableau.fedora-dock a:hover {

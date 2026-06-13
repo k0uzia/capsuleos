@@ -294,7 +294,7 @@ function initMainMenu() {
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
         } else if (effectiveCatId === 'favorites') {
             // Ordre VM : gsettings org.cinnamon favorite-apps (pas alpha).
-            filtered.sort((a, b) => (a.favoriteRank ?? 99) - (b.favoriteRank ?? 99));
+            filtered.sort((a, b) => (a.favoriteRank != null ? a.favoriteRank : 99) - (b.favoriteRank != null ? b.favoriteRank : 99));
         } else {
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
         }

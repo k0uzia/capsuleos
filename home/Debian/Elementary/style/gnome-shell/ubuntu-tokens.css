@@ -5,7 +5,7 @@
 
 html:has(#elementary) {
     --menu-accent: #ff7800;
-    --elementary-bg: url("../../../../../usr/share/capsuleos/assets/images/vendors/elementary/wallpaper/wallpaper-racoon.webp");
+    --elementary-bg: url("../../../../../usr/share/capsuleos/assets/images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp");
     --elementary-shell-text: #f6f7f9;
     --elementary-shell-border-soft: rgba(255, 255, 255, 0.1);
     --elementary-top-bar-height: calc(var(--head) * 0.82);

@@ -1,6 +1,6 @@
 # Playbook bout de chaîne (τ) — KDE neon User Edition
 
-Généré : 2026-06-13T21:20:52.540Z
+Généré : 2026-06-13T21:45:08.308Z
 
 ## Spécificités environnement
 
@@ -21,5 +21,5 @@ Généré : 2026-06-13T21:20:52.540Z
 
 - Aucune — prêt H6
 
-**h6Ready** : non
+**h6Ready** : oui
 

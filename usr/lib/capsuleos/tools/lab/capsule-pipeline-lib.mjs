@@ -19,7 +19,7 @@ const LAYER_RULE_MATCH = {
   visual: (rule) => rule === 'R-FID1' || rule.startsWith('R-V'),
   'apps-parity': (rule) => ['R-APP-VV', 'R-APP-VC', 'R-APP-VP'].includes(rule),
   fidelity: (rule) => rule === 'R-FID1',
-  release: (rule) => rule === 'R-H6-DONE' || rule === 'R-PB4',
+  release: (rule) => ['R-H6-DONE', 'R-H6', 'R-H6-PRE', 'R-PB4'].includes(rule),
   'settings-effects': (rule) => rule.startsWith('R-SE'),
 };
 

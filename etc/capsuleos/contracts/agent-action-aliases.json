@@ -279,10 +279,23 @@
       "command": "node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs --id {id}",
       "autoExecute": true
     },
+    "smoke-h6-kde-ready": {
+      "predicate": "H6",
+      "rule": "R-H6-PRE",
+      "command": "node usr/lib/capsuleos/tools/lab/smoke-h6-kde-settings-ready.mjs --id {id}",
+      "autoExecute": true
+    },
     "close-h6-gnome-settings": {
       "predicate": "H6",
       "rule": "R-H6",
       "command": "node usr/lib/capsuleos/tools/lab/close-h6-gnome-settings.mjs --id {id}",
+      "autoExecute": true,
+      "requiresH6Ready": "root/docs/inventaires/{id}-gnome-settings-h6-ready.json"
+    },
+    "close-h6-kde-settings": {
+      "predicate": "H6",
+      "rule": "R-H6",
+      "command": "node usr/lib/capsuleos/tools/lab/close-h6-kde-settings.mjs --id {id}",
       "autoExecute": true,
       "requiresH6Ready": "root/docs/inventaires/{id}-gnome-settings-h6-ready.json"
     },

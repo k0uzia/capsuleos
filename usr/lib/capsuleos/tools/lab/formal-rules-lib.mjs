@@ -19,6 +19,9 @@ const formalStatePath = (registryId) =>
 const h6ClosurePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-h6-closure.json`);
 
+const h6ReadyPath = (registryId) =>
+  path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-h6-ready.json`);
+
 const shellPolishPath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-shell-polish.json`);
 
@@ -359,6 +362,32 @@ export const evaluateFormalRules = (registryId) => {
       command: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
       autoExecute: true,
       gateOnSuccess: 'Tf',
+    },
+    {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'kde') return false;
+        if (!gates.PbΣ || !gates.SeΣ || !gates.Vp) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ SeΣ ∧ Vp — gate pré-H6 KDE (Paramètres + ground truth)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-kde-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'kde') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-kde-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-kde-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
     },
     {
       rule: 'R-H6-DONE',

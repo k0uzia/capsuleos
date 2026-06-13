@@ -116,6 +116,19 @@ try {
     errors.push(`fiche app : bouton post-install=${detailAfterInstall.primaryLabel || '(vide)'}`);
   }
 
+  const storeMeta = await page.evaluate(() => {
+    if (typeof window.CapsuleGnomeStore === 'undefined'
+      || typeof window.CapsuleGnomeStore.loadStoreInstalledMeta !== 'function') {
+      return { ok: false, reason: 'CapsuleGnomeStore absent' };
+    }
+    const meta = window.CapsuleGnomeStore.loadStoreInstalledMeta('linux-kde-neon');
+    const ids = meta && Array.isArray(meta.appIds) ? meta.appIds : [];
+    return { ok: ids.indexOf('vlc') !== -1, appIds: ids };
+  });
+  if (!storeMeta.ok) {
+    errors.push(`store install meta : ${storeMeta.reason || JSON.stringify(storeMeta.appIds)}`);
+  }
+
   await page.evaluate(() => {
     const back = document.querySelector('[data-discover-app-back]');
     if (back) {

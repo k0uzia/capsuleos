@@ -28,7 +28,20 @@
 - **V7** clôturé — calendrier tray · baselines dérivés · Cred* échantillon · Π **98**
 - **Pivot** clôturé Π=100 (v9) · Konversation hors VM
 - **Propagation dérivés gelée** — excellence ground Neon d'abord
-- **Ground G1–G8** clôturé (2026-06-11) — prochaine priorité : propagation dérivés (gel levé progressivement)
+- **Ground G1–G8** clôturé (2026-06-11)
+- **G-coherence** clôturée (2026-06-10) — Se+ Paramètres, shell UI state, Discover install, CredΣ 36 scénarios · [linux-kde-neon-roadmap-g-coherence.md](linux-kde-neon-roadmap-g-coherence.md)
+
+## Campagne G-coherence
+
+| Zone | Statut | Gate |
+|------|--------|------|
+| Bundle anti-régression | ✅ Gc0 | `run-kde-neon-pass.mjs` |
+| Se+ Paramètres (workspace P0) | ✅ Gc1 | `verify-kde-settings-parity-chain.mjs` |
+| Shell UI state effects | ✅ Gc2 | `run-kde-ui-state-effects-pass.mjs` |
+| Discover install → store meta | ✅ Gc3 | `smoke-kde-neon-discover.mjs` |
+| CredΣ étendu (36 sc.) | ✅ Gc4 | `smoke-kde-fidelity-all.mjs` |
+
+Handoff : [linux-kde-neon-g-coherence-handoff.md](linux-kde-neon-g-coherence-handoff.md)
 
 ## Références
 

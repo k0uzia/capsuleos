@@ -325,7 +325,9 @@ Référence : [logique-formelle.md](../logique-formelle.md)
 | **v1** | 2026-06-06 → 06-07 | Clôtures Discover, Kickoff, panel, Dolphin P0 |
 | **v2** | 2026-06-08 | Réaudit post-merge · tokens · Dolphin §7–8 captures · Firefox smoke · H₆ v2 |
 | **v3** | 2026-06-08 | P0→P5 clôturés · tier P1 · H₆ v3 · propagation 3 skins KDE |
-| **v4** | en cours | [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md) · cible Π ≥ 95 % |
+| **v4** | clôturé | [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md) · V4-P0–P4 ✅ |
+| **ground** | clôturé | [linux-kde-neon-roadmap-ground.md](linux-kde-neon-roadmap-ground.md) · G1–G8 ✅ |
+| **G-coherence** | clôturé | [linux-kde-neon-roadmap-g-coherence.md](linux-kde-neon-roadmap-g-coherence.md) · cohérence système Mint-level |
 
 ---
 
@@ -333,4 +335,4 @@ Référence : [logique-formelle.md](../logique-formelle.md)
 
 **Campagne v3 clôturée P5** (2026-06-08).
 
-**Campagne v4** — voir [linux-kde-neon-roadmap-v4.md](linux-kde-neon-roadmap-v4.md) · **V4-P0** Dolphin §3 + §6.
+**Campagne active** — propagation dérivés post-G-coherence · voir [linux-kde-neon-roadmap-g-coherence.md](linux-kde-neon-roadmap-g-coherence.md).

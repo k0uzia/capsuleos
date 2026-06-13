@@ -83,13 +83,14 @@
     "propagation-debian-kde-post-ground"
   ],
   "paritySnapshot": {
-    "pi_global": 95,
+    "pi_global": 100,
     "status_global": "ok",
     "apps": {
       "nemo": "v4-p0-closed",
-      "update_manager": "v4-p1-closed",
+      "update_manager": "g-coherence-closed",
       "firefox": "v4-p1-closed",
-      "terminal": "p5-closed"
+      "terminal": "p5-closed",
+      "themes": "g-coherence-closed"
     }
   },
   "v4P1Deliverables": {
@@ -165,9 +166,10 @@
     "roadmap": "linux-kde-neon-roadmap-pass.md",
     "groundRoadmap": "linux-kde-neon-roadmap-ground.md",
     "orchestrator": "run-kde-neon-pass.mjs",
+    "gCoherenceOrchestrator": "run-kde-coherence-campaign.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "ground clôturé — propagation dérivés (openSUSE → MX-KDE → Debian-KDE) un registry à la fois",
+  "nextStep": "G-coherence clôturée — propagation dérivés selon priorityQueue",
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "closed",
   "campaignGroundClosedAt": "2026-06-11T09:12:00.000Z",
@@ -244,7 +246,17 @@
       "2026-06-10 : G5 grid dolphin → drift baseline 03-dolphin (write-baseline post-polish)",
       "2026-06-10 : captures VM discover — popup PackageKit (corrigé systemd-run + dismiss KWin)",
       "2026-06-10 : KdVp 07-discover-detail-vlc drift flaky — baseline régénérée 20260610-151302"
-    ]
+    ],
+    "Gc0_antiRegression": "closed",
+    "Gc1_sePlus": "closed",
+    "Gc2_shellCoherence": "closed",
+    "Gc3_discoverInstall": "closed",
+    "Gc4_credExtended": "closed",
+    "Gc5_pivotPass": "closed",
+    "Gc6a_opensuse": "closed",
+    "Gc6b_mxKde": "closed",
+    "Gc6c_debianKde": "closed",
+    "Gc7_closure": "closed"
   },
   "campaignGroundRoadmap": "linux-kde-neon-roadmap-ground.md",
   "campaignV10": "v10-derived-post-pivot",
@@ -267,8 +279,8 @@
     "campaign": "v5-credibility-pass",
     "contract": "etc/capsuleos/contracts/kde-fidelity-scenarios.json",
     "inventory": "linux-kde-neon-app-fidelity-scenarios.json",
-    "scenarios": 33,
-    "scopedApps": 11,
+    "scenarios": 36,
+    "scopedApps": 12,
     "smoke": "smoke-kde-fidelity-all.mjs",
     "credSigma": true
   },
@@ -284,11 +296,11 @@
       "CredΣ": true
     },
     "scenarios": {
-      "total": 33,
-      "credV": 33,
-      "credC": 33,
-      "credS": 33,
-      "appsAtPi100": 11
+      "total": 36,
+      "credV": 36,
+      "credC": 36,
+      "credS": 36,
+      "appsAtPi100": 12
     },
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
@@ -310,5 +322,23 @@
     "rule": "R-H6",
     "message": "H6 clôturé — domaine kde-settings-playbook"
   },
-  "generatedAt": "2026-06-13T21:45:57.307Z"
+  "generatedAt": "2026-06-13T21:45:57.307Z",
+  "campaignGCoherence": "g-coherence",
+  "campaignGCoherenceStatus": "closed",
+  "campaignGCoherenceRoadmap": "linux-kde-neon-roadmap-g-coherence.md",
+  "campaignGCoherenceClosedAt": "2026-06-10T18:00:00.000Z",
+  "gCoherencePallier": 9,
+  "gCoherenceNextPallier": 10,
+  "lastGCoherencePhase": "Gc7",
+  "gCoherenceHandoff": "linux-kde-neon-g-coherence-handoff.md",
+  "Gc0Commit": "9526386b",
+  "Gc1Commit": "ea3187b0",
+  "Gc2Commit": "64d9a56c",
+  "Gc3Commit": "7d210ba8",
+  "Gc4Commit": "7fb8c87b",
+  "Gc5Commit": "67a508bf",
+  "Gc6aCommit": "a2aa5f47",
+  "Gc6bCommit": "ce1048fe",
+  "Gc6cCommit": "b16ece9a",
+  "Gc7Commit": "663561bc"
 }

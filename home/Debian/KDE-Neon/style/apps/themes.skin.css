@@ -1,2 +1,42 @@
-/* KDE Neon — Configuration du système (placeholder) */
+/* KDE Neon — Paramètres système (System Settings) */
 
+body#kde-neon #themes #windowIframe,
+body#kde-neon #themes .windowIframe {
+    padding: 0;
+    background: #eff0f1;
+}
+
+body#kde-neon #themes #kdeSystemSettingsApp {
+    min-height: 100%;
+}
+
+body#kde-neon #themes .kde-systemsettings__navitem.is-active .kde-systemsettings__navicon {
+    background: #232629;
+}
+
+body#kde-neon[data-theme="dark"] #themes .kde-systemsettings__content,
+html[data-theme="dark"] body#kde-neon #themes .kde-systemsettings__content {
+    background: #31363b;
+    color: #eff0f1;
+}
+
+html[data-theme="dark"] body#kde-neon #themes .kde-systemsettings__group {
+    background: #3a3f44;
+    border-color: #4a4f55;
+    color: #eff0f1;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--appearance {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-graphics.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--workspace {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-system.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--accessibility {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/preferences-desktop-accessibility.svg") center/contain no-repeat;
+    background: currentColor;
+}

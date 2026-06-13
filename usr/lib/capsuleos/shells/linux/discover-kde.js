@@ -104,6 +104,109 @@
         return apps;
     }
 
+    }
+
+    function resolveOpenSlot(app) {
+        if (!app) {
+            return '';
+        }
+        if (app.storeEntry && app.storeEntry.slot) {
+            return app.storeEntry.slot;
+        }
+        if (app.postInstallSlot) {
+            return app.postInstallSlot;
+        }
+        return '';
+    }
+
+    function pushInstalledApp(catalog, app) {
+        if (!catalog || !app) {
+            return;
+        }
+        if (!Array.isArray(catalog.installed)) {
+            catalog.installed = [];
+        }
+        if (catalog.installed.some((entry) => entry.id === app.id)) {
+            return;
+        }
+        catalog.installed.unshift({
+            id: app.id,
+            name: app.name || app.id,
+            desc: app.desc || '',
+            icon: app.icon || '',
+            iconBase: app.iconBase || '',
+        });
+    }
+
+    function applyInstallOpenState(installBtn, openSlot) {
+        if (!installBtn) {
+            return;
+        }
+        installBtn.textContent = openSlot ? 'Ouvrir' : 'Installé';
+        installBtn.classList.remove('is-installing');
+        installBtn.classList.add('is-installed');
+        installBtn.disabled = false;
+        installBtn.removeAttribute('data-discover-app-install');
+        installBtn.removeAttribute('aria-disabled');
+        if (openSlot) {
+            installBtn.setAttribute('data-discover-app-open', openSlot);
+        }
+    }
+
+    function runInstallSimulation(root, catalog, app, installBtn) {
+        if (!app || root.dataset.discoverInstalling === 'true') {
+            return;
+        }
+        const steps = [
+            { text: 'Préparation…', ms: 420 },
+            { text: 'Téléchargement des paquets…', ms: 780 },
+            { text: 'Installation…', ms: 920 },
+            { text: 'Configuration…', ms: 540 },
+        ];
+        const status = root.querySelector('[data-discover-app-status]');
+        root.dataset.discoverInstalling = 'true';
+        if (installBtn) {
+            installBtn.disabled = true;
+            installBtn.classList.add('is-installing');
+            installBtn.textContent = 'Installation…';
+        }
+        if (status) {
+            status.hidden = false;
+            status.textContent = steps[0].text;
+        }
+        let idx = 0;
+        const nextStep = () => {
+            if (idx >= steps.length) {
+                root.dataset.discoverInstalling = 'false';
+                if (app.storeInstallable && app.storeEntry) {
+                    notifyStoreInstall(app);
+                }
+                pushInstalledApp(catalog, app);
+                const openSlot = resolveOpenSlot(app);
+                applyInstallOpenState(installBtn, openSlot);
+                if (status) {
+                    status.textContent = `${app.name || 'Application'} installée.`;
+                }
+                renderInstalled(root, catalog);
+                renderHome(root, catalog);
+                window.setTimeout(() => {
+                    switchView(root, catalog, 'installed');
+                }, 450);
+                return;
+            }
+            if (status) {
+                status.textContent = steps[idx].text;
+            }
+            if (installBtn) {
+                installBtn.textContent = steps[idx].text;
+            }
+            const delay = steps[idx].ms;
+            idx += 1;
+            window.setTimeout(nextStep, delay);
+        };
+        nextStep();
+    }
+
     function notifyStoreInstall(app) {
         if (!app || !app.storeEntry || typeof window.CapsuleGnomeStore === 'undefined') {
             return;
@@ -931,24 +1034,23 @@
             if (installBtn && root.contains(installBtn)) {
                 event.preventDefault();
                 const appId = installBtn.getAttribute('data-discover-app-install') || '';
-                const status = root.querySelector('[data-discover-app-status]');
                 loadCatalog().then((catalog) => {
                     const app = catalog ? findAppById(catalog, appId) : null;
-                    if (app && app.storeInstallable && app.storeEntry) {
-                        notifyStoreInstall(app);
+                    if (!app) {
+                        return;
                     }
-                    if (status) {
-                        status.hidden = false;
-                        status.textContent = app && app.storeInstallable
-                            ? `${app.name || 'Application'} installée (simulation magasin CapsuleOS).`
-                            : 'Installation simulée — application ajoutée au catalogue lab.';
-                    }
-                    installBtn.disabled = true;
-                    installBtn.setAttribute('aria-disabled', 'true');
-                    if (catalog && app && app.storeInstallable) {
-                        renderHome(root, catalog);
-                    }
+                    runInstallSimulation(root, catalog, app, installBtn);
                 });
+                return;
+            }
+
+            const openBtn = event.target.closest('[data-discover-app-open]');
+            if (openBtn && root.contains(openBtn)) {
+                event.preventDefault();
+                const slot = openBtn.getAttribute('data-discover-app-open') || '';
+                if (slot && typeof window.openWindowByDataLink === 'function') {
+                    window.openWindowByDataLink(slot);
+                }
                 return;
             }
 

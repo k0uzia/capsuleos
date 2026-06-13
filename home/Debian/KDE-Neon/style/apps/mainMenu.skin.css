@@ -27,6 +27,10 @@ body#kde-neon #mainMenu > #windowHeader {
     height: 0;
 }
 
+body#kde-neon #mainMenu .menu-cat__icon {
+    display: none !important;
+}
+
 body#kde-neon #mainMenu .menu-root.menu-root--plasma {
     position: relative;
     display: flex;

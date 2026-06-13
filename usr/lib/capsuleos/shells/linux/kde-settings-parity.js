@@ -92,6 +92,10 @@
                     el.classList.toggle('is-on', on);
                     handler(on ? 'on' : 'off');
                 });
+            } else if (el.matches('select[data-kde-setting]')) {
+                el.addEventListener('change', function onSelect() {
+                    handler(el.value);
+                });
             }
         });
     }

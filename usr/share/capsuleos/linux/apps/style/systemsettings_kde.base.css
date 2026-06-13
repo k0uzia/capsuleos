@@ -3,29 +3,78 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
-    font-family: var(--font-ui, sans-serif);
+    min-height: 0;
+    font-family: var(--font-ui, "Noto Sans", sans-serif);
+    font-size: 0.92rem;
     color: #232629;
     background: #eff0f1;
+}
+
+.kde-systemsettings__sidebar {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 15.5rem;
+    min-width: 15.5rem;
+    padding: 0.65rem 0.5rem 0.75rem;
+    background: linear-gradient(180deg, #31363b 0%, #2a2e32 100%);
+    color: #eff0f1;
+    border-right: 1px solid #1b1d20;
+}
+
+.kde-systemsettings__search {
+    position: relative;
+    margin: 0 0.35rem 0.65rem;
+}
+
+.kde-systemsettings__search-icon {
+    position: absolute;
+    left: 0.55rem;
+    top: 50%;
+    width: 1rem;
+    height: 1rem;
+    transform: translateY(-50%);
+    opacity: 0.75;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M6.5 1a5.5 5.5 0 0 1 4.38 8.85l3.27 3.27-1.06 1.06-3.27-3.27A5.5 5.5 0 1 1 6.5 1m0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.kde-systemsettings__search-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.42rem 0.65rem 0.42rem 2rem;
+    border: 1px solid #4a4f55;
+    border-radius: 4px;
+    background: #232629;
+    color: #eff0f1;
+    font: inherit;
 }
 
 .kde-systemsettings__nav {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    min-width: 11rem;
-    padding: 0.75rem;
-    background: #31363b;
-    color: #eff0f1;
+    gap: 0.12rem;
+    overflow: auto;
+    flex: 1;
+    min-height: 0;
 }
 
 .kde-systemsettings__navitem {
-    text-align: left;
-    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.45rem 0.65rem;
     border: 0;
     border-radius: 4px;
     background: transparent;
     color: inherit;
+    font: inherit;
+    text-align: left;
     cursor: pointer;
+}
+
+.kde-systemsettings__navitem:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .kde-systemsettings__navitem.is-active {
@@ -33,8 +82,148 @@
     color: #232629;
 }
 
-.kde-systemsettings__panel {
+.kde-systemsettings__navitem--stub {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.kde-systemsettings__navicon {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 3px;
+    background: currentColor;
+    opacity: 0.85;
+}
+
+.kde-systemsettings__content {
     flex: 1;
-    padding: 1rem 1.25rem;
+    min-width: 0;
     overflow: auto;
+    background: #fcfcfc;
+}
+
+.kde-systemsettings__panel {
+    display: none;
+    padding: 1.1rem 1.35rem 1.5rem;
+}
+
+.kde-systemsettings__panel.is-active {
+    display: block;
+}
+
+.kde-systemsettings__panel-header h1 {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.kde-systemsettings__help,
+.kde-systemsettings__stub {
+    margin: 0 0 1rem;
+    color: #7f8c8d;
+    line-height: 1.45;
+}
+
+.kde-systemsettings__group {
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.kde-systemsettings__group-title {
+    margin: 0 0 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #7f8c8d;
+}
+
+.kde-systemsettings__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.25rem;
+}
+
+.kde-systemsettings__row--choices {
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.kde-systemsettings__choice {
+    min-width: 5.5rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background: #eff0f1;
+    color: #232629;
+    font: inherit;
+    cursor: pointer;
+}
+
+.kde-systemsettings__choice.is-active,
+.kde-systemsettings__choice[aria-checked="true"] {
+    border-color: #3daee9;
+    background: #daeeff;
+    font-weight: 600;
+}
+
+.kde-systemsettings__select {
+    min-width: 6.5rem;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background: #fff;
+    font: inherit;
+}
+
+.kde-systemsettings .adw-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.5rem;
+    padding: 0.35rem 0;
+}
+
+.kde-systemsettings .adw-row + .adw-row {
+    border-top: 1px solid #ecf0f1;
+}
+
+.kde-systemsettings .adw-switch {
+    position: relative;
+    width: 2.5rem;
+    height: 1.35rem;
+    border: 0;
+    border-radius: 999px;
+    background: #bdc3c7;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.kde-systemsettings .adw-switch::after {
+    content: "";
+    position: absolute;
+    top: 0.15rem;
+    left: 0.15rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.15s ease;
+}
+
+.kde-systemsettings .adw-switch.is-on,
+.kde-systemsettings .adw-switch[aria-checked="true"] {
+    background: #3daee9;
+}
+
+.kde-systemsettings .adw-switch.is-on::after,
+.kde-systemsettings .adw-switch[aria-checked="true"]::after {
+    transform: translateX(1.15rem);
 }

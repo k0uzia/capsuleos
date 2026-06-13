@@ -347,6 +347,122 @@ function bindAccentChips(root) {
     syncAccentChipRings(chips, saved);
 }
 
+function activateKdeSettingsPanel(root, panelId) {
+    if (!root) {
+        return;
+    }
+    const resolved = panelId && root.querySelector(`[data-kde-panel-content="${panelId}"]`)
+        ? panelId
+        : 'appearance';
+    root.querySelectorAll('[data-kde-panel-content]').forEach((panel) => {
+        const active = panel.getAttribute('data-kde-panel-content') === resolved;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+    });
+    root.querySelectorAll('[data-kde-panel]').forEach((item) => {
+        if (item.disabled) {
+            return;
+        }
+        const active = item.getAttribute('data-kde-panel') === resolved;
+        item.classList.toggle('is-active', active);
+        if (active) {
+            item.setAttribute('aria-current', 'page');
+        } else {
+            item.removeAttribute('aria-current');
+        }
+    });
+    root.dataset.activeKdePanel = resolved;
+}
+
+function bindKdeSettingsNavigation(root) {
+    if (!root || root.dataset.kdeNavBound === 'true') {
+        return;
+    }
+    root.dataset.kdeNavBound = 'true';
+    root.querySelectorAll('[data-kde-panel]:not([disabled])').forEach((item) => {
+        item.addEventListener('click', () => {
+            activateKdeSettingsPanel(root, item.getAttribute('data-kde-panel'));
+        });
+    });
+}
+
+function syncKdeSettingsUiFromStorage(root) {
+    if (!root) {
+        return;
+    }
+    const kc = window.CapsuleKdeKconfig;
+    const storage = window.CapsuleThemeStorage || {};
+    const bodyId = document.body ? document.body.id : 'kde-neon';
+    const theme = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(bodyId)
+        : (localStorage.getItem('kde-neon-theme') || document.documentElement.dataset.theme || 'light');
+    root.querySelectorAll('[data-kde-theme-option]').forEach((btn) => {
+        const active = btn.getAttribute('data-kde-theme-option') === theme;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+    });
+    const panelHeight = kc ? kc.getCapsule('plasmashellrc::PanelHeight', '40') : '40';
+    const heightSelect = root.querySelector('[data-kde-setting="kde-panel-height"]');
+    if (heightSelect) {
+        heightSelect.value = panelHeight;
+    }
+    const animOn = kc ? kc.getBool('kwinrc::Windows/animate', true) : true;
+    const animSwitch = root.querySelector('[data-kde-setting="kde-window-animations"]');
+    if (animSwitch) {
+        animSwitch.classList.toggle('is-on', animOn);
+        animSwitch.setAttribute('aria-checked', animOn ? 'true' : 'false');
+    }
+    const contrastOn = kc ? kc.getBool('kdeglobals::KDE/contrast', false) : false;
+    const contrastSwitch = root.querySelector('[data-kde-setting="kde-a11y-high-contrast"]');
+    if (contrastSwitch) {
+        contrastSwitch.classList.toggle('is-on', contrastOn);
+        contrastSwitch.setAttribute('aria-checked', contrastOn ? 'true' : 'false');
+    }
+    if (window.CapsuleKdeSettingsParity && typeof window.CapsuleKdeSettingsParity.bindControls === 'function') {
+        window.CapsuleKdeSettingsParity.bindControls(root);
+    }
+}
+
+function bindKdeThemeChoices(root) {
+    if (!root || root.dataset.kdeThemeBound === 'true') {
+        return;
+    }
+    root.dataset.kdeThemeBound = 'true';
+    const storage = window.CapsuleThemeStorage || {};
+    const bodyId = document.body ? document.body.id : 'kde-neon';
+    root.querySelectorAll('[data-kde-theme-option]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const theme = btn.getAttribute('data-kde-theme-option') === 'dark' ? 'dark' : 'light';
+            document.documentElement.dataset.theme = theme;
+            if (typeof storage.persistTheme === 'function') {
+                storage.persistTheme(theme, bodyId);
+            } else {
+                localStorage.setItem('kde-neon-theme', theme);
+            }
+            root.querySelectorAll('[data-kde-theme-option]').forEach((entry) => {
+                const active = entry.getAttribute('data-kde-theme-option') === theme;
+                entry.classList.toggle('is-active', active);
+                entry.setAttribute('aria-checked', active ? 'true' : 'false');
+            });
+        });
+    });
+}
+
+    const root = container ? container.querySelector('#kdeSystemSettingsApp') : null;
+    if (!root) {
+        return;
+    }
+    activateKdeSettingsPanel(root, root.dataset.activeKdePanel || 'appearance');
+    bindKdeSettingsNavigation(root);
+    bindKdeThemeChoices(root);
+    syncKdeSettingsUiFromStorage(root);
+}
+
+function initKdeSettingsApp() {
+    const container = document.querySelector('#themes');
+    handleKdeSettingsWindowOpened(container);
+}
+
 function handleGnomeSettingsWindowOpened(container) {
     const root = container ? container.querySelector('#themesApp') : null;
     if (!root || !root.classList.contains('gnome-settings')) {
@@ -370,6 +486,7 @@ if (typeof window !== 'undefined') {
             return;
         }
         handleGnomeSettingsWindowOpened(event.detail.container);
+        handleKdeSettingsWindowOpened(event.detail.container);
         if (document.body && document.body.id === 'mint') {
             if (document.getElementById('cinnamonSettingsApp')) {
                 return;

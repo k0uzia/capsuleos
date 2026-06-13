@@ -38,6 +38,10 @@ const isKdeDiscoverContext = () => {
     return !!(bodyId && KDE_DISCOVER_BODY_IDS.has(bodyId));
 };
 
+const isKdePlasmaContext = () => isKdeDiscoverContext()
+    || PLASMA_MAIN_MENU_SKINS.has(getEmbedSkinKey())
+    || (typeof document !== 'undefined' && document.body && PLASMA_MAIN_MENU_BODY_IDS.has(document.body.id));
+
 const resolveKdeDiscoverCssBaseId = () => {
     const overrides = typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES;
     if (overrides && overrides.update_manager
@@ -443,6 +447,12 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
         if (templateId === 'themes' && text) {
             if (embedKey === 'mint') {
                 /* traité en tête de fetchCssBase */
+            } else if (isKdePlasmaContext()) {
+                const kdeFile = `${appsBase}/style/systemsettings_kde.base.css`;
+                const kdeResp = await fetch(kdeFile, { cache: 'no-store' });
+                if (kdeResp.ok) {
+                    text = await kdeResp.text();
+                }
             } else {
                 const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
                 const gnomeResp = await fetch(gnomeFile, { cache: 'no-store' });
@@ -618,6 +628,8 @@ const SLOT_INIT_HANDLERS = {
     themes: () => {
         if (typeof initCinnamonSettingsApp === 'function' && document.getElementById('cinnamonSettingsApp')) {
             initCinnamonSettingsApp();
+        } else if (typeof initKdeSettingsApp === 'function' && document.getElementById('kdeSystemSettingsApp')) {
+            initKdeSettingsApp();
         } else if (typeof initThemesApp === 'function') {
             initThemesApp();
         }

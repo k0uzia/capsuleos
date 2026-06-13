@@ -991,6 +991,24 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
     background: #3daee9;
 }
 
+.update-manager--kde-neon .kde-discover-app-detail__action--primary.is-installing {
+    opacity: 0.88;
+    cursor: wait;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__action--primary.is-installed {
+    background: #27ae60;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__status {
+    margin: 0.65rem 0 0;
+    padding: 0.45rem 0.65rem;
+    border-radius: 4px;
+    color: #232629;
+    font-size: 0.84rem;
+    background: #e8f4fc;
+}
+
 .update-manager--kde-neon .kde-discover-app-detail__origin {
     flex-shrink: 0;
     padding: 0.32rem 0.65rem;

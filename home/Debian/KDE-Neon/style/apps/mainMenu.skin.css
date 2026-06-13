@@ -37,7 +37,7 @@ body#kde-neon #mainMenu .menu-root.menu-root--plasma {
     min-height: 0;
     overflow: hidden;
     color: var(--kde-neon-menu-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 /* ── En-tête Kickoff VM : utilisateur (col. catégories) | recherche (col. apps) ── */

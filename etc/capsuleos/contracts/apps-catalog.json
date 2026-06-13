@@ -259,6 +259,54 @@
           "skinCss": "update_manager.skin.css",
           "functionalDepth": "partial"
         },
+        "themes": {
+          "chromeProvider": "default",
+          "template": "themes.html",
+          "skinCss": "themes.skin.css",
+          "functionalDepth": "partial"
+        },
+        "firefox": {
+          "chromeProvider": "default",
+          "template": "firefox.html",
+          "skinCss": "firefox.skin.css",
+          "functionalDepth": "partial"
+        },
+        "terminal": {
+          "chromeProvider": "default",
+          "template": "terminal.html",
+          "skinCss": "terminal.skin.css",
+          "functionalDepth": "full"
+        },
+        "text_editor": {
+          "chromeProvider": "default",
+          "template": "text_editor.html",
+          "skinCss": "text_editor.skin.css",
+          "functionalDepth": "partial"
+        },
+        "lecteur_multimedia": {
+          "chromeProvider": "default",
+          "template": "lecteur_multimedia.html",
+          "skinCss": "lecteur_multimedia.skin.css",
+          "functionalDepth": "partial"
+        },
+        "profile": {
+          "chromeProvider": "default",
+          "template": "profile.html",
+          "skinCss": "profile.skin.css",
+          "functionalDepth": "full"
+        },
+        "checklist": {
+          "chromeProvider": "default",
+          "template": "checklist.html",
+          "skinCss": "checklist.skin.css",
+          "functionalDepth": "capsuleOnly"
+        },
+        "mainMenu": {
+          "chromeProvider": "default",
+          "template": "mainMenu.html",
+          "skinCss": "mainMenu.skin.css",
+          "functionalDepth": "partial"
+        },
         "spectacle": {
           "chromeProvider": "default",
           "template": "spectacle_kde_neon.html",
@@ -3221,7 +3269,7 @@
           "labelFr": "Firefox",
           "priorite": "P0",
           "slot": "firefox",
-          "statut": "partiel",
+          "statut": "ok",
           "requiresSlot": true,
           "placement": {
             "dash": false,
@@ -3234,7 +3282,7 @@
           "labelFr": "Konsole",
           "priorite": "P0",
           "slot": "terminal",
-          "statut": "partiel",
+          "statut": "ok",
           "requiresSlot": true,
           "placement": {
             "dash": false,
@@ -3247,7 +3295,7 @@
           "labelFr": "Configuration du système",
           "priorite": "P0",
           "slot": "themes",
-          "statut": "partiel",
+          "statut": "ok",
           "requiresSlot": true,
           "placement": {
             "dash": false,
@@ -3299,7 +3347,7 @@
           "labelFr": "Lecteur vidéo",
           "priorite": "P0",
           "slot": "lecteur_multimedia",
-          "statut": "partiel",
+          "statut": "ok",
           "requiresSlot": true,
           "placement": {
             "dash": false,
@@ -3325,7 +3373,7 @@
           "labelFr": "Kate",
           "priorite": "P0",
           "slot": "text_editor",
-          "statut": "partiel",
+          "statut": "ok",
           "requiresSlot": true,
           "placement": {
             "dash": false,

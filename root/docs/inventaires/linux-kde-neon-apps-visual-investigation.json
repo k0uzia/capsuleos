@@ -1,0 +1,769 @@
+{
+  "version": 2,
+  "registryId": "linux-kde-neon",
+  "updatedAt": "2026-06-13T21:01:12.166Z",
+  "procedure": "procedure-apps-replication-formelle.md",
+  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
+  "summary": {
+    "documentedP0": 7,
+    "vmCapturesP0": 0,
+    "componentShotsPlanned": 31,
+    "componentShotsCaptured": 0,
+    "capsuleCapturesP0": 0,
+    "visualMatchClassifiedP0": 0
+  },
+  "investigations": [
+    {
+      "controlId": "themes",
+      "labelFr": "Configuration du système",
+      "vmId": "systemsettings",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Paramètres",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.adw-preferences-page",
+          "gnome.adw-preferences-group"
+        ],
+        "acquisitionOrder": [
+          "sidebar-panels",
+          "wifi-row",
+          "display-panel",
+          "about-panel"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "sidebar-panels",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "sidebar panels",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "wifi-row",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "wifi row",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "display-panel",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "display panel",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "about-panel",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-preferences-page",
+            "gnome.adw-preferences-group"
+          ],
+          "labelFr": "about panel",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "update_manager",
+      "labelFr": "Discover",
+      "vmId": "org.kde.discover",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Logiciels (GNOME Software)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.software-search-toggle",
+          "gnome.software-hero",
+          "gnome.software-grid",
+          "gnome.software-detail-pane",
+          "gnome.gtk-search-entry"
+        ],
+        "acquisitionOrder": [
+          "explore-grid",
+          "featured-hero",
+          "category-heroes",
+          "updates-banner",
+          "app-detail",
+          "categories"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-fedora"
+      },
+      "componentShots": [
+        {
+          "shotId": "explore-grid",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "explore grid",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "featured-hero",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "featured hero",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "category-heroes",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "category heroes",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "updates-banner",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "updates banner",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "app-detail",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "app detail",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "categories",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.software-search-toggle",
+            "gnome.software-hero",
+            "gnome.software-grid",
+            "gnome.software-detail-pane",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "categories",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "nemo",
+      "labelFr": "Dolphin",
+      "vmId": "org.kde.dolphin",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Fichiers (Nautilus)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.adw-navigation-split",
+          "gnome.gtk-column-view",
+          "gnome.gtk-search-entry"
+        ],
+        "acquisitionOrder": [
+          "sidebar",
+          "column-headers",
+          "pathbar",
+          "context-menu-item",
+          "context-menu-background",
+          "trash"
+        ],
+        "chromeProvider": "nemo-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "sidebar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "sidebar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "column-headers",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "column headers",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "pathbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "pathbar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "context-menu-item",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "context menu item",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "context-menu-background",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "context menu background",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "trash",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.adw-navigation-split",
+            "gnome.gtk-column-view",
+            "gnome.gtk-search-entry"
+          ],
+          "labelFr": "trash",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "firefox",
+      "labelFr": "Firefox",
+      "vmId": "firefox",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Firefox",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.browser-chrome"
+        ],
+        "acquisitionOrder": [
+          "tab-bar",
+          "url-bar",
+          "bookmarks",
+          "menu-hamburger"
+        ],
+        "chromeProvider": "firefox-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "tab-bar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "tab bar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "url-bar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "url bar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "bookmarks",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "bookmarks",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "menu-hamburger",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.browser-chrome"
+          ],
+          "labelFr": "menu hamburger",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "kinfocenter",
+      "labelFr": "Informations système",
+      "vmId": "kinfocenter",
+      "parityPriority": "P1",
+      "status": "pending",
+      "composition": null,
+      "componentShots": [],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "text_editor",
+      "labelFr": "Kate",
+      "vmId": "org.kde.kate",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Éditeur de texte",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.monospace-editor"
+        ],
+        "acquisitionOrder": [
+          "menubar",
+          "editor-area",
+          "status-line",
+          "open-dialog"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "menubar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "menubar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "editor-area",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "editor area",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "status-line",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "status line",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "open-dialog",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.monospace-editor"
+          ],
+          "labelFr": "open dialog",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "terminal",
+      "labelFr": "Konsole",
+      "vmId": "org.kde.konsole",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Terminal (Ptyxis)",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.terminal-chrome"
+        ],
+        "acquisitionOrder": [
+          "headerbar",
+          "tab-strip",
+          "prompt-colors",
+          "preferences"
+        ],
+        "chromeProvider": "terminal-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "headerbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "headerbar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "tab-strip",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "tab strip",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "prompt-colors",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "prompt colors",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "preferences",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.terminal-chrome"
+          ],
+          "labelFr": "preferences",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "lecteur_multimedia",
+      "labelFr": "Lecteur vidéo",
+      "vmId": "vlc",
+      "parityPriority": "P0",
+      "status": "documented",
+      "composition": {
+        "labelFr": "Lecteur multimédia",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-toolbar-view",
+          "gnome.media-viewer"
+        ],
+        "acquisitionOrder": [
+          "transport-controls",
+          "playlist",
+          "album-art"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-ubuntu"
+      },
+      "componentShots": [
+        {
+          "shotId": "transport-controls",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "transport controls",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "playlist",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "playlist",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "album-art",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-toolbar-view",
+            "gnome.media-viewer"
+          ],
+          "labelFr": "album art",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
+    },
+    {
+      "controlId": "librewriter",
+      "labelFr": "LibreOffice Writer",
+      "vmId": "libreoffice-writer",
+      "parityPriority": "P1",
+      "status": "pending",
+      "composition": {
+        "labelFr": "LibreOffice Writer",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar"
+        ],
+        "acquisitionOrder": [
+          "menubar",
+          "toolbar",
+          "ruler",
+          "page-canvas"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-ubuntu"
+      },
+      "componentShots": [
+        {
+          "shotId": "menubar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar"
+          ],
+          "labelFr": "menubar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "toolbar",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar"
+          ],
+          "labelFr": "toolbar",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "ruler",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar"
+          ],
+          "labelFr": "ruler",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "page-canvas",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar"
+          ],
+          "labelFr": "page canvas",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "system_monitor",
+      "labelFr": "Moniteur système",
+      "vmId": "system_monitor",
+      "parityPriority": "P1",
+      "status": "pending",
+      "composition": {
+        "labelFr": "Moniteur système",
+        "components": [
+          "gnome.adw-application-window",
+          "gnome.adw-header-bar",
+          "gnome.system-metrics"
+        ],
+        "acquisitionOrder": [
+          "cpu-chart",
+          "memory-chart",
+          "process-table"
+        ],
+        "chromeProvider": "libadwaita-gnome",
+        "referenceRegistryId": "linux-rocky"
+      },
+      "componentShots": [
+        {
+          "shotId": "cpu-chart",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "cpu chart",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "memory-chart",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "memory chart",
+          "status": "pending",
+          "vmCapture": null
+        },
+        {
+          "shotId": "process-table",
+          "componentIds": [
+            "gnome.adw-application-window",
+            "gnome.adw-header-bar",
+            "gnome.system-metrics"
+          ],
+          "labelFr": "process table",
+          "status": "pending",
+          "vmCapture": null
+        }
+      ],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    },
+    {
+      "controlId": "spectacle",
+      "labelFr": "Spectacle",
+      "vmId": "spectacle",
+      "parityPriority": "P1",
+      "status": "pending",
+      "composition": null,
+      "componentShots": [],
+      "vmCaptures": [],
+      "capsuleCaptures": [],
+      "capsuleParity": {
+        "visualMatch": "unknown"
+      }
+    }
+  ]
+}

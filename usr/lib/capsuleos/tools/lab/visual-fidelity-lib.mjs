@@ -169,6 +169,12 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/fedora',
     cssFile: 'home/RedHat/Fedora/fedora-fonts.css',
   },
+  neon: {
+    uiFamily: 'Noto Sans',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/neon',
+    cssFile: 'home/Debian/KDE-Neon/neon-fonts.css',
+  },
 };
 
 export const collectTypographyFontsViaSsh = (registryId) => {
@@ -376,6 +382,7 @@ export const scanTypographyViolations = (registryId) => {
       ubuntu: ['Ubuntu-R.ttf', 'UbuntuMono-R.ttf'],
       fedora: ['AdwaitaSans-Regular.ttf', 'AdwaitaMono-BoldItalic.ttf'],
       rocky: ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'],
+      'kde-neon': ['NotoSans-Bold.ttf', 'Ubuntu[wdth,wght].ttf'],
     };
     const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {

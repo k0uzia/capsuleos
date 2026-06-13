@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-kde-neon",
   "toolkit": "kde",
-  "generatedAt": "2026-06-13T18:59:05.092Z",
+  "generatedAt": "2026-06-13T21:06:00.981Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-kde-neon-vm-apps-installed.json",
@@ -30,16 +30,11 @@
     "vmInstalled": 25,
     "catalogRows": 33,
     "p0Total": 7,
-    "p0Ok": 2,
-    "p0Gaps": 5,
+    "p0Ok": 7,
+    "p0Gaps": 0,
     "p1Gaps": 0,
     "p2Gaps": 0,
-    "nextGap": {
-      "labelFr": "Configuration du système",
-      "slot": "themes",
-      "priorite": "P0",
-      "statut": "partiel"
-    }
+    "nextGap": null
   },
   "rows": [
     {
@@ -55,7 +50,12 @@
       "placement": {
         "desktop": true
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "profile.html",
+        "skinCss": "profile.skin.css",
+        "functionalDepth": "full"
+      },
       "note": "CapsuleOnly"
     },
     {
@@ -184,8 +184,8 @@
       "labelFr": "Configuration du système",
       "priorite": "P0",
       "slotCapsule": "themes",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -195,7 +195,12 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "themes.html",
+        "skinCss": "themes.skin.css",
+        "functionalDepth": "partial"
+      },
       "note": null
     },
     {
@@ -294,8 +299,8 @@
       "labelFr": "Firefox",
       "priorite": "P0",
       "slotCapsule": "firefox",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -305,7 +310,12 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "firefox.html",
+        "skinCss": "firefox.skin.css",
+        "functionalDepth": "partial"
+      },
       "note": null
     },
     {
@@ -378,8 +388,8 @@
       "labelFr": "Kate",
       "priorite": "P0",
       "slotCapsule": "text_editor",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -389,7 +399,12 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "text_editor.html",
+        "skinCss": "text_editor.skin.css",
+        "functionalDepth": "partial"
+      },
       "note": null
     },
     {
@@ -438,8 +453,8 @@
       "labelFr": "Konsole",
       "priorite": "P0",
       "slotCapsule": "terminal",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -449,7 +464,12 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "terminal.html",
+        "skinCss": "terminal.skin.css",
+        "functionalDepth": "full"
+      },
       "note": null
     },
     {
@@ -478,8 +498,8 @@
       "labelFr": "Lecteur vidéo",
       "priorite": "P0",
       "slotCapsule": "lecteur_multimedia",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -489,7 +509,12 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "lecteur_multimedia.html",
+        "skinCss": "lecteur_multimedia.skin.css",
+        "functionalDepth": "partial"
+      },
       "note": null
     },
     {
@@ -527,7 +552,12 @@
       "requiresSlot": false,
       "onVm": false,
       "placement": {},
-      "specs": null,
+      "specs": {
+        "chromeProvider": "default",
+        "template": "checklist.html",
+        "skinCss": "checklist.skin.css",
+        "functionalDepth": "capsuleOnly"
+      },
       "note": "CapsuleOnly"
     },
     {

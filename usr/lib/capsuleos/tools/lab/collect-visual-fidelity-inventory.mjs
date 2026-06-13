@@ -62,6 +62,11 @@ const main = () => {
       collectedFrom: a11y.collectedFrom,
       status: 'documented',
     };
+    const fontFromVm = a11y.vmGsettings?.['org.gnome.desktop.interface font-name'];
+    if (fontFromVm) {
+      merged.typography.vm = { ...merged.typography.vm, fontName: fontFromVm };
+      merged.typography.status = 'documented';
+    }
     merged.typography = {
       ...merged.typography,
       fontEmbedding: collectTypographyFontsViaSsh(opts.id),

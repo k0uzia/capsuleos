@@ -1,0 +1,9 @@
+{
+  "registryId": "linux-kde-neon",
+  "status": "done",
+  "updatedAt": "2026-06-13T21:06:02.127Z",
+  "gate": "run-apps-lab.mjs",
+  "playwright": false,
+  "vm": false,
+  "shell": false
+}

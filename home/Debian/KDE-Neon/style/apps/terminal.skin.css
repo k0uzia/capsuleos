@@ -104,7 +104,7 @@ body#kde-neon div[data-link="terminal"] #windowTitle {
     margin: 0 auto;
     overflow: hidden;
     color: var(--kde-neon-window-titlebar-fg-muted);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: var(--kde-neon-header-title-size);
     font-weight: 500;
     line-height: 1;
@@ -242,7 +242,7 @@ body#kde-neon div[data-link="terminal"] .capsule-terminal-toolbar__btn {
     border: 0;
     border-radius: 0.18rem;
     color: var(--konsole-chrome-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.74rem;
     font-weight: 500;
     line-height: 1;

@@ -36,6 +36,15 @@ const P0_TEMPLATE_MARKERS_BY_TOOLKIT = {
     themes: 'cs-app',
     terminal: 'capsule-terminal',
   },
+  kde: {
+    nemo: 'dolphin-app',
+    firefox: 'capsule-browser',
+    update_manager: 'kde-updates__sidebar',
+    themes: 'themesApp',
+    terminal: 'capsule-terminal-shell',
+    text_editor: 'xed-app',
+    lecteur_multimedia: 'celluloid-app',
+  },
 };
 
 const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
@@ -54,6 +63,15 @@ const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
     update_manager: '.update-manager, .update-manager__layout',
     themes: '#cinnamonSettingsApp.cs-app, .cs-app',
     terminal: '.capsule-terminal-shell, #terminalContainer',
+  },
+  kde: {
+    nemo: '.dolphin-app, .nemo-app__header',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.kde-updates, .kde-updates__sidebar, .update-manager--kde',
+    themes: '#themesApp, .themes-app',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+    text_editor: '.xed-app, #xedApp',
+    lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
   },
 };
 

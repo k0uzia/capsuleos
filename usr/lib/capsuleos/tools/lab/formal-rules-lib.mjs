@@ -128,6 +128,7 @@ export const recordFormalGate = (registryId, gate, ok, meta = {}) => {
 export const evaluateFormalRules = (registryId) => {
   const state = loadFormalState(registryId);
   const { gates } = state;
+  const toolkit = loadRecipeProfile(registryId).toolkit || 'gnome';
 
   const rules = [
     {
@@ -157,14 +158,18 @@ export const evaluateFormalRules = (registryId) => {
     {
       rule: 'R-SHELL-POLISH',
       when: () => gates.H6 && !gates.Shell1,
-      message: 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
-      command: 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
+      message: toolkit === 'kde'
+        ? 'H6 ∧ ¬Shell₁ — polish panel KDE / kickoff / Dolphin / Discover'
+        : 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
+      command: toolkit === 'kde'
+        ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+        : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
       gateOnSuccess: null,
     },
     {
       rule: 'R-SHELL2',
-      when: () => gates.H6 && gates.Shell1 && !gates.Shell2,
+      when: () => gates.H6 && gates.Shell1 && !gates.Shell2 && toolkit !== 'kde',
       message: 'H6 ∧ Shell₁ — polish Quick Settings + calendrier (P2 shell)',
       command: 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish-phase2.mjs && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
@@ -172,7 +177,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-LAB-SHELL',
-      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell,
+      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit !== 'kde',
       message: 'Smokes shell GNOME de référence',
       command: 'node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs && node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs',
       autoExecute: true,

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-13T21:05:23.042Z",
+  "updatedAt": "2026-06-13T21:55:31.060Z",
   "procedure": "convention-fidelite-visuelle.md",
   "contract": "etc/capsuleos/contracts/visual-fidelity.json",
   "typography": {

@@ -432,6 +432,23 @@ function syncKdeSettingsUiFromStorage(root) {
         contrastSwitch.classList.toggle('is-on', contrastOn);
         contrastSwitch.setAttribute('aria-checked', contrastOn ? 'true' : 'false');
     }
+    const reducedMotionOn = kc ? !kc.getBool('kdeglobals::KDE/AnimationDurationFactor', true) : false;
+    const reducedMotionSwitch = root.querySelector('[data-kde-setting="kde-reduced-motion"]');
+    if (reducedMotionSwitch) {
+        reducedMotionSwitch.classList.toggle('is-on', reducedMotionOn);
+        reducedMotionSwitch.setAttribute('aria-checked', reducedMotionOn ? 'true' : 'false');
+    }
+    const desktopIconsOn = kc ? kc.getBool('plasma-org.kde.plasma.desktop-appletsrc::DesktopIcons/Enabled', true) : true;
+    const desktopIconsSwitch = root.querySelector('[data-kde-setting="kde-desktop-icons"]');
+    if (desktopIconsSwitch) {
+        desktopIconsSwitch.classList.toggle('is-on', desktopIconsOn);
+        desktopIconsSwitch.setAttribute('aria-checked', desktopIconsOn ? 'true' : 'false');
+    }
+    const desktopAlign = kc ? kc.getCapsule('plasma-org.kde.plasma.desktop-appletsrc::DesktopIcons/Arrangement', '0') : '0';
+    const alignSelect = root.querySelector('[data-kde-setting="kde-desktop-align"]');
+    if (alignSelect) {
+        alignSelect.value = desktopAlign === '1' ? 'right' : 'left';
+    }
     if (window.CapsuleKdeSettingsParity && typeof window.CapsuleKdeSettingsParity.bindControls === 'function') {
         window.CapsuleKdeSettingsParity.bindControls(root);
     }
@@ -458,6 +475,11 @@ function bindKdeThemeChoices(root) {
                 entry.classList.toggle('is-active', active);
                 entry.setAttribute('aria-checked', active ? 'true' : 'false');
             });
+            if (window.CapsuleKdeSettingsParity
+                && window.CapsuleKdeSettingsParity.EFFECT_HANDLERS
+                && typeof window.CapsuleKdeSettingsParity.EFFECT_HANDLERS['kde-global-theme'] === 'function') {
+                window.CapsuleKdeSettingsParity.EFFECT_HANDLERS['kde-global-theme'](theme);
+            }
         });
     });
 }

@@ -1,7 +1,7 @@
 {
-  "version": 2,
-  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon (G-coherence Se+).",
-  "status": "phase-2b-g-coherence",
+  "version": 3,
+  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon (Se+ profondeur G-coherence).",
+  "status": "phase-2c-se-depth",
   "vm": {
     "registryId": "linux-kde-neon",
     "collectedAt": "2026-06-10T13:28:41Z"
@@ -13,7 +13,17 @@
       "priority": "P0",
       "effects": [
         { "capsuleKey": "kde-a11y-high-contrast", "layer": "Se-A11y", "event": "capsule:a11y-contrast-changed" },
-        { "capsuleKey": "kde-a11y-large-text", "layer": "Se-A11y", "event": "capsule:a11y-font-scale-changed" }
+        { "capsuleKey": "kde-a11y-large-text", "layer": "Se-A11y", "event": "capsule:a11y-font-scale-changed" },
+        { "capsuleKey": "kde-reduced-motion", "layer": "Se-A11y", "event": "capsule:reduced-motion-changed" }
+      ]
+    },
+    {
+      "id": "desktop",
+      "label": "Bureau",
+      "priority": "P0",
+      "effects": [
+        { "capsuleKey": "kde-desktop-icons", "layer": "Se-Desktop", "event": "capsule:desktop-icons-visibility-changed" },
+        { "capsuleKey": "kde-desktop-align", "layer": "Se-Desktop", "event": "capsule:desktop-align-changed" }
       ]
     },
     {
@@ -28,8 +38,9 @@
     {
       "id": "appearance",
       "label": "Apparence",
-      "priority": "P1",
+      "priority": "P0",
       "effects": [
+        { "capsuleKey": "kde-global-theme", "layer": "Se-Theme", "event": "capsule:global-theme-changed" },
         { "capsuleKey": "kde-panel-height", "layer": "Se-Shell", "event": "capsule:panel-height-changed" },
         { "capsuleKey": "kde-window-animations", "layer": "Se-WM", "event": "capsule:window-animations-changed" }
       ]

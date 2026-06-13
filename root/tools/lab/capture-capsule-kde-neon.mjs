@@ -12,8 +12,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const panelG8 = process.argv.includes('--panel-g8');
+const appsP0 = process.argv.includes('--apps-p0');
 const DEST = args[0] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
-const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
+const httpBase = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
+const URL = process.env.CAPSULE_KDE_NEON_URL || `${httpBase}/home/Debian/KDE-Neon/index.html`;
 const VIEWPORT = { width: 1211, height: 756 };
 const defaultChrome = [
   process.env.PLAYWRIGHT_CHROME,
@@ -403,7 +405,31 @@ const main = async () => {
     { file: 'capsule-tray-volume.png', trayPopover: 'volume' },
   ];
 
-  const shots = panelG8 ? panelShots : [
+  const appP0Shots = [
+    { file: 'capsule-systemsettings.png', slots: ['themes'] },
+    { file: 'capsule-dolphin.png', slots: ['nemo'] },
+    { file: 'capsule-firefox.png', slots: ['firefox'] },
+    { file: 'capsule-terminal.png', slots: ['terminal'] },
+    { file: 'capsule-kate.png', slots: ['text_editor'] },
+    { file: 'capsule-discover.png', slots: ['update_manager'] },
+    { file: 'capsule-vlc.png', slots: ['lecteur_multimedia'] },
+    { file: 'capsule-gwenview.png', slots: ['visionneur_images'] },
+    { file: 'capsule-okular.png', slots: ['visionneur_pdf'] },
+  ];
+
+  const slotAliasMap = {
+    'capsule-systemsettings.png': 'themes.png',
+    'capsule-dolphin.png': 'nemo.png',
+    'capsule-firefox.png': 'firefox.png',
+    'capsule-terminal.png': 'terminal.png',
+    'capsule-kate.png': 'text_editor.png',
+    'capsule-discover.png': 'update_manager.png',
+    'capsule-vlc.png': 'lecteur_multimedia.png',
+    'capsule-gwenview.png': 'visionneur_images.png',
+    'capsule-okular.png': 'visionneur_pdf.png',
+  };
+
+  const shots = appsP0 ? appP0Shots : panelG8 ? panelShots : [
     ...panelShots,
     { file: 'capsule-dolphin.png', slots: ['nemo'] },
     { file: 'capsule-dolphin-compact.png', slots: ['nemo'], dolphinViewMode: 'compact' },
@@ -484,6 +510,12 @@ const main = async () => {
     const out = path.join(DEST, scene.file);
     await page.screenshot({ path: out, fullPage: false });
     process.stdout.write(`  → ${out} (${fs.statSync(out).size} octets)\n`);
+    const alias = slotAliasMap[scene.file];
+    if (alias) {
+      const aliasPath = path.join(DEST, alias);
+      fs.copyFileSync(out, aliasPath);
+      process.stdout.write(`  → ${aliasPath} (alias)\n`);
+    }
   }
 
   await browser.close();

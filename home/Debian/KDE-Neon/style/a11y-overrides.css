@@ -92,3 +92,25 @@ html[data-contrast-mode="high"] body#kde-neon #mainMenu .menu-action img {
     filter: none;
     opacity: 1;
 }
+
+html[data-reduced-motion="true"] #kde-neon *,
+html[data-reduced-motion="true"] #kde-neon *::before,
+html[data-reduced-motion="true"] #kde-neon *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+body#kde-neon[data-plasma-desktop-icons="false"] #desktop .desktop-shortcut {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body#kde-neon[data-plasma-desktop-align="right"] #desktop {
+    text-align: right;
+}
+
+body#kde-neon[data-plasma-desktop-align="right"] #desktop .desktop-shortcut {
+    align-items: flex-end;
+}

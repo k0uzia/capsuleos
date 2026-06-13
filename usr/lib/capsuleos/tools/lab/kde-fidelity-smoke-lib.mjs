@@ -15,6 +15,8 @@ export const resolveKdeNeonUrl = () =>
 export const findChromePath = () =>
   [
     process.env.PLAYWRIGHT_CHROME,
+    `${process.env.HOME}/.cache/ms-playwright/chromium_headless_shell-1223/chrome-linux64/headless_shell`,
+    `${process.env.HOME}/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome`,
     '/usr/bin/google-chrome',
     '/usr/bin/chromium-browser',
     `${process.env.HOME}/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome`,

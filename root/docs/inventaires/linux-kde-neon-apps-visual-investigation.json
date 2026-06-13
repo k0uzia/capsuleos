@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-13T21:46:46.106Z",
+  "updatedAt": "2026-06-13T23:00:50.507Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -9,7 +9,7 @@
     "vmCapturesP0": 0,
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 0,
-    "capsuleCapturesP0": 0,
+    "capsuleCapturesP0": 7,
     "visualMatchClassifiedP0": 4,
     "capsuleCapturesP1": 0,
     "capsuleCapturesP2": 0,
@@ -91,7 +91,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "unknown"
       },
@@ -218,7 +223,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/update_manager.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "unknown"
       },
@@ -331,7 +341,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/nemo.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial"
       },
@@ -401,7 +416,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/firefox.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial"
       },
@@ -485,7 +505,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/text_editor.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial"
       },
@@ -555,7 +580,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/terminal.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "partial"
       },
@@ -618,7 +648,12 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/lecteur_multimedia.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
         "visualMatch": "unknown"
       },

@@ -82,7 +82,11 @@
     "spectacle",
     "kinfocenter",
     "system_monitor",
-    "themes"
+    "themes",
+    "text_editor",
+    "visionneur_images",
+    "visionneur_pdf",
+    "lecteur_multimedia"
   ],
   "scenariosPerApp": 3
 }

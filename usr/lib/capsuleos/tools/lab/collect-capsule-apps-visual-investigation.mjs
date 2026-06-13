@@ -10,12 +10,13 @@
 import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
-import { appsPathsForRegistry, capsuleCaptureCandidates } from './apps-replication-lib.mjs';
+import { appsPathsForRegistry, findCapsuleCapture } from './apps-replication-lib.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const GNOME_RHEL_CAPTURE_IDS = ['linux-rocky', 'linux-alma', 'linux-fedora'];
+const KDE_NEON_CAPTURE_IDS = ['linux-kde-neon'];
 
 const PRIORITIES = ['P0', 'P1', 'P2'];
 
@@ -67,14 +68,31 @@ const main = () => {
     }
   }
 
+  if (KDE_NEON_CAPTURE_IDS.includes(opts.id)) {
+    const script = path.join(ROOT, 'root/tools/lab/capture-capsule-kde-neon.mjs');
+    if (fs.existsSync(script)) {
+      const dest = paths.capsuleCapturesDir;
+      fs.mkdirSync(dest, { recursive: true });
+      const res = spawnSync(process.execPath, [script, dest, '--apps-p0'], {
+        cwd: ROOT,
+        stdio: 'inherit',
+        env: {
+          ...process.env,
+          CAPSULE_HTTP_BASE: httpBase,
+          CAPSULE_KDE_NEON_URL: resolveCapsuleOsUrl(opts.id, httpBase),
+        },
+      });
+      if (res.status !== 0) process.exit(res.status || 1);
+    }
+  }
+
   const inv = JSON.parse(fs.readFileSync(paths.appsVisualInvestigation, 'utf8'));
   const priorities = prioritiesForFilter(opts.filter);
 
   for (const item of inv.investigations || []) {
     if (!priorities.includes(item.parityPriority) || item.status !== 'documented') continue;
     const slot = item.controlId;
-    const candidates = capsuleCaptureCandidates(slot).map((name) => path.join(paths.capsuleCapturesDir, name));
-    const found = candidates.find((p) => fs.existsSync(p));
+    const found = findCapsuleCapture(opts.id, slot, paths);
     if (found) {
       item.capsuleCaptures = [{ path: found.replace(`${ROOT}/`, ''), shot: 'default' }];
     }

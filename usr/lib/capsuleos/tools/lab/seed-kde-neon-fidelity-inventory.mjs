@@ -593,6 +593,412 @@ const buildScenarios = () => {
     ),
   );
 
+  list.push(
+    scenario(
+      'text_editor-open-kate',
+      'text_editor',
+      'utilisateur dev — ouvrir Kate',
+      ['Ouvrir Kate depuis kickoff', 'Zone édition visible'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'text_editor' },
+          { type: 'wait', ms: 500 },
+        ],
+        assertions: [
+          { type: 'slotVisible', slot: 'text_editor' },
+          { type: 'evalTruthy', expr: 'document.querySelector("div[data-link=\\"text_editor\\"] #xedApp, div[data-link=\\"text_editor\\"] .xed-app") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'text_editor-menubar',
+      'text_editor',
+      'utilisateur dev — barre menus Kate/Xed',
+      ['Ouvrir Kate', 'Barre de menus visible'],
+      {
+        prep: [{ type: 'openSlot', slot: 'text_editor' }],
+        actions: [{ type: 'wait', ms: 400 }],
+        assertions: [
+          { type: 'selectorVisible', selector: 'div[data-link="text_editor"] .xed-app__menubar' },
+        ],
+      },
+    ),
+    scenario(
+      'text_editor-kickoff-entry',
+      'text_editor',
+      'utilisateur dev — entrée kickoff Kate',
+      ['Ouvrir Kickoff', 'Catégorie Développement', 'Entrée Kate présente'],
+      {
+        prep: [
+          { type: 'openKickoff' },
+          { type: 'click', selector: '#mainMenu .menu-cat[data-cat-id="dev"]' },
+          { type: 'wait', ms: 250 },
+        ],
+        actions: [{ type: 'wait', ms: 100 }],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#mainMenu .menu-app-item[data-menu-app-link=\\"text_editor\\"]") !== null' },
+        ],
+      },
+    ),
+  );
+
+  list.push(
+    scenario(
+      'gwenview-open-gallery',
+      'visionneur_images',
+      'utilisateur média — ouvrir Gwenview',
+      ['Lancer Gwenview', 'Vue galerie vide ou image'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'visionneur_images' },
+          { type: 'wait', ms: 500 },
+        ],
+        assertions: [
+          { type: 'slotVisible', slot: 'visionneur_images' },
+          { type: 'selectorVisible', selector: '#gwenviewApp, [data-gwenview-app]' },
+        ],
+      },
+    ),
+    scenario(
+      'gwenview-zoom-in',
+      'visionneur_images',
+      'utilisateur média — zoom Gwenview',
+      ['Ouvrir Gwenview', 'Cliquer zoom avant', 'Indicateur zoom mis à jour'],
+      {
+        prep: [{ type: 'openSlot', slot: 'visionneur_images' }],
+        actions: [
+          { type: 'click', selector: '[data-gwenview-action="zoom-in"]' },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: '(document.querySelector("#gwenview-zoom")?.textContent || "").includes("%")' },
+        ],
+      },
+    ),
+    scenario(
+      'gwenview-kickoff-entry',
+      'visionneur_images',
+      'utilisateur média — entrée kickoff Gwenview',
+      ['Ouvrir Kickoff', 'Catégorie Graphisme', 'Entrée Gwenview'],
+      {
+        prep: [
+          { type: 'openKickoff' },
+          { type: 'click', selector: '#mainMenu .menu-cat[data-cat-id="graph"]' },
+          { type: 'wait', ms: 250 },
+        ],
+        actions: [{ type: 'wait', ms: 100 }],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#mainMenu .menu-app-item[data-menu-app-link=\\"visionneur_images\\"]") !== null' },
+        ],
+      },
+    ),
+  );
+
+  list.push(
+    scenario(
+      'okular-open-pdf',
+      'visionneur_pdf',
+      'utilisateur bureautique — ouvrir Okular',
+      ['Lancer Okular', 'Barre outils PDF visible'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'visionneur_pdf' },
+          { type: 'wait', ms: 500 },
+        ],
+        assertions: [
+          { type: 'slotVisible', slot: 'visionneur_pdf' },
+          { type: 'selectorVisible', selector: '#okularApp, [data-okular-app]' },
+        ],
+      },
+    ),
+    scenario(
+      'okular-sidebar-toggle',
+      'visionneur_pdf',
+      'utilisateur bureautique — miniatures Okular',
+      ['Ouvrir Okular', 'Basculer panneau miniatures'],
+      {
+        prep: [{ type: 'openSlot', slot: 'visionneur_pdf' }],
+        actions: [
+          { type: 'click', selector: '[data-okular-action="sidebar"]' },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#okular-sidebar[hidden]") !== null || document.querySelector("[data-okular-action=\\"sidebar\\"][aria-pressed=\\"false\\"]") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'okular-kickoff-entry',
+      'visionneur_pdf',
+      'utilisateur bureautique — entrée kickoff Okular',
+      ['Ouvrir Kickoff', 'Catégorie Bureau', 'Entrée Okular'],
+      {
+        prep: [
+          { type: 'openKickoff' },
+          { type: 'click', selector: '#mainMenu .menu-cat[data-cat-id="bureau"]' },
+          { type: 'wait', ms: 250 },
+        ],
+        actions: [{ type: 'wait', ms: 100 }],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#mainMenu .menu-app-item[data-menu-app-link=\\"visionneur_pdf\\"]") !== null' },
+        ],
+      },
+    ),
+  );
+
+  list.push(
+    scenario(
+      'vlc-open-player',
+      'lecteur_multimedia',
+      'utilisateur média — ouvrir VLC',
+      ['Lancer VLC', 'Chrome lecteur visible'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'lecteur_multimedia' },
+          { type: 'wait', ms: 500 },
+        ],
+        assertions: [
+          { type: 'slotVisible', slot: 'lecteur_multimedia' },
+          { type: 'evalTruthy', expr: 'document.querySelector("div[data-link=\\"lecteur_multimedia\\"] #lecteurMultimedia, div[data-link=\\"lecteur_multimedia\\"] .celluloid-app") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'vlc-playback-controls',
+      'lecteur_multimedia',
+      'utilisateur média — contrôles VLC',
+      ['Ouvrir VLC', 'Barre contrôles lecture visible'],
+      {
+        prep: [{ type: 'openSlot', slot: 'lecteur_multimedia' }],
+        actions: [{ type: 'wait', ms: 300 }],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("div[data-link=\\"lecteur_multimedia\\"] .celluloid-app__ctl--play, div[data-link=\\"lecteur_multimedia\\"] .celluloid-app__controls") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'vlc-kickoff-entry',
+      'lecteur_multimedia',
+      'utilisateur média — entrée kickoff VLC',
+      ['Ouvrir Kickoff', 'Catégorie Multimédia', 'Entrée VLC'],
+      {
+        prep: [
+          { type: 'openKickoff' },
+          { type: 'click', selector: '#mainMenu .menu-cat[data-cat-id="sonvideo"]' },
+          { type: 'wait', ms: 250 },
+        ],
+        actions: [{ type: 'wait', ms: 100 }],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#mainMenu .menu-app-item[data-menu-app-link=\\"lecteur_multimedia\\"]") !== null' },
+        ],
+      },
+    ),
+  );
+
+  list.push(
+    scenario(
+      'themes-settings-navigation',
+      'themes',
+      'utilisateur — navigation Paramètres système KDE',
+      ['Ouvrir Paramètres', 'Naviguer Espace de travail', 'Panneau visible'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'themes' },
+          { type: 'wait', ms: 600 },
+          { type: 'click', selector: '[data-kde-panel="workspace"]:not([disabled])' },
+          { type: 'wait', ms: 300 },
+        ],
+        assertions: [
+          { type: 'slotVisible', slot: 'themes' },
+          { type: 'evalTruthy', expr: '!!document.querySelector(\'[data-kde-panel-content="workspace"]:not([hidden])\')' },
+        ],
+      },
+      { campaign: 'g-coherence' },
+    ),
+    scenario(
+      'themes-global-dark',
+      'themes',
+      'utilisateur — thème sombre global',
+      ['Ouvrir Paramètres', 'Activer thème Sombre', 'html[data-theme=dark]'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'themes' },
+          { type: 'wait', ms: 600 },
+          { type: 'click', selector: '[data-kde-theme-option="dark"]' },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.documentElement.dataset.theme === "dark"' },
+        ],
+      },
+    ),
+    scenario(
+      'themes-reduced-motion',
+      'themes',
+      'utilisateur — réduire animations Paramètres',
+      ['Ouvrir Paramètres', 'Accessibilité', 'Activer réduire animations'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'themes' },
+          { type: 'wait', ms: 600 },
+          { type: 'click', selector: '[data-kde-panel="accessibility"]:not([disabled])' },
+          { type: 'wait', ms: 300 },
+          { type: 'click', selector: '[data-kde-setting="kde-reduced-motion"]' },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.documentElement.dataset.reducedMotion === "true"' },
+        ],
+      },
+    ),
+    scenario(
+      'themes-desktop-icons-hide',
+      'themes',
+      'utilisateur — masquer icônes bureau',
+      ['Ouvrir Paramètres', 'Bureau', 'Désactiver icônes bureau'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'themes' },
+          { type: 'wait', ms: 600 },
+          { type: 'click', selector: '[data-kde-panel="desktop"]:not([disabled])' },
+          { type: 'wait', ms: 300 },
+          { type: 'click', selector: '[data-kde-setting="kde-desktop-icons"]' },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.body.dataset.plasmaDesktopIcons === "false"' },
+        ],
+      },
+    ),
+  );
+
+  list.push(
+    scenario(
+      'discover-install-complete',
+      'update_manager',
+      'utilisateur — installation VLC depuis Discover',
+      ['Ouvrir Discover', 'Installer VLC', 'Meta store persistée'],
+      {
+        prep: [
+          { type: 'eval', expr: "sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');" },
+        ],
+        actions: [
+          { type: 'openSlot', slot: 'update_manager' },
+          { type: 'wait', ms: 800 },
+          { type: 'click', selector: '[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]' },
+          { type: 'wait', ms: 400 },
+          { type: 'click', selector: '[data-discover-app-install="vlc"], [data-discover-install="vlc"], button[data-discover-action="install"]' },
+          { type: 'wait', ms: 4000 },
+        ],
+        assertions: [
+          {
+            type: 'evalTruthy',
+            expr: 'document.querySelector("[data-discover-app-open=\\"lecteur_multimedia\\"], [data-discover-app-open=\\"vlc\\"]") !== null || document.querySelector(".kde-discover-app-detail__action.is-installed") !== null',
+          },
+        ],
+      },
+      { campaign: 'g-coherence' },
+    ),
+    scenario(
+      'panel-height-effect',
+      'panel',
+      'utilisateur — hauteur panneau via Paramètres',
+      ['Ouvrir Paramètres', 'Changer hauteur 48px', 'dataset body'],
+      {
+        actions: [
+          { type: 'openSlot', slot: 'themes' },
+          { type: 'wait', ms: 600 },
+          {
+            type: 'eval',
+            expr: "var sel=document.querySelector('[data-kde-setting=\"kde-panel-height\"]'); if(sel){sel.value='48';sel.dispatchEvent(new Event('change',{bubbles:true}));}",
+          },
+          { type: 'wait', ms: 200 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: "document.body.dataset.plasmaPanelHeight === '48'" },
+        ],
+      },
+      { campaign: 'g-coherence' },
+    ),
+    scenario(
+      'dolphin-compact-view',
+      'nemo',
+      'utilisateur fichiers — vue compacte Dolphin',
+      ['Ouvrir Dolphin', 'Basculer vue compacte'],
+      {
+        prep: [{ type: 'openSlot', slot: 'nemo' }],
+        actions: [
+          { type: 'eval', expr: 'if(window.setFileExplorerViewMode){window.setFileExplorerViewMode("compact");}' },
+          { type: 'wait', ms: 400 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("div[data-link=\\"nemo\\"] .nemo-app__content-grid--compact") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'kickoff-launch-dolphin',
+      'kickoff',
+      'utilisateur bureau — lancer Dolphin depuis kickoff',
+      ['Ouvrir Kickoff', 'Cliquer Dolphin', 'Fenêtre fichiers visible'],
+      {
+        prep: [{ type: 'openKickoff' }],
+        actions: [
+          { type: 'click', selector: '#mainMenu .menu-app-item[data-menu-app-link="nemo"]' },
+          { type: 'wait', ms: 500 },
+        ],
+        assertions: [{ type: 'slotVisible', slot: 'nemo' }],
+      },
+    ),
+    scenario(
+      'tray-network-popover',
+      'tray',
+      'utilisateur bureau — popover réseau tray',
+      ['Cliquer icône réseau', 'Popover connexions visible'],
+      {
+        actions: [
+          { type: 'click', selector: '#tray-btn-network' },
+          { type: 'wait', ms: 300 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("#kde-tray-popover-network:not([hidden])") !== null' },
+        ],
+      },
+    ),
+    scenario(
+      'firefox-private-window',
+      'firefox',
+      'utilisateur web — navigation privée Firefox',
+      ['Ouvrir Firefox', 'Cliquer navigation privée ou nouvel onglet privé'],
+      {
+        prep: [{ type: 'openSlot', slot: 'firefox' }],
+        actions: [
+          { type: 'click', selector: 'div[data-link="firefox"] [data-browser-action="private-window"], div[data-link="firefox"] [data-browser-action="new-tab"]' },
+          { type: 'wait', ms: 300 },
+        ],
+        assertions: [
+          { type: 'selectorMin', selector: 'div[data-link="firefox"] [data-browser-tab-id]', min: 1 },
+        ],
+      },
+    ),
+    scenario(
+      'discover-installed-tab',
+      'update_manager',
+      'utilisateur logiciels — onglet installées Discover',
+      ['Ouvrir Discover', 'Naviguer Installées'],
+      {
+        prep: [{ type: 'openSlot', slot: 'update_manager' }],
+        actions: [
+          { type: 'click', selector: '[data-discover-nav="installed"], .kde-discover-nav__item[data-view="installed"]' },
+          { type: 'wait', ms: 400 },
+        ],
+        assertions: [
+          { type: 'evalTruthy', expr: 'document.querySelector("[data-discover-installed-mount], .kde-discover-installed") !== null' },
+        ],
+      },
+    ),
+  );
+
   return list;
 };
 
@@ -608,6 +1014,11 @@ const APP_LABELS = {
   spectacle: 'Spectacle',
   kinfocenter: 'Centre d\'informations',
   system_monitor: 'Surveillance du système',
+  themes: 'Paramètres système',
+  text_editor: 'Kate',
+  visionneur_images: 'Gwenview',
+  visionneur_pdf: 'Okular',
+  lecteur_multimedia: 'VLC',
 };
 
 const buildInventory = () => {

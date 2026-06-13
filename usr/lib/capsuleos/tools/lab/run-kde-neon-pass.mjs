@@ -13,11 +13,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 
+import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const REGISTRY_ID = 'linux-kde-neon';
 const write = process.argv.includes('--write');
 const skipRuntime = process.argv.includes('--skip-runtime');
-const httpBase = process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500';
+const httpBase = process.env.CAPSULE_HTTP_BASE || resolveCapsuleHttpBase(REGISTRY_ID);
 
 const env = { ...process.env, CAPSULE_HTTP_BASE: httpBase };
 

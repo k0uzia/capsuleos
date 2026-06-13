@@ -10,8 +10,31 @@ const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/apps-replication-
 
 export const loadAppsReplicationContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
 
+/** Noms de fichiers capture Capsule KDE Neon (capture-capsule-kde-neon.mjs + baseline). */
+const KDE_NEON_CAPTURE_ALIASES = {
+  themes: ['capsule-systemsettings.png', 'themes.png'],
+  nemo: ['capsule-dolphin.png', '03-dolphin.png', 'nemo.png'],
+  firefox: ['capsule-firefox.png', '04-firefox.png', 'firefox.png'],
+  terminal: ['capsule-terminal.png', '05-terminal.png', 'terminal.png'],
+  update_manager: ['capsule-discover.png', '06-discover.png', 'update_manager.png'],
+  text_editor: ['capsule-kate.png', 'text_editor.png'],
+  lecteur_multimedia: ['capsule-vlc.png', '07-discover-detail-vlc.png', 'lecteur_multimedia.png'],
+  visionneur_images: ['capsule-gwenview.png', 'visionneur_images.png'],
+  visionneur_pdf: ['capsule-okular.png', 'visionneur_pdf.png'],
+  spectacle: ['capsule-spectacle.png'],
+  kinfocenter: ['capsule-kinfocenter.png'],
+  system_monitor: ['capsule-system-monitor.png'],
+};
+
 /** Noms de fichiers capture Capsule par controlId (préfixe rocky-capsule-dark-*). */
-export const capsuleCaptureCandidates = (controlId) => {
+export const capsuleCaptureCandidates = (controlId, registryId = 'linux-rocky') => {
+  if (registryId === 'linux-kde-neon') {
+    return [
+      `${controlId}.png`,
+      `capsule-${controlId}.png`,
+      ...(KDE_NEON_CAPTURE_ALIASES[controlId] || []),
+    ];
+  }
   const aliases = {
     nemo: ['rocky-capsule-dark-nautilus.png', 'rocky-capsule-light-nautilus.png'],
     firefox: ['rocky-capsule-dark-firefox.png', 'rocky-capsule-light-firefox.png'],
@@ -82,6 +105,45 @@ export const capsuleCaptureCandidates = (controlId) => {
     `rocky-capsule-dark-${controlId}.png`,
     ...(aliases[controlId] || []),
   ];
+};
+
+export const capsuleCaptureSearchDirs = (registryId, paths) => {
+  const dirs = [paths.capsuleCapturesDir];
+  if (registryId !== 'linux-kde-neon') {
+    return dirs;
+  }
+  dirs.push(path.join(ROOT, 'home/public/Images/screen_KDE-Neon'));
+  const captureRoot = path.join(ROOT, 'root/docs/inventaires/captures/linux-kde-neon');
+  if (fs.existsSync(captureRoot)) {
+    for (const entry of fs.readdirSync(captureRoot, { withFileTypes: true })) {
+      if (entry.isDirectory() && entry.name !== 'baseline' && entry.name !== 'apps-visual-capsule' && entry.name !== 'apps-visual') {
+        dirs.push(path.join(captureRoot, entry.name));
+      }
+    }
+  }
+  const manifestPath = path.join(captureRoot, 'baseline/manifest.json');
+  if (fs.existsSync(manifestPath)) {
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    for (const cap of manifest.captures || []) {
+      if (cap.file) {
+        dirs.push(path.dirname(path.join(ROOT, cap.file)));
+      }
+    }
+  }
+  return [...new Set(dirs)];
+};
+
+export const findCapsuleCapture = (registryId, controlId, paths) => {
+  const candidates = capsuleCaptureCandidates(controlId, registryId);
+  for (const dir of capsuleCaptureSearchDirs(registryId, paths)) {
+    for (const name of candidates) {
+      const abs = path.join(dir, name);
+      if (fs.existsSync(abs)) {
+        return abs;
+      }
+    }
+  }
+  return null;
 };
 
 export const appsPathsForRegistry = (registryId) => ({

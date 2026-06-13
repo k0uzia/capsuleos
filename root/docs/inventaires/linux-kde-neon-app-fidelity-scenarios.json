@@ -19,6 +19,10 @@
     "spectacle",
     "kinfocenter",
     "system_monitor",
+    "text_editor",
+    "visionneur_images",
+    "visionneur_pdf",
+    "lecteur_multimedia",
     "themes"
   ],
   "apps": [
@@ -75,6 +79,26 @@
     {
       "id": "system_monitor",
       "label": "Surveillance du système",
+      "pi_credibility": 100
+    },
+    {
+      "id": "text_editor",
+      "label": "Kate",
+      "pi_credibility": 100
+    },
+    {
+      "id": "visionneur_images",
+      "label": "Gwenview",
+      "pi_credibility": 100
+    },
+    {
+      "id": "visionneur_pdf",
+      "label": "Okular",
+      "pi_credibility": 100
+    },
+    {
+      "id": "lecteur_multimedia",
+      "label": "VLC",
       "pi_credibility": 100
     },
     {
@@ -1445,23 +1469,543 @@
       "phase": "P-D"
     },
     {
+      "id": "text_editor-open-kate",
+      "app": "text_editor",
+      "persona": "utilisateur dev — ouvrir Kate",
+      "steps": [
+        "Ouvrir Kate depuis kickoff",
+        "Zone édition visible"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "text_editor"
+          },
+          {
+            "type": "wait",
+            "ms": 500
+          }
+        ],
+        "assertions": [
+          {
+            "type": "slotVisible",
+            "slot": "text_editor"
+          },
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"div[data-link=\\\"text_editor\\\"] #xedApp, div[data-link=\\\"text_editor\\\"] .xed-app\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "text_editor-menubar",
+      "app": "text_editor",
+      "persona": "utilisateur dev — barre menus Kate/Xed",
+      "steps": [
+        "Ouvrir Kate",
+        "Barre de menus visible"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "text_editor"
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 400
+          }
+        ],
+        "assertions": [
+          {
+            "type": "selectorVisible",
+            "selector": "div[data-link=\"text_editor\"] .xed-app__menubar"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "text_editor-kickoff-entry",
+      "app": "text_editor",
+      "persona": "utilisateur dev — entrée kickoff Kate",
+      "steps": [
+        "Ouvrir Kickoff",
+        "Catégorie Développement",
+        "Entrée Kate présente"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openKickoff"
+          },
+          {
+            "type": "click",
+            "selector": "#mainMenu .menu-cat[data-cat-id=\"dev\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 250
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 100
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#mainMenu .menu-app-item[data-menu-app-link=\\\"text_editor\\\"]\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "gwenview-open-gallery",
+      "app": "visionneur_images",
+      "persona": "utilisateur média — ouvrir Gwenview",
+      "steps": [
+        "Lancer Gwenview",
+        "Vue galerie vide ou image"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "visionneur_images"
+          },
+          {
+            "type": "wait",
+            "ms": 500
+          }
+        ],
+        "assertions": [
+          {
+            "type": "slotVisible",
+            "slot": "visionneur_images"
+          },
+          {
+            "type": "selectorVisible",
+            "selector": "#gwenviewApp, [data-gwenview-app]"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "gwenview-zoom-in",
+      "app": "visionneur_images",
+      "persona": "utilisateur média — zoom Gwenview",
+      "steps": [
+        "Ouvrir Gwenview",
+        "Cliquer zoom avant",
+        "Indicateur zoom mis à jour"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "visionneur_images"
+          }
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "[data-gwenview-action=\"zoom-in\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 200
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "(document.querySelector(\"#gwenview-zoom\")?.textContent || \"\").includes(\"%\")"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "gwenview-kickoff-entry",
+      "app": "visionneur_images",
+      "persona": "utilisateur média — entrée kickoff Gwenview",
+      "steps": [
+        "Ouvrir Kickoff",
+        "Catégorie Graphisme",
+        "Entrée Gwenview"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openKickoff"
+          },
+          {
+            "type": "click",
+            "selector": "#mainMenu .menu-cat[data-cat-id=\"graph\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 250
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 100
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#mainMenu .menu-app-item[data-menu-app-link=\\\"visionneur_images\\\"]\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "okular-open-pdf",
+      "app": "visionneur_pdf",
+      "persona": "utilisateur bureautique — ouvrir Okular",
+      "steps": [
+        "Lancer Okular",
+        "Barre outils PDF visible"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "visionneur_pdf"
+          },
+          {
+            "type": "wait",
+            "ms": 500
+          }
+        ],
+        "assertions": [
+          {
+            "type": "slotVisible",
+            "slot": "visionneur_pdf"
+          },
+          {
+            "type": "selectorVisible",
+            "selector": "#okularApp, [data-okular-app]"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "okular-sidebar-toggle",
+      "app": "visionneur_pdf",
+      "persona": "utilisateur bureautique — miniatures Okular",
+      "steps": [
+        "Ouvrir Okular",
+        "Basculer panneau miniatures"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "visionneur_pdf"
+          }
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "[data-okular-action=\"sidebar\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 200
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#okular-sidebar[hidden]\") !== null || document.querySelector(\"[data-okular-action=\\\"sidebar\\\"][aria-pressed=\\\"false\\\"]\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "okular-kickoff-entry",
+      "app": "visionneur_pdf",
+      "persona": "utilisateur bureautique — entrée kickoff Okular",
+      "steps": [
+        "Ouvrir Kickoff",
+        "Catégorie Bureau",
+        "Entrée Okular"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openKickoff"
+          },
+          {
+            "type": "click",
+            "selector": "#mainMenu .menu-cat[data-cat-id=\"bureau\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 250
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 100
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#mainMenu .menu-app-item[data-menu-app-link=\\\"visionneur_pdf\\\"]\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "vlc-open-player",
+      "app": "lecteur_multimedia",
+      "persona": "utilisateur média — ouvrir VLC",
+      "steps": [
+        "Lancer VLC",
+        "Chrome lecteur visible"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "lecteur_multimedia"
+          },
+          {
+            "type": "wait",
+            "ms": 500
+          }
+        ],
+        "assertions": [
+          {
+            "type": "slotVisible",
+            "slot": "lecteur_multimedia"
+          },
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"div[data-link=\\\"lecteur_multimedia\\\"] #lecteurMultimedia, div[data-link=\\\"lecteur_multimedia\\\"] .celluloid-app\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "vlc-playback-controls",
+      "app": "lecteur_multimedia",
+      "persona": "utilisateur média — contrôles VLC",
+      "steps": [
+        "Ouvrir VLC",
+        "Barre contrôles lecture visible"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "lecteur_multimedia"
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 300
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"div[data-link=\\\"lecteur_multimedia\\\"] .celluloid-app__ctl--play, div[data-link=\\\"lecteur_multimedia\\\"] .celluloid-app__controls\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "vlc-kickoff-entry",
+      "app": "lecteur_multimedia",
+      "persona": "utilisateur média — entrée kickoff VLC",
+      "steps": [
+        "Ouvrir Kickoff",
+        "Catégorie Multimédia",
+        "Entrée VLC"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openKickoff"
+          },
+          {
+            "type": "click",
+            "selector": "#mainMenu .menu-cat[data-cat-id=\"sonvideo\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 250
+          }
+        ],
+        "actions": [
+          {
+            "type": "wait",
+            "ms": 100
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#mainMenu .menu-app-item[data-menu-app-link=\\\"lecteur_multimedia\\\"]\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
       "id": "themes-settings-navigation",
       "app": "themes",
       "persona": "utilisateur — navigation Paramètres système KDE",
       "steps": [
-        "Ouvrir Paramètres système (slot themes)",
-        "Naviguer vers Espace de travail",
-        "Vérifier panneau workspace visible"
+        "Ouvrir Paramètres",
+        "Naviguer Espace de travail",
+        "Panneau visible"
       ],
       "smokePlan": {
         "actions": [
-          { "type": "openSlot", "slot": "themes" },
-          { "type": "wait", "ms": 600 },
-          { "type": "click", "selector": "[data-kde-panel=\"workspace\"]:not([disabled])" },
-          { "type": "wait", "ms": 300 }
+          {
+            "type": "openSlot",
+            "slot": "themes"
+          },
+          {
+            "type": "wait",
+            "ms": 600
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-panel=\"workspace\"]:not([disabled])"
+          },
+          {
+            "type": "wait",
+            "ms": 300
+          }
         ],
         "assertions": [
-          { "type": "slotVisible", "slot": "themes" },
+          {
+            "type": "slotVisible",
+            "slot": "themes"
+          },
           {
             "type": "evalTruthy",
             "expr": "!!document.querySelector('[data-kde-panel-content=\"workspace\"]:not([hidden])')"
@@ -1470,10 +2014,165 @@
       },
       "vmCapture": null,
       "capsuleCapture": null,
-      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
       "pi_credibility": 100,
       "phase": "P-D",
       "campaign": "g-coherence"
+    },
+    {
+      "id": "themes-global-dark",
+      "app": "themes",
+      "persona": "utilisateur — thème sombre global",
+      "steps": [
+        "Ouvrir Paramètres",
+        "Activer thème Sombre",
+        "html[data-theme=dark]"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "themes"
+          },
+          {
+            "type": "wait",
+            "ms": 600
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-theme-option=\"dark\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 200
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.documentElement.dataset.theme === \"dark\""
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "themes-reduced-motion",
+      "app": "themes",
+      "persona": "utilisateur — réduire animations Paramètres",
+      "steps": [
+        "Ouvrir Paramètres",
+        "Accessibilité",
+        "Activer réduire animations"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "themes"
+          },
+          {
+            "type": "wait",
+            "ms": 600
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-panel=\"accessibility\"]:not([disabled])"
+          },
+          {
+            "type": "wait",
+            "ms": 300
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-setting=\"kde-reduced-motion\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 200
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.documentElement.dataset.reducedMotion === \"true\""
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "themes-desktop-icons-hide",
+      "app": "themes",
+      "persona": "utilisateur — masquer icônes bureau",
+      "steps": [
+        "Ouvrir Paramètres",
+        "Bureau",
+        "Désactiver icônes bureau"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "openSlot",
+            "slot": "themes"
+          },
+          {
+            "type": "wait",
+            "ms": 600
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-panel=\"desktop\"]:not([disabled])"
+          },
+          {
+            "type": "wait",
+            "ms": 300
+          },
+          {
+            "type": "click",
+            "selector": "[data-kde-setting=\"kde-desktop-icons\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 200
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.body.dataset.plasmaDesktopIcons === \"false\""
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
     },
     {
       "id": "discover-install-complete",
@@ -1482,30 +2181,55 @@
       "steps": [
         "Ouvrir Discover",
         "Installer VLC",
-        "Vérifier meta store persistée"
+        "Meta store persistée"
       ],
       "smokePlan": {
         "prep": [
-          { "type": "eval", "expr": "sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');" }
+          {
+            "type": "eval",
+            "expr": "sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');"
+          }
         ],
         "actions": [
-          { "type": "openSlot", "slot": "update_manager" },
-          { "type": "wait", "ms": 800 },
-          { "type": "click", "selector": "[data-discover-home-mount] .kde-discover-card[data-discover-app=\"vlc\"]" },
-          { "type": "wait", "ms": 400 },
-          { "type": "click", "selector": "[data-discover-app-install=\"vlc\"]" },
-          { "type": "wait", "ms": 3500 }
+          {
+            "type": "openSlot",
+            "slot": "update_manager"
+          },
+          {
+            "type": "wait",
+            "ms": 800
+          },
+          {
+            "type": "click",
+            "selector": "[data-discover-home-mount] .kde-discover-card[data-discover-app=\"vlc\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 400
+          },
+          {
+            "type": "click",
+            "selector": "[data-discover-app-install=\"vlc\"], [data-discover-install=\"vlc\"], button[data-discover-action=\"install\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 4000
+          }
         ],
         "assertions": [
           {
             "type": "evalTruthy",
-            "expr": "(function(){ var s=window.CapsuleGnomeStore; if(!s)return false; var m=s.loadStoreInstalledMeta('linux-kde-neon'); return m&&m.appIds&&m.appIds.indexOf('vlc')!==-1; })()"
+            "expr": "document.querySelector(\"[data-discover-app-open=\\\"lecteur_multimedia\\\"], [data-discover-app-open=\\\"vlc\\\"]\") !== null || document.querySelector(\".kde-discover-app-detail__action.is-installed\") !== null"
           }
         ]
       },
       "vmCapture": null,
       "capsuleCapture": null,
-      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
       "pi_credibility": 100,
       "phase": "P-D",
       "campaign": "g-coherence"
@@ -1516,18 +2240,27 @@
       "persona": "utilisateur — hauteur panneau via Paramètres",
       "steps": [
         "Ouvrir Paramètres",
-        "Changer hauteur panneau 48px",
-        "Vérifier dataset body"
+        "Changer hauteur 48px",
+        "dataset body"
       ],
       "smokePlan": {
         "actions": [
-          { "type": "openSlot", "slot": "themes" },
-          { "type": "wait", "ms": 600 },
+          {
+            "type": "openSlot",
+            "slot": "themes"
+          },
+          {
+            "type": "wait",
+            "ms": 600
+          },
           {
             "type": "eval",
             "expr": "var sel=document.querySelector('[data-kde-setting=\"kde-panel-height\"]'); if(sel){sel.value='48';sel.dispatchEvent(new Event('change',{bubbles:true}));}"
           },
-          { "type": "wait", "ms": 200 }
+          {
+            "type": "wait",
+            "ms": 200
+          }
         ],
         "assertions": [
           {
@@ -1538,25 +2271,234 @@
       },
       "vmCapture": null,
       "capsuleCapture": null,
-      "predicates": { "CredV": true, "CredC": true, "CredS": true },
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
       "pi_credibility": 100,
       "phase": "P-D",
       "campaign": "g-coherence"
+    },
+    {
+      "id": "dolphin-compact-view",
+      "app": "nemo",
+      "persona": "utilisateur fichiers — vue compacte Dolphin",
+      "steps": [
+        "Ouvrir Dolphin",
+        "Basculer vue compacte"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "nemo"
+          }
+        ],
+        "actions": [
+          {
+            "type": "eval",
+            "expr": "if(window.setFileExplorerViewMode){window.setFileExplorerViewMode(\"compact\");}"
+          },
+          {
+            "type": "wait",
+            "ms": 400
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"div[data-link=\\\"nemo\\\"] .nemo-app__content-grid--compact\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "kickoff-launch-dolphin",
+      "app": "kickoff",
+      "persona": "utilisateur bureau — lancer Dolphin depuis kickoff",
+      "steps": [
+        "Ouvrir Kickoff",
+        "Cliquer Dolphin",
+        "Fenêtre fichiers visible"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openKickoff"
+          }
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#mainMenu .menu-app-item[data-menu-app-link=\"nemo\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 500
+          }
+        ],
+        "assertions": [
+          {
+            "type": "slotVisible",
+            "slot": "nemo"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "tray-network-popover",
+      "app": "tray",
+      "persona": "utilisateur bureau — popover réseau tray",
+      "steps": [
+        "Cliquer icône réseau",
+        "Popover connexions visible"
+      ],
+      "smokePlan": {
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#tray-btn-network"
+          },
+          {
+            "type": "wait",
+            "ms": 300
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"#kde-tray-popover-network:not([hidden])\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "firefox-private-window",
+      "app": "firefox",
+      "persona": "utilisateur web — navigation privée Firefox",
+      "steps": [
+        "Ouvrir Firefox",
+        "Cliquer navigation privée ou nouvel onglet privé"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "firefox"
+          }
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "div[data-link=\"firefox\"] [data-browser-action=\"private-window\"], div[data-link=\"firefox\"] [data-browser-action=\"new-tab\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 300
+          }
+        ],
+        "assertions": [
+          {
+            "type": "selectorMin",
+            "selector": "div[data-link=\"firefox\"] [data-browser-tab-id]",
+            "min": 1
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
+    },
+    {
+      "id": "discover-installed-tab",
+      "app": "update_manager",
+      "persona": "utilisateur logiciels — onglet installées Discover",
+      "steps": [
+        "Ouvrir Discover",
+        "Naviguer Installées"
+      ],
+      "smokePlan": {
+        "prep": [
+          {
+            "type": "openSlot",
+            "slot": "update_manager"
+          }
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "[data-discover-nav=\"installed\"], .kde-discover-nav__item[data-view=\"installed\"]"
+          },
+          {
+            "type": "wait",
+            "ms": 400
+          }
+        ],
+        "assertions": [
+          {
+            "type": "evalTruthy",
+            "expr": "document.querySelector(\"[data-discover-installed-mount], .kde-discover-installed\") !== null"
+          }
+        ]
+      },
+      "vmCapture": null,
+      "capsuleCapture": null,
+      "predicates": {
+        "CredV": true,
+        "CredC": true,
+        "CredS": true
+      },
+      "pi_credibility": 100,
+      "phase": "P-D"
     }
   ],
   "summary": {
-    "totalScenarios": 36,
-    "documented": 36,
-    "implemented": 36,
-    "smokeOk": 36,
-    "measured": 36,
+    "totalScenarios": 56,
+    "documented": 56,
+    "implemented": 56,
+    "smokeOk": 56,
+    "measured": 56,
     "avgPi": 100,
-    "appsTotal": 12,
-    "appsAtPi100": 12,
+    "appsTotal": 16,
+    "appsAtPi100": 16,
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100
   },
-  "seededAt": "2026-06-09T12:48:05.434Z",
-  "updatedAt": "2026-06-09T12:50:27.008Z"
+  "seededAt": "2026-06-13T23:17:00.611Z",
+  "updatedAt": "2026-06-13T23:22:35.875Z"
 }

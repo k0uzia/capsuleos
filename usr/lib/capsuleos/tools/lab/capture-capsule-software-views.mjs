@@ -14,6 +14,25 @@ import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
 
+const syncStoreInvestigation = (registryId, shotsWritten) => {
+  const invPath = path.join(ROOT, 'root/docs/inventaires', `${registryId}-apps-visual-investigation.json`);
+  if (!fs.existsSync(invPath) || !shotsWritten.length) return;
+  const inv = JSON.parse(fs.readFileSync(invPath, 'utf8'));
+  inv.summary = inv.summary || {};
+  inv.summary.softwareViewsCapsule = shotsWritten.length;
+  const item = (inv.investigations || []).find((i) => i.controlId === 'update_manager');
+  if (item) {
+    item.capsuleCaptures = shotsWritten.map(({ out, id }) => ({
+      path: path.relative(ROOT, out).replace(/\\/g, '/'),
+      shot: id,
+    }));
+    item.labelFr = item.labelFr === 'Snap Store' ? 'Logiciels' : item.labelFr;
+    item.vmId = item.vmId === 'snap-store' ? 'org.gnome.Software' : item.vmId;
+  }
+  inv.updatedAt = new Date().toISOString();
+  fs.writeFileSync(invPath, `${JSON.stringify(inv, null, 2)}\n`);
+};
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const parseArgs = () => {
@@ -34,6 +53,22 @@ const defaultChrome = [
 ].find((p) => fs.existsSync(p));
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
+
+/** Clic navigation magasin — sidebar ou bannière selon chrome GS47/GS50. */
+const clickSoftwareNav = async (page, navId) => {
+  await page.evaluate((nav) => {
+    const root = document.getElementById('updateManagerApp');
+    if (!root) return;
+    const candidates = [...root.querySelectorAll(`[data-um-gnome-nav="${nav}"]`)];
+    const visible = candidates.find((el) => {
+      const rect = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+      return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+    });
+    (visible || candidates[0])?.click();
+  }, navId);
+  await sleep(page, 300);
+};
 
 const openSoftware = async (page) => {
   const ready = await page.evaluate(() => {
@@ -71,16 +106,25 @@ const setSoftwareView = async (page, view, extra) => {
   await page.evaluate(({ viewId, extraOpts }) => {
     const root = document.getElementById('updateManagerApp');
     if (!root) return;
+    const clickNav = (nav) => {
+      const candidates = [...root.querySelectorAll(`[data-um-gnome-nav="${nav}"]`)];
+      const visible = candidates.find((el) => {
+        const rect = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+      });
+      (visible || candidates[0])?.click();
+    };
     if (viewId === 'explore') {
-      root.querySelector('[data-um-gnome-nav="explore"]')?.click();
+      clickNav('explore');
       return;
     }
     if (viewId === 'updates') {
-      root.querySelector('[data-um-gnome-nav="updates"]')?.click();
+      clickNav('updates');
       return;
     }
     if (viewId === 'installed') {
-      root.querySelector('[data-um-gnome-nav="installed"]')?.click();
+      clickNav('installed');
       return;
     }
     if (viewId === 'detail') {
@@ -129,14 +173,13 @@ const runScenarioAction = async (page, action) => {
     return;
   }
   if (action === 'updates-empty') {
-    await page.click('[data-um-gnome-nav="updates"]');
-    await sleep(page, 300);
+    await clickSoftwareNav(page, 'updates');
     await page.click('[data-um-gnome-action="updateAll"]');
     await page.waitForSelector('[data-um-gnome-updates-empty]:not([hidden])', { timeout: 8000 });
     return;
   }
   if (action === 'installed-open-firefox') {
-    await page.click('[data-um-gnome-nav="installed"]');
+    await clickSoftwareNav(page, 'installed');
     await sleep(page, 400);
     await page.click('[data-um-gnome-installed-list] [data-um-gnome-action="open"][data-um-gnome-app="firefox"]');
     await sleep(page, 600);
@@ -192,6 +235,8 @@ const main = async () => {
     throw new Error(`Aucune vue « ${opts.only} » — ids: ${allShots.map((s) => s.id).join(', ')}`);
   }
 
+  const shotsWritten = [];
+
     await openSoftware(page);
     for (const shot of shots) {
         await openSoftware(page);
@@ -225,8 +270,10 @@ const main = async () => {
       await page.screenshot({ path: out, fullPage: false });
     }
     process.stdout.write(`  → ${out}\n`);
+    shotsWritten.push({ out, id: shot.id });
   }
 
+  syncStoreInvestigation(opts.id, shotsWritten);
   await browser.close();
   console.log(`✓ capture-capsule-software-views ${opts.id} (${theme}) — ${shots.length} fichier(s)`);
 };

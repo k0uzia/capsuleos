@@ -77,7 +77,7 @@
       "registryId": "linux-kde-neon",
       "family": "linux",
       "vendor": "neon",
-      "ssh": "capsule@192.168.123.52",
+      "ssh": "capsule@192.168.122.48",
       "sshIdentity": "~/.ssh/capsuleos-lab",
       "probe": "bash root/tools/lab/vm-kde-neon-inventory.sh",
       "display": ":1",

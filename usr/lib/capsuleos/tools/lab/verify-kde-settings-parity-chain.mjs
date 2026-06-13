@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Vérifie la chaîne Paramètres KDE — Phase 2b (stub tolérant tant que ¬kde-settings-parity.js).
+ * Vérifie la chaîne Paramètres KDE — Phase 2b + couche Se (bus capsule:*).
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon
@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { ROOT } from './replication-chain-lib.mjs';
+import { writeSettingsEffectsState } from './settings-effects-lib.mjs';
 
 const errors = [];
 const warnings = [];
@@ -44,6 +45,13 @@ if (!fs.existsSync(storePath)) {
 if (!skinIndex.includes('data-link="themes"')) {
   errors.push('KDE-Neon index : slot themes absent');
 }
+if (!skinIndex.includes('kde-settings-parity.js')) {
+  errors.push('KDE-Neon index : kde-settings-parity.js non chargé');
+}
+if (!skinIndex.includes('kde-kconfig-store.js')) {
+  errors.push('KDE-Neon index : kde-kconfig-store.js non chargé');
+}
+
 const skinCss = read('home/Debian/KDE-Neon/style/style.css');
 const importsCss = read('home/Debian/KDE-Neon/style/imports.css');
 const hasA11yChain =
@@ -57,6 +65,55 @@ if (!fs.existsSync(contractPath)) {
   errors.push('kde-ground-truth-chain.json absent');
 }
 
+const seContractPath = path.join(ROOT, 'etc/capsuleos/contracts/settings-effects-chain.json');
+if (!fs.existsSync(seContractPath)) {
+  errors.push('Contrat settings-effects-chain.json absent');
+}
+
+const parityJs = read('usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
+const themeStorageJs = read('usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
+const a11yCss = read('home/Debian/KDE-Neon/style/a11y-overrides.css');
+const effectSources = `${parityJs}\n${themeStorageJs}`;
+
+const matrix = fs.existsSync(matrixPath)
+  ? JSON.parse(fs.readFileSync(matrixPath, 'utf8'))
+  : { panels: [] };
+
+const p0Effects = [];
+for (const panel of matrix.panels || []) {
+  if (panel.priority !== 'P0') continue;
+  for (const eff of panel.effects || []) {
+    p0Effects.push(eff);
+  }
+}
+
+if (!p0Effects.length) {
+  errors.push('SeΣ : aucun effet P0 dans kde-settings-parity-matrix.json');
+}
+
+for (const eff of p0Effects) {
+  if (!parityJs.includes(eff.capsuleKey)) {
+    errors.push(`SeΣ P0 "${eff.capsuleKey}" : handler absent dans kde-settings-parity.js`);
+  }
+  if (eff.event && !effectSources.includes(eff.event)) {
+    errors.push(`SeΣ P0 "${eff.capsuleKey}" : événement ${eff.event} absent`);
+  }
+}
+
+if (!a11yCss.includes('data-contrast-mode')) {
+  errors.push('Se-A11y : consommateur data-contrast-mode absent (a11y-overrides.css)');
+}
+if (!a11yCss.includes('data-font-scale')) {
+  errors.push('Se-A11y : consommateur data-font-scale absent (a11y-overrides.css)');
+}
+
+const settingsTpl = read('usr/share/capsuleos/linux/apps/systemsettings_kde.html');
+for (const eff of p0Effects) {
+  if (!settingsTpl.includes(`data-kde-setting="${eff.capsuleKey}"`)) {
+    errors.push(`SeΣ P0 "${eff.capsuleKey}" : contrôle absent dans systemsettings_kde.html`);
+  }
+}
+
 if (errors.length) {
   console.error(`verify-kde-settings-parity-chain ${registry} — échec\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
@@ -64,5 +121,21 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`✓ verify-kde-settings-parity-chain ${registry} OK (stub Phase 2b)`);
+const seSigma = p0Effects.every((eff) => (
+  parityJs.includes(eff.capsuleKey)
+  && (!eff.event || effectSources.includes(eff.event))
+  && settingsTpl.includes(`data-kde-setting="${eff.capsuleKey}"`)
+));
+
+writeSettingsEffectsState(registry, {
+  Se: true,
+  SeΣ: seSigma,
+}, {
+  gate: 'verify-kde-settings-parity-chain.mjs',
+  phase: '2b',
+  p0Effects: p0Effects.map((e) => e.capsuleKey),
+  warnings: warnings.length,
+});
+
+console.log(`✓ verify-kde-settings-parity-chain ${registry} OK — SeΣ=${seSigma}`);
 if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));

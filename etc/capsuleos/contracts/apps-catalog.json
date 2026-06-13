@@ -261,7 +261,7 @@
         },
         "themes": {
           "chromeProvider": "default",
-          "template": "themes.html",
+          "template": "systemsettings_kde.html",
           "skinCss": "themes.skin.css",
           "functionalDepth": "partial"
         },
@@ -395,6 +395,9 @@
       },
       "visionneur_images": {
         "template": "gwenview_kde_neon.html"
+      },
+      "themes": {
+        "template": "systemsettings_kde.html"
       }
     },
     "linux-opensuse": {

@@ -27,6 +27,11 @@ const verifyGateRel = (registryId) => {
   return contract.toolkitChains?.[profile.toolkit || 'gnome']?.verifyGate || null;
 };
 
+export const settingsEffectsVerifyCommand = (registryId) => {
+  const gate = verifyGateRel(registryId);
+  return gate ? `node ${gate} --id ${registryId}` : null;
+};
+
 const checkSeDocumented = (registryId) => {
   if (!fs.existsSync(CONTRACT_PATH)) return false;
   try {

@@ -3,15 +3,15 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { ROOT, evaluatePredicates } from './replication-chain-lib.mjs';
+import { ROOT, evaluatePredicates, readJsonIfExists } from './replication-chain-lib.mjs';
 import { evaluateUniversal } from './playbook-general-lib.mjs';
 import { evaluateAppsPredicates } from './apps-catalog-lib.mjs';
 import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
 import { evaluateManifestGates } from './manifest-gates-lib.mjs';
 import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replication-lib.mjs';
-import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry } from './settings-effects-lib.mjs';
-import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
+import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry, settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
+import { resolveCapsuleHttpBase, loadRecipeProfile } from './lab-recipe-resolver.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
@@ -42,6 +42,16 @@ export const loadFormalState = (registryId) => {
   const manifest = evaluateManifestGates(registryId);
   const store = evaluateStorePredicates(registryId);
   const settingsEffects = evaluateSettingsEffectsPredicates(registryId);
+  const toolkit = loadRecipeProfile(registryId).toolkit || 'gnome';
+  const kdeGroundTruth = readJsonIfExists(
+    path.join(ROOT, 'root/docs/inventaires', `${registryId}-kde-ground-truth-gaps.json`),
+  );
+  const vpFromGnomeChain = !!repState.Vp || !!base.gates?.Vp?.ok;
+  const vpFromKdePilot = toolkit === 'kde'
+    && !!kdeGroundTruth?.allOk
+    && manifest.ManΣ
+    && settingsEffects.state.SeΣ
+    && (fidelity.Tf || !!base.gates?.Tf?.ok);
 
   const gates = {
     ...base.gates,
@@ -77,7 +87,7 @@ export const loadFormalState = (registryId) => {
     Tf: (fidelity.Tf && typoViolations.length === 0) || !!base.gates?.Tf?.ok,
     V: !!repState.V,
     Vc: !!repState.Vc,
-    Vp: !!repState.Vp || !!base.gates?.Vp?.ok,
+    Vp: vpFromGnomeChain || vpFromKdePilot,
     StoreG: store.state.StoreG,
     StoreΣ: store.state.StoreΣ,
     StoreVc: store.state.StoreVc,
@@ -321,8 +331,9 @@ export const evaluateFormalRules = (registryId) => {
     {
       rule: 'R-SE-GNOME',
       when: () => settingsEffectsAppliesToRegistry(registryId) && gates.ManΣ && !gates.Se,
-      message: 'ManΣ ∧ ¬Se — matrice effets système Paramètres GNOME',
-      command: `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`,
+      message: 'ManΣ ∧ ¬Se — matrice effets système Paramètres',
+      command: settingsEffectsVerifyCommand(registryId)
+        || `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`,
       autoExecute: true,
       gateOnSuccess: null,
     },
@@ -330,7 +341,14 @@ export const evaluateFormalRules = (registryId) => {
       rule: 'R-SE-SIGMA',
       when: () => gates.Se && !gates.SeΣ,
       message: 'Se ∧ ¬SeΣ — lab Paramètres + parité effets P0',
-      command: `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
+      command: (() => {
+        const tk = loadRecipeProfile(registryId).toolkit || 'gnome';
+        if (tk === 'gnome') {
+          return `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`;
+        }
+        return settingsEffectsVerifyCommand(registryId)
+          || `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`;
+      })(),
       autoExecute: true,
       gateOnSuccess: null,
     },

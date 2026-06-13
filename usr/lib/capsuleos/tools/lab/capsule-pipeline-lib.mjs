@@ -6,6 +6,7 @@ import path from 'path';
 import { ROOT } from './replication-chain-lib.mjs';
 import { loadFormalState, evaluateFormalRules } from './formal-rules-lib.mjs';
 import { storeAppliesToRegistry } from './store-replication-lib.mjs';
+import { settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
 
 const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/capsule-pipeline-layers.json');
 
@@ -32,7 +33,8 @@ const defaultCommand = (layerId, registryId) => ({
   release: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
   'apps-parity': `node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id ${registryId} --filter P0`,
   fidelity: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
-  'settings-effects': `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
+  'settings-effects': settingsEffectsVerifyCommand(registryId)
+    || `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
 }[layerId]);
 
 export const loadPipelineContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));

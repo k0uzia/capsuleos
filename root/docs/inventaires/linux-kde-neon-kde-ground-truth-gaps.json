@@ -1,0 +1,22 @@
+{
+  "registryId": "linux-kde-neon",
+  "evaluatedAt": "2026-06-13T21:35:51.115Z",
+  "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+  "gates": [
+    {
+      "predicate": "KdC",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdSe",
+      "ok": true,
+      "optional": true,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon --allow-stub",
+      "detail": ""
+    }
+  ],
+  "allOk": true
+}

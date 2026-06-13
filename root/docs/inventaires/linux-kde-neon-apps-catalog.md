@@ -1,6 +1,6 @@
 # Catalogue applications — linux-kde-neon
 
-> Généré : `2026-06-13T21:06:00.981Z` · Toolkit : **kde** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-13T21:31:09.155Z` · Toolkit : **kde** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-kde-neon --write

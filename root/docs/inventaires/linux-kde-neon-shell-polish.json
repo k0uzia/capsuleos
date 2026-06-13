@@ -2,7 +2,7 @@
   "registryId": "linux-kde-neon",
   "domain": "kde-shell-polish",
   "status": "done",
-  "polishedAt": "2026-06-13T21:56:50.126Z",
+  "polishedAt": "2026-06-13T22:24:33.305Z",
   "targets": [
     "panel-pins",
     "kickoff",

@@ -383,6 +383,13 @@
       "command": "node usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
       "autoExecute": true
     },
+    "kde-coherence-campaign-next": {
+      "predicate": "Gc",
+      "rule": "R-GC-KDE",
+      "command": "node usr/lib/capsuleos/tools/lab/run-kde-coherence-campaign.mjs --run-next --write",
+      "autoExecute": true,
+      "description": "Campagne G-coherence KDE Neon — phase suivante"
+    },
     "cross-regression-triple": {
       "predicate": "Cx",
       "rule": "R-CX-TRIPLE",

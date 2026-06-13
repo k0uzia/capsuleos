@@ -167,6 +167,7 @@
       "vendor": "neon",
       "upstreamId": "linux-debian-kde",
       "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
+      "coherenceCampaign": "etc/capsuleos/contracts/kde-coherence-campaign.json",
       "settingsEffectsChain": "etc/capsuleos/contracts/settings-effects-chain.json",
       "groundTruth": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
       "matrices": {

@@ -39,6 +39,8 @@ const run = (label, cmd, args = [], opts = {}) => {
 };
 
 const staticSmokes = [
+  'smoke-discover-kde-neon.mjs',
+  'smoke-h6-kde-settings-ready.mjs',
   'smoke-kde-neon-shell-polish.mjs',
   'smoke-kde-neon-kickoff.mjs',
   'smoke-kde-neon-dolphin.mjs',
@@ -53,6 +55,11 @@ const staticSmokes = [
 const results = [];
 
 results.push(run('H2 validate-all', 'node', ['usr/lib/capsuleos/tools/validate-all.mjs']));
+
+results.push(run('SeΣ verify-kde-settings', 'node', [
+  'usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs',
+  '--id', REGISTRY_ID,
+]));
 
 staticSmokes.forEach((script) => {
   results.push(run(`smoke ${script}`, 'node', [`usr/lib/capsuleos/tools/lab/${script}`]));
@@ -91,11 +98,11 @@ const openBacklog = [];
 if (state?.nextStep) {
   openBacklog.push(state.nextStep);
 }
-const groundNext = state?.groundProgress?.G7_next
-  || state?.groundProgress?.G6_next
-  || state?.groundProgress?.G8_next;
-if (groundNext) {
-  openBacklog.push(`suite : ${groundNext}`);
+if (state?.campaignGCoherenceStatus === 'in_progress' || state?.campaignGCoherenceStatus === 'pending') {
+  const nextPhase = state.gCoherenceNextPallier ?? 0;
+  openBacklog.push(`G-coherence : pallier ${nextPhase} — run-kde-coherence-campaign.mjs --run-next`);
+} else if (state?.campaignGCoherenceStatus !== 'closed') {
+  openBacklog.push('G-coherence : campagne disponible — linux-kde-neon-roadmap-g-coherence.md');
 }
 openBacklog.push(state?.groundTruth?.propagationPolicy || 'propagation dérivés : gelée');
 

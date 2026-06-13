@@ -93,6 +93,8 @@ if (fs.existsSync(vmInventoryPath)) {
   const inv = JSON.parse(fs.readFileSync(vmInventoryPath, 'utf8'));
   for (const row of inv.assets || []) {
     if (!row.existsOnVm || !row.sha256 || !row.capsulePath) continue;
+    const matrixAsset = assets.find((a) => a.id === row.id);
+    if (matrixAsset?.transcodeFromVm || row.transcodeFromVm) continue;
     const abs = path.join(ROOT, row.capsulePath);
     if (!fs.existsSync(abs)) continue;
     vmCompared += 1;

@@ -1,0 +1,18 @@
+{
+  "registryId": "linux-fedora",
+  "domain": "settings-effects",
+  "generatedAt": "2026-06-13T18:42:01.861Z",
+  "predicates": {
+    "Se": true,
+    "SeΣ": true
+  },
+  "gate": "verify-gnome-settings-parity-chain.mjs",
+  "strict": true,
+  "p0Ids": [
+    "theme",
+    "night-light",
+    "dynamic-workspaces",
+    "dnd"
+  ],
+  "warnings": 1
+}

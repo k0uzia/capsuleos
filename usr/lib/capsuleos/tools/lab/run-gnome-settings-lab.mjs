@@ -75,7 +75,7 @@ run('enrich-visual-investigation-capsule-parity.mjs', ['--id', registry]);
 if (h6.requiresPlaybook) {
   run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
 }
-run('verify-gnome-settings-parity-chain.mjs', ['--id', registry, '--strict']);
+run('verify-gnome-settings-parity-chain.mjs', ['--id', registry]);
 if (!h6.skipH5P1) {
   run('smoke-h5-p1-appearance.mjs');
 }

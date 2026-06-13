@@ -1,6 +1,6 @@
 # Playbook bout de chaîne (τ) — Fedora Workstation
 
-Généré : 2026-06-10T21:36:16.519Z
+Généré : 2026-06-13T18:33:25.527Z
 
 ## Spécificités environnement
 

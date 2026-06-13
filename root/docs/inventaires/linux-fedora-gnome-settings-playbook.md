@@ -1,6 +1,6 @@
 # Playbook Paramètres GNOME — linux-fedora
 
-> Généré : 2026-06-07T01:02:40.438916+00:00
+> Généré : 2026-06-13T18:40:20.376672+00:00
 > Script : [`vm-gnome-settings-playbook.sh`](../../tools/lab/vm-gnome-settings-playbook.sh)
 
 ## Résumé

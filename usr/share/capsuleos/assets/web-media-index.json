@@ -40,7 +40,7 @@
     {
       "output": "images/vendors/fedora/panel/firefox-48.webp",
       "source": "images/vendors/fedora/panel/firefox-48.png",
-      "preparedAt": "2026-06-08T23:28:23.024Z",
+      "preparedAt": "2026-06-13T18:42:25.692Z",
       "encoder": "ffmpeg+convert"
     },
     {
@@ -112,7 +112,7 @@
     {
       "output": "images/vendors/fedora/wallpaper/f44-01-night.webp",
       "source": "images/vendors/fedora/wallpaper/f44-01-night.jxl",
-      "preparedAt": "2026-06-07T02:29:03.818Z",
+      "preparedAt": "2026-06-13T18:32:54.183Z",
       "encoder": "ffmpeg+convert"
     },
     {
@@ -824,5 +824,5 @@
       "encoder": "ffmpeg+convert"
     }
   ],
-  "updatedAt": "2026-06-08T23:28:23.048Z"
+  "updatedAt": "2026-06-13T18:42:25.708Z"
 }

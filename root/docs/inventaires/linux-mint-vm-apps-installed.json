@@ -9,7 +9,7 @@
       "icon": "cs-universal-access",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -20,7 +20,7 @@
       "icon": "cs-actions",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -31,7 +31,7 @@
       "icon": "mintsysadm",
       "categories": "GNOME;GTK;System;Settings;X-GNOME-SystemSettings;X-GNOME-Settings-Panel;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -42,7 +42,7 @@
       "icon": "cs-display",
       "categories": "GTK;Settings;HardwareSettings;X-Cinnamon-Settings-Panel;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -53,7 +53,7 @@
       "icon": "cs-applets",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -64,7 +64,7 @@
       "icon": "cs-startup-programs",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -75,7 +75,7 @@
       "icon": "cs-default-applications",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -86,7 +86,7 @@
       "icon": "webapp-manager",
       "categories": "Application;Network;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "webapp_manager",
       "grid": true,
       "dash": false
     },
@@ -97,7 +97,7 @@
       "icon": "org.gnome.FileRoller",
       "categories": "GTK;GNOME;Utility;Archiving;Compression;X-GNOME-Utilities;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "file_roller",
       "grid": true,
       "dash": false
     },
@@ -108,7 +108,7 @@
       "icon": "thingy",
       "categories": "GTK;Office;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "thingy",
       "grid": true,
       "dash": false
     },
@@ -119,7 +119,7 @@
       "icon": "cs-desktop",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -130,7 +130,7 @@
       "icon": "org.gnome.Calculator",
       "categories": "GNOME;GTK;Utility;Calculator;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "calculator",
       "grid": true,
       "dash": false
     },
@@ -141,7 +141,7 @@
       "icon": "org.gnome.Calendar",
       "categories": "GNOME;GTK;Office;Calendar;Core;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "calendar",
       "grid": true,
       "dash": false
     },
@@ -152,7 +152,7 @@
       "icon": "io.github.celluloid_player.Celluloid",
       "categories": "GTK;GNOME;AudioVideo;Player;Video;TV;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "lecteur_multimedia",
       "grid": true,
       "dash": false
     },
@@ -163,7 +163,7 @@
       "icon": "cs-fonts",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -174,7 +174,7 @@
       "icon": "cs-keyboard",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -185,7 +185,7 @@
       "icon": "cinnamon-virtual-keyboard",
       "categories": "Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -196,7 +196,7 @@
       "icon": "cs-overview",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -207,7 +207,7 @@
       "icon": "gnome-online-accounts-gtk",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -218,7 +218,7 @@
       "icon": "cs-color",
       "categories": "GTK;Settings;X-Cinnamon-Settings-Panel;HardwareSettings",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -229,7 +229,7 @@
       "icon": "mintstick",
       "categories": "GNOME;GTK;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintstick",
       "grid": true,
       "dash": false
     },
@@ -240,7 +240,7 @@
       "icon": "cs-date-time",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -251,7 +251,7 @@
       "icon": "cs-desklets",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -262,7 +262,7 @@
       "icon": "com.github.maoschanz.drawing",
       "categories": "Graphics;GNOME;GTK;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "drawing",
       "grid": true,
       "dash": false
     },
@@ -273,7 +273,7 @@
       "icon": "org.gnome.baobab",
       "categories": "GTK;GNOME;System;Filesystem;X-GNOME-Utilities;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "baobab",
       "grid": true,
       "dash": false
     },
@@ -284,7 +284,7 @@
       "icon": "org.gnome.DiskUtility",
       "categories": "GNOME;GTK;Utility;X-GNOME-Utilities;Settings;HardwareSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "gnome_disks",
       "grid": true,
       "dash": false
     },
@@ -295,7 +295,7 @@
       "icon": "org.gnome.SimpleScan",
       "categories": "GNOME;GTK;Graphics;Scanning;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "simple_scan",
       "grid": true,
       "dash": false
     },
@@ -306,7 +306,7 @@
       "icon": "cs-user",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -317,7 +317,7 @@
       "icon": "cs-desktop-effects",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -328,7 +328,7 @@
       "icon": "fingwit",
       "categories": "System;Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -339,7 +339,7 @@
       "icon": "cs-workspaces",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -350,7 +350,7 @@
       "icon": "cs-extensions",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -361,7 +361,7 @@
       "icon": "lightdm-settings",
       "categories": "GNOME;GTK;Settings;System;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -372,7 +372,7 @@
       "icon": "cs-windows",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -383,9 +383,9 @@
       "icon": "system-file-manager",
       "categories": "GNOME;GTK;Utility;Core;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "nemo",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "gufw",
@@ -394,7 +394,7 @@
       "icon": "gufw",
       "categories": "GNOME;GTK;Settings;Security;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -405,7 +405,7 @@
       "icon": "cs-backgrounds",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -416,7 +416,7 @@
       "icon": "org.gnome.font-viewer",
       "categories": "GTK;GNOME;Utility;X-GNOME-Utilities;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "font_viewer",
       "grid": true,
       "dash": false
     },
@@ -427,7 +427,7 @@
       "icon": "mintstick",
       "categories": "GNOME;GTK;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintstick_format",
       "grid": true,
       "dash": false
     },
@@ -438,7 +438,7 @@
       "icon": "cs-gestures",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -449,7 +449,7 @@
       "icon": "cs-power",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -460,7 +460,7 @@
       "icon": "blueman",
       "categories": "GTK;GNOME;Settings;HardwareSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -471,7 +471,7 @@
       "icon": "mintupdate",
       "categories": "Application;System;Settings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "update_manager",
       "grid": true,
       "dash": false
     },
@@ -482,7 +482,7 @@
       "icon": "mintdrivers",
       "categories": "GNOME;GTK;System;Settings;X-GNOME-SystemSettings;X-GNOME-Settings-Panel;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintdrivers",
       "grid": true,
       "dash": false
     },
@@ -493,7 +493,7 @@
       "icon": "cs-general",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -504,7 +504,7 @@
       "icon": "hypnotix",
       "categories": "AudioVideo;Video;Player;TV;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "hypnotix",
       "grid": true,
       "dash": false
     },
@@ -515,7 +515,7 @@
       "icon": "preferences-desktop-locale",
       "categories": "GNOME;GTK;Settings;DesktopSettings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -526,7 +526,7 @@
       "icon": "libreoffice-startcenter",
       "categories": "Office;X-Red-Hat-Base;X-SuSE-Core-Office;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "libreoffice_startcenter",
       "grid": true,
       "dash": false
     },
@@ -537,7 +537,7 @@
       "icon": "libreoffice-calc",
       "categories": "Office;Spreadsheet;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "librecalc",
       "grid": true,
       "dash": false
     },
@@ -548,7 +548,7 @@
       "icon": "libreoffice-draw",
       "categories": "Office;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "libreoffice_draw",
       "grid": true,
       "dash": false
     },
@@ -559,7 +559,7 @@
       "icon": "libreoffice-impress",
       "categories": "Office;Presentation;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "libreoffice_impress",
       "grid": true,
       "dash": false
     },
@@ -570,7 +570,7 @@
       "icon": "libreoffice-writer",
       "categories": "Office;WordProcessor;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "libreoffice_startcenter",
       "grid": true,
       "dash": false
     },
@@ -581,7 +581,7 @@
       "icon": "mintinstall",
       "categories": "Application;System;Settings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintinstall",
       "grid": true,
       "dash": false
     },
@@ -603,7 +603,7 @@
       "icon": "thunderbird",
       "categories": "Application;Network;Email;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "thunderbird",
       "grid": true,
       "dash": false
     },
@@ -614,7 +614,7 @@
       "icon": "cs-nightlight",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -625,7 +625,7 @@
       "icon": "mintlocale-im",
       "categories": "GNOME;GTK;Settings;DesktopSettings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -636,9 +636,9 @@
       "icon": "firefox",
       "categories": "GNOME;GTK;Network;WebBrowser;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "firefox",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "sticky",
@@ -647,7 +647,7 @@
       "icon": "sticky",
       "categories": "Application;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "sticky",
       "grid": true,
       "dash": false
     },
@@ -658,7 +658,7 @@
       "icon": "cs-notifications",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -669,7 +669,7 @@
       "icon": "onboard",
       "categories": "Utility;Accessories;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -680,7 +680,7 @@
       "icon": "mintbackup",
       "categories": "Application;System;Settings",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintbackup",
       "grid": true,
       "dash": false
     },
@@ -691,7 +691,7 @@
       "icon": "cs-panel",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -702,7 +702,7 @@
       "icon": "preferences-desktop",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -713,7 +713,7 @@
       "icon": "org.gnome.seahorse.Application",
       "categories": "GNOME;GTK;Security;Utility;DesktopSettings;X-XFCE-SettingsDialog;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -724,7 +724,7 @@
       "icon": "pix",
       "categories": "GNOME;GTK;Graphics;Viewer;RasterGraphics;2DGraphics;Photography;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "visionneur_images",
       "grid": true,
       "dash": false
     },
@@ -735,7 +735,7 @@
       "icon": "printer",
       "categories": "GNOME;GTK;Settings;HardwareSettings;X-GNOME-Settings-Panel;X-Unity-Settings-Panel;System;Printing;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -746,7 +746,7 @@
       "icon": "cs-privacy",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -757,7 +757,7 @@
       "icon": "bulky",
       "categories": "GTK;Utility;Core;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "bulky",
       "grid": true,
       "dash": false
     },
@@ -768,7 +768,7 @@
       "icon": "mintreport",
       "categories": "Application;System;Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -779,7 +779,7 @@
       "icon": "org.gnome.Rhythmbox3",
       "categories": "GNOME;GTK;AudioVideo;Audio;Player;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "rhythmbox",
       "grid": true,
       "dash": false
     },
@@ -790,7 +790,7 @@
       "icon": "cs-network",
       "categories": "GTK;Settings;HardwareSettings;X-Cinnamon-Settings-Panel;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -801,7 +801,7 @@
       "icon": "org.gnome.Screenshot",
       "categories": "GTK;GNOME;Utility;X-GNOME-Utilities;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "screenshot",
       "grid": true,
       "dash": false
     },
@@ -812,7 +812,7 @@
       "icon": "cs-sound",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -823,7 +823,7 @@
       "icon": "mintsources",
       "categories": "GNOME;GTK;System;Settings;X-GNOME-SystemSettings;X-GNOME-Settings-Panel;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -834,7 +834,7 @@
       "icon": "cs-mouse",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -845,7 +845,7 @@
       "icon": "org.gnome.SystemMonitor",
       "categories": "GNOME;GTK;System;Monitor;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "system_monitor",
       "grid": true,
       "dash": false
     },
@@ -856,7 +856,7 @@
       "icon": "accessories-character-map",
       "categories": "GNOME;GTK;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "gucharmap",
       "grid": true,
       "dash": false
     },
@@ -867,7 +867,7 @@
       "icon": "cs-tablet",
       "categories": "GNOME;GTK;Settings;HardwareSettings;X-Cinnamon-Settings-Panel;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -878,7 +878,7 @@
       "icon": "cs-thunderbolt",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -889,9 +889,9 @@
       "icon": "cs-themes",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
-      "dash": false
+      "dash": true
     },
     {
       "id": "timeshift-gtk",
@@ -900,7 +900,7 @@
       "icon": "timeshift",
       "categories": "System;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "timeshift",
       "grid": true,
       "dash": false
     },
@@ -911,7 +911,7 @@
       "icon": "transmission",
       "categories": "Network;FileTransfer;P2P;GTK;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "transmission",
       "grid": true,
       "dash": false
     },
@@ -922,7 +922,7 @@
       "icon": "system-users",
       "categories": "System;Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -933,7 +933,7 @@
       "icon": "xreader",
       "categories": "GTK;Utility;Viewer;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "visionneur_pdf",
       "grid": true,
       "dash": false
     },
@@ -944,7 +944,7 @@
       "icon": "xviewer",
       "categories": "GNOME;GTK;Utility;Viewer;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "visionneur_images",
       "grid": true,
       "dash": false
     },
@@ -955,7 +955,7 @@
       "icon": "org.x.Warpinator",
       "categories": "GNOME;GTK;Utility;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "warpinator",
       "grid": true,
       "dash": false
     },
@@ -966,7 +966,7 @@
       "icon": "cs-screensaver",
       "categories": "Settings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "themes",
       "grid": true,
       "dash": false
     },
@@ -977,7 +977,7 @@
       "icon": "mintwelcome",
       "categories": "GNOME;GTK;Settings;DesktopSettings;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "mintwelcome",
       "grid": true,
       "dash": false
     },
@@ -988,7 +988,7 @@
       "icon": "accessories-text-editor",
       "categories": "GTK;Utility;TextEditor;",
       "origin": "system",
-      "capsuleSlot": null,
+      "capsuleSlot": "text_editor",
       "grid": true,
       "dash": false
     }
@@ -998,5 +998,5 @@
   "manifestPath": "proc/linux-mint/distribution-manifest.json",
   "collectedAt": "2026-06-08T07:34:36Z",
   "flatpakCount": 0,
-  "updatedAt": "2026-06-08T07:41:24.567Z"
+  "updatedAt": "2026-06-13T18:41:22.492Z"
 }

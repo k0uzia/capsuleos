@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-13T21:01:12.166Z",
+  "updatedAt": "2026-06-13T21:46:46.106Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,7 +10,11 @@
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 0,
     "capsuleCapturesP0": 0,
-    "visualMatchClassifiedP0": 0
+    "visualMatchClassifiedP0": 4,
+    "capsuleCapturesP1": 0,
+    "capsuleCapturesP2": 0,
+    "visualMatchClassifiedP1": 0,
+    "visualMatchClassifiedP2": 0
   },
   "investigations": [
     {
@@ -329,7 +333,7 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -399,7 +403,7 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -483,7 +487,7 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -553,7 +557,7 @@
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

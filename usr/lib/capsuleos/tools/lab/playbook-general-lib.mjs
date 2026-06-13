@@ -3,6 +3,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import {
   ROOT,
@@ -27,6 +28,30 @@ export const tailPaths = (registryId) => ({
   json: path.join(ROOT, 'root/docs/inventaires', `${registryId}-playbook-tail.json`),
   md: path.join(ROOT, 'root/docs/inventaires', `${registryId}-playbook-tail.md`),
 });
+
+const orchestratorOk = (registryId, relPath) => {
+  if (!relPath) return false;
+  const script = path.join(ROOT, relPath);
+  if (!fs.existsSync(script)) return false;
+  const res = spawnSync(process.execPath, [script, '--id', registryId], {
+    cwd: ROOT,
+    encoding: 'utf8',
+    stdio: 'pipe',
+  });
+  return res.status === 0;
+};
+
+export const toolkitPlaybookComplete = (registryId, tk, tkDef) => {
+  if (!tkDef || tkDef.status === 'stub' || tkDef.status === 'planned') return false;
+  if (tk === 'gnome') {
+    const rep = evaluatePredicates(registryId, 'gnome-settings-playbook');
+    return !!(rep.state.Vp && rep.state.V && rep.state.G && rep.state.Vc);
+  }
+  if (tkDef.orchestrator) {
+    return orchestratorOk(registryId, tkDef.orchestrator);
+  }
+  return false;
+};
 
 export const evaluateUniversal = (registryId) => {
   const p = pathsForRegistry(registryId);
@@ -59,15 +84,16 @@ export const evaluateUniversal = (registryId) => {
   state.PbM = manifestGates.PbM;
 
   const rep = evaluatePredicates(registryId, 'gnome-settings-playbook');
+  const tkDef = contract.layers.toolkit.map[tk];
   if (tk === 'gnome') {
     state.V = rep.state.V;
     state.G = rep.state.G;
     state.Vc = rep.state.Vc;
     state.Vp = rep.state.Vp;
-    state.PbT = !!(rep.state.Vp && rep.state.V && rep.state.G && rep.state.Vc);
-  } else {
-    state.PbT = false;
-    state.toolkitStub = contract.layers.toolkit.map[tk]?.status === 'stub';
+  }
+  state.PbT = toolkitPlaybookComplete(registryId, tk, tkDef);
+  if (tk !== 'gnome') {
+    state.toolkitStub = tkDef?.status === 'stub' || tkDef?.status === 'planned';
   }
 
   state.PbU = !!(state.I && state.T && (tk !== 'gnome' || state.S));
@@ -124,21 +150,16 @@ export const findNextLayer = (evalResult) => {
 
   if (!state.PbT) {
     const tkDef = contract.layers.toolkit.map[toolkit];
-    if (tkDef?.status === 'stub') {
+    if (tkDef?.status === 'stub' || tkDef?.status === 'planned') {
       return { layer: 'toolkit', stub: true, toolkit, rule: 'R-PB2', message: `Toolkit ${toolkit} — playbook stub, reporter ou implémenter` };
     }
     if (tkDef?.orchestrator) {
-      const rep = evaluatePredicates(evalResult.registryId, tkDef.domain || 'gnome-settings-playbook');
-      const incomplete = !(rep.state.Vp && rep.state.V && rep.state.G && rep.state.Vc);
-      if (incomplete) {
-        return {
-          layer: 'toolkit',
-          orchestrator: tkDef.orchestrator,
-          domain: tkDef.domain,
-          rule: 'R-PB2',
-          replicationState: rep.state,
-        };
-      }
+      return {
+        layer: 'toolkit',
+        orchestrator: tkDef.orchestrator,
+        domain: tkDef.domain,
+        rule: 'R-PB2',
+      };
     }
   }
 

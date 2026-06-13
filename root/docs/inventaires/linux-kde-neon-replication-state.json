@@ -313,7 +313,7 @@
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-11T09:11:59.094Z",
+  "updatedAt": "2026-06-13T22:49:57.851Z",
   "domain": "kde-settings-playbook",
   "H6": true,
   "h6ClosedAt": "2026-06-13T21:45:57.306Z",
@@ -340,5 +340,5 @@
   "Gc6aCommit": "a2aa5f47",
   "Gc6bCommit": "ce1048fe",
   "Gc6cCommit": "b16ece9a",
-  "Gc7Commit": "663561bc"
+  "Gc7Commit": "8993fff2"
 }

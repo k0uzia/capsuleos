@@ -77,6 +77,22 @@ if (!discoverJs.includes('À découvrir')) {
     errors.push('discover-kde.js : section À découvrir absente');
 }
 
+try {
+    const { spawnSync } = await import('child_process');
+    const syntax = spawnSync(process.execPath, ['--check', path.join(ROOT, 'usr/lib/capsuleos/shells/linux/discover-kde.js')], {
+        encoding: 'utf8',
+    });
+    if (syntax.status !== 0) {
+        errors.push(`discover-kde.js : syntaxe invalide — ${(syntax.stderr || '').trim()}`);
+    }
+} catch (e) {
+    errors.push(`discover-kde.js : vérif syntaxe impossible — ${e.message || e}`);
+}
+
+if (!discoverJs.includes('runInstallSimulation')) {
+    errors.push('discover-kde.js : runInstallSimulation absent');
+}
+
 if (errors.length) {
     console.error('smoke-discover-kde-neon — ÉCHEC');
     errors.forEach((msg) => console.error(`  • ${msg}`));

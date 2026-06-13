@@ -7,12 +7,21 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
+const ROOT = path.resolve(__dirname, '../../../../..');
+const HTTP_BASE = process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765';
+const URL = process.env.CAPSULE_KDE_NEON_URL || `${HTTP_BASE}/home/Debian/KDE-Neon/index.html`;
 const errors = [];
 
+const playwrightCache = path.join(process.env.HOME || '', '.cache/ms-playwright');
 const chromePath = [
   process.env.PLAYWRIGHT_CHROME,
   '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  ...(fs.existsSync(playwrightCache)
+    ? fs.readdirSync(playwrightCache)
+      .filter((d) => d.startsWith('chromium-'))
+      .map((d) => path.join(playwrightCache, d, 'chrome-linux64/chrome'))
+    : []),
 ].find((p) => p && fs.existsSync(p));
 
 if (!chromePath) {
@@ -79,18 +88,32 @@ try {
   await page.waitForFunction(
     () => {
       const status = document.querySelector('[data-discover-app-status]');
-      return status && !status.hidden && status.textContent.length > 0;
+      const primary = document.querySelector('.kde-discover-app-detail__action--primary');
+      const done = primary && (
+        primary.classList.contains('is-installed')
+        || primary.hasAttribute('data-discover-app-open')
+        || primary.textContent.trim() === 'Ouvrir'
+      );
+      return status && !status.hidden && /installée/i.test(status.textContent) && done;
     },
     null,
-    { timeout: 5000 },
+    { timeout: 12000 },
   );
 
-  const detailAfterInstall = await page.evaluate(() => ({
-    installDisabled: document.querySelector('[data-discover-app-install="vlc"]')?.disabled,
-    status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
-  }));
-  if (!detailAfterInstall.installDisabled) {
-    errors.push('fiche app : bouton Installer non désactivé après clic');
+  const detailAfterInstall = await page.evaluate(() => {
+    const primary = document.querySelector('.kde-discover-app-detail__action--primary');
+    return {
+      primaryLabel: primary ? primary.textContent.trim() : '',
+      isInstalled: primary ? primary.classList.contains('is-installed') : false,
+      openSlot: primary ? primary.getAttribute('data-discover-app-open') : null,
+      status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
+    };
+  });
+  if (!detailAfterInstall.status || !/installée/i.test(detailAfterInstall.status)) {
+    errors.push(`fiche app : statut post-install=${detailAfterInstall.status || '(vide)'}`);
+  }
+  if (!detailAfterInstall.isInstalled && detailAfterInstall.primaryLabel !== 'Ouvrir') {
+    errors.push(`fiche app : bouton post-install=${detailAfterInstall.primaryLabel || '(vide)'}`);
   }
 
   await page.evaluate(() => {

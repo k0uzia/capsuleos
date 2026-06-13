@@ -104,8 +104,6 @@
         return apps;
     }
 
-    }
-
     function resolveOpenSlot(app) {
         if (!app) {
             return '';
@@ -189,9 +187,6 @@
                 }
                 renderInstalled(root, catalog);
                 renderHome(root, catalog);
-                window.setTimeout(() => {
-                    switchView(root, catalog, 'installed');
-                }, 450);
                 return;
             }
             if (status) {

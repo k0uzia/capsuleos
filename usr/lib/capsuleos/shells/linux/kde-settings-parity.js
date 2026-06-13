@@ -64,11 +64,32 @@
         dispatch('capsule:window-animations-changed', { enabled: on });
     }
 
+    function applyClickToFocus(on) {
+        var kc = store();
+        if (kc) {
+            kc.setCapsule('kwinrc::Windows/FocusPolicy', on ? 'ClickToFocus' : 'FocusFollowsMouse');
+        }
+        if (global.document && global.document.body) {
+            global.document.body.dataset.plasmaClickToFocus = on ? 'true' : 'false';
+        }
+        dispatch('capsule:click-to-focus-changed', { enabled: on });
+    }
+
+    function applyFocusStealing(on) {
+        var kc = store();
+        if (kc) {
+            kc.setCapsule('kwinrc::Windows/FocusStealingPreventionLevel', on ? '1' : '0');
+        }
+        dispatch('capsule:focus-stealing-changed', { enabled: on });
+    }
+
     var EFFECT_HANDLERS = {
         'kde-a11y-high-contrast': function (v) { applyA11yHighContrast(v === 'on'); },
         'kde-a11y-large-text': function (v) { applyA11yLargeText(v === 'on'); },
         'kde-panel-height': function (v) { applyPanelHeight(v); },
-        'kde-window-animations': function (v) { applyWindowAnimations(v === 'on'); }
+        'kde-window-animations': function (v) { applyWindowAnimations(v === 'on'); },
+        'kde-click-to-focus': function (v) { applyClickToFocus(v === 'on'); },
+        'kde-focus-stealing': function (v) { applyFocusStealing(v === 'on'); }
     };
 
     function bindControls(root) {

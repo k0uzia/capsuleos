@@ -412,6 +412,20 @@ function syncKdeSettingsUiFromStorage(root) {
         animSwitch.classList.toggle('is-on', animOn);
         animSwitch.setAttribute('aria-checked', animOn ? 'true' : 'false');
     }
+    const clickFocusPolicy = kc ? kc.getCapsule('kwinrc::Windows/FocusPolicy', 'ClickToFocus') : 'ClickToFocus';
+    const clickFocusOn = clickFocusPolicy === 'ClickToFocus';
+    const clickFocusSwitch = root.querySelector('[data-kde-setting="kde-click-to-focus"]');
+    if (clickFocusSwitch) {
+        clickFocusSwitch.classList.toggle('is-on', clickFocusOn);
+        clickFocusSwitch.setAttribute('aria-checked', clickFocusOn ? 'true' : 'false');
+    }
+    const focusStealLevel = kc ? kc.getCapsule('kwinrc::Windows/FocusStealingPreventionLevel', '0') : '0';
+    const focusStealOn = focusStealLevel === '1' || focusStealLevel === 'true';
+    const focusStealSwitch = root.querySelector('[data-kde-setting="kde-focus-stealing"]');
+    if (focusStealSwitch) {
+        focusStealSwitch.classList.toggle('is-on', focusStealOn);
+        focusStealSwitch.setAttribute('aria-checked', focusStealOn ? 'true' : 'false');
+    }
     const contrastOn = kc ? kc.getBool('kdeglobals::KDE/contrast', false) : false;
     const contrastSwitch = root.querySelector('[data-kde-setting="kde-a11y-high-contrast"]');
     if (contrastSwitch) {
@@ -448,6 +462,7 @@ function bindKdeThemeChoices(root) {
     });
 }
 
+function handleKdeSettingsWindowOpened(container) {
     const root = container ? container.querySelector('#kdeSystemSettingsApp') : null;
     if (!root) {
         return;

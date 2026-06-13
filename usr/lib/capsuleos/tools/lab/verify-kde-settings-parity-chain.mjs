@@ -7,7 +7,7 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { ROOT } from './replication-chain-lib.mjs';
+import { ROOT, loadRegistryEntry } from './replication-chain-lib.mjs';
 import { writeSettingsEffectsState } from './settings-effects-lib.mjs';
 
 const errors = [];
@@ -21,10 +21,19 @@ const read = (rel) => {
 const registry = (process.argv.find((a, i) => process.argv[i - 1] === '--id') || 'linux-kde-neon').trim();
 const allowStub = process.argv.includes('--allow-stub');
 
+let skinRel = 'home/Debian/KDE-Neon/index.html';
+try {
+  const entry = loadRegistryEntry(registry);
+  skinRel = entry.referencePaths?.skin || skinRel;
+} catch {
+  /* pivot par défaut */
+}
+const skinDir = path.dirname(skinRel);
+
 const matrixPath = path.join(ROOT, 'root/tools/lab/kde-settings-parity-matrix.json');
 const parityPath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
 const storePath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-kconfig-store.js');
-const skinIndex = read('home/Debian/KDE-Neon/index.html');
+const skinIndex = read(skinRel);
 
 if (!fs.existsSync(matrixPath)) {
   errors.push('kde-settings-parity-matrix.json absent');
@@ -43,21 +52,21 @@ if (!fs.existsSync(storePath)) {
 }
 
 if (!skinIndex.includes('data-link="themes"')) {
-  errors.push('KDE-Neon index : slot themes absent');
+  errors.push(`${skinRel} : slot themes absent`);
 }
 if (!skinIndex.includes('kde-settings-parity.js')) {
-  errors.push('KDE-Neon index : kde-settings-parity.js non chargé');
+  errors.push(`${skinRel} : kde-settings-parity.js non chargé`);
 }
 if (!skinIndex.includes('kde-kconfig-store.js')) {
-  errors.push('KDE-Neon index : kde-kconfig-store.js non chargé');
+  errors.push(`${skinRel} : kde-kconfig-store.js non chargé`);
 }
 
-const skinCss = read('home/Debian/KDE-Neon/style/style.css');
-const importsCss = read('home/Debian/KDE-Neon/style/imports.css');
+const skinCss = read(path.join(skinDir, 'style/style.css'));
+const importsCss = read(path.join(skinDir, 'style/imports.css'));
 const hasA11yChain =
   skinCss.includes('imports.css') && importsCss.includes('a11y-overrides.css');
 if (!hasA11yChain) {
-  errors.push('KDE-Neon : a11y-overrides.css non importé (style.css → imports.css)');
+  errors.push(`${skinRel} : a11y-overrides.css non importé (style.css → imports.css)`);
 }
 
 const contractPath = path.join(ROOT, 'etc/capsuleos/contracts/kde-ground-truth-chain.json');
@@ -72,7 +81,7 @@ if (!fs.existsSync(seContractPath)) {
 
 const parityJs = read('usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
 const themeStorageJs = read('usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
-const a11yCss = read('home/Debian/KDE-Neon/style/a11y-overrides.css');
+const a11yCss = read(path.join(skinDir, 'style/a11y-overrides.css'));
 const effectSources = `${parityJs}\n${themeStorageJs}`;
 
 const matrix = fs.existsSync(matrixPath)

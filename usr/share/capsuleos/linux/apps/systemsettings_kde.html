@@ -72,7 +72,17 @@
                 <h1>Espace de travail</h1>
                 <p class="kde-systemsettings__help">Comportement du bureau et des fenêtres.</p>
             </header>
-            <p class="kde-systemsettings__stub">Module Plasma — alignement VM en cours (pilote ground).</p>
+            <div class="kde-systemsettings__group">
+                <h2 class="kde-systemsettings__group-title">Focus des fenêtres</h2>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Clic pour activer</span>
+                    <button type="button" class="adw-switch is-on" data-settings-switch="kde-click-to-focus" data-kde-setting="kde-click-to-focus" role="switch" aria-checked="true"></button>
+                </div>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Empêcher le vol de focus</span>
+                    <button type="button" class="adw-switch" data-settings-switch="kde-focus-stealing" data-kde-setting="kde-focus-stealing" role="switch" aria-checked="false"></button>
+                </div>
+            </div>
         </section>
         <section class="kde-systemsettings__panel" data-kde-panel-content="accessibility" hidden>
             <header class="kde-systemsettings__panel-header">

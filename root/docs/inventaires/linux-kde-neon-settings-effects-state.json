@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "domain": "settings-effects",
-  "generatedAt": "2026-06-13T22:15:40.738Z",
+  "generatedAt": "2026-06-13T22:45:31.526Z",
   "predicates": {
     "Se": true,
     "SeΣ": true
@@ -10,7 +10,9 @@
   "phase": "2b",
   "p0Effects": [
     "kde-a11y-high-contrast",
-    "kde-a11y-large-text"
+    "kde-a11y-large-text",
+    "kde-click-to-focus",
+    "kde-focus-stealing"
   ],
   "warnings": 0
 }

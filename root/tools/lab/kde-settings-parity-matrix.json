@@ -1,10 +1,10 @@
 {
-  "version": 1,
-  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon.",
-  "status": "phase-2b-partial",
+  "version": 2,
+  "description": "Matrice System Settings KDE ↔ CapsuleOS — pilote linux-kde-neon (G-coherence Se+).",
+  "status": "phase-2b-g-coherence",
   "vm": {
     "registryId": "linux-kde-neon",
-    "collectedAt": null
+    "collectedAt": "2026-06-10T13:28:41Z"
   },
   "panels": [
     {
@@ -14,6 +14,15 @@
       "effects": [
         { "capsuleKey": "kde-a11y-high-contrast", "layer": "Se-A11y", "event": "capsule:a11y-contrast-changed" },
         { "capsuleKey": "kde-a11y-large-text", "layer": "Se-A11y", "event": "capsule:a11y-font-scale-changed" }
+      ]
+    },
+    {
+      "id": "workspace",
+      "label": "Espace de travail",
+      "priority": "P0",
+      "effects": [
+        { "capsuleKey": "kde-click-to-focus", "layer": "Se-WM", "event": "capsule:click-to-focus-changed" },
+        { "capsuleKey": "kde-focus-stealing", "layer": "Se-WM", "event": "capsule:focus-stealing-changed" }
       ]
     },
     {

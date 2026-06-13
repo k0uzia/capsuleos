@@ -9,7 +9,9 @@
         'kdeglobals::KDE/contrast': 'false',
         'kdeglobals::WM/startupAnimations': 'true',
         'plasmashellrc::PanelHeight': '40',
-        'kwinrc::Windows/animate': 'true'
+        'kwinrc::Windows/animate': 'true',
+        'kwinrc::Windows/FocusPolicy': 'ClickToFocus',
+        'kwinrc::Windows/FocusStealingPreventionLevel': '0'
     };
 
     function storageKey(schemaKey) {

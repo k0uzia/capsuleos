@@ -11,7 +11,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { ROOT } from './replication-chain-lib.mjs';
 import { resolveLabMatrix } from './lab-recipe-resolver.mjs';
-import { h6Profile, parseRegistryId } from './h6-gnome-settings-lib.mjs';
+import { h6Profile, parseRegistryId, loadPlaybookTail } from './h6-gnome-settings-lib.mjs';
+import { writeSettingsEffectsState } from './settings-effects-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const errors = [];
@@ -214,6 +215,41 @@ if (profile.requiresInteractionInventory && fs.existsSync(interactionPath)) {
   warnings.push('Inventaire interaction absent');
 }
 
+const contractPath = path.join(ROOT, 'etc/capsuleos/contracts/settings-effects-chain.json');
+if (!fs.existsSync(contractPath)) {
+  errors.push('Contrat settings-effects-chain.json absent');
+}
+
+const parityJsFull = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
+const themeStorageJs = read('usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
+const themesJs = read('usr/lib/capsuleos/shells/linux/themes.js');
+const seBusJs = read('usr/lib/capsuleos/shells/linux/se-a11y-bus.js');
+const effectSources = `${parityJsFull}\n${themeStorageJs}\n${themesJs}\n${seBusJs}`;
+
+const P0_EVENT_HINTS = {
+  theme: ['data-theme-option', 'capsule:gnome-theme-changed', 'persistTheme', 'color-scheme', 'mint-theme'],
+  'night-light': ['capsule:night-light-changed', 'capsule:nightlight-changed', 'gnome-night-light'],
+  'dynamic-workspaces': ['capsule:workspaces-config-changed', 'capsule:dynamic-workspaces-changed', 'gnome-dynamic-workspaces'],
+  dnd: ['capsule:dnd-changed', 'gnome-dnd'],
+  contrast: ['capsule:a11y-contrast-changed'],
+  'font-scale': ['capsule:a11y-font-scale-changed'],
+};
+
+const tail = loadPlaybookTail(registry);
+const p0Controls = (tail?.gaps || [])
+  .filter((g) => g.priority === 'P0')
+  .map((g) => g.controlId);
+const p0FromH5 = tail?.h5Completed || [];
+const p0Ids = [...new Set([...p0Controls, ...p0FromH5])];
+
+for (const id of p0Ids) {
+  const hints = P0_EVENT_HINTS[id] || [`'${id}'`, `data-settings-switch="${id}"`];
+  const wired = hints.some((h) => effectSources.includes(h) || parityJsFull.includes(`'${id}'`));
+  if (!wired) {
+    errors.push(`SeΣ P0 "${id}" : handler/événement absent`);
+  }
+}
+
 if (errors.length) {
   console.error(`verify-gnome-settings-parity-chain ${registry} — échec\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
@@ -222,5 +258,14 @@ if (errors.length) {
 }
 
 console.log(`✓ verify-gnome-settings-parity-chain ${registry} OK`);
+writeSettingsEffectsState(registry, {
+  Se: true,
+  SeΣ: strict && !errors.length,
+}, {
+  gate: 'verify-gnome-settings-parity-chain.mjs',
+  strict,
+  p0Ids,
+  warnings: warnings.length,
+});
 if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
 if (strict && warnings.length) process.exit(1);

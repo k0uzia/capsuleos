@@ -11,6 +11,7 @@ import fs from 'fs';
 import { spawnSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { h6Profile } from './h6-gnome-settings-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -23,6 +24,7 @@ const registryIdx = args.indexOf('--id');
 const profileIdx = args.indexOf('--profile');
 const registry = registryIdx >= 0 ? args[registryIdx + 1] : 'linux-rocky';
 const profile = profileIdx >= 0 ? args[profileIdx + 1] : 'full';
+const h6 = h6Profile(registry);
 
 function run(script, extraArgs = []) {
   const res = spawnSync(process.execPath, [path.join(LAB, script), ...extraArgs], {
@@ -56,19 +58,27 @@ if (profile === 'visual-prereq') {
 
 run('generate-gsettings-bindings.mjs');
 run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
-run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
+if (h6.requiresPlaybook || h6.requiresBaseline) {
+  run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
+}
 run('smoke-gnome-settings-playbook.mjs');
 run('smoke-gnome-settings-interaction-playbook.mjs');
 run('smoke-gnome-settings-interactions.mjs');
 run('smoke-gsettings-mappers.mjs');
 run('smoke-gnome-settings-visual-matrix.mjs', ['--id', registry]);
-run('compare-playbook-gsettings-capsule.mjs', ['--registry', registry, '--strict']);
+if (h6.requiresPlaybook) {
+  run('compare-playbook-gsettings-capsule.mjs', ['--registry', registry, '--strict']);
+}
 run('enrich-visual-investigation-gsettings-pass.mjs', ['--id', registry]);
 run('collect-capsule-visual-investigation.mjs', ['--id', registry]);
 run('enrich-visual-investigation-capsule-parity.mjs', ['--id', registry]);
-run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
-run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
-run('smoke-h5-p1-appearance.mjs');
+if (h6.requiresPlaybook) {
+  run('compare-vm-parity-defaults.mjs', ['--registry', registry, '--strict']);
+}
+run('verify-gnome-settings-parity-chain.mjs', ['--id', registry, '--strict']);
+if (!h6.skipH5P1) {
+  run('smoke-h5-p1-appearance.mjs');
+}
 run('smoke-h5-p0-shell.mjs');
 writeLabState(true);
 
@@ -86,11 +96,15 @@ if (withVm) {
   run('verify-playbook-assets.mjs', ['--registry', registry, '--strict']);
   run('collect-vm-gnome-settings-visual-investigation.mjs', ['--id', registry, '--filter', 'P0']);
   run('enrich-visual-investigation-gsettings-pass.mjs', ['--id', registry]);
-  run('collect-vm-gnome-settings-playbook.mjs', ['--id', registry]);
-  run('collect-vm-gnome-settings-interaction.mjs', ['--id', registry]);
+  if (h6.requiresPlaybook) {
+    run('collect-vm-gnome-settings-playbook.mjs', ['--id', registry]);
+    run('collect-vm-gnome-settings-interaction.mjs', ['--id', registry]);
+  }
   run('generate-gsettings-bindings.mjs');
-  run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
-  run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
+  if (h6.requiresPlaybook || h6.requiresBaseline) {
+    run('generate-vm-settings-baseline.mjs', ['--registry', registry]);
+  }
+  run('verify-gnome-settings-parity-chain.mjs', ['--id', registry, '--strict']);
 }
 
 console.log('✓ run-gnome-settings-lab terminé');

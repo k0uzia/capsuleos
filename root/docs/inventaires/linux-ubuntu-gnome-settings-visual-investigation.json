@@ -25,7 +25,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/before.png",
-          "timestamp": "2026-06-08T23:00:43.108Z"
+          "timestamp": "2026-06-13T18:28:30.080Z"
         },
         {
           "phase": "during-transition",
@@ -66,7 +66,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings)."
       },
-      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "generatedAt": "2026-06-13T18:28:16.242184+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "color-scheme",
@@ -99,7 +99,7 @@
         },
         "deepPassNotes": "VM RL10 : color-scheme pilote clair/sombre ; gtk-theme reste Adwaita ; picture-uri et picture-uri-dark identiques (rocky-default-10-abstract-1-day.png). Capsule : themes.js + capsule-theme-storage ; vérifier variante fond nuit si picture-uri-dark diverge sur d’autres profils."
       },
-      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "gsettingsDeepPassAt": "2026-06-13T18:29:09.571732+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -122,7 +122,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
     },
     {
       "controlId": "night-light",
@@ -139,7 +139,7 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1086,
+        "durationMs": 1080,
         "easing": null,
         "properties": [
           "color-temperature"
@@ -150,7 +150,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/before.png",
-          "timestamp": "2026-06-08T23:01:02.485Z"
+          "timestamp": "2026-06-13T18:28:41.322Z"
         },
         {
           "phase": "during-transition",
@@ -189,7 +189,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
       },
-      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "generatedAt": "2026-06-13T18:28:16.242184+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.settings-daemon.plugins.color",
         "key": "night-light-enabled",
@@ -222,7 +222,7 @@
         },
         "deepPassNotes": "Clés liées : night-light-temperature (2700), horaires schedule-from/to. Exclusion top bar = gsd-color (pas de clé gsettings) — reproduire via html[data-night-light=on] sans filtre sur .fedora-top-bar."
       },
-      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "gsettingsDeepPassAt": "2026-06-13T18:29:09.571732+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -235,7 +235,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -252,7 +252,7 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 775,
+        "durationMs": 711,
         "easing": "ease-out",
         "properties": [],
         "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
@@ -261,7 +261,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/before.png",
-          "timestamp": "2026-06-08T23:01:16.086Z"
+          "timestamp": "2026-06-13T18:28:53.824Z"
         },
         {
           "phase": "during-transition",
@@ -299,7 +299,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
       },
-      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "generatedAt": "2026-06-13T18:28:16.242184+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.mutter",
         "key": "dynamic-workspaces",
@@ -319,7 +319,7 @@
         },
         "deepPassNotes": "VM : bool dynamic-workspaces seul ; workspaces-only-on-primary=false. Capsule : gnome-workspaces.js + dataset dynamicWorkspaces ; animation overview documentée en enquête visuelle."
       },
-      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "gsettingsDeepPassAt": "2026-06-13T18:29:09.571732+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -327,7 +327,7 @@
           "source": "ubuntu-capsule-dark-overview.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
     },
     {
       "controlId": "dnd",
@@ -343,7 +343,7 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 660,
+        "durationMs": 651,
         "easing": null,
         "properties": [
           "opacity"
@@ -354,7 +354,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/before.png",
-          "timestamp": "2026-06-08T23:01:28.757Z"
+          "timestamp": "2026-06-13T18:29:03.395Z"
         },
         {
           "phase": "during-transition",
@@ -393,7 +393,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
       },
-      "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+      "generatedAt": "2026-06-13T18:28:16.242184+00:00",
       "gsettingsDeferred": {
         "schema": "org.capsuleos.gnome.shell",
         "key": "dnd-enabled",
@@ -416,7 +416,7 @@
         },
         "deepPassNotes": "RL10 : DND session gnome-shell (_dndToggle), pas de clé gsettings VM. Schéma simulé org.capsuleos.gnome.shell aligné playbook (drift 0). show-banners indépendant ; QS tile volume.js + handler parity."
       },
-      "gsettingsDeepPassAt": "2026-06-08T23:02:05.627086+00:00",
+      "gsettingsDeepPassAt": "2026-06-13T18:29:09.571732+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -424,10 +424,10 @@
           "source": "ubuntu-capsule-dark-quick-settings.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-08T23:03:41.272Z"
+      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
     }
   ],
-  "generatedAt": "2026-06-08T23:02:05.627086+00:00",
+  "generatedAt": "2026-06-13T18:29:09.571732+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
@@ -442,14 +442,10 @@
     "documented": 4,
     "capsuleImplemented": 4,
     "gaps": 0,
-    "p0Open": 0,
-    "capsuleCapturesP0": 4,
-    "visualMatchClassifiedP0": 4,
-    "visualMatchClassifiedP1": 0,
-    "visualMatchClassifiedP2": 0
+    "p0Open": 0
   },
   "gsettingsDeepPass": {
-    "generatedAt": "2026-06-08T23:02:05.627086+00:00",
+    "generatedAt": "2026-06-13T18:29:09.571732+00:00",
     "investigator": "enrich-visual-investigation-gsettings-pass.mjs",
     "probeSource": "vm-gnome-settings-gsettings-deep-pass.sh",
     "playbookCapsuleDrift": 0,
@@ -483,13 +479,13 @@
     }
   ],
   "capsuleVisualCollect": {
-    "generatedAt": "2026-06-08T23:03:35.465Z",
+    "generatedAt": "2026-06-13T18:28:05.620Z",
     "investigator": "collect-capsule-visual-investigation.mjs",
     "filter": "P0",
     "files": 8
   },
   "visualParityClose": {
-    "generatedAt": "2026-06-08T23:03:41.272Z",
+    "generatedAt": "2026-06-13T18:28:05.758Z",
     "investigator": "enrich-visual-investigation-capsule-parity.mjs",
     "p0Classified": 4,
     "p1Classified": 0

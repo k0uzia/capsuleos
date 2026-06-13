@@ -19,6 +19,7 @@ const LAYER_RULE_MATCH = {
   'apps-parity': (rule) => ['R-APP-VV', 'R-APP-VC', 'R-APP-VP'].includes(rule),
   fidelity: (rule) => rule === 'R-FID1',
   release: (rule) => rule === 'R-H6-DONE' || rule === 'R-PB4',
+  'settings-effects': (rule) => rule.startsWith('R-SE'),
 };
 
 const defaultCommand = (layerId, registryId) => ({
@@ -31,6 +32,7 @@ const defaultCommand = (layerId, registryId) => ({
   release: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
   'apps-parity': `node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id ${registryId} --filter P0`,
   fidelity: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
+  'settings-effects': `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
 }[layerId]);
 
 export const loadPipelineContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));

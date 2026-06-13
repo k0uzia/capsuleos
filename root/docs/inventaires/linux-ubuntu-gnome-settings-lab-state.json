@@ -1,10 +1,10 @@
 {
   "registryId": "linux-ubuntu",
-  "profile": "visual-prereq",
+  "profile": "full",
   "gates": {
     "L": {
       "ok": true,
-      "at": "2026-06-08T23:00:11.539Z"
+      "at": "2026-06-13T18:28:10.506Z"
     }
   }
 }

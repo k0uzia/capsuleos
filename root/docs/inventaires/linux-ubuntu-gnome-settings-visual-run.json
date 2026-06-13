@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+  "generatedAt": "2026-06-13T18:28:16.242184+00:00",
   "source": "vm-gnome-settings-visual-investigation.sh",
   "registry": "linux-ubuntu",
   "outputDir": "/tmp/capsuleos-visual-investigation",
@@ -33,7 +33,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/before.png",
-          "timestamp": "2026-06-08T23:00:43.108Z"
+          "timestamp": "2026-06-13T18:28:30.080Z"
         },
         {
           "phase": "during-transition",
@@ -90,7 +90,7 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1086,
+        "durationMs": 1080,
         "easing": null,
         "properties": [
           "color-temperature"
@@ -101,7 +101,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/before.png",
-          "timestamp": "2026-06-08T23:01:02.485Z"
+          "timestamp": "2026-06-13T18:28:41.322Z"
         },
         {
           "phase": "during-transition",
@@ -156,7 +156,7 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 775,
+        "durationMs": 711,
         "easing": "ease-out",
         "properties": [],
         "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
@@ -165,7 +165,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/before.png",
-          "timestamp": "2026-06-08T23:01:16.086Z"
+          "timestamp": "2026-06-13T18:28:53.824Z"
         },
         {
           "phase": "during-transition",
@@ -218,7 +218,7 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 660,
+        "durationMs": 651,
         "easing": null,
         "properties": [
           "opacity"
@@ -229,7 +229,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/before.png",
-          "timestamp": "2026-06-08T23:01:28.757Z"
+          "timestamp": "2026-06-13T18:29:03.395Z"
         },
         {
           "phase": "during-transition",

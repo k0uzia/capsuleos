@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-08T22:44:52.248532+00:00",
+  "generatedAt": "2026-06-13T18:28:11.436631+00:00",
   "source": "vm-gnome-settings-assets-inventory.sh",
   "registry": "linux-ubuntu",
   "vendor": "ubuntu",
-  "matrixPath": "/tmp/capsule-assets-matrix.SDIAmw.json",
+  "matrixPath": "/tmp/capsule-assets-matrix.8KcM04.json",
   "summary": {
     "assetsTotal": 28,
     "presentOnVm": 26,

@@ -10,6 +10,7 @@ import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
 import { evaluateManifestGates } from './manifest-gates-lib.mjs';
 import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replication-lib.mjs';
+import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry } from './settings-effects-lib.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 
 const formalStatePath = (registryId) =>
@@ -40,6 +41,7 @@ export const loadFormalState = (registryId) => {
   const typoViolations = scanTypographyViolations(registryId);
   const manifest = evaluateManifestGates(registryId);
   const store = evaluateStorePredicates(registryId);
+  const settingsEffects = evaluateSettingsEffectsPredicates(registryId);
 
   const gates = {
     ...base.gates,
@@ -80,12 +82,15 @@ export const loadFormalState = (registryId) => {
     StoreΣ: store.state.StoreΣ,
     StoreVc: store.state.StoreVc,
     StoreVp: store.state.StoreVp,
+    Se: settingsEffects.state.Se,
+    SeΣ: settingsEffects.state.SeΣ,
   };
 
   return {
     registryId,
     gates,
     store,
+    settingsEffects,
     apps,
     universal: universal.state,
     replication: replication.state,
@@ -310,6 +315,22 @@ export const evaluateFormalRules = (registryId) => {
       when: () => storeAppliesToRegistry(registryId) && gates.ManΣ && (!gates.StoreG || !gates.StoreΣ || !gates.StoreVp),
       message: 'Chaîne store — orchestrateur run-store-replication-chain',
       command: `node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id ${registryId} --auto`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-SE-GNOME',
+      when: () => settingsEffectsAppliesToRegistry(registryId) && gates.ManΣ && !gates.Se,
+      message: 'ManΣ ∧ ¬Se — matrice effets système Paramètres GNOME',
+      command: `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-SE-SIGMA',
+      when: () => gates.Se && !gates.SeΣ,
+      message: 'Se ∧ ¬SeΣ — lab Paramètres + parité effets P0',
+      command: `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
       autoExecute: true,
       gateOnSuccess: null,
     },

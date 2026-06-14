@@ -1,0 +1,11 @@
+{
+  "registryId": "linux-kde-neon",
+  "gates": {
+    "H2": {
+      "ok": true,
+      "at": "2026-06-14T10:54:39.528Z",
+      "rule": "R-H1"
+    }
+  },
+  "updatedAt": "2026-06-14T10:54:39.528Z"
+}

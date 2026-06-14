@@ -18,7 +18,8 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
   },
   "openBacklog": [
-    "Parité pixel ciblée (Φ doc → patches CSS par slot)"
+    "Parité pixel Discover/KDE Settings (Φ<40) — chrome Kirigami/Breeze",
+    "Gate A — pull wallpapers neon ou matrice KDE dédiée"
   ],
   "v12Progress": {
     "updatedAt": "2026-06-14T08:49:00.000Z",
@@ -68,7 +69,19 @@
       "visualMatch": "accepted",
       "notes": "chrome Konsole activé sur kde-neon, prompt vide démarrage"
     },
-    "neonPassClosedAt": "2026-06-14T10:46:19.102Z"
+    "neonPassClosedAt": "2026-06-14T10:46:19.102Z",
+    "v12dPixelGeometry": {
+      "updatedAt": "2026-06-14T11:05:00.000Z",
+      "tool": "capture-capsule-kde-neon.mjs PARITY_GEOMETRY",
+      "delta": {
+        "themes": "33.3→37",
+        "update_manager": "7.3→15.2",
+        "nemo": "65.5→66.6",
+        "firefox": "98.8 ok",
+        "text_editor": "76.2 accepted",
+        "terminal": "67.1 accepted"
+      }
+    }
   },
   "clonePreserved": true,
   "credibilityCampaign": {

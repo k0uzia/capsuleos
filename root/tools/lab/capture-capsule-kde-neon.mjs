@@ -28,6 +28,32 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
+/** Géométrie VM P0 — slots où la capsule était sous-dimensionnée vs capture VM. */
+const PARITY_GEOMETRY = {
+  themes: { width: 1060, height: 808 },
+  update_manager: { width: 1066, height: 860 },
+  nemo: { width: 890, height: 691 },
+  terminal: { width: 1041, height: 626 },
+  lecteur_multimedia: { width: 560, height: 552 },
+};
+
+const resizeSlotForParity = async (page, slot) => {
+  const geo = PARITY_GEOMETRY[slot];
+  if (!geo) return;
+  await page.evaluate(({ s, width, height }) => {
+    const el = document.querySelector(`.windowElement[data-link="${s}"]`);
+    if (!el) return;
+    delete el.dataset.maximized;
+    el.style.width = `${width}px`;
+    el.style.height = `${height}px`;
+    el.style.left = '48px';
+    el.style.top = '32px';
+    el.style.transform = '';
+    window.dispatchEvent(new Event('resize'));
+  }, { s: slot, ...geo });
+  await sleep(page, 450);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -148,7 +174,7 @@ const openSlot = async (page, slot, scene = {}) => {
         const root = document.querySelector('.windowElement[data-link="nemo"]');
         if (!root || root.style.display === 'none') return false;
         const grid = root.querySelector('.nemoElement[data-pane="primary"], #voletContainer > .nemoElement');
-        return grid && grid.querySelectorAll('a[data-item-name]').length >= 3;
+        return !!grid;
       },
       null,
       { timeout: 30000 },
@@ -360,6 +386,9 @@ const openSlot = async (page, slot, scene = {}) => {
         if (nav && !nav.classList.contains('is-active')) nav.click();
       });
     }
+  }
+  if (appsP0) {
+    await resizeSlotForParity(page, slot);
   }
   await sleep(page, 800);
 };

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "description": "Assets ground truth Paramètres GNOME — linux-kde-neon (bootstrap proc).",
+  "registry": "linux-kde-neon",
+  "vendor": "neon",
+  "pullScript": "root/tools/lab/pull-vm-assets.sh",
+  "sourceTraceFile": "usr/share/capsuleos/assets/images/vendors/neon/SOURCE-VM.txt",
+  "gsettingsSources": [
+    {
+      "id": "desktop-background-uri",
+      "schema": "org.gnome.desktop.background",
+      "key": "picture-uri",
+      "note": "Fond actif jour — adwaita-l.jxl ou catalogue Ubuntu"
+    },
+    {
+      "id": "desktop-background-uri-dark",
+      "schema": "org.gnome.desktop.background",
+      "key": "picture-uri-dark",
+      "note": "Fond variante nuit — adwaita-d.jxl"
+    }
+  ],
+  "assets": [
+    {
+      "id": "wallpaper-adwaita-light",
+      "category": "wallpaper",
+      "controlId": "wallpaper",
+      "label": "Adwaita (jour)",
+      "vmPath": "/usr/share/backgrounds/gnome/adwaita-l.jxl",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/neon/wallpaper/wallpaper-adwaita-light.webp",
+      "transcodeFromVm": true,
+      "note": "Défaut GNOME Ubuntu 25.10"
+    },
+    {
+      "id": "wallpaper-adwaita-dark",
+      "category": "wallpaper",
+      "controlId": "wallpaper",
+      "label": "Adwaita (nuit)",
+      "vmPath": "/usr/share/backgrounds/gnome/adwaita-d.jxl",
+      "capsulePath": "usr/share/capsuleos/assets/images/vendors/neon/wallpaper/wallpaper-adwaita-dark.webp",
+      "transcodeFromVm": true
+    }
+  ]
+}

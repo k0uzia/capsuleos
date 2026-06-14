@@ -117,6 +117,11 @@ const mergeVmCapturesFromDisk = (registryId, investigations) => {
     }
     const legacy = path.join(base, `${inv.controlId}-vm.png`);
     if (fs.existsSync(legacy) && fs.statSync(legacy).size > 0) {
+      const legacyBytes = fs.statSync(legacy).size;
+      const minVmBytes = inv.controlId === 'update_manager' ? 45000 : 1;
+      if (legacyBytes < minVmBytes) {
+        continue;
+      }
       const rel = legacy.replace(`${ROOT}/`, '');
       if (!inv.vmCaptures.some((c) => c.path === rel)) {
         inv.vmCaptures.push({ path: rel, shot: 'default' });

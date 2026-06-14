@@ -54,6 +54,28 @@ const resizeSlotForParity = async (page, slot) => {
   await sleep(page, 450);
 };
 
+const alignDiscoverHomeForParityCapture = async (page) => {
+  await page.evaluate(() => {
+    const root = document.querySelector('.windowElement[data-link="update_manager"]');
+    if (!root) return;
+    const badge = root.querySelector('[data-discover-updates-badge]');
+    if (badge) badge.hidden = true;
+    root.querySelectorAll('[data-discover-store-section]').forEach((el) => {
+      el.hidden = true;
+    });
+    root.querySelectorAll('.kde-discover-panel--home, .kde-updates__cats, .kde-discover-home').forEach((el) => {
+      el.scrollTop = 0;
+    });
+    const wine = root.querySelector('[data-discover-home-mount] [data-discover-app="wine"]');
+    if (wine) wine.classList.add('kde-discover-card--vm-hover');
+    root.style.borderRadius = '0';
+    root.style.boxShadow = 'none';
+    root.style.background = '#dee0e2';
+    document.body.style.background = '#ffffff';
+  });
+  await sleep(page, 200);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -385,7 +407,20 @@ const openSlot = async (page, slot, scene = {}) => {
         const nav = document.querySelector('[data-discover-nav="home"]');
         if (nav && !nav.classList.contains('is-active')) nav.click();
       });
+      await alignDiscoverHomeForParityCapture(page);
     }
+  }
+  if (slot === 'themes') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="themes"]');
+        return root && root.style.display !== 'none'
+          && root.querySelector('.kde-kscreen__monitors');
+      },
+      null,
+      { timeout: 20000 },
+    );
+    await sleep(page, 400);
   }
   if (appsP0) {
     await resizeSlotForParity(page, slot);

@@ -489,7 +489,7 @@ function handleKdeSettingsWindowOpened(container) {
     if (!root) {
         return;
     }
-    activateKdeSettingsPanel(root, root.dataset.activeKdePanel || 'appearance');
+    activateKdeSettingsPanel(root, root.dataset.activeKdePanel || (root.querySelector('[data-kde-panel-content="display-config"]') ? 'display-config' : 'appearance'));
     bindKdeSettingsNavigation(root);
     bindKdeThemeChoices(root);
     syncKdeSettingsUiFromStorage(root);

@@ -471,11 +471,10 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     opacity: 0.9;
 }
 
-/* ---- Page d'accueil Discover (Neon) — grille VM ---- */
+/* Page d'accueil — titres / grille (fonds Kirigami après règle .kde-discover-panel) */
 .update-manager--kde-neon .kde-discover-home {
     overflow: auto;
     padding: 0 20px 24px;
-    background: #ffffff;
 }
 
 .update-manager--kde-neon .kde-discover-home__hero {
@@ -612,6 +611,21 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     background: #ffffff;
 }
 
+/* Accueil Kirigami VM — hero #dee0e2 + corps #eff0f1 (après fond panel blanc) */
+.update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home {
+    background: #eff0f1;
+}
+
+.update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home .kde-discover-home {
+    background: transparent;
+}
+
+.update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home .kde-discover-home__hero {
+    margin: 0 -20px;
+    padding: 20px 24px 12px;
+    background: #dee0e2;
+}
+
 .update-manager--kde-neon .kde-discover-panel[hidden] {
     display: none !important;
 }
@@ -626,8 +640,9 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
-.update-manager--kde-neon .kde-discover-card:hover {
-    background: rgba(61, 174, 233, 0.06);
+.update-manager--kde-neon .kde-discover-card:hover,
+.update-manager--kde-neon .kde-discover-card.kde-discover-card--vm-hover {
+    background: #ecf6fd;
     border-color: #c5dff0;
 }
 

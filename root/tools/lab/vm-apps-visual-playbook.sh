@@ -124,9 +124,82 @@ BACKEND = probe_backend()
 if not BACKEND:
     print("○ aucun backend capture (Shell.Screenshot / gnome-screenshot)", flush=True)
 
+KWIN_DISCOVER_JS = r"""/**
+ * KWin script — fermer « Problème de mises à jour » et focaliser Discover.
+ */
+var ws = workspace;
+var windows = ws.windowList();
+var discover = null;
+var discoverFallback = null;
+
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    if (cap === "Problème de mises à jour" || cap.indexOf("Update problem") === 0) {
+        w.closeWindow();
+        continue;
+    }
+    if (cap.indexOf("Discover") >= 0 && cap.indexOf("Problème") < 0) {
+        discoverFallback = w;
+        if (cap.indexOf("VLC") < 0) {
+            discover = w;
+        }
+    }
+}
+
+var target = discover || discoverFallback;
+if (target) {
+    target.minimized = false;
+    ws.activeWindow = target;
+}
+"""
+
+
+def run_kwin_discover_dismiss(script_id: str = "capsuleos-apps-visual-discover") -> None:
+    script_path = Path("/tmp/capsuleos-discover-capture-kwin.js")
+    try:
+        script_path.write_text(KWIN_DISCOVER_JS, encoding="utf-8")
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            [
+                "qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.loadScript",
+                str(script_path), script_id,
+            ],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.start"],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.4)
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except Exception:
+        pass
+
 
 def focus_window(pattern: str) -> None:
     if not pattern:
+        return
+    if "discover" in pattern.lower() and "KDE" in os.environ.get("XDG_CURRENT_DESKTOP", "").upper():
+        run_kwin_discover_dismiss()
         return
     try:
         res = subprocess.run(["wmctrl", "-lx"], capture_output=True, text=True, check=False, timeout=8)
@@ -142,6 +215,22 @@ def focus_window(pattern: str) -> None:
         return
 
 
+def capture_bytes_ok(outfile: Path, desktop: str) -> bool:
+    if not outfile.is_file() or outfile.stat().st_size < 1:
+        return False
+    if desktop and "discover" in desktop:
+        # Discover Kirigami : capture < 45 Ko = fenêtre vide (QML pas prêt)
+        return outfile.stat().st_size >= 45000
+    return True
+
+
+def dismiss_discover_dialogs() -> None:
+    """Ferme les modales Discover (PackageKit) via KWin — wmctrl/xdotool absents sur Neon Wayland."""
+    for _ in range(5):
+        run_kwin_discover_dismiss()
+        time.sleep(0.55)
+
+
 def launch_app(desktop: str) -> None:
     resource = desktop.replace(".desktop", "")
     if BACKEND == "spectacle":
@@ -151,8 +240,17 @@ def launch_app(desktop: str) -> None:
             timeout=5,
         )
         time.sleep(0.35)
-        subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
-        if "systemsettings" in desktop or "discover" in desktop or "dolphin" in desktop:
+        if "discover" in desktop and "KDE" in os.environ.get("XDG_CURRENT_DESKTOP", "").upper():
+            subprocess.run(["killall", "plasma-discover"], check=False, timeout=5)
+            time.sleep(0.35)
+            subprocess.run(["kstart", "plasma-discover"], check=False, timeout=10)
+        else:
+            subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
+        if "discover" in desktop:
+            time.sleep(10.0)
+        elif "systemsettings" in desktop:
+            time.sleep(5.0)
+        elif "dolphin" in desktop:
             time.sleep(3.5)
         elif "firefox" in desktop:
             time.sleep(5.0)
@@ -164,6 +262,11 @@ def launch_app(desktop: str) -> None:
             timeout=5,
         )
         time.sleep(0.5)
+        if "discover" in desktop:
+            focus_window("discover")
+            time.sleep(1.2)
+            dismiss_discover_dialogs()
+            time.sleep(0.6)
         return
     subprocess.run(["pkill", "-f", resource], check=False)
     time.sleep(0.35)
@@ -246,7 +349,16 @@ for item in matrix.get("investigations", []):
     elif desktop:
         launch_app_slot(desktop)
     default_out = out_dir / f"{control_id}-vm.png"
-    captured = capture_app_window(default_out, desktop) if BACKEND else False
+    attempts = 4 if desktop and "discover" in desktop else 1
+    captured = False
+    for attempt in range(attempts):
+        if attempt and desktop and "discover" in desktop:
+            focus_window("discover")
+            dismiss_discover_dialogs()
+            time.sleep(2.0)
+        captured = capture_app_window(default_out, desktop) if BACKEND else False
+        if captured and capture_bytes_ok(default_out, desktop):
+            break
     if captured:
         print(f"  ✓ {default_out.name} (fenêtre)", flush=True)
     else:

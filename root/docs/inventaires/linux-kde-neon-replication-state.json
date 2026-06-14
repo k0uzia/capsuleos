@@ -18,8 +18,8 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
   },
   "openBacklog": [
-    "Parité pixel Discover (Φ_norm≈15) — chrome Kirigami grille accueil",
-    "Parité pixel Paramètres KDE (Φ_norm≈37) — systemsettings.skin.css",
+    "Parité pixel Discover (Φ_norm≈71) — polish Kirigami cartes / anti-alias",
+    "Parité pixel Paramètres KDE (Φ_norm≈64) — polish kscreen CSS",
     "Propagation dérivés après excellence Neon"
   ],
   "v12Progress": {
@@ -89,6 +89,20 @@
       "L": true,
       "H6": true,
       "formalRule": "R-H6-DONE"
+    },
+    "v12fDiscoverVmCapture": {
+      "updatedAt": "2026-06-14T12:00:00.000Z",
+      "vmCaptureFix": "KWin dismiss PackageKit + kstart plasma-discover (playbook apps-visual)",
+      "phiNormalized": 71.5,
+      "visualMatch": "accepted",
+      "notes": "Φ≈15 était artefact modale ; fonds Kirigami #dee0e2/#eff0f1 + cascade CSS"
+    },
+    "v12fThemesKscreen": {
+      "updatedAt": "2026-06-14T12:30:00.000Z",
+      "capsulePanel": "kcm_kscreen display-config",
+      "phiNormalized": 64,
+      "visualMatch": "accepted",
+      "notes": "themes.html KCM affichage aligné VM ; launch systemsettings kcm_kscreen"
     }
   },
   "clonePreserved": true,

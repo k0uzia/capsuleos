@@ -15,7 +15,7 @@
         "display-panel",
         "about-panel"
       ],
-      "launch": "gtk-launch systemsettings.desktop"
+      "launch": "systemsettings kcm_kscreen"
     },
     {
       "controlId": "update_manager",
@@ -45,7 +45,7 @@
         "context-menu-background",
         "trash"
       ],
-      "launch": "nohup dolphin --new-window \"$HOME\" >/dev/null 2>&1 & disown"
+      "launch": "gtk-launch org.kde.dolphin.desktop"
     },
     {
       "controlId": "firefox",

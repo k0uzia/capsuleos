@@ -4,7 +4,7 @@
 (function initKdeSettingsParity(global) {
     'use strict';
 
-    var PLASMA_BODY_IDS = new Set(['kde-neon', 'debian-kde', 'mx-kde', 'lxqt']);
+    var PLASMA_BODY_IDS = new Set(['kde-neon', 'debian-kde', 'mx-kde', 'lxqt', 'opensuse']);
 
     function isPlasma() {
         var id = global.document && global.document.body ? global.document.body.id : '';
@@ -137,6 +137,33 @@
         dispatch('capsule:global-theme-changed', { theme: mode });
     }
 
+    function applyNotificationsBanners(on) {
+        var kc = store();
+        if (kc) {
+            kc.setBool('plasmanotifyrc::DoNotDisturb/Enabled', !on);
+        }
+        dispatch('capsule:notifications-changed', { enabled: on });
+    }
+
+    function applyDefaultBrowser(value) {
+        var kc = store();
+        if (kc) {
+            kc.setCapsule('kdeglobals::General/BrowserApplication', value || 'firefox.desktop');
+        }
+        dispatch('capsule:default-app-changed', { app: value, kind: 'browser' });
+    }
+
+    function applyAccentColor(value) {
+        var kc = store();
+        if (kc) {
+            kc.setCapsule('kdeglobals::General/AccentColor', value || 'Blue');
+        }
+        if (global.document && global.document.documentElement) {
+            global.document.documentElement.dataset.accentColor = value || 'Blue';
+        }
+        dispatch('capsule:accent-color-changed', { color: value });
+    }
+
     var EFFECT_HANDLERS = {
         'kde-a11y-high-contrast': function (v) { applyA11yHighContrast(v === 'on'); },
         'kde-a11y-large-text': function (v) { applyA11yLargeText(v === 'on'); },
@@ -147,7 +174,10 @@
         'kde-focus-stealing': function (v) { applyFocusStealing(v === 'on'); },
         'kde-desktop-icons': function (v) { applyDesktopIcons(v === 'on'); },
         'kde-desktop-align': function (v) { applyDesktopAlign(v); },
-        'kde-global-theme': function (v) { applyGlobalTheme(v); }
+        'kde-global-theme': function (v) { applyGlobalTheme(v); },
+        'kde-notifications-banners': function (v) { applyNotificationsBanners(v === 'on'); },
+        'kde-default-browser': function (v) { applyDefaultBrowser(v); },
+        'kde-accent-color': function (v) { applyAccentColor(v); }
     };
 
     function bindControls(root) {

@@ -59,11 +59,11 @@ async function runShellChecks(page, surfaces) {
 
     if (surface === 'panel') {
       const panel = await page.evaluate(() => {
-        const footer = document.querySelector('footer');
+        const footer = document.getElementById('tableau');
         const r = footer ? footer.getBoundingClientRect() : null;
         return {
           height: r ? Math.round(r.height) : 0,
-          pins: document.querySelectorAll('.taskbar-pins__item').length,
+          pins: document.querySelectorAll('.taskbar-pins__apps .taskbar-pins__item, .taskbar-pins__apps a[data-link]').length,
         };
       });
       push('panel-layout', 'vis', panel.height >= 28 && panel.pins >= 3, panel);
@@ -73,7 +73,7 @@ async function runShellChecks(page, surfaces) {
 
     if (surface === 'tray') {
       const tray = await page.evaluate(() => {
-        const icons = document.querySelectorAll('.tray-area__icon, .system-tray .tray-icon');
+        const icons = document.querySelectorAll('.taskbar-tray__btn, .taskbar-tray .taskbar-tray__btn');
         return { count: icons.length };
       });
       push('tray-icons', 'vis', tray.count >= 4, tray);

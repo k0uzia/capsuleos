@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "description": "Scénarios pédagogiques Paramètres KDE Plasma — v15 linux-kde-neon.",
+  "registryId": "linux-kde-neon",
+  "scenarios": [
+    {
+      "id": "cred-kde-settings-appearance-theme",
+      "panelId": "appearance",
+      "persona": "Élève découvrant le thème clair/sombre Plasma",
+      "steps": ["Ouvrir Paramètres système", "Aller à Apparence", "Basculer Sombre", "Observer le bureau"],
+      "controls": ["kde-global-theme"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-appearance-panel",
+      "panelId": "appearance",
+      "persona": "Utilisateur ajustant la barre des tâches",
+      "steps": ["Paramètres → Apparence", "Changer hauteur panneau à 48 px"],
+      "controls": ["kde-panel-height"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-a11y-contrast",
+      "panelId": "accessibility",
+      "persona": "Utilisateur avec besoin de contraste élevé",
+      "steps": ["Paramètres → Accessibilité", "Activer Contraste élevé"],
+      "controls": ["kde-a11y-high-contrast"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-desktop-icons",
+      "panelId": "desktop",
+      "persona": "Utilisateur masquant les icônes bureau",
+      "steps": ["Paramètres → Bureau", "Désactiver icônes bureau"],
+      "controls": ["kde-desktop-icons"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-workspace-focus",
+      "panelId": "workspace",
+      "persona": "Utilisateur configurant le focus fenêtres",
+      "steps": ["Paramètres → Espace de travail", "Activer Clic pour activer"],
+      "controls": ["kde-click-to-focus"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-notifications",
+      "panelId": "notifications",
+      "persona": "Utilisateur gérant les bannières",
+      "steps": ["Paramètres → Notifications", "Basculer affichage notifications"],
+      "controls": ["kde-notifications-banners"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-apps-browser",
+      "panelId": "applications",
+      "persona": "Utilisateur choisissant le navigateur par défaut",
+      "steps": ["Paramètres → Applications", "Sélectionner Firefox"],
+      "controls": ["kde-default-browser"],
+      "priority": "P0"
+    },
+    {
+      "id": "cred-kde-settings-colors-accent",
+      "panelId": "colors",
+      "persona": "Utilisateur personnalisant la couleur d'accent",
+      "steps": ["Paramètres → Couleurs", "Choisir Bleu"],
+      "controls": ["kde-accent-color"],
+      "priority": "P0"
+    }
+  ]
+}

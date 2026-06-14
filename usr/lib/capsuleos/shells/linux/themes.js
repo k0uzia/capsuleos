@@ -351,15 +351,19 @@ function activateKdeSettingsPanel(root, panelId) {
     if (!root) {
         return;
     }
-    const resolved = panelId && root.querySelector(`[data-kde-panel-content="${panelId}"]`)
+    const hub = root.querySelector('[data-kde-settings-surface="hub"]');
+    if (!hub) {
+        return;
+    }
+    const resolved = panelId && hub.querySelector(`[data-kde-panel-content="${panelId}"]`)
         ? panelId
-        : 'appearance';
-    root.querySelectorAll('[data-kde-panel-content]').forEach((panel) => {
+        : 'quick-settings';
+    hub.querySelectorAll('[data-kde-panel-content]').forEach((panel) => {
         const active = panel.getAttribute('data-kde-panel-content') === resolved;
         panel.classList.toggle('is-active', active);
         panel.hidden = !active;
     });
-    root.querySelectorAll('[data-kde-panel]').forEach((item) => {
+    hub.querySelectorAll('[data-kde-panel]').forEach((item) => {
         if (item.disabled) {
             return;
         }
@@ -454,6 +458,16 @@ function syncKdeSettingsUiFromStorage(root) {
     }
 }
 
+function resolveKdeSettingsRoot(container) {
+    const scope = container || document.querySelector('#themes');
+    if (!scope) {
+        return null;
+    }
+    return scope.querySelector('[data-kde-settings-root]')
+        || scope.querySelector('#kdeSystemSettingsShell')
+        || scope.querySelector('#kdeSystemSettingsApp');
+}
+
 function bindKdeThemeChoices(root) {
     if (!root || root.dataset.kdeThemeBound === 'true') {
         return;
@@ -485,19 +499,27 @@ function bindKdeThemeChoices(root) {
 }
 
 function handleKdeSettingsWindowOpened(container) {
-    const root = container ? container.querySelector('#kdeSystemSettingsApp') : null;
+    const root = resolveKdeSettingsRoot(container);
     if (!root) {
         return;
     }
-    activateKdeSettingsPanel(root, root.dataset.activeKdePanel || (root.querySelector('[data-kde-panel-content="display-config"]') ? 'display-config' : 'appearance'));
-    bindKdeSettingsNavigation(root);
+    const panelId = root.dataset.activeKdePanel
+        || (root.dataset.kdeSettingsView === 'kcm-display' ? 'display-config' : 'quick-settings');
+    activateKdeSettingsPanel(root, panelId);
     bindKdeThemeChoices(root);
     syncKdeSettingsUiFromStorage(root);
+    if (window.CapsuleKdeSettingsNav) {
+        if (typeof window.CapsuleKdeSettingsNav.bindNavigation === 'function') {
+            window.CapsuleKdeSettingsNav.bindNavigation(root);
+        }
+        if (typeof window.CapsuleKdeSettingsNav.updateWindowTitle === 'function') {
+            window.CapsuleKdeSettingsNav.updateWindowTitle();
+        }
+    }
 }
 
-function initKdeSettingsApp() {
-    const container = document.querySelector('#themes');
-    handleKdeSettingsWindowOpened(container);
+function initKdeSettingsApp(container) {
+    handleKdeSettingsWindowOpened(container || document.querySelector('#themes'));
 }
 
 function handleGnomeSettingsWindowOpened(container) {
@@ -518,6 +540,8 @@ function handleGnomeSettingsWindowOpened(container) {
 if (typeof window !== 'undefined') {
     window.setCapsuleSettingsPanel = setCapsuleSettingsPanel;
     window.buildWallpaperGrid = buildWallpaperGrid;
+    window.initKdeSettingsApp = initKdeSettingsApp;
+    window.resolveKdeSettingsRoot = resolveKdeSettingsRoot;
     document.addEventListener('capsule:window-opened', (event) => {
         if (!event.detail || event.detail.slotId !== 'themes') {
             return;

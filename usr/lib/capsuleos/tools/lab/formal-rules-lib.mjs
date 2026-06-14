@@ -150,8 +150,12 @@ export const evaluateFormalRules = (registryId) => {
     {
       rule: 'R-L1',
       when: () => gates.H2 && gates.A && !gates.L,
-      message: 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres GNOME',
-      command: `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId}`,
+      message: toolkit === 'kde'
+        ? 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres KDE (KdΣ)'
+        : 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres GNOME',
+      command: toolkit === 'kde'
+        ? `node usr/lib/capsuleos/tools/lab/run-kde-settings-lab.mjs --id ${registryId}`
+        : `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId}`,
       autoExecute: true,
       gateOnSuccess: 'L',
     },

@@ -1,223 +1,55 @@
 {
   "registryId": "linux-kde-neon",
-  "campaign": "v13-clone-excellence",
-  "campaignStatus": "active",
-  "startedAt": "2026-06-14T12:55:00.000Z",
-  "purgedAt": null,
+  "campaign": "v15-kde-settings-full-front",
+  "campaignStatus": "closed",
+  "startedAt": "2026-06-14T18:00:00.000Z",
+  "closedAt": "2026-06-14T18:30:00.000Z",
   "previousCampaigns": [
     "v3-full-parity",
     "v4-deep-parity",
     "G-coherence",
     "v11-visual-parity",
-    "v12-excellence"
+    "v13-clone-excellence",
+    "v14-systemsettings-excellence"
   ],
   "groundTruth": {
     "pivot": true,
     "doc": "root/docs/ground-truth-kde.md",
     "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
-    "scope": "Perfectionner ground truth Neon + algorithme clonage (geometryAlign, PARITY_GEOMETRY partagé)",
-    "propagationPolicy": "ground Neon d’abord — dérivés après excellence v13"
+    "controlsRegistry": "root/tools/lab/kde-settings-controls-registry.json",
+    "scope": "v15 — front intégral System Settings : 92 modules VM, 10 panneaux P0, registry option-par-option, Φ_norm 90",
+    "propagationPolicy": "sync-linux-skin-closure + smoke-kde-v15-propagation — GapΔ vendor wallpaper"
   },
-  "openBacklog": [
-    "Discover hero #dee0e2 — polish résiduel cosmétique",
-    "RealΣ — run-ui-state-effects-pass.mjs",
-    "Propagation dérivés (openSUSE, MX-KDE, Debian-KDE) après v13"
-  ],
-  "v13Progress": {
-    "updatedAt": "2026-06-14T16:10:00.000Z",
-    "cloneAlgorithm": {
-      "parityGeometryLib": "usr/lib/capsuleos/tools/lab/apps-parity-geometry.mjs",
-      "compareGeometryAlign": true,
-      "captureMinMaxLock": true
-    },
-    "p0Baseline": {
-      "themes": {
-        "phiNormalized": 92.1,
-        "visualMatch": "ok"
-      },
-      "update_manager": {
-        "phiNormalized": 90,
-        "visualMatch": "ok"
-      },
-      "nemo": {
-        "phiNormalized": 85.9,
-        "visualMatch": "ok"
-      },
-      "text_editor": {
-        "phiNormalized": 97.2,
-        "visualMatch": "ok"
-      },
-      "firefox": {
-        "phiNormalized": 96,
-        "visualMatch": "ok",
-        "vmCaptureFix": "playbook sans showDesktop + rejet Discover PNG"
-      },
-      "terminal": {
-        "phiNormalized": 90,
-        "visualMatch": "ok"
-      },
-      "lecteur_multimedia": {
-        "phiNormalized": 91.9,
-        "visualMatch": "ok"
-      }
-    },
-    "v13cVlc": {
-      "updatedAt": "2026-06-14T16:10:00.000Z",
-      "phiNormalized": 91.9,
-      "visualMatch": "ok",
-      "geometry": "560×552",
-      "notes": "playbook anti-dialogue vie privée (qt-privacy-ask=0) ; skin Breeze + cône ; alignVlcForParityCapture"
-    },
-    "v13bKonsole": {
-      "updatedAt": "2026-06-14T15:45:00.000Z",
-      "phiNormalized": 90,
-      "visualMatch": "ok",
-      "geometry": "1041×626",
-      "notes": "trimBlackLetterbox avant flattenAlpha noir ; prompt ~ + couleurs VM ; alignTerminalForParityCapture"
-    },
-    "v13aFirefox": {
-      "updatedAt": "2026-06-14T13:15:00.000Z",
-      "phiNormalized": 96,
-      "visualMatch": "ok",
-      "geometry": "1280×754",
-      "notes": "VM capturait Discover — KWin focus, lancement dédié, validation PIL"
-    },
-    "geometryLock": {
-      "updatedAt": "2026-06-14T13:00:00.000Z",
-      "allP0Aligned": true,
-      "tool": "apps-parity-geometry.mjs + capture min/max lock"
+  "phases": {
+    "P0": "vm-kde-settings-inventory + collect-vm-kde-settings-inventory",
+    "P1": "kde-settings-controls-registry.json + interaction playbook kconfig",
+    "P2": "sync-kde-settings-parity-matrix v4 + generate-kde-kconfig-bindings",
+    "P3": "systemsettings_kde_neon.html multi-KCM + nav prepareShot 10 shots",
+    "P4": "verify-kde-settings-parity-chain SeΣ 13 effets",
+    "P5": "kde-settings-user-scenarios + validate-kde-settings-user-scenarios",
+    "P6": "smoke-kde-v15-propagation dérivés",
+    "P7": "map-kde-ground-truth-gaps KdΣ v15"
+  },
+  "metrics": {
+    "vmModuleCount": 92,
+    "p0Panels": 10,
+    "p0Effects": 13,
+    "phiThreshold": 90,
+    "kdV": {
+      "status": "partial-v15",
+      "componentShots": 10,
+      "phiNormalizedMinShots": 83.8,
+      "shotsAtOrAboveThreshold": 6,
+      "optionalGate": true,
+      "residualShots": [
+        "colors-panel",
+        "appearance-panel",
+        "hub-sidebar",
+        "desktop-panel"
+      ],
+      "comparedAt": "2026-06-14T20:50:00.000Z"
     }
   },
-  "v12Progress": {
-    "updatedAt": "2026-06-14T08:49:00.000Z",
-    "validateCloneAssets": true,
-    "appLab": true,
-    "visualFidelityInventory": true,
-    "vmCapturesP0": 7,
-    "capsuleCapturesP0": 7,
-    "shellBaseline": true,
-    "appVpP0Accepted": 7,
-    "credSigma": true,
-    "credSmokeLive": {
-      "scenarios": 56,
-      "failed": 0,
-      "flakyRetried": "vlc-playback-controls"
-    },
-    "seSigma": true,
-    "seP0Effects": 10,
-    "kdeGroundTruthGaps": true,
-    "v12cThemes": {
-      "updatedAt": "2026-06-14T09:30:00.000Z",
-      "captureFix": "fenêtre VM + slot element capsule",
-      "phiNormalized": 51.7,
-      "skinCss": "themes.skin.css Breeze v12c"
-    },
-    "v12cFirefox": {
-      "updatedAt": "2026-06-14T11:50:00.000Z",
-      "vmCaptureFix": "showDesktop + spectacle timeout",
-      "phiNormalized": 98.8,
-      "visualMatch": "ok"
-    },
-    "v12cDolphin": {
-      "updatedAt": "2026-06-14T10:37:00.000Z",
-      "phiNormalized": 65.5,
-      "visualMatch": "accepted",
-      "notes": "chrome Dolphin KDE — périphériques sidebar, pill masquée"
-    },
-    "v12cKate": {
-      "updatedAt": "2026-06-14T10:37:00.000Z",
-      "phiNormalized": 76,
-      "visualMatch": "accepted",
-      "notes": "page Bienvenue Kate + menubar KDE"
-    },
-    "v12cKonsole": {
-      "updatedAt": "2026-06-14T10:37:00.000Z",
-      "phiNormalized": 67,
-      "visualMatch": "accepted",
-      "notes": "chrome Konsole activé sur kde-neon, prompt vide démarrage"
-    },
-    "v12dPixelGeometry": {
-      "updatedAt": "2026-06-14T11:05:00.000Z",
-      "tool": "capture-capsule-kde-neon.mjs PARITY_GEOMETRY",
-      "delta": {
-        "themes": "33.3→37",
-        "update_manager": "7.3→15.2",
-        "nemo": "65.5→66.6",
-        "firefox": "98.8 ok",
-        "text_editor": "76.2 accepted",
-        "terminal": "67.1 accepted"
-      }
-    },
-    "v12eFormalGates": {
-      "updatedAt": "2026-06-14T11:15:00.000Z",
-      "H2": true,
-      "A": true,
-      "L": true,
-      "H6": true,
-      "formalRule": "R-H6-DONE"
-    },
-    "v12fDiscoverVmCapture": {
-      "updatedAt": "2026-06-14T12:00:00.000Z",
-      "vmCaptureFix": "KWin dismiss PackageKit + kstart plasma-discover (playbook apps-visual)",
-      "phiNormalized": 90,
-      "visualMatch": "ok",
-      "notes": "v12g polish Kirigami + compare alpha flatten VM spectacle"
-    },
-    "v12hThemesKscreen": {
-      "updatedAt": "2026-06-14T12:45:00.000Z",
-      "phiNormalized": 92.1,
-      "visualMatch": "ok",
-      "notes": "v12h Breeze clair kcm_kscreen — sidebar #ffffff, contenu #eff0f1"
-    },
-    "v12fThemesKscreen": {
-      "updatedAt": "2026-06-14T12:30:00.000Z",
-      "capsulePanel": "kcm_kscreen display-config",
-      "phiNormalized": 64,
-      "visualMatch": "accepted",
-      "notes": "themes.html KCM affichage aligné VM ; launch systemsettings kcm_kscreen"
-    }
-  },
-  "clonePreserved": true,
-  "credibilityCampaign": {
-    "credSigma": true,
-    "evaluatedAt": "2026-06-14T08:46:02.493Z",
-    "predicates": {
-      "CredV": true,
-      "CredC": true,
-      "CredS": true,
-      "CredΠ": true,
-      "CredΣ": true
-    },
-    "scenarios": {
-      "total": 56,
-      "credV": 56,
-      "credC": 56,
-      "credS": 56,
-      "appsAtPi100": 16
-    },
-    "currentPhase": "P-F3-complete",
-    "formalClosedAt": "2026-06-14T08:46:02.493Z"
-  },
-  "updatedAt": "2026-06-14T14:20:49.593Z",
-  "lastNeonPass": {
-    "evaluatedAt": "2026-06-14T14:20:49.593Z",
-    "passOk": false,
-    "pi_global": 100,
-    "tool": "run-kde-neon-pass.mjs",
-    "captureCompare": "drift",
-    "failures": [
-      "H2 validate-all",
-      "smoke smoke-h6-kde-settings-ready.mjs",
-      "KdVp capture-compare"
-    ]
-  },
-  "domain": "kde-settings-playbook",
-  "H6": true,
-  "h6ClosedAt": "2026-06-14T11:09:04.504Z",
-  "h6Closure": "root/docs/inventaires/linux-kde-neon-gnome-settings-h6-closure.json",
-  "lastResolvedAction": {
-    "rule": "R-H6",
-    "message": "H6 clôturé — domaine kde-settings-playbook"
-  },
-  "generatedAt": "2026-06-14T11:09:04.504Z"
+  "openBacklog": [],
+  "clonePreserved": true
 }

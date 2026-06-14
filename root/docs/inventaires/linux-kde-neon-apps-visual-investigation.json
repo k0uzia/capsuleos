@@ -1,16 +1,18 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T14:35:07.738Z",
+  "updatedAt": "2026-06-14T22:09:42.301Z",
   "procedure": "procedure-apps-replication-formelle.md",
-  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
+  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-kde.json",
   "summary": {
     "documentedP0": 7,
     "vmCapturesP0": 7,
-    "componentShotsPlanned": 31,
-    "componentShotsCaptured": 31,
+    "componentShotsPlanned": 37,
+    "componentShotsCaptured": 37,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7
+    "visualMatchClassifiedP0": 0,
+    "capsuleCapturesP1": 0,
+    "capsuleCapturesP2": 0
   },
   "investigations": [
     {
@@ -20,70 +22,369 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "kde.systemsettings-hub",
+          "kde.systemsettings-kcm",
+          "kde.kscreen-display",
+          "kde.systemsettings-panel"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
-          "display-panel",
+          "kcm-display-config",
+          "hub-sidebar",
+          "appearance-panel",
+          "accessibility-panel",
+          "desktop-panel",
+          "workspace-panel",
+          "notifications-panel",
+          "applications-panel",
+          "colors-panel",
           "about-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "breeze-plasma",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": "systemsettings kcm_kscreen"
       },
       "componentShots": [
         {
-          "shotId": "sidebar-panels",
+          "shotId": "kcm-display-config",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
           ],
-          "labelFr": "sidebar panels",
+          "labelFr": "kcm display config",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/sidebar-panels-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/kcm-display-config-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/kcm-display-config-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 94.8,
+            "phiNormalized": 93.3,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:37.792Z"
+          }
         },
         {
-          "shotId": "wifi-row",
+          "shotId": "hub-sidebar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
           ],
-          "labelFr": "wifi row",
+          "labelFr": "hub sidebar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/wifi-row-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/hub-sidebar-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/hub-sidebar-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 89.1,
+            "phiNormalized": 86.9,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=86.9 — écart résiduel documenté.",
+            "comparedAt": "2026-06-14T22:09:38.316Z"
+          }
         },
         {
-          "shotId": "display-panel",
+          "shotId": "appearance-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
           ],
-          "labelFr": "display panel",
+          "labelFr": "appearance panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/display-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/appearance-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/appearance-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 87.2,
+            "phiNormalized": 85.4,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=85.4 — écart résiduel documenté.",
+            "comparedAt": "2026-06-14T22:09:38.899Z"
+          }
+        },
+        {
+          "shotId": "accessibility-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "accessibility panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/accessibility-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/accessibility-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 92.6,
+            "phiNormalized": 90.9,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:39.113Z"
+          }
+        },
+        {
+          "shotId": "desktop-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "desktop panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/desktop-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/desktop-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 89.2,
+            "phiNormalized": 87.4,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=87.4 — écart résiduel documenté.",
+            "comparedAt": "2026-06-14T22:09:39.445Z"
+          }
+        },
+        {
+          "shotId": "workspace-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "workspace panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/workspace-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/workspace-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 93.6,
+            "phiNormalized": 91.8,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:39.738Z"
+          }
+        },
+        {
+          "shotId": "notifications-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "notifications panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/notifications-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/notifications-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 93.5,
+            "phiNormalized": 91.6,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:39.981Z"
+          }
+        },
+        {
+          "shotId": "applications-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "applications panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/applications-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/applications-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 94.6,
+            "phiNormalized": 92.8,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:40.201Z"
+          }
+        },
+        {
+          "shotId": "colors-panel",
+          "componentIds": [
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
+          ],
+          "labelFr": "colors panel",
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/colors-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/colors-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 84.2,
+            "phiNormalized": 82.4,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=82.4 — écart résiduel documenté.",
+            "comparedAt": "2026-06-14T22:09:40.459Z"
+          }
         },
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "kde.systemsettings-hub",
+            "kde.systemsettings-kcm",
+            "kde.kscreen-display",
+            "kde.systemsettings-panel"
           ],
           "labelFr": "about panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/about-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 92.1,
+            "phiNormalized": 90.5,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-14T22:09:40.684Z"
+          }
         }
       ],
       "vmCaptures": [
@@ -100,8 +401,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "ok",
-        "phi": 91,
-        "phiNormalized": 89.4,
+        "phi": 94.6,
+        "phiNormalized": 93,
         "geometry": {
           "vm": {
             "width": 1060,
@@ -116,9 +417,10 @@
             "height": 808
           }
         },
-        "gapNotes": "V11d Φ_norm=75 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:06.192Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "Shots KCM min Φ_norm=87.3. Shots KCM min Φ_norm=77.6. Shots KCM min Φ_norm=77.6. Shots KCM min Φ_norm=71.1. Shots KCM min Φ_norm=85.1. Shots KCM min Φ_norm=85.1. Shots KCM min Φ_norm=84.2. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.8. Shots KCM min Φ_norm=85.2. Shots KCM min Φ_norm=85.2. Shots KCM min Φ_norm=84.6. Shots KCM min Φ_norm=83.6. Shots KCM min Φ_norm=83.8. Shots KCM min Φ_norm=83.8. Shots KCM min Φ_norm=81.8. Shots KCM min Φ_norm=82.4.",
+        "comparedAt": "2026-06-14T22:09:37.354Z",
+        "phiNormalizedMinShots": 82.4
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -129,15 +431,11 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Logiciels (GNOME Software)",
+        "labelFr": "Discover",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.software-search-toggle",
-          "gnome.software-hero",
-          "gnome.software-grid",
-          "gnome.software-detail-pane",
-          "gnome.gtk-search-entry"
+          "kde.discover-kirigami",
+          "kde.discover-grid",
+          "kde.discover-hero"
         ],
         "acquisitionOrder": [
           "explore-grid",
@@ -147,20 +445,17 @@
           "app-detail",
           "categories"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-fedora"
+        "chromeProvider": "breeze-plasma",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "explore-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "explore grid",
           "status": "captured",
@@ -169,13 +464,9 @@
         {
           "shotId": "featured-hero",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "featured hero",
           "status": "captured",
@@ -184,13 +475,9 @@
         {
           "shotId": "category-heroes",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "category heroes",
           "status": "captured",
@@ -199,13 +486,9 @@
         {
           "shotId": "updates-banner",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "updates banner",
           "status": "captured",
@@ -214,13 +497,9 @@
         {
           "shotId": "app-detail",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "app detail",
           "status": "captured",
@@ -229,13 +508,9 @@
         {
           "shotId": "categories",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "kde.discover-kirigami",
+            "kde.discover-grid",
+            "kde.discover-hero"
           ],
           "labelFr": "categories",
           "status": "captured",
@@ -256,8 +531,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "ok",
-        "phi": 91.4,
-        "phiNormalized": 90,
+        "phi": 91.5,
+        "phiNormalized": 90.1,
         "geometry": {
           "vm": {
             "width": 1066,
@@ -272,9 +547,9 @@
             "height": 860
           }
         },
-        "gapNotes": "V11d Φ_norm=71.5 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:06.551Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "",
+        "comparedAt": "2026-06-14T22:09:40.939Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -285,13 +560,11 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Fichiers (Nautilus)",
+        "labelFr": "Dolphin",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-navigation-split",
-          "gnome.gtk-column-view",
-          "gnome.gtk-search-entry"
+          "kde.dolphin-window",
+          "kde.dolphin-sidebar",
+          "kde.dolphin-pathbar"
         ],
         "acquisitionOrder": [
           "sidebar",
@@ -301,18 +574,17 @@
           "context-menu-background",
           "trash"
         ],
-        "chromeProvider": "nemo-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "breeze-plasma",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "sidebar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "sidebar",
           "status": "captured",
@@ -321,11 +593,9 @@
         {
           "shotId": "column-headers",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "column headers",
           "status": "captured",
@@ -334,11 +604,9 @@
         {
           "shotId": "pathbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "pathbar",
           "status": "captured",
@@ -347,11 +615,9 @@
         {
           "shotId": "context-menu-item",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "context menu item",
           "status": "captured",
@@ -360,11 +626,9 @@
         {
           "shotId": "context-menu-background",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "context menu background",
           "status": "captured",
@@ -373,11 +637,9 @@
         {
           "shotId": "trash",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "kde.dolphin-window",
+            "kde.dolphin-sidebar",
+            "kde.dolphin-pathbar"
           ],
           "labelFr": "trash",
           "status": "captured",
@@ -397,9 +659,9 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "phi": 87.8,
-        "phiNormalized": 85.9,
+        "visualMatch": "accepted",
+        "phi": 90,
+        "phiNormalized": 88.4,
         "geometry": {
           "vm": {
             "width": 890,
@@ -414,9 +676,9 @@
             "height": 691
           }
         },
-        "gapNotes": "V11d Φ_norm=64.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:06.766Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=88.4 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T22:09:41.177Z"
       },
       "note": "Slot nemo · VM org.kde.dolphin · variant kde/dolphin — ne pas hériter composition GNOME/Nautilus"
     },
@@ -429,8 +691,7 @@
       "composition": {
         "labelFr": "Firefox",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.browser-chrome"
+          "mozilla.firefox-chrome"
         ],
         "acquisitionOrder": [
           "tab-bar",
@@ -438,15 +699,15 @@
           "bookmarks",
           "menu-hamburger"
         ],
-        "chromeProvider": "firefox-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "default",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "tab-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "mozilla.firefox-chrome"
           ],
           "labelFr": "tab bar",
           "status": "captured",
@@ -455,8 +716,7 @@
         {
           "shotId": "url-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "mozilla.firefox-chrome"
           ],
           "labelFr": "url bar",
           "status": "captured",
@@ -465,8 +725,7 @@
         {
           "shotId": "bookmarks",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "mozilla.firefox-chrome"
           ],
           "labelFr": "bookmarks",
           "status": "captured",
@@ -475,8 +734,7 @@
         {
           "shotId": "menu-hamburger",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "mozilla.firefox-chrome"
           ],
           "labelFr": "menu hamburger",
           "status": "captured",
@@ -496,13 +754,13 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "phi": 96.7,
-        "phiNormalized": 96,
+        "visualMatch": "accepted",
+        "phi": 24.8,
+        "phiNormalized": 24.1,
         "geometry": {
           "vm": {
-            "width": 1280,
-            "height": 754
+            "width": 1242,
+            "height": 768
           },
           "capsule": {
             "width": 1280,
@@ -513,9 +771,9 @@
             "height": 754
           }
         },
-        "gapNotes": "V11d Φ=42.8 Φ_norm=38.5 — capture VM native vs Capsule 1066×860.",
-        "comparedAt": "2026-06-14T14:35:07.013Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ=24.8 Φ_norm=24.1 — capture VM native vs Capsule 1280×754.",
+        "comparedAt": "2026-06-14T22:09:41.580Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -540,10 +798,9 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Éditeur de texte",
+        "labelFr": "Kate",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.monospace-editor"
+          "kde.kate-window"
         ],
         "acquisitionOrder": [
           "menubar",
@@ -551,15 +808,15 @@
           "status-line",
           "open-dialog"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "breeze-plasma",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "kde.kate-window"
           ],
           "labelFr": "menubar",
           "status": "captured",
@@ -568,8 +825,7 @@
         {
           "shotId": "editor-area",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "kde.kate-window"
           ],
           "labelFr": "editor area",
           "status": "captured",
@@ -578,8 +834,7 @@
         {
           "shotId": "status-line",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "kde.kate-window"
           ],
           "labelFr": "status line",
           "status": "captured",
@@ -588,8 +843,7 @@
         {
           "shotId": "open-dialog",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "kde.kate-window"
           ],
           "labelFr": "open dialog",
           "status": "captured",
@@ -609,9 +863,9 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "phi": 97.8,
-        "phiNormalized": 97.2,
+        "visualMatch": "accepted",
+        "phi": 65.8,
+        "phiNormalized": 65.2,
         "geometry": {
           "vm": {
             "width": 1410,
@@ -626,9 +880,9 @@
             "height": 884
           }
         },
-        "gapNotes": "V11d Φ_norm=65.4 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:07.308Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=65.2 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T22:09:41.922Z"
       },
       "note": "Slot text_editor · VM org.kde.kate · chrome Kate distinct du gabarit GNOME TextEditor"
     },
@@ -639,10 +893,9 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Terminal (Ptyxis)",
+        "labelFr": "Konsole",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.terminal-chrome"
+          "kde.konsole-window"
         ],
         "acquisitionOrder": [
           "headerbar",
@@ -650,15 +903,15 @@
           "prompt-colors",
           "preferences"
         ],
-        "chromeProvider": "terminal-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "breeze-plasma",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "headerbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "kde.konsole-window"
           ],
           "labelFr": "headerbar",
           "status": "captured",
@@ -667,8 +920,7 @@
         {
           "shotId": "tab-strip",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "kde.konsole-window"
           ],
           "labelFr": "tab strip",
           "status": "captured",
@@ -677,8 +929,7 @@
         {
           "shotId": "prompt-colors",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "kde.konsole-window"
           ],
           "labelFr": "prompt colors",
           "status": "captured",
@@ -687,8 +938,7 @@
         {
           "shotId": "preferences",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "kde.konsole-window"
           ],
           "labelFr": "preferences",
           "status": "captured",
@@ -725,9 +975,9 @@
             "height": 626
           }
         },
-        "gapNotes": "V11d Φ_norm=67 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:07.560Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "",
+        "comparedAt": "2026-06-14T22:09:42.133Z"
       },
       "note": "Slot terminal · VM org.kde.konsole · chrome Konsole distinct de Ptyxis/GNOME"
     },
@@ -738,27 +988,24 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Lecteur multimédia",
+        "labelFr": "Lecteur vidéo",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.media-viewer"
+          "vlc.player-chrome"
         ],
         "acquisitionOrder": [
           "transport-controls",
           "playlist",
           "album-art"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-ubuntu"
+        "chromeProvider": "default",
+        "referenceRegistryId": "linux-kde-neon",
+        "vmLaunch": null
       },
       "componentShots": [
         {
           "shotId": "transport-controls",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "vlc.player-chrome"
           ],
           "labelFr": "transport controls",
           "status": "captured",
@@ -767,9 +1014,7 @@
         {
           "shotId": "playlist",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "vlc.player-chrome"
           ],
           "labelFr": "playlist",
           "status": "captured",
@@ -778,9 +1023,7 @@
         {
           "shotId": "album-art",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "vlc.player-chrome"
           ],
           "labelFr": "album art",
           "status": "captured",
@@ -817,9 +1060,9 @@
             "height": 552
           }
         },
-        "gapNotes": "V11d Φ_norm=80.3 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T14:35:07.738Z",
-        "geometryAligned": false
+        "geometryAligned": false,
+        "gapNotes": "",
+        "comparedAt": "2026-06-14T22:09:42.301Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -829,63 +1072,8 @@
       "vmId": "libreoffice-writer",
       "parityPriority": "P1",
       "status": "pending",
-      "composition": {
-        "labelFr": "LibreOffice Writer",
-        "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
-        ],
-        "acquisitionOrder": [
-          "menubar",
-          "toolbar",
-          "ruler",
-          "page-canvas"
-        ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-ubuntu"
-      },
-      "componentShots": [
-        {
-          "shotId": "menubar",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
-          ],
-          "labelFr": "menubar",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "toolbar",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
-          ],
-          "labelFr": "toolbar",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "ruler",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
-          ],
-          "labelFr": "ruler",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "page-canvas",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
-          ],
-          "labelFr": "page canvas",
-          "status": "pending",
-          "vmCapture": null
-        }
-      ],
+      "composition": null,
+      "componentShots": [],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {
@@ -898,56 +1086,8 @@
       "vmId": "system_monitor",
       "parityPriority": "P1",
       "status": "pending",
-      "composition": {
-        "labelFr": "Moniteur système",
-        "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.system-metrics"
-        ],
-        "acquisitionOrder": [
-          "cpu-chart",
-          "memory-chart",
-          "process-table"
-        ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
-      },
-      "componentShots": [
-        {
-          "shotId": "cpu-chart",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
-          ],
-          "labelFr": "cpu chart",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "memory-chart",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
-          ],
-          "labelFr": "memory chart",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "process-table",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
-          ],
-          "labelFr": "process table",
-          "status": "pending",
-          "vmCapture": null
-        }
-      ],
+      "composition": null,
+      "componentShots": [],
       "vmCaptures": [],
       "capsuleCaptures": [],
       "capsuleParity": {

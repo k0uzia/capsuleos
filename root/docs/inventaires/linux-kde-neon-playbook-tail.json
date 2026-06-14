@@ -5,7 +5,7 @@
   "branchId": "ubuntu",
   "displayName": "KDE neon User Edition",
   "status": "documented",
-  "generatedAt": "2026-06-14T10:37:13.161Z",
+  "generatedAt": "2026-06-14T15:16:01.348Z",
   "investigator": "collect-playbook-tail.mjs",
   "source": "procedure-playbook-general.md §couche-τ",
   "vmEnvironment": {

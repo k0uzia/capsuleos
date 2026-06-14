@@ -169,7 +169,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "debiankde",
     "tier": "P2",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -212,7 +212,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
@@ -402,7 +402,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "kde-neon",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -607,7 +607,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "mxkde",
     "tier": "P1",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -653,7 +653,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
@@ -672,7 +672,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -715,7 +715,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
@@ -1114,7 +1114,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "debiankde",
     "tier": "P2",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1157,7 +1157,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
@@ -1347,7 +1347,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "kde-neon",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1552,7 +1552,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "mxkde",
     "tier": "P1",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1598,7 +1598,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
@@ -1617,7 +1617,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1660,7 +1660,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"

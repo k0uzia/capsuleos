@@ -135,6 +135,9 @@ const resolveCssBaseTemplateId = (templateId) => {
     if (templateId === 'mainMenu-gnome') {
         return 'mainMenu-gnome';
     }
+    if (templateId === 'systemsettings_kde_neon') {
+        return 'systemsettings_kde';
+    }
     return templateId;
 };
 
@@ -277,8 +280,16 @@ const hasSkinHtmlOverride = (templateId) => {
 /** Candidats HTML : skin d’abord si override connu, puis noyau partagé. */
 const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
     const candidates = [];
+    if (typeof window !== 'undefined'
+        && window.CAPSULE_TEMPLATE_OVERRIDES
+        && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
+        candidates.push(String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]));
+    }
     if (skinBase && hasSkinHtmlOverride(templateId)) {
-        candidates.push(`${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`);
+        const localSkinHtml = `${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`;
+        if (!candidates.includes(localSkinHtml)) {
+            candidates.push(localSkinHtml);
+        }
     }
     const shared = resolveTemplateHtmlFile(templateId, appsBase);
     if (!candidates.includes(shared)) {
@@ -625,11 +636,21 @@ const SLOT_INIT_HANDLERS = {
             { fn: typeof initMintFirefoxBrowser === 'function' ? initMintFirefoxBrowser : null }
         ]);
     },
-    themes: () => {
+    themes: (container) => {
         if (typeof initCinnamonSettingsApp === 'function' && document.getElementById('cinnamonSettingsApp')) {
             initCinnamonSettingsApp();
-        } else if (typeof initKdeSettingsApp === 'function' && document.getElementById('kdeSystemSettingsApp')) {
-            initKdeSettingsApp();
+        } else if (typeof initKdeSettingsApp === 'function' && (
+            (container && container.querySelector('[data-kde-settings-root]'))
+            || document.querySelector('[data-kde-settings-root]')
+            || document.getElementById('kdeSystemSettingsShell')
+            || document.getElementById('kdeSystemSettingsApp')
+        )) {
+            if (typeof window.CapsuleKdeSystemSettings === 'object'
+                && typeof window.CapsuleKdeSystemSettings.wire === 'function') {
+                window.CapsuleKdeSystemSettings.wire(container);
+            } else {
+                initKdeSettingsApp(container);
+            }
         } else if (typeof initThemesApp === 'function') {
             initThemesApp();
         }

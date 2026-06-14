@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-kde-neon",
   "toolkit": "kde",
-  "generatedAt": "2026-06-14T08:16:36.795Z",
+  "generatedAt": "2026-06-14T17:26:36.571Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-kde-neon-vm-apps-installed.json",
@@ -197,9 +197,9 @@
       },
       "specs": {
         "chromeProvider": "default",
-        "template": "systemsettings_kde.html",
+        "template": "systemsettings_kde_neon.html",
         "skinCss": "themes.skin.css",
-        "functionalDepth": "partial"
+        "functionalDepth": "full"
       },
       "note": null
     },

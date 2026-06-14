@@ -10,7 +10,7 @@
   "embedKey": "kde-neon",
   "tier": "P1",
   "status": "active",
-  "fidelityLevel": 3,
+  "fidelityLevel": 4,
   "upstreamId": "linux-debian-kde",
   "clusterIds": [
     "explorer.dolphin.kde",

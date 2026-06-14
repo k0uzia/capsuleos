@@ -22,6 +22,18 @@ const NORM_H = 600;
 const PHI_OK = 85;
 const PHI_ACCEPT = 40;
 
+const resolvePhiOk = (registryId) => {
+  if (registryId !== 'linux-kde-neon') return PHI_OK;
+  const regPath = path.join(ROOT, 'root/tools/lab/kde-settings-controls-registry.json');
+  const visPath = path.join(ROOT, 'root/tools/lab/kde-settings-visual-investigation-matrix.json');
+  for (const p of [regPath, visPath]) {
+    if (!fs.existsSync(p)) continue;
+    const j = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (j.phiThreshold) return j.phiThreshold;
+  }
+  return PHI_OK;
+};
+
 const parseArgs = () => {
   const args = process.argv.slice(2);
   const opts = { id: 'linux-rocky', filter: 'all', write: false };
@@ -159,7 +171,8 @@ const comparePair = (vmFile, capFile, opts = {}) => {
 };
 
 const classify = (scores, registryId) => {
-  if (scores.phiNormalized >= PHI_OK) {
+  const phiOk = resolvePhiOk(registryId);
+  if (scores.phiNormalized >= phiOk) {
     return { visualMatch: 'ok', gapNotes: '' };
   }
   if (scores.phiNormalized >= PHI_ACCEPT) {
@@ -196,6 +209,74 @@ const resolveCapCapture = (registryId, item, paths) => {
   return findCapsuleCapture(registryId, item.controlId, paths);
 };
 
+const compareItem = (opts, item, paths) => {
+  const vmFile = resolveVmCapture(item);
+  const capFile = resolveCapCapture(opts.id, item, paths);
+  if (!vmFile || !capFile || !fs.existsSync(vmFile) || !fs.existsSync(capFile)) {
+    return { controlId: item.controlId, status: 'unmeasured' };
+  }
+  const scores = comparePair(vmFile, capFile, {
+    flattenVmAlpha: opts.id === 'linux-kde-neon',
+    flattenVmBg: (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia')
+      ? [0, 0, 0]
+      : [255, 255, 255],
+    trimVmLetterbox: opts.id === 'linux-kde-neon'
+      && (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia'),
+    expectedGeometry: expectedGeometry(opts.id, item.controlId),
+  });
+  const { visualMatch, gapNotes } = classify(scores, opts.id);
+  item.capsuleParity = {
+    ...(item.capsuleParity || {}),
+    visualMatch,
+    phi: scores.phi,
+    phiNormalized: scores.phiNormalized,
+    geometry: scores.geometry,
+    geometryAligned: scores.geometryAligned,
+    gapNotes: gapNotes || item.capsuleParity?.gapNotes || '',
+    comparedAt: new Date().toISOString(),
+  };
+  return {
+    controlId: item.controlId,
+    phi: scores.phi,
+    phiNormalized: scores.phiNormalized,
+    geometryAligned: scores.geometryAligned,
+    geometry: scores.geometry,
+    visualMatch,
+  };
+};
+
+const compareComponentShots = (opts, item) => {
+  if (item.controlId !== 'themes') return [];
+  const shotResults = [];
+  for (const shot of item.componentShots || []) {
+    if (!shot.vmCapture || !shot.capsuleCapture) continue;
+    const vmFile = path.join(ROOT, shot.vmCapture);
+    const capFile = path.join(ROOT, shot.capsuleCapture);
+    if (!fs.existsSync(vmFile) || !fs.existsSync(capFile)) continue;
+    const scores = comparePair(vmFile, capFile, {
+      flattenVmAlpha: true,
+      flattenVmBg: [255, 255, 255],
+      trimVmLetterbox: false,
+      expectedGeometry: expectedGeometry(opts.id, item.controlId),
+    });
+    const { visualMatch, gapNotes } = classify(scores, opts.id);
+    shot.capsuleParity = {
+      visualMatch,
+      phi: scores.phi,
+      phiNormalized: scores.phiNormalized,
+      geometry: scores.geometry,
+      gapNotes,
+      comparedAt: new Date().toISOString(),
+    };
+    shotResults.push({
+      shotId: shot.shotId,
+      phiNormalized: scores.phiNormalized,
+      visualMatch,
+    });
+  }
+  return shotResults;
+};
+
 const main = () => {
   const opts = parseArgs();
   const paths = appsPathsForRegistry(opts.id);
@@ -210,40 +291,20 @@ const main = () => {
 
   for (const item of inv.investigations || []) {
     if (!priorities.includes(item.parityPriority) || item.status !== 'documented') continue;
-    const vmFile = resolveVmCapture(item);
-    const capFile = resolveCapCapture(opts.id, item, paths);
-    if (!vmFile || !capFile || !fs.existsSync(vmFile) || !fs.existsSync(capFile)) {
-      results.push({ controlId: item.controlId, status: 'unmeasured' });
-      continue;
+    results.push(compareItem(opts, item, paths));
+    const shotResults = compareComponentShots(opts, item);
+    if (shotResults.length) {
+      results[results.length - 1].componentShots = shotResults;
+      const minPhi = Math.min(...shotResults.map((s) => s.phiNormalized));
+      if (minPhi < (item.capsuleParity?.phiNormalized ?? 100)) {
+        item.capsuleParity = {
+          ...(item.capsuleParity || {}),
+          phiNormalizedMinShots: minPhi,
+          visualMatch: minPhi >= PHI_OK ? 'ok' : item.capsuleParity?.visualMatch,
+          gapNotes: `${item.capsuleParity?.gapNotes || ''} Shots KCM min Φ_norm=${minPhi}.`.trim(),
+        };
+      }
     }
-    const scores = comparePair(vmFile, capFile, {
-      flattenVmAlpha: opts.id === 'linux-kde-neon',
-      flattenVmBg: (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia')
-        ? [0, 0, 0]
-        : [255, 255, 255],
-      trimVmLetterbox: opts.id === 'linux-kde-neon'
-        && (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia'),
-      expectedGeometry: expectedGeometry(opts.id, item.controlId),
-    });
-    const { visualMatch, gapNotes } = classify(scores, opts.id);
-    item.capsuleParity = {
-      ...(item.capsuleParity || {}),
-      visualMatch,
-      phi: scores.phi,
-      phiNormalized: scores.phiNormalized,
-      geometry: scores.geometry,
-      geometryAligned: scores.geometryAligned,
-      gapNotes: gapNotes || item.capsuleParity?.gapNotes || '',
-      comparedAt: new Date().toISOString(),
-    };
-    results.push({
-      controlId: item.controlId,
-      phi: scores.phi,
-      phiNormalized: scores.phiNormalized,
-      geometryAligned: scores.geometryAligned,
-      geometry: scores.geometry,
-      visualMatch,
-    });
   }
 
   if (opts.write) {

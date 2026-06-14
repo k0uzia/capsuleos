@@ -13,7 +13,8 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
-const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
+const httpBase = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500').replace(/\/$/, '');
+const URL = process.env.CAPSULE_KDE_NEON_URL || `${httpBase}/home/Debian/KDE-Neon/index.html`;
 
 const read = (rel) => {
   const abs = path.join(ROOT, rel);

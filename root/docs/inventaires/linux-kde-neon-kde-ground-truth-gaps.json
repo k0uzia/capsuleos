@@ -1,21 +1,49 @@
 {
   "registryId": "linux-kde-neon",
-  "evaluatedAt": "2026-06-14T14:17:03.799Z",
+  "evaluatedAt": "2026-06-14T20:53:59.571Z",
   "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
   "gates": [
     {
       "predicate": "KdC",
-      "ok": false,
+      "ok": true,
       "optional": false,
       "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
-      "detail": "✗ validate-toolkit-paradigm — 1 erreur(s) [linux-kde-neon]"
+      "detail": ""
     },
     {
       "predicate": "KdSe",
+      "ok": false,
+      "optional": false,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
+      "detail": "verify-kde-settings-parity-chain linux-kde-neon — échec"
+    },
+    {
+      "predicate": "KdS",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/run-kde-ui-state-effects-pass.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdF",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-front-inventory.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdCred",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-kde-settings-user-scenarios.mjs",
+      "detail": ""
+    },
+    {
+      "predicate": "KdV",
       "ok": true,
       "optional": true,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon --allow-stub",
-      "detail": ""
+      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-visual-parity.mjs --id linux-kde-neon --allow-stub",
+      "detail": "optional — stub Phase 2b"
     }
   ],
   "allOk": false

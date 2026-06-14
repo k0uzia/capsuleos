@@ -83,7 +83,7 @@ body#kde-neon div[data-link="lecteur_multimedia"] main#lecteurMultimedia.cellulo
     display: block;
     width: 96px;
     height: 96px;
-    background: url("../../../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/vlc.svg") center / contain no-repeat;
+    background: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/apps/vlc.svg") center / contain no-repeat;
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
 }
 

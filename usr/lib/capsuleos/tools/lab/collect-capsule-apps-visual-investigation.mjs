@@ -96,6 +96,20 @@ const main = () => {
     if (found) {
       item.capsuleCaptures = [{ path: found.replace(`${ROOT}/`, ''), shot: 'default' }];
     }
+    for (const shot of item.componentShots || []) {
+      const shotCap = path.join(
+        ROOT,
+        'root/docs/inventaires/captures',
+        opts.id,
+        'apps-visual-capsule',
+        slot,
+        `${shot.shotId}-capsule.png`,
+      );
+      if (fs.existsSync(shotCap) && fs.statSync(shotCap).size > 0) {
+        shot.capsuleCapture = shotCap.replace(`${ROOT}/`, '');
+        shot.status = 'captured';
+      }
+    }
   }
 
   inv.summary = inv.summary || {};

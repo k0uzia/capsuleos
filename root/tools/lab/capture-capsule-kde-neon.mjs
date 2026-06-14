@@ -29,6 +29,32 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
+const KDE_THEMES_SHOT_VIEW = {
+  'kcm-display-config': 'kcm-display',
+  'hub-sidebar': 'hub',
+  'appearance-panel': 'kcm-lookandfeel',
+  'accessibility-panel': 'kcm-access',
+  'desktop-panel': 'kcm-plasma-style',
+  'workspace-panel': 'hub',
+  'notifications-panel': 'hub',
+  'applications-panel': 'hub',
+  'colors-panel': 'kcm-colors',
+  'about-panel': 'hub',
+};
+
+const KDE_THEMES_SHOT_TITLE = {
+  'kcm-display-config': 'Configuration de l\'affichage — Configuration du système',
+  'hub-sidebar': 'Paramétrage rapide — Configuration du système',
+  'appearance-panel': 'Thème global — Configuration du système',
+  'accessibility-panel': 'Accessibilité — Configuration du système',
+  'desktop-panel': 'Style Plasma — Configuration du système',
+  'workspace-panel': 'Comportement général — Configuration du système',
+  'notifications-panel': 'Notifications — Configuration du système',
+  'applications-panel': 'Applications par défaut — Configuration du système',
+  'colors-panel': 'Couleurs — Configuration du système',
+  'about-panel': 'À propos de ce système — Configuration du système',
+};
+
 const PARITY_GEOMETRY = KDE_NEON_PARITY_GEOMETRY;
 
 const resizeSlotForParity = async (page, slot) => {
@@ -78,10 +104,11 @@ const alignDiscoverHomeForParityCapture = async (page) => {
   await sleep(page, 200);
 };
 
-const alignThemesForParityCapture = async (page) => {
-  await page.evaluate(() => {
+const alignThemesForParityCapture = async (page, shotId = '') => {
+  await page.evaluate((id) => {
     const root = document.querySelector('.windowElement[data-link="themes"]');
     if (!root) return;
+    document.documentElement.dataset.theme = 'light';
     root.style.borderRadius = '5px';
     root.style.boxShadow = 'none';
     root.style.overflow = 'hidden';
@@ -90,8 +117,32 @@ const alignThemesForParityCapture = async (page) => {
     if (iframe) iframe.style.background = '#eff0f1';
     const kcm = root.querySelector('.kde-systemsettings--kcm');
     if (kcm) kcm.style.background = '#eff0f1';
+    const hub = root.querySelector('.kde-systemsettings--hub');
+    if (hub) hub.style.background = '#eff0f1';
+    root.querySelectorAll('.kde-systemsettings__content').forEach((el) => {
+      el.scrollTop = 0;
+    });
+    root.querySelectorAll('[data-kde-theme-option="light"], [data-kde-quick-theme="light"]').forEach((tile) => {
+      tile.classList.add('is-active');
+      tile.setAttribute('aria-pressed', 'true');
+      tile.setAttribute('aria-checked', 'true');
+    });
+    root.querySelectorAll('[data-kde-theme-option="dark"], [data-kde-quick-theme="dark"]').forEach((tile) => {
+      tile.classList.remove('is-active');
+      tile.setAttribute('aria-pressed', 'false');
+      tile.setAttribute('aria-checked', 'false');
+    });
+    if (id === 'hub-sidebar') {
+      const pagesGroup = root.querySelector('[data-kde-panel-content="quick-settings"] .kde-systemsettings__group:last-of-type');
+      if (pagesGroup) pagesGroup.style.display = 'none';
+    }
+    if (id === 'colors-panel' || id === 'desktop-panel' || id === 'appearance-panel') {
+      root.querySelectorAll('.kde-kcm-subnav .kde-systemsettings__navitem--stub').forEach((item) => {
+        item.style.display = '';
+      });
+    }
     document.body.style.background = '#ffffff';
-  });
+  }, shotId);
   await sleep(page, 200);
 };
 
@@ -517,16 +568,39 @@ const openSlot = async (page, slot, scene = {}) => {
     }
   }
   if (slot === 'themes') {
+    const shotId = scene.themesShot || 'kcm-display-config';
     await page.waitForFunction(
       () => {
-        const root = document.querySelector('.windowElement[data-link="themes"]');
-        return root && root.style.display !== 'none'
-          && root.querySelector('.kde-kscreen__monitors');
+        const slotEl = document.querySelector('.windowElement[data-link="themes"]');
+        if (!slotEl || slotEl.style.display === 'none') return false;
+        return !!slotEl.querySelector('[data-kde-settings-root]');
       },
       null,
       { timeout: 20000 },
     );
-    await alignThemesForParityCapture(page);
+    await page.waitForFunction(
+      () => typeof window.CapsuleKdeSettingsNav !== 'undefined'
+        && typeof window.CapsuleKdeSettingsNav.prepareShot === 'function',
+      null,
+      { timeout: 10000 },
+    );
+    await page.evaluate(({ id, titles }) => {
+      window.CapsuleKdeSettingsNav.prepareShot(id);
+      const root = document.querySelector('.windowElement[data-link="themes"]');
+      const titleEl = root?.querySelector('#windowTitle');
+      if (titleEl && titles[id]) titleEl.textContent = titles[id];
+    }, { id: shotId, titles: KDE_THEMES_SHOT_TITLE });
+    await page.waitForFunction(
+      ({ id, viewMap }) => {
+        const settings = document.querySelector('.windowElement[data-link="themes"] [data-kde-settings-root]');
+        if (!settings) return false;
+        const expected = viewMap[id] || 'hub';
+        return settings.dataset.kdeSettingsView === expected;
+      },
+      { id: shotId, viewMap: KDE_THEMES_SHOT_VIEW },
+      { timeout: 10000 },
+    );
+    await alignThemesForParityCapture(page, shotId);
     await sleep(page, 400);
   }
   if (slot === 'firefox') {
@@ -640,7 +714,7 @@ const main = async () => {
   ];
 
   const appP0Shots = [
-    { file: 'capsule-systemsettings.png', slots: ['themes'] },
+    { file: 'capsule-systemsettings.png', slots: ['themes'], themesShot: 'kcm-display-config' },
     { file: 'capsule-dolphin.png', slots: ['nemo'] },
     { file: 'capsule-firefox.png', slots: ['firefox'] },
     { file: 'capsule-terminal.png', slots: ['terminal'] },
@@ -749,6 +823,33 @@ const main = async () => {
       const aliasPath = path.join(DEST, alias);
       fs.copyFileSync(out, aliasPath);
       process.stdout.write(`  → ${aliasPath} (alias)\n`);
+    }
+  }
+
+  if (appsP0) {
+    const themesShots = [
+      'kcm-display-config',
+      'hub-sidebar',
+      'appearance-panel',
+      'accessibility-panel',
+      'desktop-panel',
+      'workspace-panel',
+      'notifications-panel',
+      'applications-panel',
+      'colors-panel',
+      'about-panel',
+    ];
+    const themesShotDir = path.join(DEST, 'themes');
+    fs.mkdirSync(themesShotDir, { recursive: true });
+    for (const shotId of themesShots) {
+      await resetShell(page);
+      await sleep(page, 200);
+      await openSlot(page, 'themes', { themesShot: shotId });
+      await resizeSlotForParity(page, 'themes');
+      await sleep(page, 500);
+      const out = path.join(themesShotDir, `${shotId}-capsule.png`);
+      await screenshotScene(page, { slots: ['themes'], themesShot: shotId }, out);
+      process.stdout.write(`  → ${out} (themes/${shotId})\n`);
     }
   }
 

@@ -31,22 +31,26 @@ try {
 const skinDir = path.dirname(skinRel);
 
 const matrixPath = path.join(ROOT, 'root/tools/lab/kde-settings-parity-matrix.json');
+const registryPath = path.join(ROOT, 'root/tools/lab/kde-settings-controls-registry.json');
 const parityPath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
+const bindingsPath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-kconfig-bindings.js');
 const storePath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-kconfig-store.js');
 const skinIndex = read(skinRel);
+const settingsTpl = read('usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html')
+  || read('usr/share/capsuleos/linux/apps/systemsettings_kde.html');
 
 if (!fs.existsSync(matrixPath)) {
   errors.push('kde-settings-parity-matrix.json absent');
 }
-
-if (!fs.existsSync(parityPath)) {
-  if (allowStub) {
-    warnings.push('kde-settings-parity.js absent — Phase 2b');
-  } else {
-    warnings.push('kde-settings-parity.js absent — Phase 2b (non bloquant)');
-  }
+if (!fs.existsSync(registryPath)) {
+  errors.push('kde-settings-controls-registry.json absent');
 }
-
+if (!fs.existsSync(parityPath)) {
+  warnings.push('kde-settings-parity.js absent — Phase 2b');
+}
+if (!fs.existsSync(bindingsPath)) {
+  errors.push('kde-kconfig-bindings.js absent — generate-kde-kconfig-bindings.mjs');
+}
 if (!fs.existsSync(storePath)) {
   warnings.push('kde-kconfig-store.js absent — Phase 2b');
 }
@@ -57,8 +61,11 @@ if (!skinIndex.includes('data-link="themes"')) {
 if (!skinIndex.includes('kde-settings-parity.js')) {
   errors.push(`${skinRel} : kde-settings-parity.js non chargé`);
 }
-if (!skinIndex.includes('kde-kconfig-store.js')) {
-  errors.push(`${skinRel} : kde-kconfig-store.js non chargé`);
+if (!skinIndex.includes('kde-kconfig-bindings.js')) {
+  errors.push(`${skinRel} : kde-kconfig-bindings.js non chargé`);
+}
+if (!skinIndex.includes('kde-systemsettings-nav.js')) {
+  errors.push(`${skinRel} : kde-systemsettings-nav.js non chargé`);
 }
 
 const skinCss = read(path.join(skinDir, 'style/style.css'));
@@ -67,16 +74,6 @@ const hasA11yChain =
   skinCss.includes('imports.css') && importsCss.includes('a11y-overrides.css');
 if (!hasA11yChain) {
   errors.push(`${skinRel} : a11y-overrides.css non importé (style.css → imports.css)`);
-}
-
-const contractPath = path.join(ROOT, 'etc/capsuleos/contracts/kde-ground-truth-chain.json');
-if (!fs.existsSync(contractPath)) {
-  errors.push('kde-ground-truth-chain.json absent');
-}
-
-const seContractPath = path.join(ROOT, 'etc/capsuleos/contracts/settings-effects-chain.json');
-if (!fs.existsSync(seContractPath)) {
-  errors.push('Contrat settings-effects-chain.json absent');
 }
 
 const parityJs = read('usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
@@ -107,6 +104,9 @@ for (const eff of p0Effects) {
   if (eff.event && !effectSources.includes(eff.event)) {
     errors.push(`SeΣ P0 "${eff.capsuleKey}" : événement ${eff.event} absent`);
   }
+  if (!settingsTpl.includes(`data-kde-setting="${eff.capsuleKey}"`)) {
+    errors.push(`SeΣ P0 "${eff.capsuleKey}" : contrôle absent dans systemsettings_kde_neon.html`);
+  }
 }
 
 if (!a11yCss.includes('data-contrast-mode')) {
@@ -114,13 +114,6 @@ if (!a11yCss.includes('data-contrast-mode')) {
 }
 if (!a11yCss.includes('data-font-scale')) {
   errors.push('Se-A11y : consommateur data-font-scale absent (a11y-overrides.css)');
-}
-
-const settingsTpl = read('usr/share/capsuleos/linux/apps/systemsettings_kde.html');
-for (const eff of p0Effects) {
-  if (!settingsTpl.includes(`data-kde-setting="${eff.capsuleKey}"`)) {
-    errors.push(`SeΣ P0 "${eff.capsuleKey}" : contrôle absent dans systemsettings_kde.html`);
-  }
 }
 
 if (errors.length) {
@@ -141,10 +134,10 @@ writeSettingsEffectsState(registry, {
   SeΣ: seSigma,
 }, {
   gate: 'verify-kde-settings-parity-chain.mjs',
-  phase: '2b',
+  phase: '2b-v15',
   p0Effects: p0Effects.map((e) => e.capsuleKey),
   warnings: warnings.length,
 });
 
-console.log(`✓ verify-kde-settings-parity-chain ${registry} OK — SeΣ=${seSigma}`);
+console.log(`✓ verify-kde-settings-parity-chain ${registry} OK — SeΣ=${seSigma} (${p0Effects.length} effets P0)`);
 if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));

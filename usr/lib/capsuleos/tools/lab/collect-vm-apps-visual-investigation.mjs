@@ -11,7 +11,13 @@ import path from 'path';
 import { spawnSync } from 'child_process';
 import { buildCatalog } from './apps-catalog-lib.mjs';
 import { appsPathsForRegistry } from './apps-replication-lib.mjs';
-import { componentShotsForSlot, compositionMetaForSlot } from './ui-components-gnome-lib.mjs';
+import { componentShotsForSlot as gnomeComponentShotsForSlot, compositionMetaForSlot as gnomeCompositionMetaForSlot } from './ui-components-gnome-lib.mjs';
+import {
+  componentShotsForSlot as kdeComponentShotsForSlot,
+  compositionMetaForSlot as kdeCompositionMetaForSlot,
+  isKdeRegistry,
+  vmLaunchForSlot,
+} from './ui-components-kde-lib.mjs';
 import { buildRemoteEnv, loadLabHost, resolveSshIdentity } from './lab-recipe-resolver.mjs';
 import { ROOT } from './replication-chain-lib.mjs';
 
@@ -39,11 +45,16 @@ const vmDesktopForRow = (row) => {
   return id.endsWith('.desktop') ? id : `${id}.desktop`;
 };
 
-const buildInvestigation = (row, existing) => {
+const buildInvestigation = (row, existing, registryId) => {
   const slot = row.slotCapsule;
   const prev = existing?.investigations?.find((i) => i.controlId === slot);
+  const componentShotsForSlot = isKdeRegistry(registryId) ? kdeComponentShotsForSlot : gnomeComponentShotsForSlot;
+  const compositionMetaForSlot = isKdeRegistry(registryId) ? kdeCompositionMetaForSlot : gnomeCompositionMetaForSlot;
   const componentShots = componentShotsForSlot(slot);
   const composition = compositionMetaForSlot(slot);
+  const prevShotIds = (prev?.componentShots || []).map((s) => s.shotId).join(',');
+  const freshShotIds = componentShots.map((s) => s.shotId).join(',');
+  const reusePrevShots = Boolean(prev?.componentShots?.length) && prevShotIds === freshShotIds;
   return {
     controlId: slot,
     labelFr: row.labelFr,
@@ -51,7 +62,7 @@ const buildInvestigation = (row, existing) => {
     parityPriority: row.priorite,
     status: prev?.status === 'documented' ? 'documented' : 'pending',
     composition,
-    componentShots: prev?.componentShots?.length
+    componentShots: reusePrevShots
       ? prev.componentShots.map((s) => {
         const fresh = componentShots.find((c) => c.shotId === s.shotId);
         return { ...(fresh || s), vmCapture: s.vmCapture || null, status: s.vmCapture ? 'captured' : (s.status || 'pending') };
@@ -79,21 +90,31 @@ const closeVmCapturePlaceholderGaps = (inv) => {
 };
 
 const writeMatrix = (registryId, investigations, filter) => {
+  const uiContract = isKdeRegistry(registryId)
+    ? 'etc/capsuleos/contracts/ui-components-kde.json'
+    : 'etc/capsuleos/contracts/ui-components-gnome.json';
   const matrix = {
     version: 2,
     registryId,
-    description: 'Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json',
-    uiComponentsContract: 'etc/capsuleos/contracts/ui-components-gnome.json',
+    description: isKdeRegistry(registryId)
+      ? 'Matrice enquête visuelle apps — acquisitionOrder ui-components-kde.json'
+      : 'Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json',
+    uiComponentsContract: uiContract,
     investigations: investigations
       .filter((i) => !filter || i.parityPriority === filter)
-      .map((inv) => ({
-        controlId: inv.controlId,
-        labelFr: inv.labelFr,
-        vmDesktop: vmDesktopForRow({ vmId: inv.vmId }),
-        parityPriority: inv.parityPriority,
-        componentShots: (inv.componentShots || []).map((s) => s.shotId),
-        launch: inv.vmId ? `gtk-launch ${vmDesktopForRow({ vmId: inv.vmId })}` : '',
-      })),
+      .map((inv) => {
+        const launch = isKdeRegistry(registryId) && inv.controlId === 'themes'
+          ? (vmLaunchForSlot(inv.controlId) || `gtk-launch ${vmDesktopForRow({ vmId: inv.vmId })}`)
+          : (inv.vmId ? `gtk-launch ${vmDesktopForRow({ vmId: inv.vmId })}` : '');
+        return {
+          controlId: inv.controlId,
+          labelFr: inv.labelFr,
+          vmDesktop: vmDesktopForRow({ vmId: inv.vmId }),
+          parityPriority: inv.parityPriority,
+          componentShots: (inv.componentShots || []).map((s) => s.shotId),
+          launch,
+        };
+      }),
   };
   const matrixPath = path.join(ROOT, MATRIX_REL);
   fs.writeFileSync(matrixPath, `${JSON.stringify(matrix, null, 2)}\n`);
@@ -220,7 +241,7 @@ const main = () => {
 
   const rows = catalog.rows.filter((r) => r.onVm !== false && r.slotCapsule && r.statut === 'ok');
   const rowIds = new Set(rows.map((r) => r.slotCapsule));
-  let investigations = rows.map((r) => buildInvestigation(r, existing));
+  let investigations = rows.map((r) => buildInvestigation(r, existing, opts.id));
   if (existing?.investigations) {
     for (const prev of existing.investigations) {
       if (!rowIds.has(prev.controlId)) investigations.push({ ...prev });
@@ -232,7 +253,9 @@ const main = () => {
       if (inv.parityPriority !== opts.filter) continue;
       inv.status = 'documented';
       if (!inv.note) {
-        inv.note = 'documented — acquisitionOrder ui-components-gnome.json';
+        inv.note = isKdeRegistry(opts.id)
+          ? 'documented — acquisitionOrder ui-components-kde.json'
+          : 'documented — acquisitionOrder ui-components-gnome.json';
       }
       if (!(inv.componentShots || []).length) {
         inv.componentShots = [{
@@ -295,7 +318,9 @@ const main = () => {
     registryId: opts.id,
     updatedAt: new Date().toISOString(),
     procedure: 'procedure-apps-replication-formelle.md',
-    uiComponentsContract: 'etc/capsuleos/contracts/ui-components-gnome.json',
+    uiComponentsContract: isKdeRegistry(opts.id)
+      ? 'etc/capsuleos/contracts/ui-components-kde.json'
+      : 'etc/capsuleos/contracts/ui-components-gnome.json',
     summary: {
       documentedP0,
       vmCapturesP0,

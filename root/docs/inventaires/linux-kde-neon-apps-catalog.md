@@ -1,6 +1,6 @@
 # Catalogue applications — linux-kde-neon
 
-> Généré : `2026-06-14T08:16:36.795Z` · Toolkit : **kde** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-14T17:26:36.571Z` · Toolkit : **kde** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-kde-neon --write
@@ -27,7 +27,7 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-kde-neon
 | Centre d'accueil | org.kde.plasma-welcome | P2 | — | 🔷 decorative |  | ✓ | — |
 | Centre d'aide | org.kde.khelpcenter | P2 | — | 🔷 decorative |  | ✓ | — |
 | Centre d'informations | org.kde.kinfocenter | P2 | — | 🔷 decorative |  | ✓ | — |
-| Configuration du système | systemsettings | P0 | themes | ✅ ok |  |  | default · partial |
+| Configuration du système | systemsettings | P0 | themes | ✅ ok |  |  | default · full |
 | Console de retours des utilisateurs | org.kde.kuserfeedback-console | P2 | — | 🔷 decorative |  | ✓ | — |
 | Discover | org.kde.discover | P0 | update_manager | ✅ ok |  |  | default · partial |
 | Dolphin | org.kde.dolphin | P0 | nemo | ✅ ok |  |  | default · full |

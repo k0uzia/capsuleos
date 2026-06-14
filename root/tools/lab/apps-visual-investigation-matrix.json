@@ -1,8 +1,8 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json",
-  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
+  "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-kde.json",
+  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-kde.json",
   "investigations": [
     {
       "controlId": "themes",
@@ -10,12 +10,18 @@
       "vmDesktop": "systemsettings.desktop",
       "parityPriority": "P0",
       "componentShots": [
-        "sidebar-panels",
-        "wifi-row",
-        "display-panel",
+        "kcm-display-config",
+        "hub-sidebar",
+        "appearance-panel",
+        "accessibility-panel",
+        "desktop-panel",
+        "workspace-panel",
+        "notifications-panel",
+        "applications-panel",
+        "colors-panel",
         "about-panel"
       ],
-      "launch": "gtk-launch systemsettings.desktop"
+      "launch": "systemsettings kcm_kscreen"
     },
     {
       "controlId": "update_manager",

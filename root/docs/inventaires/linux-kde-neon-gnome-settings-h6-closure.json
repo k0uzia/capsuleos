@@ -3,7 +3,7 @@
   "domain": "kde-settings-playbook",
   "phase": "H6",
   "status": "closed",
-  "closedAt": "2026-06-14T11:09:04.504Z",
+  "closedAt": "2026-06-14T15:17:05.468Z",
   "investigator": "close-h6-kde-settings.mjs",
   "predicates": {
     "PbΣ": true,

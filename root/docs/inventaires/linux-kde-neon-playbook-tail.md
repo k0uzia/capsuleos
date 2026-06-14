@@ -1,6 +1,6 @@
 # Playbook bout de chaîne (τ) — KDE neon User Edition
 
-Généré : 2026-06-14T10:37:13.161Z
+Généré : 2026-06-14T15:16:01.348Z
 
 ## Spécificités environnement
 

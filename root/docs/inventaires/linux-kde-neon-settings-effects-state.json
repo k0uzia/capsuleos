@@ -1,24 +1,27 @@
 {
   "registryId": "linux-kde-neon",
   "domain": "settings-effects",
-  "generatedAt": "2026-06-14T14:17:03.744Z",
+  "generatedAt": "2026-06-14T19:14:25.595Z",
   "predicates": {
     "Se": true,
     "SeΣ": true
   },
   "gate": "verify-kde-settings-parity-chain.mjs",
-  "phase": "2b",
+  "phase": "2b-v15",
   "p0Effects": [
-    "kde-a11y-high-contrast",
-    "kde-a11y-large-text",
-    "kde-reduced-motion",
+    "kde-global-theme",
+    "kde-panel-height",
+    "kde-window-animations",
     "kde-desktop-icons",
     "kde-desktop-align",
     "kde-click-to-focus",
     "kde-focus-stealing",
-    "kde-global-theme",
-    "kde-panel-height",
-    "kde-window-animations"
+    "kde-a11y-high-contrast",
+    "kde-a11y-large-text",
+    "kde-reduced-motion",
+    "kde-notifications-banners",
+    "kde-default-browser",
+    "kde-accent-color"
   ],
   "warnings": 0
 }

@@ -1,47 +1,34 @@
 # Brief agent — KDE neon User Edition
 
-> Campagne **v13-clone-excellence** — perfectionner le ground truth pivot et l’algorithme de clonage (juin 2026). Clone skin conservé ; métriques v12 archivées dans `replication-state`.
+> Campagne **v15-kde-settings-full-front** — front intégral Paramètres KDE Plasma (juin 2026).
 
 ## Contexte
 
 - **ID registre** : `linux-kde-neon`
-- **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 3
+- **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 4
 - **Toolkit** : kde / Plasma · **Vendor** : neon
 - **VM lab** : `capsule@192.168.122.48` · clé `~/.ssh/capsuleos-lab`
 - **Ground truth** : [`ground-truth-kde.md`](../ground-truth-kde.md)
 
-## v13 — objectifs
+## v15 — objectifs
 
-1. **Algorithme clonage** : `apps-parity-geometry.mjs` (géométrie VM partagée) + `compare-apps-visual-investigation.mjs` (`geometryAlign`)
-2. **P0 accepted → ok** : Firefox (1066×860), Konsole, VLC
-3. **RealΣ** : `run-ui-state-effects-pass.mjs --id linux-kde-neon`
-4. **Propagation dérivés** : gelée jusqu’à clôture v13
+1. **Inventaire VM exhaustif** : 92 modules KCM → `kde-settings-front-inventory.json`
+2. **Registry option-par-option** : `kde-settings-controls-registry.json` (13 effets P0)
+3. **Front multi-KCM** : `systemsettings_kde_neon.html` — hub + 4 surfaces KCM
+4. **Se+** : `kde-kconfig-bindings.js` + verify chain (SeΣ)
+5. **Crédibilité pédagogique** : 8 scénarios + seuil Φ_norm 90
+6. **Propagation** : `smoke-kde-v15-propagation` dérivés Plasma
 
-## Chaîne v13 (ordre indicatif)
+## Chaîne v15 (ordre)
 
-1. `node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-kde-neon --filter P0`
-2. `node usr/lib/capsuleos/tools/lab/compare-apps-visual-investigation.mjs --id linux-kde-neon --filter P0 --write`
-3. `node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-kde-neon --write`
-4. `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-kde-neon`
-5. `node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --write`
-
-Purge complète (relance A→Z) : uniquement si nécessaire — `reset-kde-neon-campaign.mjs --write --campaign v13-clone-excellence`
-
-## Gates maintenance (clone — ne pas régresser)
-
-```bash
-node usr/lib/capsuleos/tools/validate-all.mjs
-node usr/lib/capsuleos/tools/lab/smoke-discover-kde-neon.mjs
-node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
-```
+1. `collect-vm-kde-settings-inventory.mjs --id linux-kde-neon --write`
+2. `collect-vm-kde-settings-interaction.mjs --id linux-kde-neon --write`
+3. `sync-kde-settings-parity-matrix.mjs --write`
+4. `generate-kde-kconfig-bindings.mjs`
+5. `run-kde-settings-lab.mjs --id linux-kde-neon`
+6. `sync-linux-skin-closure.mjs`
 
 ## État
 
 - [`linux-kde-neon-replication-state.json`](../inventaires/linux-kde-neon-replication-state.json)
-- [`linux-kde-neon-apps-visual-investigation.json`](../inventaires/linux-kde-neon-apps-visual-investigation.json)
-
-## Interdits
-
-- Fork `contentLoader` / `CapsuleWindow`
-- Images hors zones autorisées · icônes vendor croisées
-- Propagation dérivés avant clôture ground Neon v13
+- Registre : [`kde-settings-controls-registry.json`](../../tools/lab/kde-settings-controls-registry.json)

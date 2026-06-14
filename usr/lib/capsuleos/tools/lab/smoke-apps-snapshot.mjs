@@ -68,7 +68,7 @@ const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
     nemo: '.dolphin-app, .nemo-app__header',
     firefox: '.capsule-browser, .firefox-chrome',
     update_manager: '.kde-updates, .kde-updates__sidebar, .update-manager--kde',
-    themes: '#kdeSystemSettingsApp, .kde-systemsettings',
+    themes: '[data-kde-settings-root], #kdeSystemSettingsShell, .kde-systemsettings',
     terminal: '.capsule-terminal-shell, #terminalContainer',
     text_editor: '.xed-app, #xedApp',
     lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',

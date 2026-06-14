@@ -20,6 +20,107 @@ div[class^="windowElement"]:not(#mainMenu) {
     transition: border-color var(--eas2), box-shadow var(--ease), transform var(--eas2);
 }
 
+body#kde-neon div.windowElement[data-link="themes"]:not(#mainMenu) {
+    width: var(--win-themes-width);
+    min-width: var(--win-themes-min-width);
+    height: var(--win-themes-height);
+    min-height: var(--win-themes-min-height);
+    bottom: auto;
+}
+
+/* KDE Neon — chrome Breeze par défaut (évite héritage Cinnamon/Mint du gabarit générique) */
+body#kde-neon div[class^="windowElement"]:not(#mainMenu) {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+    bottom: auto;
+    border: 1px solid var(--kde-neon-window-titlebar-border-color);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 8px 24px rgba(35, 38, 41, 0.16);
+    background: var(--kde-neon-window-titlebar-bg);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+body#kde-neon div[class^="windowElement"]:not(#mainMenu) #windowHeader {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+}
+
+body#kde-neon .windowElementActive {
+    border-color: rgba(61, 174, 233, 0.55);
+    box-shadow: 0 0 0 1px rgba(61, 174, 233, 0.35), 0 12px 28px rgba(35, 38, 41, 0.2);
+}
+
+body#kde-neon #windowHeader {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+    grid-template-rows: auto;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: var(--kde-neon-konsole-header-height);
+    min-height: var(--kde-neon-konsole-header-height);
+    padding: 0 calc(var(--head) / 4);
+    border-radius: 5px 5px 0 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body#kde-neon #windowHeader > nav:first-of-type {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+}
+
+body#kde-neon #windowHeader > nav:last-of-type {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+}
+
+body#kde-neon #windowTitle {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--kde-neon-header-title-size);
+    font-weight: 500;
+    color: var(--kde-neon-window-titlebar-fg-muted);
+    text-shadow: none;
+    filter: none;
+    pointer-events: none;
+}
+
+body#kde-neon #windowTitle[data-window-drag-region] {
+    pointer-events: auto;
+}
+
+body#kde-neon #windowIframe {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    align-items: stretch;
+    justify-content: stretch;
+    border-radius: 0;
+    overflow: hidden;
+}
+
 .windowElementActive {
     z-index: 500;
     border-color: var(--menu-accent);
@@ -51,8 +152,9 @@ body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowHe
 }
 
 body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIframe {
-    height: calc(100% - var(--kde-neon-konsole-header-height));
-    min-height: calc(100% - var(--kde-neon-konsole-header-height));
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
 }
 
 .windowElementActive #windowHeader {
@@ -66,6 +168,12 @@ body#kde-neon div.windowElement:not([data-link="nemo"]):not(#mainMenu) #windowIf
     align-items: var(--c);
     min-width: calc(var(--head) * 2.2);
     height: var(--head);
+}
+
+body#kde-neon #windowHeader > nav {
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
 }
 
 html[data-theme="light"] #kde-neon #windowTitle {
@@ -120,7 +228,8 @@ body#kde-neon #windowTitle {
 
 /* Contrôles fenêtre KDE — icônes robustes (éviter override apps) */
 body#kde-neon div.windowElement #windowHeader > nav:last-child > button#minimizeBtn {
-    background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/minimize.svg) !important;
+    background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/go-down.svg) !important;
+    background-size: 0.72rem !important;
 }
 
 body#kde-neon div.windowElement #windowHeader > nav:last-child > button#resizeBtn {
@@ -151,8 +260,8 @@ html[data-theme="light"] #kde-neon #windowHeader>nav>button:hover {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
 }
 
-html[data-theme="light"] #kde-neon #windowHeader>nav>button {
-    filter: none;
+html[data-theme="light"] #kde-neon div.windowElement:not([data-link="nemo"]):not([data-link="terminal"]):not([data-link="themes"]):not([data-link="update_manager"]) #windowHeader > nav > button {
+    filter: var(--kde-neon-header-control-filter-light);
 }
 
 html[data-theme="light"] #kde-neon #closeBtn {
@@ -176,6 +285,12 @@ html[data-theme="light"] #kde-neon #closeBtn:hover {
     min-height: calc(var(--full) - calc(var(--head) / 1.2));
     border-radius: var(--z) var(--z) calc(var(--head) / 4) calc(var(--head) / 4);
     overflow: var(--h);
+}
+
+body#kde-neon div.windowElement:not(#mainMenu) > #windowIframe {
+    width: 100%;
+    min-height: 0;
+    border-radius: 0;
 }
 
 section.windowElement {
@@ -204,11 +319,7 @@ body#kde-neon #desktop {
     pointer-events: none;
 }
 
-/* KDE Neon — contrôles titlebar thème clair (file:// + icônes maximize/restore) */
-html[data-theme="light"] #kde-neon #windowHeader > nav > button {
-    filter: invert(1) brightness(0.2) saturate(0);
-}
-
+/* KDE Neon — icônes maximize/restore (hors skins app dédiés) */
 body#kde-neon #resizeBtn {
     background-image: url(../../../../usr/share/capsuleos/assets/images/toolkits/kde/header/maximize.svg);
     background-size: calc(var(--head) / 2.55);

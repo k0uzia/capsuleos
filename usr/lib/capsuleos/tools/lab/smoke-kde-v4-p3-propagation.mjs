@@ -44,6 +44,12 @@ for (const skin of skins) {
   if (skin.discover && !html.includes('discover-kde.js')) {
     errors.push(`${skin.id} : discover-kde.js absent (pivot)`);
   }
+  if (!html.includes('kde-systemsettings-nav.js')) {
+    errors.push(`${skin.id} : kde-systemsettings-nav.js absent (v14)`);
+  }
+  if (!html.includes('kde-systemsettings.js')) {
+    errors.push(`${skin.id} : kde-systemsettings.js absent (v14)`);
+  }
   if (skin.discover && !fs.existsSync(path.join(ROOT, skin.index.replace('index.html', 'content/discover-catalog.json')))) {
     errors.push(`${skin.id} : content/discover-catalog.json absent (V6)`);
   }
@@ -53,6 +59,13 @@ for (const skin of skins) {
     const override = profile.capsuleGlobals?.CAPSULE_TEMPLATE_OVERRIDES?.update_manager || '';
     if (!override.includes('update_manager_kde_neon.html')) {
       errors.push(`${skin.id} : profil update_manager_kde_neon.html requis (V6)`);
+    }
+    const themesOverride = profile.capsuleGlobals?.CAPSULE_TEMPLATE_OVERRIDES?.themes || '';
+    if (!themesOverride.includes('systemsettings_kde_neon.html')) {
+      errors.push(`${skin.id} : profil themes → systemsettings_kde_neon.html requis (v14)`);
+    }
+    if (profile.fidelityLevel !== 4) {
+      errors.push(`${skin.id} : fidelityLevel 4 requis (v14)`);
     }
   }
 }

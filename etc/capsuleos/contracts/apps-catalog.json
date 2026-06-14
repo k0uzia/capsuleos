@@ -261,9 +261,9 @@
         },
         "themes": {
           "chromeProvider": "default",
-          "template": "systemsettings_kde.html",
+          "template": "systemsettings_kde_neon.html",
           "skinCss": "themes.skin.css",
-          "functionalDepth": "partial"
+          "functionalDepth": "full"
         },
         "firefox": {
           "chromeProvider": "default",
@@ -404,16 +404,28 @@
     "linux-opensuse": {
       "update_manager": {
         "template": "update_manager_kde_neon.html"
+      },
+      "themes": {
+        "template": "systemsettings_kde_neon.html",
+        "baseCssStem": "systemsettings_kde"
       }
     },
     "linux-mx-kde": {
       "update_manager": {
         "template": "update_manager_kde_neon.html"
+      },
+      "themes": {
+        "template": "systemsettings_kde_neon.html",
+        "baseCssStem": "systemsettings_kde"
       }
     },
     "linux-debian-kde": {
       "update_manager": {
         "template": "update_manager_kde_neon.html"
+      },
+      "themes": {
+        "template": "systemsettings_kde_neon.html",
+        "baseCssStem": "systemsettings_kde"
       }
     }
   },

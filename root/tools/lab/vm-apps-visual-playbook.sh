@@ -587,6 +587,72 @@ def launch_app_slot(desktop: str) -> None:
     launch_app(desktop)
 
 
+KDE_THEMES_SHOTS = {
+    "kcm-display-config": "killall systemsettings 2>/dev/null; systemsettings kcm_kscreen &",
+    "hub-sidebar": "killall systemsettings 2>/dev/null; gtk-launch systemsettings.desktop &",
+    "appearance-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_lookandfeel &",
+    "accessibility-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_access &",
+    "desktop-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_desktoptheme &",
+    "workspace-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_workspace &",
+    "notifications-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_notifications &",
+    "applications-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_componentchooser &",
+    "colors-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_colors &",
+    "about-panel": "killall systemsettings 2>/dev/null; systemsettings kcm_about-distro &",
+}
+
+
+def launch_kde_settings_shot(shot_id: str) -> None:
+    cmd = KDE_THEMES_SHOTS.get(shot_id)
+    if not cmd:
+        return
+    if BACKEND == "spectacle":
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "true"],
+            check=False,
+            timeout=5,
+        )
+        time.sleep(0.35)
+    subprocess.run(["bash", "-lc", cmd], check=False, timeout=25)
+    wait = 5.0 if shot_id == "hub-sidebar" else 4.0
+    time.sleep(wait)
+    if BACKEND == "spectacle":
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "false"],
+            check=False,
+            timeout=5,
+        )
+        time.sleep(0.5)
+    focus_window("systemsettings")
+    time.sleep(0.8)
+
+
+def capture_kde_themes_shots(control_id: str, shots: list, slot_dir: Path, out_dir: Path) -> None:
+    desktop = "systemsettings.desktop"
+    default_shot = "kcm-display-config"
+    any_captured = False
+    for shot in shots:
+        shot_out = slot_dir / f"{shot}-vm.png"
+        launch_kde_settings_shot(shot)
+        ok = capture_app_window(shot_out, desktop) if BACKEND else False
+        if ok and shot_out.is_file() and shot_out.stat().st_size > 0:
+            any_captured = True
+            print(f"  ✓ {control_id}/{shot_out.name} (KCM)", flush=True)
+        else:
+            print(f"  ○ shot KCM absent {shot}", flush=True)
+    default_out = out_dir / f"{control_id}-vm.png"
+    primary = slot_dir / f"{default_shot}-vm.png"
+    if primary.is_file() and primary.stat().st_size > 0:
+        default_out.write_bytes(primary.read_bytes())
+        print(f"  ✓ {default_out.name} (défaut={default_shot})", flush=True)
+    elif any_captured:
+        for shot in shots:
+            candidate = slot_dir / f"{shot}-vm.png"
+            if candidate.is_file() and candidate.stat().st_size > 0:
+                default_out.write_bytes(candidate.read_bytes())
+                print(f"  ✓ {default_out.name} (repli {shot})", flush=True)
+                break
+
+
 def capture_window(outfile: Path, desktop: str) -> bool:
     focus_window(desktop.replace(".desktop", ""))
     if BACKEND == "org.gnome.Shell.Screenshot":
@@ -623,6 +689,9 @@ for item in matrix.get("investigations", []):
     slot_dir = out_dir / control_id
     slot_dir.mkdir(parents=True, exist_ok=True)
     print(f"[apps-visual] {control_id} — {item.get('labelFr', '')} (backend={BACKEND})", flush=True)
+    if control_id == "themes" and BACKEND == "spectacle":
+        capture_kde_themes_shots(control_id, shots, slot_dir, out_dir)
+        continue
     custom_launch = item.get("launch", "")
     if custom_launch and "gtk-launch" not in custom_launch:
         if BACKEND == "spectacle":

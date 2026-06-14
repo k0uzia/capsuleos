@@ -1,4 +1,4 @@
-/* KDE Neon — Paramètres système (System Settings) */
+/* KDE Neon — Paramètres système (System Settings) — v12c parité Breeze */
 
 body#kde-neon #themes #windowIframe,
 body#kde-neon #themes .windowIframe {
@@ -10,8 +10,72 @@ body#kde-neon #themes #kdeSystemSettingsApp {
     min-height: 100%;
 }
 
+body#kde-neon #themes .kde-systemsettings__sidebar {
+    flex-basis: 16rem;
+    min-width: 16rem;
+    padding: 0.55rem 0.45rem 0.65rem;
+    background: linear-gradient(180deg, #31363b 0%, #2a2e32 100%);
+}
+
+body#kde-neon #themes .kde-systemsettings__search-input {
+    border-color: #3d444a;
+    border-radius: 6px;
+    background: #232629;
+}
+
+body#kde-neon #themes .kde-systemsettings__navitem {
+    border-radius: 6px;
+    padding: 0.42rem 0.6rem;
+    font-size: 0.88rem;
+}
+
+body#kde-neon #themes .kde-systemsettings__navitem.is-active {
+    background: #3daee9;
+    color: #232629;
+    font-weight: 600;
+}
+
 body#kde-neon #themes .kde-systemsettings__navitem.is-active .kde-systemsettings__navicon {
     background: #232629;
+    opacity: 1;
+}
+
+body#kde-neon #themes .kde-systemsettings__content {
+    background: #fcfcfc;
+}
+
+body#kde-neon #themes .kde-systemsettings__panel-header h1 {
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: #232629;
+}
+
+body#kde-neon #themes .kde-systemsettings__help {
+    color: #7a7a7a;
+    font-size: 0.86rem;
+}
+
+body#kde-neon #themes .kde-systemsettings__group {
+    border-color: #c9c9c9;
+    border-radius: 8px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+body#kde-neon #themes .kde-systemsettings__choice {
+    border-radius: 6px;
+    min-width: 6rem;
+}
+
+body#kde-neon #themes .kde-systemsettings__choice.is-active,
+body#kde-neon #themes .kde-systemsettings__choice[aria-checked="true"] {
+    border-color: #2980b9;
+    background: #daeeff;
+    color: #232629;
+}
+
+body#kde-neon #themes .kde-systemsettings__select {
+    border-radius: 6px;
+    border-color: #bdc3c7;
 }
 
 body#kde-neon[data-theme="dark"] #themes .kde-systemsettings__content,
@@ -31,6 +95,11 @@ body#kde-neon #themes .kde-systemsettings__navicon--appearance {
     background: currentColor;
 }
 
+body#kde-neon #themes .kde-systemsettings__navicon--desktop {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-all.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
 body#kde-neon #themes .kde-systemsettings__navicon--workspace {
     mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-system.svg") center/contain no-repeat;
     background: currentColor;
@@ -38,5 +107,25 @@ body#kde-neon #themes .kde-systemsettings__navicon--workspace {
 
 body#kde-neon #themes .kde-systemsettings__navicon--accessibility {
     mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/preferences-desktop-accessibility.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--network {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-internet.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--notifications {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/preferences-desktop-notification-bell.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--applications {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-utilities.svg") center/contain no-repeat;
+    background: currentColor;
+}
+
+body#kde-neon #themes .kde-systemsettings__navicon--about {
+    mask: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/preferences-plugin.svg") center/contain no-repeat;
     background: currentColor;
 }

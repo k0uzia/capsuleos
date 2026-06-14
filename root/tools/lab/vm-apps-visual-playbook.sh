@@ -143,10 +143,17 @@ def focus_window(pattern: str) -> None:
 
 
 def launch_app(desktop: str) -> None:
-    subprocess.run(["pkill", "-f", desktop.replace(".desktop", "")], check=False)
+    resource = desktop.replace(".desktop", "")
+    subprocess.run(["pkill", "-f", resource], check=False)
     time.sleep(0.35)
     subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
-    time.sleep(1.2)
+    if BACKEND == "spectacle":
+        if "systemsettings" in desktop or "discover" in desktop or "dolphin" in desktop:
+            time.sleep(3.5)
+        else:
+            time.sleep(2.5)
+    else:
+        time.sleep(1.2)
 
 
 def launch_app_slot(desktop: str) -> None:
@@ -172,6 +179,8 @@ def capture_window(outfile: Path, desktop: str) -> bool:
 
 
 def capture_app_window(outfile: Path, desktop: str) -> bool:
+    if BACKEND == "spectacle":
+        time.sleep(0.45)
     return capture_window(outfile, desktop)
 
 

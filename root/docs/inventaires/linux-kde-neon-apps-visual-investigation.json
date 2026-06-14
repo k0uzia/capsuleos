@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T08:27:50.384Z",
+  "updatedAt": "2026-06-14T09:28:57.431Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,9 +10,7 @@
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 31,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7,
-    "visualMatchClassifiedP1": 0,
-    "visualMatchClassifiedP2": 0
+    "visualMatchClassifiedP0": 7
   },
   "investigations": [
     {
@@ -102,20 +100,20 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 72.8,
-        "phiNormalized": 70.9,
+        "phi": 57.2,
+        "phiNormalized": 51.7,
         "geometry": {
           "vm": {
-            "width": 1280,
-            "height": 800
+            "width": 1060,
+            "height": 808
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 641,
+            "height": 480
           }
         },
-        "gapNotes": "V11d Φ_norm=70.9 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T08:27:46.685Z"
+        "gapNotes": "v12c — capture fenêtre alignée ; clone panneau Apparence pédagogique vs VM Paramétrage rapide KDE 6. Φ_norm=51.7.",
+        "comparedAt": "2026-06-14T09:28:55.372Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -254,7 +252,7 @@
       "capsuleParity": {
         "visualMatch": "accepted",
         "phi": 8.1,
-        "phiNormalized": 7.3,
+        "phiNormalized": 7.2,
         "geometry": {
           "vm": {
             "width": 1066,
@@ -265,8 +263,8 @@
             "height": 756
           }
         },
-        "gapNotes": "V11d Φ=8.1 Φ_norm=7.3 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T08:27:47.185Z"
+        "gapNotes": "V11d Φ=8.1 Φ_norm=7.2 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T09:28:55.832Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -390,20 +388,20 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 65.6,
-        "phiNormalized": 57,
+        "phi": 75.7,
+        "phiNormalized": 66,
         "geometry": {
           "vm": {
             "width": 890,
             "height": 691
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 900,
+            "height": 600
           }
         },
-        "gapNotes": "V11d Φ_norm=57 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T08:27:47.879Z"
+        "gapNotes": "V11d Φ_norm=66 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T09:28:56.221Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -485,19 +483,19 @@
       "capsuleParity": {
         "visualMatch": "accepted",
         "phi": 71.3,
-        "phiNormalized": 74.4,
+        "phiNormalized": 71.2,
         "geometry": {
           "vm": {
             "width": 890,
             "height": 691
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 1120,
+            "height": 700
           }
         },
-        "gapNotes": "V11d Φ_norm=74.4 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T08:27:48.317Z"
+        "gapNotes": "V11d Φ_norm=71.2 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T09:28:56.607Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -592,20 +590,20 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 63.1,
-        "phiNormalized": 51.2,
+        "phi": 97,
+        "phiNormalized": 76.9,
         "geometry": {
           "vm": {
             "width": 1410,
             "height": 884
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 800,
+            "height": 520
           }
         },
-        "gapNotes": "V11d Φ_norm=51.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T08:27:49.023Z"
+        "gapNotes": "V11d Φ_norm=76.9 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T09:28:56.916Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -686,20 +684,20 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 54.3,
-        "phiNormalized": 44.8,
+        "phi": 97.4,
+        "phiNormalized": 67.1,
         "geometry": {
           "vm": {
             "width": 1041,
             "height": 626
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 700,
+            "height": 440
           }
         },
-        "gapNotes": "V11d Φ_norm=44.8 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T08:27:49.856Z"
+        "gapNotes": "V11d Φ_norm=67.1 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T09:28:57.137Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -774,19 +772,19 @@
       "capsuleParity": {
         "visualMatch": "accepted",
         "phi": 14.1,
-        "phiNormalized": 17,
+        "phiNormalized": 11.2,
         "geometry": {
           "vm": {
             "width": 560,
             "height": 552
           },
           "capsule": {
-            "width": 1211,
-            "height": 756
+            "width": 880,
+            "height": 580
           }
         },
-        "gapNotes": "V11d Φ=14.1 Φ_norm=17 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T08:27:50.384Z"
+        "gapNotes": "V11d Φ=14.1 Φ_norm=11.2 — capture VM native vs Capsule 880×580.",
+        "comparedAt": "2026-06-14T09:28:57.431Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

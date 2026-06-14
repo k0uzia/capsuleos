@@ -38,7 +38,13 @@
     },
     "seSigma": true,
     "seP0Effects": 10,
-    "kdeGroundTruthGaps": true
+    "kdeGroundTruthGaps": true,
+    "v12cThemes": {
+      "updatedAt": "2026-06-14T09:30:00.000Z",
+      "captureFix": "fenêtre VM + slot element capsule",
+      "phiNormalized": 51.7,
+      "skinCss": "themes.skin.css Breeze v12c"
+    }
   },
   "clonePreserved": true,
   "credibilityCampaign": {

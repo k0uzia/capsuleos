@@ -28,6 +28,18 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
+const screenshotScene = async (page, scene, out) => {
+  if (appsP0 && scene.slots?.length === 1) {
+    const slot = scene.slots[0];
+    const handle = await page.$(`.windowElement[data-link="${slot}"]`);
+    if (handle) {
+      await handle.screenshot({ path: out });
+      return;
+    }
+  }
+  await page.screenshot({ path: out, fullPage: false });
+};
+
 const ensureDolphinSplit = async (page) => {
   const isReady = () => page.evaluate(() => {
     const state = window.fileExplorerState;
@@ -508,7 +520,7 @@ const main = async () => {
   for (const scene of shots) {
     await prepareScene(page, scene);
     const out = path.join(DEST, scene.file);
-    await page.screenshot({ path: out, fullPage: false });
+    await screenshotScene(page, scene, out);
     process.stdout.write(`  → ${out} (${fs.statSync(out).size} octets)\n`);
     const alias = slotAliasMap[scene.file];
     if (alias) {

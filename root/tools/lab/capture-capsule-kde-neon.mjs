@@ -79,6 +79,23 @@ const alignDiscoverHomeForParityCapture = async (page) => {
   await sleep(page, 200);
 };
 
+const alignThemesForParityCapture = async (page) => {
+  await page.evaluate(() => {
+    const root = document.querySelector('.windowElement[data-link="themes"]');
+    if (!root) return;
+    root.style.borderRadius = '5px';
+    root.style.boxShadow = 'none';
+    root.style.overflow = 'hidden';
+    root.style.background = '#eff0f1';
+    const iframe = root.querySelector('#windowIframe, .windowIframe');
+    if (iframe) iframe.style.background = '#eff0f1';
+    const kcm = root.querySelector('.kde-systemsettings--kcm');
+    if (kcm) kcm.style.background = '#eff0f1';
+    document.body.style.background = '#ffffff';
+  });
+  await sleep(page, 200);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -423,6 +440,7 @@ const openSlot = async (page, slot, scene = {}) => {
       null,
       { timeout: 20000 },
     );
+    await alignThemesForParityCapture(page);
     await sleep(page, 400);
   }
   if (appsP0) {

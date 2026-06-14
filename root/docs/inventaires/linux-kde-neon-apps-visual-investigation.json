@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T12:31:50.276Z",
+  "updatedAt": "2026-06-14T12:40:38.148Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -101,9 +101,9 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 75.6,
-        "phiNormalized": 75,
+        "visualMatch": "ok",
+        "phi": 93.9,
+        "phiNormalized": 92.1,
         "geometry": {
           "vm": {
             "width": 1060,
@@ -115,7 +115,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=75 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T12:31:46.990Z"
+        "comparedAt": "2026-06-14T12:40:36.399Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -266,7 +266,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=71.5 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T12:31:47.444Z"
+        "comparedAt": "2026-06-14T12:40:36.752Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -403,7 +403,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=64.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T12:31:48.254Z"
+        "comparedAt": "2026-06-14T12:40:37.006Z"
       },
       "note": "Slot nemo · VM org.kde.dolphin · variant kde/dolphin — ne pas hériter composition GNOME/Nautilus"
     },
@@ -497,7 +497,7 @@
           }
         },
         "gapNotes": "V11d Φ=31.8 Φ_norm=37.8 — capture VM native vs Capsule 1120×700.",
-        "comparedAt": "2026-06-14T12:31:48.811Z"
+        "comparedAt": "2026-06-14T12:40:37.401Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -593,7 +593,7 @@
       "capsuleParity": {
         "visualMatch": "ok",
         "phi": 95.4,
-        "phiNormalized": 95.1,
+        "phiNormalized": 95.2,
         "geometry": {
           "vm": {
             "width": 1410,
@@ -605,7 +605,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=75.8 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T12:31:49.378Z"
+        "comparedAt": "2026-06-14T12:40:37.622Z"
       },
       "note": "Slot text_editor · VM org.kde.kate · chrome Kate distinct du gabarit GNOME TextEditor"
     },
@@ -699,7 +699,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=67 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T12:31:49.881Z"
+        "comparedAt": "2026-06-14T12:40:37.897Z"
       },
       "note": "Slot terminal · VM org.kde.konsole · chrome Konsole distinct de Ptyxis/GNOME"
     },
@@ -786,7 +786,7 @@
           }
         },
         "gapNotes": "V11d Φ=14.3 Φ_norm=16.1 — capture VM native vs Capsule 680×552.",
-        "comparedAt": "2026-06-14T12:31:50.276Z"
+        "comparedAt": "2026-06-14T12:40:38.148Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

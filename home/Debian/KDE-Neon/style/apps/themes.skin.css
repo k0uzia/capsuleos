@@ -10,7 +10,7 @@ body#kde-neon #themes #kdeSystemSettingsApp {
     min-height: 100%;
 }
 
-body#kde-neon #themes .kde-systemsettings__sidebar {
+body#kde-neon #themes .kde-systemsettings__sidebar:not(.kde-systemsettings__sidebar--kcm) {
     flex-basis: 16rem;
     min-width: 16rem;
     padding: 0.55rem 0.45rem 0.65rem;
@@ -133,7 +133,7 @@ body#kde-neon #themes .kde-systemsettings__navicon--about {
 /* KCM kscreen — parité VM (Configuration de l'affichage) */
 body#kde-neon #themes .kde-systemsettings--kcm {
     display: grid;
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 12.5rem 1fr;
     grid-template-rows: minmax(0, 1fr) auto;
     width: 100%;
     height: 100%;
@@ -147,7 +147,8 @@ body#kde-neon #themes .kde-systemsettings__sidebar--kcm {
     display: flex;
     flex-direction: column;
     padding: 0;
-    border-right: 1px solid #2a2e32;
+    background: #ffffff;
+    border-right: 1px solid #eff0f1;
 }
 
 body#kde-neon #themes .kde-systemsettings__kcm-header {
@@ -156,8 +157,9 @@ body#kde-neon #themes .kde-systemsettings__kcm-header {
     gap: 0.35rem;
     min-height: 2.35rem;
     padding: 0.35rem 0.55rem;
-    border-bottom: 1px solid #3d444a;
-    color: #eff0f1;
+    border-bottom: 1px solid #eff0f1;
+    background: #dee0e2;
+    color: #232629;
     font-size: 0.82rem;
     font-weight: 600;
 }
@@ -168,18 +170,20 @@ body#kde-neon #themes .kde-systemsettings__back {
     border: 0;
     border-radius: 4px;
     background: transparent url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/go-previous-symbolic.svg") center / 14px no-repeat;
-    filter: invert(1);
-    opacity: 0.85;
+    filter: none;
+    opacity: 0.65;
 }
 
 body#kde-neon #themes .kde-systemsettings__nav--kcm {
-    padding: 0.45rem 0.35rem;
-    gap: 0.15rem;
+    padding: 0.2rem 0;
+    gap: 0;
 }
 
 body#kde-neon #themes .kde-systemsettings__nav--kcm .kde-systemsettings__navitem {
     justify-content: flex-start;
-    color: #eff0f1;
+    border-radius: 0;
+    padding: 0.42rem 0.75rem;
+    color: #232629;
 }
 
 body#kde-neon #themes .kde-systemsettings__content--kcm {
@@ -187,6 +191,7 @@ body#kde-neon #themes .kde-systemsettings__content--kcm {
     grid-row: 1;
     overflow: auto;
     padding: 1rem 1.25rem 1.25rem;
+    background: #eff0f1;
 }
 
 body#kde-neon #themes .kde-kscreen__monitors {

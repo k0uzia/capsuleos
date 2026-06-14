@@ -68,9 +68,12 @@ const alignDiscoverHomeForParityCapture = async (page) => {
     });
     const wine = root.querySelector('[data-discover-home-mount] [data-discover-app="wine"]');
     if (wine) wine.classList.add('kde-discover-card--vm-hover');
-    root.style.borderRadius = '0';
+    root.style.borderRadius = '5px';
     root.style.boxShadow = 'none';
     root.style.background = '#dee0e2';
+    root.style.overflow = 'hidden';
+    const main = root.querySelector('main#updateManagerApp');
+    if (main) main.style.background = '#ffffff';
     document.body.style.background = '#ffffff';
   });
   await sleep(page, 200);

@@ -59,9 +59,26 @@ const scaleNearest = (src, tw, th) => {
   return out;
 };
 
-const comparePair = (vmFile, capFile) => {
+const flattenAlpha = (png, bg = [255, 255, 255]) => {
+  for (let i = 0; i < png.data.length; i += 4) {
+    const a = png.data[i + 3] / 255;
+    if (a >= 0.999) {
+      continue;
+    }
+    png.data[i] = Math.round(png.data[i] * a + bg[0] * (1 - a));
+    png.data[i + 1] = Math.round(png.data[i + 1] * a + bg[1] * (1 - a));
+    png.data[i + 2] = Math.round(png.data[i + 2] * a + bg[2] * (1 - a));
+    png.data[i + 3] = 255;
+  }
+  return png;
+};
+
+const comparePair = (vmFile, capFile, opts = {}) => {
   const vmPng = readPng(vmFile);
   const capPng = readPng(capFile);
+  if (opts.flattenVmAlpha) {
+    flattenAlpha(vmPng);
+  }
   const width = Math.min(vmPng.width, capPng.width);
   const height = Math.min(vmPng.height, capPng.height);
   const vmCrop = centerCrop(vmPng, width, height);
@@ -145,7 +162,9 @@ const main = () => {
       results.push({ controlId: item.controlId, status: 'unmeasured' });
       continue;
     }
-    const scores = comparePair(vmFile, capFile);
+    const scores = comparePair(vmFile, capFile, {
+      flattenVmAlpha: opts.id === 'linux-kde-neon',
+    });
     const { visualMatch, gapNotes } = classify(scores, opts.id);
     item.capsuleParity = {
       ...(item.capsuleParity || {}),

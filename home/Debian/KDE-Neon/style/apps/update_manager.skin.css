@@ -477,11 +477,6 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     padding: 0 20px 24px;
 }
 
-.update-manager--kde-neon .kde-discover-home__hero {
-    display: block;
-    padding: 20px 4px 12px;
-}
-
 .update-manager--kde-neon .kde-discover-home__title {
     margin: 0;
     font-size: 22px;
@@ -555,7 +550,7 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
 
 .update-manager--kde-neon .kde-updates__sidebar {
     background: #ffffff;
-    border-right-color: #eff0f1;
+    border-right: 1px solid #eff0f1;
 }
 
 /* Scroll catégories : recherche + nav fixes, liste défilante (réf. VM Plasma Discover) */
@@ -621,9 +616,20 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
 }
 
 .update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home .kde-discover-home__hero {
+    display: block;
     margin: 0 -20px;
-    padding: 20px 24px 12px;
+    padding: 20px 24px 18px;
+    min-height: 3.35rem;
     background: #dee0e2;
+}
+
+.update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home .kde-discover-home__section {
+    background: transparent;
+}
+
+.update-manager--kde-neon .kde-discover-panel.kde-discover-panel--home .kde-discover-card {
+    border-color: #e3e5e8;
+    box-shadow: none;
 }
 
 .update-manager--kde-neon .kde-discover-panel[hidden] {

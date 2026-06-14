@@ -15,7 +15,7 @@
         "display-panel",
         "about-panel"
       ],
-      "launch": "systemsettings kcm_kscreen"
+      "launch": "gtk-launch systemsettings.desktop"
     },
     {
       "controlId": "update_manager",

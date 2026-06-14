@@ -1,14 +1,14 @@
 {
   "registryId": "linux-kde-neon",
-  "evaluatedAt": "2026-06-14T10:43:01.310Z",
+  "evaluatedAt": "2026-06-14T14:17:03.799Z",
   "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
   "gates": [
     {
       "predicate": "KdC",
-      "ok": true,
+      "ok": false,
       "optional": false,
       "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
-      "detail": ""
+      "detail": "✗ validate-toolkit-paradigm — 1 erreur(s) [linux-kde-neon]"
     },
     {
       "predicate": "KdSe",
@@ -18,5 +18,5 @@
       "detail": ""
     }
   ],
-  "allOk": true
+  "allOk": false
 }

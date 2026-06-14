@@ -3,7 +3,7 @@
   "domain": "kde-shell-polish",
   "phase": 2,
   "status": "done",
-  "polishedAt": "2026-06-14T10:43:16.110Z",
+  "polishedAt": "2026-06-14T14:17:11.906Z",
   "targets": [
     "tray-clipboard",
     "tray-network",

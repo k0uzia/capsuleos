@@ -31,13 +31,35 @@
       "captureMinMaxLock": true
     },
     "p0Baseline": {
-      "themes": { "phiNormalized": 92.1, "visualMatch": "ok" },
-      "update_manager": { "phiNormalized": 90, "visualMatch": "ok" },
-      "nemo": { "phiNormalized": 85.9, "visualMatch": "ok" },
-      "text_editor": { "phiNormalized": 97.2, "visualMatch": "ok" },
-      "firefox": { "phiNormalized": 96, "visualMatch": "ok", "vmCaptureFix": "playbook sans showDesktop + rejet Discover PNG" },
-      "terminal": { "phiNormalized": 90, "visualMatch": "ok" },
-      "lecteur_multimedia": { "phiNormalized": 91.9, "visualMatch": "ok" }
+      "themes": {
+        "phiNormalized": 92.1,
+        "visualMatch": "ok"
+      },
+      "update_manager": {
+        "phiNormalized": 90,
+        "visualMatch": "ok"
+      },
+      "nemo": {
+        "phiNormalized": 85.9,
+        "visualMatch": "ok"
+      },
+      "text_editor": {
+        "phiNormalized": 97.2,
+        "visualMatch": "ok"
+      },
+      "firefox": {
+        "phiNormalized": 96,
+        "visualMatch": "ok",
+        "vmCaptureFix": "playbook sans showDesktop + rejet Discover PNG"
+      },
+      "terminal": {
+        "phiNormalized": 90,
+        "visualMatch": "ok"
+      },
+      "lecteur_multimedia": {
+        "phiNormalized": 91.9,
+        "visualMatch": "ok"
+      }
     },
     "v13cVlc": {
       "updatedAt": "2026-06-14T16:10:00.000Z",
@@ -176,14 +198,18 @@
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-14T08:46:02.493Z"
   },
-  "updatedAt": "2026-06-14T16:10:00.000Z",
+  "updatedAt": "2026-06-14T14:20:49.593Z",
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-14T11:11:49.104Z",
-    "passOk": true,
+    "evaluatedAt": "2026-06-14T14:20:49.593Z",
+    "passOk": false,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
-    "captureCompare": "no drift",
-    "failures": []
+    "captureCompare": "drift",
+    "failures": [
+      "H2 validate-all",
+      "smoke smoke-h6-kde-settings-ready.mjs",
+      "KdVp capture-compare"
+    ]
   },
   "domain": "kde-settings-playbook",
   "H6": true,

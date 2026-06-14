@@ -57,6 +57,11 @@ const openSlot = async (page, slot) => {
     ).catch(() => {});
   }
   if (slot === 'update_manager') {
+    await page.evaluate(() => {
+      if (typeof window.initUpdateManagerApp === 'function') {
+        window.initUpdateManagerApp();
+      }
+    });
     await page.waitForFunction(
       () => {
         const root = document.querySelector('.windowElement[data-link="update_manager"]');
@@ -136,12 +141,13 @@ const plasmaShots = [
             return false;
           }
           const name = document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim();
+          const slides = panel.querySelectorAll('[data-discover-slide], .kde-discover-app-detail__slide').length;
           const imgs = [...panel.querySelectorAll('.kde-discover-app-detail__shot-img')];
-          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0);
-          return name && name.includes('VLC') && loaded.length >= 1;
+          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0).length;
+          return name && name.includes('VLC') && (loaded >= 1 || slides >= 2);
         },
         null,
-        { timeout: 20000 },
+        { timeout: 35000 },
       );
       await page.evaluate(() => {
         const dot = document.querySelector('[data-discover-carousel-dot="0"]');

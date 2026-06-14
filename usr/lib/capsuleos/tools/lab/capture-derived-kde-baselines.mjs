@@ -21,7 +21,7 @@ for (const id of DERIVED) {
   const r = spawnSync('node', args, {
     cwd: ROOT,
     encoding: 'utf8',
-    env: { ...process.env, CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500' },
+    env: { ...process.env, CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765' },
   });
 
   if (r.status !== 0) {

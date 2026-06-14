@@ -47,6 +47,12 @@
         if (bodyId === 'opensuse') {
             return 'linux-opensuse';
         }
+        if (bodyId === 'mx-kde') {
+            return 'linux-mx-kde';
+        }
+        if (bodyId === 'debian-kde') {
+            return 'linux-debian-kde';
+        }
         return '';
     }
 
@@ -1092,7 +1098,22 @@
         }
         if (root.dataset.discoverInit === 'true') {
             const hasCards = root.querySelector('[data-discover-home-mount] .kde-discover-card');
-            return !!hasCards;
+            if (hasCards) {
+                return true;
+            }
+            loadCatalog().then((catalog) => {
+                if (!catalog) {
+                    return;
+                }
+                renderHome(root, catalog);
+                renderInstalled(root, catalog);
+                renderUpdates(root, catalog);
+                renderConfig(root, catalog);
+                renderAbout(root, catalog);
+                switchView(root, catalog, state.view);
+                syncUpdatesChrome(root, catalog);
+            });
+            return false;
         }
 
         loadCatalog().then((catalog) => {

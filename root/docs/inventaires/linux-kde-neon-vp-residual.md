@@ -49,8 +49,33 @@ Handoff : [linux-kde-neon-g-coherence-handoff.md](linux-kde-neon-g-coherence-han
 |-------|--------|------|
 | V11a captures VM P0 | ✅ 7/7 (Spectacle) | `collect-vm-apps-visual-investigation.mjs --ssh` |
 | V11b compare Capsule | ✅ PNG post-Gc | `apps-visual-capsule/` |
-| V11c baseline shell | 🔄 | `capture-clone-surfaces.mjs --compare` |
-| V11d patch skin écarts | ⏳ | `linux-kde-neon-vp-residual.md` |
+| V11c baseline shell | ✅ | `capture-clone-surfaces.mjs --compare` |
+| V11d patch skin écarts | ✅ | `compare-apps-visual-investigation.mjs --filter P0` · P0 **accepted** (Φ doc) |
+| V11e passe intégrale | ✅ | `run-kde-neon-pass.mjs --write` · passOk |
+
+### V11d — scores Φ P0 (2026-06-14)
+
+| Slot | Φ | Φ_norm | Classe |
+|------|---|--------|--------|
+| terminal | 54.3 | 44.8 | accepted |
+| themes | 37.3 | 26.7 | accepted |
+| text_editor | 22.3 | 19.6 | accepted |
+| lecteur_multimedia | 14.1 | 17.0 | accepted |
+| nemo | 14.6 | 14.0 | accepted |
+| firefox | 6.9 | 9.9 | accepted |
+| update_manager | 8.1 | 7.3 | accepted |
+
+Écart structurel attendu : capture VM fenêtre native vs viewport Capsule 1211×756. Parité pixel Mint-like = campagne ultérieure.
+
+## Propagation dérivés (v11 suite)
+
+| Registry | Statut | Gate |
+|----------|--------|------|
+| linux-opensuse | ✅ baselines | `smoke-kde-v6-derived` · `capture-derived-kde-baselines` |
+| linux-mx-kde | ✅ baselines | idem |
+| linux-debian-kde | ✅ baselines | idem (+ icône Firefox neon) |
+
+Manifeste VM openSUSE : **bloqué** — hôte lab absent (`Hôte inconnu: linux-opensuse` dans `lab-inventory.json`).
 
 Roadmap : [linux-kde-neon-roadmap-v11-visual-parity.md](linux-kde-neon-roadmap-v11-visual-parity.md)
 

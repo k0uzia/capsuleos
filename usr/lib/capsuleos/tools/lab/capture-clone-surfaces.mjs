@@ -18,6 +18,9 @@ import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 
 const CAPTURE_VIEWPORTS = {
   'linux-kde-neon': { width: 1211, height: 756 },
+  'linux-opensuse': { width: 1211, height: 756 },
+  'linux-mx-kde': { width: 1211, height: 756 },
+  'linux-debian-kde': { width: 1211, height: 756 },
 };
 
 const CAPTURE_CLOCK_ISO = '2026-06-08T14:30:00+02:00';

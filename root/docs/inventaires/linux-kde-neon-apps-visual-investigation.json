@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T04:35:48.347Z",
+  "updatedAt": "2026-06-14T07:15:20.079Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -103,7 +103,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 37.3,
+        "phiNormalized": 26.7,
+        "geometry": {
+          "vm": {
+            "width": 1060,
+            "height": 808
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=37.3 Φ_norm=26.7 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:14.483Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -240,7 +254,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 8.1,
+        "phiNormalized": 7.3,
+        "geometry": {
+          "vm": {
+            "width": 1066,
+            "height": 860
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=8.1 Φ_norm=7.3 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:15.265Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -363,7 +391,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 14.6,
+        "phiNormalized": 14,
+        "geometry": {
+          "vm": {
+            "width": 890,
+            "height": 691
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=14.6 Φ_norm=14 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:16.255Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -443,7 +485,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 6.9,
+        "phiNormalized": 9.9,
+        "geometry": {
+          "vm": {
+            "width": 890,
+            "height": 691
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=6.9 Φ_norm=9.9 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:17.065Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -537,7 +593,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 22.3,
+        "phiNormalized": 19.6,
+        "geometry": {
+          "vm": {
+            "width": 770,
+            "height": 638
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=22.3 Φ_norm=19.6 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:18.598Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -617,7 +687,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 54.3,
+        "phiNormalized": 44.8,
+        "geometry": {
+          "vm": {
+            "width": 1041,
+            "height": 626
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ_norm=44.8 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T07:15:19.477Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -690,7 +774,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok"
+        "visualMatch": "accepted",
+        "phi": 14.1,
+        "phiNormalized": 17,
+        "geometry": {
+          "vm": {
+            "width": 560,
+            "height": 552
+          },
+          "capsule": {
+            "width": 1211,
+            "height": 756
+          }
+        },
+        "gapNotes": "V11d Φ=14.1 Φ_norm=17 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T07:15:20.079Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

@@ -11,9 +11,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../.
 const errors = [];
 
 const derived = [
-  { id: 'linux-opensuse', index: 'home/SUSE/openSUSE/index.html', bodyId: 'opensuse', url: 'http://127.0.0.1:5500/home/SUSE/openSUSE/index.html' },
-  { id: 'linux-mx-kde', index: 'home/Debian/MX-KDE/index.html', bodyId: 'mx-kde', url: 'http://127.0.0.1:5500/home/Debian/MX-KDE/index.html' },
-  { id: 'linux-debian-kde', index: 'home/Debian/Debian-KDE/index.html', bodyId: 'debian-kde', url: 'http://127.0.0.1:5500/home/Debian/Debian-KDE/index.html' },
+  { id: 'linux-opensuse', index: 'home/SUSE/openSUSE/index.html', bodyId: 'opensuse', url: 'http://127.0.0.1:8765/home/SUSE/openSUSE/index.html' },
+  { id: 'linux-mx-kde', index: 'home/Debian/MX-KDE/index.html', bodyId: 'mx-kde', url: 'http://127.0.0.1:8765/home/Debian/MX-KDE/index.html' },
+  { id: 'linux-debian-kde', index: 'home/Debian/Debian-KDE/index.html', bodyId: 'debian-kde', url: 'http://127.0.0.1:8765/home/Debian/Debian-KDE/index.html' },
 ];
 
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');

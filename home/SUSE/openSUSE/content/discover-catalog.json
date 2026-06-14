@@ -31,7 +31,19 @@
       "id": "popular",
       "title": "Les plus populaires",
       "apps": [
-        { "id": "vlc", "name": "VLC", "desc": "VLC media player, the open-source multimedia player", "icon": "vlc.png" },
+        {
+          "id": "vlc",
+          "name": "VLC",
+          "desc": "VLC media player, the open-source multimedia player",
+          "icon": "vlc.png",
+          "postInstallSlot": "lecteur_multimedia",
+          "storeInstallable": true,
+          "storeEntry": {
+            "id": "vlc",
+            "slot": "lecteur_multimedia",
+            "source": "apt"
+          }
+        },
         { "id": "gimp", "name": "Éditeur d'image GIMP", "desc": "Créer des images et modifier des photographies", "icon": "gimp.png" },
         { "id": "wine", "name": "Wine", "desc": "Run Windows applications on Linux, BSD, Solaris and Mac OS X", "icon": "wine.png" },
         { "id": "steam", "name": "Steam (installer)", "desc": "Launcher for the Steam software distribution service", "icon": "steam.png" },

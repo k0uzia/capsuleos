@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "campaign": "v12-excellence",
-  "campaignStatus": "active",
+  "campaignStatus": "pass-closed",
   "startedAt": "2026-06-14T07:51:55.414Z",
   "purgedAt": "2026-06-14T07:51:55.414Z",
   "previousCampaigns": [
@@ -18,8 +18,7 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
   },
   "openBacklog": [
-    "Parité pixel ciblée (Φ doc → patches CSS par slot)",
-    "run-kde-neon-pass.mjs --write (clôture palier v12)"
+    "Parité pixel ciblée (Φ doc → patches CSS par slot)"
   ],
   "v12Progress": {
     "updatedAt": "2026-06-14T08:49:00.000Z",
@@ -50,7 +49,26 @@
       "vmCaptureFix": "showDesktop + spectacle timeout",
       "phiNormalized": 98.8,
       "visualMatch": "ok"
-    }
+    },
+    "v12cDolphin": {
+      "updatedAt": "2026-06-14T10:37:00.000Z",
+      "phiNormalized": 65.5,
+      "visualMatch": "accepted",
+      "notes": "chrome Dolphin KDE — périphériques sidebar, pill masquée"
+    },
+    "v12cKate": {
+      "updatedAt": "2026-06-14T10:37:00.000Z",
+      "phiNormalized": 76,
+      "visualMatch": "accepted",
+      "notes": "page Bienvenue Kate + menubar KDE"
+    },
+    "v12cKonsole": {
+      "updatedAt": "2026-06-14T10:37:00.000Z",
+      "phiNormalized": 67,
+      "visualMatch": "accepted",
+      "notes": "chrome Konsole activé sur kde-neon, prompt vide démarrage"
+    },
+    "neonPassClosedAt": "2026-06-14T10:46:19.102Z"
   },
   "clonePreserved": true,
   "credibilityCampaign": {
@@ -73,5 +91,13 @@
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-14T08:46:02.493Z"
   },
-  "updatedAt": "2026-06-14T08:46:02.493Z"
+  "updatedAt": "2026-06-14T10:46:19.102Z",
+  "lastNeonPass": {
+    "evaluatedAt": "2026-06-14T10:46:19.102Z",
+    "passOk": true,
+    "pi_global": 100,
+    "tool": "run-kde-neon-pass.mjs",
+    "captureCompare": "no drift",
+    "failures": []
+  }
 }

@@ -1,0 +1,63 @@
+{
+  "registryId": "linux-kde-neon",
+  "slot": "tray",
+  "label": "Zone de notification Plasma",
+  "collectedAt": "2026-06-09T12:00:00.000Z",
+  "source": "vm-doc+panel-tray-closure",
+  "campaign": "v4-deep-parity",
+  "vmDoc": "linux-kde-neon-panel-tray-closure.md",
+  "capsuleMapping": {
+    "js": "usr/lib/capsuleos/shells/linux/tray-popover-kde.js",
+    "css": "usr/share/capsuleos/linux/apps/style/tray-popover-kde.base.css",
+    "calendarJs": "home/Debian/KDE-Neon/js/calendar-popover-kde.js"
+  },
+  "checks": [
+    {
+      "id": "tray-notifications",
+      "dimension": "ctx",
+      "type": "click",
+      "selector": "#tray-btn-notifications",
+      "expect": "kde-tray-popover-notifications visible"
+    },
+    {
+      "id": "tray-updates",
+      "dimension": "int",
+      "type": "click",
+      "selector": "[data-update-manager-tray]",
+      "expect": "Discover onglet Mises à jour"
+    },
+    {
+      "id": "tray-clipboard",
+      "dimension": "ctx",
+      "type": "click",
+      "selector": "#tray-btn-clipboard",
+      "expect": "popover presse-papiers"
+    },
+    {
+      "id": "tray-network",
+      "dimension": "ctx",
+      "type": "click",
+      "selector": "#tray-btn-network",
+      "expect": "popover réseau"
+    },
+    {
+      "id": "tray-volume",
+      "dimension": "int",
+      "type": "click",
+      "selector": "#tray-btn-volume",
+      "expect": "volume-popover slider"
+    },
+    {
+      "id": "tray-expand",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "#tray-btn-expand",
+      "expect": "grille KDE Connect, batterie, BT"
+    }
+  ],
+  "parityTiers": {
+    "structural": { "status": "ok", "pallier": "v3-closed" },
+    "interactional": { "status": "ok", "pallier": "v4-p4" }
+  },
+  "notes": "Popovers partagés P4 toolkit KDE — polish calendrier backlog mineur."
+}

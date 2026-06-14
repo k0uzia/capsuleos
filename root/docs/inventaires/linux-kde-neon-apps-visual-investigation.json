@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T09:50:26.410Z",
+  "updatedAt": "2026-06-14T10:25:50.218Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -113,7 +113,7 @@
           }
         },
         "gapNotes": "V11d Φ=41.5 Φ_norm=33.3 — capture VM native vs Capsule 641×480.",
-        "comparedAt": "2026-06-14T09:50:24.962Z"
+        "comparedAt": "2026-06-14T10:25:48.703Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -264,7 +264,7 @@
           }
         },
         "gapNotes": "V11d Φ=8.1 Φ_norm=7.3 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T09:50:25.403Z"
+        "comparedAt": "2026-06-14T10:25:49.186Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -275,13 +275,17 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Fichiers (Nautilus)",
+        "labelFr": "Dolphin (explorateur KDE)",
+        "slotId": "nemo",
+        "toolkitVariant": "kde",
+        "template": "dolphin",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-navigation-split",
-          "gnome.gtk-column-view",
-          "gnome.gtk-search-entry"
+          "kde.plasma-window",
+          "dolphin.toolbar",
+          "dolphin.sidebar-places",
+          "dolphin.pathbar-breadcrumb",
+          "dolphin.view-modes",
+          "dolphin.split-pane"
         ],
         "acquisitionOrder": [
           "sidebar",
@@ -291,8 +295,11 @@
           "context-menu-background",
           "trash"
         ],
-        "chromeProvider": "nemo-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "dolphin",
+        "explorerChromeProvider": "dolphin",
+        "fsKernel": "usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js",
+        "referenceRegistryId": "linux-kde-neon",
+        "note": "Slot nemo (FS / shell partagés) — chrome Dolphin KDE distinct de Nemo Cinnamon et Nautilus GNOME ; skin dolphin.skin.css + dolphin-kde-chrome.js."
       },
       "componentShots": [
         {
@@ -388,8 +395,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 75.7,
-        "phiNormalized": 66,
+        "phi": 75.6,
+        "phiNormalized": 65.5,
         "geometry": {
           "vm": {
             "width": 890,
@@ -400,10 +407,10 @@
             "height": 600
           }
         },
-        "gapNotes": "V11d Φ_norm=66 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:50:25.643Z"
+        "gapNotes": "V11d Φ_norm=65.5 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T10:25:49.431Z"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "Slot nemo · VM org.kde.dolphin · variant kde/dolphin — ne pas hériter composition GNOME/Nautilus"
     },
     {
       "controlId": "firefox",
@@ -495,7 +502,7 @@
           }
         },
         "gapNotes": "v12c — VM Firefox réelle (showDesktop) ; onglet chrome Proton ; Φ_norm=98.8 ok.",
-        "comparedAt": "2026-06-14T09:50:25.817Z"
+        "comparedAt": "2026-06-14T10:25:49.604Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -520,10 +527,15 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Éditeur de texte",
+        "labelFr": "Kate (éditeur KDE)",
+        "slotId": "text_editor",
+        "toolkitVariant": "kde",
+        "template": "text_editor.html",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.monospace-editor"
+          "kde.plasma-window",
+          "kate.menubar",
+          "kate.welcome-page",
+          "kate.bottom-panel"
         ],
         "acquisitionOrder": [
           "menubar",
@@ -531,8 +543,9 @@
           "status-line",
           "open-dialog"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "kate",
+        "referenceRegistryId": "linux-kde-neon",
+        "note": "Slot text_editor (XED noyau) — chrome Kate via kate-kde-chrome.js page Bienvenue."
       },
       "componentShots": [
         {
@@ -590,8 +603,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 97,
-        "phiNormalized": 76.9,
+        "phi": 95.8,
+        "phiNormalized": 76.1,
         "geometry": {
           "vm": {
             "width": 1410,
@@ -602,10 +615,10 @@
             "height": 520
           }
         },
-        "gapNotes": "V11d Φ_norm=76.9 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:50:26.010Z"
+        "gapNotes": "V12c Φ_norm≈76 — page Bienvenue Kate (kate-kde-chrome.js) vs VM ; slot text_editor partage XED.",
+        "comparedAt": "2026-06-14T10:25:49.826Z"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "Slot text_editor · VM org.kde.kate · chrome Kate distinct du gabarit GNOME TextEditor"
     },
     {
       "controlId": "terminal",
@@ -614,10 +627,14 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Terminal (Ptyxis)",
+        "labelFr": "Konsole (terminal KDE)",
+        "slotId": "terminal",
+        "toolkitVariant": "kde",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.terminal-chrome"
+          "kde.plasma-window",
+          "konsole.toolbar",
+          "konsole.tab-strip",
+          "konsole.prompt"
         ],
         "acquisitionOrder": [
           "headerbar",
@@ -625,8 +642,9 @@
           "prompt-colors",
           "preferences"
         ],
-        "chromeProvider": "terminal-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "konsole",
+        "referenceRegistryId": "linux-kde-neon",
+        "note": "Slot terminal — chrome Konsole via terminal-konsole-chrome.js (Neon pivot)."
       },
       "componentShots": [
         {
@@ -684,7 +702,7 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 97.4,
+        "phi": 97.5,
         "phiNormalized": 67.1,
         "geometry": {
           "vm": {
@@ -696,10 +714,10 @@
             "height": 440
           }
         },
-        "gapNotes": "V11d Φ_norm=67.1 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:50:26.164Z"
+        "gapNotes": "V12c Φ_norm≈67 — Konsole toolbar + prompt vide Neon ; terminal-konsole-chrome.js activé sur kde-neon.",
+        "comparedAt": "2026-06-14T10:25:49.977Z"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "Slot terminal · VM org.kde.konsole · chrome Konsole distinct de Ptyxis/GNOME"
     },
     {
       "controlId": "lecteur_multimedia",
@@ -784,7 +802,7 @@
           }
         },
         "gapNotes": "V11d Φ=14.1 Φ_norm=11.2 — capture VM native vs Capsule 880×580.",
-        "comparedAt": "2026-06-14T09:50:26.410Z"
+        "comparedAt": "2026-06-14T10:25:50.218Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

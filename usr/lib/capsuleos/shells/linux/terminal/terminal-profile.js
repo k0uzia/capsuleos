@@ -47,6 +47,7 @@
             ubuntu: { user: 'capsule', host: 'ubuntu' },
             mint: { user: 'capsule', host: 'mint' },
             'mx-kde': { user: 'mx-linux', host: 'mx' },
+            'kde-neon': { user: 'capsule', host: 'capsule-kvm' },
             opensuse: { user: 'capsule', host: 'opensuse' },
         };
         const identity = identityByBody[bodyId];

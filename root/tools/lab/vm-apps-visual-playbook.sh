@@ -211,7 +211,39 @@ for item in matrix.get("investigations", []):
     slot_dir = out_dir / control_id
     slot_dir.mkdir(parents=True, exist_ok=True)
     print(f"[apps-visual] {control_id} — {item.get('labelFr', '')} (backend={BACKEND})", flush=True)
-    if desktop:
+    custom_launch = item.get("launch", "")
+    if custom_launch and "gtk-launch" not in custom_launch:
+        if BACKEND == "spectacle":
+            subprocess.run(
+                ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "true"],
+                check=False,
+                timeout=5,
+            )
+            time.sleep(0.35)
+        subprocess.run(["bash", "-lc", custom_launch], check=False, timeout=10)
+        if "dolphin" in custom_launch:
+            time.sleep(8.0)
+            subprocess.run(
+                [
+                    "bash",
+                    "-lc",
+                    'SVC=$(qdbus6 | grep "org.kde.dolphin-" | head -1); '
+                    '[ -n "$SVC" ] && qdbus6 "$SVC" /dolphin/Dolphin_1/actions/view_redisplay trigger || true',
+                ],
+                check=False,
+                timeout=10,
+            )
+            time.sleep(2.0)
+        elif BACKEND == "spectacle":
+            time.sleep(2.5)
+        if BACKEND == "spectacle":
+            subprocess.run(
+                ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "false"],
+                check=False,
+                timeout=5,
+            )
+            time.sleep(0.5)
+    elif desktop:
         launch_app_slot(desktop)
     default_out = out_dir / f"{control_id}-vm.png"
     captured = capture_app_window(default_out, desktop) if BACKEND else False

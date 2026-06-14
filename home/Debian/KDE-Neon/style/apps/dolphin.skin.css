@@ -65,10 +65,12 @@ body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img 
 }
 
 body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__nav--peripherals .dolphin-sidebar__empty {
-    margin: 0.35rem 0 0.5rem 0.75rem;
-    font-size: 0.8125rem;
-    color: var(--kde-neon-muted-fg, #7f8c8d);
-    line-height: 1.35;
+    display: none;
+}
+
+/* VM Dolphin : pas de pill « N dossiers » en vue icônes par défaut */
+body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-folder-pill {
+    display: none !important;
 }
 
 /* P4 — masquer menubar classique (Dolphin ≥23 = hamburger) */

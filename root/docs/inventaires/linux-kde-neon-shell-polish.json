@@ -1,0 +1,14 @@
+{
+  "registryId": "linux-kde-neon",
+  "domain": "kde-shell-polish",
+  "status": "done",
+  "polishedAt": "2026-06-14T10:43:16.104Z",
+  "targets": [
+    "panel-pins",
+    "kickoff",
+    "taskbar-clock",
+    "dolphin-chrome",
+    "discover-chrome"
+  ],
+  "smoke": "smoke-kde-neon-shell-polish.mjs"
+}

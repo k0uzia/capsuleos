@@ -45,7 +45,7 @@
         "context-menu-background",
         "trash"
       ],
-      "launch": "gtk-launch org.kde.dolphin.desktop"
+      "launch": "nohup dolphin --new-window \"$HOME\" >/dev/null 2>&1 & disown"
     },
     {
       "controlId": "firefox",

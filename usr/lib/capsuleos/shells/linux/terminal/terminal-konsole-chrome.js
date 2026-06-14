@@ -1,5 +1,5 @@
 (function initKonsoleTerminalChrome() {
-    const KONSOLE_BODY_IDS = new Set(['opensuse', 'mx-kde', 'debian-kde']);
+    const KONSOLE_BODY_IDS = new Set(['kde-neon', 'opensuse', 'mx-kde', 'debian-kde']);
     if (!document.body || !KONSOLE_BODY_IDS.has(document.body.id)) {
         return;
     }
@@ -127,6 +127,11 @@
 
         bindToolbar(root);
         scrollTranscript(root);
+
+        if (document.body && document.body.id === 'kde-neon' && prompt && output
+            && !output.querySelector('.capsule-terminal__line')) {
+            prompt.textContent = '';
+        }
     };
 
     const scan = () => {

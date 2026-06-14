@@ -1,0 +1,13 @@
+{
+  "registryId": "linux-kde-neon",
+  "domain": "kde-shell-polish",
+  "phase": 2,
+  "status": "done",
+  "polishedAt": "2026-06-14T10:43:16.110Z",
+  "targets": [
+    "tray-clipboard",
+    "tray-network",
+    "tray-updates"
+  ],
+  "smoke": "smoke-kde-neon-shell-polish.mjs"
+}

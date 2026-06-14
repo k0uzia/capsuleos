@@ -104,7 +104,7 @@
     }
 
     function initKateKdeNeonTitle() {
-        setSlotTitle('text_editor', 'Kate — Éditeur de texte');
+        setSlotTitle('text_editor', 'Bienvenue — Kate');
     }
 
     function loadGwenviewDemo() {

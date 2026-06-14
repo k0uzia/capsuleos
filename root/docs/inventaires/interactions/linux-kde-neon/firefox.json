@@ -1,0 +1,34 @@
+{
+  "registryId": "linux-kde-neon",
+  "slot": "firefox",
+  "label": "Firefox",
+  "collectedAt": "2026-06-08T16:00:00.000Z",
+  "source": "campaign-v2-open",
+  "campaign": "v2-reopen-post-merge",
+  "parityTiers": {
+    "structural": {
+      "status": "ok",
+      "pallier": "v4-p1"
+    },
+    "interactional": {
+      "status": "smoke-ok",
+      "items": [
+        "toolbar-proton",
+        "new-tab",
+        "multi-tabs",
+        "navigation-controls",
+        "bookmarks-toggle",
+        "address-bar"
+      ]
+    }
+  },
+  "capsuleMapping": {
+    "skinCss": "home/Debian/KDE-Neon/style/apps/firefox.skin.css",
+    "kernel": "usr/lib/capsuleos/shells/linux/firefoxBrowser.js",
+    "smoke": "usr/lib/capsuleos/tools/lab/smoke-kde-neon-firefox.mjs"
+  },
+  "nextSteps": [],
+  "vmInventory": "linux-kde-neon-firefox-vm.json",
+  "toolbarMatrix": "linux-kde-neon-firefox-toolbar-matrix.md",
+  "notes": "v4 P1 — toolbar classée Vp · smoke toolbar étendu (2026-06-08)."
+}

@@ -8,10 +8,9 @@
     },
     "CredS": {
       "ok": true,
-      "at": "2026-06-14T08:46:12.145Z",
+      "at": "2026-06-14T10:44:10.132Z",
       "liveVerified": true,
-      "scenarios": 56,
-      "campaign": "v12-excellence"
+      "scenarios": 56
     }
   },
   "predicates": {
@@ -36,5 +35,5 @@
   },
   "nextPredicate": null,
   "evaluatedAt": "2026-06-14T08:46:02.493Z",
-  "updatedAt": "2026-06-14T08:46:12.145Z"
+  "updatedAt": "2026-06-14T10:44:10.132Z"
 }

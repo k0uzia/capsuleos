@@ -130,6 +130,18 @@ const openSlot = async (page, slot, scene = {}) => {
   if (!opened.ok || opened.display === 'none' || opened.display === 'missing') {
     throw new Error(`Impossible d'ouvrir ${slot} (display=${opened.display})`);
   }
+  if (slot === 'text_editor') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="text_editor"]');
+        return root && root.style.display !== 'none'
+          && root.querySelector('.kde-kate__welcome, .kde-kate--welcome');
+      },
+      null,
+      { timeout: 15000 },
+    );
+    await sleep(page, 500);
+  }
   if (slot === 'nemo') {
     await page.waitForFunction(
       () => {

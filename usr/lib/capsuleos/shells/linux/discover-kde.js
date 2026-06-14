@@ -552,6 +552,7 @@
 
     function renderAppDetail(root, catalog, app) {
         const panel = ensureAppDetailPanel(root);
+        const appDetails = (catalog && catalog.appDetails && app.id && catalog.appDetails[app.id]) || {};
         const storeMeta = app && app.storeEntry ? {
             summary: app.storeEntry.sub || app.desc || '',
             description: app.storeEntry.desc || app.desc || '',
@@ -560,7 +561,7 @@
             license: app.storeEntry.source === 'flatpak' ? 'Flathub' : 'Ubuntu',
             origin: app.storeEntry.source === 'flatpak' ? 'Flathub' : 'Ubuntu noble',
         } : null;
-        const meta = storeMeta || (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
+        const meta = Object.assign({}, storeMeta || {}, appDetails);
         const iconUrl = resolveIconUrl(app);
         const summary = meta.summary || app.desc || '';
         const description = meta.description || summary;

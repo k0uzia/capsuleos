@@ -14,6 +14,8 @@ import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
+import { findChromePath } from './kde-fidelity-smoke-lib.mjs';
+import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const REGISTRY_ID = 'linux-kde-neon';
@@ -21,7 +23,13 @@ const write = process.argv.includes('--write');
 const skipRuntime = process.argv.includes('--skip-runtime');
 const httpBase = process.env.CAPSULE_HTTP_BASE || resolveCapsuleHttpBase(REGISTRY_ID);
 
-const env = { ...process.env, CAPSULE_HTTP_BASE: httpBase };
+const chromePath = findChromePath();
+const env = {
+  ...process.env,
+  CAPSULE_HTTP_BASE: httpBase,
+  CAPSULE_KDE_NEON_URL: resolveCapsuleOsUrl(REGISTRY_ID, httpBase),
+  ...(chromePath ? { PLAYWRIGHT_CHROME: chromePath } : {}),
+};
 
 const run = (label, cmd, args = [], opts = {}) => {
   const r = spawnSync(cmd, args, {

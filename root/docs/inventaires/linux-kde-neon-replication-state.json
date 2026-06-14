@@ -307,24 +307,14 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-13T23:25:33.194Z",
-    "passOk": false,
+    "evaluatedAt": "2026-06-14T04:52:00.363Z",
+    "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
-    "captureCompare": "drift",
-    "failures": [
-      "H2 validate-all",
-      "smoke smoke-kde-neon-shell-polish.mjs",
-      "smoke smoke-kde-neon-kickoff.mjs",
-      "smoke smoke-kde-neon-dolphin.mjs",
-      "smoke smoke-kde-neon-discover.mjs",
-      "smoke smoke-kde-neon-firefox.mjs",
-      "smoke smoke-kde-neon-terminal.mjs",
-      "smoke smoke-kde-neon-calendar.mjs",
-      "KdVp capture-compare"
-    ]
+    "captureCompare": "no drift",
+    "failures": []
   },
-  "updatedAt": "2026-06-13T23:25:33.194Z",
+  "updatedAt": "2026-06-14T04:52:00.363Z",
   "domain": "kde-settings-playbook",
   "H6": true,
   "h6ClosedAt": "2026-06-13T21:45:57.306Z",

@@ -2153,7 +2153,7 @@
       },
       "postInstallSlot": null,
       "relatedSlots": null,
-      "defaultInstalled": false,
+      "defaultInstalled": true,
       "storeInstallable": true
     },
     {

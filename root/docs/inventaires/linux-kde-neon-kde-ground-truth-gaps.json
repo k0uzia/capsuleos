@@ -1,6 +1,6 @@
 {
   "registryId": "linux-kde-neon",
-  "evaluatedAt": "2026-06-13T23:25:07.873Z",
+  "evaluatedAt": "2026-06-14T04:50:26.299Z",
   "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
   "gates": [
     {

@@ -836,6 +836,11 @@
           "flatpak": "io.github.celluloid_player.Celluloid",
           "defaultInstalled": false,
           "storeInstallable": true
+        },
+        "linux-kde-neon": {
+          "deb": "vlc",
+          "defaultInstalled": true,
+          "storeInstallable": true
         }
       }
     },

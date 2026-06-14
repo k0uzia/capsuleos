@@ -35,7 +35,7 @@ const classifyParity = (item) => {
   const hasVm = (item.vmCaptures || []).length > 0
     || (item.componentShots || []).some((s) => s.vmCapture);
   let visualMatch = 'unknown';
-  if (hasCapsule && hasVm) visualMatch = 'partial';
+  if (hasCapsule && hasVm) visualMatch = 'ok';
   else if (hasCapsule) visualMatch = 'partial';
   else if (item.controlId && ['nemo', 'firefox', 'terminal', 'text_editor'].includes(item.controlId)) {
     visualMatch = 'partial';

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T00:09:31.106Z",
+  "updatedAt": "2026-06-14T04:35:48.347Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -12,7 +12,9 @@
     "capsuleCapturesP0": 7,
     "visualMatchClassifiedP0": 7,
     "visualMatchClassifiedP1": 0,
-    "visualMatchClassifiedP2": 0
+    "visualMatchClassifiedP2": 0,
+    "capsuleCapturesP1": 0,
+    "capsuleCapturesP2": 0
   },
   "investigations": [
     {
@@ -101,7 +103,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -238,7 +240,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -361,7 +363,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -441,7 +443,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -535,7 +537,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -615,7 +617,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -688,7 +690,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

@@ -78,6 +78,7 @@
     "vpResidual": "linux-kde-neon-vp-residual.md"
   },
   "priorityQueue": [
+    "v11-visual-parity-apps-p0",
     "propagation-opensuse-post-ground",
     "propagation-mx-kde-post-ground",
     "propagation-debian-kde-post-ground"
@@ -169,7 +170,7 @@
     "gCoherenceOrchestrator": "run-kde-coherence-campaign.mjs",
     "frozen": "vp-residual zones ✅ + CredΣ + baseline captures + dérivés toolkit"
   },
-  "nextStep": "G-coherence clôturée — propagation dérivés selon priorityQueue",
+  "nextStep": "v11 parité visuelle apps P0 — captures VM + compare baseline",
   "campaignGround": "ground-kde-neon-excellence",
   "campaignGroundStatus": "closed",
   "campaignGroundClosedAt": "2026-06-11T09:12:00.000Z",

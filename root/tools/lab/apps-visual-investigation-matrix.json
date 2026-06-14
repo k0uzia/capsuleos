@@ -1,40 +1,41 @@
 {
   "version": 2,
-  "registryId": "linux-fedora",
+  "registryId": "linux-kde-neon",
   "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [
     {
-      "controlId": "calculator",
-      "labelFr": "Calculatrice",
-      "vmDesktop": "org.gnome.Calculator.desktop",
+      "controlId": "themes",
+      "labelFr": "Configuration du système",
+      "vmDesktop": "systemsettings.desktop",
       "parityPriority": "P0",
       "componentShots": [
-        "mode-selector",
-        "display",
-        "keypad-basic",
-        "keypad-advanced",
-        "history-panel"
+        "sidebar-panels",
+        "wifi-row",
+        "display-panel",
+        "about-panel"
       ],
-      "launch": "gtk-launch org.gnome.Calculator.desktop"
+      "launch": "gtk-launch systemsettings.desktop"
     },
     {
-      "controlId": "text_editor",
-      "labelFr": "Éditeur de texte",
-      "vmDesktop": "org.gnome.TextEditor.desktop",
+      "controlId": "update_manager",
+      "labelFr": "Discover",
+      "vmDesktop": "org.kde.discover.desktop",
       "parityPriority": "P0",
       "componentShots": [
-        "menubar",
-        "editor-area",
-        "status-line",
-        "open-dialog"
+        "explore-grid",
+        "featured-hero",
+        "category-heroes",
+        "updates-banner",
+        "app-detail",
+        "categories"
       ],
-      "launch": "gtk-launch org.gnome.TextEditor.desktop"
+      "launch": "gtk-launch org.kde.discover.desktop"
     },
     {
       "controlId": "nemo",
-      "labelFr": "Fichiers",
-      "vmDesktop": "org.gnome.Nautilus.desktop",
+      "labelFr": "Dolphin",
+      "vmDesktop": "org.kde.dolphin.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "sidebar",
@@ -44,7 +45,7 @@
         "context-menu-background",
         "trash"
       ],
-      "launch": "gtk-launch org.gnome.Nautilus.desktop"
+      "launch": "gtk-launch org.kde.dolphin.desktop"
     },
     {
       "controlId": "firefox",
@@ -60,35 +61,22 @@
       "launch": "gtk-launch firefox.desktop"
     },
     {
-      "controlId": "update_manager",
-      "labelFr": "Logiciels",
-      "vmDesktop": "org.gnome.Software.desktop",
+      "controlId": "text_editor",
+      "labelFr": "Kate",
+      "vmDesktop": "org.kde.kate.desktop",
       "parityPriority": "P0",
       "componentShots": [
-        "explore-grid",
-        "updates-banner",
-        "app-detail",
-        "categories"
+        "menubar",
+        "editor-area",
+        "status-line",
+        "open-dialog"
       ],
-      "launch": "gtk-launch org.gnome.Software.desktop"
-    },
-    {
-      "controlId": "themes",
-      "labelFr": "Paramètres",
-      "vmDesktop": "org.gnome.Settings.desktop",
-      "parityPriority": "P0",
-      "componentShots": [
-        "sidebar-panels",
-        "wifi-row",
-        "display-panel",
-        "about-panel"
-      ],
-      "launch": "gtk-launch org.gnome.Settings.desktop"
+      "launch": "gtk-launch org.kde.kate.desktop"
     },
     {
       "controlId": "terminal",
-      "labelFr": "Terminal",
-      "vmDesktop": "org.gnome.Ptyxis.desktop",
+      "labelFr": "Konsole",
+      "vmDesktop": "org.kde.konsole.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "headerbar",
@@ -96,7 +84,19 @@
         "prompt-colors",
         "preferences"
       ],
-      "launch": "gtk-launch org.gnome.Ptyxis.desktop"
+      "launch": "gtk-launch org.kde.konsole.desktop"
+    },
+    {
+      "controlId": "lecteur_multimedia",
+      "labelFr": "Lecteur vidéo",
+      "vmDesktop": "vlc.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "transport-controls",
+        "playlist",
+        "album-art"
+      ],
+      "launch": "gtk-launch vlc.desktop"
     }
   ]
 }

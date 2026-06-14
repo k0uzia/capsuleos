@@ -18,6 +18,9 @@ export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 if [[ -z "${XAUTHORITY:-}" ]] && compgen -G "/run/user/$(id -u)/.mutter-Xwaylandauth.*" >/dev/null; then
   export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)
 fi
+if [[ -z "${XAUTHORITY:-}" ]] && compgen -G "/run/user/$(id -u)/xauth_*" >/dev/null; then
+  export XAUTHORITY=$(ls /run/user/$(id -u)/xauth_* 2>/dev/null | head -1)
+fi
 export PATH="${HOME}/.local/bin:${PATH}"
 
 MATRIX_PATH="${CAPSULE_APPS_VISUAL_MATRIX:-}"
@@ -87,7 +90,23 @@ def shell_window_screenshot(path: Path) -> bool:
         return False
 
 
+def spectacle_capture(outfile: Path, active_window: bool = True) -> bool:
+    outfile.parent.mkdir(parents=True, exist_ok=True)
+    cmd = ["spectacle", "-b", "-n", "-o", str(outfile)]
+    if active_window:
+        cmd = ["spectacle", "-b", "-a", "-n", "-o", str(outfile)]
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=25)
+        return res.returncode == 0 and outfile.is_file() and outfile.stat().st_size > 0
+    except Exception:
+        return False
+
+
 def probe_backend() -> str | None:
+    desktop = os.environ.get("XDG_CURRENT_DESKTOP", "")
+    if "KDE" in desktop.upper():
+        if subprocess.call(["which", "spectacle"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0:
+            return "spectacle"
     probe = out_dir / "_screenshot-probe.png"
     status = shell_screenshot_status(probe)
     if status == "ok":
@@ -147,6 +166,8 @@ def capture_window(outfile: Path, desktop: str) -> bool:
         if r.returncode != 0:
             subprocess.run(["gnome-screenshot", "-f", str(outfile)], check=False, timeout=15)
         return outfile.exists() and outfile.stat().st_size > 0
+    if BACKEND == "spectacle":
+        return spectacle_capture(outfile, active_window=True)
     return False
 
 
@@ -185,4 +206,4 @@ for item in matrix.get("investigations", []):
             print(f"  ○ shot absent {shot}", flush=True)
 PY
 
-echo "OK apps-visual playbook → $OUT_DIR (backend Shell.Screenshot / gnome-screenshot)"
+echo "OK apps-visual playbook → $OUT_DIR (backend Shell.Screenshot / gnome-screenshot / spectacle)"

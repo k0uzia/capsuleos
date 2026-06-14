@@ -184,6 +184,8 @@ export const buildRemoteEnv = (host) => {
   ];
   if (host.xauthorityDiscovery === 'mutter-xwayland') {
     parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
+  } else if (host.xauthorityDiscovery === 'plasma-xauth') {
+    parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/xauth_* 2>/dev/null | head -1)');
   }
   return parts.join('; ');
 };

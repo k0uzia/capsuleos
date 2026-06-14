@@ -43,6 +43,17 @@
 
 Handoff : [linux-kde-neon-g-coherence-handoff.md](linux-kde-neon-g-coherence-handoff.md)
 
+## Campagne v11 — parité visuelle apps (en cours)
+
+| Phase | Statut | Gate |
+|-------|--------|------|
+| V11a captures VM P0 | ✅ 7/7 (Spectacle) | `collect-vm-apps-visual-investigation.mjs --ssh` |
+| V11b compare Capsule | ✅ PNG post-Gc | `apps-visual-capsule/` |
+| V11c baseline shell | 🔄 | `capture-clone-surfaces.mjs --compare` |
+| V11d patch skin écarts | ⏳ | `linux-kde-neon-vp-residual.md` |
+
+Roadmap : [linux-kde-neon-roadmap-v11-visual-parity.md](linux-kde-neon-roadmap-v11-visual-parity.md)
+
 ## Références
 
 - Matrice Dolphin : [linux-kde-neon-dolphin-diff.md](linux-kde-neon-dolphin-diff.md)

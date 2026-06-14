@@ -1,18 +1,16 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-13T23:00:50.507Z",
+  "updatedAt": "2026-06-14T00:09:31.106Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
     "documentedP0": 7,
-    "vmCapturesP0": 0,
+    "vmCapturesP0": 7,
     "componentShotsPlanned": 31,
-    "componentShotsCaptured": 0,
+    "componentShotsCaptured": 31,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 4,
-    "capsuleCapturesP1": 0,
-    "capsuleCapturesP2": 0,
+    "visualMatchClassifiedP0": 7,
     "visualMatchClassifiedP1": 0,
     "visualMatchClassifiedP2": 0
   },
@@ -50,8 +48,8 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "sidebar panels",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/sidebar-panels-vm.png"
         },
         {
           "shotId": "wifi-row",
@@ -62,8 +60,8 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "wifi row",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/wifi-row-vm.png"
         },
         {
           "shotId": "display-panel",
@@ -74,8 +72,8 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "display panel",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/display-panel-vm.png"
         },
         {
           "shotId": "about-panel",
@@ -86,11 +84,16 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "about panel",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes.png",
@@ -98,7 +101,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -143,8 +146,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "explore grid",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/explore-grid-vm.png"
         },
         {
           "shotId": "featured-hero",
@@ -158,8 +161,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "featured hero",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/featured-hero-vm.png"
         },
         {
           "shotId": "category-heroes",
@@ -173,8 +176,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "category heroes",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/category-heroes-vm.png"
         },
         {
           "shotId": "updates-banner",
@@ -188,8 +191,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "updates banner",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/updates-banner-vm.png"
         },
         {
           "shotId": "app-detail",
@@ -203,8 +206,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "app detail",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/app-detail-vm.png"
         },
         {
           "shotId": "categories",
@@ -218,11 +221,16 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "categories",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/categories-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/update_manager.png",
@@ -230,7 +238,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -271,8 +279,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "sidebar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/sidebar-vm.png"
         },
         {
           "shotId": "column-headers",
@@ -284,8 +292,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "column headers",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/column-headers-vm.png"
         },
         {
           "shotId": "pathbar",
@@ -297,8 +305,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "pathbar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/pathbar-vm.png"
         },
         {
           "shotId": "context-menu-item",
@@ -310,8 +318,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "context menu item",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/context-menu-item-vm.png"
         },
         {
           "shotId": "context-menu-background",
@@ -323,8 +331,8 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "context menu background",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/context-menu-background-vm.png"
         },
         {
           "shotId": "trash",
@@ -336,11 +344,16 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "trash",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/trash-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/nemo.png",
@@ -381,8 +394,8 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "tab bar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/tab-bar-vm.png"
         },
         {
           "shotId": "url-bar",
@@ -391,8 +404,8 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "url bar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/url-bar-vm.png"
         },
         {
           "shotId": "bookmarks",
@@ -401,8 +414,8 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "bookmarks",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/bookmarks-vm.png"
         },
         {
           "shotId": "menu-hamburger",
@@ -411,11 +424,16 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "menu hamburger",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/menu-hamburger-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/firefox.png",
@@ -470,8 +488,8 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "menubar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/menubar-vm.png"
         },
         {
           "shotId": "editor-area",
@@ -480,8 +498,8 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "editor area",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/editor-area-vm.png"
         },
         {
           "shotId": "status-line",
@@ -490,8 +508,8 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "status line",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/status-line-vm.png"
         },
         {
           "shotId": "open-dialog",
@@ -500,11 +518,16 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "open dialog",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/open-dialog-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/text_editor.png",
@@ -545,8 +568,8 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "headerbar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/headerbar-vm.png"
         },
         {
           "shotId": "tab-strip",
@@ -555,8 +578,8 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "tab strip",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/tab-strip-vm.png"
         },
         {
           "shotId": "prompt-colors",
@@ -565,8 +588,8 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "prompt colors",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/prompt-colors-vm.png"
         },
         {
           "shotId": "preferences",
@@ -575,11 +598,16 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "preferences",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/preferences-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/terminal.png",
@@ -621,8 +649,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "transport controls",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/transport-controls-vm.png"
         },
         {
           "shotId": "playlist",
@@ -632,8 +660,8 @@
             "gnome.media-viewer"
           ],
           "labelFr": "playlist",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/playlist-vm.png"
         },
         {
           "shotId": "album-art",
@@ -643,11 +671,16 @@
             "gnome.media-viewer"
           ],
           "labelFr": "album art",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/album-art-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/lecteur_multimedia.png",
@@ -655,7 +688,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

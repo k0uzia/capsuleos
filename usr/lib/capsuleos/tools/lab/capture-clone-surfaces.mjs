@@ -14,6 +14,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { listCloneTargets } from '../clone-checkpoints-lib.mjs';
 import { getCaptureShots } from './clone-capture-scenarios.mjs';
+import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 
 const CAPTURE_CLOCK_ISO = '2026-06-08T14:30:00+02:00';
 
@@ -51,7 +52,7 @@ const resolveEntry = (registryId) => {
 
 const captureOne = async (registryId, chromium, options = {}) => {
   const entry = resolveEntry(registryId);
-  const defaultUrl = `http://127.0.0.1:5500/${entry.skin}`;
+  const defaultUrl = `${resolveCapsuleHttpBase(registryId)}/${entry.skin}`;
   const URL = options.url || defaultUrl;
   const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15).replace('T', '-');
   const outDir = path.join(ROOT, 'root/docs/inventaires/captures', registryId, stamp);

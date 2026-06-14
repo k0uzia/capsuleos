@@ -74,30 +74,73 @@ const flattenAlpha = (png, bg = [255, 255, 255]) => {
   return png;
 };
 
+const trimBlackLetterbox = (png, threshold = 12) => {
+  const { width, height, data } = png;
+  const isBg = (x, y) => {
+    const i = (width * y + x) * 4;
+    if (data[i + 3] <= threshold) {
+      return true;
+    }
+    return data[i] <= threshold && data[i + 1] <= threshold && data[i + 2] <= threshold;
+  };
+  let minX = width;
+  let minY = height;
+  let maxX = 0;
+  let maxY = 0;
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (!isBg(x, y)) {
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+      }
+    }
+  }
+  if (maxX <= minX || maxY <= minY) {
+    return png;
+  }
+  const cw = maxX - minX + 1;
+  const ch = maxY - minY + 1;
+  if (cw * ch > width * height * 0.985) {
+    return png;
+  }
+  const out = new PNG({ width: cw, height: ch });
+  PNG.bitblt(png, out, minX, minY, cw, ch, 0, 0);
+  return out;
+};
+
 const comparePair = (vmFile, capFile, opts = {}) => {
-  const vmPng = readPng(vmFile);
+  const vmOrig = readPng(vmFile);
+  let vmPng = vmOrig;
   const capPng = readPng(capFile);
+  if (opts.trimVmLetterbox) {
+    vmPng = trimBlackLetterbox(vmPng);
+  }
   if (opts.flattenVmAlpha) {
-    flattenAlpha(vmPng);
+    flattenAlpha(vmPng, opts.flattenVmBg || [255, 255, 255]);
   }
 
-  const targetW = vmPng.width;
-  const targetH = vmPng.height;
-  const geometryMismatch = capPng.width !== targetW || capPng.height !== targetH;
-  const capAligned = geometryMismatch
+  const expected = opts.expectedGeometry;
+  const targetW = expected?.width ?? Math.max(vmPng.width, capPng.width);
+  const targetH = expected?.height ?? Math.max(vmPng.height, capPng.height);
+  const vmAligned = (vmPng.width !== targetW || vmPng.height !== targetH)
+    ? scaleNearest(vmPng, targetW, targetH)
+    : vmPng;
+  const capAligned = (capPng.width !== targetW || capPng.height !== targetH)
     ? scaleNearest(capPng, targetW, targetH)
     : capPng;
 
   const width = targetW;
   const height = targetH;
-  const vmCrop = centerCrop(vmPng, width, height);
+  const vmCrop = centerCrop(vmAligned, width, height);
   const capCrop = centerCrop(capAligned, width, height);
   const diff = new PNG({ width, height });
   const mismatched = pixelmatch(vmCrop.data, capCrop.data, diff.data, width, height, { threshold: 0.25 });
   const compared = width * height;
   const phi = compared > 0 ? Math.round((1 - mismatched / compared) * 1000) / 10 : 0;
 
-  const vmNorm = scaleNearest(vmPng, NORM_W, NORM_H);
+  const vmNorm = scaleNearest(vmAligned, NORM_W, NORM_H);
   const capNorm = scaleNearest(capAligned, NORM_W, NORM_H);
   const diffNorm = new PNG({ width: NORM_W, height: NORM_H });
   const mismatchedNorm = pixelmatch(vmNorm.data, capNorm.data, diffNorm.data, NORM_W, NORM_H, { threshold: 0.2 });
@@ -106,9 +149,9 @@ const comparePair = (vmFile, capFile, opts = {}) => {
   return {
     phi,
     phiNormalized,
-    geometryAligned: geometryMismatch,
+    geometryAligned: vmAligned.width !== capAligned.width || vmAligned.height !== capAligned.height,
     geometry: {
-      vm: { width: vmPng.width, height: vmPng.height },
+      vm: { width: vmOrig.width, height: vmOrig.height },
       capsule: { width: capPng.width, height: capPng.height },
       expected: opts.expectedGeometry || null,
     },
@@ -175,6 +218,8 @@ const main = () => {
     }
     const scores = comparePair(vmFile, capFile, {
       flattenVmAlpha: opts.id === 'linux-kde-neon',
+      flattenVmBg: item.controlId === 'terminal' ? [0, 0, 0] : [255, 255, 255],
+      trimVmLetterbox: opts.id === 'linux-kde-neon' && item.controlId === 'terminal',
       expectedGeometry: expectedGeometry(opts.id, item.controlId),
     });
     const { visualMatch, gapNotes } = classify(scores, opts.id);

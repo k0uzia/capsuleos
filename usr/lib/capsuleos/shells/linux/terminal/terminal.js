@@ -1234,8 +1234,12 @@ function mapExplorerPathToTerminalCwd(explorerPath) {
 }
 
 function consumeTerminalLaunchCwd() {
+    const home = window.CAPSULE_TERMINAL_HOME || window.CAPSULE_USER_HOME || '/home/public';
     if (window.CAPSULE_TERMINAL_LAUNCH_CWD == null || window.CAPSULE_TERMINAL_LAUNCH_CWD === '') {
-        return '/';
+        if (window.CapsuleTerminal && typeof window.CapsuleTerminal.normalizePath === 'function') {
+            return window.CapsuleTerminal.normalizePath(home);
+        }
+        return home;
     }
     const cwd = mapExplorerPathToTerminalCwd(window.CAPSULE_TERMINAL_LAUNCH_CWD);
     delete window.CAPSULE_TERMINAL_LAUNCH_CWD;

@@ -8,10 +8,10 @@ body#kde-neon div[data-link="terminal"] {
     --konsole-toolbar-height: 1.72rem;
     --konsole-header-height: var(--kde-neon-konsole-header-height);
     --konsole-workspace: #232629;
-    --konsole-prompt-user: #c678dd;
-    --konsole-prompt-host: #56b6c2;
-    --konsole-prompt-path: #61afef;
-    --konsole-prompt-dollar: #98c379;
+    --konsole-prompt-user: #1e672d;
+    --konsole-prompt-host: #26a269;
+    --konsole-prompt-path: #2f7ec1;
+    --konsole-prompt-dollar: #eff0f1;
     --konsole-cursor: #eff0f1;
     align-items: stretch;
     justify-content: flex-start;
@@ -90,11 +90,7 @@ body#kde-neon div[data-link="terminal"] #windowHeader > nav:first-child::before 
 }
 
 body#kde-neon div[data-link="terminal"] #windowHeader > nav:first-child::after {
-    width: var(--kde-neon-header-pin-size);
-    height: var(--kde-neon-header-pin-size);
-    background-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/add-pin.svg");
-    filter: var(--kde-neon-mono-logo-filter);
-    opacity: 0.76;
+    display: none;
 }
 
 body#kde-neon div[data-link="terminal"] #windowTitle {

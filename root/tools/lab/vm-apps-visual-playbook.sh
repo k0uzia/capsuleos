@@ -185,6 +185,28 @@ if (firefox) {
 }
 """
 
+KWIN_KONSOLE_JS = r"""/**
+ * KWin script — focaliser Konsole.
+ */
+var ws = workspace;
+var windows = ws.windowList();
+var konsole = null;
+
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    var cls = (w.windowClass || "").toLowerCase();
+    if (cls.indexOf("konsole") >= 0 || cap.indexOf("Konsole") >= 0) {
+        konsole = w;
+    }
+}
+
+if (konsole) {
+    konsole.minimized = false;
+    ws.activeWindow = konsole;
+}
+"""
+
 
 def run_kwin_discover_dismiss(script_id: str = "capsuleos-apps-visual-discover") -> None:
     script_path = Path("/tmp/capsuleos-discover-capture-kwin.js")
@@ -266,6 +288,46 @@ def run_kwin_firefox_focus(script_id: str = "capsuleos-apps-visual-firefox") -> 
         pass
 
 
+def run_kwin_konsole_focus(script_id: str = "capsuleos-apps-visual-konsole") -> None:
+    script_path = Path("/tmp/capsuleos-konsole-capture-kwin.js")
+    try:
+        script_path.write_text(KWIN_KONSOLE_JS, encoding="utf-8")
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            [
+                "qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.loadScript",
+                str(script_path), script_id,
+            ],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.start"],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.45)
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except Exception:
+        pass
+
+
 def focus_window(pattern: str) -> None:
     if not pattern:
         return
@@ -274,6 +336,9 @@ def focus_window(pattern: str) -> None:
         return
     if "firefox" in pattern.lower():
         run_kwin_firefox_focus()
+        return
+    if "konsole" in pattern.lower():
+        run_kwin_konsole_focus()
         return
     try:
         res = subprocess.run(["wmctrl", "-lx"], capture_output=True, text=True, check=False, timeout=8)
@@ -347,6 +412,16 @@ def launch_app(desktop: str) -> None:
         subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
         time.sleep(7.0)
         run_kwin_firefox_focus()
+        time.sleep(1.0)
+        return
+    if BACKEND == "spectacle" and "konsole" in desktop:
+        subprocess.run(["killall", "plasma-discover"], check=False, timeout=5)
+        subprocess.run(["killall", "konsole"], check=False, timeout=5)
+        time.sleep(0.55)
+        dismiss_discover_dialogs()
+        subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
+        time.sleep(4.5)
+        run_kwin_konsole_focus()
         time.sleep(1.0)
         return
     if BACKEND == "spectacle":

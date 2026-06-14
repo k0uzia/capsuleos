@@ -117,6 +117,36 @@ const alignFirefoxForParityCapture = async (page) => {
   await sleep(page, 250);
 };
 
+const alignTerminalForParityCapture = async (page) => {
+  await page.evaluate(() => {
+    const root = document.querySelector('.windowElement[data-link="terminal"]');
+    if (!root) return;
+    const panel = document.getElementById('tableau');
+    if (panel) panel.style.display = 'none';
+    const app = root.querySelector('[data-terminal-app], .capsule-terminal');
+    const session = app && app.__capsuleTerminalSession;
+    if (session && session.state) {
+      const home = window.CAPSULE_TERMINAL_HOME || window.CAPSULE_USER_HOME || '/home/public';
+      session.state.cwd = window.CapsuleTerminal
+        ? window.CapsuleTerminal.normalizePath(home)
+        : home;
+      const prompt = root.querySelector('[data-terminal-prompt], #prompt');
+      if (prompt && window.CapsuleTerminal) {
+        const text = window.CapsuleTerminal.formatPrompt(session.state);
+        prompt.textContent = text;
+        prompt.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+    const output = root.querySelector('[data-terminal-output], #output');
+    if (output) output.innerHTML = '';
+    root.style.borderRadius = '5px';
+    root.style.boxShadow = 'none';
+    root.style.overflow = 'hidden';
+    document.body.style.background = '#000000';
+  });
+  await sleep(page, 250);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -475,6 +505,19 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 20000 },
     );
     await alignFirefoxForParityCapture(page);
+    await sleep(page, 400);
+  }
+  if (slot === 'terminal') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="terminal"]');
+        return root && root.style.display !== 'none'
+          && root.querySelector('[data-terminal-app][data-terminal-ready="true"], [data-terminal-app][data-terminal-ready=true]');
+      },
+      null,
+      { timeout: 20000 },
+    );
+    await alignTerminalForParityCapture(page);
     await sleep(page, 400);
   }
   if (appsP0) {

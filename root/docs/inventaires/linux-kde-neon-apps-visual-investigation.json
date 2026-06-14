@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T13:43:35.732Z",
+  "updatedAt": "2026-06-14T14:14:36.200Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,9 +10,7 @@
     "componentShotsPlanned": 31,
     "componentShotsCaptured": 31,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7,
-    "capsuleCapturesP1": 0,
-    "capsuleCapturesP2": 0
+    "visualMatchClassifiedP0": 7
   },
   "investigations": [
     {
@@ -102,8 +100,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "ok",
-        "phi": 93.9,
-        "phiNormalized": 92.1,
+        "phi": 91,
+        "phiNormalized": 89.4,
         "geometry": {
           "vm": {
             "width": 1060,
@@ -119,7 +117,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=75 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T13:43:34.311Z",
+        "comparedAt": "2026-06-14T14:14:33.900Z",
         "geometryAligned": false
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
@@ -258,8 +256,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "ok",
-        "phi": 91.5,
-        "phiNormalized": 90.1,
+        "phi": 91.4,
+        "phiNormalized": 90,
         "geometry": {
           "vm": {
             "width": 1066,
@@ -275,7 +273,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=71.5 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T13:43:34.602Z",
+        "comparedAt": "2026-06-14T14:14:34.297Z",
         "geometryAligned": false
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
@@ -417,7 +415,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=64.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T13:43:34.806Z",
+        "comparedAt": "2026-06-14T14:14:34.785Z",
         "geometryAligned": false
       },
       "note": "Slot nemo · VM org.kde.dolphin · variant kde/dolphin — ne pas hériter composition GNOME/Nautilus"
@@ -516,7 +514,7 @@
           }
         },
         "gapNotes": "V11d Φ=42.8 Φ_norm=38.5 — capture VM native vs Capsule 1066×860.",
-        "comparedAt": "2026-06-14T13:43:35.039Z",
+        "comparedAt": "2026-06-14T14:14:35.162Z",
         "geometryAligned": false
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
@@ -629,7 +627,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=65.4 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T13:43:35.306Z",
+        "comparedAt": "2026-06-14T14:14:35.607Z",
         "geometryAligned": false
       },
       "note": "Slot text_editor · VM org.kde.kate · chrome Kate distinct du gabarit GNOME TextEditor"
@@ -728,7 +726,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=67 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T13:43:35.528Z",
+        "comparedAt": "2026-06-14T14:14:35.948Z",
         "geometryAligned": false
       },
       "note": "Slot terminal · VM org.kde.konsole · chrome Konsole distinct de Ptyxis/GNOME"
@@ -802,13 +800,13 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 14.3,
-        "phiNormalized": 16.1,
+        "visualMatch": "ok",
+        "phi": 91.9,
+        "phiNormalized": 91.9,
         "geometry": {
           "vm": {
-            "width": 560,
-            "height": 552
+            "width": 730,
+            "height": 578
           },
           "capsule": {
             "width": 560,
@@ -819,8 +817,8 @@
             "height": 552
           }
         },
-        "gapNotes": "V11d Φ=14.3 Φ_norm=16.1 — capture VM native vs Capsule 560×552.",
-        "comparedAt": "2026-06-14T13:43:35.732Z",
+        "gapNotes": "V11d Φ_norm=80.3 — écart résiduel documenté.",
+        "comparedAt": "2026-06-14T14:14:36.200Z",
         "geometryAligned": false
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"

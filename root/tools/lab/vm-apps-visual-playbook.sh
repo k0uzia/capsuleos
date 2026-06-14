@@ -207,6 +207,48 @@ if (konsole) {
 }
 """
 
+KWIN_VLC_JS = r"""/**
+ * KWin script — focaliser VLC (fenêtre lecteur, pas dialogue vie privée).
+ */
+var ws = workspace;
+var windows = ws.windowList();
+var vlc = null;
+
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    var cls = (w.windowClass || "").toLowerCase();
+    if (cap.indexOf("Vie privée") >= 0 || cap.indexOf("Privacy") >= 0
+        || cap.indexOf("Réseau") >= 0 && cap.indexOf("VLC") < 0) {
+        continue;
+    }
+    if (cls.indexOf("vlc") >= 0 || cap.indexOf("VLC") >= 0) {
+        vlc = w;
+    }
+}
+
+if (vlc) {
+    vlc.minimized = false;
+    ws.activeWindow = vlc;
+}
+"""
+
+
+def prepare_vlc_qt_config() -> None:
+    cfg = Path.home() / ".config/vlc/vlcrc"
+    cfg.parent.mkdir(parents=True, exist_ok=True)
+    text = cfg.read_text(encoding="utf-8", errors="ignore") if cfg.is_file() else ""
+    if "qt-privacy-ask" not in text:
+        if text and not text.endswith("\n"):
+            text += "\n"
+        if "[qt]" not in text:
+            text += "[qt]\n"
+        text += "qt-privacy-ask=0\n"
+    else:
+        import re
+        text = re.sub(r"qt-privacy-ask=\d+", "qt-privacy-ask=0", text)
+    cfg.write_text(text, encoding="utf-8")
+
 
 def run_kwin_discover_dismiss(script_id: str = "capsuleos-apps-visual-discover") -> None:
     script_path = Path("/tmp/capsuleos-discover-capture-kwin.js")
@@ -328,6 +370,46 @@ def run_kwin_konsole_focus(script_id: str = "capsuleos-apps-visual-konsole") -> 
         pass
 
 
+def run_kwin_vlc_focus(script_id: str = "capsuleos-apps-visual-vlc") -> None:
+    script_path = Path("/tmp/capsuleos-vlc-capture-kwin.js")
+    try:
+        script_path.write_text(KWIN_VLC_JS, encoding="utf-8")
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            [
+                "qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.loadScript",
+                str(script_path), script_id,
+            ],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.start"],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.45)
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except Exception:
+        pass
+
+
 def focus_window(pattern: str) -> None:
     if not pattern:
         return
@@ -339,6 +421,9 @@ def focus_window(pattern: str) -> None:
         return
     if "konsole" in pattern.lower():
         run_kwin_konsole_focus()
+        return
+    if "vlc" in pattern.lower():
+        run_kwin_vlc_focus()
         return
     try:
         res = subprocess.run(["wmctrl", "-lx"], capture_output=True, text=True, check=False, timeout=8)
@@ -375,6 +460,26 @@ def looks_like_discover_png(outfile: Path) -> bool:
     return False
 
 
+def looks_like_vlc_privacy_png(outfile: Path) -> bool:
+    try:
+        from PIL import Image
+    except Exception:
+        return False
+    try:
+        img = Image.open(outfile).convert("RGB")
+        w, h = img.size
+        br = img.getpixel((max(0, w - 90), max(0, h - 55)))
+        if br[2] > 170 and br[0] < 130 and br[1] > 120:
+            return True
+        title = img.getpixel((w // 2, min(120, h - 1)))
+        body = img.getpixel((w // 2, min(int(h * 0.34), h - 1)))
+        if sum(title) > 700 and sum(body) > 680:
+            return True
+    except Exception:
+        return False
+    return False
+
+
 def capture_bytes_ok(outfile: Path, desktop: str) -> bool:
     if not outfile.is_file() or outfile.stat().st_size < 1:
         return False
@@ -392,6 +497,10 @@ def capture_bytes_ok(outfile: Path, desktop: str) -> bool:
         return outfile.stat().st_size >= 28000
     if desktop and "firefox" in desktop and looks_like_discover_png(outfile):
         return False
+    if desktop and "vlc" in desktop:
+        if looks_like_vlc_privacy_png(outfile):
+            return False
+        return outfile.stat().st_size >= 12000
     return True
 
 
@@ -422,6 +531,17 @@ def launch_app(desktop: str) -> None:
         subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
         time.sleep(4.5)
         run_kwin_konsole_focus()
+        time.sleep(1.0)
+        return
+    if BACKEND == "spectacle" and "vlc" in desktop:
+        prepare_vlc_qt_config()
+        subprocess.run(["killall", "plasma-discover"], check=False, timeout=5)
+        subprocess.run(["killall", "vlc"], check=False, timeout=5)
+        time.sleep(0.55)
+        dismiss_discover_dialogs()
+        subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
+        time.sleep(4.5)
+        run_kwin_vlc_focus()
         time.sleep(1.0)
         return
     if BACKEND == "spectacle":
@@ -538,7 +658,11 @@ for item in matrix.get("investigations", []):
     elif desktop:
         launch_app_slot(desktop)
     default_out = out_dir / f"{control_id}-vm.png"
-    attempts = 4 if desktop and "discover" in desktop else (4 if desktop and "firefox" in desktop else 1)
+    attempts = 4 if desktop and "discover" in desktop else (
+        4 if desktop and "firefox" in desktop else (
+            4 if desktop and "vlc" in desktop else 1
+        )
+    )
     captured = False
     for attempt in range(attempts):
         if attempt and desktop and "discover" in desktop:
@@ -547,6 +671,9 @@ for item in matrix.get("investigations", []):
             time.sleep(2.0)
         if attempt and desktop and "firefox" in desktop:
             focus_window("firefox")
+            time.sleep(1.2)
+        if attempt and desktop and "vlc" in desktop:
+            focus_window("vlc")
             time.sleep(1.2)
         captured = capture_app_window(default_out, desktop) if BACKEND else False
         if captured and capture_bytes_ok(default_out, desktop):

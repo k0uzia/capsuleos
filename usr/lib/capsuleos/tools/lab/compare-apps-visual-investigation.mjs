@@ -218,8 +218,11 @@ const main = () => {
     }
     const scores = comparePair(vmFile, capFile, {
       flattenVmAlpha: opts.id === 'linux-kde-neon',
-      flattenVmBg: item.controlId === 'terminal' ? [0, 0, 0] : [255, 255, 255],
-      trimVmLetterbox: opts.id === 'linux-kde-neon' && item.controlId === 'terminal',
+      flattenVmBg: (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia')
+        ? [0, 0, 0]
+        : [255, 255, 255],
+      trimVmLetterbox: opts.id === 'linux-kde-neon'
+        && (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia'),
       expectedGeometry: expectedGeometry(opts.id, item.controlId),
     });
     const { visualMatch, gapNotes } = classify(scores, opts.id);

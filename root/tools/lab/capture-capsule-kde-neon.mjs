@@ -147,6 +147,41 @@ const alignTerminalForParityCapture = async (page) => {
   await sleep(page, 250);
 };
 
+const alignVlcForParityCapture = async (page) => {
+  await page.evaluate(() => {
+    const root = document.querySelector('.windowElement[data-link="lecteur_multimedia"]');
+    if (!root) return;
+    const panel = document.getElementById('tableau');
+    if (panel) panel.style.display = 'none';
+    const title = root.querySelector('#windowTitle');
+    if (title) title.textContent = 'Lecteur multimédia VLC';
+    const menubar = root.querySelector('.celluloid-app__menubar');
+    if (menubar && !menubar.querySelector('[data-vlc-menu-extra]')) {
+      const aide = menubar.querySelector('.celluloid-app__menu:last-child');
+      const outils = document.createElement('div');
+      outils.className = 'celluloid-app__menu';
+      outils.setAttribute('data-vlc-menu-extra', 'outils');
+      outils.innerHTML = '<button type="button" class="celluloid-app__menu-btn" aria-haspopup="true">Outils</button>';
+      const vue = document.createElement('div');
+      vue.className = 'celluloid-app__menu';
+      vue.setAttribute('data-vlc-menu-extra', 'vue');
+      vue.innerHTML = '<button type="button" class="celluloid-app__menu-btn" aria-haspopup="true">Vue</button>';
+      if (aide) {
+        menubar.insertBefore(outils, aide);
+        menubar.insertBefore(vue, aide);
+      } else {
+        menubar.appendChild(outils);
+        menubar.appendChild(vue);
+      }
+    }
+    root.style.borderRadius = '5px';
+    root.style.boxShadow = 'none';
+    root.style.overflow = 'hidden';
+    document.body.style.background = '#000000';
+  });
+  await sleep(page, 250);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -518,6 +553,19 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 20000 },
     );
     await alignTerminalForParityCapture(page);
+    await sleep(page, 400);
+  }
+  if (slot === 'lecteur_multimedia') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="lecteur_multimedia"]');
+        return root && root.style.display !== 'none'
+          && root.querySelector('main#lecteurMultimedia.celluloid-app, #lecteurMultimedia');
+      },
+      null,
+      { timeout: 15000 },
+    );
+    await alignVlcForParityCapture(page);
     await sleep(page, 400);
   }
   if (appsP0) {

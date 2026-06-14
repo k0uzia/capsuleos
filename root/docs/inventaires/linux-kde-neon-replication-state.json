@@ -19,13 +19,12 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v13"
   },
   "openBacklog": [
-    "VLC lecteur_multimedia — géométrie 560×552 verrouillée",
     "Discover hero #dee0e2 — polish résiduel cosmétique",
     "RealΣ — run-ui-state-effects-pass.mjs",
     "Propagation dérivés (openSUSE, MX-KDE, Debian-KDE) après v13"
   ],
   "v13Progress": {
-    "updatedAt": "2026-06-14T15:45:00.000Z",
+    "updatedAt": "2026-06-14T16:10:00.000Z",
     "cloneAlgorithm": {
       "parityGeometryLib": "usr/lib/capsuleos/tools/lab/apps-parity-geometry.mjs",
       "compareGeometryAlign": true,
@@ -38,7 +37,14 @@
       "text_editor": { "phiNormalized": 97.2, "visualMatch": "ok" },
       "firefox": { "phiNormalized": 96, "visualMatch": "ok", "vmCaptureFix": "playbook sans showDesktop + rejet Discover PNG" },
       "terminal": { "phiNormalized": 90, "visualMatch": "ok" },
-      "lecteur_multimedia": { "phiNormalized": 16.1, "visualMatch": "accepted", "blocker": "chrome VLC capsule vs VM" }
+      "lecteur_multimedia": { "phiNormalized": 91.9, "visualMatch": "ok" }
+    },
+    "v13cVlc": {
+      "updatedAt": "2026-06-14T16:10:00.000Z",
+      "phiNormalized": 91.9,
+      "visualMatch": "ok",
+      "geometry": "560×552",
+      "notes": "playbook anti-dialogue vie privée (qt-privacy-ask=0) ; skin Breeze + cône ; alignVlcForParityCapture"
     },
     "v13bKonsole": {
       "updatedAt": "2026-06-14T15:45:00.000Z",
@@ -170,7 +176,7 @@
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-14T08:46:02.493Z"
   },
-  "updatedAt": "2026-06-14T15:45:00.000Z",
+  "updatedAt": "2026-06-14T16:10:00.000Z",
   "lastNeonPass": {
     "evaluatedAt": "2026-06-14T11:11:49.104Z",
     "passOk": true,

@@ -1,6 +1,6 @@
 # Brief agent — KDE neon User Edition
 
-> Campagnes v4 / ground G1–G8 / H6 **clôturées** · **G-coherence** clôturée (juin 2026).
+> Campagne **v12-excellence** — relance A→Z (juin 2026). Clone skin conservé ; captures et clôtures v3–v11 purgées.
 
 ## Contexte
 
@@ -8,33 +8,38 @@
 - **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 3
 - **Toolkit** : kde / Plasma · **Vendor** : neon
 - **VM lab** : `goupil@192.168.123.52` · clé `~/.ssh/capsuleos-lab`
+- **Ground truth** : [`ground-truth-kde.md`](../ground-truth-kde.md)
 
-## Campagne G-coherence (canon)
-
-- Roadmap : [`linux-kde-neon-roadmap-g-coherence.md`](../inventaires/linux-kde-neon-roadmap-g-coherence.md)
-- Orchestrateur : `run-kde-coherence-campaign.mjs`
-- Passe intégrale : `run-kde-neon-pass.mjs --write`
+## Purge / relance
 
 ```bash
-node usr/lib/capsuleos/tools/lab/run-kde-coherence-campaign.mjs --status
-CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --write
-node usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon
+node usr/lib/capsuleos/tools/lab/reset-kde-neon-campaign.mjs --write
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-kde-neon --scope pipeline
 ```
 
-## Gates maintenance
+## Chaîne campagne v12 (ordre indicatif)
+
+1. `validate-clone-assets.mjs --id linux-kde-neon`
+2. `collect-vm-apps-visual-investigation.mjs --id linux-kde-neon --filter P0 --ssh`
+3. `collect-capsule-apps-visual-investigation.mjs --id linux-kde-neon`
+4. `capture-clone-surfaces.mjs --id linux-kde-neon --write-baseline`
+5. `run-kde-neon-pass.mjs --write` (après prédicats)
+
+## Gates maintenance (clone — ne pas régresser)
 
 ```bash
 node usr/lib/capsuleos/tools/validate-all.mjs
 node usr/lib/capsuleos/tools/lab/smoke-discover-kde-neon.mjs
-node usr/lib/capsuleos/tools/lab/run-kde-ui-state-effects-pass.mjs --id linux-kde-neon
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
 ```
 
 ## État
 
 - [`linux-kde-neon-replication-state.json`](../inventaires/linux-kde-neon-replication-state.json)
-- [`linux-kde-neon-vp-residual.md`](../inventaires/linux-kde-neon-vp-residual.md)
+- [`linux-kde-neon-apps-visual-investigation.json`](../inventaires/linux-kde-neon-apps-visual-investigation.json)
 
 ## Interdits
 
 - Fork `contentLoader` / `CapsuleWindow`
 - Images hors zones autorisées · icônes vendor croisées
+- Réintroduire roadmaps/handoffs campagnes clôturées sans nouveau cycle v12

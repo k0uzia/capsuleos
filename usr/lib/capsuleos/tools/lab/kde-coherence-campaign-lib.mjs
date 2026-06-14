@@ -96,7 +96,7 @@ export const recordPhaseClosed = (registryId, phase, patch = {}) => {
   return writeReplicationState(registryId, {
     campaignGCoherence: 'g-coherence',
     campaignGCoherenceStatus: phase.pallier >= 9 ? 'closed' : 'in_progress',
-    campaignGCoherenceRoadmap: 'linux-kde-neon-roadmap-g-coherence.md',
+    campaignGCoherenceRoadmap: 'root/docs/briefs/linux-kde-neon.md',
     gCoherencePallier: phase.pallier,
     gCoherenceNextPallier: phase.pallier + 1,
     lastGCoherencePhase: phase.id,

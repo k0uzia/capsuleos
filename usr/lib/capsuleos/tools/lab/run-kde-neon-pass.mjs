@@ -112,7 +112,7 @@ if (state?.campaignGCoherenceStatus === 'in_progress' || state?.campaignGCoheren
   const nextPhase = state.gCoherenceNextPallier ?? 0;
   openBacklog.push(`G-coherence : pallier ${nextPhase} — run-kde-coherence-campaign.mjs --run-next`);
 } else if (state?.campaignGCoherenceStatus !== 'closed') {
-  openBacklog.push('G-coherence : campagne disponible — linux-kde-neon-roadmap-g-coherence.md');
+  openBacklog.push('v12-excellence : voir openBacklog dans replication-state');
 }
 openBacklog.push(state?.groundTruth?.propagationPolicy || 'propagation dérivés : gelée');
 

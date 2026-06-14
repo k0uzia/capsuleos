@@ -1,9 +1,10 @@
 {
   "registryId": "linux-kde-neon",
-  "status": "done",
-  "updatedAt": "2026-06-13T21:06:02.127Z",
+  "status": "pending",
+  "updatedAt": "2026-06-14T07:51:55.412Z",
   "gate": "run-apps-lab.mjs",
   "playwright": false,
   "vm": false,
-  "shell": false
+  "shell": false,
+  "note": "Réinitialisé par reset-kde-neon-campaign.mjs"
 }

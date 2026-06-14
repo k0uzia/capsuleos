@@ -6,11 +6,11 @@
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
     "documentedP0": 7,
-    "vmCapturesP0": 7,
-    "componentShotsPlanned": 31,
-    "componentShotsCaptured": 31,
-    "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 7,
+    "vmCapturesP0": 0,
+    "componentShotsPlanned": 38,
+    "componentShotsCaptured": 0,
+    "capsuleCapturesP0": 0,
+    "visualMatchClassifiedP0": 0,
     "visualMatchClassifiedP1": 0,
     "visualMatchClassifiedP2": 0,
     "capsuleCapturesP1": 0,
@@ -50,8 +50,7 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "sidebar panels",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/sidebar-panels-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "wifi-row",
@@ -62,8 +61,7 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "wifi row",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/wifi-row-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "display-panel",
@@ -74,8 +72,7 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "display panel",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/display-panel-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "about-panel",
@@ -86,39 +83,11 @@
             "gnome.adw-preferences-group"
           ],
           "labelFr": "about panel",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 37.3,
-        "phiNormalized": 26.7,
-        "geometry": {
-          "vm": {
-            "width": 1060,
-            "height": 808
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=37.3 Φ_norm=26.7 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:14.483Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -162,8 +131,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "explore grid",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/explore-grid-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "featured-hero",
@@ -177,8 +145,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "featured hero",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/featured-hero-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "category-heroes",
@@ -192,8 +159,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "category heroes",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/category-heroes-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "updates-banner",
@@ -207,8 +173,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "updates banner",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/updates-banner-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "app-detail",
@@ -222,8 +187,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "app detail",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/app-detail-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "categories",
@@ -237,39 +201,11 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "categories",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager/categories-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/update_manager-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/update_manager.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 8.1,
-        "phiNormalized": 7.3,
-        "geometry": {
-          "vm": {
-            "width": 1066,
-            "height": 860
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=8.1 Φ_norm=7.3 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:15.265Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -309,8 +245,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "sidebar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/sidebar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "column-headers",
@@ -322,8 +257,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "column headers",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/column-headers-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "pathbar",
@@ -335,8 +269,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "pathbar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/pathbar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "context-menu-item",
@@ -348,8 +281,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "context menu item",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/context-menu-item-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "context-menu-background",
@@ -361,8 +293,7 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "context menu background",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/context-menu-background-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "trash",
@@ -374,39 +305,11 @@
             "gnome.gtk-search-entry"
           ],
           "labelFr": "trash",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo/trash-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/nemo-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/nemo.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 14.6,
-        "phiNormalized": 14,
-        "geometry": {
-          "vm": {
-            "width": 890,
-            "height": 691
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=14.6 Φ_norm=14 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:16.255Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -438,8 +341,7 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "tab bar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/tab-bar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "url-bar",
@@ -448,8 +350,7 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "url bar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/url-bar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "bookmarks",
@@ -458,8 +359,7 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "bookmarks",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/bookmarks-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "menu-hamburger",
@@ -468,39 +368,11 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "menu hamburger",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox/menu-hamburger-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/firefox-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/firefox.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 6.9,
-        "phiNormalized": 9.9,
-        "geometry": {
-          "vm": {
-            "width": 890,
-            "height": 691
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=6.9 Φ_norm=9.9 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:17.065Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -512,10 +384,7 @@
       "composition": null,
       "componentShots": [],
       "vmCaptures": [],
-      "capsuleCaptures": [],
-      "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+      "capsuleCaptures": []
     },
     {
       "controlId": "text_editor",
@@ -546,8 +415,7 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "menubar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/menubar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "editor-area",
@@ -556,8 +424,7 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "editor area",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/editor-area-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "status-line",
@@ -566,8 +433,7 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "status line",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/status-line-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "open-dialog",
@@ -576,39 +442,11 @@
             "gnome.monospace-editor"
           ],
           "labelFr": "open dialog",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor/open-dialog-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/text_editor-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/text_editor.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 22.3,
-        "phiNormalized": 19.6,
-        "geometry": {
-          "vm": {
-            "width": 770,
-            "height": 638
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=22.3 Φ_norm=19.6 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:18.598Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -640,8 +478,7 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "headerbar",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/headerbar-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "tab-strip",
@@ -650,8 +487,7 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "tab strip",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/tab-strip-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "prompt-colors",
@@ -660,8 +496,7 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "prompt colors",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/prompt-colors-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "preferences",
@@ -670,39 +505,11 @@
             "gnome.terminal-chrome"
           ],
           "labelFr": "preferences",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal/preferences-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/terminal-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/terminal.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 54.3,
-        "phiNormalized": 44.8,
-        "geometry": {
-          "vm": {
-            "width": 1041,
-            "height": 626
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ_norm=44.8 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T07:15:19.477Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -735,8 +542,7 @@
             "gnome.media-viewer"
           ],
           "labelFr": "transport controls",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/transport-controls-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "playlist",
@@ -746,8 +552,7 @@
             "gnome.media-viewer"
           ],
           "labelFr": "playlist",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/playlist-vm.png"
+          "status": "planned"
         },
         {
           "shotId": "album-art",
@@ -757,39 +562,11 @@
             "gnome.media-viewer"
           ],
           "labelFr": "album art",
-          "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia/album-art-vm.png"
+          "status": "planned"
         }
       ],
-      "vmCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/lecteur_multimedia-vm.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/lecteur_multimedia.png",
-          "shot": "default"
-        }
-      ],
-      "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 14.1,
-        "phiNormalized": 17,
-        "geometry": {
-          "vm": {
-            "width": 560,
-            "height": 552
-          },
-          "capsule": {
-            "width": 1211,
-            "height": 756
-          }
-        },
-        "gapNotes": "V11d Φ=14.1 Φ_norm=17 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T07:15:20.079Z"
-      },
+      "vmCaptures": [],
+      "capsuleCaptures": [],
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
@@ -856,10 +633,7 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
-      "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+      "capsuleCaptures": []
     },
     {
       "controlId": "system_monitor",
@@ -918,10 +692,7 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
-      "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+      "capsuleCaptures": []
     },
     {
       "controlId": "spectacle",
@@ -932,10 +703,9 @@
       "composition": null,
       "componentShots": [],
       "vmCaptures": [],
-      "capsuleCaptures": [],
-      "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+      "capsuleCaptures": []
     }
-  ]
+  ],
+  "campaignResetAt": "2026-06-14T07:51:55.403Z",
+  "note": "Captures purgées — relance campagne A→Z ; structure documented conservée."
 }

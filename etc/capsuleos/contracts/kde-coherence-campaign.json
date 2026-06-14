@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "description": "Campagne G-coherence — cohérence système KDE Neon (anti-régression, Se+, shell, CredΣ, dérivés).",
-  "doc": "root/docs/inventaires/linux-kde-neon-roadmap-g-coherence.md",
+  "description": "Campagne cohérence KDE Neon (legacy G-coherence — voir v12-excellence replication-state).",
+  "doc": "root/docs/briefs/linux-kde-neon.md",
   "registryId": "linux-kde-neon",
   "entrypoint": "usr/lib/capsuleos/tools/lab/run-kde-coherence-campaign.mjs",
   "defaultHttpBase": "http://127.0.0.1:8765",

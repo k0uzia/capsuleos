@@ -18,8 +18,9 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
   },
   "openBacklog": [
-    "Parité pixel Discover/KDE Settings (Φ<40) — chrome Kirigami/Breeze",
-    "Gate A — pull wallpapers neon ou matrice KDE dédiée"
+    "Parité pixel Discover (Φ_norm≈15) — chrome Kirigami grille accueil",
+    "Parité pixel Paramètres KDE (Φ_norm≈37) — systemsettings.skin.css",
+    "Propagation dérivés après excellence Neon"
   ],
   "v12Progress": {
     "updatedAt": "2026-06-14T08:49:00.000Z",
@@ -69,7 +70,6 @@
       "visualMatch": "accepted",
       "notes": "chrome Konsole activé sur kde-neon, prompt vide démarrage"
     },
-    "neonPassClosedAt": "2026-06-14T10:46:19.102Z",
     "v12dPixelGeometry": {
       "updatedAt": "2026-06-14T11:05:00.000Z",
       "tool": "capture-capsule-kde-neon.mjs PARITY_GEOMETRY",
@@ -81,6 +81,14 @@
         "text_editor": "76.2 accepted",
         "terminal": "67.1 accepted"
       }
+    },
+    "v12eFormalGates": {
+      "updatedAt": "2026-06-14T11:15:00.000Z",
+      "H2": true,
+      "A": true,
+      "L": true,
+      "H6": true,
+      "formalRule": "R-H6-DONE"
     }
   },
   "clonePreserved": true,
@@ -104,13 +112,22 @@
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-14T08:46:02.493Z"
   },
-  "updatedAt": "2026-06-14T10:46:19.102Z",
+  "updatedAt": "2026-06-14T11:11:49.104Z",
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-14T10:46:19.102Z",
+    "evaluatedAt": "2026-06-14T11:11:49.104Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
-  }
+  },
+  "domain": "kde-settings-playbook",
+  "H6": true,
+  "h6ClosedAt": "2026-06-14T11:09:04.504Z",
+  "h6Closure": "root/docs/inventaires/linux-kde-neon-gnome-settings-h6-closure.json",
+  "lastResolvedAction": {
+    "rule": "R-H6",
+    "message": "H6 clôturé — domaine kde-settings-playbook"
+  },
+  "generatedAt": "2026-06-14T11:09:04.504Z"
 }

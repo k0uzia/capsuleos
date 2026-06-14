@@ -5,7 +5,18 @@
       "ok": true,
       "at": "2026-06-14T10:54:39.528Z",
       "rule": "R-H1"
+    },
+    "A": {
+      "ok": true,
+      "at": "2026-06-14T11:07:00.803Z",
+      "rule": "R-A1"
+    },
+    "L": {
+      "ok": true,
+      "at": "2026-06-14T11:08:37.324Z",
+      "rule": "R-L-KDE",
+      "via": "verify-kde-settings-parity-chain"
     }
   },
-  "updatedAt": "2026-06-14T10:54:39.528Z"
+  "updatedAt": "2026-06-14T11:08:37.324Z"
 }

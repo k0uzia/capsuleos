@@ -1,27 +1,54 @@
 {
   "registryId": "linux-kde-neon",
-  "campaign": "v12-excellence",
-  "campaignStatus": "pass-closed",
-  "startedAt": "2026-06-14T07:51:55.414Z",
-  "purgedAt": "2026-06-14T07:51:55.414Z",
+  "campaign": "v13-clone-excellence",
+  "campaignStatus": "active",
+  "startedAt": "2026-06-14T12:55:00.000Z",
+  "purgedAt": null,
   "previousCampaigns": [
     "v3-full-parity",
     "v4-deep-parity",
     "G-coherence",
-    "v11-visual-parity"
+    "v11-visual-parity",
+    "v12-excellence"
   ],
   "groundTruth": {
     "pivot": true,
     "doc": "root/docs/ground-truth-kde.md",
     "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
-    "scope": "Relance A→Z — clone skin conservé, métriques campagne purgées",
-    "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
+    "scope": "Perfectionner ground truth Neon + algorithme clonage (geometryAlign, PARITY_GEOMETRY partagé)",
+    "propagationPolicy": "ground Neon d’abord — dérivés après excellence v13"
   },
   "openBacklog": [
-    "Parité pixel Discover (Φ_norm≈90 ok) — polish résiduel hero #dee0e2",
-    "Parité pixel Paramètres KDE (Φ_norm≈75) — polish kscreen CSS",
-    "Propagation dérivés après excellence Neon"
+    "Algorithme clonage — apps-parity-geometry.mjs + compare geometryAlign",
+    "Firefox P0 — PARITY_GEOMETRY 1066×860 + recapture capsule",
+    "VLC lecteur_multimedia — géométrie 560×552 verrouillée",
+    "Konsole P0 accepted→ok — polish chrome Konsole",
+    "Discover hero #dee0e2 — polish résiduel cosmétique",
+    "RealΣ — run-ui-state-effects-pass.mjs",
+    "Propagation dérivés (openSUSE, MX-KDE, Debian-KDE) après v13"
   ],
+  "v13Progress": {
+    "updatedAt": "2026-06-14T12:55:00.000Z",
+    "cloneAlgorithm": {
+      "parityGeometryLib": "usr/lib/capsuleos/tools/lab/apps-parity-geometry.mjs",
+      "compareGeometryAlign": true,
+      "captureMinMaxLock": true
+    },
+    "p0Baseline": {
+      "themes": { "phiNormalized": 92.1, "visualMatch": "ok" },
+      "update_manager": { "phiNormalized": 90, "visualMatch": "ok" },
+      "nemo": { "phiNormalized": 85.9, "visualMatch": "ok" },
+      "text_editor": { "phiNormalized": 97.2, "visualMatch": "ok" },
+      "firefox": { "phiNormalized": 38.5, "visualMatch": "accepted", "blocker": "VM capture drift — recapture VM firefox" },
+      "terminal": { "phiNormalized": 67, "visualMatch": "accepted" },
+      "lecteur_multimedia": { "phiNormalized": 16.1, "visualMatch": "accepted", "blocker": "chrome VLC capsule vs VM" }
+    },
+    "geometryLock": {
+      "updatedAt": "2026-06-14T13:00:00.000Z",
+      "allP0Aligned": true,
+      "tool": "apps-parity-geometry.mjs + capture min/max lock"
+    }
+  },
   "v12Progress": {
     "updatedAt": "2026-06-14T08:49:00.000Z",
     "validateCloneAssets": true,
@@ -97,6 +124,12 @@
       "visualMatch": "ok",
       "notes": "v12g polish Kirigami + compare alpha flatten VM spectacle"
     },
+    "v12hThemesKscreen": {
+      "updatedAt": "2026-06-14T12:45:00.000Z",
+      "phiNormalized": 92.1,
+      "visualMatch": "ok",
+      "notes": "v12h Breeze clair kcm_kscreen — sidebar #ffffff, contenu #eff0f1"
+    },
     "v12fThemesKscreen": {
       "updatedAt": "2026-06-14T12:30:00.000Z",
       "capsulePanel": "kcm_kscreen display-config",
@@ -126,7 +159,7 @@
     "currentPhase": "P-F3-complete",
     "formalClosedAt": "2026-06-14T08:46:02.493Z"
   },
-  "updatedAt": "2026-06-14T11:11:49.104Z",
+  "updatedAt": "2026-06-14T12:55:00.000Z",
   "lastNeonPass": {
     "evaluatedAt": "2026-06-14T11:11:49.104Z",
     "passOk": true,

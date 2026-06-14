@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { KDE_NEON_PARITY_GEOMETRY } from '../../../usr/lib/capsuleos/tools/lab/apps-parity-geometry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../..');
@@ -28,14 +29,7 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
-/** Géométrie VM P0 — slots où la capsule était sous-dimensionnée vs capture VM. */
-const PARITY_GEOMETRY = {
-  themes: { width: 1060, height: 808 },
-  update_manager: { width: 1066, height: 860 },
-  nemo: { width: 890, height: 691 },
-  terminal: { width: 1041, height: 626 },
-  lecteur_multimedia: { width: 560, height: 552 },
-};
+const PARITY_GEOMETRY = KDE_NEON_PARITY_GEOMETRY;
 
 const resizeSlotForParity = async (page, slot) => {
   const geo = PARITY_GEOMETRY[slot];
@@ -46,6 +40,11 @@ const resizeSlotForParity = async (page, slot) => {
     delete el.dataset.maximized;
     el.style.width = `${width}px`;
     el.style.height = `${height}px`;
+    el.style.minWidth = `${width}px`;
+    el.style.maxWidth = `${width}px`;
+    el.style.minHeight = `${height}px`;
+    el.style.maxHeight = `${height}px`;
+    el.style.boxSizing = 'border-box';
     el.style.left = '48px';
     el.style.top = '32px';
     el.style.transform = '';

@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import { appsPathsForRegistry, findCapsuleCapture } from './apps-replication-lib.mjs';
+import { expectedGeometry } from './apps-parity-geometry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -79,17 +80,25 @@ const comparePair = (vmFile, capFile, opts = {}) => {
   if (opts.flattenVmAlpha) {
     flattenAlpha(vmPng);
   }
-  const width = Math.min(vmPng.width, capPng.width);
-  const height = Math.min(vmPng.height, capPng.height);
+
+  const targetW = vmPng.width;
+  const targetH = vmPng.height;
+  const geometryMismatch = capPng.width !== targetW || capPng.height !== targetH;
+  const capAligned = geometryMismatch
+    ? scaleNearest(capPng, targetW, targetH)
+    : capPng;
+
+  const width = targetW;
+  const height = targetH;
   const vmCrop = centerCrop(vmPng, width, height);
-  const capCrop = centerCrop(capPng, width, height);
+  const capCrop = centerCrop(capAligned, width, height);
   const diff = new PNG({ width, height });
   const mismatched = pixelmatch(vmCrop.data, capCrop.data, diff.data, width, height, { threshold: 0.25 });
   const compared = width * height;
   const phi = compared > 0 ? Math.round((1 - mismatched / compared) * 1000) / 10 : 0;
 
   const vmNorm = scaleNearest(vmPng, NORM_W, NORM_H);
-  const capNorm = scaleNearest(capPng, NORM_W, NORM_H);
+  const capNorm = scaleNearest(capAligned, NORM_W, NORM_H);
   const diffNorm = new PNG({ width: NORM_W, height: NORM_H });
   const mismatchedNorm = pixelmatch(vmNorm.data, capNorm.data, diffNorm.data, NORM_W, NORM_H, { threshold: 0.2 });
   const phiNormalized = Math.round((1 - mismatchedNorm / (NORM_W * NORM_H)) * 1000) / 10;
@@ -97,9 +106,11 @@ const comparePair = (vmFile, capFile, opts = {}) => {
   return {
     phi,
     phiNormalized,
+    geometryAligned: geometryMismatch,
     geometry: {
       vm: { width: vmPng.width, height: vmPng.height },
       capsule: { width: capPng.width, height: capPng.height },
+      expected: opts.expectedGeometry || null,
     },
   };
 };
@@ -164,6 +175,7 @@ const main = () => {
     }
     const scores = comparePair(vmFile, capFile, {
       flattenVmAlpha: opts.id === 'linux-kde-neon',
+      expectedGeometry: expectedGeometry(opts.id, item.controlId),
     });
     const { visualMatch, gapNotes } = classify(scores, opts.id);
     item.capsuleParity = {
@@ -172,10 +184,18 @@ const main = () => {
       phi: scores.phi,
       phiNormalized: scores.phiNormalized,
       geometry: scores.geometry,
+      geometryAligned: scores.geometryAligned,
       gapNotes: gapNotes || item.capsuleParity?.gapNotes || '',
       comparedAt: new Date().toISOString(),
     };
-    results.push({ controlId: item.controlId, ...scores, visualMatch });
+    results.push({
+      controlId: item.controlId,
+      phi: scores.phi,
+      phiNormalized: scores.phiNormalized,
+      geometryAligned: scores.geometryAligned,
+      geometry: scores.geometry,
+      visualMatch,
+    });
   }
 
   if (opts.write) {

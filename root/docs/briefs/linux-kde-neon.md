@@ -1,29 +1,31 @@
 # Brief agent — KDE neon User Edition
 
-> Campagne **v12-excellence** — relance A→Z (juin 2026). Clone skin conservé ; captures et clôtures v3–v11 purgées.
+> Campagne **v13-clone-excellence** — perfectionner le ground truth pivot et l’algorithme de clonage (juin 2026). Clone skin conservé ; métriques v12 archivées dans `replication-state`.
 
 ## Contexte
 
 - **ID registre** : `linux-kde-neon`
 - **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 3
 - **Toolkit** : kde / Plasma · **Vendor** : neon
-- **VM lab** : `goupil@192.168.123.52` · clé `~/.ssh/capsuleos-lab`
+- **VM lab** : `capsule@192.168.122.48` · clé `~/.ssh/capsuleos-lab`
 - **Ground truth** : [`ground-truth-kde.md`](../ground-truth-kde.md)
 
-## Purge / relance
+## v13 — objectifs
 
-```bash
-node usr/lib/capsuleos/tools/lab/reset-kde-neon-campaign.mjs --write
-node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-kde-neon --scope pipeline
-```
+1. **Algorithme clonage** : `apps-parity-geometry.mjs` (géométrie VM partagée) + `compare-apps-visual-investigation.mjs` (`geometryAlign`)
+2. **P0 accepted → ok** : Firefox (1066×860), Konsole, VLC
+3. **RealΣ** : `run-ui-state-effects-pass.mjs --id linux-kde-neon`
+4. **Propagation dérivés** : gelée jusqu’à clôture v13
 
-## Chaîne campagne v12 (ordre indicatif)
+## Chaîne v13 (ordre indicatif)
 
-1. `validate-clone-assets.mjs --id linux-kde-neon`
-2. `collect-vm-apps-visual-investigation.mjs --id linux-kde-neon --filter P0 --ssh`
-3. `collect-capsule-apps-visual-investigation.mjs --id linux-kde-neon`
-4. `capture-clone-surfaces.mjs --id linux-kde-neon --write-baseline`
-5. `run-kde-neon-pass.mjs --write` (après prédicats)
+1. `node usr/lib/capsuleos/tools/lab/collect-capsule-apps-visual-investigation.mjs --id linux-kde-neon --filter P0`
+2. `node usr/lib/capsuleos/tools/lab/compare-apps-visual-investigation.mjs --id linux-kde-neon --filter P0 --write`
+3. `node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-kde-neon --write`
+4. `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-kde-neon`
+5. `node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --write`
+
+Purge complète (relance A→Z) : uniquement si nécessaire — `reset-kde-neon-campaign.mjs --write --campaign v13-clone-excellence`
 
 ## Gates maintenance (clone — ne pas régresser)
 
@@ -42,4 +44,4 @@ node usr/lib/capsuleos/tools/lab/smoke-kde-neon-dolphin.mjs
 
 - Fork `contentLoader` / `CapsuleWindow`
 - Images hors zones autorisées · icônes vendor croisées
-- Réintroduire roadmaps/handoffs campagnes clôturées sans nouveau cycle v12
+- Propagation dérivés avant clôture ground Neon v13

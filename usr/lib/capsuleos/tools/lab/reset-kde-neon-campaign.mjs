@@ -18,6 +18,8 @@ const REGISTRY = 'linux-kde-neon';
 const INV = path.join(ROOT, 'root/docs/inventaires');
 
 const write = process.argv.includes('--write');
+const campaignArg = process.argv.find((a, i) => process.argv[i - 1] === '--campaign');
+const CAMPAIGN_ID = campaignArg || 'v13-clone-excellence';
 
 const rmPath = (rel) => {
   const abs = path.join(ROOT, rel);
@@ -149,7 +151,7 @@ const writeReplicationState = () => {
   const now = new Date().toISOString();
   const state = {
     registryId: REGISTRY,
-    campaign: 'v12-excellence',
+    campaign: CAMPAIGN_ID,
     campaignStatus: 'active',
     startedAt: now,
     purgedAt: now,
@@ -164,7 +166,7 @@ const writeReplicationState = () => {
       doc: 'root/docs/ground-truth-kde.md',
       contract: 'etc/capsuleos/contracts/kde-ground-truth-chain.json',
       scope: 'Relance A→Z — clone skin conservé, métriques campagne purgées',
-      propagationPolicy: 'ground Neon d’abord — dérivés après excellence v12',
+      propagationPolicy: `ground Neon d’abord — dérivés après excellence ${CAMPAIGN_ID.replace(/^v\d+-/, 'v')}`,
     },
     openBacklog: [
       'KdM/KdI — inventaire VM + validate-clone-assets',

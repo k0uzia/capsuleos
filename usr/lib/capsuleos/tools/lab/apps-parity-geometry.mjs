@@ -6,7 +6,7 @@ export const KDE_NEON_PARITY_GEOMETRY = {
   themes: { width: 1060, height: 808 },
   update_manager: { width: 1066, height: 860 },
   nemo: { width: 890, height: 691 },
-  firefox: { width: 1066, height: 860 },
+  firefox: { width: 1280, height: 754 },
   text_editor: { width: 1410, height: 884 },
   terminal: { width: 1041, height: 626 },
   lecteur_multimedia: { width: 560, height: 552 },

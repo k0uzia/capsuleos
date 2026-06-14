@@ -95,6 +95,28 @@ const alignThemesForParityCapture = async (page) => {
   await sleep(page, 200);
 };
 
+const alignFirefoxForParityCapture = async (page) => {
+  await page.evaluate(() => {
+    const root = document.querySelector('.windowElement[data-link="firefox"]');
+    if (!root) return;
+    const panel = document.getElementById('tableau');
+    if (panel) panel.style.display = 'none';
+    const app = root.querySelector('[data-firefox-app]');
+    if (app) {
+      const home = app.querySelector('[data-browser-home]');
+      const homeBtn = app.querySelector('[data-browser-action="home"]');
+      if (homeBtn) homeBtn.click();
+      if (home) home.hidden = false;
+      app.setAttribute('data-browser-current-view', 'home');
+    }
+    root.style.borderRadius = '5px';
+    root.style.boxShadow = 'none';
+    root.style.overflow = 'hidden';
+    document.body.style.background = '#ffffff';
+  });
+  await sleep(page, 250);
+};
+
 const screenshotScene = async (page, scene, out) => {
   if (appsP0 && scene.slots?.length === 1) {
     const slot = scene.slots[0];
@@ -440,6 +462,19 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 20000 },
     );
     await alignThemesForParityCapture(page);
+    await sleep(page, 400);
+  }
+  if (slot === 'firefox') {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('.windowElement[data-link="firefox"]');
+        return root && root.style.display !== 'none'
+          && root.querySelector('[data-firefox-app][data-initialized="true"], [data-firefox-app][data-browser-current-view]');
+      },
+      null,
+      { timeout: 20000 },
+    );
+    await alignFirefoxForParityCapture(page);
     await sleep(page, 400);
   }
   if (appsP0) {

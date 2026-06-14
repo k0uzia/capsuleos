@@ -39,9 +39,16 @@
       "update_manager": { "phiNormalized": 90, "visualMatch": "ok" },
       "nemo": { "phiNormalized": 85.9, "visualMatch": "ok" },
       "text_editor": { "phiNormalized": 97.2, "visualMatch": "ok" },
-      "firefox": { "phiNormalized": 38.5, "visualMatch": "accepted", "blocker": "VM capture drift — recapture VM firefox" },
+      "firefox": { "phiNormalized": 96, "visualMatch": "ok", "vmCaptureFix": "playbook sans showDesktop + rejet Discover PNG" },
       "terminal": { "phiNormalized": 67, "visualMatch": "accepted" },
       "lecteur_multimedia": { "phiNormalized": 16.1, "visualMatch": "accepted", "blocker": "chrome VLC capsule vs VM" }
+    },
+    "v13aFirefox": {
+      "updatedAt": "2026-06-14T13:15:00.000Z",
+      "phiNormalized": 96,
+      "visualMatch": "ok",
+      "geometry": "1280×754",
+      "notes": "VM capturait Discover — KWin focus, lancement dédié, validation PIL"
     },
     "geometryLock": {
       "updatedAt": "2026-06-14T13:00:00.000Z",

@@ -154,6 +154,37 @@ if (target) {
 }
 """
 
+KWIN_FIREFOX_JS = r"""/**
+ * KWin script — fermer modales Discover et focaliser Firefox (Navigator).
+ */
+var ws = workspace;
+var windows = ws.windowList();
+var firefox = null;
+
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    var cls = (w.windowClass || "").toLowerCase();
+    if (cap === "Problème de mises à jour" || cap.indexOf("Update problem") === 0) {
+        w.closeWindow();
+        continue;
+    }
+    if (cap.indexOf("Discover") >= 0 && cap.indexOf("Firefox") < 0) {
+        w.closeWindow();
+        continue;
+    }
+    if (cls.indexOf("firefox") >= 0 || cls.indexOf("navigator") >= 0
+        || cap.indexOf("Firefox") >= 0 || cap.indexOf("Mozilla") >= 0) {
+        firefox = w;
+    }
+}
+
+if (firefox) {
+    firefox.minimized = false;
+    ws.activeWindow = firefox;
+}
+"""
+
 
 def run_kwin_discover_dismiss(script_id: str = "capsuleos-apps-visual-discover") -> None:
     script_path = Path("/tmp/capsuleos-discover-capture-kwin.js")
@@ -195,11 +226,54 @@ def run_kwin_discover_dismiss(script_id: str = "capsuleos-apps-visual-discover")
         pass
 
 
+def run_kwin_firefox_focus(script_id: str = "capsuleos-apps-visual-firefox") -> None:
+    script_path = Path("/tmp/capsuleos-firefox-capture-kwin.js")
+    try:
+        script_path.write_text(KWIN_FIREFOX_JS, encoding="utf-8")
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            [
+                "qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.loadScript",
+                str(script_path), script_id,
+            ],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.start"],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.45)
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.unloadScript", script_id],
+            check=False,
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except Exception:
+        pass
+
+
 def focus_window(pattern: str) -> None:
     if not pattern:
         return
     if "discover" in pattern.lower() and "KDE" in os.environ.get("XDG_CURRENT_DESKTOP", "").upper():
         run_kwin_discover_dismiss()
+        return
+    if "firefox" in pattern.lower():
+        run_kwin_firefox_focus()
         return
     try:
         res = subprocess.run(["wmctrl", "-lx"], capture_output=True, text=True, check=False, timeout=8)
@@ -215,12 +289,44 @@ def focus_window(pattern: str) -> None:
         return
 
 
+def looks_like_discover_png(outfile: Path) -> bool:
+    try:
+        from PIL import Image
+    except Exception:
+        return False
+    try:
+        img = Image.open(outfile).convert("RGB")
+        w, h = img.size
+        y = min(140, h - 1)
+        left = img.getpixel((min(90, w - 1), y))
+        right = img.getpixel((min(520, w - 1), y))
+        if abs(sum(left) - sum(right)) > 90:
+            return True
+        accent = img.getpixel((min(110, w - 1), min(130, h - 1)))
+        if accent[2] > 210 and accent[0] < 80 and accent[1] > 150:
+            return True
+    except Exception:
+        return False
+    return False
+
+
 def capture_bytes_ok(outfile: Path, desktop: str) -> bool:
     if not outfile.is_file() or outfile.stat().st_size < 1:
         return False
     if desktop and "discover" in desktop:
         # Discover Kirigami : capture < 45 Ko = fenêtre vide (QML pas prêt)
         return outfile.stat().st_size >= 45000
+    if desktop and "firefox" in desktop:
+        try:
+            res = subprocess.run(["wmctrl", "-lx"], capture_output=True, text=True, check=False, timeout=8)
+            lines = (res.stdout or "").lower()
+            if lines.strip() and "navigator.firefox" not in lines and " firefox." not in lines:
+                return False
+        except Exception:
+            pass
+        return outfile.stat().st_size >= 28000
+    if desktop and "firefox" in desktop and looks_like_discover_png(outfile):
+        return False
     return True
 
 
@@ -233,6 +339,16 @@ def dismiss_discover_dialogs() -> None:
 
 def launch_app(desktop: str) -> None:
     resource = desktop.replace(".desktop", "")
+    if BACKEND == "spectacle" and "firefox" in desktop:
+        subprocess.run(["killall", "plasma-discover"], check=False, timeout=5)
+        subprocess.run(["killall", "firefox"], check=False, timeout=5)
+        time.sleep(0.55)
+        dismiss_discover_dialogs()
+        subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
+        time.sleep(7.0)
+        run_kwin_firefox_focus()
+        time.sleep(1.0)
+        return
     if BACKEND == "spectacle":
         subprocess.run(
             ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "true"],
@@ -252,8 +368,6 @@ def launch_app(desktop: str) -> None:
             time.sleep(5.0)
         elif "dolphin" in desktop:
             time.sleep(3.5)
-        elif "firefox" in desktop:
-            time.sleep(5.0)
         else:
             time.sleep(2.5)
         subprocess.run(
@@ -349,13 +463,16 @@ for item in matrix.get("investigations", []):
     elif desktop:
         launch_app_slot(desktop)
     default_out = out_dir / f"{control_id}-vm.png"
-    attempts = 4 if desktop and "discover" in desktop else 1
+    attempts = 4 if desktop and "discover" in desktop else (4 if desktop and "firefox" in desktop else 1)
     captured = False
     for attempt in range(attempts):
         if attempt and desktop and "discover" in desktop:
             focus_window("discover")
             dismiss_discover_dialogs()
             time.sleep(2.0)
+        if attempt and desktop and "firefox" in desktop:
+            focus_window("firefox")
+            time.sleep(1.2)
         captured = capture_app_window(default_out, desktop) if BACKEND else False
         if captured and capture_bytes_ok(default_out, desktop):
             break

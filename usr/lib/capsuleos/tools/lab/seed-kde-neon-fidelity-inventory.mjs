@@ -770,7 +770,7 @@ const buildScenarios = () => {
       ['Ouvrir VLC', 'Barre contrôles lecture visible'],
       {
         prep: [{ type: 'openSlot', slot: 'lecteur_multimedia' }],
-        actions: [{ type: 'wait', ms: 300 }],
+        actions: [{ type: 'wait', ms: 500 }],
         assertions: [
           { type: 'evalTruthy', expr: 'document.querySelector("div[data-link=\\"lecteur_multimedia\\"] .celluloid-app__ctl--play, div[data-link=\\"lecteur_multimedia\\"] .celluloid-app__controls") !== null' },
         ],

@@ -1907,7 +1907,7 @@
         "actions": [
           {
             "type": "wait",
-            "ms": 300
+            "ms": 500
           }
         ],
         "assertions": [
@@ -2486,6 +2486,8 @@
       "phase": "P-D"
     }
   ],
+  "seededAt": "2026-06-13T23:17:00.611Z",
+  "updatedAt": "2026-06-14T08:45:53.531Z",
   "summary": {
     "totalScenarios": 56,
     "documented": 56,
@@ -2498,7 +2500,5 @@
     "documentedPct": 100,
     "implementedPct": 100,
     "smokePct": 100
-  },
-  "seededAt": "2026-06-13T23:17:00.611Z",
-  "updatedAt": "2026-06-13T23:22:35.875Z"
+  }
 }

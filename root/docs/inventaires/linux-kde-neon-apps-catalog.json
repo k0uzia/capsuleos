@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-kde-neon",
   "toolkit": "kde",
-  "generatedAt": "2026-06-13T21:31:09.155Z",
+  "generatedAt": "2026-06-14T08:16:36.795Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-kde-neon-vm-apps-installed.json",

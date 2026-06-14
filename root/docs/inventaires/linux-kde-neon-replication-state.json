@@ -18,11 +18,20 @@
     "propagationPolicy": "ground Neon d’abord — dérivés après excellence v12"
   },
   "openBacklog": [
-    "KdM/KdI — inventaire VM + validate-clone-assets",
-    "Captures shell baseline (capture-clone-surfaces)",
-    "AppVv→AppVp — collect VM/Capsule apps P0",
-    "CredΣ — smoke fidelity scénarios",
-    "Se+ Paramètres KDE · parité pixel documentée"
+    "CredΣ — smoke-kde-fidelity-all.mjs (56 scénarios)",
+    "Se+ Paramètres KDE · verify-kde-settings-parity-chain",
+    "Parité pixel ciblée (Φ doc → patches CSS par slot)",
+    "run-kde-neon-pass.mjs --write (clôture palier v12a)"
   ],
+  "v12Progress": {
+    "updatedAt": "2026-06-14T08:28:00.000Z",
+    "validateCloneAssets": true,
+    "appLab": true,
+    "visualFidelityInventory": true,
+    "vmCapturesP0": 7,
+    "capsuleCapturesP0": 7,
+    "shellBaseline": true,
+    "appVpP0Accepted": 7
+  },
   "clonePreserved": true
 }

@@ -90,9 +90,13 @@ function listSkinIds(skinDir) {
 }
 
 function buildCssBase(templateId) {
-    const cssBaseId = ['nemo-gnome', 'nemo-cosmic', 'nautilus', 'nautilus-cosmic'].includes(templateId)
-        ? 'nemo'
-        : templateId;
+    const CSS_BASE_ALIASES = {
+        systemsettings_kde_neon: 'systemsettings_kde',
+    };
+    const cssBaseId = CSS_BASE_ALIASES[templateId]
+        ?? (['nemo-gnome', 'nemo-cosmic', 'nautilus', 'nautilus-cosmic'].includes(templateId)
+            ? 'nemo'
+            : templateId);
     const baseFile = path.join(STYLE_DIR, `${cssBaseId}.base.css`);
     let text = readUtf8(baseFile);
     if (templateId === 'dolphin') {

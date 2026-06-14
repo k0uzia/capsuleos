@@ -397,7 +397,8 @@
         "template": "gwenview_kde_neon.html"
       },
       "themes": {
-        "template": "systemsettings_kde.html"
+        "template": "systemsettings_kde_neon.html",
+        "baseCssStem": "systemsettings_kde"
       }
     },
     "linux-opensuse": {

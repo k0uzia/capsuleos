@@ -446,7 +446,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
@@ -1391,7 +1391,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
-        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
         "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
         "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
         "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",

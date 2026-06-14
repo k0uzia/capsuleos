@@ -70,7 +70,7 @@ export function resolveSlotVariant(catalog, ctx, slotId) {
 
     const template = String(base.template || `${slotId}.html`);
     const templateFile = template.endsWith('.html') ? template : `${template}.html`;
-    const baseCssStem = templateFile.replace(/\.html$/i, '');
+    const baseCssStem = base.baseCssStem || templateFile.replace(/\.html$/i, '');
 
     return {
         slotId,

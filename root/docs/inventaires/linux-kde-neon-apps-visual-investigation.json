@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-14T09:28:57.431Z",
+  "updatedAt": "2026-06-14T09:50:26.410Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -100,8 +100,8 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 57.2,
-        "phiNormalized": 51.7,
+        "phi": 41.5,
+        "phiNormalized": 33.3,
         "geometry": {
           "vm": {
             "width": 1060,
@@ -112,8 +112,8 @@
             "height": 480
           }
         },
-        "gapNotes": "v12c — capture fenêtre alignée ; clone panneau Apparence pédagogique vs VM Paramétrage rapide KDE 6. Φ_norm=51.7.",
-        "comparedAt": "2026-06-14T09:28:55.372Z"
+        "gapNotes": "V11d Φ=41.5 Φ_norm=33.3 — capture VM native vs Capsule 641×480.",
+        "comparedAt": "2026-06-14T09:50:24.962Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -252,7 +252,7 @@
       "capsuleParity": {
         "visualMatch": "accepted",
         "phi": 8.1,
-        "phiNormalized": 7.2,
+        "phiNormalized": 7.3,
         "geometry": {
           "vm": {
             "width": 1066,
@@ -263,8 +263,8 @@
             "height": 756
           }
         },
-        "gapNotes": "V11d Φ=8.1 Φ_norm=7.2 — capture VM native vs Capsule 1211×756.",
-        "comparedAt": "2026-06-14T09:28:55.832Z"
+        "gapNotes": "V11d Φ=8.1 Φ_norm=7.3 — capture VM native vs Capsule 1211×756.",
+        "comparedAt": "2026-06-14T09:50:25.403Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -401,7 +401,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=66 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:28:56.221Z"
+        "comparedAt": "2026-06-14T09:50:25.643Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -481,21 +481,21 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 71.3,
-        "phiNormalized": 71.2,
+        "visualMatch": "ok",
+        "phi": 99.3,
+        "phiNormalized": 98.8,
         "geometry": {
           "vm": {
-            "width": 890,
-            "height": 691
+            "width": 1280,
+            "height": 754
           },
           "capsule": {
             "width": 1120,
             "height": 700
           }
         },
-        "gapNotes": "V11d Φ_norm=71.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:28:56.607Z"
+        "gapNotes": "v12c — VM Firefox réelle (showDesktop) ; onglet chrome Proton ; Φ_norm=98.8 ok.",
+        "comparedAt": "2026-06-14T09:50:25.817Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -603,7 +603,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=76.9 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:28:56.916Z"
+        "comparedAt": "2026-06-14T09:50:26.010Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -697,7 +697,7 @@
           }
         },
         "gapNotes": "V11d Φ_norm=67.1 — écart résiduel documenté.",
-        "comparedAt": "2026-06-14T09:28:57.137Z"
+        "comparedAt": "2026-06-14T09:50:26.164Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -784,7 +784,7 @@
           }
         },
         "gapNotes": "V11d Φ=14.1 Φ_norm=11.2 — capture VM native vs Capsule 880×580.",
-        "comparedAt": "2026-06-14T09:28:57.431Z"
+        "comparedAt": "2026-06-14T09:50:26.410Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

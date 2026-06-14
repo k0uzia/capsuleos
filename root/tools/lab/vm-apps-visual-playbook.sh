@@ -96,7 +96,7 @@ def spectacle_capture(outfile: Path, active_window: bool = True) -> bool:
     if active_window:
         cmd = ["spectacle", "-b", "-a", "-n", "-o", str(outfile)]
     try:
-        res = subprocess.run(cmd, capture_output=True, text=True, timeout=25)
+        res = subprocess.run(["timeout", "20", *cmd], capture_output=True, text=True, timeout=25)
         return res.returncode == 0 and outfile.is_file() and outfile.stat().st_size > 0
     except Exception:
         return False
@@ -144,16 +144,31 @@ def focus_window(pattern: str) -> None:
 
 def launch_app(desktop: str) -> None:
     resource = desktop.replace(".desktop", "")
+    if BACKEND == "spectacle":
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "true"],
+            check=False,
+            timeout=5,
+        )
+        time.sleep(0.35)
+        subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
+        if "systemsettings" in desktop or "discover" in desktop or "dolphin" in desktop:
+            time.sleep(3.5)
+        elif "firefox" in desktop:
+            time.sleep(5.0)
+        else:
+            time.sleep(2.5)
+        subprocess.run(
+            ["qdbus6", "org.kde.KWin", "/KWin", "org.kde.KWin.showDesktop", "false"],
+            check=False,
+            timeout=5,
+        )
+        time.sleep(0.5)
+        return
     subprocess.run(["pkill", "-f", resource], check=False)
     time.sleep(0.35)
     subprocess.run(["gtk-launch", desktop], check=False, timeout=10)
-    if BACKEND == "spectacle":
-        if "systemsettings" in desktop or "discover" in desktop or "dolphin" in desktop:
-            time.sleep(3.5)
-        else:
-            time.sleep(2.5)
-    else:
-        time.sleep(1.2)
+    time.sleep(1.2)
 
 
 def launch_app_slot(desktop: str) -> None:

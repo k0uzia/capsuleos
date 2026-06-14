@@ -44,6 +44,12 @@
       "captureFix": "fenêtre VM + slot element capsule",
       "phiNormalized": 51.7,
       "skinCss": "themes.skin.css Breeze v12c"
+    },
+    "v12cFirefox": {
+      "updatedAt": "2026-06-14T11:50:00.000Z",
+      "vmCaptureFix": "showDesktop + spectacle timeout",
+      "phiNormalized": 98.8,
+      "visualMatch": "ok"
     }
   },
   "clonePreserved": true,

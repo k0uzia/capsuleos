@@ -288,20 +288,34 @@
     });
 
     const nativeOpen = window.openWindowByDataLink;
+    const runPostOpenHooks = function (dataLink, ok) {
+        if (!ok) {
+            return ok;
+        }
+        if (dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
+            window.initUpdateManagerApp();
+        }
+        if (dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+            window.initMintInstallApp();
+        }
+        if (dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+            window.initSystemMonitorApp();
+        }
+        return ok;
+    };
     window.openWindowByDataLink = function (dataLink, options) {
         if (options && options.newWindow === true && typeof window.openNewWindowByDataLink === 'function') {
             return window.openNewWindowByDataLink(dataLink);
         }
-        const ok = nativeOpen(dataLink);
-        if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
-            window.initUpdateManagerApp();
+        const slotLoader = window.CapsuleSlotLoader;
+        if (slotLoader && typeof slotLoader.ensureSlotLoaded === 'function'
+            && typeof slotLoader.isSlotLoaded === 'function'
+            && !slotLoader.isSlotLoaded(dataLink)) {
+            slotLoader.ensureSlotLoaded(dataLink).then(function () {
+                runPostOpenHooks(dataLink, nativeOpen(dataLink));
+            });
+            return false;
         }
-        if (ok && dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
-            window.initMintInstallApp();
-        }
-        if (ok && dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
-            window.initSystemMonitorApp();
-        }
-        return ok;
+        return runPostOpenHooks(dataLink, nativeOpen(dataLink));
     };
 }());

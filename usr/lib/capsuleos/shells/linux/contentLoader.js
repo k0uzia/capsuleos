@@ -230,6 +230,60 @@ const resolveSkinId = (slotId, templateId) => {
 
 const divs = document.querySelectorAll('div[data-link]');
 
+const slotElements = new Map();
+const slotLoadPromises = new Map();
+
+Array.from(divs).forEach((div) => {
+    const slotId = div.getAttribute('data-link');
+    if (slotId) {
+        slotElements.set(slotId, div);
+    }
+});
+
+const DEFAULT_TIERED_SLOT_PRIORITY = [
+    'mainMenu', 'nemo', 'firefox', 'terminal', 'themes',
+    'update_manager', 'mintinstall', 'profile',
+    'text_editor', 'calculator', 'visionneur_images', 'visionneur_pdf',
+    'lecteur_multimedia', 'file_roller',
+];
+
+const shouldUseTieredSlotLoad = () => {
+    if (typeof window === 'undefined') {
+        return false;
+    }
+    if (window.CAPSULE_SLOT_LOAD_TIERED === false) {
+        return false;
+    }
+    if (window.CAPSULE_SLOT_LOAD_TIERED === true) {
+        return true;
+    }
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    if (bodyId === 'mint' || getEmbedSkinKey() === 'mint') {
+        return divs.length >= 20;
+    }
+    return false;
+};
+
+const resolveSlotLoadPriority = () => {
+    if (typeof window !== 'undefined' && Array.isArray(window.CAPSULE_SLOT_LOAD_PRIORITY)
+        && window.CAPSULE_SLOT_LOAD_PRIORITY.length) {
+        return window.CAPSULE_SLOT_LOAD_PRIORITY.slice();
+    }
+    return DEFAULT_TIERED_SLOT_PRIORITY.slice();
+};
+
+const isSlotLoaded = (slotId) => {
+    const el = slotElements.get(slotId);
+    return !!(el && el.dataset.capsuleSlotLoaded === 'true');
+};
+
+const bootCapsuleWindowContext = () => {
+    if (typeof window.CapsuleLinuxWindowContext !== 'undefined'
+        && typeof window.CapsuleLinuxWindowContext.boot === 'function') {
+        window.CapsuleLinuxWindowContext.boot();
+    }
+};
+
 /**
  * @param {string} templateId
  * @param {string} skinId
@@ -967,6 +1021,8 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
         window.ensureWindowChromeAfterSlotInject(motionless, slotId);
     }
 
+    motionless.dataset.capsuleSlotLoaded = 'true';
+
     if (typeof document !== 'undefined') {
         document.dispatchEvent(new CustomEvent('capsule:slot-injected', {
             detail: { container: motionless, slotId: slotId, templateId: templateId },
@@ -982,6 +1038,78 @@ const loadMergedStrings = () => {
     return Promise.resolve(defaults);
 };
 
+const buildSlotLoadTask = (div) => {
+    const slotId = div.getAttribute('data-link');
+    const templateId = resolveTemplateId(slotId);
+    const skinId = resolveSkinId(slotId, templateId);
+    const appsBase = getAppsBase();
+    const skinBase = getSkinBase();
+    const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
+    const cssSkinFile = !skipDynamicSkin && skinBase
+        ? `${skinBase}/style/apps/${skinId}.skin.css`
+        : null;
+    const cssSkinFallbackFile = !skipDynamicSkin && skinBase
+        ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
+        : null;
+
+    return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
+        .then(({ html, cssBase, cssSkin }) => {
+            injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
+        })
+        .catch((error) => {
+            console.error('Erreur lors du chargement des fichiers:', error);
+            div.innerHTML = '<section style="padding:12px;font-family:sans-serif;">Impossible de charger ce module. Vérifiez que les fichiers de l’application sont présents ou régénérez capsule-app-embed.js (voir README).</section>';
+            div.dataset.capsuleSlotLoaded = 'error';
+        });
+};
+
+const ensureSlotLoaded = (slotId) => {
+    if (!slotId || isSlotLoaded(slotId)) {
+        return Promise.resolve();
+    }
+    const pending = slotLoadPromises.get(slotId);
+    if (pending) {
+        return pending;
+    }
+    const div = slotElements.get(slotId);
+    if (!div) {
+        return Promise.resolve();
+    }
+    const loadPromise = buildSlotLoadTask(div);
+    slotLoadPromises.set(slotId, loadPromise);
+    return loadPromise;
+};
+
+const scheduleDeferredSlotLoads = (deferredDivs) => {
+    if (!deferredDivs.length) {
+        if (typeof document !== 'undefined') {
+            document.dispatchEvent(new CustomEvent('capsule:slots-all-ready'));
+        }
+        return;
+    }
+    const batchSize = typeof window !== 'undefined' && typeof window.CAPSULE_SLOT_LOAD_BATCH === 'number'
+        ? Math.max(1, window.CAPSULE_SLOT_LOAD_BATCH)
+        : 4;
+    let index = 0;
+    const pump = () => {
+        if (index >= deferredDivs.length) {
+            if (typeof document !== 'undefined') {
+                document.dispatchEvent(new CustomEvent('capsule:slots-all-ready'));
+            }
+            return;
+        }
+        const batch = deferredDivs.slice(index, index + batchSize);
+        index += batchSize;
+        Promise.all(batch.map(buildSlotLoadTask)).then(() => {
+            const schedule = typeof requestIdleCallback === 'function'
+                ? (fn) => requestIdleCallback(fn, { timeout: 2000 })
+                : (fn) => setTimeout(fn, 32);
+            schedule(pump);
+        });
+    };
+    pump();
+};
+
 const startCapsuleContentLoad = () => {
     loadMergedStrings()
         .then((merged) => {
@@ -992,36 +1120,33 @@ const startCapsuleContentLoad = () => {
                     : {};
             }
 
-            const slotLoads = Array.from(divs).map((div) => {
-                const slotId = div.getAttribute('data-link');
-                const templateId = resolveTemplateId(slotId);
-                const skinId = resolveSkinId(slotId, templateId);
-                const appsBase = getAppsBase();
-                const skinBase = getSkinBase();
-                const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
-                const cssSkinFile = !skipDynamicSkin && skinBase
-                    ? `${skinBase}/style/apps/${skinId}.skin.css`
-                    : null;
-                const cssSkinFallbackFile = !skipDynamicSkin && skinBase
-                    ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
-                    : null;
+            if (shouldUseTieredSlotLoad()) {
+                const priority = resolveSlotLoadPriority();
+                const prioritySet = new Set(priority);
+                const eagerDivs = priority
+                    .map((slotId) => slotElements.get(slotId))
+                    .filter(Boolean);
+                const deferredDivs = Array.from(divs).filter((div) => {
+                    const slotId = div.getAttribute('data-link');
+                    return slotId && !prioritySet.has(slotId);
+                });
 
-                return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
-                    .then(({ html, cssBase, cssSkin }) => {
-                        injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
-                    })
-                    .catch((error) => {
-                        console.error('Erreur lors du chargement des fichiers:', error);
-                        div.innerHTML = '<section style="padding:12px;font-family:sans-serif;">Impossible de charger ce module. Vérifiez que les fichiers de l’application sont présents ou régénérez capsule-app-embed.js (voir README).</section>';
-                    });
-            });
+                Promise.all(eagerDivs.map(buildSlotLoadTask)).then(() => {
+                    if (typeof window !== 'undefined') {
+                        window.CAPSULE_SLOT_LOAD_PRIORITY_READY = true;
+                    }
+                    if (typeof document !== 'undefined') {
+                        document.dispatchEvent(new CustomEvent('capsule:slots-priority-ready'));
+                    }
+                    bootCapsuleWindowContext();
+                    scheduleDeferredSlotLoads(deferredDivs);
+                });
+                return;
+            }
 
-            Promise.all(slotLoads).then(() => {
-                if (typeof window.CapsuleLinuxWindowContext !== 'undefined'
-                    && typeof window.CapsuleLinuxWindowContext.boot === 'function') {
-                    window.CapsuleLinuxWindowContext.boot();
-                }
-            });
+            const slotLoads = Array.from(divs).map(buildSlotLoadTask);
+
+            Promise.all(slotLoads).then(bootCapsuleWindowContext);
         })
         .catch((err) => {
             console.error('CapsuleOS: échec fusion des chaînes', err);
@@ -1055,6 +1180,10 @@ const reloadCapsuleSlot = (container, slotId) => {
 
 if (typeof window !== 'undefined') {
     window.reloadCapsuleSlot = reloadCapsuleSlot;
+    window.CapsuleSlotLoader = {
+        ensureSlotLoaded,
+        isSlotLoaded,
+    };
 }
 
 const bootCapsuleContentLoad = () => {

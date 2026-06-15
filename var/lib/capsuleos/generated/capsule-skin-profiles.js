@@ -572,6 +572,24 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_SLOT_LOAD_TIERED": true,
+      "CAPSULE_SLOT_LOAD_BATCH": 4,
+      "CAPSULE_SLOT_LOAD_PRIORITY": [
+        "mainMenu",
+        "nemo",
+        "firefox",
+        "terminal",
+        "themes",
+        "update_manager",
+        "mintinstall",
+        "profile",
+        "text_editor",
+        "calculator",
+        "visionneur_images",
+        "visionneur_pdf",
+        "lecteur_multimedia",
+        "file_roller"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
       },
@@ -1517,6 +1535,24 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_SLOT_LOAD_TIERED": true,
+      "CAPSULE_SLOT_LOAD_BATCH": 4,
+      "CAPSULE_SLOT_LOAD_PRIORITY": [
+        "mainMenu",
+        "nemo",
+        "firefox",
+        "terminal",
+        "themes",
+        "update_manager",
+        "mintinstall",
+        "profile",
+        "text_editor",
+        "calculator",
+        "visionneur_images",
+        "visionneur_pdf",
+        "lecteur_multimedia",
+        "file_roller"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
       },

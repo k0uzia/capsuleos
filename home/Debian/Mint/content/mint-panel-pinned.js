@@ -26,6 +26,13 @@
                 global.openWindowByDataLink(slot);
             }
         });
+        link.addEventListener('mouseenter', function onPinnedPrefetch() {
+            var slot = link.getAttribute('data-link');
+            if (slot && global.CapsuleSlotLoader
+                && typeof global.CapsuleSlotLoader.ensureSlotLoaded === 'function') {
+                global.CapsuleSlotLoader.ensureSlotLoaded(slot);
+            }
+        });
     }
 
     function init() {

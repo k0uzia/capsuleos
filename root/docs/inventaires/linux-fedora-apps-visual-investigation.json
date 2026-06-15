@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-fedora",
-  "updatedAt": "2026-06-10T21:44:47.799Z",
+  "updatedAt": "2026-06-15T14:34:54.119Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -179,7 +179,23 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "phi": 46.6,
+        "phiNormalized": 39.4,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "Φ=46.6 Φ_norm=39.4.",
+        "comparedAt": "2026-06-15T14:34:24.437Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -399,7 +415,23 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "accepted",
+        "phi": 58.7,
+        "phiNormalized": 51.6,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=51.6 — écart résiduel documenté.",
+        "comparedAt": "2026-06-15T14:34:24.932Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -533,12 +565,37 @@
       ],
       "capsuleCaptures": [
         {
-          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/rocky-capsule-dark-nautilus.png",
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-nautilus.png",
           "shot": "default"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-nautilus-home.png",
+          "shot": "home"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-nautilus-documents.png",
+          "shot": "documents"
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "accepted",
+        "phi": 47.6,
+        "phiNormalized": 40.5,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=40.5 — écart résiduel documenté.",
+        "comparedAt": "2026-06-15T14:34:25.314Z",
+        "appCt": "accepted"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -547,12 +604,13 @@
             "id": "real-sigma-nemo-vp",
             "dimension": "chrome",
             "severity": "high",
-            "status": "open",
+            "status": "closed",
             "slotId": "nemo",
             "controlId": "nemo",
             "source": "resolve-slot-gap-delta",
             "predicate": "RealΣ",
-            "note": "parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)"
+            "note": "Vp accepté (Φ_norm=40.5) — smokes N1–N4 OK, captures Capsule régénérées 2026-06-15 ; VM nemo-vm.png du 2026-06-11 (re-capture VM à planifier pour Φ≥85).",
+            "closedAt": "2026-06-15T14:34:54.119Z"
           }
         ],
         "resolved": []
@@ -634,7 +692,23 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "accepted",
+        "phi": 50.3,
+        "phiNormalized": 47.1,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=47.1 — écart résiduel documenté.",
+        "comparedAt": "2026-06-15T14:34:25.746Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -841,8 +915,24 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "appCt": "ok"
+        "visualMatch": "accepted",
+        "appCt": "ok",
+        "phi": 45.8,
+        "phiNormalized": 40.8,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 790,
+            "height": 571
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=40.8 — écart résiduel documenté.",
+        "comparedAt": "2026-06-15T14:34:26.135Z"
       },
       "note": "Campagne store Fedora 2026-06-10 — navigation D-Bus org.gtk.Actions set-mode + details-pkg (firefox/rpm) ; virsh hôte ; 4 vues distinctes.",
       "contentSpec": {
@@ -1195,7 +1285,23 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "accepted",
+        "phi": 47.4,
+        "phiNormalized": 42.7,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "V11d Φ_norm=42.7 — écart résiduel documenté.",
+        "comparedAt": "2026-06-15T14:34:26.608Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -1291,7 +1397,23 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "partial",
+        "phi": 45.8,
+        "phiNormalized": 39.4,
+        "geometry": {
+          "vm": {
+            "width": 1280,
+            "height": 800
+          },
+          "capsule": {
+            "width": 1280,
+            "height": 800
+          },
+          "expected": null
+        },
+        "geometryAligned": false,
+        "gapNotes": "Φ=45.8 Φ_norm=39.4.",
+        "comparedAt": "2026-06-15T14:34:27.092Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -1452,17 +1574,6 @@
       "status": "open",
       "slotId": "text_editor",
       "controlId": "text_editor",
-      "source": "resolve-slot-gap-delta",
-      "predicate": "RealΣ",
-      "note": "parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)"
-    },
-    {
-      "id": "real-sigma-nemo-vp",
-      "dimension": "chrome",
-      "severity": "high",
-      "status": "open",
-      "slotId": "nemo",
-      "controlId": "nemo",
       "source": "resolve-slot-gap-delta",
       "predicate": "RealΣ",
       "note": "parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)"

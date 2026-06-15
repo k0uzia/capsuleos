@@ -1,50 +1,50 @@
 {
   "registryId": "linux-kde-neon",
-  "evaluatedAt": "2026-06-14T20:53:59.571Z",
+  "evaluatedAt": "2026-06-15T07:23:49.429Z",
   "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
   "gates": [
     {
       "predicate": "KdC",
       "ok": true,
       "optional": false,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
       "detail": ""
     },
     {
       "predicate": "KdSe",
-      "ok": false,
+      "ok": true,
       "optional": false,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
-      "detail": "verify-kde-settings-parity-chain linux-kde-neon — échec"
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
+      "detail": ""
     },
     {
       "predicate": "KdS",
       "ok": true,
       "optional": false,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/run-kde-ui-state-effects-pass.mjs --id linux-kde-neon",
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/run-kde-ui-state-effects-pass.mjs --id linux-kde-neon",
       "detail": ""
     },
     {
       "predicate": "KdF",
       "ok": true,
       "optional": false,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-front-inventory.mjs --id linux-kde-neon",
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-front-inventory.mjs --id linux-kde-neon",
       "detail": ""
     },
     {
       "predicate": "KdCred",
       "ok": true,
       "optional": false,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/validate-kde-settings-user-scenarios.mjs",
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/validate-kde-settings-user-scenarios.mjs",
       "detail": ""
     },
     {
       "predicate": "KdV",
       "ok": true,
       "optional": true,
-      "cmd": "node /home/n0r3f/Développement/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-visual-parity.mjs --id linux-kde-neon --allow-stub",
-      "detail": "optional — stub Phase 2b"
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-visual-parity.mjs --id linux-kde-neon --allow-stub",
+      "detail": ""
     }
   ],
-  "allOk": false
+  "allOk": true
 }

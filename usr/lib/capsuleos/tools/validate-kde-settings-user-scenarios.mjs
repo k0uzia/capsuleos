@@ -1,42 +1,55 @@
 #!/usr/bin/env node
 /**
- * Valide scénarios pédagogiques Paramètres KDE (KdCred).
+ * Gate scénarios KDE Paramètres — structure contrat + handlers P0.
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const CONTRACT = path.join(ROOT, 'etc/capsuleos/contracts/kde-settings-user-scenarios.json');
-const REGISTRY = path.join(ROOT, 'root/tools/lab/kde-settings-controls-registry.json');
+const PARITY = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/kde-settings-parity.js');
+const TEMPLATE = path.join(ROOT, 'usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html');
+const SMOKE = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/smoke-h6-kde-settings-ready.mjs');
 
 const errors = [];
-if (!fs.existsSync(CONTRACT)) {
-  errors.push('kde-settings-user-scenarios.json absent');
-  process.exit(1);
-}
-const contract = JSON.parse(fs.readFileSync(CONTRACT, 'utf8'));
-const reg = fs.existsSync(REGISTRY) ? JSON.parse(fs.readFileSync(REGISTRY, 'utf8')) : { panels: [] };
-const panelIds = new Set((reg.panels || []).map((p) => p.id));
-const capsuleKeys = new Set();
-(reg.panels || []).forEach((p) => (p.controls || []).forEach((c) => capsuleKeys.add(c.capsuleKey)));
 
-for (const sc of contract.scenarios || []) {
-  if (!sc.id || !sc.panelId) errors.push(`scénario sans id/panelId`);
-  if (sc.panelId && panelIds.size && !panelIds.has(sc.panelId)) {
-    errors.push(`${sc.id} : panelId ${sc.panelId} inconnu registry`);
-  }
-  for (const key of sc.controls || []) {
-    if (capsuleKeys.size && !capsuleKeys.has(key)) {
-      errors.push(`${sc.id} : capsuleKey ${key} absent registry`);
+if (!fs.existsSync(CONTRACT)) {
+  errors.push('kde-settings-user-scenarios.json manquant');
+} else {
+  const contract = JSON.parse(fs.readFileSync(CONTRACT, 'utf8'));
+  const p0 = (contract.scenarios || []).filter((s) => s.priority === 'P0');
+  if (p0.length < 4) errors.push('au moins 4 scénarios P0 attendus');
+  p0.forEach((scenario) => {
+    if (!scenario.proofs || !scenario.proofs.smoke) {
+      errors.push(`${scenario.id} : proof smoke manquante`);
     }
-  }
+  });
 }
+
+const parityText = fs.readFileSync(PARITY, 'utf8');
+['EFFECT_HANDLERS', 'kde-global-theme', 'kde-panel-height', 'kde-a11y-high-contrast', 'kde-desktop-icons'].forEach((needle) => {
+  if (!parityText.includes(needle)) errors.push(`kde-settings-parity.js : « ${needle} » absent`);
+});
+
+const templateText = fs.readFileSync(TEMPLATE, 'utf8');
+[
+  'data-kde-settings-root',
+  'data-kde-setting="kde-global-theme"',
+  'data-kde-setting="kde-panel-height"',
+  'data-kde-setting="kde-a11y-high-contrast"',
+  'data-kde-setting="kde-desktop-icons"',
+].forEach((needle) => {
+  if (!templateText.includes(needle)) errors.push(`systemsettings_kde_neon.html : « ${needle} » absent`);
+});
+
+if (!fs.existsSync(SMOKE)) errors.push('smoke-h6-kde-settings-ready.mjs manquant');
 
 if (errors.length) {
-  console.error('validate-kde-settings-user-scenarios — échec');
-  errors.forEach((e) => console.error(`  ✗ ${e}`));
+  console.error(`✗ validate-kde-settings-user-scenarios — ${errors.length} erreur(s)`);
+  errors.forEach((e) => console.error('  ', e));
   process.exit(1);
 }
-console.log(`✓ validate-kde-settings-user-scenarios OK — ${(contract.scenarios || []).length} scénarios P0`);
+
+console.log('✓ validate-kde-settings-user-scenarios OK');
+process.exit(0);

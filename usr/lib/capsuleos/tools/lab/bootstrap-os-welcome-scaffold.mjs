@@ -165,10 +165,86 @@ Prochaine étape : inventaire VM (¬I) avant maturation Se.
   fs.writeFileSync(path.join(procDir, 'README.md'), readme, 'utf8');
 }
 
+function bootstrapNonLinux(entryId, spec) {
+  const srcAbs = path.join(ROOT, spec.sourceOsPath);
+  const destAbs = path.join(ROOT, spec.homeLayout);
+  if (!fs.existsSync(srcAbs)) throw new Error(`Source OS absente: ${spec.sourceOsPath}`);
+  if (fs.existsSync(destAbs) && !force) {
+    console.log(`  skip ${entryId} — ${spec.homeLayout} existe ( --force pour écraser )`);
+    return;
+  }
+  if (fs.existsSync(destAbs)) fs.rmSync(destAbs, { recursive: true });
+  fs.cpSync(srcAbs, destAbs, { recursive: true });
+  ensureA11yImports(spec.homeLayout, spec.bodyId);
+    if (spec.kernelId === 'windows') {
+    const importsPath = path.join(destAbs, 'style/imports.css');
+    if (fs.existsSync(importsPath)) {
+      let imports = fs.readFileSync(importsPath, 'utf8');
+      imports = imports
+        .replace(/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/usr\//g, '../../../../usr/')
+        .replace(/@import url\(\.\.\/\.\.\/\.\.\/kernel\//g, '@import url(../../../../OS/windows/kernel/');
+      if (!imports.includes('a11y-overrides.css')) {
+        imports = `${imports.trim()}\n@import url(./a11y-overrides.css?v=scaffold);\n`;
+      }
+      fs.writeFileSync(importsPath, imports, 'utf8');
+    }
+    walk(destAbs, (filePath) => {
+      if (!/\.(html|css|js)$/i.test(filePath)) return;
+      let text = fs.readFileSync(filePath, 'utf8');
+      const fixed = text.replace(/\.\.\/\.\.\/\.\.\/\.\.\/usr\//g, '../../../usr/');
+      if (fixed !== text) fs.writeFileSync(filePath, fixed, 'utf8');
+    });
+  }
+  const profilePath = path.join(destAbs, 'skin.profile.json');
+  if (!fs.existsSync(profilePath)) {
+    fs.writeFileSync(profilePath, `${JSON.stringify({
+      id: entryId,
+      version: 2,
+      family: spec.kernelId === 'windows' ? 'windows' : 'macos',
+      kernelId: spec.kernelId,
+      vendor: spec.vendor,
+      displayName: spec.displayName,
+      bodyId: spec.bodyId,
+      embedKey: spec.embedKey,
+      tier: spec.welcomeTier,
+      status: 'planned',
+      fidelityLevel: 0,
+      upstreamId: spec.upstreamId,
+      paths: {
+        facade: `OS/${spec.facadePath}/index.html`,
+        skin: `${spec.homeLayout}/index.html`,
+      },
+      toolkit: { id: spec.toolkit, shell: spec.toolkit },
+      assets: {
+        assetsBase: '../../../usr/share/capsuleos/assets',
+        toolkitPack: `toolkits/${spec.toolkit}`,
+        vendorPack: `vendors/${spec.vendor}`,
+      },
+      capsuleGlobals: {
+        CAPSULE_SKIN_BASE: '.',
+        CAPSULE_STRINGS_URL: './content/strings.json',
+      },
+      scaffoldAt: new Date().toISOString().slice(0, 10),
+    }, null, 2)}\n`, 'utf8');
+  }
+  const stringsPath = path.join(destAbs, 'content/strings.json');
+  if (!fs.existsSync(stringsPath)) {
+    fs.mkdirSync(path.dirname(stringsPath), { recursive: true });
+    fs.writeFileSync(stringsPath, `${JSON.stringify({ locale: 'fr-FR', displayName: spec.displayName }, null, 2)}\n`, 'utf8');
+  }
+  writeProcReadme(entryId, spec);
+  console.log(`✓ bootstrap ${entryId} ← ${spec.sourceOsPath} → ${spec.homeLayout}`);
+}
+
 function bootstrapOne(entryId) {
   const spec = contract.entries[entryId];
   if (!spec) throw new Error(`Entrée scaffold absente: ${entryId}`);
-  if (!spec.bootstrapEnabled) throw new Error(`${entryId} : bootstrap désactivé (vague 2)`);
+  if (!spec.bootstrapEnabled) throw new Error(`${entryId} : bootstrap désactivé`);
+
+  if (spec.nonLinux) {
+    bootstrapNonLinux(entryId, spec);
+    return;
+  }
 
   const destHome = spec.homeLayout;
   const destAbs = path.join(ROOT, destHome);
@@ -215,8 +291,11 @@ function runProfilesBuild() {
 const targets = [];
 if (idArg) targets.push(idArg.trim());
 else if (kernelArg === 'linux') targets.push(...contract.kernels.linux.entryIds);
-else throw new Error('Usage: --id <registryId> | --kernel linux');
+else if (kernelArg === 'windows') targets.push(...(contract.kernels.windows.entryIds || []));
+else if (kernelArg === 'darwin') targets.push(...(contract.kernels.darwin.entryIds || []));
+else throw new Error('Usage: --id <registryId> | --kernel linux|windows|darwin');
 
 targets.forEach(bootstrapOne);
-runProfilesBuild();
+const hasLinux = targets.some((id) => contract.entries[id] && !contract.entries[id].nonLinux);
+if (hasLinux) runProfilesBuild();
 console.log('✓ bootstrap-os-welcome-scaffold OK');

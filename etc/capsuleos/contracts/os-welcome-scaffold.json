@@ -63,6 +63,40 @@
       "displayName": "LXQt (générique)",
       "welcomeTier": "P4",
       "status": "planned"
+    },
+    "windows-11": {
+      "bootstrapEnabled": true,
+      "nonLinux": true,
+      "kernelId": "windows",
+      "toolkit": "windows-shell",
+      "pilotRegistryId": "windows-11",
+      "upstreamId": null,
+      "sourceOsPath": "OS/windows/versions/11",
+      "homeLayout": "home/Windows/11",
+      "facadePath": "windows/versions/11",
+      "bodyId": "windows-11",
+      "embedKey": "windows-11",
+      "vendor": "microsoft",
+      "displayName": "Windows 11",
+      "welcomeTier": "P4",
+      "status": "scaffold"
+    },
+    "macos-sonoma": {
+      "bootstrapEnabled": true,
+      "nonLinux": true,
+      "kernelId": "darwin",
+      "toolkit": "macos-aqua",
+      "pilotRegistryId": "macos-sonoma",
+      "upstreamId": null,
+      "sourceOsPath": "OS/macos/sonoma",
+      "homeLayout": "home/macOS/Sonoma",
+      "facadePath": "macos/sonoma",
+      "bodyId": "macos-sonoma",
+      "embedKey": "macos-sonoma",
+      "vendor": "apple",
+      "displayName": "macOS Sonoma",
+      "welcomeTier": "P4",
+      "status": "scaffold"
     }
   },
   "kernels": {
@@ -73,15 +107,17 @@
     },
     "windows": {
       "label": "Windows — vague 2",
-      "bootstrapEnabled": false,
+      "bootstrapEnabled": true,
+      "entryIds": ["windows-11"],
       "pilotRegistryId": "windows-11",
-      "note": "Phase 4 — bootstrap --kernel windows"
+      "note": "Phase 7 — bootstrap --kernel windows"
     },
     "darwin": {
       "label": "macOS — vague 2",
-      "bootstrapEnabled": false,
+      "bootstrapEnabled": true,
+      "entryIds": ["macos-sonoma"],
       "pilotRegistryId": "macos-sonoma",
-      "note": "Phase 4"
+      "note": "Phase 7 — bootstrap --kernel darwin"
     },
     "android": {
       "label": "Android — vague 2",

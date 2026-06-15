@@ -1071,22 +1071,32 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
     setTimeout(bootCapsuleContentLoad, 0);
 }
 
-(function ensureSeA11yBusScript(global) {
+(function ensureSeLayerBusScripts(global) {
     if (typeof global.document === 'undefined') {
         return;
     }
-    const marker = 'se-a11y-bus.js';
+    const queue = [
+        'se-toolkit-guards.js',
+        'se-a11y-bus.js',
+        'se-shell-bus.js',
+        'se-wm-bus.js'
+    ];
     const scripts = global.document.getElementsByTagName('script');
-    for (let i = 0; i < scripts.length; i += 1) {
-        if (scripts[i].src && scripts[i].src.indexOf(marker) >= 0) {
+    const hasMarker = (marker) => {
+        for (let i = 0; i < scripts.length; i += 1) {
+            if (scripts[i].src && scripts[i].src.indexOf(marker) >= 0) {
+                return true;
+            }
+        }
+        return false;
+    };
+    queue.forEach((marker) => {
+        if (hasMarker(marker)) {
             return;
         }
-    }
-    if (global.CapsuleSeA11yBus) {
-        return;
-    }
-    const tag = global.document.createElement('script');
-    tag.src = '../../../usr/lib/capsuleos/shells/linux/se-a11y-bus.js';
-    tag.async = false;
-    global.document.head.appendChild(tag);
+        const tag = global.document.createElement('script');
+        tag.src = `../../../usr/lib/capsuleos/shells/linux/${marker}`;
+        tag.async = false;
+        global.document.head.appendChild(tag);
+    });
 }(typeof window !== 'undefined' ? window : globalThis));

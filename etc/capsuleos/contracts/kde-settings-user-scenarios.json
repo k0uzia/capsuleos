@@ -1,71 +1,62 @@
 {
   "version": 1,
-  "description": "Scénarios pédagogiques Paramètres KDE Plasma — v15 linux-kde-neon.",
-  "registryId": "linux-kde-neon",
+  "description": "Scénarios utilisateur pédagogiques Paramètres KDE Plasma — pilote linux-kde-neon v15.",
+  "doc": "root/docs/procedure-kde-settings.md",
+  "slot": "themes",
+  "template": "systemsettings_kde_neon.html",
+  "kernel": "usr/lib/capsuleos/shells/linux/kde-settings-parity.js",
+  "registryIds": ["linux-kde-neon"],
+  "predicates": {
+    "KdThΣ": "Contrat valide + kde-settings-parity.js EFFECT_HANDLERS P0",
+    "KdTh1": "Basculer thème global clair/sombre",
+    "KdTh2": "Ajuster hauteur panel Plasma",
+    "KdTh3": "Activer contraste élevé accessibilité",
+    "KdTh4": "Configurer icônes bureau"
+  },
   "scenarios": [
     {
-      "id": "cred-kde-settings-appearance-theme",
-      "panelId": "appearance",
-      "persona": "Élève découvrant le thème clair/sombre Plasma",
-      "steps": ["Ouvrir Paramètres système", "Aller à Apparence", "Basculer Sombre", "Observer le bureau"],
-      "controls": ["kde-global-theme"],
-      "priority": "P0"
+      "id": "KdTh1",
+      "priority": "P0",
+      "title": "Basculer le thème global Plasma",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "open-settings", "action": "openWindowByDataLink", "target": "themes" },
+        { "id": "nav-lookandfeel", "selector": "[data-kde-kcm-link=\"kcm-lookandfeel\"]", "label": "Ouvrir thème global" },
+        { "id": "pick-dark", "selector": "[data-kde-setting=\"kde-global-theme\"][data-kde-theme-option=\"dark\"]", "label": "Style sombre" }
+      ],
+      "proofs": { "smoke": "smoke-h6-kde-settings-ready.mjs --id linux-kde-neon" }
     },
     {
-      "id": "cred-kde-settings-appearance-panel",
-      "panelId": "appearance",
-      "persona": "Utilisateur ajustant la barre des tâches",
-      "steps": ["Paramètres → Apparence", "Changer hauteur panneau à 48 px"],
-      "controls": ["kde-panel-height"],
-      "priority": "P0"
+      "id": "KdTh2",
+      "priority": "P0",
+      "title": "Modifier la hauteur du panneau",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "panel-height", "selector": "[data-kde-setting=\"kde-panel-height\"]", "label": "Select hauteur panel" },
+        { "id": "event", "predicate": "document.body.dataset.plasmaPanelHeight", "expectValue": "48" }
+      ],
+      "proofs": { "smoke": "smoke-h6-kde-settings-ready.mjs --id linux-kde-neon" }
     },
     {
-      "id": "cred-kde-settings-a11y-contrast",
-      "panelId": "accessibility",
-      "persona": "Utilisateur avec besoin de contraste élevé",
-      "steps": ["Paramètres → Accessibilité", "Activer Contraste élevé"],
-      "controls": ["kde-a11y-high-contrast"],
-      "priority": "P0"
+      "id": "KdTh3",
+      "priority": "P0",
+      "title": "Activer le contraste élevé",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "a11y-switch", "selector": "[data-kde-setting=\"kde-a11y-high-contrast\"]", "label": "Switch contraste" },
+        { "id": "dataset", "predicate": "document.documentElement.dataset.contrastMode", "expectValue": "high" }
+      ],
+      "proofs": { "smoke": "smoke-h6-kde-settings-ready.mjs --id linux-kde-neon" }
     },
     {
-      "id": "cred-kde-settings-desktop-icons",
-      "panelId": "desktop",
-      "persona": "Utilisateur masquant les icônes bureau",
-      "steps": ["Paramètres → Bureau", "Désactiver icônes bureau"],
-      "controls": ["kde-desktop-icons"],
-      "priority": "P0"
-    },
-    {
-      "id": "cred-kde-settings-workspace-focus",
-      "panelId": "workspace",
-      "persona": "Utilisateur configurant le focus fenêtres",
-      "steps": ["Paramètres → Espace de travail", "Activer Clic pour activer"],
-      "controls": ["kde-click-to-focus"],
-      "priority": "P0"
-    },
-    {
-      "id": "cred-kde-settings-notifications",
-      "panelId": "notifications",
-      "persona": "Utilisateur gérant les bannières",
-      "steps": ["Paramètres → Notifications", "Basculer affichage notifications"],
-      "controls": ["kde-notifications-banners"],
-      "priority": "P0"
-    },
-    {
-      "id": "cred-kde-settings-apps-browser",
-      "panelId": "applications",
-      "persona": "Utilisateur choisissant le navigateur par défaut",
-      "steps": ["Paramètres → Applications", "Sélectionner Firefox"],
-      "controls": ["kde-default-browser"],
-      "priority": "P0"
-    },
-    {
-      "id": "cred-kde-settings-colors-accent",
-      "panelId": "colors",
-      "persona": "Utilisateur personnalisant la couleur d'accent",
-      "steps": ["Paramètres → Couleurs", "Choisir Bleu"],
-      "controls": ["kde-accent-color"],
-      "priority": "P0"
+      "id": "KdTh4",
+      "priority": "P0",
+      "title": "Afficher les icônes du bureau",
+      "locale": "fr-FR",
+      "steps": [
+        { "id": "desktop-icons", "selector": "[data-kde-setting=\"kde-desktop-icons\"]", "label": "Switch icônes bureau" }
+      ],
+      "proofs": { "smoke": "smoke-h6-kde-settings-ready.mjs --id linux-kde-neon" }
     }
   ]
 }

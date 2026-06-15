@@ -48,7 +48,7 @@ if (!fs.existsSync(profilePath)) {
 }
 
 const indexPath = path.join(homeAbs, 'index.html');
-if (fs.existsSync(indexPath)) {
+if (fs.existsSync(indexPath) && !spec.nonLinux) {
   const html = fs.readFileSync(indexPath, 'utf8');
   contract.p0Slots.forEach((slot) => {
     if (!html.includes(`data-link="${slot}"`)) {

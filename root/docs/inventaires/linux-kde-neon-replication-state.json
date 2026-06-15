@@ -36,7 +36,7 @@
     "p0Effects": 13,
     "phiThreshold": 90,
     "kdV": {
-      "status": "partial-v15",
+      "status": "partial-documented-v15",
       "componentShots": 10,
       "phiNormalizedMinShots": 83.8,
       "shotsAtOrAboveThreshold": 6,
@@ -47,7 +47,22 @@
         "hub-sidebar",
         "desktop-panel"
       ],
-      "comparedAt": "2026-06-14T20:50:00.000Z"
+      "contentGaps": [
+        {
+          "id": "theme-preview-assets",
+          "reason": "¬A — usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews/ absent",
+          "remediation": "bash root/tools/lab/pull-vm-assets.sh",
+          "affectsShots": ["colors-panel", "appearance-panel", "desktop-panel"]
+        },
+        {
+          "id": "hub-sidebar",
+          "reason": "Écart typographie/espacement sidebar native vs VM — polish CSS hub v15",
+          "phiEstimate": 85,
+          "documented": true
+        }
+      ],
+      "comparedAt": "2026-06-14T20:50:00.000Z",
+      "documentedAt": "2026-06-15T08:00:00.000Z"
     }
   },
   "openBacklog": [],

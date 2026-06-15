@@ -103,25 +103,31 @@
           "description": "À brancher — COSMIC settings"
         },
         "pantheon": {
-          "status": "planned",
+          "status": "scaffold",
           "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
-          "description": "Squelette elementary — AccΣ Phase 0b"
+          "registryIds": ["linux-elementary"],
+          "playbookTail": "root/docs/inventaires/linux-elementary-playbook-tail.json",
+          "description": "Squelette elementary — AccΣ ; PbT après inventaire VM (¬I)"
         },
         "xfce": {
-          "status": "planned",
+          "status": "scaffold",
           "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
-          "description": "Squelette Kali/Xubuntu — AccΣ Phase 0b"
+          "registryIds": ["linux-kali"],
+          "playbookTail": "root/docs/inventaires/linux-kali-playbook-tail.json",
+          "description": "Squelette Kali/XFCE — AccΣ ; PbT après inventaire VM (¬I)"
         },
         "lxqt": {
-          "status": "planned",
+          "status": "scaffold",
           "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
-          "description": "Squelette LXQt — AccΣ Phase 0b"
+          "registryIds": ["linux-lxqt"],
+          "playbookTail": "root/docs/inventaires/linux-lxqt-playbook-tail.json",
+          "description": "Squelette LXQt — AccΣ ; PbT après inventaire VM (¬I)"
         },
         "windows": {
-          "status": "stub",
-          "phase": 4,
+          "status": "scaffold",
+          "phase": 7,
           "welcomeScaffold": "etc/capsuleos/contracts/os-welcome-scaffold.json",
-          "description": "Vague 2 — bootstrap --kernel windows"
+          "description": "Vague 2 — bootstrap --kernel windows → home/Windows/"
         },
         "android": {
           "status": "stub",

@@ -160,8 +160,23 @@
             </section>
             <section class="kde-systemsettings__panel" data-kde-panel-content="accessibility" hidden>
                 <header class="kde-systemsettings__panel-header">
-                    <h1>Zoom et loupe</h1>
+                    <h1>Accessibilité</h1>
                 </header>
+                <div class="kde-systemsettings__group">
+                    <h2 class="kde-systemsettings__group-title">Vision</h2>
+                    <div class="adw-row adw-row--switch">
+                        <span class="adw-row__title">Contraste élevé</span>
+                        <button type="button" class="adw-switch" data-settings-switch="kde-a11y-contrast" data-kde-setting="kde-a11y-high-contrast" role="switch" aria-checked="false"></button>
+                    </div>
+                    <div class="adw-row adw-row--switch">
+                        <span class="adw-row__title">Texte agrandi</span>
+                        <button type="button" class="adw-switch" data-settings-switch="kde-a11y-text" data-kde-setting="kde-a11y-large-text" role="switch" aria-checked="false"></button>
+                    </div>
+                    <div class="adw-row adw-row--switch">
+                        <span class="adw-row__title">Réduire les animations</span>
+                        <button type="button" class="adw-switch" data-settings-switch="kde-reduced-motion" data-kde-setting="kde-reduced-motion" role="switch" aria-checked="false"></button>
+                    </div>
+                </div>
                 <div class="kde-systemsettings__group">
                     <h2 class="kde-systemsettings__group-title">Zoom</h2>
                     <label class="kde-systemsettings__check-row"><input type="radio" name="kde-zoom-mode" checked> Plein écran</label>
@@ -177,9 +192,24 @@
             </section>
             <section class="kde-systemsettings__panel" data-kde-panel-content="desktop" hidden>
                 <header class="kde-systemsettings__panel-header">
-                    <h1>Style Plasma</h1>
+                    <h1>Bureau</h1>
                 </header>
-                <div class="kde-systemsettings__kcm-toolbar">
+                <div class="kde-systemsettings__group">
+                    <h2 class="kde-systemsettings__group-title">Icônes du bureau</h2>
+                    <div class="adw-row adw-row--switch">
+                        <span class="adw-row__title">Afficher les icônes du bureau</span>
+                        <button type="button" class="adw-switch is-on" data-settings-switch="kde-desktop-icons" data-kde-setting="kde-desktop-icons" role="switch" aria-checked="true"></button>
+                    </div>
+                    <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                        <span class="kde-systemsettings__row-label">Alignement des icônes</span>
+                        <select class="kde-systemsettings__select" data-kde-setting="kde-desktop-align" aria-label="Alignement des icônes">
+                            <option value="left" selected>Gauche</option>
+                            <option value="right">Droite</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="kde-systemsettings__group">
+                    <h2 class="kde-systemsettings__group-title">Style Plasma</h2>
                     <input type="search" class="kde-systemsettings__search-input" placeholder="Rechercher…" aria-label="Rechercher">
                     <select class="kde-systemsettings__select"><option selected>Tous les thèmes</option></select>
                 </div>
@@ -201,6 +231,10 @@
                 </div>
                 <div class="kde-systemsettings__group">
                     <h2 class="kde-systemsettings__group-title">Infobulles</h2>
+                    <div class="adw-row adw-row--switch">
+                        <span class="adw-row__title">Afficher les notifications</span>
+                        <button type="button" class="adw-switch is-on" data-settings-switch="kde-notifications-banners" data-kde-setting="kde-notifications-banners" role="switch" aria-checked="true"></button>
+                    </div>
                     <label class="kde-systemsettings__check-row"><input type="radio" name="kde-popup-loc" checked> A côté de l'icône de notification</label>
                 </div>
             </section>

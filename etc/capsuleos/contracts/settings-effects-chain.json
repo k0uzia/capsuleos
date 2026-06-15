@@ -78,7 +78,7 @@
       "store": "usr/lib/capsuleos/shells/linux/kde-kconfig-store.js",
       "verifyGate": "usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs",
       "pilotRegistryId": "linux-kde-neon",
-      "status": "phase-2b"
+      "status": "v15-closed"
     }
   },
   "layerConsumers": {
@@ -103,14 +103,15 @@
     "Se-Shell": {
       "unification": "semantic-only",
       "guards": "usr/lib/capsuleos/shells/linux/se-toolkit-guards.js",
+      "bus": "usr/lib/capsuleos/shells/linux/se-shell-bus.js",
       "emitters": {
         "cinnamon": ["usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js"],
         "gnome": ["usr/lib/capsuleos/shells/linux/gnome-settings-parity.js"],
         "kde": ["usr/lib/capsuleos/shells/linux/kde-settings-parity.js"]
       },
       "consumers": {
-        "cinnamon": ["home/Debian/Mint/content/mint-tray.js"],
-        "gnome": ["home/Debian/Ubuntu/style/gnome-shell/ubuntu-dock.css"],
+        "cinnamon": ["home/Debian/Mint/content/mint-tray-overflow.js", "home/Debian/Mint/content/mint-applet-visibility.js"],
+        "gnome": ["home/Debian/Ubuntu/style/gnome-workstation.css"],
         "kde": ["home/Debian/KDE-Neon/style/plasma-panel-dock.css"]
       },
       "events": ["capsule:panel-height-changed", "capsule:applet-visibility-changed"]
@@ -118,10 +119,14 @@
     "Se-WM": {
       "unification": "partial",
       "guards": "usr/lib/capsuleos/shells/linux/se-toolkit-guards.js",
+      "bus": "usr/lib/capsuleos/shells/linux/se-wm-bus.js",
       "modules": {
         "cinnamon": "usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js",
         "gnome": "usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js",
         "kde": "home/Debian/KDE-Neon/js/mainMenu-plasma.js"
+      },
+      "consumers": {
+        "cinnamon": ["home/Debian/Mint/content/mint-workspace-indicator.js"]
       },
       "events": ["capsule:dynamic-workspaces-changed"]
     }

@@ -48,7 +48,7 @@
         "cssHookPresent": true,
         "visualMatch": "partial",
         "parityPriority": "P0",
-        "gapNotes": "H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings)."
+        "gapNotes": "Hooks présents ; captures croisées incomplètes."
       },
       "generatedAt": "2026-06-13T18:33:37.978298+00:00",
       "gsettingsDeferred": {
@@ -106,7 +106,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "night-light",
@@ -208,7 +208,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -284,7 +284,7 @@
           "source": "fedora-capsule-dark-overview.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "dnd",
@@ -365,7 +365,7 @@
           "source": "fedora-capsule-dark-quick-settings.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "accent",
@@ -381,7 +381,7 @@
         "property": "accent-color"
       },
       "transitionObserved": {
-        "durationMs": 545,
+        "durationMs": 529,
         "easing": null,
         "properties": [
           "accent-color"
@@ -392,7 +392,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/accent/before.png",
-          "timestamp": "2026-06-07T01:15:41.453Z"
+          "timestamp": "2026-06-15T13:43:24.189Z"
         },
         {
           "phase": "during-transition",
@@ -431,7 +431,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -439,7 +439,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "wallpaper",
@@ -455,7 +455,7 @@
         "easing": "ease"
       },
       "transitionObserved": {
-        "durationMs": 682,
+        "durationMs": 656,
         "easing": "ease",
         "properties": [],
         "notes": "captures host-virsh (fedora) — linux-fedora"
@@ -464,7 +464,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/wallpaper/before.png",
-          "timestamp": "2026-06-07T01:15:53.058Z"
+          "timestamp": "2026-06-15T13:43:32.656Z"
         },
         {
           "phase": "during-transition",
@@ -502,7 +502,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -515,7 +515,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "display-scale",
@@ -531,7 +531,7 @@
         "notes": "Peut demander confirmation ou délai mutter."
       },
       "transitionObserved": {
-        "durationMs": 571,
+        "durationMs": 578,
         "easing": null,
         "properties": [],
         "notes": "captures host-virsh (fedora) — linux-fedora"
@@ -540,7 +540,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/display-scale/before.png",
-          "timestamp": "2026-06-07T01:16:03.218Z"
+          "timestamp": "2026-06-15T13:43:40.769Z"
         },
         {
           "phase": "during-transition",
@@ -579,7 +579,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : zoom .fedora-main-row via --gnome-display-scale + dataset displayScale."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -587,7 +587,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "hot-corner",
@@ -603,7 +603,7 @@
         "property": "overview-zoom"
       },
       "transitionObserved": {
-        "durationMs": 672,
+        "durationMs": 694,
         "easing": null,
         "properties": [
           "overview-zoom"
@@ -614,7 +614,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/hot-corner/before.png",
-          "timestamp": "2026-06-07T01:16:14.453Z"
+          "timestamp": "2026-06-15T13:43:48.815Z"
         },
         {
           "phase": "during-transition",
@@ -652,7 +652,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : zone coin actif + data-hot-corners ; désactivation overview au survol."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -660,7 +660,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "contrast",
@@ -675,7 +675,7 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": 627,
+        "durationMs": 566,
         "easing": null,
         "properties": [],
         "notes": "captures host-virsh (fedora) — linux-fedora"
@@ -684,7 +684,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/contrast/before.png",
-          "timestamp": "2026-06-07T01:16:26.145Z"
+          "timestamp": "2026-06-15T13:43:56.348Z"
         },
         {
           "phase": "during-transition",
@@ -724,7 +724,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : data-contrast-mode high + bordures shell/top-bar renforcées."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -732,7 +732,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "font-scale",
@@ -747,7 +747,7 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": 563,
+        "durationMs": 566,
         "easing": null,
         "properties": [],
         "notes": "captures host-virsh (fedora) — linux-fedora"
@@ -756,7 +756,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/font-scale/before.png",
-          "timestamp": "2026-06-07T01:16:36.237Z"
+          "timestamp": "2026-06-15T13:44:03.782Z"
         },
         {
           "phase": "during-transition",
@@ -788,7 +788,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : --a11y-font-scale-factor + dataset fontScale sur panneau Accessibilité."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -796,7 +796,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "power-mode",
@@ -812,7 +812,7 @@
         "property": "opacity-saturate"
       },
       "transitionObserved": {
-        "durationMs": 606,
+        "durationMs": 598,
         "easing": null,
         "properties": [
           "opacity-saturate"
@@ -823,7 +823,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/power-mode/before.png",
-          "timestamp": "2026-06-07T01:16:44.069Z"
+          "timestamp": "2026-06-15T13:44:09.971Z"
         }
       ],
       "surfaces": [
@@ -851,7 +851,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : data-power-mode + teinte tuile QS performance (transition 150 ms)."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -859,7 +859,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "search-files",
@@ -874,7 +874,7 @@
         "durationMs": 0
       },
       "transitionObserved": {
-        "durationMs": 577,
+        "durationMs": 532,
         "easing": null,
         "properties": [],
         "notes": "captures host-virsh (fedora) — linux-fedora"
@@ -883,7 +883,7 @@
         {
           "phase": "before",
           "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/search-files/before.png",
-          "timestamp": "2026-06-07T01:16:47.389Z"
+          "timestamp": "2026-06-15T13:44:12.838Z"
         },
         {
           "phase": "during-transition",
@@ -913,7 +913,7 @@
         "parityPriority": "P1",
         "gapNotes": "H5 : filterSearchCatalog + dataset searchFiles ; provider Nautilus désactivable."
       },
-      "generatedAt": "2026-06-07T01:15:28.128019+00:00",
+      "generatedAt": "2026-06-15T13:43:12.244274+00:00",
       "capsuleCaptures": [
         {
           "phase": "capsule-reference",
@@ -921,7 +921,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "notifications",
@@ -986,7 +986,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "power-dim",
@@ -1050,7 +1050,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     },
     {
       "controlId": "wifi",
@@ -1114,10 +1114,10 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:33:24.926Z"
+      "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     }
   ],
-  "generatedAt": "2026-06-13T18:39:49.347838+00:00",
+  "generatedAt": "2026-06-15T13:43:12.244274+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
@@ -1132,7 +1132,11 @@
     "documented": 15,
     "capsuleImplemented": 4,
     "gaps": 0,
-    "p0Open": 0
+    "p0Open": 0,
+    "capsuleCapturesP1": 8,
+    "visualMatchClassifiedP0": 4,
+    "visualMatchClassifiedP1": 8,
+    "visualMatchClassifiedP2": 3
   },
   "gsettingsDeepPass": {
     "generatedAt": "2026-06-13T18:39:49.347838+00:00",
@@ -1169,13 +1173,13 @@
     }
   ],
   "capsuleVisualCollect": {
-    "generatedAt": "2026-06-13T18:33:24.845Z",
+    "generatedAt": "2026-06-15T13:49:44.497Z",
     "investigator": "collect-capsule-visual-investigation.mjs",
-    "filter": "P0",
+    "filter": "P1",
     "files": 9
   },
   "visualParityClose": {
-    "generatedAt": "2026-06-13T18:33:24.926Z",
+    "generatedAt": "2026-06-15T13:49:44.614Z",
     "investigator": "enrich-visual-investigation-capsule-parity.mjs",
     "p0Classified": 4,
     "p1Classified": 8

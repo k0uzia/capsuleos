@@ -182,6 +182,9 @@ export const buildRemoteEnv = (host) => {
     'export XDG_RUNTIME_DIR=/run/user/$(id -u)',
     `export XDG_CURRENT_DESKTOP=${host.desktop || 'GNOME'}`,
   ];
+  if (host.sessionType && String(host.sessionType).includes('wayland')) {
+    parts.push('export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-0}');
+  }
   if (host.xauthorityDiscovery === 'mutter-xwayland') {
     parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
   } else if (host.xauthorityDiscovery === 'plasma-xauth') {

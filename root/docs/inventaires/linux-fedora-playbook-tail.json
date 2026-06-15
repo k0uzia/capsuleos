@@ -5,7 +5,7 @@
   "branchId": "fedora",
   "displayName": "Fedora Workstation",
   "status": "documented",
-  "generatedAt": "2026-06-13T18:33:25.527Z",
+  "generatedAt": "2026-06-15T13:49:45.150Z",
   "investigator": "collect-playbook-tail.mjs",
   "source": "procedure-playbook-general.md §couche-τ",
   "vmEnvironment": {

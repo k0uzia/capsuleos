@@ -31,12 +31,10 @@
       "registryId": "linux-ubuntu",
       "tier": "P1",
       "toolkit": "gnome",
-      "status": "h6-closed",
-      "predicates": { "H6": true, "SeSigma": true, "Vc": false, "Vp": false, "capsuleCapturesP0": 0 },
-      "debts": [
-        { "id": "D-UBUNTU-Vc", "priority": "P0", "summary": "H6 clôturé mais 0/4 captures P0 Paramètres" }
-      ],
-      "nextAction": "collect-capsule-visual-investigation.mjs --id linux-ubuntu"
+      "status": "p1-closed",
+      "predicates": { "H6": true, "Vc": true, "Vp": true, "capsuleCapturesP0": 4, "capsuleCapturesP1": 8, "vmCapturesP1": 24 },
+      "debts": [],
+      "nextAction": "vague B — Alma π ou Fedora gaps"
     },
     {
       "registryId": "linux-fedora",
@@ -148,7 +146,7 @@
   ],
   "waves": [
     { "id": "A", "label": "Intégrité dépôt", "debts": ["D-COMMIT"], "status": "completed", "notes": "Rocky SeΣ OK ; Cx OK (HTTP 5500)" },
-    { "id": "B", "label": "GNOME tier", "debts": ["D-UBUNTU-Vc", "D-ALMA-Π", "D-FEDORA-GAPS"], "status": "pending" },
+    { "id": "B", "label": "GNOME tier", "debts": ["D-ALMA-Π", "D-FEDORA-GAPS"], "status": "in_progress", "notes": "Ubuntu P0+P1 clôturé (xdg-portal Proxmox) ; Alma/Fedora restants" },
     { "id": "C", "label": "KDE KdV", "debts": ["D-KDE-KdV", "D-KDE-DERIV-GT"], "status": "pending" },
     { "id": "D", "label": "Longue traîne", "debts": ["D-SE-SHELL", "D-SCAFFOLD-DE", "D-NONLINUX"], "status": "pending" }
   ]

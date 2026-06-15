@@ -8,6 +8,7 @@ set -euo pipefail
 
 export PATH="${HOME}/.local/bin:${PATH}"
 export DISPLAY="${DISPLAY:-:0}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 if [[ -z "${XAUTHORITY:-}" ]]; then
@@ -32,6 +33,9 @@ capture_screen() {
   if gdbus call --session --dest org.gnome.Shell.Screenshot --object-path /org/gnome/Shell/Screenshot \
     --method org.gnome.Shell.Screenshot.Screenshot false false "$out" 2>/dev/null; then
     return 0
+  fi
+  if command -v grim >/dev/null; then
+    grim "$out" 2>/dev/null && return 0
   fi
   if command -v gnome-screenshot >/dev/null; then
     gnome-screenshot -f "$out" 2>/dev/null && return 0

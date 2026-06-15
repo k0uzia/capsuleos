@@ -19,7 +19,7 @@
 #   CAPSULE_LAB_SUDO_REFRESH   secondes entre sudo -v (défaut 50)
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 : "${CAPSULE_LAB_SSH_IDENTITY:=$HOME/.ssh/capsuleos-lab}"
 : "${CAPSULE_LAB_VIRSH_URI:=qemu:///system}"
 : "${CAPSULE_LAB_VIRSH_NAME:=ubuntu25.10}"
@@ -151,34 +151,61 @@ echo "=== Session captures lab (R-PWD1) ==="
 
 setup_ssh_agent "${CAPSULE_LAB_SSH_IDENTITY}"
 
-echo "→ Mot de passe hôte (sudo — une fois pour toute la session)"
-refresh_sudo
-start_sudo_keepalive
+CAPSULE_LAB_SKIP_VIRSH="${CAPSULE_LAB_SKIP_VIRSH:-}"
+if [[ "${CAPSULE_LAB_SKIP_VIRSH}" != "1" && -f "${ROOT}/etc/capsuleos/lab-inventory.json" ]]; then
+  CAPTURE_BACKEND="$(ROOT="${ROOT}" CAPSULE_LAB_REGISTRY_ID="${CAPSULE_LAB_REGISTRY_ID:-linux-ubuntu}" python3 - <<'PY' 2>/dev/null || true
+import json, os
+root = os.environ.get("ROOT", ".")
+rid = os.environ.get("CAPSULE_LAB_REGISTRY_ID", "")
+inv = json.load(open(os.path.join(root, "etc/capsuleos/lab-inventory.json")))
+for h in inv.get("hosts", []):
+    if h.get("registryId") == rid and h.get("captureBackend") == "ssh-screenshot":
+        print("ssh-screenshot")
+        break
+PY
+)"
+  [[ "${CAPTURE_BACKEND}" == "ssh-screenshot" ]] && CAPSULE_LAB_SKIP_VIRSH=1
+fi
 
-VIRSH_MODE="$(probe_virsh_mode "${CAPSULE_LAB_VIRSH_NAME}" || true)"
-case "${VIRSH_MODE}" in
-  direct)
-    unset CAPSULE_LAB_VIRSH_PREFIX
-    export CAPSULE_LAB_VIRSH_PREFIX=""
-    echo "✓ virsh direct (sans sudo) — domaine ${CAPSULE_LAB_VIRSH_NAME}"
-    ;;
-  sudo)
-    export CAPSULE_LAB_VIRSH_PREFIX="sudo -n"
-    echo "✓ virsh via sudo -n (ticket sudo maintenu) — domaine ${CAPSULE_LAB_VIRSH_NAME}"
-    ;;
-  *)
-    echo "✗ virsh screenshot impossible pour « ${CAPSULE_LAB_VIRSH_NAME} »" >&2
-    echo "  Vérifier : virsh -c ${CAPSULE_LAB_VIRSH_URI} domstate ${CAPSULE_LAB_VIRSH_NAME}" >&2
-    echo "  Allumer  : virsh -c ${CAPSULE_LAB_VIRSH_URI} start ${CAPSULE_LAB_VIRSH_NAME}" >&2
-    echo "  Repli    : node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id=linux-ubuntu (si virsh direct OK sans session)" >&2
-    [[ "${SOURCED}" -eq 1 ]] && return 1
-    exit 1
-    ;;
-esac
+if [[ "${CAPSULE_LAB_SKIP_VIRSH}" == "1" ]]; then
+  unset CAPSULE_LAB_VIRSH_PREFIX
+  export CAPSULE_LAB_VIRSH_PREFIX=""
+  echo "✓ virsh ignoré — captures SSH VM (bridgée / captureBackend=ssh-screenshot)"
+else
+  echo "→ Mot de passe hôte (sudo — une fois pour toute la session)"
+  refresh_sudo
+  start_sudo_keepalive
+
+  VIRSH_MODE="$(probe_virsh_mode "${CAPSULE_LAB_VIRSH_NAME}" || true)"
+  case "${VIRSH_MODE}" in
+    direct)
+      unset CAPSULE_LAB_VIRSH_PREFIX
+      export CAPSULE_LAB_VIRSH_PREFIX=""
+      echo "✓ virsh direct (sans sudo) — domaine ${CAPSULE_LAB_VIRSH_NAME}"
+      ;;
+    sudo)
+      export CAPSULE_LAB_VIRSH_PREFIX="sudo -n"
+      echo "✓ virsh via sudo -n (ticket sudo maintenu) — domaine ${CAPSULE_LAB_VIRSH_NAME}"
+      ;;
+    *)
+      echo "✗ virsh screenshot impossible pour « ${CAPSULE_LAB_VIRSH_NAME} »" >&2
+      echo "  Vérifier : virsh -c ${CAPSULE_LAB_VIRSH_URI} domstate ${CAPSULE_LAB_VIRSH_NAME}" >&2
+      echo "  Allumer  : virsh -c ${CAPSULE_LAB_VIRSH_URI} start ${CAPSULE_LAB_VIRSH_NAME}" >&2
+      echo "  Repli    : CAPSULE_LAB_SKIP_VIRSH=1 $0 -- <commande>" >&2
+      echo "  Repli    : node usr/lib/capsuleos/tools/lab/run-visual-parity-pass.mjs --id=linux-ubuntu --force-remote-vm" >&2
+      [[ "${SOURCED}" -eq 1 ]] && return 1
+      exit 1
+      ;;
+  esac
+fi
+
+export CAPSULE_LAB_SKIP_VIRSH
 
 echo "  CAPSULE_LAB_SESSION=1"
 echo "  CAPSULE_LAB_VIRSH_PREFIX=${CAPSULE_LAB_VIRSH_PREFIX:-<vide>}"
-echo "  Renouvellement sudo toutes les ${CAPSULE_LAB_SUDO_REFRESH}s jusqu'à fin de session."
+if [[ "${CAPSULE_LAB_SKIP_VIRSH}" != "1" ]]; then
+  echo "  Renouvellement sudo toutes les ${CAPSULE_LAB_SUDO_REFRESH}s jusqu'à fin de session."
+fi
 
 if [[ "${SOURCED}" -eq 1 ]]; then
   echo "→ Session active dans ce shell."

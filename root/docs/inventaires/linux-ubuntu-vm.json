@@ -4,7 +4,7 @@
   "displayName": "Ubuntu 26.04 LTS",
   "collectedAt": "2026-06-07T16:50:23Z",
   "lab": {
-    "ssh": "capsule@192.168.122.141",
+    "ssh": "capsule@192.168.1.183",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland-xwayland",
     "display": ":0",

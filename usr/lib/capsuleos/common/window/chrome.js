@@ -272,6 +272,52 @@
         return true;
     }
 
+    function relocateNautilusWindowControls(container) {
+        const header = container.querySelector(':scope > #windowHeader');
+        const trailing = container.querySelector(
+            '.nautilus-app__headerbar.nemo-app__toolbar .nautilus-app__trailing'
+        );
+        if (!header || !trailing) {
+            return false;
+        }
+        if (header.dataset.nautilusCsd === 'true') {
+            return true;
+        }
+
+        header.dataset.nautilusCsd = 'true';
+        container.classList.add('gnome-app--csd');
+
+        let csdWrap = trailing.querySelector(':scope > .gnome-app__window-controls');
+        if (!csdWrap) {
+            csdWrap = document.createElement('div');
+            csdWrap.className = 'gnome-app__window-controls';
+            csdWrap.setAttribute('role', 'group');
+            csdWrap.setAttribute('aria-label', 'Contrôles de fenêtre');
+            trailing.appendChild(csdWrap);
+        }
+
+        const minBtn = header.querySelector('#minimizeBtn');
+        const maxBtn = header.querySelector('#resizeBtn');
+        const closeBtn = header.querySelector('#closeBtn');
+        [minBtn, maxBtn, closeBtn].forEach((btn) => {
+            if (btn) {
+                csdWrap.appendChild(btn);
+            }
+        });
+
+        const title = header.querySelector('#windowTitle');
+        if (title) {
+            title.setAttribute('aria-hidden', 'true');
+        }
+
+        const integratedClose = trailing.querySelector('.nautilus-app__window-close');
+        if (integratedClose) {
+            integratedClose.hidden = true;
+        }
+
+        return true;
+    }
+
     function relocateFileRollerWindowControls(container) {
         const header = container.querySelector(':scope > #windowHeader');
         const headerEnd = container.querySelector('.fr-app__header-end');
@@ -627,6 +673,7 @@
             return providers.default.ensureHeader(container);
         },
         afterInject(container, slotId) {
+            relocateNautilusWindowControls(container);
             applyKdeWindowHeaderIcons(container);
             applyDragHandlePolicy(container, slotId, 'nemo-gnome');
         },

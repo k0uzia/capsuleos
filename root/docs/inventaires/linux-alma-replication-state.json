@@ -44,5 +44,32 @@
     "p2Slots": 8,
     "prioritySlots": 7
   },
-  "updatedAt": "2026-06-10T25:00:00.000Z"
+  "updatedAt": "2026-06-10T25:00:00.000Z",
+  "lastResolvedAction": {
+    "registryId": "linux-alma",
+    "domain": "gnome-settings-playbook",
+    "rule": "R-H6-DONE",
+    "autoExecute": false,
+    "complete": true,
+    "predicates": {
+      "H2": true,
+      "M": true,
+      "I": true,
+      "A": true,
+      "S": true,
+      "T": true,
+      "L": null,
+      "V": true,
+      "G": true,
+      "Vc": true,
+      "Vp": true,
+      "documentedP0": 4,
+      "capsuleCapturesP0": 4,
+      "visualMatchClassifiedP0": 4
+    },
+    "message": "H6 clôturé — chaîne P0/P1/P2 à jour",
+    "suggestedCommand": "node usr/lib/capsuleos/tools/validate-all.mjs",
+    "command": "node usr/lib/capsuleos/tools/validate-all.mjs"
+  },
+  "generatedAt": "2026-06-15T13:49:31.492Z"
 }

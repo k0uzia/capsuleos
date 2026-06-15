@@ -2,7 +2,7 @@
   "registryId": "linux-rocky",
   "domain": "gnome-shell-polish",
   "status": "done",
-  "polishedAt": "2026-06-07T09:40:58.479Z",
+  "polishedAt": "2026-06-15T13:48:14.778Z",
   "targets": [
     "top-bar",
     "overview-dash",

@@ -9,6 +9,7 @@
 set -uo pipefail
 
 export DISPLAY="${DISPLAY:-:0}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
@@ -28,6 +29,7 @@ python3 <<'PY'
 import json
 import os
 import re
+import shutil
 import subprocess
 import time
 from datetime import datetime, timezone
@@ -88,8 +90,125 @@ def shell_screenshot_status(path):
     return "failed"
 
 
+def wayland_env():
+    env = os.environ.copy()
+    uid = os.getuid()
+    env.setdefault("WAYLAND_DISPLAY", "wayland-0")
+    env.setdefault("XDG_RUNTIME_DIR", f"/run/user/{uid}")
+    env.setdefault("DBUS_SESSION_BUS_ADDRESS", f"unix:path=/run/user/{uid}/bus")
+    return env
+
+
+def grim_screenshot(path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if subprocess.call(["which", "grim"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) != 0:
+        return False
+    try:
+        subprocess.run(
+            ["grim", str(path)],
+            check=True,
+            timeout=15,
+            env=wayland_env(),
+            stderr=subprocess.DEVNULL,
+        )
+        return path.is_file() and path.stat().st_size > 0
+    except Exception:
+        return False
+
+
+def gnome_screenshot_file(path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        subprocess.run(
+            ["gnome-screenshot", "-f", str(path)],
+            check=True,
+            timeout=15,
+            env=wayland_env(),
+            stderr=subprocess.DEVNULL,
+        )
+        return path.is_file() and path.stat().st_size > 0
+    except Exception:
+        return False
+
+
+def portal_screenshot(path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    img_dir_raw = run("xdg-user-dir PICTURES 2>/dev/null") or os.path.expanduser("~/Images")
+    img_dir = Path(img_dir_raw)
+    img_dir.mkdir(parents=True, exist_ok=True)
+    stamp = img_dir / ".capsuleos-portal-stamp"
+    stamp.touch()
+    try:
+        subprocess.run(
+            [
+                "gdbus", "call", "--session",
+                "--dest", "org.freedesktop.portal.Desktop",
+                "--object-path", "/org/freedesktop/portal/desktop",
+                "--method", "org.freedesktop.portal.Screenshot.Screenshot",
+                "", "{'interactive': <false>}",
+            ],
+            env=wayland_env(),
+            timeout=20,
+            check=True,
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )
+    except Exception:
+        return False
+    for _ in range(40):
+        candidates = [p for p in img_dir.glob("*.png") if p.stat().st_mtime >= stamp.stat().st_mtime - 0.05]
+        if candidates:
+            newest = max(candidates, key=lambda p: p.stat().st_mtime)
+            if newest.stat().st_size > 0:
+                shutil.copy2(newest, path)
+                return path.is_file() and path.stat().st_size > 0
+        time.sleep(0.15)
+    return False
+
+
+def agent_ready():
+    base = Path(os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")) / "capsuleos-lab"
+    return (base / "agent.ready").is_file()
+
+
+def agent_screenshot(path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    base = Path(os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")) / "capsuleos-lab"
+    req_dir = base / "requests"
+    req_dir.mkdir(parents=True, exist_ok=True)
+    token = f"{time.time_ns()}.req"
+    req_file = req_dir / token
+    req_file.write_text(str(path), encoding="utf-8")
+    ok_marker = Path(f"{path}.ok")
+    fail_marker = Path(f"{path}.fail")
+    for _ in range(120):
+        if path.is_file() and path.stat().st_size > 0:
+            ok_marker.unlink(missing_ok=True)
+            fail_marker.unlink(missing_ok=True)
+            return True
+        if fail_marker.is_file():
+            fail_marker.unlink(missing_ok=True)
+            return False
+        time.sleep(0.15)
+    return path.is_file() and path.stat().st_size > 0
+
+
+def is_gnome_session():
+    desk = os.environ.get("XDG_CURRENT_DESKTOP", "GNOME")
+    return "GNOME" in desk.upper() or "ubuntu" in run("echo $XDG_SESSION_DESKTOP").lower()
+
+
+def allow_host_virsh():
+    hv = os.environ.get("CAPSULE_VM_HYPERVISOR", "libvirt")
+    return hv in ("libvirt", "", "kvm")
+
+
 def probe_screenshot_backend():
-    """Rocky Linux 10 : Shell.Screenshot D-Bus (session locale) ou virsh hôte si SSH refusé."""
+    """Shell.Screenshot D-Bus, grim Wayland SSH, gnome-screenshot, ou virsh hôte (libvirt local)."""
     probe = OUT_DIR / "_screenshot-probe.png"
     probe.parent.mkdir(parents=True, exist_ok=True)
     status = shell_screenshot_status(probe)
@@ -99,16 +218,33 @@ def probe_screenshot_backend():
         except OSError:
             pass
         return "org.gnome.Shell.Screenshot"
-    if status == "access-denied":
-        # GNOME 47+ bloque souvent les captures D-Bus depuis SSH — repli virsh (hôte lab)
-        return "host-virsh"
+    if status in ("access-denied", "failed"):
+        if portal_screenshot(OUT_DIR / "_screenshot-probe-portal.png"):
+            (OUT_DIR / "_screenshot-probe-portal.png").unlink(missing_ok=True)
+            return "xdg-portal"
+        if agent_ready() and agent_screenshot(OUT_DIR / "_screenshot-probe-agent.png"):
+            (OUT_DIR / "_screenshot-probe-agent.png").unlink(missing_ok=True)
+            return "lab-agent"
+        if not is_gnome_session() and grim_screenshot(OUT_DIR / "_screenshot-probe-grim.png"):
+            (OUT_DIR / "_screenshot-probe-grim.png").unlink(missing_ok=True)
+            return "grim"
+        if gnome_screenshot_file(OUT_DIR / "_screenshot-probe-gs.png"):
+            (OUT_DIR / "_screenshot-probe-gs.png").unlink(missing_ok=True)
+            return "gnome-screenshot"
+        if allow_host_virsh():
+            return "host-virsh"
+        return None
+    if subprocess.call(["which", "grim"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0:
+        return "grim"
     if subprocess.call(["which", "gnome-screenshot"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0:
         return "gnome-screenshot"
     return None
 
 
 SCREENSHOT_BACKEND = probe_screenshot_backend()
-HAS_SCREENSHOT = SCREENSHOT_BACKEND in {"org.gnome.Shell.Screenshot", "gnome-screenshot"}
+HAS_SCREENSHOT = SCREENSHOT_BACKEND in {
+    "org.gnome.Shell.Screenshot", "gnome-screenshot", "grim", "lab-agent", "xdg-portal",
+}
 
 
 def shell_screenshot(path):
@@ -124,13 +260,18 @@ def screenshot(name):
         if SCREENSHOT_BACKEND == "org.gnome.Shell.Screenshot":
             if not shell_screenshot(path):
                 return None
+        elif SCREENSHOT_BACKEND == "grim":
+            if not grim_screenshot(path):
+                return None
+        elif SCREENSHOT_BACKEND == "lab-agent":
+            if not agent_screenshot(path):
+                return None
+        elif SCREENSHOT_BACKEND == "xdg-portal":
+            if not portal_screenshot(path):
+                return None
         else:
-            subprocess.run(
-                ["gnome-screenshot", "-f", str(path)],
-                check=True,
-                timeout=15,
-                stderr=subprocess.DEVNULL,
-            )
+            if not gnome_screenshot_file(path):
+                return None
         return str(path) if path.is_file() and path.stat().st_size > 0 else None
     except Exception:
         return None
@@ -503,6 +644,9 @@ out = {
     "captureStrategy": (
         "vm-dbus" if SCREENSHOT_BACKEND == "org.gnome.Shell.Screenshot"
         else "host-virsh" if SCREENSHOT_BACKEND == "host-virsh"
+        else "vm-grim" if SCREENSHOT_BACKEND == "grim"
+        else "vm-lab-agent" if SCREENSHOT_BACKEND == "lab-agent"
+        else "vm-xdg-portal" if SCREENSHOT_BACKEND == "xdg-portal"
         else "vm-gnome-screenshot" if SCREENSHOT_BACKEND == "gnome-screenshot"
         else "none"
     ),

@@ -183,12 +183,18 @@ const resolveEmbeddedCssBase = (slotId, templateId, htmlHint) => {
         return skinOverride.cssBase;
     }
     const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
+    // Pile explorers/ (nemo-gnome, nautilus…) avant l'alias nemo → apps/style/nemo.base.css.
+    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
+        return embed.templates[templateId].cssBase;
+    }
+    if (effectiveTemplateId !== templateId
+        && embed.templates[effectiveTemplateId]
+        && embed.templates[effectiveTemplateId].cssBase) {
+        return embed.templates[effectiveTemplateId].cssBase;
+    }
     const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
     if (embed.templates[cssBaseTemplateId] && embed.templates[cssBaseTemplateId].cssBase) {
         return embed.templates[cssBaseTemplateId].cssBase;
-    }
-    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
-        return embed.templates[templateId].cssBase;
     }
     return '';
 };

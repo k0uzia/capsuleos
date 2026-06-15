@@ -122,7 +122,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
     },
     {
       "controlId": "night-light",
@@ -235,7 +235,7 @@
           "source": "playwright"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
     },
     {
       "controlId": "dynamic-workspaces",
@@ -327,7 +327,7 @@
           "source": "ubuntu-capsule-dark-overview.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
     },
     {
       "controlId": "dnd",
@@ -424,22 +424,591 @@
           "source": "ubuntu-capsule-dark-quick-settings.png"
         }
       ],
-      "visualParityClosedAt": "2026-06-13T18:28:05.758Z"
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "accent",
+      "label": "Couleur d'accent",
+      "status": "documented",
+      "vmToggle": {
+        "before": "orange",
+        "after": "green"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "property": "accent-color"
+      },
+      "transitionObserved": {
+        "durationMs": 1065,
+        "easing": null,
+        "properties": [
+          "accent-color"
+        ],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/accent/before.png",
+          "timestamp": "2026-06-15T12:21:15.300807+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/accent/during-0ms.png",
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/accent/after.png",
+          "elapsedMs": 0
+        }
+      ],
+      "surfaces": [
+        "settings-app",
+        "top-bar-selection",
+        "overview-search",
+        "quick-settings"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "HIG — Style",
+          "url": "https://developer.gnome.org/hig/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "libadwaita accent",
+          "url": "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM.",
+        "cssHookPresent": null
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/accent/panel-appearance-accentorange.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "wallpaper",
+      "label": "Fond d'écran",
+      "status": "documented",
+      "vmToggle": {
+        "before": "file:///usr/share/backgrounds/gnome/adwaita-l.jxl",
+        "after": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png"
+      },
+      "transitionExpected": {
+        "type": "cross-fade",
+        "durationMs": 200,
+        "easing": "ease"
+      },
+      "transitionObserved": {
+        "durationMs": 1239,
+        "easing": "ease",
+        "properties": [],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/wallpaper/before.png",
+          "timestamp": "2026-06-15T12:21:16.418313+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/wallpaper/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/wallpaper/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "overview-background",
+        "lock-screen-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Background",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-desktopbackground.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "org.gnome.desktop.background",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème.",
+        "cssHookPresent": null
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/wallpaper/panel-background-wallpaperabstract2.png",
+          "source": "playwright"
+        },
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/wallpaper/desktop-wallpaperabstract2.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "display-scale",
+      "label": "Échelle affichage",
+      "status": "documented",
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.25"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0,
+        "notes": "Peut demander confirmation ou délai mutter."
+      },
+      "transitionObserved": {
+        "durationMs": 1210,
+        "easing": null,
+        "properties": [],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/display-scale/before.png",
+          "timestamp": "2026-06-15T12:21:17.810562+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/display-scale/during-0ms.png",
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/display-scale/after.png",
+          "elapsedMs": 0
+        }
+      ],
+      "surfaces": [
+        "desktop",
+        "all-windows",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "Mutter displays",
+          "url": "https://mutter.gnome.org/",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "text-scaling-factor",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : zoom .fedora-main-row via --gnome-display-scale + dataset displayScale."
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/display-scale/panel-displays-displayscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "hot-corner",
+      "label": "Coin actif",
+      "status": "documented",
+      "vmToggle": {
+        "before": "true",
+        "after": "false"
+      },
+      "transitionExpected": {
+        "type": "ease-out",
+        "durationMs": 250,
+        "property": "overview-zoom"
+      },
+      "transitionObserved": {
+        "durationMs": 1208,
+        "easing": null,
+        "properties": [
+          "overview-zoom"
+        ],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/hot-corner/before.png",
+          "timestamp": "2026-06-15T12:21:19.074338+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/hot-corner/during-125ms.png",
+          "elapsedMs": 125
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/hot-corner/after.png",
+          "elapsedMs": 250
+        }
+      ],
+      "surfaces": [
+        "overview-trigger",
+        "hot-corner-hover"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Shell overview",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "enable-hot-corners",
+          "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : zone coin actif + data-hot-corners ; désactivation overview au survol."
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/hot-corner/panel-multitasking-hotcornersoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "contrast",
+      "label": "Contraste élevé",
+      "status": "documented",
+      "vmToggle": {
+        "before": "Adwaita",
+        "after": "HighContrast"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 1127,
+        "easing": null,
+        "properties": [],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/contrast/before.png",
+          "timestamp": "2026-06-15T12:21:20.335041+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/contrast/during-0ms.png",
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/contrast/after.png",
+          "elapsedMs": 0
+        }
+      ],
+      "surfaces": [
+        "top-bar",
+        "windows",
+        "overview",
+        "settings-app"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "gtk-theme HighContrast",
+          "url": "https://gitlab.gnome.org/GNOME/gtk",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : data-contrast-mode high + bordures shell/top-bar renforcées."
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/contrast/panel-accessibility-contrasthigh.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "font-scale",
+      "label": "Taille du texte",
+      "status": "documented",
+      "vmToggle": {
+        "before": "1.0",
+        "after": "1.1"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 1281,
+        "easing": null,
+        "properties": [],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/font-scale/before.png",
+          "timestamp": "2026-06-15T12:21:21.558749+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/font-scale/during-0ms.png",
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/font-scale/after.png",
+          "elapsedMs": 0
+        }
+      ],
+      "surfaces": [
+        "settings-app",
+        "all-ui-text"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME A11y text size",
+          "url": "https://help.gnome.org/users/gnome-help/stable/a11y-font-size.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : --a11y-font-scale-factor + dataset fontScale sur panneau Accessibilité."
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/font-scale/panel-accessibility-fontscale125.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "power-mode",
+      "label": "Mode alimentation",
+      "status": "documented",
+      "vmToggle": {
+        "before": "balanced",
+        "after": "performance"
+      },
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 150,
+        "property": "opacity-saturate"
+      },
+      "transitionObserved": {
+        "durationMs": 1541,
+        "easing": null,
+        "properties": [
+          "opacity-saturate"
+        ],
+        "notes": "powerprofilesctl ou D-Bus PowerProfiles"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/power-mode/before.png",
+          "timestamp": "2026-06-15T12:21:22.992886+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/power-mode/during-75ms.png",
+          "elapsedMs": 75
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/power-mode/after.png",
+          "elapsedMs": 150
+        }
+      ],
+      "surfaces": [
+        "quick-settings-performance-tile",
+        "power-panel"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "power-profiles-daemon",
+          "url": "https://gitlab.freedesktop.org/upower/power-profiles-daemon",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "GNOME Help — Power",
+          "url": "https://help.gnome.org/users/gnome-help/stable/power.html",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "cssHookPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : data-power-mode + teinte tuile QS performance (transition 150 ms)."
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/power-mode/panel-power-powermodeperformance.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
+    },
+    {
+      "controlId": "search-files",
+      "label": "Recherche fichiers",
+      "status": "documented",
+      "vmToggle": {
+        "before": "@as []",
+        "after": "@as ['org.gnome.Nautilus']"
+      },
+      "transitionExpected": {
+        "type": "instant",
+        "durationMs": 0
+      },
+      "transitionObserved": {
+        "durationMs": 1058,
+        "easing": null,
+        "properties": [],
+        "notes": "capture via xdg-portal"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/search-files/before.png",
+          "timestamp": "2026-06-15T12:21:24.541264+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/search-files/during-0ms.png",
+          "elapsedMs": 0
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/search-files/after.png",
+          "elapsedMs": 0
+        }
+      ],
+      "surfaces": [
+        "overview-search-results"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "search providers",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/tree/main/js/ui/search",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": true,
+        "visualMatch": "partial",
+        "parityPriority": "P1",
+        "gapNotes": "H5 : filterSearchCatalog + dataset searchFiles ; provider Nautilus désactivable.",
+        "cssHookPresent": null
+      },
+      "generatedAt": "2026-06-15T12:21:25.479090+00:00",
+      "capsuleCaptures": [
+        {
+          "phase": "capsule-reference",
+          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual-capsule/search-files/panel-search-searchfilesoff.png",
+          "source": "playwright"
+        }
+      ],
+      "visualParityClosedAt": "2026-06-15T11:21:23.528Z"
     }
   ],
-  "generatedAt": "2026-06-13T18:29:09.571732+00:00",
+  "generatedAt": "2026-06-15T12:21:25.479090+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
     "screenshotTool": true,
-    "screenshotBackend": "host-virsh",
-    "captureStrategy": "host-virsh",
+    "screenshotBackend": "xdg-portal",
+    "captureStrategy": "vm-xdg-portal",
     "snapshotAppInstalled": false,
     "note": "linux-ubuntu : captures lab automatisées via virsh screenshot depuis l’hôte"
   },
   "summary": {
-    "investigationsTotal": 4,
-    "documented": 4,
+    "investigationsTotal": 12,
+    "documented": 12,
     "capsuleImplemented": 4,
     "gaps": 0,
     "p0Open": 0
@@ -479,15 +1048,15 @@
     }
   ],
   "capsuleVisualCollect": {
-    "generatedAt": "2026-06-13T18:28:05.620Z",
+    "generatedAt": "2026-06-15T11:21:20.124Z",
     "investigator": "collect-capsule-visual-investigation.mjs",
-    "filter": "P0",
-    "files": 8
+    "filter": "P1",
+    "files": 9
   },
   "visualParityClose": {
-    "generatedAt": "2026-06-13T18:28:05.758Z",
+    "generatedAt": "2026-06-15T11:21:23.528Z",
     "investigator": "enrich-visual-investigation-capsule-parity.mjs",
     "p0Classified": 4,
-    "p1Classified": 0
+    "p1Classified": 8
   }
 }

@@ -47,13 +47,26 @@ Prédicats formels (couche conversion) : **Tc** (noyau), **Tf** (famille), **Tv*
 
 ---
 
-## 2. Noyau (36 commandes)
+## 2. Noyau (68 commandes curriculum)
 
-Défini dans le contrat `layers.core.commands` et `command-core.js` :
-
-`help`, `man`, `cd`, `ls`, `pwd`, `echo`, `cat`, `head`, `tail`, `grep`, `find`, `touch`, `mkdir`, `cp`, `mv`, `rm`, `rmdir`, `wc`, `sort`, `chmod`, `clear`, `history`, `whoami`, `uname`, `exit`, `ps`, `kill`, `ping`, `curl`, `sudo`, `ssh`, `nano`, `vim`, `less`, `dd`, `crontab`
+Défini dans le contrat `layers.core.commands` et `command-core.js` — voir aussi la matrice [`inventaires/terminal-command-coverage-matrix.json`](inventaires/terminal-command-coverage-matrix.json).
 
 **Règle** : toute commande ajoutée au noyau doit être pertinente sur **≥ 2 familles** Linux actives. Sinon → couche famille ou vendor.
+
+### Modules spécialisés (délégation depuis `executeCommand.js`)
+
+| Module | Rôle |
+|--------|------|
+| `terminal-listing.js` | Format/rendu `ls` multi-colonnes |
+| `terminal-fs-ops.js` | `cp -r`, `rm -r`/`rm -rf` récursifs |
+| `terminal-links.js` | `ln` / `ln -s` |
+| `terminal-text-compare.js` | `diff`, `cmp` |
+| `terminal-archives.js` | `zip`, `unzip`, `tar` |
+| `terminal-processes.js` | `ps`, `top`, `kill`, `pgrep`, `killall`, `nice` (+ Moniteur système) |
+| `terminal-network.js` | `wget`, `ip`, `netstat`, `ping`, `ssh`, `dig`, etc. (CapsuleOnly) |
+| `terminal-users.js` | `chmod`, `chown`, `chgrp`, `adduser`, `passwd`, `chattr`, `lsattr` |
+| `terminal-system-info.js` | `mount`, `umount`, `lscpu`, `lshw`, `shutdown`, `reboot` |
+| `terminal-package-managers.js` | `apt`, `dnf`, `yum`, `zypper`, `pacman`, `rpm`, `dpkg` |
 
 ---
 
@@ -62,7 +75,7 @@ Défini dans le contrat `layers.core.commands` et `command-core.js` :
 | Famille | Profil résolu | Commandes spécifiques |
 |---------|---------------|------------------------|
 | `debian` | Ubuntu, Mint, Pop!_OS… | `apt`, `apt-get`, `aptitude`, `apturl`, `dpkg` |
-| `redhat` | Rocky, Alma, Fedora | `dnf`, `rpm` |
+| `redhat` | Rocky, Alma, Fedora | `dnf`, `yum`, `rpm` |
 | `suse` | openSUSE | `zypper`, `rpm` |
 | `arch` | (futur skin Arch) | `pacman` |
 
@@ -140,6 +153,14 @@ Exemples : `echo Bonjour > notes.txt` · `ls \| grep txt` · `cat log.txt \| sor
 <!-- … terminal-core, completion, editors, tabs, terminal.js … -->
 <script src=".../terminal-shell-parse.js"></script>
 <script src=".../terminal-package-managers.js"></script>
+<script src=".../terminal-fs-ops.js"></script>
+<script src=".../terminal-links.js"></script>
+<script src=".../terminal-text-compare.js"></script>
+<script src=".../terminal-archives.js"></script>
+<script src=".../terminal-processes.js"></script>
+<script src=".../terminal-network.js"></script>
+<script src=".../terminal-users.js"></script>
+<script src=".../terminal-system-info.js"></script>
 <script src=".../executeCommand.js"></script>
 ```
 
@@ -150,6 +171,6 @@ Exemples : `echo Bonjour > notes.txt` · `ls \| grep txt` · `cat log.txt \| sor
 - [convention-shell-global.md](convention-shell-global.md) — socle I → C → R, agnosticité noyau, checklist nouvel OS
 - [convention-terminal-rendu-sortie.md](convention-terminal-rendu-sortie.md) — **To**, **Tb**, indentation / couleurs / bashrc
 - [convention-rafraichissement-vues.md](convention-rafraichissement-vues.md) — sync FS terminal ↔ Nautilus
-- [inventaires/_template-terminal-vm.json](inventaires/_template-terminal-vm.json) — modèle inventaire **Ti**
+- [inventaires/terminal-command-coverage-matrix.json](inventaires/terminal-command-coverage-matrix.json) — matrice curriculum ↔ statut implémentation
 - [fs-sync-playbook.json](inventaires/fs-sync-playbook.json)
 - `usr/lib/capsuleos/shells/shared/terminal/README.md`

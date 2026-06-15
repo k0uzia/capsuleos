@@ -147,7 +147,25 @@ const requiredSnippets = [
     'terminal-vendor-extensions.js',
     'terminal-package-managers.js',
     'terminal-shell-parse.js',
+    'terminal-fs-ops.js',
+    'terminal-processes.js',
+    'terminal-network.js',
+    'terminal-users.js',
 ];
+
+Object.entries(contract.implementation?.modules || {}).forEach(([key, relPath]) => {
+    const modulePath = path.join(ROOT, relPath);
+    if (!fs.existsSync(modulePath)) {
+        errors.push(`Module ${key} manquant: ${relPath}`);
+    }
+});
+
+const coveragePath = contract.implementation?.coverageMatrix
+    ? path.join(ROOT, contract.implementation.coverageMatrix)
+    : null;
+if (coveragePath && !fs.existsSync(coveragePath)) {
+    errors.push(`Matrice couverture manquante: ${contract.implementation.coverageMatrix}`);
+}
 
 htmlFiles.forEach((filePath) => {
     const html = read(filePath);

@@ -423,6 +423,7 @@
             case 'dpkg':
                 return runDpkg(args, state, profile);
             case 'dnf':
+            case 'yum':
                 return runDnf(args, state, profile);
             case 'zypper':
                 return runZypper(args, state, profile);

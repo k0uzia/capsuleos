@@ -141,8 +141,8 @@ div[data-link="terminal"] > .capsule-terminal-shell {
     height: var(--a);
 }
 
-#output>div>code,
-.capsule-terminal__line>code {
+#output>div:not(.capsule-terminal__line--listing)>code,
+.capsule-terminal__line:not(.capsule-terminal__line--listing)>code {
     display: var(--f);
     flex-flow: var(--rw);
     align-items: var(--fs);
@@ -293,4 +293,31 @@ div[data-link="terminal"] > .capsule-terminal-shell {
 
 .terminal-window--gnome .capsule-terminal__line--command .capsule-terminal__command-line {
     color: var(--terminal-prompt-text-color);
+}
+
+/* ls listing — éviter display:flex sur <code> (fusion des espaces entre spans). */
+.capsule-terminal__line--listing > code {
+    display: block;
+    width: auto;
+    height: auto;
+    flex-flow: unset;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.capsule-terminal__line--listing .capsule-terminal__dir,
+.capsule-terminal__line--listing .capsule-terminal__file {
+    display: inline-block;
+    vertical-align: baseline;
+    box-sizing: content-box;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.terminal-window--gnome,
+.terminal-window--fedora,
+.terminal-window--cosmic {
+    --terminal-ls-col-width: 14ch;
+    --terminal-ls-dir-color: var(--terminal-prompt-path-seg-color, var(--btn1));
 }

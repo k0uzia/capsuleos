@@ -76,9 +76,19 @@
         commands: ['man', 'ls', 'pwd', 'echo', 'clear', 'history', 'whoami', 'uname']
     };
 
-    const vendorHint = typeof window !== 'undefined' && window.CAPSULE_TERMINAL_PROFILE
-        ? String(window.CAPSULE_TERMINAL_PROFILE).toLowerCase()
-        : bodyId;
+    const FAMILY_PROFILE_HINTS = new Set(['debian', 'redhat', 'suse', 'arch', 'linux', 'default']);
+
+    const resolveVendorHint = () => {
+        const profileHint = typeof window !== 'undefined' && window.CAPSULE_TERMINAL_PROFILE
+            ? String(window.CAPSULE_TERMINAL_PROFILE).toLowerCase()
+            : '';
+        if (profileHint && !FAMILY_PROFILE_HINTS.has(profileHint)) {
+            return profileHint;
+        }
+        return bodyId || profileHint;
+    };
+
+    const vendorHint = resolveVendorHint();
     const builder = typeof window !== 'undefined' ? window.CapsuleTerminalProfileBuilder : null;
     const vendorCommands = builder && typeof builder.resolveVendorExtensions === 'function'
         ? builder.resolveVendorExtensions(vendorHint)

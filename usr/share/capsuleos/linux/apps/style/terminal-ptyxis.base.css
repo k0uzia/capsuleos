@@ -91,8 +91,8 @@
     flex-wrap: nowrap;
 }
 
-.terminal-window--fedora #output > div > code,
-.terminal-window--fedora .capsule-terminal__line > code {
+.terminal-window--fedora #output > div:not(.capsule-terminal__line--listing) > code,
+.terminal-window--fedora .capsule-terminal__line:not(.capsule-terminal__line--listing) > code {
     display: inline;
     width: auto;
     height: auto;
@@ -232,13 +232,34 @@
     font-weight: 600;
 }
 
+.terminal-window--fedora .capsule-terminal__line--listing > code {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.terminal-window--fedora .capsule-terminal__line--listing .capsule-terminal__dir,
+.terminal-window--fedora .capsule-terminal__line--listing .capsule-terminal__file {
+    display: inline-block;
+    vertical-align: baseline;
+    box-sizing: content-box;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
 .terminal-window--fedora .capsule-terminal__line--listing .capsule-terminal__dir {
     color: var(--terminal-ls-dir-color, #2ec27e);
     font-weight: 500;
 }
 
-.terminal-window--fedora .capsule-terminal__line--listing code {
-    white-space: pre;
+.terminal-window--fedora .capsule-terminal__line--listing .capsule-terminal__file {
+    color: inherit;
+    font-weight: inherit;
 }
 
 .terminal-window--fedora #windowHeader,

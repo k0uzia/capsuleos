@@ -606,64 +606,28 @@ function syncGnomeTerminalTitle(windowElement, promptText) {
     paintGnomeTerminalTitle(title, promptText);
 }
 
-function isListingDirectory(session, name) {
-    if (!window.CapsuleTerminal || !session || !session.state) {
-        return false;
+function getListingColumnWidth(lines, fallbackWidth) {
+    if (window.CapsuleTerminalListing && typeof window.CapsuleTerminalListing.inferColumnWidth === 'function') {
+        return window.CapsuleTerminalListing.inferColumnWidth(lines, fallbackWidth);
     }
-    const { fs, cwd, home } = session.state;
-    const resolved = window.CapsuleTerminal.resolvePath(cwd, name, home);
-    if (fs[resolved] && typeof fs[resolved] === 'object') {
-        return true;
-    }
-    const parent = fs[cwd];
-    if (parent && typeof parent === 'object') {
-        if (Object.prototype.hasOwnProperty.call(parent, name)) {
-            return typeof parent[name] === 'object';
-        }
-        const slashName = `/${name}`;
-        if (Object.prototype.hasOwnProperty.call(parent, slashName)) {
-            return typeof parent[slashName] === 'object';
-        }
-    }
-    return false;
-}
-
-function getListingColumnWidth(lines) {
-    const names = lines.flatMap((line) => (
+    const names = (lines || []).flatMap((line) => (
         String(line || '').trim().split(/\s+/).filter(Boolean)
     )).map((name) => (name.startsWith('/') ? name.slice(1) : name));
     if (!names.length) {
         return 10;
     }
-    const longest = Math.max(...names.map((name) => name.length));
-    return longest + 3;
+    return Math.max(...names.map((name) => name.length)) + 3;
 }
 
 function renderListingLine(output, line, session, columnWidthCh) {
+    if (window.CapsuleTerminalListing && typeof window.CapsuleTerminalListing.renderLine === 'function') {
+        window.CapsuleTerminalListing.renderLine(output, line, session, columnWidthCh);
+        return;
+    }
     const row = document.createElement('div');
     row.className = 'capsule-terminal__line capsule-terminal__line--listing';
-
     const code = document.createElement('code');
-    if (columnWidthCh) {
-        const lsVar = document.body && document.body.id === 'popos'
-            ? '--popos-terminal-ls-col-width'
-            : '--ubuntu-terminal-ls-col-width';
-        code.style.setProperty(lsVar, `${columnWidthCh}ch`);
-    }
-    const names = String(line || '').trim().split(/\s+/).filter(Boolean);
-    const gnomeListing = isGnomeTerminalChrome();
-    names.forEach((name, index) => {
-        const cleanName = name.startsWith('/') ? name.slice(1) : name;
-        const span = document.createElement('span');
-        span.textContent = cleanName;
-        if (gnomeListing || isListingDirectory(session, cleanName)) {
-            span.className = 'capsule-terminal__dir';
-        }
-        code.appendChild(span);
-        if (index < names.length - 1) {
-            code.appendChild(document.createTextNode('  '));
-        }
-    });
+    code.textContent = String(line || '');
     row.appendChild(code);
     output.appendChild(row);
 }
@@ -1142,7 +1106,7 @@ function initTerminalForContainer(windowElement) {
                     return;
                 }
                 const listingColWidth = result.listing
-                    ? getListingColumnWidth(result.lines || [])
+                    ? getListingColumnWidth(result.lines || [], result.listingColumnWidth)
                     : 0;
                 (result.lines || []).forEach((line) => {
                     if (result.listing) {

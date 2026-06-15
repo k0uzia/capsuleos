@@ -67,10 +67,40 @@
     }
 
     function getProcessList() {
+        if (global.CapsuleTerminalProcesses && typeof global.CapsuleTerminalProcesses.getProcessCatalog === 'function') {
+            var bodyId = global.document && global.document.body ? String(global.document.body.id || '') : '';
+            return global.CapsuleTerminalProcesses.getProcessCatalog(bodyId).map(function (p) {
+                return {
+                    name: p.name,
+                    user: p.user,
+                    cpu: p.cpu,
+                    pid: p.pid,
+                    mem: String(p.mem).indexOf('Mo') >= 0 ? p.mem : (p.mem + ' Mo'),
+                    read: p.read || '0 o/s',
+                    write: p.write || '0 o/s',
+                    nice: p.nice || '0',
+                };
+            });
+        }
         return isGnomeProfile() ? PROCESSES_GNOME : PROCESSES_MINT;
     }
 
     function getFilesystemList() {
+        if (global.CapsuleTerminalSystemInfo && global.CapsuleTerminalSystemInfo.FILESYSTEMS) {
+            var bodyId = global.document && global.document.body ? String(global.document.body.id || 'ubuntu') : 'ubuntu';
+            var mounts = global.CapsuleTerminalSystemInfo.FILESYSTEMS[bodyId]
+                || global.CapsuleTerminalSystemInfo.FILESYSTEMS.ubuntu;
+            return mounts.map(function (entry) {
+                return {
+                    device: entry.device,
+                    mount: entry.mount,
+                    type: entry.type,
+                    total: entry.total,
+                    avail: entry.avail || entry.used,
+                    used: entry.used,
+                };
+            });
+        }
         return isGnomeProfile() ? FILESYSTEMS_GNOME : FILESYSTEMS_MINT;
     }
 

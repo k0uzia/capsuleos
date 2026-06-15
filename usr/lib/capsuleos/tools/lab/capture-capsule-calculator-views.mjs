@@ -108,6 +108,13 @@ const runScenarioAction = async (page, action) => {
   }
 };
 
+const vendorPrefix = (registryId) => {
+  if (registryId === 'linux-alma') return 'alma';
+  if (registryId === 'linux-fedora') return 'fedora';
+  if (registryId === 'linux-ubuntu') return 'ubuntu';
+  return 'rocky';
+};
+
 const main = async () => {
   const opts = parseArgs();
   const paths = appsPathsForRegistry(opts.id);
@@ -116,6 +123,7 @@ const main = async () => {
 
   const httpBase = resolveCapsuleHttpBase(opts.id);
   const url = resolveCapsuleOsUrl(opts.id, httpBase);
+  const prefix = vendorPrefix(opts.id);
 
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({
@@ -132,11 +140,11 @@ const main = async () => {
   });
 
   const shots = [
-    { file: 'rocky-capsule-dark-calculator.png' },
-    { file: 'rocky-capsule-dark-calculator-basic.png', before: ['basic-2plus2'] },
-    { file: 'rocky-capsule-dark-calculator-chain-clear.png', before: ['chain-5x3'] },
-    { file: 'rocky-capsule-dark-calculator-advanced.png', before: ['mode-advanced'] },
-    { file: 'rocky-capsule-dark-calculator-copy.png', before: ['copy-7x8'] },
+    { file: `${prefix}-capsule-dark-calculator.png` },
+    { file: `${prefix}-capsule-dark-calculator-basic.png`, before: ['basic-2plus2'] },
+    { file: `${prefix}-capsule-dark-calculator-chain-clear.png`, before: ['chain-5x3'] },
+    { file: `${prefix}-capsule-dark-calculator-advanced.png`, before: ['mode-advanced'] },
+    { file: `${prefix}-capsule-dark-calculator-copy.png`, before: ['copy-7x8'] },
   ];
 
   for (const shot of shots) {

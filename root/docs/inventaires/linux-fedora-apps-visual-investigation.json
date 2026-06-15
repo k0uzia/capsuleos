@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-fedora",
-  "updatedAt": "2026-06-15T14:34:54.119Z",
+  "updatedAt": "2026-06-15T14:42:12.705Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -174,8 +174,16 @@
       ],
       "capsuleCaptures": [
         {
-          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/rocky-capsule-dark-calculator.png",
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-calculator.png",
           "shot": "default"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-calculator-basic.png",
+          "shot": "basic"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-fedora/apps-visual-capsule/fedora-capsule-dark-calculator-advanced.png",
+          "shot": "advanced"
         }
       ],
       "capsuleParity": {
@@ -195,7 +203,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "Φ=46.6 Φ_norm=39.4.",
-        "comparedAt": "2026-06-15T14:34:24.437Z"
+        "comparedAt": "2026-06-15T14:42:10.242Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -431,7 +439,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=51.6 — écart résiduel documenté.",
-        "comparedAt": "2026-06-15T14:34:24.932Z"
+        "comparedAt": "2026-06-15T14:42:10.655Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -594,7 +602,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=40.5 — écart résiduel documenté.",
-        "comparedAt": "2026-06-15T14:34:25.314Z",
+        "comparedAt": "2026-06-15T14:42:11.087Z",
         "appCt": "accepted"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
@@ -708,7 +716,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=47.1 — écart résiduel documenté.",
-        "comparedAt": "2026-06-15T14:34:25.746Z"
+        "comparedAt": "2026-06-15T14:42:11.484Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -932,7 +940,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=40.8 — écart résiduel documenté.",
-        "comparedAt": "2026-06-15T14:34:26.135Z"
+        "comparedAt": "2026-06-15T14:42:11.865Z"
       },
       "note": "Campagne store Fedora 2026-06-10 — navigation D-Bus org.gtk.Actions set-mode + details-pkg (firefox/rpm) ; virsh hôte ; 4 vues distinctes.",
       "contentSpec": {
@@ -1301,7 +1309,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=42.7 — écart résiduel documenté.",
-        "comparedAt": "2026-06-15T14:34:26.608Z"
+        "comparedAt": "2026-06-15T14:42:12.279Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {
@@ -1413,7 +1421,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "Φ=45.8 Φ_norm=39.4.",
-        "comparedAt": "2026-06-15T14:34:27.092Z"
+        "comparedAt": "2026-06-15T14:42:12.705Z"
       },
       "note": "Marqué documented — captures VM à collecter (vm-apps-visual-playbook.sh)",
       "contentSpec": {

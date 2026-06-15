@@ -66,7 +66,10 @@ Défini dans le contrat `layers.core.commands` et `command-core.js` — voir aus
 | `terminal-network.js` | `wget`, `ip`, `netstat`, `ping`, `ssh`, `dig`, etc. (CapsuleOnly) |
 | `terminal-users.js` | `chmod`, `chown`, `chgrp`, `adduser`, `passwd`, `chattr`, `lsattr` |
 | `terminal-system-info.js` | `mount`, `umount`, `lscpu`, `lshw`, `shutdown`, `reboot` |
+| `terminal-command-options.js` | Index Tab : flags et sous-commandes réellement implémentés |
 | `terminal-package-managers.js` | `apt`, `dnf`, `yum`, `zypper`, `pacman`, `rpm`, `dpkg` |
+
+Complétion Tab : `common/terminal-completion.js` consomme `terminal-command-options.js` (phases commande → option/sous-commande → chemin).
 
 ---
 
@@ -161,6 +164,8 @@ Exemples : `echo Bonjour > notes.txt` · `ls \| grep txt` · `cat log.txt \| sor
 <script src=".../terminal-network.js"></script>
 <script src=".../terminal-users.js"></script>
 <script src=".../terminal-system-info.js"></script>
+<script src=".../terminal-command-options.js"></script>
+<script src=".../common/terminal-completion.js"></script>
 <script src=".../executeCommand.js"></script>
 ```
 

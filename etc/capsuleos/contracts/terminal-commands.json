@@ -142,7 +142,9 @@
       "processes": "usr/lib/capsuleos/shells/linux/terminal/terminal-processes.js",
       "network": "usr/lib/capsuleos/shells/linux/terminal/terminal-network.js",
       "users": "usr/lib/capsuleos/shells/linux/terminal/terminal-users.js",
-      "systemInfo": "usr/lib/capsuleos/shells/linux/terminal/terminal-system-info.js"
+      "systemInfo": "usr/lib/capsuleos/shells/linux/terminal/terminal-system-info.js",
+      "commandOptions": "usr/lib/capsuleos/shells/linux/terminal/terminal-command-options.js",
+      "completion": "usr/lib/capsuleos/common/terminal-completion.js"
     },
     "coverageMatrix": "root/docs/inventaires/terminal-command-coverage-matrix.json"
   },

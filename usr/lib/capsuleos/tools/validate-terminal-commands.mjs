@@ -151,6 +151,7 @@ const requiredSnippets = [
     'terminal-processes.js',
     'terminal-network.js',
     'terminal-users.js',
+    'terminal-command-options.js',
 ];
 
 Object.entries(contract.implementation?.modules || {}).forEach(([key, relPath]) => {

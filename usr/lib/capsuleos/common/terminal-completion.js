@@ -1,11 +1,15 @@
 /**
- * Complétion Tab du prompt terminal CapsuleOS (commandes + chemins FS virtuel).
+ * Complétion Tab du prompt terminal CapsuleOS (commandes, options, sous-commandes, chemins).
  * API : window.CapsuleTerminalCompletion
  */
 (function initCapsuleTerminalCompletion(global) {
     'use strict';
 
     const DOUBLE_TAB_MS = 450;
+
+    function getOptionsApi() {
+        return global.CapsuleTerminalCommandOptions || null;
+    }
 
     function getActiveCommands() {
         if (typeof global.getTerminalActiveCommands === 'function') {
@@ -53,7 +57,7 @@
                     && node[key] !== null);
             entries.push({ name, isDir });
         });
-        return entries.sort((a, b) => a.name.localeCompare(b.name));
+        return entries.sort((a, b) => a.name.localeCompare(b));
     }
 
     function commonPrefix(strings) {
@@ -75,6 +79,28 @@
         return prefix;
     }
 
+    function tokenizeAfterCommand(afterCommand) {
+        const trimmed = String(afterCommand || '').replace(/\s+$/, '');
+        if (!trimmed) {
+            return { tokens: [], lastToken: '', priorTokens: [] };
+        }
+        const tokens = trimmed.split(/\s+/).filter(Boolean);
+        const lastTokenMatch = afterCommand.match(/(?:^|\s)([^\s]*)$/);
+        const lastToken = lastTokenMatch ? lastTokenMatch[1] : '';
+        const priorTokens = tokens.slice(0, Math.max(0, tokens.length - (lastToken ? 1 : 0)));
+        return { tokens, lastToken, priorTokens };
+    }
+
+    function subcommandResolved(command, priorTokens, lastToken) {
+        const api = getOptionsApi();
+        if (!api || typeof api.getSubcommands !== 'function') {
+            return false;
+        }
+        const subs = api.getSubcommands(command);
+        return priorTokens.some((token) => subs.includes(token))
+            || subs.includes(lastToken);
+    }
+
     function parseInputLine(line) {
         const raw = String(line || '');
         const leading = raw.length - raw.trimStart().length;
@@ -85,20 +111,67 @@
                 phase: 'command',
                 commandPrefix: trimmed,
                 replaceStart: leading,
-                replaceEnd: raw.length
+                replaceEnd: raw.length,
             };
         }
+
         const command = trimmed.slice(0, firstSpace);
         const afterCommand = trimmed.slice(firstSpace + 1);
-        const lastTokenMatch = afterCommand.match(/(?:^|\s)([^\s]*)$/);
-        const pathPrefix = lastTokenMatch ? lastTokenMatch[1] : '';
-        const pathStartInTrimmed = trimmed.length - pathPrefix.length;
+        const { lastToken, priorTokens } = tokenizeAfterCommand(afterCommand);
+        const tokenStartInTrimmed = trimmed.length - lastToken.length;
+        const replaceStart = leading + tokenStartInTrimmed;
+        const replaceEnd = raw.length;
+
+        const api = getOptionsApi();
+
+        if (lastToken.startsWith('-')) {
+            return {
+                phase: 'option',
+                command,
+                tokenPrefix: lastToken,
+                priorTokens,
+                replaceStart,
+                replaceEnd,
+            };
+        }
+
+        if (api && typeof api.getOptions === 'function') {
+            const bareOptions = api.getOptions(command).filter((entry) => !entry.startsWith('-'));
+            if (bareOptions.length && !subcommandResolved(command, priorTokens, lastToken)
+                && bareOptions.some((entry) => entry.startsWith(lastToken))) {
+                return {
+                    phase: 'option',
+                    command,
+                    tokenPrefix: lastToken,
+                    priorTokens,
+                    replaceStart,
+                    replaceEnd,
+                };
+            }
+        }
+
+        if (api && typeof api.hasSubcommands === 'function' && api.hasSubcommands(command)
+            && !subcommandResolved(command, priorTokens, lastToken)) {
+            const onlyFlagsBefore = priorTokens.every((token) => token.startsWith('-'));
+            if (onlyFlagsBefore || priorTokens.length === 0) {
+                return {
+                    phase: 'subcommand',
+                    command,
+                    tokenPrefix: lastToken,
+                    priorTokens,
+                    replaceStart,
+                    replaceEnd,
+                };
+            }
+        }
+
         return {
             phase: 'path',
             command,
-            pathPrefix,
-            replaceStart: leading + pathStartInTrimmed,
-            replaceEnd: raw.length
+            pathPrefix: lastToken,
+            priorTokens,
+            replaceStart,
+            replaceEnd,
         };
     }
 
@@ -132,6 +205,22 @@
         return getActiveCommands().filter((name) => name.startsWith(needle));
     }
 
+    function matchOptionCompletions(command, prefix) {
+        const api = getOptionsApi();
+        if (!api || typeof api.matchOptions !== 'function') {
+            return [];
+        }
+        return api.matchOptions(command, prefix);
+    }
+
+    function matchSubcommandCompletions(command, prefix) {
+        const api = getOptionsApi();
+        if (!api || typeof api.matchSubcommands !== 'function') {
+            return [];
+        }
+        return api.matchSubcommands(command, prefix);
+    }
+
     function matchPathCompletions(session, pathPrefix) {
         const resolved = resolvePathBase(session, pathPrefix);
         if (!resolved) {
@@ -144,16 +233,17 @@
             .filter((entry) => entry.name.toLowerCase().startsWith(needle))
             .map((entry) => ({
                 value: `${dirPrefix}${completionSuffix(entry, entry.isDir)}`,
-                display: `${dirPrefix}${completionSuffix(entry, entry.isDir)}`
+                display: `${dirPrefix}${completionSuffix(entry, entry.isDir)}`,
             }));
         return { matches, dirPrefix, namePrefix };
     }
 
-    function applyCompletion(input, replaceStart, replaceEnd, completed) {
+    function applyCompletion(input, replaceStart, replaceEnd, completed, addTrailingSpace) {
         const raw = String(input.value || '');
-        const next = `${raw.slice(0, replaceStart)}${completed}${raw.slice(replaceEnd)}`;
+        const suffix = addTrailingSpace ? ' ' : '';
+        const next = `${raw.slice(0, replaceStart)}${completed}${suffix}${raw.slice(replaceEnd)}`;
         input.value = next;
-        const cursor = replaceStart + completed.length;
+        const cursor = replaceStart + completed.length + suffix.length;
         input.setSelectionRange(cursor, cursor);
     }
 
@@ -173,8 +263,18 @@
         return {
             lastAt: 0,
             lastKey: '',
-            listedKey: ''
+            listedKey: '',
         };
+    }
+
+    function currentTokenPrefix(parsed) {
+        if (parsed.phase === 'command') {
+            return parsed.commandPrefix;
+        }
+        if (parsed.phase === 'option' || parsed.phase === 'subcommand') {
+            return parsed.tokenPrefix;
+        }
+        return parsed.pathPrefix;
     }
 
     function handleTabCompletion(input, session, output, tabState) {
@@ -190,6 +290,7 @@
         let matches = [];
         let replaceValue = '';
         let listKey = '';
+        let addTrailingSpace = false;
 
         if (parsed.phase === 'command') {
             const names = matchCommandCompletions(parsed.commandPrefix);
@@ -197,9 +298,36 @@
             listKey = `cmd:${parsed.commandPrefix}`;
             if (names.length === 1) {
                 replaceValue = names[0];
+                addTrailingSpace = true;
             } else if (names.length > 1) {
                 const shared = commonPrefix(names);
                 if (shared.length > parsed.commandPrefix.length) {
+                    replaceValue = shared;
+                }
+            }
+        } else if (parsed.phase === 'option') {
+            const flags = matchOptionCompletions(parsed.command, parsed.tokenPrefix);
+            matches = flags.map((flag) => ({ value: flag, display: flag }));
+            listKey = `opt:${parsed.command}:${parsed.tokenPrefix}`;
+            if (flags.length === 1) {
+                replaceValue = flags[0];
+                addTrailingSpace = true;
+            } else if (flags.length > 1) {
+                const shared = commonPrefix(flags);
+                if (shared.length > parsed.tokenPrefix.length) {
+                    replaceValue = shared;
+                }
+            }
+        } else if (parsed.phase === 'subcommand') {
+            const subs = matchSubcommandCompletions(parsed.command, parsed.tokenPrefix);
+            matches = subs.map((sub) => ({ value: sub, display: sub }));
+            listKey = `sub:${parsed.command}:${parsed.tokenPrefix}`;
+            if (subs.length === 1) {
+                replaceValue = subs[0];
+                addTrailingSpace = true;
+            } else if (subs.length > 1) {
+                const shared = commonPrefix(subs);
+                if (shared.length > parsed.tokenPrefix.length) {
                     replaceValue = shared;
                 }
             }
@@ -241,8 +369,9 @@
 
         tabState.listedKey = '';
 
-        if (replaceValue && replaceValue !== (parsed.phase === 'command' ? parsed.commandPrefix : parsed.pathPrefix)) {
-            applyCompletion(input, parsed.replaceStart, parsed.replaceEnd, replaceValue);
+        const prefix = currentTokenPrefix(parsed);
+        if (replaceValue && replaceValue !== prefix) {
+            applyCompletion(input, parsed.replaceStart, parsed.replaceEnd, replaceValue, addTrailingSpace);
             return true;
         }
 
@@ -277,6 +406,8 @@
         escapeForDisplay,
         getActiveCommands,
         matchCommandCompletions,
-        matchPathCompletions
+        matchOptionCompletions,
+        matchSubcommandCompletions,
+        matchPathCompletions,
     };
-})(typeof window !== 'undefined' ? window : globalThis);
+}(typeof window !== 'undefined' ? window : globalThis));

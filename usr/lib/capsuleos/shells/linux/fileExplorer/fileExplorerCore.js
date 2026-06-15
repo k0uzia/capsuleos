@@ -458,11 +458,12 @@ const shouldHideListViewItem = (item, directoryPath) => {
     if (isCosmicFilesExplorer() && item.name === 'Public') {
         return true;
     }
-    // snap : artefact Ubuntu — jamais présent sur Mint/Cinnamon ni KDE (vérité VM).
+    // snap : artefact Ubuntu — masqué hors Ubuntu (vérité VM Fedora/Rocky/Alma).
     if (
         directoryPath === getFileExplorerRoot()
         && item.name === 'snap'
-        && (usesNemoListViewFrenchColumns() || isDolphinTemplate() || isNemoTemplate())
+        && (usesNemoListViewFrenchColumns() || isDolphinTemplate() || isNemoTemplate()
+            || isNautilusGnomeTemplate())
     ) {
         return true;
     }

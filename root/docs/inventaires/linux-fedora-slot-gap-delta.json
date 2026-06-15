@@ -1,6 +1,6 @@
 {
   "registryId": "linux-fedora",
-  "generatedAt": "2026-06-15T14:34:54.370Z",
+  "generatedAt": "2026-06-15T15:17:14.870Z",
   "toolkit": "gnome",
   "coherenceContract": "root/docs/convention-reproduction-parfaite.md",
   "workflow": [
@@ -63,19 +63,12 @@
       "requiresSlot": true,
       "inSlotsManifest": true,
       "hasToolkitSpec": true,
-      "reuseSigma": false,
-      "visualMatch": "partial",
+      "reuseSigma": true,
+      "visualMatch": "ok",
       "functionalDepth": "full",
-      "realSigma": false,
+      "realSigma": true,
       "documented": true,
-      "openGaps": [
-        {
-          "id": "real-sigma-calculator-vp",
-          "dimension": "chrome",
-          "severity": "high",
-          "status": "open"
-        }
-      ]
+      "openGaps": []
     },
     {
       "vmId": "org.gnome.Snapshot",
@@ -567,7 +560,7 @@
       "vSigmaClosed": true,
       "vSigmaReason": "VΣ clôturé — inventaire ui-state-effects",
       "registryClosed": false,
-      "p0Closed": 4,
+      "p0Closed": 5,
       "p0Total": 7
     },
     "openContentGaps": [
@@ -578,14 +571,6 @@
         "severity": "high",
         "status": "open",
         "note": "VΣ non clôturé — matrice absente"
-      },
-      {
-        "id": "real-sigma-calculator-vp",
-        "slotId": "calculator",
-        "dimension": "chrome",
-        "severity": "high",
-        "status": "open",
-        "note": "parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)"
       },
       {
         "id": "real-sigma-text_editor-vp",
@@ -633,7 +618,6 @@
       "p1": []
     },
     "slotsNeedingVisual": [
-      "calculator",
       "text_editor",
       "firefox",
       "themes",
@@ -700,14 +684,14 @@
     "vmAppsInstalled": 33,
     "catalogRows": 37,
     "mappedSlots": 17,
-    "reuseEligible": 12,
-    "openGapsTotal": 7,
+    "reuseEligible": 13,
+    "openGapsTotal": 6,
     "p0CatalogGaps": 0,
     "unmappedVm": 0,
     "gapDeltaEmpty": false,
     "parityDebtP0": 0,
     "parityWorkRemaining": false,
-    "realSigmaP0": "4/7",
+    "realSigmaP0": "5/7",
     "realSigmaRegistry": false
   },
   "materialization": {

@@ -1227,6 +1227,12 @@ div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer {
     pointer-events: none;
 }
 
+/* VM Nautilus 47 : pas de pastille compteur au repos (home) — visible seulement en sélection. */
+main#gestionnaire.nautilus-app--n47 #nemoFooterContainer:not(.nautilus-app__status-pill--selection),
+div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer:not(.nautilus-app__status-pill--selection) {
+    display: none;
+}
+
 .nautilus-app--n47 .nautilus-app__status-text {
     margin: 0;
     font-size: 0.78rem;

@@ -108,12 +108,7 @@ const runScenarioAction = async (page, action) => {
   }
 };
 
-const vendorPrefix = (registryId) => {
-  if (registryId === 'linux-alma') return 'alma';
-  if (registryId === 'linux-fedora') return 'fedora';
-  if (registryId === 'linux-ubuntu') return 'ubuntu';
-  return 'rocky';
-};
+import { vendorPrefix } from './apps-parity-capture-lib.mjs';
 
 const main = async () => {
   const opts = parseArgs();
@@ -140,6 +135,7 @@ const main = async () => {
   });
 
   const shots = [
+    { file: `${prefix}-capsule-dark-calculator-window.png`, windowOnly: true },
     { file: `${prefix}-capsule-dark-calculator.png` },
     { file: `${prefix}-capsule-dark-calculator-basic.png`, before: ['basic-2plus2'] },
     { file: `${prefix}-capsule-dark-calculator-chain-clear.png`, before: ['chain-5x3'] },
@@ -161,7 +157,11 @@ const main = async () => {
       }
     }
     const out = path.join(dest, shot.file);
-    await page.screenshot({ path: out, fullPage: false });
+    if (shot.windowOnly) {
+      await page.locator('.windowElement[data-link="calculator"]').screenshot({ path: out });
+    } else {
+      await page.screenshot({ path: out, fullPage: false });
+    }
     process.stdout.write(`  → ${out}\n`);
   }
 

@@ -119,6 +119,17 @@
         }
       ]
     },
+    "../../../home/public/capsuleos-lab": {
+      "label": "capsuleos-lab",
+      "items": [
+        {
+          "type": "file",
+          "name": "README.txt",
+          "extension": "txt",
+          "href": "../../../home/public/capsuleos-lab/README.txt"
+        }
+      ]
+    },
     "../../../home/public/snap": {
       "label": "snap",
       "items": []
@@ -130,6 +141,11 @@
           "type": "folder",
           "name": "Bureau",
           "path": "../../../home/public/Bureau"
+        },
+        {
+          "type": "folder",
+          "name": "capsuleos-lab",
+          "path": "../../../home/public/capsuleos-lab"
         },
         {
           "type": "folder",

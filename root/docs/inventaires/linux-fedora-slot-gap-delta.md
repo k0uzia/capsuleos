@@ -1,6 +1,6 @@
 # SlotMap / GapΔ — linux-fedora
 
-> Généré : `2026-06-15T14:34:54.370Z` · Toolkit : **gnome** · [convention-reproduction-parfaite.md](../convention-reproduction-parfaite.md) §2c
+> Généré : `2026-06-15T15:17:14.870Z` · Toolkit : **gnome** · [convention-reproduction-parfaite.md](../convention-reproduction-parfaite.md) §2c
 
 ```bash
 node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-fedora --write
@@ -12,13 +12,13 @@ node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-fedora --
 |------------|--------|
 | Apps VM | 33 |
 | Slots mappés | 17 |
-| Réutilisation Σ (ReuseΣ) | 12 |
-| contentGaps ouverts | 7 |
+| Réutilisation Σ (ReuseΣ) | 13 |
+| contentGaps ouverts | 6 |
 | Écarts catalogue P0 | 0 |
 | Apps VM non mappées | 0 |
 | **GapΔ structurel vide** | ✗ non — campagne ciblée |
 | Dette parité P0 (sans gap ouvert) | 0 |
-| **RealΣ** (Vp ∧ VΣ ∧ depth≠partial) | 4/7 slots · registre ✗ |
+| **RealΣ** (Vp ∧ VΣ ∧ depth≠partial) | 5/7 slots · registre ✗ |
 
 ## Phases CR
 
@@ -41,7 +41,7 @@ node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-fedora --
 | Slot | Priorité | Catalogue | ReuseΣ | visualMatch | depth | RealΣ | Gaps |
 |------|----------|-----------|--------|-------------|-------|-------|------|
 | calendar | P1 | ok | ✓ | unknown | partial | — | 0 |
-| calculator | P0 | ok | — | partial | full | ✗ | 1 |
+| calculator | P0 | ok | ✓ | ok | full | ✓ | 0 |
 | snapshot | P1 | ok | ✓ | unknown | partial | — | 0 |
 | characters | P2 | ok | ✓ | unknown | partial | — | 0 |
 | text_editor | P0 | ok | — | accepted | full | ✓ | 1 |
@@ -61,7 +61,6 @@ node usr/lib/capsuleos/tools/lab/resolve-slot-gap-delta.mjs --id linux-fedora --
 ## GapΔ — contentGaps ouverts
 
 - **—** · Vc · high — VΣ non clôturé — matrice absente
-- **calculator** · chrome · high — parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)
 - **text_editor** · chrome · high — parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)
 - **firefox** · chrome · high — parityDebt auto — visualMatch=partial ; cible Vp (RealΣ = Vp ∧ VΣ ∧ depth≠partial)
 - **firefox** · interaction · medium — functionalDepth=partial sur P0 — cible profondeur full (RealΣ)

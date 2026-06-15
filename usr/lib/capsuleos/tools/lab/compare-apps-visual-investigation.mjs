@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import { appsPathsForRegistry, findCapsuleCapture } from './apps-replication-lib.mjs';
-import { expectedGeometry } from './apps-parity-geometry.mjs';
+import { expectedGeometry, paritySpecForSlot, vmVendorCapturePath } from './apps-parity-geometry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -53,6 +53,45 @@ const centerCrop = (png, width, height) => {
   const oy = Math.floor((png.height - height) / 2);
   PNG.bitblt(png, out, ox, oy, width, height, 0, 0);
   return out;
+};
+
+const rectCrop = (png, crop) => {
+  if (!crop) {
+    return png;
+  }
+  const x = Math.max(0, Math.min(crop.x || 0, png.width - 1));
+  const y = Math.max(0, Math.min(crop.y || 0, png.height - 1));
+  const width = Math.min(crop.width || png.width, png.width - x);
+  const height = Math.min(crop.height || png.height, png.height - y);
+  if (width <= 0 || height <= 0) {
+    return png;
+  }
+  const out = new PNG({ width, height });
+  PNG.bitblt(png, out, x, y, width, height, 0, 0);
+  return out;
+};
+
+const trimEdges = (png, trim = {}) => {
+  if (!trim || (!trim.top && !trim.bottom && !trim.left && !trim.right)) {
+    return png;
+  }
+  const top = trim.top || 0;
+  const left = trim.left || 0;
+  const bottom = trim.bottom || 0;
+  const right = trim.right || 0;
+  const width = png.width - left - right;
+  const height = png.height - top - bottom;
+  if (width <= 0 || height <= 0) {
+    return png;
+  }
+  return rectCrop(png, { x: left, y: top, width, height });
+};
+
+const writeTempPng = (png) => {
+  const file = path.join(ROOT, `var/lib/capsuleos/generated/.parity-crop-${process.pid}-${Date.now()}.png`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, PNG.sync.write(png));
+  return file;
 };
 
 const scaleNearest = (src, tw, th) => {
@@ -193,7 +232,14 @@ const classify = (scores, registryId) => {
   };
 };
 
-const resolveVmCapture = (item) => {
+const resolveVmCapture = (registryId, item) => {
+  const vendorRel = vmVendorCapturePath(registryId, item.controlId);
+  if (vendorRel) {
+    const vendorAbs = path.join(ROOT, vendorRel);
+    if (fs.existsSync(vendorAbs)) {
+      return vendorAbs;
+    }
+  }
   const fromList = item.vmCaptures?.find((c) => c.path)?.path;
   if (fromList) return path.join(ROOT, fromList);
   const shot = (item.componentShots || []).find((s) => s.vmCapture)?.vmCapture;
@@ -201,19 +247,45 @@ const resolveVmCapture = (item) => {
 };
 
 const resolveCapCapture = (registryId, item, paths) => {
+  const windowShot = item.capsuleCaptures?.find((c) => c.shot === 'window' && c.path)?.path;
+  if (windowShot) {
+    const abs = path.join(ROOT, windowShot);
+    if (fs.existsSync(abs)) {
+      return abs;
+    }
+  }
   const rel = item.capsuleCaptures?.find((c) => c.path)?.path;
   if (rel) {
     const abs = path.join(ROOT, rel);
-    if (fs.existsSync(abs)) return abs;
+    if (fs.existsSync(abs)) {
+      return abs;
+    }
   }
   return findCapsuleCapture(registryId, item.controlId, paths);
 };
 
 const compareItem = (opts, item, paths) => {
-  const vmFile = resolveVmCapture(item);
-  const capFile = resolveCapCapture(opts.id, item, paths);
+  let vmFile = resolveVmCapture(opts.id, item);
+  let capFile = resolveCapCapture(opts.id, item, paths);
   if (!vmFile || !capFile || !fs.existsSync(vmFile) || !fs.existsSync(capFile)) {
     return { controlId: item.controlId, status: 'unmeasured' };
+  }
+  const paritySpec = paritySpecForSlot(opts.id, item.controlId);
+  let vmCropTemp = null;
+  let capCropTemp = null;
+  let vmPng = readPng(vmFile);
+  let capPng = readPng(capFile);
+  if (paritySpec?.vmCrop) {
+    vmPng = rectCrop(vmPng, paritySpec.vmCrop);
+  }
+  if (paritySpec?.capsuleTrim) {
+    capPng = trimEdges(capPng, paritySpec.capsuleTrim);
+  }
+  if (paritySpec?.vmCrop || paritySpec?.capsuleTrim) {
+    vmCropTemp = writeTempPng(vmPng);
+    capCropTemp = writeTempPng(capPng);
+    vmFile = vmCropTemp;
+    capFile = capCropTemp;
   }
   const scores = comparePair(vmFile, capFile, {
     flattenVmAlpha: opts.id === 'linux-kde-neon',
@@ -224,6 +296,20 @@ const compareItem = (opts, item, paths) => {
       && (item.controlId === 'terminal' || item.controlId === 'lecteur_multimedia'),
     expectedGeometry: expectedGeometry(opts.id, item.controlId),
   });
+  if (vmCropTemp) {
+    try {
+      fs.unlinkSync(vmCropTemp);
+    } catch (_) {
+      /* ignore */
+    }
+  }
+  if (capCropTemp) {
+    try {
+      fs.unlinkSync(capCropTemp);
+    } catch (_) {
+      /* ignore */
+    }
+  }
   const { visualMatch, gapNotes } = classify(scores, opts.id);
   item.capsuleParity = {
     ...(item.capsuleParity || {}),

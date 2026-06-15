@@ -85,12 +85,7 @@ const runScenarioAction = async (page, action) => {
   }
 };
 
-const vendorPrefix = (registryId) => {
-  if (registryId === 'linux-alma') return 'alma';
-  if (registryId === 'linux-fedora') return 'fedora';
-  if (registryId === 'linux-ubuntu') return 'ubuntu';
-  return 'rocky';
-};
+import { vendorPrefix } from './apps-parity-capture-lib.mjs';
 
 const main = async () => {
   const opts = parseArgs();
@@ -117,6 +112,7 @@ const main = async () => {
   });
 
   const shots = [
+    { file: `${prefix}-capsule-dark-nautilus-window.png`, windowOnly: true },
     { file: `${prefix}-capsule-dark-nautilus.png` },
     { file: `${prefix}-capsule-dark-nautilus-home.png`, before: [] },
     { file: `${prefix}-capsule-dark-nautilus-documents.png`, before: ['nav-documents'] },
@@ -138,7 +134,11 @@ const main = async () => {
       }
     }
     const out = path.join(dest, shot.file);
-    await page.screenshot({ path: out, fullPage: false });
+    if (shot.windowOnly) {
+      await page.locator('.windowElement[data-link="nemo"]').screenshot({ path: out });
+    } else {
+      await page.screenshot({ path: out, fullPage: false });
+    }
     process.stdout.write(`  → ${out}\n`);
   }
 

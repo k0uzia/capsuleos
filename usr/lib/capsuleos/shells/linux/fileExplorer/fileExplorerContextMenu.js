@@ -1,7 +1,8 @@
 /**
- * Menu contextuel explorateur — branche par toolkit :
- *   GNOME Nautilus (Rocky/Ubuntu/Fedora) → #nemo-context-menu (gabarit shell-gnome.html)
- *   Cinnamon Nemo (Mint) → menu dynamique .nemo-app__context-menu
+ * Menu contextuel explorateur — branche par toolkit (ordre : Nemo Cinnamon → Dolphin/Nautilus) :
+ *   Cinnamon Nemo (Mint) → bindNemoContextMenu — menu dynamique .nemo-app__context-menu
+ *   GNOME Nautilus (Rocky/Ubuntu/Fedora) → bindNautilusGnomeContextMenu (#nemo-context-menu)
+ *   KDE Dolphin → bindNautilusGnomeContextMenu (#nemo-context-menu.dolphin-context-menu)
  */
 (function initFileExplorerContextMenu(global) {
     'use strict';
@@ -36,8 +37,17 @@
         && global.CapsuleExplorerRegistry.isNemoFamily()
     );
 
+    const isRegistryDolphinFamily = () => (
+        typeof global.CapsuleExplorerRegistry !== 'undefined'
+        && typeof global.CapsuleExplorerRegistry.isDolphinFamily === 'function'
+        && global.CapsuleExplorerRegistry.isDolphinFamily()
+    );
+
     const isNautilusGnomeScope = (scope) => {
         const root = resolveContextMenuRoot(scope);
+        if (queryScopeMain(root, 'main#gestionnaire.dolphin-app')) {
+            return false;
+        }
         if (queryScopeMain(root, 'main#gestionnaire.nemo-app:not(.nautilus-app)')) {
             return false;
         }
@@ -52,11 +62,17 @@
 
     const isNemoCinnamonScope = (scope) => {
         const root = resolveContextMenuRoot(scope);
+        if (queryScopeMain(root, 'main#gestionnaire.dolphin-app')) {
+            return false;
+        }
         if (queryScopeMain(root, 'main#gestionnaire.nautilus-app')) {
             return false;
         }
         if (queryScopeMain(root, 'main#gestionnaire.nemo-app:not(.nautilus-app)')) {
             return true;
+        }
+        if (isRegistryDolphinFamily()) {
+            return false;
         }
         if (isRegistryNemoFamily()) {
             return true;
@@ -515,9 +531,21 @@
         { action: 'properties', label: 'Propriétés', scopes: 'background item multi sidebar-place' },
     ];
 
+    function pinNemoContextMenuOverlay(menu) {
+        if (!menu || !menu.style) {
+            return;
+        }
+        /* Hors flux flex .windowElement — le skin seul ne suffit pas (computed → relative). */
+        menu.style.setProperty('position', 'fixed', 'important');
+        menu.style.setProperty('z-index', '12000');
+        menu.style.setProperty('margin', '0');
+        menu.style.setProperty('width', 'max-content');
+    }
+
     function ensureNemoMenu(scope) {
         var existing = scope.querySelector('.nemo-app__context-menu');
         if (existing) {
+            pinNemoContextMenuOverlay(existing);
             return existing;
         }
 
@@ -575,6 +603,7 @@
         });
 
         scope.appendChild(menu);
+        pinNemoContextMenuOverlay(menu);
         return menu;
     }
 
@@ -586,6 +615,7 @@
     }
 
     function openNemoMenu(menu, clientX, clientY) {
+        pinNemoContextMenuOverlay(menu);
         menu.hidden = false;
         var rect = menu.getBoundingClientRect();
         var maxLeft = global.innerWidth - rect.width - 8;
@@ -627,6 +657,25 @@
             return activeItem ? 'trash-item' : 'trash';
         }
         return activeItem ? 'item' : 'background';
+    }
+
+    function isNemoTrashEmpty() {
+        if (typeof global.getNautilusVirtualPlaceItems === 'function') {
+            var trashPlace = global.CAPSULE_PLACE_TRASH || '__capsule/place/trash';
+            var items = global.getNautilusVirtualPlaceItems(trashPlace);
+            return !items || !items.length;
+        }
+        if (typeof global.getExplorerStorageKey === 'function') {
+            try {
+                var rawTrash = global.localStorage
+                    && global.localStorage.getItem(global.getExplorerStorageKey('trash'));
+                var trashItems = rawTrash ? JSON.parse(rawTrash) : [];
+                return !Array.isArray(trashItems) || trashItems.length === 0;
+            } catch (trashErr) {
+                return true;
+            }
+        }
+        return true;
     }
 
     function syncNemoMenuScope(menu, profile, itemLink) {
@@ -674,18 +723,7 @@
             } else if (action === 'empty-trash') {
                 disabled = profile !== 'trash' && profile !== 'sidebar-trash' && profile !== 'sidebar-place';
                 if (!disabled) {
-                    try {
-                        var trashKey = typeof global.getExplorerStorageKey === 'function'
-                            ? global.getExplorerStorageKey('trash')
-                            : 'capsule-nemo-trash';
-                        var rawTrash = global.localStorage && global.localStorage.getItem(trashKey);
-                        var trashItems = rawTrash ? JSON.parse(rawTrash) : [];
-                        if (!Array.isArray(trashItems) || trashItems.length === 0) {
-                            disabled = true;
-                        }
-                    } catch (emptyErr) {
-                        disabled = true;
-                    }
+                    disabled = isNemoTrashEmpty();
                 }
             }
             btn.disabled = disabled;
@@ -968,14 +1006,13 @@
         if (!root) {
             return;
         }
-        if (isDolphinScope(root) || isNautilusGnomeScope(root)) {
-            bindNautilusGnomeContextMenu(root);
-            if (root.dataset.nemoContextMenuInit === 'true') {
-                return;
-            }
-        }
+        /* Cinnamon Nemo en premier : le gabarit Dolphin partage .nemo-app sans .nautilus-app. */
         if (isNemoCinnamonScope(root)) {
             bindNemoContextMenu(root);
+            return;
+        }
+        if (isDolphinScope(root) || isNautilusGnomeScope(root)) {
+            bindNautilusGnomeContextMenu(root);
         }
     }
 

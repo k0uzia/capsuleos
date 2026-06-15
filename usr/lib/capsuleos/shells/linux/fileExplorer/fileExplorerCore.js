@@ -2034,9 +2034,11 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
     }
 
     const useInlineRename = !options.skipPrompt
-        && typeof window.isNautilusGnomeTemplate === 'function'
-        && window.isNautilusGnomeTemplate()
-        && typeof window.scheduleExplorerInlineRename === 'function';
+        && typeof window.scheduleExplorerInlineRename === 'function'
+        && (
+            (typeof window.isNemoTemplate === 'function' && window.isNemoTemplate())
+            || (typeof window.isNautilusGnomeTemplate === 'function' && window.isNautilusGnomeTemplate())
+        );
 
     let name = options.defaultName || 'Nouveau dossier';
     if (useInlineRename) {

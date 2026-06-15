@@ -40,8 +40,9 @@ Le moteur exécute ces cycles **automatiquement** via `run-clone-cycle.mjs --aut
 Un seul slot logique `data-link="nemo"` sert **Nemo** (Cinnamon) et **Nautilus** (GNOME). Toute modification de `fileExplorerContextMenu.js` doit respecter :
 
 ```text
-isNautilusGnomeScope  →  bindNautilusGnomeContextMenu  (early return si pas Nautilus)
-isNemoCinnamonScope   →  bindNemoContextMenu            (fallback registry + fall-through)
+isNemoCinnamonScope    →  bindNemoContextMenu            (priorité Mint — garde .dolphin-app)
+isDolphinScope         →  bindNautilusGnomeContextMenu   (menu #nemo-context-menu Dolphin)
+isNautilusGnomeScope   →  bindNautilusGnomeContextMenu   (early return si pas Nautilus)
 ```
 
 **Symptôme** : clic droit absent (Mint) ou menu Nemo sur Rocky.  

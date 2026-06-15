@@ -383,6 +383,7 @@
         }
     }
 
+    global.getExplorerStorageKey = getStorageKey;
     global.usesAdvancedExplorerOps = usesAdvancedExplorerOps;
     global.cutExplorerSelection = cutExplorerSelection;
     global.copyExplorerSelection = copyExplorerSelection;

@@ -15,7 +15,7 @@ CapsuleOS modélise chaque skin Linux avec un **toolkit** distinct. Le noyau JS 
 | `linux-rocky` | GNOME Shell | `rocky` | `nemo` | `nemo-gnome` | `fileExplorerContextMenu.js` → `bindNautilusGnomeContextMenu` (`#nemo-context-menu` dans `shell-gnome.html`) |
 | `linux-ubuntu` | GNOME Shell | `ubuntu` | `nemo` | `nemo-gnome` | idem Rocky (pack icônes Yaru via `explorer-icon-base.js`) |
 | `linux-fedora` | GNOME Shell | `fedora` | `nemo` | `nemo-gnome` | idem Rocky |
-| `linux-debian-kde` | KDE Plasma | `debian` | `nemo` | `dolphin` | `fileExplorerDolphin.js` (pas de menu Nemo/Nautilus) |
+| `linux-debian-kde` | KDE Plasma | `debian` | `nemo` | `dolphin` | `fileExplorerContextMenu.js` → `bindNautilusGnomeContextMenu` (`#nemo-context-menu.dolphin-context-menu`) |
 | `linux-mx-kde` | KDE Plasma | `mx` | `nemo` | `dolphin` | idem KDE |
 | `linux-kde-neon` | KDE Plasma | `neon` | `nemo` | `dolphin` | idem KDE |
 
@@ -29,7 +29,7 @@ CapsuleOS modélise chaque skin Linux avec un **toolkit** distinct. Le noyau JS 
 |--------|-------------------|------------------|---------------|
 | `explorer-icon-base.js` | `icons/cinnamon/nemo` | `icons/gnome/adwaita` ou Yaru | `icons/kde` |
 | `fileExplorerCore.js` | `isNemoTemplate()` | `isNautilusGnomeTemplate()` | `isDolphinTemplate()` |
-| `fileExplorerContextMenu.js` | `bindNemoContextMenu` | `bindNautilusGnomeContextMenu` | — |
+| `fileExplorerContextMenu.js` | `bindNemoContextMenu` | `bindNautilusGnomeContextMenu` | `bindNautilusGnomeContextMenu` (menu Dolphin) |
 | `fileExplorerNautilus*.js` | non chargé | chargé si `loadNautilusExtension` | non chargé |
 | WM behaviors | `cinnamon-window-behaviors.js` | `gnome-window-behaviors.js` | KDE chrome |
 | Menu bureau | `mainMenu-data-cinnamon.js` | overview / dash GNOME | menu KDE |

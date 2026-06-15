@@ -80,14 +80,19 @@ body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__toolbar {
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-menu {
-    position: fixed;
+    position: fixed !important;
     z-index: 12000;
-    min-width: 11rem;
-    padding: 0.35rem 0;
+    width: max-content;
+    min-width: calc(var(--head) * 6.5);
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: calc(var(--head) / 10) 0;
     border: 1px solid var(--nemo-border, #202023);
-    border-radius: 0.35rem;
+    border-radius: calc(var(--head) / 10);
     background: var(--nemo-menu-surface-bg, #303036);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.8);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-menu[hidden] {
@@ -98,14 +103,17 @@ body#mint div[data-link="nemo"] .nemo-app__context-item {
     display: block;
     width: 100%;
     margin: 0;
-    padding: 0.4rem 1rem;
+    padding: calc(var(--head) / 5) calc(var(--head) / 2.5);
     border: 0;
     background: transparent;
-    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    color: inherit;
     font: inherit;
-    font-size: 0.9rem;
+    font-size: inherit;
+    line-height: 1.25;
     text-align: left;
+    white-space: nowrap;
     cursor: var(--p);
+    box-sizing: border-box;
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-item:hover:not(:disabled) {
@@ -144,14 +152,18 @@ body#mint div[data-link="nemo"] .nemo-app__context-submenu {
     position: absolute;
     left: 100%;
     top: 0;
-    min-width: 11rem;
+    width: max-content;
+    min-width: calc(var(--head) * 6.5);
+    max-width: min(22rem, calc(100vw - 16px));
     margin-left: 2px;
-    padding: 0.35rem 0;
+    padding: calc(var(--head) / 10) 0;
     border: 1px solid var(--nemo-border, #202023);
-    border-radius: 0.35rem;
+    border-radius: calc(var(--head) / 10);
     background: var(--nemo-menu-surface-bg, #303036);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
     z-index: 12001;
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.8);
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-submenu[hidden] {

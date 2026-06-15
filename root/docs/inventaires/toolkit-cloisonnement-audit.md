@@ -62,7 +62,7 @@ Pas de nautilus-app ni cinnamon
 | Fichier | Branche Cinnamon | Branche GNOME | Branche KDE |
 |---------|------------------|---------------|-------------|
 | `explorer-icon-base.js` | `CINNAMON_BASE` défaut | `usesGnomeAdwaita()` remap | `usesKdeIcons()` remap |
-| `fileExplorerContextMenu.js` | `bindNemoContextMenu` | `bindNautilusGnomeContextMenu` | — |
+| `fileExplorerContextMenu.js` | `bindNemoContextMenu` | `bindNautilusGnomeContextMenu` | `bindNautilusGnomeContextMenu` |
 | `fileExplorerCore.js` L380 | `isNemoTemplate()` exclut nautilus | `isNautilusGnomeTemplate()` | `isDolphinTemplate()` |
 
 ---
@@ -81,6 +81,8 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 ## 6. Non-régression Mint
 
 Le menu Nemo Cinnamon (dynamique, 7 entrées) reste sur la branche `bindNemoContextMenu` — **pas** le menu Nautilus HTML. Panel/menu pixel-perfect (fbf2d12) non touché.
+
+**Dispatch 2026-06-10** : `bindFileExplorerContextMenu` tente `isNemoCinnamonScope` **avant** Nautilus/Dolphin ; garde `.dolphin-app` pour éviter qu’un gabarit KDE (`.nemo-app` sans `.nautilus-app`) ne reçoive le menu dynamique Mint.
 
 ---
 

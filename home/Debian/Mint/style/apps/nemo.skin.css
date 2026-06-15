@@ -48,7 +48,31 @@ body#mint {
 }
 
 html[data-theme="light"] body#mint {
+    --nemo-bg-primary: #f6f6f8;
+    --nemo-header-bg: #ececee;
+    --nemo-border: rgba(0, 0, 0, 0.12);
+    --nemo-text-primary: rgba(30, 30, 34, 0.9);
+    --nemo-text-muted: rgba(30, 30, 34, 0.55);
+    --nemo-item-hover-bg: rgba(0, 0, 0, 0.06);
+    --nemo-item-active-bg: rgba(31, 158, 222, 0.14);
+    --nemo-menu-surface-bg: #ffffff;
+    --nemo-toolbar-bg: #f0f0f2;
+    --nemo-toolbar-border: rgba(0, 0, 0, 0.1);
+    --nemo-toolbar-button-hover-bg: rgba(0, 0, 0, 0.06);
+    --nemo-toolbar-button-plain-hover: rgba(0, 0, 0, 0.04);
+    --nemo-pathbar-bg: #ffffff;
+    --nemo-pathbar-border: rgba(0, 0, 0, 0.14);
+    --nemo-pathbar-text: #2e2e33;
+    --nemo-sidebar-bg: #e8e8ec;
+    --nemo-footer-bg: #ececee;
+    --nemo-status-text: rgba(30, 30, 34, 0.72);
+    --nemo-tooltip-bg: #f8f8fa;
+    --nemo-tooltip-text: #1e1e22;
+    --nemo-symbolic-icon-filter: brightness(0);
+    --nemo-toolbar-icon-filter: brightness(0);
     --nemo-sidebar-icon-filter: brightness(0);
+    --nemo-list-row-border: rgba(0, 0, 0, 0.08);
+    --nemo-sidebar-text: var(--texte, #1e1e1e);
 }
 
 /* VM : la barre de menus Fichier/Édition/Affichage/Accès/Signets/Aide est visible (défaut nemo Mint)

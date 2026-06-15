@@ -636,6 +636,110 @@ function resolveThemesAccessibilityRoot(root) {
         || root;
 }
 
+let capsuleThemeUiState = null;
+
+function resolveCapsuleThemeDefault() {
+    const bodyId = document.body ? document.body.id : '';
+    const storage = window.CapsuleThemeStorage || {};
+    const isGnomeShell = typeof storage.isGnomeShell === 'function' && storage.isGnomeShell(bodyId);
+    return bodyId === 'mint' || isGnomeShell ? 'dark' : 'light';
+}
+
+function resolveCapsuleThemeCurrent() {
+    const theme = document.documentElement.dataset.theme;
+    if (theme === 'light' || theme === 'dark') {
+        return theme;
+    }
+    const storage = window.CapsuleThemeStorage || {};
+    const saved = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(document.body ? document.body.id : '')
+        : null;
+    if (saved === 'light' || saved === 'dark') {
+        return saved;
+    }
+    return resolveCapsuleThemeDefault();
+}
+
+function syncMintStyleChrome(themesRoot, theme) {
+    if (!themesRoot) {
+        return;
+    }
+    const styleName = theme === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark-Aqua';
+    const label = themesRoot.querySelector('.themes-app__select span');
+    if (label) {
+        label.textContent = styleName;
+    }
+    themesRoot.querySelectorAll('[data-mint-style]').forEach((entry) => {
+        entry.classList.toggle('is-active', entry.getAttribute('data-mint-style') === styleName);
+    });
+    const gtkEl = themesRoot.querySelector('[data-themes-gtk]');
+    const iconsEl = themesRoot.querySelector('[data-themes-icons]');
+    if (gtkEl) {
+        gtkEl.textContent = theme === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark';
+    }
+    if (iconsEl) {
+        iconsEl.textContent = styleName.indexOf('Aqua') >= 0 ? 'Mint-Y-Aqua' : 'Mint-Y-Sand';
+    }
+}
+
+function applyCapsuleDocumentTheme(theme, themesRoot) {
+    const storage = window.CapsuleThemeStorage || {};
+    const resolved = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.themeTransition = 'on';
+    document.documentElement.dataset.theme = resolved;
+    if (typeof storage.persistTheme === 'function') {
+        storage.persistTheme(resolved, document.body ? document.body.id : '');
+    } else {
+        const key = typeof storage.getThemeStorageKey === 'function'
+            ? storage.getThemeStorageKey(document.body ? document.body.id : '')
+            : 'mint-theme';
+        localStorage.setItem(key, resolved);
+    }
+
+    const state = capsuleThemeUiState;
+    const uiRoot = themesRoot || (state && state.root);
+    if (state && state.options) {
+        state.options.forEach((button) => {
+            const isActive = button.getAttribute('data-theme-option') === resolved;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        });
+    }
+    const appearanceRoot = uiRoot ? resolveThemesAppearanceRoot(uiRoot) : null;
+    const help = appearanceRoot && appearanceRoot.querySelector('[data-themes-help]');
+    if (help) {
+        help.textContent = resolved === 'light'
+            ? 'Le thème clair est actif.'
+            : 'Le thème sombre est actif.';
+    }
+    syncMintStyleChrome(uiRoot, resolved);
+
+    if (document.body && document.body.id === 'mint') {
+        const gtkTheme = resolved === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark-Aqua';
+        if (document.body.dataset) {
+            document.body.dataset.capsuleGtkTheme = gtkTheme;
+        }
+        const cinnamonGs = window.CapsuleCinnamonGSettings;
+        if (cinnamonGs && typeof cinnamonGs.setCapsule === 'function') {
+            cinnamonGs.setCapsule('mint-gtk-theme', gtkTheme);
+        }
+        document.dispatchEvent(new CustomEvent('capsule:gtk-theme-changed', { detail: { theme: gtkTheme } }));
+    }
+
+    if (typeof storage.applyWallpaper === 'function') {
+        const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+        storage.applyWallpaper(wpId, document.body ? document.body.id : '');
+        if (uiRoot && typeof buildWallpaperGrid === 'function') {
+            buildWallpaperGrid(uiRoot);
+        }
+    }
+    document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
+    window.setTimeout(() => {
+        delete document.documentElement.dataset.themeTransition;
+    }, 320);
+    return resolved;
+}
+
 function bindMintStyleSelect(root) {
     const selectBtn = root.querySelector('.themes-app__select');
     if (!selectBtn || selectBtn.dataset.mintStyleBound === 'true') {
@@ -692,6 +796,7 @@ function bindMintStyleSelect(root) {
             if (iconsEl) {
                 iconsEl.textContent = styleName.indexOf('Aqua') >= 0 ? 'Mint-Y-Aqua' : 'Mint-Y-Sand';
             }
+            applyCapsuleDocumentTheme(styleName.indexOf('Dark') >= 0 ? 'dark' : 'light', root);
             popover.hidden = true;
             selectBtn.setAttribute('aria-expanded', 'false');
         });
@@ -727,6 +832,7 @@ function initThemesApp() {
     }
 
     if (root.dataset.initialized === 'true') {
+        applyCapsuleDocumentTheme(resolveCapsuleThemeCurrent(), root);
         return;
     }
 
@@ -735,49 +841,13 @@ function initThemesApp() {
     const options = appearanceRoot.querySelectorAll('[data-theme-option]');
     const contrastOptions = accessibilityRoot.querySelectorAll('[data-contrast-option]');
     const fontScaleOptions = accessibilityRoot.querySelectorAll('[data-font-scale-option]');
-    const help = appearanceRoot.querySelector('[data-themes-help]');
     const storage = window.CapsuleThemeStorage || {};
 
     if (!options.length) {
         return;
     }
 
-    const themeStorageKey = typeof storage.getThemeStorageKey === 'function'
-        ? storage.getThemeStorageKey(document.body ? document.body.id : '')
-        : 'mint-theme';
-
-    function applyTheme(theme) {
-        const resolved = theme === 'light' ? 'light' : 'dark';
-        document.documentElement.dataset.themeTransition = 'on';
-        document.documentElement.dataset.theme = resolved;
-        if (typeof storage.persistTheme === 'function') {
-            storage.persistTheme(resolved, document.body ? document.body.id : '');
-        } else {
-            localStorage.setItem(themeStorageKey, resolved);
-        }
-
-        options.forEach(function syncOption(button) {
-            const isActive = button.getAttribute('data-theme-option') === resolved;
-            button.classList.toggle('is-active', isActive);
-            button.setAttribute('aria-checked', isActive ? 'true' : 'false');
-        });
-
-        if (help) {
-            help.textContent = resolved === 'light'
-                ? 'Le thème clair est actif.'
-                : 'Le thème sombre est actif.';
-        }
-
-        if (typeof storage.applyWallpaper === 'function') {
-            const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
-            storage.applyWallpaper(wpId, document.body ? document.body.id : '');
-            buildWallpaperGrid(root);
-        }
-        document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
-        window.setTimeout(() => {
-            delete document.documentElement.dataset.themeTransition;
-        }, 320);
-    }
+    capsuleThemeUiState = { root, options };
 
     function applyContrast(mode) {
         const resolved = typeof storage.applyContrastMode === 'function'
@@ -805,7 +875,7 @@ function initThemesApp() {
 
     options.forEach(function bindOption(button) {
         button.addEventListener('click', function onOptionClick() {
-            applyTheme(button.getAttribute('data-theme-option'));
+            applyCapsuleDocumentTheme(button.getAttribute('data-theme-option'), root);
             if (typeof dispatchCapsuleTask === 'function') {
                 dispatchCapsuleTask('change-theme');
             }
@@ -824,7 +894,7 @@ function initThemesApp() {
         });
     });
 
-    applyTheme(document.documentElement.dataset.theme || 'light');
+    applyCapsuleDocumentTheme(resolveCapsuleThemeCurrent(), root);
     if (contrastOptions.length) {
         applyContrast(document.documentElement.dataset.contrastMode || 'normal');
     }

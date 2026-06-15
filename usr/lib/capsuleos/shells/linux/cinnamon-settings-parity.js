@@ -448,6 +448,9 @@
     }
 
     function hasRealPanel(panelId) {
+        if (panelId === 'themes') {
+            return false;
+        }
         return Boolean(WIRED_PANELS[panelId]);
     }
 
@@ -792,7 +795,16 @@
         if (global.document && global.document.body) {
             global.document.body.dataset.capsuleGtkTheme = theme || 'Mint-Y-Dark-Aqua';
         }
+        if (global.document && global.document.documentElement) {
+            var isDark = !theme || String(theme).indexOf('Dark') >= 0;
+            global.document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+            var storage = global.CapsuleThemeStorage;
+            if (storage && typeof storage.persistTheme === 'function') {
+                storage.persistTheme(isDark ? 'dark' : 'light', global.document.body ? global.document.body.id : '');
+            }
+        }
         dispatch('capsule:gtk-theme-changed', { theme: theme });
+        dispatch('capsule:gnome-theme-changed', { theme: global.document.documentElement.dataset.theme });
     }
 
     function applyIconTheme(theme) {

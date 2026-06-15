@@ -86,6 +86,15 @@ const main = () => {
     process.exit(1);
   }
 
+  if (opts.id === 'linux-mint') {
+    run(
+      'Catalogue fonds Mint',
+      'node',
+      [path.join(ROOT, 'usr/lib/capsuleos/tools/lab/generate-mint-wallpaper-catalog.mjs'), '--write'],
+      opts,
+    );
+  }
+
   if (!opts.skipInventory) {
     run(
       'Inventory WebP (miniatures lab, PNG conservé)',

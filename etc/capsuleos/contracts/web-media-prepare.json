@@ -165,7 +165,7 @@
   },
   "pipelineHooks": {
     "afterPullVm": "prepare-web-media.mjs --vendor <vendor> --rewrite-refs --wallpaper-thumbnails",
-    "pullVmEnvFlag": "PREPARE_WEB_MEDIA=1",
+    "pullVmEnvFlag": "PREPARE_WEB_MEDIA=0 pour désactiver",
     "beforeValidateAssetsAll": "validate-web-media-prepare.mjs",
     "vendorAssetsPipeline": "usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id <registryId>"
   },

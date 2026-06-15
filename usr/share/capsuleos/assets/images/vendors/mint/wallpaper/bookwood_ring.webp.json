@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/bookwood_ring.jpg",
+  "sourceSha256": "92c2245df28d80ea2b7c604ab237ed812f73a3738f204367ed0d9a26d3b3531a",
+  "output": "images/vendors/mint/wallpaper/bookwood_ring.webp",
+  "outputSha256": "6e49c7bb0d97ec0c47b95444763dcc368e1aefbce303e13de8716ec91f45d6eb",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 4000,
+  "height": 2251,
+  "preparedAt": "2026-06-15T19:24:10.298Z"
+}

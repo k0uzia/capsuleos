@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
+  "sourceSha256": "62463b01a6d5fab5b8eb8fbf4a03a8ace149f0a5747bf9b494b351557ad709d2",
+  "output": "images/vendors/mint/wallpaper/mfakurian_abstract.webp",
+  "outputSha256": "b0a44d35751121e460089bae66863271ea95272ec96fa468694073ba433b9d38",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 4096,
+  "height": 3112,
+  "preparedAt": "2026-06-15T19:26:58.037Z"
+}

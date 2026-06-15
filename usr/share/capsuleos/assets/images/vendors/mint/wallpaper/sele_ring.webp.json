@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/sele_ring.jpg",
+  "sourceSha256": "578f7e1a927f9d22ed4b16b144576969330b237da1fba72394d4d2b7b8f24b4f",
+  "output": "images/vendors/mint/wallpaper/sele_ring.webp",
+  "outputSha256": "bad5cda3c79b9689cfc87b6d9ec94a4891b5b5c7969ea18677a8cf1054e6366e",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 3840,
+  "height": 2160,
+  "preparedAt": "2026-06-15T19:27:47.616Z"
+}

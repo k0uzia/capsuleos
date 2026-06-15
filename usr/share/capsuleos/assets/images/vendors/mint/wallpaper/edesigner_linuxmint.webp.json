@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/edesigner_linuxmint.png",
+  "sourceSha256": "00ff4a9fe87f3e0d839aa970913084f30b48cb8d1a7079bdd24b8f6d1d7892e0",
+  "output": "images/vendors/mint/wallpaper/edesigner_linuxmint.webp",
+  "outputSha256": "7e01e592884ebf73f275c8d071e862dab77c59adb54c40c622e6a099f57a8145",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 2000,
+  "height": 1150,
+  "preparedAt": "2026-06-15T19:24:14.994Z"
+}

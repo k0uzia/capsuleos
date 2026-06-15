@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
+  "sourceSha256": "79375b054bf8b913bd78d535aaa03c1755dd3034a19be157f681b0a994d44d83",
+  "output": "images/vendors/mint/wallpaper/mpiwnicki_curtain.webp",
+  "outputSha256": "c2a4ffd66eec5fcc4019922f5ffb7cba91b7aaa312bead1c91615188b74a10cc",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 3840,
+  "height": 2160,
+  "preparedAt": "2026-06-15T19:27:17.396Z"
+}

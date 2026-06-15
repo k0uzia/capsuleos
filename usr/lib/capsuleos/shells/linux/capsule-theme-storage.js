@@ -332,8 +332,8 @@
                 id: 'linuxmint',
                 label: 'Linux Mint',
                 type: 'image',
-                dark: 'vendors/mint/wallpaper/linuxmint.jpg',
-                light: 'vendors/mint/wallpaper/linuxmint.jpg',
+                dark: 'vendors/mint/wallpaper/linuxmint.webp',
+                light: 'vendors/mint/wallpaper/linuxmint.webp',
                 default: true,
             },
         ];

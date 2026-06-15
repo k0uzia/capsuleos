@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
+  "sourceSha256": "ecb57bd648a2271ee18d64489929a850aaa4625ad41a87d5eab664271a6c6ec0",
+  "output": "images/vendors/mint/wallpaper/bookwood_linuxmint.webp",
+  "outputSha256": "1ba5b3ef1107535845946cfafa2c43462c75c3ae0456158b28baa5244c3953ed",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 2040,
+  "height": 1148,
+  "preparedAt": "2026-06-15T19:24:05.393Z"
+}

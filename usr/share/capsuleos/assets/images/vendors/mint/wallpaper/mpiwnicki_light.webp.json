@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
+  "sourceSha256": "761b2aab80feeedd39cc4264f015961fece5ada5194f2184e089b2a0b360ffd1",
+  "output": "images/vendors/mint/wallpaper/mpiwnicki_light.webp",
+  "outputSha256": "b436c88a4f99d231af031291a26b762bd80602d6bfce652503a77e9830cee421",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 5390,
+  "height": 3369,
+  "preparedAt": "2026-06-15T19:27:26.974Z"
+}

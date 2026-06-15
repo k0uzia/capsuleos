@@ -387,22 +387,36 @@ async function generateWallpaperThumbnails(vendor) {
 
 function rewriteReferences(replacements) {
   const exts = ['.html', '.css', '.js', '.json', '.mjs'];
+  const assetsRoot = path.join(ROOT, 'usr/share/capsuleos/assets');
   const touched = [];
   for (const root of SCAN_ROOTS) {
     if (!fs.existsSync(root)) {
       continue;
     }
     const walk = (dir) => {
-      for (const name of fs.readdirSync(dir)) {
-        const full = path.join(dir, name);
-        if (fs.statSync(full).isDirectory()) {
-          if (name === 'node_modules' || name === '.git' || name === 'generated') {
+      for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, ent.name);
+        if (ent.isSymbolicLink()) {
+          continue;
+        }
+        if (ent.isDirectory()) {
+          if (ent.name === 'node_modules' || ent.name === '.git' || ent.name === 'generated') {
             continue;
           }
           walk(full);
           continue;
         }
-        if (!exts.some((e) => name.endsWith(e))) {
+        if (!ent.isFile()) {
+          continue;
+        }
+        if (ent.name.endsWith('.webp.json')) {
+          continue;
+        }
+        if (!exts.some((e) => ent.name.endsWith(e))) {
+          continue;
+        }
+        const resolved = path.resolve(full);
+        if (resolved.startsWith(`${assetsRoot}${path.sep}`) || resolved === assetsRoot) {
           continue;
         }
         let text = fs.readFileSync(full, 'utf8');

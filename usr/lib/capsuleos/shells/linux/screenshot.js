@@ -17,7 +17,7 @@
             }
             return bg;
         }
-        var rel = './assets/images/vendors/mint/default_background.jpg';
+        var rel = './assets/images/vendors/mint/default_background.webp';
         if (bodyId === 'fedora') {
             rel = './assets/images/vendors/fedora/wallpaper/f44-01-night.webp';
             if (global.document.documentElement.dataset.theme === 'light') {

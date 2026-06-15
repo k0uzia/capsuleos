@@ -6,7 +6,7 @@ body#mint {
     /* VM Cinnamon panel1 = 40 px (= --head à 100 %) — suit texte agrandi via a11y-overrides */
     --mint-panel-height: var(--head);
     --taskbar-height: var(--mint-panel-height);
-    --mint: url(./assets/images/vendors/mint/wallpaper/default_background.jpg);
+    --mint: url(./assets/images/vendors/mint/wallpaper/default_background.webp);
     /* VM : gsettings font-name = 'Ubuntu 10' (13.3px) */
     --font-ui: 'Ubuntu', 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
     /* La règle portail universelle `* { font-family: var(--font) }` court-circuite

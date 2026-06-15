@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/jpanchal_wall.jpg",
+  "sourceSha256": "f7795c713d6a59c0a36db047c7f7b7d11bd995cb64bdacad354cfa95a37c97fd",
+  "output": "images/vendors/mint/wallpaper/jpanchal_wall.webp",
+  "outputSha256": "b02ab03484d63fd787e0da038b4fd99e6ec6025f0816f40c228c09fb7661df0a",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 9600,
+  "height": 5400,
+  "preparedAt": "2026-06-15T19:26:28.610Z"
+}

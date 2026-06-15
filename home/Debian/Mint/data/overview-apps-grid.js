@@ -65,7 +65,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Fichiers",
       "labelShort": "Fichiers",
       "slotCapsule": "nemo",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/overview/nemo.png",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/cinnamon/apps/overview/nemo.webp",
       "dataLink": "nemo",
       "launchable": true,
       "decorative": false,

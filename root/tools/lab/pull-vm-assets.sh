@@ -273,6 +273,12 @@ if [[ "$VENDOR" == "fedora" ]]; then
   done
 fi
 
+if [[ "$VENDOR" == "mint" ]]; then
+  echo "=== Fonds d'écran Mint (scan VM) ==="
+  pull_vm_backgrounds
+  pull_vm_wallpaper_thumbs
+fi
+
 if [[ "$VENDOR" == "ubuntu" ]]; then
   mkdir -p "$YARU_ICONS/mimetypes" "$YARU_ICONS/places" "$YARU_ICONS/emblems" \
     "$YARU_ICONS/symbolic/actions" "$YARU_ICONS/symbolic/places" "$YARU_ICONS/symbolic/status"
@@ -387,12 +393,12 @@ Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-them
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/$VENDOR/
 MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
 Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places,emblems,symbolic}/ — PNG/SVG depuis VM
-Fonds ubuntu : wallpaper/ + wallpaper/thumbnails/ (scan VM) ; WebP via prepare-web-media.mjs
+Fonds d'écran : wallpaper/ (+ thumbnails/) — WebP via prepare-web-media.mjs (défaut après pull)
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
 EOF
 
-if [[ "${PREPARE_WEB_MEDIA:-}" == 1 ]]; then
+if [[ "${PREPARE_WEB_MEDIA:-1}" != 0 ]]; then
   echo "=== prepare-web-media ($VENDOR) ==="
   node "$ROOT/usr/lib/capsuleos/tools/prepare-web-media.mjs" \
     --vendor "$VENDOR" --rewrite-refs --wallpaper-thumbnails

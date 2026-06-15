@@ -333,7 +333,7 @@
         var img = global.document.createElement('img');
         img.className = 'viewer-app__image';
         img.alt = 'demo.png';
-        img.src = '../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.jpg';
+        img.src = '../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.webp';
         content.appendChild(img);
         onXviewerRendered(root, { name: 'demo.png' });
         var slideshowBtn = root.querySelector('[data-xv-action="slideshow"]');

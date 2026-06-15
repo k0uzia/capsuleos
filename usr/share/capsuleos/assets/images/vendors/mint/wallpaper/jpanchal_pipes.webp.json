@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source": "images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
+  "sourceSha256": "d00513330050f347ff671bcf844b0943d1c33f4e696a169eab69fd51f40ffb74",
+  "output": "images/vendors/mint/wallpaper/jpanchal_pipes.webp",
+  "outputSha256": "5b00776f5aa4cfe549825f3058d60089d3e43a1bca349a6b1060e93ab890b9c9",
+  "role": "wallpaper",
+  "profile": "wallpaper",
+  "encoder": "ffmpeg+convert",
+  "options": {
+    "quality": 85,
+    "lossless": false
+  },
+  "width": 9600,
+  "height": 5400,
+  "preparedAt": "2026-06-15T19:26:00.495Z"
+}

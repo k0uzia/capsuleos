@@ -154,10 +154,23 @@ function profileFor(role) {
   if (flags.profiles.length === 1) {
     return contract.profiles[flags.profiles[0]];
   }
+  const vendorOverrides = contract.vendorProfileOverrides;
+  if (flags.vendor && vendorOverrides?.[flags.vendor]?.[role]) {
+    return contract.profiles[vendorOverrides[flags.vendor][role]];
+  }
   const roleCfg = contract.roles[role];
   const name = roleCfg?.defaultProfile || 'preserve';
   return contract.profiles[name];
 }
+
+const inputExtsForRole = (role) => {
+  const profile = profileFor(role);
+  const inputExts = new Set(INPUT_EXTS);
+  if (profile?.inputFormats?.includes('webp')) {
+    inputExts.add('.webp');
+  }
+  return inputExts;
+};
 
 function imageSize(file) {
   if (backends.sharp) {
@@ -175,13 +188,23 @@ function imageSize(file) {
 async function transcode(inputPath, outputPath, profile, ext) {
   const lossless = Boolean(profile.lossless);
   const quality = profile.quality ?? 85;
+  const maxWidth = profile.maxWidth;
+  const writePath = path.resolve(inputPath) === path.resolve(outputPath)
+    ? `${outputPath}.tmp-${crypto.randomBytes(6).toString('hex')}`
+    : outputPath;
 
   if (encoder === 'sharp') {
     let pipe = backends.sharp(inputPath, { limitInputPixels: false });
+    if (maxWidth) {
+      pipe = pipe.resize({ width: maxWidth, withoutEnlargement: true });
+    }
     if (lossless) {
-      await pipe.webp({ lossless: true }).toFile(outputPath);
+      await pipe.webp({ lossless: true }).toFile(writePath);
     } else {
-      await pipe.webp({ quality, effort: profile.effort ?? 4 }).toFile(outputPath);
+      await pipe.webp({ quality, effort: profile.effort ?? 4 }).toFile(writePath);
+    }
+    if (writePath !== outputPath) {
+      fs.renameSync(writePath, outputPath);
     }
     return 'sharp';
   }
@@ -193,12 +216,15 @@ async function transcode(inputPath, outputPath, profile, ext) {
       throw new Error(`djxl: ${dj.stderr?.toString() || 'échec'}`);
     }
     const cwArgs = lossless
-      ? ['-lossless', tmpPng, '-o', outputPath]
-      : ['-q', String(quality), tmpPng, '-o', outputPath];
+      ? ['-lossless', tmpPng, '-o', writePath]
+      : ['-q', String(quality), ...(maxWidth ? ['-resize', String(maxWidth), '0'] : []), tmpPng, '-o', writePath];
     const cw = spawnSync('cwebp', cwArgs, { stdio: 'pipe' });
     fs.unlinkSync(tmpPng);
     if (cw.status !== 0) {
       throw new Error(`cwebp: ${cw.stderr?.toString() || 'échec'}`);
+    }
+    if (writePath !== outputPath) {
+      fs.renameSync(writePath, outputPath);
     }
     return 'djxl+cwebp';
   }
@@ -218,15 +244,19 @@ async function transcode(inputPath, outputPath, profile, ext) {
       }
       srcForConvert = tmpPng;
     }
+    const resizeArgs = maxWidth ? ['-resize', `${maxWidth}x>`] : [];
     const cvArgs = lossless
-      ? ['-define', 'webp:lossless=true', srcForConvert, outputPath]
-      : ['-quality', String(quality), srcForConvert, outputPath];
+      ? ['-define', 'webp:lossless=true', ...resizeArgs, srcForConvert, writePath]
+      : ['-quality', String(quality), ...resizeArgs, srcForConvert, writePath];
     const cv = spawnSync('convert', cvArgs, { stdio: 'pipe' });
     if (tmpPng && fs.existsSync(tmpPng)) {
       fs.unlinkSync(tmpPng);
     }
     if (cv.status !== 0) {
       throw new Error(`convert: ${cv.stderr?.toString() || 'échec'}`);
+    }
+    if (writePath !== outputPath) {
+      fs.renameSync(writePath, outputPath);
     }
     return 'ffmpeg+convert';
   }
@@ -272,20 +302,28 @@ function collectTargets() {
         walk(full);
         continue;
       }
-      const ext = path.extname(name).toLowerCase();
-      if (!INPUT_EXTS.has(ext)) {
-        continue;
-      }
       const relAssets = path.relative(ASSETS, full).split(path.sep).join('/');
       if (flags.only && !relAssets.includes(flags.only) && !full.includes(flags.only)) {
         continue;
       }
-      files.push({ full, relAssets, ext });
+      const role = detectRole(relAssets);
+      const inputExts = inputExtsForRole(role);
+      const ext = path.extname(name).toLowerCase();
+      if (!inputExts.has(ext)) {
+        continue;
+      }
+      if (ext === '.webp' && relAssets.includes('/wallpaper/thumbnails/')) {
+        continue;
+      }
+      files.push({ full, relAssets, ext, role });
     }
   };
   roots.forEach(walk);
 
-  const rank = { '.jxl': 4, '.png': 3, '.jpeg': 2, '.jpg': 2, '.tiff': 1, '.tif': 1, '.bmp': 1, '.gif': 1, '.ico': 1 };
+  const rank = {
+    '.jxl': 4, '.png': 3, '.jpeg': 2, '.jpg': 2, '.webp': 1,
+    '.tiff': 1, '.tif': 1, '.bmp': 1, '.gif': 1, '.ico': 1,
+  };
   const byBase = new Map();
   for (const item of files) {
     const baseKey = item.full.slice(0, -item.ext.length);
@@ -324,7 +362,11 @@ async function generateWallpaperThumbnails(vendor) {
     const ext = path.extname(name).toLowerCase();
     const stem = name.replace(/\.[^.]+$/, '');
     const out = path.join(thumbDir, `${stem}-thumb.webp`);
-    if (fs.existsSync(out)) {
+    const outSc = readSidecar(out);
+    const srcSc = readSidecar(full);
+    if (fs.existsSync(out) && outSc && srcSc
+      && outSc.preparedAt && srcSc.preparedAt
+      && Date.parse(outSc.preparedAt) >= Date.parse(srcSc.preparedAt)) {
       skipped.push(path.relative(ASSETS, out));
       continue;
     }
@@ -500,8 +542,7 @@ async function main() {
   const replacements = [];
 
   for (const item of targets) {
-    const { full, relAssets, ext } = item;
-    const role = detectRole(relAssets);
+    const { full, relAssets, ext, role } = item;
     const profile = profileFor(role);
 
     if (!profile || profile.action === 'preserve') {
@@ -522,7 +563,12 @@ async function main() {
     if (fs.existsSync(outPath)) {
       const sc = readSidecar(outPath);
       const srcHash = sha256(full);
-      if (sc?.sourceSha256 === srcHash) {
+      const needsResize = profile.maxWidth && sc?.width && sc.width > profile.maxWidth;
+      if (sc?.sourceSha256 === srcHash && !needsResize) {
+        report.skipped.push({ rel: relAssets, reason: 'up-to-date' });
+        continue;
+      }
+      if (ext === '.webp' && sc?.width && profile.maxWidth && sc.width <= profile.maxWidth) {
         report.skipped.push({ rel: relAssets, reason: 'up-to-date' });
         continue;
       }
@@ -551,18 +597,23 @@ async function main() {
         continue;
       }
 
+      const existingSc = ext === '.webp' ? readSidecar(full) : null;
       const sc = {
         version: 1,
-        source: relAssets,
-        sourceSha256: sha256(full),
+        source: existingSc?.source || relAssets,
+        sourceSha256: existingSc?.sourceSha256 || sha256(full),
         output: outRel,
         outputSha256: sha256(outPath),
         role,
-        profile: contract.roles[role]?.defaultProfile || flags.profiles[0] || 'unknown',
+        profile: contract.vendorProfileOverrides?.[flags.vendor]?.[role]
+          || contract.roles[role]?.defaultProfile
+          || flags.profiles[0]
+          || 'unknown',
         encoder: usedEncoder,
         options: {
           quality: profile.quality,
           lossless: profile.lossless,
+          ...(profile.maxWidth ? { maxWidth: profile.maxWidth } : {}),
         },
         width: size.width,
         height: size.height,

@@ -225,248 +225,740 @@
     },
     {
       "output": "images/vendors/mint/wallpaper/bookwood_linuxmint.webp",
-      "source": "images/vendors/mint/wallpaper/bookwood_linuxmint.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/bookwood_linuxmint.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/bookwood_ring.webp",
-      "source": "images/vendors/mint/wallpaper/bookwood_ring.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/bookwood_ring.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/default_background.webp",
-      "source": "images/vendors/mint/wallpaper/default_background.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/default_background.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/edesigner_linuxmint.webp",
-      "source": "images/vendors/mint/wallpaper/edesigner_linuxmint.png",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/edesigner_linuxmint.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jbaer_wave.webp",
-      "source": "images/vendors/mint/wallpaper/jbaer_wave.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jbaer_wave.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jleung_confetti.webp",
-      "source": "images/vendors/mint/wallpaper/jleung_confetti.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jleung_confetti.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_building.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_building.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_building.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_city.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_city.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_city.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_cpu.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_cpu.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_cpu.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_cubes.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_cubes.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_curved.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_curved.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_curved.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_curves.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_curves.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_curves.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_gold.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_gold.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_gold.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_hearts.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_hearts.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_hearts.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_pipes.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_pipes.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_pipes.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_square.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_square.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_square.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_stripes.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_stripes.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_stripes.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_wall.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_wall.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_wall.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_waves.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_waves.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_waves.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jpanchal_white.webp",
-      "source": "images/vendors/mint/wallpaper/jpanchal_white.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jpanchal_white.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/jvasek_xmas_bokeh.webp",
-      "source": "images/vendors/mint/wallpaper/jvasek_xmas_bokeh.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/jvasek_xmas_bokeh.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/ktee_linuxmint.webp",
-      "source": "images/vendors/mint/wallpaper/ktee_linuxmint.png",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/ktee_linuxmint.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/linuxmint.webp",
-      "source": "images/vendors/mint/wallpaper/linuxmint.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/linuxmint.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/lzhang_uzumaki.webp",
-      "source": "images/vendors/mint/wallpaper/lzhang_uzumaki.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/lzhang_uzumaki.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mfakurian_abstract.webp",
-      "source": "images/vendors/mint/wallpaper/mfakurian_abstract.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mfakurian_abstract.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mfakurian_black.webp",
-      "source": "images/vendors/mint/wallpaper/mfakurian_black.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mfakurian_black.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mfakurian_heart.webp",
-      "source": "images/vendors/mint/wallpaper/mfakurian_heart.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mfakurian_heart.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mfakurian_order.webp",
-      "source": "images/vendors/mint/wallpaper/mfakurian_order.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mfakurian_order.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mfakurian_silver.webp",
-      "source": "images/vendors/mint/wallpaper/mfakurian_silver.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mfakurian_silver.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mpiwnicki_curtain.webp",
-      "source": "images/vendors/mint/wallpaper/mpiwnicki_curtain.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mpiwnicki_curtain.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mpiwnicki_digital_stream.webp",
-      "source": "images/vendors/mint/wallpaper/mpiwnicki_digital_stream.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mpiwnicki_digital_stream.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mpiwnicki_light.webp",
-      "source": "images/vendors/mint/wallpaper/mpiwnicki_light.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mpiwnicki_light.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mpiwnicki_pearl.webp",
-      "source": "images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mpiwnicki_pearl.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/mpiwnicki_sparkling.webp",
-      "source": "images/vendors/mint/wallpaper/mpiwnicki_sparkling.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/mpiwnicki_sparkling.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/pczerwinski_3d_render.webp",
-      "source": "images/vendors/mint/wallpaper/pczerwinski_3d_render.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/pczerwinski_3d_render.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_linuxmint_center.webp",
-      "source": "images/vendors/mint/wallpaper/sele_linuxmint_center.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_linuxmint_center.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_linuxmint.webp",
-      "source": "images/vendors/mint/wallpaper/sele_linuxmint.png",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_linuxmint.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_ring_center_green.webp",
-      "source": "images/vendors/mint/wallpaper/sele_ring_center_green.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_ring_center_green.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_ring_center.webp",
-      "source": "images/vendors/mint/wallpaper/sele_ring_center.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_ring_center.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_ring_green.webp",
-      "source": "images/vendors/mint/wallpaper/sele_ring_green.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_ring_green.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
       "encoder": "ffmpeg+convert"
     },
     {
       "output": "images/vendors/mint/wallpaper/sele_ring.webp",
-      "source": "images/vendors/mint/wallpaper/sele_ring.jpg",
-      "preparedAt": "2026-06-15T19:29:04.845Z",
+      "source": "images/vendors/mint/wallpaper/sele_ring.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/bookwood_linuxmint-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/bookwood_linuxmint-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/bookwood_linuxmint-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/bookwood_linuxmint-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/bookwood_ring-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/bookwood_ring-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/bookwood_ring-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/bookwood_ring-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/default_background-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/default_background-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/default_background-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/default_background-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/edesigner_linuxmint-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/edesigner_linuxmint-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/edesigner_linuxmint-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/edesigner_linuxmint-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jbaer_wave-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jbaer_wave-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jbaer_wave-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jbaer_wave-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jleung_confetti-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jleung_confetti-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jleung_confetti-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jleung_confetti-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_building-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_building-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_building-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_building-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_city-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_city-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_city-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_city-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cpu-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cpu-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cpu-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cpu-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cubes-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cubes-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cubes-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_cubes-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curved-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curved-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curved-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curved-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curves-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curves-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curves-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_curves-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_gold-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_gold-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_gold-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_gold-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_hearts-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_hearts-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_hearts-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_hearts-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_pipes-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_pipes-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_pipes-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_pipes-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_square-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_square-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_square-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_square-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_stripes-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_stripes-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_stripes-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_stripes-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_wall-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_wall-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_wall-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_wall-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_waves-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_waves-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_waves-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_waves-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_white-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_white-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jpanchal_white-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jpanchal_white-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jvasek_xmas_bokeh-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jvasek_xmas_bokeh-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/jvasek_xmas_bokeh-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/jvasek_xmas_bokeh-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/ktee_linuxmint-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/ktee_linuxmint-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/ktee_linuxmint-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/ktee_linuxmint-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/linuxmint-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/linuxmint-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/linuxmint-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/linuxmint-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/lzhang_uzumaki-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/lzhang_uzumaki-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/lzhang_uzumaki-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/lzhang_uzumaki-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_abstract-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_abstract-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_abstract-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_abstract-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_black-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_black-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_black-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_black-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_heart-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_heart-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_heart-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_heart-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_order-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_order-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_order-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_order-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_silver-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_silver-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.883Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mfakurian_silver-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mfakurian_silver-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_curtain-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_curtain-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_curtain-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_curtain-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_digital_stream-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_digital_stream-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_digital_stream-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_digital_stream-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_light-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_light-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_light-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_light-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_pearl-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_pearl-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_pearl-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_pearl-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_sparkling-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_sparkling-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_sparkling-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/mpiwnicki_sparkling-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/pczerwinski_3d_render-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/pczerwinski_3d_render-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/pczerwinski_3d_render-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/pczerwinski_3d_render-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint_center-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint_center-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint_center-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint_center-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_linuxmint-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center_green-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center_green-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center_green-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center_green-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_center-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_green-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_green-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring_green-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring_green-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring-thumb-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring-thumb-thumb.webp",
+      "preparedAt": "2026-06-15T19:42:44.884Z",
+      "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/mint/wallpaper/thumbnails/sele_ring-thumb-thumb.webp",
+      "source": "images/vendors/mint/wallpaper/thumbnails/sele_ring-thumb.webp",
+      "preparedAt": "2026-06-15T19:41:21.954Z",
       "encoder": "ffmpeg+convert"
     },
     {
@@ -1082,5 +1574,5 @@
       "encoder": "ffmpeg+convert"
     }
   ],
-  "updatedAt": "2026-06-15T19:29:04.874Z"
+  "updatedAt": "2026-06-15T19:42:44.916Z"
 }

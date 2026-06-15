@@ -3,15 +3,16 @@
   "source": "images/vendors/mint/wallpaper/sele_ring_green.jpg",
   "sourceSha256": "6b0703fb0a182ceaa09971ce3a2a81b5a04077474dc8bbd4ecfd1de48202f7bd",
   "output": "images/vendors/mint/wallpaper/sele_ring_green.webp",
-  "outputSha256": "fc5a388b2db6fea17c8fe8d9f60c8111b0637d3b522c48cae9c0e7d927a8b145",
+  "outputSha256": "dd64ab41b0f50fce95f3fd3175bb4539feffcf4c939e30a14d44664213d9811f",
   "role": "wallpaper",
-  "profile": "wallpaper",
+  "profile": "wallpaper-capsule",
   "encoder": "ffmpeg+convert",
   "options": {
     "quality": 85,
-    "lossless": false
+    "lossless": false,
+    "maxWidth": 1024
   },
-  "width": 3840,
-  "height": 2160,
-  "preparedAt": "2026-06-15T19:27:53.762Z"
+  "width": 1024,
+  "height": 576,
+  "preparedAt": "2026-06-15T19:42:35.602Z"
 }

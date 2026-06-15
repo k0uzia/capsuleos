@@ -3,15 +3,16 @@
   "source": "images/vendors/mint/wallpaper/jpanchal_cubes.jpg",
   "sourceSha256": "819f5ae40dc3dd52712c415e064b307882304faf77f2411c8683af189047da88",
   "output": "images/vendors/mint/wallpaper/jpanchal_cubes.webp",
-  "outputSha256": "17fcbdf6c36340ad4aed3a9158b8e15639d54820580e6d174ab3e0a23a52be65",
+  "outputSha256": "b02fcbf4836d18fcdc4c2eac999b763da40a034e9f63c118126ab6b13baccb4d",
   "role": "wallpaper",
-  "profile": "wallpaper",
+  "profile": "wallpaper-capsule",
   "encoder": "ffmpeg+convert",
   "options": {
     "quality": 85,
-    "lossless": false
+    "lossless": false,
+    "maxWidth": 1024
   },
-  "width": 7680,
-  "height": 4320,
-  "preparedAt": "2026-06-15T19:25:21.776Z"
+  "width": 1024,
+  "height": 576,
+  "preparedAt": "2026-06-15T19:41:50.511Z"
 }

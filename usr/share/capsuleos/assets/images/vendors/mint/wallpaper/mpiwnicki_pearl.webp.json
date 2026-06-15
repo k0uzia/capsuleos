@@ -3,15 +3,16 @@
   "source": "images/vendors/mint/wallpaper/mpiwnicki_pearl.jpg",
   "sourceSha256": "ec9d1a7aeca61c7c59708ad7f630e7f3ddcc942942cd7c3a5593e22e91e230b6",
   "output": "images/vendors/mint/wallpaper/mpiwnicki_pearl.webp",
-  "outputSha256": "7a0476b814cff6e035e66d5751b47c8ddca1f39d39bb071ad74ca6004764b56c",
+  "outputSha256": "51199263c8e11265205b8da5b5bbc760315ca57f0d26ae4e13fbffb7c29a41f2",
   "role": "wallpaper",
-  "profile": "wallpaper",
+  "profile": "wallpaper-capsule",
   "encoder": "ffmpeg+convert",
   "options": {
     "quality": 85,
-    "lossless": false
+    "lossless": false,
+    "maxWidth": 1024
   },
-  "width": 5472,
-  "height": 3078,
-  "preparedAt": "2026-06-15T19:27:31.563Z"
+  "width": 1024,
+  "height": 576,
+  "preparedAt": "2026-06-15T19:42:29.127Z"
 }

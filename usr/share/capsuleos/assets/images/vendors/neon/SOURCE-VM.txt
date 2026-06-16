@@ -166,3 +166,6 @@ discover/kalzium.svg ← /usr/share/icons/breeze/apps/48/org.kde.kalzium.svg (sh
 discover/ktouch.svg ← /usr/share/icons/breeze/apps/48/org.kde.ktouch.svg (sha256 7ef040ac75e9273fbf23e0454d28ebbfcf12d9a8047df4a783fb137776f52256)
 discover/parley.svg ← /usr/share/icons/breeze/apps/48/parley.svg (sha256 681d92ea2399e697a3537a8a5d7414fa90c340b4608fe5fa42d2117fa660d88d)
 discover/kmplot.svg ← /usr/share/icons/breeze/apps/48/org.kde.kmplot.svg (sha256 642c169d0b74668d4f256576757b378110374832e8c229363310a3221deb6b77)
+
+# import-manifest-staging 2026-06-16T10:01:02.271Z
+files: 31

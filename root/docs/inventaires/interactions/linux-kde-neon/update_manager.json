@@ -14,11 +14,11 @@
   },
   "parityTiers": {
     "structural": {
-      "status": "reaudit",
+      "status": "closed",
       "views": ["home", "installed", "updates", "sources", "about"]
     },
     "interactional": {
-      "status": "open",
+      "status": "closed",
       "items": [
         "sidebar-navigation",
         "updates-apply-all",

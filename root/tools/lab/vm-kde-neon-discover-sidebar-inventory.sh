@@ -24,7 +24,8 @@ done
 
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
 
-REMOTE_SCRIPT='#!/usr/bin/env bash
+REMOTE_SCRIPT="$(cat <<'REMOTE_EOF'
+#!/usr/bin/env bash
 set -euo pipefail
 
 resolve_icon() {
@@ -183,7 +184,8 @@ doc = {
 }
 print(json.dumps(doc, indent=2, ensure_ascii=False))
 PY
-'
+REMOTE_EOF
+)"
 
 echo "=== Inventaire sidebar Discover — $SSH_TARGET ===" >&2
 RAW="$(ssh "${SSH_OPTS[@]}" "$SSH_TARGET" "KDE_NEON_SSH=$SSH_TARGET bash -s" <<< "$REMOTE_SCRIPT")"

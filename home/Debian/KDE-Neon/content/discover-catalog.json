@@ -375,12 +375,12 @@
       "origin": "Ubuntu"
     },
     "firefox": {
-      "summary": "Navigateur rapide et privé",
+      "summary": "Fast, Private & Safe Web Browser",
       "version": "151.0.3~build1",
       "size": "303 Mo",
-      "license": "MPL 2.0",
+      "license": "MPL-2.0",
       "origin": "Mozilla",
-      "description": "Navigateur rapide et privé",
+      "description": "When it comes to your life online, you have a choice: accept the factory settings or put your privacy first. When you choose Firefox as your default browser, you’re choosing to protect your data while supporting an independent tech company. Firefox is also the only major browser backed by a non-profit fighting to give you more openness, transparency and control of your life online. Join hundreds of millions of people who choose to protect what's important by choosing Firefox - a web browser designed to be fast, easy to use, customizable and private.",
       "developer": "Mozilla",
       "verifiedDeveloper": true,
       "installed": true,
@@ -844,8 +844,8 @@
   ],
   "categoryAppsMeta": {
     "source": "vm-kde-neon-discover-category-apps-inventory.sh",
-    "collectedAt": "2026-06-11T15:07:13Z",
-    "vm": "goupil@192.168.123.52",
+    "collectedAt": "2026-06-16T12:47:04Z",
+    "vm": "goupil@192.168.123.236",
     "maxPerCategory": 6
   }
 }

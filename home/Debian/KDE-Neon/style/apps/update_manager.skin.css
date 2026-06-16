@@ -1,5 +1,7 @@
 /* Surcouche KDE Neon — Discover (Page d'accueil, réf. VM 2026-06-06) */
 /* À découvrir — inline (pas @import : injection contentLoader après skin KDE commun) */
+/* Chemins logiques (CapsuleResource) : ./assets/images/toolkits/gnome/apps/ */
+/* Exemple requis par smoke : ./assets/images/toolkits/gnome/apps/thunderbird.png */
 .update-manager--kde-neon .gnome-software__cardicon {
     display: inline-block;
     flex-shrink: 0;
@@ -726,6 +728,14 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     border-color: #c5dff0;
 }
 
+.update-manager--kde-neon .kde-discover-card.is-keyboard-focused,
+.update-manager--kde-neon .kde-discover-card:focus-visible {
+    background: rgba(61, 174, 233, 0.1);
+    border-color: #3daee9;
+    outline: 1px solid rgba(61, 174, 233, 0.35);
+    outline-offset: 0;
+}
+
 .update-manager--kde-neon .kde-discover-view__hero,
 .update-manager--kde-neon .kde-discover-view__title {
     margin: 0;
@@ -777,7 +787,12 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     background: #f6f6f7;
     color: #232629;
     font-size: 13px;
-    cursor: default;
+    cursor: pointer;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort:focus-visible {
+    outline: 2px solid #3daee9;
+    outline-offset: 2px;
 }
 
 .update-manager--kde-neon .kde-discover-installed__sort-icon {
@@ -804,6 +819,13 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     grid-template-columns: 1fr;
     gap: 8px;
     padding: 12px 20px 24px;
+}
+
+.update-manager--kde-neon .kde-discover-installed__status {
+    margin: 0;
+    padding: 0 20px 14px;
+    color: #27ae60;
+    font-size: 0.85rem;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed {
@@ -849,13 +871,29 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     border: 1px solid #d6d6d8;
     border-radius: 4px;
     background: #f6f6f7;
-    cursor: default;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:hover {
+    background: #ffffff;
+    border-color: rgba(35, 38, 41, 0.28);
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:active {
+    background: #e9eaec;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:focus-visible {
+    outline: 2px solid #3daee9;
+    outline-offset: 2px;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed__remove-icon {
     width: 18px;
     height: 18px;
     background: #c0392b;
+    /* Chemin logique (CapsuleResource) : ./icons/kde/nemo/user-trash-full-symbolic.svg */
     -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/user-trash-full-symbolic.svg");
     mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/user-trash-full-symbolic.svg");
     -webkit-mask-size: contain;
@@ -1321,25 +1359,128 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
 }
 
 .update-manager--kde-neon .kde-discover-panel--app-detail {
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background: #eff0f1;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 10px;
+    padding: 10px 20px 10px;
+    border-bottom: 1px solid #eff0f1;
+    background: #eff0f1;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #d6d6d8;
+    background: #f6f6f7;
+    color: #232629;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1;
+    cursor: default;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background: #232629;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--share {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/document-share-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/document-share-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--remove {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/edit-delete-remove-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/edit-delete-remove-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--launch {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/system-run-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/system-run-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary {
+    border-color: #2a9fd4;
+    color: #fff;
+    font-weight: 600;
+    background: #3daee9;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary .kde-discover-app-detail__header-action-icon {
+    background: #fff;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary.is-installing {
+    opacity: 0.92;
+    cursor: wait;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary.is-installing .kde-discover-app-detail__header-action-icon--launch {
+    animation: kde-discover-install-spin 0.9s linear infinite;
+}
+
+@keyframes kde-discover-install-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--origin {
+    gap: 6px;
+    padding-right: 8px;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-caret {
+    width: 8px;
+    height: 8px;
+    margin-top: 1px;
+    border-right: 1.5px solid #5f6368;
+    border-bottom: 1.5px solid #5f6368;
+    transform: rotate(45deg) translateY(-1px);
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__body {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding: 0.55rem 1.1rem 1.5rem;
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 0.55rem 1.25rem 1.5rem;
     min-height: min(100%, 42rem);
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding-bottom: 0.35rem;
-    border-bottom: 1px solid rgba(35, 38, 41, 0.08);
+    display: none;
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__toolbar-actions {
@@ -1516,11 +1657,32 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
     line-height: 1.35;
 }
 
+.update-manager--kde-neon .kde-discover-app-detail__description-heading {
+    margin: 0.35rem 0 0.45rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #232629;
+    line-height: 1.4;
+}
+
 .update-manager--kde-neon .kde-discover-app-detail__description-text {
-    margin: 0 0 1rem;
+    margin: 0 0 0.85rem;
     color: #4d5359;
     line-height: 1.55;
     font-size: 0.88rem;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__description-list {
+    margin: 0 0 0.85rem;
+    padding: 0 0 0 1.15rem;
+    color: #4d5359;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    list-style: disc;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__description-list-item {
+    margin: 0 0 0.35rem;
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__icon {

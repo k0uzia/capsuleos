@@ -1,6 +1,7 @@
 /* Discover Neon — grille « À découvrir » (catalogue magasin CapsuleOS, 11 apps).
  * Chemins relatifs vers usr/share/capsuleos/assets/… (gate validate-css-asset-urls).
  * Inventaire : root/docs/inventaires/linux-kde-neon-discover-store-icons.json
+ * Chemins logiques (CapsuleResource) : ./assets/images/toolkits/gnome/apps/
  */
 .update-manager--kde-neon .gnome-software__cardicon {
     display: inline-block;

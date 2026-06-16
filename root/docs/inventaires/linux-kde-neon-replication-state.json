@@ -348,7 +348,7 @@
       "2026-06-10 : captures VM discover — popup PackageKit (corrigé systemd-run + dismiss KWin)",
       "2026-06-10 : KdVp 07-discover-detail-vlc drift flaky — baseline régénérée 20260610-151302"
     ],
-    "G6_discoverRecursiveAt": "2026-06-11T14:41:02.655Z"
+    "G6_discoverRecursiveAt": "2026-06-16T12:58:36.515Z"
   },
   "campaignGroundRoadmap": "linux-kde-neon-roadmap-ground.md",
   "campaignV10": "v10-derived-post-pivot",
@@ -405,7 +405,7 @@
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-16T10:05:00.000Z",
+  "updatedAt": "2026-06-16T12:58:36.515Z",
   "discoverVmLastRun": {
     "evaluatedAt": "2026-06-11T12:12:10.000Z",
     "vmFlag": "--discover-vm-100",
@@ -424,20 +424,10 @@
     "tool": "run-kde-neon-scenarios-capture-cycle.mjs"
   },
   "discoverRecursiveLastRun": {
-    "evaluatedAt": "2026-06-11T14:45:00.000Z",
+    "evaluatedAt": "2026-06-16T12:58:36.515Z",
     "passOk": true,
-    "vmCaptures": 10,
-    "capsuleCaptures": 13,
-    "vmFlag": "--discover-recursive",
-    "newVmShots": [
-      "vm-discover-search-vlc.png",
-      "vm-discover-category-internet.png",
-      "vm-discover-installed-windowed.png"
-    ],
-    "newCapsuleShots": [
-      "capsule-discover-search-vlc.png",
-      "capsule-discover-category-internet.png"
-    ],
+    "vmCaptures": 30,
+    "capsuleCaptures": 27,
     "failures": [],
     "tool": "run-discover-kde-neon-recursive-capture.mjs"
   }

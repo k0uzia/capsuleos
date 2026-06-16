@@ -13,6 +13,7 @@ const ROOT = path.resolve(__dirname, '../../..');
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const panelG8 = process.argv.includes('--panel-g8');
 const discoverOnly = process.argv.includes('--discover-only');
+const discoverVlcInstallFlow = process.argv.includes('--discover-vlc-install-flow');
 const DEST = args[0] || path.join(ROOT, 'home/public/Images/screen_KDE-Neon');
 const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
 const VIEWPORT = { width: 1211, height: 756 };
@@ -245,7 +246,8 @@ const openSlot = async (page, slot, scene = {}) => {
       { timeout: 60000 },
     );
     const skipStoreSection = scene.discoverView || scene.discoverAppDetail
-      || scene.discoverInstalledAppDetail || scene.discoverSearch || scene.discoverCategory;
+      || scene.discoverInstalledAppDetail || scene.discoverSearch || scene.discoverCategory
+      || scene.discoverVlcInstallFlow;
     if (!skipStoreSection) {
       await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
       await page.waitForFunction(
@@ -430,6 +432,82 @@ const openSlot = async (page, slot, scene = {}) => {
   await sleep(page, 800);
 };
 
+const captureDiscoverVlcInstallFlow = async (page) => {
+  await resetShell(page);
+  await sleep(page, 300);
+  await openSlot(page, 'update_manager', { discoverVlcInstallFlow: true });
+  await page.evaluate(() => {
+    sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+    const root = document.querySelector('.update-manager--kde-neon');
+    if (root) {
+      root.dataset.discoverForceUninstalled = 'vlc';
+    }
+  });
+  await page.waitForSelector('[data-discover-home-mount]', { timeout: 20000 });
+  await page.evaluate(() => {
+    const nav = document.querySelector('[data-discover-nav="home"]');
+    if (nav) {
+      nav.click();
+    }
+  });
+  await page.waitForSelector('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]', {
+    timeout: 20000,
+  });
+  await sleep(page, 500);
+
+  const shots = [
+    'capsule-discover-vlc-install-00-home.png',
+    'capsule-discover-vlc-install-00b-vlc-card-focused.png',
+    'capsule-discover-vlc-install-01-detail.png',
+    'capsule-discover-vlc-install-02-install-click.png',
+    'capsule-discover-vlc-install-03-progress.png',
+    'capsule-discover-vlc-install-04-installed.png',
+  ];
+
+  await page.screenshot({ path: path.join(DEST, shots[0]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[0])}\n`);
+
+  await page.evaluate(() => {
+    const card = document.querySelector('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
+    if (card) {
+      card.classList.add('is-keyboard-focused');
+      card.scrollIntoView({ block: 'center', inline: 'nearest' });
+    }
+  });
+  await sleep(page, 300);
+  await page.screenshot({ path: path.join(DEST, shots[1]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[1])}\n`);
+
+  await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
+  await page.waitForSelector('[data-discover-app-detail]:not([hidden]) [data-discover-app-install="vlc"]', {
+    timeout: 10000,
+  });
+  await page.evaluate(() => {
+    const carousel = document.querySelector('.kde-discover-app-detail__carousel');
+    if (carousel) {
+      carousel.style.display = 'none';
+    }
+  });
+  await sleep(page, 400);
+  await page.screenshot({ path: path.join(DEST, shots[2]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[2])}\n`);
+
+  await page.click('[data-discover-app-install="vlc"]');
+  await page.waitForSelector('[data-discover-app-install="vlc"].is-installing', { timeout: 5000 });
+  await sleep(page, 350);
+  await page.screenshot({ path: path.join(DEST, shots[3]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[3])}\n`);
+
+  await sleep(page, 900);
+  await page.screenshot({ path: path.join(DEST, shots[4]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[4])}\n`);
+
+  await page.waitForSelector('[data-discover-app-launch="vlc"]', { timeout: 10000 });
+  await sleep(page, 400);
+  await page.screenshot({ path: path.join(DEST, shots[5]), fullPage: false });
+  process.stdout.write(`  → ${path.join(DEST, shots[5])}\n`);
+};
+
 const TRAY_POPOVERS = {
   calendar: {
     btn: '#taskbar-clock-trigger',
@@ -485,6 +563,13 @@ const main = async () => {
   await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, {
     timeout: 60000,
   });
+
+  if (discoverVlcInstallFlow) {
+    await captureDiscoverVlcInstallFlow(page);
+    await browser.close();
+    process.stdout.write('OK VLC install-flow Capsule (6 fichiers)\n');
+    return;
+  }
 
   const panelShots = [
     { file: 'capsule-desktop.png' },
@@ -607,8 +692,13 @@ const main = async () => {
     process.stdout.write(`  → ${out} (${fs.statSync(out).size} octets)\n`);
   }
 
+  if (discoverOnly) {
+    await captureDiscoverVlcInstallFlow(page);
+  }
+
   await browser.close();
-  process.stdout.write(`OK ${DEST} (${shots.length} fichiers)\n`);
+  const extra = discoverOnly ? 6 : 0;
+  process.stdout.write(`OK ${DEST} (${shots.length + extra} fichiers)\n`);
 };
 
 main().catch((err) => {

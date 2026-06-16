@@ -69,11 +69,12 @@ try {
       });
       return {
         name: document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim(),
-        primary: document.querySelector('.kde-discover-app-detail__action--primary')?.textContent?.trim(),
+        primary: document.querySelector('.kde-discover-app-detail__header-action--primary')?.textContent?.trim(),
         version: facts.Version || '',
         factsCount: Object.keys(facts).length,
         description: document.querySelector('.kde-discover-app-detail__description-text')?.textContent?.trim(),
-        origin: document.querySelector('.kde-discover-app-detail__origin')?.textContent?.trim(),
+        origin: document.querySelector('.kde-discover-app-detail__header-action--origin span:first-child')?.textContent?.trim()
+            || document.querySelector('.kde-discover-app-detail__header-action--origin')?.textContent?.trim(),
       };
     });
     const meta = (catalog.appDetails || {})[app.id] || {};

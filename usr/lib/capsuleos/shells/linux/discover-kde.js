@@ -241,7 +241,7 @@
                     <span class="kde-discover-card__name">${app.name || ''}</span>
                     <span class="kde-discover-card__desc">${app.desc || ''}</span>
                 </div>
-                <button type="button" class="kde-discover-card--installed__remove" disabled aria-disabled="true" aria-label="Supprimer ${app.name || ''}" title="Supprimer">
+                <button type="button" class="kde-discover-card--installed__remove" aria-label="Supprimer ${app.name || ''}" title="Supprimer">
                     <span class="kde-discover-card--installed__remove-icon" aria-hidden="true"></span>
                 </button>
                 ${sizeMarkup}
@@ -496,8 +496,22 @@
         carousel.dataset.bound = 'true';
     }
 
-    function isInstalledApp(catalog, app) {
+    function isForceUninstalled(root, appId) {
+        if (!root || !appId) {
+            return false;
+        }
+        const forced = (root.dataset.discoverForceUninstalled || '')
+            .split(',')
+            .map((entry) => entry.trim())
+            .filter(Boolean);
+        return forced.includes(appId);
+    }
+
+    function isInstalledApp(catalog, app, root) {
         if (!catalog || !app || !app.id) {
+            return false;
+        }
+        if (root && isForceUninstalled(root, app.id)) {
             return false;
         }
         if (catalog.appDetails && catalog.appDetails[app.id] && catalog.appDetails[app.id].installed) {
@@ -507,18 +521,97 @@
             && catalog.installed.some((entry) => entry.id === app.id);
     }
 
+    function markAppInstalledInCatalog(catalog, app) {
+        if (!catalog || !app || !app.id) {
+            return;
+        }
+        if (!catalog.appDetails) {
+            catalog.appDetails = {};
+        }
+        if (!catalog.appDetails[app.id]) {
+            catalog.appDetails[app.id] = {};
+        }
+        catalog.appDetails[app.id].installed = true;
+        catalog.appDetails[app.id].primaryAction = 'Lancer';
+        if (!Array.isArray(catalog.installed)) {
+            catalog.installed = [];
+        }
+        const alreadyListed = catalog.installed.some((entry) => entry && entry.id === app.id);
+        if (!alreadyListed) {
+            catalog.installed.push({
+                id: app.id,
+                name: app.name || app.id,
+                desc: app.desc || '',
+                icon: app.icon || `${app.id}.png`,
+                sizeKb: catalog.appDetails[app.id].sizeKb || 0,
+            });
+        }
+        if (catalog.installedMeta && typeof catalog.installedMeta.totalCount === 'number') {
+            catalog.installedMeta.totalCount += 1;
+        }
+    }
+
     function renderDescriptionBlock(meta, summary) {
         const title = meta.summary || summary || '';
         const body = meta.description || title;
-        const paragraphs = String(body).split(/\n\n+/).filter(Boolean);
-        const blocks = (paragraphs.length ? paragraphs : [body]).map((paragraph) => (
-            `<p class="kde-discover-app-detail__description-text">${paragraph}</p>`
-        )).join('');
+        const chunks = String(body).split(/\n\n+/).map((part) => part.trim()).filter(Boolean);
+        const parts = chunks.length ? chunks : [String(body).trim()];
+        const blocks = [];
+        let bulletItems = [];
+        const flushBullets = () => {
+            if (!bulletItems.length) {
+                return;
+            }
+            blocks.push(
+                `<ul class="kde-discover-app-detail__description-list">${bulletItems.map((item) => (
+                    `<li class="kde-discover-app-detail__description-list-item">${item}</li>`
+                )).join('')}</ul>`,
+            );
+            bulletItems = [];
+        };
+        parts.forEach((part) => {
+            if (/^•\s*/.test(part)) {
+                bulletItems.push(part.replace(/^•\s*/, ''));
+                return;
+            }
+            flushBullets();
+            if (/^Fonctionnalités\s*:/i.test(part)) {
+                blocks.push(`<h3 class="kde-discover-app-detail__description-heading">${part}</h3>`);
+                return;
+            }
+            blocks.push(`<p class="kde-discover-app-detail__description-text">${part}</p>`);
+        });
+        flushBullets();
         return `
                 <section class="kde-discover-app-detail__description">
                     <h2 class="kde-discover-app-detail__description-title">${title}</h2>
-                    ${blocks}
+                    ${blocks.join('')}
                 </section>`;
+    }
+
+    function renderAppDetailToolbarActions(meta, app, installed, primaryAction, primaryDataAttr) {
+        const originLabel = meta.origin ? `De ${meta.origin}` : '';
+        const actionBtn = (kind, label, extraClass, dataAttr) => (
+            `<button type="button" class="kde-discover-app-detail__header-action kde-discover-app-detail__header-action--${kind}${extraClass ? ` ${extraClass}` : ''}" ${dataAttr || ''}>
+                <span class="kde-discover-app-detail__header-action-icon kde-discover-app-detail__header-action-icon--${kind}" aria-hidden="true"></span>
+                <span>${label}</span>
+            </button>`
+        );
+        const originBtn = originLabel
+            ? `<button type="button" class="kde-discover-app-detail__header-action kde-discover-app-detail__header-action--origin" disabled aria-disabled="true">
+                <span>${originLabel}</span>
+                <span class="kde-discover-app-detail__header-action-caret" aria-hidden="true"></span>
+            </button>`
+            : '';
+        return `
+            <header class="kde-discover-app-detail__header">
+                <div class="kde-discover-app-detail__header-actions">
+                    ${actionBtn('share', 'Partager', '', 'data-discover-app-action="share"')}
+                    ${actionBtn('remove', 'Supprimer', '', 'data-discover-app-action="remove"')}
+                    ${actionBtn('launch', primaryAction, 'kde-discover-app-detail__header-action--primary', primaryDataAttr)}
+                    ${originBtn}
+                </div>
+            </header>`;
     }
 
     function renderAppDetail(root, catalog, app) {
@@ -534,7 +627,7 @@
         const meta = storeMeta || (catalog && catalog.appDetails && catalog.appDetails[app.id]) || {};
         const summary = meta.summary || app.desc || '';
         const screenshots = Array.isArray(meta.screenshots) ? meta.screenshots : [];
-        const installed = isInstalledApp(catalog, app);
+        const installed = isInstalledApp(catalog, app, root);
         const primaryAction = meta.primaryAction || (installed ? 'Lancer' : 'Installer');
         const primaryDataAttr = installed
             ? `data-discover-app-launch="${app.id || ''}"`
@@ -548,18 +641,10 @@
             meta.license ? `<div><dt>Licences</dt><dd><span class="kde-discover-app-detail__license">${meta.license}</span></dd></div>` : '',
             meta.ageRating ? `<div><dt>Âges</dt><dd>${meta.ageRating}</dd></div>` : '',
         ].filter(Boolean).join('');
-        const originLabel = meta.origin ? `De ${meta.origin}` : '';
         panel.innerHTML = `
+            ${renderAppDetailToolbarActions(meta, app, installed, primaryAction, primaryDataAttr)}
             <button type="button" class="kde-discover-app-detail__back sr-only" data-discover-app-back aria-label="Retour">Retour</button>
             <article class="kde-discover-app-detail__body">
-                <div class="kde-discover-app-detail__toolbar">
-                    <div class="kde-discover-app-detail__toolbar-actions">
-                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--share" data-discover-app-action="share">Partager</button>
-                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--remove" data-discover-app-action="remove">Supprimer</button>
-                        <button type="button" class="kde-discover-app-detail__action kde-discover-app-detail__action--primary" ${primaryDataAttr}>${primaryAction}</button>
-                    </div>
-                    ${originLabel ? `<span class="kde-discover-app-detail__origin">${originLabel} ▾</span>` : ''}
-                </div>
                 <div class="kde-discover-app-detail__top">
                     <div class="kde-discover-app-detail__identity">
                         ${renderDiscoverIcon(app, 'kde-discover-app-detail__icon', 96)}
@@ -1067,6 +1152,40 @@
 
     function bindUpdatesActions(root) {
         root.addEventListener('click', (event) => {
+            const removeInstalled = event.target.closest('.kde-discover-card--installed__remove');
+            if (removeInstalled && root.contains(removeInstalled)) {
+                event.preventDefault();
+                const card = removeInstalled.closest('.kde-discover-card--installed');
+                const appId = card ? card.getAttribute('data-discover-app') : '';
+                const status = root.querySelector('[data-discover-installed-status]');
+                loadCatalog().then((catalog) => {
+                    if (!catalog || !appId) {
+                        return;
+                    }
+                    const idx = Array.isArray(catalog.installed)
+                        ? catalog.installed.findIndex((entry) => entry && entry.id === appId)
+                        : -1;
+                    if (idx >= 0) {
+                        const removed = catalog.installed[idx];
+                        catalog.installed.splice(idx, 1);
+                        if (catalog.installedMeta && typeof catalog.installedMeta.totalCount === 'number') {
+                            catalog.installedMeta.totalCount = Math.max(0, catalog.installedMeta.totalCount - 1);
+                        }
+                        if (catalog.appDetails && catalog.appDetails[appId]) {
+                            catalog.appDetails[appId].installed = false;
+                        }
+                        if (status) {
+                            status.hidden = false;
+                            status.textContent = `${removed && removed.name ? removed.name : 'Application'} supprimée (simulation).`;
+                        }
+                        if (state.view === 'installed') {
+                            renderInstalled(root, catalog);
+                        }
+                    }
+                });
+                return;
+            }
+
             const card = event.target.closest('.kde-discover-card');
             if (card && root.contains(card)) {
                 event.preventDefault();
@@ -1093,24 +1212,51 @@
             const installBtn = event.target.closest('[data-discover-app-install]');
             if (installBtn && root.contains(installBtn)) {
                 event.preventDefault();
+                if (installBtn.classList.contains('is-installing')) {
+                    return;
+                }
                 const appId = installBtn.getAttribute('data-discover-app-install') || '';
                 const status = root.querySelector('[data-discover-app-status]');
+                const label = installBtn.querySelector('span:last-child');
+                installBtn.classList.add('is-installing');
+                installBtn.disabled = true;
+                installBtn.setAttribute('aria-disabled', 'true');
+                installBtn.setAttribute('aria-busy', 'true');
+                if (label) {
+                    label.textContent = 'Installation…';
+                }
                 loadCatalog().then((catalog) => {
                     const app = catalog ? findAppById(catalog, appId) : null;
-                    if (app && app.storeInstallable && app.storeEntry) {
-                        notifyStoreInstall(app);
-                    }
-                    if (status) {
-                        status.hidden = false;
-                        status.textContent = app && app.storeInstallable
-                            ? `${app.name || 'Application'} installée (simulation magasin CapsuleOS).`
-                            : 'Installation simulée — application ajoutée au catalogue lab.';
-                    }
-                    installBtn.disabled = true;
-                    installBtn.setAttribute('aria-disabled', 'true');
-                    if (catalog && app && app.storeInstallable) {
-                        renderHome(root, catalog);
-                    }
+                    const finishInstall = () => {
+                        if (app && app.storeInstallable && app.storeEntry) {
+                            notifyStoreInstall(app);
+                        }
+                        if (catalog && app) {
+                            markAppInstalledInCatalog(catalog, app);
+                            if (root.dataset.discoverForceUninstalled) {
+                                const forced = root.dataset.discoverForceUninstalled
+                                    .split(',')
+                                    .map((entry) => entry.trim())
+                                    .filter((entry) => entry && entry !== appId);
+                                if (forced.length) {
+                                    root.dataset.discoverForceUninstalled = forced.join(',');
+                                } else {
+                                    delete root.dataset.discoverForceUninstalled;
+                                }
+                            }
+                            renderAppDetail(root, catalog, app);
+                        }
+                        if (status) {
+                            status.hidden = false;
+                            status.textContent = app && app.storeInstallable
+                                ? `${app.name || 'Application'} installée (simulation magasin CapsuleOS).`
+                                : 'Installation simulée — application ajoutée au catalogue lab.';
+                        }
+                        if (catalog && app && app.storeInstallable) {
+                            renderHome(root, catalog);
+                        }
+                    };
+                    window.setTimeout(finishInstall, 2200);
                 });
                 return;
             }

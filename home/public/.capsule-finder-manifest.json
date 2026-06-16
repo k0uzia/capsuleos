@@ -237,6 +237,42 @@
         },
         {
           "type": "file",
+          "name": "capsule-discover-vlc-install-00-home.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-00-home.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-vlc-install-00b-vlc-card-focused.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-00b-vlc-card-focused.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-vlc-install-01-detail.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-01-detail.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-vlc-install-02-install-click.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-02-install-click.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-vlc-install-03-progress.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-03-progress.png"
+        },
+        {
+          "type": "file",
+          "name": "capsule-discover-vlc-install-04-installed.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover-vlc-install-04-installed.png"
+        },
+        {
+          "type": "file",
           "name": "capsule-discover.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/capsule-discover.png"
@@ -339,6 +375,12 @@
         },
         {
           "type": "file",
+          "name": "vm-ark-cmdline---mode-Installed---application-orgkdearkdesktop.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-ark-cmdline---mode-Installed---application-orgkdearkdesktop.png"
+        },
+        {
+          "type": "file",
           "name": "vm-desktop.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-desktop.png"
@@ -372,6 +414,42 @@
           "name": "vm-discover-detail-vlc.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-detail-vlc.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-00-home.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-00-home.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-01-detail-open.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-01-detail-open.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-02-after-install-click.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-02-after-install-click.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-03-progress.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-03-progress.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-04-installed.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-04-installed.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-install-05-installed-tab.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-install-05-installed-tab.png"
         },
         {
           "type": "file",
@@ -480,6 +558,54 @@
           "name": "vm-discover-updates.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-updates.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-00-home.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-00-home.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-00b-vlc-card-focused.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-00b-vlc-card-focused.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-01-detail.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-01-detail.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-01b-after-remove.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-01b-after-remove.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-01c-after-remove.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-01c-after-remove.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-02-install-click.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-02-install-click.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-03-progress.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-03-progress.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-discover-vlc-install-04-installed.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-discover-vlc-install-04-installed.png"
         },
         {
           "type": "file",

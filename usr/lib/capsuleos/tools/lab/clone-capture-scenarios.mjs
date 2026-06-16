@@ -174,13 +174,17 @@ const plasmaShots = [
         const carousel = document.querySelector('.kde-discover-app-detail__carousel');
         if (carousel) {
           carousel.style.display = 'none';
+          carousel.hidden = true;
         }
+        document.querySelectorAll('.kde-discover-app-detail__shot-img').forEach((img) => {
+          img.style.visibility = 'hidden';
+        });
         const top = document.querySelector('.kde-discover-app-detail__top');
         if (top) {
           top.scrollIntoView({ block: 'start' });
         }
       });
-      await sleep(page, 500);
+      await sleep(page, 900);
     },
   },
 ];

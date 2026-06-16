@@ -296,6 +296,14 @@ def resolve_theme_icon_in_context(
                 p = f"{base}/{size}/{ctx_path}/{clean}.{ext}"
                 if os.path.isfile(p):
                     return p
+        # Breeze / certains thèmes KDE : mimetypes|places/<taille>/<nom>.svg (dossiers 32, 24… pas 32x32)
+        if ctx_path in ("mimetypes", "places", "emblems", "devices", "status", "categories"):
+            kde_sizes = ("64", "48", "32", "24", "22", "16", "scalable")
+            for size in kde_sizes:
+                for ext in exts:
+                    p = f"{base}/{ctx_path}/{size}/{clean}.{ext}"
+                    if os.path.isfile(p):
+                        return p
         # Adwaita/Yaru : symbolic souvent sans répertoire de taille
         if ctx_path.startswith("symbolic/"):
             for ext in exts:
@@ -489,7 +497,8 @@ def scan_fonts(toolkit_id: str, vendor_id: str, catalog: dict[str, Any]) -> dict
             return
         seen.add(vm_path)
         base = os.path.basename(vm_path)
-        capsule_dir = catalog.get("fonts", [{}])[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
+        font_groups = catalog.get("fonts") or [{}]
+        capsule_dir = font_groups[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
         entries.append({
             "family": family,
             "style": style,

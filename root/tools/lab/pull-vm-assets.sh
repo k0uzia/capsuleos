@@ -26,7 +26,7 @@ while [[ $# -gt 0 ]]; do
           ;;
         linux-ubuntu)
           VENDOR="ubuntu"
-          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.122.141}"
+          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.1.183}"
           ICON_THEME="Yaru"
           ;;
         linux-rocky)
@@ -401,8 +401,12 @@ EOF
 if [[ "${PREPARE_WEB_MEDIA:-1}" != 0 ]]; then
   echo "=== prepare-web-media ($VENDOR) ==="
   node "$ROOT/usr/lib/capsuleos/tools/prepare-web-media.mjs" \
-    --vendor "$VENDOR" --rewrite-refs --wallpaper-thumbnails
+    --vendor "$VENDOR" --rewrite-refs --wallpaper-thumbnails --keep-source
   node "$ROOT/usr/lib/capsuleos/tools/validate-web-media-prepare.mjs"
+  if [[ "$VENDOR" == "ubuntu" ]]; then
+    echo "=== ubuntu-wallpaper-catalog ==="
+    node "$ROOT/usr/lib/capsuleos/tools/lab/generate-ubuntu-wallpaper-catalog.mjs" --write
+  fi
 fi
 
 echo "=== Terminé — valider : node usr/lib/capsuleos/tools/validate-asset-zones.mjs ==="

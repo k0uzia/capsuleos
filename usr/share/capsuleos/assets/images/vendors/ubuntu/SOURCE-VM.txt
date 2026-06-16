@@ -1,12 +1,9 @@
-Assets copiés depuis la VM lab (capsule@192.168.122.141) le 2026-06-07T21:12:12Z.
+Assets copiés depuis la VM lab (capsule@192.168.1.183) le 2026-06-16T09:49:36Z.
 Vendor : ubuntu · toolkit : gnome
 Thème icônes VM : Yaru (gsettings org.gnome.desktop.interface icon-theme).
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/ubuntu/
 MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
 Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places,emblems,symbolic}/ — PNG/SVG depuis VM
-Fonds ubuntu : wallpaper/ + wallpaper/thumbnails/ (scan VM) ; WebP via prepare-web-media.mjs
+Fonds d'écran : wallpaper/ (+ thumbnails/) — WebP via prepare-web-media.mjs (défaut après pull)
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
-
-# import-manifest-staging 2026-06-08T20:56:17.757Z
-files: 105

@@ -473,7 +473,19 @@
         ];
     }
 
+    const GRAPHITE_SOLID_ENTRY = {
+        id: 'solid-graphite',
+        label: 'Graphite',
+        type: 'color',
+        dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+        light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+    };
+
     function ubuntuWallpaperCatalog(base) {
+        const injected = global.CAPSULE_UBUNTU_WALLPAPER_CATALOG;
+        if (Array.isArray(injected) && injected.length) {
+            return injected;
+        }
         const thumbs = `${base}/thumbnails`;
         return [
             {
@@ -481,11 +493,11 @@
                 label: 'Adwaita',
                 type: 'image',
                 dark: `${base}/wallpaper-adwaita-dark.webp`,
-                light: `${base}/wallpaper-racoon-light.webp`,
+                light: `${base}/wallpaper-adwaita-dark.webp`,
                 thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
-                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
-                gsettingsDark: 'gnome/adwaita-d.webp',
-                gsettingsLight: 'gnome/adwaita-l.webp',
+                thumbLight: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
+                gsettingsDark: 'ubuntu-wallpaper-d.png',
+                gsettingsLight: 'gnome/adwaita-l.jxl',
             },
             {
                 id: 'racoon',
@@ -497,13 +509,7 @@
                 thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
                 default: true,
             },
-            {
-                id: 'solid-graphite',
-                label: 'Graphite',
-                type: 'color',
-                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
-                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
-            },
+            GRAPHITE_SOLID_ENTRY,
         ];
     }
 
@@ -535,6 +541,18 @@
         }
         const file = mode === 'light' ? entry.light : entry.dark;
         return `url("${toAbsoluteWallpaperUrl(resolveWallpaperAssetUrl(file))}")`;
+    }
+
+    function resolveWallpaperThumb(entry, theme) {
+        if (!entry || entry.type === 'color') {
+            return resolveWallpaperEntry(entry, theme);
+        }
+        const mode = theme === 'light' ? 'light' : 'dark';
+        const thumb = mode === 'light' ? entry.thumbLight : entry.thumbDark;
+        if (thumb) {
+            return `url("${toAbsoluteWallpaperUrl(resolveWallpaperAssetUrl(thumb))}")`;
+        }
+        return resolveWallpaperEntry(entry, theme);
     }
 
     function findWallpaperEntry(wallpaperId, skinId) {
@@ -708,6 +726,7 @@
         getWallpaperVendor: getWallpaperVendor,
         findWallpaperEntry: findWallpaperEntry,
         resolveWallpaperEntry: resolveWallpaperEntry,
+        resolveWallpaperThumb: resolveWallpaperThumb,
         applyWallpaper: applyWallpaper,
         applyCustomWallpaper: applyCustomWallpaper,
         applyWallpaperBackground: applyWallpaperBackground,

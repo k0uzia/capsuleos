@@ -244,7 +244,11 @@ function buildWallpaperGrid(root) {
     grid.querySelectorAll('.gnome-settings-wallpaper[data-wallpaper-id]').forEach((node) => node.remove());
 
     catalog.forEach((entry) => {
-        const background = storage.resolveWallpaperEntry(entry, theme);
+        const background = entry.type === 'color'
+            ? storage.resolveWallpaperEntry(entry, theme)
+            : (typeof storage.resolveWallpaperThumb === 'function'
+                ? storage.resolveWallpaperThumb(entry, theme)
+                : storage.resolveWallpaperEntry(entry, theme));
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'gnome-settings-wallpaper cs-wallpaper-thumb';

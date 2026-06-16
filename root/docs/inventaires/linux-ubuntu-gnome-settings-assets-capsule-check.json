@@ -1,6 +1,6 @@
 {
   "registry": "linux-ubuntu",
-  "generatedAt": "2026-06-13T18:28:12.171Z",
+  "generatedAt": "2026-06-16T09:50:24.898Z",
   "gateA": {
     "assetsTotal": 28,
     "presentInRepo": 26,
@@ -11,7 +11,7 @@
   "gateS": {
     "vmInventoryPath": "root/docs/inventaires/linux-ubuntu-gnome-settings-assets.json",
     "vmInventoryPresent": true,
-    "sha256Compared": 26,
+    "sha256Compared": 0,
     "sha256Drift": 0
   },
   "missingAssets": [],

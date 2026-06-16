@@ -371,33 +371,33 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-cnusr25-Simple_Raccoon_Light.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/cnusr25-Simple_Raccoon_Light.png",
+        "id": "wallpaper-cnusr25-Simple_Raccoon_Light.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/cnusr25-Simple_Raccoon_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-endycal-Flying_Boxes_Dark.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Dark.png",
+        "id": "wallpaper-endycal-Flying_Boxes_Dark.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Dark.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-endycal-Flying_Boxes_Light.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Light.png",
+        "id": "wallpaper-endycal-Flying_Boxes_Light.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Dark.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
+        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Dark.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Light.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
+        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Light.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-iryge-Anomaly.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/iryge-Anomaly.png",
+        "id": "wallpaper-iryge-Anomaly.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/iryge-Anomaly.webp",
         "iconName": null
       },
       {
@@ -406,33 +406,33 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-jdituicha-raccoon1-light.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/jdituicha-raccoon1-light.jpg",
+        "id": "wallpaper-jdituicha-raccoon1-light.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/jdituicha-raccoon1-light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-manuej-Vor.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/manuej-Vor.jpg",
+        "id": "wallpaper-manuej-Vor.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/manuej-Vor.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mendhak-Bluebells_Suspended_In_Time.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
+        "id": "wallpaper-mendhak-Bluebells_Suspended_In_Time.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/mendhak-Bluebells_Suspended_In_Time.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mendhak-Red_Acer.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/mendhak-Red_Acer.jpg",
+        "id": "wallpaper-mendhak-Red_Acer.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/mendhak-Red_Acer.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mizuno-as-Big_Dipper.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/mizuno-as-Big_Dipper.jpg",
+        "id": "wallpaper-mizuno-as-Big_Dipper.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/mizuno-as-Big_Dipper.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mizuno-as-Winter_Grand_Triangle.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
+        "id": "wallpaper-mizuno-as-Winter_Grand_Triangle.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/mizuno-as-Winter_Grand_Triangle.webp",
         "iconName": null
       },
       {
@@ -461,28 +461,28 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-osselo-Ask_a_friend.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/osselo-Ask_a_friend.jpg",
+        "id": "wallpaper-osselo-Ask_a_friend.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/osselo-Ask_a_friend.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
+        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
+        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-rubenslp-Twin_brothers.png",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/rubenslp-Twin_brothers.png",
+        "id": "wallpaper-rubenslp-Twin_brothers.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/rubenslp-Twin_brothers.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
-        "capsuleRelative": "images/vendors/elementary/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
+        "id": "wallpaper-vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
+        "capsuleRelative": "images/vendors/elementary/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
         "iconName": null
       },
       {
@@ -561,31 +561,31 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/elementary/panel/firefox-48.webp",
     "images/vendors/elementary/panel/org.gnome.Nautilus.svg",
     "images/vendors/elementary/panel/org.gnome.Ptyxis.svg",
-    "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
-    "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
+    "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
+    "images/vendors/elementary/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
     "images/vendors/elementary/wallpaper/cnusr25-Simple_Raccoon_Dark.webp",
-    "images/vendors/elementary/wallpaper/cnusr25-Simple_Raccoon_Light.png",
-    "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Dark.png",
-    "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Light.png",
-    "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
-    "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
-    "images/vendors/elementary/wallpaper/iryge-Anomaly.png",
+    "images/vendors/elementary/wallpaper/cnusr25-Simple_Raccoon_Light.webp",
+    "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Dark.webp",
+    "images/vendors/elementary/wallpaper/endycal-Flying_Boxes_Light.webp",
+    "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.webp",
+    "images/vendors/elementary/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.webp",
+    "images/vendors/elementary/wallpaper/iryge-Anomaly.webp",
     "images/vendors/elementary/wallpaper/jdituicha-raccoon1-dark.jpg",
-    "images/vendors/elementary/wallpaper/jdituicha-raccoon1-light.jpg",
-    "images/vendors/elementary/wallpaper/manuej-Vor.jpg",
-    "images/vendors/elementary/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
-    "images/vendors/elementary/wallpaper/mendhak-Red_Acer.jpg",
-    "images/vendors/elementary/wallpaper/mizuno-as-Big_Dipper.jpg",
-    "images/vendors/elementary/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
+    "images/vendors/elementary/wallpaper/jdituicha-raccoon1-light.webp",
+    "images/vendors/elementary/wallpaper/manuej-Vor.webp",
+    "images/vendors/elementary/wallpaper/mendhak-Bluebells_Suspended_In_Time.webp",
+    "images/vendors/elementary/wallpaper/mendhak-Red_Acer.webp",
+    "images/vendors/elementary/wallpaper/mizuno-as-Big_Dipper.webp",
+    "images/vendors/elementary/wallpaper/mizuno-as-Winter_Grand_Triangle.webp",
     "images/vendors/elementary/wallpaper/moskalenko-v-Low_poly_Raccoon_Dark.webp",
     "images/vendors/elementary/wallpaper/moskalenko-v-Low_poly_Raccoon_Light.webp",
     "images/vendors/elementary/wallpaper/moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
     "images/vendors/elementary/wallpaper/moskalenko-v-Snowy_Ubuntu_Dark.webp",
     "images/vendors/elementary/wallpaper/moskalenko-v-Snowy_Ubuntu_Light.webp",
-    "images/vendors/elementary/wallpaper/osselo-Ask_a_friend.jpg",
-    "images/vendors/elementary/wallpaper/rubenslp-Twin_brothers.png",
+    "images/vendors/elementary/wallpaper/osselo-Ask_a_friend.webp",
+    "images/vendors/elementary/wallpaper/rubenslp-Twin_brothers.webp",
     "images/vendors/elementary/wallpaper/elementary-wallpaper-d.png",
-    "images/vendors/elementary/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
+    "images/vendors/elementary/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
     "images/vendors/elementary/wallpaper/warty-final-elementary.png"
   ]
 };

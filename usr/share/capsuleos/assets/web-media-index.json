@@ -1570,9 +1570,135 @@
     {
       "output": "images/vendors/ubuntu/panel/firefox-48.webp",
       "source": "images/vendors/ubuntu/panel/firefox-48.png",
-      "preparedAt": "2026-06-08T20:57:02.225Z",
-      "encoder": "ffmpeg+convert"
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.webp",
+      "source": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.webp",
+      "source": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.webp",
+      "source": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.webp",
+      "source": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.webp",
+      "source": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/iryge-Anomaly.webp",
+      "source": "images/vendors/ubuntu/wallpaper/iryge-Anomaly.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.webp",
+      "source": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/manuej-Vor.webp",
+      "source": "images/vendors/ubuntu/wallpaper/manuej-Vor.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.webp",
+      "source": "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.webp",
+      "source": "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.webp",
+      "source": "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.webp",
+      "source": "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.webp",
+      "source": "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
+      "source": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
+      "source": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.webp",
+      "source": "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.webp",
+      "source": "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
+      "source": "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.webp",
+      "source": "images/vendors/ubuntu/wallpaper/wallpaper-racoon-light.png",
+      "preparedAt": "2026-06-16T09:50:47.904Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/wallpaper-racoon.webp",
+      "source": "images/vendors/ubuntu/wallpaper/wallpaper-racoon.png",
+      "preparedAt": "2026-06-16T09:50:47.904Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.webp",
+      "source": "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.png",
+      "preparedAt": "2026-06-16T09:47:10.200Z",
+      "encoder": "sharp"
     }
   ],
-  "updatedAt": "2026-06-15T19:42:44.916Z"
+  "updatedAt": "2026-06-16T09:50:47.916Z"
 }

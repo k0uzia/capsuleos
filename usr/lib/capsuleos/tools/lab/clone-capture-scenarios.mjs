@@ -57,11 +57,6 @@ const openSlot = async (page, slot) => {
     ).catch(() => {});
   }
   if (slot === 'update_manager') {
-    await page.evaluate(() => {
-      if (typeof window.initUpdateManagerApp === 'function') {
-        window.initUpdateManagerApp();
-      }
-    });
     await page.waitForFunction(
       () => {
         const root = document.querySelector('.windowElement[data-link="update_manager"]');
@@ -123,16 +118,43 @@ const plasmaShots = [
     },
   },
   { name: '05-terminal', action: async (page) => openSlot(page, 'terminal') },
-  { name: '06-discover', action: async (page) => openSlot(page, 'update_manager') },
+  {
+    name: '06-discover',
+    action: async (page) => {
+      await page.evaluate(() => {
+        sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+      });
+      await openSlot(page, 'update_manager');
+      await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
+      await page.waitForFunction(
+        () => {
+          const section = document.querySelector('[data-discover-store-section]');
+          return section && section.querySelectorAll('.kde-discover-card').length >= 5;
+        },
+        null,
+        { timeout: 15000 },
+      );
+      await page.evaluate(() => {
+        const section = document.querySelector('[data-discover-store-section]');
+        if (section) {
+          section.scrollIntoView({ block: 'start' });
+        }
+      });
+      await sleep(page, 500);
+    },
+  },
   {
     name: '07-discover-detail-vlc',
     action: async (page) => {
+      await page.evaluate(() => {
+        sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+      });
       await openSlot(page, 'update_manager');
       await page.waitForSelector(
         '[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]',
         { timeout: 20000 },
       );
-      await sleep(page, 300);
+      await sleep(page, 400);
       await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
       await page.waitForFunction(
         () => {
@@ -141,26 +163,28 @@ const plasmaShots = [
             return false;
           }
           const name = document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim();
-          const slides = panel.querySelectorAll('[data-discover-slide], .kde-discover-app-detail__slide').length;
           const imgs = [...panel.querySelectorAll('.kde-discover-app-detail__shot-img')];
-          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0).length;
-          return name && name.includes('VLC') && (loaded >= 1 || slides >= 2);
+          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0);
+          return name && name.includes('VLC') && (loaded.length >= 1 || imgs.length >= 2);
         },
         null,
         { timeout: 35000 },
       );
       await page.evaluate(() => {
-        const dot = document.querySelector('[data-discover-carousel-dot="0"]');
-        if (dot) {
-          dot.click();
+        const carousel = document.querySelector('.kde-discover-app-detail__carousel');
+        if (carousel) {
+          carousel.style.display = 'none';
+          carousel.hidden = true;
         }
-        document.querySelectorAll('[data-discover-slide]').forEach((slide, i) => {
-          const active = i === 0;
-          slide.hidden = !active;
-          slide.dataset.active = active ? 'true' : 'false';
+        document.querySelectorAll('.kde-discover-app-detail__shot-img').forEach((img) => {
+          img.style.visibility = 'hidden';
         });
+        const top = document.querySelector('.kde-discover-app-detail__top');
+        if (top) {
+          top.scrollIntoView({ block: 'start' });
+        }
       });
-      await sleep(page, 1200);
+      await sleep(page, 900);
     },
   },
 ];

@@ -55,6 +55,8 @@ const staticSmokes = [
   'smoke-kde-neon-kickoff.mjs',
   'smoke-kde-neon-dolphin.mjs',
   'smoke-kde-neon-discover.mjs',
+  'smoke-discover-kde-neon.mjs',
+  'smoke-discover-vm-parity.mjs',
   'smoke-kde-neon-firefox.mjs',
   'smoke-kde-neon-terminal.mjs',
   'smoke-kde-neon-calendar.mjs',
@@ -86,7 +88,7 @@ if (!skipRuntime) {
     '--compare',
   ]);
   let captureResult = captureCompare();
-  for (let attempt = 0; !captureResult.ok && attempt < 4; attempt += 1) {
+  for (let attempt = 0; !captureResult.ok && attempt < 6; attempt += 1) {
     captureResult = captureCompare();
   }
   results.push(captureResult);

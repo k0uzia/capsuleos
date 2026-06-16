@@ -89,17 +89,16 @@ const main = () => {
   );
 
   const entry = loadRegistryEntry(opts.id);
-  const toolkit = entry.toolkit?.id || entry.toolkit || 'gnome';
+  const toolkitId = entry.toolkit?.id || entry.toolkit || 'gnome';
+  const usesOverviewGrid = toolkitId === 'gnome' || toolkitId === 'cinnamon';
 
-  if (appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) {
-    if (toolkit === 'gnome') {
-      console.log('→ generate-overview-apps-grid');
-      if (!runScript('generate-overview-apps-grid.mjs', ['--id', opts.id], opts.write)) {
-        process.exit(1);
-      }
-    } else {
-      console.log(`→ skip overview grid (toolkit=${toolkit})`);
+  if ((appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) && usesOverviewGrid) {
+    console.log('→ generate-overview-apps-grid');
+    if (!runScript('generate-overview-apps-grid.mjs', ['--id', opts.id], opts.write)) {
+      process.exit(1);
     }
+  } else if (appIcons.length) {
+    console.log(`  ⊘ generate-overview-apps-grid — toolkit ${toolkitId} (kickoff Plasma, pas overview GNOME)`);
   }
 
   const wpPatched = patchWallpaperRefs(opts.id, wallpapers, opts.write);

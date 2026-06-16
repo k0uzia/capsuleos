@@ -2,7 +2,7 @@
 window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
   "version": 1,
   "registryId": "linux-kde-neon",
-  "generatedAt": "2026-06-13T18:58:58.885Z",
+  "generatedAt": "2026-06-16T10:01:51.049Z",
   "source": "proc/linux-kde-neon/distribution-manifest.json",
   "iconPack": "icons/kde/breeze",
   "assetPrefix": "../../../usr/share/capsuleos/assets/",
@@ -86,7 +86,7 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
       },
       {
         "id": "panel-firefox",
-        "capsuleRelative": "images/vendors/neon/panel/firefox-48.webp",
+        "capsuleRelative": "images/vendors/neon/panel/firefox-48.png",
         "iconName": "firefox"
       }
     ]
@@ -106,6 +106,6 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "icons/kde/breeze/places/user-home.svg",
     "icons/kde/breeze/places/user-trash.svg",
     "images/vendors/neon/panel/dolphin.png",
-    "images/vendors/neon/panel/firefox-48.webp"
+    "images/vendors/neon/panel/firefox-48.png"
   ]
 };

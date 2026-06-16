@@ -3422,6 +3422,7 @@
           "slot": "themes",
           "statut": "ok",
           "requiresSlot": true,
+          "vmManifestIds": ["systemsettings", "kdesystemsettings"],
           "placement": {
             "dash": false,
             "overview": false,
@@ -3474,6 +3475,7 @@
           "slot": "lecteur_multimedia",
           "statut": "ok",
           "requiresSlot": true,
+          "vmManifestIds": ["vlc"],
           "placement": {
             "dash": false,
             "overview": false,
@@ -3611,6 +3613,7 @@
           "slot": "themes",
           "statut": "partiel",
           "requiresSlot": true,
+          "vmManifestIds": ["systemsettings", "kdesystemsettings"],
           "placement": {
             "dash": false,
             "overview": false,
@@ -3650,6 +3653,7 @@
           "slot": "lecteur_multimedia",
           "statut": "partiel",
           "requiresSlot": true,
+          "vmManifestIds": ["vlc"],
           "placement": {
             "dash": false,
             "overview": false,

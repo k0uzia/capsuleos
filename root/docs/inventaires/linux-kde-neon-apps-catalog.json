@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-kde-neon",
   "toolkit": "kde",
-  "generatedAt": "2026-06-14T17:26:36.571Z",
+  "generatedAt": "2026-06-16T10:06:29.923Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-kde-neon-vm-apps-installed.json",
@@ -28,13 +28,18 @@
   ],
   "summary": {
     "vmInstalled": 25,
-    "catalogRows": 33,
+    "catalogRows": 35,
     "p0Total": 7,
-    "p0Ok": 7,
-    "p0Gaps": 0,
+    "p0Ok": 2,
+    "p0Gaps": 5,
     "p1Gaps": 0,
     "p2Gaps": 0,
-    "nextGap": null
+    "nextGap": {
+      "labelFr": "Configuration du système",
+      "slot": "themes",
+      "priorite": "P0",
+      "statut": "partiel"
+    }
   },
   "rows": [
     {
@@ -50,12 +55,7 @@
       "placement": {
         "desktop": true
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "profile.html",
-        "skinCss": "profile.skin.css",
-        "functionalDepth": "full"
-      },
+      "specs": null,
       "note": "CapsuleOnly"
     },
     {
@@ -182,25 +182,39 @@
       "vmId": "systemsettings",
       "desktop": "systemsettings.desktop",
       "labelFr": "Configuration du système",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.kde.systemsettings",
+      "desktop": "org.kde.systemsettings.desktop",
+      "labelFr": "Configuration du système",
       "priorite": "P0",
       "slotCapsule": "themes",
-      "statut": "ok",
-      "glyph": "✅",
+      "statut": "partiel",
+      "glyph": "🔶",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
         "dash": false,
         "overview": false,
         "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "desktop": false
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "systemsettings_kde_neon.html",
-        "skinCss": "themes.skin.css",
-        "functionalDepth": "full"
-      },
+      "specs": null,
       "note": null
     },
     {
@@ -299,8 +313,8 @@
       "labelFr": "Firefox",
       "priorite": "P0",
       "slotCapsule": "firefox",
-      "statut": "ok",
-      "glyph": "✅",
+      "statut": "partiel",
+      "glyph": "🔶",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -310,12 +324,7 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "firefox.html",
-        "skinCss": "firefox.skin.css",
-        "functionalDepth": "partial"
-      },
+      "specs": null,
       "note": null
     },
     {
@@ -388,8 +397,8 @@
       "labelFr": "Kate",
       "priorite": "P0",
       "slotCapsule": "text_editor",
-      "statut": "ok",
-      "glyph": "✅",
+      "statut": "partiel",
+      "glyph": "🔶",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -399,12 +408,7 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "text_editor.html",
-        "skinCss": "text_editor.skin.css",
-        "functionalDepth": "partial"
-      },
+      "specs": null,
       "note": null
     },
     {
@@ -453,8 +457,8 @@
       "labelFr": "Konsole",
       "priorite": "P0",
       "slotCapsule": "terminal",
-      "statut": "ok",
-      "glyph": "✅",
+      "statut": "partiel",
+      "glyph": "🔶",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
@@ -464,12 +468,7 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "terminal.html",
-        "skinCss": "terminal.skin.css",
-        "functionalDepth": "full"
-      },
+      "specs": null,
       "note": null
     },
     {
@@ -495,26 +494,40 @@
     {
       "vmId": "vlc",
       "desktop": "vlc.desktop",
+      "labelFr": "Lecteur multimédia VLC",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "lecteur_multimedia",
+      "desktop": "lecteur_multimedia.desktop",
       "labelFr": "Lecteur vidéo",
       "priorite": "P0",
       "slotCapsule": "lecteur_multimedia",
-      "statut": "ok",
-      "glyph": "✅",
+      "statut": "partiel",
+      "glyph": "🔶",
       "requiresSlot": true,
       "onVm": true,
       "placement": {
         "dash": false,
         "overview": false,
         "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "desktop": false
       },
-      "specs": {
-        "chromeProvider": "default",
-        "template": "lecteur_multimedia.html",
-        "skinCss": "lecteur_multimedia.skin.css",
-        "functionalDepth": "partial"
-      },
+      "specs": null,
       "note": null
     },
     {
@@ -552,12 +565,7 @@
       "requiresSlot": false,
       "onVm": false,
       "placement": {},
-      "specs": {
-        "chromeProvider": "default",
-        "template": "checklist.html",
-        "skinCss": "checklist.skin.css",
-        "functionalDepth": "capsuleOnly"
-      },
+      "specs": null,
       "note": "CapsuleOnly"
     },
     {

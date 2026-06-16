@@ -882,11 +882,16 @@
             "type": "selectorMin",
             "selector": "[data-discover-home-mount] .kde-discover-card",
             "min": 3
+          },
+          {
+            "type": "selectorMin",
+            "selector": "[data-discover-store-section] .kde-discover-card",
+            "min": 5
           }
         ]
       },
-      "vmCapture": null,
-      "capsuleCapture": null,
+      "vmCapture": "home/public/Images/screen_KDE-Neon/vm-discover.png",
+      "capsuleCapture": "home/public/Images/screen_KDE-Neon/capsule-discover.png",
       "predicates": {
         "CredV": true,
         "CredC": true,
@@ -927,8 +932,8 @@
           }
         ]
       },
-      "vmCapture": null,
-      "capsuleCapture": null,
+      "vmCapture": "home/public/Images/screen_KDE-Neon/vm-discover-updates.png",
+      "capsuleCapture": "home/public/Images/screen_KDE-Neon/capsule-discover-updates.png",
       "predicates": {
         "CredV": true,
         "CredC": true,
@@ -970,8 +975,8 @@
           }
         ]
       },
-      "vmCapture": null,
-      "capsuleCapture": null,
+      "vmCapture": "home/public/Images/screen_KDE-Neon/vm-discover-detail-vlc.png",
+      "capsuleCapture": "home/public/Images/screen_KDE-Neon/capsule-discover-detail-vlc.png",
       "predicates": {
         "CredV": true,
         "CredC": true,

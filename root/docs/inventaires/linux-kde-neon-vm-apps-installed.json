@@ -75,8 +75,8 @@
       "icon": "preferences-system",
       "categories": "Qt;KDE;Settings;",
       "origin": "system",
-      "capsuleSlot": "themes",
-      "grid": false,
+      "capsuleSlot": null,
+      "grid": true,
       "dash": false
     },
     {
@@ -207,8 +207,8 @@
       "icon": "vlc",
       "categories": "AudioVideo;Player;Recorder;",
       "origin": "system",
-      "capsuleSlot": "lecteur_multimedia",
-      "grid": false,
+      "capsuleSlot": null,
+      "grid": true,
       "dash": false
     },
     {
@@ -281,7 +281,7 @@
   "notInstalledOnVm": [],
   "source": "distribution-manifest → vm-manifest-lib.mjs",
   "manifestPath": "proc/linux-kde-neon/distribution-manifest.json",
-  "collectedAt": "2026-06-13T18:57:48Z",
+  "collectedAt": "2026-06-16T10:00:53Z",
   "flatpakCount": 0,
-  "updatedAt": "2026-06-13T18:57:56.227Z"
+  "updatedAt": "2026-06-16T10:01:52.026Z"
 }

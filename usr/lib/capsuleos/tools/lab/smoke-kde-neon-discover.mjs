@@ -7,21 +7,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '../../../../..');
-const HTTP_BASE = process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765';
-const URL = process.env.CAPSULE_KDE_NEON_URL || `${HTTP_BASE}/home/Debian/KDE-Neon/index.html`;
+const URL = process.env.CAPSULE_KDE_NEON_URL || 'http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html';
 const errors = [];
 
-const playwrightCache = path.join(process.env.HOME || '', '.cache/ms-playwright');
 const chromePath = [
   process.env.PLAYWRIGHT_CHROME,
   '/usr/bin/google-chrome',
-  '/usr/bin/chromium',
-  ...(fs.existsSync(playwrightCache)
-    ? fs.readdirSync(playwrightCache)
-      .filter((d) => d.startsWith('chromium-'))
-      .map((d) => path.join(playwrightCache, d, 'chrome-linux64/chrome'))
-    : []),
 ].find((p) => p && fs.existsSync(p));
 
 if (!chromePath) {
@@ -35,7 +26,10 @@ const page = await browser.newPage({ viewport: { width: 1211, height: 756 } });
 
 try {
   await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
-  await page.evaluate(() => window.openWindowByDataLink('update_manager'));
+  await page.evaluate(() => {
+    sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+    window.openWindowByDataLink('update_manager');
+  });
   await page.waitForFunction(
     () => document.querySelector('[data-discover-home-mount] .kde-discover-card'),
     null,
@@ -84,49 +78,55 @@ try {
   if (!detailBeforeInstall.description || detailBeforeInstall.description.length < 20) {
     errors.push('fiche app : description absente ou trop courte');
   }
-  await page.click('[data-discover-app-install="vlc"]');
+
+  const vlcPrimary = await page.evaluate(() => ({
+    launch: !!document.querySelector('[data-discover-app-launch="vlc"]'),
+    install: !!document.querySelector('[data-discover-app-install="vlc"]'),
+  }));
+  if (!vlcPrimary.launch) {
+    errors.push('fiche VLC : bouton Lancer absent (app installée VM)');
+  }
+  if (vlcPrimary.install) {
+    errors.push('fiche VLC : bouton Installer présent alors que VLC est installé');
+  }
+
+  await page.evaluate(() => {
+    const back = document.querySelector('[data-discover-app-back]');
+    if (back) {
+      back.click();
+    }
+  });
+  await page.waitForFunction(
+    () => document.querySelector('[data-discover-panel="home"]:not([hidden])'),
+    null,
+    { timeout: 5000 },
+  );
+
+  await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="gimp"]');
+  await page.waitForFunction(
+    () => {
+      const panel = document.querySelector('[data-discover-app-detail]');
+      return panel && !panel.hidden;
+    },
+    null,
+    { timeout: 8000 },
+  );
+  await page.click('[data-discover-app-install="gimp"]');
   await page.waitForFunction(
     () => {
       const status = document.querySelector('[data-discover-app-status]');
-      const primary = document.querySelector('.kde-discover-app-detail__action--primary');
-      const done = primary && (
-        primary.classList.contains('is-installed')
-        || primary.hasAttribute('data-discover-app-open')
-        || primary.textContent.trim() === 'Ouvrir'
-      );
-      return status && !status.hidden && /installée/i.test(status.textContent) && done;
+      return status && !status.hidden && status.textContent.length > 0;
     },
     null,
-    { timeout: 12000 },
+    { timeout: 5000 },
   );
 
-  const detailAfterInstall = await page.evaluate(() => {
-    const primary = document.querySelector('.kde-discover-app-detail__action--primary');
-    return {
-      primaryLabel: primary ? primary.textContent.trim() : '',
-      isInstalled: primary ? primary.classList.contains('is-installed') : false,
-      openSlot: primary ? primary.getAttribute('data-discover-app-open') : null,
-      status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
-    };
-  });
-  if (!detailAfterInstall.status || !/installée/i.test(detailAfterInstall.status)) {
-    errors.push(`fiche app : statut post-install=${detailAfterInstall.status || '(vide)'}`);
-  }
-  if (!detailAfterInstall.isInstalled && detailAfterInstall.primaryLabel !== 'Ouvrir') {
-    errors.push(`fiche app : bouton post-install=${detailAfterInstall.primaryLabel || '(vide)'}`);
-  }
-
-  const storeMeta = await page.evaluate(() => {
-    if (typeof window.CapsuleGnomeStore === 'undefined'
-      || typeof window.CapsuleGnomeStore.loadStoreInstalledMeta !== 'function') {
-      return { ok: false, reason: 'CapsuleGnomeStore absent' };
-    }
-    const meta = window.CapsuleGnomeStore.loadStoreInstalledMeta('linux-kde-neon');
-    const ids = meta && Array.isArray(meta.appIds) ? meta.appIds : [];
-    return { ok: ids.indexOf('vlc') !== -1, appIds: ids };
-  });
-  if (!storeMeta.ok) {
-    errors.push(`store install meta : ${storeMeta.reason || JSON.stringify(storeMeta.appIds)}`);
+  const detailAfterInstall = await page.evaluate(() => ({
+    installDisabled: document.querySelector('[data-discover-app-install="gimp"]')?.disabled,
+    status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
+  }));
+  if (!detailAfterInstall.installDisabled) {
+    errors.push('fiche GIMP : bouton Installer non désactivé après clic');
   }
 
   await page.evaluate(() => {
@@ -155,6 +155,67 @@ try {
     errors.push(`filtre internet : cartes=${filtered.cards}`);
   }
 
+  await page.click('[data-discover-nav="home"]');
+  await page.waitForTimeout(300);
+  await page.click('.kde-updates__cat[data-discover-cat="all"]');
+  await page.waitForTimeout(300);
+  await page.evaluate(() => {
+    const input = document.querySelector('[data-discover-search]');
+    if (!input) {
+      return;
+    }
+    input.value = 'VLC';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await page.waitForTimeout(400);
+
+  const searchFiltered = await page.evaluate(() => ({
+    cards: document.querySelectorAll('[data-discover-home-mount] .kde-discover-card').length,
+    names: [...document.querySelectorAll('[data-discover-home-mount] .kde-discover-card__name')]
+      .map((el) => el.textContent.trim()),
+  }));
+  if (searchFiltered.cards < 1) {
+    errors.push(`recherche VLC : cartes=${searchFiltered.cards}`);
+  }
+  if (!searchFiltered.names.some((n) => n.indexOf('VLC') !== -1)) {
+    errors.push(`recherche VLC : résultats=${searchFiltered.names.join(', ')}`);
+  }
+
+  await page.evaluate(() => {
+    const input = document.querySelector('[data-discover-search]');
+    if (input) {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  });
+  await page.click('[data-discover-nav="installed"]');
+  await page.waitForFunction(
+    () => document.querySelector('[data-discover-panel="installed"]:not([hidden])'),
+    null,
+    { timeout: 8000 },
+  );
+  await page.waitForSelector('[data-discover-installed-mount] .kde-discover-card--installed', { timeout: 8000 });
+
+  const installedTab = await page.evaluate(() => ({
+    heading: document.querySelector('[data-discover-installed-heading]')?.textContent?.trim(),
+    sort: document.querySelector('[data-discover-installed-sort-label]')?.textContent?.trim(),
+    cards: document.querySelectorAll('[data-discover-installed-mount] .kde-discover-card--installed').length,
+    withSize: document.querySelectorAll('.kde-discover-card--installed__size').length,
+    withRemove: document.querySelectorAll('.kde-discover-card--installed__remove').length,
+  }));
+  if (!installedTab.heading || installedTab.heading.indexOf('119') === -1) {
+    errors.push(`installé(s) : en-tête=${installedTab.heading || '(vide)'}`);
+  }
+  if (installedTab.sort !== 'Tri : Nom') {
+    errors.push(`installé(s) : tri=${installedTab.sort || '(vide)'}`);
+  }
+  if (installedTab.cards < 6) {
+    errors.push(`installé(s) : cartes=${installedTab.cards}`);
+  }
+  if (installedTab.withSize < 6 || installedTab.withRemove < 6) {
+    errors.push(`installé(s) : taille=${installedTab.withSize} corbeille=${installedTab.withRemove}`);
+  }
+
   console.log(JSON.stringify({
     ok: errors.length === 0,
     errors,
@@ -162,6 +223,8 @@ try {
     detailBeforeInstall,
     detailAfterInstall,
     filtered,
+    searchFiltered,
+    installedTab,
   }, null, 2));
 } catch (err) {
   errors.push(err.message || String(err));

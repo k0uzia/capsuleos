@@ -19,27 +19,27 @@
     "vendor": "neon",
     "iconPack": "icons/kde/breeze"
   },
-  "generatedAt": "2026-06-13T18:58:58.908Z",
+  "generatedAt": "2026-06-16T10:01:51.068Z",
   "source": "generate-manifest-replication-playbook.mjs",
   "validation": {
     "status": "approved",
     "approved": true,
     "smokeOk": true,
-    "approvedAt": "2026-06-13T18:57:56.375Z",
+    "approvedAt": "2026-06-16T10:01:00.651Z",
     "approvedBy": "agent"
   },
   "staging": {
     "remoteDir": "~/capsuleos-lab/staging/linux-kde-neon",
     "remoteScript": "root/tools/lab/vm-manifest-staging-collect.sh",
     "status": "completed",
-    "completedAt": "2026-06-13T18:57:57.022Z"
+    "completedAt": "2026-06-16T10:01:01.449Z"
   },
   "import": {
     "method": "rsync",
     "localStagingDir": "proc/linux-kde-neon/staging",
     "destAssetsRoot": "usr/share/capsuleos/assets",
     "status": "completed",
-    "completedAt": "2026-06-13T18:57:57.760Z"
+    "completedAt": "2026-06-16T10:01:02.274Z"
   },
   "summary": {
     "total": 31,
@@ -55,7 +55,7 @@
       "appId": "org.kde.ark",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/ark.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.ark.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.ark.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.ark.png",
       "stagingPath": "apps/org.kde.ark.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -66,7 +66,7 @@
       "appId": "org.kde.discover",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/plasmadiscover.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.discover.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.discover.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.discover.svg",
       "stagingPath": "apps/org.kde.discover.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -77,7 +77,7 @@
       "appId": "org.kde.dolphin",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.dolphin.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.dolphin.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.dolphin.svg",
       "stagingPath": "apps/org.kde.dolphin.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -88,7 +88,7 @@
       "appId": "firefox",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/firefox.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/firefox.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/firefox.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/firefox.png",
       "stagingPath": "apps/firefox.png",
       "status": "skip",
       "action": "skip"
@@ -99,7 +99,7 @@
       "appId": "org.kde.partitionmanager",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/partitionmanager.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.partitionmanager.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.partitionmanager.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.partitionmanager.svg",
       "stagingPath": "apps/org.kde.partitionmanager.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -110,7 +110,7 @@
       "appId": "org.kde.gwenview",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/gwenview.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.gwenview.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.gwenview.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.gwenview.png",
       "stagingPath": "apps/org.kde.gwenview.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -121,7 +121,7 @@
       "appId": "org.kde.kate",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/kate.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.kate.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kate.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kate.svg",
       "stagingPath": "apps/org.kde.kate.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -132,7 +132,7 @@
       "appId": "org.kde.kdeconnect.app",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/kdeconnect.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.kdeconnect.app.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kdeconnect.app.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kdeconnect.app.svg",
       "stagingPath": "apps/org.kde.kdeconnect.app.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -143,7 +143,7 @@
       "appId": "org.kde.keepsecret",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/kwalletmanager.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.keepsecret.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.keepsecret.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.keepsecret.png",
       "stagingPath": "apps/org.kde.keepsecret.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -154,7 +154,7 @@
       "appId": "org.kde.kwalletmanager",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/kwalletmanager.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.kwalletmanager.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kwalletmanager.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kwalletmanager.png",
       "stagingPath": "apps/org.kde.kwalletmanager.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -165,7 +165,7 @@
       "appId": "vlc",
       "vmPath": "/usr/share/icons/hicolor/256x256/apps/vlc.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/vlc.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/vlc.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/vlc.png",
       "stagingPath": "apps/vlc.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -176,7 +176,7 @@
       "appId": "org.kde.okular",
       "vmPath": "/usr/share/icons/hicolor/128x128/apps/okular.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.okular.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.okular.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.okular.png",
       "stagingPath": "apps/org.kde.okular.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -187,7 +187,7 @@
       "appId": "org.kde.kdeconnect.sms",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/kdeconnect.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.kdeconnect.sms.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kdeconnect.sms.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kdeconnect.sms.svg",
       "stagingPath": "apps/org.kde.kdeconnect.sms.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -198,7 +198,7 @@
       "appId": "org.kde.spectacle",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/spectacle.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.spectacle.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.spectacle.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.spectacle.svg",
       "stagingPath": "apps/org.kde.spectacle.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -209,7 +209,7 @@
       "appId": "vim",
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/gvim.svg",
       "capsuleRelative": "images/toolkits/kde/apps/overview/vim.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/vim.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/vim.svg",
       "stagingPath": "apps/vim.svg",
       "status": "drift",
       "action": "rewrite-ref"
@@ -220,7 +220,7 @@
       "appId": "org.kde.kmenuedit",
       "vmPath": "/usr/share/icons/hicolor/48x48/apps/kmenuedit.png",
       "capsuleRelative": "images/toolkits/kde/apps/overview/org.kde.kmenuedit.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kmenuedit.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/toolkits/kde/apps/overview/org.kde.kmenuedit.png",
       "stagingPath": "apps/org.kde.kmenuedit.png",
       "status": "drift",
       "action": "rewrite-ref"
@@ -232,7 +232,7 @@
       "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleTarget": "fonts/vendors/neon/Ubuntu-Italic[wdth,wght].ttf",
       "capsuleRelative": "fonts/vendors/neon/Ubuntu-Italic[wdth,wght].ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/Ubuntu-Italic[wdth,wght].ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/Ubuntu-Italic[wdth,wght].ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -243,7 +243,7 @@
       "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf",
       "capsuleTarget": "fonts/vendors/neon/Ubuntu[wdth,wght].ttf",
       "capsuleRelative": "fonts/vendors/neon/Ubuntu[wdth,wght].ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/Ubuntu[wdth,wght].ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/Ubuntu[wdth,wght].ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -254,7 +254,7 @@
       "vmPath": "/usr/share/fonts/truetype/noto/NotoSans-BoldItalic.ttf",
       "capsuleTarget": "fonts/vendors/neon/NotoSans-BoldItalic.ttf",
       "capsuleRelative": "fonts/vendors/neon/NotoSans-BoldItalic.ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/NotoSans-BoldItalic.ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/NotoSans-BoldItalic.ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -265,7 +265,7 @@
       "vmPath": "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
       "capsuleTarget": "fonts/vendors/neon/NotoSans-Bold.ttf",
       "capsuleRelative": "fonts/vendors/neon/NotoSans-Bold.ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/NotoSans-Bold.ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/NotoSans-Bold.ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -276,7 +276,7 @@
       "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-Italic[wght].ttf",
       "capsuleTarget": "fonts/vendors/neon/UbuntuMono-Italic[wght].ttf",
       "capsuleRelative": "fonts/vendors/neon/UbuntuMono-Italic[wght].ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/UbuntuMono-Italic[wght].ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/UbuntuMono-Italic[wght].ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -287,7 +287,7 @@
       "vmPath": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf",
       "capsuleTarget": "fonts/vendors/neon/DejaVuSansMono-BoldOblique.ttf",
       "capsuleRelative": "fonts/vendors/neon/DejaVuSansMono-BoldOblique.ttf",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/DejaVuSansMono-BoldOblique.ttf",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/neon/DejaVuSansMono-BoldOblique.ttf",
       "status": "skip",
       "action": "skip"
     },
@@ -297,10 +297,10 @@
       "stagingPath": "mimetypes/inode-directory.svg",
       "iconName": "inode-directory",
       "context": "mimetypes",
-      "vmPath": "/usr/share/icons/breeze/mimetypes/16/inode-directory.svg",
+      "vmPath": "/usr/share/icons/breeze/mimetypes/64/inode-directory.svg",
       "capsuleTarget": "icons/kde/breeze/mimetypes/inode-directory.svg",
       "capsuleRelative": "icons/kde/breeze/mimetypes/inode-directory.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/inode-directory.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/inode-directory.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -310,10 +310,10 @@
       "stagingPath": "mimetypes/text-plain.svg",
       "iconName": "text-plain",
       "context": "mimetypes",
-      "vmPath": "/usr/share/icons/breeze/mimetypes/16/text-plain.svg",
+      "vmPath": "/usr/share/icons/breeze/mimetypes/64/text-plain.svg",
       "capsuleTarget": "icons/kde/breeze/mimetypes/text-plain.svg",
       "capsuleRelative": "icons/kde/breeze/mimetypes/text-plain.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/text-plain.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/text-plain.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -323,10 +323,10 @@
       "stagingPath": "mimetypes/application-x-executable.svg",
       "iconName": "application-x-executable",
       "context": "mimetypes",
-      "vmPath": "/usr/share/icons/breeze/mimetypes/16/application-x-executable.svg",
+      "vmPath": "/usr/share/icons/breeze/mimetypes/64/application-x-executable.svg",
       "capsuleTarget": "icons/kde/breeze/mimetypes/application-x-executable.svg",
       "capsuleRelative": "icons/kde/breeze/mimetypes/application-x-executable.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/application-x-executable.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/application-x-executable.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -336,10 +336,10 @@
       "stagingPath": "mimetypes/image-x-generic.svg",
       "iconName": "image-x-generic",
       "context": "mimetypes",
-      "vmPath": "/usr/share/icons/breeze/mimetypes/16/image-x-generic.svg",
+      "vmPath": "/usr/share/icons/breeze/mimetypes/64/image-x-generic.svg",
       "capsuleTarget": "icons/kde/breeze/mimetypes/image-x-generic.svg",
       "capsuleRelative": "icons/kde/breeze/mimetypes/image-x-generic.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/image-x-generic.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/mimetypes/image-x-generic.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -349,10 +349,10 @@
       "stagingPath": "places/folder.svg",
       "iconName": "folder",
       "context": "places",
-      "vmPath": "/usr/share/icons/breeze/places/16/folder.svg",
+      "vmPath": "/usr/share/icons/breeze/places/64/folder.svg",
       "capsuleTarget": "icons/kde/breeze/places/folder.svg",
       "capsuleRelative": "icons/kde/breeze/places/folder.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/folder.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/folder.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -362,10 +362,10 @@
       "stagingPath": "places/user-home.svg",
       "iconName": "user-home",
       "context": "places",
-      "vmPath": "/usr/share/icons/breeze/places/16/user-home.svg",
+      "vmPath": "/usr/share/icons/breeze/places/64/user-home.svg",
       "capsuleTarget": "icons/kde/breeze/places/user-home.svg",
       "capsuleRelative": "icons/kde/breeze/places/user-home.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/user-home.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/user-home.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -375,10 +375,10 @@
       "stagingPath": "places/user-trash.svg",
       "iconName": "user-trash",
       "context": "places",
-      "vmPath": "/usr/share/icons/breeze/places/16/user-trash.svg",
+      "vmPath": "/usr/share/icons/breeze/places/64/user-trash.svg",
       "capsuleTarget": "icons/kde/breeze/places/user-trash.svg",
       "capsuleRelative": "icons/kde/breeze/places/user-trash.svg",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/user-trash.svg",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/icons/kde/breeze/places/user-trash.svg",
       "status": "skip",
       "action": "skip"
     },
@@ -390,7 +390,7 @@
       "vmPath": "/usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg",
       "capsuleTarget": "images/vendors/neon/panel/dolphin.png",
       "capsuleRelative": "images/vendors/neon/panel/dolphin.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/neon/panel/dolphin.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/vendors/neon/panel/dolphin.png",
       "status": "skip",
       "action": "skip"
     },
@@ -402,7 +402,7 @@
       "vmPath": "/usr/share/icons/hicolor/48x48/apps/firefox.png",
       "capsuleTarget": "images/vendors/neon/panel/firefox-48.png",
       "capsuleRelative": "images/vendors/neon/panel/firefox-48.png",
-      "capsuleAbs": "/home/n0r3f/Développement/CapsuleOS/usr/share/capsuleos/assets/images/vendors/neon/panel/firefox-48.png",
+      "capsuleAbs": "/home/goupil/Documents/CapsuleOS/usr/share/capsuleos/assets/images/vendors/neon/panel/firefox-48.png",
       "status": "skip",
       "action": "skip"
     }

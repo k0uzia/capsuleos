@@ -15,17 +15,17 @@
     "detected": []
   },
   "mediaCatalogVendor": "neon",
-  "collectedAt": "2026-06-13T18:57:48Z",
+  "collectedAt": "2026-06-16T10:00:53Z",
   "source": "root/tools/lab/vm-distribution-manifest.py",
   "validation": {
     "status": "approved",
     "smokeOk": true,
     "approved": true,
-    "approvedAt": "2026-06-13T18:57:56.375Z",
+    "approvedAt": "2026-06-16T10:01:00.651Z",
     "approvedBy": "agent"
   },
   "packages": {
-    "dpkgCount": 2047,
+    "dpkgCount": 2049,
     "snapCount": 0,
     "flatpakCount": 0
   },
@@ -33,10 +33,11 @@
     "searchPaths": [
       "/usr/share/applications",
       "/usr/local/share/applications",
-      "/var/lib/snapd/desktop/applications"
+      "/var/lib/snapd/desktop/applications",
+      "/home/goupil/.local/share/applications"
     ],
-    "entryCount": 203,
-    "uniqueCount": 201,
+    "entryCount": 204,
+    "uniqueCount": 202,
     "gridVisibleCount": 26,
     "entries": [
       {
@@ -1051,6 +1052,21 @@
         "exec": "firefox %u",
         "showInGrid": true,
         "hideReasons": []
+      },
+      {
+        "id": "userapp-Firefox-KSVDQ3",
+        "normalizedId": "userapp-Firefox-KSVDQ3",
+        "name": "Firefox",
+        "nameEn": "Firefox",
+        "icon": null,
+        "categories": null,
+        "desktopPath": "/home/goupil/.local/share/applications/userapp-Firefox-KSVDQ3.desktop",
+        "origin": "user",
+        "exec": "/usr/lib/firefox/firefox-bin %u",
+        "showInGrid": false,
+        "hideReasons": [
+          "no-display"
+        ]
       },
       {
         "id": "kcm_wallpaper",
@@ -3501,25 +3517,25 @@
         {
           "iconName": "inode-directory",
           "context": "mimetypes",
-          "vmPath": "/usr/share/icons/breeze/mimetypes/16/inode-directory.svg",
+          "vmPath": "/usr/share/icons/breeze/mimetypes/64/inode-directory.svg",
           "capsuleTarget": "icons/kde/breeze/mimetypes/inode-directory.svg"
         },
         {
           "iconName": "text-plain",
           "context": "mimetypes",
-          "vmPath": "/usr/share/icons/breeze/mimetypes/16/text-plain.svg",
+          "vmPath": "/usr/share/icons/breeze/mimetypes/64/text-plain.svg",
           "capsuleTarget": "icons/kde/breeze/mimetypes/text-plain.svg"
         },
         {
           "iconName": "application-x-executable",
           "context": "mimetypes",
-          "vmPath": "/usr/share/icons/breeze/mimetypes/16/application-x-executable.svg",
+          "vmPath": "/usr/share/icons/breeze/mimetypes/64/application-x-executable.svg",
           "capsuleTarget": "icons/kde/breeze/mimetypes/application-x-executable.svg"
         },
         {
           "iconName": "image-x-generic",
           "context": "mimetypes",
-          "vmPath": "/usr/share/icons/breeze/mimetypes/16/image-x-generic.svg",
+          "vmPath": "/usr/share/icons/breeze/mimetypes/64/image-x-generic.svg",
           "capsuleTarget": "icons/kde/breeze/mimetypes/image-x-generic.svg"
         }
       ],
@@ -3531,19 +3547,19 @@
         {
           "iconName": "folder",
           "context": "places",
-          "vmPath": "/usr/share/icons/breeze/places/16/folder.svg",
+          "vmPath": "/usr/share/icons/breeze/places/64/folder.svg",
           "capsuleTarget": "icons/kde/breeze/places/folder.svg"
         },
         {
           "iconName": "user-home",
           "context": "places",
-          "vmPath": "/usr/share/icons/breeze/places/16/user-home.svg",
+          "vmPath": "/usr/share/icons/breeze/places/64/user-home.svg",
           "capsuleTarget": "icons/kde/breeze/places/user-home.svg"
         },
         {
           "iconName": "user-trash",
           "context": "places",
-          "vmPath": "/usr/share/icons/breeze/places/16/user-trash.svg",
+          "vmPath": "/usr/share/icons/breeze/places/64/user-trash.svg",
           "capsuleTarget": "icons/kde/breeze/places/user-trash.svg"
         }
       ],
@@ -3888,10 +3904,10 @@
         "category": "mimetypes",
         "destRoot": "usr/share/capsuleos/assets/icons/kde/breeze/mimetypes",
         "vmPaths": [
-          "/usr/share/icons/breeze/mimetypes/16/application-x-executable.svg",
-          "/usr/share/icons/breeze/mimetypes/16/image-x-generic.svg",
-          "/usr/share/icons/breeze/mimetypes/16/inode-directory.svg",
-          "/usr/share/icons/breeze/mimetypes/16/text-plain.svg"
+          "/usr/share/icons/breeze/mimetypes/64/application-x-executable.svg",
+          "/usr/share/icons/breeze/mimetypes/64/image-x-generic.svg",
+          "/usr/share/icons/breeze/mimetypes/64/inode-directory.svg",
+          "/usr/share/icons/breeze/mimetypes/64/text-plain.svg"
         ]
       },
       {
@@ -3899,9 +3915,9 @@
         "category": "places",
         "destRoot": "usr/share/capsuleos/assets/icons/kde/breeze/places",
         "vmPaths": [
-          "/usr/share/icons/breeze/places/16/folder.svg",
-          "/usr/share/icons/breeze/places/16/user-home.svg",
-          "/usr/share/icons/breeze/places/16/user-trash.svg"
+          "/usr/share/icons/breeze/places/64/folder.svg",
+          "/usr/share/icons/breeze/places/64/user-home.svg",
+          "/usr/share/icons/breeze/places/64/user-trash.svg"
         ]
       },
       {

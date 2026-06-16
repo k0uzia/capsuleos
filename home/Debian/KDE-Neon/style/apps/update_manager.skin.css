@@ -1,4 +1,57 @@
 /* Surcouche KDE Neon — Discover (Page d'accueil, réf. VM 2026-06-06) */
+/* À découvrir — inline (pas @import : injection contentLoader après skin KDE commun) */
+/* Chemins logiques (CapsuleResource) : ./assets/images/toolkits/gnome/apps/ */
+/* Exemple requis par smoke : ./assets/images/toolkits/gnome/apps/thunderbird.png */
+.update-manager--kde-neon .gnome-software__cardicon {
+    display: inline-block;
+    flex-shrink: 0;
+    background: transparent center / contain no-repeat;
+    border-radius: 4px;
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--calendar {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Calendar.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--file-roller {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.FileRoller.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--libreoffice {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--thunderbird {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/thunderbird.png");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--transmission {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/transmission-gtk.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--rhythmbox {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.Rhythmbox3.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--lecteur-multimedia {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/io.github.celluloid_player.Celluloid.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--drawing {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/com.github.maoschanz.drawing.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--simple-scan {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/simple-scan.svg");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--warpinator {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.x.Warpinator.png");
+}
+
+.update-manager--kde-neon .gnome-software__cardicon--timeshift {
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/timeshift-gtk.png");
+}
 
 /* ---- Chrome fenêtre Discover (Breeze clair, réf. VM #dee0e2) ---- */
 body#kde-neon div[data-link="update_manager"] {
@@ -160,57 +213,100 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
 }
 
 .kde-updates__navicon--home {
-    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/elements/go-home-symbolic.svg");
-    mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/elements/go-home-symbolic.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/go-home-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/go-home-symbolic.svg");
 }
 
 .kde-updates__navicon--installed {
-    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-installed.svg");
-    mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-installed.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/install-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/install-symbolic.svg");
 }
 
 .kde-updates__navicon--updates {
-    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
-    mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/discover-updates.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/system-software-update-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/system-software-update-symbolic.svg");
 }
 
 .kde-updates__navicon--config {
-    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg");
-    mask-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/panel/settings.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/configure-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/configure-symbolic.svg");
 }
 
 .kde-updates__navicon--about {
-    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/about.svg");
-    mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/about.svg");
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/help-about-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/nav/help-about-symbolic.svg");
 }
 
-/* Icônes catégories sidebar (chemins skin Neon → assets vendor) */
-.kde-updates__caticon {
-    background-color: transparent;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    -webkit-mask-image: none;
-    mask-image: none;
+/* Catégories sidebar (Toutes les applications + sous-catégories) — Breeze *-symbolic VM, rendu mask */
+.update-manager--kde-neon .kde-updates__caticon {
+    width: 16px;
+    height: 16px;
+    background: #6b7075;
+    background-image: none !important;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
 }
 
-.kde-updates__caticon--all { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-all.svg"); }
-.kde-updates__caticon--accessibility { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/preferences-desktop-accessibility.svg"); }
-.kde-updates__caticon--office { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-office.svg"); }
-.kde-updates__caticon--development { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-development.svg"); }
-.kde-updates__caticon--education { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-education.svg"); }
-.kde-updates__caticon--graphics { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-graphics.svg"); }
-.kde-updates__caticon--internet { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-internet.svg"); }
-.kde-updates__caticon--games { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-games.svg"); }
-.kde-updates__caticon--multimedia { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-multimedia.svg"); }
-.kde-updates__caticon--science { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-science.svg"); }
-.kde-updates__caticon--system { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-system.svg"); }
-.kde-updates__caticon--utilities { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/applications-utilities.svg"); }
-.kde-updates__caticon--addons { background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/preferences-plugin.svg"); }
+.update-manager--kde-neon .kde-updates__caticon--all {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-all-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-all-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--accessibility {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/preferences-desktop-accessibility-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/preferences-desktop-accessibility-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--office {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-office-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-office-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--development {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-development-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-development-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--education {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-education-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-education-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--graphics {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-graphics-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-graphics-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--internet {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-internet-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-internet-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--games {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-games-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-games-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--multimedia {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-multimedia-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-multimedia-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--science {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-science-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-science-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--system {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-system-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-system-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--utilities {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-utilities-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/applications-utilities-symbolic.svg");
+}
+.update-manager--kde-neon .kde-updates__caticon--addons {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/preferences-plugin-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/categories/preferences-plugin-symbolic.svg");
+}
 
 .update-manager--kde-neon .kde-updates__search-icon {
     background-color: transparent;
-    background-image: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/system-search.svg");
+    background-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/search/system-search-symbolic.svg");
     background-size: 14px;
     background-repeat: no-repeat;
     background-position: center;
@@ -224,7 +320,7 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.45;
-    background: url("../../../../../usr/share/capsuleos/assets/images/toolkits/kde/discover/categories/go-next-symbolic.svg") center / contain no-repeat;
+    background: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar/ui/go-next-symbolic.svg") center / contain no-repeat;
 }
 
 .update-manager--kde-neon .kde-updates__cat.is-active {
@@ -234,6 +330,7 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
 }
 
 .update-manager--kde-neon .kde-updates__cat.is-active .kde-updates__caticon {
+    background: #3daee9;
     opacity: 1;
 }
 
@@ -652,6 +749,14 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     border-color: #c5dff0;
 }
 
+.update-manager--kde-neon .kde-discover-card.is-keyboard-focused,
+.update-manager--kde-neon .kde-discover-card:focus-visible {
+    background: rgba(61, 174, 233, 0.1);
+    border-color: #3daee9;
+    outline: 1px solid rgba(61, 174, 233, 0.35);
+    outline-offset: 0;
+}
+
 .update-manager--kde-neon .kde-discover-view__hero,
 .update-manager--kde-neon .kde-discover-view__title {
     margin: 0;
@@ -667,27 +772,167 @@ body#kde-neon div[data-link="update_manager"] main#updateManagerApp {
     color: #232629;
 }
 
-/* Installé(s) — liste cartes Kirigami compacte (VM InstalledPage compact:true) */
+/* Installé(s) — en-tête + cartes VM (sync discover-kirigami-kde.shared.css) */
+.update-manager--kde-neon .kde-discover-installed__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #eff0f1;
+    flex-shrink: 0;
+}
+
+.update-manager--kde-neon .kde-discover-installed__title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #232629;
+}
+
+.update-manager--kde-neon .kde-discover-installed__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #d6d6d8;
+    background: #f6f6f7;
+    color: #232629;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort:focus-visible {
+    outline: 2px solid #3daee9;
+    outline-offset: 2px;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon {
+    width: 14px;
+    height: 12px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.update-manager--kde-neon .kde-discover-installed__sort-icon::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 2px;
+    border-radius: 1px;
+    background: #232629;
+    box-shadow: 0 5px 0 #232629, 0 10px 0 #232629;
+}
+
 .update-manager--kde-neon .kde-discover-installed {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 0 20px 24px;
+    padding: 12px 20px 24px;
+}
+
+.update-manager--kde-neon .kde-discover-installed__status {
+    margin: 0;
+    padding: 0 20px 14px;
+    color: #27ae60;
+    font-size: 0.85rem;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed {
-    min-height: 56px;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "icon text remove"
+        "icon text size";
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 4px;
+    min-height: 72px;
     padding: 10px 14px;
-    gap: 12px;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__icon {
-    width: 32px;
-    height: 32px;
+    grid-area: icon;
+    width: 48px;
+    height: 48px;
+    align-self: center;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__text {
+    grid-area: text;
+    align-self: center;
 }
 
 .update-manager--kde-neon .kde-discover-card--installed .kde-discover-card__name {
     font-weight: 600;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove {
+    grid-area: remove;
+    align-self: start;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #d6d6d8;
+    border-radius: 4px;
+    background: #f6f6f7;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:hover {
+    background: #ffffff;
+    border-color: rgba(35, 38, 41, 0.28);
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:active {
+    background: #e9eaec;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove:focus-visible {
+    outline: 2px solid #3daee9;
+    outline-offset: 2px;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__remove-icon {
+    width: 18px;
+    height: 18px;
+    background: #c0392b;
+    /* Chemin logique (CapsuleResource) : ./icons/kde/nemo/user-trash-full-symbolic.svg */
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/user-trash-full-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/icons/kde/nemo/user-trash-full-symbolic.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.update-manager--kde-neon .kde-discover-card--installed__size {
+    grid-area: size;
+    justify-self: end;
+    align-self: end;
+    font-size: 12px;
+    color: #6b7075;
+    white-space: nowrap;
+    padding-top: 2px;
 }
 
 /* Configuration — SourcesPage (Discover 6.6) */
@@ -1078,13 +1323,17 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-man
     padding: 24px 24px 12px;
 }
 
+body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-installed__header {
+    padding: 20px 24px 14px;
+}
+
 body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-installed {
-    padding: 0 24px 32px;
+    padding: 12px 24px 32px;
     gap: 10px;
 }
 
 body#kde-neon div[data-link="update_manager"][data-maximized="true"] .update-manager--kde-neon .kde-discover-card--installed {
-    min-height: 58px;
+    min-height: 72px;
     padding: 10px 16px;
 }
 
@@ -1131,25 +1380,128 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
 }
 
 .update-manager--kde-neon .kde-discover-panel--app-detail {
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background: #eff0f1;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 10px;
+    padding: 10px 20px 10px;
+    border-bottom: 1px solid #eff0f1;
+    background: #eff0f1;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #d6d6d8;
+    background: #f6f6f7;
+    color: #232629;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1;
+    cursor: default;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background: #232629;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--share {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/document-share-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/document-share-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--remove {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/edit-delete-remove-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/edit-delete-remove-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-icon--launch {
+    -webkit-mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/system-run-symbolic.svg");
+    mask-image: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/discover/actions/system-run-symbolic.svg");
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary {
+    border-color: #2a9fd4;
+    color: #fff;
+    font-weight: 600;
+    background: #3daee9;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary .kde-discover-app-detail__header-action-icon {
+    background: #fff;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary.is-installing {
+    opacity: 0.92;
+    cursor: wait;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--primary.is-installing .kde-discover-app-detail__header-action-icon--launch {
+    animation: kde-discover-install-spin 0.9s linear infinite;
+}
+
+@keyframes kde-discover-install-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action--origin {
+    gap: 6px;
+    padding-right: 8px;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__header-action-caret {
+    width: 8px;
+    height: 8px;
+    margin-top: 1px;
+    border-right: 1.5px solid #5f6368;
+    border-bottom: 1.5px solid #5f6368;
+    transform: rotate(45deg) translateY(-1px);
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__body {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding: 0.55rem 1.1rem 1.5rem;
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 0.55rem 1.25rem 1.5rem;
     min-height: min(100%, 42rem);
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding-bottom: 0.35rem;
-    border-bottom: 1px solid rgba(35, 38, 41, 0.08);
+    display: none;
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__toolbar-actions {
@@ -1326,11 +1678,32 @@ body#kde-neon div[data-link="update_manager"][data-maximized="true"] main#update
     line-height: 1.35;
 }
 
+.update-manager--kde-neon .kde-discover-app-detail__description-heading {
+    margin: 0.35rem 0 0.45rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #232629;
+    line-height: 1.4;
+}
+
 .update-manager--kde-neon .kde-discover-app-detail__description-text {
-    margin: 0 0 1rem;
+    margin: 0 0 0.85rem;
     color: #4d5359;
     line-height: 1.55;
     font-size: 0.88rem;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__description-list {
+    margin: 0 0 0.85rem;
+    padding: 0 0 0 1.15rem;
+    color: #4d5359;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    list-style: disc;
+}
+
+.update-manager--kde-neon .kde-discover-app-detail__description-list-item {
+    margin: 0 0 0.35rem;
 }
 
 .update-manager--kde-neon .kde-discover-app-detail__icon {

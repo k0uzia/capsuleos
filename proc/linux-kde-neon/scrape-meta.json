@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-kde-neon",
-  "collectedAt": "2026-06-13T18:57:56.224Z",
+  "collectedAt": "2026-06-16T10:01:52.025Z",
   "source": "distribution-manifest",
   "searchPaths": [
     "/usr/share/applications",
@@ -9,5 +9,5 @@
     "/usr/local/share/applications"
   ],
   "gridVisible": 26,
-  "total": 201
+  "total": 202
 }

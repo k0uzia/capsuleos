@@ -120,10 +120,11 @@ export const patchIndexIconPackScript = (registryId, write) => {
     const anchors = [
       '<script src="./data/overview-apps-grid.js',
       '<script src="./content/mainMenu-data.js',
+      '<script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js',
     ];
     const anchor = anchors.find((a) => html.includes(a));
     if (!anchor) {
-      throw new Error('Ancre skin introuvable pour injecter manifest-icon-pack-refs');
+      throw new Error('Aucun point d\'injection icon-pack-refs (overview-apps-grid / mainMenu-data / capsule-skin-boot)');
     }
     html = html.replace(anchor, `${scriptTag}\n    ${anchor}`);
   }

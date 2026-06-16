@@ -1,8 +1,8 @@
 {
   "version": 1,
   "registryId": "linux-kde-neon",
-  "collectedAt": "2026-06-13T18:57:56.224Z",
-  "entryCount": 201,
+  "collectedAt": "2026-06-16T10:01:52.025Z",
+  "entryCount": 202,
   "entries": [
     {
       "id": "gcr-prompter",
@@ -878,6 +878,19 @@
       "origin": "system",
       "showInGrid": true,
       "hideReasons": []
+    },
+    {
+      "id": "userapp-Firefox-KSVDQ3",
+      "normalizedId": "userapp-Firefox-KSVDQ3",
+      "name": "Firefox",
+      "icon": null,
+      "categories": null,
+      "desktopPath": "/home/goupil/.local/share/applications/userapp-Firefox-KSVDQ3.desktop",
+      "origin": "user",
+      "showInGrid": false,
+      "hideReasons": [
+        "no-display"
+      ]
     },
     {
       "id": "kcm_wallpaper",

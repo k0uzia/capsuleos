@@ -98,8 +98,8 @@ try {
     errors.push(`discover-kde.js : vérif syntaxe impossible — ${e.message || e}`);
 }
 
-if (!discoverJs.includes('runInstallSimulation')) {
-    errors.push('discover-kde.js : runInstallSimulation absent');
+if (!discoverJs.includes('data-discover-app-install')) {
+    errors.push('discover-kde.js : flux install (data-discover-app-install) absent');
 }
 
 if (errors.length) {

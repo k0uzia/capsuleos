@@ -3,8 +3,8 @@
   "registryId": "linux-kde-neon",
   "displayName": "KDE neon User Edition",
   "lab": {
-    "ssh": "capsule@192.168.123.52",
-    "sshFallback": "goupil@192.168.123.52",
+    "ssh": "capsule@192.168.123.236",
+    "sshFallback": "goupil@192.168.123.236",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland",
     "display": ":1",

@@ -117,6 +117,9 @@ html:has(#ubuntu) {
 
 html[data-theme="light"]:has(#ubuntu) {
     --ubuntu-shell-text: var(--ubuntu-shell-topbar-text);
+    --desktop-shortcut-text: #1e1e1e;
+    --desktop-shortcut-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
+    --desktop-shortcut-hover-bg: rgba(0, 0, 0, 0.08);
     --ubuntu-shell-border-soft: rgba(255, 255, 255, 0.1);
     --ubuntu-top-bar-bg: var(--ubuntu-shell-topbar-bg);
     --ubuntu-top-bar-border-bottom: var(--ubuntu-shell-topbar-border);

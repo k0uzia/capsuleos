@@ -88,7 +88,9 @@
             }
         }
         const saved = global.localStorage.getItem(key);
-        return saved && GNOME_ACCENTS[saved] ? saved : 'blue';
+        const bid = bodyId();
+        const fallback = bid === 'ubuntu' ? 'orange' : 'blue';
+        return saved && GNOME_ACCENTS[saved] ? saved : fallback;
     }
 
     function persistAccent(accentId) {

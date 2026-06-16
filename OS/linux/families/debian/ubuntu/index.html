@@ -43,29 +43,16 @@
     <div class="fedora-main-row">
         <aside id="tableau" class="fedora-dock" aria-label="Applications épinglées">
             <nav class="fedora-dock__nav">
-                <a target="windowElement" data-link="profile" title="Ubuntu 26.04 LTS — À propos">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/ubuntu/ubuntu-logo.svg" alt="Ubuntu" width="48" height="48">
-                </a>
                 <a target="windowElement" data-link="firefox" title="Firefox">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/firefox.webp" alt="Firefox" width="48" height="48">
                 </a>
-                <span class="ubuntu-dock__unavailable" title="Evolution (non simulé)" aria-hidden="true">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/evolution.png" alt="" width="48" height="48">
-                </span>
                 <a target="windowElement" data-link="nemo" title="Fichiers">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/files.png" alt="Fichiers" width="48" height="48">
-                </a>
-                <a target="windowElement" data-link="lecteur_multimedia" title="Rhythmbox">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/org.gnome.Rhythmbox3.webp" alt="Rhythmbox" width="48" height="48">
-                </a>
-                <a target="windowElement" data-link="librewriter" title="LibreOffice Writer">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/dash/libreoffice-writer.webp" alt="LibreOffice Writer" width="48" height="48">
                 </a>
                 <a target="windowElement" data-link="update_manager" title="Logiciels">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/software-store.png" alt="Logiciels" width="48" height="48">
                 </a>
-                <button type="button" class="ubuntu-dock__help" id="ubuntu-help-theme-btn" title="Aide"
-                        aria-label="Aide Ubuntu (changer le thème clair/sombre)">
+                <button type="button" class="ubuntu-dock__help" title="Aide Ubuntu" aria-label="Aide Ubuntu">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/help.png" alt="Aide" width="48" height="48">
                 </button>
                 <button type="button" class="ubuntu-dock__trash" title="Corbeille" aria-label="Corbeille">
@@ -79,9 +66,9 @@
         </aside>
         <main class="fedora-desktop-area">
             <object id="desktop" aria-label="Bureau Ubuntu">
-                <a class="desktop-shortcut" target="windowElement" data-link="profile" title="Ubuntu 26.04 LTS - À propos">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/ubuntu/ubuntu-logo.svg" alt="Ubuntu 26.04 LTS - À propos" width="48" height="48">
-                    <span>Ubuntu 26.04<br>À propos</span>
+                <a class="desktop-shortcut desktop-shortcut--ding-home" target="windowElement" data-link="nemo" title="Dossier personnel">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/dock/files.png" alt="Dossier personnel" width="48" height="48">
+                    <span>Dossier<br>personnel</span>
                 </a>
                 <div class="windowElement" data-link="mainMenu" id="mainMenu" style="display: none;"></div>
                 <div class="windowElement" data-link="nemo" id="nemo" style="display: none;"></div>
@@ -366,7 +353,7 @@
     </script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js?v=5309ff7dda"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=0439f55b4f"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=3c55467e7b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=f13bebb6e9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=dd21339878"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js?v=76aadba6a9"></script>
@@ -383,7 +370,7 @@
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
     <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=b7f66fb4be"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=b0835fae8c"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js?v=3d5113fb47"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js?v=794d43a270"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js?v=67cda8291d"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js?v=d75499bdc6"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-parity.js?v=212d9b8883"></script>
@@ -491,36 +478,6 @@
             updateUbuntuDate();
             setInterval(updateUbuntuDate, 60000);
         });
-    })();
-    </script>
-    <script>
-    (function () {
-        function bindUbuntuHelpThemeToggle() {
-            var helpBtn = document.getElementById('ubuntu-help-theme-btn');
-            if (!helpBtn || helpBtn.dataset.bound === 'true') return;
-            helpBtn.dataset.bound = 'true';
-
-            helpBtn.addEventListener('click', function () {
-                var qsThemeBtn = document.getElementById('quick-settings-theme-btn');
-                if (qsThemeBtn) {
-                    qsThemeBtn.click();
-                    return;
-                }
-                var nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-                document.documentElement.dataset.theme = nextTheme;
-                if (window.CapsuleThemeStorage && window.CapsuleThemeStorage.persistTheme) {
-                    window.CapsuleThemeStorage.persistTheme(nextTheme, 'ubuntu');
-                } else {
-                    localStorage.setItem('gnome-theme', nextTheme);
-                }
-                var label = document.getElementById('quick-settings-theme-label');
-                if (label) {
-                    label.textContent = nextTheme === 'light' ? 'Style clair' : 'Style sombre';
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', bindUbuntuHelpThemeToggle);
     })();
     </script>
 </body>

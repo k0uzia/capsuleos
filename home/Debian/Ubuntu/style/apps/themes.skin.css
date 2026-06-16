@@ -156,12 +156,6 @@ body#ubuntu div[data-link="themes"] .gnome-settings-wallpaper.is-active {
     box-shadow: 0 0 0 1px var(--gcc-accent);
 }
 
-body#ubuntu div[data-link="themes"] .gnome-settings-wallpapers {
-    max-height: min(28rem, 52vh);
-    overflow-y: auto;
-    padding-inline-end: 0.25rem;
-}
-
 body#ubuntu div[data-link="themes"] .gnome-settings-about__os {
     color: var(--gcc-text);
 }

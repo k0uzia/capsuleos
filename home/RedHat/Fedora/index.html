@@ -136,17 +136,15 @@
             <button type="button" class="fedora-overview__search-clear" data-overview-search-clear aria-label="Effacer la recherche" hidden></button>
         </form>
         <section class="fedora-overview__search-results" data-overview-search-results aria-label="Résultats de recherche" hidden></section>
-        <div class="fedora-overview__workspace" aria-hidden="true">
+        <div class="fedora-overview__workspace" data-gnome-workspace-stage aria-hidden="true">
+            <div class="fedora-overview__workspace-prev" hidden aria-hidden="true"></div>
             <button type="button" class="fedora-overview__workspace-card" data-overview-desktop aria-label="Revenir au bureau">
-                <span class="fedora-overview__brand">fedora</span>
+                <span class="fedora-overview__brand" aria-hidden="true"></span>
             </button>
             <div class="fedora-overview__workspace-next"></div>
         </div>
         <section class="fedora-overview__apps" aria-label="Applications">
-            <div class="fedora-overview__mini-workspaces">
-                <button type="button" class="fedora-overview__mini-workspace" data-overview-desktop aria-label="Revenir au bureau"></button>
-                <div class="fedora-overview__mini-workspace" aria-hidden="true"></div>
-            </div>
+            <div class="fedora-overview__mini-workspaces" data-gnome-workspaces-mini aria-label="Bureaux virtuels"></div>
             <div class="fedora-overview__apps-grid" data-overview-apps-grid>
             <!-- CAPSULE-OVERVIEW-APPS-GRID:START -->
                 <button type="button" class="fedora-overview__app" data-overview-link="calculator" aria-label="Calculatrice">
@@ -516,8 +514,12 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-catalog.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-shell-pin.js"></script>
 
+    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-workspaces.js?v=20260606"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-desktop-context-menu.js?v=20260606"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-hot-corners.js"></script>
     <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>
     <script src="./data/overview-apps-grid.js?v=20260604"></script>
     <script src="./js/overview.js?v=20260428"></script>

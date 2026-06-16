@@ -271,7 +271,13 @@
                 if (!Number.isFinite(sec)) {
                     return null;
                 }
-                const mapping = { 300: '5 minutes', 600: '10 minutes', 900: '15 minutes', 0: 'Jamais' };
+                const mapping = {
+                    300: '5 minutes',
+                    600: '10 minutes',
+                    900: '15 minutes',
+                    3600: '1 heure',
+                    0: 'Jamais',
+                };
                 return mapping[sec] || `${sec}s`;
             },
             fromCapsule(capsule) {
@@ -279,6 +285,7 @@
                     '5 minutes': '300',
                     '10 minutes': '600',
                     '15 minutes': '900',
+                    '1 heure': '3600',
                     Jamais: '0',
                 };
                 return reverse[capsule] || '900';

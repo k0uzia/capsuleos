@@ -52,9 +52,76 @@
       "dynamicWorkspaces": "capsule:dynamic-workspaces-changed",
       "appletVisibility": "capsule:applet-visibility-changed",
       "nightLight": "capsule:nightlight-changed",
-      "dnd": "capsule:dnd-changed"
+      "dnd": "capsule:dnd-changed",
+      "theme": "capsule:gnome-theme-changed",
+      "wallpaper": "capsule:wallpaper-changed",
+      "notifications": "capsule:notifications-changed",
+      "hotCorners": "capsule:hot-corners-changed",
+      "displayScale": "capsule:display-scale-changed"
     }
   },
+  "effects": [
+    {
+      "id": "gnome-appearance-theme",
+      "toolkit": "gnome",
+      "settingsPanel": "appearance",
+      "controlId": "theme",
+      "layer": "Se-Desktop",
+      "event": "capsule:gnome-theme-changed",
+      "pilotRegistryId": "linux-rocky",
+      "priority": "P0",
+      "emitters": ["usr/lib/capsuleos/shells/linux/themes.js"],
+      "consumers": ["usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"]
+    },
+    {
+      "id": "gnome-background-wallpaper",
+      "toolkit": "gnome",
+      "settingsPanel": "background",
+      "controlId": "wallpaper",
+      "layer": "Se-Desktop",
+      "event": "capsule:wallpaper-changed",
+      "pilotRegistryId": "linux-rocky",
+      "priority": "P0",
+      "emitters": ["usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"],
+      "consumers": ["home/RedHat/Rocky/style/gnome-workstation.css"]
+    },
+    {
+      "id": "gnome-notifications-banners",
+      "toolkit": "gnome",
+      "settingsPanel": "notifications",
+      "controlId": "notifications",
+      "layer": "Se-Shell",
+      "event": "capsule:notifications-changed",
+      "pilotRegistryId": "linux-rocky",
+      "priority": "P0",
+      "emitters": ["usr/lib/capsuleos/shells/linux/gnome-settings-parity.js"],
+      "consumers": ["usr/lib/capsuleos/shells/linux/se-shell-bus.js"]
+    },
+    {
+      "id": "gnome-multitasking-workspaces",
+      "toolkit": "gnome",
+      "settingsPanel": "multitasking",
+      "controlId": "dynamic-workspaces",
+      "layer": "Se-WM",
+      "event": "capsule:workspaces-config-changed",
+      "pilotRegistryId": "linux-rocky",
+      "priority": "P0",
+      "emitters": ["usr/lib/capsuleos/shells/linux/gnome-settings-parity.js"],
+      "consumers": ["usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"]
+    },
+    {
+      "id": "gnome-displays-scale",
+      "toolkit": "gnome",
+      "settingsPanel": "displays",
+      "controlId": "display-scale",
+      "layer": "Se-Desktop",
+      "event": "capsule:display-scale-changed",
+      "pilotRegistryId": "linux-rocky",
+      "priority": "P0",
+      "emitters": ["usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"],
+      "consumers": ["home/RedHat/Rocky/style/gnome-workstation.css"]
+    }
+  ],
   "toolkitChains": {
     "cinnamon": {
       "matrix": "root/tools/lab/cinnamon-settings-parity-matrix.json",

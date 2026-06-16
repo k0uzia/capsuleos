@@ -1,13 +1,18 @@
 {
   "registryId": "linux-fedora",
   "domain": "settings-effects",
-  "generatedAt": "2026-06-15T07:24:00.669Z",
-  "toolkit": "gnome",
+  "generatedAt": "2026-06-16T15:07:44.230Z",
   "predicates": {
     "Se": true,
     "SeΣ": true
   },
-  "gate": "usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs",
-  "phase": "closed",
-  "stdout": "✓ verify-gnome-settings-parity-chain linux-fedora OK"
+  "gate": "verify-gnome-settings-parity-chain.mjs",
+  "strict": true,
+  "p0Ids": [
+    "theme",
+    "night-light",
+    "dynamic-workspaces",
+    "dnd"
+  ],
+  "warnings": 1
 }

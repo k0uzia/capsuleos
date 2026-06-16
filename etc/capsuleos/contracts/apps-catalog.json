@@ -175,6 +175,12 @@
           "template": "characters.html",
           "skinCss": "characters.skin.css",
           "functionalDepth": "partial"
+        },
+        "file_roller": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "file_roller.html",
+          "skinCss": "file_roller.skin.css",
+          "functionalDepth": "partial"
         }
       }
     },
@@ -1091,15 +1097,7 @@
           "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS"
         },
         "snap-store": {
-          "labelFr": "Snap Store",
-          "priorite": "P1",
-          "slot": null,
-          "statut": "notOnVm",
-          "requiresSlot": false,
-          "note": "Retail Ubuntu — CapsuleOS utilise org.gnome.Software (GS50)"
-        },
-        "org.gnome.Software": {
-          "labelFr": "Logiciels",
+          "labelFr": "Centre d'applications",
           "priorite": "P0",
           "slot": "update_manager",
           "statut": "ok",
@@ -1170,6 +1168,117 @@
             "dash": true
           },
           "note": "Favori VM — slot à créer"
+        },
+        "org.gnome.clocks": {
+          "labelFr": "Horloges",
+          "priorite": "P1",
+          "slot": "clocks",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          }
+        },
+        "org.gnome.Papers": {
+          "labelFr": "Visionneur de documents",
+          "priorite": "P1",
+          "slot": "visionneur_pdf",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          }
+        },
+        "org.gnome.Loupe": {
+          "labelFr": "Loupe",
+          "priorite": "P1",
+          "slot": "visionneur_images",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          }
+        },
+        "org.gnome.Snapshot": {
+          "labelFr": "Snapshot",
+          "priorite": "P1",
+          "slot": "snapshot",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          },
+          "onVm": false,
+          "note": "Absent VM lab Ubuntu 26.04 — slot GNOME mutualisé"
+        },
+        "org.gnome.Tour": {
+          "labelFr": "Visite guidée",
+          "priorite": "P2",
+          "slot": "tour",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          },
+          "onVm": false,
+          "note": "Absent VM lab Ubuntu 26.04 — slot GNOME mutualisé"
+        },
+        "org.gnome.baobab": {
+          "labelFr": "Utilisation des disques",
+          "priorite": "P2",
+          "slot": "baobab",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          }
+        },
+        "org.gnome.SystemMonitor": {
+          "labelFr": "Moniteur système",
+          "priorite": "P2",
+          "slot": "system_monitor",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          },
+          "onVm": false,
+          "note": "VM utilise net.nokyan.Resources — slot GNOME mutualisé"
+        },
+        "org.gnome.Characters": {
+          "labelFr": "Caractères",
+          "priorite": "P2",
+          "slot": "characters",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          }
+        },
+        "org.gnome.FileRoller": {
+          "labelFr": "Gestionnaire d'archives",
+          "priorite": "P1",
+          "slot": "file_roller",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true
+          },
+          "onVm": false,
+          "note": "Absent VM lab — slot GNOME mutualisé"
+        },
+        "org.gnome.Calendar": {
+          "labelFr": "Agenda",
+          "priorite": "P1",
+          "slot": "calendar",
+          "statut": "ok",
+          "requiresSlot": true,
+          "placement": {
+            "overview": true,
+            "dash": true
+          },
+          "onVm": false,
+          "note": "Absent VM lab — slot GNOME mutualisé"
         }
       },
       "capsuleOnly": [

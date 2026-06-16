@@ -19,6 +19,15 @@ const errors = [];
 const registry = parseRegistryId();
 const profile = h6Profile(registry);
 
+/** Id fond d'écran présent dans le catalogue vendor (R-LOC1). */
+const WALLPAPER_SMOKE_ID = {
+  'linux-rocky': 'abstract-2',
+  'linux-fedora': 'solid-graphite',
+  'linux-alma': 'solid-graphite',
+  'linux-ubuntu': 'abstract-2',
+};
+const wallpaperSmokeId = WALLPAPER_SMOKE_ID[registry] || 'solid-graphite';
+
 if (profile.skipH5P1) {
   process.stdout.write(`○ smoke-h5-p1-appearance ${registry} ignoré — H5 P1 hors scope playbook τ\n`);
   process.exit(0);
@@ -80,7 +89,7 @@ async function runPlaywright() {
       { timeout: 30000 },
     );
 
-    const result = await page.evaluate(async ({ bodyId, wallpaperVendor }) => {
+    const result = await page.evaluate(async ({ bodyId, wallpaperVendor, wallpaperSmokeId }) => {
       const checks = [];
       const storage = window.CapsuleThemeStorage;
       const shell = document.getElementById(bodyId);
@@ -96,11 +105,11 @@ async function runPlaywright() {
         ok: document.documentElement.dataset.gnomeAccent === 'orange',
       });
 
-      storage.applyWallpaper('abstract-2', wallpaperVendor);
+      storage.applyWallpaper(wallpaperSmokeId, wallpaperVendor);
       const bg = getComputedStyle(shell).transitionProperty || '';
       checks.push({
         id: 'wallpaper-dataset',
-        ok: document.documentElement.dataset.gnomeWallpaper === 'abstract-2',
+        ok: document.documentElement.dataset.gnomeWallpaper === wallpaperSmokeId,
       });
       checks.push({
         id: 'wallpaper-transition-css',
@@ -155,7 +164,7 @@ async function runPlaywright() {
         checks,
         failed: checks.filter((c) => !c.ok).map((c) => c.id),
       };
-    }, { bodyId: profile.bodyId, wallpaperVendor });
+    }, { bodyId: profile.bodyId, wallpaperVendor, wallpaperSmokeId });
 
     if (result.failed?.length) {
       errors.push(`Playwright H5 P1 : ${result.failed.join(', ')}`);

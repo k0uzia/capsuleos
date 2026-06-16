@@ -222,6 +222,76 @@
       ],
       "investigationSteps": ["désactiver fichiers", "recherche overview « Documents »", "comparer catalog Capsule filterSearchCatalog"],
       "parityPriority": "P1"
+    },
+    {
+      "controlId": "mouse-handedness",
+      "capsulePanel": "mouse",
+      "label": "Main primaire (souris)",
+      "surfaces": ["settings-mouse-panel", "cursor-context"],
+      "vmObservation": "Inversion boutons gauche/droite.",
+      "transition": { "type": "instant", "durationMs": 0 },
+      "capsuleHook": { "dataset": "mouseHandedness", "css": "gnome-shell-preferences.base.css" },
+      "officialDocs": [
+        { "title": "org.gnome.desktop.peripherals.mouse", "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas" }
+      ],
+      "investigationSteps": ["basculer Gauche/Droit", "vérifier dataset Capsule + label actif"],
+      "parityPriority": "P2"
+    },
+    {
+      "controlId": "keyboard-layout",
+      "capsulePanel": "keyboard",
+      "label": "Disposition clavier",
+      "surfaces": ["settings-keyboard-panel"],
+      "vmObservation": "Disposition active visible ; commutation possible.",
+      "transition": { "type": "instant", "durationMs": 0 },
+      "capsuleHook": { "dataset": "keyboardLayout", "css": "gnome-shell-preferences.base.css" },
+      "officialDocs": [
+        { "title": "org.gnome.desktop.input-sources", "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas" }
+      ],
+      "investigationSteps": ["observer valeur affichée", "changer si dispo", "capturer comportement Capsule"],
+      "parityPriority": "P2"
+    },
+    {
+      "controlId": "sound-alert",
+      "capsulePanel": "sound",
+      "label": "Sons d'alerte",
+      "surfaces": ["settings-sound-panel", "notification-sounds"],
+      "vmObservation": "Activation/désactivation sons système.",
+      "transition": { "type": "instant", "durationMs": 0 },
+      "capsuleHook": { "dataset": "soundAlert", "css": "gnome-shell-preferences.base.css" },
+      "officialDocs": [
+        { "title": "org.gnome.desktop.sound", "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas" }
+      ],
+      "investigationSteps": ["toggle sons d'alerte", "vérifier dataset Capsule"],
+      "parityPriority": "P2"
+    },
+    {
+      "controlId": "camera",
+      "capsulePanel": "privacy",
+      "label": "Accès caméra",
+      "surfaces": ["settings-privacy-panel"],
+      "vmObservation": "Bloque/autorise accès caméra (privacy).",
+      "transition": { "type": "instant", "durationMs": 0 },
+      "capsuleHook": { "dataset": "privacyCamera", "css": "gnome-shell-preferences.base.css" },
+      "officialDocs": [
+        { "title": "org.gnome.desktop.privacy", "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas" }
+      ],
+      "investigationSteps": ["toggle caméra", "vérifier dataset Capsule + persistance"],
+      "parityPriority": "P2"
+    },
+    {
+      "controlId": "bluetooth",
+      "capsulePanel": "bluetooth",
+      "label": "Bluetooth activé",
+      "surfaces": ["quick-settings-bluetooth", "settings-bluetooth-panel"],
+      "vmObservation": "Tuile QS + panneau Paramètres synchronisés.",
+      "transition": { "type": "fade", "durationMs": 200 },
+      "capsuleHook": { "dataset": "bluetoothEnabled", "css": "gnome-shell-preferences.base.css" },
+      "officialDocs": [
+        { "title": "rfkill", "url": "https://www.kernel.org/doc/html/latest/admin-guide/devices.html#rfkill" }
+      ],
+      "investigationSteps": ["toggle bluetooth", "capturer QS + panneau", "vérifier dataset Capsule"],
+      "parityPriority": "P2"
     }
   ]
 }

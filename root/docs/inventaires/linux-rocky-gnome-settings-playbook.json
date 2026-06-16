@@ -1,16 +1,149 @@
 {
-  "generatedAt": "2026-06-06T12:10:52.364443+00:00",
+  "generatedAt": "2026-06-16T14:26:53.290736+00:00",
   "source": "vm-gnome-settings-playbook.sh",
   "matrixVersion": 1,
-  "matrixPath": "/tmp/capsule-settings-matrix.l8zjgN.json",
+  "matrixPath": "/tmp/capsule-settings-matrix.5ltqxo.json",
   "dwellMs": 1400,
   "panelFilter": null,
   "summary": {
     "panelsTotal": 18,
     "panelsOpened": 18,
-    "controlsMapped": 28,
-    "controlsUnmapped": 10,
-    "errors": 0
+    "controlsMapped": 29,
+    "controlsUnmapped": 6,
+    "errors": 0,
+    "assetsPresentOnVm": 12,
+    "assetsMissingOnVm": 0
+  },
+  "assetSources": {
+    "status": "ok",
+    "matrixPath": "/tmp/capsule-assets-matrix.f4GSJZ.json",
+    "summary": {
+      "assetsTotal": 12,
+      "presentOnVm": 12,
+      "missingOnVm": 0
+    },
+    "gsettingsSources": {
+      "desktop-background-uri": {
+        "raw": "'file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml'",
+        "localPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml",
+        "existsOnVm": true
+      },
+      "desktop-background-uri-dark": {
+        "raw": "'file:///usr/share/backgrounds/gnome/adwaita-d.jxl'",
+        "localPath": "/usr/share/backgrounds/gnome/adwaita-d.jxl",
+        "existsOnVm": false
+      }
+    },
+    "assets": [
+      {
+        "id": "wallpaper-gemstone-skies-night",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-night.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp",
+        "existsOnVm": true,
+        "sizeBytes": 3782992,
+        "sha256": "40084eb1909ae590068a374c45136071fcff64a211b14530858891fd955f35db"
+      },
+      {
+        "id": "wallpaper-gemstone-skies-day",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-gemstone-skies-day.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp",
+        "existsOnVm": true,
+        "sizeBytes": 6228086,
+        "sha256": "1804924555805cd562853dc3e36fb68b035ad7d0b87ba56c54ebe1f3bc175267"
+      },
+      {
+        "id": "wallpaper-abstract-1-night",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-night.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-night.webp",
+        "existsOnVm": true,
+        "sizeBytes": 901386,
+        "sha256": "75b387592ba9e538e6db289fe1c632c3255200143d623f98cdfbd81e0c72eb61"
+      },
+      {
+        "id": "wallpaper-abstract-1-day",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-1-day.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-1-day.webp",
+        "existsOnVm": true,
+        "sizeBytes": 1069444,
+        "sha256": "84789291ba535d2a0b56a4c5daabd175d25c55218972541186e7abcc6ec3cefa"
+      },
+      {
+        "id": "wallpaper-abstract-2",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-2.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-2.webp",
+        "existsOnVm": true,
+        "sizeBytes": 9057595,
+        "sha256": "29074dc649c885cb50b83c7b6bc7059bf0f63d6baddf73d8df578cdc2605d043"
+      },
+      {
+        "id": "wallpaper-abstract-3",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-3.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.webp",
+        "existsOnVm": true,
+        "sizeBytes": 2689203,
+        "sha256": "ae3eefaac4dd05fe002c1d2624a638f3c5a5b5352c913c8870d6fe058a0422c4"
+      },
+      {
+        "id": "wallpaper-abstract-4",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-4.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.webp",
+        "existsOnVm": true,
+        "sizeBytes": 3959370,
+        "sha256": "e6af3f3fc5373c71dcd2aec14c6cb7456beafa478cd473e6742dd61f4e3067b5"
+      },
+      {
+        "id": "wallpaper-abstract-5",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-abstract-5.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.webp",
+        "existsOnVm": true,
+        "sizeBytes": 15016425,
+        "sha256": "47173e2679d265efa7da7b450df745ca258ff4e3679d4afab1b8f786d874dcbe"
+      },
+      {
+        "id": "wallpaper-sapphire",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire.webp",
+        "existsOnVm": true,
+        "sizeBytes": 9437581,
+        "sha256": "3db6edd33cd225a689f04c6210679978937eb6a78a3c04f7c664bf30193d1453"
+      },
+      {
+        "id": "wallpaper-sapphire-light",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/backgrounds/rocky-default-10-sapphire-light.png",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.webp",
+        "existsOnVm": true,
+        "sizeBytes": 10991193,
+        "sha256": "c1d310fa6f0f382eb9704eedb3edbb0c8d3aacc418c03e2569dec005539fb66f"
+      },
+      {
+        "id": "watermark-fedora-logo-dark",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/rocky-logos/fedora_logo_darkbackground.svg",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_darkbackground.svg",
+        "existsOnVm": true,
+        "sizeBytes": 12168,
+        "sha256": "8f448d222fe08fab237ee178ae1881d8b166a8eb7e46f5f7f7056640f7f96845"
+      },
+      {
+        "id": "watermark-fedora-logo-light",
+        "controlId": "wallpaper",
+        "vmPath": "/usr/share/rocky-logos/fedora_logo_lightbackground.svg",
+        "capsulePath": "usr/share/capsuleos/assets/images/vendors/rocky/watermark/fedora_logo_lightbackground.svg",
+        "existsOnVm": true,
+        "sizeBytes": 12184,
+        "sha256": "e0b4e95ffb1e14e545b33a34cd078b68661a503f38132d65c723300104f3dc27"
+      }
+    ]
   },
   "panels": [
     {
@@ -34,7 +167,7 @@
           "source": "nmcli"
         }
       ],
-      "openedAt": "2026-06-06T12:10:24.812871+00:00"
+      "openedAt": "2026-06-16T14:26:26.135479+00:00"
     },
     {
       "id": "network",
@@ -55,7 +188,7 @@
           "note": "NM ipv4.method"
         }
       ],
-      "openedAt": "2026-06-06T12:10:26.452593+00:00"
+      "openedAt": "2026-06-16T14:26:27.651006+00:00"
     },
     {
       "id": "bluetooth",
@@ -72,11 +205,14 @@
         {
           "id": "bluetooth",
           "capsuleKey": "gnome-bluetooth-enabled",
-          "status": "unmapped",
-          "note": "rfkill indisponible"
+          "vmRaw": null,
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "source": "simulated",
+          "note": "rfkill indisponible — valeur Capsule par défaut (simulée)"
         }
       ],
-      "openedAt": "2026-06-06T12:10:28.007255+00:00"
+      "openedAt": "2026-06-16T14:26:29.182076+00:00"
     },
     {
       "id": "appearance",
@@ -88,12 +224,12 @@
       "windowTitle": null,
       "gsettingsStable": true,
       "gsettingsBefore": {
-        "org.gnome.desktop.interface::color-scheme": "'prefer-dark'",
+        "org.gnome.desktop.interface::color-scheme": "'default'",
         "org.gnome.desktop.interface::accent-color": "'blue'",
         "org.gnome.desktop.interface::gtk-theme": "'Adwaita'"
       },
       "gsettingsAfter": {
-        "org.gnome.desktop.interface::color-scheme": "'prefer-dark'",
+        "org.gnome.desktop.interface::color-scheme": "'default'",
         "org.gnome.desktop.interface::accent-color": "'blue'",
         "org.gnome.desktop.interface::gtk-theme": "'Adwaita'"
       },
@@ -103,7 +239,7 @@
           "capsuleKey": "mint-theme",
           "schema": "org.gnome.desktop.interface",
           "key": "color-scheme",
-          "vmRaw": "'prefer-dark'",
+          "vmRaw": "'default'",
           "capsuleExpected": "dark",
           "status": "mapped",
           "note": null
@@ -119,7 +255,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:29.588601+00:00"
+      "openedAt": "2026-06-16T14:26:30.734701+00:00"
     },
     {
       "id": "background",
@@ -131,12 +267,12 @@
       "windowTitle": null,
       "gsettingsStable": true,
       "gsettingsBefore": {
-        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'"
+        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml'",
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/gnome/adwaita-d.jxl'"
       },
       "gsettingsAfter": {
-        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'"
+        "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml'",
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/gnome/adwaita-d.jxl'"
       },
       "controls": [
         {
@@ -144,13 +280,13 @@
           "capsuleKey": "gnome-wallpaper",
           "schema": "org.gnome.desktop.background",
           "key": "picture-uri",
-          "vmRaw": "'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'",
-          "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.webp",
+          "vmRaw": "'file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml'",
+          "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml",
           "status": "mapped",
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:31.188297+00:00"
+      "openedAt": "2026-06-16T14:26:32.335365+00:00"
     },
     {
       "id": "notifications",
@@ -193,11 +329,15 @@
         {
           "id": "dnd",
           "capsuleKey": "gnome-dnd-enabled",
-          "status": "unmapped",
-          "note": "DND shell — lire via gsettings org.gnome.desktop.notifications si absent"
+          "schema": "org.capsuleos.gnome.shell",
+          "key": "dnd-enabled",
+          "vmRaw": "",
+          "capsuleExpected": "off",
+          "status": "mapped",
+          "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:32.804324+00:00"
+      "openedAt": "2026-06-16T14:26:33.939254+00:00"
     },
     {
       "id": "search",
@@ -221,15 +361,19 @@
           "schema": "org.gnome.desktop.search-providers",
           "key": "disabled",
           "vmRaw": "@as []",
-          "capsuleExpected": "on",
-          "status": "mapped",
-          "note": "heuristique historique"
+          "capsuleExpected": null,
+          "status": "partial",
+          "note": null
         },
         {
           "id": "search-files",
           "capsuleKey": "gnome-search-files",
-          "status": "unmapped",
-          "note": "Nautilus provider dans disabled[]"
+          "schema": "org.gnome.desktop.search-providers",
+          "key": "disabled",
+          "vmRaw": "@as []",
+          "capsuleExpected": null,
+          "status": "partial",
+          "note": null
         },
         {
           "id": "search-apps",
@@ -240,11 +384,15 @@
         {
           "id": "search-calculator",
           "capsuleKey": "gnome-search-calculator",
-          "status": "unmapped",
-          "note": "provider"
+          "schema": "org.gnome.desktop.search-providers",
+          "key": "disabled",
+          "vmRaw": "@as []",
+          "capsuleExpected": null,
+          "status": "partial",
+          "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:34.367612+00:00"
+      "openedAt": "2026-06-16T14:26:35.500496+00:00"
     },
     {
       "id": "multitasking",
@@ -297,7 +445,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:35.953644+00:00"
+      "openedAt": "2026-06-16T14:26:37.062116+00:00"
     },
     {
       "id": "sound",
@@ -340,7 +488,7 @@
           "note": "volume-step ≠ curseur %"
         }
       ],
-      "openedAt": "2026-06-06T12:10:37.540095+00:00"
+      "openedAt": "2026-06-16T14:26:38.616639+00:00"
     },
     {
       "id": "power",
@@ -352,30 +500,31 @@
       "windowTitle": null,
       "gsettingsStable": true,
       "gsettingsBefore": {
-        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "900",
-        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'suspend'"
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "3600",
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'nothing'"
       },
       "gsettingsAfter": {
-        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "900",
-        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'suspend'"
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-timeout": "3600",
+        "org.gnome.settings-daemon.plugins.power::sleep-inactive-ac-type": "'nothing'"
       },
       "controls": [
         {
           "id": "power-mode",
           "capsuleKey": "gnome-power-mode",
-          "vmRaw": null,
-          "capsuleExpected": "Équilibré",
+          "schema": "org.capsuleos.gnome.power",
+          "key": "active-profile",
+          "vmRaw": "",
+          "capsuleExpected": null,
           "status": "partial",
-          "source": "powerprofilesctl",
-          "note": "powerprofilesctl absent — défaut Capsule Équilibré"
+          "note": null
         },
         {
           "id": "power-dim",
           "capsuleKey": "gnome-power-dim-screen",
           "schema": "org.gnome.settings-daemon.plugins.power",
           "key": "sleep-inactive-ac-timeout",
-          "vmRaw": "900",
-          "capsuleExpected": "15 minutes",
+          "vmRaw": "3600",
+          "capsuleExpected": "1 heure",
           "status": "mapped",
           "note": null
         },
@@ -384,13 +533,13 @@
           "capsuleKey": "gnome-power-sleep",
           "schema": "org.gnome.settings-daemon.plugins.power",
           "key": "sleep-inactive-ac-type",
-          "vmRaw": "'suspend'",
-          "capsuleExpected": "30 minutes",
+          "vmRaw": "'nothing'",
+          "capsuleExpected": "Jamais",
           "status": "mapped",
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:39.180620+00:00"
+      "openedAt": "2026-06-16T14:26:40.184874+00:00"
     },
     {
       "id": "displays",
@@ -431,7 +580,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:40.786868+00:00"
+      "openedAt": "2026-06-16T14:26:41.750356+00:00"
     },
     {
       "id": "mouse",
@@ -508,7 +657,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:42.454214+00:00"
+      "openedAt": "2026-06-16T14:26:43.467563+00:00"
     },
     {
       "id": "keyboard",
@@ -549,7 +698,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:44.045401+00:00"
+      "openedAt": "2026-06-16T14:26:45.069661+00:00"
     },
     {
       "id": "printers",
@@ -563,7 +712,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-06T12:10:45.615489+00:00"
+      "openedAt": "2026-06-16T14:26:46.665393+00:00"
     },
     {
       "id": "accessibility",
@@ -604,7 +753,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:47.237265+00:00"
+      "openedAt": "2026-06-16T14:26:48.271413+00:00"
     },
     {
       "id": "privacy",
@@ -675,7 +824,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-06T12:10:48.887584+00:00"
+      "openedAt": "2026-06-16T14:26:49.869287+00:00"
     },
     {
       "id": "sharing",
@@ -708,7 +857,7 @@
           "note": "simulated"
         }
       ],
-      "openedAt": "2026-06-06T12:10:50.430486+00:00"
+      "openedAt": "2026-06-16T14:26:51.391562+00:00"
     },
     {
       "id": "about",
@@ -722,7 +871,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-06T12:10:51.988999+00:00"
+      "openedAt": "2026-06-16T14:26:52.912180+00:00"
     }
   ],
   "errors": []

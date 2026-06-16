@@ -405,6 +405,24 @@
       "referenceRegistryId": "linux-rocky",
       "acquisitionOrder": ["month-grid", "week-view", "event-editor"]
     },
+    "file_roller": {
+      "labelFr": "Gestionnaire d'archives",
+      "vmDesktopIds": ["org.gnome.FileRoller"],
+      "gnomeCore": true,
+      "components": [
+        "gnome.adw-application-window",
+        "gnome.adw-header-bar",
+        "gnome.gtk-column-view",
+        "gnome.popover"
+      ],
+      "template": "usr/share/capsuleos/linux/apps/file_roller.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/file_roller.base.css",
+      "skinCss": "file_roller.skin.css",
+      "chromeProvider": "libadwaita-gnome",
+      "referenceRegistryId": "linux-rocky",
+      "acquisitionOrder": ["toolbar", "file-list", "menu", "extract-flow"],
+      "note": "Slot GNOME mutualisé ; peut être absent des VM lab selon distro."
+    },
     "baobab": {
       "labelFr": "Utilisation des disques",
       "vmDesktopIds": ["org.gnome.baobab"],

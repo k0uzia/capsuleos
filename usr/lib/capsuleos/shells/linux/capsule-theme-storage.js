@@ -653,6 +653,7 @@
         const resolved = DISPLAY_SCALE_KEYS[label] || '100';
         global.document.documentElement.dataset.displayScale = resolved;
         persistPref('gnome-display-scale', label);
+        dispatchAppearanceEvent('capsule:display-scale-changed', { scale: resolved, label: label });
         return label;
     }
 

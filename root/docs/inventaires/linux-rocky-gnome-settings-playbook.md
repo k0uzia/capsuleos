@@ -1,6 +1,6 @@
 # Playbook Paramètres GNOME — linux-rocky
 
-> Généré : 2026-06-06T12:10:52.364443+00:00
+> Généré : 2026-06-16T14:26:53.290736+00:00
 > Script : [`vm-gnome-settings-playbook.sh`](../../tools/lab/vm-gnome-settings-playbook.sh)
 
 ## Résumé
@@ -9,8 +9,8 @@
 |----------|--------|
 | Panneaux parcourus | 18 |
 | Panneaux ouverts (gcc) | 18 |
-| Contrôles mappés gsettings | 28 |
-| Contrôles simulés / non mappés | 10 |
+| Contrôles mappés gsettings | 29 |
+| Contrôles simulés / non mappés | 6 |
 
 ## Panneaux
 
@@ -18,11 +18,11 @@
 |---------|-----|---------|------------------|------------------|
 | Wi-Fi | wifi | non | oui | 1/1 |
 | Réseau | network | non | oui | 0/1 |
-| Bluetooth | bluetooth | non | oui | 0/1 |
+| Bluetooth | bluetooth | non | oui | 1/1 |
 | Apparence | appearance | non | oui | 2/2 |
 | Arrière-plan | background | non | oui | 1/1 |
-| Notifications | notifications | non | oui | 2/3 |
-| Recherche | search | non | oui | 1/4 |
+| Notifications | notifications | non | oui | 3/3 |
+| Recherche | search | non | oui | 0/4 |
 | Multitâche | multitasking | non | oui | 3/3 |
 | Son | sound | non | oui | 1/2 |
 | Alimentation | power | non | oui | 2/3 |
@@ -43,18 +43,24 @@
 |----------|----------------|-----------------|
 | wifi | `True` | `on` |
 
+### Bluetooth
+
+| Contrôle | VM (gsettings) | Capsule attendu |
+|----------|----------------|-----------------|
+| bluetooth | `` | `on` |
+
 ### Apparence
 
 | Contrôle | VM (gsettings) | Capsule attendu |
 |----------|----------------|-----------------|
-| theme | `'prefer-dark'` | `dark` |
+| theme | `'default'` | `dark` |
 | accent | `'blue'` | `blue` |
 
 ### Arrière-plan
 
 | Contrôle | VM (gsettings) | Capsule attendu |
 |----------|----------------|-----------------|
-| wallpaper | `'file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png'` | `file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.png` |
+| wallpaper | `'file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml'` | `file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml` |
 
 ### Notifications
 
@@ -62,12 +68,7 @@
 |----------|----------------|-----------------|
 | notifications | `true` | `on` |
 | lock-notifications | `true` | `on` |
-
-### Recherche
-
-| Contrôle | VM (gsettings) | Capsule attendu |
-|----------|----------------|-----------------|
-| search-history | `@as []` | `on` |
+| dnd | `` | `off` |
 
 ### Multitâche
 
@@ -87,8 +88,8 @@
 
 | Contrôle | VM (gsettings) | Capsule attendu |
 |----------|----------------|-----------------|
-| power-dim | `900` | `15 minutes` |
-| power-sleep | `'suspend'` | `30 minutes` |
+| power-dim | `3600` | `1 heure` |
+| power-sleep | `'nothing'` | `Jamais` |
 
 ### Écrans
 

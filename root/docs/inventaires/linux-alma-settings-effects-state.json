@@ -1,13 +1,13 @@
 {
   "registryId": "linux-alma",
   "domain": "settings-effects",
-  "generatedAt": "2026-06-15T07:24:00.837Z",
-  "toolkit": "gnome",
+  "generatedAt": "2026-06-16T14:55:23.993Z",
   "predicates": {
     "Se": true,
     "SeΣ": true
   },
-  "gate": "usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs",
-  "phase": "closed",
-  "stdout": "✓ verify-gnome-settings-parity-chain linux-alma OK"
+  "gate": "verify-gnome-settings-parity-chain.mjs",
+  "strict": true,
+  "p0Ids": [],
+  "warnings": 0
 }

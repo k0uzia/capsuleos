@@ -3,14 +3,22 @@
   "h6Ready": true,
   "pbSigma": true,
   "h5Completed": [
-    "theme",
     "accent",
     "wallpaper",
     "night-light",
+    "display-scale",
     "dynamic-workspaces",
     "hot-corner",
-    "dnd"
+    "dnd",
+    "notifications",
+    "contrast",
+    "font-scale",
+    "power-mode",
+    "power-dim",
+    "wifi",
+    "search-files"
   ],
+  "skipH5P1": false,
   "gate": "smoke-h6-gnome-settings-ready.mjs",
-  "generatedAt": "2026-06-06T14:50:45.911Z"
+  "generatedAt": "2026-06-16T14:27:24.402Z"
 }

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-anduinos",
-  "updatedAt": "2026-06-17T16:14:15.269Z",
+  "updatedAt": "2026-06-17T16:36:24.792Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -10,10 +10,8 @@
     "componentShotsPlanned": 33,
     "componentShotsCaptured": 0,
     "capsuleCapturesP0": 0,
-    "visualMatchClassifiedP0": 5,
     "softwareViewsCapsule": 9,
-    "visualMatchClassifiedP1": 0,
-    "visualMatchClassifiedP2": 0
+    "visualMatchClassifiedP0": 6
   },
   "investigations": [
     {
@@ -522,9 +520,42 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok",
+        "appCt": "ok"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "Campagne store AnduinOS 2026-06-17 — 9 captures Capsule ; smoke-gnome-software-scenarios S1–S12 OK ; VM D-Bus Screenshot refusé (bootstrap sudo requis).",
+      "contentSpec": {
+        "phase": "CR-6",
+        "viewport": "1280x800",
+        "vmReference": "linux-anduinos",
+        "captureMethod": "Playwright capsule multi-vues + smoke scénarios",
+        "contentGaps": [
+          {
+            "id": "vm-captures-blocked",
+            "dimension": "Vc",
+            "severity": "low",
+            "status": "accepted",
+            "note": "org.gnome.Shell.Screenshot AccessDenied sur VM — compensé par 9 vues Capsule + smokes S1–S12."
+          },
+          {
+            "id": "real-sigma-update_manager-vp",
+            "dimension": "chrome",
+            "severity": "high",
+            "status": "closed",
+            "slotId": "update_manager",
+            "controlId": "update_manager",
+            "source": "smoke-gnome-software-scenarios",
+            "predicate": "RealΣ",
+            "note": "RealΣ clôturé — chrome GS50 + scénarios S1–S12 smoke OK",
+            "closedAt": "2026-06-17T16:40:00.000Z"
+          }
+        ],
+        "resolved": [
+          "capsule-captures-9-views",
+          "store-smokes-s1-s12",
+          "gnome-software-content-binding"
+        ]
+      }
     },
     {
       "controlId": "themes",

@@ -1,6 +1,6 @@
 # Catalogue applications — linux-fedora
 
-> Généré : `2026-06-10T22:01:07.143Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-17T14:21:26.752Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-fedora --write

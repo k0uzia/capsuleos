@@ -2,7 +2,7 @@
 window.CAPSULE_OVERVIEW_APPS_GRID = {
   "version": 2,
   "registryId": "linux-fedora",
-  "generatedAt": "2026-06-08T23:12:00.727Z",
+  "generatedAt": "2026-06-17T14:20:40.740Z",
   "source": "proc/linux-fedora/distribution-manifest.json",
   "apps": [
     {
@@ -13,6 +13,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg",
       "dataLink": "calculator",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -23,6 +24,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg",
       "dataLink": "text_editor",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -33,6 +35,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg",
       "dataLink": "nemo",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -43,6 +46,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png",
       "dataLink": "firefox",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -53,6 +57,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Software.svg",
       "dataLink": "update_manager",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -63,6 +68,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg",
       "dataLink": "themes",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -73,6 +79,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg",
       "dataLink": "terminal",
       "launchable": true,
+      "decorative": false,
       "priorite": "P0"
     },
     {
@@ -83,6 +90,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg",
       "dataLink": "calendar",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -93,6 +101,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P1"
     },
     {
@@ -103,6 +112,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg",
       "dataLink": "snapshot",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -113,6 +123,51 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
       "dataLink": "clocks",
       "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "org.libreoffice.LibreOffice",
+      "labelFr": "LibreOffice",
+      "labelShort": "LibreOffice",
+      "slotCapsule": "libreoffice_startcenter",
+      "icon": null,
+      "dataLink": "libreoffice_startcenter",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-calc",
+      "labelFr": "LibreOffice Calc",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "librecalc",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg",
+      "dataLink": "librecalc",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-draw",
+      "labelFr": "LibreOffice Draw",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "libreoffice_draw",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw",
+      "dataLink": "libreoffice_draw",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-impress",
+      "labelFr": "LibreOffice Impress",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "libreoffice_impress",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg",
+      "dataLink": "libreoffice_impress",
+      "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -123,6 +178,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg",
       "dataLink": "visionneur_images",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -133,6 +189,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg",
       "dataLink": "visionneur_pdf",
       "launchable": true,
+      "decorative": false,
       "priorite": "P1"
     },
     {
@@ -143,6 +200,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg",
       "dataLink": "characters",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -153,6 +211,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Maps.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -163,6 +222,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Connections.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -173,6 +233,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -183,6 +244,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.freedesktop.MalcontentControl.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -193,6 +255,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -203,6 +266,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.fedoraproject.MediaWriter.png",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -213,6 +277,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Logs.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -223,6 +288,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Decibels.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -233,26 +299,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg",
       "dataLink": null,
       "launchable": false,
-      "priorite": "P2"
-    },
-    {
-      "vmId": "libreoffice-calc",
-      "labelFr": "LibreOffice Calc",
-      "labelShort": "LibreOffi...",
-      "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg",
-      "dataLink": null,
-      "launchable": false,
-      "priorite": "P2"
-    },
-    {
-      "vmId": "libreoffice-impress",
-      "labelFr": "LibreOffice Impress",
-      "labelShort": "LibreOffi...",
-      "slotCapsule": null,
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg",
-      "dataLink": null,
-      "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -263,6 +310,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg",
       "dataLink": "librewriter",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -273,6 +321,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Boxes.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -283,6 +332,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -293,6 +343,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg",
       "dataLink": "system_monitor",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -303,6 +354,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SimpleScan.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -313,6 +365,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg",
       "dataLink": null,
       "launchable": false,
+      "decorative": true,
       "priorite": "P2"
     },
     {
@@ -323,6 +376,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg",
       "dataLink": "baobab",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {
@@ -333,6 +387,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg",
       "dataLink": "tour",
       "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     }
   ]

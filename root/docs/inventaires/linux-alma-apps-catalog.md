@@ -1,6 +1,6 @@
 # Catalogue applications — linux-alma
 
-> Généré : `2026-06-10T11:15:00.654Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-17T14:19:56.497Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-alma --write
@@ -29,7 +29,7 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-alma
 | Firefox | firefox | P0 | firefox | ✅ ok | ✓ | ✓ | firefox-gnome · partial |
 | Horloges | org.gnome.clocks | P1 | clocks | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Journal SELinux | setroubleshoot | P2 | — | 🔷 decorative |  | ✓ | — |
-| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · partial |
+| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · full |
 | Loupe | org.gnome.Loupe | P1 | visionneur_images | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Moniteur système | org.gnome.SystemMonitor | P2 | system_monitor | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Papers | org.gnome.Papers | P1 | visionneur_pdf | ✅ ok |  | ✓ | libadwaita-gnome · partial |
@@ -43,6 +43,13 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-alma
 ## CapsuleOnly / hors VM
 
 - ✅ **À propos AlmaLinux** — ok (CapsuleOnly)
+- ✅ **Agenda** — ok (Flatpak org.gnome.Calendar — extension magasin Alma)
 - ✅ **Capture d'écran** — ok (CapsuleOnly)
+- ✅ **Gestionnaire d'archives** — ok (RPM file-roller — extension magasin Alma)
+- ✅ **LibreOffice** — ok (Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6))
+- ✅ **LibreOffice Calc** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Draw** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Impress** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Writer** — ok (Scénario S1 Logiciels — simulé CapsuleOS)
 - 🎓 **Missions CapsuleOS** — capsuleOnly (CapsuleOnly)
 

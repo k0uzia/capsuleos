@@ -1,7 +1,7 @@
 {
-  "registryId": "linux-alma",
+  "registryId": "linux-fedora",
   "domain": "apps-playbook",
-  "generatedAt": "2026-06-17T14:20:35.052Z",
+  "generatedAt": "2026-06-17T14:21:26.573Z",
   "predicates": {
     "AppV": true,
     "AppC": true,

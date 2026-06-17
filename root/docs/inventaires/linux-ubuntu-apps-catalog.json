@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-ubuntu",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-16T10:43:24.765Z",
+  "generatedAt": "2026-06-17T14:20:01.149Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
   "vmAppsSource": "root/docs/inventaires/linux-ubuntu-vm-apps-installed.json",

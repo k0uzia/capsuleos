@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-fedora",
-  "updatedAt": "2026-06-17T10:55:31.021Z",
+  "updatedAt": "2026-06-17T14:19:56.432Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {

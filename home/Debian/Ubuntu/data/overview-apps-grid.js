@@ -2,7 +2,7 @@
 window.CAPSULE_OVERVIEW_APPS_GRID = {
   "version": 2,
   "registryId": "linux-ubuntu",
-  "generatedAt": "2026-06-16T10:43:24.896Z",
+  "generatedAt": "2026-06-17T14:20:36.908Z",
   "source": "proc/linux-ubuntu/distribution-manifest.json",
   "apps": [
     {
@@ -131,7 +131,7 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "labelFr": "Gestionnaire d'archives",
       "labelShort": "Gestionna...",
       "slotCapsule": "file_roller",
-      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.FileRoller",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.FileRoller.svg",
       "dataLink": "file_roller",
       "launchable": true,
       "decorative": false,

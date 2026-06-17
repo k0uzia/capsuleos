@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "registryId": "linux-fedora",
+  "registryId": "linux-anduinos",
   "toolkit": "gnome",
-  "generatedAt": "2026-06-17T14:21:26.752Z",
+  "generatedAt": "2026-06-17T14:21:31.329Z",
   "procedure": "procedure-apps-catalog.md",
   "contract": "etc/capsuleos/contracts/apps-catalog.json",
-  "vmAppsSource": "root/docs/inventaires/linux-fedora-vm-apps-installed.json",
-  "skinIndex": "home/RedHat/Fedora/index.html",
+  "vmAppsSource": "root/docs/inventaires/linux-anduinos-vm-apps-installed.json",
+  "skinIndex": "home/Debian/AnduinOS/index.html",
   "capsuleSlots": [
     "mainMenu",
     "nemo",
@@ -27,11 +27,6 @@
     "text_editor",
     "calculator",
     "clocks",
-    "calendar",
-    "snapshot",
-    "baobab",
-    "system_monitor",
-    "tour",
     "file_roller",
     "thunderbird",
     "transmission",
@@ -40,11 +35,11 @@
     "simple_scan",
     "warpinator",
     "timeshift",
-    "characters"
+    "calendar"
   ],
   "summary": {
-    "vmInstalled": 33,
-    "catalogRows": 37,
+    "vmInstalled": 36,
+    "catalogRows": 52,
     "p0Total": 7,
     "p0Ok": 7,
     "p0Gaps": 0,
@@ -56,7 +51,7 @@
     {
       "vmId": null,
       "desktop": null,
-      "labelFr": "À propos Fedora",
+      "labelFr": "À propos AnduinOS",
       "priorite": "CapsuleOnly",
       "slotCapsule": "profile",
       "statut": "ok",
@@ -75,6 +70,26 @@
       "note": "CapsuleOnly"
     },
     {
+      "vmId": "software-properties-drivers",
+      "desktop": "software-properties-drivers.desktop",
+      "labelFr": "Additional Drivers",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
       "vmId": "org.gnome.Calendar",
       "desktop": "org.gnome.Calendar.desktop",
       "labelFr": "Agenda",
@@ -83,7 +98,7 @@
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
         "dash": true,
         "overview": true,
@@ -97,12 +112,12 @@
         "skinCss": "calendar.skin.css",
         "functionalDepth": "partial"
       },
-      "note": null
+      "note": "Extension magasin — linux-anduinos"
     },
     {
       "vmId": "org.gnome.Yelp",
       "desktop": "org.gnome.Yelp.desktop",
-      "labelFr": "Aide",
+      "labelFr": "Aide Ubuntu",
       "priorite": "P1",
       "slotCapsule": null,
       "statut": "partiel",
@@ -110,7 +125,7 @@
       "requiresSlot": false,
       "onVm": true,
       "placement": {
-        "dash": false,
+        "dash": true,
         "overview": true,
         "dock": false,
         "desktop": false,
@@ -130,7 +145,7 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true,
+        "dash": false,
         "overview": true,
         "dock": false,
         "desktop": false,
@@ -148,11 +163,11 @@
       "vmId": "org.gnome.Snapshot",
       "desktop": "org.gnome.Snapshot.desktop",
       "labelFr": "Caméra",
-      "priorite": "P1",
-      "slotCapsule": "snapshot",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
       "onVm": true,
       "placement": {
         "dash": false,
@@ -161,103 +176,91 @@
         "desktop": false,
         "quickSettings": false
       },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": null,
+      "desktop": null,
+      "labelFr": "Capture d'écran",
+      "priorite": "CapsuleOnly",
+      "slotCapsule": "screenshot",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": false,
+      "onVm": false,
+      "placement": {
+        "quickSettings": true,
+        "overviewSearch": true
+      },
       "specs": {
         "chromeProvider": "libadwaita-gnome",
-        "template": "snapshot.html",
-        "skinCss": "snapshot.skin.css",
+        "template": "screenshot.html",
+        "skinCss": "screenshot.skin.css",
         "functionalDepth": "partial"
       },
-      "note": null
+      "note": "CapsuleOnly"
     },
     {
       "vmId": "org.gnome.Characters",
       "desktop": "org.gnome.Characters.desktop",
-      "labelFr": "Caractères",
+      "labelFr": "Characters",
       "priorite": "P2",
-      "slotCapsule": "characters",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.clocks",
+      "desktop": "org.gnome.clocks.desktop",
+      "labelFr": "Clocks",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "com.github.maoschanz.drawing",
+      "desktop": "com.github.maoschanz.drawing.desktop",
+      "labelFr": "Dessin",
+      "priorite": "P1",
+      "slotCapsule": "drawing",
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "characters.html",
-        "skinCss": "characters.skin.css",
-        "functionalDepth": "partial"
-      },
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.Maps",
-      "desktop": "org.gnome.Maps.desktop",
-      "labelFr": "Cartes",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "overview": true
       },
       "specs": null,
-      "note": null
+      "note": "Extension magasin — linux-anduinos"
     },
     {
-      "vmId": "org.gnome.Connections",
-      "desktop": "org.gnome.Connections.desktop",
-      "labelFr": "Connexions",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.Contacts",
-      "desktop": "org.gnome.Contacts.desktop",
-      "labelFr": "Contacts",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": null,
-      "note": null
-    },
-    {
-      "vmId": "org.freedesktop.MalcontentControl",
-      "desktop": "org.freedesktop.MalcontentControl.desktop",
-      "labelFr": "Contrôles parentaux",
+      "vmId": "org.gnome.baobab",
+      "desktop": "org.gnome.baobab.desktop",
+      "labelFr": "Disk Usage Analyzer",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -277,7 +280,27 @@
     {
       "vmId": "org.gnome.DiskUtility",
       "desktop": "org.gnome.DiskUtility.desktop",
-      "labelFr": "Disques",
+      "labelFr": "Disks",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Papers",
+      "desktop": "org.gnome.Papers.desktop",
+      "labelFr": "Document Viewer",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -305,7 +328,7 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true,
+        "dash": false,
         "overview": true,
         "dock": false,
         "desktop": false,
@@ -320,9 +343,45 @@
       "note": null
     },
     {
-      "vmId": "org.fedoraproject.MediaWriter",
-      "desktop": "org.fedoraproject.MediaWriter.desktop",
-      "labelFr": "Fedora Media Writer",
+      "vmId": "org.gnome.SoundRecorder",
+      "desktop": "org.gnome.SoundRecorder.desktop",
+      "labelFr": "Enregistreur de son",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Evolution",
+      "desktop": "org.gnome.Evolution.desktop",
+      "labelFr": "Evolution",
+      "priorite": "P1",
+      "slotCapsule": null,
+      "statut": "absent",
+      "glyph": "⬜",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": true
+      },
+      "specs": null,
+      "note": "Favori VM — slot à créer"
+    },
+    {
+      "vmId": "org.gnome.Extensions",
+      "desktop": "org.gnome.Extensions.desktop",
+      "labelFr": "Extensions",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -365,6 +424,26 @@
       "note": null
     },
     {
+      "vmId": "org.gnome.FileRoller",
+      "desktop": "org.gnome.FileRoller.desktop",
+      "labelFr": "File Roller",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
       "vmId": "firefox",
       "desktop": "firefox.desktop",
       "labelFr": "Firefox",
@@ -390,34 +469,50 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.clocks",
-      "desktop": "org.gnome.clocks.desktop",
-      "labelFr": "Horloges",
+      "vmId": "org.gnome.font-viewer",
+      "desktop": "org.gnome.font-viewer.desktop",
+      "labelFr": "Fonts",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "file-roller",
+      "desktop": "file-roller.desktop",
+      "labelFr": "Gestionnaire d'archives",
       "priorite": "P1",
-      "slotCapsule": "clocks",
+      "slotCapsule": "file_roller",
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "overview": true
       },
       "specs": {
         "chromeProvider": "libadwaita-gnome",
-        "template": "clocks.html",
-        "skinCss": "clocks.skin.css",
+        "template": "file_roller.html",
+        "skinCss": "file_roller.skin.css",
         "functionalDepth": "partial"
       },
-      "note": null
+      "note": "Extension magasin — linux-anduinos"
     },
     {
-      "vmId": "org.gnome.Logs",
-      "desktop": "org.gnome.Logs.desktop",
-      "labelFr": "Journaux",
+      "vmId": "org.gnome.Loupe",
+      "desktop": "org.gnome.Loupe.desktop",
+      "labelFr": "Image Viewer",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -435,9 +530,9 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Decibels",
-      "desktop": "org.gnome.Decibels.desktop",
-      "labelFr": "Lecteur audio",
+      "vmId": "org.gnome.Chess",
+      "desktop": "org.gnome.Chess.desktop",
+      "labelFr": "Jeu d’échecs",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -455,24 +550,45 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Showtime",
-      "desktop": "org.gnome.Showtime.desktop",
+      "vmId": "gnome-language-selector",
+      "desktop": "gnome-language-selector.desktop",
+      "labelFr": "Language Support",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "io.github.celluloid_player.Celluloid",
+      "desktop": "io.github.celluloid_player.Celluloid.desktop",
       "labelFr": "Lecteur vidéo",
-      "priorite": "P2",
-      "slotCapsule": null,
-      "statut": "decorative",
-      "glyph": "🔷",
-      "requiresSlot": false,
-      "onVm": true,
+      "priorite": "P1",
+      "slotCapsule": "lecteur_multimedia",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
       "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "overview": true
       },
-      "specs": null,
-      "note": null
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "lecteur_multimedia.html",
+        "skinCss": "lecteur_multimedia.skin.css",
+        "functionalDepth": "decorative"
+      },
+      "note": "Extension magasin — linux-anduinos"
     },
     {
       "vmId": "org.libreoffice.LibreOffice",
@@ -494,95 +610,21 @@
         "skinCss": "libreoffice_startcenter.skin.css",
         "functionalDepth": "full"
       },
-      "note": "Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6)"
-    },
-    {
-      "vmId": "libreoffice-calc",
-      "desktop": "libreoffice-calc.desktop",
-      "labelFr": "LibreOffice Calc",
-      "priorite": "P1",
-      "slotCapsule": "librecalc",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
-      "onVm": false,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "librecalc.html",
-        "skinCss": "librecalc.skin.css",
-        "functionalDepth": "full"
-      },
-      "note": "Module suite LO — épinglage post-install"
-    },
-    {
-      "vmId": "libreoffice-draw",
-      "desktop": "libreoffice-draw.desktop",
-      "labelFr": "LibreOffice Draw",
-      "priorite": "P1",
-      "slotCapsule": "libreoffice_draw",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
-      "onVm": false,
-      "placement": {
-        "overview": true
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "libreoffice_draw.html",
-        "skinCss": "libreoffice_draw.skin.css",
-        "functionalDepth": "full"
-      },
-      "note": "Module suite LO — épinglage post-install"
-    },
-    {
-      "vmId": "libreoffice-impress",
-      "desktop": "libreoffice-impress.desktop",
-      "labelFr": "LibreOffice Impress",
-      "priorite": "P1",
-      "slotCapsule": "libreoffice_impress",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
-      "onVm": false,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "libreoffice_impress.html",
-        "skinCss": "libreoffice_impress.skin.css",
-        "functionalDepth": "full"
-      },
-      "note": "Module suite LO — épinglage post-install"
+      "note": "Extension magasin — linux-anduinos"
     },
     {
       "vmId": "libreoffice-writer",
       "desktop": "libreoffice-writer.desktop",
       "labelFr": "LibreOffice Writer",
-      "priorite": "P2",
+      "priorite": "P0",
       "slotCapsule": "librewriter",
-      "statut": "partiel",
-      "glyph": "🔶",
+      "statut": "ok",
+      "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
+        "dash": true,
+        "overview": true
       },
       "specs": {
         "chromeProvider": "libadwaita-gnome",
@@ -590,7 +632,7 @@
         "skinCss": "librewriter.skin.css",
         "functionalDepth": "full"
       },
-      "note": null
+      "note": "Flatpak/deb optionnel — absent VM lab ; simulé CapsuleOS"
     },
     {
       "vmId": "org.gnome.Software",
@@ -618,34 +660,9 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Loupe",
-      "desktop": "org.gnome.Loupe.desktop",
-      "labelFr": "Loupe",
-      "priorite": "P1",
-      "slotCapsule": "visionneur_images",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "visionneur_images.html",
-        "skinCss": "visionneur_images.skin.css",
-        "functionalDepth": "partial"
-      },
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.Boxes",
-      "desktop": "org.gnome.Boxes.desktop",
-      "labelFr": "Machines",
+      "vmId": "org.gnome.Logs",
+      "desktop": "org.gnome.Logs.desktop",
+      "labelFr": "Logs",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -702,34 +719,9 @@
       "note": "CapsuleOnly"
     },
     {
-      "vmId": "org.gnome.SystemMonitor",
-      "desktop": "org.gnome.SystemMonitor.desktop",
-      "labelFr": "Moniteur système",
-      "priorite": "P2",
-      "slotCapsule": "system_monitor",
-      "statut": "ok",
-      "glyph": "✅",
-      "requiresSlot": true,
-      "onVm": true,
-      "placement": {
-        "dash": false,
-        "overview": true,
-        "dock": false,
-        "desktop": false,
-        "quickSettings": false
-      },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "system_monitor.html",
-        "skinCss": "system_monitor.skin.css",
-        "functionalDepth": "partial"
-      },
-      "note": null
-    },
-    {
-      "vmId": "org.gnome.SimpleScan",
-      "desktop": "org.gnome.SimpleScan.desktop",
-      "labelFr": "Numériseur de documents",
+      "vmId": "org.gnome.Music",
+      "desktop": "org.gnome.Music.desktop",
+      "labelFr": "Musique",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -747,15 +739,15 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.Papers",
-      "desktop": "org.gnome.Papers.desktop",
-      "labelFr": "Papers",
+      "vmId": "simple-scan",
+      "desktop": "simple-scan.desktop",
+      "labelFr": "Numérisation",
       "priorite": "P1",
-      "slotCapsule": "visionneur_pdf",
+      "slotCapsule": "simple_scan",
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
-      "onVm": true,
+      "onVm": false,
       "placement": {
         "dash": false,
         "overview": true,
@@ -763,13 +755,8 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "visionneur_pdf.html",
-        "skinCss": "visionneur_pdf.skin.css",
-        "functionalDepth": "partial"
-      },
-      "note": null
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
     },
     {
       "vmId": "org.gnome.Settings",
@@ -797,9 +784,181 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.font-viewer",
-      "desktop": "org.gnome.font-viewer.desktop",
-      "labelFr": "Polices",
+      "vmId": "org.gnome.seahorse.Application",
+      "desktop": "org.gnome.seahorse.Application.desktop",
+      "labelFr": "Passwords and Keys",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "system-config-printer",
+      "desktop": "system-config-printer.desktop",
+      "labelFr": "Printers",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.remmina.Remmina",
+      "desktop": "org.remmina.Remmina.desktop",
+      "labelFr": "Remmina",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "net.nokyan.Resources",
+      "desktop": "net.nokyan.Resources.desktop",
+      "labelFr": "Resources",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.Rhythmbox3",
+      "desktop": "org.gnome.Rhythmbox3.desktop",
+      "labelFr": "Rhythmbox",
+      "priorite": "P0",
+      "slotCapsule": "lecteur_multimedia",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "dash": true,
+        "overview": true
+      },
+      "specs": {
+        "chromeProvider": "libadwaita-gnome",
+        "template": "lecteur_multimedia.html",
+        "skinCss": "lecteur_multimedia.skin.css",
+        "functionalDepth": "decorative"
+      },
+      "note": "Référence Ubuntu retail — absent VM lab actuelle ; simulé CapsuleOS"
+    },
+    {
+      "vmId": "rhythmbox",
+      "desktop": "rhythmbox.desktop",
+      "labelFr": "Rhythmbox",
+      "priorite": "P1",
+      "slotCapsule": "rhythmbox",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
+    },
+    {
+      "vmId": "snap-store",
+      "desktop": "snap-store.desktop",
+      "labelFr": "Snap Store",
+      "priorite": "P1",
+      "slotCapsule": null,
+      "statut": "notOnVm",
+      "glyph": "—",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {},
+      "specs": null,
+      "note": "Retail Ubuntu — CapsuleOS utilise org.gnome.Software (GS50)"
+    },
+    {
+      "vmId": "software-properties-gtk",
+      "desktop": "software-properties-gtk.desktop",
+      "labelFr": "Software & Updates",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "usb-creator-gtk",
+      "desktop": "usb-creator-gtk.desktop",
+      "labelFr": "Startup Disk Creator",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
+      "onVm": true,
+      "placement": {
+        "dash": false,
+        "overview": true,
+        "dock": false,
+        "desktop": false,
+        "quickSettings": false
+      },
+      "specs": null,
+      "note": null
+    },
+    {
+      "vmId": "org.gnome.PowerStats",
+      "desktop": "org.gnome.PowerStats.desktop",
+      "labelFr": "Statistiques de l’alimentation",
       "priorite": "P2",
       "slotCapsule": null,
       "statut": "decorative",
@@ -827,7 +986,7 @@
       "requiresSlot": true,
       "onVm": true,
       "placement": {
-        "dash": true,
+        "dash": false,
         "overview": true,
         "dock": false,
         "desktop": false,
@@ -842,14 +1001,46 @@
       "note": null
     },
     {
-      "vmId": "org.gnome.baobab",
-      "desktop": "org.gnome.baobab.desktop",
-      "labelFr": "Utilisation des disques",
-      "priorite": "P2",
-      "slotCapsule": "baobab",
+      "vmId": "org.mozilla.Thunderbird",
+      "desktop": "org.mozilla.Thunderbird.desktop",
+      "labelFr": "Thunderbird",
+      "priorite": "P1",
+      "slotCapsule": "thunderbird",
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
+    },
+    {
+      "vmId": "com.timeshift.TimeShift",
+      "desktop": "com.timeshift.TimeShift.desktop",
+      "labelFr": "Timeshift",
+      "priorite": "P2",
+      "slotCapsule": "timeshift",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
+    },
+    {
+      "vmId": "transmission-gtk",
+      "desktop": "transmission-gtk.desktop",
+      "labelFr": "Transmission",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
       "onVm": true,
       "placement": {
         "dash": false,
@@ -858,23 +1049,34 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "baobab.html",
-        "skinCss": "baobab.skin.css",
-        "functionalDepth": "partial"
-      },
+      "specs": null,
       "note": null
     },
     {
-      "vmId": "org.gnome.Tour",
-      "desktop": "org.gnome.Tour.desktop",
-      "labelFr": "Visite guidée",
-      "priorite": "P2",
-      "slotCapsule": "tour",
+      "vmId": "com.transmissionbt.Transmission",
+      "desktop": "com.transmissionbt.Transmission.desktop",
+      "labelFr": "Transmission",
+      "priorite": "P1",
+      "slotCapsule": "transmission",
       "statut": "ok",
       "glyph": "✅",
       "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
+    },
+    {
+      "vmId": "org.gnome.Showtime",
+      "desktop": "org.gnome.Showtime.desktop",
+      "labelFr": "Video Player",
+      "priorite": "P2",
+      "slotCapsule": null,
+      "statut": "decorative",
+      "glyph": "🔷",
+      "requiresSlot": false,
       "onVm": true,
       "placement": {
         "dash": false,
@@ -883,13 +1085,24 @@
         "desktop": false,
         "quickSettings": false
       },
-      "specs": {
-        "chromeProvider": "libadwaita-gnome",
-        "template": "tour.html",
-        "skinCss": "tour.skin.css",
-        "functionalDepth": "partial"
-      },
+      "specs": null,
       "note": null
+    },
+    {
+      "vmId": "org.x.Warpinator",
+      "desktop": "org.x.Warpinator.desktop",
+      "labelFr": "Warpinator",
+      "priorite": "P2",
+      "slotCapsule": "warpinator",
+      "statut": "ok",
+      "glyph": "✅",
+      "requiresSlot": true,
+      "onVm": false,
+      "placement": {
+        "overview": true
+      },
+      "specs": null,
+      "note": "Extension magasin — linux-anduinos"
     }
   ]
 }

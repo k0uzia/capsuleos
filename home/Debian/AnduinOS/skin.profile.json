@@ -40,6 +40,7 @@
     "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
     "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
     "CAPSULE_EMBED_SKIN_KEY": "anduinos",
+    "CAPSULE_MAIN_MENU_TEMPLATE": "mainMenu-gnome",
     "CAPSULE_SITE_HOME": "../../../index.html",
     "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
     "CAPSULE_TERMINAL_OS_FAMILY": "linux",

@@ -2,6 +2,7 @@
 (function initCinnamonAppRasterExt(global) {
   'use strict';
   global.CAPSULE_CINNAMON_APP_RASTER_EXT = {
+    'SOURCE-VM.txt': 'svg',
     'blueman-adapters': 'png',
     'blueman-manager': 'svg',
     'bulky': 'svg',

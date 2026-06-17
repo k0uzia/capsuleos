@@ -7,6 +7,7 @@ import { ROOT } from './replication-chain-lib.mjs';
 import { loadFormalState, evaluateFormalRules } from './formal-rules-lib.mjs';
 import { storeAppliesToRegistry } from './store-replication-lib.mjs';
 import { settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
+import { loadRecipeProfile } from './lab-recipe-resolver.mjs';
 
 const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/capsule-pipeline-layers.json');
 
@@ -16,26 +17,31 @@ const LAYER_RULE_MATCH = {
   apps: (rule) => rule.startsWith('R-APP') && !['R-APP-VV', 'R-APP-VC', 'R-APP-VP'].includes(rule),
   store: (rule) => rule.startsWith('R-STORE'),
   playbook: (rule) => ['R-PB4', 'R-SHELL-POLISH', 'R-SHELL2', 'R-LAB-SHELL'].some((p) => rule.startsWith(p)),
-  visual: (rule) => rule === 'R-FID1' || rule.startsWith('R-V'),
+  visual: (rule) => rule === 'R-FID1' || rule.startsWith('R-V') || rule.startsWith('R-PHI'),
   'apps-parity': (rule) => ['R-APP-VV', 'R-APP-VC', 'R-APP-VP'].includes(rule),
   fidelity: (rule) => rule === 'R-FID1',
   release: (rule) => ['R-H6-DONE', 'R-H6', 'R-H6-PRE', 'R-PB4'].includes(rule),
   'settings-effects': (rule) => rule.startsWith('R-SE'),
 };
 
-const defaultCommand = (layerId, registryId) => ({
-  socle: 'node usr/lib/capsuleos/tools/validate-all.mjs',
-  'ground-truth': `node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id ${registryId} --auto --write`,
-  apps: `node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id ${registryId}`,
-  store: `node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id ${registryId} --auto`,
-  playbook: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
-  visual: `node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id ${registryId}`,
-  release: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
-  'apps-parity': `node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id ${registryId} --filter P0`,
-  fidelity: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
-  'settings-effects': settingsEffectsVerifyCommand(registryId)
-    || `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
-}[layerId]);
+const defaultCommand = (layerId, registryId) => {
+  const toolkit = loadRecipeProfile(registryId).toolkit || 'gnome';
+  return {
+    socle: 'node usr/lib/capsuleos/tools/validate-all.mjs',
+    'ground-truth': `node usr/lib/capsuleos/tools/lab/run-manifest-replication-chain.mjs --id ${registryId} --auto --write`,
+    apps: `node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id ${registryId}`,
+    store: `node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id ${registryId} --auto`,
+    playbook: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
+    visual: toolkit === 'cinnamon'
+      ? `node usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs --id ${registryId} --gate`
+      : `node usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id ${registryId}`,
+    release: `node usr/lib/capsuleos/tools/lab/run-playbook-general.mjs --id ${registryId} --auto`,
+    'apps-parity': `node usr/lib/capsuleos/tools/lab/collect-vm-apps-visual-investigation.mjs --id ${registryId} --filter P0`,
+    fidelity: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
+    'settings-effects': settingsEffectsVerifyCommand(registryId)
+      || `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`,
+  }[layerId];
+};
 
 export const loadPipelineContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
 

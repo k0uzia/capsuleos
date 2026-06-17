@@ -1,9 +1,21 @@
 {
   "version": 2,
-  "registryId": "linux-anduinos",
+  "registryId": "linux-mint",
   "description": "Matrice enquête visuelle apps — acquisitionOrder ui-components-gnome.json",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "investigations": [
+    {
+      "controlId": "calendar",
+      "labelFr": "Agenda",
+      "vmDesktop": "org.gnome.Calendar.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "month-grid",
+        "week-view",
+        "event-editor"
+      ],
+      "launch": "gtk-launch org.gnome.Calendar.desktop"
+    },
     {
       "controlId": "calculator",
       "labelFr": "Calculatrice",
@@ -19,9 +31,32 @@
       "launch": "gtk-launch org.gnome.Calculator.desktop"
     },
     {
+      "controlId": "screenshot",
+      "labelFr": "Capture d'écran",
+      "vmDesktop": "org.gnome.Screenshot.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "area-selector",
+        "delay-options"
+      ],
+      "launch": "gtk-launch org.gnome.Screenshot.desktop"
+    },
+    {
+      "controlId": "drawing",
+      "labelFr": "Dessin",
+      "vmDesktop": "com.github.maoschanz.drawing.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "canvas",
+        "tool-palette",
+        "color-picker"
+      ],
+      "launch": "gtk-launch com.github.maoschanz.drawing.desktop"
+    },
+    {
       "controlId": "text_editor",
       "labelFr": "Éditeur de texte",
-      "vmDesktop": "org.gnome.TextEditor.desktop",
+      "vmDesktop": "org.x.editor.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "menubar",
@@ -29,12 +64,12 @@
         "status-line",
         "open-dialog"
       ],
-      "launch": "gtk-launch org.gnome.TextEditor.desktop"
+      "launch": "gtk-launch org.x.editor.desktop"
     },
     {
       "controlId": "nemo",
       "labelFr": "Fichiers",
-      "vmDesktop": "org.gnome.Nautilus.desktop",
+      "vmDesktop": "nemo.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "sidebar",
@@ -44,7 +79,7 @@
         "context-menu-background",
         "trash"
       ],
-      "launch": "gtk-launch org.gnome.Nautilus.desktop"
+      "launch": "gtk-launch nemo.desktop"
     },
     {
       "controlId": "firefox",
@@ -61,8 +96,8 @@
     },
     {
       "controlId": "update_manager",
-      "labelFr": "Logiciels",
-      "vmDesktop": "org.gnome.Software.desktop",
+      "labelFr": "Gestionnaire de mises à jour",
+      "vmDesktop": "mintupdate.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "explore-grid",
@@ -72,12 +107,69 @@
         "app-detail",
         "categories"
       ],
-      "launch": "gtk-launch org.gnome.Software.desktop"
+      "launch": "gtk-launch mintupdate.desktop"
+    },
+    {
+      "controlId": "update_manager",
+      "labelFr": "Gestionnaire de mises à jour",
+      "vmDesktop": "mintupdate-kde.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "explore-grid",
+        "featured-hero",
+        "category-heroes",
+        "updates-banner",
+        "app-detail",
+        "categories"
+      ],
+      "launch": "gtk-launch mintupdate-kde.desktop"
+    },
+    {
+      "controlId": "lecteur_multimedia",
+      "labelFr": "Lecteur vidéo",
+      "vmDesktop": "io.github.celluloid_player.Celluloid.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "transport-controls",
+        "playlist",
+        "album-art"
+      ],
+      "launch": "gtk-launch io.github.celluloid_player.Celluloid.desktop"
+    },
+    {
+      "controlId": "libreoffice_startcenter",
+      "labelFr": "LibreOffice Writer",
+      "vmDesktop": "libreoffice-writer.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "startcenter-grid"
+      ],
+      "launch": "gtk-launch libreoffice-writer.desktop"
+    },
+    {
+      "controlId": "mintinstall",
+      "labelFr": "Logithèque",
+      "vmDesktop": "mintinstall.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "default"
+      ],
+      "launch": "gtk-launch mintinstall.desktop"
+    },
+    {
+      "controlId": "mintinstall",
+      "labelFr": "Logithèque",
+      "vmDesktop": "mintinstall-kde.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "default"
+      ],
+      "launch": "gtk-launch mintinstall-kde.desktop"
     },
     {
       "controlId": "themes",
-      "labelFr": "Paramètres",
-      "vmDesktop": "org.gnome.Settings.desktop",
+      "labelFr": "Paramètres du système",
+      "vmDesktop": "cinnamon-settings.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "sidebar-panels",
@@ -85,12 +177,12 @@
         "display-panel",
         "about-panel"
       ],
-      "launch": "gtk-launch org.gnome.Settings.desktop"
+      "launch": "gtk-launch cinnamon-settings.desktop"
     },
     {
       "controlId": "terminal",
       "labelFr": "Terminal",
-      "vmDesktop": "org.gnome.Ptyxis.desktop",
+      "vmDesktop": "org.gnome.Terminal.desktop",
       "parityPriority": "P0",
       "componentShots": [
         "headerbar",
@@ -98,7 +190,20 @@
         "prompt-colors",
         "preferences"
       ],
-      "launch": "gtk-launch org.gnome.Ptyxis.desktop"
+      "launch": "gtk-launch org.gnome.Terminal.desktop"
+    },
+    {
+      "controlId": "themes",
+      "labelFr": "Thèmes",
+      "vmDesktop": "cinnamon-settings-themes.desktop",
+      "parityPriority": "P0",
+      "componentShots": [
+        "sidebar-panels",
+        "wifi-row",
+        "display-panel",
+        "about-panel"
+      ],
+      "launch": "gtk-launch cinnamon-settings-themes.desktop"
     }
   ]
 }

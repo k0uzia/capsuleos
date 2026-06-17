@@ -197,6 +197,54 @@
             || 0;
     }
 
+    function readDesktopWorkArea() {
+        const desktop = document.getElementById('desktop');
+        if (!desktop) {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight,
+            };
+        }
+        const rect = desktop.getBoundingClientRect();
+        return {
+            width: rect.width,
+            height: rect.height,
+        };
+    }
+
+    function clampWindowToWorkArea(container) {
+        if (!container || container.id === 'mainMenu') {
+            return;
+        }
+        const work = readDesktopWorkArea();
+        const margin = 8;
+        const maxW = Math.max(240, work.width - margin * 2);
+        const maxH = Math.max(180, work.height - margin * 2);
+
+        if (container.offsetWidth > maxW) {
+            container.style.width = `${maxW}px`;
+        }
+        if (container.offsetHeight > maxH) {
+            container.style.height = `${maxH}px`;
+        }
+
+        let left = parseFloat(container.style.left);
+        let top = parseFloat(container.style.top);
+        if (Number.isNaN(left)) {
+            left = CASCADE_BASE_LEFT_PX;
+        }
+        if (Number.isNaN(top)) {
+            top = CASCADE_BASE_TOP_PX;
+        }
+
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
+        left = Math.max(margin, Math.min(left, work.width - width - margin));
+        top = Math.max(margin, Math.min(top, work.height - height - margin));
+        container.style.left = `${left}px`;
+        container.style.top = `${top}px`;
+    }
+
     function applyCenteredPlacement(container) {
         if (!container || container.dataset.cascadeInit === 'true') {
             return;
@@ -215,6 +263,7 @@
         container.style.bottom = 'auto';
         container.style.right = 'auto';
         container.dataset.cascadeInit = 'true';
+        clampWindowToWorkArea(container);
     }
 
     function applyCascadePlacement(container) {
@@ -236,6 +285,7 @@
         container.style.left = `${left}px`;
         container.style.top = `${top}px`;
         container.dataset.cascadeInit = 'true';
+        clampWindowToWorkArea(container);
     }
 
     function applyKdeWindowHeaderIcons(container) {

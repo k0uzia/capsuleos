@@ -12,7 +12,7 @@
         'aside.fedora-dock a[target="windowElement"]',
     ].join(', ');
 
-    const PANEL_SLOTS = ['nemo', 'mintinstall', 'terminal'];
+    const PANEL_SLOTS = ['nemo', 'firefox', 'terminal'];
 
     function isLinuxLauncherPanel() {
         if (global.CAPSULE_WINDOW_FAMILY === 'linux') {
@@ -111,9 +111,10 @@
                 return;
             }
             const container = resolveSlotContainer(slotId);
-            const running = launcherRunning(container);
+            const isMainMenu = slotId === 'mainMenu';
+            const running = isMainMenu ? isWindowVisible(container) : launcherRunning(container);
             const focused = launcherActive(container);
-            link.classList.toggle('running-link', running);
+            link.classList.toggle('running-link', running && !isMainMenu);
             link.classList.toggle('active-link', focused);
         });
         syncOverviewDash();
@@ -219,8 +220,15 @@
             scheduleSync();
         });
 
+        document.addEventListener('capsule:window-hidden', (event) => {
+            const container = event.detail ? event.detail.container : null;
+            if (container && container.dataset && container.dataset.link === 'mainMenu') {
+                clearWindowRunning(container);
+            }
+            scheduleSync();
+        });
+
         [
-            'capsule:window-hidden',
             'capsule:window-minimized',
             'capsule:window-focused',
         ].forEach((eventName) => {

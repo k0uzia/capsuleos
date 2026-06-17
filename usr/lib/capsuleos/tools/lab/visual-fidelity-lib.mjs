@@ -181,6 +181,12 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/anduin',
     cssFile: 'home/Debian/AnduinOS/anduin-fonts.css',
   },
+  mint: {
+    uiFamily: 'Ubuntu',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/mint',
+    cssFile: 'home/Debian/Mint/mint-fonts.css',
+  },
 };
 
 export const collectTypographyFontsViaSsh = (registryId) => {
@@ -297,7 +303,7 @@ export const buildVisualFidelityInventory = (registryId) => {
   if (defaults.typography?.tokenFile) {
     inv.typography.capsule.tokenFile = defaults.typography.tokenFile;
   }
-  if (registryId === 'linux-rocky' || registryId === 'linux-ubuntu' || registryId === 'linux-anduinos') {
+  if (registryId === 'linux-rocky' || registryId === 'linux-ubuntu' || registryId === 'linux-anduinos' || registryId === 'linux-mint') {
     inv.accessibility.status = 'documented';
   }
 
@@ -390,6 +396,7 @@ export const scanTypographyViolations = (registryId) => {
       rocky: ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'],
       'kde-neon': ['NotoSans-Bold.ttf', 'Ubuntu[wdth,wght].ttf'],
       anduinos: ['AdwaitaSans-Regular.ttf', 'Ubuntu[wdth,wght].ttf'],
+      mint: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono[wght].ttf'],
     };
     const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {

@@ -226,6 +226,29 @@
           "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
         ]
       }
+    },
+    "linux-mint": {
+      "typography": {
+        "uiStack": ["Ubuntu", "Noto Sans", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 10,
+        "monoSizePt": 10,
+        "tokenFile": "home/Debian/Mint/style/mint-y-dark-aqua-tokens.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1280, "height": 800 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Mint-Y",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/Mint/style/a11y-overrides.css",
+          "home/Debian/Mint/style/a11y-apps.css"
+        ]
+      }
     }
   }
 }

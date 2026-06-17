@@ -1,6 +1,6 @@
 {
   "toolkit": "cinnamon",
-  "collectedAt": "2026-06-08T14:07:17Z",
+  "collectedAt": "2026-06-17T22:29:23Z",
   "os": {
     "release": "22.3",
     "codename": "zena",
@@ -8,9 +8,9 @@
     "description": "Linux Mint 22.3 Zena"
   },
   "versions": {
-    "cinnamon": "Cinnamon 6.6.7",
+    "cinnamon": "Cinnamon 6.6.4",
     "nemo": "nemo 6.6.3",
-    "firefox": "Mozilla Firefox 151.0.1"
+    "firefox": "Mozilla Firefox 146.0.1"
   },
   "panel": {
     "height": "['1:40']",
@@ -23,7 +23,7 @@
   },
   "themes": {
     "cinnamon": "Mint-Y-Dark-Aqua",
-    "gtk": "Mint-Y-Dark-Aqua",
+    "gtk": "Mint-Y-Aqua",
     "icons": "Mint-Y-Sand",
     "wallpaper": "file:///usr/share/backgrounds/linuxmint/default_background.jpg"
   },
@@ -45,7 +45,7 @@
     "panelCore": [
       {
         "desktop": "nemo.desktop",
-        "name": "Files",
+        "name": "Trash",
         "exec": "nemo",
         "icon": "system-file-manager"
       },
@@ -57,7 +57,7 @@
       },
       {
         "desktop": "org.gnome.Terminal.desktop",
-        "name": "Terminal",
+        "name": "Preferences",
         "exec": "gnome-terminal",
         "icon": "org.gnome.Terminal"
       }
@@ -491,6 +491,5 @@
     "logoCandidates": [
       "/usr/share/linuxmint/logo.png"
     ]
-  },
-  "terminalInventory": "root/docs/inventaires/linux-mint-terminal-vm.json"
+  }
 }

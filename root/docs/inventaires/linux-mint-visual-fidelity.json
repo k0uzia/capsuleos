@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
   "contract": "etc/capsuleos/contracts/visual-scenes.json",
-  "updatedAt": "2026-06-12T15:11:25.426Z",
+  "updatedAt": "2026-06-17T23:08:40.109Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -59,10 +59,10 @@
           "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
         }
       ],
-      "updatedAt": "2026-06-12T08:05:15.220Z"
+      "updatedAt": "2026-06-17T22:49:00.172Z"
     },
     "shell": {
-      "phi": 97.8,
+      "phi": 96.3,
       "classification": "match",
       "scenes": [
         {
@@ -88,7 +88,7 @@
           "phi": 99.8,
           "pixels": {
             "compared": 1014340,
-            "mismatched": 2382
+            "mismatched": 2183
           },
           "geometryOk": true,
           "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/diff/desktop.png",
@@ -118,10 +118,10 @@
               "height": 0
             }
           },
-          "phi": 97.8,
+          "phi": 96.3,
           "pixels": {
             "compared": 1014340,
-            "mismatched": 22482
+            "mismatched": 37446
           },
           "geometryOk": true,
           "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/diff/menu.png",
@@ -132,7 +132,7 @@
           }
         }
       ],
-      "updatedAt": "2026-06-12T08:05:14.241Z"
+      "updatedAt": "2026-06-17T23:08:40.975Z"
     },
     "nemo": {
       "phi": 99,
@@ -172,7 +172,7 @@
           }
         }
       ],
-      "updatedAt": "2026-06-12T08:05:14.552Z"
+      "updatedAt": "2026-06-17T22:48:52.447Z"
     },
     "themes": {
       "phi": 88.9,
@@ -1367,7 +1367,7 @@
           }
         }
       ],
-      "updatedAt": "2026-06-12T15:11:33.714Z"
+      "updatedAt": "2026-06-17T22:48:59.746Z"
     },
     "update_manager": {
       "phi": 94.4,
@@ -1407,7 +1407,7 @@
           }
         }
       ],
-      "updatedAt": "2026-06-12T08:05:14.997Z"
+      "updatedAt": "2026-06-17T22:48:59.945Z"
     }
   }
 }

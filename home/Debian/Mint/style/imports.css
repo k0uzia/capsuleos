@@ -22,6 +22,7 @@
 @import url(./apps/calendar.skin.css);
 @import url(./apps/terminal.skin.css);
 @import url(./apps/screenshot.skin.css);
+@import url(./apps/snapshot.skin.css);
 @import url(./window-effects.css);
 @import url(./alt-tab.css);
 @import url(./mint-interactions.css);

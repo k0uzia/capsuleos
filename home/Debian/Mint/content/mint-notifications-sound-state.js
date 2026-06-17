@@ -33,9 +33,18 @@
     function applyNotifications(on) {
         global.document.body.dataset.capsuleNotificationsEnabled = on ? 'true' : 'false';
         var btn = global.document.getElementById('tray-btn-notifications');
-        if (btn) {
-            btn.hidden = !on;
-            btn.classList.toggle('mint-tray--vm-collapsed', !on);
+        if (!btn) {
+            return;
+        }
+        if (!on) {
+            btn.hidden = true;
+            btn.classList.add('mint-tray--vm-collapsed');
+            return;
+        }
+        btn.hidden = false;
+        btn.classList.remove('mint-tray--vm-collapsed');
+        if (global.CapsuleMintPanelIdleTray && typeof global.CapsuleMintPanelIdleTray.refresh === 'function') {
+            global.CapsuleMintPanelIdleTray.refresh();
         }
     }
 

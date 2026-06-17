@@ -38,7 +38,7 @@ while [[ $# -gt 0 ]]; do
           ;;
         linux-mint)
           VENDOR="mint"
-          SSH_TARGET="${MINT_SSH:-capsule@192.168.1.146}"
+          SSH_TARGET="${MINT_SSH:-capsule@192.168.122.33}"
           TOOLKIT="cinnamon"
           ICON_THEME="Mint-Y"
           ;;

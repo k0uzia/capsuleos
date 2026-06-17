@@ -9,6 +9,7 @@ body#mint {
     --mint: url(./assets/images/vendors/mint/wallpaper/default_background.webp);
     /* VM : gsettings font-name = 'Ubuntu 10' (13.3px) */
     --font-ui: 'Ubuntu', 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'Ubuntu Mono', 'DejaVu Sans Mono', monospace;
     /* La règle portail universelle `* { font-family: var(--font) }` court-circuite
        l'héritage — rebrancher --font sur la pile Ubuntu pour tout le bureau Mint (vérité VM) */
     --font: var(--font-ui);
@@ -18,13 +19,20 @@ body#mint {
     font-family: var(--font-ui);
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
-    --mint-taskbar-bg: #2e2e33;
-    --mint-clock-hover-bg: #303036;
-    --mint-taskbar-item-border-hover: #3c3c44;
-    --mint-tray-separator: rgba(255, 255, 255, 0.12);
+    /* VM panel1 (gsettings + capture Φ) : #2f2e33 */
+    --mint-taskbar-bg: #2f2e33;
+    --mint-clock-hover-bg: #303035;
+    --mint-taskbar-item-border-hover: #3f3f46;
+    --mint-tray-separator: rgba(255, 255, 255, 0.14);
     --mint-tray-item-size: 24px;
     --mint-tray-icon-size: 24px;
     --mint-favorites-icon-size: 22px;
+    /* grouped-window-list VM (capture + spec) : icône 24 px, slot ~32 px, gap ~4 px */
+    --mint-panel-launcher-icon-size: 24px;
+    --mint-panel-launcher-hit-size: 32px;
+    --mint-panel-launcher-gap: 4px;
+    --mint-panel-menu-icon-size: 32px;
+    --mint-panel-menu-ring: rgba(255, 255, 255, 0.16);
     --mint-tray-color: #e1e1e1;
     --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.08);
     /* Mesure pixel VM (scène Φ shell/menu) : sidebar #303036, colonnes contenu #222226 */

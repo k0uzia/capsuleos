@@ -1,8 +1,9 @@
-# Linux Mint 22.3 (zena) — ground truth VM lab
-# Collecte: proc/linux-mint/distribution-manifest.json (ManΣ 2026-06-08)
-# SSH: capsule@192.168.1.146 (lab-inventory.json)
-# Fichiers importés: 166 (staging manifest)
-# Note: fonds initialement sous vendors/linuxmint/ — consolidés ici (vendorPack=mint)
-
-# import-manifest-staging 2026-06-08T07:35:56.390Z
-files: 157
+Assets copiés depuis la VM lab (capsule@192.168.122.33) le 2026-06-17T22:44:36Z.
+Vendor : mint · toolkit : gnome
+Thème icônes VM : Mint-Y (gsettings org.gnome.desktop.interface icon-theme).
+Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/mint/
+MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
+Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places,emblems,symbolic}/ — PNG/SVG depuis VM
+Fonds d'écran : wallpaper/ (+ thumbnails/) — WebP via prepare-web-media.mjs (défaut après pull)
+Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
+Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.

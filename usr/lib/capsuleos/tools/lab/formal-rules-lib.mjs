@@ -12,6 +12,7 @@ import { evaluateManifestGates } from './manifest-gates-lib.mjs';
 import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replication-lib.mjs';
 import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry, settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
 import { resolveCapsuleHttpBase, loadRecipeProfile } from './lab-recipe-resolver.mjs';
+import { evaluateVisualScenesGate, listP0Scenes, visualFidelityReportPath } from './parity-index-lib.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
@@ -50,6 +51,10 @@ export const loadFormalState = (registryId) => {
     path.join(ROOT, 'root/docs/inventaires', `${registryId}-kde-ground-truth-gaps.json`),
   );
   const vpFromGnomeChain = !!repState.Vp || !!base.gates?.Vp?.ok;
+  const visualScenesGate = evaluateVisualScenesGate(registryId);
+  const vpFromVisualScenes = toolkit === 'cinnamon'
+    && universal.state.PbΣ
+    && (visualScenesGate.ok || !!base.gates?.Vp?.ok);
   const vpFromKdePilot = toolkit === 'kde'
     && !!kdeGroundTruth?.allOk
     && manifest.ManΣ
@@ -90,7 +95,7 @@ export const loadFormalState = (registryId) => {
     Tf: (fidelity.Tf && typoViolations.length === 0) || !!base.gates?.Tf?.ok,
     V: !!repState.V,
     Vc: !!repState.Vc,
-    Vp: vpFromGnomeChain || vpFromKdePilot,
+    Vp: vpFromGnomeChain || vpFromVisualScenes || vpFromKdePilot,
     StoreG: store.state.StoreG,
     StoreΣ: store.state.StoreΣ,
     StoreVc: store.state.StoreVc,
@@ -363,6 +368,31 @@ export const evaluateFormalRules = (registryId) => {
       })(),
       autoExecute: true,
       gateOnSuccess: null,
+    },
+    {
+      rule: 'R-PHI1',
+      when: () => {
+        if (toolkit !== 'cinnamon' || gates.Vp || !gates.PbΣ) return false;
+        const p0 = listP0Scenes(registryId);
+        if (!p0.length) return false;
+        const report = readJson(visualFidelityReportPath(registryId)) || { slots: {} };
+        return p0.some(({ slotId, sceneId }) => {
+          const scene = report.slots?.[slotId]?.scenes?.find((s) => s.id === sceneId);
+          return !scene || scene.classification === 'unmeasured';
+        });
+      },
+      message: 'PbΣ ∧ ¬ΦC — captures VM + clone scènes P0 Cinnamon',
+      command: `bash root/tools/lab/vm-mint-scene-prep.sh && CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/capture-scene-pair.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-PHI2',
+      when: () => toolkit === 'cinnamon' && gates.PbΣ && !gates.Vp && listP0Scenes(registryId).length > 0,
+      message: 'PbΣ ∧ ¬Vp — mesure Φ scènes P0 (compare-visual-fidelity --gate)',
+      command: `node usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs --id ${registryId} --gate`,
+      autoExecute: true,
+      gateOnSuccess: 'Vp',
     },
     {
       rule: 'R-FID1',

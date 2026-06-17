@@ -289,6 +289,228 @@
           "template": "mintinstall.html",
           "skinCss": "mintinstall.skin.css",
           "functionalDepth": "full"
+        },
+        "firefox": {
+          "chromeProvider": "cinnamon",
+          "template": "firefox.html",
+          "skinCss": "firefox.skin.css",
+          "functionalDepth": "partial"
+        },
+        "terminal": {
+          "chromeProvider": "cinnamon",
+          "template": "terminal.html",
+          "skinCss": "terminal.skin.css",
+          "functionalDepth": "full"
+        },
+        "text_editor": {
+          "chromeProvider": "cinnamon",
+          "template": "text_editor.html",
+          "skinCss": "text_editor.skin.css",
+          "functionalDepth": "full"
+        },
+        "profile": {
+          "chromeProvider": "cinnamon",
+          "template": "profile.html",
+          "skinCss": "profile.skin.css",
+          "functionalDepth": "full"
+        },
+        "calculator": {
+          "chromeProvider": "cinnamon",
+          "template": "calculator.html",
+          "skinCss": "calculator.skin.css",
+          "functionalDepth": "full"
+        },
+        "calendar": {
+          "chromeProvider": "cinnamon",
+          "template": "calendar.html",
+          "skinCss": "calendar.skin.css",
+          "functionalDepth": "partial"
+        },
+        "screenshot": {
+          "chromeProvider": "cinnamon",
+          "template": "screenshot.html",
+          "skinCss": "screenshot.skin.css",
+          "functionalDepth": "partial"
+        },
+        "snapshot": {
+          "chromeProvider": "cinnamon",
+          "template": "snapshot.html",
+          "skinCss": "snapshot.skin.css",
+          "functionalDepth": "partial"
+        },
+        "drawing": {
+          "chromeProvider": "cinnamon",
+          "template": "drawing.html",
+          "skinCss": "drawing.skin.css",
+          "functionalDepth": "partial"
+        },
+        "file_roller": {
+          "chromeProvider": "cinnamon",
+          "template": "file_roller.html",
+          "skinCss": "file_roller.skin.css",
+          "functionalDepth": "partial"
+        },
+        "system_monitor": {
+          "chromeProvider": "cinnamon",
+          "template": "system_monitor.html",
+          "skinCss": "system_monitor.skin.css",
+          "functionalDepth": "partial"
+        },
+        "baobab": {
+          "chromeProvider": "cinnamon",
+          "template": "baobab.html",
+          "skinCss": "baobab.skin.css",
+          "functionalDepth": "partial"
+        },
+        "visionneur_images": {
+          "chromeProvider": "cinnamon",
+          "template": "visionneur_images.html",
+          "skinCss": "visionneur_images.skin.css",
+          "functionalDepth": "partial"
+        },
+        "visionneur_pdf": {
+          "chromeProvider": "cinnamon",
+          "template": "visionneur_pdf.html",
+          "skinCss": "visionneur_pdf.skin.css",
+          "functionalDepth": "partial"
+        },
+        "lecteur_multimedia": {
+          "chromeProvider": "cinnamon",
+          "template": "lecteur_multimedia.html",
+          "skinCss": "lecteur_multimedia.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mintdrivers": {
+          "chromeProvider": "cinnamon",
+          "template": "mintdrivers.html",
+          "skinCss": "mintdrivers.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mintwelcome": {
+          "chromeProvider": "cinnamon",
+          "template": "mintwelcome.html",
+          "skinCss": "mintwelcome.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mintbackup": {
+          "chromeProvider": "cinnamon",
+          "template": "mintbackup.html",
+          "skinCss": "mintbackup.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mintstick": {
+          "chromeProvider": "cinnamon",
+          "template": "mintstick.html",
+          "skinCss": "mintstick.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mintstick_format": {
+          "chromeProvider": "cinnamon",
+          "template": "mintstick_format.html",
+          "skinCss": "mintstick_format.skin.css",
+          "functionalDepth": "partial"
+        },
+        "webapp_manager": {
+          "chromeProvider": "cinnamon",
+          "template": "webapp_manager.html",
+          "skinCss": "webapp_manager.skin.css",
+          "functionalDepth": "partial"
+        },
+        "sticky": {
+          "chromeProvider": "cinnamon",
+          "template": "sticky.html",
+          "skinCss": "sticky.skin.css",
+          "functionalDepth": "partial"
+        },
+        "warpinator": {
+          "chromeProvider": "cinnamon",
+          "template": "warpinator.html",
+          "skinCss": "warpinator.skin.css",
+          "functionalDepth": "partial"
+        },
+        "hypnotix": {
+          "chromeProvider": "cinnamon",
+          "template": "hypnotix.html",
+          "skinCss": "hypnotix.skin.css",
+          "functionalDepth": "partial"
+        },
+        "transmission": {
+          "chromeProvider": "cinnamon",
+          "template": "transmission.html",
+          "skinCss": "transmission.skin.css",
+          "functionalDepth": "partial"
+        },
+        "thunderbird": {
+          "chromeProvider": "cinnamon",
+          "template": "thunderbird.html",
+          "skinCss": "thunderbird.skin.css",
+          "functionalDepth": "partial"
+        },
+        "timeshift": {
+          "chromeProvider": "cinnamon",
+          "template": "timeshift.html",
+          "skinCss": "timeshift.skin.css",
+          "functionalDepth": "partial"
+        },
+        "bulky": {
+          "chromeProvider": "cinnamon",
+          "template": "bulky.html",
+          "skinCss": "bulky.skin.css",
+          "functionalDepth": "partial"
+        },
+        "thingy": {
+          "chromeProvider": "cinnamon",
+          "template": "thingy.html",
+          "skinCss": "thingy.skin.css",
+          "functionalDepth": "partial"
+        },
+        "rhythmbox": {
+          "chromeProvider": "cinnamon",
+          "template": "rhythmbox.html",
+          "skinCss": "rhythmbox.skin.css",
+          "functionalDepth": "decorative"
+        },
+        "gnome_disks": {
+          "chromeProvider": "cinnamon",
+          "template": "gnome_disks.html",
+          "skinCss": "gnome_disks.skin.css",
+          "functionalDepth": "partial"
+        },
+        "gucharmap": {
+          "chromeProvider": "cinnamon",
+          "template": "gucharmap.html",
+          "skinCss": "gucharmap.skin.css",
+          "functionalDepth": "partial"
+        },
+        "simple_scan": {
+          "chromeProvider": "cinnamon",
+          "template": "simple_scan.html",
+          "skinCss": "simple_scan.skin.css",
+          "functionalDepth": "partial"
+        },
+        "font_viewer": {
+          "chromeProvider": "cinnamon",
+          "template": "font_viewer.html",
+          "skinCss": "font_viewer.skin.css",
+          "functionalDepth": "partial"
+        },
+        "power_stats": {
+          "chromeProvider": "cinnamon",
+          "template": "power_stats.html",
+          "skinCss": "power_stats.skin.css",
+          "functionalDepth": "partial"
+        },
+        "mate_color_select": {
+          "chromeProvider": "cinnamon",
+          "template": "mate_color_select.html",
+          "skinCss": "mate_color_select.skin.css",
+          "functionalDepth": "partial"
+        },
+        "checklist": {
+          "chromeProvider": "cinnamon",
+          "template": "checklist.html",
+          "skinCss": "checklist.skin.css",
+          "functionalDepth": "capsuleOnly"
         }
       }
     },

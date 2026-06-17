@@ -189,7 +189,15 @@ function initMainMenu() {
         menuEl.style.display = 'none';
         menuEl.classList.remove('windowElementActive');
         if (menuBtn) menuBtn.classList.remove('active-link');
-        if (menuBtn) menuBtn.focus();
+        if (menuBtn) menuBtn.blur();
+        if (window.CapsuleTaskbarLauncherState) {
+            if (typeof window.CapsuleTaskbarLauncherState.clearRunning === 'function') {
+                window.CapsuleTaskbarLauncherState.clearRunning(menuEl);
+            }
+            if (typeof window.CapsuleTaskbarLauncherState.refresh === 'function') {
+                window.CapsuleTaskbarLauncherState.refresh();
+            }
+        }
     }
 
     function ensureMenuAppContextMenu() {

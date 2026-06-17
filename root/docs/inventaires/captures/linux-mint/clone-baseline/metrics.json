@@ -27,10 +27,10 @@
       "menuBtnImgPx": 33,
       "separatorWidthPx": 1,
       "separatorHeightPx": 25,
-      "trayIconPx": 24,
-      "favoritesIconPx": null,
-      "favoritesBoxWidthPx": null,
-      "favoritesGapPx": null,
+      "trayIconPx": 0,
+      "favoritesIconPx": 0,
+      "favoritesBoxWidthPx": 0,
+      "favoritesGapPx": 0,
       "clockHeightPx": 40,
       "clockFontPx": 18.1818,
       "taskbarHeightVar": "40px",
@@ -50,8 +50,8 @@
         150,
         325
       ],
-      "searchHeightPx": 35,
-      "searchWidthPx": 134,
+      "searchHeightPx": 32,
+      "searchWidthPx": 443,
       "catRowHeightPx": 39,
       "appIconPx": 27,
       "display": "flex",
@@ -65,13 +65,13 @@
         {
           "text": "Téléchargements",
           "clientW": 70,
-          "scrollW": 120,
+          "scrollW": 109,
           "trunc": true
         },
         {
           "text": "Calculatrice",
           "clientW": 70,
-          "scrollW": 83,
+          "scrollW": 73,
           "trunc": true
         },
         {
@@ -83,19 +83,19 @@
         {
           "text": "Éditeur de texte",
           "clientW": 70,
-          "scrollW": 113,
+          "scrollW": 102,
           "trunc": true
         },
         {
           "text": "Logithèque",
           "clientW": 70,
-          "scrollW": 78,
+          "scrollW": 72,
           "trunc": true
         },
         {
           "text": "Paramètres du sys...",
           "clientW": 70,
-          "scrollW": 143,
+          "scrollW": 124,
           "trunc": true
         }
       ]
@@ -112,20 +112,33 @@
     "menuHeightPx": 0,
     "menuBottomGapPx": 0,
     "menuColsPct": 0.7000000000000028,
-    "searchHeightPx": 0,
-    "searchWidthPx": 0,
-    "trayIconPx": 0,
+    "searchHeightPx": 3,
+    "searchWidthPx": 309,
+    "trayIconPx": 24,
+    "favoritesIconPx": 22,
+    "favoritesBoxWidthPx": 121,
+    "favoritesGapPx": 2.86,
     "menuBtnPx": 0,
     "menuBtnImgPx": 0,
     "separatorWidthPx": 0,
     "separatorHeightPx": 0
   },
-  "maxDeltaPx": 0.7000000000000028,
+  "maxDeltaPx": 309,
   "tolerancePx": 1,
-  "pass": true,
-  "capturedAt": "2026-06-08T15:52:12.002Z",
+  "pass": false,
+  "capturedAt": "2026-06-17T23:19:29.966Z",
   "viewport": {
     "width": 1280,
     "height": 800
-  }
+  },
+  "visualDiff": [
+    {
+      "file": "01-desktop-panel.png",
+      "absoluteError": 5
+    },
+    {
+      "file": "02-menu.png",
+      "absoluteError": 5
+    }
+  ]
 }

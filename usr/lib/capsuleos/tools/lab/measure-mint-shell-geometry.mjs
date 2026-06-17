@@ -94,7 +94,7 @@ async function measurePage(page) {
   const m = document.getElementById('mainMenu');
   const root = m ? m.querySelector('.menu-root') : null;
   const sidebar = m ? m.querySelector('.menu-sidebar') : null;
-  const cats = m ? m.querySelector('.menu-categories') : null;
+  const cats = m ? m.querySelector('.menu-cats') : null;
   const apps = m ? m.querySelector('.menu-apps') : null;
   const search = m ? m.querySelector('.menu-search') : null;
   const mr = rect(m);

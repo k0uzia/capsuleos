@@ -91,7 +91,7 @@ const main = () => {
   const entry = loadRegistryEntry(opts.id);
   const toolkitId = entry.toolkit?.id || entry.toolkit || 'gnome';
   const shellId = entry.toolkit?.shell || entry.toolkit?.shellId || '';
-  const usesOverviewGrid = (toolkitId === 'gnome' || toolkitId === 'cinnamon') && shellId !== 'anduin';
+  const usesOverviewGrid = toolkitId === 'gnome' && shellId !== 'anduin';
   const usesAnduinMenu = shellId === 'anduin';
 
   if ((appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) && usesAnduinMenu) {

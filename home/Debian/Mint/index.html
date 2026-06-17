@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
     <link rel="stylesheet" href="./mint-fonts.css" type="text/css">
-    <link rel="stylesheet" href="./style/style.css?v=20260608p9menu" type="text/css">
+    <link rel="stylesheet" href="./style/mint-y-dark-aqua-tokens.css" type="text/css">
+    <link rel="stylesheet" href="./style/imports.css" type="text/css">
+    <link rel="stylesheet" href="./style/style.css?v=20260618panel4" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>Mint</title>
@@ -171,10 +173,10 @@
             <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
-            <div class="mint-panel__tray taskbar-tray" id="system-tray" aria-label="Zone de notification">
-                <button type="button" class="taskbar-tray__btn sticky-applet-trigger" data-stk-applet-trigger
+            <div class="mint-panel__tray taskbar-tray taskbar-tray--systray" id="system-tray" aria-label="Zone de notification">
+                <button type="button" class="taskbar-tray__btn sticky-applet-trigger mint-tray--idle-hidden" data-stk-applet-trigger
                         aria-expanded="false" aria-controls="mint-sticky-applet"
-                        aria-label="Notes" title="Notes">
+                        aria-label="Notes" title="Notes" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--sticky" aria-hidden="true"></span>
                 </button>
                 <div class="mint-tray-popover sticky-applet" id="mint-sticky-applet" role="menu" aria-label="Notes récentes" hidden>
@@ -189,57 +191,49 @@
                         title="Gestionnaire de mise à jour">
                     <span class="taskbar-tray__icon taskbar-tray__icon--shield" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-xapp"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed mint-tray--idle-hidden" id="tray-btn-xapp"
                         aria-expanded="false" aria-controls="mint-tray-popover-xapp"
                         aria-label="Applications XApp" title="Applications XApp" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--xapp" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-notifications"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed mint-tray--idle-hidden" id="tray-btn-notifications"
                         aria-expanded="false" aria-controls="mint-tray-popover-notifications"
                         aria-label="Notifications" title="Notifications" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--notifications" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-printers"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed mint-tray--idle-hidden" id="tray-btn-printers"
                         aria-expanded="false" aria-controls="mint-tray-popover-printers"
                         aria-label="Imprimantes" title="Imprimantes" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--printers" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed" id="tray-btn-removable"
+                <button type="button" class="taskbar-tray__btn mint-tray--vm-collapsed mint-tray--idle-hidden" id="tray-btn-removable"
                         aria-expanded="false" aria-controls="mint-tray-popover-removable"
                         aria-label="Supports amovibles" title="Supports amovibles" hidden>
                     <span class="taskbar-tray__icon taskbar-tray__icon--removable" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--keyboard-label" id="tray-btn-keyboard"
-                        aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
-                        aria-label="Disposition du clavier : français" title="Disposition du clavier">
-                    <span class="taskbar-tray__kbd-label" aria-hidden="true">fr</span>
-                </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-screensaver"
-                        aria-label="Économiseur d'écran" title="Économiseur d'écran" hidden>
-                    <span class="taskbar-tray__icon taskbar-tray__icon--screensaver" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-btn-network"
-                        aria-expanded="false" aria-controls="mint-tray-popover-network"
-                        aria-label="Réseau" title="Réseau">
-                    <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="taskbar-tray__btn" id="tray-sound-btn"
-                        aria-expanded="false" aria-controls="volume-popover"
-                        aria-label="Contrôle du volume" title="Volume">
-                    <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--power mint-tray--vm-collapsed"
-                        aria-expanded="false" aria-controls="mint-power-menu"
-                        aria-label="Alimentation" title="Alimentation" hidden>
-                    <span class="taskbar-tray__icon taskbar-tray__icon--power" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar mint-tray--vm-collapsed" id="tray-btn-cornerbar"
-                        aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau" hidden>
-                    <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true"></span>
-                </button>
             </div>
+            <button type="button" class="taskbar-tray__btn taskbar-tray__btn--keyboard-label mint-panel__applet mint-tray--idle-hidden" id="tray-btn-keyboard"
+                    aria-expanded="false" aria-controls="mint-tray-popover-keyboard"
+                    aria-label="Disposition du clavier : français" title="Disposition du clavier" hidden>
+                <span class="taskbar-tray__kbd-label" aria-hidden="true">fr</span>
+            </button>
+            <div class="mint-panel__favorites taskbar-favorites mint-tray--idle-hidden" id="mint-tray-favorites" role="group" aria-label="Applications favorites" hidden></div>
+            <button type="button" class="taskbar-tray__btn mint-panel__applet" id="tray-btn-network"
+                    aria-expanded="false" aria-controls="mint-tray-popover-network"
+                    aria-label="Réseau" title="Réseau">
+                <span class="taskbar-tray__icon taskbar-tray__icon--network" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="taskbar-tray__btn mint-panel__applet" id="tray-sound-btn"
+                    aria-expanded="false" aria-controls="volume-popover"
+                    aria-label="Contrôle du volume" title="Volume">
+                <span class="taskbar-tray__icon taskbar-tray__icon--sound" id="tray-sound-icon" aria-hidden="true"></span>
+            </button>
             <button type="button" class="taskbar-clock-trigger" id="taskbar-clock-trigger" aria-expanded="false" aria-controls="taskbar-calendar-popover" aria-label="Date et heure">
                 <time class="taskbar__clock" id="taskbar-clock" datetime="">--:--</time>
+            </button>
+            <button type="button" class="taskbar-tray__btn taskbar-tray__btn--cornerbar mint-cornerbar-strip" id="tray-btn-cornerbar"
+                    aria-pressed="false" aria-label="Afficher le bureau" title="Afficher le bureau">
+                <span class="taskbar-tray__icon taskbar-tray__icon--cornerbar" aria-hidden="true"></span>
             </button>
         </div>
     </footer>
@@ -300,13 +294,7 @@
     <div class="mint-tray-popover" id="mint-tray-popover-notifications" role="dialog" aria-label="Notifications" hidden>
         <div class="mint-tray-popover__title">Notifications</div>
         <div id="mint-notifications-list">
-            <div class="mint-notification-item">
-                <span class="mint-tray-popover__row-icon taskbar-tray__icon--shield" aria-hidden="true"></span>
-                <div class="mint-notification-item__body">
-                    <div class="mint-notification-item__title">Mises à jour disponibles</div>
-                    <p class="mint-notification-item__text">Des mises à jour système sont prêtes à être installées.</p>
-                </div>
-            </div>
+            <p class="mint-tray-popover__empty">Aucune notification</p>
         </div>
         <div class="mint-tray-popover__footer">
             <button type="button" class="mint-tray-popover__footer-btn" id="mint-notifications-clear">Effacer tout</button>
@@ -392,6 +380,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-app-raster-ext.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-resource-url.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/core/cluster-registry.js"></script>
+        <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
@@ -410,11 +399,11 @@
         <script src="../../../usr/lib/capsuleos/shells/common/capsule-memory-conventions.js"></script>
 <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-memory.js"></script>
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260421a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260618overflow"></script>
     <script src="../../../var/lib/capsuleos/generated/mint-wallpaper-catalog.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu-data-cinnamon.js?v=20260608b"></script>
     <script src="./content/mint-menu-parity.js?v=20260608vmref"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260608icons"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mainMenu.js?v=20260618menu"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260421a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-gsettings-bindings.js?v=20260612parityP5"></script>
@@ -426,7 +415,7 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-wm-button-layout.js?v=20260612parity"></script>
     <script src="./content/mint-notifications-sound-state.js?v=20260612parity"></script>
     <script src="./content/mint-hotcorner-effects.js?v=20260612parityP2"></script>
-    <script src="./content/mint-applet-visibility.js?v=20260612parityP2"></script>
+    <script src="./content/mint-applet-visibility.js?v=20260618panel"></script>
     <script src="./content/mint-mouse-settings.js?v=20260612parityP3"></script>
     <script src="./content/mint-clock-parity.js?v=20260612parityP5"></script>
     <script src="./content/mint-startup-state.js?v=20260612parityP5"></script>
@@ -544,14 +533,16 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=20260609ctx4"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=20260618menu"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=20260609icon"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-panel-context-menu.js?v=20260609panel"></script>
     <script src="./content/mint-desktop-icons.js?v=20260609"></script>
     <script src="./content/mint-desktop-favorites.js?v=20260604"></script>
     <script src="./content/mint-panel-pinned.js?v=20260608vmref"></script>
+    <script src="./content/mint-tray-favorites.js?v=20260610shell"></script>
     <script src="./content/mint-tray.js?v=20260608panelA"></script>
     <script src="./content/mint-tray-overflow.js?v=20260612panel"></script>
+    <script src="./content/mint-panel-idle-tray.js?v=20260618idle"></script>
 </body>
 </html>

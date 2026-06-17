@@ -6,18 +6,27 @@ html {
     color: var(--texte);
 }
 
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 #mint {
     display: var(--f);
     flex-flow: var(--cnw);
     align-items: var(--c);
     justify-content: var(--sb);
-    width: var(--max-w);
-    height: var(--max-h);
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     background-image: var(--mint);
     background-size: var(--scov);
     background-repeat: var(--nr);
     background-position: var(--c);
-    overflow: var(--n);
+    overflow: hidden;
 }
 
 #desktop {
@@ -26,10 +35,11 @@ html {
     align-items: var(--c);
     justify-content: var(--fs);
     position: var(--rel);
-    width: var(--max-w);
-    height: calc(var(--max-h) - var(--taskbar-height));
-    max-height: calc(var(--max-h) - var(--taskbar-height));
-    overflow: visible;
+    width: 100%;
+    height: calc(100% - var(--taskbar-height));
+    max-width: 100%;
+    max-height: calc(100% - var(--taskbar-height));
+    overflow: hidden;
 }
 
 /* Ground truth VM (gsettings org.nemo.desktop) : home/trash/computer-icon-visible = false
@@ -59,6 +69,8 @@ body#mint #desktop {
 body#mint #desktop > .windowElement:not(#mainMenu) {
     position: absolute;
     pointer-events: auto;
+    max-width: calc(100% - 16px);
+    max-height: calc(100% - 16px);
 }
 
 .desktop-shortcut {

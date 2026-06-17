@@ -56,8 +56,16 @@
             items = store.parseStrv(store.getRaw('org.cinnamon', 'enabled-applets'));
         }
         Object.keys(TARGETS).forEach(function (token) {
-            setTrayVisible(TARGETS[token], listHasToken(items, token));
+            var enabled = listHasToken(items, token);
+            if (token === 'notifications@cinnamon.org' || token === 'printers@cinnamon.org') {
+                setTrayVisible(TARGETS[token], false);
+                return;
+            }
+            setTrayVisible(TARGETS[token], enabled);
         });
+        if (global.CapsuleMintPanelIdleTray && typeof global.CapsuleMintPanelIdleTray.refresh === 'function') {
+            global.CapsuleMintPanelIdleTray.refresh();
+        }
     }
 
     function bind() {

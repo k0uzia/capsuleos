@@ -4,7 +4,7 @@
 # Usage : bash root/tools/lab/vm-mint-scene-prep.sh [user@ip]
 set -u
 
-HOST="${1:-${CAPSULE_MINT_VM_SSH:-capsule@192.168.1.146}}"
+HOST="${1:-${CAPSULE_MINT_VM_SSH:-capsule@192.168.122.33}}"
 SSH_ID="${CAPSULE_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 
 run() {

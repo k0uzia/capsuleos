@@ -1,6 +1,6 @@
 # Playbook Paramètres GNOME — linux-alma
 
-> Généré : 2026-06-10T14:25:00.540346+00:00
+> Généré : 2026-06-17T08:25:42.301905+00:00
 > Script : [`vm-gnome-settings-playbook.sh`](../../tools/lab/vm-gnome-settings-playbook.sh)
 
 ## Résumé
@@ -9,8 +9,8 @@
 |----------|--------|
 | Panneaux parcourus | 18 |
 | Panneaux ouverts (gcc) | 18 |
-| Contrôles mappés gsettings | 28 |
-| Contrôles simulés / non mappés | 7 |
+| Contrôles mappés gsettings | 29 |
+| Contrôles simulés / non mappés | 6 |
 
 ## Panneaux
 
@@ -18,7 +18,7 @@
 |---------|-----|---------|------------------|------------------|
 | Wi-Fi | wifi | non | oui | 1/1 |
 | Réseau | network | non | oui | 0/1 |
-| Bluetooth | bluetooth | non | oui | 0/1 |
+| Bluetooth | bluetooth | non | oui | 1/1 |
 | Apparence | appearance | non | oui | 2/2 |
 | Arrière-plan | background | non | oui | 1/1 |
 | Notifications | notifications | non | oui | 3/3 |
@@ -42,6 +42,12 @@
 | Contrôle | VM (gsettings) | Capsule attendu |
 |----------|----------------|-----------------|
 | wifi | `True` | `on` |
+
+### Bluetooth
+
+| Contrôle | VM (gsettings) | Capsule attendu |
+|----------|----------------|-----------------|
+| bluetooth | `` | `on` |
 
 ### Apparence
 

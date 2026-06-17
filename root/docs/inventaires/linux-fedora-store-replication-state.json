@@ -2,15 +2,15 @@
   "registryId": "linux-fedora",
   "domain": "store-ground",
   "skipped": false,
-  "generatedAt": "2026-06-10T21:44:47.952Z",
+  "generatedAt": "2026-06-17T10:55:30.921Z",
   "predicates": {
     "M": true,
     "StoreG": true,
     "StoreΣ": true,
     "StoreVc": true,
-    "StoreVp": true
+    "StoreVp": false
   },
-  "nextPredicate": null,
-  "nextStep": null,
-  "rule": null
+  "nextPredicate": "StoreVp",
+  "nextStep": "store-parity-enrich",
+  "rule": "R-STORE-CHAIN → store-parity-enrich"
 }

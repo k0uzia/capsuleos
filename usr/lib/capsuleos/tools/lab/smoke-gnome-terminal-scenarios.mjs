@@ -67,6 +67,8 @@ const expectedHostFragment = (registryId) => {
   return 'capsule@';
 };
 
+const expectedWhoamiUser = (registryId) => 'capsule';
+
 const scenarioTe1 = async (page, errors, registryId) => {
   await openTerminal(page);
   const ds = await readTerminalDataset(page);
@@ -134,16 +136,17 @@ const scenarioTe3 = async (page, errors) => {
   }
 };
 
-const scenarioTe4 = async (page, errors) => {
+const scenarioTe4 = async (page, errors, registryId) => {
   await openTerminal(page);
   await submitCommand(page, 'whoami');
   let ds = await readTerminalDataset(page);
   if (ds.terminalGnomeLastCommand !== 'whoami') {
     errors.push(`Te4 : whoami enregistré attendu, obtenu « ${ds.terminalGnomeLastCommand} »`);
   }
+  const whoamiUser = expectedWhoamiUser(registryId);
   const whoamiOut = await page.textContent('[data-terminal-gnome-output]');
-  if (!String(whoamiOut).includes('capsule')) {
-    errors.push(`Te4 : sortie whoami capsule attendue, obtenu « ${whoamiOut?.slice(-40)} »`);
+  if (!String(whoamiOut).includes(whoamiUser)) {
+    errors.push(`Te4 : sortie whoami ${whoamiUser} attendue, obtenu « ${whoamiOut?.slice(-40)} »`);
   }
   await submitCommand(page, 'help');
   ds = await readTerminalDataset(page);
@@ -241,7 +244,7 @@ const main = async () => {
         if (scenarioId === 'Te1') {
           await fn(page, errors, opts.id);
         } else {
-          await fn(page, errors);
+          await fn(page, errors, opts.id);
         }
         if (!errors.some((e) => e.startsWith(scenarioId))) {
           process.stdout.write(`  ✓ ${scenarioId}\n`);

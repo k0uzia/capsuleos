@@ -2,7 +2,7 @@
 window.CAPSULE_OVERVIEW_APPS_GRID = {
   "version": 2,
   "registryId": "linux-rocky",
-  "generatedAt": "2026-06-09T13:41:15.358Z",
+  "generatedAt": "2026-06-17T12:33:29.957Z",
   "source": "proc/linux-rocky/distribution-manifest.json",
   "apps": [
     {
@@ -83,12 +83,78 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "priorite": "P0"
     },
     {
+      "vmId": "org.gnome.Calendar",
+      "labelFr": "Agenda",
+      "labelShort": "Agenda",
+      "slotCapsule": "calendar",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg",
+      "dataLink": "calendar",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "org.gnome.FileRoller",
+      "labelFr": "Gestionnaire d'archives",
+      "labelShort": "Gestionna...",
+      "slotCapsule": "file_roller",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.FileRoller.svg",
+      "dataLink": "file_roller",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
       "vmId": "org.gnome.clocks",
       "labelFr": "Horloges",
       "labelShort": "Horloges",
       "slotCapsule": "clocks",
       "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg",
       "dataLink": "clocks",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "org.libreoffice.LibreOffice",
+      "labelFr": "LibreOffice",
+      "labelShort": "LibreOffice",
+      "slotCapsule": "libreoffice_startcenter",
+      "icon": null,
+      "dataLink": "libreoffice_startcenter",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-calc",
+      "labelFr": "LibreOffice Calc",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "librecalc",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg",
+      "dataLink": "librecalc",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-draw",
+      "labelFr": "LibreOffice Draw",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "libreoffice_draw",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw",
+      "dataLink": "libreoffice_draw",
+      "launchable": true,
+      "decorative": false,
+      "priorite": "P1"
+    },
+    {
+      "vmId": "libreoffice-impress",
+      "labelFr": "LibreOffice Impress",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "libreoffice_impress",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg",
+      "dataLink": "libreoffice_impress",
       "launchable": true,
       "decorative": false,
       "priorite": "P1"
@@ -157,6 +223,17 @@ window.CAPSULE_OVERVIEW_APPS_GRID = {
       "dataLink": null,
       "launchable": false,
       "decorative": true,
+      "priorite": "P2"
+    },
+    {
+      "vmId": "libreoffice-writer",
+      "labelFr": "LibreOffice Writer",
+      "labelShort": "LibreOffi...",
+      "slotCapsule": "librewriter",
+      "icon": "../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg",
+      "dataLink": "librewriter",
+      "launchable": true,
+      "decorative": false,
       "priorite": "P2"
     },
     {

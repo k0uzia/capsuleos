@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-fedora",
-  "updatedAt": "2026-06-15T15:17:14.705Z",
+  "updatedAt": "2026-06-17T10:55:31.021Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -1405,7 +1405,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "phi": 45.8,
         "phiNormalized": 39.4,
         "geometry": {

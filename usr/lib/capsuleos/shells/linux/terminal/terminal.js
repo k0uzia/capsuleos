@@ -90,13 +90,17 @@ function usesPtyxisTerminalChrome() {
 
 function hostHasColoredTerminalChrome(node) {
     const host = node && node.closest ? node.closest('[data-link="terminal"], #terminal') : null;
+    if (!host) {
+        return false;
+    }
+    if (usesPtyxisTerminalChrome() && host.dataset.link === 'terminal') {
+        return true;
+    }
     return Boolean(
-        host && (
-            host.classList.contains('terminal-window--gnome')
-            || host.classList.contains('terminal-window--cosmic')
-            || host.classList.contains('terminal-window--fedora')
-            || (document.body && document.body.id === 'ubuntu')
-        )
+        host.classList.contains('terminal-window--gnome')
+        || host.classList.contains('terminal-window--cosmic')
+        || host.classList.contains('terminal-window--fedora')
+        || (document.body && document.body.id === 'ubuntu')
     );
 }
 
@@ -147,7 +151,21 @@ function scrollTerminalToBottom(elements) {
     if (!elements || !elements.output) {
         return;
     }
-    const targets = [elements.output, elements.app, elements.app.parentElement].filter(Boolean);
+    const app = elements.app;
+    if (usesPtyxisTerminalChrome() && app) {
+        const fitsInView = app.scrollHeight <= app.clientHeight + 1;
+        if (fitsInView) {
+            app.scrollTop = 0;
+            if (elements.output) {
+                elements.output.scrollTop = 0;
+            }
+            if (app.parentElement) {
+                app.parentElement.scrollTop = 0;
+            }
+            return;
+        }
+    }
+    const targets = [elements.output, app, app && app.parentElement].filter(Boolean);
     targets.forEach((target) => {
         target.scrollTop = target.scrollHeight;
     });
@@ -186,7 +204,13 @@ function resolveFedoraTerminalPrompt() {
     if (bodyId === 'ubuntu' || profile === 'ubuntu') {
         return 'capsule@ubuntu:~';
     }
-    return 'fed@fedora:~';
+    if (bodyId === 'fedora' || profile === 'fedora') {
+        return 'capsule@fedora:~';
+    }
+    if (bodyId === 'anduinos' || profile === 'anduinos') {
+        return 'capsule@anduinos:~';
+    }
+    return 'capsule@fedora:~';
 }
 
 function supportsTerminalGnomeDataset() {
@@ -833,6 +857,20 @@ function decorateFedoraTerminalWindow(container) {
     windowElement.classList.remove('terminal-window--gnome');
     windowElement.classList.add('terminal-window--fedora', 'terminal-window--csd');
 
+    const refreshFedoraTerminalPromptChrome = () => {
+        const app = windowElement.querySelector('[data-terminal-app]');
+        const promptEl = windowElement.querySelector('[data-terminal-prompt], #prompt');
+        if (!promptEl) {
+            return;
+        }
+        const promptText = app && app.__capsuleTerminalSession && typeof app.__capsuleTerminalSession.getPrompt === 'function'
+            ? app.__capsuleTerminalSession.getPrompt()
+            : promptEl.textContent;
+        paintTerminalPrompt(promptEl, promptText);
+    };
+
+    refreshFedoraTerminalPromptChrome();
+
     const applyChrome = () => {
         const header = windowElement.querySelector('#windowHeader');
         if (!header) {
@@ -901,6 +939,7 @@ function decorateFedoraTerminalWindow(container) {
         if (typeof window.scheduleTerminalTabsBind === 'function') {
             window.scheduleTerminalTabsBind(windowElement);
         }
+        refreshFedoraTerminalPromptChrome();
         return true;
     };
 
@@ -909,6 +948,7 @@ function decorateFedoraTerminalWindow(container) {
         const observer = new MutationObserver(() => {
             if (applyChrome()) {
                 observer.disconnect();
+                refreshFedoraTerminalPromptChrome();
                 if (typeof window.scheduleTerminalTabsBind === 'function') {
                     window.scheduleTerminalTabsBind(windowElement);
                 }
@@ -1048,7 +1088,11 @@ function initTerminalForContainer(windowElement) {
         delete elements.app.dataset.terminalBooting;
         elements.app.__capsuleTerminalSession = session;
         updateTerminalPrompt(elements, session);
-        scrollTerminalToBottom(elements);
+        if (!usesPtyxisTerminalChrome() || elements.output.childElementCount > 0) {
+            scrollTerminalToBottom(elements);
+        } else if (elements.app) {
+            elements.app.scrollTop = 0;
+        }
 
         elements.app.addEventListener('click', () => {
             elements.commandInput.focus();

@@ -72,7 +72,9 @@ const phaseV1 = (id, dryRun) => {
     const steps = [
       ['usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs', ['--id', registryId, '--write']],
       ['usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-assets.mjs', ['--id', registryId]],
-      ['usr/lib/capsuleos/tools/lab/run-capsule-pipeline.mjs', ['--id', registryId]],
+      ['usr/lib/capsuleos/tools/lab/generate-vm-settings-baseline.mjs', ['--registry', registryId]],
+      ['usr/lib/capsuleos/tools/lab/collect-playbook-tail.mjs', ['--id', registryId]],
+      ['usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-visual-investigation.mjs', ['--id', registryId]],
       ['usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs', ['--id', registryId, '--strict']],
       ['usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs', ['--id', registryId]],
       ['usr/lib/capsuleos/tools/lab/generate-gnome-campaign-state.mjs', ['--id', registryId, '--write']],

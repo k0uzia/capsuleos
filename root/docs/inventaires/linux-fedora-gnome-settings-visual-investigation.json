@@ -3,6 +3,7 @@
   "investigations": [
     {
       "controlId": "theme",
+      "capsulePanel": "appearance",
       "label": "Thème clair / sombre",
       "status": "documented",
       "vmToggle": {
@@ -16,12 +17,28 @@
         "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": 680,
+        "durationMs": 826,
         "easing": "ease-out",
         "properties": [],
-        "notes": "aucun backend capture (Shell.Screenshot D-Bus indisponible)"
+        "notes": "captures host-virsh (fedora) — linux-fedora"
       },
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/before.png",
+          "timestamp": "2026-06-15T13:43:16.000Z"
+        },
+        {
+          "phase": "during-transition",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/during-150ms.png",
+          "elapsedMs": 150
+        },
+        {
+          "phase": "after",
+          "path": "root/docs/inventaires/captures/linux-fedora/gnome-settings-visual/theme/after.png",
+          "elapsedMs": 300
+        }
+      ],
       "surfaces": [
         "desktop",
         "top-bar",
@@ -33,13 +50,13 @@
         {
           "title": "GNOME Help — Appearance",
           "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
-          "matchesObservation": true,
-          "delta": "VM bascule prefer-dark↔prefer-light via color-scheme ; fonds URI inchangés sur profil Rocky par défaut."
+          "matchesObservation": null,
+          "delta": null
         },
         {
           "title": "interface color-scheme",
           "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
-          "matchesObservation": true,
+          "matchesObservation": null,
           "delta": null
         }
       ],
@@ -50,7 +67,7 @@
         "parityPriority": "P0",
         "gapNotes": "Hooks présents ; captures croisées incomplètes."
       },
-      "generatedAt": "2026-06-13T18:33:37.978298+00:00",
+      "generatedAt": "2026-06-17T11:00:34.462964+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.desktop.interface",
         "key": "color-scheme",
@@ -110,6 +127,7 @@
     },
     {
       "controlId": "night-light",
+      "capsulePanel": "displays",
       "label": "Éclairage nocturne",
       "status": "documented",
       "vmToggle": {
@@ -123,7 +141,7 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1205,
+        "durationMs": 1266,
         "easing": null,
         "properties": [
           "color-temperature"
@@ -140,14 +158,14 @@
         {
           "title": "GNOME Help — Night Light",
           "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
-          "matchesObservation": true,
-          "delta": "Durée observée ~1 s alignée doc gsd-color."
+          "matchesObservation": null,
+          "delta": null
         },
         {
           "title": "gsd plugins color",
           "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
-          "matchesObservation": true,
-          "delta": "Température 2700 K par défaut VM."
+          "matchesObservation": null,
+          "delta": null
         }
       ],
       "capsuleParity": {
@@ -157,7 +175,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none)."
       },
-      "generatedAt": "2026-06-13T18:33:37.978298+00:00",
+      "generatedAt": "2026-06-17T11:00:34.462964+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.settings-daemon.plugins.color",
         "key": "night-light-enabled",
@@ -212,6 +230,7 @@
     },
     {
       "controlId": "dynamic-workspaces",
+      "capsulePanel": "multitasking",
       "label": "Bureaux dynamiques",
       "status": "documented",
       "vmToggle": {
@@ -225,7 +244,7 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 737,
+        "durationMs": 890,
         "easing": "ease-out",
         "properties": [],
         "notes": "aucun backend capture (Shell.Screenshot D-Bus indisponible)"
@@ -239,8 +258,8 @@
         {
           "title": "GNOME Help — Workspaces",
           "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
-          "matchesObservation": true,
-          "delta": "dynamic-workspaces bool contrôle miniatures Aperçu."
+          "matchesObservation": null,
+          "delta": null
         },
         {
           "title": "org.gnome.mutter dynamic-workspaces",
@@ -256,7 +275,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : spring 350 ms mini-workspaces ; count 2↔4 via reconfigure."
       },
-      "generatedAt": "2026-06-13T18:33:37.978298+00:00",
+      "generatedAt": "2026-06-17T11:00:34.462964+00:00",
       "gsettingsDeferred": {
         "schema": "org.gnome.mutter",
         "key": "dynamic-workspaces",
@@ -288,6 +307,7 @@
     },
     {
       "controlId": "dnd",
+      "capsulePanel": "notifications",
       "label": "Ne pas déranger",
       "status": "documented",
       "vmToggle": {
@@ -300,7 +320,7 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 642,
+        "durationMs": 681,
         "easing": null,
         "properties": [
           "opacity"
@@ -317,14 +337,14 @@
         {
           "title": "GNOME Help — Notifications",
           "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
-          "matchesObservation": true,
-          "delta": "DND session shell ; bannières contrôlées séparément (show-banners)."
+          "matchesObservation": null,
+          "delta": null
         },
         {
           "title": "Shell DND session",
           "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
-          "matchesObservation": true,
-          "delta": "Schéma simulé CapsuleOS documenté dans parity-matrix."
+          "matchesObservation": null,
+          "delta": null
         }
       ],
       "capsuleParity": {
@@ -334,7 +354,7 @@
         "parityPriority": "P0",
         "gapNotes": "H5 : syncDndChrome QS + Paramètres + calendrier (capsule:dnd-changed)."
       },
-      "generatedAt": "2026-06-13T18:33:37.978298+00:00",
+      "generatedAt": "2026-06-17T11:00:34.462964+00:00",
       "gsettingsDeferred": {
         "schema": "org.capsuleos.gnome.shell",
         "key": "dnd-enabled",
@@ -369,6 +389,7 @@
     },
     {
       "controlId": "accent",
+      "capsulePanel": "appearance",
       "label": "Couleur d'accent",
       "status": "documented",
       "vmToggle": {
@@ -443,6 +464,7 @@
     },
     {
       "controlId": "wallpaper",
+      "capsulePanel": "background",
       "label": "Fond d'écran",
       "status": "documented",
       "vmToggle": {
@@ -519,6 +541,7 @@
     },
     {
       "controlId": "display-scale",
+      "capsulePanel": "displays",
       "label": "Échelle affichage",
       "status": "documented",
       "vmToggle": {
@@ -591,6 +614,7 @@
     },
     {
       "controlId": "hot-corner",
+      "capsulePanel": "multitasking",
       "label": "Coin actif",
       "status": "documented",
       "vmToggle": {
@@ -925,6 +949,7 @@
     },
     {
       "controlId": "notifications",
+      "capsulePanel": "notifications",
       "label": "Bannières notifications",
       "status": "documented",
       "vmToggle": {
@@ -1117,7 +1142,7 @@
       "visualParityClosedAt": "2026-06-15T13:49:44.614Z"
     }
   ],
-  "generatedAt": "2026-06-15T13:43:12.244274+00:00",
+  "generatedAt": "2026-06-17T11:00:34.462964+00:00",
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "vmEnvironment": {
     "sessionType": "wayland",
@@ -1132,11 +1157,7 @@
     "documented": 15,
     "capsuleImplemented": 4,
     "gaps": 0,
-    "p0Open": 0,
-    "capsuleCapturesP1": 8,
-    "visualMatchClassifiedP0": 4,
-    "visualMatchClassifiedP1": 8,
-    "visualMatchClassifiedP2": 3
+    "p0Open": 0
   },
   "gsettingsDeepPass": {
     "generatedAt": "2026-06-13T18:39:49.347838+00:00",

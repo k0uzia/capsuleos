@@ -10,6 +10,7 @@
     <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-alma';</script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
     <script src="../../../usr/lib/capsuleos/core/cluster-registry.js"></script>
+        <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/alma/alma-logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./style/imports.css?v=20260428" type="text/css">
@@ -147,45 +148,73 @@
             <div class="fedora-overview__mini-workspaces" data-gnome-workspaces-mini aria-label="Bureaux virtuels"></div>
             <div class="fedora-overview__apps-grid" data-overview-apps-grid>
             <!-- CAPSULE-OVERVIEW-APPS-GRID:START -->
-                <button type="button" class="fedora-overview__app" aria-label="Fedora Media Writer">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/start-here.svg" alt="">
-                    <span>Fedora Me...</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="calculator" aria-label="Calculatrice">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calculator.svg" alt="">
+                    <span>Calculatr...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Contacts">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Contacts.svg" alt="">
-                    <span>Contacts</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="text_editor" aria-label="Éditeur de texte">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.TextEditor.svg" alt="">
+                    <span>Éditeur d...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Météo">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Weather.svg" alt="">
-                    <span>Météo</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="nemo" aria-label="Fichiers">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Nautilus.svg" alt="">
+                    <span>Fichiers</span>
                 </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="clocks" aria-label="Horloges">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg" alt="">
-                    <span>Horloges</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="firefox" aria-label="Firefox">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/firefox.png" alt="">
+                    <span>Firefox</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Cartes">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Maps.svg" alt="">
-                    <span>Cartes</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="librewriter" aria-label="LibreOffice Writer">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg" alt="">
+                    <span>LibreOffi...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="librecalc" data-store-pin="librecalc" aria-label="LibreOffice Calc" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg" alt="">
-                    <span>LibreOffice Calc</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="simple_scan" data-store-pin="simple_scan" aria-label="Numériseur" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SimpleScan.svg" alt="">
-                    <span>Numérise...</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="update_manager" aria-label="Logiciels">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Software.svg" alt="">
+                    <span>Logiciels</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="themes" aria-label="Paramètres">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Settings.svg" alt="">
                     <span>Paramètres</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Machines">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Boxes.svg" alt="">
-                    <span>Machines</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="terminal" aria-label="Terminal">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg" alt="">
+                    <span>Terminal</span>
                 </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="lecteur_multimedia" data-store-pin="lecteur_multimedia" aria-label="Lecteur vidéos" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Showtime.svg" alt="">
-                    <span>Lecteur vi...</span>
+                <button type="button" class="fedora-overview__app" data-overview-link="calendar" aria-label="Agenda">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg" alt="">
+                    <span>Agenda</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="file_roller" aria-label="Gestionnaire d'archives">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/org.gnome.FileRoller" alt="">
+                    <span>Gestionna...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="clocks" aria-label="Horloges">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg" alt="">
+                    <span>Horloges</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_startcenter" aria-label="LibreOffice">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/settings.png" alt="">
+                    <span>LibreOffice</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="librecalc" aria-label="LibreOffice Calc">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_draw" aria-label="LibreOffice Draw">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_impress" aria-label="LibreOffice Impress">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="visionneur_images" aria-label="Loupe">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg" alt="">
+                    <span>Loupe</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="visionneur_pdf" aria-label="Papers">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Papers.svg" alt="">
+                    <span>Papers</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="snapshot" aria-label="Snapshot">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Snapshot.svg" alt="">
@@ -195,29 +224,21 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg" alt="">
                     <span>Caractères</span>
                 </button>
-                <button type="button" class="fedora-overview__app fedora-overview__app--folder" aria-label="Utilitaires">
-                    <span class="fedora-overview__folder-icon" aria-hidden="true"></span>
-                    <span>Utilitaires</span>
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Disques">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg" alt="">
+                    <span>Disques</span>
                 </button>
-                <button type="button" class="fedora-overview__app fedora-overview__app--folder" aria-label="Système">
-                    <span class="fedora-overview__folder-icon fedora-overview__folder-icon--system" aria-hidden="true"></span>
-                    <span>Système</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_impress" data-store-pin="libreoffice_impress" aria-label="LibreOffice Impress" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg" alt="">
-                    <span>LibreOffic...</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_draw" data-store-pin="libreoffice_draw" aria-label="LibreOffice Draw" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw" alt="">
-                    <span>LibreOffi...</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_startcenter" data-store-pin="libreoffice_startcenter" aria-label="LibreOffice" hidden>
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-startcenter" alt="">
-                    <span>LibreOffice</span>
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Journal SELinux">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/setroubleshoot.svg" alt="">
+                    <span>Journal S...</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="system_monitor" aria-label="Moniteur système">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg" alt="">
                     <span>Moniteur ...</span>
+                </button>
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Polices">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg" alt="">
+                    <span>Polices</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="baobab" aria-label="Utilisation des disques">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.baobab.svg" alt="">
@@ -226,18 +247,6 @@
                 <button type="button" class="fedora-overview__app" data-overview-link="tour" aria-label="Visite guidée">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Tour.svg" alt="">
                     <span>Visite gu...</span>
-                </button>
-                <button type="button" class="fedora-overview__app" aria-label="Aide">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Yelp.svg" alt="">
-                    <span>Aide</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="librewriter" aria-label="LibreOffice Writer">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg" alt="">
-                    <span>LibreOffic...</span>
-                </button>
-                <button type="button" class="fedora-overview__app" data-overview-link="terminal" aria-label="Terminal">
-                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg" alt="">
-                    <span>Terminal</span>
                 </button>
                         <!-- CAPSULE-OVERVIEW-APPS-GRID:END -->
             </div>

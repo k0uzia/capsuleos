@@ -54,6 +54,13 @@ export const h6Profile = (registryId) => {
       requiresPlaybook: true,
       requiresInteractionInventory: false,
     },
+    'linux-anduinos': {
+      requiresHotCorners: false,
+      requiresBaseline: false,
+      requiresPlaybook: false,
+      requiresInteractionInventory: false,
+      skipH5P0: true,
+    },
   };
 
   const base = byRegistry[registryId] || {
@@ -61,6 +68,7 @@ export const h6Profile = (registryId) => {
     requiresBaseline: true,
     requiresPlaybook: true,
     requiresInteractionInventory: true,
+    skipH5P0: false,
   };
 
   return {
@@ -68,6 +76,7 @@ export const h6Profile = (registryId) => {
     bodyId,
     skinRel: skinIndexRel(registryId),
     skipH5P1: !needsH5P1,
+    skipH5P0: Boolean(base.skipH5P0),
     ...base,
   };
 };

@@ -42,9 +42,10 @@
         }
         const identityByBody = {
             rocky: { user: 'capsule', host: 'rocky' },
-            fedora: { user: 'fed', host: 'fedora' },
+            fedora: { user: 'capsule', host: 'fedora' },
             alma: { user: 'capsule', host: 'alma' },
             ubuntu: { user: 'capsule', host: 'ubuntu' },
+            anduinos: { user: 'capsule', host: 'anduinos' },
             mint: { user: 'capsule', host: 'mint' },
             'mx-kde': { user: 'mx-linux', host: 'mx' },
             'kde-neon': { user: 'capsule', host: 'capsule-kvm' },

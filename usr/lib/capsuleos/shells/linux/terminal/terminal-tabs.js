@@ -60,7 +60,18 @@
         if ((global.document.body && global.document.body.id === 'rocky') || profile === 'rocky') {
             return 'capsule@rocky:~';
         }
-        return 'fed@fedora:~';
+        if ((global.document.body && global.document.body.id === 'alma') || profile === 'alma') {
+            return 'capsule@alma:~';
+        }
+        if ((global.document.body && global.document.body.id === 'ubuntu') || profile === 'ubuntu') {
+            return 'capsule@ubuntu:~';
+        }
+        if ((global.document.body && global.document.body.id === 'fedora') || profile === 'fedora') {
+            return 'capsule@fedora:~';
+        }
+        const user = global.CAPSULE_TERMINAL_USER || 'capsule';
+        const host = global.CAPSULE_TERMINAL_HOST || 'host';
+        return `${user}@${host}:~`;
     };
 
     const formatTabTitle = (promptText) => String(promptText || resolveDefaultPrompt()).replace(/\$\s*$/, '').trim();

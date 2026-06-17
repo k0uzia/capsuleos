@@ -321,3 +321,122 @@ div[data-link="terminal"] > .capsule-terminal-shell {
     --terminal-ls-col-width: 14ch;
     --terminal-ls-dir-color: var(--terminal-prompt-path-seg-color, var(--btn1));
 }
+
+/* Ptyxis GNOME/RHEL — neutraliser le chrome legacy (#prompt rouge, bande #command)
+ * avant/après chargement de terminal-ptyxis.base.css (race classe ou fetch CSS). */
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-app],
+body#fedora .windowElement[data-link="terminal"] [data-terminal-app],
+body#alma .windowElement[data-link="terminal"] [data-terminal-app],
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-app],
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-app] {
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal::after,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal::after,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal::after,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal::after,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal::after,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-app]::after,
+body#fedora .windowElement[data-link="terminal"] [data-terminal-app]::after,
+body#alma .windowElement[data-link="terminal"] [data-terminal-app]::after,
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-app]::after,
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-app]::after {
+    content: "";
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+body#rocky .windowElement[data-link="terminal"] #output,
+body#fedora .windowElement[data-link="terminal"] #output,
+body#alma .windowElement[data-link="terminal"] #output,
+body#ubuntu .windowElement[data-link="terminal"] #output,
+body#anduinos .windowElement[data-link="terminal"] #output,
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal__output,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal__output,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal__output,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal__output,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal__output,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-output],
+body#fedora .windowElement[data-link="terminal"] [data-terminal-output],
+body#alma .windowElement[data-link="terminal"] [data-terminal-output],
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-output],
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-output] {
+    flex: 0 0 auto;
+    flex-grow: 0;
+    min-height: 0;
+}
+
+body#rocky .windowElement[data-link="terminal"] #input,
+body#fedora .windowElement[data-link="terminal"] #input,
+body#alma .windowElement[data-link="terminal"] #input,
+body#ubuntu .windowElement[data-link="terminal"] #input,
+body#anduinos .windowElement[data-link="terminal"] #input,
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal__input,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal__input,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal__input,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal__input,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal__input,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-form],
+body#fedora .windowElement[data-link="terminal"] [data-terminal-form],
+body#alma .windowElement[data-link="terminal"] [data-terminal-form],
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-form],
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-form] {
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    align-items: baseline;
+}
+
+body#rocky .windowElement[data-link="terminal"] #prompt,
+body#fedora .windowElement[data-link="terminal"] #prompt,
+body#alma .windowElement[data-link="terminal"] #prompt,
+body#ubuntu .windowElement[data-link="terminal"] #prompt,
+body#anduinos .windowElement[data-link="terminal"] #prompt,
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal__prompt,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal__prompt,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal__prompt,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal__prompt,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal__prompt,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-prompt],
+body#fedora .windowElement[data-link="terminal"] [data-terminal-prompt],
+body#alma .windowElement[data-link="terminal"] [data-terminal-prompt],
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-prompt],
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-prompt] {
+    color: inherit;
+    margin-left: 0;
+    margin-right: calc(var(--head, 32px) / 8);
+}
+
+body#rocky .windowElement[data-link="terminal"] #command,
+body#fedora .windowElement[data-link="terminal"] #command,
+body#alma .windowElement[data-link="terminal"] #command,
+body#ubuntu .windowElement[data-link="terminal"] #command,
+body#anduinos .windowElement[data-link="terminal"] #command,
+body#rocky .windowElement[data-link="terminal"] .capsule-terminal__command,
+body#fedora .windowElement[data-link="terminal"] .capsule-terminal__command,
+body#alma .windowElement[data-link="terminal"] .capsule-terminal__command,
+body#ubuntu .windowElement[data-link="terminal"] .capsule-terminal__command,
+body#anduinos .windowElement[data-link="terminal"] .capsule-terminal__command,
+body#rocky .windowElement[data-link="terminal"] [data-terminal-command],
+body#fedora .windowElement[data-link="terminal"] [data-terminal-command],
+body#alma .windowElement[data-link="terminal"] [data-terminal-command],
+body#ubuntu .windowElement[data-link="terminal"] [data-terminal-command],
+body#anduinos .windowElement[data-link="terminal"] [data-terminal-command] {
+    height: auto;
+    min-height: 0;
+    padding-left: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}

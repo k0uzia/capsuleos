@@ -1,6 +1,6 @@
 # Catalogue applications — linux-rocky
 
-> Généré : `2026-06-09T00:19:24.025Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-17T12:34:31.291Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-rocky --write
@@ -29,7 +29,7 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-rocky
 | Firefox | firefox | P0 | firefox | ✅ ok | ✓ | ✓ | firefox-gnome · partial |
 | Horloges | org.gnome.clocks | P1 | clocks | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Journal des alertes SELinux | setroubleshoot | P2 | — | 🔷 decorative |  | ✓ | — |
-| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · partial |
+| Logiciels | org.gnome.Software | P0 | update_manager | ✅ ok | ✓ | ✓ | libadwaita-gnome · full |
 | Loupe | org.gnome.Loupe | P1 | visionneur_images | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Moniteur système | org.gnome.SystemMonitor | P2 | system_monitor | ✅ ok |  | ✓ | libadwaita-gnome · partial |
 | Papers | org.gnome.Papers | P1 | visionneur_pdf | ✅ ok |  | ✓ | libadwaita-gnome · partial |
@@ -43,13 +43,16 @@ node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id linux-rocky
 ## CapsuleOnly / hors VM
 
 - ✅ **À propos Rocky Linux** — ok (CapsuleOnly)
+- ✅ **Agenda** — ok (Flatpak org.gnome.Calendar — extension magasin Rocky)
 - — **Aide** — notOnVm (Présent grille Capsule — non installé VM lab)
-- ✅ **Calendrier** — ok (Favori gsettings VM — app simulée (paquet absent lab RL10))
 - ✅ **Capture d'écran** — ok (CapsuleOnly)
+- ✅ **Gestionnaire d'archives** — ok (RPM file-roller — extension magasin Rocky)
 - — **Lecteur vidéos** — notOnVm (Présent grille Capsule — non installé VM lab)
-- — **LibreOffice Calc** — notOnVm (Présent grille Capsule — non installé VM lab)
-- — **LibreOffice Impress** — notOnVm (Présent grille Capsule — non installé VM lab)
-- 🔶 **LibreOffice Writer** — partiel (Flatpak optionnel RL10)
+- ✅ **LibreOffice** — ok (Flatpak suite — déverrouille Writer/Calc/Impress/Draw (S6))
+- ✅ **LibreOffice Calc** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Draw** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Impress** — ok (Module suite LO — épinglage post-install)
+- ✅ **LibreOffice Writer** — ok (Scénario S6 Logiciels — simulé CapsuleOS)
 - — **Machines** — notOnVm (Présent grille Capsule — non installé VM lab)
 - 🎓 **Missions CapsuleOS** — capsuleOnly (CapsuleOnly)
 - — **Numériseur** — notOnVm (Présent grille Capsule — non installé VM lab)

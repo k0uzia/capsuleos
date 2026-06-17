@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-13T18:33:33.844620+00:00",
+  "generatedAt": "2026-06-17T10:55:25.127792+00:00",
   "source": "vm-gnome-settings-assets-inventory.sh",
   "registry": "linux-fedora",
   "vendor": "fedora",
-  "matrixPath": "/tmp/capsule-assets-matrix.3MdwKJ.json",
+  "matrixPath": "/tmp/capsule-assets-matrix.LUIyl0.json",
   "summary": {
     "assetsTotal": 4,
     "presentOnVm": 4,
@@ -22,8 +22,8 @@
     "desktop-background-uri-dark": {
       "schema": "org.gnome.desktop.background",
       "key": "picture-uri-dark",
-      "raw": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
-      "localPath": "/usr/share/backgrounds/f44/default/f44-01-day.jxl",
+      "raw": "'file:///usr/share/backgrounds/f44/default/f44-01-night.jxl'",
+      "localPath": "/usr/share/backgrounds/f44/default/f44-01-night.jxl",
       "existsOnVm": true,
       "note": "Fond variante nuit — f44-01-night.jxl"
     }

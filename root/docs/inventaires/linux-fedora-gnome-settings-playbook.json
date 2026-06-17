@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-13T18:40:20.376672+00:00",
+  "generatedAt": "2026-06-17T10:55:24.279383+00:00",
   "source": "vm-gnome-settings-playbook.sh",
   "matrixVersion": 1,
-  "matrixPath": "/tmp/capsule-settings-matrix.1ZPEC1.json",
+  "matrixPath": "/tmp/capsule-settings-matrix.VMuNeo.json",
   "dwellMs": 1400,
   "panelFilter": null,
   "summary": {
     "panelsTotal": 18,
     "panelsOpened": 18,
-    "controlsMapped": 28,
-    "controlsUnmapped": 7,
+    "controlsMapped": 29,
+    "controlsUnmapped": 6,
     "errors": 0,
     "assetsPresentOnVm": 4,
     "assetsMissingOnVm": 0
   },
   "assetSources": {
     "status": "ok",
-    "matrixPath": "/tmp/capsule-assets-matrix.H4iVMh.json",
+    "matrixPath": "/tmp/capsule-assets-matrix.0GO55O.json",
     "summary": {
       "assetsTotal": 4,
       "presentOnVm": 4,
@@ -29,8 +29,8 @@
         "existsOnVm": true
       },
       "desktop-background-uri-dark": {
-        "raw": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
-        "localPath": "/usr/share/backgrounds/f44/default/f44-01-day.jxl",
+        "raw": "'file:///usr/share/backgrounds/f44/default/f44-01-night.jxl'",
+        "localPath": "/usr/share/backgrounds/f44/default/f44-01-night.jxl",
         "existsOnVm": true
       }
     },
@@ -95,7 +95,7 @@
           "source": "nmcli"
         }
       ],
-      "openedAt": "2026-06-13T18:39:52.327533+00:00"
+      "openedAt": "2026-06-17T10:54:54.462672+00:00"
     },
     {
       "id": "network",
@@ -116,7 +116,7 @@
           "note": "NM ipv4.method"
         }
       ],
-      "openedAt": "2026-06-13T18:39:54.056589+00:00"
+      "openedAt": "2026-06-17T10:54:56.109456+00:00"
     },
     {
       "id": "bluetooth",
@@ -133,11 +133,14 @@
         {
           "id": "bluetooth",
           "capsuleKey": "gnome-bluetooth-enabled",
-          "status": "unmapped",
-          "note": "rfkill indisponible"
+          "vmRaw": null,
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "source": "simulated",
+          "note": "rfkill indisponible — valeur Capsule par défaut (simulée)"
         }
       ],
-      "openedAt": "2026-06-13T18:39:55.606355+00:00"
+      "openedAt": "2026-06-17T10:54:57.800676+00:00"
     },
     {
       "id": "appearance",
@@ -180,7 +183,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:39:57.212172+00:00"
+      "openedAt": "2026-06-17T10:54:59.475170+00:00"
     },
     {
       "id": "background",
@@ -193,11 +196,11 @@
       "gsettingsStable": true,
       "gsettingsBefore": {
         "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'"
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/f44/default/f44-01-night.jxl'"
       },
       "gsettingsAfter": {
         "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/f44/default/f44-01-day.jxl'"
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/f44/default/f44-01-night.jxl'"
       },
       "controls": [
         {
@@ -211,7 +214,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:39:58.857114+00:00"
+      "openedAt": "2026-06-17T10:55:01.136503+00:00"
     },
     {
       "id": "notifications",
@@ -262,7 +265,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:00.569456+00:00"
+      "openedAt": "2026-06-17T10:55:02.860474+00:00"
     },
     {
       "id": "search",
@@ -317,7 +320,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:02.184626+00:00"
+      "openedAt": "2026-06-17T10:55:04.532363+00:00"
     },
     {
       "id": "multitasking",
@@ -370,7 +373,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:03.795812+00:00"
+      "openedAt": "2026-06-17T10:55:06.280618+00:00"
     },
     {
       "id": "sound",
@@ -413,7 +416,7 @@
           "note": "volume-step ≠ curseur %"
         }
       ],
-      "openedAt": "2026-06-13T18:40:05.417938+00:00"
+      "openedAt": "2026-06-17T10:55:07.962456+00:00"
     },
     {
       "id": "power",
@@ -464,7 +467,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:07.049168+00:00"
+      "openedAt": "2026-06-17T10:55:09.698469+00:00"
     },
     {
       "id": "displays",
@@ -505,7 +508,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:08.663146+00:00"
+      "openedAt": "2026-06-17T10:55:11.444666+00:00"
     },
     {
       "id": "mouse",
@@ -582,7 +585,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:10.338423+00:00"
+      "openedAt": "2026-06-17T10:55:13.277431+00:00"
     },
     {
       "id": "keyboard",
@@ -594,11 +597,11 @@
       "windowTitle": null,
       "gsettingsStable": true,
       "gsettingsBefore": {
-        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr'), ('xkb', 'us')]",
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr')]",
         "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
       },
       "gsettingsAfter": {
-        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr'), ('xkb', 'us')]",
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr')]",
         "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
       },
       "controls": [
@@ -607,7 +610,7 @@
           "capsuleKey": "gnome-keyboard-layout",
           "schema": "org.gnome.desktop.input-sources",
           "key": "sources",
-          "vmRaw": "[('xkb', 'fr'), ('xkb', 'us')]",
+          "vmRaw": "[('xkb', 'fr')]",
           "capsuleExpected": "Français",
           "status": "mapped",
           "note": null
@@ -623,7 +626,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:11.983484+00:00"
+      "openedAt": "2026-06-17T10:55:15.019017+00:00"
     },
     {
       "id": "printers",
@@ -637,7 +640,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-13T18:40:13.576682+00:00"
+      "openedAt": "2026-06-17T10:55:16.715407+00:00"
     },
     {
       "id": "accessibility",
@@ -678,7 +681,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:15.237580+00:00"
+      "openedAt": "2026-06-17T10:55:18.531990+00:00"
     },
     {
       "id": "privacy",
@@ -749,7 +752,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-13T18:40:16.875761+00:00"
+      "openedAt": "2026-06-17T10:55:20.381946+00:00"
     },
     {
       "id": "sharing",
@@ -782,7 +785,7 @@
           "note": "simulated"
         }
       ],
-      "openedAt": "2026-06-13T18:40:18.424969+00:00"
+      "openedAt": "2026-06-17T10:55:22.067441+00:00"
     },
     {
       "id": "about",
@@ -796,7 +799,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-13T18:40:19.990856+00:00"
+      "openedAt": "2026-06-17T10:55:23.806438+00:00"
     }
   ],
   "errors": []

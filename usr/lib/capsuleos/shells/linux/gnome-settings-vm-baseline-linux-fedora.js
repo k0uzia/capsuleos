@@ -7,6 +7,13 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "key": null,
         "panelId": "wifi"
     },
+    "bluetooth": {
+        "capsuleExpected": "on",
+        "capsuleKey": "gnome-bluetooth-enabled",
+        "schema": null,
+        "key": null,
+        "panelId": "bluetooth"
+    },
     "theme": {
         "capsuleExpected": "dark",
         "capsuleKey": "mint-theme",

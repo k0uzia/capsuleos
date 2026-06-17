@@ -44,7 +44,11 @@ const run = (script, extra = []) => {
 };
 
 run('verify-gnome-settings-parity-chain.mjs', ['--strict']);
-run('smoke-h5-p0-shell.mjs');
+if (!profile.skipH5P0) {
+  run('smoke-h5-p0-shell.mjs');
+} else {
+  process.stdout.write(`○ smoke-h5-p0-shell ${registry} ignoré (coque hors GNOME Shell overview)\n`);
+}
 if (!profile.skipH5P1) {
   run('smoke-h5-p1-appearance.mjs');
 } else {

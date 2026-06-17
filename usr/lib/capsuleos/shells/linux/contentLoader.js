@@ -537,6 +537,8 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             const ptyxisResp = await fetch(ptyxisFile, { cache: 'no-store' });
             if (ptyxisResp.ok) {
                 text = `${text}\n${await ptyxisResp.text()}`;
+            } else {
+                console.error(`CapsuleOS: terminal-ptyxis.base.css indisponible (HTTP ${ptyxisResp.status}) — ${ptyxisFile}`);
             }
         }
         return text;

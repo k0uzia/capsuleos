@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-10T14:25:00.540346+00:00",
+  "generatedAt": "2026-06-17T08:25:42.301905+00:00",
   "source": "vm-gnome-settings-playbook.sh",
   "matrixVersion": 1,
-  "matrixPath": "/tmp/capsule-settings-matrix.kxsitB.json",
+  "matrixPath": "/tmp/capsule-settings-matrix.vzwF8n.json",
   "dwellMs": 1400,
   "panelFilter": null,
   "summary": {
     "panelsTotal": 18,
     "panelsOpened": 18,
-    "controlsMapped": 28,
-    "controlsUnmapped": 7,
+    "controlsMapped": 29,
+    "controlsUnmapped": 6,
     "errors": 0,
     "assetsPresentOnVm": 4,
     "assetsMissingOnVm": 0
   },
   "assetSources": {
     "status": "ok",
-    "matrixPath": "/tmp/capsule-assets-matrix.6lcxfG.json",
+    "matrixPath": "/tmp/capsule-assets-matrix.WkkpYD.json",
     "summary": {
       "assetsTotal": 4,
       "presentOnVm": 4,
@@ -29,8 +29,8 @@
         "existsOnVm": true
       },
       "desktop-background-uri-dark": {
-        "raw": "'file:///usr/share/backgrounds/almalinux-night.jpg'",
-        "localPath": "/usr/share/backgrounds/almalinux-night.jpg",
+        "raw": "'file:///usr/share/backgrounds/almalinux-day.jpg'",
+        "localPath": "/usr/share/backgrounds/almalinux-day.jpg",
         "existsOnVm": true
       }
     },
@@ -95,7 +95,7 @@
           "source": "nmcli"
         }
       ],
-      "openedAt": "2026-06-10T14:24:29.238159+00:00"
+      "openedAt": "2026-06-17T08:25:12.864881+00:00"
     },
     {
       "id": "network",
@@ -116,7 +116,7 @@
           "note": "NM ipv4.method"
         }
       ],
-      "openedAt": "2026-06-10T14:24:31.092539+00:00"
+      "openedAt": "2026-06-17T08:25:14.542481+00:00"
     },
     {
       "id": "bluetooth",
@@ -133,11 +133,14 @@
         {
           "id": "bluetooth",
           "capsuleKey": "gnome-bluetooth-enabled",
-          "status": "unmapped",
-          "note": "rfkill indisponible"
+          "vmRaw": null,
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "source": "simulated",
+          "note": "rfkill indisponible — valeur Capsule par défaut (simulée)"
         }
       ],
-      "openedAt": "2026-06-10T14:24:32.709019+00:00"
+      "openedAt": "2026-06-17T08:25:16.242598+00:00"
     },
     {
       "id": "appearance",
@@ -180,7 +183,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:35.033416+00:00"
+      "openedAt": "2026-06-17T08:25:17.913675+00:00"
     },
     {
       "id": "background",
@@ -193,11 +196,11 @@
       "gsettingsStable": true,
       "gsettingsBefore": {
         "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/almalinux-day.jpg'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/almalinux-night.jpg'"
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/almalinux-day.jpg'"
       },
       "gsettingsAfter": {
         "org.gnome.desktop.background::picture-uri": "'file:///usr/share/backgrounds/almalinux-day.jpg'",
-        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/almalinux-night.jpg'"
+        "org.gnome.desktop.background::picture-uri-dark": "'file:///usr/share/backgrounds/almalinux-day.jpg'"
       },
       "controls": [
         {
@@ -211,7 +214,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:36.714381+00:00"
+      "openedAt": "2026-06-17T08:25:19.584718+00:00"
     },
     {
       "id": "notifications",
@@ -262,7 +265,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:38.385124+00:00"
+      "openedAt": "2026-06-17T08:25:21.255136+00:00"
     },
     {
       "id": "search",
@@ -317,7 +320,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:40.036810+00:00"
+      "openedAt": "2026-06-17T08:25:22.898920+00:00"
     },
     {
       "id": "multitasking",
@@ -370,7 +373,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:41.736753+00:00"
+      "openedAt": "2026-06-17T08:25:24.577503+00:00"
     },
     {
       "id": "sound",
@@ -413,7 +416,7 @@
           "note": "volume-step ≠ curseur %"
         }
       ],
-      "openedAt": "2026-06-10T14:24:43.653264+00:00"
+      "openedAt": "2026-06-17T08:25:26.248199+00:00"
     },
     {
       "id": "power",
@@ -464,7 +467,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:45.610196+00:00"
+      "openedAt": "2026-06-17T08:25:28.126933+00:00"
     },
     {
       "id": "displays",
@@ -505,7 +508,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:47.291224+00:00"
+      "openedAt": "2026-06-17T08:25:29.798427+00:00"
     },
     {
       "id": "mouse",
@@ -582,7 +585,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:49.207083+00:00"
+      "openedAt": "2026-06-17T08:25:31.621276+00:00"
     },
     {
       "id": "keyboard",
@@ -623,7 +626,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:50.995900+00:00"
+      "openedAt": "2026-06-17T08:25:33.428450+00:00"
     },
     {
       "id": "printers",
@@ -637,7 +640,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-10T14:24:52.695899+00:00"
+      "openedAt": "2026-06-17T08:25:35.118504+00:00"
     },
     {
       "id": "accessibility",
@@ -678,7 +681,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:54.474518+00:00"
+      "openedAt": "2026-06-17T08:25:36.906888+00:00"
     },
     {
       "id": "privacy",
@@ -749,7 +752,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-10T14:24:56.203540+00:00"
+      "openedAt": "2026-06-17T08:25:38.683578+00:00"
     },
     {
       "id": "sharing",
@@ -782,7 +785,7 @@
           "note": "simulated"
         }
       ],
-      "openedAt": "2026-06-10T14:24:57.812753+00:00"
+      "openedAt": "2026-06-17T08:25:40.286282+00:00"
     },
     {
       "id": "about",
@@ -796,7 +799,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-10T14:24:59.869891+00:00"
+      "openedAt": "2026-06-17T08:25:41.903847+00:00"
     }
   ],
   "errors": []

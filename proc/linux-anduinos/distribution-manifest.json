@@ -2924,7 +2924,7 @@
     "documentFontName": "Noto Sans 11"
   },
   "import": {
-    "status": "pending",
+    "status": "completed",
     "method": "rsync",
     "destAssetsRoot": "usr/share/capsuleos/assets",
     "bundleCount": 9,
@@ -3092,6 +3092,51 @@
         ]
       }
     ],
-    "notes": "Playbook manifest → staging VM → import-manifest-staging.mjs"
+    "notes": "Playbook manifest → staging VM → import-manifest-staging.mjs",
+    "completedAt": "2026-06-17T16:11:47.606Z",
+    "lastResults": [
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/Noto_Sans/NotoSans-BoldItalic.ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/NotoSans-BoldItalic.ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/adwaita/AdwaitaSans-Italic.ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/AdwaitaSans-Italic.ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/adwaita/AdwaitaSans-Regular.ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/AdwaitaSans-Regular.ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/noto/NotoSans-BoldItalic.ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/NotoSans-BoldItalic.ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/Ubuntu-Italic[wdth,wght].ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-Italic[wght].ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/UbuntuMono-Italic[wght].ttf",
+        "ok": true
+      },
+      {
+        "bundle": "fonts",
+        "vmPath": "/usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf",
+        "localPath": "/mnt/#TEAM/CapsuleOS/usr/share/capsuleos/assets/fonts/vendors/anduin/Ubuntu[wdth,wght].ttf",
+        "ok": true
+      }
+    ]
   }
 }

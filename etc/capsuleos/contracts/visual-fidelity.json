@@ -203,6 +203,29 @@
         "iconTheme": "breeze",
         "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
       }
+    },
+    "linux-anduinos": {
+      "typography": {
+        "uiStack": ["Noto Sans", "Ubuntu", "Cantarell"],
+        "monoStack": ["Cascadia Code", "Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/Debian/AnduinOS/anduin-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Fluent-dark",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/AnduinOS/style/anduin-shell/a11y-anduin.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      }
     }
   }
 }

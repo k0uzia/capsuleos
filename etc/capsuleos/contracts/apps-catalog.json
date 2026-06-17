@@ -181,6 +181,48 @@
           "template": "file_roller.html",
           "skinCss": "file_roller.skin.css",
           "functionalDepth": "partial"
+        },
+        "thunderbird": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "thunderbird.html",
+          "skinCss": "thunderbird.skin.css",
+          "functionalDepth": "partial"
+        },
+        "transmission": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "transmission.html",
+          "skinCss": "transmission.skin.css",
+          "functionalDepth": "partial"
+        },
+        "rhythmbox": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "rhythmbox.html",
+          "skinCss": "rhythmbox.skin.css",
+          "functionalDepth": "decorative"
+        },
+        "drawing": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "drawing.html",
+          "skinCss": "drawing.skin.css",
+          "functionalDepth": "partial"
+        },
+        "simple_scan": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "simple_scan.html",
+          "skinCss": "simple_scan.skin.css",
+          "functionalDepth": "partial"
+        },
+        "warpinator": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "warpinator.html",
+          "skinCss": "warpinator.skin.css",
+          "functionalDepth": "partial"
+        },
+        "timeshift": {
+          "chromeProvider": "libadwaita-gnome",
+          "template": "timeshift.html",
+          "skinCss": "timeshift.skin.css",
+          "functionalDepth": "partial"
         }
       }
     },

@@ -10,7 +10,7 @@ body#anduinos .volume-popover {
     border: var(--volume-popover-border);
     box-shadow: var(--volume-popover-shadow);
     color: var(--volume-popover-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 body#anduinos .volume-popover[hidden] {

@@ -1,6 +1,6 @@
 # Catalogue applications — linux-anduinos
 
-> Généré : `2026-06-17T14:21:31.329Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
+> Généré : `2026-06-17T16:13:40.477Z` · Toolkit : **gnome** · Procédure : [procedure-apps-catalog.md](../procedure-apps-catalog.md)
 
 ```bash
 node usr/lib/capsuleos/tools/lab/collect-vm-apps-inventory.mjs --id linux-anduinos --write

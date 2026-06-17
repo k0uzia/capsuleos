@@ -1,7 +1,7 @@
 {
   "version": 1,
   "registryId": "linux-anduinos",
-  "collectedAt": "2026-06-17T10:40:32.157Z",
+  "collectedAt": "2026-06-17T15:58:38.933Z",
   "source": "distribution-manifest",
   "searchPaths": [
     "/usr/share/applications",

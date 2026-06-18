@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./mint-fonts.css" type="text/css">
     <link rel="stylesheet" href="./style/mint-y-dark-aqua-tokens.css" type="text/css">
     <link rel="stylesheet" href="./style/imports.css" type="text/css">
-    <link rel="stylesheet" href="./style/style.css?v=20260618panel4" type="text/css">
+    <link rel="stylesheet" href="./style/style.css?v=20260618menu-parity" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
     <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css" type="text/css">
     <title>Mint</title>
@@ -158,19 +158,8 @@
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
             <span class="mint-panel__separator taskbar-separator" aria-hidden="true"></span>
-            <div class="mint-panel__pinned" id="mint-panel-pinned" role="group" aria-label="Applications épinglées">
-                <a class="mint-panel__launcher" target="windowElement" data-link="nemo" title="Fichiers">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp" alt="">
-                </a>
-                <a class="mint-panel__launcher" target="windowElement" data-link="firefox" title="Firefox">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp" alt="">
-                </a>
-                <a class="mint-panel__launcher" target="windowElement" data-link="terminal" title="Terminal">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
-                </a>
-            </div>
+            <div id="taskbar-window-list" class="mint-panel__grouped-list taskbar-window-list" role="group" aria-label="Liste des fenêtres"></div>
             <div id="mint-workspace-indicator" class="mint-workspace-indicator" role="group" aria-label="Espaces de travail" hidden></div>
-            <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
             <div class="mint-panel__tray taskbar-tray taskbar-tray--systray" id="system-tray" aria-label="Zone de notification">
@@ -533,8 +522,8 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=20260609ctx4"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=20260618menu"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=20260618grouped"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js?v=20260618grouped"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=20260609icon"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-panel-context-menu.js?v=20260609panel"></script>
     <script src="./content/mint-desktop-icons.js?v=20260609"></script>

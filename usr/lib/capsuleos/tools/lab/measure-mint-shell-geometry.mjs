@@ -23,7 +23,9 @@ const VM_TARGETS = {
   menuBottomGapPx: 2,
   menuColsPct: [20, 25, 55],
   searchHeightPx: 35,
-  searchWidthPx: 134,
+  /* Champ recherche = colonnes catégories + apps (grid 2/4), pas colonne 2 seule */
+  searchWidthPx: 443,
+  catRowHeightPx: 35,
   trayIconPx: 24,
   favoritesIconPx: 22,
   favoritesBoxWidthPx: 121,

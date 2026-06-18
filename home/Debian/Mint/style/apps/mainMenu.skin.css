@@ -52,7 +52,7 @@ body#mint div[data-link="mainMenu"] .menu-root {
     position: relative;
     inset: 0;
     display: grid;
-    grid-template-columns: 20% 25% minmax(0, 1fr);
+    grid-template-columns: 2fr 2.5fr 5.5fr;
     grid-template-rows: minmax(0, 1fr) auto;
     column-gap: var(--mint-menu-col-gap);
     align-items: stretch;
@@ -174,11 +174,11 @@ body#mint div[data-link="mainMenu"] .menu-action:hover {
 }
 
 body#mint div[data-link="mainMenu"] .menu-action#menu-btn-power {
-    background: #cc2f2f;
+    background: var(--menu-power-bg, #d94141);
 }
 
 body#mint div[data-link="mainMenu"] .menu-action#menu-btn-power:hover {
-    background: #d84040;
+    background: var(--menu-power-bg-hover, #e05050);
 }
 
 body#mint div[data-link="mainMenu"] .menu-action img {
@@ -203,8 +203,8 @@ body#mint div[data-link="mainMenu"] .menu-cat {
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: none;
-    font-size: calc(var(--head) / 2.85);
-    padding: calc(var(--head) / 3.5) calc(var(--head) / 4);
+    font-size: calc(var(--head) / 3);
+    padding: calc(var(--head) / 4) calc(var(--head) / 4);
     border-left-width: 0;
     border-radius: 6px;
 }
@@ -266,7 +266,7 @@ body#mint div[data-link="mainMenu"] .menu-sidebar {
     min-width: 0;
     height: 100%;
     background: var(--menu-sidebar-bg);
-    border-right: none;
+    border-right: 1px solid var(--menu-sidebar-separator);
     overflow: hidden;
 }
 
@@ -361,7 +361,7 @@ body#mint div[data-link="mainMenu"] .menu-shortcut {
     box-sizing: border-box;
     text-decoration: none;
     color: var(--texte);
-    font-size: calc(var(--head) / 2.85);
+    font-size: calc(var(--head) / 3);
     border-left-width: 0;
     min-width: 0;
     overflow: hidden;
@@ -394,13 +394,14 @@ body#mint div[data-link="mainMenu"] .menu-app-item__icon {
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item__name {
-    font-size: calc(var(--head) / 2.85);
+    font-size: calc(var(--head) / 3);
     font-weight: normal;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item__desc {
     font-size: calc(var(--head) / 3.2);
-    opacity: 0.72;
+    color: var(--menu-app-desc-color, #a0a0a0);
+    opacity: 1;
 }
 
 body#mint div[data-link="mainMenu"] .menu-app-item.is-unavailable {
@@ -438,7 +439,7 @@ body#mint div[data-link="mainMenu"] .menu-search {
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    height: calc(var(--head) / 1.25);
+    height: calc(var(--head) / 1.142857);
     font-size: calc(var(--head) / 2.96);
     padding: 0 calc(var(--head) / 1.15) 0 calc(var(--head) / 4);
 }

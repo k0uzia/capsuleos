@@ -262,18 +262,19 @@ body#mint .taskbar-separator {
     border-color: var(--menu-accent);
 }
 
+.mint-panel__grouped-list,
 .mint-panel__window-list,
 .taskbar-window-list {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
     justify-content: flex-start;
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 0;
     margin: 0;
-    padding: 0 calc(var(--head) / 8);
+    padding: 0 calc(var(--head) / 10) 0 calc(var(--head) / 8);
     list-style: none;
-    gap: calc(var(--head) / 14);
+    gap: var(--mint-panel-launcher-gap);
     overflow-x: auto;
     scrollbar-width: thin;
 }
@@ -286,34 +287,31 @@ body#mint .taskbar-separator {
     display: var(--f);
     flex-flow: var(--rnw);
     align-items: var(--c);
-    gap: calc(var(--head) / 6);
-    max-width: calc(var(--head) * 8);
-    height: calc(var(--head) * 1.15);
-    padding: 0 calc(var(--head) / 4);
+    justify-content: var(--c);
+    flex-shrink: 0;
+    width: var(--mint-panel-launcher-hit-size);
+    height: var(--head);
+    padding: 0;
+    margin: 0;
     border: 1px solid transparent;
     border-radius: calc(var(--head) / 10);
-    background: rgba(0, 0, 0, 0.12);
+    background: var(--t);
     color: var(--texte);
-    font-family: var(--font-ui);
-    font-size: calc(var(--head) / 2.8);
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
     cursor: default;
-    transition: background-color var(--eas2), border-color var(--eas2), transform var(--eas2);
+    transition: background-color var(--eas2), border-color var(--eas2), box-shadow var(--eas2);
 }
 
 .taskbar-window-list__icon {
-    width: calc(var(--head) * 0.95);
-    height: calc(var(--head) * 0.95);
+    width: var(--mint-panel-launcher-icon-size);
+    height: var(--mint-panel-launcher-icon-size);
     flex-shrink: 0;
     object-fit: contain;
+    image-rendering: var(--a);
     pointer-events: none;
 }
 
 .taskbar-window-list__label {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: none;
 }
 
 .taskbar-window-list__btn.is-minimized {
@@ -325,14 +323,18 @@ body#mint .taskbar-separator {
     border-color: var(--mint-taskbar-item-border-hover);
 }
 
+.taskbar-window-list__btn.is-running:not(.is-active) {
+    box-shadow: inset 0 -2px 0 var(--mint-launcher-running-accent);
+}
+
 .taskbar-window-list__btn.is-active {
-    background: var(--mint-clock-hover-bg);
-    border-color: var(--menu-accent);
+    background: var(--t);
+    border-color: transparent;
     box-shadow: inset 0 -2px 0 var(--menu-accent);
 }
 
-html[data-theme="light"] .taskbar-window-list__btn {
-    background: rgba(255, 255, 255, 0.35);
+html[data-theme="light"] .taskbar-window-list__btn:hover {
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .mint-panel__right,

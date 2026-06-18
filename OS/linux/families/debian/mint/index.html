@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
     <link rel="stylesheet" href="./mint-fonts.css?v=46715d0171" type="text/css">
-    <link rel="stylesheet" href="./style/mint-y-dark-aqua-tokens.css?v=1349bcafd0" type="text/css">
+    <link rel="stylesheet" href="./style/mint-y-dark-aqua-tokens.css?v=0d17156a57" type="text/css">
     <link rel="stylesheet" href="./style/imports.css?v=d62a08c2c6" type="text/css">
     <link rel="stylesheet" href="./style/style.css?v=07a90b87d3" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css?v=60b6a55e2b" type="text/css">
@@ -160,19 +160,8 @@
                 <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/logo.svg" alt="Logo de Linux Mint" title="Menu principal">
             </a>
             <span class="mint-panel__separator taskbar-separator" aria-hidden="true"></span>
-            <div class="mint-panel__pinned" id="mint-panel-pinned" role="group" aria-label="Applications épinglées">
-                <a class="mint-panel__launcher" target="windowElement" data-link="nemo" title="Fichiers">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/system-file-manager.webp" alt="">
-                </a>
-                <a class="mint-panel__launcher" target="windowElement" data-link="firefox" title="Firefox">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp" alt="">
-                </a>
-                <a class="mint-panel__launcher" target="windowElement" data-link="terminal" title="Terminal">
-                    <img src="../../../usr/share/capsuleos/assets/images/vendors/mint/panel/org.gnome.Terminal.webp" alt="">
-                </a>
-            </div>
+            <div id="taskbar-window-list" class="mint-panel__grouped-list taskbar-window-list" role="group" aria-label="Liste des fenêtres"></div>
             <div id="mint-workspace-indicator" class="mint-workspace-indicator" role="group" aria-label="Espaces de travail" hidden></div>
-            <ul id="taskbar-window-list" class="mint-panel__window-list taskbar-window-list" role="list" aria-label="Fenêtres ouvertes"></ul>
         </nav>
         <div class="mint-panel__right taskbar-right">
             <div class="mint-panel__tray taskbar-tray taskbar-tray--systray" id="system-tray" aria-label="Zone de notification">
@@ -386,7 +375,7 @@
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js?v=c932ae1095"></script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js?v=5309ff7dda"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=b1dae489bf"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=164e00df6b"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=f13bebb6e9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=dd21339878"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js?v=76aadba6a9"></script>
@@ -535,13 +524,13 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-effects.js?v=e4fee25413"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-window-behaviors.js?v=2732447071"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/cinnamon-alt-tab.js?v=f71c64c718"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=37fc340a03"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js?v=8bb08d4a08"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=ca347b1ab9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-window-list.js?v=c134296a1d"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/desktop-context-menu.js?v=8130519d98"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/mint-panel-context-menu.js?v=ef06888285"></script>
     <script src="./content/mint-desktop-icons.js?v=7863176cc6"></script>
     <script src="./content/mint-desktop-favorites.js?v=c2d157376e"></script>
-    <script src="./content/mint-panel-pinned.js?v=1937c48708"></script>
+    <script src="./content/mint-panel-pinned.js?v=98bb053c0f"></script>
     <script src="./content/mint-tray-favorites.js?v=3295447ed2"></script>
     <script src="./content/mint-tray.js?v=f63f3bc4a6"></script>
     <script src="./content/mint-tray-overflow.js?v=c8ed686e44"></script>

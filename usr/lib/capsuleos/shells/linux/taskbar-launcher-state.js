@@ -110,6 +110,10 @@
             if (!slotId) {
                 return;
             }
+            if (document.body && document.body.id === 'mint'
+                && link.classList.contains('mint-panel__launcher')) {
+                return;
+            }
             const container = resolveSlotContainer(slotId);
             const isMainMenu = slotId === 'mainMenu';
             const running = isMainMenu ? isWindowVisible(container) : launcherRunning(container);

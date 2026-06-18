@@ -1,12 +1,13 @@
 /**
- * Liste des fenêtres ouvertes — panel Cinnamon (Mint).
- * Mutualisé : actif si body#mint ou CAPSULE_EMBED_SKIN_KEY === 'mint'.
+ * Applet grouped-window-list Cinnamon — panel Mint.
+ * Une seule rangée d’icônes (épinglées toujours visibles + apps ouvertes dynamiques).
  */
 (function initCapsuleTaskbarWindowList(global) {
     'use strict';
 
     const EXCLUDED_SLOTS = new Set(['mainMenu']);
-    const PINNED_SLOTS = new Set(['nemo', 'mintinstall', 'terminal']);
+    /** Épinglés VM — toujours affichés dans la rangée grouped (sans doublon). */
+    const PINNED_ALWAYS = ['nemo', 'firefox', 'terminal'];
 
     const WINDOW_ICONS = {
         nemo: './assets/images/vendors/mint/panel/system-file-manager.webp',
@@ -34,7 +35,7 @@
     }
 
     const WINDOW_LABELS = {
-        nemo: 'Nemo',
+        nemo: 'Fichiers',
         firefox: 'Firefox',
         terminal: 'Terminal',
         themes: 'Thèmes',
@@ -118,6 +119,14 @@
         return !!(container && container.style.display !== 'none');
     }
 
+    function isSlotRunning(container) {
+        if (!container) {
+            return false;
+        }
+        return isWindowVisible(container)
+            || (container.dataset && container.dataset.capsuleRunning === 'true');
+    }
+
     function markWindowRunning(container) {
         if (!container) {
             return;
@@ -130,21 +139,26 @@
         container.dataset.capsuleRunning = 'true';
     }
 
-    function getOpenWindows() {
-        return Array.from(document.querySelectorAll('.windowElement'))
-            .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
-            .filter((container) => !PINNED_SLOTS.has(container.dataset.link))
-            .filter(isWindowVisible);
+    function resolveSlotContainer(dataLink) {
+        return document.querySelector(`.windowElement[data-link="${dataLink}"]`);
     }
 
-    function getRunningWindows() {
+    function getDynamicRunningSlots() {
         return Array.from(document.querySelectorAll('.windowElement'))
             .filter((container) => !EXCLUDED_SLOTS.has(container.dataset.link))
-            .filter((container) => !PINNED_SLOTS.has(container.dataset.link))
-            .filter((container) => {
-                return isWindowVisible(container)
-                    || (container.dataset && container.dataset.capsuleRunning === 'true');
-            });
+            .filter((container) => !PINNED_ALWAYS.includes(container.dataset.link))
+            .filter(isSlotRunning)
+            .map((container) => container.dataset.link);
+    }
+
+    function collectGroupedSlots() {
+        const slots = PINNED_ALWAYS.slice();
+        getDynamicRunningSlots().forEach((dataLink) => {
+            if (!slots.includes(dataLink)) {
+                slots.push(dataLink);
+            }
+        });
+        return slots;
     }
 
     function resolveWindowIcon(dataLink) {
@@ -155,46 +169,50 @@
     }
 
     function focusWindow(dataLink) {
-        const container = document.querySelector(`.windowElement[data-link="${dataLink}"]`);
-        if (!container) {
-            return;
-        }
         if (typeof global.openWindowByDataLink === 'function') {
             global.openWindowByDataLink(dataLink);
             return;
         }
-        if (!isWindowVisible(container)) {
+        const container = resolveSlotContainer(dataLink);
+        if (!container || !isWindowVisible(container)) {
             return;
         }
         container.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
     }
 
+    function prefetchSlot(dataLink) {
+        if (dataLink && global.CapsuleSlotLoader
+            && typeof global.CapsuleSlotLoader.ensureSlotLoaded === 'function') {
+            global.CapsuleSlotLoader.ensureSlotLoaded(dataLink);
+        }
+    }
+
     function renderWindowList(listEl) {
-        const runningWindows = getRunningWindows();
         const activeContainer = document.querySelector('.windowElementActive');
         const activeLink = activeContainer && !EXCLUDED_SLOTS.has(activeContainer.dataset.link)
             ? activeContainer.dataset.link
             : null;
 
         listEl.innerHTML = '';
-
-        if (runningWindows.length === 0) {
-            listEl.hidden = true;
-            return;
-        }
-
         listEl.hidden = false;
 
-        runningWindows.forEach((container) => {
-            const dataLink = container.dataset.link;
+        collectGroupedSlots().forEach((dataLink) => {
+            const container = resolveSlotContainer(dataLink);
             const visible = isWindowVisible(container);
+            const running = isSlotRunning(container);
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'taskbar-window-list__btn'
-                + (visible && dataLink === activeLink ? ' is-active' : '')
-                + (visible ? '' : ' is-minimized');
+            btn.className = 'taskbar-window-list__btn';
+            if (running) {
+                btn.classList.add('is-running');
+            }
+            if (visible && dataLink === activeLink) {
+                btn.classList.add('is-active');
+            }
+            if (running && !visible) {
+                btn.classList.add('is-minimized');
+            }
             btn.dataset.windowLink = dataLink;
-            btn.setAttribute('role', 'listitem');
             btn.title = resolveWindowLabel(dataLink, container);
 
             const iconSrc = resolveTaskbarIconUrl(resolveWindowIcon(dataLink));
@@ -205,10 +223,10 @@
                 img.alt = '';
                 btn.appendChild(img);
             }
-            const label = document.createElement('span');
-            label.className = 'taskbar-window-list__label';
-            label.textContent = resolveWindowLabel(dataLink, container);
-            btn.appendChild(label);
+
+            btn.addEventListener('mouseenter', () => {
+                prefetchSlot(dataLink);
+            });
 
             btn.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -277,20 +295,16 @@
             }
         });
 
-        document.addEventListener('capsule:window-minimized', () => {
-            window.requestAnimationFrame(() => renderWindowList(listEl));
-        });
-
-        document.addEventListener('capsule:window-hidden', () => {
-            window.requestAnimationFrame(() => renderWindowList(listEl));
-        });
-
-        document.addEventListener('capsule:window-opened', () => {
-            window.requestAnimationFrame(() => renderWindowList(listEl));
-        });
-
-        document.addEventListener('capsule:window-focused', () => {
-            window.requestAnimationFrame(() => renderWindowList(listEl));
+        [
+            'capsule:window-minimized',
+            'capsule:window-hidden',
+            'capsule:window-opened',
+            'capsule:window-focused',
+            'capsule:window-closed',
+        ].forEach((eventName) => {
+            document.addEventListener(eventName, () => {
+                window.requestAnimationFrame(() => renderWindowList(listEl));
+            });
         });
 
         global.CapsuleTaskbarWindowList = {

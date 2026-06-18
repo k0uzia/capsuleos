@@ -41,7 +41,11 @@ body#mint {
     --menu-apps-bg: #222226;
     --menu-shell-border: #1a1a1b;
     --menu-sidebar-separator: #1a1a1b;
-    --menu-item-active-bg: #303036;
+    /* VM menu : pill catégorie active #3d3d47 (≠ sidebar #303036) */
+    --menu-item-active-bg: #3d3d47;
+    --menu-app-desc-color: #a0a0a0;
+    --menu-power-bg: #d94141;
+    --menu-power-bg-hover: #e05050;
     --menu-shortcut-hover: #303036;
     --menu-action-hover: #3c3c44;
     --menu-search-border: #303036;
@@ -85,6 +89,9 @@ html[data-theme="light"] body#mint {
     --menu-shell-border: #c8c8d0;
     --menu-sidebar-separator: #d0d0d6;
     --menu-item-active-bg: #dceaf4;
+    --menu-app-desc-color: #666670;
+    --menu-power-bg: #d94141;
+    --menu-power-bg-hover: #e05050;
     --menu-shortcut-hover: rgba(0, 0, 0, 0.06);
     --menu-action-hover: rgba(0, 0, 0, 0.08);
     --menu-search-border: #c0c0c8;

@@ -103,6 +103,11 @@
     function saveChecklistState(state) {
         try {
             localStorage.setItem(getChecklistStorageKey(), JSON.stringify(state));
+            if (typeof document !== 'undefined') {
+                document.dispatchEvent(new CustomEvent('capsule:checklist-saved', {
+                    detail: { storageKey: getChecklistStorageKey(), state: state },
+                }));
+            }
         } catch (_) { /* quota exceeded - silent fail */ }
     }
 
@@ -137,4 +142,11 @@
     window.initChecklistApp = initChecklistApp;
     window.syncChecklistGnomeDataset = syncChecklistGnomeDataset;
     window.supportsChecklistGnomeDataset = supportsChecklistGnomeDataset;
+
+    document.addEventListener('capsule:progress-restored', function onProgressRestored() {
+        const root = document.querySelector('#checklist #checklistApp');
+        if (root && root.dataset.initialized === 'true') {
+            syncChecklistUI(root, loadChecklistState());
+        }
+    });
 }());

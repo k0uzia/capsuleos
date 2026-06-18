@@ -28,7 +28,15 @@
 
                     <div class="header-nav-desktop">
                         <a class="header-nav-link" href="#a-propos">À propos</a>
+                        <a class="header-nav-link" href="#offres">Offres</a>
+                        <a class="header-nav-link" href="#parcours">Parcours</a>
                         <a class="header-nav-link" href="#choisir-os">Systèmes</a>
+                        <div class="header-auth">
+                            <button type="button" class="header-login-btn" aria-haspopup="dialog" aria-controls="portal-login-modal" id="header-login-btn">
+                                <span class="header-login-btn-label">Connexion</span>
+                                <span class="header-login-btn-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </div>
                     </div>
                 </nav>
 
@@ -47,8 +55,66 @@
                         </div>
                         <nav class="header-mobile-menu-nav" aria-label="Menu mobile">
                             <a class="header-mobile-menu-link" href="#a-propos">À propos</a>
+                            <a class="header-mobile-menu-link" href="#offres">Offres</a>
+                            <a class="header-mobile-menu-link" href="#parcours">Parcours</a>
                             <a class="header-mobile-menu-link" href="#choisir-os">Systèmes</a>
+                            <button type="button" class="header-mobile-menu-link header-mobile-login-btn" id="header-mobile-login-btn">
+                                Connexion <span aria-hidden="true">→</span>
+                            </button>
                         </nav>
+                    </div>
+                </dialog>
+
+                <dialog class="portal-login-modal" id="portal-login-modal" aria-labelledby="portal-login-modal-title">
+                    <div class="portal-login-modal-panel">
+                        <div class="portal-login-modal-head">
+                            <h2 class="portal-login-modal-title" id="portal-login-modal-title">Connexion</h2>
+                            <button type="button" class="portal-login-modal-close" id="portal-login-modal-close" aria-label="Fermer">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="portal-login-modal-view" data-portal-modal-view="login">
+                            <p class="portal-login-dev-notice" data-portal-dev-only>Version dev : la connexion réelle nécessite <code>portal/index.php</code>.</p>
+                            <form class="portal-form" id="portal-login-form-dev" action="#" method="post">
+                                <label class="portal-field">
+                                    <span class="portal-label">Adresse e-mail</span>
+                                    <input class="portal-input" type="email" name="email" required autocomplete="email">
+                                </label>
+                                <label class="portal-field">
+                                    <span class="portal-label">Mot de passe</span>
+                                    <input class="portal-input" type="password" name="password" required autocomplete="current-password">
+                                </label>
+                                <button class="portal-submit" type="submit">Se connecter</button>
+                            </form>
+                            <p class="portal-auth-switch">Pas encore de compte ? <button type="button" class="portal-auth-switch-btn" data-portal-modal-switch="register">Créer un compte</button></p>
+                        </div>
+
+                        <div class="portal-login-modal-view" data-portal-modal-view="register" hidden>
+                            <p class="portal-login-dev-notice" data-portal-dev-only>Version dev : l'inscription réelle nécessite <code>portal/index.php</code>.</p>
+                            <form class="portal-form" id="portal-register-form-dev" action="#" method="post">
+                                <label class="portal-field">
+                                    <span class="portal-label">Adresse e-mail</span>
+                                    <input class="portal-input" type="email" name="email" required autocomplete="email">
+                                </label>
+                                <label class="portal-field">
+                                    <span class="portal-label">Mot de passe</span>
+                                    <input class="portal-input" type="password" name="password" required autocomplete="new-password">
+                                </label>
+                                <label class="portal-field">
+                                    <span class="portal-label">Confirmer le mot de passe</span>
+                                    <input class="portal-input" type="password" name="password_confirm" required autocomplete="new-password">
+                                </label>
+                                <label class="portal-consent">
+                                    <input class="portal-consent-input" type="checkbox" name="privacy_consent" value="1" required>
+                                    <span class="portal-consent-label">J'accepte la <a href="./portal/legal.php#protection-donnees" target="_blank" rel="noopener noreferrer">politique de confidentialité</a> et le traitement de mes données pour la gestion de mon compte CapsuleOS.</span>
+                                </label>
+                                <button class="portal-submit" type="submit">Créer mon compte</button>
+                            </form>
+                            <p class="portal-auth-switch">Déjà inscrit ? <button type="button" class="portal-auth-switch-btn" data-portal-modal-switch="login">Se connecter</button></p>
+                        </div>
                     </div>
                 </dialog>
             </header>
@@ -64,7 +130,7 @@
                         </p>
                         <div class="hero-actions">
                             <a class="hero-btn" href="#choisir-os">Choisir un système</a>
-                            <a class="hero-link" href="#a-propos">En savoir plus <span aria-hidden="true">→</span></a>
+                            <a class="hero-link" href="#offres">Voir les offres <span aria-hidden="true">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -140,6 +206,57 @@
             </div>
         </section>
 
+        <section class="plans" id="offres" aria-labelledby="plans-title" data-portal-offers-version="1">
+            <div class="plans-inner">
+                <h2 class="plans-title" id="plans-title">Choisir votre formule</h2>
+                <p class="plans-lead">Essayez tous les systèmes gratuitement (15 min par session) ou apprenez avec le parcours guidé Capsule+.</p>
+                <div class="plans-grid">
+                    <article class="plans-card plans-card--free">
+                        <h3 class="plans-card-title">Gratuit</h3>
+                        <p class="plans-price">
+                            <span class="plans-price-amount">0 €</span>
+                            <span class="plans-price-period">/mois</span>
+                        </p>
+                        <ul class="plans-features">
+                            <li>Tous les bureaux simulés du catalogue</li>
+                            <li>15 minutes maximum par session</li>
+                            <li>Sans compte requis</li>
+                            <li>Utilisation hors ligne</li>
+                        </ul>
+                        <a class="plans-cta" href="#choisir-os">Essayer un système</a>
+                    </article>
+                    <article class="plans-card plans-card--subscriber plans-card--featured">
+                        <p class="plans-badge">Recommandé</p>
+                        <h3 class="plans-card-title">Capsule+</h3>
+                        <p class="plans-price">
+                            <span class="plans-price-amount" data-portal-price-monthly="15">15 €</span>
+                            <span class="plans-price-period">/mois</span>
+                        </p>
+                        <ul class="plans-features">
+                            <li>Parcours pédagogique complet (3 niveaux)</li>
+                            <li>Chapitres, quêtes et progression sauvegardée</li>
+                            <li>Sessions OS illimitées</li>
+                            <li>Tous les systèmes du catalogue</li>
+                        </ul>
+                        <a class="plans-cta plans-cta--primary" href="#" data-portal-dev-stub title="Disponible avec portal/index.php (PHP)">S'abonner</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="parcours" id="parcours" aria-labelledby="parcours-title">
+            <div class="parcours-inner" data-portal-parcours-root></div>
+            <dialog class="parcours-modal" id="parcours-os-modal" aria-labelledby="parcours-os-modal-title">
+                <div class="parcours-modal-panel">
+                    <div class="parcours-modal-head">
+                        <h3 class="parcours-modal-title" id="parcours-os-modal-title">Choisir un système</h3>
+                        <button type="button" class="parcours-modal-close" id="parcours-os-modal-close" aria-label="Fermer">×</button>
+                    </div>
+                    <ul class="parcours-os-list" id="parcours-os-list"></ul>
+                </div>
+            </dialog>
+        </section>
+
         <section class="pick" id="choisir-os" aria-labelledby="pick-title">
             <div class="pick-inner">
                 <h2 class="pick-title" id="pick-title">Choisir un système</h2>
@@ -188,14 +305,31 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer-copy">© 2026 <a href="">La Capsule</a>. Tous droits réservés.</p>
+        <nav class="footer-legal" aria-label="Informations légales">
+            <ul class="footer-legal-list">
+                <li><a href="./portal/legal.php#protection-donnees">Protection des données</a></li>
+                <li><a href="./portal/legal.php#creation-compte">Création de compte</a></li>
+                <li><a href="./portal/legal.php#donnees-bancaires">Données bancaires</a></li>
+                <li><a href="./portal/legal.php#mentions-legales">Mentions légales</a></li>
+            </ul>
+        </nav>
+        <p class="footer-copy">© 2026 <a href="https://lacapsule.org" rel="noopener noreferrer">La Capsule</a>. Tous droits réservés.</p>
     </footer>
+    <script src="./usr/lib/capsuleos/site/portal-site-home.js"></script>
     <script src="./usr/lib/capsuleos/core/browser-capabilities.js"></script>
     <script src="./usr/lib/capsuleos/site/capsule-pick-return.js"></script>
     <script src="./usr/lib/capsuleos/site/header-nav.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-login-modal.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-modules-data.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-parcours.js"></script>
     <script src="./usr/lib/capsuleos/site/pick-os.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-dev.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
+        if (
+            'serviceWorker' in navigator
+            && location.protocol !== 'file:'
+            && !window.CapsuleBrowserCapabilities?.capabilities?.fileProtocolEmbed
+        ) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js').catch(() => {});
             });

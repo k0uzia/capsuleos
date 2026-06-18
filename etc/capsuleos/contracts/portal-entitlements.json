@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "doc": "root/docs/convention-portail.md",
+  "contractOffers": "etc/capsuleos/contracts/portal-offers.json",
+  "levels": [
+    {
+      "id": "anonymous",
+      "label": "Visiteur",
+      "order": 0,
+      "planId": "free"
+    },
+    {
+      "id": "registered",
+      "label": "Compte créé",
+      "order": 1,
+      "planId": "free"
+    },
+    {
+      "id": "subscriber",
+      "label": "Capsule+",
+      "order": 2,
+      "planId": "subscriber"
+    }
+  ],
+  "osSession": {
+    "anonymous": {
+      "maxMinutes": 15,
+      "allCatalogOs": true,
+      "pedagogicalModules": false
+    },
+    "registered": {
+      "maxMinutes": 15,
+      "allCatalogOs": true,
+      "pedagogicalModules": false
+    },
+    "subscriber": {
+      "maxMinutes": null,
+      "allCatalogOs": true,
+      "pedagogicalModules": true
+    }
+  },
+  "moduleAccess": {
+    "subscriber": ["subscriber"]
+  },
+  "rules": [
+    "Décision d'accès côté serveur PHP uniquement (R-SEC1)",
+    "Gratuit : tous les OS, session plafonnée (osSession.maxMinutes), CAPSULE_MNT_MODULES vide",
+    "Capsule+ : parcours mnt/ intégral — modules déclarent access subscriber dans module.json",
+    "Stripe phase 2 — subscription.status active → subscriber"
+  ]
+}

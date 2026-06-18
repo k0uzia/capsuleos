@@ -51,13 +51,15 @@ R-PM3   Pm_mount ∧ conflit slot     →  un propriétaire explicite par slot (
 
 ## 2. Niveaux
 
-| Répertoire | Public | Exemples |
-|------------|--------|----------|
-| `debutant/` | Première découverte du bureau et du terminal | `linux-bases` |
-| `intermediaire/` | Commandes, FS, paquets | (à venir) |
-| `confirme/` | Scripts, permissions, réseau simulé | (à venir) |
-| `expert/` | Chaînes complètes, audit | (à venir) |
-| `cybertech/` | Sécurité, forensics pédagogiques | (à venir) |
+| Répertoire | Public | Accès |
+|------------|--------|-------|
+| `debutant/` | Première découverte du bureau et du terminal | Capsule+ (`access: subscriber`) |
+| `intermediaire/` | Commandes, FS, paquets | Capsule+ |
+| `confirme/` | Scripts, permissions, réseau simulé | Capsule+ |
+| `expert/` | Chaînes complètes, audit | Capsule+ (futur) |
+| `cybertech/` | Sécurité, forensics pédagogiques | Capsule+ (futur) |
+
+**Offre gratuite** : aucun module monté (`CAPSULE_MNT_MODULES: []`) — essai des OS du catalogue, session plafonnée (voir `portal-entitlements.json` → `osSession`). Catalogue éditorial : [`parcours-pedagogique.md`](../../parcours-pedagogique.md).
 
 Catalogue machine : [`mnt/catalog.json`](../../mnt/catalog.json).
 

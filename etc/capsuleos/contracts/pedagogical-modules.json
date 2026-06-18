@@ -49,8 +49,10 @@
   },
   "moduleSchema": {
     "required": ["id", "level", "version", "title", "locale", "scenarios"],
-    "optional": ["description", "prerequisites", "slots", "predicates", "registryIds"]
+    "optional": ["description", "prerequisites", "slots", "predicates", "registryIds", "access"]
   },
+  "accessLevels": ["subscriber"],
+  "accessDefault": "subscriber",
   "loader": {
     "module": "usr/lib/capsuleos/shells/common/capsule-mnt-modules.js",
     "loadAfter": ["capsule-strings.js"]

@@ -15,6 +15,7 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const steps = [
   { label: 'assets', script: 'validate-assets-all.mjs' },
   { label: 'links', script: 'validate-links-all.mjs' },
+  { label: 'portal', script: 'validate-portal-contracts.mjs' },
   { label: 'capsule', script: 'validate-capsule.mjs' },
   { label: 'quality', script: 'validate-quality-all.mjs' },
 ];

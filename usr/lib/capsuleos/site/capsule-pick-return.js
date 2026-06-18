@@ -12,7 +12,10 @@
     };
 
     const getSiteHomeBase = (homeHref) => {
-        const href = homeHref || global.CAPSULE_SITE_HOME || './index.html';
+        const href = homeHref
+            || global.CAPSULE_PORTAL_SITE_HOME
+            || global.CAPSULE_SITE_HOME
+            || './index.html';
         return String(href).split('#')[0].split('?')[0];
     };
 

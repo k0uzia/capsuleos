@@ -1,5 +1,5 @@
 (function () {
-    const anchorCenter = new Set(['a-propos']);
+    const anchorCenter = new Set(['a-propos', 'offres']);
 
     const getHeaderOffset = () => {
         const head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head')) || 40;

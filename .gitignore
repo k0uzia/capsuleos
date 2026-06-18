@@ -7,6 +7,8 @@ root/.cursor/*
 # .cursor (symlink → root/.cursor) : rules + hooks versionnés
 etc/capsuleos/lab-inventory.json
 etc/capsuleos/git-push-token
+var/lib/capsuleos/portal/
+srv/capsuleos/portal/config.php
 proc/*/staging/
 # Instantanés resolve-agent (éphémères — voir root/docs/README.md §3)
 root/docs/inventaires/*-pipeline-resolve.json

@@ -12,12 +12,15 @@ const ROOT = path.resolve(__dirname, '../../../..');
 const DRY = process.argv.includes('--dry-run');
 
 const BOOT_BLOCK = `    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
+    <script src="../../../usr/lib/capsuleos/site/portal-site-home.js"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
 `;
 
 const USER_HOME = '    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>\n';
+
+const PORTAL_SITE_HOME = '    <script src="../../../usr/lib/capsuleos/site/portal-site-home.js"></script>\n';
 
 const FACADES = [
   'OS/linux/families/debian/mint/index.html',
@@ -39,7 +42,22 @@ for (const rel of FACADES) {
     continue;
   }
   let html = fs.readFileSync(full, 'utf8');
+  let fileChanged = false;
+
+  if (!/portal-site-home\.js/i.test(html) && /capsule-skin-profiles\.js/i.test(html)) {
+    html = html.replace(
+      /(\s*<script src="\.\.\/\.\.\/\.\.\/var\/lib\/capsuleos\/generated\/capsule-skin-profiles\.js[^"]*"><\/script>\n)/i,
+      `\n${PORTAL_SITE_HOME}$1`,
+    );
+    fileChanged = true;
+  }
+
   if (/capsule-skin-boot\.js/i.test(html) && /capsule-resource\.js/i.test(html)) {
+    if (fileChanged) {
+      changed += 1;
+      if (DRY) console.log('[dry-run]', rel, '(portal-site-home)');
+      else fs.writeFileSync(full, html, 'utf8');
+    }
     continue;
   }
 

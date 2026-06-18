@@ -1,0 +1,48 @@
+---
+description: Interdit le tiret cadratin (U+2014) dans les textes CapsuleOS
+alwaysApply: true
+---
+
+# Rédaction CapsuleOS (P13)
+
+Référence : `root/docs/convention-clean-code.md` §6
+
+## Interdit
+
+Le caractère **tiret cadratin** `—` (U+2014, souvent tapé comme `--` en Markdown) dans tout contenu rédigé :
+
+- portail (`usr/share/capsuleos/portal/`, `index.html`, contrats `portal-*.json` lisibles utilisateur)
+- parcours et offres (`parcours-pedagogique.md`, textes `#offres`, `#parcours`)
+- messages UI, labels checklist, chaînes `strings.json` orientées apprenant
+- réponses agent à l'utilisateur (chat)
+
+## À la place
+
+| Contexte | Préférer |
+|----------|----------|
+| Incise / précision | virgule, parenthèses, ou deux-points |
+| Titre ou sous-titre | ` : ` ou ` · ` |
+| Liste d'exemples | virgule ou point-virgule |
+| Fourchette | ` à ` (`8 à 15 minutes`) |
+| Séparateur technique (code, chemins) | tiret ASCII `-` sans ambiguïté |
+
+## Exemples
+
+```text
+❌ Découverte du bureau — premières commandes
+✅ Découverte du bureau : premières commandes
+
+❌ Gratuit — 15 minutes par session
+✅ Gratuit : 15 minutes par session
+
+❌ ouvrir une fenêtre — ranger des fichiers
+✅ ouvrir une fenêtre, ranger des fichiers
+```
+
+## Gate
+
+```bash
+node usr/lib/capsuleos/tools/validate-no-em-dash.mjs
+```
+
+Intégré à `validate-portal-contracts.mjs` pour la zone portail.

@@ -5,15 +5,87 @@
 (function initCapsuleSkinBoot(global) {
   'use strict';
 
+  const syncLoadPortalSiteHome = () => {
+    if (global.CAPSULE_PORTAL_SITE_HOME !== undefined) {
+      return;
+    }
+    try {
+      const doc = global.document;
+      if (!doc || !doc.scripts) {
+        return;
+      }
+      let homeSrc = '/usr/lib/capsuleos/site/portal-site-home.js';
+      for (let i = doc.scripts.length - 1; i >= 0; i -= 1) {
+        const src = doc.scripts[i].getAttribute('src') || '';
+        if (src.includes('capsule-skin-boot')) {
+          homeSrc = src.replace(/capsule-skin-boot\.js.*$/, 'portal-site-home.js').replace('/common/', '/site/');
+          break;
+        }
+      }
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', homeSrc, false);
+      xhr.send(null);
+      if (xhr.status === 200 && xhr.responseText) {
+        // Chargement synchrone volontaire avant application du profil skin.
+        (0, eval)(xhr.responseText);
+      }
+    } catch (_) { /* portal-site-home absent — profil par défaut */ }
+  };
+
+  syncLoadPortalSiteHome();
+
+  const applyMntFromUrl = () => {
+    try {
+      const params = new URLSearchParams(global.location.search);
+      const mnt = params.get('mnt');
+      if (!mnt || !/^[a-z0-9_-]+\/[a-z0-9_-]+$/i.test(mnt)) {
+        return;
+      }
+      const existing = Array.isArray(global.CAPSULE_MNT_MODULES) ? [...global.CAPSULE_MNT_MODULES] : [];
+      if (!existing.includes(mnt)) {
+        existing.push(mnt);
+      }
+      global.CAPSULE_MNT_MODULES = existing;
+    } catch (_) { /* ignore */ }
+  };
+
+  const loadProgressSync = () => {
+    try {
+      const params = new URLSearchParams(global.location.search);
+      if (!params.get('mnt') || !global.document) {
+        return;
+      }
+      const scripts = global.document.querySelectorAll('script[src*="capsule-skin-boot"]');
+      let syncSrc = '/usr/lib/capsuleos/site/portal-progress-sync.js';
+      if (scripts.length) {
+        const bootSrc = scripts[scripts.length - 1].getAttribute('src') || '';
+        syncSrc = bootSrc.replace(/capsule-skin-boot\.js[^/]*$/, 'portal-progress-sync.js');
+      }
+      const script = global.document.createElement('script');
+      script.src = syncSrc;
+      script.async = false;
+      global.document.head.appendChild(script);
+    } catch (_) { /* ignore */ }
+  };
+
+  const applyPortalSiteHome = () => {
+    if (global.CAPSULE_PORTAL_SITE_HOME) {
+      global.CAPSULE_SITE_HOME = global.CAPSULE_PORTAL_SITE_HOME;
+    }
+  };
+
   const applyGlobals = (profile) => {
     if (!profile) {
+      applyPortalSiteHome();
       return null;
     }
+    applyMntFromUrl();
     if (profile.capsuleGlobals && typeof profile.capsuleGlobals === 'object') {
       Object.keys(profile.capsuleGlobals).forEach((key) => {
         global[key] = profile.capsuleGlobals[key];
       });
     }
+    applyPortalSiteHome();
     if (profile.bodyId &&(global.document == null ? void 0 : global.document.body) && !global.document.body.id) {
       global.document.body.id = profile.bodyId;
     }
@@ -74,14 +146,15 @@
 
   const runBoot = () => {
     const embedded = bootFromEmbed();
-    if (embedded || global.CAPSULE_SKIN_BOOT_FETCH !== true) {
-      global.dispatchEvent(new CustomEvent('capsule-skin-ready', { detail: embedded }));
-      return Promise.resolve(embedded);
-    }
-    return bootFromFetch().then((profile) => {
+    const finish = (profile) => {
+      loadProgressSync();
       global.dispatchEvent(new CustomEvent('capsule-skin-ready', { detail: profile }));
       return profile;
-    });
+    };
+    if (embedded || global.CAPSULE_SKIN_BOOT_FETCH !== true) {
+      return Promise.resolve(finish(embedded));
+    }
+    return bootFromFetch().then(finish);
   };
 
   const canResolveProfileNow = () => {

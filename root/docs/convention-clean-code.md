@@ -6,7 +6,7 @@
 
 **Objectif** : écrire **dans le bon contexte** — bonne zone Z0–Z4, bon `registryId`, bon toolkit — avec le **minimum de lignes** vérifiables par gates. Éviter doc, code et données **hors couche** qui parasitent agents et humains.
 
-**Règle Cursor** : `.cursor/rules/capsuleos-clean-code.mdc` (`alwaysApply`).
+**Règle Cursor** : `.cursor/rules/capsuleos-redaction.mdc` (`alwaysApply`).
 
 ---
 
@@ -117,10 +117,25 @@ Donnée (proc/, inventaire, contrat JSON)
 - [ ] Pas de doc/inventaire parasite (README §3–§5) ?
 - [ ] `validate-all.mjs` vert sur la zone touchée (**H₂**) ?
 - [ ] Pas de nouveau module si extension possible (**P7**) ?
+- [ ] Pas de tiret cadratin `—` dans les textes portail / parcours / UI (**P13**) ?
 
 ---
 
-## 6. Liens normatifs
+## 6. Rédaction (P13)
+
+**Interdit** : le caractère `—` (U+2014, tiret cadratin).
+
+**Périmètre prioritaire** : portail, `parcours-pedagogique.md`, chaînes utilisateur, contrats `portal-*.json` (libellés).
+
+**Substituts** : deux-points, virgule, parenthèses, ` · `, tiret ASCII `-` en contexte technique.
+
+**Gate** : `node usr/lib/capsuleos/tools/validate-no-em-dash.mjs` (aussi via `validate-portal-contracts.mjs`).
+
+**Règle Cursor** : `.cursor/rules/capsuleos-redaction.mdc`.
+
+---
+
+## 7. Liens normatifs
 
 | Document | Lien |
 |----------|------|

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "doc": "root/docs/convention-portail.md",
+  "session": {
+    "ttlInactiveSeconds": 86400,
+    "ttlAbsoluteSeconds": 604800,
+    "cookieHttpOnly": true,
+    "cookieSameSite": "Lax",
+    "cookieSecureProduction": true
+  },
+  "password": {
+    "hashAlgorithm": "argon2id",
+    "minLength": 12
+  },
+  "csrf": {
+    "sessionKey": "capsule_portal_csrf",
+    "fieldName": "_csrf"
+  },
+  "rateLimit": {
+    "login": { "maxAttempts": 5, "windowSeconds": 900 },
+    "register": { "maxAttempts": 5, "windowSeconds": 900 }
+  },
+  "launchToken": {
+    "ttlSeconds": 900,
+    "algorithm": "hmac-sha256"
+  },
+  "headers": {
+    "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "referrerPolicy": "strict-origin-when-cross-origin",
+    "frameOptions": "DENY"
+  },
+  "paths": {
+    "sqlite": "var/lib/capsuleos/portal/users.sqlite",
+    "rateLimit": "var/lib/capsuleos/portal/rate-limit.json"
+  },
+  "phpRoutesNetworkOnly": [
+    "/portal/index.php",
+    "/portal/login.php",
+    "/portal/register.php",
+    "/portal/account.php",
+    "/portal/logout.php",
+    "/portal/subscribe.php",
+    "/portal/legal.php",
+    "/portal/api/progress.php",
+    "/index.php"
+  ]
+}

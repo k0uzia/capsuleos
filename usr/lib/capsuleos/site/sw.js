@@ -3,8 +3,16 @@
  * - network-first pour HTML/CSS/JS/JSON (mises à jour visibles rapidement)
  * - cache-first pour assets statiques lourds (offline performant)
  */
-const CACHE_NAME = 'capsuleos-runtime-v4';
+const CACHE_NAME = 'capsuleos-runtime-v6';
 const CACHE_PREFIX = 'capsuleos-runtime-';
+
+const isPortalPhpRoute = (request) => {
+    const url = new URL(request.url);
+    return url.pathname.endsWith('.php') && (
+        url.pathname.includes('/portal/')
+        || url.pathname.endsWith('/index.php')
+    );
+};
 
 const isSameOriginGetRequest = (request) => {
     if (!request || request.method !== 'GET') {
@@ -67,6 +75,14 @@ self.addEventListener('activate', (event) => {
                 .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
                 .map((key) => caches.delete(key))
         );
+        // Purge d'éventuelles réponses PHP mises en cache avant v6.
+        const cache = await caches.open(CACHE_NAME);
+        const cached = await cache.keys();
+        await Promise.all(
+            cached
+                .filter((req) => isPortalPhpRoute(req))
+                .map((req) => cache.delete(req)),
+        );
         await self.clients.claim();
     })());
 });
@@ -74,6 +90,13 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const req = event.request;
     if (!isSameOriginGetRequest(req)) {
+        return;
+    }
+
+    if (isPortalPhpRoute(req)) {
+        event.respondWith(
+            fetch(req).catch(() => caches.match('/index.html')),
+        );
         return;
     }
 

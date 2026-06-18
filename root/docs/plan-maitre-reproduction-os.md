@@ -568,7 +568,8 @@ Ordre décidé par `resolve-agent-action.mjs --scope pipeline` et **P11** :
 | B10 | ManΣ linux-mint | 3 | P1 après B1 |
 | B11 | VΣ burst triplet | 7 | P1 après B1 |
 | B12 | Lazy embed P0 / boot veil | 8 | P2 |
+| B13 | Portail PHP — auth, offres Capsule+ 15 €, compte utilisateur | transversal | P1 |
 
 ---
 
-*Dernière mise à jour : 2026-06-09 — Phase 0–1a–1d clôturées ; backlog §16 ; P11 / recette économe §4.3–4.4.*
+*Dernière mise à jour : 2026-06-18 — B13 portail ; Phase 0–1a–1d clôturées ; backlog §16.*

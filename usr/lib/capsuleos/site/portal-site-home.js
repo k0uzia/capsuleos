@@ -7,5 +7,8 @@
 (function (global) {
     global.CAPSULE_PORTAL_MODE = "dev";
     global.CAPSULE_PORTAL_SITE_HOME = "../../../index.html";
-    global.CAPSULE_PORTAL_ENTITLEMENT = "subscriber";
+    global.CAPSULE_PORTAL_ENTITLEMENT = null;
+    global.CAPSULE_PORTAL_DEV_USER = "test";
+    global.CAPSULE_PORTAL_DEV_PASSWORD = "test123456789";
+    global.CAPSULE_PORTAL_PERMISSIONS = { storeBrowse: true, storeAppLaunch: true, osQuotaUnlimited: true };
 }(typeof window !== 'undefined' ? window : globalThis));

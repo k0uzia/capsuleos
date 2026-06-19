@@ -1,16 +1,20 @@
 <?php
 /** @var \CapsuleOS\Portal\PortalContext $ctx */
+use CapsuleOS\Portal\Config;
 use CapsuleOS\Portal\Http\Csrf;
+
+$devCreds = Config::isDev() ? Config::devCredentials() : null;
+$emailValue = (string) ($ctx->extra['email'] ?? ($devCreds ? $devCreds['defaultUser'] : ''));
 ?>
 <form class="portal-form" method="post" action="<?= $ctx->e(portal_entry('login.php')) ?>">
     <?= Csrf::input() ?>
     <label class="portal-field">
-        <span class="portal-label">Adresse e-mail</span>
-        <input class="portal-input" type="email" name="email" required autocomplete="email" value="<?= $ctx->e((string) ($ctx->extra['email'] ?? '')) ?>">
+        <span class="portal-label"><?= Config::isDev() ? 'Identifiant' : 'Adresse e-mail' ?></span>
+        <input class="portal-input" type="<?= Config::isDev() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::isDev() ? 'username' : 'email' ?>" value="<?= $ctx->e($emailValue) ?>">
     </label>
     <label class="portal-field">
         <span class="portal-label">Mot de passe</span>
-        <input class="portal-input" type="password" name="password" required autocomplete="current-password">
+        <input class="portal-input" type="password" name="password" required autocomplete="current-password"<?= $devCreds ? ' value="' . $ctx->e($devCreds['defaultPassword']) . '"' : '' ?>>
     </label>
     <button class="portal-submit" type="submit">Se connecter</button>
 </form>

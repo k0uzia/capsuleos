@@ -1,7 +1,8 @@
 {
-  "version": 1,
+  "version": 2,
   "doc": "root/docs/convention-portail.md",
   "contractOffers": "etc/capsuleos/contracts/portal-offers.json",
+  "contractGrades": "etc/capsuleos/contracts/portal-grades.json",
   "levels": [
     {
       "id": "anonymous",
@@ -17,35 +18,47 @@
     },
     {
       "id": "subscriber",
-      "label": "Capsule+",
+      "label": "Abonné",
       "order": 2,
       "planId": "subscriber"
     }
   ],
   "osSession": {
     "anonymous": {
+      "maxMinutesPerOsPerDay": 15,
       "maxMinutes": 15,
       "allCatalogOs": true,
-      "pedagogicalModules": false
+      "pedagogicalModules": false,
+      "storeBrowse": true,
+      "storeAppLaunch": false
     },
     "registered": {
+      "maxMinutesPerOsPerDay": 15,
       "maxMinutes": 15,
       "allCatalogOs": true,
-      "pedagogicalModules": false
+      "pedagogicalModules": false,
+      "storeBrowse": true,
+      "storeAppLaunch": false
     },
     "subscriber": {
+      "maxMinutesPerOsPerDay": null,
       "maxMinutes": null,
       "allCatalogOs": true,
-      "pedagogicalModules": true
+      "pedagogicalModules": true,
+      "storeBrowse": true,
+      "storeAppLaunch": true
     }
   },
   "moduleAccess": {
-    "subscriber": ["subscriber"]
+    "subscriber": ["subscriber"],
+    "free_store": ["subscriber"],
+    "class": ["subscriber", "registered"]
   },
   "rules": [
     "Décision d'accès côté serveur PHP uniquement (R-SEC1)",
-    "Gratuit : tous les OS, session plafonnée (osSession.maxMinutes), CAPSULE_MNT_MODULES vide",
-    "Capsule+ : parcours mnt/ intégral — modules déclarent access subscriber dans module.json",
-    "Stripe phase 2 — subscription.status active → subscriber"
+    "Gratuit : tous les OS, 15 min par OS et par jour, magasins consultables sans lancement apps",
+    "Abonné : parcours mnt/ intégral, skins sauvegardés, modules store",
+    "Stripe phase 2 : subscription.status active → subscriber",
+    "Grades détaillés : portal-grades.json via GradeResolver"
   ]
 }

@@ -9,6 +9,7 @@ $siteName = is_array($controller) ? (string) ($controller['name'] ?? 'La Capsule
 $siteUrl = is_array($controller) ? (string) ($controller['site'] ?? 'https://lacapsule.org') : 'https://lacapsule.org';
 ?>
     <footer class="footer">
+        <p class="footer-copy">© 2026 <a href="<?= htmlspecialchars($siteUrl, ENT_QUOTES, 'UTF-8') ?>" rel="noopener noreferrer"><?= htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8') ?></a>. Tous droits réservés.</p>
         <?php if ($footerLinks !== []) : ?>
             <nav class="footer-legal" aria-label="Informations légales">
                 <ul class="footer-legal-list">
@@ -27,5 +28,4 @@ $siteUrl = is_array($controller) ? (string) ($controller['site'] ?? 'https://lac
                 </ul>
             </nav>
         <?php endif; ?>
-        <p class="footer-copy">© 2026 <a href="<?= htmlspecialchars($siteUrl, ENT_QUOTES, 'UTF-8') ?>" rel="noopener noreferrer"><?= htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8') ?></a>. Tous droits réservés.</p>
     </footer>

@@ -69,4 +69,27 @@ final class OsRegistryReader
         }
         return null;
     }
+
+    /**
+     * @return list<array{id: string, displayName: string, facade: string}>
+     */
+    public static function listForPortal(): array
+    {
+        $registry = self::load();
+        $entries = is_array($registry['entries'] ?? null) ? $registry['entries'] : [];
+        $ids = [];
+        foreach ($entries as $entry) {
+            if (!is_array($entry)) {
+                continue;
+            }
+            if ((string) ($entry['status'] ?? '') !== 'active') {
+                continue;
+            }
+            $id = (string) ($entry['id'] ?? '');
+            if ($id !== '') {
+                $ids[] = $id;
+            }
+        }
+        return self::activeFacadesFor($ids);
+    }
 }

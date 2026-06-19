@@ -17,7 +17,7 @@ $launchHref = static function (string $facade, string $mountId): string {
 $lockedCta = static function (array $module) use ($ctx, $isLoggedIn, $loginHref, $subscribeHref, $registerHref): array {
     $access = (string) ($module['access'] ?? 'free');
     if ($access === 'subscriber') {
-        return ['label' => 'Passer à Capsule+', 'href' => $subscribeHref];
+        return ['label' => 'Passer à Abonné', 'href' => $subscribeHref];
     }
     if ($access === 'registered' && !$isLoggedIn) {
         return ['label' => 'Créer un compte', 'href' => $registerHref];

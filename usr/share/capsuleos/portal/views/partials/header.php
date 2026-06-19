@@ -27,8 +27,7 @@ $indexBase = portal_entry('index.php');
             <a class="header-nav-link" href="<?= $ctx->e($indexBase) ?>#choisir-os">Systèmes</a>
             <div class="header-auth">
                 <?php if ($ctx->isLoggedIn()) : ?>
-                    <a class="header-auth-link" href="<?= $ctx->e(portal_entry('account.php')) ?>">Mon compte</a>
-                    <a class="header-auth-link header-auth-link--muted" href="<?= $ctx->e(portal_entry('logout.php')) ?>">Déconnexion</a>
+                    <?php include CAPSULE_PORTAL_VIEWS . '/partials/header-user-menu.php'; ?>
                 <?php else : ?>
                     <?php include CAPSULE_PORTAL_VIEWS . '/partials/header-login-btn.php'; ?>
                 <?php endif; ?>
@@ -55,8 +54,7 @@ $indexBase = portal_entry('index.php');
                 <a class="header-mobile-menu-link" href="<?= $ctx->e($indexBase) ?>#parcours">Parcours</a>
                 <a class="header-mobile-menu-link" href="<?= $ctx->e($indexBase) ?>#choisir-os">Systèmes</a>
                 <?php if ($ctx->isLoggedIn()) : ?>
-                    <a class="header-mobile-menu-link" href="<?= $ctx->e(portal_entry('account.php')) ?>">Mon compte</a>
-                    <a class="header-mobile-menu-link" href="<?= $ctx->e(portal_entry('logout.php')) ?>">Déconnexion</a>
+                    <?php include CAPSULE_PORTAL_VIEWS . '/partials/header-user-menu-mobile.php'; ?>
                 <?php else : ?>
                     <button type="button" class="header-mobile-menu-link header-mobile-login-btn" id="header-mobile-login-btn">
                         Connexion <span aria-hidden="true">→</span>

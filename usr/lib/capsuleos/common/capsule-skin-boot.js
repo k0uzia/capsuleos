@@ -49,6 +49,31 @@
     } catch (_) { /* ignore */ }
   };
 
+  const loadPortalQuotaScripts = () => {
+    try {
+      if (!global.document) {
+        return;
+      }
+      const scripts = global.document.querySelectorAll('script[src*="capsule-skin-boot"]');
+      let siteBase = '/usr/lib/capsuleos/site/';
+      let shellsBase = '/usr/lib/capsuleos/shells/common/';
+      if (scripts.length) {
+        const bootSrc = scripts[scripts.length - 1].getAttribute('src') || '';
+        siteBase = bootSrc.replace(/common\/capsule-skin-boot\.js.*$/, 'site/');
+        shellsBase = bootSrc.replace(/common\/capsule-skin-boot\.js.*$/, 'shells/common/');
+      }
+      [
+        { src: siteBase + 'portal-os-quota.js' },
+        { src: shellsBase + 'portal-store-guard.js' },
+      ].forEach(({ src }) => {
+        const script = global.document.createElement('script');
+        script.src = src;
+        script.async = true;
+        global.document.head.appendChild(script);
+      });
+    } catch (_) { /* ignore */ }
+  };
+
   const loadProgressSync = () => {
     try {
       const params = new URLSearchParams(global.location.search);
@@ -148,6 +173,7 @@
     const embedded = bootFromEmbed();
     const finish = (profile) => {
       loadProgressSync();
+      loadPortalQuotaScripts();
       global.dispatchEvent(new CustomEvent('capsule-skin-ready', { detail: profile }));
       return profile;
     };

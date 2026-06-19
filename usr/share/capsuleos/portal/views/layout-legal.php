@@ -26,7 +26,7 @@ $contactEmail = (string) ($controller['contactEmail'] ?? 'contact@lacapsule.org'
                     <h1 class="portal-legal-title" id="portal-legal-title"><?= $ctx->e($pageHeading) ?></h1>
                     <p class="portal-legal-intro">
                         Transparence sur le traitement de vos données lors de l'utilisation de CapsuleOS
-                        (compte, progression, abonnement Capsule+). Dernière mise à jour : juin 2026.
+                        (compte, progression, abonnement Abonné). Dernière mise à jour : juin 2026.
                         Contact : <a href="mailto:<?= $ctx->e($contactEmail) ?>"><?= $ctx->e($contactEmail) ?></a>
                     </p>
                     <?php if ($sections !== []) : ?>
@@ -69,6 +69,7 @@ $contactEmail = (string) ($controller['contactEmail'] ?? 'contact@lacapsule.org'
     <?php include CAPSULE_PORTAL_VIEWS . '/partials/footer.php'; ?>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-site-home.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/header-nav.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-user-menu.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-login-modal.js') ?>"></script>
 </body>
 </html>

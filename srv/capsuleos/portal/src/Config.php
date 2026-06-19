@@ -58,4 +58,25 @@ final class Config
     {
         return self::mode() === 'prod';
     }
+
+    public static function isDev(): bool
+    {
+        return self::mode() === 'dev';
+    }
+
+    /** @return array{defaultUser: string, defaultPassword: string} */
+    public static function devCredentials(): array
+    {
+        $path = self::contracts() . '/portal-security.json';
+        $defaults = ['defaultUser' => 'test', 'defaultPassword' => 'test123456789'];
+        if (!is_file($path)) {
+            return $defaults;
+        }
+        $json = json_decode((string) file_get_contents($path), true);
+        $dev = is_array($json['dev'] ?? null) ? $json['dev'] : [];
+        return [
+            'defaultUser' => (string) ($dev['defaultUser'] ?? $defaults['defaultUser']),
+            'defaultPassword' => (string) ($dev['defaultPassword'] ?? $defaults['defaultPassword']),
+        ];
+    }
 }

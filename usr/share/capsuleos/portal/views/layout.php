@@ -22,6 +22,7 @@ $asset = static fn (string $path): string => portal_asset($path);
     <script src="<?= $asset('usr/lib/capsuleos/core/browser-capabilities.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/capsule-pick-return.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/header-nav.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-user-menu.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-login-modal.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-parcours.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/pick-os.js') ?>"></script>

@@ -1,0 +1,53 @@
+/**
+ * Font Awesome : le reset global (*:before { font-family: var(--font) })
+ * écrase la police icône sur les pseudo-éléments.
+ */
+.fa::before,
+.fa-solid::before,
+.fa-regular::before,
+.fa-brands::before,
+.fas::before,
+.far::before,
+.fab::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.fa-regular::before,
+.far::before {
+    font-weight: 400;
+}
+
+.fa-brands::before,
+.fab::before {
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+.fa-solid,
+.fas,
+.fa-regular,
+.far,
+.fa-brands,
+.fab,
+.fa {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.fa-regular,
+.far {
+    font-weight: 400;
+}
+
+.fa-brands,
+.fab {
+    font-family: "Font Awesome 6 Brands";
+    font-weight: 400;
+}
+
+.plans-feature-icon .fa-solid,
+.plans-feature-icon .fas {
+    font-size: calc(var(--head) * 0.22);
+    line-height: 1;
+}

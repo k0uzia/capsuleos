@@ -1,12 +1,14 @@
 <?php
 /** @var \CapsuleOS\Portal\PortalContext $ctx */
 use CapsuleOS\Portal\Auth\AuthService;
+use CapsuleOS\Portal\Config;
 use CapsuleOS\Portal\Http\Csrf;
 
 $loginError = (string) ($ctx->extra['loginError'] ?? '');
-$loginEmail = (string) ($ctx->extra['loginEmail'] ?? '');
 $registerError = (string) ($ctx->extra['registerError'] ?? '');
 $registerEmail = (string) ($ctx->extra['registerEmail'] ?? '');
+$devCreds = Config::isDev() ? Config::devCredentials() : null;
+$loginEmail = (string) ($ctx->extra['loginEmail'] ?? ($devCreds ? $devCreds['defaultUser'] : ''));
 $openOnLoad = !empty($ctx->extra['openLoginModal']);
 $modalView = (string) ($ctx->extra['modalView'] ?? 'login');
 if (!in_array($modalView, ['login', 'register'], true)) {
@@ -35,12 +37,12 @@ $modalTitle = $modalView === 'register' ? 'Créer un compte' : 'Connexion';
                 <input type="hidden" name="from_modal" value="1">
                 <input type="hidden" name="redirect" value="<?= $ctx->e(portal_entry('index.php')) ?>">
                 <label class="portal-field">
-                    <span class="portal-label">Adresse e-mail</span>
-                    <input class="portal-input" type="email" name="email" required autocomplete="email" value="<?= $ctx->e($loginEmail) ?>">
+                    <span class="portal-label"><?= Config::isDev() ? 'Identifiant' : 'Adresse e-mail' ?></span>
+                    <input class="portal-input" type="<?= Config::isDev() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::isDev() ? 'username' : 'email' ?>" value="<?= $ctx->e($loginEmail) ?>">
                 </label>
                 <label class="portal-field">
                     <span class="portal-label">Mot de passe</span>
-                    <input class="portal-input" type="password" name="password" required autocomplete="current-password">
+                    <input class="portal-input" type="password" name="password" required autocomplete="current-password"<?= $devCreds ? ' value="' . $ctx->e($devCreds['defaultPassword']) . '"' : '' ?>>
                 </label>
                 <button class="portal-submit" type="submit">Se connecter</button>
             </form>

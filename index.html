@@ -31,11 +31,32 @@
                         <a class="header-nav-link" href="#offres">Offres</a>
                         <a class="header-nav-link" href="#parcours">Parcours</a>
                         <a class="header-nav-link" href="#choisir-os">Systèmes</a>
-                        <div class="header-auth">
-                            <button type="button" class="header-login-btn" aria-haspopup="dialog" aria-controls="portal-login-modal" id="header-login-btn">
-                                <span class="header-login-btn-label">Connexion</span>
-                                <span class="header-login-btn-arrow" aria-hidden="true">→</span>
-                            </button>
+                        <div class="header-auth" data-portal-dev-auth>
+                            <div data-portal-auth-guest>
+                                <button type="button" class="header-login-btn" aria-haspopup="dialog" aria-controls="portal-login-modal" id="header-login-btn">
+                                    <span class="header-login-btn-label">Connexion</span>
+                                    <span class="header-login-btn-arrow" aria-hidden="true">→</span>
+                                </button>
+                            </div>
+                            <div data-portal-auth-user hidden>
+                                <div class="header-user-menu" data-header-user-menu>
+                                    <button type="button"
+                                            class="header-user-menu-trigger"
+                                            id="header-user-menu-trigger"
+                                            aria-expanded="false"
+                                            aria-haspopup="menu"
+                                            aria-controls="header-user-menu-list">
+                                        <span class="header-user-menu-name" data-portal-auth-username>test</span>
+                                        <svg class="header-user-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <div class="header-user-menu-panel" id="header-user-menu-list" role="menu" hidden>
+                                        <a class="header-user-menu-item" role="menuitem" href="./account.html">Mon profil</a>
+                                        <button type="button" class="header-user-menu-item" role="menuitem" data-portal-dev-logout>Se déconnecter</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -58,9 +79,16 @@
                             <a class="header-mobile-menu-link" href="#offres">Offres</a>
                             <a class="header-mobile-menu-link" href="#parcours">Parcours</a>
                             <a class="header-mobile-menu-link" href="#choisir-os">Systèmes</a>
-                            <button type="button" class="header-mobile-menu-link header-mobile-login-btn" id="header-mobile-login-btn">
-                                Connexion <span aria-hidden="true">→</span>
-                            </button>
+                            <div data-portal-auth-guest>
+                                <button type="button" class="header-mobile-menu-link header-mobile-login-btn" id="header-mobile-login-btn">
+                                    Connexion <span aria-hidden="true">→</span>
+                                </button>
+                            </div>
+                            <div data-portal-auth-user hidden>
+                                <p class="header-mobile-user-name" data-portal-auth-username>test</p>
+                                <a class="header-mobile-menu-link" href="./account.html">Mon profil</a>
+                                <button type="button" class="header-mobile-menu-link" data-portal-dev-logout>Se déconnecter</button>
+                            </div>
                         </nav>
                     </div>
                 </dialog>
@@ -77,15 +105,15 @@
                         </div>
 
                         <div class="portal-login-modal-view" data-portal-modal-view="login">
-                            <p class="portal-login-dev-notice" data-portal-dev-only>Version dev : la connexion réelle nécessite <code>portal/index.php</code>.</p>
+                            <p class="portal-login-dev-notice" data-portal-dev-only>Mode dev : identifiant <code>test</code>, mot de passe <code>test123456789</code> (préremplis).</p>
                             <form class="portal-form" id="portal-login-form-dev" action="#" method="post">
                                 <label class="portal-field">
-                                    <span class="portal-label">Adresse e-mail</span>
-                                    <input class="portal-input" type="email" name="email" required autocomplete="email">
+                                    <span class="portal-label">Identifiant</span>
+                                    <input class="portal-input" type="text" name="email" required autocomplete="username" value="test">
                                 </label>
                                 <label class="portal-field">
                                     <span class="portal-label">Mot de passe</span>
-                                    <input class="portal-input" type="password" name="password" required autocomplete="current-password">
+                                    <input class="portal-input" type="password" name="password" required autocomplete="current-password" value="test123456789">
                                 </label>
                                 <button class="portal-submit" type="submit">Se connecter</button>
                             </form>
@@ -206,39 +234,76 @@
             </div>
         </section>
 
-        <section class="plans" id="offres" aria-labelledby="plans-title" data-portal-offers-version="1">
+        <section class="plans" id="offres" aria-labelledby="plans-title" data-portal-offers-version="2">
             <div class="plans-inner">
-                <h2 class="plans-title" id="plans-title">Choisir votre formule</h2>
-                <p class="plans-lead">Essayez tous les systèmes gratuitement (15 min par session) ou apprenez avec le parcours guidé Capsule+.</p>
+                <p class="plans-eyebrow">Nos Forfaits</p>
+                <h2 class="plans-title" id="plans-title">Commencer gratuitement</h2>
+                <p class="plans-lead">Essayez tous les systèmes sans engagement, progressez avec Abonné ou déployez CapsuleOS en classe.</p>
                 <div class="plans-grid">
                     <article class="plans-card plans-card--free">
-                        <h3 class="plans-card-title">Gratuit</h3>
-                        <p class="plans-price">
-                            <span class="plans-price-amount">0 €</span>
-                            <span class="plans-price-period">/mois</span>
-                        </p>
-                        <ul class="plans-features">
-                            <li>Tous les bureaux simulés du catalogue</li>
-                            <li>15 minutes maximum par session</li>
-                            <li>Sans compte requis</li>
-                            <li>Utilisation hors ligne</li>
-                        </ul>
-                        <a class="plans-cta" href="#choisir-os">Essayer un système</a>
+                        <div class="plans-card-head">
+                            <h3 class="plans-card-title">Gratuit</h3>
+                            <p class="plans-card-desc">Découvrez tous les bureaux simulés du catalogue, sans carte bancaire.</p>
+                            <p class="plans-price">
+                                <span class="plans-price-amount">0 €</span>
+                                <span class="plans-price-period">/mois</span>
+                            </p>
+                            <a class="plans-cta" href="#choisir-os">Essayer un système</a>
+                        </div>
+                        <div class="plans-card-body">
+                            <p class="plans-features-eyebrow">Inclus</p>
+                            <ul class="plans-features">
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Tous les bureaux simulés du catalogue</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">15 minutes par OS et par jour</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Magasins d'applications consultables</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Applications store non installables</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Sans compte requis</span></li>
+                            </ul>
+                        </div>
                     </article>
                     <article class="plans-card plans-card--subscriber plans-card--featured">
-                        <p class="plans-badge">Recommandé</p>
-                        <h3 class="plans-card-title">Capsule+</h3>
-                        <p class="plans-price">
-                            <span class="plans-price-amount" data-portal-price-monthly="15">15 €</span>
-                            <span class="plans-price-period">/mois</span>
-                        </p>
-                        <ul class="plans-features">
-                            <li>Parcours pédagogique complet (3 niveaux)</li>
-                            <li>Chapitres, quêtes et progression sauvegardée</li>
-                            <li>Sessions OS illimitées</li>
-                            <li>Tous les systèmes du catalogue</li>
-                        </ul>
-                        <a class="plans-cta plans-cta--primary" href="#" data-portal-dev-stub title="Disponible avec portal/index.php (PHP)">S'abonner</a>
+                        <div class="plans-card-head">
+                            <p class="plans-badge">Recommandé</p>
+                            <h3 class="plans-card-title">Abonné</h3>
+                            <p class="plans-card-desc">Abonné : parcours guidé, progression et modules store pour apprendre sans limite.</p>
+                            <p class="plans-price">
+                                <span class="plans-price-amount" data-portal-price-monthly="15">15 €</span>
+                                <span class="plans-price-period">/mois</span>
+                            </p>
+                            <a class="plans-cta plans-cta--primary" href="#" data-portal-dev-stub title="Disponible avec portal/index.php (PHP)">S'abonner</a>
+                        </div>
+                        <div class="plans-card-body">
+                            <p class="plans-features-eyebrow">Tout le gratuit, plus</p>
+                            <ul class="plans-features">
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Sessions OS illimitées</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Parcours pédagogique complet</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Progression, niveaux et badges</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Sauvegarde des skins personnalisés</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Modules store gratuits et achats créateurs</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="plans-card plans-card--education">
+                        <div class="plans-card-head">
+                            <h3 class="plans-card-title">Education</h3>
+                            <p class="plans-card-desc">Salles de classe, élèves et formateurs : l'offre dédiée aux établissements.</p>
+                            <p class="plans-price">
+                                <span class="plans-price-amount">Sur devis</span>
+                                <span class="plans-price-period">par établissement</span>
+                            </p>
+                            <a class="plans-cta" href="#" data-portal-dev-stub title="Disponible avec portal/index.php (PHP)">Demander Education <i class="fa-solid fa-arrow-right plans-cta-icon" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="plans-card-body">
+                            <p class="plans-features-eyebrow">Tout l'abonné, plus</p>
+                            <ul class="plans-features">
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Classes jusqu'à 32 élèves par enseignant</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">OS illimité pour les élèves en classe active</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Parcours pédagogique et progression en classe</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Badges et gamification pour les élèves</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Bénéfices conservés après la classe</span></li>
+                                <li><span class="plans-feature-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="plans-feature-text">Demande grade Professeur via support</span></li>
+                            </ul>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -305,6 +370,7 @@
         </section>
     </main>
     <footer class="footer">
+        <p class="footer-copy">© 2026 <a href="https://lacapsule.org" rel="noopener noreferrer">La Capsule</a>. Tous droits réservés.</p>
         <nav class="footer-legal" aria-label="Informations légales">
             <ul class="footer-legal-list">
                 <li><a href="./portal/legal.php#protection-donnees">Protection des données</a></li>
@@ -313,12 +379,12 @@
                 <li><a href="./portal/legal.php#mentions-legales">Mentions légales</a></li>
             </ul>
         </nav>
-        <p class="footer-copy">© 2026 <a href="https://lacapsule.org" rel="noopener noreferrer">La Capsule</a>. Tous droits réservés.</p>
     </footer>
     <script src="./usr/lib/capsuleos/site/portal-site-home.js"></script>
     <script src="./usr/lib/capsuleos/core/browser-capabilities.js"></script>
     <script src="./usr/lib/capsuleos/site/capsule-pick-return.js"></script>
     <script src="./usr/lib/capsuleos/site/header-nav.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-user-menu.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-login-modal.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-modules-data.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-parcours.js"></script>

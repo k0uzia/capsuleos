@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./usr/share/capsuleos/assets/images/common/capsule.webp" type="image/x-icon">
+    <link rel="stylesheet" href="./usr/share/capsuleos/themes/portal/style.css">
+    <title>Bienvenue test — CapsuleOS</title>
+</head>
+<body class="portal-auth portal-account-page">
+    <main>
+        <header class="header">
+            <nav class="header-bar" aria-label="Navigation globale">
+                <div class="header-brand">
+                    <a class="header-home" href="./index.html" title="Accueil">
+                        <img class="header-home-icon" src="./usr/share/capsuleos/assets/images/common/capsule.webp" alt="Logo de La Capsule">
+                        <span class="header-home-label">CapsuleOS</span>
+                    </a>
+                </div>
+                <div class="header-nav-desktop">
+                    <a class="header-nav-link" href="./index.html#a-propos">À propos</a>
+                    <a class="header-nav-link" href="./index.html#offres">Offres</a>
+                    <a class="header-nav-link" href="./index.html#parcours">Parcours</a>
+                    <a class="header-nav-link" href="./index.html#choisir-os">Systèmes</a>
+                    <div class="header-auth" data-portal-dev-auth>
+                        <div data-portal-auth-user>
+                            <div class="header-user-menu" data-header-user-menu>
+                                <button type="button" class="header-user-menu-trigger" id="header-user-menu-trigger" aria-expanded="false" aria-haspopup="menu" aria-controls="header-user-menu-list">
+                                    <span class="header-user-menu-name" data-portal-auth-username>test</span>
+                                    <svg class="header-user-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <div class="header-user-menu-panel" id="header-user-menu-list" role="menu" hidden>
+                                    <a class="header-user-menu-item" role="menuitem" href="./account.html" aria-current="page">Mon profil</a>
+                                    <button type="button" class="header-user-menu-item" role="menuitem" data-portal-dev-logout>Se déconnecter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="portal-auth-wrap portal-auth-wrap--wide">
+            <section class="portal-auth-card" aria-labelledby="auth-title">
+                <div class="portal-account" data-portal-account-dev data-portal-display-name="test">
+                    <header class="portal-account-header portal-account-header--with-dev">
+                        <div class="portal-account-header-main">
+                            <p class="portal-account-eyebrow">Espace personnel · mode développement (données locales)</p>
+                            <h1 class="portal-auth-title portal-auth-title--welcome" id="auth-title">
+                                <span class="portal-auth-title-line">
+                                    Bienvenue <span class="portal-auth-title-accent" data-portal-account-name>test</span>
+                                    <span class="portal-auth-title-badges">
+                                        <span class="portal-account-badge portal-account-badge--title portal-account-badge--free" data-portal-title-plan-badge>Gratuit</span>
+                                        <span data-portal-grade-badges></span>
+                                    </span>
+                                </span>
+                            </h1>
+                        </div>
+                        <aside class="portal-account-header-aside portal-account-dev-sim" aria-labelledby="portal-dev-sim-title">
+                            <h2 class="portal-account-panel-title" id="portal-dev-sim-title">Simulation dev</h2>
+                            <div class="portal-field">
+                                <select class="portal-input" id="portal-dev-grade-select" aria-labelledby="portal-dev-sim-title"></select>
+                            </div>
+                            <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-reset-store>Réinitialiser les données dev</button>
+                        </aside>
+                    </header>
+
+                    <div class="portal-account-body">
+                        <nav class="portal-account-nav" aria-label="Sections du compte">
+                            <ul class="portal-account-nav-list" role="tablist">
+                                <li class="portal-account-nav-item" role="presentation">
+                                    <button type="button" class="portal-account-nav-link portal-account-nav-link--active" role="tab" id="portal-account-nav-overview"
+                                        aria-controls="account-view-overview" aria-selected="true" data-account-nav="overview">Mon compte</button>
+                                </li>
+                                <li class="portal-account-nav-item" role="presentation" data-account-nav-item="progress" hidden>
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-progress"
+                                        aria-controls="account-view-progress" aria-selected="false" data-account-nav="progress" tabindex="-1">Ma progression</button>
+                                </li>
+                                <li class="portal-account-nav-item" role="presentation" data-account-nav-item="purchases" hidden>
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-purchases"
+                                        aria-controls="account-view-purchases" aria-selected="false" data-account-nav="purchases" tabindex="-1">Mes achats</button>
+                                </li>
+                                <li class="portal-account-nav-item" role="presentation" data-account-nav-item="classes" hidden>
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-classes"
+                                        aria-controls="account-view-classes" aria-selected="false" data-account-nav="classes" tabindex="-1">
+                                        <span class="portal-account-nav-link-label">Mes classes</span>
+                                        <span class="portal-account-nav-meta" data-portal-nav-class-slots>0/1</span>
+                                    </button>
+                                </li>
+                                <li class="portal-account-nav-item" role="presentation" data-account-nav-item="modules" hidden>
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-modules"
+                                        aria-controls="account-view-modules" aria-selected="false" data-account-nav="modules" tabindex="-1">Mes modules</button>
+                                </li>
+                                <li class="portal-account-nav-item" role="presentation">
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-settings"
+                                        aria-controls="account-view-settings" aria-selected="false" data-account-nav="settings" tabindex="-1">Paramètres</button>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <div class="portal-account-views">
+                            <section class="portal-account-view" id="account-view-overview" data-account-view="overview"
+                                role="tabpanel" aria-labelledby="portal-account-nav-overview">
+                                <div class="portal-account-panel-row">
+                        <section class="portal-account-panel portal-account-usage" data-dev-section="usage" aria-labelledby="portal-usage-title">
+                            <h2 class="portal-account-panel-title" id="portal-usage-title">Temps d'utilisation</h2>
+                            <p class="portal-account-panel-lead">Forfait gratuite : 15 minutes par OS et par jour.</p>
+                            <ul class="portal-account-usage-list">
+                                <li class="portal-account-usage-item">
+                                    <span class="portal-account-usage-label">Temps restant par OS</span>
+                                    <div class="portal-account-progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="15">
+                                        <span class="portal-account-progress-bar-fill portal-account-progress-bar-fill--full" style="width: 100%"></span>
+                                    </div>
+                                    <span class="portal-account-usage-meta" data-dev-usage-meta>15 min restantes</span>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <section class="portal-account-panel" data-dev-section="subscription" aria-labelledby="portal-sub-title">
+                            <div class="portal-account-panel-head">
+                                <h2 class="portal-account-panel-title" id="portal-sub-title" data-dev-sub-section-title>Abonnement</h2>
+                                <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-account-nav="settings" data-account-sub-nav="subscription" data-dev-sub-manage-link hidden>Gérer l'abonnement</button>
+                            </div>
+                            <div data-dev-sub-overview-free>
+                                <dl class="portal-account-dl">
+                                    <div class="portal-account-dl-row">
+                                        <dt>Forfait</dt>
+                                        <dd>Gratuit</dd>
+                                    </div>
+                                    <div class="portal-account-dl-row">
+                                        <dt>Statut</dt>
+                                        <dd class="portal-account-dl-status"><span>Compte gratuit</span><span class="portal-account-status-dot" aria-hidden="true"></span></dd>
+                                    </div>
+                                </dl>
+                                <div class="portal-account-upgrade portal-account-upgrade--inline">
+                                    <p class="portal-account-upgrade-eyebrow">Passer à Abonné</p>
+                                    <p class="portal-account-upgrade-price"><span class="portal-account-upgrade-amount">15 €</span><span class="portal-account-upgrade-period">/mois</span></p>
+                                    <ul class="portal-account-upgrade-features">
+                                        <li>Sessions OS illimitées</li>
+                                        <li>Parcours pédagogique complet</li>
+                                        <li>Progression, niveaux et badges</li>
+                                        <li>Sauvegarde des skins personnalisés</li>
+                                        <li>Modules store gratuits et achats créateurs</li>
+                                    </ul>
+                                    <a class="portal-account-btn portal-account-btn--primary" href="./portal/subscribe.php">Découvrir Abonné</a>
+                                </div>
+                            </div>
+                            <div data-dev-sub-overview-plus hidden>
+                                <dl class="portal-account-dl">
+                                    <div class="portal-account-dl-row">
+                                        <dt>Forfait</dt>
+                                        <dd><span class="portal-account-plan-plus">Abonnée</span></dd>
+                                    </div>
+                                    <div class="portal-account-dl-row">
+                                        <dt>Renouvellement</dt>
+                                        <dd data-dev-overview-renewal-date>-</dd>
+                                    </div>
+                                    <div class="portal-account-dl-row">
+                                        <dt>Renouvellement auto</dt>
+                                        <dd><span class="portal-account-sub-renewal-status portal-account-sub-renewal-status--active" data-dev-overview-renewal-status>Actif</span></dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </section>
+                                </div>
+                            </section>
+
+                            <section class="portal-account-view" id="account-view-progress" data-account-view="progress" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-progress">
+                                <div class="portal-account-view-stack">
+                        <section class="portal-account-panel portal-account-student" data-dev-section="student" hidden aria-labelledby="portal-student-title">
+                            <h2 class="portal-account-panel-title" id="portal-student-title">Classe</h2>
+                            <div data-dev-student-root></div>
+                        </section>
+
+                        <section class="portal-account-panel portal-account-xp" data-dev-section="gamification" hidden aria-labelledby="portal-xp-title">
+                            <h2 class="portal-account-panel-title" id="portal-xp-title">Progression</h2>
+                            <div class="portal-account-xp-layout">
+                                <div class="portal-account-xp-hex-wrap" data-dev-xp-progress role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progression vers le niveau suivant">
+                                    <svg class="portal-account-xp-hex-svg" viewBox="0 0 100 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                        <path class="portal-account-xp-hex-bg" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z"></path>
+                                        <path class="portal-account-xp-hex-track" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100"></path>
+                                        <path class="portal-account-xp-hex-progress" data-dev-xp-hex-progress d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></path>
+                                    </svg>
+                                    <span class="portal-account-xp-hex-level" data-dev-xp-level>1</span>
+                                </div>
+                                <div class="portal-account-xp-info">
+                                    <p class="portal-account-xp-meta" data-dev-xp-meta>0 / 100 XP pour le niveau suivant</p>
+                                </div>
+                            </div>
+                            <div class="portal-account-xp-badges" aria-labelledby="portal-xp-badges-title">
+                                <h3 class="portal-account-subtitle" id="portal-xp-badges-title">Badges <span class="portal-account-badge-count" data-dev-badge-count>0/30</span></h3>
+                                <div data-dev-badges-root></div>
+                            </div>
+                        </section>
+
+                        <section class="portal-account-panel portal-account-progress" data-dev-section="progress" hidden aria-labelledby="portal-progress-title">
+                            <h2 class="portal-account-panel-title" id="portal-progress-title">Progression des quêtes</h2>
+                            <p class="portal-account-panel-lead">Détecte aussi les sauvegardes checklist dans localStorage après un parcours OS.</p>
+                            <div data-dev-progress-root></div>
+                        </section>
+
+                        <section class="portal-account-panel portal-account-skins" data-dev-section="skins" hidden aria-labelledby="portal-skins-title">
+                            <h2 class="portal-account-panel-title" id="portal-skins-title">Skins personnalisés</h2>
+                            <div data-dev-skins-root></div>
+                        </section>
+                                </div>
+                            </section>
+
+                            <section class="portal-account-view" id="account-view-purchases" data-account-view="purchases" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-purchases">
+                        <section class="portal-account-panel portal-account-purchases" data-dev-section="purchases" hidden aria-labelledby="portal-purchases-title">
+                            <h2 class="portal-account-panel-title" id="portal-purchases-title">Mes achats</h2>
+                            <p class="portal-account-empty">Aucun module store acheté en mode dev.</p>
+                        </section>
+                            </section>
+
+                            <section class="portal-account-view" id="account-view-classes" data-account-view="classes" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-classes">
+                        <section class="portal-account-panel portal-account-teacher" data-dev-section="teacher" hidden aria-labelledby="portal-teacher-title">
+                            <h2 class="portal-account-panel-title" id="portal-teacher-title">Mes classes</h2>
+                            <p class="portal-account-panel-lead">Créez votre classe, invitez vos élèves par lien (de 2 à 32 places, invitation valide 7 jours, simulation locale).</p>
+                            <div data-dev-teacher-root></div>
+                        </section>
+                            </section>
+
+                            <section class="portal-account-view" id="account-view-modules" data-account-view="modules" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-modules">
+                        <section class="portal-account-panel portal-account-creator" data-dev-section="creator" hidden aria-labelledby="portal-creator-title">
+                            <h2 class="portal-account-panel-title" id="portal-creator-title">Mes modules</h2>
+                            <p class="portal-account-panel-lead">Demandez l'ajout d'un module via un ticket support.</p>
+                            <button type="button" class="portal-account-btn portal-account-btn--primary" data-dev-ticket-prefill="demande_module" data-dev-ticket-subject="Demande d'ajout de module">Demander l'ajout d'un module</button>
+                        </section>
+                            </section>
+
+                            <section class="portal-account-view" id="account-view-settings" data-account-view="settings" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-settings">
+                                <section class="portal-account-panel portal-account-settings-view">
+                                    <nav class="portal-account-subnav" aria-label="Paramètres du compte">
+                                        <ul class="portal-account-subnav-list" role="tablist">
+                                            <li class="portal-account-subnav-item" role="presentation">
+                                                <button type="button" class="portal-account-subnav-link portal-account-subnav-link--active" role="tab"
+                                                    id="portal-account-subnav-subscription" aria-controls="account-subview-subscription"
+                                                    aria-selected="true" data-account-sub-nav="subscription">Abonnement</button>
+                                            </li>
+                                            <li class="portal-account-subnav-item" role="presentation">
+                                                <button type="button" class="portal-account-subnav-link" role="tab"
+                                                    id="portal-account-subnav-account" aria-controls="account-subview-account"
+                                                    aria-selected="false" data-account-sub-nav="account" tabindex="-1">Compte</button>
+                                            </li>
+                                            <li class="portal-account-subnav-item" role="presentation">
+                                                <button type="button" class="portal-account-subnav-link" role="tab"
+                                                    id="portal-account-subnav-support" aria-controls="account-subview-support"
+                                                    aria-selected="false" data-account-sub-nav="support" tabindex="-1">Support</button>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <div class="portal-account-subviews">
+                                        <div class="portal-account-subview" id="account-subview-subscription" data-account-sub-view="subscription" role="tabpanel" aria-labelledby="portal-account-subnav-subscription">
+                                            <section class="portal-account-panel" aria-labelledby="portal-settings-sub-title">
+                                                <h2 class="portal-account-panel-title" id="portal-settings-sub-title">Abonnement</h2>
+                                                <div data-dev-sub-settings-free>
+                                                    <dl class="portal-account-dl">
+                                                        <div class="portal-account-dl-row"><dt>Forfait</dt><dd>Gratuit</dd></div>
+                                                        <div class="portal-account-dl-row"><dt>Statut</dt><dd class="portal-account-dl-status"><span>Compte gratuit</span><span class="portal-account-status-dot" aria-hidden="true"></span></dd></div>
+                                                    </dl>
+                                                    <div class="portal-account-upgrade portal-account-upgrade--inline">
+                                                        <p class="portal-account-upgrade-eyebrow">Passer à Abonné</p>
+                                                        <p class="portal-account-upgrade-price"><span class="portal-account-upgrade-amount">15 €</span><span class="portal-account-upgrade-period">/mois</span></p>
+                                                        <ul class="portal-account-upgrade-features">
+                                                            <li>Sessions OS illimitées</li>
+                                                            <li>Parcours pédagogique complet</li>
+                                                            <li>Progression, niveaux et badges</li>
+                                                            <li>Sauvegarde des skins personnalisés</li>
+                                                            <li>Modules store gratuits et achats créateurs</li>
+                                                        </ul>
+                                                        <a class="portal-account-btn portal-account-btn--primary" href="./portal/subscribe.php">Découvrir Abonné</a>
+                                                    </div>
+                                                </div>
+                                                <div data-dev-sub-settings-plus hidden>
+                                                    <div class="portal-account-plan-grid">
+                                                        <article class="portal-account-plan-card portal-account-plan-card--plan">
+                                                            <h3 class="portal-account-plan-card-title">Forfait</h3>
+                                                            <p class="portal-account-plan-card-value portal-account-plan-plus">Abonné</p>
+                                                            <p class="portal-account-plan-card-meta">Utilisation OS : <span class="portal-account-unlimited">Illimitée</span></p>
+                                                            <p class="portal-account-plan-card-foot">Renouvellement auto : <span class="portal-account-sub-renewal-status portal-account-sub-renewal-status--active" data-dev-sub-renewal-status>Actif</span></p>
+                                                        </article>
+                                                        <article class="portal-account-plan-card portal-account-plan-card--billing">
+                                                            <h3 class="portal-account-plan-card-title">Prochain paiement</h3>
+                                                            <div class="portal-account-plan-renewal">
+                                                                <div class="portal-account-plan-renewal-ring" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-dev-sub-renewal-ring>
+                                                                    <svg class="portal-account-plan-renewal-ring-svg" viewBox="0 0 48 48" aria-hidden="true">
+                                                                        <defs><linearGradient id="portal-plan-renewal-gradient-dev" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5e6a8"></stop><stop offset="55%" stop-color="#e8c547"></stop><stop offset="100%" stop-color="#c9a227"></stop></linearGradient></defs>
+                                                                        <circle class="portal-account-plan-renewal-ring-track" cx="24" cy="24" r="20" pathLength="100"></circle>
+                                                                        <circle class="portal-account-plan-renewal-ring-progress" cx="24" cy="24" r="20" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" data-dev-sub-renewal-progress style="stroke: url(#portal-plan-renewal-gradient-dev)"></circle>
+                                                                    </svg>
+                                                                    <span class="portal-account-plan-renewal-icon" aria-hidden="true">
+                                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="portal-account-plan-renewal-text">
+                                                                    <p class="portal-account-plan-renewal-date" data-dev-sub-period-end>-</p>
+                                                                    <p class="portal-account-plan-renewal-label">Date de renouvellement</p>
+                                                                </div>
+                                                            </div>
+                                                            <dl class="portal-account-plan-payment-dl">
+                                                                <div class="portal-account-plan-payment-row"><dt>Paiement (par mois)</dt><dd>15 €</dd></div>
+                                                                <div class="portal-account-plan-payment-row"><dt>Prochaine facturation</dt><dd data-dev-sub-next-billing>-</dd></div>
+                                                            </dl>
+                                                        </article>
+                                                        <article class="portal-account-plan-card portal-account-plan-card--history">
+                                                            <h3 class="portal-account-plan-card-title">Historique de facturation</h3>
+                                                            <ul class="portal-account-invoice-list" data-dev-sub-invoices></ul>
+                                                            <button type="button" class="portal-account-btn portal-account-btn--link portal-account-invoice-history-open" data-dev-invoice-history-open data-portal-account-modal-open="invoice-history" hidden>Voir tout l'historique</button>
+                                                        </article>
+                                                        <article class="portal-account-plan-card portal-account-plan-card--details">
+                                                            <h3 class="portal-account-plan-card-title">Détails de l'abonnement</h3>
+                                                            <p class="portal-account-plan-details-line"><span data-dev-sub-billing-name>-</span> · <span data-dev-sub-billing-email>-</span></p>
+                                                            <p class="portal-account-plan-details-line" data-dev-sub-billing-payment>-</p>
+                                                            <p class="portal-account-plan-details-line" data-dev-sub-billing-address>-</p>
+                                                        </article>
+                                                    </div>
+                                                    <section class="portal-account-sub-manage" aria-labelledby="portal-dev-sub-manage-title">
+                                                        <h3 class="portal-account-subtitle" id="portal-dev-sub-manage-title">Renouvellement</h3>
+                                                        <dl class="portal-account-dl portal-account-dl--compact">
+                                                            <div class="portal-account-dl-row"><dt>Prochain renouvellement</dt><dd data-subscription-manage-period>-</dd></div>
+                                                            <div class="portal-account-dl-row"><dt>Renouvellement auto</dt><dd><span class="portal-account-sub-renewal-status portal-account-sub-renewal-status--active" data-subscription-manage-status>Actif</span></dd></div>
+                                                        </dl>
+                                                        <div class="portal-account-sub-manage-view" data-subscription-manage-view="overview">
+                                                            <p class="portal-account-panel-lead" data-subscription-manage-lead>Votre abonnement Abonné se renouvelle automatiquement chaque mois.</p>
+                                                            <div class="portal-account-sub-manage-actions">
+                                                                <button type="button" class="portal-account-btn portal-account-btn--danger" data-subscription-show-cancel-confirm>Annuler le renouvellement</button>
+                                                                <button type="button" class="portal-account-btn portal-account-btn--primary" data-subscription-reactivate hidden>Réactiver le renouvellement</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portal-account-sub-manage-view" data-subscription-manage-view="confirm-cancel" hidden>
+                                                            <p class="portal-account-panel-lead">Vous conserverez Abonné jusqu'au <span class="portal-account-sub-date" data-subscription-cancel-period>-</span>.</p>
+                                                            <div class="portal-account-sub-manage-actions">
+                                                                <button type="button" class="portal-account-btn portal-account-btn--ghost" data-subscription-manage-back>Retour</button>
+                                                                <button type="button" class="portal-account-btn portal-account-btn--danger" data-subscription-cancel-confirm>Confirmer l'annulation</button>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div class="portal-account-subview" id="account-subview-account" data-account-sub-view="account" hidden role="tabpanel" aria-labelledby="portal-account-subnav-account">
+                                            <section class="portal-account-panel" aria-labelledby="portal-settings-account-title">
+                                                <h2 class="portal-account-panel-title" id="portal-settings-account-title">Compte</h2>
+                                                <div class="portal-account-settings-modal">
+                                                    <section class="portal-account-settings-block" aria-labelledby="portal-settings-identity-title">
+                                                        <h3 class="portal-account-settings-block-title" id="portal-settings-identity-title">Identité</h3>
+                                                        <form class="portal-account-settings-row-form" data-dev-settings-name-form>
+                                                            <label class="portal-field"><span class="portal-label">Nom affiché</span><input class="portal-input" type="text" name="name" data-dev-settings-name required maxlength="60" autocomplete="name"></label>
+                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Enregistrer</button>
+                                                        </form>
+                                                    </section>
+                                                    <section class="portal-account-settings-block" aria-labelledby="portal-settings-login-title">
+                                                        <h3 class="portal-account-settings-block-title" id="portal-settings-login-title">Connexion</h3>
+                                                        <form class="portal-account-settings-row-form" data-dev-settings-email-form>
+                                                            <label class="portal-field"><span class="portal-label">Adresse e-mail</span><input class="portal-input" type="email" name="email" data-dev-settings-email required autocomplete="email"></label>
+                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Mettre à jour</button>
+                                                        </form>
+                                                        <form class="portal-account-settings-row-form portal-account-settings-row-form--stacked" data-dev-settings-password-form>
+                                                            <label class="portal-field"><span class="portal-label">Nouveau mot de passe</span><input class="portal-input" type="password" name="password" required minlength="12" autocomplete="new-password" placeholder="12 caractères minimum"></label>
+                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Changer</button>
+                                                        </form>
+                                                    </section>
+                                                    <p class="portal-account-settings-note">Réinitialisation par e-mail : fonctionnalité à venir en production.</p>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div class="portal-account-subview" id="account-subview-support" data-account-sub-view="support" hidden role="tabpanel" aria-labelledby="portal-account-subnav-support">
+                                            <section class="portal-account-panel" aria-labelledby="portal-settings-support-title">
+                                                <h2 class="portal-account-panel-title" id="portal-settings-support-title">Support</h2>
+                                                <form class="portal-form portal-account-ticket-form" data-dev-ticket-form>
+                                                    <label class="portal-field"><span class="portal-label">Type</span><select class="portal-input" name="type" data-dev-ticket-type required></select></label>
+                                                    <label class="portal-field"><span class="portal-label">Sujet</span><input class="portal-input" type="text" name="subject" required maxlength="120"></label>
+                                                    <label class="portal-field"><span class="portal-label">Message</span><textarea class="portal-input portal-textarea" name="body" rows="4" maxlength="2000" required></textarea></label>
+                                                    <button type="submit" class="portal-submit">Envoyer</button>
+                                                </form>
+                                                <h3 class="portal-account-subtitle">Historique</h3>
+                                                <div data-dev-tickets-list></div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </div>
+                    </div>
+
+                    <dialog class="portal-account-modal portal-account-modal--classroom" id="portal-account-classroom-create-modal" aria-labelledby="portal-account-classroom-create-title">
+                        <div class="portal-account-modal-panel">
+                            <div class="portal-account-modal-head">
+                                <h2 class="portal-account-modal-title" id="portal-account-classroom-create-title">Créer une classe</h2>
+                                <button type="button" class="portal-account-modal-close" data-portal-account-modal-close aria-label="Fermer">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                            <div class="portal-account-modal-body">
+                                <form class="portal-form" data-dev-class-create>
+                                    <label class="portal-field">
+                                        <span class="portal-label">Nom de la classe</span>
+                                        <input class="portal-input" type="text" name="name" required maxlength="80" placeholder="Ex. Linux débutants" autocomplete="off">
+                                    </label>
+                                    <label class="portal-field">
+                                        <span class="portal-label">Nombre de places (2 à 32)</span>
+                                        <input class="portal-input" type="text" name="maxSlots" inputmode="numeric" pattern="[0-9]*" data-numeric-input data-numeric-min="2" data-numeric-max="32" required placeholder="Ex. 24" autocomplete="off">
+                                    </label>
+                                    <div data-dev-classroom-access-fieldsets></div>
+                                    <button type="submit" class="portal-submit">Créer la classe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+
+                    <dialog class="portal-account-modal portal-account-modal--classroom" id="portal-account-classroom-detail-modal" aria-labelledby="portal-account-classroom-detail-title">
+                        <div class="portal-account-modal-panel">
+                            <div class="portal-account-modal-head">
+                                <h2 class="portal-account-modal-title" id="portal-account-classroom-detail-title" data-dev-classroom-modal-title>Classe</h2>
+                                <button type="button" class="portal-account-modal-close" data-portal-account-modal-close aria-label="Fermer">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                            <div class="portal-account-modal-body" data-dev-classroom-detail-root></div>
+                        </div>
+                    </dialog>
+
+                    <dialog class="portal-account-modal portal-account-modal--invoices" id="portal-account-invoice-history-modal" aria-labelledby="portal-account-invoice-history-title" hidden>
+                        <div class="portal-account-modal-panel">
+                            <div class="portal-account-modal-head">
+                                <h2 class="portal-account-modal-title" id="portal-account-invoice-history-title">Historique de facturation</h2>
+                                <button type="button" class="portal-account-modal-close" data-portal-account-modal-close aria-label="Fermer">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                            <div class="portal-account-modal-body portal-account-modal-body--invoices">
+                                <ul class="portal-account-invoice-list" data-dev-invoice-modal-list></ul>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <p class="footer-copy">© 2026 <a href="https://lacapsule.org" rel="noopener noreferrer">La Capsule</a>. Tous droits réservés.</p>
+        <nav class="footer-legal" aria-label="Informations légales">
+            <ul class="footer-legal-list">
+                <li><a href="./portal/legal.php#protection-donnees">Protection des données</a></li>
+                <li><a href="./portal/legal.php#creation-compte">Création de compte</a></li>
+                <li><a href="./portal/legal.php#donnees-bancaires">Données bancaires</a></li>
+                <li><a href="./portal/legal.php#mentions-legales">Mentions légales</a></li>
+            </ul>
+        </nav>
+    </footer>
+    <script src="./usr/lib/capsuleos/site/portal-site-home.js"></script>
+    <script src="./usr/lib/capsuleos/site/header-nav.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-user-menu.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-dev.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-dev-store.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-nav.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-tickets.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-classroom-live.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-modals.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-dev.js"></script>
+</body>
+</html>

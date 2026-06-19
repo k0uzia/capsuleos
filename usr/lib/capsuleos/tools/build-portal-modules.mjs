@@ -19,7 +19,7 @@ const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 
 const entitlements = readJson(ENTITLEMENTS);
 const moduleAccess = entitlements.moduleAccess || {};
-const accessLabels = { free: 'Gratuit', registered: 'Compte requis', subscriber: 'Capsule+' };
+const accessLabels = { free: 'Gratuit', registered: 'Compte requis', subscriber: 'Abonné' };
 
 const canAccess = (entitlement, access) => {
     const allowed = moduleAccess[access] || [];

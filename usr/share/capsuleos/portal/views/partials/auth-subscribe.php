@@ -11,14 +11,14 @@ $price = is_array($plusPlan) ? (string) ($plusPlan['priceDisplay'] ?? '15 €') 
 ?>
 <div class="portal-subscribe">
     <p class="portal-subscribe-lead">
-        Capsule+ : <strong><?= $ctx->e($price) ?>/mois</strong> : débloque l'ensemble des parcours pédagogiques,
+        Abonné : <strong><?= $ctx->e($price) ?>/mois</strong> : débloque l'ensemble des parcours pédagogiques,
         la progression sauvegardée et le catalogue complet des systèmes.
     </p>
     <?php if ($ctx->isSubscriber()) : ?>
         <p class="portal-account-note">Votre abonnement est déjà actif.</p>
     <?php else : ?>
         <p class="portal-subscribe-notice" role="status">
-            Le paiement en ligne sera disponible prochainement. En attendant, votre compte est créé et prêt pour l'activation Capsule+.
+            Le paiement en ligne sera disponible prochainement. En attendant, votre compte est créé et prêt pour l'activation Abonné.
         </p>
     <?php endif; ?>
     <?php if (is_array($plusPlan) && is_array($plusPlan['features'] ?? null)) : ?>

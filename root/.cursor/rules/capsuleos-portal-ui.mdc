@@ -1,0 +1,28 @@
+---
+description: Icônes UI portail et site CapsuleOS (hors bureaux simulés)
+alwaysApply: true
+---
+
+# UI portail CapsuleOS
+
+Référence : `root/docs/convention-portail.md` · assets `usr/share/capsuleos/assets/vendor/fontawesome/`
+
+## Icônes
+
+Pour l'UI **site / portail** (`index.html`, `portal/`, `usr/share/capsuleos/portal/`, `usr/share/capsuleos/themes/portal/`) :
+
+- utiliser **Font Awesome 6 Free** en local (`fa-solid`, `fa-regular`, `fa-brands`)
+- import via `usr/share/capsuleos/themes/portal/imports.css`
+- **interdit** : CDN Font Awesome, kit en ligne, emoji ou caractères Unicode (`→`, `✓`) comme icônes UI
+
+Les **bureaux simulés** (`OS/`, `home/`, shells) conservent leurs icônes vendor / matrice toolkit. Ne pas y injecter Font Awesome.
+
+## Mise à jour des assets
+
+Après `npm install` :
+
+```bash
+cp -r node_modules/@fortawesome/fontawesome-free/css node_modules/@fortawesome/fontawesome-free/webfonts usr/share/capsuleos/assets/vendor/fontawesome/
+```
+
+Dépendance : `@fortawesome/fontawesome-free` (devDependency).

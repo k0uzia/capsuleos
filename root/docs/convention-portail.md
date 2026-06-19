@@ -41,15 +41,18 @@ Helpers bootstrap : `portal_entry('login.php')` → `portal/login.php`, `portal_
 
 - `portal-offers.json` — formules Gratuit / Capsule+ (15 €/mois)
 - `portal-entitlements.json` — niveaux `anonymous` / `registered` / `subscriber`, limites `osSession`, accès `mnt/`
+- `portal-grades.json` — grades Utilisateur, Abonné, Créateur, Professeur, Élève
+- `portal-gamification.json` — badges et courbe XP
 - `portal-security.json` — sessions, CSRF, rate limit, headers CSP
 - `portal-legal.json` — RGPD, création de compte, données bancaires, mentions légales
 
 ### Modèle d’accès (juin 2026)
 
-| Offre | OS simulés | Parcours `mnt/` |
-|-------|------------|-----------------|
-| Gratuit | Catalogue complet, **15 min / session** | Aucun |
-| Capsule+ | Illimité | Intégral (3 niveaux) |
+| Offre | OS simulés | Parcours `mnt/` | Grades |
+|-------|------------|-----------------|--------|
+| Gratuit | Catalogue complet, **15 min / OS / jour**, magasins sans apps | Aucun | Utilisateur ou visiteur |
+| Capsule+ | Illimité | Intégral + store | Abonné (+ Créateur / Professeur) |
+| Classe | Illimité (OS/modules filtrés) | Modules professeur | Élève (progression sticky) |
 
 Voir aussi [`parcours-pedagogique.md`](../../parcours-pedagogique.md) à la racine du dépôt.
 
@@ -66,7 +69,13 @@ Toutes sous **`portal/`** :
 | `portal/index.php` | Portail |
 | `portal/login.php` | Connexion |
 | `portal/register.php` | Inscription |
-| `portal/account.php` | Page utilisateur |
+| `portal/account.php` | Page utilisateur (profil modulaire par grade) |
+| `portal/join-class.php` | Rejoindre une classe via invitation |
+| `portal/api/account.php` | API paramètres compte |
+| `portal/api/os-usage.php` | API quota OS |
+| `portal/api/tickets.php` | API tickets support |
+| `portal/api/classroom.php` | API gestion classe professeur |
+| `portal/api/gamification.php` | API XP et badges |
 | `portal/logout.php` | Déconnexion |
 | `portal/subscribe.php` | Offre Capsule+ (paiement phase 2) |
 | `portal/legal.php` | Informations légales & RGPD |

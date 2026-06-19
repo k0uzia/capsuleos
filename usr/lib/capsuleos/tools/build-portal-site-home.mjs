@@ -19,7 +19,25 @@ if (!['dev', 'prod'].includes(mode)) {
 
 const homePath = mode === 'prod' ? '../../../index.php' : '../../../index.html';
 
-const devEntitlement = mode === 'dev' ? 'subscriber' : null;
+const devEntitlement = mode === 'dev' ? null : null;
+
+const securityPath = path.join(ROOT, 'etc/capsuleos/contracts/portal-security.json');
+let devUser = 'test';
+let devPassword = 'test123456789';
+if (fs.existsSync(securityPath)) {
+    const security = JSON.parse(fs.readFileSync(securityPath, 'utf8'));
+    const dev = security.dev || {};
+    if (dev.defaultUser) devUser = String(dev.defaultUser);
+    if (dev.defaultPassword) devPassword = String(dev.defaultPassword);
+}
+
+const devGlobals =
+    mode === 'dev'
+        ? `
+    global.CAPSULE_PORTAL_DEV_USER = ${JSON.stringify(devUser)};
+    global.CAPSULE_PORTAL_DEV_PASSWORD = ${JSON.stringify(devPassword)};
+    global.CAPSULE_PORTAL_PERMISSIONS = { storeBrowse: true, storeAppLaunch: true, osQuotaUnlimited: true };`
+        : '';
 
 const js = `/**
  * URL d'accueil portail — généré (ne pas éditer à la main).
@@ -30,7 +48,7 @@ const js = `/**
 (function (global) {
     global.CAPSULE_PORTAL_MODE = ${JSON.stringify(mode)};
     global.CAPSULE_PORTAL_SITE_HOME = ${JSON.stringify(homePath)};
-    global.CAPSULE_PORTAL_ENTITLEMENT = ${JSON.stringify(devEntitlement)};
+    global.CAPSULE_PORTAL_ENTITLEMENT = ${JSON.stringify(devEntitlement)};${devGlobals}
 }(typeof window !== 'undefined' ? window : globalThis));
 `;
 

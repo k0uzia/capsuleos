@@ -29,13 +29,15 @@ const readJson = (rel) => {
 
 const offers = readJson('etc/capsuleos/contracts/portal-offers.json');
 const entitlements = readJson('etc/capsuleos/contracts/portal-entitlements.json');
+const grades = readJson('etc/capsuleos/contracts/portal-grades.json');
+const gamification = readJson('etc/capsuleos/contracts/portal-gamification.json');
 const security = readJson('etc/capsuleos/contracts/portal-security.json');
 const legal = readJson('etc/capsuleos/contracts/portal-legal.json');
 
 if (offers) {
     const plans = offers.plans || [];
-    if (!Array.isArray(plans) || plans.length < 2) {
-        errors.push('portal-offers.json: au moins 2 plans requis');
+    if (!Array.isArray(plans) || plans.length < 3) {
+        errors.push('portal-offers.json: au moins 3 plans requis (free, subscriber, education)');
     }
     const subscriber = plans.find((p) => p.id === 'subscriber');
     if (!subscriber) {
@@ -72,8 +74,12 @@ if (entitlements) {
         if (!row || row.pedagogicalModules !== false) {
             errors.push(`portal-entitlements.json: osSession.${tier}.pedagogicalModules doit être false`);
         }
-        if (!row || row.maxMinutes !== 15) {
-            errors.push(`portal-entitlements.json: osSession.${tier}.maxMinutes doit être 15`);
+        const daily = row?.maxMinutesPerOsPerDay ?? row?.maxMinutes;
+        if (!row || daily !== 15) {
+            errors.push(`portal-entitlements.json: osSession.${tier} limite 15 min/jour requise`);
+        }
+        if (!row || row.storeBrowse !== true || row.storeAppLaunch !== false) {
+            errors.push(`portal-entitlements.json: osSession.${tier} store browse sans lancement apps`);
         }
     }
     const sub = osSession.subscriber;
@@ -83,6 +89,34 @@ if (entitlements) {
     const moduleAccess = entitlements.moduleAccess || {};
     if (!Array.isArray(moduleAccess.subscriber) || !moduleAccess.subscriber.includes('subscriber')) {
         errors.push('portal-entitlements.json: moduleAccess.subscriber doit inclure subscriber');
+    }
+}
+
+if (grades) {
+    const gradeIds = (grades.grades || []).map((g) => g.id);
+    for (const required of ['utilisateur', 'abonne', 'createur', 'professeur', 'eleve']) {
+        if (!gradeIds.includes(required)) {
+            errors.push(`portal-grades.json: grade ${required} manquant`);
+        }
+    }
+    if (grades.classBenefitsSticky) {
+        errors.push('portal-grades.json: classBenefitsSticky doit être false (pas de statut ancien élève)');
+    }
+}
+
+if (gamification) {
+    const badges = gamification.badges || [];
+    if (!Array.isArray(badges) || badges.length < 1) {
+        errors.push('portal-gamification.json: badges requis');
+    }
+}
+
+if (security) {
+    const dev = security.dev || {};
+    if (!dev.defaultUser || !dev.defaultPassword) {
+        errors.push('portal-security.json: dev.defaultUser et dev.defaultPassword requis');
+    } else if (String(dev.defaultPassword).length < (security.password?.minLength ?? 12)) {
+        errors.push('portal-security.json: dev.defaultPassword trop court');
     }
 }
 
@@ -110,12 +144,34 @@ const requiredPhp = [
     'portal/logout.php',
     'portal/subscribe.php',
     'portal/legal.php',
+    'portal/join-class.php',
     'portal/api/progress.php',
+    'portal/api/account.php',
+    'portal/api/os-usage.php',
+    'portal/api/tickets.php',
+    'portal/api/classroom.php',
+    'portal/api/classroom-join.php',
+    'portal/api/skins.php',
+    'portal/api/gamification.php',
     'srv/capsuleos/portal/bootstrap.php',
+    'srv/capsuleos/portal/src/Subscription/GradeResolver.php',
 ];
 for (const rel of requiredPhp) {
     if (!fs.existsSync(path.join(ROOT, rel))) {
         errors.push(`fichier PHP portail manquant: ${rel}`);
+    }
+}
+
+const accountPartials = [
+    'auth-account-usage.php',
+    'auth-account-subscription.php',
+    'auth-account-settings.php',
+    'auth-account-tickets.php',
+];
+for (const partial of accountPartials) {
+    const p = path.join(ROOT, 'usr/share/capsuleos/portal/views/partials', partial);
+    if (!fs.existsSync(p)) {
+        errors.push(`partial compte manquant: ${partial}`);
     }
 }
 
@@ -139,7 +195,7 @@ if (moduleJson && moduleJson.access !== 'subscriber') {
 }
 
 if (indexHtml.includes('Parcours débutant')) {
-    errors.push('index.html: offre gratuite ne doit plus annoncer Parcours débutant');
+    errors.push('index.html: plan free ne doit plus annoncer Parcours débutant');
 }
 
 const modulesData = path.join(ROOT, 'usr/lib/capsuleos/site/portal-modules-data.js');

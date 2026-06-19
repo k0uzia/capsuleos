@@ -19,7 +19,9 @@ $asset = static fn (string $path): string => portal_asset($path);
         <?php include CAPSULE_PORTAL_VIEWS . '/partials/header.php'; ?>
         <div class="portal-auth-wrap<?= !empty($ctx->extra['layoutWide']) ? ' portal-auth-wrap--wide' : '' ?>">
             <section class="portal-auth-card" aria-labelledby="auth-title">
+                <?php if (empty($ctx->extra['welcomeName'])) : ?>
                 <h1 class="portal-auth-title" id="auth-title"><?= $ctx->e((string) ($ctx->extra['heading'] ?? $ctx->pageTitle)) ?></h1>
+                <?php endif; ?>
                 <?php if ($error !== '') : ?>
                     <p class="portal-auth-error" role="alert"><?= $ctx->e($error) ?></p>
                 <?php endif; ?>
@@ -30,7 +32,15 @@ $asset = static fn (string $path): string => portal_asset($path);
     <?php include CAPSULE_PORTAL_VIEWS . '/partials/footer.php'; ?>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-site-home.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/header-nav.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-user-menu.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-login-modal.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-progress.js') ?>"></script>
+    <?php if (($ctx->extra['authPartial'] ?? '') === 'auth-account.php') : ?>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-nav.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-tickets.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-classroom-live.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-modals.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account.js') ?>"></script>
+    <?php endif; ?>
 </body>
 </html>

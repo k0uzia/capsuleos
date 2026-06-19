@@ -3,6 +3,7 @@
   "private": true,
   "description": "Dépendances Node pour les smokes lab (Playwright).",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "pixelmatch": "^7.2.0",
     "playwright": "1.60.0",
     "pngjs": "^7.0.0",
@@ -10,5 +11,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "sync-fontawesome": "cp -r node_modules/@fortawesome/fontawesome-free/css node_modules/@fortawesome/fontawesome-free/webfonts usr/share/capsuleos/assets/vendor/fontawesome/"
   }
 }

@@ -43,8 +43,19 @@ final class Entitlements
         return match ($moduleAccess) {
             'free' => 'Gratuit',
             'registered' => 'Compte requis',
-            'subscriber' => 'Capsule+',
+            'subscriber' => 'Abonné',
+            'free_store' => 'Store gratuit',
+            'class' => 'Classe',
             default => ucfirst($moduleAccess),
         };
+    }
+
+    /** @return array<string, mixed> */
+    public static function osSessionFor(string $entitlementLevel): array
+    {
+        $contract = self::contract();
+        $osSession = is_array($contract['osSession'] ?? null) ? $contract['osSession'] : [];
+        $row = is_array($osSession[$entitlementLevel] ?? null) ? $osSession[$entitlementLevel] : [];
+        return $row;
     }
 }

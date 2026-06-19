@@ -28,10 +28,14 @@ const MIME = {
 const NO_STORE = new Set([
     '/usr/lib/capsuleos/site/portal-site-home.js',
     '/index.html',
+    '/account.html',
     '/sw.js',
 ]);
 
 const shouldRedirectToDevHome = (pathname) => {
+    if (pathname === '/portal/account.php') {
+        return false;
+    }
     if (pathname === '/index.php') {
         return true;
     }
@@ -39,6 +43,16 @@ const shouldRedirectToDevHome = (pathname) => {
         return true;
     }
     return false;
+};
+
+const devRedirectTarget = (pathname, url) => {
+    if (pathname === '/portal/account.php') {
+        return `/account.html${url.search || ''}${url.hash || ''}`;
+    }
+    if (shouldRedirectToDevHome(pathname)) {
+        return `/index.html${url.search || ''}${url.hash || ''}`;
+    }
+    return null;
 };
 
 const resolveFile = (pathname) => {
@@ -72,10 +86,10 @@ export const startDevServer = (opts = {}) => {
             return;
         }
 
-        if (shouldRedirectToDevHome(pathname)) {
-            const target = `/index.html${url.search || ''}${url.hash || ''}`;
+        const redirectTarget = devRedirectTarget(pathname, url);
+        if (redirectTarget !== null) {
             res.writeHead(302, {
-                Location: target,
+                Location: redirectTarget,
                 'Cache-Control': 'no-store, no-cache, must-revalidate',
             });
             res.end();

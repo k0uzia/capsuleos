@@ -73,6 +73,14 @@
                 _csrf: csrfToken,
             }),
         });
+        if (doneCount > 0) {
+            fetch('/portal/api/gamification.php', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+                body: JSON.stringify({ action: 'add_xp', _csrf: csrfToken }),
+            }).catch(() => {});
+        }
     };
 
     const scheduleSave = (detail) => {

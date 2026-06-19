@@ -3,7 +3,7 @@
  * - network-first pour HTML/CSS/JS/JSON (mises à jour visibles rapidement)
  * - cache-first pour assets statiques lourds (offline performant)
  */
-const CACHE_NAME = 'capsuleos-runtime-v6';
+const CACHE_NAME = 'capsuleos-runtime-v7';
 const CACHE_PREFIX = 'capsuleos-runtime-';
 
 const isPortalPhpRoute = (request) => {

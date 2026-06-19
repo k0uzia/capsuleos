@@ -11,8 +11,8 @@ if (AuthService::currentUserId() === null) {
     portal_redirect('./register.php');
 }
 
-$ctx = PortalContext::fromRequest('Capsule+ — CapsuleOS');
+$ctx = PortalContext::fromRequest('Abonné — CapsuleOS');
 portal_render('layout-auth.php', $ctx, [
-    'heading' => 'Capsule+',
+    'heading' => 'Abonné',
     'authPartial' => 'auth-subscribe.php',
 ]);

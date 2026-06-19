@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-rocky",
-  "updatedAt": "2026-06-09T15:29:39.413Z",
+  "updatedAt": "2026-06-19T11:58:57.520Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -14,7 +14,8 @@
     "capsuleCapturesP1": 4,
     "capsuleCapturesP2": 4,
     "visualMatchClassifiedP1": 4,
-    "visualMatchClassifiedP2": 4
+    "visualMatchClassifiedP2": 4,
+    "softwareViewsCapsule": 9
   },
   "investigations": [
     {
@@ -116,7 +117,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C1 — mode Basique RL10 : pavé 4×5, ± et %, sans ligne sin/cos/π.",
@@ -222,7 +223,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C3 — org.gnome.Characters : recherche, détail FR, grille récents 16 caractères, sélection interactive.",
@@ -339,7 +340,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C1 — org.gnome.TextEditor : menus FR, zone claire, barre d'état, sans barre icônes xed.",
@@ -493,7 +494,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -573,7 +574,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C1 — nouvel onglet Proton FR, barre favoris Importés/La Capsule/os-lacapsule, palette RL10.",
@@ -688,7 +689,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C2 — org.gnome.clocks : navigation Monde/Alarmes/Minuteur/Chronomètre, villes FR live.",
@@ -812,11 +813,43 @@
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software.png",
-          "shot": "default"
+          "shot": "explore"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-updates.png",
+          "shot": "updates"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-installed.png",
+          "shot": "installed"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-detail.png",
+          "shot": "detail"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-categories.png",
+          "shot": "categories"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-install-open.png",
+          "shot": "install-open"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-search-install.png",
+          "shot": "search-install"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-updates-empty.png",
+          "shot": "updates-empty"
+        },
+        {
+          "path": "root/docs/inventaires/captures/linux-rocky/apps-visual-capsule/rocky-capsule-dark-software-installed-open.png",
+          "shot": "installed-open"
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C1 — vue Mises à jour ; contenu N2 aligné VM (versions RPM el10, libellés FR, liste groupée).",
@@ -914,7 +947,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C2 — org.gnome.Loupe : toolbar zoom, état vide, panneau propriétés, ouverture Nautilus.",
@@ -1029,7 +1062,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C3 — org.gnome.SystemMonitor : onglets Processus/Ressources/FS, courbes CPU-réseau animées et données RL10.",
@@ -1152,7 +1185,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C2 — org.gnome.Papers : toolbar pages/zoom, miniatures, état vide, ouverture Nautilus.",
@@ -1282,7 +1315,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -1355,7 +1388,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C2 — org.gnome.Snapshot : modes Photo/Vidéo, aperçu, bandeau effets, obturateur.",
@@ -1473,7 +1506,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C1 — org.gnome.Ptyxis : headerbar onglets, invite verte, menu FR, sans barre Konsole.",
@@ -1597,7 +1630,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C3 — org.gnome.baobab : volumes RL10, anneau d'usage, analyse avec barre de progression et treemap.",
@@ -1695,7 +1728,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial",
+        "visualMatch": "ok",
         "appCt": "partial"
       },
       "note": "Phase C3 — org.gnome.Tour : 5 cartes FR, navigation Suivant/Précédent et indicateur d'étapes.",

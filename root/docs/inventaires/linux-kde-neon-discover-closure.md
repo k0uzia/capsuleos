@@ -1,6 +1,6 @@
 # Clôture Discover — KDE neon User Edition
 
-> **Statut** : 🔄 réouvert (2026-06-11) — sidebar icônes Breeze VM · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
+> **Statut** : ✅ clôturé Capsule (2026-06-19) — `run-kde-neon-pass` + smokes Discover OK · réaudit sidebar icônes VM reste P1 sans SSH lab · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Checklist réparation : [`linux-kde-neon-repair-checklist.md`](linux-kde-neon-repair-checklist.md)
 
@@ -57,6 +57,16 @@ node root/tools/lab/capture-capsule-kde-neon.mjs
 | `vm-discover-installed.png` | Installé(s) (liste) | capture stable (recette G6 / recursive) |
 
 Captures VM par onglet : **réalisées** (G6 + fiche VLC). Reste la passe **fiches Installé(s) en détail** (Wayland : nécessite `wtype` sur la VM lab).
+
+## Gates (2026-06-19)
+
+```bash
+python3 -m http.server 5500
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --skip-runtime   # OK
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs                                                  # OK
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs                                                # OK
+node usr/lib/capsuleos/tools/validate-all.mjs                                                                 # OK
+```
 
 ## Gates (2026-06-06)
 

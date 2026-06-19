@@ -86,7 +86,7 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
       },
       {
         "id": "panel-firefox",
-        "capsuleRelative": "images/vendors/neon/panel/firefox-48.png",
+        "capsuleRelative": "images/vendors/neon/panel/firefox-48.webp",
         "iconName": "firefox"
       }
     ]
@@ -106,6 +106,6 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "icons/kde/breeze/places/user-home.svg",
     "icons/kde/breeze/places/user-trash.svg",
     "images/vendors/neon/panel/dolphin.png",
-    "images/vendors/neon/panel/firefox-48.png"
+    "images/vendors/neon/panel/firefox-48.webp"
   ]
 };

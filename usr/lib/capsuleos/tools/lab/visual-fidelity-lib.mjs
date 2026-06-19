@@ -181,6 +181,12 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/anduin',
     cssFile: 'home/Debian/AnduinOS/anduin-fonts.css',
   },
+  popos: {
+    uiFamily: 'Open Sans',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/popos',
+    cssFile: 'home/Debian/PopOS/popos-overrides.css',
+  },
   mint: {
     uiFamily: 'Ubuntu',
     monoFamily: 'Ubuntu Mono',
@@ -397,6 +403,7 @@ export const scanTypographyViolations = (registryId) => {
       'kde-neon': ['NotoSans-Bold.ttf', 'Ubuntu[wdth,wght].ttf'],
       anduinos: ['AdwaitaSans-Regular.ttf', 'Ubuntu[wdth,wght].ttf'],
       mint: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono[wght].ttf'],
+      popos: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono-Italic[wght].ttf'],
     };
     const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {

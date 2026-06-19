@@ -42,6 +42,12 @@ while [[ $# -gt 0 ]]; do
           TOOLKIT="cinnamon"
           ICON_THEME="Mint-Y"
           ;;
+        linux-popos)
+          VENDOR="popos"
+          SSH_TARGET="${POPOS_SSH:-goupil@192.168.123.75}"
+          TOOLKIT="cosmic"
+          ICON_THEME="Pop"
+          ;;
         *)
           VENDOR="rocky"
           ;;

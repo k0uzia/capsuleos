@@ -273,7 +273,7 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
       },
       {
         "id": "panel-firefox",
-        "capsuleRelative": "images/vendors/anduin/panel/firefox-48.png",
+        "capsuleRelative": "images/vendors/anduin/panel/firefox-48.webp",
         "iconName": "firefox"
       }
     ],
@@ -370,7 +370,7 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "icons/gnome/yaru/symbolic/places/user-home-symbolic.svg",
     "icons/gnome/yaru/symbolic/places/user-trash-symbolic.svg",
     "icons/gnome/yaru/symbolic/status/starred-symbolic.svg",
-    "images/vendors/anduin/panel/firefox-48.png",
+    "images/vendors/anduin/panel/firefox-48.webp",
     "images/vendors/anduin/panel/org.gnome.Nautilus.svg",
     "images/vendors/anduin/panel/org.gnome.Ptyxis.svg",
     "images/vendors/anduin/wallpaper/Floating-objects-dark.png",

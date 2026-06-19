@@ -46,4 +46,16 @@
     document.addEventListener('capsule-window-opened', function (e) {
         if (e.detail && e.detail.link) setActive(e.detail.link);
     });
+
+    if (typeof window.openWindowByDataLink === 'function' && !window.openWindowByDataLink.__cosmicDockHook) {
+        var origOpen = window.openWindowByDataLink;
+        window.openWindowByDataLink = function cosmicDockOpenHook(link) {
+            var result = origOpen.apply(this, arguments);
+            if (link) {
+                window.setTimeout(function () { syncActiveForLink(link); }, 0);
+            }
+            return result;
+        };
+        window.openWindowByDataLink.__cosmicDockHook = true;
+    }
 })();

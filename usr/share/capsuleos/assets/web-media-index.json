@@ -962,6 +962,54 @@
       "encoder": "ffmpeg+convert"
     },
     {
+      "output": "images/vendors/popos/panel/firefox-48.webp",
+      "source": "images/vendors/popos/panel/firefox-48.png",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/A_stormy_stellar_nursery_esa_379309.webp",
+      "source": "images/vendors/popos/wallpaper/A_stormy_stellar_nursery_esa_379309.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/orion_nebula_nasa_heic0601a.webp",
+      "source": "images/vendors/popos/wallpaper/orion_nebula_nasa_heic0601a.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/otherworldly_earth_nasa_ISS064-E-29444.webp",
+      "source": "images/vendors/popos/wallpaper/otherworldly_earth_nasa_ISS064-E-29444.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/phytoplankton_bloom_nasa_oli2_20240121.webp",
+      "source": "images/vendors/popos/wallpaper/phytoplankton_bloom_nasa_oli2_20240121.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/round_moons_nasa.webp",
+      "source": "images/vendors/popos/wallpaper/round_moons_nasa.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/tarantula_nebula_nasa_PIA23646.webp",
+      "source": "images/vendors/popos/wallpaper/tarantula_nebula_nasa_PIA23646.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/popos/wallpaper/webb-inspired-wallpaper-system76.webp",
+      "source": "images/vendors/popos/wallpaper/webb-inspired-wallpaper-system76.jpg",
+      "preparedAt": "2026-06-19T13:33:15.745Z",
+      "encoder": "sharp"
+    },
+    {
       "output": "images/vendors/rocky/panel/firefox-48.webp",
       "source": "images/vendors/rocky/panel/firefox-48.png",
       "preparedAt": "2026-06-07T09:12:13.812Z",
@@ -1004,6 +1052,18 @@
       "encoder": "ffmpeg+convert"
     },
     {
+      "output": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.webp",
+      "source": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.jpg",
+      "preparedAt": "2026-06-19T13:18:08.665Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.webp",
+      "source": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.jpg",
+      "preparedAt": "2026-06-19T13:18:08.665Z",
+      "encoder": "sharp"
+    },
+    {
       "output": "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp",
       "source": "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.png",
       "preparedAt": "2026-06-07T09:29:11.176Z",
@@ -1014,6 +1074,18 @@
       "source": "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.png",
       "preparedAt": "2026-06-07T09:29:11.176Z",
       "encoder": "ffmpeg+convert"
+    },
+    {
+      "output": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.webp",
+      "source": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.jpg",
+      "preparedAt": "2026-06-19T13:18:08.665Z",
+      "encoder": "sharp"
+    },
+    {
+      "output": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.webp",
+      "source": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.jpg",
+      "preparedAt": "2026-06-19T13:18:08.665Z",
+      "encoder": "sharp"
     },
     {
       "output": "images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.webp",
@@ -1700,5 +1772,5 @@
       "encoder": "sharp"
     }
   ],
-  "updatedAt": "2026-06-16T09:50:47.916Z"
+  "updatedAt": "2026-06-19T13:33:15.765Z"
 }

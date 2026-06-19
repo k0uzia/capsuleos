@@ -8,15 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../../../usr/lib/capsuleos/common/user-home.js?v=8651cab1d6"></script>
     <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js?v=fb7d7cc089"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js?v=b9f2628aa4"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js?v=647f14c52f"></script>
     <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-popos';</script>
     <script src="../../../usr/lib/capsuleos/common/capsule-resource.js?v=bf2e629c16"></script>
     <script src="../../../usr/lib/capsuleos/core/cluster-registry.js?v=d3bac825ea"></script>
+        <script src="./data/manifest-icon-pack-refs.js?v=bb702ac99e"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js?v=c932ae1095"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/popos/pop-logo.png" type="image/png">
     <link rel="stylesheet" href="./style/imports.css?v=4333dfae1b" type="text/css">
     <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css?v=60b6a55e2b" type="text/css">
-    <link rel="stylesheet" href="./popos-overrides.css?v=78fce75e81" type="text/css">
+    <link rel="stylesheet" href="./popos-overrides.css?v=76d4036aa8" type="text/css">
     <title>Pop!_OS - COSMIC - CapsuleOS</title>
 </head>
 <body id="popos" data-skin="popos" data-capsule-rev="20260622">
@@ -107,6 +108,8 @@
             <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
             <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
             <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+            <div class="windowElement" data-link="libreoffice_startcenter" id="libreoffice_startcenter" style="display: none;"></div>
+            <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
                 <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
                 <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
                 <div class="windowElement" data-link="calendar" id="calendar" style="display: none;"></div>
@@ -350,7 +353,7 @@
     </script>
 
     <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js?v=5309ff7dda"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=164e00df6b"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=cde24d760a"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=f13bebb6e9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=dd21339878"></script>
     <script src="../../../usr/lib/capsuleos/common/capsule-window.js?v=76aadba6a9"></script>
@@ -367,6 +370,9 @@
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=b0835fae8c"></script>
     <script src="./js/cosmic-maximize-shell.js?v=559a09aba2"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js?v=7bd1843430"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js?v=67cda8291d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js?v=c602c5c5f8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-parity.js?v=edb5e4f1ea"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=366f143a4c"></script>
     <script src="./content/profile-data.js?v=872e8ecef9"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js?v=c73372d8e9"></script>
@@ -443,7 +449,7 @@
     <script src="./js/cosmic-workspaces.js?v=901f17e3e1"></script>
     <script src="./js/cosmic-launcher.js?v=838f20773c"></script>
     <script src="./js/cosmic-applications.js?v=19b655f235"></script>
-    <script src="./js/cosmic-dock.js?v=16b91b0298"></script>
+    <script src="./js/cosmic-dock.js?v=ace387d79e"></script>
     <script src="./js/cosmic-power-menu.js?v=433c3191fc"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {

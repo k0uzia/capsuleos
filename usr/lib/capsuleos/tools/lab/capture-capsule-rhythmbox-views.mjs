@@ -7,6 +7,7 @@ import path from 'path';
 import { appsPathsForRegistry } from './apps-replication-lib.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
+import { vendorPrefix } from './apps-parity-capture-lib.mjs';
 
 const parseArgs = () => {
   const args = process.argv.slice(2);
@@ -44,6 +45,7 @@ const main = async () => {
   const paths = appsPathsForRegistry(opts.id);
   fs.mkdirSync(paths.capsuleCapturesDir, { recursive: true });
   const url = resolveCapsuleOsUrl(opts.id, resolveCapsuleHttpBase(opts.id));
+  const prefix = vendorPrefix(opts.id);
 
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({
@@ -53,10 +55,10 @@ const main = async () => {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 
   const shots = [
-    { file: 'ubuntu-capsule-dark-rhythmbox-library.png', setup: null },
-    { file: 'ubuntu-capsule-dark-rhythmbox-track.png', setup: 'track' },
-    { file: 'ubuntu-capsule-dark-rhythmbox-play.png', setup: 'play' },
-    { file: 'ubuntu-capsule-dark-rhythmbox-podcasts.png', setup: 'podcasts' },
+    { file: `${prefix}-capsule-dark-rhythmbox-library.png`, setup: null },
+    { file: `${prefix}-capsule-dark-rhythmbox-track.png`, setup: 'track' },
+    { file: `${prefix}-capsule-dark-rhythmbox-play.png`, setup: 'play' },
+    { file: `${prefix}-capsule-dark-rhythmbox-podcasts.png`, setup: 'podcasts' },
   ];
 
   for (const shot of shots) {
@@ -86,6 +88,11 @@ const main = async () => {
     const out = path.join(paths.capsuleCapturesDir, shot.file);
     await page.screenshot({ path: out, fullPage: false });
     process.stdout.write(`  → ${out}\n`);
+    if (shot.setup === null && opts.id === 'linux-popos') {
+      const alias = path.join(paths.capsuleCapturesDir, 'popos-capsule-dark-lecteur_multimedia.png');
+      fs.copyFileSync(out, alias);
+      process.stdout.write(`  → ${alias} (alias lecteur_multimedia)\n`);
+    }
   }
 
   await browser.close();

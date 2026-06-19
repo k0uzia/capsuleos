@@ -59,12 +59,16 @@ def detect_toolkit() -> dict[str, Any]:
     session = os.environ.get("XDG_SESSION_TYPE", "")
     detected = [x.strip() for x in de.split(":") if x.strip()]
     toolkit = "unknown"
-    if any("GNOME" in x.upper() for x in detected):
+    if any("COSMIC" in x.upper() for x in detected):
+        toolkit = "cosmic"
+    elif any("GNOME" in x.upper() for x in detected):
         toolkit = "gnome"
     elif any("KDE" in x.upper() for x in detected):
         toolkit = "kde"
     elif any("CINNAMON" in x.upper() for x in detected):
         toolkit = "cinnamon"
+    elif run("which cosmic-comp") or run("which cosmic-panel"):
+        toolkit = "cosmic"
     elif run("which gnome-shell"):
         toolkit = "gnome"
     elif run("which plasmashell"):
@@ -168,6 +172,7 @@ def toolkit_visibility(parsed: dict[str, Any], toolkit_id: str) -> dict[str, Any
     notshow = [x.strip() for x in notshow if x.strip()]
 
     de_tokens = {
+        "cosmic": ("COSMIC",),
         "gnome": ("GNOME",),
         "kde": ("KDE",),
         "cinnamon": ("X-Cinnamon", "Cinnamon"),
@@ -841,11 +846,12 @@ def main() -> None:
     vendor_id = os.environ.get("VENDOR_ID") or vendor_from_os(os_release(), registry_id)
     os_data = os_release()
     toolkit = detect_toolkit()
-    catalog = load_media_catalog(vendor_id, toolkit["id"])
+    scan_toolkit = "gnome" if toolkit["id"] == "cosmic" else toolkit["id"]
+    catalog = load_media_catalog(vendor_id, scan_toolkit)
     applications = scan_applications(toolkit["id"])
-    theme_meta = scan_theme_media(toolkit["id"])
+    theme_meta = scan_theme_media(scan_toolkit)
     icon_theme = theme_meta.get("iconTheme") or "Yaru"
-    media = build_media_bundle(vendor_id, toolkit["id"], icon_theme, catalog, applications)
+    media = build_media_bundle(vendor_id, scan_toolkit, icon_theme, catalog, applications)
     media.update({
         k: theme_meta[k] for k in (
             "iconTheme", "gtkTheme", "backgroundUri", "cursorTheme",

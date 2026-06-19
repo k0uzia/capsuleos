@@ -316,13 +316,13 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-rocky-default-10-arizona-sunrise.jpg",
-        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.jpg",
+        "id": "wallpaper-rocky-default-10-arizona-sunrise.webp",
+        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-rocky-default-10-arizona-sunset.jpg",
-        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.jpg",
+        "id": "wallpaper-rocky-default-10-arizona-sunset.webp",
+        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.webp",
         "iconName": null
       },
       {
@@ -331,13 +331,13 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-rocky-default-10-quartz-forest-day.jpg",
-        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.jpg",
+        "id": "wallpaper-rocky-default-10-quartz-forest-day.webp",
+        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-rocky-default-10-quartz-forest-night.jpg",
-        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.jpg",
+        "id": "wallpaper-rocky-default-10-quartz-forest-night.webp",
+        "capsuleRelative": "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.webp",
         "iconName": null
       },
       {
@@ -410,12 +410,12 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/rocky/wallpaper/rocky-default-10-abstract-3.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-abstract-4.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-abstract-5.webp",
-    "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.jpg",
-    "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.jpg",
+    "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunrise.webp",
+    "images/vendors/rocky/wallpaper/rocky-default-10-arizona-sunset.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp",
-    "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.jpg",
-    "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.jpg",
+    "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-day.webp",
+    "images/vendors/rocky/wallpaper/rocky-default-10-quartz-forest-night.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-sapphire-light.webp",
     "images/vendors/rocky/wallpaper/rocky-default-10-sapphire.webp",
     "images/vendors/rocky/watermark/fedora_logo_darkbackground.svg"

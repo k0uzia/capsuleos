@@ -5,6 +5,7 @@ export const vendorPrefix = (registryId) => {
   if (registryId === 'linux-alma') return 'alma';
   if (registryId === 'linux-fedora') return 'fedora';
   if (registryId === 'linux-ubuntu') return 'ubuntu';
+  if (registryId === 'linux-popos') return 'popos';
   return 'rocky';
 };
 

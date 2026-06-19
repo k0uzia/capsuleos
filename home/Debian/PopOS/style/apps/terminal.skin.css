@@ -129,7 +129,7 @@ body#popos #terminal.terminal-window--cosmic .cosmic-terminal-header__menu {
     border: 0;
     border-radius: calc(var(--head) / 10);
     color: var(--popos-terminal-chrome-accent);
-    font-family: "Inter", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     font-size: calc(var(--head) / 2.65);
     font-weight: 500;
     line-height: 1.15;

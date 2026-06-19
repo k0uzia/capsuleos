@@ -94,6 +94,8 @@ function listSkinIds(skinDir) {
 function buildCssBase(templateId) {
     const CSS_BASE_ALIASES = {
         systemsettings_kde_neon: 'systemsettings_kde',
+        themes_cosmic: 'themes_gnome',
+        update_manager_cosmic: 'update_manager_gnome',
     };
     const cssBaseId = CSS_BASE_ALIASES[templateId]
         ?? (['nemo-gnome', 'nemo-cosmic', 'nautilus', 'nautilus-cosmic'].includes(templateId)

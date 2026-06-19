@@ -99,8 +99,13 @@
           "description": "Paramètres Cinnamon — matrice 40 panneaux, EFFECT_HANDLERS, bus Se"
         },
         "cosmic": {
-          "status": "stub",
-          "description": "À brancher — COSMIC settings"
+          "domain": "cosmic-settings-playbook",
+          "doc": "root/docs/procedure-playbook-general.md",
+          "contract": "etc/capsuleos/contracts/cosmic-ground-truth-chain.json",
+          "orchestrator": "usr/lib/capsuleos/tools/lab/run-cosmic-formal-chain.mjs",
+          "registryIds": ["linux-popos"],
+          "completeWhen": ["CosΣ"],
+          "description": "Paramètres COSMIC — panneaux cosmic-settings (manifeste VM), matrice, gates CosC/CosA/CosP"
         },
         "pantheon": {
           "status": "scaffold",

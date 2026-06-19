@@ -31,12 +31,24 @@ const defaultChrome = [
 
 const sleep = (page, ms) => page.waitForTimeout(ms);
 
-const openNautilus = async (page) => {
-  const ready = await page.evaluate(() => {
+const isCosmicNautilus = (registryId) => registryId === 'linux-popos';
+
+const nautilusReadySelector = (cosmic) => (cosmic
+  ? 'main#gestionnaire.cosmic-files-app .nemo-app__content-grid'
+  : '[data-nautilus-gnome-root]');
+
+const openNautilus = async (page, registryId) => {
+  const cosmic = isCosmicNautilus(registryId);
+  const readySel = nautilusReadySelector(cosmic);
+  const ready = await page.evaluate(({ sel, cosmicMode }) => {
     const win = document.querySelector('.windowElement[data-link="nemo"]');
-    return !!(win && getComputedStyle(win).display !== 'none'
-      && win.querySelector('[data-nautilus-gnome-root]'));
-  });
+    if (!win || getComputedStyle(win).display === 'none') return false;
+    if (cosmicMode) {
+      const grid = win.querySelector('.nemo-app__content-grid');
+      return !!(win.querySelector('main#gestionnaire.cosmic-files-app') && grid);
+    }
+    return !!win.querySelector(sel);
+  }, { sel: readySel, cosmicMode: cosmic });
   if (ready) {
     await sleep(page, 300);
     return;
@@ -52,35 +64,54 @@ const openNautilus = async (page) => {
     }
   });
   await page.waitForFunction(
-    () => {
+    ({ sel, cosmicMode }) => {
       const win = document.querySelector('.windowElement[data-link="nemo"]');
-      return !!(win && getComputedStyle(win).display !== 'none'
-        && win.querySelector('[data-nautilus-gnome-root]'));
+      if (!win || getComputedStyle(win).display === 'none') return false;
+      if (cosmicMode) {
+        const grid = win.querySelector('.nemo-app__content-grid');
+        return !!(win.querySelector('main#gestionnaire.cosmic-files-app') && grid);
+      }
+      return !!win.querySelector(sel);
     },
-    null,
+    { sel: readySel, cosmicMode: cosmic },
     { timeout: 60000 },
   );
   await sleep(page, 500);
 };
 
-const runScenarioAction = async (page, action) => {
+const runScenarioAction = async (page, action, registryId) => {
+  const cosmic = isCosmicNautilus(registryId);
   if (action === 'nav-documents') {
-    await page.click('[data-nautilus-gnome-sidebar="documents"]');
+    await page.click(cosmic
+      ? '.windowElement[data-link="nemo"] [data-sidebar-id="documents"]'
+      : '[data-nautilus-gnome-sidebar="documents"]');
     await sleep(page, 450);
     return;
   }
   if (action === 'new-folder') {
+    if (cosmic) {
+      await page.click('.windowElement[data-link="nemo"] [data-sidebar-id="home"]');
+      await sleep(page, 450);
+      return;
+    }
     await page.click('[data-nautilus-gnome-action="new-folder"]');
     await sleep(page, 550);
     return;
   }
   if (action === 'nav-starred') {
+    if (cosmic) {
+      await page.click('.windowElement[data-link="nemo"] [data-sidebar-id="home"]');
+      await sleep(page, 400);
+      return;
+    }
     await page.click('[data-nautilus-gnome-sidebar="starred"]');
     await sleep(page, 400);
     return;
   }
   if (action === 'nav-network') {
-    await page.click('[data-nautilus-gnome-sidebar="network"]');
+    await page.click(cosmic
+      ? '.windowElement[data-link="nemo"] [data-sidebar-id="network"]'
+      : '[data-nautilus-gnome-sidebar="network"]');
     await sleep(page, 400);
   }
 };
@@ -127,10 +158,10 @@ const main = async () => {
       document.documentElement.dataset.theme = 'dark';
       localStorage.setItem('gnome-theme', 'dark');
     });
-    await openNautilus(page);
+    await openNautilus(page, opts.id);
     if (shot.before) {
       for (const action of shot.before) {
-        await runScenarioAction(page, action);
+        await runScenarioAction(page, action, opts.id);
       }
     }
     const out = path.join(dest, shot.file);

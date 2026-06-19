@@ -10,6 +10,24 @@ const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/apps-replication-
 
 export const loadAppsReplicationContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
 
+/** Noms de fichiers capture Capsule Linux Mint (capture-capsule-mint.mjs). */
+const MINT_CAPTURE_ALIASES = {
+  nemo: ['mint-capsule-nemo.png', '03-nemo.png'],
+  firefox: ['mint-capsule-firefox.png', '04-firefox.png'],
+  terminal: ['mint-capsule-terminal.png', '05-terminal.png'],
+  themes: ['mint-capsule-themes.png'],
+  mintinstall: ['mint-capsule-mintinstall.png'],
+  update_manager: ['mint-capsule-update_manager.png'],
+  calculator: ['mint-capsule-calculator.png'],
+  calendar: ['mint-capsule-calendar.png'],
+  screenshot: ['mint-capsule-screenshot.png'],
+  text_editor: ['mint-capsule-text_editor.png'],
+  drawing: ['mint-capsule-drawing.png'],
+  lecteur_multimedia: ['mint-capsule-lecteur_multimedia.png'],
+  libreoffice_startcenter: ['mint-capsule-libreoffice_startcenter.png'],
+  librewriter: ['mint-capsule-librewriter.png', 'mint-capsule-libreoffice_startcenter.png'],
+};
+
 /** Noms de fichiers capture Capsule KDE Neon (capture-capsule-kde-neon.mjs + baseline). */
 const KDE_NEON_CAPTURE_ALIASES = {
   themes: ['capsule-systemsettings.png', 'themes.png'],
@@ -28,6 +46,14 @@ const KDE_NEON_CAPTURE_ALIASES = {
 
 /** Noms de fichiers capture Capsule par controlId (préfixe rocky-capsule-dark-*). */
 export const capsuleCaptureCandidates = (controlId, registryId = 'linux-rocky') => {
+  if (registryId === 'linux-mint') {
+    return [
+      `${controlId}.png`,
+      `mint-capsule-${controlId}.png`,
+      `capsule-${controlId}.png`,
+      ...(MINT_CAPTURE_ALIASES[controlId] || []),
+    ];
+  }
   if (registryId === 'linux-kde-neon') {
     return [
       `${controlId}.png`,
@@ -109,6 +135,11 @@ export const capsuleCaptureCandidates = (controlId, registryId = 'linux-rocky') 
 
 export const capsuleCaptureSearchDirs = (registryId, paths) => {
   const dirs = [paths.capsuleCapturesDir];
+  if (registryId === 'linux-mint') {
+    const captureRoot = path.join(ROOT, 'root/docs/inventaires/captures/linux-mint');
+    dirs.push(path.join(captureRoot, 'baseline'));
+    return [...new Set(dirs)];
+  }
   if (registryId !== 'linux-kde-neon') {
     return dirs;
   }

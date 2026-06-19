@@ -17,6 +17,7 @@ import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';
 
 const GNOME_RHEL_CAPTURE_IDS = ['linux-rocky', 'linux-alma', 'linux-fedora'];
 const KDE_NEON_CAPTURE_IDS = ['linux-kde-neon'];
+const MINT_CAPTURE_IDS = ['linux-mint'];
 
 const PRIORITIES = ['P0', 'P1', 'P2'];
 
@@ -80,6 +81,24 @@ const main = () => {
           ...process.env,
           CAPSULE_HTTP_BASE: httpBase,
           CAPSULE_KDE_NEON_URL: resolveCapsuleOsUrl(opts.id, httpBase),
+        },
+      });
+      if (res.status !== 0) process.exit(res.status || 1);
+    }
+  }
+
+  if (MINT_CAPTURE_IDS.includes(opts.id)) {
+    const script = path.join(ROOT, 'root/tools/lab/capture-capsule-mint.mjs');
+    if (fs.existsSync(script)) {
+      const dest = paths.capsuleCapturesDir;
+      fs.mkdirSync(dest, { recursive: true });
+      const res = spawnSync(process.execPath, [script, dest], {
+        cwd: ROOT,
+        stdio: 'inherit',
+        env: {
+          ...process.env,
+          CAPSULE_HTTP_BASE: httpBase,
+          CAPSULE_MINT_URL: resolveCapsuleOsUrl(opts.id, httpBase),
         },
       });
       if (res.status !== 0) process.exit(res.status || 1);

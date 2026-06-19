@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-mint",
-  "updatedAt": "2026-06-17T22:36:29.666Z",
+  "updatedAt": "2026-06-19T12:18:03.959Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
@@ -9,8 +9,12 @@
     "vmCapturesP0": 0,
     "componentShotsPlanned": 57,
     "componentShotsCaptured": 0,
-    "capsuleCapturesP0": 0,
-    "visualMatchClassifiedP0": 0
+    "capsuleCapturesP0": 16,
+    "visualMatchClassifiedP0": 16,
+    "capsuleCapturesP1": 0,
+    "capsuleCapturesP2": 0,
+    "visualMatchClassifiedP1": 0,
+    "visualMatchClassifiedP2": 0
   },
   "investigations": [
     {
@@ -544,9 +548,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-calendar.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -885,9 +894,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-calculator.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -933,9 +947,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-screenshot.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -1573,9 +1592,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-drawing.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -1671,9 +1695,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-text_editor.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -2100,9 +2129,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-nemo.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -2170,9 +2204,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-firefox.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -2641,9 +2680,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-update_manager.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -2768,9 +2812,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-update_manager.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -3333,9 +3382,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-lecteur_multimedia.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -3580,9 +3634,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-libreoffice_startcenter.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -3603,9 +3662,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-mintinstall.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -3626,9 +3690,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-mintinstall.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -4469,9 +4538,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-themes.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -5602,9 +5676,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-terminal.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -5682,9 +5761,14 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-themes.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
+        "visualMatch": "partial"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

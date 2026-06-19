@@ -84,6 +84,8 @@ Ces exceptions **ne** justifient **pas** l’usage de `toolkits/gnome` pour les 
 node usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-mint
 node usr/lib/capsuleos/tools/validate-clone-assets.mjs --id linux-mint
 node usr/lib/capsuleos/tools/print-validation-plan.mjs home/Debian/Mint/
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id linux-mint
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id linux-mint
 ```
 
 Audit détaillé : [inventaires/linux-mint-cinnamon-vs-gnome-audit.md](inventaires/linux-mint-cinnamon-vs-gnome-audit.md).

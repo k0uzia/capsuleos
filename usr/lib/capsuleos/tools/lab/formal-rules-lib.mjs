@@ -429,6 +429,32 @@ export const evaluateFormalRules = (registryId) => {
       gateOnSuccess: null,
     },
     {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!gates.PbΣ || !gates.SeΣ) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ SeΣ — gate pré-H6 Cinnamon (Paramètres CS + smoke)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-cinnamon-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
       rule: 'R-H6-DONE',
       when: () => gates.H6 && gates.H2 && gates.A && gates.L && gates.Shell1 && gates.Shell2 && gates.AppΣ && gates.Tf,
       message: 'Chaîne formelle complète (shell + apps P0 + fidélité visuelle) — maintenance validate-all',

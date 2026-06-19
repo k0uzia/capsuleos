@@ -299,6 +299,19 @@
       "autoExecute": true,
       "requiresH6Ready": "root/docs/inventaires/{id}-gnome-settings-h6-ready.json"
     },
+    "smoke-h6-cinnamon-ready": {
+      "predicate": "H6",
+      "rule": "R-H6-PRE",
+      "command": "node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id {id}",
+      "autoExecute": true
+    },
+    "close-h6-cinnamon-settings": {
+      "predicate": "H6",
+      "rule": "R-H6",
+      "command": "node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id {id}",
+      "autoExecute": true,
+      "requiresH6Ready": "root/docs/inventaires/{id}-gnome-settings-h6-ready.json"
+    },
     "smoke-h5-p1": {
       "predicate": "H6",
       "rule": "R-H6-SMOKE",

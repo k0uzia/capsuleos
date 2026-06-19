@@ -384,6 +384,11 @@
       "extends": "toolkit:windows-shell",
       "iconPack": "icons/gnome/adwaita",
       "note": "Auto-généré pour windows-11 — affiner après première collecte VM"
+    },
+    "debian": {
+      "extends": "toolkit:kde",
+      "iconPack": "icons/kde/breeze",
+      "note": "Auto-généré pour linux-debian-kde — affiner après première collecte VM"
     }
   },
   "defaultToolkit": "gnome",

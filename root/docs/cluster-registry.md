@@ -20,4 +20,7 @@ Classification hiérarchique des templates HTML/CSS.
 
 ```bash
 node usr/lib/capsuleos/tools/build-cluster-registry.mjs
+node usr/lib/capsuleos/tools/build-cluster-registry.mjs --check   # gate validate-capsule
 ```
+
+Après toute modification de `etc/capsuleos/cluster-registry.json`, regénérer le runtime **avant** merge.

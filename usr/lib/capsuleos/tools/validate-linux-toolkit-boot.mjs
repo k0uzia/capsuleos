@@ -15,7 +15,19 @@ const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
 const boot = JSON.parse(fs.readFileSync(BOOT, 'utf8'));
 const errors = [];
 
-const activeLinux = registry.entries.filter((e) => e.status === 'active' && e.family === 'linux');
+const activeLinux = registry.entries.filter((e) => {
+  if (e.family !== 'linux') {
+    return false;
+  }
+  if (e.status === 'active') {
+    return true;
+  }
+  if (e.status === 'planned') {
+    const skinRel = e.skin || e.referencePaths?.skin;
+    return !!(skinRel && fs.existsSync(path.join(ROOT, skinRel)));
+  }
+  return false;
+});
 
 for (const entry of activeLinux) {
   const skinRel = entry.skin || entry.referencePaths?.skin;
@@ -33,7 +45,7 @@ for (const entry of activeLinux) {
   if (!spec) {
     continue;
   }
-  ['clusterRegistry', 'explorerRegistry', 'explorerIconBase'].forEach((key) => {
+  ['clusterRegistry', 'explorerRegistry', 'explorerIconBase', 'fileExplorerVfs', 'capsuleUserFs'].forEach((key) => {
     const rel = spec[key];
     if (!rel) {
       return;

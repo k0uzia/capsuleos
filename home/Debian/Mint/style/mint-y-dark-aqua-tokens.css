@@ -3,32 +3,49 @@
  * Ne pas confondre avec Mint-Y vert (#87cf3e / #5abc3b).
  */
 body#mint {
-    /* VM Cinnamon panel1 = 40 px — pas d'héritage portal (--taskbar-height: 1.25×head) */
-    --mint-panel-height: 40px;
+    /* VM Cinnamon panel1 = 40 px (= --head à 100 %) — suit texte agrandi via a11y-overrides */
+    --mint-panel-height: var(--head);
     --taskbar-height: var(--mint-panel-height);
-    --mint: url(../../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/default_background.jpg);
-    --font-ui: 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
+    --mint: url(./assets/images/vendors/mint/wallpaper/default_background.webp);
+    /* VM : gsettings font-name = 'Ubuntu 10' (13.3px) */
+    --font-ui: 'Ubuntu', 'Noto Sans', Cantarell, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'Ubuntu Mono', 'DejaVu Sans Mono', monospace;
+    /* La règle portail universelle `* { font-family: var(--font) }` court-circuite
+       l'héritage — rebrancher --font sur la pile Ubuntu pour tout le bureau Mint (vérité VM) */
+    --font: var(--font-ui);
     --texte: #e1e1e1;
     /* html{color:var(--texte)} portail — réappliquer teinte VM #e1e1e1 + stack Cantarell/Noto */
     color: var(--texte);
     font-family: var(--font-ui);
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
-    --mint-taskbar-bg: #2e2e33;
-    --mint-clock-hover-bg: #303036;
-    --mint-taskbar-item-border-hover: #3c3c44;
-    --mint-tray-separator: rgba(255, 255, 255, 0.12);
+    /* VM panel1 (gsettings + capture Φ) : #2f2e33 */
+    --mint-taskbar-bg: #2f2e33;
+    --mint-clock-hover-bg: #303035;
+    --mint-taskbar-item-border-hover: #3f3f46;
+    --mint-tray-separator: rgba(255, 255, 255, 0.14);
     --mint-tray-item-size: 24px;
     --mint-tray-icon-size: 24px;
     --mint-favorites-icon-size: 22px;
+    /* grouped-window-list VM (capture + spec) : icône 24 px, slot ~32 px, gap ~4 px */
+    --mint-panel-launcher-icon-size: 24px;
+    --mint-panel-launcher-hit-size: 32px;
+    --mint-panel-launcher-gap: 4px;
+    --mint-panel-menu-icon-size: 32px;
+    --mint-panel-menu-ring: rgba(255, 255, 255, 0.16);
     --mint-tray-color: #e1e1e1;
     --mint-tray-item-hover-bg: rgba(255, 255, 255, 0.08);
-    --menu-sidebar-bg: #27272b;
-    --menu-cats-bg: #2a2a2f;
+    /* Mesure pixel VM (scène Φ shell/menu) : sidebar #303036, colonnes contenu #222226 */
+    --menu-sidebar-bg: #303036;
+    --menu-cats-bg: #222226;
     --menu-apps-bg: #222226;
     --menu-shell-border: #1a1a1b;
     --menu-sidebar-separator: #1a1a1b;
-    --menu-item-active-bg: #303036;
+    /* VM menu : pill catégorie active #3d3d47 (≠ sidebar #303036) */
+    --menu-item-active-bg: #3d3d47;
+    --menu-app-desc-color: #a0a0a0;
+    --menu-power-bg: #d94141;
+    --menu-power-bg-hover: #e05050;
     --menu-shortcut-hover: #303036;
     --menu-action-hover: #3c3c44;
     --menu-search-border: #303036;
@@ -57,8 +74,31 @@ body#mint {
 }
 
 html[data-theme="light"] body#mint {
+    --texte: #1e1e1e;
     --menu-accent: #1f9ede;
     --mint-launcher-running-accent: #1f9ede;
+    --mint-taskbar-bg: #ececee;
+    --mint-clock-hover-bg: rgba(0, 0, 0, 0.08);
+    --mint-taskbar-item-border-hover: #a8a8b0;
+    --mint-tray-separator: rgba(0, 0, 0, 0.14);
+    --mint-tray-color: #2e2e33;
+    --mint-tray-item-hover-bg: rgba(0, 0, 0, 0.08);
+    --menu-sidebar-bg: #e8e8ec;
+    --menu-cats-bg: #f4f4f6;
+    --menu-apps-bg: #fafafa;
+    --menu-shell-border: #c8c8d0;
+    --menu-sidebar-separator: #d0d0d6;
+    --menu-item-active-bg: #dceaf4;
+    --menu-app-desc-color: #666670;
+    --menu-power-bg: #d94141;
+    --menu-power-bg-hover: #e05050;
+    --menu-shortcut-hover: rgba(0, 0, 0, 0.06);
+    --menu-action-hover: rgba(0, 0, 0, 0.08);
+    --menu-search-border: #c0c0c8;
+    --menu-search-border-focus: #1f9ede;
+    --menuHover: #e0e4ea;
+    --menuInput: #ffffff;
+    --genMenu: #f4f4f6;
     --menuDefaultCcol: #f0f0f2;
     --nemoHC: #e8e8ea;
     --nemoHCB: #dcdce0;
@@ -67,5 +107,8 @@ html[data-theme="light"] body#mint {
     --mint-window-header-border-active: #1f9ede;
     --mint-window-control-border-hover: rgba(0, 0, 0, 0.2);
     --mint-window-control-bg-hover: rgba(0, 0, 0, 0.06);
-    --texte: #1e1e1e;
+    --desktop-shortcut-text: #ffffff;
+    --desktop-shortcut-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --desktop-shortcut-hover-bg: rgba(0, 0, 0, 0.08);
+    --volume-popover-thumb-bg: #1f9ede;
 }

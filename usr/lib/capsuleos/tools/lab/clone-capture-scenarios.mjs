@@ -118,21 +118,73 @@ const plasmaShots = [
     },
   },
   { name: '05-terminal', action: async (page) => openSlot(page, 'terminal') },
-  { name: '06-discover', action: async (page) => openSlot(page, 'update_manager') },
   {
-    name: '07-discover-detail-vlc',
+    name: '06-discover',
     action: async (page) => {
+      await page.evaluate(() => {
+        sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+      });
       await openSlot(page, 'update_manager');
-      await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
+      await page.waitForSelector('[data-discover-store-section]', { timeout: 20000 });
       await page.waitForFunction(
         () => {
-          const panel = document.querySelector('[data-discover-app-detail]');
-          return panel && !panel.hidden && panel.querySelector('.kde-discover-app-detail__shot-img');
+          const section = document.querySelector('[data-discover-store-section]');
+          return section && section.querySelectorAll('.kde-discover-card').length >= 5;
         },
         null,
         { timeout: 15000 },
       );
+      await page.evaluate(() => {
+        const section = document.querySelector('[data-discover-store-section]');
+        if (section) {
+          section.scrollIntoView({ block: 'start' });
+        }
+      });
       await sleep(page, 500);
+    },
+  },
+  {
+    name: '07-discover-detail-vlc',
+    action: async (page) => {
+      await page.evaluate(() => {
+        sessionStorage.removeItem('capsule-store-installed:linux-kde-neon');
+      });
+      await openSlot(page, 'update_manager');
+      await page.waitForSelector(
+        '[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]',
+        { timeout: 20000 },
+      );
+      await sleep(page, 400);
+      await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="vlc"]');
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector('[data-discover-app-detail]');
+          if (!panel || panel.hidden) {
+            return false;
+          }
+          const name = document.querySelector('.kde-discover-app-detail__name')?.textContent?.trim();
+          const imgs = [...panel.querySelectorAll('.kde-discover-app-detail__shot-img')];
+          const loaded = imgs.filter((img) => img.complete && img.naturalWidth > 0);
+          return name && name.includes('VLC') && (loaded.length >= 1 || imgs.length >= 2);
+        },
+        null,
+        { timeout: 35000 },
+      );
+      await page.evaluate(() => {
+        const carousel = document.querySelector('.kde-discover-app-detail__carousel');
+        if (carousel) {
+          carousel.style.display = 'none';
+          carousel.hidden = true;
+        }
+        document.querySelectorAll('.kde-discover-app-detail__shot-img').forEach((img) => {
+          img.style.visibility = 'hidden';
+        });
+        const top = document.querySelector('.kde-discover-app-detail__top');
+        if (top) {
+          top.scrollIntoView({ block: 'start' });
+        }
+      });
+      await sleep(page, 900);
     },
   },
 ];
@@ -167,9 +219,9 @@ export const CAPTURE_SCENARIOS = {
   'linux-fedora': {
     shots: gnomeOverviewShots('.fedora-overview-trigger', null),
   },
-  'linux-opensuse': {
-    shots: gnomeOverviewShots('.fedora-overview-trigger', null),
-  },
+  'linux-opensuse': { shots: plasmaShots },
+  'linux-mx-kde': { shots: plasmaShots },
+  'linux-debian-kde': { shots: plasmaShots },
 };
 
 export const getCaptureShots = (registryId) => {

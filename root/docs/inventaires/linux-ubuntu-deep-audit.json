@@ -6,7 +6,7 @@
       "auditVersion": 1,
       "phase": "static",
       "toolkit": "gnome",
-      "collectedAt": "2026-06-07T16:50:23Z",
+      "collectedAt": "2026-06-16T07:56:01Z",
       "source": "vm-gnome-deep-inventory.sh",
       "os": {
         "PRETTY_NAME": "Ubuntu 26.04 LTS",
@@ -34,15 +34,15 @@
         "sessionType": "wayland-xwayland"
       },
       "theme": {
-        "gtkTheme": "'Yaru-dark'",
-        "iconTheme": "'Yaru-dark'",
-        "colorScheme": "'prefer-dark'",
+        "gtkTheme": "'Adwaita'",
+        "iconTheme": "'Yaru'",
+        "colorScheme": "'default'",
         "accentColor": "'orange'",
         "fontName": "'Adwaita Sans 11'",
         "documentFontName": "'Adwaita Sans 12'",
         "monospaceFontName": "'Ubuntu Sans Mono 11'",
         "backgroundUri": "'file:///usr/share/backgrounds/gnome/adwaita-l.jxl'",
-        "backgroundDarkUri": "'file:///usr/share/backgrounds/gnome/adwaita-d.jxl'"
+        "backgroundDarkUri": "'file:///usr/share/backgrounds/gnome/adwaita-l.jxl'"
       },
       "workspaces": {
         "dynamicWorkspaces": "false",
@@ -82,6 +82,9 @@
           "exec": "nautilus",
           "icon": "org.gnome.Nautilus",
           "iconPaths": [
+            "/usr/share/icons/Yaru/48x48/apps/org.gnome.Nautilus.png",
+            "/usr/share/icons/Yaru/256x256/apps/org.gnome.Nautilus.png",
+            "/usr/share/icons/Yaru/32x32/apps/org.gnome.Nautilus.png",
             "/usr/share/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg"
           ]
         },
@@ -116,6 +119,9 @@
           "exec": "yelp",
           "icon": "org.gnome.Yelp",
           "iconPaths": [
+            "/usr/share/icons/Yaru/48x48/apps/org.gnome.Yelp.png",
+            "/usr/share/icons/Yaru/256x256/apps/org.gnome.Yelp.png",
+            "/usr/share/icons/Yaru/32x32/apps/org.gnome.Yelp.png",
             "/usr/share/icons/hicolor/scalable/apps/org.gnome.Yelp.svg"
           ]
         }
@@ -529,5 +535,5 @@
       ]
     }
   },
-  "updatedAt": "2026-06-07T16:50:25.230Z"
+  "updatedAt": "2026-06-16T07:56:02.716Z"
 }

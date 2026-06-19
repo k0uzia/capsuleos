@@ -22,5 +22,10 @@ html:has(#kde-neon) {
     --win-update_manager-height: 716px;
     --win-update_manager-min-width: 640px;
     --win-update_manager-min-height: 520px;
+    /* System Settings VM — gtk-launch systemsettings.desktop */
+    --win-themes-width: 1060px;
+    --win-themes-height: 808px;
+    --win-themes-min-width: 1060px;
+    --win-themes-min-height: 808px;
 }
 

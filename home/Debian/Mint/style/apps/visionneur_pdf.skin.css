@@ -173,10 +173,25 @@
     max-width: 50%;
 }
 
-div[data-link="visionneur_pdf"] #windowHeader {
-    background: #ececec;
-}
-
 div[data-link="visionneur_pdf"] #windowTitle {
     color: #2a2a2a;
+}
+
+html:not([data-theme="light"]) body#mint #visionneurPdf.xreader-app {
+    background: #2f2f2f;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+html:not([data-theme="light"]) body#mint #visionneurPdf.xreader-app .xreader-app__menubar,
+html:not([data-theme="light"]) body#mint #visionneurPdf.xreader-app .xreader-app__toolbar {
+    background: #383838;
+    border-bottom-color: #454545;
+}
+
+html:not([data-theme="light"]) body#mint div[data-link="visionneur_pdf"] #windowHeader {
+    background: var(--nemoHC, #303036);
+}
+
+html:not([data-theme="light"]) body#mint div[data-link="visionneur_pdf"] #windowTitle {
+    color: var(--texte, #e1e1e1);
 }

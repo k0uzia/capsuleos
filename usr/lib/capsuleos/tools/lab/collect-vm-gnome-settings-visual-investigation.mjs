@@ -95,6 +95,7 @@ export CAPSULE_VISUAL_MATRIX="$MATRIX_FILE"
 export CAPSULE_VISUAL_OUT="${remoteOut}"
 export CAPSULE_VISUAL_FILTER="${filter}"
 export CAPSULE_VISUAL_ONLY_IDS="${onlyIds.join(',')}"
+export CAPSULE_VM_HYPERVISOR="${host.hypervisor || 'libvirt'}"
 rm -rf "${remoteOut}" && mkdir -p "${remoteOut}"
 bash -s <<'VIS_EOF'
 ${scriptBody}
@@ -274,6 +275,12 @@ const applyControlState = (host, identity, user, ip, controlId, rawValue) => {
 
 const enrichVirshCaptures = (host, identity, user, ip, registryId, payload) => {
   if (payload.screenshotBackend !== 'host-virsh') {
+    return payload;
+  }
+  if (host.hypervisor && host.hypervisor !== 'libvirt') {
+    process.stderr.write(
+      `⚠ host-virsh ignoré — VM ${host.hypervisor} (pas de domaine libvirt local)\n`,
+    );
     return payload;
   }
   if (host.hypervisor !== 'libvirt') {

@@ -53,7 +53,10 @@ Une seule chaîne de décision. Pas de roadmap parallèle, pas d’inventaire JS
 |---|----------|------|
 | 1 | [fondements-philosophiques.md](fondements-philosophiques.md) | Constitution **P1–P12** |
 | 2 | [convention-taxonomie-semantique.md](convention-taxonomie-semantique.md) | **Pierre angulaire** — identités, zones, slot/variant/skin |
-| 3 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1**, **Tax** / **TaxΣ** |
+| 3 | [logique-formelle.md](logique-formelle.md) | Prédicats, **R-LOC1**, **R-IMP1**, **Tax** / **TaxΣ**, **OsRepro** |
+| 3b | [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md) | Cohérence, déduction, grille argumentation, critères reproduction parfaite |
+| 3c | [convention-raisonnement-inductif-deductif.md](convention-raisonnement-inductif-deductif.md) | Induction VM → déduction gates (campagnes) |
+| 3d | [audit-structure-depot-2026-06.md](audit-structure-depot-2026-06.md) · [audit-processus-campagnes-2026-06.md](audit-processus-campagnes-2026-06.md) · [introspection-ontologique-2026-06.md](introspection-ontologique-2026-06.md) | Audits architecture, processus, synthèse ontologique |
 | 4 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
 | 5 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
 | 6 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |
@@ -106,7 +109,7 @@ Checklist commit : convention-clean-code §5.
 | ManΣ / clone VM | [convention-manifest-vm.md](convention-manifest-vm.md) · [convention-reproduction-os.md](convention-reproduction-os.md) |
 | GNOME design (réf.) | [branche-redhat-gnome.md](branche-redhat-gnome.md) · [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) |
 | Cinnamon collecte (réf.) | [procedure-clonage-os-depuis-vm.md](procedure-clonage-os-depuis-vm.md) |
-| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) · [convention-composants-ui.md](convention-composants-ui.md) · [convention-composants-gnome.md](convention-composants-gnome.md) |
+| Apps | [procedure-apps-catalog.md](procedure-apps-catalog.md) · [convention-composants-ui.md](convention-composants-ui.md) · [convention-composants-gnome.md](convention-composants-gnome.md) · [analyse-magasins-apps-cross-os.md](analyse-magasins-apps-cross-os.md) · [procedure-store-replication-formelle.md](procedure-store-replication-formelle.md) |
 | Paramètres GNOME | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) |
 | Assets VM | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | Styles / JS navigateur | [contrib.md](../../contrib.md) · `writing.md` |
@@ -131,6 +134,7 @@ En cas de conflit entre procédure et plan maître → **plan maître prime**.
 
 | Document | Rôle |
 |----------|------|
+| [point-etape-2026-06.md](point-etape-2026-06.md) | **État transversal** juin 2026 — Alma C30, classification apps, gates |
 | [roadmap.md](roadmap.md) | Vision pédagogique, % maturité — **pas** l’ordre d’exécution |
 | [architecture-globale.md](architecture-globale.md) | Navigation dépôt |
 | [manifeste-noyau.md](manifeste-noyau.md) | Hydratation technique noyau |
@@ -157,4 +161,4 @@ En cas de conflit entre procédure et plan maître → **plan maître prime**.
 
 ---
 
-*Dernière mise à jour : juin 2026 — corpus singulier, P11/P12, Phase 1e.*
+*Dernière mise à jour : juin 2026 — corpus singulier, P11/P12, Phase 1e, [point-etape-2026-06.md](point-etape-2026-06.md).*

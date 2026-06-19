@@ -8,13 +8,28 @@
 # --dolphin-split vm-dolphin-split-only.png (vue scindée, action dbus split_view)
 # --dolphin-search vm-dolphin-search-open.png (toggle_search dbus)
 # --dolphin-search-filter vm-dolphin-search-filter-open.png (recherche + menu filtre)
+# --discover-home vm-discover.png (accueil)
+# --b2-b3-apps vm-spectacle.png + vm-kinfocenter.png + vm-system-monitor.png (kickoff G4)
+# --dolphin-g5 vm-dolphin §7–8 (search · filtre · hamburger · vues icônes)
 # --discover-updates|--discover-about|--discover-config|--discover-detail captures onglets Discover (plasma-discover --mode / --application)
+# --discover-g6 lot G6 (accueil + installé + mises à jour + config + à propos) — dismiss popup MAJ
+# --discover-vm-100 G6 + fiche VLC (campagne réalisme VM 100 %)
+# --discover-recursive G6 + VLC + recherche VLC + catégorie Internet + installé fenêtré + inventaire visuel complet
+# --firefox-g7 vm-firefox.png (ground G7 — paire toolbar VM)
+# --panel-g8 vm-desktop.png + vm-kickoff.png (ground G8 — panel · kickoff)
 #
 # Prérequis hôte : virsh (qemu:///system), clé SSH capsuleos-lab, VM « KDE-Neon » démarrée.
 # Variables : KDE_NEON_VIRSH_NAME, KDE_NEON_SSH, KDE_NEON_SSH_IDENTITY
 set -euo pipefail
 
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  echo "vm-kde-neon-capture-host.sh : ne pas sourcer — lancer avec bash et des flags (--discover-g6, etc.)" >&2
+  return 1 2>/dev/null || exit 1
+fi
+
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+LAB_DIR="$(cd "$(dirname "$0")" && pwd)"
+KWIN_DISCOVER_JS="$LAB_DIR/kde-neon-discover-capture-kwin.js"
 DEFAULT_DEST="$ROOT/home/public/Images/screen_KDE-Neon"
 DOLPHIN_ONLY=false
 DOLPHIN_VIEWS=false
@@ -27,7 +42,19 @@ DISCOVER_ABOUT=false
 DISCOVER_CONFIG=false
 DISCOVER_DETAIL=false
 DISCOVER_DETAIL_LIVE=false
-while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ]; do
+DISCOVER_INSTALLED_DETAILS=false
+DISCOVER_INSTALLED_DETAILS_LIVE=false
+DISCOVER_INSTALL_FLOW=false
+DISCOVER_VLC_INSTALL_FLOW=false
+DISCOVER_HOME=false
+DISCOVER_G6=false
+DISCOVER_VM_100=false
+DISCOVER_RECURSIVE=false
+B2_B3_APPS=false
+DOLPHIN_G5=false
+FIREFOX_G7=false
+PANEL_G8=false
+while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "${1:-}" = "--dolphin-split" ] || [ "${1:-}" = "--dolphin-search" ] || [ "${1:-}" = "--dolphin-search-filter" ] || [ "${1:-}" = "--dolphin-hamburger" ] || [ "${1:-}" = "--dolphin-g5" ] || [ "${1:-}" = "--firefox-g7" ] || [ "${1:-}" = "--panel-g8" ] || [ "${1:-}" = "--discover-home" ] || [ "${1:-}" = "--discover-g6" ] || [ "${1:-}" = "--discover-vm-100" ] || [ "${1:-}" = "--discover-recursive" ] || [ "${1:-}" = "--discover-updates" ] || [ "${1:-}" = "--discover-about" ] || [ "${1:-}" = "--discover-config" ] || [ "${1:-}" = "--discover-detail" ] || [ "${1:-}" = "--discover-detail-live" ] || [ "${1:-}" = "--discover-installed-details" ] || [ "${1:-}" = "--discover-installed-details-live" ] || [ "${1:-}" = "--discover-install-flow" ] || [ "${1:-}" = "--discover-vlc-install-flow" ] || [ "${1:-}" = "--b2-b3-apps" ]; do
   if [ "${1:-}" = "--dolphin-only" ]; then
     DOLPHIN_ONLY=true
   fi
@@ -46,6 +73,18 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   if [ "${1:-}" = "--dolphin-hamburger" ]; then
     DOLPHIN_HAMBURGER=true
   fi
+  if [ "${1:-}" = "--discover-home" ]; then
+    DISCOVER_HOME=true
+  fi
+  if [ "${1:-}" = "--discover-g6" ]; then
+    DISCOVER_G6=true
+  fi
+  if [ "${1:-}" = "--discover-vm-100" ]; then
+    DISCOVER_VM_100=true
+  fi
+  if [ "${1:-}" = "--discover-recursive" ]; then
+    DISCOVER_RECURSIVE=true
+  fi
   if [ "${1:-}" = "--discover-updates" ]; then
     DISCOVER_UPDATES=true
   fi
@@ -61,6 +100,30 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
   if [ "${1:-}" = "--discover-detail-live" ]; then
     DISCOVER_DETAIL_LIVE=true
   fi
+  if [ "${1:-}" = "--discover-installed-details" ]; then
+    DISCOVER_INSTALLED_DETAILS=true
+  fi
+  if [ "${1:-}" = "--discover-installed-details-live" ]; then
+    DISCOVER_INSTALLED_DETAILS_LIVE=true
+  fi
+  if [ "${1:-}" = "--discover-install-flow" ]; then
+    DISCOVER_INSTALL_FLOW=true
+  fi
+  if [ "${1:-}" = "--discover-vlc-install-flow" ]; then
+    DISCOVER_VLC_INSTALL_FLOW=true
+  fi
+  if [ "${1:-}" = "--b2-b3-apps" ]; then
+    B2_B3_APPS=true
+  fi
+  if [ "${1:-}" = "--dolphin-g5" ]; then
+    DOLPHIN_G5=true
+  fi
+  if [ "${1:-}" = "--firefox-g7" ]; then
+    FIREFOX_G7=true
+  fi
+  if [ "${1:-}" = "--panel-g8" ]; then
+    PANEL_G8=true
+  fi
   shift
 done
 DEST="${1:-$DEFAULT_DEST}"
@@ -68,6 +131,10 @@ VM_NAME="${KDE_NEON_VIRSH_NAME:-KDE-Neon}"
 SSH_TARGET="${KDE_NEON_SSH:-capsule@192.168.122.2}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
+# Résolution virsh screenshot (KDE Neon lab) — coords ydotool en pixels absolus.
+CAPTURE_W=1280
+CAPTURE_H=800
+_YDOTOOL_READY=""
 
 mkdir -p "$DEST"
 
@@ -75,53 +142,80 @@ remote() {
   ssh "${SSH_OPTS[@]}" "$SSH_TARGET" "$@"
 }
 
+remote_env_prefix() {
+  printf '%s' 'export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus; '
+  printf '%s' 'export XDG_RUNTIME_DIR=/run/user/$(id -u); '
+  printf '%s' 'export WAYLAND_DISPLAY=wayland-0; '
+  printf '%s' 'export DISPLAY=:1; '
+  printf '%s' 'export XDG_CURRENT_DESKTOP=KDE; '
+  printf '%s' 'XAUTH_FILE=$(ls /run/user/$(id -u)/xauth_* 2>/dev/null | head -1); '
+  printf '%s' '[ -n "$XAUTH_FILE" ] && export XAUTHORITY="$XAUTH_FILE"; '
+}
+
 prep_env() {
   local cmd="${*:-:}"
-  remote "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/\$(id -u)/bus; \
-export XDG_RUNTIME_DIR=/run/user/\$(id -u); \
-export WAYLAND_DISPLAY=wayland-0; \
-export DISPLAY=:1; \
-export XDG_CURRENT_DESKTOP=KDE; \
-XAUTH_FILE=\$(ls /run/user/\$(id -u)/xauth_* 2>/dev/null | head -1); \
-[ -n \"\$XAUTH_FILE\" ] && export XAUTHORITY=\"\$XAUTH_FILE\"; \
-${cmd}"
+  remote "$(remote_env_prefix)${cmd}"
+}
+
+# Session ssh multi-lignes fiable (évite & et for loops cassés dans une seule ligne).
+remote_session() {
+  local body="$1"
+  {
+    remote_env_prefix
+    printf '\n'
+    printf '%s\n' "$body"
+  } | ssh "${SSH_OPTS[@]}" "$SSH_TARGET" bash -s
 }
 
 # Wayland : plasma-discover natif — script KWin (xdotool ne voit pas la fenêtre).
-dismiss_discover_update_dialog() {
+_run_kwin_discover_script() {
+  local script_id="$1"
   prep_env "SCRIPT=/tmp/capsuleos-discover-capture-kwin.js
     cat > \"\$SCRIPT\" <<'KWINJS'
-var ws = workspace;
-var windows = ws.windowList();
-var discover = null;
-for (var i = 0; i < windows.length; i++) {
-    var w = windows[i];
-    var cap = w.caption || \"\";
-    if (cap === "Problème de mises à jour" || cap.indexOf("Update problem") === 0) {
-        w.closeWindow();
-        continue;
-    }
-    if (cap.indexOf("VLC") >= 0 && cap.indexOf("Discover") >= 0) {
-        discover = w;
-    }
-}
-if (discover) {
-    ws.activeWindow = discover;
-}
+$(cat "$KWIN_DISCOVER_JS")
 KWINJS
-    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true
-    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" capsuleos-discover-capture >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript ${script_id} >/dev/null 2>&1 || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript \"\$SCRIPT\" ${script_id} >/dev/null 2>&1
     qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
-    sleep 0.5
-    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-capture 2>/dev/null || true"
+    sleep 0.4
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript ${script_id} >/dev/null 2>&1 || true"
+}
+
+dismiss_discover_update_dialog() {
+  _run_kwin_discover_script capsuleos-discover-capture
+}
+
+discover_dismiss_escape() {
+  prep_env 'for _ in 1 2; do if command -v wtype >/dev/null 2>&1; then wtype -k Escape; elif command -v xdotool >/dev/null 2>&1; then xdotool key Escape; fi; sleep 0.2; done'
+}
+
+# Attendre le chargement Discover puis fermer la popup « Problème de mises à jour » (PackageKit lab).
+# Ne pas envoyer Escape globalement — fermerait Discover (seul KWin cible le dialogue).
+# VM lab : plasma-discover --mode Update peut quitter ~30 s — boucle courte, capture rapide.
+discover_stabilize_for_shot() {
+  local wait_secs="${1:-4}"
+  require_discover_window
+  sleep "$wait_secs"
+  local attempt
+  for attempt in 1 2 3 4 5; do
+    dismiss_discover_update_dialog
+    sleep 0.7
+  done
+  dismiss_discover_update_dialog
+  sleep 0.3
 }
 
 require_discover_window() {
-  prep_env 'pgrep plasma-discover >/dev/null || { echo "plasma-discover absent — abandon capture" >&2; exit 1; }'
+  remote_session 'for i in $(seq 1 15); do
+  pgrep plasma-discover >/dev/null && exit 0
+  sleep 1
+done
+echo "plasma-discover absent — abandon capture" >&2
+exit 1'
 }
 
 reset_apps() {
-  prep_env 'killall plasma-discover dolphin konsole firefox 2>/dev/null || true'
+  prep_env 'killall plasma-discover dolphin konsole firefox spectacle kinfocenter plasma-systemmonitor 2>/dev/null || true'
 }
 
 focus_discover_window() {
@@ -136,25 +230,62 @@ close_kickoff() {
   prep_env 'qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.activateLauncherMenu 2>/dev/null || true'
 }
 
+discover_plasma_mode() {
+  case "$1" in
+    home | "") echo "" ;;
+    installed) echo "Installed" ;;
+    update) echo "Update" ;;
+    settings | config | sources) echo "Sources" ;;
+    about) echo "About" ;;
+    browsing) echo "Browsing" ;;
+    *)
+      echo "$1" | awk '{print toupper(substr($0,1,1)) substr($0,2)}'
+      ;;
+  esac
+}
+
 open_discover() {
-  prep_env 'killall plasma-discover 2>/dev/null || true
-    nohup plasma-discover >/dev/null 2>&1 &
-    for i in $(seq 1 15); do
-      pgrep plasma-discover >/dev/null && break
-      sleep 1
-    done
-    sleep 4'
+  remote_session 'killall plasma-discover 2>/dev/null || true
+sleep 1
+kstart plasma-discover >/dev/null 2>&1 &
+for i in $(seq 1 20); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 4'
+}
+
+open_discover_x11() {
+  # Utilisé uniquement pour les scénarios qui nécessitent une automatisation d’input fiable (xdotool).
+  # Rester en Wayland natif pour les captures de référence habituelles.
+  remote_session 'killall plasma-discover 2>/dev/null || true
+sleep 1
+QT_QPA_PLATFORM=xcb kstart plasma-discover >/dev/null 2>&1 &
+for i in $(seq 1 20); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 5'
 }
 
 open_discover_mode() {
   local mode="$1"
-  prep_env "killall plasma-discover 2>/dev/null || true
-    nohup plasma-discover --mode ${mode} >/dev/null 2>&1 &
-    for i in \$(seq 1 15); do
-      pgrep plasma-discover >/dev/null && break
-      sleep 1
-    done
-    sleep 5"
+  local plasma_mode
+  plasma_mode="$(discover_plasma_mode "$mode")"
+  if [ -z "$plasma_mode" ]; then
+    open_discover
+    return
+  fi
+  # kstart --mode segfault · setsid+nohup instable via ssh — systemd-run --user sur VM lab.
+  # Discover --mode Update quitte ~30 s sur VM lab : capturer vite après ouverture.
+  remote_session "killall plasma-discover 2>/dev/null || true
+sleep 1
+systemd-run --user --scope --collect plasma-discover --mode ${plasma_mode} >/dev/null 2>&1 &
+for i in \$(seq 1 20); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 2"
 }
 
 open_discover_installed() {
@@ -198,6 +329,27 @@ open_konsole() {
   prep_env 'killall konsole 2>/dev/null || true
     sleep 0.5
     kstart konsole >/dev/null 2>&1 &
+    sleep 4'
+}
+
+open_spectacle() {
+  prep_env 'killall spectacle 2>/dev/null || true
+    sleep 0.5
+    kstart spectacle >/dev/null 2>&1 &
+    sleep 4'
+}
+
+open_kinfocenter() {
+  prep_env 'killall kinfocenter 2>/dev/null || true
+    sleep 0.5
+    kstart kinfocenter >/dev/null 2>&1 &
+    sleep 4'
+}
+
+open_system_monitor() {
+  prep_env 'killall plasma-systemmonitor 2>/dev/null || true
+    sleep 0.5
+    kstart plasma-systemmonitor >/dev/null 2>&1 &
     sleep 4'
 }
 
@@ -288,6 +440,7 @@ capture_dolphin_search_shots() {
   reset_apps
   sleep 1
   open_dolphin
+  dolphin_set_view_mode icons
   dolphin_trigger_action toggle_search
   sleep 1.5
   shot "$DEST/vm-dolphin-search-open.png"
@@ -298,15 +451,11 @@ capture_dolphin_search_filter_shots() {
   reset_apps
   sleep 1
   open_dolphin
+  dolphin_set_view_mode icons
   dolphin_trigger_action toggle_search
+  sleep 1
+  dolphin_trigger_action toggle_filter
   sleep 1.2
-  prep_env 'if command -v ydotool >/dev/null 2>&1; then
-      ydotool key 15:1 15:0 sleep 0.15
-      ydotool key 57:1 57:0
-    elif command -v wtype >/dev/null 2>&1; then
-      wtype -k Tab -k space
-    fi
-    sleep 1'
   shot "$DEST/vm-dolphin-search-filter-open.png"
   reset_apps
 }
@@ -315,11 +464,9 @@ capture_dolphin_hamburger_shots() {
   reset_apps
   sleep 1
   open_dolphin
-  prep_env 'svc=$(qdbus6 2>/dev/null | grep -o "org.kde.dolphin-[0-9]*" | head -1)
-    if [ -n "$svc" ]; then
-      qdbus6 "$svc" /dolphin/Dolphin_1/actions/hamburger_menu org.qtproject.Qt.QAction.trigger 2>/dev/null || true
-    fi
-    sleep 1'
+  dolphin_set_view_mode icons
+  dolphin_trigger_action hamburger_menu
+  sleep 1.5
   shot "$DEST/vm-dolphin-hamburger-open.png"
   reset_apps
 }
@@ -368,12 +515,12 @@ open_discover_app() {
   local uri="$1"
   prep_env "killall plasma-discover konsole firefox dolphin 2>/dev/null || true
     sleep 0.5
-    nohup plasma-discover --application ${uri} >/dev/null 2>&1 &
+    kstart plasma-discover --application ${uri} >/dev/null 2>&1 &
     for i in \$(seq 1 25); do
       pgrep plasma-discover >/dev/null && break
       sleep 1
     done
-    sleep 7"
+    sleep 8"
 }
 
 scroll_discover_detail() {
@@ -404,30 +551,679 @@ KWINJS
     qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-scroll 2>/dev/null || true"
 }
 
+qemu_send_key() {
+  virsh -c qemu:///system send-key "$VM_NAME" "$@" >/dev/null 2>&1 || true
+}
+
+qemu_send_keys_slow() {
+  local key
+  for key in "$@"; do
+    virsh -c qemu:///system send-key "$VM_NAME" "$key" >/dev/null 2>&1 || true
+    sleep 0.14
+  done
+}
+
+ensure_ydotool_ready() {
+  local pw="${KDE_NEON_SUDO_PASSWORD:-}"
+  if [ -n "$pw" ]; then
+    remote_session "if ! command -v ydotool >/dev/null 2>&1; then
+  echo $(printf '%q' "$pw") | sudo -S DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ydotool ydotoold
+fi
+if ! command -v ydotoold >/dev/null 2>&1; then
+  echo $(printf '%q' "$pw") | sudo -S DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ydotoold
+fi
+if [ ! -w /dev/uinput ] 2>/dev/null; then
+  echo $(printf '%q' "$pw") | sudo -S modprobe uinput 2>/dev/null || true
+  echo $(printf '%q' "$pw") | sudo -S chmod 666 /dev/uinput 2>/dev/null || true
+fi
+if ! pgrep -x ydotoold >/dev/null 2>&1; then
+  echo $(printf '%q' "$pw") | sudo -S rm -f /tmp/.ydotool_socket 2>/dev/null || true
+  echo $(printf '%q' "$pw") | sudo -S ydotoold >/tmp/ydotoold-capsuleos.log 2>&1 &
+  sleep 1
+fi
+if [ -S /tmp/.ydotool_socket ] && [ ! -w /tmp/.ydotool_socket ]; then
+  echo $(printf '%q' "$pw") | sudo -S chmod 777 /tmp/.ydotool_socket 2>/dev/null || true
+fi"
+  else
+    remote_session 'if ! command -v ydotool >/dev/null 2>&1; then
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ydotool ydotoold 2>/dev/null || true
+fi
+if ! command -v ydotoold >/dev/null 2>&1; then
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ydotoold 2>/dev/null || true
+fi
+if [ ! -w /dev/uinput ] 2>/dev/null; then
+  sudo modprobe uinput 2>/dev/null || true
+  sudo chmod 666 /dev/uinput 2>/dev/null || true
+fi
+if ! pgrep -x ydotoold >/dev/null 2>&1; then
+  sudo rm -f /tmp/.ydotool_socket 2>/dev/null || true
+  sudo ydotoold >/tmp/ydotoold-capsuleos.log 2>&1 &
+  sleep 1
+fi
+if [ -S /tmp/.ydotool_socket ] && [ ! -w /tmp/.ydotool_socket ]; then
+  sudo chmod 777 /tmp/.ydotool_socket 2>/dev/null || true
+fi'
+  fi
+  _YDOTOOL_READY=""
+}
+
+vm_ydotool_ready() {
+  if [ -n "$_YDOTOOL_READY" ]; then
+    [ "$_YDOTOOL_READY" = "1" ]
+    return
+  fi
+  if remote "$(remote_env_prefix)command -v ydotool >/dev/null 2>&1 && test -w /dev/uinput && pgrep -x ydotoold >/dev/null"; then
+    _YDOTOOL_READY=1
+    return 0
+  fi
+  _YDOTOOL_READY=0
+  return 1
+}
+
+ydotool_env_cmd() {
+  printf 'export YDOTOOL_SOCKET=/tmp/.ydotool_socket; '
+}
+
+ydotool_click_px() {
+  local x="$1"
+  local y="$2"
+  prep_env "$(ydotool_env_cmd)ydotool mousemove --delay 60 ${x} ${y}
+sleep 0.12
+$(ydotool_env_cmd)ydotool click --delay 80 1"
+}
+
+ydotool_click_pct() {
+  local x_pct="$1"
+  local y_pct="$2"
+  local x=$((CAPTURE_W * x_pct / 100))
+  local y=$((CAPTURE_H * y_pct / 100))
+  ydotool_click_px "$x" "$y"
+}
+
+ydotool_double_click_pct() {
+  ydotool_click_pct "$1" "$2"
+  sleep 0.18
+  prep_env "$(ydotool_env_cmd)ydotool click --delay 80 1"
+}
+
+# Souris : QEMU absolu (1280×800). Clavier ydotool si daemon actif, sinon virsh send-key.
+discover_input_click_pct() {
+  qemu_input_click_pct "$1" "$2"
+}
+
+discover_input_double_click_pct() {
+  qemu_input_double_click_pct "$1" "$2"
+}
+
+discover_confirm_polkit_if_needed() {
+  local pw="${KDE_NEON_SUDO_PASSWORD:-}"
+  [ -n "$pw" ] || return 0
+  sleep 3
+  qemu_input_click_pct 50 50
+  sleep 0.4
+  if vm_ydotool_ready; then
+    remote_session "$(ydotool_env_cmd)ydotool type --delay 50 $(printf '%q' "$pw")"
+    sleep 0.2
+    prep_env "$(ydotool_env_cmd)ydotool key 28:1 28:0"
+  else
+    qemu_send_keys_slow KEY_G KEY_O KEY_U KEY_P KEY_I KEY_L KEY_ENTER
+  fi
+  sleep 5
+}
+
+qemu_input_click_pct() {
+  local x_pct="$1"
+  local y_pct="$2"
+  local x_val=$((32767 * x_pct / 100))
+  local y_val=$((32767 * y_pct / 100))
+  virsh -c qemu:///system qemu-monitor-command "$VM_NAME" \
+    "{\"execute\":\"input-send-event\",\"arguments\":{\"events\":[{\"type\":\"abs\",\"data\":{\"axis\":\"x\",\"value\":${x_val}}},{\"type\":\"abs\",\"data\":{\"axis\":\"y\",\"value\":${y_val}}},{\"type\":\"btn\",\"data\":{\"down\":true,\"button\":\"left\"}},{\"type\":\"btn\",\"data\":{\"down\":false,\"button\":\"left\"}}]}}" \
+    >/dev/null 2>&1 || true
+}
+
+qemu_input_double_click_pct() {
+  qemu_input_click_pct "$1" "$2"
+  sleep 0.18
+  virsh -c qemu:///system qemu-monitor-command "$VM_NAME" \
+    '{"execute":"input-send-event","arguments":{"events":[{"type":"btn","data":{"down":true,"button":"left"}},{"type":"btn","data":{"down":false,"button":"left"}}]}}' \
+    >/dev/null 2>&1 || true
+}
+
+discover_open_vlc_from_home() {
+  # --application appstream://… provoque un segfault sur la VM lab (juin 2026) — recherche UI.
+  focus_discover_window
+  qemu_input_click_pct 12 8
+  sleep 0.35
+  qemu_send_keys_slow KEY_LEFTCTRL KEY_A KEY_BACKSPACE
+  sleep 0.25
+  qemu_send_keys_slow KEY_LEFTSHIFT KEY_V KEY_LEFTSHIFT KEY_L KEY_C
+  sleep 1.4
+  qemu_send_keys_slow KEY_ENTER
+  sleep 2.5
+  qemu_send_keys_slow KEY_ENTER
+  sleep 2
+}
+
+discover_open_vlc_detail_from_card() {
+  discover_click_vlc_home_card
+  sleep 0.4
+  qemu_input_double_click_pct 30 19
+  sleep 3
+}
+
 capture_discover_detail_shots() {
   reset_apps
   sleep 1
-  open_discover_app appstream://org.videolan.vlc
-  require_discover_window
+  open_discover
+  discover_stabilize_for_shot 4
+  discover_open_vlc_from_home
   sleep 2
-  dismiss_discover_update_dialog
-  sleep 0.8
+  discover_stabilize_for_shot 2
   shot "$DEST/vm-discover-detail-vlc.png"
   scroll_discover_detail
   sleep 0.6
+  discover_stabilize_for_shot 1
   shot "$DEST/vm-discover-detail-vlc-scrolled.png"
   reset_apps
 }
 
 capture_discover_detail_live() {
-  require_discover_window
-  dismiss_discover_update_dialog
-  sleep 0.8
+  discover_stabilize_for_shot 2
   shot "$DEST/vm-discover-detail-vlc.png"
   scroll_discover_detail
   sleep 0.6
+  discover_stabilize_for_shot 1
   shot "$DEST/vm-discover-detail-vlc-scrolled.png"
 }
+
+capture_discover_tab_shot() {
+  local mode="$1"
+  local outfile="$2"
+  local wait_secs="${3:-10}"
+  reset_apps
+  sleep 2
+  if [ -z "$mode" ] || [ "$mode" = "home" ]; then
+    open_discover
+  else
+    discover_nav_tab "$mode"
+  fi
+  discover_stabilize_for_shot "$wait_secs"
+  shot "$DEST/$outfile"
+  reset_apps
+}
+
+capture_discover_g6_shots() {
+  capture_discover_tab_shot home vm-discover.png 5
+  capture_discover_tab_shot installed vm-discover-installed.png 5
+  capture_discover_tab_shot update vm-discover-updates.png 4
+  capture_discover_tab_shot settings vm-discover-config.png 4
+  capture_discover_tab_shot about vm-discover-about.png 4
+}
+
+discover_unmaximize_window() {
+  prep_env 'SCRIPT=/tmp/capsuleos-discover-unmax.js
+    cat > "$SCRIPT" <<'"'"'KWINJS'"'"'
+var ws = workspace;
+var windows = ws.windowList();
+for (var i = 0; i < windows.length; i++) {
+    var w = windows[i];
+    var cap = w.caption || "";
+    if (cap.indexOf("Discover") >= 0 && cap.indexOf("Problème") < 0 && cap.indexOf("VLC") < 0) {
+        w.minimized = false;
+        w.maximized = false;
+        ws.activeWindow = w;
+        break;
+    }
+}
+KWINJS
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-unmax >/dev/null 2>&1 || true
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript "$SCRIPT" capsuleos-discover-unmax >/dev/null 2>&1
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.start >/dev/null 2>&1
+    sleep 0.4
+    qdbus6 org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript capsuleos-discover-unmax >/dev/null 2>&1 || true'
+}
+
+capture_discover_installed_windowed_shot() {
+  reset_apps
+  sleep 2
+  discover_nav_tab installed
+  discover_stabilize_for_shot 5
+  discover_unmaximize_window
+  sleep 0.8
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-installed-windowed.png"
+  reset_apps
+}
+
+capture_discover_search_vlc_shot() {
+  reset_apps
+  sleep 1
+  open_discover
+  discover_stabilize_for_shot 5
+  prep_env 'sleep 0.5
+    if command -v wtype >/dev/null 2>&1; then
+      wtype -M ctrl f
+      sleep 0.4
+      wtype VLC
+      sleep 1.2
+    elif command -v xdotool >/dev/null 2>&1; then
+      xdotool key ctrl+f
+      sleep 0.4
+      xdotool type --delay 25 VLC
+      sleep 1.2
+    fi'
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-search-vlc.png"
+  reset_apps
+}
+
+capture_discover_category_internet_shot() {
+  reset_apps
+  sleep 1
+  open_discover
+  discover_stabilize_for_shot 5
+  prep_env 'WID=$(xdotool search --name "Discover" 2>/dev/null | head -1)
+    if [ -n "$WID" ]; then
+      xdotool windowactivate --sync "$WID" 2>/dev/null || true
+      sleep 0.4
+      xdotool mousemove --window "$WID" 130 300 click 1
+      sleep 0.6
+      xdotool mousemove --window "$WID" 130 430 click 1
+      sleep 1.5
+    fi'
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-category-internet.png"
+  reset_apps
+}
+
+INSTALLED_DETAILS_INVENTORY="$ROOT/root/docs/inventaires/linux-kde-neon-discover-installed-app-details.json"
+
+discover_open_installed_app() {
+  local query="$1"
+  if ! command -v wtype >/dev/null 2>&1; then
+    echo "discover_open_installed_app: wtype requis sur VM Wayland (sudo apt install wtype)" >&2
+    return 1
+  fi
+  prep_env "sleep 0.3
+    wtype -M ctrl f
+    sleep 0.35
+    wtype -M ctrl a
+    sleep 0.1
+    wtype -k BackSpace
+    sleep 0.2
+    wtype '${query}'
+    sleep 1.2
+    wtype -k Return
+    sleep 2.5"
+}
+
+discover_activate_installed_list_row() {
+  prep_env 'sleep 0.3
+    wtype -k Down
+    sleep 0.35
+    wtype -k Return
+    sleep 2.2'
+}
+
+discover_back_from_app_detail() {
+  prep_env 'sleep 0.2
+    if command -v xdotool >/dev/null 2>&1; then
+      xdotool key alt+Left 2>/dev/null || true
+      sleep 1.2
+    elif command -v wtype >/dev/null 2>&1; then
+      wtype -M alt Left
+      sleep 1.2
+    fi'
+}
+
+capture_discover_installed_detail_shots() {
+  local live_mode="${1:-}"
+  if [ ! -f "$INSTALLED_DETAILS_INVENTORY" ]; then
+    echo "Inventaire fiches installées absent — vm-kde-neon-discover-installed-app-details-inventory.sh" >&2
+    exit 1
+  fi
+  local list_file
+  list_file="$(mktemp)"
+  node -e "
+    const j = require(process.argv[1]);
+    for (const [id, app] of Object.entries(j.apps || {})) {
+      console.log(id + '\t' + (app.searchQuery || app.name || id) + '\t' + (app.componentId || ''));
+    }
+  " "$INSTALLED_DETAILS_INVENTORY" >"$list_file"
+  if [ "$live_mode" != "live" ]; then
+    reset_apps
+    sleep 1
+    discover_nav_tab installed
+    discover_stabilize_for_shot 5
+  else
+    require_discover_window
+    discover_stabilize_for_shot 2
+  fi
+  local first_live=true
+  # FD 3 : éviter que ssh/prep_env consomment le reste de la liste via stdin.
+  if ! remote_session 'command -v wtype >/dev/null 2>&1'; then
+    echo "VM lab : installer wtype pour captures fiches Installé(s) (Wayland) — sudo apt install wtype" >&2
+    rm -f "$list_file"
+    return 1
+  fi
+  while IFS=$'\t' read -r app_id query _component_id <&3; do
+    [ -z "$app_id" ] && continue
+    if [ "$live_mode" = "live" ] && [ "$first_live" = true ]; then
+      first_live=false
+    else
+      discover_back_from_app_detail || true
+      discover_open_installed_app "$query" || true
+      discover_activate_installed_list_row || true
+    fi
+    discover_stabilize_for_shot 2 || true
+    shot "$DEST/vm-discover-installed-detail-${app_id}.png" || true
+    echo "  → vm-discover-installed-detail-${app_id}.png (${query})"
+  done 3<"$list_file"
+  rm -f "$list_file"
+  if [ "$live_mode" != "live" ]; then
+    reset_apps
+  fi
+}
+
+capture_discover_recursive_shots() {
+  capture_discover_g6_shots
+  capture_discover_detail_shots
+  capture_discover_search_vlc_shot
+  capture_discover_category_internet_shot
+  capture_discover_installed_windowed_shot
+  capture_discover_installed_detail_shots
+}
+
+discover_install_flow_open_featured_app() {
+  # Objectif : ouvrir une app depuis l’accueil sans coordonnées souris (Wayland).
+  # Heuristique : tabuler jusqu’à la grille/carrousel, puis Enter.
+  prep_env 'sleep 0.4
+    if command -v xdotool >/dev/null 2>&1; then
+      WID=$(xdotool search --name "Discover" 2>/dev/null | head -1)
+      [ -n "$WID" ] && xdotool windowactivate --sync "$WID" 2>/dev/null || true
+      for i in 1 2 3 4 5 6; do xdotool key Tab; sleep 0.12; done
+      xdotool key Return
+      sleep 2.2
+    fi'
+}
+
+discover_install_flow_activate_install() {
+  # Heuristique : tabuler jusqu’au bouton Installer / Mettre à jour et valider.
+  prep_env 'sleep 0.4
+    if command -v xdotool >/dev/null 2>&1; then
+      WID=$(xdotool search --name "Discover" 2>/dev/null | head -1)
+      [ -n "$WID" ] && xdotool windowactivate --sync "$WID" 2>/dev/null || true
+      for i in $(seq 1 14); do xdotool key Tab; sleep 0.12; done
+      xdotool key Return
+      sleep 1.2
+    fi'
+}
+
+discover_xdotool_discover_wid() {
+  prep_env 'WID=""
+for candidate in $(xdotool search --onlyvisible --name "accueil" 2>/dev/null); do
+  name=$(xdotool getwindowname "$candidate" 2>/dev/null || true)
+  case "$name" in
+    *Discover*) WID=$candidate; break ;;
+  esac
+done
+if [ -z "$WID" ]; then
+  for candidate in $(xdotool search --onlyvisible --name "VLC" 2>/dev/null); do
+    name=$(xdotool getwindowname "$candidate" 2>/dev/null || true)
+    case "$name" in
+      *Discover*) WID=$candidate; break ;;
+    esac
+  done
+fi
+echo "$WID"'
+}
+
+discover_xdotool_click_window_percent() {
+  local x_pct="$1"
+  local y_pct="$2"
+  prep_env "WID=\"\"
+for candidate in \$(xdotool search --onlyvisible --name 'accueil' 2>/dev/null); do
+  name=\$(xdotool getwindowname \"\$candidate\" 2>/dev/null || true)
+  case \"\$name\" in
+    *Discover*) WID=\$candidate; break ;;
+  esac
+done
+if [ -z \"\$WID\" ]; then
+  for candidate in \$(xdotool search --onlyvisible --name 'VLC' 2>/dev/null); do
+    name=\$(xdotool getwindowname \"\$candidate\" 2>/dev/null || true)
+    case \"\$name\" in
+      *Discover*) WID=\$candidate; break ;;
+    esac
+  done
+fi
+if [ -z \"\$WID\" ]; then exit 1; fi
+xdotool windowactivate --sync \"\$WID\"
+sleep 0.35
+eval \$(xdotool getwindowgeometry --shell \"\$WID\")
+X=\$((WIDTH * ${x_pct} / 100))
+Y=\$((HEIGHT * ${y_pct} / 100))
+xdotool mousemove --window \"\$WID\" --sync \"\$X\" \"\$Y\"
+sleep 0.15
+xdotool click 1" || return 1
+}
+
+discover_xdotool_key() {
+  local key="$1"
+  prep_env "WID=\"\"
+for candidate in \$(xdotool search --onlyvisible --name 'accueil' 2>/dev/null); do
+  name=\$(xdotool getwindowname \"\$candidate\" 2>/dev/null || true)
+  case \"\$name\" in
+    *Discover*) WID=\$candidate; break ;;
+  esac
+done
+if [ -z \"\$WID\" ]; then
+  for candidate in \$(xdotool search --onlyvisible --name 'VLC' 2>/dev/null); do
+    name=\$(xdotool getwindowname \"\$candidate\" 2>/dev/null || true)
+    case \"\$name\" in
+      *Discover*) WID=\$candidate; break ;;
+    esac
+  done
+fi
+[ -n \"\$WID\" ] && xdotool windowactivate --sync \"\$WID\"
+sleep 0.2
+xdotool key ${key}" || return 1
+}
+
+discover_click_vlc_home_card() {
+  discover_input_click_pct 26 27
+  sleep 0.6
+}
+
+discover_open_vlc_detail_from_home() {
+  discover_click_vlc_home_card
+  discover_input_double_click_pct 26 27
+  sleep 2.5
+}
+
+discover_click_detail_remove() {
+  qemu_input_click_pct 72 6
+  sleep 1.2
+}
+
+discover_click_detail_install_or_launch() {
+  discover_input_click_pct 86 6
+  sleep 0.35
+  discover_input_click_pct 86 6
+  sleep 1
+}
+
+discover_confirm_dialog() {
+  qemu_send_key KEY_ENTER
+  sleep 2
+}
+
+capture_discover_vlc_install_flow_shots() {
+  # Séquence VM : accueil → clic VLC → fiche → Installer → progression → installé.
+  # Input : ydotool (Wayland/uinput) si dispo, sinon virsh/QEMU absolu.
+  ensure_ydotool_ready
+  reset_apps
+  sleep 1
+  open_discover
+  discover_stabilize_for_shot 5
+  shot "$DEST/vm-discover-vlc-install-00-home.png"
+
+  discover_click_vlc_home_card || true
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-vlc-install-00b-vlc-card-focused.png"
+
+  discover_open_vlc_from_home || true
+  discover_stabilize_for_shot 4
+  shot "$DEST/vm-discover-vlc-install-01-detail.png"
+
+  discover_click_detail_install_or_launch || true
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-vlc-install-02-install-click.png"
+
+  discover_confirm_polkit_if_needed || true
+  sleep 8
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-vlc-install-03-progress.png"
+
+  sleep 45
+  discover_stabilize_for_shot 2
+  shot "$DEST/vm-discover-vlc-install-04-installed.png"
+
+  reset_apps
+}
+
+capture_discover_install_flow_shots() {
+  # Série de captures “une action → un visuel”.
+  # Les timings sont volontairement conservateurs (PackageKit peut être lent en VM lab).
+  reset_apps
+  sleep 1
+  open_discover_x11
+  discover_stabilize_for_shot 5
+  shot "$DEST/vm-discover-install-00-home.png"
+
+  discover_install_flow_open_featured_app
+  discover_stabilize_for_shot 2
+  shot "$DEST/vm-discover-install-01-detail-open.png"
+
+  discover_install_flow_activate_install
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-install-02-after-install-click.png"
+
+  # Progression : prises successives pour couvrir “en cours” puis “installé”.
+  sleep 6
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-install-03-progress.png"
+
+  sleep 18
+  discover_stabilize_for_shot 1
+  shot "$DEST/vm-discover-install-04-installed.png"
+
+  # Vérif rapide dans l’onglet Installé(s)
+  discover_nav_tab installed
+  discover_stabilize_for_shot 5
+  shot "$DEST/vm-discover-install-05-installed-tab.png"
+
+  reset_apps
+}
+
+if $DOLPHIN_G5; then
+  capture_dolphin_view_shots
+  capture_dolphin_search_shots
+  capture_dolphin_search_filter_shots
+  capture_dolphin_hamburger_shots
+  echo "=== Terminé : dolphin G5 (vues + search + filtre + hamburger) ==="
+  exit 0
+fi
+
+if $B2_B3_APPS; then
+  reset_apps
+  sleep 1
+  open_spectacle
+  shot "$DEST/vm-spectacle.png"
+  reset_apps
+  sleep 1
+  open_kinfocenter
+  shot "$DEST/vm-kinfocenter.png"
+  reset_apps
+  sleep 1
+  open_system_monitor
+  shot "$DEST/vm-system-monitor.png"
+  reset_apps
+  echo "=== Terminé : vm-spectacle.png, vm-kinfocenter.png, vm-system-monitor.png (--b2-b3-apps) ==="
+  exit 0
+fi
+
+if $DISCOVER_RECURSIVE; then
+  capture_discover_recursive_shots
+  echo "=== Terminé : discover récursif (G6 + VLC + recherche + catégorie + installé fenêtré) ==="
+  exit 0
+fi
+
+if $DISCOVER_VLC_INSTALL_FLOW; then
+  capture_discover_vlc_install_flow_shots
+  echo "=== Terminé : discover vlc-install-flow (vm-discover-vlc-install-*.png) ==="
+  exit 0
+fi
+
+if $DISCOVER_INSTALL_FLOW; then
+  capture_discover_install_flow_shots
+  echo "=== Terminé : discover install-flow (vm-discover-install-*.png) ==="
+  exit 0
+fi
+
+if $DISCOVER_VM_100; then
+  capture_discover_g6_shots
+  capture_discover_detail_shots
+  echo "=== Terminé : discover VM-100 (G6 + fiche VLC) ==="
+  exit 0
+fi
+
+if $DISCOVER_G6; then
+  capture_discover_g6_shots
+  echo "=== Terminé : discover G6 (accueil + installé + MAJ + config + à propos) ==="
+  exit 0
+fi
+
+if $FIREFOX_G7; then
+  reset_apps
+  sleep 1
+  open_firefox
+  shot "$DEST/vm-firefox.png"
+  reset_apps
+  echo "=== Terminé : vm-firefox.png (--firefox-g7) ==="
+  exit 0
+fi
+
+if $PANEL_G8; then
+  remote_session 'killall plasma-discover dolphin konsole spectacle kinfocenter plasma-systemmonitor 2>/dev/null || true
+pkill -9 -f firefox 2>/dev/null || true
+sleep 3'
+  shot "$DEST/vm-desktop.png"
+  open_kickoff
+  sleep 2
+  shot "$DEST/vm-kickoff.png"
+  close_kickoff
+  reset_apps
+  echo "=== Terminé : vm-desktop.png + vm-kickoff.png (--panel-g8) ==="
+  exit 0
+fi
+
+if $DISCOVER_HOME; then
+  capture_discover_tab_shot home vm-discover.png 5
+  echo "=== Terminé : vm-discover.png (--discover-home) ==="
+  exit 0
+fi
+
+if $DISCOVER_INSTALLED_DETAILS_LIVE; then
+  capture_discover_installed_detail_shots live
+  echo "=== Terminé : vm-discover-installed-detail-*.png (--discover-installed-details-live) ==="
+  exit 0
+fi
+
+if $DISCOVER_INSTALLED_DETAILS; then
+  capture_discover_installed_detail_shots
+  echo "=== Terminé : vm-discover-installed-detail-*.png (--discover-installed-details) ==="
+  exit 0
+fi
 
 if $DISCOVER_DETAIL_LIVE; then
   capture_discover_detail_live
@@ -442,28 +1238,19 @@ if $DISCOVER_DETAIL; then
 fi
 
 if $DISCOVER_UPDATES; then
-  reset_apps
-  discover_nav_tab update
-  shot "$DEST/vm-discover-updates.png"
-  reset_apps
+  capture_discover_tab_shot update vm-discover-updates.png 4
   echo "=== Terminé : vm-discover-updates.png (--discover-updates) ==="
   exit 0
 fi
 
 if $DISCOVER_CONFIG; then
-  reset_apps
-  discover_nav_tab settings
-  shot "$DEST/vm-discover-config.png"
-  reset_apps
+  capture_discover_tab_shot settings vm-discover-config.png 4
   echo "=== Terminé : vm-discover-config.png (--discover-config) ==="
   exit 0
 fi
 
 if $DISCOVER_ABOUT; then
-  reset_apps
-  discover_nav_tab about
-  shot "$DEST/vm-discover-about.png"
-  reset_apps
+  capture_discover_tab_shot about vm-discover-about.png 4
   echo "=== Terminé : vm-discover-about.png (--discover-about) ==="
   exit 0
 fi
@@ -478,13 +1265,9 @@ sleep 2
 shot "$DEST/vm-kickoff.png"
 
 close_kickoff
-reset_apps
-open_discover
-shot "$DEST/vm-discover.png"
+capture_discover_tab_shot home vm-discover.png 5
 
-reset_apps
-open_discover_installed
-shot "$DEST/vm-discover-installed.png"
+capture_discover_tab_shot installed vm-discover-installed.png 5
 
 reset_apps
 open_dolphin

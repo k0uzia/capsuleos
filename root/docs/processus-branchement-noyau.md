@@ -41,7 +41,7 @@ Le noyau CapsuleOS (`usr/lib/capsuleos/`) expose des **comportements partagés**
 | Profil | `CAPSULE_EXPLORER_TEMPLATE: "nemo"` |
 | Gabarit | `usr/share/capsuleos/linux/explorers/nemo.html` |
 | Détection | `!isNautilusGnomeTemplate()` |
-| Menu | `bindNemoContextMenu` — menu **dynamique** `.nemo-app__context-menu` (7 entrées VM) |
+| Menu | `bindNemoContextMenu` — menu **dynamique** `.nemo-app__context-menu` (7 entrées VM) · overlay `position: fixed` hors flux fenêtre |
 | Skin | `style/apps/nemo.skin.css` — tokens `--nemo-*` |
 
 ### Nautilus (Rocky / Ubuntu / Fedora — GNOME)
@@ -57,14 +57,27 @@ Le noyau CapsuleOS (`usr/lib/capsuleos/`) expose des **comportements partagés**
 
 **Anti-pattern** : remplacer `bindNautilusGnomeContextMenu` par le menu Nemo Mint sans test Rocky — régression P0 observée (commit `00816fb`).
 
-### Dispatch renforcé (pallier post-9, commit `74ba268`)
+### Dispatch renforcé (pallier post-9, commit `74ba268` — réordonné 2026-06-10)
 
 | Garde | Rôle |
 |-------|------|
-| Exclusion `.nemo-app` dans `isNautilusGnomeScope` | Évite early-return Nautilus sans bind sur Mint |
+| `isNemoCinnamonScope` **en premier** | Mint bindé avant toute tentative Nautilus — évite le flag partagé `nemoContextMenuInit` |
+| Exclusion `.dolphin-app` dans `isNemoCinnamonScope` | Dolphin partage `.nemo-app` sans `.nautilus-app` — ne pas router vers le menu dynamique Nemo |
+| Exclusion `.nemo-app` dans `isNautilusGnomeScope` | Évite bind Nautilus sur gabarit Nemo pur |
 | Repli `CapsuleExplorerRegistry.isNemoFamily()` | Scope Nemo même si gabarit pas encore injecté |
-| Fall-through | Si Nautilus n’initialise pas, tenter `bindNemoContextMenu` |
-| Délégation sur slot + reset `nemoContextMenuBound` | Course `contentLoader` / fenêtres secondaires |
+| Délégation sur slot + reset `nemoContextMenuInit` | Course `contentLoader` / fenêtres secondaires (`capsule:slot-injected`) |
+
+**Anti-régression** : ne pas réintroduire le fall-through Nautilus→Nemo (commit `00816fb`) ni inverser l’ordre sans garde Dolphin.
+
+### KDE Dolphin
+
+| Étape | Détail |
+|-------|--------|
+| Profil | `CAPSULE_EXPLORER_TEMPLATE: "dolphin"` |
+| Gabarit | `dolphin/shell.html` + `#nemo-context-menu.dolphin-context-menu` |
+| Détection | `isDolphinScope()` — classe `.dolphin-app` |
+| Menu | `bindNautilusGnomeContextMenu` (profils item-folder / item-file / background / trash) |
+| Extensions | `fileExplorerDolphin.js` · `ensureExplorerAdvancedChrome` si fragment manquant |
 
 **Gate obligatoire** après patch : `run-cross-regression-gates.mjs` — voir [moteur-clonage-experience.md](moteur-clonage-experience.md).
 

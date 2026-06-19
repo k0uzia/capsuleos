@@ -90,13 +90,17 @@ function usesPtyxisTerminalChrome() {
 
 function hostHasColoredTerminalChrome(node) {
     const host = node && node.closest ? node.closest('[data-link="terminal"], #terminal') : null;
+    if (!host) {
+        return false;
+    }
+    if (usesPtyxisTerminalChrome() && host.dataset.link === 'terminal') {
+        return true;
+    }
     return Boolean(
-        host && (
-            host.classList.contains('terminal-window--gnome')
-            || host.classList.contains('terminal-window--cosmic')
-            || host.classList.contains('terminal-window--fedora')
-            || (document.body && document.body.id === 'ubuntu')
-        )
+        host.classList.contains('terminal-window--gnome')
+        || host.classList.contains('terminal-window--cosmic')
+        || host.classList.contains('terminal-window--fedora')
+        || (document.body && document.body.id === 'ubuntu')
     );
 }
 
@@ -147,7 +151,21 @@ function scrollTerminalToBottom(elements) {
     if (!elements || !elements.output) {
         return;
     }
-    const targets = [elements.output, elements.app, elements.app.parentElement].filter(Boolean);
+    const app = elements.app;
+    if (usesPtyxisTerminalChrome() && app) {
+        const fitsInView = app.scrollHeight <= app.clientHeight + 1;
+        if (fitsInView) {
+            app.scrollTop = 0;
+            if (elements.output) {
+                elements.output.scrollTop = 0;
+            }
+            if (app.parentElement) {
+                app.parentElement.scrollTop = 0;
+            }
+            return;
+        }
+    }
+    const targets = [elements.output, app, app && app.parentElement].filter(Boolean);
     targets.forEach((target) => {
         target.scrollTop = target.scrollHeight;
     });
@@ -158,6 +176,7 @@ function updateTerminalPrompt(elements, session) {
     paintTerminalPrompt(elements.prompt, promptText);
     const windowElement = elements.app.closest('.windowElement');
     syncGnomeTerminalTitle(windowElement, promptText);
+    syncTerminalGnomeDataset(windowElement);
 }
 
 function createFedoraTerminalButton(className, label, text) {
@@ -175,10 +194,74 @@ function resolveFedoraTerminalPrompt() {
     const profile = typeof window.CAPSULE_TERMINAL_PROFILE === 'string'
         ? window.CAPSULE_TERMINAL_PROFILE
         : '';
-    if ((document.body && document.body.id === 'rocky') || profile === 'rocky') {
+    const bodyId = document.body && document.body.id ? document.body.id : '';
+    if (bodyId === 'rocky' || profile === 'rocky') {
         return 'capsule@rocky:~';
     }
-    return 'fed@fedora:~';
+    if (bodyId === 'alma' || profile === 'alma') {
+        return 'capsule@alma:~';
+    }
+    if (bodyId === 'ubuntu' || profile === 'ubuntu') {
+        return 'capsule@ubuntu:~';
+    }
+    if (bodyId === 'fedora' || profile === 'fedora') {
+        return 'capsule@fedora:~';
+    }
+    if (bodyId === 'anduinos' || profile === 'anduinos') {
+        return 'capsule@anduinos:~';
+    }
+    return 'capsule@fedora:~';
+}
+
+function supportsTerminalGnomeDataset() {
+    return usesPtyxisTerminalChrome();
+}
+
+function syncTerminalGnomeDataset(windowElement) {
+    if (!supportsTerminalGnomeDataset()) {
+        return;
+    }
+    const win = windowElement && windowElement.dataset && windowElement.dataset.link === 'terminal'
+        ? windowElement
+        : (windowElement && windowElement.closest
+            ? windowElement.closest('.windowElement[data-link="terminal"]')
+            : null)
+        || document.querySelector('.windowElement.windowElementActive[data-link="terminal"]')
+        || document.querySelector('.windowElement[data-link="terminal"]');
+    if (!win) {
+        return;
+    }
+    const app = win.querySelector('[data-terminal-app]');
+    const session = app && app.__capsuleTerminalSession;
+    const tabState = win.__capsuleTerminalTabState;
+    const promptText = session && typeof session.getPrompt === 'function'
+        ? session.getPrompt()
+        : `${resolveFedoraTerminalPrompt()}$ `;
+    const tabCount = tabState && Array.isArray(tabState.tabs) ? tabState.tabs.length : 1;
+    const activeTabId = tabState && tabState.activeTabId ? tabState.activeTabId : 'tab-1';
+    const cwd = session && session.state ? session.state.cwd : '/';
+    const history = session && session.state && Array.isArray(session.state.history)
+        ? session.state.history
+        : [];
+    const lastCmd = history.length ? history[history.length - 1] : '';
+    const ready = app && app.dataset.terminalReady === 'true';
+    const markers = [
+        win.querySelector('[data-terminal-gnome-root]'),
+        win.querySelector('#terminalContainer'),
+        app,
+    ].filter(Boolean);
+    markers.forEach((node) => {
+        node.dataset.terminalGnomeInit = ready ? 'true' : 'false';
+        node.dataset.terminalGnomePrompt = String(promptText).replace(/\$\s*$/, '').trim();
+        node.dataset.terminalGnomeTabCount = String(tabCount);
+        node.dataset.terminalGnomeActiveTabId = activeTabId;
+        node.dataset.terminalGnomeCwd = cwd;
+        node.dataset.ptyxisGnomeProvider = 'ptyxis-gnome';
+        node.dataset.terminalGnomeChrome = 'ptyxis';
+        if (lastCmd) {
+            node.dataset.terminalGnomeLastCommand = lastCmd;
+        }
+    });
 }
 
 function ensureFedoraTerminalWindowControls(header) {
@@ -547,64 +630,28 @@ function syncGnomeTerminalTitle(windowElement, promptText) {
     paintGnomeTerminalTitle(title, promptText);
 }
 
-function isListingDirectory(session, name) {
-    if (!window.CapsuleTerminal || !session || !session.state) {
-        return false;
+function getListingColumnWidth(lines, fallbackWidth) {
+    if (window.CapsuleTerminalListing && typeof window.CapsuleTerminalListing.inferColumnWidth === 'function') {
+        return window.CapsuleTerminalListing.inferColumnWidth(lines, fallbackWidth);
     }
-    const { fs, cwd, home } = session.state;
-    const resolved = window.CapsuleTerminal.resolvePath(cwd, name, home);
-    if (fs[resolved] && typeof fs[resolved] === 'object') {
-        return true;
-    }
-    const parent = fs[cwd];
-    if (parent && typeof parent === 'object') {
-        if (Object.prototype.hasOwnProperty.call(parent, name)) {
-            return typeof parent[name] === 'object';
-        }
-        const slashName = `/${name}`;
-        if (Object.prototype.hasOwnProperty.call(parent, slashName)) {
-            return typeof parent[slashName] === 'object';
-        }
-    }
-    return false;
-}
-
-function getListingColumnWidth(lines) {
-    const names = lines.flatMap((line) => (
+    const names = (lines || []).flatMap((line) => (
         String(line || '').trim().split(/\s+/).filter(Boolean)
     )).map((name) => (name.startsWith('/') ? name.slice(1) : name));
     if (!names.length) {
         return 10;
     }
-    const longest = Math.max(...names.map((name) => name.length));
-    return longest + 3;
+    return Math.max(...names.map((name) => name.length)) + 3;
 }
 
 function renderListingLine(output, line, session, columnWidthCh) {
+    if (window.CapsuleTerminalListing && typeof window.CapsuleTerminalListing.renderLine === 'function') {
+        window.CapsuleTerminalListing.renderLine(output, line, session, columnWidthCh);
+        return;
+    }
     const row = document.createElement('div');
     row.className = 'capsule-terminal__line capsule-terminal__line--listing';
-
     const code = document.createElement('code');
-    if (columnWidthCh) {
-        const lsVar = document.body && document.body.id === 'popos'
-            ? '--popos-terminal-ls-col-width'
-            : '--ubuntu-terminal-ls-col-width';
-        code.style.setProperty(lsVar, `${columnWidthCh}ch`);
-    }
-    const names = String(line || '').trim().split(/\s+/).filter(Boolean);
-    const gnomeListing = isGnomeTerminalChrome();
-    names.forEach((name, index) => {
-        const cleanName = name.startsWith('/') ? name.slice(1) : name;
-        const span = document.createElement('span');
-        span.textContent = cleanName;
-        if (gnomeListing || isListingDirectory(session, cleanName)) {
-            span.className = 'capsule-terminal__dir';
-        }
-        code.appendChild(span);
-        if (index < names.length - 1) {
-            code.appendChild(document.createTextNode('  '));
-        }
-    });
+    code.textContent = String(line || '');
     row.appendChild(code);
     output.appendChild(row);
 }
@@ -810,6 +857,20 @@ function decorateFedoraTerminalWindow(container) {
     windowElement.classList.remove('terminal-window--gnome');
     windowElement.classList.add('terminal-window--fedora', 'terminal-window--csd');
 
+    const refreshFedoraTerminalPromptChrome = () => {
+        const app = windowElement.querySelector('[data-terminal-app]');
+        const promptEl = windowElement.querySelector('[data-terminal-prompt], #prompt');
+        if (!promptEl) {
+            return;
+        }
+        const promptText = app && app.__capsuleTerminalSession && typeof app.__capsuleTerminalSession.getPrompt === 'function'
+            ? app.__capsuleTerminalSession.getPrompt()
+            : promptEl.textContent;
+        paintTerminalPrompt(promptEl, promptText);
+    };
+
+    refreshFedoraTerminalPromptChrome();
+
     const applyChrome = () => {
         const header = windowElement.querySelector('#windowHeader');
         if (!header) {
@@ -878,6 +939,7 @@ function decorateFedoraTerminalWindow(container) {
         if (typeof window.scheduleTerminalTabsBind === 'function') {
             window.scheduleTerminalTabsBind(windowElement);
         }
+        refreshFedoraTerminalPromptChrome();
         return true;
     };
 
@@ -886,6 +948,7 @@ function decorateFedoraTerminalWindow(container) {
         const observer = new MutationObserver(() => {
             if (applyChrome()) {
                 observer.disconnect();
+                refreshFedoraTerminalPromptChrome();
                 if (typeof window.scheduleTerminalTabsBind === 'function') {
                     window.scheduleTerminalTabsBind(windowElement);
                 }
@@ -1025,7 +1088,11 @@ function initTerminalForContainer(windowElement) {
         delete elements.app.dataset.terminalBooting;
         elements.app.__capsuleTerminalSession = session;
         updateTerminalPrompt(elements, session);
-        scrollTerminalToBottom(elements);
+        if (!usesPtyxisTerminalChrome() || elements.output.childElementCount > 0) {
+            scrollTerminalToBottom(elements);
+        } else if (elements.app) {
+            elements.app.scrollTop = 0;
+        }
 
         elements.app.addEventListener('click', () => {
             elements.commandInput.focus();
@@ -1083,7 +1150,7 @@ function initTerminalForContainer(windowElement) {
                     return;
                 }
                 const listingColWidth = result.listing
-                    ? getListingColumnWidth(result.lines || [])
+                    ? getListingColumnWidth(result.lines || [], result.listingColumnWidth)
                     : 0;
                 (result.lines || []).forEach((line) => {
                     if (result.listing) {
@@ -1106,12 +1173,14 @@ function initTerminalForContainer(windowElement) {
             if (typeof window.syncTerminalTabs === 'function') {
                 window.syncTerminalTabs(host);
             }
+            syncTerminalGnomeDataset(host);
             elements.commandInput.focus();
         });
 
         if (typeof window.scheduleTerminalTabsBind === 'function') {
             window.scheduleTerminalTabsBind(host);
         }
+        syncTerminalGnomeDataset(host);
         delete window.CAPSULE_TERMINAL_FORCE_FRESH;
 
         if (host.classList.contains('windowElementActive')) {
@@ -1173,8 +1242,12 @@ function mapExplorerPathToTerminalCwd(explorerPath) {
 }
 
 function consumeTerminalLaunchCwd() {
+    const home = window.CAPSULE_TERMINAL_HOME || window.CAPSULE_USER_HOME || '/home/public';
     if (window.CAPSULE_TERMINAL_LAUNCH_CWD == null || window.CAPSULE_TERMINAL_LAUNCH_CWD === '') {
-        return '/';
+        if (window.CapsuleTerminal && typeof window.CapsuleTerminal.normalizePath === 'function') {
+            return window.CapsuleTerminal.normalizePath(home);
+        }
+        return home;
     }
     const cwd = mapExplorerPathToTerminalCwd(window.CAPSULE_TERMINAL_LAUNCH_CWD);
     delete window.CAPSULE_TERMINAL_LAUNCH_CWD;
@@ -1204,6 +1277,8 @@ if (typeof window !== 'undefined') {
     window.updateTerminalPrompt = updateTerminalPrompt;
     window.scrollTerminalToBottom = scrollTerminalToBottom;
     window.resolveFedoraTerminalPrompt = resolveFedoraTerminalPrompt;
+    window.supportsTerminalGnomeDataset = supportsTerminalGnomeDataset;
+    window.syncTerminalGnomeDataset = syncTerminalGnomeDataset;
     window.initTerminalForContainer = initTerminalForContainer;
     window.initTerminalWhenReady = initTerminalWhenReady;
     window.mapExplorerPathToTerminalCwd = mapExplorerPathToTerminalCwd;

@@ -13,7 +13,7 @@
     "mainMenu.powerRestart": "Redémarrer",
     "mainMenu.powerShutdown": "Éteindre",
     "mainMenu.powerSession": "Session",
-    "terminal.windowTitle": "~ : bash - Konsole",
+    "terminal.windowTitle": "~ : bash — Konsole",
     "themes.windowTitle": "Paramètres système",
     "checklist.windowTitle": "Missions KDE Neon",
     "checklist.description": "Explore KDE Neon en accomplissant ces missions. Ta progression est sauvegardée.",
@@ -23,8 +23,13 @@
     "profile.windowTitle": "À propos - KDE Neon",
     "firefox.windowTitle": "Navigateur Web — Firefox",
     "update_manager.windowTitle": "Page d'accueil — Discover",
-    "text_editor.windowTitle": "Kate — Éditeur de texte",
+    "text_editor.windowTitle": "Bienvenue — Kate",
+    "lecteur_multimedia.windowTitle": "Lecteur multimédia VLC",
     "visionneur_pdf.windowTitle": "Okular",
-    "visionneur_images.windowTitle": "Gwenview"
+    "visionneur_images.windowTitle": "Gwenview",
+    "spectacle.windowTitle": "Spectacle",
+    "kinfocenter.windowTitle": "Centre d'informations",
+    "system_monitor.windowTitle": "Surveillance du système",
+    "kdeconnect.windowTitle": "KDE Connect"
 }
 

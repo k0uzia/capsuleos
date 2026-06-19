@@ -81,22 +81,33 @@
         'Tablette graphique': 'wacom',
         'Thèmes': 'themes',
         'Thunderbolt': 'thunderbolt',
-        'Utilisateurs et groupes': 'users'
+        'Utilisateurs et groupes': 'users',
+        'Disks': 'disks',
+        'Disques': 'disks',
+        'Printers': 'printers',
+        'Imprimantes': 'printers',
+        'Passwords and Keys': 'passwords',
+        'Mots de passe et clés': 'passwords',
+        'Sources de logiciels': 'software-sources',
+        'Renseignements sur le système': 'system-info',
+        'Informations système': 'system-info',
+        'Onboard': 'accessibility'
     };
 
+    /* Filets de sécurité si la donnée générée arrive en anglais —
+       les libellés cibles suivent la vérité VM (linux-mint-menu-entries-vm.json). */
     var FRENCH_APP_NAMES = {
         'Calculator': 'Calculatrice',
         'Calendar': 'Agenda',
         'Archive Manager': 'Gestionnaire d\'archives',
-        'Celluloid': 'Lecteur vidéo',
         'Firefox': 'Firefox',
         'Files': 'Fichiers',
         'Library': 'Bibliothèque',
-        'Welcome Screen': 'Écran d\'accueil Mint',
+        'Welcome Screen': 'Écran d\'accueil',
         'Text Editor': 'Éditeur de texte',
         'Drawing': 'Dessin',
-        'Document Scanner': 'Numérisation de documents',
-        'Disk Usage Analyzer': 'Analyseur d\'espace disque',
+        'Document Scanner': 'Numériseur de documents',
+        'Disk Usage Analyzer': 'Analyseur d’utilisation des disques',
         'Update Manager': 'Gestionnaire de mise à jour',
         'Software Manager': 'Logithèque',
         'System Monitor': 'Moniteur système'
@@ -162,9 +173,8 @@
                 app.dataLink = 'mintdrivers';
                 app.icon = './assets/images/toolkits/cinnamon/apps/mintdrivers';
             }
-            if (app.name === 'Analyseur d\'espace disque' || app.name === 'Disk Usage Analyzer') {
+            if (app.name === 'Analyseur d’utilisation des disques' || app.name === 'Disk Usage Analyzer') {
                 app.dataLink = 'baobab';
-                app.name = 'Analyseur d\'espace disque';
                 app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.baobab';
             }
             if (app.name === 'Applications web' || app.name === 'Applications Web') {
@@ -174,7 +184,6 @@
             }
             if (app.name === 'Écran d\'accueil' || app.name === 'Écran d\'accueil Mint') {
                 app.dataLink = 'mintwelcome';
-                app.name = 'Écran d\'accueil Mint';
                 app.icon = './assets/images/toolkits/cinnamon/apps/mintwelcome';
             }
             if (app.name === 'Hypnotix') {
@@ -188,7 +197,6 @@
             }
             if (app.name === 'Renommeur de fichiers' || app.name === 'Renommer fichiers') {
                 app.dataLink = 'bulky';
-                app.name = 'Renommer fichiers';
             }
             if (app.name === 'Messagerie Thunderbird') {
                 app.dataLink = 'thunderbird';
@@ -202,9 +210,39 @@
             if (app.name === 'Warpinator') {
                 app.dataLink = 'warpinator';
             }
+            if (app.name === 'Bibliothèque') {
+                app.dataLink = 'thingy';
+            }
+            if (app.name === 'Table de caractères') {
+                app.dataLink = 'gucharmap';
+            }
+            if (app.name === 'Numérisation de documents') {
+                app.dataLink = 'simple_scan';
+            }
+            if (app.name === 'Rhythmbox') {
+                app.dataLink = 'rhythmbox';
+            }
+            if (app.name === 'Disks' || app.name === 'Disques') {
+                app.dataLink = 'gnome_disks';
+                app.name = 'Disques';
+                app.icon = './assets/images/toolkits/cinnamon/apps/org.gnome.DiskUtility';
+            }
+            if (app.name === 'Créateur de clé USB') {
+                app.dataLink = 'mintstick';
+            }
+            if (app.name === 'Formateur de clé USB') {
+                app.dataLink = 'mintstick_format';
+            }
+            if (app.name === 'Fonts' || app.name === 'Polices') {
+                app.dataLink = 'font_viewer';
+                app.name = 'Polices';
+            }
             if (app.name === 'Lecteur vidéo' || app.name === 'Celluloid') {
                 app.dataLink = 'lecteur_multimedia';
                 app.icon = './assets/images/toolkits/cinnamon/apps/io.github.celluloid_player.Celluloid';
+            }
+            if (app.name === 'Numériseur de documents' || app.name === 'Numérisation de documents') {
+                app.dataLink = 'simple_scan';
             }
             if (app.name === 'Agenda') {
                 app.icon = panelIcon + 'org.gnome.Calendar.webp';
@@ -212,11 +250,18 @@
         });
 
         var hasScreenshot = false;
+        var hasPowerStats = false;
+        var hasColorSelect = false;
         var ai;
         for (ai = 0; ai < MENU_APPS.length; ai++) {
-            if (MENU_APPS[ai].name === 'Capture d\'écran') {
+            if (/^Capture d['’]écran$/.test(MENU_APPS[ai].name)) {
                 hasScreenshot = true;
-                break;
+            }
+            if (/^Statistiques d(e l)?['’]alimentation$/.test(MENU_APPS[ai].name)) {
+                hasPowerStats = true;
+            }
+            if (MENU_APPS[ai].name === 'Sélecteur de couleur') {
+                hasColorSelect = true;
             }
         }
         if (!hasScreenshot) {
@@ -226,6 +271,24 @@
                 name: 'Capture d\'écran',
                 desc: 'Prenez une photo de l\'écran',
                 dataLink: 'screenshot'
+            });
+        }
+        if (!hasPowerStats) {
+            MENU_APPS.push({
+                catId: 'prefs',
+                icon: './assets/images/toolkits/cinnamon/apps/cinnamon-settings-power',
+                name: 'Statistiques d\'alimentation',
+                desc: 'Power Statistics',
+                dataLink: 'power_stats'
+            });
+        }
+        if (!hasColorSelect) {
+            MENU_APPS.push({
+                catId: 'access',
+                icon: './assets/images/toolkits/cinnamon/apps/cinnamon-color-panel',
+                name: 'Sélecteur de couleur',
+                desc: 'Color selection dialog',
+                dataLink: 'mate_color_select'
             });
         }
     }

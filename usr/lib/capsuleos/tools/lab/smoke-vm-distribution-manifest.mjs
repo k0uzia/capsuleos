@@ -48,12 +48,21 @@ const main = () => {
     );
 
     const warnings = [];
+    const manifestIdsFor = (p0, spec) => {
+      const aliases = Array.isArray(spec.vmManifestIds) ? spec.vmManifestIds : [];
+      return [p0, ...aliases];
+    };
+    const hasManifestId = (ids) => ids.some(
+      (id) => gridIds.has(id) || allIds.has(id),
+    );
     for (const [p0, spec] of p0OnVm) {
-      if (!gridIds.has(p0) && !allIds.has(p0)) {
+      const ids = manifestIdsFor(p0, spec);
+      if (!hasManifestId(ids)) {
         errors.push(`P0 onVm absent du scan VM: ${p0}${spec.note ? ` (${spec.note})` : ''}`);
-      } else if (!gridIds.has(p0) && allIds.has(p0)) {
+      } else if (!gridIds.has(p0) && !ids.some((id) => gridIds.has(id))) {
+        const hit = ids.find((id) => allIds.has(id));
         const entry = manifest.applications.entries.find(
-          (e) => (e.normalizedId || e.id) === p0,
+          (e) => (e.normalizedId || e.id) === hit,
         );
         warnings.push(`P0 présent mais masqué grille: ${p0} (${(entry?.hideReasons || []).join(',')})`);
       }

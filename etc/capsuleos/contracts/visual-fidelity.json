@@ -124,6 +124,29 @@
         ]
       }
     },
+    "linux-popos": {
+      "typography": {
+        "uiStack": ["Open Sans", "Ubuntu Sans", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/Debian/PopOS/popos-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Pop",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh — COSMIC"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/PopOS/style/cosmic-shell/a11y-popos.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      }
+    },
     "linux-rocky": {
       "typography": {
         "uiStack": ["Red Hat Text", "Cantarell"],
@@ -156,6 +179,98 @@
       "mime": {
         "iconTheme": "Adwaita",
         "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      }
+    },
+    "linux-alma": {
+      "typography": {
+        "uiStack": ["Red Hat Text", "Cantarell"],
+        "monoStack": ["Red Hat Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 10,
+        "tokenFile": "home/RedHat/Alma/alma-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/RedHat/Alma/style/gnome-shell/a11y-fedora.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      },
+      "mime": {
+        "iconTheme": "Adwaita",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh — dérivé Rocky"
+      }
+    },
+    "linux-kde-neon": {
+      "typography": {
+        "uiStack": ["Noto Sans", "Ubuntu", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 10,
+        "monoSizePt": 10,
+        "tokenFile": "home/Debian/KDE-Neon/neon-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/KDE-Neon/style/a11y-overrides.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      },
+      "mime": {
+        "iconTheme": "breeze",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      }
+    },
+    "linux-anduinos": {
+      "typography": {
+        "uiStack": ["Noto Sans", "Ubuntu", "Cantarell"],
+        "monoStack": ["Cascadia Code", "Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/Debian/AnduinOS/anduin-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Fluent-dark",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/AnduinOS/style/anduin-shell/a11y-anduin.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      }
+    },
+    "linux-mint": {
+      "typography": {
+        "uiStack": ["Ubuntu", "Noto Sans", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 10,
+        "monoSizePt": 10,
+        "tokenFile": "home/Debian/Mint/style/mint-y-dark-aqua-tokens.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1280, "height": 800 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Mint-Y",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/Mint/style/a11y-overrides.css",
+          "home/Debian/Mint/style/a11y-apps.css"
+        ]
       }
     }
   }

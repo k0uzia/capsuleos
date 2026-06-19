@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const legacy = document.getElementById('heure-date');
 
     function tick() {
+        if (document.body && document.body.id === 'mint') {
+            return;
+        }
         const now = new Date();
         const isPopos = document.body && document.body.id === 'popos';
         const shortTime = now.toLocaleTimeString('fr-FR', isPopos

@@ -1,36 +1,37 @@
 /**
- * Catalogue fichiers explorateur — chemins canoniques toolkit Cinnamon.
+ * Alias legacy Cinnamon/Mint/GNOME — même catalogue que fileExplorerCatalog.js.
+ * Sur Plasma/KDE : charger fileExplorerCatalog.js uniquement (cloisonnement toolkit).
  * Remappés au runtime par CapsuleExplorerIconBase (GNOME Adwaita, KDE, …).
  */
 const fileExplorerSystemLink = {
     'files': {
         //////////////////////////// DOSSIER ////////////////////////////////
         "Dossier_personnel": {
-            "image": "./assets/icons/cinnamon/nemo/folder.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder.png"
         },
         "Bureau": {
-            "image": "./assets/icons/cinnamon/nemo/user-desktop.svg"
+            "image": "./assets/icons/cinnamon/nemo/user-desktop.png"
         },
         "Documents": {
-            "image": "./assets/icons/cinnamon/nemo/folder-documents.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-documents.png"
         },
         "Images": {
-            "image": "./assets/icons/cinnamon/nemo/folder-pictures.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-pictures.png"
         },
         "Musique": {
-            "image": "./assets/icons/cinnamon/nemo/folder-music.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-music.png"
         },
         "Modèles": {
-            "image": "./assets/icons/cinnamon/nemo/folder-templates.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-templates.png"
         },
         "Public": {
-            "image": "./assets/icons/cinnamon/nemo/folder-publicshare.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-publicshare.png"
         },
         "Téléchargements": {
-            "image": "./assets/icons/cinnamon/nemo/folder-download.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-download.png"
         },
         "Vidéos": {
-            "image": "./assets/icons/cinnamon/nemo/folder-videos.svg"
+            "image": "./assets/icons/cinnamon/nemo/folder-videos.png"
         },
         ///////////////////////////// TEXTE /////////////////////////////////
         "pdf": {
@@ -142,7 +143,7 @@ const fileExplorerSystemLink = {
             ]
         },
         "system": {
-            "image": "./assets/icons/cinnamon/nemo/folder.svg",
+            "image": "./assets/icons/cinnamon/nemo/folder.png",
             "détails": [
                 "Tester Linux"
             ]

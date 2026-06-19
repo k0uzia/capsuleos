@@ -172,6 +172,50 @@ node usr/lib/capsuleos/tools/validate-all.mjs
 
 ---
 
+## 6 bis. Clôture formelle CredΣ
+
+Après P-F3 (inventaire 130/130, 43/43 apps π=100, `gapSlotsTotal=0`), la chaîne **Cred*** formalise la clôture machine :
+
+| Prédicat | Condition |
+|----------|-----------|
+| **CredV** | `documented === totalScenarios` (> 0) |
+| **CredC** | `implemented === total` |
+| **CredS** | `smokeOk === total` + gate live (`CredS.liveVerified`) |
+| **CredΠ** | `appsAtPi100 === appsTotal` ∧ `gapSlotsTotal === 0` |
+| **CredΣ** | conjonction des quatre |
+
+```bash
+# Baseline H₂
+node usr/lib/capsuleos/tools/validate-all.mjs
+
+# Évaluation Cred* (JSON ou humain)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal --json
+
+# Résolution R-CRED* (validate-all → smoke-all → formal-write)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase resolve --max-steps 8
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs --id linux-mint --max-steps 8
+
+# Agent JSON
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
+
+# Écriture état formel + replication-state.credibilityCampaign.credSigma
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal-write
+
+# Smoke live batch (130 scénarios — long ; échantillon ou skip si inventaire déjà 100 %)
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id linux-mint --sample 10
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-app-fidelity-all.mjs --id linux-mint --skip-live
+
+# Clôture release
+node usr/lib/capsuleos/tools/validate-all.mjs
+```
+
+Artefacts : `linux-mint-credibility-formal-state.json` · `linux-mint-credibility-formal-resolve.json` · patch `linux-mint-replication-state.json` (`credSigma`, `evaluatedAt`, `predicates`).
+
+Référence logique : [logique-formelle.md](logique-formelle.md) §2.9.
+
+---
+
 ## 7. Anti-patterns
 
 | Interdit | Raison |

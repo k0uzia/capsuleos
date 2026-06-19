@@ -70,7 +70,7 @@ export function resolveSlotVariant(catalog, ctx, slotId) {
 
     const template = String(base.template || `${slotId}.html`);
     const templateFile = template.endsWith('.html') ? template : `${template}.html`;
-    const baseCssStem = templateFile.replace(/\.html$/i, '');
+    const baseCssStem = base.baseCssStem || templateFile.replace(/\.html$/i, '');
 
     return {
         slotId,
@@ -153,9 +153,6 @@ export const TOOLKIT_TEMPLATE_MARKERS = {
 
 export function detectToolkitFromTemplatePath(templatePath) {
     const p = String(templatePath);
-    if (p.includes('update_manager_ubuntu') || p.includes('ubuntu-software')) {
-        return 'gnome-ubuntu';
-    }
     if (p.includes('_gnome') || p.includes('themes_gnome') || p.includes('nemo-gnome')) {
         return 'gnome';
     }
@@ -174,9 +171,6 @@ export function detectToolkitFromTemplatePath(templatePath) {
 export function assertTemplateMatchesToolkit(toolkitId, templatePath) {
     const detected = detectToolkitFromTemplatePath(templatePath);
     if (!detected) {
-        return null;
-    }
-    if (detected === 'gnome-ubuntu' && toolkitId === 'gnome') {
         return null;
     }
     if (detected === 'gnome' && toolkitId === 'gnome') {

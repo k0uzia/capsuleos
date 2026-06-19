@@ -458,10 +458,12 @@ const shouldHideListViewItem = (item, directoryPath) => {
     if (isCosmicFilesExplorer() && item.name === 'Public') {
         return true;
     }
+    // snap : artefact Ubuntu — masqué hors Ubuntu (vérité VM Fedora/Rocky/Alma).
     if (
         directoryPath === getFileExplorerRoot()
         && item.name === 'snap'
-        && (usesNemoListViewFrenchColumns() || isDolphinTemplate())
+        && (usesNemoListViewFrenchColumns() || isDolphinTemplate() || isNemoTemplate()
+            || isNautilusGnomeTemplate())
     ) {
         return true;
     }
@@ -1054,6 +1056,18 @@ const togglePathNavigationMode = () => {
     updatePathNavigationToggleButton();
 };
 
+/* Vérité VM Mint : Nemo affiche le fil d'Ariane par défaut (Ctrl+L pour le champ texte). */
+let pathNavigationModeResolved = false;
+const resolveDefaultPathNavigationMode = () => {
+    if (pathNavigationModeResolved) {
+        return;
+    }
+    pathNavigationModeResolved = true;
+    if (isNemoTemplate()) {
+        fileExplorerState.pathNavigationMode = 'breadcrumb';
+    }
+};
+
 const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
     const crumbPrefix = pathLabelElement.querySelector('.dolphin-toolbar__crumb-prefix');
     const label = findFolderLabel(displayPath);
@@ -1088,8 +1102,24 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
         link.href = '#';
         link.className = 'nemo-app__path-crumb';
         link.dataset.path = segment.path;
-        link.textContent = segment.label;
-        link.title = segment.label;
+        // VM Nemo : le crumb racine montre la maison symbolique blanche + nom utilisateur (« capsule »)
+        if (index === 0 && isNemoTemplate() && segment.path === getFileExplorerRoot()) {
+            const homeIcon = document.createElement('img');
+            homeIcon.src = typeof resolveCapsuleResourceUrl === 'function'
+                ? resolveCapsuleResourceUrl('./assets/icons/cinnamon/nemo/user-home-symbolic.svg')
+                : './assets/icons/cinnamon/nemo/user-home-symbolic.svg';
+            homeIcon.alt = '';
+            homeIcon.className = 'nemo-app__path-crumb-icon';
+            link.appendChild(homeIcon);
+            const userLabel = (typeof window !== 'undefined' && window.CAPSULE_USER_NAME)
+                ? String(window.CAPSULE_USER_NAME)
+                : 'capsule';
+            link.appendChild(document.createTextNode(userLabel));
+            link.title = segment.label;
+        } else {
+            link.textContent = segment.label;
+            link.title = segment.label;
+        }
         fragment.appendChild(link);
     });
 
@@ -1097,6 +1127,7 @@ const renderPathNavigationDisplay = (pathLabelElement, displayPath) => {
 };
 
 const updatePathDisplay = () => {
+    resolveDefaultPathNavigationMode();
     const nemoRoot = getExplorerWindowSlot();
     const pathLabelElement = nemoRoot
         ? nemoRoot.querySelector('.nemo-app__path-current, #nemo-path-label')
@@ -1906,6 +1937,93 @@ const resolveUniqueExplorerFolderName = (parentNode, baseName = 'Nouveau dossier
     return `${baseName} ${index}`;
 };
 
+const resolveUniqueExplorerFileName = (parentNode, baseName = 'Nouveau document.txt') => {
+    if (!parentNode || !Array.isArray(parentNode.items)) {
+        return baseName;
+    }
+    if (!findItemInFolder(parentNode, baseName)) {
+        return baseName;
+    }
+    const dot = baseName.lastIndexOf('.');
+    const stem = dot > 0 ? baseName.slice(0, dot) : baseName;
+    const ext = dot > 0 ? baseName.slice(dot) : '';
+    let index = 2;
+    while (findItemInFolder(parentNode, `${stem} ${index}${ext}`)) {
+        index += 1;
+    }
+    return `${stem} ${index}${ext}`;
+};
+
+const createFileInExplorer = async (parentPath, fileName, fileOptions = {}) => {
+    try {
+        await loadManifest();
+    } catch (error) {
+        return { ok: false, message: 'Manifeste indisponible.' };
+    }
+
+    const manifest = fileExplorerState.manifest;
+    if (!manifest || !manifest.folders) {
+        return { ok: false, message: 'Manifeste indisponible.' };
+    }
+
+    const parent = normalizeDirectoryPath(parentPath);
+    const parentNode = manifest.folders[parent];
+    if (!parentNode || !Array.isArray(parentNode.items)) {
+        return { ok: false, message: 'Dossier parent introuvable.' };
+    }
+
+    const name = String(fileName || '').trim();
+    if (!name || /[/\\]/.test(name)) {
+        return { ok: false, message: 'Nom de fichier invalide.' };
+    }
+    if (findItemInFolder(parentNode, name)) {
+        return { ok: false, message: 'Un élément avec ce nom existe déjà.' };
+    }
+
+    const dot = name.lastIndexOf('.');
+    const extension = fileOptions.extension
+        || (dot > 0 ? name.slice(dot + 1).toLowerCase() : 'txt');
+    const href = fileOptions.href != null ? fileOptions.href : '#';
+    const fileItem = { type: 'file', name, extension, href };
+    parentNode.items.push(fileItem);
+    parentNode.items = sortExplorerItems(parentNode.items);
+
+    if (typeof window.pushExplorerUndoSnapshot === 'function') {
+        window.pushExplorerUndoSnapshot();
+    }
+    persistExplorerManifest(manifest);
+
+    const pane = fileExplorerState.activePane || 'primary';
+    renderDirectory(parent, { pane });
+
+    return { ok: true, name, extension };
+};
+
+const createNewDocumentInCurrentDirectory = async (options = {}) => {
+    const parentPath = options.parentPath || fileExplorerState.currentPath;
+    if (!parentPath || isCapsuleVirtualPlace(parentPath)) {
+        return { ok: false, message: 'Impossible de créer un document ici.' };
+    }
+    if (typeof window.CapsuleExplorerVfs !== 'undefined'
+        && window.CapsuleExplorerVfs.isExplorerVfsPath(parentPath)) {
+        return { ok: false, message: 'Impossible de créer un document ici.' };
+    }
+
+    let name = options.defaultName || 'Nouveau document.txt';
+    try {
+        await loadManifest();
+        const parentNode = fileExplorerState.manifest
+            && fileExplorerState.manifest.folders[normalizeDirectoryPath(parentPath)];
+        if (parentNode) {
+            name = resolveUniqueExplorerFileName(parentNode, name);
+        }
+    } catch (error) {
+        /* garde le nom par défaut */
+    }
+
+    return createFileInExplorer(parentPath, name, { extension: 'txt', href: '#' });
+};
+
 const createNewFolderInCurrentDirectory = async (options = {}) => {
     const parentPath = options.parentPath || fileExplorerState.currentPath;
     if (!parentPath || isCapsuleVirtualPlace(parentPath)) {
@@ -1916,9 +2034,11 @@ const createNewFolderInCurrentDirectory = async (options = {}) => {
     }
 
     const useInlineRename = !options.skipPrompt
-        && typeof window.isNautilusGnomeTemplate === 'function'
-        && window.isNautilusGnomeTemplate()
-        && typeof window.scheduleExplorerInlineRename === 'function';
+        && typeof window.scheduleExplorerInlineRename === 'function'
+        && (
+            (typeof window.isNemoTemplate === 'function' && window.isNemoTemplate())
+            || (typeof window.isNautilusGnomeTemplate === 'function' && window.isNautilusGnomeTemplate())
+        );
 
     let name = options.defaultName || 'Nouveau dossier';
     if (useInlineRename) {
@@ -2261,6 +2381,10 @@ const navigateToFileExplorerDirectory = async (directory, options = {}) => {
 
         if (typeof window.syncNautilusTabs === 'function') {
             window.syncNautilusTabs();
+        }
+
+        if (typeof window.syncNautilusGnomeDataset === 'function') {
+            window.syncNautilusGnomeDataset();
         }
     } catch (error) {
         console.error('Erreur lors du chargement du manifeste explorateur:', error);
@@ -2751,6 +2875,12 @@ const bindFileExplorerNavigationControls = () => {
     if (typeof window.bindFileExplorerProperties === 'function') {
         window.bindFileExplorerProperties();
     }
+    if (typeof window.bindFileExplorerNemoOps === 'function') {
+        window.bindFileExplorerNemoOps();
+    }
+    if (typeof window.bindFileExplorerProperties === 'function') {
+        window.bindFileExplorerProperties();
+    }
     if (typeof window.bindFileExplorerContextMenu === 'function') {
         window.bindFileExplorerContextMenu(nemoRoot);
     }
@@ -2871,7 +3001,9 @@ window.applyNemoZoom = applyFileExplorerZoom;
 window.getFileExplorerRoot = getFileExplorerRoot;
 window.getNemoRoot = getFileExplorerRoot;
 window.createFolderInExplorer = createFolderInExplorer;
+window.createFileInExplorer = createFileInExplorer;
 window.createNewFolderInCurrentDirectory = createNewFolderInCurrentDirectory;
+window.createNewDocumentInCurrentDirectory = createNewDocumentInCurrentDirectory;
 window.promptCreateFolderInCurrentDirectory = createNewFolderInCurrentDirectory;
 window.toggleExplorerHiddenFiles = toggleExplorerHiddenFiles;
 window.moveExplorerItem = moveExplorerItem;

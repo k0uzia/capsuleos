@@ -6,8 +6,147 @@
 
     var IMAGE_TITLE = 'Visionneur d\'images';
     var PDF_TITLE = 'Visionneur de documents';
+    var LOUPE_BODY_IDS = { rocky: true, fedora: true, alma: true, ubuntu: true, anduinos: true };
 
-    var xviewerState = { zoom: 100, rotate: 0, hasImage: false };
+    var xviewerState = { zoom: 100, rotate: 0, hasImage: false, metaOpen: false };
+
+    function usesLoupeChrome(root) {
+        return Boolean(root && root.classList && root.classList.contains('loupe-app'));
+    }
+
+    function supportsLoupeGnomeChrome(root) {
+        if (usesLoupeChrome(root)) {
+            return true;
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        return Boolean(bodyId && LOUPE_BODY_IDS[bodyId]);
+    }
+
+    function syncLoupeGnomeDataset(root) {
+        if (!root || !supportsLoupeGnomeChrome(root)) {
+            return;
+        }
+        root.dataset.loupeGnomeInit = root.dataset.xviewerInit === 'true' ? 'true' : 'false';
+        root.dataset.loupeGnomeHasImage = xviewerState.hasImage ? 'true' : 'false';
+        root.dataset.loupeGnomeZoom = String(xviewerState.zoom);
+        root.dataset.loupeGnomeRotate = String(xviewerState.rotate);
+        root.dataset.loupeGnomeMetaOpen = xviewerState.metaOpen ? 'true' : 'false';
+        root.dataset.loupeGnomeChrome = 'loupe';
+    }
+
+    function resolveImageViewerTitle(root) {
+        if (usesLoupeChrome(root)) {
+            return 'Loupe';
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        if (bodyId && LOUPE_BODY_IDS[bodyId]) {
+            return 'Loupe';
+        }
+        return IMAGE_TITLE;
+    }
+
+    function resolveEmptyImageLabel(root) {
+        return usesLoupeChrome(root) ? 'Aucune image ouverte' : 'Aucune image sélectionnée';
+    }
+
+    function syncLoupeEmptyState(root, visible) {
+        var empty = root.querySelector('#loupe-empty-state');
+        if (empty) {
+            empty.hidden = !visible;
+        }
+    }
+
+    function ensureLoupeEmptyState(root) {
+        var content = root.querySelector('#mint-image-viewer-content');
+        if (!content || content.querySelector('.viewer-app__image') || content.querySelector('#loupe-empty-state')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.id = 'loupe-empty-state';
+        wrap.className = 'loupe-app__empty';
+        wrap.innerHTML =
+            '<p class="loupe-app__empty-title">Ouvrir une image</p>' +
+            '<p class="loupe-app__empty-hint">Ouvrez une image depuis Fichiers pour l\'afficher ici.</p>';
+        content.appendChild(wrap);
+    }
+
+    function usesPapersChrome(root) {
+        return Boolean(root && root.classList && root.classList.contains('papers-app'));
+    }
+
+    function supportsPapersGnomeChrome(root) {
+        if (usesPapersChrome(root)) {
+            return true;
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        return Boolean(bodyId && LOUPE_BODY_IDS[bodyId]);
+    }
+
+    function syncPapersGnomeDataset(root) {
+        if (!root || !supportsPapersGnomeChrome(root)) {
+            return;
+        }
+        root.dataset.papersGnomeInit = root.dataset.xreaderInit === 'true' ? 'true' : 'false';
+        root.dataset.papersGnomeHasDocument = xreaderState.pages > 0 ? 'true' : 'false';
+        root.dataset.papersGnomePage = String(xreaderState.page);
+        root.dataset.papersGnomePages = String(xreaderState.pages);
+        root.dataset.papersGnomeZoom = String(xreaderState.zoom);
+        root.dataset.papersGnomeSidebar = xreaderState.sidebar ? 'true' : 'false';
+        root.dataset.papersGnomeChrome = 'papers';
+    }
+
+    function resolvePdfViewerTitle(root) {
+        if (usesPapersChrome(root)) {
+            return 'Papers';
+        }
+        var bodyId = global.document.body && global.document.body.id;
+        if (bodyId && LOUPE_BODY_IDS[bodyId]) {
+            return 'Papers';
+        }
+        return PDF_TITLE;
+    }
+
+    function resolveEmptyPdfLabel(root) {
+        return usesPapersChrome(root) ? 'Aucun document ouvert' : 'Aucun document sélectionné';
+    }
+
+    function syncPapersEmptyState(root, visible) {
+        var empty = root.querySelector('#papers-empty-state');
+        if (empty) {
+            empty.hidden = !visible;
+        }
+    }
+
+    function ensurePapersEmptyState(root) {
+        var content = root.querySelector('#mint-pdf-viewer-content');
+        if (!content || content.querySelector('.viewer-app__frame') || content.querySelector('#papers-empty-state')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.id = 'papers-empty-state';
+        wrap.className = 'papers-app__empty';
+        wrap.innerHTML =
+            '<p class="papers-app__empty-title">Ouvrir un document</p>' +
+            '<p class="papers-app__empty-hint">Ouvrez un fichier PDF depuis Fichiers pour l\'afficher ici.</p>';
+        content.appendChild(wrap);
+    }
+
+    function syncLoupeMetaType(root, payload) {
+        var typeEl = root.querySelector('#loupe-meta-type');
+        if (!typeEl) {
+            return;
+        }
+        if (payload && payload.extension) {
+            typeEl.textContent = String(payload.extension).toUpperCase();
+            return;
+        }
+        if (payload && payload.name) {
+            var parts = String(payload.name).split('.');
+            typeEl.textContent = parts.length > 1 ? parts.pop().toUpperCase() : '—';
+            return;
+        }
+        typeEl.textContent = '—';
+    }
     var xreaderState = { zoom: 100, page: 0, pages: 0, sidebar: false };
 
     function getWindowEl(root, slotId) {
@@ -74,18 +213,35 @@
                 if (action === 'zoom-in') {
                     xviewerState.zoom = Math.min(400, xviewerState.zoom + 25);
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'zoom-out') {
                     xviewerState.zoom = Math.max(25, xviewerState.zoom - 25);
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'zoom-fit') {
                     xviewerState.zoom = 100;
                     xviewerState.rotate = 0;
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'rotate') {
                     xviewerState.rotate = (xviewerState.rotate + 90) % 360;
                     applyXviewerZoom(root);
+                    syncLoupeGnomeDataset(root);
                 } else if (action === 'slideshow') {
                     toggleXviewerSlideshow(root);
+                } else if (action === 'toggle-meta') {
+                    var pane = root.querySelector('#loupe-meta-pane');
+                    if (!pane) {
+                        return;
+                    }
+                    xviewerState.metaOpen = pane.hasAttribute('hidden');
+                    if (xviewerState.metaOpen) {
+                        pane.removeAttribute('hidden');
+                    } else {
+                        pane.setAttribute('hidden', 'hidden');
+                    }
+                    btn.setAttribute('aria-pressed', xviewerState.metaOpen ? 'true' : 'false');
+                    syncLoupeGnomeDataset(root);
                 }
             });
         });
@@ -177,7 +333,7 @@
         var img = global.document.createElement('img');
         img.className = 'viewer-app__image';
         img.alt = 'demo.png';
-        img.src = '../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.jpg';
+        img.src = '../../../usr/share/capsuleos/assets/images/vendors/mint/wallpaper/mpiwnicki_light.webp';
         content.appendChild(img);
         onXviewerRendered(root, { name: 'demo.png' });
         var slideshowBtn = root.querySelector('[data-xv-action="slideshow"]');
@@ -198,11 +354,6 @@
         frame.src = '../../../../home/public/Documents/Bash.pdf';
         content.appendChild(frame);
         onXreaderRendered(root, { name: 'Bash.pdf' });
-        var sidebar = root.querySelector('#xreader-sidebar');
-        if (sidebar) {
-            sidebar.removeAttribute('hidden');
-            xreaderState.sidebar = true;
-        }
     }
 
     global.openPixDemoImage = function openPixDemoImage() {
@@ -233,12 +384,15 @@
                 if (action === 'zoom-in') {
                     xreaderState.zoom = Math.min(400, xreaderState.zoom + 25);
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'zoom-out') {
                     xreaderState.zoom = Math.max(50, xreaderState.zoom - 25);
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'zoom-fit') {
                     xreaderState.zoom = 100;
                     syncXreaderZoom(root);
+                    syncPapersGnomeDataset(root);
                 } else if (action === 'sidebar') {
                     xreaderState.sidebar = !xreaderState.sidebar;
                     var sidebar = root.querySelector('#xreader-sidebar');
@@ -250,6 +404,19 @@
                         }
                     }
                     btn.setAttribute('aria-pressed', xreaderState.sidebar ? 'true' : 'false');
+                    syncPapersGnomeDataset(root);
+                } else if (action === 'prev') {
+                    if (xreaderState.page > 1) {
+                        xreaderState.page -= 1;
+                        syncXreaderPage(root);
+                        syncPapersGnomeDataset(root);
+                    }
+                } else if (action === 'next') {
+                    if (xreaderState.pages > 0 && xreaderState.page < xreaderState.pages) {
+                        xreaderState.page += 1;
+                        syncXreaderPage(root);
+                        syncPapersGnomeDataset(root);
+                    }
                 }
             });
         });
@@ -291,24 +458,36 @@
         var img = content ? content.querySelector('.viewer-app__image') : null;
         var nameEl = root.querySelector('#mint-image-viewer-filename');
         var winEl = getWindowEl(root, 'visionneur_images');
+        var titleBase = resolveImageViewerTitle(root);
         if (payload && payload.name) {
             xviewerState.hasImage = true;
             if (nameEl) {
                 nameEl.textContent = payload.name;
             }
-            syncWindowTitle(winEl, payload.name + ' — ' + IMAGE_TITLE);
+            syncLoupeMetaType(root, payload);
+            syncLoupeEmptyState(root, false);
+            syncWindowTitle(winEl, payload.name + ' — ' + titleBase);
             if (img) {
                 updateXviewerDims(root, img);
             }
             xviewerState.zoom = 100;
             xviewerState.rotate = 0;
             applyXviewerZoom(root);
+            syncLoupeGnomeDataset(root);
         } else {
             xviewerState.hasImage = false;
             if (nameEl) {
-                nameEl.textContent = 'Aucune image sélectionnée';
+                nameEl.textContent = resolveEmptyImageLabel(root);
             }
-            syncWindowTitle(winEl, IMAGE_TITLE);
+            syncLoupeMetaType(root, null);
+            var dimsEl = root.querySelector('#xviewer-dims');
+            if (dimsEl) {
+                dimsEl.textContent = '—';
+            }
+            ensureLoupeEmptyState(root);
+            syncLoupeEmptyState(root, true);
+            syncWindowTitle(winEl, titleBase);
+            syncLoupeGnomeDataset(root);
         }
     }
 
@@ -316,30 +495,40 @@
         var nameEl = root.querySelector('#mint-pdf-viewer-filename');
         var winEl = getWindowEl(root, 'visionneur_pdf');
         var sidebar = root.querySelector('#xreader-sidebar');
+        var titleBase = resolvePdfViewerTitle(root);
         if (payload && payload.name) {
-            xreaderState.pages = 1;
+            xreaderState.pages = typeof payload.pages === 'number' ? payload.pages : 3;
             xreaderState.page = 1;
             if (nameEl) {
                 nameEl.textContent = payload.name;
             }
-            syncWindowTitle(winEl, payload.name + ' — ' + PDF_TITLE);
+            syncPapersEmptyState(root, false);
+            syncWindowTitle(winEl, payload.name + ' — ' + titleBase);
             if (sidebar) {
-                sidebar.innerHTML = '<p class="xreader-app__thumb is-active" aria-current="page">1</p>';
+                var thumbs = '';
+                var pi;
+                for (pi = 1; pi <= xreaderState.pages; pi += 1) {
+                    thumbs += '<button type="button" class="papers-app__thumb' + (pi === 1 ? ' is-active' : '') + '" aria-current="' + (pi === 1 ? 'page' : 'false') + '">' + pi + '</button>';
+                }
+                sidebar.innerHTML = thumbs;
             }
         } else {
             xreaderState.pages = 0;
             xreaderState.page = 0;
             if (nameEl) {
-                nameEl.textContent = 'Aucun document sélectionné';
+                nameEl.textContent = resolveEmptyPdfLabel(root);
             }
-            syncWindowTitle(winEl, PDF_TITLE);
+            ensurePapersEmptyState(root);
+            syncPapersEmptyState(root, true);
+            syncWindowTitle(winEl, titleBase);
             if (sidebar) {
-                sidebar.innerHTML = '<p class="xreader-app__sidebar-hint">Aucun document</p>';
+                sidebar.innerHTML = '<p class="papers-app__sidebar-hint">Aucun document</p>';
             }
         }
         xreaderState.zoom = 100;
         syncXreaderZoom(root);
         syncXreaderPage(root);
+        syncPapersGnomeDataset(root);
     }
 
     function initVisionneurImagesApp(container) {
@@ -348,8 +537,9 @@
             return;
         }
         bindXviewerToolbar(root);
-        syncWindowTitle(getWindowEl(root, 'visionneur_images'), IMAGE_TITLE);
+        syncWindowTitle(getWindowEl(root, 'visionneur_images'), resolveImageViewerTitle(root));
         root.dataset.xviewerInit = 'true';
+        syncLoupeGnomeDataset(root);
     }
 
     function initVisionneurPdfApp(container) {
@@ -358,8 +548,9 @@
             return;
         }
         bindXreaderToolbar(root);
-        syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), PDF_TITLE);
+        syncWindowTitle(getWindowEl(root, 'visionneur_pdf'), resolvePdfViewerTitle(root));
         root.dataset.xreaderInit = 'true';
+        syncPapersGnomeDataset(root);
     }
 
     global.onMintViewerRendered = function (appId) {
@@ -390,6 +581,10 @@
 
     global.initVisionneurImagesApp = initVisionneurImagesApp;
     global.initVisionneurPdfApp = initVisionneurPdfApp;
+    global.syncLoupeGnomeDataset = syncLoupeGnomeDataset;
+    global.syncPapersGnomeDataset = syncPapersGnomeDataset;
+    global.supportsLoupeGnomeChrome = supportsLoupeGnomeChrome;
+    global.supportsPapersGnomeChrome = supportsPapersGnomeChrome;
 
     global.document.addEventListener('capsule:window-opened', function (event) {
         if (!event.detail) {

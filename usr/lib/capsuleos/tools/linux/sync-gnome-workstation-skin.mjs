@@ -96,6 +96,7 @@ function buildForTarget(target, sourceText) {
 
     if (target.id === 'ubuntu') {
         css = css.replace('--mint-taskbar-bg: var(--ubuntu-top-bar-height);', '--mint-taskbar-bg: var(--ubuntu-top-bar-bg);');
+        css = css.replace(/\/\* Extension VM background-logo[\s\S]*?z-index: 2;\n\}/m, '');
     }
 
     if (target.lightThemeBg) {

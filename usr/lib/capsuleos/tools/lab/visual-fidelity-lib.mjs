@@ -169,6 +169,30 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/fedora',
     cssFile: 'home/RedHat/Fedora/fedora-fonts.css',
   },
+  neon: {
+    uiFamily: 'Noto Sans',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/neon',
+    cssFile: 'home/Debian/KDE-Neon/neon-fonts.css',
+  },
+  anduin: {
+    uiFamily: 'Noto Sans',
+    monoFamily: 'Cascadia Code',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/anduin',
+    cssFile: 'home/Debian/AnduinOS/anduin-fonts.css',
+  },
+  popos: {
+    uiFamily: 'Open Sans',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/popos',
+    cssFile: 'home/Debian/PopOS/popos-overrides.css',
+  },
+  mint: {
+    uiFamily: 'Ubuntu',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/mint',
+    cssFile: 'home/Debian/Mint/mint-fonts.css',
+  },
 };
 
 export const collectTypographyFontsViaSsh = (registryId) => {
@@ -285,7 +309,7 @@ export const buildVisualFidelityInventory = (registryId) => {
   if (defaults.typography?.tokenFile) {
     inv.typography.capsule.tokenFile = defaults.typography.tokenFile;
   }
-  if (registryId === 'linux-rocky' || registryId === 'linux-ubuntu') {
+  if (registryId === 'linux-rocky' || registryId === 'linux-ubuntu' || registryId === 'linux-anduinos' || registryId === 'linux-mint') {
     inv.accessibility.status = 'documented';
   }
 
@@ -376,6 +400,10 @@ export const scanTypographyViolations = (registryId) => {
       ubuntu: ['Ubuntu-R.ttf', 'UbuntuMono-R.ttf'],
       fedora: ['AdwaitaSans-Regular.ttf', 'AdwaitaMono-BoldItalic.ttf'],
       rocky: ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'],
+      'kde-neon': ['NotoSans-Bold.ttf', 'Ubuntu[wdth,wght].ttf'],
+      anduinos: ['AdwaitaSans-Regular.ttf', 'Ubuntu[wdth,wght].ttf'],
+      mint: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono[wght].ttf'],
+      popos: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono-Italic[wght].ttf'],
     };
     const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {

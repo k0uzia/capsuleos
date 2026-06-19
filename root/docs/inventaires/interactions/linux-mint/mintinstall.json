@@ -2,46 +2,17 @@
   "registryId": "linux-mint",
   "slot": "mintinstall",
   "label": "Logithèque",
-  "collectedAt": "2026-06-08T11:19:29.875Z",
-  "source": "vm-doc+template",
+  "collectedAt": "2026-06-11T10:55:00.000Z",
+  "source": "vm-doc+template+campaign-cinnamon-store-100",
   "vmDoc": "root/docs/inventaires/linux-mint-mintinstall-vm.md",
   "vm": {
     "md": "root/docs/inventaires/linux-mint-mintinstall-vm.md",
-    "json": {
-      "collectedAt": "2026-06-08T10:58:00Z",
-      "package": "mintinstall 8.4.0",
-      "desktop": "mintinstall.desktop",
-      "titleFr": "Logithèque",
-      "titleEn": "Software Manager",
-      "wmClass": "mintinstall.py.Mintinstall.py",
-      "geometry": {
-        "width": 852,
-        "height": 784,
-        "minWidth": 720,
-        "minHeight": 560
-      },
-      "slotCapsule": "mintinstall",
-      "distinctFrom": "update_manager",
-      "categoriesSample": [
-        "Accueil",
-        "Tous les logiciels",
-        "Flatpak",
-        "Internet",
-        "Bureautique",
-        "Graphisme",
-        "Jeux",
-        "Multimédia"
-      ],
-      "featuredApps": [
-        "vlc",
-        "audacity",
-        "filezilla",
-        "com.visualstudio.code"
-      ]
-    }
+    "json": "root/docs/inventaires/linux-mint-mintinstall-vm.json"
   },
   "vmProbe": {
-    "skipped": true
+    "sshHost": "capsule@192.168.1.146",
+    "pkgOk": true,
+    "campaign": "cinnamon-store-100"
   },
   "checks": [
     {
@@ -49,32 +20,56 @@
       "dimension": "int",
       "type": "fill",
       "selector": "#mi-search",
-      "pass": null,
-      "note": ""
+      "pass": true,
+      "note": "Transmission"
     },
     {
       "id": "categories",
       "dimension": "nav",
       "type": "click",
       "selector": "[data-mi-cat=\"internet\"]",
-      "pass": null,
+      "pass": true,
       "note": ""
+    },
+    {
+      "id": "games-cat",
+      "dimension": "nav",
+      "type": "click",
+      "selector": "[data-mi-cat=\"games\"]",
+      "pass": true,
+      "note": "VM categoriesSample"
     },
     {
       "id": "hamburger-menu",
       "dimension": "ctx",
       "type": "click",
       "selector": "[data-mi-action=\"menu\"]",
-      "pass": null,
+      "pass": true,
       "note": ""
     },
     {
-      "id": "install",
+      "id": "discover-grid",
+      "dimension": "data",
+      "type": "static",
+      "selector": "[data-mi-discover-grid]",
+      "pass": true,
+      "note": "9 apps — vue Tous les logiciels (pas accueil VM)"
+    },
+    {
+      "id": "featured-vm",
+      "dimension": "data",
+      "type": "static",
+      "selector": "[data-mi-spotlight]",
+      "pass": true,
+      "note": "Grille 3×9 logiciels phares mintinstall 8.4"
+    },
+    {
+      "id": "store-install",
       "dimension": "int",
       "type": "click",
       "selector": "[data-mi-install]",
-      "pass": null,
-      "note": ""
+      "pass": true,
+      "note": "sessionStorage + shell-pin menu"
     }
   ]
 }

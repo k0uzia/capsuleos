@@ -96,8 +96,100 @@ export function recomputeGlobal(index) {
 
   index.pi_global = Math.round(shellPi * shellWeight + appPi * appWeight);
   index.status_global = parityStatus(index.pi_global);
+
+  // Φ — fidélité visuelle mesurée (logique-formelle.md §2.4b)
+  const phiEntries = appEntries.filter((e) => typeof e.phi === 'number');
+  index.phi_global = phiEntries.length
+    ? Math.min(...phiEntries.map((e) => e.phi))
+    : null;
+  const phiPending = appEntries.some((e) => e.phiClassification === 'pending-phi'
+    || e.phiClassification === 'unmeasured');
+  if (phiPending && index.status_global === 'ok') {
+    index.status_global = 'pending-phi';
+  }
   index.updatedAt = new Date().toISOString();
   return index;
+}
+
+const VISUAL_SCENES_CONTRACT = path.join(ROOT, 'etc/capsuleos/contracts/visual-scenes.json');
+
+export function visualFidelityReportPath(registryId) {
+  const slug = registryId.replace(/[^a-z0-9-]/gi, '-');
+  return path.join(ROOT, 'root/docs/inventaires', `${slug}-visual-fidelity.json`);
+}
+
+/**
+ * État Φ d'un slot : scènes P0 déclarées au contrat + mesure éventuelle.
+ * Retour : { declared, phi, classification } — classification 'pending-phi' si
+ * des scènes P0 existent au contrat sans mesure correspondante.
+ */
+/** Toutes les scènes P0 du contrat visual-scenes pour un registre. */
+export function listP0Scenes(registryId) {
+  try {
+    const contract = JSON.parse(fs.readFileSync(VISUAL_SCENES_CONTRACT, 'utf8'));
+    const registry = contract.registries?.[registryId];
+    if (!registry?.slots) return [];
+    const out = [];
+    for (const [slotId, slotSpec] of Object.entries(registry.slots)) {
+      for (const scene of slotSpec.scenes || []) {
+        if (scene.priority === 'P0') {
+          out.push({ slotId, sceneId: scene.id, label: scene.label || scene.id });
+        }
+      }
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Gate Φ P0 — même critère que compare-visual-fidelity.mjs --gate.
+ * Retour : { ok, failures, p0Count }.
+ */
+export function evaluateVisualScenesGate(registryId) {
+  const p0 = listP0Scenes(registryId);
+  if (!p0.length) {
+    return { ok: false, failures: ['aucune scène P0 déclarée au contrat visual-scenes'], p0Count: 0 };
+  }
+  const reportFile = visualFidelityReportPath(registryId);
+  const report = fs.existsSync(reportFile)
+    ? JSON.parse(fs.readFileSync(reportFile, 'utf8'))
+    : { slots: {} };
+  const failures = [];
+  for (const { slotId, sceneId } of p0) {
+    const sceneReport = report.slots?.[slotId]?.scenes?.find((s) => s.id === sceneId);
+    if (!sceneReport || sceneReport.classification === 'unmeasured') {
+      failures.push(`${slotId}/${sceneId} : unmeasured`);
+    } else if (sceneReport.classification !== 'match') {
+      failures.push(`${slotId}/${sceneId} : ${sceneReport.classification}`);
+    }
+  }
+  return { ok: failures.length === 0, failures, p0Count: p0.length };
+}
+
+export function phiStateForSlot(registryId, slot) {
+  let declared = 0;
+  try {
+    const contract = JSON.parse(fs.readFileSync(VISUAL_SCENES_CONTRACT, 'utf8'));
+    const slotSpec = contract.registries?.[registryId]?.slots?.[slot];
+    declared = (slotSpec?.scenes || []).filter((s) => s.priority === 'P0').length;
+  } catch {
+    declared = 0;
+  }
+  if (!declared) {
+    return { declared: 0, phi: null, classification: 'no-scenes' };
+  }
+  const reportFile = visualFidelityReportPath(registryId);
+  if (!fs.existsSync(reportFile)) {
+    return { declared, phi: null, classification: 'pending-phi' };
+  }
+  const report = JSON.parse(fs.readFileSync(reportFile, 'utf8'));
+  const entry = report.slots?.[slot];
+  if (!entry || typeof entry.phi !== 'number') {
+    return { declared, phi: null, classification: 'pending-phi' };
+  }
+  return { declared, phi: entry.phi, classification: entry.classification };
 }
 
 export function updateAppParity(index, slot, patch) {

@@ -128,6 +128,71 @@ if (taxonomy.status !== 0) {
     }
 }
 
+const terminalInventory = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-terminal-inventory.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (terminalInventory.status !== 0) {
+    const out = (terminalInventory.stdout || '') + (terminalInventory.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('terminal-inventory — validate-terminal-inventory.mjs');
+    }
+}
+
+const gnomeSettingsPbSigma = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-gnome-settings-pbsigma.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (gnomeSettingsPbSigma.status !== 0) {
+    const out = (gnomeSettingsPbSigma.stdout || '') + (gnomeSettingsPbSigma.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('gnome-settings-pbsigma — validate-gnome-settings-pbsigma.mjs');
+    }
+}
+
+const fsRouting = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-fs-routing.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (fsRouting.status !== 0) {
+    const out = (fsRouting.stdout || '') + (fsRouting.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('FS routing — validate-fs-routing.mjs');
+    }
+}
+
+const appCatalogIntegrity = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/validate-app-catalog-integrity.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (appCatalogIntegrity.status !== 0) {
+    const out = (appCatalogIntegrity.stdout || '') + (appCatalogIntegrity.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('catalogue apps — validate-app-catalog-integrity.mjs');
+    }
+}
+
+const clusterRegistry = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/build-cluster-registry.mjs', '--check'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (clusterRegistry.status !== 0) {
+    const out = (clusterRegistry.stdout || '') + (clusterRegistry.stderr || '');
+    out.split('\n').filter((line) => line.trim()).forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('cluster-registry — build-cluster-registry.mjs --check');
+    }
+}
+
 const linuxFacades = spawnSync(
     process.execPath,
     ['usr/lib/capsuleos/tools/linux/validate-linux-facades.mjs'],
@@ -154,6 +219,37 @@ if (linuxFacades.status !== 0) {
         .forEach((line) => errors.push(line.replace(/^  ✗\s*/, '').replace(/^✗\s*/, '')));
     if (!errors.length) {
         errors.push('Façades Linux désynchronisées — node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs');
+    }
+}
+
+// Gates câblage skins : ordre scripts/artefacts + fraîcheur embed (logique-formelle §2.4b, campagne Φ)
+const skinScriptOrder = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-skin-script-order.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (skinScriptOrder.status !== 0) {
+    const out = (skinScriptOrder.stdout || '') + (skinScriptOrder.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Ordre scripts skins — validate-skin-script-order.mjs');
+    }
+}
+
+const embedFreshness = spawnSync(
+    process.execPath,
+    ['usr/lib/capsuleos/tools/linux/validate-embed-freshness.mjs'],
+    { cwd: ROOT, encoding: 'utf8' }
+);
+if (embedFreshness.status !== 0) {
+    const out = (embedFreshness.stdout || '') + (embedFreshness.stderr || '');
+    out.split('\n')
+        .filter((line) => line.indexOf('✗') >= 0)
+        .forEach((line) => errors.push(line.replace(/^✗\s*/, '')));
+    if (!errors.length) {
+        errors.push('Embed périmé — validate-embed-freshness.mjs');
     }
 }
 

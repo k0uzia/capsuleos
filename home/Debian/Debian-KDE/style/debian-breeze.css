@@ -1,12 +1,13 @@
 /**
- * Debian KDE - tokens fenêtres / menu / calendrier (basés sur openSUSE Breeze).
+ * Debian KDE — tokens Breeze (--debian-kde-*).
+ * V4-P3 : canon debian-kde ; alias --opensuse-* conservés en fin de fichier (dette legacy).
  */
 
 html:has(#debian-kde) {
-    --opensuse-breeze-accent: #3daee9;
-    --opensuse-breeze-accent-hover: #4ebaf0;
-    --opensuse-breeze-chrome-dark: #31363b;
-    --opensuse-breeze-chrome-dark-fg: #eff0f1;
+    --debian-kde-breeze-accent: #3daee9;
+    --debian-kde-breeze-accent-hover: #4ebaf0;
+    --debian-kde-breeze-chrome-dark: #31363b;
+    --debian-kde-breeze-chrome-dark-fg: #eff0f1;
     --calendar-popover-chrome-bg: #eff0f1;
     --calendar-popover-grid-bg: #eff0f1;
     --calendar-popover-grid-overlay: rgba(239, 240, 241, 0.82);
@@ -27,21 +28,44 @@ html:has(#debian-kde) {
     --calendar-popover-arrow-text: #232629;
     --calendar-popover-arrow-bg: rgba(35, 38, 41, 0.06);
     --calendar-popover-arrow-hover-bg: rgba(35, 38, 41, 0.11);
-    --opensuse-mono-logo-filter: none;
-    --opensuse-header-control-filter-light: brightness(0) saturate(100%);
-    --opensuse-menu-bg: rgba(252, 252, 252, 0.94);
-    --opensuse-menu-border: rgba(0, 0, 0, 0.1);
-    --opensuse-menu-text: #232629;
-    --opensuse-menu-text-muted: #7f8c8d;
-    --opensuse-menu-hover: rgba(61, 174, 233, 0.1);
-    --opensuse-menu-active: rgba(61, 174, 233, 0.22);
-    --opensuse-menu-search-focus: var(--opensuse-breeze-accent);
+    --debian-kde-mono-logo-filter: none;
+    --debian-kde-header-control-filter-light: brightness(0) saturate(100%);
+    --debian-kde-menu-bg: rgba(252, 252, 252, 0.94);
+    --debian-kde-menu-border: rgba(0, 0, 0, 0.1);
+    --debian-kde-menu-text: #232629;
+    --debian-kde-menu-text-muted: #7f8c8d;
+    --debian-kde-menu-hover: rgba(61, 174, 233, 0.1);
+    --debian-kde-menu-active: rgba(61, 174, 233, 0.22);
+    --debian-kde-menu-search-focus: var(--debian-kde-breeze-accent);
     /* KDE (capture) : barre de titre claire */
-    --opensuse-window-titlebar-bg: #eff0f1;
-    --opensuse-window-titlebar-bg-active: #e5e7ea;
-    --opensuse-window-titlebar-border-color: rgba(35, 38, 41, 0.14);
-    --opensuse-window-titlebar-border-color-active: rgba(35, 38, 41, 0.18);
-    --opensuse-window-titlebar-fg: #232629;
-    --opensuse-window-titlebar-fg-muted: rgba(35, 38, 41, 0.72);
+    --debian-kde-window-titlebar-bg: #eff0f1;
+    --debian-kde-window-titlebar-bg-active: #e5e7ea;
+    --debian-kde-window-titlebar-border-color: rgba(35, 38, 41, 0.14);
+    --debian-kde-window-titlebar-border-color-active: rgba(35, 38, 41, 0.18);
+    --debian-kde-window-titlebar-fg: #232629;
+    --debian-kde-window-titlebar-fg-muted: rgba(35, 38, 41, 0.72);
+}
+
+/* Alias legacy V4-P3 — ne pas utiliser sur nouveaux styles */
+html:has(#debian-kde) {
+    --opensuse-breeze-accent: var(--debian-kde-breeze-accent);
+    --opensuse-breeze-accent-hover: var(--debian-kde-breeze-accent-hover);
+    --opensuse-breeze-chrome-dark: var(--debian-kde-breeze-chrome-dark);
+    --opensuse-breeze-chrome-dark-fg: var(--debian-kde-breeze-chrome-dark-fg);
+    --opensuse-mono-logo-filter: var(--debian-kde-mono-logo-filter);
+    --opensuse-header-control-filter-light: var(--debian-kde-header-control-filter-light);
+    --opensuse-menu-bg: var(--debian-kde-menu-bg);
+    --opensuse-menu-border: var(--debian-kde-menu-border);
+    --opensuse-menu-text: var(--debian-kde-menu-text);
+    --opensuse-menu-text-muted: var(--debian-kde-menu-text-muted);
+    --opensuse-menu-hover: var(--debian-kde-menu-hover);
+    --opensuse-menu-active: var(--debian-kde-menu-active);
+    --opensuse-menu-search-focus: var(--debian-kde-menu-search-focus);
+    --opensuse-window-titlebar-bg: var(--debian-kde-window-titlebar-bg);
+    --opensuse-window-titlebar-bg-active: var(--debian-kde-window-titlebar-bg-active);
+    --opensuse-window-titlebar-border-color: var(--debian-kde-window-titlebar-border-color);
+    --opensuse-window-titlebar-border-color-active: var(--debian-kde-window-titlebar-border-color-active);
+    --opensuse-window-titlebar-fg: var(--debian-kde-window-titlebar-fg);
+    --opensuse-window-titlebar-fg-muted: var(--debian-kde-window-titlebar-fg-muted);
 }
 

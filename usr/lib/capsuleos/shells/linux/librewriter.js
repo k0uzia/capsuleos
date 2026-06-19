@@ -1,6 +1,145 @@
 (function () {
     'use strict';
 
+    var GNOME_BODY_IDS = { rocky: 1, fedora: 1, alma: 1, ubuntu: 1 };
+
+    var docState = {
+        docNumber: 1,
+        dirty: false,
+        saved: false,
+        fileName: null,
+    };
+
+    function supportsLibrewriterGnomeDataset() {
+        return Boolean(document.body && GNOME_BODY_IDS[document.body.id]);
+    }
+
+    function resolveWindowTitle() {
+        if (docState.fileName) {
+            return docState.fileName + ' - LibreOffice Writer';
+        }
+        return 'Sans nom ' + docState.docNumber + ' - LibreOffice Writer';
+    }
+
+    function readPageStats() {
+        var page = document.getElementById('lw-page');
+        if (!page) {
+            return { words: 0, chars: 0 };
+        }
+        var text = page.textContent || '';
+        var cleaned = text.replace(/\s+/g, ' ').trim();
+        var words = cleaned.length > 0 ? cleaned.split(' ').length : 0;
+        return { words: words, chars: text.length };
+    }
+
+    function syncLibrewriterGnomeDataset() {
+        if (!supportsLibrewriterGnomeDataset()) {
+            return;
+        }
+        var app = document.getElementById('lw-app');
+        if (!app) {
+            return;
+        }
+        var win = document.querySelector('div[data-link="librewriter"]');
+        var page = document.getElementById('lw-page');
+        var stats = readPageStats();
+        var title = resolveWindowTitle();
+        var ready = app.dataset.lwInit === '1';
+        var markers = [app, page, win].filter(Boolean);
+        markers.forEach(function (node) {
+            node.dataset.librewriterGnomeInit = ready ? 'true' : 'false';
+            node.dataset.librewriterGnomeDocNumber = String(docState.docNumber);
+            node.dataset.librewriterGnomeDirty = docState.dirty ? 'true' : 'false';
+            node.dataset.librewriterGnomeSaved = docState.saved ? 'true' : 'false';
+            node.dataset.librewriterGnomeTitle = title;
+            node.dataset.librewriterGnomeWordCount = String(stats.words);
+            node.dataset.librewriterGnomeCharCount = String(stats.chars);
+            node.dataset.librewriterGnomeChrome = 'libreoffice24';
+            node.dataset.librewriterGnomeLocale = 'fr-FR';
+            if (docState.fileName) {
+                node.dataset.librewriterGnomeFileName = docState.fileName;
+            } else {
+                delete node.dataset.librewriterGnomeFileName;
+            }
+        });
+    }
+
+    function syncWindowTitle() {
+        setTimeout(function () {
+            var title = resolveWindowTitle();
+            if (typeof CapsuleStrings !== 'undefined' && CapsuleStrings.get && !docState.dirty && !docState.fileName) {
+                var t = CapsuleStrings.get('librewriter.windowTitle');
+                if (t && docState.docNumber === 1) {
+                    title = t;
+                }
+            }
+            var win = document.querySelector('div[data-link="librewriter"]');
+            if (!win) {
+                return;
+            }
+            var titleEl = win.querySelector('#windowTitle');
+            if (titleEl) {
+                titleEl.textContent = title;
+            }
+            win.setAttribute('data-title', title);
+            syncLibrewriterGnomeDataset();
+        }, 0);
+    }
+
+    function markDirty() {
+        docState.dirty = true;
+        docState.saved = false;
+        syncWindowTitle();
+    }
+
+    function simulateSave() {
+        var stats = readPageStats();
+        if (stats.chars === 0) {
+            return;
+        }
+        docState.dirty = false;
+        docState.saved = true;
+        if (!docState.fileName) {
+            docState.fileName = 'Document' + docState.docNumber + '.odt';
+        }
+        syncWindowTitle();
+    }
+
+    function simulateNewDocument() {
+        var page = document.getElementById('lw-page');
+        if (page) {
+            page.innerHTML = '';
+            page.textContent = '';
+        }
+        docState.docNumber += 1;
+        docState.dirty = false;
+        docState.saved = false;
+        docState.fileName = null;
+        var wordCount = document.getElementById('lw-word-count');
+        var charCount = document.getElementById('lw-char-count');
+        if (wordCount) wordCount.textContent = '0 mot';
+        if (charCount) charCount.textContent = '0 car.';
+        syncWindowTitle();
+        focusPage();
+    }
+
+    function setupDocumentActions(app) {
+        app.querySelectorAll('[data-librewriter-gnome-action="save"]').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                simulateSave();
+                closeAllMenus(app);
+            });
+        });
+        app.querySelectorAll('[data-librewriter-gnome-action="new"]').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                simulateNewDocument();
+                closeAllMenus(app);
+            });
+        });
+    }
+
     function initLibreWriter() {
         var app = document.getElementById('lw-app');
         if (!app || app.dataset.lwInit === '1') {
@@ -14,28 +153,9 @@
         setupWordCount(app);
         setupZoom(app);
         setupViewModes(app);
+        setupDocumentActions(app);
         syncWindowTitle();
-    }
-
-    function syncWindowTitle() {
-        setTimeout(function () {
-            var title = 'Sans nom 1 - LibreOffice Writer';
-            if (typeof CapsuleStrings !== 'undefined' && CapsuleStrings.get) {
-                var t = CapsuleStrings.get('librewriter.windowTitle');
-                if (t) {
-                    title = t;
-                }
-            }
-            var win = document.querySelector('div[data-link="librewriter"]');
-            if (!win) {
-                return;
-            }
-            var titleEl = win.querySelector('#windowTitle');
-            if (titleEl) {
-                titleEl.textContent = title;
-            }
-            win.setAttribute('data-title', title);
-        }, 0);
+        syncLibrewriterGnomeDataset();
     }
 
     /* ─── MENUS ─────────────────────────────────────────────────────────── */
@@ -57,7 +177,6 @@
                 }
             });
 
-            /* Hover-switch between open menus */
             trigger.addEventListener('mouseenter', function () {
                 var anyOpen = app.querySelector('.lw-menu__dropdown:not([hidden])');
                 if (anyOpen && dropdown.hidden) {
@@ -88,13 +207,14 @@
     function setupToolbar(app) {
         app.querySelectorAll('.lw-tb-btn[data-cmd]').forEach(function (btn) {
             btn.addEventListener('mousedown', function (e) {
-                e.preventDefault(); /* preserve selection */
+                e.preventDefault();
                 var cmd  = btn.dataset.cmd;
                 var page = document.getElementById('lw-page');
                 if (!page) return;
                 page.focus();
                 try { document.execCommand(cmd, false, null); } catch (_) {}
                 updateActiveStates(app);
+                markDirty();
             });
         });
 
@@ -122,6 +242,7 @@
             var btn = app.querySelector('.lw-tb-btn[data-cmd="' + cmd + '"]');
             if (btn) btn.classList.toggle('lw-tb-btn--active', active);
         });
+        syncLibrewriterGnomeDataset();
     }
 
     /* ─── FORMAT TOOLBAR ────────────────────────────────────────────────── */
@@ -134,16 +255,17 @@
             fontSelect.addEventListener('change', function () {
                 focusPage();
                 try { document.execCommand('fontName', false, fontSelect.value); } catch (_) {}
+                markDirty();
             });
         }
 
         if (sizeSelect) {
             sizeSelect.addEventListener('change', function () {
                 focusPage();
-                /* execCommand fontSize uses 1-7 scale */
                 var PT_TO_SCALE = {8:1, 10:2, 12:3, 14:4, 18:5, 24:6, 36:7};
                 var sz = PT_TO_SCALE[parseInt(sizeSelect.value, 10)] || 3;
                 try { document.execCommand('fontSize', false, sz); } catch (_) {}
+                markDirty();
             });
         }
 
@@ -152,6 +274,7 @@
                 focusPage();
                 if (styleSelect.value) {
                     try { document.execCommand('formatBlock', false, styleSelect.value); } catch (_) {}
+                    markDirty();
                 }
             });
         }
@@ -170,12 +293,13 @@
         if (!page) return;
 
         function update() {
-            var text    = page.textContent || '';
-            var cleaned = text.replace(/\s+/g, ' ').trim();
-            var words   = cleaned.length > 0 ? cleaned.split(' ').length : 0;
-            var chars   = text.length;
-            if (wordCount) wordCount.textContent = words + ' mot' + (words !== 1 ? 's' : '');
-            if (charCount) charCount.textContent = chars + ' car.';
+            var stats = readPageStats();
+            if (wordCount) wordCount.textContent = stats.words + ' mot' + (stats.words !== 1 ? 's' : '');
+            if (charCount) charCount.textContent = stats.chars + ' car.';
+            if (stats.chars > 0) {
+                markDirty();
+            }
+            syncLibrewriterGnomeDataset();
         }
 
         page.addEventListener('input', update);
@@ -184,12 +308,11 @@
 
     /* ─── ZOOM ──────────────────────────────────────────────────────────── */
     function setupZoom(app) {
-        var slider     = document.getElementById('lw-zoom-slider');
+        var slider     = document.getElementById('lw-zoom-slider') || document.getElementById('lw-zoom');
         var valueLabel = document.getElementById('lw-zoom-value');
         var zoomIn     = document.getElementById('lw-zoom-in');
         var zoomOut    = document.getElementById('lw-zoom-out');
         var page       = document.getElementById('lw-page');
-        var scroll     = app.querySelector('.lw-scroll');
         if (!slider || !page) return;
 
         function applyZoom(val) {
@@ -199,8 +322,7 @@
             var scale = v / 100;
             page.style.transformOrigin = 'top center';
             page.style.transform       = 'scale(' + scale + ')';
-            /* Adjust wrapper height so scroll area compensates */
-            var naturalH = 1123; /* A4 min-height px */
+            var naturalH = 1123;
             var scaledH  = naturalH * scale;
             page.style.marginBottom = (scaledH - naturalH) + 'px';
         }
@@ -209,8 +331,8 @@
             applyZoom(parseInt(slider.value, 10));
         });
 
-        if (zoomIn)  zoomIn.addEventListener('click',  function () { applyZoom(parseInt(slider.value,10) + 10); });
-        if (zoomOut) zoomOut.addEventListener('click', function () { applyZoom(parseInt(slider.value,10) - 10); });
+        if (zoomIn)  zoomIn.addEventListener('click',  function () { applyZoom(parseInt(slider.value, 10) + 10); });
+        if (zoomOut) zoomOut.addEventListener('click', function () { applyZoom(parseInt(slider.value, 10) - 10); });
     }
 
     /* ─── VIEW MODES ────────────────────────────────────────────────────── */
@@ -227,7 +349,8 @@
         });
     }
 
-    /* ─── EXPORT ────────────────────────────────────────────────────────── */
     window.initLibreWriter = initLibreWriter;
+    window.syncLibrewriterGnomeDataset = syncLibrewriterGnomeDataset;
+    window.supportsLibrewriterGnomeDataset = supportsLibrewriterGnomeDataset;
 
 }());

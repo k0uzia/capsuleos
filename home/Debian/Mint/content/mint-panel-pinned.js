@@ -1,7 +1,6 @@
 /**
- * Lanceurs épinglés panel Mint — adaptateur mince vers openWindowByDataLink (noyau).
- * capsule-window-shell branche déjà a[target="windowElement"] ; ce module assure
- * le fallback si registerLinks n'a pas encore lié le lanceur.
+ * Lanceurs grouped-window-list Mint — prefetch slots au survol.
+ * Les clics sont gérés par taskbar-window-list.js (boutons grouped).
  */
 (function initMintPanelPinned(global) {
     'use strict';
@@ -10,36 +9,37 @@
         return global.document && global.document.body && global.document.body.id === 'mint';
     }
 
-    function bindPinnedLauncher(link) {
-        if (!link || link.dataset.mintPinnedBound === 'true') {
+    function bindGroupedPrefetch(btn) {
+        if (!btn || btn.dataset.mintGroupedPrefetchBound === 'true') {
             return;
         }
-        link.dataset.mintPinnedBound = 'true';
-        link.addEventListener('click', function onPinnedClick(event) {
-            if (link.dataset.capsuleWindowBound === 'true') {
-                return;
-            }
-            event.preventDefault();
-            event.stopPropagation();
-            var slot = link.getAttribute('data-link');
-            if (slot && typeof global.openWindowByDataLink === 'function') {
-                global.openWindowByDataLink(slot);
+        btn.dataset.mintGroupedPrefetchBound = 'true';
+        btn.addEventListener('mouseenter', function onGroupedPrefetch() {
+            var slot = btn.getAttribute('data-window-link');
+            if (slot && global.CapsuleSlotLoader
+                && typeof global.CapsuleSlotLoader.ensureSlotLoaded === 'function') {
+                global.CapsuleSlotLoader.ensureSlotLoaded(slot);
             }
         });
+    }
+
+    function bindExistingGroupedButtons() {
+        var buttons = global.document.querySelectorAll(
+            '#taskbar-window-list .taskbar-window-list__btn[data-window-link]'
+        );
+        var i;
+        for (i = 0; i < buttons.length; i++) {
+            bindGroupedPrefetch(buttons[i]);
+        }
     }
 
     function init() {
         if (!isMintPanel()) {
             return;
         }
-        var launchers = global.document.querySelectorAll(
-            '#mint-panel-pinned .mint-panel__launcher[data-link], '
-            + 'footer.mint-panel nav .mint-panel__launcher[data-link]'
-        );
-        var i;
-        for (i = 0; i < launchers.length; i++) {
-            bindPinnedLauncher(launchers[i]);
-        }
+        bindExistingGroupedButtons();
+        global.document.addEventListener('capsule:window-opened', bindExistingGroupedButtons);
+        global.document.addEventListener('capsule:window-focused', bindExistingGroupedButtons);
     }
 
     if (global.document.readyState === 'loading') {

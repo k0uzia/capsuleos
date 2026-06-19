@@ -1,8 +1,0 @@
-@import url(../../../../../../usr/share/capsuleos/themes/global/reset.css);
-@import url(../../../../../../usr/share/capsuleos/themes/global/variables.css);
-@import url(../../../../kernel/style/variables-linux.css);
-@import url(./footer.css?v=20260512f);
-@import url(./windows.css?v=20260514a);
-@import url(./calendar-popover.css?v=20260512b);
-@import url(./a11y-overrides.css?v=20260513e);
-@import url(./volume-popover.css?v=20260430f);

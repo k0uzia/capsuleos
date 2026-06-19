@@ -33,11 +33,11 @@ const main = () => {
   const opts = parseArgs();
 
   if (opts.id === 'linux-mint') {
-    const res = spawnSync(process.execPath, [
+    const mintAlphabetique = spawnSync(process.execPath, [
       path.join(__dirname, 'generate-mint-apps-catalog.mjs'),
       ...(opts.write ? ['--write'] : []),
     ], { cwd: ROOT, stdio: 'inherit' });
-    process.exit(res.status ?? 1);
+    if (mintAlphabetique.status !== 0) process.exit(mintAlphabetique.status ?? 1);
   }
 
   const catalog = buildCatalog(opts.id);

@@ -6,7 +6,7 @@
     }
     builder.registerLinuxFamily('redhat', {
         displayName: 'Linux Red Hat-like',
-        familyCommands: ['dnf', 'rpm'],
-        packageManagers: ['dnf', 'rpm'],
+        familyCommands: ['dnf', 'yum', 'rpm'],
+        packageManagers: ['dnf', 'yum', 'rpm'],
     });
 })();

@@ -1,6 +1,7 @@
-<main id="mintInstallApp" class="mi-app" aria-label="Logithèque">
+<main id="mintInstallApp" class="mi-app mi-app--layout-vm84" aria-label="Logithèque">
 
     <header class="mi-app__header">
+        <button type="button" class="mi-app__back-btn" data-mi-back aria-label="Retour" title="Retour">‹</button>
         <div class="mi-app__search-wrap mintinstall-search">
             <input type="search" class="mi-app__search" id="mi-search" placeholder="Rechercher des applications…" autocomplete="off" aria-label="Rechercher">
         </div>
@@ -20,6 +21,7 @@
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="internet">Internet</button>
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="office">Bureautique</button>
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="graphics">Graphisme</button>
+            <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="games">Jeux</button>
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="accessories">Accessoires</button>
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="multimedia">Multimédia</button>
             <button type="button" class="mi-app__cat mintinstall-category" data-mi-cat="development">Développement</button>
@@ -28,28 +30,20 @@
 
         <section class="mi-app__content">
             <section class="mi-app__page mi-app__page--home" data-mi-page="home" aria-label="Accueil">
-                <h2 class="mi-app__page-title">Applications en vedette</h2>
-                <ul class="mi-app__featured">
-                    <li class="mi-app__featured-card">
-                        <img src="./assets/images/toolkits/cinnamon/apps/vlc.svg" alt="" width="48" height="48">
-                        <span class="mi-app__featured-name">VLC</span>
-                    </li>
-                    <li class="mi-app__featured-card">
-                        <img src="./assets/images/toolkits/cinnamon/apps/audacity.svg" alt="" width="48" height="48">
-                        <span class="mi-app__featured-name">Audacity</span>
-                    </li>
-                    <li class="mi-app__featured-card">
-                        <img src="./assets/images/toolkits/cinnamon/apps/filezilla.svg" alt="" width="48" height="48">
-                        <span class="mi-app__featured-name">FileZilla</span>
-                    </li>
-                    <li class="mi-app__featured-card">
-                        <img src="./assets/images/toolkits/cinnamon/apps/com.visualstudio.code.svg" alt="" width="48" height="48">
-                        <span class="mi-app__featured-name">VS Code</span>
-                    </li>
-                </ul>
+                <div class="mi-app__hero" data-mi-hero-mount aria-label="Mise en avant"></div>
+                <h2 class="mi-app__section-title">Logiciels phares</h2>
+                <ul class="mi-app__spotlight" data-mi-spotlight aria-label="Logiciels phares"></ul>
+                <h2 class="mi-app__section-title">Catégories</h2>
+                <ul class="mi-app__home-cats" data-mi-home-cats aria-label="Catégories"></ul>
+                <h2 class="mi-app__section-title">Les mieux notés</h2>
+                <ul class="mi-app__top-rated" data-mi-top-rated aria-label="Les mieux notés"></ul>
             </section>
 
             <section class="mi-app__page" data-mi-page="list" hidden aria-label="Liste">
+                <div class="mi-app__discover-wrap" data-mi-discover-section hidden>
+                    <h2 class="mi-app__section-title mi-app__discover-title">À découvrir</h2>
+                    <ul class="mi-app__discover" id="mi-discover-grid" data-mi-discover-grid aria-label="Applications à installer"></ul>
+                </div>
                 <h2 class="mi-app__page-title" id="mi-list-title">Tous les logiciels</h2>
                 <ul class="mi-app__list" id="mi-app-list"></ul>
             </section>

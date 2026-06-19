@@ -566,19 +566,48 @@
         return result;
     };
 
-    const openExplorerSelectionWith = () => {
-        const links = getSelectedItemLinks();
-        if (links.length === 1) {
-            links[0].click();
-            return { ok: true };
+    const nemoHasPasteClipboard = () => {
+        const state = getState();
+        const clip = state && state.explorerClipboard;
+        return !!(clip && Array.isArray(clip.entries) && clip.entries.length);
+    };
+
+    const resolveSelectionLink = (itemLink) => {
+        if (itemLink && itemLink.dataset && itemLink.dataset.itemName) {
+            return itemLink;
         }
-        const entries = links.map(linkToEntry).filter((entry) => entry && entry.type === 'file');
-        if (!entries.length) {
+        const links = getSelectedItemLinks();
+        return links.length === 1 ? links[0] : null;
+    };
+
+    const openExplorerSelectionWith = (itemLink, appId) => {
+        const link = resolveSelectionLink(itemLink);
+        if (!link) {
             global.alert('Sélectionnez un fichier à ouvrir.');
             return { ok: false };
         }
-        const names = entries.map((entry) => entry.name).join(', ');
-        global.alert(`Ouvrir avec… (${names})\nUtilisez le clic pour lancer l’application par défaut.`);
+        const entry = linkToEntry(link);
+        if (!entry || entry.type === 'folder') {
+            return { ok: false };
+        }
+        const href = link.dataset.itemHref || entry.href || '#';
+        const extension = entry.extension
+            || (entry.name && entry.name.includes('.') ? entry.name.split('.').pop().toLowerCase() : '');
+        const resolvedHref = typeof global.resolveCapsuleResourceUrl === 'function'
+            ? global.resolveCapsuleResourceUrl(href)
+            : href;
+        const forcedApp = String(appId || '').trim();
+        if (forcedApp && typeof global.openFileInViewerWithApp === 'function') {
+            const opened = global.openFileInViewerWithApp(resolvedHref, extension, entry.name, forcedApp);
+            return opened ? { ok: true, appId: forcedApp } : { ok: false };
+        }
+        if (typeof global.openFileInViewer === 'function') {
+            const opened = global.openFileInViewer(resolvedHref, extension, entry.name);
+            if (opened) {
+                return { ok: true };
+            }
+        }
+        link.click();
         return { ok: true };
     };
 
@@ -849,6 +878,7 @@
     global.deleteNautilusTrashSelectionPermanently = deleteNautilusTrashSelectionPermanently;
     global.compressExplorerSelection = compressExplorerSelection;
     global.openExplorerSelectionWith = openExplorerSelectionWith;
+    global.nemoHasPasteClipboard = nemoHasPasteClipboard;
     global.addNautilusBookmark = addBookmarkForCurrentPath;
     global.connectNautilusNetworkServer = connectNetworkServer;
     global.undoExplorerOperation = undoExplorerOperation;

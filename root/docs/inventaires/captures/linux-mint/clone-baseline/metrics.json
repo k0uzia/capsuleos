@@ -10,7 +10,8 @@
       55
     ],
     "searchHeightPx": 35,
-    "searchWidthPx": 134,
+    "searchWidthPx": 443,
+    "catRowHeightPx": 35,
     "trayIconPx": 24,
     "favoritesIconPx": 22,
     "favoritesBoxWidthPx": 121,
@@ -24,13 +25,13 @@
     "panel": {
       "panelHeightPx": 40,
       "menuBtnPx": 40,
-      "menuBtnImgPx": 33,
+      "menuBtnImgPx": 32,
       "separatorWidthPx": 1,
       "separatorHeightPx": 25,
-      "trayIconPx": 24,
-      "favoritesIconPx": null,
-      "favoritesBoxWidthPx": null,
-      "favoritesGapPx": null,
+      "trayIconPx": 0,
+      "favoritesIconPx": 0,
+      "favoritesBoxWidthPx": 0,
+      "favoritesGapPx": 0,
       "clockHeightPx": 40,
       "clockFontPx": 18.1818,
       "taskbarHeightVar": "40px",
@@ -41,61 +42,61 @@
       "menuHeightPx": 480,
       "menuBottomGapPx": 2,
       "menuColsPct": [
-        20.1,
-        25.1,
-        54.3
+        19.9,
+        24.9,
+        54.7
       ],
       "menuColsPx": [
-        120,
-        150,
-        325
+        119,
+        149,
+        327
       ],
       "searchHeightPx": 35,
-      "searchWidthPx": 134,
-      "catRowHeightPx": 39,
+      "searchWidthPx": 444,
+      "catRowHeightPx": 36,
       "appIconPx": 27,
       "display": "flex",
       "shortcuts": [
         {
           "text": "Bureau",
-          "clientW": 70,
-          "scrollW": 70,
+          "clientW": 68,
+          "scrollW": 68,
           "trunc": false
         },
         {
           "text": "Téléchargements",
-          "clientW": 70,
-          "scrollW": 120,
+          "clientW": 68,
+          "scrollW": 103,
           "trunc": true
         },
         {
           "text": "Calculatrice",
-          "clientW": 70,
-          "scrollW": 83,
+          "clientW": 68,
+          "scrollW": 70,
           "trunc": true
         },
         {
           "text": "Agenda",
-          "clientW": 70,
-          "scrollW": 70,
+          "clientW": 68,
+          "scrollW": 68,
           "trunc": false
         },
         {
           "text": "Éditeur de texte",
-          "clientW": 70,
-          "scrollW": 113,
+          "clientW": 68,
+          "scrollW": 97,
           "trunc": true
         },
         {
           "text": "Logithèque",
-          "clientW": 70,
-          "scrollW": 78,
-          "trunc": true
+          "clientW": 68,
+          "scrollW": 68,
+          "trunc": false
         },
         {
           "text": "Paramètres du sys...",
-          "clientW": 70,
-          "scrollW": 143,
+          "clientW": 68,
+          "scrollW": 118,
           "trunc": true
         }
       ]
@@ -111,21 +112,35 @@
     "menuWidthPx": 0,
     "menuHeightPx": 0,
     "menuBottomGapPx": 0,
-    "menuColsPct": 0.7000000000000028,
+    "menuColsPct": 0.29999999999999716,
     "searchHeightPx": 0,
-    "searchWidthPx": 0,
-    "trayIconPx": 0,
+    "searchWidthPx": 1,
+    "catRowHeightPx": 1,
+    "trayIconPx": 24,
+    "favoritesIconPx": 22,
+    "favoritesBoxWidthPx": 121,
+    "favoritesGapPx": 2.86,
     "menuBtnPx": 0,
-    "menuBtnImgPx": 0,
+    "menuBtnImgPx": 1,
     "separatorWidthPx": 0,
     "separatorHeightPx": 0
   },
-  "maxDeltaPx": 0.7000000000000028,
+  "maxDeltaPx": 121,
   "tolerancePx": 1,
-  "pass": true,
-  "capturedAt": "2026-06-08T15:52:12.002Z",
+  "pass": false,
+  "capturedAt": "2026-06-18T00:12:02.125Z",
   "viewport": {
     "width": 1280,
     "height": 800
-  }
+  },
+  "visualDiff": [
+    {
+      "file": "01-desktop-panel.png",
+      "absoluteError": 6
+    },
+    {
+      "file": "02-menu.png",
+      "absoluteError": 5
+    }
+  ]
 }

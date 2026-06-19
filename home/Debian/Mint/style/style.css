@@ -6,8 +6,11 @@ html {
     color: var(--texte);
 }
 
-body#mint #desktop > .desktop-shortcuts {
-    display: none !important;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 #mint {
@@ -15,13 +18,15 @@ body#mint #desktop > .desktop-shortcuts {
     flex-flow: var(--cnw);
     align-items: var(--c);
     justify-content: var(--sb);
-    width: var(--max-w);
-    height: var(--max-h);
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     background-image: var(--mint);
     background-size: var(--scov);
     background-repeat: var(--nr);
     background-position: var(--c);
-    overflow: var(--n);
+    overflow: hidden;
 }
 
 #desktop {
@@ -30,17 +35,20 @@ body#mint #desktop > .desktop-shortcuts {
     align-items: var(--c);
     justify-content: var(--fs);
     position: var(--rel);
-    width: var(--max-w);
-    height: calc(var(--max-h) - var(--taskbar-height));
-    max-height: calc(var(--max-h) - var(--taskbar-height));
-    overflow: visible;
+    width: 100%;
+    height: calc(100% - var(--taskbar-height));
+    max-width: 100%;
+    max-height: calc(100% - var(--taskbar-height));
+    overflow: hidden;
 }
 
+/* Ground truth VM (gsettings org.nemo.desktop) : home/trash/computer-icon-visible = false
+   → bureau nu ; DOM conservé pour les scénarios contextuels (dispatch JS). */
 body#mint #desktop > .desktop-shortcuts {
     position: var(--abs);
     top: calc(var(--head) / 2);
     left: calc(var(--head) / 2);
-    display: var(--f);
+    display: none;
     flex-flow: var(--cnw);
     align-items: var(--fs);
     gap: calc(var(--head) / 10);
@@ -54,17 +62,15 @@ body#mint #desktop > .desktop-shortcuts > .desktop-shortcut {
 }
 
 /* Fenêtres dans #desktop : absolute (pas fixed viewport — évite la chute dans overflow). */
+body#mint #desktop {
+    pointer-events: auto;
+}
+
 body#mint #desktop > .windowElement:not(#mainMenu) {
     position: absolute;
     pointer-events: auto;
-}
-
-body#mint #desktop {
-    pointer-events: none;
-}
-
-body#mint #desktop > * {
-    pointer-events: auto;
+    max-width: calc(100% - 16px);
+    max-height: calc(100% - 16px);
 }
 
 .desktop-shortcut {

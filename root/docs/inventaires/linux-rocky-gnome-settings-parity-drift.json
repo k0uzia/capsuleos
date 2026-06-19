@@ -1,14 +1,15 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": "2026-06-06T15:20:37.712Z",
-  "alignedCount": 22,
+  "generatedAt": "2026-06-16T14:27:13.945Z",
+  "alignedCount": 23,
   "driftCount": 0,
   "drifts": [],
   "aligned": [
     "wifi",
+    "bluetooth",
     "notifications",
     "lock-notifications",
-    "search-history",
+    "dnd",
     "dynamic-workspaces",
     "hot-corner",
     "apps-all-workspaces",

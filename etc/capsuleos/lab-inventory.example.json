@@ -4,11 +4,15 @@
   "hosts": [
     {
       "registryId": "linux-mint",
-      "ssh": "capsule@192.168.1.146",
+      "ssh": "capsule@192.168.122.33",
       "sshIdentity": "~/.ssh/capsuleos-lab",
-      "probe": "/home/capsule/capsuleos-lab/os-probe.sh",
+      "probe": "$HOME/capsuleos-lab/os-probe.sh",
       "display": ":0",
       "toolkit": "cinnamon",
+      "hypervisor": "libvirt",
+      "virshName": "Mint",
+      "labInputTools": ["xdotool", "wmctrl"],
+      "labBootstrap": "root/tools/lab/vm-mint-lab-bootstrap.sh",
       "capsuleUrl": "http://127.0.0.1:5500/home/Debian/Mint/index.html"
     },
     {
@@ -54,6 +58,39 @@
       "hypervisor": "libvirt",
       "virshName": "Rocky10",
       "capsuleUrl": "http://127.0.0.1:5500/home/RedHat/Rocky/index.html"
+    },
+    {
+      "registryId": "linux-alma",
+      "family": "linux",
+      "vendor": "alma",
+      "ssh": "capsule@192.168.122.199",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "$HOME/capsuleos-lab/os-probe-gnome.sh",
+      "display": ":0",
+      "sessionType": "wayland-xwayland",
+      "xauthorityDiscovery": "mutter-xwayland",
+      "toolkit": "gnome",
+      "hypervisor": "libvirt",
+      "virshName": "almalinux10",
+      "capsuleUrl": "http://127.0.0.1:5501/home/RedHat/Alma/index.html",
+      "labBootstrap": "root/tools/lab/vm-rocky-lab-bootstrap.sh",
+      "labPlaybookCapture": "root/tools/lab/vm-apps-visual-playbook.sh",
+      "notes": "AlmaLinux 10.2 GNOME — dérivé Rocky ; procédure root/docs/procedure-lab-linux-alma-gnome.md ; screenshotCapture documenté dans linux-alma-vm.json"
+    },
+    {
+      "registryId": "linux-kde-neon",
+      "family": "linux",
+      "vendor": "neon",
+      "ssh": "capsule@192.168.122.48",
+      "sshIdentity": "~/.ssh/capsuleos-lab",
+      "probe": "bash root/tools/lab/vm-kde-neon-inventory.sh",
+      "display": ":1",
+      "sessionType": "wayland",
+      "toolkit": "kde",
+      "hypervisor": "libvirt",
+      "virshName": "KDE-Neon",
+      "capsuleUrl": "http://127.0.0.1:5500/home/Debian/KDE-Neon/index.html",
+      "notes": "KDE neon User Edition — Discover (plasma-discover). Contrat : etc/capsuleos/contracts/linux-kde-neon-vm.json"
     },
     {
       "registryId": "linux-ubuntu",

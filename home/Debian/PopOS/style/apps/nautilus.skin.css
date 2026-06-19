@@ -184,7 +184,7 @@ body#popos div[data-link="nemo"] main#gestionnaire.cosmic-files-app {
     border-radius: inherit;
     color: var(--nemo-text-primary);
     background: var(--nemo-bg-primary);
-    font-family: "Inter", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.8rem;
     overflow: hidden;
     user-select: none;

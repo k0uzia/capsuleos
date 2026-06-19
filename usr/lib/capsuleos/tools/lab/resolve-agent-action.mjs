@@ -6,6 +6,8 @@
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --domain gnome-settings-playbook
  *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-rocky --scope formal
+ *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
+ *   node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope cinnamon
  */
 import fs from 'fs';
 import path from 'path';
@@ -22,7 +24,10 @@ import {
   loadPlaybookGeneral,
 } from './playbook-general-lib.mjs';
 import { evaluateFormalRules } from './formal-rules-lib.mjs';
+import { evaluateCredRules } from './app-fidelity-lib.mjs';
+import { evaluateCinnamonRules } from './cinnamon-ground-truth-lib.mjs';
 import { resolvePipeline } from './capsule-pipeline-lib.mjs';
+import { loadRecipeProfile } from './lab-recipe-resolver.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ALIASES_PATH = path.join(ROOT, 'etc/capsuleos/contracts/agent-action-aliases.json');
@@ -308,6 +313,50 @@ const main = () => {
     return;
   }
 
+  if (opts.scope === 'cinnamon') {
+    const decision = evaluateCinnamonRules(opts.id);
+    const out = {
+      registryId: opts.id,
+      scope: 'cinnamon',
+      rule: decision.rule,
+      message: decision.message,
+      command: decision.command,
+      autoExecute: decision.autoExecute,
+      gateOnSuccess: decision.gateOnSuccess || null,
+      unique: decision.unique,
+      predicates: decision.predicates,
+      metrics: decision.metrics,
+      nextPredicate: decision.nextPredicate,
+    };
+    const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-cinnamon-formal-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+    if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    else process.stdout.write(`${out.command || out.message}\n`);
+    return;
+  }
+
+  if (opts.scope === 'app-fidelity') {
+    const decision = evaluateCredRules(opts.id);
+    const out = {
+      registryId: opts.id,
+      scope: 'app-fidelity',
+      rule: decision.rule,
+      message: decision.message,
+      command: decision.command,
+      autoExecute: decision.autoExecute,
+      gateOnSuccess: decision.gateOnSuccess || null,
+      unique: decision.unique,
+      predicates: decision.predicates,
+      summary: decision.summary,
+      nextPredicate: decision.nextPredicate,
+    };
+    const statePath = path.join(ROOT, 'root/docs/inventaires', `${opts.id}-credibility-formal-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...out, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+    if (opts.json) process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    else process.stdout.write(`${out.command || out.message}\n`);
+    return;
+  }
+
   if (opts.scope === 'general') {
     const out = resolveGeneral(opts, aliases);
     const statePath = pathsForRegistry(opts.id).replicationState.replace(
@@ -370,14 +419,32 @@ const main = () => {
         message = postH6.message;
         autoExecute = postH6.autoExecute;
       } else if (fs.existsSync(h6ReadyPath)) {
-        nextAfterComplete = `node usr/lib/capsuleos/tools/lab/close-h6-gnome-settings.mjs --id ${opts.id}`;
+        const tk = loadRecipeProfile(opts.id).toolkit || 'gnome';
+        if (tk === 'cinnamon') {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id ${opts.id}`;
+          message = 'Gate pré-H6 passée — close-h6-cinnamon-settings (embed + validate-all)';
+        } else if (tk === 'kde') {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/close-h6-kde-settings.mjs --id ${opts.id}`;
+          message = 'Gate pré-H6 passée — close-h6-kde-settings (embed + validate-all)';
+        } else {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/close-h6-gnome-settings.mjs --id ${opts.id}`;
+          message = 'Gate pré-H6 passée — close-h6-gnome-settings (embed + validate-all)';
+        }
         rule = 'R-H6';
-        message = 'Gate pré-H6 passée — close-h6-gnome-settings (embed + validate-all)';
         autoExecute = true;
       } else if (tail?.h6Ready) {
-        nextAfterComplete = `node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs --id ${opts.id}`;
+        const tk = loadRecipeProfile(opts.id).toolkit || 'gnome';
+        if (tk === 'cinnamon') {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id ${opts.id}`;
+          message = 'PbΣ atteint — smoke-h6-cinnamon-settings-ready puis H6';
+        } else if (tk === 'kde') {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/smoke-h6-kde-settings-ready.mjs --id ${opts.id}`;
+          message = 'H5 complet — smoke-h6-kde-settings-ready puis H6';
+        } else {
+          nextAfterComplete = `node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs --id ${opts.id}`;
+          message = 'H5 complet — smoke-h6-gnome-settings-ready puis H6';
+        }
         rule = 'R-H6-PRE';
-        message = 'H5 complet — smoke-h6-gnome-settings-ready puis H6';
         autoExecute = true;
       } else {
         nextAfterComplete = `node usr/lib/capsuleos/tools/lab/collect-playbook-tail.mjs --id ${opts.id}`;

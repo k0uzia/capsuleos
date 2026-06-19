@@ -8,11 +8,22 @@
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase list
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase map-gaps
  *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase run --app nemo --dry-run
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal-write
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase resolve --max-steps 8
+ *   node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase cinnamon
  */
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {
+  evaluateCredPredicates,
+  evaluateCredRules,
+  writeCredFormalStatus,
+  recordCredGate,
+  ROOT as CRED_ROOT,
+} from './app-fidelity-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
@@ -26,11 +37,15 @@ const parseArgs = () => {
     phase: 'status',
     app: null,
     dryRun: false,
+    maxSteps: 8,
+    json: false,
   };
   for (let i = 0; i < args.length; i += 1) {
     if (args[i] === '--id' && args[i + 1]) opts.id = args[++i];
     else if (args[i] === '--phase' && args[i + 1]) opts.phase = args[++i];
     else if (args[i] === '--app' && args[i + 1]) opts.app = args[++i];
+    else if (args[i] === '--max-steps' && args[i + 1]) opts.maxSteps = Number(args[++i]);
+    else if (args[i] === '--json') opts.json = true;
     else if (args[i] === '--dry-run') opts.dryRun = true;
   }
   return opts;
@@ -275,8 +290,98 @@ const printList = (inventory) => {
 };
 
 const runMapGaps = (registryId) => {
-  const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/map-app-fidelity-gaps.mjs');
+  const mapScript = registryId === 'linux-kde-neon'
+    ? 'map-kde-fidelity-gaps.mjs'
+    : 'map-app-fidelity-gaps.mjs';
+  const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab', mapScript);
   execSync(`node "${script}" --id ${registryId} --write`, { stdio: 'inherit', cwd: ROOT });
+};
+
+const printFormal = (registryId, asJson) => {
+  const evalResult = evaluateCredPredicates(registryId);
+  const out = {
+    registryId,
+    phase: 'formal',
+    predicates: evalResult.state,
+    nextPredicate: evalResult.nextPredicate,
+    summary: evalResult.summary,
+    gaps: evalResult.gaps?.summary || null,
+  };
+  if (asJson) {
+    process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    return;
+  }
+  const s = evalResult.state;
+  process.stdout.write(`\n=== Cred* formel ${registryId} ===\n`);
+  process.stdout.write(`CredV=${s.CredV} CredC=${s.CredC} CredS=${s.CredS} CredΠ=${s.CredPi} CredΣ=${s.CredSigma}\n`);
+  process.stdout.write(
+    `Scénarios: ${evalResult.summary.documented}/${evalResult.summary.totalScenarios} doc · `
+      + `${evalResult.summary.implemented} impl · ${evalResult.summary.smokeOk} smoke\n`,
+  );
+  process.stdout.write(`Apps π=100: ${evalResult.summary.appsAtPi100}/${evalResult.summary.appsTotal}\n`);
+  if (evalResult.gaps?.summary) {
+    process.stdout.write(`Gap slots: ${evalResult.gaps.summary.gapSlotsTotal}\n`);
+  }
+  if (evalResult.nextPredicate) {
+    process.stdout.write(`Prochain prédicat: ${evalResult.nextPredicate}\n`);
+  } else {
+    process.stdout.write('✓ Chaîne Cred* satisfaite sur inventaire\n');
+  }
+};
+
+const runFormalWrite = (registryId) => {
+  const result = writeCredFormalStatus(registryId);
+  const s = result.evalResult.state;
+  process.stdout.write(`\n✓ État formel Cred* écrit — CredΣ=${s.CredSigma}\n`);
+  process.stdout.write(`  ${registryId}-credibility-formal-state.json\n`);
+  process.stdout.write(`  replication-state.credibilityCampaign.credSigma=${s.CredSigma}\n`);
+};
+
+const runResolve = (registryId, maxSteps, dryRun) => {
+  for (let step = 0; step < maxSteps; step += 1) {
+    const decision = evaluateCredRules(registryId);
+    const statePath = path.join(CRED_ROOT, 'root/docs/inventaires', `${registryId}-credibility-formal-resolve.json`);
+    fs.writeFileSync(statePath, `${JSON.stringify({ ...decision, generatedAt: new Date().toISOString() }, null, 2)}\n`);
+
+    const preds = decision.predicates || {};
+    process.stdout.write(
+      `[${step + 1}] ${decision.rule} auto=${decision.autoExecute} `
+        + `CredΣ=${preds.CredSigma} — ${decision.message}\n`,
+    );
+
+    if (!decision.autoExecute || !decision.command) {
+      process.stdout.write(`✓ Résolution Cred* arrêtée — ${decision.rule}\n`);
+      return;
+    }
+
+    if (dryRun) {
+      process.stdout.write(`(dry-run) ${decision.command}\n`);
+      return;
+    }
+
+    process.stdout.write(`\n── ${decision.command} ──\n`);
+    const status = spawnSync(decision.command, {
+      cwd: CRED_ROOT,
+      stdio: 'inherit',
+      shell: true,
+      env: {
+        ...process.env,
+        CAPSULE_HTTP_BASE: process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500',
+      },
+    }).status ?? 1;
+
+    if (status !== 0) {
+      process.stderr.write(`✗ Échec ${decision.rule} (exit ${status})\n`);
+      process.exit(status);
+    }
+
+    if (decision.gateOnSuccess === 'H2') {
+      recordCredGate(registryId, 'H2', true, { rule: decision.rule });
+    } else if (decision.gateOnSuccess) {
+      recordCredGate(registryId, decision.gateOnSuccess, true, { rule: decision.rule });
+    }
+  }
+  process.stderr.write(`⚠ max-steps (${maxSteps}) atteint\n`);
 };
 
 const main = () => {
@@ -331,6 +436,27 @@ const main = () => {
     return;
   }
 
+  if (opts.phase === 'formal') {
+    printFormal(opts.id, opts.json);
+    return;
+  }
+
+  if (opts.phase === 'formal-write') {
+    runFormalWrite(opts.id);
+    return;
+  }
+
+  if (opts.phase === 'resolve') {
+    runResolve(opts.id, opts.maxSteps, opts.dryRun);
+    return;
+  }
+
+  if (opts.phase === 'cinnamon') {
+    const script = path.join(ROOT, 'usr/lib/capsuleos/tools/lab/run-cinnamon-formal-chain.mjs');
+    execSync(`node "${script}" --id ${opts.id} --max-steps ${opts.maxSteps}`, { stdio: 'inherit', cwd: ROOT });
+    return;
+  }
+
   if (opts.phase === 'run') {
     const appFilter = opts.app || nextApp(inventory, gaps);
     const next = nextScenario(inventory, appFilter);
@@ -353,7 +479,7 @@ const main = () => {
     return;
   }
 
-  process.stderr.write(`Phase inconnue: ${opts.phase} (list|status|next|run|map-gaps)\n`);
+  process.stderr.write(`Phase inconnue: ${opts.phase} (list|status|next|run|map-gaps|formal|formal-write|resolve)\n`);
   process.exit(1);
 };
 

@@ -117,13 +117,16 @@ function expectedToolkitPack(toolkitId) {
 
 function htmlToolkitMarkers(html) {
     const h = String(html || '');
+    if (h.includes('kde-systemsettings') || h.includes('data-kde-settings') || h.includes('kcmshell')) {
+        return 'kde';
+    }
     if (h.includes('gnome-software') || h.includes('gnome-baobab') || h.includes('adw-') || h.includes('libadwaita')) {
         return 'gnome';
     }
     if (h.includes('cinnamon-') || h.includes('xapp-') || h.includes('mint-')) {
         return 'cinnamon';
     }
-    if (h.includes('kcmshell') || h.includes('plasma-') || h.includes('discover-')) {
+    if (h.includes('plasma-') || h.includes('discover-')) {
         return 'kde';
     }
     return null;
@@ -131,6 +134,9 @@ function htmlToolkitMarkers(html) {
 
 function cssToolkitMarkers(css) {
     const c = String(css || '');
+    if (c.includes('kde-systemsettings') || c.includes('data-kde-settings')) {
+        return 'kde';
+    }
     if (c.includes('gnome-software') || c.includes('gnome-baobab') || c.includes('.adw-')) {
         return 'gnome';
     }

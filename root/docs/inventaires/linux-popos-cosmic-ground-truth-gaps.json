@@ -1,0 +1,26 @@
+{
+  "registryId": "linux-popos",
+  "evaluatedAt": "2026-06-19T14:30:39.401Z",
+  "contract": "etc/capsuleos/contracts/cosmic-ground-truth-chain.json",
+  "gates": [
+    {
+      "predicate": "CosC",
+      "ok": true,
+      "cmd": "node /home/goupil/Documents/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-popos",
+      "detail": ""
+    },
+    {
+      "predicate": "CosA",
+      "ok": true,
+      "cmd": "node /home/goupil/Documents/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-playbook-assets.mjs --registry linux-popos --strict",
+      "detail": ""
+    },
+    {
+      "predicate": "CosP",
+      "ok": true,
+      "cmd": "node /home/goupil/Documents/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-cosmic-settings-parity-chain.mjs --id linux-popos",
+      "detail": ""
+    }
+  ],
+  "allOk": true
+}

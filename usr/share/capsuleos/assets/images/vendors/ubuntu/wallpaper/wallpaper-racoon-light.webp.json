@@ -6,12 +6,12 @@
   "outputSha256": "591ba87588dabbbfa3a117309a4de0465eb823625c6da3ff9f6c5aeb356f1a3b",
   "role": "wallpaper",
   "profile": "wallpaper",
-  "encoder": "ffmpeg+convert",
+  "encoder": "sharp",
   "options": {
     "quality": 85,
     "lossless": false
   },
   "width": 3841,
   "height": 2160,
-  "preparedAt": "2026-06-07T21:12:38.031Z"
+  "preparedAt": "2026-06-16T09:50:41.252Z"
 }

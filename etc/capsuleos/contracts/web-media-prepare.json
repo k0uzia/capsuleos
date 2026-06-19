@@ -99,6 +99,18 @@
       "deleteSource": true,
       "maxSizeRatioVsSource": 1.05
     },
+    "wallpaper-capsule": {
+      "action": "transcode",
+      "inputFormats": ["webp", "jxl", "png", "jpeg", "jpg", "tiff", "bmp"],
+      "outputFormat": "webp",
+      "lossless": false,
+      "quality": 85,
+      "effort": 4,
+      "maxWidth": 1024,
+      "deleteSource": false,
+      "maxSizeRatioVsSource": 1.05,
+      "note": "Fonds navigateur CapsuleOS — largeur max 1024 px (sans agrandissement)"
+    },
     "icon-raster": {
       "action": "transcode",
       "inputFormats": ["png", "ico", "gif"],
@@ -149,6 +161,11 @@
       "deleteSource": true
     }
   },
+  "vendorProfileOverrides": {
+    "mint": {
+      "wallpaper": "wallpaper-capsule"
+    }
+  },
   "forbiddenOutputFormats": ["jxl"],
   "backends": {
     "preferred": ["sharp", "cwebp", "djxl"],
@@ -165,7 +182,7 @@
   },
   "pipelineHooks": {
     "afterPullVm": "prepare-web-media.mjs --vendor <vendor> --rewrite-refs --wallpaper-thumbnails",
-    "pullVmEnvFlag": "PREPARE_WEB_MEDIA=1",
+    "pullVmEnvFlag": "PREPARE_WEB_MEDIA=0 pour désactiver",
     "beforeValidateAssetsAll": "validate-web-media-prepare.mjs",
     "vendorAssetsPipeline": "usr/lib/capsuleos/tools/lab/run-vendor-assets-pipeline.mjs --id <registryId>"
   },

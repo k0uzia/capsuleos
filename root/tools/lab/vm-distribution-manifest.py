@@ -59,12 +59,16 @@ def detect_toolkit() -> dict[str, Any]:
     session = os.environ.get("XDG_SESSION_TYPE", "")
     detected = [x.strip() for x in de.split(":") if x.strip()]
     toolkit = "unknown"
-    if any("GNOME" in x.upper() for x in detected):
+    if any("COSMIC" in x.upper() for x in detected):
+        toolkit = "cosmic"
+    elif any("GNOME" in x.upper() for x in detected):
         toolkit = "gnome"
     elif any("KDE" in x.upper() for x in detected):
         toolkit = "kde"
     elif any("CINNAMON" in x.upper() for x in detected):
         toolkit = "cinnamon"
+    elif run("which cosmic-comp") or run("which cosmic-panel"):
+        toolkit = "cosmic"
     elif run("which gnome-shell"):
         toolkit = "gnome"
     elif run("which plasmashell"):
@@ -168,6 +172,7 @@ def toolkit_visibility(parsed: dict[str, Any], toolkit_id: str) -> dict[str, Any
     notshow = [x.strip() for x in notshow if x.strip()]
 
     de_tokens = {
+        "cosmic": ("COSMIC",),
         "gnome": ("GNOME",),
         "kde": ("KDE",),
         "cinnamon": ("X-Cinnamon", "Cinnamon"),
@@ -296,6 +301,14 @@ def resolve_theme_icon_in_context(
                 p = f"{base}/{size}/{ctx_path}/{clean}.{ext}"
                 if os.path.isfile(p):
                     return p
+        # Breeze / certains thèmes KDE : mimetypes|places/<taille>/<nom>.svg (dossiers 32, 24… pas 32x32)
+        if ctx_path in ("mimetypes", "places", "emblems", "devices", "status", "categories"):
+            kde_sizes = ("64", "48", "32", "24", "22", "16", "scalable")
+            for size in kde_sizes:
+                for ext in exts:
+                    p = f"{base}/{ctx_path}/{size}/{clean}.{ext}"
+                    if os.path.isfile(p):
+                        return p
         # Adwaita/Yaru : symbolic souvent sans répertoire de taille
         if ctx_path.startswith("symbolic/"):
             for ext in exts:
@@ -489,7 +502,8 @@ def scan_fonts(toolkit_id: str, vendor_id: str, catalog: dict[str, Any]) -> dict
             return
         seen.add(vm_path)
         base = os.path.basename(vm_path)
-        capsule_dir = catalog.get("fonts", [{}])[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
+        font_groups = catalog.get("fonts") or [{}]
+        capsule_dir = font_groups[0].get("capsuleDir", f"fonts/vendors/{vendor_id}")
         entries.append({
             "family": family,
             "style": style,
@@ -832,11 +846,12 @@ def main() -> None:
     vendor_id = os.environ.get("VENDOR_ID") or vendor_from_os(os_release(), registry_id)
     os_data = os_release()
     toolkit = detect_toolkit()
-    catalog = load_media_catalog(vendor_id, toolkit["id"])
+    scan_toolkit = "gnome" if toolkit["id"] == "cosmic" else toolkit["id"]
+    catalog = load_media_catalog(vendor_id, scan_toolkit)
     applications = scan_applications(toolkit["id"])
-    theme_meta = scan_theme_media(toolkit["id"])
+    theme_meta = scan_theme_media(scan_toolkit)
     icon_theme = theme_meta.get("iconTheme") or "Yaru"
-    media = build_media_bundle(vendor_id, toolkit["id"], icon_theme, catalog, applications)
+    media = build_media_bundle(vendor_id, scan_toolkit, icon_theme, catalog, applications)
     media.update({
         k: theme_meta[k] for k in (
             "iconTheme", "gtkTheme", "backgroundUri", "cursorTheme",

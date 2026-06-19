@@ -170,7 +170,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "Indicateur de KDEConnect",
         desc: "Afficher les informations de vos périphériques",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "internet",
@@ -178,7 +178,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "KDEConnect",
         desc: "Unifiez vos périphériques",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "internet",
@@ -186,7 +186,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/kdeconnect.svg",
         name: "SMS par KDEConnect",
         desc: "Lire et envoyer des SMS à partir des périphériques connectés",
-        dataLink: "profile"
+        dataLink: "kdeconnect"
     },
     {
         catId: "sonvideo",
@@ -210,7 +210,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/hwinfo.svg",
         name: "Centre d\'informations",
         desc: "En savoir plus sur le matériel et l\'état du système",
-        dataLink: "profile"
+        dataLink: "kinfocenter"
     },
     {
         catId: "system",
@@ -266,7 +266,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/utilities-system-monitor.svg",
         name: "Surveillance du système",
         desc: "Surveiller l\'utilisation des applications et des ressources du système",
-        dataLink: "profile"
+        dataLink: "system_monitor"
     },
     {
         catId: "system",
@@ -306,7 +306,7 @@ const MENU_APPS = [
         icon: "./assets/images/vendors/neon/kickoff/spectacle.svg",
         name: "Spectacle",
         desc: "Effectuer des captures d\'écran et des enregistrements d\'écran",
-        dataLink: "profile"
+        dataLink: "spectacle"
     },
     {
         catId: "utilities",

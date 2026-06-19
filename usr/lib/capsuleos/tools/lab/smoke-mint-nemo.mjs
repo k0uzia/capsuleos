@@ -39,7 +39,8 @@ const docs = await page.evaluate(() => {
   };
 });
 
-await page.click('div[data-link="nemo"] #voletnemo a[data-nemo-bookmark="true"]');
+// VM : pas de section Marque-pages (aucun signet utilisateur) — navigation Bureau via Mon ordinateur.
+await page.click('div[data-link="nemo"] #voletnemo a[data-link="Bureau"]');
 await page.waitForTimeout(40);
 
 const bookmark = await page.evaluate(() => ({
@@ -208,14 +209,17 @@ await page.waitForTimeout(50);
 
 const contextMenu = await page.evaluate(() => {
   const content = document.querySelector('div[data-link="nemo"] .nemoElement');
-  if (!content) return { visible: false, items: 0, bound: false };
+  if (!content) return { visible: false, items: 0, bound: false, hasNewFolder: false };
   content.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 320, clientY: 280 }));
   const menu = document.querySelector('div[data-link="nemo"] .nemo-app__context-menu');
-  const items = menu ? menu.querySelectorAll('.nemo-app__context-item').length : 0;
+  const items = menu ? menu.querySelectorAll('.nemo-app__context-item:not([hidden])').length : 0;
+  const newFolder = menu ? menu.querySelector('[data-nemo-ctx-action="new-folder"]') : null;
   return {
     visible: menu && !menu.hidden,
     items,
+    hasNewFolder: !!(newFolder && !newFolder.hidden),
     bound: document.querySelector('div[data-link="nemo"]')?.dataset?.nemoContextMenuInit === 'true',
+    hasPropertiesFn: typeof window.openFileExplorerProperties === 'function',
   };
 });
 
@@ -247,19 +251,21 @@ const pathNavigationMode = await page.evaluate(() => {
   if (!toggleBtn || !pathLabel) {
     return { ok: false, reason: 'missing-path-controls' };
   }
-  const labelMode = !pathLabel.classList.contains('nemo-app__path-breadcrumb');
-  toggleBtn.click();
-  const breadcrumbOn = pathLabel.classList.contains('nemo-app__path-breadcrumb')
+  // Vérité VM : Nemo démarre en fil d'Ariane ; le toggle bascule vers le libellé simple (Ctrl+L)
+  const breadcrumbDefault = pathLabel.classList.contains('nemo-app__path-breadcrumb')
     && pathLabel.querySelectorAll('.nemo-app__path-crumb').length > 0
     && toggleBtn.getAttribute('aria-pressed') === 'true';
   toggleBtn.click();
-  const labelRestored = !pathLabel.classList.contains('nemo-app__path-breadcrumb')
+  const labelOn = !pathLabel.classList.contains('nemo-app__path-breadcrumb')
     && toggleBtn.getAttribute('aria-pressed') === 'false';
+  toggleBtn.click();
+  const breadcrumbRestored = pathLabel.classList.contains('nemo-app__path-breadcrumb')
+    && toggleBtn.getAttribute('aria-pressed') === 'true';
   return {
-    ok: labelMode && breadcrumbOn && labelRestored,
-    labelMode,
-    breadcrumbOn,
-    labelRestored,
+    ok: breadcrumbDefault && labelOn && breadcrumbRestored,
+    breadcrumbDefault,
+    labelOn,
+    breadcrumbRestored,
   };
 });
 
@@ -333,7 +339,7 @@ const ok = home.sidebarReady && home.navReady
   && home.chromeToolkit === 'cinnamon'
   && home.chromeProvider === 'nemo'
   && home.dragOnHeader
-  && home.title && home.title.indexOf('Nemo') >= 0
+  && home.title === 'Dossier personnel'
   && docs.path && docs.path.indexOf('Documents') >= 0
   && docs.title && docs.title.indexOf('Documents') >= 0
   && bookmark.path && bookmark.path.indexOf('Bureau') >= 0
@@ -357,7 +363,8 @@ const ok = home.sidebarReady && home.navReady
   && pathNavigationMode.ok
   && breadcrumbNav.ok
   && footerSidebar.ok && footerSidebar.footerBound
-  && contextMenu.visible && contextMenu.items >= 5 && contextMenu.bound;
+  && contextMenu.visible && contextMenu.items >= 3 && contextMenu.bound
+  && contextMenu.hasNewFolder && contextMenu.hasPropertiesFn;
 
 console.log(JSON.stringify({
   home, docs, bookmark, trash, back, vfsRoot, sidebarIcons, iconsView, listView, searchUi, searchFilter, recentView, homeFolders, xedFromNemo, pathNavigationMode, breadcrumbNav, footerSidebar, contextMenu, ok,

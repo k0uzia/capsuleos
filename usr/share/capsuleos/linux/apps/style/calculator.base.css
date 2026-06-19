@@ -394,3 +394,29 @@ main#gnomeCalculatorApp {
     opacity: 1;
     background: rgba(255, 255, 255, 0.1);
 }
+
+.gnome-calc__icon-btn--copy::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 auto;
+    background: currentColor;
+    opacity: 0.72;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 2.5h7l2.5 2.5V12.5A1.5 1.5 0 0 1 12 14H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 2.5z'/%3E%3Cpath fill='white' d='M6 1.5h5.5A1.5 1.5 0 0 1 13 3v8.5H12A1.5 1.5 0 0 1 10.5 10V3.5H6z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M4 2.5h7l2.5 2.5V12.5A1.5 1.5 0 0 1 12 14H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 2.5z'/%3E%3Cpath fill='white' d='M6 1.5h5.5A1.5 1.5 0 0 1 13 3v8.5H12A1.5 1.5 0 0 1 10.5 10V3.5H6z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.gnome-calc__toast {
+    position: absolute;
+    right: calc(var(--head) / 4);
+    bottom: calc(var(--head) / 2);
+    z-index: 20;
+    padding: calc(var(--head) / 6) calc(var(--head) / 3);
+    border-radius: calc(var(--head) / 8);
+    background: rgba(30, 30, 30, 0.92);
+    color: #fff;
+    font-size: calc(var(--head) / 2.8);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}

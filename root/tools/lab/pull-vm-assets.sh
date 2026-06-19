@@ -26,17 +26,27 @@ while [[ $# -gt 0 ]]; do
           ;;
         linux-ubuntu)
           VENDOR="ubuntu"
-          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.122.141}"
+          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.1.183}"
           ICON_THEME="Yaru"
           ;;
         linux-rocky)
           VENDOR="rocky"
           ;;
+        linux-alma)
+          VENDOR="alma"
+          SSH_TARGET="${ALMA_SSH:-capsule@192.168.122.199}"
+          ;;
         linux-mint)
           VENDOR="mint"
-          SSH_TARGET="${MINT_SSH:-capsule@192.168.1.146}"
+          SSH_TARGET="${MINT_SSH:-capsule@192.168.122.33}"
           TOOLKIT="cinnamon"
           ICON_THEME="Mint-Y"
+          ;;
+        linux-popos)
+          VENDOR="popos"
+          SSH_TARGET="${POPOS_SSH:-goupil@192.168.123.75}"
+          TOOLKIT="cosmic"
+          ICON_THEME="Pop"
           ;;
         *)
           VENDOR="rocky"
@@ -158,7 +168,17 @@ pull_vm_wallpaper_thumbs() {
   done <<< "$remote_list"
 }
 
-if [[ "$VENDOR" == "rocky" || "$VENDOR" == "alma" ]]; then
+if [[ "$VENDOR" == "alma" ]]; then
+  for bg in almalinux-day.jpg almalinux-night.jpg; do
+    pull "/usr/share/backgrounds/$bg" "$WALL_DIR/$bg"
+  done
+  for logo in fedora_logo_darkbackground fedora_logo_lightbackground; do
+    pull "/usr/share/almalinux-logos/${logo}.svg" "$WATERMARK_DIR/${logo}.svg"
+  done
+  pull /usr/share/almalinux-logos/almalinux-logo.svg "$VENDOR_DIR/alma-logo.svg" || true
+fi
+
+if [[ "$VENDOR" == "rocky" ]]; then
   for bg in \
     rocky-default-10-gemstone-skies-night.png \
     rocky-default-10-gemstone-skies-day.png \
@@ -257,6 +277,12 @@ if [[ "$VENDOR" == "fedora" ]]; then
   for bg in f44-01-day.jxl f44-01-night.jxl; do
     pull "/usr/share/backgrounds/f44/default/$bg" "$WALL_DIR/$bg"
   done
+fi
+
+if [[ "$VENDOR" == "mint" ]]; then
+  echo "=== Fonds d'écran Mint (scan VM) ==="
+  pull_vm_backgrounds
+  pull_vm_wallpaper_thumbs
 fi
 
 if [[ "$VENDOR" == "ubuntu" ]]; then
@@ -373,16 +399,20 @@ Thème icônes VM : $ICON_THEME (gsettings org.gnome.desktop.interface icon-them
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/$VENDOR/
 MIME Adwaita : scalable/mimetypes/ → icons/gnome/adwaita/mimetypes/
 Yaru (ubuntu) : icons/gnome/yaru/{mimetypes,places,emblems,symbolic}/ — PNG/SVG depuis VM
-Fonds ubuntu : wallpaper/ + wallpaper/thumbnails/ (scan VM) ; WebP via prepare-web-media.mjs
+Fonds d'écran : wallpaper/ (+ thumbnails/) — WebP via prepare-web-media.mjs (défaut après pull)
 Explorateur VM : Nautilus (org.gnome.Nautilus) — gabarit Capsule slot nemo.
 Ne pas réinventer les chemins : relancer ce script après changement de VM ou de thème.
 EOF
 
-if [[ "${PREPARE_WEB_MEDIA:-}" == 1 ]]; then
+if [[ "${PREPARE_WEB_MEDIA:-1}" != 0 ]]; then
   echo "=== prepare-web-media ($VENDOR) ==="
   node "$ROOT/usr/lib/capsuleos/tools/prepare-web-media.mjs" \
-    --vendor "$VENDOR" --rewrite-refs --wallpaper-thumbnails
+    --vendor "$VENDOR" --rewrite-refs --wallpaper-thumbnails --keep-source
   node "$ROOT/usr/lib/capsuleos/tools/validate-web-media-prepare.mjs"
+  if [[ "$VENDOR" == "ubuntu" ]]; then
+    echo "=== ubuntu-wallpaper-catalog ==="
+    node "$ROOT/usr/lib/capsuleos/tools/lab/generate-ubuntu-wallpaper-catalog.mjs" --write
+  fi
 fi
 
 echo "=== Terminé — valider : node usr/lib/capsuleos/tools/validate-asset-zones.mjs ==="

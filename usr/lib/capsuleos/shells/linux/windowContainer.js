@@ -28,7 +28,7 @@
         timeshift: 'Timeshift',
         thunderbird: 'Thunderbird',
         mintwelcome: 'Écran d\'accueil Mint',
-        gucharmap: 'Table des caractères',
+        gucharmap: 'Table de caractères',
         simple_scan: 'Numérisation de documents',
         thingy: 'Bibliothèque',
         rhythmbox: 'Rhythmbox',
@@ -197,6 +197,54 @@
             || 0;
     }
 
+    function readDesktopWorkArea() {
+        const desktop = document.getElementById('desktop');
+        if (!desktop) {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight,
+            };
+        }
+        const rect = desktop.getBoundingClientRect();
+        return {
+            width: rect.width,
+            height: rect.height,
+        };
+    }
+
+    function clampWindowToWorkArea(container) {
+        if (!container || container.id === 'mainMenu') {
+            return;
+        }
+        const work = readDesktopWorkArea();
+        const margin = 8;
+        const maxW = Math.max(240, work.width - margin * 2);
+        const maxH = Math.max(180, work.height - margin * 2);
+
+        if (container.offsetWidth > maxW) {
+            container.style.width = `${maxW}px`;
+        }
+        if (container.offsetHeight > maxH) {
+            container.style.height = `${maxH}px`;
+        }
+
+        let left = parseFloat(container.style.left);
+        let top = parseFloat(container.style.top);
+        if (Number.isNaN(left)) {
+            left = CASCADE_BASE_LEFT_PX;
+        }
+        if (Number.isNaN(top)) {
+            top = CASCADE_BASE_TOP_PX;
+        }
+
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
+        left = Math.max(margin, Math.min(left, work.width - width - margin));
+        top = Math.max(margin, Math.min(top, work.height - height - margin));
+        container.style.left = `${left}px`;
+        container.style.top = `${top}px`;
+    }
+
     function applyCenteredPlacement(container) {
         if (!container || container.dataset.cascadeInit === 'true') {
             return;
@@ -215,6 +263,7 @@
         container.style.bottom = 'auto';
         container.style.right = 'auto';
         container.dataset.cascadeInit = 'true';
+        clampWindowToWorkArea(container);
     }
 
     function applyCascadePlacement(container) {
@@ -236,6 +285,7 @@
         container.style.left = `${left}px`;
         container.style.top = `${top}px`;
         container.dataset.cascadeInit = 'true';
+        clampWindowToWorkArea(container);
     }
 
     function applyKdeWindowHeaderIcons(container) {
@@ -288,20 +338,34 @@
     });
 
     const nativeOpen = window.openWindowByDataLink;
+    const runPostOpenHooks = function (dataLink, ok) {
+        if (!ok) {
+            return ok;
+        }
+        if (dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
+            window.initUpdateManagerApp();
+        }
+        if (dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
+            window.initMintInstallApp();
+        }
+        if (dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
+            window.initSystemMonitorApp();
+        }
+        return ok;
+    };
     window.openWindowByDataLink = function (dataLink, options) {
         if (options && options.newWindow === true && typeof window.openNewWindowByDataLink === 'function') {
             return window.openNewWindowByDataLink(dataLink);
         }
-        const ok = nativeOpen(dataLink);
-        if (ok && dataLink === 'update_manager' && typeof window.initUpdateManagerApp === 'function') {
-            window.initUpdateManagerApp();
+        const slotLoader = window.CapsuleSlotLoader;
+        if (slotLoader && typeof slotLoader.ensureSlotLoaded === 'function'
+            && typeof slotLoader.isSlotLoaded === 'function'
+            && !slotLoader.isSlotLoaded(dataLink)) {
+            slotLoader.ensureSlotLoaded(dataLink).then(function () {
+                runPostOpenHooks(dataLink, nativeOpen(dataLink));
+            });
+            return false;
         }
-        if (ok && dataLink === 'mintinstall' && typeof window.initMintInstallApp === 'function') {
-            window.initMintInstallApp();
-        }
-        if (ok && dataLink === 'system_monitor' && typeof window.initSystemMonitorApp === 'function') {
-            window.initSystemMonitorApp();
-        }
-        return ok;
+        return runPostOpenHooks(dataLink, nativeOpen(dataLink));
     };
 }());

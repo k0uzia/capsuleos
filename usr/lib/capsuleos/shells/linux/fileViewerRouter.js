@@ -332,28 +332,37 @@ const resolveViewerHref = (href) => {
     }
 };
 
+const openFileInViewerWithApp = (href, extension, name, appId) => {
+    const targetApp = String(appId || '').trim();
+    if (!targetApp) {
+        return false;
+    }
+
+    fileViewerState[targetApp] = {
+        href: resolveViewerHref(href),
+        extension: String(extension || '').toLowerCase(),
+        name
+    };
+
+    const windowOpened = openViewerWindow(targetApp);
+    if (!windowOpened) {
+        return false;
+    }
+
+    window.requestAnimationFrame(() => {
+        renderFileViewer(targetApp);
+    });
+
+    return true;
+};
+
 const openFileInViewer = (href, extension, name) => {
     const appId = getFileViewerTargetByExtension(extension);
     if (!appId) {
         return false;
     }
 
-    fileViewerState[appId] = {
-        href: resolveViewerHref(href),
-        extension: String(extension).toLowerCase(),
-        name
-    };
-
-    const windowOpened = openViewerWindow(appId);
-    if (!windowOpened) {
-        return false;
-    }
-
-    window.requestAnimationFrame(() => {
-        renderFileViewer(appId);
-    });
-
-    return true;
+    return openFileInViewerWithApp(href, extension, name, appId);
 };
 
 const bindViewerLaunchers = () => {
@@ -408,6 +417,7 @@ if (document.readyState === 'loading') {
 window.getFileViewerTargetByExtension = getFileViewerTargetByExtension;
 window.resetMediaViewer = resetMediaViewer;
 window.openFileInViewer = openFileInViewer;
+window.openFileInViewerWithApp = openFileInViewerWithApp;
 window.renderFileViewer = renderFileViewer;
 window.getMintViewerTargetByExtension = getFileViewerTargetByExtension;
 window.openMintFileInViewer = openFileInViewer;

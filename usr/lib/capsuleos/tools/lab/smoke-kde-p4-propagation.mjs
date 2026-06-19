@@ -64,5 +64,29 @@ if (!sharedJs.includes('mx-kde') || !sharedJs.includes('debian-kde') || !sharedJ
   errors.push('tray-popover-kde.js : body ids dérivés manquants');
 }
 
-console.log(JSON.stringify({ ok: errors.length === 0, errors, skins: skins.length }, null, 2));
+for (const skin of skins) {
+  const html = read(skin.index);
+  if (!html.includes('dolphin-kde-chrome.js')) {
+    errors.push(`${skin.id} : dolphin-kde-chrome.js absent (V4-P3)`);
+  }
+  if (!html.includes('kde-systemsettings-nav.js')) {
+    errors.push(`${skin.id} : kde-systemsettings-nav.js absent (v14)`);
+  }
+  if (!html.includes('kde-systemsettings.js')) {
+    errors.push(`${skin.id} : kde-systemsettings.js absent (v14)`);
+  }
+  const profilePath = path.join(ROOT, 'etc/capsuleos/profiles', `${skin.id}.json`);
+  if (fs.existsSync(profilePath)) {
+    const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
+    const themesOverride = profile.capsuleGlobals?.CAPSULE_TEMPLATE_OVERRIDES?.themes || '';
+    if (!themesOverride.includes('systemsettings_kde_neon.html')) {
+      errors.push(`${skin.id} : profil themes → systemsettings_kde_neon.html requis (v14)`);
+    }
+    if (profile.fidelityLevel !== 4) {
+      errors.push(`${skin.id} : fidelityLevel 4 requis (v14)`);
+    }
+  }
+}
+
+console.log(JSON.stringify({ ok: errors.length === 0, errors, skins: skins.length, phase: 'P4+P3' }, null, 2));
 process.exit(errors.length ? 1 : 0);

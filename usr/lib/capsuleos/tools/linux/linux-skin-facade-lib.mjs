@@ -4,6 +4,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,6 +12,9 @@ export const ROOT = path.resolve(__dirname, '../../../../..');
 
 /** facade path (sous OS/linux/families) → home canonique */
 export const LINUX_SKIN_FACADES = [
+    { facade: 'families/debian/lxqt', home: 'home/Debian/LXQt' },
+    { facade: 'families/debian/kali', home: 'home/Debian/Kali' },
+    { facade: 'families/debian/elementary', home: 'home/Debian/Elementary' },
     { facade: 'families/debian/mint', home: 'home/Debian/Mint' },
     { facade: 'families/debian/ubuntu', home: 'home/Debian/Ubuntu' },
     { facade: 'families/debian/popos', home: 'home/Debian/PopOS' },
@@ -32,10 +36,45 @@ export function stripBaseTag(html) {
         .replace(/\s*<base\s+href="[^"]*"\s*\/?>\s*/gi, '');
 }
 
+const contentHashCache = new Map();
+
+function fileContentVersion(absPath) {
+    if (contentHashCache.has(absPath)) {
+        return contentHashCache.get(absPath);
+    }
+    let version = null;
+    if (fs.existsSync(absPath) && fs.statSync(absPath).isFile()) {
+        version = crypto.createHash('sha256').update(fs.readFileSync(absPath)).digest('hex').slice(0, 10);
+    }
+    contentHashCache.set(absPath, version);
+    return version;
+}
+
+/**
+ * Cache busting unifié : remplace les `?v=` manuels des scripts/CSS locaux par
+ * un hash de contenu généré — la façade n'expose jamais de version périmée.
+ */
+export function injectContentVersions(html, homeRel) {
+    return html.replace(
+        /(<(?:script[^>]+src|link[^>]+href)=")([^"?]+\.(?:js|css))(?:\?v=[^"]*)?(")/g,
+        (full, before, url, after) => {
+            if (/^(?:https?:)?\/\//.test(url) || url.startsWith('data:')) {
+                return full;
+            }
+            const abs = path.resolve(ROOT, homeRel, url.split('#')[0]);
+            const version = fileContentVersion(abs);
+            if (!version) {
+                return full;
+            }
+            return `${before}${url}?v=${version}${after}`;
+        },
+    );
+}
+
 export function buildFacadeHtml(homeRel, canonicalHtml, pickOsPath) {
     const baseLine = `    <base href="${BASE_HREF}${homeRel}/">`;
     const comment = `    <!-- Facade URL stable : pick-os.js → ./OS/linux/${pickOsPath}/index.html -->`;
-    const body = stripBaseTag(canonicalHtml);
+    const body = injectContentVersions(stripBaseTag(canonicalHtml), homeRel);
 
     const headMatch = body.match(/<head[^>]*>/i);
     if (!headMatch) {
@@ -90,4 +129,74 @@ export function validateLinuxFacadesSync() {
         }
     });
     return errors;
+}
+
+/** Seul index.html est autorisé sous OS/linux/families/<facade>/ (base → home/). */
+export const FACADE_ALLOWED_RELATIVE = new Set(['index.html']);
+
+export function listLinuxFacadeOrphans() {
+    const orphans = [];
+    for (const { facade } of LINUX_SKIN_FACADES) {
+        const facadeRoot = path.join(ROOT, 'OS/linux', facade);
+        if (!fs.existsSync(facadeRoot)) {
+            continue;
+        }
+        const walk = (dir) => {
+            for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+                const abs = path.join(dir, ent.name);
+                if (ent.isDirectory()) {
+                    walk(abs);
+                    continue;
+                }
+                const rel = path.relative(facadeRoot, abs).replace(/\\/g, '/');
+                if (!FACADE_ALLOWED_RELATIVE.has(rel)) {
+                    orphans.push(`OS/linux/${facade}/${rel}`);
+                }
+            }
+        };
+        walk(facadeRoot);
+    }
+    return orphans.sort();
+}
+
+export function validateLinuxFacadeOrphans() {
+    return listLinuxFacadeOrphans().map(
+        (rel) => `Fichier orphelin sous façade pick-os (supprimer ou migrer vers home/) : ${rel}`
+    );
+}
+
+export function purgeLinuxFacadeOrphans({ dryRun = false } = {}) {
+    const removed = [];
+    for (const rel of listLinuxFacadeOrphans()) {
+        const abs = path.join(ROOT, rel);
+        if (!fs.existsSync(abs)) {
+            continue;
+        }
+        if (dryRun) {
+            removed.push(rel);
+            continue;
+        }
+        fs.rmSync(abs, { force: true });
+        removed.push(rel);
+    }
+    if (!dryRun) {
+        for (const { facade } of LINUX_SKIN_FACADES) {
+            const facadeRoot = path.join(ROOT, 'OS/linux', facade);
+            if (!fs.existsSync(facadeRoot)) {
+                continue;
+            }
+            const pruneEmpty = (dir) => {
+                for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+                    if (ent.isDirectory()) {
+                        pruneEmpty(path.join(dir, ent.name));
+                    }
+                }
+                if (dir !== facadeRoot && fs.existsSync(dir) && fs.readdirSync(dir).length === 0) {
+                    fs.rmdirSync(dir);
+                }
+            };
+            pruneEmpty(facadeRoot);
+        }
+    }
+    return removed;
 }

@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import {
     readJson,
     collectByGlobs,
+    globToRegex,
     extractCssVarDefinitions,
     extractCssVarUses,
 } from './lib/ui-contract-lib.mjs';
@@ -30,7 +31,12 @@ for (const rel of contract.definitionFiles) {
     extractCssVarDefinitions(fs.readFileSync(full, 'utf8')).forEach((v) => defined.add(v));
 }
 
-const files = collectByGlobs(ROOT, contract.scanGlobs);
+const excludeGlobs = contract.scanExcludeGlobs || [];
+const excludeRel = (rel) => excludeGlobs.some((g) => globToRegex(g).test(rel));
+const files = collectByGlobs(ROOT, contract.scanGlobs).filter((file) => {
+    const rel = path.relative(ROOT, file).replace(/\\/g, '/');
+    return !excludeRel(rel);
+});
 for (const file of files) {
     extractCssVarDefinitions(fs.readFileSync(file, 'utf8')).forEach((v) => defined.add(v));
 }

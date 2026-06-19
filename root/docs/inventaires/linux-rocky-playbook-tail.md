@@ -1,6 +1,6 @@
 # Playbook bout de chaîne (τ) — Rocky Linux (GNOME)
 
-Généré : 2026-06-06T15:20:37.644Z
+Généré : 2026-06-16T13:52:53.772Z
 
 ## Spécificités environnement
 
@@ -16,7 +16,6 @@ Généré : 2026-06-06T15:20:37.644Z
 
 ## Écarts issus enquête / VM
 
-- **theme** (P0) : H5 : cross-fade thème 300 ms + fond réappliqué (picture-uri-dark via gsettings).
 - **accent** (P1) : H5 : --gcc-accent + dataset gnomeAccent ; switches adw liés à la couleur VM.
 - **wallpaper** (P1) : H5 : transition fond 200 ms + picture-uri-dark synchronisé au thème.
 - **night-light** (P0) : H5 : filtre 1000 ms ease-in-out ; top bar exclue (filter:none).
@@ -34,7 +33,6 @@ Généré : 2026-06-06T15:20:37.644Z
 
 ## H5 appliqués
 
-- ✓ theme
 - ✓ accent
 - ✓ wallpaper
 - ✓ night-light

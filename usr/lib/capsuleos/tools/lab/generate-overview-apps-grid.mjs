@@ -51,6 +51,18 @@ const iconForRow = (row, lookup) => {
   if (row.slotCapsule === 'update_manager') {
     return byAppId.get('snap-store') || byDesktopId.get('snap-store') || null;
   }
+  if (row.vmId) {
+    const candidates = [
+      `images/toolkits/gnome/apps/overview/${row.vmId}.svg`,
+      `images/toolkits/gnome/apps/overview/${row.vmId}.png`,
+      `images/toolkits/gnome/apps/${row.vmId}`,
+    ];
+    for (const rel of candidates) {
+      if (fs.existsSync(path.join(ROOT, 'usr/share/capsuleos/assets', rel))) {
+        return assetRef(rel);
+      }
+    }
+  }
   return null;
 };
 
@@ -72,7 +84,11 @@ const buildGrid = (registryId) => {
   const catalog = buildCatalog(registryId);
   const lookup = buildIconLookup(registryId);
   const rows = catalog.rows
-    .filter((r) => r.placement?.overview && r.onVm !== false)
+    .filter((r) => {
+      if (!r.placement?.overview) return false;
+      if (r.onVm !== false) return true;
+      return Boolean(r.slotCapsule && r.statut === 'ok' && r.requiresSlot);
+    })
     .sort((a, b) => {
       const pr = prioriteRank(a.priorite) - prioriteRank(b.priorite);
       if (pr !== 0) return pr;
@@ -83,6 +99,7 @@ const buildGrid = (registryId) => {
   const apps = rows.map((row) => {
     const icon = iconForRow(row, lookup);
     if (!icon) missing.push(row.vmId || row.slotCapsule);
+    const launchable = Boolean(row.slotCapsule);
     return {
       vmId: row.vmId,
       labelFr: row.labelFr,
@@ -90,7 +107,8 @@ const buildGrid = (registryId) => {
       slotCapsule: row.slotCapsule,
       icon,
       dataLink: row.slotCapsule || null,
-      launchable: Boolean(row.slotCapsule),
+      launchable,
+      decorative: !launchable,
       priorite: row.priorite,
     };
   });
@@ -120,8 +138,12 @@ window.CAPSULE_OVERVIEW_APPS_GRID = ${JSON.stringify(grid, null, 2)};
 
 const renderGridHtml = (grid) => grid.apps.map((app) => {
   const linkAttr = app.dataLink ? ` data-overview-link="${app.dataLink}"` : '';
+  const decorativeAttr = app.decorative ? ' data-overview-decorative="true"' : '';
+  const className = app.decorative
+    ? 'fedora-overview__app fedora-overview__app--decorative'
+    : 'fedora-overview__app';
   const iconSrc = app.icon || `${ASSET_PREFIX}images/toolkits/gnome/apps/overview/settings.png`;
-  return `                <button type="button" class="fedora-overview__app"${linkAttr} aria-label="${app.labelFr}">
+  return `                <button type="button" class="${className}"${linkAttr}${decorativeAttr} aria-label="${app.labelFr}">
                     <img src="${iconSrc}" alt="">
                     <span>${app.labelShort}</span>
                 </button>`;

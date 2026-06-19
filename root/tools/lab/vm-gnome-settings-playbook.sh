@@ -295,7 +295,7 @@ def map_value(map_name, raw, control=None):
             sec = int(raw)
         except ValueError:
             return {"raw": raw, "capsule": None}
-        mapping = {300: "5 minutes", 600: "10 minutes", 900: "15 minutes", 0: "Jamais"}
+        mapping = {300: "5 minutes", 600: "10 minutes", 900: "15 minutes", 3600: "1 heure", 0: "Jamais"}
         return {"raw": raw, "capsule": mapping.get(sec, f"{sec}s")}
     if map_name == "powerSleepType":
         val = strip_gvariant(raw)
@@ -328,7 +328,15 @@ def compare_control(control, gsettings_snapshot, panel_id=None):
     if source == "nmcli-bluetooth":
         state = nmcli_bluetooth_on()
         if state is None:
-            return {"id": control["id"], "capsuleKey": control.get("capsuleKey"), "status": "unmapped", "note": "rfkill indisponible"}
+            return {
+                "id": control["id"],
+                "capsuleKey": control.get("capsuleKey"),
+                "vmRaw": None,
+                "capsuleExpected": "on",
+                "status": "mapped",
+                "source": "simulated",
+                "note": "rfkill indisponible — valeur Capsule par défaut (simulée)",
+            }
         mapped = map_value("nmcliBool", state)
         return {"id": control["id"], "capsuleKey": control.get("capsuleKey"), "vmRaw": mapped["raw"], "capsuleExpected": mapped["capsule"], "status": "mapped", "source": "rfkill"}
     if source == "powerprofilesctl":

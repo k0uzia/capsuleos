@@ -1,0 +1,50 @@
+{
+  "registryId": "linux-kde-neon",
+  "evaluatedAt": "2026-06-15T07:23:49.429Z",
+  "contract": "etc/capsuleos/contracts/kde-ground-truth-chain.json",
+  "gates": [
+    {
+      "predicate": "KdC",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/validate-toolkit-paradigm.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdSe",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/verify-kde-settings-parity-chain.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdS",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/run-kde-ui-state-effects-pass.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdF",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-front-inventory.mjs --id linux-kde-neon",
+      "detail": ""
+    },
+    {
+      "predicate": "KdCred",
+      "ok": true,
+      "optional": false,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/validate-kde-settings-user-scenarios.mjs",
+      "detail": ""
+    },
+    {
+      "predicate": "KdV",
+      "ok": true,
+      "optional": true,
+      "cmd": "node /mnt/#TEAM/CapsuleOS/usr/lib/capsuleos/tools/lab/smoke-kde-settings-visual-parity.mjs --id linux-kde-neon --allow-stub",
+      "detail": ""
+    }
+  ],
+  "allOk": true
+}

@@ -2,16 +2,16 @@
   "version": 1,
   "registryId": "linux-ubuntu",
   "displayName": "Ubuntu 26.04 LTS",
-  "collectedAt": "2026-06-07T16:50:23Z",
+  "collectedAt": "2026-06-16T07:56:01Z",
   "lab": {
-    "ssh": "capsule@192.168.122.141",
+    "ssh": "capsule@192.168.1.183",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland-xwayland",
     "display": ":0",
     "xauthority": "/run/user/UID/.mutter-Xwaylandauth.*",
-    "capsuleUrl": "http://127.0.0.1:8765/OS/linux/families/debian/ubuntu/index.html",
+    "capsuleUrl": "http://127.0.0.1:5500/home/Debian/Ubuntu/index.html",
     "probeScript": "$HOME/capsuleos-lab/os-probe-gnome.sh",
-    "virshName": "ubuntu25.10"
+    "virshName": null
   },
   "distribution": {
     "id": "ubuntu",
@@ -25,9 +25,9 @@
   "desktop": {
     "shell": "GNOME Shell 50.1",
     "toolkit": "gnome",
-    "gtkTheme": "Yaru-dark",
-    "iconTheme": "Yaru-dark",
-    "colorScheme": "prefer-dark",
+    "gtkTheme": "Adwaita",
+    "iconTheme": "Yaru",
+    "colorScheme": "default",
     "colorSchemeOptions": [
       "default",
       "prefer-dark",
@@ -103,10 +103,10 @@
       "parity": "P1"
     },
     "dash": {
-      "vm": "Bottom dash in Overview — favorites + running indicator",
-      "capsule": "nav.fedora-overview__dash",
-      "note": "Dock permanent latéral ubuntu-dock@ubuntu.com — Capsule #tableau.fedora-dock (sous-branche Debian)",
-      "parity": "P1"
+      "vm": "Ubuntu Dock latéral gauche — favoris + corbeille + grille applications",
+      "capsule": "#tableau.fedora-dock (ubuntu-dock.css)",
+      "note": "Capture VM 2026-06-16 : dock vertical gauche ; gsettings dash-to-dock peut diverger — priorité capture",
+      "parity": "P0"
     },
     "quickSettings": {
       "vm": "System menu — volume, network, power, dark mode",
@@ -143,6 +143,18 @@
       "capsule": "light",
       "selector": "html[data-theme=light]:has(#ubuntu)"
     }
+  },
+  "ubuntuDock": {
+    "dockPosition": "LEFT",
+    "dockFixed": true,
+    "visibleFavorites": [
+      "firefox_firefox.desktop",
+      "org.gnome.Nautilus.desktop",
+      "snap-store_snap-store.desktop",
+      "org.gnome.Yelp.desktop",
+      "trash"
+    ],
+    "groundTruth": "capture VM 2026-06-16"
   },
   "assetsPulled": {
     "script": "root/tools/lab/pull-vm-assets.sh",

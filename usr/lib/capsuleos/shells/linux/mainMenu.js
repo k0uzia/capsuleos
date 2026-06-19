@@ -35,7 +35,23 @@ function initMainMenu() {
         const btn = document.createElement('button');
         btn.type        = 'button';
         btn.className   = 'menu-cat' + (cat.id === activeCatId ? ' is-active' : '');
-        btn.textContent = cat.label;
+        if (cat.icon) {
+            const catIcon = document.createElement('img');
+            catIcon.className = 'menu-cat__icon';
+            catIcon.alt = '';
+            catIcon.src = typeof resolveCapsuleAssetUrl === 'function'
+                ? resolveCapsuleAssetUrl(cat.icon)
+                : (typeof resolveCapsuleResourceUrl === 'function'
+                    ? resolveCapsuleResourceUrl(cat.icon)
+                    : cat.icon);
+            btn.appendChild(catIcon);
+            const catLabel = document.createElement('span');
+            catLabel.className = 'menu-cat__label';
+            catLabel.textContent = cat.label;
+            btn.appendChild(catLabel);
+        } else {
+            btn.textContent = cat.label;
+        }
         btn.dataset.catId = cat.id;
 
         btn.addEventListener('click', () => {
@@ -52,6 +68,12 @@ function initMainMenu() {
 
     // Rendu initial
     renderApps('all', '');
+
+    if (isMintCinnamonMenu) {
+        document.addEventListener('capsule:cinnamon-store-menu-pin', function onCinnamonStoreMenuPin() {
+            renderApps(activeCatId, searchInput.value.trim());
+        });
+    }
 
     // ── Recherche temps réel ──────────────────────────────────
     searchInput.addEventListener('input', () => {
@@ -167,7 +189,15 @@ function initMainMenu() {
         menuEl.style.display = 'none';
         menuEl.classList.remove('windowElementActive');
         if (menuBtn) menuBtn.classList.remove('active-link');
-        if (menuBtn) menuBtn.focus();
+        if (menuBtn) menuBtn.blur();
+        if (window.CapsuleTaskbarLauncherState) {
+            if (typeof window.CapsuleTaskbarLauncherState.clearRunning === 'function') {
+                window.CapsuleTaskbarLauncherState.clearRunning(menuEl);
+            }
+            if (typeof window.CapsuleTaskbarLauncherState.refresh === 'function') {
+                window.CapsuleTaskbarLauncherState.refresh();
+            }
+        }
     }
 
     function ensureMenuAppContextMenu() {
@@ -260,7 +290,9 @@ function initMainMenu() {
 
         const effectiveCatId = q ? 'all' : catId;
         let filtered = MENU_APPS.filter(app => {
-            const matchCat = effectiveCatId === 'all' || effectiveCatId === 'recent' || app.catId === effectiveCatId;
+            const matchCat = effectiveCatId === 'all' || effectiveCatId === 'recent'
+                || app.catId === effectiveCatId
+                || (effectiveCatId === 'favorites' && app.favorite);
             const matchQ   = !q || app.name.toLowerCase().includes(q) || app.desc.toLowerCase().includes(q);
             return matchCat && matchQ;
         });
@@ -268,8 +300,10 @@ function initMainMenu() {
         if (q || effectiveCatId === 'all') {
             filtered = dedupeMenuApps(filtered);
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-        } else if (effectiveCatId !== 'favorites') {
-            // Favoris Kickoff : ordre MENU_APPS (VM), pas alpha.
+        } else if (effectiveCatId === 'favorites') {
+            // Ordre VM : gsettings org.cinnamon favorite-apps (pas alpha).
+            filtered.sort((a, b) => (a.favoriteRank != null ? a.favoriteRank : 99) - (b.favoriteRank != null ? b.favoriteRank : 99));
+        } else {
             filtered.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
         }
 
@@ -440,15 +474,34 @@ function initMainMenu() {
         return null;
     }
 
+    function normalizeMenuDirectory(directory) {
+        if (!directory || typeof directory !== 'string') {
+            return directory;
+        }
+        const legacyPrefix = './apps/system/Dossier_personnel';
+        if (directory.indexOf(legacyPrefix) !== 0) {
+            return directory;
+        }
+        let root = 'home/public';
+        if (typeof window !== 'undefined' && window.CAPSULE_CONTENT_ROOT) {
+            root = String(window.CAPSULE_CONTENT_ROOT).replace(/\/+$/, '');
+        } else if (typeof window !== 'undefined' && window.CapsuleUserHome) {
+            root = window.CapsuleUserHome.resolveRelative();
+        }
+        const suffix = directory.slice(legacyPrefix.length).replace(/^\//, '');
+        return suffix ? `${root}/${suffix}` : root;
+    }
+
     function openNemoDirectory(directory) {
+        const target = normalizeMenuDirectory(directory);
         window.setTimeout(() => {
             if (typeof navigateToDirectory === 'function') {
-                navigateToDirectory(directory);
+                navigateToDirectory(target);
                 return;
             }
 
             if (typeof loadDirectory === 'function') {
-                loadDirectory(directory);
+                loadDirectory(target);
             }
         }, 0);
     }

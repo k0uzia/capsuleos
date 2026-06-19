@@ -75,7 +75,7 @@ Le pilote Cinnamon (`window-chrome.base.css`) ne doit être chargé **que** via 
 | `linux-rocky` | `home/RedHat/Rocky` | `toolkit-gnome` |
 | `linux-fedora` | `home/RedHat/Fedora` | `toolkit-gnome` |
 | `linux-alma` | `home/RedHat/Alma` | `toolkit-gnome` |
-| `linux-ubuntu` | `home/Debian/Ubuntu` | `toolkit-gnome` (update_manager → `update-manager-ubuntu`) |
+| `linux-ubuntu` | `home/Debian/Ubuntu` | `toolkit-gnome` (`update_manager` → `libadwaita-gnome`, GS50) |
 | `linux-anduinos` | `home/Debian/AnduinOS` | `toolkit-gnome` |
 | `linux-popos` | `home/Debian/PopOS` | `toolkit-cosmic` |
 | `linux-opensuse` | `home/SUSE/openSUSE` | `toolkit-kde` |

@@ -17,16 +17,21 @@
             }
             return bg;
         }
-        var rel = './assets/images/vendors/mint/default_background.jpg';
+        var rel = './assets/images/vendors/mint/default_background.webp';
         if (bodyId === 'fedora') {
             rel = './assets/images/vendors/fedora/wallpaper/f44-01-night.webp';
             if (global.document.documentElement.dataset.theme === 'light') {
                 rel = './assets/images/vendors/fedora/wallpaper/f44-01-day.webp';
             }
-        } else if (bodyId === 'rocky' || bodyId === 'alma') {
+        } else if (bodyId === 'rocky') {
             rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-night.webp';
             if (global.document.documentElement.dataset.theme === 'light') {
                 rel = './assets/images/vendors/rocky/wallpaper/rocky-default-10-gemstone-skies-day.webp';
+            }
+        } else if (bodyId === 'alma') {
+            rel = './assets/images/vendors/alma/wallpaper/almalinux-night.jpg';
+            if (global.document.documentElement.dataset.theme === 'light') {
+                rel = './assets/images/vendors/alma/wallpaper/almalinux-day.jpg';
             }
         }
         if (typeof global.CapsuleResource !== 'undefined' && global.CapsuleResource.resolve) {
@@ -78,10 +83,18 @@
         return '';
     }
 
+    function getShellRoot() {
+        var body = global.document.body;
+        if (!body || !body.id) {
+            return null;
+        }
+        return global.document.getElementById(body.id) || body;
+    }
+
     function buildCaptureCanvas(callback) {
         var desktop = global.document.getElementById('desktop');
-        var mint = global.document.getElementById('mint');
-        if (!desktop || !mint) {
+        var shellRoot = getShellRoot();
+        if (!desktop || !shellRoot) {
             callback(null);
             return;
         }
@@ -101,7 +114,7 @@
         img.crossOrigin = 'anonymous';
         img.onload = function onWallpaperLoad() {
             ctx.drawImage(img, 0, 0, w, h);
-            var cs = global.getComputedStyle(mint);
+            var cs = global.getComputedStyle(shellRoot);
             var padTop = parseInt(cs.paddingTop, 10) || 0;
             if (padTop > 0) {
                 ctx.fillStyle = 'rgba(0,0,0,0.15)';
@@ -137,12 +150,19 @@
 
         var lastDataUrl = '';
 
+        function syncShotDataset(phase) {
+            root.dataset.shotInit = 'true';
+            root.dataset.shotPhase = phase || 'config';
+            root.dataset.shotArea = getSelectedArea(root);
+        }
+
         function showConfig() {
             resultPanel.setAttribute('hidden', '');
             configPanel.removeAttribute('hidden');
             if (statusEl) {
                 statusEl.textContent = '';
             }
+            syncShotDataset('config');
         }
 
         function showResult(dataUrl) {
@@ -150,12 +170,14 @@
             previewImg.src = dataUrl;
             configPanel.setAttribute('hidden', '');
             resultPanel.removeAttribute('hidden');
+            syncShotDataset('result');
         }
 
         function updateHint() {
             if (hintEl) {
                 hintEl.textContent = areaHint(getSelectedArea(root));
             }
+            syncShotDataset(root.dataset.shotPhase || 'config');
         }
 
         root.querySelectorAll('input[name="gnome-shot-area"]').forEach(function (input) {
@@ -198,9 +220,9 @@
             }, delaySec * 1000);
         });
 
-        resultPanel.querySelectorAll('[data-shot-action]').forEach(function (btn) {
+        resultPanel.querySelectorAll('[data-shot-gnome-action]').forEach(function (btn) {
             btn.addEventListener('click', function onAction() {
-                var action = btn.getAttribute('data-shot-action');
+                var action = btn.getAttribute('data-shot-gnome-action');
                 if (action === 'new') {
                     showConfig();
                     updateHint();

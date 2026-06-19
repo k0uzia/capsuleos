@@ -47,6 +47,9 @@ html:not([data-theme="light"]) body#kde-neon {
 
 /* —— Mode panel flottant (défaut) —— */
 #kde-neon #tableau {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: center;
     position: fixed;
     z-index: 9000;
     left: var(--kde-neon-panel-dock-inset);
@@ -84,9 +87,9 @@ html:not([data-theme="light"]) body#kde-neon {
     flex: 0 0 auto;
 }
 
-/* Pas d’encoche « pilule » en mode flottant */
-#kde-neon[data-plasma-panel="dock"] footer .taskbar-pins__apps > a.active-link::after,
-#kde-neon[data-plasma-panel="dock"] footer .taskbar-pins__launcher.active-link::after {
+/* Pas d’encoche Cinnamon — Plasma utilise un surlignage plat */
+#kde-neon footer .taskbar-pins__apps > a.active-link::after,
+#kde-neon footer .taskbar-pins__launcher.active-link::after {
     display: none;
 }
 

@@ -17,6 +17,7 @@ import {
   loadRegistryEntry,
   vendorFromRegistry,
 } from './replication-chain-lib.mjs';
+import { filterCampaignPhases, shouldSkipCampaignPhase } from './differential-campaign-lib.mjs';
 
 export { ROOT };
 
@@ -57,6 +58,8 @@ export const loadRecipeProfile = (registryId) => {
     toolkit: base.toolkit || entry.toolkit || 'gnome',
     vendor: base.vendor || vendor,
     upstreamId: base.upstreamId || entry.upstreamId || null,
+    coherenceContract: base.coherenceContract || contract.coherenceContract || null,
+    storeCampaign: base.storeCampaign || null,
     matrices: { ...(base.matrices || {}) },
     scripts: { ...(base.scripts || {}) },
     bootstrap: base.bootstrap || null,
@@ -179,8 +182,13 @@ export const buildRemoteEnv = (host) => {
     'export XDG_RUNTIME_DIR=/run/user/$(id -u)',
     `export XDG_CURRENT_DESKTOP=${host.desktop || 'GNOME'}`,
   ];
+  if (host.sessionType && String(host.sessionType).includes('wayland')) {
+    parts.push('export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-0}');
+  }
   if (host.xauthorityDiscovery === 'mutter-xwayland') {
     parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
+  } else if (host.xauthorityDiscovery === 'plasma-xauth') {
+    parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/xauth_* 2>/dev/null | head -1)');
   }
   return parts.join('; ');
 };
@@ -357,4 +365,63 @@ export const resolveChainNextAction = (registryId, domain = 'gnome-settings-play
   }
 
   return resolveChainPredicateAction(registryId, domain);
+};
+
+const COHERENCE_PATH = path.join(ROOT, 'etc/capsuleos/contracts/os-reproduction-coherence.json');
+
+const STEP_PHASE_MAP = {
+  'store-vm-inventory': ['CR-1', 'CR-2'],
+  'store-content-contract': ['CR-4'],
+  'store-capsule-captures': ['CR-5'],
+  'store-parity-enrich': ['CR-3', 'CR-6'],
+};
+
+/** Phases CR actives pour registryId (storeCampaign.campaignPhases ou CR-0…CR-6 complet). */
+export const loadCampaignPhases = (registryId, opts = {}) => {
+  const profile = loadRecipeProfile(registryId);
+  let phases = profile.storeCampaign?.campaignPhases;
+  if (!phases?.length) {
+    const coherence = readJsonIfExists(COHERENCE_PATH);
+    phases = (coherence?.campaignRecipe?.phases || []).map((p) => p.id);
+  }
+  if (opts.applyDifferentialSkip !== false) {
+    return filterCampaignPhases(registryId, phases);
+  }
+  return phases;
+};
+
+export const stepAllowedForCampaign = (stepId, registryId) => {
+  const allowedPhases = loadCampaignPhases(registryId);
+  const stepPhases = STEP_PHASE_MAP[stepId];
+  if (!stepPhases) return true;
+  return stepPhases.some((ph) => allowedPhases.includes(ph));
+};
+
+export const loadCoherencePhases = () => {
+  const coherence = readJsonIfExists(COHERENCE_PATH);
+  return coherence?.campaignRecipe?.phases || [];
+};
+
+/** Prochaine phase CR avec commande (filtrée par campaignPhases). */
+export const resolveCoherencePhaseAction = (registryId) => {
+  const allowed = new Set(loadCampaignPhases(registryId));
+  const phases = loadCoherencePhases();
+  const vendor = vendorFromRegistry(registryId);
+
+  for (const phase of phases) {
+    if (!allowed.has(phase.id)) continue;
+    if (shouldSkipCampaignPhase(registryId, phase.id).skip) continue;
+    const cmd = (phase.command || '').replace(/\{registryId\}/g, registryId).replace(/\{httpBase\}/g, resolveCapsuleHttpBase(registryId));
+    if (!cmd) continue;
+    return {
+      complete: false,
+      phaseId: phase.id,
+      rule: `R-CR-${phase.id}`,
+      message: phase.label || phase.id,
+      command: cmd.startsWith('node ') ? cmd : `node ${cmd}`,
+      autoExecute: phase.id === 'CR-0' || phase.id.startsWith('CR-'),
+      registryId,
+    };
+  }
+  return { complete: true, registryId };
 };

@@ -1,0 +1,10 @@
+{
+  "registryId": "linux-fedora",
+  "profile": "full",
+  "gates": {
+    "L": {
+      "ok": true,
+      "at": "2026-06-13T18:33:33.375Z"
+    }
+  }
+}

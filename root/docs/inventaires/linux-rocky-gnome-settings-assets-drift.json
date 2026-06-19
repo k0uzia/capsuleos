@@ -1,7 +1,7 @@
 {
   "registry": "linux-rocky",
-  "generatedAt": "2026-06-07T10:09:13.590Z",
-  "vmInventoryAt": "2026-06-07T10:09:13.367880+00:00",
+  "generatedAt": "2026-06-16T14:26:54.158Z",
+  "vmInventoryAt": "2026-06-16T14:26:54.053440+00:00",
   "alignedCount": 12,
   "missingCapsuleCount": 0,
   "missingVmCount": 0,

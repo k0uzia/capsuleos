@@ -16,7 +16,7 @@ body#popos .cosmic-top-bar {
     background: var(--popos-top-bar-bg);
     border-bottom: var(--popos-top-bar-border);
     color: var(--popos-shell-text);
-    font-family: "Inter", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
 }
 
 body#popos .cosmic-top-bar__left,

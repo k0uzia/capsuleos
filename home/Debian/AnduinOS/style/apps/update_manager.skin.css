@@ -14,7 +14,7 @@ body#anduinos {
     --gnome-software-sidebar-w: 13.75rem;
 }
 
-html[data-theme="light"]:has(#anduinos) {
+html[data-theme="light"]:has(#anduinos) body#anduinos {
     --gnome-software-bg: #fafafa;
     --gnome-software-sidebar-bg: #f3f3f5;
     --gnome-software-surface: #ffffff;

@@ -19,24 +19,96 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../../..');
 const errors = [];
 
-const P0_TEMPLATE_MARKERS = {
-  calculator: 'gnome-calc',
-  text_editor: 'xed-app',
-  nemo: 'nautilus-app',
-  firefox: 'capsule-browser',
-  update_manager: 'gnome-software__sidebar',
-  themes: 'themesApp',
-  terminal: 'capsule-terminal',
+const P0_TEMPLATE_MARKERS_BY_TOOLKIT = {
+  gnome: {
+    calculator: 'gnome-calc',
+    text_editor: 'xed-app',
+    nemo: 'nautilus-app',
+    firefox: 'capsule-browser',
+    update_manager: 'gnome-software__sidebar',
+    themes: 'themesApp',
+    terminal: 'capsule-terminal',
+  },
+  cinnamon: {
+    nemo: 'nemo-app',
+    firefox: 'capsule-browser',
+    update_manager: 'update-manager__layout',
+    themes: 'cs-app',
+    terminal: 'capsule-terminal',
+    mintinstall: 'mintInstallApp',
+    calculator: 'gnome-calc',
+    text_editor: 'xed-app',
+    calendar: 'gnomeCalendarApp',
+    screenshot: 'gnomeScreenshotApp',
+    drawing: 'drawingApp',
+    lecteur_multimedia: 'lecteurMultimedia',
+    libreoffice_startcenter: 'libreofficeStartcenterApp',
+  },
+  kde: {
+    nemo: 'dolphin-app',
+    firefox: 'capsule-browser',
+    update_manager: 'kde-updates__sidebar',
+    themes: 'kde-systemsettings',
+    terminal: 'capsule-terminal-shell',
+    text_editor: 'xed-app',
+    lecteur_multimedia: 'celluloid-app',
+  },
+  cosmic: {
+    calculator: 'gnome-calc',
+    text_editor: 'xed-app',
+    nemo: 'nautilus-app',
+    firefox: 'capsule-browser',
+    update_manager: 'gnome-software__sidebar',
+    themes: 'themesApp',
+    terminal: 'capsule-terminal',
+    lecteur_multimedia: 'lecteurMultimedia',
+  },
 };
 
-const P0_RUNTIME_SELECTORS = {
-  calculator: '.gnome-calc__keypad, .gnome-calc',
-  text_editor: '.xed-app, #xedApp',
-  nemo: '.nautilus-app__headerbar, .nemo-app main',
-  firefox: '.capsule-browser, .firefox-chrome',
-  update_manager: '.gnome-software, .gnome-software__sidebar',
-  themes: '#themesApp.gnome-settings, .gnome-settings',
-  terminal: '.capsule-terminal-shell, #terminalContainer',
+const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
+  gnome: {
+    calculator: '.gnome-calc__keypad, .gnome-calc',
+    text_editor: '.xed-app, #xedApp',
+    nemo: '.nautilus-app__headerbar, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
+    themes: '#themesApp, .themes-app, .gnome-settings',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+  },
+  cinnamon: {
+    nemo: '.nemo-app__header, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.update-manager, .update-manager__layout',
+    themes: '#cinnamonSettingsApp.cs-app, .cs-app',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+    mintinstall: '#mintInstallApp, .mi-app__sidebar',
+    calculator: '.gnome-calc__keypad, .gnome-calc',
+    text_editor: '.xed-app, #xedApp',
+    calendar: '.gnome-calendar-app, #gnomeCalendarApp',
+    screenshot: '#gnomeScreenshotApp, .gnome-shot',
+    drawing: '#drawingApp, .drawing-app',
+    lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
+    libreoffice_startcenter: '#libreofficeStartcenterApp, .lsc-app',
+  },
+  kde: {
+    nemo: '.dolphin-app, .nemo-app__header',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.kde-updates, .kde-updates__sidebar, .update-manager--kde',
+    themes: '[data-kde-settings-root], #kdeSystemSettingsShell, .kde-systemsettings',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+    text_editor: '.xed-app, #xedApp',
+    lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
+  },
+  cosmic: {
+    calculator: '.gnome-calc__keypad, .gnome-calc',
+    text_editor: '.xed-app, #xedApp',
+    nemo: '.nautilus-app__headerbar, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
+    themes: '#themesApp, .themes-app, .gnome-settings',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
+    lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
+  },
 };
 
 const parseArgs = () => {
@@ -60,6 +132,9 @@ const read = (rel) => {
 const main = async () => {
   const opts = parseArgs();
   const catalog = buildCatalog(opts.id);
+  const toolkitId = catalog.toolkit || 'gnome';
+  const P0_TEMPLATE_MARKERS = P0_TEMPLATE_MARKERS_BY_TOOLKIT[toolkitId] || P0_TEMPLATE_MARKERS_BY_TOOLKIT.gnome;
+  const P0_RUNTIME_SELECTORS = P0_RUNTIME_SELECTORS_BY_TOOLKIT[toolkitId] || P0_RUNTIME_SELECTORS_BY_TOOLKIT.gnome;
   const embedPath = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.js');
   const embed = fs.existsSync(embedPath) ? fs.readFileSync(embedPath, 'utf8') : '';
 
@@ -116,14 +191,18 @@ const main = async () => {
         for (const row of p0Slots) {
           const slot = row.slotCapsule;
           const selector = P0_RUNTIME_SELECTORS[slot];
+          if (!selector) continue;
           await page.evaluate((slotId) => {
             if (typeof window.openWindowByDataLink === 'function') {
               window.openWindowByDataLink(slotId);
             }
           }, slot);
 
+          await page.waitForTimeout(1500);
+
           const selList = selector.split(',').map((s) => s.trim());
           let hasBody = false;
+          const contentTimeout = toolkitId === 'cosmic' ? 45000 : 15000;
           try {
             await page.waitForFunction(
               ({ slotId, selectors }) => {
@@ -132,7 +211,7 @@ const main = async () => {
                 return selectors.some((sel) => !!win.querySelector(sel));
               },
               { slotId: slot, selectors: selList },
-              { timeout: 15000 },
+              { timeout: contentTimeout },
             );
             hasBody = true;
           } catch {

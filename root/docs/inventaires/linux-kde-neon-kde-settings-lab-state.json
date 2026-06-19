@@ -1,0 +1,9 @@
+{
+  "registryId": "linux-kde-neon",
+  "gates": {
+    "L": {
+      "ok": true,
+      "at": "2026-06-14T19:08:29.696Z"
+    }
+  }
+}

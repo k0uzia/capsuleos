@@ -19,11 +19,26 @@
 | **MX-KDE** | Logo MX panel · flyout kickoff (`mainMenu-kde-chrome.js`) · pins checklist MX |
 | **Debian-KDE** | Logo Debian desktop · tokens `--opensuse-*` legacy dans breeze (dette nommage, fonctionnel) · pas de Discover Neon JS |
 
-## Non inclus P4 (backlog P5 / dérivé)
+## V4-P3 — propagation Dolphin (2026-06-09) ✅
 
-- `dolphin-neon.js` / `discover-neon.js` (restent Neon-only)
+| Couche | Fichier partagé | Skins cibles |
+|--------|-----------------|--------------|
+| Dolphin chrome | `usr/lib/capsuleos/shells/linux/fileExplorer/dolphin-kde-chrome.js` | Neon, openSUSE, MX-KDE, Debian-KDE |
+| Discover (pivot) | `usr/lib/capsuleos/shells/linux/discover-kde.js` | **4 skins** (V6 — `update_manager_kde_neon.html` + `discover-kirigami-kde.shared.css`) |
+| Noyau explorer | `fileExplorerAdvancedChrome.js` … `fileExplorerContextMenu.js` | 4 skins KDE (versions Neon) |
+| Tokens Debian | `--debian-kde-*` + alias `--opensuse-*` | Debian-KDE |
+
+## V6 — Discover Kirigami dérivés (2026-06-09) ✅
+
+Voir [linux-kde-neon-roadmap-v6.md](linux-kde-neon-roadmap-v6.md).
+
+**Conservé volontairement** : kickoff 30 apps Neon-only · catalogues vendor-spécifiques futurs.
+
+## Non inclus (backlog)
+
 - Kickoff 30 apps regénéré (Neon-only ; dérivés gardent leur `mainMenu-data.js`)
 - Captures VM par dérivé
+- Discover full sur openSUSE / MX / Debian-KDE (nécessite catalog vendor + CSS)
 
 ## Vérification
 

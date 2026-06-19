@@ -58,7 +58,7 @@ const modeLabel = await page.evaluate(() => document.getElementById('gnome-calc-
 
 const ok = state.winVisible && state.appReady && state.title === 'Calculatrice' && after === '5'
   && modePopover.open && modePopover.options >= 3
-  && advanced.classOn && modeLabel === 'Avancée'
+  && advanced.classOn && modeLabel === 'Avancé'
   && backspace === '0';
 console.log(JSON.stringify({ state, after, modePopover, advanced, backspace, ok }, null, 2));
 await browser.close();

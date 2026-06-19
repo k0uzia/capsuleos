@@ -48,7 +48,7 @@ body#anduinos {
     height: 100vh;
     overflow: hidden;
     color: var(--anduin-shell-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     background-color: #0d1528;
     background-image: url("../../../../../home/public/Images/lunaire-bureau.svg");
     background-position: center;

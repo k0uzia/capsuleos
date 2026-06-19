@@ -14,7 +14,7 @@ const ready = await page.evaluate(() => ({
   home: !document.querySelector('[data-mi-page="home"]')?.hidden,
 }));
 
-await page.fill('#mi-search', 'VLC');
+await page.fill('#mi-search', 'Transmission');
 await page.waitForTimeout(80);
 const search = await page.evaluate(() => ({
   pageVisible: !document.querySelector('[data-mi-page="search"]')?.hidden,
@@ -24,7 +24,15 @@ const search = await page.evaluate(() => ({
 
 await page.fill('#mi-search', '');
 await page.waitForTimeout(40);
-await page.click('[data-mi-cat="internet"]');
+// Layout VM 8.4 : sur l'accueil la sidebar est masquée — passer par la tuile catégorie.
+await page.evaluate(() => {
+  const homeBtn = document.querySelector('[data-mi-home-cat="internet"]');
+  if (homeBtn) {
+    homeBtn.click();
+    return;
+  }
+  document.querySelector('[data-mi-cat="internet"]')?.click();
+});
 await page.waitForTimeout(70);
 const internet = await page.evaluate(() => ({
   active: document.querySelector('[data-mi-cat="internet"]')?.classList.contains('is-active'),
@@ -32,21 +40,23 @@ const internet = await page.evaluate(() => ({
   rows: document.querySelectorAll('#mi-app-list .mi-app__list-item').length,
 }));
 
-await page.click('[data-mi-install="firefox"]');
-await page.waitForTimeout(50);
-const install = await page.evaluate(() => ({
-  status: document.getElementById('mi-status')?.textContent,
-  installed: document.querySelector('[data-mi-install="firefox"]')?.disabled,
-}));
+const install = await page.evaluate(() => {
+  const row = document.querySelector('#mi-app-list .mi-app__list-item[data-mi-pkg="firefox"]');
+  // Préinstallé = bouton Ouvrir (data-mi-open), pas de bouton Installer actif.
+  return {
+    firefoxPreinstalled: !!row && (!!row.querySelector('[data-mi-open]')
+      || row.querySelector('[data-mi-install]')?.disabled === true),
+  };
+});
 
 await page.click('[data-mi-action="menu"]');
 await page.waitForTimeout(40);
 const menu = await page.evaluate(() => !document.getElementById('mi-menu')?.hidden);
 
 const ok = ready.init && ready.title === 'Logithèque' && ready.home
-  && search.pageVisible && search.count >= 1 && search.title.indexOf('VLC') >= 0
+  && search.pageVisible && search.count >= 1 && search.title.indexOf('Transmission') >= 0
   && internet.active && internet.listVisible && internet.rows >= 2
-  && install.status && install.status.indexOf('Firefox') >= 0 && install.installed
+  && install.firefoxPreinstalled
   && menu;
 
 console.log(JSON.stringify({ ready, search, internet, install, menu, ok }, null, 2));

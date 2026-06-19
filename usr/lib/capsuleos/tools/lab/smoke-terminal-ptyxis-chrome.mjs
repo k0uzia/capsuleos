@@ -10,8 +10,24 @@ import fs from 'fs';
 import { chromium } from 'playwright';
 
 const BASE = (process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:8765').replace(/\/$/, '');
-const profileArg = process.argv.find((a) => a.startsWith('--profile='));
-const PROFILE = profileArg ? profileArg.split('=')[1] : (process.env.CAPSULE_PTYXIS_PROFILE || 'linux-rocky');
+const parseArgs = () => {
+  const args = process.argv.slice(2);
+  let profile = process.env.CAPSULE_PTYXIS_PROFILE || 'linux-rocky';
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i].startsWith('--profile=')) {
+      profile = args[i].split('=')[1] || profile;
+    }
+    if (args[i] === '--profile' && args[i + 1]) {
+      profile = args[++i];
+    }
+    if (args[i] === '--id' && args[i + 1]) {
+      profile = args[++i];
+    }
+  }
+  return profile;
+};
+
+const PROFILE = parseArgs();
 
 const PROFILE_URL = {
   'linux-rocky': `${BASE}/home/RedHat/Rocky/index.html`,

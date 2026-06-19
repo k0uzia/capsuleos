@@ -148,8 +148,8 @@ const main = () => {
         priority: g.priority,
         action: 'aligner capsuleParity / CSS / dataset',
       })),
-    h6Ready: gapsFromVisual.length > 0
-      && gapsFromVisual.every(
+    h6Ready: gapsFromVisual.length === 0
+      || gapsFromVisual.every(
         (g) => (g.gapNotes || '').startsWith('H5')
           || (g.gapNotes || '').startsWith('P2')
           || g.priority === 'P2',

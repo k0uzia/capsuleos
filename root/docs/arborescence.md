@@ -17,14 +17,14 @@ Résumé pour naviguer le dépôt ; détail produit : [`README.md`](../../README
 | `root/` | **Ce dossier** — skills et doc agents uniquement |
 | [`contrib.md`](../../contrib.md) (racine) | Guide contributeur ; [§ toolkits Linux](../../contrib.md#bibliotheques-graphiques-linux-toolkits-gui) (GTK / Qt / Cinnamon / COSMIC) |
 | `root/docs/manifeste-noyau.md` | Vision noyau, hydratation, assets |
-| `root/docs/repertoire-os.md` | Catalogue OS (52 entrées) |
+| `root/docs/repertoire-os.md` | Catalogue OS (57 entrées) |
 | `root/docs/scalabilite-noyau.md` | Stratégie scale statique |
 | `root/docs/equipe-agentique.md` | Staffing agents |
 
 ## Flux typique Linux
 
-1. Entrée : `OS/linux/families/<famille>/<distro>/index.html` ou miroir `home/<Vendor>/<Distro>/index.html`.
-2. Noyau : `OS/linux/kernel/js/` + `usr/lib/capsuleos/shells/linux/`.
+1. Entrée : `OS/linux/families/<famille>/<distro>/index.html` (`<base href>` → `home/<Vendor>/<Distro>/`).
+2. Noyau : `usr/lib/capsuleos/common/` + `usr/lib/capsuleos/shells/linux/`.
 3. Apps partagées : `usr/share/capsuleos/linux/apps/` + `style/*.base.css` / skins `home/.../style/apps/*.skin.css`.
 4. Explorateur : gabarits `usr/share/capsuleos/linux/explorers/` ; données `home/public/` + manifestes JSON.
 5. Offline : régénérer embed après changement gabarits/public — voir README racine dépôt.

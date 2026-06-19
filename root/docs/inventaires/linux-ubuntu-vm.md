@@ -1,6 +1,6 @@
-# Inventaire VM — Ubuntu 26.04 LTS
+# Inventaire VM — Ubuntu 25.10
 
-> Collecte : `2026-06-07T16:50:23Z` · Registre : `linux-ubuntu` · JSON : [`linux-ubuntu-vm.json`](linux-ubuntu-vm.json)
+> Collecte : `2026-06-16T07:56:01Z` · Registre : `linux-ubuntu` · JSON : [`linux-ubuntu-vm.json`](linux-ubuntu-vm.json)
 
 ## Distribution
 

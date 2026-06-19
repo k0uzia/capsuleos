@@ -13,6 +13,20 @@ main#mintDriversApp {
     color: #555555;
 }
 
+html:not([data-theme="light"]) body#mint main#mintDriversApp {
+    color: rgba(255, 255, 255, 0.87);
+    background: #2f2f2f;
+}
+
+html:not([data-theme="light"]) body#mint main#mintDriversApp .md-page__title {
+    color: rgba(255, 255, 255, 0.87);
+}
+
+html:not([data-theme="light"]) body#mint main#mintDriversApp .md-page__body,
+html:not([data-theme="light"]) body#mint main#mintDriversApp .md-page__hint {
+    color: rgba(255, 255, 255, 0.55);
+}
+
 .md-spinner {
     border-top-color: #1f9ede;
 }

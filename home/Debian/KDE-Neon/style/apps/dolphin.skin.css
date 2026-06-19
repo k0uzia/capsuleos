@@ -65,10 +65,12 @@ body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__root-row img 
 }
 
 body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-sidebar__nav--peripherals .dolphin-sidebar__empty {
-    margin: 0.35rem 0 0.5rem 0.75rem;
-    font-size: 0.8125rem;
-    color: var(--kde-neon-muted-fg, #7f8c8d);
-    line-height: 1.35;
+    display: none;
+}
+
+/* VM Dolphin : pas de pill « N dossiers » en vue icônes par défaut */
+body#kde-neon div[data-link="nemo"] .dolphin-app .dolphin-folder-pill {
+    display: none !important;
 }
 
 /* P4 — masquer menubar classique (Dolphin ≥23 = hamburger) */
@@ -163,7 +165,7 @@ body#kde-neon div[data-link="nemo"] #windowTitle {
     max-width: calc(100% - 7rem);
     margin: 0 auto;
     overflow: hidden;
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
     font-size: 0.82rem;
     font-weight: 400;
     line-height: 1;
@@ -1101,8 +1103,9 @@ body#kde-neon div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons 
     align-content: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: calc(var(--head) / 2.1);
-    padding-top: calc(var(--head) / 1.25);
+    gap: calc(var(--head) / 2);
+    padding-top: calc(var(--head) / 1.22);
+    padding-left: calc(var(--head) / 8);
 }
 
 body#kde-neon div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons > a {
@@ -1110,8 +1113,8 @@ body#kde-neon div[data-link="nemo"] .dolphin-app .nemo-app__content-grid--icons 
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: calc(var(--head) * 3.35);
-    max-width: calc(var(--head) * 3.35);
+    width: calc(var(--head) * 3.32);
+    max-width: calc(var(--head) * 3.32);
     min-height: auto;
     padding: 0;
     border: 0;

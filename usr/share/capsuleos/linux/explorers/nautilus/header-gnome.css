@@ -32,7 +32,7 @@ div[data-link="nemo"] main.nautilus-app--n47 > #nemoHeaderContainer {
     min-height: var(--nautilus-hbar-h, 2.875rem);
     margin-top: 0;
     border-bottom: 1px solid var(--nemo-toolbar-border, rgba(0, 0, 0, 0.08));
-    background: var(--nemo-toolbar-bg, #f6f6f6);
+    background: transparent;
     box-sizing: border-box;
 }
 
@@ -166,7 +166,7 @@ main#gestionnaire.nautilus-app--n47 > #nemoHeaderContainer > .nautilus-app__head
     padding: 0 0.5rem 0 0.72rem;
     min-width: 0;
     border-right: 1px solid var(--nemo-toolbar-border, rgba(0, 0, 0, 0.08));
-    background: var(--nemo-toolbar-bg, #f6f6f6);
+    background: var(--nemo-sidebar-bg, #262626);
     box-sizing: border-box;
 }
 
@@ -1127,6 +1127,19 @@ main#gestionnaire.nautilus-app--n47 .nautilus-app__headerbar.nemo-app__toolbar {
     margin-left: auto;
 }
 
+.nautilus-app--n47 .nautilus-app__trailing .gnome-app__window-controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.2rem;
+    flex-shrink: 0;
+    margin-left: 0.15rem;
+}
+
+.nautilus-app--n47 .nautilus-app__trailing:has(.gnome-app__window-controls #closeBtn) .nautilus-app__window-close {
+    display: none !important;
+}
+
 .nautilus-app--n47 .nautilus-app__view-group {
     display: flex;
     flex-flow: row nowrap;
@@ -1214,6 +1227,12 @@ div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer {
     pointer-events: none;
 }
 
+/* VM Nautilus 47 : pas de pastille compteur au repos (home) — visible seulement en sélection. */
+main#gestionnaire.nautilus-app--n47 #nemoFooterContainer:not(.nautilus-app__status-pill--selection),
+div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer:not(.nautilus-app__status-pill--selection) {
+    display: none;
+}
+
 .nautilus-app--n47 .nautilus-app__status-text {
     margin: 0;
     font-size: 0.78rem;
@@ -1231,7 +1250,11 @@ div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer {
     font-weight: 600;
 }
 
-.nautilus-app--n47 .nautilus-app__sr-only {
+.nautilus-app--n47 .nautilus-app__sr-only,
+div[data-link="nemo"] main.nautilus-app--n47 .nemo-app__path-current.nautilus-app__sr-only,
+div[data-link="nemo"] main.nautilus-app--n47 #nemo-path-label,
+div[data-link="nemo"] main.nautilus-app--n47 #parent,
+div[data-link="nemo"] main.nautilus-app--n47 #home {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -1241,6 +1264,47 @@ div[data-link="nemo"] main.nautilus-app--n47 #nemoFooterContainer {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+    background: transparent;
+    display: block;
+    flex: none;
+    min-width: 0;
+    min-height: 0;
+    color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+div[data-link="nemo"] main.nautilus-app--n47#gestionnaire {
+    display: grid;
+    flex-flow: unset;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+}
+
+div[data-link="nemo"] main.nautilus-app--n47 > #nemoHeaderContainer {
+    display: grid;
+    flex-flow: unset;
+    height: auto;
+    min-height: var(--nautilus-hbar-h, 2.875rem);
+    margin-top: 0;
+}
+
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__icon-btn,
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__window-close,
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__plate-search,
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__sidebar-menu-btn {
+    border: 0;
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+}
+
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__icon-btn:hover,
+div[data-link="nemo"] main.nautilus-app--n47 .nautilus-app__window-close:hover {
+    transform: none;
 }
 
 div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__toolbar-group > a,

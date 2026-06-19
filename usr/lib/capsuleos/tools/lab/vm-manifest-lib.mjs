@@ -51,7 +51,16 @@ export const loadLabHost = (registryId) => {
 };
 
 const remoteEnv = (host) => {
-  const parts = [`export DISPLAY=${host.display || ':0'}`];
+  const parts = [];
+  if (host.toolkit === 'cosmic' || host.sessionEnvFromProcess) {
+    parts.push('COSMIC_PID=$(pgrep -u $(id -u) cosmic-panel 2>/dev/null | head -1)');
+    parts.push('if [ -n "$COSMIC_PID" ] && [ -r "/proc/$COSMIC_PID/environ" ]; then eval $(tr "\\0" "\\n" < /proc/$COSMIC_PID/environ | grep -E "^(XDG_|DISPLAY=|WAYLAND_DISPLAY=)" | sed "s/^/export /"); fi');
+  }
+  if (!parts.length) {
+    parts.push(`export DISPLAY=${host.display || ':0'}`);
+  } else if (host.display) {
+    parts.push(`export DISPLAY=${host.display}`);
+  }
   if (host.xauthorityDiscovery === 'mutter-xwayland') {
     parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
   }

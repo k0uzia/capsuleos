@@ -12,7 +12,7 @@ fi
 
 "${APT[@]}" update -qq
 DEBIAN_FRONTEND=noninteractive "${APT[@]}" install -y \
-  openssh-server wmctrl xdotool python3
+  openssh-server wmctrl xdotool python3 gnome-screenshot grim
 
 sudo systemctl enable --now ssh 2>/dev/null || systemctl enable --now ssh
 

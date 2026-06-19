@@ -12,6 +12,21 @@
       "predicates": ["H2", "M", "A", "S", "T", "L", "V", "G", "Vc", "Vp", "H6"],
       "doc": "root/docs/procedure-replication-formelle.md",
       "specialization": "root/docs/procedure-creation-playbook-gnome-settings.md"
+    },
+    "cinnamon-settings-playbook": {
+      "label": "Playbook Paramètres Cinnamon",
+      "predicates": ["H2", "M", "I", "A", "Se", "SeΣ", "H6"],
+      "doc": "root/docs/procedure-cinnamon-settings.md",
+      "specialization": "root/docs/ground-truth-cinnamon.md",
+      "matrix": "root/tools/lab/cinnamon-settings-parity-matrix.json"
+    },
+    "kde-settings-playbook": {
+      "label": "Playbook Paramètres KDE",
+      "predicates": ["H2", "M", "I", "KdC", "KdSe", "KdΣ"],
+      "doc": "root/docs/procedure-kde-settings.md",
+      "specialization": "root/docs/ground-truth-kde.md",
+      "matrix": "root/tools/lab/kde-settings-parity-matrix.json",
+      "status": "phase-2b"
     }
   },
   "predicateChecks": {

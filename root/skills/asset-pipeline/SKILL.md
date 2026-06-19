@@ -82,7 +82,6 @@ node usr/lib/capsuleos/tools/validate-asset-zones.mjs
 node usr/lib/capsuleos/tools/validate-assets-all.mjs
 node usr/lib/capsuleos/tools/seed-skin-profiles.mjs
 node usr/lib/capsuleos/tools/build-skin-profiles.mjs
-node usr/lib/capsuleos/tools/sync-capsule-resource.mjs
 ```
 
 Après modification de gabarits Linux :

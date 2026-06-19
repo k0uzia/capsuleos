@@ -72,6 +72,7 @@
         elMonthTitle.textContent = fmt(new Date(viewYear, viewMonth, 1), {
             month: 'long'
         });
+        elMonthTitle.setAttribute('aria-live', 'polite');
     }
 
     function buildWeekRow() {

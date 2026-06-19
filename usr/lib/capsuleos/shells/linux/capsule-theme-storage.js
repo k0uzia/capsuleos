@@ -88,7 +88,9 @@
             }
         }
         const saved = global.localStorage.getItem(key);
-        return saved && GNOME_ACCENTS[saved] ? saved : 'blue';
+        const bid = bodyId();
+        const fallback = bid === 'ubuntu' ? 'orange' : 'blue';
+        return saved && GNOME_ACCENTS[saved] ? saved : fallback;
     }
 
     function persistAccent(accentId) {
@@ -316,6 +318,9 @@
         if (bodyId === 'ubuntu') {
             return 'racoon';
         }
+        if (bodyId === 'alma') {
+            return 'almalinux';
+        }
         return 'gemstone-skies';
     }
 
@@ -329,8 +334,8 @@
                 id: 'linuxmint',
                 label: 'Linux Mint',
                 type: 'image',
-                dark: 'vendors/mint/wallpaper/linuxmint.jpg',
-                light: 'vendors/mint/wallpaper/linuxmint.jpg',
+                dark: 'vendors/mint/wallpaper/linuxmint.webp',
+                light: 'vendors/mint/wallpaper/linuxmint.webp',
                 default: true,
             },
         ];
@@ -346,6 +351,33 @@
                 light: `${base}/f44-01-day.webp`,
                 gsettingsDark: 'f44/default/f44-01-night.webp',
                 gsettingsLight: 'f44/default/f44-01-day.webp',
+                default: true,
+            },
+            {
+                id: 'solid-graphite',
+                label: 'Graphite',
+                type: 'color',
+                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+            },
+            {
+                id: 'solid-ocean',
+                label: 'Océan',
+                type: 'color',
+                dark: 'linear-gradient(145deg, #1a3d5c 0%, #0c1f33 55%, #061018 100%)',
+                light: 'linear-gradient(145deg, #8ecae6 0%, #caf0f8 55%, #e8f6fc 100%)',
+            },
+        ];
+    }
+
+    function almaWallpaperCatalog(base) {
+        return [
+            {
+                id: 'almalinux',
+                label: 'AlmaLinux',
+                type: 'image',
+                dark: `${base}/almalinux-night.jpg`,
+                light: `${base}/almalinux-day.jpg`,
                 default: true,
             },
             {
@@ -441,7 +473,19 @@
         ];
     }
 
+    const GRAPHITE_SOLID_ENTRY = {
+        id: 'solid-graphite',
+        label: 'Graphite',
+        type: 'color',
+        dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
+        light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
+    };
+
     function ubuntuWallpaperCatalog(base) {
+        const injected = global.CAPSULE_UBUNTU_WALLPAPER_CATALOG;
+        if (Array.isArray(injected) && injected.length) {
+            return injected;
+        }
         const thumbs = `${base}/thumbnails`;
         return [
             {
@@ -449,11 +493,11 @@
                 label: 'Adwaita',
                 type: 'image',
                 dark: `${base}/wallpaper-adwaita-dark.webp`,
-                light: `${base}/wallpaper-racoon-light.webp`,
+                light: `${base}/wallpaper-adwaita-dark.webp`,
                 thumbDark: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
-                thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
-                gsettingsDark: 'gnome/adwaita-d.webp',
-                gsettingsLight: 'gnome/adwaita-l.webp',
+                thumbLight: `${thumbs}/wallpaper-adwaita-dark-thumb.webp`,
+                gsettingsDark: 'ubuntu-wallpaper-d.png',
+                gsettingsLight: 'gnome/adwaita-l.jxl',
             },
             {
                 id: 'racoon',
@@ -465,13 +509,7 @@
                 thumbLight: `${thumbs}/wallpaper-racoon-light-thumb.webp`,
                 default: true,
             },
-            {
-                id: 'solid-graphite',
-                label: 'Graphite',
-                type: 'color',
-                dark: 'linear-gradient(165deg, #2e2e32 0%, #1c1c1f 100%)',
-                light: 'linear-gradient(165deg, #ececf0 0%, #d4d4da 100%)',
-            },
+            GRAPHITE_SOLID_ENTRY,
         ];
     }
 
@@ -487,6 +525,9 @@
         if (vendor === 'ubuntu') {
             return ubuntuWallpaperCatalog(base);
         }
+        if (vendor === 'alma') {
+            return almaWallpaperCatalog(base);
+        }
         return rockyWallpaperCatalog(base);
     }
 
@@ -500,6 +541,18 @@
         }
         const file = mode === 'light' ? entry.light : entry.dark;
         return `url("${toAbsoluteWallpaperUrl(resolveWallpaperAssetUrl(file))}")`;
+    }
+
+    function resolveWallpaperThumb(entry, theme) {
+        if (!entry || entry.type === 'color') {
+            return resolveWallpaperEntry(entry, theme);
+        }
+        const mode = theme === 'light' ? 'light' : 'dark';
+        const thumb = mode === 'light' ? entry.thumbLight : entry.thumbDark;
+        if (thumb) {
+            return `url("${toAbsoluteWallpaperUrl(resolveWallpaperAssetUrl(thumb))}")`;
+        }
+        return resolveWallpaperEntry(entry, theme);
     }
 
     function findWallpaperEntry(wallpaperId, skinId) {
@@ -600,6 +653,7 @@
         const resolved = DISPLAY_SCALE_KEYS[label] || '100';
         global.document.documentElement.dataset.displayScale = resolved;
         persistPref('gnome-display-scale', label);
+        dispatchAppearanceEvent('capsule:display-scale-changed', { scale: resolved, label: label });
         return label;
     }
 
@@ -627,6 +681,11 @@
         const resolved = mode === 'high' ? 'high' : 'normal';
         global.document.documentElement.dataset.contrastMode = resolved;
         persistPref('mint-contrast-mode', resolved);
+        if (global.document && typeof global.document.dispatchEvent === 'function') {
+            global.document.dispatchEvent(new CustomEvent('capsule:a11y-contrast-changed', {
+                detail: { high: resolved === 'high', mode: resolved }
+            }));
+        }
         return resolved;
     }
 
@@ -634,6 +693,11 @@
         const resolved = ['110', '125'].includes(scale) ? scale : '100';
         global.document.documentElement.dataset.fontScale = resolved;
         persistPref('mint-font-scale', resolved);
+        if (global.document && typeof global.document.dispatchEvent === 'function') {
+            global.document.dispatchEvent(new CustomEvent('capsule:a11y-font-scale-changed', {
+                detail: { scale: resolved, large: resolved === '125' }
+            }));
+        }
         return resolved;
     }
 
@@ -663,6 +727,7 @@
         getWallpaperVendor: getWallpaperVendor,
         findWallpaperEntry: findWallpaperEntry,
         resolveWallpaperEntry: resolveWallpaperEntry,
+        resolveWallpaperThumb: resolveWallpaperThumb,
         applyWallpaper: applyWallpaper,
         applyCustomWallpaper: applyCustomWallpaper,
         applyWallpaperBackground: applyWallpaperBackground,

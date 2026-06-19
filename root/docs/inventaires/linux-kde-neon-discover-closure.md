@@ -1,6 +1,6 @@
 # Clôture Discover — KDE neon User Edition
 
-> **Statut** : ✅ clôturé (2026-06-06) · Registre `linux-kde-neon`  
+> **Statut** : 🔄 réouvert (2026-06-11) — sidebar icônes Breeze VM · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Checklist réparation : [`linux-kde-neon-repair-checklist.md`](linux-kde-neon-repair-checklist.md)
 
@@ -28,7 +28,7 @@ Discover 6.6.5 (Plasma) est implémenté comme override du slot `update_manager`
 | **Configuration** | SourcesPage | Ubuntu (4 dépôts noble/neon), Flatpak (Flathub + Ajouter…), Snap Store | Affichage ✅ · toggles décoratifs |
 | **À propos** | FormCard.AboutPage | v6.6.5, GPL, liens (don, contribuer, bogue), bibliothèques, auteurs | Affichage ✅ |
 
-Catégories sidebar (Accessibilité, Bureautique, …) : présentes visuellement, **désactivées** (hors périmètre P0 Discover).
+Catégories sidebar (Accessibilité, Bureautique, …) : présentes visuellement et **actives** (filtre accueil, parité VM via inventaire catégories).
 
 ## Captures CapsuleOS (ground truth visuel)
 
@@ -49,14 +49,14 @@ python3 -m http.server 5500   # depuis la racine du dépôt
 node root/tools/lab/capture-capsule-kde-neon.mjs
 ```
 
-## Captures VM (partiel)
+## Captures VM (référence)
 
 | Fichier | Scène | Note |
 |---------|--------|------|
 | `vm-discover.png` | Discover ouvert (accueil) | virsh screenshot |
-| `vm-discover-installed.png` | Tentative Installé(s) | peu fiable (crash/navigation SSH) |
+| `vm-discover-installed.png` | Installé(s) (liste) | capture stable (recette G6 / recursive) |
 
-Captures VM par onglet : **backlog P1** — revue visuelle faite sur skin + catalogue JSON issu de l'inventaire VM.
+Captures VM par onglet : **réalisées** (G6 + fiche VLC). Reste la passe **fiches Installé(s) en détail** (Wayland : nécessite `wtype` sur la VM lab).
 
 ## Gates (2026-06-06)
 
@@ -70,10 +70,8 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs         # après edits 
 
 | Écart | Priorité | Note |
 |-------|----------|------|
-| Recherche Discover non filtrante | P2 | Champ UI présent |
-| Catégories sidebar inactives | P2 | Discover store complet hors scope |
-| Clic carte app Accueil / Installé(s) | P2 | Pas de fiche app |
-| Captures VM par onglet | P1 | Script host instable |
+| Recherche Discover | ✅ | Filtre accueil + installé (juin 2026) |
+| Captures VM fiches Installé(s) | P1 | Bloqué tant que `wtype` absent sur la VM lab (Wayland) |
 | Tokens CSS `--opensuse-*` hérités | P2 | Renommage `--kde-neon-*` |
 
 ## Prochaine étape skin (post-Discover)

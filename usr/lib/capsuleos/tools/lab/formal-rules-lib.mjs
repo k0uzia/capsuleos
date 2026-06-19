@@ -3,18 +3,26 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { ROOT, evaluatePredicates } from './replication-chain-lib.mjs';
+import { ROOT, evaluatePredicates, readJsonIfExists } from './replication-chain-lib.mjs';
 import { evaluateUniversal } from './playbook-general-lib.mjs';
 import { evaluateAppsPredicates } from './apps-catalog-lib.mjs';
 import { evaluateAppsReplicationPredicates } from './apps-replication-lib.mjs';
 import { evaluateVisualFidelity, scanTypographyViolations } from './visual-fidelity-lib.mjs';
 import { evaluateManifestGates } from './manifest-gates-lib.mjs';
+import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replication-lib.mjs';
+import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry, settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
+import { resolveCapsuleHttpBase, loadRecipeProfile } from './lab-recipe-resolver.mjs';
+import { evaluateVisualScenesGate, listP0Scenes, visualFidelityReportPath } from './parity-index-lib.mjs';
+import { toolkitId as resolveToolkitId } from './playbook-general-lib.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
 
 const h6ClosurePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-h6-closure.json`);
+
+const h6ReadyPath = (registryId) =>
+  path.join(ROOT, 'root/docs/inventaires', `${registryId}-gnome-settings-h6-ready.json`);
 
 const shellPolishPath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-shell-polish.json`);
@@ -37,6 +45,22 @@ export const loadFormalState = (registryId) => {
   const fidelity = evaluateVisualFidelity(registryId);
   const typoViolations = scanTypographyViolations(registryId);
   const manifest = evaluateManifestGates(registryId);
+  const store = evaluateStorePredicates(registryId);
+  const settingsEffects = evaluateSettingsEffectsPredicates(registryId);
+  const toolkit = resolveToolkitId(registryId);
+  const kdeGroundTruth = readJsonIfExists(
+    path.join(ROOT, 'root/docs/inventaires', `${registryId}-kde-ground-truth-gaps.json`),
+  );
+  const vpFromGnomeChain = !!repState.Vp || !!base.gates?.Vp?.ok;
+  const visualScenesGate = evaluateVisualScenesGate(registryId);
+  const vpFromVisualScenes = toolkit === 'cinnamon'
+    && universal.state.PbΣ
+    && (visualScenesGate.ok || !!base.gates?.Vp?.ok);
+  const vpFromKdePilot = toolkit === 'kde'
+    && !!kdeGroundTruth?.allOk
+    && manifest.ManΣ
+    && settingsEffects.state.SeΣ
+    && (fidelity.Tf || !!base.gates?.Tf?.ok);
 
   const gates = {
     ...base.gates,
@@ -72,12 +96,20 @@ export const loadFormalState = (registryId) => {
     Tf: (fidelity.Tf && typoViolations.length === 0) || !!base.gates?.Tf?.ok,
     V: !!repState.V,
     Vc: !!repState.Vc,
-    Vp: !!repState.Vp || !!base.gates?.Vp?.ok,
+    Vp: vpFromGnomeChain || vpFromVisualScenes || vpFromKdePilot,
+    StoreG: store.state.StoreG,
+    StoreΣ: store.state.StoreΣ,
+    StoreVc: store.state.StoreVc,
+    StoreVp: store.state.StoreVp,
+    Se: settingsEffects.state.Se,
+    SeΣ: settingsEffects.state.SeΣ,
   };
 
   return {
     registryId,
     gates,
+    store,
+    settingsEffects,
     apps,
     universal: universal.state,
     replication: replication.state,
@@ -102,6 +134,7 @@ export const recordFormalGate = (registryId, gate, ok, meta = {}) => {
 export const evaluateFormalRules = (registryId) => {
   const state = loadFormalState(registryId);
   const { gates } = state;
+  const toolkit = resolveToolkitId(registryId);
 
   const rules = [
     {
@@ -123,30 +156,54 @@ export const evaluateFormalRules = (registryId) => {
     {
       rule: 'R-L1',
       when: () => gates.H2 && gates.A && !gates.L,
-      message: 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres GNOME',
-      command: `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId}`,
+      message: toolkit === 'kde'
+        ? 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres KDE (KdΣ)'
+        : 'H₂ ∧ A ∧ ¬L — lab domaine Paramètres GNOME',
+      command: toolkit === 'kde'
+        ? `node usr/lib/capsuleos/tools/lab/run-kde-settings-lab.mjs --id ${registryId}`
+        : `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId}`,
       autoExecute: true,
       gateOnSuccess: 'L',
     },
     {
       rule: 'R-SHELL-POLISH',
       when: () => gates.H6 && !gates.Shell1,
-      message: 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
-      command: 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
+      message: toolkit === 'kde'
+        ? 'H6 ∧ ¬Shell₁ — polish panel KDE / kickoff / Dolphin / Discover'
+        : toolkit === 'cosmic'
+          ? 'H6 ∧ ¬Shell₁ — polish top bar / dock / launcher / applications COSMIC'
+          : 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
+      command: toolkit === 'kde'
+        ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+        : toolkit === 'cosmic'
+          ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-cosmic-shell-polish.mjs --id ${registryId} --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+          : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
       gateOnSuccess: null,
     },
     {
       rule: 'R-SHELL2',
-      when: () => gates.H6 && gates.Shell1 && !gates.Shell2,
-      message: 'H6 ∧ Shell₁ — polish Quick Settings + calendrier (P2 shell)',
-      command: 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish-phase2.mjs && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
+      when: () => gates.H6 && gates.Shell1 && !gates.Shell2 && toolkit !== 'kde',
+      message: toolkit === 'cosmic'
+        ? 'H6 ∧ Shell₁ — polish calendrier + menu alimentation COSMIC'
+        : 'H6 ∧ Shell₁ — polish Quick Settings + calendrier (P2 shell)',
+      command: toolkit === 'cosmic'
+        ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-cosmic-shell-polish-phase2.mjs --id ${registryId} --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+        : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish-phase2.mjs && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
       gateOnSuccess: null,
     },
     {
       rule: 'R-LAB-SHELL',
-      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell,
+      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit === 'cosmic',
+      message: 'Smokes shell COSMIC de référence lab',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-cosmic-lab-shell.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: 'LabShell',
+    },
+    {
+      rule: 'R-LAB-SHELL',
+      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit !== 'kde' && toolkit !== 'cosmic',
       message: 'Smokes shell GNOME de référence',
       command: 'node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs && node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs',
       autoExecute: true,
@@ -218,7 +275,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP2',
-      when: () => gates.H6 && gates.AppV && !gates.AppC,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppV && !gates.AppC,
       message: 'AppV — génération catalogue strict + smoke',
       command: `node usr/lib/capsuleos/tools/lab/generate-apps-catalog.mjs --id ${registryId} --write && node usr/lib/capsuleos/tools/lab/smoke-apps-catalog.mjs --id ${registryId}`,
       autoExecute: true,
@@ -226,7 +283,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP3',
-      when: () => gates.H6 && gates.AppC && !gates.AppP0,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppC && !gates.AppP0,
       message: 'AppC ∧ ¬AppP0 — écart catalogue apps (implémentation H5 ciblée)',
       command: null,
       autoExecute: false,
@@ -235,7 +292,7 @@ export const evaluateFormalRules = (registryId) => {
     },
     {
       rule: 'R-APP-LAB',
-      when: () => gates.H6 && gates.AppP0 && !gates.AppL,
+      when: () => (gates.ManΣ || gates.H6) && gates.AppP0 && !gates.AppL,
       message: 'AppP0 ∧ ¬AppL — suite lab applications (structure, façade OS)',
       command: `node usr/lib/capsuleos/tools/lab/run-apps-lab.mjs --id ${registryId}`,
       autoExecute: true,
@@ -266,12 +323,179 @@ export const evaluateFormalRules = (registryId) => {
       gateOnSuccess: 'AppVp',
     },
     {
+      rule: 'R-STORE-G',
+      when: () => gates.H2 && gates.ManΣ && storeAppliesToRegistry(registryId) && !gates.StoreG,
+      message: 'ManΣ ∧ ¬StoreG — brancher ground magasin + catalogue',
+      command: `node usr/lib/capsuleos/tools/linux/sync-gnome-toolkit-pack.mjs && node usr/lib/capsuleos/tools/generate-store-catalog.mjs`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-SIGMA',
+      when: () => gates.StoreG && !gates.StoreΣ,
+      message: 'StoreG ∧ ¬StoreΣ — régénérer catalogue store',
+      command: 'node usr/lib/capsuleos/tools/generate-store-catalog.mjs',
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-VC',
+      when: () => gates.StoreG && !gates.StoreVc,
+      message: 'StoreG ∧ ¬StoreVc — captures Capsule multi-vues store',
+      command: `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/capture-capsule-software-views.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-VP',
+      when: () => gates.StoreVc && !gates.StoreVp,
+      message: 'StoreVc ∧ ¬StoreVp — clôture parité store',
+      command: `node usr/lib/capsuleos/tools/lab/enrich-apps-visual-investigation-parity.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-STORE-CHAIN',
+      when: () => storeAppliesToRegistry(registryId) && gates.ManΣ && (!gates.StoreG || !gates.StoreΣ || !gates.StoreVp),
+      message: 'Chaîne store — orchestrateur run-store-replication-chain',
+      command: `node usr/lib/capsuleos/tools/lab/run-store-replication-chain.mjs --id ${registryId} --auto`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-SE-GNOME',
+      when: () => settingsEffectsAppliesToRegistry(registryId) && gates.ManΣ && !gates.Se,
+      message: 'ManΣ ∧ ¬Se — matrice effets système Paramètres',
+      command: settingsEffectsVerifyCommand(registryId)
+        || `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-SE-SIGMA',
+      when: () => gates.Se && !gates.SeΣ,
+      message: 'Se ∧ ¬SeΣ — lab Paramètres + parité effets P0',
+      command: (() => {
+        const tk = loadRecipeProfile(registryId).toolkit || 'gnome';
+        if (tk === 'gnome') {
+          return `node usr/lib/capsuleos/tools/lab/run-gnome-settings-lab.mjs --id ${registryId} --vm`;
+        }
+        return settingsEffectsVerifyCommand(registryId)
+          || `node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id ${registryId} --strict`;
+      })(),
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-PHI1',
+      when: () => {
+        if (toolkit !== 'cinnamon' || gates.Vp || !gates.PbΣ) return false;
+        const p0 = listP0Scenes(registryId);
+        if (!p0.length) return false;
+        const report = readJson(visualFidelityReportPath(registryId)) || { slots: {} };
+        return p0.some(({ slotId, sceneId }) => {
+          const scene = report.slots?.[slotId]?.scenes?.find((s) => s.id === sceneId);
+          return !scene || scene.classification === 'unmeasured';
+        });
+      },
+      message: 'PbΣ ∧ ¬ΦC — captures VM + clone scènes P0 Cinnamon',
+      command: `bash root/tools/lab/vm-mint-scene-prep.sh && CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/capture-scene-pair.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-PHI2',
+      when: () => toolkit === 'cinnamon' && gates.PbΣ && !gates.Vp && listP0Scenes(registryId).length > 0,
+      message: 'PbΣ ∧ ¬Vp — mesure Φ scènes P0 (compare-visual-fidelity --gate)',
+      command: `node usr/lib/capsuleos/tools/lab/compare-visual-fidelity.mjs --id ${registryId} --gate`,
+      autoExecute: true,
+      gateOnSuccess: 'Vp',
+    },
+    {
       rule: 'R-FID1',
       when: () => gates.H6 && gates.AppΣ && !gates.Tf,
       message: 'AppΣ ∧ ¬Tf — inventaire fidélité visuelle (typo, vues, MIME, a11y)',
       command: `node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id ${registryId} --write --ssh && node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`,
       autoExecute: true,
       gateOnSuccess: 'Tf',
+    },
+    {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'kde') return false;
+        if (!gates.PbΣ || !gates.SeΣ || !gates.Vp) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ SeΣ ∧ Vp — gate pré-H6 KDE (Paramètres + ground truth)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-kde-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cosmic') return false;
+        if (!gates.PbΣ || !gates.Vp) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ Vp — gate pré-H6 COSMIC (Paramètres + parité shell)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-cosmic-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cosmic') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-cosmic-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-cosmic-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'kde') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-kde-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-kde-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!gates.PbΣ || !gates.SeΣ) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ SeΣ — gate pré-H6 Cinnamon (Paramètres CS + smoke)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-cinnamon-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
     },
     {
       rule: 'R-H6-DONE',

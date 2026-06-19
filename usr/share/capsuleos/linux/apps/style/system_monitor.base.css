@@ -189,9 +189,36 @@ main.gsm-app {
 }
 
 .gsm-app__chart-area {
+    display: var(--f);
+    align-items: flex-end;
     height: calc(var(--head) * 3.5);
-    background: linear-gradient(180deg, var(--gsm-chart-fill, #62a0ea) 0%, var(--gsm-chart-fill, #62a0ea) 35%, transparent 35%);
+    padding: calc(var(--head) / 10);
+    background: var(--gsm-chart-bg, #ffffff);
     border-radius: calc(var(--head) / 10);
+    box-sizing: border-box;
+}
+
+.gsm-app__cpu-bars,
+.gsm-app__net-bars {
+    display: var(--f);
+    flex-flow: var(--rnw);
+    align-items: flex-end;
+    gap: 1px;
+    width: 100%;
+    height: 100%;
+}
+
+.gsm-app__cpu-bar,
+.gsm-app__net-bar {
+    flex: 1 1 0;
+    min-width: 2px;
+    border-radius: 1px 1px 0 0;
+    background: var(--gsm-chart-fill, #62a0ea);
+    transition: height 0.2s ease;
+}
+
+.gsm-app__net-bar {
+    background: var(--gsm-chart-net, #33d17a);
 }
 
 .gsm-app__chart-area--mem {

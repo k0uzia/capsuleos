@@ -103,11 +103,33 @@ export const gateNeedsHttp = (gate) => {
   return /smoke-|run-ui-state|run-app-parity|measure-mint|capture-clone/.test(script);
 };
 
+const GATE_SCRIPTS_WITH_ID = [
+  'run-ui-state-effects-pass.mjs',
+  'run-app-parity-pass.mjs',
+  'validate-toolkit-paradigm.mjs',
+  'capture-clone-surfaces.mjs',
+  'smoke-apps-catalog.mjs',
+  'run-cross-regression-gates.mjs',
+  'smoke-rocky-shell-polish.mjs',
+];
+
 export const expandGateArgs = (gate, registryId) => {
   const out = [];
+  let hasId = false;
   (gate.args || []).forEach((a) => {
-    if (a === '--id') out.push('--id', registryId);
-    else out.push(a);
+    if (a === '--id') {
+      out.push('--id', registryId);
+      hasId = true;
+    } else {
+      out.push(a);
+    }
   });
+  if (!hasId && registryId) {
+    const script = gate.script || '';
+    const needsId = GATE_SCRIPTS_WITH_ID.some((name) => script.includes(name));
+    if (needsId) {
+      out.push('--id', registryId);
+    }
+  }
   return out;
 };

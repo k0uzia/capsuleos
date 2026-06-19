@@ -7,6 +7,13 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "key": null,
         "panelId": "wifi"
     },
+    "bluetooth": {
+        "capsuleExpected": "on",
+        "capsuleKey": "gnome-bluetooth-enabled",
+        "schema": null,
+        "key": null,
+        "panelId": "bluetooth"
+    },
     "theme": {
         "capsuleExpected": "dark",
         "capsuleKey": "mint-theme",
@@ -22,7 +29,7 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "panelId": "appearance"
     },
     "wallpaper": {
-        "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-abstract-1-day.webp",
+        "capsuleExpected": "file:///usr/share/backgrounds/rocky-default-10-gemstone-skies-time.xml",
         "capsuleKey": "gnome-wallpaper",
         "schema": "org.gnome.desktop.background",
         "key": "picture-uri",
@@ -42,12 +49,12 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "key": "show-in-lock-screen",
         "panelId": "notifications"
     },
-    "search-history": {
-        "capsuleExpected": "on",
-        "capsuleKey": "gnome-search-history",
-        "schema": "org.gnome.desktop.search-providers",
-        "key": "disabled",
-        "panelId": "search"
+    "dnd": {
+        "capsuleExpected": "off",
+        "capsuleKey": "gnome-dnd-enabled",
+        "schema": "org.capsuleos.gnome.shell",
+        "key": "dnd-enabled",
+        "panelId": "notifications"
     },
     "dynamic-workspaces": {
         "capsuleExpected": "Activé",
@@ -78,14 +85,14 @@ window.CAPSULE_VM_SETTINGS_BASELINE = {
         "panelId": "sound"
     },
     "power-dim": {
-        "capsuleExpected": "15 minutes",
+        "capsuleExpected": "1 heure",
         "capsuleKey": "gnome-power-dim-screen",
         "schema": "org.gnome.settings-daemon.plugins.power",
         "key": "sleep-inactive-ac-timeout",
         "panelId": "power"
     },
     "power-sleep": {
-        "capsuleExpected": "30 minutes",
+        "capsuleExpected": "Jamais",
         "capsuleKey": "gnome-power-sleep",
         "schema": "org.gnome.settings-daemon.plugins.power",
         "key": "sleep-inactive-ac-type",

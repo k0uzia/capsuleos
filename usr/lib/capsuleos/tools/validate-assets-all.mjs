@@ -17,6 +17,7 @@ const steps = [
   'audit-asset-paths.mjs',
   'validate-css-asset-urls.mjs',
   'validate-vendor-image-extensions.mjs',
+  'validate-vendor-icon-resolution.mjs',
   'validate-web-media-prepare.mjs',
   'validate-link-integrity.mjs',
 ];

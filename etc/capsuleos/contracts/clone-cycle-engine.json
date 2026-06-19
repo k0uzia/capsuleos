@@ -133,11 +133,16 @@
     "triggerPathPrefixes": [
       "usr/lib/capsuleos/shells/linux/fileExplorer/",
       "usr/lib/capsuleos/shells/linux/contentLoader.js",
+      "usr/lib/capsuleos/shells/linux/se-a11y-bus.js",
+      "usr/lib/capsuleos/shells/linux/capsule-theme-storage.js",
       "usr/lib/capsuleos/shells/linux/mainMenu.js",
       "usr/lib/capsuleos/shells/common/capsule-window.js"
     ],
     "siblingPairs": [
       { "cinnamon": "linux-mint", "gnome": "linux-rocky" }
+    ],
+    "siblingTriples": [
+      { "cinnamon": "linux-mint", "gnome": "linux-rocky", "kde": "linux-kde-neon" }
     ],
     "gates": [
       { "script": "usr/lib/capsuleos/tools/lab/run-cross-regression-gates.mjs" }

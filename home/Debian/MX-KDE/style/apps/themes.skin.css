@@ -175,7 +175,9 @@ html[data-theme="light"] #mx-kde div[data-link="themes"] #closeBtn:hover {
 
 body#mx-kde div[data-link="themes"] #windowIframe,
 body#mx-kde div[data-link="themes"] #themesApp,
-body#mx-kde div[data-link="themes"] .themes-app {
+body#mx-kde div[data-link="themes"] .themes-app,
+body#mx-kde div[data-link="themes"] [data-kde-settings-root],
+body#mx-kde div[data-link="themes"] #kdeSystemSettingsShell {
     width: 100%;
     height: calc(100% - var(--konsole-header-height));
     min-height: 0;

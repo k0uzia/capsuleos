@@ -37,7 +37,7 @@
                 {
                     "name": "KDE neon User Edition",
                     "href": "./OS/linux/families/debian/kde-neon/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                    "icon": "./usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg"
                 },
                 {
                     "name": "openSUSE Tumbleweed",
@@ -57,7 +57,7 @@
                 {
                     "name": "AlmaLinux (GNOME)",
                     "href": "./OS/linux/families/redhat/alma/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png"
+                    "icon": "./usr/share/capsuleos/assets/images/vendors/alma/alma-logo.svg"
                 },
                 {
                     "name": "AnduinOS",
@@ -101,7 +101,7 @@
                 {
                     "name": "iOS 15",
                     "href": "./OS/ios/15/index.html",
-                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/macos/sonoma.png"
+                    "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/ios/apple.svg"
                 }
             ]
         },
@@ -156,7 +156,7 @@
             "id": "linux-kde-neon",
             "displayName": "KDE neon User Edition",
             "href": "./OS/linux/families/debian/kde-neon/index.html",
-            "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png",
+            "icon": "./usr/share/capsuleos/assets/images/vendors/neon/neon-logo.svg",
             "status": "active",
             "tier": "P1"
         },
@@ -196,7 +196,7 @@
             "id": "linux-alma",
             "displayName": "AlmaLinux (GNOME)",
             "href": "./OS/linux/families/redhat/alma/index.html",
-            "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/linux/debian.png",
+            "icon": "./usr/share/capsuleos/assets/images/vendors/alma/alma-logo.svg",
             "status": "active",
             "tier": "P3"
         },
@@ -300,7 +300,7 @@
             "id": "ios-15",
             "displayName": "iOS 15",
             "href": "./OS/ios/15/index.html",
-            "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/macos/sonoma.png",
+            "icon": "./usr/share/capsuleos/assets/images/platforms/pick-os/ios/apple.svg",
             "status": "active",
             "tier": "P2"
         },

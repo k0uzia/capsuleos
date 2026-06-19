@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-08T23:00:32.348953+00:00",
+  "generatedAt": "2026-06-17T08:27:39.018788+00:00",
   "source": "vm-gnome-settings-visual-investigation.sh",
   "registry": "linux-ubuntu",
   "outputDir": "/tmp/capsuleos-visual-investigation",
   "screenshotTool": true,
-  "screenshotBackend": "host-virsh",
-  "captureStrategy": "host-virsh",
+  "screenshotBackend": "xdg-portal",
+  "captureStrategy": "vm-xdg-portal",
   "snapshotAppInstalled": false,
   "filter": "P0",
   "investigations": [
@@ -24,25 +24,25 @@
         "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": 708,
+        "durationMs": 2168,
         "easing": "ease-out",
         "properties": [],
-        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/before.png",
-          "timestamp": "2026-06-08T23:00:43.108Z"
+          "path": "/tmp/capsuleos-visual-investigation/theme/before.png",
+          "timestamp": "2026-06-17T08:27:30.366893+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/during-150ms.png",
+          "path": "/tmp/capsuleos-visual-investigation/theme/during-150ms.png",
           "elapsedMs": 150
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/theme/after.png",
+          "path": "/tmp/capsuleos-visual-investigation/theme/after.png",
           "elapsedMs": 300
         }
       ],
@@ -90,27 +90,27 @@
         "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 1086,
+        "durationMs": 2521,
         "easing": null,
         "properties": [
           "color-temperature"
         ],
-        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/before.png",
-          "timestamp": "2026-06-08T23:01:02.485Z"
+          "path": "/tmp/capsuleos-visual-investigation/night-light/before.png",
+          "timestamp": "2026-06-17T08:27:32.601724+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/during-500ms.png",
+          "path": "/tmp/capsuleos-visual-investigation/night-light/during-500ms.png",
           "elapsedMs": 500
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/night-light/after.png",
+          "path": "/tmp/capsuleos-visual-investigation/night-light/after.png",
           "elapsedMs": 1000
         }
       ],
@@ -156,25 +156,25 @@
         "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 775,
+        "durationMs": 2196,
         "easing": "ease-out",
         "properties": [],
-        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/before.png",
-          "timestamp": "2026-06-08T23:01:16.086Z"
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/before.png",
+          "timestamp": "2026-06-17T08:27:35.181722+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/during-175ms.png",
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/during-175ms.png",
           "elapsedMs": 175
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dynamic-workspaces/after.png",
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/after.png",
           "elapsedMs": 350
         }
       ],
@@ -218,27 +218,27 @@
         "property": "opacity"
       },
       "transitionObserved": {
-        "durationMs": 660,
+        "durationMs": 2049,
         "easing": null,
         "properties": [
           "opacity"
         ],
-        "notes": "captures host-virsh (ubuntu25.10) — linux-ubuntu"
+        "notes": "Restauration manuelle QS si besoin — pas de clé gsettings VM"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/before.png",
-          "timestamp": "2026-06-08T23:01:28.757Z"
+          "path": "/tmp/capsuleos-visual-investigation/dnd/before.png",
+          "timestamp": "2026-06-17T08:27:37.459714+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/during-100ms.png",
+          "path": "/tmp/capsuleos-visual-investigation/dnd/during-100ms.png",
           "elapsedMs": 100
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-ubuntu/gnome-settings-visual/dnd/after.png",
+          "path": "/tmp/capsuleos-visual-investigation/dnd/after.png",
           "elapsedMs": 200
         }
       ],

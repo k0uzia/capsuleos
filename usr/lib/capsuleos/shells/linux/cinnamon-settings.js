@@ -6,23 +6,79 @@
 
     var WINDOW_TITLE = 'Paramètres du système';
     var ICON_BASE = './assets/icons/cinnamon/cs/';
+    var TOOLKIT_ICON_BASE = './assets/images/toolkits/cinnamon/apps/';
+
+    /** Icônes haute résolution (SVG/PNG VM) — remplace les cs/*.png 24×24 upscalés. */
+    var PANEL_TOOLKIT_ICONS = {
+        general: 'cinnamon-settings-general',
+        themes: 'cinnamon-settings-themes',
+        backgrounds: 'cinnamon-settings-backgrounds',
+        effects: 'cinnamon-settings-effects',
+        extensions: 'cinnamon-settings-extensions',
+        applets: 'cinnamon-settings-applets',
+        desklets: 'cinnamon-settings-desklets',
+        windows: 'cinnamon-settings-windows',
+        workspaces: 'cinnamon-settings-workspaces',
+        hotcorner: 'cinnamon-settings-hotcorner',
+        gestures: 'cinnamon-settings-gestures',
+        panel: 'cinnamon-settings-panel',
+        desktop: 'cinnamon-settings-desktop',
+        screensaver: 'cinnamon-settings-screensaver',
+        fonts: 'cinnamon-settings-fonts',
+        keyboard: 'cinnamon-settings-keyboard',
+        mouse: 'cinnamon-settings-mouse',
+        accessibility: 'cinnamon-settings-universal-access',
+        sound: 'cinnamon-settings-sound',
+        notifications: 'cinnamon-settings-notifications',
+        privacy: 'cinnamon-settings-privacy',
+        power: 'cinnamon-settings-power',
+        startup: 'cinnamon-settings-startup',
+        default: 'cinnamon-settings-default',
+        calendar: 'cinnamon-settings-calendar',
+        user: 'cinnamon-settings-user',
+        users: 'cinnamon-settings-users',
+        actions: 'cinnamon-settings-actions',
+        nightlight: 'cinnamon-settings-nightlight',
+        thunderbolt: 'cinnamon-settings-thunderbolt',
+        display: 'cinnamon-display-panel',
+        color: 'cinnamon-color-panel',
+        network: 'cinnamon-network-panel',
+        wacom: 'cinnamon-wacom-panel',
+        bluetooth: 'blueman-manager',
+        firewall: 'gufw',
+        languages: 'mintlocale',
+        'input-method': 'cinnamon-onscreen-keyboard',
+        'software-sources': 'cinnamon-settings',
+        'system-info': 'mintreport',
+        printers: 'system-config-printer',
+        passwords: 'org.gnome.seahorse.Application',
+        'online-accounts': 'gnome-online-accounts-gtk',
+        disks: 'disks',
+        fingerprints: 'fingwit',
+        'login-window': 'cinnamon-settings'
+    };
+
+    var CATEGORY_TOOLKIT_ICONS = {
+        appear: 'cinnamon-settings-themes',
+        prefs: 'cinnamon-settings-general'
+    };
 
     var PANELS = [
         { id: 'general', label: 'Général', icon: 'cs-general', keywords: 'general compositing menu' },
         { id: 'themes', label: 'Thèmes', icon: 'cs-themes', keywords: 'themes gtk icons cursor appearance' },
-        { id: 'backgrounds', label: 'Arrière-plans', icon: 'cs-backgrounds', keywords: 'background wallpaper fond' },
+        { id: 'backgrounds', label: 'Fonds d\'écran', icon: 'cs-backgrounds', keywords: 'background wallpaper fond écran' },
         { id: 'effects', label: 'Effets', icon: 'cs-desktop-effects', keywords: 'effects animations' },
         { id: 'extensions', label: 'Extensions', icon: 'cs-extensions', keywords: 'extensions spices' },
         { id: 'applets', label: 'Applets', icon: 'cs-applets', keywords: 'applets panel' },
         { id: 'desklets', label: 'Desklets', icon: 'cs-desklets', keywords: 'desklets desktop' },
         { id: 'windows', label: 'Fenêtres', icon: 'cs-windows', keywords: 'windows titlebar focus' },
         { id: 'workspaces', label: 'Espaces de travail', icon: 'cs-workspaces', keywords: 'workspaces virtual' },
-        { id: 'hotcorner', label: 'Coins actifs', icon: 'cs-overview', keywords: 'hot corners overview' },
+        { id: 'hotcorner', label: 'Coins intelligents', icon: 'cs-overview', keywords: 'hot corners overview coins' },
         { id: 'gestures', label: 'Gestes', icon: 'cs-gestures', keywords: 'gestures touchpad' },
         { id: 'panel', label: 'Barre des tâches', icon: 'cs-panel', keywords: 'panel taskbar' },
         { id: 'desktop', label: 'Bureau', icon: 'cs-desktop', keywords: 'desktop icons' },
-        { id: 'screensaver', label: 'Écran de veille', icon: 'cs-screensaver', keywords: 'screensaver lock' },
-        { id: 'fonts', label: 'Polices', icon: 'cs-fonts', keywords: 'fonts text' },
+        { id: 'screensaver', label: 'Économiseur d\'écran', icon: 'cs-screensaver', keywords: 'screensaver lock économiseur' },
+        { id: 'fonts', label: 'Choix des polices', icon: 'cs-fonts', keywords: 'fonts text polices' },
         { id: 'keyboard', label: 'Clavier', icon: 'cs-keyboard', keywords: 'keyboard layout shortcuts' },
         { id: 'mouse', label: 'Souris et pavé tactile', icon: 'cs-mouse', keywords: 'mouse touchpad pointer' },
         { id: 'accessibility', label: 'Accessibilité', icon: 'cs-universal-access', keywords: 'accessibility zoom contrast' },
@@ -30,8 +86,8 @@
         { id: 'notifications', label: 'Notifications', icon: 'cs-notifications', keywords: 'notifications alerts' },
         { id: 'privacy', label: 'Confidentialité', icon: 'cs-privacy', keywords: 'privacy history' },
         { id: 'power', label: 'Gestion de l\'alimentation', icon: 'cs-power', keywords: 'power suspend battery' },
-        { id: 'startup', label: 'Applications au démarrage', icon: 'cs-startup-programs', keywords: 'startup autostart' },
-        { id: 'default', label: 'Applications par défaut', icon: 'cs-default-applications', keywords: 'default applications browser mail' },
+        { id: 'startup', label: 'Applications lancées au démarrage', icon: 'cs-startup-programs', keywords: 'startup autostart démarrage' },
+        { id: 'default', label: 'Applications par défaut', icon: 'cs-default-applications', keywords: 'default applications browser mail défaut' },
         { id: 'calendar', label: 'Date et heure', icon: 'cs-date-time', keywords: 'calendar clock timezone' },
         { id: 'user', label: 'Détails du compte', icon: 'cs-user', keywords: 'account user profile' },
         { id: 'users', label: 'Utilisateurs et groupes', icon: 'system-users', keywords: 'users groups admin' },
@@ -52,7 +108,29 @@
         { id: 'system-info', label: 'Informations système', icon: 'cs-general', keywords: 'system information mintreport' },
         { id: 'printers', label: 'Imprimantes', icon: 'cs-general', keywords: 'printers print' },
         { id: 'passwords', label: 'Mots de passe et clés', icon: 'cs-privacy', keywords: 'passwords seahorse keys' },
-        { id: 'online-accounts', label: 'Comptes en ligne', icon: 'cs-user', keywords: 'online accounts google microsoft' }
+        { id: 'online-accounts', label: 'Comptes en ligne', icon: 'cs-online-accounts', keywords: 'online accounts google microsoft comptes' },
+        { id: 'disks', label: 'Disques', icon: 'cs-general', keywords: 'disks storage gnome-disks' }
+    ];
+
+    /* Accueil VM cinnamon-settings — catégories Apparence + Préférences (grille 6 colonnes) */
+    var HOME_CATEGORIES = [
+        {
+            id: 'appear',
+            label: 'Apparence',
+            icon: 'cs-cat-appearance',
+            modules: ['fonts', 'effects', 'backgrounds', 'themes', 'sound', 'notifications']
+        },
+        {
+            id: 'prefs',
+            label: 'Préférences',
+            icon: 'cs-cat-prefs',
+            modules: [
+                'accessibility', 'actions', 'applets', 'startup', 'default', 'desktop',
+                'hotcorner', 'online-accounts', 'calendar', 'desklets', 'user', 'screensaver',
+                'panel', 'workspaces', 'extensions', 'windows', 'general', 'gestures', 'languages',
+                'keyboard', 'mouse', 'power', 'privacy', 'display'
+            ]
+        }
     ];
 
     var GENERIC_ROWS = {
@@ -96,7 +174,8 @@
         'system-info': ['Matériel', 'Système d\'exploitation', 'Rapport système'],
         printers: ['Imprimantes configurées', 'Ajouter une imprimante'],
         passwords: ['Mots de passe', 'Certificats', 'Clés SSH'],
-        'online-accounts': ['Google', 'Microsoft', 'Ajouter un compte']
+        'online-accounts': ['Google', 'Microsoft', 'Ajouter un compte'],
+        disks: ['Volumes', 'Partitionnement', 'SMART']
     };
 
     function getWindowEl(root) {
@@ -166,19 +245,31 @@
         return section;
     }
 
+    function buildBackgroundsWallpaperPickerMarkup() {
+        return ''
+            + '<div class="cs-bg-panel" data-cs-bg-wallpapers>'
+            + '<h3 class="cs-bg-panel__title">Choisir un arrière-plan</h3>'
+            + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
+            + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>'
+            + '</div>';
+    }
+
+    function appendBackgroundsWallpaperPicker(section) {
+        if (!section || section.querySelector('[data-wallpaper-grid]')) {
+            return;
+        }
+        var wrap = global.document.createElement('div');
+        wrap.innerHTML = buildBackgroundsWallpaperPickerMarkup();
+        while (wrap.firstChild) {
+            section.appendChild(wrap.firstChild);
+        }
+    }
+
     function ensureBackgroundsPanel(panelsRoot) {
         var existing = panelsRoot.querySelector('[data-cs-panel="backgrounds"]');
         if (existing) {
             existing.classList.add('cs-backgrounds');
-            if (!existing.querySelector('[data-wallpaper-grid]')) {
-                var wrap = global.document.createElement('div');
-                wrap.className = 'cs-bg-panel';
-                wrap.innerHTML = ''
-                    + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
-                    + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>';
-                existing.innerHTML = '';
-                existing.appendChild(wrap);
-            }
+            appendBackgroundsWallpaperPicker(existing);
             return existing;
         }
         var section = global.document.createElement('section');
@@ -186,11 +277,7 @@
         section.setAttribute('data-cs-panel', 'backgrounds');
         section.setAttribute('hidden', 'hidden');
         section.setAttribute('aria-label', 'Arrière-plans');
-        section.innerHTML = ''
-            + '<div class="cs-bg-panel">'
-            + '<div class="themes-wallpaper-grid" data-wallpaper-grid role="list" aria-label="Fonds d\'écran"></div>'
-            + '<button type="button" class="cs-bg-add gnome-settings-wallpaper gnome-settings-wallpaper--add" aria-label="Ajouter un fond d\'écran">+</button>'
-            + '</div>';
+        section.innerHTML = buildBackgroundsWallpaperPickerMarkup();
         panelsRoot.appendChild(section);
         return section;
     }
@@ -268,42 +355,149 @@
         return section;
     }
 
-    function buildSidebar(root, panelsRoot) {
-        var sidebar = root.querySelector('#cs-sidebar');
-        if (!sidebar || sidebar.dataset.csBuilt === 'true') {
+    function resolveIconUrl(iconPath) {
+        if (typeof global.resolveCapsuleAssetUrl === 'function') {
+            return global.resolveCapsuleAssetUrl(iconPath);
+        }
+        if (typeof global.resolveCapsuleResourceUrl === 'function') {
+            return global.resolveCapsuleResourceUrl(iconPath);
+        }
+        return iconPath;
+    }
+
+    function resolveCsPanelIconUrl(panelId, iconKey) {
+        var toolkitId = PANEL_TOOLKIT_ICONS[panelId];
+        if (toolkitId) {
+            return resolveIconUrl(TOOLKIT_ICON_BASE + toolkitId);
+        }
+        return resolveIconUrl(ICON_BASE + iconKey + '.png');
+    }
+
+    function resolveCsCategoryIconUrl(categoryId, fallbackIcon) {
+        var toolkitId = CATEGORY_TOOLKIT_ICONS[categoryId];
+        if (toolkitId) {
+            return resolveIconUrl(TOOLKIT_ICON_BASE + toolkitId);
+        }
+        return resolveIconUrl(ICON_BASE + fallbackIcon + '.png');
+    }
+
+    function findPanel(panelId) {
+        var pi;
+        for (pi = 0; pi < PANELS.length; pi += 1) {
+            if (PANELS[pi].id === panelId) {
+                return PANELS[pi];
+            }
+        }
+        return null;
+    }
+
+    function ensurePanelContent(panelsRoot, panel) {
+        var parity = global.CapsuleCinnamonSettingsParity;
+        if (parity && typeof parity.hasRealPanel === 'function' && parity.hasRealPanel(panel.id)) {
+            if (typeof parity.buildPanel === 'function') {
+                parity.buildPanel(panelsRoot, panel.id, panel.label);
+            }
+            return;
+        }
+        if (panel.id === 'themes') {
+            ensureThemesPanel(panelsRoot);
+        } else if (panel.id === 'backgrounds') {
+            ensureBackgroundsPanel(panelsRoot);
+        } else if (panel.id === 'applets') {
+            ensureAppletsPanel(panelsRoot);
+        } else {
+            ensureGenericPanel(panelsRoot, panel.id, panel.label);
+        }
+    }
+
+    function ensureAllPanels(panelsRoot) {
+        if (panelsRoot.dataset.csPanelsBuilt === 'true') {
             return;
         }
         var pi;
         for (pi = 0; pi < PANELS.length; pi += 1) {
-            var panel = PANELS[pi];
-            if (panel.id === 'themes') {
-                ensureThemesPanel(panelsRoot);
-            } else if (panel.id === 'backgrounds') {
-                ensureBackgroundsPanel(panelsRoot);
-            } else if (panel.id === 'applets') {
-                ensureAppletsPanel(panelsRoot);
-            } else {
-                ensureGenericPanel(panelsRoot, panel.id, panel.label);
-            }
-            var btn = global.document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'cs-app__nav cs-category' + (panel.id === 'general' ? ' is-active' : '');
-            btn.setAttribute('data-cs-nav', panel.id);
-            btn.setAttribute('title', panel.label);
-            btn.setAttribute('aria-label', panel.label);
-            var img = global.document.createElement('img');
-            img.className = 'cs-app__nav-icon';
-            var iconPath = ICON_BASE + panel.icon + '.png';
-            img.src = typeof global.resolveCapsuleAssetUrl === 'function'
-                ? global.resolveCapsuleAssetUrl(iconPath)
-                : (typeof global.resolveCapsuleResourceUrl === 'function'
-                    ? global.resolveCapsuleResourceUrl(iconPath)
-                    : iconPath);
-            img.alt = '';
-            btn.appendChild(img);
-            sidebar.appendChild(btn);
+            ensurePanelContent(panelsRoot, PANELS[pi]);
         }
-        sidebar.dataset.csBuilt = 'true';
+        panelsRoot.dataset.csPanelsBuilt = 'true';
+    }
+
+    function showHomeView(root) {
+        var home = root.querySelector('#cs-home');
+        var panelView = root.querySelector('#cs-panel-view');
+        if (home) {
+            home.removeAttribute('hidden');
+        }
+        if (panelView) {
+            panelView.setAttribute('hidden', 'hidden');
+        }
+        root.dataset.csView = 'home';
+    }
+
+    function showPanelView(root) {
+        var home = root.querySelector('#cs-home');
+        var panelView = root.querySelector('#cs-panel-view');
+        if (home) {
+            home.setAttribute('hidden', 'hidden');
+        }
+        if (panelView) {
+            panelView.removeAttribute('hidden');
+        }
+        root.dataset.csView = 'panel';
+    }
+
+    function buildHomeGrid(root, panelsRoot) {
+        var scroll = root.querySelector('#cs-home-scroll');
+        if (!scroll || scroll.dataset.csHomeBuilt === 'true') {
+            return;
+        }
+        ensureAllPanels(panelsRoot);
+        var ci;
+        for (ci = 0; ci < HOME_CATEGORIES.length; ci += 1) {
+            var cat = HOME_CATEGORIES[ci];
+            var section = global.document.createElement('section');
+            section.className = 'cs-home__category';
+            section.setAttribute('data-cs-category', cat.id);
+            var head = global.document.createElement('header');
+            head.className = 'cs-home__category-head';
+            var catIcon = global.document.createElement('img');
+            catIcon.className = 'cs-home__category-icon';
+            catIcon.src = resolveCsCategoryIconUrl(cat.id, cat.icon);
+            catIcon.alt = '';
+            head.appendChild(catIcon);
+            head.appendChild(global.document.createTextNode(cat.label));
+            section.appendChild(head);
+            var grid = global.document.createElement('div');
+            grid.className = 'cs-home__grid';
+            grid.setAttribute('role', 'list');
+            var mi;
+            for (mi = 0; mi < cat.modules.length; mi += 1) {
+                var moduleId = cat.modules[mi];
+                var panel = findPanel(moduleId);
+                if (!panel) {
+                    continue;
+                }
+                var tile = global.document.createElement('button');
+                tile.type = 'button';
+                tile.className = 'cs-home__tile';
+                tile.setAttribute('data-cs-home-module', moduleId);
+                tile.setAttribute('data-cs-nav', moduleId);
+                tile.setAttribute('title', panel.label);
+                tile.setAttribute('aria-label', panel.label);
+                var icon = global.document.createElement('img');
+                icon.className = 'cs-home__tile-icon';
+                icon.src = resolveCsPanelIconUrl(panel.id, panel.icon);
+                icon.alt = '';
+                var label = global.document.createElement('span');
+                label.className = 'cs-home__tile-label';
+                label.textContent = panel.label;
+                tile.appendChild(icon);
+                tile.appendChild(label);
+                grid.appendChild(tile);
+            }
+            section.appendChild(grid);
+            scroll.appendChild(section);
+        }
+        scroll.dataset.csHomeBuilt = 'true';
     }
 
     function activatePanel(root, panelId) {
@@ -329,13 +523,7 @@
                 section.setAttribute('hidden', 'hidden');
             }
         });
-        root.querySelectorAll('[data-cs-nav]').forEach(function (btn) {
-            if (btn.getAttribute('data-cs-nav') === panelId) {
-                btn.classList.add('is-active');
-            } else {
-                btn.classList.remove('is-active');
-            }
-        });
+        showPanelView(root);
         if (panelId === 'themes' && typeof global.initThemesApp === 'function') {
             global.initThemesApp();
         }
@@ -344,31 +532,37 @@
             global.buildWallpaperGrid(bgPanel || root);
         }
         root.dataset.csActivePanel = panelId;
+        bindSwitches(root);
     }
 
-    function filterPanels(root, query) {
+    function filterHome(root, query) {
         var q = (query || '').trim().toLowerCase();
         var firstMatch = null;
-        var pi;
-        for (pi = 0; pi < PANELS.length; pi += 1) {
-            var panel = PANELS[pi];
+        root.querySelectorAll('[data-cs-home-module]').forEach(function (tile) {
+            var moduleId = tile.getAttribute('data-cs-home-module');
+            var panel = findPanel(moduleId);
+            if (!panel) {
+                tile.hidden = true;
+                return;
+            }
             var hay = (panel.label + ' ' + panel.keywords).toLowerCase();
             var match = !q || hay.indexOf(q) !== -1;
-            var btn = root.querySelector('[data-cs-nav="' + panel.id + '"]');
-            if (btn) {
-                btn.hidden = !match;
-            }
+            tile.hidden = !match;
             if (match && !firstMatch) {
-                firstMatch = panel.id;
+                firstMatch = moduleId;
             }
-        }
-        if (q && firstMatch) {
+        });
+        if (q && firstMatch && root.dataset.csView !== 'panel') {
             activatePanel(root, firstMatch);
         }
     }
 
     function bindSwitches(root) {
-        root.querySelectorAll('.cs-switch').forEach(function (toggle) {
+        var parity = global.CapsuleCinnamonSettingsParity;
+        if (parity && typeof parity.bindControls === 'function') {
+            parity.bindControls(root);
+        }
+        root.querySelectorAll('.cs-switch:not([data-cs-capsule-key])').forEach(function (toggle) {
             if (toggle.dataset.csBound === 'true') {
                 return;
             }
@@ -392,11 +586,26 @@
                 activatePanel(root, btn.getAttribute('data-cs-nav'));
             });
         });
+        var back = root.querySelector('#cs-back');
+        if (back && back.dataset.csBackBound !== 'true') {
+            back.dataset.csBackBound = 'true';
+            back.addEventListener('click', function () {
+                var search = root.querySelector('#cs-search');
+                if (search) {
+                    search.value = '';
+                }
+                filterHome(root, '');
+                showHomeView(root);
+            });
+        }
         var search = root.querySelector('#cs-search');
         if (search && search.dataset.csSearchBound !== 'true') {
             search.dataset.csSearchBound = 'true';
             search.addEventListener('input', function () {
-                filterPanels(root, search.value);
+                if (root.dataset.csView === 'panel' && !search.value.trim()) {
+                    showHomeView(root);
+                }
+                filterHome(root, search.value);
             });
         }
     }
@@ -409,18 +618,36 @@
         var panelsRoot = root.querySelector('#cs-panels');
         var winEl = getWindowEl(root);
         syncWindowTitle(winEl);
-        buildSidebar(root, panelsRoot);
+        buildHomeGrid(root, panelsRoot);
         bindNavigation(root);
         bindSwitches(root);
-        var startPanel = global.CAPSULE_CS_PENDING_PANEL || root.dataset.csActivePanel || 'general';
+        if (global.CapsuleCinnamonSettingsParity && typeof global.CapsuleCinnamonSettingsParity.applyAllEffectsFromStore === 'function') {
+            global.CapsuleCinnamonSettingsParity.applyAllEffectsFromStore();
+        }
+        var startPanel = global.CAPSULE_CS_PENDING_PANEL || root.dataset.csActivePanel;
         if (global.CAPSULE_CS_PENDING_PANEL) {
             delete global.CAPSULE_CS_PENDING_PANEL;
         }
-        activatePanel(root, startPanel);
+        if (startPanel) {
+            activatePanel(root, startPanel);
+        } else {
+            showHomeView(root);
+        }
         root.dataset.cinnamonSettingsInit = 'true';
     }
 
     global.initCinnamonSettingsApp = initCinnamonSettingsApp;
+
+    global.CapsuleCinnamonSettingsUi = {
+        appendBackgroundsWallpaperPicker: appendBackgroundsWallpaperPicker
+    };
+
+    global.activateCinnamonSettingsPanel = function activateCinnamonSettingsPanel(panelId) {
+        var root = global.document.getElementById('cinnamonSettingsApp');
+        if (root) {
+            activatePanel(root, panelId);
+        }
+    };
 
     global.document.addEventListener('capsule:window-opened', function (event) {
         if (!event.detail || event.detail.slotId !== 'themes') {

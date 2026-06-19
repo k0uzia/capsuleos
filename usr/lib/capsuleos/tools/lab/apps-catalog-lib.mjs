@@ -66,7 +66,12 @@ const registryOverride = (contract, registryId) => {
 
 const slotSpec = (contract, toolkitId, slot) => {
   if (!slot) return null;
-  return contract.toolkits?.[toolkitId]?.slotSpecs?.[slot] || null;
+  const direct = contract.toolkits?.[toolkitId]?.slotSpecs?.[slot];
+  if (direct) return direct;
+  if (toolkitId === 'cosmic') {
+    return contract.toolkits?.gnome?.slotSpecs?.[slot] || null;
+  }
+  return null;
 };
 
 export const buildCatalog = (registryId) => {

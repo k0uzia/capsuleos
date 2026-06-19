@@ -4,7 +4,7 @@
 (function initGnomeWorkspaces(global) {
     'use strict';
 
-    const GNOME_IDS = new Set(['rocky', 'fedora', 'ubuntu', 'anduinos']);
+    const GNOME_IDS = new Set(['rocky', 'fedora', 'alma', 'ubuntu', 'anduinos']);
     const FIXED_WORKSPACE_COUNT = 4;
 
     function getWorkspaceCount() {
@@ -20,6 +20,7 @@
     function shellRoot() {
         return global.document.getElementById('rocky')
             || global.document.getElementById('fedora')
+            || global.document.getElementById('alma')
             || global.document.getElementById('ubuntu')
             || global.document.getElementById('anduinos');
     }

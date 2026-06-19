@@ -14,6 +14,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { listCloneTargets } from '../clone-checkpoints-lib.mjs';
 import { getCaptureShots } from './clone-capture-scenarios.mjs';
+import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
+
+const CAPTURE_VIEWPORTS = {
+  'linux-kde-neon': { width: 1211, height: 756 },
+  'linux-opensuse': { width: 1211, height: 756 },
+  'linux-mx-kde': { width: 1211, height: 756 },
+  'linux-debian-kde': { width: 1211, height: 756 },
+};
 
 const CAPTURE_CLOCK_ISO = '2026-06-08T14:30:00+02:00';
 
@@ -42,16 +50,18 @@ const sleep = (page, ms) => page.waitForTimeout(ms);
 const resolveEntry = (registryId) => {
   const registry = JSON.parse(fs.readFileSync(REGISTRY, 'utf8'));
   const entry = registry.entries.find((e) => e.id === registryId);
-  if (!entry || !entry.skin) {
+  const skin = entry?.referencePaths?.skin || entry?.skin;
+  if (!entry || !skin) {
     throw new Error(`entrée introuvable: ${registryId}`);
   }
-  return entry;
+  return { ...entry, skin };
 };
 
 const captureOne = async (registryId, chromium, options = {}) => {
   const entry = resolveEntry(registryId);
-  const defaultUrl = `http://127.0.0.1:5500/${entry.skin}`;
+  const defaultUrl = `${resolveCapsuleHttpBase(registryId)}/${entry.skin}`;
   const URL = options.url || defaultUrl;
+  const viewport = CAPTURE_VIEWPORTS[registryId] || { width: 1280, height: 800 };
   const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15).replace('T', '-');
   const outDir = path.join(ROOT, 'root/docs/inventaires/captures', registryId, stamp);
   const baselineDir = path.join(ROOT, 'root/docs/inventaires/captures', registryId, 'baseline');
@@ -65,7 +75,7 @@ const captureOne = async (registryId, chromium, options = {}) => {
     args: ['--no-sandbox', '--disable-dev-shm-usage'],
   });
 
-  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  const page = await browser.newPage({ viewport });
   await page.clock.install({ time: new Date(CAPTURE_CLOCK_ISO) });
   await page.goto(URL, { waitUntil: 'networkidle', timeout: 30000 });
   await page.evaluate((iso) => {

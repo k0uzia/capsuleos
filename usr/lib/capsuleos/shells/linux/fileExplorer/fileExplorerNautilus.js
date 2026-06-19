@@ -467,6 +467,63 @@
         syncConnectState();
     };
 
+    const resolveNautilusGnomePlace = () => {
+        const state = global.fileExplorerState;
+        const path = state && state.currentPath ? String(state.currentPath) : '';
+        const root = typeof global.getFileExplorerRoot === 'function'
+            ? global.getFileExplorerRoot()
+            : 'home/public';
+        if (path === global.CAPSULE_PLACE_STARRED) {
+            return 'starred';
+        }
+        if (path === global.CAPSULE_PLACE_NETWORK) {
+            return 'network';
+        }
+        if (path === global.CAPSULE_PLACE_TRASH) {
+            return 'trash';
+        }
+        if (path === global.CAPSULE_PLACE_RECENT) {
+            return 'recent';
+        }
+        if (path.endsWith('/Documents')) {
+            return 'documents';
+        }
+        if (path.endsWith('/Téléchargements') || path.endsWith('/Downloads')) {
+            return 'downloads';
+        }
+        if (path.endsWith('/Bureau') || path.endsWith('/Desktop')) {
+            return 'desktop';
+        }
+        if (path === root || path.endsWith('/public')) {
+            return 'home';
+        }
+        return 'folder';
+    };
+
+    const syncNautilusGnomeDataset = () => {
+        const root = getNemoRoot();
+        if (!root || !isNautilusGnome()) {
+            return;
+        }
+        const state = global.fileExplorerState || {};
+        const place = resolveNautilusGnomePlace();
+        const chromeMode = state.nautilusChromeMode || 'breadcrumb';
+        const markers = [
+            root,
+            root.querySelector('[data-nautilus-gnome-root]'),
+        ].filter(Boolean);
+        markers.forEach((node) => {
+            node.dataset.nautilusGnomeInit = 'true';
+            node.dataset.nautilusGnomePlace = place;
+            node.dataset.nautilusGnomeChromeMode = chromeMode;
+        });
+        const crumb = root.querySelector('[data-nautilus-gnome-path-crumbbar]');
+        if (crumb) {
+            crumb.hidden = chromeMode === 'search-everywhere'
+                || chromeMode === 'search-folder';
+        }
+    };
+
     function bindFileExplorerNautilusFeatures() {
         const root = getNemoRoot();
         if (!root) {
@@ -476,6 +533,7 @@
             bindNewFolderButton(root);
             bindLocationBar(root);
             bindNetworkPlaceChrome(root);
+            syncNautilusGnomeDataset();
         }
         if (usesAdvancedExplorerOps()) {
             bindKeyboardShortcuts(root);
@@ -483,5 +541,6 @@
     }
 
     global.bindFileExplorerNautilusFeatures = bindFileExplorerNautilusFeatures;
+    global.syncNautilusGnomeDataset = syncNautilusGnomeDataset;
     global.resolvePathFromLocationInput = resolvePathFromLocationInput;
 }(typeof window !== 'undefined' ? window : globalThis));

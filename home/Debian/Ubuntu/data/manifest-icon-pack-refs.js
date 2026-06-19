@@ -361,8 +361,8 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     ],
     "wallpaper": [
       {
-        "id": "wallpaper-ubuntu-wallpaper-d.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.png",
+        "id": "wallpaper-ubuntu-wallpaper-d.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.webp",
         "iconName": null
       },
       {
@@ -371,33 +371,33 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-cnusr25-Simple_Raccoon_Light.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.png",
+        "id": "wallpaper-cnusr25-Simple_Raccoon_Light.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-endycal-Flying_Boxes_Dark.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.png",
+        "id": "wallpaper-endycal-Flying_Boxes_Dark.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-endycal-Flying_Boxes_Light.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.png",
+        "id": "wallpaper-endycal-Flying_Boxes_Light.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Dark.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
+        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Dark.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Light.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
+        "id": "wallpaper-ezspain-Ubuntu_Coffee_Mug_Light.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-iryge-Anomaly.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/iryge-Anomaly.png",
+        "id": "wallpaper-iryge-Anomaly.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/iryge-Anomaly.webp",
         "iconName": null
       },
       {
@@ -406,33 +406,33 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-jdituicha-raccoon1-light.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.jpg",
+        "id": "wallpaper-jdituicha-raccoon1-light.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-manuej-Vor.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/manuej-Vor.jpg",
+        "id": "wallpaper-manuej-Vor.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/manuej-Vor.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mendhak-Bluebells_Suspended_In_Time.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
+        "id": "wallpaper-mendhak-Bluebells_Suspended_In_Time.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mendhak-Red_Acer.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.jpg",
+        "id": "wallpaper-mendhak-Red_Acer.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mizuno-as-Big_Dipper.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.jpg",
+        "id": "wallpaper-mizuno-as-Big_Dipper.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-mizuno-as-Winter_Grand_Triangle.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
+        "id": "wallpaper-mizuno-as-Winter_Grand_Triangle.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.webp",
         "iconName": null
       },
       {
@@ -461,33 +461,33 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
         "iconName": null
       },
       {
-        "id": "wallpaper-osselo-Ask_a_friend.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.jpg",
+        "id": "wallpaper-osselo-Ask_a_friend.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
+        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
+        "id": "wallpaper-Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-rubenslp-Twin_brothers.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.png",
+        "id": "wallpaper-rubenslp-Twin_brothers.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
+        "id": "wallpaper-vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
         "iconName": null
       },
       {
-        "id": "wallpaper-warty-final-ubuntu.png",
-        "capsuleRelative": "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.png",
+        "id": "wallpaper-warty-final-ubuntu.webp",
+        "capsuleRelative": "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.webp",
         "iconName": null
       }
     ]
@@ -561,31 +561,31 @@ window.CAPSULE_MANIFEST_ICON_PACK_REFS = {
     "images/vendors/ubuntu/panel/firefox-48.webp",
     "images/vendors/ubuntu/panel/org.gnome.Nautilus.svg",
     "images/vendors/ubuntu/panel/org.gnome.Ptyxis.svg",
-    "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.png",
-    "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.png",
+    "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Dimmed_3840x2160.webp",
+    "images/vendors/ubuntu/wallpaper/Resolute_Raccoon_Wallpaper_Light_3840x2160.webp",
     "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Dark.webp",
-    "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.png",
-    "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.png",
-    "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.png",
-    "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.png",
-    "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.png",
-    "images/vendors/ubuntu/wallpaper/iryge-Anomaly.png",
+    "images/vendors/ubuntu/wallpaper/cnusr25-Simple_Raccoon_Light.webp",
+    "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Dark.webp",
+    "images/vendors/ubuntu/wallpaper/endycal-Flying_Boxes_Light.webp",
+    "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Dark.webp",
+    "images/vendors/ubuntu/wallpaper/ezspain-Ubuntu_Coffee_Mug_Light.webp",
+    "images/vendors/ubuntu/wallpaper/iryge-Anomaly.webp",
     "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-dark.jpg",
-    "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.jpg",
-    "images/vendors/ubuntu/wallpaper/manuej-Vor.jpg",
-    "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.jpg",
-    "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.jpg",
-    "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.jpg",
-    "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.jpg",
+    "images/vendors/ubuntu/wallpaper/jdituicha-raccoon1-light.webp",
+    "images/vendors/ubuntu/wallpaper/manuej-Vor.webp",
+    "images/vendors/ubuntu/wallpaper/mendhak-Bluebells_Suspended_In_Time.webp",
+    "images/vendors/ubuntu/wallpaper/mendhak-Red_Acer.webp",
+    "images/vendors/ubuntu/wallpaper/mizuno-as-Big_Dipper.webp",
+    "images/vendors/ubuntu/wallpaper/mizuno-as-Winter_Grand_Triangle.webp",
     "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Dark.webp",
     "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Light.webp",
     "images/vendors/ubuntu/wallpaper/moskalenko-v-Low_poly_Raccoon_Very_Dark.webp",
     "images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Dark.webp",
     "images/vendors/ubuntu/wallpaper/moskalenko-v-Snowy_Ubuntu_Light.webp",
-    "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.jpg",
-    "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.png",
-    "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.png",
-    "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.jpg",
-    "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.png"
+    "images/vendors/ubuntu/wallpaper/osselo-Ask_a_friend.webp",
+    "images/vendors/ubuntu/wallpaper/rubenslp-Twin_brothers.webp",
+    "images/vendors/ubuntu/wallpaper/ubuntu-wallpaper-d.webp",
+    "images/vendors/ubuntu/wallpaper/vale1ntin0omf-Electric_Veins_of_the_Storm.webp",
+    "images/vendors/ubuntu/wallpaper/warty-final-ubuntu.webp"
   ]
 };

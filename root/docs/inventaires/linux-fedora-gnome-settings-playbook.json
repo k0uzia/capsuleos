@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-07T01:02:40.438916+00:00",
+  "generatedAt": "2026-06-17T10:55:24.279383+00:00",
   "source": "vm-gnome-settings-playbook.sh",
   "matrixVersion": 1,
-  "matrixPath": "/tmp/capsule-settings-matrix.M9OTeS.json",
+  "matrixPath": "/tmp/capsule-settings-matrix.VMuNeo.json",
   "dwellMs": 1400,
   "panelFilter": null,
   "summary": {
     "panelsTotal": 18,
     "panelsOpened": 18,
-    "controlsMapped": 28,
-    "controlsUnmapped": 7,
+    "controlsMapped": 29,
+    "controlsUnmapped": 6,
     "errors": 0,
     "assetsPresentOnVm": 4,
     "assetsMissingOnVm": 0
   },
   "assetSources": {
     "status": "ok",
-    "matrixPath": "/tmp/capsule-assets-matrix.lFnrU0.json",
+    "matrixPath": "/tmp/capsule-assets-matrix.0GO55O.json",
     "summary": {
       "assetsTotal": 4,
       "presentOnVm": 4,
@@ -95,7 +95,7 @@
           "source": "nmcli"
         }
       ],
-      "openedAt": "2026-06-07T01:02:12.618519+00:00"
+      "openedAt": "2026-06-17T10:54:54.462672+00:00"
     },
     {
       "id": "network",
@@ -116,7 +116,7 @@
           "note": "NM ipv4.method"
         }
       ],
-      "openedAt": "2026-06-07T01:02:14.313634+00:00"
+      "openedAt": "2026-06-17T10:54:56.109456+00:00"
     },
     {
       "id": "bluetooth",
@@ -133,11 +133,14 @@
         {
           "id": "bluetooth",
           "capsuleKey": "gnome-bluetooth-enabled",
-          "status": "unmapped",
-          "note": "rfkill indisponible"
+          "vmRaw": null,
+          "capsuleExpected": "on",
+          "status": "mapped",
+          "source": "simulated",
+          "note": "rfkill indisponible — valeur Capsule par défaut (simulée)"
         }
       ],
-      "openedAt": "2026-06-07T01:02:15.899996+00:00"
+      "openedAt": "2026-06-17T10:54:57.800676+00:00"
     },
     {
       "id": "appearance",
@@ -180,7 +183,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:17.517318+00:00"
+      "openedAt": "2026-06-17T10:54:59.475170+00:00"
     },
     {
       "id": "background",
@@ -211,7 +214,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:19.132741+00:00"
+      "openedAt": "2026-06-17T10:55:01.136503+00:00"
     },
     {
       "id": "notifications",
@@ -262,7 +265,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:20.751841+00:00"
+      "openedAt": "2026-06-17T10:55:02.860474+00:00"
     },
     {
       "id": "search",
@@ -317,7 +320,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:22.337391+00:00"
+      "openedAt": "2026-06-17T10:55:04.532363+00:00"
     },
     {
       "id": "multitasking",
@@ -370,7 +373,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:23.955774+00:00"
+      "openedAt": "2026-06-17T10:55:06.280618+00:00"
     },
     {
       "id": "sound",
@@ -413,7 +416,7 @@
           "note": "volume-step ≠ curseur %"
         }
       ],
-      "openedAt": "2026-06-07T01:02:25.542936+00:00"
+      "openedAt": "2026-06-17T10:55:07.962456+00:00"
     },
     {
       "id": "power",
@@ -464,7 +467,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:27.120860+00:00"
+      "openedAt": "2026-06-17T10:55:09.698469+00:00"
     },
     {
       "id": "displays",
@@ -505,7 +508,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:28.689570+00:00"
+      "openedAt": "2026-06-17T10:55:11.444666+00:00"
     },
     {
       "id": "mouse",
@@ -582,7 +585,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:30.496170+00:00"
+      "openedAt": "2026-06-17T10:55:13.277431+00:00"
     },
     {
       "id": "keyboard",
@@ -594,11 +597,11 @@
       "windowTitle": null,
       "gsettingsStable": true,
       "gsettingsBefore": {
-        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr'), ('xkb', 'us')]",
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr')]",
         "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
       },
       "gsettingsAfter": {
-        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr'), ('xkb', 'us')]",
+        "org.gnome.desktop.input-sources::sources": "[('xkb', 'fr')]",
         "org.gnome.desktop.peripherals.keyboard::delay": "uint32 500"
       },
       "controls": [
@@ -607,7 +610,7 @@
           "capsuleKey": "gnome-keyboard-layout",
           "schema": "org.gnome.desktop.input-sources",
           "key": "sources",
-          "vmRaw": "[('xkb', 'fr'), ('xkb', 'us')]",
+          "vmRaw": "[('xkb', 'fr')]",
           "capsuleExpected": "Français",
           "status": "mapped",
           "note": null
@@ -623,7 +626,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:32.145569+00:00"
+      "openedAt": "2026-06-17T10:55:15.019017+00:00"
     },
     {
       "id": "printers",
@@ -637,7 +640,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-07T01:02:33.725870+00:00"
+      "openedAt": "2026-06-17T10:55:16.715407+00:00"
     },
     {
       "id": "accessibility",
@@ -678,7 +681,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:35.371333+00:00"
+      "openedAt": "2026-06-17T10:55:18.531990+00:00"
     },
     {
       "id": "privacy",
@@ -749,7 +752,7 @@
           "note": null
         }
       ],
-      "openedAt": "2026-06-07T01:02:36.977060+00:00"
+      "openedAt": "2026-06-17T10:55:20.381946+00:00"
     },
     {
       "id": "sharing",
@@ -782,7 +785,7 @@
           "note": "simulated"
         }
       ],
-      "openedAt": "2026-06-07T01:02:38.511541+00:00"
+      "openedAt": "2026-06-17T10:55:22.067441+00:00"
     },
     {
       "id": "about",
@@ -796,7 +799,7 @@
       "gsettingsBefore": {},
       "gsettingsAfter": {},
       "controls": [],
-      "openedAt": "2026-06-07T01:02:40.060889+00:00"
+      "openedAt": "2026-06-17T10:55:23.806438+00:00"
     }
   ],
   "errors": []

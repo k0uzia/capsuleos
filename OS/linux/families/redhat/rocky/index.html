@@ -6,19 +6,19 @@
     <base href="../../../../../home/RedHat/Rocky/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../../../usr/lib/capsuleos/common/user-home.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/user-home.js?v=8651cab1d6"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-assets-manifest.js?v=fb7d7cc089"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-skin-profiles.js?v=647f14c52f"></script>
     <script>window.CAPSULE_SKIN_PROFILE_ID = 'linux-rocky';</script>
-    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js"></script>
-    <script src="../../../usr/lib/capsuleos/core/cluster-registry.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-resource.js?v=bf2e629c16"></script>
+    <script src="../../../usr/lib/capsuleos/core/cluster-registry.js?v=d3bac825ea"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-skin-boot.js?v=c932ae1095"></script>
     <link rel="icon" href="../../../usr/share/capsuleos/assets/images/vendors/rocky/rocky-logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="./style/imports.css?v=20260428" type="text/css">
-    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css" type="text/css">
-    <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=20260424" type="text/css">
-    <link rel="stylesheet" href="./rocky-fonts.css?v=20260606" type="text/css">
-    <link rel="stylesheet" href="./rocky-overrides.css?v=20260424" type="text/css">
+    <link rel="stylesheet" href="./style/imports.css?v=dc07accd28" type="text/css">
+    <link rel="stylesheet" href="../../../usr/share/capsuleos/linux/apps/style/Dossier personnel.base.css?v=60b6a55e2b" type="text/css">
+    <link rel="stylesheet" href="./style/apps/Dossier personnel.skin.css?v=5349cc9e57" type="text/css">
+    <link rel="stylesheet" href="./rocky-fonts.css?v=1e9c9c9c81" type="text/css">
+    <link rel="stylesheet" href="./rocky-overrides.css?v=1429dc0638" type="text/css">
     <title>Rocky Linux - CapsuleOS</title>
 </head>
 <body id="rocky" data-skin="rocky">
@@ -96,6 +96,10 @@
                 <div class="windowElement" data-link="visionneur_pdf" id="visionneur_pdf" style="display: none;"></div>
                 <div class="windowElement" data-link="lecteur_multimedia" id="lecteur_multimedia" style="display: none;"></div>
                 <div class="windowElement" data-link="librewriter" id="librewriter" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_startcenter" id="libreoffice_startcenter" style="display: none;"></div>
+                <div class="windowElement" data-link="librecalc" id="librecalc" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_impress" id="libreoffice_impress" style="display: none;"></div>
+                <div class="windowElement" data-link="libreoffice_draw" id="libreoffice_draw" style="display: none;"></div>
                 <div class="windowElement" data-link="update_manager" id="update_manager" style="display: none;"></div>
                 <div class="windowElement" data-link="text_editor" id="text_editor" style="display: none;"></div>
                 <div class="windowElement" data-link="calculator" id="calculator" style="display: none;"></div>
@@ -106,6 +110,14 @@
                 <div class="windowElement" data-link="system_monitor" id="system_monitor" style="display: none;"></div>
                 <div class="windowElement" data-link="tour" id="tour" style="display: none;"></div>
                 <div class="windowElement" data-link="characters" id="characters" style="display: none;"></div>
+                <div class="windowElement" data-link="file_roller" id="file_roller" style="display: none;"></div>
+                <div class="windowElement" data-link="thunderbird" id="thunderbird" style="display: none;"></div>
+                <div class="windowElement" data-link="transmission" id="transmission" style="display: none;"></div>
+                <div class="windowElement" data-link="rhythmbox" id="rhythmbox" style="display: none;"></div>
+                <div class="windowElement" data-link="drawing" id="drawing" style="display: none;"></div>
+                <div class="windowElement" data-link="simple_scan" id="simple_scan" style="display: none;"></div>
+                <div class="windowElement" data-link="warpinator" id="warpinator" style="display: none;"></div>
+                <div class="windowElement" data-link="timeshift" id="timeshift" style="display: none;"></div>
                 <div class="windowElement" data-link="screenshot" id="screenshot" style="display: none;"></div>
             </object>
         </main>
@@ -166,9 +178,33 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Ptyxis.svg" alt="">
                     <span>Terminal</span>
                 </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="calendar" aria-label="Agenda">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Calendar.svg" alt="">
+                    <span>Agenda</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="file_roller" aria-label="Gestionnaire d'archives">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.FileRoller.svg" alt="">
+                    <span>Gestionna...</span>
+                </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="clocks" aria-label="Horloges">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.clocks.svg" alt="">
                     <span>Horloges</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_startcenter" aria-label="LibreOffice">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/settings.png" alt="">
+                    <span>LibreOffice</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="librecalc" aria-label="LibreOffice Calc">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-calc.svg" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_draw" aria-label="LibreOffice Draw">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/libreoffice-draw" alt="">
+                    <span>LibreOffi...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="libreoffice_impress" aria-label="LibreOffice Impress">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-impress.svg" alt="">
+                    <span>LibreOffi...</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="visionneur_images" aria-label="Loupe">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Loupe.svg" alt="">
@@ -186,19 +222,23 @@
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.Characters.svg" alt="">
                     <span>Caractères</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Disques">
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Disques">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.DiskUtility.svg" alt="">
                     <span>Disques</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Journal des alertes SELinux">
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Journal des alertes SELinux">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/setroubleshoot.svg" alt="">
                     <span>Journal d...</span>
+                </button>
+                <button type="button" class="fedora-overview__app" data-overview-link="librewriter" aria-label="LibreOffice Writer">
+                    <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/libreoffice-writer.svg" alt="">
+                    <span>LibreOffi...</span>
                 </button>
                 <button type="button" class="fedora-overview__app" data-overview-link="system_monitor" aria-label="Moniteur système">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.SystemMonitor.svg" alt="">
                     <span>Moniteur ...</span>
                 </button>
-                <button type="button" class="fedora-overview__app" aria-label="Polices">
+                <button type="button" class="fedora-overview__app fedora-overview__app--decorative" data-overview-decorative="true" aria-label="Polices">
                     <img src="../../../usr/share/capsuleos/assets/images/toolkits/gnome/apps/overview/org.gnome.font-viewer.svg" alt="">
                     <span>Polices</span>
                 </button>
@@ -338,94 +378,125 @@
         }
     </script>
 
-    <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js"></script>
-    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=20260427"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=20260424"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=20260427b"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-mnt-modules.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/capsule-window.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/window/drag-targets.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/window-drag.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js"></script>
-        <script src="../../../usr/lib/capsuleos/shells/common/capsule-memory-conventions.js"></script>
-<script src="../../../usr/lib/capsuleos/shells/common/capsule-window-memory.js"></script>
+    <script src="../../../usr/lib/capsuleos/site/capsule-pick-return.js?v=5309ff7dda"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-app-embed.js?v=cde24d760a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/strings-default.js?v=f13bebb6e9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-strings.js?v=dd21339878"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-mnt-modules.js?v=c1a43cf589"></script>
+    <script src="../../../usr/lib/capsuleos/common/capsule-window.js?v=76aadba6a9"></script>
+    <script src="../../../usr/lib/capsuleos/common/window/drag-targets.js?v=7b3c0e7dfc"></script>
+    <script src="../../../usr/lib/capsuleos/common/resizeWindow.js?v=7357ef5f06"></script>
+    <script src="../../../usr/lib/capsuleos/common/window-drag.js?v=579b265c36"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-window-behaviors.js?v=03c0e92473"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-context.js?v=a5e3dd2574"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-shell.js?v=1402763bc9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-desktop-shell.js?v=645df096e2"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-window-header-buttons.js?v=dd9f5dd12d"></script>
+        <script src="../../../usr/lib/capsuleos/shells/common/capsule-memory-conventions.js?v=3b3dfdef79"></script>
+<script src="../../../usr/lib/capsuleos/shells/common/capsule-window-memory.js?v=cb05a9f816"></script>
     <script>window.CAPSULE_WINDOW_FAMILY = 'linux';</script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=20260424"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=20260604"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=20260424"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-linux-rocky.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-parity.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=20260424"></script>
-    <script src="./content/profile-data.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInfo.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-icon-map.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=20260427b"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-window-instances.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/common/capsule-user-fs.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerWindowState.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilus.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusOps.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInlineRename.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusItemInteraction.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusHeaderbar.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerTabs.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerProperties.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/date.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-popover.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-core.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-profile-builder.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/redhat.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-vendor-extensions.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-bashrc.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/terminal-completion.js"></script>
-    <script src="../../../usr/lib/capsuleos/common/terminal-editors.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-tabs.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-shell-parse.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-package-managers.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/clocks.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-workspaces.js?v=20260606"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-desktop-context-menu.js?v=20260606"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-hot-corners.js"></script>
-    <script src="./data/manifest-icon-pack-refs.js?v=20260608"></script>
-    <script src="./data/overview-apps-grid.js?v=20260604"></script>
-    <script src="./js/overview.js?v=20260606"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/windowContainer.js?v=204ab96359"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/taskbar-launcher-state.js?v=ca347b1ab9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme.js?v=b0835fae8c"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-theme-storage.js?v=7bd1843430"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-vm-baseline-linux-rocky.js?v=097d8550be"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-bindings.js?v=67cda8291d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-gsettings-store.js?v=c602c5c5f8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-settings-parity.js?v=edb5e4f1ea"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/themes.js?v=366f143a4c"></script>
+    <script src="./content/profile-data.js?v=32cbaca1a8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/profile.js?v=c73372d8e9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/checklist.js?v=d8599f92d5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js?v=a0b7115079"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js?v=8e34b0cd47"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCatalog.js?v=54649cc49a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js?v=843141f9e8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-icon-map.js?v=155f60249b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-icon-base.js?v=87224c9be1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/contentLoader.js?v=6b71557e46"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-window-instances.js?v=cd89a3ef6d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerHeader.js?v=00ae0a46a1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContainer.js?v=6b53b53a22"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerVfs.js?v=a9a31955d7"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerCore.js?v=81f3a38e55"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-user-fs.js?v=b8f22732a1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerWindowState.js?v=08664c6ada"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilus.js?v=af1b43caaa"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusOps.js?v=244e058876"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerInlineRename.js?v=225399420d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusItemInteraction.js?v=5d04a9f04f"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerNautilusHeaderbar.js?v=516a401b66"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerTabs.js?v=98eb419ad8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerProperties.js?v=7656dcc424"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerContextMenu.js?v=fb0fdddd71"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerDnD.js?v=5d9cbf1b17"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/mint-viewers.js?v=188c7458c8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileViewerRouter.js?v=857468d443"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/fileExplorerLoader.js?v=fc6dccd89f"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/date.js?v=81a1af8bda"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-popover.js?v=38b223f82b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-registry.js?v=3756dda747"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/command-core.js?v=b4b4995cdf"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-profile-builder.js?v=8bde29f563"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/profiles/linux/redhat.js?v=5740d7bfb1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/config/terminal-vendor-extensions.js?v=bf6f8fd3b6"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-profile.js?v=c665bed852"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-bashrc.js?v=de9cd2cee8"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-core.js?v=647f0711c5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-listing.js?v=026660c471"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-command-options.js?v=54f050f510"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-completion.js?v=f391332bc0"></script>
+    <script src="../../../usr/lib/capsuleos/common/terminal-editors.js?v=3e951cf402"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-tabs.js?v=bb5a9d677f"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal.js?v=ad04d20f84"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-shell-parse.js?v=ac8ab99be6"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-package-managers.js?v=187cc8e8ae"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-fs-ops.js?v=5a110fc837"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-links.js?v=7b241c147f"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-text-compare.js?v=d3078e02c0"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-archives.js?v=316ecc3b50"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-processes.js?v=f2f6564974"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-network.js?v=26c7487c87"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-users.js?v=f810ae48f4"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/terminal-system-info.js?v=f92cd9bd70"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/executeCommand.js?v=7b37796517"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/filesystem.js?v=be24c502e1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/virtual-shell.js?v=66d9afe2ab"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/terminal/manuel.js?v=6299c34f04"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/volume.js?v=15eb85628b"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librewriter.js?v=eae8ff4280"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/librecalc.js?v=dca0f84b86"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/libreoffice-suite.js?v=dec6c69194"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/text-editor.js?v=8211dbf2d1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calculator.js?v=5d49019c9a"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/clocks.js?v=1e90539273"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/snapshot.js?v=e2b9234d2e"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/characters.js?v=6449424b26"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/tour.js?v=b8df9dc909"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/baobab.js?v=ecb890e077"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/system-monitor.js?v=4c05e03abd"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/calendar-app.js?v=76e87a2e1d"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/file-roller.js?v=db83a46cf4"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/thunderbird.js?v=5f9b3d2ae6"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/transmission.js?v=f55b2fe975"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/rhythmbox.js?v=ddc70d8607"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/drawing.js?v=ad5c3ce36c"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/simple-scan.js?v=398e9d95d1"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/warpinator.js?v=cad1e7a74e"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/timeshift.js?v=94810fbe43"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-store-catalog.js?v=7a6646dd15"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-gnome-software-content.js?v=173f88ded4"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-software-ground.js?v=9cfc5059e5"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-catalog.js?v=2c4fec66c9"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-store-shell-pin.js?v=33b31c16d0"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/screenshot.js?v=0829b5860f"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/update-manager.js?v=13e35a66b3"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/search/appSearch.js?v=e4a0402b22"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-workspaces.js?v=a31cf71833"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-desktop-context-menu.js?v=8d938c0880"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/gnome-hot-corners.js?v=b057c77fe0"></script>
+    <script src="./data/manifest-icon-pack-refs.js?v=d3268c58b2"></script>
+    <script src="./data/overview-apps-grid.js?v=2a27f96e38"></script>
+    <script src="./js/overview.js?v=274dcc422d"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@ const CINNAMON_PANEL_MENU_SKINS = new Set(['mint']);
 const CINNAMON_PANEL_MENU_BODY_IDS = new Set(['mint']);
 
 /** Discover KDE : CSS commun (grille sidebar) embarqué au build — doit aussi être fetché en HTTP. */
-const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde']);
+const KDE_DISCOVER_SKINS = new Set(['opensuse', 'mxkde', 'kde-neon', 'debian-kde', 'debiankde']);
 const KDE_DISCOVER_BODY_IDS = new Set(['opensuse', 'kde-neon', 'debian-kde', 'mx-kde']);
 
 const isKdeDiscoverContext = () => {
@@ -38,9 +38,21 @@ const isKdeDiscoverContext = () => {
     return !!(bodyId && KDE_DISCOVER_BODY_IDS.has(bodyId));
 };
 
+const isKdePlasmaContext = () => isKdeDiscoverContext()
+    || PLASMA_MAIN_MENU_SKINS.has(getEmbedSkinKey())
+    || (typeof document !== 'undefined' && document.body && PLASMA_MAIN_MENU_BODY_IDS.has(document.body.id));
+
 const resolveKdeDiscoverCssBaseId = () => {
+    const overrides = typeof window !== 'undefined' && window.CAPSULE_TEMPLATE_OVERRIDES;
+    if (overrides && overrides.update_manager
+        && String(overrides.update_manager).includes('update_manager_kde_neon')) {
+        return 'update_manager_kde_neon';
+    }
     const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
     if (getEmbedSkinKey() === 'kde-neon' || bodyId === 'kde-neon') {
+        return 'update_manager_kde_neon';
+    }
+    if (isKdeDiscoverContext()) {
         return 'update_manager_kde_neon';
     }
     return 'update_manager_kde';
@@ -123,6 +135,9 @@ const resolveCssBaseTemplateId = (templateId) => {
     if (templateId === 'mainMenu-gnome') {
         return 'mainMenu-gnome';
     }
+    if (templateId === 'systemsettings_kde_neon') {
+        return 'systemsettings_kde';
+    }
     return templateId;
 };
 
@@ -168,12 +183,18 @@ const resolveEmbeddedCssBase = (slotId, templateId, htmlHint) => {
         return skinOverride.cssBase;
     }
     const effectiveTemplateId = resolveEffectiveTemplateId(slotId, templateId);
+    // Pile explorers/ (nemo-gnome, nautilus…) avant l'alias nemo → apps/style/nemo.base.css.
+    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
+        return embed.templates[templateId].cssBase;
+    }
+    if (effectiveTemplateId !== templateId
+        && embed.templates[effectiveTemplateId]
+        && embed.templates[effectiveTemplateId].cssBase) {
+        return embed.templates[effectiveTemplateId].cssBase;
+    }
     const cssBaseTemplateId = resolveCssBaseTemplateId(effectiveTemplateId);
     if (embed.templates[cssBaseTemplateId] && embed.templates[cssBaseTemplateId].cssBase) {
         return embed.templates[cssBaseTemplateId].cssBase;
-    }
-    if (embed.templates[templateId] && embed.templates[templateId].cssBase) {
-        return embed.templates[templateId].cssBase;
     }
     return '';
 };
@@ -208,6 +229,60 @@ const resolveSkinId = (slotId, templateId) => {
 };
 
 const divs = document.querySelectorAll('div[data-link]');
+
+const slotElements = new Map();
+const slotLoadPromises = new Map();
+
+Array.from(divs).forEach((div) => {
+    const slotId = div.getAttribute('data-link');
+    if (slotId) {
+        slotElements.set(slotId, div);
+    }
+});
+
+const DEFAULT_TIERED_SLOT_PRIORITY = [
+    'mainMenu', 'nemo', 'firefox', 'terminal', 'themes',
+    'update_manager', 'mintinstall', 'profile',
+    'text_editor', 'calculator', 'visionneur_images', 'visionneur_pdf',
+    'lecteur_multimedia', 'file_roller',
+];
+
+const shouldUseTieredSlotLoad = () => {
+    if (typeof window === 'undefined') {
+        return false;
+    }
+    if (window.CAPSULE_SLOT_LOAD_TIERED === false) {
+        return false;
+    }
+    if (window.CAPSULE_SLOT_LOAD_TIERED === true) {
+        return true;
+    }
+    const bodyId = typeof document !== 'undefined' && document.body && document.body.id;
+    if (bodyId === 'mint' || getEmbedSkinKey() === 'mint') {
+        return divs.length >= 20;
+    }
+    return false;
+};
+
+const resolveSlotLoadPriority = () => {
+    if (typeof window !== 'undefined' && Array.isArray(window.CAPSULE_SLOT_LOAD_PRIORITY)
+        && window.CAPSULE_SLOT_LOAD_PRIORITY.length) {
+        return window.CAPSULE_SLOT_LOAD_PRIORITY.slice();
+    }
+    return DEFAULT_TIERED_SLOT_PRIORITY.slice();
+};
+
+const isSlotLoaded = (slotId) => {
+    const el = slotElements.get(slotId);
+    return !!(el && el.dataset.capsuleSlotLoaded === 'true');
+};
+
+const bootCapsuleWindowContext = () => {
+    if (typeof window.CapsuleLinuxWindowContext !== 'undefined'
+        && typeof window.CapsuleLinuxWindowContext.boot === 'function') {
+        window.CapsuleLinuxWindowContext.boot();
+    }
+};
 
 /**
  * @param {string} templateId
@@ -265,8 +340,16 @@ const hasSkinHtmlOverride = (templateId) => {
 /** Candidats HTML : skin d’abord si override connu, puis noyau partagé. */
 const resolveTemplateHtmlCandidates = (templateId, appsBase, skinBase) => {
     const candidates = [];
+    if (typeof window !== 'undefined'
+        && window.CAPSULE_TEMPLATE_OVERRIDES
+        && window.CAPSULE_TEMPLATE_OVERRIDES[templateId]) {
+        candidates.push(String(window.CAPSULE_TEMPLATE_OVERRIDES[templateId]));
+    }
     if (skinBase && hasSkinHtmlOverride(templateId)) {
-        candidates.push(`${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`);
+        const localSkinHtml = `${String(skinBase).replace(/\/+$/, '')}/apps/${templateId}.html`;
+        if (!candidates.includes(localSkinHtml)) {
+            candidates.push(localSkinHtml);
+        }
     }
     const shared = resolveTemplateHtmlFile(templateId, appsBase);
     if (!candidates.includes(shared)) {
@@ -290,11 +373,27 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 : (skinMap[skinId] != null
                     ? skinMap[skinId]
                     : (skinMap[templateId] != null ? skinMap[templateId] : ''));
-            return Promise.resolve({
+            let cssBase = resolveEmbeddedCssBase(slotId, templateId, resolvedHtml);
+            const fetchMintinstallBaseCss = async () => {
+                if (templateId !== 'mintinstall' || (cssBase && cssBase.includes('mi-app--mode-home'))) {
+                    return cssBase;
+                }
+                try {
+                    const url = `${appsBase}/style/mintinstall.base.css`;
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (response.ok) {
+                        return await response.text();
+                    }
+                } catch (_) {
+                    /* repli embed */
+                }
+                return cssBase;
+            };
+            return fetchMintinstallBaseCss().then((resolvedCssBase) => ({
                 html: resolvedHtml,
-                cssBase: resolveEmbeddedCssBase(slotId, templateId, resolvedHtml),
+                cssBase: resolvedCssBase,
                 cssSkin
-            });
+            }));
         }
         console.warn(`CapsuleOS: embed sans skin "${skinKey}" pour ${templateId} — chargement fetch`);
     }
@@ -348,6 +447,25 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             return '';
         }
 
+        const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+            ? String(window.CAPSULE_EMBED_SKIN_KEY)
+            : '';
+        if (templateId === 'themes' && embedKey === 'mint') {
+            const embeddedMintCs = resolveEmbeddedCssBase(slotId, templateId);
+            if (embeddedMintCs) {
+                return embeddedMintCs;
+            }
+            try {
+                const cinnamonFile = `${appsBase}/style/cinnamon_settings.base.css`;
+                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
+                if (cinnamonResp.ok) {
+                    return await cinnamonResp.text();
+                }
+            } catch (_) {
+                /* repli fetch themes.base ci-dessous */
+            }
+        }
+
         const fetchOneCss = async (url) => {
             const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) {
@@ -363,7 +481,12 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             stackUrls = window.CapsuleExplorerRegistry.resolveCssBasePathsFromAppsBase(appsBase, templateId);
         }
 
-        if (stackUrls.length > 1) {
+        // Pile explorers/ = source de vérité (même contenu que l'embed file://).
+        // Auparavant seuls les stacks multi-fichiers passaient ici, laissant les
+        // templates nemo simples sur la copie legacy apps/style/nemo.base.css (dérive).
+        if (stackUrls.length >= 1
+            && typeof window.CapsuleExplorerRegistry.isExplorerTemplate === 'function'
+            && window.CapsuleExplorerRegistry.isExplorerTemplate(templateId)) {
             try {
                 const chunks = await Promise.all(stackUrls.map((url) => fetchOneCss(url)));
                 return chunks.join('\n');
@@ -393,14 +516,13 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             }
         }
         if (templateId === 'themes' && text) {
-            const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
-                ? String(window.CAPSULE_EMBED_SKIN_KEY)
-                : '';
             if (embedKey === 'mint') {
-                const cinnamonFile = `${appsBase}/style/themes_cinnamon.base.css`;
-                const cinnamonResp = await fetch(cinnamonFile, { cache: 'no-store' });
-                if (cinnamonResp.ok) {
-                    text = `${text}\n${await cinnamonResp.text()}`;
+                /* traité en tête de fetchCssBase */
+            } else if (isKdePlasmaContext()) {
+                const kdeFile = `${appsBase}/style/systemsettings_kde.base.css`;
+                const kdeResp = await fetch(kdeFile, { cache: 'no-store' });
+                if (kdeResp.ok) {
+                    text = await kdeResp.text();
                 }
             } else {
                 const gnomeFile = `${appsBase}/style/themes_gnome.base.css`;
@@ -415,6 +537,8 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
             const ptyxisResp = await fetch(ptyxisFile, { cache: 'no-store' });
             if (ptyxisResp.ok) {
                 text = `${text}\n${await ptyxisResp.text()}`;
+            } else {
+                console.error(`CapsuleOS: terminal-ptyxis.base.css indisponible (HTTP ${ptyxisResp.status}) — ${ptyxisFile}`);
             }
         }
         return text;
@@ -429,6 +553,15 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
 
     const fetchCssSkin = (async () => {
         let skinText = '';
+        const embedKey = typeof window !== 'undefined' && window.CAPSULE_EMBED_SKIN_KEY
+            ? String(window.CAPSULE_EMBED_SKIN_KEY)
+            : '';
+        if (templateId === 'themes' && embedKey === 'mint' && embed && embed.skins && embed.skins.mint) {
+            const embeddedSkin = embed.skins.mint.themes || embed.skins.mint[skinId];
+            if (embeddedSkin) {
+                return embeddedSkin;
+            }
+        }
         if (cssSkinFile) {
             try {
                 const response = await fetch(withSkinCssBust(cssSkinFile), { cache: 'no-store' });
@@ -442,6 +575,18 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 }
             } catch (_) {
                 skinText = '';
+            }
+        }
+        if (templateId === 'themes' && embedKey === 'mint' && skinBase) {
+            try {
+                const csSkinFile = `${String(skinBase).replace(/\/+$/, '')}/style/apps/cinnamon_settings.skin.css`;
+                const csResp = await fetch(withSkinCssBust(csSkinFile), { cache: 'no-store' });
+                if (csResp.ok) {
+                    const csText = await csResp.text();
+                    skinText = skinText ? `${skinText}\n${csText}` : csText;
+                }
+            } catch (_) {
+                /* optionnel */
             }
         }
         if (templateId === 'update_manager' && isKdeDiscoverContext()) {
@@ -523,6 +668,12 @@ const SLOT_INIT_HANDLERS = {
         runFirstAvailable([
             { fn: typeof initFileExplorerDnD === 'function' ? initFileExplorerDnD : null }
         ]);
+        if (typeof window.bindFileExplorerNemoOps === 'function') {
+            window.bindFileExplorerNemoOps();
+        }
+        if (typeof window.bindFileExplorerProperties === 'function') {
+            window.bindFileExplorerProperties();
+        }
         if (typeof window.bindFileExplorerContextMenu === 'function') {
             window.bindFileExplorerContextMenu(container);
         }
@@ -547,9 +698,21 @@ const SLOT_INIT_HANDLERS = {
             { fn: typeof initMintFirefoxBrowser === 'function' ? initMintFirefoxBrowser : null }
         ]);
     },
-    themes: () => {
+    themes: (container) => {
         if (typeof initCinnamonSettingsApp === 'function' && document.getElementById('cinnamonSettingsApp')) {
             initCinnamonSettingsApp();
+        } else if (typeof initKdeSettingsApp === 'function' && (
+            (container && container.querySelector('[data-kde-settings-root]'))
+            || document.querySelector('[data-kde-settings-root]')
+            || document.getElementById('kdeSystemSettingsShell')
+            || document.getElementById('kdeSystemSettingsApp')
+        )) {
+            if (typeof window.CapsuleKdeSystemSettings === 'object'
+                && typeof window.CapsuleKdeSystemSettings.wire === 'function') {
+                window.CapsuleKdeSystemSettings.wire(container);
+            } else {
+                initKdeSettingsApp(container);
+            }
         } else if (typeof initThemesApp === 'function') {
             initThemesApp();
         }
@@ -605,6 +768,12 @@ const SLOT_INIT_HANDLERS = {
         ]);
     },
     lecteur_multimedia: () => {
+        if (document.getElementById('rhythmboxApp')) {
+            if (typeof initRhythmboxApp === 'function') {
+                initRhythmboxApp();
+            }
+            return;
+        }
         if (typeof initCelluloidApp === 'function') {
             initCelluloidApp();
         }
@@ -638,6 +807,21 @@ const SLOT_INIT_HANDLERS = {
             initClocksApp();
         }
     },
+    snapshot: () => {
+        if (typeof initSnapshotApp === 'function') {
+            initSnapshotApp();
+        }
+    },
+    characters: () => {
+        if (typeof initCharactersApp === 'function') {
+            initCharactersApp();
+        }
+    },
+    tour: () => {
+        if (typeof initTourApp === 'function') {
+            initTourApp();
+        }
+    },
     calendar: () => {
         if (typeof initCalendarApp === 'function') {
             initCalendarApp();
@@ -646,6 +830,16 @@ const SLOT_INIT_HANDLERS = {
     screenshot: () => {
         if (typeof initScreenshotApp === 'function') {
             initScreenshotApp();
+        }
+    },
+    spectacle: () => {
+        if (typeof initSpectacleKdeNeonApp === 'function') {
+            initSpectacleKdeNeonApp();
+        }
+    },
+    kinfocenter: () => {
+        if (typeof initKinfocenterKdeNeonApp === 'function') {
+            initKinfocenterKdeNeonApp();
         }
     },
     drawing: () => {
@@ -829,6 +1023,8 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
         window.ensureWindowChromeAfterSlotInject(motionless, slotId);
     }
 
+    motionless.dataset.capsuleSlotLoaded = 'true';
+
     if (typeof document !== 'undefined') {
         document.dispatchEvent(new CustomEvent('capsule:slot-injected', {
             detail: { container: motionless, slotId: slotId, templateId: templateId },
@@ -844,6 +1040,78 @@ const loadMergedStrings = () => {
     return Promise.resolve(defaults);
 };
 
+const buildSlotLoadTask = (div) => {
+    const slotId = div.getAttribute('data-link');
+    const templateId = resolveTemplateId(slotId);
+    const skinId = resolveSkinId(slotId, templateId);
+    const appsBase = getAppsBase();
+    const skinBase = getSkinBase();
+    const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
+    const cssSkinFile = !skipDynamicSkin && skinBase
+        ? `${skinBase}/style/apps/${skinId}.skin.css`
+        : null;
+    const cssSkinFallbackFile = !skipDynamicSkin && skinBase
+        ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
+        : null;
+
+    return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
+        .then(({ html, cssBase, cssSkin }) => {
+            injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
+        })
+        .catch((error) => {
+            console.error('Erreur lors du chargement des fichiers:', error);
+            div.innerHTML = '<section style="padding:12px;font-family:sans-serif;">Impossible de charger ce module. Vérifiez que les fichiers de l’application sont présents ou régénérez capsule-app-embed.js (voir README).</section>';
+            div.dataset.capsuleSlotLoaded = 'error';
+        });
+};
+
+const ensureSlotLoaded = (slotId) => {
+    if (!slotId || isSlotLoaded(slotId)) {
+        return Promise.resolve();
+    }
+    const pending = slotLoadPromises.get(slotId);
+    if (pending) {
+        return pending;
+    }
+    const div = slotElements.get(slotId);
+    if (!div) {
+        return Promise.resolve();
+    }
+    const loadPromise = buildSlotLoadTask(div);
+    slotLoadPromises.set(slotId, loadPromise);
+    return loadPromise;
+};
+
+const scheduleDeferredSlotLoads = (deferredDivs) => {
+    if (!deferredDivs.length) {
+        if (typeof document !== 'undefined') {
+            document.dispatchEvent(new CustomEvent('capsule:slots-all-ready'));
+        }
+        return;
+    }
+    const batchSize = typeof window !== 'undefined' && typeof window.CAPSULE_SLOT_LOAD_BATCH === 'number'
+        ? Math.max(1, window.CAPSULE_SLOT_LOAD_BATCH)
+        : 4;
+    let index = 0;
+    const pump = () => {
+        if (index >= deferredDivs.length) {
+            if (typeof document !== 'undefined') {
+                document.dispatchEvent(new CustomEvent('capsule:slots-all-ready'));
+            }
+            return;
+        }
+        const batch = deferredDivs.slice(index, index + batchSize);
+        index += batchSize;
+        Promise.all(batch.map(buildSlotLoadTask)).then(() => {
+            const schedule = typeof requestIdleCallback === 'function'
+                ? (fn) => requestIdleCallback(fn, { timeout: 2000 })
+                : (fn) => setTimeout(fn, 32);
+            schedule(pump);
+        });
+    };
+    pump();
+};
+
 const startCapsuleContentLoad = () => {
     loadMergedStrings()
         .then((merged) => {
@@ -854,36 +1122,33 @@ const startCapsuleContentLoad = () => {
                     : {};
             }
 
-            const slotLoads = Array.from(divs).map((div) => {
-                const slotId = div.getAttribute('data-link');
-                const templateId = resolveTemplateId(slotId);
-                const skinId = resolveSkinId(slotId, templateId);
-                const appsBase = getAppsBase();
-                const skinBase = getSkinBase();
-                const skipDynamicSkin = shouldSkipDynamicSkinCss(slotId);
-                const cssSkinFile = !skipDynamicSkin && skinBase
-                    ? `${skinBase}/style/apps/${skinId}.skin.css`
-                    : null;
-                const cssSkinFallbackFile = !skipDynamicSkin && skinBase
-                    ? `${skinBase}/style/apps/${resolveExplorerSkinFallbackId(templateId)}.skin.css`
-                    : null;
+            if (shouldUseTieredSlotLoad()) {
+                const priority = resolveSlotLoadPriority();
+                const prioritySet = new Set(priority);
+                const eagerDivs = priority
+                    .map((slotId) => slotElements.get(slotId))
+                    .filter(Boolean);
+                const deferredDivs = Array.from(divs).filter((div) => {
+                    const slotId = div.getAttribute('data-link');
+                    return slotId && !prioritySet.has(slotId);
+                });
 
-                return loadSlotAssets(slotId, templateId, skinId, appsBase, skinBase, cssSkinFile, cssSkinFallbackFile)
-                    .then(({ html, cssBase, cssSkin }) => {
-                        injectSlot(div, slotId, templateId, html, cssBase, cssSkin);
-                    })
-                    .catch((error) => {
-                        console.error('Erreur lors du chargement des fichiers:', error);
-                        div.innerHTML = '<section style="padding:12px;font-family:sans-serif;">Impossible de charger ce module. Vérifiez que les fichiers de l’application sont présents ou régénérez capsule-app-embed.js (voir README).</section>';
-                    });
-            });
+                Promise.all(eagerDivs.map(buildSlotLoadTask)).then(() => {
+                    if (typeof window !== 'undefined') {
+                        window.CAPSULE_SLOT_LOAD_PRIORITY_READY = true;
+                    }
+                    if (typeof document !== 'undefined') {
+                        document.dispatchEvent(new CustomEvent('capsule:slots-priority-ready'));
+                    }
+                    bootCapsuleWindowContext();
+                    scheduleDeferredSlotLoads(deferredDivs);
+                });
+                return;
+            }
 
-            Promise.all(slotLoads).then(() => {
-                if (typeof window.CapsuleLinuxWindowContext !== 'undefined'
-                    && typeof window.CapsuleLinuxWindowContext.boot === 'function') {
-                    window.CapsuleLinuxWindowContext.boot();
-                }
-            });
+            const slotLoads = Array.from(divs).map(buildSlotLoadTask);
+
+            Promise.all(slotLoads).then(bootCapsuleWindowContext);
         })
         .catch((err) => {
             console.error('CapsuleOS: échec fusion des chaînes', err);
@@ -917,6 +1182,10 @@ const reloadCapsuleSlot = (container, slotId) => {
 
 if (typeof window !== 'undefined') {
     window.reloadCapsuleSlot = reloadCapsuleSlot;
+    window.CapsuleSlotLoader = {
+        ensureSlotLoaded,
+        isSlotLoaded,
+    };
 }
 
 const bootCapsuleContentLoad = () => {
@@ -938,3 +1207,33 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
 } else {
     setTimeout(bootCapsuleContentLoad, 0);
 }
+
+(function ensureSeLayerBusScripts(global) {
+    if (typeof global.document === 'undefined') {
+        return;
+    }
+    const queue = [
+        'se-toolkit-guards.js',
+        'se-a11y-bus.js',
+        'se-shell-bus.js',
+        'se-wm-bus.js'
+    ];
+    const scripts = global.document.getElementsByTagName('script');
+    const hasMarker = (marker) => {
+        for (let i = 0; i < scripts.length; i += 1) {
+            if (scripts[i].src && scripts[i].src.indexOf(marker) >= 0) {
+                return true;
+            }
+        }
+        return false;
+    };
+    queue.forEach((marker) => {
+        if (hasMarker(marker)) {
+            return;
+        }
+        const tag = global.document.createElement('script');
+        tag.src = `../../../usr/lib/capsuleos/shells/linux/${marker}`;
+        tag.async = false;
+        global.document.head.appendChild(tag);
+    });
+}(typeof window !== 'undefined' ? window : globalThis));

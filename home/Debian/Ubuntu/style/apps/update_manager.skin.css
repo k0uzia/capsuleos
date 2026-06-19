@@ -14,7 +14,7 @@ body#ubuntu {
     --gnome-software-sidebar-w: 13.75rem;
 }
 
-html[data-theme="light"]:has(#ubuntu) {
+html[data-theme="light"]:has(#ubuntu) body#ubuntu {
     --gnome-software-bg: #fafafa;
     --gnome-software-sidebar-bg: #f3f3f5;
     --gnome-software-surface: #ffffff;

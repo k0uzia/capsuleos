@@ -39,6 +39,7 @@ const vendorFromId = (id) => {
     'linux-ubuntu': 'ubuntu',
     'linux-alma': 'alma',
     'linux-mint': 'mint',
+    'linux-popos': 'popos',
   };
   return map[id] || id.replace(/^linux-/, '');
 };
@@ -84,6 +85,15 @@ const main = () => {
     opts,
   )) {
     process.exit(1);
+  }
+
+  if (opts.id === 'linux-mint') {
+    run(
+      'Catalogue fonds Mint',
+      'node',
+      [path.join(ROOT, 'usr/lib/capsuleos/tools/lab/generate-mint-wallpaper-catalog.mjs'), '--write'],
+      opts,
+    );
   }
 
   if (!opts.skipInventory) {

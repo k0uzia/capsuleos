@@ -13,6 +13,7 @@
 | Mesure parité JSON | [procedure-controle-distributions-reelles.md](procedure-controle-distributions-reelles.md) |
 | Assets VM obligatoires | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) |
 | **Playbook Paramètres GNOME** | [procedure-creation-playbook-gnome-settings.md](procedure-creation-playbook-gnome-settings.md) (gates assets §0, gsettings, enquête §10) |
+| **Scénarios pédagogiques apps** | [procedure-lab-linux-gnome-scenarios.md](procedure-lab-linux-gnome-scenarios.md) · [procedure-playbook-gnome-apps-overview.md](procedure-playbook-gnome-apps-overview.md) |
 
 ---
 

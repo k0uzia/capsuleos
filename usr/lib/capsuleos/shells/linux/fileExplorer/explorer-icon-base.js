@@ -153,7 +153,9 @@
         return CINNAMON_BASE;
     }
 
-    function remapLeaf(leaf, context) {
+    function remapLeaf(rawLeaf, context) {
+        // Catalogue Cinnamon en PNG Mint-Y (vérité VM) — normaliser vers .svg pour le mapping Adwaita.
+        const leaf = String(rawLeaf || '').replace(/\.png$/, '.svg');
         if (ADWAITA_LEAF_MAP[leaf]) {
             return ADWAITA_LEAF_MAP[leaf];
         }
@@ -201,9 +203,14 @@
         if (!path || typeof path !== 'string') {
             return path;
         }
-        return resolveAssetUrl(path
+        let mapped = path
             .replace(`${CINNAMON_BASE}/`, `${KDE_BASE}/`)
-            .replace('./assets/images/toolkits/cinnamon/', './assets/images/toolkits/kde/'));
+            .replace('./assets/images/toolkits/cinnamon/', './assets/images/toolkits/kde/');
+        // Catalogue Cinnamon en PNG Mint-Y — le pack KDE reste en SVG.
+        if (mapped.indexOf(`${KDE_BASE}/`) === 0) {
+            mapped = mapped.replace(/\.png$/, '.svg');
+        }
+        return resolveAssetUrl(mapped);
     }
 
     function remapPath(path) {

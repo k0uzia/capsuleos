@@ -32,7 +32,9 @@
       "level": "toolkit",
       "kernelId": "linux",
       "toolkitId": "kde",
-      "chromeContract": "kde"
+      "chromeContract": "kde",
+      "behaviorsModule": "usr/lib/capsuleos/shells/linux/plasma-panel-mode.js",
+      "trayModule": "usr/lib/capsuleos/shells/linux/tray-popover-kde.js"
     },
     {
       "id": "toolkit.cosmic",
@@ -184,7 +186,9 @@
     "level": "toolkit",
     "kernelId": "linux",
     "toolkitId": "kde",
-    "chromeContract": "kde"
+    "chromeContract": "kde",
+    "behaviorsModule": "usr/lib/capsuleos/shells/linux/plasma-panel-mode.js",
+    "trayModule": "usr/lib/capsuleos/shells/linux/tray-popover-kde.js"
   },
   "toolkit.cosmic": {
     "id": "toolkit.cosmic",
@@ -314,111 +318,86 @@
 };
     const BY_TEMPLATE = {
   "nemo": {
-    "id": "explorer.nemo.cinnamon",
-    "level": "cluster",
-    "kernelId": "linux",
-    "toolkitId": "cinnamon",
-    "parentId": "toolkit.cinnamon",
-    "slotId": "nemo",
-    "templateId": "nemo",
+    "explorersBase": true,
     "paths": {
-      "html": "usr/share/capsuleos/linux/explorers/nemo/shell.html",
+      "html": "nemo/shell.html",
       "css": [
-        "usr/share/capsuleos/linux/explorers/nemo/base.css"
+        "nemo/base.css"
       ]
     }
   },
   "nemo-gnome": {
-    "id": "explorer.nemo.gnome",
-    "level": "cluster",
-    "kernelId": "linux",
-    "toolkitId": "gnome",
-    "parentId": "toolkit.gnome",
-    "slotId": "nemo",
-    "templateId": "nemo-gnome",
+    "explorersBase": true,
     "paths": {
-      "html": "usr/share/capsuleos/linux/explorers/nautilus/shell-gnome.html",
+      "html": "nautilus/shell-gnome.html",
       "css": [
-        "usr/share/capsuleos/linux/explorers/nemo/base.css",
-        "usr/share/capsuleos/linux/explorers/nautilus/header-gnome.css"
+        "nemo/base.css",
+        "nautilus/header-gnome.css"
       ]
     }
   },
   "nautilus": {
-    "id": "explorer.nautilus.gnome",
-    "level": "cluster",
-    "kernelId": "linux",
-    "toolkitId": "gnome",
-    "parentId": "toolkit.gnome",
-    "slotId": "nemo",
-    "templateId": "nautilus",
+    "explorersBase": true,
     "paths": {
-      "html": "usr/share/capsuleos/linux/explorers/nautilus/shell-gnome.html",
+      "html": "nautilus/shell-gnome.html",
       "css": [
-        "usr/share/capsuleos/linux/explorers/nemo/base.css",
-        "usr/share/capsuleos/linux/explorers/nautilus/header-gnome.css"
+        "nemo/base.css",
+        "nautilus/header-gnome.css"
       ]
     }
   },
   "dolphin": {
-    "id": "explorer.dolphin.kde",
-    "level": "cluster",
-    "kernelId": "linux",
-    "toolkitId": "kde",
-    "parentId": "toolkit.kde",
-    "slotId": "nemo",
-    "templateId": "dolphin",
+    "explorersBase": true,
     "paths": {
-      "html": "usr/share/capsuleos/linux/explorers/dolphin/shell.html",
+      "html": "dolphin/shell.html",
       "css": [
-        "usr/share/capsuleos/linux/explorers/nemo/base.css",
-        "usr/share/capsuleos/linux/explorers/dolphin/base.css"
+        "nemo/base.css",
+        "dolphin/base.css"
       ]
     }
   },
   "nemo-cosmic": {
-    "id": "explorer.nemo.cosmic",
-    "level": "cluster",
-    "kernelId": "linux",
-    "toolkitId": "cosmic",
-    "parentId": "toolkit.cosmic",
-    "slotId": "nemo",
-    "templateId": "nemo-cosmic",
+    "explorersBase": true,
     "paths": {
-      "html": "usr/share/capsuleos/linux/explorers/nautilus/shell-cosmic.html",
+      "html": "nautilus/shell-cosmic.html",
       "css": [
-        "usr/share/capsuleos/linux/explorers/nemo/base.css"
+        "nemo/base.css"
       ]
     }
   },
   "firefox": {
-    "id": "cluster.app.firefox",
-    "level": "cluster",
-    "kernelId": "linux",
-    "slotId": "firefox",
-    "templateId": "firefox",
+    "explorersBase": false,
     "paths": {
-      "html": "usr/share/capsuleos/linux/apps/firefox.html",
+      "html": "firefox.html",
       "css": [
-        "usr/share/capsuleos/linux/apps/style/firefox.base.css"
+        "style/firefox.base.css"
       ]
     }
   },
   "terminal": {
-    "id": "cluster.app.terminal",
-    "level": "cluster",
-    "kernelId": "linux",
-    "slotId": "terminal",
-    "templateId": "terminal",
+    "explorersBase": false,
     "paths": {
-      "html": "usr/share/capsuleos/linux/apps/terminal.html",
+      "html": "terminal.html",
       "css": [
-        "usr/share/capsuleos/linux/apps/style/terminal.base.css",
-        "usr/share/capsuleos/linux/apps/style/terminal-ptyxis.base.css"
+        "style/terminal.base.css",
+        "style/terminal-ptyxis.base.css"
+      ]
+    }
+  },
+  "nautilus-cosmic": {
+    "explorersBase": true,
+    "paths": {
+      "html": "nautilus/shell-cosmic.html",
+      "css": [
+        "nemo/base.css"
       ]
     }
   }
 };
+
+    function explorersBaseFromApps(appsBase) {
+        return String(appsBase).replace(/\/apps\/?$/, '/explorers/');
+    }
 
     global.CapsuleClusterRegistry = {
         version: REGISTRY.version,
@@ -426,22 +405,24 @@
         byTemplateId(templateId) { return BY_TEMPLATE[templateId] || null; },
         resolveHtmlPath(templateId, appsBase) {
             const cluster = BY_TEMPLATE[templateId];
-            if (!cluster || !cluster.paths || !cluster.paths.html) {
+            if (!cluster || !cluster.paths) {
                 return null;
             }
-            const html = cluster.paths.html;
-            if (html.startsWith('usr/share/')) {
-                const rel = appsBase.replace(/\/apps$/, '').replace(/\/linux\/apps$/, '');
-                if (appsBase.includes('linux/apps')) {
-                    return html.replace('usr/share/capsuleos/linux/', appsBase.replace(/\/apps$/, '/') );
-                }
-                return html;
+            if (cluster.explorersBase) {
+                return explorersBaseFromApps(appsBase) + cluster.paths.html;
             }
-            return html;
+            return `${appsBase}/${cluster.paths.html}`;
         },
-        resolveCssStack(templateId) {
+        resolveCssStack(templateId, appsBase) {
             const cluster = BY_TEMPLATE[templateId];
-            return cluster && cluster.paths && cluster.paths.css ? cluster.paths.css : [];
+            if (!cluster || !cluster.paths || !cluster.paths.css) {
+                return [];
+            }
+            const base = cluster.explorersBase ? explorersBaseFromApps(appsBase) : appsBase;
+            return cluster.paths.css.map((c) => `${base}/${c}`);
+        },
+        isClusterTemplate(templateId) {
+            return !!BY_TEMPLATE[templateId];
         },
         all() { return REGISTRY.clusters.slice(); }
     };

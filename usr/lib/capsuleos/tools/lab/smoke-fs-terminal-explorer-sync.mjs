@@ -33,7 +33,15 @@ try {
     }, stamp);
 
     await page.evaluate(() => window.openWindowByDataLink('nemo'));
-    await page.waitForSelector('div[data-link="nemo"] .nautilus-app--n47', { timeout: 15000 });
+    await page.waitForFunction(() => {
+        const win = document.querySelector('div[data-link="nemo"]');
+        if (!win || win.style.display === 'none') {
+            return false;
+        }
+        return !!(
+            win.querySelector('.nemo-app, .dolphin-app, .nautilus-app, #gestionnaire, #fileExplorerApp')
+        );
+    }, null, { timeout: 15000 });
     await page.waitForTimeout(800);
 
     const docsReady = await page.evaluate(async () => {

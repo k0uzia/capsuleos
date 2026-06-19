@@ -118,8 +118,12 @@
         return 'Dossier';
     }
 
+    const usesNemoProperties = () => (
+        typeof global.isNemoTemplate === 'function' && global.isNemoTemplate()
+    );
+
     function bindFileExplorerProperties() {
-        if (!usesAdvancedExplorerOps()) {
+        if (!usesAdvancedExplorerOps() && !usesNemoProperties()) {
             return;
         }
         const root = getNemoRoot();

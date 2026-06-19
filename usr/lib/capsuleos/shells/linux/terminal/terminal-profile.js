@@ -42,11 +42,13 @@
         }
         const identityByBody = {
             rocky: { user: 'capsule', host: 'rocky' },
-            fedora: { user: 'fed', host: 'fedora' },
+            fedora: { user: 'capsule', host: 'fedora' },
             alma: { user: 'capsule', host: 'alma' },
             ubuntu: { user: 'capsule', host: 'ubuntu' },
+            anduinos: { user: 'capsule', host: 'anduinos' },
             mint: { user: 'capsule', host: 'mint' },
             'mx-kde': { user: 'mx-linux', host: 'mx' },
+            'kde-neon': { user: 'capsule', host: 'capsule-kvm' },
             opensuse: { user: 'capsule', host: 'opensuse' },
         };
         const identity = identityByBody[bodyId];
@@ -75,9 +77,19 @@
         commands: ['man', 'ls', 'pwd', 'echo', 'clear', 'history', 'whoami', 'uname']
     };
 
-    const vendorHint = typeof window !== 'undefined' && window.CAPSULE_TERMINAL_PROFILE
-        ? String(window.CAPSULE_TERMINAL_PROFILE).toLowerCase()
-        : bodyId;
+    const FAMILY_PROFILE_HINTS = new Set(['debian', 'redhat', 'suse', 'arch', 'linux', 'default']);
+
+    const resolveVendorHint = () => {
+        const profileHint = typeof window !== 'undefined' && window.CAPSULE_TERMINAL_PROFILE
+            ? String(window.CAPSULE_TERMINAL_PROFILE).toLowerCase()
+            : '';
+        if (profileHint && !FAMILY_PROFILE_HINTS.has(profileHint)) {
+            return profileHint;
+        }
+        return bodyId || profileHint;
+    };
+
+    const vendorHint = resolveVendorHint();
     const builder = typeof window !== 'undefined' ? window.CapsuleTerminalProfileBuilder : null;
     const vendorCommands = builder && typeof builder.resolveVendorExtensions === 'function'
         ? builder.resolveVendorExtensions(vendorHint)

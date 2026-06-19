@@ -56,6 +56,7 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
@@ -122,6 +123,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "anduinos",
+      "CAPSULE_MAIN_MENU_TEMPLATE": "mainMenu-gnome",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
@@ -168,7 +170,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "debiankde",
     "tier": "P2",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -210,8 +212,59 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       }
+    }
+  },
+  "elementary": {
+    "id": "linux-elementary",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
+    "vendor": "elementary",
+    "displayName": "elementary OS",
+    "bodyId": "elementary",
+    "embedKey": "elementary",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-ubuntu",
+    "clusterIds": [
+      "toolkit.pantheon"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:pantheon",
+    "paths": {
+      "facade": "OS/linux/families/debian/elementary/index.html",
+      "skin": "home/Debian/Elementary/index.html"
+    },
+    "toolkit": {
+      "id": "pantheon",
+      "shell": "pantheon"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/pantheon",
+      "vendorPack": "vendors/elementary",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "elementary",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/elementary/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
     }
   },
   "fedora": {
@@ -291,6 +344,53 @@ window.CAPSULE_SKIN_PROFILES = {
       }
     }
   },
+  "kali": {
+    "id": "linux-kali",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "kali",
+    "vendor": "kali",
+    "displayName": "Kali Linux",
+    "bodyId": "kali",
+    "embedKey": "kali",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "toolkit.xfce"
+    ],
+    "extends": "kernel:linux/branch:kali/toolkit:xfce",
+    "paths": {
+      "facade": "OS/linux/families/debian/kali/index.html",
+      "skin": "home/Debian/Kali/index.html"
+    },
+    "toolkit": {
+      "id": "xfce",
+      "shell": "xfce"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/xfce",
+      "vendorPack": "vendors/kali",
+      "iconPacks": [
+        "icons/cinnamon"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Thunar",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EMBED_SKIN_KEY": "kali",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/kali/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
+    }
+  },
   "kde-neon": {
     "id": "linux-kde-neon",
     "version": 2,
@@ -303,7 +403,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "kde-neon",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -346,7 +446,13 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -366,6 +472,53 @@ window.CAPSULE_SKIN_PROFILES = {
           "subtractFooter": false
         }
       }
+    }
+  },
+  "lxqt": {
+    "id": "linux-lxqt",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
+    "vendor": "generic",
+    "displayName": "LXQt (générique)",
+    "bodyId": "lxqt",
+    "embedKey": "lxqt",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "toolkit.lxqt"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:lxqt",
+    "paths": {
+      "facade": "OS/linux/families/debian/lxqt/index.html",
+      "skin": "home/Debian/LXQt/index.html"
+    },
+    "toolkit": {
+      "id": "lxqt",
+      "shell": "lxqt"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/lxqt",
+      "vendorPack": "vendors/generic",
+      "iconPacks": [
+        "icons/cinnamon"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "PCManFM-Qt",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EMBED_SKIN_KEY": "lxqt",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/lxqt/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
     }
   },
   "mint": {
@@ -420,6 +573,24 @@ window.CAPSULE_SKIN_PROFILES = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_SLOT_LOAD_TIERED": true,
+      "CAPSULE_SLOT_LOAD_BATCH": 4,
+      "CAPSULE_SLOT_LOAD_PRIORITY": [
+        "mainMenu",
+        "nemo",
+        "firefox",
+        "terminal",
+        "themes",
+        "update_manager",
+        "mintinstall",
+        "profile",
+        "text_editor",
+        "calculator",
+        "visionneur_images",
+        "visionneur_pdf",
+        "lecteur_multimedia",
+        "file_roller"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
       },
@@ -455,7 +626,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "mxkde",
     "tier": "P1",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -500,7 +671,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_TERMINAL_USER": "mx-linux",
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       }
     }
   },
@@ -516,7 +691,7 @@ window.CAPSULE_SKIN_PROFILES = {
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -558,7 +733,11 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -630,6 +809,11 @@ window.CAPSULE_SKIN_PROFILES = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_cosmic.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_cosmic.html",
+        "lecteur_multimedia": "../../../usr/share/capsuleos/linux/apps/rhythmbox.html"
       }
     }
   },
@@ -765,7 +949,7 @@ window.CAPSULE_SKIN_PROFILES = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -841,6 +1025,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "app-headerbar-passthrough"
       },
       "CAPSULE_EXPLORER_SKIN_KEY": "nautilus",
+      "CAPSULE_CHECKLIST_STORAGE_KEY": "alma-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
         "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
@@ -907,6 +1092,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
       "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
       "CAPSULE_EMBED_SKIN_KEY": "anduinos",
+      "CAPSULE_MAIN_MENU_TEMPLATE": "mainMenu-gnome",
       "CAPSULE_SITE_HOME": "../../../index.html",
       "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/anduinos/index.html",
       "CAPSULE_TERMINAL_OS_FAMILY": "linux",
@@ -953,7 +1139,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "debiankde",
     "tier": "P2",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -995,8 +1181,59 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       }
+    }
+  },
+  "linux-elementary": {
+    "id": "linux-elementary",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "ubuntu",
+    "vendor": "elementary",
+    "displayName": "elementary OS",
+    "bodyId": "elementary",
+    "embedKey": "elementary",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-ubuntu",
+    "clusterIds": [
+      "toolkit.pantheon"
+    ],
+    "extends": "kernel:linux/branch:ubuntu/toolkit:pantheon",
+    "paths": {
+      "facade": "OS/linux/families/debian/elementary/index.html",
+      "skin": "home/Debian/Elementary/index.html"
+    },
+    "toolkit": {
+      "id": "pantheon",
+      "shell": "pantheon"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/pantheon",
+      "vendorPack": "vendors/elementary",
+      "iconPacks": [
+        "icons/gnome"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Fichiers",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo-gnome",
+      "CAPSULE_EMBED_SKIN_KEY": "elementary",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/elementary/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
     }
   },
   "linux-fedora": {
@@ -1076,6 +1313,53 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       }
     }
   },
+  "linux-kali": {
+    "id": "linux-kali",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "kali",
+    "vendor": "kali",
+    "displayName": "Kali Linux",
+    "bodyId": "kali",
+    "embedKey": "kali",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-rocky",
+    "clusterIds": [
+      "toolkit.xfce"
+    ],
+    "extends": "kernel:linux/branch:kali/toolkit:xfce",
+    "paths": {
+      "facade": "OS/linux/families/debian/kali/index.html",
+      "skin": "home/Debian/Kali/index.html"
+    },
+    "toolkit": {
+      "id": "xfce",
+      "shell": "xfce"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/xfce",
+      "vendorPack": "vendors/kali",
+      "iconPacks": [
+        "icons/cinnamon"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "Thunar",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EMBED_SKIN_KEY": "kali",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/kali/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
+    }
+  },
   "linux-kde-neon": {
     "id": "linux-kde-neon",
     "version": 2,
@@ -1088,7 +1372,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "kde-neon",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1131,7 +1415,13 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_CHECKLIST_STORAGE_KEY": "kde-neon-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/okular_kde_neon.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/gwenview_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1151,6 +1441,53 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
           "subtractFooter": false
         }
       }
+    }
+  },
+  "linux-lxqt": {
+    "id": "linux-lxqt",
+    "version": 2,
+    "family": "linux",
+    "kernelId": "linux",
+    "branchId": "debian",
+    "vendor": "generic",
+    "displayName": "LXQt (générique)",
+    "bodyId": "lxqt",
+    "embedKey": "lxqt",
+    "tier": "P4",
+    "status": "planned",
+    "fidelityLevel": 0,
+    "upstreamId": "linux-debian-kde",
+    "clusterIds": [
+      "toolkit.lxqt"
+    ],
+    "extends": "kernel:linux/branch:debian/toolkit:lxqt",
+    "paths": {
+      "facade": "OS/linux/families/debian/lxqt/index.html",
+      "skin": "home/Debian/LXQt/index.html"
+    },
+    "toolkit": {
+      "id": "lxqt",
+      "shell": "lxqt"
+    },
+    "assets": {
+      "assetsBase": "../../../usr/share/capsuleos/assets",
+      "toolkitPack": "toolkits/lxqt",
+      "vendorPack": "vendors/generic",
+      "iconPacks": [
+        "icons/cinnamon"
+      ]
+    },
+    "capsuleGlobals": {
+      "CAPSULE_APPS_BASE": "../../../usr/share/capsuleos/linux/apps",
+      "CAPSULE_SKIN_BASE": ".",
+      "CAPSULE_STRINGS_URL": "./content/strings.json",
+      "CAPSULE_EXPLORER_DISPLAY_NAME": "PCManFM-Qt",
+      "CAPSULE_EXPLORER_TEMPLATE": "nemo",
+      "CAPSULE_EMBED_SKIN_KEY": "lxqt",
+      "CAPSULE_SITE_HOME": "../../../index.html",
+      "CAPSULE_LINUX_HUB": "../../../OS/linux/families/debian/lxqt/index.html",
+      "CAPSULE_TERMINAL_OS_FAMILY": "linux",
+      "CAPSULE_TERMINAL_PROFILE": "debian"
     }
   },
   "linux-mint": {
@@ -1205,6 +1542,24 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "dragMode": "unified-titlebar"
       },
       "CAPSULE_CHECKLIST_STORAGE_KEY": "mint-checklist",
+      "CAPSULE_SLOT_LOAD_TIERED": true,
+      "CAPSULE_SLOT_LOAD_BATCH": 4,
+      "CAPSULE_SLOT_LOAD_PRIORITY": [
+        "mainMenu",
+        "nemo",
+        "firefox",
+        "terminal",
+        "themes",
+        "update_manager",
+        "mintinstall",
+        "profile",
+        "text_editor",
+        "calculator",
+        "visionneur_images",
+        "visionneur_pdf",
+        "lecteur_multimedia",
+        "file_roller"
+      ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
       },
@@ -1240,7 +1595,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "mxkde",
     "tier": "P1",
     "status": "planned",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": "linux-debian-kde",
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1285,7 +1640,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_TERMINAL_USER": "mx-linux",
       "CAPSULE_TERMINAL_HOST": "mx",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       }
     }
   },
@@ -1301,7 +1660,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
     "embedKey": "opensuse",
     "tier": "P1",
     "status": "active",
-    "fidelityLevel": 3,
+    "fidelityLevel": 4,
     "upstreamId": null,
     "clusterIds": [
       "explorer.dolphin.kde",
@@ -1343,7 +1702,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_EXPLORER_APP_ID": "dolphin",
       "CAPSULE_EXPLORER_SKIN_KEY": "dolphin",
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_kde_neon.html",
+        "themes": "../../../usr/share/capsuleos/linux/apps/systemsettings_kde_neon.html",
+        "spectacle": "../../../usr/share/capsuleos/linux/apps/spectacle_kde_neon.html",
+        "kinfocenter": "../../../usr/share/capsuleos/linux/apps/kinfocenter_kde_neon.html",
+        "kdeconnect": "../../../usr/share/capsuleos/linux/apps/kdeconnect_kde_neon.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1415,6 +1778,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_cosmic.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_cosmic.html",
+        "lecteur_multimedia": "../../../usr/share/capsuleos/linux/apps/rhythmbox.html"
       }
     }
   },
@@ -1550,7 +1918,7 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
       "CAPSULE_CHECKLIST_STORAGE_KEY": "ubuntu-checklist",
       "CAPSULE_TEMPLATE_OVERRIDES": {
         "themes": "../../../usr/share/capsuleos/linux/apps/themes_gnome.html",
-        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_ubuntu.html"
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_gnome.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

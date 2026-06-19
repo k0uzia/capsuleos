@@ -846,3 +846,27 @@ div[data-link="nemo"] #nemoMainContainer > #voletnemo[data-sidebar-view="tree"] 
 a.nemo-app__item--dragging {
     opacity: 0.55;
 }
+
+/* Menu contextuel Nemo dynamique — overlay viewport, hors flux flex fenêtre */
+div[data-link="nemo"] > nav.nemo-app__context-menu,
+nav#nemo-file-context-menu.nemo-app__context-menu {
+    position: fixed !important;
+    z-index: 12000;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    width: max-content;
+    min-width: 11rem;
+    max-width: min(22rem, calc(100vw - 16px));
+    margin: 0;
+    box-sizing: border-box;
+    pointer-events: auto;
+    font-family: var(--font-ui, Cantarell, Ubuntu, system-ui, sans-serif);
+    font-size: calc(var(--head) / 2.8);
+    line-height: 1.25;
+}
+
+div[data-link="nemo"] > nav.nemo-app__context-menu[hidden],
+nav#nemo-file-context-menu.nemo-app__context-menu[hidden] {
+    display: none !important;
+}

@@ -16,7 +16,7 @@ import {
 } from './manifest-playbook-lib.mjs';
 import { writeIconPackRefs, ICON_PACK_CATEGORIES } from './manifest-icon-pack-refs-lib.mjs';
 import { skinIndexPath } from './apps-catalog-lib.mjs';
-import { ROOT } from './replication-chain-lib.mjs';
+import { ROOT, loadRegistryEntry } from './replication-chain-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ASSET_PREFIX = '../../../usr/share/capsuleos/assets/';
@@ -88,11 +88,24 @@ const main = () => {
     `  rewrite-ref: ${rewriteItems.length} (apps=${appIcons.length}, wallpaper=${wallpapers.length}, media=${mediaDrift.length})`,
   );
 
-  if (appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) {
+  const entry = loadRegistryEntry(opts.id);
+  const toolkitId = entry.toolkit?.id || entry.toolkit || 'gnome';
+  const shellId = entry.toolkit?.shell || entry.toolkit?.shellId || '';
+  const usesOverviewGrid = toolkitId === 'gnome' && shellId !== 'anduin';
+  const usesAnduinMenu = shellId === 'anduin';
+
+  if ((appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) && usesAnduinMenu) {
+    console.log('→ generate-anduin-menu-data');
+    if (!runScript('generate-anduin-menu-data.mjs', [], opts.write)) {
+      process.exit(1);
+    }
+  } else if ((appIcons.length || playbook.items?.some((i) => i.category === 'app-icon')) && usesOverviewGrid) {
     console.log('→ generate-overview-apps-grid');
     if (!runScript('generate-overview-apps-grid.mjs', ['--id', opts.id], opts.write)) {
       process.exit(1);
     }
+  } else if (appIcons.length) {
+    console.log(`  ⊘ generate-overview-apps-grid — toolkit ${toolkitId}${shellId ? ` shell=${shellId}` : ''} (pas overview GNOME)`);
   }
 
   const wpPatched = patchWallpaperRefs(opts.id, wallpapers, opts.write);

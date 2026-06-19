@@ -1,57 +1,67 @@
 {
-  "generatedAt": "2026-06-06T15:01:26.629427+00:00",
+  "generatedAt": "2026-06-16T14:26:59.512361+00:00",
   "source": "vm-gnome-settings-visual-investigation.sh",
   "registry": "linux-rocky",
   "outputDir": "/tmp/capsuleos-visual-investigation",
   "screenshotTool": true,
-  "screenshotBackend": "host-virsh",
-  "captureStrategy": "host-virsh",
+  "screenshotBackend": "xdg-portal",
+  "captureStrategy": "vm-xdg-portal",
   "snapshotAppInstalled": true,
-  "filter": "P2",
+  "filter": "P0",
   "investigations": [
     {
-      "controlId": "notifications",
-      "label": "Bannières notifications",
+      "controlId": "theme",
+      "label": "Thème clair / sombre",
       "status": "documented",
       "vmToggle": {
-        "before": "true",
-        "after": "false"
+        "before": "default",
+        "after": "prefer-dark"
       },
       "transitionExpected": {
-        "type": "slide-in",
+        "type": "cross-fade",
         "durationMs": 300,
-        "easing": "ease-out"
+        "easing": "ease-out",
+        "notes": "Adwaita : transition courte sur widgets ; fond peut être instantané ou différé."
       },
       "transitionObserved": {
-        "durationMs": 699,
+        "durationMs": 1054,
         "easing": "ease-out",
         "properties": [],
-        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/before.png",
-          "timestamp": "2026-06-06T15:01:31.728Z"
+          "path": "/tmp/capsuleos-visual-investigation/theme/before.png",
+          "timestamp": "2026-06-16T14:26:54.795740+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/during-150ms.png",
+          "path": "/tmp/capsuleos-visual-investigation/theme/during-150ms.png",
           "elapsedMs": 150
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/notifications/after.png",
+          "path": "/tmp/capsuleos-visual-investigation/theme/after.png",
           "elapsedMs": 300
         }
       ],
       "surfaces": [
-        "notification-area",
-        "calendar-popover"
+        "desktop",
+        "top-bar",
+        "overview",
+        "window-chrome",
+        "settings-app"
       ],
       "officialDocCrossCheck": [
         {
-          "title": "org.gnome.desktop.notifications",
+          "title": "GNOME Help — Appearance",
+          "url": "https://help.gnome.org/users/gnome-help/stable/prefs-user.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "interface color-scheme",
           "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
           "matchesObservation": null,
           "delta": null
@@ -61,53 +71,63 @@
         "datasetPresent": null,
         "cssHookPresent": null,
         "visualMatch": "unknown",
-        "parityPriority": "P2",
+        "parityPriority": "P0",
         "gapNotes": null
       }
     },
     {
-      "controlId": "power-dim",
-      "label": "Extinction écran",
+      "controlId": "night-light",
+      "label": "Éclairage nocturne",
       "status": "documented",
       "vmToggle": {
-        "before": "900",
-        "after": "uint32 300"
+        "before": "false",
+        "after": "true"
       },
       "transitionExpected": {
-        "type": "delayed",
-        "durationMs": null,
-        "notes": "Enquête : noter délai VM ; Capsule : dataset seulement."
+        "type": "ease-in-out",
+        "durationMs": 1000,
+        "property": "color-temperature",
+        "notes": "gsd-color anime la température sur ~1 s."
       },
       "transitionObserved": {
-        "durationMs": 546,
+        "durationMs": 1534,
         "easing": null,
-        "properties": [],
-        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
+        "properties": [
+          "color-temperature"
+        ],
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/before.png",
-          "timestamp": "2026-06-06T15:01:42.947Z"
+          "path": "/tmp/capsuleos-visual-investigation/night-light/before.png",
+          "timestamp": "2026-06-16T14:26:56.023591+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/during-250ms.png",
-          "elapsedMs": 250
+          "path": "/tmp/capsuleos-visual-investigation/night-light/during-500ms.png",
+          "elapsedMs": 500
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/power-dim/after.png",
-          "elapsedMs": 500
+          "path": "/tmp/capsuleos-visual-investigation/night-light/after.png",
+          "elapsedMs": 1000
         }
       ],
       "surfaces": [
-        "none-immediate",
-        "power-panel-only"
+        "desktop",
+        "overview",
+        "top-bar-excluded"
       ],
       "officialDocCrossCheck": [
         {
-          "title": "gsd power plugin",
+          "title": "GNOME Help — Night Light",
+          "url": "https://help.gnome.org/users/gnome-help/stable/display-nightlight.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "gsd plugins color",
           "url": "https://gitlab.gnome.org/GNOME/gnome-settings-daemon",
           "matchesObservation": null,
           "delta": null
@@ -117,53 +137,61 @@
         "datasetPresent": null,
         "cssHookPresent": null,
         "visualMatch": "unknown",
-        "parityPriority": "P2",
+        "parityPriority": "P0",
         "gapNotes": null
       }
     },
     {
-      "controlId": "wifi",
-      "label": "Wi-Fi activé",
+      "controlId": "dynamic-workspaces",
+      "label": "Bureaux dynamiques",
       "status": "documented",
       "vmToggle": {
-        "before": "enabled",
-        "after": "enabled"
+        "before": "true",
+        "after": "false"
       },
       "transitionExpected": {
-        "type": "fade",
-        "durationMs": 200
+        "type": "spring",
+        "durationMs": 350,
+        "easing": "ease-out",
+        "notes": "St animation overview workspaces."
       },
       "transitionObserved": {
-        "durationMs": 742,
-        "easing": null,
+        "durationMs": 1076,
+        "easing": "ease-out",
         "properties": [],
-        "notes": "captures host-virsh (Rocky10) — app Snapshot présente sur VM pour usage interactif"
+        "notes": "capture via xdg-portal"
       },
       "vmCaptures": [
         {
           "phase": "before",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/before.png",
-          "timestamp": "2026-06-06T15:01:51.712Z"
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/before.png",
+          "timestamp": "2026-06-16T14:26:57.425245+00:00"
         },
         {
           "phase": "during-transition",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/during-100ms.png",
-          "elapsedMs": 100
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/during-175ms.png",
+          "elapsedMs": 175
         },
         {
           "phase": "after",
-          "path": "root/docs/inventaires/captures/linux-rocky/gnome-settings-visual/wifi/after.png",
-          "elapsedMs": 200
+          "path": "/tmp/capsuleos-visual-investigation/dynamic-workspaces/after.png",
+          "elapsedMs": 350
         }
       ],
       "surfaces": [
-        "settings-wifi-list",
-        "quick-settings-network"
+        "overview-mini-workspaces",
+        "workspace-indicator"
       ],
       "officialDocCrossCheck": [
         {
-          "title": "NetworkManager",
-          "url": "https://networkmanager.dev/docs/",
+          "title": "GNOME Help — Workspaces",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-workspaces.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "org.gnome.mutter dynamic-workspaces",
+          "url": "https://gitlab.gnome.org/GNOME/mutter",
           "matchesObservation": null,
           "delta": null
         }
@@ -172,7 +200,72 @@
         "datasetPresent": null,
         "cssHookPresent": null,
         "visualMatch": "unknown",
-        "parityPriority": "P2",
+        "parityPriority": "P0",
+        "gapNotes": null
+      }
+    },
+    {
+      "controlId": "dnd",
+      "label": "Ne pas déranger",
+      "status": "documented",
+      "vmToggle": {
+        "before": "(false, '')",
+        "after": "toggled"
+      },
+      "transitionExpected": {
+        "type": "ease",
+        "durationMs": 200,
+        "property": "opacity"
+      },
+      "transitionObserved": {
+        "durationMs": 1016,
+        "easing": null,
+        "properties": [
+          "opacity"
+        ],
+        "notes": "Restauration manuelle QS si besoin — pas de clé gsettings VM"
+      },
+      "vmCaptures": [
+        {
+          "phase": "before",
+          "path": "/tmp/capsuleos-visual-investigation/dnd/before.png",
+          "timestamp": "2026-06-16T14:26:58.549988+00:00"
+        },
+        {
+          "phase": "during-transition",
+          "path": "/tmp/capsuleos-visual-investigation/dnd/during-100ms.png",
+          "elapsedMs": 100
+        },
+        {
+          "phase": "after",
+          "path": "/tmp/capsuleos-visual-investigation/dnd/after.png",
+          "elapsedMs": 200
+        }
+      ],
+      "surfaces": [
+        "quick-settings-tile",
+        "calendar-popover",
+        "notification-banners-simulated"
+      ],
+      "officialDocCrossCheck": [
+        {
+          "title": "GNOME Help — Notifications",
+          "url": "https://help.gnome.org/users/gnome-help/stable/shell-notifications.html",
+          "matchesObservation": null,
+          "delta": null
+        },
+        {
+          "title": "Shell DND session",
+          "url": "https://gitlab.gnome.org/GNOME/gnome-shell",
+          "matchesObservation": null,
+          "delta": null
+        }
+      ],
+      "capsuleParity": {
+        "datasetPresent": null,
+        "cssHookPresent": null,
+        "visualMatch": "unknown",
+        "parityPriority": "P0",
         "gapNotes": null
       }
     }

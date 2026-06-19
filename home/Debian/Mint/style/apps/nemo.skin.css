@@ -1,9 +1,16 @@
 /* Mint — Nemo : chrome WM (#windowHeader) + toolbar seule + layout colonne stable. */
 
+/* Vérité VM : interface rendue en Ubuntu (fc-match) — pas system-ui */
+body#mint div[data-link="nemo"],
+body#mint div[data-link="nemo"] button,
+body#mint div[data-link="nemo"] input {
+    font-family: var(--font-ui, 'Ubuntu', 'Noto Sans', sans-serif);
+}
+
 body#mint {
     --nemo-tree-depth: 0;
     /* Mint-Y-Dark-Aqua gtk-3 (VM Nemo 6.6.3) */
-    --nemo-bg-primary: #222226;
+    --nemo-bg-primary: #2e2e33;
     --nemo-header-bg: #222226;
     --nemo-border: #202023;
     --nemo-text-primary: rgba(255, 255, 255, 0.87);
@@ -41,22 +48,75 @@ body#mint {
 }
 
 html[data-theme="light"] body#mint {
+    --nemo-bg-primary: #f6f6f8;
+    --nemo-header-bg: #ececee;
+    --nemo-border: rgba(0, 0, 0, 0.12);
+    --nemo-text-primary: rgba(30, 30, 34, 0.9);
+    --nemo-text-muted: rgba(30, 30, 34, 0.55);
+    --nemo-item-hover-bg: rgba(0, 0, 0, 0.06);
+    --nemo-item-active-bg: rgba(31, 158, 222, 0.14);
+    --nemo-menu-surface-bg: #ffffff;
+    --nemo-toolbar-bg: #f0f0f2;
+    --nemo-toolbar-border: rgba(0, 0, 0, 0.1);
+    --nemo-toolbar-button-hover-bg: rgba(0, 0, 0, 0.06);
+    --nemo-toolbar-button-plain-hover: rgba(0, 0, 0, 0.04);
+    --nemo-pathbar-bg: #ffffff;
+    --nemo-pathbar-border: rgba(0, 0, 0, 0.14);
+    --nemo-pathbar-text: #2e2e33;
+    --nemo-sidebar-bg: #e8e8ec;
+    --nemo-footer-bg: #ececee;
+    --nemo-status-text: rgba(30, 30, 34, 0.72);
+    --nemo-tooltip-bg: #f8f8fa;
+    --nemo-tooltip-text: #1e1e22;
+    --nemo-symbolic-icon-filter: brightness(0);
+    --nemo-toolbar-icon-filter: brightness(0);
     --nemo-sidebar-icon-filter: brightness(0);
+    --nemo-list-row-border: rgba(0, 0, 0, 0.08);
+    --nemo-sidebar-text: var(--texte, #1e1e1e);
 }
 
+/* VM : la barre de menus Fichier/Édition/Affichage/Accès/Signets/Aide est visible (défaut nemo Mint)
+   Géométrie VM : menubar ~22px, texte 13.3px, items serrés depuis le bord gauche */
 body#mint div[data-link="nemo"] #nemoHeaderContainer .menuOutils.nemo-app__menubar {
-    display: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background: var(--nemo-header-bg, #2e2e33);
+    font-size: 13.3px;
+}
+
+body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__menubar .menuHeader {
+    height: 22px;
+    align-items: center;
+}
+
+body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__menubar .menuHeader > li > a {
+    padding: 3px 8px;
+    font-size: 13.3px;
+    line-height: 1.2;
+}
+
+/* Toolbar VM : ~47px de haut, chevrons à gauche, pill pathbar, boutons vue à droite */
+body#mint div[data-link="nemo"] #nemoHeaderContainer .nemo-app__toolbar {
+    height: 47px;
+    min-height: 47px;
+    padding: 0 8px;
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-menu {
-    position: fixed;
+    position: fixed !important;
     z-index: 12000;
-    min-width: 11rem;
-    padding: 0.35rem 0;
+    width: max-content;
+    min-width: calc(var(--head) * 6.5);
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: calc(var(--head) / 10) 0;
     border: 1px solid var(--nemo-border, #202023);
-    border-radius: 0.35rem;
+    border-radius: calc(var(--head) / 10);
     background: var(--nemo-menu-surface-bg, #303036);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.8);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-menu[hidden] {
@@ -67,14 +127,17 @@ body#mint div[data-link="nemo"] .nemo-app__context-item {
     display: block;
     width: 100%;
     margin: 0;
-    padding: 0.4rem 1rem;
+    padding: calc(var(--head) / 5) calc(var(--head) / 2.5);
     border: 0;
     background: transparent;
-    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    color: inherit;
     font: inherit;
-    font-size: 0.9rem;
+    font-size: inherit;
+    line-height: 1.25;
     text-align: left;
+    white-space: nowrap;
     cursor: var(--p);
+    box-sizing: border-box;
 }
 
 body#mint div[data-link="nemo"] .nemo-app__context-item:hover:not(:disabled) {
@@ -90,6 +153,113 @@ body#mint div[data-link="nemo"] .nemo-app__context-sep {
     margin: 0.25rem 0;
     border: 0;
     border-top: 1px solid var(--nemo-border, #202023);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-sep[hidden],
+body#mint div[data-link="nemo"] .nemo-app__context-item[hidden],
+body#mint div[data-link="nemo"] .nemo-app__context-row[hidden] {
+    display: none !important;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-row {
+    position: relative;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-item.has-submenu::after {
+    content: "▸";
+    float: right;
+    opacity: 0.65;
+    margin-left: 0.75rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: max-content;
+    min-width: calc(var(--head) * 6.5);
+    max-width: min(22rem, calc(100vw - 16px));
+    margin-left: 2px;
+    padding: calc(var(--head) / 10) 0;
+    border: 1px solid var(--nemo-border, #202023);
+    border-radius: calc(var(--head) / 10);
+    background: var(--nemo-menu-surface-bg, #303036);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    z-index: 12001;
+    font-family: var(--font-ui);
+    font-size: calc(var(--head) / 2.8);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu[hidden] {
+    display: none !important;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__context-submenu--flip-left {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 2px;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__item-rename-input {
+    background: var(--nemo-bg-primary, #222226);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    border: 1px solid var(--nemo-accent, #1f9ede);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--nemo-accent, #1f9ede) 40%, transparent);
+    font: inherit;
+    font-size: inherit;
+    padding: 0.1rem 0.25rem;
+    min-width: 4rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog {
+    padding: 0;
+    border: 1px solid var(--nemo-border, #202023);
+    border-radius: 0.5rem;
+    background: var(--nemo-menu-surface-bg, #303036);
+    color: var(--nemo-text-primary, rgba(255, 255, 255, 0.87));
+    max-width: 24rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--nemo-border, #202023);
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body {
+    padding: 0.75rem 1rem 1rem;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dl {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.35rem 0.75rem;
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dt {
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__body dd {
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-properties-dialog__close {
+    border: 0;
+    border-radius: 0.3rem;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    background: var(--nemo-item-hover-bg, rgba(255, 255, 255, 0.12));
+    color: inherit;
 }
 
 body#mint div[data-link="nemo"] #nemoHeaderContainer {
@@ -133,20 +303,22 @@ body#mint div[data-link="nemo"] #nemoMainContainer > #voletnemo > div[data-nemo-
     gap: 0;
 }
 
+/* VM : items 13.3px, indentés sous l'en-tête de section (icône à ~24px), pitch ~26px */
 body#mint div[data-link="nemo"] #voletnemo [data-nemo-section-body] > a {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     gap: 8px;
-    min-height: 24px;
+    min-height: 26px;
     max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 3px 6px 3px 8px;
+    /* VM : « Dossier perso… » ellipsé — espace droit réservé identique */
+    padding: 3px 24px 3px 24px;
     box-sizing: border-box;
     font-weight: 400;
-    font-size: calc(var(--head) / 2.55);
+    font-size: 13.3px;
     border-radius: 0;
 }
 
@@ -165,10 +337,10 @@ body#mint div[data-link="nemo"] #voletnemo .nemo-sidebar__section {
     flex-flow: row nowrap;
     align-items: center;
     gap: 8px;
-    min-height: 24px;
+    min-height: 26px;
     padding: 3px 6px 3px 8px;
     font-weight: 600;
-    font-size: calc(var(--head) / 2.5);
+    font-size: 13.3px;
     color: var(--nemo-text-primary);
     text-decoration: none;
     cursor: pointer;
@@ -263,8 +435,9 @@ body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn:hover {
 }
 
 body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn.nemo-footer-btn--active {
-    background: var(--nemo-toolbar-button-hover-bg);
-    border-color: var(--nemo-accent);
+    /* VM : bouton actif assombri, sans liseré accent */
+    background: #27272b;
+    border-color: #18181b;
 }
 
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-link:hover {
@@ -283,12 +456,19 @@ body#mint div[data-link="nemo"] #voletnemo a[data-link]:hover {
     border-radius: 0;
 }
 
+/* Vérité VM : pas de surbrillance à l'ouverture (sidebar sans focus) ;
+   la sélection aqua n'apparaît que lorsque le volet a le focus (comportement GTK). */
 body#mint div[data-link="nemo"] #voletnemo a[data-link].nemo-sidebar__link--active,
 body#mint div[data-link="nemo"] #voletnemo a[data-link].dolphin-sidebar__link--active {
+    font-weight: 400;
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] #voletnemo:focus-within a[data-link].nemo-sidebar__link--active,
+body#mint div[data-link="nemo"] #voletnemo:focus-within a[data-link].dolphin-sidebar__link--active {
     font-weight: 600;
     color: #ffffff;
     background: var(--nemo-accent);
-    border-radius: 0;
 }
 
 body#mint div[data-link="nemo"] #nemo-sidebar-tree .nemo-sidebar__tree-line {
@@ -328,9 +508,117 @@ body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.n
     filter: none;
 }
 
-body#mint div[data-link="nemo"] .nemo-app__path-current {
-    flex: 1 1 auto;
-    min-width: 6rem;
+/* VM : fil d'Ariane compact [⌂ capsule] — la pill ne s'étire pas sur toute la barre */
+body#mint div[data-link="nemo"] .nemo-app__path-current.nemo-app__path-breadcrumb {
+    flex: 0 0 auto;
+    min-width: 0;
+    width: auto;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-breadcrumb .nemo-app__path-crumb {
+    font-size: 13.3px;
+    gap: 6px;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-crumb-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    filter: var(--nemo-toolbar-icon-filter);
+}
+
+/* Pathbar VM : groupe collé [◄][⌂ capsule][►] — segments avec bordure commune,
+   crumb actif foncé #1d1d20, boutons défilement #36363d */
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path {
+    gap: 8px;
+}
+
+/* Neutraliser le min-width 160px hérité du 5e enfant (label) de la base */
+body#mint div[data-link="nemo"] .menuOutils > .sousMenuOutils.nemo-app__toolbar-group--path > a:nth-child(5),
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > .nemo-app__path-current {
+    min-width: 0;
+    text-align: left;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a#home,
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a:last-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid var(--nemo-pathbar-border);
+    background: #36363d;
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a#home {
+    border-radius: 3px 0 0 3px;
+    border-right-width: 0;
+    margin-right: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a:last-child {
+    border-radius: 0 3px 3px 0;
+    border-left-width: 0;
+    margin-left: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a#home > img,
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a:last-child > img {
+    width: 12px;
+    height: 12px;
+    filter: brightness(0) invert(0.78);
+}
+
+/* segments adjacents collés : supprimer les gaps autour du crumb */
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path > a#home + .nemo-app__path-current,
+body#mint div[data-link="nemo"] .nemo-app__path-current.nemo-app__path-breadcrumb {
+    margin: 0 -8px;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-breadcrumb .nemo-app__path-crumb {
+    height: 28px;
+    background: #1d1d20;
+    border-color: var(--nemo-pathbar-border);
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-breadcrumb .nemo-app__path-crumb:first-child {
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-breadcrumb .nemo-app__path-crumb:last-child {
+    border-radius: 0;
+}
+
+body#mint div[data-link="nemo"] .nemo-app__path-breadcrumb .nemo-app__path-crumb:only-child {
+    border-radius: 0;
+}
+
+/* VM : le mode fil d'Ariane étant le défaut, le bouton bascule n'est pas mis en évidence */
+body#mint div[data-link="nemo"] .nemo-app__toolbar-group--view > a#nemo-toggle-path-mode[aria-pressed="true"] {
+    background: var(--nemo-toolbar-button-bg);
+    border-color: transparent;
+}
+
+/* Grille icônes VM mesurée : pitch colonnes 137px, icône rendue 64px (dessin 56×51),
+   libellé 13.3px à ~79px du haut de tuile — 8 colonnes à 1280px */
+body#mint div[data-link="nemo"] .nemo-app__content-grid {
+    --nemo-item-base-size: 122px;
+    --nemo-item-icon-base-size: 64px;
+    --nemo-item-icon-margin-base: 28px;
+    --nemo-item-label-base-size: 13.3px;
+}
+
+/* VM : icône en haut de tuile (marge 6px), libellé juste dessous (gap 9px) */
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement > a {
+    justify-content: flex-start;
+}
+
+body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.nemoElement > a > img {
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 body#mint div[data-link="nemo"] .nemo-app__toolbar-group--path .nemo-app__search-wrap {
@@ -371,8 +659,64 @@ body#mint div[data-link="nemo"] .nemo-app__toolbar a[aria-disabled="true"] {
     pointer-events: none;
 }
 
+/* Statusbar VM : 29 px, fond identique au contenu (#2e2e33), liseré haut discret */
+body#mint div[data-link="nemo"] #nemoFooterContainer.nemo-app__statusbar {
+    height: 29px;
+    min-height: 29px;
+    padding: 0 4px;
+    background: var(--nemo-bg-primary);
+    border-top: 1px solid #292930;
+    align-items: center;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-app__status-center p {
+    font-size: 13.3px;
+    color: #d4d4d6;
+    margin: 0;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-app__status-left {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn {
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #333338;
+    border: 1px solid #18181b;
+    border-radius: 3px;
+}
+
+/* Séparateur vertical VM entre le groupe places/arborescence et le bouton volet */
+body#mint div[data-link="nemo"] #nemoFooterContainer #nemo-toggle-sidebar {
+    margin-left: 15px;
+    position: relative;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer #nemo-toggle-sidebar::before {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: 2px;
+    bottom: 2px;
+    width: 1px;
+    background: #26262b;
+}
+
+body#mint div[data-link="nemo"] #nemoFooterContainer .nemo-footer-btn img {
+    width: 16px;
+    height: 16px;
+}
+
 body#mint div[data-link="nemo"] #nemoFooterContainer > section:nth-child(3) > input#zoom {
     accent-color: var(--menu-accent, var(--nemo-accent));
+    width: 95px;
 }
 
 body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer.nemo-app__content-wrap {
@@ -491,10 +835,11 @@ body#mint div[data-link="nemo"] #nemoMainContainer > #voletContainer > section.n
     padding: 0;
 }
 
+/* VM : libellés d'items en graisse normale (GTK), pas en gras */
 body#mint div[data-link="nemo"] .nemo-app__item-name {
     display: block;
     font-size: 0.84rem;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.2;
     color: var(--nemo-text-primary);
 }

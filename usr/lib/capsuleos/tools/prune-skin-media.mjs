@@ -107,7 +107,7 @@ for (const skinRoot of targets) {
 
 // linux/content et shared/content : doublons pédagogiques migrés vers home/public/Images
 for (const rel of [
-  'OS/linux/shared/content/Dossier_personnel/Images',
+  'usr/share/capsuleos/linux/content/Dossier_personnel/Images',
   'usr/share/capsuleos/linux/content/Dossier_personnel/Images',
 ]) {
   pruneImagesInDir(path.join(ROOT, rel));

@@ -63,9 +63,26 @@ Détail : [`root/docs/parcours-agent.md`](root/docs/parcours-agent.md)
 
 **Campagne crédibilité pédagogique** (post Π=100) : [`root/docs/campagne-credibilite-pedagogique.md`](root/docs/campagne-credibilite-pedagogique.md) — scénarios utilisateur VM → clone (menus, sous-menus, états) ; `node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase next`.
 
+**Architecture catalogue centralisée** (fonction / présentation / magasin) : [`root/docs/architecture-catalogue-apps.md`](root/docs/architecture-catalogue-apps.md) · contrats [`slots-manifest.json`](etc/capsuleos/contracts/slots-manifest.json) · [`presentation-bindings.json`](etc/capsuleos/contracts/presentation-bindings.json) · [`store-installable-apps.json`](etc/capsuleos/contracts/store-installable-apps.json) · [`gnome-software-store-content.json`](etc/capsuleos/contracts/gnome-software-store-content.json) (ground GS50) · générateur `generate-store-catalog.mjs` · runtime `gnome-software-ground.js`.
+
+**Extension magasin cross-OS** (VM default + install simulée) : [`root/docs/analyse-magasins-apps-cross-os.md`](root/docs/analyse-magasins-apps-cross-os.md).
+
 **Procédure complète (contrôle agent + toutes distributions)** : [`root/docs/procedure-controle-distributions-reelles.md`](root/docs/procedure-controle-distributions-reelles.md) — parc VM, SSH, sonde JSON, inventaire lab, comparateur CapsuleOS ↔ réel. **noVNC seul ne suffit pas** pour l’automatisation P0.
 
 **Rocky / Alma / RHEL (virt-manager, GNOME Wayland)** : [`root/docs/lab-vm-rhel-wayland.md`](root/docs/lab-vm-rhel-wayland.md) — `crb`, EPEL, `wmctrl`, cookie `XAUTHORITY` Mutter, `etc/capsuleos/lab-inventory.json`.
+
+**Scénarios pédagogiques GNOME (tous vendors : Rocky, Fedora, Alma, Ubuntu)** :
+
+| Document | Rôle |
+|----------|------|
+| [`root/docs/procedure-scenarios-pedagogiques-gnome.md`](root/docs/procedure-scenarios-pedagogiques-gnome.md) | Pattern contrat → validateur → smoke → capture |
+| [`root/docs/procedure-playbook-gnome-apps-overview.md`](root/docs/procedure-playbook-gnome-apps-overview.md) | Overview → slot → contrat → gates |
+| [`root/docs/procedure-lab-linux-gnome-scenarios.md`](root/docs/procedure-lab-linux-gnome-scenarios.md) | Procédure lab générique (sans duplication par distro) |
+| [`etc/capsuleos/contracts/gnome-user-scenarios-index.json`](etc/capsuleos/contracts/gnome-user-scenarios-index.json) | Manifeste **17 contrats** · backlog vide · Alma overview **15/15** (C26–C30) |
+
+Gate agrégée : `node usr/lib/capsuleos/tools/validate-gnome-user-scenarios-all.mjs` · audit overview : `node usr/lib/capsuleos/tools/lab/audit-gnome-overview-scenarios.mjs --id <registryId>`.
+
+**AlmaLinux GNOME (cycles C0–C30)** : [`root/docs/procedure-lab-linux-alma-gnome.md`](root/docs/procedure-lab-linux-alma-gnome.md) · parité [`root/docs/inventaire-parite-alma.md`](root/docs/inventaire-parite-alma.md) · point d'étape [`root/docs/point-etape-2026-06.md`](root/docs/point-etape-2026-06.md).
 
 **Assets depuis la VM (tous clones)** : [`root/docs/convention-assets-depuis-vm.md`](root/docs/convention-assets-depuis-vm.md) — icônes et fonds **toujours** copiés depuis la VM (`pull-vm-assets.sh`), jamais empruntés à un autre vendor.
 
@@ -227,6 +244,7 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 | **Linux Mint** | `mint` | **Cinnamon** (GTK 3, Nemo, Muffin) | Panel bas `footer.css`, fenêtres Mint | `nemo` → **Nemo** | `terminal-window--gnome` | `mainMenu.html` + `mainMenu.skin.css` |
 | **Ubuntu 25.10** | `ubuntu` | **GNOME** 46+ (GTK 4, libadwaita, Nautilus « Fichiers ») | `gnome-shell/*`, dock Ubuntu | `nemo-gnome` → **Fichiers** | `terminal-window--gnome` | Overview + dock (`index.html`) |
 | **Rocky** | `rocky` | **GNOME Workstation** (référence Nautilus VM) | `gnome-shell/*` | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
+| **AlmaLinux** | `alma` | **GNOME Workstation** (dérivé Rocky) | `gnome-shell/*` | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview · fonds `almalinux-day/night` |
 | **Fedora** | `fedora` | **GNOME Workstation** (dérivé Rocky) | `gnome-shell/*` (tokens Fedora) | `nemo-gnome` + `nautilus` | `terminal-window--fedora` | Dash + overview |
 | **Pop!_OS** | `popos` | **COSMIC** (Rust, pas GTK classique ; UI proche GNOME) | `cosmic-shell/*` | `nemo-cosmic` → **Fichiers COSMIC** | `terminal-window--cosmic` | Dock + grille `#cosmic-applications-grid` |
 | **MX Linux KDE** | `mx-kde` | **Plasma** (Qt 5/6, Breeze, Dolphin, Konsole) | `footer.css` + panel KDE | `dolphin` → **Dolphin** | skin Konsole (`terminal.skin.css`) | `content/mainMenu-data.js` + Plasma chrome JS |
@@ -256,7 +274,7 @@ reset.css → variables.css → variables-linux.css → tokens shell (*-tokens.c
 | Nautilus | **Fichiers** (GNOME) | `data-link="nemo"` + template `nemo-gnome` + skin `nautilus` | `style/apps/nautilus.skin.css` (réf. Rocky ; sync via `sync-gnome-nautilus-skin.mjs`) |
 | Nemo | **Nemo** (Cinnamon / Mint uniquement) | `data-link="nemo"` + template `nemo` | `style/apps/nemo.skin.css` |
 | gnome-terminal | **Terminal** | `terminal` | `style/apps/terminal.skin.css` + classe `terminal-window--gnome` ou `--fedora` |
-| GNOME Software | **Ubuntu Software** / **Software** | `update_manager` | `update_manager.skin.css` ; override `update_manager_ubuntu.html` (Ubuntu) |
+| GNOME Software | **Logiciels** / **Software** | `update_manager` | `update_manager_gnome.html` + `update_manager.skin.css` (tokens `--gnome-software-*`, chrome GS50) |
 | Paramètres | **Settings** | `themes` | `themes.skin.css` |
 | Menu apps | **Overview** / grille | `mainMenu` | `gnome-shell/overview.css`, `mainMenu.skin.css` |
 
@@ -440,7 +458,7 @@ Overrides HTML par distro (dans `index.html`) :
 
 ```javascript
 window.CAPSULE_TEMPLATE_OVERRIDES = {
-  update_manager: '.../update_manager_ubuntu.html',  // Ubuntu
+  update_manager: '.../update_manager_gnome.html',  // GNOME (Fedora, Rocky, Alma, Ubuntu, AnduinOS)
   update_manager: '.../update_manager_kde.html',     // KDE
   mainMenu: './apps/mainMenu.html'                   // Debian-KDE
 };
@@ -450,7 +468,7 @@ window.CAPSULE_TEMPLATE_OVERRIDES = {
 
 ### 10. Pièges post-refactor rootfs
 
-1. **Miroir `OS/` ↔ `home/`** : source de vérité = `home/…/index.html` ; pick-os charge `OS/linux/families/…/index.html` (URL stable + `<base href>` vers `home/`). Après tout patch skin : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs` — `validate-all` refuse une façade périmée.
+1. **Façade pick-os `OS/linux/families/`** : source de vérité = `home/…/` ; chaque façade ne contient que `index.html` (`<base href>` → `home/`). Orphelins interdits — gate `validate-linux-facades.mjs` · purge : `purge-repo-hygiene.mjs`. Après patch skin : `node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`.
 2. **Embed offline** : après tout changement sous `usr/share/.../apps/`, `explorers/`, `home/public/` ou `*.skin.css` :
 
    ```bash

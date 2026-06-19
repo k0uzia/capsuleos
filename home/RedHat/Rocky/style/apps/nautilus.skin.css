@@ -119,10 +119,14 @@ body#rocky div[data-link="nemo"] {
 }
 
 body#rocky div[data-link="nemo"].windowElementActive {
-    border-color: rgba(53, 132, 228, 0.45);
-    box-shadow:
-        0 0 0 1px rgba(53, 132, 228, 0.28),
-        0 4px 18px rgba(0, 0, 0, 0.24);
+    /* Mutter : pas d’anneau accent sur Nautilus CSD intégré */
+    border-color: var(--nemo-border, var(--capsule-chrome-window-border, var(--fedora-window-border)));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.26);
+}
+
+body#rocky div[data-link="nemo"].gnome-app--csd.windowElementActive:not(#mainMenu) {
+    border-color: var(--nemo-border, var(--capsule-chrome-window-border, var(--fedora-window-border)));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.26);
 }
 
 body#rocky div[data-link="nemo"] > #gestionnaire {
@@ -213,10 +217,6 @@ body#rocky div[data-link="nemo"] .nautilus-app .nautilus-app__nav .nautilus-app_
 
 body#rocky div[data-link="nemo"] .nautilus-app .nautilus-app__nav .nautilus-app__icon-btn:last-child {
     border-radius: 0 var(--nautilus-corner) var(--nautilus-corner) 0;
-}
-
-body#rocky div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__head-plate {
-    background: var(--nemo-toolbar-bg);
 }
 
 body#rocky div[data-link="nemo"] .nautilus-app--n47 .nautilus-app__search-field {

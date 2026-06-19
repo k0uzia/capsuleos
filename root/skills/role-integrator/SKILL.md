@@ -11,7 +11,7 @@ description: Wires CapsuleOS OS facades to home skins, CAPSULE_* boot config, ex
 |--------|--------|
 | Entrée stable | `OS/linux/families/<famille>/<distro>/index.html` |
 | Thème dérivé | `home/<Vendor>/<Distro>/` (style, media, `CAPSULE_EMBED_SKIN_KEY`) |
-| Noyau | `usr/lib/capsuleos/shells/linux/` + `OS/linux/kernel/js/` |
+| Noyau | `usr/lib/capsuleos/shells/linux/` · `usr/lib/capsuleos/common/` |
 
 ## Linux — scripts typiques (ordre)
 

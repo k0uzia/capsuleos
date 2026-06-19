@@ -244,7 +244,11 @@ function buildWallpaperGrid(root) {
     grid.querySelectorAll('.gnome-settings-wallpaper[data-wallpaper-id]').forEach((node) => node.remove());
 
     catalog.forEach((entry) => {
-        const background = storage.resolveWallpaperEntry(entry, theme);
+        const background = entry.type === 'color'
+            ? storage.resolveWallpaperEntry(entry, theme)
+            : (typeof storage.resolveWallpaperThumb === 'function'
+                ? storage.resolveWallpaperThumb(entry, theme)
+                : storage.resolveWallpaperEntry(entry, theme));
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'gnome-settings-wallpaper cs-wallpaper-thumb';
@@ -347,6 +351,181 @@ function bindAccentChips(root) {
     syncAccentChipRings(chips, saved);
 }
 
+function activateKdeSettingsPanel(root, panelId) {
+    if (!root) {
+        return;
+    }
+    const hub = root.querySelector('[data-kde-settings-surface="hub"]');
+    if (!hub) {
+        return;
+    }
+    const resolved = panelId && hub.querySelector(`[data-kde-panel-content="${panelId}"]`)
+        ? panelId
+        : 'quick-settings';
+    hub.querySelectorAll('[data-kde-panel-content]').forEach((panel) => {
+        const active = panel.getAttribute('data-kde-panel-content') === resolved;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+    });
+    hub.querySelectorAll('[data-kde-panel]').forEach((item) => {
+        if (item.disabled) {
+            return;
+        }
+        const active = item.getAttribute('data-kde-panel') === resolved;
+        item.classList.toggle('is-active', active);
+        if (active) {
+            item.setAttribute('aria-current', 'page');
+        } else {
+            item.removeAttribute('aria-current');
+        }
+    });
+    root.dataset.activeKdePanel = resolved;
+}
+
+function bindKdeSettingsNavigation(root) {
+    if (!root || root.dataset.kdeNavBound === 'true') {
+        return;
+    }
+    root.dataset.kdeNavBound = 'true';
+    root.querySelectorAll('[data-kde-panel]:not([disabled])').forEach((item) => {
+        item.addEventListener('click', () => {
+            activateKdeSettingsPanel(root, item.getAttribute('data-kde-panel'));
+        });
+    });
+}
+
+function syncKdeSettingsUiFromStorage(root) {
+    if (!root) {
+        return;
+    }
+    const kc = window.CapsuleKdeKconfig;
+    const storage = window.CapsuleThemeStorage || {};
+    const bodyId = document.body ? document.body.id : 'kde-neon';
+    const theme = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(bodyId)
+        : (localStorage.getItem('kde-neon-theme') || document.documentElement.dataset.theme || 'light');
+    root.querySelectorAll('[data-kde-theme-option]').forEach((btn) => {
+        const active = btn.getAttribute('data-kde-theme-option') === theme;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+    });
+    const panelHeight = kc ? kc.getCapsule('plasmashellrc::PanelHeight', '40') : '40';
+    const heightSelect = root.querySelector('[data-kde-setting="kde-panel-height"]');
+    if (heightSelect) {
+        heightSelect.value = panelHeight;
+    }
+    const animOn = kc ? kc.getBool('kwinrc::Windows/animate', true) : true;
+    const animSwitch = root.querySelector('[data-kde-setting="kde-window-animations"]');
+    if (animSwitch) {
+        animSwitch.classList.toggle('is-on', animOn);
+        animSwitch.setAttribute('aria-checked', animOn ? 'true' : 'false');
+    }
+    const clickFocusPolicy = kc ? kc.getCapsule('kwinrc::Windows/FocusPolicy', 'ClickToFocus') : 'ClickToFocus';
+    const clickFocusOn = clickFocusPolicy === 'ClickToFocus';
+    const clickFocusSwitch = root.querySelector('[data-kde-setting="kde-click-to-focus"]');
+    if (clickFocusSwitch) {
+        clickFocusSwitch.classList.toggle('is-on', clickFocusOn);
+        clickFocusSwitch.setAttribute('aria-checked', clickFocusOn ? 'true' : 'false');
+    }
+    const focusStealLevel = kc ? kc.getCapsule('kwinrc::Windows/FocusStealingPreventionLevel', '0') : '0';
+    const focusStealOn = focusStealLevel === '1' || focusStealLevel === 'true';
+    const focusStealSwitch = root.querySelector('[data-kde-setting="kde-focus-stealing"]');
+    if (focusStealSwitch) {
+        focusStealSwitch.classList.toggle('is-on', focusStealOn);
+        focusStealSwitch.setAttribute('aria-checked', focusStealOn ? 'true' : 'false');
+    }
+    const contrastOn = kc ? kc.getBool('kdeglobals::KDE/contrast', false) : false;
+    const contrastSwitch = root.querySelector('[data-kde-setting="kde-a11y-high-contrast"]');
+    if (contrastSwitch) {
+        contrastSwitch.classList.toggle('is-on', contrastOn);
+        contrastSwitch.setAttribute('aria-checked', contrastOn ? 'true' : 'false');
+    }
+    const reducedMotionOn = kc ? !kc.getBool('kdeglobals::KDE/AnimationDurationFactor', true) : false;
+    const reducedMotionSwitch = root.querySelector('[data-kde-setting="kde-reduced-motion"]');
+    if (reducedMotionSwitch) {
+        reducedMotionSwitch.classList.toggle('is-on', reducedMotionOn);
+        reducedMotionSwitch.setAttribute('aria-checked', reducedMotionOn ? 'true' : 'false');
+    }
+    const desktopIconsOn = kc ? kc.getBool('plasma-org.kde.plasma.desktop-appletsrc::DesktopIcons/Enabled', true) : true;
+    const desktopIconsSwitch = root.querySelector('[data-kde-setting="kde-desktop-icons"]');
+    if (desktopIconsSwitch) {
+        desktopIconsSwitch.classList.toggle('is-on', desktopIconsOn);
+        desktopIconsSwitch.setAttribute('aria-checked', desktopIconsOn ? 'true' : 'false');
+    }
+    const desktopAlign = kc ? kc.getCapsule('plasma-org.kde.plasma.desktop-appletsrc::DesktopIcons/Arrangement', '0') : '0';
+    const alignSelect = root.querySelector('[data-kde-setting="kde-desktop-align"]');
+    if (alignSelect) {
+        alignSelect.value = desktopAlign === '1' ? 'right' : 'left';
+    }
+    if (window.CapsuleKdeSettingsParity && typeof window.CapsuleKdeSettingsParity.bindControls === 'function') {
+        window.CapsuleKdeSettingsParity.bindControls(root);
+    }
+}
+
+function resolveKdeSettingsRoot(container) {
+    const scope = container || document.querySelector('#themes');
+    if (!scope) {
+        return null;
+    }
+    return scope.querySelector('[data-kde-settings-root]')
+        || scope.querySelector('#kdeSystemSettingsShell')
+        || scope.querySelector('#kdeSystemSettingsApp');
+}
+
+function bindKdeThemeChoices(root) {
+    if (!root || root.dataset.kdeThemeBound === 'true') {
+        return;
+    }
+    root.dataset.kdeThemeBound = 'true';
+    const storage = window.CapsuleThemeStorage || {};
+    const bodyId = document.body ? document.body.id : 'kde-neon';
+    root.querySelectorAll('[data-kde-theme-option]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const theme = btn.getAttribute('data-kde-theme-option') === 'dark' ? 'dark' : 'light';
+            document.documentElement.dataset.theme = theme;
+            if (typeof storage.persistTheme === 'function') {
+                storage.persistTheme(theme, bodyId);
+            } else {
+                localStorage.setItem('kde-neon-theme', theme);
+            }
+            root.querySelectorAll('[data-kde-theme-option]').forEach((entry) => {
+                const active = entry.getAttribute('data-kde-theme-option') === theme;
+                entry.classList.toggle('is-active', active);
+                entry.setAttribute('aria-checked', active ? 'true' : 'false');
+            });
+            if (window.CapsuleKdeSettingsParity
+                && window.CapsuleKdeSettingsParity.EFFECT_HANDLERS
+                && typeof window.CapsuleKdeSettingsParity.EFFECT_HANDLERS['kde-global-theme'] === 'function') {
+                window.CapsuleKdeSettingsParity.EFFECT_HANDLERS['kde-global-theme'](theme);
+            }
+        });
+    });
+}
+
+function handleKdeSettingsWindowOpened(container) {
+    const root = resolveKdeSettingsRoot(container);
+    if (!root) {
+        return;
+    }
+    const panelId = root.dataset.activeKdePanel
+        || (root.dataset.kdeSettingsView === 'kcm-display' ? 'display-config' : 'quick-settings');
+    activateKdeSettingsPanel(root, panelId);
+    bindKdeThemeChoices(root);
+    syncKdeSettingsUiFromStorage(root);
+    if (window.CapsuleKdeSettingsNav) {
+        if (typeof window.CapsuleKdeSettingsNav.bindNavigation === 'function') {
+            window.CapsuleKdeSettingsNav.bindNavigation(root);
+        }
+        if (typeof window.CapsuleKdeSettingsNav.updateWindowTitle === 'function') {
+            window.CapsuleKdeSettingsNav.updateWindowTitle();
+        }
+    }
+}
+
+function initKdeSettingsApp(container) {
+    handleKdeSettingsWindowOpened(container || document.querySelector('#themes'));
+}
+
 function handleGnomeSettingsWindowOpened(container) {
     const root = container ? container.querySelector('#themesApp') : null;
     if (!root || !root.classList.contains('gnome-settings')) {
@@ -365,11 +544,14 @@ function handleGnomeSettingsWindowOpened(container) {
 if (typeof window !== 'undefined') {
     window.setCapsuleSettingsPanel = setCapsuleSettingsPanel;
     window.buildWallpaperGrid = buildWallpaperGrid;
+    window.initKdeSettingsApp = initKdeSettingsApp;
+    window.resolveKdeSettingsRoot = resolveKdeSettingsRoot;
     document.addEventListener('capsule:window-opened', (event) => {
         if (!event.detail || event.detail.slotId !== 'themes') {
             return;
         }
         handleGnomeSettingsWindowOpened(event.detail.container);
+        handleKdeSettingsWindowOpened(event.detail.container);
         if (document.body && document.body.id === 'mint') {
             if (document.getElementById('cinnamonSettingsApp')) {
                 return;
@@ -458,6 +640,110 @@ function resolveThemesAccessibilityRoot(root) {
         || root;
 }
 
+let capsuleThemeUiState = null;
+
+function resolveCapsuleThemeDefault() {
+    const bodyId = document.body ? document.body.id : '';
+    const storage = window.CapsuleThemeStorage || {};
+    const isGnomeShell = typeof storage.isGnomeShell === 'function' && storage.isGnomeShell(bodyId);
+    return bodyId === 'mint' || isGnomeShell ? 'dark' : 'light';
+}
+
+function resolveCapsuleThemeCurrent() {
+    const theme = document.documentElement.dataset.theme;
+    if (theme === 'light' || theme === 'dark') {
+        return theme;
+    }
+    const storage = window.CapsuleThemeStorage || {};
+    const saved = typeof storage.readSavedTheme === 'function'
+        ? storage.readSavedTheme(document.body ? document.body.id : '')
+        : null;
+    if (saved === 'light' || saved === 'dark') {
+        return saved;
+    }
+    return resolveCapsuleThemeDefault();
+}
+
+function syncMintStyleChrome(themesRoot, theme) {
+    if (!themesRoot) {
+        return;
+    }
+    const styleName = theme === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark-Aqua';
+    const label = themesRoot.querySelector('.themes-app__select span');
+    if (label) {
+        label.textContent = styleName;
+    }
+    themesRoot.querySelectorAll('[data-mint-style]').forEach((entry) => {
+        entry.classList.toggle('is-active', entry.getAttribute('data-mint-style') === styleName);
+    });
+    const gtkEl = themesRoot.querySelector('[data-themes-gtk]');
+    const iconsEl = themesRoot.querySelector('[data-themes-icons]');
+    if (gtkEl) {
+        gtkEl.textContent = theme === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark';
+    }
+    if (iconsEl) {
+        iconsEl.textContent = styleName.indexOf('Aqua') >= 0 ? 'Mint-Y-Aqua' : 'Mint-Y-Sand';
+    }
+}
+
+function applyCapsuleDocumentTheme(theme, themesRoot) {
+    const storage = window.CapsuleThemeStorage || {};
+    const resolved = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.themeTransition = 'on';
+    document.documentElement.dataset.theme = resolved;
+    if (typeof storage.persistTheme === 'function') {
+        storage.persistTheme(resolved, document.body ? document.body.id : '');
+    } else {
+        const key = typeof storage.getThemeStorageKey === 'function'
+            ? storage.getThemeStorageKey(document.body ? document.body.id : '')
+            : 'mint-theme';
+        localStorage.setItem(key, resolved);
+    }
+
+    const state = capsuleThemeUiState;
+    const uiRoot = themesRoot || (state && state.root);
+    if (state && state.options) {
+        state.options.forEach((button) => {
+            const isActive = button.getAttribute('data-theme-option') === resolved;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        });
+    }
+    const appearanceRoot = uiRoot ? resolveThemesAppearanceRoot(uiRoot) : null;
+    const help = appearanceRoot && appearanceRoot.querySelector('[data-themes-help]');
+    if (help) {
+        help.textContent = resolved === 'light'
+            ? 'Le thème clair est actif.'
+            : 'Le thème sombre est actif.';
+    }
+    syncMintStyleChrome(uiRoot, resolved);
+
+    if (document.body && document.body.id === 'mint') {
+        const gtkTheme = resolved === 'light' ? 'Mint-Y-Aqua' : 'Mint-Y-Dark-Aqua';
+        if (document.body.dataset) {
+            document.body.dataset.capsuleGtkTheme = gtkTheme;
+        }
+        const cinnamonGs = window.CapsuleCinnamonGSettings;
+        if (cinnamonGs && typeof cinnamonGs.setCapsule === 'function') {
+            cinnamonGs.setCapsule('mint-gtk-theme', gtkTheme);
+        }
+        document.dispatchEvent(new CustomEvent('capsule:gtk-theme-changed', { detail: { theme: gtkTheme } }));
+    }
+
+    if (typeof storage.applyWallpaper === 'function') {
+        const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
+        storage.applyWallpaper(wpId, document.body ? document.body.id : '');
+        if (uiRoot && typeof buildWallpaperGrid === 'function') {
+            buildWallpaperGrid(uiRoot);
+        }
+    }
+    document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
+    window.setTimeout(() => {
+        delete document.documentElement.dataset.themeTransition;
+    }, 320);
+    return resolved;
+}
+
 function bindMintStyleSelect(root) {
     const selectBtn = root.querySelector('.themes-app__select');
     if (!selectBtn || selectBtn.dataset.mintStyleBound === 'true') {
@@ -514,6 +800,7 @@ function bindMintStyleSelect(root) {
             if (iconsEl) {
                 iconsEl.textContent = styleName.indexOf('Aqua') >= 0 ? 'Mint-Y-Aqua' : 'Mint-Y-Sand';
             }
+            applyCapsuleDocumentTheme(styleName.indexOf('Dark') >= 0 ? 'dark' : 'light', root);
             popover.hidden = true;
             selectBtn.setAttribute('aria-expanded', 'false');
         });
@@ -549,6 +836,7 @@ function initThemesApp() {
     }
 
     if (root.dataset.initialized === 'true') {
+        applyCapsuleDocumentTheme(resolveCapsuleThemeCurrent(), root);
         return;
     }
 
@@ -557,49 +845,13 @@ function initThemesApp() {
     const options = appearanceRoot.querySelectorAll('[data-theme-option]');
     const contrastOptions = accessibilityRoot.querySelectorAll('[data-contrast-option]');
     const fontScaleOptions = accessibilityRoot.querySelectorAll('[data-font-scale-option]');
-    const help = appearanceRoot.querySelector('[data-themes-help]');
     const storage = window.CapsuleThemeStorage || {};
 
     if (!options.length) {
         return;
     }
 
-    const themeStorageKey = typeof storage.getThemeStorageKey === 'function'
-        ? storage.getThemeStorageKey(document.body ? document.body.id : '')
-        : 'mint-theme';
-
-    function applyTheme(theme) {
-        const resolved = theme === 'light' ? 'light' : 'dark';
-        document.documentElement.dataset.themeTransition = 'on';
-        document.documentElement.dataset.theme = resolved;
-        if (typeof storage.persistTheme === 'function') {
-            storage.persistTheme(resolved, document.body ? document.body.id : '');
-        } else {
-            localStorage.setItem(themeStorageKey, resolved);
-        }
-
-        options.forEach(function syncOption(button) {
-            const isActive = button.getAttribute('data-theme-option') === resolved;
-            button.classList.toggle('is-active', isActive);
-            button.setAttribute('aria-checked', isActive ? 'true' : 'false');
-        });
-
-        if (help) {
-            help.textContent = resolved === 'light'
-                ? 'Le thème clair est actif.'
-                : 'Le thème sombre est actif.';
-        }
-
-        if (typeof storage.applyWallpaper === 'function') {
-            const wpId = document.documentElement.dataset.gnomeWallpaper || storage.readSavedWallpaper();
-            storage.applyWallpaper(wpId, document.body ? document.body.id : '');
-            buildWallpaperGrid(root);
-        }
-        document.dispatchEvent(new CustomEvent('capsule:gnome-theme-changed', { detail: { theme: resolved } }));
-        window.setTimeout(() => {
-            delete document.documentElement.dataset.themeTransition;
-        }, 320);
-    }
+    capsuleThemeUiState = { root, options };
 
     function applyContrast(mode) {
         const resolved = typeof storage.applyContrastMode === 'function'
@@ -627,7 +879,7 @@ function initThemesApp() {
 
     options.forEach(function bindOption(button) {
         button.addEventListener('click', function onOptionClick() {
-            applyTheme(button.getAttribute('data-theme-option'));
+            applyCapsuleDocumentTheme(button.getAttribute('data-theme-option'), root);
             if (typeof dispatchCapsuleTask === 'function') {
                 dispatchCapsuleTask('change-theme');
             }
@@ -646,7 +898,7 @@ function initThemesApp() {
         });
     });
 
-    applyTheme(document.documentElement.dataset.theme || 'light');
+    applyCapsuleDocumentTheme(resolveCapsuleThemeCurrent(), root);
     if (contrastOptions.length) {
         applyContrast(document.documentElement.dataset.contrastMode || 'normal');
     }

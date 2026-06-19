@@ -10,23 +10,196 @@ const CONTRACT_PATH = path.join(ROOT, 'etc/capsuleos/contracts/apps-replication-
 
 export const loadAppsReplicationContract = () => JSON.parse(fs.readFileSync(CONTRACT_PATH, 'utf8'));
 
+/** Noms de fichiers capture Capsule Linux Mint (capture-capsule-mint.mjs). */
+const MINT_CAPTURE_ALIASES = {
+  nemo: ['mint-capsule-nemo.png', '03-nemo.png'],
+  firefox: ['mint-capsule-firefox.png', '04-firefox.png'],
+  terminal: ['mint-capsule-terminal.png', '05-terminal.png'],
+  themes: ['mint-capsule-themes.png'],
+  mintinstall: ['mint-capsule-mintinstall.png'],
+  update_manager: ['mint-capsule-update_manager.png'],
+  calculator: ['mint-capsule-calculator.png'],
+  calendar: ['mint-capsule-calendar.png'],
+  screenshot: ['mint-capsule-screenshot.png'],
+  text_editor: ['mint-capsule-text_editor.png'],
+  drawing: ['mint-capsule-drawing.png'],
+  lecteur_multimedia: ['mint-capsule-lecteur_multimedia.png'],
+  libreoffice_startcenter: ['mint-capsule-libreoffice_startcenter.png'],
+  librewriter: ['mint-capsule-librewriter.png', 'mint-capsule-libreoffice_startcenter.png'],
+};
+
+/** Noms de fichiers capture Capsule KDE Neon (capture-capsule-kde-neon.mjs + baseline). */
+const KDE_NEON_CAPTURE_ALIASES = {
+  themes: ['capsule-systemsettings.png', 'themes.png'],
+  nemo: ['capsule-dolphin.png', '03-dolphin.png', 'nemo.png'],
+  firefox: ['capsule-firefox.png', '04-firefox.png', 'firefox.png'],
+  terminal: ['capsule-terminal.png', '05-terminal.png', 'terminal.png'],
+  update_manager: ['capsule-discover.png', '06-discover.png', 'update_manager.png'],
+  text_editor: ['capsule-kate.png', 'text_editor.png'],
+  lecteur_multimedia: ['capsule-vlc.png', '07-discover-detail-vlc.png', 'lecteur_multimedia.png'],
+  visionneur_images: ['capsule-gwenview.png', 'visionneur_images.png'],
+  visionneur_pdf: ['capsule-okular.png', 'visionneur_pdf.png'],
+  spectacle: ['capsule-spectacle.png'],
+  kinfocenter: ['capsule-kinfocenter.png'],
+  system_monitor: ['capsule-system-monitor.png'],
+};
+
+/** Noms de fichiers capture Capsule Pop!_OS (scripts *-views.mjs, préfixe popos). */
+const POPOS_CAPTURE_ALIASES = {
+  nemo: ['popos-capsule-dark-nautilus.png'],
+  firefox: ['popos-capsule-dark-firefox.png'],
+  terminal: ['popos-capsule-dark-terminal.png'],
+  themes: ['popos-capsule-dark-settings-appearance.png', 'rocky-capsule-dark-themes-dark-mode.png', 'rocky-capsule-dark-settings-appearance.png'],
+  text_editor: ['popos-capsule-dark-text-editor.png'],
+  update_manager: ['popos-capsule-dark-software.png'],
+  lecteur_multimedia: [
+    'popos-capsule-dark-lecteur_multimedia.png',
+    'ubuntu-capsule-dark-rhythmbox-library.png',
+    'popos-capsule-dark-rhythmbox-library.png',
+  ],
+};
+
 /** Noms de fichiers capture Capsule par controlId (préfixe rocky-capsule-dark-*). */
-export const capsuleCaptureCandidates = (controlId) => {
-  const aliases = {
-    nemo: ['rocky-capsule-dark-nautilus.png', 'rocky-capsule-light-nautilus.png'],
-    firefox: ['rocky-capsule-dark-firefox.png', 'rocky-capsule-light-firefox.png'],
-    terminal: ['rocky-capsule-dark-terminal.png'],
-    themes: ['rocky-capsule-dark-settings-appearance.png', 'rocky-capsule-dark-settings-displays.png'],
-    calculator: ['rocky-capsule-dark-calculator.png'],
-    text_editor: ['rocky-capsule-dark-text-editor.png'],
-    update_manager: ['rocky-capsule-dark-software.png'],
-  };
+const GNOME_RHEL_CAPTURE_ALIASES = {
+  nemo: ['rocky-capsule-dark-nautilus.png', 'rocky-capsule-light-nautilus.png'],
+  firefox: ['rocky-capsule-dark-firefox.png', 'rocky-capsule-light-firefox.png'],
+  terminal: ['rocky-capsule-dark-terminal.png'],
+  themes: ['rocky-capsule-dark-settings-appearance.png', 'rocky-capsule-dark-settings-displays.png'],
+  calculator: [
+    'rocky-capsule-dark-calculator.png',
+    'rocky-capsule-dark-calculator-basic.png',
+    'rocky-capsule-dark-calculator-chain-clear.png',
+    'rocky-capsule-dark-calculator-advanced.png',
+    'rocky-capsule-dark-calculator-copy.png',
+  ],
+  text_editor: [
+    'rocky-capsule-dark-text-editor.png',
+    'rocky-capsule-dark-text-editor-new-doc.png',
+    'rocky-capsule-dark-text-editor-open-file.png',
+    'rocky-capsule-dark-text-editor-save-as.png',
+    'rocky-capsule-dark-text-editor-tabs.png',
+  ],
+  update_manager: [
+    'rocky-capsule-dark-software.png',
+    'rocky-capsule-dark-software-updates.png',
+    'rocky-capsule-dark-software-installed.png',
+    'rocky-capsule-dark-software-detail.png',
+    'rocky-capsule-dark-software-categories.png',
+    'rocky-capsule-dark-software-install-open.png',
+    'rocky-capsule-dark-software-search-install.png',
+    'rocky-capsule-dark-software-updates-empty.png',
+    'rocky-capsule-dark-software-installed-open.png',
+  ],
+  visionneur_images: ['rocky-capsule-dark-loupe.png'],
+  visionneur_pdf: ['rocky-capsule-dark-papers.png'],
+  clocks: [
+    'rocky-capsule-dark-clocks.png',
+    'rocky-capsule-dark-clocks-world-tokyo.png',
+    'rocky-capsule-dark-clocks-stopwatch-running.png',
+    'rocky-capsule-dark-clocks-timer-running.png',
+    'rocky-capsule-dark-clocks-alarm-added.png',
+  ],
+  calendar: [
+    'rocky-capsule-dark-calendar.png',
+    'rocky-capsule-dark-calendar-month.png',
+    'rocky-capsule-dark-calendar-event-added.png',
+    'rocky-capsule-dark-calendar-week.png',
+    'rocky-capsule-dark-calendar-next-month.png',
+  ],
+  snapshot: ['rocky-capsule-dark-snapshot.png'],
+  characters: ['rocky-capsule-dark-characters.png'],
+  tour: [
+    'rocky-capsule-dark-tour.png',
+    'rocky-capsule-dark-tour-welcome.png',
+    'rocky-capsule-dark-tour-overview.png',
+    'rocky-capsule-dark-tour-workspaces.png',
+    'rocky-capsule-dark-tour-finish.png',
+  ],
+  baobab: [
+    'rocky-capsule-dark-baobab.png',
+    'rocky-capsule-dark-baobab-home.png',
+    'rocky-capsule-dark-baobab-computer.png',
+    'rocky-capsule-dark-baobab-treemap.png',
+    'rocky-capsule-dark-baobab-boot.png',
+  ],
+  system_monitor: ['rocky-capsule-dark-system-monitor.png'],
+};
+
+export const capsuleCaptureCandidates = (controlId, registryId = 'linux-rocky') => {
+  if (registryId === 'linux-mint') {
+    return [
+      `${controlId}.png`,
+      `mint-capsule-${controlId}.png`,
+      `capsule-${controlId}.png`,
+      ...(MINT_CAPTURE_ALIASES[controlId] || []),
+    ];
+  }
+  if (registryId === 'linux-kde-neon') {
+    return [
+      `${controlId}.png`,
+      `capsule-${controlId}.png`,
+      ...(KDE_NEON_CAPTURE_ALIASES[controlId] || []),
+    ];
+  }
+  if (registryId === 'linux-popos') {
+    return [
+      `${controlId}.png`,
+      `popos-capsule-dark-${controlId}.png`,
+      `popos-capsule-${controlId}.png`,
+      ...(POPOS_CAPTURE_ALIASES[controlId] || []),
+      ...(GNOME_RHEL_CAPTURE_ALIASES[controlId] || []),
+    ];
+  }
   return [
     `${controlId}.png`,
     `rocky-capsule-${controlId}.png`,
     `rocky-capsule-dark-${controlId}.png`,
-    ...(aliases[controlId] || []),
+    ...(GNOME_RHEL_CAPTURE_ALIASES[controlId] || []),
   ];
+};
+
+export const capsuleCaptureSearchDirs = (registryId, paths) => {
+  const dirs = [paths.capsuleCapturesDir];
+  if (registryId === 'linux-mint') {
+    const captureRoot = path.join(ROOT, 'root/docs/inventaires/captures/linux-mint');
+    dirs.push(path.join(captureRoot, 'baseline'));
+    return [...new Set(dirs)];
+  }
+  if (registryId !== 'linux-kde-neon') {
+    return dirs;
+  }
+  dirs.push(path.join(ROOT, 'home/public/Images/screen_KDE-Neon'));
+  const captureRoot = path.join(ROOT, 'root/docs/inventaires/captures/linux-kde-neon');
+  if (fs.existsSync(captureRoot)) {
+    for (const entry of fs.readdirSync(captureRoot, { withFileTypes: true })) {
+      if (entry.isDirectory() && entry.name !== 'baseline' && entry.name !== 'apps-visual-capsule' && entry.name !== 'apps-visual') {
+        dirs.push(path.join(captureRoot, entry.name));
+      }
+    }
+  }
+  const manifestPath = path.join(captureRoot, 'baseline/manifest.json');
+  if (fs.existsSync(manifestPath)) {
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    for (const cap of manifest.captures || []) {
+      if (cap.file) {
+        dirs.push(path.dirname(path.join(ROOT, cap.file)));
+      }
+    }
+  }
+  return [...new Set(dirs)];
+};
+
+export const findCapsuleCapture = (registryId, controlId, paths) => {
+  const candidates = capsuleCaptureCandidates(controlId, registryId);
+  for (const dir of capsuleCaptureSearchDirs(registryId, paths)) {
+    for (const name of candidates) {
+      const abs = path.join(dir, name);
+      if (fs.existsSync(abs)) {
+        return abs;
+      }
+    }
+  }
+  return null;
 };
 
 export const appsPathsForRegistry = (registryId) => ({

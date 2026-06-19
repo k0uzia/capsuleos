@@ -166,6 +166,7 @@
             apply(on) {
                 persistBool(this.key, on);
                 global.document.documentElement.dataset.notificationsEnabled = on ? 'on' : 'off';
+                dispatch('capsule:notifications-changed', { enabled: on });
             },
         },
         dnd: {
@@ -429,8 +430,8 @@
         },
         'power-dim': {
             key: 'gnome-power-dim-screen',
-            default: '15 minutes',
-            vm: 'org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 900',
+            default: '1 heure',
+            vm: 'org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3600',
             apply(label) {
                 persistPref(this.key, label);
                 global.document.documentElement.dataset.powerDimScreen = label;
@@ -438,8 +439,8 @@
         },
         'power-sleep': {
             key: 'gnome-power-sleep',
-            default: '30 minutes',
-            vm: 'org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type suspend',
+            default: 'Jamais',
+            vm: 'org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing',
             apply(label) {
                 persistPref(this.key, label);
                 global.document.documentElement.dataset.powerSleep = label;

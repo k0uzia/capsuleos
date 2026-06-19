@@ -1,6 +1,7 @@
 {
   "version": 1,
   "description": "Chaîne fidélité applications — mêmes principes que gnome-settings-playbook (structure → runtime → VM → visuel).",
+  "coherenceContract": "etc/capsuleos/contracts/os-reproduction-coherence.json",
   "referenceDomain": "gnome-settings-playbook",
   "principles": [
     "VM prime — inventaire apps et captures ground truth avant H5 app",
@@ -9,7 +10,8 @@
     "Prédicats séquentiels — AppVv documente, AppVc miroir Capsule, AppVp classe ; pas de saut",
     "Façade OS canonique — resolveCapsuleOsUrl(registryId), jamais home/ direct en Playwright",
     "Drift explicite — écarts catalogue ↔ skin ↔ embed dans smoke-apps-matrix",
-    "Classification P0/P1/P2 — AppΣ structurel ≠ parité visuelle complète (AppVp)"
+    "Classification P0/P1/P2 — AppΣ structurel ≠ parité visuelle complète (AppVp)",
+    "Cohérence OsRepro — grille argumentation 5 dimensions + contentGaps avant implémentation (C1–C7)"
   ],
   "domains": {
     "apps-playbook": {

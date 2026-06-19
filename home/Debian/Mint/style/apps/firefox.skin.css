@@ -122,7 +122,7 @@ body#mint div[data-link="firefox"] .capsule-browser__tab--active {
 
 body#mint div[data-link="firefox"] .capsule-browser__tab-icon--firefox {
     font-size: 0;
-    background: url("../../../../../usr/share/capsuleos/assets/images/vendors/mint/panel/firefox.webp") center / contain no-repeat;
+    background: url(../assets/images/vendors/mint/panel/firefox.webp) center / contain no-repeat;
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__tab-close {

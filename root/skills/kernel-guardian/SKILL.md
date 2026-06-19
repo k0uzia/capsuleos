@@ -1,6 +1,6 @@
 ---
 name: capsuleos-kernel-guardian
-description: Guards CapsuleOS kernel JS integrity — CapsuleWindow, contentLoader, CapsuleResource, embed regen, and P0 Mint regression gates. Use when editing usr/lib/capsuleos/common/, OS/linux/kernel/js/, or after asset routing changes that affect hydration.
+description: Guards CapsuleOS kernel JS integrity — CapsuleWindow, contentLoader, CapsuleResource, embed regen, and P0 Mint regression gates. Use when editing usr/lib/capsuleos/common/, usr/lib/capsuleos/shells/linux/, or after asset routing changes that affect hydration.
 ---
 
 # Gardien noyau CapsuleOS
@@ -12,7 +12,7 @@ Empêcher les régressions sur le **comportement** du noyau (fenêtres, slots, r
 ## Périmètre fichiers
 
 - `usr/lib/capsuleos/common/` (`capsule-window.js`, `user-home.js`, …)
-- `OS/linux/kernel/js/` (`capsule-resource.js`, `contentLoader.js`, …)
+- `usr/lib/capsuleos/shells/linux/` (slots, terminal, fileExplorer, …)
 - `var/lib/capsuleos/generated/` (sortie embed — ne pas éditer à la main)
 
 ## Gates P0 (Mint)
@@ -34,7 +34,7 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs
 Vérifier :
 
 - `rewriteCapsuleResourceUrlsInText` appliqué aux templates injectés
-- Pas de fork `site/window*.js` ou kernel obsolète sous `OS/linux/kernel/` dupliqué
+- Pas de fork `site/window*.js` ni copie legacy sous `OS/linux/kernel/`
 
 ## Hydratation (rappel)
 

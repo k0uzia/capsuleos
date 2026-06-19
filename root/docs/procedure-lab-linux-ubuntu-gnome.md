@@ -23,7 +23,7 @@
 | Icônes | Adwaita (VM) | **Yaru** (VM) |
 | Paquets sonde | `dnf` + EPEL | `apt` |
 | Terminal VM | Ptyxis | Ptyxis ou GNOME Terminal — **à noter dans Ti** |
-| Mises à jour | `dnf` / Logiciels | `apt` / **Centre de logiciels** (`update_manager_ubuntu`) |
+| Mises à jour | `dnf` / Logiciels | `apt` / **Logiciels** (`update_manager_gnome.html`, GS50) |
 | Skin Capsule | `home/RedHat/Rocky/` | `home/Debian/Ubuntu/` · `body#ubuntu` |
 
 **Règle anti-porosité** : toute règle dock / fond / token Ubuntu sous `body#ubuntu` ; gate `validate-skin-vendor-isolation.mjs`.
@@ -184,13 +184,33 @@ Ordre recommandé (P0) :
 
 ---
 
-## Phase 4 — Clôture
+## Phase 4 — Clôture PbΣ / H6 Paramètres GNOME
+
+Prérequis : enquête visuelle P0 documentée (`linux-ubuntu-gnome-settings-visual-investigation.json`).
+
+```bash
+# Chaîne parité Paramètres GNOME (matrice ↔ HTML ↔ baseline VM)
+node usr/lib/capsuleos/tools/lab/verify-gnome-settings-parity-chain.mjs --id linux-ubuntu --strict
+
+# Gate pré-H6 (h6Ready + pbSigma)
+node usr/lib/capsuleos/tools/lab/smoke-h6-gnome-settings-ready.mjs --id linux-ubuntu
+
+# Clôture H6 — écrit h6-closure.json (predicates.PbΣ: true)
+CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/close-h6-gnome-settings.mjs --id linux-ubuntu
+
+# Gate formalisation PbΣ (intégrée validate-capsule)
+node usr/lib/capsuleos/tools/validate-gnome-settings-pbsigma.mjs
+```
+
+Clôture skin + terminal :
 
 ```bash
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-terminal-ptyxis-chrome.mjs --profile=linux-ubuntu
 ```
+
+Livrables formels : `linux-ubuntu-gnome-settings-h6-ready.json`, `linux-ubuntu-gnome-settings-h6-closure.json` — références dans `linux-ubuntu-vm.json` § `gnomeSettings`.
 
 Rapport d’écarts : `root/docs/inventaire-parite-ubuntu.md` (à créer en fin de passe).
 

@@ -27,6 +27,10 @@ body#kde-neon #mainMenu > #windowHeader {
     height: 0;
 }
 
+body#kde-neon #mainMenu .menu-cat__icon {
+    display: none !important;
+}
+
 body#kde-neon #mainMenu .menu-root.menu-root--plasma {
     position: relative;
     display: flex;
@@ -37,7 +41,7 @@ body#kde-neon #mainMenu .menu-root.menu-root--plasma {
     min-height: 0;
     overflow: hidden;
     color: var(--kde-neon-menu-text);
-    font-family: "Cantarell", var(--font-ui);
+    font-family: var(--font-ui);
 }
 
 /* ── En-tête Kickoff VM : utilisateur (col. catégories) | recherche (col. apps) ── */
@@ -287,6 +291,19 @@ body#kde-neon #mainMenu .menu-places > li > .menu-shortcut {
     background: transparent;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Noyau partagé (Mint) injecte <img.menu-cat__icon> — Plasma Neon garde ::before */
+body#kde-neon #mainMenu .menu-cat__icon {
+    display: none;
+}
+
+body#kde-neon #mainMenu .menu-cat__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 body#kde-neon #mainMenu .menu-cat::before {

@@ -74,11 +74,67 @@
         },
         chmod: {
             help: 'Modifie les permissions (simulation)',
-            examples: ['chmod 644 notes.txt', 'chmod 755 script.sh']
+            examples: ['chmod 644 notes.txt', 'chmod u+x script.sh']
+        },
+        chown: {
+            help: 'Modifie le propriétaire d’un fichier',
+            examples: ['chown capsule fichier.txt', 'chown capsule:users fichier.txt']
+        },
+        chgrp: {
+            help: 'Modifie le groupe d’un fichier',
+            examples: ['chgrp users fichier.txt']
+        },
+        chattr: {
+            help: 'Modifie les attributs étendus (simulation)',
+            examples: ['chattr +i fichier.txt']
+        },
+        lsattr: {
+            help: 'Affiche les attributs étendus',
+            examples: ['lsattr fichier.txt']
+        },
+        adduser: {
+            help: 'Ajoute un utilisateur (simulation)',
+            examples: ['adduser alice']
+        },
+        useradd: {
+            help: 'Ajoute un utilisateur (simulation)',
+            examples: ['useradd bob']
+        },
+        passwd: {
+            help: 'Modifie un mot de passe (simulation)',
+            examples: ['passwd', 'passwd alice']
+        },
+        groupadd: {
+            help: 'Crée un groupe (simulation)',
+            examples: ['groupadd devs']
+        },
+        ln: {
+            help: 'Crée un lien vers un fichier ou répertoire',
+            examples: ['ln -s cible lien', 'ln fichier hardlink']
+        },
+        diff: {
+            help: 'Compare deux fichiers texte',
+            examples: ['diff a.txt b.txt']
+        },
+        cmp: {
+            help: 'Compare deux fichiers octet par octet',
+            examples: ['cmp a.txt b.txt']
+        },
+        zip: {
+            help: 'Compresse des fichiers dans une archive zip',
+            examples: ['zip archive.zip doc1.txt doc2.txt']
+        },
+        unzip: {
+            help: 'Décompresse une archive zip',
+            examples: ['unzip archive.zip']
+        },
+        tar: {
+            help: 'Crée ou extrait des archives tar',
+            examples: ['tar -cvf archive.tar docs/', 'tar -xvf archive.tar']
         },
         rm: {
             help: 'Supprime un fichier ou un dossier',
-            examples: ['rm file.txt', 'rm dossier']
+            examples: ['rm file.txt', 'rm -r dossier']
         },
         rmdir: {
             help: 'Supprime un dossier vide',
@@ -106,11 +162,83 @@
         },
         ps: {
             help: 'Affiche les processus simulés',
-            examples: ['ps']
+            examples: ['ps', 'ps aux']
+        },
+        top: {
+            help: 'Vue dynamique des processus (simulation)',
+            examples: ['top']
+        },
+        pgrep: {
+            help: 'Recherche un PID par nom de processus',
+            examples: ['pgrep bash']
+        },
+        killall: {
+            help: 'Termine des processus par nom',
+            examples: ['killall firefox']
+        },
+        nice: {
+            help: 'Exécute une commande avec une priorité',
+            examples: ['nice -n 10 ./script.sh']
         },
         kill: {
             help: 'Termine un processus simulé',
             examples: ['kill 1001']
+        },
+        wget: {
+            help: 'Télécharge un fichier depuis Internet (simulation)',
+            examples: ['wget https://example.org/file.txt']
+        },
+        ip: {
+            help: 'Affiche ou configure les interfaces réseau (simulation)',
+            examples: ['ip a', 'ip link']
+        },
+        netstat: {
+            help: 'Affiche les connexions réseau (simulation)',
+            examples: ['netstat -tuln']
+        },
+        traceroute: {
+            help: 'Trace le chemin réseau vers un hôte (simulation)',
+            examples: ['traceroute example.org']
+        },
+        route: {
+            help: 'Affiche la table de routage (simulation)',
+            examples: ['route -n']
+        },
+        dig: {
+            help: 'Interroge le DNS (simulation)',
+            examples: ['dig capsuleos.local']
+        },
+        ftp: {
+            help: 'Transfert de fichiers FTP (simulation)',
+            examples: ['ftp ftp.example.org']
+        },
+        sftp: {
+            help: 'Transfert de fichiers SFTP (simulation)',
+            examples: ['sftp user@host']
+        },
+        mount: {
+            help: 'Affiche les systèmes de fichiers montés (simulation)',
+            examples: ['mount']
+        },
+        umount: {
+            help: 'Démonte un système de fichiers (simulation)',
+            examples: ['umount /mnt/usb']
+        },
+        shutdown: {
+            help: 'Arrête le système (simulation)',
+            examples: ['shutdown -h now']
+        },
+        reboot: {
+            help: 'Redémarre le système (simulation)',
+            examples: ['reboot']
+        },
+        lscpu: {
+            help: 'Affiche les informations processeur',
+            examples: ['lscpu']
+        },
+        lshw: {
+            help: 'Affiche les informations matériel',
+            examples: ['lshw -short']
         },
         ping: {
             help: 'Teste la connectivité réseau (simulation)',
@@ -175,6 +303,10 @@
         dnf: {
             help: 'Gestionnaire de paquets Red Hat/Fedora',
             examples: ['dnf check-update', 'dnf install vim']
+        },
+        yum: {
+            help: 'Gestionnaire de paquets Red Hat (alias DNF)',
+            examples: ['yum check-update', 'yum install vim']
         },
         zypper: {
             help: 'Gestionnaire de paquets openSUSE',

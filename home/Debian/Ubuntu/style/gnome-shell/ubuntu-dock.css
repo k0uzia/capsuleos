@@ -65,7 +65,16 @@
 }
 
 #ubuntu #tableau.fedora-dock .fedora-dock__nav a.active-link::before {
-    display: none;
+    content: "";
+    position: absolute;
+    left: calc(var(--head) / 14);
+    top: 50%;
+    width: calc(var(--head) / 18);
+    height: 52%;
+    border-radius: calc(var(--head) / 22);
+    background: var(--menu-accent);
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 #ubuntu #tableau.fedora-dock .ubuntu-dock__unavailable {
@@ -124,4 +133,12 @@
 #ubuntu.is-overview-apps .ubuntu-dock__show-apps {
     background: rgba(255, 255, 255, 0.18);
     border-color: rgba(233, 84, 32, 0.65);
+}
+
+/* ding@rastersoft.com — Dossier personnel (coin bas-droit VM) */
+#ubuntu .desktop-shortcut--ding-home {
+    top: auto;
+    left: auto;
+    right: calc(var(--head) / 2);
+    bottom: calc(var(--head) / 2);
 }

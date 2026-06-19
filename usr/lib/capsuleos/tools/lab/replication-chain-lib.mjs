@@ -4,6 +4,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolveVendorSlug } from '../vendor-icon-resolution-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, '../../../../..');
@@ -28,7 +29,7 @@ export const skinUrlFromRegistry = (registryId) => {
 
 export const vendorFromRegistry = (registryId) => {
   const entry = loadRegistryEntry(registryId);
-  return entry.vendor || registryId.replace(/^linux-/, '');
+  return resolveVendorSlug(entry);
 };
 
 export const pathsForRegistry = (registryId) => {

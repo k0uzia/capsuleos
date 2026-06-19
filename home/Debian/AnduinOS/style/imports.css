@@ -5,6 +5,7 @@
 @import url(../../../../usr/share/capsuleos/themes/linux/variables-linux-computed.css);
 @import url(../../../../usr/share/capsuleos/themes/clusters/toolkit-gnome/chrome.css);
 @import url(./anduin-shell/tokens.css);
+@import url(./anduin-shell/gnome-app-tokens.css);
 @import url(./anduin-shell/desktop.css);
 @import url(./anduin-shell/taskbar.css);
 @import url(./anduin-shell/windows-chrome.css);

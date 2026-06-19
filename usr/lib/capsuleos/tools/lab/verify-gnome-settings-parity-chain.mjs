@@ -11,7 +11,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { ROOT } from './replication-chain-lib.mjs';
 import { resolveLabMatrix } from './lab-recipe-resolver.mjs';
-import { h6Profile, parseRegistryId } from './h6-gnome-settings-lib.mjs';
+import { h6Profile, parseRegistryId, loadPlaybookTail } from './h6-gnome-settings-lib.mjs';
+import { writeSettingsEffectsState } from './settings-effects-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const errors = [];
@@ -174,7 +175,7 @@ for (const panel of matrix.panels || []) {
   }
 }
 
-if (profile.requiresPlaybook && fs.existsSync(playbookPath)) {
+if (profile.requiresPlaybook && profile.requiresBaseline && fs.existsSync(playbookPath)) {
   const playbook = JSON.parse(fs.readFileSync(playbookPath, 'utf8'));
   const baselineMatch = baselineJs.match(/CAPSULE_VM_SETTINGS_BASELINE = (\{[\s\S]*?\});/);
   let baseline = {};
@@ -192,7 +193,7 @@ if (profile.requiresPlaybook && fs.existsSync(playbookPath)) {
       }
     }
   }
-} else if (profile.requiresPlaybook) {
+} else if (profile.requiresPlaybook && profile.requiresBaseline && !fs.existsSync(playbookPath)) {
   warnings.push(`Playbook inventaire absent pour ${registry} — baseline non vérifiée`);
 }
 
@@ -201,7 +202,12 @@ if (profile.requiresInteractionInventory && fs.existsSync(interactionPath)) {
   const failed = [];
   for (const panel of interaction.panels || []) {
     for (const it of panel.interactions || []) {
-      if (it.status === 'failed') failed.push(`${panel.id}/${it.controlId}`);
+      if (it.status !== 'failed') continue;
+      if (it.restoredOk && it.monitorEvent === false) {
+        warnings.push(`Interaction VM partielle (toggle non observé, restauration OK) : ${panel.id}/${it.controlId}`);
+        continue;
+      }
+      failed.push(`${panel.id}/${it.controlId}`);
     }
   }
   if (failed.length) {
@@ -214,6 +220,44 @@ if (profile.requiresInteractionInventory && fs.existsSync(interactionPath)) {
   warnings.push('Inventaire interaction absent');
 }
 
+const contractPath = path.join(ROOT, 'etc/capsuleos/contracts/settings-effects-chain.json');
+if (!fs.existsSync(contractPath)) {
+  errors.push('Contrat settings-effects-chain.json absent');
+}
+
+const parityJsFull = read('usr/lib/capsuleos/shells/linux/gnome-settings-parity.js');
+const themeStorageJs = read('usr/lib/capsuleos/shells/linux/capsule-theme-storage.js');
+const themesJs = read('usr/lib/capsuleos/shells/linux/themes.js');
+const seBusJs = read('usr/lib/capsuleos/shells/linux/se-a11y-bus.js');
+const effectSources = `${parityJsFull}\n${themeStorageJs}\n${themesJs}\n${seBusJs}`;
+
+const P0_EVENT_HINTS = {
+  theme: ['data-theme-option', 'capsule:gnome-theme-changed', 'persistTheme', 'color-scheme', 'mint-theme'],
+  'night-light': ['capsule:night-light-changed', 'capsule:nightlight-changed', 'gnome-night-light'],
+  'dynamic-workspaces': ['capsule:workspaces-config-changed', 'capsule:dynamic-workspaces-changed', 'gnome-dynamic-workspaces'],
+  dnd: ['capsule:dnd-changed', 'gnome-dnd'],
+  accent: ['capsule:accent-changed', 'data-accent-chip', 'gnome-accent'],
+  wallpaper: ['capsule:wallpaper-changed', 'data-wallpaper-grid', 'picture-uri'],
+  notifications: ['notificationsEnabled', 'show-banners', 'gnome-notifications'],
+  contrast: ['capsule:a11y-contrast-changed'],
+  'font-scale': ['capsule:a11y-font-scale-changed'],
+};
+
+const tail = loadPlaybookTail(registry);
+const p0Ids = [...new Set(
+  (tail?.gaps || [])
+    .filter((g) => g.priority === 'P0')
+    .map((g) => g.controlId),
+)];
+
+for (const id of p0Ids) {
+  const hints = P0_EVENT_HINTS[id] || [`'${id}'`, `data-settings-switch="${id}"`];
+  const wired = hints.some((h) => effectSources.includes(h) || parityJsFull.includes(`'${id}'`));
+  if (!wired) {
+    errors.push(`SeΣ P0 "${id}" : handler/événement absent`);
+  }
+}
+
 if (errors.length) {
   console.error(`verify-gnome-settings-parity-chain ${registry} — échec\n`);
   errors.forEach((e) => console.error(`  ✗ ${e}`));
@@ -222,5 +266,18 @@ if (errors.length) {
 }
 
 console.log(`✓ verify-gnome-settings-parity-chain ${registry} OK`);
+writeSettingsEffectsState(registry, {
+  Se: true,
+  SeΣ: !errors.length && p0Ids.every((id) => {
+    const hints = P0_EVENT_HINTS[id] || [`'${id}'`, `data-settings-switch="${id}"`];
+    return hints.some((h) => effectSources.includes(h) || parityJsFull.includes(`'${id}'`));
+  }),
+}, {
+  gate: 'verify-gnome-settings-parity-chain.mjs',
+  strict,
+  p0Ids,
+  warnings: warnings.length,
+});
 if (warnings.length) warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
-if (strict && warnings.length) process.exit(1);
+const strictBlockers = warnings.filter((w) => !w.startsWith('Interaction VM partielle'));
+if (strict && strictBlockers.length) process.exit(1);

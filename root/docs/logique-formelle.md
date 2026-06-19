@@ -72,6 +72,26 @@ Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantiqu
 | **Vc** | Captures Capsule miroir (lot documenté) | `capsuleCaptures[]` P0 ; `summary.capsuleCapturesP0 > 0` |
 | **Vp** | Parité visuelle classée | `capsuleParity.visualMatch` ≠ `unknown` pour P0 documentés |
 
+### 2.4b Fidélité visuelle mesurée (Φ)
+
+**Φ** est distinct de **Vp** : **Vp** est une classification déclarative (heuristique hooks + présence de captures) ; **Φ** est une **mesure pixel** VM ↔ clone. La crédibilité pédagogique exige Φ — Vp seul ne suffit plus pour clore un domaine visuel.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **ΦC** | Paires de captures VM + clone présentes (scènes P0 du contrat) | `capture-scene-pair.mjs` · `captures/<id>/visual-fidelity/<slot>/{vm,clone}/` |
+| **ΦM** | Φ_scene mesuré (diff pixel, masques appliqués) | `compare-visual-fidelity.mjs` · `<id>-visual-fidelity.json` |
+| **ΦI** | Rendu live conforme inventaire VM (computed + géométrie) | `assert-computed-vs-inventory.mjs` · `computedChecks` dans `<id>-<slot>-vm.json` |
+| **Φ** | Fidélité visuelle mesurée : toutes scènes P0 `classification ≥ partial`, clôture exige `match` | `slots.<slot>.classification` dans `<id>-visual-fidelity.json` |
+
+Règles :
+
+- **`visualMatch: match` est réservé au diff pixel mesuré** — un classifieur déclaratif ne peut produire que `partial` au mieux.
+- Slot avec scènes P0 déclarées dans `visual-scenes.json` mais **non mesurées** → `pending-phi` : la dimension `vis` de **Π** ne peut pas atteindre 100 (check `phi-visual` en échec).
+- Distro sans VM accessible → statut explicite `phi: unmeasured` — jamais `match` implicite.
+- Φ_slot = min des Φ_scene P0 (lecture honnête au pire cas).
+
+Contrat : `etc/capsuleos/contracts/visual-scenes.json` · Rapport : `root/docs/inventaires/<id>-visual-fidelity.json`
+
 ### 2.5 Classification écarts (P)
 
 | Symbole | Signification |
@@ -103,8 +123,12 @@ Convention : [convention-taxonomie-semantique.md](convention-taxonomie-semantiqu
 | **AppVc** | Captures Capsule par slot P0 | `capsuleCapturesP0` |
 | **AppVp** | Parité visuelle apps classée | `visualMatchClassifiedP0` |
 | **AppΣ** | Catalogue apps clôturé (structure) | **AppV ∧ AppC ∧ AppP0 ∧ AppL** |
+| **StoreΣ** | Extension magasin structurellement cohérente (pilote registry) | **SlotF ∧ PresB ∧ GenStore ∧ StoreIntegrity** — voir [architecture-catalogue-apps.md](architecture-catalogue-apps.md) |
+| **StoreG** | Ground magasin GNOME branché | `gnome-software-ground.js` + `gnome-software-store-content.json` + `groundReferenceRegistryId` |
+| **StoreVc** | Captures Capsule multi-vues store | `summary.softwareViewsCapsule` inventaire visuel |
+| **StoreVp** | Parité magasin classée | `capsuleParity.visualMatch` slot `update_manager` |
 
-Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Chaîne fidélité : `apps-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md)
+Contrat : `etc/capsuleos/contracts/apps-catalog.json` · Magasin : `slots-manifest.json` · `store-installable-apps.json` · Cohérence : `os-reproduction-coherence.json` · Chaînes : `apps-replication-chain.json` · `store-replication-chain.json` · Procédures : [procedure-apps-catalog.md](procedure-apps-catalog.md) · [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) · [procedure-store-replication-formelle.md](procedure-store-replication-formelle.md)
 
 ### 2.10 Fidélité visuelle (Tf)
 
@@ -194,6 +218,35 @@ Métaphore **points de montage** — parcours modulaires branchés sans fork noy
 
 Contrat : `etc/capsuleos/contracts/pedagogical-modules.json`
 
+### 2.15 Reproduction parfaite — cohérence OsRepro
+
+Cadre transversal : cohérence (C1–C7), déduction, grille d'argumentation, critères de clôture.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **OsRepro** | Cadre cohérence actif | `validate-os-reproduction-coherence.mjs` |
+| **Grid5** | Grille 5 dimensions slot P0 | chrome, content, catalog, interaction, detail dans `contentGaps[]` |
+| **OsΣ-slot** | Reproduction parfaite slot | ∀ dim P0 : verdict ∈ {ok, accepted} |
+| **OsΣ-registry** | Reproduction parfaite registre | **ManΣ ∧ AppΣ ∧ PbΣ ∧ StoreVp ∧ Tf ∧ H₆** |
+
+Principes **C1–C9** : VM prime · flux Z0→Z3 · prédicats séquentiels · ground avant skin · façade canonique · écart explicite · clôture déductive · **composition par slots (C8)** · **delta VM seulement (C9)**.
+
+Anticipation **P-OS1–P-OS9** : pilote/dérivé · Σ≠Vp · contrat exécutable · spine unique · **P-OS9 réutiliser avant recréer**.
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **SlotMap** | Apps VM mappées aux slots dépôt | inventaire VM × `slots-manifest` / `apps-catalog` |
+| **GapΔ** | Écarts explicites à traiter | `contentGaps` ouverts ∨ `p0Gaps` ∨ slot absent |
+| **ReuseΣ** | Slot structurellement réutilisable | kernel + variant + ¬GapΔ sur slot |
+| **RealΣ** | Réalisme vécu slot P0 | **Vp ∧ VΣ ∧ functionalDepth ≠ partial** · `resolve-slot-gap-delta.mjs` |
+| **RealΣ-registry** | Réalisme vécu registre | ∀ slot P0 : **RealΣ** |
+
+Inférences interdites : **AppVp** sans **AppVc** ; patch skin sans **contentSpec** ; ground cross-vendor sans overlay ; implémentation sous **¬H₂** (R-IMP1) ; **campagne complète** si **SlotMap** couvre P0 et **GapΔ** vide (F-FULL-REPRO) ; **clone slot** si **ReuseΣ** (F-CLONE-SLOT) ; **partial P0 silencieux** sans **contentGaps** (F-SILENT-PARTIAL → matérialisation **RealΣ** via `--write`).
+
+Recette campagne **CR-0…CR-6** : socle → inventaire VM → enquête visuelle → grille → ground → captures Capsule → clôture parité.
+
+Contrat : `etc/capsuleos/contracts/os-reproduction-coherence.json` · Convention : [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md)
+
 ### 2.11 Rafraîchissement des vues (Rv)
 
 Condition **sine qua non** de la reproduction fidèle : distinguer **réel** (`V = projection(M)` après action) et **irréel** (`V ≠ projection(M)` ou refresh sans `ΔM`).
@@ -218,6 +271,33 @@ Contrat : `etc/capsuleos/contracts/view-refresh-vigilance.json` · Convention : 
 | **LabShell** | Smokes GNOME de référence post-polish | gate `LabShell` dans `*-formal-state.json` |
 
 Gates persistés **H₂**, **A**, **L** (socle) : `*-formal-state.json` — enregistrés par `run-formal-chain.mjs` après succès des règles correspondantes.
+
+### 2.9 Crédibilité pédagogique (Cred*)
+
+Domaine **post-C10** : parcours utilisateur documenté, implémenté et validé live — au-delà du **Π structurel** (`pi_global`, AppVp).
+
+| Symbole | Signification | Vérification |
+|---------|---------------|--------------|
+| **CredV** | Scénarios documentés (steps VM, persona) | `summary.documented === summary.totalScenarios` ∧ total > 0 |
+| **CredC** | Interactions clone implémentées | `summary.implemented === total` |
+| **CredS** | Smokes scénario verts (inventaire + gate live) | `summary.smokeOk === total` ; gate `CredS.liveVerified` dans `*-credibility-formal-state.json` |
+| **CredΠ** | Parité crédibilité par app (tier B) | `appsAtPi100 === appsTotal` ∧ `gapSlotsTotal === 0` dans `*-app-fidelity-gaps.json` |
+| **CredΣ** | **CredV ∧ CredC ∧ CredS ∧ CredΠ** | Clôture `replication-state.credibilityCampaign.credSigma` |
+
+Chaîne séquentielle : **CredV → CredC → CredS → CredΠ → CredΣ** (phases P-A…P-F3, campagne `v3-credibility-pass`).
+
+| Règle | Antécédents | Action |
+|-------|-------------|--------|
+| **R-CRED-H2** | ¬**H₂** | `validate-all.mjs` |
+| **R-CRED-SMOKE-ALL** | **CredC** ∧ ¬CredS_live | `smoke-app-fidelity-all.mjs` |
+| **R-CRED-FORMAL** | **CredS** inventaire ∧ ¬état formel | `--phase formal-write` |
+| **R-CRED-Σ** | **CredΣ** ∧ ¬clôture replication-state | patch `credibilityCampaign` |
+
+Outils : `app-fidelity-lib.mjs` · `run-app-fidelity-campaign.mjs --phase formal|formal-write|resolve` · `run-app-fidelity-formal-chain.mjs` · `resolve-agent-action.mjs --scope app-fidelity`.
+
+Lien **P-F** : P-F1 cartographie gaps → P-F3 crédibilité tier B ; **CredΣ** clôt la campagne quand inventaire 100 % et gaps à 0.
+
+Contrat : `etc/capsuleos/contracts/app-fidelity-scenarios.json` · procédure : [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md).
 
 ### 2.7 Catalogue (R)
 
@@ -251,6 +331,10 @@ R-PRI1  L ∧ S ∧ ¬V  →  priorité enquête visuelle / capture VM (lot P0)
 R-PRI2  V ∧ ¬G  →  passe approfondie gsettings / schémas secondaires
 R-PRI2b G ∧ ¬Vc  →  captures Capsule miroir (lot P0 documenté)
 R-PRI2c Vc ∧ ¬Vp  →  croisement VM↔Capsule, classer visualMatch
+R-PHI1  scènes P0 déclarées ∧ ¬ΦC  →  capture-scene-pair.mjs (VM + clone)
+R-PHI2  ΦC ∧ ¬ΦM  →  compare-visual-fidelity.mjs (score Φ + diff)
+R-PHI3  computedChecks déclarés ∧ ¬ΦI  →  assert-computed-vs-inventory.mjs
+R-PHI4  Φ mismatch sur scène P0  →  corriger skin/catalogue puis re-mesurer (interdit clôture H₆ visuelle)
 R-PRI3  Vp ∧ lot P1 ouvert  →  étendre enquête visuelle P1
 R-PRI3b H₂ ∧ I ∧ A ∧ P0 ouvert  →  corriger P0 avant P1
 R-PRI4  ¬playbook_VM(d)  →  REPORTÉ — pas de baseline arbitraire pour d
@@ -400,6 +484,7 @@ Les procédures détaillent prédicats et commandes **locales**. Elles **doivent
 | **Modules pédagogiques** | [convention-modules-mnt.md](convention-modules-mnt.md) | **Pm**, **Pm_Σ**, **Pm_mount**, **PΣ** |
 | **Commandes terminal** | [procedure-terminal-commandes.md](procedure-terminal-commandes.md) | **Tc**, **Tf**, **Tv**, **Te** |
 | Réplication applications | [procedure-apps-replication-formelle.md](procedure-apps-replication-formelle.md) | **AppL**, **AppVv**, **AppVc**, **AppVp** |
+| **Crédibilité pédagogique** | [campagne-credibilite-pedagogique.md](campagne-credibilite-pedagogique.md) | **CredV**, **CredC**, **CredS**, **CredΠ**, **CredΣ** |
 | Assets vendor | [convention-assets-depuis-vm.md](convention-assets-depuis-vm.md) | **A**, **S**, **T** |
 | Lab Rocky GNOME | [procedure-lab-linux-rocky-gnome.md](procedure-lab-linux-rocky-gnome.md) | **M**, phases 1–5 |
 | Audit VM profond | [procedure-audit-vm-profonde.md](procedure-audit-vm-profonde.md) | **I⁺**, phases JSON |
@@ -431,6 +516,11 @@ node usr/lib/capsuleos/tools/lab/run-replication-chain.mjs --id <registryId> --d
 # Fidélité visuelle (typo, vues, MIME, a11y)
 node usr/lib/capsuleos/tools/lab/collect-visual-fidelity-inventory.mjs --id <registryId> --write
 node usr/lib/capsuleos/tools/lab/smoke-visual-fidelity.mjs --id <registryId>
+
+# Crédibilité pédagogique (Mint post-C10)
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-campaign.mjs --id linux-mint --phase formal
+node usr/lib/capsuleos/tools/lab/run-app-fidelity-formal-chain.mjs --id linux-mint --max-steps 8
+node usr/lib/capsuleos/tools/lab/resolve-agent-action.mjs --id linux-mint --scope app-fidelity
 
 # Brief registre
 node usr/lib/capsuleos/tools/print-agent-brief.mjs <registryId>

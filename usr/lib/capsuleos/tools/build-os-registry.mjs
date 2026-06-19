@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getRawEntries } from './os-registry-entries.mjs';
+import { resolvePickIconAsset } from './vendor-icon-resolution-lib.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
@@ -108,39 +109,8 @@ function buildExtends(raw) {
   return parts.join('/');
 }
 
-const PICK_ICON_MAP = {
-  mint: 'images/platforms/pick-os/linux/mint.png',
-  ubuntu: 'images/platforms/pick-os/linux/ubuntu.png',
-  fedora: 'images/platforms/pick-os/linux/fedora.png',
-  debian: 'images/platforms/pick-os/linux/debian.png',
-  mx: 'images/platforms/pick-os/linux/mx.png',
-  opensuse: 'images/platforms/pick-os/linux/opensuse.png',
-  popos: 'images/platforms/pick-os/linux/popos.png',
-  anduin: 'images/platforms/pick-os/linux/anduin.png',
-  rocky: 'images/platforms/pick-os/linux/rocky.png',
-  neon: 'images/platforms/pick-os/linux/debian.png',
-  microsoft: 'images/platforms/pick-os/windows/win11.png',
-  google: 'images/platforms/pick-os/android/vanillaicecream.png',
-  apple: 'images/platforms/pick-os/macos/sonoma.png',
-  lineage: 'images/platforms/pick-os/android/vanillaicecream.png'
-};
-
-const WIN_PICK = {
-  'windows-95': 'win95.png', 'windows-98': 'win98.png', 'windows-me': 'winme.png',
-  'windows-2000': 'win2000.png', 'windows-xp': 'winxp.png', 'windows-vista': 'vista.png',
-  'windows-7': 'win7.png', 'windows-8': 'win8.png', 'windows-8.1': 'win8.png',
-  'windows-10': 'win10.png', 'windows-11': 'win11.png'
-};
-
 function resolvePickIcon(raw) {
-  if (raw.family === 'windows' && WIN_PICK[raw.id]) {
-    return `images/platforms/pick-os/windows/${WIN_PICK[raw.id]}`;
-  }
-  const mapped = PICK_ICON_MAP[raw.vendor];
-  if (mapped) {
-    return mapped;
-  }
-  return `images/platforms/pick-os/linux/debian.png`;
+  return resolvePickIconAsset(raw);
 }
 
 const base = fs.existsSync(OUT)

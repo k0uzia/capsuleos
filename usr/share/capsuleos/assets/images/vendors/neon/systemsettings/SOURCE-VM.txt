@@ -1,0 +1,22 @@
+Theme-previews System Settings — preview.png Plasma LookAndFeel (2026-06-20T17:27:47.846Z).
+VM : capsule@192.168.124.6
+Manifeste : root/tools/lab/kde-neon-settings-theme-previews-manifest.json
+Procédure : bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
+
+Fichiers :
+- hub-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
+- hub-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
+- hub-auto-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png (137649 o)
+- appearance-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
+- appearance-twilight-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png (137649 o)
+- appearance-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
+- appearance-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
+- colors-breeze-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
+- colors-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
+- colors-oxygen-cold-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygenlight/contents/previews/preview.png (146400 o)
+- plasma-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
+- plasma-light-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
+- plasma-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
+- plasma-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
+
+KCM Couleurs/Style Plasma rendent des previews procédurales ; Capsule réutilise preview.png LnF du paquet Plasma (ground truth packagé KDE, ¬capture).

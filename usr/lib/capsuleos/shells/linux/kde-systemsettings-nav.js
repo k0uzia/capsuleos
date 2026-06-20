@@ -178,6 +178,7 @@
         switch (shotId) {
             case 'kcm-display-config':
                 setView('kcm-display');
+                setKcmPanel(kcmEl(rootEl(), 'kcm-display'), 'display-config');
                 break;
             case 'kcm-colors':
             case 'colors-panel':
@@ -244,11 +245,28 @@
         });
     }
 
+    function setKcmPanel(kcmRoot, panelId) {
+        if (!kcmRoot) return;
+        kcmRoot.querySelectorAll('[data-kde-panel]').forEach(function onNav(btn) {
+            var active = btn.getAttribute('data-kde-panel') === panelId && !btn.disabled;
+            btn.classList.toggle('is-active', active);
+            if (active) btn.setAttribute('aria-current', 'page');
+            else btn.removeAttribute('aria-current');
+        });
+        kcmRoot.querySelectorAll('[data-kde-panel-content]').forEach(function onPanel(section) {
+            var active = section.getAttribute('data-kde-panel-content') === panelId;
+            section.classList.toggle('is-active', active);
+            section.hidden = !active;
+        });
+    }
+
     function bindNavigation(root) {
         if (!root || !isPlasma()) return;
         var hub = hubEl(root);
         if (hub) {
-            hub.querySelectorAll('[data-kde-panel]:not([disabled])').forEach(function wire(btn) {
+            hub.querySelectorAll(
+                '[data-kde-panel]:not([disabled]), .kde-systemsettings__nav--native [data-kde-open-kcm]:not([disabled])',
+            ).forEach(function wire(btn) {
                 if (btn.dataset.kdeNavBound === 'true') return;
                 btn.dataset.kdeNavBound = 'true';
                 btn.addEventListener('click', function onClick() {
@@ -272,6 +290,13 @@
             });
         }
         allKcmSurfaces(root).forEach(function bindKcm(kcm) {
+            kcm.querySelectorAll('[data-kde-panel]:not([disabled])').forEach(function wire(btn) {
+                if (btn.dataset.kdeNavBound === 'true') return;
+                btn.dataset.kdeNavBound = 'true';
+                btn.addEventListener('click', function onClick() {
+                    setKcmPanel(kcm, btn.getAttribute('data-kde-panel'));
+                });
+            });
             var back = kcm.querySelector('.kde-systemsettings__back');
             if (back && back.dataset.kdeNavBound !== 'true') {
                 back.dataset.kdeNavBound = 'true';

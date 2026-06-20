@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "description": "Régions focus Φ par shot P0 — compare crops VM ↔ Capsule (polish par section).",
+  "registryId": "linux-kde-neon",
+  "geometry": { "width": 1060, "height": 808 },
+  "shots": {
+    "hub-sidebar": [
+      { "regionId": "sidebar", "x": 0, "y": 48, "width": 186, "height": 760, "phiThreshold": 85 },
+      { "regionId": "theme-previews", "x": 195, "y": 95, "width": 865, "height": 155, "phiThreshold": 88 },
+      { "regionId": "quick-settings", "x": 195, "y": 260, "width": 865, "height": 420, "phiThreshold": 88 }
+    ],
+    "appearance-panel": [
+      { "regionId": "kcm-sidebar", "x": 0, "y": 48, "width": 186, "height": 760, "phiThreshold": 88 },
+      { "regionId": "theme-grid", "x": 200, "y": 130, "width": 860, "height": 340, "phiThreshold": 90 },
+      { "regionId": "toolbar", "x": 200, "y": 48, "width": 860, "height": 82, "phiThreshold": 88 }
+    ],
+    "colors-panel": [
+      { "regionId": "kcm-sidebar", "x": 0, "y": 48, "width": 186, "height": 760, "phiThreshold": 85 },
+      { "regionId": "accent-row", "x": 200, "y": 130, "width": 860, "height": 150, "phiThreshold": 85 },
+      { "regionId": "colors-grid", "x": 200, "y": 290, "width": 860, "height": 330, "phiThreshold": 88 }
+    ],
+    "desktop-panel": [
+      { "regionId": "kcm-sidebar", "x": 0, "y": 48, "width": 186, "height": 760, "phiThreshold": 88 },
+      { "regionId": "plasma-grid", "x": 200, "y": 200, "width": 860, "height": 380, "phiThreshold": 90 }
+    ],
+    "accessibility-panel": [
+      { "regionId": "content", "x": 200, "y": 48, "width": 860, "height": 760, "phiThreshold": 90 }
+    ],
+    "about-panel": [
+      { "regionId": "about-body", "x": 200, "y": 48, "width": 860, "height": 760, "phiThreshold": 90 }
+    ]
+  }
+}

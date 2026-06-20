@@ -12,8 +12,8 @@
                     <span>Paramétrage rapide</span>
                 </button>
                 <div class="kde-systemsettings__nav-heading">Entrées &amp; Sorties</div>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--mouse" aria-hidden="true"></span><span>Souris &amp; Pavé tactile</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--keyboard" aria-hidden="true"></span><span>Clavier</span></button>
+                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-open-kcm="kcm-mouse"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--mouse" aria-hidden="true"></span><span>Souris &amp; Pavé tactile</span></button>
+                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-open-kcm="kcm-keyboard"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--keyboard" aria-hidden="true"></span><span>Clavier</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--gamepad" aria-hidden="true"></span><span>Contrôleur de jeu</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--sound" aria-hidden="true"></span><span>Son</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-native-nav="display-config" data-kde-panel="display-config" data-kde-open-kcm="kcm-display">
@@ -29,11 +29,11 @@
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--disk" aria-hidden="true"></span><span>Disques &amp; Appareils photo</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--printer" aria-hidden="true"></span><span>Imprimantes</span></button>
                 <div class="kde-systemsettings__nav-heading">Fonctionnement en réseau</div>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--network" aria-hidden="true"></span><span>Wifi et Internet</span></button>
+                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-open-kcm="kcm-network"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--network" aria-hidden="true"></span><span>Wifi et Internet</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--accounts" aria-hidden="true"></span><span>Comptes en ligne</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--remote" aria-hidden="true"></span><span>Bureau à distance</span></button>
                 <div class="kde-systemsettings__nav-heading">Apparence &amp; Style</div>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native kde-systemsettings__navitem--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--wallpaper" aria-hidden="true"></span><span>Fond d'écran</span></button>
+                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-open-kcm="kcm-wallpaper"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--wallpaper" aria-hidden="true"></span><span>Fond d'écran</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--native" data-kde-native-nav="appearance" data-kde-panel="appearance" data-kde-open-kcm="kcm-lookandfeel">
                     <span class="kde-systemsettings__navicon kde-systemsettings__navicon--appearance" aria-hidden="true"></span>
                     <span>Couleurs &amp; Thèmes</span>
@@ -69,13 +69,13 @@
                     <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--hub" role="list">
                         <button type="button" class="kde-systemsettings__theme-tile is-active" aria-pressed="true" data-kde-quick-theme="light" data-kde-setting="kde-global-theme" data-kde-theme-option="light"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--hub-breeze"></span><span class="kde-systemsettings__theme-label">Breeze</span></button>
                         <button type="button" class="kde-systemsettings__theme-tile" data-kde-quick-theme="dark" data-kde-setting="kde-global-theme" data-kde-theme-option="dark"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--hub-dark"></span><span class="kde-systemsettings__theme-label">Breeze sombre</span></button>
-                        <button type="button" class="kde-systemsettings__theme-tile kde-systemsettings__theme-tile--stub" disabled data-kde-quick-theme="auto"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--auto"></span><span class="kde-systemsettings__theme-label">Automatique</span></button>
+                        <button type="button" class="kde-systemsettings__theme-tile" data-kde-quick-theme="auto"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--auto"></span><span class="kde-systemsettings__theme-label">Automatique</span></button>
                     </div>
                 </div>
                 <div class="kde-systemsettings__group">
                     <h2 class="kde-systemsettings__group-title">Plus de paramètres d'apparence :</h2>
                     <div class="kde-systemsettings__quick-actions">
-                        <button type="button" class="kde-systemsettings__quick-btn kde-systemsettings__quick-btn--stub" disabled><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--wallpaper" aria-hidden="true"></span><span>Fond d'écran</span></button>
+                        <button type="button" class="kde-systemsettings__quick-btn" data-kde-quick-link="kcm-wallpaper"><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--wallpaper" aria-hidden="true"></span><span>Fond d'écran</span></button>
                         <button type="button" class="kde-systemsettings__quick-btn" data-kde-quick-link="kcm-lookandfeel"><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--appearance" aria-hidden="true"></span><span>Thème global</span></button>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <button type="button" class="kde-systemsettings__quick-page" data-kde-quick-link="kcm-lookandfeel"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--appearance" aria-hidden="true"></span><span>Thème global</span></button>
                         <button type="button" class="kde-systemsettings__quick-page" data-kde-quick-link="kcm-access"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--accessibility" aria-hidden="true"></span><span>Accessibilité</span></button>
                         <button type="button" class="kde-systemsettings__quick-page" data-kde-quick-link="hub-about"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--about" aria-hidden="true"></span><span>À propos de ce système</span></button>
-                        <button type="button" class="kde-systemsettings__quick-page kde-systemsettings__quick-page--stub" disabled><span class="kde-systemsettings__navicon kde-systemsettings__navicon--datetime" aria-hidden="true"></span><span>Date et heure</span></button>
+                        <button type="button" class="kde-systemsettings__quick-page" data-kde-quick-link="kcm-region"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--datetime" aria-hidden="true"></span><span>Date et heure</span></button>
                         <button type="button" class="kde-systemsettings__quick-page" data-kde-quick-link="kcm-colors"><span class="kde-systemsettings__navicon kde-systemsettings__navicon--colors" aria-hidden="true"></span><span>Couleurs</span></button>
                     </div>
                 </div>
@@ -155,6 +155,14 @@
                     <div class="adw-row adw-row--switch">
                         <span class="adw-row__title">Empêcher le vol de focus</span>
                         <button type="button" class="adw-switch" data-settings-switch="kde-focus-stealing" data-kde-setting="kde-focus-stealing" role="switch" aria-checked="false"></button>
+                    </div>
+                </div>
+                <div class="kde-systemsettings__group">
+                    <h2 class="kde-systemsettings__group-title">Fenêtres et bureaux</h2>
+                    <div class="kde-systemsettings__quick-actions">
+                        <button type="button" class="kde-systemsettings__quick-btn" data-kde-quick-link="kcm-kwinoptions"><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--workspace" aria-hidden="true"></span><span>Comportement des fenêtres</span></button>
+                        <button type="button" class="kde-systemsettings__quick-btn" data-kde-quick-link="kcm-virtualdesktops"><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--workspace" aria-hidden="true"></span><span>Bureaux virtuels</span></button>
+                        <button type="button" class="kde-systemsettings__quick-btn" data-kde-quick-link="kcm-power"><span class="kde-systemsettings__quick-btn-icon kde-systemsettings__navicon kde-systemsettings__navicon--about" aria-hidden="true"></span><span>Gestion de l'énergie</span></button>
                     </div>
                 </div>
             </section>
@@ -284,7 +292,7 @@
                 <button type="button" class="kde-systemsettings__navitem is-active" data-kde-panel="display-config" aria-current="page">
                     <span>Configuration de l'affichage</span>
                 </button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" data-kde-panel="night-light" disabled aria-disabled="true">
+                <button type="button" class="kde-systemsettings__navitem" data-kde-panel="night-light">
                     <span>Lumière nocturne</span>
                 </button>
             </nav>
@@ -318,6 +326,18 @@
                     </div>
                 </div>
             </section>
+            <section class="kde-systemsettings__panel kde-systemsettings__panel--nightlight" data-kde-panel-content="night-light" hidden aria-label="Lumière nocturne">
+                <div class="kde-systemsettings__kcm-toolbar"><h1>Lumière nocturne</h1></div>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Activer la lumière nocturne</span>
+                    <button type="button" class="adw-switch" data-kde-setting="kde-night-light" role="switch" aria-checked="false"></button>
+                </div>
+                <div class="kde-systemsettings__group">
+                    <h2 class="kde-systemsettings__group-title">Planification</h2>
+                    <label class="kde-systemsettings__check-row"><input type="radio" name="kde-night-schedule" checked> Coucher → lever du soleil</label>
+                    <label class="kde-systemsettings__check-row"><input type="radio" name="kde-night-schedule"> Personnalisée</label>
+                </div>
+            </section>
         </div>
         <footer class="kde-systemsettings__footer">
             <button type="button" class="kde-systemsettings__footer-btn">Réinitialiser</button>
@@ -334,10 +354,10 @@
             <nav class="kde-systemsettings__nav kde-systemsettings__nav--kcm kde-kcm-subnav" aria-label="Sections">
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-lookandfeel"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--global" aria-hidden="true"></span><span>Thème global</span></button>
                 <button type="button" class="kde-systemsettings__navitem is-active" aria-current="page" data-kde-kcm-link="kcm-colors"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--colors" aria-hidden="true"></span><span>Couleurs</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-plasma-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--plasma" aria-hidden="true"></span><span>Style Plasma</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--decorations" aria-hidden="true"></span><span>Décorations de fenêtres</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-icons"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--cursors" aria-hidden="true"></span><span>Pointeurs</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--sounds" aria-hidden="true"></span><span>Sons du système</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--boot" aria-hidden="true"></span><span>Écran de démarrage</span></button>
@@ -378,10 +398,13 @@
                     </div>
                     <button type="button" class="kde-systemsettings__accent-picker" aria-label="Pipette"></button>
                 </div>
-                <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--3col" role="list">
-                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-dark"></span><span class="kde-systemsettings__theme-label">Brise sombre</span></button>
+                <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--4col" role="list">
+                    <button type="button" class="kde-systemsettings__theme-tile is-active"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-breeze-light"></span><span class="kde-systemsettings__theme-label">Breeze clair</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-breeze-dark"></span><span class="kde-systemsettings__theme-label">Brise sombre</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-breeze-classic"></span><span class="kde-systemsettings__theme-label">Breeze Classique</span></button>
                     <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-oxygen"></span><span class="kde-systemsettings__theme-label">Oxygen</span></button>
                     <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-oxygen-cold"></span><span class="kde-systemsettings__theme-label">Oxygen froid</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--scheme-oxygen-dark"></span><span class="kde-systemsettings__theme-label">Oxygen sombre</span></button>
                 </div>
             </section>
         </div>
@@ -423,10 +446,10 @@
             <nav class="kde-systemsettings__nav kde-systemsettings__nav--kcm kde-kcm-subnav" aria-label="Sections">
                 <button type="button" class="kde-systemsettings__navitem is-active" aria-current="page" data-kde-kcm-link="kcm-lookandfeel"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--global" aria-hidden="true"></span><span>Thème global</span></button>
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-colors"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--colors" aria-hidden="true"></span><span>Couleurs</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-plasma-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--plasma" aria-hidden="true"></span><span>Style Plasma</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--decorations" aria-hidden="true"></span><span>Décorations de fenêtres</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-icons"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--cursors" aria-hidden="true"></span><span>Pointeurs</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--sounds" aria-hidden="true"></span><span>Sons du système</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--boot" aria-hidden="true"></span><span>Écran de démarrage</span></button>
@@ -468,10 +491,10 @@
             <nav class="kde-systemsettings__nav kde-systemsettings__nav--kcm kde-kcm-subnav" aria-label="Sections">
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-lookandfeel"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--global" aria-hidden="true"></span><span>Thème global</span></button>
                 <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-colors"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--colors" aria-hidden="true"></span><span>Couleurs</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
                 <button type="button" class="kde-systemsettings__navitem is-active" aria-current="page" data-kde-kcm-link="kcm-plasma-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--plasma" aria-hidden="true"></span><span>Style Plasma</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--decorations" aria-hidden="true"></span><span>Décorations de fenêtres</span></button>
-                <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-icons"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--cursors" aria-hidden="true"></span><span>Pointeurs</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--sounds" aria-hidden="true"></span><span>Sons du système</span></button>
                 <button type="button" class="kde-systemsettings__navitem kde-systemsettings__navitem--stub" disabled><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--boot" aria-hidden="true"></span><span>Écran de démarrage</span></button>
@@ -496,10 +519,11 @@
                     <select class="kde-systemsettings__select kde-systemsettings__select--filter"><option selected>Tous les thèmes</option></select>
                 </div>
                 <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--4col" role="list">
-                    <button type="button" class="kde-systemsettings__theme-tile is-active"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-breeze"><span class="kde-systemsettings__theme-overlay"><span class="kde-systemsettings__theme-overlay-btn kde-systemsettings__theme-overlay-btn--delete" aria-hidden="true"></span></span></span><span class="kde-systemsettings__theme-label">Breeze</span><span class="kde-systemsettings__theme-sublabel">Respecte le schéma de couleurs</span></button>
-                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-light"></span><span class="kde-systemsettings__theme-label">Breeze clair</span></button>
-                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-dark"></span><span class="kde-systemsettings__theme-label">Breeze Sombre</span></button>
-                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-oxygen"></span><span class="kde-systemsettings__theme-label">Oxygen</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile is-active"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-default"><span class="kde-systemsettings__theme-overlay"><span class="kde-systemsettings__theme-overlay-btn kde-systemsettings__theme-overlay-btn--delete" aria-hidden="true"></span></span></span><span class="kde-systemsettings__theme-label">Breeze</span><span class="kde-systemsettings__theme-sublabel">Respecte le schéma de couleurs</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-breeze-light"></span><span class="kde-systemsettings__theme-label">Breeze clair</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-breeze-dark"></span><span class="kde-systemsettings__theme-label">Breeze Sombre</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-oxygen-theme"></span><span class="kde-systemsettings__theme-label">Oxygen</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-air"></span><span class="kde-systemsettings__theme-label">Air</span></button>
                 </div>
             </section>
         </div>
@@ -509,6 +533,234 @@
             <button type="button" class="kde-systemsettings__footer-btn kde-systemsettings__footer-btn--reset">Réinitialiser</button>
             <button type="button" class="kde-systemsettings__footer-btn kde-systemsettings__footer-btn--apply kde-systemsettings__footer-btn--primary">Appliquer</button>
         </footer>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-wallpaper" id="kdeSystemSettingsKcmWallpaper" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Fond d'écran">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Fond d'écran</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Fond d'écran">
+                <div class="kde-systemsettings__kcm-toolbar"><h1>Fond d'écran</h1></div>
+                <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--3col" role="list">
+                    <button type="button" class="kde-systemsettings__theme-tile is-active"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--hub-breeze"></span><span class="kde-systemsettings__theme-label">Neon</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--hub-dark"></span><span class="kde-systemsettings__theme-label">Neon sombre</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--global-twilight"></span><span class="kde-systemsettings__theme-label">Abstract</span></button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-keyboard" id="kdeSystemSettingsKcmKeyboard" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Clavier">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Clavier</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Clavier">
+                <header class="kde-systemsettings__panel-header"><h1>Clavier</h1></header>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Modèle de clavier</span>
+                    <select class="kde-systemsettings__select"><option selected>Français (AZERTY)</option></select>
+                </label>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Disposition</span>
+                    <select class="kde-systemsettings__select"><option selected>Français</option></select>
+                </label>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-network" id="kdeSystemSettingsKcmNetwork" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Wifi et Internet">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Wifi et Internet</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Wifi et Internet">
+                <header class="kde-systemsettings__panel-header"><h1>Wifi et Internet</h1></header>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Wifi</span>
+                    <button type="button" class="adw-switch is-on" data-kde-setting="kde-wifi-enabled" role="switch" aria-checked="true"></button>
+                </div>
+                <ul class="kde-systemsettings__network-list">
+                    <li class="kde-systemsettings__network-item is-active"><span>CapsuleOS-Lab</span><span class="kde-systemsettings__network-strength" aria-hidden="true"></span></li>
+                    <li class="kde-systemsettings__network-item"><span>Guest-WiFi</span></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-icons" id="kdeSystemSettingsKcmIcons" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Icônes">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Couleurs &amp; Thèmes</span>
+            </div>
+            <nav class="kde-systemsettings__nav kde-systemsettings__nav--kcm kde-kcm-subnav" aria-label="Sections">
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-lookandfeel"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--global" aria-hidden="true"></span><span>Thème global</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-colors"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--colors" aria-hidden="true"></span><span>Couleurs</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-plasma-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--plasma" aria-hidden="true"></span><span>Style Plasma</span></button>
+                <button type="button" class="kde-systemsettings__navitem is-active" aria-current="page" data-kde-kcm-link="kcm-icons"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
+            </nav>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Icônes">
+                <div class="kde-systemsettings__kcm-toolbar"><h1>Icônes</h1></div>
+                <div class="kde-systemsettings__theme-grid kde-systemsettings__theme-grid--3col" role="list">
+                    <button type="button" class="kde-systemsettings__theme-tile is-active"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-breeze"></span><span class="kde-systemsettings__theme-label">Breeze</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-light"></span><span class="kde-systemsettings__theme-label">Breeze clair</span></button>
+                    <button type="button" class="kde-systemsettings__theme-tile"><span class="kde-systemsettings__theme-preview kde-systemsettings__theme-preview--plasma-dark"></span><span class="kde-systemsettings__theme-label">Breeze sombre</span></button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-style" id="kdeSystemSettingsKcmStyle" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Style d'applications">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Couleurs &amp; Thèmes</span>
+            </div>
+            <nav class="kde-systemsettings__nav kde-systemsettings__nav--kcm kde-kcm-subnav" aria-label="Sections">
+                <button type="button" class="kde-systemsettings__navitem is-active" aria-current="page" data-kde-kcm-link="kcm-style"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--apps" aria-hidden="true"></span><span>Style d'applications</span></button>
+                <button type="button" class="kde-systemsettings__navitem" data-kde-kcm-link="kcm-icons"><span class="kde-kcm-subnav__icon kde-kcm-subnav__icon--icons" aria-hidden="true"></span><span>Icônes</span></button>
+            </nav>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Style d'applications">
+                <div class="kde-systemsettings__kcm-toolbar"><h1>Style d'applications</h1></div>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Style des widgets</span>
+                    <select class="kde-systemsettings__select"><option selected>Style Fusion</option><option>Style Windows</option></select>
+                </label>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-mouse" id="kdeSystemSettingsKcmMouse" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Souris">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Souris &amp; Pavé tactile</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Souris">
+                <header class="kde-systemsettings__panel-header"><h1>Souris</h1></header>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Orientation</span>
+                    <select class="kde-systemsettings__select"><option selected>Droitier</option><option>Gaucher</option></select>
+                </label>
+                <div class="kde-kscreen__row kde-kscreen__row--slider">
+                    <span class="kde-kscreen__label">Vitesse du curseur</span>
+                    <input type="range" class="kde-kscreen__slider" min="0" max="100" value="50" aria-label="Vitesse du curseur">
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-fontinst" id="kdeSystemSettingsKcmFontinst" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Polices">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Gestion des polices</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Polices">
+                <div class="kde-systemsettings__kcm-toolbar"><h1>Gestion des polices de caractères</h1></div>
+                <ul class="kde-systemsettings__shortcut-list">
+                    <li>Noto Sans — Regular</li>
+                    <li>Noto Sans Mono — Regular</li>
+                    <li>Font Awesome 6 Free</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-power" id="kdeSystemSettingsKcmPower" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Énergie">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Gestion de l'énergie</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Profils d'alimentation">
+                <header class="kde-systemsettings__panel-header"><h1>Profils d'alimentation</h1></header>
+                <label class="kde-systemsettings__check-row"><input type="radio" name="kde-power-profile" checked> Équilibré</label>
+                <label class="kde-systemsettings__check-row"><input type="radio" name="kde-power-profile"> Performance</label>
+                <label class="kde-systemsettings__check-row"><input type="radio" name="kde-power-profile"> Économie d'énergie</label>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-region" id="kdeSystemSettingsKcmRegion" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Région">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Pays et langue</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Pays et langue">
+                <header class="kde-systemsettings__panel-header"><h1>Pays et langue</h1></header>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Langue de l'interface</span>
+                    <select class="kde-systemsettings__select"><option selected>Français</option></select>
+                </label>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Format des nombres et dates</span>
+                    <select class="kde-systemsettings__select"><option selected>France — français</option></select>
+                </label>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Fuseau horaire</span>
+                    <select class="kde-systemsettings__select"><option selected>Europe/Paris</option></select>
+                </label>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-kwinoptions" id="kdeSystemSettingsKcmKwinoptions" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Comportement fenêtres">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Comportement des fenêtres</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Comportement des fenêtres">
+                <header class="kde-systemsettings__panel-header"><h1>Comportement des fenêtres</h1></header>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Action du bouton de fermeture</span>
+                    <select class="kde-systemsettings__select"><option selected>Fermer la fenêtre</option></select>
+                </label>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Ouvrir au centre de l'écran</span>
+                    <button type="button" class="adw-switch" role="switch" aria-checked="false"></button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="kde-systemsettings kde-systemsettings--kcm" data-kde-settings-surface="kcm-virtualdesktops" id="kdeSystemSettingsKcmVirtualdesktops" hidden>
+        <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Bureaux virtuels">
+            <div class="kde-systemsettings__kcm-header">
+                <button type="button" class="kde-systemsettings__back" aria-label="Retour"></button>
+                <span class="kde-systemsettings__kcm-title">Bureaux virtuels</span>
+            </div>
+        </aside>
+        <div class="kde-systemsettings__content kde-systemsettings__content--kcm">
+            <section class="kde-systemsettings__panel is-active" aria-label="Bureaux virtuels">
+                <header class="kde-systemsettings__panel-header"><h1>Bureaux virtuels</h1></header>
+                <label class="kde-systemsettings__row kde-systemsettings__row--select">
+                    <span class="kde-systemsettings__row-label">Nombre de bureaux</span>
+                    <select class="kde-systemsettings__select"><option>1</option><option selected>2</option><option>4</option></select>
+                </label>
+                <div class="adw-row adw-row--switch">
+                    <span class="adw-row__title">Navigation circulaire</span>
+                    <button type="button" class="adw-switch is-on" role="switch" aria-checked="true"></button>
+                </div>
+            </section>
+        </div>
     </div>
     <div class="kde-systemsettings kde-systemsettings--kcm kde-systemsettings--kcm-access" data-kde-settings-surface="kcm-access" id="kdeSystemSettingsKcmAccess" hidden>
         <aside class="kde-systemsettings__sidebar kde-systemsettings__sidebar--kcm" aria-label="Accessibilité">

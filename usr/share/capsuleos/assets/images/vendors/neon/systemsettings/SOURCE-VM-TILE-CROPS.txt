@@ -1,0 +1,29 @@
+Crops tuiles KCM VM — 2026-06-20T17:35:34.962Z
+Source : root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/*-vm.png
+Procédure : node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write
+
+Schemes (colors-panel):
+- scheme-breeze-light-vm.png ← colors-panel-vm.png {"x":194,"y":298,"width":200,"height":120}
+- scheme-breeze-dark-vm.png ← colors-panel-vm.png {"x":410,"y":298,"width":200,"height":120}
+- scheme-breeze-classic-vm.png ← colors-panel-vm.png {"x":626,"y":298,"width":200,"height":120}
+- scheme-oxygen-vm.png ← colors-panel-vm.png {"x":842,"y":298,"width":200,"height":120}
+- scheme-oxygen-cold-vm.png ← colors-panel-vm.png {"x":194,"y":458,"width":200,"height":120}
+- scheme-oxygen-dark-vm.png ← colors-panel-vm.png {"x":410,"y":458,"width":200,"height":120}
+
+Appearance (appearance-panel):
+- appearance-breeze-vm.png ← appearance-panel-vm.png
+- appearance-twilight-vm.png ← appearance-panel-vm.png
+- appearance-dark-vm.png ← appearance-panel-vm.png
+- appearance-oxygen-vm.png ← appearance-panel-vm.png
+
+Hub (hub-sidebar):
+- hub-breeze-vm.png ← hub-sidebar-vm.png
+- hub-dark-vm.png ← hub-sidebar-vm.png
+- hub-auto-vm.png ← hub-sidebar-vm.png
+
+Plasma (desktop-panel):
+- plasma-default-vm.png ← desktop-panel-vm.png
+- plasma-breeze-light-vm.png ← desktop-panel-vm.png
+- plasma-breeze-dark-vm.png ← desktop-panel-vm.png
+- plasma-oxygen-vm.png ← desktop-panel-vm.png
+- plasma-air-vm.png ← desktop-panel-vm.png

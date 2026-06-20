@@ -30,7 +30,8 @@ const themePreviewDir = path.join(
   ROOT,
   'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews'
 );
-const previewAssetsMissing = !fs.existsSync(themePreviewDir);
+const previewAssetsMissing = !fs.existsSync(themePreviewDir)
+  || !fs.existsSync(path.join(path.dirname(themePreviewDir), 'SOURCE-VM.txt'));
 
 const structuralChecks = {
   'colors-panel': ['data-kde-settings-surface="kcm-colors"', 'data-kde-setting="kde-accent-color"'],
@@ -45,8 +46,8 @@ const contentGaps = [];
 if (previewAssetsMissing) {
   contentGaps.push({
     id: 'theme-preview-assets',
-    reason: '¬A — usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews/ absent',
-    remediation: 'bash root/tools/lab/pull-vm-assets.sh (VM neon)',
+    reason: '¬A — usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews/ absent ou SOURCE-VM.txt invalide',
+    remediation: 'bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh',
     blocksPhi: true,
   });
 }

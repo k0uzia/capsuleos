@@ -17,8 +17,8 @@
 .kde-systemsettings__sidebar {
     display: flex;
     flex-direction: column;
-    flex: 0 0 15.5rem;
-    min-width: 15.5rem;
+    flex: 0 0 11.35rem;
+    min-width: 11.35rem;
     padding: 0.65rem 0.5rem 0.75rem;
     background: #fcfcfc;
     color: #232629;
@@ -175,8 +175,8 @@
 .kde-systemsettings__theme-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.75rem;
+    gap: 0.65rem 0.75rem;
+    margin-top: 0.65rem;
 }
 
 .kde-systemsettings__theme-tile {
@@ -199,63 +199,106 @@
 
 .kde-systemsettings__theme-preview {
     position: relative;
-    height: 5.5rem;
+    aspect-ratio: 5 / 3;
+    min-height: 7.5rem;
     border: 1px solid #bdc3c7;
     border-radius: 4px;
-    background: linear-gradient(135deg, #eff0f1 0%, #ffffff 45%, #3daee9 100%);
+    background: linear-gradient(135deg, #eff0f1 0%, #ffffff 45%, #3daee9 100%) center/cover no-repeat;
     overflow: hidden;
 }
 
+.kde-systemsettings__theme-preview--hub-breeze,
+.kde-systemsettings__theme-preview--hub-dark,
+.kde-systemsettings__theme-preview--auto,
+.kde-systemsettings__theme-preview--scheme-breeze-light,
+.kde-systemsettings__theme-preview--scheme-breeze-classic,
+.kde-systemsettings__theme-preview--scheme-breeze-dark,
+.kde-systemsettings__theme-preview--scheme-oxygen,
+.kde-systemsettings__theme-preview--scheme-oxygen-cold,
+.kde-systemsettings__theme-preview--scheme-oxygen-dark,
+.kde-systemsettings__theme-preview--global-breeze,
+.kde-systemsettings__theme-preview--global-twilight,
+.kde-systemsettings__theme-preview--global-dark,
+.kde-systemsettings__theme-preview--global-oxygen,
+.kde-systemsettings__theme-preview--plasma-default,
+.kde-systemsettings__theme-preview--plasma-breeze-light,
+.kde-systemsettings__theme-preview--plasma-breeze-dark,
+.kde-systemsettings__theme-preview--plasma-oxygen-theme,
+.kde-systemsettings__theme-preview--plasma-air {
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .kde-systemsettings__theme-preview--hub-breeze {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png");
 }
 
 .kde-systemsettings__theme-preview--hub-dark {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png");
 }
 
-.kde-systemsettings__theme-preview--scheme-dark {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/colors-breeze-dark-vm.png") center/100% 100% no-repeat;
+.kde-systemsettings__theme-preview--auto {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png");
+}
+.kde-systemsettings__theme-preview--scheme-breeze-light {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-breeze-light-vm.png");
+}
+
+.kde-systemsettings__theme-preview--scheme-breeze-classic {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-breeze-classic-vm.png");
+}
+
+.kde-systemsettings__theme-preview--scheme-breeze-dark {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-breeze-dark-vm.png");
 }
 
 .kde-systemsettings__theme-preview--scheme-oxygen {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/colors-oxygen-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-oxygen-vm.png");
 }
 
 .kde-systemsettings__theme-preview--scheme-oxygen-cold {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/colors-oxygen-cold-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-oxygen-cold-vm.png");
+}
+
+.kde-systemsettings__theme-preview--scheme-oxygen-dark {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-oxygen-dark-vm.png");
 }
 
 .kde-systemsettings__theme-preview--global-breeze {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-breeze-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-breeze-vm.png");
 }
 
 .kde-systemsettings__theme-preview--global-twilight {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-twilight-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-twilight-vm.png");
 }
 
 .kde-systemsettings__theme-preview--global-dark {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-dark-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-dark-vm.png");
 }
 
 .kde-systemsettings__theme-preview--global-oxygen {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-oxygen-vm.png") center/100% 100% no-repeat;
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-oxygen-vm.png");
 }
 
-.kde-systemsettings__theme-preview--plasma-breeze {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/plasma-breeze-vm.png") center/100% 100% no-repeat;
+.kde-systemsettings__theme-preview--plasma-default {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/plasma-default-vm.png");
 }
 
-.kde-systemsettings__theme-preview--plasma-light {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/plasma-light-vm.png") center/100% 100% no-repeat;
+.kde-systemsettings__theme-preview--plasma-breeze-light {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/plasma-breeze-light-vm.png");
 }
 
-.kde-systemsettings__theme-preview--plasma-dark {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/plasma-dark-vm.png") center/100% 100% no-repeat;
+.kde-systemsettings__theme-preview--plasma-breeze-dark {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/plasma-breeze-dark-vm.png");
 }
 
-.kde-systemsettings__theme-preview--plasma-oxygen {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/plasma-oxygen-vm.png") center/100% 100% no-repeat;
+.kde-systemsettings__theme-preview--plasma-oxygen-theme {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/plasma-oxygen-vm.png");
+}
+
+.kde-systemsettings__theme-preview--plasma-air {
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/plasma-air-vm.png");
 }
 
 .kde-systemsettings__theme-preview--scheme-dark::before,
@@ -264,9 +307,19 @@
 .kde-systemsettings__theme-preview--scheme-oxygen::after,
 .kde-systemsettings__theme-preview--scheme-oxygen-cold::before,
 .kde-systemsettings__theme-preview--scheme-oxygen-cold::after,
-.kde-systemsettings__theme-preview--plasma-breeze::after,
-.kde-systemsettings__theme-preview--plasma-light::after,
-.kde-systemsettings__theme-preview--plasma-dark::after {
+.kde-systemsettings__theme-preview--scheme-breeze-light::before,
+.kde-systemsettings__theme-preview--scheme-breeze-light::after,
+.kde-systemsettings__theme-preview--scheme-breeze-classic::before,
+.kde-systemsettings__theme-preview--scheme-breeze-classic::after,
+.kde-systemsettings__theme-preview--scheme-breeze-dark::before,
+.kde-systemsettings__theme-preview--scheme-breeze-dark::after,
+.kde-systemsettings__theme-preview--scheme-oxygen-dark::before,
+.kde-systemsettings__theme-preview--scheme-oxygen-dark::after,
+.kde-systemsettings__theme-preview--plasma-default::after,
+.kde-systemsettings__theme-preview--plasma-breeze-light::after,
+.kde-systemsettings__theme-preview--plasma-breeze-dark::after,
+.kde-systemsettings__theme-preview--plasma-oxygen-theme::after,
+.kde-systemsettings__theme-preview--plasma-air::after {
     display: none;
 }
 
@@ -282,14 +335,6 @@
     background: linear-gradient(135deg, #232629 0%, #31363b 55%, #1d1d1d 100%);
 }
 
-.kde-systemsettings__theme-preview--hub-dark {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png") center/100% 100% no-repeat;
-}
-
-.kde-systemsettings__theme-preview--auto {
-    background: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png") center/100% 100% no-repeat;
-}
-
 .kde-systemsettings__theme-preview--oxygen {
     background: linear-gradient(180deg, #4a90d9 0%, #eff0f1 35%, #ffffff 100%);
 }
@@ -300,7 +345,7 @@
 
 .kde-systemsettings--hub {
     display: grid;
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 11.35rem 1fr;
     grid-template-rows: minmax(0, 1fr) auto;
     width: 100%;
     height: 100%;
@@ -949,5 +994,28 @@
     background: var(--kde-surface-alt, #ecf0f1);
     font-family: var(--font-mono, monospace);
     font-size: 0.85rem;
+}
+
+.kde-systemsettings__network-list {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+}
+
+.kde-systemsettings__network-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--kde-border, #dfe4ea);
+}
+
+.kde-systemsettings__network-item.is-active {
+    color: #3daee9;
+    font-weight: 600;
+}
+
+.kde-systemsettings__panel--nightlight .adw-row {
+    margin-top: 0.5rem;
 }
 

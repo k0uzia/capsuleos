@@ -352,6 +352,134 @@
     min-height: 0;
 }
 
+/* Coque persistante : sidebar hub toujours visible, zone principale hub ou KCM */
+[data-kde-settings-root] {
+    display: grid;
+    grid-template-columns: 11.35rem minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+[data-kde-settings-root] > .kde-systemsettings--hub {
+    display: contents;
+}
+
+[data-kde-settings-root].kde-settings-view--kcm > .kde-systemsettings--hub > .kde-systemsettings__content,
+[data-kde-settings-root].kde-settings-view--kcm > .kde-systemsettings--hub > .kde-systemsettings__footer--hub {
+    display: none !important;
+}
+
+[data-kde-settings-root].kde-settings-view--kcm > .kde-systemsettings--kcm:not([hidden]) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+[data-kde-settings-root].kde-settings-view--kcm > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__content--kcm {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+}
+
+[data-kde-settings-root].kde-settings-view--kcm > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__footer {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+[data-kde-settings-root] .kde-systemsettings--kcm .kde-systemsettings__sidebar--kcm {
+    display: none;
+}
+
+[data-kde-settings-root][data-kde-sidebar-mode="kcm-subnav"] [data-kde-sidebar-kcm] .kde-systemsettings__sidebar--kcm {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    padding: 0;
+}
+
+[data-kde-settings-root][data-kde-sidebar-mode="kcm-subnav"] [data-kde-sidebar-kcm] {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+}
+
+[data-kde-settings-root][data-kde-sidebar-mode="hub-kcm"] > .kde-systemsettings--hub > .kde-systemsettings__sidebar {
+    display: flex;
+}
+
+/* hub-subnav : aside hub + 2e colonne sous-modules + contenu (VM accessibilité) */
+[data-kde-settings-root].kde-settings-layout--hub-subnav {
+    grid-template-columns: 11.35rem 11rem minmax(0, 1fr);
+}
+
+[data-kde-settings-root].kde-settings-layout--hub-subnav > .kde-systemsettings--kcm:not([hidden]) {
+    display: contents;
+}
+
+[data-kde-settings-root].kde-settings-layout--hub-subnav > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__subnav--kcm {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+    background: #fcfcfc;
+    border-right: 1px solid #bdc3c7;
+}
+
+[data-kde-settings-root].kde-settings-layout--hub-subnav > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__content--kcm {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+[data-kde-settings-root].kde-settings-layout--hub-subnav > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__footer {
+    grid-column: 2 / -1;
+    grid-row: 2;
+}
+
+/* Captures KdV : VM lance kcm feuille (subnav remplace hub) — prepareShot only */
+[data-kde-settings-root][data-kde-capture-parity="subnav-replace"] {
+    grid-template-columns: 11.35rem minmax(0, 1fr);
+}
+
+[data-kde-settings-root][data-kde-capture-parity="subnav-replace"] > .kde-systemsettings--hub > .kde-systemsettings__sidebar {
+    display: none !important;
+}
+
+[data-kde-settings-root][data-kde-capture-parity="subnav-replace"] > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__subnav--kcm {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+[data-kde-settings-root][data-kde-capture-parity="subnav-replace"] > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__content--kcm {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+[data-kde-settings-root][data-kde-capture-parity="subnav-replace"] > .kde-systemsettings--kcm:not([hidden]) .kde-systemsettings__footer {
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+.kde-systemsettings__subnav-header {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #7f8c8d;
+    border-bottom: 1px solid #ecf0f1;
+}
+
 .kde-systemsettings--hub > .kde-systemsettings__sidebar {
     grid-column: 1;
     grid-row: 1;
@@ -1013,6 +1141,12 @@
 .kde-systemsettings__network-item.is-active {
     color: #3daee9;
     font-weight: 600;
+}
+
+.kde-systemsettings__device-state {
+    font-size: 0.82rem;
+    color: var(--kde-text-secondary, #7f8c8d);
+    font-weight: 400;
 }
 
 .kde-systemsettings__panel--nightlight .adw-row {

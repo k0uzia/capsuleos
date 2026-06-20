@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { PNG } from 'pngjs';
 import { appsPathsForRegistry } from './apps-replication-lib.mjs';
 import { resolveCapsuleHttpBase } from './lab-recipe-resolver.mjs';
 import { resolveCapsuleOsUrl } from '../linux/os-facade-fidelity-lib.mjs';

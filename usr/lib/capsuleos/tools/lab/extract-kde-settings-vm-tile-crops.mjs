@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Extrait les tuiles preview KCM depuis captures VM (crop focus, pas plein écran).
+ * Extrait tuiles preview KCM + logo about depuis captures VM (1060×808).
+ *
+ * Origines mesurées via calibrate-kde-settings-focus-offset.mjs / scan pixel VM↔Capsule.
  *
  * Usage :
  *   node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write
@@ -14,6 +16,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../.
 const VM_DIR = path.join(ROOT, 'root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes');
 const SCHEME_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/scheme-previews');
 const THEME_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews');
+const ABOUT_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/about');
 const write = process.argv.includes('--write');
 
 const readPng = (file) => PNG.sync.read(fs.readFileSync(file));
@@ -25,10 +28,10 @@ const cropWrite = (src, box, outPath) => {
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, PNG.sync.write(out));
   }
-  return outPath;
+  return { out: path.basename(outPath), box, outPath };
 };
 
-/** Grille 4×2 KCM — origin mesurée sur colors-panel-vm (1060×808). */
+/** Grille uniforme — fallback si pas de boxes explicites. */
 const kcmGridTiles = (originX, originY, colW = 216, rowH = 160, pad = 8, previewH = 120) => {
   const tiles = [];
   for (let row = 0; row < 2; row += 1) {
@@ -44,11 +47,29 @@ const kcmGridTiles = (originX, originY, colW = 216, rowH = 160, pad = 8, preview
   return tiles;
 };
 
+const pullNamed = (src, names, boxes, destDir, sourceLabel) => {
+  const pulled = [];
+  names.forEach((out, i) => {
+    const box = boxes[i];
+    if (!box) return;
+    const dest = path.join(destDir, out);
+    cropWrite(src, box, dest);
+    pulled.push({ out, box, source: sourceLabel });
+    console.log(`  ${write ? '✓' : '→'} ${out} ${JSON.stringify(box)}`);
+  });
+  return pulled;
+};
+
 const main = () => {
   const colorsVm = readPng(path.join(VM_DIR, 'colors-panel-vm.png'));
   const appearanceVm = readPng(path.join(VM_DIR, 'appearance-panel-vm.png'));
   const hubVm = readPng(path.join(VM_DIR, 'hub-sidebar-vm.png'));
   const plasmaVm = readPng(path.join(VM_DIR, 'desktop-panel-vm.png'));
+  const aboutVm = readPng(path.join(VM_DIR, 'about-panel-vm.png'));
+
+  const tileW = 200;
+  const appearanceH = 130;
+  const schemeH = 120;
 
   const schemeNames = [
     'scheme-breeze-light-vm.png',
@@ -58,14 +79,8 @@ const main = () => {
     'scheme-oxygen-cold-vm.png',
     'scheme-oxygen-dark-vm.png',
   ];
-  const schemeTiles = kcmGridTiles(186, 290);
-  const pulledSchemes = [];
-  schemeNames.forEach((out, i) => {
-    const dest = path.join(SCHEME_DIR, out);
-    cropWrite(colorsVm, schemeTiles[i], dest);
-    pulledSchemes.push({ out, box: schemeTiles[i], source: 'colors-panel-vm.png' });
-    console.log(`  ${write ? '✓' : '→'} ${out} crop ${JSON.stringify(schemeTiles[i])}`);
-  });
+  const schemeBoxes = kcmGridTiles(166, 259, 216, 160, 8, schemeH).slice(0, 6);
+  const pulledSchemes = pullNamed(colorsVm, schemeNames, schemeBoxes, SCHEME_DIR, 'colors-panel-vm.png');
 
   const appearanceNames = [
     'appearance-breeze-vm.png',
@@ -73,30 +88,34 @@ const main = () => {
     'appearance-dark-vm.png',
     'appearance-oxygen-vm.png',
   ];
-  const appearanceTiles = kcmGridTiles(186, 148, 216, 160, 8, 130).slice(0, 4);
-  const pulledAppearance = [];
-  appearanceNames.forEach((out, i) => {
-    const dest = path.join(THEME_DIR, out);
-    cropWrite(appearanceVm, appearanceTiles[i], dest);
-    pulledAppearance.push({ out, box: appearanceTiles[i], source: 'appearance-panel-vm.png' });
-    console.log(`  ${write ? '✓' : '→'} ${out}`);
-  });
+  const appearanceOriginY = 228;
+  const appearanceColW = 216;
+  const appearanceBoxes = appearanceNames.map((_, col) => ({
+    x: 163 + col * appearanceColW + 8,
+    y: appearanceOriginY,
+    width: tileW,
+    height: appearanceH,
+  }));
+  const pulledAppearance = pullNamed(
+    appearanceVm,
+    appearanceNames,
+    appearanceBoxes,
+    THEME_DIR,
+    'appearance-panel-vm.png',
+  );
 
   const hubNames = ['hub-breeze-vm.png', 'hub-dark-vm.png', 'hub-auto-vm.png'];
-  const hubOrigin = { x: 200, y: 100, colW: 280, previewH: 140, pad: 10 };
-  const pulledHub = [];
-  hubNames.forEach((out, i) => {
-    const box = {
-      x: hubOrigin.x + i * hubOrigin.colW + hubOrigin.pad,
-      y: hubOrigin.y + hubOrigin.pad,
-      width: hubOrigin.colW - hubOrigin.pad * 2,
-      height: hubOrigin.previewH,
-    };
-    const dest = path.join(THEME_DIR, out);
-    cropWrite(hubVm, box, dest);
-    pulledHub.push({ out, box, source: 'hub-sidebar-vm.png' });
-    console.log(`  ${write ? '✓' : '→'} ${out}`);
-  });
+  const hubColW = 280;
+  const hubPreviewH = 140;
+  const hubPad = 10;
+  const hubOrigin = { x: 200, y: 100 };
+  const hubBoxes = hubNames.map((_, i) => ({
+    x: hubOrigin.x + i * hubColW + hubPad,
+    y: hubOrigin.y + hubPad,
+    width: hubColW - hubPad * 2,
+    height: hubPreviewH,
+  }));
+  const pulledHub = pullNamed(hubVm, hubNames, hubBoxes, THEME_DIR, 'hub-sidebar-vm.png');
 
   const plasmaNames = [
     'plasma-default-vm.png',
@@ -105,38 +124,46 @@ const main = () => {
     'plasma-oxygen-vm.png',
     'plasma-air-vm.png',
   ];
-  const plasmaTiles = kcmGridTiles(186, 318, 216, 160, 8, 120).slice(0, 5);
-  const pulledPlasma = [];
-  plasmaNames.forEach((out, i) => {
-    if (!plasmaTiles[i]) return;
-    const dest = path.join(SCHEME_DIR, out);
-    cropWrite(plasmaVm, plasmaTiles[i], dest);
-    pulledPlasma.push({ out, box: plasmaTiles[i], source: 'desktop-panel-vm.png' });
-    console.log(`  ${write ? '✓' : '→'} ${out}`);
-  });
+  const plasmaBoxes = kcmGridTiles(186, 318, 216, 160, 8, schemeH).slice(0, 5);
+  const pulledPlasma = pullNamed(plasmaVm, plasmaNames, plasmaBoxes, SCHEME_DIR, 'desktop-panel-vm.png');
+
+  const aboutLogoBox = { x: 468, y: 108, width: 96, height: 96 };
+  const pulledAbout = pullNamed(
+    aboutVm,
+    ['about-distro-logo-vm.png'],
+    [aboutLogoBox],
+    ABOUT_DIR,
+    'about-panel-vm.png',
+  );
 
   if (write) {
     const note = [
       `Crops tuiles KCM VM — ${new Date().toISOString()}`,
       'Source : root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/*-vm.png',
+      'Calibration : calibrate-kde-settings-focus-offset.mjs + scan per-tile',
       'Procédure : node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write',
       '',
-      'Schemes (colors-panel):',
+      'Schemes (colors-panel, origin 166×259):',
       ...pulledSchemes.map((p) => `- ${p.out} ← ${p.source} ${JSON.stringify(p.box)}`),
       '',
-      'Appearance (appearance-panel):',
-      ...pulledAppearance.map((p) => `- ${p.out} ← ${p.source}`),
+      'Appearance (appearance-panel, row y=228):',
+      ...pulledAppearance.map((p) => `- ${p.out} ← ${p.source} ${JSON.stringify(p.box)}`),
       '',
-      'Hub (hub-sidebar):',
-      ...pulledHub.map((p) => `- ${p.out} ← ${p.source}`),
+      'Hub (hub-sidebar, origin 180×140):',
+      ...pulledHub.map((p) => `- ${p.out} ← ${p.source} ${JSON.stringify(p.box)}`),
       '',
       'Plasma (desktop-panel):',
       ...pulledPlasma.map((p) => `- ${p.out} ← ${p.source}`),
+      '',
+      'About logo:',
+      ...pulledAbout.map((p) => `- ${p.out} ← ${p.source} ${JSON.stringify(p.box)}`),
     ].join('\n');
     fs.writeFileSync(path.join(path.dirname(SCHEME_DIR), 'SOURCE-VM-TILE-CROPS.txt'), `${note}\n`);
   }
 
-  console.log(`${write ? '✓' : '→'} extract-kde-settings-vm-tile-crops — ${schemeNames.length + appearanceNames.length + hubNames.length + plasmaNames.length} tuiles`);
+  const total = schemeNames.length + appearanceNames.length + hubNames.length
+    + plasmaNames.length + 1;
+  console.log(`${write ? '✓' : '→'} extract-kde-settings-vm-tile-crops — ${total} assets`);
 };
 
 main();

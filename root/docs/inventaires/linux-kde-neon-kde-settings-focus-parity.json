@@ -1,117 +1,124 @@
 {
   "registryId": "linux-kde-neon",
-  "comparedAt": "2026-06-20T17:35:49.084Z",
+  "comparedAt": "2026-06-20T23:24:29.541Z",
   "focusOutDir": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-focus",
+  "vmLetterbox": {
+    "top": 52,
+    "left": 64,
+    "width": 932,
+    "height": 680,
+    "note": "Bandes noires collect-vm-apps-visual — letterbox Capsule via kde-settings-visual-align.mjs"
+  },
   "results": [
     {
       "shotId": "hub-sidebar",
-      "minPhiNormalized": 70.4,
+      "minPhiNormalized": 80.7,
       "regions": [
         {
           "regionId": "sidebar",
-          "phi": 78.6,
-          "phiNormalized": 78.3,
-          "phiThreshold": 88,
+          "phi": 82.1,
+          "phiNormalized": 80.7,
+          "phiThreshold": 85,
           "ok": false
         },
         {
           "regionId": "theme-previews",
-          "phi": 70.5,
-          "phiNormalized": 70.4,
-          "phiThreshold": 90,
+          "phi": 84.1,
+          "phiNormalized": 83.6,
+          "phiThreshold": 88,
           "ok": false
         },
         {
           "regionId": "quick-settings",
-          "phi": 92.5,
-          "phiNormalized": 92.3,
-          "phiThreshold": 90,
+          "phi": 92.7,
+          "phiNormalized": 92.4,
+          "phiThreshold": 88,
           "ok": true
         }
       ]
     },
     {
       "shotId": "appearance-panel",
-      "minPhiNormalized": 77.8,
+      "minPhiNormalized": 82.7,
       "regions": [
         {
           "regionId": "kcm-sidebar",
-          "phi": 81.8,
-          "phiNormalized": 81.2,
+          "phi": 88,
+          "phiNormalized": 86.9,
           "phiThreshold": 88,
           "ok": false
         },
         {
           "regionId": "theme-grid",
-          "phi": 77.9,
-          "phiNormalized": 77.8,
+          "phi": 82.9,
+          "phiNormalized": 82.7,
           "phiThreshold": 90,
           "ok": false
         },
         {
           "regionId": "toolbar",
-          "phi": 82.5,
-          "phiNormalized": 80.9,
+          "phi": 91.4,
+          "phiNormalized": 89.1,
           "phiThreshold": 88,
-          "ok": false
+          "ok": true
         }
       ]
     },
     {
       "shotId": "colors-panel",
-      "minPhiNormalized": 78,
+      "minPhiNormalized": 85.7,
       "regions": [
         {
           "regionId": "kcm-sidebar",
-          "phi": 81.2,
-          "phiNormalized": 80.5,
-          "phiThreshold": 88,
-          "ok": false
+          "phi": 87.6,
+          "phiNormalized": 86.5,
+          "phiThreshold": 85,
+          "ok": true
         },
         {
           "regionId": "accent-row",
-          "phi": 80.3,
-          "phiNormalized": 78.6,
-          "phiThreshold": 88,
-          "ok": false
+          "phi": 86.3,
+          "phiNormalized": 85.7,
+          "phiThreshold": 85,
+          "ok": true
         },
         {
           "regionId": "colors-grid",
-          "phi": 77.9,
-          "phiNormalized": 78,
-          "phiThreshold": 90,
+          "phi": 86.7,
+          "phiNormalized": 85.7,
+          "phiThreshold": 88,
           "ok": false
         }
       ]
     },
     {
       "shotId": "desktop-panel",
-      "minPhiNormalized": 80.8,
+      "minPhiNormalized": 86.9,
       "regions": [
         {
           "regionId": "kcm-sidebar",
-          "phi": 81.5,
-          "phiNormalized": 80.8,
+          "phi": 88,
+          "phiNormalized": 86.9,
           "phiThreshold": 88,
           "ok": false
         },
         {
           "regionId": "plasma-grid",
-          "phi": 84.1,
-          "phiNormalized": 84,
+          "phi": 92.6,
+          "phiNormalized": 92.7,
           "phiThreshold": 90,
-          "ok": false
+          "ok": true
         }
       ]
     },
     {
       "shotId": "accessibility-panel",
-      "minPhiNormalized": 90.6,
+      "minPhiNormalized": 90,
       "regions": [
         {
           "regionId": "content",
-          "phi": 90.6,
-          "phiNormalized": 90.6,
+          "phi": 89.9,
+          "phiNormalized": 90,
           "phiThreshold": 90,
           "ok": true
         }
@@ -119,14 +126,14 @@
     },
     {
       "shotId": "about-panel",
-      "minPhiNormalized": 89.2,
+      "minPhiNormalized": 91.2,
       "regions": [
         {
           "regionId": "about-body",
-          "phi": 89.6,
-          "phiNormalized": 89.2,
+          "phi": 91,
+          "phiNormalized": 91.2,
           "phiThreshold": 90,
-          "ok": false
+          "ok": true
         }
       ]
     }

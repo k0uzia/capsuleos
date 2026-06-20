@@ -1,6 +1,6 @@
 # Matrice diff Paramètres système — KDE neon User Edition (VM ↔ Capsule)
 
-> **Statut** : polish par shot (2026-06-20) — crops focus ✓ · sidebar 11.35rem · 6 schémas / 5 Plasma  
+> **Statut** : clôturé pivot P0 (2026-06-20) — 22/22 surfaces · aggregate Φ 93 · 2/10 shots ≥90 (écarts focus documentés)  
 > Parité globale : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Procédure : [`procedure-kde-settings.md`](../procedure-kde-settings.md)
 
@@ -40,18 +40,43 @@ Slot `themes`, gabarit `systemsettings_kde_neon.html`, chrome Breeze via `kde-sy
 
 Seuil clôture : **Φ_norm ≥ 90** (`kde-settings-controls-registry.json`).
 
-| # | shotId | Surface Capsule | Φ_norm (polish) | Focus crop min | Statut |
-|---|--------|-----------------|-----------------|----------------|--------|
+Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (2026-06-20T23:08).
+
+| # | shotId | Surface Capsule | Φ_norm shot | Focus crop min | Statut |
+|---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
-| 2 | `hub-sidebar` | hub quick-settings | 85.3 | theme-previews ~88 | ⚠ sidebar + tuiles |
-| 3 | `appearance-panel` | `kcm-lookandfeel` | 84.4 | theme-grid ~78 | ⚠ toolbar LnF |
-| 4 | `accessibility-panel` | `kcm-access` | 89.2 | 90.6 | ⚠ proche |
-| 5 | `desktop-panel` | `kcm-plasma-style` | 86.0 | plasma-grid ~83 | ⚠ |
+| 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **80.7** · theme-previews **83.6** · quick-settings **92.4** ✅ | ⚠ nav + tuiles hub |
+| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **86.9** · theme-grid **82.7** | ⚠ previews LnF |
+| 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
+| 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
 | 6 | `workspace-panel` | hub workspace | 89.8 | — | ⚠ proche |
 | 7 | `notifications-panel` | hub notifications | 89.8 | — | ⚠ proche |
-| 8 | `applications-panel` | hub applications | 91.1 | — | ✅ |
-| 9 | `colors-panel` | `kcm-colors` | 82.5 | colors-grid ~88 | ⚠ accent-row |
-| 10 | `about-panel` | hub about | 88.8 | 89.2 | ⚠ proche |
+| 8 | `applications-panel` | `kcm-applications` | 91.1 | — | ✅ |
+| 9 | `colors-panel` | `kcm-themes` / colors | — | accent-row **85.7** ✅ · colors-grid **85.7** (plafond voie B) | ⚠ grille |
+| 10 | `about-panel` | hub about | — | about-body **91.2** ✅ | ✅ |
+
+### Plafonds Φ P0 documentés (polish 2026-06-20)
+
+| Région | Φ_norm | Seuil | Plafond / cause |
+|--------|--------|-------|-----------------|
+| `hub-sidebar/sidebar` | 80.7 | 85 | Densité nav + icônes Breeze 32 px vs rendu SVG — P1 |
+| `hub-sidebar/theme-previews` | 83.6 | 88 | Pitch VM 280 px (`16.25rem` + gap `1.25rem`) · `margin-left: 0.375rem` |
+| `appearance-panel/theme-grid` | 82.7 | 90 | Voie B `translateX` per-tuile capture LnF (twilight/oxygen assets 100 % VM) |
+| `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B : Δx non uniforme par colonne — `translateX` nth-child régresse ; tuiles 2–4 drift contenu vs VM |
+| `*/kcm-sidebar` (capture) | 86.7–86.9 | 88 | Densité subnav Qt — polish padding capture |
+
+Outil voie B colors-grid :
+
+```bash
+node usr/lib/capsuleos/tools/lab/calibrate-kde-settings-colors-grid.mjs
+```
+
+Outil audit tuiles LnF + hub :
+
+```bash
+node usr/lib/capsuleos/tools/lab/calibrate-kde-settings-theme-grid.mjs
+node usr/lib/capsuleos/tools/lab/calibrate-kde-settings-theme-grid.mjs --shot hub-sidebar
+```
 
 ## 22 modules P0 VM — couverture gabarit
 
@@ -77,7 +102,7 @@ Seuil clôture : **Φ_norm ≥ 90** (`kde-settings-controls-registry.json`).
 | `kcm_nightlight` | panneau display-config KCM | ✅ vague 2 |
 | `kcm_powerdevilprofilesconfig` | surface KCM `kcm-power` | ✅ vague 2 |
 | `kcm_regionandlang` | surface KCM `kcm-region` | ✅ vague 2 |
-| `kcm_kwinoptions` | surface KCM `kcm-kwinoptions` | ✅ vague 2 |
+| `kcm_kwinoptions` | surface `kcm-windowmanagement` (hub-subnav) | ✅ vague 2 |
 | `kcm_kwin_virtualdesktops` | surface KCM `kcm-virtualdesktops` | ✅ vague 2 |
 
 **Gap structurel** : ~38 entrées `data-kde-settings-stub` dans le gabarit — réduction progressive P0 hub → P1 KCM dédiés.
@@ -114,3 +139,80 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde
 ## Réouverture
 
 Réouverture si Plasma System Settings change de layout, si inventaire VM > 22 P0, ou si `compare-apps-visual-investigation` drift sous Φ 90 sur shots non documentés.
+
+## Taxonomie navigation VM (audit 2026-06-20)
+
+Référence captures `root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/*-vm.png` · résolveur `CapsuleKdeSettingsNav.resolveNavLayout(view)`.
+
+| Layout | Comportement VM | Exemples Capsule | Shots P0 |
+|--------|-----------------|------------------|----------|
+| `hub-panel` | Aside hub + panneau hub (pas de surface KCM) | quick-settings, workspace, notifications, about | 2, 6–7, 10 |
+| `kcm-flat` | Aside hub (highlight) + contenu KCM pleine largeur | son, fond d'écran, souris… | — |
+| `subnav-replace` | Sous-nav module **remplace** l'aside hub (legacy) | — | — |
+| `hub-subnav` | Aside hub **+** 2e colonne sous-modules **+** contenu | accessibilité, affichage, apparence, applications… | 1, 3–5, 7–9 |
+
+**Règle VM (Plasma 6.7)** : `SubCategoryPage` pousse la 2e colonne seulement si `subCategoryModel.count > 1` (voir `SubCategoryPage.qml`). Inventaire détaillé : `linux-kde-neon-kde-settings-nav-layouts.json`.
+
+**Sous-catégories VM `hub-subnav`** (8, 2+ modules) : Couleurs & Thèmes, Wifi et Internet, Affichage & Écran, Applications par défaut, Gestion des fenêtres, Clavier, Disques & Appareils photo, Session.
+
+**Mono-KCM multi-pages `hub-subnav`** : Accessibilité (`kcm_access`).
+
+**Capsule vs parcours catégorie VM** : toutes les sous-catégories VM à 2+ modules alignées `hub-subnav` (hub + 2e aside).
+
+**P1** : assigner le layout avant surface HTML · `kcm-flat` si KCM feuille sans sous-nav.
+
+| Module P1 | Layout | Surface | Statut |
+|-----------|--------|---------|--------|
+| Son (`kcm_pulseaudio`) | `kcm-flat` | `kcm-sound` | ✅ |
+| Bluetooth (`kcm_bluetooth`) | `kcm-flat` | `kcm-bluetooth` | ✅ |
+| Imprimantes (`kcm_printer_manager`) | `kcm-flat` | `kcm-printer` | ✅ |
+| Disques & appareils photo | `hub-subnav` | `kcm-disks-devices` (SMART · kamera) | ✅ |
+| Contrôleur de jeu (`kcm_gamecontroller`) | `kcm-flat` | `kcm-gamecontroller` | ✅ |
+| Comptes en ligne (`kcm_kaccounts`) | `kcm-flat` | `kcm-accounts` | ✅ |
+| Bureau à distance (`kcm_krdpserver`) | `kcm-flat` | `kcm-remote` | ✅ |
+| Wifi et Internet (`networksettings`) | `hub-subnav` | `kcm-network` (5 modules) | ✅ |
+| Gestion des fenêtres (`windowmanagement`) | `hub-subnav` | `kcm-windowmanagement` (3 modules) | ✅ |
+| Session (`session`) | `hub-subnav` | `kcm-session` (SDDM · Plasma login) | ✅ |
+| Applications par défaut (`componentchooser`…) | `hub-subnav` | `kcm-applications` (3 modules) | ✅ |
+
+## Assets VM (2026-06-20)
+
+| Lot | Procédure | Destination |
+|-----|-----------|-------------|
+| Theme-previews LnF | `bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh` | `assets/.../systemsettings/theme-previews/` |
+| Scheme / Plasma | `bash root/tools/lab/pull-kde-neon-color-scheme-previews.sh` | `assets/.../systemsettings/scheme-previews/` |
+| Sidebar hub + subnav | `bash root/tools/lab/pull-kde-neon-settings-sidebar-icons.sh` | `assets/.../systemsettings/sidebar/{hub,subnav}/` |
+| Inventaire icônes | — | `root/docs/inventaires/linux-kde-neon-kde-settings-sidebar-icons.json` |
+| Alignement captures | `kde-settings-visual-align.mjs` (letterbox compare) | `vmLetterbox` dans `kde-settings-visual-focus-regions.json` |
+
+## Audit hub sidebar (2026-06-20)
+
+- **Inventaire front** : `smoke-kde-settings-front-inventory.mjs` OK — 10 shots P0, aucune entrée manquante vs `linux-kde-neon-kde-settings-front-inventory.json`.
+- **Icônes** : 31 rôles VM → `linux-kde-neon-kde-settings-sidebar-icons.json` (SHA256 alignés pull VM).
+- **Gabarit** : `systemsettings_kde_neon.html` — ordre native-nav conforme inventaire (Souris → À propos) ; stubs `disabled` sur entrées P1 non implémentées.
+- **Φ plafond** : sidebar **80.7** — polish densité (`11.35rem`, padding compact) sans gain seuil 85 ; écart structurel icônes/rendu.
+
+## Clôture polish Φ P0 (2026-06-20)
+
+Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structurels, pas de régression acceptée sur calibrage PNG seul).
+
+| Région | Φ_norm | Seuil | Action |
+|--------|--------|-------|--------|
+| quick-settings | 92.4 | 88 | ✅ |
+| about-body | 91.2 | 90 | ✅ |
+| accessibility | 90.0 | 90 | ✅ |
+| toolbar | 89.1 | 88 | ✅ |
+| accent-row | 85.7 | 85 | ✅ |
+| colors-grid | 85.7 | 88 | Plafond voie B |
+| kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
+| theme-previews | 83.6 | 88 | Pitch hub 280 px |
+| theme-grid | 82.7 | 90 | Voie B translateX LnF |
+| hub sidebar | 80.7 | 85 | P1 icônes |
+
+## Prochaine vague (P1)
+
+Stubs hub sidebar **clôturés**. Suite :
+
+1. **P1 icônes hub sidebar** — rendu SVG vs Breeze 32 px (plafond Φ 80.7).
+2. **LnF twilight/oxygen** — assets ou positionnement absolu tuile (plafond theme-grid 81.9).
+3. Inventaire P1 restant (~58 modules). Propagation dérivés KDE : gelée.

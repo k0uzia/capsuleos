@@ -12,6 +12,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
+import {
+  letterboxCapsuleToVm,
+  scaleNearest,
+} from './kde-settings-visual-align.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const REGIONS_PATH = path.join(ROOT, 'root/tools/lab/kde-settings-visual-focus-regions.json');
@@ -30,22 +34,6 @@ const parseArgs = () => {
 };
 
 const readPng = (file) => PNG.sync.read(fs.readFileSync(file));
-const scaleNearest = (src, tw, th) => {
-  const out = new PNG({ width: tw, height: th });
-  for (let y = 0; y < th; y += 1) {
-    for (let x = 0; x < tw; x += 1) {
-      const sx = Math.floor((x * src.width) / tw);
-      const sy = Math.floor((y * src.height) / th);
-      const si = (src.width * sy + sx) << 2;
-      const di = (tw * y + x) << 2;
-      out.data[di] = src.data[si];
-      out.data[di + 1] = src.data[si + 1];
-      out.data[di + 2] = src.data[si + 2];
-      out.data[di + 3] = src.data[si + 3];
-    }
-  }
-  return out;
-};
 
 const flattenAlpha = (png) => {
   for (let i = 0; i < png.data.length; i += 4) {
@@ -97,7 +85,8 @@ const main = () => {
       continue;
     }
     const vmBase = scaleNearest(flattenAlpha(readPng(vmFile)), cfg.geometry.width, cfg.geometry.height);
-    const capBase = scaleNearest(readPng(capFile), cfg.geometry.width, cfg.geometry.height);
+    const capRaw = scaleNearest(readPng(capFile), cfg.geometry.width, cfg.geometry.height);
+    const capBase = flattenAlpha(letterboxCapsuleToVm(vmBase, capRaw));
     const regionResults = [];
 
     for (const region of regions) {
@@ -129,6 +118,7 @@ const main = () => {
     registryId: cfg.registryId,
     comparedAt: new Date().toISOString(),
     focusOutDir: 'root/docs/inventaires/captures/linux-kde-neon/apps-visual-focus',
+    vmLetterbox: cfg.vmLetterbox || null,
     results,
   };
 

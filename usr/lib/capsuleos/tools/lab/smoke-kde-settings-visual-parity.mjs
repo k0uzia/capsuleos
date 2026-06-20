@@ -34,10 +34,10 @@ const previewAssetsMissing = !fs.existsSync(themePreviewDir)
   || !fs.existsSync(path.join(path.dirname(themePreviewDir), 'SOURCE-VM.txt'));
 
 const structuralChecks = {
-  'colors-panel': ['data-kde-settings-surface="kcm-colors"', 'data-kde-setting="kde-accent-color"'],
-  'appearance-panel': ['data-kde-settings-surface="kcm-lookandfeel"', 'data-kde-setting="kde-global-theme"'],
+  'colors-panel': ['data-kde-settings-surface="kcm-themes"', 'data-kde-setting="kde-accent-color"'],
+  'appearance-panel': ['data-kde-settings-surface="kcm-themes"', 'data-kde-setting="kde-global-theme"'],
   'hub-sidebar': ['data-kde-settings-surface="hub"', 'kde-systemsettings__nav--native'],
-  'desktop-panel': ['data-kde-settings-surface="kcm-plasma-style"'],
+  'desktop-panel': ['data-kde-settings-surface="kcm-themes"', 'data-kde-panel-content="plasma-style"'],
 };
 
 const errors = [];

@@ -2,7 +2,7 @@
   "version": 1,
   "registryId": "linux-popos",
   "toolkit": "cosmic",
-  "generatedAt": "2026-06-19T14:30:38.642Z",
+  "generatedAt": "2026-06-20T16:21:30.236Z",
   "source": "proc/linux-popos/distribution-manifest.json",
   "matrixPath": "root/tools/lab/cosmic-settings-parity-matrix.json",
   "summary": {

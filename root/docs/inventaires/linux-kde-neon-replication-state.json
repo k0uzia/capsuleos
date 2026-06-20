@@ -398,23 +398,28 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-20T15:46:05.277Z",
+    "evaluatedAt": "2026-06-20T16:22:49.540Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-20T15:46:05.277Z",
+  "updatedAt": "2026-06-20T16:22:49.540Z",
   "discoverVmLastRun": {
-    "evaluatedAt": "2026-06-11T12:12:10.000Z",
-    "vmFlag": "--discover-vm-100",
+    "evaluatedAt": "2026-06-20T16:14:06.069Z",
+    "vmFlags": [
+      "--discover-vm-100",
+      "--discover-installed-details"
+    ],
     "smokes": {
       "smoke-discover-vm-parity": true,
       "smoke-kde-neon-discover": true,
       "smoke-discover-kde-neon": true
     },
-    "pairs": 7,
+    "pairs": 21,
+    "installedDetailCaptures": 14,
+    "note": "fiches Installé(s) sans wtype — plasma-discover --application + virsh/ydotool",
     "kdvp07Flaky": "compare baseline 07-discover-detail-vlc ~20% drift (carrousel)"
   },
   "scenariosCaptureLastCycle": {

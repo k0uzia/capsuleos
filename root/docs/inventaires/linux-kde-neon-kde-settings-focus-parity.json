@@ -1,0 +1,134 @@
+{
+  "registryId": "linux-kde-neon",
+  "comparedAt": "2026-06-20T17:35:49.084Z",
+  "focusOutDir": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-focus",
+  "results": [
+    {
+      "shotId": "hub-sidebar",
+      "minPhiNormalized": 70.4,
+      "regions": [
+        {
+          "regionId": "sidebar",
+          "phi": 78.6,
+          "phiNormalized": 78.3,
+          "phiThreshold": 88,
+          "ok": false
+        },
+        {
+          "regionId": "theme-previews",
+          "phi": 70.5,
+          "phiNormalized": 70.4,
+          "phiThreshold": 90,
+          "ok": false
+        },
+        {
+          "regionId": "quick-settings",
+          "phi": 92.5,
+          "phiNormalized": 92.3,
+          "phiThreshold": 90,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "shotId": "appearance-panel",
+      "minPhiNormalized": 77.8,
+      "regions": [
+        {
+          "regionId": "kcm-sidebar",
+          "phi": 81.8,
+          "phiNormalized": 81.2,
+          "phiThreshold": 88,
+          "ok": false
+        },
+        {
+          "regionId": "theme-grid",
+          "phi": 77.9,
+          "phiNormalized": 77.8,
+          "phiThreshold": 90,
+          "ok": false
+        },
+        {
+          "regionId": "toolbar",
+          "phi": 82.5,
+          "phiNormalized": 80.9,
+          "phiThreshold": 88,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "shotId": "colors-panel",
+      "minPhiNormalized": 78,
+      "regions": [
+        {
+          "regionId": "kcm-sidebar",
+          "phi": 81.2,
+          "phiNormalized": 80.5,
+          "phiThreshold": 88,
+          "ok": false
+        },
+        {
+          "regionId": "accent-row",
+          "phi": 80.3,
+          "phiNormalized": 78.6,
+          "phiThreshold": 88,
+          "ok": false
+        },
+        {
+          "regionId": "colors-grid",
+          "phi": 77.9,
+          "phiNormalized": 78,
+          "phiThreshold": 90,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "shotId": "desktop-panel",
+      "minPhiNormalized": 80.8,
+      "regions": [
+        {
+          "regionId": "kcm-sidebar",
+          "phi": 81.5,
+          "phiNormalized": 80.8,
+          "phiThreshold": 88,
+          "ok": false
+        },
+        {
+          "regionId": "plasma-grid",
+          "phi": 84.1,
+          "phiNormalized": 84,
+          "phiThreshold": 90,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "shotId": "accessibility-panel",
+      "minPhiNormalized": 90.6,
+      "regions": [
+        {
+          "regionId": "content",
+          "phi": 90.6,
+          "phiNormalized": 90.6,
+          "phiThreshold": 90,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "shotId": "about-panel",
+      "minPhiNormalized": 89.2,
+      "regions": [
+        {
+          "regionId": "about-body",
+          "phi": 89.6,
+          "phiNormalized": 89.2,
+          "phiThreshold": 90,
+          "ok": false
+        }
+      ]
+    }
+  ]
+}

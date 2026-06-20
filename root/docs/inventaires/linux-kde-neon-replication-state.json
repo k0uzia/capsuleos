@@ -400,14 +400,14 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-20T16:49:52.501Z",
+    "evaluatedAt": "2026-06-20T17:17:29.202Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-20T16:49:52.501Z",
+  "updatedAt": "2026-06-20T17:17:29.202Z",
   "dolphinVmLastRun": {
     "evaluatedAt": "2026-06-20T16:47:00.000Z",
     "vmFlags": [
@@ -436,6 +436,31 @@
     "installedDetailCaptures": 14,
     "note": "fiches Installé(s) sans wtype — plasma-discover --application + virsh/ydotool",
     "kdvp07Flaky": "compare baseline 07-discover-detail-vlc ~20% drift (carrousel)"
+  },
+  "settingsVmLastRun": {
+    "evaluatedAt": "2026-06-20T17:25:00.000Z",
+    "inventory": {
+      "moduleCount": 92,
+      "p0Count": 22,
+      "p0SurfacesCovered": 22,
+      "tool": "collect-vm-kde-settings-inventory.mjs"
+    },
+    "visualShots": 10,
+    "themePreviews": {
+      "count": 14,
+      "source": "plasma/look-and-feel/contents/previews/preview.png",
+      "tool": "pull-kde-neon-settings-theme-previews.sh"
+    },
+    "smokes": {
+      "smoke-kde-settings-vm-parity": true,
+      "smoke-h6-kde-settings-ready": true,
+      "smoke-kde-settings-visual-parity": true,
+      "verify-kde-settings-parity-chain": true
+    },
+    "phiThemesAggregate": 93,
+    "doc": "root/docs/inventaires/linux-kde-neon-kde-settings-diff.md",
+    "campaignStatus": "pivot-p0-surfaces",
+    "note": "22/22 KCM P0 — previews LnF originaux KDE · vague P1 polish Φ par shot"
   },
   "scenariosCaptureLastCycle": {
     "evaluatedAt": "2026-06-16T09:47:05.232Z",

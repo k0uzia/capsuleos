@@ -1,6 +1,6 @@
 {
   "registryId": "linux-kde-neon",
-  "comparedAt": "2026-06-20T23:24:29.541Z",
+  "comparedAt": "2026-06-20T23:36:17.754Z",
   "focusOutDir": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-focus",
   "vmLetterbox": {
     "top": 52,
@@ -12,12 +12,12 @@
   "results": [
     {
       "shotId": "hub-sidebar",
-      "minPhiNormalized": 80.7,
+      "minPhiNormalized": 81.3,
       "regions": [
         {
           "regionId": "sidebar",
-          "phi": 82.1,
-          "phiNormalized": 80.7,
+          "phi": 82.5,
+          "phiNormalized": 81.3,
           "phiThreshold": 85,
           "ok": false
         },
@@ -39,19 +39,19 @@
     },
     {
       "shotId": "appearance-panel",
-      "minPhiNormalized": 82.7,
+      "minPhiNormalized": 83.3,
       "regions": [
         {
           "regionId": "kcm-sidebar",
-          "phi": 88,
-          "phiNormalized": 86.9,
+          "phi": 88.1,
+          "phiNormalized": 87,
           "phiThreshold": 88,
           "ok": false
         },
         {
           "regionId": "theme-grid",
-          "phi": 82.9,
-          "phiNormalized": 82.7,
+          "phi": 83.6,
+          "phiNormalized": 83.3,
           "phiThreshold": 90,
           "ok": false
         },

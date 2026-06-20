@@ -211,8 +211,8 @@ body#kde-neon #themes .kde-systemsettings--kcm {
 }
 
 body#kde-neon #themes .kde-systemsettings__sidebar:not(.kde-systemsettings__sidebar--kcm) {
-    flex-basis: 11.35rem;
-    min-width: 11.35rem;
+    flex-basis: 11.6rem;
+    min-width: 11.6rem;
     padding: 0.08rem 0.22rem 0.28rem;
     background: #fcfcfc;
     color: #232629;
@@ -372,8 +372,8 @@ body#kde-neon[data-theme="dark"] #themes .kde-systemsettings__quick-row {
 }
 
 body#kde-neon #themes .kde-systemsettings__navicon {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 1rem;
+    height: 1rem;
     flex-shrink: 0;
     background-color: transparent;
     mask: none;
@@ -1246,16 +1246,21 @@ body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile {
     width: 12.5rem;
     max-width: 12.5rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    gap: 0;
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-preview {
     aspect-ratio: auto;
     height: 8.125rem;
     min-height: 8.125rem;
-    width: 100%;
+    width: 12.5rem;
     max-width: 12.5rem;
     box-sizing: border-box;
     background-size: 100% 100%;
+    border: none;
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-label {

@@ -45,8 +45,8 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 | # | shotId | Surface Capsule | Φ_norm shot | Focus crop min | Statut |
 |---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
-| 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **80.7** · theme-previews **83.6** · quick-settings **92.4** ✅ | ⚠ nav + tuiles hub |
-| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **86.9** · theme-grid **82.7** | ⚠ previews LnF |
+| 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **81.3** · theme-previews **83.6** · quick-settings **92.4** ✅ | ⚠ nav |
+| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.0** · theme-grid **83.3** | ⚠ previews LnF |
 | 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
 | 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
 | 6 | `workspace-panel` | hub workspace | 89.8 | — | ⚠ proche |
@@ -59,11 +59,11 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 
 | Région | Φ_norm | Seuil | Plafond / cause |
 |--------|--------|-------|-----------------|
-| `hub-sidebar/sidebar` | 80.7 | 85 | Densité nav + icônes Breeze 32 px vs rendu SVG — P1 |
+| `hub-sidebar/sidebar` | 81.3 | 85 | Sidebar `11.6rem` + icônes `1rem` |
 | `hub-sidebar/theme-previews` | 83.6 | 88 | Pitch VM 280 px (`16.25rem` + gap `1.25rem`) · `margin-left: 0.375rem` |
-| `appearance-panel/theme-grid` | 82.7 | 90 | Voie B `translateX` per-tuile capture LnF (twilight/oxygen assets 100 % VM) |
-| `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B : Δx non uniforme par colonne — `translateX` nth-child régresse ; tuiles 2–4 drift contenu vs VM |
-| `*/kcm-sidebar` (capture) | 86.7–86.9 | 88 | Densité subnav Qt — polish padding capture |
+| `appearance-panel/theme-grid` | 83.3 | 90 | Voie B translateX + tuiles sans bordure capture ; twilight ~73 % (compositing) |
+| `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B plafond per-colonne |
+| `*/kcm-sidebar` (capture) | 86.9–87.0 | 88 | Densité subnav Qt — polish padding capture |
 
 Outil voie B colors-grid :
 

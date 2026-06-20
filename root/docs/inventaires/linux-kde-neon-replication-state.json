@@ -87,7 +87,7 @@
     "pi_global": 95,
     "status_global": "ok",
     "apps": {
-      "nemo": "v4-p0-closed",
+      "nemo": "dolphin-pivot-closed-2026-06-20",
       "update_manager": "v4-p1-closed",
       "firefox": "v4-p1-closed",
       "terminal": "p5-closed"
@@ -311,12 +311,14 @@
       "smoke": "smoke-kde-neon-v4-p2.mjs",
       "vmFlag": "--b2-b3-apps"
     },
-    "G5_DolphinClosedAt": "2026-06-10T16:20:00.000Z",
+    "G5_DolphinClosedAt": "2026-06-20T16:47:00.000Z",
     "G5_deliverables": {
-      "vmCapture": "--dolphin-g5 (vues + search + filtre + hamburger)",
+      "vmCapture": "--dolphin-g5 + --dolphin-split (7 PNG vm-dolphin-*)",
+      "capsuleCapture": "capsule-dolphin-* (8 scènes)",
       "gridPolish": "dolphin.skin.css gap/width/padding icônes",
-      "smoke": "smoke-kde-neon-dolphin.mjs (+ filtre recherche)",
-      "doc": "linux-kde-neon-dolphin-diff.md"
+      "smoke": "smoke-kde-neon-dolphin.mjs + smoke-dolphin-vm-parity.mjs",
+      "doc": "linux-kde-neon-dolphin-diff.md",
+      "baseline": "03-dolphin KdVp compare sans drift"
     },
     "G6_DiscoverClosedAt": "2026-06-10T17:10:00.000Z",
     "G6_DiscoverReopenedAt": "2026-06-11T13:00:00.000Z",
@@ -398,14 +400,27 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-20T16:22:49.540Z",
+    "evaluatedAt": "2026-06-20T16:49:52.501Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-20T16:22:49.540Z",
+  "updatedAt": "2026-06-20T16:49:52.501Z",
+  "dolphinVmLastRun": {
+    "evaluatedAt": "2026-06-20T16:47:00.000Z",
+    "vmFlags": [
+      "--dolphin-g5",
+      "--dolphin-split"
+    ],
+    "smokes": {
+      "smoke-kde-neon-dolphin": true,
+      "smoke-dolphin-vm-parity": true
+    },
+    "pairs": 7,
+    "baseline03": "no drift"
+  },
   "discoverVmLastRun": {
     "evaluatedAt": "2026-06-20T16:14:06.069Z",
     "vmFlags": [

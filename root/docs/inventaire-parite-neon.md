@@ -7,7 +7,7 @@
 > **Discover** : [`inventaires/linux-kde-neon-discover-closure.md`](inventaires/linux-kde-neon-discover-closure.md) — 🔄 **réaudit v2**  
 > **Kickoff** : [`inventaires/linux-kde-neon-kickoff-closure.md`](inventaires/linux-kde-neon-kickoff-closure.md) — 🔄 **réaudit v2**  
 > **Panel + tray** : [`inventaires/linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon-panel-tray-closure.md) — 🔄 **réaudit v2**  
-> **Dolphin** : [`inventaires/linux-kde-neon-dolphin-diff.md`](inventaires/linux-kde-neon-dolphin-diff.md) — 🔄 **réaudit v2** (points 7–9 ouverts)  
+> **Dolphin** : [`inventaires/linux-kde-neon-dolphin-diff.md`](inventaires/linux-kde-neon-dolphin-diff.md) — ✅ clôturé pivot (2026-06-20)  
 > Captures CapsuleOS : `home/public/Images/screen_KDE-Neon/capsule-*.png`
 
 ## Versions
@@ -16,7 +16,7 @@
 |-----------|-----------|-----------|-----------|
 | Distribution | KDE neon User Edition 24.04 noble | `profile-data.js` 24.04 | ✅ |
 | Shell / DE | Plasma Wayland | toolkit kde / plasma | 🔄 réaudit |
-| Explorateur | Dolphin | slot `nemo` + template `dolphin` | 🔄 réaudit (interactionnel ouvert) |
+| Explorateur | Dolphin | slot `nemo` + template `dolphin` | ✅ clôturé pivot (2026-06-20) |
 | Navigateur | Firefox | slot `firefox` | 🔄 P1 (skin + smoke 2026-06-08) |
 | MAJ | Discover 6.6.5 (`plasma-discover`) | `update_manager` + override KDE Neon | 🔄 réaudit |
 
@@ -96,7 +96,7 @@ Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright.
 ### Pass 3 — re-parité Dolphin VM 🔄 (2026-06-08)
 
 - [x] Captures : recherche ouverte, filtre Capsule, hamburger VM ↔ Capsule
-- [x] Matrice diff points 7–8 captures ✅ · point 9 contextuel ⏳ P2
+- [x] Matrice diff points 1–9 — campagne pivot 2026-06-20 ✅
 
 ### Pass 4 — P1 Firefox 🔄 (2026-06-08)
 
@@ -125,6 +125,6 @@ Résultat v2 : `validate-all` ✅ · H₆ v2 ✅ · **suite** → roadmap v3.
 ### P2 (reporté — détail roadmap v3)
 
 - [ ] Popovers tray dynamiques (Klipper, réseau KCM)
-- [ ] Périphériques sidebar Dolphin
-- [ ] Split : sélection volet droit indépendante
-- [ ] Menu contextuel Dolphin flyouts complets
+- [x] Section Périphériques sidebar
+- [x] Split : sélection volet indépendante (smoke)
+- [x] Menu contextuel flyouts (smoke runtime)

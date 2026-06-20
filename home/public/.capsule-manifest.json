@@ -437,6 +437,42 @@
         },
         {
           "type": "file",
+          "name": "vm-dolphin-compact.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-compact.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-hamburger-open.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-hamburger-open.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-list.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-list.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-search-filter-open.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-search-filter-open.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-search-open.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-search-open.png"
+        },
+        {
+          "type": "file",
+          "name": "vm-dolphin-split-only.png",
+          "extension": "png",
+          "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin-split-only.png"
+        },
+        {
+          "type": "file",
           "name": "vm-dolphin.png",
           "extension": "png",
           "href": "../../../home/public/Images/screen_KDE-Neon/vm-dolphin.png"

@@ -1276,6 +1276,13 @@ body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel
     display: none !important;
 }
 
+body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-preview .kde-systemsettings__theme-preview-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-preview--global-breeze {
     background: url("../../../../../usr/share/capsuleos/assets/images/vendors/neon/systemsettings/theme-previews/appearance-breeze-vm.png") center / 100% 100% no-repeat;
 }

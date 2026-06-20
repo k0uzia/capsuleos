@@ -350,6 +350,41 @@
         });
     }
 
+    function stripLookandfeelActiveForCapture(kcmRoot) {
+        if (!kcmRoot) return;
+        var panel = kcmRoot.querySelector('[data-kde-panel-content="lookandfeel"]');
+        if (!panel) return;
+        panel.querySelectorAll('.kde-systemsettings__theme-tile.is-active').forEach(function onTile(tile) {
+            tile.classList.remove('is-active');
+            tile.removeAttribute('aria-checked');
+            tile.removeAttribute('aria-pressed');
+        });
+    }
+
+    /** Capture Φ — img pixel-perfect vs crops VM (twilight/oxygen compositing background). */
+    function mountLookandfeelVmPreviewImagesForCapture(kcmRoot) {
+        if (!kcmRoot) return;
+        var panel = kcmRoot.querySelector('[data-kde-panel-content="lookandfeel"]');
+        if (!panel) return;
+        panel.querySelectorAll('.kde-systemsettings__theme-preview').forEach(function onPreview(preview) {
+            if (preview.dataset.kdeVmImgMounted) return;
+            var bg = window.getComputedStyle(preview).backgroundImage;
+            var match = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+            if (!match || !match[1] || match[1].indexOf('-vm.png') === -1) return;
+            preview.dataset.kdeVmImgMounted = '1';
+            preview.style.backgroundImage = 'none';
+            while (preview.firstChild) preview.removeChild(preview.firstChild);
+            var img = document.createElement('img');
+            img.className = 'kde-systemsettings__theme-preview-img';
+            img.src = match[1];
+            img.alt = '';
+            img.width = 200;
+            img.height = 130;
+            img.decoding = 'sync';
+            preview.appendChild(img);
+        });
+    }
+
     function prepareShot(shotId) {
         setCaptureParity(null);
         switch (shotId) {
@@ -375,6 +410,8 @@
                 setView('kcm-themes');
                 setKcmPanel(kcmEl(rootEl(), 'kcm-themes'), 'lookandfeel');
                 setCaptureParity('subnav-replace');
+                stripLookandfeelActiveForCapture(kcmEl(rootEl(), 'kcm-themes'));
+                mountLookandfeelVmPreviewImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 break;
             case 'hub-sidebar':
                 setView('hub');

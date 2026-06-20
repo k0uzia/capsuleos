@@ -46,7 +46,7 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 |---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
 | 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **81.3** · theme-previews **83.6** · quick-settings **92.4** ✅ | ⚠ nav |
-| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.0** · theme-grid **83.3** | ⚠ previews LnF |
+| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.3** · theme-grid **83.7** | ⚠ previews LnF |
 | 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
 | 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
 | 6 | `workspace-panel` | hub workspace | 89.8 | — | ⚠ proche |
@@ -206,7 +206,7 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | colors-grid | 85.7 | 88 | Plafond voie B |
 | kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
 | theme-previews | 83.6 | 88 | Pitch hub 280 px |
-| theme-grid | 83.3 | 90 | Voie B + reset bordure tuile |
+| theme-grid | 83.7 | 90 | Capture `<img>` VM + voie B translateX |
 | hub sidebar | 81.3 | 85 | P1 icônes |
 
 ## Prochaine vague (P1)

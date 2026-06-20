@@ -64,6 +64,25 @@ const prepareShot = async (page, shotId) => {
       window.CapsuleKdeSettingsNav.prepareShot(id);
     }
   }, shotId);
+  if (shotId === 'appearance-panel') {
+    await page.evaluate(() => {
+      const imgs = document.querySelectorAll(
+        '#themes [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-preview-img',
+      );
+      return Promise.all(
+        Array.from(imgs).map(
+          (img) =>
+            new Promise((resolve) => {
+              if (img.complete) resolve();
+              else {
+                img.onload = resolve;
+                img.onerror = resolve;
+              }
+            }),
+        ),
+      );
+    });
+  }
   await sleep(page, 400);
 };
 

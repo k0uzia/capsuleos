@@ -398,14 +398,14 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-16T09:41:55.896Z",
+    "evaluatedAt": "2026-06-20T15:46:05.277Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-16T12:58:36.515Z",
+  "updatedAt": "2026-06-20T15:46:05.277Z",
   "discoverVmLastRun": {
     "evaluatedAt": "2026-06-11T12:12:10.000Z",
     "vmFlag": "--discover-vm-100",

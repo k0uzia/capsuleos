@@ -1,6 +1,6 @@
 # Clôture Discover — KDE neon User Edition
 
-> **Statut** : ✅ clôturé Capsule (2026-06-19) — `run-kde-neon-pass` + smokes Discover OK · réaudit sidebar icônes VM reste P1 sans SSH lab · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
+> **Statut** : ✅ clôturé Capsule + VM session lab (2026-06-20) — baselines KdVp regénérées · sidebar Breeze pullée · `run-kde-neon-pass` 17/17 · VM pivot session exceptionnelle (IP via `lab-inventory.json` gitignoré) · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Checklist réparation : [`linux-kde-neon-repair-checklist.md`](linux-kde-neon-repair-checklist.md)
 
@@ -57,6 +57,16 @@ node root/tools/lab/capture-capsule-kde-neon.mjs
 | `vm-discover-installed.png` | Installé(s) (liste) | capture stable (recette G6 / recursive) |
 
 Captures VM par onglet : **réalisées** (G6 + fiche VLC). Reste la passe **fiches Installé(s) en détail** (Wayland : nécessite `wtype` sur la VM lab).
+
+## Gates (2026-06-20 — VM session lab exceptionnelle)
+
+```bash
+export KDE_NEON_SSH=capsule@<ip-lab>   # etc/capsuleos/lab-inventory.json (gitignoré)
+python3 -m http.server 5500
+node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon --write-baseline --compare
+bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-vm-100
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --write   # passOk 17/17
+```
 
 ## Gates (2026-06-19)
 

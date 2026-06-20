@@ -61,7 +61,7 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 |--------|--------|-------|-----------------|
 | `hub-sidebar/sidebar` | 81.3 | 85 | Sidebar `11.6rem` + icônes `1rem` |
 | `hub-sidebar/theme-previews` | 83.6 | 88 | Pitch VM 280 px (`16.25rem` + gap `1.25rem`) · `margin-left: 0.375rem` |
-| `appearance-panel/theme-grid` | 83.3 | 90 | Voie B translateX + tuiles sans bordure capture ; twilight ~73 % (compositing) |
+| `appearance-panel/theme-grid` | 83.7 | 90 | Capture LnF `<img>` crops VM + translateX voie B ; twilight ~73 % |
 | `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B plafond per-colonne |
 | `*/kcm-sidebar` (capture) | 86.9–87.0 | 88 | Densité subnav Qt — polish padding capture |
 

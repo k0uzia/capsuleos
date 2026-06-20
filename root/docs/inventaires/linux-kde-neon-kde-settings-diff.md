@@ -206,8 +206,8 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | colors-grid | 85.7 | 88 | Plafond voie B |
 | kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
 | theme-previews | 83.6 | 88 | Pitch hub 280 px |
-| theme-grid | 82.7 | 90 | Voie B translateX LnF |
-| hub sidebar | 80.7 | 85 | P1 icônes |
+| theme-grid | 83.3 | 90 | Voie B + reset bordure tuile |
+| hub sidebar | 81.3 | 85 | P1 icônes |
 
 ## Prochaine vague (P1)
 

@@ -46,7 +46,7 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 |---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
 | 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **86.5** ✅ · theme-previews **91.5** ✅ · quick-settings **92.2** ✅ | ✅ |
-| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.3** · theme-grid **83.7** | ⚠ previews LnF |
+| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.4** · theme-grid **90.7** ✅ | ⚠ subnav |
 | 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
 | 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
 | 6 | `workspace-panel` | hub workspace | 89.8 | — | ⚠ proche |
@@ -206,7 +206,7 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | colors-grid | 85.7 | 88 | Plafond voie B |
 | kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
 | theme-previews | 91.5 | 88 | ✅ capture img VM hub |
-| theme-grid | 83.7 | 90 | Capture `<img>` VM + voie B translateX |
+| theme-grid | 90.7 | 90 | ✅ calibrage 2D + voie B per-tuile (2026-06-21) |
 | hub sidebar | 86.5 | 85 | ✅ capture parity + icônes img |
 
 ## Prochaine vague (P1)

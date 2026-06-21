@@ -1272,26 +1272,26 @@ body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel
     gap: 2.85rem;
     width: fit-content;
     max-width: none;
-    margin-top: 6.8rem;
-    margin-left: -2.5rem;
+    margin-top: 7.95rem;
+    margin-left: -2.125rem;
     align-items: start;
 }
 
-/* Voie B — Δx per-tuile (calibrate-kde-settings-theme-grid.mjs, assets VM 100 %) */
+/* Voie B — Δx per-tuile (calibrate-kde-settings-theme-grid.mjs 2026-06-21) */
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile:nth-child(1) {
-    transform: translateX(-0.6875rem);
+    transform: translateX(1.1875rem);
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile:nth-child(2) {
-    transform: translateX(0.875rem);
+    transform: translateX(-0.125rem);
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile:nth-child(3) {
-    transform: translateX(0.4375rem);
+    transform: translateX(-0.75rem);
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile:nth-child(4) {
-    transform: translateX(1.375rem);
+    transform: translateX(-0.4375rem);
 }
 
 body#kde-neon #themes [data-kde-capture-parity="subnav-replace"] [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-grid--global-themes .kde-systemsettings__theme-tile {

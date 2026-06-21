@@ -64,8 +64,23 @@ Les signalements sont traités de façon **confidentielle**, sur le même canal 
 ## Bonnes pratiques contributeurs
 
 - ne pas committer `etc/capsuleos/lab-inventory.json`, tokens ou mots de passe (voir [.gitignore](.gitignore)) ;
+- ne pas versionner `node_modules/` — `npm ci` après clone (gate `validate-git-security.mjs`) ;
 - exécuter `node usr/lib/capsuleos/tools/validate-all.mjs` avant merge sur `main` ;
 - respecter **R-PWD1** et **R-ASK1** pour les opérations lab (sudo, SSH) — voir [root/docs/logique-formelle.md](root/docs/logique-formelle.md).
+
+## Hygiène Git (audit dépôt)
+
+| Risque | Mesure |
+|--------|--------|
+| **Vol / supply chain** | `node_modules/` dans `.gitignore` + retrait du suivi Git (`git rm -r --cached node_modules`) |
+| **Secrets lab** | `lab-inventory.json`, `git-push-token`, `.env`, clés `*.pem` / `id_*` gitignorés |
+| **Cartographie réseau** | Inventaire réel **local uniquement** ; `lab-inventory.example.json` utilise des IP TEST-NET-3 (`203.0.113.x`) |
+| **Exposition HTTP** | [.htaccess](.htaccess) bloque `.git`, `node_modules`, `lab-inventory.json`, scripts lab |
+| **SBOM lab** | CycloneDX documente les deps npm dev — pas déployées en production |
+
+Gate : `node usr/lib/capsuleos/tools/validate-git-security.mjs`
+
+**Historique Git** : retirer un fichier du remote ne l’efface pas des commits passés. En cas de fuite avérée (token, clé), rotation immédiate + `git filter-repo` ou support GitHub secret scanning.
 
 ## Versions supportées
 

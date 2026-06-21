@@ -665,6 +665,7 @@ Index complet : [`root/README.md`](root/README.md)
 ### Agents / release
 
 - [ ] `node usr/lib/capsuleos/tools/validate-reuse.mjs` → REUSE.toml, LICENSES/, en-têtes SPDX sur modules noyau récents.
+- [ ] `node usr/lib/capsuleos/tools/validate-git-security.mjs` → pas de `node_modules/`, secrets ou `.env` versionnés.
 - [ ] Après `npm install` / changement de `package-lock.json` : `npm run sbom` puis `validate-sbom.mjs`.
 - [ ] `node usr/lib/capsuleos/tools/validate-all.mjs` → exit 0 avant merge significatif.
 - [ ] Nouvel OS : [root/docs/ajouter-os-scalable.md](root/docs/ajouter-os-scalable.md) suivi ; entrée `os-registry.json`.

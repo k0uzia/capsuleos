@@ -37,6 +37,7 @@ const SPDX_REQUIRED = [
   'usr/lib/capsuleos/shells/linux/se-a11y-bus.js',
   'usr/lib/capsuleos/tools/generate-sbom.mjs',
   'usr/lib/capsuleos/tools/validate-sbom.mjs',
+  'usr/lib/capsuleos/tools/validate-git-security.mjs',
   'usr/lib/capsuleos/tools/validate-reuse.mjs',
 ];
 

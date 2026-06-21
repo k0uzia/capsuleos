@@ -24,6 +24,7 @@ const steps = [
   'validate-gnome-user-scenarios-all.mjs',
   'validate-reuse.mjs',
   'validate-sbom.mjs',
+  'validate-git-security.mjs',
 ];
 
 let failed = false;

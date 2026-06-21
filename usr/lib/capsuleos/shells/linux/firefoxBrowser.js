@@ -32,6 +32,61 @@ function supportsFirefoxGnomeChrome() {
         || document.body.id === 'anduinos';
 }
 
+function isMintFirefoxScope() {
+    return !!(document.body && document.body.id === 'mint');
+}
+
+function ensureMintFirefoxTitlebar(windowElement, browserRoot) {
+    if (!isMintFirefoxScope() || !windowElement || windowElement.dataset.link !== 'firefox') {
+        return;
+    }
+
+    windowElement.classList.remove('firefox-window--fedora');
+
+    const tabsbar = browserRoot && browserRoot.querySelector('.capsule-browser__tabsbar');
+    let header = windowElement.querySelector(':scope > #windowHeader');
+    const integrated = tabsbar && tabsbar.querySelector('#windowHeader');
+
+    if (integrated && integrated !== header) {
+        integrated.remove();
+        header = windowElement.querySelector(':scope > #windowHeader');
+    }
+
+    if (header && tabsbar && tabsbar.contains(header)) {
+        const anchor = windowElement.querySelector(':scope > #windowIframe') || browserRoot.parentElement;
+        if (anchor && anchor.parentElement === windowElement) {
+            windowElement.insertBefore(header, anchor);
+        } else {
+            windowElement.prepend(header);
+        }
+        header.classList.remove('firefox-window-controls--fedora');
+        delete header.dataset.fedoraFirefoxControls;
+    }
+
+    if (header) {
+        header.hidden = false;
+        header.removeAttribute('aria-hidden');
+        header.style.removeProperty('display');
+    }
+
+    const titleKey = 'firefox.windowTitle';
+    const titleText = capsuleStr(titleKey, 'Mozilla Firefox');
+    const titleEl = header && header.querySelector('#windowTitle');
+    if (titleEl) {
+        titleEl.textContent = titleText;
+    }
+    windowElement.setAttribute('data-title', titleText);
+
+    if (window.CapsuleWindowChrome) {
+        if (typeof window.CapsuleWindowChrome.ensureHeader === 'function') {
+            window.CapsuleWindowChrome.ensureHeader(windowElement, 'firefox');
+        }
+        if (typeof window.CapsuleWindowChrome.afterInject === 'function') {
+            window.CapsuleWindowChrome.afterInject(windowElement, 'firefox');
+        }
+    }
+}
+
 function syncFirefoxGnomeDataset(browserRoot) {
     const root = browserRoot
         || document.querySelector('#firefox [data-firefox-gnome-root]');
@@ -173,7 +228,12 @@ function initFirefoxBrowser() {
         return;
     }
 
-    decorateFedoraFirefoxWindow(browserRoot);
+    const windowElement = browserRoot.closest('.windowElement');
+    if (isMintFirefoxScope()) {
+        ensureMintFirefoxTitlebar(windowElement, browserRoot);
+    } else {
+        decorateFedoraFirefoxWindow(browserRoot);
+    }
 
     const defaultTabLabel = capsuleStr('firefox.tabNewLabel', 'Nouvel onglet');
 

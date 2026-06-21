@@ -3,7 +3,6 @@
  * Barre de titre Muffin (#windowHeader) séparée, chrome Proton en dessous.
  */
 body#mint {
-    --firefox-window-header-bg: var(--mint-taskbar-bg);
     --firefox-bg-main: #1c1b22;
     --firefox-bg-accent-1: rgba(31, 158, 222, 0.08);
     --firefox-bg-accent-2: rgba(255, 125, 67, 0.06);
@@ -100,20 +99,33 @@ body#mint div[data-link="firefox"] {
     background: var(--firefox-bg-main);
 }
 
+/* Barre titre Muffin — cinnamon-window-chrome.css (nemoHC / nemoMCSF) ; pas le panel. */
 body#mint div[data-link="firefox"] #windowHeader {
     flex-shrink: 0;
-    background: var(--firefox-window-header-bg);
-    border-bottom: 1px solid var(--mint-window-header-border);
+    cursor: default;
 }
 
-body#mint div[data-link="firefox"].windowElementActive #windowHeader {
-    border-bottom-color: var(--mint-window-header-border-active);
+body#mint div[data-link="firefox"] #windowHeader[data-window-drag-handle] {
+    cursor: grab;
 }
 
+body#mint div[data-link="firefox"] #windowHeader[data-window-drag-handle]:active {
+    cursor: grabbing;
+}
+
+/* VM : icône Mint-Y + « Mozilla Firefox » alignés à gauche (browser.tabs.inTitlebar=0). */
 body#mint div[data-link="firefox"] #windowTitle {
+    grid-column: 1 / 3;
+    justify-self: start;
+    max-width: calc(100% - calc(var(--mint-muffin-control-size, 32px) * 3 + 1rem));
+    margin-left: calc(var(--head) / 20);
+    padding-left: calc(var(--mint-muffin-control-icon-size, 18px) + 0.42rem);
+    text-align: left;
     color: var(--texte);
     text-shadow: none;
     filter: none;
+    pointer-events: none;
+    background: url(../assets/images/vendors/mint/panel/firefox.webp) left center / var(--mint-muffin-control-icon-size, 18px) var(--mint-muffin-control-icon-size, 18px) no-repeat;
 }
 
 body#mint div[data-link="firefox"] #windowIframe {

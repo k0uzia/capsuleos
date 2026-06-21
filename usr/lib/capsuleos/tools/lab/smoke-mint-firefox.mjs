@@ -44,6 +44,7 @@ const chrome = await page.evaluate(() => {
   const shortcutCount = app ? app.querySelectorAll('[data-browser-newtab-link]').length : 0;
   const pocketSection = app && app.querySelector('.capsule-browser-newtab__pocket');
   const bg = newtab ? getComputedStyle(newtab).backgroundColor : '';
+  const titleStyle = title ? getComputedStyle(title) : null;
   return {
     visible: win && win.style.display !== 'none',
     mintProton: app && app.classList.contains('capsule-browser--proton'),
@@ -52,6 +53,10 @@ const chrome = await page.evaluate(() => {
     headerInTabs: !!(tabsbar && header && tabsbar.contains(header)),
     headerBeforeApp: headerIdx >= 0 && appHostIdx > headerIdx,
     titleText: title ? title.textContent.replace(/\s+/g, ' ').trim() : '',
+    titleAlignLeft: titleStyle ? titleStyle.textAlign === 'left' : false,
+    titleHasIcon: titleStyle ? titleStyle.backgroundImage !== 'none' : false,
+    headerHeightPx: header ? parseFloat(getComputedStyle(header).height) : 0,
+    headerDragHandle: header ? header.hasAttribute('data-window-drag-handle') : false,
     newtabVisible: !!(newtab && !newtab.hidden),
     hasNewtabBrand: !!(newtab && newtab.querySelector('.capsule-browser-newtab__brand')),
     hasNewtabSearch: !!(newtab && newtab.querySelector('[data-browser-newtab-input]')),
@@ -98,6 +103,8 @@ const osPage = await page.evaluate(() => {
 
 const ok = chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.initialized
   && !chrome.headerInTabs && chrome.headerBeforeApp
+  && chrome.headerDragHandle && chrome.headerHeightPx >= 30 && chrome.headerHeightPx <= 34
+  && chrome.titleAlignLeft && chrome.titleHasIcon
   && chrome.titleText.indexOf('Mozilla Firefox') >= 0
   && chrome.newtabVisible && chrome.hasNewtabBrand && chrome.hasNewtabSearch && chrome.hasGoogleIcon
   && chrome.bookmarksHidden && chrome.initialTabCount === 1 && chrome.goHidden

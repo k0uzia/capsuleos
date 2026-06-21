@@ -14,9 +14,19 @@ CapsuleOS est une **simulation pédagogique statique** (HTML, CSS, JavaScript) e
 
 - vulnérabilités des **VM lab** (Mint, Rocky, etc.) ou de leurs paquets upstream — à signaler aux éditeurs concernés ;
 - comportement des **sites tiers** ou iframes embarqués dans les démos ;
-- absence de durcissement du **serveur HTTP** ou de l’**hébergeur** (headers CSP, TLS, etc.) — responsabilité de celui qui sert les fichiers statiques.
+- configuration TLS/certificats de l’**hébergeur mutualisé** (hors fichier [.htaccess](.htaccess) fourni).
 
 Référence architecture : [root/docs/README.md](root/docs/README.md).
+
+## Déploiement HTTP (Apache)
+
+Le dépôt inclut un [.htaccess](.htaccess) à la racine pour les déploiements statiques (ex. `https://os.lacapsule.org`) :
+
+- redirection HTTPS, en-têtes CSP / HSTS / Permissions-Policy ;
+- blocage des chemins dev (`.git`, `node_modules`, inventaire lab) ;
+- CORS limité aux origines `lacapsule.org` / `os.lacapsule.org`.
+
+Après déploiement, vérifier dans le navigateur qu’aucune ressource CapsuleOS n’est bloquée par la CSP (console développeur).
 
 ## Signaler une vulnérabilité
 

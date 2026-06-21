@@ -16,6 +16,8 @@ node usr/lib/capsuleos/tools/validate-css-variables-contract.mjs
 
 Sources de définition : `etc/capsuleos/contracts/css-variable-sources.json`
 
+Norme complète : [convention-css-variables-tokens.md](../../docs/convention-css-variables-tokens.md) — N0 tokens (hex autorisés) vs N1/N2 (`var(--*)` prioritaire). La gate vérifie **uniquement** les `var(--*)` orphelines, pas l’absence de littéraux.
+
 ## Chaîne obligatoire (skins Linux)
 
 ```css

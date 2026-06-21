@@ -461,7 +461,8 @@ Aligné [fondements-philosophiques.md](fondements-philosophiques.md) §10.
 
 ### Livrable
 
-- `usr/lib/capsuleos/tools/build-schema-org.mjs` — génère JSON-LD depuis `os-registry.json` + manifestes `/mnt` (un outil)
+- `usr/lib/capsuleos/tools/build-schema-org.mjs` — génère JSON-LD depuis `os-registry.json` + manifestes `/mnt` · gate `validate-schema-org.mjs`
+- Référence : [convention-schema-org.md](convention-schema-org.md)
 
 ---
 

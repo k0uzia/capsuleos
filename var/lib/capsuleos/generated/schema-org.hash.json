@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-06-21T10:45:13.283Z",
+  "sourceHash": {
+    "osRegistry": "f2f43fc3e6de939b42bf16365c0ad06f7e83e5ee65f555d6e28c5383c6e7631c",
+    "mntCatalog": "2ab0c3f195f0908ad06f8a03eabf40ff253ee8d2b8e462464f288629ae483a86",
+    "mntModules": "b9769269a1dd2298581fe51376568203b7845ebe07ec5ac6b95ca62694e83635",
+    "siteContract": "c601746237c6bfe56594112551eef517c310dca4a6e729f8af508274caaf11cb"
+  },
+  "osCount": 13,
+  "mntCount": 1
+}

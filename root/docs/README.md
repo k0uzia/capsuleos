@@ -57,6 +57,7 @@ Une seule chaîne de décision. Pas de roadmap parallèle, pas d’inventaire JS
 | 3b | [convention-reproduction-parfaite.md](convention-reproduction-parfaite.md) | Cohérence, déduction, grille argumentation, critères reproduction parfaite |
 | 3c | [convention-raisonnement-inductif-deductif.md](convention-raisonnement-inductif-deductif.md) | Induction VM → déduction gates (campagnes) |
 | 3d | [audit-structure-depot-2026-06.md](audit-structure-depot-2026-06.md) · [audit-processus-campagnes-2026-06.md](audit-processus-campagnes-2026-06.md) · [introspection-ontologique-2026-06.md](introspection-ontologique-2026-06.md) | Audits architecture, processus, synthèse ontologique |
+| 3e | [convention-css-variables-tokens.md](convention-css-variables-tokens.md) · [convention-schema-org.md](convention-schema-org.md) | Tokens CSS (API visuelle) · JSON-LD schema.org |
 | 4 | [plan-maitre-reproduction-os.md](plan-maitre-reproduction-os.md) | Phases, backlog §16, recette économe |
 | 5 | [plan-phase-1-gnome-triplet.md](plan-phase-1-gnome-triplet.md) | Détail phase active (1e) |
 | 6 | [convention-clean-code.md](convention-clean-code.md) | **Obligation d’écriture** |

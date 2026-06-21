@@ -39,6 +39,8 @@ const SPDX_REQUIRED = [
   'usr/lib/capsuleos/tools/validate-sbom.mjs',
   'usr/lib/capsuleos/tools/validate-git-security.mjs',
   'usr/lib/capsuleos/tools/validate-reuse.mjs',
+  'usr/lib/capsuleos/tools/build-schema-org.mjs',
+  'usr/lib/capsuleos/tools/validate-schema-org.mjs',
 ];
 
 const hasSpdxHeader = (content) =>

@@ -25,6 +25,7 @@ const steps = [
   'validate-reuse.mjs',
   'validate-sbom.mjs',
   'validate-git-security.mjs',
+  'validate-schema-org.mjs',
 ];
 
 let failed = false;

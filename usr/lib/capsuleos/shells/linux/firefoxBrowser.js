@@ -87,6 +87,88 @@ function ensureMintFirefoxTitlebar(windowElement, browserRoot) {
     }
 }
 
+function getFirefoxContribPack() {
+    if (typeof window === 'undefined' || !window.CAPSULE_FIREFOX_CONTRIB) {
+        return null;
+    }
+    return window.CAPSULE_FIREFOX_CONTRIB;
+}
+
+function applyFirefoxContribPack(browserRoot, refs) {
+    const pack = getFirefoxContribPack();
+    if (!pack || !browserRoot || !refs) {
+        return false;
+    }
+
+    const searchCfg = pack.searchEngine || {};
+    const engineKey = searchCfg.defaultEngine || 'google';
+    const engine = (searchCfg.engines || {})[engineKey] || {};
+    const placeholder = engine.placeholderFr
+        || capsuleStr('firefox.addressPlaceholder', 'Rechercher avec Google ou saisir une adresse');
+
+    if (refs.addressInput) {
+        refs.addressInput.placeholder = placeholder;
+    }
+    if (refs.newtabInput) {
+        refs.newtabInput.placeholder = placeholder;
+    }
+
+    if (refs.bookmarksBar) {
+        refs.bookmarksBar.innerHTML = '';
+        (pack.bookmarks || []).forEach((entry) => {
+            const label = entry.labelFr || entry.label || 'favori';
+            const route = entry.route || 'noop';
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'capsule-browser__bookmark';
+            if (entry.primary) {
+                link.classList.add('capsule-browser__bookmark--primary');
+            }
+            if (route === 'noop') {
+                link.classList.add('capsule-browser__bookmark--import');
+            }
+            link.setAttribute('data-browser-bookmark', label);
+            link.setAttribute('data-browser-route', route);
+            link.textContent = label;
+            refs.bookmarksBar.appendChild(link);
+        });
+    }
+
+    if (refs.newtabShortcuts) {
+        refs.newtabShortcuts.querySelectorAll('[data-browser-newtab-link]').forEach((node) => {
+            node.remove();
+        });
+        const addButton = refs.newtabShortcuts.querySelector('[data-browser-newtab-action="add"]');
+        (pack.newtabShortcuts || []).forEach((entry) => {
+            const key = entry.key || entry.siteId || '';
+            if (!key) {
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'capsule-browser-newtab__shortcut capsule-browser-newtab__shortcut--' + key;
+            link.setAttribute('data-browser-newtab-link', key);
+            link.textContent = entry.labelFr || entry.label || key;
+            if (entry.sponsored) {
+                const sponsored = document.createElement('span');
+                sponsored.className = 'capsule-browser-newtab__sponsored';
+                sponsored.textContent = capsuleStr('firefox.newtabSponsored', 'Sponsorisé');
+                link.appendChild(sponsored);
+            }
+            if (addButton) {
+                refs.newtabShortcuts.insertBefore(link, addButton);
+            } else {
+                refs.newtabShortcuts.appendChild(link);
+            }
+        });
+    }
+
+    browserRoot.dataset.firefoxContribLoaded = 'true';
+    browserRoot.dataset.firefoxContribVersion = String((pack.manifest && pack.manifest.version) || 1);
+    browserRoot.dataset.firefoxContribShortcuts = String((pack.newtabShortcuts || []).length);
+    return true;
+}
+
 function syncFirefoxGnomeDataset(browserRoot) {
     const root = browserRoot
         || document.querySelector('#firefox [data-firefox-gnome-root]');
@@ -118,6 +200,10 @@ function syncFirefoxGnomeDataset(browserRoot) {
         node.dataset.firefoxGnomeActiveTabId = session.activeTabId || '';
         node.dataset.firefoxGnomeBookmarksVisible = session.bookmarksVisible ? 'true' : 'false';
         node.dataset.firefoxGnomeChrome = 'proton';
+        if (browserRoot && browserRoot.dataset.firefoxContribLoaded) {
+            node.dataset.firefoxContribLoaded = browserRoot.dataset.firefoxContribLoaded;
+            node.dataset.firefoxContribShortcuts = browserRoot.dataset.firefoxContribShortcuts || '';
+        }
         if (activeTab && activeTab.history) {
             node.dataset.firefoxGnomeCanGoBack = activeTab.historyIndex > 0 ? 'true' : 'false';
             node.dataset.firefoxGnomeCanGoForward = activeTab.historyIndex < activeTab.history.length - 1
@@ -207,7 +293,7 @@ function initFirefoxBrowser() {
     const tabsList = browserRoot.querySelector('[data-browser-tabs]');
     const newtabForm = browserRoot.querySelector('[data-browser-newtab-form]');
     const newtabInput = browserRoot.querySelector('[data-browser-newtab-input]');
-    const newtabShortcuts = browserRoot.querySelector('.capsule-browser-newtab__shortcuts');
+    const newtabShortcuts = browserRoot.querySelector('[data-browser-newtab-shortcuts]');
     const panelHistory = browserRoot.querySelector('[data-browser-panel="history"]');
     const panelDownloads = browserRoot.querySelector('[data-browser-panel="downloads"]');
     const historyList = browserRoot.querySelector('[data-browser-history-list]');
@@ -234,6 +320,13 @@ function initFirefoxBrowser() {
     } else {
         decorateFedoraFirefoxWindow(browserRoot);
     }
+
+    applyFirefoxContribPack(browserRoot, {
+        addressInput: addressInput,
+        newtabInput: newtabInput,
+        bookmarksBar: bookmarksBar,
+        newtabShortcuts: newtabShortcuts,
+    });
 
     const defaultTabLabel = capsuleStr('firefox.tabNewLabel', 'Nouvel onglet');
 
@@ -1074,6 +1167,11 @@ function initFirefoxBrowser() {
         event.preventDefault();
         const label = bookmark.getAttribute('data-browser-bookmark') || 'favori';
         const route = bookmark.getAttribute('data-browser-route') || 'noop';
+
+        if (route === 'noop') {
+            setStatus(capsuleStr('firefox.bookmarkImportHint', 'Import des marque-pages : bientôt disponible.'));
+            return;
+        }
 
         if (route === 'home') {
             pushNavigation({ type: 'home' }, capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));

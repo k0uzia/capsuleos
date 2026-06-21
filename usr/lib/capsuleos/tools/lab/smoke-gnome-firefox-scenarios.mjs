@@ -330,6 +330,66 @@ const scenarioF8 = async (page, errors) => {
   }
 };
 
+const scenarioF9 = async (page, errors) => {
+  await openFirefox(page);
+  const state = await page.evaluate(() => {
+    const root = document.querySelector('#firefox [data-firefox-gnome-root]');
+    const bar = document.querySelector('[data-browser-bookmarks]');
+    return {
+      contribLoaded: root?.dataset?.firefoxContribLoaded === 'true',
+      shortcutsCount: root?.dataset?.firefoxContribShortcuts || '',
+      packPresent: typeof window.CAPSULE_FIREFOX_CONTRIB !== 'undefined',
+      bookmarksVisible: bar && !bar.hidden,
+      bookmarkCount: bar ? bar.querySelectorAll('[data-browser-bookmark]').length : 0,
+      hasImportes: !!bar?.querySelector('[data-browser-bookmark="Importés"]'),
+      hasLaCapsule: !!bar?.querySelector('[data-browser-bookmark="La Capsule"]'),
+      addressPlaceholder: document.querySelector('[data-firefox-gnome-address]')?.placeholder || '',
+      newtabLinks: document.querySelectorAll('[data-browser-newtab-link]').length,
+    };
+  });
+  if (!state.packPresent) {
+    errors.push('F9 : CAPSULE_FIREFOX_CONTRIB absent');
+  }
+  if (!state.contribLoaded) {
+    errors.push('F9 : firefoxContribLoaded=true attendu');
+  }
+  if (state.shortcutsCount !== '7') {
+    errors.push(`F9 : 7 raccourcis contrib attendus, obtenu « ${state.shortcutsCount} »`);
+  }
+  if (state.bookmarkCount < 3) {
+    errors.push(`F9 : 3 favoris contrib attendus, obtenu ${state.bookmarkCount}`);
+  }
+  if (!state.hasImportes || !state.hasLaCapsule) {
+    errors.push('F9 : favoris Importés / La Capsule absents');
+  }
+  if (!state.bookmarksVisible) {
+    errors.push('F9 : barre favoris non visible (GNOME)');
+  }
+  if (!String(state.addressPlaceholder).includes('Google')) {
+    errors.push(`F9 : placeholder moteur recherche attendu, obtenu « ${state.addressPlaceholder} »`);
+  }
+  if (state.newtabLinks < 7) {
+    errors.push(`F9 : 7 tuiles newtab attendues, obtenu ${state.newtabLinks}`);
+  }
+  await page.evaluate(() => {
+    const link = document.querySelector('[data-browser-bookmark="La Capsule"]');
+    if (link) {
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    }
+  });
+  await sleep(page, 450);
+  const nav = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    redirect: !!document.querySelector('[data-browser-redirect]:not([hidden])'),
+  }));
+  if (nav.view !== 'web') {
+    errors.push(`F9 : navigation favori web attendue, obtenu « ${nav.view} »`);
+  }
+  if (!nav.redirect) {
+    errors.push('F9 : page La Capsule non affichée après favori contrib');
+  }
+};
+
 const SCENARIOS = {
   F1: scenarioF1,
   F2: scenarioF2,
@@ -339,6 +399,7 @@ const SCENARIOS = {
   F6: scenarioF6,
   F7: scenarioF7,
   F8: scenarioF8,
+  F9: scenarioF9,
 };
 
 const smokeMintAntiRegression = async (page, errors) => {

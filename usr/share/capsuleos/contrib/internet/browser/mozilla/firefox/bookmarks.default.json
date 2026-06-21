@@ -2,6 +2,6 @@
   "bookmarks": [
     { "labelFr": "Importés", "route": "noop" },
     { "labelFr": "La Capsule", "route": "lacapsule", "primary": true },
-    { "labelFr": "lacapsule.org", "route": "lacapsule" }
+    { "labelFr": "os-lacapsule", "route": "os-lacapsule" }
   ]
 }

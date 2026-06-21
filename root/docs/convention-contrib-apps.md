@@ -13,7 +13,7 @@
 | **Présentation** | `home/*/style/apps/*.skin.css` | Chrome vendor (Proton, onglets, couleurs) |
 
 Index machine (Z0) : [`etc/capsuleos/contracts/simulated-web-index.json`](../../etc/capsuleos/contracts/simulated-web-index.json)  
-Runtime généré : `var/lib/capsuleos/generated/capsule-simulated-web-index.js`
+Runtime généré : `var/lib/capsuleos/generated/capsule-simulated-web-index.js` · `capsule-firefox-contrib.js`
 
 ## 2. Arborescence contrib
 
@@ -63,10 +63,12 @@ Kernel : [`simulatedWebResolver.js`](../../usr/lib/capsuleos/shells/linux/simula
 
 1. Copier `web/_template/` → `web/{siteId}/`, remplir `site.json`.
 2. `node usr/lib/capsuleos/tools/build-simulated-web-index.mjs`
-3. `node usr/lib/capsuleos/tools/validate-simulated-web.mjs`
-4. Tester : `python3 -m http.server` à la racine → Firefox → saisir le host déclaré.
-5. En-têtes SPDX sur nouveaux fichiers JS/MJS.
-6. Modèles PR : [`templates/contrib-pr-nouveau-site-web.md`](templates/contrib-pr-nouveau-site-web.md) · [`templates/contrib-pr-favori-firefox.md`](templates/contrib-pr-favori-firefox.md)
+3. `node usr/lib/capsuleos/tools/build-firefox-contrib-bundle.mjs`
+4. `node usr/lib/capsuleos/tools/validate-simulated-web.mjs`
+5. `node usr/lib/capsuleos/tools/validate-contrib-packages.mjs`
+6. Tester : `python3 -m http.server` à la racine → Firefox → saisir le host déclaré.
+7. En-têtes SPDX sur nouveaux fichiers JS/MJS.
+8. Modèles PR : [`templates/contrib-pr-nouveau-site-web.md`](templates/contrib-pr-nouveau-site-web.md) · [`templates/contrib-pr-favori-firefox.md`](templates/contrib-pr-favori-firefox.md)
 
 ## 7. Réalisme (P9 / P10)
 

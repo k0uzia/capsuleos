@@ -17,6 +17,7 @@ const MNT_GLOBALS = `<script>window.CAPSULE_MNT_BASE=window.CAPSULE_MNT_BASE||'.
 const MNT_MODULES = '    <script src="../../../usr/lib/capsuleos/shells/common/capsule-mnt-modules.js"></script>\n';
 const MNT_BRIDGE = '    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-mnt-bridge.js"></script>\n';
 const FIREFOX_IFRAME_BRIDGE = '    <script src="../../../usr/lib/capsuleos/shells/linux/firefox-iframe-bridge.js"></script>\n';
+const FIREFOX_CONTRIB = '    <script src="../../../var/lib/capsuleos/generated/capsule-firefox-contrib.js"></script>\n';
 
 function collectIndexFiles(dir, out) {
   if (!fs.existsSync(dir)) {
@@ -78,6 +79,13 @@ targets.forEach((full) => {
     next = next.replace(
       /(<script src="\.\.\/\.\.\/\.\.\/usr\/lib\/capsuleos\/shells\/linux\/firefoxBrowser\.js[^"]*"><\/script>\n)/,
       `$1${FIREFOX_IFRAME_BRIDGE}`,
+    );
+  }
+
+  if (!/capsule-firefox-contrib\.js/i.test(next)) {
+    next = next.replace(
+      /(<script src="\.\.\/\.\.\/\.\.\/var\/lib\/capsuleos\/generated\/capsule-simulated-web-index\.js[^"]*"><\/script>\n)/,
+      `$1${FIREFOX_CONTRIB}`,
     );
   }
 

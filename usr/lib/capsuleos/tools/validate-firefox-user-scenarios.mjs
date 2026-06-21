@@ -49,6 +49,7 @@ const kernelText = fs.readFileSync(KERNEL, 'utf8');
   'supportsFirefoxGnomeChrome',
   'initFirefoxBrowser',
   'CapsuleSimulatedWebResolver',
+  'applyFirefoxContribPack',
   'applyNavigation',
 ].forEach((needle) => {
   if (!kernelText.includes(needle)) {
@@ -66,6 +67,11 @@ if (!fs.existsSync(bridgePath)) {
   errors.push('capsule-mnt-bridge.js manquant');
 }
 
+const contribBundle = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-firefox-contrib.js');
+if (!fs.existsSync(contribBundle)) {
+  errors.push('capsule-firefox-contrib.js non généré — build-firefox-contrib-bundle.mjs');
+}
+
 const templateText = fs.readFileSync(TEMPLATE, 'utf8');
 [
   'data-firefox-gnome-root',
@@ -75,6 +81,7 @@ const templateText = fs.readFileSync(TEMPLATE, 'utf8');
   'data-firefox-gnome-address',
   'data-firefox-gnome-bookmarks',
   'data-firefox-gnome-newtab',
+  'data-browser-newtab-shortcuts',
   'data-firefox-gnome-chrome',
 ].forEach((needle) => {
   if (!templateText.includes(needle)) {

@@ -1,19 +1,18 @@
 #!/usr/bin/env node
 /**
- * SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
- * SPDX-License-Identifier: GPL-3.0-or-later
- *
  * Gate packages contrib apps (manifest + slot référencé).
  * Usage : node usr/lib/capsuleos/tools/validate-contrib-packages.mjs
  */
 import fs from 'fs';
 import path from 'path';
+import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
 const CONTRIB_ROOT = path.join(ROOT, 'usr/share/capsuleos/contrib');
 const SLOTS = path.join(ROOT, 'etc/capsuleos/contracts/slots-manifest.json');
+const OUT = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-firefox-contrib.js');
 
 const errors = [];
 const slots = JSON.parse(fs.readFileSync(SLOTS, 'utf8'));
@@ -33,6 +32,18 @@ if (!fs.existsSync(firefoxManifest)) {
       errors.push(`contrib firefox : ${file} manquant`);
     }
   });
+}
+
+const build = spawnSync(process.execPath, [path.join(__dirname, 'build-firefox-contrib-bundle.mjs')], {
+  cwd: ROOT,
+  encoding: 'utf8',
+});
+if (build.status !== 0) {
+  errors.push('build-firefox-contrib-bundle.mjs a échoué');
+} else if (!fs.existsSync(OUT)) {
+  errors.push('capsule-firefox-contrib.js non généré');
+} else if (!/CAPSULE_FIREFOX_CONTRIB/.test(fs.readFileSync(OUT, 'utf8'))) {
+  errors.push('capsule-firefox-contrib.js : CAPSULE_FIREFOX_CONTRIB absent');
 }
 
 if (errors.length) {

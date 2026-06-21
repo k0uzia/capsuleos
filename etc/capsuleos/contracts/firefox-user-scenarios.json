@@ -15,7 +15,8 @@
     "F5": "F5 recherche → SERP locale ou host connu (linuxmint.com)",
     "F6": "F6 raccourcis nouvel onglet VM (Amazon, Temu, Wikipédia, YouTube, Reddit)",
     "F7": "F7 historique retour/avant après navigations enchaînées",
-    "F8": "F8 SERP → clic résultat → retour kernel (pont iframe)"
+    "F8": "F8 SERP → clic résultat → retour kernel (pont iframe)",
+    "F9": "F9 pack contrib — favoris dynamiques, raccourcis newtab et placeholder moteur"
   },
   "scenarios": [
     {
@@ -204,6 +205,31 @@
       ],
       "proofs": {
         "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F8"
+      }
+    },
+    {
+      "id": "F9",
+      "priority": "P0",
+      "title": "Pack contrib — favoris dynamiques et moteur de recherche",
+      "locale": "fr-FR",
+      "vmGroundTruth": {
+        "contribPack": "usr/share/capsuleos/contrib/internet/browser/mozilla/firefox/",
+        "bookmarksBarDefaultGnome": true,
+        "bookmarksFr": ["Importés", "La Capsule", "os-lacapsule"],
+        "searchPlaceholderFr": "Rechercher avec Google ou saisir une adresse"
+      },
+      "steps": [
+        { "id": "open-firefox", "action": "openWindowByDataLink", "target": "firefox", "label": "Ouvrir Firefox" },
+        { "id": "contrib-loaded", "predicate": "dataset.firefoxContribLoaded", "expectValue": "true", "label": "Pack contrib appliqué" },
+        { "id": "bookmarks-bar", "selector": "[data-firefox-gnome-bookmarks]:not([hidden])", "label": "Barre favoris visible (GNOME)" },
+        { "id": "bookmark-importes", "selector": "[data-browser-bookmark=\"Importés\"]", "label": "Favori Importés (contrib)" },
+        { "id": "bookmark-capsule", "selector": "[data-browser-bookmark=\"La Capsule\"]", "label": "Favori La Capsule (contrib)" },
+        { "id": "click-bookmark", "action": "click", "selector": "[data-browser-bookmark=\"La Capsule\"]", "label": "Ouvrir favori La Capsule" },
+        { "id": "view-capsule", "predicate": "dataset.firefoxGnomeView", "expectValue": "web", "label": "Navigation favori (web simulé)" },
+        { "id": "shortcuts-count", "predicate": "dataset.firefoxContribShortcuts", "expectValue": "7", "label": "Sept raccourcis newtab contrib" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F9"
       }
     }
   ],

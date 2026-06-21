@@ -5,15 +5,44 @@ const URL = process.env.CAPSULE_MINT_URL || 'http://127.0.0.1:5500/home/Debian/M
 const chromePath = process.env.PLAYWRIGHT_CHROME
   || '/home/n0r3f/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
 
+function parseRgb(color) {
+  const m = String(color || '').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (!m) return null;
+  return [Number(m[1]), Number(m[2]), Number(m[3])];
+}
+
+function rgbNear(actual, expected, tolerance = 4) {
+  const a = parseRgb(actual);
+  const e = parseRgb(expected);
+  if (!a || !e) return false;
+  return Math.abs(a[0] - e[0]) <= tolerance
+    && Math.abs(a[1] - e[1]) <= tolerance
+    && Math.abs(a[2] - e[2]) <= tolerance;
+}
+
+function probeFirefoxTheme() {
+  const app = document.querySelector('#firefox [data-firefox-app]');
+  const tabsbar = app && app.querySelector('.capsule-browser__tabsbar');
+  const toolbar = app && app.querySelector('.capsule-browser__toolbar');
+  const activeTab = app && app.querySelector('.capsule-browser__tab--active');
+  const newtab = app && app.querySelector('[data-browser-home]');
+  const address = app && app.querySelector('.capsule-browser__addressbar');
+  const activeStyle = activeTab ? getComputedStyle(activeTab) : null;
+  return {
+    tabsBg: tabsbar ? getComputedStyle(tabsbar).backgroundColor : '',
+    toolbarBg: toolbar ? getComputedStyle(toolbar).backgroundColor : '',
+    activeTabBg: activeTab ? getComputedStyle(activeTab).backgroundColor : '',
+    activeTabShadow: activeStyle ? activeStyle.boxShadow : '',
+    addressBg: address ? getComputedStyle(address).backgroundColor : '',
+    newtabBg: newtab ? getComputedStyle(newtab).backgroundColor : '',
+    fontFamily: app ? getComputedStyle(app).fontFamily : '',
+  };
+}
+
 const browser = await chromium.launch({ headless: true, executablePath: chromePath });
 const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
-
-await page.evaluate(() => {
-  document.documentElement.dataset.theme = 'light';
-  localStorage.setItem('gnome-theme', 'light');
-});
 
 await page.evaluate(() => window.openWindowByDataLink('firefox'));
 await page.waitForFunction(
@@ -22,6 +51,27 @@ await page.waitForFunction(
   { timeout: 15000 },
 );
 await page.waitForTimeout(250);
+
+const darkTheme = await page.evaluate(probeFirefoxTheme);
+const darkOk = rgbNear(darkTheme.tabsBg, 'rgb(28, 27, 34)')
+  && rgbNear(darkTheme.toolbarBg, 'rgb(43, 42, 51)')
+  && rgbNear(darkTheme.activeTabBg, 'rgb(66, 65, 77)')
+  && rgbNear(darkTheme.addressBg, 'rgb(66, 65, 77)')
+  && rgbNear(darkTheme.newtabBg, 'rgb(28, 27, 34)')
+  && (darkTheme.activeTabShadow === 'none' || darkTheme.activeTabShadow === '')
+  && darkTheme.fontFamily.toLowerCase().includes('ubuntu');
+
+await page.evaluate(() => {
+  document.documentElement.dataset.theme = 'light';
+  localStorage.setItem('gnome-theme', 'light');
+});
+await page.waitForTimeout(300);
+
+const lightTheme = await page.evaluate(probeFirefoxTheme);
+const lightOk = rgbNear(lightTheme.tabsBg, 'rgb(240, 240, 244)')
+  && rgbNear(lightTheme.toolbarBg, 'rgb(249, 249, 251)')
+  && rgbNear(lightTheme.activeTabBg, 'rgb(255, 255, 255)')
+  && rgbNear(lightTheme.newtabBg, 'rgb(249, 249, 251)');
 
 const chrome = await page.evaluate(() => {
   const win = document.getElementById('firefox');
@@ -104,7 +154,8 @@ const osPage = await page.evaluate(() => {
   };
 });
 
-const ok = chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.initialized
+const ok = darkOk && lightOk
+  && chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.initialized
   && !chrome.headerInTabs && chrome.headerBeforeApp
   && chrome.headerDragHandle && chrome.headerHeightPx >= 30 && chrome.headerHeightPx <= 34
   && chrome.titleAlignCenter && chrome.titleJustifyCenter
@@ -117,6 +168,6 @@ const ok = chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.in
   && osPage.view === 'web' && osPage.redirectVisible
   && (osPage.tabLabel.indexOf('amazon') >= 0 || osPage.address.indexOf('amazon') >= 0);
 
-console.log(JSON.stringify({ chrome, multiTab, osPage, ok }, null, 2));
+console.log(JSON.stringify({ darkTheme, darkOk, lightTheme, lightOk, chrome, multiTab, osPage, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

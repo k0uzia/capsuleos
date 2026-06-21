@@ -92,8 +92,8 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 | Favoris simulés | Accueil, Localhost, La Capsule, os-lacapsule | **CapsuleOnly** (VM : favoris Mozilla / import) |
 | Bandeau statut simulation | `data-browser-status` (masqué en skin Mint) | OK masqué ; absent sur VM |
 | JS | `firefoxBrowser.js` — navigation simulée, pas d’historique réel | **P1** assumé |
-| Skin | `firefox.skin.css` — palette sombre #1c1b22 / #2b2a33 | **P1** — approcher Proton + Mint-Y-Dark-Aqua, valider clair/sombre |
-| Smoke | `smoke-mint-firefox.mjs` | Muffin SSD + Proton ; titre centré, icône nav gauche, drag handle |
+| Skin | `firefox.skin.css` — tokens Proton 151 (#1c1b22 / #2b2a33 / #42414d) + bordures `--menu-shell-border` Mint-Y-Dark-Aqua ; clair/sombre validés smoke | **OK** (P1 tokens — 2026-06-10) |
+| Smoke | `smoke-mint-firefox.mjs` | Muffin SSD + Proton ; titre centré ; sondes couleurs dark/light |
 
 ---
 
@@ -112,7 +112,7 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 3. **Boutons toolbar** : icônes Proton (SVG/mask) pour accueil, bibliothèque, menu — fin des caractères Unicode dans le HTML.
 4. **Barre de favoris** : état masqué par défaut (comme profil neuf) ; entrées VM ou vide.
 5. **Historique** : back/forward désactivés tant qu’il n’y a pas de pile — OK si message discret (pas bandeau simulation).
-6. **Thème couleurs** : caler tokens sur capture VM (Proton 3 + contraste Mint-Y-Dark-Aqua).
+6. ~~**Thème couleurs**~~ — **fait** : tokens Proton 151 calés sur `#1c1b22` / `#2b2a33` / `#42414d`, bordures `--menu-shell-border`, police `--font-ui` (Ubuntu), onglet actif Proton sans bandeau aqua ; smoke dark + light.
 
 ### P2 — polish
 

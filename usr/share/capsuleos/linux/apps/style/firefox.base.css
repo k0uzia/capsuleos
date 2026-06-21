@@ -89,6 +89,8 @@ div[data-link="firefox"].firefox-window--fedora > #windowHeader:not(.firefox-win
     font-size: 0.76rem;
     cursor: default;
     transition: border-color var(--eas2), transform var(--eas2), background-color var(--eas2);
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .capsule-browser__tab:hover {
@@ -148,6 +150,8 @@ div[data-link="firefox"].firefox-window--fedora > #windowHeader:not(.firefox-win
     border-radius: 0.45rem;
     font-size: 1.02rem;
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
     margin-left: 0.08rem;
 }
 
@@ -187,6 +191,8 @@ div[data-link="firefox"].firefox-window--fedora > #windowHeader:not(.firefox-win
     font-size: 0.9rem;
     font-weight: 500;
     border: 1px solid transparent;
+    appearance: none;
+    -webkit-appearance: none;
     transition: background-color var(--eas2), border-color var(--eas2), transform var(--eas2);
 }
 

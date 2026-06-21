@@ -28,6 +28,19 @@ Le dépôt inclut un [.htaccess](.htaccess) à la racine pour les déploiements 
 
 Après déploiement, vérifier dans le navigateur qu’aucune ressource CapsuleOS n’est bloquée par la CSP (console développeur).
 
+## SBOM (CycloneDX)
+
+Inventaire des **dépendances npm lab** (Playwright, sharp, pixelmatch, …) — **pas** des assets VM ni du runtime navigateur.
+
+| Élément | Emplacement |
+|---------|-------------|
+| SBOM JSON | [`var/lib/capsuleos/generated/sbom.cyclonedx.json`](var/lib/capsuleos/generated/sbom.cyclonedx.json) |
+| Empreinte sources | [`var/lib/capsuleos/generated/sbom.hash.json`](var/lib/capsuleos/generated/sbom.hash.json) |
+| Génération | `npm run sbom` ou `node usr/lib/capsuleos/tools/generate-sbom.mjs` |
+| Gate CI | `node usr/lib/capsuleos/tools/validate-sbom.mjs` (inclus dans `validate-all`) |
+
+Le site statique servi en production **n’utilise pas** `node_modules` (bloqué par [.htaccess](.htaccess)). Le SBOM documente l’outillage de développement / smokes lab uniquement.
+
 ## Signaler une vulnérabilité
 
 **Ne pas** ouvrir d’issue publique pour une faille de sécurité.

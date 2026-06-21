@@ -3,6 +3,7 @@
   "private": true,
   "description": "Dépendances Node pour les smokes lab (Playwright).",
   "devDependencies": {
+    "@cyclonedx/cyclonedx-npm": "^2.1.0",
     "pixelmatch": "^7.2.0",
     "playwright": "1.60.0",
     "pngjs": "^7.0.0",
@@ -10,5 +11,9 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "sbom": "node usr/lib/capsuleos/tools/generate-sbom.mjs",
+    "sbom:check": "node usr/lib/capsuleos/tools/generate-sbom.mjs --check"
   }
 }

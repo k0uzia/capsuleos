@@ -22,6 +22,8 @@ const steps = [
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',
   'validate-gnome-user-scenarios-all.mjs',
+  'validate-reuse.mjs',
+  'validate-sbom.mjs',
 ];
 
 let failed = false;

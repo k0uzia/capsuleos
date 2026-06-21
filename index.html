@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./usr/lib/capsuleos/core/capsule-a11y-bootstrap.js"></script>
     <link rel="shortcut icon" href="./usr/share/capsuleos/assets/images/common/capsule.webp" type="image/x-icon">
     <link rel="stylesheet" href="./usr/share/capsuleos/themes/portal/style.css">
     <title>CapsuleOS</title>
@@ -26,11 +27,69 @@
                         </svg>
                     </button>
 
-                    <div class="header-nav-desktop">
-                        <a class="header-nav-link" href="#a-propos">À propos</a>
-                        <a class="header-nav-link" href="#choisir-os">Systèmes</a>
+                    <div class="header-actions">
+                        <button type="button" class="header-a11y-toggle" id="header-a11y-toggle" aria-expanded="false" aria-controls="a11y-panel" aria-label="Outils d'accessibilité WCAG">
+                            <span class="sr-only">Accessibilité</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 11v6M12 7h.01" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <div class="header-nav-desktop">
+                            <a class="header-nav-link" href="#a-propos">À propos</a>
+                            <a class="header-nav-link" href="#choisir-os">Systèmes</a>
+                        </div>
                     </div>
                 </nav>
+
+                <aside class="a11y-panel" id="a11y-panel" hidden aria-labelledby="a11y-panel-title">
+                    <h2 class="a11y-panel__title" id="a11y-panel-title">Accessibilité (WCAG 2.x)</h2>
+                    <p class="a11y-panel__lead">Ces réglages s'appliquent à tout le site et sont mémorisés dans votre navigateur.</p>
+                    <fieldset class="a11y-panel__options">
+                        <legend class="sr-only">Réglages d'accessibilité</legend>
+                        <div class="a11y-panel__option">
+                            <span class="a11y-panel__label" id="a11y-contrast-label">Contraste élevé</span>
+                            <span class="a11y-panel__hint">Améliore la lisibilité des textes et des bordures (WCAG 1.4.3).</span>
+                            <div class="a11y-panel__control">
+                                <label class="a11y-panel__switch">
+                                    <input type="checkbox" id="a11y-contrast" aria-labelledby="a11y-contrast-label">
+                                    <span>Activer</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="a11y-panel__option">
+                            <span class="a11y-panel__label" id="a11y-font-scale-label">Taille du texte</span>
+                            <span class="a11y-panel__hint">Agrandit l'interface jusqu'à 125 % (WCAG 1.4.4).</span>
+                            <div class="a11y-panel__control" role="group" aria-labelledby="a11y-font-scale-label">
+                                <button type="button" class="a11y-panel__scale-btn is-active" data-a11y-font-scale="100" aria-pressed="true">100 %</button>
+                                <button type="button" class="a11y-panel__scale-btn" data-a11y-font-scale="110" aria-pressed="false">110 %</button>
+                                <button type="button" class="a11y-panel__scale-btn" data-a11y-font-scale="125" aria-pressed="false">125 %</button>
+                            </div>
+                        </div>
+                        <div class="a11y-panel__option">
+                            <span class="a11y-panel__label" id="a11y-motion-label">Réduire les animations</span>
+                            <span class="a11y-panel__hint">Limite les transitions et le défilement animé (WCAG 2.3.3).</span>
+                            <div class="a11y-panel__control">
+                                <label class="a11y-panel__switch">
+                                    <input type="checkbox" id="a11y-reduced-motion" aria-labelledby="a11y-motion-label">
+                                    <span>Activer</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="a11y-panel__option">
+                            <span class="a11y-panel__label" id="a11y-links-label">Souligner les liens</span>
+                            <span class="a11y-panel__hint">Rend les liens identifiables sans la couleur seule (WCAG 1.4.1).</span>
+                            <div class="a11y-panel__control">
+                                <label class="a11y-panel__switch">
+                                    <input type="checkbox" id="a11y-underline-links" aria-labelledby="a11y-links-label">
+                                    <span>Activer</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <p class="a11y-panel__foot">Les bureaux simulés (Linux, Windows, etc.) respectent aussi le contraste et la taille du texte lorsque vous les ouvrez.</p>
+                </aside>
 
                 <dialog class="header-mobile-menu" id="header-mobile-menu">
                     <div class="header-mobile-menu-panel">
@@ -191,8 +250,10 @@
         <p class="footer-copy">© 2026 <a href="">La Capsule</a>. Tous droits réservés.</p>
     </footer>
     <script src="./usr/lib/capsuleos/core/browser-capabilities.js"></script>
+    <script src="./usr/lib/capsuleos/core/capsule-a11y.js"></script>
     <script src="./usr/lib/capsuleos/site/capsule-pick-return.js"></script>
     <script src="./usr/lib/capsuleos/site/header-nav.js"></script>
+    <script src="./usr/lib/capsuleos/site/a11y-panel.js"></script>
     <script src="./usr/lib/capsuleos/site/pick-os.js"></script>
     <script>
         if ('serviceWorker' in navigator) {

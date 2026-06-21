@@ -1,3 +1,37 @@
+(function bootstrapCapsuleA11y(global) {
+    'use strict';
+
+    const doc = global.document;
+    if (!doc || !doc.documentElement) {
+        return;
+    }
+
+    const KEYS = {
+        contrast: 'mint-contrast-mode',
+        fontScale: 'mint-font-scale',
+        reducedMotion: 'capsule-reduced-motion',
+        underlineLinks: 'capsule-underline-links',
+    };
+
+    function readPref(key, fallback) {
+        try {
+            return global.localStorage.getItem(key) || fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    const root = doc.documentElement;
+    const contrast = readPref(KEYS.contrast, 'normal');
+    root.dataset.contrastMode = contrast === 'high' ? 'high' : 'normal';
+
+    const scale = String(readPref(KEYS.fontScale, '100'));
+    root.dataset.fontScale = ['110', '125'].includes(scale) ? scale : '100';
+
+    root.dataset.reducedMotion = readPref(KEYS.reducedMotion, 'off') === 'on' ? 'on' : 'off';
+    root.dataset.underlineLinks = readPref(KEYS.underlineLinks, 'off') === 'on' ? 'on' : 'off';
+}(typeof window !== 'undefined' ? window : globalThis));
+
 const getAppsBase = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_APPS_BASE) {
         return String(window.CAPSULE_APPS_BASE).replace(/\/+$/, '');
@@ -1213,10 +1247,11 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
         return;
     }
     const queue = [
-        'se-toolkit-guards.js',
-        'se-a11y-bus.js',
-        'se-shell-bus.js',
-        'se-wm-bus.js'
+        { src: '../../../usr/lib/capsuleos/core/capsule-a11y.js', marker: 'capsule-a11y.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-toolkit-guards.js', marker: 'se-toolkit-guards.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-a11y-bus.js', marker: 'se-a11y-bus.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-shell-bus.js', marker: 'se-shell-bus.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-wm-bus.js', marker: 'se-wm-bus.js' },
     ];
     const scripts = global.document.getElementsByTagName('script');
     const hasMarker = (marker) => {
@@ -1227,12 +1262,12 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
         }
         return false;
     };
-    queue.forEach((marker) => {
-        if (hasMarker(marker)) {
+    queue.forEach((entry) => {
+        if (hasMarker(entry.marker)) {
             return;
         }
         const tag = global.document.createElement('script');
-        tag.src = `../../../usr/lib/capsuleos/shells/linux/${marker}`;
+        tag.src = entry.src;
         tag.async = false;
         global.document.head.appendChild(tag);
     });

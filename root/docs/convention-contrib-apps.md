@@ -81,7 +81,7 @@ Firefox est **transversal** : une seule fonction (kernel + gabarit Z1), plusieur
 |--------|--------|---------|
 | **Kernel** | `usr/lib/capsuleos/shells/linux/firefoxBrowser.js` | Onglets, navigation, résolution URL (`simulatedWebResolver.js`) |
 | **Gabarit** | `usr/share/capsuleos/linux/apps/firefox.html` | DOM Proton (`capsule-browser--proton`) — toolbar, newtab, 7 raccourcis, Pocket |
-| **CSS structurel** | `firefox.base.css` + `firefox-proton.base.css` | Layout Proton, favicons newtab (assets `toolkits/cinnamon/apps/firefox-newtab/`) |
+| **CSS structurel** | `firefox.base.css` + `firefox-proton.base.css` | Layout Proton · assets `images/toolkits/firefox/` (pull VM) |
 | **Skin vendor** | `home/*/style/apps/firefox.skin.css` | Tokens couleur, onglets actifs, chrome fenêtre (CSD GNOME vs Muffin Mint) |
 | **Données contrib** | `usr/share/capsuleos/contrib/internet/browser/mozilla/firefox/` | Favoris, moteur recherche — **sans** dupliquer le gabarit |
 
@@ -92,7 +92,7 @@ Firefox est **transversal** : une seule fonction (kernel + gabarit Z1), plusieur
 | **R-FF-SLOT1** | **Interdit** : `home/{Vendor}/apps/firefox.html` — la parité VM se promeut dans le slot Z1, pas en override skin |
 | **R-FF-SLOT2** | Styles Proton structurels → `firefox-proton.base.css` (embed via `build-linux-embed.mjs`) |
 | **R-FF-SLOT3** | Skins : tokens + `--firefox-proton-brand-logo` vendor uniquement |
-| **R-FF-SLOT4** | Nouveau raccourci newtab → asset dans `usr/share/capsuleos/assets/…/firefox-newtab/` + gabarit partagé |
+| **R-FF-SLOT4** | Nouveau raccourci newtab → asset dans `usr/share/capsuleos/assets/images/toolkits/firefox/newtab/` + `pull-firefox-vm-assets.sh` si sourcing VM |
 
 ### Pourquoi un override Mint ne se propage pas
 
@@ -101,3 +101,15 @@ Firefox est **transversal** : une seule fonction (kernel + gabarit Z1), plusieur
 **Correction juin 2026** : gabarit Proton Mint remonté en Z1 ; override Mint supprimé ; smokes F1–F6 sur Alma/Rocky/Fedora/Ubuntu/Mint.
 
 Gates : `validate-firefox-user-scenarios.mjs` · `smoke-gnome-firefox-scenarios.mjs` · `smoke-mint-firefox.mjs` · `sync-linux-skin-closure.mjs` avant merge skin.
+
+### Sourcing icônes (R-A1 / VM)
+
+Script lab : `bash root/tools/lab/pull-firefox-vm-assets.sh --id linux-mint`
+
+| Dossier | Contenu | Source |
+|---------|---------|--------|
+| `toolkits/firefox/chrome/` | back, forward, reload, menu, pocket, profil, bouclier | `omni.ja` Mozilla (MPL-2.0) |
+| `toolkits/firefox/brand/` | logo application, wordmark | hicolor + newtab extension |
+| `toolkits/firefox/newtab/` | tuiles sponsorisées + favicons sites | Contile FR + fetch VM |
+
+Ne pas inventer de SVG placeholder : les gabarits CSS pointent vers ce pack partagé.

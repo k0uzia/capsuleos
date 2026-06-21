@@ -2,6 +2,8 @@
 
 **Objectif** : ground truth pour une reproduction **fidèle** du navigateur Proton — slot partagé `usr/share/capsuleos/linux/apps/firefox.html`, tokens Mint dans `home/Debian/Mint/style/apps/firefox.skin.css`.
 
+**Collecte assets icônes** : `bash root/tools/lab/pull-firefox-vm-assets.sh --id linux-mint` → `usr/share/capsuleos/assets/images/toolkits/firefox/` (chrome Mozilla, Contile, favicons sites).
+
 **Collecte** : SSH `<lab-inventory:linux-mint-firefox>` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
 
 Références : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md) · [`mint-fenetres-muffin.md`](../mint-fenetres-muffin.md) · passe #7 [`linux-mint-clone-status.md`](linux-mint-clone-status.md)

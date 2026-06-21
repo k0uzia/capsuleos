@@ -58,6 +58,24 @@ const ensureThemesVisible = async (page) => {
   await sleep(page, 500);
 };
 
+const waitForVmPreviewImages = async (page, panelSelector) => {
+  await page.evaluate((sel) => {
+    const imgs = document.querySelectorAll(`${sel} .kde-systemsettings__theme-preview-img, ${sel} .kde-systemsettings__navicon-img`);
+    return Promise.all(
+      Array.from(imgs).map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete) resolve();
+            else {
+              img.onload = resolve;
+              img.onerror = resolve;
+            }
+          }),
+      ),
+    );
+  }, panelSelector);
+};
+
 const prepareShot = async (page, shotId) => {
   await page.evaluate((id) => {
     if (window.CapsuleKdeSettingsNav?.prepareShot) {
@@ -65,23 +83,14 @@ const prepareShot = async (page, shotId) => {
     }
   }, shotId);
   if (shotId === 'appearance-panel') {
-    await page.evaluate(() => {
-      const imgs = document.querySelectorAll(
-        '#themes [data-kde-panel-content="lookandfeel"] .kde-systemsettings__theme-preview-img',
-      );
-      return Promise.all(
-        Array.from(imgs).map(
-          (img) =>
-            new Promise((resolve) => {
-              if (img.complete) resolve();
-              else {
-                img.onload = resolve;
-                img.onerror = resolve;
-              }
-            }),
-        ),
-      );
-    });
+    await waitForVmPreviewImages(page, '#themes [data-kde-panel-content="lookandfeel"]');
+  }
+  if (shotId === 'colors-panel') {
+    await waitForVmPreviewImages(page, '#themes [data-kde-panel-content="colors"]');
+  }
+  if (shotId === 'hub-sidebar') {
+    await waitForVmPreviewImages(page, '#themes .kde-systemsettings__sidebar:not(.kde-systemsettings__sidebar--kcm)');
+    await waitForVmPreviewImages(page, '#themes [data-kde-panel-content="quick-settings"]');
   }
   await sleep(page, 400);
 };

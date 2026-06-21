@@ -45,7 +45,7 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 | # | shotId | Surface Capsule | Φ_norm shot | Focus crop min | Statut |
 |---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
-| 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **81.3** · theme-previews **83.6** · quick-settings **92.4** ✅ | ⚠ nav |
+| 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **86.5** ✅ · theme-previews **91.5** ✅ · quick-settings **92.2** ✅ | ✅ |
 | 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.3** · theme-grid **83.7** | ⚠ previews LnF |
 | 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
 | 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
@@ -59,8 +59,8 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 
 | Région | Φ_norm | Seuil | Plafond / cause |
 |--------|--------|-------|-----------------|
-| `hub-sidebar/sidebar` | 81.3 | 85 | Sidebar `11.6rem` + icônes `1rem` |
-| `hub-sidebar/theme-previews` | 83.6 | 88 | Pitch VM 280 px (`16.25rem` + gap `1.25rem`) · `margin-left: 0.375rem` |
+| `hub-sidebar/sidebar` | 86.5 | 85 | Capture `hub-sidebar` : icônes `<img>` + `margin-top: 4.25rem` sur nav native |
+| `hub-sidebar/theme-previews` | 91.5 | 88 | Capture `<img>` VM hub + `margin-top: 0.6rem` (calibrate 2D dy +12) |
 | `appearance-panel/theme-grid` | 83.7 | 90 | Capture LnF `<img>` crops VM + translateX voie B ; twilight ~73 % |
 | `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B plafond per-colonne |
 | `*/kcm-sidebar` (capture) | 86.9–87.0 | 88 | Densité subnav Qt — polish padding capture |
@@ -205,9 +205,9 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | accent-row | 85.7 | 85 | ✅ |
 | colors-grid | 85.7 | 88 | Plafond voie B |
 | kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
-| theme-previews | 83.6 | 88 | Pitch hub 280 px |
+| theme-previews | 91.5 | 88 | ✅ capture img VM hub |
 | theme-grid | 83.7 | 90 | Capture `<img>` VM + voie B translateX |
-| hub sidebar | 81.3 | 85 | P1 icônes |
+| hub sidebar | 86.5 | 85 | ✅ capture parity + icônes img |
 
 ## Prochaine vague (P1)
 

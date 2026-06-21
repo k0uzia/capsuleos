@@ -361,10 +361,8 @@
         });
     }
 
-    /** Capture Φ — img pixel-perfect vs crops VM (twilight/oxygen compositing background). */
-    function mountLookandfeelVmPreviewImagesForCapture(kcmRoot) {
-        if (!kcmRoot) return;
-        var panel = kcmRoot.querySelector('[data-kde-panel-content="lookandfeel"]');
+    /** Capture Φ — img pixel-perfect vs crops VM (compositing background). */
+    function mountThemePreviewImagesForCapture(panel, previewHeight) {
         if (!panel) return;
         panel.querySelectorAll('.kde-systemsettings__theme-preview').forEach(function onPreview(preview) {
             if (preview.dataset.kdeVmImgMounted) return;
@@ -379,10 +377,58 @@
             img.src = match[1];
             img.alt = '';
             img.width = 200;
-            img.height = 130;
+            img.height = previewHeight;
             img.decoding = 'sync';
             preview.appendChild(img);
         });
+    }
+
+    function mountLookandfeelVmPreviewImagesForCapture(kcmRoot) {
+        if (!kcmRoot) return;
+        mountThemePreviewImagesForCapture(
+            kcmRoot.querySelector('[data-kde-panel-content="lookandfeel"]'),
+            130,
+        );
+    }
+
+    function mountColorsSchemePreviewImagesForCapture(kcmRoot) {
+        if (!kcmRoot) return;
+        mountThemePreviewImagesForCapture(
+            kcmRoot.querySelector('[data-kde-panel-content="colors"]'),
+            120,
+        );
+    }
+
+    /** Capture Φ — SVG hub sidebar en <img> (rendu Breeze vs background-image). */
+    function mountHubNavIconImagesForCapture(hubRoot) {
+        if (!hubRoot) return;
+        var sidebar = hubRoot.querySelector('.kde-systemsettings__sidebar:not(.kde-systemsettings__sidebar--kcm)');
+        if (!sidebar) return;
+        sidebar.querySelectorAll('.kde-systemsettings__navicon').forEach(function onIcon(icon) {
+            if (icon.dataset.kdeVmImgMounted) return;
+            var bg = window.getComputedStyle(icon).backgroundImage;
+            var match = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+            if (!match || !match[1] || match[1] === 'none') return;
+            icon.dataset.kdeVmImgMounted = '1';
+            icon.style.backgroundImage = 'none';
+            while (icon.firstChild) icon.removeChild(icon.firstChild);
+            var img = document.createElement('img');
+            img.className = 'kde-systemsettings__navicon-img';
+            img.src = match[1];
+            img.alt = '';
+            img.width = 16;
+            img.height = 16;
+            img.decoding = 'sync';
+            icon.appendChild(img);
+        });
+    }
+
+    function mountHubQuickSettingsPreviewImagesForCapture(hubRoot) {
+        if (!hubRoot) return;
+        mountThemePreviewImagesForCapture(
+            hubRoot.querySelector('[data-kde-panel-content="quick-settings"]'),
+            140,
+        );
     }
 
     function prepareShot(shotId) {
@@ -398,6 +444,7 @@
                 setKcmPanel(kcmEl(rootEl(), 'kcm-themes'), 'colors');
                 setCaptureParity('subnav-replace');
                 stripColorsSchemeActiveForCapture(kcmEl(rootEl(), 'kcm-themes'));
+                mountColorsSchemePreviewImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 break;
             case 'kcm-keys':
             case 'shortcuts-panel':
@@ -417,6 +464,9 @@
                 setView('hub');
                 setHubPanel('quick-settings');
                 setNativeNav('quick-settings');
+                setCaptureParity('hub-sidebar');
+                mountHubNavIconImagesForCapture(hubEl(rootEl()));
+                mountHubQuickSettingsPreviewImagesForCapture(hubEl(rootEl()));
                 break;
             case 'accessibility-panel':
                 setView('kcm-access');

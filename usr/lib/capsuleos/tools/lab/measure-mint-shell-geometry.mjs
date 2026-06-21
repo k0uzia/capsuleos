@@ -60,13 +60,35 @@ async function measurePage(page) {
   return page.evaluate(() => {
   const rect = (el) => (el ? el.getBoundingClientRect() : null);
   const cs = (el) => (el ? getComputedStyle(el) : null);
+  const visibleWidth = (el) => {
+    if (!el || !rect(el)) return 0;
+    const w = rect(el).width;
+    if (w < 1) return 0;
+    const st = cs(el);
+    if (!st || st.display === 'none' || st.visibility === 'hidden') return 0;
+    return w;
+  };
+  const pickTrayIcon = () => {
+    const prefs = [
+      '#tray-btn-network .taskbar-tray__icon',
+      '#tray-sound-icon',
+      '.taskbar-tray__icon--shield',
+    ];
+    for (const sel of prefs) {
+      const el = document.querySelector(sel);
+      if (visibleWidth(el) >= 20) return el;
+    }
+    return [...document.querySelectorAll('#tableau .taskbar-tray__icon')]
+      .find((el) => visibleWidth(el) >= 20) || null;
+  };
   const tableau = document.getElementById('tableau');
   const footer = tableau;
   const menuBtn = document.querySelector('footer#tableau nav a[data-link="mainMenu"]');
   const sep = document.querySelector('.mint-panel__separator');
-  const trayIcon = document.querySelector('#tableau .taskbar-tray__icon');
+  const trayIcon = pickTrayIcon();
   const favBox = document.getElementById('mint-tray-favorites');
-  const favBtns = [...document.querySelectorAll('.taskbar-favorites__btn')];
+  const favBtns = [...document.querySelectorAll('.taskbar-favorites__btn')]
+    .filter((btn) => visibleWidth(btn) >= 16);
   const clockTrig = document.querySelector('.taskbar-clock-trigger');
   const clock = document.getElementById('taskbar-clock');
   const fr = rect(footer);
@@ -83,9 +105,9 @@ async function measurePage(page) {
     menuBtnImgPx: menuImg && rect(menuImg) ? Math.round(rect(menuImg).width) : null,
     separatorWidthPx: sep && rect(sep) ? Math.round(rect(sep).width) : null,
     separatorHeightPx: sep && rect(sep) ? Math.round(rect(sep).height) : null,
-    trayIconPx: trayIcon && rect(trayIcon) ? Math.round(rect(trayIcon).width) : null,
-    favoritesIconPx: f1 ? Math.round(f1.width) : null,
-    favoritesBoxWidthPx: favBox && rect(favBox) ? Math.round(rect(favBox).width) : null,
+    trayIconPx: trayIcon ? Math.round(visibleWidth(trayIcon)) : null,
+    favoritesIconPx: favBtns[0] ? Math.round(visibleWidth(favBtns[0])) : null,
+    favoritesBoxWidthPx: favBox && visibleWidth(favBox) > 0 ? Math.round(rect(favBox).width) : null,
     favoritesGapPx: favGap,
     clockHeightPx: clockTrig && rect(clockTrig) ? Math.round(rect(clockTrig).height) : null,
     clockFontPx: clock && cs(clock) ? parseFloat(cs(clock).fontSize) : null,
@@ -142,8 +164,12 @@ function deltaMetric(measured, target) {
 function buildReport(measured) {
   const deltas = {};
   const flat = { ...measured.panel, ...measured.menu };
+  const skipWhenNull = new Set(['favoritesIconPx', 'favoritesBoxWidthPx', 'favoritesGapPx']);
   for (const [key, target] of Object.entries(VM_TARGETS)) {
     const val = flat[key];
+    if (val === null || val === undefined) {
+      if (skipWhenNull.has(key)) continue;
+    }
     if (val !== undefined) {
       const d = deltaMetric(val, target);
       if (d != null) deltas[key] = d;
@@ -186,6 +212,9 @@ async function main() {
   const page = await browser.newPage({ viewport: VIEWPORT });
   await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
   await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
+  await page.waitForTimeout(400);
+
+  const panelIdle = await measurePage(page);
 
   if (doCapture) {
     fs.mkdirSync(outDir, { recursive: true });
@@ -197,11 +226,30 @@ async function main() {
     await page.screenshot({ path: path.join(outDir, '01-desktop-panel.png'), clip: panelClip });
   }
 
+  await page.evaluate(() => window.openWindowByDataLink('nemo'));
+  await page.waitForSelector('#desktop > .windowElement[data-link="nemo"]', { timeout: 10000 });
+  await page.waitForTimeout(500);
+  await page.evaluate(() => window.CapsuleMintPanelIdleTray?.refresh?.());
+  await page.waitForTimeout(200);
+  const panelBusy = await measurePage(page);
+
   await page.click('footer#tableau nav a[data-link="mainMenu"]');
   await page.waitForSelector('#mainMenu .menu-root', { timeout: 10000 });
   await page.waitForTimeout(300);
 
-  const full = await measurePage(page);
+  const menuOnly = await measurePage(page);
+  const full = {
+    panel: {
+      ...panelIdle.panel,
+      ...Object.fromEntries(
+        Object.entries(panelBusy.panel).filter(([k, v]) => v != null && k.startsWith('favorites')),
+      ),
+      trayIconPx: panelIdle.panel.trayIconPx ?? panelBusy.panel.trayIconPx,
+    },
+    menu: menuOnly.menu,
+    viewport: menuOnly.viewport,
+    url: menuOnly.url,
+  };
   const report = buildReport(full);
   report.capturedAt = new Date().toISOString();
   report.viewport = VIEWPORT;

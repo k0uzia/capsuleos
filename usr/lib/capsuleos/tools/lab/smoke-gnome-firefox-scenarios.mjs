@@ -91,11 +91,11 @@ const scenarioF2 = async (page, errors) => {
     tabLabel: document.querySelector('.capsule-browser__tab--active .capsule-browser__tab-label')?.textContent || '',
     address: document.querySelector('[data-firefox-gnome-address]')?.value || '',
   }));
-  if (state.view !== 'os-lacapsule') {
-    errors.push(`F2 : vue os-lacapsule attendue, obtenu « ${state.view} »`);
+  if (state.view !== 'web') {
+    errors.push(`F2 : vue web attendue, obtenu « ${state.view} »`);
   }
   if (!state.redirect) {
-    errors.push('F2 : iframe os-lacapsule non visible');
+    errors.push('F2 : iframe page web non visible');
   }
   if (!String(state.tabLabel).includes('Capsule')) {
     errors.push(`F2 : onglet La Capsule attendu, obtenu « ${state.tabLabel} »`);
@@ -151,11 +151,116 @@ const scenarioF4 = async (page, errors) => {
     view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
     redirect: !!document.querySelector('[data-browser-redirect]:not([hidden])'),
   }));
-  if (state.view !== 'os-lacapsule') {
-    errors.push(`F4 : navigation favori os-lacapsule attendue, obtenu « ${state.view} »`);
+  if (state.view !== 'web') {
+    errors.push(`F4 : navigation favori web attendue, obtenu « ${state.view} »`);
   }
   if (!state.redirect) {
     errors.push('F4 : page La Capsule non affichée après favori');
+  }
+};
+
+const scenarioF5 = async (page, errors) => {
+  await openFirefox(page);
+  await page.fill('[data-firefox-gnome-address]', 'linuxmint.com');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 500);
+  let state = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    redirect: !!document.querySelector('[data-browser-redirect]:not([hidden])'),
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+  }));
+  if (state.view !== 'web') {
+    errors.push(`F5 : vue web attendue pour linuxmint.com, obtenu « ${state.view} »`);
+  }
+  if (!state.redirect) {
+    errors.push('F5 : iframe linuxmint non visible');
+  }
+  if (!String(state.frameSrc).includes('linuxmint')) {
+    errors.push(`F5 : iframe linuxmint attendue, obtenu « ${state.frameSrc} »`);
+  }
+
+  await page.fill('[data-firefox-gnome-address]', 'mint');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 500);
+  state = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+  }));
+  if (state.view !== 'web') {
+    errors.push(`F5 : vue web SERP attendue, obtenu « ${state.view} »`);
+  }
+  if (!String(state.frameSrc).includes('search-google')) {
+    errors.push(`F5 : SERP search-google attendue, obtenu « ${state.frameSrc} »`);
+  }
+
+  await page.fill('[data-firefox-gnome-address]', 'capsuleos://mnt/linux-bases');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 700);
+  state = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    mntPanel: !!document.querySelector('[data-browser-mnt-module="linux-bases"]'),
+    checklistVisible: (() => {
+      const win = document.querySelector('.windowElement[data-link="checklist"]');
+      return win && win.style.display !== 'none';
+    })(),
+  }));
+  if (state.view !== 'module') {
+    errors.push(`F5 : vue module mnt attendue, obtenu « ${state.view} »`);
+  }
+  if (!state.mntPanel) {
+    errors.push('F5 : panneau module linux-bases absent');
+  }
+  if (!state.checklistVisible) {
+    errors.push('F5 : fenêtre Missions (checklist) non ouverte après mnt');
+  }
+};
+
+const clickNewtabShortcut = async (page, key) => {
+  await page.evaluate((shortcutKey) => {
+    const link = document.querySelector(`[data-browser-newtab-link="${shortcutKey}"]`);
+    if (link) {
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    }
+  }, key);
+};
+
+const scenarioF6 = async (page, errors) => {
+  await openFirefox(page);
+  const shortcuts = await page.locator('[data-browser-newtab-link]').count();
+  if (shortcuts < 7) {
+    errors.push(`F6 : au moins 7 raccourcis nouvel onglet attendus, obtenu ${shortcuts}`);
+  }
+  for (const key of ['amazon', 'temu', 'aliexpress', 'wikipedia', 'youtube', 'lemonde', 'reddit']) {
+    const link = await page.locator(`[data-browser-newtab-link="${key}"]`).count();
+    if (link === 0) {
+      errors.push(`F6 : raccourci « ${key} » absent`);
+    }
+  }
+  await clickNewtabShortcut(page, 'amazon');
+  await sleep(page, 500);
+  const amazon = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+    address: document.querySelector('[data-firefox-gnome-address]')?.value || '',
+  }));
+  if (amazon.view !== 'web') {
+    errors.push(`F6 : vue web Amazon attendue, obtenu « ${amazon.view} »`);
+  }
+  if (!String(amazon.frameSrc).includes('amazon-fr')) {
+    errors.push(`F6 : iframe amazon-fr attendue, obtenu « ${amazon.frameSrc} »`);
+  }
+  await page.evaluate(() => {
+    const btn = document.querySelector('[data-browser-action="home"]');
+    if (btn) {
+      btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    }
+  });
+  await sleep(page, 300);
+  await clickNewtabShortcut(page, 'youtube');
+  await sleep(page, 500);
+  const yt = await page.evaluate(() => document.querySelector('[data-browser-redirect-frame]')?.src || '');
+  if (!String(yt).includes('youtube')) {
+    errors.push(`F6 : iframe youtube attendue, obtenu « ${yt} »`);
   }
 };
 
@@ -164,6 +269,8 @@ const SCENARIOS = {
   F2: scenarioF2,
   F3: scenarioF3,
   F4: scenarioF4,
+  F5: scenarioF5,
+  F6: scenarioF6,
 };
 
 const smokeMintAntiRegression = async (page, errors) => {

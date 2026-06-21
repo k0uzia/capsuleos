@@ -1659,6 +1659,70 @@
         header.style.removeProperty('display');
     }
 
+    function resolveFirefoxGnomeTabsbar(container) {
+        if (!container) {
+            return null;
+        }
+        return container.querySelector(
+            '.capsule-browser__tabsbar[data-firefox-gnome-tabstrip], .capsule-browser__tabsbar'
+        );
+    }
+
+    function stripHeaderDragOverlay(header) {
+        if (!header) {
+            return;
+        }
+        header.querySelectorAll('.window-drag-region--header-fill').forEach((node) => {
+            node.remove();
+        });
+        header.removeAttribute('data-window-drag-handle');
+        header.removeAttribute('data-window-drag-passthrough');
+        const title = header.querySelector('#windowTitle');
+        if (title) {
+            title.removeAttribute('data-window-drag-region');
+        }
+    }
+
+    function cleanupFirefoxGnomeStrayHeader(container) {
+        if (!container || container.dataset.link !== 'firefox') {
+            return null;
+        }
+        const integrated = container.querySelector(
+            '#windowHeader.firefox-window-controls--fedora, .capsule-browser__tabsbar #windowHeader'
+        );
+        container.querySelectorAll(':scope > #windowHeader').forEach((header) => {
+            if (integrated && header !== integrated) {
+                header.remove();
+            }
+        });
+        return integrated || container.querySelector('#windowHeader');
+    }
+
+    function applyFirefoxGnomeDragPolicy(container) {
+        const tabsbar = resolveFirefoxGnomeTabsbar(container);
+        const header = cleanupFirefoxGnomeStrayHeader(container);
+
+        if (tabsbar) {
+            if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
+                targetsApi().markDragPassthrough(tabsbar);
+            } else {
+                tabsbar.setAttribute('data-window-drag-handle', '');
+                tabsbar.setAttribute('data-window-drag-passthrough', 'true');
+            }
+        }
+
+        if (header) {
+            stripHeaderDragOverlay(header);
+        }
+    }
+
+    function syncFirefoxGnomeChrome(container) {
+        if (!container || container.dataset.link !== 'firefox') {
+            return;
+        }
+        applyFirefoxGnomeDragPolicy(container);
+    }
+
     function applyDragHandlePolicy(container, slotId, providerId) {
         const header = container.querySelector(':scope > #windowHeader');
         const appHandle = container.querySelector('[data-window-drag-handle]');
@@ -1730,17 +1794,8 @@
             return;
         }
 
-        if (providerId === 'firefox-gnome' && appHandle) {
-            if (targetsApi() && typeof targetsApi().markDragPassthrough === 'function') {
-                targetsApi().markDragPassthrough(appHandle);
-            } else {
-                appHandle.setAttribute('data-window-drag-handle', '');
-                appHandle.setAttribute('data-window-drag-passthrough', 'true');
-            }
-            if (header) {
-                header.removeAttribute('data-window-drag-handle');
-                header.removeAttribute('data-window-drag-passthrough');
-            }
+        if (providerId === 'firefox-gnome') {
+            applyFirefoxGnomeDragPolicy(container);
             return;
         }
 
@@ -1883,6 +1938,10 @@
     providers['firefox-gnome'] = {
         id: 'firefox-gnome',
         ensureHeader(container) {
+            const existing = container.querySelector('#windowHeader');
+            if (existing) {
+                return existing;
+            }
             return providers.default.ensureHeader(container);
         },
         afterInject(container, slotId) {
@@ -1979,6 +2038,7 @@
         resolveChromeProviderId,
         ensureHeader,
         afterInject,
+        syncFirefoxGnomeChrome,
         applyKdeWindowHeaderIcons,
         getHeaderTemplate,
         isKdeFamily,
@@ -2092,8 +2152,12 @@
         }
     }
 
-    function ensureChromeAfterSlotInject(container, slotId) {
-        if (!container || container.style.display === 'none') {
+    function ensureChromeAfterSlotInject(container, slotId, options) {
+        options = options || {};
+        if (!container) {
+            return;
+        }
+        if (!options.forceWhenHidden && container.style.display === 'none') {
             return;
         }
         ensureChrome(container, slotId, { forceDrag: true, initInteraction: true });

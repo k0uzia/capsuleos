@@ -575,6 +575,13 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 console.error(`CapsuleOS: terminal-ptyxis.base.css indisponible (HTTP ${ptyxisResp.status}) — ${ptyxisFile}`);
             }
         }
+        if (templateId === 'firefox' && text) {
+            const protonFile = `${appsBase}/style/firefox-proton.base.css`;
+            const protonResp = await fetch(protonFile, { cache: 'no-store' });
+            if (protonResp.ok) {
+                text = `${text}\n${await protonResp.text()}`;
+            }
+        }
         return text;
     })();
 
@@ -1048,14 +1055,34 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
     style.innerHTML = resolvedCssBase + (resolvedCssSkin ? `\n${resolvedCssSkin}` : '');
     document.head.appendChild(style);
 
+    const prepareSlotWindowChrome = (container, id) => {
+        if (typeof window.CapsuleWindowChrome === 'undefined') {
+            return;
+        }
+        window.CapsuleWindowChrome.ensureHeader(container, id);
+        window.CapsuleWindowChrome.afterInject(container, id);
+    };
+
+    const finalizeSlotWindowChrome = (container, id) => {
+        if (id === 'firefox'
+            && typeof window.CapsuleWindowChrome !== 'undefined'
+            && typeof window.CapsuleWindowChrome.syncFirefoxGnomeChrome === 'function') {
+            window.CapsuleWindowChrome.syncFirefoxGnomeChrome(container);
+        }
+        if (typeof window.ensureWindowChromeAfterSlotInject === 'function'
+            && container.style.display !== 'none') {
+            window.ensureWindowChromeAfterSlotInject(container, id);
+        }
+    };
+
+    prepareSlotWindowChrome(motionless, slotId);
+
     const initSlot = SLOT_INIT_HANDLERS[slotId];
     if (typeof initSlot === 'function') {
         initSlot(motionless, slotId, templateId);
     }
 
-    if (typeof window.ensureWindowChromeAfterSlotInject === 'function') {
-        window.ensureWindowChromeAfterSlotInject(motionless, slotId);
-    }
+    finalizeSlotWindowChrome(motionless, slotId);
 
     motionless.dataset.capsuleSlotLoaded = 'true';
 

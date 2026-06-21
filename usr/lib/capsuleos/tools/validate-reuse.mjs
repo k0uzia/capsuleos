@@ -46,6 +46,11 @@ const SPDX_REQUIRED = [
   'usr/lib/capsuleos/tools/validate-reuse-full.mjs',
   'usr/lib/capsuleos/tools/validate-a11y.mjs',
   'usr/lib/capsuleos/tools/lab/smoke-a11y-portal.mjs',
+  'usr/lib/capsuleos/tools/build-simulated-web-index.mjs',
+  'usr/lib/capsuleos/tools/validate-simulated-web.mjs',
+  'usr/lib/capsuleos/tools/validate-contrib-packages.mjs',
+  'usr/lib/capsuleos/shells/linux/simulatedWebResolver.js',
+  'usr/lib/capsuleos/shells/linux/capsule-mnt-bridge.js',
 ];
 
 const hasSpdxHeader = (content) =>

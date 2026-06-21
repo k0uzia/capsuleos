@@ -26,7 +26,10 @@ function supportsFirefoxGnomeChrome() {
         || document.body.id === 'rocky'
         || document.body.id === 'alma'
         || document.body.id === 'ubuntu'
-        || document.body.id === 'popos';
+        || document.body.id === 'popos'
+        || document.body.id === 'kali'
+        || document.body.id === 'elementary'
+        || document.body.id === 'anduinos';
 }
 
 function syncFirefoxGnomeDataset(browserRoot) {
@@ -82,8 +85,8 @@ function decorateFedoraFirefoxWindow(browserRoot) {
             return false;
         }
 
-        if (global.CapsuleWindowDragTargets && typeof global.CapsuleWindowDragTargets.markDragPassthrough === 'function') {
-            global.CapsuleWindowDragTargets.markDragPassthrough(tabsbar);
+        if (window.CapsuleWindowDragTargets && typeof window.CapsuleWindowDragTargets.markDragPassthrough === 'function') {
+            window.CapsuleWindowDragTargets.markDragPassthrough(tabsbar);
         } else {
             tabsbar.setAttribute('data-window-drag-handle', '');
             tabsbar.setAttribute('data-window-drag-passthrough', 'true');
@@ -99,6 +102,19 @@ function decorateFedoraFirefoxWindow(browserRoot) {
         header.style.maxWidth = '';
         header.style.width = '';
         tabsbar.appendChild(header);
+
+        if (window.CapsuleWindowChrome
+            && typeof window.CapsuleWindowChrome.syncFirefoxGnomeChrome === 'function') {
+            window.CapsuleWindowChrome.syncFirefoxGnomeChrome(windowElement);
+        } else if (window.CapsuleWindowDragTargets) {
+            const fill = header.querySelector('.window-drag-region--header-fill');
+            if (fill) {
+                fill.remove();
+            }
+            header.removeAttribute('data-window-drag-handle');
+            header.removeAttribute('data-window-drag-passthrough');
+        }
+
         return true;
     };
 
@@ -140,19 +156,21 @@ function initFirefoxBrowser() {
     const btnToggleBookmarks = browserRoot.querySelector('[data-browser-action="toggle-bookmarks"]');
     const btnLibrary = browserRoot.querySelector('[data-browser-action="library"]');
     const btnMenu = browserRoot.querySelector('[data-browser-action="menu"]');
+    const btnProfile = browserRoot.querySelector('[data-browser-action="profile"]');
+    const btnPocket = browserRoot.querySelector('[data-browser-action="pocket"]');
 
     if (!form || !addressInput || !status || !homeView || !redirectView || !redirectFrame
-        || !bookmarksBar || !tabsList || !btnHomes.length || !btnReload || !btnBack || !btnForward) {
+        || !bookmarksBar || !tabsList || !btnReload || !btnBack || !btnForward) {
         return;
     }
 
     decorateFedoraFirefoxWindow(browserRoot);
 
-    const OS_LACAPSULE_PAGE = (typeof window !== 'undefined' && window.CAPSULE_SITE_HOME)
-        ? String(window.CAPSULE_SITE_HOME)
-        : '/index.html';
-
     const defaultTabLabel = capsuleStr('firefox.tabNewLabel', 'Nouvel onglet');
+
+    const resolver = (typeof window !== 'undefined' && window.CapsuleSimulatedWebResolver)
+        ? window.CapsuleSimulatedWebResolver
+        : null;
 
     const state = {
         tabCounter: 1,
@@ -167,11 +185,17 @@ function initFirefoxBrowser() {
     };
 
     function normalizeInput(value) {
-        return String(value || '').trim().toLowerCase();
+        if (resolver && typeof resolver.normalizeInput === 'function') {
+            return resolver.normalizeInput(value);
+        }
+        return String(value || '').trim();
     }
 
     function normalizeUrlHost(value) {
-        let host = normalizeInput(value);
+        if (resolver && typeof resolver.normalizeUrlHost === 'function') {
+            return resolver.normalizeUrlHost(value);
+        }
+        let host = normalizeInput(value).toLowerCase();
         host = host.replace(/^https?:\/\//, '');
         host = host.replace(/\/.*$/, '');
         host = host.replace(/^www\./, '');
@@ -179,23 +203,32 @@ function initFirefoxBrowser() {
     }
 
     function isHomeTarget(value) {
-        const normalized = normalizeInput(value);
+        if (resolver && typeof resolver.isHomeTarget === 'function') {
+            return resolver.isHomeTarget(value);
+        }
+        const normalized = normalizeInput(value).toLowerCase();
         return normalized === ''
             || normalized === 'accueil'
             || normalized === 'about:newtab'
             || normalized === 'capsuleos://accueil';
     }
 
-    function isOsLaCapsuleTarget(value) {
-        const normalized = normalizeInput(value);
-        return normalized === 'os-lacapsule'
-            || normalized === 'capsuleos://os-lacapsule'
-            || normalized === 'la capsule';
-    }
-
-    function isLinuxMintTarget(value) {
-        const host = normalizeUrlHost(value);
-        return host === 'linuxmint.com' || host.endsWith('.linuxmint.com');
+    function resolveNavigation(rawValue) {
+        if (resolver && typeof resolver.resolveInput === 'function') {
+            return resolver.resolveInput(rawValue);
+        }
+        const value = normalizeInput(rawValue);
+        if (isHomeTarget(value)) {
+            return { type: 'home' };
+        }
+        return {
+            type: 'web',
+            siteId: 'lacapsule',
+            address: 'lacapsule.org',
+            url: (typeof window !== 'undefined' && window.CAPSULE_SITE_HOME)
+                ? String(window.CAPSULE_SITE_HOME)
+                : '/index.html',
+        };
     }
 
     function getActiveTab() {
@@ -218,11 +251,17 @@ function initFirefoxBrowser() {
         status.textContent = message;
     }
 
-    function tabLabelForView(view, address) {
-        if (view === 'os-lacapsule') {
+    function tabLabelForView(view, address, resolution) {
+        if (resolution && resolution.type === 'mnt' && resolution.label) {
+            return resolution.label;
+        }
+        if (view === 'web' && resolution && resolution.siteId === 'lacapsule') {
             return capsuleStr('firefox.tabOsLaCapsuleLabel', 'La Capsule');
         }
-        if (address && !isHomeTarget(address)) {
+        if (view === 'web' && address && !isHomeTarget(address)) {
+            return address;
+        }
+        if (view === 'error' && address) {
             return address;
         }
         return defaultTabLabel;
@@ -230,19 +269,19 @@ function initFirefoxBrowser() {
 
     function switchView(view) {
         const showHome = view === 'home';
-        const showRedirect = view === 'os-lacapsule';
-        const showSite = view === 'site';
+        const showWeb = view === 'web' || view === 'error';
+        const showModule = view === 'module';
 
         homeView.hidden = !showHome;
-        redirectView.hidden = !showRedirect;
+        redirectView.hidden = !showWeb;
         if (siteView) {
-            siteView.hidden = !showSite;
+            siteView.hidden = !showModule;
         }
 
         homeView.style.display = showHome ? 'flex' : 'none';
-        redirectView.style.display = showRedirect ? 'block' : 'none';
+        redirectView.style.display = showWeb ? 'block' : 'none';
         if (siteView) {
-            siteView.style.display = showSite ? 'block' : 'none';
+            siteView.style.display = showModule ? 'block' : 'none';
         }
 
         browserRoot.setAttribute('data-browser-current-view', view);
@@ -266,23 +305,35 @@ function initFirefoxBrowser() {
         }
         switchView(tab.view);
         syncAddressInput(tab.address);
+        if (tab.view === 'web' || tab.view === 'error') {
+            const targetUrl = tab.resolution && tab.resolution.url
+                ? tab.resolution.url
+                : '';
+            if (targetUrl && redirectFrame.src !== targetUrl) {
+                redirectFrame.src = targetUrl;
+            }
+        }
+        if (tab.view === 'module') {
+            redirectFrame.src = 'about:blank';
+        }
         renderTabs();
         syncFirefoxGnomeDataset(browserRoot);
     }
 
-    function persistActiveTab(view, address, label) {
+    function persistActiveTab(view, address, label, resolution) {
         const tab = getActiveTab();
         if (!tab) {
             return;
         }
         tab.view = view;
         tab.address = address || '';
-        tab.label = label || tabLabelForView(view, tab.address);
+        tab.resolution = resolution || null;
+        tab.label = label || tabLabelForView(view, tab.address, resolution);
         applyActiveTabToUi();
     }
 
     function showHome(message) {
-        persistActiveTab('home', '', defaultTabLabel);
+        persistActiveTab('home', '', defaultTabLabel, null);
         if (message) {
             setStatus(message);
         } else {
@@ -290,42 +341,111 @@ function initFirefoxBrowser() {
         }
     }
 
-    function showOsLaCapsule(message) {
-        const address = 'os-lacapsule';
-        persistActiveTab('os-lacapsule', address, tabLabelForView('os-lacapsule', address));
+    function showWebPage(resolution, message) {
+        const address = resolution.address || resolution.siteId || '';
+        persistActiveTab('web', address, tabLabelForView('web', address, resolution), resolution);
         setStatus(
-            capsuleStr('firefox.statusOsLaCapsuleLoading', 'Chargement de la page os-lacapsule...')
+            message || capsuleStr('firefox.statusWebLoading', 'Chargement de la page…')
         );
-        redirectFrame.src = OS_LACAPSULE_PAGE;
-        if (message) {
-            setStatus(message);
+        redirectFrame.src = resolution.url || '';
+    }
+
+    function showErrorPage(resolution, message) {
+        const address = resolution.address || '';
+        persistActiveTab('error', address, tabLabelForView('error', address, resolution), resolution);
+        setStatus(message || '');
+        redirectFrame.src = resolution.url || '';
+    }
+
+    function showModulePage(resolution, message) {
+        const address = resolution.moduleId || '';
+        persistActiveTab('module', address, tabLabelForView('module', address, resolution), resolution);
+        setStatus(
+            message || capsuleStrFmt(
+                'firefox.statusMntOpen',
+                { label: resolution.label || resolution.moduleId },
+                'Ouverture du module pédagogique…'
+            )
+        );
+        redirectFrame.src = 'about:blank';
+        renderModulePanel(resolution);
+        if (typeof document !== 'undefined') {
+            document.dispatchEvent(new CustomEvent('capsule:open-mnt-scenario', {
+                detail: {
+                    moduleId: resolution.moduleId,
+                    scenarioId: resolution.scenarioId,
+                    path: resolution.path,
+                },
+            }));
         }
     }
 
-    function showSitePage(rawValue) {
-        const host = normalizeUrlHost(rawValue) || 'linuxmint.com';
-        const address = host;
-        persistActiveTab('site', address, tabLabelForView('site', address));
-        setStatus('');
+    function renderModulePanel(resolution) {
+        if (!siteView || !resolution) {
+            return;
+        }
+        siteView.replaceChildren();
+        const index = resolver && typeof resolver.getIndex === 'function'
+            ? resolver.getIndex()
+            : (typeof window !== 'undefined' && window.CAPSULE_SIMULATED_WEB_INDEX) || {};
+        const modules = index.modules || {};
+        const entry = modules[resolution.moduleId] || {};
+        const label = resolution.label || entry.labelFr || resolution.moduleId || '';
+        const article = document.createElement('article');
+        article.className = 'capsule-browser-site__page capsule-browser-site__page--mnt';
+        article.setAttribute('data-browser-mnt-module', resolution.moduleId || '');
+
+        const title = document.createElement('h1');
+        title.className = 'capsule-browser-site__title';
+        title.textContent = label;
+
+        const lead = document.createElement('p');
+        lead.className = 'capsule-browser-site__lead';
+        lead.textContent = capsuleStrFmt(
+            'firefox.mntPanelLead',
+            { module: label },
+            'Module pédagogique CapsuleOS — parcours monté sous /mnt.'
+        );
+
+        const hint = document.createElement('p');
+        hint.className = 'capsule-browser-site__hint';
+        hint.textContent = capsuleStr(
+            'firefox.mntPanelHint',
+            'Les Missions et les applications du scénario s\'ouvrent automatiquement si disponibles sur ce bureau.'
+        );
+
+        article.appendChild(title);
+        article.appendChild(lead);
+        article.appendChild(hint);
+        siteView.appendChild(article);
     }
 
-    function navigateFromInput(rawValue, message) {
-        const value = String(rawValue || '').trim();
-        if (isHomeTarget(value)) {
+    function applyNavigation(resolution, message) {
+        if (!resolution || resolution.type === 'home') {
             showHome(message || capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
             return;
         }
-        if (isLinuxMintTarget(value)) {
-            showSitePage(value);
+        if (resolution.type === 'web') {
+            showWebPage(resolution, message);
             return;
         }
-        if (isOsLaCapsuleTarget(value)) {
-            showOsLaCapsule(message);
+        if (resolution.type === 'mnt') {
+            showModulePage(resolution, message);
             return;
         }
-        showOsLaCapsule(
-            capsuleStr('firefox.statusSubmitRedirect', 'Toute saisie est redirigee vers os-lacapsule.')
-        );
+        if (resolution.type === 'error') {
+            showErrorPage(resolution, message);
+            return;
+        }
+        showErrorPage({
+            type: 'error',
+            address: '',
+            url: resolver ? resolver.webPageUrl('neterror') : '',
+        });
+    }
+
+    function navigateFromInput(rawValue, message) {
+        applyNavigation(resolveNavigation(rawValue), message);
     }
 
     function renderTabs() {
@@ -443,15 +563,15 @@ function initFirefoxBrowser() {
 
     btnReload.addEventListener('click', function onReloadClick() {
         const tab = getActiveTab();
-        if (tab && tab.view === 'os-lacapsule') {
-            redirectFrame.src = OS_LACAPSULE_PAGE;
+        if (tab && (tab.view === 'web' || tab.view === 'error') && tab.resolution) {
+            redirectFrame.src = tab.resolution.url || '';
             setStatus(
-                capsuleStr('firefox.statusOsLaCapsuleReloaded', 'Page os-lacapsule rechargee.')
+                capsuleStr('firefox.statusWebReloaded', 'Page rechargée.')
             );
             return;
         }
-        if (tab && tab.view === 'site' && tab.address) {
-            showSitePage(tab.address);
+        if (tab && tab.view === 'module' && tab.resolution) {
+            showModulePage(tab.resolution);
             return;
         }
 
@@ -481,6 +601,18 @@ function initFirefoxBrowser() {
     if (btnLibrary) {
         btnLibrary.addEventListener('click', function onLibraryClick() {
             setStatus(capsuleStr('firefox.statusLibrarySoon', 'Bibliothèque : bientôt disponible.'));
+        });
+    }
+
+    if (btnProfile) {
+        btnProfile.addEventListener('click', function onProfileClick() {
+            setStatus(capsuleStr('firefox.statusProfileSoon', 'Profil Firefox : bientôt disponible.'));
+        });
+    }
+
+    if (btnPocket) {
+        btnPocket.addEventListener('click', function onPocketClick() {
+            setStatus(capsuleStr('firefox.statusPocketSoon', 'Pocket : bientôt disponible.'));
         });
     }
 
@@ -641,44 +773,40 @@ function initFirefoxBrowser() {
             return;
         }
 
-        if (route === 'os-lacapsule') {
-            showOsLaCapsule(
-                capsuleStrFmt(
+        const shortcutKey = route === 'os-lacapsule' ? 'os-lacapsule' : route;
+        if (resolver && typeof resolver.resolveShortcut === 'function' && shortcutKey) {
+            const resolution = resolver.resolveShortcut(shortcutKey);
+            if (resolution) {
+                applyNavigation(resolution, capsuleStrFmt(
                     'firefox.statusFavoriteOsLaCapsule',
                     { label: label },
                     'Favori "' + label + '" ouvert.'
-                )
-            );
-            return;
+                ));
+                return;
+            }
         }
 
-        if (isHomeTarget(label)) {
+        if (isHomeTarget(label) || isHomeTarget(route)) {
             showHome(capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));
             return;
         }
 
-        if (isOsLaCapsuleTarget(label)) {
-            showOsLaCapsule(
-                capsuleStrFmt(
-                    'firefox.statusFavoriteOsLaCapsule',
-                    { label: label },
-                    'Favori "' + label + '" ouvert.'
-                )
-            );
-            return;
-        }
-
-        setStatus(
-            capsuleStrFmt(
-                'firefox.statusBookmarkUnmapped',
-                { label: label },
-                'Favori "' + label + '" non mappe pour le moment.'
-            )
-        );
+        navigateFromInput(route || label, capsuleStrFmt(
+            'firefox.statusFavoriteOsLaCapsule',
+            { label: label },
+            'Favori "' + label + '" ouvert.'
+        ));
     });
 
     if (newtabShortcuts) {
         newtabShortcuts.addEventListener('click', function onNewtabShortcutsClick(event) {
+            const addBtn = event.target.closest('[data-browser-newtab-action="add"]');
+            if (addBtn && newtabShortcuts.contains(addBtn)) {
+                event.preventDefault();
+                setStatus(capsuleStr('firefox.statusNewtabAddSoon', 'Ajout de raccourci : bientôt disponible.'));
+                return;
+            }
+
             const link = event.target.closest('[data-browser-newtab-link]');
             if (!link || !newtabShortcuts.contains(link)) {
                 return;
@@ -687,39 +815,49 @@ function initFirefoxBrowser() {
             event.preventDefault();
             const key = link.getAttribute('data-browser-newtab-link') || '';
 
-            if (key === 'os-lacapsule') {
-                showOsLaCapsule(
-                    capsuleStr('firefox.statusFavoriteOsLaCapsule', 'Favori « La Capsule » ouvert.')
-                );
-                return;
+            if (resolver && typeof resolver.resolveShortcut === 'function' && key) {
+                const resolution = resolver.resolveShortcut(key);
+                if (resolution) {
+                    applyNavigation(resolution, capsuleStr(
+                        'firefox.statusFavoriteOsLaCapsule',
+                        'Favori « La Capsule » ouvert.'
+                    ));
+                    return;
+                }
             }
 
-            setStatus(
-                capsuleStrFmt(
-                    'firefox.statusNewtabShortcutSoon',
-                    { label: link.textContent.replace(/\s+/g, ' ').trim() },
-                    'Raccourci non mappe pour le moment.'
-                )
-            );
+            navigateFromInput(key, capsuleStrFmt(
+                'firefox.statusNewtabShortcutSoon',
+                { label: link.textContent.replace(/\s+/g, ' ').trim() },
+                'Raccourci non mappe pour le moment.'
+            ));
         });
     }
 
     redirectFrame.addEventListener('load', function onRedirectLoad() {
         const tab = getActiveTab();
-        if (tab && tab.view === 'os-lacapsule') {
+        if (tab && tab.view === 'web') {
             setStatus(
-                capsuleStr('firefox.statusOsLaCapsuleShown', 'Page os-lacapsule affichee.')
+                capsuleStr('firefox.statusWebShown', 'Page affichée.')
             );
+        }
+        if (tab && tab.view === 'error') {
+            setStatus('');
         }
     });
 
     redirectFrame.addEventListener('error', function onRedirectError() {
-        showHome(
-            capsuleStr(
-                'firefox.statusErrorOsLaCapsule',
-                "Erreur de chargement: impossible d'ouvrir la page os-lacapsule."
-            )
-        );
+        const tab = getActiveTab();
+        if (tab && (tab.view === 'web' || tab.view === 'error')) {
+            showErrorPage({
+                type: 'error',
+                address: tab.address || '',
+                url: resolver ? resolver.webPageUrl('neterror') : '',
+            }, capsuleStr(
+                'firefox.statusErrorWeb',
+                'Erreur de chargement : impossible d\'ouvrir la page.'
+            ));
+        }
     });
 
     browserRoot.__capsuleFirefoxSession = state;

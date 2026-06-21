@@ -10,8 +10,18 @@ const page = await browser.newPage();
 await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 await page.waitForFunction(() => typeof window.openWindowByDataLink === 'function', null, { timeout: 60000 });
 
+await page.evaluate(() => {
+  document.documentElement.dataset.theme = 'light';
+  localStorage.setItem('gnome-theme', 'light');
+});
+
 await page.evaluate(() => window.openWindowByDataLink('firefox'));
-await page.waitForTimeout(180);
+await page.waitForFunction(
+  () => document.querySelector('#firefox [data-firefox-app]')?.dataset?.initialized === 'true',
+  null,
+  { timeout: 15000 },
+);
+await page.waitForTimeout(250);
 
 const chrome = await page.evaluate(() => {
   const win = document.getElementById('firefox');
@@ -28,19 +38,33 @@ const chrome = await page.evaluate(() => {
   const bookmarks = app && app.querySelector('[data-browser-bookmarks]');
   const tabs = app ? app.querySelectorAll('[data-browser-tab-id]').length : 0;
   const menuBtn = app && app.querySelector('.capsule-browser__btn--icon-menu');
+  const profileBtn = app && app.querySelector('[data-browser-action="profile"]');
+  const pocketBtn = app && app.querySelector('[data-browser-action="pocket"]');
+  const homeBtn = app && app.querySelector('[data-browser-action="home"]');
+  const shortcutCount = app ? app.querySelectorAll('[data-browser-newtab-link]').length : 0;
+  const pocketSection = app && app.querySelector('.capsule-browser-newtab__pocket');
+  const bg = newtab ? getComputedStyle(newtab).backgroundColor : '';
   return {
     visible: win && win.style.display !== 'none',
+    mintProton: app && app.classList.contains('capsule-browser--proton'),
     noCsdClass: !(win && win.classList.contains('firefox-window--fedora')),
     initialized: app && app.dataset.initialized === 'true',
     headerInTabs: !!(tabsbar && header && tabsbar.contains(header)),
     headerBeforeApp: headerIdx >= 0 && appHostIdx > headerIdx,
     titleText: title ? title.textContent.replace(/\s+/g, ' ').trim() : '',
     newtabVisible: !!(newtab && !newtab.hidden),
+    hasNewtabBrand: !!(newtab && newtab.querySelector('.capsule-browser-newtab__brand')),
     hasNewtabSearch: !!(newtab && newtab.querySelector('[data-browser-newtab-input]')),
-    hasNewtabLogo: !!(newtab && newtab.querySelector('.capsule-browser-newtab__logo')),
+    hasGoogleIcon: !!(newtab && newtab.querySelector('.capsule-browser-newtab__search-icon')),
     bookmarksHidden: bookmarks ? bookmarks.hidden : false,
     initialTabCount: tabs,
     protonMenuIcon: menuBtn ? getComputedStyle(menuBtn, '::before').maskImage !== 'none' : false,
+    hasProfile: !!profileBtn,
+    hasPocket: !!pocketBtn,
+    noHomeBtn: !homeBtn,
+    shortcutCount,
+    hasPocketSection: !!pocketSection,
+    lightNewtabBg: bg,
     goHidden: app
       ? getComputedStyle(app.querySelector('.capsule-browser__btn--go')).display === 'none'
       : false,
@@ -56,7 +80,7 @@ const multiTab = await page.evaluate(() => {
   return { count: tabs.length, activeIsSecond: tabs[1] && tabs[1].classList.contains('capsule-browser__tab--active') };
 });
 
-await page.click('div[data-link="firefox"] [data-browser-newtab-link="os-lacapsule"]');
+await page.click('div[data-link="firefox"] [data-browser-newtab-link="amazon"]');
 await page.waitForTimeout(45);
 
 const osPage = await page.evaluate(() => {
@@ -72,41 +96,17 @@ const osPage = await page.evaluate(() => {
   };
 });
 
-await page.click('div[data-link="firefox"] [data-browser-action="toggle-bookmarks"]');
-await page.waitForTimeout(70);
-
-const bookmarksToggle = await page.evaluate(() => {
-  const bar = document.querySelector('#firefox [data-browser-bookmarks]');
-  const btn = document.querySelector('#firefox [data-browser-action="toggle-bookmarks"]');
-  return {
-    visible: bar && !bar.hidden,
-    pressed: btn && btn.getAttribute('aria-pressed') === 'true',
-  };
-});
-
-await page.click('div[data-link="firefox"] [data-browser-action="home"]');
-await page.waitForTimeout(80);
-
-const homeView = await page.evaluate(() => {
-  const app = document.querySelector('#firefox [data-firefox-app]');
-  const home = app && app.querySelector('[data-browser-home]');
-  return {
-    view: app && app.getAttribute('data-browser-current-view'),
-    homeVisible: home && !home.hidden,
-  };
-});
-
-const ok = chrome.visible && chrome.noCsdClass && chrome.initialized
+const ok = chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.initialized
   && !chrome.headerInTabs && chrome.headerBeforeApp
   && chrome.titleText.indexOf('Mozilla Firefox') >= 0
-  && chrome.newtabVisible && chrome.hasNewtabSearch && chrome.hasNewtabLogo
+  && chrome.newtabVisible && chrome.hasNewtabBrand && chrome.hasNewtabSearch && chrome.hasGoogleIcon
   && chrome.bookmarksHidden && chrome.initialTabCount === 1 && chrome.goHidden
+  && chrome.hasProfile && chrome.hasPocket && chrome.noHomeBtn
+  && chrome.shortcutCount >= 7 && chrome.hasPocketSection
   && multiTab.count === 2 && multiTab.activeIsSecond
-  && osPage.view === 'os-lacapsule' && osPage.redirectVisible
-  && osPage.tabLabel.indexOf('Capsule') >= 0
-  && bookmarksToggle.visible && bookmarksToggle.pressed
-  && homeView.view === 'home' && homeView.homeVisible;
+  && osPage.view === 'web' && osPage.redirectVisible
+  && (osPage.tabLabel.indexOf('amazon') >= 0 || osPage.address.indexOf('amazon') >= 0);
 
-console.log(JSON.stringify({ chrome, multiTab, osPage, bookmarksToggle, homeView, ok }, null, 2));
+console.log(JSON.stringify({ chrome, multiTab, osPage, ok }, null, 2));
 await browser.close();
 process.exit(ok ? 0 : 1);

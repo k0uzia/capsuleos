@@ -10,6 +10,8 @@ path = [
     "usr/share/capsuleos/themes/**",
     "usr/share/capsuleos/branding/**",
     "usr/share/capsuleos/linux/**",
+    "usr/share/capsuleos/contrib/**",
+    "usr/share/capsuleos/web/**",
     "home/**",
     "OS/**",
     "etc/capsuleos/**",

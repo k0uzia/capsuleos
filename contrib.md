@@ -22,6 +22,20 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 
 Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parcours H0–H6).
 
+### Apps contrib et internet simulé
+
+Pour ajouter une **app transversale** (ex. Firefox) ou un **site web local** :
+
+1. Lire [`root/docs/convention-contrib-apps.md`](root/docs/convention-contrib-apps.md).
+2. **App** : `usr/share/capsuleos/contrib/{catégorie}/{vendor}/{app}/` — `manifest.json` + données (favoris, moteur recherche) ; le slot doit exister dans `slots-manifest.json`.
+3. **Site** : copier `usr/share/capsuleos/web/_template/` → `web/{siteId}/`, déclarer les hosts dans `site.json`.
+4. Régénérer l’index : `node usr/lib/capsuleos/tools/build-simulated-web-index.mjs`.
+5. Gates : `validate-simulated-web.mjs` + `validate-contrib-packages.mjs` (inclus dans `validate-quality-all.mjs`).
+
+Modèles PR : [`root/docs/templates/contrib-pr-nouveau-site-web.md`](root/docs/templates/contrib-pr-nouveau-site-web.md) · [`root/docs/templates/contrib-pr-favori-firefox.md`](root/docs/templates/contrib-pr-favori-firefox.md)
+
+Le kernel navigateur (`simulatedWebResolver.js` + `firefoxBrowser.js`) résout les URLs depuis l’index Z0 — **pas de hardcode** de hosts dans le JS noyau.
+
 ---
 
 ## Formation agents IA
@@ -612,6 +626,7 @@ node usr/lib/capsuleos/tools/build-embeds-all.mjs --linux-only
 | Sujet | Emplacement |
 |-------|-------------|
 | Guide contributeur, checklist contrat, toolkits Linux GUI | `contrib.md` à la racine |
+| Apps contrib + internet simulé (Firefox, `web/`, `/mnt`) | `root/docs/convention-contrib-apps.md` |
 | Agents, skills, parcours | `root/` |
 | Doc développeur sous `OS/` | **Interdit** (`README.md`, etc.) — utiliser `root/docs/` |
 | Politique assets | `root/docs/politique-assets.md` |

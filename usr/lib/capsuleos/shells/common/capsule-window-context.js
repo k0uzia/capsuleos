@@ -264,8 +264,12 @@
         }
     }
 
-    function ensureChromeAfterSlotInject(container, slotId) {
-        if (!container || container.style.display === 'none') {
+    function ensureChromeAfterSlotInject(container, slotId, options) {
+        options = options || {};
+        if (!container) {
+            return;
+        }
+        if (!options.forceWhenHidden && container.style.display === 'none') {
             return;
         }
         ensureWindowChrome(container, slotId, { force: true, initInteraction: true });
@@ -293,7 +297,14 @@
         document.addEventListener('capsule:slot-injected', (event) => {
             const detail = event.detail || {};
             if (detail.container && detail.slotId) {
-                ensureChromeAfterSlotInject(detail.container, detail.slotId);
+                ensureChromeAfterSlotInject(detail.container, detail.slotId, {
+                    forceWhenHidden: detail.slotId === 'firefox',
+                });
+                if (detail.slotId === 'firefox'
+                    && typeof window.CapsuleWindowChrome !== 'undefined'
+                    && typeof window.CapsuleWindowChrome.syncFirefoxGnomeChrome === 'function') {
+                    window.CapsuleWindowChrome.syncFirefoxGnomeChrome(detail.container);
+                }
             }
         });
         document.addEventListener('capsule-skin-ready', () => {

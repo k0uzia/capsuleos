@@ -45,7 +45,8 @@
   },
   "newTabPage": {
     "searchField": true,
-    "shortcuts": ["Wikipédia", "YouTube", "Reddit", "La Capsule"]
+    "shortcuts": ["Amazon", "Temu", "Wikipédia", "YouTube", "Reddit"],
+    "vmInventory": "root/docs/inventaires/linux-mint-firefox-vm-shortcuts.json"
   },
   "features": {
     "multiTab": true,

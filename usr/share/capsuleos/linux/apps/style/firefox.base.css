@@ -20,6 +20,19 @@ div[data-link="firefox"] #windowTitle {
     filter: var(--n);
 }
 
+div[data-link="firefox"].firefox-window--fedora > #windowHeader:not(.firefox-window-controls--fedora) {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.capsule-browser__tabsbar[data-window-drag-passthrough] .capsule-browser__tabs-list,
+.capsule-browser__tabsbar[data-window-drag-passthrough] .capsule-browser__tab,
+.capsule-browser__tabsbar[data-window-drag-passthrough] .capsule-browser__tab-add,
+.capsule-browser__tabsbar[data-window-drag-passthrough] .firefox-window-controls--fedora {
+    position: relative;
+    z-index: 1;
+}
+
 .capsule-browser {
     width: var(--full);
     height: var(--full);
@@ -215,7 +228,9 @@ div[data-link="firefox"] #windowTitle {
 .capsule-browser__btn--icon-home,
 .capsule-browser__btn--icon-library,
 .capsule-browser__btn--icon-star,
-.capsule-browser__btn--icon-menu {
+.capsule-browser__btn--icon-menu,
+.capsule-browser__btn--icon-profile,
+.capsule-browser__btn--icon-pocket {
     font-size: 0;
 }
 
@@ -430,6 +445,20 @@ div[data-link="firefox"] #windowTitle {
     color: var(--firefox-home-lead, var(--firefox-tab-text));
 }
 
+.capsule-browser-site__hint {
+    margin: 1rem 0 0;
+    font-size: 0.9rem;
+    color: var(--firefox-home-lead, var(--firefox-tab-text));
+    opacity: 0.85;
+}
+
+.capsule-browser-site__page--mnt {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    background: var(--firefox-home-shortcut-bg, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--firefox-home-shortcut-border, rgba(255, 255, 255, 0.08));
+}
+
 .capsule-browser-home {
     width: 100%;
     height: 100%;
@@ -566,23 +595,57 @@ div[data-link="firefox"] #windowTitle {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 1.25rem;
     width: min(100%, 42rem);
 }
 
 .capsule-browser-newtab__shortcut {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-width: 5.5rem;
-    min-height: 2rem;
-    padding: 0.45rem 0.85rem;
+    justify-content: flex-start;
+    gap: 0.45rem;
+    min-width: 4.5rem;
+    max-width: 5.5rem;
+    min-height: auto;
+    padding: 0.35rem 0.25rem;
     border: var(--firefox-newtab-shortcut-border, 1px solid transparent);
     border-radius: 0.45rem;
     color: var(--firefox-newtab-shortcut-text, var(--firefox-bookmark-text));
-    background: var(--firefox-newtab-shortcut-bg, var(--firefox-home-shortcut-bg));
-    font-size: 0.78rem;
+    background: transparent;
+    font-size: 0.72rem;
+    text-align: center;
     text-decoration: none;
+}
+
+.capsule-browser-newtab__shortcut::before {
+    content: "";
+    display: block;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--firefox-newtab-shortcut-bg, var(--firefox-home-shortcut-bg));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.capsule-browser-newtab__shortcut--amazon::before {
+    background: linear-gradient(145deg, #232f3e, #37475a);
+}
+
+.capsule-browser-newtab__shortcut--temu::before {
+    background: linear-gradient(145deg, #fb7701, #ff9a3c);
+}
+
+.capsule-browser-newtab__shortcut--wikipedia::before {
+    background: linear-gradient(145deg, #f8f9fa, #eaecf0);
+}
+
+.capsule-browser-newtab__shortcut--youtube::before {
+    background: linear-gradient(145deg, #cc0000, #ff0000);
+}
+
+.capsule-browser-newtab__shortcut--reddit::before {
+    background: linear-gradient(145deg, #ff5700, #ff4500);
 }
 
 .capsule-browser-newtab__shortcut:hover {

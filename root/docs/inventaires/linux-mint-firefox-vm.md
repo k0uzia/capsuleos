@@ -1,6 +1,6 @@
 # Analyse Firefox — VM Linux Mint 22.3 Zena → CapsuleOS
 
-**Objectif** : ground truth pour une reproduction **fidèle** du navigateur dans `home/Debian/Mint/` (slot `firefox`, embed `usr/share/capsuleos/linux/apps/firefox.html`).
+**Objectif** : ground truth pour une reproduction **fidèle** du navigateur Proton — slot partagé `usr/share/capsuleos/linux/apps/firefox.html`, tokens Mint dans `home/Debian/Mint/style/apps/firefox.skin.css`.
 
 **Collecte** : SSH `<lab-inventory:linux-mint-firefox>` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
 

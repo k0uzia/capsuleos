@@ -124,3 +124,42 @@ Ne pas inventer de SVG placeholder : les gabarits CSS pointent vers ce pack part
 | **R-WEB-NAV4** | Kernel : `firefox-iframe-bridge.js` + historique onglet dans `firefoxBrowser.js` — pas de hardcode host |
 
 Pont : [`firefox-iframe-bridge.js`](../../usr/lib/capsuleos/shells/linux/firefox-iframe-bridge.js) · [`site-nav.js`](../../usr/share/capsuleos/web/_shared/site-nav.js)
+
+## 10. Navigateurs simulés — enveloppe vs app (multi-produits)
+
+Complète : [compatibilite-navigateurs.md](compatibilite-navigateurs.md) · [processus-branchement-noyau.md](processus-branchement-noyau.md) (terminal, explorateur).
+
+### Deux « moteurs » distincts (ne pas confondre)
+
+| Axe | Module / doc | Question | Contenu |
+|-----|--------------|----------|---------|
+| **Enveloppe** | `usr/lib/capsuleos/engines/` · `CapsuleBrowserCapabilities` | Quel navigateur **hôte** charge CapsuleOS ? | UA (Gecko / Blink / WebKit), préfixes CSS, capacités (`file://`, `maskImage`…) |
+| **App simulée** | slot `firefox` (+ futurs slots) · contrib `internet/browser/` | Quelle app **internet du bureau** est affichée ? | Chrome UI, onglets, favoris, navigation web simulé |
+
+**Interdit** : brancher Firefox / Chromium simulés sur `CapsuleEngineRegistry` — le lab Playwright (Chromium) peut afficher l’app Firefox ; l’enveloppe et le produit sont orthogonaux.
+
+### Quatre sous-couches (apps internet)
+
+Modèle calqué sur **terminal** (`shells/linux/terminal/`, agnostique) et **explorateur** (Nemo / Nautilus / Dolphin — gabarit + kernel partagé partiel) :
+
+```text
+Z0/Z1  Web simulé     web/ + simulatedWebResolver.js + site-nav.js     (partagé, neutre produit)
+Z1     Runtime        onglets, historique, iframe-bridge, raccourcis   (aujourd’hui dans firefoxBrowser.js)
+Z1     Slot + gabarit firefox.html · futur chromium.html…             (un slot = une app)
+Z2     Skin           firefox.skin.css · futur chromium.skin.css
+contrib  Pack vendor  contrib/internet/browser/{vendor}/{app}/
+```
+
+Métadonnée contrib optionnelle : `"browserFamily": "gecko"` (Firefox) ou `"blink"` (Chromium) — **doc / parité VM uniquement**, pas dispatch runtime.
+
+### Règles (R-BROWSER)
+
+| Id | Règle |
+|----|-------|
+| **R-BROWSER1** | Web simulé et resolver **sans** hardcode produit (pas de « Firefox only » dans `simulatedWebResolver.js`) |
+| **R-BROWSER2** | **Un slot manifest** par app (`firefox`, puis `chromium` si ground truth VM) — pas de slot générique `browser` |
+| **R-BROWSER3** | **Ne pas extraire** `browserRuntime.js` tant qu’un second slot navigateur n’est pas requis par inventaire VM (**P7**) |
+| **R-BROWSER4** | À l’extraction : runtime agnostique + adaptateur fin par slot (Proton/Pocket restent dans l’adaptateur Firefox) |
+| **R-BROWSER5** | DOM partagé : préfixe neutre `capsule-browser__*` ; détails vendor dans classes ou gabarit slot |
+
+**État juin 2026** : seul Firefox est P0 sur toutes les distros simulées ; couches web + resolver déjà partagées ; kernel monolithique Firefox acceptable jusqu’au second produit VM.

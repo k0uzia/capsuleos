@@ -1,6 +1,6 @@
 # Indice de parité interactionnelle — Linux Mint (Π)
 
-**Registry** : `linux-mint` · **VM** : `capsule@192.168.1.146` (Mint 22.3 Zena)
+**Registry** : `linux-mint` · **VM** : `<lab-inventory:linux-mint-parity>` (Mint 22.3 Zena)
 
 L'indice mesure la **fidélité interactionnelle** (pas seulement l'ouverture de slot) entre la VM modèle et CapsuleOS `home/Debian/Mint/`.
 

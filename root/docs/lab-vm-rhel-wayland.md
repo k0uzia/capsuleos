@@ -1,6 +1,6 @@
 # Lab VM — familles RHEL (Rocky, Alma, Fedora) et Wayland
 
-Guide pour connecter une VM **virt-manager / libvirt** (NAT `192.168.122.x`) au pipeline CapsuleOS : SSH, `wmctrl`, inventaire lab, clonage `linux-rocky` et futures entrées **Red Hat**.
+Guide pour connecter une VM **virt-manager / libvirt** (NAT `203.0.113.x (TEST-NET-3)`) au pipeline CapsuleOS : SSH, `wmctrl`, inventaire lab, clonage `linux-rocky` et futures entrées **Red Hat**.
 
 **GNOME** : l’explorateur VM est **Nautilus** ; le slot CapsuleOS reste **`nemo`** (gabarit partagé). Voir [`inventaires/linux-gnome-capsule-slots.md`](inventaires/linux-gnome-capsule-slots.md).
 
@@ -96,7 +96,7 @@ cp etc/capsuleos/lab-inventory.example.json etc/capsuleos/lab-inventory.json
 | Champ | Exemple Rocky | Rôle |
 |-------|---------------|------|
 | `registryId` | `linux-rocky` | Entrée [`os-registry.json`](../../etc/capsuleos/os-registry.json) |
-| `ssh` | `capsule@192.168.122.234` | Cible SSH |
+| `ssh` | `<lab-inventory:linux-lab>` | Cible SSH |
 | `sshIdentity` | `~/.ssh/capsuleos-lab` | Clé dédiée lab |
 | `display` | `:0` | Display Xwayland |
 | `sessionType` | `wayland-xwayland` | Documente la stack |

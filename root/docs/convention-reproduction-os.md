@@ -159,7 +159,7 @@ Rocky est la **base canonique** du toolkit GNOME (comme Mint pour Cinnamon). Les
 | `registryId` | `linux-rocky` |
 | Tier / upstream | **P1**, `upstreamId: null` |
 | Skin | `home/RedHat/Rocky/` |
-| VM | `capsule@192.168.122.234` (Wayland + Xwayland) |
+| VM | `<lab-inventory:linux-lab>` (Wayland + Xwayland) |
 | Toolkit | GNOME 49 — Nautilus (`CAPSULE_EXPLORER_SKIN_KEY: nautilus`), Ptyxis → `terminal` |
 | Dérivés | `linux-fedora` → `linux-rocky` ; `linux-alma` → `linux-rocky` |
 | Script clôture Nautilus | `./root/tools/lab/update-rocky-nautilus.sh` |

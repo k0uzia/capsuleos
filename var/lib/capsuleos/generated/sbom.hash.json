@@ -2,10 +2,10 @@
   "version": 1,
   "generatedBy": "usr/lib/capsuleos/tools/generate-sbom.mjs",
   "sourceHash": {
-    "packageJson": "f240da745a726c2d48cf1c9386a0fc86beb5f54aa4bd161ac4d3ce18499a1d16",
-    "packageLock": "4505ac58aa3cb9cc31390b7aa514e160f185e22ca5e0b35385d1fb13476821b2"
+    "packageJson": "bd84659c6a0abf5da17b922e85c3c3f716ff426eb5af02b4b9dacec7ed3824eb",
+    "packageLock": "ed5071a7cb04af7bc5c9e1057afb636176515411b3d99ea31940fd5f76f36cbb"
   },
   "sbomFile": "var/lib/capsuleos/generated/sbom.cyclonedx.json",
-  "componentCount": 190,
+  "componentCount": 187,
   "specVersion": "1.6"
 }

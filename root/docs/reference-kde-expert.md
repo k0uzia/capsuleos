@@ -88,7 +88,7 @@ Assets versionnés :
 - Panel / tray : `usr/share/capsuleos/assets/images/toolkits/kde/panel/`
 - Vendor Neon : `usr/share/capsuleos/assets/images/vendors/neon/`
 
-Pull depuis VM lab : `capsule@192.168.122.2`, chemins Breeze `/usr/share/icons/breeze/`.
+Pull depuis VM lab : `<lab-inventory:linux-lab>`, chemins Breeze `/usr/share/icons/breeze/`.
 
 ---
 

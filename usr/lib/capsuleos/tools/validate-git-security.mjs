@@ -82,6 +82,32 @@ if (fs.existsSync(exampleInventory)) {
   }
 }
 
+const PRIVATE_IP = /\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b/;
+const IP_SCAN_SKIP = [
+  'etc/capsuleos/lab-inventory.json',
+  'usr/lib/capsuleos/shells/linux/terminal/terminal-network.js',
+  'usr/lib/capsuleos/tools/lab/patch-lab-shell-ssh.mjs',
+  'usr/lib/capsuleos/tools/lab/patch-lab-mjs-ssh.mjs',
+  'usr/lib/capsuleos/tools/lab/redact-lab-network-metadata.mjs',
+];
+
+tracked.forEach((rel) => {
+  if (IP_SCAN_SKIP.some((p) => rel === p || rel.startsWith(`${p}/`))) {
+    return;
+  }
+  if (!/\.(json|txt|md|mjs|js|sh|html|css|xml|yaml|yml)$/i.test(rel)) {
+    return;
+  }
+  const abs = path.join(ROOT, rel);
+  if (!fs.existsSync(abs) || fs.statSync(abs).size > 512_000) {
+    return;
+  }
+  const body = fs.readFileSync(abs, 'utf8');
+  if (PRIVATE_IP.test(body)) {
+    errors.push(`IP privée versionnée : ${rel} — anonymiser ou gitignore`);
+  }
+});
+
 if (warnings.length) {
   warnings.forEach((w) => console.warn(`  ⚠ ${w}`));
 }

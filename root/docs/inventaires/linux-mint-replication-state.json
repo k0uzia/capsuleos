@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "campaign": "v3-credibility-pass",
   "vm": {
-    "host": "capsule@192.168.1.146",
+    "host": "<lab-inventory:linux-mint>",
     "inventory": "linux-mint-vm.json",
     "labConfig": "etc/capsuleos/lab-inventory.json"
   },

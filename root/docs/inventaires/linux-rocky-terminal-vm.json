@@ -6,7 +6,7 @@
   "collectedAt": "2026-06-07",
   "terminalOutputCollectedAt": "2026-06-07T17:17:00Z",
   "vm": {
-    "host": "capsule@192.168.122.234",
+    "host": "<lab-inventory:linux-rocky>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "shell": "/bin/bash",
     "terminalApp": "Ptyxis",

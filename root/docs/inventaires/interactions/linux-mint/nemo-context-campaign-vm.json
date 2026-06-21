@@ -1,7 +1,7 @@
 {
   "collectedAt": "2026-06-09T13:48:58.142Z",
   "source": "vm-xdotool-pyatspi",
-  "host": "capsule@192.168.1.146",
+  "host": "<lab-inventory:nemo-context-campaign>",
   "scenarioCount": 26,
   "results": {
     "window.title": {

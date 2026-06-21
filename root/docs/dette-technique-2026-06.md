@@ -45,7 +45,7 @@ Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index
 | Rocky Loupe / Papers | Polish visuel Vc ground truth (captures VM dédiées Papers) |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
 | KDE Discover store (openSUSE) | `storeCatalogStatus: deferred` — 0 apps magasin (priorité neon levée) |
-| KDE neon VM lab | `192.168.123.52` hors réseau au 2026-06-11 — réinventaire plasma-discover/flatpak à reprendre |
+| KDE neon VM lab | `<lab-ip>` hors réseau au 2026-06-11 — réinventaire plasma-discover/flatpak à reprendre |
 | Pop!_OS COSMIC | Toolkit `cosmic` sans `slotSpecs` dédiés — résolution via `storeToolkit: gnome` |
 | Inventaires VM | `*-vm-apps-installed.json` absent hors rocky/ubuntu/mint |
 

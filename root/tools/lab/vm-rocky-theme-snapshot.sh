@@ -2,8 +2,10 @@
 # Snapshot thème GNOME VM Rocky → JSON (couleurs / gsettings pour tokens CapsuleOS).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 OUT="${1:-$ROOT/root/docs/inventaires/linux-rocky-vm-theme.json}"
-SSH_TARGET="${ROCKY_SSH:-capsule@192.168.122.234}"
+SSH_TARGET="${ROCKY_SSH:-$(resolve_lab_ssh linux-rocky ROCKY_SSH)}"
 IDENTITY="${ROCKY_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
 

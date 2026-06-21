@@ -4,7 +4,7 @@
   "displayName": "Rocky Linux 10 GNOME Workstation",
   "collectedAt": "2026-06-05T22:06:07Z",
   "lab": {
-    "ssh": "capsule@192.168.122.234",
+    "ssh": "<lab-inventory:linux-rocky>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland-xwayland",
     "display": ":0",

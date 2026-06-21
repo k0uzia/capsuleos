@@ -1,4 +1,6 @@
 # Fonctions entrée utilisateur VM GNOME (SSH) + capture virsh hôte.
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 # Source depuis les scripts lab Fedora/Rocky — ne pas exécuter directement.
 #
 # Variables (surchargeables) :
@@ -9,7 +11,7 @@
 #   CAPTURE_SETTLE_MS    délai avant screenshot (défaut 800)
 
 : "${LAB_ROOT:=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
-: "${LAB_SSH:=${FEDORA_SSH:-capsule@192.168.122.91}}"
+: "${LAB_SSH:=$(resolve_lab_ssh linux-fedora FEDORA_SSH LAB_SSH)}"
 : "${LAB_VIRSH_NAME:=${FEDORA_VIRSH_NAME:-fedora}}"
 : "${LAB_SSH_IDENTITY:=${FEDORA_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}}"
 : "${LAB_VIRSH_URI:=qemu:///system}"

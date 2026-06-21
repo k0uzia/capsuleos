@@ -14,7 +14,7 @@
     "notes": "Ubuntu = sous-branche Debian (chemins home/Debian/, families/debian/ubuntu/)"
   },
   "vm": {
-    "host": "capsule@192.168.122.141",
+    "host": "<lab-inventory:linux-ubuntu>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "shell": "/bin/bash",
     "terminalApp": "Ptyxis",
@@ -240,7 +240,7 @@
   "bashrcSnapshot": {
     "path": "~/.bashrc",
     "status": "partial",
-    "collectCmd": "ssh capsule@192.168.122.141 'grep PS1 /etc/bash.bashrc ~/.bashrc'",
+    "collectCmd": "ssh <lab-inventory:linux-ubuntu> 'grep PS1 /etc/bash.bashrc ~/.bashrc'",
     "notes": "PS1 Debian dans /etc/bash.bashrc"
   },
   "replicationScenarios": [

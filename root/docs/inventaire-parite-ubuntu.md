@@ -1,6 +1,6 @@
 # Parité Ubuntu — VM lab vs CapsuleOS
 
-> VM : `capsule@192.168.122.141` · **Ubuntu 26.04 LTS** (Resolute Raccoon)  
+> VM : `<lab-inventory:linux-lab>` · **Ubuntu 26.04 LTS** (Resolute Raccoon)  
 > Branche : **Debian → Ubuntu** (`home/Debian/Ubuntu/`, `OS/linux/families/debian/ubuntu/`)  
 > Inventaire : [`linux-ubuntu-vm.json`](inventaires/linux-ubuntu-vm.json) · Terminal **Ti** : [`linux-ubuntu-terminal-vm.json`](inventaires/linux-ubuntu-terminal-vm.json)
 

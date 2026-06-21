@@ -59,7 +59,7 @@ Détail v1 : [`linux-kde-neon-panel-tray-closure.md`](inventaires/linux-kde-neon
 | CapsuleOS | `node root/tools/lab/capture-capsule-kde-neon.mjs` | idem + recherche / filtre / hamburger (18 scènes) |
 | Baseline v2 | `capture-clone-surfaces.mjs --id linux-kde-neon` | checkpoints CI (modèle Mint) |
 
-Prérequis VM : SSH `goupil@192.168.123.52`, clé `~/.ssh/capsuleos-lab`, VM `KDE-Neon`.  
+Prérequis VM : SSH `<lab-inventory:linux-lab>`, clé `~/.ssh/capsuleos-lab`, VM `KDE-Neon`.  
 Prérequis CapsuleOS : `python3 -m http.server 5500`, Playwright.
 
 ## Assets vendor

@@ -2,12 +2,14 @@
 # Inventaire VM — métadonnées fiches Discover (onglet Installé(s), apps locales CapsuleOS).
 #
 # Usage :
-#   KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-discover-installed-app-details-inventory.sh
+#   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> bash ...
 #   bash root/tools/lab/vm-kde-neon-discover-installed-app-details-inventory.sh --json-only
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${KDE_NEON_SSH:-goupil@192.168.123.52}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 OUT_JSON="$ROOT/root/docs/inventaires/linux-kde-neon-discover-installed-app-details.json"
 CATALOG="$ROOT/home/Debian/KDE-Neon/content/discover-catalog.json"

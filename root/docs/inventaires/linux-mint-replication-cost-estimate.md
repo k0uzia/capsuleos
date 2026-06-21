@@ -93,7 +93,7 @@ Avant d’engager une réplique **exacte** (zéro écart clôture) :
 | VΣ capsuleMatch | **8/8 ok** | `7f3ccee` · `run-ui-state-effects-pass.mjs` |
 | validate-all H2 | **vert** (baseline + clôture) | `c6acd55` (overview Ubuntu) |
 | CapsuleOnly | **retiré** (slot checklist) | `7f3ccee` |
-| SSH VM | **OK** `capsule@192.168.1.146` | burst P2 + collecte inventaire |
+| SSH VM | **OK** `<lab-inventory:linux-mint-replication-cost>` | burst P2 + collecte inventaire |
 
 **Ordre de grandeur durée agent** (session unique, autonome) : **~12 h horloge** · effort effectif estimé **40–80 h-agent** (batch P4 10 apps, 40 panneaux csPanel, outillage VΣ/ManΣ).
 

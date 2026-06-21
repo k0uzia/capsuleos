@@ -8,7 +8,7 @@
   "collectedAt": "2026-06-11",
   "functionalDepth": "partial",
   "vm": {
-    "host": "capsule@192.168.122.200",
+    "host": "<lab-inventory:linux-ubuntu>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "locale": "fr_FR.UTF-8",
     "desktopId": "org.gnome.Rhythmbox3.desktop"

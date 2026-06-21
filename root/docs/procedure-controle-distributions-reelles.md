@@ -127,7 +127,7 @@ Exemple :
   "hosts": [
     {
       "registryId": "linux-mint",
-      "ssh": "capsule@192.168.1.146",
+      "ssh": "<lab-inventory:linux-mint>",
       "sshIdentity": "~/.ssh/capsuleos-lab",
       "probe": "/opt/capsuleos-lab/os-probe.sh",
       "display": ":0",
@@ -135,7 +135,7 @@ Exemple :
     },
     {
       "registryId": "linux-rocky",
-      "ssh": "capsule@192.168.122.234",
+      "ssh": "<lab-inventory:linux-mint>",
       "sshIdentity": "~/.ssh/capsuleos-lab",
       "display": ":0",
       "sessionType": "wayland-xwayland",
@@ -144,7 +144,7 @@ Exemple :
     },
     {
       "registryId": "linux-fedora-kde",
-      "ssh": "user@192.168.1.103",
+      "ssh": "<lab-inventory:linux-mint>",
       "sshIdentity": "~/.ssh/capsuleos-lab",
       "probe": "/opt/capsuleos-lab/os-probe.sh",
       "display": ":0",

@@ -2,7 +2,7 @@
 
 **Objectif** : ground truth pour une reproduction **fidèle** du navigateur dans `home/Debian/Mint/` (slot `firefox`, embed `usr/share/capsuleos/linux/apps/firefox.html`).
 
-**Collecte** : SSH `capsule@192.168.1.146` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
+**Collecte** : SSH `<lab-inventory:linux-mint-firefox>` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
 
 Références : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md) · [`mint-fenetres-muffin.md`](../mint-fenetres-muffin.md) · passe #7 [`linux-mint-clone-status.md`](linux-mint-clone-status.md)
 
@@ -136,13 +136,13 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 
 ```bash
 # Inventaire Firefox dédié (JSON stdout)
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 bash -s' \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox> 'DISPLAY=:0 bash -s' \
   < root/tools/lab/vm-mint-firefox-inventory.sh > root/docs/inventaires/linux-mint-firefox-vm.json
 
 # Capture visuelle (fenêtre active)
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox> \
   'DISPLAY=:0 gnome-screenshot -w -f /tmp/ff-win.png'
-scp -i ~/.ssh/capsuleos-lab capsule@192.168.1.146:/tmp/ff-win.png root/docs/inventaires/assets/mint-firefox-vm.png
+scp -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox>:/tmp/ff-win.png root/docs/inventaires/assets/mint-firefox-vm.png
 ```
 
 Compléter par **noVNC** (comparaison côte à côte avec `home/Debian/Mint/index.html`) — voir [`contrib.md`](../../contrib.md) § comparaison VM.

@@ -845,7 +845,7 @@
   "categoryAppsMeta": {
     "source": "vm-kde-neon-discover-category-apps-inventory.sh",
     "collectedAt": "2026-06-16T12:47:04Z",
-    "vm": "goupil@192.168.123.236",
+    "vm": "<lab-inventory:linux-lab>",
     "maxPerCategory": 6
   }
 }

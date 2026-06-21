@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "generatedAt": "2026-06-16T12:47:07.758807+00:00",
-  "sshTarget": "goupil@192.168.123.236",
+  "sshTarget": "<lab-inventory:linux-kde-neon>",
   "installedIds": [
     "ark",
     "discover",

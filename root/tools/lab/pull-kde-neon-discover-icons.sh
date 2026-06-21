@@ -2,12 +2,14 @@
 # Pull icônes Discover KDE Neon depuis la VM lab (prédicats A/S/T — R-A1).
 #
 # Usage :
-#   KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/pull-kde-neon-discover-icons.sh
+#   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> bash ...
 #   bash root/tools/lab/pull-kde-neon-discover-icons.sh --verify-only
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${KDE_NEON_SSH:-goupil@192.168.123.52}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 DEST="$ROOT/usr/share/capsuleos/assets/images/vendors/neon/discover"
 SOURCE_VM="$ROOT/usr/share/capsuleos/assets/images/vendors/neon/SOURCE-VM.txt"

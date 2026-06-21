@@ -3,13 +3,14 @@
  * Cycle scénarios/captures KDE Neon — VM → Capsule → compare → smokes → baseline.
  *
  *   CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde-neon-scenarios-capture-cycle.mjs
- *   KDE_NEON_SSH=goupil@192.168.123.52 ... --write-baseline --write
+ *   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> ... --write-baseline --write
  *   ... --skip-vm
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
+import { resolveInventoryField } from './lab-inventory-resolve.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const REGISTRY_ID = 'linux-kde-neon';
@@ -39,7 +40,7 @@ const run = (label, cmd, cmdArgs = [], opts = {}) => {
 const results = [];
 
 if (!skipVm) {
-  const ssh = process.env.KDE_NEON_SSH || 'goupil@192.168.123.52';
+  const ssh = process.env.KDE_NEON_SSH || resolveInventoryField('linux-kde-neon', 'ssh');
   results.push(run(
     'VM discover-vm-100',
     'bash',

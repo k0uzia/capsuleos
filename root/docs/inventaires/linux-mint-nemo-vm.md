@@ -1,6 +1,6 @@
 # Nemo — VM Linux Mint 22.3 (sombre) → CapsuleOS
 
-**Collecte** : SSH `capsule@192.168.1.146` · [`vm-mint-nemo-inventory.sh`](../../tools/lab/vm-mint-nemo-inventory.sh) · JSON [`linux-mint-nemo-vm.json`](linux-mint-nemo-vm.json).
+**Collecte** : SSH `<lab-inventory:linux-mint-nemo>` · [`vm-mint-nemo-inventory.sh`](../../tools/lab/vm-mint-nemo-inventory.sh) · JSON [`linux-mint-nemo-vm.json`](linux-mint-nemo-vm.json).
 
 ---
 
@@ -59,7 +59,7 @@ Smoke : `node usr/lib/capsuleos/tools/lab/smoke-mint-nemo.mjs`
 ## 5. Relancer la campagne
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 bash -s' \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-nemo> 'DISPLAY=:0 bash -s' \
   < root/tools/lab/vm-mint-nemo-inventory.sh \
   > root/docs/inventaires/linux-mint-nemo-vm.json
 

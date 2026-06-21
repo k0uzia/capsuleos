@@ -6,7 +6,7 @@
   "collectedAt": "2026-06-09",
   "terminalOutputCollectedAt": "2026-06-08T14:07:17Z",
   "vm": {
-    "host": "capsule@192.168.1.146",
+    "host": "<lab-inventory:linux-mint>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "shell": "/bin/bash",
     "terminalApp": "GNOME Terminal",
@@ -360,7 +360,7 @@
   "bashrcSnapshot": {
     "path": "~/.bashrc",
     "status": "pending-vm-collect",
-    "collectCmd": "ssh capsule@192.168.1.146 'grep PS1 /etc/bash.bashrc ~/.bashrc; alias | head -20'",
+    "collectCmd": "ssh <lab-inventory:linux-mint> 'grep PS1 /etc/bash.bashrc ~/.bashrc; alias | head -20'",
     "notes": "Aligner sur collecte Ubuntu/Rocky pour Tb"
   },
   "gaps": [

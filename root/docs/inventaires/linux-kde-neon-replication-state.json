@@ -61,7 +61,7 @@
   "pallier": 4,
   "pallierStatus": "closed",
   "vm": {
-    "host": "goupil@192.168.123.236",
+    "host": "<lab-inventory:linux-kde-neon>",
     "inventory": "linux-kde-neon-vm.json",
     "inventoryCollectedAt": "2026-06-10T13:28:41Z",
     "labConfig": "etc/capsuleos/lab-inventory.json",

@@ -1,7 +1,7 @@
 # Rapport conformité clone — Linux Mint (VM ↔ CapsuleOS)
 
 **Campagne** : recette intégrale moteur de clonage · **2026-06-08T14:15:00Z**  
-**Ground truth** : `capsule@192.168.1.146` · [`linux-mint-vm.json`](linux-mint-vm.json) (`collectedAt: 2026-06-08T14:07:17Z`)  
+**Ground truth** : `<lab-inventory:linux-mint-clone-conformity>` · [`linux-mint-vm.json`](linux-mint-vm.json) (`collectedAt: 2026-06-08T14:07:17Z`)  
 **Clone** : `http://127.0.0.1:5501/home/Debian/Mint/index.html` · `registryId: linux-mint`
 
 ---

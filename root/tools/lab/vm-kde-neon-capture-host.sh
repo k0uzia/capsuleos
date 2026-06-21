@@ -28,6 +28,8 @@ if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
 fi
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 LAB_DIR="$(cd "$(dirname "$0")" && pwd)"
 KWIN_DISCOVER_JS="$LAB_DIR/kde-neon-discover-capture-kwin.js"
 DEFAULT_DEST="$ROOT/home/public/Images/screen_KDE-Neon"
@@ -128,7 +130,7 @@ while [ "${1:-}" = "--dolphin-only" ] || [ "${1:-}" = "--dolphin-views" ] || [ "
 done
 DEST="${1:-$DEFAULT_DEST}"
 VM_NAME="${KDE_NEON_VIRSH_NAME:-KDE-Neon}"
-SSH_TARGET="${KDE_NEON_SSH:-capsule@192.168.122.2}"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
 # Résolution virsh screenshot (KDE Neon lab) — coords ydotool en pixels absolus.

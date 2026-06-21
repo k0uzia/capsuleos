@@ -6,8 +6,8 @@
   "collectionMethod": "user-ipconfig-plus-lab-probe",
   "protocol": {
     "model": "direct",
-    "description": "Même protocole que linux-mint : hôte lab (192.168.1.20) → SSH direct vers la VM. Pas de ProxyJump ni relais via une autre VM.",
-    "sshUser": "Quickemu@192.168.1.149",
+    "description": "Même protocole que linux-mint : hôte lab (<lab-ip>) → SSH direct vers la VM. Pas de ProxyJump ni relais via une autre VM.",
+    "sshUser": "<lab-inventory:windows-11>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "tools": [
       "lab-ssh.mjs --id windows-11",
@@ -15,10 +15,10 @@
     ]
   },
   "connectivity": {
-    "hostIp": "192.168.1.149",
-    "gateway": "192.168.1.1",
+    "hostIp": "<lab-ip>",
+    "gateway": "<lab-ip>",
     "interfaceName": "Instance Ethernet 0 2",
-    "hypervisorHost": "192.168.1.20",
+    "hypervisorHost": "<lab-ip>",
     "pingFromHypervisorHost": false,
     "pingFromHypervisorHostError": "macvtap (interface direct enp1s0) — isolation L2 hôte↔VM sur même NIC",
     "sshDirectFromHypervisorHost": false,
@@ -34,7 +34,7 @@
     "networkMode": "macvtap bridge enp1s0 (à migrer vers bridge LAN)"
   },
   "lab": {
-    "ssh": "Quickemu@192.168.1.149",
+    "ssh": "<lab-inventory:windows-11>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "virshName": "win11_483ec3b2",
     "capsuleUrl": "http://127.0.0.1:5500/OS/windows/versions/11/index.html",
@@ -95,7 +95,7 @@
     "build exact (Paramètres → Système → À propos)"
   ],
   "gapsBlockingClone": [
-    "macvtap bloque SSH direct hôte 192.168.1.20 → VM 192.168.1.149",
+    "macvtap bloque SSH direct hôte <lab-ip> → VM <lab-ip>",
     "Clé SSH non autorisée sur compte Quickemu",
     "pull-vm-assets.sh sans branche microsoft",
     "compare-os-parity.mjs sans scénario Windows"

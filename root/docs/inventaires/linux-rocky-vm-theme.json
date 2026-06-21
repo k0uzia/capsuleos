@@ -1,7 +1,7 @@
 {
   "collectedAt": "2026-06-05T22:00:36.094Z",
   "registryId": "linux-rocky",
-  "ssh": "capsule@192.168.122.234",
+  "ssh": "<lab-inventory:linux-rocky>",
   "vm": {
     "accent": "blue",
     "colorScheme": "default",

@@ -10,7 +10,7 @@
     "json": "root/docs/inventaires/linux-mint-mintinstall-vm.json"
   },
   "vmProbe": {
-    "sshHost": "capsule@192.168.1.146",
+    "sshHost": "<lab-inventory:linux-mint>",
     "pkgOk": true,
     "campaign": "cinnamon-store-100"
   },

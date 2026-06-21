@@ -48,7 +48,7 @@ Contenu minimal : `gsettings`, labels `fr_FR`, version RPM, blockers capture, al
 Sonde SSH (ex. Alma) :
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.199 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> \
   'gsettings get org.gnome.desktop.interface accent-color'
 ```
 

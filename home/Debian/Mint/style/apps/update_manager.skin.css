@@ -200,7 +200,7 @@ main#updateManagerApp[data-um-busy="true"] .update-manager__tool {
     color: #333;
 }
 
-/* Mint-Y-Dark-Aqua (défaut bureau Mint) — VM 192.168.1.146 */
+/* Mint-Y-Dark-Aqua (défaut bureau Mint) — VM linux-mint */
 html:not([data-theme="light"]) body#mint main#updateManagerApp {
     color: rgba(255, 255, 255, 0.87);
     background: #2f2f2f;

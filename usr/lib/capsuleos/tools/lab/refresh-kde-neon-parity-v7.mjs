@@ -20,7 +20,7 @@ if (!index) {
 }
 
 index.campaign = 'v7-closure-parity';
-index.description = 'Indice Π post CredΣ + v6 dérivés + calendrier tray — VM goupil@192.168.123.52';
+index.description = 'Indice Π post CredΣ + v6 dérivés + calendrier tray — VM <lab-inventory:linux-kde-neon>
 index.roadmap = 'linux-kde-neon-roadmap-v7.md';
 
 const shellHi = { vis: 98, nav: 98, int: 98, ctx: 97, kb: 96, data: 98 };

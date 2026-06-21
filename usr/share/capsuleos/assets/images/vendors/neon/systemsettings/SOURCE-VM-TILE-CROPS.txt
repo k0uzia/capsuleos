@@ -1,4 +1,4 @@
-Crops tuiles KCM VM — 2026-06-20T22:51:23.107Z
+Crops tuiles KCM VM — 2026-06-21T00:23:22.818Z
 Source : root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/*-vm.png
 Calibration : calibrate-kde-settings-focus-offset.mjs + scan per-tile
 Procédure : node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write

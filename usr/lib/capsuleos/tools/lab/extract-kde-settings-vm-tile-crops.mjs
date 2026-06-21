@@ -19,6 +19,14 @@ const THEME_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neo
 const ABOUT_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/about');
 const write = process.argv.includes('--write');
 
+/** Gérés par source-previews/ + ingest-kde-neon-breeze-previews.py (¬crops VM). */
+const PROTECTED_THEME_PREVIEWS = new Set([
+  'hub-breeze-vm.png',
+  'hub-dark-vm.png',
+  'appearance-breeze-vm.png',
+  'appearance-dark-vm.png',
+]);
+
 const readPng = (file) => PNG.sync.read(fs.readFileSync(file));
 
 const cropWrite = (src, box, outPath) => {
@@ -82,7 +90,7 @@ const main = () => {
   const schemeBoxes = kcmGridTiles(166, 259, 216, 160, 8, schemeH).slice(0, 6);
   const pulledSchemes = pullNamed(colorsVm, schemeNames, schemeBoxes, SCHEME_DIR, 'colors-panel-vm.png');
 
-  const appearanceNames = [
+  const appearanceAll = [
     'appearance-breeze-vm.png',
     'appearance-twilight-vm.png',
     'appearance-dark-vm.png',
@@ -90,12 +98,19 @@ const main = () => {
   ];
   const appearanceOriginY = 228;
   const appearanceColW = 216;
-  const appearanceBoxes = appearanceNames.map((_, col) => ({
-    x: 163 + col * appearanceColW + 8,
-    y: appearanceOriginY,
-    width: tileW,
-    height: appearanceH,
-  }));
+  const appearanceEntries = appearanceAll
+    .map((name, col) => ({
+      name,
+      box: {
+        x: 163 + col * appearanceColW + 8,
+        y: appearanceOriginY,
+        width: tileW,
+        height: appearanceH,
+      },
+    }))
+    .filter((entry) => !PROTECTED_THEME_PREVIEWS.has(entry.name));
+  const appearanceNames = appearanceEntries.map((e) => e.name);
+  const appearanceBoxes = appearanceEntries.map((e) => e.box);
   const pulledAppearance = pullNamed(
     appearanceVm,
     appearanceNames,
@@ -104,17 +119,21 @@ const main = () => {
     'appearance-panel-vm.png',
   );
 
-  const hubNames = ['hub-breeze-vm.png', 'hub-dark-vm.png', 'hub-auto-vm.png'];
+  const hubAll = ['hub-breeze-vm.png', 'hub-dark-vm.png', 'hub-auto-vm.png'];
+  const hubNames = hubAll.filter((name) => !PROTECTED_THEME_PREVIEWS.has(name));
   const hubColW = 280;
   const hubPreviewH = 140;
   const hubPad = 10;
   const hubOrigin = { x: 200, y: 100 };
-  const hubBoxes = hubNames.map((_, i) => ({
-    x: hubOrigin.x + i * hubColW + hubPad,
-    y: hubOrigin.y + hubPad,
-    width: hubColW - hubPad * 2,
-    height: hubPreviewH,
-  }));
+  const hubBoxes = hubAll
+    .map((name, i) => ({ name, box: {
+      x: hubOrigin.x + i * hubColW + hubPad,
+      y: hubOrigin.y + hubPad,
+      width: hubColW - hubPad * 2,
+      height: hubPreviewH,
+    } }))
+    .filter((entry) => hubNames.includes(entry.name))
+    .map((entry) => entry.box);
   const pulledHub = pullNamed(hubVm, hubNames, hubBoxes, THEME_DIR, 'hub-sidebar-vm.png');
 
   const plasmaNames = [
@@ -151,6 +170,9 @@ const main = () => {
       '',
       'Hub (hub-sidebar, origin 180×140):',
       ...pulledHub.map((p) => `- ${p.out} ← ${p.source} ${JSON.stringify(p.box)}`),
+      ...(PROTECTED_THEME_PREVIEWS.size
+        ? ['', 'Protégés (source-previews Capsule, ¬crops) :', ...[...PROTECTED_THEME_PREVIEWS].sort().map((n) => `- ${n}`)]
+        : []),
       '',
       'Plasma (desktop-panel):',
       ...pulledPlasma.map((p) => `- ${p.out} ← ${p.source}`),

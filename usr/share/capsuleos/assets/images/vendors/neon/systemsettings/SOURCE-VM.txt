@@ -1,26 +1,29 @@
-Theme-previews System Settings — preview.png Plasma LookAndFeel (2026-06-20T21:24:30.881Z).
-VM : capsule@192.168.124.6
-Manifeste : root/tools/lab/kde-neon-settings-theme-previews-manifest.json
-Procédure : bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
+Theme-previews System Settings — Breeze / Breeze sombre (2026-06-21).
 
-Fichiers :
-- hub-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
-- hub-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
-- hub-auto-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png (137649 o)
-- appearance-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
-- appearance-twilight-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png (137649 o)
-- appearance-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
-- appearance-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
-- colors-breeze-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
-- colors-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
-- colors-oxygen-cold-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygenlight/contents/previews/preview.png (146400 o)
-- plasma-breeze-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
-- plasma-light-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/previews/preview.png (130337 o)
-- plasma-dark-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/contents/previews/preview.png (137400 o)
-- plasma-oxygen-vm.png ← /usr/share/plasma/look-and-feel/org.kde.oxygen/contents/previews/preview.png (145304 o)
+Sources Capsule desktop (2879×1799) :
+  usr/share/capsuleos/assets/images/vendors/neon/systemsettings/source-previews/
+  - breeze-light-capsule-desktop.png
+  - breeze-dark-capsule-desktop.png
+  Traçabilité : source-previews/SOURCE-CAPSULE-PREVIEWS.txt
+
+Dérivés theme-previews/ (cover-crop PNG optimisé) :
+- hub-breeze-vm.png — 600×337 ← breeze-light (cartes Paramétrage rapide)
+- hub-dark-vm.png — 600×337 ← breeze-dark
+- appearance-breeze-vm.png — 200×130 ← breeze-light (grille Thème global)
+- appearance-dark-vm.png — 200×130 ← breeze-dark
+- plasma-breeze-vm.png, plasma-light-vm.png — 600×337 ← breeze-light
+- plasma-dark-vm.png, colors-breeze-dark-vm.png — 600×337 ← breeze-dark
+
+Autres previews (pull VM Plasma LnF ou crops focus) :
+- hub-auto-vm.png ← org.kde.breezetwilight.desktop preview.png
+- appearance-twilight-vm.png, appearance-oxygen-vm.png ← crops VM
+- colors-oxygen-*.png, plasma-oxygen-vm.png ← pull VM
+
+Procédures :
+  bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
+  python3 root/tools/lab/ingest-kde-neon-breeze-previews.py --light … --dark …
+  node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write
+
+Manifeste : root/tools/lab/kde-neon-settings-theme-previews-manifest.json
 
 KCM Couleurs/Style Plasma rendent des previews procédurales ; Capsule réutilise preview.png LnF du paquet Plasma (ground truth packagé KDE, ¬capture).
-
-# Sidebar Paramètres — pull 2026-06-20T21:28:28.270Z (capsule@192.168.124.6)
-
-# Sidebar Paramètres — pull 2026-06-20T21:41:59.113Z (capsule@192.168.124.6)

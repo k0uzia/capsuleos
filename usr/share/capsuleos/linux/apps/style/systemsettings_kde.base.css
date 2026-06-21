@@ -231,15 +231,15 @@
 }
 
 .kde-systemsettings__theme-preview--hub-breeze {
-    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png");
+    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png");
 }
 
 .kde-systemsettings__theme-preview--hub-dark {
-    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png");
+    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png");
 }
 
 .kde-systemsettings__theme-preview--auto {
-    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png");
+    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png");
 }
 .kde-systemsettings__theme-preview--scheme-breeze-light {
     background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-breeze-light-vm.png");

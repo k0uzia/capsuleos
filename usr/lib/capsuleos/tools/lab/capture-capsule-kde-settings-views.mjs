@@ -60,7 +60,7 @@ const ensureThemesVisible = async (page) => {
 
 const waitForVmPreviewImages = async (page, panelSelector) => {
   await page.evaluate((sel) => {
-    const imgs = document.querySelectorAll(`${sel} .kde-systemsettings__theme-preview-img, ${sel} .kde-systemsettings__navicon-img`);
+    const imgs = document.querySelectorAll(`${sel} .kde-systemsettings__theme-preview-img, ${sel} .kde-systemsettings__navicon-img, ${sel} .kde-kcm-subnav__icon-img`);
     return Promise.all(
       Array.from(imgs).map(
         (img) =>
@@ -84,9 +84,14 @@ const prepareShot = async (page, shotId) => {
   }, shotId);
   if (shotId === 'appearance-panel') {
     await waitForVmPreviewImages(page, '#themes [data-kde-panel-content="lookandfeel"]');
+    await waitForVmPreviewImages(page, '#themes [data-kde-settings-surface="kcm-themes"] .kde-systemsettings__subnav--kcm');
   }
   if (shotId === 'colors-panel') {
     await waitForVmPreviewImages(page, '#themes [data-kde-panel-content="colors"]');
+    await waitForVmPreviewImages(page, '#themes [data-kde-settings-surface="kcm-themes"] .kde-systemsettings__subnav--kcm');
+  }
+  if (shotId === 'desktop-panel') {
+    await waitForVmPreviewImages(page, '#themes [data-kde-settings-surface="kcm-themes"] .kde-systemsettings__subnav--kcm');
   }
   if (shotId === 'hub-sidebar') {
     await waitForVmPreviewImages(page, '#themes .kde-systemsettings__sidebar:not(.kde-systemsettings__sidebar--kcm)');

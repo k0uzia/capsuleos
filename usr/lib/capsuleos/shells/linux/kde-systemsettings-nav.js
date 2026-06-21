@@ -74,6 +74,24 @@
         return true;
     }
 
+    /** Panneau KCM par défaut pour une entrée hub (data-kde-panel peut être hub-only, ex. appearance). */
+    function resolveKcmPanelFromHubClick(kcmView, hubPanelId) {
+        var kcmRoot = kcmEl(rootEl(), kcmView);
+        if (!kcmRoot) return null;
+        if (hubPanelId && kcmRoot.querySelector('[data-kde-panel-content="' + hubPanelId + '"]')) {
+            return hubPanelId;
+        }
+        var mapped = KCM_HUB_PANEL[kcmView];
+        if (mapped && kcmRoot.querySelector('[data-kde-panel-content="' + mapped + '"]')) {
+            return mapped;
+        }
+        if (kcmView === 'kcm-themes') {
+            return 'lookandfeel';
+        }
+        var first = kcmRoot.querySelector('[data-kde-panel-content]');
+        return first ? first.getAttribute('data-kde-panel-content') : null;
+    }
+
     function resolveNavLayout(view) {
         if (view === 'hub') return 'hub-panel';
         if (HUB_SUBNAV_KCMS[view]) return 'hub-subnav';
@@ -431,6 +449,29 @@
         );
     }
 
+    function mountKcmSubnavIconImagesForCapture(kcmRoot) {
+        if (!kcmRoot) return;
+        var subnav = kcmRoot.querySelector('.kde-systemsettings__subnav--kcm');
+        if (!subnav) return;
+        subnav.querySelectorAll('.kde-kcm-subnav__icon').forEach(function onIcon(icon) {
+            if (icon.dataset.kdeVmImgMounted) return;
+            var bg = window.getComputedStyle(icon).backgroundImage;
+            var match = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+            if (!match || !match[1] || match[1] === 'none') return;
+            icon.dataset.kdeVmImgMounted = '1';
+            icon.style.backgroundImage = 'none';
+            while (icon.firstChild) icon.removeChild(icon.firstChild);
+            var img = document.createElement('img');
+            img.className = 'kde-kcm-subnav__icon-img';
+            img.src = match[1];
+            img.alt = '';
+            img.width = 15;
+            img.height = 15;
+            img.decoding = 'sync';
+            icon.appendChild(img);
+        });
+    }
+
     function prepareShot(shotId) {
         setCaptureParity(null);
         switch (shotId) {
@@ -445,6 +486,7 @@
                 setCaptureParity('subnav-replace');
                 stripColorsSchemeActiveForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 mountColorsSchemePreviewImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
+                mountKcmSubnavIconImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 break;
             case 'kcm-keys':
             case 'shortcuts-panel':
@@ -459,6 +501,7 @@
                 setCaptureParity('subnav-replace');
                 stripLookandfeelActiveForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 mountLookandfeelVmPreviewImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
+                mountKcmSubnavIconImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 break;
             case 'hub-sidebar':
                 setView('hub');
@@ -476,6 +519,7 @@
                 setView('kcm-themes');
                 setKcmPanel(kcmEl(rootEl(), 'kcm-themes'), 'plasma-style');
                 setCaptureParity('subnav-replace');
+                mountKcmSubnavIconImagesForCapture(kcmEl(rootEl(), 'kcm-themes'));
                 break;
             case 'workspace-panel':
                 setView('hub');
@@ -533,6 +577,7 @@
         });
         var root = rootEl();
         if (root) {
+            root.dataset.activeKdePanel = panelId;
             syncHubSidebarHighlight(root.dataset.kdeSettingsView || '');
         }
         updateWindowTitle();
@@ -551,19 +596,12 @@
                     var kcm = btn.getAttribute('data-kde-open-kcm');
                     if (kcm) {
                         var panelId = btn.getAttribute('data-kde-panel');
-                        if (panelId) root.dataset.activeKdePanel = panelId;
-                        var alreadyInKcm = root.dataset.kdeSettingsView === kcm;
                         setView(kcm);
                         var kcmRoot = kcmEl(root, kcm);
-                        if (kcmRoot && !alreadyInKcm) {
-                            var hubPanel = KCM_HUB_PANEL[kcm];
-                            var kcmPanel = hubPanel && kcmRoot.querySelector('[data-kde-panel-content="' + hubPanel + '"]')
-                                ? hubPanel
-                                : panelId;
-                            if (kcmPanel && kcmRoot.querySelector('[data-kde-panel-content="' + kcmPanel + '"]')) {
+                        if (kcmRoot) {
+                            var kcmPanel = resolveKcmPanelFromHubClick(kcm, panelId);
+                            if (kcmPanel) {
                                 setKcmPanel(kcmRoot, kcmPanel);
-                            } else if (kcm === 'kcm-themes') {
-                                setKcmPanel(kcmRoot, 'lookandfeel');
                             }
                         }
                         return;

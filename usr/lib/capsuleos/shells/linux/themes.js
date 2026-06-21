@@ -355,6 +355,10 @@ function activateKdeSettingsPanel(root, panelId) {
     if (!root) {
         return;
     }
+    const view = root.dataset.kdeSettingsView || 'hub';
+    if (view !== 'hub') {
+        return;
+    }
     const hub = root.querySelector('[data-kde-settings-surface="hub"]');
     if (!hub) {
         return;

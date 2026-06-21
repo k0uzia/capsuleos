@@ -1,6 +1,6 @@
 {
-  "hash": "b011e25d807f8907b7ed89f6e104736b6bcb0509233488fd089051c015491e06",
+  "hash": "e1cf21d6bfb0dd06c77063a8061b953929a52b4785ab40587d91f1add233a541",
   "fileCount": 481,
-  "generatedAt": "2026-06-21T00:12:30.307Z",
+  "generatedAt": "2026-06-21T00:53:41.937Z",
   "builder": "usr/lib/capsuleos/tools/linux/build-linux-embed.mjs"
 }

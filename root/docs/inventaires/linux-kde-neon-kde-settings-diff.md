@@ -46,9 +46,9 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 |---|--------|-----------------|-------------|----------------|--------|
 | 1 | `kcm-display-config` | `kcm-display` | 91.2 | — | ✅ |
 | 2 | `hub-sidebar` | hub Paramétrage | — | sidebar **86.5** ✅ · theme-previews **91.5** ✅ · quick-settings **92.2** ✅ | ✅ |
-| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | toolbar **89.1** ✅ · kcm-sidebar **87.4** · theme-grid **90.7** ✅ | ⚠ subnav |
+| 3 | `appearance-panel` | `kcm-themes` / lookandfeel | — | kcm-sidebar **89.5** ✅ · theme-grid **90.7** ✅ · toolbar **89.1** ✅ | ✅ |
 | 4 | `accessibility-panel` | `kcm-access` | — | content **90.0** ✅ | ✅ |
-| 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **86.7** | ⚠ subnav |
+| 5 | `desktop-panel` | `kcm-themes` / plasma-style | — | plasma-grid **92.7** ✅ · kcm-sidebar **87.5** (plafond) | ⚠ subnav |
 | 6 | `workspace-panel` | hub workspace | 89.8 | — | ⚠ proche |
 | 7 | `notifications-panel` | hub notifications | 89.8 | — | ⚠ proche |
 | 8 | `applications-panel` | `kcm-applications` | 91.1 | — | ✅ |
@@ -62,8 +62,8 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 | `hub-sidebar/sidebar` | 86.5 | 85 | Capture `hub-sidebar` : icônes `<img>` + `margin-top: 4.25rem` sur nav native |
 | `hub-sidebar/theme-previews` | 91.5 | 88 | Capture `<img>` VM hub + `margin-top: 0.6rem` (calibrate 2D dy +12) |
 | `appearance-panel/theme-grid` | 83.7 | 90 | Capture LnF `<img>` crops VM + translateX voie B ; twilight ~73 % |
-| `colors-panel/colors-grid` | 85.7 | 88 | Gap letterbox 2.85 rem + marge −2.875 rem ; voie B plafond per-colonne |
-| `*/kcm-sidebar` (capture) | 86.9–87.0 | 88 | Densité subnav Qt — polish padding capture |
+| `colors-panel/colors-grid` | 85.7 | 88 | Plafond voie B ; **extract-vm-tile-crops --write** OK · pull `.colors` régresse (66.6) |
+| `*/kcm-sidebar` (capture) | 89.5 / 87.5 | 88 | Subnav img + margin capture ; appearance ✅ · desktop plafond |
 
 Outil voie B colors-grid :
 
@@ -203,8 +203,8 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | accessibility | 90.0 | 90 | ✅ |
 | toolbar | 89.1 | 88 | ✅ |
 | accent-row | 85.7 | 85 | ✅ |
-| colors-grid | 85.7 | 88 | Plafond voie B |
-| kcm-sidebar | 86.9 | 88 | Plafond subnav capture |
+| colors-grid | 85.7 | 88 | Plafond — crops VM screenshot (extract --write) |
+| kcm-sidebar | 89.5 / 87.5 | 88 | Appearance ✅ · desktop plafond |
 | theme-previews | 91.5 | 88 | ✅ capture img VM hub |
 | theme-grid | 90.7 | 90 | ✅ calibrage 2D + voie B per-tuile (2026-06-21) |
 | hub sidebar | 86.5 | 85 | ✅ capture parity + icônes img |

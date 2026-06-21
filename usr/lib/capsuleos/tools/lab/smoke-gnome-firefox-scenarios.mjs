@@ -264,6 +264,72 @@ const scenarioF6 = async (page, errors) => {
   }
 };
 
+const scenarioF7 = async (page, errors) => {
+  await openFirefox(page);
+  await page.fill('[data-firefox-gnome-address]', 'linuxmint.com');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 500);
+  await page.fill('[data-firefox-gnome-address]', 'lacapsule.org');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 500);
+
+  let ds = await readFirefoxDataset(page);
+  if (ds.firefoxGnomeCanGoBack !== 'true') {
+    errors.push('F7 : retour attendu actif après deux navigations');
+  }
+
+  await page.click('[data-browser-action="back"]');
+  await sleep(page, 450);
+  const afterBack = await page.evaluate(() => ({
+    address: document.querySelector('[data-firefox-gnome-address]')?.value || '',
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+    canForward: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeCanGoForward,
+  }));
+  if (!String(afterBack.address).includes('linuxmint') && !String(afterBack.frameSrc).includes('linuxmint')) {
+    errors.push(`F7 : retour vers linuxmint attendu, adresse « ${afterBack.address} » frame « ${afterBack.frameSrc} »`);
+  }
+  if (afterBack.canForward !== 'true') {
+    errors.push('F7 : avant attendu actif après retour');
+  }
+
+  await page.click('[data-browser-action="forward"]');
+  await sleep(page, 450);
+  const afterForward = await page.evaluate(() => ({
+    address: document.querySelector('[data-firefox-gnome-address]')?.value || '',
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+  }));
+  if (!String(afterForward.address).includes('lacapsule') && !String(afterForward.frameSrc).includes('lacapsule')) {
+    errors.push(`F7 : avant vers lacapsule attendu, adresse « ${afterForward.address} »`);
+  }
+};
+
+const scenarioF8 = async (page, errors) => {
+  await openFirefox(page);
+  await page.fill('[data-firefox-gnome-address]', 'mint');
+  await page.press('[data-firefox-gnome-address]', 'Enter');
+  await sleep(page, 650);
+
+  const serpVisible = await page.evaluate(() => !!document.querySelector('[data-browser-redirect]:not([hidden])'));
+  if (!serpVisible) {
+    errors.push('F8 : SERP non visible');
+  }
+
+  await page.frameLocator('[data-browser-redirect-frame]').locator('[data-capsule-web-nav="linuxmint.com"]').click();
+  await sleep(page, 650);
+
+  const state = await page.evaluate(() => ({
+    view: document.querySelector('[data-firefox-gnome-root]')?.dataset?.firefoxGnomeView,
+    frameSrc: document.querySelector('[data-browser-redirect-frame]')?.src || '',
+    address: document.querySelector('[data-firefox-gnome-address]')?.value || '',
+  }));
+  if (state.view !== 'web') {
+    errors.push(`F8 : vue web attendue après clic SERP, obtenu « ${state.view} »`);
+  }
+  if (!String(state.frameSrc).includes('linuxmint')) {
+    errors.push(`F8 : iframe linuxmint attendue, obtenu « ${state.frameSrc} »`);
+  }
+};
+
 const SCENARIOS = {
   F1: scenarioF1,
   F2: scenarioF2,
@@ -271,6 +337,8 @@ const SCENARIOS = {
   F4: scenarioF4,
   F5: scenarioF5,
   F6: scenarioF6,
+  F7: scenarioF7,
+  F8: scenarioF8,
 };
 
 const smokeMintAntiRegression = async (page, errors) => {

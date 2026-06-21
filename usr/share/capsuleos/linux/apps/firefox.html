@@ -128,5 +128,26 @@
       </section>
 
       <section class="capsule-browser-site" data-browser-site hidden></section>
+
+      <aside class="capsule-browser-panel" data-browser-panel="history" hidden aria-labelledby="capsule-firefox-history-heading">
+        <header class="capsule-browser-panel__header">
+          <h2 id="capsule-firefox-history-heading" class="capsule-browser-panel__title" data-capsule-text="firefox.panelHistoryTitle">Historique</h2>
+          <button type="button" class="capsule-browser-panel__close" data-browser-panel-close data-capsule-attr="aria-label:firefox.panelCloseAria" aria-label="Fermer">×</button>
+        </header>
+        <div class="capsule-browser-panel__body" data-browser-history-list role="list"></div>
+      </aside>
+
+      <aside class="capsule-browser-panel" data-browser-panel="downloads" hidden aria-labelledby="capsule-firefox-downloads-heading">
+        <header class="capsule-browser-panel__header">
+          <h2 id="capsule-firefox-downloads-heading" class="capsule-browser-panel__title" data-capsule-text="firefox.panelDownloadsTitle">Téléchargements</h2>
+          <button type="button" class="capsule-browser-panel__close" data-browser-panel-close data-capsule-attr="aria-label:firefox.panelCloseAria" aria-label="Fermer">×</button>
+        </header>
+        <ul class="capsule-browser-panel__downloads" data-browser-downloads-list role="list">
+          <li class="capsule-browser-panel__download">
+            <span class="capsule-browser-panel__download-name" data-capsule-text="firefox.downloadDemoName">guide-capsuleos-simulation.pdf</span>
+            <span class="capsule-browser-panel__download-meta" data-capsule-text="firefox.downloadDemoSize">248 Ko</span>
+          </li>
+        </ul>
+      </aside>
     </main>
   </section>

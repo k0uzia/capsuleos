@@ -52,7 +52,8 @@
     "multiTab": true,
     "addressNavigation": true,
     "bookmarkNavigation": true,
-    "historyBackForward": "disabled without history (VM Proton)",
+    "historyBackForward": true,
+    "serpIframeBridge": true,
     "capsuleOsLaCapsuleRedirect": true
   },
   "capsule": {
@@ -64,7 +65,7 @@
     "templateHtml": "usr/share/capsuleos/linux/apps/firefox.html",
     "kernelJs": "usr/lib/capsuleos/shells/linux/firefoxBrowser.js",
     "scenarioContract": "etc/capsuleos/contracts/firefox-user-scenarios.json",
-    "scenarioIds": ["F1", "F2", "F3", "F4"]
+    "scenarioIds": ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8"]
   },
   "scenarios": {
     "F1": { "status": "pass", "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F1" },

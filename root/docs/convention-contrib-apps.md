@@ -113,3 +113,14 @@ Script lab : `bash root/tools/lab/pull-firefox-vm-assets.sh --id linux-mint`
 | `toolkits/firefox/newtab/` | tuiles sponsorisées + favicons sites | Contile FR + fetch VM |
 
 Ne pas inventer de SVG placeholder : les gabarits CSS pointent vers ce pack partagé.
+
+## 9. Navigation interne (web simulé ↔ Firefox)
+
+| Id | Règle |
+|----|-------|
+| **R-WEB-NAV1** | Liens relatifs (`?page=`, `./`) restent dans l'iframe du site courant |
+| **R-WEB-NAV2** | Hosts indexés (`data-capsule-web-nav` ou URL absolue) → `postMessage` parent `{ type: 'capsule:web-navigate', href }` |
+| **R-WEB-NAV3** | Script partagé `usr/share/capsuleos/web/_shared/site-nav.js` inclus dans chaque mock |
+| **R-WEB-NAV4** | Kernel : `firefox-iframe-bridge.js` + historique onglet dans `firefoxBrowser.js` — pas de hardcode host |
+
+Pont : [`firefox-iframe-bridge.js`](../../usr/lib/capsuleos/shells/linux/firefox-iframe-bridge.js) · [`site-nav.js`](../../usr/share/capsuleos/web/_shared/site-nav.js)

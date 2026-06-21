@@ -51,6 +51,7 @@ const SPDX_REQUIRED = [
   'usr/lib/capsuleos/tools/validate-contrib-packages.mjs',
   'usr/lib/capsuleos/shells/linux/simulatedWebResolver.js',
   'usr/lib/capsuleos/shells/linux/capsule-mnt-bridge.js',
+  'usr/lib/capsuleos/shells/linux/firefox-iframe-bridge.js',
 ];
 
 const hasSpdxHeader = (content) =>

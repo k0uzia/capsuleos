@@ -99,6 +99,38 @@
       "labelFr": "Google"
     }
   },
+  "sites": {
+    "lacapsule": {
+      "favicon": "toolkits/firefox/newtab/google-g.png"
+    },
+    "linuxmint": {
+      "favicon": "toolkits/firefox/newtab/wikipedia.ico"
+    },
+    "wikipedia-fr": {
+      "favicon": "toolkits/firefox/newtab/wikipedia.ico"
+    },
+    "amazon-fr": {
+      "favicon": "toolkits/firefox/newtab/amazon.jpg"
+    },
+    "temu": {
+      "favicon": "toolkits/firefox/newtab/temu.jpg"
+    },
+    "youtube": {
+      "favicon": "toolkits/firefox/newtab/youtube.ico"
+    },
+    "reddit": {
+      "favicon": "toolkits/firefox/newtab/reddit.ico"
+    },
+    "aliexpress-fr": {
+      "favicon": "toolkits/firefox/newtab/aliexpress.jpg"
+    },
+    "lemonde": {
+      "favicon": "toolkits/firefox/newtab/lemonde.ico"
+    },
+    "search-google": {
+      "favicon": "toolkits/firefox/newtab/google-g.png"
+    }
+  },
   "modules": {
     "linux-bases": {
       "type": "mnt",

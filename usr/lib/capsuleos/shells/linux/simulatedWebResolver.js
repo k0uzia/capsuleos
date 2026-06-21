@@ -69,6 +69,27 @@
         return '../../../usr/share/capsuleos/web';
     }
 
+    function assetRootPath() {
+        const appsBase = global.CAPSULE_APPS_BASE || '../../../usr/share/capsuleos/linux/apps';
+        if (String(appsBase).indexOf('linux/apps') >= 0) {
+            return String(appsBase).replace(/linux\/apps\/?$/, 'assets/images');
+        }
+        return '../../../usr/share/capsuleos/assets/images';
+    }
+
+    function assetUrl(relativePath) {
+        const rel = String(relativePath || '').replace(/^\/+/, '');
+        if (!rel) {
+            return '';
+        }
+        if (typeof global.location !== 'undefined' && global.location.protocol
+            && global.location.protocol.indexOf('http') === 0) {
+            return '/usr/share/capsuleos/assets/images/' + rel.replace(/^assets\/images\//, '');
+        }
+        const root = assetRootPath().replace(/\/$/, '');
+        return root + '/' + rel.replace(/^assets\/images\//, '');
+    }
+
     function webPageUrl(siteId, params) {
         const id = String(siteId || '').trim();
         if (!id) {
@@ -86,6 +107,30 @@
 
         const root = webRootPath().replace(/\/$/, '');
         return root + '/' + id + '/index.html' + suffix;
+    }
+
+    function faviconUrlForSiteId(siteId) {
+        const id = String(siteId || '').trim();
+        if (!id) {
+            return '';
+        }
+        const index = getIndex();
+        const sites = index.sites || {};
+        const entry = sites[id];
+        if (entry && entry.favicon) {
+            return assetUrl(entry.favicon);
+        }
+        const shortcuts = index.shortcuts || {};
+        let shortcutKey = null;
+        Object.keys(shortcuts).forEach((key) => {
+            if (shortcuts[key] && shortcuts[key].siteId === id) {
+                shortcutKey = key;
+            }
+        });
+        if (shortcutKey && sites[shortcutKey] && sites[shortcutKey].favicon) {
+            return assetUrl(sites[shortcutKey].favicon);
+        }
+        return '';
     }
 
     function resolveMntUri(value) {
@@ -215,6 +260,8 @@
         isHomeTarget,
         looksLikeSearchQuery,
         webPageUrl,
+        assetUrl,
+        faviconUrlForSiteId,
         resolveShortcut,
         resolveInput,
     };

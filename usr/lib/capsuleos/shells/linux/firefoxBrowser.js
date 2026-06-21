@@ -63,6 +63,12 @@ function syncFirefoxGnomeDataset(browserRoot) {
         node.dataset.firefoxGnomeActiveTabId = session.activeTabId || '';
         node.dataset.firefoxGnomeBookmarksVisible = session.bookmarksVisible ? 'true' : 'false';
         node.dataset.firefoxGnomeChrome = 'proton';
+        if (activeTab && activeTab.history) {
+            node.dataset.firefoxGnomeCanGoBack = activeTab.historyIndex > 0 ? 'true' : 'false';
+            node.dataset.firefoxGnomeCanGoForward = activeTab.historyIndex < activeTab.history.length - 1
+                ? 'true'
+                : 'false';
+        }
     });
 }
 
@@ -147,6 +153,9 @@ function initFirefoxBrowser() {
     const newtabForm = browserRoot.querySelector('[data-browser-newtab-form]');
     const newtabInput = browserRoot.querySelector('[data-browser-newtab-input]');
     const newtabShortcuts = browserRoot.querySelector('.capsule-browser-newtab__shortcuts');
+    const panelHistory = browserRoot.querySelector('[data-browser-panel="history"]');
+    const panelDownloads = browserRoot.querySelector('[data-browser-panel="downloads"]');
+    const historyList = browserRoot.querySelector('[data-browser-history-list]');
 
     const btnHomes = browserRoot.querySelectorAll('[data-browser-action="home"]');
     const btnReload = browserRoot.querySelector('[data-browser-action="reload"]');
@@ -172,16 +181,41 @@ function initFirefoxBrowser() {
         ? window.CapsuleSimulatedWebResolver
         : null;
 
+    function makeHomeEntry() {
+        return {
+            view: 'home',
+            address: '',
+            label: defaultTabLabel,
+            resolution: null,
+        };
+    }
+
+    function createTabState(id) {
+        const entry = makeHomeEntry();
+        return {
+            id: id,
+            label: defaultTabLabel,
+            view: 'home',
+            address: '',
+            resolution: null,
+            history: [entry],
+            historyIndex: 0,
+        };
+    }
+
     const state = {
         tabCounter: 1,
         activeTabId: 'tab-1',
         bookmarksVisible: false,
-        tabs: [{
-            id: 'tab-1',
-            label: defaultTabLabel,
-            view: 'home',
-            address: ''
-        }]
+        openPanel: null,
+        sessionHistory: [],
+        demoDownloads: [{
+            id: 'demo-1',
+            name: capsuleStr('firefox.downloadDemoName', 'guide-capsuleos-simulation.pdf'),
+            size: capsuleStr('firefox.downloadDemoSize', '248 Ko'),
+            state: 'complete',
+        }],
+        tabs: [createTabState('tab-1')],
     };
 
     function normalizeInput(value) {
@@ -189,17 +223,6 @@ function initFirefoxBrowser() {
             return resolver.normalizeInput(value);
         }
         return String(value || '').trim();
-    }
-
-    function normalizeUrlHost(value) {
-        if (resolver && typeof resolver.normalizeUrlHost === 'function') {
-            return resolver.normalizeUrlHost(value);
-        }
-        let host = normalizeInput(value).toLowerCase();
-        host = host.replace(/^https?:\/\//, '');
-        host = host.replace(/\/.*$/, '');
-        host = host.replace(/^www\./, '');
-        return host;
     }
 
     function isHomeTarget(value) {
@@ -251,12 +274,26 @@ function initFirefoxBrowser() {
         status.textContent = message;
     }
 
+    function setLoading(loading) {
+        browserRoot.dataset.browserLoading = loading ? 'true' : 'false';
+        btnReload.classList.toggle('capsule-browser__btn--loading', !!loading);
+        btnReload.disabled = !!loading;
+    }
+
     function tabLabelForView(view, address, resolution) {
         if (resolution && resolution.type === 'mnt' && resolution.label) {
             return resolution.label;
         }
         if (view === 'web' && resolution && resolution.siteId === 'lacapsule') {
             return capsuleStr('firefox.tabOsLaCapsuleLabel', 'La Capsule');
+        }
+        if (view === 'web' && resolution && resolution.siteId === 'search-google') {
+            const q = resolution.url && resolution.url.indexOf('q=') >= 0
+                ? decodeURIComponent((resolution.url.split('q=')[1] || '').split('&')[0])
+                : '';
+            return q
+                ? capsuleStrFmt('firefox.tabSearchLabel', { query: q }, 'Recherche : ' + q)
+                : capsuleStr('firefox.tabSearchDefault', 'Recherche Google');
         }
         if (view === 'web' && address && !isHomeTarget(address)) {
             return address;
@@ -265,6 +302,40 @@ function initFirefoxBrowser() {
             return address;
         }
         return defaultTabLabel;
+    }
+
+    function resolutionToEntry(resolution) {
+        if (!resolution || resolution.type === 'home') {
+            return makeHomeEntry();
+        }
+        if (resolution.type === 'web') {
+            const address = resolution.address || resolution.siteId || '';
+            return {
+                view: 'web',
+                address: address,
+                label: tabLabelForView('web', address, resolution),
+                resolution: resolution,
+            };
+        }
+        if (resolution.type === 'mnt') {
+            const address = resolution.moduleId || '';
+            return {
+                view: 'module',
+                address: address,
+                label: tabLabelForView('module', address, resolution),
+                resolution: resolution,
+            };
+        }
+        if (resolution.type === 'error') {
+            const address = resolution.address || '';
+            return {
+                view: 'error',
+                address: address,
+                label: tabLabelForView('error', address, resolution),
+                resolution: resolution,
+            };
+        }
+        return makeHomeEntry();
     }
 
     function switchView(view) {
@@ -298,85 +369,24 @@ function initFirefoxBrowser() {
         addressInput.value = address;
     }
 
-    function applyActiveTabToUi() {
+    function syncNavButtons() {
         const tab = getActiveTab();
-        if (!tab) {
-            return;
-        }
-        switchView(tab.view);
-        syncAddressInput(tab.address);
-        if (tab.view === 'web' || tab.view === 'error') {
-            const targetUrl = tab.resolution && tab.resolution.url
-                ? tab.resolution.url
-                : '';
-            if (targetUrl && redirectFrame.src !== targetUrl) {
-                redirectFrame.src = targetUrl;
-            }
-        }
-        if (tab.view === 'module') {
-            redirectFrame.src = 'about:blank';
-        }
-        renderTabs();
-        syncFirefoxGnomeDataset(browserRoot);
+        const canBack = !!(tab && tab.history && tab.historyIndex > 0);
+        const canForward = !!(tab && tab.history && tab.historyIndex < tab.history.length - 1);
+        btnBack.disabled = !canBack;
+        btnForward.disabled = !canForward;
     }
 
-    function persistActiveTab(view, address, label, resolution) {
-        const tab = getActiveTab();
-        if (!tab) {
-            return;
-        }
-        tab.view = view;
-        tab.address = address || '';
-        tab.resolution = resolution || null;
-        tab.label = label || tabLabelForView(view, tab.address, resolution);
-        applyActiveTabToUi();
-    }
-
-    function showHome(message) {
-        persistActiveTab('home', '', defaultTabLabel, null);
-        if (message) {
-            setStatus(message);
-        } else {
-            setStatus('');
-        }
-    }
-
-    function showWebPage(resolution, message) {
-        const address = resolution.address || resolution.siteId || '';
-        persistActiveTab('web', address, tabLabelForView('web', address, resolution), resolution);
-        setStatus(
-            message || capsuleStr('firefox.statusWebLoading', 'Chargement de la page…')
-        );
-        redirectFrame.src = resolution.url || '';
-    }
-
-    function showErrorPage(resolution, message) {
-        const address = resolution.address || '';
-        persistActiveTab('error', address, tabLabelForView('error', address, resolution), resolution);
-        setStatus(message || '');
-        redirectFrame.src = resolution.url || '';
-    }
-
-    function showModulePage(resolution, message) {
-        const address = resolution.moduleId || '';
-        persistActiveTab('module', address, tabLabelForView('module', address, resolution), resolution);
-        setStatus(
-            message || capsuleStrFmt(
-                'firefox.statusMntOpen',
-                { label: resolution.label || resolution.moduleId },
-                'Ouverture du module pédagogique…'
-            )
-        );
-        redirectFrame.src = 'about:blank';
-        renderModulePanel(resolution);
-        if (typeof document !== 'undefined') {
-            document.dispatchEvent(new CustomEvent('capsule:open-mnt-scenario', {
-                detail: {
-                    moduleId: resolution.moduleId,
-                    scenarioId: resolution.scenarioId,
-                    path: resolution.path,
-                },
-            }));
+    function recordSessionHistory(tab, entry) {
+        state.sessionHistory.push({
+            tabId: tab.id,
+            view: entry.view,
+            address: entry.address,
+            label: entry.label,
+            ts: Date.now(),
+        });
+        if (state.sessionHistory.length > 80) {
+            state.sessionHistory.shift();
         }
     }
 
@@ -391,6 +401,7 @@ function initFirefoxBrowser() {
         const modules = index.modules || {};
         const entry = modules[resolution.moduleId] || {};
         const label = resolution.label || entry.labelFr || resolution.moduleId || '';
+
         const article = document.createElement('article');
         article.className = 'capsule-browser-site__page capsule-browser-site__page--mnt';
         article.setAttribute('data-browser-mnt-module', resolution.moduleId || '');
@@ -420,24 +431,120 @@ function initFirefoxBrowser() {
         siteView.appendChild(article);
     }
 
+    function applyEntryToTab(tab, entry, options) {
+        const opts = options || {};
+        tab.view = entry.view;
+        tab.address = entry.address || '';
+        tab.resolution = entry.resolution || null;
+        tab.label = entry.label || defaultTabLabel;
+
+        switchView(tab.view);
+        syncAddressInput(tab.address);
+
+        if (tab.view === 'web' || tab.view === 'error') {
+            const targetUrl = tab.resolution && tab.resolution.url ? tab.resolution.url : '';
+            if (targetUrl) {
+                setLoading(true);
+                if (redirectFrame.src !== targetUrl) {
+                    redirectFrame.src = targetUrl;
+                } else {
+                    setLoading(false);
+                }
+            }
+        } else if (tab.view === 'module') {
+            redirectFrame.src = 'about:blank';
+            setLoading(false);
+            renderModulePanel(tab.resolution);
+            if (tab.resolution && typeof document !== 'undefined') {
+                document.dispatchEvent(new CustomEvent('capsule:open-mnt-scenario', {
+                    detail: {
+                        moduleId: tab.resolution.moduleId,
+                        scenarioId: tab.resolution.scenarioId,
+                        path: tab.resolution.path,
+                    },
+                }));
+            }
+        } else {
+            redirectFrame.src = 'about:blank';
+            setLoading(false);
+        }
+
+        if (opts.message) {
+            setStatus(opts.message);
+        }
+
+        renderTabs();
+        syncNavButtons();
+        renderHistoryPanel();
+        syncFirefoxGnomeDataset(browserRoot);
+    }
+
+    function pushNavigation(resolution, message) {
+        const tab = getActiveTab();
+        if (!tab) {
+            return;
+        }
+        const entry = resolutionToEntry(resolution);
+        if (tab.historyIndex < tab.history.length - 1) {
+            tab.history = tab.history.slice(0, tab.historyIndex + 1);
+        }
+        tab.history.push(entry);
+        tab.historyIndex = tab.history.length - 1;
+        recordSessionHistory(tab, entry);
+        applyEntryToTab(tab, entry, { message: message });
+    }
+
+    function applyActiveTabToUi() {
+        const tab = getActiveTab();
+        if (!tab || !tab.history || tab.history.length === 0) {
+            return;
+        }
+        const entry = tab.history[tab.historyIndex] || tab.history[0];
+        applyEntryToTab(tab, entry, {});
+    }
+
+    function goBack() {
+        const tab = getActiveTab();
+        if (!tab || tab.historyIndex <= 0) {
+            return;
+        }
+        tab.historyIndex -= 1;
+        applyEntryToTab(tab, tab.history[tab.historyIndex], {});
+        setStatus('');
+    }
+
+    function goForward() {
+        const tab = getActiveTab();
+        if (!tab || tab.historyIndex >= tab.history.length - 1) {
+            return;
+        }
+        tab.historyIndex += 1;
+        applyEntryToTab(tab, tab.history[tab.historyIndex], {});
+        setStatus('');
+    }
+
     function applyNavigation(resolution, message) {
         if (!resolution || resolution.type === 'home') {
-            showHome(message || capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
+            pushNavigation({ type: 'home' }, message || capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
             return;
         }
         if (resolution.type === 'web') {
-            showWebPage(resolution, message);
+            pushNavigation(resolution, message || capsuleStr('firefox.statusWebLoading', 'Chargement de la page…'));
             return;
         }
         if (resolution.type === 'mnt') {
-            showModulePage(resolution, message);
+            pushNavigation(resolution, message || capsuleStrFmt(
+                'firefox.statusMntOpen',
+                { label: resolution.label || resolution.moduleId },
+                'Ouverture du module pédagogique…'
+            ));
             return;
         }
         if (resolution.type === 'error') {
-            showErrorPage(resolution, message);
+            pushNavigation(resolution, message || '');
             return;
         }
-        showErrorPage({
+        pushNavigation({
             type: 'error',
             address: '',
             url: resolver ? resolver.webPageUrl('neterror') : '',
@@ -446,6 +553,16 @@ function initFirefoxBrowser() {
 
     function navigateFromInput(rawValue, message) {
         applyNavigation(resolveNavigation(rawValue), message);
+    }
+
+    function faviconStyleForTab(tab) {
+        if (!tab || !tab.resolution || tab.resolution.type !== 'web' || !tab.resolution.siteId) {
+            return '';
+        }
+        if (resolver && typeof resolver.faviconUrlForSiteId === 'function') {
+            return resolver.faviconUrlForSiteId(tab.resolution.siteId);
+        }
+        return '';
     }
 
     function renderTabs() {
@@ -465,7 +582,12 @@ function initFirefoxBrowser() {
             }
 
             const icon = document.createElement('span');
-            icon.className = 'capsule-browser__tab-icon capsule-browser__tab-icon--firefox';
+            const favicon = faviconStyleForTab(tab);
+            icon.className = 'capsule-browser__tab-icon capsule-browser__tab-icon--firefox'
+                + (favicon ? ' capsule-browser__tab-icon--site' : '');
+            if (favicon) {
+                icon.style.backgroundImage = 'url("' + favicon + '")';
+            }
             icon.setAttribute('aria-hidden', 'true');
 
             const label = document.createElement('span');
@@ -486,6 +608,44 @@ function initFirefoxBrowser() {
         });
     }
 
+    function renderHistoryPanel() {
+        if (!historyList) {
+            return;
+        }
+        historyList.replaceChildren();
+        const items = state.sessionHistory.slice().reverse();
+        if (!items.length) {
+            const empty = document.createElement('p');
+            empty.className = 'capsule-browser-panel__empty';
+            empty.textContent = capsuleStr('firefox.historyEmpty', 'Aucune entrée dans l’historique de session.');
+            historyList.appendChild(empty);
+            return;
+        }
+        items.forEach((item, index) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'capsule-browser-panel__item';
+            btn.setAttribute('data-browser-history-index', String(state.sessionHistory.length - 1 - index));
+            btn.textContent = item.label || item.address || defaultTabLabel;
+            historyList.appendChild(btn);
+        });
+    }
+
+    function togglePanel(name) {
+        const next = state.openPanel === name ? null : name;
+        state.openPanel = next;
+        if (panelHistory) {
+            panelHistory.hidden = next !== 'history';
+        }
+        if (panelDownloads) {
+            panelDownloads.hidden = next !== 'downloads';
+        }
+        browserRoot.dataset.browserOpenPanel = next || '';
+        if (next === 'history') {
+            renderHistoryPanel();
+        }
+    }
+
     function activateTab(tabId) {
         state.activeTabId = tabId;
         applyActiveTabToUi();
@@ -494,19 +654,14 @@ function initFirefoxBrowser() {
     function addTab() {
         state.tabCounter += 1;
         const tabId = 'tab-' + String(state.tabCounter);
-        state.tabs.push({
-            id: tabId,
-            label: defaultTabLabel,
-            view: 'home',
-            address: ''
-        });
+        state.tabs.push(createTabState(tabId));
         activateTab(tabId);
         setStatus('');
     }
 
     function closeTab(tabId) {
         if (state.tabs.length <= 1) {
-            showHome('');
+            pushNavigation({ type: 'home' }, '');
             return;
         }
 
@@ -533,6 +688,44 @@ function initFirefoxBrowser() {
         renderTabs();
     }
 
+    function frameUrlWithCacheBust(url) {
+        if (!url) {
+            return url;
+        }
+        const sep = url.indexOf('?') >= 0 ? '&' : '?';
+        return url + sep + '_capsule=' + String(Date.now());
+    }
+
+    function reloadActiveTab() {
+        const tab = getActiveTab();
+        if (tab && (tab.view === 'web' || tab.view === 'error') && tab.resolution) {
+            setLoading(true);
+            redirectFrame.src = frameUrlWithCacheBust(tab.resolution.url || '');
+            setStatus(capsuleStr('firefox.statusWebReloaded', 'Page rechargée.'));
+            return;
+        }
+        if (tab && tab.view === 'module' && tab.resolution) {
+            applyEntryToTab(tab, tab.history[tab.historyIndex], {});
+            return;
+        }
+        applyEntryToTab(tab, makeHomeEntry(), {
+            message: capsuleStr('firefox.statusHomeReloaded', 'Page Accueil rechargee.'),
+        });
+    }
+
+    function quitFirefoxWindow() {
+        const win = browserRoot.closest('.windowElement') || document.getElementById('firefox');
+        const closeBtn = win && win.querySelector('#closeBtn');
+        if (closeBtn) {
+            closeBtn.click();
+            return;
+        }
+        if (win) {
+            win.style.display = 'none';
+            win.classList.remove('windowElementActive');
+        }
+    }
+
     function setBookmarksVisible(visible) {
         state.bookmarksVisible = visible;
         bookmarksBar.hidden = !visible;
@@ -542,6 +735,10 @@ function initFirefoxBrowser() {
         }
         syncFirefoxGnomeDataset(browserRoot);
     }
+
+    browserRoot.__capsuleFirefoxNavigate = function capsuleFirefoxNavigate(href) {
+        navigateFromInput(href, '');
+    };
 
     form.addEventListener('submit', function onAddressSubmit(event) {
         event.preventDefault();
@@ -557,33 +754,20 @@ function initFirefoxBrowser() {
 
     btnHomes.forEach((btnHome) => {
         btnHome.addEventListener('click', function onHomeClick() {
-            showHome(capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
+            pushNavigation({ type: 'home' }, capsuleStr('firefox.statusHomeShown', 'Page Accueil affichee.'));
         });
     });
 
     btnReload.addEventListener('click', function onReloadClick() {
-        const tab = getActiveTab();
-        if (tab && (tab.view === 'web' || tab.view === 'error') && tab.resolution) {
-            redirectFrame.src = tab.resolution.url || '';
-            setStatus(
-                capsuleStr('firefox.statusWebReloaded', 'Page rechargée.')
-            );
-            return;
-        }
-        if (tab && tab.view === 'module' && tab.resolution) {
-            showModulePage(tab.resolution);
-            return;
-        }
-
-        showHome(capsuleStr('firefox.statusHomeReloaded', 'Page Accueil rechargee.'));
+        reloadActiveTab();
     });
 
     btnBack.addEventListener('click', function onBackClick() {
-        setStatus('');
+        goBack();
     });
 
     btnForward.addEventListener('click', function onForwardClick() {
-        setStatus('');
+        goForward();
     });
 
     if (btnNewTab) {
@@ -624,19 +808,20 @@ function initFirefoxBrowser() {
         menuPopover.setAttribute('data-browser-menu', '');
         menuPopover.setAttribute('role', 'menu');
         const menuItems = [
-            capsuleStr('firefox.menuNewTab', 'Nouvel onglet'),
-            capsuleStr('firefox.menuNewWindow', 'Nouvelle fenêtre'),
-            capsuleStr('firefox.menuHistory', 'Historique'),
-            capsuleStr('firefox.menuDownloads', 'Téléchargements'),
-            capsuleStr('firefox.menuQuit', 'Quitter'),
+            { action: 'new-tab', label: capsuleStr('firefox.menuNewTab', 'Nouvel onglet') },
+            { action: 'new-window', label: capsuleStr('firefox.menuNewWindow', 'Nouvelle fenêtre') },
+            { action: 'history', label: capsuleStr('firefox.menuHistory', 'Historique') },
+            { action: 'downloads', label: capsuleStr('firefox.menuDownloads', 'Téléchargements') },
+            { action: 'quit', label: capsuleStr('firefox.menuQuit', 'Quitter') },
         ];
-        menuItems.forEach(function appendMenuItem(label) {
-            const item = document.createElement('button');
-            item.type = 'button';
-            item.className = 'capsule-browser__menu-item';
-            item.setAttribute('role', 'menuitem');
-            item.textContent = label;
-            menuPopover.appendChild(item);
+        menuItems.forEach(function appendMenuItem(item) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'capsule-browser__menu-item';
+            btn.setAttribute('role', 'menuitem');
+            btn.setAttribute('data-browser-menu-action', item.action);
+            btn.textContent = item.label;
+            menuPopover.appendChild(btn);
         });
         const menuHost = btnMenu.parentElement;
         if (menuHost) {
@@ -661,6 +846,29 @@ function initFirefoxBrowser() {
         btnMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
+    function handleMenuAction(action) {
+        closeMenuPopover();
+        if (action === 'new-tab') {
+            addTab();
+            return;
+        }
+        if (action === 'new-window') {
+            setStatus(capsuleStr('firefox.statusNewWindowSoon', 'Nouvelle fenêtre : non disponible dans cette simulation.'));
+            return;
+        }
+        if (action === 'history') {
+            togglePanel('history');
+            return;
+        }
+        if (action === 'downloads') {
+            togglePanel('downloads');
+            return;
+        }
+        if (action === 'quit') {
+            quitFirefoxWindow();
+        }
+    }
+
     if (btnMenu) {
         btnMenu.addEventListener('click', function onMenuClick(event) {
             event.preventDefault();
@@ -671,20 +879,39 @@ function initFirefoxBrowser() {
 
     if (menuPopover) {
         menuPopover.addEventListener('click', function onMenuItemClick(event) {
-            const item = event.target.closest('.capsule-browser__menu-item');
+            const item = event.target.closest('[data-browser-menu-action]');
             if (!item || !menuPopover.contains(item)) {
                 return;
             }
             event.preventDefault();
-            const label = item.textContent || '';
-            closeMenuPopover();
-            if (label.indexOf('Nouvel onglet') >= 0) {
-                addTab();
+            handleMenuAction(item.getAttribute('data-browser-menu-action'));
+        });
+    }
+
+    browserRoot.querySelectorAll('[data-browser-panel-close]').forEach((btn) => {
+        btn.addEventListener('click', function onPanelClose() {
+            togglePanel(state.openPanel);
+        });
+    });
+
+    if (historyList) {
+        historyList.addEventListener('click', function onHistoryClick(event) {
+            const item = event.target.closest('[data-browser-history-index]');
+            if (!item || !historyList.contains(item)) {
                 return;
             }
-            setStatus(
-                capsuleStrFmt('firefox.statusMenuItem', { label: label }, 'Menu : ' + label)
-            );
+            const index = Number(item.getAttribute('data-browser-history-index'));
+            const record = state.sessionHistory[index];
+            if (!record) {
+                return;
+            }
+            if (record.view === 'home') {
+                pushNavigation({ type: 'home' }, '');
+                return;
+            }
+            if (record.address) {
+                navigateFromInput(record.address, '');
+            }
         });
     }
 
@@ -699,10 +926,30 @@ function initFirefoxBrowser() {
     });
 
     function handleFirefoxShortcutKeys(event) {
+        const key = event.key;
+        if (event.altKey && key === 'ArrowLeft') {
+            event.preventDefault();
+            goBack();
+            return;
+        }
+        if (event.altKey && key === 'ArrowRight') {
+            event.preventDefault();
+            goForward();
+            return;
+        }
+        if (key === 'F5' || (event.ctrlKey && (key === 'r' || key === 'R'))) {
+            event.preventDefault();
+            reloadActiveTab();
+            return;
+        }
+        if (event.ctrlKey && (key === 'w' || key === 'W')) {
+            event.preventDefault();
+            closeTab(state.activeTabId);
+            return;
+        }
         if (!event.ctrlKey) {
             return;
         }
-        const key = event.key;
         if (key === 't' || key === 'T') {
             event.preventDefault();
             addTab();
@@ -769,7 +1016,7 @@ function initFirefoxBrowser() {
         const route = bookmark.getAttribute('data-browser-route') || 'noop';
 
         if (route === 'home') {
-            showHome(capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));
+            pushNavigation({ type: 'home' }, capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));
             return;
         }
 
@@ -787,7 +1034,7 @@ function initFirefoxBrowser() {
         }
 
         if (isHomeTarget(label) || isHomeTarget(route)) {
-            showHome(capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));
+            pushNavigation({ type: 'home' }, capsuleStr('firefox.statusFavoriteHome', 'Favori "Accueil" ouvert.'));
             return;
         }
 
@@ -835,11 +1082,10 @@ function initFirefoxBrowser() {
     }
 
     redirectFrame.addEventListener('load', function onRedirectLoad() {
+        setLoading(false);
         const tab = getActiveTab();
         if (tab && tab.view === 'web') {
-            setStatus(
-                capsuleStr('firefox.statusWebShown', 'Page affichée.')
-            );
+            setStatus(capsuleStr('firefox.statusWebShown', 'Page affichée.'));
         }
         if (tab && tab.view === 'error') {
             setStatus('');
@@ -847,23 +1093,31 @@ function initFirefoxBrowser() {
     });
 
     redirectFrame.addEventListener('error', function onRedirectError() {
+        setLoading(false);
         const tab = getActiveTab();
-        if (tab && (tab.view === 'web' || tab.view === 'error')) {
-            showErrorPage({
-                type: 'error',
-                address: tab.address || '',
-                url: resolver ? resolver.webPageUrl('neterror') : '',
-            }, capsuleStr(
+        if (!tab || (tab.view !== 'web' && tab.view !== 'error')) {
+            return;
+        }
+        const errorResolution = {
+            type: 'error',
+            address: tab.address || '',
+            url: resolver ? resolver.webPageUrl('neterror', { host: tab.address || '' }) : '',
+        };
+        const entry = resolutionToEntry(errorResolution);
+        tab.history[tab.historyIndex] = entry;
+        applyEntryToTab(tab, entry, {
+            message: capsuleStr(
                 'firefox.statusErrorWeb',
                 'Erreur de chargement : impossible d\'ouvrir la page.'
-            ));
-        }
+            ),
+        });
     });
 
     browserRoot.__capsuleFirefoxSession = state;
     browserRoot.dataset.initialized = 'true';
     setBookmarksVisible(supportsFirefoxGnomeChrome());
-    showHome('');
+    applyEntryToTab(getActiveTab(), makeHomeEntry(), {});
+    syncNavButtons();
     syncFirefoxGnomeDataset(browserRoot);
 }
 
@@ -877,7 +1131,10 @@ function purgeFirefoxWindowRuntime(windowElement) {
     }
     delete app.__capsuleFirefoxSession;
     delete app.__capsuleFirefoxHandleKeys;
+    delete app.__capsuleFirefoxNavigate;
     delete app.dataset.initialized;
+    delete app.dataset.browserLoading;
+    delete app.dataset.browserOpenPanel;
 
     const addressInput = app.querySelector('[data-browser-address]');
     const status = app.querySelector('[data-browser-status]');

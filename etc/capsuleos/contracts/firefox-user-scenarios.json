@@ -13,7 +13,9 @@
     "F3": "F3 nouvel onglet + bascule entre onglets",
     "F4": "F4 favori barre signets (chrome Proton GNOME)",
     "F5": "F5 recherche → SERP locale ou host connu (linuxmint.com)",
-    "F6": "F6 raccourcis nouvel onglet VM (Amazon, Temu, Wikipédia, YouTube, Reddit)"
+    "F6": "F6 raccourcis nouvel onglet VM (Amazon, Temu, Wikipédia, YouTube, Reddit)",
+    "F7": "F7 historique retour/avant après navigations enchaînées",
+    "F8": "F8 SERP → clic résultat → retour kernel (pont iframe)"
   },
   "scenarios": [
     {
@@ -161,6 +163,47 @@
       ],
       "proofs": {
         "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F6"
+      }
+    },
+    {
+      "id": "F7",
+      "priority": "P0",
+      "title": "Historique — retour et avant après navigations",
+      "locale": "fr-FR",
+      "vmGroundTruth": {
+        "historyBackForward": true
+      },
+      "steps": [
+        { "id": "open-firefox", "action": "openWindowByDataLink", "target": "firefox", "label": "Ouvrir Firefox" },
+        { "id": "nav-mint", "action": "fillAndSubmitAddress", "value": "linuxmint.com", "label": "linuxmint.com" },
+        { "id": "nav-capsule", "action": "fillAndSubmitAddress", "value": "lacapsule.org", "label": "lacapsule.org" },
+        { "id": "can-back", "predicate": "dataset.firefoxGnomeCanGoBack", "expectValue": "true", "label": "Retour disponible" },
+        { "id": "click-back", "action": "click", "selector": "[data-browser-action=\"back\"]", "label": "Retour" },
+        { "id": "can-forward", "predicate": "dataset.firefoxGnomeCanGoForward", "expectValue": "true", "label": "Avant disponible" },
+        { "id": "click-forward", "action": "click", "selector": "[data-browser-action=\"forward\"]", "label": "Avant" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F7"
+      }
+    },
+    {
+      "id": "F8",
+      "priority": "P0",
+      "title": "SERP → clic résultat simulé (pont iframe)",
+      "locale": "fr-FR",
+      "vmGroundTruth": {
+        "serpBridge": true,
+        "searchQuery": "mint"
+      },
+      "steps": [
+        { "id": "open-firefox", "action": "openWindowByDataLink", "target": "firefox", "label": "Ouvrir Firefox" },
+        { "id": "search", "action": "fillAndSubmitAddress", "value": "mint", "label": "Recherche mint" },
+        { "id": "serp-frame", "selector": "[data-browser-redirect]:not([hidden])", "label": "SERP visible" },
+        { "id": "click-result", "action": "clickSerpResult", "value": "linuxmint.com", "label": "Clic Linux Mint dans SERP" },
+        { "id": "view-mint", "predicate": "dataset.firefoxGnomeView", "expectValue": "web", "label": "linuxmint.com affiché" }
+      ],
+      "proofs": {
+        "smoke": "smoke-gnome-firefox-scenarios.mjs --scenario F8"
       }
     }
   ],

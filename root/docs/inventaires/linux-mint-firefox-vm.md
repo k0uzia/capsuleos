@@ -93,7 +93,7 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 | Bandeau statut simulation | `data-browser-status` (masqué en skin Mint) | OK masqué ; absent sur VM |
 | JS | `firefoxBrowser.js` — navigation simulée, pas d’historique réel | **P1** assumé |
 | Skin | `firefox.skin.css` — palette sombre #1c1b22 / #2b2a33 | **P1** — approcher Proton + Mint-Y-Dark-Aqua, valider clair/sombre |
-| Smoke | `smoke-mint-firefox.mjs` | Muffin SSD + Proton ; `headerInTabs === false`, icône+titre gauche, drag handle |
+| Smoke | `smoke-mint-firefox.mjs` | Muffin SSD + Proton ; titre centré, icône nav gauche, drag handle |
 
 ---
 

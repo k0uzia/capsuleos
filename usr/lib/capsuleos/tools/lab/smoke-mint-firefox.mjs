@@ -45,6 +45,8 @@ const chrome = await page.evaluate(() => {
   const pocketSection = app && app.querySelector('.capsule-browser-newtab__pocket');
   const bg = newtab ? getComputedStyle(newtab).backgroundColor : '';
   const titleStyle = title ? getComputedStyle(title) : null;
+  const leftNav = header && header.querySelector(':scope > nav:first-child');
+  const leftNavBefore = leftNav ? getComputedStyle(leftNav, '::before') : null;
   return {
     visible: win && win.style.display !== 'none',
     mintProton: app && app.classList.contains('capsule-browser--proton'),
@@ -53,8 +55,9 @@ const chrome = await page.evaluate(() => {
     headerInTabs: !!(tabsbar && header && tabsbar.contains(header)),
     headerBeforeApp: headerIdx >= 0 && appHostIdx > headerIdx,
     titleText: title ? title.textContent.replace(/\s+/g, ' ').trim() : '',
-    titleAlignLeft: titleStyle ? titleStyle.textAlign === 'left' : false,
-    titleHasIcon: titleStyle ? titleStyle.backgroundImage !== 'none' : false,
+    titleAlignCenter: titleStyle ? titleStyle.textAlign === 'center' : false,
+    titleJustifyCenter: titleStyle ? titleStyle.justifySelf === 'center' : false,
+    titleIconInNav: leftNavBefore ? leftNavBefore.content !== 'none' && leftNavBefore.content !== 'normal' : false,
     headerHeightPx: header ? parseFloat(getComputedStyle(header).height) : 0,
     headerDragHandle: header ? header.hasAttribute('data-window-drag-handle') : false,
     newtabVisible: !!(newtab && !newtab.hidden),
@@ -104,7 +107,7 @@ const osPage = await page.evaluate(() => {
 const ok = chrome.visible && chrome.mintProton && chrome.noCsdClass && chrome.initialized
   && !chrome.headerInTabs && chrome.headerBeforeApp
   && chrome.headerDragHandle && chrome.headerHeightPx >= 30 && chrome.headerHeightPx <= 34
-  && chrome.titleAlignLeft && chrome.titleHasIcon
+  && chrome.titleAlignCenter && chrome.titleJustifyCenter
   && chrome.titleText.indexOf('Mozilla Firefox') >= 0
   && chrome.newtabVisible && chrome.hasNewtabBrand && chrome.hasNewtabSearch && chrome.hasGoogleIcon
   && chrome.bookmarksHidden && chrome.initialTabCount === 1 && chrome.goHidden

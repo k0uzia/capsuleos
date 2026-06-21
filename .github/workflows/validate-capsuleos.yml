@@ -16,6 +16,16 @@ jobs:
         with:
           node-version: '20'
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Dépendances lab (npm + REUSE)
+        run: |
+          pip install reuse
+          npm ci
+          npx playwright install chromium
+
       - name: Gate release (validate-all)
         run: node usr/lib/capsuleos/tools/validate-all.mjs
 

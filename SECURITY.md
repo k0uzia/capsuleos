@@ -28,6 +28,33 @@ Le dépôt inclut un [.htaccess](.htaccess) à la racine pour les déploiements 
 
 Après déploiement, vérifier dans le navigateur qu’aucune ressource CapsuleOS n’est bloquée par la CSP (console développeur).
 
+## OWASP Top 10 (2021) — mapping `.htaccess`
+
+Référence implémentation : [`.htaccess`](.htaccess) · gate : `node usr/lib/capsuleos/tools/validate-owasp-static.mjs`
+
+| OWASP | Mesure CapsuleOS | Limite connue |
+|-------|------------------|---------------|
+| **A01** — Contrôle d’accès | Blocage `.git`, `node_modules`, `.cursor`, `lab-inventory.json`, scripts lab ; méthodes GET/HEAD/OPTIONS ; CORS origine exacte | Pas de WAF applicatif |
+| **A02** — Échecs cryptographiques | Redirect 301 HTTPS ; HSTS `max-age=31536000` | Certificat TLS = hébergeur |
+| **A03** — Injection | CSP restrictive ; `X-Content-Type-Options: nosniff` | `unsafe-inline` requis (site statique sans nonces) |
+| **A04** — Conception non sécurisée | Site statique sans backend CapsuleOS ; pas d’exécution serveur sur `.sh`/`.env` | — |
+| **A05** — Configuration | `Options -Indexes` ; `ServerSignature Off` ; Permissions-Policy restrictive | Mutualisé Apache |
+| **A06** — Composants vulnérables | SBOM npm lab ; `npm audit` ; runtime navigateur sans npm | Assets VM = upstream |
+| **A07** — Auth défaillante | N/A (pas de comptes CapsuleOS) | — |
+| **A08** — Intégrité / désérialisation | CSP ; COOP ; CORP ; pas de cookies session serveur | — |
+| **A09** — Journalisation | Hors périmètre dépôt (hébergeur) | — |
+| **A10** — SSRF | Pas de proxy backend CapsuleOS | — |
+
+### Smoke post-déploiement (optionnel)
+
+Si une URL de production est configurée (`CAPSULE_OWASP_SMOKE_URL`, ex. `https://os.lacapsule.org`) :
+
+```bash
+curl -sI "$CAPSULE_OWASP_SMOKE_URL/index.html" | grep -iE 'strict-transport|content-security-policy|x-frame-options'
+```
+
+Workflow GitHub : déclenchement manuel `workflow_dispatch` (voir `.github/workflows/owasp-smoke.yml`).
+
 ## SBOM (CycloneDX)
 
 Inventaire des **dépendances npm lab** (Playwright, sharp, pixelmatch, …) — **pas** des assets VM ni du runtime navigateur.

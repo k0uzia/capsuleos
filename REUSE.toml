@@ -8,12 +8,17 @@ SPDX-PackageDownloadLocation = "https://github.com/N0r3f/CapsuleOS"
 path = [
     "usr/lib/**",
     "usr/share/capsuleos/themes/**",
+    "usr/share/capsuleos/branding/**",
     "usr/share/capsuleos/linux/**",
     "home/**",
     "OS/**",
     "etc/capsuleos/**",
     "root/**",
     "var/lib/capsuleos/**",
+    "mnt/**",
+    "proc/**",
+    ".github/**",
+    ".githooks/**",
     "index.html",
     "sw.js",
     "contrib.md",
@@ -23,6 +28,10 @@ path = [
     "SECURITY.md",
     ".cursor/rules/**",
     "root/tools/**",
+    "package.json",
+    "package-lock.json",
+    ".htaccess",
+    ".gitignore",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2020-2026 les contributeurs CapsuleOS"
@@ -30,8 +39,8 @@ SPDX-License-Identifier = "GPL-3.0-or-later"
 
 [[annotations]]
 path = [
-    "node_modules/**",
     "usr/share/capsuleos/assets/**",
-    "LICENSE",
 ]
-precedence = "exclude"
+precedence = "override"
+SPDX-FileCopyrightText = "NONE"
+SPDX-License-Identifier = "LicenseRef-CapsuleOS-ThirdPartyAssets"

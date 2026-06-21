@@ -2,21 +2,16 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebSite",
-      "name": "CapsuleOS",
-      "url": "https://os.lacapsule.org/",
-      "description": "Bureaux simulés pour s'approprier Linux, Windows, macOS et autres OS dans le navigateur — pédagogie, gratuit, hors ligne possible.",
-      "inLanguage": "fr-FR",
-      "publisher": {
-        "@type": "Organization",
-        "name": "La Capsule",
-        "url": "https://lacapsule.org"
-      }
+      "@type": "CollectionPage",
+      "name": "Catalogue Linux — CapsuleOS",
+      "url": "https://os.lacapsule.org/OS/linux/index.html",
+      "description": "Simulations de bureaux Linux (GNOME, Cinnamon, KDE, Cosmic…).",
+      "inLanguage": "fr-FR"
     },
     {
       "@type": "ItemList",
-      "name": "Catalogue OS CapsuleOS (/OS)",
-      "numberOfItems": 13,
+      "name": "Distributions Linux actives",
+      "numberOfItems": 9,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -169,94 +164,6 @@
               "price": "0",
               "priceCurrency": "EUR"
             }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 10,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Windows 10",
-            "identifier": "windows-10",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "Web browser",
-            "url": "https://os.lacapsule.org/OS/windows/versions/10/index.html",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "EUR"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 11,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Windows 11",
-            "identifier": "windows-11",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "Web browser",
-            "url": "https://os.lacapsule.org/OS/windows/versions/11/index.html",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "EUR"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 12,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "macOS Sonoma",
-            "identifier": "macos-sonoma",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "Web browser",
-            "url": "https://os.lacapsule.org/OS/macos/sonoma/index.html",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "EUR"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 13,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "iOS 15",
-            "identifier": "ios-15",
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "Web browser",
-            "url": "https://os.lacapsule.org/OS/ios/15/index.html",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "EUR"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "@type": "ItemList",
-      "name": "Modules pédagogiques CapsuleOS (/mnt)",
-      "numberOfItems": 1,
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "LearningResource",
-            "name": "Les bases Linux",
-            "description": "Découverte du bureau simulé : explorateur, terminal, premières commandes. Module pilote montable sous /mnt.",
-            "identifier": "linux-bases",
-            "inLanguage": "fr-FR",
-            "learningResourceType": "module",
-            "url": "https://os.lacapsule.org/mnt/debutant/linux-bases"
           }
         }
       ]

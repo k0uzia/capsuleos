@@ -93,6 +93,30 @@ html[data-contrast-mode="high"] .a11y-panel__option {
     border-color: #ffffff;
 }
 
+html[data-underline-links="on"] :where(a[href]:not([role="button"])) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+html[data-underline-links="on"] :where(a.hero-link, a.header-nav-link, a.header-home, .footer-copy a, .a11y-panel__foot a) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+html[data-contrast-mode="high"] :where(a[href]:not([role="button"])) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+html[data-contrast-mode="high"] .footer-copy a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+html[data-underline-links="on"] :where(a[href]:not([role="button"])):hover {
+    text-decoration-thickness: 2px;
+}
+
 :where(a, button, input, select, [role="button"], [tabindex="0"]):focus-visible {
     outline: 2px solid var(--lcap-jaune, #f2ba42);
     outline-offset: 2px;

@@ -19,8 +19,9 @@ Le dépôt suit la [specification REUSE 3](https://reuse.software/spec-3.0/) pou
 | Élément | Emplacement |
 |---------|-------------|
 | Métadonnées paquet | [`REUSE.toml`](REUSE.toml) |
-| Texte licence GPL | [`LICENSES/GPL-3.0-or-later`](LICENSES/GPL-3.0-or-later) |
-| Gate CI | `node usr/lib/capsuleos/tools/validate-reuse.mjs` |
+| Texte licence GPL | [`LICENSES/GPL-3.0-or-later.txt`](LICENSES/GPL-3.0-or-later.txt) |
+| Gate CI (rapide) | `node usr/lib/capsuleos/tools/validate-reuse.mjs` |
+| Gate CI (complète) | `node usr/lib/capsuleos/tools/validate-reuse-full.mjs` (`validate-reuse` + `reuse lint`) |
 
 **Code et documentation CapsuleOS** (hors assets tiers) : `SPDX-License-Identifier: GPL-3.0-or-later` · copyright `2020-2026 les contributeurs CapsuleOS`.
 
@@ -36,7 +37,7 @@ Les fichiers **sans en-tête SPDX explicite** héritent de l’annotation agrég
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 ```
 
-**Hors périmètre REUSE** (exclus dans `REUSE.toml`) : `usr/share/capsuleos/assets/` (ground truth VM, marques), `node_modules/`.
+**Hors périmètre REUSE aggregate** : `usr/share/capsuleos/assets/` annotés `LicenseRef-CapsuleOS-ThirdPartyAssets` (voir `LICENSES/`), `node_modules/` (VCS ignore).
 
 ## SBOM (CycloneDX)
 
@@ -51,6 +52,25 @@ node usr/lib/capsuleos/tools/validate-sbom.mjs
 Le runtime CapsuleOS (navigateur) n’a **aucune** dépendance npm ; voir [SECURITY.md](SECURITY.md).
 
 ## Assets tiers et marques
+
+Le **code CapsuleOS** est couvert par REUSE aggregate (`REUSE.toml`) et les en-têtes SPDX sur les modules noyau. Les **assets tiers** restent **hors REUSE** (exclusion `usr/share/capsuleos/assets/**`) mais doivent être **documentés et traçables**.
+
+| Catégorie | Licence upstream typique | Traçabilité dépôt |
+|-----------|--------------------------|-------------------|
+| Logos / identités distro | Marque du titulaire ; usage pédagogique | `usr/share/capsuleos/assets/images/vendors/<vendor>/` · pas de fallback cross-vendor (**P11**) |
+| Icônes / fonds clonés VM | Licence distro ou pack upstream | `vendors/<vendor>/SOURCE-VM.txt` · inventaire lab · SHA256 aligné (**S**) |
+| Polices embarquées | OFL / licence fonderie | Chemin sous `usr/share/capsuleos/assets/` · source documentée |
+| Captures / médias lab | GPL-3.0-or-later (outils) ou tiers | `var/lib/capsuleos/` · hors release statique si généré |
+
+**Procédure contributeur — asset VM** :
+
+1. Inventorier sur la VM de référence (**I**) avant tout patch skin.
+2. `bash root/tools/lab/pull-vm-assets.sh` — ne jamais inventer un asset « proche » (**R-A1**).
+3. Mettre à jour `SOURCE-VM.txt` et l'inventaire lab ; **pas de commit** sans traçabilité.
+
+Référence : [`root/docs/politique-assets.md`](root/docs/politique-assets.md) · [`root/docs/convention-assets-depuis-vm.md`](root/docs/convention-assets-depuis-vm.md).
+
+**SPDX progressif** : les gates récents (`validate-owasp-static.mjs`, `validate-a11y.mjs`, `validate-reuse-full.mjs`, `run-reuse-lint.mjs`, `build-schema-org.mjs`, smokes lab associés) portent un en-tête explicite ; cible à terme : tous les modules `usr/lib/capsuleos/tools/*.mjs` et `core/`.
 
 Les éléments suivants **ne sont pas** couverts par la licence du code CapsuleOS en tant que propriété du projet :
 

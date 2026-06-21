@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * Gate schema.org — graphe généré, fraîcheur, injection index.html.
+ * Gate schema.org — graphe généré, fraîcheur, injection multi-pages.
  * Usage : node usr/lib/capsuleos/tools/validate-schema-org.mjs
  */
 import fs from 'fs';
@@ -15,6 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
 
 const GRAPH_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/schema-org/graph.json');
+const MNT_HUB_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/schema-org/mnt-hub.json');
 const SITE_CONTRACT = path.join(ROOT, 'etc/capsuleos/contracts/schema-org-site.json');
 const MARKER_BEGIN = '<!-- CAPSULE_SCHEMA_ORG:BEGIN -->';
 const MARKER_END = '<!-- CAPSULE_SCHEMA_ORG:END -->';
@@ -23,6 +24,13 @@ const errors = [];
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+function normalizeHtmlPages(site) {
+  const raw = site.htmlPages || [{ path: 'index.html', graphKey: 'portal' }];
+  return raw.map((entry) => (typeof entry === 'string'
+    ? { path: entry, graphKey: 'portal' }
+    : entry));
 }
 
 const check = spawnSync(process.execPath, [
@@ -43,21 +51,25 @@ if (!fs.existsSync(GRAPH_FILE)) {
     errors.push('@context schema.org manquant');
   }
   if (!Array.isArray(graph['@graph']) || graph['@graph'].length < 3) {
-    errors.push('@graph incomplet (WebSite + 2 ItemList attendus)');
-  } else {
-    const types = graph['@graph'].map((n) => n['@type']);
-    if (!types.includes('WebSite')) {
-      errors.push('WebSite absent du graphe');
-    }
-    const lists = graph['@graph'].filter((n) => n['@type'] === 'ItemList');
-    if (lists.length < 2) {
-      errors.push('ItemList OS ou /mnt absent');
-    }
+    errors.push('@graph portail incomplet (WebSite + 2 ItemList attendus)');
+  }
+}
+
+if (!fs.existsSync(MNT_HUB_FILE)) {
+  errors.push('mnt-hub.json absent');
+} else {
+  const mntHub = readJson(MNT_HUB_FILE);
+  const list = mntHub['@graph']?.find((n) => n['@type'] === 'ItemList');
+  const hasScenarios = (list?.itemListElement || []).some(
+    (li) => Array.isArray(li.item?.hasPart) && li.item.hasPart.length > 0,
+  );
+  if (!hasScenarios) {
+    errors.push('mnt-hub : scénarios absents du graphe (hasPart attendu)');
   }
 }
 
 const site = readJson(SITE_CONTRACT);
-(site.htmlPages || ['index.html']).forEach((relPage) => {
+normalizeHtmlPages(site).forEach(({ path: relPage }) => {
   const pagePath = path.join(ROOT, relPage);
   if (!fs.existsSync(pagePath)) {
     errors.push(`Page absente : ${relPage}`);
@@ -90,5 +102,6 @@ if (errors.length) {
 
 const stored = readJson(path.join(ROOT, 'var/lib/capsuleos/generated/schema-org.hash.json'));
 console.log(
-  `✓ validate-schema-org OK — ${stored.osCount} OS, ${stored.mntCount} module(s) /mnt`,
+  `✓ validate-schema-org OK — ${stored.osCount} OS, ${stored.mntCount} module(s), `
+  + `${stored.scenarioCount || 0} scénario(s)`,
 );

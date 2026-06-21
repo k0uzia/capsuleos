@@ -8,6 +8,8 @@
   "siteDescription": "Bureaux simulés pour s'approprier Linux, Windows, macOS et autres OS dans le navigateur — pédagogie, gratuit, hors ligne possible.",
   "catalogStatuses": ["active"],
   "htmlPages": [
-    "index.html"
+    { "path": "index.html", "graphKey": "portal" },
+    { "path": "OS/linux/index.html", "graphKey": "os-linux-hub" },
+    { "path": "mnt/index.html", "graphKey": "mnt-hub" }
   ]
 }

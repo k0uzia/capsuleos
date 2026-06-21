@@ -20,11 +20,11 @@ if (!fs.existsSync(reuseToml)) {
   errors.push('REUSE.toml absent à la racine');
 }
 
-const gplLicense = path.join(ROOT, 'LICENSES/GPL-3.0-or-later');
+const gplLicense = path.join(ROOT, 'LICENSES/GPL-3.0-or-later.txt');
 if (!fs.existsSync(gplLicense)) {
-  errors.push('LICENSES/GPL-3.0-or-later absent');
+  errors.push('LICENSES/GPL-3.0-or-later.txt absent');
 } else if (fs.readFileSync(gplLicense, 'utf8').length < 500) {
-  errors.push('LICENSES/GPL-3.0-or-later trop court ou vide');
+  errors.push('LICENSES/GPL-3.0-or-later.txt trop court ou vide');
 }
 
 /** Fichiers récents / noyau : en-tête SPDX explicite requis (prioritaire sur aggregate). */
@@ -41,6 +41,11 @@ const SPDX_REQUIRED = [
   'usr/lib/capsuleos/tools/validate-reuse.mjs',
   'usr/lib/capsuleos/tools/build-schema-org.mjs',
   'usr/lib/capsuleos/tools/validate-schema-org.mjs',
+  'usr/lib/capsuleos/tools/validate-owasp-static.mjs',
+  'usr/lib/capsuleos/tools/run-reuse-lint.mjs',
+  'usr/lib/capsuleos/tools/validate-reuse-full.mjs',
+  'usr/lib/capsuleos/tools/validate-a11y.mjs',
+  'usr/lib/capsuleos/tools/lab/smoke-a11y-portal.mjs',
 ];
 
 const hasSpdxHeader = (content) =>
@@ -63,4 +68,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`✓ validate-reuse OK — REUSE.toml, LICENSES/GPL-3.0-or-later, ${SPDX_REQUIRED.length} fichiers SPDX`);
+console.log(`✓ validate-reuse OK — REUSE.toml, LICENSES/GPL-3.0-or-later.txt, ${SPDX_REQUIRED.length} fichiers SPDX`);

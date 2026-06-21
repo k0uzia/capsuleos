@@ -9,9 +9,10 @@
 
 | Zone | JSON-LD | Types schema.org |
 |------|---------|------------------|
-| **Portail** `index.html` | Oui (injecté) | `WebSite`, `ItemList` |
-| **Catalogue `/OS/`** | Via portail (URLs façades) | `SoftwareApplication` par entrée `active` du registre |
-| **`/mnt/`** modules | Via portail | `LearningResource` (+ scénarios liés) |
+| **Portail** `index.html` | Oui (injecté) | `WebSite`, `ItemList` global |
+| **Hub `/OS/linux/`** | Oui (injecté) | `CollectionPage`, `ItemList` Linux |
+| **Hub `/mnt/`** | Oui (injecté) | `CollectionPage`, `LearningResource` + scénarios (`Course`) |
+| **Façades skin** `OS/.../index.html` | Via hubs (URLs catalogue) | `SoftwareApplication` |
 | **Intérieur bureau simulé** | **Non** | Pas de JSON-LD par fenêtre / slot |
 
 La métadonnée OS pointe vers les **façades** `OS/.../index.html` ; le HTML skin sous `home/` reste hors périmètre SEO.
@@ -39,7 +40,7 @@ Artefacts :
 
 - `var/lib/capsuleos/generated/schema-org/graph.json` — graphe `@graph` complet
 - `var/lib/capsuleos/generated/schema-org.hash.json` — empreinte sources
-- Bloc `<!-- CAPSULE_SCHEMA_ORG:BEGIN -->` … `END` dans `index.html`
+- Bloc `<!-- CAPSULE_SCHEMA_ORG:BEGIN -->` … `END` dans `index.html`, `OS/linux/index.html`, `mnt/index.html`
 
 Regénérer après modification du registre OS ou du catalogue `/mnt`.
 

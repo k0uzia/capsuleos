@@ -1,11 +1,14 @@
 {
-  "generatedAt": "2026-06-21T10:45:13.283Z",
+  "generatedAt": "2026-06-21T11:00:40.096Z",
   "sourceHash": {
     "osRegistry": "f2f43fc3e6de939b42bf16365c0ad06f7e83e5ee65f555d6e28c5383c6e7631c",
     "mntCatalog": "2ab0c3f195f0908ad06f8a03eabf40ff253ee8d2b8e462464f288629ae483a86",
     "mntModules": "b9769269a1dd2298581fe51376568203b7845ebe07ec5ac6b95ca62694e83635",
-    "siteContract": "c601746237c6bfe56594112551eef517c310dca4a6e729f8af508274caaf11cb"
+    "mntScenarios": "587145e6a856aa34833e1423f46658d59a81ed9dbbb71ba5bdcea9916bb25693|7e011612c48902358d1824ddf39bedc58b0cf04d4ece7be13fcb37fb17c59c11",
+    "siteContract": "935f3657579ca7b75089546872ab3c672198988e838e8ce58822302aea76c674"
   },
   "osCount": 13,
-  "mntCount": 1
+  "linuxCount": 9,
+  "mntCount": 1,
+  "scenarioCount": 2
 }

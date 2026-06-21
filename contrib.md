@@ -664,8 +664,10 @@ Index complet : [`root/README.md`](root/README.md)
 
 ### Agents / release
 
-- [ ] `node usr/lib/capsuleos/tools/validate-reuse.mjs` → REUSE.toml, LICENSES/, en-têtes SPDX sur modules noyau récents.
+- [ ] `node usr/lib/capsuleos/tools/validate-reuse-full.mjs` → REUSE.toml, LICENSES/, SPDX + `reuse lint`.
 - [ ] Après changement `os-registry.json` ou `/mnt` : `node usr/lib/capsuleos/tools/build-schema-org.mjs` puis `validate-schema-org.mjs`.
+- [ ] `node usr/lib/capsuleos/tools/validate-owasp-static.mjs` → directives `.htaccess` (OWASP statique).
+- [ ] `node usr/lib/capsuleos/tools/validate-a11y.mjs` → WCAG 2.2 AA (P10 opt-in, axe-core) ; smoke : `lab/smoke-a11y-portal.mjs`.
 - [ ] `node usr/lib/capsuleos/tools/validate-git-security.mjs` → pas de `node_modules/`, secrets ou `.env` versionnés.
 - [ ] Après `npm install` / changement de `package-lock.json` : `npm run sbom` puis `validate-sbom.mjs`.
 - [ ] `node usr/lib/capsuleos/tools/validate-all.mjs` → exit 0 avant merge significatif.

@@ -58,12 +58,29 @@ function walkModuleJsonFiles() {
   return out;
 }
 
+function walkScenarioFiles() {
+  const out = [];
+  walkModuleJsonFiles().forEach((modulePath) => {
+    const moduleDir = path.dirname(modulePath);
+    const mod = readJson(modulePath);
+    (mod.scenarios || []).forEach((rel) => {
+      const abs = path.join(moduleDir, rel);
+      if (fs.existsSync(abs)) {
+        out.push(abs);
+      }
+    });
+  });
+  return out;
+}
+
 function computeSourceHash() {
   const moduleFiles = walkModuleJsonFiles();
+  const scenarioFiles = walkScenarioFiles();
   return {
     osRegistry: sha256File(OS_REGISTRY),
     mntCatalog: fs.existsSync(MNT_CATALOG) ? sha256File(MNT_CATALOG) : '',
     mntModules: moduleFiles.map((f) => sha256File(f)).sort().join('|'),
+    mntScenarios: scenarioFiles.map((f) => sha256File(f)).sort().join('|'),
     siteContract: sha256File(SITE_CONTRACT),
   };
 }
@@ -78,13 +95,44 @@ function loadMntModules() {
   const modules = [];
   walkModuleJsonFiles().forEach((abs) => {
     const mod = readJson(abs);
+    const moduleDir = path.dirname(abs);
     const rel = path.relative(ROOT, abs).replace(/\\/g, '/');
-    modules.push({ mod, rel });
+    const scenarios = [];
+    (mod.scenarios || []).forEach((scenarioRel) => {
+      const scenarioPath = path.join(moduleDir, scenarioRel);
+      if (fs.existsSync(scenarioPath)) {
+        scenarios.push({
+          data: readJson(scenarioPath),
+          rel: path.relative(ROOT, scenarioPath).replace(/\\/g, '/'),
+        });
+      }
+    });
+    modules.push({ mod, rel, moduleDir, scenarios });
   });
   return modules;
 }
 
-function buildGraph(site, registry) {
+function softwareApplicationItem(baseUrl, entry, position) {
+  return {
+    '@type': 'ListItem',
+    position,
+    item: {
+      '@type': 'SoftwareApplication',
+      name: entry.displayName || entry.id,
+      identifier: entry.id,
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web browser',
+      url: entry.facade ? joinUrl(baseUrl, entry.facade) : undefined,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'EUR',
+      },
+    },
+  };
+}
+
+function buildPortalGraph(site, registry) {
   const baseUrl = site.baseUrl;
   const statuses = new Set(site.catalogStatuses || ['active']);
   const entries = (registry.entries || []).filter((e) => statuses.has(e.status));
@@ -102,23 +150,7 @@ function buildGraph(site, registry) {
     },
   };
 
-  const osItems = entries.map((entry, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: {
-      '@type': 'SoftwareApplication',
-      name: entry.displayName || entry.id,
-      identifier: entry.id,
-      applicationCategory: 'EducationalApplication',
-      operatingSystem: 'Web browser',
-      url: entry.facade ? joinUrl(baseUrl, entry.facade) : undefined,
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'EUR',
-      },
-    },
-  }));
+  const osItems = entries.map((entry, index) => softwareApplicationItem(baseUrl, entry, index + 1));
 
   const osList = {
     '@type': 'ItemList',
@@ -128,26 +160,11 @@ function buildGraph(site, registry) {
   };
 
   const mntModules = loadMntModules();
-  const learningItems = mntModules.map(({ mod, rel }, index) => {
-    const modulePath = rel.replace(/\/module\.json$/, '');
-    return {
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'LearningResource',
-        name: mod.title || mod.id,
-        description: mod.description || '',
-        identifier: mod.id,
-        inLanguage: mod.locale || 'fr-FR',
-        learningResourceType: 'module',
-        url: joinUrl(baseUrl, modulePath),
-        isPartOf: {
-          '@type': 'ItemList',
-          name: 'Modules pédagogiques /mnt',
-        },
-      },
-    };
-  });
+  const learningItems = mntModules.map(({ mod, rel }, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: buildModuleResource(baseUrl, mod, rel),
+  }));
 
   const mntList = {
     '@type': 'ItemList',
@@ -162,41 +179,159 @@ function buildGraph(site, registry) {
   };
 }
 
-function injectHtmlPages(site, graphJson) {
+function buildModuleResource(baseUrl, mod, moduleRel, scenarios = []) {
+  const modulePath = moduleRel.replace(/\/module\.json$/, '');
+  const resource = {
+    '@type': 'LearningResource',
+    name: mod.title || mod.id,
+    description: mod.description || '',
+    identifier: mod.id,
+    inLanguage: mod.locale || 'fr-FR',
+    learningResourceType: 'module',
+    url: joinUrl(baseUrl, modulePath),
+  };
+  if (scenarios.length) {
+    resource.hasPart = scenarios.map((s, i) => ({
+      '@type': 'Course',
+      name: s.data.title || s.data.id,
+      identifier: s.data.id,
+      position: i + 1,
+      url: joinUrl(baseUrl, s.rel),
+      inLanguage: s.data.locale || mod.locale || 'fr-FR',
+    }));
+  }
+  return resource;
+}
+
+function buildOsLinuxHubGraph(site, registry) {
+  const baseUrl = site.baseUrl;
+  const statuses = new Set(site.catalogStatuses || ['active']);
+  const entries = (registry.entries || []).filter(
+    (e) => statuses.has(e.status) && e.family === 'linux',
+  );
+
+  const collectionPage = {
+    '@type': 'CollectionPage',
+    name: 'Catalogue Linux — CapsuleOS',
+    url: joinUrl(baseUrl, 'OS/linux/index.html'),
+    description: 'Simulations de bureaux Linux (GNOME, Cinnamon, KDE, Cosmic…).',
+    inLanguage: 'fr-FR',
+  };
+
+  const osItems = entries.map((entry, index) => softwareApplicationItem(baseUrl, entry, index + 1));
+
+  const osList = {
+    '@type': 'ItemList',
+    name: 'Distributions Linux actives',
+    numberOfItems: osItems.length,
+    itemListElement: osItems,
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [collectionPage, osList],
+  };
+}
+
+function buildMntHubGraph(site) {
+  const baseUrl = site.baseUrl;
+  const mntModules = loadMntModules();
+
+  const collectionPage = {
+    '@type': 'CollectionPage',
+    name: 'Modules pédagogiques — CapsuleOS',
+    url: joinUrl(baseUrl, 'mnt/index.html'),
+    description: 'Parcours et scénarios montables sur les bureaux simulés.',
+    inLanguage: 'fr-FR',
+  };
+
+  const learningItems = mntModules.map(({ mod, rel, scenarios }, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: buildModuleResource(baseUrl, mod, rel, scenarios),
+  }));
+
+  const mntList = {
+    '@type': 'ItemList',
+    name: 'Modules /mnt',
+    numberOfItems: learningItems.length,
+    itemListElement: learningItems,
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [collectionPage, mntList],
+  };
+}
+
+function buildAllGraphs(site, registry) {
+  const portal = buildPortalGraph(site, registry);
+  const osLinuxHub = buildOsLinuxHubGraph(site, registry);
+  const mntHub = buildMntHubGraph(site);
+
+  return {
+    portal,
+    'os-linux-hub': osLinuxHub,
+    'mnt-hub': mntHub,
+  };
+}
+
+function normalizeHtmlPages(site) {
+  const raw = site.htmlPages || [{ path: 'index.html', graphKey: 'portal' }];
+  return raw.map((entry) => {
+    if (typeof entry === 'string') {
+      return { path: entry, graphKey: entry === 'index.html' ? 'portal' : entry };
+    }
+    return entry;
+  });
+}
+
+function injectHtmlPage(relPage, graphJson) {
+  const pagePath = path.join(ROOT, relPage);
+  if (!fs.existsSync(pagePath)) {
+    throw new Error(`Page HTML introuvable : ${relPage}`);
+  }
   const scriptBlock = [
     MARKER_BEGIN,
     `<script type="application/ld+json">${JSON.stringify(graphJson)}</script>`,
     MARKER_END,
   ].join('\n    ');
 
-  (site.htmlPages || ['index.html']).forEach((relPage) => {
-    const pagePath = path.join(ROOT, relPage);
-    if (!fs.existsSync(pagePath)) {
-      throw new Error(`Page HTML introuvable : ${relPage}`);
-    }
-    let html = fs.readFileSync(pagePath, 'utf8');
-    const re = new RegExp(
-      `${MARKER_BEGIN}[\\s\\S]*?${MARKER_END}`,
-      'm',
-    );
-    if (re.test(html)) {
-      html = html.replace(re, scriptBlock);
-    } else {
-      html = html.replace('</head>', `    ${scriptBlock}\n</head>`);
-    }
-    fs.writeFileSync(pagePath, html);
-  });
+  let html = fs.readFileSync(pagePath, 'utf8');
+  const re = new RegExp(`${MARKER_BEGIN}[\\s\\S]*?${MARKER_END}`, 'm');
+  if (re.test(html)) {
+    html = html.replace(re, scriptBlock);
+  } else {
+    html = html.replace('</head>', `    ${scriptBlock}\n</head>`);
+  }
+  fs.writeFileSync(pagePath, html);
 }
 
-function writeOutputs(graph) {
+function writeOutputs(graphs) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(GRAPH_FILE, `${JSON.stringify(graph, null, 2)}\n`);
+  fs.writeFileSync(GRAPH_FILE, `${JSON.stringify(graphs.portal, null, 2)}\n`);
+  fs.writeFileSync(
+    path.join(OUT_DIR, 'os-linux-hub.json'),
+    `${JSON.stringify(graphs['os-linux-hub'], null, 2)}\n`,
+  );
+  fs.writeFileSync(
+    path.join(OUT_DIR, 'mnt-hub.json'),
+    `${JSON.stringify(graphs['mnt-hub'], null, 2)}\n`,
+  );
+
+  const portalGraph = graphs.portal;
+  const mntGraph = graphs['mnt-hub'];
+  const scenarioCount = (mntGraph['@graph'][1]?.itemListElement || [])
+    .reduce((n, li) => n + (li.item?.hasPart?.length || 0), 0);
+
   const sourceHash = computeSourceHash();
   fs.writeFileSync(HASH_FILE, `${JSON.stringify({
     generatedAt: new Date().toISOString(),
     sourceHash,
-    osCount: graph['@graph'][1]?.numberOfItems || 0,
-    mntCount: graph['@graph'][2]?.numberOfItems || 0,
+    osCount: portalGraph['@graph'][1]?.numberOfItems || 0,
+    linuxCount: graphs['os-linux-hub']['@graph'][1]?.numberOfItems || 0,
+    mntCount: mntGraph['@graph'][1]?.numberOfItems || 0,
+    scenarioCount,
   }, null, 2)}\n`);
   return sourceHash;
 }
@@ -204,7 +339,7 @@ function writeOutputs(graph) {
 function main() {
   const site = readJson(SITE_CONTRACT);
   const registry = readJson(OS_REGISTRY);
-  const graph = buildGraph(site, registry);
+  const graphs = buildAllGraphs(site, registry);
   const sourceHash = computeSourceHash();
 
   if (checkOnly) {
@@ -218,16 +353,24 @@ function main() {
       process.exit(1);
     }
     console.log(
-      `✓ schema.org à jour — ${stored.osCount} OS, ${stored.mntCount} module(s) /mnt`,
+      `✓ schema.org à jour — ${stored.osCount} OS, ${stored.mntCount} module(s), `
+      + `${stored.scenarioCount || 0} scénario(s)`,
     );
     return;
   }
 
-  writeOutputs(graph);
-  injectHtmlPages(site, graph);
+  writeOutputs(graphs);
+  normalizeHtmlPages(site).forEach(({ path: relPage, graphKey }) => {
+    const graph = graphs[graphKey];
+    if (!graph) {
+      throw new Error(`Graphe inconnu : ${graphKey} pour ${relPage}`);
+    }
+    injectHtmlPage(relPage, graph);
+  });
+
   console.log(
-    `✓ schema.org généré — ${graph['@graph'][1].numberOfItems} OS, `
-    + `${graph['@graph'][2].numberOfItems} module(s) /mnt → ${GRAPH_FILE}`,
+    `✓ schema.org généré — ${graphs.portal['@graph'][1].numberOfItems} OS, `
+    + `${graphs['mnt-hub']['@graph'][1].numberOfItems} module(s) /mnt → ${GRAPH_FILE}`,
   );
 }
 

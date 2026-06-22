@@ -1,20 +1,18 @@
 {
   "version": 2,
   "registryId": "linux-mint",
-  "updatedAt": "2026-06-19T12:18:03.959Z",
+  "updatedAt": "2026-06-22T14:25:39.504Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
   "summary": {
     "documentedP0": 16,
-    "vmCapturesP0": 0,
+    "vmCapturesP0": 2,
     "componentShotsPlanned": 57,
-    "componentShotsCaptured": 0,
+    "componentShotsCaptured": 7,
     "capsuleCapturesP0": 16,
-    "visualMatchClassifiedP0": 16,
-    "capsuleCapturesP1": 0,
-    "capsuleCapturesP2": 0,
+    "visualMatchClassifiedP0": 13,
     "visualMatchClassifiedP1": 0,
-    "visualMatchClassifiedP2": 0
+    "visualMatchClassifiedP2": 1
   },
   "investigations": [
     {
@@ -521,8 +519,8 @@
             "gnome.calendar-grid"
           ],
           "labelFr": "month grid",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/calendar/month-grid-vm.png"
         },
         {
           "shotId": "week-view",
@@ -532,8 +530,8 @@
             "gnome.calendar-grid"
           ],
           "labelFr": "week view",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/calendar/week-view-vm.png"
         },
         {
           "shotId": "event-editor",
@@ -543,11 +541,16 @@
             "gnome.calendar-grid"
           ],
           "labelFr": "event editor",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/calendar/event-editor-vm.png"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual/calendar-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-calendar.png",
@@ -555,7 +558,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -2169,8 +2172,9 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "tab bar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/firefox/tab-bar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
         },
         {
           "shotId": "url-bar",
@@ -2179,8 +2183,9 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "url bar",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/firefox/url-bar-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
         },
         {
           "shotId": "bookmarks",
@@ -2189,8 +2194,9 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "bookmarks",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/firefox/bookmarks-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
         },
         {
           "shotId": "menu-hamburger",
@@ -2199,11 +2205,17 @@
             "gnome.browser-chrome"
           ],
           "labelFr": "menu hamburger",
-          "status": "pending",
-          "vmCapture": null
+          "status": "captured",
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/apps-visual/firefox/menu-hamburger-vm.png",
+          "note": "dérivé capture VM default (virsh ou gnome-screenshot)"
         }
       ],
-      "vmCaptures": [],
+      "vmCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual/firefox-vm.png",
+          "shot": "default"
+        }
+      ],
       "capsuleCaptures": [
         {
           "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-firefox.png",
@@ -2211,7 +2223,7 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "ok"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -3634,14 +3646,9 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-libreoffice_startcenter.png",
-          "shot": "default"
-        }
-      ],
+      "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "unknown"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -4538,14 +4545,9 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-themes.png",
-          "shot": "default"
-        }
-      ],
+      "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "unknown"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -5761,14 +5763,9 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [
-        {
-          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-themes.png",
-          "shot": "default"
-        }
-      ],
+      "capsuleCaptures": [],
       "capsuleParity": {
-        "visualMatch": "partial"
+        "visualMatch": "unknown"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -6113,7 +6110,7 @@
       "labelFr": "Vim",
       "vmId": "vim",
       "parityPriority": "P2",
-      "status": "pending",
+      "status": "documented",
       "composition": {
         "labelFr": "Éditeur de texte",
         "components": [
@@ -6172,10 +6169,16 @@
         }
       ],
       "vmCaptures": [],
-      "capsuleCaptures": [],
+      "capsuleCaptures": [
+        {
+          "path": "root/docs/inventaires/captures/linux-mint/apps-visual-capsule/mint-capsule-text_editor.png",
+          "shot": "default"
+        }
+      ],
       "capsuleParity": {
-        "visualMatch": "unknown"
-      }
+        "visualMatch": "partial"
+      },
+      "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
     {
       "controlId": "visionneur_images",

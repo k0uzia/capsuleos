@@ -56,6 +56,7 @@ Checklist pour passer `status: model` :
 [ ] slotSpecs cinnamon dans apps-catalog.json
 [x] validate-ui-components-cinnamon.mjs (aligné apps-catalog P0)
 [ ] appCompositions P0 complétées (sans planned: true)
+[x] mintSlotsAboutis couverts dans appCompositions (32 slots)
 [ ] sync-mint-visual-investigation-compositions.mjs sur inventaire P0/P1
 [ ] Campagne VM linux-mint (AppV → AppC)
 [ ] Lien convention-composants-ui.md § extension

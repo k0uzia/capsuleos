@@ -430,27 +430,24 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Calendrier",
+        "labelFr": "Agenda",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.calendar-grid"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "month-grid",
-          "week-view",
-          "event-editor"
+          "sidebar"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "month-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.calendar-grid"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "month grid",
           "status": "captured",
@@ -459,9 +456,8 @@
         {
           "shotId": "week-view",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.calendar-grid"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "week view",
           "status": "captured",
@@ -470,9 +466,8 @@
         {
           "shotId": "event-editor",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.calendar-grid"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "event editor",
           "status": "captured",
@@ -494,7 +489,7 @@
       "capsuleParity": {
         "visualMatch": "ok"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "baobab",
@@ -503,27 +498,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Utilisation des disques",
+        "labelFr": "Analyseur d'espace disque",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.chart-disk-usage"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "volume-list",
           "treemap",
           "scan-progress"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "volume-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.chart-disk-usage"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "volume list",
           "status": "pending",
@@ -532,9 +525,8 @@
         {
           "shotId": "treemap",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.chart-disk-usage"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "treemap",
           "status": "pending",
@@ -543,9 +535,8 @@
         {
           "shotId": "scan-progress",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.chart-disk-usage"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "scan progress",
           "status": "pending",
@@ -731,29 +722,22 @@
       "composition": {
         "labelFr": "Calculatrice",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.popover",
-          "gnome.gtk-grid-view"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "mode-selector",
           "display",
-          "keypad-basic",
-          "keypad-advanced",
-          "history-panel"
+          "keypad"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "mode-selector",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.popover",
-            "gnome.gtk-grid-view"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "mode selector",
           "status": "pending",
@@ -762,10 +746,8 @@
         {
           "shotId": "display",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.popover",
-            "gnome.gtk-grid-view"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "display",
           "status": "pending",
@@ -774,10 +756,8 @@
         {
           "shotId": "keypad-basic",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.popover",
-            "gnome.gtk-grid-view"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "keypad basic",
           "status": "pending",
@@ -786,10 +766,8 @@
         {
           "shotId": "keypad-advanced",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.popover",
-            "gnome.gtk-grid-view"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "keypad advanced",
           "status": "pending",
@@ -798,10 +776,8 @@
         {
           "shotId": "history-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.popover",
-            "gnome.gtk-grid-view"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "history panel",
           "status": "pending",
@@ -818,7 +794,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "screenshot",
@@ -829,22 +805,20 @@
       "composition": {
         "labelFr": "Capture d'écran",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window"
         ],
         "acquisitionOrder": [
-          "area-selector",
-          "delay-options"
+          "window-chrome",
+          "main-content"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "area-selector",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "area selector",
           "status": "pending",
@@ -853,8 +827,7 @@
         {
           "shotId": "delay-options",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "delay options",
           "status": "pending",
@@ -871,7 +844,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "themes",
@@ -1384,25 +1357,22 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Dessin",
+        "labelFr": "Drawing",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "canvas",
-          "tool-palette",
-          "color-picker"
+          "window-chrome",
+          "main-content"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "canvas",
           "status": "pending",
@@ -1411,8 +1381,7 @@
         {
           "shotId": "tool-palette",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "tool palette",
           "status": "pending",
@@ -1421,8 +1390,7 @@
         {
           "shotId": "color-picker",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "color picker",
           "status": "pending",
@@ -1439,7 +1407,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "gnome_disks",
@@ -1478,24 +1446,22 @@
       "composition": {
         "labelFr": "Éditeur de texte",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.monospace-editor"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "menubar",
-          "editor-area",
-          "status-line",
-          "open-dialog"
+          "toolbar",
+          "editor-pane"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menubar",
           "status": "pending",
@@ -1504,8 +1470,8 @@
         {
           "shotId": "editor-area",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "editor area",
           "status": "pending",
@@ -1514,8 +1480,8 @@
         {
           "shotId": "status-line",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "status line",
           "status": "pending",
@@ -1524,8 +1490,8 @@
         {
           "shotId": "open-dialog",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "open dialog",
           "status": "pending",
@@ -1542,7 +1508,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "themes",
@@ -2228,28 +2194,22 @@
       "composition": {
         "labelFr": "Gestionnaire d'archives",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.gtk-column-view",
-          "gnome.popover"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "toolbar",
-          "file-list",
-          "menu",
-          "extract-flow"
+          "archive-list"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view",
-            "gnome.popover"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -2258,10 +2218,8 @@
         {
           "shotId": "file-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view",
-            "gnome.popover"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "file list",
           "status": "pending",
@@ -2270,10 +2228,8 @@
         {
           "shotId": "menu",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view",
-            "gnome.popover"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menu",
           "status": "pending",
@@ -2282,10 +2238,8 @@
         {
           "shotId": "extract-flow",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view",
-            "gnome.popover"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "extract flow",
           "status": "pending",
@@ -2913,27 +2867,24 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Lecteur multimédia",
+        "labelFr": "Lecteur vidéos",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.media-viewer"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "transport-controls",
-          "playlist",
-          "album-art"
+          "transport",
+          "video-surface"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-ubuntu"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "transport-controls",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "transport controls",
           "status": "pending",
@@ -2942,9 +2893,8 @@
         {
           "shotId": "playlist",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "playlist",
           "status": "pending",
@@ -2953,9 +2903,8 @@
         {
           "shotId": "album-art",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "album art",
           "status": "pending",
@@ -2972,7 +2921,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "libreoffice_startcenter",
@@ -2983,21 +2932,21 @@
       "composition": {
         "labelFr": "LibreOffice",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "startcenter-grid"
+          "startcenter-tiles"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "startcenter-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "startcenter grid",
           "status": "pending",
@@ -3019,23 +2968,22 @@
       "composition": {
         "labelFr": "LibreOffice Calc",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "menubar",
-          "toolbar",
-          "grid-canvas"
+          "spreadsheet-grid"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menubar",
           "status": "pending",
@@ -3044,8 +2992,8 @@
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -3054,8 +3002,8 @@
         {
           "shotId": "grid-canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "grid canvas",
           "status": "pending",
@@ -3077,23 +3025,22 @@
       "composition": {
         "labelFr": "LibreOffice Draw",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "menubar",
-          "toolbar",
           "draw-canvas"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menubar",
           "status": "pending",
@@ -3102,8 +3049,8 @@
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -3112,8 +3059,8 @@
         {
           "shotId": "draw-canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "draw canvas",
           "status": "pending",
@@ -3135,23 +3082,22 @@
       "composition": {
         "labelFr": "LibreOffice Impress",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "menubar",
-          "toolbar",
           "slide-canvas"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menubar",
           "status": "pending",
@@ -3160,8 +3106,8 @@
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -3170,8 +3116,8 @@
         {
           "shotId": "slide-canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "slide canvas",
           "status": "pending",
@@ -3193,21 +3139,21 @@
       "composition": {
         "labelFr": "LibreOffice",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "startcenter-grid"
+          "startcenter-tiles"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "startcenter-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "startcenter grid",
           "status": "pending",
@@ -3219,7 +3165,7 @@
       "capsuleParity": {
         "visualMatch": "unknown"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "mintinstall",
@@ -3354,25 +3300,22 @@
       "composition": {
         "labelFr": "Moniteur système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.system-metrics"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "cpu-chart",
-          "memory-chart",
-          "process-table"
+          "process-list",
+          "resource-graphs"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "cpu-chart",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "cpu chart",
           "status": "pending",
@@ -3381,9 +3324,8 @@
         {
           "shotId": "memory-chart",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "memory chart",
           "status": "pending",
@@ -3392,9 +3334,8 @@
         {
           "shotId": "process-table",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "process table",
           "status": "pending",
@@ -3416,25 +3357,22 @@
       "composition": {
         "labelFr": "Moniteur système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.system-metrics"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "cpu-chart",
-          "memory-chart",
-          "process-table"
+          "process-list",
+          "resource-graphs"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "cpu-chart",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "cpu chart",
           "status": "pending",
@@ -3443,9 +3381,8 @@
         {
           "shotId": "memory-chart",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "memory chart",
           "status": "pending",
@@ -3454,9 +3391,8 @@
         {
           "shotId": "process-table",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.system-metrics"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "process table",
           "status": "pending",
@@ -3762,25 +3698,22 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Numérisation simple",
+        "labelFr": "Numériseur simple",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "device-list",
-          "preview-pane",
-          "scan-controls"
+          "window-chrome",
+          "main-content"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "device-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "device list",
           "status": "pending",
@@ -3789,8 +3722,7 @@
         {
           "shotId": "preview-pane",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "preview pane",
           "status": "pending",
@@ -3799,8 +3731,7 @@
         {
           "shotId": "scan-controls",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "scan controls",
           "status": "pending",
@@ -4535,25 +4466,22 @@
       "composition": {
         "labelFr": "Rhythmbox",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.media-viewer"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "library-sidebar",
-          "track-list",
+          "library",
           "now-playing"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-ubuntu"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "library-sidebar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "library sidebar",
           "status": "pending",
@@ -4562,9 +4490,8 @@
         {
           "shotId": "track-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "track list",
           "status": "pending",
@@ -4573,9 +4500,8 @@
         {
           "shotId": "now-playing",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "now playing",
           "status": "pending",
@@ -5116,23 +5042,20 @@
       "composition": {
         "labelFr": "Thunderbird",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "folder-pane",
-          "message-list",
-          "compose"
+          "window-chrome",
+          "main-content"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-ubuntu"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "folder-pane",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "folder pane",
           "status": "pending",
@@ -5141,8 +5064,7 @@
         {
           "shotId": "message-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "message list",
           "status": "pending",
@@ -5151,8 +5073,7 @@
         {
           "shotId": "compose",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "compose",
           "status": "pending",
@@ -5242,23 +5163,20 @@
       "composition": {
         "labelFr": "Timeshift",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "snapshot-list",
-          "schedule-panel",
-          "restore-wizard"
+          "snapshots",
+          "restore-actions"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "snapshot-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "snapshot list",
           "status": "pending",
@@ -5267,8 +5185,7 @@
         {
           "shotId": "schedule-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "schedule panel",
           "status": "pending",
@@ -5277,8 +5194,7 @@
         {
           "shotId": "restore-wizard",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "restore wizard",
           "status": "pending",
@@ -5300,25 +5216,20 @@
       "composition": {
         "labelFr": "Transmission",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.gtk-column-view"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "toolbar",
-          "torrent-list",
-          "status-bar"
+          "window-chrome",
+          "main-content"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -5327,9 +5238,7 @@
         {
           "shotId": "torrent-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "torrent list",
           "status": "pending",
@@ -5338,9 +5247,7 @@
         {
           "shotId": "status-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.gtk-column-view"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "status bar",
           "status": "pending",
@@ -5430,24 +5337,22 @@
       "composition": {
         "labelFr": "Éditeur de texte",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.monospace-editor"
+          "cinnamon.muffin-window",
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "menubar",
-          "editor-area",
-          "status-line",
-          "open-dialog"
+          "toolbar",
+          "editor-pane"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "menubar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "menubar",
           "status": "pending",
@@ -5456,8 +5361,8 @@
         {
           "shotId": "editor-area",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "editor area",
           "status": "pending",
@@ -5466,8 +5371,8 @@
         {
           "shotId": "status-line",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "status line",
           "status": "pending",
@@ -5476,8 +5381,8 @@
         {
           "shotId": "open-dialog",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.monospace-editor"
+            "cinnamon.muffin-window",
+            "cinnamon.xapp-window"
           ],
           "labelFr": "open dialog",
           "status": "pending",
@@ -5494,7 +5399,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "visionneur_images",
@@ -5621,23 +5526,20 @@
       "composition": {
         "labelFr": "Warpinator",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
           "peer-list",
-          "transfer-queue",
-          "preferences"
+          "transfer-queue"
         ],
-        "chromeProvider": "libadwaita-gnome",
+        "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "peer-list",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "peer list",
           "status": "pending",
@@ -5646,8 +5548,7 @@
         {
           "shotId": "transfer-queue",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "transfer queue",
           "status": "pending",
@@ -5656,8 +5557,7 @@
         {
           "shotId": "preferences",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "preferences",
           "status": "pending",

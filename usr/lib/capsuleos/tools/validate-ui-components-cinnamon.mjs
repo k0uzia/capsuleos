@@ -106,6 +106,15 @@ for (const [slot, comp] of Object.entries(compositions)) {
 }
 
 const mintAboutis = new Set(slotsManifest.mintSlotsAboutis || []);
+for (const slot of mintAboutis) {
+  if (!compositions[slot]) {
+    errors.push(`mintSlotsAboutis.${slot} : appCompositions manquante`);
+  }
+  if (!slotSpecs[slot]) {
+    errors.push(`mintSlotsAboutis.${slot} : slotSpecs cinnamon absent`);
+  }
+}
+
 for (const slot of Object.keys(compositions)) {
   if (!slotSpecs[slot]) {
     errors.push(`appCompositions.${slot} sans slotSpecs cinnamon dans apps-catalog.json`);
@@ -130,5 +139,5 @@ if (errors.length) {
 
 console.log(
   `✓ validate-ui-components-cinnamon OK — ${componentIds.size} composants N1, `
-    + `${Object.keys(compositions).length} compositions, ${P0_COMPOSITION_SLOTS.length} slots P0`,
+    + `${Object.keys(compositions).length} compositions, ${mintAboutis.size} mintSlotsAboutis`,
 );

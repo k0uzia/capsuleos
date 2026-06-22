@@ -106,4 +106,50 @@ final class UserRepository
         );
         $stmt->execute(['val' => $cancel ? 1 : 0, 'uid' => $userId]);
     }
+
+    /** @return array{paymentMethod: string, addressLine: string, postalCode: string, city: string} */
+    public static function billing(int $userId): array
+    {
+        $defaults = [
+            'paymentMethod' => '',
+            'addressLine' => '',
+            'postalCode' => '',
+            'city' => '',
+        ];
+        $row = self::subscription($userId);
+        if (!is_array($row)) {
+            return $defaults;
+        }
+        $raw = trim((string) ($row['billing_json'] ?? ''));
+        if ($raw === '') {
+            return $defaults;
+        }
+        $decoded = json_decode($raw, true);
+        if (!is_array($decoded)) {
+            return $defaults;
+        }
+        return [
+            'paymentMethod' => trim((string) ($decoded['paymentMethod'] ?? '')),
+            'addressLine' => trim((string) ($decoded['addressLine'] ?? '')),
+            'postalCode' => trim((string) ($decoded['postalCode'] ?? '')),
+            'city' => trim((string) ($decoded['city'] ?? '')),
+        ];
+    }
+
+    /** @param array{paymentMethod?: string, addressLine?: string, postalCode?: string, city?: string} $billing */
+    public static function updateBilling(int $userId, array $billing): void
+    {
+        $current = self::billing($userId);
+        $merged = array_merge($current, $billing);
+        $payload = json_encode([
+            'paymentMethod' => trim((string) ($merged['paymentMethod'] ?? '')),
+            'addressLine' => trim((string) ($merged['addressLine'] ?? '')),
+            'postalCode' => trim((string) ($merged['postalCode'] ?? '')),
+            'city' => trim((string) ($merged['city'] ?? '')),
+        ], JSON_THROW_ON_ERROR);
+        $stmt = Database::connection()->prepare(
+            'UPDATE subscriptions SET billing_json = :billing, updated_at = datetime(\'now\') WHERE user_id = :uid',
+        );
+        $stmt->execute(['billing' => $payload, 'uid' => $userId]);
+    }
 }

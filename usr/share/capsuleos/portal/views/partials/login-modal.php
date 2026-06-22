@@ -7,7 +7,8 @@ use CapsuleOS\Portal\Http\Csrf;
 $loginError = (string) ($ctx->extra['loginError'] ?? '');
 $registerError = (string) ($ctx->extra['registerError'] ?? '');
 $registerEmail = (string) ($ctx->extra['registerEmail'] ?? '');
-$devCreds = Config::isDev() ? Config::devCredentials() : null;
+$registerDisplayName = (string) ($ctx->extra['registerDisplayName'] ?? '');
+$devCreds = Config::allowsLocalPreview() ? Config::devCredentials() : null;
 $loginEmail = (string) ($ctx->extra['loginEmail'] ?? ($devCreds ? $devCreds['defaultUser'] : ''));
 $openOnLoad = !empty($ctx->extra['openLoginModal']);
 $modalView = (string) ($ctx->extra['modalView'] ?? 'login');
@@ -37,8 +38,8 @@ $modalTitle = $modalView === 'register' ? 'Créer un compte' : 'Connexion';
                 <input type="hidden" name="from_modal" value="1">
                 <input type="hidden" name="redirect" value="<?= $ctx->e(portal_entry('index.php')) ?>">
                 <label class="portal-field">
-                    <span class="portal-label"><?= Config::isDev() ? 'Identifiant' : 'Adresse e-mail' ?></span>
-                    <input class="portal-input" type="<?= Config::isDev() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::isDev() ? 'username' : 'email' ?>" value="<?= $ctx->e($loginEmail) ?>">
+                    <span class="portal-label"><?= Config::allowsLocalPreview() ? 'Identifiant' : 'Adresse e-mail' ?></span>
+                    <input class="portal-input" type="<?= Config::allowsLocalPreview() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::allowsLocalPreview() ? 'username' : 'email' ?>" value="<?= $ctx->e($loginEmail) ?>">
                 </label>
                 <label class="portal-field">
                     <span class="portal-label">Mot de passe</span>
@@ -59,6 +60,10 @@ $modalTitle = $modalView === 'register' ? 'Créer un compte' : 'Connexion';
                 <label class="portal-field">
                     <span class="portal-label">Adresse e-mail</span>
                     <input class="portal-input" type="email" name="email" required autocomplete="email" value="<?= $ctx->e($registerEmail) ?>">
+                </label>
+                <label class="portal-field">
+                    <span class="portal-label">Nom d'utilisateur</span>
+                    <input class="portal-input" type="text" name="display_name" required maxlength="60" autocomplete="username" value="<?= $ctx->e($registerDisplayName) ?>">
                 </label>
                 <label class="portal-field">
                     <span class="portal-label">Mot de passe (min. <?= (int) $minLen ?> caractères)</span>

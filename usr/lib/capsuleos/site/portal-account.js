@@ -53,6 +53,15 @@
         CSRF = meta ? meta.content : '';
     }
 
+    function apiUrl(path) {
+        var accountRoot = document.querySelector('[data-portal-account]');
+        var base = accountRoot ? (accountRoot.getAttribute('data-portal-api-base') || 'portal/api/') : 'portal/api/';
+        if (!base.endsWith('/')) {
+            base += '/';
+        }
+        return '/' + base.replace(/^\/+/, '') + String(path || '').replace(/^\/+/, '');
+    }
+
     function apiPost(url, body) {
         var payload = {};
         var key;
@@ -89,7 +98,7 @@
                 return;
             }
             var fd = new FormData(ticketForm);
-            apiPost('/portal/api/tickets.php', {
+            apiPost(apiUrl('tickets.php'), {
                 type: fd.get('type'),
                 subject: fd.get('subject'),
                 body: fd.get('body'),
@@ -108,7 +117,7 @@
                         ticketsApi.readAuthorBadges(),
                     );
                     if (window.CapsulePortalAccountNav) {
-                        window.CapsulePortalAccountNav.activate('settings', { sub: ticketsApi.subId(data.ticket) });
+                        window.CapsulePortalAccountNav.activate('support', { sub: ticketsApi.subId(data.ticket) });
                     }
                     return;
                 }
@@ -126,7 +135,7 @@
                 return;
             }
             if (window.CapsulePortalAccountNav) {
-                window.CapsulePortalAccountNav.activate('settings', { sub: 'support' });
+                window.CapsulePortalAccountNav.activate('support', { sub: 'support' });
             } else if (window.CapsulePortalAccountModals) {
                 window.CapsulePortalAccountModals.open('tickets');
             }
@@ -142,14 +151,78 @@
         });
     });
 
+    function closeSettingsField(fieldKey) {
+        if (!window.CapsulePortalAccountSettings) {
+            return;
+        }
+        var field = document.querySelector('[data-settings-field="' + fieldKey + '"]');
+        if (field) {
+            window.CapsulePortalAccountSettings.closeField(field, true);
+        }
+    }
+
+    function updateSettingsDisplay(selector, value, emptyLabel) {
+        document.querySelectorAll(selector).forEach(function (el) {
+            el.textContent = value || emptyLabel || '-';
+        });
+    }
+
+    function syncAccountIdentity(displayName, email) {
+        var resolvedEmail = email;
+        if (resolvedEmail === null) {
+            var emailEl = document.querySelector('[data-portal-account-email]');
+            resolvedEmail = emailEl ? (emailEl.textContent || '').trim() : '';
+        }
+        document.querySelectorAll('[data-portal-account-name], [data-portal-auth-username], .header-user-menu-name').forEach(function (el) {
+            el.textContent = displayName || resolvedEmail || 'Utilisateur';
+        });
+        if (email !== null) {
+            document.querySelectorAll('[data-portal-account-email]').forEach(function (el) {
+                el.textContent = email || '';
+            });
+        }
+        var accountRoot = document.querySelector('[data-portal-account]');
+        if (accountRoot && displayName) {
+            accountRoot.setAttribute('data-portal-display-name', displayName);
+        }
+    }
+
+    function settingsConfirm() {
+        return window.CapsulePortalSettingsConfirm || null;
+    }
+
+    function settingsError(message) {
+        var confirmApi = settingsConfirm();
+        if (confirmApi) {
+            confirmApi.alertError(message);
+            return;
+        }
+        alert(message);
+    }
+
     var nameForm = document.querySelector('[data-settings-name]');
     if (nameForm) {
         nameForm.addEventListener('submit', function (event) {
             event.preventDefault();
+            if (!nameForm.checkValidity()) {
+                nameForm.reportValidity();
+                return;
+            }
             var fd = new FormData(nameForm);
-            apiPost('/portal/api/account.php', { action: 'update_profile', displayName: fd.get('displayName') })
-                .then(function () { alert('Nom enregistré.'); })
-                .catch(function (err) { alert(err.message); });
+            var displayName = String(fd.get('displayName') || '').trim();
+            apiPost(apiUrl('account.php'), { action: 'update_profile', displayName: displayName })
+                .then(function () {
+                    updateSettingsDisplay('[data-settings-display-name]', displayName, 'Non renseigné');
+                    syncAccountIdentity(displayName, null);
+                    closeSettingsField('display-name');
+                    var confirmApi = settingsConfirm();
+                    if (confirmApi) {
+                        confirmApi.nameUpdated();
+                    } else {
+                        alert('Nom enregistré.');
+                    }
+                })
+                .catch(function (err) { settingsError(err.message); });
         });
     }
 
@@ -157,13 +230,22 @@
     if (emailForm) {
         emailForm.addEventListener('submit', function (event) {
             event.preventDefault();
+            if (!emailForm.checkValidity()) {
+                emailForm.reportValidity();
+                return;
+            }
             var fd = new FormData(emailForm);
-            apiPost('/portal/api/account.php', { action: 'update_email', email: fd.get('email') })
-                .then(function () {
-                    alert('E-mail mis à jour.');
-                    window.location.reload();
+            apiPost(apiUrl('account.php'), { action: 'request_email_change', email: fd.get('email') })
+                .then(function (data) {
+                    closeSettingsField('email');
+                    var confirmApi = settingsConfirm();
+                    if (confirmApi) {
+                        confirmApi.emailPending(data.message);
+                    } else {
+                        alert(data.message || 'Un e-mail de confirmation a été envoyé à la nouvelle adresse.');
+                    }
                 })
-                .catch(function (err) { alert(err.message); });
+                .catch(function (err) { settingsError(err.message); });
         });
     }
 
@@ -171,15 +253,86 @@
     if (passwordForm) {
         passwordForm.addEventListener('submit', function (event) {
             event.preventDefault();
+            if (!passwordForm.checkValidity()) {
+                passwordForm.reportValidity();
+                return;
+            }
             var fd = new FormData(passwordForm);
-            apiPost('/portal/api/account.php', { action: 'update_password', password: fd.get('password') })
-                .then(function () {
+            var password = String(fd.get('password') || '');
+            var passwordConfirm = String(fd.get('passwordConfirm') || '');
+            if (password !== passwordConfirm) {
+                settingsError('Les nouveaux mots de passe ne correspondent pas.');
+                return;
+            }
+            apiPost(apiUrl('account.php'), {
+                action: 'update_password',
+                currentPassword: fd.get('currentPassword'),
+                password: password,
+                passwordConfirm: passwordConfirm,
+            }).then(function () {
+                closeSettingsField('password');
+                var confirmApi = settingsConfirm();
+                if (confirmApi) {
+                    confirmApi.passwordUpdated();
+                } else {
                     alert('Mot de passe mis à jour.');
-                    passwordForm.reset();
-                })
-                .catch(function (err) { alert(err.message); });
+                }
+            }).catch(function (err) { settingsError(err.message); });
         });
     }
+
+    function syncPaymentMethodDisplay(value) {
+        var label = value || 'Aucun moyen enregistré';
+        document.querySelectorAll('[data-settings-display-payment]').forEach(function (el) {
+            el.textContent = label;
+        });
+        document.querySelectorAll('.portal-account-plan-details-payment').forEach(function (el) {
+            el.textContent = value || '-';
+        });
+        document.querySelectorAll('[data-settings-field="payment-method"] [data-settings-edit]').forEach(function (btn) {
+            btn.textContent = value ? 'Modifier' : 'Ajouter';
+        });
+        document.querySelectorAll('[data-settings-payment-remove]').forEach(function (btn) {
+            btn.hidden = !value;
+        });
+    }
+
+    var paymentForm = document.querySelector('[data-settings-payment]');
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (!paymentForm.checkValidity()) {
+                paymentForm.reportValidity();
+                return;
+            }
+            var fd = new FormData(paymentForm);
+            var paymentMethod = String(fd.get('paymentMethod') || '').trim();
+            apiPost(apiUrl('account.php'), { action: 'update_billing', paymentMethod: paymentMethod })
+                .then(function () {
+                    syncPaymentMethodDisplay(paymentMethod);
+                    closeSettingsField(document.querySelector('[data-settings-field="payment-method"]'), true);
+                })
+                .catch(function (err) { settingsError(err.message); });
+        });
+    }
+
+    document.querySelectorAll('[data-settings-payment-remove]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            if (!window.confirm('Supprimer le moyen de paiement enregistré ?')) {
+                return;
+            }
+            apiPost(apiUrl('account.php'), { action: 'remove_payment_method' })
+                .then(function () {
+                    syncPaymentMethodDisplay('');
+                    var input = document.querySelector('[data-settings-payment] [name="paymentMethod"]');
+                    if (input) {
+                        input.value = '';
+                    }
+                    closeSettingsField(document.querySelector('[data-settings-field="payment-method"]'), true);
+                })
+                .catch(function (err) { settingsError(err.message); });
+        });
+    });
 
     var deleteBtn = document.querySelector('[data-account-delete]');
     if (deleteBtn) {
@@ -187,7 +340,7 @@
             if (!window.confirm('Supprimer définitivement votre compte et toutes vos données ?')) {
                 return;
             }
-            apiPost('/portal/api/account.php', { action: 'delete_account' })
+            apiPost(apiUrl('account.php'), { action: 'delete_account' })
                 .then(function () { window.location.href = '/portal/index.php'; })
                 .catch(function (err) { alert(err.message); });
         });
@@ -199,12 +352,14 @@
         });
     }
 
-    function syncRenewalActionButtons() {
-        var statusEl = document.querySelector('[data-subscription-manage-status]');
-        if (!statusEl) {
-            return;
+    function syncRenewalActionButtons(cancelled) {
+        if (typeof cancelled !== 'boolean') {
+            var statusEl = document.querySelector('[data-subscription-manage-status]');
+            if (!statusEl) {
+                return;
+            }
+            cancelled = (statusEl.textContent || '').trim() === 'Annulé';
         }
-        var cancelled = (statusEl.textContent || '').trim() === 'Annulé';
         document.querySelectorAll('[data-subscription-show-cancel-confirm]').forEach(function (btn) {
             btn.hidden = cancelled;
         });
@@ -213,51 +368,69 @@
         });
     }
 
+    function setRenewalStatusClass(el, cancelled) {
+        if (!el) {
+            return;
+        }
+        el.textContent = cancelled ? 'Annulé' : 'Actif';
+        el.className = 'portal-account-sub-renewal-status '
+            + (cancelled ? 'portal-account-sub-renewal-status--cancelled' : 'portal-account-sub-renewal-status--active');
+    }
+
+    function applyRenewalState(cancelled) {
+        document.querySelectorAll('[data-subscription-manage-status], [data-subscription-renewal-status], [data-subscription-overview-status]').forEach(function (el) {
+            setRenewalStatusClass(el, cancelled);
+        });
+        syncRenewalActionButtons(cancelled);
+        if (window.CapsulePortalAccountNav) {
+            var hash = window.location.hash.replace(/^#/, '');
+            if (hash.indexOf('parametres/') === 0) {
+                window.CapsulePortalAccountNav.activate('settings', { sub: 'subscription', updateHash: false });
+            }
+        }
+    }
+
     syncRenewalActionButtons();
 
-    var showCancelConfirm = document.querySelector('[data-subscription-show-cancel-confirm]');
-    if (showCancelConfirm) {
-        showCancelConfirm.addEventListener('click', function () {
+    document.querySelectorAll('[data-subscription-show-cancel-confirm]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
             showSubscriptionManageView('confirm-cancel');
         });
-    }
+    });
 
-    var manageBack = document.querySelector('[data-subscription-manage-back]');
-    if (manageBack) {
-        manageBack.addEventListener('click', function () {
+    document.querySelectorAll('[data-subscription-manage-back]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
             showSubscriptionManageView('overview');
         });
-    }
+    });
 
-    var cancelConfirm = document.querySelector('[data-subscription-cancel-confirm]');
-    if (cancelConfirm) {
-        cancelConfirm.addEventListener('click', function () {
-            apiPost('/portal/api/account.php', {
+    document.querySelectorAll('[data-subscription-cancel-confirm]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            apiPost(apiUrl('account.php'), {
                 action: 'cancel_renewal',
                 cancel: true,
             }).then(function () {
                 showSubscriptionManageView('overview');
-                window.location.reload();
+                applyRenewalState(true);
             }).catch(function (err) {
                 alert(err.message);
             });
         });
-    }
+    });
 
-    var reactivateBtn = document.querySelector('[data-subscription-reactivate]');
-    if (reactivateBtn) {
-        reactivateBtn.addEventListener('click', function () {
-            apiPost('/portal/api/account.php', {
+    document.querySelectorAll('[data-subscription-reactivate]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            apiPost(apiUrl('account.php'), {
                 action: 'cancel_renewal',
                 cancel: false,
             }).then(function () {
                 showSubscriptionManageView('overview');
-                window.location.reload();
+                applyRenewalState(false);
             }).catch(function (err) {
                 alert(err.message);
             });
         });
-    }
+    });
 
     document.querySelectorAll('[data-skin-delete]').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -266,7 +439,7 @@
             if (!registryId || !window.confirm('Supprimer la sauvegarde « ' + label + ' » ?')) {
                 return;
             }
-            apiPost('/portal/api/skins.php', { action: 'delete', registryId: registryId })
+            apiPost(apiUrl('skins.php'), { action: 'delete', registryId: registryId })
                 .then(function () {
                     var row = btn.closest('[data-skin-row]');
                     if (row) {
@@ -295,7 +468,7 @@
                 alert('Nombre de places : entre 2 et 32.');
                 return;
             }
-            apiPost('/portal/api/classroom.php', {
+            apiPost(apiUrl('classroom.php'), {
                 action: 'create',
                 name: fd.get('name'),
                 maxSlots: maxSlots,
@@ -323,7 +496,7 @@
             updateForm.querySelectorAll('[name="allowedModules"]:checked').forEach(function (el) {
                 allowedModules.push(el.value);
             });
-            apiPost('/portal/api/classroom.php', {
+            apiPost(apiUrl('classroom.php'), {
                 action: 'update',
                 name: fd.get('name'),
                 maxSlots: Number(fd.get('maxSlots')),
@@ -375,7 +548,7 @@
             if (window.CapsulePortalClassroomLive) {
                 window.CapsulePortalClassroomLive.spinIcon(regenBtn);
             }
-            apiPost('/portal/api/classroom.php', { action: 'regenerate_invite' })
+            apiPost(apiUrl('classroom.php'), { action: 'regenerate_invite' })
                 .then(function (data) {
                     var link = document.querySelector('[data-invite-url]');
                     if (link && data.inviteToken) {
@@ -398,7 +571,7 @@
             if (!window.confirm('Supprimer la classe ? Les élèves conservent leur progression.')) {
                 return;
             }
-            apiPost('/portal/api/classroom.php', { action: 'delete' })
+            apiPost(apiUrl('classroom.php'), { action: 'delete' })
                 .then(function () {
                     if (window.CapsulePortalAccountModals) {
                         window.CapsulePortalAccountModals.close('classroom-detail');

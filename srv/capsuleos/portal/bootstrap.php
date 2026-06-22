@@ -153,6 +153,30 @@ function portal_account_author_badges(\CapsuleOS\Portal\PortalContext $ctx): arr
     return $badges;
 }
 
+/** Classe Font Awesome d'un badge gamification (portail). */
+function portal_gamification_badge_icon_class(array $badge): string
+{
+    $icon = preg_replace('/[^a-z0-9-]/', '', (string) ($badge['icon'] ?? 'award'));
+    if ($icon === '') {
+        $icon = 'award';
+    }
+    $family = strtolower((string) ($badge['iconFamily'] ?? 'solid')) === 'brands' ? 'fa-brands' : 'fa-solid';
+
+    return $family . ' fa-' . $icon;
+}
+
+/** Teinte visuelle d'un badge gamification (portail). */
+function portal_gamification_badge_tone(array $badge): string
+{
+    $tone = preg_replace('/[^a-z]/', '', strtolower((string) ($badge['tone'] ?? 'blue')));
+    $allowed = ['gold', 'green', 'blue', 'purple', 'orange', 'teal', 'violet', 'rose', 'cyan'];
+    if (!in_array($tone, $allowed, true)) {
+        return 'blue';
+    }
+
+    return $tone;
+}
+
 /** Progression du cycle mensuel (0–100) jusqu'à current_period_end. */
 function portal_subscription_cycle_progress(string $periodEndIso): int
 {

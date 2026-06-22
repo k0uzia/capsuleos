@@ -3,14 +3,14 @@
 use CapsuleOS\Portal\Config;
 use CapsuleOS\Portal\Http\Csrf;
 
-$devCreds = Config::isDev() ? Config::devCredentials() : null;
+$devCreds = Config::allowsLocalPreview() ? Config::devCredentials() : null;
 $emailValue = (string) ($ctx->extra['email'] ?? ($devCreds ? $devCreds['defaultUser'] : ''));
 ?>
 <form class="portal-form" method="post" action="<?= $ctx->e(portal_entry('login.php')) ?>">
     <?= Csrf::input() ?>
     <label class="portal-field">
-        <span class="portal-label"><?= Config::isDev() ? 'Identifiant' : 'Adresse e-mail' ?></span>
-        <input class="portal-input" type="<?= Config::isDev() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::isDev() ? 'username' : 'email' ?>" value="<?= $ctx->e($emailValue) ?>">
+        <span class="portal-label"><?= Config::allowsLocalPreview() ? 'Identifiant' : 'Adresse e-mail' ?></span>
+        <input class="portal-input" type="<?= Config::allowsLocalPreview() ? 'text' : 'email' ?>" name="email" required autocomplete="<?= Config::allowsLocalPreview() ? 'username' : 'email' ?>" value="<?= $ctx->e($emailValue) ?>">
     </label>
     <label class="portal-field">
         <span class="portal-label">Mot de passe</span>

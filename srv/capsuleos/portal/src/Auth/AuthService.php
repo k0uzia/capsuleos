@@ -34,13 +34,20 @@ final class AuthService
     }
 
     /** @return array{ok: bool, error?: string} */
-    public static function register(string $email, string $password, string $passwordConfirm, ?string $csrf, bool $privacyConsent = false): array
+    public static function register(string $email, string $password, string $passwordConfirm, ?string $csrf, bool $privacyConsent = false, string $displayName = ''): array
     {
         if (!Csrf::validate($csrf)) {
             return ['ok' => false, 'error' => 'Session expirée. Réessayez.'];
         }
         if (!$privacyConsent) {
             return ['ok' => false, 'error' => 'Vous devez accepter la politique de confidentialité pour créer un compte.'];
+        }
+        $displayName = trim($displayName);
+        if ($displayName === '') {
+            return ['ok' => false, 'error' => 'Nom d\'utilisateur requis.'];
+        }
+        if (mb_strlen($displayName) > 60) {
+            return ['ok' => false, 'error' => 'Nom d\'utilisateur trop long (60 caractères maximum).'];
         }
         $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
         if (!RateLimiter::check('register', $ip . ':' . strtolower($email))) {
@@ -60,7 +67,7 @@ final class AuthService
             return ['ok' => false, 'error' => 'Identifiants incorrects.'];
         }
         $hash = self::hashPassword($password);
-        $userId = UserRepository::create($email, $hash);
+        $userId = UserRepository::create($email, $hash, $displayName);
         self::loginUserId($userId);
         return ['ok' => true];
     }

@@ -122,6 +122,7 @@ final class ModuleCatalogReader
             'levelLabel' => self::$levelLabels[(string) ($manifest['level'] ?? $levelPath)] ?? (string) ($manifest['level'] ?? $levelPath),
             'title' => (string) ($manifest['title'] ?? $moduleId),
             'description' => (string) ($manifest['description'] ?? ''),
+            'creatorName' => trim((string) ($manifest['creatorName'] ?? $manifest['creator'] ?? '')),
             'scenarioCount' => count($scenarios),
             'access' => $access,
             'accessLabel' => Entitlements::accessLabel($access),

@@ -30,12 +30,12 @@ $periodDisplay = portal_subscription_period_display($periodEnd, $cancelAtEnd);
             </div>
             <div class="portal-account-dl-row">
                 <dt>Renouvellement</dt>
-                <dd><?= $ctx->e($periodDisplay) ?></dd>
+                <dd data-subscription-overview-period><?= $ctx->e($periodDisplay) ?></dd>
             </div>
             <div class="portal-account-dl-row">
                 <dt>Renouvellement auto</dt>
                 <dd>
-                    <span class="portal-account-sub-renewal-status<?= $cancelAtEnd ? ' portal-account-sub-renewal-status--cancelled' : ' portal-account-sub-renewal-status--active' ?>"><?= $cancelAtEnd ? 'Annulé' : 'Actif' ?></span>
+                    <span class="portal-account-sub-renewal-status<?= $cancelAtEnd ? ' portal-account-sub-renewal-status--cancelled' : ' portal-account-sub-renewal-status--active' ?>" data-subscription-overview-status><?= $cancelAtEnd ? 'Annulé' : 'Actif' ?></span>
                 </dd>
             </div>
         </dl>

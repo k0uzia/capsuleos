@@ -40,6 +40,10 @@ $asset = static fn (string $path): string => portal_asset($path);
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-tickets.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-classroom-live.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-modals.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-badge-ui.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-badge-board.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-settings.js') ?>"></script>
+    <script src="<?= $asset('usr/lib/capsuleos/site/portal-account-settings-confirm.js') ?>"></script>
     <script src="<?= $asset('usr/lib/capsuleos/site/portal-account.js') ?>"></script>
     <?php endif; ?>
 </body>

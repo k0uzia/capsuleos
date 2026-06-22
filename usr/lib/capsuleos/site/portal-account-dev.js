@@ -12,7 +12,7 @@
 
     var GRADE_LABELS = {
         utilisateur: 'Utilisateur gratuit',
-        abonne: 'Abonné Abonné',
+        abonne: 'Abonné',
         professeur: 'Professeur',
         createur: 'Créateur',
         eleve: 'Élève (classe active)',
@@ -103,14 +103,28 @@
             el.hidden = sections.indexOf(id) === -1;
         });
 
+        document.querySelectorAll('[data-dev-identity-fallback]').forEach(function (el) {
+            el.hidden = true;
+            el.id = 'auth-title-fallback';
+        });
+        var gamifiedTitle = document.querySelector('.portal-auth-title--in-xp');
+        if (gamifiedTitle) {
+            gamifiedTitle.hidden = false;
+            gamifiedTitle.id = 'auth-title';
+        }
+
+        var xpLayout = document.querySelector('.portal-account-xp-layout');
+        if (xpLayout) {
+            xpLayout.classList.toggle('portal-account-xp-layout--free', grade === 'utilisateur');
+        }
+
         var planBadge = badgeForGrade(grade);
         document.querySelectorAll('[data-portal-title-plan-badge]').forEach(function (el) {
             el.textContent = planBadge.label;
             el.className = 'portal-account-badge portal-account-badge--title ' + planBadge.className;
         });
 
-        var gradeBadgesEl = document.querySelector('[data-portal-grade-badges]');
-        if (gradeBadgesEl) {
+        document.querySelectorAll('[data-portal-grade-badges]').forEach(function (gradeBadgesEl) {
             gradeBadgesEl.innerHTML = '';
             extraBadges(grade).forEach(function (b) {
                 var span = document.createElement('span');
@@ -118,7 +132,7 @@
                 span.textContent = b.label;
                 gradeBadgesEl.appendChild(span);
             });
-        }
+        });
 
         var isPlus = grade === 'abonne' || grade === 'professeur' || grade === 'createur';
         document.querySelectorAll('[data-dev-sub-overview-free]').forEach(function (el) {
@@ -169,27 +183,40 @@
         });
     }
 
-    function renderGamification(state) {
+    function renderGamification(state, grade) {
+        var currentGrade = grade || getGrade();
+        var isFree = currentGrade === 'utilisateur';
         var xp = state.gamification.xp || 0;
         var level = Math.max(1, Math.floor(xp / 100) + 1);
         var inLevel = xp % 100;
-        var percent = inLevel;
+        var percent = isFree ? 100 : inLevel;
         var levelEl = document.querySelector('[data-dev-xp-level]');
+        var levelIcon = document.querySelector('[data-dev-xp-level-icon]');
         var metaEl = document.querySelector('[data-dev-xp-meta]');
         var hexProgress = document.querySelector('[data-dev-xp-hex-progress]');
-        var hexWrap = document.querySelector('[data-dev-xp-progress]');
+        var hexWrap = document.querySelector('[data-dev-xp-progress]') || document.querySelector('[data-dev-xp-progress-free]');
         if (levelEl) {
             levelEl.textContent = String(level);
+            levelEl.hidden = isFree;
+        }
+        if (levelIcon) {
+            levelIcon.hidden = !isFree;
         }
         if (metaEl) {
-            metaEl.textContent = inLevel + ' / 100 XP pour le niveau suivant';
+            metaEl.hidden = isFree;
+            if (!isFree) {
+                metaEl.textContent = inLevel + ' / 100 XP pour le niveau suivant';
+            }
         }
         if (hexProgress) {
             hexProgress.setAttribute('stroke-dashoffset', String(100 - percent));
         }
         if (hexWrap) {
             hexWrap.setAttribute('aria-valuenow', String(percent));
-            hexWrap.setAttribute('aria-label', 'Progression vers le niveau ' + String(level + 1));
+            hexWrap.setAttribute(
+                'aria-label',
+                isFree ? 'Compte gratuit' : 'Progression vers le niveau ' + String(level + 1),
+            );
         }
         var badgeCount = document.querySelector('[data-dev-badge-count]');
         if (badgeCount) {
@@ -200,30 +227,57 @@
     }
 
     var DEV_BADGE_CATALOG = [
-        { id: 'first-login', label: 'Première connexion', description: 'Vous avez créé votre compte CapsuleOS.' },
-        { id: 'first-os', label: 'Premier bureau', description: 'Vous avez exploré un système simulé.' },
-        { id: 'linux-bases-start', label: 'Début Linux', description: 'Première quête du parcours Linux bases.' },
-        { id: 'class-join', label: 'En classe', description: 'Vous avez rejoint une classe.' },
-        { id: 'level-5', label: 'Niveau 5', description: 'Atteindre le niveau 5 de compte.' },
-        { id: 'capsule-plus', label: 'Abonné', description: 'Abonnement Abonné actif.' },
+        { id: 'first-login', label: 'Première connexion', description: 'Vous avez créé votre compte CapsuleOS.', icon: 'user-plus', tone: 'blue' },
+        { id: 'first-os', label: 'Premier bureau', description: 'Vous avez exploré un système simulé.', icon: 'desktop', tone: 'cyan' },
+        { id: 'linux-bases-start', label: 'Début Linux', description: 'Première quête du parcours Linux bases.', icon: 'linux', iconFamily: 'brands', tone: 'green' },
+        { id: 'class-join', label: 'En classe', description: 'Vous avez rejoint une classe.', icon: 'users', tone: 'violet' },
+        { id: 'level-5', label: 'Niveau 5', description: 'Atteindre le niveau 5 de compte.', icon: 'star', tone: 'gold' },
+        { id: 'capsule-plus', label: 'Abonné', description: 'Abonnement Abonné actif.', icon: 'gem', tone: 'gold' },
     ];
+    var badgeCatalogCache = null;
+    var badgeCatalogPromise = null;
+
+    function ensureBadgeCatalog(callback) {
+        if (badgeCatalogCache) {
+            callback(badgeCatalogCache);
+            return;
+        }
+        if (!badgeCatalogPromise) {
+            badgeCatalogPromise = fetch('./etc/capsuleos/contracts/portal-gamification.json')
+                .then(function (response) {
+                    return response.ok ? response.json() : null;
+                })
+                .then(function (payload) {
+                    badgeCatalogCache = (payload && payload.badges) ? payload.badges : DEV_BADGE_CATALOG;
+                    return badgeCatalogCache;
+                })
+                .catch(function () {
+                    badgeCatalogCache = DEV_BADGE_CATALOG;
+                    return badgeCatalogCache;
+                });
+        }
+        badgeCatalogPromise.then(function (catalog) {
+            callback(catalog);
+        });
+    }
 
     function renderBadges(state) {
         var root = document.querySelector('[data-dev-badges-root]');
-        if (!root) {
+        if (!root || !window.CapsulePortalBadgeUi) {
             return;
         }
-        var earnedIds = state.gamification.badges || [];
-        var html = '<ul class="portal-account-badge-grid">';
-        DEV_BADGE_CATALOG.forEach(function (badge) {
-            var earned = earnedIds.indexOf(badge.id) !== -1;
-            html += '<li class="portal-account-badge-item' + (earned ? ' portal-account-badge-item--earned' : ' portal-account-badge-item--locked') + '">'
-                + '<span class="portal-account-badge-icon" aria-hidden="true">' + (earned ? '★' : '○') + '</span>'
-                + '<span class="portal-account-badge-label">' + escapeHtml(badge.label) + '</span>'
-                + '<span class="portal-account-badge-desc">' + escapeHtml(badge.description) + '</span></li>';
+        ensureBadgeCatalog(function (catalog) {
+            root.innerHTML = window.CapsulePortalBadgeUi.renderBadgeBoard(
+                catalog,
+                state.gamification.badges || [],
+            );
+            if (window.CapsulePortalBadgeBoard) {
+                var board = root.querySelector('[data-portal-badge-board]');
+                if (board) {
+                    window.CapsulePortalBadgeBoard.initBoard(board);
+                }
+            }
         });
-        html += '</ul>';
-        root.innerHTML = html;
     }
 
     function renderStudent(state, grade) {
@@ -249,6 +303,58 @@
         }
     }
 
+    function clickTargetElement(event) {
+        var target = event.target;
+        if (!target) {
+            return null;
+        }
+        if (target.nodeType === 3 && target.parentElement) {
+            return target.parentElement;
+        }
+        return target.closest ? target : null;
+    }
+
+    function bindDevAccountActions() {
+        var root = document.querySelector('[data-portal-account-dev]');
+        if (!root || root.getAttribute('data-dev-actions-bound') === '1') {
+            return;
+        }
+        root.setAttribute('data-dev-actions-bound', '1');
+        root.addEventListener('click', function (event) {
+            var origin = clickTargetElement(event);
+            if (!origin) {
+                return;
+            }
+            var addProgress = origin.closest('[data-dev-add-progress]');
+            if (addProgress) {
+                event.preventDefault();
+                store.addSampleProgress();
+                renderProgress();
+                return;
+            }
+            var delProgress = origin.closest('[data-dev-del-progress]');
+            if (delProgress) {
+                event.preventDefault();
+                store.deleteProgress(delProgress.getAttribute('data-dev-del-progress') || '');
+                renderProgress();
+                return;
+            }
+            var addSkin = origin.closest('[data-dev-add-skin]');
+            if (addSkin) {
+                event.preventDefault();
+                store.addSampleSkin();
+                renderSkins(store.load());
+                return;
+            }
+            var delSkin = origin.closest('[data-dev-del-skin]');
+            if (delSkin) {
+                event.preventDefault();
+                store.deleteSkin(delSkin.getAttribute('data-dev-del-skin') || '');
+                renderSkins(store.load());
+            }
+        });
+    }
+
     function renderProgress() {
         var root = document.querySelector('[data-dev-progress-root]');
         if (!root) {
@@ -257,7 +363,7 @@
         var items = store.allProgress();
         if (items.length === 0) {
             root.innerHTML = '<p class="portal-account-empty">Aucune progression enregistrée. Lancez un parcours avec <code>?mnt=</code> ou ajoutez un exemple.</p>'
-                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-progress">Ajouter un exemple</button>';
+                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-progress>Ajouter un exemple</button>';
         } else {
             var html = '<ul class="portal-account-progress-list">';
             items.forEach(function (item) {
@@ -271,21 +377,8 @@
                     + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-del-progress="'
                     + escapeHtml(item.id) + '">Supprimer</button></li>';
             });
-            html += '</ul><button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-progress">Ajouter un exemple</button>';
+            html += '</ul><button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-progress>Ajouter un exemple</button>';
             root.innerHTML = html;
-        }
-        root.querySelectorAll('[data-dev-del-progress]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                store.deleteProgress(btn.getAttribute('data-dev-del-progress'));
-                renderProgress();
-            });
-        });
-        var addBtn = root.querySelector('[data-dev-add-progress]');
-        if (addBtn) {
-            addBtn.addEventListener('click', function () {
-                store.addSampleProgress();
-                renderProgress();
-            });
         }
     }
 
@@ -294,74 +387,208 @@
         if (!root) {
             return;
         }
-        if (!state.skins.length) {
+        var skins = Array.isArray(state.skins) ? state.skins : [];
+        if (skins.length === 0) {
             root.innerHTML = '<p class="portal-account-empty">Aucune sauvegarde de skin.</p>'
-                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-skin">Ajouter un exemple</button>';
-        } else {
-            var html = '<ul class="portal-account-skin-list">';
-            state.skins.forEach(function (sk) {
-                html += '<li class="portal-account-skin-item"><div><p class="portal-account-skin-name">'
-                    + escapeHtml(sk.label) + '</p><p class="portal-account-skin-meta">Màj. '
-                    + store.formatDateFr(sk.updatedAt) + '</p></div>'
-                    + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-del-skin="'
-                    + escapeHtml(sk.id) + '">Supprimer</button></li>';
-            });
-            html += '</ul>';
-            root.innerHTML = html;
-            root.querySelectorAll('[data-dev-del-skin]').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    store.deleteSkin(btn.getAttribute('data-dev-del-skin'));
-                    renderSkins(store.load());
-                });
-            });
+                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-skin>Ajouter un exemple</button>';
             return;
         }
-        var addSkin = root.querySelector('[data-dev-add-skin]');
-        if (addSkin) {
-            addSkin.addEventListener('click', function () {
-                store.addSampleSkin();
-                renderSkins(store.load());
+        var html = '<ul class="portal-account-skin-list">';
+        skins.forEach(function (sk) {
+            html += '<li class="portal-account-skin-item"><div><p class="portal-account-skin-name">'
+                + escapeHtml(sk.label) + '</p><p class="portal-account-skin-meta">Màj. '
+                + store.formatDateFr(sk.updatedAt) + '</p></div>'
+                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-del-skin="'
+                + escapeHtml(sk.id) + '">Supprimer</button></li>';
+        });
+        html += '</ul><button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-dev-add-skin>Ajouter un exemple</button>';
+        root.innerHTML = html;
+    }
+
+    function renderPurchases(state) {
+        var root = document.querySelector('[data-dev-purchases-root]');
+        if (!root) {
+            return;
+        }
+        var purchases = store.listPurchases();
+        var catalog = devStoreCatalog();
+        var available = catalog.filter(function (mod) {
+            return !store.hasPurchase(mod.mountId);
+        });
+        var html = '';
+
+        html += '<section class="portal-account-dev-store-sim" aria-labelledby="portal-dev-store-sim-title">'
+            + '<h3 class="portal-account-subtitle" id="portal-dev-store-sim-title">Simuler un achat store OS (dev)</h3>'
+            + '<p class="portal-account-panel-lead">Les modules créateurs s\'installent depuis le magasin d\'applications du bureau simulé. Cette simulation enregistre l\'achat sur votre compte.</p>';
+
+        if (available.length === 0) {
+            html += '<p class="portal-account-empty">Tous les modules du catalogue dev sont déjà achetés.</p>';
+        } else {
+            html += '<div class="portal-account-check-grid portal-account-dev-store-grid">';
+            available.forEach(function (mod) {
+                html += '<label class="portal-account-check portal-account-check--module">'
+                    + '<input type="checkbox" name="devStoreModule" value="' + escapeHtml(mod.mountId) + '"'
+                    + ' data-dev-store-title="' + escapeHtml(mod.title) + '"'
+                    + ' data-dev-store-creator="' + escapeHtml(mod.creatorName || '') + '"'
+                    + ' data-dev-store-os="' + escapeHtml(mod.storeOs || '') + '"'
+                    + ' data-dev-store-label="' + escapeHtml(mod.storeLabel || '') + '">'
+                    + '<span class="portal-account-check-label">' + escapeHtml(mod.title) + '</span>'
+                    + '<span class="portal-account-module-access portal-account-module-access--store">'
+                    + escapeHtml(mod.storeLabel || mod.price || '-') + '</span></label>';
+            });
+            html += '</div>'
+                + '<div class="portal-account-dev-store-actions">'
+                + '<button type="button" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact"'
+                + ' data-dev-simulate-purchases>Simuler l\'achat</button>'
+                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact"'
+                + ' data-dev-sample-purchases>Exemple : 3 modules</button>'
+                + '</div>';
+        }
+
+        html += '</section><h3 class="portal-account-subtitle">Historique</h3>';
+
+        if (purchases.length === 0) {
+            html += '<p class="portal-account-empty">Aucun module store acheté pour le moment.</p>';
+        } else {
+            html += '<ul class="portal-account-purchase-list">';
+            purchases.forEach(function (purchase) {
+                var creatorLine = purchase.creatorName
+                    ? '<p class="portal-account-purchase-creator">Créé par ' + escapeHtml(purchase.creatorName) + '</p>'
+                    : '';
+                var storeLine = purchase.storeLabel
+                    ? '<p class="portal-account-purchase-store">Via ' + escapeHtml(purchase.storeLabel) + '</p>'
+                    : '';
+                html += '<li class="portal-account-purchase-item">'
+                    + '<div class="portal-account-purchase-main">'
+                    + '<p class="portal-account-purchase-title">' + escapeHtml(purchase.title || purchase.moduleId) + '</p>'
+                    + creatorLine
+                    + storeLine
+                    + '</div>'
+                    + '<span class="portal-account-purchase-meta">'
+                    + '<span class="portal-account-purchase-date">Acheté le : '
+                    + escapeHtml(store.formatDateFr(purchase.purchasedAt)) + '</span>'
+                    + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact"'
+                    + ' data-dev-del-purchase="' + escapeHtml(purchase.id) + '">Retirer</button>'
+                    + '</span></li>';
+            });
+            html += '</ul>';
+        }
+
+        root.innerHTML = html;
+
+        root.querySelectorAll('[data-dev-del-purchase]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                store.removePurchase(btn.getAttribute('data-dev-del-purchase'));
+                renderPurchases(store.load());
+            });
+        });
+
+        var simulateBtn = root.querySelector('[data-dev-simulate-purchases]');
+        if (simulateBtn) {
+            simulateBtn.addEventListener('click', function () {
+                var selected = [];
+                root.querySelectorAll('[name="devStoreModule"]:checked').forEach(function (input) {
+                    selected.push({
+                        mountId: input.value,
+                        title: input.getAttribute('data-dev-store-title') || input.value,
+                        creatorName: input.getAttribute('data-dev-store-creator') || '',
+                        storeOs: input.getAttribute('data-dev-store-os') || '',
+                        storeLabel: input.getAttribute('data-dev-store-label') || '',
+                    });
+                });
+                if (selected.length === 0) {
+                    window.alert('Sélectionnez au moins un module.');
+                    return;
+                }
+                var added = store.purchaseModules(selected);
+                if (added.length === 0) {
+                    window.alert('Ces modules sont déjà dans vos achats.');
+                    return;
+                }
+                renderPurchases(store.load());
+            });
+        }
+
+        var sampleBtn = root.querySelector('[data-dev-sample-purchases]');
+        if (sampleBtn) {
+            sampleBtn.addEventListener('click', function () {
+                var added = store.addSamplePurchases();
+                if (added.length === 0) {
+                    window.alert('Les modules exemple sont déjà achetés.');
+                    return;
+                }
+                renderPurchases(store.load());
             });
         }
     }
 
     function renderTickets(state) {
-        var list = document.querySelector('[data-dev-tickets-list]');
-        if (!list) {
+        if (!window.CapsulePortalTickets) {
             return;
         }
-        var ticketsApi = window.CapsulePortalTickets;
-        var closedTickets = (state.tickets || []).filter(function (t) {
-            if (ticketsApi) {
-                return ticketsApi.isClosed(t.status);
+        var closedTickets = window.CapsulePortalTickets.closedTicketsSorted(state.tickets || []);
+        var panel = document.querySelector('[data-ticket-history-panel]');
+        if (!panel) {
+            return;
+        }
+        window.CapsulePortalTickets.renderTicketHistory(panel, state.tickets || [], {
+            displayName: state.displayName,
+            formatDateFr: store.formatDateFr,
+            authorBadges: accountBadgesForGrade(getGrade()),
+        });
+        var listRoot = panel.querySelector('[data-ticket-history-list]');
+        if (listRoot && !closedTickets.length) {
+            listRoot.innerHTML = '<p class="portal-account-empty">Aucun ticket fermé pour le moment.</p>'
+                + '<button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact"'
+                + ' data-dev-add-closed-ticket>Ajouter un ticket clos exemple (dev)</button>';
+            var sampleBtn = listRoot.querySelector('[data-dev-add-closed-ticket]');
+            if (sampleBtn) {
+                sampleBtn.addEventListener('click', function () {
+                    store.addSampleClosedTicket();
+                    renderAll();
+                    if (window.CapsulePortalAccountNav) {
+                        window.CapsulePortalAccountNav.activate('support', { sub: 'historique' });
+                    }
+                });
             }
-            var status = String(t.status || '').toLowerCase();
-            return status === 'clos' || status === 'fermé' || status === 'ferme' || status === 'closed';
-        });
-        if (!closedTickets.length) {
-            list.innerHTML = '<p class="portal-account-empty">Aucun ticket fermé pour le moment.</p>';
-            return;
         }
-        var html = '<ul class="portal-account-ticket-list">';
-        closedTickets.forEach(function (t) {
-            html += '<li class="portal-account-ticket-item"><p class="portal-account-ticket-subject">'
-                + escapeHtml(t.subject) + '</p><p class="portal-account-ticket-meta"><span>'
-                + escapeHtml(t.type) + '</span> · <span>' + escapeHtml(t.status)
-                + '</span> · <span>' + store.formatDateFr(t.createdAt) + '</span></p></li>';
+    }
+
+    function bindDevTicketCloseActions() {
+        document.querySelectorAll('[data-dev-close-ticket]').forEach(function (btn) {
+            if (btn.getAttribute('data-dev-close-bound') === '1') {
+                return;
+            }
+            btn.setAttribute('data-dev-close-bound', '1');
+            btn.addEventListener('click', function () {
+                var ticketId = btn.getAttribute('data-dev-close-ticket');
+                if (!ticketId) {
+                    return;
+                }
+                var reply = 'Votre demande a été traitée. Ce ticket est maintenant clos.';
+                if (!store.closeTicket(ticketId, reply)) {
+                    window.alert('Impossible de clôturer ce ticket.');
+                    return;
+                }
+                renderAll();
+                if (window.CapsulePortalAccountNav) {
+                    window.CapsulePortalAccountNav.activate('support', { sub: 'historique' });
+                }
+            });
         });
-        html += '</ul>';
-        list.innerHTML = html;
     }
 
     function syncTicketTabs(state) {
         if (!window.CapsulePortalTickets) {
             return;
         }
-        window.CapsulePortalTickets.syncOpenTicketTabs(state, {
+        window.CapsulePortalTickets.syncTicketTabs(state, {
             displayName: state.displayName,
             formatDateFr: store.formatDateFr,
             authorBadges: accountBadgesForGrade(getGrade()),
+            devCloseTicket: true,
         });
+        bindDevTicketCloseActions();
     }
 
     function bindNumericInputs(root) {
@@ -427,6 +654,38 @@
         { mountId: 'debutant/linux-bases', title: 'Les bases Linux', access: 'subscriber', accessLabel: 'Abonné' },
         { mountId: 'debutant/decouverte', title: 'Découverte du terminal', access: 'free', accessLabel: 'Gratuit' },
     ];
+
+    var DEV_STORE_MODULES = store.moduleCatalog ? store.moduleCatalog() : [];
+
+    function devStoreCatalog() {
+        var seen = {};
+        var out = [];
+        DEV_STORE_MODULES.forEach(function (mod) {
+            if (seen[mod.mountId]) {
+                return;
+            }
+            seen[mod.mountId] = true;
+            out.push(mod);
+        });
+        var catalog = window.CapsulePortalModules;
+        if (catalog && catalog.levels) {
+            catalog.levels.forEach(function (level) {
+                (level.modules || []).forEach(function (mod) {
+                    if (seen[mod.mountId]) {
+                        return;
+                    }
+                    seen[mod.mountId] = true;
+                    out.push({
+                        mountId: mod.mountId,
+                        title: mod.title,
+                        price: '8 €',
+                        creatorName: 'CapsuleOS',
+                    });
+                });
+            });
+        }
+        return out;
+    }
 
     function isPaidDevModule(mod) {
         return mod.access === 'subscriber' || mod.access === 'class';
@@ -854,14 +1113,38 @@
         });
     }
 
+    function settingsConfirmApi() {
+        return window.CapsulePortalSettingsConfirm || null;
+    }
+
+    function settingsError(message) {
+        var confirmApi = settingsConfirmApi();
+        if (confirmApi) {
+            confirmApi.alertError(message);
+            return;
+        }
+        window.alert(message);
+    }
+
+    function closeSettingsField(fieldKey) {
+        if (!window.CapsulePortalAccountSettings) {
+            return;
+        }
+        var field = document.querySelector('[data-settings-field="' + fieldKey + '"]');
+        if (field) {
+            window.CapsulePortalAccountSettings.closeField(field, true);
+        }
+    }
+
     function renderAll() {
         var state = store.load();
         syncHeader(state);
-        renderGamification(state);
+        renderGamification(state, getGrade());
         renderSubscription(state);
         renderStudent(state, getGrade());
         renderProgress();
         renderSkins(state);
+        renderPurchases(state);
         syncTicketTabs(state);
         renderTickets(state);
         renderTeacher(state);
@@ -881,6 +1164,12 @@
 
         var nameInput = document.querySelector('[data-dev-settings-name]');
         var emailInput = document.querySelector('[data-dev-settings-email]');
+        document.querySelectorAll('[data-settings-display-name]').forEach(function (el) {
+            el.textContent = state.displayName || 'Non renseigné';
+        });
+        document.querySelectorAll('[data-settings-display-email]').forEach(function (el) {
+            el.textContent = state.email || '-';
+        });
         if (nameInput) {
             nameInput.value = state.displayName;
         }
@@ -946,7 +1235,7 @@
                 syncTicketTabs(state);
                 renderTickets(state);
                 if (window.CapsulePortalAccountNav && window.CapsulePortalTickets) {
-                    window.CapsulePortalAccountNav.activate('settings', { sub: window.CapsulePortalTickets.subId(ticket) });
+                    window.CapsulePortalAccountNav.activate('support', { sub: window.CapsulePortalTickets.subId(ticket) });
                 }
             });
         }
@@ -958,7 +1247,7 @@
                     return;
                 }
                 if (window.CapsulePortalAccountNav) {
-                    window.CapsulePortalAccountNav.activate('settings', { sub: 'support' });
+                    window.CapsulePortalAccountNav.activate('support', { sub: 'support' });
                 }
                 form.querySelector('[name="type"]').value = btn.getAttribute('data-dev-ticket-prefill') || 'support';
                 form.querySelector('[name="subject"]').value = btn.getAttribute('data-dev-ticket-subject') || '';
@@ -972,10 +1261,20 @@
         if (nameForm) {
             nameForm.addEventListener('submit', function (event) {
                 event.preventDefault();
+                if (!nameForm.checkValidity()) {
+                    nameForm.reportValidity();
+                    return;
+                }
                 var fd = new FormData(nameForm);
                 store.updateProfile({ displayName: fd.get('name') });
                 renderAll();
-                window.alert('Nom enregistré (local).');
+                closeSettingsField('display-name');
+                var confirmApi = settingsConfirmApi();
+                if (confirmApi) {
+                    confirmApi.nameUpdated();
+                } else {
+                    window.alert('Nom enregistré (local).');
+                }
             });
         }
 
@@ -983,10 +1282,24 @@
         if (emailForm) {
             emailForm.addEventListener('submit', function (event) {
                 event.preventDefault();
+                if (!emailForm.checkValidity()) {
+                    emailForm.reportValidity();
+                    return;
+                }
                 var fd = new FormData(emailForm);
-                store.updateProfile({ email: fd.get('email') });
-                renderAll();
-                window.alert('E-mail enregistré (local).');
+                var state = store.load();
+                var newEmail = String(fd.get('email') || '').trim().toLowerCase();
+                if (newEmail === String(state.email || '').toLowerCase()) {
+                    settingsError('Cette adresse est déjà votre e-mail actuel.');
+                    return;
+                }
+                closeSettingsField('email');
+                var confirmApi = settingsConfirmApi();
+                if (confirmApi) {
+                    confirmApi.emailPending('Un e-mail de confirmation a été envoyé à la nouvelle adresse (simulation dev).');
+                } else {
+                    window.alert('Un e-mail de confirmation a été envoyé à la nouvelle adresse (simulation dev).');
+                }
             });
         }
 
@@ -994,15 +1307,35 @@
         if (pwdForm) {
             pwdForm.addEventListener('submit', function (event) {
                 event.preventDefault();
+                if (!pwdForm.checkValidity()) {
+                    pwdForm.reportValidity();
+                    return;
+                }
                 var fd = new FormData(pwdForm);
+                var state = store.load();
+                var currentPassword = String(fd.get('currentPassword') || '');
                 var pwd = String(fd.get('password') || '');
+                var confirm = String(fd.get('passwordConfirm') || '');
+                if (currentPassword !== state.password) {
+                    settingsError('Mot de passe actuel incorrect.');
+                    return;
+                }
+                if (pwd !== confirm) {
+                    settingsError('Les nouveaux mots de passe ne correspondent pas.');
+                    return;
+                }
                 if (pwd.length < 12) {
-                    window.alert('Mot de passe : minimum 12 caractères.');
+                    settingsError('Mot de passe : minimum 12 caractères.');
                     return;
                 }
                 store.updateProfile({ password: pwd });
-                pwdForm.reset();
-                window.alert('Mot de passe mis à jour (local).');
+                closeSettingsField('password');
+                var confirmApi = settingsConfirmApi();
+                if (confirmApi) {
+                    confirmApi.passwordUpdated();
+                } else {
+                    window.alert('Mot de passe mis à jour (local).');
+                }
             });
         }
 
@@ -1089,6 +1422,7 @@
 
         handleJoinFromUrl();
         applyGrade(getGrade());
+        bindDevAccountActions();
         bindForms();
         renderDevClassroomCreateAccess();
         renderAll();

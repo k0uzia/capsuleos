@@ -45,15 +45,31 @@
                     <header class="portal-account-header portal-account-header--with-dev">
                         <div class="portal-account-header-main">
                             <p class="portal-account-eyebrow">Espace personnel · mode développement (données locales)</p>
-                            <h1 class="portal-auth-title portal-auth-title--welcome" id="auth-title">
-                                <span class="portal-auth-title-line">
-                                    Bienvenue <span class="portal-auth-title-accent" data-portal-account-name>test</span>
-                                    <span class="portal-auth-title-badges">
-                                        <span class="portal-account-badge portal-account-badge--title portal-account-badge--free" data-portal-title-plan-badge>Gratuit</span>
-                                        <span data-portal-grade-badges></span>
+                            <div class="portal-account-xp-layout portal-account-xp-layout--free">
+                                <div class="portal-account-xp-hex-wrap" data-dev-xp-progress-free role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Compte gratuit">
+                                    <svg class="portal-account-xp-hex-svg" viewBox="0 0 100 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                        <path class="portal-account-xp-hex-bg" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z"></path>
+                                        <path class="portal-account-xp-hex-track" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100"></path>
+                                        <path class="portal-account-xp-hex-progress" data-dev-xp-hex-progress d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"></path>
+                                    </svg>
+                                    <span class="portal-account-xp-hex-level portal-account-xp-hex-level--free" data-dev-xp-level-icon aria-hidden="true">
+                                        <i class="fa-solid fa-user"></i>
                                     </span>
-                                </span>
-                            </h1>
+                                    <span class="portal-account-xp-hex-level" data-dev-xp-level hidden>1</span>
+                                </div>
+                                <div class="portal-account-xp-info">
+                                    <h1 class="portal-auth-title portal-auth-title--welcome portal-auth-title--in-xp" id="auth-title">
+                                        <span class="portal-auth-title-line">
+                                            <span class="portal-auth-title-accent" data-portal-account-name>test</span>
+                                            <span class="portal-auth-title-badges">
+                                                <span class="portal-account-badge portal-account-badge--title portal-account-badge--free" data-portal-title-plan-badge>Gratuit</span>
+                                                <span data-portal-grade-badges></span>
+                                            </span>
+                                        </span>
+                                    </h1>
+                                    <p class="portal-account-xp-meta" data-dev-xp-meta hidden>0 / 100 XP pour le niveau suivant</p>
+                                </div>
+                            </div>
                         </div>
                         <aside class="portal-account-header-aside portal-account-dev-sim" aria-labelledby="portal-dev-sim-title">
                             <h2 class="portal-account-panel-title" id="portal-dev-sim-title">Simulation dev</h2>
@@ -90,9 +106,16 @@
                                     <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-modules"
                                         aria-controls="account-view-modules" aria-selected="false" data-account-nav="modules" tabindex="-1">Mes modules</button>
                                 </li>
+                                <li class="portal-account-nav-item" role="presentation" data-account-nav-item="support">
+                                    <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-support"
+                                        aria-controls="account-view-support" aria-selected="false" data-account-nav="support" tabindex="-1">Support</button>
+                                </li>
                                 <li class="portal-account-nav-item" role="presentation">
                                     <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-settings"
                                         aria-controls="account-view-settings" aria-selected="false" data-account-nav="settings" tabindex="-1">Paramètres</button>
+                                </li>
+                                <li class="portal-account-nav-item portal-account-nav-item--logout" role="presentation">
+                                    <button type="button" class="portal-account-nav-logout" data-portal-dev-logout>Se déconnecter</button>
                                 </li>
                             </ul>
                         </nav>
@@ -172,25 +195,10 @@
                             <div data-dev-student-root></div>
                         </section>
 
+                        <div class="portal-account-panel-row portal-account-progress-row">
                         <section class="portal-account-panel portal-account-xp" data-dev-section="gamification" hidden aria-labelledby="portal-xp-title">
-                            <h2 class="portal-account-panel-title" id="portal-xp-title">Progression</h2>
-                            <div class="portal-account-xp-layout">
-                                <div class="portal-account-xp-hex-wrap" data-dev-xp-progress role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progression vers le niveau suivant">
-                                    <svg class="portal-account-xp-hex-svg" viewBox="0 0 100 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                                        <path class="portal-account-xp-hex-bg" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z"></path>
-                                        <path class="portal-account-xp-hex-track" d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100"></path>
-                                        <path class="portal-account-xp-hex-progress" data-dev-xp-hex-progress d="M50 8 L90.693 31.5 L90.693 78.5 L50 102 L9.307 78.5 L9.307 31.5 Z" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></path>
-                                    </svg>
-                                    <span class="portal-account-xp-hex-level" data-dev-xp-level>1</span>
-                                </div>
-                                <div class="portal-account-xp-info">
-                                    <p class="portal-account-xp-meta" data-dev-xp-meta>0 / 100 XP pour le niveau suivant</p>
-                                </div>
-                            </div>
-                            <div class="portal-account-xp-badges" aria-labelledby="portal-xp-badges-title">
-                                <h3 class="portal-account-subtitle" id="portal-xp-badges-title">Badges <span class="portal-account-badge-count" data-dev-badge-count>0/30</span></h3>
-                                <div data-dev-badges-root></div>
-                            </div>
+                            <h2 class="portal-account-panel-title" id="portal-xp-title">Badges <span class="portal-account-badge-count" data-dev-badge-count>0/30</span></h2>
+                            <div data-dev-badges-root></div>
                         </section>
 
                         <section class="portal-account-panel portal-account-progress" data-dev-section="progress" hidden aria-labelledby="portal-progress-title">
@@ -198,6 +206,7 @@
                             <p class="portal-account-panel-lead">Détecte aussi les sauvegardes checklist dans localStorage après un parcours OS.</p>
                             <div data-dev-progress-root></div>
                         </section>
+                        </div>
 
                         <section class="portal-account-panel portal-account-skins" data-dev-section="skins" hidden aria-labelledby="portal-skins-title">
                             <h2 class="portal-account-panel-title" id="portal-skins-title">Skins personnalisés</h2>
@@ -210,7 +219,7 @@
                                 role="tabpanel" aria-labelledby="portal-account-nav-purchases">
                         <section class="portal-account-panel portal-account-purchases" data-dev-section="purchases" hidden aria-labelledby="portal-purchases-title">
                             <h2 class="portal-account-panel-title" id="portal-purchases-title">Mes achats</h2>
-                            <p class="portal-account-empty">Aucun module store acheté en mode dev.</p>
+                            <div data-dev-purchases-root></div>
                         </section>
                             </section>
 
@@ -232,11 +241,39 @@
                         </section>
                             </section>
 
+                            <section class="portal-account-view" id="account-view-support" data-account-view="support" hidden
+                                role="tabpanel" aria-labelledby="portal-account-nav-support">
+                                <section class="portal-account-panel portal-account-support-view" data-account-subnav-scope="support">
+                                    <nav class="portal-account-subnav" aria-label="Support et tickets">
+                                        <ul class="portal-account-subnav-list" data-account-subnav-list role="tablist">
+                                            <li class="portal-account-subnav-item" role="presentation">
+                                                <button type="button" class="portal-account-subnav-link portal-account-subnav-link--active" role="tab"
+                                                    id="portal-account-subnav-support" aria-controls="account-subview-support"
+                                                    aria-selected="true" data-account-sub-nav="support">Nouvelle demande</button>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <div class="portal-account-subviews" data-account-subviews>
+                                        <div class="portal-account-subview" id="account-subview-support" data-account-sub-view="support" role="tabpanel" aria-labelledby="portal-account-subnav-support">
+                                            <section class="portal-account-panel" aria-labelledby="portal-settings-support-title">
+                                                <h2 class="portal-account-panel-title" id="portal-settings-support-title">Nouvelle demande</h2>
+                                                <form class="portal-form portal-account-ticket-form" data-dev-ticket-form>
+                                                    <label class="portal-field"><span class="portal-label">Type</span><select class="portal-input" name="type" data-dev-ticket-type required></select></label>
+                                                    <label class="portal-field"><span class="portal-label">Sujet</span><input class="portal-input" type="text" name="subject" required maxlength="120"></label>
+                                                    <label class="portal-field"><span class="portal-label">Message</span><textarea class="portal-input portal-textarea" name="body" rows="4" maxlength="2000" required></textarea></label>
+                                                    <button type="submit" class="portal-submit">Envoyer</button>
+                                                </form>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+
                             <section class="portal-account-view" id="account-view-settings" data-account-view="settings" hidden
                                 role="tabpanel" aria-labelledby="portal-account-nav-settings">
-                                <section class="portal-account-panel portal-account-settings-view">
+                                <section class="portal-account-panel portal-account-settings-view" data-account-subnav-scope="settings">
                                     <nav class="portal-account-subnav" aria-label="Paramètres du compte">
-                                        <ul class="portal-account-subnav-list" role="tablist">
+                                        <ul class="portal-account-subnav-list" data-account-subnav-list role="tablist">
                                             <li class="portal-account-subnav-item" role="presentation">
                                                 <button type="button" class="portal-account-subnav-link portal-account-subnav-link--active" role="tab"
                                                     id="portal-account-subnav-subscription" aria-controls="account-subview-subscription"
@@ -247,14 +284,9 @@
                                                     id="portal-account-subnav-account" aria-controls="account-subview-account"
                                                     aria-selected="false" data-account-sub-nav="account" tabindex="-1">Compte</button>
                                             </li>
-                                            <li class="portal-account-subnav-item" role="presentation">
-                                                <button type="button" class="portal-account-subnav-link" role="tab"
-                                                    id="portal-account-subnav-support" aria-controls="account-subview-support"
-                                                    aria-selected="false" data-account-sub-nav="support" tabindex="-1">Support</button>
-                                            </li>
                                         </ul>
                                     </nav>
-                                    <div class="portal-account-subviews">
+                                    <div class="portal-account-subviews" data-account-subviews>
                                         <div class="portal-account-subview" id="account-subview-subscription" data-account-sub-view="subscription" role="tabpanel" aria-labelledby="portal-account-subnav-subscription">
                                             <section class="portal-account-panel" aria-labelledby="portal-settings-sub-title">
                                                 <h2 class="portal-account-panel-title" id="portal-settings-sub-title">Abonnement</h2>
@@ -349,37 +381,84 @@
                                                 <div class="portal-account-settings-modal">
                                                     <section class="portal-account-settings-block" aria-labelledby="portal-settings-identity-title">
                                                         <h3 class="portal-account-settings-block-title" id="portal-settings-identity-title">Identité</h3>
-                                                        <form class="portal-account-settings-row-form" data-dev-settings-name-form>
-                                                            <label class="portal-field"><span class="portal-label">Nom affiché</span><input class="portal-input" type="text" name="name" data-dev-settings-name required maxlength="60" autocomplete="name"></label>
-                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Enregistrer</button>
-                                                        </form>
+                                                        <div class="portal-account-settings-field" data-settings-field="display-name">
+                                                            <div class="portal-account-settings-read" data-settings-read>
+                                                                <div class="portal-account-settings-read-main">
+                                                                    <span class="portal-label">Nom affiché</span>
+                                                                    <p class="portal-account-settings-value" data-settings-display-name>Utilisateur démo</p>
+                                                                </div>
+                                                                <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-edit>Modifier</button>
+                                                            </div>
+                                                            <div class="portal-account-settings-edit-panel" data-settings-edit-panel hidden>
+                                                                <form class="portal-account-settings-edit" data-dev-settings-name-form data-settings-name>
+                                                                    <label class="portal-field">
+                                                                        <span class="portal-label">Nom affiché</span>
+                                                                        <input class="portal-input" type="text" name="name" data-dev-settings-name required maxlength="60" autocomplete="name">
+                                                                    </label>
+                                                                    <div class="portal-account-settings-edit-actions">
+                                                                        <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Enregistrer</button>
+                                                                        <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-cancel>Annuler</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </section>
                                                     <section class="portal-account-settings-block" aria-labelledby="portal-settings-login-title">
                                                         <h3 class="portal-account-settings-block-title" id="portal-settings-login-title">Connexion</h3>
-                                                        <form class="portal-account-settings-row-form" data-dev-settings-email-form>
-                                                            <label class="portal-field"><span class="portal-label">Adresse e-mail</span><input class="portal-input" type="email" name="email" data-dev-settings-email required autocomplete="email"></label>
-                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Mettre à jour</button>
-                                                        </form>
-                                                        <form class="portal-account-settings-row-form portal-account-settings-row-form--stacked" data-dev-settings-password-form>
-                                                            <label class="portal-field"><span class="portal-label">Nouveau mot de passe</span><input class="portal-input" type="password" name="password" required minlength="12" autocomplete="new-password" placeholder="12 caractères minimum"></label>
-                                                            <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Changer</button>
-                                                        </form>
+                                                        <div class="portal-account-settings-field" data-settings-field="email">
+                                                            <div class="portal-account-settings-read" data-settings-read>
+                                                                <div class="portal-account-settings-read-main">
+                                                                    <span class="portal-label">Adresse e-mail</span>
+                                                                    <p class="portal-account-settings-value" data-settings-display-email>demo@capsuleos.local</p>
+                                                                </div>
+                                                                <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-edit>Modifier</button>
+                                                            </div>
+                                                            <div class="portal-account-settings-edit-panel" data-settings-edit-panel hidden>
+                                                                <form class="portal-account-settings-edit" data-dev-settings-email-form data-settings-email>
+                                                                    <label class="portal-field">
+                                                                        <span class="portal-label">Nouvelle adresse e-mail</span>
+                                                                        <input class="portal-input" type="email" name="email" data-dev-settings-email required autocomplete="email">
+                                                                    </label>
+                                                                    <p class="portal-account-settings-hint">Un e-mail de confirmation sera envoyé à la nouvelle adresse pour valider le changement.</p>
+                                                                    <div class="portal-account-settings-edit-actions">
+                                                                        <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Envoyer la confirmation</button>
+                                                                        <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-cancel>Annuler</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portal-account-settings-field" data-settings-field="password">
+                                                            <div class="portal-account-settings-read" data-settings-read>
+                                                                <div class="portal-account-settings-read-main">
+                                                                    <span class="portal-label">Mot de passe</span>
+                                                                    <p class="portal-account-settings-value portal-account-settings-value--masked" aria-hidden="true">••••••••••••</p>
+                                                                </div>
+                                                                <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-edit>Modifier le mot de passe</button>
+                                                            </div>
+                                                            <div class="portal-account-settings-edit-panel" data-settings-edit-panel hidden>
+                                                                <form class="portal-account-settings-edit portal-account-settings-edit--stacked" data-dev-settings-password-form data-settings-password>
+                                                                    <label class="portal-field">
+                                                                        <span class="portal-label">Mot de passe actuel</span>
+                                                                        <input class="portal-input" type="password" name="currentPassword" required autocomplete="current-password">
+                                                                    </label>
+                                                                    <label class="portal-field">
+                                                                        <span class="portal-label">Nouveau mot de passe</span>
+                                                                        <input class="portal-input" type="password" name="password" required autocomplete="new-password" minlength="12" placeholder="12 caractères minimum">
+                                                                    </label>
+                                                                    <label class="portal-field">
+                                                                        <span class="portal-label">Confirmer le nouveau mot de passe</span>
+                                                                        <input class="portal-input" type="password" name="passwordConfirm" required autocomplete="new-password" minlength="12">
+                                                                    </label>
+                                                                    <div class="portal-account-settings-edit-actions">
+                                                                        <button type="submit" class="portal-account-btn portal-account-btn--primary portal-account-btn--compact">Enregistrer</button>
+                                                                        <button type="button" class="portal-account-btn portal-account-btn--ghost portal-account-btn--compact" data-settings-cancel>Annuler</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </section>
                                                     <p class="portal-account-settings-note">Réinitialisation par e-mail : fonctionnalité à venir en production.</p>
                                                 </div>
-                                            </section>
-                                        </div>
-                                        <div class="portal-account-subview" id="account-subview-support" data-account-sub-view="support" hidden role="tabpanel" aria-labelledby="portal-account-subnav-support">
-                                            <section class="portal-account-panel" aria-labelledby="portal-settings-support-title">
-                                                <h2 class="portal-account-panel-title" id="portal-settings-support-title">Support</h2>
-                                                <form class="portal-form portal-account-ticket-form" data-dev-ticket-form>
-                                                    <label class="portal-field"><span class="portal-label">Type</span><select class="portal-input" name="type" data-dev-ticket-type required></select></label>
-                                                    <label class="portal-field"><span class="portal-label">Sujet</span><input class="portal-input" type="text" name="subject" required maxlength="120"></label>
-                                                    <label class="portal-field"><span class="portal-label">Message</span><textarea class="portal-input portal-textarea" name="body" rows="4" maxlength="2000" required></textarea></label>
-                                                    <button type="submit" class="portal-submit">Envoyer</button>
-                                                </form>
-                                                <h3 class="portal-account-subtitle">Historique</h3>
-                                                <div data-dev-tickets-list></div>
                                             </section>
                                         </div>
                                     </div>
@@ -387,6 +466,26 @@
                             </section>
                         </div>
                     </div>
+
+                    <dialog class="portal-account-modal portal-account-modal--confirm portal-account-settings-confirm-modal" id="portal-account-settings-confirm-modal" aria-labelledby="portal-account-settings-confirm-title" aria-describedby="portal-account-settings-confirm-message">
+                        <div class="portal-account-modal-panel">
+                            <button type="button" class="portal-account-modal-close portal-account-settings-confirm-close" data-settings-confirm-close aria-label="Fermer">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div class="portal-account-modal-head portal-account-settings-confirm-head">
+                                <div class="portal-account-settings-confirm-icon portal-account-settings-confirm-icon--success" data-settings-confirm-icon aria-hidden="true">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <h2 class="portal-account-modal-title" id="portal-account-settings-confirm-title" data-settings-confirm-title>Modification enregistrée</h2>
+                            </div>
+                            <div class="portal-account-modal-body portal-account-settings-confirm-body">
+                                <p class="portal-account-modal-lead" id="portal-account-settings-confirm-message" data-settings-confirm-message></p>
+                                <div class="portal-account-modal-actions">
+                                    <button type="button" class="portal-account-btn portal-account-btn--primary" data-settings-confirm-ok>OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
 
                     <dialog class="portal-account-modal portal-account-modal--classroom" id="portal-account-classroom-create-modal" aria-labelledby="portal-account-classroom-create-title">
                         <div class="portal-account-modal-panel">
@@ -462,6 +561,10 @@
     <script src="./usr/lib/capsuleos/site/portal-account-tickets.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-account-classroom-live.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-account-modals.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-badge-ui.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-badge-board.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-settings.js"></script>
+    <script src="./usr/lib/capsuleos/site/portal-account-settings-confirm.js"></script>
     <script src="./usr/lib/capsuleos/site/portal-account-dev.js"></script>
 </body>
 </html>

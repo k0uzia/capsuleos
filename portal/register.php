@@ -15,10 +15,12 @@ if (AuthService::currentUserId() !== null) {
 
 $error = '';
 $email = '';
+$displayName = '';
 $fromModal = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = (string) ($_POST['email'] ?? '');
+    $displayName = trim((string) ($_POST['display_name'] ?? ''));
     $fromModal = !empty($_POST['from_modal']);
     $result = AuthService::register(
         $email,
@@ -26,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         (string) ($_POST['password_confirm'] ?? ''),
         (string) ($_POST[Csrf::fieldName()] ?? ''),
         !empty($_POST[LegalCatalog::consentRegisterField()]),
+        $displayName,
     );
     if ($result['ok']) {
         portal_redirect('./account.php');
@@ -34,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($fromModal) {
         $_SESSION['portal_register_error'] = $error;
         $_SESSION['portal_register_email'] = $email;
+        $_SESSION['portal_register_display_name'] = $displayName;
         portal_redirect('./index.php');
     }
 }
@@ -43,5 +47,6 @@ portal_render('layout-auth.php', $ctx, [
     'heading' => 'Créer un compte',
     'error' => $error,
     'email' => $email,
+    'display_name' => $displayName,
     'authPartial' => 'auth-register-form.php',
 ]);

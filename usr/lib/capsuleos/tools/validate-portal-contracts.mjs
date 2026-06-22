@@ -108,6 +108,19 @@ if (gamification) {
     const badges = gamification.badges || [];
     if (!Array.isArray(badges) || badges.length < 1) {
         errors.push('portal-gamification.json: badges requis');
+    } else {
+        for (const badge of badges) {
+            if (!badge.id || !badge.label || !badge.description) {
+                errors.push(`portal-gamification.json: badge incomplet (${badge.id || 'sans id'})`);
+            }
+            if (!badge.icon) {
+                errors.push(`portal-gamification.json: icon manquant pour ${badge.id}`);
+            }
+            const tones = ['gold', 'green', 'blue', 'purple', 'orange', 'teal', 'violet', 'rose', 'cyan'];
+            if (!badge.tone || !tones.includes(badge.tone)) {
+                errors.push(`portal-gamification.json: tone invalide pour ${badge.id}`);
+            }
+        }
     }
 }
 

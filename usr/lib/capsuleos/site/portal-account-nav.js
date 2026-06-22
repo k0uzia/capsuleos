@@ -13,6 +13,8 @@
         purchases: 'purchases',
         classes: 'classes',
         modules: 'modules',
+        support: 'support',
+        soutien: 'support',
         parametres: 'settings',
         settings: 'settings',
     };
@@ -31,6 +33,7 @@
         purchases: 'achats',
         classes: 'classes',
         modules: 'modules',
+        support: 'support',
         settings: 'parametres',
     };
 
@@ -41,7 +44,7 @@
     };
 
     function visibleNavIds() {
-        var ids = ['overview', 'settings'];
+        var ids = ['overview', 'support', 'settings'];
         document.querySelectorAll('[data-account-nav-item]:not([hidden])').forEach(function (el) {
             var id = el.getAttribute('data-account-nav-item');
             if (id && ids.indexOf(id) === -1) {
@@ -50,7 +53,7 @@
         });
         document.querySelectorAll('[data-account-nav]').forEach(function (btn) {
             var id = btn.getAttribute('data-account-nav');
-            if (id && id !== 'overview' && id !== 'settings' && ids.indexOf(id) === -1) {
+            if (id && ids.indexOf(id) === -1) {
                 var item = btn.closest('[data-account-nav-item]');
                 if (!item || !item.hidden) {
                     ids.push(id);
@@ -64,6 +67,10 @@
         return /^ticket-\d+$/.test(subId || '');
     }
 
+    function isSupportSubId(subId) {
+        return subId === 'support' || subId === 'historique' || isTicketSubId(subId);
+    }
+
     function parseHash() {
         var raw = window.location.hash.replace(/^#/, '').toLowerCase();
         if (!raw) {
@@ -72,41 +79,74 @@
         var parts = raw.split('/');
         var mainKey = parts[0];
         var view = HASH_MAP[mainKey] || HASH_MAP[raw] || 'overview';
-        var sub = 'subscription';
+        var sub = view === 'support' ? 'support' : 'subscription';
+
         if (view === 'settings' && parts[1]) {
-            if (isTicketSubId(parts[1])) {
-                sub = parts[1];
-            } else {
-                sub = SUB_HASH_MAP[parts[1]] || 'subscription';
+            if (parts[1] === 'support' || isTicketSubId(parts[1])) {
+                return {
+                    view: 'support',
+                    sub: parts[1] === 'support' ? 'support' : parts[1],
+                };
             }
+            sub = SUB_HASH_MAP[parts[1]] || 'subscription';
         }
+
+        if (view === 'support' && parts[1]) {
+            sub = isSupportSubId(parts[1]) ? parts[1] : 'support';
+        }
+
         return { view: view, sub: sub };
     }
 
     function buildHash(viewId, subId) {
-        if (viewId === 'settings') {
-            if (isTicketSubId(subId || '')) {
-                return 'parametres/' + subId;
+        if (viewId === 'support') {
+            if (isSupportSubId(subId || '')) {
+                return 'support/' + subId;
             }
+            return 'support';
+        }
+        if (viewId === 'settings') {
             var subPart = REVERSE_SUB_HASH[subId || 'subscription'] || 'abonnement';
             return 'parametres/' + subPart;
         }
         return REVERSE_HASH[viewId] || 'compte';
     }
 
-    function activateSubView(subId, options) {
+    function subnavScopeForView(viewId) {
+        if (viewId === 'settings' || viewId === 'support') {
+            return viewId;
+        }
+        return null;
+    }
+
+    function activateSubView(scope, subId, options) {
         var opts = options || {};
-        var allowed = ['subscription', 'account', 'support'];
-        if (allowed.indexOf(subId) === -1 && !isTicketSubId(subId)) {
-            subId = 'subscription';
+        var root = document.querySelector('[data-account-subnav-scope="' + scope + '"]');
+        if (!root) {
+            return;
         }
 
-        document.querySelectorAll('[data-account-sub-view]').forEach(function (panel) {
+        if (scope === 'settings') {
+            var allowedSettings = ['subscription', 'account'];
+            if (allowedSettings.indexOf(subId) === -1) {
+                subId = 'subscription';
+            }
+        } else if (scope === 'support') {
+            if (!isSupportSubId(subId)) {
+                subId = 'support';
+            }
+        }
+
+        root.querySelectorAll('[data-account-sub-view]').forEach(function (panel) {
             var id = panel.getAttribute('data-account-sub-view');
             panel.hidden = id !== subId;
         });
 
         document.querySelectorAll('[data-account-sub-nav]').forEach(function (btn) {
+            var btnScope = btn.closest('[data-account-subnav-scope]');
+            if (!btnScope || btnScope.getAttribute('data-account-subnav-scope') !== scope) {
+                return;
+            }
             var id = btn.getAttribute('data-account-sub-nav');
             var active = id === subId;
             btn.setAttribute('aria-selected', active ? 'true' : 'false');
@@ -115,7 +155,7 @@
         });
 
         if (opts.updateHash !== false) {
-            var nextHash = buildHash('settings', subId);
+            var nextHash = buildHash(scope, subId);
             if (window.location.hash.replace(/^#/, '') !== nextHash) {
                 history.replaceState(null, '', '#' + nextHash);
             }
@@ -142,8 +182,9 @@
             btn.classList.toggle('portal-account-nav-link--active', active);
         });
 
-        if (viewId === 'settings') {
-            activateSubView(opts.sub || parseHash().sub, { updateHash: false });
+        var scope = subnavScopeForView(viewId);
+        if (scope) {
+            activateSubView(scope, opts.sub || (scope === 'support' ? 'support' : 'subscription'), { updateHash: false });
         }
 
         if (opts.updateHash !== false) {
@@ -160,24 +201,60 @@
             return;
         }
 
-        root.querySelectorAll('[data-account-nav]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var view = btn.getAttribute('data-account-nav') || 'overview';
-                var sub = btn.getAttribute('data-account-sub-nav') || null;
-                activateView(view, { sub: sub });
-            });
+        root.addEventListener('click', function (event) {
+            var btn = event.target.closest('[data-account-nav]');
+            if (!btn || !root.contains(btn)) {
+                return;
+            }
+            var navList = root.querySelector('.portal-account-nav-list');
+            if (navList && navList.contains(btn)) {
+                return;
+            }
+            event.preventDefault();
+            var view = btn.getAttribute('data-account-nav') || 'overview';
+            var sub = btn.getAttribute('data-account-sub-nav') || null;
+            if (view === 'support' && !sub) {
+                sub = 'support';
+            }
+            if (view === 'settings' && !sub) {
+                sub = 'subscription';
+            }
+            activateView(view, { sub: sub });
         });
 
-        var subnavList = root.querySelector('.portal-account-subnav-list');
-        if (subnavList) {
-            subnavList.addEventListener('click', function (event) {
-                var btn = event.target.closest('[data-account-sub-nav]');
-                if (!btn || !subnavList.contains(btn)) {
+        var navList = root.querySelector('.portal-account-nav-list');
+        if (navList) {
+            navList.addEventListener('click', function (event) {
+                var btn = event.target.closest('[data-account-nav]');
+                if (!btn || !navList.contains(btn)) {
                     return;
                 }
-                activateView('settings', { sub: btn.getAttribute('data-account-sub-nav') || 'subscription' });
+                var view = btn.getAttribute('data-account-nav') || 'overview';
+                var sub = btn.getAttribute('data-account-sub-nav') || null;
+                if (view === 'support' && !sub) {
+                    sub = 'support';
+                }
+                if (view === 'settings' && !sub) {
+                    sub = 'subscription';
+                }
+                activateView(view, { sub: sub });
             });
         }
+
+        document.querySelectorAll('[data-account-subnav-scope]').forEach(function (scopeEl) {
+            var scope = scopeEl.getAttribute('data-account-subnav-scope') || '';
+            var list = scopeEl.querySelector('[data-account-subnav-list]');
+            if (!list) {
+                return;
+            }
+            list.addEventListener('click', function (event) {
+                var btn = event.target.closest('[data-account-sub-nav]');
+                if (!btn || !list.contains(btn)) {
+                    return;
+                }
+                activateView(scope, { sub: btn.getAttribute('data-account-sub-nav') || (scope === 'support' ? 'support' : 'subscription') });
+            });
+        });
 
         window.addEventListener('hashchange', function () {
             var parsed = parseHash();
@@ -192,7 +269,9 @@
         activate: function (viewId, options) {
             activateView(viewId, options || {});
         },
-        activateSub: activateSubView,
+        activateSub: function (scope, subId, options) {
+            activateSubView(scope, subId, options || {});
+        },
         visibleIds: visibleNavIds,
         refresh: function () {
             var parsed = parseHash();

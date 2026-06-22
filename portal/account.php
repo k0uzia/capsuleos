@@ -69,6 +69,7 @@ if ($ctx->showSection('progress')) {
 }
 
 $subscription = UserRepository::subscription($userId);
+$billing = UserRepository::billing($userId);
 $subjectKey = OsUsageRepository::subjectKey($userId, null);
 $limitMinutes = OsUsageRepository::dailyLimit();
 $usageSummary = !empty($permissions['osQuotaUnlimited'])
@@ -115,7 +116,26 @@ if ($ctx->showSection('skins')) {
     }
 }
 
-$purchases = PurchasedModuleRepository::listForUser($userId);
+$purchasesRaw = PurchasedModuleRepository::listForUser($userId);
+$purchases = [];
+foreach ($purchasesRaw as $purchaseRow) {
+    if (!is_array($purchaseRow)) {
+        continue;
+    }
+    $moduleId = (string) ($purchaseRow['module_id'] ?? '');
+    $module = $moduleId !== '' ? ModuleCatalogReader::moduleByMountId($moduleId, $ctx->entitlementLevel) : null;
+    $title = is_array($module) ? trim((string) ($module['title'] ?? '')) : '';
+    if ($title === '') {
+        $title = $moduleId;
+    }
+    $creatorName = is_array($module) ? trim((string) ($module['creatorName'] ?? '')) : '';
+    $purchases[] = [
+        'module_id' => $moduleId,
+        'purchased_at' => (string) ($purchaseRow['purchased_at'] ?? ''),
+        'title' => $title,
+        'creatorName' => $creatorName,
+    ];
+}
 
 $classMembership = ClassroomRepository::membershipForUser($userId);
 $teacherClassroom = RoleRepository::hasRole($userId, 'professeur')
@@ -141,6 +161,7 @@ portal_render('layout-auth.php', $ctx, [
     'layoutWide' => true,
     'progressItems' => $progressItems,
     'subscription' => $subscription,
+    'billing' => $billing,
     'usageSummary' => $usageSummary,
     'limitMinutes' => $limitMinutes,
     'resetsAt' => OsUsageRepository::resetsAt(),

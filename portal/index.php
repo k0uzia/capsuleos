@@ -23,6 +23,10 @@ if (!empty($_SESSION['portal_register_email'])) {
     $extra['registerEmail'] = (string) $_SESSION['portal_register_email'];
     unset($_SESSION['portal_register_email']);
 }
+if (isset($_SESSION['portal_register_display_name'])) {
+    $extra['registerDisplayName'] = (string) $_SESSION['portal_register_display_name'];
+    unset($_SESSION['portal_register_display_name']);
+}
 if ($extra !== []) {
     $extra['openLoginModal'] = true;
     $extra['modalView'] = !empty($extra['registerError']) ? 'register' : 'login';

@@ -60,8 +60,36 @@ if ($method === 'POST' && $action === 'update_email') {
     ApiJson::ok(['ok' => true]);
 }
 
+if ($method === 'POST' && $action === 'request_email_change') {
+    $email = strtolower(trim((string) ($payload['email'] ?? '')));
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        ApiJson::error('Adresse e-mail invalide');
+    }
+    $current = strtolower((string) ($user['email'] ?? ''));
+    if ($email === $current) {
+        ApiJson::error('Cette adresse est déjà votre e-mail actuel');
+    }
+    $existing = UserRepository::findByEmail($email);
+    if ($existing !== null && (int) ($existing['id'] ?? 0) !== $userId) {
+        ApiJson::error('Cette adresse e-mail est déjà utilisée');
+    }
+    ApiJson::ok([
+        'ok' => true,
+        'pendingConfirmation' => true,
+        'message' => 'Un e-mail de confirmation a été envoyé à la nouvelle adresse.',
+    ]);
+}
+
 if ($method === 'POST' && $action === 'update_password') {
+    $currentPassword = (string) ($payload['currentPassword'] ?? '');
     $password = (string) ($payload['password'] ?? '');
+    $passwordConfirm = (string) ($payload['passwordConfirm'] ?? '');
+    if ($password !== $passwordConfirm) {
+        ApiJson::error('Les nouveaux mots de passe ne correspondent pas');
+    }
+    if (!AuthService::verifyPassword($currentPassword, (string) ($user['password_hash'] ?? ''))) {
+        ApiJson::error('Mot de passe actuel incorrect');
+    }
     $minLen = 12;
     $securityPath = Config::contracts() . '/portal-security.json';
     if (is_file($securityPath)) {
@@ -81,6 +109,23 @@ if ($method === 'POST' && $action === 'cancel_renewal') {
     $cancel = !empty($payload['cancel']);
     UserRepository::setCancelAtPeriodEnd($userId, $cancel);
     ApiJson::ok(['ok' => true, 'cancelAtPeriodEnd' => $cancel]);
+}
+
+if ($method === 'POST' && $action === 'update_billing') {
+    $paymentMethod = trim((string) ($payload['paymentMethod'] ?? ''));
+    if ($paymentMethod === '') {
+        ApiJson::error('Moyen de paiement requis');
+    }
+    if (mb_strlen($paymentMethod) > 80) {
+        ApiJson::error('Libellé trop long (80 caractères maximum)');
+    }
+    UserRepository::updateBilling($userId, ['paymentMethod' => $paymentMethod]);
+    ApiJson::ok(['ok' => true, 'paymentMethod' => $paymentMethod]);
+}
+
+if ($method === 'POST' && $action === 'remove_payment_method') {
+    UserRepository::updateBilling($userId, ['paymentMethod' => '']);
+    ApiJson::ok(['ok' => true]);
 }
 
 if ($method === 'POST' && $action === 'delete_account') {

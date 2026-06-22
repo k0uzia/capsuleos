@@ -124,8 +124,26 @@
     if (registerForm) {
         registerForm.addEventListener('submit', function (event) {
             event.preventDefault();
-            window.alert('Inscription simulée : connectez-vous avec ' + DEV_USER + ' / ' + DEV_PASSWORD);
+            if (!registerForm.checkValidity()) {
+                registerForm.reportValidity();
+                return;
+            }
+            var displayNameInput = registerForm.querySelector('[name="display_name"]');
+            var emailInput = registerForm.querySelector('[name="email"]');
+            var displayName = displayNameInput ? String(displayNameInput.value).trim() : '';
+            var email = emailInput ? String(emailInput.value).trim() : '';
+            if (window.CapsulePortalDevStore) {
+                window.CapsulePortalDevStore.updateProfile({
+                    displayName: displayName,
+                    email: email || DEV_USER,
+                });
+            }
             setLoggedIn(true);
+            var modal = document.getElementById('portal-login-modal');
+            if (modal && modal.open && typeof modal.close === 'function') {
+                modal.close();
+            }
+            window.alert('Compte dev créé. Vous êtes connecté en tant que « ' + (displayName || email || DEV_USER) + ' ».');
         });
     }
 

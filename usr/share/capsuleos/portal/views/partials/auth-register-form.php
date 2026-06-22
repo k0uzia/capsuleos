@@ -11,6 +11,10 @@ $minLen = AuthService::minPasswordLength();
         <input class="portal-input" type="email" name="email" required autocomplete="email" value="<?= $ctx->e((string) ($ctx->extra['email'] ?? '')) ?>">
     </label>
     <label class="portal-field">
+        <span class="portal-label">Nom d'utilisateur</span>
+        <input class="portal-input" type="text" name="display_name" required maxlength="60" autocomplete="username" value="<?= $ctx->e((string) ($ctx->extra['display_name'] ?? '')) ?>">
+    </label>
+    <label class="portal-field">
         <span class="portal-label">Mot de passe (min. <?= (int) $minLen ?> caractères)</span>
         <input class="portal-input" type="password" name="password" required autocomplete="new-password" minlength="<?= (int) $minLen ?>">
     </label>

@@ -9,11 +9,11 @@ $showPurchases = $ctx->showSection('purchases');
 $showClasses = $ctx->showSection('teacher');
 $showModules = $ctx->showSection('creator');
 ?>
-<div class="portal-account" data-portal-account data-csrf="<?= $ctx->e($ctx->csrfToken) ?>" data-portal-display-name="<?= $ctx->e($ctx->displayName()) ?>" data-portal-author-badges="<?= $ctx->e(json_encode(portal_account_author_badges($ctx), JSON_UNESCAPED_UNICODE)) ?>">
+<div class="portal-account" data-portal-account data-csrf="<?= $ctx->e($ctx->csrfToken) ?>" data-portal-api-base="<?= $ctx->e(portal_entry('api/')) ?>" data-portal-display-name="<?= $ctx->e($ctx->displayName()) ?>" data-portal-author-badges="<?= $ctx->e(json_encode(portal_account_author_badges($ctx), JSON_UNESCAPED_UNICODE)) ?>">
     <header class="portal-account-header<?= $headerDevClass ?>">
         <div class="portal-account-header-main">
             <p class="portal-account-eyebrow">Espace personnel</p>
-            <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-welcome-title.php'; ?>
+            <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-xp-summary.php'; ?>
         </div>
         <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-dev-simulator.php'; ?>
     </header>
@@ -39,12 +39,16 @@ $showModules = $ctx->showSection('creator');
                     <?php if ($ctx->showSection('student')) {
                         include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-student.php';
                     } ?>
-                    <?php if ($ctx->showSection('gamification')) {
-                        include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-gamification.php';
-                    } ?>
-                    <?php if ($ctx->showSection('progress')) {
-                        include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-progress.php';
-                    } ?>
+                    <?php if ($ctx->showSection('gamification') || $ctx->showSection('progress')) : ?>
+                    <div class="portal-account-panel-row portal-account-progress-row">
+                        <?php if ($ctx->showSection('gamification')) {
+                            include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-gamification.php';
+                        } ?>
+                        <?php if ($ctx->showSection('progress')) {
+                            include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-progress.php';
+                        } ?>
+                    </div>
+                    <?php endif; ?>
                     <?php if ($ctx->showSection('skins')) {
                         include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-skins.php';
                     } ?>
@@ -73,6 +77,11 @@ $showModules = $ctx->showSection('creator');
             </section>
             <?php endif; ?>
 
+            <section class="portal-account-view" id="account-view-support" data-account-view="support" hidden
+                role="tabpanel" aria-labelledby="portal-account-nav-support">
+                <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-support-view.php'; ?>
+            </section>
+
             <section class="portal-account-view" id="account-view-settings" data-account-view="settings" hidden
                 role="tabpanel" aria-labelledby="portal-account-nav-settings">
                 <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-settings-view.php'; ?>
@@ -83,4 +92,5 @@ $showModules = $ctx->showSection('creator');
         include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-classroom-create-modal.php';
         include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-classroom-detail-modal.php';
     } ?>
+    <?php include CAPSULE_PORTAL_VIEWS . '/partials/auth-account-settings-confirm-modal.php'; ?>
 </div>

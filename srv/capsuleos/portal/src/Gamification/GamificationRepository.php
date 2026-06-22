@@ -112,6 +112,9 @@ final class GamificationRepository
                 'id' => (string) ($badge['id'] ?? ''),
                 'label' => (string) ($badge['label'] ?? ''),
                 'description' => (string) ($badge['description'] ?? ''),
+                'icon' => (string) ($badge['icon'] ?? 'award'),
+                'iconFamily' => (string) ($badge['iconFamily'] ?? 'solid'),
+                'tone' => (string) ($badge['tone'] ?? 'blue'),
             ];
         }
         return $out;

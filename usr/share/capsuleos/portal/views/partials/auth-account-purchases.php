@@ -12,10 +12,20 @@ $purchases = is_array($ctx->extra['purchases'] ?? null) ? $ctx->extra['purchases
                 if (!is_array($purchase)) {
                     continue;
                 }
+                $title = trim((string) ($purchase['title'] ?? $purchase['module_id'] ?? ''));
+                $creatorName = trim((string) ($purchase['creatorName'] ?? ''));
+                $purchasedLabel = portal_format_date_fr((string) ($purchase['purchased_at'] ?? ''));
                 ?>
             <li class="portal-account-purchase-item">
-                <span><?= $ctx->e((string) ($purchase['module_id'] ?? '')) ?></span>
-                <span class="portal-account-purchase-date"><?= $ctx->e(portal_format_date_fr((string) ($purchase['purchased_at'] ?? ''))) ?></span>
+                <div class="portal-account-purchase-main">
+                    <p class="portal-account-purchase-title"><?= $ctx->e($title) ?></p>
+                    <?php if ($creatorName !== '') : ?>
+                    <p class="portal-account-purchase-creator">Créé par <?= $ctx->e($creatorName) ?></p>
+                    <?php endif; ?>
+                </div>
+                <span class="portal-account-purchase-meta">
+                    <span class="portal-account-purchase-date">Acheté le : <?= $ctx->e($purchasedLabel) ?></span>
+                </span>
             </li>
             <?php endforeach; ?>
         </ul>

@@ -5,7 +5,7 @@
     'use strict';
 
     var MODAL_TO_NAV = {
-        tickets: { view: 'settings', sub: 'support' },
+        tickets: { view: 'support', sub: 'support' },
         settings: { view: 'settings', sub: 'account' },
         'subscription-manage': { view: 'settings', sub: 'subscription' },
     };

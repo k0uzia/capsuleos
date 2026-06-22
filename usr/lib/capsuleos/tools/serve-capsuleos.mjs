@@ -12,9 +12,11 @@ import { startDevServer } from './dev-static-server.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../../..');
 
+const PROFILE_ALIASES = new Set(['sub', 'abonne', 'prof', 'professeur', 'creator', 'createur']);
+
 const parseArgs = () => {
     const args = process.argv.slice(2);
-    const opts = { mode: 'dev', port: 8080, host: '127.0.0.1' };
+    const opts = { mode: 'dev', port: 8080, host: '127.0.0.1', profile: null };
     if (args[0] === 'dev' || args[0] === 'prod') {
         opts.mode = args.shift();
     }
@@ -23,9 +25,11 @@ const parseArgs = () => {
             opts.port = Number(args[++i]);
         } else if ((args[i] === '--host' || args[i] === '-H') && args[i + 1]) {
             opts.host = args[++i];
+        } else if (args[i] === '--profile' && args[i + 1]) {
+            opts.profile = String(args[++i]).toLowerCase();
         } else if (args[i] === '-h' || args[i] === '--help') {
             process.stdout.write(
-                'Usage: node usr/lib/capsuleos/tools/serve-capsuleos.mjs <dev|prod> [--port N] [--host IP]\n',
+                'Usage: node usr/lib/capsuleos/tools/serve-capsuleos.mjs <dev|prod> [--port N] [--host IP] [--profile sub|prof|creator]\n',
             );
             process.exit(0);
         }
@@ -35,6 +39,10 @@ const parseArgs = () => {
 
 const main = async () => {
     const opts = parseArgs();
+    if (opts.mode === 'prod' && opts.profile && !PROFILE_ALIASES.has(opts.profile)) {
+        console.error(`Profil invalide : ${opts.profile} — utiliser sub, prof ou creator`);
+        process.exit(1);
+    }
     const build = spawnSync(
         process.execPath,
         ['usr/lib/capsuleos/tools/build-portal-site-home.mjs', opts.mode],
@@ -50,6 +58,10 @@ const main = async () => {
     if (opts.mode === 'prod') {
         process.stderr.write('    accueil → index.php (portail PHP)\n');
         process.stderr.write('    routes /portal/*.php actives\n');
+        if (opts.profile) {
+            process.stderr.write(`    profil simulé : ${opts.profile}\n`);
+            process.stderr.write('    connexion test : test / test123456789\n');
+        }
     } else {
         process.stderr.write('    accueil → index.html (statique)\n');
         process.stderr.write('    /index.php et /portal/* → redirect index.html\n');
@@ -57,10 +69,14 @@ const main = async () => {
     process.stderr.write('    Ctrl+C pour arrêter\n\n');
 
     if (opts.mode === 'prod') {
+        const phpEnv = { ...process.env, CAPSULE_PORTAL_MODE: 'prod' };
+        if (opts.profile) {
+            phpEnv.CAPSULE_PORTAL_PROD_PROFILE = opts.profile;
+        }
         const child = spawn('php', ['-S', addr, '-t', '.', 'router.php'], {
             cwd: ROOT,
             stdio: 'inherit',
-            env: { ...process.env, CAPSULE_PORTAL_MODE: 'prod' },
+            env: phpEnv,
         });
         child.on('exit', (code) => process.exit(code ?? 0));
         return;

@@ -7,6 +7,61 @@
     var STORAGE_KEY = 'capsule_portal_dev_account';
     var INVITE_DAYS = 7;
 
+    var DEV_MODULE_CATALOG = [
+        { mountId: 'createur/reseau-linux', title: 'Réseau Linux', price: '9 €', creatorName: 'Camille Renard', storeOs: 'linux-mint', storeLabel: 'Gestionnaire de logiciels · Mint' },
+        { mountId: 'createur/bash-avance', title: 'Bash avancé', price: '12 €', creatorName: 'Alexandre Martin', storeOs: 'linux-rocky', storeLabel: 'GNOME Logiciels · Rocky' },
+        { mountId: 'createur/docker-initiation', title: 'Docker initiation', price: '15 €', creatorName: 'Sophie Lambert', storeOs: 'linux-fedora', storeLabel: 'GNOME Logiciels · Fedora' },
+        { mountId: 'createur/securite-debutant', title: 'Sécurité débutant', price: '11 €', creatorName: 'Thomas Girard', storeOs: 'linux-kde-neon', storeLabel: 'Discover · KDE Neon' },
+    ];
+
+    function catalogByMountId(mountId) {
+        for (var i = 0; i < DEV_MODULE_CATALOG.length; i += 1) {
+            if (DEV_MODULE_CATALOG[i].mountId === mountId) {
+                return DEV_MODULE_CATALOG[i];
+            }
+        }
+        return null;
+    }
+
+    function enrichPurchase(purchase) {
+        if (!purchase || !purchase.moduleId) {
+            return purchase;
+        }
+        var meta = catalogByMountId(purchase.moduleId);
+        if (!meta) {
+            return purchase;
+        }
+        return {
+            id: purchase.id,
+            moduleId: purchase.moduleId,
+            title: purchase.title || meta.title,
+            creatorName: purchase.creatorName || meta.creatorName || '',
+            storeOs: purchase.storeOs || meta.storeOs || '',
+            storeLabel: purchase.storeLabel || meta.storeLabel || '',
+            purchasedAt: purchase.purchasedAt,
+        };
+    }
+
+    function migratePurchases(purchases) {
+        if (!Array.isArray(purchases)) {
+            return [];
+        }
+        return purchases.map(enrichPurchase);
+    }
+
+    function purchasesNeedMigration(before, after) {
+        if (!Array.isArray(before) || !Array.isArray(after) || before.length !== after.length) {
+            return false;
+        }
+        for (var i = 0; i < before.length; i += 1) {
+            if ((before[i].creatorName || '') !== (after[i].creatorName || '')
+                || (before[i].title || '') !== (after[i].title || '')) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function defaultState() {
         return {
             displayName: global.CAPSULE_PORTAL_DEV_USER || 'test',
@@ -75,7 +130,21 @@
                     parsed[key] = base[key];
                 }
             }
-            return migrateTickets(parsed);
+            parsed = migrateTickets(parsed);
+            if (!Array.isArray(parsed.progress)) {
+                parsed.progress = [];
+            }
+            if (!Array.isArray(parsed.skins)) {
+                parsed.skins = [];
+            }
+            if (Array.isArray(parsed.purchases)) {
+                var migratedPurchases = migratePurchases(parsed.purchases);
+                if (purchasesNeedMigration(parsed.purchases, migratedPurchases)) {
+                    parsed.purchases = migratedPurchases;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+                }
+            }
+            return parsed;
         } catch (_) {
             return defaultState();
         }
@@ -251,6 +320,62 @@
             save(s);
             return ticket;
         },
+        closeTicket: function (ticketId, adminReply) {
+            var s = load();
+            var ticket = s.tickets.find(function (t) {
+                return t && t.id === ticketId;
+            });
+            if (!ticket || ticket.status === 'clos') {
+                return false;
+            }
+            ticket.status = 'clos';
+            if (!Array.isArray(ticket.messages)) {
+                ticket.messages = [];
+            }
+            if (adminReply) {
+                ticket.messages.push({
+                    authorRole: 'admin',
+                    authorName: 'Support CapsuleOS',
+                    body: String(adminReply),
+                    createdAt: new Date().toISOString(),
+                });
+            }
+            save(s);
+            return true;
+        },
+        addSampleClosedTicket: function () {
+            var s = load();
+            s.ticketCounter = (s.ticketCounter || 0) + 1;
+            var now = new Date().toISOString();
+            var authorName = s.displayName || 'Utilisateur';
+            var body = 'Bonjour, je souhaiterais obtenir des précisions sur les modules créateurs disponibles à l\'achat.';
+            var ticket = {
+                id: uid(),
+                number: s.ticketCounter,
+                type: 'support',
+                subject: 'Question sur les modules créateurs',
+                body: body,
+                status: 'clos',
+                createdAt: now,
+                messages: [
+                    {
+                        authorRole: 'user',
+                        authorName: authorName,
+                        body: body,
+                        createdAt: now,
+                    },
+                    {
+                        authorRole: 'admin',
+                        authorName: 'Support CapsuleOS',
+                        body: 'Bonjour, les modules créateurs sont listés dans la boutique du portail. N\'hésitez pas à nous recontacter si besoin.',
+                        createdAt: new Date(Date.now() + 3600000).toISOString(),
+                    },
+                ],
+            };
+            s.tickets.unshift(ticket);
+            save(s);
+            return ticket;
+        },
         createClassroom: function (name, maxSlots, allowedOs, allowedModules) {
             var s = load();
             if (s.classroom) {
@@ -360,6 +485,9 @@
         },
         addSampleProgress: function () {
             var s = load();
+            if (!Array.isArray(s.progress)) {
+                s.progress = [];
+            }
             s.progress.push({
                 id: uid(),
                 title: 'Les bases Linux (exemple dev)',
@@ -373,6 +501,9 @@
         },
         addSampleSkin: function () {
             var s = load();
+            if (!Array.isArray(s.skins)) {
+                s.skins = [];
+            }
             s.skins.push({
                 id: uid(),
                 registryId: 'linux-mint',
@@ -386,8 +517,109 @@
             s.skins = s.skins.filter(function (sk) { return sk.id !== id; });
             save(s);
         },
+        listPurchases: function () {
+            return migratePurchases(load().purchases || []);
+        },
+        hasPurchase: function (moduleId) {
+            return load().purchases.some(function (p) {
+                return p && p.moduleId === moduleId;
+            });
+        },
+        addPurchase: function (moduleId, title, creatorName, storeOs, storeLabel) {
+            var s = load();
+            if (!Array.isArray(s.purchases)) {
+                s.purchases = [];
+            }
+            if (s.purchases.some(function (p) { return p && p.moduleId === moduleId; })) {
+                return null;
+            }
+            var purchase = enrichPurchase({
+                id: uid(),
+                moduleId: String(moduleId),
+                title: String(title || moduleId),
+                creatorName: String(creatorName || ''),
+                storeOs: String(storeOs || ''),
+                storeLabel: String(storeLabel || ''),
+                purchasedAt: new Date().toISOString(),
+            });
+            s.purchases.unshift(purchase);
+            save(s);
+            return purchase;
+        },
+        purchaseModules: function (entries) {
+            if (!Array.isArray(entries)) {
+                return [];
+            }
+            var added = [];
+            entries.forEach(function (entry) {
+                if (!entry || !entry.mountId) {
+                    return;
+                }
+                var purchase = api.addPurchase(
+                    entry.mountId,
+                    entry.title,
+                    entry.creatorName,
+                    entry.storeOs,
+                    entry.storeLabel,
+                );
+                if (purchase) {
+                    added.push(purchase);
+                }
+            });
+            return added;
+        },
+        addSamplePurchases: function () {
+            var samples = DEV_MODULE_CATALOG.filter(function (mod) {
+                return mod.mountId.indexOf('createur/') === 0;
+            }).slice(0, 3);
+            var s = load();
+            var touched = [];
+            samples.forEach(function (entry) {
+                var existingIndex = -1;
+                var i;
+                for (i = 0; i < s.purchases.length; i += 1) {
+                    if (s.purchases[i] && s.purchases[i].moduleId === entry.mountId) {
+                        existingIndex = i;
+                        break;
+                    }
+                }
+                if (existingIndex !== -1) {
+                    var existing = enrichPurchase(s.purchases[existingIndex]);
+                    if ((existing.creatorName || '') !== (s.purchases[existingIndex].creatorName || '')
+                        || (existing.title || '') !== (s.purchases[existingIndex].title || '')) {
+                        s.purchases[existingIndex] = existing;
+                        touched.push(existing);
+                    }
+                    return;
+                }
+                var purchase = {
+                    id: uid(),
+                    moduleId: entry.mountId,
+                    title: entry.title,
+                    creatorName: entry.creatorName || '',
+                    storeOs: entry.storeOs || '',
+                    storeLabel: entry.storeLabel || '',
+                    purchasedAt: new Date().toISOString(),
+                };
+                purchase = enrichPurchase(purchase);
+                s.purchases.unshift(purchase);
+                touched.push(purchase);
+            });
+            if (touched.length) {
+                save(s);
+            }
+            return touched;
+        },
+        removePurchase: function (id) {
+            var s = load();
+            s.purchases = s.purchases.filter(function (p) { return p.id !== id; });
+            save(s);
+        },
         allProgress: function () {
             var s = load();
+            if (!Array.isArray(s.progress)) {
+                s.progress = [];
+            }
             var scanned = scanChecklistProgress();
             var ids = {};
             scanned.forEach(function (p) { ids[p.id] = true; });
@@ -413,6 +645,18 @@
         subscriptionInfo: function () {
             var s = load();
             return ensureSubscription(s);
+        },
+        moduleCatalog: function () {
+            return DEV_MODULE_CATALOG.map(function (mod) {
+                return {
+                    mountId: mod.mountId,
+                    title: mod.title,
+                    price: mod.price,
+                    creatorName: mod.creatorName || '',
+                    storeOs: mod.storeOs || '',
+                    storeLabel: mod.storeLabel || '',
+                };
+            });
         },
     };
 

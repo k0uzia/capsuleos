@@ -64,6 +64,40 @@ final class Config
         return self::mode() === 'dev';
     }
 
+    /** Profil local make prod-sub|prof|creator (CAPSULE_PORTAL_PROD_PROFILE). */
+    public static function prodProfile(): ?string
+    {
+        $raw = getenv('CAPSULE_PORTAL_PROD_PROFILE');
+        if (!is_string($raw) || trim($raw) === '') {
+            return null;
+        }
+        return strtolower(trim($raw));
+    }
+
+    /** Grade simulé pour prod local (sub → abonne, prof → professeur, creator → createur). */
+    public static function prodProfileGrade(): ?string
+    {
+        $profile = self::prodProfile();
+        if ($profile === null) {
+            return null;
+        }
+        $map = [
+            'sub' => 'abonne',
+            'abonne' => 'abonne',
+            'prof' => 'professeur',
+            'professeur' => 'professeur',
+            'creator' => 'createur',
+            'createur' => 'createur',
+        ];
+        return $map[$profile] ?? null;
+    }
+
+    /** Prévisualisation locale : identifiants test + simulation de grade. */
+    public static function allowsLocalPreview(): bool
+    {
+        return self::isDev() || self::prodProfileGrade() !== null;
+    }
+
     /** @return array{defaultUser: string, defaultPassword: string} */
     public static function devCredentials(): array
     {

@@ -55,11 +55,20 @@ $showModules = $ctx->showSection('creator');
             </button>
         </li>
         <?php endif; ?>
+        <li class="portal-account-nav-item" role="presentation" data-account-nav-item="support">
+            <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-support"
+                aria-controls="account-view-support" aria-selected="false" data-account-nav="support" tabindex="-1">
+                Support
+            </button>
+        </li>
         <li class="portal-account-nav-item" role="presentation">
             <button type="button" class="portal-account-nav-link" role="tab" id="portal-account-nav-settings"
                 aria-controls="account-view-settings" aria-selected="false" data-account-nav="settings" tabindex="-1">
                 Paramètres
             </button>
+        </li>
+        <li class="portal-account-nav-item portal-account-nav-item--logout" role="presentation">
+            <a class="portal-account-nav-logout" href="<?= $ctx->e(portal_entry('logout.php')) ?>">Se déconnecter</a>
         </li>
     </ul>
 </nav>

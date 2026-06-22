@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-06-22T14:12:22Z",
+  "collectedAt": "2026-06-22T14:43:58Z",
   "firefoxVersion": "Mozilla Firefox 146.0.1",
   "package": "firefox 146.0.1+linuxmint1+zena",
   "distribution": {
@@ -37,12 +37,29 @@
   "windowManager": {
     "windows": [
       {
-        "id": "0x04000003",
+        "id": "0x03800003",
+        "wm_class": "Navigator.firefox",
+        "title": "Mozilla Firefox"
+      },
+      {
+        "id": "0x0380001e",
+        "wm_class": "Navigator.firefox",
+        "title": "Mozilla Firefox"
+      },
+      {
+        "id": "0x03800035",
         "wm_class": "Navigator.firefox",
         "title": "Mozilla Firefox"
       }
     ],
-    "sampleGeometry": {},
+    "sampleGeometry": {
+      "window": "58720259",
+      "x": "0",
+      "y": "64",
+      "width": "1280",
+      "height": "728",
+      "screen": "0"
+    },
     "wmClass": "Navigator.firefox"
   },
   "iconPaths": [

@@ -96,13 +96,24 @@ Firefox est **transversal** : une seule fonction (kernel + gabarit Z1), plusieur
 | **R-FF-SLOT3** | Skins : tokens + `--firefox-proton-brand-logo` vendor uniquement |
 | **R-FF-SLOT4** | Nouveau raccourci newtab → asset dans `usr/share/capsuleos/assets/images/toolkits/firefox/newtab/` + `pull-firefox-vm-assets.sh` si sourcing VM |
 
-### Pourquoi un override Mint ne se propage pas
+### Règle R-CENTRAL-SLOT (gabarits fonctionnels Z1)
 
-`contentLoader.js` résout le gabarit via `resolveTemplateHtmlCandidates()` : si un fichier existe sous `home/{Vendor}/apps/{slot}.html`, il **prime** sur `usr/share/capsuleos/linux/apps/`. Un patch parité VM placé dans le skin reste local à ce vendor — c’est le comportement slot/variant/skin voulu, pas une défaillance du partage kernel.
+| Id | Règle |
+|----|-------|
+| **R-CENTRAL-SLOT1** | **Interdit** : `home/{Vendor}/apps/{slot}.html` hors allowlist (`mainMenu.html`, `mainMenu-gnome.html`) — promouvoir en Z1 + `CAPSULE_TEMPLATE_OVERRIDES` si variant toolkit ≠ `{slot}.html` |
+| **R-CENTRAL-SLOT2** | Variants multi-toolkit : gabarits explicites (`visionneur_images_pix.html`, `cinnamon_settings.html`, `update_manager_gnome.html`) dans `usr/share/capsuleos/linux/apps/` |
+| **R-CENTRAL-SLOT3** | Skins : `home/*/style/apps/*.skin.css` uniquement (tokens, icônes toolbar) |
+| **R-CENTRAL-SLOT4** | Gate `validate-skin-app-html-overrides.mjs` avant merge |
+
+**Correction juin 2026 (Mint)** : `home/Debian/Mint/apps/` supprimé — visionneurs Pix/Xreader promus en Z1 ; Paramètres via `cinnamon_settings.html` (slot `themes`).
+
+### Pourquoi un override skin ne se propage pas
+
+`contentLoader.js` résout le gabarit via `resolveTemplateHtmlCandidates()` : un fichier sous `home/{Vendor}/apps/{slot}.html` **primait** sur `usr/share/capsuleos/linux/apps/` (désormais bloqué par R-CENTRAL-SLOT). La parité VM doit remonter en Z1 ou passer par `CAPSULE_TEMPLATE_OVERRIDES` déclaré dans le profil.
 
 **Correction juin 2026** : gabarit Proton Mint remonté en Z1 ; override Mint supprimé ; smokes F1–F6 sur Alma/Rocky/Fedora/Ubuntu/Mint.
 
-Gates : `validate-firefox-user-scenarios.mjs` · `smoke-gnome-firefox-scenarios.mjs` · `smoke-mint-firefox.mjs` · `sync-linux-skin-closure.mjs` avant merge skin.
+Gates : `validate-firefox-user-scenarios.mjs` · `smoke-gnome-firefox-scenarios.mjs` · `smoke-mint-firefox.mjs` · `validate-skin-app-html-overrides.mjs` · `sync-linux-skin-closure.mjs` avant merge skin.
 
 ### Sourcing icônes (R-A1 / VM)
 

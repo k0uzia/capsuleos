@@ -11,6 +11,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | `audit-gnome-overview-scenarios.mjs` crash | Contrat présent ; audit cinnamon/KDE documenté (skip overview GNOME) |
 | Gate `validate-app-catalog-integrity.mjs` manquante | Ajoutée + intégrée `validate-ui-contracts-all.mjs` |
 | Ubuntu store UI — smoke S5–S12 `deferred` | **Option A** : `CAPSULE_TEMPLATE_OVERRIDES.update_manager` → `update_manager_gnome.html` (comme Pop!_OS) ; branding snap-store conservé dans `presentation-bindings` (Centre d'applications, sources snap/deb/flatpak) ; smoke `smoke-gnome-software-scenarios.mjs --id linux-ubuntu` |
+| Mint — overrides HTML skin (`home/Debian/Mint/apps/`) | Gabarits Pix/Xreader promus Z1 (`visionneur_images_pix.html`, `visionneur_pdf_xreader.html`) ; gate `validate-skin-app-html-overrides.mjs` ; embed sans scan Mint/apps |
 
 ### Comptage overrides (post-cycle)
 

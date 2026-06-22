@@ -2152,8 +2152,7 @@
       "composition": {
         "labelFr": "Firefox",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.browser-chrome"
+          "cinnamon.muffin-window"
         ],
         "acquisitionOrder": [
           "tab-bar",
@@ -2168,8 +2167,7 @@
         {
           "shotId": "tab-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "tab bar",
           "status": "captured",
@@ -2179,8 +2177,7 @@
         {
           "shotId": "url-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "url bar",
           "status": "captured",
@@ -2190,8 +2187,7 @@
         {
           "shotId": "bookmarks",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "bookmarks",
           "status": "captured",
@@ -2201,8 +2197,7 @@
         {
           "shotId": "menu-hamburger",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.browser-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "menu hamburger",
           "status": "captured",
@@ -2225,7 +2220,7 @@
       "capsuleParity": {
         "visualMatch": "ok"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "themes",
@@ -6187,27 +6182,25 @@
       "parityPriority": "P1",
       "status": "pending",
       "composition": {
-        "labelFr": "Loupe (images)",
+        "labelFr": "Pix (xviewer)",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.media-viewer"
+          "cinnamon.muffin-window",
+          "cinnamon.xviewer-app"
         ],
         "acquisitionOrder": [
           "toolbar",
           "image-canvas",
-          "metadata-pane"
+          "status-bar"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -6216,22 +6209,20 @@
         {
           "shotId": "image-canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
           "labelFr": "image canvas",
           "status": "pending",
           "vmCapture": null
         },
         {
-          "shotId": "metadata-pane",
+          "shotId": "status-bar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
-          "labelFr": "metadata pane",
+          "labelFr": "status bar",
           "status": "pending",
           "vmCapture": null
         }
@@ -6249,63 +6240,47 @@
       "parityPriority": "P1",
       "status": "pending",
       "composition": {
-        "labelFr": "Papers (PDF)",
+        "labelFr": "Xreader (PDF)",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.media-viewer"
+          "cinnamon.muffin-window",
+          "cinnamon.xreader-app"
         ],
         "acquisitionOrder": [
           "toolbar",
-          "page-canvas",
-          "sidebar-thumbs",
-          "zoom-controls"
+          "sidebar",
+          "document-view"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xreader-app"
           ],
           "labelFr": "toolbar",
           "status": "pending",
           "vmCapture": null
         },
         {
-          "shotId": "page-canvas",
+          "shotId": "sidebar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xreader-app"
           ],
-          "labelFr": "page canvas",
+          "labelFr": "sidebar",
           "status": "pending",
           "vmCapture": null
         },
         {
-          "shotId": "sidebar-thumbs",
+          "shotId": "document-view",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xreader-app"
           ],
-          "labelFr": "sidebar thumbs",
-          "status": "pending",
-          "vmCapture": null
-        },
-        {
-          "shotId": "zoom-controls",
-          "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
-          ],
-          "labelFr": "zoom controls",
+          "labelFr": "document view",
           "status": "pending",
           "vmCapture": null
         }

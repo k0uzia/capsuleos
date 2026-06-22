@@ -1,5 +1,5 @@
 registryId=linux-mint
-ssh=lacapsule@192.168.1.70
+ssh=lacapsule@<lab-ip>
 collectedAt=2026-06-22T14:34:30Z
 firefoxPackage=Mozilla Firefox 146.0.1
 sources:

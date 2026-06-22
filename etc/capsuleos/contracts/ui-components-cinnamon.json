@@ -74,9 +74,25 @@
     "cinnamon.settings-panels": {
       "labelFr": "Paramètres système Cinnamon",
       "status": "skeleton",
-      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/themes_cinnamon.base.css"],
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/cinnamon_settings.base.css"],
       "states": ["sidebar", "panel-content"],
       "acquisitionVm": ["liste panneaux gauche", "sous-panneaux mint-*"]
+    },
+    "cinnamon.xviewer-app": {
+      "labelFr": "Pix (xviewer 3.x)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/visionneur_images_pix.base.css"],
+      "capsuleSelectors": [".xviewer-app", ".xviewer-app__toolbar", ".xviewer-app__viewport"],
+      "states": ["empty", "image-loaded", "slideshow"],
+      "acquisitionVm": ["menubar", "toolbar zoom", "zone image", "barre état"]
+    },
+    "cinnamon.xreader-app": {
+      "labelFr": "Xreader (PDF 4.x)",
+      "status": "skeleton",
+      "capsuleCss": ["usr/share/capsuleos/linux/apps/style/visionneur_pdf_xreader.base.css"],
+      "capsuleSelectors": [".xreader-app", ".xreader-app__sidebar", ".xreader-app__viewport"],
+      "states": ["empty", "document-loaded", "sidebar-open"],
+      "acquisitionVm": ["miniatures", "navigation pages", "zoom"]
     },
     "cinnamon.xapp-window": {
       "labelFr": "Fenêtre XApp (apps mint-*)",
@@ -105,6 +121,7 @@
       "template": "usr/share/capsuleos/linux/apps/firefox.html",
       "baseCss": "usr/share/capsuleos/linux/apps/style/firefox.base.css",
       "skinCss": "firefox.skin.css",
+      "chromeProvider": "cinnamon",
       "acquisitionOrder": ["tabs", "url-bar"]
     },
     "terminal": {
@@ -121,9 +138,10 @@
       "vmDesktopIds": ["cinnamon-settings.desktop"],
       "planned": true,
       "components": ["cinnamon.muffin-window", "cinnamon.settings-panels"],
-      "template": "usr/share/capsuleos/linux/apps/themes.html",
-      "baseCss": "usr/share/capsuleos/linux/apps/style/themes_cinnamon.base.css",
-      "skinCss": "themes.skin.css",
+      "template": "usr/share/capsuleos/linux/apps/cinnamon_settings.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/cinnamon_settings.base.css",
+      "skinCss": "cinnamon_settings.skin.css",
+      "chromeProvider": "cinnamon",
       "acquisitionOrder": ["panel-list", "display-panel", "themes-panel"]
     },
     "mintinstall": {
@@ -142,7 +160,30 @@
       "template": "usr/share/capsuleos/linux/apps/update_manager.html",
       "baseCss": "usr/share/capsuleos/linux/apps/style/update_manager.base.css",
       "skinCss": "update_manager.skin.css",
+      "chromeProvider": "cinnamon",
       "acquisitionOrder": ["updates-list", "changelog"]
+    },
+    "visionneur_images": {
+      "labelFr": "Pix (visionneur d'images)",
+      "vmDesktopIds": ["pix.desktop", "xviewer.desktop"],
+      "planned": true,
+      "components": ["cinnamon.muffin-window", "cinnamon.xviewer-app"],
+      "template": "usr/share/capsuleos/linux/apps/visionneur_images_pix.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/visionneur_images_pix.base.css",
+      "skinCss": "visionneur_images.skin.css",
+      "chromeProvider": "cinnamon",
+      "acquisitionOrder": ["toolbar", "image-canvas", "status-bar"]
+    },
+    "visionneur_pdf": {
+      "labelFr": "Xreader (PDF)",
+      "vmDesktopIds": ["xreader.desktop"],
+      "planned": true,
+      "components": ["cinnamon.muffin-window", "cinnamon.xreader-app"],
+      "template": "usr/share/capsuleos/linux/apps/visionneur_pdf_xreader.html",
+      "baseCss": "usr/share/capsuleos/linux/apps/style/visionneur_pdf_xreader.base.css",
+      "skinCss": "visionneur_pdf.skin.css",
+      "chromeProvider": "cinnamon",
+      "acquisitionOrder": ["toolbar", "sidebar", "document-view"]
     },
     "mainMenu": {
       "labelFr": "Menu Démarrer (shell)",

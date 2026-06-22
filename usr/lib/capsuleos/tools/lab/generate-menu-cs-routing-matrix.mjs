@@ -67,7 +67,7 @@ const buildMatrix = () => {
       desktopMap: 'usr/lib/capsuleos/tools/lab/mint-desktop-cs-panel.mjs',
     },
     vm: {
-      host: 'capsule@192.168.1.146',
+      host: '<lab-inventory:linux-mint>',
       manifest: 'proc/linux-mint/distribution-manifest.json',
     },
     summary: {

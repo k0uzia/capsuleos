@@ -134,4 +134,18 @@ Cinnamon (`linux-mint`) : l'audit overview GNOME est ignoré (toolkit dédié). 
 
 - [analyse-magasins-apps-cross-os.md](analyse-magasins-apps-cross-os.md)
 - [procedure-apps-catalog.md](procedure-apps-catalog.md)
+- [convention-contrib-apps.md](convention-contrib-apps.md) — packages contrib + internet simulé
 - [logique-formelle.md](logique-formelle.md) §2.9b StoreΣ
+
+## Couche contrib (apps transversales + web simulé)
+
+Quatrième couche **Z1** complémentaire au triple couche catalogue :
+
+| Couche | Contrat / chemin | Rôle |
+|--------|------------------|------|
+| **Contrib app** | `usr/share/capsuleos/contrib/{cat}/{vendor}/{app}/manifest.json` | Données app (favoris, moteur recherche) — **slotId** existant |
+| **Web simulé** | `usr/share/capsuleos/web/{siteId}/` + `simulated-web-index.json` | Corpus offline-first, résolu par `simulatedWebResolver.js` |
+| **Kernel** | inchangé (`slots-manifest` + `firefoxBrowser.js`) | Pas de hardcode host dans le kernel |
+| **Slot Firefox** | `usr/share/capsuleos/linux/apps/firefox.html` + `firefox-proton.base.css` | Gabarit Proton **unique** — voir [convention-contrib-apps.md §8](convention-contrib-apps.md#8-firefox--slot-partagé-toutes-distributions) |
+
+Gates : `validate-contrib-packages.mjs` · `validate-simulated-web.mjs` · `build-simulated-web-index.mjs` → `capsule-simulated-web-index.js`.

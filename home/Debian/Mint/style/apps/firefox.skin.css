@@ -3,7 +3,6 @@
  * Barre de titre Muffin (#windowHeader) séparée, chrome Proton en dessous.
  */
 body#mint {
-    --firefox-window-header-bg: var(--mint-taskbar-bg);
     --firefox-bg-main: #1c1b22;
     --firefox-bg-accent-1: rgba(31, 158, 222, 0.08);
     --firefox-bg-accent-2: rgba(255, 125, 67, 0.06);
@@ -15,6 +14,7 @@ body#mint {
     --firefox-tab-border: 1px solid transparent;
     --firefox-tab-bg: #2b2a33;
     --firefox-tab-text: #b1b1b3;
+    --firefox-tab-hover-bg: #35363c;
     --firefox-tab-active-text: var(--texte);
     --firefox-tab-active-bg: #42414d;
     --firefox-tab-close: rgba(225, 225, 225, 0.55);
@@ -22,6 +22,7 @@ body#mint {
     --firefox-toolbar-border: 1px solid var(--menu-shell-border);
     --firefox-toolbar-top-border: var(--menu-shell-border);
     --firefox-btn-text: var(--texte);
+    --firefox-hover-soft: var(--mint-window-control-bg-hover);
     --firefox-address-border: 1px solid #5e5c64;
     --firefox-address-bg: #42414d;
     --firefox-address-text: var(--texte);
@@ -41,27 +42,94 @@ body#mint {
     --firefox-home-shortcut-bg: #303036;
     --firefox-home-shortcut-title: var(--texte);
     --firefox-home-shortcut-text: #b1b1b3;
+    --firefox-newtab-bg: #1c1b22;
+    --firefox-newtab-search-bg: #42414d;
+    --firefox-newtab-search-border: 1px solid #5e5c64;
+    --firefox-newtab-shortcut-bg: #303036;
+    --firefox-newtab-shortcut-text: var(--texte);
+    --firefox-newtab-logo-color: #ff7139;
+}
+
+html[data-theme="light"] body#mint {
+    --firefox-bg-main: #f9f9fb;
+    --firefox-bg-accent-1: rgba(31, 158, 222, 0.06);
+    --firefox-bg-accent-2: rgba(255, 125, 67, 0.04);
+    --firefox-chrome-bg: #f0f0f4;
+    --firefox-tabs-bg: #f0f0f4;
+    --firefox-tab-bg: transparent;
+    --firefox-tab-text: #5b5b66;
+    --firefox-tab-hover-bg: rgba(0, 0, 0, 0.04);
+    --firefox-tab-active-text: #15141a;
+    --firefox-tab-active-bg: #ffffff;
+    --firefox-tab-close: #5b5b66;
+    --firefox-toolbar-bg: #f9f9fb;
+    --firefox-btn-text: #15141a;
+    --firefox-hover-soft: var(--mint-window-control-bg-hover);
+    --firefox-address-border: 1px solid var(--menu-shell-border);
+    --firefox-address-bg: #ffffff;
+    --firefox-address-text: #15141a;
+    --firefox-address-placeholder: rgba(21, 20, 26, 0.55);
+    --firefox-bookmarks-bg: #f9f9fb;
+    --firefox-bookmark-text: #15141a;
+    --firefox-frame-bg: #f9f9fb;
+    --firefox-home-panel-bg: rgba(255, 255, 255, 0.94);
+    --firefox-home-panel-border: 1px solid var(--menu-shell-border);
+    --firefox-home-shortcut-bg: #ffffff;
+    --firefox-home-shortcut-text: #15141a;
+    --firefox-newtab-bg: #f9f9fb;
+    --firefox-newtab-search-bg: #ffffff;
+    --firefox-newtab-search-border: 1px solid var(--menu-shell-border);
+    --firefox-newtab-shortcut-bg: #ffffff;
+    --firefox-newtab-shortcut-text: #15141a;
+}
+
+body#mint div[data-link="firefox"] .capsule-browser--proton .capsule-browser__tab--active {
+    color: var(--firefox-tab-active-text);
+    background: var(--firefox-tab-active-bg);
+    box-shadow: none;
+    border: 1px solid var(--menu-shell-border);
+    border-bottom-color: var(--firefox-toolbar-bg);
+    margin-bottom: -1px;
 }
 
 body#mint div[data-link="firefox"] {
+    --firefox-proton-brand-logo: url(../assets/images/vendors/mint/panel/firefox.webp);
     min-width: calc(var(--head) * 24);
     background: var(--firefox-bg-main);
 }
 
+/* Barre titre Muffin — cinnamon-window-chrome.css (nemoHC / nemoMCSF) ; pas le panel. */
 body#mint div[data-link="firefox"] #windowHeader {
     flex-shrink: 0;
-    background: var(--firefox-window-header-bg);
-    border-bottom: 1px solid var(--mint-window-header-border);
+    cursor: default;
 }
 
-body#mint div[data-link="firefox"].windowElementActive #windowHeader {
-    border-bottom-color: var(--mint-window-header-border-active);
+body#mint div[data-link="firefox"] #windowHeader[data-window-drag-handle] {
+    cursor: grab;
 }
 
+body#mint div[data-link="firefox"] #windowHeader[data-window-drag-handle]:active {
+    cursor: grabbing;
+}
+
+/* Titre centré (window-chrome.base + cinnamon-window-chrome) ; icône dans nav gauche. */
 body#mint div[data-link="firefox"] #windowTitle {
-    color: var(--texte);
-    text-shadow: none;
-    filter: none;
+    pointer-events: none;
+}
+
+body#mint div[data-link="firefox"] #windowHeader > nav:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: calc(var(--head) / 20);
+}
+
+body#mint div[data-link="firefox"] #windowHeader > nav:first-child::before {
+    content: "";
+    display: block;
+    width: var(--mint-muffin-control-icon-size, 18px);
+    height: var(--mint-muffin-control-icon-size, 18px);
+    background: url(../assets/images/vendors/mint/panel/firefox.webp) center / contain no-repeat;
 }
 
 body#mint div[data-link="firefox"] #windowIframe {
@@ -78,6 +146,7 @@ body#mint div[data-link="firefox"] .capsule-browser {
     min-height: 0;
     color: var(--firefox-text-main);
     background: var(--firefox-bg-main);
+    font-family: var(--font-ui);
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__chrome {
@@ -109,15 +178,8 @@ body#mint div[data-link="firefox"] .capsule-browser__tab {
 
 body#mint div[data-link="firefox"] .capsule-browser__tab:hover {
     border-color: transparent;
-    background: #35343d;
+    background: var(--firefox-tab-hover-bg);
     transform: none;
-}
-
-body#mint div[data-link="firefox"] .capsule-browser__tab--active {
-    border-color: transparent;
-    color: var(--firefox-tab-active-text);
-    background: var(--firefox-tab-active-bg);
-    box-shadow: inset 0 2px 0 var(--menu-accent);
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__tab-icon--firefox {
@@ -139,7 +201,7 @@ body#mint div[data-link="firefox"] .capsule-browser__tab-add {
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__tab-add:hover {
-    background: var(--mint-window-control-bg-hover);
+    background: var(--firefox-hover-soft);
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__toolbar {
@@ -174,7 +236,7 @@ body#mint div[data-link="firefox"] .capsule-browser__btn {
 
 body#mint div[data-link="firefox"] .capsule-browser__btn:hover:not(:disabled) {
     border-color: transparent;
-    background: var(--mint-window-control-bg-hover);
+    background: var(--firefox-hover-soft);
     transform: none;
 }
 
@@ -250,20 +312,11 @@ body#mint div[data-link="firefox"] .capsule-browser__bookmark--primary {
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__bookmark:hover {
-    background: var(--mint-window-control-bg-hover);
+    background: var(--firefox-hover-soft);
 }
 
 body#mint div[data-link="firefox"] .capsule-browser__status {
     display: none;
-}
-
-body#mint div[data-link="firefox"] .capsule-browser-newtab {
-    --firefox-newtab-bg: #1c1b22;
-    --firefox-newtab-search-bg: #42414d;
-    --firefox-newtab-search-border: 1px solid #5e5c64;
-    --firefox-newtab-shortcut-bg: #303036;
-    --firefox-newtab-shortcut-text: var(--texte);
-    --firefox-newtab-logo-color: #ff7139;
 }
 
 body#mint div[data-link="firefox"] .capsule-browser-newtab__search:focus-within {

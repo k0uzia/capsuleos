@@ -103,8 +103,12 @@
         }
     }
 
-    function ensureChromeAfterSlotInject(container, slotId) {
-        if (!container || container.style.display === 'none') {
+    function ensureChromeAfterSlotInject(container, slotId, options) {
+        options = options || {};
+        if (!container) {
+            return;
+        }
+        if (!options.forceWhenHidden && container.style.display === 'none') {
             return;
         }
         ensureChrome(container, slotId, { forceDrag: true, initInteraction: true });

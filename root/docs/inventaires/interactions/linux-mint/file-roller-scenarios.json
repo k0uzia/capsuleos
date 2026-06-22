@@ -10,7 +10,7 @@
     "checklist": "node usr/lib/capsuleos/tools/lab/print-mint-app-p1-checklist.mjs file_roller"
   },
   "vm": {
-    "host": "capsule@192.168.1.146",
+    "host": "<lab-inventory:linux-mint>",
     "package": "file-roller 43.0+mint1+wilma",
     "vmJson": "root/docs/inventaires/linux-mint-file-roller-vm.json",
     "vmDoc": "root/docs/inventaires/linux-mint-file-roller-vm.md"

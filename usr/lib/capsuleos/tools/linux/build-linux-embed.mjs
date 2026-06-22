@@ -103,6 +103,12 @@ function buildCssBase(templateId) {
             : templateId);
     const baseFile = path.join(STYLE_DIR, `${cssBaseId}.base.css`);
     let text = readUtf8(baseFile);
+    if (templateId === 'firefox') {
+        const protonFile = path.join(STYLE_DIR, 'firefox-proton.base.css');
+        if (fs.existsSync(protonFile)) {
+            text = `${text}\n${readUtf8(protonFile)}`;
+        }
+    }
     if (templateId === 'dolphin') {
         const nemoBase = path.join(STYLE_DIR, 'nemo.base.css');
         text = `${readUtf8(nemoBase)}\n${text}`;

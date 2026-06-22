@@ -1,9 +1,19 @@
+// SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * Bus Se-A11y transversal — dataset html + événements capsule:a11y-* (tous toolkits Linux).
  * Contrat : etc/capsuleos/contracts/settings-effects-chain.json → layerConsumers.Se-A11y
  */
 (function initCapsuleSeA11yBus(global) {
     'use strict';
+
+    if (global.CapsuleA11y) {
+        global.CapsuleSeA11yBus = {
+            bootstrapFromStorage: global.CapsuleA11y.bootstrapFromStorage,
+        };
+        return;
+    }
 
     const doc = global.document;
     if (!doc || !doc.documentElement) {
@@ -34,6 +44,10 @@
     function bootstrapFromStorage() {
         applyContrast(readPref(CONTRAST_KEY, 'normal'));
         applyFontScale(readPref(FONT_KEY, '100'));
+        const reduced = readPref('capsule-reduced-motion', 'off');
+        doc.documentElement.dataset.reducedMotion = reduced === 'on' ? 'on' : 'off';
+        const underline = readPref('capsule-underline-links', 'off');
+        doc.documentElement.dataset.underlineLinks = underline === 'on' ? 'on' : 'off';
     }
 
     doc.addEventListener('capsule:a11y-contrast-changed', function onContrast(ev) {

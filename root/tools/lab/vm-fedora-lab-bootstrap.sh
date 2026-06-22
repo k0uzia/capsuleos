@@ -6,7 +6,7 @@
 # Usage sur la VM :
 #   bash root/tools/lab/vm-fedora-lab-bootstrap.sh
 # Usage via SSH depuis l'hôte :
-#   ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.91 'bash -s' < root/tools/lab/vm-fedora-lab-bootstrap.sh
+#   ssh -i ~/.ssh/capsuleos-lab user@host 'bash -s' < root/tools/lab/vm-fedora-lab-bootstrap.sh
 set -euo pipefail
 
 if [[ "$(id -u)" -eq 0 ]]; then

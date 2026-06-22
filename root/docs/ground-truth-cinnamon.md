@@ -2,7 +2,7 @@
 
 > **Pivot** : juin 2026 — retour au cloisonnement Cinnamon (abandon branche KDE active).  
 > **Modèle** : miroir de la chaîne Cred* et du schéma ground-truth KDE (prédicats nommés, contrat JSON, orchestrateur lab).  
-> **registryId** : `linux-mint` · **VM** : `capsule@192.168.1.146`
+> **registryId** : `linux-mint` · **VM** : `<lab-inventory:linux-lab>`
 
 **Contrat machine** : [`etc/capsuleos/contracts/cinnamon-ground-truth-chain.json`](../../etc/capsuleos/contracts/cinnamon-ground-truth-chain.json)  
 **Cartographie** : `node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write`  
@@ -109,7 +109,7 @@ Matrice ground truth VM ↔ recette : [`root/docs/inventaires/interactions/linux
 | Nemo intégration | `node usr/lib/capsuleos/tools/lab/smoke-mint-nemo.mjs` | exit 0 — navigation + chrome |
 | Gap map | `node usr/lib/capsuleos/tools/lab/map-cinnamon-ground-truth-gaps.mjs --id linux-mint --write` | état formal mis à jour |
 | UI state shell | `node usr/lib/capsuleos/tools/lab/run-ui-state-effects-pass.mjs --id linux-mint --shell desktop,mainMenu,panel` | desktop ctx visible |
-| Inventaire VM | `ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 …'` | relire libellés fr si drift Nemo |
+| Inventaire VM | `ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> 'DISPLAY=:0 …'` | relire libellés fr si drift Nemo |
 
 **Critères done étape 2** : fond liste (document, terminal, tout sélectionner) ; fichier/dossier (ouvrir avec…, renommer, corbeille, compresser) ; smoke exit 0 ; sous-menu modèles « Créer un nouveau document » reste P2 documenté.
 

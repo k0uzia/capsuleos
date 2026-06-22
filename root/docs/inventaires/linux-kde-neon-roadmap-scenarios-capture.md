@@ -33,7 +33,7 @@ Les runs horodatés `root/docs/inventaires/captures/linux-kde-neon/2026*` sont *
 
 ```bash
 python3 -m http.server 5500 --bind 127.0.0.1
-KDE_NEON_SSH=goupil@192.168.123.52 \
+KDE_NEON_SSH=<lab-inventory:linux-kde-neon-roadmap-scenarios> \
   CAPSULE_HTTP_BASE=http://127.0.0.1:5500 \
   node usr/lib/capsuleos/tools/lab/run-kde-neon-scenarios-capture-cycle.mjs --write-baseline --write
 ```

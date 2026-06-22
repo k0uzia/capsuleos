@@ -59,6 +59,29 @@ for (const [name, refs] of used) {
     }
 }
 
+const hexRe = /#[0-9a-fA-F]{3,8}\b/g;
+const allowGlobs = contract.literalColorAllowlistGlobs || [];
+const isAllowlisted = (rel) => allowGlobs.some((g) => globToRegex(g).test(rel));
+
+if (allowGlobs.length) {
+    let hexOutside = 0;
+    for (const file of files) {
+        const rel = path.relative(ROOT, file).replace(/\\/g, '/');
+        if (isAllowlisted(rel)) {
+            continue;
+        }
+        const matches = fs.readFileSync(file, 'utf8').match(hexRe);
+        if (matches?.length) {
+            hexOutside += matches.length;
+        }
+    }
+    if (hexOutside > 0) {
+        warnings.push(
+            `${hexOutside} littéral(aux) #hex hors fichiers tokens (N0) — préférer var(--*) ; voir convention-css-variables-tokens.md`,
+        );
+    }
+}
+
 const winVars = [...used.keys()].filter((k) => k.startsWith('--win-'));
 winVars.forEach((v) => {
     if (!defined.has(v)) {

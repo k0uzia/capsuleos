@@ -2,7 +2,7 @@
 /**
  * Campagne récursive Discover KDE Neon — VM ground truth → assets → captures → Capsule.
  *
- *   KDE_NEON_SSH=goupil@192.168.123.52 CAPSULE_HTTP_BASE=http://127.0.0.1:5500 \
+ *   KDE_NEON_SSH=<lab-inventory:linux-lab> CAPSULE_HTTP_BASE=http://127.0.0.1:5500 \
  *     node root/tools/lab/run-discover-kde-neon-recursive-capture.mjs
  *
  *   ... --skip-vm          # inventaires + Capsule seulement
@@ -14,6 +14,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 
+import { resolveInventoryField } from '../../../usr/lib/capsuleos/tools/lab/lab-inventory-resolve.mjs';
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const REGISTRY_ID = 'linux-kde-neon';
 const args = process.argv.slice(2);
@@ -21,7 +23,10 @@ const write = args.includes('--write');
 const skipVm = args.includes('--skip-vm');
 const skipCapsule = args.includes('--skip-capsule');
 const httpBase = process.env.CAPSULE_HTTP_BASE || 'http://127.0.0.1:5500';
-const ssh = process.env.KDE_NEON_SSH || 'goupil@192.168.123.52';
+const ssh = process.env.KDE_NEON_SSH || resolveInventoryField(REGISTRY_ID, 'ssh');
+if (!ssh) {
+  throw new Error('KDE_NEON_SSH ou etc/capsuleos/lab-inventory.json requis (linux-kde-neon)');
+}
 const env = { ...process.env, CAPSULE_HTTP_BASE: httpBase, KDE_NEON_SSH: ssh };
 
 const run = (label, cmd, cmdArgs = [], opts = {}) => {

@@ -6,7 +6,7 @@
   "collectedAt": "2026-06-10T17:00:00.000Z",
   "probeMethod": "ssh-batch-rpm-msgunfmt-desktop",
   "vm": {
-    "ssh": "capsule@192.168.122.199",
+    "ssh": "<lab-inventory:linux-alma>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "locale": "fr_FR.UTF-8"
   },

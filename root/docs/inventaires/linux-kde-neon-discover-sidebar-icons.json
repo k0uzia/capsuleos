@@ -1,8 +1,8 @@
 {
   "registryId": "linux-kde-neon",
   "surface": "discover-sidebar",
-  "vm": "capsule@192.168.124.6",
-  "collectedAt": "2026-06-20T00:10:31Z",
+  "vm": "<lab-inventory:linux-kde-neon>",
+  "collectedAt": "2026-06-16T12:46:47Z",
   "authority": {
     "categoriesXml": "/usr/share/libdiscover/categories/packagekit-backend-categories.xml",
     "iconTheme": "breeze",

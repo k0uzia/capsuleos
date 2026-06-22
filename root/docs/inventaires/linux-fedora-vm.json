@@ -4,7 +4,7 @@
   "displayName": "Fedora Workstation",
   "collectedAt": "2026-06-07T00:10:52Z",
   "lab": {
-    "ssh": "capsule@192.168.122.111",
+    "ssh": "<lab-inventory:linux-fedora>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland-xwayland",
     "display": ":0",

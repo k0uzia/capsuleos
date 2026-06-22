@@ -4,7 +4,7 @@
   "displayName": "Pop!_OS",
   "collectedAt": "2026-06-19T13:08:43Z",
   "lab": {
-    "ssh": "goupil@192.168.123.75",
+    "ssh": "<lab-inventory:linux-popos>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland",
     "display": ":1",

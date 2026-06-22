@@ -18,7 +18,7 @@ Complète sans remplacer : [moteur-clonage-experience.md](moteur-clonage-experie
 | **Périmètre** | 8 apps P0 + shell 8/8 | **Gaps cartographiés** (slots sans π=100), pas 101 apps linéaires |
 | **Preuve** | Captures classées, matrices UI | Scénarios utilisateur documentés + smoke Playwright |
 
-**Π=100** clôt la campagne structurelle Mint (pallier 10). La campagne **v3** élève la **crédibilité pédagogique** : parcours utilisateur réaliste (persona, étapes, états hover/focus/erreur/vide) validés contre la VM `capsule@192.168.1.146`.
+**Π=100** clôt la campagne structurelle Mint (pallier 10). La campagne **v3** élève la **crédibilité pédagogique** : parcours utilisateur réaliste (persona, étapes, états hover/focus/erreur/vide) validés contre la VM `<lab-inventory:linux-lab>`.
 
 ---
 

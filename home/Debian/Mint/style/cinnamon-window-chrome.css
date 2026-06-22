@@ -119,31 +119,51 @@ body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] > #windowIframe 
 /* Min / max — glyphes symboliques 16 px, rendus à 18 px (Mint-Y gtk-3) */
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn,
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn {
-    filter: brightness(0) invert(0.72);
+    filter: var(--mint-muffin-control-icon-filter, brightness(0) invert(0.72));
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn:hover {
-    background-image: radial-gradient(circle at 50%, #4c4c50 0, #4c4c50 65%, transparent 65%),
+    background-image: radial-gradient(
+            circle at 50%,
+            var(--mint-muffin-control-hover-disc, #4c4c50) 0,
+            var(--mint-muffin-control-hover-disc, #4c4c50) 65%,
+            transparent 65%
+        ),
         var(--mint-muffin-min-bg);
-    filter: brightness(0) invert(1);
+    filter: var(--mint-muffin-control-icon-filter-hover, brightness(0) invert(1));
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn:hover {
-    background-image: radial-gradient(circle at 50%, #4c4c50 0, #4c4c50 65%, transparent 65%),
+    background-image: radial-gradient(
+            circle at 50%,
+            var(--mint-muffin-control-hover-disc, #4c4c50) 0,
+            var(--mint-muffin-control-hover-disc, #4c4c50) 65%,
+            transparent 65%
+        ),
         var(--mint-muffin-max-bg);
-    filter: brightness(0) invert(1);
+    filter: var(--mint-muffin-control-icon-filter-hover, brightness(0) invert(1));
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn:active {
-    background-image: radial-gradient(circle at 50%, #949498 0, #949498 65%, transparent 65%),
+    background-image: radial-gradient(
+            circle at 50%,
+            var(--mint-muffin-control-active-disc, #949498) 0,
+            var(--mint-muffin-control-active-disc, #949498) 65%,
+            transparent 65%
+        ),
         var(--mint-muffin-min-bg);
-    filter: brightness(0) invert(1);
+    filter: var(--mint-muffin-control-icon-filter-hover, brightness(0) invert(1));
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #resizeBtn:active {
-    background-image: radial-gradient(circle at 50%, #949498 0, #949498 65%, transparent 65%),
+    background-image: radial-gradient(
+            circle at 50%,
+            var(--mint-muffin-control-active-disc, #949498) 0,
+            var(--mint-muffin-control-active-disc, #949498) 65%,
+            transparent 65%
+        ),
         var(--mint-muffin-max-bg);
-    filter: brightness(0) invert(1);
+    filter: var(--mint-muffin-control-icon-filter-hover, brightness(0) invert(1));
 }
 
 body#mint .windowElement[data-window-chrome-toolkit="cinnamon"] #minimizeBtn {

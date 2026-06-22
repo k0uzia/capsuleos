@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 # Préparation d'état VM Mint pour captures Φ reproductibles (visual-scenes.json).
 # Vérifie thème/résolution/fond et ferme les fenêtres parasites — sans sudo.
 # Usage : bash root/tools/lab/vm-mint-scene-prep.sh [user@ip]
 set -u
 
-HOST="${1:-${CAPSULE_MINT_VM_SSH:-capsule@192.168.122.33}}"
+HOST="${1:-${CAPSULE_MINT_VM_SSH:-$(resolve_lab_ssh linux-mint MINT_SSH CAPSULE_MINT_VM_SSH)}}"
 SSH_ID="${CAPSULE_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 
 run() {

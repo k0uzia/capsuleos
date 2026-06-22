@@ -1,7 +1,7 @@
 # Rapport cohérence design — Linux Mint (VM ↔ Clone)
 
 **Campagne** : audit fidélité design (au-delà géométrie) · **2026-06-08T16:35:00Z**  
-**Ground truth** : `capsule@192.168.1.146` · Mint 22.3 Zena · **Mint-Y-Dark-Aqua** · **Mint-Y-Sand**  
+**Ground truth** : `<lab-inventory:linux-mint-design-coherence>` · Mint 22.3 Zena · **Mint-Y-Dark-Aqua** · **Mint-Y-Sand**  
 **Clone** : `http://127.0.0.1:5501/home/Debian/Mint/index.html` · viewport **1280×800**  
 **Références** : [`linux-mint-vm.json`](linux-mint-vm.json) · [`linux-mint-pixel-perfect-spec.md`](linux-mint-pixel-perfect-spec.md) · [`linux-mint-clone-conformity-report.md`](linux-mint-clone-conformity-report.md)
 

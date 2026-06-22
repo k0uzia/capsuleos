@@ -1,6 +1,6 @@
 # Roadmap Discover VM — réalisme 100 % · `linux-kde-neon`
 
-> **Campagne** : `discover-vm-kde-neon` · VM lab `goupil@192.168.123.52` · virsh `KDE-Neon`  
+> **Campagne** : `discover-vm-kde-neon` · VM lab `<lab-inventory:linux-kde-neon-roadmap-discover>` · virsh `KDE-Neon`  
 > **Orchestrateur VM** : `vm-kde-neon-capture-host.sh --discover-vm-100`
 
 ## Objectif
@@ -28,14 +28,14 @@ La section **« À découvrir »** (catalogue magasin CapsuleOS) n’existe pas 
 | `smoke-discover-neon-icons.mjs` | Gate **S** — SHA256 VM ↔ dépôt |
 
 ```bash
-KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/pull-kde-neon-discover-icons.sh
+KDE_NEON_SSH=<lab-inventory:linux-kde-neon-roadmap-discover> bash root/tools/lab/pull-kde-neon-discover-icons.sh
 node usr/lib/capsuleos/tools/lab/smoke-discover-neon-icons.mjs
 ```
 
 ## Recette
 
 ```bash
-KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-vm-100
+KDE_NEON_SSH=<lab-inventory:linux-kde-neon-roadmap-discover> bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-vm-100
 python3 -m http.server 5500 --bind 127.0.0.1
 node root/tools/lab/capture-capsule-kde-neon.mjs
 node usr/lib/capsuleos/tools/lab/smoke-discover-vm-parity.mjs

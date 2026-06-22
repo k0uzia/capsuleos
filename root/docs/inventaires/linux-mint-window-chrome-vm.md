@@ -2,7 +2,7 @@
 
 **Objectif** : caler la barre titre SSD Cinnamon (Muffin) simulée dans CapsuleOS sur le ground truth VM.
 
-**Collecte** : SSH `capsule@192.168.1.146` · script [`vm-mint-window-chrome-inventory.sh`](../../tools/lab/vm-mint-window-chrome-inventory.sh) · JSON [`linux-mint-window-chrome-vm.json`](linux-mint-window-chrome-vm.json) · campagne 2026-06-05.
+**Collecte** : SSH `<lab-inventory:linux-mint-window-chrome>` · script [`vm-mint-window-chrome-inventory.sh`](../../tools/lab/vm-mint-window-chrome-inventory.sh) · JSON [`linux-mint-window-chrome-vm.json`](linux-mint-window-chrome-vm.json) · campagne 2026-06-05.
 
 ---
 
@@ -68,7 +68,7 @@ node usr/lib/capsuleos/tools/lab/smoke-mint-window-chrome-parity.mjs
 ## 5. Relancer la campagne lab
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 bash -s' \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-window-chrome> 'DISPLAY=:0 bash -s' \
   < root/tools/lab/vm-mint-window-chrome-inventory.sh \
   > root/docs/inventaires/linux-mint-window-chrome-vm.json
 

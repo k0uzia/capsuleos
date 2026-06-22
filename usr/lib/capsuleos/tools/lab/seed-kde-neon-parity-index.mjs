@@ -76,7 +76,7 @@ const main = () => {
     registryId: 'linux-kde-neon',
     version: 1,
     campaign: 'v3-full-parity',
-    description: 'Indice de parité interactionnelle — VM goupil@192.168.123.52',
+    description: 'Indice de parité interactionnelle — VM <lab-inventory:linux-kde-neon>
     weights: { shell: 0.25, apps: 0.75 },
     thresholds: { ok: 90, partiel: 60 },
     shell: buildShell(),

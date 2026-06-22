@@ -2,9 +2,11 @@
 # Capture Nautilus VM maximisé (état utilisateur) → rocky-vm/rocky-dark-nautilus-maximized.png
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 DEST="${1:-$ROOT/usr/share/capsuleos/assets/images/vendors/rocky/inventory/rocky-vm}"
 VM_NAME="${ROCKY_VIRSH_NAME:-Rocky10}"
-SSH_TARGET="${ROCKY_SSH:-capsule@192.168.122.234}"
+SSH_TARGET="${ROCKY_SSH:-$(resolve_lab_ssh linux-rocky ROCKY_SSH)}"
 IDENTITY="${ROCKY_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
 mkdir -p "$DEST"

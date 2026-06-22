@@ -36,7 +36,7 @@ Table complète : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md)
 | Champ | Valeur |
 |-------|--------|
 | `registryId` | `linux-rocky` |
-| SSH | `capsule@192.168.122.234` |
+| SSH | `<lab-inventory:linux-rocky>` |
 | Session | GNOME **Wayland** + Xwayland `:0` |
 | Accent GNOME (`gsettings`) | `blue` |
 | Schéma couleurs | `default` |
@@ -45,7 +45,7 @@ Table complète : [`linux-gnome-capsule-slots.md`](linux-gnome-capsule-slots.md)
 Commande de test hôte :
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.234 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-rocky> \
   'export DISPLAY=:0 XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1); wmctrl -l; echo exit:$?'
 ```
 

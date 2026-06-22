@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "surface": "discover-category-apps",
-  "vm": "goupil@192.168.123.236",
+  "vm": "<lab-inventory:linux-kde-neon>",
   "collectedAt": "2026-06-16T12:47:04Z",
   "maxPerCategory": 6,
   "method": "desktop-files Categories= → icônes hicolor/breeze",

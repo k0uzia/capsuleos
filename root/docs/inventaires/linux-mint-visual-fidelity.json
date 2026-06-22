@@ -1,7 +1,7 @@
 {
   "registryId": "linux-mint",
-  "contract": "etc/capsuleos/contracts/visual-fidelity.json",
-  "updatedAt": "2026-06-19T12:18:36.983Z",
+  "contract": "etc/capsuleos/contracts/visual-scenes.json",
+  "updatedAt": "2026-06-21T08:21:57.777Z",
   "slots": {
     "mintinstall": {
       "phi": 91.7,
@@ -44,25 +44,73 @@
           "id": "browse-all",
           "priority": "P1",
           "label": "Catégorie Tous les logiciels — sidebar + liste + À découvrir",
-          "vmCapture": null,
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/vm/browse-all.png",
           "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/browse-all.png",
-          "classification": "unmeasured",
-          "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
+          "geometry": {
+            "vm": {
+              "width": 808,
+              "height": 680
+            },
+            "clone": {
+              "width": 808,
+              "height": 680
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 4.8,
+          "pixels": {
+            "compared": 549440,
+            "mismatched": 523336
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/diff/browse-all.png",
+          "classification": "mismatch",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         },
         {
           "id": "detail",
           "priority": "P1",
           "label": "Fiche application — détail VLC/LibreOffice",
-          "vmCapture": null,
+          "vmCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/vm/detail.png",
           "cloneCapture": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/detail.png",
-          "classification": "unmeasured",
-          "note": "Capture VM absente — capture-scene-pair.mjs (ou dépôt manuel si vm.mode=manual)"
+          "geometry": {
+            "vm": {
+              "width": 808,
+              "height": 680
+            },
+            "clone": {
+              "width": 808,
+              "height": 680
+            },
+            "delta": {
+              "width": 0,
+              "height": 0
+            }
+          },
+          "phi": 2.5,
+          "pixels": {
+            "compared": 549440,
+            "mismatched": 535773
+          },
+          "geometryOk": true,
+          "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/diff/detail.png",
+          "classification": "mismatch",
+          "thresholds": {
+            "match": 85,
+            "partial": 50
+          }
         }
       ],
-      "updatedAt": "2026-06-17T22:49:00.172Z"
+      "updatedAt": "2026-06-21T08:22:00.787Z"
     },
     "shell": {
-      "phi": 96.3,
+      "phi": 97.6,
       "classification": "match",
       "scenes": [
         {
@@ -118,10 +166,10 @@
               "height": 0
             }
           },
-          "phi": 96.3,
+          "phi": 97.6,
           "pixels": {
             "compared": 1014340,
-            "mismatched": 37446
+            "mismatched": 23889
           },
           "geometryOk": true,
           "diff": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/diff/menu.png",
@@ -132,7 +180,7 @@
           }
         }
       ],
-      "updatedAt": "2026-06-17T23:08:40.975Z"
+      "updatedAt": "2026-06-21T08:17:02.726Z"
     },
     "nemo": {
       "phi": 99,
@@ -1409,195 +1457,5 @@
       ],
       "updatedAt": "2026-06-17T22:48:59.945Z"
     }
-  },
-  "version": 1,
-  "procedure": "convention-fidelite-visuelle.md",
-  "typography": {
-    "vm": {
-      "fontName": "Ubuntu 10",
-      "documentFontName": null,
-      "monospaceFontName": null,
-      "gtkTheme": null,
-      "installedFamilies": [],
-      "source": "registryDefaults"
-    },
-    "capsule": {
-      "tokenFile": "home/Debian/Mint/style/mint-y-dark-aqua-tokens.css",
-      "uiStack": [
-        "Ubuntu",
-        "Noto Sans",
-        "Cantarell"
-      ],
-      "monoStack": [
-        "Ubuntu Mono",
-        "DejaVu Sans Mono"
-      ],
-      "uiSizePt": 10,
-      "monoSizePt": 10
-    },
-    "status": "documented",
-    "fontEmbedding": {
-      "vmPaths": {
-        "ui": "/usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf",
-        "mono": "/usr/share/fonts/truetype/ubuntu/UbuntuMono-Italic[wght].ttf"
-      },
-      "capsuleDir": "usr/share/capsuleos/assets/fonts/vendors/mint",
-      "cssFile": "home/Debian/Mint/mint-fonts.css",
-      "collectedFrom": "lab-ssh.mjs — fc-list"
-    }
-  },
-  "viewContexts": {
-    "viewportLab": {
-      "width": 1280,
-      "height": 800
-    },
-    "playwright": {
-      "width": 1280,
-      "height": 800
-    },
-    "displayScales": [
-      "100",
-      "125",
-      "150",
-      "200"
-    ],
-    "resolutions": [
-      "1920x1080",
-      "1680x1050",
-      "1280x720"
-    ],
-    "orientations": [
-      "landscape",
-      "portrait",
-      "landscape-reverse"
-    ],
-    "capsuleHooks": "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css",
-    "status": "documented"
-  },
-  "mime": {
-    "iconTheme": "Mint-Y-Sand",
-    "defaultHandlers": [
-      {
-        "mime": "inode/directory",
-        "app": "nemo",
-        "desktop": "nemo.desktop",
-        "capsuleSlot": "nemo",
-        "vmDefault": true
-      },
-      {
-        "mime": "text/plain",
-        "app": "org.x.editor",
-        "desktop": "org.x.editor.desktop",
-        "capsuleSlot": "text_editor",
-        "vmDefault": true
-      },
-      {
-        "mime": "application/pdf",
-        "app": "xreader",
-        "desktop": "xreader.desktop",
-        "capsuleSlot": "visionneur_pdf",
-        "vmDefault": true
-      },
-      {
-        "mime": "image/jpeg",
-        "app": "xviewer",
-        "desktop": "xviewer.desktop",
-        "capsuleSlot": "visionneur_images",
-        "vmDefault": true
-      },
-      {
-        "mime": "image/png",
-        "app": "xviewer",
-        "desktop": "xviewer.desktop",
-        "capsuleSlot": "visionneur_images",
-        "vmDefault": true
-      },
-      {
-        "mime": "application/x-shellscript",
-        "app": "org.x.editor",
-        "desktop": "org.x.editor.desktop",
-        "capsuleSlot": "text_editor",
-        "vmDefault": true
-      },
-      {
-        "mime": "x-scheme-handler/http",
-        "app": "org.mozilla.Firefox",
-        "desktop": "firefox.desktop",
-        "capsuleSlot": "firefox",
-        "vmDefault": true
-      },
-      {
-        "mime": "x-scheme-handler/https",
-        "app": "org.mozilla.Firefox",
-        "desktop": "firefox.desktop",
-        "capsuleSlot": "firefox",
-        "vmDefault": true
-      },
-      {
-        "mime": "audio/mpeg",
-        "app": "io.github.celluloid_player.Celluloid",
-        "desktop": "io.github.celluloid_player.Celluloid.desktop",
-        "capsuleSlot": "lecteur_multimedia",
-        "vmDefault": true
-      },
-      {
-        "mime": "video/mp4",
-        "app": "io.github.celluloid_player.Celluloid",
-        "desktop": "io.github.celluloid_player.Celluloid.desktop",
-        "capsuleSlot": "lecteur_multimedia",
-        "vmDefault": true
-      },
-      {
-        "mime": "application/zip",
-        "app": "org.gnome.FileRoller",
-        "desktop": "org.gnome.FileRoller.desktop",
-        "capsuleSlot": "file_roller",
-        "vmDefault": true
-      }
-    ],
-    "globsSample": [
-      "*.pdf → application/pdf",
-      "*.txt → text/plain",
-      "*.jpg → image/jpeg",
-      "*.jpeg → image/jpeg",
-      "*.png → image/png",
-      "*.sh → application/x-shellscript",
-      "*.zip → application/zip",
-      "*.mp3 → audio/mpeg",
-      "*.mp4 → video/mp4"
-    ],
-    "collectedFrom": "lab-ssh.mjs — gsettings icon-theme + gio mime",
-    "status": "documented"
-  },
-  "accessibility": {
-    "vmGsettings": {
-      "org.gnome.desktop.interface text-scaling-factor": "1.0",
-      "org.gnome.desktop.a11y.interface high-contrast": "false",
-      "org.gnome.desktop.interface font-name": "Ubuntu 10"
-    },
-    "capsuleHooks": {
-      "data-font-scale": "html[data-data-font-scale]",
-      "data-contrast-mode": "html[data-data-contrast-mode]",
-      "data-display-scale": "html[data-data-display-scale]",
-      "data-night-light": "html[data-data-night-light]"
-    },
-    "cssImports": [
-      "home/Debian/Mint/style/a11y-overrides.css",
-      "home/Debian/Mint/style/a11y-apps.css"
-    ],
-    "playbookControls": [
-      "font-scale",
-      "contrast",
-      "display-scale"
-    ],
-    "status": "documented",
-    "collectedFrom": "lab-ssh.mjs — gsettings a11y/interface"
-  },
-  "predicates": {
-    "Tp": true,
-    "Tv": true,
-    "Tm": true,
-    "Ta": true,
-    "Tf": true
   }
 }

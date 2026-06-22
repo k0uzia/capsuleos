@@ -69,7 +69,7 @@ const multiTab = await page.evaluate(() => {
   return { count: tabs.length, activeIsSecond: tabs[1] && tabs[1].classList.contains('capsule-browser__tab--active') };
 });
 
-await page.click('div[data-link="firefox"] [data-browser-newtab-link="os-lacapsule"]');
+await page.click('div[data-link="firefox"] [data-browser-newtab-link="amazon"]');
 await page.waitForTimeout(45);
 
 const osPage = await page.evaluate(() => {
@@ -145,8 +145,8 @@ const ok = chrome.visible && chrome.noCsdClass && chrome.initialized
   && chrome.bookmarksHidden && chrome.initialTabCount === 1 && chrome.goHidden
   && toolbarOk
   && multiTab.count === 2 && multiTab.activeIsSecond
-  && osPage.view === 'os-lacapsule' && osPage.redirectVisible
-  && osPage.tabLabel.indexOf('Capsule') >= 0
+  && osPage.view === 'web' && osPage.redirectVisible
+  && (osPage.tabLabel.indexOf('amazon') >= 0 || osPage.address.indexOf('amazon') >= 0)
   && bookmarksToggle.visible && bookmarksToggle.pressed
   && homeView.view === 'home' && homeView.homeVisible;
 

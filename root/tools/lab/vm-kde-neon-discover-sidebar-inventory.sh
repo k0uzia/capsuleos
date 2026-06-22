@@ -3,12 +3,14 @@
 # Ground truth libdiscover : packagekit-backend-categories.xml + thème Breeze.
 #
 # Usage :
-#   KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/vm-kde-neon-discover-sidebar-inventory.sh
+#   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> bash ...
 #   bash root/tools/lab/vm-kde-neon-discover-sidebar-inventory.sh --json-only > out.json
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${KDE_NEON_SSH:-goupil@192.168.123.52}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 OUT_JSON="$ROOT/root/docs/inventaires/linux-kde-neon-discover-sidebar-icons.json"
 JSON_ONLY=false
@@ -166,7 +168,7 @@ if os.path.isfile(xml_path):
 doc = {
     "registryId": "linux-kde-neon",
     "surface": "discover-sidebar",
-    "vm": os.environ.get("KDE_NEON_SSH", "goupil@192.168.123.52"),
+    "vm": os.environ.get("KDE_NEON_SSH", ""),
     "collectedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     "authority": {
         "categoriesXml": xml_path,

@@ -2,7 +2,7 @@
   "registryId": "linux-mint",
   "version": 1,
   "campaign": "v2-deep-pass",
-  "description": "Indice de parité interactionnelle — VM capsule@192.168.1.146",
+  "description": "Indice de parité interactionnelle — VM <lab-inventory:linux-mint>",
   "weights": {
     "shell": 0.25,
     "apps": 0.75,
@@ -40,7 +40,7 @@
         "policy": "pixel-perfect ≤1px — root/docs/inventaires/linux-mint-pixel-perfect-spec.md",
         "viewport": "1280x800",
         "server": "http://127.0.0.1:5501/home/Debian/Mint/index.html",
-        "vmSource": "capsule@192.168.1.146 gsettings panels-height 40px · baseline/ captures",
+        "vmSource": "<lab-inventory:linux-mint> gsettings panels-height 40px · baseline/ captures",
         "vmTarget": {
           "menuWidthPx": 600,
           "menuHeightPx": 480,

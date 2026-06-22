@@ -1,5 +1,5 @@
 # Icônes catégories menu Cinnamon — symboliques officielles XApp (xsi-*)
-# Source VM : Linux Mint 22.3 (zena) — capsule@192.168.1.146
+# Source VM : registryId linux-mint — voir lab-inventory.json (local)
 # Chemin VM : /usr/share/icons/hicolor/scalable/actions/xsi-*.svg
 #             /usr/share/icons/hicolor/scalable/categories/cinnamon-all-applications-symbolic.svg
 # Paquet : xapp / cinnamon (menu@cinnamon.org, option symbolic-category-icons)

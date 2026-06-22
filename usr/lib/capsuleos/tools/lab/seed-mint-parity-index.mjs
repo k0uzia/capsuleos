@@ -57,7 +57,7 @@ const main = () => {
     registryId: 'linux-mint',
     version: 1,
     campaign: 'v2-deep-pass',
-    description: 'Indice de parité interactionnelle — VM capsule@192.168.1.146',
+    description: 'Indice de parité interactionnelle — VM <lab-inventory:linux-mint>
     weights: { shell: 0.25, apps: 0.75 },
     thresholds: { ok: 90, partiel: 60 },
     shell,

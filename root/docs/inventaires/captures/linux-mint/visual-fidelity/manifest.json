@@ -1,12 +1,12 @@
 {
   "id": "linux-mint",
-  "capturedAt": "2026-06-17T23:08:28.447Z",
+  "capturedAt": "2026-06-21T08:21:37.894Z",
   "vm": [],
   "clone": [
     {
-      "slot": "shell",
-      "scene": "desktop",
-      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/shell/clone/desktop.png"
+      "slot": "mintinstall",
+      "scene": "detail",
+      "file": "root/docs/inventaires/captures/linux-mint/visual-fidelity/mintinstall/clone/detail.png"
     }
   ],
   "skipped": []

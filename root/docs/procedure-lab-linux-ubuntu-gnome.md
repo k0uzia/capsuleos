@@ -56,7 +56,7 @@ virsh -c qemu:///system domifaddr ubuntu25.10
 virsh -c qemu:///system net-dhcp-leases default
 ```
 
-Exemple juin 2026 : VM **`ubuntu25.10`** → `192.168.122.141` (hôte `capsule-KVM`).
+Exemple juin 2026 : VM **`ubuntu25.10`** → `<lab-ip>` (hôte `capsule-KVM`).
 
 ### 0.2 Bootstrap SSH (dans la VM — console virt-manager si port 22 fermé)
 
@@ -70,13 +70,13 @@ sudo systemctl enable --now ssh
 Ou depuis le dépôt (après premier SSH) :
 
 ```bash
-ssh capsule@192.168.122.141 'bash -s' < root/tools/lab/vm-ubuntu-lab-bootstrap.sh
+ssh <lab-inventory:linux-lab> 'bash -s' < root/tools/lab/vm-ubuntu-lab-bootstrap.sh
 ```
 
 ### 0.3 Clé SSH (hôte)
 
 ```bash
-ssh-copy-id -i ~/.ssh/capsuleos-lab.pub capsule@192.168.122.141
+ssh-copy-id -i ~/.ssh/capsuleos-lab.pub <lab-inventory:linux-lab>
 node usr/lib/capsuleos/tools/lab/lab-ssh.mjs --id linux-ubuntu
 ```
 
@@ -94,7 +94,7 @@ Alternative : `source root/tools/lab/lab-capture-session.sh` puis plusieurs scri
 ### 0.4 Test Wayland
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.141 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> \
   'export DISPLAY=:0 XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1); wmctrl -l; echo exit:$?'
 ```
 

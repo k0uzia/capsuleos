@@ -1,4 +1,4 @@
-Assets copiés depuis la VM lab (capsule@192.168.122.199) le 2026-06-09T16:57:34Z.
+Assets copiés depuis la VM lab (registryId: linux-alma) le 2026-06-09T16:57:34Z.
 Vendor : alma · toolkit : gnome
 Thème icônes VM : Adwaita (gsettings org.gnome.desktop.interface icon-theme).
 Polices VM : /usr/share/fonts/redhat-vf/ → assets/fonts/vendors/alma/
@@ -10,3 +10,4 @@ Ne pas réinventer les chemins : relancer ce script après changement de VM ou d
 
 # import-manifest-staging 2026-06-17T08:26:31.449Z
 files: 51
+Connexion SSH : etc/capsuleos/lab-inventory.json (local, gitignoré).

@@ -31,7 +31,7 @@
 | Paquets VM | `wmctrl`, `gtk-launch` ; optionnel `gnome-screenshot` |
 | Variables SSH | `DISPLAY=:0`, `XAUTHORITY=/run/user/UID/.mutter-Xwaylandauth.*`, `DBUS_SESSION_BUS_ADDRESS` |
 
-**Écarts connus (2026-06-10)** : D-Bus `AccessDenied` via SSH ; `virsh list` sur hôte agent ne montre pas `almalinux10` (VM joignable en `192.168.122.199`). Playbook : `root/tools/lab/vm-apps-visual-playbook.sh` · collecteur : `collect-vm-apps-visual-investigation.mjs --id linux-alma --ssh`.
+**Écarts connus (2026-06-10)** : D-Bus `AccessDenied` via SSH ; `virsh list` sur hôte agent ne montre pas `almalinux10` (VM joignable en `<lab-ip>`). Playbook : `root/tools/lab/vm-apps-visual-playbook.sh` · collecteur : `collect-vm-apps-visual-investigation.mjs --id linux-alma --ssh`.
 
 ## Suite playbook
 

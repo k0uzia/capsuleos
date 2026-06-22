@@ -4,7 +4,7 @@
   "displayName": "AnduinOS",
   "collectedAt": "2026-06-17T16:42:35Z",
   "lab": {
-    "ssh": "capsule@192.168.1.221",
+    "ssh": "<lab-inventory:linux-anduinos>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "sessionType": "wayland-xwayland",
     "display": ":0",

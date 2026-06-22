@@ -2,11 +2,13 @@
 # Installe l'agent screenshot GNOME sur une VM distante (Proxmox, Wayland).
 # L'agent doit tourner dans la session graphique GNOME (autostart ou Terminal VM).
 #
-# Usage : bash root/tools/lab/install-vm-screenshot-agent.sh [capsule@192.168.1.183]
+# Usage : bash root/tools/lab/install-vm-screenshot-agent.sh [user@host]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-TARGET="${1:-capsule@192.168.1.183}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+TARGET="${1:-$(resolve_lab_ssh linux-ubuntu UBUNTU_SSH)}"
 IDENTITY="${CAPSULE_LAB_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "${IDENTITY}")
 

@@ -93,7 +93,7 @@
       "facadeUrl": "OS/linux/families/debian/mint/index.html",
       "capturePrefix": "mint-fidelity",
       "priorityQueueField": "priorityQueue",
-      "vmHost": "capsule@192.168.1.146"
+      "vmHost": "<lab-inventory:linux-lab>"
     }
   },
   "integration": {

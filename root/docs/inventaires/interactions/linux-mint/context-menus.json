@@ -9,7 +9,7 @@
     "checklist": "node usr/lib/capsuleos/tools/lab/print-mint-context-menu-checklist.mjs"
   },
   "vm": {
-    "host": "capsule@192.168.1.146",
+    "host": "<lab-inventory:linux-mint>",
     "cinnamon": "6.6.7",
     "nemo": "6.6.3+zena",
     "locale": "fr_FR"

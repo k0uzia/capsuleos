@@ -153,7 +153,9 @@
       "unification": "full",
       "storageKeys": {
         "contrast": "mint-contrast-mode",
-        "fontScale": "mint-font-scale"
+        "fontScale": "mint-font-scale",
+        "reducedMotion": "capsule-reduced-motion",
+        "underlineLinks": "capsule-underline-links"
       },
       "emitters": {
         "cinnamon": ["usr/lib/capsuleos/shells/linux/cinnamon-settings-parity.js", "usr/lib/capsuleos/shells/linux/themes.js"],

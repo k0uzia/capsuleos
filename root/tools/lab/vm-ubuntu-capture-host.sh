@@ -6,9 +6,11 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 DEST="${1:-$ROOT/usr/share/capsuleos/assets/images/vendors/ubuntu/inventory/ubuntu-vm}"
 export LAB_ROOT="$ROOT"
-export LAB_SSH="${UBUNTU_SSH:-capsule@192.168.1.183}"
+export LAB_SSH="${UBUNTU_SSH:-$(resolve_lab_ssh linux-ubuntu UBUNTU_SSH)}"
 export LAB_VIRSH_NAME="${UBUNTU_VIRSH_NAME:-ubuntu25.10}"
 export LAB_SSH_IDENTITY="${UBUNTU_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 

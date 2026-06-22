@@ -5,7 +5,7 @@ Procédure : [`procedure-clonage-os-depuis-vm.md`](../procedure-clonage-os-depui
 **registryId** : `linux-mint` · **vendor** : `mint` · **toolkit** : `cinnamon`  
 **Dernière campagne** : 2026-06-08 — **ManΣ + passe intégration** ([`integration-pass-2026-06-08.json`](../../../proc/linux-mint/integration-pass-2026-06-08.json))
 
-**Campagne v2 (en cours)** : **réplique exacte VM modèle** — périmètre = tout ce qui est sur `capsule@192.168.1.146` ; état formel : [`linux-mint-replication-state.json`](linux-mint-replication-state.json). CapsuleOnly et P1 permanents **hors clôture**.
+**Campagne v2 (en cours)** : **réplique exacte VM modèle** — périmètre = tout ce qui est sur `<lab-inventory:linux-mint-clone>` ; état formel : [`linux-mint-replication-state.json`](linux-mint-replication-state.json). CapsuleOnly et P1 permanents **hors clôture**.
 
 **Ground truth** : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md)
 

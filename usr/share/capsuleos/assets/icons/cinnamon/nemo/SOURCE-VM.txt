@@ -1,4 +1,4 @@
-Source VM : capsule@192.168.1.146 — Linux Mint 22.3 Zena (Cinnamon 6.6.3)
+Source VM : registryId linux-mint — voir lab-inventory.json (local)
 Date pull : 2026-06-11
 
 PNG places (dossiers / emplacements Nemo, vue icônes zoom « standard » = rendu natif 64 px) :

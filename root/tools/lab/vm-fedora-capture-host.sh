@@ -7,9 +7,11 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 DEST="${1:-$ROOT/usr/share/capsuleos/assets/images/vendors/fedora/inventory/fedora-vm}"
 export LAB_ROOT="$ROOT"
-export FEDORA_SSH="${FEDORA_SSH:-capsule@192.168.122.91}"
+export FEDORA_SSH="${FEDORA_SSH:-$(resolve_lab_ssh linux-fedora FEDORA_SSH)}"
 export FEDORA_VIRSH_NAME="${FEDORA_VIRSH_NAME:-fedora}"
 export FEDORA_SSH_IDENTITY="${FEDORA_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 

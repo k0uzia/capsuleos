@@ -1,3 +1,37 @@
+(function bootstrapCapsuleA11y(global) {
+    'use strict';
+
+    const doc = global.document;
+    if (!doc || !doc.documentElement) {
+        return;
+    }
+
+    const KEYS = {
+        contrast: 'mint-contrast-mode',
+        fontScale: 'mint-font-scale',
+        reducedMotion: 'capsule-reduced-motion',
+        underlineLinks: 'capsule-underline-links',
+    };
+
+    function readPref(key, fallback) {
+        try {
+            return global.localStorage.getItem(key) || fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    const root = doc.documentElement;
+    const contrast = readPref(KEYS.contrast, 'normal');
+    root.dataset.contrastMode = contrast === 'high' ? 'high' : 'normal';
+
+    const scale = String(readPref(KEYS.fontScale, '100'));
+    root.dataset.fontScale = ['110', '125'].includes(scale) ? scale : '100';
+
+    root.dataset.reducedMotion = readPref(KEYS.reducedMotion, 'off') === 'on' ? 'on' : 'off';
+    root.dataset.underlineLinks = readPref(KEYS.underlineLinks, 'off') === 'on' ? 'on' : 'off';
+}(typeof window !== 'undefined' ? window : globalThis));
+
 const getAppsBase = () => {
     if (typeof window !== 'undefined' && window.CAPSULE_APPS_BASE) {
         return String(window.CAPSULE_APPS_BASE).replace(/\/+$/, '');
@@ -541,6 +575,13 @@ const loadSlotAssets = (slotId, templateId, skinId, appsBase, skinBase, cssSkinF
                 console.error(`CapsuleOS: terminal-ptyxis.base.css indisponible (HTTP ${ptyxisResp.status}) — ${ptyxisFile}`);
             }
         }
+        if (templateId === 'firefox' && text) {
+            const protonFile = `${appsBase}/style/firefox-proton.base.css`;
+            const protonResp = await fetch(protonFile, { cache: 'no-store' });
+            if (protonResp.ok) {
+                text = `${text}\n${await protonResp.text()}`;
+            }
+        }
         return text;
     })();
 
@@ -1014,14 +1055,34 @@ const injectSlot = (motionless, slotId, templateId, html, cssBase, cssSkin) => {
     style.innerHTML = resolvedCssBase + (resolvedCssSkin ? `\n${resolvedCssSkin}` : '');
     document.head.appendChild(style);
 
+    const prepareSlotWindowChrome = (container, id) => {
+        if (typeof window.CapsuleWindowChrome === 'undefined') {
+            return;
+        }
+        window.CapsuleWindowChrome.ensureHeader(container, id);
+        window.CapsuleWindowChrome.afterInject(container, id);
+    };
+
+    const finalizeSlotWindowChrome = (container, id) => {
+        if (id === 'firefox'
+            && typeof window.CapsuleWindowChrome !== 'undefined'
+            && typeof window.CapsuleWindowChrome.syncFirefoxGnomeChrome === 'function') {
+            window.CapsuleWindowChrome.syncFirefoxGnomeChrome(container);
+        }
+        if (typeof window.ensureWindowChromeAfterSlotInject === 'function'
+            && container.style.display !== 'none') {
+            window.ensureWindowChromeAfterSlotInject(container, id);
+        }
+    };
+
+    prepareSlotWindowChrome(motionless, slotId);
+
     const initSlot = SLOT_INIT_HANDLERS[slotId];
     if (typeof initSlot === 'function') {
         initSlot(motionless, slotId, templateId);
     }
 
-    if (typeof window.ensureWindowChromeAfterSlotInject === 'function') {
-        window.ensureWindowChromeAfterSlotInject(motionless, slotId);
-    }
+    finalizeSlotWindowChrome(motionless, slotId);
 
     motionless.dataset.capsuleSlotLoaded = 'true';
 
@@ -1213,10 +1274,11 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
         return;
     }
     const queue = [
-        'se-toolkit-guards.js',
-        'se-a11y-bus.js',
-        'se-shell-bus.js',
-        'se-wm-bus.js'
+        { src: '../../../usr/lib/capsuleos/core/capsule-a11y.js', marker: 'capsule-a11y.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-toolkit-guards.js', marker: 'se-toolkit-guards.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-a11y-bus.js', marker: 'se-a11y-bus.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-shell-bus.js', marker: 'se-shell-bus.js' },
+        { src: '../../../usr/lib/capsuleos/shells/linux/se-wm-bus.js', marker: 'se-wm-bus.js' },
     ];
     const scripts = global.document.getElementsByTagName('script');
     const hasMarker = (marker) => {
@@ -1227,12 +1289,12 @@ if (typeof document !== 'undefined' && document.readyState === 'loading') {
         }
         return false;
     };
-    queue.forEach((marker) => {
-        if (hasMarker(marker)) {
+    queue.forEach((entry) => {
+        if (hasMarker(entry.marker)) {
             return;
         }
         const tag = global.document.createElement('script');
-        tag.src = `../../../usr/lib/capsuleos/shells/linux/${marker}`;
+        tag.src = entry.src;
         tag.async = false;
         global.document.head.appendChild(tag);
     });

@@ -4,7 +4,7 @@
   "doc": "root/docs/campagne-credibilite-pedagogique.md",
   "contract": "etc/capsuleos/contracts/app-fidelity-scenarios.json",
   "vm": {
-    "host": "capsule@192.168.1.146"
+    "host": "<lab-inventory:linux-mint>"
   },
   "appQueue": [
     "nemo",

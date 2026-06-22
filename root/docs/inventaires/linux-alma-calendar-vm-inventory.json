@@ -6,7 +6,7 @@
   "collectedAt": "2026-06-10T21:00:00.000Z",
   "probeMethod": "ssh-dnf-flatpak-gsettings-po-fr",
   "vm": {
-    "ssh": "capsule@192.168.122.199",
+    "ssh": "<lab-inventory:linux-alma>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "locale": "fr_FR.UTF-8"
   },

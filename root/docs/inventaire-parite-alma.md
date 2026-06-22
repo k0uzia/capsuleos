@@ -3,7 +3,7 @@
 > Collecte : **juin 2026** · Registre : `linux-alma` · Indice machine : [`linux-alma-parity-index.json`](inventaires/linux-alma-parity-index.json)  
 > Procédure : [`procedure-lab-linux-alma-gnome.md`](procedure-lab-linux-alma-gnome.md) · VM : [`linux-alma-vm.json`](inventaires/linux-alma-vm.json)
 
-**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 92** (15 slots apps documentés, 8 P2) · VM `capsule@192.168.122.199` · skin dérivé `linux-rocky` · campagne scénarios **C15–C30 clôturée** · overview **15/15**.
+**État global** : **Π = 96** (`status_global: ok`) · **Π étendu = 92** (15 slots apps documentés, 8 P2) · VM `<lab-inventory:linux-lab>` · skin dérivé `linux-rocky` · campagne scénarios **C15–C30 clôturée** · overview **15/15**.
 
 ---
 

@@ -1,6 +1,6 @@
 # Spécification pixel-perfect — Linux Mint Cinnamon (panel + menu)
 
-Référence VM : `capsule@192.168.1.146` · Mint 22.3 Zena · Cinnamon 6.6.7 · thème **Mint-Y-Dark-Aqua**  
+Référence VM : `<lab-inventory:linux-mint-pixel-perfect>` · Mint 22.3 Zena · Cinnamon 6.6.7 · thème **Mint-Y-Dark-Aqua**  
 Clone CapsuleOS : `http://127.0.0.1:5501/home/Debian/Mint/index.html`  
 Résolution de contrôle : **1280×800**
 

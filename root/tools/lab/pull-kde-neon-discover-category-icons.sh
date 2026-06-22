@@ -8,7 +8,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${KDE_NEON_SSH:-goupil@192.168.123.52}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 DEST="$ROOT/usr/share/capsuleos/assets/images/vendors/neon/discover"
 INVENTORY="$ROOT/root/docs/inventaires/linux-kde-neon-discover-category-apps.json"

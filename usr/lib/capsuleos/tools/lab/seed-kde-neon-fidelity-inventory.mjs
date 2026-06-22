@@ -1036,7 +1036,7 @@ const buildInventory = () => {
     doc: 'root/docs/ground-truth-kde.md',
     contract: 'etc/capsuleos/contracts/kde-fidelity-scenarios.json',
     previousCampaign: 'v4-deep-parity',
-    vm: { host: 'goupil@192.168.123.52' },
+    vm: { host: '<lab-inventory:linux-kde-neon>' },
     appQueue,
     apps,
     scenarios,

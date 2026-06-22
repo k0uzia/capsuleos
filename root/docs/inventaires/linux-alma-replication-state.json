@@ -2,7 +2,7 @@
   "registryId": "linux-alma",
   "campaign": "c12-apps-parity-pass",
   "vm": {
-    "host": "capsule@192.168.122.199",
+    "host": "<lab-inventory:linux-alma>",
     "inventory": "linux-alma-vm.json",
     "labConfig": "etc/capsuleos/lab-inventory.json"
   },

@@ -2,7 +2,7 @@
 
 **Objectif** : ground truth pour une reproduction **fidèle** du gestionnaire d'archives dans `home/Debian/Mint/` (slot `file_roller`, embed `usr/share/capsuleos/linux/apps/file_roller.html`).
 
-**Collecte** : SSH `capsule@192.168.1.146` · script [`vm-mint-file-roller-inventory.sh`](../../tools/lab/vm-mint-file-roller-inventory.sh) · JSON [`linux-mint-file-roller-vm.json`](linux-mint-file-roller-vm.json) · campagne 2026-06-04.
+**Collecte** : SSH `<lab-inventory:linux-mint-file-roller>` · script [`vm-mint-file-roller-inventory.sh`](../../tools/lab/vm-mint-file-roller-inventory.sh) · JSON [`linux-mint-file-roller-vm.json`](linux-mint-file-roller-vm.json) · campagne 2026-06-04.
 
 Références : [`linux-mint-vm.json`](linux-mint-vm.json) · passe #8 [`linux-mint-apps-alphabetique.md`](linux-mint-apps-alphabetique.md)
 
@@ -125,7 +125,7 @@ CapsuleOS : `--win-file_roller-*` dans `variables-linux.css` + tokens `--fr-*` d
 
 ```bash
 # Inventaire VM
-ssh capsule@192.168.1.146 'DISPLAY=:0 bash -s' < root/tools/lab/vm-mint-file-roller-inventory.sh
+ssh <lab-inventory:linux-mint-file-roller> 'DISPLAY=:0 bash -s' < root/tools/lab/vm-mint-file-roller-inventory.sh
 
 # Gates + smoke
 node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs

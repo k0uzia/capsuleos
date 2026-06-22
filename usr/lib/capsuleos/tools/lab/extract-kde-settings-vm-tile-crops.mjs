@@ -19,12 +19,15 @@ const THEME_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neo
 const ABOUT_DIR = path.join(ROOT, 'usr/share/capsuleos/assets/images/vendors/neon/systemsettings/about');
 const write = process.argv.includes('--write');
 
-/** Gérés par source-previews/ + ingest-kde-neon-breeze-previews.py (¬crops VM). */
+/** Breeze clair/sombre + auto/twilight (ingest) + oxygen (LnF VM) : ¬crops VM. */
 const PROTECTED_THEME_PREVIEWS = new Set([
   'hub-breeze-vm.png',
   'hub-dark-vm.png',
+  'hub-auto-vm.png',
   'appearance-breeze-vm.png',
   'appearance-dark-vm.png',
+  'appearance-twilight-vm.png',
+  'appearance-oxygen-vm.png',
 ]);
 
 const readPng = (file) => PNG.sync.read(fs.readFileSync(file));

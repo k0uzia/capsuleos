@@ -1,17 +1,31 @@
-Previews Breeze / Breeze sombre — rendu Capsule desktop (2026-06-21).
+Previews thème KDE Neon System Settings — sources Capsule + LnF VM (2026-06-23).
 
-Sources archivées (2879×1799, PNG) :
-- breeze-light-capsule-desktop.png — thème clair (kickoff + Dolphin + panel Capsule)
-- breeze-dark-capsule-desktop.png — thème sombre
+Sources archivées :
+- breeze-light-capsule-desktop.png — capture desktop Breeze clair (2879×1799)
+- breeze-dark-capsule-desktop.png — capture desktop Breeze sombre (2879×1799)
+- twilight-lnf-vm-preview.png — preview LnF org.kde.breezetwilight (clair-obscur violet, VM)
+- oxygen-lnf-vm-preview.png — preview LnF org.kde.oxygen (VM capsule@192.168.1.84)
 
-Dérivés (cover-crop LANCZOS, PNG optimisé) → theme-previews/ :
+Dérivés (cover-crop LANCZOS / diagonal, PNG optimisé) → theme-previews/ :
 - hub-breeze-vm.png, plasma-breeze-vm.png, plasma-light-vm.png — 600×337 ← breeze-light
 - hub-dark-vm.png, plasma-dark-vm.png, colors-breeze-dark-vm.png — 600×337 ← breeze-dark
+- hub-auto-vm.png — 600×337 ← diagonal clair (haut-gauche) / sombre (bas-droite)
 - appearance-breeze-vm.png — 200×130 ← breeze-light
 - appearance-dark-vm.png — 200×130 ← breeze-dark
+- appearance-twilight-vm.png — 200×130 ← twilight-lnf-vm-preview.png
+- appearance-oxygen-vm.png — 200×130 ← oxygen-lnf-vm-preview.png
 
-Procédure manuelle (remplacement visuel) :
+Procédure twilight / oxygen LnF :
+  KDE_NEON_SSH=capsule@192.168.1.84 \
+    node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs \
+    --write --only appearance-twilight-vm.png
+  KDE_NEON_SSH=capsule@192.168.1.84 \
+    node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs \
+    --write --only appearance-oxygen-vm.png
+
   python3 root/tools/lab/ingest-kde-neon-breeze-previews.py \
-    --light <png> --dark <png>
+    --light <breeze-light.png> --dark <breeze-dark.png> \
+    --twilight-preview usr/share/capsuleos/assets/images/vendors/neon/systemsettings/source-previews/twilight-lnf-vm-preview.png \
+    --oxygen-preview usr/share/capsuleos/assets/images/vendors/neon/systemsettings/source-previews/oxygen-lnf-vm-preview.png
 
-Ne pas écraser via extract-kde-settings-vm-tile-crops.mjs (hub-breeze, hub-dark, appearance-breeze, appearance-dark protégés).
+Ne pas écraser via extract-kde-settings-vm-tile-crops.mjs (hub-breeze, hub-dark, hub-auto, appearance-breeze, appearance-dark, appearance-twilight, appearance-oxygen protégés).

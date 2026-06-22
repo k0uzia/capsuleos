@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-20T16:57:06.164128+00:00",
+  "generatedAt": "2026-06-22T07:42:39.204915+00:00",
   "source": "vm-kde-settings-inventory.sh",
   "registryId": "linux-kde-neon",
   "moduleCount": 92,
@@ -33,7 +33,7 @@
         },
         {
           "file": "kcm_cursortheme.desktop",
-          "name": "Pointers",
+          "name": "Cursors",
           "nameFr": "Pointeurs",
           "exec": "systemsettings kcm_cursortheme",
           "keyword": "cursortheme",
@@ -509,7 +509,7 @@
     },
     {
       "file": "kcm_cursortheme.desktop",
-      "name": "Pointers",
+      "name": "Cursors",
       "nameFr": "Pointeurs",
       "exec": "systemsettings kcm_cursortheme",
       "keyword": "cursortheme",
@@ -544,6 +544,16 @@
       "exec": "kcmshell6 kcm_disks",
       "keyword": "disks",
       "vmLaunch": "kcmshell6 kcm_disks",
+      "surface": "kcm",
+      "priority": "P1"
+    },
+    {
+      "file": "kcm_energyinfo.desktop",
+      "name": "Energy",
+      "nameFr": "Énergie",
+      "exec": "kcmshell6 kcm_energyinfo",
+      "keyword": "energyinfo",
+      "vmLaunch": "kcmshell6 kcm_energyinfo",
       "surface": "kcm",
       "priority": "P1"
     },
@@ -998,16 +1008,6 @@
       "priority": "P1"
     },
     {
-      "file": "kcm_plasmalogin.desktop",
-      "name": "Login Screen",
-      "nameFr": "Écran de connexion",
-      "exec": "systemsettings kcm_plasmalogin",
-      "keyword": "plasmalogin",
-      "vmLaunch": "systemsettings kcm_plasmalogin",
-      "surface": "kcm",
-      "priority": "P1"
-    },
-    {
       "file": "kcm_plasmasearch.desktop",
       "name": "Plasma Search",
       "nameFr": "Recherche Plasma",
@@ -1289,7 +1289,7 @@
     "vmModulesListed": 92,
     "hubCategories": 8
   },
-  "collectedAt": "2026-06-20T16:57:06.219Z",
+  "collectedAt": "2026-06-22T07:42:39.364Z",
   "predicates": {
     "KdF": true,
     "coveragePct": 100,

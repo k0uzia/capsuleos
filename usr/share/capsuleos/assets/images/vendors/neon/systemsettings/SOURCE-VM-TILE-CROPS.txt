@@ -1,4 +1,4 @@
-Crops tuiles KCM VM — 2026-06-21T00:23:22.818Z
+Crops tuiles KCM VM — 2026-06-22T10:55:22.781Z
 Source : root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/*-vm.png
 Calibration : calibrate-kde-settings-focus-offset.mjs + scan per-tile
 Procédure : node usr/lib/capsuleos/tools/lab/extract-kde-settings-vm-tile-crops.mjs --write
@@ -12,15 +12,17 @@ Schemes (colors-panel, origin 166×259):
 - scheme-oxygen-dark-vm.png ← colors-panel-vm.png {"x":390,"y":427,"width":200,"height":120}
 
 Appearance (appearance-panel, row y=228):
-- appearance-breeze-vm.png ← appearance-panel-vm.png {"x":171,"y":228,"width":200,"height":130}
-- appearance-twilight-vm.png ← appearance-panel-vm.png {"x":387,"y":228,"width":200,"height":130}
-- appearance-dark-vm.png ← appearance-panel-vm.png {"x":603,"y":228,"width":200,"height":130}
-- appearance-oxygen-vm.png ← appearance-panel-vm.png {"x":819,"y":228,"width":200,"height":130}
 
 Hub (hub-sidebar, origin 180×140):
-- hub-breeze-vm.png ← hub-sidebar-vm.png {"x":210,"y":110,"width":260,"height":140}
-- hub-dark-vm.png ← hub-sidebar-vm.png {"x":490,"y":110,"width":260,"height":140}
-- hub-auto-vm.png ← hub-sidebar-vm.png {"x":770,"y":110,"width":260,"height":140}
+
+Protégés (source-previews Capsule, ¬crops) :
+- appearance-breeze-vm.png
+- appearance-dark-vm.png
+- appearance-oxygen-vm.png
+- appearance-twilight-vm.png
+- hub-auto-vm.png
+- hub-breeze-vm.png
+- hub-dark-vm.png
 
 Plasma (desktop-panel):
 - plasma-default-vm.png ← desktop-panel-vm.png

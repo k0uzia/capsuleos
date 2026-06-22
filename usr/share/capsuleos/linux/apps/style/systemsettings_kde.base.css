@@ -231,15 +231,15 @@
 }
 
 .kde-systemsettings__theme-preview--hub-breeze {
-    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png");
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-breeze-vm.png");
 }
 
 .kde-systemsettings__theme-preview--hub-dark {
-    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png");
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-dark-vm.png");
 }
 
 .kde-systemsettings__theme-preview--auto {
-    background-image: url("./assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png");
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/hub-auto-vm.png?v=20260621capsule");
 }
 .kde-systemsettings__theme-preview--scheme-breeze-light {
     background-image: url("../../../assets/images/vendors/neon/systemsettings/scheme-previews/scheme-breeze-light-vm.png");
@@ -270,7 +270,7 @@
 }
 
 .kde-systemsettings__theme-preview--global-twilight {
-    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-twilight-vm.png");
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-twilight-vm.png?v=20260623lnf");
 }
 
 .kde-systemsettings__theme-preview--global-dark {
@@ -278,7 +278,7 @@
 }
 
 .kde-systemsettings__theme-preview--global-oxygen {
-    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-oxygen-vm.png");
+    background-image: url("../../../assets/images/vendors/neon/systemsettings/theme-previews/appearance-oxygen-vm.png?v=20260623lnf");
 }
 
 .kde-systemsettings__theme-preview--plasma-default {

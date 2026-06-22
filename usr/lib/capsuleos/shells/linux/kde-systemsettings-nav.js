@@ -380,8 +380,9 @@
     }
 
     /** Capture Φ — img pixel-perfect vs crops VM (compositing background). */
-    function mountThemePreviewImagesForCapture(panel, previewHeight) {
+    function mountThemePreviewImagesForCapture(panel, previewHeight, previewWidth) {
         if (!panel) return;
+        var imgWidth = previewWidth || 200;
         panel.querySelectorAll('.kde-systemsettings__theme-preview').forEach(function onPreview(preview) {
             if (preview.dataset.kdeVmImgMounted) return;
             var bg = window.getComputedStyle(preview).backgroundImage;
@@ -394,7 +395,7 @@
             img.className = 'kde-systemsettings__theme-preview-img';
             img.src = match[1];
             img.alt = '';
-            img.width = 200;
+            img.width = imgWidth;
             img.height = previewHeight;
             img.decoding = 'sync';
             preview.appendChild(img);
@@ -446,6 +447,7 @@
         mountThemePreviewImagesForCapture(
             hubRoot.querySelector('[data-kde-panel-content="quick-settings"]'),
             140,
+            260,
         );
     }
 

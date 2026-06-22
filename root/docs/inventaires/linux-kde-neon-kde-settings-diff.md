@@ -40,7 +40,7 @@ Slot `themes`, gabarit `systemsettings_kde_neon.html`, chrome Breeze via `kde-sy
 
 Seuil clôture : **Φ_norm ≥ 90** (`kde-settings-controls-registry.json`).
 
-Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (2026-06-20T23:08).
+Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (2026-06-22T09:23 — VM `capsule@192.168.1.84`).
 
 | # | shotId | Surface Capsule | Φ_norm shot | Focus crop min | Statut |
 |---|--------|-----------------|-------------|----------------|--------|
@@ -60,8 +60,8 @@ Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (
 | Région | Φ_norm | Seuil | Plafond / cause |
 |--------|--------|-------|-----------------|
 | `hub-sidebar/sidebar` | 86.5 | 85 | Capture `hub-sidebar` : icônes `<img>` + `margin-top: 4.25rem` sur nav native |
-| `hub-sidebar/theme-previews` | 91.5 | 88 | Capture `<img>` VM hub + `margin-top: 0.6rem` (calibrate 2D dy +12) |
-| `appearance-panel/theme-grid` | 83.7 | 90 | Capture LnF `<img>` crops VM + translateX voie B ; twilight ~73 % |
+| `hub-sidebar/theme-previews` | 48.5 | 88 | Ingest Capsule hub (600×337) — visuel interactif ✅ · Φ capture dégradé vs crops VM |
+| `appearance-panel/theme-grid` | 41.8 | 90 | Ingest breeze/twilight + LnF oxygen (200×130) — visuel interactif ✅ · Φ capture dégradé (2026-06-23) |
 | `colors-panel/colors-grid` | 85.7 | 88 | Plafond voie B ; **extract-vm-tile-crops --write** OK · pull `.colors` régresse (66.6) |
 | `*/kcm-sidebar` (capture) | 89.5 / 87.5 | 88 | Subnav img + margin capture ; appearance ✅ · desktop plafond |
 
@@ -205,8 +205,8 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 | accent-row | 85.7 | 85 | ✅ |
 | colors-grid | 85.7 | 88 | Plafond — crops VM screenshot (extract --write) |
 | kcm-sidebar | 89.5 / 87.5 | 88 | Appearance ✅ · desktop plafond |
-| theme-previews | 91.5 | 88 | ✅ capture img VM hub |
-| theme-grid | 90.7 | 90 | ✅ calibrage 2D + voie B per-tuile (2026-06-21) |
+| theme-previews | 48.5 | 88 | Ingest Capsule desktop — visuel interactif ✅ (2026-06-23) |
+| theme-grid | 41.8 | 90 | Ingest twilight diagonal + oxygen LnF — visuel interactif ✅ (2026-06-23) |
 | hub sidebar | 86.5 | 85 | ✅ capture parity + icônes img |
 
 ## Prochaine vague (P1)
@@ -214,5 +214,5 @@ Campagne pivot **documentée** — 6 régions focus sous seuil (plafonds structu
 Stubs hub sidebar **clôturés**. Suite :
 
 1. **P1 icônes hub sidebar** — rendu SVG vs Breeze 32 px (plafond Φ 80.7).
-2. **LnF twilight/oxygen** — assets ou positionnement absolu tuile (plafond theme-grid 81.9).
+2. **LnF twilight/oxygen (Thème global)** — twilight = LnF breezetwilight violet (VM) · oxygen = LnF VM ; hub-auto reste diagonal Capsule.
 3. Inventaire P1 restant (~58 modules). Propagation dérivés KDE : gelée.

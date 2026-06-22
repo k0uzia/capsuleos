@@ -1,7 +1,7 @@
 {
   "version": 2,
   "registryId": "linux-kde-neon",
-  "updatedAt": "2026-06-20T19:53:53.369Z",
+  "updatedAt": "2026-06-22T08:27:17.384Z",
   "procedure": "procedure-apps-replication-formelle.md",
   "uiComponentsContract": "etc/capsuleos/contracts/ui-components-kde.json",
   "summary": {
@@ -10,7 +10,9 @@
     "componentShotsPlanned": 37,
     "componentShotsCaptured": 37,
     "capsuleCapturesP0": 7,
-    "visualMatchClassifiedP0": 0
+    "visualMatchClassifiedP0": 7,
+    "visualMatchClassifiedP1": 0,
+    "visualMatchClassifiedP2": 0
   },
   "investigations": [
     {
@@ -54,7 +56,29 @@
           ],
           "labelFr": "kcm display config",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/kcm-display-config-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/kcm-display-config-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/kcm-display-config-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "ok",
+            "phi": 91.2,
+            "phiNormalized": 90.1,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "",
+            "comparedAt": "2026-06-22T08:27:12.922Z"
+          }
         },
         {
           "shotId": "hub-sidebar",
@@ -66,7 +90,29 @@
           ],
           "labelFr": "hub sidebar",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/hub-sidebar-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/hub-sidebar-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/hub-sidebar-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 86.2,
+            "phiNormalized": 84.1,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=84.1 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:13.201Z"
+          }
         },
         {
           "shotId": "appearance-panel",
@@ -78,7 +124,29 @@
           ],
           "labelFr": "appearance panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/appearance-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/appearance-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/appearance-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 84.2,
+            "phiNormalized": 82.6,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=82.6 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:13.468Z"
+          }
         },
         {
           "shotId": "accessibility-panel",
@@ -90,7 +158,29 @@
           ],
           "labelFr": "accessibility panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/accessibility-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/accessibility-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/accessibility-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 89.8,
+            "phiNormalized": 88.5,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=88.5 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:13.711Z"
+          }
         },
         {
           "shotId": "desktop-panel",
@@ -102,7 +192,29 @@
           ],
           "labelFr": "desktop panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/desktop-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/desktop-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/desktop-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 87.8,
+            "phiNormalized": 86.3,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=86.3 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:13.961Z"
+          }
         },
         {
           "shotId": "workspace-panel",
@@ -114,7 +226,29 @@
           ],
           "labelFr": "workspace panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/workspace-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/workspace-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/workspace-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 90.9,
+            "phiNormalized": 89.6,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=89.6 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:14.193Z"
+          }
         },
         {
           "shotId": "notifications-panel",
@@ -126,7 +260,29 @@
           ],
           "labelFr": "notifications panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/notifications-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/notifications-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/notifications-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 90.7,
+            "phiNormalized": 89.4,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=89.4 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:14.428Z"
+          }
         },
         {
           "shotId": "applications-panel",
@@ -138,7 +294,29 @@
           ],
           "labelFr": "applications panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/applications-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/applications-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/applications-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 90.6,
+            "phiNormalized": 89.5,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=89.5 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:14.665Z"
+          }
         },
         {
           "shotId": "colors-panel",
@@ -150,7 +328,29 @@
           ],
           "labelFr": "colors panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/colors-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/colors-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/colors-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 85.9,
+            "phiNormalized": 84.3,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=84.3 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:14.900Z"
+          }
         },
         {
           "shotId": "about-panel",
@@ -162,7 +362,29 @@
           ],
           "labelFr": "about panel",
           "status": "captured",
-          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png"
+          "vmCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual/themes/about-panel-vm.png",
+          "capsuleCapture": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-capsule/themes/about-panel-capsule.png",
+          "capsuleParity": {
+            "visualMatch": "accepted",
+            "phi": 90,
+            "phiNormalized": 88.9,
+            "geometry": {
+              "vm": {
+                "width": 1060,
+                "height": 808
+              },
+              "capsule": {
+                "width": 1060,
+                "height": 808
+              },
+              "expected": {
+                "width": 1060,
+                "height": 808
+              }
+            },
+            "gapNotes": "V11d Φ_norm=88.9 — écart résiduel documenté.",
+            "comparedAt": "2026-06-22T08:27:15.140Z"
+          }
         }
       ],
       "vmCaptures": [
@@ -178,9 +400,9 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "phi": 94.6,
-        "phiNormalized": 93,
+        "visualMatch": "accepted",
+        "phi": 86.7,
+        "phiNormalized": 85,
         "geometry": {
           "vm": {
             "width": 1060,
@@ -196,9 +418,9 @@
           }
         },
         "geometryAligned": false,
-        "gapNotes": "Shots KCM min Φ_norm=87.3. Shots KCM min Φ_norm=77.6. Shots KCM min Φ_norm=77.6. Shots KCM min Φ_norm=71.1. Shots KCM min Φ_norm=85.1. Shots KCM min Φ_norm=85.1. Shots KCM min Φ_norm=84.2. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.9. Shots KCM min Φ_norm=84.8. Shots KCM min Φ_norm=85.2. Shots KCM min Φ_norm=85.2. Shots KCM min Φ_norm=84.6. Shots KCM min Φ_norm=83.6. Shots KCM min Φ_norm=83.8. Shots KCM min Φ_norm=83.8. Shots KCM min Φ_norm=81.8. Shots KCM min Φ_norm=82.4. Shots KCM min Φ_norm=81.2.",
-        "comparedAt": "2026-06-20T19:53:52.803Z",
-        "phiNormalizedMinShots": 81.2
+        "gapNotes": "V11d Φ_norm=85 — écart résiduel documenté. Shots KCM min Φ_norm=82.6.",
+        "comparedAt": "2026-06-22T08:27:12.672Z",
+        "phiNormalizedMinShots": 82.6
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -327,7 +549,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "",
-        "comparedAt": "2026-06-20T19:53:52.908Z"
+        "comparedAt": "2026-06-22T08:27:15.520Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -437,13 +659,13 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "accepted",
-        "phi": 90,
-        "phiNormalized": 88.4,
+        "visualMatch": "ok",
+        "phi": 92.8,
+        "phiNormalized": 92.3,
         "geometry": {
           "vm": {
-            "width": 890,
-            "height": 691
+            "width": 1410,
+            "height": 884
           },
           "capsule": {
             "width": 890,
@@ -456,7 +678,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "V11d Φ_norm=88.4 — écart résiduel documenté.",
-        "comparedAt": "2026-06-20T19:53:52.975Z"
+        "comparedAt": "2026-06-22T08:27:15.848Z"
       },
       "note": "Slot nemo · VM org.kde.dolphin · variant kde/dolphin — ne pas hériter composition GNOME/Nautilus"
     },
@@ -533,12 +755,12 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 24.8,
-        "phiNormalized": 24.1,
+        "phi": 1.3,
+        "phiNormalized": 1.1,
         "geometry": {
           "vm": {
-            "width": 1242,
-            "height": 768
+            "width": 1280,
+            "height": 754
           },
           "capsule": {
             "width": 1280,
@@ -550,8 +772,8 @@
           }
         },
         "geometryAligned": false,
-        "gapNotes": "V11d Φ=24.8 Φ_norm=24.1 — capture VM native vs Capsule 1280×754.",
-        "comparedAt": "2026-06-20T19:53:53.111Z"
+        "gapNotes": "V11d Φ=1.3 Φ_norm=1.1 — capture VM native vs Capsule 1280×754.",
+        "comparedAt": "2026-06-22T08:27:16.309Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },
@@ -642,12 +864,12 @@
       ],
       "capsuleParity": {
         "visualMatch": "accepted",
-        "phi": 65.8,
-        "phiNormalized": 65.2,
+        "phi": 9.5,
+        "phiNormalized": 9.1,
         "geometry": {
           "vm": {
-            "width": 1410,
-            "height": 884
+            "width": 1280,
+            "height": 754
           },
           "capsule": {
             "width": 1410,
@@ -659,8 +881,8 @@
           }
         },
         "geometryAligned": false,
-        "gapNotes": "V11d Φ_norm=65.2 — écart résiduel documenté.",
-        "comparedAt": "2026-06-20T19:53:53.225Z"
+        "gapNotes": "V11d Φ=9.5 Φ_norm=9.1 — capture VM native vs Capsule 1410×884.",
+        "comparedAt": "2026-06-22T08:27:16.919Z"
       },
       "note": "Slot text_editor · VM org.kde.kate · chrome Kate distinct du gabarit GNOME TextEditor"
     },
@@ -755,7 +977,7 @@
         },
         "geometryAligned": false,
         "gapNotes": "",
-        "comparedAt": "2026-06-20T19:53:53.318Z"
+        "comparedAt": "2026-06-22T08:27:17.181Z"
       },
       "note": "Slot terminal · VM org.kde.konsole · chrome Konsole distinct de Ptyxis/GNOME"
     },
@@ -821,13 +1043,13 @@
         }
       ],
       "capsuleParity": {
-        "visualMatch": "ok",
-        "phi": 91.9,
-        "phiNormalized": 91.9,
+        "visualMatch": "accepted",
+        "phi": 87.8,
+        "phiNormalized": 87.5,
         "geometry": {
           "vm": {
-            "width": 730,
-            "height": 578
+            "width": 1041,
+            "height": 626
           },
           "capsule": {
             "width": 560,
@@ -839,8 +1061,8 @@
           }
         },
         "geometryAligned": false,
-        "gapNotes": "",
-        "comparedAt": "2026-06-20T19:53:53.369Z"
+        "gapNotes": "V11d Φ_norm=87.5 — écart résiduel documenté.",
+        "comparedAt": "2026-06-22T08:27:17.384Z"
       },
       "note": "documented — acquisitionOrder ui-components-gnome.json"
     },

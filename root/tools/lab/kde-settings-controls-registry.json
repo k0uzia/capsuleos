@@ -321,7 +321,7 @@
   "vmInventory": {
     "source": "root/docs/inventaires/linux-kde-neon-kde-settings-front-inventory.json",
     "moduleCount": 92,
-    "collectedAt": "2026-06-20T16:57:06.219Z"
+    "collectedAt": "2026-06-22T07:42:39.364Z"
   },
   "hubCategories": [
     {
@@ -349,7 +349,7 @@
         },
         {
           "file": "kcm_cursortheme.desktop",
-          "name": "Pointers",
+          "name": "Cursors",
           "nameFr": "Pointeurs",
           "exec": "systemsettings kcm_cursortheme",
           "keyword": "cursortheme",
@@ -672,5 +672,5 @@
       "moduleCount": 1
     }
   ],
-  "interactionCollectedAt": "2026-06-14T18:55:00.045118+00:00"
+  "interactionCollectedAt": "2026-06-22T07:42:50.856704+00:00"
 }
